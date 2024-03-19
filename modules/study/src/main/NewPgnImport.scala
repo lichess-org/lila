@@ -70,7 +70,7 @@ object NewPgnImport:
                     .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
                 }
             Result(
-              root = root,
+              root = commented,
               variant = game.variant,
               tags = PgnTags(parsedPgn.tags),
               end = end

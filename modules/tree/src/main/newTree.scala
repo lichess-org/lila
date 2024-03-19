@@ -37,7 +37,7 @@ case class Metas(
   def deleteComments: Metas =
     copy(comments = Comments.empty)
   def toggleGlyph(glyph: Glyph): Metas =
-    copy(glyphs = glyphs toggle glyph)
+    copy(glyphs = glyphs.toggle(glyph))
   def turn: Color = ply.turn
 
 object Metas:
@@ -46,12 +46,12 @@ object Metas:
       ply = Ply.initial,
       fen = variant.initialFen,
       check = Check.No,
-      crazyData = variant.crazyhouse option Crazyhouse.Data.init
+      crazyData = variant.crazyhouse.option(Crazyhouse.Data.init)
     )
   def apply(sit: Situation.AndFullMoveNumber): Metas =
     Metas(
       ply = sit.ply,
-      fen = Fen write sit,
+      fen = Fen.write(sit),
       check = sit.situation.check,
       clock = none,
       crazyData = sit.situation.board.crazyData
@@ -100,11 +100,11 @@ case class NewBranch(
         metas = metas.copy(
           shapes = metas.shapes ++ n.metas.shapes,
           comments = metas.comments ++ n.metas.comments,
-          gamebook = n.metas.gamebook orElse metas.gamebook,
-          glyphs = metas.glyphs merge n.metas.glyphs,
-          eval = n.metas.eval orElse metas.eval,
-          clock = n.metas.clock orElse metas.clock,
-          crazyData = n.metas.crazyData orElse metas.crazyData
+          gamebook = n.metas.gamebook.orElse(metas.gamebook),
+          glyphs = metas.glyphs.merge(n.metas.glyphs),
+          eval = n.metas.eval.orElse(metas.eval),
+          clock = n.metas.clock.orElse(metas.clock),
+          crazyData = n.metas.crazyData.orElse(metas.crazyData)
         ),
         forceVariation = n.forceVariation || forceVariation
       ).some
@@ -179,7 +179,7 @@ object NewTree:
   // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ?so
   // Optional for the first node with the given id
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
-  def fromNodeToBranch(node: Node): NewBranch = ???
+  // def fromNodeToBranch(node: Node): NewBranch = ???
 
 case class NewRoot(metas: Metas, tree: Option[NewTree]):
   import NewRoot.*
@@ -201,11 +201,11 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
     crazyData
   }
 
-  def mainline: List[NewTree]         = tree.fold(List.empty[NewTree])(_.mainline)
+  def mainline: List[NewTree] = tree.fold(List.empty[NewTree])(_.mainline)
 
   def mainlineValues: List[NewBranch] = tree.fold(List.empty[NewBranch])(_.mainlineValues)
 
-  def lastMainlinePly: Ply            = mainlineValues.lastOption.fold(Ply.initial)(_.ply)
+  def lastMainlinePly: Ply = mainlineValues.lastOption.fold(Ply.initial)(_.ply)
 
   def lastMainlinePlyOf(path: UciPath) =
     mainlineValues
@@ -214,7 +214,6 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
       .lastOption
       .fold(Ply.initial)((node, _) => node.metas.ply)
 
-
   def mapChildren(f: NewBranch => NewBranch): NewRoot =
     copy(tree = tree.map(_.map(f)))
 
@@ -222,8 +221,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
     path.isEmpty || tree.exists(_.pathExists(path.ids))
 
   def nodeAt(path: UciPath): Option[Tree[NewBranch]] =
-    if path.isEmpty then none
-    else tree.flatMap(_.find(path.ids))
+    path.nonEmpty.so(tree.flatMap(_.find(path.ids)))
 
   def deleteNodeAt(path: UciPath): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(tree = none).some
@@ -257,11 +255,9 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
       )
 
   def modifyBranchAt(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
-    if path.isEmpty then none
-    else
-      tree.flatMap(
+    path.nonEmpty.so:
+      tree.flatMap:
         _.modifyAt(path.ids, Tree.liftOption(f)).map(x => copy(tree = x.some))
-      )
 
   def modifyWithParentPath(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then this.some
@@ -278,7 +274,8 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def withTree(t: Option[NewTree]): NewRoot =
     copy(tree = t)
 
-  def isEmpty = tree.isEmpty
+  inline def isEmpty  = tree.isEmpty
+  inline def nonEmpty = tree.nonEmpty
 
   def size = tree.fold(0L)(_.size)
 
