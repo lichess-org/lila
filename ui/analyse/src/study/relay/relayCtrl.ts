@@ -7,7 +7,7 @@ import RelayTeams from './relayTeams';
 import RelayLeaderboard from './relayLeaderboard';
 import { StudyChapters } from '../studyChapters';
 import { MultiCloudEval } from '../multiCloudEval';
-import { onWindowResize } from './relayView';
+import { addResizeListener } from './relayView';
 
 export const relayTabs = ['overview', 'boards', 'teams', 'leaderboard'] as const;
 export type RelayTab = (typeof relayTabs)[number];
@@ -47,7 +47,7 @@ export default class RelayCtrl {
       : undefined;
     this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
     setInterval(() => this.redraw(true), 1000);
-    onWindowResize(this.redraw);
+    addResizeListener(this.redraw);
     if (site.debug) {
       this.streams = [['fake', 'Fake Streamer']];
     }

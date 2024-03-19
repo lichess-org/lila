@@ -18,6 +18,8 @@ import {
 } from '../../view/components';
 import RelayCtrl from './relayCtrl';
 
+let scale = 80;
+
 export function relayView(
   ctrl: AnalyseCtrl,
   study: studyDeps.StudyCtrl,
@@ -34,6 +36,7 @@ export function relayView(
   const ultraWide = isUltraWide();
   const classes = ultraWide ? ['ultra-wide'] : [];
   if (ultraWide && relay.data.videoUrls) classes.push('with-video');
+  if (scale <= 0.5) classes.push('tiny-board');
   return renderMain(ctx, classes, [
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),
@@ -89,8 +92,7 @@ export function renderStreamerMenu(relay: RelayCtrl) {
 }
 
 function isUltraWide() {
-  const scale =
-    (parseFloat(window.getComputedStyle(document.body).getPropertyValue('--zoom')) / 100) * 0.75 + 0.25;
+  scale = (parseFloat(window.getComputedStyle(document.body).getPropertyValue('--zoom')) / 100) * 0.75 + 0.25;
 
   return window.innerWidth - 350 - 60 - scale * window.innerHeight > 500;
 }
