@@ -92,6 +92,9 @@ main.analyse.is-relay:not(.has-relay-tour) {
     .analyse__underboard {
       margin-top: unset;
     }
+    .eval-chart-and-training {
+      flex-wrap: nowrap;
+    }
   }
   @include mq-at-least-col3 {
     grid-template-rows: var(--cg-height) 2.5em;
@@ -113,7 +116,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
   }
   .eval-chart-and-training {
-    @extend %flex-center-nowrap;
+    @extend %flex-center;
     gap: $analyse-block-gap;
     .study__server-eval {
       flex: 1 1 100%;
