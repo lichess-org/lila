@@ -1,18 +1,17 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, SanStr, Tag, Tags }
+import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ ByColor, Centis, Check, FideId, Ply, PromotableRole, Role, Square }
+import chess.{ Centis, ByColor, Square, PromotableRole, Role, Outcome, Ply, Check, FideId }
 import reactivemongo.api.bson.*
-
 import scala.util.Success
 
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
+import lila.tree.{ Score, Root, Branch, Branches, NewBranch, Metas, NewRoot }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Score }
 
 object BSONHandlers:
 
@@ -180,7 +179,6 @@ object BSONHandlers:
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield NewBranch(
       id = id,
-      path = path,
       forceVariation = forceVariation,
       move = Uci.WithSan(uci, san),
       metas = Metas(
@@ -197,6 +195,7 @@ object BSONHandlers:
       )
     )
 
+  // shallow write, as not writing children
   private[study] def writeBranch(n: Branch) =
     import Node.{ BsonFields as F }
     val w = new Writer
@@ -216,7 +215,7 @@ object BSONHandlers:
       F.forceVariation -> w.boolO(n.forceVariation)
     )
 
-  private[study] def writeNewBranch(n: NewBranch, order: Option[List[UciCharPair]]) =
+  private[study] def writeNewBranch(n: NewBranch) =
     import Node.{ BsonFields as F }
     val w = new Writer
     $doc(
@@ -318,6 +317,10 @@ object BSONHandlers:
   )
   given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
+  given BSONHandler[Option[FideId]] = quickHandler(
+    { case BSONInteger(v) => (v > 0).option(FideId(v)) },
+    id => BSONInteger(id.so(_.value))
+  )
   given BSONDocumentHandler[Chapter.Relay] =
     given BSONHandler[Option[FideId]] = quickHandler(
       { case BSONInteger(v) => (v > 0).option(FideId(v)) },

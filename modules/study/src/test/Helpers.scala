@@ -1,12 +1,12 @@
 package lila.study
 
-import chess.format.UciPath
-import chess.format.pgn.Tags
-import chess.{ Node as PgnNode, Tree }
 import monocle.syntax.all.*
+import chess.{ Centis, ErrorStr, Node as PgnNode, Tree, Variation }
+import chess.format.UciPath
+import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
+import lila.tree.Node.{ Comment, Comments, Shapes }
 
-import lila.tree.Node.{ Comment, Comments }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, NewTree, Node, Root }
+import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
 
 object Helpers:
   import lila.tree.NewTree.*
@@ -15,8 +15,12 @@ object Helpers:
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
     .render
 
-  object NewRootC:
-    def fromRoot(root: Root) =
+  def rootToPgn(root: NewRoot) = PgnDump
+    .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
+    .render
+
+  extension (root: Root)
+    def toNewRoot =
       NewRoot(NewTree.fromNode(root), NewTree(root))
 
   extension (newBranch: NewBranch)
@@ -43,6 +47,7 @@ object Helpers:
 
   extension (newTree: NewTree)
     def toBranch: Branch = newTree.value.toBranch(newTree.child)
+    def toRoot: Root     = ??? // newTree.value.toBranch(newTree.child)
     def toBranches: Branches =
       val variations = newTree.variations.map(_.toNode.toBranch)
       Branches(newTree.value.toBranch(newTree.child) :: variations)
@@ -73,9 +78,10 @@ object Helpers:
   extension (node: NewBranch)
     def cleanup: NewBranch =
       node
+        .focus(_.metas.clock)
+        .set(none)
         .focus(_.metas.comments)
         .modify(_.cleanup)
-        .copy(path = UciPath.root)
 
   extension (root: NewRoot)
     def cleanup: NewRoot =
