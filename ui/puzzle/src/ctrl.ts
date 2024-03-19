@@ -506,6 +506,10 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.startCeval();
     this.redraw();
   };
+  clearCeval(): void {
+    this.tree.removeCeval();
+    this.restartCeval();
+  }
 
   toggleThreatMode = (): void => {
     if (this.node.check) return;
