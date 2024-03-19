@@ -66,7 +66,7 @@ final private class VerifyMail(
           disposable = ~js.boolean("disposable")
           privacy    = ~js.boolean("privacy")
         yield
-          val ok = !block && !disposable
+          val ok = !disposable
           logger.info:
             s"VerifyMail $domain = $ok {block:$block,disposable:$disposable,privacy:$privacy}"
           ok
