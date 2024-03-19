@@ -73,7 +73,8 @@
         "src/relayForm.ts": "relayForm",
         "src/diagnostic.ts": "diagnosticDialog",
         "src/crop.ts": "cropDialog",
-        "src/cms.ts": "cms"
+        "src/cms.ts": "cms",
+        "src/eventCountdown.ts": "eventCountdown"
       }
     },
     "copy": [
