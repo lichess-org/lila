@@ -179,9 +179,10 @@ export default function () {
 
   {
     // stick top bar
-    let lastY = 0;
+    let lastY = window.scrollY;
+    if (lastY > 0) top.classList.add('scrolled');
 
-    const onScroll = () => {
+    window.addEventListener('scroll', () => {
       const y = window.scrollY;
       top.classList.toggle('scrolled', y > 0);
       if (y > lastY + 10) top.classList.add('hide');
@@ -190,9 +191,6 @@ export default function () {
       else return;
 
       lastY = Math.max(0, y);
-    };
-
-    window.addEventListener('scroll', onScroll);
-    requestAnimationFrame(() => window.scrollY > 0 && top.classList.add('scrolled'));
+    });
   }
 }
