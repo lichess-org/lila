@@ -82,7 +82,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     display: none;
   }
   @include mq-at-least-col2 {
-    grid-template-rows: var(--cg-height) 2.5em;
+    grid-template-rows: calc(var(--cg-height) / 2) calc(var(--cg-height) / 2) 2.5em;
     grid-template-areas:
       'board        gauge side'
       'board        gauge tools'

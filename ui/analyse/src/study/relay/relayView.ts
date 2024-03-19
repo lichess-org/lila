@@ -31,11 +31,7 @@ export function relayView(
     ...tourSide(ctrl, study, relay, uw),
     deps.relayManager(relay, study),
   ];
-  const scale =
-    (parseFloat(window.getComputedStyle(document.body).getPropertyValue('--zoom')) / 100) * 0.75 + 0.25;
-
-  const leftOver = window.innerWidth - 350 - 60 - scale * window.innerHeight;
-  const ultraWide = leftOver > 700;
+  const ultraWide = isUltraWide();
   const classes = ultraWide ? ['ultra-wide'] : [];
   if (ultraWide && relay.data.videoUrls) classes.push('with-video');
   return renderMain(ctx, classes, [
@@ -45,17 +41,13 @@ export function relayView(
   ]);
 }
 
-export function onWindowResize(redraw: () => void) {
+export function addResizeListener(redraw: () => void) {
   let showingVideo = false;
   let wasUltraWide = false;
   window.addEventListener(
     'resize',
     () => {
-      const scale =
-        (parseFloat(window.getComputedStyle(document.body).getPropertyValue('--zoom')) / 100) * 0.75 + 0.25;
-
-      const leftOver = window.innerWidth - 350 - 60 - scale * window.innerHeight;
-      const ultraWide = leftOver > 700;
+      const ultraWide = isUltraWide();
 
       const allow = window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
       const placeholder = document.getElementById('video-player-placeholder') ?? undefined;
@@ -94,6 +86,13 @@ export function renderStreamerMenu(relay: RelayCtrl) {
       ),
     ),
   );
+}
+
+function isUltraWide() {
+  const scale =
+    (parseFloat(window.getComputedStyle(document.body).getPropertyValue('--zoom')) / 100) * 0.75 + 0.25;
+
+  return window.innerWidth - 350 - 60 - scale * window.innerHeight > 500;
 }
 
 function renderBoardView(ctx: RelayViewContext, uw: boolean) {
