@@ -77,10 +77,11 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
 
 export function renderMain(
   { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, tourUi }: ViewContext,
+  classes: string[],
   kids: VNodeKids,
 ): VNode {
   return h(
-    'main.analyse.variant-' + ctrl.data.game.variant.key,
+    'main.analyse.variant-' + ctrl.data.game.variant.key + '.' + classes.join('.'),
     {
       hook: {
         insert: vn => {
@@ -115,9 +116,9 @@ export function renderMain(
   );
 }
 
-export function renderTools({ ctrl, deps, concealOf }: ViewContext, videoPlayer?: VNode) {
+export function renderTools({ ctrl, deps, concealOf }: ViewContext, firstKid?: VNode) {
   return h(addChapterId(ctrl.study, 'div.analyse__tools'), [
-    videoPlayer,
+    firstKid,
     ...(ctrl.actionMenu()
       ? [actionMenu(ctrl)]
       : [

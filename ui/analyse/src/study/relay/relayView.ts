@@ -6,7 +6,7 @@ import AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../../study/studyDeps';
 import { tourSide } from '../../study/relay/relayTourView';
-import { renderVideoPlayer } from './videoPlayerView';
+import { renderVideoPlayer, player } from './videoPlayerView';
 import {
   type RelayViewContext,
   viewContext,
@@ -26,13 +26,48 @@ export function relayView(
 ) {
   const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay };
 
-  const renderTourView = () => [ctx.tourUi, tourSide(ctrl, study, relay), deps.relayManager(relay, study)];
+  const renderTourView = (uw: boolean) => [
+    ctx.tourUi,
+    ...tourSide(ctrl, study, relay, uw),
+    deps.relayManager(relay, study),
+  ];
+  const scale =
+    (parseFloat(window.getComputedStyle(document.body).getPropertyValue('--zoom')) / 100) * 0.75 + 0.25;
 
-  return renderMain(ctx, [
+  const leftOver = window.innerWidth - 350 - 60 - scale * window.innerHeight;
+  const ultraWide = leftOver > 700;
+  const classes = ultraWide ? ['ultra-wide'] : [];
+  if (ultraWide && relay.data.videoUrls) classes.push('with-video');
+  return renderMain(ctx, classes, [
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),
-    ...(ctx.tourUi ? renderTourView() : renderBoardView(ctx)),
+    ...(ctx.tourUi ? renderTourView(ultraWide) : renderBoardView(ctx, ultraWide)),
   ]);
+}
+
+export function onWindowResize(redraw: () => void) {
+  let showingVideo = false;
+  let wasUltraWide = false;
+  window.addEventListener(
+    'resize',
+    () => {
+      const scale =
+        (parseFloat(window.getComputedStyle(document.body).getPropertyValue('--zoom')) / 100) * 0.75 + 0.25;
+
+      const leftOver = window.innerWidth - 350 - 60 - scale * window.innerHeight;
+      const ultraWide = leftOver > 700;
+
+      const allow = window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
+      const placeholder = document.getElementById('video-player-placeholder') ?? undefined;
+      player?.cover(allow ? placeholder : undefined);
+      if (showingVideo === (allow && !!placeholder) && ultraWide === wasUltraWide) return;
+      wasUltraWide = ultraWide;
+      showingVideo = allow && !!placeholder;
+      console.log('redraw');
+      redraw();
+    },
+    { passive: true },
+  );
 }
 
 export function renderStreamerMenu(relay: RelayCtrl) {
@@ -41,6 +76,7 @@ export function renderStreamerMenu(relay: RelayCtrl) {
     url.searchParams.set('embed', id);
     return url.toString();
   };
+
   return h(
     'div.streamer-menu-anchor',
     h(
@@ -60,15 +96,17 @@ export function renderStreamerMenu(relay: RelayCtrl) {
   );
 }
 
-function renderBoardView(ctx: RelayViewContext) {
+function renderBoardView(ctx: RelayViewContext, uw: boolean) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;
+
   return [
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
-    renderTools(ctx, renderVideoPlayer(relay)),
+    uw && renderVideoPlayer(relay),
+    renderTools(ctx, !uw ? renderVideoPlayer(relay) : undefined),
     renderControls(ctrl),
     renderUnderboard(ctx),
-    tourSide(ctrl, study, relay),
+    ...tourSide(ctrl, study, relay, uw),
     deps.relayManager(relay, study),
   ];
 }
