@@ -3,7 +3,8 @@ package lila.study
 import chess.format.pgn.*
 import chess.format.pgn.PgnTree.*
 import chess.format.{ Fen, Uci, UciCharPair }
-import chess.{ Check, Ply, variant }
+import chess.{ Ply, Check, variant }
+import Node.*
 
 import lila.tree.{ Branch, Branches, Root }
 

@@ -35,6 +35,10 @@ object Dependencies {
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
   val kittens     = "org.typelevel"              %% "kittens"       % "3.3.0"
 
+  val testKit    = "org.lichess"    %% "scalachess-test-kit" % "15.8.1"    % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck"          % "1.17.0"    % Test
+  val munitCheck = "org.scalameta"  %% "munit-scalacheck"    % "1.0.0-M11" % Test
+
   object tests {
     val bundle = Seq(munit)
   }

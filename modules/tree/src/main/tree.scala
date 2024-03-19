@@ -205,8 +205,8 @@ case class Root(
   def forceVariation = false
 
   // def addChild(branch: Branch)     = copy(children = children :+ branch)
-  def addChild(child: Branch)      = copy(children = children.addNode(child))
-  def prependChild(branch: Branch) = copy(children = branch :: children)
+  def addChild(child: Branch): Root = copy(children = children.addNode(child))
+  def prependChild(branch: Branch)  = copy(children = branch :: children)
   def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
 
   def withChildren(f: Branches => Option[Branches]) =
