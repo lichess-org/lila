@@ -75,7 +75,6 @@ object Helpers:
       node
         .focus(_.metas.comments)
         .modify(_.cleanup)
-        .copy(path = UciPath.root)
 
   extension (root: NewRoot)
     def cleanup: NewRoot =
