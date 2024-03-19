@@ -207,6 +207,7 @@ object mon:
           fp: Boolean,
           proxy: Option[String],
           country: String,
+          dispAttempts: Int,
           api: Option[ApiVersion]
       ) =
         counter("user.register.count").withTags:
@@ -218,6 +219,7 @@ object mon:
             "fp"      -> fp,
             "proxy"   -> proxy.getOrElse("no"),
             "country" -> country,
+            "dispAttempts" -> dispAttempts,
             "api"     -> apiTag(api)
           )
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)

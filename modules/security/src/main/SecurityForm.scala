@@ -222,13 +222,18 @@ object SecurityForm:
       policy: Boolean
   )
 
+  trait AnySignupData:
+    def username: UserName
+    def email: EmailAddress
+    def fp: Option[String]
+
   case class SignupData(
       username: UserName,
       password: String,
       email: EmailAddress,
       agreement: AgreementData,
       fp: Option[String]
-  ):
+  ) extends AnySignupData:
     def fingerPrint   = FingerPrint.from(fp.filter(_.nonEmpty))
     def clearPassword = User.ClearPassword(password)
 
@@ -236,7 +241,8 @@ object SecurityForm:
       username: UserName,
       password: String,
       email: EmailAddress
-  )
+  ) extends AnySignupData:
+    def fp = none
 
   case class PasswordReset(email: EmailAddress)
 

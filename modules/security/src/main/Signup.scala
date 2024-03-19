@@ -81,12 +81,11 @@ final class Signup(
                   ):
                     MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp).flatMap { mustConfirm =>
                       monitor(
-                        data.email,
+                        data,
                         hcaptchaResult,
                         mustConfirm,
                         ipData,
                         ipSusp = suspIp,
-                        fp = data.fingerPrint.isDefined,
                         api = none
                       )
                       lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
@@ -146,12 +145,11 @@ final class Signup(
             result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
               val mustConfirm = MustConfirmEmail.YesBecauseMobile
               monitor(
-                data.email,
+                data,
                 captcha = Hcaptcha.Result.Skip,
                 mustConfirm,
                 ipData,
                 suspIp,
-                fp = false,
                 apiVersion.some
               )
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
@@ -174,23 +172,23 @@ final class Signup(
       )
 
   private def monitor(
-      email: EmailAddress,
+      data: SecurityForm.AnySignupData,
       captcha: Hcaptcha.Result,
       confirm: MustConfirmEmail,
       ipData: IpTrust.IpData,
       ipSusp: Boolean,
-      fp: Boolean,
       api: Option[ApiVersion]
   ) =
     lila.mon.user.register
       .count(
-        email.domain,
+        data.email.domain,
         confirm = confirm.toString,
         captcha = captcha.toString,
         ipSusp = ipSusp,
-        fp = fp,
+        fp = data.fp.isDefined,
         proxy = ipData.proxy.name,
         country = ipData.location.shortCountry,
+        dispAttempts = disposableEmailAttempt.count(data.username.id),
         api
       )
       .increment()
