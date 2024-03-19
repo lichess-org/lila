@@ -182,15 +182,19 @@ export default function () {
     let lastY = window.scrollY;
     if (lastY > 0) top.classList.add('scrolled');
 
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      top.classList.toggle('scrolled', y > 0);
-      if (y > lastY + 10) top.classList.add('hide');
-      else if (y <= clamp(lastY - 20, { min: 0, max: document.body.scrollHeight - window.innerHeight }))
-        top.classList.remove('hide');
-      else return;
+    window.addEventListener(
+      'scroll',
+      () => {
+        const y = window.scrollY;
+        top.classList.toggle('scrolled', y > 0);
+        if (y > lastY + 10) top.classList.add('hide');
+        else if (y <= clamp(lastY - 20, { min: 0, max: document.body.scrollHeight - window.innerHeight }))
+          top.classList.remove('hide');
+        else return;
 
-      lastY = Math.max(0, y);
-    });
+        lastY = Math.max(0, y);
+      },
+      { passive: true },
+    );
   }
 }
