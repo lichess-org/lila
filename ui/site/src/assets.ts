@@ -84,15 +84,6 @@ export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete
   return userComplete as UserComplete;
 };
 
-export const hopscotch = () => {
-  return Promise.all([
-    loadCss('npm/hopscotch/dist/css/hopscotch.min.css'),
-    loadIife('npm/hopscotch/dist/js/hopscotch.min.js', {
-      noVersion: true,
-    }),
-  ]);
-};
-
 export function embedChessground() {
   return import(url('npm/chessground.min.js'));
 }
