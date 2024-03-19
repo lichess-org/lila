@@ -59,11 +59,11 @@ $pocket-height: 60px;
 @include mq-is-col1 {
   .pocket {
     &-top {
-      margin-bottom: $block-gap-half;
+      margin-bottom: $block-gap;
     }
 
     &-bottom {
-      margin-top: $block-gap-half;
+      margin-top: $block-gap;
     }
   }
 }

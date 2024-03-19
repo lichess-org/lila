@@ -123,8 +123,8 @@ export interface ParentCtrl {
   getNode(): Tree.Node;
   showComputer(): boolean;
   toggleComputer?: () => void;
-  clearCeval?: () => void;
-  restartCeval?: () => void;
+  clearCeval: () => void;
+  restartCeval: () => void;
   redraw?: () => void;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
   trans: Trans;

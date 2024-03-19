@@ -7,6 +7,7 @@ body {
   --site-header-sticky-padding: calc((100vw - #{$site-header-sticky-max-width}) / 2);
   --main-margin: 0px;
   --sticky-gap: 0px;
+  --block-gap: 10px;
 
   @include mq-site-header-tall {
     --site-header-height: #{$site-header-tall-height};
@@ -19,6 +20,7 @@ body {
 
   @media (min-width: at-least($small)) {
     --main-margin: 1vw;
+    --block-gap: 15px;
     margin-bottom: $block-gap;
   }
 }

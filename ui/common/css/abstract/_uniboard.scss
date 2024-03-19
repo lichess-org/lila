@@ -39,7 +39,7 @@ $col2-uniboard-table: $col3-uniboard-table;
 $col2-uniboard-controls: $col3-uniboard-controls;
 
 $col2-uniboard-max-width: calc(
-  100vw - #{$block-gap-half} - #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px) - #{$scrollbar-width}
+  100vw - #{$block-gap} - #{$col3-uniboard-table-min} - 2 * var(--main-margin, 0px) - #{$scrollbar-width}
 );
 $col2-uniboard-max-height: $col3-uniboard-max-height;
 $col2-uniboard-max-size: min(#{$col2-uniboard-max-width}, #{$col2-uniboard-max-height});

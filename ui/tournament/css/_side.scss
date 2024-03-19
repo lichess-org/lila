@@ -15,7 +15,7 @@
   @extend %box-neat-force;
 
   background: $c-bg-box;
-  padding: #{$block-gap * 0.6} $block-gap;
+  padding: 1.5rem $block-gap;
 
   section {
     margin-bottom: $block-gap;

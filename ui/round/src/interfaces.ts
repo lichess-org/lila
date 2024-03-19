@@ -187,3 +187,7 @@ export interface MoveMetadata {
 }
 
 export type Position = 'top' | 'bottom';
+
+export interface RoundTour {
+  corresRematchOffline: () => void;
+}

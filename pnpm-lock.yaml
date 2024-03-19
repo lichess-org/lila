@@ -493,9 +493,6 @@ importers:
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
-      hopscotch:
-        specifier: ^0.3.1
-        version: 0.3.1
       lichess-pgn-viewer:
         specifier: ^2.0.1
         version: 2.0.1
@@ -610,6 +607,9 @@ importers:
       nvui:
         specifier: workspace:*
         version: link:../nvui
+      shepherd.js:
+        specifier: ^11.2.0
+        version: 11.2.0
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
@@ -3098,10 +3098,6 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
-    dev: false
-
-  /hopscotch@0.3.1:
-    resolution: {integrity: sha512-XBvxhh1awi7lWzNP9Os2J8c/Ql66IPKnUn7L3hvqPaEa0Fk2S81mo0n2T/RxE2aNoHitVmn5Bl5C9J63iEWvSw==}
     dev: false
 
   /html-encoding-sniffer@3.0.0:

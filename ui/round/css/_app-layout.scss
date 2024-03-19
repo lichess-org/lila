@@ -115,7 +115,6 @@
 
   @include mq-is-col2-squeeze {
     grid-template-columns: $col2-uniboard-squeeze-width $col2-uniboard-squeeze-table;
-    grid-column-gap: #{$block-gap * 3 / 2};
   }
 
   &__board {

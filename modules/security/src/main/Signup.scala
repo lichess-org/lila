@@ -69,6 +69,7 @@ final class Signup(
           data =>
             for
               suspIp <- ipTrust.isSuspicious(ip)
+              ipData <- ipTrust.data(ip)
               result <- hcaptcha.verify().flatMap {
                 case Hcaptcha.Result.Fail           => fuccess(Signup.Result.MissingCaptcha)
                 case Hcaptcha.Result.Pass if !blind => fuccess(Signup.Result.MissingCaptcha)
@@ -79,7 +80,15 @@ final class Signup(
                     captched = hcaptchaResult == Hcaptcha.Result.Valid
                   ):
                     MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp).flatMap { mustConfirm =>
-                      lila.mon.user.register.count(none)
+                      monitor(
+                        data.email,
+                        hcaptchaResult,
+                        mustConfirm,
+                        ipData,
+                        ipSusp = suspIp,
+                        fp = data.fingerPrint.isDefined,
+                        api = none
+                      )
                       lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
                       val passwordHash = authenticator.passEnc(data.clearPassword)
                       userRepo
@@ -133,9 +142,18 @@ final class Signup(
         data =>
           for
             suspIp <- ipTrust.isSuspicious(ip)
+            ipData <- ipTrust.data(ip)
             result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
               val mustConfirm = MustConfirmEmail.YesBecauseMobile
-              lila.mon.user.register.count(apiVersion.some).increment()
+              monitor(
+                data.email,
+                captcha = Hcaptcha.Result.Skip,
+                mustConfirm,
+                ipData,
+                suspIp,
+                fp = false,
+                apiVersion.some
+              )
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
               val passwordHash = authenticator.passEnc(User.ClearPassword(data.password))
               userRepo
@@ -154,6 +172,28 @@ final class Signup(
                   confirmOrAllSet(data.email, mustConfirm, none, apiVersion.some)
           yield result
       )
+
+  private def monitor(
+      email: EmailAddress,
+      captcha: Hcaptcha.Result,
+      confirm: MustConfirmEmail,
+      ipData: IpTrust.IpData,
+      ipSusp: Boolean,
+      fp: Boolean,
+      api: Option[ApiVersion]
+  ) =
+    lila.mon.user.register
+      .count(
+        email.domain,
+        confirm = confirm.toString,
+        captcha = captcha.toString,
+        ipSusp = ipSusp,
+        fp = fp,
+        proxy = ipData.proxy.name,
+        country = ipData.location.shortCountry,
+        api
+      )
+      .increment()
 
   private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
     key = "account.create.ip",

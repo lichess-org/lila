@@ -95,21 +95,22 @@ final private class Takebacker(
         if _ then f
         else fufail(ClientError("[takebacker] disallowed by preferences " + game.id))
 
-  private def single(game: Game)(using GameProxy): Fu[Events] = for
-    fen      <- gameRepo.initialFen(game)
-    progress <- Rewind(game, fen).toFuture
-    _        <- fuccess { uciMemo.drop(game, 1) }
-    events   <- saveAndNotify(progress)
-  yield events
+  private def single(game: Game)(using GameProxy): Fu[Events] =
+    for
+      fen      <- gameRepo.initialFen(game)
+      progress <- Rewind(game, fen).toFuture
+      _        <- fuccess(uciMemo.drop(game, 1))
+      events   <- saveAndNotify(progress)
+    yield events
 
-  private def double(game: Game)(using GameProxy): Fu[Events] = for
-    fen   <- gameRepo.initialFen(game)
-    prog1 <- Rewind(game, fen).toFuture
-    prog2 <- Rewind(prog1.game, fen).toFuture.dmap: progress =>
-      prog1.withGame(progress.game)
-    _      <- fuccess { uciMemo.drop(game, 2) }
-    events <- saveAndNotify(prog2)
-  yield events
+  private def double(game: Game)(using GameProxy): Fu[Events] =
+    for
+      fen    <- gameRepo.initialFen(game)
+      prog1  <- Rewind(game, fen).toFuture
+      prog2  <- Rewind(prog1.game, fen).toFuture.dmap(progress => prog1.withGame(progress.game))
+      _      <- fuccess(uciMemo.drop(game, 2))
+      events <- saveAndNotify(prog2)
+    yield events
 
   private def saveAndNotify(p1: Progress)(using proxy: GameProxy): Fu[Events] =
     val p2 = p1 + Event.Reload

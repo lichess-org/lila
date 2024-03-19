@@ -39,7 +39,6 @@ interface Site {
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
-    hopscotch: any;
     userComplete(opts: UserCompleteOpts): Promise<UserComplete>;
   };
   idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
@@ -303,7 +302,6 @@ interface Window {
   $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
-  readonly hopscotch: any;
   readonly stripeHandler: any;
   readonly Stripe: any;
   readonly Textcomplete: any;

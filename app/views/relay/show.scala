@@ -7,7 +7,6 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.socket.SocketVersion
-import lila.socket.SocketVersion.given
 
 object show:
 
@@ -70,7 +69,9 @@ object show:
                   label(cls := "mselect__label"):
                     span(cls := "relay-tour__round-select__name")(rt.relay.name)
             ),
-            div(cls := "relay-tour__header__image")(img(alt := "loading..."))
+            div(cls := "relay-tour__header__image"):
+              rt.tour.image.map: imgId =>
+                img(src := views.html.relay.tour.thumbnail.url(imgId, _.Size.Large), alt := "loading...")
           )
         ),
         st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload"))

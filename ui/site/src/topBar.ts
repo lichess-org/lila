@@ -3,6 +3,8 @@ import { loadCssPath, loadEsm } from './assets';
 import { memoize, clamp } from 'common';
 
 export default function () {
+  const top = document.getElementById('top')!;
+
   const initiatingHtml = `<div class="initiating">${site.spinnerHtml}</div>`,
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
@@ -13,7 +15,7 @@ export default function () {
   // On touchscreens, clicking the top menu element expands it. There's no top link.
   // Only for mq-topnav-visible in ui/common/css/abstract/_media-queries.scss
   if ('ontouchstart' in window && window.matchMedia('(min-width: 1020px)').matches)
-    $('#topnav > section > a').removeAttr('href');
+    $('#topnav section > a').removeAttr('href');
 
   $('#tn-tg').on('change', e => {
     const menuOpen = (e.target as HTMLInputElement).checked;
@@ -24,7 +26,7 @@ export default function () {
     else setTimeout(() => (header.style.backdropFilter = ''), 200); // 200ms is slide transition duration
   });
 
-  $('#top').on('click', '.toggle', function (this: HTMLElement) {
+  $(top).on('click', '.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
     setTimeout(() => {
@@ -177,22 +179,18 @@ export default function () {
 
   {
     // stick top bar
-    let lastY = 0;
-    const header = document.getElementById('top')!;
+    let lastY = window.scrollY;
+    if (lastY > 0) top.classList.add('scrolled');
 
-    const onScroll = () => {
-      console.log('scroll');
+    window.addEventListener('scroll', () => {
       const y = window.scrollY;
-      header.classList.toggle('scrolled', y > 0);
-      if (y > lastY + 10) header.classList.add('hide');
+      top.classList.toggle('scrolled', y > 0);
+      if (y > lastY + 10) top.classList.add('hide');
       else if (y <= clamp(lastY - 20, { min: 0, max: document.body.scrollHeight - window.innerHeight }))
-        header.classList.remove('hide');
+        top.classList.remove('hide');
       else return;
 
       lastY = Math.max(0, y);
-    };
-
-    window.addEventListener('scroll', onScroll);
-    requestAnimationFrame(() => window.scrollY > 0 && header.classList.add('scrolled'));
+    });
   }
 }

@@ -46,6 +46,7 @@ import {
   MoveMetadata,
   Position,
   NvuiPlugin,
+  RoundTour,
 } from './interfaces';
 import { defined, Toggle, toggle } from 'common';
 import { Redraw } from 'common/snabbdom';
@@ -593,27 +594,15 @@ export default class RoundController implements MoveRootCtrl {
   challengeRematch = async () => {
     await xhr.challengeRematch(this.data.game.id);
     site.pubsub.emit('challenge-app.open');
-    if (site.once('rematch-challenge'))
-      setTimeout(() => {
-        site.asset.hopscotch(function () {
-          window.hopscotch
-            .configure({
-              i18n: { doneBtn: 'OK, got it' },
-            })
-            .startTour({
-              id: 'rematch-challenge',
-              showPrevButton: true,
-              steps: [
-                {
-                  title: 'Challenged to a rematch',
-                  content: 'Your opponent is offline, but they can accept this challenge later!',
-                  target: '#challenge-app',
-                  placement: 'bottom',
-                },
-              ],
-            });
-        });
+    if (site.once('rematch-challenge')) {
+      setTimeout(async () => {
+        const [tour] = await Promise.all([
+          site.asset.loadEsm<RoundTour>('round.tour'),
+          site.asset.loadCssPath('shepherd'),
+        ]);
+        tour.corresRematchOffline();
       }, 1000);
+    }
   };
 
   private makeCorrespondenceClock = (): void => {
