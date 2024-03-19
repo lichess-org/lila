@@ -123,7 +123,7 @@
   <string name="engineManager">Engine manager</string>
   <string name="blunder">Flater</string>
   <string name="mistake">Flater</string>
-  <string name="inaccuracy">Ûnkrekt</string>
+  <string name="inaccuracy">Ûnkrektens</string>
   <plurals name="nbBlunders">
     <item quantity="one">%s flater</item>
     <item quantity="other">%s flaters</item>
@@ -133,8 +133,8 @@
     <item quantity="other">%s fouten</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="one">%s ûnsekuerens</item>
-    <item quantity="other">%s ûnsekuerens</item>
+    <item quantity="one">%s ûnkrektens</item>
+    <item quantity="other">%s ûnkrektens</item>
   </plurals>
   <string name="moveTimes">Set tiden</string>
   <string name="flipBoard">Draai boerd</string>
@@ -481,7 +481,7 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="practice">Oefenje</string>
   <string name="averageCentipawnLoss">Gemiddeld sintipion ferlies</string>
   <string name="accuracy">Krektens</string>
-  <string name="keyNextInaccuracy">Folgjende ûnsekuerens</string>
+  <string name="keyNextInaccuracy">Folgjende ûnkrektens</string>
   <string name="tournamentNotFound">Toernoai net fûn</string>
   <string name="tournamentDoesNotExist">Dizze toernoai bestiet net.</string>
   <string name="kidMode">Bern mode</string>
