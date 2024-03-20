@@ -62,7 +62,7 @@ object bits:
             h2(cls := "title text", dataIcon := licon.Trophy)(trans.openTournaments()),
             span(cls := "more")(trans.more(), " »")
           ),
-          div(cls := "enterable_list lobby__box__content"):
+          div(cls := "lobby__box__content"):
             views.html.tournament.bits.enterable(tours)
         ),
         simuls.nonEmpty.option(
@@ -71,7 +71,7 @@ object bits:
               h2(cls := "title text", dataIcon := licon.Group)(trans.simultaneousExhibitions()),
               span(cls := "more")(trans.more(), " »")
             ),
-            div(cls := "enterable_list lobby__box__content"):
+            div(cls := "lobby__box__content"):
               views.html.simul.bits.allCreated(simuls, withName = false)
           )
         )
