@@ -24,40 +24,37 @@ site.load.then(() => {
     function currentUserIds() {
       return textarea.value.split('\n').slice(0, -1);
     }
-
-    site.asset.loadIife('vendor/textcomplete.min.js').then(() => {
-      new Textcomplete(new TextareaEditor(textarea), [
-        {
-          id: 'teacher',
-          match: /(^|\s)(.+)$/,
-          index: 2,
-          search(term: string, callback: (res: any[]) => void) {
-            if (term.length < 3) callback([]);
-            else
-              xhr.json(xhr.url('/api/player/autocomplete', { object: 1, teacher: 1, term })).then(
-                (res: UserCompleteResult) => {
-                  const current = currentUserIds();
-                  callback(res.result.filter(t => !current.includes(t.id)));
-                },
-                _ => callback([]),
-              );
-          },
-          template: (o: LightUserOnline) =>
-            '<span class="ulpt user-link' +
-            (o.online ? ' online' : '') +
-            '" href="/@/' +
-            o.name +
-            '">' +
-            '<i class="line' +
-            (o.patron ? ' patron' : '') +
-            '"></i>' +
-            (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') +
-            o.name +
-            '</span>',
-          replace: (o: LightUserOnline) => '$1' + o.name + '\n',
+    new Textcomplete(new TextareaEditor(textarea), [
+      {
+        id: 'teacher',
+        match: /(^|\s)(.+)$/,
+        index: 2,
+        search(term: string, callback: (res: any[]) => void) {
+          if (term.length < 3) callback([]);
+          else
+            xhr.json(xhr.url('/api/player/autocomplete', { object: 1, teacher: 1, term })).then(
+              (res: UserCompleteResult) => {
+                const current = currentUserIds();
+                callback(res.result.filter(t => !current.includes(t.id)));
+              },
+              _ => callback([]),
+            );
         },
-      ]);
-    });
+        template: (o: LightUserOnline) =>
+          '<span class="ulpt user-link' +
+          (o.online ? ' online' : '') +
+          '" href="/@/' +
+          o.name +
+          '">' +
+          '<i class="line' +
+          (o.patron ? ' patron' : '') +
+          '"></i>' +
+          (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') +
+          o.name +
+          '</span>',
+        replace: (o: LightUserOnline) => '$1' + o.name + '\n',
+      },
+    ]);
   });
 
   extendTablesortNumber();
