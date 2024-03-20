@@ -1,6 +1,6 @@
 package lila.app
 package templating
-import play.api.libs.json.{ JsValue, Json }
+import play.api.libs.json.{ JsValue, Json, Writes }
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.AssetVersion
@@ -56,7 +56,7 @@ trait AssetHelper extends HasEnv:
     link(href := assetUrl(path), rel := "stylesheet")
 
   def jsonScript(json: JsValue, id: String = "page-init-data") =
-    script(tpe := "application/json", st.id := id)(raw(safeJsonValue(json)))
+    script(tpe := "application/json", st.id := id)(raw(safeJsonValue(json).value))
 
   val systemThemePolyfillJs = """
 if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
@@ -73,11 +73,11 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets.so(".min")}.js"))
   def jsModuleInit(name: String)(using PageContext) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name')"))
-  def jsModuleInit(name: String, text: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})"))
-  def jsModuleInit(name: String, json: JsValue)(using PageContext): Frag =
-    jsModuleInit(name, safeJsonValue(json))
-  def jsModuleInit(name: String, text: String, nonce: lila.api.Nonce) =
+  def jsModuleInit(name: String, json: SafeJsonStr)(using PageContext) =
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$json})"))
+  def jsModuleInit[A: Writes](name: String, value: A)(using PageContext): Frag =
+    jsModuleInit(name, safeJsonValue(Json.toJson(value)))
+  def jsModuleInit(name: String, text: SafeJsonStr, nonce: lila.api.Nonce) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})", nonce))
   def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
     jsModule(name),
@@ -93,7 +93,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analysisBoard.nvui"))
   def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui"))
   def roundNvuiTag(using ctx: PageContext)   = ctx.blind.option(jsModule("round.nvui"))
-  def infiniteScrollTag(using PageContext)   = jsModuleInit("infiniteScroll", "'.infinite-scroll'")
+  def infiniteScrollTag(using PageContext)   = jsModuleInit("infiniteScroll")
   def captchaTag                             = jsModule("captcha")
   def cashTag                                = iifeModule("javascripts/vendor/cash.min.js")
   def fingerprintTag                         = iifeModule("javascripts/fipr.js")

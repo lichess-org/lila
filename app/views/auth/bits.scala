@@ -74,7 +74,7 @@ object bits:
     views.html.base.layout(
       title = s"${me.username} - ${trans.changePassword.txt()}",
       moreCss = cssTag("form3"),
-      moreJs = jsModuleInit("passwordComplexity", "'form3-newPasswd1'")
+      moreJs = jsModuleInit("passwordComplexity")
     ):
       main(cls := "page-small box box-pad")(
         boxTop(

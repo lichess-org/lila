@@ -155,5 +155,9 @@ trait LilaModel:
   opaque type JsonStr = String
   object JsonStr extends OpaqueString[JsonStr]
 
+  // JSON string that is safe to include in HTML
+  opaque type SafeJsonStr = String
+  object SafeJsonStr extends OpaqueString[SafeJsonStr]
+
   opaque type Crawler = Boolean
   object Crawler extends YesNo[Crawler]

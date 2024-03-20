@@ -1,6 +1,6 @@
 import zxcvbn from 'zxcvbn';
 
-export function initModule(id: string): void {
+export function initModule(id: string = 'form3-newPasswd1'): void {
   const passwordInput = document.getElementById(id) as HTMLInputElement;
   passwordInput.addEventListener('input', () => {
     updatePasswordComplexityMeter(passwordInput.value);

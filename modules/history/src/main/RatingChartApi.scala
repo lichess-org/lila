@@ -12,41 +12,37 @@ final class RatingChartApi(
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
-  def apply(user: User): Fu[Option[String]] =
-    cache.get(user.id).dmap { chart =>
-      chart.nonEmpty.option(chart)
-    }
+  def apply(user: User): Fu[Option[JsonStr]] = cache.get(user.id)
 
   def singlePerf(user: User, perfType: PerfType): Fu[JsArray] =
     historyApi
       .ratingsMap(user, perfType)
-      .map {
-        ratingsMapToJson(user.createdAt, _)
-      }
+      .map(ratingsMapToJson(user.createdAt, _))
       .map(JsArray.apply)
 
-  private val cache = cacheApi[UserId, String](4096, "history.rating"):
+  private val cache = cacheApi[UserId, Option[JsonStr]](4096, "history.rating"):
     _.expireAfterWrite(10 minutes)
       .maximumSize(4096)
-      .buildAsyncFuture: userId =>
-        build(userId).dmap(~_)
+      .buildAsyncFuture(build)
 
   private def ratingsMapToJson(createdAt: Instant, ratingsMap: RatingsMap) =
     ratingsMap.map: (days, rating) =>
       val date = createdAt.plusDays(days).date
       Json.arr(date.getYear, date.getMonthValue - 1, date.getDayOfMonth, rating)
 
-  private def build(userId: UserId): Fu[Option[String]] =
+  private def build(userId: UserId): Fu[Option[JsonStr]] =
     userRepo.createdAtById(userId).flatMapz { createdAt =>
-      historyApi.get(userId).map2 { (history: History) =>
-        lila.common.String.html.safeJsonValue:
-          Json.toJson:
-            RatingChartApi.perfTypes.map: pt =>
-              Json.obj(
-                "name"   -> pt.trans(using lila.i18n.defaultLang),
-                "points" -> ratingsMapToJson(createdAt, history(pt))
-              )
-      }
+      historyApi
+        .get(userId)
+        .map2: history =>
+          RatingChartApi.perfTypes.map: pt =>
+            Json.obj(
+              "name"   -> pt.trans(using lila.i18n.defaultLang),
+              "points" -> ratingsMapToJson(createdAt, history(pt))
+            )
+        .map2(Json.toJson)
+        .map2(Json.stringify)
+        .map2(JsonStr(_))
     }
 
 object RatingChartApi:

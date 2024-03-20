@@ -13,10 +13,7 @@ object perfStat:
 
   import trans.perfStat.*
 
-  def apply(
-      data: PerfStatData,
-      ratingChart: Option[String]
-  )(using PageContext) =
+  def apply(data: PerfStatData, ratingChart: Option[JsonStr])(using PageContext) =
     import data.*
     import stat.perfType
     views.html.base.layout(
@@ -27,7 +24,7 @@ object perfStat:
         ratingChart.map: rc =>
           jsModuleInit(
             "chart.ratingHistory",
-            s"{data:$rc,singlePerfName:'${perfType.trans(using lila.i18n.defaultLang)}'}"
+            SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using lila.i18n.defaultLang)}'}")
           )
       ),
       moreCss = cssTag("perf-stat")
