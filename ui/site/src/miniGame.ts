@@ -47,8 +47,7 @@ export const initAll = (parent?: HTMLElement) => {
 };
 
 export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
-  const $el = $(node),
-    lm = data.lm,
+  const lm = data.lm,
     cg = domData.get(node.querySelector('.cg-wrap')!, 'chessground');
   if (cg)
     cg.set({
@@ -57,8 +56,9 @@ export const update = (node: HTMLElement, data: MiniGameUpdateData) => {
     });
   const turnColor = fenColor(data.fen);
   const updateClock = (time: number | undefined, color: Color) => {
-    if (!isNaN(time!))
-      clockWidget($el[0]?.querySelector('.mini-game__clock--' + color) as HTMLElement, {
+    const clockEl = node?.querySelector('.mini-game__clock--' + color) as HTMLElement;
+    if (clockEl && !isNaN(time!))
+      clockWidget(clockEl, {
         time: time!,
         pause: color != turnColor || !lichessClockIsRunning(data.fen, color),
       });
