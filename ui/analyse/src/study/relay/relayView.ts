@@ -7,6 +7,7 @@ import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../../study/studyDeps';
 import { tourSide } from '../../study/relay/relayTourView';
 import { renderVideoPlayer, player } from './videoPlayerView';
+import RelayCtrl from './relayCtrl';
 import {
   type RelayViewContext,
   viewContext,
@@ -16,9 +17,6 @@ import {
   renderTools,
   renderUnderboard,
 } from '../../view/components';
-import RelayCtrl from './relayCtrl';
-
-let scale = 80;
 
 export function relayView(
   ctrl: AnalyseCtrl,
@@ -26,43 +24,58 @@ export function relayView(
   relay: RelayCtrl,
   deps: typeof studyDeps,
 ) {
-  const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay };
-
-  const renderTourView = (uw: boolean) => [
-    ctx.tourUi,
-    ...tourSide(ctrl, study, relay, uw),
-    deps.relayManager(relay, study),
-  ];
-  const ultraWide = isUltraWide();
-  const classes = ultraWide ? ['ultra-wide'] : [];
-  if (ultraWide && relay.data.videoUrls) classes.push('with-video');
-  if (scale <= 0.5) classes.push('tiny-board');
-  return renderMain(ctx, classes, [
+  const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay },
+    { wide, tinyBoard } = queryBody();
+  return renderMain(ctx, { wide: wide, 'with-video': !!relay.data.videoUrls, 'tiny-board': tinyBoard }, [
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),
-    ...(ctx.tourUi ? renderTourView(ultraWide) : renderBoardView(ctx, ultraWide)),
+    ...(ctx.tourUi
+      ? [ctx.tourUi, ...tourSide(ctrl, study, relay), deps.relayManager(relay, study)]
+      : renderBoardView(ctx, wide)),
   ]);
 }
 
 export function addResizeListener(redraw: () => void) {
-  let showingVideo = false;
-  let wasUltraWide = false;
+  let [oldWide, oldShowVideo, oldTinyBoard] = [false, false, false];
   window.addEventListener(
     'resize',
     () => {
-      const ultraWide = isUltraWide();
-
-      const allow = window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
-      const placeholder = document.getElementById('video-player-placeholder') ?? undefined;
-      player?.cover(allow ? placeholder : undefined);
-      if (showingVideo === (allow && !!placeholder) && ultraWide === wasUltraWide) return;
-      wasUltraWide = ultraWide;
-      showingVideo = allow && !!placeholder;
-      console.log('redraw');
-      redraw();
+      const { wide, allowVideo, tinyBoard } = queryBody(),
+        placeholder = document.getElementById('video-player-placeholder') ?? undefined,
+        showVideo = allowVideo && !!placeholder;
+      player?.cover(allowVideo ? placeholder : undefined);
+      if (oldShowVideo !== showVideo || oldWide !== wide || oldTinyBoard !== tinyBoard) redraw();
+      [oldWide, oldShowVideo, oldTinyBoard] = [wide, showVideo, tinyBoard];
     },
     { passive: true },
   );
+}
+
+function queryBody() {
+  const docStyle = window.getComputedStyle(document.body),
+    scale = (parseFloat(docStyle.getPropertyValue('--zoom')) / 100) * 0.75 + 0.25,
+    allowVideo = docStyle.getPropertyValue('--allow-video') === 'true';
+  // scale is board height divided by window height
+  return {
+    wide: window.innerWidth - 410 - scale * window.innerHeight > 500,
+    allowVideo,
+    tinyBoard: scale <= 0.67,
+  };
+}
+
+function renderBoardView(ctx: RelayViewContext, wide: boolean) {
+  const { ctrl, deps, study, gaugeOn, relay } = ctx;
+
+  return [
+    renderBoard(ctx),
+    gaugeOn && cevalView.renderGauge(ctrl),
+    wide && renderVideoPlayer(relay),
+    renderTools(ctx, wide ? undefined : renderVideoPlayer(relay)),
+    renderControls(ctrl),
+    renderUnderboard(ctx),
+    ...tourSide(ctrl, study, relay),
+    deps.relayManager(relay, study),
+  ];
 }
 
 export function renderStreamerMenu(relay: RelayCtrl) {
@@ -89,25 +102,4 @@ export function renderStreamerMenu(relay: RelayCtrl) {
       ),
     ),
   );
-}
-
-function isUltraWide() {
-  scale = (parseFloat(window.getComputedStyle(document.body).getPropertyValue('--zoom')) / 100) * 0.75 + 0.25;
-
-  return window.innerWidth - 350 - 60 - scale * window.innerHeight > 500;
-}
-
-function renderBoardView(ctx: RelayViewContext, uw: boolean) {
-  const { ctrl, deps, study, gaugeOn, relay } = ctx;
-
-  return [
-    renderBoard(ctx),
-    gaugeOn && cevalView.renderGauge(ctrl),
-    uw && renderVideoPlayer(relay),
-    renderTools(ctx, !uw ? renderVideoPlayer(relay) : undefined),
-    renderControls(ctrl),
-    renderUnderboard(ctx),
-    ...tourSide(ctrl, study, relay, uw),
-    deps.relayManager(relay, study),
-  ];
 }

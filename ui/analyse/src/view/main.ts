@@ -32,53 +32,49 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
   const ctx = viewContext(ctrl, deps);
   const { study, menuIsOpen, gamebookPlayView, gaugeOn } = ctx;
 
-  return renderMain(
-    ctx,
-    [],
-    [
-      ctrl.keyboardHelp && keyboardView(ctrl),
-      study && deps?.studyView.overboard(study),
-      renderBoard(ctx),
-      gaugeOn && cevalView.renderGauge(ctrl),
-      !menuIsOpen && crazyView(ctrl, ctrl.topColor(), 'top'),
-      gamebookPlayView || renderTools(ctx),
-      !menuIsOpen && crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-      !gamebookPlayView && renderControls(ctrl),
-      renderUnderboard(ctx),
-      trainingView(ctrl),
-      ctrl.studyPractice
-        ? deps?.studyPracticeView.side(study!)
-        : h(
-            'aside.analyse__side',
-            {
-              hook: onInsert(elm => {
-                ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
-              }),
-            },
-            ctrl.studyPractice
-              ? [deps?.studyPracticeView.side(study!)]
-              : study
-              ? [deps?.studyView.side(study, true)]
-              : [
-                  ctrl.forecast && forecastView(ctrl, ctrl.forecast),
-                  !ctrl.synthetic &&
-                    playable(ctrl.data) &&
+  return renderMain(ctx, {}, [
+    ctrl.keyboardHelp && keyboardView(ctrl),
+    study && deps?.studyView.overboard(study),
+    renderBoard(ctx),
+    gaugeOn && cevalView.renderGauge(ctrl),
+    !menuIsOpen && crazyView(ctrl, ctrl.topColor(), 'top'),
+    gamebookPlayView || renderTools(ctx),
+    !menuIsOpen && crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+    !gamebookPlayView && renderControls(ctrl),
+    renderUnderboard(ctx),
+    trainingView(ctrl),
+    ctrl.studyPractice
+      ? deps?.studyPracticeView.side(study!)
+      : h(
+          'aside.analyse__side',
+          {
+            hook: onInsert(elm => {
+              ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+            }),
+          },
+          ctrl.studyPractice
+            ? [deps?.studyPracticeView.side(study!)]
+            : study
+            ? [deps?.studyView.side(study, true)]
+            : [
+                ctrl.forecast && forecastView(ctrl, ctrl.forecast),
+                !ctrl.synthetic &&
+                  playable(ctrl.data) &&
+                  h(
+                    'div.back-to-game',
                     h(
-                      'div.back-to-game',
-                      h(
-                        'a.button.button-empty.text',
-                        {
-                          attrs: {
-                            href: router.game(ctrl.data, ctrl.data.player.color),
-                            'data-icon': licon.Back,
-                          },
+                      'a.button.button-empty.text',
+                      {
+                        attrs: {
+                          href: router.game(ctrl.data, ctrl.data.player.color),
+                          'data-icon': licon.Back,
                         },
-                        ctrl.trans.noarg('backToGame'),
-                      ),
+                      },
+                      ctrl.trans.noarg('backToGame'),
                     ),
-                ],
-          ),
-      h('div.chat__members.none', { hook: onInsert(site.watchers) }),
-    ],
-  );
+                  ),
+              ],
+        ),
+    h('div.chat__members.none', { hook: onInsert(site.watchers) }),
+  ]);
 }

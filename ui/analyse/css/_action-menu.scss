@@ -6,8 +6,11 @@
   // 0 size forces vertical scrollbar
   display: flex;
   flex-flow: column;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: $analyse-block-gap;
+  align-items: stretch;
+  width: 100%;
 
   h2 {
     font-size: 1em;
@@ -86,7 +89,6 @@
 
   .setting {
     @extend %flex-center-nowrap;
-
     flex: 0 0 auto;
     margin-top: $analyse-block-gap;
 

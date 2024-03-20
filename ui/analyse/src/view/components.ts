@@ -77,11 +77,11 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
 
 export function renderMain(
   { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, tourUi }: ViewContext,
-  classes: string[],
+  classes: { [key: string]: boolean },
   kids: VNodeKids,
 ): VNode {
   return h(
-    'main.analyse.variant-' + ctrl.data.game.variant.key + '.' + classes.join('.'),
+    'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
       hook: {
         insert: vn => {
@@ -102,6 +102,7 @@ export function renderMain(
         },
       },
       class: {
+        ...classes,
         'comp-off': !ctrl.showComputer(),
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
@@ -120,7 +121,7 @@ export function renderTools({ ctrl, deps, concealOf }: ViewContext, firstKid?: V
   return h(addChapterId(ctrl.study, 'div.analyse__tools'), [
     firstKid,
     ...(ctrl.actionMenu()
-      ? [actionMenu(ctrl)]
+      ? [...cevalView.renderCeval(ctrl), h('div'), actionMenu(ctrl)]
       : [
           ...cevalView.renderCeval(ctrl),
           !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),

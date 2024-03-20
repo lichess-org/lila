@@ -35,7 +35,7 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
   return h('div.box.relay-tour', content);
 }
 
-export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl, ultraWide = false) => {
+export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) => {
   const empty = study.chapters.list.looksNew();
   const members = h('div.chat__members', {
     hook: onInsert(el => {
@@ -78,10 +78,9 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl, 
             ]),
         relay.showStreamerMenu() && renderStreamerMenu(relay),
         !empty && gamesList(study, relay),
-        !ultraWide && members,
       ],
     ),
-    ultraWide && members,
+    members,
   ];
 };
 

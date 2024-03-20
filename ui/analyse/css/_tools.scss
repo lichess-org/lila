@@ -127,13 +127,6 @@
       transition: visibility 0s;
     }
 
-    .persistence {
-      color: $c-good;
-      @media (max-width: at-most($xx-small)) {
-        display: none;
-      }
-    }
-
     .active {
       margin-top: -3px;
       padding-top: 3px;
