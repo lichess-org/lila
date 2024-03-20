@@ -11,7 +11,7 @@ body {
 
   @include mq-site-header-tall {
     --site-header-height: #{$site-header-tall-height};
-    --sticky-gap: 1.5vmin;
+    --sticky-gap: 0.5vmin;
   }
 
   &.header-margin {
