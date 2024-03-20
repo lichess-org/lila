@@ -829,6 +829,7 @@ GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 GET   /temporarily-disabled            controllers.Main.temporarilyDisabled(path = "")
 GET   /temporarily-disabled/*path      controllers.Main.temporarilyDisabled(path)
+GET   /run/external-link/:tag/*url     controllers.Main.externalLink(tag, url)
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
 
 # Dev
