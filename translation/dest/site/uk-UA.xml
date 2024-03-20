@@ -460,8 +460,7 @@
   <string name="continueFromHere">Продовжити звідси</string>
   <string name="toStudy">Дослідження</string>
   <string name="importGame">Імпортувати гру</string>
-  <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері,
-комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
+  <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері, комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
   <string name="importGameCaveat">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
   <string name="importGameDataPrivacyWarning">Цей PGN може бути у вільному доступі. Для імпорту гри в приватному режимі використовуйте студії.</string>
   <plurals name="nbImportedGames">
@@ -869,7 +868,7 @@
   <string name="dark">Темний</string>
   <string name="transparent">Прозорий</string>
   <string name="deviceTheme">Тема пристрою</string>
-  <string name="backgroundImageUrl">URL фонового зображення:</string>
+  <string name="backgroundImageUrl">Посилання фонового зображення:</string>
   <string name="boardGeometry">Вигляд шахівниці</string>
   <string name="boardTheme">Оформлення шахівниці</string>
   <string name="boardSize">Розмір дошки</string>
@@ -1037,7 +1036,7 @@
   <string name="simulDescription">Опис сеансу</string>
   <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
   <string name="markdownAvailable">%s доступний для більш детального форматування.</string>
-  <string name="embedsAvailable">Вставте URL-адресу гри чи розділ дослідження, щоб вставити його.</string>
+  <string name="embedsAvailable">Вставте посилання на гру чи розділ дослідження, щоб вставити його.</string>
   <string name="inYourLocalTimezone">У вашому місцевому часовому поясі</string>
   <string name="tournChat">Турнірний чат</string>
   <string name="noChat">Без чату</string>
