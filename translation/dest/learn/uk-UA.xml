@@ -58,13 +58,13 @@
   <string name="fundamentals">Основи</string>
   <string name="capture">Взяття</string>
   <string name="takeTheEnemyPieces">З\'їжте фігури противника</string>
-  <string name="captureIntro">Визначте незахищені фігури противника й з\'їжте їх!</string>
+  <string name="captureIntro">Визначте незахищені фігури суперника та з\'їжте їх!</string>
   <string name="takeTheBlackPieces">З\'їжте чорні фігури!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">З\'їжте всі чорні фігури! І не втратьте свої.</string>
   <string name="captureComplete">Вітаємо! Тепер ви знаєте, як боротися з шаховими фігурами!</string>
   <string name="protection">Захист</string>
   <string name="keepYourPiecesSafe">Захищайте ваші фігури</string>
-  <string name="protectionIntro">Визначте, які ваші фігури атакує противник, і захистіть їх!</string>
+  <string name="protectionIntro">Визначте, які ваші фігури атакує суперник, і захистіть їх!</string>
   <string name="protectionComplete">Вітаємо! Фігура, яку ви не втратили, це виграна фігура!</string>
   <string name="escape">Вас атакують! Усуньте загрозу!</string>
   <string name="noEscape">Це не вихід,
@@ -94,9 +94,9 @@
 або закрийтеся!</string>
   <string name="outOfCheckComplete">Вітаємо! Ваш король не може бути взятим, переконайтеся, що ви можете захистити його від шаха!</string>
   <string name="mateInOne">Мат в один хід</string>
-  <string name="defeatTheOpponentsKing">Поразка короля противника</string>
+  <string name="defeatTheOpponentsKing">Поразка короля суперника</string>
   <string name="mateInOneIntro">Ви виграєте, якщо Ваш суперник не може захиститися від шаха.</string>
-  <string name="attackYourOpponentsKing">Атакуйте короля вашого противника таким чином, аби його не можна було захистити!</string>
+  <string name="attackYourOpponentsKing">Атакуйте короля вашого суперника таким чином, щоб його не можна було захистити!</string>
   <string name="mateInOneComplete">Вітаємо! Таким чином, ви виграєте в шахи!</string>
   <string name="intermediate">Проміжний етап</string>
   <string name="boardSetup">Позиція на дошці</string>
@@ -171,9 +171,9 @@
 Пішак = 1 пішак</string>
   <string name="checkInTwo">Шах в 2 ходи</string>
   <string name="twoMovesToGiveCheck">Два ходи на те, щоб зробити шах</string>
-  <string name="checkInTwoIntro">Знайдіть комбінацію в два ходи, щоб поставити шах королю супротивника!</string>
-  <string name="checkInTwoGoal">Створіть загрозу королю противника в два ходи!</string>
-  <string name="checkInTwoComplete">Вітаємо! Ви поставили шах вашому противникові, змусивши його захищати свого короля!</string>
+  <string name="checkInTwoIntro">Знайдіть комбінацію в два ходи, щоб поставити шах королю суперника!</string>
+  <string name="checkInTwoGoal">Створіть загрозу королю суперника в два ходи!</string>
+  <string name="checkInTwoComplete">Вітаємо! Ви поставили шах вашому супернику, змусивши його захищати свого короля!</string>
   <string name="whatNext">Що далі?</string>
   <string name="youKnowHowToPlayChess">Ви вмієте грати в шахи, вітаємо! Ви хочете стати сильнішим гравцем?</string>
   <string name="register">Реєстрація</string>
