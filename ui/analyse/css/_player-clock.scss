@@ -9,6 +9,7 @@ $clock-height: 20px;
 
   &.top {
     top: #{-$clock-height};
+    z-index: z('above-site-header');
 
     .is3d & {
       top: #{-$clock-height - 35px};
@@ -31,7 +32,7 @@ $clock-height: 20px;
 }
 
 .analyse__clock {
-  @extend %metal, %box-shadow;
+  @extend %metal;
 
   padding: 0 0.5em;
   margin-#{$start-direction}: 12px;
