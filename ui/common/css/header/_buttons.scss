@@ -135,6 +135,7 @@
 
   &::after {
     @extend %data-icon;
+    color: c-dimmer($c-font, 15%);
     content: $licon-AccountCircle;
     font-size: 2rem;
   }
