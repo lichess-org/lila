@@ -291,13 +291,14 @@ final class Mod(
   def communicationPublic(username: UserStr)  = communications(username, priv = false)
   def communicationPrivate(username: UserStr) = communications(username, priv = true)
 
+  // TODO, separate perm
   def fullCommsExport(username: UserStr) =
-    Secure(_.SuperAdmin) { ctx ?=> me ?=>
+    SecureBody(_.SuperAdmin) { ctx ?=> me ?=>
       Found(env.user.repo.byId(username)): user =>
         val source = env.msg.api
           .modFullCommsExport(user.id)
           .map: (tid, msgs) =>
-            s"thread: ${tid}\n${msgs.map(m => s"${m.date} ${m.user}: ${m.text}").mkString("\n")}"
+            s"=== 0 === thread: ${tid}\n${msgs.map(m => s"${m.date} ${m.user}: ${m.text}\n--- 0 ---").mkString("\n")}"
         Ok.chunked(source).pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
 
     }

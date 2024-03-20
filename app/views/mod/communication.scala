@@ -46,16 +46,32 @@ object communication:
                 titleOrText("Mod zone (Hotkey: m)"),
                 dataIcon := licon.Agent
               ),
-              isGranted(_.ViewPrivateComms).option {
-                if priv then
-                  a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
-                else
-                  a(
-                    cls   := "priv button",
-                    href  := routes.Mod.communicationPrivate(u.username),
-                    title := "View private messages. This will be logged in #commlog"
-                  )("PMs")
-              }
+              isGranted(_.ViewPrivateComms)
+                .option {
+                  if priv then
+                    a(cls := "priv button active", href := routes.Mod.communicationPublic(u.username))("PMs")
+                  else
+                    a(
+                      cls   := "priv button",
+                      href  := routes.Mod.communicationPrivate(u.username),
+                      title := "View private messages. This will be logged in #commlog"
+                    )("PMs")
+                },
+              (priv && isGranted(_.SuperAdmin))
+                .option {
+                  postForm(
+                    action := routes.Mod.fullCommsExport(u.username)
+                  )(
+                    form3.action(
+                      form3.submit(
+                        "Full comms export",
+                        icon = none,
+                        confirm =
+                          s"Confirm you want to export all comms from **${u.username}** (including other party)".some
+                      )(cls := "button-red comms-export")
+                    )
+                  )
+                }
             )
           )
         ),
