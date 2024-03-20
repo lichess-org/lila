@@ -10,7 +10,7 @@ object msg:
   def home(json: JsObject)(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
-      moreJs = jsModuleInit("msg", Json.obj("data" -> json, "i18n" -> i18nJsObject(i18nKeys))),
+      pageModule = PageModule("msg", Json.obj("data" -> json, "i18n" -> i18nJsObject(i18nKeys))).some,
       title = trans.inbox.txt(),
       csp = defaultCsp.withInlineIconFont.some
     ) {

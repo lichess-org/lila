@@ -9,7 +9,7 @@ import lila.common.String.html.safeJsonValue
 trait AssetHelper extends HasEnv:
   self: I18nHelper & SecurityHelper =>
 
-  case class PageModule(name: String, data: JsValue)
+  case class PageModule(name: String, data: JsValue | SafeJsonStr)
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -55,8 +55,12 @@ trait AssetHelper extends HasEnv:
   private def cssAt(path: String): Tag =
     link(href := assetUrl(path), rel := "stylesheet")
 
-  def jsonScript(json: JsValue, id: String = "page-init-data") =
-    script(tpe := "application/json", st.id := id)(raw(safeJsonValue(json).value))
+  def jsonScript(json: JsValue | SafeJsonStr, id: String = "page-init-data") =
+    script(tpe := "application/json", st.id := id):
+      raw:
+        json match
+          case json: JsValue => safeJsonValue(json).value
+          case json          => json.toString
 
   val systemThemePolyfillJs = """
 if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
@@ -86,9 +90,6 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
 
   def jsPageModule(name: String)(using PageContext) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$name')"))
-
-  def analyseModule(mode: String, json: JsValue)(using ctx: PageContext) =
-    PageModule("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
 
   def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analysisBoard.nvui"))
   def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui"))

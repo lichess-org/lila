@@ -2,6 +2,7 @@ package views.html.analyse
 
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.*
+import play.api.libs.json.{ Json, JsObject }
 
 object bits:
 
@@ -26,3 +27,6 @@ object bits:
     )(body)
 
   def csp(using PageContext) = analysisCsp.withPeer.withInlineIconFont.withChessDbCn.some
+
+  def analyseModule(mode: String, json: JsObject)(using ctx: PageContext) =
+    PageModule("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))

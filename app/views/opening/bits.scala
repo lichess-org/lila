@@ -66,16 +66,13 @@ object bits:
       )
     )
 
-  def moreJs(page: Option[OpeningPage])(using PageContext) =
-    page match
-      case Some(p) =>
+  def pageModule(page: Option[OpeningPage])(using PageContext) =
+    PageModule(
+      "opening",
+      page.so: p =>
         import lila.common.Json.given
-        jsModuleInit(
-          "opening",
-          Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
-        )
-      case None =>
-        jsModule("opening")
+        Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
+    )
 
   def splitName(op: Opening) =
     NameSection.sectionsOf(op.name) match

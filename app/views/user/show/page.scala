@@ -78,11 +78,13 @@ object page:
     frag(
       infiniteScrollTag,
       jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
-      info.ratingChart.map: rc =>
-        jsModuleInit("chart.ratingHistory", SafeJsonStr(s"{data:$rc}")),
       withSearch.option(jsModule("gameSearch")),
       isGranted(_.UserModView).option(jsModule("mod.user"))
     )
+
+  private def pageModule(info: UserInfo)(using PageContext) =
+    info.ratingChart.map: rc =>
+      PageModule("chart.ratingHistory", SafeJsonStr(s"{data:$rc}"))
 
   def disabled(u: User)(using PageContext) =
     views.html.base.layout(title = u.username, robots = false):

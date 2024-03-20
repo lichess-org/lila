@@ -36,7 +36,7 @@ object show:
           description = t.intro.so { shorten(_, 152) }
         )
         .some,
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "team",
         Json
           .obj("id" -> t.id)
@@ -51,7 +51,7 @@ object show:
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
               localMod = info.havePerm(_.Comm)
             ))
-      ),
+      ).some,
       robots = t.team.enabled
     ):
       val canManage     = asMod && isGranted(_.ManageTeam)

@@ -122,7 +122,7 @@ object replay:
         ctx.blind.option(cssTag("round.nvui"))
       ),
       moreJs = analyseNvuiTag,
-      pageModule = analyseModule(
+      pageModule = bits.analyseModule(
         "replay",
         Json
           .obj(

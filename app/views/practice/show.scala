@@ -15,18 +15,16 @@ object show:
     views.html.base.layout(
       title = us.practiceStudy.name,
       moreCss = cssTag("analyse.practice"),
-      moreJs = frag(
-        analyseNvuiTag,
-        jsModuleInit(
-          "analysisBoard.study",
-          Json.obj(
-            "practice" -> data.practice,
-            "study"    -> data.study,
-            "data"     -> data.analysis,
-            "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys))
-          ) ++ views.html.board.bits.explorerAndCevalConfig
-        )
-      ),
+      moreJs = analyseNvuiTag,
+      pageModule = PageModule(
+        "analysisBoard.study",
+        Json.obj(
+          "practice" -> data.practice,
+          "study"    -> data.study,
+          "data"     -> data.analysis,
+          "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys))
+        ) ++ views.html.board.bits.explorerAndCevalConfig
+      ).some,
       csp = analysisCsp.some,
       zoomable = true
     ):

@@ -79,6 +79,7 @@ object bits:
   private[team] def layout(
       title: String,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
+      pageModule: Option[PageModule] = None,
       moreJs: Frag = emptyFrag,
       robots: Boolean = netConfig.crawlable
   )(body: Frag)(using PageContext) =
@@ -86,6 +87,7 @@ object bits:
       title = title,
       moreCss = cssTag("team"),
       moreJs = frag(infiniteScrollTag, moreJs),
+      pageModule = pageModule,
       openGraph = openGraph,
       robots = robots
     )(body)

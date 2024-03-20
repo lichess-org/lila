@@ -21,7 +21,7 @@ object ratingDistribution:
       title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.trans),
       moreCss = cssTag("user.rating.stats"),
       wrapClass = "full-screen-force",
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "chart.ratingDistribution",
         Json.obj(
           "freq"        -> data,
@@ -30,7 +30,7 @@ object ratingDistribution:
           "otherPlayer" -> otherUser.map(_.username),
           "i18n"        -> i18nJsObject(i18nKeys)
         )
-      )
+      ).some
     ) {
       main(cls := "page-menu")(
         user.bits.communityMenu("ratings"),

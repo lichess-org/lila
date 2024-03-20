@@ -14,7 +14,7 @@ object queueStats:
     views.html.base.layout(
       title = "Queues stats",
       moreCss = cssTag("mod.activity"),
-      moreJs = jsModuleInit("mod.activity", Json.obj("op" -> "queues", "data" -> p.json))
+      pageModule = PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json)).some
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("queues"),
