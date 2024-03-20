@@ -68,7 +68,7 @@
   <string name="goDeeper">Ще глибше</string>
   <string name="showThreat">Показати загрозу</string>
   <string name="inLocalBrowser">у браузері</string>
-  <string name="toggleLocalEvaluation">Включити аналіз на комп\'ютері</string>
+  <string name="toggleLocalEvaluation">Включити локальний аналіз</string>
   <string name="promoteVariation">Підвищити пріоритет варіанта</string>
   <string name="makeMainLine">Зробити варіант основним</string>
   <string name="deleteFromHere">Видалити з цього місця</string>
@@ -576,9 +576,9 @@
   <string name="editProfile">Редагувати профіль</string>
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
-  <string name="setFlair">Оберіть свій емодзі</string>
-  <string name="flair">Аватар</string>
-  <string name="youCanHideFlair">Це налаштування вимикає аватари всіх користувачів сайту.</string>
+  <string name="setFlair">Оберіть свій символ</string>
+  <string name="flair">Символ</string>
+  <string name="youCanHideFlair">Це налаштування вимикає символи всіх користувачів сайту.</string>
   <string name="biography">Біографія</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Країна чи область</string>
   <string name="thankYou">Дякуємо!</string>
