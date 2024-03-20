@@ -68,8 +68,10 @@ object IpTrust:
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
   val defaultRateLimitStrategy: RateLimitStrategy =
     case IsProxy.vpn         => 3
+    case IsProxy.privacy     => 3
     case IsProxy.tor         => 4
     case IsProxy.server      => 1.5
+    case IsProxy.enterprise  => 1.5
     case IsProxy.public      => 5
     case IsProxy.web         => 3
     case IsProxy.search      => 0.5
@@ -84,6 +86,7 @@ object IpTrust:
   type ThrottleStrategy = IsProxy => Float
 
   val defaultThrottleStrategy: ThrottleStrategy =
-    case IsProxy.server => 1
-    case IsProxy.search => 1
-    case p              => defaultRateLimitStrategy(p)
+    case IsProxy.server     => 1
+    case IsProxy.enterprise => 1
+    case IsProxy.search     => 1
+    case p                  => defaultRateLimitStrategy(p)
