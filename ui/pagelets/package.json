@@ -18,6 +18,8 @@
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@toast-ui/editor": "3.1.7",
+    "@textcomplete/core": "^0.1.13",
+    "@textcomplete/textarea": "^0.1.13",
     "@types/debounce-promise": "^3.1.6",
     "@types/fnando__sparkline": "^0.3.7",
     "@types/yaireo__tagify": "4.17.5",
