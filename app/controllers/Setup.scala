@@ -70,7 +70,7 @@ final class Setup(
                   html = fuccess(redirectPov(pov)),
                   api = apiVersion =>
                     if (getBool("redirect"))
-                      fuccess(Ok(Json.obj("redirect" -> s"/${pov.fullId}")))
+                      fuccess(Ok(redirectPovJson(pov)))
                     else
                       env.api.roundApi.player(pov, none, apiVersion) map { data =>
                         Created(data) as JSON
@@ -81,6 +81,14 @@ final class Setup(
       }(rateLimitedFu)
     }(rateLimitedFu)
   }
+
+  private def redirectPovJson(pov: Pov) =
+    Json
+      .obj(
+        "id"  -> pov.fullId,
+        "url" -> s"/${pov.fullId}"
+      )
+      .add("cookie" -> lila.game.AnonCookie.json(pov))
 
   def friendForm(userId: Option[String]) =
     Open { implicit ctx =>
