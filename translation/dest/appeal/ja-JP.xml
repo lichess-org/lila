@@ -4,16 +4,17 @@
   <string name="engineMarkedInfo">つまり、対局を不正に有利にするため、知識や読みを補う外部の力を使ったということです。詳しくは %s のページをお読みください。</string>
   <string name="arenaBanned">あなたのアカウントはアリーナへの参加が禁じられています。</string>
   <string name="prizeBanned">あなたのアカウントは金品を賞とするトーナメントへの参加が禁じられています。</string>
+  <string name="boosterMarked">あなたのアカウントにはレーティング不正の表示があります。</string>
   <string name="boosterMarkedInfo">つまり、わざと負ける、レーティングを下げた別のアカウントとプレイするなどの方法で数字を操作することです。</string>
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">あなたのアカウントはミュートされました。</string>
-  <string name="accountMutedInfo">%s をお読みください。コミュニケーション ガイドラインに従わないとアカウントがミュートされることがあります。</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">%s をお読みください。コミュニケーション ガイドラインに従わないとアカウントがミュートされることがあります。</string>
   <string name="excludedFromLeaderboards">あなたのアカウントはランキングから除外されました。</string>
   <string name="excludedFromLeaderboardsInfo">つまりランキングに載るために何か不正な方法を使ったということです。</string>
   <string name="closedByModerators">あなたのアカウントはモデレータが閉鎖しました。</string>
   <string name="hiddenBlog">あなたのブログはモデレータが非表示にしました。</string>
   <string name="hiddenBlogInfo">%s をもう一度お読みください。</string>
   <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">プレイ一時禁止中です。</string>
-  <string name="communicationGuidelines">コミュニケーション ガイドライン</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">コミュニケーション ガイドライン</string>
   <string name="blogRules">ブログのルール</string>
   <string name="fairPlay">フェアプレイ</string>
 </resources>
