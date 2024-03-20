@@ -38,4 +38,10 @@
       }
     }
   }
+
+  .lobby__tournaments-simuls .timeago {
+    @media (max-width: at-most($x-small)) {
+      display: none;
+    }
+  }
 }
