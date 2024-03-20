@@ -8,6 +8,7 @@ import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.relation.Relations
 import lila.user.{ Me, User, UserRepo }
+import reactivemongo.api.bson.BSONArray
 
 final class MsgApi(
     colls: MsgColls,
@@ -328,6 +329,45 @@ final class MsgApi(
           text <- msg.string("text")
           date <- msg.getAsOpt[Instant]("date")
         yield (text, date)).toList
+
+  // include responses from the other user
+  // String is the thread id
+  def modFullCommsExport(userId: UserId): Source[(String, List[Msg]), ?] =
+    colls.thread
+      .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
+        import framework.*
+        List(
+          Match($doc("users" -> userId)),
+          Sort(Descending("lastMsg.date")),
+          Project($id(true)),
+          PipelineOperator:
+            $lookup.pipelineFull(
+              from = colls.msg.name,
+              as = "msgs",
+              let = $doc("t" -> "$_id"),
+              pipe = List:
+                $doc:
+                  "$match" ->
+                    $expr:
+                      $and(
+                        $doc("$eq" -> $arr("$tid", "$$t")),
+                        $doc:
+                          "$not" -> $doc:
+                            "$regexMatch" -> $doc(
+                              "input" -> "$text",
+                              "regex" -> "You received this because you are (subscribed to messages|part) of the team"
+                            )
+                      )
+                $doc:
+                  "$sort" -> $sort.desc("date")
+            )
+        )
+      .documentSource()
+      .mapConcat: doc =>
+        (for
+          tid  <- doc.string("_id")
+          msgs <- doc.getAsOpt[List[Msg]]("msgs")
+        yield (tid, msgs)).toList
 
 object MsgApi:
   enum PostResult:
