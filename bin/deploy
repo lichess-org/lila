@@ -65,7 +65,7 @@ ARTIFACT_DIR = "/home/lichess-artifacts"
 LIFAT_DIR = "/home/lifat"
 
 
-def curl_cli(command, *, url="https://lichess.org/cli"):
+def curl_cli(command, *, url="https://lichess.org/run/cli"):
     return f"curl --fail -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @.lila-cli"
 
 
@@ -100,7 +100,7 @@ def server_profile(ssh, *,
     }
 
 PROFILES = {
-    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/cli"), stage=True),
+    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
     "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
     "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
