@@ -57,7 +57,7 @@ object communication:
                       title := "View private messages. This will be logged in #commlog"
                     )("PMs")
                 },
-              (priv && isGranted(_.SuperAdmin))
+              (priv && isGranted(_.FullCommsExport))
                 .option {
                   postForm(
                     action := routes.Mod.fullCommsExport(u.username)

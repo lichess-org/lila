@@ -291,9 +291,8 @@ final class Mod(
   def communicationPublic(username: UserStr)  = communications(username, priv = false)
   def communicationPrivate(username: UserStr) = communications(username, priv = true)
 
-  // TODO, separate perm
   def fullCommsExport(username: UserStr) =
-    SecureBody(_.SuperAdmin) { ctx ?=> me ?=>
+    SecureBody(_.FullCommsExport) { ctx ?=> me ?=>
       Found(env.user.repo.byId(username)): user =>
         val source = env.msg.api
           .modFullCommsExport(user.id)
