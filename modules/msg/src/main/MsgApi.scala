@@ -345,8 +345,8 @@ final class MsgApi(
               from = colls.msg.name,
               as = "msgs",
               let = $doc("t" -> "$_id"),
-              pipe = List:
-                $doc:
+              pipe = List(
+                $doc(
                   "$match" ->
                     $expr:
                       $and(
@@ -358,8 +358,9 @@ final class MsgApi(
                               "regex" -> "You received this because you are (subscribed to messages|part) of the team"
                             )
                       )
-                $doc:
-                  "$sort" -> $sort.desc("date")
+                ),
+                $doc("$sort" -> $sort.desc("date"))
+              )
             )
         )
       .documentSource()
