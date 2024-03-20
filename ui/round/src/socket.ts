@@ -118,10 +118,12 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.redraw();
     },
     pauseOffer(by) {
-      const fromOp = by === ctrl.data.opponent.color;
-      if (fromOp) ctrl.data.opponent.offeringPause = true;
-      else ctrl.data.player.offeringPause = true;
-      if (fromOp && !ctrl.data.player.offeringPause) notify(ctrl.noarg('yourOpponentOffersAnAdjournment'));
+      if (by) {
+        const fromOp = by === ctrl.data.opponent.color;
+        if (fromOp) ctrl.data.opponent.offeringPause = true;
+        else ctrl.data.player.offeringPause = true;
+        if (fromOp && !ctrl.data.player.offeringPause) notify(ctrl.noarg('yourOpponentOffersAnAdjournment'));
+      } else ctrl.data.player.offeringPause = ctrl.data.opponent.offeringPause = !!by;
       ctrl.redraw();
     },
     resumeOffer(by) {
