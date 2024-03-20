@@ -13,8 +13,8 @@
   <string name="configurationSection">розділі конфігурації</string>
   <string name="keepPlayPageOpen">Сторінка гри повинна бути відкритою у вашому браузері. Ви можете згорнути її чи розташувати поряд зі сторінкою Lichess, але не закривайте, інакше дошка не працюватиме.</string>
   <string name="boardWillAutoConnect">Дошка автоматично під\'єднуватиметься до гри, яка розпочинається чи триває. Можливість вибору гри з\'явиться незабаром.</string>
-  <string name="timeControlsForCasualGames">Контроль часу для дружніх ігор: лише Класичні, за листуванням та Швидкі.</string>
-  <string name="timeControlsForRatedGames">Контроль часу для рейтингових ігор: Класичні, за листуванням та деякі Швидкі включно з 15+10 і 20+0</string>
+  <string name="timeControlsForCasualGames">Контроль часу для дружніх ігор: лише Класичні, заочні та Швидкі.</string>
+  <string name="timeControlsForRatedGames">Контроль часу для рейтингових ігор: Класичні, заочні та деякі Швидкі включно з 15+10 і 20+0</string>
   <string name="whenReadySetupBoard">Коли готові, налаштуйте свою дошку та натисніть %s.</string>
   <string name="ifMoveNotDetected">Якщо хід не виявлено</string>
   <string name="checkYouHaveMadeOpponentsMove">Спершу перевірте, чи виконали хід суперника на DGT-дошці. Скасуйте свій хід. Зіграйте знову.</string>
