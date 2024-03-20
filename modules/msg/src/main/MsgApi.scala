@@ -290,16 +290,7 @@ final class MsgApi(
     colls.thread.secondaryPreferred.exists:
       $id(MsgThread.id(userId, User.lichessId)) ++ hasUnreadLichessMessageSelect
 
-  def allMessagesOf(userId: UserId, includingAnswer: Boolean = false): Source[(String, Instant), ?] =
-    val selectors = List(
-      $doc("$eq" -> $arr("$tid", "$$t")),
-      $doc("$not" -> $doc:
-        "$regexMatch" -> $doc(
-          "input" -> "$text",
-          "regex" -> "You received this because you are (subscribed to messages|part) of the team"
-        )
-      )
-    )
+  def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =
     colls.thread
       .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
         import framework.*
@@ -314,19 +305,17 @@ final class MsgApi(
               pipe = List:
                 $doc:
                   "$match" ->
-                    // $expr:
-                    //   $and(
-                    //     ($doc("$eq" -> $arr("$user", userId)) :: selectors)*
-                    //   )
                     $expr:
-                      if !includingAnswer then
-                        $and(
-                          ($doc("$eq" -> $arr("$user", userId)) :: selectors)*
-                        )
-                      else
-                        $and(
-                          selectors*
-                        )
+                      $and(
+                        $doc("$eq" -> $arr("$user", userId)),
+                        $doc("$eq" -> $arr("$tid", "$$t")),
+                        $doc:
+                          "$not" -> $doc:
+                            "$regexMatch" -> $doc(
+                              "input" -> "$text",
+                              "regex" -> "You received this because you are (subscribed to messages|part) of the team"
+                            )
+                      )
             )
           ,
           Unwind("msg"),
