@@ -28,6 +28,7 @@ object page:
           description = describeUser(u)
         )
         .some,
+      pageModule = pageModule(info),
       moreJs = moreJs(info),
       moreCss = frag(
         cssTag("user.show"),
@@ -56,6 +57,7 @@ object page:
     val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
     views.html.base.layout(
       title = s"${u.username} $filterName$pageName",
+      pageModule = pageModule(info),
       moreJs = moreJs(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
@@ -84,7 +86,7 @@ object page:
 
   private def pageModule(info: UserInfo)(using PageContext) =
     info.ratingChart.map: rc =>
-      PageModule("chart.ratingHistory", SafeJsonStr(s"{data:$rc}"))
+      PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
   def disabled(u: User)(using PageContext) =
     views.html.base.layout(title = u.username, robots = false):

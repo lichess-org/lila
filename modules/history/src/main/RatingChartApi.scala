@@ -12,7 +12,7 @@ final class RatingChartApi(
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
-  def apply(user: User): Fu[Option[JsonStr]] = cache.get(user.id)
+  def apply(user: User): Fu[Option[SafeJsonStr]] = cache.get(user.id)
 
   def singlePerf(user: User, perfType: PerfType): Fu[JsArray] =
     historyApi
@@ -20,7 +20,7 @@ final class RatingChartApi(
       .map(ratingsMapToJson(user.createdAt, _))
       .map(JsArray.apply)
 
-  private val cache = cacheApi[UserId, Option[JsonStr]](4096, "history.rating"):
+  private val cache = cacheApi[UserId, Option[SafeJsonStr]](4096, "history.rating"):
     _.expireAfterWrite(10 minutes)
       .maximumSize(4096)
       .buildAsyncFuture(build)
@@ -30,7 +30,7 @@ final class RatingChartApi(
       val date = createdAt.plusDays(days).date
       Json.arr(date.getYear, date.getMonthValue - 1, date.getDayOfMonth, rating)
 
-  private def build(userId: UserId): Fu[Option[JsonStr]] =
+  private def build(userId: UserId): Fu[Option[SafeJsonStr]] =
     userRepo.createdAtById(userId).flatMapz { createdAt =>
       historyApi
         .get(userId)
@@ -41,8 +41,7 @@ final class RatingChartApi(
               "points" -> ratingsMapToJson(createdAt, history(pt))
             )
         .map2(Json.toJson)
-        .map2(Json.stringify)
-        .map2(JsonStr(_))
+        .map2(lila.common.String.html.safeJsonValue)
     }
 
 object RatingChartApi:

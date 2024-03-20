@@ -16,7 +16,7 @@ case class UserInfo(
     user: User.WithPerfs,
     trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
-    ratingChart: Option[JsonStr],
+    ratingChart: Option[SafeJsonStr],
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,

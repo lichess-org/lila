@@ -13,7 +13,7 @@ object perfStat:
 
   import trans.perfStat.*
 
-  def apply(data: PerfStatData, ratingChart: Option[JsonStr])(using PageContext) =
+  def apply(data: PerfStatData, ratingChart: Option[SafeJsonStr])(using PageContext) =
     import data.*
     import stat.perfType
     views.html.base.layout(

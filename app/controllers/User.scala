@@ -201,8 +201,8 @@ final class User(
     EnabledUser(username): u =>
       env.history
         .ratingChartApi(u)
-        .dmap(_ | JsonStr("[]")) // send an empty JSON array if no history JSON is available
-        .dmap(JsonStrOk)
+        .dmap(_ | SafeJsonStr("[]")) // send an empty JSON array if no history JSON is available
+        .dmap(jsonStr => Ok(jsonStr).as(JSON))
 
   private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
     env.game.cached.lastPlayedPlayingId(user.id).flatMapz {
