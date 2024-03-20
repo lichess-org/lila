@@ -15,7 +15,6 @@ import lila.hub.actorApi.round.{
   Abort,
   BotPlay,
   FishnetPlay,
-  FishnetStart,
   IsOnGame,
   PostGameStudy,
   RematchNo,
@@ -447,11 +446,6 @@ final private[round] class RoundDuct(
         game.timeBeforeExpiration.exists(_.centis == 0) ?? {
           finisher.noStart(game)
         }
-      }
-
-    case FishnetStart =>
-      proxy.withGame { g =>
-        g.playableByAi ?? player.requestFishnet(g, this)
       }
 
     case Tick =>

@@ -83,6 +83,7 @@ object Work {
       tries: Int,
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
+      delayMillis: Option[Int],
       createdAt: DateTime
   ) extends Work {
     def skill = Client.Skill.Move

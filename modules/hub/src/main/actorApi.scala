@@ -265,7 +265,6 @@ package round {
   case class TourStandingOld(data: JsArray)
   case class TourStanding(tourId: String, data: JsArray)
   case class FishnetPlay(usi: Usi, ply: Int)
-  case object FishnetStart
   case class BotPlay(playerId: String, usi: Usi, promise: Option[scala.concurrent.Promise[Unit]] = None)
   case class RematchOffer(gameId: String)
   case class RematchYes(playerId: String)

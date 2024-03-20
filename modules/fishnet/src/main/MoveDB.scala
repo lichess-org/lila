@@ -56,9 +56,15 @@ final class MoveDB(implicit system: ActorSystem) {
           coll += (move.id -> move)
 
       case Acquire(client) => {
+        val now = DateTime.now
         sender() ! coll.values
           .filter(m =>
-            m.nonAcquired && m.canAcquire(client) && (client.skill != Client.Skill.MoveStd || m.isStandard)
+            m.nonAcquired &&
+              m.canAcquire(client) &&
+              (client.skill != Client.Skill.MoveStd || m.isStandard) &&
+              m.delayMillis.fold(true) { millis =>
+                now.isAfter(m.createdAt.plusMillis(millis))
+              }
           )
           .minByOption(_.createdAt)
           .map { m =>

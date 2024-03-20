@@ -5,7 +5,6 @@ import org.joda.time.DateTime
 
 import shogi.{ Clock, Gote, Sente }
 
-import lila.common.Future
 import lila.game.Game
 import ornicar.scalalib.Random.approximately
 
@@ -13,15 +12,12 @@ final class Player(
     moveDb: MoveDB,
     val maxPlies: Int
 )(implicit
-    ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
+    ec: scala.concurrent.ExecutionContext
 ) {
 
   def apply(game: Game): Funit =
     game.aiEngine ?? { engine =>
-      Future.delay(delayFor(game) | 0.millis) {
-        makeWork(game, engine) addEffect moveDb.add void
-      }
+      makeWork(game, engine) addEffect moveDb.add void
     } recover { case e: Exception =>
       logger.info(e.getMessage)
     }
@@ -72,6 +68,7 @@ final class Player(
             tries = 0,
             lastTryByKey = none,
             acquired = none,
+            delayMillis = delayFor(game).map(_.toMillis.toInt),
             createdAt = DateTime.now
           )
         )
