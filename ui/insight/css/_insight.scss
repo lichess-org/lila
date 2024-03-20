@@ -320,7 +320,7 @@
     .top {
       @extend %metal, %box-radius-top;
 
-      padding: #{$block-gap / 2} $block-gap;
+      padding: 1rem $block-gap;
       font-weight: bold;
       border-bottom: $border;
       .utitle {
