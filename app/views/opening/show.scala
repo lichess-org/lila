@@ -13,7 +13,7 @@ object show:
   def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(page.some),
+      pageModule = pageModule(page.some).some,
       title = s"${trans.opening.txt()} • ${page.name}",
       openGraph = lila.app.ui
         .OpenGraph(

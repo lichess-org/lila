@@ -17,10 +17,10 @@ object editor:
   )(using PageContext) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "editor",
         jsData(fen) ++ Json.obj("positions" -> positionsJson, "endgamePositions" -> endgamePositionsJson)
-      ),
+      ).some,
       moreCss = cssTag("editor"),
       zoomable = true,
       openGraph = lila.app.ui
@@ -30,7 +30,7 @@ object editor:
           description = "Load opening positions or create your own chess position on a chess board editor"
         )
         .some
-    )(
+    ):
       main(id := "board-editor")(
         div(cls := "board-editor")(
           div(cls := "spare"),
@@ -38,7 +38,6 @@ object editor:
           div(cls := "spare")
         )
       )
-    )
 
   def jsData(fen: Option[Fen.Epd] = None)(using ctx: Context) =
     Json

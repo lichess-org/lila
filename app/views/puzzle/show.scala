@@ -25,21 +25,19 @@ object show:
         ctx.pref.hasVoice.option(cssTag("voice")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = frag(
-        puzzleNvuiTag,
-        jsModuleInit(
-          "puzzle",
-          Json
-            .obj(
-              "data"        -> data,
-              "pref"        -> pref,
-              "i18n"        -> bits.jsI18n(streak = isStreak),
-              "showRatings" -> ctx.pref.showRatings,
-              "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color)
-            )
-            .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
-        )
-      ),
+      moreJs = puzzleNvuiTag,
+      pageModule = PageModule(
+        "puzzle",
+        Json
+          .obj(
+            "data"        -> data,
+            "pref"        -> pref,
+            "i18n"        -> bits.jsI18n(streak = isStreak),
+            "showRatings" -> ctx.pref.showRatings,
+            "settings"    -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color)
+          )
+          .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
+      ).some,
       csp = analysisCsp.some,
       openGraph = lila.app.ui
         .OpenGraph(

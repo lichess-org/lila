@@ -9,8 +9,10 @@ import lila.challenge.Challenge
 
 object bits:
 
-  def js(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using PageContext) =
-    jsModuleInit(
+  def jsModule(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using
+      PageContext
+  ) =
+    PageModule(
       "challengePage",
       Json.obj(
         "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",

@@ -16,7 +16,7 @@ object storm:
   def home(data: JsObject, high: Option[StormHigh])(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
-      moreJs = jsModuleInit("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))),
+      pageModule = PageModule("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))).some,
       title = "Puzzle Storm",
       zoomable = true,
       zenable = true,

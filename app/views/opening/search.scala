@@ -39,7 +39,7 @@ object search:
   def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(none),
+      pageModule = pageModule(none).some,
       title = s"${trans.opening.txt()} • $q",
       csp = defaultCsp.withInlineIconFont.some
     ) {

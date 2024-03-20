@@ -25,17 +25,19 @@ object userAnalysis:
         ctx.blind.option(cssTag("round.nvui"))
       ),
       moreJs = analyseNvuiTag,
-      pageModule = analyseModule(
-        "userAnalysis",
-        Json
-          .obj(
-            "data" -> data,
-            "i18n" -> userAnalysisI18n(withForecast = withForecast),
-            "wiki" -> pov.game.variant.standard
-          )
-          .add("inlinePgn", inlinePgn) ++
-          views.html.board.bits.explorerAndCevalConfig
-      ).some,
+      pageModule = views.html.analyse.bits
+        .analyseModule(
+          "userAnalysis",
+          Json
+            .obj(
+              "data" -> data,
+              "i18n" -> userAnalysisI18n(withForecast = withForecast),
+              "wiki" -> pov.game.variant.standard
+            )
+            .add("inlinePgn", inlinePgn) ++
+            views.html.board.bits.explorerAndCevalConfig
+        )
+        .some,
       csp = analysisCsp.withExternalAnalysisApis.some,
       openGraph = lila.app.ui
         .OpenGraph(

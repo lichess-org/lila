@@ -14,7 +14,7 @@ object index:
   def apply(page: OpeningPage, wikiMissing: List[Opening])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(page.some),
+      pageModule = pageModule(page.some).some,
       title = trans.opening.txt(),
       openGraph = lila.app.ui
         .OpenGraph(

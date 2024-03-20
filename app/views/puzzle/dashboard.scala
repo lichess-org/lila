@@ -25,27 +25,24 @@ object dashboard:
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
-      moreJs = dashOpt.so { dash =>
-        val mostPlayed = dash.mostPlayed.sortBy { case (key, _) => PuzzleTheme(key).name.txt() }
-        jsModuleInit(
-          "puzzle.dashboard",
+      pageModule = PageModule(
+        "puzzle.dashboard",
+        dashOpt.so: dash =>
+          val mostPlayed = dash.mostPlayed.sortBy { (key, _) => PuzzleTheme(key).name.txt() }
           Json.obj(
             "radar" -> Json.obj(
-              "labels" -> mostPlayed.map { case (key, _) =>
-                PuzzleTheme(key).name.txt()
-              },
+              "labels" -> mostPlayed.map: (key, _) =>
+                PuzzleTheme(key).name.txt(),
               "datasets" -> Json.arr(
                 Json.obj(
                   "label" -> "Performance",
-                  "data" -> mostPlayed.map { case (_, results) =>
+                  "data" -> mostPlayed.map: (_, results) =>
                     results.performance
-                  }
                 )
               )
             )
           )
-        )
-      }
+      ).some
     ) { dash =>
       (dash.mostPlayed.size > 2).option(
         div(cls := s"${baseClass}__global")(
@@ -90,14 +87,14 @@ object dashboard:
       title: String,
       subtitle: String,
       dashOpt: Option[PuzzleDashboard],
-      moreJs: Frag = emptyFrag
+      pageModule: Option[PageModule] = None
   )(
       body: PuzzleDashboard => Option[Frag]
   )(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
-      moreJs = moreJs
+      pageModule = pageModule
     )(
       main(cls := "page-menu")(
         bits.pageMenu(path, user.some),

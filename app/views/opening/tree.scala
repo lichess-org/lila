@@ -13,7 +13,7 @@ object tree:
   def apply(root: OpeningTree, config: OpeningConfig)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(none),
+      pageModule = pageModule(none).some,
       title = trans.opening.txt()
     ) {
       main(cls := "page box box-pad opening opening--tree")(

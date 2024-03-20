@@ -24,7 +24,7 @@ object mine:
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
-      moreJs = bits.js(c, json, owner = true),
+      pageModule = bits.jsModule(c, json, owner = true).some,
       moreCss = cssTag("challenge.page")
     ):
       val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"

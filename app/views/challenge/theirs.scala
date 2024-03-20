@@ -18,7 +18,7 @@ object theirs:
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
-      moreJs = bits.js(c, json, owner = false, color),
+      pageModule = bits.jsModule(c, json, owner = false, color).some,
       moreCss = cssTag("challenge.page")
     ):
       main(cls := "page-small challenge-page challenge-theirs box box-pad"):

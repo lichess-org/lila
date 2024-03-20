@@ -5,6 +5,10 @@
 #dasher_app {
   @extend %box-radius-left;
 
+  #top.scrolled & {
+    border-radius: 0 0 0 $box-radius-size;
+  }
+
   width: 225px;
 
   .spinner {

@@ -13,8 +13,8 @@ object activity:
     views.html.base.layout(
       title = "Moderation activity",
       moreCss = cssTag("mod.activity"),
-      moreJs =
-        jsModuleInit("mod.activity", Json.obj("op" -> "activity", "data" -> lila.mod.ModActivity.json(p)))
+      pageModule =
+        PageModule("mod.activity", Json.obj("op" -> "activity", "data" -> lila.mod.ModActivity.json(p))).some
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("activity"),
