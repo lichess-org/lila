@@ -121,20 +121,18 @@ object replay:
         (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = frag(
-        analyseNvuiTag,
-        analyseInit(
-          "replay",
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> jsI18n(),
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson
-            )
-            .add("hunter" -> isGranted(_.ViewBlurs)) ++
-            views.html.board.bits.explorerAndCevalConfig
-        )
+      moreJs = analyseNvuiTag,
+      pageModule = analyseModule(
+        "replay",
+        Json
+          .obj(
+            "data"   -> data,
+            "i18n"   -> jsI18n(),
+            "userId" -> ctx.userId,
+            "chat"   -> chatJson
+          )
+          .add("hunter" -> isGranted(_.ViewBlurs)) ++
+          views.html.board.bits.explorerAndCevalConfig
       ),
       openGraph = povOpenGraph(pov).some
     ):

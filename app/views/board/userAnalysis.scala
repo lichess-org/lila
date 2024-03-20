@@ -24,20 +24,18 @@ object userAnalysis:
         withForecast.option(cssTag("analyse.forecast")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = frag(
-        analyseNvuiTag,
-        analyseInit(
-          "userAnalysis",
-          Json
-            .obj(
-              "data" -> data,
-              "i18n" -> userAnalysisI18n(withForecast = withForecast),
-              "wiki" -> pov.game.variant.standard
-            )
-            .add("inlinePgn", inlinePgn) ++
-            views.html.board.bits.explorerAndCevalConfig
-        )
-      ),
+      moreJs = analyseNvuiTag,
+      pageModule = analyseModule(
+        "userAnalysis",
+        Json
+          .obj(
+            "data" -> data,
+            "i18n" -> userAnalysisI18n(withForecast = withForecast),
+            "wiki" -> pov.game.variant.standard
+          )
+          .add("inlinePgn", inlinePgn) ++
+          views.html.board.bits.explorerAndCevalConfig
+      ).some,
       csp = analysisCsp.withExternalAnalysisApis.some,
       openGraph = lila.app.ui
         .OpenGraph(
@@ -47,7 +45,7 @@ object userAnalysis:
         )
         .some,
       zoomable = true
-    ) {
+    ):
       main(
         cls := List(
           "analyse"       -> true,
@@ -74,4 +72,3 @@ object userAnalysis:
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
       )
-    }

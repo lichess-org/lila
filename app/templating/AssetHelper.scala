@@ -71,24 +71,24 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   // jsModule is esm, no defer needed
   def jsModule(name: String): Frag =
     script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets.so(".min")}.js"))
-  def jsModuleInit(name: String)(using PageContext) =
+
+  def jsModuleInit(name: String)(using PageContext): Frag =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name')"))
-  def jsModuleInit(name: String, json: SafeJsonStr)(using PageContext) =
+  def jsModuleInit(name: String, json: SafeJsonStr)(using PageContext): Frag =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$json})"))
   def jsModuleInit[A: Writes](name: String, value: A)(using PageContext): Frag =
     jsModuleInit(name, safeJsonValue(Json.toJson(value)))
-  def jsModuleInit(name: String, text: SafeJsonStr, nonce: lila.api.Nonce) =
+
+  def jsModuleInit(name: String, text: SafeJsonStr, nonce: lila.api.Nonce): Frag =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})", nonce))
-  def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
-    jsModule(name),
-    embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:${safeJsonValue(json)}})", nonce)
-  )
+  def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce): Frag =
+    jsModuleInit(name, safeJsonValue(json), nonce)
 
   def jsPageModule(name: String)(using PageContext) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$name')"))
 
-  def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
-    jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
+  def analyseModule(mode: String, json: JsValue)(using ctx: PageContext) =
+    PageModule("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
 
   def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analysisBoard.nvui"))
   def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui"))

@@ -9,6 +9,7 @@ object bits:
 
   def layout(
       title: String,
+      pageModule: PageModule,
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
       openGraph: Option[lila.app.ui.OpenGraph] = None
@@ -17,8 +18,11 @@ object bits:
       title = title,
       moreCss = moreCss,
       moreJs = moreJs,
+      pageModule = pageModule.some,
       openGraph = openGraph,
       robots = false,
       zoomable = true,
-      csp = analysisCsp.withPeer.withInlineIconFont.withChessDbCn.some
+      csp = csp
     )(body)
+
+  def csp(using PageContext) = analysisCsp.withPeer.withInlineIconFont.withChessDbCn.some
