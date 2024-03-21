@@ -72,7 +72,7 @@ final class Practice(
 
   private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] = us match
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
-      env.study.jsonView(study, chapters, chapter, withMembers = false).map { studyJson =>
+      env.study.jsonView(study, chapters, chapter, none, withMembers = false).map { studyJson =>
         val initialFen = chapter.root.fen.some
         val pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
         val baseData = env.round.jsonView

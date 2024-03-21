@@ -67,6 +67,15 @@ final class ChapterPreviewApi(
         .cursor[ChapterPreview]()
         .listAll()
 
+  object federations:
+    private val cache = cacheApi[StudyId, JsObject](256, "study.chapterPreview.federations"):
+      _.expireAfterWrite(1 minute).buildAsyncFuture: studyId =>
+        for
+          chapters <- dataList(studyId)
+          fedNames <- fidePlayerApi.federationNamesOf(chapters.flatMap(_.fideIds))
+        yield JsObject(fedNames.map((id, name) => id.value -> JsString(name)))
+    export cache.get
+
   def invalidate(studyId: StudyId): Unit =
     jsonList.cache.synchronous().invalidate(studyId)
     dataList.cache.synchronous().invalidate(studyId)

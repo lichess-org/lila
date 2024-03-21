@@ -93,6 +93,8 @@ interface LichessLog {
   get(): Promise<string>;
 }
 
+type PairOf<T> = [T, T];
+
 type I18nDict = { [key: string]: string };
 type I18nKey = string;
 
