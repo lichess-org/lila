@@ -8,8 +8,10 @@
   </plurals>
   <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνούα</string>
   <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
+  <string name="subscribedBroadcasts">Εγγεγραμμένες μεταδώσεις</string>
   <string name="aboutBroadcasts">Σχετικά με εκπομπές</string>
   <string name="howToUseLichessBroadcasts">Πώς να χρησιμοποιήσετε τις εκπομπές Lichess.</string>
+  <string name="theNewRoundHelp">Ο νέος γύρος θα έχει τα ίδια μέλη και τους ίδιους συνεισφέροντες όπως ο προηγούμενος.</string>
   <string name="addRound">Προσθήκη γύρου</string>
   <string name="ongoing">Σε εξέλιξη</string>
   <string name="upcoming">Προσεχή</string>
