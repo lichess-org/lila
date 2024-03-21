@@ -8,7 +8,6 @@ import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.relation.Relations
 import lila.user.{ Me, User, UserRepo }
-import reactivemongo.api.bson.BSONArray
 
 final class MsgApi(
     colls: MsgColls,
@@ -366,7 +365,7 @@ final class MsgApi(
       .documentSource()
       .mapConcat: doc =>
         (for
-          tid  <- doc.string("_id")
+          tid <- doc.string("_id")
           // filter conversation where only team messages where sent
           msgs <- doc.getAsOpt[NonEmptyList[Msg]]("msgs")
         yield (tid, msgs)).toList
