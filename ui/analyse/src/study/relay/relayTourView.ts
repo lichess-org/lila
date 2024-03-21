@@ -194,6 +194,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
     allowVideo =
       d.videoUrls && window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
   return [
+    h('div.spacer'),
     h('div.relay-tour__header', [
       h('div.relay-tour__header__content', [
         h('h1', group?.name || d.tour.name),

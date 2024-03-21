@@ -92,8 +92,6 @@ function studyButton(ctrl: AnalyseCtrl) {
     ],
   );
 }
-dataIcon;
-studyButton;
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
     noarg = ctrl.trans.noarg,
@@ -102,7 +100,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     mandatoryCeval = ctrl.mandatoryCeval();
 
   const tools: MaybeVNodes = [
-    /*h('div.action-menu__tools', [
+    h('div.action-menu__tools', [
       h(
         'a',
         { hook: bind('click', ctrl.flip), attrs: { 'data-icon': licon.ChasingArrows, title: 'Hotkey: f' } },
@@ -151,7 +149,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
           },
           noarg('clearSavedMoves'),
         ),
-    ]),*/
+    ]),
   ];
 
   const cevalConfig: MaybeVNodes =

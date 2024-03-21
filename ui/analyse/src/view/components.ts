@@ -119,6 +119,7 @@ export function renderMain(
 
 export function renderTools({ ctrl, deps, concealOf }: ViewContext, firstKid?: VNode) {
   return h(addChapterId(ctrl.study, 'div.analyse__tools'), [
+    h('div.spacer'), // prevent grid container from sizing action menu and move list differently in wide mode
     firstKid,
     ...(ctrl.actionMenu()
       ? [...cevalView.renderCeval(ctrl), h('div'), actionMenu(ctrl)]
