@@ -297,7 +297,7 @@ final class Mod(
         val source = env.msg.api
           .modFullCommsExport(user.id)
           .map: (tid, msgs) =>
-            s"=== 0 === thread: ${tid}\n${msgs.map(m => s"${m.date} ${m.user}: ${m.text}\n--- 0 ---\n").mkString("\n")}"
+            s"=== 0 === thread: ${tid}\n${msgs.map(m => s"${m.date} ${m.user}: ${m.text}\n--- 0 ---\n").toList.mkString("\n")}"
         Ok.chunked(source)
           .pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
           .andDo(env.mod.logApi.fullCommExport(Suspect(user)))

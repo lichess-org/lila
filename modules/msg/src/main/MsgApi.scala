@@ -332,7 +332,7 @@ final class MsgApi(
 
   // include responses from the other user
   // String is the thread id
-  def modFullCommsExport(userId: UserId): Source[(String, List[Msg]), ?] =
+  def modFullCommsExport(userId: UserId): Source[(String, NonEmptyList[Msg]), ?] =
     colls.thread
       .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
         import framework.*
@@ -367,7 +367,8 @@ final class MsgApi(
       .mapConcat: doc =>
         (for
           tid  <- doc.string("_id")
-          msgs <- doc.getAsOpt[List[Msg]]("msgs")
+          // filter conversation where only team messages where sent
+          msgs <- doc.getAsOpt[NonEmptyList[Msg]]("msgs")
         yield (tid, msgs)).toList
 
 object MsgApi:
