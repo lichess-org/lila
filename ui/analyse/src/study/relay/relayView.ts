@@ -54,10 +54,14 @@ export function addResizeListener(redraw: () => void) {
 function queryBody() {
   const docStyle = window.getComputedStyle(document.body),
     scale = (parseFloat(docStyle.getPropertyValue('--zoom')) / 100) * 0.75 + 0.25,
-    allowVideo = docStyle.getPropertyValue('--allow-video') === 'true';
-  // scale is board height divided by window height
+    boardWidth = scale * window.innerHeight,
+    allowVideo = docStyle.getPropertyValue('--allow-video') === 'true',
+    leftSidePlusGaps = 410,
+    minWidthForTwoColumns = 500;
+  // zoom -> scale calc from file://./../../../../common/css/layout/_uniboard.scss
+  // leftSidePlusGaps and minWidthForTwoColumns aren't exact and don't have to be
   return {
-    wide: window.innerWidth - 410 - scale * window.innerHeight > 500,
+    wide: window.innerWidth - leftSidePlusGaps - boardWidth > minWidthForTwoColumns,
     allowVideo,
     tinyBoard: scale <= 0.67,
   };
@@ -84,7 +88,6 @@ export function renderStreamerMenu(relay: RelayCtrl) {
     url.searchParams.set('embed', id);
     return url.toString();
   };
-
   return h(
     'div.streamer-menu-anchor',
     h(

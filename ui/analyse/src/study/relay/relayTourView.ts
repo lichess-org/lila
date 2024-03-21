@@ -37,12 +37,6 @@ export default function (ctrl: AnalyseCtrl): VNode | undefined {
 
 export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) => {
   const empty = study.chapters.list.looksNew();
-  const members = h('div.chat__members', {
-    hook: onInsert(el => {
-      makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
-      site.watchers(el);
-    }),
-  });
   return [
     h(
       'aside.relay-tour__side',
@@ -80,7 +74,12 @@ export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) 
         !empty && gamesList(study, relay),
       ],
     ),
-    members,
+    h('div.chat__members', {
+      hook: onInsert(el => {
+        makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
+        site.watchers(el);
+      }),
+    }),
   ];
 };
 
