@@ -121,7 +121,6 @@ site.load.then(() => {
         index: 2,
         match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
         search: function (term: string, callback: (names: string[]) => void) {
-          console.log(term);
           // Initially we only autocomplete by participants in the thread. As the user types more,
           // we can autocomplete against all users on the site.
           threadParticipants.then(function (participants) {
