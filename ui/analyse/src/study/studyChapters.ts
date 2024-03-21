@@ -15,6 +15,9 @@ import {
   ServerNodeMsg,
   ChapterPreviewFromServer,
   ChapterId,
+  Federations,
+  ChapterPreviewPlayerFromServer,
+  ChapterPreviewPlayer,
 } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
@@ -50,6 +53,7 @@ export default class StudyChaptersCtrl {
     readonly send: StudySocketSend,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
+    private readonly federations: () => Federations | undefined,
     root: AnalyseCtrl,
   ) {
     this.list = new StudyChapters(this.store);
@@ -68,13 +72,22 @@ export default class StudyChaptersCtrl {
       chapters.map(c => ({
         ...c,
         fen: c.fen || initialFen,
-        players: c.players ? { white: c.players[0], black: c.players[1] } : undefined,
+        players: c.players ? this.convertPlayersFromServer(c.players) : undefined,
         orientation: c.orientation || 'white',
         variant: c.variant || 'standard',
         playing: defined(c.lastMove) && c.status === '*',
         lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),
     );
+  private convertPlayersFromServer = (players: PairOf<ChapterPreviewPlayerFromServer>) => {
+    const feds = this.federations(),
+      conv: ChapterPreviewPlayer[] = players.map(p => ({
+        ...p,
+        fed: p.fed ? { id: p.fed, name: feds?.[p.fed] || p.fed } : undefined,
+      }));
+    return { white: conv[0], black: conv[1] };
+  };
+
   addNode = (d: ServerNodeMsg) => {
     const pos = d.p,
       node = d.n;

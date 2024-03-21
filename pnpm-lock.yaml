@@ -454,6 +454,12 @@ importers:
       '@fnando/sparkline':
         specifier: ^0.3.10
         version: 0.3.10
+      '@textcomplete/core':
+        specifier: ^0.1.13
+        version: 0.1.13
+      '@textcomplete/textarea':
+        specifier: ^0.1.13
+        version: 0.1.13(@textcomplete/core@0.1.13)
       '@toast-ui/editor':
         specifier: 3.1.7
         version: 3.1.7
@@ -1693,6 +1699,27 @@ packages:
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
     dependencies:
       '@sinonjs/commons': 3.0.0
+    dev: false
+
+  /@textcomplete/core@0.1.13:
+    resolution: {integrity: sha512-C4S+ihQU5HsKQ/TbsmS0e7hfPZtLZbEXj5NDUgRnhu/1Nezpu892bjNZGeErZm+R8iyDIT6wDu6EgIhng4M8eQ==}
+    dependencies:
+      eventemitter3: 5.0.1
+    dev: false
+
+  /@textcomplete/textarea@0.1.13(@textcomplete/core@0.1.13):
+    resolution: {integrity: sha512-GNathnXpV361YuZrBVXvVqFYZ5NQZsjGC7Bt2sCUA/RTWlIgxHxC0ruDChYyRDx4siQZiZZOO5pWz+z1x8pZFQ==}
+    peerDependencies:
+      '@textcomplete/core': ^0.1.12
+    dependencies:
+      '@textcomplete/core': 0.1.13
+      '@textcomplete/utils': 0.1.13
+      textarea-caret: 3.1.0
+      undate: 0.3.0
+    dev: false
+
+  /@textcomplete/utils@0.1.13:
+    resolution: {integrity: sha512-5UW9Ee0WEX1s9K8MFffo5sfUjYm3YVhtqRhAor/ih7p0tnnpaMB7AwMRDKwhSIQL6O+g1fmEkxCeO8WqjPzjUA==}
     dev: false
 
   /@toast-ui/editor@3.1.7:
@@ -4775,6 +4802,10 @@ packages:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
     dev: false
 
+  /textarea-caret@3.1.0:
+    resolution: {integrity: sha512-cXAvzO9pP5CGa6NKx0WYHl+8CHKZs8byMkt3PCJBCmq2a34YA9pO1NrQET5pzeqnBjBdToF5No4rrmkDUgQC2Q==}
+    dev: false
+
   /tmpl@1.0.5:
     resolution: {integrity: sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==}
     dev: false
@@ -4864,6 +4895,10 @@ packages:
     resolution: {integrity: sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: false
+
+  /undate@0.3.0:
+    resolution: {integrity: sha512-ssH8QTNBY6B+2fRr3stSQ+9m2NT8qTaun3ExTx5ibzYQvP7yX4+BnX0McNxFCvh6S5ia/DYu6bsCKQx/U4nb/Q==}
     dev: false
 
   /undici-types@5.26.5:

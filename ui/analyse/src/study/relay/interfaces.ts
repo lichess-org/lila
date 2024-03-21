@@ -1,3 +1,5 @@
+import { Federation } from '../interfaces';
+
 export interface RelayData {
   tour: RelayTour;
   rounds: RelayRound[];
@@ -18,7 +20,7 @@ export interface RelayPlayer {
   rating?: number;
   title?: string;
   fideId?: number;
-  fed: string;
+  fed?: Federation;
 }
 
 export interface RelayGamePlayer extends RelayPlayer {}

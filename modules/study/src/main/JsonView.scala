@@ -21,6 +21,7 @@ final class JsonView(
       study: Study,
       previews: ChapterPreview.AsJsons,
       chapter: Chapter,
+      fedNames: Option[JsObject],
       withMembers: Boolean
   )(using me: Option[lila.user.Me]) =
 
@@ -28,9 +29,7 @@ final class JsonView(
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))
 
     for
-      liked       <- me.so(studyRepo.liked(study, _))
-      fidePlayers <- fidePlayerApi.players(chapter.tags.fideIds)
-      feds = fidePlayers.mapList(_.flatMap(_.fed)).some.filter(_.exists(_.isDefined))
+      liked <- me.so(studyRepo.liked(study, _))
       relayPath = chapter.relay
         .filter(_.secondsSinceLastMove < 3600 || chapter.tags.outcome.isEmpty)
         .map(_.path)
@@ -65,10 +64,10 @@ final class JsonView(
           .add("description", chapter.description)
           .add("serverEval", chapter.serverEval)
           .add("relayPath", relayPath)
-          .add("feds" -> feds)
           .pipe(addChapterMode(chapter))
       )
       .add("description", study.description)
+      .add("federations", fedNames)
 
   def chapterConfig(c: Chapter) =
     Json
