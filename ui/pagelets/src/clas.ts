@@ -43,7 +43,7 @@ site.load.then(() => {
         template: (o: LightUserOnline) =>
           '<span class="ulpt user-link' +
           (o.online ? ' online' : '') +
-          '" href="/@/' +
+          '" data-href="/@/' +
           o.name +
           '">' +
           '<i class="line' +
