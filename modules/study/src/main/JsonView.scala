@@ -29,7 +29,7 @@ final class JsonView(
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))
 
     for
-      liked       <- me.so(studyRepo.liked(study, _))
+      liked <- me.so(studyRepo.liked(study, _))
       relayPath = chapter.relay
         .filter(_.secondsSinceLastMove < 3600 || chapter.tags.outcome.isEmpty)
         .map(_.path)

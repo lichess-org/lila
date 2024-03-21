@@ -203,7 +203,7 @@ final class Study(
     for
       (study, chapter, previews) <-
         env.study.api.maybeResetAndGetChapterPreviews(sc.study, sc.chapter)
-      _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
+      _        <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
       fedNames <- env.study.preview.federations.get(sc.study.id)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval
