@@ -29,11 +29,6 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def get(id: UciCharPair): Option[Branch] = nodes.find(_.id == id)
   def hasNode(id: UciCharPair): Boolean    = nodes.exists(_.id == id)
 
-  def getNodeAndIndex(id: UciCharPair): Option[(Branch, Int)] =
-    nodes.zipWithIndex.collectFirst {
-      case pair if pair._1.id == id => pair
-    }
-
   def nodeAt(path: UciPath): Option[Branch] =
     path.split.flatMap { (head, rest) =>
       rest.computeIds.foldLeft(get(head)) { (cur, id) =>
