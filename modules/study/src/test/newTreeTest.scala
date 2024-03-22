@@ -87,16 +87,14 @@ class NewTreeTest extends munit.ScalaCheckSuite:
     forAll: (root: NewRoot, c: Option[Centis]) =>
       val oldRoot = root.toRoot
       oldRoot.updateMainlineLast(_.copy(clock = c)).toNewRoot == root.updateMainlineLast(_.copy(clock = c))
-
-  // override def scalaCheckInitialSeed = "OhayJX-NSkjod3-vTDxYsY2XWp5pjWu1LJK8_ruPi9F="
-  // test("takeMainlineWhile"):
-  //   forAll: (root: NewRoot, c: Option[Centis]) =>
-  //     val oldRoot = root.clearVariations.toRoot
-  //     val x = oldRoot.takeMainlineWhile(x => x.clock == c).toNewRoot
-  //     val y = root.clearVariations.takeMainlineWhile(x => x.metas.clock == c)
-  //     y.size >= 2 ==> {
-  //       x == y
-  //     }
+  test("takeMainlineWhile"):
+    forAll: (root: NewRoot, f: Centis => Boolean) =>
+      val c = root
+      val x = c.toRoot.takeMainlineWhile(_.clock.exists(f)).toNewRoot
+      val y = c.takeMainlineWhile(_.metas.clock.exists(f))
+      // The current tree always take the first child of the root despite the predicate
+      // so, We have to ignore the case where the first child doesn't satisfy the predicate
+      c.tree.exists(_.value.clock.exists(f)) ==> (x == y)
 
   test("current tree's bug with takeMainlineWhile".ignore):
     val pgn     = "1. d4 d5 2. e4 e5"

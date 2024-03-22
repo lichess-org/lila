@@ -10,6 +10,7 @@ import org.scalacheck.{ Arbitrary, Gen }
 import chess.bitboard.Bitboard
 import lila.tree.{ NewTree, NewRoot, NewBranch, Metas }
 import lila.tree.Node.{ Comments, Comment, Shapes, Shape }
+import org.scalacheck.Cogen
 
 object StudyArbitraries:
 
@@ -17,6 +18,9 @@ object StudyArbitraries:
   type RootWithPath = (NewRoot, UciPath)
   given Arbitrary[RootWithPath]    = Arbitrary(genRootWithPath(Situation(chess.variant.Standard)))
   given Arbitrary[Option[NewTree]] = Arbitrary(genTree(Situation(chess.variant.Standard)))
+
+  // TODO remove after new scalachess version
+  given Cogen[Centis] = Cogen(_.value.toLong)
 
   def genRoot(seed: Situation): Gen[NewRoot] =
     for
