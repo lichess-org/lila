@@ -2,8 +2,9 @@ package lila.cms
 
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.data.validation.Constraints
 
-import lila.common.Form.{ cleanNonEmptyText, into, slugConstraint }
+import lila.common.Form.{ cleanNonEmptyText, cleanTextWithSymbols, into, slugConstraint }
 import lila.i18n.{ LangForm, Language }
 import lila.user.User
 
@@ -13,7 +14,7 @@ object CmsForm:
     mapping(
       "key" -> cleanNonEmptyText(minLength = 3, maxLength = 120).verifying(slugConstraint).into[CmsPage.Key],
       "title"    -> cleanNonEmptyText(minLength = 3, maxLength = 150),
-      "markdown" -> cleanNonEmptyText(minLength = 0, maxLength = 1000_000).into[Markdown],
+      "markdown" -> cleanTextWithSymbols.verifying(Constraints.minLength(0), Constraints.maxLength(1000_000)).into[Markdown],
       "language" -> LangForm.popularLanguages.mapping,
       "live"     -> boolean,
       "canonicalPath" -> optional:
