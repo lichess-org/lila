@@ -414,7 +414,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   </plurals>
   <string name="more">Xem thêm</string>
   <string name="memberSince">Thành viên từ</string>
-  <string name="lastSeenActive">Lần đăng nhập cuối %s</string>
+  <string name="lastSeenActive">Hoạt động %s</string>
   <string name="player">Người chơi</string>
   <string name="list">Danh sách</string>
   <string name="graph">Biểu đồ</string>
@@ -733,7 +733,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="bulletBlitzClassical">Cờ đạn, cờ chớp, cờ nhanh, cờ chậm</string>
   <string name="correspondenceChess">Cờ qua thư</string>
   <string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
-  <string name="viewTheSolution">Xem lời giải</string>
+  <string name="viewTheSolution">Xem đáp án</string>
   <string name="followAndChallengeFriends">Theo dõi và thách đấu bạn bè</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
@@ -800,7 +800,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="youCanDoBetter">Bạn có thể làm tốt hơn</string>
   <string name="tryAnotherMoveForWhite">Tìm nước đi khác cho trắng</string>
   <string name="tryAnotherMoveForBlack">Tìm nước đi khác cho đen</string>
-  <string name="solution">Lời giải</string>
+  <string name="solution">Đáp án</string>
   <string name="waitingForAnalysis">Đang chờ phân tích</string>
   <string name="noMistakesFoundForWhite">Bên trắng không mắc sai lầm nào</string>
   <string name="noMistakesFoundForBlack">Bên đen không mắc sai lầm nào</string>
