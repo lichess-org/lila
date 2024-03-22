@@ -2,4 +2,4 @@
 
 COMMAND=$*
 
-curl -H "Authorization: Bearer $LILA_CLI_TOKEN_DEV" -d "$COMMAND" http://localhost:9663/cli
+curl -H "Authorization: Bearer $LILA_CLI_TOKEN_DEV" -d "$COMMAND" http://localhost:9663/run/cli

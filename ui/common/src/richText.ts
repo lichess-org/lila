@@ -9,7 +9,7 @@ export const newLineRegex = /\n/g;
 export const userPattern = /(^|[^\w@#/])@([a-z0-9][a-z0-9_-]{0,28}[a-z0-9])/gi;
 
 // looks like it has a @mention or #gameid or a url.tld
-export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,}|board \d)/i.test(str);
+export const isMoreThanText = (str: string) => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
 
 export function toLink(url: string): string {
   if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
@@ -61,7 +61,7 @@ const linkPattern = /\b\b(?:https?:\/\/)?(lichess\.org\/[-–—\w+&'@#\/%?=()~|
 const pawnDropPattern = /^[a-h][2-7]$/;
 const movePattern =
   /\b(\d+)\s*(\.+)\s*(?:[o0-]+[o0]|[NBRQKP\u2654\u2655\u2656\u2657\u2658\u2659]?[a-h]?[1-8]?[x@]?[a-z][1-8](?:=[NBRQK\u2654\u2655\u2656\u2657\u2658\u2659])?)\+?#?[!\?=]{0,5}/gi;
-const boardPattern = /\bboard\s(\d{1,2})/gi;
+const boardPattern = /\b(?:board|game)\s(\d{1,2})/gi;
 
 function moveReplacer(match: string, turn: number, dots: string) {
   if (turn < 1 || turn > 200) return match;

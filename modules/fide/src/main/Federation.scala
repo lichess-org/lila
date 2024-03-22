@@ -45,6 +45,9 @@ object Federation:
       .orElse(bySlug.get(str))
       .orElse(bySlug.get(nameToSlug(str)))
 
+  def namesByIds(ids: Iterable[Id]): Map[Id, Name] =
+    ids.view.flatMap(id => names.get(id).map(id -> _)).toMap
+
   lazy val bySlug: Map[String, Id] =
     names.map: (id, name) =>
       nameToSlug(name) -> id
