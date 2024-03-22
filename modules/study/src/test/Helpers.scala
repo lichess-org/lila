@@ -23,6 +23,8 @@ object Helpers:
     def toNewRoot =
       NewRoot(NewTree.fromNode(root), NewTree(root))
 
+    def debug = root.ppAs(rootToPgn)
+
   extension (newBranch: NewBranch)
     def toBranch(children: Option[NewTree]): Branch = Branch(
       newBranch.id,
@@ -69,6 +71,8 @@ object Helpers:
         newRoot.clock,
         newRoot.crazyData
       )
+
+    def debug = newRoot.ppAs(rootToPgn)
 
   extension (comments: Comments)
     def cleanup: Comments =

@@ -153,12 +153,12 @@ class NewTreeTest extends munit.ScalaCheckSuite:
         val x       = oldRoot.map(_.toNewRoot)
         val y       = root.addNodeAt(path, tree)
         if path.isEmpty then
-          rootToPgn(root).pp
-          tree.pp
+          root.debug
+          // tree.pp
           println("x")
-          x.foreach(rootToPgn(_).pp)
-          println("x")
-          y.foreach(rootToPgn(_).pp)
+          x.foreach(_.debug)
+          println("y")
+          y.foreach(_.debug)
         assertEquals(x, y)
       }
 
