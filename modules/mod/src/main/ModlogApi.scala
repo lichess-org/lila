@@ -51,6 +51,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def troll(sus: Suspect)(using Me.Id) = add:
     Modlog.make(sus, if sus.user.marks.troll then Modlog.troll else Modlog.untroll)
 
+  def fullCommExport(sus: Suspect)(using Me.Id) = add:
+    Modlog.make(sus, Modlog.fullCommsExport)
+
   def setKidMode(mod: ModId, kid: UserId) = add:
     Modlog(mod, kid.some, Modlog.setKidMode)
 
