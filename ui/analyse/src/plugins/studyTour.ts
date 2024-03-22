@@ -21,6 +21,7 @@ export function initModule(): StudyTour {
     const helpButtonSelector = 'main.analyse .study__buttons .help';
     if (!$(helpButtonSelector).length) return;
 
+    Shepherd.activeTour?.cancel();
     const tour = new Shepherd.Tour({
       defaultStepOptions: {
         scrollTo: false,
@@ -163,6 +164,8 @@ export function initModule(): StudyTour {
 
   function chapter(setTab: (tab: ChapterTab) => void) {
     const viewSel = 'dialog div.dialog-content';
+
+    Shepherd.activeTour?.cancel();
 
     const tour = new Shepherd.Tour({
       defaultStepOptions: {
