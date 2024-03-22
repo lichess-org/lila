@@ -588,8 +588,7 @@ object WMMatching:
               if bestedge(w) == -1 || kslack < slack(bestedge(w)) then bestedge(w) = k
               false
             else false
-        if neighbend(v).exists(go) then true
-        else substage()
+        neighbend(v).exists(go) || substage()
     private val vertices = 0 until nvertex
     private def updateDual(): Boolean =
       // There is no augmenting path under these constraints;
