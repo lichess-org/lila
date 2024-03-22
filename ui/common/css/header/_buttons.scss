@@ -74,8 +74,9 @@
   }
 
   .signin {
-    @extend %page-link;
+    @extend %flex-center-nowrap;
     text-transform: uppercase;
+    padding: 0 0.7rem;
   }
 
   .link-center {
@@ -114,18 +115,11 @@
 
   .dasher {
     @extend %flex-center-nowrap;
-
-    > a,
-    > button {
-      @extend %flex-center-nowrap;
-      margin: 0;
-      padding: 1rem;
-    }
   }
 }
 
 #user_tag {
-  padding-#{$end-direction}: 0.75rem;
+  @extend %flex-center-nowrap;
   white-space: nowrap;
   gap: 0.5rem;
 
