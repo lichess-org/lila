@@ -309,12 +309,7 @@ final class MsgApi(
                       $and(
                         $doc("$eq" -> $arr("$user", userId)),
                         $doc("$eq" -> $arr("$tid", "$$t")),
-                        $doc:
-                          "$not" -> $doc:
-                            "$regexMatch" -> $doc(
-                              "input" -> "$text",
-                              "regex" -> "You received this because you are (subscribed to messages|part) of the team"
-                            )
+                        excludeTeamMessages
                       )
             )
           ,
@@ -328,6 +323,13 @@ final class MsgApi(
           text <- msg.string("text")
           date <- msg.getAsOpt[Instant]("date")
         yield (text, date)).toList
+
+  private val excludeTeamMessages = $doc:
+    "$not" -> $doc:
+      "$regexMatch" -> $doc(
+        "input" -> "$text",
+        "regex" -> "You received this because you are (subscribed to messages|part) of the team"
+      )
 
   // include responses from the other user
   // String is the thread id
@@ -350,12 +352,7 @@ final class MsgApi(
                     $expr:
                       $and(
                         $doc("$eq" -> $arr("$tid", "$$t")),
-                        $doc:
-                          "$not" -> $doc:
-                            "$regexMatch" -> $doc(
-                              "input" -> "$text",
-                              "regex" -> "You received this because you are (subscribed to messages|part) of the team"
-                            )
+                        excludeTeamMessages
                       )
                 ),
                 $doc("$sort" -> $sort.desc("date"))
