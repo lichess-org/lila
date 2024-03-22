@@ -26,28 +26,27 @@ object Helpers:
   extension (newBranch: NewBranch)
     def toBranch(children: Option[NewTree]): Branch = Branch(
       newBranch.id,
-      newBranch.metas.ply,
+      newBranch.ply,
       newBranch.move,
-      newBranch.metas.fen,
-      newBranch.metas.check,
-      newBranch.metas.dests,
-      newBranch.metas.drops,
-      newBranch.metas.eval,
-      newBranch.metas.shapes,
-      newBranch.metas.comments,
-      newBranch.metas.gamebook,
-      newBranch.metas.glyphs,
+      newBranch.fen,
+      newBranch.check,
+      newBranch.dests,
+      newBranch.drops,
+      newBranch.eval,
+      newBranch.shapes,
+      newBranch.comments,
+      newBranch.gamebook,
+      newBranch.glyphs,
       children.fold(Branches.empty)(_.toBranches),
-      newBranch.metas.opening,
+      newBranch.opening,
       newBranch.comp,
-      newBranch.metas.clock,
-      newBranch.metas.crazyData,
+      newBranch.clock,
+      newBranch.crazyData,
       newBranch.forceVariation
     )
 
   extension (newTree: NewTree)
     def toBranch: Branch = newTree.value.toBranch(newTree.child)
-    def toRoot: Root     = ??? // newTree.value.toBranch(newTree.child)
     def toBranches: Branches =
       val variations = newTree.variations.map(_.toNode.toBranch)
       Branches(newTree.value.toBranch(newTree.child) :: variations)
@@ -55,20 +54,20 @@ object Helpers:
   extension (newRoot: NewRoot)
     def toRoot =
       Root(
-        newRoot.metas.ply,
-        newRoot.metas.fen,
-        newRoot.metas.check,
-        newRoot.metas.dests,
-        newRoot.metas.drops,
-        newRoot.metas.eval,
-        newRoot.metas.shapes,
-        newRoot.metas.comments,
-        newRoot.metas.gamebook,
-        newRoot.metas.glyphs,
+        newRoot.ply,
+        newRoot.fen,
+        newRoot.check,
+        newRoot.dests,
+        newRoot.drops,
+        newRoot.eval,
+        newRoot.shapes,
+        newRoot.comments,
+        newRoot.gamebook,
+        newRoot.glyphs,
         newRoot.tree.fold(Branches.empty)(_.toBranches),
-        newRoot.metas.opening,
-        newRoot.metas.clock,
-        newRoot.metas.crazyData
+        newRoot.opening,
+        newRoot.clock,
+        newRoot.crazyData
       )
 
   extension (comments: Comments)
