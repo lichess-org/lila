@@ -25,6 +25,8 @@ object Permission:
   case object SendToZulip      extends Permission("NOTIFY_SLACK", List(UserModView), "Send to Zulip")
   case object ViewPrivateComms extends Permission("VIEW_PRIVATE_COMS", "View private comms")
   case object Shadowban        extends Permission("SHADOWBAN", List(UserModView, ChatTimeout), "Shadowban")
+  case object FullCommsExport
+      extends Permission("FULL_COMMS_EXPORT", List(ViewPrivateComms), "Full comms export")
   case object SetKidMode       extends Permission("SET_KID_MODE", List(UserModView), "Set Kid Mode")
   case object MarkEngine       extends Permission("ADJUST_CHEATER", List(UserModView), "Mark as cheater")
   case object MarkBooster      extends Permission("ADJUST_BOOSTER", List(UserModView), "Mark as booster")
@@ -215,6 +217,7 @@ object Permission:
           Admin,
           GdprErase,
           Impersonate,
+          FullCommsExport,
           PayPal,
           Cli,
           Settings

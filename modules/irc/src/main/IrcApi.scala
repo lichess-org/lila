@@ -58,6 +58,11 @@ final class IrcApi(
             dox = false
           )
 
+  def fullCommExport(user: User)(using mod: Me): Funit =
+    val topic = "/" + user.username
+    zulip(_.mod.trustSafety, topic):
+      s"${markdown.modLink(mod.username)} exported all comms of ${markdown.userLink(user.username)}"
+
   def usertableCheck(user: User)(using mod: Me): Funit =
     zulip(_.mod.cafeteria, "reports"):
       s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.username)})"
