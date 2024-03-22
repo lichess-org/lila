@@ -49,8 +49,8 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 
   def addNodeAt(node: Branch, path: UciPath): Option[Branches] =
     path.split match
-      case None               => addNode(node).some
-      case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
+      case None             => addNode(node).some
+      case Some(head, tail) => updateChildren(head, _.addNodeAt(node, tail))
 
   // suboptimal due to using List instead of Vector
   def addNode(node: Branch): Branches =
@@ -204,7 +204,7 @@ case class Root(
   def prependChild(branch: Branch)  = copy(children = branch :: children)
   def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
 
-  def withChildren(f: Branches => Option[Branches]) =
+  def withChildren(f: Branches => Option[Branches]): Option[Root] =
     f(children).map { newChildren =>
       copy(children = newChildren)
     }
