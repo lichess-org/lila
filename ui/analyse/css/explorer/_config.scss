@@ -64,8 +64,8 @@
     .player-name {
       border-radius: $box-radius-size !important;
       font-weight: bold;
-      padding-inline-end: 1em;
-      padding-inline-start: 1em;
+      padding-left: 1em;
+      padding-right: 1em;
       text-transform: none;
       margin-inline-end: 0.5em;
       &.active:hover {
