@@ -8,7 +8,7 @@ signal {
 
 signal > i {
   width: 20%;
-  margin-#{$start-direction}: 1px;
+  margin-inline-start: 1px;
   display: inline-block;
   height: 40%;
   background-color: c-dimmer($c-good);

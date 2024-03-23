@@ -73,7 +73,7 @@
         position: absolute;
         height: 98%;
         top: 1%;
-        #{$end-direction}: -1px;
+        @include pos-end(-1px);
 
         @include transition(all, 0.25s);
 

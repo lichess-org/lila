@@ -8,18 +8,18 @@
 
   div {
     display: inline-block;
-    margin-#{$start-direction}: 10px;
+    margin-inline-start: 10px;
   }
 
   mpiece {
-    margin-#{$start-direction}: -10px;
+    margin-inline-start: -10px;
     width: 32px;
     height: 32px;
     background-size: cover;
     display: inline-block;
 
     &.pawn {
-      margin-#{$start-direction}: -15px;
+      margin-inline-start: -15px;
     }
   }
 
@@ -31,16 +31,16 @@
 
   @include mq-is-col1 {
     height: $col1-mat-height;
-    margin-#{$start-direction}: 3vmin;
+    margin-inline-start: 3vmin;
 
     div {
-      margin-#{$start-direction}: 8px;
+      margin-inline-start: 8px;
     }
 
     mpiece {
       width: $col1-mat-height * 3/4;
       height: $col1-mat-height * 3/4;
-      margin-#{$start-direction}: -8px !important;
+      margin-inline-start: -8px !important;
     }
   }
 }

@@ -47,8 +47,8 @@
 
   &::after {
     top: 1px;
-    #{$start-direction}: 0;
-    #{$end-direction}: auto;
+    @include pos-start(0);
+    right: auto;
     background: none;
     box-shadow: none;
   }

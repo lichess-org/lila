@@ -6,13 +6,13 @@
   }
 
   h1 span {
-    margin-#{$start-direction}: 0.4em;
+    margin-inline-start: 0.4em;
   }
 
   .trophy {
     margin-top: -1rem;
-    margin-#{$end-direction}: 0.2em;
-    margin-#{$start-direction}: -0.6em;
+    margin-inline-end: 0.2em;
+    margin-inline-start: -0.6em;
 
     &.top1 {
       filter: drop-shadow(0 0 6px $c-brag);
@@ -63,7 +63,7 @@
       flex: 1 0 49%;
 
       &:first-child {
-        margin-#{$end-direction}: 2%;
+        margin-inline-end: 2%;
       }
 
       margin-bottom: 1em;
@@ -79,7 +79,7 @@
   }
 
   .counter th {
-    padding-#{$start-direction}: 1.5em;
+    padding-inline-start: 1.5em;
   }
 
   .counter td {
@@ -109,7 +109,7 @@
   }
 
   .result td:first-child {
-    padding-#{$start-direction}: 20px;
+    padding-inline-start: 20px;
     white-space: nowrap;
   }
 

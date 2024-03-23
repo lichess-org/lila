@@ -6,7 +6,7 @@
   }
 
   .overview {
-    padding-#{$start-direction}: 2em;
+    padding-inline-start: 2em;
     display: flex;
     flex: auto;
     flex-flow: column;
@@ -18,7 +18,7 @@
 
     .online-check {
       padding: 0.5em 1em;
-      margin-#{$end-direction}: 2em;
+      margin-inline-end: 2em;
     }
   }
 

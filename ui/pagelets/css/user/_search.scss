@@ -9,7 +9,7 @@
 
     table {
       flex: 0 1 48%;
-      margin-#{$start-direction}: 2%;
+      margin-inline-start: 2%;
     }
 
     td {
@@ -28,7 +28,7 @@
     }
 
     label {
-      margin-#{$end-direction}: 0.5em;
+      margin-inline-end: 0.5em;
       white-space: normal;
     }
 

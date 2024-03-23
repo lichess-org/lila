@@ -35,19 +35,19 @@ trait AssetHelper extends HasEnv:
   def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def cssTag(name: String)(using ctx: Context): Frag =
-    cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
+    cssTagWithTheme(name, isRTL, ctx.pref.currentBg)
 
-  def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
+  def cssTagWithTheme(name: String, isRTL: Boolean, theme: String): Frag =
     if theme == "system" then
       frag(
-        cssTagWithDirAndSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
-        cssTagWithDirAndSimpleTheme(name, isRTL, "dark")(media  := "(prefers-color-scheme: dark)")
+        cssTagWithSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
+        cssTagWithSimpleTheme(name, isRTL, "dark")(media  := "(prefers-color-scheme: dark)")
       )
-    else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
+    else cssTagWithSimpleTheme(name, isRTL, theme)
 
-  private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
+  private def cssTagWithSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
     cssAt:
-      s"css/$name.${if isRTL then "rtl" else "ltr"}.$theme.${if minifiedAssets then "min" else "dev"}.css"
+      s"css/$name.$theme.${if minifiedAssets then "min" else "dev"}.css"
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if minifiedAssets then "min" else "dev"}.css")

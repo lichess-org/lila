@@ -27,7 +27,7 @@
       height: 5rem;
       background-image: img-url('icons/tornado.svg');
       background-repeat: no-repeat;
-      margin-#{$end-direction}: 1.5rem;
+      margin-inline-end: 1.5rem;
     }
   }
 
@@ -92,7 +92,7 @@
       font-family: 'storm';
       font-size: 5.5rem;
       color: $c-brag;
-      margin-#{$end-direction}: 1rem;
+      margin-inline-end: 1rem;
       transition: text-shadow 0.1s;
     }
 

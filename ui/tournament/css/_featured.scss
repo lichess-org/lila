@@ -9,7 +9,7 @@
 
       &::before {
         color: $c-accent;
-        margin-#{$end-direction}: 5px;
+        margin-inline-end: 5px;
       }
     }
   }
@@ -19,14 +19,14 @@
 
     strong {
       text-align: center;
-      margin-#{$end-direction}: 1ch;
+      margin-inline-end: 1ch;
     }
 
     .user-link {
       @extend %flex-between;
 
       flex: 1 1 100%;
-      margin-#{$end-direction}: 1em;
+      margin-inline-end: 1em;
     }
   }
 }
