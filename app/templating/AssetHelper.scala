@@ -35,17 +35,17 @@ trait AssetHelper extends HasEnv:
   def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def cssTag(name: String)(using ctx: Context): Frag =
-    cssTagWithTheme(name, isRTL, ctx.pref.currentBg)
+    cssTagWithTheme(name, ctx.pref.currentBg)
 
-  def cssTagWithTheme(name: String, isRTL: Boolean, theme: String): Frag =
+  def cssTagWithTheme(name: String, theme: String): Frag =
     if theme == "system" then
       frag(
-        cssTagWithSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
-        cssTagWithSimpleTheme(name, isRTL, "dark")(media  := "(prefers-color-scheme: dark)")
+        cssTagWithSimpleTheme(name, "light")(media := "(prefers-color-scheme: light)"),
+        cssTagWithSimpleTheme(name, "dark")(media  := "(prefers-color-scheme: dark)")
       )
-    else cssTagWithSimpleTheme(name, isRTL, theme)
+    else cssTagWithSimpleTheme(name, theme)
 
-  private def cssTagWithSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
+  private def cssTagWithSimpleTheme(name: String, theme: String): Tag =
     cssAt:
       s"css/$name.$theme.${if minifiedAssets then "min" else "dev"}.css"
 
