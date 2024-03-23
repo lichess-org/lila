@@ -78,6 +78,7 @@ export function initModule(): StudyTour {
         text: "By clicking the <i data-icon=''></i> button.",
         attachTo: { element: '.study__chapters .add', on: 'right' },
         when: onTab('chapters'),
+        scrollTo: true,
       });
       steps.push({
         title: 'Comment on a position',
@@ -119,11 +120,9 @@ export function initModule(): StudyTour {
 
     const tourCtrl = new TourCtrl();
 
-    const onTab = (tab: ChapterTab): Shepherd.Step.StepOptionsWhen => {
-      return {
-        'before-show': () => setTab(tab),
-      };
-    };
+    const onTab = (tab: ChapterTab): Shepherd.Step.StepOptionsWhen => ({
+      'before-show': () => setTab(tab),
+    });
 
     const steps: Shepherd.Step.StepOptions[] = [
       {
