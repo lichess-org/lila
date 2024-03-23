@@ -129,28 +129,6 @@
   }
 }
 
-@mixin rtl {
-  html[dir='rtl'] & {
-    @content;
-  }
-}
-
-@mixin pos-start($x) {
-  left: $x;
-  @include rtl {
-    left: initial;
-    right: $x;
-  }
-}
-
-@mixin pos-end($x) {
-  right: $x;
-  @include rtl {
-    right: initial;
-    left: $x;
-  }
-}
-
 @mixin gradient-border($c, $ltr-dir, $rtl-dir) {
   background: linear-gradient($ltr-dir, $c 0px, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
 

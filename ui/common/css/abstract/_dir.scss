@@ -1,3 +1,25 @@
+@mixin rtl {
+  html[dir='rtl'] & {
+    @content;
+  }
+}
+
+@mixin pos-start($x) {
+  left: $x;
+  @include rtl {
+    left: initial;
+    right: $x;
+  }
+}
+
+@mixin pos-end($x) {
+  right: $x;
+  @include rtl {
+    right: initial;
+    left: $x;
+  }
+}
+
 @mixin padding-direction($top, $end, $bottom, $start, $important: false) {
   @if $important {
     padding-inline-start: $start !important;
