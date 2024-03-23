@@ -4,7 +4,6 @@ import * as miniGame from './miniGame';
 import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
 import announce from './announce';
-import exportSiteGlobals from './site';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import pubsub from './pubsub';
@@ -18,11 +17,7 @@ import { isIOS } from 'common/device';
 import { scrollToInnerSelector } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 
-window.$as = <T>(cashOrHtml: Cash | string) =>
-  (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
-exportSiteGlobals();
-
-site.load.then(() => {
+export function boot() {
   $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
@@ -187,4 +182,4 @@ site.load.then(() => {
         document.documentElement.className = e.matches ? 'light' : 'dark';
     });
   }, 800);
-});
+}

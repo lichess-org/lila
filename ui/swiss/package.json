@@ -20,9 +20,7 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "swiss"
-      }
+      "src/swiss.ts": "swiss"
     }
   }
 }

@@ -4,8 +4,8 @@
   "private": true,
   "description": "lichess.org moves tree",
   "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "module": "dist/tree.js",
+  "types": "dist/tree.d.ts",
   "keywords": [
     "chess",
     "lichess"

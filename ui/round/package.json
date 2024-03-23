@@ -25,11 +25,9 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "round",
-        "src/plugins/nvui.ts": "round.nvui",
-        "src/plugins/tour.ts": "round.tour"
-      }
+      "src/round.ts": "round",
+      "src/plugins/round.nvui.ts": "round.nvui",
+      "src/plugins/round.tour.ts": "round.tour"
     }
   }
 }

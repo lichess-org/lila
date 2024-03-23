@@ -1,12 +1,23 @@
-import view from './view';
+import view from './view/calendarView';
 
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-
-import { Ctrl, Opts } from './interfaces';
+import { Tournament } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
-export function initModule(opts: Opts) {
+export type Lanes = Array<Array<Tournament>>;
+
+export interface Data {
+  since: number;
+  to: number;
+  tournaments: Tournament[];
+}
+
+export interface Ctrl {
+  data: Data;
+}
+
+export function initModule(opts: { data: Data; i18n: I18nDict }) {
   const element = document.getElementById('tournament-calendar');
   // enrich tournaments
   opts.data.tournaments.forEach(t => {

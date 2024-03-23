@@ -5,7 +5,7 @@ import * as xhr from 'common/xhr';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 
-import type { Result as UserCompleteResult } from './userComplete';
+import type { Result as UserCompleteResult } from './pagelets.userComplete';
 
 site.load.then(() => {
   $('table.sortable').each(function (this: HTMLElement) {

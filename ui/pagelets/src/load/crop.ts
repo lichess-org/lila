@@ -1,5 +1,5 @@
 import { isSafari } from 'common/device';
-export { type CropOpts } from '../crop';
+export { type CropOpts } from '../pagelets.cropDialog';
 
 export function wireCropDialog(args?: {
   aspectRatio: number;

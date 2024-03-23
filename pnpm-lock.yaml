@@ -706,42 +706,24 @@ importers:
 
   ui/tournament:
     dependencies:
+      '@types/dragscroll':
+        specifier: 0.0.0
+        version: 0.0.0
       chat:
         specifier: workspace:*
         version: link:../chat
       common:
         specifier: workspace:*
         version: link:../common
-      game:
-        specifier: workspace:*
-        version: link:../game
-      snabbdom:
-        specifier: 3.5.1
-        version: 3.5.1
-
-  ui/tournamentCalendar:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
       date-fns:
         specifier: 2.29.3
         version: 2.29.3
-      snabbdom:
-        specifier: 3.5.1
-        version: 3.5.1
-
-  ui/tournamentSchedule:
-    dependencies:
-      '@types/dragscroll':
-        specifier: 0.0.0
-        version: 0.0.0
-      common:
-        specifier: workspace:*
-        version: link:../common
       dragscroll:
         specifier: ^0.0.8
         version: 0.0.8
+      game:
+        specifier: workspace:*
+        version: link:../game
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1

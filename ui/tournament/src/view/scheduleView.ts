@@ -1,7 +1,8 @@
 import { Classes, h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import perfIcons from 'common/perfIcons';
-import { Clock, Ctrl, Lane, Tournament } from './interfaces';
+import { Tournament, Clock } from '../interfaces';
+import { Ctrl, Lane } from '../tournament.schedule';
 import dragscroll from 'dragscroll';
 
 const scale = 8;

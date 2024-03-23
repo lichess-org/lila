@@ -115,7 +115,7 @@ async function parseThemeColorDefs() {
 
 // given color definitions and mix instructions, build mixed color css variables in themed scss mixins
 async function buildColorMixes() {
-  const out = fs.createWriteStream(path.join(env.themeDir, 'gen', '_mix.scss'));
+  const out = fs.createWriteStream(path.join(env.themeGenDir, '_mix.scss'));
   for (const theme of themeColorMap.keys()) {
     const colorMap = themeColorMap.get(theme)!;
     out.write(`@mixin ${theme}-mix {\n`);
@@ -183,10 +183,7 @@ function compile(sources: string[], tellTheWorld = true) {
       env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
       sources.map(
         (src: string) =>
-          `${src}:${path.join(
-            env.cssDir,
-            path.basename(src).replace(/(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css'),
-          )}`,
+          `${src}:${path.join(env.cssTempDir, path.basename(src).replace(/(.*)scss$/, '$1css'))}`,
       ),
     ),
   );

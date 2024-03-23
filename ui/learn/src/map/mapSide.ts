@@ -2,7 +2,7 @@ import m from '../mithrilFix';
 import * as util from '../util';
 import * as stages from '../stage/list';
 import * as scoring from '../score';
-import { LearnOpts, LearnProgress } from '../main';
+import { LearnOpts, LearnProgress } from '../learn';
 
 export interface SideCtrl {
   trans: Trans;

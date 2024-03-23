@@ -1,6 +1,9 @@
 import * as treePath from './path';
 import * as ops from './ops';
 import { defined } from 'common';
+import * as path from './path';
+
+export { path, ops };
 
 export type MaybeNode = Tree.Node | undefined;
 

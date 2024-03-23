@@ -5,7 +5,8 @@ import getHours from 'date-fns/getHours';
 import getMinutes from 'date-fns/getMinutes';
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
 import format from 'date-fns/format';
-import { Tournament, Lanes, Ctrl } from './interfaces';
+import { Tournament } from '../interfaces';
+import { Ctrl, Lanes } from '../tournament.calendar';
 import * as licon from 'common/licon';
 import perfIcons from 'common/perfIcons';
 

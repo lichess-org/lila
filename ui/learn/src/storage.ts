@@ -1,4 +1,4 @@
-import { LearnProgress } from './main';
+import { LearnProgress } from './learn';
 import m from './mithrilFix';
 import { Stage } from './stage/list';
 

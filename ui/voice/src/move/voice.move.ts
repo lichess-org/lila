@@ -5,7 +5,7 @@ import * as cs from 'chess';
 import { from as src, to as dest } from 'chess';
 import { PromotionCtrl, promote } from 'chess/promotion';
 import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
-import { VoiceMove, VoiceCtrl, Entry, Match, makeCtrl } from '../main';
+import { VoiceMove, VoiceCtrl, Entry, Match, makeCtrl } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
 import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap, as } from 'common';

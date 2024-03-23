@@ -4,7 +4,7 @@ import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { propWithEffect, Prop } from 'common';
 import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
-import { load as loadKeyboardMove } from './plugins/keyboardMove';
+import { load as loadKeyboardMove } from './plugins/keyboard.move';
 import KeyboardChecker from './plugins/keyboardChecker';
 
 export type KeyboardMoveHandler = (fen: cg.FEN, dests?: cg.Dests, yourMove?: boolean) => void;

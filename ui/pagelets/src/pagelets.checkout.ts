@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import contactEmail from './contactEmail';
+import contactEmail from './pagelets.contactEmail';
 
 export interface Pricing {
   currency: string;

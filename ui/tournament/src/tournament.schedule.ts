@@ -1,10 +1,23 @@
-import view from './view';
+import view from './view/scheduleView';
 
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import { Opts, Tournament } from './interfaces';
+import { Tournament } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
-export function initModule(opts: Opts) {
+
+export type Lane = Tournament[];
+
+export interface Data {
+  created: Tournament[];
+  started: Tournament[];
+  finished: Tournament[];
+}
+export interface Ctrl {
+  data(): Data;
+  trans: Trans;
+}
+
+export function initModule(opts: { data: Data; i18n: I18nDict }) {
   site.StrongSocket.defaultParams.flag = 'tournament';
 
   const element = document.querySelector('.tour-chart') as HTMLElement;
