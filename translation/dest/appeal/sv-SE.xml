@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="arenaBanned">Ditt konto är spärrat från att gå med i arenor.</string>
+  <string name="prizeBanned">Ditt konto är bannlyst från turneringar med riktiga priser.</string>
+  <string name="boosterMarked">Ditt konto är markerat för manipulering av ranking.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Ditt konto är tystat.</string>
+  <string name="excludedFromLeaderboardsInfo">Vi definierar detta som att använda något orättvist sätt att komma på topplistan.</string>
+  <string name="closedByModerators">Ditt konto stängdes av moderatorer.</string>
+  <string name="blogRules">blogg regler</string>
+</resources>
