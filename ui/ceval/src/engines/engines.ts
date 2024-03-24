@@ -199,6 +199,7 @@ export class Engines {
             tech: 'HCE',
             minThreads: 1,
             maxThreads: 1,
+            requires: [],
             obsoletedBy: 'wasm',
             assets: {
               version: 'a022fa',
@@ -211,7 +212,7 @@ export class Engines {
       ]
         .filter(
           e =>
-            e.info.requires?.every((req: Requires) => this.browserSupport.includes(req)) &&
+            e.info.requires.every((req: Requires) => this.browserSupport.includes(req)) &&
             !(e.info.obsoletedBy && this.browserSupport.includes(e.info.obsoletedBy as Feature)),
         )
         .map(e => [e.info.id, { info: withDefaults(e.info as BrowserEngineInfo), make: e.make }]),
