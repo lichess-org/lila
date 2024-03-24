@@ -48,7 +48,7 @@
   &::after {
     top: 1px;
     @include pos-start(0);
-    right: auto;
+    @include pos-end(auto);
     background: none;
     box-shadow: none;
   }
