@@ -29,7 +29,7 @@
       height: 32px;
       cursor: pointer;
       top: 0;
-      @include pos-end(0);
+      @include inline-end(0);
       background: none;
 
       &:hover {
@@ -41,7 +41,7 @@
 
       @media (min-width: at-least($small)) {
         top: -12px;
-        @include pos-end(-12px);
+        @include inline-end(-12px);
         background: $c-bg-popup;
         border-radius: 50%;
       }

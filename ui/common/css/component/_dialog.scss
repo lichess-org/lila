@@ -4,9 +4,9 @@ dialog {
   max-height: 100%;
   max-width: 100%;
   top: 50%;
-  @include pos-start(50%);
+  @include inline-start(50%);
   transform: translate(-50%, -50%);
-  @include rtl {
+  @include if-rtl {
     transform: translate(50%, -50%);
   }
   z-index: z('modal');
@@ -35,7 +35,7 @@ dialog {
 
     position: absolute;
     top: 4px;
-    @include pos-end(4px);
+    @include inline-end(4px);
     width: 40px; // bigger for phones
     height: 40px;
     z-index: z('modal') + 1;
@@ -59,7 +59,7 @@ dialog {
 
     button.close-button {
       transform: translate(18px, -18px);
-      @include rtl {
+      @include if-rtl {
         transform: translate(-18px, -18px);
       }
       width: 32px;

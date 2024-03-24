@@ -4,7 +4,7 @@ $clock-height: 20px;
 
 .analyse__player_strip {
   position: absolute;
-  @include pos-end(0);
+  @include inline-end(0);
   display: flex;
 
   &.top {

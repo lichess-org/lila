@@ -80,7 +80,7 @@
       display: none;
       position: absolute;
       top: 5px;
-      @include pos-end(0);
+      @include inline-end(0);
       cursor: pointer;
       margin-inline-end: 3px;
       padding: 1px 5px;

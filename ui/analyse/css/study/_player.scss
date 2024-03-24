@@ -24,7 +24,7 @@ $player-height: 1.6rem;
   @extend %flex-between-nowrap, %metal, %box-shadow;
 
   position: absolute;
-  @include pos-end(0);
+  @include inline-end(0);
   font-weight: bold;
   width: var(--cg-width, 100%);
   height: $player-height;

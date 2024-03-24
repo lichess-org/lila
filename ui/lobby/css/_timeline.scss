@@ -24,7 +24,7 @@
       height: 1px;
       background: linear-gradient(to start, $c-border 20%, $c-bg-page);
       margin: 0.7em 0;
-      @include rtl {
+      @include if-rtl {
         background: linear-gradient(to end, $c-border 20%, $c-bg-page);
       }
     }

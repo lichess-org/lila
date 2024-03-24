@@ -18,11 +18,11 @@
     top: 0;
     bottom: 0;
     width: 70px;
-    @include pos-start(0);
+    @include inline-start(0);
     background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
     animation: bar-glider-anim 3s linear infinite;
 
-    @include rtl {
+    @include if-rtl {
       background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
     }
 

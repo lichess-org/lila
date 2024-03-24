@@ -196,7 +196,7 @@
 
       &:empty {
         &::after {
-          @include pos-start(0);
+          @include inline-start(0);
         }
       }
     }
@@ -625,7 +625,7 @@
       opacity: 0.5;
       position: absolute;
       top: 50%;
-      @include pos-end(0);
+      @include inline-end(0);
       bottom: 0;
       font: $size monospace;
       line-height: $size / 2;
@@ -644,7 +644,7 @@
     #{$self}__tag {
       position: absolute;
       top: 0;
-      @include pos-end(1.8em);
+      @include inline-end(1.8em);
       bottom: 0;
 
       div {

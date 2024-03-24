@@ -51,7 +51,7 @@
         .line {
           flex: 0 0 auto;
           font-size: 1.5em;
-          @include rtl {
+          @include if-rtl {
             transform: scaleX(-1);
           }
         }

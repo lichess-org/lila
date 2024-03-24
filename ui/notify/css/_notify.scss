@@ -13,7 +13,7 @@
   .delete {
     position: absolute;
     top: 0;
-    @include pos-end(0);
+    @include inline-end(0);
     padding: 0.5rem;
     &:hover {
       color: $c-bad;

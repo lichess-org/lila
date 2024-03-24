@@ -58,7 +58,7 @@
 
       position: absolute;
       bottom: 0;
-      @include pos-start(0);
+      @include inline-start(0);
       height: 100%;
     }
 
@@ -117,7 +117,7 @@
 
     direction: ltr;
     transform: skewX(-45deg);
-    @include rtl {
+    @include if-rtl {
       transform: skewX(45deg);
     }
     flex: 21% 0 0;
@@ -133,7 +133,7 @@
 
     span {
       transform: skewX(45deg);
-      @include rtl {
+      @include if-rtl {
         transform: skewX(-45deg);
       }
       display: block;

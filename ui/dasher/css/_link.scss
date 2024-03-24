@@ -24,7 +24,7 @@
 
   .links .user-link::before {
     display: inline-block;
-    @include rtl {
+    @include if-rtl {
       transform: scaleX(-1);
     }
   }

@@ -40,7 +40,7 @@
       visibility: hidden;
       max-height: inherit;
       position: absolute;
-      @include pos-start(0);
+      @include inline-start(0);
       background: $c-bg-header-dropdown;
       min-width: 10rem;
       box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);

@@ -55,7 +55,7 @@
       position: absolute;
       content: '';
       bottom: -9px;
-      @include pos-end(20%);
+      @include inline-end(20%);
       width: 15px;
       height: 15px;
       background: $c-bg-box;

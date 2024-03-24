@@ -33,7 +33,7 @@
 
       content: attr(data-nb);
       bottom: 0;
-      @include pos-end(0);
+      @include inline-end(0);
       position: absolute;
       line-height: 0.9em;
       padding: 3px 0.3em;

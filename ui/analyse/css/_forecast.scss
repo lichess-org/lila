@@ -54,7 +54,7 @@
       @extend %button-none;
 
       position: absolute;
-      @include pos-end(8px);
+      @include inline-end(8px);
       width: 1.5em;
       height: 1.5em;
       line-height: 1;

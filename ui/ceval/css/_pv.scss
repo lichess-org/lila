@@ -43,7 +43,7 @@
     .pv-wrap-toggle {
       position: absolute;
       top: 0;
-      @include pos-end(0);
+      @include inline-end(0);
       padding: 0 4px;
       margin: 0;
       cursor: pointer;
@@ -65,7 +65,7 @@
   .pv-board {
     position: absolute;
     width: 80%;
-    @include pos-start(34px);
+    @include inline-start(34px);
     max-width: 240px;
     z-index: 1;
 

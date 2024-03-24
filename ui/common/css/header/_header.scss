@@ -78,7 +78,7 @@ body > header {
     color: $c-brag;
     @include margin-direction(0, 0, 0.08ch, 0.3ch);
     transform: scaleX(-1);
-    @include rtl {
+    @include if-rtl {
       transform: none;
     }
   }

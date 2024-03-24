@@ -65,9 +65,9 @@ $slider-width: 12px;
 }
 
 .ui-slider-horizontal .ui-slider-range-min {
-  @include pos-start(0);
+  @include inline-start(0);
 }
 
 .ui-slider-horizontal .ui-slider-range-max {
-  @include pos-end(0);
+  @include inline-end(0);
 }

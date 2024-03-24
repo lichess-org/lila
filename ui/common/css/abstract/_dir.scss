@@ -1,21 +1,29 @@
-@mixin rtl {
+@mixin if-rtl {
   html[dir='rtl'] & {
     @content;
   }
 }
 
-@mixin pos-start($x) {
-  left: $x;
-  @include rtl {
-    left: initial;
+@mixin if-ltr {
+  html:not([dir='rtl']) & {
+    @content;
+  }
+}
+
+@mixin inline-start($x) {
+  @include if-ltr {
+    left: $x;
+  }
+  @include if-rtl {
     right: $x;
   }
 }
 
-@mixin pos-end($x) {
-  right: $x;
-  @include rtl {
-    right: initial;
+@mixin inline-end($x) {
+  @include if-ltr {
+    right: $x;
+  }
+  @include if-rtl {
     left: $x;
   }
 }

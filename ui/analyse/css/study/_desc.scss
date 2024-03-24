@@ -20,7 +20,7 @@
 
     position: absolute;
     top: 0;
-    @include pos-end(0);
+    @include inline-end(0);
     background: mix($c-accent, $c-bg-box, 10%);
     padding: 0.5em 0.8em;
     display: none;

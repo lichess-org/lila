@@ -17,7 +17,7 @@
 
   .highlight {
     position: absolute;
-    @include pos-end(5px);
+    @include inline-end(5px);
     top: -3px;
     padding: 8px 20px;
     border-radius: 8px;

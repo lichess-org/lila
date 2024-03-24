@@ -27,7 +27,7 @@
     width: 22px;
     height: 22px;
     bottom: 0;
-    @include pos-start(0);
+    @include inline-start(0);
   }
 
   &::before {

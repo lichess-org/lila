@@ -26,10 +26,10 @@
   }
 
   &::before {
-    @include pos-start(30px);
+    @include inline-start(30px);
   }
 
   &::after {
-    @include pos-end(30px);
+    @include inline-end(30px);
   }
 }

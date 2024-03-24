@@ -29,11 +29,11 @@
     }
 
     &:before {
-      @include pos-end(8px);
+      @include inline-end(8px);
     }
 
     &:after {
-      @include pos-start(8px);
+      @include inline-start(8px);
     }
   }
 }

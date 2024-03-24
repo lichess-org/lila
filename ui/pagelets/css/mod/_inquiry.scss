@@ -301,7 +301,7 @@ body.no-inquiry {
       display: none;
       position: absolute;
       top: 100%;
-      @include pos-end(0);
+      @include inline-end(0);
       background: #555;
       overflow: hidden;
       padding: 0.4em 0;
@@ -361,7 +361,7 @@ body.no-inquiry {
     &.counter > div,
     &.warn > div {
       width: 360px;
-      @include pos-end(-155px);
+      @include inline-end(-155px);
       max-height: 500px;
       overflow-y: auto;
     }

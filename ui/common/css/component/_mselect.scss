@@ -40,7 +40,7 @@ $c-mselect: $c-primary;
 
     position: absolute;
     top: 0;
-    @include pos-start(0);
+    @include inline-start(0);
     min-width: 100%;
     max-height: 60vh;
     overflow-y: auto;

@@ -19,7 +19,7 @@
       display: block;
       position: fixed;
       bottom: 3px;
-      @include pos-end(3px);
+      @include inline-end(3px);
       width: 10vw;
     }
   }
@@ -132,7 +132,7 @@
 @mixin gradient-border($c, $ltr-dir, $rtl-dir) {
   background: linear-gradient($ltr-dir, $c 0px, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
 
-  @include rtl {
+  @include if-rtl {
     background: linear-gradient($rtl-dir, $c 0px, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
   }
 }

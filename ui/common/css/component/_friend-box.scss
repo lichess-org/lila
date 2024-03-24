@@ -7,7 +7,7 @@
 
   position: fixed;
   bottom: 0;
-  @include pos-end(0);
+  @include inline-end(0);
   z-index: z('friend-box');
   background: $c-bg-popup;
   border: $border;

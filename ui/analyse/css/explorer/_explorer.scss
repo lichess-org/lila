@@ -193,7 +193,7 @@
     @extend %box-radius-left;
     border-left-width: 1px;
 
-    @include rtl {
+    @include if-rtl {
       @extend %box-radius-right;
       border-left-width: initial;
       border-right-width: 1px;
@@ -204,7 +204,7 @@
     @extend %box-radius-right;
     border-right-width: 1px;
 
-    @include rtl {
+    @include if-rtl {
       @extend %box-radius-left;
       border-right-width: initial;
       border-left-width: 1px;
@@ -294,7 +294,7 @@
   .toconf {
     position: absolute;
     top: 0;
-    @include pos-end(0);
+    @include inline-end(0);
     cursor: pointer;
     display: block;
     font-size: 1.2em;

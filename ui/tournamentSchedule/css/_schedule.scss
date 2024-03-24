@@ -62,7 +62,7 @@ $c-tour-max-rating: #8572ff;
         content: '';
         position: absolute;
         top: -24px;
-        @include pos-start(-10px);
+        @include inline-start(-10px);
         width: 0;
         height: 0;
         border-left: 8px solid transparent;

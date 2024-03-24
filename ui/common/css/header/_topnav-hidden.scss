@@ -9,7 +9,7 @@
   .hbg {
     position: absolute;
     top: 0;
-    @include pos-start(0);
+    @include inline-start(0);
     width: $site-header-height;
     height: $site-header-height;
     cursor: pointer;
@@ -34,10 +34,10 @@
       }
 
       top: 50%;
-      @include pos-start(8.5px);
+      @include inline-start(8.5px);
 
       @include mq-site-header-tall {
-        @include pos-start(13px);
+        @include inline-start(13px);
       }
 
       transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
@@ -107,13 +107,13 @@
     position: fixed;
     top: $site-header-height;
     bottom: 0;
-    @include pos-start(0);
+    @include inline-start(0);
     background: $c-bg-high;
 
     -webkit-clip-path: inset(0 100% 0 0); // ios 12.x
     clip-path: inset(0 100% 0 0);
 
-    @include rtl {
+    @include if-rtl {
       -webkit-clip-path: inset(0 0 0 100%);
       clip-path: inset(0 0 0 100%);
     }

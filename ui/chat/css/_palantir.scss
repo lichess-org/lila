@@ -47,8 +47,8 @@
 
   &::after {
     top: 1px;
-    @include pos-start(0);
-    @include pos-end(auto);
+    @include inline-start(0);
+    @include inline-end(auto);
     background: none;
     box-shadow: none;
   }

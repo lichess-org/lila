@@ -109,7 +109,7 @@
       overflow: hidden;
       position: absolute;
       top: -3px;
-      @include pos-end(-3px);
+      @include inline-end(-3px);
     }
   }
 
@@ -120,12 +120,12 @@
     text-align: center;
     text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
     transform: rotate(45deg);
-    @include rtl {
+    @include if-rtl {
       transform: rotate(-45deg);
     }
     position: relative;
     padding: 7px 0;
-    @include pos-start(-5px);
+    @include inline-start(-5px);
     top: 15px;
     width: 120px;
     color: #6a6340;
@@ -155,11 +155,11 @@
     }
 
     &:before {
-      @include pos-start(0);
+      @include inline-start(0);
     }
 
     &:after {
-      @include pos-end(0);
+      @include inline-end(0);
     }
 
     &.done {

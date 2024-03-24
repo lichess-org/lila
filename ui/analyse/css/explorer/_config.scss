@@ -128,7 +128,7 @@
         width: $remove-button-diameter;
         height: $remove-button-diameter;
         top: -1.5em;
-        @include pos-end(-0.65em);
+        @include inline-end(-0.65em);
         background-color: $c-bg-popup;
         position: relative;
         border-radius: 50%;

@@ -193,7 +193,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        @include pos-start(0);
+        @include inline-start(0);
         width: var(--p);
         background: mix($c-bg-page, $c-primary, 40%)
           linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);

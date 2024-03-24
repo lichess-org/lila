@@ -15,7 +15,7 @@ $c-bg-position-y: 2px;
   &__tracks {
     position: absolute;
     top: 0;
-    @include pos-start(0);
+    @include inline-start(0);
   }
 
   &::before {
@@ -39,7 +39,7 @@ $c-bg-position-y: 2px;
       transform: translateX(-101px);
     }
   }
-  @include rtl {
+  @include if-rtl {
     @keyframes road-scroll {
       from {
         transform: translateX(0);
@@ -70,7 +70,7 @@ $c-bg-position-y: 2px;
     justify-content: flex-end;
     position: absolute;
     top: 0;
-    @include pos-end(-140px);
+    @include inline-end(-140px);
     color: #bbb;
     width: 3.8ch;
     padding-right: 0.8ch;
@@ -111,14 +111,14 @@ $c-bg-position-y: 2px;
       line-height: 0;
       text-shadow: -1px 1px 2px #000;
       transform: translateX(0px);
-      @include rtl {
+      @include if-rtl {
         transform: scaleX(-1) translateX(0px);
       }
       transition: all 0.9s ease-out;
 
       .racer__race__track--boost & {
         transform: translateX(6px) scaleX(0.95) skewX(7deg) rotate(-3deg);
-        @include rtl {
+        @include if-rtl {
           transform: translateX(6px) scaleX(-0.95) skewX(7deg) rotate(-3deg);
         }
         transition: all 0.15s ease-out;

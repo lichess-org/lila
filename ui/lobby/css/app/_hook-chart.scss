@@ -2,14 +2,14 @@
   @extend %abs-100;
 
   bottom: 0;
-  @include pos-end(0);
+  @include inline-end(0);
   overflow: hidden;
 
   .label {
     color: $c-font-dim;
     font-size: 0.7em;
     position: absolute;
-    @include pos-start(3px);
+    @include inline-start(3px);
     bottom: 1px;
     text-shadow: $text-shadow;
     font-weight: bold;
@@ -17,7 +17,7 @@
 
   .grid {
     position: absolute;
-    @include pos-start(0);
+    @include inline-start(0);
     bottom: 0;
 
     &.horiz {

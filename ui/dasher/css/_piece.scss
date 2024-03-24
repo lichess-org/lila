@@ -5,7 +5,7 @@
       width: 12.5%;
       height: 12.5%;
       top: 0;
-      @include pos-start(0);
+      @include inline-start(0);
       background-size: cover;
       z-index: 2;
 

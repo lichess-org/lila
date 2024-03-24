@@ -104,7 +104,7 @@
           $c-fail 100%
         );
 
-      @include rtl {
+      @include if-rtl {
         background:
           #{$glow-gradient},
           linear-gradient(

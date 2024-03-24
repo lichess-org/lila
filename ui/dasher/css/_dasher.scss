@@ -23,7 +23,7 @@
 
     signal {
       position: absolute;
-      @include pos-end(1rem);
+      @include inline-end(1rem);
       top: 1rem;
       font-size: 1.7rem;
     }
@@ -224,7 +224,7 @@
 
     position: absolute;
     top: 100%;
-    @include pos-end(0);
+    @include inline-end(0);
     background-color: #000000bb;
 
     #images-viewport {
