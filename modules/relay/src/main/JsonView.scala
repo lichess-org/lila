@@ -104,12 +104,13 @@ final class JsonView(
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls),
       study = studyData.study,
-      analysis = studyData.analysis
+      analysis = studyData.analysis,
+      group = group.map(_.group.name)
     )
 
 object JsonView:
 
-  case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
+  case class JsData(relay: JsObject, study: JsObject, analysis: JsObject, group: Option[RelayGroup.Name])
 
   given OWrites[SyncLog.Event] = Json.writes
 
