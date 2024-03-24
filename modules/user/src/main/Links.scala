@@ -52,7 +52,6 @@ object Link:
     case GitHub                extends Site("GitHub", List("github.com"))
     case VKontakte             extends Site("VKontakte", List("vk.com"))
     case ChessCom              extends Site("Chess.com", List("chess.com"))
-    case Chess24               extends Site("Chess24", List("chess24.com"))
     case ChessMonitor          extends Site("ChessMonitor", List("chessmonitor.com"))
     case ChessTempo            extends Site("ChessTempo", List("chesstempo.com"))
     case Other(domain: String) extends Site(domain, List(domain))
