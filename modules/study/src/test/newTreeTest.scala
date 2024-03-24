@@ -42,7 +42,7 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val oldRoot = x.root.toNewRoot.cleanup
       assertEquals(y.root.cleanup, oldRoot)
 
-  test("conversion check"):
+  test("Root conversion check"):
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
       val newRoot = oldRoot.toNewRoot
@@ -149,7 +149,7 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val (root, path) = rp
 
       oTree.isDefined && path.nonEmpty ==> {
-        val tree    = oTree.get.clearVariations
+        val tree    = oTree.get.withoutVariations
         val oldRoot = root.toRoot.withChildren(_.addNodeAt(tree.toBranch, path))
         val x       = oldRoot.map(_.toNewRoot)
         val y       = root.addNodeAt(path, tree)
