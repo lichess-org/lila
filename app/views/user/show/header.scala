@@ -250,7 +250,7 @@ object header:
                     div(cls := "social_links col2")(
                       profile.actualLinks.nonEmpty.option(strong(trans.socialMediaLinks())),
                       profile.actualLinks.map: link =>
-                        a(href := link.url, targetBlank, noFollow)(link.site.name)
+                        a(href := link.url, targetBlank, noFollow, relMe)(link.site.name)
                     )
                   ),
                   div(cls := "teams col2")(
