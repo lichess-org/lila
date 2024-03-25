@@ -5,7 +5,7 @@ import chess.format.Uci
 import chess.format.pgn.SanStr
 
 import lila.analyse.{ Analysis, Info }
-import lila.tree.Eval
+import lila.hub.eval.Eval
 
 import JsonApi.Request.Evaluation
 import Evaluation.EvalOrSkip

@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.{ *, given }
 import lila.game.GameRepo
 import lila.rating.Perf
-import lila.tree
+import lila.hub.tree
 import lila.user.Me
 
 final class JsonView(

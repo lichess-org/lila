@@ -4,7 +4,7 @@ import chess.format.pgn.{ Comment, Glyph }
 
 import scala.util.chaining.*
 
-import lila.tree.Eval.*
+import lila.hub.eval.Eval.*
 
 sealed trait Advice:
   val judgment: Advice.Judgement

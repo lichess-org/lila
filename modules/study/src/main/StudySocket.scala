@@ -11,9 +11,9 @@ import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.socket.RemoteSocket.{ Protocol as P, * }
 import lila.socket.Socket.{ Sri, makeMessage }
 import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
-import lila.tree.Branch
-import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
-import lila.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
+import lila.hub.tree.Branch
+import lila.hub.tree.Node.{ Comment, Gamebook, Shape, Shapes }
+import lila.hub.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
 
 import actorApi.Who
 
@@ -277,7 +277,7 @@ final private class StudySocket(
 
   import JsonView.given
   import jsonView.given
-  import lila.tree.Node.given
+  import lila.hub.tree.Node.given
   private type SendToStudy = StudyId => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId.into(RoomId), NotifyVersion(tpe, data))

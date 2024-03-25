@@ -1,11 +1,11 @@
 package lila.study
 
-import lila.tree.Node.partitionTreeJsonWriter
+import lila.hub.tree.Node.partitionTreeJsonWriter
 import lila.common.LightUser
 import PgnImport.*
-import lila.tree.Root
+import lila.hub.tree.Root
 import chess.variant.{ Variant, Standard }
-import lila.tree.NewRoot
+import lila.hub.tree.NewRoot
 
 import monocle.syntax.all.*
 import lila.study.Helpers.*

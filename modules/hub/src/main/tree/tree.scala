@@ -1,4 +1,5 @@
-package lila.tree
+package lila.hub
+package tree
 
 import alleycats.Zero
 import chess.Centis
@@ -12,6 +13,7 @@ import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
+import lila.hub.eval.Eval
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
 //opaque type not working due to cyclic ref try again later
@@ -505,8 +507,7 @@ object Node:
   given Writes[Node.Comment]  = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
 
-  import lila.common.Json.given
-  import JsonHandlers.given
+  import Eval.jsonWrites
 
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
 

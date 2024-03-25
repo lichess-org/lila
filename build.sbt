@@ -310,7 +310,7 @@ lazy val simul = module("simul",
 )
 
 lazy val fishnet = module("fishnet",
-  Seq(analyse, evalCache),
+  Seq(analyse),
   Seq(lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
@@ -464,13 +464,8 @@ lazy val notifyModule = module("notify",
   reactivemongo.bundle
 )
 
-lazy val tree = module("tree",
-  Seq(common),
-  Seq()
-)
-
 lazy val socket = module("socket",
-  Seq(hub, memo, tree),
+  Seq(hub, memo),
   Seq(lettuce)
 )
 

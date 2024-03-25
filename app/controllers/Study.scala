@@ -15,7 +15,7 @@ import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Order, Settings, Study as StudyModel, StudyForm }
-import lila.tree.Node.partitionTreeJsonWriter
+import lila.hub.tree.Node.partitionTreeJsonWriter
 
 final class Study(
     env: Env,

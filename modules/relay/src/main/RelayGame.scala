@@ -3,7 +3,7 @@ package lila.relay
 import chess.format.pgn.{ Tag, TagType, Tags }
 
 import lila.study.{ MultiPgn, PgnImport }
-import lila.tree.Root
+import lila.hub.tree.Root
 
 case class RelayGame(
     tags: Tags,

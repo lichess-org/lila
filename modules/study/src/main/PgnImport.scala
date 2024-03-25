@@ -7,8 +7,8 @@ import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.common.LightUser
 import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.Node.{ Comment, Comments, Shapes }
-import lila.tree.{ Branch, Branches, Root }
+import lila.hub.tree.Node.{ Comment, Comments, Shapes }
+import lila.hub.tree.{ Branch, Branches, Root }
 
 object PgnImport:
 

@@ -7,7 +7,7 @@ import chess.variant.Variant
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.tree.Branch
+import lila.hub.tree.Branch
 
 trait AnaAny:
   def branch: Either[ErrorStr, Branch]

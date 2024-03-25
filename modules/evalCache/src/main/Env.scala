@@ -16,6 +16,8 @@ final class Env(
 
   lazy val api: EvalCacheApi = wire[EvalCacheApi]
 
+  def getSinglePvEval: lila.hub.eval.CloudEval.GetSinglePvEval = api.getSinglePvEval
+
   def cli = new lila.common.Cli:
     def process = { case "eval-cache" :: "drop" :: variantKey :: fenParts =>
       Variant(Variant.LilaKey(variantKey)).fold(fufail("Invalid variant")): variant =>

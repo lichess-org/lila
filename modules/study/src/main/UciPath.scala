@@ -2,7 +2,7 @@ package lila.study
 
 import chess.format.UciPath
 
-import lila.tree.Node
+import lila.hub.tree.Node
 
 extension (e: UciPath)
 

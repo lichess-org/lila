@@ -7,7 +7,7 @@ import lila.app.{ *, given }
 import lila.practice.JsonView.given
 import lila.practice.{ PracticeSection, PracticeStudy, UserStudy }
 import lila.study.Study.WithChapter
-import lila.tree.Node.partitionTreeJsonWriter
+import lila.hub.tree.Node.partitionTreeJsonWriter
 
 final class Practice(
     env: Env,

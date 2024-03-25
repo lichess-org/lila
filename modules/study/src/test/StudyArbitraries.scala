@@ -8,8 +8,8 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.format.pgn.{ Pgn, Move as PgnMove, Tags, InitialComments, Glyph, Glyphs }
 import org.scalacheck.{ Arbitrary, Gen }
 import chess.bitboard.Bitboard
-import lila.tree.{ NewTree, NewRoot, NewBranch, Metas }
-import lila.tree.Node.{ Comments, Comment, Shapes, Shape }
+import lila.hub.tree.{ NewTree, NewRoot, NewBranch, Metas }
+import lila.hub.tree.Node.{ Comments, Comment, Shapes, Shape }
 import org.scalacheck.Cogen
 
 object StudyArbitraries:

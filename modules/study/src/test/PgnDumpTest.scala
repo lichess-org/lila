@@ -6,7 +6,7 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Ply, Check, variant }
 import Node.*
 
-import lila.tree.{ Branch, Branches, Root }
+import lila.hub.tree.{ Branch, Branches, Root }
 
 class PgnDumpTest extends munit.FunSuite:
 

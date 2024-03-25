@@ -4,11 +4,12 @@ import chess.format.Fen
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.evalCache.EvalCacheEntry.*
+import lila.hub.eval.CloudEval
+import lila.hub.eval.Pv
 
 object JsonView:
 
-  def writeEval(e: Eval, fen: Fen.Epd) =
+  def writeEval(e: CloudEval, fen: Fen.Epd) =
     Json.obj(
       "fen"    -> fen,
       "knodes" -> e.knodes,

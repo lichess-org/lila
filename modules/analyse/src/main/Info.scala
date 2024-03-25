@@ -4,7 +4,7 @@ import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.{ Comment, SanStr }
 
-import lila.tree.Eval
+import lila.hub.eval.Eval
 
 // ply AFTER the move was played
 case class Info(ply: Ply, eval: Eval, variation: List[SanStr]):

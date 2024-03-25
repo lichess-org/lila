@@ -6,8 +6,8 @@ import chess.{ Ply, Replay }
 import scala.language.implicitConversions
 
 import lila.analyse.{ Analysis, Info }
-import lila.tree.Eval
-import lila.tree.Eval.*
+import lila.hub.eval.Eval
+import lila.hub.eval.Eval.*
 
 final class UciToSanTest extends munit.FunSuite:
 

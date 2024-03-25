@@ -7,7 +7,7 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.base.LilaInvalid
-import lila.tree.Node
+import lila.hub.tree.Node
 
 final class GifExport(
     ws: StandaloneWSClient,

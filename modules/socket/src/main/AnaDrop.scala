@@ -7,7 +7,7 @@ import chess.variant.Variant
 import play.api.libs.json.JsObject
 
 import lila.common.Json.given
-import lila.tree.Branch
+import lila.hub.tree.Branch
 
 case class AnaDrop(
     role: chess.Role,

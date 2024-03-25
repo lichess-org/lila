@@ -1,4 +1,5 @@
-package lila.tree
+package lila.hub
+package tree
 
 import alleycats.Zero
 import monocle.syntax.all.*
@@ -9,9 +10,10 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.opening.Opening
 import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
+import chess.Color
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
-import chess.Color
+import lila.hub.eval.Eval
 
 case class Metas(
     ply: Ply,
@@ -305,7 +307,7 @@ object NewRoot:
   import NewTree.*
   import play.api.libs.json.*
   import lila.common.Json.given
-  import JsonHandlers.given
+  import Eval.jsonWrites
   import Node.given
 
   given defaultNodeJsonWriter: Writes[NewRoot]         = makeRootJsonWriter(alwaysChildren = true)

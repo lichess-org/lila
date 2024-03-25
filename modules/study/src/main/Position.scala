@@ -2,7 +2,7 @@ package lila.study
 
 import chess.format.UciPath
 
-import lila.tree.{ Branch, Node }
+import lila.hub.tree.{ Branch, Node }
 
 case class Position(chapter: Chapter, path: UciPath):
 

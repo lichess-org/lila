@@ -11,8 +11,8 @@ import lila.common.Json.given
 import lila.hub.LateMultiThrottler
 import lila.search.*
 import lila.study.{ Chapter, ChapterRepo, Study, StudyRepo }
-import lila.tree.Node
-import lila.tree.Node.Comments
+import lila.hub.tree.Node
+import lila.hub.tree.Node.Comments
 
 final class StudySearchApi(
     client: ESClient,

@@ -1,12 +1,11 @@
-package lila.tree
+package lila.hub
+package eval
 
-import chess.format.Uci
+import cats.data.NonEmptyList
+import chess.format.{ Uci, Fen }
+import chess.variant.Variant
 
-case class Eval(
-    cp: Option[Eval.Cp],
-    mate: Option[Eval.Mate],
-    best: Option[Uci]
-):
+case class Eval(cp: Option[Eval.Cp], mate: Option[Eval.Mate], best: Option[Uci]):
 
   def isEmpty = cp.isEmpty && mate.isEmpty
 
@@ -14,12 +13,12 @@ case class Eval(
 
   def invert = copy(cp = cp.map(_.invert), mate = mate.map(_.invert))
 
-  def score: Option[Score] = cp.map(Score.Cp(_)) orElse mate.map(Score.Mate(_))
+  def score: Option[Score] = cp.map(Score.Cp(_)).orElse(mate.map(Score.Mate(_)))
 
-  def forceAsCp: Option[Eval.Cp] = cp orElse mate.map {
+  def forceAsCp: Option[Eval.Cp] = cp.orElse(mate.map {
     case m if m.negative => Eval.Cp(Int.MinValue - m.value)
     case m               => Eval.Cp(Int.MaxValue - m.value)
-  }
+  })
 
 enum Score:
   case Cp(c: Eval.Cp)
@@ -56,7 +55,7 @@ object Eval:
       inline def centipawns = cp.value
 
       inline def pawns: Float      = cp.value / 100f
-      inline def showPawns: String = "%.2f" format pawns
+      inline def showPawns: String = "%.2f".format(pawns)
 
       inline def ceiled: Cp =
         if cp.value > Cp.CEILING then Cp.CEILING
@@ -87,8 +86,24 @@ object Eval:
 
   val empty = Eval(None, None, None)
 
-object JsonHandlers:
   import play.api.libs.json.*
   import lila.common.Json.given
+  given jsonWrites: Writes[Eval] = Json.writes[Eval]
 
-  given Writes[Eval] = Json.writes[Eval]
+opaque type Moves = NonEmptyList[Uci]
+object Moves extends TotalWrapper[Moves, NonEmptyList[Uci]]
+
+opaque type Knodes = Int
+object Knodes extends OpaqueInt[Knodes]:
+  extension (a: Knodes)
+    def intNodes: Int =
+      val nodes = a.value * 1000d
+      if nodes.toInt == nodes then nodes.toInt
+      else Integer.MAX_VALUE
+
+case class Pv(score: Score, moves: Moves)
+
+case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: Depth, by: UserId)
+
+object CloudEval:
+  type GetSinglePvEval = (Variant, Fen.Epd) => Fu[Option[CloudEval]]

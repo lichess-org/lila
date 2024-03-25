@@ -17,7 +17,7 @@ import lila.security.Granter
 import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
-import lila.tree.Node.partitionTreeJsonWriter
+import lila.hub.tree.Node.partitionTreeJsonWriter
 import lila.user.{ GameUsers, User }
 
 final private[api] class RoundApi(

@@ -5,7 +5,7 @@ import chess.format.pgn.{ Tag, Tags }
 
 import lila.socket.Socket.Sri
 import lila.study.*
-import lila.tree.Branch
+import lila.hub.tree.Branch
 
 final private class RelaySync(
     studyApi: StudyApi,

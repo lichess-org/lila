@@ -6,8 +6,8 @@ import chess.format.{ Fen, UciPath }
 import scala.util.chaining.*
 
 import lila.game.{ Game, Namer }
-import lila.tree.Node.Comment
-import lila.tree.{ Branch, Node, Root }
+import lila.hub.tree.Node.Comment
+import lila.hub.tree.{ Branch, Node, Root }
 
 final private class ExplorerGame(
     importer: lila.explorer.ExplorerImporter,
