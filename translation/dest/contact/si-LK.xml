@@ -50,4 +50,13 @@
   <string name="insufficientMaterial">මේට් කිරීමට ඉත්තන් මදි</string>
   <string name="fideMate">චෙස් ක්‍රීඩාවේ FIDE නීති §6.9 අනුව, ඕනෑම නෛතික ඇදීම් අනුපිළිවෙලක් සමඟ චෙක්මේට් විය හැකි නම්, ක්‍රීඩාව Draw නොවේ</string>
   <string name="knightMate">ප්‍රතිවාදියාට King කෙනෙකුට වඩා වැඩි නම්, Kinght කෙනෙකු හෝ Bishop කෙනෙකු සමඟ පමණක් චෙක්මේට් කළ හැකිය.</string>
+  <string name="noRatingPoints">Rating ප්‍රදානය කර නැත</string>
+  <string name="ratedGame">ඔබ Rated ක්‍රීඩාවක් ක්‍රීඩා කළ බවට වග බලා ගන්න. Casual ක්‍රීඩා ක්‍රීඩකයන්ගේ Rating වලට​ බලපාන්නේ නැත.</string>
+  <string name="errorPage">දෝෂ පිටුව</string>
+  <string name="wantBroadcastTournament">මට තරඟාවලියක් විකාශනය කිරීමට අවශ්‍යයි</string>
+  <string name="learnHowToMakeBroadcasts">Lichess හි ඔබේම විකාශන කරන්නේ කෙසේදැයි ඉගෙන ගන්න</string>
+  <string name="banAppeal">තහනමක් හෝ IP සීමාවක් සඳහා අභියාචනය කරන්න</string>
+  <string name="engineAppeal">එන්ජිම හෝ වංචා ලකුණ</string>
+  <string name="sendAppealTo">ඔබට %s වෙත අභියාචනයක් යැවිය හැක.</string>
+  <string name="falsePositives">වැරදි ධනාත්මක සමහර විට සිදු වන අතර, අපි ඒ ගැන කනගාටු වෙමු.</string>
 </resources>

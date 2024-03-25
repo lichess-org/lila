@@ -105,7 +105,7 @@
   <string name="startFromInitialPosition">Старт з початкової позиції</string>
   <string name="editor">Редактор</string>
   <string name="startFromCustomPosition">Почати з обраної позиції</string>
-  <string name="loadAGameByUrl">Завантажте гру за URL-адресою</string>
+  <string name="loadAGameByUrl">Завантажте гру за посиланням</string>
   <string name="loadAPositionFromFen">Завантажити позицію з FEN</string>
   <string name="loadAGameFromPgn">Завантажити гру з PGN</string>
   <string name="automatic">Автоматично</string>
@@ -115,7 +115,7 @@
     <item quantity="many">Вставте ваш PGN текст тут, до %s ігор</item>
     <item quantity="other">Вставте ваш PGN текст тут, до %s ігор</item>
   </plurals>
-  <string name="urlOfTheGame">URL-адреса гри</string>
+  <string name="urlOfTheGame">Посилання на гру</string>
   <string name="loadAGameFromXOrY">Завантажити гру з %1$s або %2$s</string>
   <string name="createChapter">Створити розділ</string>
   <string name="createStudy">Створити дослідження</string>
