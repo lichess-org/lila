@@ -21,8 +21,7 @@ body {
   background: $c-bg-page linear-gradient(to bottom, $c-body-gradient, $c-bg-page 116px) no-repeat;
   color: $c-font;
 
-  direction: $direction;
-  text-align: $start-direction;
+  text-align: start;
 
   overflow-x: hidden;
   &.fixed-scroll {

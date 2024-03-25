@@ -8,7 +8,7 @@
   input,
   > div {
     flex: 1 1 40%;
-    margin-#{$end-direction}: 1rem;
+    margin-inline-end: 1rem;
   }
 
   .button {

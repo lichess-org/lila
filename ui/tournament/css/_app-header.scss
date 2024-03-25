@@ -30,7 +30,7 @@
   }
 
   .img {
-    margin-#{$end-direction}: 1rem;
+    margin-inline-end: 1rem;
   }
 
   i::before {
@@ -80,7 +80,7 @@
     text-align: center;
 
     .tour-sched-marathon & {
-      padding-#{$start-direction}: 0;
+      padding-inline-start: 0;
     }
   }
 
@@ -88,7 +88,7 @@
     @extend %roboto;
 
     font-size: 1.5em;
-    margin-#{$start-direction}: 0.2em;
+    margin-inline-start: 0.2em;
   }
 
   .shy {
@@ -102,14 +102,14 @@
 
   .tour-sched-marathon & h1 {
     color: #4166a0 !important;
-    padding-#{$start-direction}: 90px;
+    padding-inline-start: 90px;
     letter-spacing: 2px;
   }
 
   .tour-sched-marathon & .fire-trophy {
     position: absolute;
     top: 0;
-    #{$start-direction}: 10px;
+    @include inline-start(10px);
     width: 70px;
     height: 80px;
     opacity: 0.7;
@@ -124,13 +124,13 @@
 
   .tour-sched-shield & {
     h1 {
-      padding-#{$start-direction}: 90px;
+      padding-inline-start: 90px;
       letter-spacing: 2px;
 
       .shield-trophy {
         position: absolute;
         top: -8px;
-        #{$start-direction}: 12px;
+        @include inline-start(12px);
         display: block;
         width: 67px;
         height: 80px;

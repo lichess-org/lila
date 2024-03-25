@@ -27,12 +27,12 @@
 
   &__pov {
     color: $c-brag;
-    margin-#{$start-direction}: 5vw;
+    margin-inline-start: 5vw;
 
     @include mq-at-least-col2 {
       position: absolute;
       bottom: -3em;
-      margin-#{$start-direction}: 0;
+      margin-inline-start: 0;
     }
   }
 }

@@ -55,11 +55,11 @@
       position: absolute;
       content: '';
       bottom: -9px;
-      #{$end-direction}: 20%;
+      @include inline-end(20%);
       width: 15px;
       height: 15px;
       background: $c-bg-box;
-      border-#{$end-direction}: 1px solid $c-font-dimmer;
+      border-inline-end: 1px solid $c-font-dimmer;
       border-bottom: 1.5px solid $c-font-dimmer;
       transform: skew(45deg) rotate(45deg);
       z-index: 1;
@@ -107,7 +107,7 @@
 
   .mascot {
     flex: 0 0 8rem;
-    margin-#{$start-direction}: 1em;
+    margin-inline-start: 1em;
   }
 
   .feedback {
@@ -163,7 +163,7 @@
     &.play .no-square {
       flex: 0 0 64px;
       height: 64px;
-      margin-#{$end-direction}: 10px;
+      margin-inline-end: 10px;
     }
 
     .instruction > * {
@@ -205,7 +205,7 @@
         justify-content: center;
         text-align: center;
         padding: 0.5em;
-        border-#{$start-direction}: 1px solid rgba(255, 255, 255, 0.3);
+        border-inline-start: 1px solid rgba(255, 255, 255, 0.3);
         line-height: 1.2em;
 
         @include transition;
@@ -240,6 +240,6 @@
     @extend %box-radius-top;
 
     padding: 0.2em 0.5em;
-    margin-#{$start-direction}: 0.7em;
+    margin-inline-start: 0.7em;
   }
 }

@@ -35,12 +35,12 @@
   }
 
   .comment .wait {
-    padding-#{$start-direction}: 15px;
+    padding-inline-start: 15px;
   }
 
   .verdict {
     font-weight: bold;
-    margin-#{$end-direction}: 10px;
+    margin-inline-end: 10px;
     display: flex;
   }
 
@@ -48,7 +48,7 @@
     width: 30px;
     height: 100%;
     color: #fff;
-    margin-#{$end-direction}: 7px;
+    margin-inline-end: 7px;
     text-align: center;
     font-size: 1.4em;
     font-weight: normal;
@@ -87,7 +87,7 @@
   .comment {
     move {
       cursor: pointer;
-      margin-#{$start-direction}: 5px;
+      margin-inline-start: 5px;
       color: $c-link;
       transition: 0.3s;
     }

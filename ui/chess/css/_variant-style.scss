@@ -8,7 +8,7 @@
     height: 12.5%;
     content: '';
     position: absolute;
-    #{$start-direction}: 0;
+    @include inline-start(0);
     z-index: 1;
     pointer-events: none;
   }
@@ -30,7 +30,7 @@
   content: '';
   position: absolute;
   top: 37.5%;
-  #{$start-direction}: 37.5%;
+  @include inline-start(37.5%);
   z-index: 1;
   pointer-events: none;
 }
