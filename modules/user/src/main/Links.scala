@@ -67,7 +67,6 @@ object Link:
       GitHub,
       VKontakte,
       ChessCom,
-      Chess24,
       ChessMonitor,
       ChessTempo
     )
