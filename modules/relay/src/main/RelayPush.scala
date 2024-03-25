@@ -42,7 +42,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
   private def push(rt: RelayRound.WithTour, games: Vector[RelayGame]) =
     workQueue(rt.round.id):
       sync
-        .updateStudyChapters(rt, games)
+        .updateStudyChapters(rt, rt.tour.players.fold(games)(_.update(games)))
         .map: res =>
           SyncLog.event(res.nbMoves, none)
         .recover:
