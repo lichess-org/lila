@@ -7,4 +7,9 @@
   <string name="anastasiaMate">අනස්ටාසියාගෙ මේට් එක​</string>
   <string name="anastasiaMateDescription">ප්‍රතිවාදී රජු පුවරුවේ පැත්ත සහ මිත්‍රශීලී කෑල්ලක් අතර කොටු කිරීමට නයිට්වරයෙකු සහ රූක් හෝ රැජින කණ්ඩායමක්.</string>
   <string name="arabianMate">අරාබියානු මේට් එක​</string>
+  <string name="arabianMateDescription">නයිටෙකු සහ රුකෙකු එකතු වී ප්‍රතිවාදී රජුව පුවරුවේ කොනකට හිර කරයි.</string>
+  <string name="attackingF2F7">F2 හෝ f7 වලට පහර දීම​</string>
+  <string name="attraction">ආකර්ෂණය</string>
+  <string name="backRankMate">පසු පෙළ මේටය</string>
+  <string name="bishopEndgame">බිශොප් එන්ඩ්ගේම</string>
 </resources>

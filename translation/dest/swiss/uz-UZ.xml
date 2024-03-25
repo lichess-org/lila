@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Shvetsariya</string>
   <string name="swissTournaments">Tezkor turnirlar</string>
+  <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
+    <item quantity="one">Raundni koʻrish</item>
+    <item quantity="other">%s barcha raunlarini koʻrish</item>
+  </plurals>
+  <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
+    <item quantity="one">%s saund</item>
+    <item quantity="other">%s raundlar</item>
+  </plurals>
+  <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
+    <item quantity="one">%s Shveytsariya raundi</item>
+    <item quantity="other">%s Shveytsariya raundlari</item>
+  </plurals>
 </resources>

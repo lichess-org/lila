@@ -5,8 +5,8 @@
   <string name="provisional">tạm thời</string>
   <string name="notEnoughRatedGames">Không có đủ ván có xếp hạng đã được chơi để thiết lập một hệ số đáng tin cậy.</string>
   <string name="progressOverLastXGames">Sự tiến bộ qua %s ván cờ gần đây:</string>
-  <string name="ratingDeviation">Độ chênh lệch hệ số Elo:%s.</string>
-  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Giá trị thấp hơn nghĩa là Elo ổn định hơn. Ở ngưỡng trên %1$s, Elo được coi là tạm thời. Để được xếp trong bảng xếp hạng, giá trị này phải ở dưới ngưỡng %2$s (cờ tiêu chuẩn) hoặc %3$s (các biến thể).</string>
+  <string name="ratingDeviation">Độ chênh lệch hệ số: %s.</string>
+  <string name="ratingDeviationTooltip" comment="ratingDeviationTooltip&#10;&#10;This is a tooltip (appears on mouseover) for the rating deviation. Appears on performance statistics pages such as https://lichess.org/@/thibault/perf/ultraBullet&#10;&#10;As of 2021-05-19, $1%s is set to 110.">Giá trị thấp hơn nghĩa là hệ số ổn định hơn. Ở ngưỡng trên %1$s, hệ số được coi là tạm thời. Để được xếp trong bảng xếp hạng, giá trị này phải ở dưới ngưỡng %2$s (cờ tiêu chuẩn) hoặc %3$s (các biến thể).</string>
   <string name="totalGames">Tổng số ván cờ</string>
   <string name="ratedGames">Các ván cờ có xếp hạng</string>
   <string name="tournamentGames">Số ván chơi trong giải đấu</string>

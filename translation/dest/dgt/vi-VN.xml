@@ -33,9 +33,9 @@
   <string name="configureVoiceNarration">Định cấu hình tường thuật các nước đi đã chơi bằng giọng nói của bạn có thể theo dõi bàn cờ.</string>
   <string name="enableSpeechSynthesis">Bật Tổng Hợp Giọng Nói</string>
   <string name="speechSynthesisVoice">Giọng nói tổng hợp</string>
-  <string name="announceAllMoves">Thông báo tất cả các nước đi</string>
+  <string name="announceAllMoves">Thông Báo Tất Cả Nước Đi</string>
   <string name="selectAnnouncePreference">Chọn CÓ để thông báo cả nước đi của bạn và nước đi của đối thủ. Chọn KHÔNG để chỉ thông báo nước đi của đối thủ.</string>
-  <string name="announceMoveFormat">Thông báo định dạng nước đi</string>
+  <string name="announceMoveFormat">Định Dạng Thông Báo Nước Đi</string>
   <string name="moveFormatDescription">SAN là tiêu chuẩn của Lichess như \"Nf6\". UCI phổ biến trên các động cơ cờ vua như \"g8f6\".</string>
   <string name="keywords">Các từ khóa</string>
   <string name="keywordFormatDescription">Từ khóa có định dạng JSON. Chúng được sử dụng để dịch các nước đi và kết quả sang ngôn ngữ của bạn. Mặc định là tiếng Anh nhưng bạn có thể thoải mái thay đổi nó.</string>

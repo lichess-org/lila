@@ -101,6 +101,7 @@
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
   <string name="openingEndgameExplorer">Εξερευνητής ανοιγμάτων/φινάλε</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Κλειδί: παίξτε ΠρώταΆνοιγμαΦινάλεΕξερευνητήςΚίνηση</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
   <string name="winOr50MovesByPriorMistake">Νίκη ή ισοπαλία από 50 κινήσεις λόγω λάθους</string>
@@ -704,6 +705,10 @@
   <string name="keyPreviousBranch">Προηγούμενος κλάδος</string>
   <string name="keyNextBranch">Επόμενος κλάδως</string>
   <string name="toggleVariationArrows">Εμφάνισε βελάκια παραλλαγών</string>
+  <string name="cyclePreviousOrNextVariation">Κλειδί: κύκλος ΠροηγούμενηΉΕπόμενηΒαριάντα</string>
+  <string name="toggleGlyphAnnotations">Μεταβολή ΓρίφοςΣχόλιο</string>
+  <string name="togglePositionAnnotations">Μεταβολή ΘέσηΣχόλιο</string>
+  <string name="variationArrowsInfo">Εκδοχή ΒέληΠληροφορίες.</string>
   <string name="playSelectedMove">παίξε την επιλεγμένη κίνηση</string>
   <string name="newTournament">Νέο τουρνουά</string>
   <string name="tournamentHomeTitle">Σκακιστικά τουρνουά διαφόρων χρόνων και εκδοχών</string>

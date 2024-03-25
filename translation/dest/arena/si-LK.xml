@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
+  <string name="arenaTournaments">Arena තරඟාවලි</string>
+  <string name="isItRated">එය Ratedද?</string>
+  <string name="willBeNotified">දැනුම් දෙනු ඇත.</string>
+  <string name="isRated">Rated.</string>
+  <string name="isNotRated">Rated නැත.</string>
+  <string name="someRated">සමහරක් Rated.</string>
+  <string name="howAreScoresCalculated">ලකුණු ගණනය කරන්නේ කෙසේද?</string>
+  <string name="howAreScoresCalculatedAnswer">ලකුණු ගණනය කරන පිළිතුර කෙසේද</string>
+  <string name="berserk">බර්සර්ක්</string>
+  <string name="berserkAnswer">බර්සර්ක් පිළිතුර.</string>
+  <string name="howIsTheWinnerDecided">ජයග්රාහකයා තීරණය කරන්නේ කෙසේද?</string>
+  <string name="howIsTheWinnerDecidedAnswer">ජයග්රාහකයා තීරණය කරන්නේ කෙසේද? පිළිතුර.</string>
+  <string name="howDoesPairingWork">Pair කිරීම ක්‍රියා කරන්නේ කෙසේද?</string>
   <string name="thereIsACountdown">ඔබගේ පළමු පියවර සඳහා ගණන් කිරීමක් තිබේ. මෙම කාලය තුළ පියවරක් ගැනීමට අපොහොසත් වීමෙන් ඔබගේ ප්‍රතිවාදියාට ක්‍රීඩාව අහිමි වනු ඇත.</string>
 </resources>
