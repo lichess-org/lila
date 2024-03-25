@@ -45,7 +45,8 @@ z-index: 99;
       a(
         href := routes.Main.externalLink("mastodon", "https://mastodon.online/@lichess"),
         targetBlank,
-        rel := "me"
+        noFollow,
+        relMe
       )("Mastodon"),
       a(href := routes.Main.externalLink("twitter", "https://twitter.com/lichess"), targetBlank, noFollow)(
         "Twitter"
