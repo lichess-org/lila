@@ -71,8 +71,7 @@ final class Signup(
               suspIp <- ipTrust.isSuspicious(ip)
               ipData <- ipTrust.data(ip)
               result <- hcaptcha.verify().flatMap {
-                case Hcaptcha.Result.Fail           => fuccess(Signup.Result.MissingCaptcha)
-                case Hcaptcha.Result.Pass if !blind => fuccess(Signup.Result.MissingCaptcha)
+                case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
                 case hcaptchaResult =>
                   signupRateLimit(
                     data.username.id,
@@ -146,7 +145,7 @@ final class Signup(
               val mustConfirm = MustConfirmEmail.YesBecauseMobile
               monitor(
                 data,
-                captcha = Hcaptcha.Result.Skip,
+                captcha = Hcaptcha.Result.Mobile,
                 mustConfirm,
                 ipData,
                 suspIp,

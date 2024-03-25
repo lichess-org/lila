@@ -63,7 +63,7 @@ object show:
         div(cls := "box relay-tour")(
           div(cls := "relay-tour__header")(
             div(cls := "relay-tour__header__content")(
-              h1(rt.tour.name),
+              h1(data.group.fold(rt.tour.name.value)(_.value)),
               div(cls := "relay-tour__header__selectors"):
                 div(cls := "mselect relay-tour__mselect"):
                   label(cls := "mselect__label"):
