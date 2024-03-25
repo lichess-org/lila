@@ -29,11 +29,6 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
   def get(id: UciCharPair): Option[Branch] = nodes.find(_.id == id)
   def hasNode(id: UciCharPair): Boolean    = nodes.exists(_.id == id)
 
-  def getNodeAndIndex(id: UciCharPair): Option[(Branch, Int)] =
-    nodes.zipWithIndex.collectFirst {
-      case pair if pair._1.id == id => pair
-    }
-
   def nodeAt(path: UciPath): Option[Branch] =
     path.split.flatMap { (head, rest) =>
       rest.computeIds.foldLeft(get(head)) { (cur, id) =>
@@ -54,8 +49,8 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 
   def addNodeAt(node: Branch, path: UciPath): Option[Branches] =
     path.split match
-      case None               => addNode(node).some
-      case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
+      case None             => addNode(node).some
+      case Some(head, tail) => updateChildren(head, _.addNodeAt(node, tail))
 
   // suboptimal due to using List instead of Vector
   def addNode(node: Branch): Branches =
@@ -209,7 +204,7 @@ case class Root(
   def prependChild(branch: Branch)  = copy(children = branch :: children)
   def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
 
-  def withChildren(f: Branches => Option[Branches]) =
+  def withChildren(f: Branches => Option[Branches]): Option[Root] =
     f(children).map { newChildren =>
       copy(children = newChildren)
     }

@@ -16,7 +16,7 @@ class WMMatchingTest extends munit.FunSuite:
       e += p._2
       w += p._3
     val l = toMate(n, WMMatching.maxWeightMatching(e.result(), w.result(), maxcardinality))
-    assert(if l eq null then false else expectedMate.sameElements(l))
+    assert(expectedMate.sameElements(l))
   //  check(Array((0,1,1)), false, List (1, 0))
   def check(n: Int, a: Array[Int], res: (Int, Int)) =
     val v           = Array.range(0, n)

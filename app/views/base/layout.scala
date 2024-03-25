@@ -123,10 +123,12 @@ object layout:
 
   private def anonDasher(using ctx: PageContext) =
     val prefs = trans.preferences.preferences.txt()
-    div(cls := "dasher")(
-      a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.signIn.txt()),
-      button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
-      div(id     := "dasher_app", cls         := "dropdown")
+    frag(
+      a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.signIn()),
+      div(cls := "dasher")(
+        button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
+        div(id     := "dasher_app", cls         := "dropdown")
+      )
     )
 
   private def allNotifications(using ctx: PageContext) =

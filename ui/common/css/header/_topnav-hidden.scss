@@ -110,6 +110,7 @@
     #{$start-direction}: 0;
     background: $c-bg-high;
 
+    -webkit-clip-path: inset(0 100% 0 0); // ios 12.x
     clip-path: inset(0 100% 0 0);
     transition: clip-path 200ms;
 
@@ -127,8 +128,6 @@
     @media (min-width: at-least($xx-small)) {
       max-width: 70%;
     }
-
-    z-index: z('topnav');
 
     a {
       color: $c-font;
@@ -170,6 +169,8 @@
     }
 
     .topnav-toggle:checked ~ & {
+      z-index: z('topnav');
+      -webkit-clip-path: inset(0 0 0 0); // ios 12.x
       clip-path: inset(0 0 0 0);
       a {
         opacity: 1;
@@ -181,10 +182,5 @@
   body.masked {
     /* prevent scrolling while topnav is open */
     overflow: hidden;
-
-    /* awkwardly make up for the disappearance of the scroll bar */
-    /* actually don't, since on mobile devices the scrool bar
-     * has no width, and that menu is mainly for mobile. */
-    // padding-#{$end-direction}: 15px;
   }
 }

@@ -309,12 +309,7 @@ final class MsgApi(
                       $and(
                         $doc("$eq" -> $arr("$user", userId)),
                         $doc("$eq" -> $arr("$tid", "$$t")),
-                        $doc:
-                          "$not" -> $doc:
-                            "$regexMatch" -> $doc(
-                              "input" -> "$text",
-                              "regex" -> "You received this because you are (subscribed to messages|part) of the team"
-                            )
+                        excludeTeamMessages
                       )
             )
           ,
@@ -328,6 +323,48 @@ final class MsgApi(
           text <- msg.string("text")
           date <- msg.getAsOpt[Instant]("date")
         yield (text, date)).toList
+
+  private val excludeTeamMessages = $doc:
+    "$not" -> $doc:
+      "$regexMatch" -> $doc(
+        "input" -> "$text",
+        "regex" -> "You received this because you are (subscribed to messages|part) of the team"
+      )
+
+  // include responses from the other user
+  def modFullCommsExport(userId: UserId): Source[(MsgThread.Id, NonEmptyList[Msg]), ?] =
+    colls.thread
+      .aggregateWith[Bdoc](readPreference = ReadPref.priTemp): framework =>
+        import framework.*
+        List(
+          Match($doc("users" -> userId)),
+          Sort(Descending("lastMsg.date")),
+          Project($id(true)),
+          PipelineOperator:
+            $lookup.pipelineFull(
+              from = colls.msg.name,
+              as = "msgs",
+              let = $doc("t" -> "$_id"),
+              pipe = List(
+                $doc(
+                  "$match" ->
+                    $expr:
+                      $and(
+                        $doc("$eq" -> $arr("$tid", "$$t")),
+                        excludeTeamMessages
+                      )
+                ),
+                $doc("$sort" -> $sort.desc("date"))
+              )
+            )
+        )
+      .documentSource()
+      .mapConcat: doc =>
+        (for
+          tid <- doc.getAsOpt[MsgThread.Id]("_id")
+          // filter conversation where only team messages where sent
+          msgs <- doc.getAsOpt[NonEmptyList[Msg]]("msgs")
+        yield (tid, msgs)).toList
 
 object MsgApi:
   enum PostResult:

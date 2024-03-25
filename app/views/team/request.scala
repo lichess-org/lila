@@ -59,7 +59,7 @@ object request:
   private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(using
       ctx: PageContext
   ) =
-    table(cls := "slist requests @if(t.isEmpty){all}else{for-team} datatable")(
+    table(cls := "slist requests datatable")(
       tbody(
         requests.map { request =>
           tr(

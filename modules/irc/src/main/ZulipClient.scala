@@ -81,6 +81,7 @@ private object ZulipClient:
       val adminAppeal  = "mod-admin-appeal"
       val cafeteria    = "mod-cafeteria"
       val usernames    = "mod-usernames"
+      val trustSafety  = "org-trustsafety"
       def adminMonitor(tpe: IrcApi.ModDomain) = tpe match
         case IrcApi.ModDomain.Comm  => "mod-admin-monitor-comm"
         case IrcApi.ModDomain.Cheat => "mod-admin-monitor-cheat"

@@ -42,7 +42,7 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val oldRoot = x.root.toNewRoot.cleanup
       assertEquals(y.root.cleanup, oldRoot)
 
-  test("conversion check"):
+  test("Root conversion check"):
     forAll: (root: NewRoot) =>
       val oldRoot = root.toRoot
       val newRoot = oldRoot.toNewRoot
@@ -88,15 +88,20 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val oldRoot = root.toRoot
       oldRoot.updateMainlineLast(_.copy(clock = c)).toNewRoot == root.updateMainlineLast(_.copy(clock = c))
 
-  // override def scalaCheckInitialSeed = "OhayJX-NSkjod3-vTDxYsY2XWp5pjWu1LJK8_ruPi9F="
-  // test("takeMainlineWhile"):
-  //   forAll: (root: NewRoot, c: Option[Centis]) =>
-  //     val oldRoot = root.clearVariations.toRoot
-  //     val x = oldRoot.takeMainlineWhile(x => x.clock == c).toNewRoot
-  //     val y = root.clearVariations.takeMainlineWhile(x => x.metas.clock == c)
-  //     y.size >= 2 ==> {
-  //       x == y
-  //     }
+  test("takeMainlineWhile"):
+    forAll: (root: NewRoot, f: Option[Centis] => Boolean) =>
+      val c = root
+      val x = c.toRoot.takeMainlineWhile(b => f(b.clock)).toNewRoot
+      val y = c.takeMainlineWhile(b => f(b.clock))
+      // The current tree always take the first child of the root despite the predicate
+      // so, We have to ignore the case where the first child doesn't satisfy the predicate
+      c.tree.exists(b => f(b.value.clock)) ==> (x == y)
+
+  test("current tree's bug with takeMainlineWhile".ignore):
+    val pgn     = "1. d4 d5 2. e4 e5"
+    val newRoot = NewPgnImport(pgn, Nil).toOption.get.root
+    val oldRoot = newRoot.toRoot
+    assert(oldRoot.takeMainlineWhile(_.clock.isDefined).children.isEmpty)
 
   test("clearVariations"):
     forAll: (root: NewRoot) =>
@@ -134,27 +139,27 @@ class NewTreeTest extends munit.ScalaCheckSuite:
   test("nodeAt"):
     forAll: (rp: RootWithPath) =>
       val (root, path) = rp
-      !path.isEmpty ==> {
+      path.nonEmpty ==> {
         val oldRoot = root.toRoot
         oldRoot.nodeAt(path).isEmpty == root.nodeAt(path).isEmpty
       }
 
-  test("addNodeAt".ignore):
+  test("addNodeAt"):
     forAll: (rp: RootWithPath, oTree: Option[NewTree]) =>
       val (root, path) = rp
-      oTree.isDefined ==> {
-        val tree    = oTree.get.take(1).clearVariations
-        val oldRoot = root.toRoot.withChildren(_.addNodeAt(tree.toBranch, path.pp))
+
+      oTree.isDefined && path.nonEmpty ==> {
+        val tree    = oTree.get.withoutVariations
+        val oldRoot = root.toRoot.withChildren(_.addNodeAt(tree.toBranch, path))
         val x       = oldRoot.map(_.toNewRoot)
         val y       = root.addNodeAt(path, tree)
-        if path.isEmpty then
-          rootToPgn(root).pp
-          tree.pp
-          println("x")
-          x.foreach(rootToPgn(_).pp)
-          println("x")
-          y.foreach(rootToPgn(_).pp)
-        assertEquals(x, y)
+        // We compare only size because We have different merging strategies
+        // In the current tree, We put the added node/ the merged node at the end of the children
+        // Int the new tree, if the node already exists, We merge the node at the same position as the existing node
+        // if the node's id is unique, We put the node at the end of the variations
+        // I believe the new tree's strategy is more reasonable
+        assertEquals(x.isDefined, y.isDefined)
+        assertEquals(x.fold(0)(_.size), y.fold(0)(_.size))
       }
 
   // test("addChild"):
