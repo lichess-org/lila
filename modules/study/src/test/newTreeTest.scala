@@ -162,9 +162,10 @@ class NewTreeTest extends munit.ScalaCheckSuite:
         assertEquals(x.fold(0)(_.size), y.fold(0)(_.size))
       }
 
-  // test("addChild"):
-  //   forAll: (root: NewRoot, oTree: Option[NewTree]) =>
-  //     oTree.isDefined ==> {
-  //       val tree = oTree.get.clearVariations
-  //       root.toRoot.addChild(tree.toBranch).toNewRoot == root.addChild(tree)
-  //     }
+  // similar to addNodeAt, We only compare size
+  test("addChild"):
+    forAll: (root: NewRoot, oTree: Option[NewTree]) =>
+      oTree.isDefined ==> {
+        val tree = oTree.get.withoutVariations
+        root.toRoot.addChild(tree.toBranch).toNewRoot.size == root.addChild(tree).size
+      }
