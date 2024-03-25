@@ -240,7 +240,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(notifyModule, evalCache),
+  Seq(notifyModule),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -310,7 +310,7 @@ lazy val simul = module("simul",
 )
 
 lazy val fishnet = module("fishnet",
-  Seq(analyse),
+  Seq(analyse, evalCache),
   Seq(lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
