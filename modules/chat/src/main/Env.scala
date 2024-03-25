@@ -44,5 +44,7 @@ final class Env(
 
   lazy val panic = wire[ChatPanic]
 
+  def allowedDuringPanic: lila.hub.chat.panic.IsAllowed = panic.allowed
+
   scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery): () =>
     timeout.checkExpired.foreach(api.userChat.reinstate)

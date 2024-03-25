@@ -11,7 +11,7 @@ import lila.rating.{ Perf, PerfType }
 case class User(
     id: UserId,
     username: UserName,
-    count: Count,
+    count: lila.hub.user.Count,
     enabled: UserEnabled,
     roles: List[String],
     profile: Option[Profile] = None,
@@ -27,7 +27,7 @@ case class User(
     totpSecret: Option[TotpSecret] = None,
     marks: UserMarks = UserMarks.empty,
     hasEmail: Boolean
-):
+) extends lila.hub.user.User:
 
   override def equals(other: Any) = other match
     case u: User => id == u.id
@@ -82,8 +82,6 @@ case class User(
   def planMonths: Option[Int] = activePlan.map(_.months)
 
   def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
-
-  def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
 
   def isBot = title.contains(PlayerTitle.BOT)
   def noBot = !isBot
@@ -298,7 +296,7 @@ object User:
       User(
         id = r.get[UserId](id),
         username = r.get[UserName](username),
-        count = r.get[Count](count),
+        count = r.get[lila.hub.user.Count](count),
         enabled = r.get[UserEnabled](enabled),
         roles = ~r.getO[List[String]](roles),
         profile = r.getO[Profile](profile),

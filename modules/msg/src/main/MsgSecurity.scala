@@ -17,7 +17,7 @@ final private class MsgSecurity(
     getBotUserIds: lila.user.GetBotIds,
     relationApi: lila.relation.RelationApi,
     spam: lila.security.Spam,
-    chatPanic: lila.chat.ChatPanic
+    chatPanicAllowed: lila.hub.chat.panic.IsAllowed
 )(using Executor, Scheduler):
 
   import MsgSecurity.*
@@ -138,7 +138,7 @@ final private class MsgSecurity(
         fuccess(Granter.byRoles(_.PublicMod)(~contacts.orig.roles)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
-            chatPanic.allowed(contacts.orig.id, userRepo.byId) >>&
+            chatPanicAllowed(contacts.orig.id)(userRepo.byId) >>&
             kidCheck(contacts, isNew) >>&
             getBotUserIds().map { botIds => !contacts.userIds.exists(botIds.contains) }
         }

@@ -122,7 +122,7 @@ lazy val video = module("video",
 )
 
 lazy val coach = module("coach",
-  Seq(notifyModule),
+  Seq(notifyModule, security),
   reactivemongo.bundle
 )
 
@@ -165,7 +165,7 @@ lazy val rating = module("rating",
 ).dependsOn(common % "test->test")
 
 lazy val perfStat = module("perfStat",
-  Seq(game),
+  Seq(game, security),
   reactivemongo.bundle
 )
 
@@ -220,7 +220,7 @@ lazy val user = module("user",
 )
 
 lazy val game = module("game",
-  Seq(chat),
+  Seq(user),
   Seq(compression) ++ tests.bundle ++ reactivemongo.bundle
 )
 
@@ -375,7 +375,7 @@ lazy val practice = module("practice",
 )
 
 lazy val playban = module("playban",
-  Seq(msg),
+  Seq(msg, chat),
   reactivemongo.bundle
 )
 
@@ -410,7 +410,7 @@ lazy val pref = module("pref",
 )
 
 lazy val msg = module("msg",
-  Seq(shutup, notifyModule),
+  Seq(shutup, notifyModule, security),
   reactivemongo.bundle
 )
 
