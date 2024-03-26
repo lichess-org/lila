@@ -44,7 +44,7 @@ object Link:
             .split(' ')
             .toList
         )
-    case Twitter               extends Site("Twitter", List("twitter.com"))
+    case Twitter               extends Site("Twitter/X", List("twitter.com", "x.com"))
     case Facebook              extends Site("Facebook", List("facebook.com"))
     case Instagram             extends Site("Instagram", List("instagram.com"))
     case YouTube               extends Site("YouTube", List("youtube.com"))
