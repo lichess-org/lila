@@ -138,7 +138,7 @@ object NewTree:
       child = branch.children.first.map(fromBranch(_, branch.children.variations))
     )
 
-  def fromBranch(branch: Branch, variations: List[Branch]): NewTree =
+  def fromBranch(branch: Branch, variations: List[Branch] = Nil): NewTree =
     NewTree(
       value = fromBranch(branch),
       child = branch.children.first.map(fromBranch(_, branch.children.variations)),

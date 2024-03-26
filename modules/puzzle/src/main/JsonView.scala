@@ -170,7 +170,9 @@ final class JsonView(
       "branch" -> makeTree(puzzle).map(NewTree.defaultNodeJsonWriter.writes)
     )
 
-  private def makeTree(puzzle: Puzzle): Option[NewTree] =
+object JsonView:
+
+  def makeTree(puzzle: Puzzle): Option[NewTree] =
 
     def makeNode(prev: chess.Game, uci: Uci.Move): (chess.Game, NewTree) =
       val (game, move) = prev(uci.orig, uci.dest, uci.promotion)
@@ -189,8 +191,6 @@ final class JsonView(
       )
 
     chess.Tree.buildAccumulate(puzzle.line.tail, puzzle.initialGame, makeNode)
-
-object JsonView:
 
   def puzzleAndGamejson(puzzle: Puzzle, game: JsObject) = Json.obj(
     "game" -> game,
