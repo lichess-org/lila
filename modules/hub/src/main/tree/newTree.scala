@@ -11,6 +11,7 @@ import chess.opening.Opening
 import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
 import chess.Color
+import play.api.libs.json.*
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 import lila.hub.eval.Eval
@@ -171,9 +172,10 @@ object NewTree:
       node.crazyData
     )
 
-  // given defaultNodeJsonWriter: Writes[NewTree] = makeNodeJsonWriter(alwaysChildren = true)
+  given defaultNodeJsonWriter: Writes[NewTree] =
+    NewRoot.makeNodeWriter(alwaysChildren = true)(NewRoot.branchWriter)
+
   // def minimalNodeJsonWriter: Writes[NewTree]   = makeNodeJsonWriter(alwaysChildren = false)
-  // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ?so
   // Optional for the first node with the given id
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
   // def fromNodeToBranch(node: Node): NewBranch = ???
@@ -300,7 +302,6 @@ object NewRoot:
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
 
   import NewTree.*
-  import play.api.libs.json.*
   import lila.common.Json.given
   import Eval.jsonWrites
   import Node.given
@@ -347,6 +348,9 @@ object NewRoot:
           nodeListJsonWriter(true)(wa).writes(tree.childAndChildVariations).some
         else None
       )
+
+  def makeNodeWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[ChessNode[A]] =
+    makeTreeWriter(alwaysChildren)(wa).contramap(identity)
 
   def makeMainlineWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[ChessNode[A]] = Writes: tree =>
     wa.writes(tree.value)

@@ -6,8 +6,9 @@ import play.api.libs.json.*
 import lila.common.Json.{ *, given }
 import lila.game.GameRepo
 import lila.rating.Perf
-import lila.hub.tree
 import lila.user.Me
+import lila.hub.tree.{ Metas, NewBranch, NewTree }
+import chess.format.*
 
 final class JsonView(
     gameJson: GameJson,
@@ -166,28 +167,28 @@ final class JsonView(
       "lines" -> puzzle.line.tail.reverse.foldLeft[JsValue](JsString("win")): (acc, move) =>
         Json.obj(move.uci -> acc),
       "vote"   -> 0,
-      "branch" -> makeBranch(puzzle).map(tree.Node.defaultNodeJsonWriter.writes)
+      "branch" -> makeTree(puzzle).map(NewTree.defaultNodeJsonWriter.writes)
     )
 
-    private def makeBranch(puzzle: Puzzle): Option[tree.Branch] =
-      import chess.format.*
-      val init = chess.Game(none, puzzle.fenAfterInitialMove.some).withTurns(puzzle.initialPly + 1)
-      val (_, branchList) = puzzle.line.tail.foldLeft[(chess.Game, List[tree.Branch])]((init, Nil)) {
-        case ((prev, branches), uci) =>
-          val (game, move) =
-            prev(uci.orig, uci.dest, uci.promotion)
-              .fold(err => sys.error(s"puzzle ${puzzle.id} $err"), identity)
-          val branch = tree.Branch(
-            id = UciCharPair(move.toUci),
-            ply = game.ply,
-            move = Uci.WithSan(move.toUci, game.sans.last),
-            fen = chess.format.Fen.write(game),
+  private def makeTree(puzzle: Puzzle): Option[NewTree] =
+
+    def makeNode(prev: chess.Game, uci: Uci.Move): (chess.Game, NewTree) =
+      val (game, move) = prev(uci.orig, uci.dest, uci.promotion)
+        .fold(err => sys.error(s"puzzle ${puzzle.id} $err"), identity)
+      game -> chess.Node(
+        NewBranch(
+          id = UciCharPair(move.toUci),
+          move = Uci.WithSan(move.toUci, game.sans.last),
+          metas = Metas(
+            fen = Fen.write(game),
             check = game.situation.check,
+            ply = game.ply,
             crazyData = none
           )
-          (game, branch :: branches)
-      }
-      branchList.reduceOption((child, branch) => branch.addChild(child))
+        )
+      )
+
+    chess.Tree.buildAccumulate(puzzle.line.tail, puzzle.initialGame, makeNode)
 
 object JsonView:
 
