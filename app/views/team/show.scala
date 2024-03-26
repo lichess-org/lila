@@ -10,8 +10,8 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.common.paginator.Paginator
 import lila.mod.Modlog
-import lila.socket.SocketVersion
-import lila.socket.SocketVersion.given
+import lila.hub.socket.SocketVersion
+import lila.hub.socket.SocketVersion.given
 import lila.team.Team
 
 object show:

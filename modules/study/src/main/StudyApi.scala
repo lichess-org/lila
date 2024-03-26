@@ -9,7 +9,7 @@ import lila.chat.ChatApi
 import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
-import lila.socket.Socket.Sri
+import lila.hub.socket.Sri
 import lila.hub.tree.Branch
 import lila.hub.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.{ MyId, User }

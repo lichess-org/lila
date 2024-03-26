@@ -32,7 +32,7 @@ final private[setup] class Processor(
 
   def hook(
       configBase: HookConfig,
-      sri: lila.socket.Socket.Sri,
+      sri: lila.hub.socket.Sri,
       sid: Option[String],
       blocking: lila.pool.Blocking
   )(using me: Option[User.WithPerfs]): Fu[Processor.HookResult] =

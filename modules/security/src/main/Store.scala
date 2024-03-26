@@ -9,7 +9,7 @@ import scala.concurrent.blocking
 import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.AccessToken
-import lila.socket.Socket.Sri
+import lila.hub.socket.Sri
 import lila.user.User
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):

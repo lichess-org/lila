@@ -15,14 +15,14 @@ import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.hub.actorApi.round.{ Abort, Berserk, Rematch, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.{ Socket, SocketSend, SocketVersion }
+import lila.hub.socket.{ protocol as P, * }
 
 import actorApi.*
 import actorApi.round.*
 
 final class RoundSocket(
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: ParallelSocketKit,
+    putUserLag: userLag.Put,
     roundDependencies: RoundAsyncActor.Dependencies,
     proxyDependencies: GameProxy.Dependencies,
     scheduleExpiration: ScheduleExpiration,
@@ -83,7 +83,7 @@ final class RoundSocket(
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
     mkAsyncActor =
       id => makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo.game(id).recoverDefault(none)),
-    initialCapacity = 65536
+    initialCapacity = 65_536
   )
 
   private def makeRoundActor(id: GameId, version: SocketVersion, gameFu: Fu[Option[Game]]) =
@@ -92,6 +92,7 @@ final class RoundSocket(
       dependencies = roundDependencies,
       gameId = id,
       socketSend = sendForGameId(id),
+      putUserLag,
       version = version
     )
     terminationDelay.schedule(id)
@@ -102,7 +103,7 @@ final class RoundSocket(
           roundActor ! RoundAsyncActor.SetGameInfo(game, w)
     roundActor
 
-  private val roundHandler: Handler =
+  private val roundHandler: SocketHandler =
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
       rounds.tell(fullId.gameId, HumanPlay(fullId.playerId, uci, blur, lag, none))
     case Protocol.In.PlayerDo(fullId, tpe) if !stopping =>
@@ -171,14 +172,14 @@ final class RoundSocket(
   private def finishRound(gameId: GameId): Unit =
     rounds.terminate(gameId, _ ! RoundAsyncActor.Stop)
 
-  private val send: Sender = remoteSocketApi.makeSender("r-out", parallelism = 16)
+  private val send: ParallelSocketSend = socketKit.send("r-out", 16)
 
   private val sendForGameId: GameId => SocketSend = gameId =>
     SocketSend(msg => send.sticky(gameId.value, msg))
 
-  remoteSocketApi
-    .subscribeRoundRobin("r-in", Protocol.In.reader, parallelism = 16)(
-      roundHandler.orElse(remoteSocketApi.baseHandler)
+  socketKit
+    .subscribe("r-in", Protocol.In.reader.orElse(RP.In.reader), 16)(
+      roundHandler.orElse(socketKit.baseHandler)
     )
     .andDo(send(P.Out.boot))
 
@@ -220,10 +221,10 @@ final class RoundSocket(
       rounds.tellIfPresent(GameId.take(id.value), line)
     case lila.chat.OnTimeout(id, userId) =>
       send:
-        RP.Out.tellRoom(GameId.take(id.value).into(RoomId), Socket.makeMessage("chat_timeout", userId))
+        RP.Out.tellRoom(GameId.take(id.value).into(RoomId), makeMessage("chat_timeout", userId))
     case lila.chat.OnReinstate(id, userId) =>
       send:
-        RP.Out.tellRoom(GameId.take(id.value).into(RoomId), Socket.makeMessage("chat_reinstate", userId))
+        RP.Out.tellRoom(GameId.take(id.value).into(RoomId), makeMessage("chat_reinstate", userId))
 
   scheduler.scheduleWithFixedDelay(25 seconds, tickInterval): () =>
     rounds.tellAll(RoundAsyncActor.Tick)
@@ -331,75 +332,73 @@ object RoundSocket:
       case class WsLatency(millis: Int)             extends P.In
       case class GetGame(reqId: Int, id: GameAnyId) extends P.In
 
-      val reader: P.In.Reader = raw =>
-        raw.path match
-          case "r/ons" =>
-            PlayerOnlines:
-              P.In.commas(raw.args).map {
-                _.splitAt(GameId.size) match
-                  case (gameId, cs) =>
-                    (
-                      GameId(gameId),
-                      cs.nonEmpty.option(RoomCrowd(cs(0) == '+', cs(1) == '+'))
-                    )
-              }
-            .some
-          case "r/do" =>
-            raw.get(2) { case Array(fullId, payload) =>
-              for
-                obj <- Json.parse(payload).asOpt[JsObject]
-                tpe <- obj.str("t")
-              yield PlayerDo(GameFullId(fullId), tpe)
+      val reader: P.In.Reader =
+        case P.RawMsg("r/ons", raw) =>
+          PlayerOnlines:
+            P.In.commas(raw.args).map {
+              _.splitAt(GameId.size) match
+                case (gameId, cs) =>
+                  (
+                    GameId(gameId),
+                    cs.nonEmpty.option(RoomCrowd(cs(0) == '+', cs(1) == '+'))
+                  )
             }
-          case "r/move" =>
-            raw.get(6) { case Array(fullId, uciS, blurS, lagS, mtS, fraS) =>
-              Uci(uciS).map: uci =>
-                PlayerMove(
-                  GameFullId(fullId),
-                  uci,
-                  P.In.boolean(blurS),
-                  MoveMetrics(centis(lagS), centis(mtS), centis(fraS))
-                )
+          .some
+        case P.RawMsg("r/do", raw) =>
+          raw.get(2) { case Array(fullId, payload) =>
+            for
+              obj <- Json.parse(payload).asOpt[JsObject]
+              tpe <- obj.str("t")
+            yield PlayerDo(GameFullId(fullId), tpe)
+          }
+        case P.RawMsg("r/move", raw) =>
+          raw.get(6) { case Array(fullId, uciS, blurS, lagS, mtS, fraS) =>
+            Uci(uciS).map: uci =>
+              PlayerMove(
+                GameFullId(fullId),
+                uci,
+                P.In.boolean(blurS),
+                MoveMetrics(centis(lagS), centis(mtS), centis(fraS))
+              )
+          }
+        case P.RawMsg("chat/say", raw) =>
+          raw.get(3) { case Array(roomId, author, msg) =>
+            PlayerChatSay(GameId(roomId), readColor(author).toRight(UserId(author)), msg).some
+          }
+        case P.RawMsg("chat/say/w", raw) =>
+          raw.get(3) { case Array(roomId, userId, msg) =>
+            WatcherChatSay(GameId(roomId), UserId(userId), msg).some
+          }
+        case P.RawMsg("r/berserk", raw) =>
+          raw.get(2) { case Array(gameId, userId) =>
+            Berserk(GameId(gameId), UserId(userId)).some
+          }
+        case P.RawMsg("r/bye", raw) => Bye(GameFullId(raw.args)).some
+        case P.RawMsg("r/hold", raw) =>
+          raw.get(4) { case Array(fullId, ip, meanS, sdS) =>
+            for
+              mean <- meanS.toIntOption
+              sd   <- sdS.toIntOption
+              ip   <- IpAddress.from(ip)
+            yield HoldAlert(GameFullId(fullId), ip, mean, sd)
+          }
+        case P.RawMsg("r/report", raw) =>
+          raw.get(4) { case Array(fullId, ip, user, name) =>
+            IpAddress.from(ip).map { ip =>
+              SelfReport(GameFullId(fullId), ip, UserId.from(P.In.optional(user)), name)
             }
-          case "chat/say" =>
-            raw.get(3) { case Array(roomId, author, msg) =>
-              PlayerChatSay(GameId(roomId), readColor(author).toRight(UserId(author)), msg).some
-            }
-          case "chat/say/w" =>
-            raw.get(3) { case Array(roomId, userId, msg) =>
-              WatcherChatSay(GameId(roomId), UserId(userId), msg).some
-            }
-          case "r/berserk" =>
-            raw.get(2) { case Array(gameId, userId) =>
-              Berserk(GameId(gameId), UserId(userId)).some
-            }
-          case "r/bye" => Bye(GameFullId(raw.args)).some
-          case "r/hold" =>
-            raw.get(4) { case Array(fullId, ip, meanS, sdS) =>
-              for
-                mean <- meanS.toIntOption
-                sd   <- sdS.toIntOption
-                ip   <- IpAddress.from(ip)
-              yield HoldAlert(GameFullId(fullId), ip, mean, sd)
-            }
-          case "r/report" =>
-            raw.get(4) { case Array(fullId, ip, user, name) =>
-              IpAddress.from(ip).map { ip =>
-                SelfReport(GameFullId(fullId), ip, UserId.from(P.In.optional(user)), name)
-              }
-            }
-          case "r/flag" =>
-            raw.get(3) { case Array(gameId, color, playerId) =>
-              readColor(color).map:
-                Flag(GameId(gameId), _, P.In.optional(playerId).map { GamePlayerId(_) })
-            }
-          case "r/get" =>
-            raw.get(2) { case Array(reqId, anyId) =>
-              reqId.toIntOption.map:
-                GetGame(_, GameAnyId(anyId))
-            }
-          case "r/latency" => raw.args.toIntOption.map(WsLatency.apply)
-          case _           => RP.In.reader(raw)
+          }
+        case P.RawMsg("r/flag", raw) =>
+          raw.get(3) { case Array(gameId, color, playerId) =>
+            readColor(color).map:
+              Flag(GameId(gameId), _, P.In.optional(playerId).map { GamePlayerId(_) })
+          }
+        case P.RawMsg("r/get", raw) =>
+          raw.get(2) { case Array(reqId, anyId) =>
+            reqId.toIntOption.map:
+              GetGame(_, GameAnyId(anyId))
+          }
+        case P.RawMsg("r/latency", raw) => raw.args.toIntOption.map(WsLatency.apply)
 
       private def centis(s: String): Option[Centis] =
         if s == "-" then none

@@ -10,7 +10,7 @@ import lila.analyse.Analysis
 import lila.app.{ *, given }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
-import lila.socket.Socket
+import lila.hub.socket.Sri
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
@@ -310,7 +310,7 @@ final class Study(
 
   def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write) { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
-      env.study.api.deleteChapter(id, chapterId)(Who(me.userId, Socket.Sri("api"))).inject(NoContent)
+      env.study.api.deleteChapter(id, chapterId)(Who(me.userId, Sri("api"))).inject(NoContent)
   }
 
   def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
@@ -328,7 +328,7 @@ final class Study(
     key = "study.import-pgn.user"
   )
 
-  private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Socket.Sri)(
+  private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Sri)(
       f: List[Chapter] => Result
   )(using ctx: Context, me: Me): Future[Result] =
     val chapterDatas = data.toChapterDatas
@@ -348,7 +348,7 @@ final class Study(
         .bindFromRequest()
         .fold(
           doubleJsonFormError,
-          data => doImportPgn(id, data, Socket.Sri(sri))(_ => NoContent)
+          data => doImportPgn(id, data, Sri(sri))(_ => NoContent)
         )
   }
 
@@ -358,7 +358,7 @@ final class Study(
       .fold(
         jsonFormError,
         data =>
-          doImportPgn(id, data, Socket.Sri("api")): chapters =>
+          doImportPgn(id, data, Sri("api")): chapters =>
             import lila.study.ChapterPreview.json.write
             JsonOk(Json.obj("chapters" -> write(chapters.map(_.preview))(using Map.empty)))
       )

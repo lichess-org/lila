@@ -19,7 +19,6 @@ import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog
 import lila.rating.{ Perf, PerfType }
 import lila.security.{ Granter, UserLogins }
-import lila.socket.UserLagCache
 import lila.user.User as UserModel
 
 final class User(
@@ -170,7 +169,7 @@ final class User(
           ctx.isAuth.so(env.pref.api.followable(user.id)),
           ctx.userId.so(relationApi.fetchRelation(_, user.id))
         ).flatMapN: (blocked, crosstable, followable, relation) =>
-          val ping = env.socket.isOnline(user.id).so(UserLagCache.getLagRating(user.id))
+          val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
           negotiate(
             html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
               Ok.page(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))

@@ -10,7 +10,7 @@ import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
 import lila.hub.AsyncActor
 import lila.hub.actorApi.round.{ Abort, BotPlay, FishnetPlay, FishnetStart, IsOnGame, Rematch, Resign }
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.{ GetVersion, Socket, SocketSend, SocketVersion, UserLagCache }
+import lila.hub.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
 
 import actorApi.*
 import round.*
@@ -19,6 +19,7 @@ final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
     gameId: GameId,
     socketSend: SocketSend,
+    putUserLag: userLag.Put,
     private var version: SocketVersion
 )(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
     extends AsyncActor:
@@ -172,7 +173,7 @@ final private class RoundAsyncActor(
         socketSend:
           RP.Out.tellRoom(
             roomId,
-            Socket.makeMessage(
+            makeMessage(
               "analysisProgress",
               Json.obj(
                 "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
@@ -408,7 +409,7 @@ final private class RoundAsyncActor(
         user  <- pov.player.userId
         clock <- pov.game.clock
         lag   <- clock.lag(pov.color).lagMean
-      do UserLagCache.put(user, lag)
+      do putUserLag(user, lag)
 
   private def notifyGone(color: Color, gone: Boolean): Funit =
     proxy.withPov(color): pov =>
@@ -453,7 +454,7 @@ final private class RoundAsyncActor(
   private def publish[A](events: Events): Unit =
     if events.nonEmpty then
       events.foreach: e =>
-        version = version.incVersion
+        version = version.map(_ + 1)
         socketSend:
           Protocol.Out.tellVersion(roomId, version, e)
       if events.exists:

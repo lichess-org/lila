@@ -9,8 +9,7 @@ import lila.hub.actorApi.timeline.*
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.round.ChangeFeatured
-import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ Sri, Sris, makeMessage }
+import lila.hub.socket.{ protocol as P, * }
 import lila.user.Me
 
 import actorApi.*
@@ -21,7 +20,7 @@ final class LobbySocket(
     biter: Biter,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: SocketKit,
     lobby: LobbySyncActor,
     relationApi: lila.relation.RelationApi,
     poolApi: PoolApi,
@@ -233,7 +232,7 @@ final class LobbySocket(
         user
           .filter(_.enabled.yes)
           .so: u =>
-            remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
+            socketKit.baseHandler(P.In.ConnectUser(u.id))
             relationApi.fetchBlocking(u.id)
           .map: blocks =>
             val member = Member(sri, user.map { LobbyUser.make(_, lila.pool.Blocking(blocks)) })
@@ -242,7 +241,7 @@ final class LobbySocket(
       }
     }
 
-  private val handler: Handler =
+  private val handler: SocketHandler =
 
     case P.In.ConnectSris(cons) =>
       cons.foreach { case (sri, userId) =>
@@ -271,9 +270,9 @@ final class LobbySocket(
   private val messagesHandled: Set[String] =
     Set("join", "cancel", "joinSeek", "cancelSeek", "idle", "poolIn", "poolOut", "hookIn", "hookOut")
 
-  remoteSocketApi.subscribe("lobby-in", In.reader)(handler.orElse(remoteSocketApi.baseHandler))
+  socketKit.subscribe("lobby-in", In.reader)(handler.orElse(socketKit.baseHandler))
 
-  private val send: String => Unit = remoteSocketApi.makeSender("lobby-out").apply
+  private val send = socketKit.send("lobby-out")
 
 private object LobbySocket:
 
@@ -287,14 +286,11 @@ private object LobbySocket:
   object Protocol:
     object In:
       case class Counters(members: Int, rounds: Int) extends P.In
-
-      val reader: P.In.Reader = raw =>
-        raw.path match
-          case "counters" =>
-            raw.get(2) { case Array(m, r) =>
-              (m.toIntOption, r.toIntOption).mapN(Counters.apply)
-            }
-          case _ => P.In.baseReader(raw)
+      val reader: P.In.Reader =
+        case P.RawMsg("counters", raw) =>
+          raw.get(2) { case Array(m, r) =>
+            (m.toIntOption, r.toIntOption).mapN(Counters.apply)
+          }
     object Out:
       def pairings(pairings: List[PoolApi.Pairing]) =
         val redirs = for

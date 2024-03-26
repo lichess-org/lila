@@ -3,7 +3,7 @@ package lila.challenge
 import com.softwaremill.macwire.*
 
 import lila.common.config.*
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.hub.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -16,18 +16,18 @@ final class Env(
     rematches: lila.game.Rematches,
     lightUser: lila.common.LightUser.GetterSync,
     lightUserApi: lila.user.LightUserApi,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.hub.socket.IsOnline,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: lila.hub.socket.SocketKit,
+    getLagRating: lila.hub.socket.userLag.GetLagRating,
     msgApi: lila.msg.MsgApi,
     baseUrl: BaseUrl
 )(using
-    scheduler: Scheduler,
-    system: akka.actor.ActorSystem
-)(using Executor, akka.stream.Materializer, play.api.Mode):
+    scheduler: Scheduler
+)(using akka.actor.ActorSystem, Executor, akka.stream.Materializer, play.api.Mode):
 
   private val colls = wire[ChallengeColls]
 
@@ -56,10 +56,10 @@ final class Env(
 
   val forms = new ChallengeForm
 
-  system.scheduler.scheduleWithFixedDelay(10 seconds, 3343 millis): () =>
+  scheduler.scheduleWithFixedDelay(10 seconds, 3343 millis): () =>
     api.sweep
 
-  system.scheduler.scheduleWithFixedDelay(20 seconds, 2897 millis): () =>
+  scheduler.scheduleWithFixedDelay(20 seconds, 2897 millis): () =>
     bulk.tick
 
   lila.common.Bus.subscribeFun("roundUnplayed"):

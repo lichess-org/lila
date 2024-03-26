@@ -24,8 +24,8 @@ final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
-    isOnline: lila.socket.IsOnline,
-    onlineIds: lila.socket.OnlineIds,
+    isOnline: lila.hub.socket.IsOnline,
+    onlineIds: lila.hub.socket.OnlineIds,
     assetBaseUrlInternal: AssetBaseUrlInternal
 )(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer, play.api.Mode):
 

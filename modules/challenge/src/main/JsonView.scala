@@ -7,12 +7,13 @@ import lila.common.Json.given
 import lila.common.licon
 import lila.game.JsonView.given
 import lila.i18n.I18nKeys as trans
-import lila.socket.{ SocketVersion, UserLagCache }
+import lila.hub.socket.{ SocketVersion, userLag }
 
 final class JsonView(
     baseUrl: lila.common.config.BaseUrl,
     getLightUser: lila.common.LightUser.GetterSync,
-    isOnline: lila.socket.IsOnline
+    getLagRating: userLag.GetLagRating,
+    isOnline: lila.hub.socket.IsOnline
 ):
 
   import Challenge.*
@@ -30,7 +31,7 @@ final class JsonView(
       .add("patron" -> light.so(_.isPatron))
       .add("flair" -> light.flatMap(_.flair))
       .add("online" -> isOnline(r.id))
-      .add("lag" -> UserLagCache.getLagRating(r.id))
+      .add("lag" -> getLagRating(r.id))
 
   def apply(a: AllChallenges)(using lang: Lang): JsObject =
     Json.obj(

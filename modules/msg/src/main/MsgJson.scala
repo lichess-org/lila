@@ -9,7 +9,7 @@ import lila.user.Me
 
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,
-    isOnline: lila.socket.IsOnline
+    isOnline: lila.hub.socket.IsOnline
 )(using Executor):
 
   private given lastMsgWrites: OWrites[Msg.Last]    = Json.writes

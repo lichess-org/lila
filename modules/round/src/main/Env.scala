@@ -48,18 +48,14 @@ final class Env(
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: lila.hub.socket.ParallelSocketKit,
+    userLagPut: lila.hub.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder,
     ratingFactors: () => lila.rating.RatingFactors,
     notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler,
-    materializer: akka.stream.Materializer
-):
+)(using system: ActorSystem, scheduler: Scheduler)(using Executor, akka.stream.Materializer):
   private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
 
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)

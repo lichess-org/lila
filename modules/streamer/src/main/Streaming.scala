@@ -9,7 +9,7 @@ import lila.common.{ Bus, LilaScheduler }
 
 final private class Streaming(
     api: StreamerApi,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.hub.socket.IsOnline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.UserIds,
     twitchApi: TwitchApi,

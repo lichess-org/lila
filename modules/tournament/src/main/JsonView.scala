@@ -12,7 +12,7 @@ import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.{ Perf, PerfType }
-import lila.socket.{ SocketVersion, given }
+import lila.hub.socket.SocketVersion
 import lila.user.{ LightUserApi, Me, User }
 
 final class JsonView(

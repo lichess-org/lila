@@ -2,7 +2,7 @@ package lila.bot
 
 import com.softwaremill.macwire.*
 
-import lila.socket.IsOnline
+import lila.hub.socket.IsOnline
 
 @Module
 @annotation.nowarn("msg=unused")

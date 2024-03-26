@@ -3,7 +3,7 @@ package lila.relay
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, Tags }
 
-import lila.socket.Socket.Sri
+import lila.hub.socket.Sri
 import lila.study.*
 import lila.hub.tree.Branch
 

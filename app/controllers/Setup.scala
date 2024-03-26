@@ -12,7 +12,7 @@ import lila.memo.RateLimit
 import lila.rating.Perf
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
-import lila.socket.Socket.Sri
+import lila.hub.socket.Sri
 
 final class Setup(
     env: Env,

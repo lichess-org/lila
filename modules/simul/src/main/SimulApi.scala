@@ -17,7 +17,7 @@ import lila.hub.LightTeam
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-import lila.socket.SendToFlag
+import lila.hub.socket.SendToFlag
 import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
 
 final class SimulApi(
@@ -178,7 +178,7 @@ final class SimulApi(
     Bus.publish(
       lila.hub.actorApi.socket.SendTo(
         simul.hostId,
-        lila.socket.Socket.makeMessage(
+        lila.hub.socket.makeMessage(
           "simulEnd",
           Json.obj(
             "id"   -> simul.id,

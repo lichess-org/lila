@@ -716,7 +716,7 @@ final class TournamentApi(
       given play.api.i18n.Lang = lila.i18n.defaultLang
       fetchUpdateTournaments.flatMap(apiJsonView.apply).foreach { json =>
         Bus.publish(
-          lila.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
+          lila.hub.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
           "sendToFlag"
         )
       }

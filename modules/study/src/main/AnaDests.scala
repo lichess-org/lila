@@ -1,4 +1,4 @@
-package lila.socket
+package lila.study
 
 import chess.format.Fen
 import chess.variant.Variant

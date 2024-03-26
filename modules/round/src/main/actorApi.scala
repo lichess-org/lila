@@ -6,7 +6,7 @@ import chess.{ Color, MoveMetrics }
 import play.api.libs.json.JsObject
 
 import lila.common.IpAddress
-import lila.socket.SocketVersion
+import lila.hub.socket.SocketVersion
 
 case class ByePlayer(playerId: GamePlayerId)
 case class GetSocketStatus(promise: Promise[SocketStatus])

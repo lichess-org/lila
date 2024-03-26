@@ -1,4 +1,4 @@
-package lila.socket
+package lila.study
 
 import chess.ErrorStr
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }

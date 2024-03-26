@@ -13,7 +13,7 @@ final class Env(
     db: lila.db.Db,
     lightUserApi: lila.user.LightUserApi,
     getBotUserIds: lila.user.GetBotIds,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.hub.socket.IsOnline,
     userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
     relationApi: lila.relation.RelationApi,

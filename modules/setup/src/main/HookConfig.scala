@@ -43,7 +43,7 @@ case class HookConfig(
       case _                      => this
 
   def hook(
-      sri: lila.socket.Socket.Sri,
+      sri: lila.hub.socket.Sri,
       user: Option[User.WithPerfs],
       sid: Option[String],
       blocking: lila.pool.Blocking

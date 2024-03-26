@@ -8,7 +8,7 @@ import lila.rating.{ Perf, PerfType }
 
 import User.{ LightPerf, PlayTime }
 
-final class JsonView(isOnline: lila.socket.IsOnline):
+final class JsonView(isOnline: lila.hub.socket.IsOnline):
 
   import JsonView.{ *, given }
   private given OWrites[Profile]  = Json.writes

@@ -6,7 +6,7 @@ import play.api.Configuration
 import lila.common.LilaScheduler
 import lila.common.config.*
 import lila.db.dsl.Coll
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.hub.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -17,7 +17,7 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     onStart: lila.round.OnStart,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: lila.hub.socket.SocketKit,
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,

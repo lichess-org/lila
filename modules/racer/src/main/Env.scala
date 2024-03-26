@@ -10,6 +10,7 @@ import lila.storm.{ StormJson, StormSelector, StormSign }
 @annotation.nowarn("msg=unused")
 final class Env(
     selector: StormSelector,
+    socketKit: lila.hub.socket.SocketKit,
     puzzleColls: lila.puzzle.PuzzleColls,
     cacheApi: lila.memo.CacheApi,
     stormJson: StormJson,
@@ -17,7 +18,6 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     lightUserGetter: LightUser.GetterSyncFallback,
-    remoteSocketApi: lila.socket.RemoteSocket,
     db: lila.db.Db
 )(using Executor, Scheduler, play.api.Mode):
 

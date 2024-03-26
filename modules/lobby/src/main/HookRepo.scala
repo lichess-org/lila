@@ -3,7 +3,7 @@ package lila.lobby
 import scala.collection.View
 
 import lila.common.Heapsort
-import lila.socket.Socket.Sri
+import lila.hub.socket.Sri
 
 // NOT thread safe.
 // control concurrency from LobbySyncActor

@@ -19,7 +19,7 @@ final class ReportApi(
     userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
     ircApi: lila.irc.IrcApi,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.hub.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,

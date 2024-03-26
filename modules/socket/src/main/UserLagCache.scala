@@ -2,6 +2,7 @@ package lila.socket
 
 import chess.Centis
 import com.github.blemale.scaffeine.Cache
+import lila.hub.socket.userLag.*
 
 object UserLagCache:
 
@@ -9,7 +10,7 @@ object UserLagCache:
     .expireAfterWrite(15 minutes)
     .build[UserId, Centis]()
 
-  def put(userId: UserId, lag: Centis): Unit =
+  val put: Put = (userId, lag) =>
     if lag.centis >= 0
     then
       cache.put(
@@ -22,7 +23,7 @@ object UserLagCache:
 
   export cache.{ getIfPresent as get }
 
-  def getLagRating(userId: UserId): Option[Int] =
+  val getLagRating: GetLagRating = userId =>
     Centis
       .raw(get(userId))
       .map: c =>

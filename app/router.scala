@@ -9,7 +9,7 @@ import lila.clas.{ Clas, ClasInvite }
 import lila.puzzle.PuzzleTheme
 import lila.rating.Perf
 import lila.report.Report
-import lila.socket.Socket.Sri
+import lila.hub.socket.Sri
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow

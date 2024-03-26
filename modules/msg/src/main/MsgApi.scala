@@ -154,7 +154,7 @@ final class MsgApi(
             yield
               import MsgSecurity.*
               import lila.hub.actorApi.socket.SendTo
-              import lila.socket.Socket.makeMessage
+              import lila.hub.socket.makeMessage
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
                 Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")

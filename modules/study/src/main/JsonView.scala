@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.common.Json.{ *, given }
-import lila.socket.Socket.Sri
+import lila.hub.socket.Sri
 import lila.hub.tree.Node.Shape
 
 final class JsonView(

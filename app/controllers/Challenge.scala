@@ -12,7 +12,7 @@ import lila.common.{ Bearer, IpAddress, Preload }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ EndpointScopes, OAuthScope }
 import lila.setup.ApiConfig
-import lila.socket.SocketVersion
+import lila.hub.socket.SocketVersion
 import lila.user.User as UserModel
 
 final class Challenge(

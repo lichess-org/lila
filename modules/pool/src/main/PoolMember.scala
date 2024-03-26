@@ -5,7 +5,7 @@ import lila.rating.RatingRange
 
 case class PoolMember(
     userId: UserId,
-    sri: lila.socket.Socket.Sri,
+    sri: lila.hub.socket.Sri,
     rating: IntRating,
     ratingRange: Option[RatingRange],
     lame: Boolean,

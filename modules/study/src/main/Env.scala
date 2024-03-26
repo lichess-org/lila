@@ -5,7 +5,7 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.*
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.hub.socket.{ GetVersion, SocketVersion }
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -23,7 +23,8 @@ final class Env(
     federationNames: lila.hub.fide.Federation.NamesOf,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: lila.hub.socket.SocketKit,
+    socketReq: lila.hub.socket.SocketRequester,
     timeline: lila.hub.actors.Timeline,
     fishnet: lila.hub.actors.Fishnet,
     chatApi: lila.chat.ChatApi,

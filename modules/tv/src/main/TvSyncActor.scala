@@ -64,7 +64,7 @@ final private[tv] class TvSyncActor(
     case s @ TvSyncActor.Select => channelActors.foreach(_._2 ! s)
 
     case Selected(channel, game) =>
-      import lila.socket.Socket.makeMessage
+      import lila.hub.socket.makeMessage
       given Ordering[lila.game.Player] = Ordering.by: p =>
         p.rating.fold(0)(_.value) + ~p.userId
           .flatMap(lightUserApi.sync)

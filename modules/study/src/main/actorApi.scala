@@ -13,7 +13,7 @@ case class ExplorerGame(ch: StudyChapterId, path: UciPath, gameId: GameId, inser
   def chapterId = ch
   val position  = Position.Ref(chapterId, path)
 
-case class Who(u: UserId, sri: lila.socket.Socket.Sri):
+case class Who(u: UserId, sri: lila.hub.socket.Sri):
   def myId = u.into(MyId)
 case class RelayToggle(studyId: StudyId, v: Boolean, who: Who)
 case class Kick(studyId: StudyId, userId: UserId, who: MyId)

@@ -23,7 +23,7 @@ final class Env(
     appConfig: Configuration,
     ws: play.api.libs.ws.StandaloneWSClient,
     settingStore: lila.memo.SettingStore.Builder,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.hub.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.notify.NotifyApi,

@@ -216,7 +216,7 @@ final class ChallengeApi(
         lang <- userRepo.langOf(userId).map(I18nLangPicker.byStrOrDefault)
         _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield Bus.publish(
-        SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all)(using lang))),
+        SendTo(userId, lila.hub.socket.makeMessage("challenges", jsonView(all)(using lang))),
         "socketUsers"
       )
 

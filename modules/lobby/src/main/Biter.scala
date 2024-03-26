@@ -3,7 +3,7 @@ package lila.lobby
 import chess.{ ByColor, Game as ChessGame, Situation }
 
 import lila.game.{ Game, Player }
-import lila.socket.Socket.Sri
+import lila.hub.socket.Sri
 import lila.user.{ GameUsers, User }
 
 import actorApi.{ JoinHook, JoinSeek }

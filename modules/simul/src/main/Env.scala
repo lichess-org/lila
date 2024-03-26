@@ -6,7 +6,7 @@ import play.api.Configuration
 import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.hub.socket.{ GetVersion, SocketVersion }
 
 @Module
 private class SimulConfig(
@@ -30,9 +30,10 @@ final class Env(
     onGameStart: lila.round.OnStart,
     cacheApi: lila.memo.CacheApi,
     historyApi: lila.history.HistoryApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: lila.hub.socket.SocketKit,
+    socketReq: lila.hub.socket.SocketRequester,
     proxyRepo: lila.round.GameProxyRepo,
-    isOnline: lila.socket.IsOnline
+    isOnline: lila.hub.socket.IsOnline
 )(using Executor, Scheduler, play.api.Mode, lila.user.FlairApi.Getter):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
@@ -84,7 +85,7 @@ final class Env(
       Bus.publish(
         lila.hub.actorApi.socket.SendTo(
           opponentUserId,
-          lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
+          lila.hub.socket.makeMessage("simulPlayerMove", move.gameId)
         ),
         "socketUsers"
       )

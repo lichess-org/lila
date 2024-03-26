@@ -20,7 +20,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     poolApi: lila.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
-    remoteSocketApi: lila.socket.RemoteSocket
+    socketKit: lila.hub.socket.SocketKit
 )(using Executor, akka.actor.ActorSystem, Scheduler, lila.game.IdGenerator):
 
   private lazy val seekApiConfig = new SeekApi.Config(

@@ -6,7 +6,7 @@ import com.softwaremill.macwire.*
 import lila.common.config.*
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.hub.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -17,7 +17,7 @@ final class Env(
     userApi: lila.user.UserApi,
     modLog: ModlogApi,
     notifyApi: NotifyApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: lila.hub.socket.SocketKit,
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,

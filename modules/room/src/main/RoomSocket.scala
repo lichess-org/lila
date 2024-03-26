@@ -4,9 +4,8 @@ import lila.chat.{ BusChan, ChatApi, ChatTimeout, UserLine }
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ SyncActor, SyncActorMap }
 import lila.log.Logger
-import lila.socket.{ SocketVersion, GetVersion }
-import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ makeMessage }
+import lila.hub.socket.{ protocol as P, * }
+import lila.hub.socket.{ makeMessage }
 import lila.common.Json.given
 
 import play.api.libs.json.*
@@ -19,7 +18,7 @@ object RoomSocket:
   case class NotifyVersion[A: Writes](tpe: String, data: A, troll: Boolean = false):
     def msg = makeMessage(tpe, data)
 
-  final class RoomState(roomId: RoomId, send: Send)(using Executor) extends SyncActor:
+  final class RoomState(roomId: RoomId, send: SocketSend)(using Executor) extends SyncActor:
 
     private var version = SocketVersion(0)
 
@@ -27,7 +26,7 @@ object RoomSocket:
       case GetVersion(promise) => promise success version
       case SetVersion(v)       => version = v
       case nv: NotifyVersion[?] =>
-        version = version.incVersion
+        version = version.map(_ + 1)
         send:
           val tell =
             if chatMsgs(nv.tpe) then Protocol.Out.tellRoomChat
@@ -38,7 +37,7 @@ object RoomSocket:
       super.stop()
       send(Protocol.Out.stop(roomId))
 
-  def makeRoomMap(send: Send)(using Executor) =
+  def makeRoomMap(send: SocketSend)(using Executor) =
     SyncActorMap[RoomId, RoomState](
       mkActor = roomId => RoomState(roomId, send),
       accessTimeout = 5 minutes
@@ -51,7 +50,7 @@ object RoomSocket:
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
       localTimeout: Option[(RoomId, UserId, UserId) => Fu[Boolean]] = None,
       chatBusChan: BusChan.Select
-  )(using Executor): Handler =
+  )(using Executor): SocketHandler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
         chat.userChat
@@ -75,10 +74,10 @@ object RoomSocket:
               scope = scope,
               busChan = chatBusChan
             )(using modId)
-    }: Handler) orElse minRoomHandler(rooms, logger)
+    }: SocketHandler).orElse(minRoomHandler(rooms, logger))
 
-  def minRoomHandler(rooms: RoomsMap, logger: Logger): Handler =
-    case Protocol.In.KeepAlives(roomIds) => roomIds foreach rooms.touchOrMake
+  def minRoomHandler(rooms: RoomsMap, logger: Logger): SocketHandler =
+    case Protocol.In.KeepAlives(roomIds) => roomIds.foreach(rooms.touchOrMake)
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
     // rooms.killAll // apparently not
@@ -111,29 +110,27 @@ object RoomSocket:
       case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)       extends P.In
       case class SetVersions(versions: Iterable[(String, SocketVersion)]) extends P.In
 
-      val reader: P.In.Reader = raw =>
-        raw.path match
-          case "room/alives" => KeepAlives(P.In.commas(raw.args) map { RoomId(_) }).some
-          case "chat/say" =>
-            raw.get(3) { case Array(roomId, userId, msg) =>
-              ChatSay(RoomId(roomId), UserId(userId), msg).some
+      val reader: P.In.Reader =
+        case P.RawMsg("room/alives", raw) => KeepAlives(P.In.commas(raw.args) map { RoomId(_) }).some
+        case P.RawMsg("chat/say", raw) =>
+          raw.get(3) { case Array(roomId, userId, msg) =>
+            ChatSay(RoomId(roomId), UserId(userId), msg).some
+          }
+        case P.RawMsg("chat/timeout", raw) =>
+          raw.get(5) { case Array(roomId, userId, suspect, reason, text) =>
+            ChatTimeout(RoomId(roomId), Me.Id(userId), UserId(suspect), reason, text).some
+          }
+        case P.RawMsg("tell/room/sri", raw) =>
+          raw.get(4) { case arr @ Array(roomId, _, _, _) =>
+            P.In.tellSriMapper.lift(arr drop 1).flatten map {
+              TellRoomSri(RoomId(roomId), _)
             }
-          case "chat/timeout" =>
-            raw.get(5) { case Array(roomId, userId, suspect, reason, text) =>
-              ChatTimeout(RoomId(roomId), Me.Id(userId), UserId(suspect), reason, text).some
-            }
-          case "tell/room/sri" =>
-            raw.get(4) { case arr @ Array(roomId, _, _, _) =>
-              P.In.tellSriMapper.lift(arr drop 1).flatten map {
-                TellRoomSri(RoomId(roomId), _)
-              }
-            }
-          case "room/versions" =>
-            SetVersions(P.In.commas(raw.args) map {
-              _.split(':') match
-                case Array(roomId, v) => (roomId, SocketVersion(java.lang.Integer.parseInt(v)))
-            }).some
-          case _ => P.In.baseReader(raw)
+          }
+        case P.RawMsg("room/versions", raw) =>
+          SetVersions(P.In.commas(raw.args) map {
+            _.split(':') match
+              case Array(roomId, v) => (roomId, SocketVersion(java.lang.Integer.parseInt(v)))
+          }).some
 
     object Out:
 

@@ -4,7 +4,7 @@ import akka.actor.*
 
 import lila.game.Game
 import lila.rating.{ PerfType, RatingRange }
-import lila.socket.Socket.{ Sri, Sris }
+import lila.hub.socket.{ Sri, Sris }
 import lila.user.Me
 
 final class PoolApi(

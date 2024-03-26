@@ -8,13 +8,12 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.gathering.Condition
 import lila.simul.Simul
-import lila.socket.SocketVersion
 
 object show:
 
   def apply(
       sim: Simul,
-      socketVersion: SocketVersion,
+      socketVersion: lila.hub.socket.SocketVersion,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],

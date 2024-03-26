@@ -19,7 +19,7 @@ final class Env(
     appConfig: Configuration,
     domain: lila.common.config.NetDomain,
     db: lila.db.Db,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.hub.socket.IsOnline,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     lightUserAsync: lila.common.LightUser.Getter,

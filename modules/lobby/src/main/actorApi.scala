@@ -2,7 +2,7 @@ package lila.lobby
 package actorApi
 
 import lila.game.Game
-import lila.socket.Socket.{ Sri, Sris }
+import lila.hub.socket.{ Sri, Sris }
 
 private[lobby] case class SaveSeek(msg: AddSeek)
 private[lobby] case class RemoveHook(hookId: String)

@@ -11,7 +11,7 @@ import lila.common.{ Bus, LightUser }
 import lila.game.Pov
 import lila.game.actorApi.MoveGameEvent
 import lila.round.actorApi.TvSelect
-import lila.socket.Socket
+import lila.hub.socket.makeMessage
 
 final private class TvBroadcast(
     lightUserSync: LightUser.GetterSync,
@@ -44,9 +44,10 @@ final private class TvBroadcast(
           queue.watchCompletion().addEffectAnyway {
             self ! Remove(client)
           }
-          featured.ifFalse(compat).foreach { f =>
-            client.queue.offer(Socket.makeMessage("featured", f.dataWithFen))
-          }
+          featured
+            .ifFalse(compat)
+            .foreach: f =>
+              client.queue.offer(makeMessage("featured", f.dataWithFen))
         }
 
     case Add(client)    => clients = clients + client
@@ -81,7 +82,7 @@ final private class TvBroadcast(
       }
 
     case MoveGameEvent(game, fen, move) =>
-      val msg = Socket.makeMessage(
+      val msg = makeMessage(
         "fen",
         Json
           .obj(
@@ -108,7 +109,7 @@ object TvBroadcast:
 
   case class Featured(id: GameId, data: JsObject, fen: Fen.Epd):
     def dataWithFen = data ++ Json.obj("fen" -> fen)
-    def socketMsg   = Socket.makeMessage("featured", dataWithFen)
+    def socketMsg   = makeMessage("featured", dataWithFen)
 
   case class Connect(fromLichess: Boolean)
   case class Client(queue: Queue, fromLichess: Boolean)

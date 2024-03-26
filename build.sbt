@@ -215,7 +215,7 @@ lazy val mod = module("mod",
 )
 
 lazy val user = module("user",
-  Seq(rating, socket),
+  Seq(rating),
   Seq(hasher, galimatias) ++ tests.bundle ++ playWs.bundle ++ reactivemongo.bundle
 )
 
@@ -410,7 +410,7 @@ lazy val pref = module("pref",
 )
 
 lazy val msg = module("msg",
-  Seq(shutup, notifyModule, security),
+  Seq(db, shutup, notifyModule, security),
   reactivemongo.bundle
 )
 

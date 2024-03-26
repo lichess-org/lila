@@ -158,7 +158,7 @@ final class RelationApi(
         yield
           Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
           Bus.publish(
-            lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("blockedBy", u1)),
+            lila.hub.actorApi.socket.SendTo(u2, lila.hub.socket.makeMessage("blockedBy", u1)),
             "socketUsers"
           )
           lila.mon.relation.block.increment()
@@ -181,7 +181,7 @@ final class RelationApi(
         repo.unblock(u1, u2).andDo {
           Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
           Bus.publish(
-            lila.hub.actorApi.socket.SendTo(u2, lila.socket.Socket.makeMessage("unblockedBy", u1)),
+            lila.hub.actorApi.socket.SendTo(u2, lila.hub.socket.makeMessage("unblockedBy", u1)),
             "socketUsers"
           )
           lila.mon.relation.unblock.increment()

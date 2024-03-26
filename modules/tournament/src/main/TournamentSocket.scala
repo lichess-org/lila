@@ -6,13 +6,12 @@ import lila.common.Json.given
 import lila.game.Game
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.makeMessage
+import lila.hub.socket.{ protocol as P, * }
 
 final private class TournamentSocket(
     repo: TournamentRepo,
     waitingUsers: WaitingUsersApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: SocketKit,
     chat: lila.chat.ChatApi
 )(using Executor, ActorSystem, Scheduler, lila.user.FlairApi.Getter):
 
@@ -53,7 +52,7 @@ final private class TournamentSocket(
 
   subscribeChat(rooms, _.Tournament)
 
-  private lazy val handler: Handler =
+  private lazy val handler: SocketHandler =
     roomHandler(
       rooms,
       chat,
@@ -64,15 +63,15 @@ final private class TournamentSocket(
         repo.fetchCreatedBy(roomId.into(TourId)).map(_.has(modId))
     )
 
-  private lazy val tourHandler: Handler = { case Protocol.In.WaitingUsers(roomId, users) =>
+  private lazy val tourHandler: SocketHandler = { case Protocol.In.WaitingUsers(roomId, users) =>
     waitingUsers.registerWaitingUsers(roomId.into(TourId), users)
   }
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply
+  private lazy val send = socketKit.send("tour-out")
 
-  remoteSocketApi
-    .subscribe("tour-in", Protocol.In.reader)(
-      tourHandler.orElse(handler).orElse(remoteSocketApi.baseHandler)
+  socketKit
+    .subscribe("tour-in", Protocol.In.reader.orElse(RP.In.reader))(
+      tourHandler.orElse(handler).orElse(socketKit.baseHandler)
     )
     .andDo(send(P.Out.boot))
 
@@ -82,15 +81,11 @@ final private class TournamentSocket(
 
       case class WaitingUsers(roomId: RoomId, userIds: Set[UserId]) extends P.In
 
-      val reader: P.In.Reader = raw => tourReader(raw).orElse(RP.In.reader(raw))
-
-      val tourReader: P.In.Reader = raw =>
-        raw.path match
-          case "tour/waiting" =>
-            raw.get(2) { case Array(roomId, users) =>
-              WaitingUsers(RoomId(roomId), UserId.from(P.In.commas(users).toSet)).some
-            }
-          case _ => none
+      val reader: P.In.Reader =
+        case P.RawMsg("tour/waiting", raw) =>
+          raw.get(2) { case Array(roomId, users) =>
+            WaitingUsers(RoomId(roomId), UserId.from(P.In.commas(users).toSet)).some
+          }
 
     object Out:
       def getWaitingUsers(roomId: RoomId, name: String) = s"tour/get/waiting $roomId $name"
