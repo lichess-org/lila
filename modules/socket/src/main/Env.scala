@@ -26,4 +26,4 @@ final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using E
   def requester: SocketRequester = SocketRequest
 
   def getLagRating: userLag.GetLagRating = UserLagCache.getLagRating
-  def putLag: userLag.Put = UserLagCache.put
+  def putLag: userLag.Put                = UserLagCache.put
