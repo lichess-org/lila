@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.fide.Federation
+import lila.hub.fide.Federation
 
 case class ChapterPreview(
     id: StudyChapterId,
@@ -29,7 +29,8 @@ case class ChapterPreview(
 
 final class ChapterPreviewApi(
     chapterRepo: ChapterRepo,
-    fidePlayerApi: lila.fide.FidePlayerApi,
+    federationsOf: Federation.FedsOf,
+    federationNamesOf: Federation.NamesOf,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -45,7 +46,7 @@ final class ChapterPreviewApi(
         _.expireAfterWrite(cacheDuration).buildAsyncFuture: studyId =>
           for
             chapters    <- listAll(studyId)
-            federations <- fidePlayerApi.federationsOf(chapters.flatMap(_.fideIds))
+            federations <- federationsOf(chapters.flatMap(_.fideIds))
           yield ChapterPreview.json.write(chapters)(using federations)
 
     def apply(studyId: StudyId): Fu[AsJsons] = cache.get(studyId)
@@ -72,7 +73,7 @@ final class ChapterPreviewApi(
       _.expireAfterWrite(1 minute).buildAsyncFuture: studyId =>
         for
           chapters <- dataList(studyId)
-          fedNames <- fidePlayerApi.federationNamesOf(chapters.flatMap(_.fideIds))
+          fedNames <- federationNamesOf(chapters.flatMap(_.fideIds))
         yield JsObject(fedNames.map((id, name) => id.value -> JsString(name)))
     export cache.get
 

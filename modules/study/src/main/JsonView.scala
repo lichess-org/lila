@@ -11,8 +11,7 @@ import lila.hub.tree.Node.Shape
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUserApi: lila.user.LightUserApi,
-    fidePlayerApi: lila.fide.FidePlayerApi
+    lightUserApi: lila.user.LightUserApi
 )(using Executor):
 
   import JsonView.given

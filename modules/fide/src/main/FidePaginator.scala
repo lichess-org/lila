@@ -23,7 +23,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
             .find($empty)
             .sort($sort.desc("standard.top10Rating"))
             .skip(offset)
-            .cursor[Federation]()
+            .cursor[lila.fide.Federation]()
             .list(length)
       ,
       currentPage = page,
