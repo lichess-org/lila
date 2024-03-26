@@ -298,7 +298,7 @@ final private class StudySocket(
       "addNode",
       Json
         .obj(
-          "n" -> minimalNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
+          "n" -> minimalNodeJsonWriter.writes(node),
           "p" -> pos,
           "d" -> dests.dests,
           "s" -> sticky
