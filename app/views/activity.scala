@@ -52,7 +52,7 @@ object activity:
       )
     )
 
-  private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(using Context) =
+  private def renderPractice(p: Map[lila.hub.practice.Study, Int])(using Context) =
     val ps = p.toSeq.sortBy(-_._2)
     entryTag(
       iconTag(licon.Bullseye),
@@ -64,7 +64,7 @@ object activity:
       )
     )
 
-  private def onePractice(tup: (lila.practice.PracticeStudy, Int))(using Context) =
+  private def onePractice(tup: (lila.hub.practice.Study, Int))(using Context) =
     val (study, nb) = tup
     val href        = routes.Practice.show("-", study.slug, study.id)
     frag(

@@ -1,7 +1,6 @@
 package lila.activity
 
 import lila.game.LightPov
-import lila.practice.PracticeStudy
 import lila.simul.Simul
 import lila.study.Study
 import lila.swiss.Swiss
@@ -18,7 +17,7 @@ case class ActivityView(
     storm: Option[Storm] = None,
     racer: Option[Racer] = None,
     streak: Option[Streak] = None,
-    practice: Option[Map[PracticeStudy, Int]] = None,
+    practice: Option[Map[lila.hub.practice.Study, Int]] = None,
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,
     forumPosts: Option[Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]]] = None,

@@ -25,6 +25,7 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
   def federationsOf: hub.Federation.FedsOf      = playerApi.federationsOf
   def federationNamesOf: hub.Federation.NamesOf = playerApi.federationNamesOf
   def tokenize: hub.Tokenize                    = FidePlayer.tokenize
+  def guessPlayer: hub.GuessPlayer              = playerApi.guessPlayer.apply
 
   private lazy val fideSync = wire[FidePlayerSync]
 

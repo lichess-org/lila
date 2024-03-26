@@ -9,7 +9,7 @@ import lila.hub.actorApi.round.CorresMoveEvent
 @Module
 final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb,
-    practiceApi: lila.practice.PracticeApi,
+    practiceStudies: lila.hub.practice.GetStudies,
     gameRepo: lila.game.GameRepo,
     forumPostApi: lila.forum.ForumPostApi,
     ublogApi: lila.ublog.UblogApi,
@@ -65,7 +65,7 @@ final class Env(
   ):
     case lila.forum.CreatePost(post)                     => write.forumPost(post)
     case lila.ublog.UblogPost.Create(post)               => write.ublogPost(post)
-    case prog: lila.practice.PracticeProgress.OnComplete => write.practice(prog)
+    case prog: lila.hub.practice.OnComplete              => write.practice(prog)
     case lila.simul.Simul.OnStart(simul)                 => write.simul(simul)
     case CorresMoveEvent(move, Some(userId), _, _, _)    => write.corresMove(move.gameId, userId)
     case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)

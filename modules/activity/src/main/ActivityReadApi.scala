@@ -6,7 +6,6 @@ import lila.common.Heapsort
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
 import lila.game.LightPov
-import lila.practice.PracticeStructure
 import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi
 import lila.user.User
@@ -14,7 +13,7 @@ import lila.user.User
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
     gameRepo: lila.game.GameRepo,
-    practiceApi: lila.practice.PracticeApi,
+    getPracticeStudies: lila.hub.practice.GetStudies,
     forumPostApi: lila.forum.ForumPostApi,
     ublogApi: lila.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
@@ -40,13 +39,12 @@ final class ActivityReadApi(
           .vector(Activity.recentNb)
       ).dmap(_.filterNot(_.isEmpty))
         .mon(_.user.segment("activity.raws"))
-    practiceStructure <- activities
+    practiceStudies <- activities
       .exists(_.practice.isDefined)
-      .soFu(practiceApi.structure.get)
+      .soFu(getPracticeStudies())
     views <- activities
-      .map: a =>
-        one(practiceStructure, a).mon(_.user.segment("activity.view"))
-      .parallel
+      .traverse: a =>
+        one(practiceStudies, a).mon(_.user.segment("activity.view"))
     _ <- preloadAll(views)
   yield addSignup(u.createdAt, views)
 
@@ -55,7 +53,7 @@ final class ActivityReadApi(
     _ <- getTourName.preload(views.flatMap(_.tours.so(_.best.map(_.tourId))))
   yield ()
 
-  private def one(practiceStructure: Option[PracticeStructure], a: Activity): Fu[ActivityView] =
+  private def one(practiceStudies: Option[lila.hub.practice.Studies], a: Activity): Fu[ActivityView] =
     for
       allForumPosts <- a.forumPosts.soFu: p =>
         forumPostApi
@@ -74,10 +72,10 @@ final class ActivityReadApi(
             .mon(_.user.segment("activity.ublogs"))
         .dmap(_.filter(_.nonEmpty))
       practice = for
-        p      <- a.practice
-        struct <- practiceStructure
+        p       <- a.practice
+        studies <- practiceStudies
       yield p.value.flatMap { (studyId, nb) =>
-        struct.study(studyId).map(_ -> nb)
+        studies(studyId).map(_ -> nb)
       }.toMap
       forumPostView = forumPosts
         .map: p =>

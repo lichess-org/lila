@@ -19,6 +19,8 @@ final class Env(
 
   lazy val api: PracticeApi = wire[PracticeApi]
 
+  def getStudies: lila.hub.practice.GetStudies = api.structure.getStudies
+
   lila.common.Bus.subscribeFun("study") { case lila.study.actorApi.SaveStudy(study) =>
     api.structure.onSave(study)
   }
