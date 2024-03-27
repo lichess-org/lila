@@ -64,6 +64,10 @@
         background-color: #aaa;
       }
 
+      &.selected-to-drop {
+        background-color: rgba(20, 85, 30, 0.5);
+      }
+
       &:first-child:hover {
         @extend %box-radius-left;
       }
