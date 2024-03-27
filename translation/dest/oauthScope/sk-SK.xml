@@ -31,5 +31,6 @@
   <string name="engineWrite">Vytvárať a aktualizovať externé motory</string>
   <string name="webLogin" comment="In the context of an access token, a setting which permits third-party software to create authenticated sessions - meaning effectively unlimited access to your account, using it as if it is you, instead of a third party program. It will be unable to view your password but it will be able to do almost everything else.">Vytvoriť overené webové pripojenia (udeľuje úplný prístup!)</string>
   <string name="webMod" comment="In the context of an access token, this is a setting which permits third-party software to use moderator tools on your behalf. Most players will not be able to see this option.">Používať nástroje moderátora (v rámci Vášho povolenia)</string>
+  <string name="personalAccessTokens">Osobné prístupové API tokeny</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Napríklad: %s</string>
 </resources>
