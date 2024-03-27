@@ -1064,12 +1064,13 @@
   <string name="youCantStartNewGame">Ви не можете розпочати нову гру поки не закінчите активну гру.</string>
   <string name="since">Від</string>
   <string name="until">До</string>
-  <string name="lichessDbExplanation">Рейтингові партії усiх гравців Lichess</string>
+  <string name="lichessDbExplanation">Рейтингові партії всіх гравців Lichess</string>
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
   <string name="ourEventTips">Наші поради щодо організації подій</string>
   <string name="instructions">Інструкція</string>
   <string name="showMeEverything">Показати все</string>
-  <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
+  <string name="lichessPatronInfo">Lichess — це благодійне й абсолютно безкоштовне програмне забезпечення з відкритим кодом.
+Усі витрати на обслуговування, розробку й контент фінансуються виключно пожертвуваннями користувачів.</string>
   <string name="nothingToSeeHere">Поки тут нічого немає.</string>
 </resources>
