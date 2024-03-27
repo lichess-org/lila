@@ -1,4 +1,5 @@
 package lila.hub
+package analyse
 
 import chess.Ply
 import chess.format.Uci

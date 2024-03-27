@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.game.Game
 import lila.tree.Eval.jsonWrites
-import lila.hub.Analysis
+import lila.hub.analyse.Analysis
 
 object JsonView:
 

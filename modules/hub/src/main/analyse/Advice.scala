@@ -1,4 +1,5 @@
 package lila.hub
+package analyse
 
 import chess.format.pgn.{ Comment, Glyph }
 
@@ -43,13 +44,13 @@ object Advice:
 
   def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info).orElse(MateAdvice(prev, info))
 
-private[hub] case class CpAdvice(
+private[analyse] case class CpAdvice(
     judgment: Advice.Judgement,
     info: Info,
     prev: Info
 ) extends Advice
 
-private[hub] object CpAdvice:
+private[analyse] object CpAdvice:
 
   private val winningChanceJudgements = List(
     .3 -> Advice.Judgement.Blunder,
@@ -69,35 +70,35 @@ private[hub] object CpAdvice:
       judgement <- winningChanceJudgements.find { case (d, _) => d <= delta }.map(_._2)
     yield CpAdvice(judgement, info, prev)
 
-sealed abstract private[hub] class MateSequence(val desc: String)
-private[hub] case object MateCreated
+sealed abstract private[analyse] class MateSequence(val desc: String)
+private[analyse] case object MateCreated
     extends MateSequence(
       desc = "Checkmate is now unavoidable"
     )
-private[hub] case object MateDelayed
+private[analyse] case object MateDelayed
     extends MateSequence(
       desc = "Not the best checkmate sequence"
     )
-private[hub] case object MateLost
+private[analyse] case object MateLost
     extends MateSequence(
       desc = "Lost forced checkmate sequence"
     )
 
-private[hub] object MateSequence:
+private[analyse] object MateSequence:
   def apply(prev: Option[Mate], next: Option[Mate]): Option[MateSequence] =
     (prev, next).some.collect {
       case (None, Some(n)) if n.negative                  => MateCreated
       case (Some(p), None) if p.positive                  => MateLost
       case (Some(p), Some(n)) if p.positive && n.negative => MateLost
     }
-private[hub] case class MateAdvice(
+private[analyse] case class MateAdvice(
     sequence: MateSequence,
     judgment: Advice.Judgement,
     info: Info,
     prev: Info
 ) extends Advice
 
-private[hub] object MateAdvice:
+private[analyse] object MateAdvice:
 
   def apply(prev: Info, info: Info): Option[MateAdvice] =
     def invertCp(cp: Cp)       = cp.invertIf(info.color.black)

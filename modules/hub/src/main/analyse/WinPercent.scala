@@ -1,4 +1,5 @@
 package lila.hub
+package analyse
 
 import lila.hub.eval.Eval
 
