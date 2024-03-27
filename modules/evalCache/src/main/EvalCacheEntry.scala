@@ -2,7 +2,7 @@ package lila.evalCache
 
 import chess.variant.Variant
 
-import lila.hub.eval.CloudEval
+import lila.tree.CloudEval
 
 case class EvalCacheEntry(
     nbMoves: Int, // multipv cannot be greater than number of legal moves

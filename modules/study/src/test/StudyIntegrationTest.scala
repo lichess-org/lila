@@ -8,9 +8,9 @@ import play.api.libs.json.*
 import java.time.Instant
 
 import lila.study.StudySocket.Protocol.In.AtPosition
-import lila.hub.tree.Node.Comment.Text
-import lila.hub.tree.Node.{ Comment, Shape, Shapes }
-import lila.hub.tree.Root
+import lila.tree.Node.Comment.Text
+import lila.tree.Node.{ Comment, Shape, Shapes }
+import lila.tree.Root
 
 val studyId      = StudyId("studyId")
 val chapterId    = StudyChapterId("chapterId")

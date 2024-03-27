@@ -14,7 +14,7 @@ import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.round.GameProxyRepo
 import lila.study.MultiPgn
-import lila.hub.tree.Node.Comments
+import lila.tree.Node.Comments
 
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import RelayFormat.CanProxy

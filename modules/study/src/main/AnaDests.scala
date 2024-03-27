@@ -5,7 +5,7 @@ import chess.variant.Variant
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.hub.tree.Node.destString
+import lila.tree.Node.destString
 
 case class AnaDests(
     variant: Variant,

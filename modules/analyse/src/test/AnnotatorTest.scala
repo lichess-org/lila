@@ -4,7 +4,7 @@ import chess.{ ByColor, Ply }
 
 import lila.common.config.{ BaseUrl, NetDomain }
 import lila.game.PgnDump
-import lila.hub.eval.Eval
+import lila.tree.Eval
 
 class AnnotatorTest extends munit.FunSuite:
 

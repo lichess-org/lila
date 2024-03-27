@@ -29,7 +29,7 @@ final class Env(
     appConfig: Configuration,
     uciMemo: lila.game.UciMemo,
     requesterApi: lila.analyse.RequesterApi,
-    getSinglePvEval: lila.hub.eval.CloudEval.GetSinglePvEval,
+    getSinglePvEval: lila.tree.CloudEval.GetSinglePvEval,
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     db: lila.db.Db,

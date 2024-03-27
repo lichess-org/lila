@@ -7,7 +7,7 @@ import scala.util.chaining.*
 
 import lila.common.Json.{ *, given }
 import lila.hub.socket.Sri
-import lila.hub.tree.Node.Shape
+import lila.tree.Node.Shape
 
 final class JsonView(
     studyRepo: StudyRepo,
@@ -135,7 +135,7 @@ object JsonView:
   )
 
   def glyphs(lang: play.api.i18n.Lang): JsObject =
-    import lila.hub.tree.Node.given
+    import lila.tree.Node.given
     import lila.i18n.I18nKeys.{ study as trans }
     import chess.format.pgn.Glyph
     import Glyph.MoveAssessment.*

@@ -7,7 +7,7 @@ import lila.common.Json.{ *, given }
 import lila.game.GameRepo
 import lila.rating.Perf
 import lila.user.Me
-import lila.hub.tree.{ Metas, NewBranch, NewTree }
+import lila.tree.{ Metas, NewBranch, NewTree }
 import chess.format.*
 
 final class JsonView(
