@@ -45,17 +45,19 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                 'span.relay-game__players',
                 [c.players?.black, c.players?.white].map((p, i) => {
                   const s = status[i];
+                  const c = i == 0 ? 'black' : 'white'
                   return h(
                     'span.relay-game__player',
                     p
                       ? [
                           h('span.mini-game__user', [
+                            h(`i.is.color-icon.${c}`),
                             p.fed && playerFed(p.fed),
                             h('span.name', [userTitle(p), p.name]),
                           ]),
                           h(s == '1' ? 'good' : s == '0' ? 'bad' : 'status', [s]),
                         ]
-                      : [h('span.mini-game__user', h('span.name', 'Unknown player'))],
+                      : [h('span.mini-game__user', h(`i.is.color-icon.${c}`), h('span.name', 'Unknown player'))],
                   );
                 }),
               ),
