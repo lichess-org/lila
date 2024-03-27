@@ -4,7 +4,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanNonEmptyText, into, given }
-import lila.i18n.{ LangForm, Language, defaultLanguage }
+import lila.i18n.LangForm
+import lila.hub.i18n.{ Language, defaultLanguage }
 import lila.user.User
 
 final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.CaptchedForm:

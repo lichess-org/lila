@@ -94,7 +94,7 @@ object admin:
               form3.group(form("members"), frag(whoToKick()))(teamMembersAutoComplete(t)),
               form3.actions(
                 a(href := teamRoutes.show(t.id))(trans.cancel()),
-                form3.submit(lila.i18n.I18nKeys.study.kick())
+                form3.submit(lila.hub.i18n.I18nKey.study.kick())
               )
             )
           ),

@@ -27,11 +27,8 @@ final class Env(
     oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
     db: lila.db.Db
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mode: play.api.Mode
-):
+)(using Executor, play.api.Mode, lila.hub.i18n.Translator)(using scheduler: Scheduler):
+
   private val (baseUrl, domain) = (net.baseUrl, net.domain)
 
   private val config = appConfig.get[SecurityConfig]("security")

@@ -4,14 +4,14 @@ import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Mode, Speed }
 import ornicar.scalalib.ThreadLocalRandom
-import play.api.i18n.Lang
 
 import scala.util.chaining.*
 
 import lila.gathering.GreatPlayer
-import lila.i18n.defaultLang
+import lila.hub.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.{ Me, User }
+import lila.hub.i18n.Translate
 
 case class Tournament(
     id: TourId,
@@ -49,9 +49,9 @@ case class Tournament(
   def isTeamBattle  = teamBattle.isDefined
   def isTeamRelated = isTeamBattle || conditions.teamMember.isDefined
 
-  def name(full: Boolean = true)(using Lang): String =
+  def name(full: Boolean = true)(using Translate): String =
     if isMarathon || isUnique then name
-    else if isTeamBattle && full then lila.i18n.I18nKeys.tourname.xTeamBattle.txt(name)
+    else if isTeamBattle && full then lila.hub.i18n.I18nKey.tourname.xTeamBattle.txt(name)
     else if isTeamBattle then name
     else schedule.fold(if full then s"$name Arena" else name)(_.name(full))
 
@@ -153,7 +153,7 @@ case class Tournament(
     (minutes * 60) / estimatedGameSeconds
 
   override def toString =
-    s"$id $startsAt ${name()(using defaultLang)} $minutes minutes, $clock, $nbPlayers players"
+    s"$id $startsAt $name $minutes minutes, $clock, $nbPlayers players"
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
 
@@ -189,10 +189,10 @@ object Tournament:
       hasChat = setup.hasChat | true
     )
 
-  def scheduleAs(sched: Schedule, minutes: Int) =
+  def scheduleAs(sched: Schedule, minutes: Int)(using Translate) =
     Tournament(
       id = makeId,
-      name = sched.name(full = false)(using defaultLang),
+      name = sched.name(full = false),
       status = Status.Created,
       clock = Schedule.clockFor(sched),
       minutes = minutes,

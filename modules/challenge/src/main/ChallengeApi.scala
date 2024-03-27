@@ -18,7 +18,7 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     cacheApi: lila.memo.CacheApi
-)(using Executor, akka.actor.ActorSystem, Scheduler):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.hub.i18n.Translator):
 
   import Challenge.*
 
@@ -215,10 +215,12 @@ final class ChallengeApi(
         all  <- allFor(userId)
         lang <- userRepo.langOf(userId).map(I18nLangPicker.byStrOrDefault)
         _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
-      yield Bus.publish(
-        SendTo(userId, lila.hub.socket.makeMessage("challenges", jsonView(all)(using lang))),
-        "socketUsers"
-      )
+      yield
+        given play.api.i18n.Lang = lang
+        Bus.publish(
+          SendTo(userId, lila.hub.socket.makeMessage("challenges", jsonView(all))),
+          "socketUsers"
+        )
 
   // work around circular dependency
   private var socket: Option[ChallengeSocket]               = None

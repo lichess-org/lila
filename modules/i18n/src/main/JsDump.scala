@@ -2,6 +2,7 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsObject, JsString }
+import lila.hub.i18n.{ I18nKey, Translate }
 
 object JsDump:
 
@@ -31,7 +32,7 @@ object JsDump:
             list.map: (quantity, msg) =>
               s"$k${quantitySuffix(quantity)}" -> JsString(msg)
 
-  def keysToObject(keys: Seq[I18nKey], lang: Lang): JsObject =
+  def keysToObject(keys: Seq[I18nKey])(using lang: Lang): JsObject =
     JsObject:
       keys.flatMap: k =>
         Registry.translation(lang, k).fold[JsTrans](Nil) { translatedJs(k, _) }

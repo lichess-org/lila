@@ -43,7 +43,7 @@ final class TournamentApi(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
-)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer):
+)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.hub.i18n.Translator):
 
   export tournamentRepo.{ byId as get }
 
@@ -713,7 +713,7 @@ final class TournamentApi(
 
   private object publish:
     private val debouncer = Debouncer[Unit](15 seconds, 1): _ =>
-      given play.api.i18n.Lang = lila.i18n.defaultLang
+      given play.api.i18n.Lang = lila.hub.i18n.defaultLang
       fetchUpdateTournaments.flatMap(apiJsonView.apply).foreach { json =>
         Bus.publish(
           lila.hub.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),

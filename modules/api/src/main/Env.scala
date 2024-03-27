@@ -62,12 +62,11 @@ final class Env(
     cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
-)(using
-    ec: Executor,
-    val mode: Mode,
-    system: ActorSystem,
-    scheduler: Scheduler,
-    materializer: akka.stream.Materializer
+)(using val mode: Mode, scheduler: Scheduler)(using
+    Executor,
+    ActorSystem,
+    akka.stream.Materializer,
+    lila.hub.i18n.Translator
 ):
 
   val config = ApiConfig.loadFrom(appConfig)

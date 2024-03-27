@@ -56,7 +56,12 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
-)(using system: ActorSystem, scheduler: Scheduler)(using Executor, akka.stream.Materializer):
+)(using system: ActorSystem, scheduler: Scheduler)(using
+    Executor,
+    akka.stream.Materializer,
+    lila.hub.i18n.Translator
+):
+
   private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
 
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)

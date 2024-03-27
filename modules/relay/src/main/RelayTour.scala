@@ -2,7 +2,7 @@ package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.i18n.Language
+import lila.hub.i18n.Language
 import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.User
 
@@ -69,7 +69,7 @@ object RelayTour:
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
     def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty
-    def specialLanguage: Option[Language] = (language != lila.i18n.defaultLanguage).option(language)
+    def specialLanguage: Option[Language] = (language != lila.hub.i18n.defaultLanguage).option(language)
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 

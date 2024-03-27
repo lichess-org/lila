@@ -26,7 +26,7 @@ final class UserApi(
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
     net: NetConfig
-)(using Executor):
+)(using Executor, lila.hub.i18n.Translator):
 
   def one(u: User.WithPerfs, joinedAt: Option[Instant] = None): JsObject = {
     addStreaming(jsonView.full(u.user, u.perfs.some, withProfile = true), u.id) ++

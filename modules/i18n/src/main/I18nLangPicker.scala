@@ -2,6 +2,7 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
+import lila.hub.i18n.{ defaultLang, Language, defaultLanguage }
 
 object I18nLangPicker:
 

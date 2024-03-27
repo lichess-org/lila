@@ -24,7 +24,7 @@ final class Env(
     chatPanicAllowed: lila.hub.chat.panic.IsAllowed,
     shutup: lila.hub.actors.Shutup,
     mongoCache: lila.memo.MongoCache.Api
-)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer):
+)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.hub.i18n.Translator):
 
   private val colls = wire[MsgColls]
 

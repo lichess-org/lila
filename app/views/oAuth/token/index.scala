@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.I18nKeys.oauthScope as ot
+import lila.hub.i18n.I18nKey.oauthScope as ot
 
 object index:
 

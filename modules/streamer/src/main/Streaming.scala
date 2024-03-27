@@ -41,7 +41,7 @@ final private class Streaming(
                     alwaysFeatured().value.contains(s.userId)
                   }
                 }
-                .map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.i18n.defaultLang) }
+                .map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.hub.i18n.defaultLang) }
             }.flatten
           }
           .zip(ytApi.fetchStreams(streamers))

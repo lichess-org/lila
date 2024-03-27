@@ -7,13 +7,14 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.LightUser
 import lila.game.{ Game, GameRepo }
-import lila.i18n.defaultLang
 
 final private class GameJson(
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(using Executor):
+)(using Executor, lila.hub.i18n.Translator):
+
+  given play.api.i18n.Lang = lila.hub.i18n.defaultLang
 
   def apply(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
     (if bc then bcCache else cache).get(writeKey(gameId, plies))
@@ -66,7 +67,7 @@ final private class GameJson(
   private def perfJson(game: Game) =
     Json.obj(
       "key"  -> game.perfType.key,
-      "name" -> game.perfType.trans(using defaultLang)
+      "name" -> game.perfType.trans
     )
 
   private def playersJson(game: Game) = JsArray(game.players.mapList: p =>

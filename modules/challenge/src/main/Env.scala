@@ -27,7 +27,7 @@ final class Env(
     baseUrl: BaseUrl
 )(using
     scheduler: Scheduler
-)(using akka.actor.ActorSystem, Executor, akka.stream.Materializer, play.api.Mode):
+)(using akka.actor.ActorSystem, Executor, akka.stream.Materializer, play.api.Mode, lila.hub.i18n.Translator):
 
   private val colls = wire[ChallengeColls]
 

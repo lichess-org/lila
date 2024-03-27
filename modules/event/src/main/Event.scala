@@ -1,5 +1,5 @@
 package lila.event
-import lila.i18n.Language
+import lila.hub.i18n.Language
 
 case class Event(
     _id: String,

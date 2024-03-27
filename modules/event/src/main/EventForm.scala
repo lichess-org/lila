@@ -4,7 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ PrettyDateTime, into, stringIn }
-import lila.i18n.Language
+import lila.hub.i18n.Language
 import lila.user.Me
 
 object EventForm:
@@ -42,7 +42,7 @@ object EventForm:
       description = none,
       homepageHours = 0,
       url = "",
-      lang = lila.i18n.defaultLanguage,
+      lang = lila.hub.i18n.defaultLanguage,
       enabled = true,
       startsAt = nowDateTime,
       finishesAt = nowDateTime,

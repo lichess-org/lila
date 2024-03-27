@@ -26,7 +26,8 @@ import lila.round.actorApi.round.QuietFlag
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
     jsonView: BotJsonView
-)(using ec: Executor, system: ActorSystem):
+)(using system: ActorSystem)(using Executor, lila.hub.i18n.Translator):
+
   import GameStateStream.*
 
   private val blueprint =

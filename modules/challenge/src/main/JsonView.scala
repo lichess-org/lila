@@ -6,8 +6,9 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.licon
 import lila.game.JsonView.given
-import lila.i18n.I18nKeys as trans
+import lila.hub.i18n.I18nKey as trans
 import lila.hub.socket.{ SocketVersion, userLag }
+import lila.hub.i18n.Translate
 
 final class JsonView(
     baseUrl: lila.common.config.BaseUrl,
@@ -33,16 +34,18 @@ final class JsonView(
       .add("online" -> isOnline(r.id))
       .add("lag" -> getLagRating(r.id))
 
-  def apply(a: AllChallenges)(using lang: Lang): JsObject =
+  def apply(a: AllChallenges)(using trans: Translate): JsObject =
     Json.obj(
       "in"   -> a.in.map(apply(Direction.In.some)),
       "out"  -> a.out.map(apply(Direction.Out.some)),
-      "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys, lang),
+      "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys)(using trans.lang),
       "reasons" -> JsObject(Challenge.DeclineReason.allExceptBot.map: r =>
         r.key -> JsString(r.trans.txt()))
     )
 
-  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(using Lang) =
+  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(using
+      Translate
+  ) =
     Json.obj(
       "challenge"     -> apply(direction)(challenge),
       "socketVersion" -> socketVersion
@@ -50,7 +53,7 @@ final class JsonView(
 
   private given OWrites[Challenge.Open] = Json.writes
 
-  def apply(direction: Option[Direction])(c: Challenge)(using Lang): JsObject =
+  def apply(direction: Option[Direction])(c: Challenge)(using Translate): JsObject =
     Json
       .obj(
         "id"         -> c.id,

@@ -5,7 +5,8 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.LightUser
-import lila.i18n.{ I18nKeys as trans, JsDump }
+import lila.hub.i18n.{ I18nKey as trans }
+import lila.i18n.JsDump
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync):
 
@@ -119,7 +120,7 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
     trans.timeAlmostUp
   )
 
-  def apply(notify: Notification.AndUnread)(using lang: Lang) =
+  def apply(notify: Notification.AndUnread)(using Lang) =
     Json.toJsObject(notify) ++ Json.obj(
-      "i18n" -> JsDump.keysToObject(i18nKeys, lang)
+      "i18n" -> JsDump.keysToObject(i18nKeys)
     )

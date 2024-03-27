@@ -20,7 +20,7 @@ final class OpeningApi(
     _.maximumSize(4096).expireAfterWrite(5 minute).buildAsync()
   }
 
-  def index(using req: RequestHeader): Fu[Option[OpeningPage]] =
+  def index(using RequestHeader): Fu[Option[OpeningPage]] =
     lookup(Query("", none), withWikiRevisions = false, crawler = Crawler.No)
 
   def lookup(q: Query, withWikiRevisions: Boolean, crawler: Crawler)(using
@@ -45,6 +45,7 @@ final class OpeningApi(
       withWikiRevisions: Boolean,
       crawler: Crawler
   ): Fu[Option[OpeningPage]] =
+    given play.api.i18n.Lang = lila.hub.i18n.defaultLang
     for
       wiki <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
       useExplorer = crawler.no || wiki.exists(_.hasMarkup)

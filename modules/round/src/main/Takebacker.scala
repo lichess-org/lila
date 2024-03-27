@@ -4,7 +4,7 @@ import chess.{ ByColor, Color }
 
 import lila.common.{ Bus, Preload }
 import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
-import lila.i18n.{ I18nKeys as trans, defaultLang }
+import lila.hub.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.pref.{ Pref, PrefApi }
 
 import RoundAsyncActor.TakebackSituation
@@ -14,7 +14,7 @@ final private class Takebacker(
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     prefApi: PrefApi
-)(using Executor):
+)(using Executor, Translator):
 
   private given play.api.i18n.Lang = defaultLang
 

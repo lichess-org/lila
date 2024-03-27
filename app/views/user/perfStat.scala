@@ -24,7 +24,7 @@ object perfStat:
         ratingChart.map: rc =>
           jsModuleInit(
             "chart.ratingHistory",
-            SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using lila.i18n.defaultLang)}'}")
+            SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using lila.hub.i18n.defaultLang)}'}")
           )
       ),
       moreCss = cssTag("perf-stat")

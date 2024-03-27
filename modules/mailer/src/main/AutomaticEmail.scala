@@ -10,7 +10,8 @@ import lila.common.EmailAddress
 import lila.common.config.BaseUrl
 import lila.hub.actorApi.mailer.CorrespondenceOpponent
 import lila.hub.actorApi.msg.SystemMsg
-import lila.i18n.I18nKeys.emails as trans
+import lila.hub.i18n.Translator
+import lila.hub.i18n.I18nKey.emails as trans
 import lila.i18n.PeriodLocales.showDuration
 import lila.user.{ User, UserApi, UserRepo }
 
@@ -20,7 +21,7 @@ final class AutomaticEmail(
     mailer: Mailer,
     baseUrl: BaseUrl,
     lightUser: lila.user.LightUserApi
-)(using Executor):
+)(using Executor, Translator):
 
   import Mailer.html.*
 
@@ -46,7 +47,7 @@ The Lichess team"""
   def welcomePM(user: User): Funit = fuccess:
     alsoSendAsPrivateMessage(user): lang =>
       given Lang = lang
-      import lila.i18n.I18nKeys.*
+      import lila.hub.i18n.I18nKey.*
       s"""${onboarding.welcome.txt()}\n${lichessPatronInfo.txt()}"""
 
   def onTitleSet(username: UserStr): Funit = {
@@ -249,4 +250,4 @@ $disableSettingNotice $disableLink"""
       .flatMapz: user =>
         sendAsPrivateMessageAndEmail(user)(subject, body)
 
-  private def userLang(user: User): Lang = user.realLang | lila.i18n.defaultLang
+  private def userLang(user: User): Lang = user.realLang | lila.hub.i18n.defaultLang

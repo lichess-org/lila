@@ -14,7 +14,7 @@ final class Env(
     isOfferingRematch: lila.round.IsOfferingRematch,
     spam: lila.security.Spam,
     isOnline: IsOnline
-)(using Executor, akka.actor.ActorSystem, Scheduler, play.api.Mode):
+)(using Executor, akka.actor.ActorSystem, Scheduler, play.api.Mode, lila.hub.i18n.Translator):
 
   lazy val jsonView = wire[BotJsonView]
 

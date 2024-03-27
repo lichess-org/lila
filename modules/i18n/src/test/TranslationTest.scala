@@ -3,6 +3,8 @@ package lila.i18n
 import play.api.i18n.Lang
 
 import scala.jdk.CollectionConverters.*
+import lila.hub.i18n.I18nKey
+import lila.hub.i18n.defaultLang
 
 class TranslationTest extends munit.FunSuite:
 
@@ -43,13 +45,13 @@ class TranslationTest extends munit.FunSuite:
   test("escape html") {
     import scalatags.Text.all.*
     given Lang = defaultLang
-    assertEquals(I18nKeys.depthX("string"), RawFrag("Depth string"))
-    assertEquals(I18nKeys.depthX("<string>"), RawFrag("Depth &lt;string&gt;"))
-    assertEquals(I18nKeys.depthX(Html("<html>")), RawFrag("Depth &lt;html&gt;"))
+    assertEquals(I18nKey.depthX("string"), RawFrag("Depth string"))
+    assertEquals(I18nKey.depthX("<string>"), RawFrag("Depth &lt;string&gt;"))
+    assertEquals(I18nKey.depthX(Html("<html>")), RawFrag("Depth &lt;html&gt;"))
   }
   test("quotes") {
     assertEquals(
-      I18nKeys.faq.explainingEnPassant.txt("link1", "link2", "link3")(using Lang("fr", "FR")),
+      I18nKey.faq.explainingEnPassant.txt("link1", "link2", "link3")(using Lang("fr", "FR")),
       """Il s'agit d'un mouvement légal appelé "capture en passant" ou "prise en passant". L'article de Wikipedia donne un link1.
 
 Il est décrit dans la section 3.7 (d) des link2 :
@@ -61,7 +63,7 @@ Voir les link3 sur ce coup pour vous entraîner."""
   }
   test("user backslashes") {
     assertEquals(
-      I18nKeys.faq.lichessCombinationLiveLightLibrePronounced.txt("link1")(using Lang("ar", "SA")),
+      I18nKey.faq.lichessCombinationLiveLightLibrePronounced.txt("link1")(using Lang("ar", "SA")),
       """كلمة Lichess مزيج من live/light/libre (مباشر\خفيف\حر) و chess (شطرنج). تنطق link1."""
     )
   }

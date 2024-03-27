@@ -54,7 +54,7 @@ trait TournamentHelper extends HasEnv:
       "HyperBullet" -> s"H${icon(PerfType.Bullet.icon)}",
       "SuperBlitz"  -> s"S${icon(PerfType.Blitz.icon)}"
     ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
-      pt.trans(using lila.i18n.defaultLang) -> icon(pt.icon)
+      pt.trans(using lila.hub.i18n.defaultLang) -> icon(pt.icon)
     }
     def apply(name: String): Frag = raw:
       replacements.foldLeft(name):

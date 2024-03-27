@@ -18,7 +18,7 @@ final class PgnDump(
     getSwissName: lila.swiss.GetSwissName
 )(using Executor):
 
-  private given Lang = lila.i18n.defaultLang
+  private given Lang = lila.hub.i18n.defaultLang
 
   def apply(
       game: Game,

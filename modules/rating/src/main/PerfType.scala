@@ -2,10 +2,9 @@ package lila.rating
 
 import cats.derived.*
 import chess.{ Centis, Speed }
-import play.api.i18n.Lang
+import lila.hub.i18n.{ I18nKey, Translate }
 
 import lila.common.licon
-import lila.i18n.I18nKeys
 
 enum PerfType(
     val id: Perf.Id,
@@ -15,9 +14,9 @@ enum PerfType(
     val icon: licon.Icon
 ) derives Eq:
 
-  def iconString                = icon.toString
-  def trans(using Lang): String = PerfType.trans(this)
-  def desc(using Lang): String  = PerfType.desc(this)
+  def iconString                     = icon.toString
+  def trans(using Translate): String = PerfType.trans(this)
+  def desc(using Translate): String  = PerfType.desc(this)
 
   case UltraBullet
       extends PerfType(
@@ -251,23 +250,22 @@ object PerfType:
   def iconByVariant(variant: chess.variant.Variant): licon.Icon =
     byVariant(variant).fold(licon.CrownElite)(_.icon)
 
-  def trans(pt: PerfType)(using Lang): String = pt match
-    case Bullet         => I18nKeys.bullet.txt()
-    case Blitz          => I18nKeys.blitz.txt()
-    case Rapid          => I18nKeys.rapid.txt()
-    case Classical      => I18nKeys.classical.txt()
-    case Correspondence => I18nKeys.correspondence.txt()
-    case Puzzle         => I18nKeys.puzzles.txt()
+  val translated: Set[PerfType] = Set(Bullet, Blitz, Rapid, Classical, Correspondence, Puzzle)
+
+  def trans(pt: PerfType)(using Translate): String = pt match
+    case Bullet         => I18nKey.bullet.txt()
+    case Blitz          => I18nKey.blitz.txt()
+    case Rapid          => I18nKey.rapid.txt()
+    case Classical      => I18nKey.classical.txt()
+    case Correspondence => I18nKey.correspondence.txt()
+    case Puzzle         => I18nKey.puzzles.txt()
     case pt             => pt.name
-
-  val translated: Set[PerfType] = Set(Rapid, Classical, Correspondence, Puzzle)
-
-  def desc(pt: PerfType)(using Lang): String = pt match
-    case UltraBullet    => I18nKeys.ultraBulletDesc.txt()
-    case Bullet         => I18nKeys.bulletDesc.txt()
-    case Blitz          => I18nKeys.blitzDesc.txt()
-    case Rapid          => I18nKeys.rapidDesc.txt()
-    case Classical      => I18nKeys.classicalDesc.txt()
-    case Correspondence => I18nKeys.correspondenceDesc.txt()
-    case Puzzle         => I18nKeys.puzzleDesc.txt()
+  def desc(pt: PerfType)(using Translate): String = pt match
+    case UltraBullet    => I18nKey.ultraBulletDesc.txt()
+    case Bullet         => I18nKey.bulletDesc.txt()
+    case Blitz          => I18nKey.blitzDesc.txt()
+    case Rapid          => I18nKey.rapidDesc.txt()
+    case Classical      => I18nKey.classicalDesc.txt()
+    case Correspondence => I18nKey.correspondenceDesc.txt()
+    case Puzzle         => I18nKey.puzzleDesc.txt()
     case pt             => pt.title

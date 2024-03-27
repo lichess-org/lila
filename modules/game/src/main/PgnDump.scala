@@ -1,16 +1,18 @@
 package lila.game
 
+import play.api.i18n.Lang
 import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
 import chess.format.{ Fen, pgn as chessPgn }
 import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
 import lila.common.LightUser
 import lila.common.config.BaseUrl
+import lila.hub.i18n.Translator
 
 final class PgnDump(
     baseUrl: BaseUrl,
     lightUserApi: lila.user.ILightUserApi
-)(using Executor):
+)(using Executor, Translator):
 
   import PgnDump.*
 
@@ -19,7 +21,7 @@ final class PgnDump(
       initialFen: Option[Fen.Epd],
       flags: WithFlags,
       teams: Option[ByColor[TeamId]] = None
-  ): Fu[Pgn] =
+  )(using Lang): Fu[Pgn] =
     val imported = game.pgnImport.flatMap: pgni =>
       Parser.full(pgni.pgn).toOption
 
@@ -61,18 +63,16 @@ final class PgnDump(
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
-  private def eventOf(game: Game) =
-    val perf = game.perfType.trans(using lila.i18n.defaultLang)
+  private def eventOf(game: Game)(using lila.hub.i18n.Translate) =
+    val perf = game.perfType.trans
     game.tournamentId
-      .map { id =>
+      .map: id =>
         s"${game.mode} $perf tournament https://lichess.org/tournament/$id"
-      }
-      .orElse(game.simulId.map { id =>
-        s"$perf simul https://lichess.org/simul/$id"
-      })
-      .getOrElse {
+      .orElse:
+        game.simulId.map: id =>
+          s"$perf simul https://lichess.org/simul/$id"
+      .getOrElse:
         s"${game.mode} $perf game"
-      }
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
     p.ratingDiff.map { rd =>
@@ -86,7 +86,7 @@ final class PgnDump(
       withOpening: Boolean,
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
-  ): Fu[Tags] =
+  )(using lila.hub.i18n.Translate): Fu[Tags] =
     gameLightUsers(game).map:
       case ByColor(wu, bu) =>
         Tags:

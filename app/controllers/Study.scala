@@ -617,5 +617,5 @@ final class Study(
       .get(lang)
       .so: lang =>
         JsonOk:
-          lila.study.JsonView.glyphs(lang)
+          lila.study.JsonView.glyphs(using env.translator.to(lang))
         .withHeaders(CACHE_CONTROL -> "max-age=3600")

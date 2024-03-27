@@ -2,7 +2,7 @@ package lila.ublog
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.i18n.Language
+import lila.hub.i18n.Language
 import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.{ Me, User }
 

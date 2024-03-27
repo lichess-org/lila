@@ -38,6 +38,15 @@ class AnnotatorTest extends munit.FunSuite:
       .get
       .state
 
+  import lila.hub.i18n.*
+  import play.api.i18n.Lang
+  given Translator = new Translator:
+    def to(lang: Lang): Translate = Translate(this, lang)
+    val txt = new TranslatorTxt:
+      def literal(key: I18nKey, args: Seq[Any], lang: Lang): String              = key.value
+      def plural(key: I18nKey, count: Count, args: Seq[Any], lang: Lang): String = key.value
+    val frag = ???
+  given Lang = defaultLang
   val dumper = PgnDump(BaseUrl("l.org/"), lila.user.LightUserApi.mock)
   val dumped =
     dumper(makeGame(playedGame), None, PgnDump.WithFlags(tags = false)).await(1.second, "test dump")

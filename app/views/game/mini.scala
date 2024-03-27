@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
-import lila.i18n.defaultLang
+import lila.hub.i18n.defaultLang
 
 object mini:
 

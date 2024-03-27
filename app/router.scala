@@ -76,7 +76,7 @@ object ReverseRouterConversions:
   given Conversion[ForumTopicId, String]                             = _.value
   given Conversion[lila.cms.CmsPage.Id, String]                      = _.value
   given Conversion[lila.cms.CmsPage.Key, String]                     = _.value
-  given Conversion[lila.i18n.Language, String]                       = _.value
+  given Conversion[lila.hub.i18n.Language, String]                   = _.value
   given Conversion[chess.FideId, Int]                                = _.value
   given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value

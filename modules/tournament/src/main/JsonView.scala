@@ -14,6 +14,7 @@ import lila.memo.SettingStore
 import lila.rating.{ Perf, PerfType }
 import lila.hub.socket.SocketVersion
 import lila.user.{ LightUserApi, Me, User }
+import lila.hub.i18n.Translate
 
 final class JsonView(
     lightUserApi: LightUserApi,
@@ -31,7 +32,7 @@ final class JsonView(
     standingApi: TournamentStandingApi,
     pause: Pause,
     reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
-)(using Executor):
+)(using Executor, lila.hub.i18n.Translator):
 
   import JsonView.{ *, given }
   import lila.gathering.ConditionHandlers.JSONHandlers.{ *, given }
@@ -573,7 +574,7 @@ object JsonView:
       .add("iconImg" -> s.iconImg)
       .add("iconFont" -> s.iconFont)
 
-  private[tournament] given (using Lang): OWrites[PerfType] =
+  private[tournament] given (using Translate): OWrites[PerfType] =
     OWrites: pt =>
       Json
         .obj("key" -> pt.key, "name" -> pt.trans)

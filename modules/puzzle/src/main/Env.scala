@@ -27,11 +27,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     mongo: lila.db.Env
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
+)(using Executor, akka.actor.ActorSystem, akka.stream.Materializer, lila.hub.i18n.Translator)(using
     scheduler: Scheduler,
-    materializer: akka.stream.Materializer,
     mode: play.api.Mode
 ):
 

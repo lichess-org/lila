@@ -6,7 +6,7 @@ import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situ
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches, Source }
-import lila.i18n.{ I18nKeys as trans, defaultLang }
+import lila.hub.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.memo.ExpireSetMemo
 import lila.user.{ GameUsers, UserApi }
 
@@ -18,7 +18,7 @@ final private class Rematcher(
     messenger: Messenger,
     onStart: OnStart,
     rematches: Rematches
-)(using Executor, lila.game.IdGenerator):
+)(using Executor, lila.game.IdGenerator, Translator):
 
   private given play.api.i18n.Lang = defaultLang
 

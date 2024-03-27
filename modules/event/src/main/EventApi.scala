@@ -1,6 +1,6 @@
 package lila.event
 import lila.db.dsl.{ *, given }
-import lila.i18n.Language
+import lila.hub.i18n.Language
 import lila.memo.CacheApi.*
 import lila.user.Me
 

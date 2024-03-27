@@ -15,7 +15,7 @@ final class Env(
     userApi: UserApi,
     settingStore: lila.memo.SettingStore.Builder,
     lightUser: lila.user.LightUserApi
-)(using Executor, ActorSystem, Scheduler):
+)(using Executor, ActorSystem, Scheduler, lila.hub.i18n.Translator):
   private val baseUrl = net.baseUrl
   import Mailer.given
 

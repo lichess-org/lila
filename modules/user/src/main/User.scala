@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
-import lila.i18n.Language
+import lila.hub.i18n.Language
 import lila.rating.{ Perf, PerfType }
 
 case class User(

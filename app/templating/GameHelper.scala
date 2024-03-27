@@ -8,7 +8,7 @@ import play.api.i18n.Lang
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LightUser
 import lila.game.{ Game, LightPlayer, Namer, Player, Pov }
-import lila.i18n.{ I18nKeys as trans, defaultLang }
+import lila.hub.i18n.{ I18nKey as trans, defaultLang }
 
 trait GameHelper:
   self: RouterHelper & I18nHelper & UserHelper & AiHelper & StringHelper & NumberHelper & ChessgroundHelper =>
@@ -271,7 +271,7 @@ trait GameHelper:
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic.so(s" ${c.variant.name}")
-    val challenger = c.challengerUser.fold(trans.anonymous.txt()(using ctx.lang)): reg =>
+    val challenger = c.challengerUser.fold(trans.anonymous.txt()): reg =>
       s"${titleNameOrId(reg.id)}${ctx.pref.showRatings.so(s" (${reg.rating.show})")}"
     val players =
       if c.isOpen then "Open challenge"

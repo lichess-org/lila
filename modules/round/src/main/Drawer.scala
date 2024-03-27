@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import lila.common.Bus
 import lila.game.{ Event, Game, Pov, Progress }
-import lila.i18n.{ I18nKeys as trans, defaultLang }
+import lila.hub.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.pref.{ Pref, PrefApi }
 
 final private[round] class Drawer(
@@ -13,7 +13,7 @@ final private[round] class Drawer(
     finisher: Finisher,
     prefApi: PrefApi,
     isBotSync: lila.common.LightUser.IsBotSync
-)(using Executor):
+)(using Executor, Translator):
 
   private given Lang = defaultLang
 

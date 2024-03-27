@@ -133,7 +133,7 @@ object storm:
 
   private val i18nKeys =
     import lila.i18n.{ I18nKeys as trans }
-    import lila.i18n.I18nKeys.{ storm as s }
+    import lila.hub.i18n.I18nKey.{ storm as s }
     List(
       s.moveToStart,
       s.puzzlesSolved,

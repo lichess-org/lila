@@ -10,6 +10,7 @@ import lila.common.config.*
 import lila.common.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
+import lila.hub.i18n.Translator
 
 final class Env(
     val config: Configuration,
@@ -90,7 +91,8 @@ final class Env(
     val system: ActorSystem,
     val scheduler: Scheduler,
     val executor: Executor,
-    val mode: play.api.Mode
+    val mode: play.api.Mode,
+    val translator: Translator
 ):
 
   val explorerEndpoint       = config.get[String]("explorer.endpoint")
@@ -163,9 +165,10 @@ final class EnvBoot(
     materializer: akka.stream.Materializer
 ):
 
-  given Scheduler = system.scheduler
-  given Mode      = environment.mode
-  val netConfig   = config.get[NetConfig]("net")
+  given Scheduler  = system.scheduler
+  given Mode       = environment.mode
+  given Translator = lila.i18n.Translator
+  val netConfig    = config.get[NetConfig]("net")
   export netConfig.{ domain, baseUrl, assetBaseUrlInternal }
 
   // eagerly load the Uptime object to fix a precise date

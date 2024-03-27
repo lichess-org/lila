@@ -30,10 +30,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
     ip2proxy: lila.security.Ip2Proxy
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+)(using Executor, play.api.Mode, lila.hub.i18n.Translator)(using
+    system: akka.actor.ActorSystem
 ):
 
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)

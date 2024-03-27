@@ -13,7 +13,7 @@ final private class TournamentSocket(
     waitingUsers: WaitingUsersApi,
     socketKit: SocketKit,
     chat: lila.chat.ChatApi
-)(using Executor, ActorSystem, Scheduler, lila.user.FlairApi.Getter):
+)(using Executor, ActorSystem, Scheduler, lila.user.FlairApi.Getter, lila.hub.i18n.Translator):
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)
 
@@ -37,7 +37,8 @@ final private class TournamentSocket(
           )
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
-    send(Protocol.Out.getWaitingUsers(tour.id.into(RoomId), tour.name()(using lila.i18n.defaultLang)))
+    given play.api.i18n.Lang = lila.hub.i18n.defaultLang
+    send(Protocol.Out.getWaitingUsers(tour.id.into(RoomId), tour.name()))
     val promise = Promise[WaitingUsers]()
     waitingUsers.registerNextPromise(tour, promise)
     promise.future.withTimeout(2.seconds, "TournamentSocket.getWaitingUsers")

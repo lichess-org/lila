@@ -35,7 +35,7 @@ final private[api] class RoundApi(
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
     getLightUser: lila.common.LightUser.GetterSync
-)(using Executor):
+)(using Executor, lila.hub.i18n.Translator):
 
   def player(
       pov: Pov,
@@ -250,7 +250,7 @@ final private[api] class RoundApi(
       .map: engines =>
         json.add("externalEngines", engines.nonEmpty.option(engines))
 
-  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using lang: Lang) =
+  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using Lang) =
     json.add("tournament" -> viewO.map { v =>
       Json
         .obj(

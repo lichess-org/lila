@@ -380,7 +380,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           data =>
             Found(env.user.repo.enabledById(data.username)): user =>
               import lila.clas.ClasInvite.{ Feedback as F }
-              import lila.i18n.{ I18nKeys as trans }
+              import lila.hub.i18n.{ I18nKey as trans }
               env.clas.api.invite.create(clas, user, data.realName).map { feedback =>
                 Redirect(routes.Clas.studentForm(clas.id.value)).flashing:
                   feedback match

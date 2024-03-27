@@ -1,6 +1,8 @@
 package lila.pool
 
 import lila.rating.{ Perf, PerfType }
+import play.api.i18n.Lang
+import lila.hub.i18n.Translator
 
 case class PoolConfig(
     clock: chess.Clock.Config,
@@ -25,10 +27,11 @@ object PoolConfig:
 
   import play.api.libs.json.*
   import lila.common.Json.given
-  given OWrites[PoolConfig] = OWrites: p =>
+  given Lang = lila.hub.i18n.defaultLang
+  given (using Translator): OWrites[PoolConfig] = OWrites: p =>
     Json.obj(
       "id"   -> p.id,
       "lim"  -> p.clock.limitInMinutes,
       "inc"  -> p.clock.incrementSeconds,
-      "perf" -> p.perfType.trans(using lila.i18n.defaultLang)
+      "perf" -> p.perfType.trans
     )

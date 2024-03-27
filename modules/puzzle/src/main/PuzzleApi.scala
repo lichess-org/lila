@@ -5,6 +5,7 @@ import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
+import lila.hub.i18n.I18nKey
 
 final class PuzzleApi(
     colls: PuzzleColls,
@@ -113,7 +114,7 @@ final class PuzzleApi(
 
   object theme:
 
-    private[PuzzleApi] def categorizedWithCount: Fu[List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])]] =
+    private[PuzzleApi] def categorizedWithCount: Fu[List[(I18nKey, List[PuzzleTheme.WithCount])]] =
       countApi.countsByTheme.map: counts =>
         PuzzleTheme.categorized.map: (cat, puzzles) =>
           cat -> puzzles.map: pt =>

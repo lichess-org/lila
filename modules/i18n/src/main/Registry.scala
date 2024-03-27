@@ -8,6 +8,8 @@ import java.util.Map as JMap
 import scala.jdk.CollectionConverters.*
 
 import lila.common.Chronometer
+import lila.hub.i18n.I18nKey
+import lila.hub.i18n.defaultLang
 
 object Registry:
 

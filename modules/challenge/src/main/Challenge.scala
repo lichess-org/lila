@@ -8,7 +8,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Days
 import lila.game.{ Game, GameRule }
-import lila.i18n.{ I18nKey, I18nKeys }
+import lila.hub.i18n.I18nKey
 import lila.rating.PerfType
 import lila.user.{ GameUser, Me, User }
 
@@ -120,17 +120,17 @@ object Challenge:
   enum DeclineReason(val trans: I18nKey):
     val key = DeclineReason.this.toString.toLowerCase
 
-    case Generic     extends DeclineReason(I18nKeys.challenge.declineGeneric)
-    case Later       extends DeclineReason(I18nKeys.challenge.declineLater)
-    case TooFast     extends DeclineReason(I18nKeys.challenge.declineTooFast)
-    case TooSlow     extends DeclineReason(I18nKeys.challenge.declineTooSlow)
-    case TimeControl extends DeclineReason(I18nKeys.challenge.declineTimeControl)
-    case Rated       extends DeclineReason(I18nKeys.challenge.declineRated)
-    case Casual      extends DeclineReason(I18nKeys.challenge.declineCasual)
-    case Standard    extends DeclineReason(I18nKeys.challenge.declineStandard)
-    case Variant     extends DeclineReason(I18nKeys.challenge.declineVariant)
-    case NoBot       extends DeclineReason(I18nKeys.challenge.declineNoBot)
-    case OnlyBot     extends DeclineReason(I18nKeys.challenge.declineOnlyBot)
+    case Generic     extends DeclineReason(I18nKey.challenge.declineGeneric)
+    case Later       extends DeclineReason(I18nKey.challenge.declineLater)
+    case TooFast     extends DeclineReason(I18nKey.challenge.declineTooFast)
+    case TooSlow     extends DeclineReason(I18nKey.challenge.declineTooSlow)
+    case TimeControl extends DeclineReason(I18nKey.challenge.declineTimeControl)
+    case Rated       extends DeclineReason(I18nKey.challenge.declineRated)
+    case Casual      extends DeclineReason(I18nKey.challenge.declineCasual)
+    case Standard    extends DeclineReason(I18nKey.challenge.declineStandard)
+    case Variant     extends DeclineReason(I18nKey.challenge.declineVariant)
+    case NoBot       extends DeclineReason(I18nKey.challenge.declineNoBot)
+    case OnlyBot     extends DeclineReason(I18nKey.challenge.declineOnlyBot)
 
   object DeclineReason:
 
@@ -163,9 +163,9 @@ object Challenge:
       export config.{ limit, increment, show }
 
   enum ColorChoice(val trans: I18nKey) derives Eq:
-    case Random extends ColorChoice(I18nKeys.randomColor)
-    case White  extends ColorChoice(I18nKeys.white)
-    case Black  extends ColorChoice(I18nKeys.black)
+    case Random extends ColorChoice(I18nKey.randomColor)
+    case White  extends ColorChoice(I18nKey.white)
+    case Black  extends ColorChoice(I18nKey.black)
   object ColorChoice:
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 

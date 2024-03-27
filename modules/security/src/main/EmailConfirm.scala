@@ -6,7 +6,7 @@ import scalatags.Text.all.*
 
 import lila.common.config.*
 import lila.common.{ EmailAddress, LilaCookie }
-import lila.i18n.I18nKeys.emails as trans
+import lila.hub.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
 import lila.user.{ User, UserApi, UserRepo }
 
@@ -32,7 +32,7 @@ final class EmailConfirmMailer(
     mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using Executor)
+)(using Executor, lila.hub.i18n.Translator)
     extends EmailConfirm:
 
   import Mailer.html.*

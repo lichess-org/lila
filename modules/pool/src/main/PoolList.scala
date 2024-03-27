@@ -2,6 +2,7 @@ package lila.pool
 
 import chess.Clock
 import play.api.libs.json.Json
+import lila.hub.i18n.Translator
 
 object PoolList:
 
@@ -27,4 +28,5 @@ object PoolList:
 
   val clockStringSet: Set[String] = all.view.map(_.clock.show) to Set
 
-  val json = Json.toJson(all)
+  // #TODO cache?
+  def json(using Translator) = Json.toJson(all)

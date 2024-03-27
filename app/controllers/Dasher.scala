@@ -6,7 +6,8 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.app.{ *, given }
 import lila.common.LightUser.lightUserWrites
-import lila.i18n.{ I18nKeys as trans, I18nLangPicker, LangList, enLang }
+import lila.hub.i18n.{ I18nKey as trans, defaultLang }
+import lila.i18n.{ I18nLangPicker, LangList }
 
 final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaController(env):
 
@@ -43,13 +44,12 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
 
   private def translations(using Context) =
     lila.i18n.JsDump.keysToObject(
-      if ctx.isAnon then translationsAnon else translationsAuth,
-      ctx.lang
+      if ctx.isAnon then translationsAnon else translationsAuth
     ) ++ lila.i18n.JsDump.keysToObject(
       // the language settings should never be in a totally foreign language
       List(trans.language),
       if I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang) then ctx.lang
-      else I18nLangPicker.bestFromRequestHeaders(ctx.req) | enLang
+      else I18nLangPicker.bestFromRequestHeaders(ctx.req) | defaultLang
     )
 
   private lazy val galleryJson = env.memo.cacheApi.unit[Option[JsValue]]:

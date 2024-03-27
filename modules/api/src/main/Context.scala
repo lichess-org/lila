@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.{ HTTPRequest, KidMode }
-import lila.i18n.{ Language, defaultLanguage }
+import lila.hub.i18n.{ Language, Translate, defaultLanguage }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.pref.Pref
@@ -54,6 +54,7 @@ class Context(
   def flash(name: String): Option[String] = req.flash.get(name)
   def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
   def canPalantir                         = kid.no && me.exists(!_.marks.troll)
+  lazy val translate                      = Translate(lila.i18n.Translator, lang)
   lazy val acceptLanguages: Set[Language] =
     req.acceptLanguages.view.map(Language.apply).toSet + defaultLanguage ++
       user.flatMap(_.language).toSet
