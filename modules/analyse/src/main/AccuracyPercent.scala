@@ -6,6 +6,7 @@ import lila.common.Maths
 import lila.game.Game
 import lila.tree.Eval
 import lila.tree.Eval.Cp
+import lila.hub.{ Analysis, WinPercent }
 
 // Quality of a move, based on previous and next WinPercent
 opaque type AccuracyPercent = Double

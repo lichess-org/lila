@@ -5,6 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.given
+import lila.hub.{Analysis, Info}
 
 object AnalyseBsonHandlers:
 
