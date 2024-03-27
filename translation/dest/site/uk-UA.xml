@@ -548,7 +548,7 @@
   <string name="resume">Відновити</string>
   <string name="youArePlaying">Ви граєте!</string>
   <string name="winRate">Відсоток перемог</string>
-  <string name="berserkRate">Ігор як берсерк</string>
+  <string name="berserkRate">Ігор з берсерком</string>
   <string name="performance">Ефективність</string>
   <string name="tournamentComplete">Турнір завершено</string>
   <string name="movesPlayed">Ходів зіграно</string>
