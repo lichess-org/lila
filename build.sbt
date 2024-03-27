@@ -82,7 +82,7 @@ lazy val api = module("api",
 ) aggregate (moduleRefs: _*)
 
 lazy val i18n = module("i18n",
-  Seq(db, hub),
+  Seq(common),
   tests.bundle ++ Seq(scalatags)
 ).settings(
   Compile / resourceGenerators += Def.task {
@@ -160,7 +160,7 @@ lazy val common = module("common",
 )
 
 lazy val rating = module("rating",
-  Seq(i18n),
+  Seq(i18n, db),
   reactivemongo.bundle ++ tests.bundle ++ Seq(apacheMath)
 ).dependsOn(common % "test->test")
 
@@ -215,7 +215,7 @@ lazy val mod = module("mod",
 )
 
 lazy val user = module("user",
-  Seq(rating, memo),
+  Seq(rating, memo, hub),
   Seq(hasher, galimatias) ++ tests.bundle ++ playWs.bundle ++ reactivemongo.bundle
 )
 
@@ -350,7 +350,7 @@ lazy val study = module("study",
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
-  Seq(study, notifyModule),
+  Seq(study),
   tests.bundle ++ Seq(galimatias) ++ reactivemongo.bundle
 )
 
@@ -410,7 +410,7 @@ lazy val pref = module("pref",
 )
 
 lazy val msg = module("msg",
-  Seq(db, shutup, notifyModule, security),
+  Seq(shutup, notifyModule, security),
   reactivemongo.bundle
 )
 
