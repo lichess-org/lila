@@ -12,7 +12,6 @@ import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
-import lila.tree.Eval
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
 //opaque type not working due to cyclic ref try again later

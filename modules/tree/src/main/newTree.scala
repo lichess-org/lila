@@ -13,7 +13,6 @@ import chess.Color
 import play.api.libs.json.*
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
-import lila.tree.Eval
 
 case class Metas(
     ply: Ply,
