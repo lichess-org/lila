@@ -40,7 +40,7 @@ object Link:
     case Mastodon
         extends Site(
           "Mastodon",
-          "mstdn.social fosstodon.org gensokyo.social ravenation.club mastodon.art mastodon.lol mastodon.green mas.to mindly.social mastodon.world masthead.social techhub.social"
+          "mastodon.social mastodon.online mstdn.social masto.ai fosstodon.org gensokyo.social ravenation.club mastodon.art mastodon.green mas.to mindly.social mastodon.world techhub.social im-in.space mastodon.cloud"
             .split(' ')
             .toList
         )
