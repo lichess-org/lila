@@ -67,7 +67,7 @@ lazy val modules = Seq(
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor, opening, cms, fide
+  ublog, tutor, opening, cms, fide, tree
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -102,7 +102,7 @@ lazy val cms = module("cms",
 )
 
 lazy val puzzle = module("puzzle",
-  Seq(history, pref),
+  Seq(history, pref, tree),
   reactivemongo.bundle ++ tests.bundle
 )
 
@@ -240,7 +240,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(game),
+  Seq(game, tree),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -365,7 +365,7 @@ lazy val learn = module("learn",
 )
 
 lazy val evalCache = module("evalCache",
-  Seq(security),
+  Seq(security, tree),
   reactivemongo.bundle
 )
 
@@ -467,6 +467,11 @@ lazy val notifyModule = module("notify",
 lazy val socket = module("socket",
   Seq(hub, memo),
   Seq(lettuce)
+)
+
+lazy val tree = module("tree",
+  Seq(common),
+  Seq()
 )
 
 lazy val hub = module("hub",
