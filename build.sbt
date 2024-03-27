@@ -270,7 +270,7 @@ lazy val setup = module("setup",
 )
 
 lazy val importer = module("importer",
-  Seq(round),
+  Seq(game),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -345,7 +345,7 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(explorer),
+  Seq(explorer, round),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, testKit)
 ).dependsOn(common % "test->test")
 
