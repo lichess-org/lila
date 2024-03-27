@@ -4,9 +4,9 @@ import chess.Outcome
 import chess.format.Fen
 
 import lila.game.Game
-import lila.round.JsonView.WithFlags
 import lila.tree.Node.Comment
 import lila.tree.Root
+import lila.round.TreeBuilder.WithFlags
 
 private object GameToRoot:
 

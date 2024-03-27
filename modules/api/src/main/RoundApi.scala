@@ -11,7 +11,7 @@ import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ Game, Pov }
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
-import lila.round.JsonView.WithFlags
+import lila.round.TreeBuilder.WithFlags
 import lila.round.{ Forecast, JsonView }
 import lila.security.Granter
 import lila.simul.Simul

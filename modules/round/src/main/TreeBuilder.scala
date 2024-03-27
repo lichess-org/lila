@@ -10,9 +10,19 @@ import lila.tree.*
 import lila.tree.Eval
 import lila.tree.{ Advice, Analysis, Info }
 
-import JsonView.WithFlags
-
 object TreeBuilder:
+
+  case class WithFlags(
+      opening: Boolean = false,
+      movetimes: Boolean = false,
+      division: Boolean = false,
+      clocks: Boolean = false,
+      blurs: Boolean = false,
+      rating: Boolean = true,
+      puzzles: Boolean = false,
+      nvui: Boolean = false,
+      lichobileCompat: Boolean = false
+  )
 
   private type OpeningOf = Fen.Epd => Option[Opening]
 

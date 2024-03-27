@@ -27,7 +27,7 @@ final class JsonView(
     isOfferingRematch: IsOfferingRematch
 )(using Executor):
 
-  import JsonView.*
+  import TreeBuilder.WithFlags
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck).option(game.history.checkCount(color))
@@ -333,17 +333,3 @@ final class JsonView(
       if pov.game.finished then 1
       else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
     }
-
-object JsonView:
-
-  case class WithFlags(
-      opening: Boolean = false,
-      movetimes: Boolean = false,
-      division: Boolean = false,
-      clocks: Boolean = false,
-      blurs: Boolean = false,
-      rating: Boolean = true,
-      puzzles: Boolean = false,
-      nvui: Boolean = false,
-      lichobileCompat: Boolean = false
-  )
