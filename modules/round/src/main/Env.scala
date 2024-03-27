@@ -15,6 +15,8 @@ import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.memo.SettingStore
 import lila.round.actorApi.{ GetSocketStatus, SocketStatus }
+import lila.rating.PerfType
+import lila.rating.RatingFactor
 
 @Module
 private class RoundConfig(
@@ -52,7 +54,6 @@ final class Env(
     userLagPut: lila.hub.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder,
-    ratingFactors: () => lila.rating.RatingFactors,
     notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using Executor, akka.stream.Materializer):
@@ -87,6 +88,21 @@ final class Env(
       .allPlaying(userId)
       .foreach:
         _.foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
+
+  lazy val ratingFactorsSetting =
+    import play.api.data.Form
+    import play.api.data.Forms.{ single, text }
+    import lila.memo.SettingStore.{ Formable, StringReader }
+    import lila.rating.{ RatingFactor, RatingFactors }
+    import lila.rating.RatingFactor.given
+    given StringReader[RatingFactors] = StringReader.fromIso
+    given Formable[RatingFactors] = Formable(rfs => Form(single("v" -> text)).fill(RatingFactor.write(rfs)))
+    settingStore[lila.rating.RatingFactors](
+      "ratingFactor",
+      default = Map.empty,
+      text = "Rating gain factor per perf type".some
+    )
+  private val getFactors: () => Map[PerfType, RatingFactor] = ratingFactorsSetting.get
 
   Bus.subscribeFuns(
     "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>

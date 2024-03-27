@@ -76,7 +76,6 @@ final class Env(
     val oAuth: lila.oauth.Env,
     val bot: lila.bot.Env,
     val evalCache: lila.evalCache.Env,
-    val rating: lila.rating.Env,
     val swiss: lila.swiss.Env,
     val storm: lila.storm.Env,
     val racer: lila.racer.Env,
@@ -235,7 +234,6 @@ final class EnvBoot(
   lazy val oAuth: lila.oauth.Env             = wire[lila.oauth.Env]
   lazy val bot: lila.bot.Env                 = wire[lila.bot.Env]
   lazy val evalCache: lila.evalCache.Env     = wire[lila.evalCache.Env]
-  lazy val rating: lila.rating.Env           = wire[lila.rating.Env]
   lazy val swiss: lila.swiss.Env             = wire[lila.swiss.Env]
   lazy val storm: lila.storm.Env             = wire[lila.storm.Env]
   lazy val racer: lila.racer.Env             = wire[lila.racer.Env]

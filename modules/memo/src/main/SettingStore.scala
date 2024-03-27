@@ -26,16 +26,16 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
 
   def set(v: A): Funit = {
     value = v
-    persist so coll.update.one(dbId, $set(dbField -> v), upsert = true).void
+    persist.so(coll.update.one(dbId, $set(dbField -> v), upsert = true).void)
   } >> onSet(v)
 
-  def form: Form[?] = summon[SettingStore.Formable[A]] form value
+  def form: Form[?] = summon[SettingStore.Formable[A]].form(value)
 
-  def setString(str: String): Funit = (summon[SettingStore.StringReader[A]] read str).so(set)
+  def setString(str: String): Funit = (summon[SettingStore.StringReader[A]].read(str)).so(set)
 
   private val dbId = $id(id)
 
-  persist so coll.primitiveOne[A](dbId, dbField) map2 { (v: A) =>
+  persist.so(coll.primitiveOne[A](dbId, dbField)).map2 { (v: A) =>
     value = init(ConfigValue(default), DbValue(v))
   }
 
@@ -100,18 +100,18 @@ object SettingStore:
   final class Formable[A](val form: A => Form[?])
   object Formable:
     given Formable[Regex] =
-      Formable[Regex](v => Form(single("v" -> text.verifying(t => Try(t.r).isSuccess))) fill v.toString)
-    given Formable[Boolean] = Formable[Boolean](v => Form(single("v" -> boolean)) fill v)
-    given Formable[Int]     = Formable[Int](v => Form(single("v" -> number)) fill v)
-    given Formable[Float]   = Formable[Float](v => Form(single("v" -> bigDecimal)) fill BigDecimal(v))
-    given Formable[String]  = Formable[String](v => Form(single("v" -> text)) fill v)
-    given Formable[Strings] = Formable[Strings](v => Form(single("v" -> text)) fill Strings.stringsIso.to(v))
-    given Formable[UserIds] = Formable[UserIds](v => Form(single("v" -> text)) fill UserIds.userIdsIso.to(v))
+      Formable[Regex](v => Form(single("v" -> text.verifying(t => Try(t.r).isSuccess))).fill(v.toString))
+    given Formable[Boolean] = Formable[Boolean](v => Form(single("v" -> boolean)).fill(v))
+    given Formable[Int]     = Formable[Int](v => Form(single("v" -> number)).fill(v))
+    given Formable[Float]   = Formable[Float](v => Form(single("v" -> bigDecimal)).fill(BigDecimal(v)))
+    given Formable[String]  = Formable[String](v => Form(single("v" -> text)).fill(v))
+    given Formable[Strings] = Formable[Strings](v => Form(single("v" -> text)).fill(Strings.stringsIso.to(v)))
+    given Formable[UserIds] = Formable[UserIds](v => Form(single("v" -> text)).fill(UserIds.userIdsIso.to(v)))
     given Formable[CredOption] = stringPair(using CredentialsOption.credentialsIso)
     given Formable[HostOption] = stringPair(using HostPortOption.hostPortIso)
     private def stringPair[A](using iso: Iso.StringIso[A]): Formable[A] = Formable[A]: v =>
       Form(
         single("v" -> text.verifying(t => t.isEmpty || t.count(_ == ':') == 1))
-      ) fill iso.to(v)
+      ).fill(iso.to(v))
 
   private val dbField = "setting"

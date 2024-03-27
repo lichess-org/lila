@@ -160,7 +160,7 @@ lazy val common = module("common",
 )
 
 lazy val rating = module("rating",
-  Seq(i18n, memo),
+  Seq(i18n),
   reactivemongo.bundle ++ tests.bundle ++ Seq(apacheMath)
 ).dependsOn(common % "test->test")
 
@@ -215,7 +215,7 @@ lazy val mod = module("mod",
 )
 
 lazy val user = module("user",
-  Seq(rating),
+  Seq(rating, memo),
   Seq(hasher, galimatias) ++ tests.bundle ++ playWs.bundle ++ reactivemongo.bundle
 )
 
