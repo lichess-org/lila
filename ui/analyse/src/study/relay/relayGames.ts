@@ -57,7 +57,12 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                           ]),
                           h(s == '1' ? 'good' : s == '0' ? 'bad' : 'status', [s]),
                         ]
-                      : [h('span.mini-game__user', h(`i.is.color-icon.${c}`), h('span.name', 'Unknown player'))],
+                      : [
+                          h('span.mini-game__user', [
+                            h(`i.is.color-icon.${c}`),
+                            h('span.name', 'Unknown player'),
+                          ])
+                        ],
                   );
                 }),
               ),
