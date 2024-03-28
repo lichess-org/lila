@@ -1,4 +1,4 @@
-package lila.round
+package lila.tree
 
 import chess.format.pgn.{ Comment, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
@@ -7,10 +7,6 @@ import chess.variant.Variant
 import chess.{ Centis, Color, Ply }
 
 import lila.tree.*
-import lila.tree.Eval
-import lila.tree.{ Advice, Analysis, Info }
-
-import JsonView.WithFlags
 
 object TreeBuilder:
 
@@ -19,13 +15,13 @@ object TreeBuilder:
   private def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
 
   def apply(
-      game: lila.game.Game,
+      game: Game,
       analysis: Option[Analysis],
       initialFen: Fen.Epd,
-      withFlags: WithFlags
+      withFlags: ExportOptions
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
-    val drawOfferPlies                     = game.drawOffers.normalizedPlies
+    val drawOfferPlies                     = game.drawOfferPlies
     chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
       case (init, games, error) =>
         error.foreach(logChessError(game.id))
@@ -128,5 +124,6 @@ object TreeBuilder:
             )
 
   private val logChessError = (id: GameId) =>
+    val logger = lila.log("round")
     (err: chess.ErrorStr) =>
       logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}")

@@ -169,6 +169,7 @@ final private class RoundAsyncActor(
           .inject(Nil)
 
     case a: lila.analyse.actorApi.AnalysisProgress =>
+      import lila.tree.{ TreeBuilder, ExportOptions }
       fuccess:
         socketSend:
           RP.Out.tellRoom(
@@ -178,7 +179,7 @@ final private class RoundAsyncActor(
               Json.obj(
                 "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
                 "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
-                  TreeBuilder(a.game, a.analysis.some, a.initialFen, JsonView.WithFlags())
+                  TreeBuilder(a.game, a.analysis.some, a.initialFen, ExportOptions())
               )
             )
           )
