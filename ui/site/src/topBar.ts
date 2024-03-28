@@ -176,7 +176,7 @@ export default function () {
         top.classList.remove('hide');
       })
       .bind('s', () => {
-        $input[0]!.focus()
+        $input[0]!.focus();
         top.classList.remove('hide');
       });
   }
