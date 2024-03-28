@@ -1,7 +1,5 @@
 package lila.tree
 
-import lila.tree.Eval
-
 // How likely one is to win a position, based on subjective Stockfish centipawns
 opaque type WinPercent = Double
 object WinPercent extends OpaqueDouble[WinPercent]:
