@@ -5,8 +5,7 @@ import chess.format.Fen
 
 import lila.game.Game
 import lila.tree.Node.Comment
-import lila.tree.Root
-import lila.tree.TreeBuilder
+import lila.tree.{ ExportOptions, TreeBuilder, Root }
 
 private object GameToRoot:
 
@@ -15,7 +14,7 @@ private object GameToRoot:
       game = game,
       analysis = none,
       initialFen = initialFen | game.variant.initialFen,
-      withFlags = TreeBuilder.WithFlags(clocks = withClocks)
+      withFlags = ExportOptions(clocks = withClocks)
     )
     endComment(game).fold(root) { comment =>
       root.updateMainlineLast { _.setComment(comment) }

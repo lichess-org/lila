@@ -12,18 +12,6 @@ import lila.tree.{ Advice, Analysis, Info }
 
 object TreeBuilder:
 
-  case class WithFlags(
-      opening: Boolean = false,
-      movetimes: Boolean = false,
-      division: Boolean = false,
-      clocks: Boolean = false,
-      blurs: Boolean = false,
-      rating: Boolean = true,
-      puzzles: Boolean = false,
-      nvui: Boolean = false,
-      lichobileCompat: Boolean = false
-  )
-
   private type OpeningOf = Fen.Epd => Option[Opening]
 
   private def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
@@ -32,7 +20,7 @@ object TreeBuilder:
       game: Game,
       analysis: Option[Analysis],
       initialFen: Fen.Epd,
-      withFlags: WithFlags
+      withFlags: ExportOptions
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
     val drawOfferPlies                     = game.drawOfferPlies

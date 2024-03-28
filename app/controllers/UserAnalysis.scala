@@ -10,7 +10,7 @@ import views.*
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.game.Pov
-import lila.tree.TreeBuilder.WithFlags
+import lila.tree.ExportOptions
 
 final class UserAnalysis(
     env: Env,
@@ -126,7 +126,7 @@ final class UserAnalysis(
       tv = none,
       analysis,
       initialFen = initialFen,
-      withFlags = WithFlags(
+      withFlags = ExportOptions(
         division = true,
         opening = true,
         clocks = true,

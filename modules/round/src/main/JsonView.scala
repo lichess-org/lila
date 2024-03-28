@@ -27,7 +27,7 @@ final class JsonView(
     isOfferingRematch: IsOfferingRematch
 )(using Executor):
 
-  import lila.tree.TreeBuilder.WithFlags
+  import lila.tree.ExportOptions
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck).option(game.history.checkCount(color))
@@ -36,7 +36,7 @@ final class JsonView(
       g: Game,
       p: GamePlayer,
       user: GameUser,
-      withFlags: WithFlags
+      withFlags: ExportOptions
   ): JsObject =
     Json
       .obj("color" -> p.color.name)
@@ -63,7 +63,7 @@ final class JsonView(
       prefs: ByColor[Pref],
       users: GameUsers,
       initialFen: Option[Fen.Epd],
-      flags: WithFlags
+      flags: ExportOptions
   ): Fu[JsObject] = for
     takebackable <- takebacker.isAllowedIn(pov.game, Preload(prefs))
     moretimeable <- moretimer.isAllowedIn(pov.game, Preload(prefs))
@@ -139,7 +139,7 @@ final class JsonView(
       g: Game,
       p: GamePlayer,
       user: GameUser,
-      withFlags: WithFlags
+      withFlags: ExportOptions
   ): JsObject =
     Json
       .obj(
@@ -167,7 +167,7 @@ final class JsonView(
       me: Option[UserId],
       tv: Option[OnTv],
       initialFen: Option[Fen.Epd] = None,
-      flags: WithFlags
+      flags: ExportOptions
   ) =
     getSocketStatus(pov.game).map: socket =>
       import pov.*
