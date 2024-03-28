@@ -1,7 +1,7 @@
 import RelayCtrl from './relayCtrl';
-import { looseH as h, Redraw, VNode } from 'common/snabbdom';
+import { looseH as h, VNode } from 'common/snabbdom';
 
-let player: VideoPlayer;
+export let player: VideoPlayer;
 
 export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
   if (!relay.data.videoUrls) return undefined;
@@ -12,22 +12,6 @@ export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
       update: (_, vnode: VNode) => player.cover(vnode.elm as HTMLElement),
     },
   });
-}
-
-export function onWindowResize(redraw: Redraw) {
-  let showingVideo = false;
-  window.addEventListener(
-    'resize',
-    () => {
-      const allow = window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
-      const placeholder = document.getElementById('video-player-placeholder') ?? undefined;
-      player?.cover(allow ? placeholder : undefined);
-      if (showingVideo === allow && !!placeholder) return;
-      showingVideo = allow && !!placeholder;
-      redraw();
-    },
-    { passive: true },
-  );
 }
 
 class VideoPlayer {

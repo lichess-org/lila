@@ -92,7 +92,6 @@ function studyButton(ctrl: AnalyseCtrl) {
     ],
   );
 }
-
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
     noarg = ctrl.trans.noarg,
