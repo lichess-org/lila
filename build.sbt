@@ -220,7 +220,7 @@ lazy val user = module("user",
 )
 
 lazy val game = module("game",
-  Seq(user),
+  Seq(tree, user),
   Seq(compression) ++ tests.bundle ++ reactivemongo.bundle
 )
 
