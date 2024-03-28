@@ -3,6 +3,7 @@ package lila.analyse
 import lila.game.Game.SideAndStart
 import lila.game.Pov
 import lila.tree.Eval.*
+import lila.tree.{ Analysis, Info }
 
 object AccuracyCP:
 

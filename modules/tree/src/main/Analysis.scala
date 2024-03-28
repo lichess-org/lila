@@ -1,4 +1,4 @@
-package lila.analyse
+package lila.tree
 
 import chess.{ Color, Ply }
 
@@ -63,7 +63,5 @@ object Analysis:
       def studyId: Option[StudyId] = id match
         case Study(studyId, _) => Some(studyId)
         case _                 => None
-
-  case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
   type FishnetKey = String
