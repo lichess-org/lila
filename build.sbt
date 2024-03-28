@@ -345,12 +345,12 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(explorer, round),
+  Seq(explorer, analyse, notifyModule, room),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, testKit)
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
-  Seq(study),
+  Seq(study, round),
   tests.bundle ++ Seq(galimatias) ++ reactivemongo.bundle
 )
 
