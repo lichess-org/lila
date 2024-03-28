@@ -1,4 +1,4 @@
-package lila.analyse
+package lila.tree
 
 import chess.Ply
 import chess.format.Uci

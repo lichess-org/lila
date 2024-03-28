@@ -1,5 +1,4 @@
-package lila.hub
-package analyse
+package lila.tree
 
 import chess.{ Color, Ply }
 
