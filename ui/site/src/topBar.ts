@@ -173,11 +173,11 @@ export default function () {
       .bind('/', () => {
         $input.val('/');
         $input[0]!.focus();
-	top.classList.remove('hide');
+        top.classList.remove('hide');
       })
       .bind('s', () => {
-	$input[0]!.focus()
-	top.classList.remove('hide');
+        $input[0]!.focus()
+        top.classList.remove('hide');
       });
   }
 
