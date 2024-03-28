@@ -123,7 +123,7 @@
   &-correspondence .time {
     font-size: 1.6em;
     letter-spacing: inherit;
-    direction: $direction;
+    direction: unset;
 
     @include mq-at-least-col2 {
       line-height: 1.5em;

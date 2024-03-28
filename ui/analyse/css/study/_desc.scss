@@ -20,7 +20,7 @@
 
     position: absolute;
     top: 0;
-    #{$end-direction}: 0;
+    @include inline-end(0);
     background: mix($c-accent, $c-bg-box, 10%);
     padding: 0.5em 0.8em;
     display: none;
@@ -32,7 +32,7 @@
   }
 
   .contrib a {
-    margin-#{$start-direction}: 8px;
+    margin-inline-start: 8px;
   }
 
   .embed {

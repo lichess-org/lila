@@ -31,7 +31,7 @@
   }
 
   span {
-    margin-#{$end-direction}: 1em;
+    margin-inline-end: 1em;
   }
 
   &.ongoing {
@@ -68,7 +68,7 @@
       order: 1;
       flex: 1 0;
       cursor: pointer;
-      margin-#{$start-direction}: 0.8em;
+      margin-inline-start: 0.8em;
     }
   }
 }

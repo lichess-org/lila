@@ -51,7 +51,7 @@
 
     &.sort .is:before {
       opacity: 0.7;
-      margin-#{$end-direction}: 3px;
+      margin-inline-end: 3px;
       content: $licon-DownTriangle;
     }
 
@@ -88,7 +88,7 @@
     }
 
     &:last-child ::before {
-      margin-#{$end-direction}: 8px;
+      margin-inline-end: 8px;
       line-height: 0.9;
       font-size: 1.6em;
     }
@@ -101,7 +101,7 @@
       padding: 0.5em 0.4em;
 
       &:first-child {
-        padding-#{$start-direction}: 0.7em;
+        padding-inline-start: 0.7em;
       }
 
       // player name

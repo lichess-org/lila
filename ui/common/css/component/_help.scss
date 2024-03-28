@@ -25,14 +25,14 @@ dialog .help {
   }
 
   or {
-    margin-#{$start-direction}: 0.2em;
+    margin-inline-start: 0.2em;
     opacity: 0.5;
   }
 
   kbd {
     display: inline-block;
     padding: 4px 5px;
-    margin-#{$start-direction}: 3px;
+    margin-inline-start: 3px;
     font-family: monospace;
     line-height: 10px;
     color: #444;
@@ -45,7 +45,7 @@ dialog .help {
   }
 
   .keys {
-    padding-#{$end-direction}: 1em;
+    padding-inline-end: 1em;
     text-align: right;
     white-space: nowrap;
   }

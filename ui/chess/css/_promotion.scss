@@ -5,7 +5,7 @@
   position: absolute;
   width: var(--cg-width, 100%);
   height: var(--cg-height, 100%);
-  #{$end-direction}: 0;
+  @include inline-end(0);
 
   square {
     cursor: pointer;

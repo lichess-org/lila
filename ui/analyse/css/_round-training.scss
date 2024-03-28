@@ -3,7 +3,7 @@
   a {
     @extend %flex-center-nowrap;
     text-transform: inherit;
-    text-align: $start-direction;
+    text-align: start;
     &::before {
       font-size: 2.8em;
     }
@@ -65,7 +65,7 @@
 
     &__side {
       flex: 0 0 calc(50% - #{$analyse-block-gap});
-      margin-#{$start-direction}: $analyse-block-gap;
+      margin-inline-start: $analyse-block-gap;
     }
 
     > a {

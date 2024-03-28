@@ -23,8 +23,8 @@
       user-select: text;
 
       &.me {
-        border-#{$start-direction}: 3px solid $c-secondary-dim;
-        padding-#{$start-direction}: 7px;
+        border-inline-start: 3px solid $c-secondary-dim;
+        padding-inline-start: 7px;
       }
 
       &.host {
@@ -45,7 +45,7 @@
       opacity: 0.8;
       font-style: italic;
       font-size: 0.9em;
-      margin-#{$start-direction}: 0;
+      margin-inline-start: 0;
       text-align: center;
     }
 
@@ -56,7 +56,7 @@
       padding: 0;
       color: $c-font-dim;
       letter-spacing: -1px;
-      padding-#{$end-direction}: 0.4em;
+      padding-inline-end: 0.4em;
       text-overflow: ellipsis;
       vertical-align: bottom;
     }
@@ -80,9 +80,9 @@
       display: none;
       position: absolute;
       top: 5px;
-      #{$end-direction}: 0;
+      @include inline-end(0);
       cursor: pointer;
-      margin-#{$end-direction}: 3px;
+      margin-inline-end: 3px;
       padding: 1px 5px;
       opacity: 0.7;
       color: $c-accent;

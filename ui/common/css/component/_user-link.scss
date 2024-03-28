@@ -28,9 +28,11 @@
 
     /* not sure about that */
     &.patron {
-      @include rtl-mirrored;
-
       opacity: 0.8;
+
+      @include if-rtl {
+        transform: scaleX(-1);
+      }
     }
 
     &::before {

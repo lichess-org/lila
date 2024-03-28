@@ -26,7 +26,7 @@
 
     &::before {
       font-size: 3rem;
-      margin-#{$end-direction}: 4%;
+      margin-inline-end: 4%;
     }
 
     p {

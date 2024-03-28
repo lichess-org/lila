@@ -84,7 +84,7 @@ body {
   color: $c-font-dim;
   display: block;
   text-align: right;
-  margin-#{$end-direction}: 1ch;
+  margin-inline-end: 1ch;
 }
 
 .now-playing {

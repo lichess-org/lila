@@ -32,7 +32,7 @@ $chat-height: calc(90vh - 300px);
 
     > i {
       font-size: 2.5em;
-      margin-#{$end-direction}: 0.5em;
+      margin-inline-end: 0.5em;
     }
   }
 
@@ -45,7 +45,7 @@ $chat-height: calc(90vh - 300px);
 
     &::before {
       font-size: 3rem;
-      margin-#{$end-direction}: 4%;
+      margin-inline-end: 4%;
     }
 
     p {

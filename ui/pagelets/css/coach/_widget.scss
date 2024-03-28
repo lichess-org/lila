@@ -56,7 +56,7 @@
       @extend %break-nope;
       font-size: 0.9em;
       color: $c-font-dim;
-      padding-#{$end-direction}: 1.2em;
+      padding-inline-end: 1.2em;
       text-align: right;
     }
 
@@ -77,13 +77,13 @@
         color: $c-font;
 
         span {
-          margin-#{$start-direction}: 0.5em;
+          margin-inline-start: 0.5em;
         }
       }
     }
 
     .flag img {
-      margin-#{$start-direction}: 0.5em;
+      margin-inline-start: 0.5em;
       vertical-align: text-bottom;
     }
 

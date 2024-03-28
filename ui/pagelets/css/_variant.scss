@@ -27,7 +27,7 @@
 
     &::before {
       font-size: 3.5em;
-      margin-#{$end-direction}: 1rem;
+      margin-inline-end: 1rem;
       opacity: 0.7;
 
       @include transition;

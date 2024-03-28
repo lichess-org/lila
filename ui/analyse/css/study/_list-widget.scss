@@ -34,7 +34,7 @@ $c-study: $c-primary;
     .members {
       flex: 0 0 40%;
       max-width: 40%;
-      margin-#{$start-direction}: 2%;
+      margin-inline-start: 2%;
     }
 
     li {
@@ -76,7 +76,7 @@ $c-study: $c-primary;
       &::before {
         color: mix($c-link, $c-bg-box, 80%);
         font-size: 4em;
-        margin-#{$end-direction}: 0.2em;
+        margin-inline-end: 0.2em;
 
         @include transition;
         @media (max-width: at-most($xx-small)) {

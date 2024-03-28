@@ -22,12 +22,12 @@
 
       &__angle-img {
         height: 3.5rem;
-        margin-#{$end-direction}: 1vw;
+        margin-inline-end: 1vw;
       }
 
       &::before {
         font-size: 3.5rem;
-        margin-#{$end-direction}: 1vw;
+        margin-inline-end: 1vw;
         color: $c-font-dim;
       }
 
@@ -65,7 +65,7 @@
 
     .rp {
       font-size: 1.3rem;
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
 
       &.up {
         color: $c-good;
@@ -114,7 +114,7 @@
       @extend %flex-center-nowrap;
 
       .switch {
-        margin-#{$end-direction}: 1em;
+        margin-inline-end: 1em;
       }
 
       label {
@@ -126,7 +126,7 @@
       margin-top: 2vmin;
 
       label {
-        margin-#{$end-direction}: 1em;
+        margin-inline-end: 1em;
       }
 
       select {
@@ -193,7 +193,7 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        #{$start-direction}: 0;
+        @include inline-start(0);
         width: var(--p);
         background: mix($c-bg-page, $c-primary, 40%)
           linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
@@ -246,10 +246,10 @@
       @extend %flex-between;
 
       align-items: stretch;
-      margin-#{$start-direction}: -0.5rem;
+      margin-inline-start: -0.5rem;
 
       a {
-        margin-#{$start-direction}: 0.5rem;
+        margin-inline-start: 0.5rem;
         line-height: 2em;
       }
 

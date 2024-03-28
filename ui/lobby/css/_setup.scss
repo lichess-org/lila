@@ -54,11 +54,11 @@ $c-slider: $c-setup;
 
     label {
       flex: 0 0 33%;
-      text-align: $end-direction;
+      text-align: end;
     }
 
     select {
-      margin-#{$start-direction}: 0.8em;
+      margin-inline-start: 0.8em;
       font-weight: bold;
     }
   }
@@ -179,7 +179,7 @@ $c-slider: $c-setup;
     width: 100%;
     text-align: center;
     strong {
-      margin-#{$end-direction}: 0.25em;
+      margin-inline-end: 0.25em;
     }
   }
 }

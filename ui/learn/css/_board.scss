@@ -3,7 +3,7 @@
     width: 70%;
     height: 70%;
     bottom: 15%;
-    #{$start-direction}: 15%;
+    @include inline-start(15%);
     background-size: cover;
     position: absolute;
     transform: translate3d(0, 0, 0);
@@ -79,7 +79,7 @@
     content: '';
     position: absolute;
     bottom: 12.5%;
-    #{$start-direction}: 0;
+    @include inline-start(0);
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
     background-color: rgba(255, 255, 255, 0.2);
     animation: 1s rankGlow ease-in-out infinite;
@@ -99,7 +99,7 @@
     background: $c-bg-popup;
     position: absolute;
     top: 25%;
-    #{$start-direction}: 25%;
+    @include inline-start(25%);
     width: 50%;
     height: 50%;
     padding: 20px;
@@ -129,7 +129,7 @@
   .piece-values .cg-board piece::before {
     position: absolute;
     top: 14px;
-    #{$end-direction}: 4px;
+    @include inline-end(4px);
     color: #fff;
     text-shadow:
       0 0 9px rgba(0, 0, 0, 1),
@@ -160,8 +160,8 @@
 cg-container > cg-board > svg {
   overflow: hidden;
   position: absolute;
-  top: 0px;
-  #{$start-direction}: 0px;
+  top: 0;
+  @include inline-start(0);
   width: 100%;
   height: 100%;
   pointer-events: none;

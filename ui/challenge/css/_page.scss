@@ -36,7 +36,7 @@
         .button {
           background: none;
           border: $border;
-          text-align: $start-direction;
+          text-align: start;
           text-transform: none;
         }
       }
@@ -100,7 +100,7 @@
       &::before {
         color: var(--c-font);
         font-size: 6rem;
-        margin-#{$end-direction}: 0.2em;
+        margin-inline-end: 0.2em;
 
         @media (max-width: at-most($xx-small)) {
           display: none;
@@ -117,7 +117,7 @@
     }
 
     .mode {
-      text-align: $end-direction;
+      text-align: end;
       font-weight: bold;
       font-size: 0.8em;
       color: var(--c-font);

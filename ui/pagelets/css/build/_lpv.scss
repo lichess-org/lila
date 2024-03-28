@@ -11,7 +11,7 @@
   z-index: z('cg__board.overlay');
   position: absolute;
   top: 50%;
-  #{$start-direction}: 50%;
+  @include inline-start(50%);
   transform: translate(-50%, -50%);
   display: block;
   padding: 1.5em 3em;

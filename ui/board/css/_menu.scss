@@ -23,7 +23,7 @@
   > div {
     @extend %flex-column;
     gap: 2em;
-    text-align: $start-direction;
+    text-align: start;
   }
 
   section {
@@ -47,7 +47,7 @@
     }
 
     .switch + label {
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
     }
   }
 }

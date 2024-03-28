@@ -36,7 +36,7 @@
 
       &::before {
         display: inline;
-        margin-#{$end-direction}: 0.2em;
+        margin-inline-end: 0.2em;
 
         @include mq-at-least-picture {
           display: none;
@@ -111,7 +111,7 @@
     svg {
       width: 1.4em;
       height: 1.4em;
-      margin-#{$end-direction}: 0.4em;
+      margin-inline-end: 0.4em;
       opacity: 0.7;
     }
   }

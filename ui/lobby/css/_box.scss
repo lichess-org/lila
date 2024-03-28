@@ -33,7 +33,7 @@
     }
 
     .user-link {
-      padding-#{$start-direction}: -1em;
+      padding-inline-start: -1em;
       font-weight: bold;
       color: $c-font-dim;
     }
@@ -52,7 +52,7 @@
 
       /* prevent leaderboard overflow due to long usernames */
       &:first-child {
-        padding-#{$start-direction}: 0.7em;
+        padding-inline-start: 0.7em;
       }
 
       &.name a {
@@ -80,7 +80,7 @@
 
     td:last-child {
       text-align: right;
-      padding-#{$end-direction}: 0.7em;
+      padding-inline-end: 0.7em;
     }
   }
 

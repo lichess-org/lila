@@ -176,7 +176,7 @@
     }
     input.keyboard {
       width: 4em;
-      margin-#{$end-direction}: 1em;
+      margin-inline-end: 1em;
     }
     &.hidden {
       display: none;

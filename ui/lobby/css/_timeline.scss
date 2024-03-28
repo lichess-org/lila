@@ -2,7 +2,7 @@
   @extend %page-text;
   flex: 1 1 auto;
   margin-top: 1em;
-  margin-#{$start-direction}: $block-gap;
+  margin-inline-start: $block-gap;
 
   @include hoverflow;
 
@@ -22,8 +22,11 @@
       display: block;
       width: 100%;
       height: 1px;
-      background: linear-gradient(to $start-direction, $c-border 20%, $c-bg-page);
+      background: linear-gradient(to start, $c-border 20%, $c-bg-page);
       margin: 0.7em 0;
+      @include if-rtl {
+        background: linear-gradient(to end, $c-border 20%, $c-bg-page);
+      }
     }
 
     .line:not(.patron) {

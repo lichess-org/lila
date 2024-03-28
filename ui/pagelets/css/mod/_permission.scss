@@ -30,7 +30,7 @@
 
     label {
       cursor: pointer;
-      margin-#{$start-direction}: 0.5em;
+      margin-inline-start: 0.5em;
     }
   }
 
@@ -41,7 +41,7 @@
   }
 
   .cmn-toggle:not(:checked) + label::before {
-    #{$end-direction}: 1px;
+    @include inline-end(1px);
     background-color: transparent;
     border-radius: 24px;
   }

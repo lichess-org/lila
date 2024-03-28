@@ -38,7 +38,7 @@ $user-list-width: 30ch;
     }
 
     .user-link {
-      margin-#{$end-direction}: 1em;
+      margin-inline-end: 1em;
     }
   }
 
@@ -61,7 +61,7 @@ $user-list-width: 30ch;
         font-size: 1.45em;
         line-height: 2.5em;
         letter-spacing: -1px;
-        padding-#{$start-direction}: 0.8rem;
+        padding-inline-start: 0.8rem;
         text-transform: uppercase;
         margin: 0;
         background: $c-lead;

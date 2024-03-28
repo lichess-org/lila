@@ -53,7 +53,7 @@
   thead th:nth-child(n + 1),
   tr td {
     text-align: right;
-    padding-#{$end-direction}: 25px;
+    padding-inline-end: 25px;
   }
 }
 

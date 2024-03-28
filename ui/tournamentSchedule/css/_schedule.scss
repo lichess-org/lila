@@ -45,28 +45,28 @@ $c-tour-max-rating: #8572ff;
     position: absolute;
     display: inline;
     height: 100%;
-    border-#{$start-direction}: 1px dashed $c-border;
+    border-inline-start: 1px dashed $c-border;
     padding: 5px 6px;
 
     &.hour {
       font-weight: bold;
-      border-#{$start-direction}-style: solid;
+      border-inline-start-style: solid;
     }
 
     &.now {
       top: 24px;
       height: calc(100% - 2em);
-      margin-#{$start-direction}: 1px;
-      border-#{$start-direction}: 3px dashed $c-accent;
+      margin-inline-start: 1px;
+      border-inline-start: 3px dashed $c-accent;
       &::after {
         content: '';
         position: absolute;
         top: -24px;
-        #{$start-direction}: -10px;
+        @include inline-start(-10px);
         width: 0;
         height: 0;
-        border-#{$start-direction}: 8px solid transparent;
-        border-#{$end-direction}: 8px solid transparent;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
         border-top: 8px solid $c-accent;
       }
     }
@@ -162,7 +162,7 @@ $c-tour-max-rating: #8572ff;
   }
 
   span {
-    margin-#{$end-direction}: 4px;
+    margin-inline-end: 4px;
   }
 
   .icon {
@@ -188,7 +188,7 @@ $c-tour-max-rating: #8572ff;
 
   .body {
     flex: 1 0;
-    margin-#{$end-direction}: 0;
+    margin-inline-end: 0;
   }
 
   .infos {

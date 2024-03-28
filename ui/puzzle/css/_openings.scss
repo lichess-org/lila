@@ -41,7 +41,7 @@
         display: none;
       }
 
-      padding-#{$start-direction}: 1em;
+      padding-inline-start: 1em;
     }
 
     h3 {
@@ -63,7 +63,7 @@
 
     color: $c-font-dimmer;
     font-size: 0.8em;
-    margin-#{$start-direction}: 0.7ch;
+    margin-inline-start: 0.7ch;
     letter-spacing: -1px;
   }
 }

@@ -7,11 +7,11 @@
 
   position: fixed;
   bottom: 0;
-  #{$end-direction}: 0;
+  @include inline-end(0);
   z-index: z('friend-box');
   background: $c-bg-popup;
   border: $border;
-  border-#{$end-direction}: 0;
+  border-inline-end: 0;
   border-bottom: 0;
   border-top-left-radius: $box-radius-size;
   font-size: 0.9rem;

@@ -15,11 +15,11 @@
 
   &__number {
     @extend %flex-center-nowrap;
-    margin-#{$end-direction}: 1ch;
+    margin-inline-end: 1ch;
     &::before {
       font-size: 1em;
       color: $c-font-dim;
-      margin-#{$end-direction}: 0.2ch;
+      margin-inline-end: 0.2ch;
     }
   }
 }

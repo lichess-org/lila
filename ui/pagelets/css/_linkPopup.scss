@@ -16,7 +16,7 @@
       @include margin-inline-end(2rem);
     }
     &__title {
-      text-align: $start-direction;
+      text-align: start;
     }
     &__advice {
       font-size: 1.1em;

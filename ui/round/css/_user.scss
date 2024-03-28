@@ -58,7 +58,7 @@
   }
 
   .rp {
-    margin-#{$end-direction}: 0.2em;
+    margin-inline-end: 0.2em;
   }
 
   @include mq-at-least-col2 {

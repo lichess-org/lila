@@ -31,7 +31,7 @@
     font-style: italic;
     font-weight: bold;
     background: rgba(56, 147, 232, 0.2) !important;
-    border-#{$start-direction}: 3px solid rgba(56, 147, 232, 0.8) !important;
+    border-inline-start: 3px solid rgba(56, 147, 232, 0.8) !important;
   }
 
   time {
@@ -158,7 +158,7 @@
       }
 
       i {
-        margin-#{$end-direction}: 0.3em;
+        margin-inline-end: 0.3em;
         opacity: 0.5;
       }
     }
@@ -221,7 +221,7 @@
 
       td {
         &:first-child {
-          padding-#{$start-direction}: 1em;
+          padding-inline-start: 1em;
           width: 0%;
         }
       }
@@ -253,7 +253,7 @@
       }
 
       i {
-        margin-#{$start-direction}: 0.5ch;
+        margin-inline-start: 0.5ch;
       }
 
       &.spy_filter {
@@ -295,7 +295,7 @@
 
     .slist {
       td:first-child {
-        padding-#{$start-direction}: 10px;
+        padding-inline-start: 10px;
       }
 
       thead th:first-child {
@@ -318,7 +318,7 @@
         margin: 0;
 
         &::before {
-          margin-#{$end-direction}: 0;
+          margin-inline-end: 0;
         }
       }
     }
@@ -337,7 +337,7 @@
       overflow-y: auto;
 
       &:first-child {
-        margin-#{$end-direction}: 1em;
+        margin-inline-end: 1em;
       }
 
       .score {
@@ -486,12 +486,12 @@
         align-items: center;
         justify-content: center;
         white-space: nowrap;
-        border-#{$start-direction}: $border;
+        border-inline-start: $border;
         padding: 5px 10px;
       }
 
       > *:first-child {
-        border-#{$start-direction}: none;
+        border-inline-start: none;
       }
 
       .title {
@@ -504,7 +504,7 @@
           height: 50px;
           width: 50px;
           opacity: 0.7;
-          margin-#{$end-direction}: 8px;
+          margin-inline-end: 8px;
         }
       }
 
@@ -567,7 +567,7 @@
 
       span {
         flex: 0 1 10px;
-        margin-#{$start-direction}: 3px;
+        margin-inline-start: 3px;
       }
       .green {
         /* actually blue */
@@ -599,7 +599,7 @@
       overflow-y: auto;
 
       &:first-child {
-        margin-#{$end-direction}: 1em;
+        margin-inline-end: 1em;
       }
 
       li {

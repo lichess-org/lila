@@ -51,7 +51,7 @@
     padding: 0;
     background: mix($c-secondary, $c-bg-box, 30%);
     .ddloader {
-      padding-#{$start-direction}: 7px;
+      padding-inline-start: 7px;
     }
     .active {
       @extend %flex-center-nowrap;
@@ -60,7 +60,7 @@
       color: $c-font-clear;
       background: mix($c-secondary, $c-bg-box, 40%);
       strong {
-        margin-#{$end-direction}: 0.5ch;
+        margin-inline-end: 0.5ch;
       }
       &.player {
         cursor: pointer;
@@ -72,7 +72,7 @@
     button {
       display: inline-block;
       padding: 0 0.5ch;
-      margin-#{$start-direction}: 1px;
+      margin-inline-start: 1px;
       color: $c-font-dim;
       &:hover {
         color: $c-font-clear;
@@ -103,7 +103,7 @@
 
   td {
     cursor: pointer;
-    padding-#{$start-direction}: 7px;
+    padding-inline-start: 7px;
   }
 
   .moves {
@@ -113,13 +113,13 @@
       font-size: 0.8rem;
       line-height: 1.8em;
       background: mix($c-secondary, $c-bg-box, 40%);
-      padding-#{$start-direction}: 7px;
+      padding-inline-start: 7px;
     }
     td:first-child {
       @extend %san;
 
       line-height: 30px;
-      padding-#{$start-direction}: 7px;
+      padding-inline-start: 7px;
     }
 
     td:nth-child(2),
@@ -130,7 +130,7 @@
 
     td:last-child {
       width: 100%;
-      padding-#{$end-direction}: 7px;
+      padding-inline-end: 7px;
     }
 
     tbody tr.sum {
@@ -190,17 +190,29 @@
   }
 
   .bar span:first-child {
-    @extend %box-radius-#{$start-direction};
+    @extend %box-radius-left;
+    border-left-width: 1px;
 
-    border-#{$start-direction}-width: 1px;
+    @include if-rtl {
+      @extend %box-radius-right;
+      border-left-width: initial;
+      border-right-width: 1px;
+    }
   }
 
   .bar span:last-child {
-    @extend %box-radius-#{$end-direction};
+    @extend %box-radius-right;
+    border-right-width: 1px;
 
-    border-#{$end-direction}-width: 1px;
+    @include if-rtl {
+      @extend %box-radius-left;
+      border-right-width: initial;
+      border-left-width: 1px;
+    }
   }
+}
 
+.explorer-box {
   .games {
     width: 100%;
 
@@ -263,17 +275,17 @@
 
       font-size: 14px;
       line-height: 30px;
-      padding-#{$start-direction}: 7px;
+      padding-inline-start: 7px;
     }
 
     td:last-child {
-      padding-#{$end-direction}: 7px;
+      padding-inline-end: 7px;
       text-align: right;
     }
 
     result {
       padding: 3px 5px;
-      margin-#{$start-direction}: 5px;
+      margin-inline-start: 5px;
       border-radius: 3px;
       font-size: 0.9em;
     }
@@ -282,7 +294,7 @@
   .toconf {
     position: absolute;
     top: 0;
-    #{$end-direction}: 0;
+    @include inline-end(0);
     cursor: pointer;
     display: block;
     font-size: 1.2em;

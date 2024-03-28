@@ -48,7 +48,7 @@
 
     .infos > * {
       display: inline-block;
-      margin-#{$end-direction}: 5px;
+      margin-inline-end: 5px;
     }
 
     .timeout a {
@@ -60,7 +60,7 @@
 
       @include transition;
 
-      margin-#{$start-direction}: -10px;
+      margin-inline-start: -10px;
     }
 
     .timeout a::before {
@@ -69,12 +69,12 @@
     }
 
     .timeout a:hover {
-      margin-#{$start-direction}: 0;
+      margin-inline-start: 0;
     }
 
     .timeout a:hover::before {
       opacity: 1;
-      margin-#{$end-direction}: 2px;
+      margin-inline-end: 2px;
     }
 
     .shadowban {

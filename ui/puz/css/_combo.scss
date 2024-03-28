@@ -38,7 +38,7 @@
     display: flex;
     flex-flow: column;
     flex: 1 1 100%;
-    margin-#{$start-direction}: 1em;
+    margin-inline-start: 1em;
   }
 
   &__bar {
@@ -58,7 +58,7 @@
 
       position: absolute;
       bottom: 0;
-      #{$start-direction}: 0;
+      @include inline-start(0);
       height: 100%;
     }
 
@@ -116,9 +116,12 @@
     $c-level: $c-primary;
 
     direction: ltr;
-    transform: skewX(-45deg * $transform-direction);
+    transform: skewX(-45deg);
+    @include if-rtl {
+      transform: skewX(45deg);
+    }
     flex: 21% 0 0;
-    margin-#{$end-direction}: 4%;
+    margin-inline-end: 4%;
     font-size: 0.9em;
     height: 1.5em;
     line-height: 1.5em;
@@ -129,7 +132,10 @@
     font-weight: bold;
 
     span {
-      transform: skewX(45deg * $transform-direction);
+      transform: skewX(45deg);
+      @include if-rtl {
+        transform: skewX(-45deg);
+      }
       display: block;
     }
 

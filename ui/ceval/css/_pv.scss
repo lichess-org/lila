@@ -9,7 +9,7 @@
     flex-wrap: wrap;
     line-height: 2em;
     border-top: $border;
-    padding-#{$end-direction}: 14px;
+    padding-inline-end: 14px;
     min-height: 2em;
 
     &.pv--nowrap {
@@ -33,7 +33,7 @@
     span {
       @extend %san;
 
-      margin-#{$start-direction}: 4px;
+      margin-inline-start: 4px;
     }
 
     &[data-uci] .pv-san:hover {
@@ -43,7 +43,7 @@
     .pv-wrap-toggle {
       position: absolute;
       top: 0;
-      #{$end-direction}: 0;
+      @include inline-end(0);
       padding: 0 4px;
       margin: 0;
       cursor: pointer;
@@ -65,7 +65,7 @@
   .pv-board {
     position: absolute;
     width: 80%;
-    #{$start-direction}: 34px;
+    @include inline-start(34px);
     max-width: 240px;
     z-index: 1;
 

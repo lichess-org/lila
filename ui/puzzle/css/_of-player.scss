@@ -1,7 +1,7 @@
 .puzzle-of-player {
   &__form {
     input {
-      margin-#{$end-direction}: 1em;
+      margin-inline-end: 1em;
       width: 30ch;
       display: inline-block;
     }

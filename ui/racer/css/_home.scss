@@ -40,7 +40,7 @@
         &::before {
           content: 'A';
           position: absolute;
-          #{$start-direction}: -0.9em;
+          @include inline-start(-0.9em);
           bottom: 0.6em;
           font-size: 0.3em;
           animation: boost 0.1s ease-in infinite;

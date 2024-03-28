@@ -16,8 +16,8 @@
     &.visible {
       margin: 0;
       padding: 0;
-      border-#{$start-direction}: none;
-      border-#{$end-direction}: none;
+      border-left: none;
+      border-right: none;
       border-bottom: none;
 
       .form {

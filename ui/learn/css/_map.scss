@@ -109,7 +109,7 @@
       overflow: hidden;
       position: absolute;
       top: -3px;
-      #{$end-direction}: -3px;
+      @include inline-end(-3px);
     }
   }
 
@@ -119,10 +119,13 @@
     font-weight: bold;
     text-align: center;
     text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
-    transform: rotate(45deg * $transform-direction);
+    transform: rotate(45deg);
+    @include if-rtl {
+      transform: rotate(-45deg);
+    }
     position: relative;
     padding: 7px 0;
-    #{$start-direction}: -5px;
+    @include inline-start(-5px);
     top: 15px;
     width: 120px;
     color: #6a6340;
@@ -145,18 +148,18 @@
     &:before,
     &:after {
       content: '';
-      border-#{$start-direction}: 3px solid transparent;
-      border-#{$end-direction}: 3px solid transparent;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
       position: absolute;
       bottom: -3px;
     }
 
     &:before {
-      #{$start-direction}: 0;
+      @include inline-start(0);
     }
 
     &:after {
-      #{$end-direction}: 0;
+      @include inline-end(0);
     }
 
     &.done {

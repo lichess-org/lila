@@ -21,9 +21,7 @@
   color: $c-brag;
 }
 
-// mirror arrow icons in RTL
-
-@if $direction == 'rtl' {
+html.dir-rtl {
   [data-icon='#{$licon-Wings}'],
   [data-icon='#{$licon-PlayTriangle}'],
   [data-icon='#{$licon-GreaterThan}'],

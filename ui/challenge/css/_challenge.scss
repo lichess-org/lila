@@ -94,7 +94,7 @@
 
     button.decline {
       color: $c-bad;
-      border-#{$end-direction}: none;
+      border-inline-end: none;
     }
 
     button:hover {
@@ -127,10 +127,10 @@
       font-weight: bold;
       margin-bottom: 0.1em;
       .user-link {
-        margin-#{$start-direction}: -5px;
+        margin-inline-start: -5px;
       }
       signal {
-        margin-#{$start-direction}: 5px;
+        margin-inline-start: 5px;
       }
     }
 

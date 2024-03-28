@@ -46,7 +46,7 @@
     }
 
     &--suspect {
-      border-#{$end-direction}: 10px solid $c-bg-zebra;
+      border-inline-end: 10px solid $c-bg-zebra;
     }
 
     img {
@@ -61,7 +61,7 @@
     margin-top: 2em;
 
     .button {
-      margin-#{$end-direction}: 1em;
+      margin-inline-end: 1em;
     }
   }
 
@@ -89,7 +89,7 @@
   }
 
   .appeal-presets {
-    margin-#{$end-direction}: 1em;
+    margin-inline-end: 1em;
   }
 
   &__rules {

@@ -17,7 +17,7 @@
 
   .highlight {
     position: absolute;
-    #{$end-direction}: 5px;
+    @include inline-end(5px);
     top: -3px;
     padding: 8px 20px;
     border-radius: 8px;
@@ -45,7 +45,7 @@
     margin: 0;
     width: 1.5em;
     height: 1.5em;
-    margin-#{$end-direction}: 0.7em;
+    margin-inline-end: 0.7em;
   }
 
   .pager {

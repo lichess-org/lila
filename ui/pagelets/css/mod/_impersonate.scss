@@ -14,8 +14,8 @@ body {
   border-bottom: 1px solid #666;
   position: fixed;
   top: 0;
-  #{$start-direction}: 0;
-  #{$end-direction}: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
 
   form {
@@ -28,6 +28,6 @@ body {
   }
 
   .actions {
-    margin-#{$start-direction}: 2em;
+    margin-inline-start: 2em;
   }
 }

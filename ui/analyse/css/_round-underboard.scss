@@ -103,7 +103,7 @@ $col2-panel-height: 240px;
     strong,
     a {
       display: inline-block;
-      margin-#{$end-direction}: 1em;
+      margin-inline-end: 1em;
     }
   }
 
@@ -115,7 +115,7 @@ $col2-panel-height: 240px;
     border: 0;
     background: none;
     padding: 0.3em;
-    margin-#{$end-direction}: 0.5em;
+    margin-inline-end: 0.5em;
   }
 }
 

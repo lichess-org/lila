@@ -42,7 +42,7 @@
     }
 
     &:last-child {
-      border-#{$end-direction}: none;
+      border-inline-end: none;
     }
   }
 

@@ -34,13 +34,13 @@
   .player {
     display: flex;
     align-items: center;
-    margin-#{$start-direction}: 10px;
+    margin-inline-start: 10px;
   }
 
   .no-square {
     width: 64px;
     height: 64px;
-    margin-#{$end-direction}: 10px;
+    margin-inline-end: 10px;
   }
 
   .is3d & div.no-square {
@@ -58,7 +58,7 @@
     display: block;
     width: 64px;
     height: 64px;
-    margin-#{$end-direction}: 10px;
+    margin-inline-end: 10px;
     font-size: 50px;
     font-size: 64px;
     line-height: 64px;

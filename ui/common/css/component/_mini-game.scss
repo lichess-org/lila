@@ -28,7 +28,7 @@
     width: 1.3em;
     vertical-align: middle;
     opacity: 0.7;
-    margin-#{$end-direction}: 1ch;
+    margin-inline-end: 1ch;
     .mini-game:hover & {
       opacity: 1;
     }
@@ -42,14 +42,14 @@
   .rating {
     @extend %roboto;
 
-    margin-#{$start-direction}: 1ch;
+    margin-inline-start: 1ch;
     font-size: 0.9em;
   }
 
   &__clock {
     @extend %roboto;
 
-    padding-#{$start-direction}: 1ch;
+    padding-inline-start: 1ch;
 
     &.clock--run {
       color: $c-accent;

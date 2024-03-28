@@ -7,13 +7,13 @@
   @extend %nowrap-hidden, %box-radius-bottom, %box-shadow, %flex-center-nowrap;
 
   height: 2em;
-  padding-#{$start-direction}: 0.2em;
+  padding-inline-start: 0.2em;
   background: $c-bg-box;
   color: $c-font-dim;
   strong {
     color: $c-brag;
     font-weight: normal;
-    padding-#{$end-direction}: 0.7ch;
+    padding-inline-end: 0.7ch;
   }
 
   @include transition;

@@ -28,7 +28,7 @@
 
   draw {
     @extend %roboto;
-    margin-#{$start-direction}: 1ch;
+    margin-inline-start: 1ch;
     font-weight: normal;
   }
 }
@@ -249,7 +249,7 @@
 %fullscreen-mask {
   position: fixed;
   top: 0;
-  #{$start-direction}: 0;
+  left: 0;
   width: 100vw; // escape from bounding box of any fixed position parent
   height: 100vh;
   background: $c-page-mask;
@@ -259,7 +259,7 @@
 %link-overlay {
   position: absolute;
   top: 0;
-  #{$start-direction}: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   z-index: z('link-overlay');

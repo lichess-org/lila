@@ -4,7 +4,7 @@ main.page-menu {
 .flash {
   position: absolute;
   top: 0;
-  #{$end-direction}: 0;
+  @include inline-end(0);
   margin: 0;
   &.fade {
     opacity: 0;

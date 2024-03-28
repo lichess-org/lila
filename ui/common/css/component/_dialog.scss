@@ -4,8 +4,11 @@ dialog {
   max-height: 100%;
   max-width: 100%;
   top: 50%;
-  #{$start-direction}: 50%;
-  transform: translate($transform-direction * -50%, -50%);
+  @include inline-start(50%);
+  transform: translate(-50%, -50%);
+  @include if-rtl {
+    transform: translate(50%, -50%);
+  }
   z-index: z('modal');
   padding: 0;
   border: none;
@@ -32,7 +35,7 @@ dialog {
 
     position: absolute;
     top: 4px;
-    #{$end-direction}: 4px;
+    @include inline-end(4px);
     width: 40px; // bigger for phones
     height: 40px;
     z-index: z('modal') + 1;
@@ -55,7 +58,10 @@ dialog {
     overflow: visible;
 
     button.close-button {
-      transform: translate($transform-direction * 18px, -18px);
+      transform: translate(18px, -18px);
+      @include if-rtl {
+        transform: translate(-18px, -18px);
+      }
       width: 32px;
       height: 32px;
       font-size: 16px;

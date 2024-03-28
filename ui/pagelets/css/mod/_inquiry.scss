@@ -32,8 +32,8 @@ body.no-inquiry {
   box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
-  #{$start-direction}: 0;
-  #{$end-direction}: 0;
+  left: 0;
+  right: 0;
   z-index: z('inquiry');
 
   .costello {
@@ -90,7 +90,7 @@ body.no-inquiry {
     position: relative;
     flex: 0 0 43%;
     height: 100%;
-    margin-#{$start-direction}: 10px;
+    margin-inline-start: 10px;
     overflow: hidden;
     color: #ccc;
   }
@@ -100,7 +100,7 @@ body.no-inquiry {
   }
 
   .counter {
-    margin-#{$start-direction}: 0.3em;
+    margin-inline-start: 0.3em;
     flex: 0 0 auto;
   }
 
@@ -109,8 +109,8 @@ body.no-inquiry {
     background: #555;
     position: absolute;
     top: 0;
-    #{$start-direction}: 0;
-    #{$end-direction}: 0;
+    left: 0;
+    right: 0;
   }
 
   .docs:hover {
@@ -199,7 +199,7 @@ body.no-inquiry {
       align-items: center;
       padding: 0.5em;
       > label {
-        margin-#{$start-direction}: 0.5em;
+        margin-inline-start: 0.5em;
         cursor: pointer;
       }
     }
@@ -209,7 +209,7 @@ body.no-inquiry {
   .links {
     @extend %flex-center-nowrap;
 
-    margin-#{$end-direction}: 10px;
+    margin-inline-end: 10px;
     white-space: nowrap;
     height: 100%;
     text-align: center;
@@ -217,8 +217,8 @@ body.no-inquiry {
 
   .actions:not(.close),
   .links {
-    padding-#{$end-direction}: 10px;
-    border-#{$end-direction}: 1px solid #666;
+    padding-inline-end: 10px;
+    border-inline-end: 1px solid #666;
   }
 
   .actions > form {
@@ -248,7 +248,7 @@ body.no-inquiry {
 
   .links {
     padding: 0 10px;
-    border-#{$start-direction}: 1px solid #666;
+    border-inline-start: 1px solid #666;
   }
 
   .links a {
@@ -271,7 +271,7 @@ body.no-inquiry {
   }
 
   .cancel button {
-    margin-#{$start-direction}: 5px;
+    margin-inline-start: 5px;
     font-size: 0.8em;
     padding: 0 8px;
   }
@@ -301,7 +301,7 @@ body.no-inquiry {
       display: none;
       position: absolute;
       top: 100%;
-      #{$end-direction}: 0;
+      @include inline-end(0);
       background: #555;
       overflow: hidden;
       padding: 0.4em 0;
@@ -361,7 +361,7 @@ body.no-inquiry {
     &.counter > div,
     &.warn > div {
       width: 360px;
-      #{$end-direction}: -155px;
+      @include inline-end(-155px);
       max-height: 500px;
       overflow-y: auto;
     }
@@ -394,7 +394,7 @@ body.no-inquiry {
   }
 
   .switcher {
-    margin-#{$start-direction}: -10px;
+    margin-inline-start: -10px;
 
     label {
       transform: scale(0.7);

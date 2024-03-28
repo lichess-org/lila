@@ -34,7 +34,7 @@
       button {
         @extend %button-none;
 
-        margin-#{$start-direction}: 1em;
+        margin-inline-start: 1em;
         color: $c-link;
 
         &:hover {
@@ -92,7 +92,7 @@
       }
 
       &::before {
-        margin-#{$end-direction}: 0.3em;
+        margin-inline-end: 0.3em;
       }
 
       &.highlighted {

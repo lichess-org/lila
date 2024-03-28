@@ -51,6 +51,6 @@ $c-tabs-active: $c-accent !default;
   }
 
   .unread {
-    margin-#{$start-direction}: 0.3em;
+    margin-inline-start: 0.3em;
   }
 }

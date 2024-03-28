@@ -37,10 +37,7 @@ export const loadCss = (href: string, media?: 'dark' | 'light'): Promise<void> =
 export const loadCssPath = async (key: string): Promise<void> => {
   const theme = document.body.dataset.theme!;
   const load = (theme: string, media?: 'dark' | 'light') =>
-    loadCss(
-      `css/${key}.${document.dir || 'ltr'}.${theme}.${document.body.dataset.dev ? 'dev' : 'min'}.css`,
-      media,
-    );
+    loadCss(`css/${key}.${theme}.${document.body.dataset.dev ? 'dev' : 'min'}.css`, media);
   if (theme === 'system') {
     if (supportsSystemTheme()) {
       await Promise.all([load('dark', 'dark'), load('light', 'light')]);

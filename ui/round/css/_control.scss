@@ -43,7 +43,7 @@
 
     p {
       flex: 3 1;
-      margin-#{$end-direction}: 7px;
+      margin-inline-end: 7px;
     }
 
     .button {
@@ -163,7 +163,7 @@
 
     @include mq-is-col1 {
       display: block;
-      margin-#{$start-direction}: 2em;
+      margin-inline-start: 2em;
     }
   }
 
@@ -231,8 +231,8 @@
         content: '';
         position: absolute;
         top: 0;
-        #{$start-direction}: 0;
-        #{$end-direction}: 0;
+        left: 0;
+        right: 0;
         bottom: 0;
         pointer-events: none;
         background: $c-primary;
@@ -258,7 +258,7 @@
       justify-content: center;
       position: absolute;
       top: 0;
-      #{$end-direction}: -25px;
+      @include inline-end(-25px);
       width: 25px;
       height: 6rem;
       border: 0;
@@ -276,7 +276,7 @@
       &:hover {
         background: $c-bad;
         color: $c-bad-over;
-        #{$end-direction}: -36px;
+        @include inline-end(-36px);
         width: 35px;
       }
     }

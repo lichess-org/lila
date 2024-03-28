@@ -20,7 +20,7 @@ $c-fork: $c-primary;
     border-bottom: 1px solid $c-bg-box;
 
     &:nth-child(odd) {
-      border-#{$end-direction}: 1px solid $c-bg-box;
+      border-inline-end: 1px solid $c-bg-box;
     }
     &.correct {
       background: mix($c-secondary, $c-bg-box, 25%);
@@ -45,7 +45,7 @@ $c-fork: $c-primary;
   glyph {
     @extend %base-font;
 
-    margin-#{$start-direction}: 2px;
+    margin-inline-start: 2px;
   }
 
   eval {

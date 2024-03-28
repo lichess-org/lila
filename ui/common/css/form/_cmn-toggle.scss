@@ -1,7 +1,7 @@
 .cmn-toggle {
   @extend %double-tap;
   position: absolute;
-  margin-#{$start-direction}: -99999px;
+  margin-inline-start: -99999px;
   .force-ltr & {
     margin-left: -99999px;
   }
@@ -27,7 +27,7 @@
     width: 22px;
     height: 22px;
     bottom: 0;
-    #{$start-direction}: 0;
+    @include inline-start(0);
   }
 
   &::before {
@@ -109,7 +109,7 @@
 .cmn-toggle:checked + label {
   &::before,
   &::after {
-    margin-#{$start-direction}: 16px;
+    margin-inline-start: 16px;
   }
 
   &::before {

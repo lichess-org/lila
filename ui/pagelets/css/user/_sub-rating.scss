@@ -15,7 +15,7 @@
     &::before {
       font-size: 3em;
       opacity: 0.5;
-      margin-#{$end-direction}: 0.2em;
+      margin-inline-end: 0.2em;
 
       @include transition;
     }
@@ -45,7 +45,7 @@
 
       @extend %flex-column;
 
-      margin-#{$end-direction}: 0.5em;
+      margin-inline-end: 0.5em;
     }
 
     rating span,
@@ -132,7 +132,7 @@
 
       > span {
         flex: 0 0 auto;
-        margin-#{$end-direction}: 0;
+        margin-inline-end: 0;
       }
 
       strong {

@@ -3,7 +3,7 @@ $c-contours: mix($c-brag, $c-shade, 80%);
 .daily-feed {
   &__updates {
     margin: 3em 3em 0 3em;
-    border-#{$start-direction}: 3px solid $c-contours;
+    border-inline-start: 3px solid $c-contours;
   }
   .atom {
     font-size: 2.6em;
@@ -14,16 +14,16 @@ $c-contours: mix($c-brag, $c-shade, 80%);
   }
 
   &__update {
-    padding-#{$start-direction}: 45px;
+    padding-inline-start: 45px;
     margin-bottom: 4em;
 
     &__marker {
-      float: $start-direction;
+      float: inline-start;
       width: 54px;
       height: 54px;
       padding: 7px;
       margin-top: -14px;
-      margin-#{$start-direction}: -74px;
+      margin-inline-start: -74px;
       background-color: $c-contours;
       border: 3px solid $c-bg-box;
       border-radius: 50%;

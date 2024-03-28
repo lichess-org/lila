@@ -80,7 +80,7 @@
   .progress .text {
     position: absolute;
     top: 0;
-    #{$start-direction}: 0;
+    @include inline-start(0);
     width: 100%;
     line-height: 30px;
     z-index: 3;

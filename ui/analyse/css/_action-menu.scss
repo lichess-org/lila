@@ -29,14 +29,16 @@
     }
 
     &:before {
-      #{$end-direction}: 8px;
+      @include inline-end(8px);
     }
 
     &:after {
-      #{$start-direction}: 8px;
+      @include inline-start(8px);
     }
   }
+}
 
+.action-menu {
   &__tools {
     display: grid;
     gap: 0 1em;
@@ -51,7 +53,7 @@
       min-height: 3em;
 
       &::before {
-        padding-#{$end-direction}: 8px;
+        padding-inline-end: 8px;
         font-size: 1.7em;
       }
 
@@ -97,7 +99,7 @@
     }
 
     .switch + label {
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
     }
 
     input[type='range'] {

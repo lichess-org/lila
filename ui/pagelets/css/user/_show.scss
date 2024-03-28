@@ -41,7 +41,7 @@
     .relation-actions {
       @extend %flex-center-nowrap;
 
-      border-#{$end-direction}: $border;
+      border-inline-end: $border;
     }
   }
 
@@ -104,7 +104,7 @@
     }
 
     .unread {
-      margin-#{$start-direction}: 0.5em;
+      margin-inline-start: 0.5em;
     }
   }
 
