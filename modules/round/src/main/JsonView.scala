@@ -27,7 +27,7 @@ final class JsonView(
     isOfferingRematch: IsOfferingRematch
 )(using Executor):
 
-  import TreeBuilder.WithFlags
+  import lila.tree.TreeBuilder.WithFlags
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck).option(game.history.checkCount(color))

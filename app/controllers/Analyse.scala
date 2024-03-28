@@ -9,7 +9,7 @@ import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, LpvEmbed }
 import lila.game.{ PgnDump, Pov }
 import lila.oauth.AccessToken
-import lila.round.TreeBuilder.WithFlags
+import lila.tree.TreeBuilder.WithFlags
 
 final class Analyse(
     env: Env,

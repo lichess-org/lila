@@ -169,6 +169,7 @@ final private class RoundAsyncActor(
           .inject(Nil)
 
     case a: lila.analyse.actorApi.AnalysisProgress =>
+      import lila.tree.TreeBuilder
       fuccess:
         socketSend:
           RP.Out.tellRoom(

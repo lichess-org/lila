@@ -10,7 +10,7 @@ import views.*
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.game.Pov
-import lila.round.TreeBuilder.WithFlags
+import lila.tree.TreeBuilder.WithFlags
 
 final class UserAnalysis(
     env: Env,

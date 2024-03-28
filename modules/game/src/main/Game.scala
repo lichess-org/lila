@@ -47,7 +47,7 @@ case class Game(
 
   lazy val clockHistory = chess.clock.flatMap(loadClockHistory)
 
-  def drawOfferPlies                              = drawOffers.normalizedPlies
+  def drawOfferPlies                                   = drawOffers.normalizedPlies
   def player(playerId: GamePlayerId): Option[Player]   = players.find(_.id == playerId)
   def player[U: UserIdOf](user: U): Option[Player]     = players.find(_.isUser(user))
   def opponentOf[U: UserIdOf](user: U): Option[Player] = player(user).map(opponent)

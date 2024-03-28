@@ -6,16 +6,16 @@ import chess.format.Fen
 import lila.game.Game
 import lila.tree.Node.Comment
 import lila.tree.Root
-import lila.round.TreeBuilder.WithFlags
+import lila.tree.TreeBuilder
 
 private object GameToRoot:
 
   def apply(game: Game, initialFen: Option[Fen.Epd], withClocks: Boolean): Root =
-    val root = lila.round.TreeBuilder(
+    val root = TreeBuilder(
       game = game,
       analysis = none,
       initialFen = initialFen | game.variant.initialFen,
-      withFlags = WithFlags(clocks = withClocks)
+      withFlags = TreeBuilder.WithFlags(clocks = withClocks)
     )
     endComment(game).fold(root) { comment =>
       root.updateMainlineLast { _.setComment(comment) }

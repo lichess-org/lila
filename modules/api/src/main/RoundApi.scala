@@ -11,7 +11,7 @@ import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ Game, Pov }
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
-import lila.round.TreeBuilder.WithFlags
+import lila.tree.TreeBuilder.WithFlags
 import lila.round.{ Forecast, JsonView }
 import lila.security.Granter
 import lila.simul.Simul
@@ -181,7 +181,7 @@ final private[api] class RoundApi(
       withFlags: WithFlags
   )(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
-      lila.round.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
+      lila.tree.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
     ))
 
   private def withSteps(pov: Pov, initialFen: Option[Fen.Epd])(obj: JsObject) =
