@@ -4,8 +4,7 @@ import chess.format.Fen
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.hub.eval.CloudEval
-import lila.hub.eval.Pv
+import lila.tree.{ CloudEval, Pv }
 
 object JsonView:
 

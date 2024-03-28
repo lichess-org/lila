@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import chess.format.Fen
-import lila.hub.eval.CloudEval
+import lila.tree.CloudEval
 
 import JsonApi.Request.Evaluation
 

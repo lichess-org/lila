@@ -70,9 +70,9 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
                   tags = game.tags,
                   variant = game.variant,
                   root = game.root.copy(
-                    comments = lila.hub.tree.Node.Comments.empty,
+                    comments = lila.tree.Node.Comments.empty,
                     children = game.root.children
-                      .updateMainline(_.copy(comments = lila.hub.tree.Node.Comments.empty))
+                      .updateMainline(_.copy(comments = lila.tree.Node.Comments.empty))
                   ),
                   ending = game.end
                 )

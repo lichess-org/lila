@@ -4,8 +4,8 @@ import chess.{ ByColor, Color }
 
 import lila.common.Maths
 import lila.game.Game
-import lila.hub.eval.Eval
-import lila.hub.eval.Eval.Cp
+import lila.tree.Eval
+import lila.tree.Eval.Cp
 
 // Quality of a move, based on previous and next WinPercent
 opaque type AccuracyPercent = Double

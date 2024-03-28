@@ -7,8 +7,8 @@ import chess.variant.Variant
 import chess.{ Centis, Color, Ply }
 
 import lila.analyse.{ Advice, Analysis, Info }
-import lila.hub.tree.*
-import lila.hub.eval.Eval
+import lila.tree.*
+import lila.tree.Eval
 
 import JsonView.WithFlags
 

@@ -5,8 +5,8 @@ import chess.format.Fen
 
 import lila.game.Game
 import lila.round.JsonView.WithFlags
-import lila.hub.tree.Node.Comment
-import lila.hub.tree.Root
+import lila.tree.Node.Comment
+import lila.tree.Root
 
 private object GameToRoot:
 
