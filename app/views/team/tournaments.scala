@@ -12,7 +12,7 @@ object tournaments:
 
   def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using PageContext) =
     views.html.base.layout(
-      title = s"${t.name} • ${trans.tournaments.txt()}",
+      title = s"${t.name} • ${trans.site.tournaments.txt()}",
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${t.name} team tournaments",
@@ -26,7 +26,7 @@ object tournaments:
       main(
         div(cls := "box")(
           boxTop:
-            h1(teamLink(t, true), " • ", trans.tournaments())
+            h1(teamLink(t, true), " • ", trans.site.tournaments())
           ,
           div(cls := "team-events team-tournaments team-tournaments--both")(
             div(cls := "team-tournaments__next")(
@@ -64,9 +64,9 @@ object tournaments:
                     t.clock.show,
                     " • ",
                     if t.variant.exotic then t.variant.name else t.perfType.trans,
-                    t.position.isDefined.option(frag(" • ", trans.thematic())),
+                    t.position.isDefined.option(frag(" • ", trans.site.thematic())),
                     " • ",
-                    if t.mode.rated then trans.ratedTournament() else trans.casualTournament(),
+                    if t.mode.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
                     " • ",
                     t.durationString
                   )
@@ -79,7 +79,7 @@ object tournaments:
                     " • ",
                     if s.variant.exotic then s.variant.name else s.perfType.trans,
                     " • ",
-                    (if s.settings.rated then trans.ratedTournament else trans.casualTournament) ()
+                    (if s.settings.rated then trans.site.ratedTournament else trans.site.casualTournament) ()
                   )
                 )
             )
@@ -104,6 +104,6 @@ object tournaments:
           td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)
         )
 
-  private def renderStartsAt(any: TeamInfo.AnyTour)(using Lang): Frag =
-    if any.isEnterable && any.startsAt.isBeforeNow then trans.playingRightNow()
+  private def renderStartsAt(any: TeamInfo.AnyTour)(using Translate): Frag =
+    if any.isEnterable && any.startsAt.isBeforeNow then trans.site.playingRightNow()
     else momentFromNowOnce(any.startsAt)

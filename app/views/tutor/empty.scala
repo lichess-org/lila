@@ -57,7 +57,7 @@ object empty:
       st.data("pov") := game._1.color.name
     )
 
-  private def nbGames(user: User.WithPerfs)(using Lang) =
+  private def nbGames(user: User.WithPerfs)(using Translate) =
     val nb = lila.rating.PerfType.standardWithUltra.foldLeft(0): (nb, pt) =>
       nb + user.perfs(pt).nb
     p(s"Looks like you have ", strong(nb.atMost(10_000).localize), " rated games to look at, excellent!")

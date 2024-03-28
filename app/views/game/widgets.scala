@@ -31,7 +31,7 @@ object widgets:
                   frag(
                     span("IMPORT"),
                     g.pgnImport.flatMap(_.user).map { user =>
-                      frag(" ", trans.by(userIdLink(user.some, None, withOnline = false)))
+                      frag(" ", trans.site.by(userIdLink(user.some, None, withOnline = false)))
                     },
                     separator,
                     bits.variantLink(g.variant, g.perfType)
@@ -42,7 +42,7 @@ object widgets:
                     separator,
                     if g.fromPosition then g.variant.name else g.perfType.trans,
                     separator,
-                    (if g.rated then trans.rated else trans.casual).txt()
+                    (if g.rated then trans.site.rated else trans.site.casual).txt()
                   )
               ),
               g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
@@ -64,18 +64,18 @@ object widgets:
             gamePlayer(g.blackPlayer)
           ),
           div(cls := "result")(
-            if g.isBeingPlayed then trans.playingRightNow()
+            if g.isBeingPlayed then trans.site.playingRightNow()
             else if g.finishedOrAborted then
               span(cls := g.winner.flatMap(w => fromPlayer.map(p => if p == w then "win" else "loss")))(
                 gameEndStatus(g),
                 g.winner.map { winner =>
                   frag(
                     " • ",
-                    winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+                    winner.color.fold(trans.site.whiteIsVictorious(), trans.site.blackIsVictorious())
                   )
                 }
               )
-            else g.turnColor.fold(trans.whitePlays(), trans.blackPlays())
+            else g.turnColor.fold(trans.site.whitePlays(), trans.site.blackPlays())
           ),
           if g.playedTurns > 0 then
             div(cls := "opening")(
@@ -101,7 +101,7 @@ object widgets:
             div(cls := "notes")(strong("Notes: "), note)
           },
           g.metadata.analysed.option(
-            div(cls := "metadata text", dataIcon := licon.BarChart)(trans.computerAnalysisAvailable())
+            div(cls := "metadata text", dataIcon := licon.BarChart)(trans.site.computerAnalysisAvailable())
           ),
           g.pgnImport.flatMap(_.user).map { user =>
             div(cls := "metadata")("PGN import by ", userIdLink(user.some))
@@ -117,11 +117,11 @@ object widgets:
       .getOrElse:
         game.daysPerTurn
           .map: days =>
-            span(title := trans.correspondence.txt()):
-              if days.value == 1 then trans.oneDay()
-              else trans.nbDays.pluralSame(days.value)
+            span(title := trans.site.correspondence.txt()):
+              if days.value == 1 then trans.site.oneDay()
+              else trans.site.nbDays.pluralSame(days.value)
           .getOrElse:
-            span(title := trans.unlimited.txt())("∞")
+            span(title := trans.site.unlimited.txt())("∞")
 
   private lazy val anonSpan = span(cls := "anon")(lila.user.User.anonymous)
 

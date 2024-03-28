@@ -1,7 +1,6 @@
 package lila.api
 
 import chess.format.Fen
-import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
@@ -19,6 +18,7 @@ import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.hub.tree.Node.partitionTreeJsonWriter
 import lila.user.{ GameUsers, User }
+import lila.hub.i18n.Translate
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -46,7 +46,6 @@ final private[api] class RoundApi(
       initialFen <- gameRepo.initialFen(pov.game)
       users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType))
       prefs      <- prefApi.get(users.map(_.map(_.user)), pov.color, ctx.pref)
-      given Lang = ctx.lang
       (json, simul, swiss, note, forecast, bookmarked) <-
         (
           jsonView.playerJson(pov, prefs, users, initialFen, ctxFlags),
@@ -77,7 +76,7 @@ final private[api] class RoundApi(
   )(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- initialFenO.fold(gameRepo.initialFen(pov.game))(fuccess)
-      given Lang = ctx.lang
+      given Translate = ctx.translate
       (json, simul, swiss, note, bookmarked) <-
         (
           jsonView.watcherJson(pov, users, ctx.pref.some, ctx.me, tv, initialFen, ctxFlags),
@@ -113,7 +112,7 @@ final private[api] class RoundApi(
       withFlags: WithFlags,
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
-    given Lang = ctx.lang
+    given Translate = ctx.translate
     (
       jsonView.watcherJson(
         pov,
@@ -250,7 +249,7 @@ final private[api] class RoundApi(
       .map: engines =>
         json.add("externalEngines", engines.nonEmpty.option(engines))
 
-  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using Lang) =
+  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using Translate) =
     json.add("tournament" -> viewO.map { v =>
       Json
         .obj(

@@ -12,7 +12,7 @@ object form:
 
   def apply(form: Form[?], reqUser: Option[User] = None)(using ctx: PageContext) =
     views.html.base.layout(
-      title = trans.reportAUser.txt(),
+      title = trans.site.reportAUser.txt(),
       moreCss = cssTag("form3"),
       moreJs = embedJsUnsafeLoadThen(
         """$('#form3-reason').on('change', function() {
@@ -22,7 +22,7 @@ object form:
     ):
       val defaultReason = form("reason").value.orElse(translatedReasonChoices.headOption.map(_._1))
       main(cls := "page-small box box-pad report")(
-        h1(cls := "box__top")(trans.reportAUser()),
+        h1(cls := "box__top")(trans.site.reportAUser()),
         postForm(
           cls    := "form3",
           action := s"${reportRoutes.create}${reqUser.so(u => "?username=" + u.username)}"
@@ -47,7 +47,7 @@ object form:
               )
           ),
           form3.globalError(form),
-          form3.group(form("username"), trans.user(), klass = "field_to complete-parent"): f =>
+          form3.group(form("username"), trans.site.user(), klass = "field_to complete-parent"): f =>
             reqUser
               .map: user =>
                 frag(userLink(user), form3.hidden(f, user.id.value.some))
@@ -57,15 +57,15 @@ object form:
           if ctx.req.queryString contains "reason"
           then form3.hidden(form("reason"))
           else
-            form3.group(form("reason"), trans.reason()): f =>
-              form3.select(f, translatedReasonChoices, trans.whatIsIheMatter.txt().some)
+            form3.group(form("reason"), trans.site.reason()): f =>
+              form3.select(f, translatedReasonChoices, trans.site.whatIsIheMatter.txt().some)
           ,
-          form3.group(form("text"), trans.description(), help = descriptionHelp(~defaultReason).some):
+          form3.group(form("text"), trans.site.description(), help = descriptionHelp(~defaultReason).some):
             form3.textarea(_)(rows := 8)
           ,
           form3.actions(
-            a(href := routes.Lobby.home)(trans.cancel()),
-            form3.submit(trans.send())
+            a(href := routes.Lobby.home)(trans.site.cancel()),
+            form3.submit(trans.site.send())
           )
         )
       )
@@ -78,7 +78,7 @@ object form:
       .distinct
       .map: key =>
         span(cls := List(s"report-reason report-reason-$key" -> true, "none" -> (default != key))):
-          if key == Cheat.key || key == Boost.key then trans.reportDescriptionHelp()
+          if key == Cheat.key || key == Boost.key then trans.site.reportDescriptionHelp()
           else if key == Username.key then
             "Please explain briefly what about this username is offensive." + englishPlease
           else if key == Comm.key || key == Sexism.key then

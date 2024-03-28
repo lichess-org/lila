@@ -58,7 +58,7 @@ object federation:
       cls := "fide-federation",
       div(cls := "box__top fide-federation__head")(
         flag(fed.id, none),
-        div(h1(fed.name), p(trans.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
+        div(h1(fed.name), p(trans.site.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
         (fed.id.value == "KOS").option(p(cls := "fide-federation__kosovo")(kosovoText))
       ),
       div(cls := "fide-cards fide-federation__cards box__pad")(

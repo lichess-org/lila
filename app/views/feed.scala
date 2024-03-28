@@ -152,7 +152,7 @@ object feed:
       cls := customClass.getOrElse(s"daily-feed__update__marker ${flair.nonEmpty.so(" nobg")}")
     )
 
-  def atom(ups: List[Update])(using Lang) =
+  def atom(ups: List[Update])(using Translate) =
     import views.html.base.atom.atomDate
     views.html.base.atom(
       elems = ups,

@@ -96,10 +96,10 @@ object page:
       )
 
   private val i18nKeys = List(
-    trans.youAreLeavingLichess,
-    trans.neverTypeYourPassword,
-    trans.cancel,
-    trans.proceedToX
+    trans.site.youAreLeavingLichess,
+    trans.site.neverTypeYourPassword,
+    trans.site.cancel,
+    trans.site.proceedToX
   )
 
   private val dataUsername = attr("data-username")

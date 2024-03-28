@@ -150,7 +150,7 @@ object cms:
       form3.split(
         form3.group(
           form("language"),
-          trans.language(),
+          trans.site.language(),
           half = true,
           help = raw("Language of this content. Helps selecting the right content for each viewer.").some
         ):
@@ -167,7 +167,7 @@ object cms:
       form3.group(
         form("markdown"),
         frag("Content"),
-        help = trans.embedsAvailable().some
+        help = trans.site.embedsAvailable().some
       ): field =>
         frag(
           form3.textarea(field)(),

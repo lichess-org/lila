@@ -45,7 +45,7 @@ object show:
             views.html.chat.json(
               chat.chat,
               chat.lines,
-              name = if t.isChatFor(_.LEADERS) then leadersChat.txt() else trans.chatRoom.txt(),
+              name = if t.isChatFor(_.LEADERS) then leadersChat.txt() else trans.site.chatRoom.txt(),
               timeout = chat.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
@@ -109,7 +109,7 @@ object show:
                     frag(
                       strong(beingReviewed()),
                       postForm(action := teamRoutes.quit(t.id)):
-                        submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
+                        submitButton(cls := "button button-red button-empty confirm")(trans.site.cancel())
                     )
                   else (ctx.isAuth && !asMod).option(joinButton(t.team))
                 )
@@ -254,7 +254,7 @@ object show:
               (t.enabled && info.simuls.nonEmpty).option(
                 frag(
                   st.section(cls := "team-show__tour team-events team-simuls")(
-                    h2(trans.simultaneousExhibitions()),
+                    h2(trans.site.simultaneousExhibitions()),
                     views.html.simul.bits.allCreated(info.simuls)
                   )
                 )
@@ -262,7 +262,7 @@ object show:
               (t.enabled && info.tours.nonEmpty).option(
                 frag(
                   st.section(cls := "team-show__tour team-events team-tournaments")(
-                    h2(a(href := teamRoutes.tournaments(t.id))(trans.tournaments())),
+                    h2(a(href := teamRoutes.tournaments(t.id))(trans.site.tournaments())),
                     table(cls := "slist")(
                       tournaments.renderList(
                         info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
@@ -273,7 +273,7 @@ object show:
               ),
               info.forum.map { forumPosts =>
                 st.section(cls := "team-show__forum")(
-                  h2(a(href := teamForumUrl(t.id))(trans.forum())),
+                  h2(a(href := teamForumUrl(t.id))(trans.site.forum())),
                   forumPosts.take(10).map { post =>
                     a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.postId))(
                       div(cls := "meta")(
@@ -287,7 +287,7 @@ object show:
                       p(shorten(post.text, 200))
                     )
                   },
-                  a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
+                  a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.site.forum(), " »")
                 )
               }
             )

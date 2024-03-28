@@ -38,7 +38,7 @@ object mini:
       pov: Pov,
       link: Option[String] = None,
       showRatings: Boolean = true
-  )(using Lang, Option[Me]): Tag =
+  )(using Translate, Option[Me]): Tag =
     import pov.game
     val tag                                    = if link.isDefined then a else span
     def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.increment}"
@@ -62,7 +62,7 @@ object mini:
 
     dataState := s"${fen},${pov.color.name},${~pov.game.lastMoveKeys}"
 
-  private def renderPlayer(pov: Pov, withRating: Boolean)(using Lang) =
+  private def renderPlayer(pov: Pov, withRating: Boolean)(using Translate) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player.light, pov.player.userId.flatMap(lightUser), withRating = false),

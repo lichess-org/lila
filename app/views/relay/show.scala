@@ -36,7 +36,7 @@ object show:
                 .json(
                   c.chat,
                   c.lines,
-                  name = trans.chatRoom.txt(),
+                  name = trans.site.chatRoom.txt(),
                   timeout = c.timeout,
                   writeable = ctx.userId.exists(rt.study.canChat),
                   public = true,

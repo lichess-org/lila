@@ -23,6 +23,7 @@ import lila.puzzle.{
 }
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
+import lila.hub.i18n.Translate
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -220,7 +221,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       views.html.puzzle.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
     .map(_.noCache.enforceCrossSiteIsolation)
 
-  private def streakJsonAndPuzzle(using Lang) =
+  private def streakJsonAndPuzzle(using Translate) =
     given Option[Me] = none
     given Perf       = Perf.default
     env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>

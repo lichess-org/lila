@@ -9,7 +9,7 @@ import lila.rating.PerfType
 
 object leaderboard:
 
-  private def freqWinner(w: lila.tournament.Winner, freq: String)(using Lang) =
+  private def freqWinner(w: lila.tournament.Winner, freq: String)(using Translate) =
     li(
       userIdLink(w.userId.some),
       a(title := w.tourName, href := routes.Tournament.show(w.tourId))(freq)

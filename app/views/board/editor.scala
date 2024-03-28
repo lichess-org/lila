@@ -16,7 +16,7 @@ object editor:
       endgamePositionsJson: JsArray
   )(using PageContext) =
     views.html.base.layout(
-      title = trans.boardEditor.txt(),
+      title = trans.site.boardEditor.txt(),
       pageModule = PageModule(
         "editor",
         jsData(fen) ++ Json.obj("positions" -> positionsJson, "endgamePositions" -> endgamePositionsJson)
@@ -50,23 +50,23 @@ object editor:
       .add("fen" -> fen)
 
   private val i18nKeys = List(
-    trans.setTheBoard,
-    trans.boardEditor,
-    trans.startPosition,
-    trans.clearBoard,
-    trans.flipBoard,
-    trans.loadPosition,
-    trans.popularOpenings,
-    trans.endgamePositions,
-    trans.castling,
-    trans.whiteCastlingKingside,
-    trans.blackCastlingKingside,
-    trans.whitePlays,
-    trans.blackPlays,
-    trans.variant,
-    trans.continueFromHere,
-    trans.playWithTheMachine,
-    trans.playWithAFriend,
-    trans.analysis,
-    trans.toStudy
+    trans.site.setTheBoard,
+    trans.site.boardEditor,
+    trans.site.startPosition,
+    trans.site.clearBoard,
+    trans.site.flipBoard,
+    trans.site.loadPosition,
+    trans.site.popularOpenings,
+    trans.site.endgamePositions,
+    trans.site.castling,
+    trans.site.whiteCastlingKingside,
+    trans.site.blackCastlingKingside,
+    trans.site.whitePlays,
+    trans.site.blackPlays,
+    trans.site.variant,
+    trans.site.continueFromHere,
+    trans.site.playWithTheMachine,
+    trans.site.playWithAFriend,
+    trans.site.analysis,
+    trans.site.toStudy
   )

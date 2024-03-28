@@ -1,6 +1,5 @@
 package lila.puzzle
 
-import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
@@ -8,22 +7,21 @@ import lila.game.GameRepo
 import lila.rating.Perf
 import lila.user.Me
 import lila.hub.tree.{ Metas, NewBranch, NewTree }
-import lila.hub.i18n.{ Translate, Translator, defaultLang }
+import lila.hub.i18n.Translate
 import chess.format.*
 
 final class JsonView(
     gameJson: GameJson,
     gameRepo: GameRepo
-)(using Executor, Translator):
+)(using Executor):
 
   import JsonView.*
-  // given Lang = defaultLang
 
   def apply(
       puzzle: Puzzle,
       angle: Option[PuzzleAngle],
       replay: Option[PuzzleReplay]
-  )(using Lang)(using Option[Me], Perf): Fu[JsObject] =
+  )(using Translate)(using Option[Me], Perf): Fu[JsObject] =
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
@@ -91,7 +89,7 @@ final class JsonView(
       "is3d"         -> p.is3d
     )
 
-  def dashboardJson(dash: PuzzleDashboard, days: Int)(using Lang) = Json.obj(
+  def dashboardJson(dash: PuzzleDashboard, days: Int)(using Translate) = Json.obj(
     "days"   -> days,
     "global" -> dashboardResults(dash.global),
     "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { (key, res) =>
@@ -231,7 +229,7 @@ object JsonView:
               )
   )
 
-  def openings(all: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine])(using Lang): JsObject =
+  def openings(all: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine])(using Translate): JsObject =
     Json.obj(
       "openings" ->
         all

@@ -188,27 +188,27 @@ object pref:
           ),
           categFieldset(PrefCateg.Privacy, categ)(
             setting(
-              trans.letOtherPlayersFollowYou(),
+              trans.site.letOtherPlayersFollowYou(),
               radios(form("follow"), booleanChoices),
               "letOtherPlayersFollowYou"
             ),
             setting(
-              trans.letOtherPlayersChallengeYou(),
+              trans.site.letOtherPlayersChallengeYou(),
               radios(form("challenge"), translatedChallengeChoices),
               "letOtherPlayersChallengeYou"
             ),
             setting(
-              trans.letOtherPlayersMessageYou(),
+              trans.site.letOtherPlayersMessageYou(),
               radios(form("message"), translatedMessageChoices),
               "letOtherPlayersMessageYou"
             ),
             setting(
-              trans.letOtherPlayersInviteYouToStudy(),
+              trans.site.letOtherPlayersInviteYouToStudy(),
               radios(form("studyInvite"), translatedStudyInviteChoices),
               "letOtherPlayersInviteYouToStudy"
             ),
             setting(
-              trans.shareYourInsightsData(),
+              trans.site.shareYourInsightsData(),
               radios(form("insightShare"), translatedInsightShareChoices),
               "shareYourInsightsData"
             )

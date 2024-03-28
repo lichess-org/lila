@@ -4,20 +4,21 @@ import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
+import lila.hub.i18n.Translate
 
 object newPlayer:
 
   import trans.onboarding.*
 
-  def apply(u: User)(using Lang) =
+  def apply(u: User)(using Translate) =
     div(cls := "new-player")(
       h2(welcomeToLichess()),
       p(thisIsYourProfilePage()),
       p(
-        if u.kid then trans.kidModeIsEnabled()
+        if u.kid then trans.site.kidModeIsEnabled()
         else
           enabledKidModeSuggestion:
-            a(href := routes.Account.kid)(trans.kidMode())
+            a(href := routes.Account.kid)(trans.site.kidMode())
       ),
       p(whatNowSuggestions()),
       ul(
@@ -29,7 +30,7 @@ object newPlayer:
         li(a(href := routes.Tournament.home)(playInTournaments())),
         li(
           learnFromXAndY(
-            a(href := routes.Study.allDefault())(trans.toStudy()),
+            a(href := routes.Study.allDefault())(trans.site.toStudy()),
             a(href := routes.Video.index)(trans.learn.videos())
           )
         ),

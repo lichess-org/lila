@@ -34,11 +34,11 @@ final class JsonView(
       .add("online" -> isOnline(r.id))
       .add("lag" -> getLagRating(r.id))
 
-  def apply(a: AllChallenges)(using trans: Translate): JsObject =
+  def apply(a: AllChallenges)(using Translate): JsObject =
     Json.obj(
       "in"   -> a.in.map(apply(Direction.In.some)),
       "out"  -> a.out.map(apply(Direction.Out.some)),
-      "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys)(using trans.lang),
+      "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys),
       "reasons" -> JsObject(Challenge.DeclineReason.allExceptBot.map: r =>
         r.key -> JsString(r.trans.txt()))
     )
@@ -100,11 +100,11 @@ final class JsonView(
     else c.perfType.icon
 
   private val i18nKeys = List(
-    trans.rated,
-    trans.casual,
-    trans.waiting,
-    trans.accept,
-    trans.decline,
-    trans.viewInFullSize,
-    trans.cancel
+    trans.site.rated,
+    trans.site.casual,
+    trans.site.waiting,
+    trans.site.accept,
+    trans.site.decline,
+    trans.site.viewInFullSize,
+    trans.site.cancel
   )

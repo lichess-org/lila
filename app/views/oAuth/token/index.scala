@@ -73,7 +73,7 @@ object index:
                 postForm(action := routes.OAuthToken.delete(t.id.value))(
                   submitButton(
                     cls := "button button-red button-empty confirm"
-                  )(trans.delete())
+                  )(trans.site.delete())
                 )
               )
             )

@@ -5,7 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.I18nKey
+import lila.hub.i18n.I18nKey
 import lila.puzzle.{ PuzzleAngle, PuzzleTheme }
 
 object theme:
@@ -23,7 +23,10 @@ object theme:
           standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "puzzle-themes")(
             all.themes.take(2).map(themeCategory),
-            h2(id := "openings")("By game opening", a(href := routes.Puzzle.openings())(trans.more(), " »")),
+            h2(id := "openings")(
+              "By game opening",
+              a(href := routes.Puzzle.openings())(trans.site.more(), " »")
+            ),
             opening.listOf(all.openings.families.take(12)),
             all.themes.drop(2).map(themeCategory),
             info

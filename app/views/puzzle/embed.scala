@@ -23,11 +23,11 @@ object embed:
       jsModule("puzzle.embed")
     )
 
-  def dailyLink(daily: DailyPuzzle.WithHtml)(using Lang) = a(
+  def dailyLink(daily: DailyPuzzle.WithHtml)(using Translate) = a(
     href  := routes.Puzzle.daily,
     title := trans.puzzle.clickToSolve.txt()
   )(
     span(cls := "text")(trans.puzzle.puzzleOfTheDay()),
     raw(daily.html),
-    span(cls := "text")(daily.puzzle.color.fold(trans.whitePlays, trans.blackPlays)())
+    span(cls := "text")(daily.puzzle.color.fold(trans.site.whitePlays, trans.site.blackPlays)())
   )

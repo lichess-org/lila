@@ -64,8 +64,8 @@ object create:
               )
           ),
           form3.actions(
-            a(href := routes.OAuthToken.index)(trans.cancel()),
-            form3.submit(trans.create())(data("danger-title") := ot.doNotShareIt.txt())
+            a(href := routes.OAuthToken.index)(trans.site.cancel()),
+            form3.submit(trans.site.create())(data("danger-title") := ot.doNotShareIt.txt())
           ),
           br,
           br,

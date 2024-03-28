@@ -85,7 +85,7 @@ object authorize:
           "Not ",
           me.username,
           "? ",
-          a(href := switchLoginUrl(none))(trans.signIn())
+          a(href := switchLoginUrl(none))(trans.site.signIn())
         )
       },
       if prompt.looksLikeLichessMobile

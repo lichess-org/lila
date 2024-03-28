@@ -14,7 +14,7 @@ object upcoming:
       title = s"${u.username} upcoming tournaments",
       path = "upcoming"
     ):
-      if pager.nbResults == 0 then div(cls := "box-pad")(trans.nothingToSeeHere())
+      if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(
@@ -24,7 +24,7 @@ object upcoming:
                 th(colspan := 2)(
                   h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTournaments())
                 ),
-                th(trans.players())
+                th(trans.site.players())
               )
             ),
             tbody:

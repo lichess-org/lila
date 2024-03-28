@@ -40,9 +40,9 @@ object Condition:
         Refused: t =>
           given Translate = t
           val missing     = nb - perf.nb
-          trans.needNbMorePerfGames.pluralTxt(missing, missing, pt.trans)
+          trans.site.needNbMorePerfGames.pluralTxt(missing, missing, pt.trans)
     def name(pt: PerfType)(using Translate) =
-      trans.moreThanNbPerfRatedGames.pluralTxt(nb, nb, pt.trans)
+      trans.site.moreThanNbPerfRatedGames.pluralTxt(nb, nb, pt.trans)
 
   abstract trait RatingCondition:
     val rating: IntRating
@@ -56,13 +56,13 @@ object Condition:
       then
         fuccess(Refused: t =>
           given Translate = t
-          trans.yourPerfRatingIsProvisional.txt(pt.trans)
+          trans.site.yourPerfRatingIsProvisional.txt(pt.trans)
         )
       else if perf.intRating > rating
       then
         fuccess(Refused: t =>
           given Translate = t
-          trans.yourPerfRatingIsTooHigh.txt(pt.trans, perf.intRating)
+          trans.site.yourPerfRatingIsTooHigh.txt(pt.trans, perf.intRating)
         )
       else
         getMaxRating(pt).map:
@@ -70,12 +70,12 @@ object Condition:
           case r =>
             Refused: t =>
               given Translate = t
-              trans.yourTopWeeklyPerfRatingIsTooHigh.txt(pt.trans, r)
+              trans.site.yourTopWeeklyPerfRatingIsTooHigh.txt(pt.trans, r)
 
     def maybe(pt: PerfType)(using me: Me, perf: Perf): Boolean =
       perf.provisional.no && perf.intRating <= rating
 
-    def name(pt: PerfType)(using Translate) = trans.ratedLessThanInPerf.txt(rating, pt.trans)
+    def name(pt: PerfType)(using Translate) = trans.site.ratedLessThanInPerf.txt(rating, pt.trans)
 
   case class MinRating(rating: IntRating) extends Condition with RatingCondition with FlatCond:
 
@@ -83,24 +83,24 @@ object Condition:
       if perf.provisional.yes then
         Refused: t =>
           given Translate = t
-          trans.yourPerfRatingIsProvisional.txt(pt.trans)
+          trans.site.yourPerfRatingIsProvisional.txt(pt.trans)
       else if perf.intRating < rating then
         Refused: t =>
           given Translate = t
-          trans.yourPerfRatingIsTooLow.txt(pt.trans, perf.intRating)
+          trans.site.yourPerfRatingIsTooLow.txt(pt.trans, perf.intRating)
       else Accepted
 
-    def name(pt: PerfType)(using Translate) = trans.ratedMoreThanInPerf.txt(rating, pt.trans)
+    def name(pt: PerfType)(using Translate) = trans.site.ratedMoreThanInPerf.txt(rating, pt.trans)
 
   case class TeamMember(teamId: TeamId, teamName: TeamName) extends Condition:
-    def name(pt: PerfType)(using Translate) = trans.mustBeInTeam.txt(teamName)
+    def name(pt: PerfType)(using Translate) = trans.site.mustBeInTeam.txt(teamName)
     def apply(using getMyTeamIds: Me => Fu[List[TeamId]], me: Me)(using Executor) =
       getMyTeamIds(me).map: userTeamIds =>
         if userTeamIds contains teamId then Accepted
         else
           Refused: t =>
             given Translate = t
-            trans.youAreNotInTeam.txt(teamName)
+            trans.site.youAreNotInTeam.txt(teamName)
 
   case class AllowList(value: String) extends Condition with FlatCond:
     private lazy val segments: Set[String] = value.linesIterator.map(_.trim.toLowerCase).toSet

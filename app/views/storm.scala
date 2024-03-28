@@ -39,18 +39,18 @@ object storm:
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.Cms.lonePage("storm"))(trans.aboutX("Puzzle Storm"))
+          a(href := routes.Cms.lonePage("storm"))(trans.site.aboutX("Puzzle Storm"))
         )
       )
     }
 
-  private def renderHigh(high: StormHigh)(using Lang) =
+  private def renderHigh(high: StormHigh)(using Translate) =
     frag(
       List(
         (high.allTime, trans.storm.allTime),
         (high.month, trans.storm.thisMonth),
         (high.week, trans.storm.thisWeek),
-        (high.day, trans.today)
+        (high.day, trans.site.today)
       ).map { case (value, name) =>
         div(cls := "storm-dashboard__high__period")(
           strong(value),
@@ -132,7 +132,7 @@ object storm:
     )
 
   private val i18nKeys =
-    import lila.i18n.{ I18nKeys as trans }
+    import lila.hub.i18n.I18nKey.{ site as trans }
     import lila.hub.i18n.I18nKey.{ storm as s }
     List(
       s.moveToStart,
@@ -163,5 +163,5 @@ object storm:
       s.clickToReload,
       s.thisRunHasExpired,
       s.thisRunWasOpenedInAnotherTab,
-      trans.flipBoard
+      trans.site.flipBoard
     )

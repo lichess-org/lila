@@ -35,7 +35,7 @@ object index:
           globalError(form),
           table(
             tr(
-              th(label(trans.players())),
+              th(label(trans.site.players())),
               td(cls := "usernames two-columns")(List("a", "b").map { p =>
                 div(form3.input(form("players")(p))(tpe := "text"))
               })

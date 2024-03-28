@@ -27,7 +27,7 @@ object racer:
           )
         ),
         div(cls := "racer-home__about")(
-          a(href := routes.Cms.lonePage("racer"))(trans.aboutX("Puzzle Racer"))
+          a(href := routes.Cms.lonePage("racer"))(trans.site.aboutX("Puzzle Racer"))
         )
       )
     }
@@ -66,7 +66,7 @@ object racer:
       s.joinRematch,
       s.waitingToStart,
       s.createNewGame,
-      trans.toInviteSomeoneToPlayGiveThisUrl,
+      trans.site.toInviteSomeoneToPlayGiveThisUrl,
       s.skip,
       s.skipHelp,
       s.skipExplanation,
@@ -74,5 +74,5 @@ object racer:
       s.failedPuzzles,
       s.slowPuzzles,
       s.skippedPuzzle,
-      trans.flipBoard
+      trans.site.flipBoard
     )

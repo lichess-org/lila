@@ -32,13 +32,13 @@ object invite:
               form3.actions(
                 if !invite.accepted.has(false) then
                   form3.submit(
-                    trans.decline(),
+                    trans.site.decline(),
                     nameValue = ("v" -> false.toString).some,
                     icon = licon.X.some
                   )(cls := "button-red button-fat")
                 else p,
                 form3.submit(
-                  trans.accept(),
+                  trans.site.accept(),
                   nameValue = ("v" -> true.toString).some
                 )(cls := "button-green button-fat")
               )

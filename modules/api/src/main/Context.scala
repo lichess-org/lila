@@ -64,6 +64,7 @@ object Context:
   given (using ctx: Context): Option[Me]     = ctx.me
   given (using ctx: Context): Option[MyId]   = ctx.myId
   given (using ctx: Context): KidMode        = ctx.kid
+  given (using ctx: Context): Translate      = ctx.translate
   given (using page: PageContext): Context   = page.ctx
   given (using embed: EmbedContext): Context = embed.ctx
 

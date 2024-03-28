@@ -67,7 +67,7 @@ object insight:
       )
     )
 
-  def refreshForm(u: User, action: String)(using Lang) =
+  def refreshForm(u: User, action: String)(using Translate) =
     postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
       button(dataIcon := licon.Checkmark, cls := "button text")(action),
       div(cls := "crunching none")(

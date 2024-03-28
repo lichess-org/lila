@@ -52,10 +52,10 @@ final private class Rematcher(
     if isOffering(pov) then
       pov.opponent.userId.foreach: forId =>
         Bus.publish(lila.hub.actorApi.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
-      messenger.volatile(pov.game, trans.rematchOfferCanceled.txt())
+      messenger.volatile(pov.game, trans.site.rematchOfferCanceled.txt())
     else if isOffering(!pov) then
       declined.put(pov.fullId)
-      messenger.volatile(pov.game, trans.rematchOfferDeclined.txt())
+      messenger.volatile(pov.game, trans.site.rematchOfferDeclined.txt())
     rematches.drop(pov.gameId)
     fuccess(List(Event.RematchOffer(by = none)))
 
@@ -67,7 +67,7 @@ final private class Rematcher(
 
   private def rematchCreate(pov: Pov): Fu[Events] =
     rematches.offer(pov.ref).map { _ =>
-      messenger.volatile(pov.game, trans.rematchOfferSent.txt())
+      messenger.volatile(pov.game, trans.site.rematchOfferSent.txt())
       pov.opponent.userId.foreach: forId =>
         Bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
       List(Event.RematchOffer(by = pov.color.some))
@@ -81,7 +81,7 @@ final private class Rematcher(
       _ = if pov.game.variant == Chess960 && !chess960.get(pov.gameId) then chess960.put(nextGame.id)
       _ <- gameRepo.insertDenormalized(nextGame)
     yield
-      messenger.volatile(pov.game, trans.rematchOfferAccepted.txt())
+      messenger.volatile(pov.game, trans.site.rematchOfferAccepted.txt())
       onStart(nextGame.id)
       redirectEvents(nextGame)
 

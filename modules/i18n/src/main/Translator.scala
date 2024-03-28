@@ -10,6 +10,8 @@ object Translator extends Translator:
 
   def to(lang: Lang): Translate = Translate(this, lang)
 
+  def toDefault: Translate = Translate(this, lila.hub.i18n.defaultLang)
+
   object frag extends TranslatorFrag:
     def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag =
       translate(key, lang, I18nQuantity.Other /* grmbl */, args)
