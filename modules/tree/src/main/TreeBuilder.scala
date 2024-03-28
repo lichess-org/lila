@@ -7,8 +7,6 @@ import chess.variant.Variant
 import chess.{ Centis, Color, Ply }
 
 import lila.tree.*
-import lila.tree.Eval
-import lila.tree.{ Advice, Analysis, Info }
 
 object TreeBuilder:
 
