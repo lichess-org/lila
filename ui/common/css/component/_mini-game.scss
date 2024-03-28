@@ -22,6 +22,9 @@
   &__user {
     @extend %flex-center-nowrap;
     overflow: hidden;
+    .is.color-icon {
+      margin-#{$end-direction}: 1ch;
+    }
   }
 
   &__flag {
