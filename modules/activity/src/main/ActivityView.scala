@@ -53,7 +53,4 @@ case class ActivityView(
 
 object ActivityView:
 
-  case class Tours(
-      nb: Int,
-      best: List[TourEntry]
-  )
+  case class Tours(nb: Int, best: List[lila.hub.tournament.leaderboard.Entry])

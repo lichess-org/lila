@@ -18,7 +18,7 @@ final class ActivityReadApi(
     ublogApi: lila.hub.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.hub.study.StudyApi,
-    tourLeaderApi: lila.tournament.LeaderboardApi,
+    tourLeaderApi: lila.hub.tournament.leaderboard.Api,
     swissApi: lila.swiss.SwissApi,
     teamRepo: lila.team.TeamRepo,
     lightUserApi: lila.user.LightUserApi,
@@ -113,7 +113,7 @@ final class ActivityReadApi(
                 ActivityView.Tours(
                   nb = entries.size,
                   best = Heapsort.topN(entries, activities.maxSubEntries)(using
-                    Ordering.by[LeaderboardApi.Entry, Double](-_.rankRatio.value)
+                    Ordering.by[lila.hub.tournament.leaderboard.Entry, Double](-_.rankRatio.value)
                   )
                 )
               )

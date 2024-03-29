@@ -15,7 +15,7 @@ final class Env(
     ublogApi: lila.hub.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.hub.study.StudyApi,
-    tourLeaderApi: lila.tournament.LeaderboardApi,
+    tourLeaderApi: lila.hub.tournament.leaderboard.Api,
     getTourName: lila.tournament.GetTourName,
     teamRepo: lila.team.TeamRepo,
     swissApi: lila.swiss.SwissApi,

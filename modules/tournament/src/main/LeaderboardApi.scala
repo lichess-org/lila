@@ -13,7 +13,8 @@ import lila.hub.rating.PerfId
 final class LeaderboardApi(
     repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
-)(using Executor):
+)(using Executor)
+    extends lila.hub.tournament.leaderboard.Api:
 
   import LeaderboardApi.*
   import BSONHandlers.given
@@ -107,13 +108,11 @@ final class LeaderboardApi(
 
 object LeaderboardApi:
 
+  import lila.hub.tournament.leaderboard.Ratio
+
   private val rankRatioMultiplier = 100 * 1000
 
   case class TourEntry(tour: Tournament, entry: Entry)
-
-  opaque type Ratio = Double
-  object Ratio extends OpaqueDouble[Ratio]:
-    extension (a: Ratio) def percent = (a.value * 100).toInt.atLeast(1)
 
   case class Entry(
       id: TourPlayerId,
@@ -127,7 +126,7 @@ object LeaderboardApi:
       speed: Option[Schedule.Speed],
       perf: PerfType,
       date: Instant
-  )
+  ) extends lila.hub.tournament.leaderboard.Entry
 
   case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]):
     import ChartData.*

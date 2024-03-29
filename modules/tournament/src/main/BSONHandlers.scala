@@ -9,6 +9,7 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.User.lichessId
+import lila.hub.tournament.leaderboard.Ratio
 
 object BSONHandlers:
 
@@ -39,8 +40,8 @@ object BSONHandlers:
 
   given BSONDocumentHandler[TeamBattle] = Macros.handler
 
-  private given BSONHandler[LeaderboardApi.Ratio] = BSONIntegerHandler.as(
-    i => LeaderboardApi.Ratio(i.toDouble / 100_000),
+  private given BSONHandler[Ratio] = BSONIntegerHandler.as(
+    i => Ratio(i.toDouble / 100_000),
     r => (r.value * 100_000).toInt
   )
 
