@@ -23,7 +23,7 @@ final class Env(
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
     lightUserApi: lila.user.LightUserApi,
-    onStart: lila.round.OnStart,
+    onStart: lila.hub.game.OnStart,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     socketKit: lila.hub.socket.SocketKit,

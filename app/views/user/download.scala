@@ -156,12 +156,18 @@ object download:
     td(
       div(id := "dl-includes", cls := "toggle-columns")(
         div(form3.cmnToggle("dl-tags", "tags", true), label(`for` := "dl-tags")(trans.study.pgnTags())),
-        div(form3.cmnToggle("dl-clocks", "clocks", false), label(`for` := "dl-clocks")(trans.site.moveTimes())),
+        div(
+          form3.cmnToggle("dl-clocks", "clocks", false),
+          label(`for` := "dl-clocks")(trans.site.moveTimes())
+        ),
         div(
           form3.cmnToggle("dl-evals", "evals", false),
           label(`for` := "dl-evals")(trans.search.evaluation())
         ),
-        div(form3.cmnToggle("dl-opening", "opening", false), label(`for` := "dl-opening")(trans.site.opening()))
+        div(
+          form3.cmnToggle("dl-opening", "opening", false),
+          label(`for` := "dl-opening")(trans.site.opening())
+        )
       )
     )
   )

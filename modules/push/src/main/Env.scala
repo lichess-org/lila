@@ -58,11 +58,11 @@ final class Env(
   ):
     case lila.game.actorApi.FinishGame(game, _) =>
       logUnit { pushApi.finish(game) }
-    case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
+    case lila.hub.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
       logUnit { pushApi.move(move) }
-    case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) =>
+    case lila.hub.round.CorresTakebackOfferEvent(gameId) =>
       logUnit { pushApi.takebackOffer(gameId) }
-    case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) =>
+    case lila.hub.round.CorresDrawOfferEvent(gameId) =>
       logUnit { pushApi.drawOffer(gameId) }
     case lila.hub.challenge.Event.Create(c) =>
       logUnit { pushApi.challengeCreate(c) }

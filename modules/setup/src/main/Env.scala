@@ -8,8 +8,7 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     perfsRepo: lila.user.UserPerfsRepo,
-    fishnetPlayer: lila.fishnet.FishnetPlayer,
-    onStart: lila.round.OnStart,
+    onStart: lila.hub.game.OnStart,
     gameCache: lila.game.Cached
 )(using Executor, akka.stream.Materializer, lila.game.IdGenerator):
 

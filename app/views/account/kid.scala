@@ -34,5 +34,9 @@ object kid:
         ,
         br,
         br,
-        p(trans.site.inKidModeTheLichessLogoGetsIconX(span(cls := "kiddo", title := trans.site.kidMode.txt())(":)")))
+        p(
+          trans.site.inKidModeTheLichessLogoGetsIconX(
+            span(cls := "kiddo", title := trans.site.kidMode.txt())(":)")
+          )
+        )
       )

@@ -196,8 +196,8 @@ final class Challenge(
           case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
           case None =>
             import lila.hub.actorApi.map.Tell
-            import lila.hub.actorApi.round.Abort
-            import lila.round.actorApi.round.AbortForce
+            import lila.hub.round.Abort
+            import lila.hub.round.AbortForce
             env.game.gameRepo
               .game(id.into(GameId))
               .dmap {
@@ -248,7 +248,7 @@ final class Challenge(
                 env.round.proxyRepo.upgradeIfPresent(g).dmap(some).dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
               }
               .orNotFound { game =>
-                env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
+                env.round.tellRound(game.id, lila.hub.round.StartClock)
                 jsonOkResult
               }
 

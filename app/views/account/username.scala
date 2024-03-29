@@ -18,7 +18,11 @@ object username:
         standardFlash,
         postForm(cls := "form3", action := routes.Account.usernameApply)(
           form3.globalError(form),
-          form3.group(form("username"), trans.site.username(), help = trans.site.changeUsernameDescription().some)(
+          form3.group(
+            form("username"),
+            trans.site.username(),
+            help = trans.site.changeUsernameDescription().some
+          )(
             form3.input(_)(autofocus, required, autocomplete := "username")
           ),
           form3.action(form3.submit(trans.site.apply()))

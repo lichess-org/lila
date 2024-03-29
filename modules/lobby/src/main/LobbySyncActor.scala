@@ -13,7 +13,7 @@ final private class LobbySyncActor(
     gameCache: lila.game.Cached,
     playbanApi: lila.playban.PlaybanApi,
     poolApi: lila.pool.PoolApi,
-    onStart: lila.round.OnStart
+    onStart: lila.hub.game.OnStart
 )(using Executor)
     extends SyncActor:
 

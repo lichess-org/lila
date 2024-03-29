@@ -5,6 +5,7 @@ import chess.{ ByColor, Color }
 import lila.common.Preload
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
+import lila.hub.round.ClientError
 
 final class Moretimer(
     messenger: Messenger,

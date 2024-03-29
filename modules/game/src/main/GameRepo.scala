@@ -10,10 +10,10 @@ import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
 
 import lila.common.config
-import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
 import lila.user.User
+import lila.hub.game.*
 
 final class GameRepo(val coll: Coll)(using Executor):
 
@@ -433,7 +433,7 @@ final class GameRepo(val coll: Coll)(using Executor):
         Query.createdSince(nowInstant.minusHours(1))
 
   // registered players who have played against userId recently in games from the Friend source
-  def recentChallengersOf(userId: UserId, max: Max): Fu[List[UserId]] =
+  def recentChallengersOf(userId: UserId, max: config.Max): Fu[List[UserId]] =
     coll
       .aggregateOne(_.sec): framework =>
         import framework.*

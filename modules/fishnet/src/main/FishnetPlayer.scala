@@ -6,7 +6,7 @@ import ornicar.scalalib.ThreadLocalRandom
 import lila.common.{ Bus, LilaFuture }
 import lila.game.{ Game, GameRepo, UciMemo }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.FishnetPlay
+import lila.hub.round.FishnetPlay
 
 final class FishnetPlayer(
     redis: FishnetRedis,

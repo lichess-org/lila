@@ -22,7 +22,9 @@ object passwd:
             autofocus,
             autocomplete := "current-password"
           ),
-          form3.passwordModified(form("newPasswd1"), trans.site.newPassword())(autocomplete := "new-password"),
+          form3.passwordModified(form("newPasswd1"), trans.site.newPassword())(
+            autocomplete := "new-password"
+          ),
           form3.passwordComplexityMeter(trans.site.newPasswordStrength()),
           form3.passwordModified(form("newPasswd2"), trans.site.newPasswordAgain())(
             autocomplete := "new-password"

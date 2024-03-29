@@ -158,8 +158,8 @@ final class UserAnalysis(
                   _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
                 }
                 .recover {
-                  case Forecast.OutOfSync        => forecastReload
-                  case _: lila.round.ClientError => forecastReload
+                  case Forecast.OutOfSync            => forecastReload
+                  case _: lila.hub.round.ClientError => forecastReload
                 }
           )
   }

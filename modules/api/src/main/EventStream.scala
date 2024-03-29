@@ -104,7 +104,7 @@ final class EventStream(
           queue.offer(challengeJson("challengeCanceled")(c).some)
 
         // pretend like the rematch is a challenge
-        case lila.hub.actorApi.round.RematchOffer(gameId) =>
+        case lila.hub.round.RematchOffer(gameId) =>
           challengeMaker
             .makeRematchFor(gameId, me)
             .foreach:
@@ -113,7 +113,7 @@ final class EventStream(
                 queue.offer(json.some)
 
         // pretend like the rematch cancel is a challenge cancel
-        case lila.hub.actorApi.round.RematchCancel(gameId) =>
+        case lila.hub.round.RematchCancel(gameId) =>
           rematches
             .getOffered(gameId)
             .map(_.nextId)

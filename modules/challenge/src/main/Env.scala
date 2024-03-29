@@ -11,7 +11,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.round.OnStart,
+    onStart: lila.hub.game.OnStart,
     gameCache: lila.game.Cached,
     rematches: lila.game.Rematches,
     lightUser: lila.common.LightUser.GetterSync,
@@ -78,7 +78,7 @@ final class Env(
     bulk.tick
 
   lila.common.Bus.subscribeFun("roundUnplayed"):
-    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
+    case lila.hub.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
 
 private class ChallengeColls(db: lila.db.Db):
   val challenge = db(CollName("challenge"))

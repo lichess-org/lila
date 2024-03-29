@@ -125,7 +125,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   private def toResult(f: Funit): Fu[Result] = catchClientError(f.inject(jsonOkResult))
   private def catchClientError(f: Fu[Result]): Fu[Result] =
-    f.recover { case e: lila.round.BenignError =>
+    f.recover { case e: lila.hub.round.BenignError =>
       BadRequest(jsonError(e.getMessage))
     }
 

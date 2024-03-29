@@ -86,13 +86,12 @@ final private[tv] class TvSyncActor(
             "rating" -> player.rating
           )
       )
-      Bus.publish(lila.round.actorApi.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
+      Bus.publish(lila.hub.game.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
       if channel == Tv.Channel.Best then
         actorAsk(renderer.actor, RenderFeaturedJs(game))(makeTimeout(100 millis)).foreach {
           case html: String =>
             val pov = Pov.naturalOrientation(game)
-            val event = lila.round.ChangeFeatured(
-              pov,
+            val event = lila.hub.game.ChangeFeatured(
               makeMessage(
                 "featured",
                 Json.obj(

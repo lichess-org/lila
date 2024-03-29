@@ -51,7 +51,8 @@ object theirs:
                 )
               else if !c.mode.rated || ctx.isAuth then
                 frag(
-                  (c.mode.rated && c.unlimited).option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
+                  (c.mode.rated && c.unlimited)
+                    .option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
                   postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
                     submitButton(cls := "text button button-fat", dataIcon := licon.PlayTriangle)(
                       trans.site.joinTheGame()

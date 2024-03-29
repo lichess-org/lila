@@ -13,7 +13,7 @@ import lila.game.{ Game, Player }
 import lila.hub.AsyncActorSequencers
 import lila.hub.actorApi.map.TellMany
 import lila.rating.PerfType
-import lila.round.actorApi.round.StartClock
+import lila.hub.round.StartClock
 import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
 
@@ -22,7 +22,7 @@ final class ChallengeBulkApi(
     msgApi: ChallengeMsg,
     gameRepo: lila.game.GameRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.round.OnStart
+    onStart: lila.hub.game.OnStart
 )(using Executor, akka.stream.Materializer, Scheduler):
 
   import lila.game.BSONHandlers.given

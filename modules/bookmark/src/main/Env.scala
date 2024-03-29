@@ -40,4 +40,4 @@ final class Env(
   )
 
   lila.common.Bus.subscribeFun("roundUnplayed"):
-    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
+    case lila.hub.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)

@@ -8,12 +8,9 @@ import scala.util.chaining.*
 
 import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
 import lila.hub.AsyncActor
-import lila.hub.actorApi.round.{ Abort, BotPlay, FishnetPlay, FishnetStart, IsOnGame, Rematch, Resign }
+import lila.hub.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.hub.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
-
-import actorApi.*
-import round.*
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,

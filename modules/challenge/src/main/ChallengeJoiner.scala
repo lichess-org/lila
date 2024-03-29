@@ -12,7 +12,7 @@ import lila.user.GameUser
 final private class ChallengeJoiner(
     gameRepo: lila.game.GameRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.round.OnStart
+    onStart: lila.hub.game.OnStart
 )(using Executor):
 
   def apply(c: Challenge, destUser: GameUser): Fu[Either[String, Pov]] =

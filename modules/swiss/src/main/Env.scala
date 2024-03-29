@@ -16,7 +16,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.round.OnStart,
+    onStart: lila.hub.game.OnStart,
     socketKit: lila.hub.socket.SocketKit,
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,

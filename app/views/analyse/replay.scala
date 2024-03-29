@@ -166,7 +166,9 @@ object replay:
                     frag(
                       (game.ply > 1)
                         .option(span(role := "tab", dataPanel := "move-times")(trans.site.moveTimes())),
-                      cross.isDefined.option(span(role := "tab", dataPanel := "ctable")(trans.site.crosstable()))
+                      cross.isDefined.option(
+                        span(role := "tab", dataPanel := "ctable")(trans.site.crosstable())
+                      )
                     )
                   ),
                   span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())

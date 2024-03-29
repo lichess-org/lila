@@ -25,7 +25,7 @@ final class SimulApi(
     perfsRepo: UserPerfsRepo,
     userApi: UserApi,
     gameRepo: GameRepo,
-    onGameStart: lila.round.OnStart,
+    onGameStart: lila.hub.game.OnStart,
     socket: SimulSocket,
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,

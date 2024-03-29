@@ -27,7 +27,7 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.GetterFallback,
-    onGameStart: lila.round.OnStart,
+    onGameStart: lila.hub.game.OnStart,
     cacheApi: lila.memo.CacheApi,
     historyApi: lila.history.HistoryApi,
     socketKit: lila.hub.socket.SocketKit,
@@ -80,7 +80,7 @@ final class Env(
     "simulGetHosts" -> { case lila.hub.actorApi.simul.GetHostIds(promise) =>
       promise.completeWith(api.currentHostIds)
     },
-    "moveEventSimul" -> { case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
+    "moveEventSimul" -> { case lila.hub.round.SimulMoveEvent(move, _, opponentUserId) =>
       import lila.common.Json.given
       Bus.publish(
         lila.hub.actorApi.socket.SendTo(

@@ -16,7 +16,7 @@ final private class Rematcher(
     gameRepo: GameRepo,
     userApi: UserApi,
     messenger: Messenger,
-    onStart: OnStart,
+    onStart: lila.hub.game.OnStart,
     rematches: Rematches
 )(using Executor, lila.game.IdGenerator, Translator):
 
@@ -33,7 +33,7 @@ final private class Rematcher(
 
   private val chess960 = ExpireSetMemo[GameId](3 hours)
 
-  def isOffering(pov: Pov): Boolean = rematches.isOffering(pov.ref)
+  export rematches.isOffering
 
   def apply(pov: Pov, confirm: Boolean): Fu[Events] =
     if confirm then yes(pov) else no(pov)
@@ -41,7 +41,7 @@ final private class Rematcher(
   def yes(pov: Pov): Fu[Events] =
     pov match
       case Pov(game, color) if game.playerCouldRematch =>
-        if isOffering(!pov) || game.opponent(color).isAi
+        if isOffering(!pov.ref) || game.opponent(color).isAi
         then rematches.getAcceptedId(game.id).fold(rematchJoin(pov))(rematchExists(pov))
         else if !declined.get(pov.flip.fullId) && rateLimit.zero(pov.fullId)(true)
         then rematchCreate(pov)
@@ -49,11 +49,11 @@ final private class Rematcher(
       case _ => fuccess(List(Event.ReloadOwner))
 
   def no(pov: Pov): Fu[Events] =
-    if isOffering(pov) then
+    if isOffering(pov.ref) then
       pov.opponent.userId.foreach: forId =>
-        Bus.publish(lila.hub.actorApi.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
+        Bus.publish(lila.hub.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
       messenger.volatile(pov.game, trans.site.rematchOfferCanceled.txt())
-    else if isOffering(!pov) then
+    else if isOffering(!pov.ref) then
       declined.put(pov.fullId)
       messenger.volatile(pov.game, trans.site.rematchOfferDeclined.txt())
     rematches.drop(pov.gameId)
@@ -69,7 +69,7 @@ final private class Rematcher(
     rematches.offer(pov.ref).map { _ =>
       messenger.volatile(pov.game, trans.site.rematchOfferSent.txt())
       pov.opponent.userId.foreach: forId =>
-        Bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
+        Bus.publish(lila.hub.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
       List(Event.RematchOffer(by = pov.color.some))
     }
 

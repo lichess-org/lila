@@ -9,7 +9,7 @@ import lila.common.{ LazyFu, LightUser, LilaFuture }
 import lila.game.{ Game, Namer, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.push.TourSoon
-import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
+import lila.hub.round.{ IsOnGame, MoveEvent }
 import lila.notify.*
 
 final private class PushApi(

@@ -18,7 +18,7 @@ final private class Finisher(
     playban: PlaybanApi,
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
-    getSocketStatus: Game => Fu[actorApi.SocketStatus],
+    getSocketStatus: Game => Fu[SocketStatus],
     recentTvGames: RecentTvGames
 )(using Executor, Translator):
 

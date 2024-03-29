@@ -88,7 +88,7 @@ final private[round] class Drawer(
   private def publishDrawOffer(game: Game): Unit = if game.nonAi then
     if game.isCorrespondence then
       Bus.publish(
-        lila.hub.actorApi.round.CorresDrawOfferEvent(game.id),
+        lila.hub.round.CorresDrawOfferEvent(game.id),
         "offerEventCorres"
       )
     if lila.game.Game.isBoardOrBotCompatible(game) then

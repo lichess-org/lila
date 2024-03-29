@@ -50,7 +50,7 @@ final class SelfReport(
                     name.contains("stockfish") || name.contains("userscript") ||
                       name.contains("__puppeteer_evaluation_script__")
                   ))
-                then tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
+                then tellRound(pov.gameId, lila.hub.round.Cheat(pov.color))
                 if markUserSetting.get().matches(name) then
                   val rating = u.perfs.bestRating
                   val hours =

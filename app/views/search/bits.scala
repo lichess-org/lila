@@ -29,7 +29,11 @@ private object bits:
     def colors(hide: Boolean) =
       chess.Color.all.map { color =>
         tr(cls := List(s"${color.name}User user-row" -> true, "none" -> hide))(
-          th(label(`for` := form3.id(form("players")(color.name)))(color.fold(trans.site.white, trans.site.black)())),
+          th(
+            label(`for` := form3.id(form("players")(color.name)))(
+              color.fold(trans.site.white, trans.site.black)()
+            )
+          ),
           td(
             st.select(
               id   := form3.id(form("players")(color.name)),

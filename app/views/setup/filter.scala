@@ -82,7 +82,9 @@ object filter:
           )(
             trans.site.reset()
           ),
-          submitButton(cls := "button button-green text apply", dataIcon := licon.Checkmark)(trans.site.apply())
+          submitButton(cls := "button button-green text apply", dataIcon := licon.Checkmark)(
+            trans.site.apply()
+          )
         )
       )
     )

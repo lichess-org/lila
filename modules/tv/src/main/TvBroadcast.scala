@@ -10,7 +10,7 @@ import lila.common.Json.given
 import lila.common.{ Bus, LightUser }
 import lila.game.Pov
 import lila.game.actorApi.MoveGameEvent
-import lila.round.actorApi.TvSelect
+import lila.hub.game.TvSelect
 import lila.hub.socket.makeMessage
 
 final private class TvBroadcast(

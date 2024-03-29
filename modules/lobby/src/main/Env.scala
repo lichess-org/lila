@@ -10,7 +10,7 @@ import lila.common.config.*
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    onStart: lila.round.OnStart,
+    onStart: lila.hub.game.OnStart,
     relationApi: lila.relation.RelationApi,
     playbanApi: lila.playban.PlaybanApi,
     gameCache: lila.game.Cached,

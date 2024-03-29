@@ -11,12 +11,10 @@ import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.common.{ Bus, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.round.{ Abort, Resign }
+import lila.hub.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.memo.SettingStore
-import lila.round.actorApi.{ GetSocketStatus, SocketStatus }
-import lila.rating.PerfType
-import lila.rating.RatingFactor
+import lila.rating.{ PerfType, RatingFactor }
 
 @Module
 private class RoundConfig(
@@ -80,7 +78,7 @@ final class Env(
   private val scheduleExpiration = ScheduleExpiration: game =>
     game.timeBeforeExpiration.foreach: centis =>
       scheduler.scheduleOnce((centis.millis + 1000).millis):
-        tellRound(game.id, actorApi.round.NoStart)
+        tellRound(game.id, lila.hub.round.NoStart)
 
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
@@ -127,7 +125,7 @@ final class Env(
   lazy val tellRound: TellRound =
     TellRound((gameId: GameId, msg: Any) => roundSocket.rounds.tell(gameId, msg))
 
-  lazy val onStart: OnStart = OnStart: gameId =>
+  lazy val onStart = lila.hub.game.OnStart: gameId =>
     proxyRepo
       .game(gameId)
       .foreach:
@@ -139,6 +137,7 @@ final class Env(
               Bus.publish(sg, "startGame")
               game.userIds.foreach: userId =>
                 Bus.publish(sg, s"userStartGame:$userId")
+              fishnetPlayer(game)
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
@@ -183,7 +182,7 @@ final class Env(
 
   private lazy val rematcher: Rematcher = wire[Rematcher]
 
-  lazy val isOfferingRematch = IsOfferingRematch(rematcher.isOffering)
+  lazy val isOfferingRematch = lila.hub.round.IsOfferingRematch(rematcher.isOffering)
 
   private lazy val player: Player = wire[Player]
 

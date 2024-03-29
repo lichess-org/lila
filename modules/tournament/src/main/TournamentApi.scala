@@ -15,7 +15,7 @@ import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.hub.LightTeam
-import lila.round.actorApi.round.{ AbortForce, GoBerserk }
+import lila.hub.round.{ AbortForce, GoBerserk }
 import lila.tournament.TeamBattle.TeamInfo
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 
@@ -735,7 +735,7 @@ final class TournamentApi(
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
         if lastHash != top.hashCode then
           Bus.publish(
-            lila.hub.actorApi.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
+            lila.hub.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
             "tourStanding"
           )
           lastPublished.put(tourId, top.hashCode)

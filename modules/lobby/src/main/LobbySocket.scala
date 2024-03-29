@@ -8,7 +8,7 @@ import lila.hub.SyncActor
 import lila.hub.actorApi.timeline.*
 import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
-import lila.round.ChangeFeatured
+import lila.hub.game.ChangeFeatured
 import lila.hub.socket.{ protocol as P, * }
 import lila.user.Me
 
@@ -104,7 +104,7 @@ final class LobbySocket(
 
       case AddSeek(_) | RemoveSeek(_) => tellActive(makeMessage("reload_seeks"))
 
-      case ChangeFeatured(_, msg) => tellActive(msg)
+      case ChangeFeatured(msg) => tellActive(msg)
 
       case SetIdle(sri, true)  => idleSris += sri.value
       case SetIdle(sri, false) => idleSris -= sri.value

@@ -76,7 +76,11 @@ object security:
             td(
               (s.session.id != cur).option(
                 postForm(action := routes.Account.signout(s.session.id))(
-                  submitButton(cls := "button button-red", title := trans.site.logOut.txt(), dataIcon := licon.X)
+                  submitButton(
+                    cls      := "button button-red",
+                    title    := trans.site.logOut.txt(),
+                    dataIcon := licon.X
+                  )
                 )
               )
             )

@@ -56,7 +56,9 @@ object homeInner:
               if ctx.isAuth then
                 a(href := routes.Simul.form, cls := "action button text")(trans.site.hostANewSimul())
               else
-                a(href := routes.Auth.signup, cls := "action button text")(trans.site.signUpToHostOrJoinASimul())
+                a(href := routes.Auth.signup, cls := "action button text")(
+                  trans.site.signUpToHostOrJoinASimul()
+                )
             )
           )
         ),

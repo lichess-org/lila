@@ -97,7 +97,10 @@ object bits:
             " ongoing"
           ),
         "round-toggle-autoswitch".pipe: id =>
-          span(cls := "move-on switcher", st.title := trans.site.automaticallyProceedToNextGameAfterMoving.txt())(
+          span(
+            cls      := "move-on switcher",
+            st.title := trans.site.automaticallyProceedToNextGameAfterMoving.txt()
+          )(
             label(`for` := id)(trans.site.autoSwitch()),
             span(cls := "switch")(form3.cmnToggle(id, id, checked = false))
           )

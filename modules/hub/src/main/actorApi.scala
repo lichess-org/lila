@@ -216,39 +216,6 @@ package user:
   import lila.common.EmailAddress
   case class ChangeEmail(id: UserId, email: EmailAddress)
 
-package round:
-
-  case class MoveEvent(
-      gameId: GameId,
-      fen: Fen.Epd,
-      move: String
-  )
-  case class CorresMoveEvent(
-      move: MoveEvent,
-      playerUserId: Option[UserId],
-      mobilePushable: Boolean,
-      alarmable: Boolean,
-      unlimited: Boolean
-  )
-  case class CorresTakebackOfferEvent(gameId: GameId)
-  case class CorresDrawOfferEvent(gameId: GameId)
-  case class BoardDrawEvent(gameId: GameId)
-  case class SimulMoveEvent(move: MoveEvent, simulId: SimulId, opponentUserId: UserId)
-  case class Berserk(gameId: GameId, userId: UserId)
-  case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
-  case class TourStandingOld(data: JsArray)
-  case class TourStanding(tourId: TourId, data: JsArray)
-  case class FishnetPlay(uci: Uci, sign: String)
-  case object FishnetStart
-  case class BotPlay(playerId: GamePlayerId, uci: Uci, promise: Option[Promise[Unit]] = None)
-  case class RematchOffer(gameId: GameId)
-  case class RematchCancel(gameId: GameId)
-  case class Rematch(playerId: GamePlayerId, rematch: Boolean)
-  case class Abort(playerId: GamePlayerId)
-  case class Resign(playerId: GamePlayerId)
-  case class Mlat(millis: Int)
-  case class DeleteUnplayed(gameId: GameId)
-
 package evaluation:
   case class AutoCheck(userId: UserId)
   case class Refresh(userId: UserId)

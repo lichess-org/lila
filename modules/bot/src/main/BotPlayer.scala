@@ -5,8 +5,7 @@ import chess.format.Uci
 import lila.common.Bus
 import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ Abort, Berserk, BotPlay, Rematch, Resign }
-import lila.round.actorApi.round.{ Draw, ResignForce, Takeback }
+import lila.hub.round.*
 import lila.user.Me
 
 final class BotPlayer(
@@ -16,7 +15,7 @@ final class BotPlayer(
     spam: lila.security.Spam
 )(using Executor, Scheduler):
 
-  private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
+  private def clientError[A](msg: String): Fu[A] = fufail(lila.hub.round.ClientError(msg))
 
   def apply(pov: Pov, uciStr: String, offeringDraw: Option[Boolean])(using me: Me): Funit =
     lila.common.LilaFuture.delay((pov.game.hasAi.so(500)) millis):
@@ -29,7 +28,7 @@ final class BotPlayer(
           else if !pov.player.isOfferingDraw && ~offeringDraw then offerDraw(pov)
           tellRound(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
           promise.future.recover:
-            case _: lila.round.GameIsFinishedError if ~offeringDraw => ()
+            case _: lila.hub.round.GameIsFinishedError if ~offeringDraw => ()
 
   def chat(gameId: GameId, d: BotForm.ChatData)(using me: Me) =
     (!spam.detect(d.text))

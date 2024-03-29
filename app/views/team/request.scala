@@ -77,7 +77,9 @@ object request:
                 button(name := "process", cls := "button button-empty button-red", value := "decline")(
                   trans.site.decline()
                 ),
-                button(name := "process", cls := "button button-green", value := "accept")(trans.site.accept())
+                button(name := "process", cls := "button button-green", value := "accept")(
+                  trans.site.accept()
+                )
               )
             )
           )

@@ -20,8 +20,8 @@ import lila.game.actorApi.{
 }
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.BotConnected
-import lila.round.actorApi.round.QuietFlag
+import lila.hub.round.BotConnected
+import lila.hub.round.QuietFlag
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,

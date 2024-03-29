@@ -18,7 +18,7 @@ import lila.game.{ Game, Pov }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 import lila.rating.Perf
-import lila.round.actorApi.round.QuietFlag
+import lila.hub.round.QuietFlag
 import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
 
 final class SwissApi(

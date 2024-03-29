@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
 import lila.common.config.*
-import lila.hub.actorApi.round.CorresMoveEvent
+import lila.hub.round.CorresMoveEvent
 
 @Module
 final class Env(

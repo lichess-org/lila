@@ -31,7 +31,9 @@ object login:
             if form.globalError.exists(_.messages.contains("blankedPassword")) then
               div(cls := "auth-login__blanked")(
                 p(trans.site.blankedPassword()),
-                a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(trans.site.passwordReset())
+                a(href := routes.Auth.passwordReset, cls := "button button-no-upper")(
+                  trans.site.passwordReset()
+                )
               )
             else form3.globalError(form),
             auth.bits.formFields(form("username"), form("password"), none, register = false),

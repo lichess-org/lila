@@ -7,7 +7,7 @@ import io.lettuce.core.pubsub.*
 
 import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.map.{ Tell, TellAll }
-import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart }
+import lila.hub.round.{ FishnetPlay, FishnetStart }
 
 final class FishnetRedis(
     client: RedisClient,
