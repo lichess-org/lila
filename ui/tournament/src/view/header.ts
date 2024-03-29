@@ -56,7 +56,7 @@ function title(ctrl: TournamentController) {
   if (hasFreq('marathon', d)) return h('h1', [h('i.fire-trophy', licon.Globe), d.fullName]);
   if (hasFreq('shield', d))
     return h('h1', [
-      h('a.shield-trophy', { attrs: { href: '/tournament/shields' } }, perfIcons[d.PerfKey]),
+      h('a.shield-trophy', { attrs: { href: '/tournament/shields' } }, perfIcons[d.perf.key]),
       d.fullName,
     ]);
   return h(
