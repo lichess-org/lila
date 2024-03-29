@@ -81,7 +81,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       }
       .inject(NoContent)
 
-  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Option[Me]) =
+  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Context) =
     Ok.chunked {
       env.api.gameApiV2.exportByIds(
         GameApiV2.ByIdsConfig(

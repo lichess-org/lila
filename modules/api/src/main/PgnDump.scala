@@ -9,6 +9,7 @@ import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
+import lila.hub.i18n.Translate
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,
@@ -27,7 +28,7 @@ final class PgnDump(
       flags: WithFlags,
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
-  ): Fu[Pgn] =
+  )(using Translate): Fu[Pgn] =
     dumper(game, initialFen, flags, teams)
       .flatMap: pgn =>
         if flags.tags then
@@ -44,9 +45,9 @@ final class PgnDump(
       .map: pgn =>
         realPlayers.fold(pgn)(_.update(game, pgn))
 
-  def formatter(
-      flags: WithFlags
-  ): (Game, Option[EpdFen], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Future[
+  def formatter(flags: WithFlags)(using
+      Translate
+  ): (Game, Option[EpdFen], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Fu[
     String
   ] =
     (

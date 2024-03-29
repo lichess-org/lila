@@ -8,6 +8,7 @@ import lila.common.LpvEmbed
 import lila.common.config.NetDomain
 import lila.game.GameRepo
 import lila.memo.CacheApi
+import lila.hub.i18n.{ Translate, Translator }
 
 final class TextLpvExpand(
     gameRepo: GameRepo,
@@ -17,7 +18,7 @@ final class TextLpvExpand(
     studyPgnDump: lila.study.PgnDump,
     cacheApi: CacheApi,
     net: lila.common.config.NetConfig
-)(using Executor):
+)(using Executor, Translator):
 
   def getPgn(id: GameId) = if notGames.contains(id.value) then fuccess(none) else gamePgnCache.get(id)
   def getChapterPgn(id: StudyChapterId) = chapterPgnCache.get(id)
@@ -85,6 +86,7 @@ final class TextLpvExpand(
     _.expireAfterWrite(10 minutes).buildAsyncFuture(studyIdToPgn)
 
   private def gameIdToPgn(id: GameId): Fu[Option[LpvEmbed]] =
+    given Translate = summon[Translator].toDefault
     gameRepo
       .gameWithInitialFen(id)
       .flatMapz: g =>

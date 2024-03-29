@@ -42,6 +42,7 @@ class AnnotatorTest extends munit.FunSuite:
   import play.api.i18n.Lang
   given Translator = new Translator:
     def to(lang: Lang): Translate = Translate(this, lang)
+    def toDefault: Translate      = Translate(this, defaultLang)
     val txt = new TranslatorTxt:
       def literal(key: I18nKey, args: Seq[Any], lang: Lang): String              = key.value
       def plural(key: I18nKey, count: Count, args: Seq[Any], lang: Lang): String = key.value

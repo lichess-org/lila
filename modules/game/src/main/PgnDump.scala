@@ -6,12 +6,12 @@ import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
 import lila.common.LightUser
 import lila.common.config.BaseUrl
-import lila.hub.i18n.Translator
+import lila.hub.i18n.Translate
 
 final class PgnDump(
     baseUrl: BaseUrl,
     lightUserApi: lila.user.ILightUserApi
-)(using Executor, Translator):
+)(using Executor):
 
   import PgnDump.*
 
@@ -20,7 +20,7 @@ final class PgnDump(
       initialFen: Option[Fen.Epd],
       flags: WithFlags,
       teams: Option[ByColor[TeamId]] = None
-  ): Fu[Pgn] =
+  )(using Translate): Fu[Pgn] =
     val imported = game.pgnImport.flatMap: pgni =>
       Parser.full(pgni.pgn).toOption
 
