@@ -68,12 +68,12 @@ object Context:
   given (using page: PageContext): Context   = page.ctx
   given (using embed: EmbedContext): Context = embed.ctx
 
-  import lila.i18n.I18nLangPicker
+  import lila.i18n.LangPicker
   import lila.pref.RequestPref
   def minimal(req: RequestHeader) =
-    Context(req, I18nLangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+    Context(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
   def minimalBody[A](req: Request[A]) =
-    BodyContext(req, I18nLangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+    BodyContext(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
 
 final class BodyContext[A](
     val body: Request[A],

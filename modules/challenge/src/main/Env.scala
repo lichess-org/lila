@@ -24,6 +24,8 @@ final class Env(
     socketKit: lila.hub.socket.SocketKit,
     getLagRating: lila.hub.socket.userLag.GetLagRating,
     msgApi: lila.msg.MsgApi,
+    langPicker: lila.hub.i18n.LangPicker,
+    jsDump: lila.hub.i18n.JsDump,
     baseUrl: BaseUrl
 )(using
     scheduler: Scheduler

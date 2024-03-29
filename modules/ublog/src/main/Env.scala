@@ -18,6 +18,7 @@ final class Env(
     shutup: lila.hub.actors.Shutup,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,
+    langList: lila.hub.i18n.LangList,
     net: NetConfig
 )(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 

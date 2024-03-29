@@ -2,6 +2,7 @@ package lila.hub
 package i18n
 
 import play.api.i18n.Lang
+import play.api.mvc.RequestHeader
 import scalatags.Text.RawFrag
 
 /* play.api.i18n.Lang is composed of language and country.
@@ -36,3 +37,22 @@ trait TranslatorFrag:
 case class Translate(translator: Translator, lang: Lang)
 object Translate:
   given (using trans: Translator, lang: Lang): Translate = trans.to(lang)
+
+trait LangList:
+  val all: Map[Lang, String]
+  def allLanguages: List[Language]
+  def popularLanguages: List[Language]
+
+  trait LangForm:
+    def choices: List[(Language, String)]
+    def mapping: play.api.data.Mapping[Language]
+
+  def allLanguagesForm: LangForm
+  def popularLanguagesForm: LangForm
+
+trait LangPicker:
+  def preferedLanguages(req: RequestHeader, prefLang: Lang): List[Language]
+  def byStrOrDefault(str: Option[String]): Lang
+
+trait JsDump:
+  def keysToObject(keys: Seq[I18nKey])(using Translate): play.api.libs.json.JsObject

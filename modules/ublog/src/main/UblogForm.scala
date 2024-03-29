@@ -4,11 +4,11 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanNonEmptyText, into, given }
-import lila.i18n.LangForm
-import lila.hub.i18n.{ Language, defaultLanguage }
+import lila.hub.i18n.{ Language, LangList, defaultLanguage }
 import lila.user.User
 
-final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.CaptchedForm:
+final class UblogForm(val captcher: lila.hub.actors.Captcher, langList: LangList)
+    extends lila.hub.CaptchedForm:
 
   import UblogForm.*
 
@@ -19,7 +19,7 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
       "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
       "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
-      "language"    -> optional(LangForm.popularLanguages.mapping),
+      "language"    -> optional(langList.popularLanguagesForm.mapping),
       "topics"      -> optional(text),
       "live"        -> boolean,
       "discuss"     -> boolean,

@@ -8,7 +8,7 @@ import views.*
 import lila.app.{ *, given }
 import lila.common.config
 import lila.hub.i18n.Language
-import lila.i18n.{ I18nLangPicker, LangList }
+import lila.i18n.{ LangPicker, LangList }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 import lila.user.User as UserModel
@@ -261,8 +261,8 @@ final class Ublog(env: Env) extends LilaController(env):
   }
 
   def communityLang(langStr: String, page: Int = 1) = Open:
-    import I18nLangPicker.ByHref
-    I18nLangPicker.byHref(langStr, ctx.req) match
+    import LangPicker.ByHref
+    LangPicker.byHref(langStr, ctx.req) match
       case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page))
       case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page))
       case ByHref.Refused(lang) => communityIndex(lang.some, page)

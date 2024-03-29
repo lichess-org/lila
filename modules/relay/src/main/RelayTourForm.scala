@@ -4,16 +4,15 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanText, formatter, into }
-import lila.i18n.LangForm
 import lila.security.Granter
 import lila.user.Me
 
-final class RelayTourForm:
+final class RelayTourForm(langList: lila.hub.i18n.LangList):
 
   import RelayTourForm.*
 
   val spotlightMapping =
-    mapping("enabled" -> boolean, "lang" -> LangForm.popularLanguages.mapping, "title" -> optional(text))(
+    mapping("enabled" -> boolean, "lang" -> langList.popularLanguagesForm.mapping, "title" -> optional(text))(
       RelayTour.Spotlight.apply
     )(unapply)
 

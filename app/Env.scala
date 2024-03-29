@@ -174,6 +174,7 @@ final class EnvBoot(
   // eagerly load the Uptime object to fix a precise date
 
   // wire all the lila modules
+  val i18n: lila.i18n.Env.type               = lila.i18n.Env
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
   lazy val mongo: lila.db.Env                = wire[lila.db.Env]
   lazy val user: lila.user.Env               = wire[lila.user.Env]

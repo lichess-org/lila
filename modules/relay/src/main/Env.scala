@@ -32,7 +32,8 @@ final class Env(
     baseUrl: BaseUrl,
     notifyApi: lila.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
-    picfitUrl: lila.memo.PicfitUrl
+    picfitUrl: lila.memo.PicfitUrl,
+    langList: lila.hub.i18n.LangList
 )(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.hub.i18n.Translator)(using
     scheduler: Scheduler
 ):

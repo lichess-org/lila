@@ -56,8 +56,8 @@ libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
 ) ++ tests.bundle
 
 lazy val modules = Seq(
-  common, db, rating, user, security, hub, socket,
-  msg, notifyModule, i18n, game, bookmark, search,
+  common, hub, i18n, db, rating, user, security, socket,
+  msg, notifyModule, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
   importer, gathering, tournament, simul, relation, report, pref,
@@ -82,7 +82,7 @@ lazy val api = module("api",
 ) aggregate (moduleRefs: _*)
 
 lazy val i18n = module("i18n",
-  Seq(common, hub),
+  Seq(hub),
   tests.bundle ++ Seq(scalatags)
 ).settings(
   Compile / resourceGenerators += Def.task {
@@ -102,7 +102,7 @@ lazy val cms = module("cms",
 )
 
 lazy val puzzle = module("puzzle",
-  Seq(history, pref, tree),
+  Seq(history, pref),
   reactivemongo.bundle ++ tests.bundle
 )
 
@@ -215,7 +215,7 @@ lazy val mod = module("mod",
 )
 
 lazy val user = module("user",
-  Seq(rating, memo, i18n),
+  Seq(rating, memo),
   Seq(hasher, galimatias) ++ tests.bundle ++ playWs.bundle ++ reactivemongo.bundle
 )
 
@@ -240,7 +240,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(game, tree),
+  Seq(game),
   tests.bundle ++ reactivemongo.bundle
 )
 

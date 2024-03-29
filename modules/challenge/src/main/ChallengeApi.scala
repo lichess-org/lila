@@ -4,7 +4,7 @@ import lila.common.Bus
 import lila.common.config.Max
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
-import lila.i18n.I18nLangPicker
+import lila.hub.i18n.LangPicker
 import lila.memo.CacheApi.*
 import lila.user.{ LightUserApi, Me, User, UserPerfsRepo, UserRepo }
 
@@ -17,7 +17,8 @@ final class ChallengeApi(
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    langPicker: LangPicker
 )(using Executor, akka.actor.ActorSystem, Scheduler, lila.hub.i18n.Translator):
 
   import Challenge.*
@@ -213,7 +214,7 @@ final class ChallengeApi(
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all  <- allFor(userId)
-        lang <- userRepo.langOf(userId).map(I18nLangPicker.byStrOrDefault)
+        lang <- userRepo.langOf(userId).map(langPicker.byStrOrDefault)
         _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield
         given play.api.i18n.Lang = lang

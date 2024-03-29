@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import lila.hub.i18n.{ defaultLang, Language, defaultLanguage }
 
-object I18nLangPicker:
+object LangPicker extends lila.hub.i18n.LangPicker:
 
   def apply(req: RequestHeader, userLang: Option[String] = None): Lang =
     userLang

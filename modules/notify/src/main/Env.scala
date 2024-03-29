@@ -19,7 +19,9 @@ final class Env(
     getLightUserSync: lila.common.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
-    subsRepo: lila.relation.SubscriptionRepo
+    subsRepo: lila.relation.SubscriptionRepo,
+    jsDump: lila.hub.i18n.JsDump,
+    langPicker: lila.hub.i18n.LangPicker
 )(using Executor, ActorSystem, Materializer, lila.hub.i18n.Translator):
 
   lazy val jsonHandlers = wire[JSONHandlers]

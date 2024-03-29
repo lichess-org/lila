@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.app.{ *, given }
 import lila.common.LightUser.lightUserWrites
 import lila.hub.i18n.{ I18nKey as trans, defaultLang }
-import lila.i18n.{ I18nLangPicker, LangList }
+import lila.i18n.{ LangPicker, LangList }
 
 final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaController(env):
 
@@ -44,8 +44,8 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
 
   private def translations(using ctx: Context) =
     val langLang =
-      if I18nLangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang) then ctx.lang
-      else I18nLangPicker.bestFromRequestHeaders(ctx.req) | defaultLang
+      if LangPicker.allFromRequestHeaders(ctx.req).has(ctx.lang) then ctx.lang
+      else LangPicker.bestFromRequestHeaders(ctx.req) | defaultLang
     lila.i18n.JsDump.keysToObject(
       if ctx.isAnon then translationsAnon else translationsAuth
     ) ++
@@ -73,7 +73,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
               "user" -> ctx.me.map(_.light),
               "lang" -> Json.obj(
                 "current"  -> ctx.lang.code,
-                "accepted" -> I18nLangPicker.allFromRequestHeaders(ctx.req).map(_.code),
+                "accepted" -> LangPicker.allFromRequestHeaders(ctx.req).map(_.code),
                 "list"     -> LangList.allChoices
               ),
               "sound" -> Json.obj(

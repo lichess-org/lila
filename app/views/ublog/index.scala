@@ -82,7 +82,7 @@ object index:
       withHrefLangs = lila.common.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
       val langSelections: List[(String, String)] = ("all", "All languages") ::
-        lila.i18n.I18nLangPicker
+        lila.i18n.LangPicker
           .sortFor(LangList.popularNoRegion, ctx.req)
           .map: l =>
             l.language -> LangList.name(l)

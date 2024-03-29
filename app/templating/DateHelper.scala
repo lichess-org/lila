@@ -8,13 +8,11 @@ import java.time.{ Duration, LocalDate }
 import java.util.concurrent.ConcurrentHashMap
 
 import lila.app.ui.ScalatagsTemplate.*
-import lila.i18n.PeriodLocales
-import lila.hub.i18n.Translate
 
 trait DateHelper:
   self: I18nHelper & StringHelper & NumberHelper =>
 
-  export PeriodLocales.showDuration
+  export lila.mailer.PeriodLocales.showDuration
 
   private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
   private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]

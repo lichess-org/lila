@@ -5,10 +5,9 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.LightUser
 import lila.hub.i18n.I18nKey.{ site as trans }
-import lila.i18n.JsDump
-import lila.hub.i18n.{ I18nKey, Translate }
+import lila.hub.i18n.{ I18nKey, Translate, JsDump }
 
-final class JSONHandlers(getLightUser: LightUser.GetterSync):
+final class JSONHandlers(getLightUser: LightUser.GetterSync, jsDump: JsDump):
 
   given Writes[Notification] with
 
@@ -122,5 +121,5 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
 
   def apply(notify: Notification.AndUnread)(using Translate) =
     Json.toJsObject(notify) ++ Json.obj(
-      "i18n" -> JsDump.keysToObject(i18nKeys)
+      "i18n" -> jsDump.keysToObject(i18nKeys)
     )

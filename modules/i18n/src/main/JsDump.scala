@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.{ JsObject, JsString }
 import lila.hub.i18n.{ I18nKey, Translate }
 
-object JsDump:
+object JsDump extends lila.hub.i18n.JsDump:
 
   private val quantitySuffix: I18nQuantity => String =
     case I18nQuantity.Zero  => ":zero"
