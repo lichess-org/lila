@@ -51,7 +51,7 @@ function laneGrouper(t: Tournament): number {
     return t.perf.position - 0.5;
   } else if (t.schedule && t.schedule.speed === 'hyperBullet') {
     return 4;
-  } else if (t.schedule && t.perf.key === 'ultraBullet') {
+  } else if (t.schedule && t.PerfKey === 'ultraBullet') {
     return 4;
   } else {
     return t.perf.position;
@@ -127,7 +127,7 @@ function tournamentClass(tour: Tournament): Classes {
 }
 
 const iconOf = (tour: Tournament) =>
-  tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key];
+  tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.PerfKey];
 
 let mousedownAt: number[] | undefined;
 

@@ -5,10 +5,11 @@ import chess.{ Centis, Speed }
 import lila.hub.i18n.{ I18nKey, Translate }
 
 import lila.common.licon
+import lila.hub.rating.{ PerfId, PerfKey }
 
 enum PerfType(
-    val id: Perf.Id,
-    val key: Perf.Key,
+    val id: PerfId,
+    val key: PerfKey,
     private val name: String,
     private val title: String,
     val icon: licon.Icon
@@ -20,8 +21,8 @@ enum PerfType(
 
   case UltraBullet
       extends PerfType(
-        Perf.Id(0),
-        key = Perf.Key("ultraBullet"),
+        PerfId(0),
+        key = PerfKey("ultraBullet"),
         name = Speed.UltraBullet.name,
         title = Speed.UltraBullet.title,
         icon = licon.UltraBullet
@@ -29,8 +30,8 @@ enum PerfType(
 
   case Bullet
       extends PerfType(
-        Perf.Id(1),
-        key = Perf.Key("bullet"),
+        PerfId(1),
+        key = PerfKey("bullet"),
         name = Speed.Bullet.name,
         title = Speed.Bullet.title,
         icon = licon.Bullet
@@ -38,8 +39,8 @@ enum PerfType(
 
   case Blitz
       extends PerfType(
-        Perf.Id(2),
-        key = Perf.Key("blitz"),
+        PerfId(2),
+        key = PerfKey("blitz"),
         name = Speed.Blitz.name,
         title = Speed.Blitz.title,
         icon = licon.FlameBlitz
@@ -47,8 +48,8 @@ enum PerfType(
 
   case Rapid
       extends PerfType(
-        Perf.Id(6),
-        key = Perf.Key("rapid"),
+        PerfId(6),
+        key = PerfKey("rapid"),
         name = Speed.Rapid.name,
         title = Speed.Rapid.title,
         icon = licon.Rabbit
@@ -56,8 +57,8 @@ enum PerfType(
 
   case Classical
       extends PerfType(
-        Perf.Id(3),
-        key = Perf.Key("classical"),
+        PerfId(3),
+        key = PerfKey("classical"),
         name = Speed.Classical.name,
         title = Speed.Classical.title,
         icon = licon.Turtle
@@ -65,8 +66,8 @@ enum PerfType(
 
   case Correspondence
       extends PerfType(
-        Perf.Id(4),
-        key = Perf.Key("correspondence"),
+        PerfId(4),
+        key = PerfKey("correspondence"),
         name = "Correspondence",
         title = Speed.Correspondence.title,
         icon = licon.PaperAirplane
@@ -74,8 +75,8 @@ enum PerfType(
 
   case Standard
       extends PerfType(
-        Perf.Id(5),
-        key = Perf.Key("standard"),
+        PerfId(5),
+        key = PerfKey("standard"),
         name = chess.variant.Standard.name,
         title = "Standard rules of chess",
         icon = licon.Crown
@@ -83,8 +84,8 @@ enum PerfType(
 
   case Chess960
       extends PerfType(
-        Perf.Id(11),
-        key = Perf.Key("chess960"),
+        PerfId(11),
+        key = PerfKey("chess960"),
         name = chess.variant.Chess960.name,
         title = "Chess960 variant",
         icon = licon.DieSix
@@ -92,8 +93,8 @@ enum PerfType(
 
   case KingOfTheHill
       extends PerfType(
-        Perf.Id(12),
-        key = Perf.Key("kingOfTheHill"),
+        PerfId(12),
+        key = PerfKey("kingOfTheHill"),
         name = chess.variant.KingOfTheHill.name,
         title = "King of the Hill variant",
         icon = licon.FlagKingHill
@@ -101,8 +102,8 @@ enum PerfType(
 
   case Antichess
       extends PerfType(
-        Perf.Id(13),
-        key = Perf.Key("antichess"),
+        PerfId(13),
+        key = PerfKey("antichess"),
         name = chess.variant.Antichess.name,
         title = "Antichess variant",
         icon = licon.Antichess
@@ -110,8 +111,8 @@ enum PerfType(
 
   case Atomic
       extends PerfType(
-        Perf.Id(14),
-        key = Perf.Key("atomic"),
+        PerfId(14),
+        key = PerfKey("atomic"),
         name = chess.variant.Atomic.name,
         title = "Atomic variant",
         icon = licon.Atom
@@ -119,8 +120,8 @@ enum PerfType(
 
   case ThreeCheck
       extends PerfType(
-        Perf.Id(15),
-        key = Perf.Key("threeCheck"),
+        PerfId(15),
+        key = PerfKey("threeCheck"),
         name = chess.variant.ThreeCheck.name,
         title = "Three-check variant",
         icon = licon.ThreeCheckStack
@@ -128,8 +129,8 @@ enum PerfType(
 
   case Horde
       extends PerfType(
-        Perf.Id(16),
-        key = Perf.Key("horde"),
+        PerfId(16),
+        key = PerfKey("horde"),
         name = chess.variant.Horde.name,
         title = "Horde variant",
         icon = licon.Keypad
@@ -137,8 +138,8 @@ enum PerfType(
 
   case RacingKings
       extends PerfType(
-        Perf.Id(17),
-        key = Perf.Key("racingKings"),
+        PerfId(17),
+        key = PerfKey("racingKings"),
         name = chess.variant.RacingKings.name,
         title = "Racing kings variant",
         icon = licon.FlagRacingKings
@@ -146,8 +147,8 @@ enum PerfType(
 
   case Crazyhouse
       extends PerfType(
-        Perf.Id(18),
-        key = Perf.Key("crazyhouse"),
+        PerfId(18),
+        key = PerfKey("crazyhouse"),
         name = chess.variant.Crazyhouse.name,
         title = "Crazyhouse variant",
         icon = licon.Crazyhouse
@@ -155,8 +156,8 @@ enum PerfType(
 
   case Puzzle
       extends PerfType(
-        Perf.Id(20),
-        key = Perf.Key("puzzle"),
+        PerfId(20),
+        key = PerfKey("puzzle"),
         name = "Training",
         title = "Chess tactics trainer",
         icon = licon.ArcheryTarget
@@ -169,12 +170,12 @@ object PerfType:
 
   val default = Standard
 
-  def apply(key: Perf.Key): Option[PerfType] = byKey.get(key)
-  def orDefault(key: Perf.Key): PerfType     = apply(key) | default
+  def apply(key: PerfKey): Option[PerfType] = byKey.get(key)
+  def orDefault(key: PerfKey): PerfType     = apply(key) | default
 
-  def apply(id: Perf.Id): Option[PerfType] = byId.get(id)
+  def apply(id: PerfId): Option[PerfType] = byId.get(id)
 
-  def id2key(id: Perf.Id): Option[Perf.Key] = byId.get(id).map(_.key)
+  def id2key(id: PerfId): Option[PerfKey] = byId.get(id).map(_.key)
 
   val nonPuzzle: List[PerfType] = all.filter(_ != Puzzle)
 

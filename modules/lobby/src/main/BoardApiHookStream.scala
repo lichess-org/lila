@@ -30,19 +30,19 @@ final class BoardApiHookStream(
     override def preStart(): Unit =
       super.preStart()
       Bus.subscribe(self, classifiers)
-      lobby ! actorApi.AddHook(hook)
+      lobby ! AddHook(hook)
 
     override def postStop() =
       super.postStop()
       Bus.unsubscribe(self, classifiers)
-      lobby ! actorApi.CancelHook(hook.sri)
+      lobby ! CancelHook(hook.sri)
       queue.complete()
 
     self ! SetOnline
 
     def receive =
 
-      case actorApi.RemoveHook(_) => self ! PoisonPill
+      case RemoveHook(_) => self ! PoisonPill
 
       case SetOnline =>
         context.system.scheduler

@@ -17,3 +17,5 @@ trait CtrlConversions:
   given reqBody(using it: BodyContext[?]): Request[?] = it.body
 
   given Conversion[User.WithPerfs, User] = _.user
+
+  export lila.user.{ given_MyId, given_Conversion_Me_MyId }

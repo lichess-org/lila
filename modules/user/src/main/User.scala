@@ -7,6 +7,7 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 import lila.hub.i18n.Language
 import lila.rating.{ Perf, PerfType }
+import lila.hub.rating.PerfKey
 
 case class User(
     id: UserId,
@@ -114,7 +115,7 @@ object User:
     def titleUsernameWithBestRating =
       title.fold(usernameWithBestRating): t =>
         s"$t $usernameWithBestRating"
-    def lightPerf(key: Perf.Key) =
+    def lightPerf(key: PerfKey) =
       perfs(key).map: perf =>
         User.LightPerf(light, key, perf.intRating, perf.progress)
 
@@ -176,7 +177,7 @@ object User:
   opaque type Erased = Boolean
   object Erased extends YesNo[Erased]
 
-  case class LightPerf(user: LightUser, perfKey: Perf.Key, rating: IntRating, progress: IntRatingDiff)
+  case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
   case class LightCount(user: LightUser, count: Int)
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):

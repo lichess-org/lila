@@ -13,9 +13,10 @@ import lila.hub.socket.Sri
 import lila.hub.{ study as hub }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.{ MyId, User }
+import lila.user.User
 
 import actorApi.Who
+import lila.hub.user.MyId
 
 final class StudyApi(
     studyRepo: StudyRepo,

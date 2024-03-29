@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.Granter as MasterGranter
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, given }
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,

@@ -2,7 +2,7 @@ package lila.event
 import lila.db.dsl.{ *, given }
 import lila.hub.i18n.Language
 import lila.memo.CacheApi.*
-import lila.user.Me
+import lila.user.{ Me, given }
 
 final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventForm)(using Executor):
 

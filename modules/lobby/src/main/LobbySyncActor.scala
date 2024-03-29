@@ -4,17 +4,16 @@ import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
 import lila.hub.SyncActor
 import lila.hub.socket.{ Sri, Sris }
-
-import actorApi.*
+import lila.hub.pool.{ IsClockCompatible, HookThieve }
 
 final private class LobbySyncActor(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
     playbanApi: lila.playban.PlaybanApi,
-    poolApi: lila.pool.PoolApi,
+    poolApi: lila.hub.pool.PoolApi,
     onStart: lila.hub.game.OnStart
-)(using Executor)
+)(using Executor, IsClockCompatible)
     extends SyncActor:
 
   import LobbySyncActor.*
@@ -101,7 +100,7 @@ final private class LobbySyncActor(
         .foreach { this ! WithPromise(_, promise) }
 
     case WithPromise(Sris(sris), promise) =>
-      poolApi.socketIds(Sris(sris))
+      poolApi.setOnlineSris(Sris(sris))
       val fewSecondsAgo = nowInstant.minusSeconds(5)
       if remoteDisconnectAllAt.isBefore(fewSecondsAgo)
       then
@@ -124,10 +123,10 @@ final private class LobbySyncActor(
     case HookSub(member, true) =>
       socket ! AllHooksFor(member, hookRepo.filter { biter.showHookTo(_, member) }.toSeq)
 
-    case lila.pool.HookThieve.GetCandidates(clock, promise) =>
-      promise.success(lila.pool.HookThieve.PoolHooks(hookRepo.poolCandidates(clock)))
+    case HookThieve.GetCandidates(clock, promise) =>
+      promise.success(HookThieve.PoolHooks(hookRepo.poolCandidates(clock)))
 
-    case lila.pool.HookThieve.StolenHookIds(ids) =>
+    case HookThieve.StolenHookIds(ids) =>
       hookRepo.byIds(ids.toSet).foreach(remove)
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit =
@@ -195,7 +194,7 @@ private object LobbySyncActor:
   )(makeActor: () => LobbySyncActor)(using ec: Executor, scheduler: Scheduler) =
     val actor = makeActor()
     Bus.subscribe(actor, "lobbyActor")
-    scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => actor ! actorApi.Resync)
+    scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => actor ! Resync)
     lila.common.LilaScheduler(
       "LobbySyncActor",
       _.Every(broomPeriod),

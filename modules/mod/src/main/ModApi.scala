@@ -5,7 +5,7 @@ import chess.PlayerTitle
 import lila.common.{ Bus, EmailAddress }
 import lila.report.{ ModId, Room, Suspect, SuspectId }
 import lila.security.{ Granter, Permission }
-import lila.user.{ LightUserApi, Me, User, UserRepo }
+import lila.user.{ LightUserApi, Me, User, UserRepo, modId, given }
 
 final class ModApi(
     userRepo: UserRepo,

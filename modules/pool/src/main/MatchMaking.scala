@@ -3,6 +3,7 @@ package lila.pool
 import scala.math.abs
 
 import lila.common.WMMatching
+import lila.hub.pool.PoolMember
 
 object MatchMaking:
 

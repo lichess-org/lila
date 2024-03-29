@@ -10,6 +10,7 @@ import lila.puzzle.PuzzleTheme
 import lila.rating.Perf
 import lila.report.Report
 import lila.hub.socket.Sri
+import lila.hub.rating.PerfKey
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
@@ -41,7 +42,7 @@ given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasI
 given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr from _
-given perfKey: Conversion[String, Perf.Key]                              = Perf.Key(_)
+given perfKey: Conversion[String, PerfKey]                               = PerfKey(_)
 given puzzleKey: Conversion[String, PuzzleTheme.Key]                     = PuzzleTheme.Key(_)
 given Conversion[String, Variant.LilaKey]                                = Variant.LilaKey(_)
 given variantKeyOpt: Conversion[Option[String], Option[Variant.LilaKey]] = Variant.LilaKey.from(_)
@@ -85,6 +86,6 @@ object ReverseRouterConversions:
   given clasIdConv: Conversion[Clas.Id, String]                      = _.value
   given clasInviteIdConv: Conversion[ClasInvite.Id, String]          = _.value
   given relayTourIdConv: Conversion[lila.relay.RelayTour.Id, String] = _.value
-  given perfKeyConv: Conversion[Perf.Key, String]                    = _.value
+  given perfKeyConv: Conversion[PerfKey, String]                     = _.value
   given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]           = _.value
   given localDateConv: Conversion[java.time.LocalDate, String]       = _.toString

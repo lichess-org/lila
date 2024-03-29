@@ -6,8 +6,6 @@ import lila.game.{ Game, Player }
 import lila.hub.socket.Sri
 import lila.user.{ GameUsers, User }
 
-import actorApi.{ JoinHook, JoinSeek }
-
 final private class Biter(
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,

@@ -13,7 +13,8 @@ import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.WithTour
 import lila.security.Granter
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
-import lila.user.{ Me, MyId, User }
+import lila.user.{ Me, User, given }
+import lila.hub.user.MyId
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,

@@ -9,8 +9,8 @@ import lila.common.{ LightUser, licon }
 import lila.hub.i18n.{ Translate, I18nKey as trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserPerfs }
-
-import mashup.*
+import lila.hub.rating.PerfKey
+import lila.app.mashup.*
 
 trait UserHelper extends HasEnv:
   self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
@@ -68,7 +68,7 @@ trait UserHelper extends HasEnv:
   def showPerfRating(perfs: UserPerfs, perfType: PerfType)(using Translate): Frag =
     showPerfRating(perfs.typed(perfType))
 
-  def showPerfRating(perfs: UserPerfs, perfKey: Perf.Key)(using Translate): Option[Frag] =
+  def showPerfRating(perfs: UserPerfs, perfKey: PerfKey)(using Translate): Option[Frag] =
     PerfType(perfKey).map(showPerfRating(perfs, _))
 
   def showBestPerf(perfs: UserPerfs)(using Translate): Option[Frag] =

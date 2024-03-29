@@ -61,7 +61,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
 
 function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
   const gameName = `${game.clock} • ${game.perf.name}`;
-  return h('div.infos', { attrs: dataIcon(perfIcons[game.perf.key]) }, [
+  return h('div.infos', { attrs: dataIcon(perfIcons[game.PerfKey]) }, [
     h('div', [
       h(
         'p',

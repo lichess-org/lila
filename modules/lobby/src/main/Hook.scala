@@ -5,7 +5,8 @@ import chess.{ Clock, Mode, Speed }
 import ornicar.scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 
-import lila.rating.{ PerfType, RatingRange }
+import lila.rating.PerfType
+import lila.hub.rating.RatingRange
 import lila.hub.socket.Sri
 import lila.user.User
 
@@ -42,11 +43,9 @@ case class Hook(
       (userId.isEmpty || userId != h.userId)
 
   private def ratingRangeCompatibleWith(h: Hook) =
-    !isAuth || {
-      h.rating.so(ratingRangeOrDefault.contains)
-    }
+    !isAuth || h.rating.so(ratingRangeOrDefault.contains)
 
-  private lazy val manualRatingRange = isAuth.so(RatingRange.noneIfDefault(ratingRange))
+  lazy val manualRatingRange = isAuth.so(RatingRange.noneIfDefault(ratingRange))
 
   private def nonWideRatingRange =
     val r = rating | lila.rating.Glicko.default.intRating
@@ -54,7 +53,7 @@ case class Hook(
       _ != RatingRange(r - 500, r + 500)
 
   lazy val ratingRangeOrDefault: RatingRange =
-    nonWideRatingRange.orElse(rating.map(RatingRange.defaultFor)).getOrElse(RatingRange.default)
+    nonWideRatingRange.orElse(rating.map(lila.rating.RatingRange.defaultFor)).getOrElse(RatingRange.default)
 
   def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
@@ -85,26 +84,12 @@ case class Hook(
 
   def randomColor = color == "random"
 
-  lazy val compatibleWithPools =
+  def compatibleWithPools(using isClockCompatible: lila.hub.pool.IsClockCompatible) =
     realMode.rated && realVariant.standard && randomColor &&
-      lila.pool.PoolList.clockStringSet.contains(clock.show)
+      isClockCompatible(clock)
 
-  def compatibleWithPool(poolClock: chess.Clock.Config) =
+  def compatibleWithPool(poolClock: chess.Clock.Config)(using lila.hub.pool.IsClockCompatible) =
     compatibleWithPools && clock == poolClock
-
-  def toPool = user.map: u =>
-    lila.pool.HookThieve.PoolHook(
-      hookId = id,
-      member = lila.pool.PoolMember(
-        userId = u.id,
-        sri = sri,
-        rating = rating | lila.rating.Glicko.default.intRating,
-        ratingRange = manualRatingRange,
-        lame = user.so(_.lame),
-        blocking = user.so(_.blocking),
-        rageSitCounter = 0
-      )
-    )
 
   private lazy val speed = Speed(clock)
 
@@ -121,7 +106,7 @@ object Hook:
       user: Option[User.WithPerfs],
       sid: Option[String],
       ratingRange: RatingRange,
-      blocking: lila.pool.Blocking,
+      blocking: lila.hub.pool.Blocking,
       boardApi: Boolean = false
   ): Hook =
     new Hook(

@@ -9,6 +9,7 @@ import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.config.MaxPerSecond
+import lila.hub.rating.PerfKey
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -79,7 +80,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                 until = getTimestamp("until"),
                 max = getInt("max").map(_.atLeast(1)),
                 rated = getBoolOpt("rated"),
-                perfType = ((~get("perfType")).split(",").map { Perf.Key(_) }.flatMap(PerfType.apply)).toSet,
+                perfType = ((~get("perfType")).split(",").map { PerfKey(_) }.flatMap(PerfType.apply)).toSet,
                 color = get("color").flatMap(chess.Color.fromName),
                 analysed = getBoolOpt("analysed"),
                 flags = requestPgnFlags(extended = false),

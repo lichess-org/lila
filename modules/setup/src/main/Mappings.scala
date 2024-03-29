@@ -10,7 +10,7 @@ import lila.common.Days
 import lila.common.Form.{ *, given }
 import lila.hub.game.GameRule
 import lila.lobby.Color
-import lila.rating.RatingRange
+import lila.hub.rating.RatingRange
 
 private object Mappings:
 
@@ -31,7 +31,7 @@ private object Mappings:
     number
       .verifying(HookConfig.modes contains _)
       .verifying(_ == Mode.Casual.id || withRated)
-  val ratingRange = text.verifying(RatingRange.valid(_))
+  val ratingRange = text.verifying(RatingRange.isValid)
   val color       = text.verifying(Color.names contains _)
   val level       = number.verifying(AiConfig.levels contains _)
   val speed       = number.verifying(Config.speeds contains _)

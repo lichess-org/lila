@@ -3,7 +3,7 @@ package lila.setup
 import lila.common.Bus
 import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.Seek
-import lila.lobby.actorApi.{ AddHook, AddSeek }
+import lila.lobby.{ AddHook, AddSeek }
 import lila.user.{ Me, User, UserPerfsRepo }
 
 final private[setup] class Processor(
@@ -31,7 +31,7 @@ final private[setup] class Processor(
       configBase: HookConfig,
       sri: lila.hub.socket.Sri,
       sid: Option[String],
-      blocking: lila.pool.Blocking
+      blocking: lila.hub.pool.Blocking
   )(using me: Option[User.WithPerfs]): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor

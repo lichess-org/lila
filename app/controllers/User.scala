@@ -20,6 +20,7 @@ import lila.mod.UserWithModlog
 import lila.rating.{ Perf, PerfType }
 import lila.security.{ Granter, UserLogins }
 import lila.user.User as UserModel
+import lila.hub.rating.PerfKey
 
 final class User(
     override val env: Env,
@@ -270,15 +271,15 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  def topNb(nb: Int, perfKey: Perf.Key) = Open:
+  def topNb(nb: Int, perfKey: PerfKey) = Open:
     Found(topNbUsers(nb, perfKey)): (users, perfType) =>
       negotiate(
         (nb == 200).so(Ok.page(html.user.top(perfType, users))),
         topNbJson(users)
       )
 
-  def topNbApi(nb: Int, perfKey: Perf.Key) = Anon:
-    if nb == 1 && perfKey == Perf.Key("standard") then
+  def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
+    if nb == 1 && perfKey == PerfKey("standard") then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
@@ -286,7 +287,7 @@ final class User(
       }
     else Found(topNbUsers(nb, perfKey)) { users => topNbJson(users._1) }
 
-  private def topNbUsers(nb: Int, perfKey: Perf.Key) =
+  private def topNbUsers(nb: Int, perfKey: PerfKey) =
     PerfType(perfKey).soFu: perfType =>
       env.user.cached.top200Perf.get(perfType.id).dmap {
         _.take(nb.atLeast(1).atMost(200)) -> perfType
@@ -544,7 +545,7 @@ final class User(
       yield Ok(page)
   }
 
-  def perfStat(username: UserStr, perfKey: Perf.Key) = Open:
+  def perfStat(username: UserStr, perfKey: PerfKey) = Open:
     Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiate(
         Ok.pageAsync:
@@ -603,7 +604,7 @@ final class User(
             else fuccess(Json.toJson(userIds))
           }.map(JsonOk)
 
-  def ratingDistribution(perfKey: Perf.Key, username: Option[UserStr] = None) = Open:
+  def ratingDistribution(perfKey: PerfKey, username: Option[UserStr] = None) = Open:
     Found(PerfType(perfKey).filter(PerfType.isLeaderboardable)): perfType =>
       env.user.rankingApi
         .weeklyRatingDistribution(perfType)

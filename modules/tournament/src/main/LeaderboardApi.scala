@@ -8,6 +8,7 @@ import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
+import lila.hub.rating.PerfId
 
 final class LeaderboardApi(
     repo: LeaderboardRepo,
@@ -154,4 +155,4 @@ object LeaderboardApi:
       def rankPercentMean                = rank.mean.map(rankPercent)
       def rankPercentMedian              = rank.median.map(rankPercent)
 
-    case class AggregationResult(_id: Perf.Id, nb: Int, points: List[Int], ratios: List[Int])
+    case class AggregationResult(_id: PerfId, nb: Int, points: List[Int], ratios: List[Int])

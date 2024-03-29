@@ -27,6 +27,7 @@ import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
 import lila.hub.game.GameRule
+import lila.hub.rating.PerfKey
 
 case class Game(
     override val id: GameId,
@@ -80,6 +81,8 @@ case class Game(
     players.contains(player).option(GameFullId(s"$id${player.id}"))
 
   def fullIdOf(color: Color) = GameFullId(s"$id${player(color).id}")
+
+  def fullIds: ByColor[GameFullId] = ByColor(fullIdOf)
 
   export tournamentId.{ isDefined as isTournament }
   export simulId.{ isDefined as isSimul }
@@ -251,7 +254,7 @@ case class Game(
   def speed = Speed(chess.clock.map(_.config))
 
   lazy val perfType: PerfType = PerfType(variant, speed)
-  def perfKey: Perf.Key       = perfType.key
+  def perfKey: PerfKey        = perfType.key
 
   def ratingVariant: Variant =
     if isTournament && variant.fromPosition then Standard else variant

@@ -3,7 +3,8 @@ package actorApi
 
 import chess.format.UciPath
 
-import lila.user.{ Me, MyId }
+import lila.user.Me
+import lila.hub.user.MyId
 
 case class SaveStudy(study: Study)
 case class SetTag(chapterId: StudyChapterId, name: String, value: String):

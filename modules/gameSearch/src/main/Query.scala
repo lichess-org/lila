@@ -5,7 +5,7 @@ import chess.Status
 import java.time.LocalDate
 
 import lila.common.Json.given
-import lila.rating.RatingRange
+import lila.hub.rating.RatingRange
 import lila.search.Range
 import lila.hub.i18n.Translate
 

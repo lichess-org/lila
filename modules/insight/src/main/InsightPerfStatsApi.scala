@@ -7,6 +7,7 @@ import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
+import lila.hub.rating.PerfId
 
 case class InsightPerfStats(
     rating: MeanRating,
@@ -67,7 +68,7 @@ final class InsightPerfStatsApi(
       .map: docs =>
         for
           doc <- docs
-          id  <- doc.getAsOpt[Perf.Id]("_id")
+          id  <- doc.getAsOpt[PerfId]("_id")
           pt  <- PerfType(id)
           ra  <- doc.double("r")
           nw = ~doc.int("nw")

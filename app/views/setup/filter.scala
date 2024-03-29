@@ -4,7 +4,7 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.rating.RatingRange
+import lila.hub.rating.RatingRange
 
 object filter:
 

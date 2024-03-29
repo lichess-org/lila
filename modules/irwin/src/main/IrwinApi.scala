@@ -7,7 +7,7 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ Me, User, UserRepo, modId, given }
 
 final class IrwinApi(
     reportColl: Coll,

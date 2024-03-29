@@ -4,6 +4,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.config.*
+import lila.hub.pool.IsClockCompatible
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -18,10 +19,10 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     gameRepo: lila.game.GameRepo,
-    poolApi: lila.pool.PoolApi,
+    poolApi: lila.hub.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
     socketKit: lila.hub.socket.SocketKit
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.game.IdGenerator):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.game.IdGenerator, IsClockCompatible):
 
   private lazy val seekApiConfig = new SeekApi.Config(
     coll = db(CollName("seek")),
