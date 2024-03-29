@@ -46,7 +46,11 @@ class AnnotatorTest extends munit.FunSuite:
     val txt = new TranslatorTxt:
       def literal(key: I18nKey, args: Seq[Any], lang: Lang): String              = key.value
       def plural(key: I18nKey, count: Count, args: Seq[Any], lang: Lang): String = key.value
-    val frag = ???
+    val frag = new TranslatorFrag:
+      import scalatags.Text.{ Frag, RawFrag }
+      def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag              = RawFrag(key.value)
+      def plural(key: I18nKey, count: Count, args: Seq[Matchable], lang: Lang): RawFrag = RawFrag(key.value)
+
   given Lang = defaultLang
   val dumper = PgnDump(BaseUrl("l.org/"), lila.user.LightUserApi.mock)
   val dumped =
