@@ -40,7 +40,7 @@ object mine:
                 .map { destId =>
                   div(cls := "waiting")(
                     userIdLink(destId.some, cssClass = "target".some),
-                    if !c.hasClock then
+                    if c.clock.isEmpty then
                       div(cls := "correspondence-waiting text", dataIcon := licon.Checkmark):
                         "Challenge sent"
                     else spinner,

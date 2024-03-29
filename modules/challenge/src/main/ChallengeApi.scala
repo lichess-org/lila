@@ -35,7 +35,7 @@ final class ChallengeApi(
     val c = Challenge.make(
       variant = config.variant,
       initialFen = config.position,
-      timeControl = TimeControl.make(config.clock, config.days),
+      timeControl = Challenge.makeTimeControl(config.clock, config.days),
       mode = chess.Mode(config.rated),
       color = "random",
       challenger = Challenger.Open,
@@ -183,7 +183,7 @@ final class ChallengeApi(
     repo.byId(gameId.into(Id)).flatMap(_.so(remove))
 
   private def isLimitedByMaxPlaying(c: Challenge) =
-    if c.hasClock then fuFalse
+    if c.clock.isEmpty then fuFalse
     else
       c.userIds
         .map: userId =>

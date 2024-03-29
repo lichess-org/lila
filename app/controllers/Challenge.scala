@@ -340,7 +340,7 @@ final class Challenge(
 
   private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
     import lila.challenge.Challenge.*
-    val timeControl = TimeControl.make(config.clock, config.days)
+    val timeControl = makeTimeControl(config.clock, config.days)
     env.user.perfsRepo
       .withPerf(orig -> dest, config.perfType, _.sec)
       .map: (orig, dest) =>

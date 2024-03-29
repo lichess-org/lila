@@ -235,7 +235,7 @@ lazy val tv = module("tv",
 )
 
 lazy val bot = module("bot",
-  Seq(challenge),
+  Seq(setup),
   reactivemongo.bundle
 )
 
@@ -380,7 +380,7 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(challenge),
+  Seq(setup),
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
