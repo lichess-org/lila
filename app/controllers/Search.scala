@@ -5,10 +5,11 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.{ IpAddress, config }
+import lila.hub.i18n.Translate
 
 final class Search(env: Env) extends LilaController(env):
 
-  def searchForm(using Lang) = env.gameSearch.forms.search
+  def searchForm(using Translate) = env.gameSearch.forms.search
 
   private val SearchRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 50,

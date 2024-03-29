@@ -51,7 +51,7 @@ object side:
             div(cls := "setup")(
               views.html.game.widgets.showClock(game),
               separator,
-              (if game.rated then trans.rated else trans.casual).txt(),
+              (if game.rated then trans.site.rated else trans.site.casual).txt(),
               separator,
               views.html.game.bits.variantLink(game.variant, game.perfType, shortName = true)
             )

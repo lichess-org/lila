@@ -137,7 +137,7 @@ object JsonView:
 
   def glyphs(using Translate): JsObject =
     import lila.tree.Node.given
-    import lila.hub.i18n.I18nKeys.{ study as trans }
+    import lila.hub.i18n.I18nKey.{ study as trans }
     import chess.format.pgn.Glyph
     import Glyph.MoveAssessment.*
     import Glyph.PositionAssessment.*

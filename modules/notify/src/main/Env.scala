@@ -20,7 +20,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     subsRepo: lila.relation.SubscriptionRepo
-)(using Executor, ActorSystem, Materializer):
+)(using Executor, ActorSystem, Materializer, lila.hub.i18n.Translator):
 
   lazy val jsonHandlers = wire[JSONHandlers]
 

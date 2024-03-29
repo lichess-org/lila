@@ -194,7 +194,7 @@ object features:
         )
       )
 
-  private def header(name: Frag)(using Lang) =
+  private def header(name: Frag)(using Translate) =
     thead(
       st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lichessPatron()))
     )

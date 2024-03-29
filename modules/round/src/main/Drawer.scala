@@ -46,11 +46,11 @@ final private[round] class Drawer(
           pov.game,
           _.Draw,
           None,
-          Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some
+          Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some
         )
       case Pov(g, color) if g.playerCanOfferDraw(color) =>
         val progress = Progress(g).map { _.offerDraw(color) }
-        messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
+        messenger.system(g, color.fold(trans.site.whiteOffersDraw, trans.site.blackOffersDraw).txt())
         proxy
           .save(progress)
           .andDo(publishDrawOffer(progress.game))
@@ -62,7 +62,7 @@ final private[round] class Drawer(
       case Pov(g, color) if pov.player.isOfferingDraw =>
         proxy
           .save {
-            messenger.system(g, trans.drawOfferCanceled.txt())
+            messenger.system(g, trans.site.drawOfferCanceled.txt())
             Progress(g).map { g =>
               g.updatePlayer(color, _.removeDrawOffer)
             }
@@ -71,7 +71,7 @@ final private[round] class Drawer(
       case Pov(g, color) if pov.opponent.isOfferingDraw =>
         proxy
           .save {
-            messenger.system(g, color.fold(trans.whiteDeclinesDraw, trans.blackDeclinesDraw).txt())
+            messenger.system(g, color.fold(trans.site.whiteDeclinesDraw, trans.site.blackDeclinesDraw).txt())
             Progress(g).map { g =>
               g.updatePlayer(!color, _.removeDrawOffer)
             }

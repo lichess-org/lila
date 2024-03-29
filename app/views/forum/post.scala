@@ -86,7 +86,7 @@ object post:
                         frag(
                           nbsp,
                           a(
-                            titleOrText(trans.reportXToModerators.txt(userId)),
+                            titleOrText(trans.site.reportXToModerators.txt(userId)),
                             cls := "mod report button button-empty",
                             href := addQueryParams(
                               reportRoutes.form.url,
@@ -140,9 +140,9 @@ object post:
                   href  := routes.ForumPost.redirect(post.id),
                   style := "margin-left:20px"
                 ):
-                  trans.cancel()
+                  trans.site.cancel()
                 ,
-                submitButton(cls := "button")(trans.apply())
+                submitButton(cls := "button")(trans.site.apply())
               )
             )
           )

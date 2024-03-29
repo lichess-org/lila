@@ -14,6 +14,6 @@ object calendar:
       moreCss = cssTag("tournament.calendar")
     ):
       main(cls := "box")(
-        h1(cls := "box__top")(trans.tournamentCalendar()),
+        h1(cls := "box__top")(trans.site.tournamentCalendar()),
         div(id := "tournament-calendar")
       )

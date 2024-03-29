@@ -32,7 +32,7 @@ object JsDump:
             list.map: (quantity, msg) =>
               s"$k${quantitySuffix(quantity)}" -> JsString(msg)
 
-  def keysToObject(keys: Seq[I18nKey])(using lang: Lang): JsObject =
+  def keysToObject(keys: Seq[I18nKey])(using t: Translate): JsObject =
     JsObject:
       keys.flatMap: k =>
-        Registry.translation(lang, k).fold[JsTrans](Nil) { translatedJs(k, _) }
+        Registry.translation(t.lang, k).fold[JsTrans](Nil) { translatedJs(k, _) }

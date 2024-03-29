@@ -163,9 +163,9 @@ object Challenge:
       export config.{ limit, increment, show }
 
   enum ColorChoice(val trans: I18nKey) derives Eq:
-    case Random extends ColorChoice(I18nKey.randomColor)
-    case White  extends ColorChoice(I18nKey.white)
-    case Black  extends ColorChoice(I18nKey.black)
+    case Random extends ColorChoice(I18nKey.site.randomColor)
+    case White  extends ColorChoice(I18nKey.site.white)
+    case Black  extends ColorChoice(I18nKey.site.black)
   object ColorChoice:
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 

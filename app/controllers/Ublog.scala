@@ -7,7 +7,8 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.config
-import lila.i18n.{ I18nLangPicker, LangList, Language }
+import lila.hub.i18n.Language
+import lila.i18n.{ I18nLangPicker, LangList }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 import lila.user.User as UserModel

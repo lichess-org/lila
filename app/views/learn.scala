@@ -204,7 +204,7 @@ object index:
     nailedIt,
     rightOn,
     stageXComplete,
-    trans.yourScore,
+    trans.site.yourScore,
     next,
     nextX,
     backToMenu,

@@ -121,9 +121,9 @@ $serviceNote"""
           " ",
           trans.common_contact(noteContact),
           " ",
-          lila.hub.i18n.I18nKey.readAboutOur(
+          lila.hub.i18n.I18nKey.site.readAboutOur(
             a(href := "https://lichess.org/privacy")(
-              lila.hub.i18n.I18nKey.privacyPolicy()
+              lila.hub.i18n.I18nKey.site.privacyPolicy()
             )
           )
         )

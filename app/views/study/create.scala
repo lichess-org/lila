@@ -22,7 +22,7 @@ object create:
       backUrl: Option[String]
   )(using PageContext) =
     views.html.site.message(
-      title = trans.toStudy.txt(),
+      title = trans.site.toStudy.txt(),
       icon = Some(licon.StudyBoard),
       back = backUrl,
       moreCss = cssTag("study.create").some

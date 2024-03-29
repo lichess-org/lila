@@ -61,7 +61,7 @@ object bits:
         checkboxes(form("speeds"), speedChoices, config.speeds.map(_.id)),
         checkboxes(form("ratings"), ratingChoices, config.ratings),
         div(cls := "opening__config__form__submit")(
-          form3.submit(trans.apply())(cls := "button-empty")
+          form3.submit(trans.site.apply())(cls := "button-empty")
         )
       )
     )

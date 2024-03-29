@@ -180,10 +180,10 @@ object Schedule:
     val name = Speed.this.toString
     val key  = lila.common.String.lcfirst(name)
     def trans(using Translate): String = this match
-      case Speed.Bullet    => I18nKey.bullet.txt()
-      case Speed.Blitz     => I18nKey.blitz.txt()
-      case Speed.Rapid     => I18nKey.rapid.txt()
-      case Speed.Classical => I18nKey.classical.txt()
+      case Speed.Bullet    => I18nKey.site.bullet.txt()
+      case Speed.Blitz     => I18nKey.site.blitz.txt()
+      case Speed.Rapid     => I18nKey.site.rapid.txt()
+      case Speed.Classical => I18nKey.site.classical.txt()
       case _               => name
     case UltraBullet extends Speed(5)
     case HyperBullet extends Speed(10)

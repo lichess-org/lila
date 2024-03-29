@@ -44,7 +44,7 @@ object index:
         div(cls := "round__underboard")(
           views.html.round.bits.crosstable(cross, pov.game),
           div(cls := "tv-history")(
-            h2(trans.previouslyOnLichessTV()),
+            h2(trans.site.previouslyOnLichessTV()),
             div(cls := "now-playing")(
               history.map { views.html.game.mini(_) }
             )

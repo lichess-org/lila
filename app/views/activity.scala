@@ -202,8 +202,8 @@ object activity:
             frag(
               a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color.name))(
                 pov.game.win.map(_ == pov.color) match
-                  case Some(true)  => trans.victory()
-                  case Some(false) => trans.defeat()
+                  case Some(true)  => trans.site.victory()
+                  case Some(false) => trans.site.defeat()
                   case _           => "Draw"
               ),
               " vs ",
@@ -356,16 +356,20 @@ object activity:
   private val winTag   = tag("win")
 
   private def scoreFrag(s: Score)(using Context) = raw:
-    s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr(
+    s"""<score>${scoreStr("win", s.win, trans.site.nbWins)}${scoreStr(
+        "draw",
+        s.draw,
+        trans.site.nbDraws
+      )}${scoreStr(
         "loss",
         s.loss,
-        trans.nbLosses
+        trans.site.nbLosses
       )}</score>"""
 
   private def ratingProgFrag(r: RatingProg)(using ctx: Context) =
     ctx.pref.showRatings.option(ratingTag(r.after.value, ratingProgress(r.diff)))
 
-  private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(using Context) =
+  private def scoreStr(tag: String, p: Int, name: lila.hub.i18n.I18nKey)(using Translate) =
     if p == 0 then ""
     else s"""<$tag>${wrapNumber(name.pluralSameTxt(p))}</$tag>"""
 

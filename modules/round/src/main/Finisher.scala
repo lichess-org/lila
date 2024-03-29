@@ -44,7 +44,7 @@ final private class Finisher(
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     else if game.player(!game.player.color).isOfferingDraw then
-      apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some)
+      apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some)
     else
       val winner = Some(!game.player.color).ifFalse(game.situation.opponentHasInsufficientMaterial)
       apply(game, _.Outoftime, winner).andDo:

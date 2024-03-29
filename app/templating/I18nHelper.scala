@@ -12,19 +12,24 @@ import lila.hub.i18n.{ I18nKey, Translate }
 
 trait I18nHelper:
 
+  export lila.hub.i18n.Translate
+  export lila.hub.i18n.I18nKey as trans
   export LangList.{ nameByStr as langName }
+  export I18nKey.{ txt, pluralTxt, pluralSameTxt, apply, plural, pluralSame }
 
-  given (using ctx: Context): Lang    = ctx.lang
-  given lila.hub.i18n.Translator      = lila.i18n.Translator
-  given (using lang: Lang): Translate = lila.i18n.Translator.to(lang)
+  // given ctxLang(using ctx: Context): Lang       = ctx.lang
+  given ctxTrans(using ctx: Context): Translate = ctx.translate
+  // given lila.hub.i18n.Translator       = lila.i18n.Translator
+  // given (using lang: Lang): Translate           = lila.i18n.Translator.to(lang)
+  given transLang(using trans: Translate): Lang = trans.lang
 
-  def transKey(key: I18nKey, args: Seq[Matchable] = Nil)(using lang: Lang): Frag =
-    Translator.frag.literal(key, args, lang)
+  def transKey(key: I18nKey, args: Seq[Matchable] = Nil)(using t: Translate): Frag =
+    Translator.frag.literal(key, args, t.lang)
 
-  def i18nJsObject(keys: Seq[I18nKey])(using Lang): JsObject =
+  def i18nJsObject(keys: Seq[I18nKey])(using Translate): JsObject =
     JsDump.keysToObject(keys)
 
-  def i18nOptionJsObject(keys: Option[I18nKey]*)(using Lang): JsObject =
+  def i18nOptionJsObject(keys: Option[I18nKey]*)(using Translate): JsObject =
     JsDump.keysToObject(keys.flatten)
 
   def shortLangName(str: String) = langName(str).takeWhile(','.!=)

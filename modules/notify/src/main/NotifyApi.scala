@@ -8,9 +8,9 @@ import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.hub.actorApi.socket.{ SendTo, SendTos }
-import lila.i18n.*
 import lila.memo.CacheApi.*
 import lila.user.{ User, UserRepo }
+import lila.i18n.I18nLangPicker
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
@@ -19,7 +19,7 @@ final class NotifyApi(
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage
-)(using Executor):
+)(using Executor)(using translator: lila.hub.i18n.Translator):
 
   import Notification.*
   import BSONHandlers.given
@@ -145,7 +145,7 @@ final class NotifyApi(
               notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
               langStr       <- userRepo.langOf(note.to)
               lang = I18nLangPicker.byStrOrDefault(langStr)
-            yield jsonHandlers(notifications)(using lang)
+            yield jsonHandlers(notifications)(using translator.to(lang))
         ),
         "socketUsers"
       )

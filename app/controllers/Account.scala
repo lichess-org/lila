@@ -184,7 +184,7 @@ final class Account(
             env.security.emailChange
               .send(me, newUserEmail.email)
               .inject(Redirect(routes.Account.email).flashSuccess:
-                lila.hub.i18n.I18nKey.checkYourEmail.txt()
+                lila.hub.i18n.I18nKey.site.checkYourEmail.txt()
               )
   }
 

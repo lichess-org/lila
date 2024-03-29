@@ -19,7 +19,7 @@ object contact:
   def contactEmailLinkEmpty(email: String = contactEmailInClear) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
   def contactEmailLink(email: String = contactEmailInClear)(using PageContext) =
-    contactEmailLinkEmpty(email)(trans.clickToRevealEmailAddress())
+    contactEmailLinkEmpty(email)(trans.site.clickToRevealEmailAddress())
 
   private def reopenLeaf(prefix: String)(using PageContext) =
     Leaf(

@@ -10,15 +10,15 @@ object email:
 
   def apply(form: play.api.data.Form[?])(using PageContext) =
     account.layout(
-      title = trans.changeEmail.txt(),
+      title = trans.site.changeEmail.txt(),
       active = "email"
     ):
       div(cls := "box box-pad")(
-        h1(cls := "box__top")(trans.changeEmail()),
-        standardFlash | flashMessage("warning")(trans.emailSuggestion()),
+        h1(cls := "box__top")(trans.site.changeEmail()),
+        standardFlash | flashMessage("warning")(trans.site.emailSuggestion()),
         postForm(cls := "form3", action := routes.Account.emailApply)(
-          form3.passwordModified(form("passwd"), trans.password())(autofocus),
-          form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(required)),
-          form3.action(form3.submit(trans.apply()))
+          form3.passwordModified(form("passwd"), trans.site.password())(autofocus),
+          form3.group(form("email"), trans.site.email())(form3.input(_, typ = "email")(required)),
+          form3.action(form3.submit(trans.site.apply()))
         )
       )

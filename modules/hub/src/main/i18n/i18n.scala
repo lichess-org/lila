@@ -25,6 +25,7 @@ trait Translator:
   val txt: TranslatorTxt
   val frag: TranslatorFrag
   def to(lang: Lang): Translate
+  def toDefault: Translate
 trait TranslatorTxt:
   def literal(key: I18nKey, args: Seq[Any], lang: Lang): String
   def plural(key: I18nKey, count: Count, args: Seq[Any], lang: Lang): String
@@ -34,8 +35,4 @@ trait TranslatorFrag:
 
 case class Translate(translator: Translator, lang: Lang)
 object Translate:
-  // given Conversion[Translate, Translator]                = _.translator
-  // given Conversion[Translate, Lang] = _.lang
-  // given (using translate: Translate): Translator         = translate.translator
-  // given (using translate: Translate): Lang               = translate.lang
   given (using trans: Translator, lang: Lang): Translate = trans.to(lang)

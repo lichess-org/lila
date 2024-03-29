@@ -16,5 +16,9 @@ private object bits:
         div(cls := "page-menu__content box")(modifiers)
       )
 
-  val tcTrans: List[(FideTC, lila.i18n.I18nKey)] =
-    List(FideTC.standard -> trans.classical, FideTC.rapid -> trans.rapid, FideTC.blitz -> trans.blitz)
+  val tcTrans: List[(FideTC, lila.hub.i18n.I18nKey)] =
+    List(
+      FideTC.standard -> trans.site.classical,
+      FideTC.rapid    -> trans.site.rapid,
+      FideTC.blitz    -> trans.site.blitz
+    )

@@ -84,7 +84,7 @@ object bits:
   def others(playing: List[Pov], simul: Option[lila.simul.Simul])(using Context) =
     frag(
       h3(
-        simul.fold(trans.currentGames()): s =>
+        simul.fold(trans.site.currentGames()): s =>
           span(cls := "simul")(
             a(href := routes.Simul.show(s.id))("SIMUL"),
             span(cls := "win")(s.wins, " W"),
@@ -97,8 +97,8 @@ object bits:
             " ongoing"
           ),
         "round-toggle-autoswitch".pipe: id =>
-          span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
-            label(`for` := id)(trans.autoSwitch()),
+          span(cls := "move-on switcher", st.title := trans.site.automaticallyProceedToNextGameAfterMoving.txt())(
+            label(`for` := id)(trans.site.autoSwitch()),
             span(cls := "switch")(form3.cmnToggle(id, id, checked = false))
           )
       ),
@@ -122,7 +122,7 @@ object bits:
                 span(cls := "indicator")(
                   if pov.isMyTurn then
                     pov.remainingSeconds
-                      .fold[Frag](trans.yourTurn())(secondsFromNow(_, alwaysRelative = true))
+                      .fold[Frag](trans.site.yourTurn())(secondsFromNow(_, alwaysRelative = true))
                   else nbsp
                 )
               )

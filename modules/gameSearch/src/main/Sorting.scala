@@ -11,7 +11,7 @@ object Sorting:
   def fields(using Translate) = List(
     Fields.date          -> trans.search.date.txt(),
     Fields.turns         -> trans.search.nbTurns.txt(),
-    Fields.averageRating -> trans.rating.txt()
+    Fields.averageRating -> trans.site.rating.txt()
   )
 
   def orders(using Translate) = List(

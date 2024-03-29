@@ -11,7 +11,7 @@ object games:
       ctx: PageContext
   ) =
     views.html.base.layout(
-      title = s"${channel.name} • ${trans.currentGames.txt()}",
+      title = s"${channel.name} • ${trans.site.currentGames.txt()}",
       moreCss = cssTag("tv.games"),
       moreJs = jsModule("tvGames")
     ) {
