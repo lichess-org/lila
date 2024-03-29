@@ -79,7 +79,7 @@ final private class Biter(
       ),
       players = users.mapWithColor(Player.make),
       mode = hook.realMode,
-      source = lila.game.Source.Lobby,
+      source = lila.hub.game.Source.Lobby,
       pgnImport = None
     )
     .start
@@ -92,7 +92,7 @@ final private class Biter(
       ),
       players = users.mapWithColor(Player.make),
       mode = seek.realMode,
-      source = lila.game.Source.Lobby,
+      source = lila.hub.game.Source.Lobby,
       daysPerTurn = seek.daysPerTurn,
       pgnImport = None
     )

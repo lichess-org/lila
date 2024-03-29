@@ -6,7 +6,7 @@ import chess.{ ByColor, Mode, Situation }
 
 import scala.util.chaining.*
 
-import lila.game.{ Game, Player, Pov, Source }
+import lila.game.{ Game, Player, Pov }
 import lila.user.GameUser
 
 final private class ChallengeJoiner(
@@ -44,7 +44,7 @@ private object ChallengeJoiner:
         players = ByColor: color =>
           Player.make(color, if c.finalColor == color then origUser else destUser),
         mode = if chessGame.board.variant.fromPosition then Mode.Casual else c.mode,
-        source = Source.Friend,
+        source = lila.hub.game.Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,
         rules = c.rules

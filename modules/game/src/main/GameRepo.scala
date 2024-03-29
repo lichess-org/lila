@@ -15,7 +15,7 @@ import lila.db.isDuplicateKey
 import lila.user.User
 import lila.hub.game.*
 
-final class GameRepo(val coll: Coll)(using Executor):
+final class GameRepo(val coll: Coll)(using Executor) extends lila.hub.game.GameRepo:
 
   import BSONHandlers.given
   import Game.{ BSONFields as F }

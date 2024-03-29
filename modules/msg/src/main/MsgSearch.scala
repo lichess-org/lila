@@ -11,7 +11,7 @@ final class MsgSearch(
     colls: MsgColls,
     userCache: lila.user.Cached,
     lightUserApi: lila.user.LightUserApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.hub.relation.RelationApi
 )(using Executor, Scheduler):
 
   import BsonHandlers.{ *, given }

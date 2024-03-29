@@ -3,7 +3,7 @@ package lila.study
 import lila.db.dsl.{ *, given }
 import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
-import lila.relation.{ Block, Follow }
+import lila.hub.relation.{ Block, Follow }
 import lila.security.Granter
 import lila.user.{ Me, User }
 import lila.hub.user.MyId
@@ -13,7 +13,7 @@ final private class StudyInvite(
     userRepo: lila.user.UserRepo,
     notifyApi: NotifyApi,
     prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.hub.relation.RelationApi
 )(using Executor):
 
   private val notifyRateLimit = lila.memo.RateLimit[UserId](

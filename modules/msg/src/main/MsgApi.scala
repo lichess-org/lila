@@ -6,14 +6,14 @@ import reactivemongo.akkastream.cursorProducer
 import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
-import lila.relation.Relations
+import lila.hub.relation.Relations
 import lila.user.{ Me, User, UserRepo }
 
 final class MsgApi(
     colls: MsgColls,
     userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.hub.relation.RelationApi,
     json: MsgJson,
     notifier: MsgNotify,
     security: MsgSecurity,

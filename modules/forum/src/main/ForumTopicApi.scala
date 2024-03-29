@@ -27,7 +27,7 @@ final private class ForumTopicApi(
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.hub.relation.RelationApi
 )(using Executor):
 
   import BSONHandlers.given

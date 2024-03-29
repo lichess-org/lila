@@ -17,7 +17,7 @@ class AnnotatorTest extends munit.FunSuite:
         g,
         ByColor(lila.game.Player.make(_, none)),
         mode = chess.Mode.Casual,
-        source = lila.game.Source.Api,
+        source = lila.hub.game.Source.Api,
         pgnImport = none
       )
       .sloppy

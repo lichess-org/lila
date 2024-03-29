@@ -2,8 +2,6 @@ package lila.relation
 
 export lila.Lila.{ *, given }
 
-type Relation = Boolean
-val Follow: Relation = true
-val Block: Relation  = false
+export lila.hub.relation.{ Relation, Block, Follow }
 
 private type OnlineStudyingCache = com.github.blemale.scaffeine.Cache[UserId, String]

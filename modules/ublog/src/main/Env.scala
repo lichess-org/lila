@@ -14,7 +14,7 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.hub.relation.RelationApi,
     shutup: lila.hub.actors.Shutup,
     captcher: lila.hub.actors.Captcher,
     cacheApi: lila.memo.CacheApi,

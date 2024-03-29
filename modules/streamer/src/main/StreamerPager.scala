@@ -11,7 +11,7 @@ final class StreamerPager(
     userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
     maxPerPage: lila.common.config.MaxPerPage,
-    subsRepo: lila.relation.SubscriptionRepo
+    subsRepo: lila.hub.relation.SubscriptionRepo
 )(using Executor):
 
   import BsonHandlers.given

@@ -12,6 +12,7 @@ import lila.hub.actors
 import lila.memo.CacheApi.*
 import lila.relation.BSONHandlers.given
 import lila.user.User
+import lila.hub.relation.Relations
 
 final class RelationApi(
     repo: RelationRepo,
@@ -21,11 +22,9 @@ final class RelationApi(
     userRepo: lila.user.UserRepo,
     config: RelationConfig
 )(using Executor)
-    extends lila.hub.relation.RelationApi:
+    extends lila.hub.relation.RelationApi(repo.coll):
 
   import RelationRepo.makeId
-
-  val coll = repo.coll
 
   def fetchRelation(u1: UserId, u2: UserId): Fu[Option[Relation]] =
     (u1 != u2).so(coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r"))
@@ -42,7 +41,7 @@ final class RelationApi(
     filterBlocked
   }
 
-  def fetchFriends(userId: UserId) =
+  def fetchFriends(userId: UserId): Fu[Set[UserId]] =
     coll
       .aggregateWith[Bdoc](readPreference = ReadPref.sec): framework =>
         import framework.*
@@ -190,7 +189,8 @@ final class RelationApi(
       else funit
     })
 
-  def searchFollowedBy(u: User, term: UserSearch, max: Int): Fu[List[UserId]] =
-    repo.followingLike(u.id, term).map { list =>
-      lila.common.Heapsort.topN(list, max)(using stringOrdering[UserId].reverse)
-    }
+  def searchFollowedBy(u: UserId, term: UserSearch, max: Int): Fu[List[UserId]] =
+    repo
+      .followingLike(u, term)
+      .map: list =>
+        lila.common.Heapsort.topN(list, max)(using stringOrdering[UserId].reverse)

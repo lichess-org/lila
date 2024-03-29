@@ -21,7 +21,7 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.hub.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     memberRepo: lila.team.TeamMemberRepo,
     teamCache: lila.team.Cached

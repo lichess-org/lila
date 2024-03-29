@@ -19,7 +19,7 @@ final class Env(
     getLightUserSync: lila.common.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
-    subsRepo: lila.relation.SubscriptionRepo,
+    subsRepo: lila.hub.relation.SubscriptionRepo,
     jsDump: lila.hub.i18n.JsDump,
     langPicker: lila.hub.i18n.LangPicker
 )(using Executor, ActorSystem, Materializer, lila.hub.i18n.Translator):
@@ -48,9 +48,10 @@ final class Env(
               api.notifyOne(userId, CorresAlarm(gameId = pov.gameId, opponent = opponent))
     },
     "streamStart" -> { case lila.hub.actorApi.streamer.StreamStart(userId, streamerName) =>
-      subsRepo.subscribersOnlineSince(userId, 7).map { subs =>
-        api.notifyMany(subs, StreamStart(userId, streamerName))
-      }
+      subsRepo
+        .subscribersOnlineSince(userId, 7)
+        .map: subs =>
+          api.notifyMany(subs, StreamStart(userId, streamerName))
     }
   )
 

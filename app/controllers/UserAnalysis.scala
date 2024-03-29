@@ -80,7 +80,7 @@ final class UserAnalysis(
           ),
           players = ByColor(lila.game.Player.make(_, none)),
           mode = chess.Mode.Casual,
-          source = lila.game.Source.Api,
+          source = lila.hub.game.Source.Api,
           pgnImport = None
         )
         .withId(lila.game.Game.syntheticId),

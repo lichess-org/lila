@@ -5,9 +5,10 @@ import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, Uptime }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Pov, Source }
+import lila.game.{ Game, Pov }
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.{ NoteApi, UserRepo }
+import lila.hub.game.Source
 
 final class PlaybanApi(
     coll: Coll,

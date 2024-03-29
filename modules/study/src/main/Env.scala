@@ -22,7 +22,7 @@ final class Env(
     federations: lila.hub.fide.Federation.FedsOf,
     federationNames: lila.hub.fide.Federation.NamesOf,
     prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.hub.relation.RelationApi,
     socketKit: lila.hub.socket.SocketKit,
     socketReq: lila.hub.socket.SocketRequester,
     timeline: lila.hub.actors.Timeline,

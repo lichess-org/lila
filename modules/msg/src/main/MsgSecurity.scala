@@ -15,7 +15,7 @@ final private class MsgSecurity(
     prefApi: lila.pref.PrefApi,
     userRepo: lila.user.UserRepo,
     getBotUserIds: lila.user.GetBotIds,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.hub.relation.RelationApi,
     spam: lila.security.Spam,
     chatPanicAllowed: lila.hub.chat.panic.IsAllowed
 )(using Executor, Scheduler):

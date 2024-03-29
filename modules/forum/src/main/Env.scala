@@ -10,7 +10,7 @@ import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.pref.PrefApi
-import lila.relation.RelationApi
+import lila.hub.relation.RelationApi
 import lila.user.User
 
 @Module

@@ -4,9 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 
-final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
-    ec: Executor
-):
+final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(using Executor):
 
   import RelationRepo.*
   val coll = colls.relation

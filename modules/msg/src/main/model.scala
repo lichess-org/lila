@@ -1,7 +1,7 @@
 package lila.msg
 
 import lila.common.LightUser
-import lila.relation.Relations
+import lila.hub.relation.Relations
 import lila.user.User
 
 case class MsgConvo(

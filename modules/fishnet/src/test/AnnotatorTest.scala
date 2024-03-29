@@ -60,7 +60,7 @@ case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expec
         g,
         ByColor(lila.game.Player.make(_, none)),
         mode = chess.Mode.Casual,
-        source = lila.game.Source.Api,
+        source = lila.hub.game.Source.Api,
         pgnImport = none
       )
       .sloppy

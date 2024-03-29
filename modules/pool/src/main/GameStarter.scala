@@ -66,5 +66,5 @@ final private class GameStarter(
       mode = chess.Mode.Rated,
       status = chess.Status.Created,
       daysPerTurn = none,
-      metadata = Game.metadata(lila.game.Source.Pool)
+      metadata = Game.metadata(lila.hub.game.Source.Pool)
     )

@@ -105,7 +105,7 @@ object Query:
 
   def winnerColors(using Translate) = List(1 -> trans.site.white.txt(), 2 -> trans.site.black.txt())
 
-  val sources = lila.game.Source.searchable.map { v =>
+  val sources = lila.hub.game.Source.searchable.map { v =>
     v.id -> v.name.capitalize
   }
 

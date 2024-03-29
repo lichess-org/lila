@@ -5,7 +5,7 @@ import chess.variant.*
 import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation }
 
 import lila.common.Bus
-import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches, Source }
+import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches }
 import lila.hub.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.memo.ExpireSetMemo
 import lila.user.{ GameUsers, UserApi }
@@ -104,7 +104,7 @@ final private class Rematcher(
         chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),
         mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
-        source = pov.game.source | Source.Lobby,
+        source = pov.game.source | lila.hub.game.Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
       )

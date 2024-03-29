@@ -2,7 +2,7 @@ package lila.tournament
 
 import chess.{ Black, ByColor, Color, White }
 
-import lila.game.{ Game, GameRepo, Player as GamePlayer, Source }
+import lila.game.{ Game, GameRepo, Player as GamePlayer }
 
 final class AutoPairing(
     gameRepo: GameRepo,
@@ -27,7 +27,7 @@ final class AutoPairing(
           .copy(clock = clock.some),
         players = ByColor(makePlayer(White, pairing.player1), makePlayer(Black, pairing.player2)),
         mode = tour.mode,
-        source = Source.Arena,
+        source = lila.hub.game.Source.Arena,
         pgnImport = None
       )
       .withId(pairing.pairing.gameId)

@@ -5,10 +5,11 @@ import chess.variant.Variant
 import chess.{ ByColor, Clock }
 
 import lila.common.Days
-import lila.game.{ Game, IdGenerator, Player, Pov, Source }
+import lila.game.{ Game, IdGenerator, Player, Pov }
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.user.GameUser
+import lila.hub.game.Source
 
 case class AiConfig(
     variant: chess.variant.Variant,

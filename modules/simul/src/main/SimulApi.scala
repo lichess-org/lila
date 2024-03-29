@@ -252,7 +252,7 @@ final class SimulApi(
         .copy(clock = clock.start.some),
       players = users.mapWithColor((c, u) => lila.game.Player.make(c, u.only(perfType).some)),
       mode = chess.Mode.Casual,
-      source = lila.game.Source.Simul,
+      source = lila.hub.game.Source.Simul,
       pgnImport = None
     )
     game2 = game1

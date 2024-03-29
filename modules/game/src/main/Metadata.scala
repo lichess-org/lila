@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 
 import lila.db.ByteArray
-import lila.hub.game.GameRule
+import lila.hub.game.{ Source, GameRule }
 
 private[game] case class Metadata(
     source: Option[Source],

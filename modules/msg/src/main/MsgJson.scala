@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.LightUser
-import lila.relation.Relations
+import lila.hub.relation.Relations
 import lila.user.Me
 
 final class MsgJson(

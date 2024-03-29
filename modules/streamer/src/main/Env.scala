@@ -30,7 +30,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    subsRepo: lila.relation.SubscriptionRepo,
+    subsRepo: lila.hub.relation.SubscriptionRepo,
     prefApi: lila.pref.PrefApi,
     db: lila.db.Db,
     net: lila.common.config.NetConfig

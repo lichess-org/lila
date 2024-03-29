@@ -16,8 +16,8 @@ private class ShutupConfig(
 final class Env(
     appConfig: Configuration,
     reporter: lila.hub.actors.Report,
-    relationApi: lila.relation.RelationApi,
-    gameRepo: lila.game.GameRepo,
+    relationApi: lila.hub.relation.RelationApi,
+    gameRepo: lila.hub.game.GameRepo,
     userRepo: UserRepo,
     db: lila.db.Db
 )(using ec: Executor, system: ActorSystem):

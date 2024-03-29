@@ -6,6 +6,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.common.LightUser
+import lila.hub.game.Source
 
 final class JsonView(rematches: Rematches):
 

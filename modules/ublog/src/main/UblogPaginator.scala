@@ -12,7 +12,7 @@ import lila.user.{ Me, User }
 
 final class UblogPaginator(
     colls: UblogColls,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.hub.relation.RelationApi,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
@@ -136,7 +136,7 @@ final class UblogPaginator(
         relationApi.coll
           .aggregateList(length, _.sec) { framework =>
             import framework.*
-            Match($doc("u1" -> userId, "r" -> lila.relation.Follow)) -> List(
+            Match($doc("u1" -> userId, "r" -> lila.hub.relation.Follow)) -> List(
               Group(BSONNull)("ids" -> PushField("u2")),
               PipelineOperator:
                 $lookup.pipelineFull(

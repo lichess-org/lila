@@ -7,7 +7,7 @@ import lila.security.Permission
 import lila.user.UserRepo
 
 final private[timeline] class TimelinePush(
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.hub.relation.RelationApi,
     userRepo: UserRepo,
     entryApi: EntryApi,
     unsubApi: UnsubApi,
