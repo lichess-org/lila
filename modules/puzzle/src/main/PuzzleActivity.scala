@@ -25,8 +25,8 @@ final class PuzzleActivity(
     val timeQueries = List(
       config.before.map(before => $doc(PuzzleRound.BSONFields.date.$lt(before))),
       config.since.map(since => $doc(PuzzleRound.BSONFields.date.$gte(since)))
-    )
-    val finalQuery = timeQueries.flatten.foldLeft(baseQuery)(_ ++ _)
+    ).flatten
+    val finalQuery = baseQuery.++(timeQueries*)
 
     Source.futureSource(
       colls.round
