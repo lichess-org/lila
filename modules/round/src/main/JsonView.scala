@@ -206,7 +206,8 @@ final class JsonView(
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
-                "clockTenths"       -> pref.clockTenths
+                "clockTenths"       -> pref.clockTenths,
+                "keyboardMove" -> pref.hasKeyboardMove
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)

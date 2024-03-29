@@ -119,6 +119,7 @@ object replay:
       moreCss = frag(
         cssTag("analyse.round"),
         (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
+        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
       moreJs = analyseNvuiTag,
