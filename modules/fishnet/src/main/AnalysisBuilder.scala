@@ -4,8 +4,7 @@ import chess.Ply
 import chess.format.Uci
 import chess.format.pgn.SanStr
 
-import lila.analyse.{ Analysis, Info }
-import lila.tree.Eval
+import lila.tree.{ Analysis, Eval, Info }
 
 import JsonApi.Request.Evaluation
 import Evaluation.EvalOrSkip
