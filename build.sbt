@@ -142,7 +142,7 @@ lazy val feed = module("feed",
 )
 
 lazy val ublog = module("ublog",
-  Seq(timeline),
+  Seq(irc,relation,security),
   Seq(bloomFilter) ++ reactivemongo.bundle
 )
 
@@ -260,7 +260,7 @@ lazy val activity = module("activity",
 )
 
 lazy val lobby = module("lobby",
-  Seq(timeline, pool),
+  Seq( pool, round),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
@@ -380,7 +380,7 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(lobby),
+  Seq(lobby, forum),
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
