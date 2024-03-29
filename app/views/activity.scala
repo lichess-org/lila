@@ -265,7 +265,7 @@ object activity:
       )
     )
 
-  private def renderStudies(studies: List[lila.study.Study.IdName])(using Context) =
+  private def renderStudies(studies: List[lila.hub.study.IdName])(using Context) =
     entryTag(
       iconTag(licon.StudyBoard),
       div(

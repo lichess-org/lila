@@ -14,7 +14,7 @@ final class Env(
     forumPostApi: lila.forum.ForumPostApi,
     ublogApi: lila.hub.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
-    studyApi: lila.study.StudyApi,
+    studyApi: lila.hub.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
     teamRepo: lila.team.TeamRepo,
@@ -70,7 +70,7 @@ final class Env(
     case CorresMoveEvent(move, Some(userId), _, _, _)    => write.corresMove(move.gameId, userId)
     case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
     case lila.hub.actorApi.relation.Follow(from, to)     => write.follow(from, to)
-    case lila.study.actorApi.StartStudy(id)              =>
+    case lila.hub.study.StartStudy(id)                   =>
       // wait some time in case the study turns private
       scheduler.scheduleOnce(5 minutes) { write.study(id) }
     case lila.hub.actorApi.team.CreateTeam(id, _, userId)  => write.team(id, userId)

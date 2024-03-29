@@ -7,7 +7,6 @@ import lila.common.Json.{ *, given }
 import lila.game.LightPov
 import lila.rating.PerfType
 import lila.simul.Simul
-import lila.study.JsonView.given
 import lila.tournament.LeaderboardApi.{ Entry as TourEntry, Ratio as TourRatio }
 import lila.user.User
 
@@ -66,23 +65,22 @@ final class JsonView(
         "score"    -> Score(s.wins, s.losses, s.draws, none)
       )
     }
-    given lightPlayerWrites: OWrites[lila.game.LightPlayer] = OWrites { p =>
+    given lightPlayerWrites: OWrites[lila.game.LightPlayer] = OWrites: p =>
       Json
         .obj()
         .add("aiLevel" -> p.aiLevel)
         .add("user" -> p.userId)
         .add("rating" -> p.rating)
-    }
+
     given OWrites[lila.game.Player] = lightPlayerWrites.contramap(_.light)
 
-    given OWrites[LightPov] = OWrites { p =>
+    given OWrites[LightPov] = OWrites: p =>
       Json.obj(
         "id"       -> p.game.id,
         "color"    -> p.color,
         "url"      -> s"/${p.game.id}/${p.color.name}",
         "opponent" -> p.opponent
       )
-    }
     given Writes[FollowList] = Json.writes
     given Writes[Follows]    = Json.writes
     given Writes[Teams] = Writes: s =>
@@ -92,8 +90,9 @@ final class JsonView(
     given Writes[Patron] = Json.writes
   import Writers.{ *, given }
 
-  def apply(a: ActivityView, user: User)(using lang: Lang): Fu[JsObject] =
-    fuccess {
+  private given OWrites[lila.hub.study.IdName] = Json.writes
+  def apply(a: ActivityView, user: User)(using Lang): Fu[JsObject] =
+    fuccess:
       Json
         .obj("interval" -> a.interval)
         .add("games", a.games)
@@ -140,4 +139,3 @@ final class JsonView(
         }))
         .add("patron" -> a.patron)
         .add("stream" -> a.stream)
-    }

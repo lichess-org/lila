@@ -126,7 +126,7 @@ object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject)
 
-  given OWrites[Study.IdName] = Json.writes
+  given OWrites[lila.hub.study.IdName] = Json.writes
 
   def metadata(study: Study) = Json.obj(
     "id"        -> study.id,
@@ -177,8 +177,8 @@ object JsonView:
 
   private given Reads[Square] = Reads: v =>
     (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
-  private[study] given Writes[Sri]              = writeAs(_.value)
-  private[study] given Writes[Study.Visibility] = writeAs(_.key)
+  private[study] given Writes[Sri]                       = writeAs(_.value)
+  private[study] given Writes[lila.hub.study.Visibility] = writeAs(_.toString)
   private[study] given Writes[Study.From] = Writes:
     case Study.From.Scratch   => JsString("scratch")
     case Study.From.Game(id)  => Json.obj("game" -> id)

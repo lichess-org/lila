@@ -326,7 +326,7 @@ final class RelayApi(
               s,
               _.copy(
                 id = round.studyId,
-                visibility = Study.Visibility.Public
+                visibility = lila.hub.study.Visibility.public
               )
             ) >>
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))

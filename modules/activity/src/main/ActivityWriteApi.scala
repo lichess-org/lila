@@ -9,7 +9,7 @@ import lila.user.User
 
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
-    studyApi: lila.study.StudyApi,
+    studyApi: lila.hub.study.StudyApi,
     userRepo: lila.user.UserRepo
 )(using Executor):
 
@@ -110,7 +110,7 @@ final class ActivityWriteApi(
     studyApi
       .byId(id)
       .flatMap:
-        _.filter(_.isPublic).so: s =>
+        _.filter(_.visibility == lila.hub.study.Visibility.public).so: s =>
           userRepo
             .isTroll(s.ownerId)
             .not

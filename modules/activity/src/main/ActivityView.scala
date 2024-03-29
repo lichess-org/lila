@@ -2,7 +2,6 @@ package lila.activity
 
 import lila.game.LightPov
 import lila.simul.Simul
-import lila.study.Study
 import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi.Entry as TourEntry
 import lila.hub.ublog.UblogPost
@@ -25,7 +24,7 @@ case class ActivityView(
     corresMoves: Option[(Int, List[LightPov])] = None,
     corresEnds: Option[(Score, List[LightPov])] = None,
     follows: Option[Follows] = None,
-    studies: Option[List[Study.IdName]] = None,
+    studies: Option[List[lila.hub.study.IdName]] = None,
     teams: Option[Teams] = None,
     tours: Option[ActivityView.Tours] = None,
     swisses: Option[List[(Swiss.IdName, Rank)]] = None,

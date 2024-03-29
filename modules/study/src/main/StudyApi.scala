@@ -10,6 +10,7 @@ import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
 import lila.hub.socket.Sri
+import lila.hub.{ study as hub }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.{ MyId, User }
@@ -30,7 +31,8 @@ final class StudyApi(
     timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi
-)(using Executor, akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer)
+    extends lila.hub.study.StudyApi:
 
   import sequencer.*
 
@@ -120,14 +122,12 @@ final class StudyApi(
       withRatings: Boolean
   ): Fu[Option[Study.WithChapter]] = data.form.as match
     case StudyForm.importGame.As.NewStudy =>
-      create(data, user, withRatings).addEffect {
-        _.so { sc =>
-          Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
-        }
-      }
+      create(data, user, withRatings).addEffect:
+        _.so: sc =>
+          Bus.publish(hub.StartStudy(sc.study.id), "startStudy")
     case StudyForm.importGame.As.ChapterOf(studyId) =>
       byId(studyId)
-        .flatMap {
+        .flatMap:
           case Some(study) if study.canContribute(user.id) =>
             addChapter(
               studyId = study.id,
@@ -136,7 +136,6 @@ final class StudyApi(
               withRatings
             )(Who(user.id, Sri(""))) >> byIdWithLastChapter(studyId)
           case _ => fuccess(none)
-        }
         .orElse(importGame(data.copy(form = data.form.copy(asStr = none)), user, withRatings))
 
   def create(
@@ -144,15 +143,14 @@ final class StudyApi(
       user: User,
       withRatings: Boolean,
       transform: Study => Study = identity
-  ): Fu[Option[Study.WithChapter]] =
-    studyMaker(data, user, withRatings)
-      .map { sc =>
-        sc.copy(study = transform(sc.study))
-      }
-      .flatMap { sc =>
-        (studyRepo.insert(sc.study) >>
-          chapterRepo.insert(sc.chapter)).andDo(indexStudy(sc.study)).inject(sc.some)
-      }
+  ): Fu[Option[Study.WithChapter]] = for
+    pre <- studyMaker(data, user, withRatings)
+    sc = pre.copy(study = transform(pre.study))
+    _ <- studyRepo.insert(sc.study)
+    _ <- chapterRepo.insert(sc.chapter)
+  yield
+    indexStudy(sc.study)
+    sc.some
 
   def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
     study <- justCloneNoChecks(me, prev, update)

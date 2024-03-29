@@ -56,8 +56,8 @@ object BSONHandlers:
     x => BSONString(x.toString)
   )
 
-  given studyIdNameHandler: BSONDocumentHandler[Study.IdName]     = Macros.handler
-  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName] = Macros.handler
+  given studyIdNameHandler: BSONDocumentHandler[lila.hub.study.IdName] = Macros.handler
+  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName]      = Macros.handler
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
@@ -365,10 +365,10 @@ object BSONHandlers:
         }),
       _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
     )
-  import Study.Visibility
+  import lila.hub.study.Visibility
   private[study] given BSONHandler[Visibility] = tryHandler[Visibility](
     { case BSONString(v) => Visibility.byKey.get(v).toTry(s"Invalid visibility $v") },
-    v => BSONString(v.key)
+    v => BSONString(v.toString)
   )
   import Study.From
   private[study] given BSONHandler[From] = tryHandler[From](
