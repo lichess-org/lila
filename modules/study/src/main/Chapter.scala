@@ -7,8 +7,8 @@ import chess.variant.Variant
 import chess.{ ByColor, Centis, Color, Outcome, Ply }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.hub.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.hub.tree.{ Branch, Root }
+import lila.tree.Node.{ Comment, Gamebook, Shapes }
+import lila.tree.{ Branch, Root }
 
 case class Chapter(
     @Key("_id") id: StudyChapterId,

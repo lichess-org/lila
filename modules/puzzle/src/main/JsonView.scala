@@ -7,7 +7,7 @@ import lila.common.Json.{ *, given }
 import lila.game.GameRepo
 import lila.rating.Perf
 import lila.user.Me
-import lila.hub.tree.{ Metas, NewBranch, NewTree }
+import lila.tree.{ Metas, NewBranch, NewTree }
 import lila.hub.i18n.{ Translate, Translator, defaultLang }
 import chess.format.*
 
@@ -17,7 +17,6 @@ final class JsonView(
 )(using Executor, Translator):
 
   import JsonView.*
-  // given Lang = defaultLang
 
   def apply(
       puzzle: Puzzle,

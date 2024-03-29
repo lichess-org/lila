@@ -1,5 +1,4 @@
-package lila.hub
-package tree
+package lila.tree
 
 import alleycats.Zero
 import monocle.syntax.all.*
@@ -14,7 +13,6 @@ import chess.Color
 import play.api.libs.json.*
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
-import lila.hub.eval.Eval
 
 case class Metas(
     ply: Ply,

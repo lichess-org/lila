@@ -4,7 +4,7 @@ import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 
 export lila.Lila.{ *, given }
-import lila.hub.eval.CloudEval
+import lila.tree.CloudEval
 
 extension (e: CloudEval)
   def multiPv = MultiPv(e.pvs.size)

@@ -9,7 +9,7 @@ import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, LpvEmbed }
 import lila.game.{ PgnDump, Pov }
 import lila.oauth.AccessToken
-import lila.round.JsonView.WithFlags
+import lila.tree.ExportOptions
 
 final class Analyse(
     env: Env,
@@ -63,7 +63,7 @@ final class Analyse(
                   lila.round.OnTv.User(u.id),
                 analysis,
                 initialFen = initialFen,
-                withFlags = WithFlags(
+                withFlags = ExportOptions(
                   movetimes = true,
                   clocks = true,
                   division = true,
