@@ -17,7 +17,8 @@ final class UblogApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     irc: lila.irc.IrcApi
-)(using Executor):
+)(using Executor)
+    extends lila.hub.ublog.UblogApi:
 
   import UblogBsonHandlers.{ *, given }
 
