@@ -19,7 +19,7 @@ final private class PushApi(
     roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
-    postApi: lila.forum.ForumPostApi
+    postApi: lila.hub.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
   import PushApi.*

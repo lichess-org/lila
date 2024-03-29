@@ -275,12 +275,12 @@ lazy val importer = module("importer",
 )
 
 lazy val insight = module("insight",
-  Seq(round),
+  Seq(analyse, security, pref),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
 lazy val tutor = module("tutor",
-  Seq(insight),
+  Seq(insight, fishnet),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -380,7 +380,7 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(lobby, forum),
+  Seq(lobby, round),
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 

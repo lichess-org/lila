@@ -1,6 +1,7 @@
 package lila.forum
 
 import ornicar.scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.security.Granter
 import lila.user.{ Me, User }
@@ -8,7 +9,7 @@ import lila.user.{ Me, User }
 case class OldVersion(text: String, createdAt: Instant)
 
 case class ForumPost(
-    _id: ForumPostId,
+    @Key("_id") id: ForumPostId,
     topicId: ForumTopicId,
     categId: ForumCategId,
     author: Option[String],
@@ -23,9 +24,7 @@ case class ForumPost(
     erasedAt: Option[Instant] = None,
     modIcon: Option[Boolean],
     reactions: Option[ForumPost.Reactions] = None
-):
-
-  inline def id = _id
+) extends lila.hub.forum.ForumPost:
 
   private def showAuthor: String =
     author.map(_.trim).filter("" !=) | (if ~modIcon then User.anonymous.value else User.anonMod)
@@ -122,7 +121,7 @@ object ForumPost:
       modIcon: Option[Boolean] = none
   ): ForumPost =
     ForumPost(
-      _id = ForumPostId(ThreadLocalRandom.nextString(idSize)),
+      id = ForumPostId(ThreadLocalRandom.nextString(idSize)),
       topicId = topicId,
       author = none,
       userId = userId,

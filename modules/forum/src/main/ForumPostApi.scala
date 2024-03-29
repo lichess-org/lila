@@ -22,7 +22,8 @@ final class ForumPostApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: DetectLanguage
-)(using Executor)(using scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler)
+    extends lila.hub.forum.ForumPostApi:
 
   import BSONHandlers.given
 
