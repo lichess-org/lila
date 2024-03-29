@@ -58,8 +58,7 @@ object ratingDistribution:
               .map { rating =>
                 val (under, sum) = lila.user.Stat.percentile(data, rating)
                 div(
-                  trans
-                    .nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
+                  trans.site.nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
                   br,
                   trans.site.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
                   br,

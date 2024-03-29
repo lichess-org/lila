@@ -32,7 +32,7 @@ object mini:
   def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
     val link = if tv then channelKey.fold(routes.Tv.index) { routes.Tv.onChannel }
     else routes.Round.watcher(pov.gameId, pov.color.name)
-    renderMini(pov, link.url.some)(using defaultLang, None)
+    renderMini(pov, link.url.some)(using lila.i18n.Translator.toDefault, None)
 
   private def renderMini(
       pov: Pov,

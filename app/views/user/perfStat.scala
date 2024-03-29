@@ -24,7 +24,7 @@ object perfStat:
         ratingChart.map: rc =>
           jsModuleInit(
             "chart.ratingHistory",
-            SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using lila.hub.i18n.defaultLang)}'}")
+            SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using ctxTrans.translator.toDefault)}'}")
           )
       ),
       moreCss = cssTag("perf-stat")
@@ -217,7 +217,9 @@ object perfStat:
       )
     case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
 
-  private def highlow(stat: PerfStat, pctLow: Option[Double], pctHigh: Option[Double])(using Translate): Frag =
+  private def highlow(stat: PerfStat, pctLow: Option[Double], pctHigh: Option[Double])(using
+      Translate
+  ): Frag =
     import stat.perfType
     def titleOf(v: Double) = trans.site.betterThanPercentPlayers.txt(s"$v%", perfType.trans)
     st.section(cls := "highlow split")(
@@ -238,7 +240,7 @@ object perfStat:
       case None => nbsp
 
   private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(using
-      Lang
+      Translate
   ): Frag =
     div(cls := "streak")(
       h3(
@@ -251,7 +253,7 @@ object perfStat:
     )
 
   private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String)(using
-      Lang
+      Translate
   ): Frag =
     div(
       h2(title),

@@ -60,11 +60,11 @@ object bits:
         )
       )
 
-  def scheduleJsI18n(using Context) = i18nJsObject(schedulei18nKeys)(ctxLang)
+  def scheduleJsI18n(using Context) = i18nJsObject(schedulei18nKeys)
 
   def jsI18n(tour: Tournament)(using Context) = i18nJsObject(
     i18nKeys ++ (tour.isTeamBattle.so(teamBattleI18nKeys))
-  )(ctxLang)
+  )
 
   private val i18nKeys = List(
     trans.site.standing,

@@ -51,12 +51,11 @@ object storm:
         (high.month, trans.storm.thisMonth),
         (high.week, trans.storm.thisWeek),
         (high.day, trans.site.today)
-      ).map { case (value, name) =>
+      ).map: (value, name) =>
         div(cls := "storm-dashboard__high__period")(
           strong(value),
           span(name())
         )
-      }
     )
 
   private val numberTag = tag("number")
@@ -132,8 +131,7 @@ object storm:
     )
 
   private val i18nKeys =
-    import lila.hub.i18n.I18nKey.{ site as trans }
-    import lila.hub.i18n.I18nKey.{ storm as s }
+    import trans.{ storm as s }
     List(
       s.moveToStart,
       s.puzzlesSolved,

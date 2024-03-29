@@ -14,7 +14,7 @@ object embed:
       title = "lichess.org chess puzzle",
       cssModule = "tv.embed"
     )(
-      dailyLink(daily)(using config.lang)(
+      dailyLink(daily)(using config.translate)(
         targetBlank,
         id  := "daily-puzzle",
         cls := "embedded"

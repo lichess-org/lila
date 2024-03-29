@@ -18,23 +18,19 @@ object leaderboard:
   private val section = st.section(cls := "tournament-leaderboards__item")
 
   private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String)(using
-      lang: Lang
+      Translate
   ) =
     section(
       h2(cls := "text", dataIcon := perfType.icon)(name),
       ul(
-        fws.yearly.map { w =>
-          freqWinner(w, "Yearly")
-        },
-        fws.monthly.map { w =>
-          freqWinner(w, "Monthly")
-        },
-        fws.weekly.map { w =>
-          freqWinner(w, "Weekly")
-        },
-        fws.daily.map { w =>
+        fws.yearly.map: w =>
+          freqWinner(w, "Yearly"),
+        fws.monthly.map: w =>
+          freqWinner(w, "Monthly"),
+        fws.weekly.map: w =>
+          freqWinner(w, "Weekly"),
+        fws.daily.map: w =>
           freqWinner(w, "Daily")
-        }
       )
     )
 

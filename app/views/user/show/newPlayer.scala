@@ -2,9 +2,9 @@ package views.html.user.show
 import controllers.routes
 import play.api.i18n.Lang
 
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
-import lila.hub.i18n.Translate
 
 object newPlayer:
 
