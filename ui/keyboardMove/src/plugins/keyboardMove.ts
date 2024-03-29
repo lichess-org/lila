@@ -35,6 +35,7 @@ export function initModule(opts: Opts) {
   const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
   const submit: Submit = (v: string, submitOpts: SubmitOpts) => {
+    console.log('submitted', v);
     if (!submitOpts.isTrusted) return;
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
@@ -146,6 +147,7 @@ export function initModule(opts: Opts) {
   makeBindings(opts, submit, clear);
   // returns a function that is called when any move is played
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
+    // console.log('move played, new dests', dests);
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     // this plays a premove if it is available in the input
     submit(opts.input.value, {

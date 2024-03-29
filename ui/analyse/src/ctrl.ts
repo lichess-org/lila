@@ -51,6 +51,7 @@ import { uciToMove } from 'chessground/util';
 import Persistence from './persistence';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
+import { KeyboardMove } from 'keyboardMove';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -123,6 +124,7 @@ export default class AnalyseCtrl {
   cgConfig: any; // latest chessground config (useful for revert)
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
+  keyboardMove?: KeyboardMove;
 
   constructor(
     readonly opts: AnalyseOpts,
@@ -398,6 +400,7 @@ export default class AnalyseCtrl {
     }
     site.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
+    this.auxUpdate(this.node.fen);
   }
 
   userJump = (path: Tree.Path): void => {
@@ -555,6 +558,7 @@ export default class AnalyseCtrl {
     this.tree.addDests(dests, path);
     if (path === this.path) {
       this.showGround();
+      this.auxUpdate(this.node.fen);
       if (this.outcome()) this.ceval.stop();
     }
     this.withCg(cg => cg.playPremove());
@@ -947,4 +951,12 @@ export default class AnalyseCtrl {
 
   withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined =>
     this.chessground && this.cgVersion.js === this.cgVersion.dom ? f(this.chessground) : undefined;
+
+  auxMove = () => {};
+  // auxMove=(orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => {};
+  flipNow = () => {};
+
+  auxUpdate = (fen: string) => {
+    this.keyboardMove?.update({ fen, canMove: true });
+  };
 }

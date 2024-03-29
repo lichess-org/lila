@@ -6,12 +6,35 @@ import { DrawShape } from 'chessground/draw';
 import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
 import * as Prefs from 'common/prefs';
+import { ctrl as makeKeyboardMove } from 'keyboardMove';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
     hook: {
       insert: vnode => {
         ctrl.chessground = site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl));
+        if (ctrl.data.pref.keyboardMove) {
+          ctrl.keyboardMove ??= makeKeyboardMove({
+            ...ctrl,
+            sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
+              console.log(orig, dest, prom, meta);
+              // ctrl.sendMove(
+              //   orig,
+              //   dest,
+              //   meta.captured && {
+              //     ...meta.captured,
+              //     promoted: false, // TODO
+              //   },
+              //   prom,
+              // );
+            },
+          });
+          ctrl.keyboardMove.update({
+            fen: ctrl.node.fen,
+            canMove: true, // TODO
+            cg: ctrl.chessground,
+          });
+        }
         ctrl.setAutoShapes();
         if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes as DrawShape[]);
         ctrl.cgVersion.dom = ctrl.cgVersion.js;

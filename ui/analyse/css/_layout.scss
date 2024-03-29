@@ -38,6 +38,10 @@ body {
     grid-area: controls;
   }
 
+  .keyboard-move {
+    grid-area: kb-move;
+  }
+
   &__underboard {
     grid-area: under;
 
@@ -88,6 +92,7 @@ body {
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board      gauge tools'
+      'kb-move    .     .'
       'under      .     controls'
       'under      .     round-training'
       'under      .     side'
@@ -121,6 +126,7 @@ body {
     grid-template-areas:
       'side    . board gauge tools'
       'chat    . board gauge tools'
+      'uchat   . kb-move .     controls'
       'uchat   . under .     controls'
       'uchat   . under .     round-training';
 

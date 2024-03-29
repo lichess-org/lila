@@ -9,6 +9,7 @@ import crazyView from '../crazy/crazyView';
 import AnalyseCtrl from '../ctrl';
 import forecastView from '../forecast/forecastView';
 import { view as keyboardView } from '../keyboard';
+import { render as renderKeyboardMove } from 'keyboardMove';
 import type * as studyDeps from '../study/studyDeps';
 import { relayView } from '../study/relay/relayView';
 import {
@@ -36,6 +37,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
     ctrl.keyboardHelp && keyboardView(ctrl),
     study && deps?.studyView.overboard(study),
     renderBoard(ctx),
+    ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     gaugeOn && cevalView.renderGauge(ctrl),
     !menuIsOpen && crazyView(ctrl, ctrl.topColor(), 'top'),
     gamebookPlayView || renderTools(ctx),
