@@ -5,8 +5,8 @@ import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comme
 import chess.format.{ pgn as chessPgn }
 
 import lila.common.String.slugify
-import lila.hub.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
-import lila.hub.tree.Node.{ Shape, Shapes }
+import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
+import lila.tree.Node.{ Shape, Shapes }
 import lila.analyse.Analysis
 
 final class PgnDump(

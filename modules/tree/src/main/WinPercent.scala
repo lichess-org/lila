@@ -1,12 +1,10 @@
-package lila.analyse
-
-import lila.hub.eval.Eval
+package lila.tree
 
 // How likely one is to win a position, based on subjective Stockfish centipawns
 opaque type WinPercent = Double
 object WinPercent extends OpaqueDouble[WinPercent]:
 
-  given lila.db.NoDbHandler[WinPercent] with {}
+  // given lila.db.NoDbHandler[WinPercent] with {}
   given Percent[WinPercent] = Percent.of(WinPercent)
 
   extension (a: WinPercent) def toInt = Percent.toInt(a)
@@ -24,7 +22,7 @@ object WinPercent extends OpaqueDouble[WinPercent]:
   inline def fromPercent(int: Int) = WinPercent(int.toDouble)
 
   // [-1, +1]
-  private[analyse] def winningChances(cp: Eval.Cp) = {
+  private[tree] def winningChances(cp: Eval.Cp) = {
     val MULTIPLIER = -0.00368208 // https://github.com/lichess-org/lila/pull/11148
     2 / (1 + Math.exp(MULTIPLIER * cp.value)) - 1
   }.atLeast(-1).atMost(+1)

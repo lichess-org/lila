@@ -1,5 +1,4 @@
-package lila.hub
-package eval
+package lila.tree
 
 import cats.data.NonEmptyList
 import chess.format.{ Uci, Fen }

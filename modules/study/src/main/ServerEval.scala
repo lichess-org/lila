@@ -8,8 +8,8 @@ import lila.analyse.{ Advice, Analysis, Info }
 import lila.db.dsl.bsonWriteOpt
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.security.Granter
-import lila.hub.tree.Node.Comment
-import lila.hub.tree.{ Branch, Node, Root }
+import lila.tree.Node.Comment
+import lila.tree.{ Branch, Node, Root }
 import lila.user.{ User, UserRepo }
 
 object ServerEval:

@@ -6,7 +6,7 @@ import play.api.libs.json.JsObject
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import lila.hub.eval.CloudEval
+import lila.tree.CloudEval
 
 final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.CacheApi)(using Executor):
 

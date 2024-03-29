@@ -2,8 +2,8 @@ package lila.puzzle
 
 import chess.format.{ Fen, Uci }
 import lila.rating.{ Glicko, Perf }
-import lila.hub.tree
-import lila.hub.tree.NewTree
+import lila.tree
+import lila.tree.NewTree
 
 class JsonViewTest extends munit.FunSuite:
 

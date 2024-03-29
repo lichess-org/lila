@@ -10,13 +10,13 @@ import lila.common.{ HTTPRequest, Preload }
 import lila.game.{ Game, Pov }
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
-import lila.round.JsonView.WithFlags
+import lila.tree.ExportOptions
 import lila.round.{ Forecast, JsonView }
 import lila.security.Granter
 import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
-import lila.hub.tree.Node.partitionTreeJsonWriter
+import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.{ GameUsers, User }
 import lila.hub.i18n.Translate
 
@@ -96,7 +96,7 @@ final private[api] class RoundApi(
   }.mon(_.round.api.watcher)
 
   private def ctxFlags(using ctx: Context) =
-    WithFlags(
+    ExportOptions(
       blurs = Granter.opt(_.ViewBlurs),
       rating = ctx.pref.showRatings,
       nvui = ctx.blind,
@@ -109,7 +109,7 @@ final private[api] class RoundApi(
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
       initialFen: Option[Fen.Epd],
-      withFlags: WithFlags,
+      withFlags: ExportOptions,
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
     given Translate = ctx.translate
@@ -160,7 +160,7 @@ final private[api] class RoundApi(
     withExternalEngines(me) {
       owner.so(forecastApi.loadForDisplay(pov)).map { fco =>
         withForecast(pov, owner, fco) {
-          withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
+          withTree(pov, analysis = none, initialFen, ExportOptions(opening = true)) {
             jsonView.userAnalysisJson(
               pov,
               pref,
@@ -177,10 +177,10 @@ final private[api] class RoundApi(
       pov: Pov,
       analysis: Option[Analysis],
       initialFen: Option[Fen.Epd],
-      withFlags: WithFlags
+      withFlags: ExportOptions
   )(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
-      lila.round.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
+      lila.tree.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
     ))
 
   private def withSteps(pov: Pov, initialFen: Option[Fen.Epd])(obj: JsObject) =

@@ -10,8 +10,8 @@ import lila.common.Bus
 import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
 import lila.hub.socket.Sri
-import lila.hub.tree.Branch
-import lila.hub.tree.Node.{ Comment, Gamebook, Shapes }
+import lila.tree.Branch
+import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.{ MyId, User }
 
 import actorApi.Who
@@ -307,7 +307,7 @@ final class StudyApi(
                 reloadSriBecauseOf(study, who.sri, chapter.id)
               )
 
-  def resetRoot(studyId: StudyId, chapterId: StudyChapterId, newRoot: lila.hub.tree.Root)(who: Who) =
+  def resetRoot(studyId: StudyId, chapterId: StudyChapterId, newRoot: lila.tree.Root)(who: Who) =
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, prevChapter) =>
         val chapter = prevChapter.copy(root = newRoot)

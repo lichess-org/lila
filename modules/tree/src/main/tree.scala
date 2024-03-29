@@ -1,5 +1,4 @@
-package lila.hub
-package tree
+package lila.tree
 
 import alleycats.Zero
 import chess.Centis
@@ -13,7 +12,6 @@ import play.api.libs.json.*
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
-import lila.hub.eval.Eval
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
 //opaque type not working due to cyclic ref try again later

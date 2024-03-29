@@ -28,9 +28,9 @@ import lila.rating.{ Perf, PerfType }
 import lila.user.User
 
 case class Game(
-    id: GameId,
+    override val id: GameId,
     players: ByColor[Player],
-    chess: ChessGame,
+    override val chess: ChessGame,
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Days],
@@ -40,16 +40,14 @@ case class Game(
     createdAt: Instant = nowInstant,
     movedAt: Instant = nowInstant,
     metadata: Metadata
-):
+) extends lila.tree.Game:
 
-  export chess.{ situation, ply, clock, sans, startedAtPly, player as turnColor }
-  export chess.situation.board
-  export chess.situation.board.{ history, variant }
   export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
   export players.{ white as whitePlayer, black as blackPlayer, apply as player }
 
   lazy val clockHistory = chess.clock.flatMap(loadClockHistory)
 
+  def drawOfferPlies                                   = drawOffers.normalizedPlies
   def player(playerId: GamePlayerId): Option[Player]   = players.find(_.id == playerId)
   def player[U: UserIdOf](user: U): Option[Player]     = players.find(_.isUser(user))
   def opponentOf[U: UserIdOf](user: U): Option[Player] = player(user).map(opponent)

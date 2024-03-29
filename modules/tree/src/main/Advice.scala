@@ -1,10 +1,10 @@
-package lila.analyse
+package lila.tree
 
 import chess.format.pgn.{ Comment, Glyph }
 
 import scala.util.chaining.*
 
-import lila.hub.eval.Eval.*
+import lila.tree.Eval.*
 
 sealed trait Advice:
   val judgment: Advice.Judgement
@@ -43,13 +43,13 @@ object Advice:
 
   def apply(prev: Info, info: Info): Option[Advice] = CpAdvice(prev, info).orElse(MateAdvice(prev, info))
 
-private[analyse] case class CpAdvice(
+private[tree] case class CpAdvice(
     judgment: Advice.Judgement,
     info: Info,
     prev: Info
 ) extends Advice
 
-private[analyse] object CpAdvice:
+private[tree] object CpAdvice:
 
   private val winningChanceJudgements = List(
     .3 -> Advice.Judgement.Blunder,
@@ -69,35 +69,35 @@ private[analyse] object CpAdvice:
       judgement <- winningChanceJudgements.find { case (d, _) => d <= delta }.map(_._2)
     yield CpAdvice(judgement, info, prev)
 
-sealed abstract private[analyse] class MateSequence(val desc: String)
-private[analyse] case object MateCreated
+sealed abstract private[tree] class MateSequence(val desc: String)
+private[tree] case object MateCreated
     extends MateSequence(
       desc = "Checkmate is now unavoidable"
     )
-private[analyse] case object MateDelayed
+private[tree] case object MateDelayed
     extends MateSequence(
       desc = "Not the best checkmate sequence"
     )
-private[analyse] case object MateLost
+private[tree] case object MateLost
     extends MateSequence(
       desc = "Lost forced checkmate sequence"
     )
 
-private[analyse] object MateSequence:
+private[tree] object MateSequence:
   def apply(prev: Option[Mate], next: Option[Mate]): Option[MateSequence] =
     (prev, next).some.collect {
       case (None, Some(n)) if n.negative                  => MateCreated
       case (Some(p), None) if p.positive                  => MateLost
       case (Some(p), Some(n)) if p.positive && n.negative => MateLost
     }
-private[analyse] case class MateAdvice(
+private[tree] case class MateAdvice(
     sequence: MateSequence,
     judgment: Advice.Judgement,
     info: Info,
     prev: Info
 ) extends Advice
 
-private[analyse] object MateAdvice:
+private[tree] object MateAdvice:
 
   def apply(prev: Info, info: Info): Option[MateAdvice] =
     def invertCp(cp: Cp)       = cp.invertIf(info.color.black)
