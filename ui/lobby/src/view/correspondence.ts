@@ -15,7 +15,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       attrs: {
         title:
           seek.action === 'joinSeek'
-            ? noarg('joinTheGame') + ' - ' + perfNames[seek.PerfKey]
+            ? noarg('joinTheGame') + ' - ' + perfNames[seek.perf.key]
             : noarg('cancel'),
         'data-id': seek.id,
       },
@@ -28,7 +28,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       seek.rating && !ctrl.opts.hideRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
       seek.days ? ctrl.trans.pluralSame('nbDays', seek.days) : '∞',
       h('span', [
-        h('span.varicon', { attrs: { 'data-icon': perfIcons[seek.PerfKey] } }),
+        h('span.varicon', { attrs: { 'data-icon': perfIcons[seek.perf.key] } }),
         noarg(seek.mode === 1 ? 'rated' : 'casual'),
       ]),
     ]),
