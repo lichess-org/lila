@@ -15,7 +15,7 @@ final class ActivityReadApi(
     gameRepo: lila.game.GameRepo,
     getPracticeStudies: lila.hub.practice.GetStudies,
     forumPostApi: lila.forum.ForumPostApi,
-    ublogApi: lila.ublog.UblogApi,
+    ublogApi: lila.hub.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,

@@ -12,7 +12,7 @@ final class Env(
     practiceStudies: lila.hub.practice.GetStudies,
     gameRepo: lila.game.GameRepo,
     forumPostApi: lila.forum.ForumPostApi,
-    ublogApi: lila.ublog.UblogApi,
+    ublogApi: lila.hub.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
@@ -64,7 +64,7 @@ final class Env(
     "swissFinish"
   ):
     case lila.forum.CreatePost(post)                     => write.forumPost(post)
-    case lila.ublog.UblogPost.Create(post)               => write.ublogPost(post)
+    case lila.hub.ublog.UblogPost.Create(post)           => write.ublogPost(post)
     case prog: lila.hub.practice.OnComplete              => write.practice(prog)
     case lila.simul.Simul.OnStart(simul)                 => write.simul(simul)
     case CorresMoveEvent(move, Some(userId), _, _, _)    => write.corresMove(move.gameId, userId)

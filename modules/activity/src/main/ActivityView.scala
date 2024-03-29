@@ -5,7 +5,7 @@ import lila.simul.Simul
 import lila.study.Study
 import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi.Entry as TourEntry
-import lila.ublog.UblogPost
+import lila.hub.ublog.UblogPost
 
 import activities.*
 import model.*

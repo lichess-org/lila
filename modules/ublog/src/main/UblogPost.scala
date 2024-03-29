@@ -24,7 +24,8 @@ case class UblogPost(
     views: UblogPost.Views,
     rankAdjustDays: Option[Int],
     pinned: Option[Boolean]
-) extends UblogPost.BasePost:
+) extends UblogPost.BasePost
+    with lila.hub.ublog.UblogPost:
 
   def isBy[U: UserIdOf](u: U) = created.by.is(u)
 
@@ -38,7 +39,7 @@ case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Op
 
 object UblogPost:
 
-  case class Recorded(by: UserId, at: Instant)
+  export lila.hub.ublog.UblogPost.*
 
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]
@@ -48,13 +49,7 @@ object UblogPost:
   opaque type RankDate = Instant
   object RankDate extends OpaqueInstant[RankDate]
 
-  case class Create(post: UblogPost) extends AnyVal
-
-  case class LightPost(@Key("_id") id: UblogPostId, title: String):
-    def slug = UblogPost.slug(title)
-
-  trait BasePost:
-    val id: UblogPostId
+  trait BasePost extends lila.hub.ublog.UblogPost:
     val blog: UblogBlog.Id
     val title: String
     val intro: String
@@ -76,10 +71,6 @@ object UblogPost:
   ) extends BasePost
 
   case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])
-
-  def slug(title: String) =
-    val s = lila.common.String.slugify(title)
-    if s.isEmpty then "-" else s
 
   def randomId = UblogPostId(ornicar.scalalib.ThreadLocalRandom.nextString(8))
 
