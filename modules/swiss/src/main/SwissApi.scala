@@ -1,7 +1,6 @@
 package lila.swiss
 
 import akka.stream.scaladsl.*
-import alleycats.Zero
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -20,6 +19,7 @@ import lila.gathering.GreatPlayer
 import lila.rating.Perf
 import lila.hub.round.QuietFlag
 import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
+import lila.hub.swiss.{ IdName, SwissFinish }
 
 final class SwissApi(
     mongo: SwissMongo,
@@ -38,7 +38,8 @@ final class SwissApi(
     chatApi: lila.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
     roundSocket: lila.round.RoundSocket
-)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
+)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
+    extends lila.hub.swiss.SwissApi:
 
   private val sequencer = lila.hub.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events
@@ -53,7 +54,7 @@ final class SwissApi(
 
   def create(data: SwissForm.SwissData, teamId: TeamId)(using me: Me): Fu[Swiss] =
     val swiss = Swiss(
-      _id = Swiss.makeId,
+      id = Swiss.makeId,
       name = data.name | GreatPlayer.randomName,
       clock = data.clock,
       variant = data.realVariant,
@@ -671,10 +672,10 @@ final class SwissApi(
 
   private val idNameProjection = $doc("name" -> true)
 
-  def idNames(ids: List[SwissId]): Fu[List[Swiss.IdName]] =
-    mongo.swiss.find($inIds(ids), idNameProjection.some).cursor[Swiss.IdName]().listAll()
+  def idNames(ids: List[SwissId]): Fu[List[IdName]] =
+    mongo.swiss.find($inIds(ids), idNameProjection.some).cursor[IdName]().listAll()
 
-  private def Sequencing[A <: Matchable: Zero](
+  private def Sequencing[A <: Matchable: alleycats.Zero](
       id: SwissId
   )(fetch: SwissId => Fu[Option[Swiss]])(run: Swiss => Fu[A]): Fu[A] =
     sequencer(id):

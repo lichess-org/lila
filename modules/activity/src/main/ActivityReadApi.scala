@@ -6,23 +6,22 @@ import lila.common.Heapsort
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
 import lila.game.LightPov
-import lila.swiss.Swiss
-import lila.tournament.LeaderboardApi
 import lila.user.User
+import lila.hub.swiss.{ IdName as SwissIdName }
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
     gameRepo: lila.game.GameRepo,
     getPracticeStudies: lila.hub.practice.GetStudies,
-    forumPostApi: lila.forum.ForumPostApi,
+    forumPostApi: lila.hub.forum.ForumPostApi,
     ublogApi: lila.hub.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.hub.study.StudyApi,
     tourLeaderApi: lila.hub.tournament.leaderboard.Api,
-    swissApi: lila.swiss.SwissApi,
-    teamRepo: lila.team.TeamRepo,
+    swissApi: lila.hub.swiss.SwissApi,
+    teamRepo: lila.hub.team.TeamRepo,
     lightUserApi: lila.user.LightUserApi,
-    getTourName: lila.tournament.GetTourName
+    getTourName: lila.hub.tournament.GetTourName
 )(using Executor):
 
   import BSONHandlers.{ *, given }
@@ -57,7 +56,7 @@ final class ActivityReadApi(
     for
       allForumPosts <- a.forumPosts.soFu: p =>
         forumPostApi
-          .liteViewsByIds(p.value)
+          .miniViews(p.value)
           .mon(_.user.segment("activity.posts"))
       hiddenForumTeamIds <- teamRepo.filterHideForum(
         (~allForumPosts).flatMap(_.topic.possibleTeamId).distinct
@@ -143,7 +142,7 @@ final class ActivityReadApi(
       stream = a.stream
     )
 
-  def recentSwissRanks(userId: UserId): Fu[List[(Swiss.IdName, Rank)]] =
+  def recentSwissRanks(userId: UserId): Fu[List[(SwissIdName, Rank)]] =
     coll(
       _.find(regexId(userId) ++ $doc(BSONHandlers.ActivityFields.swisses.$exists(true)))
         .sort($sort.desc("_id"))
@@ -153,16 +152,15 @@ final class ActivityReadApi(
       toSwissesView(activities.flatMap(_.swisses.so(_.value)))
     }
 
-  private def toSwissesView(swisses: List[activities.SwissRank]): Fu[List[(Swiss.IdName, Rank)]] =
+  private def toSwissesView(swisses: List[activities.SwissRank]): Fu[List[(SwissIdName, Rank)]] =
     swissApi
       .idNames(swisses.map(_.id))
-      .map {
-        _.flatMap { idName =>
-          swisses.find(_.id == idName.id).map { s =>
-            (idName, s.rank)
-          }
-        }
-      }
+      .map:
+        _.flatMap: idName =>
+          swisses
+            .find(_.id == idName.id)
+            .map: s =>
+              (idName, s.rank)
 
   private def addSignup(at: Instant, recent: Vector[ActivityView]) =
     val (found, views) = recent.foldLeft(false -> Vector.empty[ActivityView]) {

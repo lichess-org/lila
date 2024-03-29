@@ -1,6 +1,6 @@
 package lila.gathering
 
-import lila.hub.LightTeam.TeamName
+import lila.hub.team.LightTeam.TeamName
 import lila.hub.i18n.{ Translate, I18nKey as trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.Me

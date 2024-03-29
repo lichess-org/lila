@@ -7,6 +7,8 @@ import lila.activity.model.*
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
+import lila.hub.forum.ForumTopicMini
+import lila.hub.forum.ForumPostMini
 
 object activity:
 
@@ -124,7 +126,7 @@ object activity:
       )
     }
 
-  private def renderForumPosts(posts: Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]])(using
+  private def renderForumPosts(posts: Map[ForumTopicMini, List[ForumPostMini]])(using
       ctx: Context
   ) =
     ctx.kid.no.option(
@@ -313,7 +315,7 @@ object activity:
       )
     )
 
-  private def renderSwisses(swisses: List[(lila.swiss.Swiss.IdName, Rank)])(using Context) =
+  private def renderSwisses(swisses: List[(lila.hub.swiss.IdName, Rank)])(using Context) =
     entryTag(
       iconTag(licon.Trophy),
       div(

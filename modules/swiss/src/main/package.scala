@@ -4,8 +4,6 @@ export lila.Lila.{ *, given }
 
 val lichessTeamId = TeamId("lichess-swiss")
 
-type Ranking = Map[UserId, Rank]
-
 private val logger = lila.log("swiss")
 
 // FIDE TRF player IDs

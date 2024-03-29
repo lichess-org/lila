@@ -3,7 +3,7 @@ package lila.team
 import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
-import lila.hub.LightTeam
+import lila.hub.team.LightTeam
 import lila.memo.Syncache
 
 final class Cached(

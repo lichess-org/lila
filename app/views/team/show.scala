@@ -275,16 +275,16 @@ object show:
                 st.section(cls := "team-show__forum")(
                   h2(a(href := teamForumUrl(t.id))(trans.site.forum())),
                   forumPosts.take(10).map { post =>
-                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.postId))(
+                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.post.id))(
                       div(cls := "meta")(
-                        strong(post.topicName),
+                        strong(post.topic.name),
                         em(
-                          post.userId.map(titleNameOrId),
+                          post.post.userId.map(titleNameOrId),
                           " • ",
-                          momentFromNow(post.createdAt)
+                          momentFromNow(post.post.createdAt)
                         )
                       ),
-                      p(shorten(post.text, 200))
+                      p(shorten(post.post.text, 200))
                     )
                   },
                   a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.site.forum(), " »")

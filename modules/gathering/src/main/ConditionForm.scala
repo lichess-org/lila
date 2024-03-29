@@ -5,7 +5,7 @@ import play.api.data.Mapping
 
 import lila.common.Form.{ *, given }
 import lila.gathering.Condition.*
-import lila.hub.LightTeam
+import lila.hub.team.LightTeam
 
 object ConditionForm:
 

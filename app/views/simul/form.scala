@@ -6,7 +6,7 @@ import play.api.data.Form
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.ConditionForm
-import lila.hub.LightTeam
+import lila.hub.team.LightTeam
 import lila.simul.{ Simul, SimulForm }
 
 object form:

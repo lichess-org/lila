@@ -7,25 +7,9 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.ForumPost
+import lila.hub.forum.ForumPostMini
 
 object post:
-
-  def recent(posts: List[lila.forum.MiniForumPost])(using PageContext) =
-    ol(
-      posts.map: p =>
-        li(
-          a(
-            dataIcon := p.isTeam.option(licon.Group),
-            cls      := "post_link text",
-            href     := routes.ForumPost.redirect(p.postId),
-            title    := p.topicName
-          )(shorten(p.topicName, 30)),
-          " ",
-          userIdLink(p.userId, withOnline = false),
-          " ",
-          span(cls := "extract")(shorten(p.text, 70))
-        )
-    )
 
   def show(
       categ: lila.forum.ForumCateg,

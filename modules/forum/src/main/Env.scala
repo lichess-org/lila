@@ -12,6 +12,7 @@ import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.hub.relation.RelationApi
 import lila.user.User
+import lila.hub.forum.ForumPostMiniView
 
 @Module
 final private class ForumConfig(
@@ -30,7 +31,6 @@ final class Env(
     captcher: lila.hub.actors.Captcher,
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
-    forumSearch: lila.hub.actors.ForumSearch,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     prefApi: PrefApi,
@@ -65,12 +65,12 @@ final class Env(
   lazy val forms                            = wire[ForumForm]
 
   lazy val recentTeamPosts = RecentTeamPosts: id =>
-    postRepo.recentInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniPosts)
+    postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
     case CreateTeam(id, name, author)   => categApi.makeTeam(id, name, author)
     case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
 
-private type RecentTeamPostsType                   = TeamId => Fu[List[MiniForumPost]]
+private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]
 opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType
 object RecentTeamPosts extends TotalWrapper[RecentTeamPosts, RecentTeamPostsType]

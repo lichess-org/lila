@@ -14,7 +14,7 @@ import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
-import lila.hub.LightTeam
+import lila.hub.team.LightTeam
 import lila.hub.round.{ AbortForce, GoBerserk }
 import lila.tournament.TeamBattle.TeamInfo
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }

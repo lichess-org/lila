@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.common.Iso
 import lila.db.dsl.{ *, given }
+import lila.hub.forum.{ ForumPostMini, ForumTopicMini }
 
 private object BSONHandlers:
 
@@ -21,6 +22,8 @@ private object BSONHandlers:
 
   private given BSONHandler[ForumPost.Reactions] = typedMapHandlerIso[ForumPost.Reaction, Set[UserId]]
 
-  given BSONDocumentHandler[ForumPost] = Macros.handler
-
+  given BSONDocumentHandler[ForumPost]  = Macros.handler
   given BSONDocumentHandler[ForumTopic] = Macros.handler
+
+  given BSONDocumentHandler[ForumPostMini]  = Macros.handler
+  given BSONDocumentHandler[ForumTopicMini] = Macros.handler

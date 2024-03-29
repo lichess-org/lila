@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import scala.util.chaining.*
 
-import lila.hub.LightTeam
+import lila.hub.team.LightTeam
 import lila.user.User
 
 case class Team(

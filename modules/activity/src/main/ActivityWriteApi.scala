@@ -37,11 +37,12 @@ final class ActivityWriteApi(
       setGames ++ setCorres
     ).parallel.void
 
-  def forumPost(post: lila.forum.ForumPost): Funit =
-    post.userId.filter(User.lichessId !=).so { userId =>
-      update(userId): a =>
-        $doc(ActivityFields.forumPosts -> (~a.forumPosts + post.id))
-    }
+  def forumPost(post: lila.hub.forum.ForumPostMini): Funit =
+    post.userId
+      .filterNot(_.is(User.lichessId))
+      .so: userId =>
+        update(userId): a =>
+          $doc(ActivityFields.forumPosts -> (~a.forumPosts + post.id))
 
   def ublogPost(post: lila.hub.ublog.UblogPost): Funit = update(post.created.by): a =>
     $doc(ActivityFields.ublogPosts -> (~a.ublogPosts + post.id))
@@ -126,7 +127,7 @@ final class ActivityWriteApi(
     update(userId): _ =>
       $doc(ActivityFields.stream -> true)
 
-  def swiss(id: SwissId, ranking: lila.swiss.Ranking) =
+  def swiss(id: SwissId, ranking: lila.hub.swiss.Ranking) =
     ranking.toList.traverse_ : (userId, rank) =>
       update(userId): a =>
         $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })

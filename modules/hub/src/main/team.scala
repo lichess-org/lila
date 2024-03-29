@@ -1,7 +1,8 @@
 package lila.hub
+package team
 
-trait TellMap[Id]:
-  def tell(id: Id, msg: Matchable): Unit
+trait TeamRepo:
+  def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]]
 
 case class LightTeam(_id: TeamId, name: LightTeam.TeamName, flair: Option[Flair]):
   inline def id = _id

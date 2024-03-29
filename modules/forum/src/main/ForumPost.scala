@@ -5,6 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.security.Granter
 import lila.user.{ Me, User }
+import lila.hub.forum.ForumPostMini
 
 case class OldVersion(text: String, createdAt: Instant)
 
@@ -75,6 +76,15 @@ case class ForumPost(
   def erased = erasedAt.isDefined
 
   def isBy(u: User) = userId.exists(_ == u.id)
+
+  def mini = ForumPostMini(
+    id = id,
+    topicId = topicId,
+    userId = userId,
+    text = text,
+    troll = troll,
+    createdAt = createdAt
+  )
 
   override def toString = s"Post($categId/$topicId/$id)"
 

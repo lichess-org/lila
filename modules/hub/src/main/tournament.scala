@@ -1,6 +1,12 @@
 package lila.hub
 package tournament
 
+import play.api.i18n.Lang
+
+trait GetTourName:
+  def sync(id: TourId)(using Lang): Option[String]
+  def preload(ids: Iterable[TourId])(using Lang): Funit
+
 object leaderboard:
 
   opaque type Ratio = Double

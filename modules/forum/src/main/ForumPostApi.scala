@@ -8,13 +8,14 @@ import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForu
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.Granter as MasterGranter
 import lila.user.{ Me, User, given }
+import lila.hub.forum.ForumPostMiniView
+import lila.hub.forum.{ ForumTopicMini, ForumPostMini, RemovePost, CreatePost, RemovePosts }
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
     topicRepo: ForumTopicRepo,
     categRepo: ForumCategRepo,
     mentionNotifier: MentionNotifier,
-    indexer: lila.hub.actors.ForumSearch,
     config: ForumConfig,
     modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
@@ -54,7 +55,6 @@ final class ForumPostApi(
             _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
           yield
-            (!categ.quiet).so(indexer ! InsertPost(post))
             promotion.save(post.text)
             shutup ! {
               if post.isTeam
@@ -71,7 +71,7 @@ final class ForumPostApi(
               timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds)
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(CreatePost(post), "forumPost")
+            Bus.publish(CreatePost(post.mini), "forumPost")
             post
       }
     }
@@ -149,31 +149,35 @@ final class ForumPostApi(
   def viewOf(post: ForumPost): Fu[Option[PostView]] =
     views(List(post)).dmap(_.headOption)
 
-  def liteViews(posts: Seq[ForumPost]): Fu[Seq[PostLiteView]] =
-    topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId.value).distinct).map { topics =>
-      posts.flatMap: post =>
-        topics.find(_.id == post.topicId).map { PostLiteView(post, _) }
-    }
-  def liteViewsByIds(postIds: Seq[ForumPostId]): Fu[Seq[PostLiteView]] =
-    postRepo.byIds(postIds).flatMap(liteViews)
+  def miniViews(postIds: Seq[ForumPostId]): Fu[List[ForumPostMiniView]] = postIds.nonEmpty.so:
+    for
+      posts  <- postRepo.miniByIds(postIds)
+      topics <- topicRepo.coll.byStringIds[ForumTopicMini](posts.map(_.topicId.value).distinct)
+    yield posts.flatMap: post =>
+      topics.find(_.id == post.topicId).map { ForumPostMiniView(post, _) }
 
-  def liteView(post: ForumPost): Fu[Option[PostLiteView]] =
-    liteViews(List(post)).dmap(_.headOption)
+  def toMiniViews(posts: Seq[ForumPost]): Fu[Seq[ForumPostMiniView]] = posts.nonEmpty.so:
+    topicRepo.coll
+      .byStringIds[ForumTopicMini](posts.map(_.topicId.value).distinct)
+      .map: topics =>
+        posts.flatMap: post =>
+          topics.find(_.id == post.topicId).map { ForumPostMiniView(post.mini, _) }
 
-  def miniPosts(posts: List[ForumPost]): Fu[List[MiniForumPost]] =
-    topicRepo.coll.byStringIds[ForumTopic](posts.map(_.topicId.value).distinct).map { topics =>
-      posts.flatMap: post =>
-        topics.find(_.id == post.topicId).map { topic =>
-          MiniForumPost(
-            isTeam = post.isTeam,
-            postId = post.id,
-            topicName = topic.name,
-            userId = post.userId,
-            text = post.text.take(200),
-            createdAt = post.createdAt
-          )
-        }
-    }
+  def toMiniView(post: ForumPost): Fu[Option[ForumPostMiniView]] =
+    toMiniViews(List(post)).dmap(_.headOption)
+
+  def toMiniView(post: ForumPostMini): Fu[Option[ForumPostMiniView]] =
+    miniViews(List(post.id)).dmap(_.headOption)
+
+  def miniPosts(posts: List[ForumPost]): Fu[List[ForumPostMiniView]] =
+    topicRepo
+      .byIds(posts.map(_.topicId))
+      .map: topics =>
+        posts.flatMap: post =>
+          topics
+            .find(_.id == post.topicId)
+            .map: topic =>
+              ForumPostMiniView(post = post.mini, topic = topic)
 
   def allUserIds(topicId: ForumTopicId) = postRepo.allUserIdsByTopicId(topicId)
 
@@ -218,13 +222,17 @@ final class ForumPostApi(
       )
 
   def erasePost(post: ForumPost) =
-    postRepo.coll.update.one($id(post.id), post.erase).void.andDo(indexer ! RemovePost(post.id))
+    postRepo.coll.update
+      .one($id(post.id), post.erase)
+      .void
+      .andDo:
+        Bus.publish(RemovePost(post.id), "forumPost")
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
       .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
       .map: ids =>
-        indexer ! RemovePosts(ids)
+        Bus.publish(RemovePosts(ids), "forumPost")
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId).flatMapz { post =>

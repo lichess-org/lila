@@ -7,9 +7,9 @@ import reactivemongo.api.bson.*
 import java.time.Period
 
 import lila.db.dsl.{ *, given }
-import lila.hub.LightTeam
+import lila.hub.team.LightTeam
 
-final class TeamRepo(val coll: Coll)(using Executor):
+final class TeamRepo(val coll: Coll)(using Executor) extends lila.hub.team.TeamRepo:
 
   import BSONHandlers.given
 

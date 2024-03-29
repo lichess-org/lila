@@ -6,6 +6,9 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.function.Function
 import scala.jdk.CollectionConverters.*
 
+trait TellMap[Id]:
+  def tell(id: Id, msg: Matchable): Unit
+
 final class AsyncActorConcMap[Id, D <: AsyncActor](
     mkAsyncActor: Id => D,
     initialCapacity: Int

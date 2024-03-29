@@ -48,7 +48,7 @@ final class JsonView(
       myInfo: Preload[Option[MyInfo]] = Preload.none
   )(using me: Option[Me])(using
       getMyTeamIds: Condition.GetMyTeamIds,
-      lightTeamApi: lila.hub.LightTeam.Api
+      lightTeamApi: lila.hub.team.LightTeam.Api
   )(using Lang): Fu[JsObject] =
     for
       data   <- cachableData.get(tour.id)

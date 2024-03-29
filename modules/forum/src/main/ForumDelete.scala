@@ -4,11 +4,12 @@ import akka.stream.scaladsl.*
 
 import lila.security.Granter as MasterGranter
 import lila.user.{ Me, User }
+import lila.hub.forum.{ RemovePost, RemovePosts }
+import lila.common.Bus
 
 final class ForumDelete(
     postRepo: ForumPostRepo,
     topicRepo: ForumTopicRepo,
-    indexer: lila.hub.actors.ForumSearch,
     postApi: ForumPostApi,
     topicApi: ForumTopicApi,
     categApi: ForumCategApi,
@@ -33,9 +34,8 @@ final class ForumDelete(
     postRepo.unsafe
       .allByUserCursor(user)
       .documentSource()
-      .mapAsyncUnordered(4) { post =>
+      .mapAsyncUnordered(4): post =>
         postApi.viewOf(post).flatMap { _.so(doDelete) }
-      }
       .runWith(Sink.ignore)
       .void
 
@@ -45,7 +45,7 @@ final class ForumDelete(
       _       <- postRepo.removeByTopic(view.topic.id)
       _       <- topicRepo.remove(view.topic)
       _       <- categApi.denormalize(view.categ)
-    yield indexer ! RemovePosts(postIds)
+    yield Bus.publish(RemovePost(view.post.id), "forumPost")
 
   private def doDelete(view: PostView) =
     postRepo.isFirstPost(view.topic.id, view.post.id).flatMap {
@@ -55,5 +55,5 @@ final class ForumDelete(
           _ <- postRepo.remove(view.post)
           _ <- topicApi.denormalize(view.topic)
           _ <- categApi.denormalize(view.categ)
-        yield indexer ! RemovePost(view.post.id)
+        yield Bus.publish(RemovePost(view.post.id), "forumPost")
     }

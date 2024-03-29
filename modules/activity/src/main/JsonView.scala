@@ -13,8 +13,8 @@ import lila.activity.model.*
 import lila.hub.tournament.leaderboard.Ratio
 
 final class JsonView(
-    getTourName: lila.tournament.GetTourName,
-    getLightTeam: lila.hub.LightTeam.GetterSync
+    getTourName: lila.hub.tournament.GetTourName,
+    getLightTeam: lila.hub.team.LightTeam.GetterSync
 ):
 
   private object Writers:

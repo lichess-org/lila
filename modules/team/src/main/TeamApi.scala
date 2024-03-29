@@ -10,7 +10,7 @@ import scala.util.chaining.*
 import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.LightTeam
+import lila.hub.team.LightTeam
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam, LeaveTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.memo.CacheApi.*

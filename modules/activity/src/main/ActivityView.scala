@@ -2,12 +2,12 @@ package lila.activity
 
 import lila.game.LightPov
 import lila.simul.Simul
-import lila.swiss.Swiss
-import lila.tournament.LeaderboardApi.Entry as TourEntry
+import lila.hub.swiss.{ IdName as SwissIdName }
 import lila.hub.ublog.UblogPost
-
-import activities.*
-import model.*
+import lila.activity.activities.*
+import lila.activity.model.*
+import lila.hub.forum.ForumPostMini
+import lila.hub.forum.ForumTopicMini
 
 case class ActivityView(
     interval: TimeInterval,
@@ -19,7 +19,7 @@ case class ActivityView(
     practice: Option[Map[lila.hub.practice.Study, Int]] = None,
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,
-    forumPosts: Option[Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]]] = None,
+    forumPosts: Option[Map[ForumTopicMini, List[ForumPostMini]]] = None,
     ublogPosts: Option[List[UblogPost.LightPost]] = None,
     corresMoves: Option[(Int, List[LightPov])] = None,
     corresEnds: Option[(Score, List[LightPov])] = None,
@@ -27,7 +27,7 @@ case class ActivityView(
     studies: Option[List[lila.hub.study.IdName]] = None,
     teams: Option[Teams] = None,
     tours: Option[ActivityView.Tours] = None,
-    swisses: Option[List[(Swiss.IdName, Rank)]] = None,
+    swisses: Option[List[(SwissIdName, Rank)]] = None,
     stream: Boolean = false,
     signup: Boolean = false
 ):

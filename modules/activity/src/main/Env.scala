@@ -11,15 +11,15 @@ final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb,
     practiceStudies: lila.hub.practice.GetStudies,
     gameRepo: lila.game.GameRepo,
-    forumPostApi: lila.forum.ForumPostApi,
+    forumPostApi: lila.hub.forum.ForumPostApi,
     ublogApi: lila.hub.ublog.UblogApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.hub.study.StudyApi,
     tourLeaderApi: lila.hub.tournament.leaderboard.Api,
-    getTourName: lila.tournament.GetTourName,
-    teamRepo: lila.team.TeamRepo,
-    swissApi: lila.swiss.SwissApi,
-    getLightTeam: lila.hub.LightTeam.GetterSync,
+    getTourName: lila.hub.tournament.GetTourName,
+    teamRepo: lila.hub.team.TeamRepo,
+    swissApi: lila.hub.swiss.SwissApi,
+    getLightTeam: lila.hub.team.LightTeam.GetterSync,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo
 )(using ec: Executor, scheduler: Scheduler):
@@ -63,7 +63,7 @@ final class Env(
     "streamStart",
     "swissFinish"
   ):
-    case lila.forum.CreatePost(post)                     => write.forumPost(post)
+    case lila.hub.forum.CreatePost(post)                 => write.forumPost(post)
     case lila.hub.ublog.UblogPost.Create(post)           => write.ublogPost(post)
     case prog: lila.hub.practice.OnComplete              => write.practice(prog)
     case lila.simul.Simul.OnStart(simul)                 => write.simul(simul)
@@ -76,4 +76,4 @@ final class Env(
     case lila.hub.actorApi.team.CreateTeam(id, _, userId)  => write.team(id, userId)
     case lila.hub.actorApi.team.JoinTeam(id, userId)       => write.team(id, userId)
     case lila.hub.actorApi.streamer.StreamStart(userId, _) => write.streamStart(userId)
-    case lila.swiss.SwissFinish(swissId, ranking)          => write.swiss(swissId, ranking)
+    case lila.hub.swiss.SwissFinish(swissId, ranking)      => write.swiss(swissId, ranking)

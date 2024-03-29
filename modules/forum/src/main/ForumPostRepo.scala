@@ -4,8 +4,8 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
 import lila.db.dsl.{ *, given }
 import lila.user.User
-
-import Filter.*
+import lila.forum.Filter.*
+import lila.hub.forum.ForumPostMini
 
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     Executor
@@ -26,7 +26,14 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     case SafeAnd(u) => $or(noTroll, $doc("userId" -> u))
     case Unsafe     => $empty
 
-  def byIds(ids: Seq[ForumPostId]) = coll.byIds[ForumPost, ForumPostId](ids)
+  private val miniProjection = $doc(
+    "topicId"   -> true,
+    "userId"    -> true,
+    "text"      -> true,
+    "createdAt" -> true
+  )
+
+  def miniByIds(ids: Seq[ForumPostId]) = coll.byIdsProj[ForumPostMini, ForumPostId](ids, miniProjection)
 
   def countBeforeNumber(topicId: ForumTopicId, number: Int): Fu[Int] =
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
@@ -50,12 +57,15 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
       .cursor[ForumPost]()
       .list(nb)
 
-  def recentInCateg(categId: ForumCategId, nb: Int): Fu[List[ForumPost]] =
+  def recentIdsInCateg(categId: ForumCategId, nb: Int): Fu[List[ForumPostId]] =
     coll
-      .find(selectCateg(categId) ++ selectNotErased)
+      .find(selectCateg(categId) ++ selectNotErased, $id(true).some)
       .sort($sort.createdDesc)
-      .cursor[ForumPost]()
+      .cursor[Bdoc]()
       .list(nb)
+      .map:
+        _.flatMap:
+          _.getAsOpt[ForumPostId]("_id")
 
   def allByUserCursor(user: User): AkkaStreamCursor[ForumPost] =
     coll
