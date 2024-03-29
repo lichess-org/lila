@@ -5,7 +5,7 @@ import chess.variant.{ Chess960, FromPosition, Variant }
 import chess.{ Clock, Speed }
 
 import lila.common.{ Days, Template }
-import lila.game.GameRule
+import lila.hub.game.GameRule
 import lila.lobby.Color
 import lila.rating.PerfType
 
@@ -23,7 +23,7 @@ final case class ApiConfig(
 
   def perfType: PerfType = PerfType(variant, chess.Speed(days.isEmpty.so(clock)))
 
-  def validFen = ApiConfig.validFen(variant, position)
+  def validFen = Variant.isValidInitialFen(variant, position)
 
   def validSpeed(isBot: Boolean) =
     !isBot || clock.forall: c =>
@@ -65,11 +65,3 @@ object ApiConfig extends BaseHumanConfig:
       keepAliveStream = ~keepAliveStream,
       rules = ~rules
     ).autoVariant
-
-  def validFen(variant: Variant, fen: Option[Fen.Epd]) =
-    if variant.chess960
-    then fen.forall(f => Chess960.positionNumber(f).isDefined)
-    else if variant.fromPosition then
-      fen.exists: f =>
-        Fen.read(f).exists(_.playable(false))
-    else true

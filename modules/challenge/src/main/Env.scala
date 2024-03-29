@@ -26,10 +26,19 @@ final class Env(
     msgApi: lila.msg.MsgApi,
     langPicker: lila.hub.i18n.LangPicker,
     jsDump: lila.hub.i18n.JsDump,
+    setupForm: lila.hub.setup.SetupForm,
+    oauthServer: lila.oauth.OAuthServer,
     baseUrl: BaseUrl
 )(using
     scheduler: Scheduler
-)(using akka.actor.ActorSystem, Executor, akka.stream.Materializer, play.api.Mode, lila.hub.i18n.Translator):
+)(using
+    akka.actor.ActorSystem,
+    Executor,
+    akka.stream.Materializer,
+    lila.game.IdGenerator,
+    play.api.Mode,
+    lila.hub.i18n.Translator
+):
 
   private val colls = wire[ChallengeColls]
 
@@ -49,6 +58,10 @@ final class Env(
   private lazy val repo = wire[ChallengeRepo]
 
   lazy val jsonView = wire[JsonView]
+
+  lazy val bulkSetup = wire[ChallengeBulkSetup]
+
+  lazy val bulkSetupApi = wire[ChallengeBulkSetupApi]
 
   lazy val bulk = wire[ChallengeBulkApi]
 

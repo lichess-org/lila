@@ -55,7 +55,7 @@ final private class Finisher(
     game.playerWhoDidNotMove.so: culprit =>
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
-      if game.isMandatory || game.metadata.hasRule(_.NoAbort) then
+      if game.isMandatory || game.metadata.hasRule(_.noAbort) then
         apply(game, _.NoStart, Some(!culprit.color))
       else apply(game, _.Aborted, None, Messenger.SystemMessage.Persistent("Game aborted by server").some)
 

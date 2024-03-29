@@ -31,7 +31,7 @@ final class ChallengeApi(
     isLimitedByMaxPlaying(c).flatMap:
       if _ then fuFalse else doCreate(c).inject(true)
 
-  def createOpen(config: lila.setup.OpenConfig)(using me: Option[Me]): Fu[Challenge] =
+  def createOpen(config: lila.hub.setup.OpenConfig)(using me: Option[Me]): Fu[Challenge] =
     val c = Challenge.make(
       variant = config.variant,
       initialFen = config.position,

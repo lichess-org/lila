@@ -23,6 +23,7 @@ import scala.util.{ Success, Try }
 import lila.common.Days
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import lila.hub.game.GameRule
 
 object BSONHandlers:
 
@@ -41,7 +42,7 @@ object BSONHandlers:
     x => byteArrayHandler.writeTry(BinaryFormat.unmovedRooks.write(x)).get
   )
 
-  given BSONHandler[GameRule] = valueMapHandler(GameRule.byKey)(_.key)
+  given BSONHandler[GameRule] = valueMapHandler(GameRule.byKey)(_.toString)
 
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*

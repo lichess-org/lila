@@ -14,7 +14,7 @@ import lila.hub.AsyncActorSequencers
 import lila.hub.actorApi.map.TellMany
 import lila.rating.PerfType
 import lila.round.actorApi.round.StartClock
-import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame, maxBulks }
+import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
 
 final class ChallengeBulkApi(

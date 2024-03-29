@@ -170,5 +170,5 @@ object JsonView:
       .add("middle" -> o.middle)
       .add("end" -> o.end)
 
-  given Writes[Source]   = writeAs(_.name)
-  given Writes[GameRule] = writeAs(_.key)
+  given Writes[Source]                 = writeAs(_.name)
+  given Writes[lila.hub.game.GameRule] = writeAs(_.toString)

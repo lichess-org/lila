@@ -8,7 +8,7 @@ import play.api.data.format.Formats.doubleFormat
 
 import lila.common.Days
 import lila.common.Form.{ *, given }
-import lila.game.GameRule
+import lila.hub.game.GameRule
 import lila.lobby.Color
 import lila.rating.RatingRange
 
@@ -38,7 +38,3 @@ private object Mappings:
   val fenField = optional:
     import lila.common.Form.fen.{ mapping, truncateMoveNumber }
     mapping.transform[Fen.Epd](truncateMoveNumber, identity)
-  val gameRules: Mapping[Set[GameRule]] = lila.common.Form.strings
-    .separator(",")
-    .verifying(_.forall(GameRule.byKey.contains))
-    .transform[Set[GameRule]](rs => rs.flatMap(GameRule.byKey.get).toSet, _.map(_.key).toList)
