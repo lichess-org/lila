@@ -45,7 +45,7 @@ object show:
             views.html.chat.json(
               chat.chat,
               chat.lines,
-              name = if t.isChatFor(_.LEADERS) then leadersChat.txt() else trans.site.chatRoom.txt(),
+              name = if t.isChatFor(_.Leaders) then leadersChat.txt() else trans.site.chatRoom.txt(),
               timeout = chat.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),

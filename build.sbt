@@ -200,7 +200,7 @@ lazy val room = module("room",
 )
 
 lazy val timeline = module("timeline",
-  Seq(team),
+  Seq(relation, security),
   reactivemongo.bundle
 )
 

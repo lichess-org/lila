@@ -8,6 +8,7 @@ import java.time.Period
 
 import lila.db.dsl.{ *, given }
 import lila.hub.team.LightTeam
+import lila.hub.team.Access
 
 final class TeamRepo(val coll: Coll)(using Executor) extends lila.hub.team.TeamRepo:
 
@@ -64,8 +65,8 @@ final class TeamRepo(val coll: Coll)(using Executor) extends lila.hub.team.TeamR
 
   def cursor = coll.find(enabledSelect).cursor[Team](ReadPref.sec)
 
-  def forumAccess(id: TeamId): Fu[Option[Team.Access]] =
-    coll.secondaryPreferred.primitiveOne[Team.Access]($id(id), "forum")
+  private[team] def forumAccess(id: TeamId): Fu[Option[Access]] =
+    coll.secondaryPreferred.primitiveOne[Access]($id(id), "forum")
 
   def filterHideMembers(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
     ids.nonEmpty.so(
@@ -74,10 +75,9 @@ final class TeamRepo(val coll: Coll)(using Executor) extends lila.hub.team.TeamR
     )
 
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty.so(
+    ids.nonEmpty.so:
       coll.secondaryPreferred
-        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Team.Access.EVERYONE)))
-    )
+        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Access.Everyone)))
 
   private[team] val enabledSelect = $doc("enabled" -> true)
 

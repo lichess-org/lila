@@ -36,7 +36,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
   def countByTeam(teamId: TeamId): Fu[Int] =
     coll.countSel(teamQuery(teamId))
 
-  def filterUserIdsInTeam[U: UserIdOf](teamId: TeamId, users: Iterable[U]): Fu[Set[UserId]] =
+  private[team] def filterUserIdsInTeam[U: UserIdOf](teamId: TeamId, users: Iterable[U]): Fu[Set[UserId]] =
     users.nonEmpty.so(
       coll.distinctEasy[UserId, Set]("user", $inIds(users.map { TeamMember.makeId(teamId, _) }))
     )
@@ -74,7 +74,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
   def leadersOf[U: UserIdOf](user: U, perm: Permission.Selector): Fu[List[TeamMember]] =
     coll.list[TeamMember](selectUser(user) ++ selectPerm(perm))
 
-  def leaderIds(teamId: TeamId): Fu[Set[UserId]] =
+  private[team] def leaderIds(teamId: TeamId): Fu[Set[UserId]] =
     coll.primitive[UserId](teamQuery(teamId) ++ selectAnyPerm, "user").dmap(_.toSet)
 
   def publicLeaderIds(teamIds: Seq[TeamId]): Fu[List[UserId]] =

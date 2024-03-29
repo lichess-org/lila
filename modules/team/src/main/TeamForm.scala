@@ -14,6 +14,7 @@ import lila.common.Form.{
   given
 }
 import lila.db.dsl.{ *, given }
+import lila.hub.team.Access
 
 final private[team] class TeamForm(
     teamRepo: TeamRepo,
@@ -37,12 +38,13 @@ final private[team] class TeamForm(
       "description" -> cleanText(minLength = 30, maxLength = 4000).into[Markdown]
     val descPrivate =
       "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000).into[Markdown])
-    val request     = "request"     -> boolean
-    val gameId      = "gameId"      -> of[GameId]
-    val move        = "move"        -> text
-    val chat        = "chat"        -> numberIn(Team.Access.allInTeam)
-    val forum       = "forum"       -> numberIn(Team.Access.all)
-    val hideMembers = "hideMembers" -> boolean
+    val request                            = "request"     -> boolean
+    val gameId                             = "gameId"      -> of[GameId]
+    val move                               = "move"        -> text
+    private def inAccess(cs: List[Access]) = numberIn(cs.map(_.id)).transform[Access](Access.byId, _.id)
+    val chat                               = "chat"        -> inAccess(Access.allInTeam)
+    val forum                              = "forum"       -> inAccess(Access.all)
+    val hideMembers                        = "hideMembers" -> boolean
 
   def create(using lila.user.Me) = Form:
     mapping(
@@ -152,8 +154,8 @@ private[team] case class TeamEdit(
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
-    chat: Team.Access,
-    forum: Team.Access,
+    chat: Access,
+    forum: Access,
     hideMembers: Boolean,
     flair: Option[Flair]
 ):

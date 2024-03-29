@@ -18,6 +18,7 @@ import lila.mod.ModlogApi
 import lila.security.Granter
 import lila.user.{ Me, User, UserApi, UserRepo, given }
 import lila.hub.user.MyId
+import lila.hub.team.Access
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -31,7 +32,8 @@ final class TeamApi(
     indexer: lila.hub.actors.TeamSearch,
     modLog: ModlogApi,
     chatApi: ChatApi
-)(using Executor):
+)(using Executor)
+    extends lila.hub.team.TeamApi:
 
   import BSONHandlers.given
 
@@ -43,6 +45,8 @@ final class TeamApi(
 
   def lightsByTourLeader[U: UserIdOf](leader: U): Fu[List[LightTeam]] =
     memberRepo.teamsLedBy(leader, Some(_.Tour)).flatMap(teamRepo.lightsByIds)
+
+  def forumAccessOf(id: TeamId) = cached.forumAccess.get(id)
 
   def request(id: TeamRequest.ID) = requestRepo.coll.byId[TeamRequest](id)
 
@@ -344,7 +348,7 @@ final class TeamApi(
     teams <- teamRepo.byIdsSortPopular(ids)
   yield teams
 
-  export memberRepo.{ publicLeaderIds, isSubscribed, subscribe }
+  export memberRepo.{ publicLeaderIds, leaderIds, isSubscribed, subscribe, filterUserIdsInTeam }
 
   // delete for ever, with members but not forums
   def delete(team: Team, by: User, explain: String): Funit =

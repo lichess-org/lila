@@ -12,9 +12,9 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
   def index = Open:
     NotForKids:
       for
-        allTeamIds <- ctx.userId.so(teamCache.teamIdsList)
+        allTeamIds <- ctx.userId.so(env.team.cached.teamIdsList)
         teamIds <- allTeamIds.filterA:
-          teamCache.forumAccess.get(_).map(_ != Team.Access.NONE)
+          env.team.api.forumAccessOf(_).map(_ != lila.hub.team.Access.None)
         categs <- postApi.categsForUser(teamIds, ctx.me)
         _      <- env.user.lightUserApi.preloadMany(categs.flatMap(_.lastPostUserId))
         page   <- renderPage(html.forum.categ.index(categs))

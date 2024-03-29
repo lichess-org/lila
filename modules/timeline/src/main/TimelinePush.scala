@@ -5,15 +5,14 @@ import akka.actor.*
 import lila.hub.actorApi.timeline.{ Atom, Propagate, Propagation, ReloadTimelines }
 import lila.security.Permission
 import lila.user.UserRepo
+import lila.hub.team.Access
 
 final private[timeline] class TimelinePush(
     relationApi: lila.hub.relation.RelationApi,
     userRepo: UserRepo,
     entryApi: EntryApi,
     unsubApi: UnsubApi,
-    memberRepo: lila.team.TeamMemberRepo,
-    teamCache: lila.team.Cached,
-    teamMemberRepo: lila.team.TeamMemberRepo
+    teamApi: lila.hub.team.TeamApi
 ) extends Actor:
 
   private given Executor = context.dispatcher
@@ -49,15 +48,16 @@ final private[timeline] class TimelinePush(
                 us.filter(userIds.contains)
               }
           case (fus, Propagation.WithTeam(teamId)) =>
-            teamCache.forumAccess.get(teamId).flatMap {
-              case lila.team.Team.Access.MEMBERS =>
-                fus.flatMap: us =>
-                  memberRepo.filterUserIdsInTeam(teamId, us).map(_.toList)
-              case lila.team.Team.Access.LEADERS =>
-                fus.flatMap: us =>
-                  teamMemberRepo.leaderIds(teamId).map(us.toSet.intersect).map(_.toList)
-              case _ => fus
-            }
+            teamApi
+              .forumAccessOf(teamId)
+              .flatMap:
+                case Access.Members =>
+                  fus.flatMap: us =>
+                    teamApi.filterUserIdsInTeam(teamId, us).map(_.toList)
+                case Access.Leaders =>
+                  fus.flatMap: us =>
+                    teamApi.leaderIds(teamId).map(us.toSet.intersect).map(_.toList)
+                case _ => fus
           case (fus, _) => fus
         }
 

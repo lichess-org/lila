@@ -5,6 +5,7 @@ import play.api.data.Form
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
+import lila.hub.team.Access
 
 object form:
 
@@ -132,9 +133,9 @@ object form:
           form3.select(
             f,
             Seq(
-              Team.Access.NONE    -> "No chat",
-              Team.Access.LEADERS -> "Team leaders",
-              Team.Access.MEMBERS -> "Team members"
+              Access.None    -> "No chat",
+              Access.Leaders -> "Team leaders",
+              Access.Members -> "Team members"
             )
           )
         },
@@ -150,10 +151,10 @@ object form:
           form3.select(
             f,
             Seq(
-              Team.Access.EVERYONE -> "Show to everyone",
-              Team.Access.MEMBERS  -> "Show to members",
-              Team.Access.LEADERS  -> "Show to team leaders",
-              Team.Access.NONE     -> "Hide the forum"
+              Access.Everyone -> "Show to everyone",
+              Access.Members  -> "Show to members",
+              Access.Leaders  -> "Show to team leaders",
+              Access.None     -> "Hide the forum"
             )
           )
         }

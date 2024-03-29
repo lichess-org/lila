@@ -83,19 +83,19 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       ctx: Context
   ): Boolean =
     import info.*
-    team.enabled && !team.isChatFor(_.NONE) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
-      (team.isChatFor(_.LEADERS) && info.ledByMe) ||
-      (team.isChatFor(_.MEMBERS) && info.mine) ||
+    team.enabled && !team.isChatFor(_.None) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
+      (team.isChatFor(_.Leaders) && info.ledByMe) ||
+      (team.isChatFor(_.Members) && info.mine) ||
       (canEnterModView && requestModView)
     }
 
   private def canHaveForum(team: TeamModel, asMod: Boolean)(member: Option[TeamMember])(using
       ctx: Context
   ): Boolean =
-    team.enabled && !team.isForumFor(_.NONE) && ctx.kid.no && {
-      team.isForumFor(_.EVERYONE) ||
-      (team.isForumFor(_.LEADERS) && member.exists(_.perms.nonEmpty)) ||
-      (team.isForumFor(_.MEMBERS) && member.isDefined) ||
+    team.enabled && !team.isForumFor(_.None) && ctx.kid.no && {
+      team.isForumFor(_.Everyone) ||
+      (team.isForumFor(_.Leaders) && member.exists(_.perms.nonEmpty)) ||
+      (team.isForumFor(_.Members) && member.isDefined) ||
       (isGrantedOpt(_.ModerateForum) && asMod)
     }
 

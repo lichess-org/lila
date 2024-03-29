@@ -9,6 +9,7 @@ import scala.util.chaining.*
 
 import lila.hub.team.LightTeam
 import lila.user.User
+import lila.hub.team.Access
 
 case class Team(
     @Key("_id") id: TeamId, // also the url slug
@@ -22,8 +23,8 @@ case class Team(
     open: Boolean,
     createdAt: Instant,
     createdBy: UserId,
-    chat: Team.Access,
-    forum: Team.Access,
+    chat: Access,
+    forum: Access,
     hideMembers: Option[Boolean],
     flair: Option[Flair]
 ):
@@ -31,11 +32,11 @@ case class Team(
   inline def slug     = id
   inline def disabled = !enabled
 
-  def isChatFor(f: Team.Access.type => Team.Access) =
-    chat == f(Team.Access)
+  def isChatFor(f: Access.type => Access) =
+    chat == f(Access)
 
-  def isForumFor(f: Team.Access.type => Team.Access) =
-    forum == f(Team.Access)
+  def isForumFor(f: Access.type => Access) =
+    forum == f(Access)
 
   def publicMembers: Boolean = !hideMembers.has(true)
 
@@ -74,15 +75,6 @@ object Team:
       {
         15 + daysBetween(u.createdAt, nowInstant) / 7
       }.atMost(maxJoinCeiling)
-
-  type Access = Int
-  object Access:
-    val NONE      = 0
-    val LEADERS   = 10
-    val MEMBERS   = 20
-    val EVERYONE  = 30
-    val allInTeam = List(NONE, LEADERS, MEMBERS)
-    val all       = EVERYONE :: allInTeam
 
   case class IdsStr(value: String) extends AnyVal:
 
@@ -129,8 +121,8 @@ object Team:
     open = open,
     createdAt = nowInstant,
     createdBy = createdBy.id,
-    chat = Access.MEMBERS,
-    forum = Access.MEMBERS,
+    chat = Access.Members,
+    forum = Access.Members,
     hideMembers = none,
     flair = none
   )
