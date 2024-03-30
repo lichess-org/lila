@@ -7,7 +7,7 @@ import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
 import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
-import lila.hub.forum.{ CreatePost }
+import lila.hub.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
 import lila.security.Granter as MasterGranter

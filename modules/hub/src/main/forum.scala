@@ -18,7 +18,8 @@ case class ForumPostMini(
     text: String,
     createdAt: Instant
 )
-case class ForumTopicMini(id: ForumTopicId, name: String, slug: String, categId: ForumCategId):
+case class ForumTopicMini(_id: ForumTopicId, name: String, slug: String, categId: ForumCategId):
+  inline def id                      = _id
   def possibleTeamId: Option[TeamId] = ForumCateg.toTeamId(categId)
 
 case class ForumPostMiniView(post: ForumPostMini, topic: ForumTopicMini)
