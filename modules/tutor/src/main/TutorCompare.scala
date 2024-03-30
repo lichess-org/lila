@@ -61,7 +61,7 @@ object TutorCompare:
   type AnyCompare    = TutorCompare[?, ?]
 
   def mixedBag(comparisons: List[AnyComparison])(nb: Int): List[AnyComparison] = {
-    val half = ~lila.common.Maths.divideRoundUp(nb, 2)
+    val half = ~scalalib.Maths.divideRoundUp(nb, 2)
     comparisons.partition(_.better) match
       case (positives, negatives) => positives.topN(half) ::: negatives.topN(half)
   }.sorted(compOrder.reverse).take(nb)

@@ -201,7 +201,7 @@ final class LobbySocket(
               lila.core.pool.Joiner(
                 sri = member.sri,
                 rating = glicko.establishedIntRating | IntRating(
-                  lila.common.Maths.boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
+                  scalalib.Maths.boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
                 ),
                 ratingRange = ratingRange,
                 lame = user.lame,

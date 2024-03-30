@@ -17,6 +17,7 @@ import lila.common.Chronometer
 
 trait LilaLibraryExtensions extends LilaTypes:
 
+  /* library-agnostic way to run a future after a delay */
   given (using sched: Scheduler, ec: Executor): FutureAfter =
     [A] => (duration: FiniteDuration) => (fua: () => Future[A]) => akka.pattern.after(duration, sched)(fua())
 

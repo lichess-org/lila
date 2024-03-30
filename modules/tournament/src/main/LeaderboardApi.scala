@@ -2,7 +2,7 @@ package lila.tournament
 
 import reactivemongo.api.bson.*
 
-import lila.common.Maths
+import scalalib.Maths
 
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }

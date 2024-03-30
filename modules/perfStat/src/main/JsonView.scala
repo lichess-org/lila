@@ -55,7 +55,7 @@ object JsonView:
     Json.obj("glicko" -> p.glicko, "nb" -> p.nb, "progress" -> p.progress)
 
   private given Writes[Avg] = Writes: a =>
-    JsNumber(lila.common.Maths.roundDownAt(a.avg, 2))
+    JsNumber(scalalib.Maths.roundDownAt(a.avg, 2))
 
   given (using Translate): OWrites[PerfType] = OWrites: pt =>
     Json.obj(

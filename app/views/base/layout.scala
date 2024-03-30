@@ -10,7 +10,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
-import lila.common.base.StringUtils.escapeHtmlRaw
+import scalalib.StringUtils.escapeHtmlRaw
 
 object layout:
 

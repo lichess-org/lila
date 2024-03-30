@@ -11,7 +11,7 @@ import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import scala.util.chaining.*
 
 import lila.common.Json.given
-import lila.common.Maths
+import scalalib.Maths
 import lila.common.config.BaseUrl
 
 object GifExport:
