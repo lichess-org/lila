@@ -11,19 +11,14 @@ import lila.search.*
 
 @Module
 private class TeamSearchConfig(
-    @ConfigName("index") val indexName: String,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("index") val indexName: String
 )
 
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
     teamApi: lila.hub.team.TeamApi
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    materializer: akka.stream.Materializer
-):
+)(using Executor, akka.stream.Materializer):
 
   private val config = appConfig.get[TeamSearchConfig]("teamSearch")(AutoConfig.loader)
 
@@ -42,12 +37,6 @@ final class Env(
       api.reset.inject("done")
     }
 
-  system.actorOf(
-    Props(new Actor:
-      import lila.hub.team.{ InsertTeam, RemoveTeam }
-      def receive =
-        case InsertTeam(team) => api.store(team)
-        case RemoveTeam(id)   => client.deleteById(id.into(Id))
-    ),
-    name = config.actorName
-  )
+  lila.common.Bus.subscribeFun("team"):
+    case lila.hub.team.TeamCreate(team) => api.store(team)
+    case lila.hub.team.TeamDelete(id)   => client.deleteById(id.into(Id))

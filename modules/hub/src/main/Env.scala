@@ -10,7 +10,6 @@ object actors:
     val actor: ActorSelection
     val ! = actor.!
   final class GameSearch(val actor: ActorSelection) extends Actor
-  final class TeamSearch(val actor: ActorSelection) extends Actor
   final class Fishnet(val actor: ActorSelection)    extends Actor
   final class Bookmark(val actor: ActorSelection)   extends Actor
   final class Shutup(val actor: ActorSelection)     extends Actor
@@ -32,7 +31,6 @@ final class Env(
   val gameSearch = GameSearch(select("actor.game.search"))
   val renderer   = Renderer(select("actor.renderer"))
   val captcher   = Captcher(select("actor.captcher"))
-  val teamSearch = TeamSearch(select("actor.team.search"))
   val fishnet    = Fishnet(select("actor.fishnet"))
   val timeline   = Timeline(select("actor.timeline.user"))
   val bookmark   = Bookmark(select("actor.bookmark"))

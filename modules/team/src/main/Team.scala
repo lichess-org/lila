@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import scala.util.chaining.*
 
-import lila.hub.team.{ TeamSearch, LightTeam }
+import lila.hub.team.{ TeamData, LightTeam }
 import lila.user.User
 import lila.hub.team.Access
 
@@ -45,7 +45,7 @@ case class Team(
 
   def light = LightTeam(id, name, flair)
 
-  def search = TeamSearch(id, name, description, nbMembers)
+  def data = TeamData(id, name, description, nbMembers, createdBy)
 
 object Team:
 

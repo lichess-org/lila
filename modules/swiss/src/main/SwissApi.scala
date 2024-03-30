@@ -341,7 +341,7 @@ final class SwissApi(
 
   private[swiss] def kickLame(userId: UserId) =
     Bus
-      .ask[List[TeamId]]("teamJoinedBy")(lila.hub.actorApi.team.TeamIdsJoinedBy(userId, _))
+      .ask[List[TeamId]]("teamJoinedBy")(lila.hub.team.TeamIdsJoinedBy(userId, _))
       .flatMap { joinedPlayableSwissIds(userId, _) }
       .flatMap { kickFromSwissIds(userId, _, forfeit = true) }
 

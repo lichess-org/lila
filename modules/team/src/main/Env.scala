@@ -12,7 +12,6 @@ import lila.hub.socket.{ GetVersion, SocketVersion }
 final class Env(
     captcher: lila.hub.actors.Captcher,
     timeline: lila.hub.actors.Timeline,
-    teamSearch: lila.hub.actors.TeamSearch,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     modLog: ModlogApi,
@@ -67,15 +66,15 @@ final class Env(
       api.deleteRequestsByUserId(userId)
     },
     "teamIsLeader" -> {
-      case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
+      case lila.hub.team.IsLeader(teamId, userId, promise) =>
         promise.completeWith(api.isLeader(teamId, userId))
-      case lila.hub.actorApi.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
+      case lila.hub.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
         promise.completeWith(api.hasPerm(teamId, userId, _.Comm))
     },
-    "teamJoinedBy" -> { case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
+    "teamJoinedBy" -> { case lila.hub.team.TeamIdsJoinedBy(userId, promise) =>
       promise.completeWith(cached.teamIdsList(userId))
     },
-    "teamIsLeaderOf" -> { case lila.hub.actorApi.team.IsLeaderOf(leaderId, memberId, promise) =>
+    "teamIsLeaderOf" -> { case lila.hub.team.IsLeaderOf(leaderId, memberId, promise) =>
       promise.completeWith(api.isLeaderOf(leaderId, memberId))
     }
   )

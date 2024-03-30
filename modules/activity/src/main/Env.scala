@@ -17,7 +17,7 @@ final class Env(
     studyApi: lila.hub.study.StudyApi,
     tourLeaderApi: lila.hub.tournament.leaderboard.Api,
     getTourName: lila.hub.tournament.GetTourName,
-    teamRepo: lila.hub.team.TeamRepo,
+    teamApi: lila.hub.team.TeamApi,
     swissApi: lila.hub.swiss.SwissApi,
     getLightTeam: lila.hub.team.LightTeam.GetterSync,
     lightUserApi: lila.user.LightUserApi,
@@ -73,7 +73,7 @@ final class Env(
     case lila.hub.study.StartStudy(id)                   =>
       // wait some time in case the study turns private
       scheduler.scheduleOnce(5 minutes) { write.study(id) }
-    case lila.hub.actorApi.team.CreateTeam(id, _, userId)  => write.team(id, userId)
-    case lila.hub.actorApi.team.JoinTeam(id, userId)       => write.team(id, userId)
+    case lila.hub.team.TeamCreate(t)                       => write.team(t.id, t.userId)
+    case lila.hub.team.JoinTeam(id, userId)                => write.team(id, userId)
     case lila.hub.actorApi.streamer.StreamStart(userId, _) => write.streamStart(userId)
     case lila.hub.swiss.SwissFinish(swissId, ranking)      => write.swiss(swissId, ranking)

@@ -188,16 +188,6 @@ package timeline:
 package notify:
   case class NotifiedBatch(userIds: Iterable[UserId])
 
-package team:
-  case class CreateTeam(id: TeamId, name: String, userId: UserId)
-  case class JoinTeam(id: TeamId, userId: UserId)
-  case class IsLeader(id: TeamId, userId: UserId, promise: Promise[Boolean])
-  case class IsLeaderOf(leaderId: UserId, memberId: UserId, promise: Promise[Boolean])
-  case class IsLeaderWithCommPerm(id: TeamId, userId: UserId, promise: Promise[Boolean])
-  case class KickFromTeam(teamId: TeamId, userId: UserId)
-  case class LeaveTeam(teamId: TeamId, userId: UserId)
-  case class TeamIdsJoinedBy(userId: UserId, promise: Promise[List[TeamId]])
-
 package fishnet:
   case class AutoAnalyse(gameId: GameId)
   case class NewKey(userId: UserId, key: String)

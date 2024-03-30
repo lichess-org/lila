@@ -19,7 +19,7 @@ final class ActivityReadApi(
     studyApi: lila.hub.study.StudyApi,
     tourLeaderApi: lila.hub.tournament.leaderboard.Api,
     swissApi: lila.hub.swiss.SwissApi,
-    teamRepo: lila.hub.team.TeamRepo,
+    teamApi: lila.hub.team.TeamApi,
     lightUserApi: lila.user.LightUserApi,
     getTourName: lila.hub.tournament.GetTourName
 )(using Executor):
@@ -58,7 +58,7 @@ final class ActivityReadApi(
         forumPostApi
           .miniViews(p.value)
           .mon(_.user.segment("activity.posts"))
-      hiddenForumTeamIds <- teamRepo.filterHideForum(
+      hiddenForumTeamIds <- teamApi.filterHideForum(
         (~allForumPosts).flatMap(_.topic.possibleTeamId).distinct
       )
       forumPosts = allForumPosts.map(

@@ -4,17 +4,12 @@ package team
 import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.BSONDocument
 
-case class InsertTeam(team: TeamSearch)
-case class RemoveTeam(id: TeamId)
-
-trait TeamRepo:
-  def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]]
-
 trait TeamApi:
+  def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]]
   def forumAccessOf(teamId: TeamId): Fu[Access]
   def leaderIds(teamId: TeamId): Fu[Set[UserId]]
   def filterUserIdsInTeam[U: UserIdOf](teamId: TeamId, users: Iterable[U]): Fu[Set[UserId]]
-  def cursor: reactivemongo.akkastream.AkkaStreamCursor[TeamSearch]
+  def cursor: reactivemongo.akkastream.AkkaStreamCursor[TeamData]
 
 enum Access(val id: Int):
   case None     extends Access(0)
@@ -45,4 +40,20 @@ object LightTeam:
   opaque type GetterSync <: GetterSyncType = GetterSyncType
   object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]
 
-case class TeamSearch(@Key("_id") id: TeamId, name: String, description: Markdown, nbMembers: Int)
+case class TeamData(
+    @Key("_id") id: TeamId,
+    name: String,
+    description: Markdown,
+    nbMembers: Int,
+    userId: UserId
+)
+case class TeamCreate(team: TeamData)
+case class TeamUpdate(team: TeamData)
+case class TeamDelete(id: TeamId)
+case class JoinTeam(id: TeamId, userId: UserId)
+case class IsLeader(id: TeamId, userId: UserId, promise: Promise[Boolean])
+case class IsLeaderOf(leaderId: UserId, memberId: UserId, promise: Promise[Boolean])
+case class IsLeaderWithCommPerm(id: TeamId, userId: UserId, promise: Promise[Boolean])
+case class KickFromTeam(teamId: TeamId, userId: UserId)
+case class LeaveTeam(teamId: TeamId, userId: UserId)
+case class TeamIdsJoinedBy(userId: UserId, promise: Promise[List[TeamId]])

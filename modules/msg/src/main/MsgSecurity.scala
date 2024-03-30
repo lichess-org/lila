@@ -4,7 +4,7 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.hub.actorApi.report.AutoFlag
-import lila.hub.actorApi.team.IsLeaderOf
+import lila.hub.team.IsLeaderOf
 import lila.memo.RateLimit
 import lila.security.Granter
 import lila.shutup.Analyser

@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.search.*
-import lila.hub.team.TeamSearch
+import lila.hub.team.TeamData
 
 final class TeamSearchApi(
     client: ESClient,
@@ -19,9 +19,9 @@ final class TeamSearchApi(
 
   def count(query: Query) = client.count(query).dmap(_.value)
 
-  def store(team: TeamSearch) = client.store(team.id.into(Id), toDoc(team))
+  def store(team: TeamData) = client.store(team.id.into(Id), toDoc(team))
 
-  private def toDoc(team: TeamSearch) =
+  private def toDoc(team: TeamData) =
     Json.obj(
       Fields.name        -> team.name,
       Fields.description -> team.description.value.take(10000),
@@ -37,7 +37,7 @@ final class TeamSearchApi(
 
           teamApi.cursor
             .documentSource()
-            .via(lila.common.LilaStream.logRate[TeamSearch]("team index")(logger))
+            .via(lila.common.LilaStream.logRate[TeamData]("team index")(logger))
             .map(t => t.id.into(Id) -> toDoc(t))
             .grouped(200)
             .mapAsync(1)(c.storeBulk)

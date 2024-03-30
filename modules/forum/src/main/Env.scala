@@ -6,7 +6,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
-import lila.hub.actorApi.team.CreateTeam
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.pref.PrefApi
@@ -68,7 +67,7 @@ final class Env(
     postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
-    case CreateTeam(id, name, author)   => categApi.makeTeam(id, name, author)
+    case lila.hub.team.TeamCreate(t)    => categApi.makeTeam(t.id, t.name, t.userId)
     case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
 
 private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]
