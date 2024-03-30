@@ -10,7 +10,6 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.common.config.{ Max, MaxPerSecond }
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
 
 final class RelayRound(

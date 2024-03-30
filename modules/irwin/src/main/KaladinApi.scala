@@ -29,7 +29,7 @@ final class KaladinApi(
 
   lazy val thresholds = IrwinThresholds.makeSetting("kaladin", settingStore)
 
-  private val workQueue = ornicar.scalalib.AsyncActorSequencer(
+  private val workQueue = ornicar.scalalib.actor.AsyncActorSequencer(
     maxSize = Max(512),
     timeout = 2 minutes,
     name = "kaladinApi",

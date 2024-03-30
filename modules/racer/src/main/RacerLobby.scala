@@ -12,7 +12,7 @@ final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: akka.actor.
         api.join(raceId, player)
         raceId
 
-  private val workQueue = ornicar.scalalib.AsyncActorSequencer(
+  private val workQueue = ornicar.scalalib.actor.AsyncActorSequencer(
     maxSize = Max(128),
     timeout = 20 seconds,
     name = "racer.lobby",

@@ -109,7 +109,7 @@ final class ChallengeApi(
       Bus.publish(Event.Decline(c.declineWith(reason)), "challenge")
     }
 
-  private val acceptQueue = ornicar.scalalib.AsyncActorSequencer(
+  private val acceptQueue = ornicar.scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
     timeout = 5 seconds,
     "challengeAccept",

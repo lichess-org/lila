@@ -33,7 +33,7 @@ final class Env(
       api.reset.inject("done")
     }
 
-  private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, MaxPerPage)
+  private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
 
   lila.common.Bus.subscribeFun("forumPost"):
     case CreatePost(post)        => api.store(post)

@@ -2,7 +2,7 @@ package lila.study
 
 import alleycats.Zero
 
-import ornicar.scalalib.AsyncActorSequencers
+import ornicar.scalalib.actor.AsyncActorSequencers
 
 final private class StudySequencer(
     studyRepo: StudyRepo,

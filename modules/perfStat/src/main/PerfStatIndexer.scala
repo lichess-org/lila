@@ -9,7 +9,7 @@ final class PerfStatIndexer(
     storage: PerfStatStorage
 )(using Executor, Scheduler):
 
-  private val workQueue = ornicar.scalalib.AsyncActorSequencer(
+  private val workQueue = ornicar.scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
     timeout = 10 seconds,
     name = "perfStatIndexer",

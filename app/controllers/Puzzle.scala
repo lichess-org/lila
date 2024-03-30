@@ -368,7 +368,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
     val config = lila.puzzle.PuzzleActivity.Config(
       user = me,
-      max = getInt("max").map(_.atLeast(1)),
+      max = getIntAs[Max]("max").map(_.atLeast(1)),
       before = getTimestamp("before")
     )
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(env.puzzle.activity.stream(config))(jsToNdJson)

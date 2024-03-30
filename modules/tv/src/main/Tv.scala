@@ -1,10 +1,10 @@
 package lila.tv
 
+import ornicar.scalalib.actor.SyncActor
 import chess.PlayerTitle
 
 import lila.common.{ LightUser, licon }
 import lila.game.{ Game, GameRepo, Pov }
-import lila.core.SyncActor
 
 final class Tv(
     gameRepo: GameRepo,

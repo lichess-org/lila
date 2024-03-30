@@ -1,12 +1,12 @@
 package lila.tv
 
+import ornicar.scalalib.actor.SyncActor
 import akka.pattern.ask as actorAsk
 import play.api.libs.json.Json
 
 import lila.common.Bus
 import lila.common.Json.given
 import lila.game.{ Game, Pov }
-import lila.core.SyncActor
 
 final private[tv] class TvSyncActor(
     renderer: lila.core.actors.Renderer,

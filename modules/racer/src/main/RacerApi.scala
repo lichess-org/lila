@@ -48,7 +48,7 @@ final class RacerApi(
       lila.mon.racer.race(lobby = race.isLobby).increment()
       race.id
 
-  private val rematchQueue = ornicar.scalalib.AsyncActorSequencer(
+  private val rematchQueue = ornicar.scalalib.actor.AsyncActorSequencer(
     maxSize = Max(32),
     timeout = 20 seconds,
     name = "racer.rematch",

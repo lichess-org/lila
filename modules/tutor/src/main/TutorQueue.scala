@@ -20,7 +20,7 @@ final private class TutorQueue(
 
   import TutorQueue.*
 
-  private val workQueue = ornicar.scalalib.AsyncActorSequencer(
+  private val workQueue = ornicar.scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
     timeout = 5.seconds,
     "tutorQueue",

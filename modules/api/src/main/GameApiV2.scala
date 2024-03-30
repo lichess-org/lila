@@ -127,7 +127,7 @@ final class GameApiV2(
             .map(g => config.postFilter(g).option(g))
             .throttle(config.perSecond.value * 10, 1 second, e => if e.isDefined then 10 else 2)
             .mapConcat(_.toList)
-            .take(config.max | Int.MaxValue)
+            .take(config.max.fold(Int.MaxValue)(_.value))
             .via(upgradeOngoingGame)
             .via(preparationFlow(config, realPlayers))
             .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
@@ -361,7 +361,7 @@ object GameApiV2:
       format: Format,
       since: Option[Instant] = None,
       until: Option[Instant] = None,
-      max: Option[Int] = None,
+      max: Option[Max] = None,
       rated: Option[Boolean] = None,
       perfType: Set[lila.rating.PerfType],
       analysed: Option[Boolean] = None,

@@ -31,7 +31,7 @@ final class PuzzleActivity(
           .sort($sort.desc(PuzzleRound.BSONFields.date))
           .batchSize(perSecond.value)
           .cursor[PuzzleRound](ReadPref.sec)
-          .documentSource(Max | Int.MaxValue)
+          .documentSource(config.max.fold(Int.MaxValue)(_.value))
           .grouped(perSecond.value)
           .throttle(1, 1 second)
           .mapAsync(1)(enrich(config))
@@ -55,6 +55,6 @@ object PuzzleActivity:
 
   case class Config(
       user: User,
-      max: Option[Int],
+      max: Option[Max],
       before: Option[Instant]
   )

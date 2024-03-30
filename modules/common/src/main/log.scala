@@ -13,7 +13,7 @@ object log:
   def http(status: Int, body: String) =
     s"$status ${body.linesIterator.take(1).toList.headOption.getOrElse("-")}"
 
-  def asyncActorMonitor = ornicar.scalalib.AsyncActorBounded.Monitor(
+  def asyncActorMonitor = ornicar.scalalib.actor.AsyncActorBounded.Monitor(
     overflow = name =>
       lila.mon.asyncActor.overflow(name).increment()
       lila.log("asyncActor").warn(s"[$name] queue is full")

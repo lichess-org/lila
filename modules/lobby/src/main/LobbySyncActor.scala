@@ -1,8 +1,9 @@
 package lila.lobby
 
+import ornicar.scalalib.actor.SyncActor
+
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
-import lila.core.SyncActor
 import lila.core.socket.{ Sri, Sris }
 import lila.core.pool.{ IsClockCompatible, HookThieve }
 
@@ -22,7 +23,10 @@ final private class LobbySyncActor(
 
   private var remoteDisconnectAllAt = nowInstant
 
-  private var socket: SyncActor = SyncActor.stub
+  private var socket: SyncActor = new SyncActor:
+    val process = { case msg =>
+      println(s"stub trouper received: $msg")
+    }
 
   val process: SyncActor.Receive =
 

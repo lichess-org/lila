@@ -9,12 +9,10 @@ import lila.log.Logger
 /** Runs the work then waits cooldown only runs once at a time per id. Guarantees that work is ran as early as
   * possible. Also saves work and runs it after cooldown.
   */
-final class EarlyMultiThrottler[K](logger: Logger)(using
-    sr: StringRuntime[K],
-    ec: Executor,
-    system: ActorSystem
+final class EarlyMultiThrottler[K](logger: Logger)(using sr: StringRuntime[K], system: ActorSystem)(using
+    Executor,
+    Scheduler
 ):
-
   private val actor = system.actorOf(Props(EarlyMultiThrottlerActor(logger)))
 
   def apply(id: K, cooldown: FiniteDuration)(run: => Funit): Unit =
@@ -26,7 +24,7 @@ final class EarlyMultiThrottler[K](logger: Logger)(using
     promise.future
 
 // actor based implementation
-final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor) extends Actor:
+final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor, Scheduler) extends Actor:
 
   import EarlyMultiThrottlerActor.*
 
@@ -52,8 +50,6 @@ final private class EarlyMultiThrottlerActor(logger: Logger)(using Executor) ext
       }
 
     case x => logger.branch("EarlyMultiThrottler").warn(s"Unsupported message $x")
-
-  given Scheduler = context.system.scheduler
 
   def execute(work: Work): Funit =
     lila.common.LilaFuture.makeItLast(work.cooldown) { work.run() }
