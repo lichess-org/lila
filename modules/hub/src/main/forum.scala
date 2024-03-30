@@ -1,6 +1,8 @@
 package lila.hub
 package forum
 
+import reactivemongo.api.bson.Macros.Annotations.Key
+
 case class CreatePost(post: ForumPostMini)
 case class RemovePost(id: ForumPostId)
 case class RemovePosts(ids: List[ForumPostId])
@@ -10,7 +12,7 @@ trait ForumPost:
   val text: String
 
 case class ForumPostMini(
-    id: ForumPostId,
+    @Key("_id") id: ForumPostId,
     topicId: ForumTopicId,
     userId: Option[UserId],
     text: String,
