@@ -54,4 +54,5 @@
     <item quantity="one">berî %s salê</item>
     <item quantity="other">berî %s salan</item>
   </plurals>
+  <string name="completed">temambûyî</string>
 </resources>
