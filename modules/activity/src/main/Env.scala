@@ -13,7 +13,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     forumPostApi: lila.hub.forum.ForumPostApi,
     ublogApi: lila.hub.ublog.UblogApi,
-    simulApi: lila.simul.SimulApi,
+    simulApi: lila.hub.simul.SimulApi,
     studyApi: lila.hub.study.StudyApi,
     tourLeaderApi: lila.hub.tournament.leaderboard.Api,
     getTourName: lila.hub.tournament.GetTourName,
@@ -66,7 +66,7 @@ final class Env(
     case lila.hub.forum.CreatePost(post)                 => write.forumPost(post)
     case lila.hub.ublog.UblogPost.Create(post)           => write.ublogPost(post)
     case prog: lila.hub.practice.OnComplete              => write.practice(prog)
-    case lila.simul.Simul.OnStart(simul)                 => write.simul(simul)
+    case lila.hub.simul.OnStart(simul)                   => write.simul(simul)
     case CorresMoveEvent(move, Some(userId), _, _, _)    => write.corresMove(move.gameId, userId)
     case lila.hub.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
     case lila.hub.actorApi.relation.Follow(from, to)     => write.follow(from, to)

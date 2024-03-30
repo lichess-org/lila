@@ -3,12 +3,13 @@ package views.html
 import controllers.routes
 
 import lila.activity.activities.*
-import lila.activity.model.*
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
 import lila.hub.forum.ForumTopicMini
 import lila.hub.forum.ForumPostMini
+import lila.hub.rating.Score
+import lila.hub.rating.RatingProg
 
 object activity:
 
@@ -241,25 +242,24 @@ object activity:
       )
     )
 
-  private def renderSimuls(u: User)(simuls: List[lila.simul.Simul])(using Context) =
+  private def renderSimuls(u: User)(simuls: List[lila.hub.simul.Simul])(using Context) =
     entryTag(
       iconTag(licon.Group),
       div(
-        simuls.groupBy(_.isHost(u.some)).toSeq.map { (isHost, simuls) =>
+        simuls.groupBy(_.hostId.is(u)).toSeq.map { (isHost, simuls) =>
           frag(
             if isHost then trans.activity.hostedNbSimuls.pluralSame(simuls.size)
             else trans.activity.joinedNbSimuls.pluralSame(simuls.size),
             subTag(
               simuls.map: s =>
-                val win = s.pairingOf(u.id).flatMap(_.wins)
                 div(
                   a(href := routes.Simul.show(s.id))(
                     s.name,
                     " simul by ",
                     userIdLink(s.hostId.some)
                   ),
-                  if isHost then scoreFrag(Score(s.wins, s.losses, s.draws, none))
-                  else scoreFrag(Score(win.has(true).so(1), win.has(false).so(1), win.isEmpty.so(1), none))
+                  if isHost then scoreFrag(s.hostScore)
+                  else s.playerScore(u.id).map(scoreFrag)
                 )
             )
           )

@@ -1,13 +1,13 @@
 package lila.activity
 
 import lila.game.LightPov
-import lila.simul.Simul
+import lila.hub.simul.Simul
 import lila.hub.swiss.{ IdName as SwissIdName }
 import lila.hub.ublog.UblogPost
 import lila.activity.activities.*
-import lila.activity.model.*
 import lila.hub.forum.ForumPostMini
 import lila.hub.forum.ForumTopicMini
+import lila.hub.rating.Score
 
 case class ActivityView(
     interval: TimeInterval,

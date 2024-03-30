@@ -6,6 +6,7 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.user.User
+import lila.hub.simul.Simul
 
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
@@ -16,7 +17,6 @@ final class ActivityWriteApi(
   import Activity.*
   import BSONHandlers.{ *, given }
   import activities.*
-  import model.*
 
   def game(game: Game): Funit =
     (for
@@ -51,7 +51,7 @@ final class ActivityWriteApi(
     $doc(ActivityFields.puzzles -> {
       ~a.puzzles + Score.make(
         res = res.win.yes.some,
-        rp = RatingProg(res.rating._1, res.rating._2).some
+        rp = lila.hub.rating.RatingProg(res.rating._1, res.rating._2).some
       )
     })
 
@@ -70,8 +70,8 @@ final class ActivityWriteApi(
   def practice(prog: lila.hub.practice.OnComplete) = update(prog.userId): a =>
     $doc(ActivityFields.practice -> { ~a.practice + prog.studyId })
 
-  def simul(simul: lila.simul.Simul) =
-    (simul.hostId :: simul.pairings.map(_.player.user)).traverse_(simulParticipant(simul, _))
+  def simul(simul: Simul) =
+    (simul.hostId :: simul.playerIds).traverse_(simulParticipant(simul, _))
 
   def corresMove(gameId: GameId, userId: UserId) = update(userId): a =>
     $doc(ActivityFields.corres -> { (~a.corres).add(gameId, moved = true, ended = false) })
@@ -89,23 +89,17 @@ final class ActivityWriteApi(
   def unfollowAll(from: User, following: Set[UserId]) =
     withColl: coll =>
       coll.secondaryPreferred
-        .distinctEasy[UserId, Set](
-          "f.o.ids",
-          regexId(from.id)
-        )
-        .flatMap { extra =>
+        .distinctEasy[UserId, Set]("f.o.ids", regexId(from.id))
+        .flatMap: extra =>
           val all = following ++ extra
           all.nonEmpty.so:
             logger.info(s"${from.id} unfollow ${all.size} users")
-            all
-              .map: userId =>
-                coll.update.one(
-                  regexId(userId) ++ $doc("f.i.ids" -> from.id),
-                  $pull("f.i.ids" -> from.id)
-                )
-              .parallel
-              .void
-        }
+            all.toSeq.traverse_ { userId =>
+              coll.update.one(
+                regexId(userId) ++ $doc("f.i.ids" -> from.id),
+                $pull("f.i.ids" -> from.id)
+              )
+            }
 
   def study(id: StudyId) =
     studyApi
@@ -132,7 +126,7 @@ final class ActivityWriteApi(
       update(userId): a =>
         $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })
 
-  private def simulParticipant(simul: lila.simul.Simul, userId: UserId) = update(userId) { a =>
+  private def simulParticipant(simul: Simul, userId: UserId) = update(userId) { a =>
     $doc(ActivityFields.simuls -> { ~a.simuls + simul.id })
   }
 

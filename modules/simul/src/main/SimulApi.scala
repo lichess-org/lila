@@ -31,7 +31,8 @@ final class SimulApi(
     repo: SimulRepo,
     verify: SimulCondition.Verify,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler):
+)(using Executor, Scheduler)
+    extends lila.hub.simul.SimulApi:
 
   private val workQueue = lila.hub.AsyncActorSequencers[SimulId](
     maxSize = Max(128),
@@ -129,18 +130,16 @@ final class SimulApi(
           userApi
             .withPerfs(started.hostId)
             .orFail(s"No such host: ${simul.hostId}")
-            .flatMap { host =>
+            .flatMap: host =>
               started.pairings.mapWithIndex(makeGame(started, host)).parallel.map { games =>
                 games.headOption.foreach: (game, _) =>
                   socket.startSimul(simul, game)
                 games.foldLeft(started):
                   case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
               }
-            }
-            .flatMap { s =>
-              Bus.publish(Simul.OnStart(s), "startSimul")
+            .flatMap: s =>
+              Bus.publish(lila.hub.simul.OnStart(s), "startSimul")
               update(s).andDo(currentHostIdsCache.invalidateUnit())
-            }
       }
 
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit =

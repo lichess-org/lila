@@ -7,6 +7,12 @@ object PerfKey extends OpaqueString[PerfKey]
 opaque type PerfId = Int
 object PerfId extends OpaqueInt[PerfId]
 
+case class RatingProg(before: IntRating, after: IntRating):
+  def diff    = IntRatingDiff(after.value - before.value)
+  def isEmpty = diff == IntRatingDiff(0)
+case class Score(win: Int, loss: Int, draw: Int, rp: Option[RatingProg]):
+  def size = win + loss + draw
+
 case class RatingRange(min: IntRating, max: IntRating):
   def contains(rating: IntRating) =
     (min <= RatingRange.min || rating >= min) &&
@@ -37,7 +43,5 @@ object RatingRange:
   yield RatingRange(min, max)
 
   def isValid(from: String): Boolean = parse(from).isDefined
-
-  def orDefault(from: String) = parse(from) | default
-
-  def acceptable(rating: IntRating) = broad.contains(rating)
+  def orDefault(from: String)        = parse(from) | default
+  def acceptable(rating: IntRating)  = broad.contains(rating)

@@ -15,7 +15,7 @@ final class ActivityReadApi(
     getPracticeStudies: lila.hub.practice.GetStudies,
     forumPostApi: lila.hub.forum.ForumPostApi,
     ublogApi: lila.hub.ublog.UblogApi,
-    simulApi: lila.simul.SimulApi,
+    simulApi: lila.hub.simul.SimulApi,
     studyApi: lila.hub.study.StudyApi,
     tourLeaderApi: lila.hub.tournament.leaderboard.Api,
     swissApi: lila.hub.swiss.SwissApi,
@@ -25,7 +25,6 @@ final class ActivityReadApi(
 )(using Executor):
 
   import BSONHandlers.{ *, given }
-  import model.*
 
   private given Ordering[Double] = scala.math.Ordering.Double.TotalOrdering
 
@@ -164,8 +163,8 @@ final class ActivityReadApi(
 
   private def addSignup(at: Instant, recent: Vector[ActivityView]) =
     val (found, views) = recent.foldLeft(false -> Vector.empty[ActivityView]) {
-      case ((false, as), a) if a.interval contains at => (true, as :+ a.copy(signup = true))
-      case ((found, as), a)                           => (found, as :+ a)
+      case ((false, as), a) if a.interval.contains(at) => (true, as :+ a.copy(signup = true))
+      case ((found, as), a)                            => (found, as :+ a)
     }
     if !found && views.sizeIs < Activity.recentNb && nowInstant.minusDays(8).isBefore(at) then
       views :+ ActivityView(

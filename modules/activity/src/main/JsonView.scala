@@ -6,11 +6,12 @@ import play.api.libs.json.*
 import lila.common.Json.{ *, given }
 import lila.game.LightPov
 import lila.rating.PerfType
-import lila.simul.Simul
+import lila.hub.simul.Simul
 import lila.user.User
 import lila.activity.activities.*
-import lila.activity.model.*
 import lila.hub.tournament.leaderboard.Ratio
+import lila.hub.rating.RatingProg
+import lila.hub.rating.Score
 
 final class JsonView(
     getTourName: lila.hub.tournament.GetTourName,
@@ -26,7 +27,7 @@ final class JsonView(
     given OWrites[Games] = OWrites: games =>
       JsObject:
         games.value.toList
-          .sortBy(-_._2.size)
+          .sortBy((_, s) => -s.size)
           .map: (pt, score) =>
             pt.key.value -> Json.toJson(score)
 
@@ -59,7 +60,7 @@ final class JsonView(
         "name"     -> s.name,
         "isHost"   -> (s.hostId == user.id),
         "variants" -> s.variants,
-        "score"    -> Score(s.wins, s.losses, s.draws, none)
+        "score"    -> s.hostScore
       )
     given lightPlayerWrites: OWrites[lila.game.LightPlayer] = OWrites: p =>
       Json

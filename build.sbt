@@ -255,7 +255,7 @@ lazy val pool = module("pool",
 )
 
 lazy val activity = module("activity",
-  Seq(pool, puzzle, simul),
+  Seq(pool, puzzle),
   reactivemongo.bundle
 )
 

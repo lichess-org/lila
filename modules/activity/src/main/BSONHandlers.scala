@@ -8,12 +8,13 @@ import lila.common.{ Iso, LichessDay }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.hub.rating.PerfKey
+import lila.hub.rating.RatingProg
+import lila.hub.rating.Score
 
 private object BSONHandlers:
 
   import Activity.*
   import activities.*
-  import model.*
 
   val idSep                         = ':'
   def regexId(userId: UserId): Bdoc = "_id".$startsWith(s"$userId$idSep")
