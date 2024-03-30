@@ -43,7 +43,8 @@ final class TournamentApi(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
-)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.hub.i18n.Translator):
+)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.hub.i18n.Translator)
+    extends lila.hub.tournament.TournamentApi:
 
   export tournamentRepo.{ byId as get }
 
@@ -612,10 +613,10 @@ final class TournamentApi(
         PlayerInfoExt(userId, player, povs).some
     }
 
-  def allCurrentLeadersInStandard: Fu[Map[Tournament, TournamentTop]] =
+  def allCurrentLeadersInStandard: Fu[Map[lila.hub.tournament.Tournament, List[UserId]]] =
     tournamentRepo.standardPublicStartedFromSecondary.flatMap:
       _.traverse: tour =>
-        tournamentTop(tour.id).dmap(tour -> _)
+        tournamentTop(tour.id).dmap(tour -> _.value.map(_.userId))
       .dmap(_.toMap)
 
   def calendar: Fu[List[Tournament]] =

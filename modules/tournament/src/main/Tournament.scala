@@ -37,7 +37,7 @@ case class Tournament(
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
     hasChat: Boolean = true
-):
+) extends lila.hub.tournament.Tournament:
 
   def isCreated   = status == Status.Created
   def isStarted   = status == Status.Started

@@ -7,6 +7,12 @@ trait GetTourName:
   def sync(id: TourId)(using Lang): Option[String]
   def preload(ids: Iterable[TourId])(using Lang): Funit
 
+trait Tournament:
+  def nbPlayers: Int
+
+trait TournamentApi:
+  def allCurrentLeadersInStandard: Fu[Map[Tournament, List[UserId]]]
+
 object leaderboard:
 
   opaque type Ratio = Double

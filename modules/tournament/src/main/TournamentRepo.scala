@@ -49,7 +49,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] def idsCursor(ids: Iterable[TourId]) =
     coll.find($inIds(ids)).cursor[Tournament]()
 
-  def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
+  private[tournament] def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
     coll.list[Tournament](
       startedSelect ++ $doc(
         "password".$exists(false),
