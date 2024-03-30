@@ -104,7 +104,7 @@ async function parseImports(src: string, depth = 1) {
       for (const match of text.matchAll(/\$c_([-_a-z0-9]+)/g)) {
         const [str, mix] = [match[1], parseColor(match[1])];
         if (!mix) {
-          env.log(`Invalid color mix: '${c.magenta(str)}' in '${c.cyan(src)}'`, {ctx:'sass'});
+          env.log(`Invalid color mix: '${c.magenta(str)}' in '${c.cyan(src)}'`, { ctx: 'sass' });
           continue;
         }
         colorMixMap.set(str, mix);
@@ -131,7 +131,7 @@ async function parseThemeColorDefs() {
   for (const themeFile of themeFiles ?? []) {
     const theme = /_([^_]+)\.scss/.exec(themeFile)?.[1];
     if (!theme) {
-      env.log(`Invalid theme filename '${c.cyan(themeFile)}'`, {ctx:'sass'});
+      env.log(`Invalid theme filename '${c.cyan(themeFile)}'`, { ctx: 'sass' });
       continue;
     }
     const text = fs.readFileSync(themeFile, 'utf8');
@@ -210,13 +210,13 @@ function parseColor(colorMix: string) {
   const [op, valstr] = opval.split('-');
   const val = parseInt(valstr);
   const validColor = (c: string) => themeColorMap.get('default')?.has(c) || tinycolor(c).isValid();
-  return (
-    validColor(c1) &&
+  return validColor(c1) &&
     (op !== 'mix' || validColor(c2)) &&
     ['mix', 'lighten', 'alpha', 'fade'].includes(op) &&
     val >= 0 &&
     val <= 100
-  ) ? { c1, c2, op, val } : undefined;
+    ? { c1, c2, op, val }
+    : undefined;
 }
 
 function resolvePartial(partial: string): string {
