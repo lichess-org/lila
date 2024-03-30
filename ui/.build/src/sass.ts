@@ -134,7 +134,7 @@ async function buildColorMixes() {
       if (mixed) out.write(`  --c_${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};\n`);
       else env.log(`${errorMark} - invalid mix op: '${c.magenta(colorMix)}'`, { ctx: 'sass' });
     }
-    out.write('}\n');
+    out.write('}\n\n');
   }
   out.end();
 }
@@ -150,10 +150,11 @@ async function buildColorWrap() {
       cssVars.add(line.split(':')[0].trim().replace('--c', ''));
     }
   }
-  const scssWrap = Array.from(cssVars)
-    .sort()
-    .map(variable => `$c${variable}: var(--c${variable});`)
-    .join('\n');
+  const scssWrap =
+    Array.from(cssVars)
+      .sort()
+      .map(variable => `$c${variable}: var(--c${variable});`)
+      .join('\n') + '\n';
 
   const wrapFile = path.join(env.themeDir, 'gen', '_wrap.scss');
   await fs.promises.mkdir(path.dirname(wrapFile), { recursive: true });

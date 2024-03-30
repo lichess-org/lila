@@ -7,7 +7,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "common": "workspace:*",
-    "lichess-pgn-viewer": "../../../pgn-viewer"
+    "lichess-pgn-viewer": "^2.1.0"
   },
   "lichess": {
     "modules": {
