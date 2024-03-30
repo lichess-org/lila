@@ -58,7 +58,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         if _ then
           apiC.jsonDownload(
             env.team
-              .memberStream(team, config.MaxPerSecond(20))
+              .memberStream(team, MaxPerSecond(20))
               .map: (user, joinedAt) =>
                 env.api.userApi.one(user, joinedAt.some)
           )

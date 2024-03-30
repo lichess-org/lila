@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
 import lila.search.*
 import lila.core.forum.{ CreatePost, RemovePost, RemovePosts, ErasePost, ErasePosts }
 
@@ -34,7 +33,7 @@ final class Env(
       api.reset.inject("done")
     }
 
-  private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
+  private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, MaxPerPage)
 
   lila.common.Bus.subscribeFun("forumPost"):
     case CreatePost(post)        => api.store(post)

@@ -6,11 +6,9 @@ import reactivemongo.api.bson.*
 
 import scala.util.chaining.*
 
-import lila.common.config.Max
 import lila.common.{ Bus, Days, LilaStream, Template }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player }
-import lila.core.AsyncActorSequencers
 import lila.core.actorApi.map.TellMany
 import lila.rating.PerfType
 import lila.core.round.StartClock
@@ -35,11 +33,12 @@ final class ChallengeBulkApi(
 
   private val coll = colls.bulk
 
-  private val workQueue = AsyncActorSequencers[UserId](
+  private val workQueue = ornicar.scalalib.AsyncActorSequencers[UserId](
     maxSize = Max(16),
     expiration = 10 minutes,
     timeout = 10 seconds,
-    name = "challenge.bulk"
+    name = "challenge.bulk",
+    lila.log.asyncActorMonitor
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =

@@ -89,7 +89,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
           ids = gameIds,
           format = GameApiV2.Format.PGN,
           flags = lila.game.PgnDump.WithFlags(),
-          perSecond = config.MaxPerSecond(100),
+          perSecond = MaxPerSecond(100),
           playerFile = none
         )
       )

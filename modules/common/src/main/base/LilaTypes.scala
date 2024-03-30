@@ -18,7 +18,7 @@ trait LilaTypes:
   def fuccess[A](a: A): Fu[A]        = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X] = Future.failed(t)
   def fufail[X](s: String): Fu[X]    = fufail(LilaException(s))
-  val funit                          = fuccess(())
+  val funit                          = Future.unit
   val fuTrue                         = fuccess(true)
   val fuFalse                        = fuccess(false)
 

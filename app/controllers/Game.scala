@@ -8,7 +8,7 @@ import scala.util.chaining.*
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.common.config.MaxPerSecond
+
 import lila.core.rating.PerfKey
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):

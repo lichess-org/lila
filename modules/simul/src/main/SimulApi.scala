@@ -6,7 +6,6 @@ import chess.{ ByColor, Status }
 import play.api.libs.json.Json
 
 import lila.common.Json.given
-import lila.common.config.{ Max, MaxPerPage }
 import lila.common.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
@@ -34,11 +33,12 @@ final class SimulApi(
 )(using Executor, Scheduler)
     extends lila.core.simul.SimulApi:
 
-  private val workQueue = lila.core.AsyncActorSequencers[SimulId](
+  private val workQueue = ornicar.scalalib.AsyncActorSequencers[SimulId](
     maxSize = Max(128),
     expiration = 10 minutes,
     timeout = 10 seconds,
-    name = "simulApi"
+    name = "simulApi",
+    lila.log.asyncActorMonitor
   )
 
   def currentHostIds: Fu[Set[UserId]] = currentHostIdsCache.get {}

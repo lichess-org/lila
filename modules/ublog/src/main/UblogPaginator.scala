@@ -3,7 +3,6 @@ package lila.ublog
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONNull
 
-import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter

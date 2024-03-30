@@ -10,7 +10,7 @@ final class StreamerPager(
     coll: Coll,
     userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
-    maxPerPage: lila.common.config.MaxPerPage,
+    maxPerPage: MaxPerPage,
     subsRepo: lila.core.relation.SubscriptionRepo
 )(using Executor):
 

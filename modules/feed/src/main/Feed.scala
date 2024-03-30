@@ -7,7 +7,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 
 import lila.Lila.*
-import lila.common.config.{ Max, MaxPerPage }
+
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter

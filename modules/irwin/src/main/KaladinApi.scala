@@ -4,7 +4,6 @@ import chess.Speed
 import reactivemongo.api.Cursor
 import reactivemongo.api.bson.*
 
-import lila.common.config.Max
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.game.{ BinaryFormat, GameRepo }
@@ -30,8 +29,12 @@ final class KaladinApi(
 
   lazy val thresholds = IrwinThresholds.makeSetting("kaladin", settingStore)
 
-  private val workQueue =
-    lila.core.AsyncActorSequencer(maxSize = Max(512), timeout = 2 minutes, name = "kaladinApi")
+  private val workQueue = ornicar.scalalib.AsyncActorSequencer(
+    maxSize = Max(512),
+    timeout = 2 minutes,
+    name = "kaladinApi",
+    lila.log.asyncActorMonitor
+  )
 
   private def sequence[A <: Matchable](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
     workQueue { coll(_.byId[KaladinUser](user.id.value)).flatMap(f) }

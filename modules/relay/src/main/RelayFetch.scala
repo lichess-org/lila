@@ -8,7 +8,7 @@ import io.mola.galimatias.URL
 import play.api.libs.json.*
 
 import lila.base.LilaInvalid
-import lila.common.config.Max
+
 import lila.common.{ LilaScheduler, Seconds }
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi

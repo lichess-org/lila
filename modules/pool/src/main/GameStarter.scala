@@ -2,7 +2,6 @@ package lila.pool
 
 import chess.ByColor
 
-import lila.common.config.Max
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
 import lila.user.{ UserPerfsRepo, UserRepo }
@@ -16,8 +15,12 @@ final private class GameStarter(
     onStart: GameId => Unit
 )(using Executor, Scheduler):
 
-  private val workQueue =
-    lila.core.AsyncActorSequencer(maxSize = Max(32), timeout = 10 seconds, name = "gameStarter")
+  private val workQueue = ornicar.scalalib.AsyncActorSequencer(
+    maxSize = Max(32),
+    timeout = 10 seconds,
+    name = "gameStarter",
+    lila.log.asyncActorMonitor
+  )
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
     couples.nonEmpty.so:

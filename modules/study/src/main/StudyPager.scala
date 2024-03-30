@@ -11,7 +11,7 @@ final class StudyPager(
     chapterRepo: ChapterRepo
 )(using Executor):
 
-  val maxPerPage                = lila.common.config.MaxPerPage(16)
+  val maxPerPage                = MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4
 
   import BSONHandlers.given

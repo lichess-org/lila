@@ -10,7 +10,6 @@ import java.security.MessageDigest
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 import scala.util.chaining.*
 
-import lila.common.config.{ Max, MaxPerSecond }
 import lila.common.{ Bus, LightUser }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
@@ -41,11 +40,12 @@ final class SwissApi(
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
     extends lila.core.swiss.SwissApi:
 
-  private val sequencer = lila.core.AsyncActorSequencers[SwissId](
+  private val sequencer = ornicar.scalalib.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events
     expiration = 20 minutes,
     timeout = 10 seconds,
-    name = "swiss.api"
+    name = "swiss.api",
+    lila.log.asyncActorMonitor
   )
 
   import BsonHandlers.{ *, given }

@@ -1,11 +1,11 @@
 package lila.puzzle
 
-import lila.common.config.{ Max, MaxPerPage }
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
 import lila.core.i18n.I18nKey
+import ornicar.scalalib.AsyncActorSequencers
 
 final class PuzzleApi(
     colls: PuzzleColls,
@@ -55,12 +55,12 @@ final class PuzzleApi(
 
   object vote:
 
-    private val sequencer = lila.core.AsyncActorSequencers[PuzzleId](
+    private val sequencer = AsyncActorSequencers[PuzzleId](
       maxSize = Max(32),
       expiration = 1 minute,
       timeout = 3 seconds,
       name = "puzzle.vote",
-      logging = false
+      monitor = lila.log.asyncActorMonitor
     )
 
     def update(id: PuzzleId, user: User, vote: Boolean): Funit =

@@ -1,6 +1,5 @@
 package lila.perfStat
 
-import lila.common.config.Max
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.rating.PerfType
 import lila.user.User
@@ -10,8 +9,12 @@ final class PerfStatIndexer(
     storage: PerfStatStorage
 )(using Executor, Scheduler):
 
-  private val workQueue =
-    lila.core.AsyncActorSequencer(maxSize = Max(64), timeout = 10 seconds, name = "perfStatIndexer")
+  private val workQueue = ornicar.scalalib.AsyncActorSequencer(
+    maxSize = Max(64),
+    timeout = 10 seconds,
+    name = "perfStatIndexer",
+    lila.log.asyncActorMonitor
+  )
 
   private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] =
     workQueue:

@@ -2,7 +2,6 @@ package lila.report
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.Max
 import lila.common.{ Bus, Heapsort }
 import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
@@ -518,10 +517,11 @@ final class ReportApi(
 
   object inquiries:
 
-    private val workQueue = lila.core.AsyncActorSequencer(
+    private val workQueue = ornicar.scalalib.AsyncActorSequencer(
       maxSize = Max(32),
       timeout = 20 seconds,
-      name = "report.inquiries"
+      name = "report.inquiries",
+      lila.log.asyncActorMonitor
     )
 
     def allBySuspect: Fu[Map[UserId, Report.Inquiry]] =

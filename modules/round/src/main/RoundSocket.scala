@@ -10,7 +10,7 @@ import lila.chat.BusChan
 import lila.common.Json.given
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.{ Event, Game, Pov }
-import lila.core.AsyncActorConcMap
+import ornicar.scalalib.AsyncActorConcMap
 import lila.core.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.core.game.TvSelect
 import lila.core.round.*

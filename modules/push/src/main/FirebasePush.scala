@@ -6,7 +6,6 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.Max
 import lila.common.{ Chronometer, LazyFu }
 import lila.memo.FrequencyThreshold
 
@@ -22,7 +21,12 @@ final private class FirebasePush(
     logger.info("Mobile Firebase push notifications are enabled.")
 
   private val workQueue =
-    lila.core.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
+    ornicar.scalalib.AsyncActorSequencer(
+      maxSize = Max(512),
+      timeout = 10 seconds,
+      name = "firebasePush",
+      lila.log.asyncActorMonitor
+    )
 
   def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
     deviceApi

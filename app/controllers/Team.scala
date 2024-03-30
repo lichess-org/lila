@@ -38,7 +38,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       Found(api.team(id)) { renderTeam(_, page, mod && canEnterModView) }
 
   def members(id: TeamId, page: Int) = Open:
-    Reasonable(page, config.Max(50)):
+    Reasonable(page, Max(50)):
       Found(api.teamEnabled(id)): team =>
         val canSee =
           fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so:
@@ -467,7 +467,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   You received this because you are subscribed to messages of the team $url."""
                   env.msg.api
                     .multiPost(
-                      env.team.memberStream.subscribedIds(team, config.MaxPerSecond(50)),
+                      env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
                       full
                     )
                     .addEffect: nb =>

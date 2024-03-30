@@ -8,7 +8,7 @@ import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-import lila.common.config.MaxPerSecond
+
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile

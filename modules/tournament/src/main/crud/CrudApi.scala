@@ -3,7 +3,6 @@ package crud
 
 import chess.Mode
 
-import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl.*
 import lila.db.paginator.Adapter

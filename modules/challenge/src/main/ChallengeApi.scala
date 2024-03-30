@@ -1,7 +1,7 @@
 package lila.challenge
 
 import lila.common.Bus
-import lila.common.config.Max
+
 import lila.game.{ Game, Pov }
 import lila.core.actorApi.socket.SendTo
 import lila.core.i18n.LangPicker
@@ -109,8 +109,12 @@ final class ChallengeApi(
       Bus.publish(Event.Decline(c.declineWith(reason)), "challenge")
     }
 
-  private val acceptQueue =
-    lila.core.AsyncActorSequencer(maxSize = Max(64), timeout = 5 seconds, "challengeAccept")
+  private val acceptQueue = ornicar.scalalib.AsyncActorSequencer(
+    maxSize = Max(64),
+    timeout = 5 seconds,
+    "challengeAccept",
+    lila.log.asyncActorMonitor
+  )
 
   def accept(
       c: Challenge,

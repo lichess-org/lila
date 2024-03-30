@@ -79,7 +79,7 @@ final class RelationApi(
   def countFollowing(userId: UserId) = countFollowingCache.get(userId)
 
   def reachedMaxFollowing(userId: UserId): Fu[Boolean] =
-    countFollowingCache.get(userId).map(_ >= config.maxFollow.value)
+    countFollowingCache.get(userId).map(_ >= MaxFollow.value)
 
   def countBlocking(userId: UserId) =
     coll.countSel($doc("u1" -> userId, "r" -> Block))
@@ -117,7 +117,7 @@ final class RelationApi(
           case (_, Some(Block))  => funit
           case _ =>
             (repo.follow(u1, u2) >> limitFollow(u1)).andDo {
-              countFollowingCache.update(u1, prev => (prev + 1).atMost(config.maxFollow.value))
+              countFollowingCache.update(u1, prev => (prev + 1).atMost(MaxFollow.value))
               timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1)
               Bus.publish(lila.core.actorApi.relation.Follow(u1, u2), "relation")
               lila.mon.relation.follow.increment()
@@ -134,18 +134,18 @@ final class RelationApi(
 
   private def limitFollow(u: UserId) =
     countFollowing(u).flatMap: nb =>
-      (nb > config.maxFollow.value).so {
+      (nb > MaxFollow.value).so {
         limitFollowRateLimiter(u, fuccess(Nil)):
           fetchFollowing(u).flatMap(userRepo.filterClosedOrInactiveIds(nowInstant.minusDays(90)))
         .flatMap:
-          case Nil => repo.drop(u, true, nb - config.maxFollow.value)
+          case Nil => repo.drop(u, true, nb - MaxFollow.value)
           case inactiveIds =>
             repo.unfollowMany(u, inactiveIds).andDo(countFollowingCache.update(u, _ - inactiveIds.size))
       }
 
   private def limitBlock(u: UserId) =
     countBlocking(u).flatMap: nb =>
-      (config.maxBlock < nb).so(repo.drop(u, false, nb - config.maxBlock.value))
+      (MaxBlock < nb).so(repo.drop(u, false, nb - MaxBlock.value))
 
   def block(u1: UserId, u2: UserId): Funit =
     (u1 != u2 && u2 != User.lichessId).so(fetchBlocks(u1, u2).flatMap {

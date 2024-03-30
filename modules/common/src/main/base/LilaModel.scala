@@ -7,6 +7,8 @@ import java.time.Instant
 
 trait LilaModel:
 
+  export ornicar.scalalib.model.{ Max, MaxPerPage, MaxPerSecond }
+
   type Update[A] = A => A
   def UpdateOf[A](f: A => A): Update[A] = f
   // apply updates to a value, and keep track of the updates

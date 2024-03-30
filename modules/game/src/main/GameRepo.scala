@@ -9,7 +9,6 @@ import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
 
-import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
 import lila.user.User
@@ -137,7 +136,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
       .cursor[Game](ReadPref.sec)
       .list(nb)
 
-  def unanalysedGames(gameIds: Seq[GameId], max: config.Max = config.Max(100)): Fu[List[Game]] =
+  def unanalysedGames(gameIds: Seq[GameId], max: Max = Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
       .cursor[Game](ReadPref.priTemp)
@@ -433,7 +432,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
         Query.createdSince(nowInstant.minusHours(1))
 
   // registered players who have played against userId recently in games from the Friend source
-  def recentChallengersOf(userId: UserId, max: config.Max): Fu[List[UserId]] =
+  def recentChallengersOf(userId: UserId, max: Max): Fu[List[UserId]] =
     coll
       .aggregateOne(_.sec): framework =>
         import framework.*

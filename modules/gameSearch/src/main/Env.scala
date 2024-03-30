@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
 import lila.game.actorApi.{ FinishGame, InsertGame }
 import lila.search.*
 

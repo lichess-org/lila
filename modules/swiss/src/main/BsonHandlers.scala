@@ -125,4 +125,4 @@ object BsonHandlers:
     }
 
   given BSONDocumentHandler[lila.core.swiss.IdName] = Macros.handler
-  given BSONDocumentHandler[SwissBan]              = Macros.handler
+  given BSONDocumentHandler[SwissBan]               = Macros.handler

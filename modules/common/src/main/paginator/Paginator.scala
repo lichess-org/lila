@@ -3,8 +3,6 @@ package paginator
 
 import alleycats.Zero
 
-import lila.common.config.MaxPerPage
-
 final class Paginator[A] private[paginator] (
     val currentPage: Int,
     val maxPerPage: MaxPerPage,

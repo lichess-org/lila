@@ -93,7 +93,7 @@ final class Env(
   wire[SwissNotify]
 
   lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "team"):
-    case lila.game.actorApi.FinishGame(game, _)               => api.finishGame(game)
+    case lila.game.actorApi.FinishGame(game, _)                => api.finishGame(game)
     case lila.core.team.LeaveTeam(teamId, userId)              => api.leaveTeam(teamId, userId)
     case lila.core.team.KickFromTeam(teamId, teamName, userId) => api.leaveTeam(teamId, userId)
     case lila.core.actorApi.mod.MarkCheater(userId, true)      => api.kickLame(userId)

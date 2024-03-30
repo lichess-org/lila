@@ -7,7 +7,6 @@ import reactivemongo.api.bson.*
 
 import scala.util.chaining.*
 
-import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.WithTour

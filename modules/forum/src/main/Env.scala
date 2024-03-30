@@ -64,7 +64,7 @@ final class Env(
     postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
-    case lila.core.team.TeamCreate(t)    => categApi.makeTeam(t.id, t.name, t.userId)
+    case lila.core.team.TeamCreate(t)   => categApi.makeTeam(t.id, t.name, t.userId)
     case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
 
 private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]

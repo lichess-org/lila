@@ -25,7 +25,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
     else if slug == diagnosticId && !isGrantedOpt(_.ModerateForum) then notFound
     else
       NotForKids:
-        Reasonable(page, config.Max(50), notFound):
+        Reasonable(page, Max(50), notFound):
           Found(categApi.show(slug, page)): (categ, topics) =>
             for
               canRead     <- access.isGrantedRead(categ.id)

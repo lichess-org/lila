@@ -57,7 +57,7 @@ object BSONHandlers:
   )
 
   given studyIdNameHandler: BSONDocumentHandler[lila.core.study.IdName] = Macros.handler
-  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName]      = Macros.handler
+  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName]       = Macros.handler
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {

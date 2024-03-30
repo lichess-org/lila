@@ -2,7 +2,6 @@ package lila.tutor
 
 import alleycats.Zero
 
-import lila.common.config
 import lila.insight.*
 
 case class TutorFlagging(win: TutorBothValueOptions[GoodPercent], loss: TutorBothValueOptions[GoodPercent])
@@ -13,7 +12,7 @@ object TutorFlagging:
     val values = TutorBothValueOptions.zero[GoodPercent].zero
     Zero(TutorFlagging(values, values))
 
-  val maxPeerGames = config.Max(10_000)
+  val maxPeerGames = Max(10_000)
 
   private[tutor] def compute(
       user: TutorUser

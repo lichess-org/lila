@@ -1,6 +1,5 @@
 package lila.storm
 
-import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.common.{ Bus, LichessDay }
 import lila.db.dsl.*

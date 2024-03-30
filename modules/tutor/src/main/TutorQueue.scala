@@ -5,7 +5,6 @@ import com.softwaremill.tagging.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.game.Pov
 import lila.memo.{ CacheApi, SettingStore }
@@ -21,7 +20,12 @@ final private class TutorQueue(
 
   import TutorQueue.*
 
-  private val workQueue = lila.core.AsyncActorSequencer(maxSize = Max(64), timeout = 5.seconds, "tutorQueue")
+  private val workQueue = ornicar.scalalib.AsyncActorSequencer(
+    maxSize = Max(64),
+    timeout = 5.seconds,
+    "tutorQueue",
+    lila.log.asyncActorMonitor
+  )
 
   private val durationCache = cacheApi.unit[FiniteDuration]:
     _.refreshAfterWrite(1 minutes).buildAsyncFuture: _ =>

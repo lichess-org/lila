@@ -24,15 +24,6 @@ object config:
   opaque type BaseUrl = String
   object BaseUrl extends OpaqueString[BaseUrl]
 
-  opaque type Max = Int
-  object Max extends OpaqueInt[Max]
-
-  opaque type MaxPerPage = Int
-  object MaxPerPage extends OpaqueInt[MaxPerPage]
-
-  opaque type MaxPerSecond = Int
-  object MaxPerSecond extends OpaqueInt[MaxPerSecond]
-
   opaque type NetDomain = String
   object NetDomain extends OpaqueString[NetDomain]
 

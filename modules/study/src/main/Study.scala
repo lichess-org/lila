@@ -4,7 +4,6 @@ import chess.format.UciPath
 import ornicar.scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.config.Max
 import lila.user.User
 import lila.core.{ study as hub }
 import lila.core.study.Visibility

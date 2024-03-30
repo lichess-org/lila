@@ -2,7 +2,6 @@ package lila.search
 
 import play.api.libs.json.Writes
 
-import lila.common.config.MaxPerPage
 import lila.common.paginator.*
 
 final class PaginatorBuilder[A, Q: Writes](

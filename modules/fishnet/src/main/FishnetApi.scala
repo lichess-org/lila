@@ -4,9 +4,10 @@ import reactivemongo.api.bson.*
 
 import scala.util.{ Failure, Success, Try }
 
+import ornicar.scalalib.AsyncActorSequencer
+
 import lila.base.LilaNoStackTrace
 import lila.common.IpAddress
-import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 
 import Client.Skill
@@ -26,8 +27,12 @@ final class FishnetApi(
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }
   import BSONHandlers.given
 
-  private val workQueue =
-    lila.core.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, name = "fishnetApi")
+  private val workQueue = AsyncActorSequencer(
+    maxSize = Max(256),
+    timeout = 5 seconds,
+    name = "fishnetApi",
+    lila.log.asyncActorMonitor
+  )
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 

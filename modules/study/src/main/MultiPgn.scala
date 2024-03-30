@@ -2,8 +2,6 @@ package lila.study
 
 import chess.format.pgn.PgnStr
 
-import lila.common.config.Max
-
 case class MultiPgn(value: List[PgnStr]) extends AnyVal:
 
   def toPgnStr = PgnStr(value.mkString("\n\n"))
