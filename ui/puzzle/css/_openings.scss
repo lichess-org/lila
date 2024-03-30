@@ -10,7 +10,7 @@
 
   &__list {
     display: grid;
-    margin: 0 0 3em var(--box-padding);
+    margin: 0 0 3em var(---box-padding);
     grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
 
     @media (max-width: at-most($xx-small)) {
@@ -25,14 +25,14 @@
     padding: 0.5em 0.7em 0.5em 1.5em;
 
     &:hover {
-      background: mix($c-bg-box, $c-link, 90%);
+      background: $c_primary_bg--mix-10;
     }
 
     &.opening-mine {
       color: $c-brag;
       font-weight: bold;
       &:hover {
-        background: mix($c-bg-box, $c-brag, 80%);
+        background: $c_brag_bg--mix-20;
       }
     }
 
@@ -41,7 +41,7 @@
         display: none;
       }
 
-      padding-#{$start-direction}: 1em;
+      padding-inline-start: 1em;
     }
 
     h3 {
@@ -63,7 +63,7 @@
 
     color: $c-font-dimmer;
     font-size: 0.8em;
-    margin-#{$start-direction}: 0.7ch;
+    margin-inline-start: 0.7ch;
     letter-spacing: -1px;
   }
 }

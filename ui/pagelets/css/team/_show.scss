@@ -20,7 +20,7 @@ $section-margin-more: 5vh;
     height: 40vh;
     margin-bottom: $section-margin;
 
-    @if $theme-dark {
+    @include if-not-light {
       box-shadow: none;
 
       &__tabs,
@@ -38,14 +38,14 @@ $section-margin-more: 5vh;
   }
 
   &__content {
-    margin: 0 var(--box-padding);
+    margin: 0 var(---box-padding);
 
     @media (min-width: at-least($small)) {
       display: flex;
 
       &__col1 {
         flex: 0 0 30%;
-        margin-#{$end-direction}: var(--box-padding);
+        margin-inline-end: var(---box-padding);
       }
 
       &__col2 {
@@ -61,7 +61,7 @@ $section-margin-more: 5vh;
     .user-link {
       display: inline-block;
       vertical-align: bottom;
-      padding-#{$end-direction}: 0.25em;
+      padding-inline-end: 0.25em;
     }
   }
 
@@ -142,7 +142,7 @@ $section-margin-more: 5vh;
       @extend %flex-center;
 
       label {
-        margin-#{$start-direction}: 1rem;
+        margin-inline-start: 1rem;
         cursor: pointer;
       }
     }

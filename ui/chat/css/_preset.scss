@@ -21,14 +21,14 @@
       @include transition;
 
       &.disabled {
-        background: mix($c-accent, $c-bg-box, 15%);
+        background: $c_accent_bg--mix-15;
         color: transparent;
         cursor: default;
       }
 
       &:not(.disabled):hover {
         background: $c-accent;
-        color: $c-accent-over;
+        color: $c-over;
         opacity: 1;
       }
     }

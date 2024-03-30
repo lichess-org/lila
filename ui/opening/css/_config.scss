@@ -20,8 +20,8 @@ $c-opcfg: $c-accent;
   }
   background: $c-bg-zebra;
   &:hover {
-    outline: 3px solid mix($c-opcfg, $c-bg-box, 60%);
-    background: mix($c-opcfg, $c-bg-zebra, 10%);
+    outline: 3px solid $c_accent_bg--mix-60;
+    background: $c_accent_bg-zebra--mix-10;
   }
   &__summary {
     padding: 1em 2em;
@@ -29,7 +29,7 @@ $c-opcfg: $c-accent;
     user-select: none;
     &__speed,
     &__rating {
-      color: $c-opcfg;
+      color: $c-accent;
     }
     &__large {
       display: none;
@@ -66,7 +66,7 @@ $c-opcfg: $c-accent;
       display: flex;
       justify-content: stretch;
       button {
-        color: $c-opcfg !important;
+        color: $c-accent !important;
         flex: 0 0 100%;
       }
     }

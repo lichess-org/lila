@@ -100,10 +100,9 @@ $total_len: $len1 + $len2 + $len3;
 }
 
 .ddloader {
-  @if $theme-light {
+  background: img-url('loader/whitex1.png') no-repeat;
+  @include if-light {
     background: img-url('loader/blackx1.png') no-repeat;
-  } @else {
-    background: img-url('loader/whitex1.png') no-repeat;
   }
 
   animation: ddloader 0.5s steps(15) infinite !important;

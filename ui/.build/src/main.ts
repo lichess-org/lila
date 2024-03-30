@@ -19,6 +19,7 @@ const longArgs = [
   '--prod',
   '--split',
   '--debug',
+  '--rgb',
   '--clean',
   '--clean-theme',
   '--update',
@@ -52,6 +53,7 @@ export function main() {
   env.clean = args.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
   env.cleanTheme = args.includes('--clean-theme');
   env.install = !args.includes('--no-install') && !oneDashArgs.includes('n');
+  env.rgb = args.includes('--rgb');
 
   if (env.rebuild && !env.install) {
     env.warn(`--rebuild incompatible with --no-install`);
@@ -123,6 +125,7 @@ class Env {
   prod = false;
   split = false;
   debug = false;
+  rgb = false;
   install = true;
   copies = true;
   exitCode = new Map<'sass' | 'tsc' | 'esbuild', number | false>();
@@ -151,6 +154,9 @@ class Env {
   }
   get outDir(): string {
     return path.join(this.rootDir, 'public');
+  }
+  get themeDir(): string {
+    return path.join(this.uiDir, 'common', 'css', 'theme');
   }
   get cssDir(): string {
     return path.join(this.outDir, 'css');

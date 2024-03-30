@@ -3,10 +3,10 @@
 
   position: fixed;
   bottom: 0;
-  #{$start-direction}: 0;
+  @include inline-start(0);
   font-size: 1.4em;
   background: $c-primary;
-  color: $c-primary-over;
+  color: $c-over;
   padding: 0.7rem 1rem;
   z-index: z('tour-reminder');
   width: 100%;
@@ -17,17 +17,17 @@
   }
 
   a {
-    color: $c-primary-over;
+    color: $c-over;
   }
 
   time {
-    margin-#{$start-direction}: 1rem;
+    margin-inline-start: 1rem;
   }
 
   .actions {
     a {
       font-weight: bold;
-      margin-#{$start-direction}: 1rem;
+      margin-inline-start: 1rem;
     }
   }
 

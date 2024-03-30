@@ -19,7 +19,7 @@ export function onWindowResize(redraw: Redraw) {
   window.addEventListener(
     'resize',
     () => {
-      const allow = window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
+      const allow = window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';
       const placeholder = document.getElementById('video-player-placeholder') ?? undefined;
       player?.cover(allow ? placeholder : undefined);
       if (showingVideo === allow && !!placeholder) return;

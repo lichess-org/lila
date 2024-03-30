@@ -6,10 +6,13 @@
   "license": "AGPL-3.0-or-later",
   "type": "commonjs",
   "dependencies": {
-    "@types/node": "^20.11.28",
-    "typescript": "^5.4.2",
+    "@types/node": "^20.11.30",
+    "@types/tinycolor2": "^1.4.6",
+    "build": "link:",
     "esbuild": "^0.20.2",
-    "fast-glob": "^3.3.2"
+    "fast-glob": "^3.3.2",
+    "tinycolor2": "^1.6.0",
+    "typescript": "^5.4.3"
   },
   "scripts": {
     "dev": "tsc && node dist/main.js"

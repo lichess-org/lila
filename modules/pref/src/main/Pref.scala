@@ -59,6 +59,11 @@ case class Pref(
   val themeColorLight = "#dbd7d1"
   val themeColorDark  = "#2e2a24"
   def themeColor      = if bg == Bg.LIGHT then themeColorLight else themeColorDark
+  def themeColorClass =
+    if bg == Bg.LIGHT then "light".some
+    else if bg == Bg.TRANSPARENT then "transp".some
+    else if bg == Bg.SYSTEM then none
+    else "dark".some
 
   def realSoundSet = SoundSet(soundSet)
 

@@ -21,11 +21,11 @@
     @include transition;
 
     &:hover {
-      background: fade-out($c-primary, 0.8);
+      background: $c_primary--fade-80;
     }
 
     &.selected-square {
-      background: fade-out($c-primary, 0.5);
+      background: $c_primary--fade-50;
     }
 
     div {
@@ -36,11 +36,11 @@
       @extend %box-radius-left;
 
       &:hover {
-        background: fade-out($c-good, 0.8);
+        background: $c_secondary--fade-80;
       }
 
       &.selected-square {
-        background: fade-out($c-good, 0.4);
+        background: $c_secondary--fade-40;
       }
 
       piece {
@@ -52,11 +52,11 @@
       @extend %box-radius-right;
 
       &:hover {
-        background: fade-out($c-bad, 0.8);
+        background: $c_bad--fade-80;
       }
 
       &.selected-square {
-        background: fade-out($c-bad, 0.4);
+        background: $c_bad--fade-40;
       }
 
       piece {
@@ -79,7 +79,7 @@
       /* original size: width: 140.625%; height: 179.6875%; size on 3D board, with height/width = 90.78571% */
       width: 100%;
       height: 140.7465%;
-      #{$start-direction}: 0;
+      @include inline-start(0);
       top: -34%;
     }
   }

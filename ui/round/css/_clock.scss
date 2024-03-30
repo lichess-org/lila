@@ -123,7 +123,7 @@
   &-correspondence .time {
     font-size: 1.6em;
     letter-spacing: inherit;
-    direction: $direction;
+    direction: unset;
 
     @include mq-at-least-col2 {
       line-height: 1.5em;
@@ -159,17 +159,17 @@
   }
 
   &.running .time {
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: $c_secondary_bg--mix-30;
     color: $c-font-clearer;
   }
 
   &.emerg .time,
   &.outoftime .time {
-    background-color: mix($c-bad, $c-bg-box, 25%);
+    background-color: $c_bad_bg--mix-25;
   }
 
   &.emerg.running .time {
-    background-color: mix($c-bad, $c-bg-box, 50%);
+    background-color: $c_bad_bg--mix-50;
     color: $c-font-clearer;
   }
 

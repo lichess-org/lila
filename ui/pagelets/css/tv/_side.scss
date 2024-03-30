@@ -9,9 +9,9 @@
 
     &::before {
       order: 2;
-      color: mix($c-brag, $c-bg-page, 60%);
+      color: $c_brag_bg-page--mix-60;
       font-size: 2.5em;
-      margin-#{$start-direction}: 0.8rem;
+      margin-inline-start: 0.8rem;
     }
 
     > span {

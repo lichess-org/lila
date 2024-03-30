@@ -1,7 +1,10 @@
 .eval-gauge {
   width: $block-gap;
   position: relative;
-  background: if($theme-light, #fff, #a0a0a0);
+  background: #a0a0a0;
+  @include if-light {
+    background: #fff;
+  }
   overflow: hidden;
 
   @include mq-is-col1 {
@@ -21,31 +24,37 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    #{$start-direction}: 0;
-    #{$end-direction}: 0;
+    left: 0;
+    right: 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
   }
 
   tick {
     position: absolute;
     top: 0;
-    #{$start-direction}: 0;
+    @include inline-start(0);
     width: 100%;
-    border-bottom: 2px ridge if($theme-light, #eee, #a0a0a0);
+    border-bottom: 2px ridge #a0a0a0;
+    @include if-light {
+      border-bottom: 2px ridge #eee;
+    }
     opacity: 0.4;
   }
 
   tick.zero {
     top: 6px;
     opacity: 1;
-    border-bottom: 7px solid fade-out($c-accent, 0.6);
+    border-bottom: 7px solid $c_accent--fade-50 !important;
     margin-top: -3px;
   }
 
   .black {
     width: 100%;
     height: 50%;
-    background: if($theme-light, #888, #666);
+    background: #666;
+    @include if-light {
+      background: #888;
+    }
     transition: height 1s;
   }
 }

@@ -1,7 +1,3 @@
-@function c-light($color, $value) {
-  @return change-color($color, $lightness: $value);
-}
-
 @function img-url($path) {
   @return url('#{$img-path}/#{$path}');
 }

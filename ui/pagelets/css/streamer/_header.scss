@@ -6,7 +6,7 @@
   }
 
   .overview {
-    padding-#{$start-direction}: 2em;
+    padding-inline-start: 2em;
     display: flex;
     flex: auto;
     flex-flow: column;
@@ -18,7 +18,7 @@
 
     .online-check {
       padding: 0.5em 1em;
-      margin-#{$end-direction}: 2em;
+      margin-inline-end: 2em;
     }
   }
 
@@ -76,7 +76,7 @@
     padding: 15px 0;
     background-color: $c-primary;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    color: $c-primary-over;
+    color: $c-over;
     font: 700 18px/1 Roboto;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     text-transform: uppercase;
@@ -123,7 +123,7 @@
 .streamer-title {
   @extend %flex-between;
   gap: 1em;
-  margin: 1.5em var(--box-padding) 1em 0;
+  margin: 1.5em var(---box-padding) 1em 0;
 }
 
 .streamer-subscribe {

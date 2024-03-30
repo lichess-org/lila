@@ -4,11 +4,11 @@
   }
 
   50% {
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: $c_secondary_bg--mix-30;
   }
 
   60% {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: $c_primary_bg--mix-30;
   }
 
   70% {
@@ -36,19 +36,19 @@
 
   &-on {
     background: $c-good;
-    color: $c-good-over;
+    color: $c-over;
     animation: none;
 
     &:hover {
       background: $c-bad !important;
-      color: $c-bad-over !important;
+      color: $c-over !important;
     }
   }
 
   &::after {
     top: 1px;
-    #{$start-direction}: 0;
-    #{$end-direction}: auto;
+    @include inline-start(0);
+    @include inline-end(auto);
     background: none;
     box-shadow: none;
   }

@@ -46,7 +46,7 @@
     }
 
     &--suspect {
-      border-#{$end-direction}: 10px solid $c-bg-zebra;
+      border-inline-end: 10px solid $c-bg-zebra;
     }
 
     img {
@@ -61,7 +61,7 @@
     margin-top: 2em;
 
     .button {
-      margin-#{$end-direction}: 1em;
+      margin-inline-end: 1em;
     }
   }
 
@@ -70,7 +70,7 @@
 
     border-radius: 20px;
     padding: 1rem;
-    background: mix($c-warn, $c-bg-box, 60%);
+    background: $c_brag_bg--mix-60;
     border: 1px solid $c-warn;
     text-align: center;
     font-size: 1.2em;
@@ -80,16 +80,16 @@
     padding: 0.7em;
     text-align: center;
     background: $c-good;
-    color: $c-good-over;
+    color: $c-over;
   }
 
   .marked .root h2 {
     background: $c-bad;
-    color: $c-bad-over;
+    color: $c-over;
   }
 
   .appeal-presets {
-    margin-#{$end-direction}: 1em;
+    margin-inline-end: 1em;
   }
 
   &__rules {

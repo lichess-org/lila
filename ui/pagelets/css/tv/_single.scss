@@ -14,7 +14,7 @@
   }
 
   @include mq-at-least-col3 {
-    grid-template-columns: $col3-uniboard-side var(--col3-uniboard-width) $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side var(---col3-uniboard-width) $col3-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas: 'side app   app' 'side under .';
 

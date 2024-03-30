@@ -13,7 +13,7 @@
     margin: 0;
 
     &::before {
-      margin-#{$end-direction}: 10px;
+      margin-inline-end: 10px;
     }
   }
 
@@ -56,7 +56,7 @@
 
     margin: 3em 10% 1em 10%;
     padding: 2em 3em 3em 3em;
-    background: mix($c-good, $c-bg-box, 30%);
+    background: $c_secondary_bg--mix-30;
     font-size: 1.3em;
 
     strong {

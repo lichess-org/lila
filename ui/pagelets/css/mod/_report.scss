@@ -20,7 +20,7 @@ $c-report-high-over: white;
 
   .tabs {
     display: flex;
-    margin-#{$end-direction}: 15px;
+    margin-inline-end: 15px;
     font-size: 1.2em;
 
     a {
@@ -33,7 +33,7 @@ $c-report-high-over: white;
       justify-content: center;
 
       &:hover {
-        background: fade-out($c-report-high, 0.5);
+        background: $c_brag--fade-50;
         color: $c-report-high-over;
       }
 
@@ -57,7 +57,7 @@ $c-report-high-over: white;
     font-size: 1.2em;
     padding: 0.3em 0.5em;
     border-radius: 0.3em;
-    margin-#{$end-direction}: 0.5em;
+    margin-inline-end: 0.5em;
   }
 
   .score.green {
@@ -137,7 +137,7 @@ $c-report-high-over: white;
   }
 
   tr.new td:first-child {
-    border-#{$start-direction}: 4px solid $c-report-high;
+    border-inline-start: 4px solid $c-report-high;
   }
 
   .user_marks i {
@@ -146,7 +146,7 @@ $c-report-high-over: white;
 
   .marked-by-me {
     @include user_marks;
-    background: mix($c-warn, $c-bg-box, 60%);
+    background: $c_brag_bg--mix-60;
   }
 
   .appeal-queue {

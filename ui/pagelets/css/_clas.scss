@@ -1,9 +1,6 @@
-$c-clas: rgb(127, 90, 240);
-
-$c-font-clas: mix($c-font-clear, $c-clas, 30%);
 $c-bg-clas: $c-clas;
 $c-bg-clas-over: white;
-$c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
+$c-bg-clas-over-dim: $c_clas_white--mix-20;
 
 %archived {
   @extend %box-radius, %flex-between;
@@ -22,7 +19,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   }
 
   &.active {
-    color: $c-font-clas;
+    color: $c_font_clas--mix-40;
   }
 
   &::after {
@@ -49,7 +46,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 }
 
 .slist tbody tr:nth-child(2n) {
-  background: mix($c-bg-box, $c-bg-clas, 93%);
+  background: $c_clas_bg--mix-7;
 }
 
 .clas-index {
@@ -77,15 +74,15 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       @extend %flex-center-nowrap, %break-word;
 
       border-bottom: $border;
-      padding: 2em var(--box-padding);
+      padding: 2em var(---box-padding);
       position: relative;
 
       @include transition;
 
       &::before {
-        color: mix($c-clas, $c-bg-box, 80%);
+        color: $c_clas_bg--mix-80;
         font-size: 5em;
-        margin-#{$end-direction}: 0.4em;
+        margin-inline-end: 0.4em;
 
         @include transition;
         @media (max-width: at-most($xx-small)) {
@@ -94,10 +91,10 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       }
 
       &:hover {
-        background: mix($c-clas, $c-bg-box, 10%);
+        background: $c_clas_bg--mix-10;
 
         &::before {
-          color: mix($c-clas, $c-bg-box, 100%);
+          color: $c-clas;
         }
       }
 
@@ -164,7 +161,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     margin: 2em 2em 0 2em;
 
     &__content {
-      padding: 2em var(--box-padding);
+      padding: 2em var(---box-padding);
     }
   }
 
@@ -176,14 +173,14 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
     .button {
       font-size: 1.2em;
-      color: $c-font-clas;
+      color: $c_font_clas--mix-40;
     }
 
     .user-link {
       @extend %flex-center;
 
       &:hover {
-        color: $c-font-clas;
+        color: $c_font_clas--mix-40;
       }
 
       span {
@@ -240,12 +237,12 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       }
 
       &:hover {
-        background: mix($c-bg-zebra, $c-clas, 20%);
+        background: $c_clas_bg-zebra--mix-20;
       }
 
       &.active {
         background: $c-bg-box;
-        color: $c-font-clas;
+        color: $c_font_clas--mix-40;
         font-weight: bold;
 
         .dashboard-teacher-overview &,
@@ -285,7 +282,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
   &-teacher {
     .clas-show__top h1 {
-      padding: 1.5em var(--box-padding);
+      padding: 1.5em var(---box-padding);
       margin: 0;
     }
 
@@ -316,7 +313,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       &-choices {
         @extend %flex-center, %box-neat-force;
 
-        @if $theme-dark {
+        @include if-not-light {
           box-shadow: none;
         }
 
@@ -332,16 +329,16 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
         color: $c-clas;
 
         &:hover {
-          background: mix($c-bg-box, $c-clas, 70%);
+          background: $c_clas_bg--mix-30;
           color: $c-font-clear;
         }
 
         &.active {
           background: $c-clas;
-          color: $c-good-over;
+          color: $c-over;
         }
 
-        border-#{$end-direction}: 1px solid $c-border;
+        border-inline-end: 1px solid $c-border;
 
         &:last-child {
           border: 0;
@@ -363,7 +360,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
       margin: 0 0.4em;
 
       &::before {
-        margin-#{$end-direction}: 0.2em;
+        margin-inline-end: 0.2em;
       }
     }
 
@@ -417,7 +414,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   padding-bottom: 3em;
 
   &__top {
-    padding: calc(#{$box-padding-vert} - 1rem) var(--box-padding);
+    padding: calc(#{$box-padding-vert} - 1rem) var(---box-padding);
     background: $c-bg-clas;
     margin-bottom: 3em;
 
@@ -440,7 +437,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
       &::before {
         font-size: 2.5em;
-        margin-#{$end-direction}: 0.4em;
+        margin-inline-end: 0.4em;
         color: $c-bg-clas-over-dim;
       }
 
@@ -473,7 +470,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   &__managed {
     @extend %box-radius, %flex-between;
 
-    background: fade-out($c-primary, 0.8);
+    background: $c_primary--fade-80;
     padding: 1em 2em;
     margin: 1em 0 2em 0;
 
@@ -526,7 +523,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
   &__choice {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
-    grid-gap: var(--box-padding);
+    grid-gap: var(---box-padding);
     align-items: center;
 
     h2 {
@@ -591,7 +588,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
     .button {
       margin-bottom: 2em;
       display: inline-block;
-      background: mix($c-bg-clas, white, 86%);
+      background: $c-clas-light;
     }
   }
 }
@@ -617,7 +614,7 @@ $c-bg-clas-over-dim: mix($c-bg-clas-over, $c-bg-clas, 80%);
 
   li:hover,
   .active {
-    background-color: mix($c-accent, $c-bg-popup, 10%);
+    background-color: $c_accent_bg-popup--mix-10;
   }
 
   a {

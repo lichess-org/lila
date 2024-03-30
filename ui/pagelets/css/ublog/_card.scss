@@ -36,11 +36,11 @@
     }
     @include padding-direction(0.2em, 0.5em, 0.3em, 0.5em);
 
-    @if $theme-dark {
-      background: rgba(0, 0, 0, 0.65);
-      color: #ddd;
-      text-shadow: 0 1px 1px black;
-    } @else {
+    background: rgba(0, 0, 0, 0.65);
+    color: #ddd;
+    text-shadow: 0 1px 1px black;
+
+    @include if-light {
       background: rgba(255, 255, 255, 0.65);
       color: #333;
       text-shadow: 0 1px 1px white;
@@ -48,11 +48,11 @@
     opacity: 1;
   }
   time {
-    #{$start-direction}: 0;
+    @include inline-start(0);
     border-radius: 0 0 $box-radius-size 0;
   }
   .user-link {
-    #{$end-direction}: 0;
+    @include inline-end(0);
     border-radius: 0 0 0 $box-radius-size;
   }
 

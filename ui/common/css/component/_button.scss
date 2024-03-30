@@ -16,14 +16,14 @@
   &,
   &:visited,
   &:focus {
-    color: $c-primary-over;
+    color: $c-over;
   }
 
   &:not(.disabled):hover {
     @extend %button-raised-shadow;
 
-    color: $c-primary-over;
-    background: lighten($c-primary, 7);
+    color: $c-over;
+    background: $c_primary--lighten-7;
   }
 
   &:not(.disabled):focus-visible {
@@ -47,7 +47,7 @@
     background: $c-secondary;
 
     &:not(.disabled):hover {
-      background: lighten($c-secondary, 4);
+      background: $c_secondary--lighten-4;
     }
   }
 
@@ -55,7 +55,7 @@
     background: $c-error;
 
     &:not(.disabled):hover {
-      background: lighten($c-error, 11);
+      background: $c_bad--lighten-11;
     }
   }
 

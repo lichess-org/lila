@@ -10,7 +10,7 @@
 
       border-radius: 20px;
       padding: 1rem;
-      background: mix($c-error, $c-bg-box, 15%);
+      background: $c_bad_bg--mix-15;
       border: 1px solid $c-error;
       text-align: center;
       font-size: 1.3em;
@@ -43,7 +43,7 @@
       @extend %flex-wrap;
 
       .button {
-        margin-#{$start-direction}: 1rem;
+        margin-inline-start: 1rem;
       }
 
       .unsub.on .off,

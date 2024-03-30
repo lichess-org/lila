@@ -17,10 +17,9 @@
     cursor: pointer;
     border: $border;
 
-    @if $theme-light {
-      background: fade-out($c-bg-box, 0.5);
-    } @else {
-      background: fade-out($c-font, 0.95);
+    background: $c_font--fade-95;
+    @include if-light {
+      background: $c_bg--fade-50;
     }
 
     color: $c-font;
@@ -28,15 +27,14 @@
     @include transition;
 
     &:hover {
-      background: fade-out($c-accent, 0.8);
+      background: $c_accent--fade-80 !important;
       opacity: 1;
     }
   }
 
   .active {
     @extend %popup-shadow;
-
-    background: $c-bg-popup;
+    @include back-blur(); // for all themes, not just transp
 
     .perf {
       display: none;

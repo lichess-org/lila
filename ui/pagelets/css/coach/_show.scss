@@ -25,7 +25,7 @@
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     grid-auto-flow: dense;
     grid-gap: 3em;
-    margin: var(--box-padding);
+    margin: var(---box-padding);
 
     section {
       font-size: 1.2em;
@@ -70,7 +70,7 @@
   &__posts {
     margin-top: 2em;
     .coach-show__title {
-      padding: 1em var(--box-padding);
+      padding: 1em var(---box-padding);
     }
   }
 
@@ -82,7 +82,7 @@
 
   &__posts {
     .ublog-post-cards {
-      margin: 0 var(--box-padding);
+      margin: 0 var(---box-padding);
     }
   }
 }

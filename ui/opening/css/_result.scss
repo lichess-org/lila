@@ -9,30 +9,33 @@ $result-width: 2rem;
     overflow: hidden;
     vertical-align: middle;
     background-clip: padding-box;
-    border: 0 solid fade-out($c-font, 0.83);
+    border: 0 solid $c_font--fade-83;
     border-width: 1px 0;
     padding: 3px 0;
   }
 
   .white {
-    background: if($theme-light, #fff, #ccc);
-
-    @if $theme-dark {
+    background: #ccc;
+    @include if-light {
+      background: #fff;
+    }
+    @include if-not-light {
       color: #222;
     }
   }
 
-  .draws,
-  .black {
-    color: if($theme-light, #fff, #ddd);
-  }
-
   .draws {
-    background: if($theme-light, #a0a0a0, #666);
+    background: #666;
+    @include if-light {
+      background: #a0a0a0;
+    }
   }
 
   .black {
-    background: if($theme-light, #555, #333);
+    background: #333;
+    @include if-light {
+      background: #555;
+    }
     color: #ddd;
   }
 }

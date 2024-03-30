@@ -7,12 +7,12 @@
     @extend %box-radius, %flex-center-nowrap;
 
     padding: 0.7em;
-    background: mix($c-bad, $c-bg-box, 10%);
-    border: 1px solid mix($c-bad, $c-bg-box, 30%);
+    background: $c_bad_bg--mix-10;
+    border: 1px solid $c_bad_bg--mix-30;
     color: $c-bad;
 
     span {
-      margin-#{$end-direction}: 0.2em;
+      margin-inline-end: 0.2em;
       font-size: 2.7em;
     }
   }
@@ -28,7 +28,7 @@
 
     flex: 1 0 300px;
     height: 332px;
-    border-#{$start-direction}: $border;
+    border-inline-start: $border;
     overflow: hidden;
   }
 
@@ -68,14 +68,14 @@
 
     &::before {
       font-size: 2.5em;
-      margin-#{$end-direction}: 1rem;
+      margin-inline-end: 1rem;
     }
 
     &:hover {
       @include transition;
 
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
     }
   }
 

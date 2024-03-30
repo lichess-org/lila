@@ -1,4 +1,4 @@
-$hover-bg: mix($c-primary, $c-bg-box, 30%);
+$hover-bg: $c_primary_bg--mix-30;
 
 .relay-tour {
   @extend %box-neat-force;
@@ -88,13 +88,13 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     padding-top: 1em;
     padding-bottom: 1em;
     margin: -1em 0;
-    background: mix($c-primary, $c-bg-box, 10%);
+    background: $c_primary_bg--mix-10;
     strong {
       @extend %roboto;
       font-size: 1.2em;
     }
     &.ongoing {
-      background: mix($c-accent, $c-bg-box, 10%);
+      background: $c_accent_bg--mix-10;
       color: $c-accent;
     }
   }
@@ -139,7 +139,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       flex: 1;
       gap: 1em;
       @include mq-at-least-col3 {
-        gap: calc(var(--box-padding) / 3);
+        gap: calc(var(---box-padding) / 3);
       }
       margin: 1em 2em;
     }
@@ -151,7 +151,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
 
     .setting {
       @extend %flex-center-nowrap;
-      margin-#{$end-direction}: -1em;
+      margin-inline-end: -1em;
       label {
         padding: 0 0.5em;
         cursor: pointer;
@@ -182,7 +182,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     }
     &__status {
       font-size: 1rem;
-      margin-#{$end-direction}: 1ch;
+      margin-inline-end: 1ch;
     }
     &__label {
       .round-state {
@@ -191,7 +191,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       }
     }
     .ongoing::before {
-      color: $c-red;
+      color: $c-bad;
     }
     .finished::before {
       color: $c-good;
@@ -204,14 +204,14 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       tr {
         display: table-row;
         &.current-round {
-          background: mix($c-primary, $c-bg-box, 15%);
-          border: 1px solid mix($c-primary, $c-bg-box, 40%);
+          background: $c_primary_bg--mix-15;
+          border: 1px solid $c_primary_bg--mix-40;
           border-width: 1px 0;
         }
         &:hover *,
         &:hover .round-state::before {
           background: $c-primary;
-          color: $c-primary-over;
+          color: $c-over;
         }
       }
       td {
@@ -231,14 +231,14 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       }
       .status {
         padding: 0.5em 1.5rem 0.5em 0;
-        text-align: $end-direction;
+        text-align: end;
       }
     }
   }
 
   &__nav {
     @extend %flex-between;
-    margin: 2em var(--box-padding);
+    margin: 2em var(---box-padding);
     gap: 1em;
     user-select: none;
   }
@@ -269,7 +269,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
 
   &__markup {
     @include rendered-markdown(2em, 50vh);
-    margin: 3em var(--box-padding);
+    margin: 3em var(---box-padding);
   }
 
   &__leaderboard {
@@ -283,19 +283,19 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     }
     thead {
       th {
-        text-align: $end-direction;
+        text-align: end;
         padding: 0 2rem 0.5rem 2rem;
       }
     }
     th {
       &:nth-child(1) {
-        text-align: $start-direction;
+        text-align: start;
         padding-right: 2rem;
       }
       a {
         @extend %flex-center-nowrap;
         .mini-game__flag {
-          margin-#{$end-direction}: 1em;
+          margin-inline-end: 1em;
           opacity: 0.7;
         }
         color: $c-font;
@@ -305,7 +305,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       }
     }
     td {
-      text-align: $end-direction;
+      text-align: end;
       padding: 1rem 2rem;
       &:last-child {
         font-weight: bold;
@@ -315,7 +315,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
 
   .study__multiboard {
     @media (min-width: at-least($xx-large)) {
-      margin: 0 calc(var(--box-padding) - 1em);
+      margin: 0 calc(var(---box-padding) - 1em);
       .now-playing a {
         padding: 0.8em;
       }
@@ -339,7 +339,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
   border-bottom: $border;
   border-left: 3px solid transparent;
   &:hover {
-    background: mix($c-primary, $c-bg-box, 12%);
+    background: $c_primary_bg--mix-12;
     color: $c-font-clearer;
     .mini-game__flag {
       opacity: 1;
@@ -347,7 +347,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     border-left-color: $c-primary;
   }
   &--current {
-    background: mix($c-primary, $c-bg-box, 20%);
+    background: $c_primary_bg--mix-20;
     border-left-color: $c-primary;
   }
   &__players {
@@ -361,7 +361,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     font-weight: bold;
     align-self: center;
     width: 1.8ch;
-    text-align: $end-direction;
+    text-align: end;
     color: $c-font-dimmer;
   }
   &--current::before,
@@ -415,7 +415,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
 
       &:hover,
       &:hover::before {
-        background: c-clearer($c-primary, 10%);
+        background: $c_primary_font--mix-90;
         color: white;
       }
     }
@@ -453,7 +453,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     }
 
     &:hover {
-      background: mix($c-primary, $c-bg-box, 30%);
+      background: $c_primary_bg--mix-30;
       &,
       &::before {
         color: $c-font-clearer;

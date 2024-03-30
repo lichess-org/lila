@@ -18,7 +18,7 @@
       }
 
       > a {
-        margin-#{$start-direction}: auto;
+        margin-inline-start: auto;
       }
     }
 
@@ -33,7 +33,7 @@
     width: 100%;
     display: flex;
     flex-flow: column;
-    padding: 0 var(--box-padding);
+    padding: 0 var(---box-padding);
   }
 
   .overview .todo {
@@ -57,7 +57,7 @@
     display: block;
     border-radius: 20px;
     padding: 1rem;
-    background: mix($c-error, $c-bg-box, 15%);
+    background: $c_bad_bg--mix-15;
     border: 1px solid $c-error;
     margin-bottom: 2rem;
   }

@@ -8,13 +8,13 @@
     @extend %flex-column, %box-neat;
     background: $c-bg-zebra;
     position: relative;
-    outline: 3px solid mix($c-font, $c-bg-box, 30%);
+    outline: 3px solid $c_font_bg--mix-30;
     cursor: pointer;
     color: $c-font;
     &:hover {
-      outline: 3px solid mix($c-link, $c-bg-box, 60%);
-      background: mix($c-link, $c-bg-zebra, 10%);
-      box-shadow: 0 0 30px mix($c-link, $c-bg-box, 50%);
+      outline: 3px solid $c_primary_bg--mix-60;
+      background: $c_primary_bg--mix-10; //mix($c-link, $c-bg-zebra, 10%);
+      box-shadow: 0 0 30px $c_primary_bg--mix-50;
       piece {
         opacity: 0.8;
       }
@@ -51,10 +51,9 @@
       }
       cg-board {
         box-shadow: none;
-        background-color: rgba($c-bg-box, 0.4);
-        @if $theme-dark {
-          background-blend-mode: darken;
-        } @else {
+        background-color: $c_bg--alpha-40;
+        background-blend-mode: darken;
+        @include if-light {
           background-blend-mode: soft-light;
         }
       }
@@ -71,7 +70,7 @@
       span {
         @extend %box-radius-bottom-right;
         background: $c-primary;
-        color: $c-primary-over;
+        color: $c-over;
         padding-right: 0.5em;
         font-size: 0.8em;
         text-align: right;

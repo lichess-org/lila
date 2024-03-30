@@ -2,25 +2,24 @@
   padding-top: 10px;
 
   .categ > h2 {
-    @extend %roboto;
+    @extend %roboto, %page-text-shadow;
 
     font-size: 2em;
     letter-spacing: 8px;
     text-transform: uppercase;
     color: #999;
-    text-shadow: $text-shadow;
     text-align: center;
   }
 
   .categ_stages {
-    --min-width: 100vw;
+    ---min-width: 100vw;
 
     @media (min-width: at-least($xx-small)) {
-      --min-width: 400px;
+      ---min-width: 400px;
     }
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(---min-width), 1fr));
     grid-gap: 1em;
     margin: 0.8em 0 3em 0;
   }
@@ -109,7 +108,7 @@
       overflow: hidden;
       position: absolute;
       top: -3px;
-      #{$end-direction}: -3px;
+      @include inline-end(-3px);
     }
   }
 
@@ -119,10 +118,13 @@
     font-weight: bold;
     text-align: center;
     text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
-    transform: rotate(45deg * $transform-direction);
+    transform: rotate(45deg);
+    @include if-rtl {
+      transform: rotate(-45deg);
+    }
     position: relative;
     padding: 7px 0;
-    #{$start-direction}: -5px;
+    @include inline-start(-5px);
     top: 15px;
     width: 120px;
     color: #6a6340;
@@ -145,18 +147,18 @@
     &:before,
     &:after {
       content: '';
-      border-#{$start-direction}: 3px solid transparent;
-      border-#{$end-direction}: 3px solid transparent;
+      border-left: 3px solid transparent;
+      border-right: 3px solid transparent;
       position: absolute;
       bottom: -3px;
     }
 
     &:before {
-      #{$start-direction}: 0;
+      @include inline-start(0);
     }
 
     &:after {
-      #{$end-direction}: 0;
+      @include inline-end(0);
     }
 
     &.done {

@@ -189,7 +189,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
     study = ctrl.study!,
     group = relay.data.group,
     allowVideo =
-      d.videoUrls && window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
+      d.videoUrls && window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';
   return [
     h('div.relay-tour__header', [
       h('div.relay-tour__header__content', [

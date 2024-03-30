@@ -10,7 +10,7 @@
     "chat": "workspace:*",
     "chess": "workspace:*",
     "common": "workspace:*",
-    "lichess-pgn-viewer": "2.0.1",
+    "lichess-pgn-viewer": "../../../pgn-viewer",
     "voice": "workspace:*",
     "tablesort": "^5.3.0"
   },

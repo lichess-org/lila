@@ -3,7 +3,10 @@
 }
 
 @mixin box-shadow {
-  box-shadow: $box-shadow;
+  box-shadow:
+    0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
 @mixin box-neat {
@@ -19,7 +22,7 @@
       display: block;
       position: fixed;
       bottom: 3px;
-      #{$end-direction}: 3px;
+      @include inline-end(3px);
       width: 10vw;
     }
   }
@@ -72,12 +75,12 @@
 }
 
 @mixin margin-inline-start($amount) {
-  margin-#{$start-direction}: $amount;
+  margin-inline-start: $amount;
   margin-inline: $amount 0; // this doesn't have perfect browser support so keep the other margin as fallback
 }
 
 @mixin margin-inline-end($amount) {
-  margin-#{$end-direction}: $amount;
+  margin-inline-end: $amount;
   margin-inline: 0 $amount; // this doesn't have perfect browser support so keep the other margin as fallback
 }
 
@@ -96,7 +99,7 @@
     background: unset;
     border-bottom: unset;
     transform: unset;
-    --site-header-sticky-padding: 0px;
+    ---site-header-sticky-padding: 0px;
 
     #topnav,
     .dropdown {
@@ -126,5 +129,13 @@
     height: 100%;
     background: $c-font-dimmer;
     color: $c-font-dim;
+  }
+}
+
+@mixin gradient-border($c, $ltr-dir, $rtl-dir) {
+  background: linear-gradient($ltr-dir, $c 0px, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
+
+  @include if-rtl {
+    background: linear-gradient($rtl-dir, $c 0px, $c 5px, rgba(0, 0, 0, 0) 5px, rgba(0, 0, 0, 0) 100%);
   }
 }

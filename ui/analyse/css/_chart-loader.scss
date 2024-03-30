@@ -18,14 +18,14 @@
   span {
     @extend %nowrap-hidden;
 
-    margin-#{$start-direction}: 7px;
+    margin-inline-start: 7px;
     opacity: 1;
     transition: 0.5s;
     width: 100px;
     display: block;
 
     .analyse__underboard:hover & {
-      margin-#{$start-direction}: 0;
+      margin-inline-start: 0;
       width: 0;
       opacity: 0;
     }
@@ -35,6 +35,6 @@
     width: 32px;
     height: 32px;
     display: inline-block;
-    margin-#{$start-direction}: 10px;
+    margin-inline-start: 10px;
   }
 }

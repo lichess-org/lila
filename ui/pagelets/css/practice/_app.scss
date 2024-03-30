@@ -12,14 +12,14 @@
   }
 
   .studies {
-    --min-width: 100vw;
+    ---min-width: 100vw;
 
     @media (min-width: at-least($xx-small)) {
-      --min-width: 400px;
+      ---min-width: 400px;
     }
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(---min-width), 1fr));
     grid-gap: 1em;
     margin: 0.8em 0 3em 0;
   }

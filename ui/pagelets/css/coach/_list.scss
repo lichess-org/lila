@@ -43,7 +43,7 @@
       }
 
       &:hover {
-        background: mix($c-accent, $c-bg-box, 12%);
+        background: $c_accent_bg--mix-12;
       }
     }
 

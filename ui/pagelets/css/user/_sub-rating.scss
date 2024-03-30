@@ -15,13 +15,13 @@
     &::before {
       font-size: 3em;
       opacity: 0.5;
-      margin-#{$end-direction}: 0.2em;
+      margin-inline-end: 0.2em;
 
       @include transition;
     }
 
     &[href]:hover {
-      background: mix($c-bg-box, $c-bg-page, 50%);
+      background: $c_bg-page_bg--mix-50;
 
       &::before {
         color: $c-link;
@@ -45,7 +45,7 @@
 
       @extend %flex-column;
 
-      margin-#{$end-direction}: 0.5em;
+      margin-inline-end: 0.5em;
     }
 
     rating span,
@@ -132,7 +132,7 @@
 
       > span {
         flex: 0 0 auto;
-        margin-#{$end-direction}: 0;
+        margin-inline-end: 0;
       }
 
       strong {

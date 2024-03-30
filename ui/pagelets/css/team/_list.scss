@@ -26,10 +26,10 @@
 
       padding: 1px 5px;
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
       text-transform: uppercase;
       font-size: 0.9rem;
-      margin-#{$start-direction}: 1em;
+      margin-inline-start: 1em;
     }
   }
 

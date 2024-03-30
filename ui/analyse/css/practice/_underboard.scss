@@ -15,7 +15,7 @@
   &.fail {
     padding: 2em 1.5em;
     background: $c-good;
-    color: $c-good-over;
+    color: $c-over;
     animation: 1.7s soft-bright ease-in-out infinite;
     opacity: 0.8;
 
@@ -31,7 +31,7 @@
   }
 
   span {
-    margin-#{$end-direction}: 1em;
+    margin-inline-end: 1em;
   }
 
   &.ongoing {
@@ -68,7 +68,7 @@
       order: 1;
       flex: 1 0;
       cursor: pointer;
-      margin-#{$start-direction}: 0.8em;
+      margin-inline-start: 0.8em;
     }
   }
 }

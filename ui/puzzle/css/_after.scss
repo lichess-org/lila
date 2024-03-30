@@ -11,17 +11,17 @@
     justify-content: center;
     font-size: 1.3em;
     background: $c-primary;
-    color: $c-primary-over;
+    color: $c-over;
     text-transform: uppercase;
     padding: 2em;
 
     &:hover {
-      background: lighten($c-primary, 10%);
+      background: $c_primary--lighten-10;
     }
 
     i::before {
       font-size: 2.5em;
-      margin-#{$end-direction}: 10px;
+      margin-inline-end: 10px;
     }
   }
 
@@ -78,7 +78,7 @@
       display: inline;
 
       &:last-child {
-        margin-#{$start-direction}: 1ch;
+        margin-inline-start: 1ch;
       }
     }
 
@@ -130,7 +130,7 @@
     &:hover,
     &.active {
       background: $c-good;
-      color: $c-good-over;
+      color: $c-over;
     }
 
     &.vote-down:hover,

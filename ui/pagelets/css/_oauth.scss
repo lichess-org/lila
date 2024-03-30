@@ -43,7 +43,7 @@
     .danger {
       @extend %box-neat;
       font-weight: bold;
-      color: $c-bad-over;
+      color: $c-over;
       background: $c-bad;
       padding: 0.3em 0.8em;
       &::before {
@@ -51,7 +51,7 @@
         font-size: 1.5em;
         @include margin-inline-end(0.2em);
         content: $licon-CautionTriangle;
-        color: $c-bad-over;
+        color: $c-over;
       }
     }
   }

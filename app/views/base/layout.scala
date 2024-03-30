@@ -15,10 +15,11 @@ import lila.common.base.StringUtils.escapeHtmlRaw
 object layout:
 
   object bits:
-    val doctype                   = raw("<!DOCTYPE html>")
-    def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL.option("rtl"))
-    val topComment                = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
-    val charset                   = raw("""<meta charset="utf-8">""")
+    val doctype = raw("<!DOCTYPE html>")
+    def htmlTag(using lang: Lang, ctx: Context) =
+      html(st.lang := lang.code, dir := isRTL.option("rtl"), ctx.pref.themeColorClass.map(cls := _))
+    val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
+    val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw:
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
     def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
@@ -26,13 +27,20 @@ object layout:
     def metaCsp(csp: Option[ContentSecurityPolicy])(using ctx: PageContext): Frag =
       metaCsp(csp.getOrElse(defaultCsp))
     def metaThemeColor(using ctx: PageContext): Frag =
-      if ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM then
-        raw:
-          s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
-            s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
-      else
-        raw:
+      raw:
+        s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
+          s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">""" +
           s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
+    def systemThemeScript(using ctx: PageContext) =
+      (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).option(
+        embedJsUnsafe(
+          "if (window.matchMedia('(prefers-color-scheme: light)').matches) " +
+            "document.documentElement.classList.add('light');"
+        )
+      )
+    def systemThemeEmbedScript(using ctx: EmbedContext) =
+      "<script>if (window.matchMedia('(prefers-color-scheme: light)').matches) " +
+        "document.documentElement.classList.add('light');</script>"
     def pieceSprite(using ctx: PageContext): Frag = pieceSprite(ctx.pref.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
@@ -185,7 +193,6 @@ object layout:
       frag(cashTag, jsModule("site")),
       moreJs,
       ctx.data.inquiry.isDefined.option(jsModule("mod.inquiry")),
-      (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM).option(embedJsUnsafe(systemThemePolyfillJs)),
       (!netConfig.isProd).option(jsModule("devMode"))
     )
 
@@ -258,17 +265,21 @@ object layout:
     frag(
       doctype,
       htmlTag(
+        (ctx.data.inquiry.isEmpty && ctx.impersonatedBy.isEmpty && !ctx.blind)
+          .option(cls := ctx.pref.bg.themeColorClass),
         topComment,
         head(
           charset,
           viewport,
           metaCsp(csp),
           metaThemeColor,
+          systemThemeScript,
           st.headTitle:
             val prodTitle = fullTitle | s"$title • $siteName"
             if netConfig.isProd then prodTitle
             else s"${ctx.me.so(_.username + " ")} $prodTitle"
           ,
+          cssTag("theme-all"),
           cssTag("site"),
           pref.is3d.option(cssTag("board-3d")),
           ctx.data.inquiry.isDefined.option(cssTagNoTheme("mod.inquiry")),
@@ -288,7 +299,7 @@ object layout:
           atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
             raw:
-              s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
+              s"""<style id="bg-data">html.transp::before{background-image:url("${escapeHtmlRaw(img)
                   .replace("&amp;", "&")}");}</style>"""
           },
           fontPreload,
@@ -330,7 +341,7 @@ object layout:
           dataBoardTheme   := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
           dataAnnounce     := lila.api.AnnounceStore.get.map(a => safeJsonValue(a.json)),
-          style            := zoomable.option(s"--zoom:$pageZoom")
+          style            := zoomable.option(s"---zoom:$pageZoom")
         )(
           blindModeForm,
           ctx.data.inquiry.map { views.html.mod.inquiry(_) },

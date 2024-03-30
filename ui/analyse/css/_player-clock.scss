@@ -4,7 +4,7 @@ $clock-height: 20px;
 
 .analyse__player_strip {
   position: absolute;
-  #{$end-direction}: 0;
+  @include inline-end(0);
   display: flex;
 
   &.top {
@@ -17,11 +17,11 @@ $clock-height: 20px;
   }
 
   &.bottom {
-    top: var(--cg-height, 100%);
+    top: var(---cg-height, 100%);
     z-index: 1; // over the board coords
 
     .is3d & {
-      top: calc(var(--cg-height, 100%) + 15px);
+      top: calc(var(---cg-height, 100%) + 15px);
     }
   }
 
@@ -35,7 +35,7 @@ $clock-height: 20px;
   @extend %metal;
 
   padding: 0 0.5em;
-  margin-#{$start-direction}: 12px;
+  margin-inline-start: 12px;
   height: $clock-height;
   font-weight: bold;
   text-align: center;
@@ -53,7 +53,7 @@ $clock-height: 20px;
   }
 
   &.active {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: $c_primary_bg--mix-30;
   }
 
   tenths {
@@ -62,14 +62,14 @@ $clock-height: 20px;
 }
 
 .material {
-  padding-#{$end-direction}: 1px;
+  padding-inline-end: 1px;
 
   mpiece {
     width: 20px;
     height: 20px;
 
     &.pawn {
-      margin-#{$start-direction}: -10px;
+      margin-inline-start: -10px;
     }
   }
   score {

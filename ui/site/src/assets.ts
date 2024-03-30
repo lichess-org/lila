@@ -1,5 +1,4 @@
 import * as xhr from 'common/xhr';
-import { supportsSystemTheme } from 'common/theme';
 import { memoize } from 'common';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
@@ -17,12 +16,11 @@ export const url = (path: string, opts: AssetUrlOpts = {}) => {
 export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { version: '_____2' });
 
 const loadedCss = new Map<string, Promise<void>>();
-export const loadCss = (href: string, media?: 'dark' | 'light'): Promise<void> => {
+export const loadCss = (href: string): Promise<void> => {
   if (!loadedCss.has(href)) {
     const el = document.createElement('link');
     el.rel = 'stylesheet';
     el.href = url(site.debug ? `${href}?_=${Date.now()}` : href);
-    if (media) el.media = `(prefers-color-scheme: ${media})`;
     loadedCss.set(
       href,
       new Promise<void>(resolve => {
@@ -35,19 +33,7 @@ export const loadCss = (href: string, media?: 'dark' | 'light'): Promise<void> =
 };
 
 export const loadCssPath = async (key: string): Promise<void> => {
-  const theme = document.body.dataset.theme!;
-  const load = (theme: string, media?: 'dark' | 'light') =>
-    loadCss(
-      `css/${key}.${document.dir || 'ltr'}.${theme}.${document.body.dataset.dev ? 'dev' : 'min'}.css`,
-      media,
-    );
-  if (theme === 'system') {
-    if (supportsSystemTheme()) {
-      await Promise.all([load('dark', 'dark'), load('light', 'light')]);
-    } else {
-      await load('dark');
-    }
-  } else await load(theme);
+  await loadCss(`css/${key}.${document.body.dataset.dev ? 'dev' : 'min'}.css`);
 };
 
 export const jsModule = (name: string) => `compiled/${name}${document.body.dataset.dev ? '' : '.min'}.js`;

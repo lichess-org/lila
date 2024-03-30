@@ -3,7 +3,7 @@
   a {
     @extend %flex-center-nowrap;
     text-transform: inherit;
-    text-align: $start-direction;
+    text-align: start;
     &::before {
       font-size: 2.8em;
     }
@@ -31,19 +31,19 @@
     &.inaccuracy {
       color: $c-inaccuracy;
       &:hover {
-        color: c-clearer(saturate($c-inaccuracy, 100%), 40%);
+        color: $c_inaccuracy_font--mix-70;
       }
     }
     &.mistake {
       color: $c-mistake;
       &:hover {
-        color: c-clearer($c-mistake, 40%);
+        color: $c_mistake_font--mix-70;
       }
     }
     &.blunder {
       color: $c-blunder;
       &:hover {
-        color: c-clearer(saturate($c-blunder, 100%), 40%);
+        color: $c_blunder_font--mix-70;
       }
     }
   }
@@ -65,7 +65,7 @@
 
     &__side {
       flex: 0 0 calc(50% - #{$analyse-block-gap});
-      margin-#{$start-direction}: $analyse-block-gap;
+      margin-inline-start: $analyse-block-gap;
     }
 
     > a {

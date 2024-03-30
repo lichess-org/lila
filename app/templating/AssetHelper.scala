@@ -35,19 +35,7 @@ trait AssetHelper extends HasEnv:
   def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def cssTag(name: String)(using ctx: Context): Frag =
-    cssTagWithDirAndTheme(name, isRTL(using ctx.lang), ctx.pref.currentBg)
-
-  def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
-    if theme == "system" then
-      frag(
-        cssTagWithDirAndSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
-        cssTagWithDirAndSimpleTheme(name, isRTL, "dark")(media  := "(prefers-color-scheme: dark)")
-      )
-    else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
-
-  private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
-    cssAt:
-      s"css/$name.${if isRTL then "rtl" else "ltr"}.$theme.${if minifiedAssets then "min" else "dev"}.css"
+    cssTagNoTheme(name)
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if minifiedAssets then "min" else "dev"}.css")
@@ -61,11 +49,6 @@ trait AssetHelper extends HasEnv:
         json match
           case json: JsValue => safeJsonValue(json).value
           case json          => json.toString
-
-  val systemThemePolyfillJs = """
-if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
-    document.querySelectorAll('[media="(prefers-color-scheme: dark)"]').forEach(e=>e.media='')
-"""
 
   // load iife scripts in <head> and defer
   def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))

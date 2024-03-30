@@ -16,7 +16,7 @@
 
     @media (hover: hover) {
       &:hover {
-        background: mix($c-bg-box, $c-primary, 70%);
+        background: $c_primary_bg--mix-30;
         padding-bottom: 0;
         outline: 1px solid $c-primary;
 
@@ -80,7 +80,7 @@
       .owner:hover .view {
         display: block;
         background: $c-primary;
-        color: $c-primary-over;
+        color: $c-over;
 
         &::before {
           vertical-align: middle;
@@ -94,12 +94,12 @@
 
     button.decline {
       color: $c-bad;
-      border-#{$end-direction}: none;
+      border-inline-end: none;
     }
 
     button:hover {
       background: $c-good;
-      color: $c-good-over;
+      color: $c-over;
     }
 
     button.decline:hover {
@@ -127,10 +127,10 @@
       font-weight: bold;
       margin-bottom: 0.1em;
       .user-link {
-        margin-#{$start-direction}: -5px;
+        margin-inline-start: -5px;
       }
       signal {
-        margin-#{$start-direction}: 5px;
+        margin-inline-start: 5px;
       }
     }
 

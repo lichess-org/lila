@@ -2,7 +2,7 @@
   @extend %box-radius;
 
   background: $c-primary;
-  color: $c-primary-over;
+  color: $c-over;
   text-align: center;
   padding: 1.2em;
   align-self: start;
@@ -39,7 +39,7 @@
     position: relative;
     width: 100%;
     height: 2em;
-    background: mix($c-font-clear, $c-primary, 10%);
+    background: #ccc3; // better
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
   }
 
@@ -67,7 +67,7 @@
     @extend %box-radius-right;
 
     height: 100%;
-    background: mix($c-font-clearer, $c-primary, 25%);
+    background: #ccc3; // better
     background-image: img-url('grain.png');
     transform: translateX(-100px);
     animation:

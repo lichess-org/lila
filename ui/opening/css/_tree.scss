@@ -23,7 +23,7 @@
         @extend %box-radius;
         padding: 1em 0 1em 1em;
         &:hover {
-          background: mix($c-primary, $c-bg-box, 20%);
+          background: $c_primary_bg--mix-20;
         }
       }
       > div,
@@ -42,7 +42,7 @@
           @extend %box-radius;
           padding: 0.5em 0 0.5em 1em;
           &:hover {
-            background: mix($c-primary, $c-bg-box, 20%);
+            background: $c_primary_bg--mix-20;
           }
         }
         > div,
@@ -57,7 +57,7 @@
           > summary {
             padding: 0.5em 0 0.5em 1em;
             &:hover {
-              background: mix($c-primary, $c-bg-box, 20%);
+              background: $c_primary_bg--mix-20;
             }
           }
           div,

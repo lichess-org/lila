@@ -43,12 +43,12 @@
       font-size: 1.2em;
       display: block;
       padding: 1em;
-      padding-#{$start-direction}: 30px;
+      padding-inline-start: 30px;
 
       @include transition;
 
       &:hover {
-        color: $c-primary-over;
+        color: $c-over;
         background: $c-primary;
       }
     }

@@ -5,7 +5,7 @@
     flex: 0 0 auto;
 
     &__players .team {
-      margin-#{$start-direction}: 1.7em;
+      margin-inline-start: 1.7em;
     }
   }
 }

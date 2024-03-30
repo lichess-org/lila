@@ -20,11 +20,11 @@
   }
 
   a:hover {
-    background: mix($c-primary, $c-bg-box, 10);
+    background: $c_primary_bg--mix-10;
   }
 
   .current {
     background: $c-primary;
-    color: $c-primary-over;
+    color: $c-over;
   }
 }

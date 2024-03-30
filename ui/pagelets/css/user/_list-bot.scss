@@ -12,7 +12,7 @@
       @extend %flex-center-nowrap;
       gap: $block-gap;
 
-      padding: 2em var(--box-padding);
+      padding: 2em var(---box-padding);
 
       &:nth-child(odd) {
         background: $c-bg-zebra;

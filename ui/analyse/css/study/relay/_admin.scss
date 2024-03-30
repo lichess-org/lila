@@ -32,7 +32,7 @@
     &.clickable:hover {
       cursor: pointer;
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
     }
 
     > div {
@@ -45,13 +45,13 @@
     }
 
     &.off {
-      background: mix($c-primary, $c-bg-box, 80%);
+      background: $c_primary_bg--mix-80;
       color: #fff;
     }
 
     &.on {
       background: $c-good;
-      color: $c-good-over;
+      color: $c-over;
     }
   }
 
@@ -73,14 +73,14 @@
       &::before {
         color: $c-good;
         font-size: 1.3em;
-        margin-#{$end-direction}: 0.5em;
+        margin-inline-end: 0.5em;
       }
     }
 
     time {
       @extend %roboto;
 
-      margin-#{$start-direction}: 0.3em;
+      margin-inline-start: 0.3em;
     }
 
     .err::before {

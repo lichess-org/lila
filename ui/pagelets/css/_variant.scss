@@ -22,12 +22,12 @@
     @include transition;
 
     &:hover {
-      background: mix($c-link, $c-bg-box, 20%);
+      background: $c_primary_bg--mix-20;
     }
 
     &::before {
       font-size: 3.5em;
-      margin-#{$end-direction}: 1rem;
+      margin-inline-end: 1rem;
       opacity: 0.7;
 
       @include transition;

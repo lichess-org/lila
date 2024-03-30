@@ -233,8 +233,8 @@ importers:
   ui/common:
     dependencies:
       lichess-pgn-viewer:
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ../../../pgn-viewer
+        version: link:../../../pgn-viewer
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
@@ -446,8 +446,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ../../../pgn-viewer
+        version: link:../../../pgn-viewer
 
   ui/pagelets:
     dependencies:
@@ -500,8 +500,8 @@ importers:
         specifier: ^4.6.13
         version: 4.6.13
       lichess-pgn-viewer:
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ../../../pgn-viewer
+        version: link:../../../pgn-viewer
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -659,8 +659,8 @@ importers:
         specifier: 0.5.6
         version: 0.5.6
       lichess-pgn-viewer:
-        specifier: 2.0.1
-        version: 2.0.1
+        specifier: ../../../pgn-viewer
+        version: link:../../../pgn-viewer
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -758,8 +758,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       lichess-pgn-viewer:
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ../../../pgn-viewer
+        version: link:../../../pgn-viewer
 
   ui/voice:
     dependencies:
@@ -1840,12 +1840,6 @@ packages:
       undici-types: 5.26.5
     dev: false
 
-  /@types/node@20.9.1:
-    resolution: {integrity: sha512-HhmzZh5LSJNS5O8jQKpJ/3ZcrrlG6L70hpGqMIAoM9YVD0YBRNWYsfwcXq8VnSjlNpCpgLzMXdiPo+dxcvSmiA==}
-    dependencies:
-      undici-types: 5.26.5
-    dev: false
-
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
     dev: false
@@ -2418,12 +2412,6 @@ packages:
 
   /chessground@9.0.4:
     resolution: {integrity: sha512-KeZd/kcXSKQOGO6LOKu/3bAyVSMh7hgPPharMF15HMfNlHfcBpIVZIDAQRO2PNaNMzPWl0LKc05uFHt0D+lZGA==}
-    dev: false
-
-  /chessops@0.12.7:
-    resolution: {integrity: sha512-ylWwKOudgTNJCDq7vx/Rs9fkZwPB3CEk0AJ8NtAfEYOoA3DGRQdS/Z/oQRsnQvs92rUu0yEobn4ZIPzLh8y9/w==}
-    dependencies:
-      '@badrap/result': 0.2.13
     dev: false
 
   /chessops@0.14.1:
@@ -3903,15 +3891,6 @@ packages:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
-    dev: false
-
-  /lichess-pgn-viewer@2.0.1:
-    resolution: {integrity: sha512-WISw0/08RKQiv2gdAmIcdXNP9mg3e8Ybp31ORu9dKkl9+tRz2Q9Gx6efo5V29Pr+o6hUDTmjB7UFI1H+l4s9Ag==}
-    dependencies:
-      '@types/node': 20.9.1
-      chessground: 9.0.4
-      chessops: 0.12.7
-      snabbdom: 3.5.1
     dev: false
 
   /lila-stockfish-web@0.0.3:

@@ -153,7 +153,7 @@ object dashboard:
       ),
       div(
         cls   := s"$metricClass $metricClass--win",
-        style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
+        style := s"---first:${results.firstWinPercent}%;---win:${results.winPercent}%"
       )(
         trans.puzzle.percentSolved(strong(s"${results.winPercent}%"))
       ),

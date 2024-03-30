@@ -19,8 +19,8 @@
       .ublog-post-card__title {
         position: absolute;
         bottom: 0;
-        #{$start-direction}: 0;
-        #{$end-direction}: 0;
+        left: 0;
+        right: 0;
         padding: 3% 4% 3% 6%;
         background: $c-bg-zebra;
         opacity: 0.9;
@@ -33,10 +33,10 @@
   }
   &__topic {
     display: block;
-    padding: 1.2em var(--box-padding) 2.3em var(--box-padding);
+    padding: 1.2em var(---box-padding) 2.3em var(---box-padding);
     @include transition(background);
     &:hover {
-      background: mix($c-link, $c-bg-box, 18%);
+      background: $c_primary_bg--mix-18;
     }
     h2 {
       @extend %flex-between;

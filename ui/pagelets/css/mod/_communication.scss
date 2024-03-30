@@ -9,18 +9,18 @@
   }
 
   .user-link {
-    margin-#{$start-direction}: -0.5em;
+    margin-inline-start: -0.5em;
   }
 
   .actions {
     @extend %flex-center;
 
     .priv {
-      margin-#{$start-direction}: 1em;
+      margin-inline-start: 1em;
       font-weight: normal;
     }
     .comms-export {
-      margin-#{$start-direction}: 1em;
+      margin-inline-start: 1em;
     }
   }
 
@@ -109,7 +109,7 @@
     opacity: 1;
     cursor: pointer;
     &:hover {
-      background: fade-out($c-accent, 0.8);
+      background: $c_accent--fade-80;
     }
   }
 

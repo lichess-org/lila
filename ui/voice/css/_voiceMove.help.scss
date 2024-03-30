@@ -22,7 +22,7 @@
 
   .commands {
     td:first-child {
-      padding-#{$start-direction}: 2em;
+      padding-inline-start: 2em;
     }
     display: flex;
     flex-direction: row;

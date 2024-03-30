@@ -37,10 +37,10 @@
           opacity: 0.8;
         }
         &.good {
-          background: mix($c-good, $c-bg-zebra, 20%);
+          background: $c_secondary_bg-zebra--mix-20;
         }
         &.bad {
-          background: mix($c-bad, $c-bg-zebra, 20%);
+          background: $c_bad_bg-zebra--mix-20;
         }
       }
     }

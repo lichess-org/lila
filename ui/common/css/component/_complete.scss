@@ -36,7 +36,7 @@
         color: $c-font-clearer !important;
       }
 
-      background: mix($c-link, $c-bg-box, 20%);
+      background: $c_primary_bg--mix-20;
     }
   }
 }

@@ -12,7 +12,7 @@ $c-op-panels: $c-brag;
       }
       padding: 0.4em 1em;
       &:hover {
-        background: mix($c-op-panels, $c-bg-box, 20%);
+        background: $c_brag_bg--mix-20;
       }
       &[aria-selected='true'] {
         background: $c-op-panels;

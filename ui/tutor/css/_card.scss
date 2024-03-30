@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
     grid-gap: 1em;
-    margin: var(--box-padding) 0;
+    margin: var(---box-padding) 0;
     &--triple {
       grid-template-columns: 1fr;
       @media (min-width: at-least($medium)) {
@@ -28,9 +28,9 @@
       // outline: 3px solid mix($c-link, $c-bg-box, 30%);
       cursor: pointer;
       &:hover {
-        outline: 3px solid mix($c-link, $c-bg-box, 60%);
-        background: mix($c-link, $c-bg-zebra, 10%);
-        box-shadow: 0 0 30px mix($c-link, $c-bg-box, 20%);
+        outline: 3px solid $c_primary_bg--mix-60;
+        background: $c_primary_bg-zebra--mix-10;
+        box-shadow: 0 0 30px $c_primary_bg--mix-20;
       }
     }
 
@@ -38,7 +38,7 @@
       @extend %flex-center-nowrap;
 
       i {
-        text-shadow: $text-shadow;
+        @extend %page-text-shadow;
         font-size: 4em;
         margin: 0 1rem 0 1rem;
         color: $c-primary;

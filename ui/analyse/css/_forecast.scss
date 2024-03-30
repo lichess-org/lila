@@ -32,12 +32,12 @@
     cursor: pointer;
     &:hover {
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
     }
 
     @include padding-direction(0.7em, 0.1em, 0.7em, 0.6em);
 
-    margin-#{$start-direction}: -0.1em;
+    margin-inline-start: -0.1em;
 
     @include transition;
 
@@ -45,7 +45,7 @@
     border-bottom: $border;
 
     &::before {
-      margin-#{$start-direction}: -0.6em;
+      margin-inline-start: -0.6em;
       opacity: 0.4;
     }
 
@@ -54,7 +54,7 @@
       @extend %button-none;
 
       position: absolute;
-      #{$end-direction}: 8px;
+      @include inline-end(8px);
       width: 1.5em;
       height: 1.5em;
       line-height: 1;
@@ -63,12 +63,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding-#{$end-direction}: 0.5px;
+      padding-inline-end: 0.5px;
 
       @include transition;
 
       background: $c-bad;
-      color: $c-bad-over;
+      color: $c-over;
       border-radius: 50%;
       z-index: 1;
 
@@ -141,7 +141,7 @@
 
   sans > * {
     display: inline-block;
-    margin-#{$end-direction}: 0.2em;
+    margin-inline-end: 0.2em;
   }
 
   .add sans {

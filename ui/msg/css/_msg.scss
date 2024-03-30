@@ -1,11 +1,10 @@
-$c-msg: $c-secondary;
 $msg-top-height: 4em;
 
 @import 'side';
 @import 'convo';
 
 body {
-  --app-height: 100vh;
+  ---app-height: 100vh;
   overflow: hidden;
 }
 
@@ -14,17 +13,17 @@ body {
   border-color: $c-bg-zebra2;
 
   &:focus {
-    border-color: mix($c-msg, $c-bg-box, 50%);
+    border-color: $c_secondary_bg--mix-50;
   }
 }
 
 .msg-app {
   display: flex;
   flex-flow: row nowrap;
-  height: calc(var(--app-height) - $site-header-height);
+  height: calc(var(---app-height) - $site-header-height);
 
   @media (min-width: at-least($small)) {
-    height: calc(var(--app-height) * 0.98 - $site-header-height);
+    height: calc(var(---app-height) * 0.98 - $site-header-height);
   }
 
   overflow: hidden;
