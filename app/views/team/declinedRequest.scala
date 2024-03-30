@@ -12,7 +12,8 @@ object declinedRequest:
 
     views.html.base.layout(
       title = title,
-      moreCss = frag(cssTag("team"))
+      moreCss = frag(cssTag("team")),
+      moreJs = jsModule("team.admin")
     ) {
       val pager = views.html.base.bits
         .paginationByQuery(teamRoutes.declinedRequests(team.id, 1), requests, showPost = true)
@@ -26,6 +27,16 @@ object declinedRequest:
               ),
               " • ",
               trans.team.declinedRequests()
+            ),
+            postForm(
+              cls := "team-declined-request box__pad complete-parent",
+              action := teamRoutes.addLeader(team.id)
+            )(
+              // errMsg(addLeaderForm),
+              div(cls := "team-declined-request__input")(
+                st.input(name := "name", attrData("team-id") := team.id, placeholder := "Add a new leader"),
+                // form3.submit("Add")
+              )
             )
           ),
           pager,

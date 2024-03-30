@@ -5,6 +5,7 @@ import * as xhr from 'common/xhr';
 site.load.then(() => {
   $('#form3-leaders').each(function (this: HTMLInputElement) {
     initTagify(this, 10);
+    console.log('initTagify');
   });
   $('#form3-members').each(function (this: HTMLInputElement) {
     initTagify(this, 100);
@@ -18,6 +19,12 @@ site.load.then(() => {
   });
   $('form.team-permissions table').each(function (this: HTMLTableElement) {
     permissionsTable(this);
+  });
+  $('form.team-declined-request input[name="name"]').each(function (this: HTMLInputElement) {
+    site.asset.userComplete({
+      input: this,
+      tag: 'span'
+    });
   });
 });
 
