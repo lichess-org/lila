@@ -16,6 +16,7 @@ case class ForumPostMini(
     topicId: ForumTopicId,
     userId: Option[UserId],
     text: String,
+    troll: Boolean,
     createdAt: Instant
 )
 case class ForumTopicMini(
