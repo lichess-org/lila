@@ -13,3 +13,6 @@ trait LogApi:
       text: String,
       edit: Boolean
   )(using MyId): Funit
+
+trait ModApi:
+  def autoMark(suspectId: report.SuspectId, note: String)(using MyId): Funit

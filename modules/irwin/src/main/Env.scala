@@ -13,7 +13,7 @@ import lila.tournament.TournamentApi
 final class Env(
     appConfig: Configuration,
     tournamentApi: TournamentApi,
-    modApi: lila.mod.ModApi,
+    modApi: lila.hub.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     userCache: lila.user.Cached,

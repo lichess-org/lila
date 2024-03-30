@@ -9,8 +9,9 @@ import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.game.{ BinaryFormat, GameRepo }
 import lila.memo.CacheApi
-import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
+import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
+import lila.hub.report.SuspectId
 
 final class KaladinApi(
     coll: AsyncColl,
@@ -19,7 +20,7 @@ final class KaladinApi(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     insightApi: lila.insight.InsightApi,
-    modApi: lila.mod.ModApi,
+    modApi: lila.hub.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder

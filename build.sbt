@@ -315,7 +315,7 @@ lazy val fishnet = module("fishnet",
 )
 
 lazy val irwin = module("irwin",
-  Seq(mod, insight),
+  Seq(insight, notifyModule, report, tournament),
   reactivemongo.bundle
 )
 

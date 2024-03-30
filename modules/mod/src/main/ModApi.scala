@@ -3,9 +3,10 @@ package lila.mod
 import chess.PlayerTitle
 
 import lila.common.{ Bus, EmailAddress }
-import lila.report.{ ModId, Room, Suspect, SuspectId }
+import lila.report.{ ModId, Room, Suspect }
 import lila.security.{ Granter, Permission }
 import lila.user.{ LightUserApi, Me, User, UserRepo, modId, given }
+import lila.hub.report.SuspectId
 
 final class ModApi(
     userRepo: UserRepo,
@@ -15,7 +16,8 @@ final class ModApi(
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
-)(using Executor):
+)(using Executor)
+    extends lila.hub.mod.ModApi:
 
   def setAlt(prev: Suspect, v: Boolean)(using me: Me.Id): Funit =
     for
