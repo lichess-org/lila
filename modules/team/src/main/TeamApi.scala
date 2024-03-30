@@ -334,7 +334,7 @@ final class TeamApi(
             users <- memberRepo.userIdsByTeam(team.id)
             _ = users.foreach(cached.invalidateTeamIds)
             _ <- requestRepo.removeByTeam(team.id)
-          yield Bus.publish(TeamDelete(team.id), "team")
+          yield Bus.publish(TeamDisable(team.id), "team")
         else teamRepo.enable(team).void.andDo(Bus.publish(TeamUpdate(team.data), "team"))
       else memberRepo.setPerms(team.id, me, Set.empty)
 

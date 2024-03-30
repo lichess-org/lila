@@ -39,4 +39,6 @@ final class Env(
 
   lila.common.Bus.subscribeFun("team"):
     case lila.hub.team.TeamCreate(team) => api.store(team)
+    case lila.hub.team.TeamUpdate(team) => api.store(team)
     case lila.hub.team.TeamDelete(id)   => client.deleteById(id.into(Id))
+    case lila.hub.team.TeamDisable(id)  => client.deleteById(id.into(Id))
