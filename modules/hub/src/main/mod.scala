@@ -1,0 +1,15 @@
+package lila.hub
+package mod
+
+import lila.hub.user.MyId
+
+trait LogApi:
+  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using MyId): Funit
+  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using MyId): Funit
+  def postOrEditAsAnonMod(
+      categ: ForumCategId,
+      topic: String,
+      postId: ForumPostId,
+      text: String,
+      edit: Boolean
+  )(using MyId): Funit

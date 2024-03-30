@@ -11,7 +11,7 @@ import lila.hub.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
 import lila.security.Granter as MasterGranter
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, given }
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,
@@ -19,8 +19,8 @@ final private class ForumTopicApi(
     categRepo: ForumCategRepo,
     mentionNotifier: MentionNotifier,
     paginator: ForumPaginator,
+    modLog: lila.hub.mod.LogApi,
     config: ForumConfig,
-    modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
     timeline: lila.hub.actors.Timeline,

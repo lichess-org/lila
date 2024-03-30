@@ -112,5 +112,12 @@ final class Env(
         logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
       case t: lila.hub.team.KickFromTeam =>
         logApi.teamKick(t.userId, t.teamName)(using t.me)
+    },
+    "forum" -> { case p: lila.hub.forum.RemovePost =>
+      if p.asAdmin
+      then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
+      else
+        logger.info:
+          s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
     }
   )

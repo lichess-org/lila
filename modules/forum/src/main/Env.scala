@@ -6,7 +6,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
-import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.hub.relation.RelationApi
@@ -20,11 +19,9 @@ final private class ForumConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    modLog: ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
     captcher: lila.hub.actors.Captcher,
@@ -33,8 +30,8 @@ final class Env(
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     prefApi: PrefApi,
+    modLog: lila.hub.mod.LogApi,
     userRepo: lila.user.UserRepo,
-    gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer):

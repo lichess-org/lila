@@ -4,8 +4,14 @@ package forum
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 case class CreatePost(post: ForumPostMini)
-case class RemovePost(id: ForumPostId)
+case class RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using
+    val me: user.MyId
+)
 case class RemovePosts(ids: List[ForumPostId])
+// case class PostCloseToggle(categ: ForumCategId, topicSlug: String, closed: Boolean)(using val me: user.MyId)
+// erasing = blankng, still in db but with empty text
+case class ErasePost(id: ForumPostId)
+case class ErasePosts(ids: List[ForumPostId])
 
 trait ForumPost:
   val id: ForumPostId

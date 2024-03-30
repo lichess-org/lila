@@ -109,7 +109,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
       else
         TopicGrantModById(post.categId, post.topicId):
           env.forum.delete
-            .post(view)
+            .deletePost(view)
             .inject:
               for
                 userId    <- post.userId

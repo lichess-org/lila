@@ -12,7 +12,7 @@ import lila.user.{ Me, User, UserRepo, given }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
-):
+) extends lila.hub.mod.LogApi:
   import repo.coll
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
@@ -92,21 +92,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def setEmail(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.setEmail)
 
-  def deletePost(user: Option[UserId], text: String)(using Me) = add:
+  def deletePost(user: Option[UserId], text: String)(using Me.Id) = add:
     Modlog(
       user,
       Modlog.deletePost,
       details = Some(text.take(400))
     )
 
-  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using Me) = add:
+  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using Me.Id) = add:
     Modlog(
       none,
       if closed then Modlog.closeTopic else Modlog.openTopic,
       details = s"$categ/$topicSlug".some
     )
 
-  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using Me) = add:
+  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using Me.Id) = add:
     Modlog(
       none,
       if sticky then Modlog.stickyTopic else Modlog.unstickyTopic,
