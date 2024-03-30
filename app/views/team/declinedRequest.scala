@@ -39,7 +39,6 @@ object declinedRequest:
                 input(
                   st.name     := "search",
                   value       := search,
-                  // attrData    := ("team-id"),
                   placeholder := trans.search.search.txt()
                 ),
                 submitButton(cls := "button", dataIcon := licon.Search)

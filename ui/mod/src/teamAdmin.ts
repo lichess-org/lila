@@ -20,7 +20,7 @@ site.load.then(() => {
   $('form.team-permissions table').each(function (this: HTMLTableElement) {
     permissionsTable(this);
   });
-  $('form.team-declined-request input[name="name"]').each(function (this: HTMLInputElement) {
+  $('form.team-declined-request input[name="search"]').each(function (this: HTMLInputElement) {
     site.asset.userComplete({
       input: this,
       tag: 'span'
