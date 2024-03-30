@@ -18,7 +18,7 @@ import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
 import lila.user.{ Me, User }
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final class GameApiV2(
     pgnDump: PgnDump,

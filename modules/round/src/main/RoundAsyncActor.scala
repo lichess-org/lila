@@ -7,10 +7,10 @@ import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
-import lila.hub.AsyncActor
-import lila.hub.round.*
+import lila.core.AsyncActor
+import lila.core.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.hub.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
+import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,

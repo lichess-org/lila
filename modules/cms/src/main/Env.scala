@@ -11,8 +11,8 @@ final class Env(
     cacheApi: CacheApi,
     baseUrl: BaseUrl,
     assetBaseUrl: AssetBaseUrl,
-    langList: lila.hub.i18n.LangList,
-    langPicker: lila.hub.i18n.LangPicker
+    langList: lila.core.i18n.LangList,
+    langPicker: lila.core.i18n.LangPicker
 )(using Executor, Scheduler, play.api.Mode):
 
   private val coll = db(CollName("cms_page"))

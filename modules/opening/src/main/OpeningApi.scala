@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
-import lila.hub.i18n.{ Translator, Translate }
+import lila.core.i18n.{ Translator, Translate }
 
 final class OpeningApi(
     wikiApi: OpeningWikiApi,

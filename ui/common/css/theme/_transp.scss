@@ -3,18 +3,17 @@
 // this may not import anything from outside common/css/colors
 
 $c-font: hsl(0, 0%, 80%);
-$c-bg-high: hsla(0, 0%, 0%, 0.6);
+$c-bg: hsla(0, 0%, 0%, 0.6); // alias for $c-bg-high
 $c-bg-low: hsla(0, 0%, 0%, 0.5);
-$c-bg-popup: hsla(0, 0%, 0%, 0.6);
 $c-bg-zebra: hsla(0, 0%, 100%, 0.05);
+$c-bg-popup: hsla(0, 0%, 0%, 0.6);
 
 html.transp {
   @include shared-color-defs;
 
-  --c-bg-input: var(--c-bg-low);
+  --c-bg-input: #{$c-bg-low};
   --c-bg-variation: hsla(0, 0%, 0%, 0.25);
   --c-bg-header-dropdown: hsla(0, 0%, 0%, 0.75);
-
   --c-font-dim: #{change-color($c-font, $lightness: 69%)};
   --c-font-dimmer: #{change-color($c-font, $lightness: 48%)};
   --c-font-clear: #{change-color($c-font, $lightness: 89%)};

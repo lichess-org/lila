@@ -24,8 +24,8 @@ final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
-    isOnline: lila.hub.socket.IsOnline,
-    onlineIds: lila.hub.socket.OnlineIds,
+    isOnline: lila.core.socket.IsOnline,
+    onlineIds: lila.core.socket.OnlineIds,
     assetBaseUrlInternal: AssetBaseUrlInternal
 )(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer, play.api.Mode):
 
@@ -76,15 +76,15 @@ final class Env(
   export flairApi.getter
 
   lila.common.Bus.subscribeFuns(
-    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+    "adjustCheater" -> { case lila.core.actorApi.mod.MarkCheater(userId, true) =>
       rankingApi.remove(userId)
       repo.setRoles(userId, Nil)
     },
-    "adjustBooster" -> { case lila.hub.actorApi.mod.MarkBooster(userId) =>
+    "adjustBooster" -> { case lila.core.actorApi.mod.MarkBooster(userId) =>
       rankingApi.remove(userId)
       repo.setRoles(userId, Nil)
     },
-    "kickFromRankings" -> { case lila.hub.actorApi.mod.KickFromRankings(userId) =>
+    "kickFromRankings" -> { case lila.core.actorApi.mod.KickFromRankings(userId) =>
       rankingApi.remove(userId)
     }
   )

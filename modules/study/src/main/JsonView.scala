@@ -6,9 +6,9 @@ import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.common.Json.{ *, given }
-import lila.hub.socket.Sri
+import lila.core.socket.Sri
 import lila.tree.Node.Shape
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final class JsonView(
     studyRepo: StudyRepo,
@@ -126,7 +126,7 @@ object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject)
 
-  given OWrites[lila.hub.study.IdName] = Json.writes
+  given OWrites[lila.core.study.IdName] = Json.writes
 
   def metadata(study: Study) = Json.obj(
     "id"        -> study.id,
@@ -137,7 +137,7 @@ object JsonView:
 
   def glyphs(using Translate): JsObject =
     import lila.tree.Node.given
-    import lila.hub.i18n.I18nKey.{ study as trans }
+    import lila.core.i18n.I18nKey.{ study as trans }
     import chess.format.pgn.Glyph
     import Glyph.MoveAssessment.*
     import Glyph.PositionAssessment.*
@@ -178,7 +178,7 @@ object JsonView:
   private given Reads[Square] = Reads: v =>
     (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
   private[study] given Writes[Sri]                       = writeAs(_.value)
-  private[study] given Writes[lila.hub.study.Visibility] = writeAs(_.toString)
+  private[study] given Writes[lila.core.study.Visibility] = writeAs(_.toString)
   private[study] given Writes[Study.From] = Writes:
     case Study.From.Scratch   => JsString("scratch")
     case Study.From.Game(id)  => Json.obj("game" -> id)

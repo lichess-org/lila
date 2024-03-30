@@ -7,7 +7,7 @@ import lila.common.Form.{ cleanText, formatter, into }
 import lila.security.Granter
 import lila.user.Me
 
-final class RelayTourForm(langList: lila.hub.i18n.LangList):
+final class RelayTourForm(langList: lila.core.i18n.LangList):
 
   import RelayTourForm.*
 

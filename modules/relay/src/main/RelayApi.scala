@@ -14,7 +14,7 @@ import lila.relay.RelayRound.WithTour
 import lila.security.Granter
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
 import lila.user.{ Me, User, given }
-import lila.hub.user.MyId
+import lila.core.user.MyId
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
@@ -327,7 +327,7 @@ final class RelayApi(
               s,
               _.copy(
                 id = round.studyId,
-                visibility = lila.hub.study.Visibility.public
+                visibility = lila.core.study.Visibility.public
               )
             ) >>
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
@@ -413,9 +413,9 @@ final class RelayApi(
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi.members(id.into(StudyId)).map {
       _.map(_.contributorIds).withFilter(_.nonEmpty).foreach { userIds =>
-        import lila.hub.actorApi.socket.SendTos
+        import lila.core.actorApi.socket.SendTos
         import lila.common.Json.given
-        import lila.hub.socket.makeMessage
+        import lila.core.socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
         lila.common.Bus.publish(SendTos(userIds, payload), "socketUsers")
       }

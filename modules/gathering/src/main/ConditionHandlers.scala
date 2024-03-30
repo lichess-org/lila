@@ -6,7 +6,7 @@ import java.time.format.{ DateTimeFormatter, FormatStyle }
 
 import lila.gathering.Condition.*
 import lila.rating.PerfType
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 object ConditionHandlers:
 

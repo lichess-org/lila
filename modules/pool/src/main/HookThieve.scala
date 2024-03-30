@@ -4,7 +4,7 @@ import lila.common.Bus
 
 final private class HookThieve()(using Executor, Scheduler):
 
-  import lila.hub.pool.HookThieve.*
+  import lila.core.pool.HookThieve.*
 
   def candidates(clock: chess.Clock.Config): Fu[PoolHooks] =
     Bus

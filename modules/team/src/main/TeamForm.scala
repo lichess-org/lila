@@ -14,13 +14,13 @@ import lila.common.Form.{
   given
 }
 import lila.db.dsl.{ *, given }
-import lila.hub.team.Access
+import lila.core.team.Access
 
 final private[team] class TeamForm(
     teamRepo: TeamRepo,
-    val captcher: lila.hub.actors.Captcher
+    val captcher: lila.core.actors.Captcher
 )(using Executor)
-    extends lila.hub.CaptchedForm:
+    extends lila.core.CaptchedForm:
 
   private object Fields:
     val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))

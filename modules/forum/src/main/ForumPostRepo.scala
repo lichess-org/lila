@@ -5,7 +5,8 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.forum.Filter.*
-import lila.hub.forum.ForumPostMini
+import lila.core.forum.ForumPostMini
+import reactivemongo.api.CursorOps
 
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     Executor
@@ -30,10 +31,12 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     "topicId"   -> true,
     "userId"    -> true,
     "text"      -> true,
+    "troll"     -> true,
     "createdAt" -> true
   )
 
-  def miniByIds(ids: Seq[ForumPostId]) = coll.byIdsProj[ForumPostMini, ForumPostId](ids, miniProjection)
+  def miniByIds(ids: Seq[ForumPostId]) =
+    coll.byOrderedIds[ForumPostMini, ForumPostId](ids, miniProjection.some)(_.id)
 
   def countBeforeNumber(topicId: ForumTopicId, number: Int): Fu[Int] =
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
@@ -113,7 +116,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
       _.sec
     )
 
-  def nonGhostCursor =
+  private[forum] def nonGhostCursor: AkkaStreamCursor[ForumPostMini] =
     coll
-      .find($doc("userId".$ne(User.ghostId)))
-      .cursor[ForumPost](ReadPref.sec)
+      .find($doc("userId".$ne(User.ghostId)), miniProjection.some)
+      .cursor[ForumPostMini](ReadPref.sec)

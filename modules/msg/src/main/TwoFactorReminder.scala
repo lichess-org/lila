@@ -5,7 +5,7 @@ import lila.user.UserRepo
 
 final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, api: MsgApi)(using
     Executor,
-    lila.hub.i18n.Translator
+    lila.core.i18n.Translator
 ):
 
   def apply(userId: UserId) = cache.get(userId)
@@ -17,6 +17,6 @@ final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, ap
           .withoutTwoFactor(userId)
           .flatMap:
             case Some(user) =>
-              given play.api.i18n.Lang = user.realLang | lila.hub.i18n.defaultLang
-              api.systemPost(userId, lila.hub.i18n.I18nKey.tfa.setupReminder.txt()).inject(false)
+              given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
+              api.systemPost(userId, lila.core.i18n.I18nKey.tfa.setupReminder.txt()).inject(false)
             case _ => fuccess(true)

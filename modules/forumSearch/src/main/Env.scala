@@ -6,7 +6,7 @@ import play.api.Configuration
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.search.*
-import lila.hub.forum.{ CreatePost, RemovePost, RemovePosts }
+import lila.core.forum.{ CreatePost, RemovePost, RemovePosts, ErasePost, ErasePosts }
 
 @Module
 private class ForumSearchConfig(
@@ -17,8 +17,7 @@ private class ForumSearchConfig(
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
-    postApi: lila.forum.ForumPostApi,
-    postRepo: lila.forum.ForumPostRepo
+    postApi: lila.core.forum.ForumPostApi
 )(using Executor, akka.stream.Materializer):
 
   private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
@@ -38,6 +37,8 @@ final class Env(
   private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
 
   lila.common.Bus.subscribeFun("forumPost"):
-    case CreatePost(post) => api.store(post)
-    case RemovePost(id)   => client.deleteById(id.into(Id))
-    case RemovePosts(ids) => client.deleteByIds(Id.from[List, ForumPostId](ids))
+    case CreatePost(post)        => api.store(post)
+    case RemovePost(id, _, _, _) => client.deleteById(id.into(Id))
+    case RemovePosts(ids)        => client.deleteByIds(Id.from[List, ForumPostId](ids))
+    case ErasePost(id)           => client.deleteById(id.into(Id))
+    case ErasePosts(ids)         => client.deleteByIds(Id.from[List, ForumPostId](ids))

@@ -6,8 +6,8 @@ import ornicar.scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 
 import lila.rating.PerfType
-import lila.hub.rating.RatingRange
-import lila.hub.socket.Sri
+import lila.core.rating.RatingRange
+import lila.core.socket.Sri
 import lila.user.User
 
 // realtime chess, volatile
@@ -84,11 +84,11 @@ case class Hook(
 
   def randomColor = color == "random"
 
-  def compatibleWithPools(using isClockCompatible: lila.hub.pool.IsClockCompatible) =
+  def compatibleWithPools(using isClockCompatible: lila.core.pool.IsClockCompatible) =
     realMode.rated && realVariant.standard && randomColor &&
       isClockCompatible(clock)
 
-  def compatibleWithPool(poolClock: chess.Clock.Config)(using lila.hub.pool.IsClockCompatible) =
+  def compatibleWithPool(poolClock: chess.Clock.Config)(using lila.core.pool.IsClockCompatible) =
     compatibleWithPools && clock == poolClock
 
   private lazy val speed = Speed(clock)
@@ -106,7 +106,7 @@ object Hook:
       user: Option[User.WithPerfs],
       sid: Option[String],
       ratingRange: RatingRange,
-      blocking: lila.hub.pool.Blocking,
+      blocking: lila.core.pool.Blocking,
       boardApi: Boolean = false
   ): Hook =
     new Hook(

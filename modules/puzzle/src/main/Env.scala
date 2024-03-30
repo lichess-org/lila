@@ -18,7 +18,7 @@ private class PuzzleConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    renderer: lila.hub.actors.Renderer,
+    renderer: lila.core.actors.Renderer,
     historyApi: lila.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
@@ -27,7 +27,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     mongo: lila.db.Env
-)(using Executor, akka.actor.ActorSystem, akka.stream.Materializer, lila.hub.i18n.Translator)(using
+)(using Executor, akka.actor.ActorSystem, akka.stream.Materializer, lila.core.i18n.Translator)(using
     scheduler: Scheduler,
     mode: play.api.Mode
 ):

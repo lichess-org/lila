@@ -40,7 +40,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
   ): Funit =
     if !pov.isMyTurn then funit
     else
-      Uci.Move(uciMove).fold[Funit](fufail(lila.hub.round.ClientError(s"Invalid move $uciMove on $pov"))) {
+      Uci.Move(uciMove).fold[Funit](fufail(lila.core.round.ClientError(s"Invalid move $uciMove on $pov"))) {
         uci =>
           val promise = Promise[Unit]()
           tellRound(

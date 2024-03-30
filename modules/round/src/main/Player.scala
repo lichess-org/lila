@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 import lila.common.Bus
 import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Game, Pov, Progress, UciMemo }
-import lila.hub.round.*
+import lila.core.round.*
 
 final private class Player(
     fishnetPlayer: lila.fishnet.FishnetPlayer,
@@ -147,7 +147,7 @@ final private class Player(
           )
 
   private def notifyMove(moveOrDrop: MoveOrDrop, game: Game): Unit =
-    import lila.hub.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
+    import lila.core.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
     val color = moveOrDrop.color
     val moveEvent = MoveEvent(
       gameId = game.id,

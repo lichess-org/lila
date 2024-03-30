@@ -22,7 +22,7 @@ final private class FirebasePush(
     logger.info("Mobile Firebase push notifications are enabled.")
 
   private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
+    lila.core.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
 
   def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
     deviceApi

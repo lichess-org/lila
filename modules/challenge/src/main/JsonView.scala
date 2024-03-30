@@ -6,15 +6,15 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.licon
 import lila.game.JsonView.given
-import lila.hub.i18n.I18nKey as trans
-import lila.hub.socket.{ SocketVersion, userLag }
-import lila.hub.i18n.{ Translate, JsDump }
+import lila.core.i18n.I18nKey as trans
+import lila.core.socket.{ SocketVersion, userLag }
+import lila.core.i18n.{ Translate, JsDump }
 
 final class JsonView(
     baseUrl: lila.common.config.BaseUrl,
     getLightUser: lila.common.LightUser.GetterSync,
     getLagRating: userLag.GetLagRating,
-    isOnline: lila.hub.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     jsDump: JsDump
 ):
 

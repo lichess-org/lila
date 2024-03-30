@@ -7,7 +7,7 @@ import play.api.Configuration
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.db.dsl.Coll
-import lila.hub.actors
+import lila.core.actors
 
 @Module
 private class RelationConfig(

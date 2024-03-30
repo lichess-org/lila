@@ -1,7 +1,7 @@
 package lila.lobby
 
 import lila.game.Pov
-import lila.hub.game.Source
+import lila.core.game.Source
 
 final private class AbortListener(
     userRepo: lila.user.UserRepo,

@@ -3,7 +3,7 @@ package lila.perfStat
 import lila.rating.{ Perf, PerfType, UserRankMap }
 import lila.security.Granter
 import lila.user.{ LightUserApi, Me, RankingApi, RankingsOf, User, UserApi }
-import lila.hub.rating.PerfKey
+import lila.core.rating.PerfKey
 
 case class PerfStatData(
     user: User.WithPerfs,

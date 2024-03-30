@@ -10,7 +10,7 @@ final private[setup] class Processor(
     gameCache: lila.game.Cached,
     gameRepo: GameRepo,
     perfsRepo: UserPerfsRepo,
-    onStart: lila.hub.game.OnStart
+    onStart: lila.core.game.OnStart
 )(using Executor, IdGenerator):
 
   def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
@@ -29,9 +29,9 @@ final private[setup] class Processor(
 
   def hook(
       configBase: HookConfig,
-      sri: lila.hub.socket.Sri,
+      sri: lila.core.socket.Sri,
       sid: Option[String],
-      blocking: lila.hub.pool.Blocking
+      blocking: lila.core.pool.Blocking
   )(using me: Option[User.WithPerfs]): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor

@@ -7,10 +7,10 @@ import reactivemongo.api.bson.*
 import java.time.Period
 
 import lila.db.dsl.{ *, given }
-import lila.hub.team.LightTeam
-import lila.hub.team.Access
+import lila.core.team.{ LightTeam, Access, TeamData }
+import reactivemongo.akkastream.AkkaStreamCursor
 
-final class TeamRepo(val coll: Coll)(using Executor) extends lila.hub.team.TeamRepo:
+final class TeamRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
@@ -63,7 +63,8 @@ final class TeamRepo(val coll: Coll)(using Executor) extends lila.hub.team.TeamR
       )
       .void
 
-  def cursor = coll.find(enabledSelect).cursor[Team](ReadPref.sec)
+  private[team] def cursor: AkkaStreamCursor[TeamData] =
+    coll.find(enabledSelect).cursor[TeamData]()
 
   private[team] def forumAccess(id: TeamId): Fu[Option[Access]] =
     coll.secondaryPreferred.primitiveOne[Access]($id(id), "forum")

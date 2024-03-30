@@ -3,8 +3,8 @@ package lila.lobby
 import scala.collection.View
 
 import lila.common.Heapsort
-import lila.hub.socket.Sri
-import lila.hub.pool.IsClockCompatible
+import lila.core.socket.Sri
+import lila.core.pool.IsClockCompatible
 
 // NOT thread safe.
 // control concurrency from LobbySyncActor
@@ -66,13 +66,13 @@ final private class HookRepo:
   // invoked regularly when stealing hooks for pools
   def poolCandidates(clock: chess.Clock.Config)(using
       IsClockCompatible
-  ): Vector[lila.hub.pool.HookThieve.PoolHook] =
+  ): Vector[lila.core.pool.HookThieve.PoolHook] =
     hooks.values.withFilter(_.compatibleWithPool(clock)).flatMap(toPool).toVector
 
   private def toPool(h: Hook) = h.user.map: u =>
-    lila.hub.pool.HookThieve.PoolHook(
+    lila.core.pool.HookThieve.PoolHook(
       hookId = h.id,
-      member = lila.hub.pool.PoolMember(
+      member = lila.core.pool.PoolMember(
         userId = u.id,
         sri = h.sri,
         rating = h.rating | lila.rating.Glicko.default.intRating,

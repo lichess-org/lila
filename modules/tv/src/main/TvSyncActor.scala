@@ -6,10 +6,10 @@ import play.api.libs.json.Json
 import lila.common.Bus
 import lila.common.Json.given
 import lila.game.{ Game, Pov }
-import lila.hub.SyncActor
+import lila.core.SyncActor
 
 final private[tv] class TvSyncActor(
-    renderer: lila.hub.actors.Renderer,
+    renderer: lila.core.actors.Renderer,
     lightUserApi: lila.user.LightUserApi,
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
@@ -64,7 +64,7 @@ final private[tv] class TvSyncActor(
     case s @ TvSyncActor.Select => channelActors.foreach(_._2 ! s)
 
     case Selected(channel, game) =>
-      import lila.hub.socket.makeMessage
+      import lila.core.socket.makeMessage
       given Ordering[lila.game.Player] = Ordering.by: p =>
         p.rating.fold(0)(_.value) + ~p.userId
           .flatMap(lightUserApi.sync)
@@ -86,12 +86,12 @@ final private[tv] class TvSyncActor(
             "rating" -> player.rating
           )
       )
-      Bus.publish(lila.hub.game.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
+      Bus.publish(lila.core.game.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
       if channel == Tv.Channel.Best then
         actorAsk(renderer.actor, RenderFeaturedJs(game))(makeTimeout(100 millis)).foreach {
           case html: String =>
             val pov = Pov.naturalOrientation(game)
-            val event = lila.hub.game.ChangeFeatured(
+            val event = lila.core.game.ChangeFeatured(
               makeMessage(
                 "featured",
                 Json.obj(

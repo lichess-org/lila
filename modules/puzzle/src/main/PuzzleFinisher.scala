@@ -19,7 +19,7 @@ final private[puzzle] class PuzzleFinisher(
     colls: PuzzleColls
 )(using ec: Executor, scheduler: Scheduler):
 
-  private val sequencer = lila.hub.AsyncActorSequencers[PuzzleId](
+  private val sequencer = lila.core.AsyncActorSequencers[PuzzleId](
     maxSize = Max(64),
     expiration = 5 minutes,
     timeout = 5 seconds,

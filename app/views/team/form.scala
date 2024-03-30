@@ -5,7 +5,7 @@ import play.api.data.Form
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
-import lila.hub.team.Access
+import lila.core.team.Access
 
 object form:
 

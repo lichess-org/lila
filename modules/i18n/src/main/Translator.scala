@@ -4,13 +4,13 @@ import play.api.i18n.Lang
 import scalatags.Text.all.*
 
 import lila.common.String.html.escapeHtml
-import lila.hub.i18n.{ Translator, TranslatorFrag, TranslatorTxt, I18nKey, Translate }
+import lila.core.i18n.{ Translator, TranslatorFrag, TranslatorTxt, I18nKey, Translate }
 
 object Translator extends Translator:
 
   def to(lang: Lang): Translate = Translate(this, lang)
 
-  def toDefault: Translate = Translate(this, lila.hub.i18n.defaultLang)
+  def toDefault: Translate = Translate(this, lila.core.i18n.defaultLang)
 
   object frag extends TranslatorFrag:
     def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag =

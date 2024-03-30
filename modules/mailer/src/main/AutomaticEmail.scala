@@ -8,10 +8,10 @@ import scala.util.chaining.*
 import lila.base.LilaException
 import lila.common.EmailAddress
 import lila.common.config.BaseUrl
-import lila.hub.actorApi.mailer.CorrespondenceOpponent
-import lila.hub.actorApi.msg.SystemMsg
-import lila.hub.i18n.Translator
-import lila.hub.i18n.I18nKey.emails as trans
+import lila.core.actorApi.mailer.CorrespondenceOpponent
+import lila.core.actorApi.msg.SystemMsg
+import lila.core.i18n.Translator
+import lila.core.i18n.I18nKey.emails as trans
 import lila.user.{ User, UserApi, UserRepo }
 
 final class AutomaticEmail(
@@ -46,7 +46,7 @@ The Lichess team"""
   def welcomePM(user: User): Funit = fuccess:
     alsoSendAsPrivateMessage(user): lang =>
       given Lang = lang
-      import lila.hub.i18n.I18nKey
+      import lila.core.i18n.I18nKey
       s"""${I18nKey.onboarding.welcome.txt()}\n${I18nKey.site.lichessPatronInfo.txt()}"""
 
   def onTitleSet(username: UserStr): Funit = {
@@ -249,4 +249,4 @@ $disableSettingNotice $disableLink"""
       .flatMapz: user =>
         sendAsPrivateMessageAndEmail(user)(subject, body)
 
-  private def userLang(user: User): Lang = user.realLang | lila.hub.i18n.defaultLang
+  private def userLang(user: User): Lang = user.realLang | lila.core.i18n.defaultLang

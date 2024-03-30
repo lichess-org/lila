@@ -10,12 +10,11 @@
   @return mix(#fff, $color, $weight);
 }
 
+$c-bg: hsl(0, 0%, 100%); // alias for $c-bg-high
 $c-bg-page: hsl(37, 10%, 92%);
-$c-bg-high: hsl(0, 0%, 100%);
 $c-bg-low: hsl(0, 0%, 89%);
 $c-bg-zebra: hsl(37, 12%, 96.5%);
 $c-bg-zebra2: hsl(37, 12%, 92%);
-$c-bg-popup: hsl(0, 0%, 100%);
 $c-body-gradient: hsl(37, 12%, 84%);
 $c-font: hsl(0, 0%, 30%);
 $c-primary: hsl(209, 77%, 46%);
@@ -30,8 +29,11 @@ $c-interesting: hsl(307, 80%, 59%);
 
 html.light {
   @include shared-color-defs;
+
   --c-bg-input: #{change-color($c-bg-page, $lightness: 98%)};
   --c-bg-variation: #{$c-bg-zebra2};
+  --c-bg-popup: #{$c-bg};
+  --c-bg-header-dropdown: #{$c-bg};
   --c-page-input: #{$c-bg-low};
   --c-popup: #{$c-font};
   --c-header-dropdown: #{$c-font};

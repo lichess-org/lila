@@ -9,8 +9,8 @@ import lila.chat.{ ChatTimeout, UserChat }
 object publicChat:
 
   def apply(
-      tourChats: List[(lila.tournament.Tournament, UserChat)],
-      swissChats: List[(lila.swiss.Swiss, UserChat)]
+      tourChats: List[(lila.core.tournament.Tournament, UserChat)],
+      swissChats: List[(lila.core.swiss.IdName, UserChat)]
   )(using PageContext) =
     views.html.base.layout(
       title = "Public Chats",
@@ -67,10 +67,10 @@ object publicChat:
             )
     )
 
-  private def swissTitle(swiss: lila.swiss.Swiss) =
+  private def swissTitle(swiss: lila.core.swiss.IdName) =
     a(cls := "title", href := routes.Swiss.show(swiss.id))(swiss.name)
 
-  private def tournamentTitle(tournament: lila.tournament.Tournament) =
+  private def tournamentTitle(tournament: lila.core.tournament.Tournament) =
     div(cls := "title-time")(
       a(cls := "title", href := routes.Tournament.show(tournament.id))(tournament.name),
       span(cls := s"tournament-status ${tournament.status.name.toLowerCase}")(tournament.status.name)

@@ -6,7 +6,7 @@ import lila.common.config.Max
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
 import lila.user.{ UserPerfsRepo, UserRepo }
-import lila.hub.pool.{ Pairing, Pairings }
+import lila.core.pool.{ Pairing, Pairings }
 
 final private class GameStarter(
     userRepo: UserRepo,
@@ -17,7 +17,7 @@ final private class GameStarter(
 )(using Executor, Scheduler):
 
   private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(32), timeout = 10 seconds, name = "gameStarter")
+    lila.core.AsyncActorSequencer(maxSize = Max(32), timeout = 10 seconds, name = "gameStarter")
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
     couples.nonEmpty.so:
@@ -66,5 +66,5 @@ final private class GameStarter(
       mode = chess.Mode.Rated,
       status = chess.Status.Created,
       daysPerTurn = none,
-      metadata = Game.metadata(lila.hub.game.Source.Pool)
+      metadata = Game.metadata(lila.core.game.Source.Pool)
     )

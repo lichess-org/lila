@@ -2,10 +2,10 @@ package lila.rating
 
 import cats.derived.*
 import chess.{ Centis, Speed }
-import lila.hub.i18n.{ I18nKey, Translate }
+import lila.core.i18n.{ I18nKey, Translate }
 
 import lila.common.licon
-import lila.hub.rating.{ PerfId, PerfKey }
+import lila.core.rating.{ PerfId, PerfKey }
 
 enum PerfType(
     val id: PerfId,

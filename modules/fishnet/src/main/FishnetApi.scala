@@ -27,7 +27,7 @@ final class FishnetApi(
   import BSONHandlers.given
 
   private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, name = "fishnetApi")
+    lila.core.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, name = "fishnetApi")
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 

@@ -5,13 +5,13 @@ import lila.common.String.noShouting
 import lila.common.config.NetDomain
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
-import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
-import lila.hub.forum.{ CreatePost }
+import lila.core.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
+import lila.core.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
 import lila.security.Granter as MasterGranter
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, given }
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,
@@ -19,15 +19,15 @@ final private class ForumTopicApi(
     categRepo: ForumCategRepo,
     mentionNotifier: MentionNotifier,
     paginator: ForumPaginator,
+    modLog: lila.core.mod.LogApi,
     config: ForumConfig,
-    modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    timeline: lila.hub.actors.Timeline,
-    shutup: lila.hub.actors.Shutup,
+    timeline: lila.core.actors.Timeline,
+    shutup: lila.core.actors.Shutup,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
-    relationApi: lila.hub.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 )(using Executor):
 
   import BSONHandlers.given

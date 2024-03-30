@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.common.config.Max
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.timeline.Atom
+import lila.core.actorApi.timeline.Atom
 import lila.memo.CacheApi.*
 
 final class EntryApi(

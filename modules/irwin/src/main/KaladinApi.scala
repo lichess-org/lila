@@ -9,8 +9,9 @@ import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.game.{ BinaryFormat, GameRepo }
 import lila.memo.CacheApi
-import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
+import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
+import lila.core.report.SuspectId
 
 final class KaladinApi(
     coll: AsyncColl,
@@ -19,7 +20,7 @@ final class KaladinApi(
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     insightApi: lila.insight.InsightApi,
-    modApi: lila.mod.ModApi,
+    modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
@@ -30,7 +31,7 @@ final class KaladinApi(
   lazy val thresholds = IrwinThresholds.makeSetting("kaladin", settingStore)
 
   private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 2 minutes, name = "kaladinApi")
+    lila.core.AsyncActorSequencer(maxSize = Max(512), timeout = 2 minutes, name = "kaladinApi")
 
   private def sequence[A <: Matchable](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
     workQueue { coll(_.byId[KaladinUser](user.id.value)).flatMap(f) }
@@ -212,6 +213,6 @@ final class KaladinApi(
   private def getSuspect(suspectId: UserId) =
     userRepo.byId(suspectId).orFail(s"suspect $suspectId not found").dmap(Suspect.apply)
 
-  lila.common.Bus.subscribeFun("cheatReport") { case lila.hub.actorApi.report.CheatReportCreated(userId) =>
+  lila.common.Bus.subscribeFun("cheatReport") { case lila.core.actorApi.report.CheatReportCreated(userId) =>
     getSuspect(userId).flatMap(autoRequest(KaladinUser.Requester.Report))
   }

@@ -4,7 +4,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 import Filter.*
-import lila.hub.forum.ForumTopicMini
+import lila.core.forum.ForumTopicMini
 
 final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     Executor

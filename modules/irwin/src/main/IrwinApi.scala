@@ -6,7 +6,8 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov, Query }
-import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
+import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
+import lila.core.report.SuspectId
 import lila.user.{ Me, User, UserRepo, modId, given }
 
 final class IrwinApi(
@@ -14,7 +15,7 @@ final class IrwinApi(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     analysisRepo: AnalysisRepo,
-    modApi: lila.mod.ModApi,
+    modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder

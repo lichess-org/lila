@@ -6,7 +6,7 @@ import lila.common.Json.given
 import lila.common.LightUser
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final class JsonView(getLightUser: LightUser.GetterSync):
 

@@ -70,7 +70,12 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
     JsonOk:
       if text.trim.isEmpty
       then paginator.popularTeamsWithPublicLeaders(page)
-      else env.teamSearch(text, page).flatMap(_.mapFutureList(env.team.memberRepo.addPublicLeaderIds))
+      else
+        for
+          ids   <- env.teamSearch(text, page)
+          teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
+          leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
+        yield leads
 
   def teamsOf(username: UserStr) = AnonOrScoped(): ctx ?=>
     import env.team.jsonView.given

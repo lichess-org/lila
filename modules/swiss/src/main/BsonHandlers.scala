@@ -124,5 +124,5 @@ object BsonHandlers:
       )
     }
 
-  given BSONDocumentHandler[lila.hub.swiss.IdName] = Macros.handler
+  given BSONDocumentHandler[lila.core.swiss.IdName] = Macros.handler
   given BSONDocumentHandler[SwissBan]              = Macros.handler

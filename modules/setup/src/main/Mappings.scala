@@ -8,9 +8,9 @@ import play.api.data.format.Formats.doubleFormat
 
 import lila.common.Days
 import lila.common.Form.{ *, given }
-import lila.hub.game.GameRule
+import lila.core.game.GameRule
 import lila.lobby.Color
-import lila.hub.rating.RatingRange
+import lila.core.rating.RatingRange
 
 private object Mappings:
 

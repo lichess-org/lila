@@ -2,15 +2,13 @@ import * as cps from 'node:child_process';
 import * as fs from 'node:fs';
 import * as ps from 'node:process';
 import * as path from 'node:path';
-import tinycolor from 'tinycolor2';
+import clr from 'tinycolor2';
 import { env, colors as c, lines, errorMark } from './main';
 import { globArray } from './parse';
 
-// TODO refactor without breaking
-
 type ColorMix = { c1: string; c2?: string; op: string; val: number };
-const colorMixMap = new Map<string, ColorMix>();
-const themeColorMap = new Map<string, Map<string, tinycolor.Instance>>();
+const colorMixMap = new Map<string, ColorMix>(); // ('bg--fade-10', {c1: 'bg', op: 'fade', val: 10})
+const themeColorMap = new Map<string, Map<string, clr.Instance>>(); // ('dark', ('bg', clr('#000'))
 const sassWatch: fs.FSWatcher[] = [];
 const importMap = new Map<string, Set<string>>(); // (cssFile, sourcesThatImportIt)
 const processed = new Set<string>();
@@ -18,6 +16,7 @@ let sassPs: cps.ChildProcessWithoutNullStreams | undefined;
 let builder: BuildTimer | undefined;
 
 export function stopSass() {
+  sassPs?.removeAllListeners();
   sassPs?.kill();
   sassPs = undefined;
   for (const x of sassWatch) x.close();
@@ -26,16 +25,18 @@ export function stopSass() {
   builder = undefined;
   importMap.clear();
   processed.clear();
+  colorMixMap.clear();
+  themeColorMap.clear();
 }
 
 export async function sass(): Promise<void> {
   if (!env.sass) return;
 
-  const sources = (await globArray('./*/css/**/[^_]*.scss', { abs: false })).filter(
-    x => !x.includes('/gen/'),
-  );
-  builder = new BuildTimer(sources);
-  await Promise.allSettled([parseThemeColorDefs(), ...[...builder.sources].map(src => parseImports(src))]);
+  const sources = [
+    ...new Set((await globArray('./*/css/**/[^_]*.scss', { abs: false })).filter(x => !x.includes('/gen/'))),
+  ];
+  builder = new BuildTimer();
+  await Promise.allSettled([parseThemeColorDefs(), ...sources.map(src => parseScss(src))]);
   await buildColorMixes().then(buildColorWrap);
 
   if (env.watch) {
@@ -46,69 +47,27 @@ export async function sass(): Promise<void> {
       sassWatch.push(watcher);
     }
   }
-  if (builder.sources.size) {
-    compile([...builder.sources], false);
-  } else env.done(0, 'sass');
+  compile(sources, false);
+  if (!sources.length) env.done(0, 'sass');
 }
 
-function compile(sources: string[], tellTheWorld = true) {
-  if (!sources.length) return;
-  if (tellTheWorld) {
-    for (const srcFile of sources) {
-      env.log(`Building '${c.cyan(srcFile)}'`, { ctx: 'sass' });
-    }
-  } else env.log(`Building css with ${ps.platform}-${ps.arch}/sass`, { ctx: 'sass' });
-
-  const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
-  const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
-  sassPs = cps.spawn(
-    sassExec,
-    sassArgs.concat(
-      env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
-      sources.map(
-        (src: string) =>
-          `${src}:${path.join(
-            env.cssDir,
-            path.basename(src).replace(/(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css'),
-          )}`,
-      ),
-    ),
-  );
-
-  sassPs.stdout?.on('data', (buf: Buffer) => {
-    const txts = lines(buf.toString('utf8'));
-    for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
-  });
-  sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
-  sassPs.on('close', (code: number) => env.done(code, 'sass'));
-}
-
-function imports(srcFile: string, bset = new Set<string>()): Set<string> {
-  if (bset.has(srcFile)) return bset;
-  bset.add(srcFile);
-  for (const dep of importMap.get(srcFile) ?? []) imports(dep, bset);
-  return bset;
-}
-
-async function parseImports(src: string, depth = 1) {
-  if (depth > 10) {
-    // arbitrary
-    env.log(`${errorMark} '${c.cyan(src)}' - max depth exceeded (${depth})`);
-    ps.exit(-2);
-  }
+// recursively parse scss file and its imports to build dependency and color maps
+async function parseScss(src: string) {
+  if (path.dirname(src).endsWith('/gen')) return;
   if (processed.has(src)) return;
   processed.add(src);
   try {
     const text = await fs.promises.readFile(src, 'utf8');
-    if (!path.dirname(src).endsWith('gen')) {
-      for (const match of text.matchAll(/\$c_([-_a-z0-9]+)/g)) {
-        const [str, mix] = [match[1], parseColor(match[1])];
-        if (!mix) {
-          env.log(`Invalid color mix: '${c.magenta(str)}' in '${c.cyan(src)}'`, { ctx: 'sass' });
-          continue;
-        }
-        colorMixMap.set(str, mix);
+    //if (!path.dirname(src).endsWith('gen')) {
+    for (const match of text.matchAll(/\$c_([-_a-z0-9]+)/g)) {
+      const [str, mix] = [match[1], parseColor(match[1])];
+      if (!mix) {
+        env.log(`${errorMark} - invalid color mix: '${c.magenta(str)}' in '${c.cyan(src)}'`, {
+          ctx: 'sass',
+        });
+        continue;
       }
+      colorMixMap.set(str, mix);
     }
     for (const match of text.matchAll(/@(?:import|use)\s+['"](.*)['"]/g)) {
       if (match.length !== 2) continue;
@@ -118,32 +77,33 @@ async function parseImports(src: string, depth = 1) {
       if (!absDep.startsWith(env.uiDir) || /node_modules.*\.css/.test(absDep)) continue;
       const dep = absDep.slice(env.uiDir.length + 1);
       if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
-      await parseImports(dep, depth + 1);
+      await parseScss(dep);
     }
   } catch (e) {
     env.log(`${errorMark} failed to read ${src} - ${JSON.stringify(e, undefined, 2)}`);
   }
 }
 
+// collect mixable scss color definitions from theme files
 async function parseThemeColorDefs() {
   const themeFiles = await globArray('./common/css/theme/_*.scss', { abs: false });
   const themes: string[] = ['dark'];
   for (const themeFile of themeFiles ?? []) {
     const theme = /_([^_]+)\.scss/.exec(themeFile)?.[1];
     if (!theme) {
-      env.log(`Invalid theme filename '${c.cyan(themeFile)}'`, { ctx: 'sass' });
+      env.log(`${errorMark} - invalid theme filename '${c.cyan(themeFile)}'`, { ctx: 'sass' });
       continue;
     }
     const text = fs.readFileSync(themeFile, 'utf8');
-    const colorMap = new Map<string, tinycolor.Instance>();
+    const colorMap = new Map<string, clr.Instance>();
     for (const match of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
-      colorMap.set(match[1], tinycolor(match[2]));
+      colorMap.set(match[1], clr(match[2]));
     }
     if (theme !== 'default') themes.push(theme);
     themeColorMap.set(theme, colorMap);
   }
   for (const theme of themes) {
-    const colorDefMap = themeColorMap.get(theme) ?? new Map<string, tinycolor.Instance>();
+    const colorDefMap = themeColorMap.get(theme) ?? new Map<string, clr.Instance>();
 
     for (const [color, colorVal] of themeColorMap.get('default') ?? []) {
       if (!colorDefMap.has(color)) colorDefMap.set(color, colorVal.clone());
@@ -151,18 +111,19 @@ async function parseThemeColorDefs() {
   }
 }
 
+// given color definitions and mix instructions, build mixed color css variables in themed scss mixins
 async function buildColorMixes() {
+  await fs.promises.mkdir(path.join(env.themeDir, 'gen'), { recursive: true });
   const out = fs.createWriteStream(path.join(env.themeDir, 'gen', '_mix.scss'));
   for (const theme of themeColorMap.keys()) {
+    const colorMap = themeColorMap.get(theme)!;
     out.write(`@mixin ${theme}-mix {\n`);
-    const colorMap = themeColorMap.get(theme);
-    if (!colorMap) continue;
     for (const [colorMix, mix] of colorMixMap) {
-      const c1 = colorMap.get(mix.c1)?.clone() ?? new tinycolor(mix.c1);
-      const c2 = (mix.c2 ? colorMap.get(mix.c2) : undefined) ?? new tinycolor(mix.c2);
+      const c1 = colorMap.get(mix.c1)?.clone() ?? new clr(mix.c1);
+      const c2 = (mix.c2 ? colorMap.get(mix.c2) : undefined) ?? new clr(mix.c2);
       const mixed =
         mix.op === 'mix'
-          ? tinycolor.mix(c2!, c1, clamp(mix.val, { min: 0, max: 100 }))
+          ? clr.mix(c2!, c1, clamp(mix.val, { min: 0, max: 100 }))
           : mix.op === 'lighten'
           ? c1.lighten(clamp(mix.val, { min: 0, max: 100 }))
           : mix.op === 'alpha'
@@ -170,17 +131,15 @@ async function buildColorMixes() {
           : mix.op === 'fade'
           ? c1.setAlpha(c1.getAlpha() * (1 - clamp(mix.val / 100, { min: 0, max: 1 })))
           : undefined;
-      if (!mixed) {
-        env.error(`Invalid mix op: '${c.magenta(colorMix)}'`, 'sass');
-        continue;
-      }
-      out.write(`  --c_${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};\n`);
+      if (mixed) out.write(`  --c_${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};\n`);
+      else env.log(`${errorMark} - invalid mix op: '${c.magenta(colorMix)}'`, { ctx: 'sass' });
     }
-    out.write('}\n\n');
+    out.write('}\n');
   }
   out.end();
 }
 
+// create scss variables for all css color variables as $c-color: var(--c-color) in _wrap.scss
 async function buildColorWrap() {
   const cssVars = new Set<string>();
   for (const color of colorMixMap.keys()) cssVars.add(`_${color}`);
@@ -204,12 +163,46 @@ async function buildColorWrap() {
   await fs.promises.writeFile(wrapFile, scssWrap);
 }
 
+// compile an array of concrete scss files to public/css/*.css
+function compile(sources: string[], tellTheWorld = true) {
+  if (!sources.length) return;
+  if (tellTheWorld) {
+    for (const srcFile of sources) {
+      env.log(`Building '${c.cyan(srcFile)}'`, { ctx: 'sass' });
+    }
+  } else env.log(`Building css with ${ps.platform}-${ps.arch}/sass`, { ctx: 'sass' });
+
+  const sassExec = path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
+  const sassArgs = ['--no-error-css', '--stop-on-error', '--no-color', '--quiet', '--quiet-deps'];
+  sassPs?.removeAllListeners();
+  sassPs = cps.spawn(
+    sassExec,
+    sassArgs.concat(
+      env.prod ? ['--style=compressed', '--no-source-map'] : ['--embed-sources'],
+      sources.map(
+        (src: string) =>
+          `${src}:${path.join(
+            env.cssDir,
+            path.basename(src).replace(/(.*)scss$/, env.prod ? '$1min.css' : '$1dev.css'),
+          )}`,
+      ),
+    ),
+  );
+
+  sassPs.stdout?.on('data', (buf: Buffer) => {
+    const txts = lines(buf.toString('utf8'));
+    for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
+  });
+  sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
+  sassPs.on('close', (code: number) => env.done(code, 'sass'));
+}
+
 function parseColor(colorMix: string) {
   const [clrs, opval] = colorMix.split('--');
   const [c1, c2] = clrs.split('_');
   const [op, valstr] = opval.split('-');
   const val = parseInt(valstr);
-  const validColor = (c: string) => themeColorMap.get('default')?.has(c) || tinycolor(c).isValid();
+  const validColor = (c: string) => themeColorMap.get('default')?.has(c) || clr(c).isValid();
   return validColor(c1) &&
     (op !== 'mix' || validColor(c2)) &&
     ['mix', 'lighten', 'alpha', 'fade'].includes(op) &&
@@ -237,20 +230,22 @@ function clamp(val: number, { min, max }: { min: number; max: number }) {
   return Math.min(max, Math.max(min, val));
 }
 
+function importersOf(srcFile: string, bset = new Set<string>()): Set<string> {
+  if (bset.has(srcFile)) return bset;
+  bset.add(srcFile);
+  for (const dep of importMap.get(srcFile) ?? []) importersOf(dep, bset);
+  return bset;
+}
+
 class BuildTimer {
-  fileSet = new Set<string>();
+  dependencies = new Set<string>();
   touched = new Set<string>();
   timeout: NodeJS.Timeout | undefined;
-  sources: Set<string>;
-
-  constructor(sources: string[]) {
-    this.sources = new Set<string>(sources);
-  }
 
   clear() {
     clearTimeout(this.timeout);
     this.timeout = undefined;
-    this.fileSet.clear();
+    this.dependencies.clear();
     this.touched.clear();
   }
 
@@ -260,7 +255,7 @@ class BuildTimer {
     if (files.every(f => this.touched.has(f))) return false;
     files.forEach(src => {
       this.touched.add(src);
-      imports(src).forEach(dest => this.fileSet.add(dest));
+      importersOf(src).forEach(dest => this.dependencies.add(dest));
     });
     return true;
   }
@@ -278,7 +273,7 @@ class BuildTimer {
   };
 
   async fire() {
-    const sources = [...this.fileSet].filter(x => this.sources.has(x));
+    const sources = [...this.dependencies];
     const touched = [...this.touched];
     this.clear();
 
@@ -292,7 +287,7 @@ class BuildTimer {
       }
     }
     const oldMixSet = new Set([...colorMixMap.keys()]);
-    for (const src of touched) await parseImports(src);
+    for (const src of touched) await parseScss(src);
     const newMixSet = new Set([...colorMixMap.keys()]);
     if (oldMixSet.size !== newMixSet.size) rebuildColors = true;
     else if (!rebuildColors) {

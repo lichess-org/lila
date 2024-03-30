@@ -8,17 +8,17 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.dsl.{ *, given }
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment, Statistics }
 import lila.game.{ Game, Player, Pov }
-import lila.report.SuspectId
+import lila.core.report.SuspectId
 import lila.user.User
-import lila.hub.game.Source
+import lila.core.game.Source
 
 final class AssessApi(
     assessRepo: AssessmentRepo,
     modApi: ModApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    reporter: lila.hub.actors.Report,
-    fishnet: lila.hub.actors.Fishnet,
+    reporter: lila.core.actors.Report,
+    fishnet: lila.core.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
     analysisRepo: AnalysisRepo
 )(using Executor):
@@ -157,15 +157,15 @@ final class AssessApi(
                 )(using User.lichessIdAsMe)
             case Some(_) =>
               fuccess {
-                reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+                reporter ! lila.core.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
               }
           }
         case AccountAction.Report(_) =>
           fuccess {
-            reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
+            reporter ! lila.core.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
           }
         case AccountAction.Nothing =>
-          // reporter ! lila.hub.actorApi.report.Clean(userId)
+          // reporter ! lila.core.actorApi.report.Clean(userId)
           funit
     }
 
@@ -243,4 +243,4 @@ final class AssessApi(
 
     shouldAnalyse.mapz: reason =>
       lila.mon.cheat.autoAnalysis(reason.toString).increment()
-      fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
+      fishnet ! lila.core.actorApi.fishnet.AutoAnalyse(game.id)

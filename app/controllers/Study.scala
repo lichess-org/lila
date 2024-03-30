@@ -10,7 +10,7 @@ import lila.analyse.Analysis
 import lila.app.{ *, given }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
-import lila.hub.socket.Sri
+import lila.core.socket.Sri
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }

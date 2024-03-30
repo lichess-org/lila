@@ -5,7 +5,7 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.i18n.{ LangPicker, LangList, Language, defaultLanguage }
+import lila.core.i18n.{ LangPicker, LangList, Language, defaultLanguage }
 import lila.user.Me
 
 final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker: LangPicker)(using Executor):

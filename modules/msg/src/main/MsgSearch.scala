@@ -4,14 +4,14 @@ import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, KidMode, LightUser }
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.clas.ClasMatesAndTeachers
+import lila.core.actorApi.clas.ClasMatesAndTeachers
 import lila.user.Me
 
 final class MsgSearch(
     colls: MsgColls,
     userCache: lila.user.Cached,
     lightUserApi: lila.user.LightUserApi,
-    relationApi: lila.hub.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 )(using Executor, Scheduler):
 
   import BsonHandlers.{ *, given }

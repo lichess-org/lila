@@ -50,7 +50,7 @@ final class SelfReport(
                     name.contains("stockfish") || name.contains("userscript") ||
                       name.contains("__puppeteer_evaluation_script__")
                   ))
-                then tellRound(pov.gameId, lila.hub.round.Cheat(pov.color))
+                then tellRound(pov.gameId, lila.core.round.Cheat(pov.color))
                 if markUserSetting.get().matches(name) then
                   val rating = u.perfs.bestRating
                   val hours =
@@ -63,5 +63,5 @@ final class SelfReport(
                     (2 + hours + ThreadLocalRandom.nextInt(hours * 60)).minutes
                   ):
                     lila.common.Bus
-                      .publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
+                      .publish(lila.core.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
     }

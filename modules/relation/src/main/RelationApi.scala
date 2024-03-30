@@ -7,12 +7,12 @@ import lila.common.Bus
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
-import lila.hub.actorApi.timeline.{ Follow as FollowUser, Propagate }
-import lila.hub.actors
+import lila.core.actorApi.timeline.{ Follow as FollowUser, Propagate }
+import lila.core.actors
 import lila.memo.CacheApi.*
 import lila.relation.BSONHandlers.given
 import lila.user.User
-import lila.hub.relation.Relations
+import lila.core.relation.Relations
 
 final class RelationApi(
     repo: RelationRepo,
@@ -22,7 +22,7 @@ final class RelationApi(
     userRepo: lila.user.UserRepo,
     config: RelationConfig
 )(using Executor)
-    extends lila.hub.relation.RelationApi(repo.coll):
+    extends lila.core.relation.RelationApi(repo.coll):
 
   import RelationRepo.makeId
 
@@ -119,7 +119,7 @@ final class RelationApi(
             (repo.follow(u1, u2) >> limitFollow(u1)).andDo {
               countFollowingCache.update(u1, prev => (prev + 1).atMost(config.maxFollow.value))
               timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1)
-              Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
+              Bus.publish(lila.core.actorApi.relation.Follow(u1, u2), "relation")
               lila.mon.relation.follow.increment()
             }
         }
@@ -156,9 +156,9 @@ final class RelationApi(
           _ <- limitBlock(u1)
           _ <- unfollow(u2, u1)
         yield
-          Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
+          Bus.publish(lila.core.actorApi.relation.Block(u1, u2), "relation")
           Bus.publish(
-            lila.hub.actorApi.socket.SendTo(u2, lila.hub.socket.makeMessage("blockedBy", u1)),
+            lila.core.actorApi.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1)),
             "socketUsers"
           )
           lila.mon.relation.block.increment()
@@ -168,7 +168,7 @@ final class RelationApi(
     (u1 != u2).so(fetchFollows(u1, u2).flatMapz {
       repo.unfollow(u1, u2).andDo {
         countFollowingCache.update(u1, _ - 1)
-        Bus.publish(lila.hub.actorApi.relation.UnFollow(u1, u2), "relation")
+        Bus.publish(lila.core.actorApi.relation.UnFollow(u1, u2), "relation")
         lila.mon.relation.unfollow.increment()
       }
     })
@@ -179,9 +179,9 @@ final class RelationApi(
     (u1 != u2).so(fetchBlocks(u1, u2).flatMap {
       if _ then
         repo.unblock(u1, u2).andDo {
-          Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
+          Bus.publish(lila.core.actorApi.relation.UnBlock(u1, u2), "relation")
           Bus.publish(
-            lila.hub.actorApi.socket.SendTo(u2, lila.hub.socket.makeMessage("unblockedBy", u1)),
+            lila.core.actorApi.socket.SendTo(u2, lila.core.socket.makeMessage("unblockedBy", u1)),
             "socketUsers"
           )
           lila.mon.relation.unblock.increment()

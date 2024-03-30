@@ -7,16 +7,16 @@ import chess.format.pgn.{ Glyph, Tags }
 
 import lila.chat.ChatApi
 import lila.common.Bus
-import lila.hub.actorApi.timeline.{ Propagate, StudyLike }
+import lila.core.actorApi.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
-import lila.hub.socket.Sri
-import lila.hub.{ study as hub }
+import lila.core.socket.Sri
+import lila.core.{ study as hub }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 
 import actorApi.Who
-import lila.hub.user.MyId
+import lila.core.user.MyId
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -29,11 +29,11 @@ final class StudyApi(
     topicApi: StudyTopicApi,
     lightUserApi: lila.user.LightUserApi,
     chatApi: ChatApi,
-    timeline: lila.hub.actors.Timeline,
+    timeline: lila.core.actors.Timeline,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi
 )(using Executor, akka.stream.Materializer)
-    extends lila.hub.study.StudyApi:
+    extends lila.core.study.StudyApi:
 
   import sequencer.*
 
@@ -211,7 +211,7 @@ final class StudyApi(
             study.id.into(ChatId),
             userId = userId,
             text = text,
-            publicSource = lila.hub.actorApi.shutup.PublicSource.Study(studyId).some,
+            publicSource = lila.core.actorApi.shutup.PublicSource.Study(studyId).some,
             busChan = _.Study
           )
         }
@@ -794,7 +794,7 @@ final class StudyApi(
       for
         _ <- studyRepo.delete(study)
         _ <- chapterRepo.deleteByStudy(study)
-      yield Bus.publish(lila.hub.actorApi.study.RemoveStudy(study.id), "study")
+      yield Bus.publish(lila.core.actorApi.study.RemoveStudy(study.id), "study")
 
   def deleteById(id: StudyId) =
     studyRepo.byId(id).flatMap(_.so(delete))

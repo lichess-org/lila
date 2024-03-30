@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.game.JsonView.given
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final class BotJsonView(
     lightUserApi: lila.user.LightUserApi,

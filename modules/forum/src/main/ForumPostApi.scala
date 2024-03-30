@@ -4,27 +4,26 @@ import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
-import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
+import lila.core.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.Granter as MasterGranter
 import lila.user.{ Me, User, given }
-import lila.hub.forum.ForumPostMiniView
-import lila.hub.forum.{ ForumTopicMini, ForumPostMini, RemovePost, CreatePost, RemovePosts }
+import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
     topicRepo: ForumTopicRepo,
     categRepo: ForumCategRepo,
     mentionNotifier: MentionNotifier,
+    modLog: lila.core.mod.LogApi,
     config: ForumConfig,
-    modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    timeline: lila.hub.actors.Timeline,
-    shutup: lila.hub.actors.Shutup,
+    timeline: lila.core.actors.Timeline,
+    shutup: lila.core.actors.Shutup,
     detectLanguage: DetectLanguage
 )(using Executor)(using scheduler: Scheduler)
-    extends lila.hub.forum.ForumPostApi:
+    extends lila.core.forum.ForumPostApi:
 
   import BSONHandlers.given
 
@@ -85,13 +84,12 @@ final class ForumPostApi(
           fufail("Post can no longer be edited")
         case (_, post) =>
           val newPost = post.editPost(nowInstant, spam.replace(newText))
-          (newPost.text != post.text)
-            .so {
-              (postRepo.coll.update.one($id(post.id), newPost) >> newPost.isAnonModPost.so {
-                logAnonPost(newPost, edit = true)
-              }).andDo(promotion.save(newPost.text))
-            }
-            .inject(newPost)
+          val save = (newPost.text != post.text).so:
+            for
+              _ <- postRepo.coll.update.one($id(post.id), newPost)
+              _ <- newPost.isAnonModPost.so(logAnonPost(newPost, edit = true))
+            yield promotion.save(newPost.text)
+          save.inject(newPost)
       }
 
   def urlData(postId: ForumPostId, forUser: Option[User]): Fu[Option[PostUrlData]] =
@@ -149,22 +147,22 @@ final class ForumPostApi(
   def viewOf(post: ForumPost): Fu[Option[PostView]] =
     views(List(post)).dmap(_.headOption)
 
-  def miniViews(postIds: Seq[ForumPostId]): Fu[List[ForumPostMiniView]] = postIds.nonEmpty.so:
+  def miniViews(postIds: List[ForumPostId]): Fu[List[ForumPostMiniView]] = postIds.nonEmpty.so:
     for
       posts  <- postRepo.miniByIds(postIds)
       topics <- topicRepo.coll.byStringIds[ForumTopicMini](posts.map(_.topicId.value).distinct)
     yield posts.flatMap: post =>
       topics.find(_.id == post.topicId).map { ForumPostMiniView(post, _) }
 
-  def toMiniViews(posts: Seq[ForumPost]): Fu[Seq[ForumPostMiniView]] = posts.nonEmpty.so:
-    topicRepo.coll
-      .byStringIds[ForumTopicMini](posts.map(_.topicId.value).distinct)
+  def toMiniViews(posts: List[ForumPostMini]): Fu[List[ForumPostMiniView]] = posts.nonEmpty.so:
+    topicRepo
+      .byIds(posts.map(_.topicId))
       .map: topics =>
         posts.flatMap: post =>
-          topics.find(_.id == post.topicId).map { ForumPostMiniView(post.mini, _) }
+          topics.find(_.id == post.topicId).map { ForumPostMiniView(post, _) }
 
   def toMiniView(post: ForumPost): Fu[Option[ForumPostMiniView]] =
-    toMiniViews(List(post)).dmap(_.headOption)
+    toMiniViews(List(post.mini)).dmap(_.headOption)
 
   def toMiniView(post: ForumPostMini): Fu[Option[ForumPostMiniView]] =
     miniViews(List(post.id)).dmap(_.headOption)
@@ -226,13 +224,13 @@ final class ForumPostApi(
       .one($id(post.id), post.erase)
       .void
       .andDo:
-        Bus.publish(RemovePost(post.id), "forumPost")
+        Bus.publish(ErasePost(post.id), "forumPost")
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
       .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
       .map: ids =>
-        Bus.publish(RemovePosts(ids), "forumPost")
+        Bus.publish(ErasePosts(ids), "forumPost")
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId).flatMapz { post =>
@@ -249,3 +247,5 @@ final class ForumPostApi(
         edit
       )
     }
+
+  export postRepo.nonGhostCursor

@@ -6,7 +6,7 @@ import chess.format.Fen
 import chess.variant.Variant
 
 import lila.gathering.Condition
-import lila.hub.i18n.{ I18nKey, Translate }
+import lila.core.i18n.{ I18nKey, Translate }
 import lila.rating.PerfType
 
 case class Schedule(
@@ -21,7 +21,7 @@ case class Schedule(
   def name(full: Boolean = true)(using Translate): String =
     import Schedule.Freq.*
     import Schedule.Speed.*
-    import lila.hub.i18n.I18nKey.tourname.*
+    import lila.core.i18n.I18nKey.tourname.*
     if variant.standard && position.isEmpty then
       (conditions.minRating, conditions.maxRating) match
         case (None, None) =>

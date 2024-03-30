@@ -4,8 +4,8 @@ import chess.{ ByColor, Color }
 
 import lila.common.{ Bus, Preload }
 import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
-import lila.hub.i18n.{ I18nKey as trans, defaultLang, Translator }
-import lila.hub.round.*
+import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
+import lila.core.round.*
 import lila.pref.{ Pref, PrefApi }
 
 import RoundAsyncActor.TakebackSituation

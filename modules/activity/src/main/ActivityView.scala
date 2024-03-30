@@ -1,13 +1,13 @@
 package lila.activity
 
 import lila.game.LightPov
-import lila.simul.Simul
-import lila.hub.swiss.{ IdName as SwissIdName }
-import lila.hub.ublog.UblogPost
+import lila.core.simul.Simul
+import lila.core.swiss.{ IdName as SwissIdName }
+import lila.core.ublog.UblogPost
 import lila.activity.activities.*
-import lila.activity.model.*
-import lila.hub.forum.ForumPostMini
-import lila.hub.forum.ForumTopicMini
+import lila.core.forum.ForumPostMini
+import lila.core.forum.ForumTopicMini
+import lila.core.rating.Score
 
 case class ActivityView(
     interval: TimeInterval,
@@ -16,7 +16,7 @@ case class ActivityView(
     storm: Option[Storm] = None,
     racer: Option[Racer] = None,
     streak: Option[Streak] = None,
-    practice: Option[Map[lila.hub.practice.Study, Int]] = None,
+    practice: Option[Map[lila.core.practice.Study, Int]] = None,
     simuls: Option[List[Simul]] = None,
     patron: Option[Patron] = None,
     forumPosts: Option[Map[ForumTopicMini, List[ForumPostMini]]] = None,
@@ -24,7 +24,7 @@ case class ActivityView(
     corresMoves: Option[(Int, List[LightPov])] = None,
     corresEnds: Option[(Score, List[LightPov])] = None,
     follows: Option[Follows] = None,
-    studies: Option[List[lila.hub.study.IdName]] = None,
+    studies: Option[List[lila.core.study.IdName]] = None,
     teams: Option[Teams] = None,
     tours: Option[ActivityView.Tours] = None,
     swisses: Option[List[(SwissIdName, Rank)]] = None,
@@ -53,4 +53,4 @@ case class ActivityView(
 
 object ActivityView:
 
-  case class Tours(nb: Int, best: List[lila.hub.tournament.leaderboard.Entry])
+  case class Tours(nb: Int, best: List[lila.core.tournament.leaderboard.Entry])

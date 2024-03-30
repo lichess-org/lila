@@ -24,8 +24,8 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
     gameProxy: lila.round.GameProxyRepo,
-    federations: lila.hub.fide.Federation.FedsOf,
-    guessPlayer: lila.hub.fide.GuessPlayer,
+    federations: lila.core.fide.Federation.FedsOf,
+    guessPlayer: lila.core.fide.GuessPlayer,
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.irc.IrcApi,
@@ -33,8 +33,8 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,
-    langList: lila.hub.i18n.LangList
-)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.hub.i18n.Translator)(using
+    langList: lila.core.i18n.LangList
+)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator)(using
     scheduler: Scheduler
 ):
 
@@ -112,7 +112,7 @@ final class Env(
     api.autoStart >> api.autoFinishNotSyncing
 
   lila.common.Bus.subscribeFuns(
-    "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId) =>
+    "study" -> { case lila.core.actorApi.study.RemoveStudy(studyId) =>
       api.onStudyRemove(studyId)
     },
     "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>

@@ -4,11 +4,11 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanNonEmptyText, into, given }
-import lila.hub.i18n.{ Language, LangList, defaultLanguage }
+import lila.core.i18n.{ Language, LangList, defaultLanguage }
 import lila.user.User
 
-final class UblogForm(val captcher: lila.hub.actors.Captcher, langList: LangList)
-    extends lila.hub.CaptchedForm:
+final class UblogForm(val captcher: lila.core.actors.Captcher, langList: LangList)
+    extends lila.core.CaptchedForm:
 
   import UblogForm.*
 

@@ -10,15 +10,12 @@ import scala.util.chaining.*
 import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.team.LightTeam
-import lila.hub.actorApi.team.{ CreateTeam, JoinTeam, KickFromTeam, LeaveTeam }
-import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
+import lila.core.actorApi.{ timeline as tl }
 import lila.memo.CacheApi.*
-import lila.mod.ModlogApi
 import lila.security.Granter
 import lila.user.{ Me, User, UserApi, UserRepo, given }
-import lila.hub.user.MyId
-import lila.hub.team.Access
+import lila.core.user.MyId
+import lila.core.team.*
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -28,14 +25,14 @@ final class TeamApi(
     userApi: UserApi,
     cached: Cached,
     notifier: Notifier,
-    timeline: lila.hub.actors.Timeline,
-    indexer: lila.hub.actors.TeamSearch,
-    modLog: ModlogApi,
+    timeline: lila.core.actors.Timeline,
     chatApi: ChatApi
 )(using Executor)
-    extends lila.hub.team.TeamApi:
+    extends lila.core.team.TeamApi:
 
   import BSONHandlers.given
+
+  export teamRepo.filterHideForum
 
   def team(id: TeamId) = teamRepo.byId(id)
 
@@ -69,9 +66,8 @@ final class TeamApi(
       _ <- memberRepo.add(team.id, me.id, TeamSecurity.Permission.values.toSet)
     yield
       cached.invalidateTeamIds(me.id)
-      indexer ! InsertTeam(team)
-      timeline ! Propagate(TeamCreate(me.id, team.id)).toFollowersOf(me.id)
-      Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
+      publish(TeamCreate(team.data))
+      timeline ! tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id)
       team
 
   def update(old: Team, edit: TeamEdit)(using me: Me): Funit =
@@ -93,10 +89,9 @@ final class TeamApi(
       _        <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
       isLeader <- hasPerm(team.id, me, _.Settings)
     yield
-      if !isLeader then modLog.teamEdit(team.createdBy, team.name)
       cached.forumAccess.invalidate(team.id)
       cached.lightCache.invalidate(team.id)
-      indexer ! InsertTeam(team)
+      publish(TeamUpdate(team.data))
 
   def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
     cached.teamIdsList(me).flatMap(teamRepo.byIdsSortPopular).flatMap(memberRepo.addMyLeadership)
@@ -220,8 +215,8 @@ final class TeamApi(
       (memberRepo.add(team.id, me) >>
         teamRepo.incMembers(team.id, +1)).andDo {
         cached.invalidateTeamIds(me)
-        timeline ! Propagate(TeamJoin(me, team.id)).toFollowersOf(me)
-        Bus.publish(JoinTeam(id = team.id, userId = me), "team")
+        timeline ! tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me)
+        publish(JoinTeam(id = team.id, userId = me))
       }
     }
   }.recover(lila.db.ignoreDuplicateKey)
@@ -253,7 +248,7 @@ final class TeamApi(
         .so:
           teamRepo.incMembers(team.id, -1)
         .andDo:
-          Bus.publish(LeaveTeam(teamId = team.id, userId = userId), "teamLeave")
+          publish(LeaveTeam(teamId = team.id, userId = userId))
           cached.invalidateTeamIds(userId)
     }
 
@@ -288,8 +283,7 @@ final class TeamApi(
       for
         _ <- requestRepo.coll.insert.one(request)
         _ <- quit(team, userId)
-        _ <- (!Granter(_.ManageTeam)).so(modLog.teamKick(userId, team.name))
-      yield Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
+      yield publish(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
   yield ()
 
   def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
@@ -331,10 +325,13 @@ final class TeamApi(
       then
         logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${me}: $explain")
         if team.enabled then
-          (teamRepo.disable(team).void >>
-            memberRepo.userIdsByTeam(team.id).map { _.foreach(cached.invalidateTeamIds) } >>
-            requestRepo.removeByTeam(team.id).void).andDo(indexer ! RemoveTeam(team.id))
-        else teamRepo.enable(team).void.andDo(indexer ! InsertTeam(team))
+          for
+            _     <- teamRepo.disable(team)
+            users <- memberRepo.userIdsByTeam(team.id)
+            _ = users.foreach(cached.invalidateTeamIds)
+            _ <- requestRepo.removeByTeam(team.id)
+          yield publish(TeamDisable(team.id))
+        else teamRepo.enable(team).void.andDo(Bus.publish(TeamUpdate(team.data), "team"))
       else memberRepo.setPerms(team.id, me, Set.empty)
 
   def idAndLeaderIds(teamId: TeamId): Fu[Option[Team.IdAndLeaderIds]] =
@@ -348,6 +345,7 @@ final class TeamApi(
     teams <- teamRepo.byIdsSortPopular(ids)
   yield teams
 
+  export teamRepo.cursor
   export memberRepo.{ publicLeaderIds, leaderIds, isSubscribed, subscribe, filterUserIdsInTeam }
 
   // delete for ever, with members but not forums
@@ -355,7 +353,7 @@ final class TeamApi(
     (teamRepo.coll.delete.one($id(team.id)) >>
       memberRepo.removeByTeam(team.id)).andDo {
       logger.info(s"delete team ${team.id} by @${by.id}: $explain")
-      (indexer ! RemoveTeam(team.id))
+      publish(TeamDelete(team.id))
     }
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
@@ -405,5 +403,7 @@ final class TeamApi(
       .sort($sort.desc("nbMembers"))
       .cursor[Team](ReadPref.sec)
       .list(max)
+
+  private def publish(msg: Any) = Bus.publish(msg, "team")
 
   export cached.nbRequests.{ get as nbRequests }

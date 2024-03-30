@@ -28,12 +28,12 @@ final class RoundMobile(
     prefApi: lila.pref.PrefApi,
     takebacker: Takebacker,
     moretimer: Moretimer,
-    isOfferingRematch: lila.hub.round.IsOfferingRematch,
+    isOfferingRematch: lila.core.round.IsOfferingRematch,
     chatApi: lila.chat.ChatApi
 )(using Executor, lila.user.FlairApi):
 
   import RoundMobile.*
-  private given play.api.i18n.Lang = lila.hub.i18n.defaultLang
+  private given play.api.i18n.Lang = lila.core.i18n.defaultLang
 
   def online(gameSockets: List[GameAndSocketStatus])(using me: Me): Fu[JsArray] =
     gameSockets

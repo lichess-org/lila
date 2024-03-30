@@ -6,15 +6,16 @@ import play.api.libs.json.*
 import lila.common.Json.{ *, given }
 import lila.game.LightPov
 import lila.rating.PerfType
-import lila.simul.Simul
+import lila.core.simul.Simul
 import lila.user.User
 import lila.activity.activities.*
-import lila.activity.model.*
-import lila.hub.tournament.leaderboard.Ratio
+import lila.core.tournament.leaderboard.Ratio
+import lila.core.rating.RatingProg
+import lila.core.rating.Score
 
 final class JsonView(
-    getTourName: lila.hub.tournament.GetTourName,
-    getLightTeam: lila.hub.team.LightTeam.GetterSync
+    getTourName: lila.core.tournament.GetTourName,
+    getLightTeam: lila.core.team.LightTeam.GetterSync
 ):
 
   private object Writers:
@@ -26,7 +27,7 @@ final class JsonView(
     given OWrites[Games] = OWrites: games =>
       JsObject:
         games.value.toList
-          .sortBy(-_._2.size)
+          .sortBy((_, s) => -s.size)
           .map: (pt, score) =>
             pt.key.value -> Json.toJson(score)
 
@@ -36,7 +37,7 @@ final class JsonView(
     given Writes[Ratio] = Writes: r =>
       JsNumber((r.value * 100).toInt.atLeast(1))
 
-    given (using Lang): OWrites[lila.hub.tournament.leaderboard.Entry] = OWrites: e =>
+    given (using Lang): OWrites[lila.core.tournament.leaderboard.Entry] = OWrites: e =>
       val name = getTourName.sync(e.tourId).orZero
       Json.obj(
         "tournament" -> Json.obj(
@@ -59,7 +60,7 @@ final class JsonView(
         "name"     -> s.name,
         "isHost"   -> (s.hostId == user.id),
         "variants" -> s.variants,
-        "score"    -> Score(s.wins, s.losses, s.draws, none)
+        "score"    -> s.hostScore
       )
     given lightPlayerWrites: OWrites[lila.game.LightPlayer] = OWrites: p =>
       Json
@@ -86,7 +87,7 @@ final class JsonView(
     given Writes[Patron] = Json.writes
   import Writers.{ *, given }
 
-  private given OWrites[lila.hub.study.IdName] = Json.writes
+  private given OWrites[lila.core.study.IdName] = Json.writes
   def apply(a: ActivityView, user: User)(using Lang): Fu[JsObject] =
     fuccess:
       Json

@@ -1,11 +1,11 @@
 package lila.room
 
 import lila.chat.{ BusChan, ChatApi, ChatTimeout, UserLine }
-import lila.hub.actorApi.shutup.PublicSource
-import lila.hub.{ SyncActor, SyncActorMap }
+import lila.core.actorApi.shutup.PublicSource
+import lila.core.{ SyncActor, SyncActorMap }
 import lila.log.Logger
-import lila.hub.socket.{ protocol as P, * }
-import lila.hub.socket.{ makeMessage }
+import lila.core.socket.{ protocol as P, * }
+import lila.core.socket.{ makeMessage }
 import lila.common.Json.given
 
 import play.api.libs.json.*

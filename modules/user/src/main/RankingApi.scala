@@ -8,7 +8,7 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Glicko, Perf, PerfType }
-import lila.hub.rating.PerfId
+import lila.core.rating.PerfId
 
 final class RankingApi(
     coll: AsyncCollFailingSilently,

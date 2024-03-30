@@ -1,8 +1,8 @@
 package lila.oauth
 
 import cats.derived.*
-import lila.hub.i18n.I18nKey
-import lila.hub.i18n.I18nKey.{ oauthScope as trans }
+import lila.core.i18n.I18nKey
+import lila.core.i18n.I18nKey.{ oauthScope as trans }
 import lila.user.User
 
 sealed abstract class OAuthScope(val key: String, val name: I18nKey):
@@ -34,7 +34,7 @@ object OAuthScope:
   given Eq[OAuthScope] = Eq.fromUniversalEquals
 
   object Preference:
-    case object Read  extends OAuthScope("preference:read", lila.hub.i18n.I18nKey.oauthScope.preferenceRead)
+    case object Read  extends OAuthScope("preference:read", lila.core.i18n.I18nKey.oauthScope.preferenceRead)
     case object Write extends OAuthScope("preference:write", trans.preferenceWrite)
 
   object Email:

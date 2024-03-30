@@ -6,8 +6,8 @@ import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Reads, Writes }
 import play.api.mvc.*
 
-import lila.hub.i18n.I18nKey
-import lila.hub.i18n.Translate
+import lila.core.i18n.I18nKey
+import lila.core.i18n.Translate
 
 trait CtrlErrors extends ControllerHelpers:
 

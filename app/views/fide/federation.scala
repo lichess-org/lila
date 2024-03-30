@@ -19,7 +19,7 @@ object federation:
     )
 
   private def federationList(feds: Paginator[Federation])(using Context) =
-    def ratingCell(stats: lila.hub.fide.Federation.Stats) =
+    def ratingCell(stats: lila.core.fide.Federation.Stats) =
       td(if stats.top10Rating > 0 then stats.top10Rating else "-")
     table(cls := "slist slist-pad")(
       thead:
@@ -44,7 +44,7 @@ object federation:
       )
     )
 
-  def flag(id: lila.hub.fide.Federation.Id, title: Option[String]) = img(
+  def flag(id: lila.core.fide.Federation.Id, title: Option[String]) = img(
     cls      := "flag",
     st.title := title.getOrElse(id.value),
     src      := assetUrl(s"images/fide-fed/${id}.svg")

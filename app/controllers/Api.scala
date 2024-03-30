@@ -28,7 +28,7 @@ final class Api(
       "olds"    -> Json.arr()
     )
 
-  private given lila.hub.team.LightTeam.Api = env.team.lightTeamApi
+  private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
   val status = Anon:
     val appVersion  = get("v")
@@ -206,7 +206,7 @@ final class Api(
       val nb = getInt("nb") | Int.MaxValue
       jsonDownload:
         env.tournament.api
-          .byOwnerStream(user, status.flatMap(lila.tournament.Status.apply), MaxPerSecond(20), nb)
+          .byOwnerStream(user, status.flatMap(lila.core.tournament.Status.byId.get), MaxPerSecond(20), nb)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
 
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
@@ -339,7 +339,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: lila.hub.rating.PerfKey) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: lila.core.rating.PerfKey) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:

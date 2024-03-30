@@ -1,7 +1,7 @@
 package views.html.board
 
 import lila.app.templating.Environment.{ *, given }
-import lila.hub.i18n.I18nKey
+import lila.core.i18n.I18nKey
 
 object userAnalysisI18n:
 

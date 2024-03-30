@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.paginator.Paginator
 import lila.gathering.Condition.WithVerdicts
-import lila.hub.team.LightTeam
+import lila.core.team.LightTeam
 import lila.swiss.{ Swiss, SwissPairing, SwissRoundNumber }
 
 object show:

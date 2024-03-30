@@ -11,12 +11,12 @@ import play.api.libs.json.Json
 
 import lila.common.{ Bearer, Days, Template }
 import lila.game.IdGenerator
-import lila.hub.game.GameRule
+import lila.core.game.GameRule
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.rating.PerfType
 import lila.user.User
 
-final class ChallengeBulkSetup(setupForm: lila.hub.setup.SetupForm):
+final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
   import ChallengeBulkSetup.*
 

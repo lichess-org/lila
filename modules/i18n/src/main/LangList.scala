@@ -1,9 +1,9 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import lila.hub.i18n.Language
+import lila.core.i18n.Language
 
-object LangList extends lila.hub.i18n.LangList:
+object LangList extends lila.core.i18n.LangList:
 
   val all: Map[Lang, String] = Map(
     Lang("en", "GB")  -> "English",

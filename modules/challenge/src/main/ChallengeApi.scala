@@ -3,8 +3,8 @@ package lila.challenge
 import lila.common.Bus
 import lila.common.config.Max
 import lila.game.{ Game, Pov }
-import lila.hub.actorApi.socket.SendTo
-import lila.hub.i18n.LangPicker
+import lila.core.actorApi.socket.SendTo
+import lila.core.i18n.LangPicker
 import lila.memo.CacheApi.*
 import lila.user.{ LightUserApi, Me, User, UserPerfsRepo, UserRepo }
 
@@ -19,7 +19,7 @@ final class ChallengeApi(
     gameCache: lila.game.Cached,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.hub.i18n.Translator):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
 
   import Challenge.*
 
@@ -31,7 +31,7 @@ final class ChallengeApi(
     isLimitedByMaxPlaying(c).flatMap:
       if _ then fuFalse else doCreate(c).inject(true)
 
-  def createOpen(config: lila.hub.setup.OpenConfig)(using me: Option[Me]): Fu[Challenge] =
+  def createOpen(config: lila.core.setup.OpenConfig)(using me: Option[Me]): Fu[Challenge] =
     val c = Challenge.make(
       variant = config.variant,
       initialFen = config.position,
@@ -110,7 +110,7 @@ final class ChallengeApi(
     }
 
   private val acceptQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 5 seconds, "challengeAccept")
+    lila.core.AsyncActorSequencer(maxSize = Max(64), timeout = 5 seconds, "challengeAccept")
 
   def accept(
       c: Challenge,
@@ -152,7 +152,7 @@ final class ChallengeApi(
                     uncacheAndNotify(c)
                     Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
                     c.rematchOf.foreach: gameId =>
-                      import lila.hub.actorApi.map.TellIfExists
+                      import lila.core.actorApi.map.TellIfExists
                       import lila.game.actorApi.NotifyRematch
                       lila.common.Bus
                         .publish(TellIfExists(gameId.value, NotifyRematch(pov.game)), "roundSocket")
@@ -210,7 +210,7 @@ final class ChallengeApi(
     socket.foreach(_.reload(id))
 
   private object notifyUser:
-    private val throttler = new lila.hub.EarlyMultiThrottler[UserId](logger)
+    private val throttler = new lila.core.EarlyMultiThrottler[UserId](logger)
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all  <- allFor(userId)
@@ -219,7 +219,7 @@ final class ChallengeApi(
       yield
         given play.api.i18n.Lang = lang
         Bus.publish(
-          SendTo(userId, lila.hub.socket.makeMessage("challenges", jsonView(all))),
+          SendTo(userId, lila.core.socket.makeMessage("challenges", jsonView(all))),
           "socketUsers"
         )
 

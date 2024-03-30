@@ -1,7 +1,7 @@
 package lila.lobby
 
 import lila.game.Game
-import lila.hub.socket.{ Sri, Sris }
+import lila.core.socket.{ Sri, Sris }
 
 private case class SaveSeek(msg: AddSeek)
 private case class RemoveHook(hookId: String)

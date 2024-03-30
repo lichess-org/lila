@@ -8,7 +8,7 @@ final class AutoPairing(
     gameRepo: GameRepo,
     duelStore: DuelStore,
     lightUserApi: lila.user.LightUserApi,
-    onStart: lila.hub.game.OnStart
+    onStart: lila.core.game.OnStart
 )(using Executor):
 
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
@@ -27,7 +27,7 @@ final class AutoPairing(
           .copy(clock = clock.some),
         players = ByColor(makePlayer(White, pairing.player1), makePlayer(Black, pairing.player2)),
         mode = tour.mode,
-        source = lila.hub.game.Source.Arena,
+        source = lila.core.game.Source.Arena,
         pgnImport = None
       )
       .withId(pairing.pairing.gameId)

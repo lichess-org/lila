@@ -1,6 +1,6 @@
 package lila.chat
 
-import lila.hub.user.User
+import lila.core.user.User
 
 final class ChatPanic:
 
@@ -10,7 +10,7 @@ final class ChatPanic:
     u.count.winH + u.count.lossH > 10 && u.createdSinceDays(1)
   )
 
-  val allowed: lila.hub.chat.panic.IsAllowed = id =>
+  val allowed: lila.core.chat.panic.IsAllowed = id =>
     fetch =>
       if enabled then fetch(id).dmap { _.so(allowed) }
       else fuTrue

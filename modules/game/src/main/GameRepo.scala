@@ -13,9 +13,9 @@ import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
 import lila.user.User
-import lila.hub.game.*
+import lila.core.game.*
 
-final class GameRepo(val coll: Coll)(using Executor) extends lila.hub.game.GameRepo:
+final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.GameRepo:
 
   import BSONHandlers.given
   import Game.{ BSONFields as F }

@@ -8,8 +8,8 @@ import play.api.{ Configuration, Mode }
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.common.config.*
-import lila.hub.actorApi.Announce
-import lila.hub.actorApi.lpv.*
+import lila.core.actorApi.Announce
+import lila.core.actorApi.lpv.*
 import lila.user.User
 
 @Module
@@ -66,7 +66,7 @@ final class Env(
     Executor,
     ActorSystem,
     akka.stream.Materializer,
-    lila.hub.i18n.Translator
+    lila.core.i18n.Translator
 ):
 
   val config = ApiConfig.loadFrom(appConfig)

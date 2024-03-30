@@ -23,7 +23,7 @@ import scala.util.{ Success, Try }
 import lila.common.Days
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.hub.game.{ GameRule, Source }
+import lila.core.game.{ GameRule, Source }
 
 object BSONHandlers:
 

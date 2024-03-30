@@ -3,8 +3,8 @@ package lila.activity
 import alleycats.Zero
 
 import lila.rating.PerfType
-
-import model.*
+import lila.core.rating.Score
+import lila.activity.Score.plus
 
 object activities:
 
@@ -13,8 +13,9 @@ object activities:
   opaque type Games = Map[PerfType, Score]
   object Games extends TotalWrapper[Games, Map[PerfType, Score]]:
     extension (a: Games)
-      def add(pt: PerfType, score: Score): Games = a.value + (pt -> a.value.get(pt).fold(score)(_.add(score)))
-      def hasNonCorres                           = a.value.exists(_._1 != PerfType.Correspondence)
+      def add(pt: PerfType, score: Score): Games =
+        a.value + (pt -> a.value.get(pt).fold(score)(_.plus(score)))
+      def hasNonCorres = a.value.exists(_._1 != PerfType.Correspondence)
     given Zero[Games] = Zero(Map.empty)
 
   opaque type ForumPosts = List[ForumPostId]
@@ -29,8 +30,8 @@ object activities:
 
   opaque type Puzzles = Score
   object Puzzles extends TotalWrapper[Puzzles, Score]:
-    extension (a: Puzzles) def +(s: Score) = Puzzles(a.value.add(s))
-    given Zero[Puzzles]                    = Zero(Score.empty)
+    extension (a: Puzzles) def +(s: Score) = Puzzles(a.value.plus(s))
+    given Zero[Puzzles]                    = Zero(lila.activity.Score.empty)
 
   case class Storm(runs: Int, score: Int):
     def +(s: Int) = Storm(runs = runs + 1, score = score.atLeast(s))

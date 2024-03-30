@@ -7,7 +7,7 @@ import lila.game.GameRepo
 import lila.rating.Perf
 import lila.user.Me
 import lila.tree.{ Metas, NewBranch, NewTree }
-import lila.hub.i18n.{ Translate, Translator, defaultLang }
+import lila.core.i18n.{ Translate, Translator, defaultLang }
 import chess.format.*
 
 final class JsonView(
@@ -38,7 +38,7 @@ final class JsonView(
                 "key" -> a.key,
                 "name" -> {
                   if a == PuzzleAngle.mix
-                  then lila.hub.i18n.I18nKey.puzzle.puzzleThemes.txt()
+                  then lila.core.i18n.I18nKey.puzzle.puzzleThemes.txt()
                   else a.name.txt()
                 },
                 "desc" -> a.description.txt()

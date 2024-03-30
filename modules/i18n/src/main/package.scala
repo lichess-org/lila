@@ -1,7 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
-import lila.hub.i18n.Language
+import lila.core.i18n.Language
 
 export lila.Lila.{ *, given }
 

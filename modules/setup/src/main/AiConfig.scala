@@ -9,7 +9,7 @@ import lila.game.{ Game, IdGenerator, Player, Pov }
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.user.GameUser
-import lila.hub.game.Source
+import lila.core.game.Source
 
 case class AiConfig(
     variant: chess.variant.Variant,

@@ -76,7 +76,7 @@ object teamBattle:
         )
       )
 
-  def teamInfo(tour: Tournament, team: lila.hub.team.LightTeam, info: TeamBattle.TeamInfo)(using
+  def teamInfo(tour: Tournament, team: lila.core.team.LightTeam, info: TeamBattle.TeamInfo)(using
       ctx: PageContext
   ) =
     views.html.base.layout(

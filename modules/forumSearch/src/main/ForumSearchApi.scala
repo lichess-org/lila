@@ -4,21 +4,20 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.forum.{ ForumPost, ForumPostApi, ForumPostRepo, PostView }
 import lila.search.*
-import lila.hub.forum.{ ForumPostMini, ForumPostMiniView }
+import lila.core.forum.{ ForumPostApi, ForumPostMini, ForumPostMiniView }
 
 final class ForumSearchApi(
     client: ESClient,
-    postApi: ForumPostApi,
-    postRepo: ForumPostRepo
+    postApi: ForumPostApi
 )(using Executor, akka.stream.Materializer)
-    extends SearchReadApi[PostView, Query]:
+    extends SearchReadApi[ForumPostId, Query]:
 
   def search(query: Query, from: From, size: Size) =
-    client.search(query, from, size).flatMap { res =>
-      postApi.viewsFromIds(ForumPostId.from(res.ids))
-    }
+    client
+      .search(query, from, size)
+      .map: res =>
+        ForumPostId.from(res.ids)
 
   def count(query: Query) =
     client.count(query).dmap(_.value)
@@ -42,11 +41,11 @@ final class ForumSearchApi(
     client match
       case c: ESClientHttp =>
         c.putMapping >> {
-          postRepo.nonGhostCursor
+          postApi.nonGhostCursor
             .documentSource()
             .via(lila.common.LilaStream.logRate("forum index")(logger))
             .grouped(200)
-            .mapAsync(1)(postApi.toMiniViews)
+            .mapAsync(1)(posts => postApi.toMiniViews(posts.toList))
             .map(_.map(v => v.post.id.into(Id) -> toDoc(v)))
             .mapAsyncUnordered(2)(c.storeBulk)
             .runWith(Sink.ignore)

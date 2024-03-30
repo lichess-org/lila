@@ -9,9 +9,9 @@ import lila.user.Me
 
 final private[forum] class ForumForm(
     promotion: lila.security.PromotionApi,
-    val captcher: lila.hub.actors.Captcher
+    val captcher: lila.core.actors.Captcher
 )(using Executor)
-    extends lila.hub.CaptchedForm:
+    extends lila.core.CaptchedForm:
 
   import ForumForm.*
 

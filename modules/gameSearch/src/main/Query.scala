@@ -5,9 +5,9 @@ import chess.Status
 import java.time.LocalDate
 
 import lila.common.Json.given
-import lila.hub.rating.RatingRange
+import lila.core.rating.RatingRange
 import lila.search.Range
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 case class Query(
     user1: Option[UserId] = None,
@@ -57,7 +57,7 @@ object Query:
 
   import lila.common.Form.*
   import play.api.libs.json.*
-  import lila.hub.i18n.{ Translate, I18nKey as trans }
+  import lila.core.i18n.{ Translate, I18nKey as trans }
 
   import Range.given
   private given Writes[Sorting]  = Json.writes
@@ -105,7 +105,7 @@ object Query:
 
   def winnerColors(using Translate) = List(1 -> trans.site.white.txt(), 2 -> trans.site.black.txt())
 
-  val sources = lila.hub.game.Source.searchable.map { v =>
+  val sources = lila.core.game.Source.searchable.map { v =>
     v.id -> v.name.capitalize
   }
 

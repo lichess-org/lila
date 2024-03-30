@@ -2,7 +2,7 @@ package lila.pool
 
 import chess.Clock
 import play.api.libs.json.Json
-import lila.hub.pool.IsClockCompatible
+import lila.core.pool.IsClockCompatible
 
 object PoolList:
 
@@ -31,4 +31,4 @@ object PoolList:
   val isClockCompatible: IsClockCompatible = IsClockCompatible: clock =>
     clockStringSet contains clock.show
 
-  def json(using lila.hub.i18n.Translator) = Json.toJson(all)
+  def json(using lila.core.i18n.Translator) = Json.toJson(all)

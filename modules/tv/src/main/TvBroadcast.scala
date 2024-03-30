@@ -10,8 +10,8 @@ import lila.common.Json.given
 import lila.common.{ Bus, LightUser }
 import lila.game.Pov
 import lila.game.actorApi.MoveGameEvent
-import lila.hub.game.TvSelect
-import lila.hub.socket.makeMessage
+import lila.core.game.TvSelect
+import lila.core.socket.makeMessage
 
 final private class TvBroadcast(
     lightUserSync: LightUser.GetterSync,

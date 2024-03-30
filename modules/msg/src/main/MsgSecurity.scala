@@ -2,9 +2,9 @@ package lila.msg
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
-import lila.hub.actorApi.report.AutoFlag
-import lila.hub.actorApi.team.IsLeaderOf
+import lila.core.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
+import lila.core.actorApi.report.AutoFlag
+import lila.core.team.IsLeaderOf
 import lila.memo.RateLimit
 import lila.security.Granter
 import lila.shutup.Analyser
@@ -15,9 +15,9 @@ final private class MsgSecurity(
     prefApi: lila.pref.PrefApi,
     userRepo: lila.user.UserRepo,
     getBotUserIds: lila.user.GetBotIds,
-    relationApi: lila.hub.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     spam: lila.security.Spam,
-    chatPanicAllowed: lila.hub.chat.panic.IsAllowed
+    chatPanicAllowed: lila.core.chat.panic.IsAllowed
 )(using Executor, Scheduler):
 
   import MsgSecurity.*

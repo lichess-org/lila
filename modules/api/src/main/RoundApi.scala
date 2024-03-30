@@ -18,7 +18,7 @@ import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.{ GameUsers, User }
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -31,11 +31,11 @@ final private[api] class RoundApi(
     simulApi: lila.simul.SimulApi,
     puzzleOpeningApi: lila.puzzle.PuzzleOpeningApi,
     externalEngineApi: lila.analyse.ExternalEngineApi,
-    getLightTeam: lila.hub.team.LightTeam.GetterSync,
+    getLightTeam: lila.core.team.LightTeam.GetterSync,
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
     getLightUser: lila.common.LightUser.GetterSync
-)(using Executor, lila.hub.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator):
 
   def player(
       pov: Pov,

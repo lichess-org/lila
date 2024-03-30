@@ -8,13 +8,13 @@ import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
-import lila.hub.rating.PerfId
+import lila.core.rating.PerfId
 
 final class LeaderboardApi(
     repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
 )(using Executor)
-    extends lila.hub.tournament.leaderboard.Api:
+    extends lila.core.tournament.leaderboard.Api:
 
   import LeaderboardApi.*
   import BSONHandlers.given
@@ -108,7 +108,7 @@ final class LeaderboardApi(
 
 object LeaderboardApi:
 
-  import lila.hub.tournament.leaderboard.Ratio
+  import lila.core.tournament.leaderboard.Ratio
 
   private val rankRatioMultiplier = 100 * 1000
 
@@ -126,7 +126,7 @@ object LeaderboardApi:
       speed: Option[Schedule.Speed],
       perf: PerfType,
       date: Instant
-  ) extends lila.hub.tournament.leaderboard.Entry
+  ) extends lila.core.tournament.leaderboard.Entry
 
   case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]):
     import ChartData.*

@@ -7,13 +7,14 @@ import scala.util.Success
 import lila.common.{ Iso, LichessDay }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
-import lila.hub.rating.PerfKey
+import lila.core.rating.PerfKey
+import lila.core.rating.RatingProg
+import lila.core.rating.Score
 
 private object BSONHandlers:
 
   import Activity.*
   import activities.*
-  import model.*
 
   val idSep                         = ':'
   def regexId(userId: UserId): Bdoc = "_id".$startsWith(s"$userId$idSep")

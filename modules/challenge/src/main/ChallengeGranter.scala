@@ -1,12 +1,12 @@
 package lila.challenge
 
 import lila.Lila
-import lila.hub.i18n.I18nKey.challenge as trans
+import lila.core.i18n.I18nKey.challenge as trans
 import lila.pref.Pref
 import lila.rating.PerfType
 import lila.relation.{ Block, Follow }
 import lila.user.{ Me, User }
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 

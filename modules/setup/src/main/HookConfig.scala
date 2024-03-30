@@ -8,7 +8,7 @@ import lila.lobby.{ Color, Hook, Seek }
 import lila.rating.{ Perf }
 import lila.rating.RatingRange.withinLimits
 import lila.user.{ Me, User }
-import lila.hub.rating.RatingRange
+import lila.core.rating.RatingRange
 
 case class HookConfig(
     variant: chess.variant.Variant,
@@ -45,10 +45,10 @@ case class HookConfig(
       case _                      => this
 
   def hook(
-      sri: lila.hub.socket.Sri,
+      sri: lila.core.socket.Sri,
       user: Option[User.WithPerfs],
       sid: Option[String],
-      blocking: lila.hub.pool.Blocking
+      blocking: lila.core.pool.Blocking
   ): Either[Hook, Option[Seek]] =
     timeMode match
       case TimeMode.RealTime =>

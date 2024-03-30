@@ -12,7 +12,7 @@ final class JsonView(
     gameRepo: GameRepo,
     getLightUser: LightUser.GetterFallback,
     proxyRepo: lila.round.GameProxyRepo,
-    isOnline: lila.hub.socket.IsOnline
+    isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
   private def fetchGames(simul: Simul): Fu[List[Game]] =

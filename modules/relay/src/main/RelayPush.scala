@@ -8,7 +8,7 @@ import chess.{ ErrorStr, Game, Replay, Square }
 import scala.concurrent.duration.*
 
 import lila.common.config.Max
-import lila.hub.AsyncActorSequencers
+import lila.core.AsyncActorSequencers
 import lila.study.MultiPgn
 
 final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using

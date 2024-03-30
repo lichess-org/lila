@@ -4,12 +4,12 @@ import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.{ HTTPRequest, KidMode }
-import lila.hub.i18n.{ Language, Translate, defaultLanguage }
+import lila.core.i18n.{ Language, Translate, defaultLanguage }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.pref.Pref
 import lila.user.{ Me, User }
-import lila.hub.user.MyId
+import lila.core.user.MyId
 
 /* Who is logged in, and how */
 final class LoginContext(

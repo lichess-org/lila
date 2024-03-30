@@ -9,18 +9,18 @@ const globOpts: fg.Options = {
   markDirectories: true,
 };
 
+const globs = [
+  '**/node_modules',
+  '**/css/**/gen',
+  'ui/*/dist',
+  'ui/*/tsconfig.tsbuildinfo',
+  'public/compiled',
+  'public/npm',
+  'public/css/*.css*',
+];
+
 export async function clean() {
   if (!env.clean) return;
-
-  const globs = [
-    '**/node_modules',
-    'ui/*/dist',
-    'ui/*/tsconfig.tsbuildinfo',
-    'public/compiled',
-    'public/npm',
-    'public/css/*.css*',
-  ];
-  if (env.cleanTheme) globs.push('**/css/build/gen');
 
   for (const glob of globs) {
     env.log(`Cleaning '${c.cyan(glob)}'...`);

@@ -1,5 +1,5 @@
 package lila.api
-import lila.hub.actorApi.shutup.PublicSource
+import lila.core.actorApi.shutup.PublicSource
 import lila.swiss.{ Swiss, SwissCache }
 import lila.tournament.{ Tournament, TournamentCache }
 

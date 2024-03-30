@@ -57,11 +57,11 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         if text.trim.isEmpty
         then paginator.popularTeams(page).map { html.team.list.all(_) }
         else
-          env
-            .teamSearch(text, page)
-            .flatMap(_.mapFutureList(env.team.memberRepo.addMyLeadership))
-            .map:
-              html.team.list.search(text, _)
+          for
+            ids   <- env.teamSearch(text, page)
+            teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
+            forMe <- teams.mapFutureList(env.team.memberRepo.addMyLeadership)
+          yield html.team.list.search(text, forMe)
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
     team    <- api.withLeaders(team)
@@ -406,7 +406,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           val admins = t.leaders.filter(_.hasPerm(_.Admin))
           if admins.nonEmpty && admins.forall(_.is(me))
           then
-            val msg = lila.hub.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
+            val msg = lila.core.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
             negotiate(
               html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
               json = JsonBadRequest(msg)

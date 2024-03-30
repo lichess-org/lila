@@ -5,7 +5,7 @@ import chess.{ Color, MoveMetrics }
 import play.api.libs.json.JsObject
 
 import lila.common.IpAddress
-import lila.hub.socket.SocketVersion
+import lila.core.socket.SocketVersion
 
 private case class HumanPlay(
     playerId: GamePlayerId,

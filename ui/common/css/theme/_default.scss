@@ -16,7 +16,7 @@ $site-hue: 37 !default;
 
 */
 
-$c-bg: hsl(37, 7%, 14%) !default;
+$c-bg: hsl(37, 7%, 14%) !default; // alias for $c-bg-high
 $c-bg-page: hsl(37, 10%, 8%) !default;
 $c-bg-low: hsl(37, 7%, 22%) !default;
 $c-bg-zebra: hsl(37, 5%, 18%) !default;
@@ -38,19 +38,18 @@ $c-good-move: hsl(130, 67%, 62%) !default;
 $c-brilliant: hsl(129, 71%, 45%) !default;
 $c-interesting: hsl(307, 80%, 70%) !default;
 $c-dark: #333 !default;
-
 /* shared-color-defs is the location for theme colors that share the same definition syntax.
    note - most of the assigned values will differ due to variables from the @including scope.
 */
 
 @mixin shared-color-defs {
   --c-bg: #{$c-bg};
-  --c-bg-page: #{$c-bg-page};
+  --c-bg-box: #{$c-bg};
   --c-bg-high: #{$c-bg};
   --c-bg-low: #{$c-bg-low};
+  --c-bg-page: #{$c-bg-page};
   --c-bg-zebra: #{$c-bg-zebra};
   --c-bg-zebra2: #{$c-bg-zebra2};
-  --c-bg-box: #{$c-bg};
   --c-bg-popup: #{$c-bg-popup};
   --c-bg-header-dropdown: #{$c-bg-popup};
   --c-bg-input: #{change-color($c-bg-page, $lightness: 13%)};

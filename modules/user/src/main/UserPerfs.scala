@@ -4,7 +4,7 @@ import chess.Speed
 
 import lila.common.Heapsort.*
 import lila.rating.{ Glicko, Perf, PerfType }
-import lila.hub.rating.PerfKey
+import lila.core.rating.PerfKey
 
 case class UserPerfs(
     id: UserId,

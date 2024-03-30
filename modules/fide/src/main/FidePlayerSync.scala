@@ -10,7 +10,7 @@ import reactivemongo.api.bson.*
 import java.util.zip.ZipInputStream
 
 import lila.db.dsl.{ *, given }
-import lila.hub.fide.{ FideTC, Federation }
+import lila.core.fide.{ FideTC, Federation }
 
 final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     Executor,

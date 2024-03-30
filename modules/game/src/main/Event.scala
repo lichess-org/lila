@@ -20,7 +20,7 @@ import chess.{
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.hub.game.Event
+import lila.core.game.Event
 
 import JsonView.{ *, given }
 

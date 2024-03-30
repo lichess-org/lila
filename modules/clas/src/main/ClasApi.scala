@@ -20,7 +20,7 @@ final class ClasApi(
     msgApi: MsgApi,
     authenticator: Authenticator,
     baseUrl: BaseUrl
-)(using Executor, lila.hub.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator):
 
   import BsonHandlers.given
 
@@ -291,12 +291,12 @@ final class ClasApi(
       coll.delete.one($id(s.student.id)).void
 
     private[ClasApi] def sendWelcomeMessage(teacherId: UserId, student: User, clas: Clas): Funit =
-      given Lang = student.realLang | lila.hub.i18n.defaultLang
+      given Lang = student.realLang | lila.core.i18n.defaultLang
       msgApi
         .post(
           orig = teacherId,
           dest = student.id,
-          text = s"""${lila.hub.i18n.I18nKey.clas.welcomeToClass.txt(clas.name)}
+          text = s"""${lila.core.i18n.I18nKey.clas.welcomeToClass.txt(clas.name)}
 
 $baseUrl/class/${clas.id}
 
@@ -373,8 +373,8 @@ ${clas.desc}""",
       val url = s"$baseUrl/class/invitation/${invite._id}"
       if student.kid then fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
-        import lila.hub.i18n.I18nKey.clas.*
-        given play.api.i18n.Lang = student.realLang | lila.hub.i18n.defaultLang
+        import lila.core.i18n.I18nKey.clas.*
+        given play.api.i18n.Lang = student.realLang | lila.core.i18n.defaultLang
         msgApi
           .post(
             orig = teacher.userId,

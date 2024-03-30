@@ -7,9 +7,9 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import scala.util.chaining.*
 
-import lila.hub.team.LightTeam
+import lila.core.team.{ TeamData, LightTeam }
 import lila.user.User
-import lila.hub.team.Access
+import lila.core.team.Access
 
 case class Team(
     @Key("_id") id: TeamId, // also the url slug
@@ -44,6 +44,8 @@ case class Team(
     password.forall(teamPw => MessageDigest.isEqual(teamPw.getBytes(UTF_8), pw.getBytes(UTF_8)))
 
   def light = LightTeam(id, name, flair)
+
+  def data = TeamData(id, name, description, nbMembers, createdBy)
 
 object Team:
 

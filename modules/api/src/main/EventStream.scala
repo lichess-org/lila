@@ -20,7 +20,7 @@ final class EventStream(
     gameJsonView: lila.game.JsonView,
     rematches: Rematches,
     lightUserApi: LightUserApi
-)(using system: ActorSystem)(using Executor, Scheduler, lila.hub.i18n.Translator):
+)(using system: ActorSystem)(using Executor, Scheduler, lila.core.i18n.Translator):
 
   private case object SetOnline
 
@@ -32,7 +32,7 @@ final class EventStream(
       challenges: List[Challenge]
   )(using me: Me): Source[Option[JsObject], ?] =
 
-    given Lang = me.realLang | lila.hub.i18n.defaultLang
+    given Lang = me.realLang | lila.core.i18n.defaultLang
 
     // kill previous one if any
     Bus.publish(PoisonPill, s"eventStreamFor:${me.userId}")
@@ -104,7 +104,7 @@ final class EventStream(
           queue.offer(challengeJson("challengeCanceled")(c).some)
 
         // pretend like the rematch is a challenge
-        case lila.hub.round.RematchOffer(gameId) =>
+        case lila.core.round.RematchOffer(gameId) =>
           challengeMaker
             .makeRematchFor(gameId, me)
             .foreach:
@@ -113,7 +113,7 @@ final class EventStream(
                 queue.offer(json.some)
 
         // pretend like the rematch cancel is a challenge cancel
-        case lila.hub.round.RematchCancel(gameId) =>
+        case lila.core.round.RematchCancel(gameId) =>
           rematches
             .getOffered(gameId)
             .map(_.nextId)

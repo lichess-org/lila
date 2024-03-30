@@ -5,7 +5,7 @@ import reactivemongo.api.commands.WriteResult
 
 import lila.db.dsl.{ *, given }
 import lila.team.TeamSecurity.Permission
-import lila.hub.user.MyId
+import lila.core.user.MyId
 
 final class TeamMemberRepo(val coll: Coll)(using Executor):
 
@@ -112,7 +112,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
       setPerms(teamId, l.name, l.perms)
     }
 
-  def addPublicLeaderIds(teams: Seq[Team]): Fu[Seq[Team.WithPublicLeaderIds]] =
+  def addPublicLeaderIds(teams: Seq[Team]): Fu[List[Team.WithPublicLeaderIds]] =
     coll
       .primitive[String](
         teamQuery(teams.map(_.id)) ++ $doc("perms" -> Permission.Public),
@@ -121,7 +121,7 @@ final class TeamMemberRepo(val coll: Coll)(using Executor):
       .map:
         _.flatMap(TeamMember.parseId).groupBy(_._2).view.mapValues(_.map(_._1)).toMap
       .map: grouped =>
-        teams.map(t => Team.WithPublicLeaderIds(t, grouped.getOrElse(t.id, Nil)))
+        teams.view.map(t => Team.WithPublicLeaderIds(t, grouped.getOrElse(t.id, Nil))).toList
 
   def addPublicLeaderIds(team: Team): Fu[Team.WithPublicLeaderIds] =
     coll

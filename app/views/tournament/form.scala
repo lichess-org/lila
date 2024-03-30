@@ -7,7 +7,7 @@ import play.api.data.{ Field, Form }
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.{ ConditionForm, GatheringClock }
-import lila.hub.team.LightTeam
+import lila.core.team.LightTeam
 import lila.tournament.{ Tournament, TournamentForm }
 
 object form:

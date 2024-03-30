@@ -1,6 +1,6 @@
 package lila.game
 
-import lila.hub.game.Event
+import lila.core.game.Event
 
 // events are kept in insertion/addition order
 case class Progress(origin: Game, game: Game, events: List[Event] = Nil):

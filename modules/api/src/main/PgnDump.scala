@@ -9,7 +9,7 @@ import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,
@@ -19,7 +19,7 @@ final class PgnDump(
     getSwissName: lila.swiss.GetSwissName
 )(using Executor):
 
-  private given Lang = lila.hub.i18n.defaultLang
+  private given Lang = lila.core.i18n.defaultLang
 
   def apply(
       game: Game,

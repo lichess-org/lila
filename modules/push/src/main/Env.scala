@@ -26,7 +26,7 @@ final class Env(
     roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
-    postApi: lila.hub.forum.ForumPostApi
+    postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler):
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
@@ -58,19 +58,19 @@ final class Env(
   ):
     case lila.game.actorApi.FinishGame(game, _) =>
       logUnit { pushApi.finish(game) }
-    case lila.hub.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
+    case lila.core.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
       logUnit { pushApi.move(move) }
-    case lila.hub.round.CorresTakebackOfferEvent(gameId) =>
+    case lila.core.round.CorresTakebackOfferEvent(gameId) =>
       logUnit { pushApi.takebackOffer(gameId) }
-    case lila.hub.round.CorresDrawOfferEvent(gameId) =>
+    case lila.core.round.CorresDrawOfferEvent(gameId) =>
       logUnit { pushApi.drawOffer(gameId) }
-    case lila.hub.challenge.Event.Create(c) =>
+    case lila.core.challenge.Event.Create(c) =>
       logUnit { pushApi.challengeCreate(c) }
-    case lila.hub.challenge.Event.Accept(c, joinerId) =>
+    case lila.core.challenge.Event.Accept(c, joinerId) =>
       logUnit { pushApi.challengeAccept(c, joinerId) }
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
       logUnit { pushApi.corresAlarm(pov) }
     case lila.notify.PushNotification(to, content, _) =>
       logUnit { pushApi.notifyPush(to, content) }
-    case t: lila.hub.actorApi.push.TourSoon =>
+    case t: lila.core.actorApi.push.TourSoon =>
       logUnit { pushApi.tourSoon(t) }

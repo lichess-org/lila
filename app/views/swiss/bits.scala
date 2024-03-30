@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.i18n.I18nKey as trans
+import lila.core.i18n.I18nKey as trans
 import lila.swiss.Swiss
 
 object bits:

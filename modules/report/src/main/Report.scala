@@ -4,6 +4,7 @@ import ornicar.scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.user.User
+import lila.core.report.SuspectId
 
 case class Report(
     @Key("_id") id: Report.Id, // also the url slug

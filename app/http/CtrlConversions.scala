@@ -3,7 +3,7 @@ package http
 
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 import lila.user.User
 

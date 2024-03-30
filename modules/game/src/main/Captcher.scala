@@ -9,7 +9,7 @@ import chess.format.{ Fen, pgn }
 import scala.util.Success
 
 import lila.common.Captcha
-import lila.hub.actorApi.captcha.*
+import lila.core.actorApi.captcha.*
 
 // only works with standard chess (not chess960)
 final private class Captcher(gameRepo: GameRepo)(using Executor) extends Actor:

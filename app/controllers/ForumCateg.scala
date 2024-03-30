@@ -14,7 +14,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
       for
         allTeamIds <- ctx.userId.so(env.team.cached.teamIdsList)
         teamIds <- allTeamIds.filterA:
-          env.team.api.forumAccessOf(_).map(_ != lila.hub.team.Access.None)
+          env.team.api.forumAccessOf(_).map(_ != lila.core.team.Access.None)
         categs <- postApi.categsForUser(teamIds, ctx.me)
         _      <- env.user.lightUserApi.preloadMany(categs.flatMap(_.lastPostUserId))
         page   <- renderPage(html.forum.categ.index(categs))

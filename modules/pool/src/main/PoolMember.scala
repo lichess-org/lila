@@ -1,8 +1,8 @@
 package lila.pool
 
 import lila.playban.RageSit
-import lila.hub.rating.RatingRange
-import lila.hub.pool.{ PoolMember, Joiner }
+import lila.core.rating.RatingRange
+import lila.core.pool.{ PoolMember, Joiner }
 
 extension (m: PoolMember)
   def incMisses                     = m.copy(misses = m.misses + 1)
@@ -15,7 +15,7 @@ extension (m: PoolMember)
 object PoolMember:
 
   def apply(joiner: Joiner, rageSit: RageSit): PoolMember =
-    lila.hub.pool.PoolMember(
+    lila.core.pool.PoolMember(
       userId = joiner.me,
       sri = joiner.sri,
       lame = joiner.lame,

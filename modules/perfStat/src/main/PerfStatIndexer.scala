@@ -11,7 +11,7 @@ final class PerfStatIndexer(
 )(using Executor, Scheduler):
 
   private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 10 seconds, name = "perfStatIndexer")
+    lila.core.AsyncActorSequencer(maxSize = Max(64), timeout = 10 seconds, name = "perfStatIndexer")
 
   private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] =
     workQueue:
