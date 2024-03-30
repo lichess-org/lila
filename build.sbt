@@ -420,7 +420,7 @@ lazy val forum = module("forum",
 )
 
 lazy val forumSearch = module("forumSearch",
-  Seq(forum, search),
+  Seq(search),
   reactivemongo.bundle
 )
 

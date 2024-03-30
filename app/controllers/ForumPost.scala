@@ -24,12 +24,14 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         then Redirect(routes.ForumCateg.index)
         else
           for
-            paginator <- env.forumSearch(text, page, ctx.troll)
-            posts <- paginator.mapFutureResults: post =>
-              access.isGrantedRead(post.categ.id).map {
+            ids <- env.forumSearch(text, page, ctx.troll)
+            posts <- ids.mapFutureList: ids =>
+              env.forum.postApi.viewsFromIds(ids)
+            pager <- posts.mapFutureResults: post =>
+              access.isGrantedRead(post.topic.categId).map {
                 lila.forum.PostView.WithReadPerm(post, _)
               }
-            page <- renderPage(html.forum.search(text, posts))
+            page <- renderPage(html.forum.search(text, pager))
           yield Ok(page)
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>

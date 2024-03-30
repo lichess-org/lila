@@ -28,4 +28,7 @@ object ForumCateg:
 
 trait ForumPostApi:
   def getPost(postId: ForumPostId): Fu[Option[ForumPost]]
-  def miniViews(postIds: Seq[ForumPostId]): Fu[Seq[ForumPostMiniView]]
+  def miniViews(postIds: List[ForumPostId]): Fu[List[ForumPostMiniView]]
+  def toMiniView(post: ForumPostMini): Fu[Option[ForumPostMiniView]]
+  def toMiniViews(posts: List[ForumPostMini]): Fu[List[ForumPostMiniView]]
+  def nonGhostCursor: reactivemongo.akkastream.AkkaStreamCursor[ForumPostMini]

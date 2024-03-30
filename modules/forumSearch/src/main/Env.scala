@@ -17,8 +17,7 @@ private class ForumSearchConfig(
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
-    postApi: lila.forum.ForumPostApi,
-    postRepo: lila.forum.ForumPostRepo
+    postApi: lila.hub.forum.ForumPostApi
 )(using Executor, akka.stream.Materializer):
 
   private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)
