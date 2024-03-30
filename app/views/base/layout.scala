@@ -266,7 +266,7 @@ object layout:
       doctype,
       htmlTag(
         (ctx.data.inquiry.isEmpty && ctx.impersonatedBy.isEmpty && !ctx.blind)
-          .option(cls := ctx.pref.bg.themeColorClass),
+          .option(cls := ctx.pref.themeColorClass),
         topComment,
         head(
           charset,
