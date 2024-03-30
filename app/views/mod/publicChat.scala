@@ -10,7 +10,7 @@ object publicChat:
 
   def apply(
       tourChats: List[(lila.tournament.Tournament, UserChat)],
-      swissChats: List[(lila.swiss.Swiss, UserChat)]
+      swissChats: List[(lila.hub.swiss.IdName, UserChat)]
   )(using PageContext) =
     views.html.base.layout(
       title = "Public Chats",
@@ -67,7 +67,7 @@ object publicChat:
             )
     )
 
-  private def swissTitle(swiss: lila.swiss.Swiss) =
+  private def swissTitle(swiss: lila.hub.swiss.IdName) =
     a(cls := "title", href := routes.Swiss.show(swiss.id))(swiss.name)
 
   private def tournamentTitle(tournament: lila.tournament.Tournament) =

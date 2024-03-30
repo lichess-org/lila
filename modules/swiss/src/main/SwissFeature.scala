@@ -4,12 +4,14 @@ import lila.common.Heapsort
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.memo.CacheApi.*
+import lila.hub.swiss.FeaturedIdNames
 
 final class SwissFeature(
     mongo: SwissMongo,
     cacheApi: CacheApi,
     swissCache: SwissCache
-)(using Executor):
+)(using Executor)
+    extends lila.hub.swiss.SwissFeatureApi:
 
   import BsonHandlers.given
 
@@ -25,13 +27,17 @@ final class SwissFeature(
           .sort($sort.asc("startsAt"))
           .one[Swiss]
 
-  def get(teams: Seq[TeamId]) =
-    cache.getUnit.zip(getForTeams(teams :+ lichessTeamId distinct)).map { (cached, teamed) =>
-      FeaturedSwisses(
-        created = (teamed.created ::: cached.created).distinctBy(_.id),
-        started = (teamed.started ::: cached.started).distinctBy(_.id)
-      )
-    }
+  def get(teams: Seq[TeamId]): Fu[FeaturedSwisses] =
+    cache.getUnit
+      .zip(getForTeams(teams :+ lichessTeamId distinct))
+      .map: (cached, teamed) =>
+        FeaturedSwisses(
+          created = (teamed.created ::: cached.created).distinctBy(_.id),
+          started = (teamed.started ::: cached.started).distinctBy(_.id)
+        )
+
+  def idNames: Fu[FeaturedIdNames] = get(Nil).map: f =>
+    FeaturedIdNames(f.created.map(_.idName), f.started.map(_.idName))
 
   private val startsAtOrdering = Ordering.by[Swiss, Long](_.startsAt.toMillis)
 

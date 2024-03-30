@@ -2,14 +2,14 @@ package lila.mod
 
 import lila.chat.UserChat
 import lila.report.Suspect
-import lila.swiss.Swiss
 import lila.tournament.Tournament
 import lila.user.UserRepo
+import lila.hub.swiss.{ IdName as Swiss }
 
 final class PublicChat(
     chatApi: lila.chat.ChatApi,
     tournamentApi: lila.tournament.TournamentApi,
-    swissFeature: lila.swiss.SwissFeature,
+    swissFeature: lila.hub.swiss.SwissFeatureApi,
     userRepo: UserRepo
 )(using Executor):
 
@@ -43,8 +43,7 @@ final class PublicChat(
                   .map(_ -> chat)
 
   private def swissChats: Fu[List[(Swiss, UserChat)]] =
-    swissFeature
-      .get(Nil)
+    swissFeature.idNames
       .flatMap: swisses =>
         val all = swisses.created ::: swisses.started
         val ids = all.map(_.id.into(ChatId))

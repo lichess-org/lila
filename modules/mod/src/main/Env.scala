@@ -17,7 +17,7 @@ final class Env(
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
     tournamentApi: lila.tournament.TournamentApi,
-    swissFeature: lila.swiss.SwissFeature,
+    swissFeature: lila.hub.swiss.SwissFeatureApi,
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     userRepo: lila.user.UserRepo,

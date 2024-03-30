@@ -6,6 +6,7 @@ import chess.format.Fen
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
+import lila.hub.swiss.IdName
 
 case class Swiss(
     @Key("_id") id: SwissId,
@@ -65,6 +66,8 @@ case class Swiss(
     !settings.manualRounds &&
       settings.dailyInterval.isEmpty &&
       clock.estimateTotalSeconds * 2 * settings.nbRounds > 3600 * 8
+
+  def idName = IdName(id, name)
 
   lazy val looksLikePrize = lila.gathering.looksLikePrize(s"$name ${~settings.description}")
 
