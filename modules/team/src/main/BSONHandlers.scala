@@ -3,7 +3,7 @@ package lila.team
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.team.{ Access, LightTeam }
+import lila.hub.team.{ Access, LightTeam, TeamSearch }
 
 private object BSONHandlers:
 
@@ -14,4 +14,5 @@ private object BSONHandlers:
   given BSONDocumentHandler[TeamMember] =
     Macros.handler[TeamMember].afterWrite(lila.db.Util.removeEmptyArray("perms"))
 
-  given BSONDocumentHandler[LightTeam] = Macros.handler
+  given BSONDocumentHandler[LightTeam]  = Macros.handler
+  given BSONDocumentHandler[TeamSearch] = Macros.handler

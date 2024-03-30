@@ -8,7 +8,8 @@ import java.time.Period
 
 import lila.db.dsl.{ *, given }
 import lila.hub.team.LightTeam
-import lila.hub.team.Access
+import lila.hub.team.{ Access, TeamSearch }
+import reactivemongo.akkastream.AkkaStreamCursor
 
 final class TeamRepo(val coll: Coll)(using Executor) extends lila.hub.team.TeamRepo:
 
@@ -63,7 +64,8 @@ final class TeamRepo(val coll: Coll)(using Executor) extends lila.hub.team.TeamR
       )
       .void
 
-  def cursor = coll.find(enabledSelect).cursor[Team](ReadPref.sec)
+  private[team] def cursor: AkkaStreamCursor[TeamSearch] =
+    coll.find(enabledSelect).cursor[TeamSearch](ReadPref.sec)
 
   private[team] def forumAccess(id: TeamId): Fu[Option[Access]] =
     coll.secondaryPreferred.primitiveOne[Access]($id(id), "forum")

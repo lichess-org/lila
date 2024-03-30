@@ -1,6 +1,12 @@
 package lila.hub
 package team
 
+import reactivemongo.api.bson.Macros.Annotations.Key
+import reactivemongo.api.bson.BSONDocument
+
+case class InsertTeam(team: TeamSearch)
+case class RemoveTeam(id: TeamId)
+
 trait TeamRepo:
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]]
 
@@ -8,6 +14,7 @@ trait TeamApi:
   def forumAccessOf(teamId: TeamId): Fu[Access]
   def leaderIds(teamId: TeamId): Fu[Set[UserId]]
   def filterUserIdsInTeam[U: UserIdOf](teamId: TeamId, users: Iterable[U]): Fu[Set[UserId]]
+  def cursor: reactivemongo.akkastream.AkkaStreamCursor[TeamSearch]
 
 enum Access(val id: Int):
   case None     extends Access(0)
@@ -19,9 +26,8 @@ object Access:
   val all       = Everyone :: allInTeam
   val byId      = all.mapBy(_.id)
 
-case class LightTeam(_id: TeamId, name: LightTeam.TeamName, flair: Option[Flair]):
-  inline def id = _id
-  def pair      = id -> name
+case class LightTeam(@Key("_id") id: TeamId, name: LightTeam.TeamName, flair: Option[Flair]):
+  def pair = id -> name
 
 object LightTeam:
   type TeamName = String
@@ -38,3 +44,5 @@ object LightTeam:
   private type GetterSyncType              = TeamId => Option[LightTeam]
   opaque type GetterSync <: GetterSyncType = GetterSyncType
   object GetterSync extends TotalWrapper[GetterSync, GetterSyncType]
+
+case class TeamSearch(@Key("_id") id: TeamId, name: String, description: Markdown, nbMembers: Int)

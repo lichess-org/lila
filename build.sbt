@@ -430,7 +430,7 @@ lazy val team = module("team",
 )
 
 lazy val teamSearch = module("teamSearch",
-  Seq(team, search),
+  Seq(search),
   reactivemongo.bundle
 )
 

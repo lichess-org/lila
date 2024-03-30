@@ -18,7 +18,7 @@ import lila.mod.ModlogApi
 import lila.security.Granter
 import lila.user.{ Me, User, UserApi, UserRepo, given }
 import lila.hub.user.MyId
-import lila.hub.team.Access
+import lila.hub.team.{ InsertTeam, RemoveTeam, Access }
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -69,7 +69,7 @@ final class TeamApi(
       _ <- memberRepo.add(team.id, me.id, TeamSecurity.Permission.values.toSet)
     yield
       cached.invalidateTeamIds(me.id)
-      indexer ! InsertTeam(team)
+      indexer ! InsertTeam(team.search)
       timeline ! Propagate(TeamCreate(me.id, team.id)).toFollowersOf(me.id)
       Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
       team
@@ -96,7 +96,7 @@ final class TeamApi(
       if !isLeader then modLog.teamEdit(team.createdBy, team.name)
       cached.forumAccess.invalidate(team.id)
       cached.lightCache.invalidate(team.id)
-      indexer ! InsertTeam(team)
+      indexer ! InsertTeam(team.search)
 
   def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
     cached.teamIdsList(me).flatMap(teamRepo.byIdsSortPopular).flatMap(memberRepo.addMyLeadership)
@@ -334,7 +334,7 @@ final class TeamApi(
           (teamRepo.disable(team).void >>
             memberRepo.userIdsByTeam(team.id).map { _.foreach(cached.invalidateTeamIds) } >>
             requestRepo.removeByTeam(team.id).void).andDo(indexer ! RemoveTeam(team.id))
-        else teamRepo.enable(team).void.andDo(indexer ! InsertTeam(team))
+        else teamRepo.enable(team).void.andDo(indexer ! InsertTeam(team.search))
       else memberRepo.setPerms(team.id, me, Set.empty)
 
   def idAndLeaderIds(teamId: TeamId): Fu[Option[Team.IdAndLeaderIds]] =
@@ -348,6 +348,7 @@ final class TeamApi(
     teams <- teamRepo.byIdsSortPopular(ids)
   yield teams
 
+  export teamRepo.cursor
   export memberRepo.{ publicLeaderIds, leaderIds, isSubscribed, subscribe, filterUserIdsInTeam }
 
   // delete for ever, with members but not forums
