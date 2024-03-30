@@ -1,4 +1,4 @@
-package lila.core
+package lila.common
 
 import com.github.blemale.scaffeine.LoadingCache
 import scalalib.actor.SyncActor

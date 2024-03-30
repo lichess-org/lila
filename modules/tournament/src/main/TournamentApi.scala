@@ -745,7 +745,7 @@ final class TournamentApi(
           lastPublished.put(tourId, top.hashCode)
       }
 
-    private val throttler = new lila.core.EarlyMultiThrottler[TourId](logger)
+    private val throttler = new lila.common.EarlyMultiThrottler[TourId](logger)
 
     def apply(tour: Tournament): Unit =
       if !tour.isTeamBattle then throttler(tour.id, 15.seconds) { publishNow(tour.id) }

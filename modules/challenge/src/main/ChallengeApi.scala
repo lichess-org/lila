@@ -214,7 +214,7 @@ final class ChallengeApi(
     socket.foreach(_.reload(id))
 
   private object notifyUser:
-    private val throttler = new lila.core.EarlyMultiThrottler[UserId](logger)
+    private val throttler = new lila.common.EarlyMultiThrottler[UserId](logger)
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all  <- allFor(userId)

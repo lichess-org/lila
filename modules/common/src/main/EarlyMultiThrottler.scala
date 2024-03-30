@@ -1,4 +1,4 @@
-package lila.core
+package lila.common
 
 import akka.actor.*
 
