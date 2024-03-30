@@ -7,7 +7,9 @@ import lila.common.paginator.Paginator
 
 object declinedRequest:
 
-  def all(team: lila.team.Team, requests: Paginator[lila.team.RequestWithUser])(using PageContext) =
+  def all(team: lila.team.Team, requests: Paginator[lila.team.RequestWithUser], search: Option[String] = None)(
+      using PageContext
+  ) =
     val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
 
     views.html.base.layout(
@@ -28,14 +30,19 @@ object declinedRequest:
               " • ",
               trans.team.declinedRequests()
             ),
-            postForm(
-              cls := "team-declined-request box__pad complete-parent",
-              action := teamRoutes.addLeader(team.id)
+            st.form(
+              cls    := "search team-declined-request",
+              method := "GET",
+              action := teamRoutes.declinedRequests(team.id, 1)
             )(
-              // errMsg(addLeaderForm),
               div(cls := "team-declined-request__input")(
-                st.input(name := "name", attrData("team-id") := team.id, placeholder := "Add a new leader"),
-                // form3.submit("Add")
+                input(
+                  st.name     := "search",
+                  value       := search,
+                  // attrData    := ("team-id"),
+                  placeholder := trans.search.search.txt()
+                ),
+                submitButton(cls := "button", dataIcon := licon.Search)
               )
             )
           ),

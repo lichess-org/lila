@@ -130,6 +130,10 @@ final private[team] class TeamForm(
       "names" -> cleanText(maxLength = 9000)
         .transform[String](_.split(sep).take(300).toList.flatMap(UserStr.read).mkString(sep), identity)
 
+  val searchDeclinedForm: Form[Option[String]] = Form(
+    single("search" -> optional(cleanText(maxLength = 30)))
+  )
+
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team.nameToId(setup.name)))
 

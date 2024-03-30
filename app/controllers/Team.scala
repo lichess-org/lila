@@ -390,16 +390,22 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         )
   }
 
-  private def searchDeclinedRequest(id: TeamId, page: Int, userQuery: String) = Auth { ctx ?=> _ ?=>
-    Redirect(routes.Team.declinedRequests(id,page,userQuery.some))
-  }
+  // def searchDeclinedRequest(id: TeamId, page: Int, userQuery: Option[String] = None) = Auth { ctx ?=> _ ?=>
+  //   Redirect(routes.Team.declinedRequests(id, page, userQuery))
+  // }
 
-  def declinedRequests(id: TeamId, page: Int, userQuery: Option[String] = None) = Auth { ctx ?=> _ ?=>
+  def declinedRequests(id: TeamId, page: Int) = AuthBody { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.Request): team =>
-      Ok.pageAsync:
-        paginator.declinedRequests(team, page, userQuery).map {
-          html.team.declinedRequest.all(team, _)
-        }
+      forms.searchDeclinedForm
+        .bindFromRequest()
+        .fold(
+          _ => BadRequest(""),
+          userQuery =>
+            Ok.pageAsync:
+              paginator.declinedRequests(team, page, userQuery).map {
+                html.team.declinedRequest.all(team, _, userQuery)
+              }
+        )
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
