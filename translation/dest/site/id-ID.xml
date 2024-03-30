@@ -257,6 +257,7 @@
   <string name="abortGame">Batalkan permainan</string>
   <string name="gameAborted">Permainan dibatalkan</string>
   <string name="standard">Standar</string>
+  <string name="customPosition">Posisi kustom</string>
   <string name="unlimited">Tak terbatas</string>
   <string name="mode">Mode</string>
   <string name="casual">Santai (Tanpa rating)</string>
@@ -385,6 +386,7 @@
   <string name="blackCheckmatesInOneMove">Hitam skakmat dalam satu langkah</string>
   <string name="retry">Mengulang</string>
   <string name="reconnecting">Menyambung ulang</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="other">%s teman online</item>
   </plurals>
@@ -449,6 +451,7 @@
   <string name="movesPlayed">Langkah yang dijalankan</string>
   <string name="whiteWins">Putih Menang</string>
   <string name="blackWins">Hitam Menang</string>
+  <string name="drawRate">Persentase imbang</string>
   <string name="draws">Remis</string>
   <string name="nextXTournament">Turnamen %s selanjutnya:</string>
   <string name="averageOpponent">Rata-rata rating lawan</string>
@@ -655,6 +658,7 @@
   <string name="keyNextBlunder">Blunder selanjutnya</string>
   <string name="keyNextMistake">Kesalahan berikutnya</string>
   <string name="keyNextInaccuracy">Ketidakakuratan selanjutnya</string>
+  <string name="playSelectedMove">mainkan gerakan terpilih</string>
   <string name="newTournament">Turnamen baru</string>
   <string name="tournamentHomeTitle">Turnamen catur dengan menampilkan berbagai kontrol waktu dan beberapa varian</string>
   <string name="tournamentHomeDescription">Turnamen catur cepat! ikuti jadwal pertandingan yang telah kami atur, atau buat sesuai keinginanmu.  bullet, blitz, classical, chess960, king of the hill, tiga langkah mati, dan banyak lagi pilihan yang tersedia untuk kesenangan bercatur yang tiada habisnya.</string>
