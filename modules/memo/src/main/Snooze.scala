@@ -25,7 +25,7 @@ final class Snoozer[Key](cacheApi: CacheApi)(using userIdOf: UserIdOf[Key]):
     store.put(key, duration)
 
   def set(key: Key, duration: String): Unit =
-    Snooze.Duration(duration) foreach { set(key, _) }
+    Snooze.Duration(duration).foreach { set(key, _) }
 
   def snoozedKeysOf(snoozerId: UserId): Iterable[Key] =
     store.asMap().keys.collect { case key if userIdOf(key) == snoozerId => key }

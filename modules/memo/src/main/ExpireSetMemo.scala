@@ -12,18 +12,18 @@ final class ExpireSetMemo[K](ttl: FiniteDuration):
   def get(key: K): Boolean = cache.underlying.getIfPresent(key) == true
 
   def intersect(keys: Iterable[K]): Set[K] =
-    keys.nonEmpty so {
-      val res = cache getAllPresent keys
-      keys filter res.contains toSet
+    keys.nonEmpty.so {
+      val res = cache.getAllPresent(keys)
+      keys.filter(res.contains) toSet
     }
 
   def put(key: K) = cache.put(key, true)
 
-  def putAll(keys: Iterable[K]) = cache putAll keys.view.map(k => k -> true).toMap
+  def putAll(keys: Iterable[K]) = cache.putAll(keys.view.map(k => k -> true).toMap)
 
-  def remove(key: K) = cache invalidate key
+  def remove(key: K) = cache.invalidate(key)
 
-  def removeAll(keys: Iterable[K]) = cache invalidateAll keys
+  def removeAll(keys: Iterable[K]) = cache.invalidateAll(keys)
 
   def keys: Iterable[K] = cache.asMap().keys
 
@@ -41,4 +41,4 @@ final class HashCodeExpireSetMemo[A](ttl: FiniteDuration):
 
   def put(key: A) = cache.put(key.hashCode, true)
 
-  def remove(key: A) = cache invalidate key.hashCode
+  def remove(key: A) = cache.invalidate(key.hashCode)

@@ -108,7 +108,7 @@ object ServerEval:
                   F.score -> info.eval.score
                     .ifTrue:
                       node.eval.isEmpty ||
-                        advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                      advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
                     .flatMap(bsonWriteOpt),
                   F.comments -> advOpt
                     .map: adv =>
