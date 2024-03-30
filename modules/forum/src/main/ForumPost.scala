@@ -82,7 +82,6 @@ case class ForumPost(
     topicId = topicId,
     userId = userId,
     text = text,
-    troll = troll,
     createdAt = createdAt
   )
 

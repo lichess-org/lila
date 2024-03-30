@@ -33,7 +33,6 @@ final class ForumSearchApi(
     Fields.topic   -> view.topic.name,
     Fields.author  -> view.post.userId,
     Fields.topicId -> view.topic.id,
-    Fields.troll   -> view.post.troll,
     Fields.date    -> view.post.createdAt
   )
 
