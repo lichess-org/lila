@@ -6,15 +6,12 @@ import views.html as V
 
 import lila.game.Pov
 
-final private[app] class RendererActor extends Actor:
+final private[app] class Renderer:
 
-  def receive =
+  lila.core.hub.renderer.register:
 
-    case lila.tv.RenderFeaturedJs(game) =>
-      sender() ! V.game.mini.noCtx(Pov.naturalOrientation(game), tv = true).render
+    case lila.tv.RenderFeaturedJs(game, promise) =>
+      promise.success(V.game.mini.noCtx(Pov.naturalOrientation(game), tv = true).render)
 
-    case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove) =>
-      sender() ! V.puzzle.bits.daily(puzzle, fen, lastMove).render
-
-    case streams: lila.streamer.LiveStreams.WithTitles =>
-      sender() ! V.streamer.bits.liveStreams(streams).render
+    case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
+      promise.success(V.puzzle.bits.daily(puzzle, fen, lastMove).render)

@@ -5,6 +5,16 @@ import com.softwaremill.macwire.*
 import com.typesafe.config.Config
 import play.api.Configuration
 
+object hub:
+
+  import lila.common.Bus
+
+  final class RemoteService(channel: String):
+    def register(f: PartialFunction[Matchable, Unit]): Unit = Bus.subscribeFun(channel)(f)
+    def ask[A](using Executor, Scheduler)                   = Bus.ask[A](channel)
+
+  val renderer = RemoteService("renderer")
+
 object actors:
   trait Actor:
     val actor: ActorSelection
@@ -15,7 +25,6 @@ object actors:
   final class Shutup(val actor: ActorSelection)     extends Actor
   final class Timeline(val actor: ActorSelection)   extends Actor
   final class Report(val actor: ActorSelection)     extends Actor
-  final class Renderer(val actor: ActorSelection)   extends Actor
   final class Captcher(val actor: ActorSelection)   extends Actor
 
 @Module
@@ -29,7 +38,6 @@ final class Env(
   private val config = appConfig.get[Config]("hub")
 
   val gameSearch = GameSearch(select("actor.game.search"))
-  val renderer   = Renderer(select("actor.renderer"))
   val captcher   = Captcher(select("actor.captcher"))
   val fishnet    = Fishnet(select("actor.fishnet"))
   val timeline   = Timeline(select("actor.timeline.user"))

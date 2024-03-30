@@ -148,8 +148,6 @@ final class Env(
         lila.log("preloader").warn("daily puzzle", e)
         none
       }
-
-  system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
 end Env
 
 final class EnvBoot(

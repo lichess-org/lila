@@ -23,7 +23,6 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    renderer: lila.core.actors.Renderer,
     timeline: lila.core.actors.Timeline,
     chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.GetterFallback,
