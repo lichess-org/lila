@@ -148,6 +148,13 @@ final class Env(
         lila.log("preloader").warn("daily puzzle", e)
         none
       }
+
+  lila.core.hub.renderer.register:
+    case lila.tv.RenderFeaturedJs(game, promise) =>
+      promise.success(views.html.game.mini.noCtx(lila.game.Pov.naturalOrientation(game), tv = true).render)
+    case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
+      promise.success(views.html.puzzle.bits.daily(puzzle, fen, lastMove).render)
+
 end Env
 
 final class EnvBoot(
