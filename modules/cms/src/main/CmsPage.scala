@@ -21,7 +21,7 @@ object CmsPage:
 
   opaque type Id = String
   object Id extends OpaqueString[Id]:
-    def random = Id(ornicar.scalalib.ThreadLocalRandom.nextString(6))
+    def random = Id(scalalib.ThreadLocalRandom.nextString(6))
 
   opaque type Key = String
   object Key extends OpaqueString[Key]

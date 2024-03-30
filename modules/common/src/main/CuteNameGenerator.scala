@@ -1,6 +1,6 @@
 package lila.common
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 // children friendly names only
 // this is used by /class

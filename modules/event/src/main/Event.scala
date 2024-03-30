@@ -42,5 +42,5 @@ case class Event(
 
 object Event:
 
-  import ornicar.scalalib.ThreadLocalRandom
+  import scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom.nextString(8)

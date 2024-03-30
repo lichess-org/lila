@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
-import ornicar.scalalib.actor.AsyncActor
+import scalalib.actor.AsyncActor
 import lila.core.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }

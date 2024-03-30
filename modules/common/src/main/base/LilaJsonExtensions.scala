@@ -1,6 +1,6 @@
 package lila.base
 
-import ornicar.scalalib.newtypes.SameRuntime
+import scalalib.newtypes.SameRuntime
 import play.api.libs.json.*
 
 trait JsonExtensions:

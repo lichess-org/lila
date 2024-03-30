@@ -1,6 +1,6 @@
 package lila.common
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import scala.Numeric.Implicits.*
 import scala.reflect.ClassTag

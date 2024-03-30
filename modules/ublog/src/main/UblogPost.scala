@@ -72,7 +72,7 @@ object UblogPost:
 
   case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])
 
-  def randomId = UblogPostId(ornicar.scalalib.ThreadLocalRandom.nextString(8))
+  def randomId = UblogPostId(scalalib.ThreadLocalRandom.nextString(8))
 
   object thumbnail:
     enum Size(val width: Int):

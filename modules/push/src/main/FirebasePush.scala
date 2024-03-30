@@ -21,7 +21,7 @@ final private class FirebasePush(
     logger.info("Mobile Firebase push notifications are enabled.")
 
   private val workQueue =
-    ornicar.scalalib.actor.AsyncActorSequencer(
+    scalalib.actor.AsyncActorSequencer(
       maxSize = Max(512),
       timeout = 10 seconds,
       name = "firebasePush",

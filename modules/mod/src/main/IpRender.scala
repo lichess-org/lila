@@ -1,7 +1,7 @@
 package lila.mod
 
 import com.github.blemale.scaffeine.LoadingCache
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import scala.jdk.CollectionConverters.*
 

@@ -67,7 +67,7 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
 
 object CacheApi:
 
-  export ornicar.scalalib.cache.*
+  export scalalib.cache.*
 
   private[memo] type Builder = Scaffeine[Any, Any]
 

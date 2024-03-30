@@ -1,7 +1,7 @@
 package lila.round
 
 import com.softwaremill.tagging.*
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import scala.util.matching.Regex
 

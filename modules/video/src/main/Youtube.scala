@@ -1,6 +1,6 @@
 package lila.video
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*

@@ -1,6 +1,6 @@
 package lila.security
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.mvc.RequestHeader
 
 import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }

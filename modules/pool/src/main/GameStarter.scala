@@ -15,7 +15,7 @@ final private class GameStarter(
     onStart: GameId => Unit
 )(using Executor, Scheduler):
 
-  private val workQueue = ornicar.scalalib.actor.AsyncActorSequencer(
+  private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(32),
     timeout = 10 seconds,
     name = "gameStarter",

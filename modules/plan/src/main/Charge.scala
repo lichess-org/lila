@@ -1,6 +1,6 @@
 package lila.plan
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 case class Charge(
     _id: String, // random

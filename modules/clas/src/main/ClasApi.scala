@@ -1,6 +1,6 @@
 package lila.clas
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 import reactivemongo.api.*
 

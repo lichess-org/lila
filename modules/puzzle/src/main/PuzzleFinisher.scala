@@ -10,7 +10,7 @@ import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
 import lila.rating.{ Glicko, Perf, PerfType, glicko2 }
 import lila.user.{ Me, UserPerfsRepo, UserRepo }
-import ornicar.scalalib.actor.AsyncActorSequencers
+import scalalib.actor.AsyncActorSequencers
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,

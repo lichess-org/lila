@@ -2,7 +2,7 @@ package lila.base
 
 import alleycats.Zero
 import com.typesafe.config.Config
-import ornicar.scalalib.extensions.*
+import scalalib.extensions.*
 
 import java.lang.Math.{ max, min }
 import java.util.Base64
@@ -11,7 +11,7 @@ import scala.annotation.targetName
 import scala.concurrent.{ Await, ExecutionContext as EC }
 import scala.util.Try
 import scala.util.matching.Regex
-import ornicar.scalalib.future.*
+import scalalib.future.*
 
 import lila.common.Chronometer
 

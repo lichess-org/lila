@@ -114,7 +114,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   private def docTopic(doc: Bdoc): Option[StudyTopic] =
     doc.getAsOpt[StudyTopic]("_id")
 
-  private val recomputeWorkQueue = ornicar.scalalib.actor.AsyncActorSequencer(
+  private val recomputeWorkQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(1),
     timeout = 61 seconds,
     name = "studyTopicAggregation",
@@ -123,7 +123,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
 
   def recompute(): Unit =
     recomputeWorkQueue(LilaFuture.makeItLast(60 seconds)(recomputeNow)).recover:
-      case _: ornicar.scalalib.actor.AsyncActorBounded.EnqueueException => ()
+      case _: scalalib.actor.AsyncActorBounded.EnqueueException => ()
       case e: Exception => logger.warn("Can't recompute study topics!", e)
 
   private def recomputeNow: Funit =

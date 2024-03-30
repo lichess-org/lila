@@ -9,7 +9,7 @@ import chess.{ Ply, Square, Check }
 import chess.bitboard.Bitboard
 import chess.variant.{ Variant, Crazyhouse }
 import play.api.libs.json.*
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
 import Node.{ Comments, Comment, Gamebook, Shapes }

@@ -3,7 +3,7 @@ package lila.swiss
 import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.core.swiss.IdName

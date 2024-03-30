@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.common.IpAddress
@@ -89,7 +89,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     )
     def upload(rel: String, image: FilePart, me: UserId, ip: IpAddress): Fu[Option[String]] =
       RateLimitPerIp(ip, fuccess(none)):
-        uploadFile(s"$rel:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}", image, me)
+        uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
           .map(pic => url.resize(pic.id, sizePx).some)
 
   private object picfitServer:

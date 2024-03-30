@@ -517,7 +517,7 @@ final class ReportApi(
 
   object inquiries:
 
-    private val workQueue = ornicar.scalalib.actor.AsyncActorSequencer(
+    private val workQueue = scalalib.actor.AsyncActorSequencer(
       maxSize = Max(32),
       timeout = 20 seconds,
       name = "report.inquiries",

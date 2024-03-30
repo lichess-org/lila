@@ -1,6 +1,6 @@
 package lila.racer
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.storm.StormPuzzle
 

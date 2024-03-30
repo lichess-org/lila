@@ -1,7 +1,7 @@
 package lila.security
 
 import com.softwaremill.tagging.*
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }

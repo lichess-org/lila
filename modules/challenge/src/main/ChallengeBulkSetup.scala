@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ ByColor, Clock, Mode }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json

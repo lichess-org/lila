@@ -66,7 +66,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
       .void
 
   private def daysBetween(from: Instant, to: Instant): Int =
-    ornicar.scalalib.time.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay)
+    scalalib.time.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay)
 
   def get(userId: UserId): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
 

@@ -1,6 +1,6 @@
 package lila.user
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }

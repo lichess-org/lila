@@ -4,7 +4,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.format.Fen
 import chess.variant.Variant
 import chess.{ Color, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.user.User

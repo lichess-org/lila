@@ -3,7 +3,7 @@ package lila.common
 import chess.format.pgn.PgnStr
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 import play.api.mvc.Call
 
 import java.net.InetAddress

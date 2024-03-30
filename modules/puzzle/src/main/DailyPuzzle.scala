@@ -2,7 +2,7 @@ package lila.puzzle
 
 import akka.pattern.ask
 import chess.format.{ BoardFen, Uci }
-import ornicar.scalalib.ThreadLocalRandom.odds
+import scalalib.ThreadLocalRandom.odds
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*

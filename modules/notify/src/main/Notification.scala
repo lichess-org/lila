@@ -1,6 +1,6 @@
 package lila.notify
 import alleycats.Zero
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.common.licon

@@ -9,7 +9,7 @@ trait Tellable extends Any:
 object Tellable:
   case class Actor(ref: akka.actor.ActorRef) extends Tellable:
     def !(msg: Matchable) = ref ! msg
-  case class SyncActor(ref: ornicar.scalalib.actor.SyncActor) extends Tellable:
+  case class SyncActor(ref: scalalib.actor.SyncActor) extends Tellable:
     def !(msg: Matchable) = ref ! msg
   def apply(f: PartialFunction[Matchable, Unit]) = new Tellable:
     def !(msg: Matchable) = f.applyOrElse(msg, _ => ())
@@ -30,7 +30,7 @@ object Bus:
   def subscribe(subscriber: Tellable, to: Channel*)   = to.foreach { bus.subscribe(subscriber, _) }
   def subscribe(ref: ActorRef, to: Channel*)          = to.foreach { bus.subscribe(Tellable.Actor(ref), _) }
   def subscribe(ref: ActorRef, to: Iterable[Channel]) = to.foreach { bus.subscribe(Tellable.Actor(ref), _) }
-  def subscribe(ref: ornicar.scalalib.actor.SyncActor, to: Channel*) = to.foreach {
+  def subscribe(ref: scalalib.actor.SyncActor, to: Channel*) = to.foreach {
     bus.subscribe(Tellable.SyncActor(ref), _)
   }
 

@@ -40,7 +40,7 @@ final class SwissApi(
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
     extends lila.core.swiss.SwissApi:
 
-  private val sequencer = ornicar.scalalib.actor.AsyncActorSequencers[SwissId](
+  private val sequencer = scalalib.actor.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events
     expiration = 20 minutes,
     timeout = 10 seconds,

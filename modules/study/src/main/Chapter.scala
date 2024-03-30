@@ -162,7 +162,7 @@ object Chapter:
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))
 
-  def makeId = StudyChapterId(ornicar.scalalib.ThreadLocalRandom.nextString(8))
+  def makeId = StudyChapterId(scalalib.ThreadLocalRandom.nextString(8))
 
   def make(
       studyId: StudyId,

@@ -43,7 +43,7 @@ final class Env(
   val lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]] =
     cacheApi.unit[List[UblogPost.PreviewPost]]:
       _.refreshAfterWrite(10 seconds).buildAsyncFuture: _ =>
-        import ornicar.scalalib.ThreadLocalRandom
+        import scalalib.ThreadLocalRandom
         val lookInto = 7
         val keep     = 3
         api

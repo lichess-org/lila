@@ -33,7 +33,7 @@ final class SimulApi(
 )(using Executor, Scheduler)
     extends lila.core.simul.SimulApi:
 
-  private val workQueue = ornicar.scalalib.actor.AsyncActorSequencers[SimulId](
+  private val workQueue = scalalib.actor.AsyncActorSequencers[SimulId](
     maxSize = Max(128),
     expiration = 10 minutes,
     timeout = 10 seconds,

@@ -1,6 +1,6 @@
 package lila.chat
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.data.Form
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*

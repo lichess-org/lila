@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.format.UciPath
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.user.User

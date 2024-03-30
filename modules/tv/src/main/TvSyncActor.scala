@@ -1,6 +1,6 @@
 package lila.tv
 
-import ornicar.scalalib.actor.SyncActor
+import scalalib.actor.SyncActor
 import akka.pattern.ask as actorAsk
 import play.api.libs.json.Json
 

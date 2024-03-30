@@ -1,7 +1,7 @@
 package lila.core
 
 import com.github.blemale.scaffeine.LoadingCache
-import ornicar.scalalib.actor.SyncActor
+import scalalib.actor.SyncActor
 
 /*
  * Only processes one computation at a time
@@ -76,6 +76,6 @@ final class AskPipelines[K, R](
   def apply(key: K): Fu[R] = pipelines.get(key).get
 
   private val pipelines: LoadingCache[K, AskPipeline[R]] =
-    ornicar.scalalib.cache.scaffeine
+    scalalib.cache.scaffeine
       .expireAfterAccess(expiration)
       .build(key => AskPipeline[R](() => compute(key), timeout, name = s"$name:$key"))

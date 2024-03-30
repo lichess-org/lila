@@ -1,8 +1,8 @@
 package lila.room
 
 import play.api.libs.json.*
-import ornicar.scalalib.actor.SyncActorMap
-import ornicar.scalalib.actor.SyncActor
+import scalalib.actor.SyncActorMap
+import scalalib.actor.SyncActor
 
 import lila.chat.{ BusChan, ChatApi, ChatTimeout, UserLine }
 import lila.core.actorApi.shutup.PublicSource

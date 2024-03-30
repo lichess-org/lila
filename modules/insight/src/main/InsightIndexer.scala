@@ -17,7 +17,7 @@ final private class InsightIndexer(
     storage: InsightStorage
 )(using Executor, Scheduler, akka.stream.Materializer):
 
-  private val workQueue = ornicar.scalalib.actor.AsyncActorSequencer(
+  private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(256),
     timeout = 1 minute,
     name = "insightIndexer",

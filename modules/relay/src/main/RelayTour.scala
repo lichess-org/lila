@@ -101,5 +101,5 @@ object RelayTour:
     def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =
       picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
 
-  import ornicar.scalalib.ThreadLocalRandom
+  import scalalib.ThreadLocalRandom
   def makeId = Id(ThreadLocalRandom.nextString(8))

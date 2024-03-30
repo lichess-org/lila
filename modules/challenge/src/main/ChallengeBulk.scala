@@ -33,7 +33,7 @@ final class ChallengeBulkApi(
 
   private val coll = colls.bulk
 
-  private val workQueue = ornicar.scalalib.actor.AsyncActorSequencers[UserId](
+  private val workQueue = scalalib.actor.AsyncActorSequencers[UserId](
     maxSize = Max(16),
     expiration = 10 minutes,
     timeout = 10 seconds,

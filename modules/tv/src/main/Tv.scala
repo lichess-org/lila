@@ -1,6 +1,6 @@
 package lila.tv
 
-import ornicar.scalalib.actor.SyncActor
+import scalalib.actor.SyncActor
 import chess.PlayerTitle
 
 import lila.common.{ LightUser, licon }

@@ -1,7 +1,7 @@
 package lila.mailer
 
 import akka.actor.ActorSystem
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.ConfigLoader
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scalatags.Text.all.{ html as htmlTag, * }

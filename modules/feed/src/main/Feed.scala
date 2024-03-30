@@ -37,7 +37,7 @@ object Feed:
 
   type GetLastUpdates = () => List[Update]
 
-  import ornicar.scalalib.ThreadLocalRandom
+  import scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom.nextString(6)
 
 final class FeedApi(coll: Coll, cacheApi: CacheApi)(using Executor):

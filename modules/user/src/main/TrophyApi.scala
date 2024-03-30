@@ -1,6 +1,6 @@
 package lila.user
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }

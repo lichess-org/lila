@@ -1,6 +1,6 @@
 package lila.lobby
 
-import ornicar.scalalib.actor.SyncActor
+import scalalib.actor.SyncActor
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game

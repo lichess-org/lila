@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.game.Pov
-import ornicar.scalalib.actor.SyncActor
+import scalalib.actor.SyncActor
 import lila.core.actorApi.timeline.*
 import lila.rating.RatingRange
 import lila.core.game.ChangeFeatured

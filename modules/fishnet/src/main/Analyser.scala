@@ -5,7 +5,7 @@ import chess.Ply
 import lila.analyse.AnalysisRepo
 
 import lila.game.{ Game, UciMemo }
-import ornicar.scalalib.actor.AsyncActorSequencer
+import scalalib.actor.AsyncActorSequencer
 
 final class Analyser(
     repo: FishnetRepo,

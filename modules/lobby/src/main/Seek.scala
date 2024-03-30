@@ -2,7 +2,7 @@ package lila.lobby
 
 import chess.variant.Variant
 import chess.{ Mode, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 
 import lila.common.Days

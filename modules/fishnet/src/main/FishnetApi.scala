@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 
 import scala.util.{ Failure, Success, Try }
 
-import ornicar.scalalib.actor.AsyncActorSequencer
+import scalalib.actor.AsyncActorSequencer
 
 import lila.base.LilaNoStackTrace
 import lila.common.IpAddress
