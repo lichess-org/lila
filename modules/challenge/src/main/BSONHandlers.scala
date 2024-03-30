@@ -29,12 +29,10 @@ private object BSONHandlers:
     import chess.Clock
     def reads(r: Reader) =
       (r.getO[Clock.LimitSeconds]("l"), r.getO[Clock.IncrementSeconds]("i"))
-        .mapN { (limit, inc) =>
+        .mapN: (limit, inc) =>
           TimeControl.Clock(chess.Clock.Config(limit, inc))
-        }
-        .orElse {
+        .orElse:
           r.getO[Days]("d").map(TimeControl.Correspondence.apply)
-        }
         .getOrElse(TimeControl.Unlimited)
     def writes(w: Writer, t: TimeControl) =
       t match

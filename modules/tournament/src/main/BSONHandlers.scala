@@ -10,13 +10,11 @@ import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.User.lichessId
 import lila.hub.tournament.leaderboard.Ratio
+import lila.hub.tournament.Status
 
 object BSONHandlers:
 
-  private[tournament] given BSONHandler[Status] = tryHandler(
-    { case BSONInteger(v) => Status(v).toTry(s"No such status: $v") },
-    x => BSONInteger(x.id)
-  )
+  private[tournament] given BSONHandler[Status] = valueMapHandler(Status.byId)(_.id)
 
   private[tournament] given BSONHandler[Schedule.Freq] = tryHandler(
     { case BSONString(v) => Schedule.Freq.byName.get(v).toTry(s"No such freq: $v") },

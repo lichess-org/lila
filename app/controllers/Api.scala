@@ -206,7 +206,7 @@ final class Api(
       val nb = getInt("nb") | Int.MaxValue
       jsonDownload:
         env.tournament.api
-          .byOwnerStream(user, status.flatMap(lila.tournament.Status.apply), MaxPerSecond(20), nb)
+          .byOwnerStream(user, status.flatMap(lila.hub.tournament.Status.byId.get), MaxPerSecond(20), nb)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
 
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>

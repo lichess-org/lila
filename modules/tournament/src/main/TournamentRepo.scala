@@ -6,6 +6,7 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import lila.common.config.CollName
 import lila.db.dsl.{ *, given }
 import lila.user.User
+import lila.hub.tournament.Status
 
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given

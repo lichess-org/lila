@@ -12,6 +12,7 @@ import lila.hub.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.{ Me, User }
 import lila.hub.i18n.Translate
+import lila.hub.tournament.Status
 
 case class Tournament(
     id: TourId,

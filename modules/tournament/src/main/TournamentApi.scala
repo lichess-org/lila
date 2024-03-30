@@ -18,6 +18,7 @@ import lila.hub.team.LightTeam
 import lila.hub.round.{ AbortForce, GoBerserk }
 import lila.tournament.TeamBattle.TeamInfo
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
+import lila.hub.tournament.Status
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -606,6 +607,9 @@ final class TournamentApi(
   def fetchUpdateTournaments: Fu[VisibleTournaments] =
     scheduledCreatedAndStarted.dmap: (created, started) =>
       VisibleTournaments(created, started, Nil)
+
+  def fetchModable: Fu[List[lila.hub.tournament.Tournament]] =
+    fetchVisibleTournaments.map(_.all)
 
   def playerInfo(tour: Tournament, userId: UserId): Fu[Option[PlayerInfoExt]] =
     playerRepo.find(tour.id, userId).flatMapz { player =>
