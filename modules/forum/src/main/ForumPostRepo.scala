@@ -31,6 +31,7 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
     "topicId"   -> true,
     "userId"    -> true,
     "text"      -> true,
+    "troll"     -> true,
     "createdAt" -> true
   )
 
