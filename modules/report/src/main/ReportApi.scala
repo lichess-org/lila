@@ -2,7 +2,7 @@ package lila.report
 
 import com.softwaremill.macwire.*
 
-import lila.common.{ Bus, Heapsort }
+import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi.*
@@ -193,7 +193,7 @@ final class ReportApi(
         .map:
           _.filter { (_, bans) => bans > 4 }
         .flatMap: bans =>
-          val topSum = Heapsort.topNToList(bans.values, 10).sum
+          val topSum = scalalib.HeapSort.topNToList(bans.values, 10).sum
           (topSum >= 80).so {
             userRepo
               .byId(userId)

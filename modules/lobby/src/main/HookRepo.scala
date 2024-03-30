@@ -2,7 +2,7 @@ package lila.lobby
 
 import scala.collection.View
 
-import lila.common.Heapsort
+import scalalib.HeapSort
 import lila.core.socket.Sri
 import lila.core.pool.IsClockCompatible
 
@@ -27,7 +27,7 @@ final private class HookRepo:
   def truncateIfNeeded() =
     if hooks.size >= hardLimit then
       logger.warn(s"Found ${hooks.size} hooks, cleaning up!")
-      hooks = hooks.reset(Heapsort.topN(hooks.values, hardLimit * 3 / 4)(using creationOrdering).toSet)
+      hooks = hooks.reset(HeapSort.topN(hooks.values, hardLimit * 3 / 4)(using creationOrdering).toSet)
       logger.warn(s"Kept ${hooks.size} hooks")
 
   def ids = hooks.key1s

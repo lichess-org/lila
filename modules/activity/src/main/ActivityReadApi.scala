@@ -2,7 +2,7 @@ package lila.activity
 
 import play.api.i18n.Lang
 
-import lila.common.Heapsort
+import scalalib.HeapSort
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
 import lila.game.LightPov
@@ -110,7 +110,7 @@ final class ActivityReadApi(
               entries.nonEmpty.option(
                 ActivityView.Tours(
                   nb = entries.size,
-                  best = Heapsort.topN(entries, activities.maxSubEntries)(using
+                  best = HeapSort.topN(entries, activities.maxSubEntries)(using
                     Ordering.by[lila.core.tournament.leaderboard.Entry, Double](-_.rankRatio.value)
                   )
                 )

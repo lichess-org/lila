@@ -1,6 +1,6 @@
 package lila.insight
 
-import lila.common.Heapsort.botN
+import scalalib.HeapSort.botN
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 

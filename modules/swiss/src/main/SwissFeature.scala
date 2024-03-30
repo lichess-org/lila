@@ -1,6 +1,6 @@
 package lila.swiss
 
-import lila.common.Heapsort
+import scalalib.HeapSort
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.memo.CacheApi.*
@@ -52,8 +52,8 @@ final class SwissFeature(
       .map: tours =>
         val (created, started) = tours.filter(_.isNotFinished).partition(_.isCreated)
         FeaturedSwisses(
-          created = Heapsort.topN(created, 10)(using startsAtOrdering.reverse),
-          started = Heapsort.topN(started, 10)(using startsAtOrdering)
+          created = HeapSort.topN(created, 10)(using startsAtOrdering.reverse),
+          started = HeapSort.topN(started, 10)(using startsAtOrdering)
         )
 
   private val cache = cacheApi.unit[FeaturedSwisses]:

@@ -6,7 +6,7 @@ import chess.opening.{ Opening, OpeningDb }
 import java.text.Normalizer
 
 import lila.common.Chronometer
-import lila.common.Heapsort.topN
+import scalalib.HeapSort.topN
 import lila.memo.CacheApi
 
 case class OpeningSearchResult(opening: Opening):

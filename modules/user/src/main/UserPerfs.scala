@@ -2,7 +2,7 @@ package lila.user
 
 import chess.Speed
 
-import lila.common.Heapsort.*
+import scalalib.HeapSort.*
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.core.rating.PerfKey
 

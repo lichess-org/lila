@@ -193,4 +193,4 @@ final class RelationApi(
     repo
       .followingLike(u, term)
       .map: list =>
-        lila.common.Heapsort.topN(list, max)(using stringOrdering[UserId].reverse)
+        scalalib.HeapSort.topN(list, max)(using stringOrdering[UserId].reverse)
