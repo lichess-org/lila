@@ -54,3 +54,6 @@ c8059e97d696d0bc3056f42d3001ab240a408cba
 # Add scalafix
 ce7eb94ec40148503673a8991ad5ee1c63617897
 cd9708a0d772fe445635ae05306f1cb9365902de
+
+# Scala Steward: Reformat with scalafmt 3.8.1
+1aae0c7b022f9e505e1ca7fec3b32efeef9f9981
