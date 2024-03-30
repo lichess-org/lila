@@ -92,12 +92,12 @@ final class Env(
 
   wire[SwissNotify]
 
-  lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "teamLeave"):
-    case lila.game.actorApi.FinishGame(game, _)          => api.finishGame(game)
-    case lila.hub.team.LeaveTeam(teamId, userId)         => api.leaveTeam(teamId, userId)
-    case lila.hub.team.KickFromTeam(teamId, userId)      => api.leaveTeam(teamId, userId)
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.kickLame(userId)
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => api.kickLame(userId)
+  lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "team"):
+    case lila.game.actorApi.FinishGame(game, _)               => api.finishGame(game)
+    case lila.hub.team.LeaveTeam(teamId, userId)              => api.leaveTeam(teamId, userId)
+    case lila.hub.team.KickFromTeam(teamId, teamName, userId) => api.leaveTeam(teamId, userId)
+    case lila.hub.actorApi.mod.MarkCheater(userId, true)      => api.kickLame(userId)
+    case lila.hub.actorApi.mod.MarkBooster(userId)            => api.kickLame(userId)
 
   LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
     api.startPendingRounds

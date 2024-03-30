@@ -106,5 +106,11 @@ final class Env(
       logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id))
     },
     "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },
-    "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) }
+    "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) },
+    "team" -> {
+      case t: lila.hub.team.TeamUpdate =>
+        logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
+      case t: lila.hub.team.KickFromTeam =>
+        logApi.teamKick(t.userId, t.teamName)(using t.me)
+    }
   )

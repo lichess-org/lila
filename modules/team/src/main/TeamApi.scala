@@ -12,7 +12,6 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.hub.actorApi.{ timeline as tl }
 import lila.memo.CacheApi.*
-import lila.mod.ModlogApi
 import lila.security.Granter
 import lila.user.{ Me, User, UserApi, UserRepo, given }
 import lila.hub.user.MyId
@@ -27,7 +26,6 @@ final class TeamApi(
     cached: Cached,
     notifier: Notifier,
     timeline: lila.hub.actors.Timeline,
-    modLog: ModlogApi,
     chatApi: ChatApi
 )(using Executor)
     extends lila.hub.team.TeamApi:
@@ -68,7 +66,7 @@ final class TeamApi(
       _ <- memberRepo.add(team.id, me.id, TeamSecurity.Permission.values.toSet)
     yield
       cached.invalidateTeamIds(me.id)
-      Bus.publish(TeamCreate(team.data), "team")
+      publish(TeamCreate(team.data))
       timeline ! tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id)
       team
 
@@ -91,10 +89,9 @@ final class TeamApi(
       _        <- teamRepo.coll.update.one($id(team.id), bsonWriteDoc(team) ++ $doc("blocklist" -> blocklist))
       isLeader <- hasPerm(team.id, me, _.Settings)
     yield
-      if !isLeader then modLog.teamEdit(team.createdBy, team.name)
       cached.forumAccess.invalidate(team.id)
       cached.lightCache.invalidate(team.id)
-      Bus.publish(TeamUpdate(team.data), "team")
+      publish(TeamUpdate(team.data))
 
   def mine(using me: Me): Fu[List[Team.WithMyLeadership]] =
     cached.teamIdsList(me).flatMap(teamRepo.byIdsSortPopular).flatMap(memberRepo.addMyLeadership)
@@ -219,7 +216,7 @@ final class TeamApi(
         teamRepo.incMembers(team.id, +1)).andDo {
         cached.invalidateTeamIds(me)
         timeline ! tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me)
-        Bus.publish(JoinTeam(id = team.id, userId = me), "team")
+        publish(JoinTeam(id = team.id, userId = me))
       }
     }
   }.recover(lila.db.ignoreDuplicateKey)
@@ -251,7 +248,7 @@ final class TeamApi(
         .so:
           teamRepo.incMembers(team.id, -1)
         .andDo:
-          Bus.publish(LeaveTeam(teamId = team.id, userId = userId), "teamLeave")
+          publish(LeaveTeam(teamId = team.id, userId = userId))
           cached.invalidateTeamIds(userId)
     }
 
@@ -286,8 +283,7 @@ final class TeamApi(
       for
         _ <- requestRepo.coll.insert.one(request)
         _ <- quit(team, userId)
-        _ <- (!Granter(_.ManageTeam)).so(modLog.teamKick(userId, team.name))
-      yield Bus.publish(KickFromTeam(teamId = team.id, userId = userId), "teamLeave")
+      yield publish(KickFromTeam(teamId = team.id, teamName = team.name, userId = userId))
   yield ()
 
   def kickMembers(team: Team, json: String)(using me: Me, req: RequestHeader): Funit =
@@ -334,7 +330,7 @@ final class TeamApi(
             users <- memberRepo.userIdsByTeam(team.id)
             _ = users.foreach(cached.invalidateTeamIds)
             _ <- requestRepo.removeByTeam(team.id)
-          yield Bus.publish(TeamDisable(team.id), "team")
+          yield publish(TeamDisable(team.id))
         else teamRepo.enable(team).void.andDo(Bus.publish(TeamUpdate(team.data), "team"))
       else memberRepo.setPerms(team.id, me, Set.empty)
 
@@ -357,7 +353,7 @@ final class TeamApi(
     (teamRepo.coll.delete.one($id(team.id)) >>
       memberRepo.removeByTeam(team.id)).andDo {
       logger.info(s"delete team ${team.id} by @${by.id}: $explain")
-      Bus.publish(TeamDelete(team.id), "team")
+      publish(TeamDelete(team.id))
     }
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
@@ -407,5 +403,7 @@ final class TeamApi(
       .sort($sort.desc("nbMembers"))
       .cursor[Team](ReadPref.sec)
       .list(max)
+
+  private def publish(msg: Any) = Bus.publish(msg, "team")
 
   export cached.nbRequests.{ get as nbRequests }

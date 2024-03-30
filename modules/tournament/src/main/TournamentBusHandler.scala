@@ -15,7 +15,7 @@ final private class TournamentBusHandler(
     "adjustCheater",
     "adjustBooster",
     "playban",
-    "teamLeave",
+    "team",
     "berserk"
   ):
 
@@ -37,7 +37,7 @@ final private class TournamentBusHandler(
     case lila.hub.actorApi.mod.MarkBooster(userId)          => ejectFromEnterable(userId)
     case lila.hub.round.Berserk(gameId, userId)             => api.berserk(gameId, userId)
     case lila.hub.actorApi.playban.Playban(userId, _, true) => api.pausePlaybanned(userId)
-    case lila.hub.team.KickFromTeam(teamId, userId)         => api.kickFromTeam(teamId, userId)
+    case lila.hub.team.KickFromTeam(teamId, _, userId)      => api.kickFromTeam(teamId, userId)
     case lila.playban.SittingDetected(game, player)         => api.sittingDetected(game, player)
 
   private def ejectFromEnterable(userId: UserId) =

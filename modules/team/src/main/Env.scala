@@ -4,7 +4,6 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 
 import lila.common.config.*
-import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 import lila.hub.socket.{ GetVersion, SocketVersion }
 
@@ -14,7 +13,6 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    modLog: ModlogApi,
     notifyApi: NotifyApi,
     socketKit: lila.hub.socket.SocketKit,
     chatApi: lila.chat.ChatApi,
