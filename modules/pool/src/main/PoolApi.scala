@@ -4,9 +4,9 @@ import akka.actor.*
 
 import lila.game.Game
 import lila.rating.PerfType
-import lila.hub.rating.{ RatingRange, PerfKey }
-import lila.hub.socket.{ Sri, Sris }
-import lila.hub.pool.{ PoolMember, PoolConfigId, Joiner }
+import lila.core.rating.{ RatingRange, PerfKey }
+import lila.core.socket.{ Sri, Sris }
+import lila.core.pool.{ PoolMember, PoolConfigId, Joiner }
 import lila.user.Me
 
 final class PoolApi(
@@ -16,7 +16,7 @@ final class PoolApi(
     playbanApi: lila.playban.PlaybanApi,
     system: ActorSystem
 )(using Executor)
-    extends lila.hub.pool.PoolApi:
+    extends lila.core.pool.PoolApi:
   import PoolActor.*
 
   private val actors: Map[PoolConfigId, ActorRef] = configs

@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.Color
-import lila.hub.game.*
+import lila.core.game.*
 
 case class Pov(game: Game, color: Color):
 

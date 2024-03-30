@@ -4,7 +4,7 @@ import lila.forum.{ ForumCateg, ForumTopic }
 import lila.security.Granter
 import lila.team.Team
 import lila.user.Me
-import lila.hub.team.Access
+import lila.core.team.Access
 
 final class ForumAccess(
     teamApi: lila.team.TeamApi,

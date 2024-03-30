@@ -5,11 +5,11 @@ import chess.variant.Variant
 import chess.{ Mode, Speed }
 import play.api.i18n.Lang
 
-import lila.hub.i18n.I18nKey as trans
+import lila.core.i18n.I18nKey as trans
 import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 trait SetupHelper:
   self: I18nHelper =>

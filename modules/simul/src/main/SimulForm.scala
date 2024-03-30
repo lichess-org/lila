@@ -9,7 +9,7 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraint
 
 import lila.common.Form.{ *, given }
-import lila.hub.team.LightTeam
+import lila.core.team.LightTeam
 import lila.user.Me
 
 object SimulForm:

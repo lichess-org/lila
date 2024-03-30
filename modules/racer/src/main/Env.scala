@@ -10,7 +10,7 @@ import lila.storm.{ StormJson, StormSelector, StormSign }
 @annotation.nowarn("msg=unused")
 final class Env(
     selector: StormSelector,
-    socketKit: lila.hub.socket.SocketKit,
+    socketKit: lila.core.socket.SocketKit,
     puzzleColls: lila.puzzle.PuzzleColls,
     cacheApi: lila.memo.CacheApi,
     stormJson: StormJson,

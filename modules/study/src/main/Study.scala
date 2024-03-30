@@ -6,8 +6,8 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.common.config.Max
 import lila.user.User
-import lila.hub.{ study as hub }
-import lila.hub.study.Visibility
+import lila.core.{ study as hub }
+import lila.core.study.Visibility
 
 case class Study(
     @Key("_id") id: StudyId,

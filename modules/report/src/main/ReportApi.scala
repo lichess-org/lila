@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi.*
 import lila.user.{ Me, User, UserApi, UserRepo, modId, given }
-import lila.hub.report.SuspectId
+import lila.core.report.SuspectId
 
 final class ReportApi(
     val coll: Coll,
@@ -20,7 +20,7 @@ final class ReportApi(
     userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
     ircApi: lila.irc.IrcApi,
-    isOnline: lila.hub.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
@@ -70,7 +70,7 @@ final class ReportApi(
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate).andDo:
                 if report.isCheat then
-                  Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
+                  Bus.publish(lila.core.actorApi.report.CheatReportCreated(report.user), "cheatReport")
           }
           .andDo(maxScoreCache.invalidateUnit())
       }
@@ -518,7 +518,7 @@ final class ReportApi(
 
   object inquiries:
 
-    private val workQueue = lila.hub.AsyncActorSequencer(
+    private val workQueue = lila.core.AsyncActorSequencer(
       maxSize = Max(32),
       timeout = 20 seconds,
       name = "report.inquiries"

@@ -8,7 +8,7 @@ import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.user.User
-import lila.hub.rating.Score
+import lila.core.rating.Score
 
 case class Simul(
     @Key("_id") id: SimulId,
@@ -32,7 +32,7 @@ case class Simul(
     text: String,
     featurable: Option[Boolean],
     conditions: SimulCondition.All
-) extends lila.hub.simul.Simul:
+) extends lila.core.simul.Simul:
   def fullName = s"$name simul"
 
   def isCreated = !isStarted
@@ -139,7 +139,7 @@ case class Simul(
 
   def pairingOf(userId: UserId) = pairings.find(_.is(userId))
   def playerIds                 = pairings.map(_.player.user)
-  def hostScore                 = lila.hub.rating.Score(wins, losses, draws, none)
+  def hostScore                 = lila.core.rating.Score(wins, losses, draws, none)
   def playerScore(userId: UserId) = pairingOf(userId).map: p =>
     Score(p.wins.has(true).so(1), p.wins.has(false).so(1), p.wins.isEmpty.so(1), none)
 

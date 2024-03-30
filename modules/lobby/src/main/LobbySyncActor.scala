@@ -2,17 +2,17 @@ package lila.lobby
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
-import lila.hub.SyncActor
-import lila.hub.socket.{ Sri, Sris }
-import lila.hub.pool.{ IsClockCompatible, HookThieve }
+import lila.core.SyncActor
+import lila.core.socket.{ Sri, Sris }
+import lila.core.pool.{ IsClockCompatible, HookThieve }
 
 final private class LobbySyncActor(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
     playbanApi: lila.playban.PlaybanApi,
-    poolApi: lila.hub.pool.PoolApi,
-    onStart: lila.hub.game.OnStart
+    poolApi: lila.core.pool.PoolApi,
+    onStart: lila.core.game.OnStart
 )(using Executor, IsClockCompatible)
     extends SyncActor:
 

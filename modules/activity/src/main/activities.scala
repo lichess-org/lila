@@ -3,7 +3,7 @@ package lila.activity
 import alleycats.Zero
 
 import lila.rating.PerfType
-import lila.hub.rating.Score
+import lila.core.rating.Score
 import lila.activity.Score.plus
 
 object activities:

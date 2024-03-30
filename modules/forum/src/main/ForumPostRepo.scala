@@ -5,7 +5,7 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.forum.Filter.*
-import lila.hub.forum.ForumPostMini
+import lila.core.forum.ForumPostMini
 import reactivemongo.api.CursorOps
 
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using

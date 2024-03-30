@@ -12,7 +12,7 @@ import Puzzle.BSONFields as F
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
-    renderer: lila.hub.actors.Renderer,
+    renderer: lila.core.actors.Renderer,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 

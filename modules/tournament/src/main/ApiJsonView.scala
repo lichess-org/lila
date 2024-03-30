@@ -7,7 +7,7 @@ import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
 import lila.rating.PerfType
 import lila.user.LightUserApi
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
 

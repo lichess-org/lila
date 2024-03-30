@@ -6,10 +6,10 @@ import controllers.routes
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ LightUser, licon }
-import lila.hub.i18n.{ Translate, I18nKey as trans }
+import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserPerfs }
-import lila.hub.rating.PerfKey
+import lila.core.rating.PerfKey
 import lila.app.mashup.*
 
 trait UserHelper extends HasEnv:
@@ -277,7 +277,7 @@ trait UserHelper extends HasEnv:
     if filter == GameFilter.Search then frag(iconTag(licon.Search), br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
-  private def transLocalize(key: lila.hub.i18n.I18nKey, number: Int)(using Translate) =
+  private def transLocalize(key: lila.core.i18n.I18nKey, number: Int)(using Translate) =
     key.pluralSameTxt(number)
 
   def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): String =

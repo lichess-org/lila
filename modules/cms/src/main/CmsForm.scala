@@ -6,7 +6,7 @@ import play.api.data.validation.Constraints
 
 import lila.common.Form.{ cleanNonEmptyText, cleanTextWithSymbols, into, slugConstraint }
 import lila.user.User
-import lila.hub.i18n.{ LangList, Language }
+import lila.core.i18n.{ LangList, Language }
 
 final class CmsForm(langList: LangList):
 

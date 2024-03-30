@@ -4,7 +4,7 @@ import chess.Color
 
 import lila.common.LightUser
 import lila.game.Game
-import lila.hub.SyncActor
+import lila.core.SyncActor
 
 final private[tv] class ChannelSyncActor(
     channel: Tv.Channel,

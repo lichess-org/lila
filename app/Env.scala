@@ -10,7 +10,7 @@ import lila.common.config.*
 import lila.common.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
-import lila.hub.i18n.Translator
+import lila.core.i18n.Translator
 
 final class Env(
     val config: Configuration,
@@ -18,7 +18,7 @@ final class Env(
     val user: lila.user.Env,
     val mailer: lila.mailer.Env,
     val security: lila.security.Env,
-    val hub: lila.hub.Env,
+    val hub: lila.core.Env,
     val socket: lila.socket.Env,
     val memo: lila.memo.Env,
     val msg: lila.msg.Env,
@@ -180,7 +180,7 @@ final class EnvBoot(
   lazy val user: lila.user.Env               = wire[lila.user.Env]
   lazy val mailer: lila.mailer.Env           = wire[lila.mailer.Env]
   lazy val security: lila.security.Env       = wire[lila.security.Env]
-  lazy val hub: lila.hub.Env                 = wire[lila.hub.Env]
+  lazy val hub: lila.core.Env                 = wire[lila.core.Env]
   lazy val socket: lila.socket.Env           = wire[lila.socket.Env]
   lazy val msg: lila.msg.Env                 = wire[lila.msg.Env]
   lazy val game: lila.game.Env               = wire[lila.game.Env]

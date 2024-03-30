@@ -2,14 +2,14 @@ package lila.mod
 
 import lila.chat.UserChat
 import lila.report.Suspect
-import lila.hub.tournament.Tournament
+import lila.core.tournament.Tournament
 import lila.user.UserRepo
-import lila.hub.swiss.{ IdName as Swiss }
+import lila.core.swiss.{ IdName as Swiss }
 
 final class PublicChat(
     chatApi: lila.chat.ChatApi,
-    tournamentApi: lila.hub.tournament.TournamentApi,
-    swissFeature: lila.hub.swiss.SwissFeatureApi,
+    tournamentApi: lila.core.tournament.TournamentApi,
+    swissFeature: lila.core.swiss.SwissFeatureApi,
     userRepo: UserRepo
 )(using Executor):
 

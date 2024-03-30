@@ -3,13 +3,13 @@ package lila.push
 import akka.actor.*
 import play.api.libs.json.*
 
-import lila.hub.challenge.Challenge
+import lila.core.challenge.Challenge
 import lila.common.String.shorten
 import lila.common.{ LazyFu, LightUser, LilaFuture }
 import lila.game.{ Game, Namer, Pov }
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.push.TourSoon
-import lila.hub.round.{ IsOnGame, MoveEvent }
+import lila.core.actorApi.map.Tell
+import lila.core.actorApi.push.TourSoon
+import lila.core.round.{ IsOnGame, MoveEvent }
 import lila.notify.*
 
 final private class PushApi(
@@ -19,7 +19,7 @@ final private class PushApi(
     roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
-    postApi: lila.hub.forum.ForumPostApi
+    postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
   import PushApi.*
@@ -406,7 +406,7 @@ final private class PushApi(
       monitor(lila.mon.push.send)("firebaseData", res.isSuccess, 1)
 
   private def describeChallenge(c: Challenge) =
-    import lila.hub.challenge.Challenge.TimeControl.*
+    import lila.core.challenge.Challenge.TimeControl.*
     List(
       if c.mode.rated then "Rated" else "Casual",
       c.timeControl match

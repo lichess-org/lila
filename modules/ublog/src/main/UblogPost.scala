@@ -2,7 +2,7 @@ package lila.ublog
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.hub.i18n.Language
+import lila.core.i18n.Language
 import lila.memo.{ PicfitImage, PicfitUrl }
 import lila.user.{ Me, User }
 
@@ -25,7 +25,7 @@ case class UblogPost(
     rankAdjustDays: Option[Int],
     pinned: Option[Boolean]
 ) extends UblogPost.BasePost
-    with lila.hub.ublog.UblogPost:
+    with lila.core.ublog.UblogPost:
 
   def isBy[U: UserIdOf](u: U) = created.by.is(u)
 
@@ -39,7 +39,7 @@ case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Op
 
 object UblogPost:
 
-  export lila.hub.ublog.UblogPost.*
+  export lila.core.ublog.UblogPost.*
 
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]
@@ -49,7 +49,7 @@ object UblogPost:
   opaque type RankDate = Instant
   object RankDate extends OpaqueInstant[RankDate]
 
-  trait BasePost extends lila.hub.ublog.UblogPost:
+  trait BasePost extends lila.core.ublog.UblogPost:
     val blog: UblogBlog.Id
     val title: String
     val intro: String

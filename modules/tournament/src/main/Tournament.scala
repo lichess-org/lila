@@ -8,11 +8,11 @@ import ornicar.scalalib.ThreadLocalRandom
 import scala.util.chaining.*
 
 import lila.gathering.GreatPlayer
-import lila.hub.i18n.defaultLang
+import lila.core.i18n.defaultLang
 import lila.rating.PerfType
 import lila.user.{ Me, User }
-import lila.hub.i18n.Translate
-import lila.hub.tournament.Status
+import lila.core.i18n.Translate
+import lila.core.tournament.Status
 
 case class Tournament(
     id: TourId,
@@ -38,7 +38,7 @@ case class Tournament(
     spotlight: Option[Spotlight] = None,
     description: Option[String] = None,
     hasChat: Boolean = true
-) extends lila.hub.tournament.Tournament:
+) extends lila.core.tournament.Tournament:
 
   def isCreated   = status == Status.Created
   def isStarted   = status == Status.Started
@@ -52,7 +52,7 @@ case class Tournament(
 
   def name(full: Boolean = true)(using Translate): String =
     if isMarathon || isUnique then name
-    else if isTeamBattle && full then lila.hub.i18n.I18nKey.tourname.xTeamBattle.txt(name)
+    else if isTeamBattle && full then lila.core.i18n.I18nKey.tourname.xTeamBattle.txt(name)
     else if isTeamBattle then name
     else schedule.fold(if full then s"$name Arena" else name)(_.name(full))
 

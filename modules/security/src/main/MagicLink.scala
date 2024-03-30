@@ -4,7 +4,7 @@ import scalatags.Text.all.*
 
 import lila.common.EmailAddress
 import lila.common.config.*
-import lila.hub.i18n.I18nKey.emails as trans
+import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
@@ -13,7 +13,7 @@ final class MagicLink(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using Executor, lila.hub.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator):
 
   import Mailer.html.*
 
@@ -21,7 +21,7 @@ final class MagicLink(
     tokener.make(user.id).flatMap { token =>
       lila.mon.email.send.magicLink.increment()
       val url                  = s"$baseUrl/auth/magic-link/login/$token"
-      given play.api.i18n.Lang = user.realLang | lila.hub.i18n.defaultLang
+      given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
       mailer.send(
         Mailer.Message(
           to = email,

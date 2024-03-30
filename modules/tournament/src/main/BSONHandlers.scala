@@ -9,8 +9,8 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.User.lichessId
-import lila.hub.tournament.leaderboard.Ratio
-import lila.hub.tournament.Status
+import lila.core.tournament.leaderboard.Ratio
+import lila.core.tournament.Status
 
 object BSONHandlers:
 

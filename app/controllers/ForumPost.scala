@@ -4,7 +4,7 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.IpAddress
-import lila.hub.i18n.I18nKey as trans
+import lila.core.i18n.I18nKey as trans
 import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:

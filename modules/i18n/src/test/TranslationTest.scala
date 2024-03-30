@@ -3,14 +3,14 @@ package lila.i18n
 import play.api.i18n.Lang
 
 import scala.jdk.CollectionConverters.*
-import lila.hub.i18n.I18nKey
-import lila.hub.i18n.defaultLang
+import lila.core.i18n.I18nKey
+import lila.core.i18n.defaultLang
 
 class TranslationTest extends munit.FunSuite:
 
   Registry.syncLoadLanguages()
 
-  given lila.hub.i18n.Translator = lila.i18n.Translator
+  given lila.core.i18n.Translator = lila.i18n.Translator
 
   test("be valid") {
     val en     = Registry.getAll(defaultLang).get

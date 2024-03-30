@@ -4,7 +4,7 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.tournament.leaderboard.Ratio
+import lila.core.tournament.leaderboard.Ratio
 
 final private class LeaderboardIndexer(
     pairingRepo: PairingRepo,

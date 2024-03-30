@@ -2,9 +2,9 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsObject, JsString }
-import lila.hub.i18n.{ I18nKey, Translate }
+import lila.core.i18n.{ I18nKey, Translate }
 
-object JsDump extends lila.hub.i18n.JsDump:
+object JsDump extends lila.core.i18n.JsDump:
 
   private val quantitySuffix: I18nQuantity => String =
     case I18nQuantity.Zero  => ":zero"

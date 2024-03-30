@@ -7,12 +7,12 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
 import lila.user.User.{ LightCount, LightPerf }
-import lila.hub.rating.PerfId
+import lila.core.rating.PerfId
 
 final class Cached(
     userRepo: UserRepo,
     userApi: UserApi,
-    onlineUserIds: lila.hub.socket.OnlineIds,
+    onlineUserIds: lila.core.socket.OnlineIds,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi

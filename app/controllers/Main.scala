@@ -8,7 +8,7 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.hub.actorApi.captcha.ValidCaptcha
+import lila.core.actorApi.captcha.ValidCaptcha
 
 import Forms.*
 

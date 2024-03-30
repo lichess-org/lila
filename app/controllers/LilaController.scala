@@ -29,7 +29,7 @@ abstract private[controllers] class LilaController(val env: Env)
   given Executor                 = env.executor
   given Scheduler                = env.scheduler
   given FormBinding              = parse.formBinding(parse.DefaultMaxTextLength)
-  given lila.hub.i18n.Translator = env.translator
+  given lila.core.i18n.Translator = env.translator
 
   given netDomain: lila.common.config.NetDomain = env.net.domain
 

@@ -17,9 +17,9 @@ import lila.game.{ Game, Pov }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 import lila.rating.Perf
-import lila.hub.round.QuietFlag
+import lila.core.round.QuietFlag
 import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
-import lila.hub.swiss.{ IdName, SwissFinish }
+import lila.core.swiss.{ IdName, SwissFinish }
 
 final class SwissApi(
     mongo: SwissMongo,
@@ -39,9 +39,9 @@ final class SwissApi(
     lightUserApi: lila.user.LightUserApi,
     roundSocket: lila.round.RoundSocket
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
-    extends lila.hub.swiss.SwissApi:
+    extends lila.core.swiss.SwissApi:
 
-  private val sequencer = lila.hub.AsyncActorSequencers[SwissId](
+  private val sequencer = lila.core.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events
     expiration = 20 minutes,
     timeout = 10 seconds,
@@ -341,7 +341,7 @@ final class SwissApi(
 
   private[swiss] def kickLame(userId: UserId) =
     Bus
-      .ask[List[TeamId]]("teamJoinedBy")(lila.hub.team.TeamIdsJoinedBy(userId, _))
+      .ask[List[TeamId]]("teamJoinedBy")(lila.core.team.TeamIdsJoinedBy(userId, _))
       .flatMap { joinedPlayableSwissIds(userId, _) }
       .flatMap { kickFromSwissIds(userId, _, forfeit = true) }
 
@@ -601,7 +601,7 @@ final class SwissApi(
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
                   Bus.publish(
-                    lila.hub.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag),
+                    lila.core.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag),
                     "roundSocket"
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))

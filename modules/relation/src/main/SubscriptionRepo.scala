@@ -7,7 +7,7 @@ import lila.relation.RelationRepo.makeId
 
 final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
     Executor
-) extends lila.hub.relation.SubscriptionRepo:
+) extends lila.core.relation.SubscriptionRepo:
 
   private val coll = colls.subscription
 

@@ -1,6 +1,6 @@
 package lila.user
 
-import lila.hub.user.MyId
+import lila.core.user.MyId
 
 final class GetBotIds(f: () => Fu[Set[UserId]]) extends (() => Fu[Set[UserId]]):
   def apply() = f()
@@ -11,7 +11,7 @@ final class RankingsOf(f: UserId => lila.rating.UserRankMap) extends (UserId => 
 /* User who is currently logged in */
 opaque type Me = User
 object Me extends TotalWrapper[Me, User]:
-  export lila.hub.user.MyId as Id
+  export lila.core.user.MyId as Id
   given UserIdOf[Me]                           = _.id
   given Conversion[Me, User]                   = identity
   given Conversion[Me, UserId]                 = _.id

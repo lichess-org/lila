@@ -4,12 +4,12 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.game.Pov
-import lila.hub.SyncActor
-import lila.hub.actorApi.timeline.*
+import lila.core.SyncActor
+import lila.core.actorApi.timeline.*
 import lila.rating.RatingRange
-import lila.hub.game.ChangeFeatured
-import lila.hub.socket.{ protocol as P, * }
-import lila.hub.pool.PoolConfigId
+import lila.core.game.ChangeFeatured
+import lila.core.socket.{ protocol as P, * }
+import lila.core.pool.PoolConfigId
 import lila.user.Me
 
 case class LobbyCounters(members: Int, rounds: Int)
@@ -21,7 +21,7 @@ final class LobbySocket(
     socketKit: SocketKit,
     lobby: LobbySyncActor,
     relationApi: lila.relation.RelationApi,
-    poolApi: lila.hub.pool.PoolApi,
+    poolApi: lila.core.pool.PoolApi,
     cacheApi: lila.memo.CacheApi
 )(using ec: Executor, scheduler: Scheduler):
 
@@ -96,7 +96,7 @@ final class LobbySocket(
         send(Out.tellLobbyUsers(List(seek.user.id), gameStartRedirect(game.pov(creatorColor))))
         send(Out.tellLobbyUsers(List(userId), gameStartRedirect(game.pov(!creatorColor))))
 
-      case lila.hub.pool.Pairings(pairings) => send(Out.pairings(pairings))
+      case lila.core.pool.Pairings(pairings) => send(Out.pairings(pairings))
 
       case HookIds(ids) => tellActiveHookSubscribers(makeMessage("hli", ids.mkString("")))
 
@@ -198,7 +198,7 @@ final class LobbySocket(
           perfsRepo.glicko(user.id, perfType).foreach { glicko =>
             poolApi.join(
               PoolConfigId(id),
-              lila.hub.pool.Joiner(
+              lila.core.pool.Joiner(
                 sri = member.sri,
                 rating = glicko.establishedIntRating | IntRating(
                   lila.common.Maths.boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
@@ -233,7 +233,7 @@ final class LobbySocket(
             socketKit.baseHandler(P.In.ConnectUser(u.id))
             relationApi.fetchBlocking(u.id)
           .map: blocks =>
-            val member = Member(sri, user.map { LobbyUser.make(_, lila.hub.pool.Blocking(blocks)) })
+            val member = Member(sri, user.map { LobbyUser.make(_, lila.core.pool.Blocking(blocks)) })
             actor ! Join(member)
             member
       }
@@ -290,7 +290,7 @@ private object LobbySocket:
             (m.toIntOption, r.toIntOption).mapN(Counters.apply)
           }
     object Out:
-      def pairings(pairings: List[lila.hub.pool.Pairing]) =
+      def pairings(pairings: List[lila.core.pool.Pairing]) =
         val redirs = for
           pairing <- pairings
           color   <- chess.Color.all

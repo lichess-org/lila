@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
-import lila.hub.i18n.I18nKey.storm as s
+import lila.core.i18n.I18nKey.storm as s
 
 object racer:
 

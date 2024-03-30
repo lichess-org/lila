@@ -6,7 +6,7 @@ import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
 import lila.common.LightUser
 import lila.common.config.BaseUrl
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final class PgnDump(
     baseUrl: BaseUrl,
@@ -62,7 +62,7 @@ final class PgnDump(
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
-  private def eventOf(game: Game)(using lila.hub.i18n.Translate) =
+  private def eventOf(game: Game)(using lila.core.i18n.Translate) =
     val perf = game.perfType.trans
     game.tournamentId
       .map(id => s"${game.mode} $perf tournament https://lichess.org/tournament/$id")
@@ -79,7 +79,7 @@ final class PgnDump(
       withOpening: Boolean,
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
-  )(using lila.hub.i18n.Translate): Fu[Tags] =
+  )(using lila.core.i18n.Translate): Fu[Tags] =
     gameLightUsers(game).map:
       case ByColor(wu, bu) =>
         Tags:

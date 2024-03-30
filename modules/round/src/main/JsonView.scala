@@ -22,7 +22,7 @@ final class JsonView(
     takebacker: Takebacker,
     moretimer: Moretimer,
     divider: lila.game.Divider,
-    isOfferingRematch: lila.hub.round.IsOfferingRematch
+    isOfferingRematch: lila.core.round.IsOfferingRematch
 )(using Executor):
 
   import lila.tree.ExportOptions
@@ -311,7 +311,7 @@ final class JsonView(
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
 
-  private val moretimeJson = ("moretime" -> JsNumber(lila.hub.round.Moretime.defaultDuration.toSeconds))
+  private val moretimeJson = ("moretime" -> JsNumber(lila.core.round.Moretime.defaultDuration.toSeconds))
   private[round] def clockJson(clock: Clock): JsObject =
     Json.toJsObject(clock) + moretimeJson
 

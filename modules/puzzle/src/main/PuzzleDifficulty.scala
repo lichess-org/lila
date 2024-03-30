@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import lila.hub.i18n.I18nKey
+import lila.core.i18n.I18nKey
 
 enum PuzzleDifficulty(val ratingDelta: Int, val name: I18nKey):
   lazy val key = toString.toLowerCase

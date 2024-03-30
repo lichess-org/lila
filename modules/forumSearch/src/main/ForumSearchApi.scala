@@ -5,7 +5,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.search.*
-import lila.hub.forum.{ ForumPostApi, ForumPostMini, ForumPostMiniView }
+import lila.core.forum.{ ForumPostApi, ForumPostMini, ForumPostMiniView }
 
 final class ForumSearchApi(
     client: ESClient,

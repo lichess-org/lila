@@ -8,9 +8,9 @@ import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.notify.NotifyApi
 import lila.pref.PrefApi
-import lila.hub.relation.RelationApi
+import lila.core.relation.RelationApi
 import lila.user.User
-import lila.hub.forum.ForumPostMiniView
+import lila.core.forum.ForumPostMiniView
 
 @Module
 final private class ForumConfig(
@@ -24,13 +24,13 @@ final class Env(
     db: lila.db.Db,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    captcher: lila.hub.actors.Captcher,
-    timeline: lila.hub.actors.Timeline,
-    shutup: lila.hub.actors.Shutup,
+    captcher: lila.core.actors.Captcher,
+    timeline: lila.core.actors.Timeline,
+    shutup: lila.core.actors.Shutup,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     prefApi: PrefApi,
-    modLog: lila.hub.mod.LogApi,
+    modLog: lila.core.mod.LogApi,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
@@ -64,7 +64,7 @@ final class Env(
     postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
-    case lila.hub.team.TeamCreate(t)    => categApi.makeTeam(t.id, t.name, t.userId)
+    case lila.core.team.TeamCreate(t)    => categApi.makeTeam(t.id, t.name, t.userId)
     case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
 
 private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]

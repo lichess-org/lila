@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.i18n.I18nKey as trans
+import lila.core.i18n.I18nKey as trans
 import lila.tournament.Tournament
 
 object bits:

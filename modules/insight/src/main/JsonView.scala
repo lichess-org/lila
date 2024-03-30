@@ -3,7 +3,7 @@ package lila.insight
 import play.api.libs.json.*
 
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final class JsonView:
 

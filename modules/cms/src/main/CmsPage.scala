@@ -2,7 +2,7 @@ package lila.cms
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.hub.i18n.Language
+import lila.core.i18n.Language
 
 case class CmsPage(
     @Key("_id") id: CmsPage.Id,

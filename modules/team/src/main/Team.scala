@@ -7,9 +7,9 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import scala.util.chaining.*
 
-import lila.hub.team.{ TeamData, LightTeam }
+import lila.core.team.{ TeamData, LightTeam }
 import lila.user.User
-import lila.hub.team.Access
+import lila.core.team.Access
 
 case class Team(
     @Key("_id") id: TeamId, // also the url slug

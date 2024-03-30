@@ -6,11 +6,11 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.user.User
-import lila.hub.simul.Simul
+import lila.core.simul.Simul
 
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
-    studyApi: lila.hub.study.StudyApi,
+    studyApi: lila.core.study.StudyApi,
     userRepo: lila.user.UserRepo
 )(using Executor):
 
@@ -37,21 +37,21 @@ final class ActivityWriteApi(
       setGames ++ setCorres
     ).parallel.void
 
-  def forumPost(post: lila.hub.forum.ForumPostMini): Funit =
+  def forumPost(post: lila.core.forum.ForumPostMini): Funit =
     post.userId
       .filterNot(_.is(User.lichessId))
       .so: userId =>
         update(userId): a =>
           $doc(ActivityFields.forumPosts -> (~a.forumPosts + post.id))
 
-  def ublogPost(post: lila.hub.ublog.UblogPost): Funit = update(post.created.by): a =>
+  def ublogPost(post: lila.core.ublog.UblogPost): Funit = update(post.created.by): a =>
     $doc(ActivityFields.ublogPosts -> (~a.ublogPosts + post.id))
 
   def puzzle(res: lila.puzzle.Puzzle.UserResult): Funit = update(res.userId): a =>
     $doc(ActivityFields.puzzles -> {
       ~a.puzzles + Score.make(
         res = res.win.yes.some,
-        rp = lila.hub.rating.RatingProg(res.rating._1, res.rating._2).some
+        rp = lila.core.rating.RatingProg(res.rating._1, res.rating._2).some
       )
     })
 
@@ -67,7 +67,7 @@ final class ActivityWriteApi(
   def learn(userId: UserId, stage: String) = update(userId): a =>
     $doc(ActivityFields.learn -> { ~a.learn + LearnStage(stage) })
 
-  def practice(prog: lila.hub.practice.OnComplete) = update(prog.userId): a =>
+  def practice(prog: lila.core.practice.OnComplete) = update(prog.userId): a =>
     $doc(ActivityFields.practice -> { ~a.practice + prog.studyId })
 
   def simul(simul: Simul) =
@@ -105,7 +105,7 @@ final class ActivityWriteApi(
     studyApi
       .byId(id)
       .flatMap:
-        _.filter(_.visibility == lila.hub.study.Visibility.public).so: s =>
+        _.filter(_.visibility == lila.core.study.Visibility.public).so: s =>
           userRepo
             .isTroll(s.ownerId)
             .not
@@ -121,7 +121,7 @@ final class ActivityWriteApi(
     update(userId): _ =>
       $doc(ActivityFields.stream -> true)
 
-  def swiss(id: SwissId, ranking: lila.hub.swiss.Ranking) =
+  def swiss(id: SwissId, ranking: lila.core.swiss.Ranking) =
     ranking.toList.traverse_ : (userId, rank) =>
       update(userId): a =>
         $doc(ActivityFields.swisses -> { ~a.swisses + SwissRank(id, rank) })

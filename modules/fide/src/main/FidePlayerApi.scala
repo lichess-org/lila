@@ -4,7 +4,7 @@ import chess.{ ByColor, FideId, PlayerName, PlayerTitle }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.fide.Federation
+import lila.core.fide.Federation
 
 final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 

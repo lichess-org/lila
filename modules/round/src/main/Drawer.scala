@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import lila.common.Bus
 import lila.game.{ Event, Game, Pov, Progress }
-import lila.hub.i18n.{ I18nKey as trans, defaultLang, Translator }
+import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.pref.{ Pref, PrefApi }
 
 final private[round] class Drawer(
@@ -88,7 +88,7 @@ final private[round] class Drawer(
   private def publishDrawOffer(game: Game): Unit = if game.nonAi then
     if game.isCorrespondence then
       Bus.publish(
-        lila.hub.round.CorresDrawOfferEvent(game.id),
+        lila.core.round.CorresDrawOfferEvent(game.id),
         "offerEventCorres"
       )
     if lila.game.Game.isBoardOrBotCompatible(game) then

@@ -1,9 +1,9 @@
 package lila.lobby
 
-import lila.hub.pool.Blocking
+import lila.core.pool.Blocking
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User
-import lila.hub.rating.PerfKey
+import lila.core.rating.PerfKey
 
 private[lobby] case class LobbyUser(
     id: UserId,

@@ -6,7 +6,7 @@ import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situ
 
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches }
-import lila.hub.i18n.{ I18nKey as trans, defaultLang, Translator }
+import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.memo.ExpireSetMemo
 import lila.user.{ GameUsers, UserApi }
 
@@ -16,7 +16,7 @@ final private class Rematcher(
     gameRepo: GameRepo,
     userApi: UserApi,
     messenger: Messenger,
-    onStart: lila.hub.game.OnStart,
+    onStart: lila.core.game.OnStart,
     rematches: Rematches
 )(using Executor, lila.game.IdGenerator, Translator):
 
@@ -51,7 +51,7 @@ final private class Rematcher(
   def no(pov: Pov): Fu[Events] =
     if isOffering(pov.ref) then
       pov.opponent.userId.foreach: forId =>
-        Bus.publish(lila.hub.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
+        Bus.publish(lila.core.round.RematchCancel(pov.gameId), s"rematchFor:$forId")
       messenger.volatile(pov.game, trans.site.rematchOfferCanceled.txt())
     else if isOffering(!pov.ref) then
       declined.put(pov.fullId)
@@ -69,7 +69,7 @@ final private class Rematcher(
     rematches.offer(pov.ref).map { _ =>
       messenger.volatile(pov.game, trans.site.rematchOfferSent.txt())
       pov.opponent.userId.foreach: forId =>
-        Bus.publish(lila.hub.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
+        Bus.publish(lila.core.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
       List(Event.RematchOffer(by = pov.color.some))
     }
 
@@ -104,7 +104,7 @@ final private class Rematcher(
         chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),
         mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
-        source = pov.game.source | lila.hub.game.Source.Lobby,
+        source = pov.game.source | lila.core.game.Source.Lobby,
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
       )

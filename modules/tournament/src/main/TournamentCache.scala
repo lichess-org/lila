@@ -11,7 +11,7 @@ final class TournamentCache(
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi
-)(using Executor)(using translator: lila.hub.i18n.Translator):
+)(using Executor)(using translator: lila.core.i18n.Translator):
 
   object tourCache:
     private val cache = cacheApi[TourId, Option[Tournament]](128, "tournament.tournament"):

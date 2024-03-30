@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.msg.{ MsgApi, MsgPreset }
 import lila.user.{ NoteApi, UserRepo }
-import lila.hub.game.Source
+import lila.core.game.Source
 
 final class PlaybanApi(
     coll: Coll,
@@ -224,7 +224,7 @@ final class PlaybanApi(
         lila.mon.playban.ban.count.increment()
         lila.mon.playban.ban.mins.record(ban.mins)
         Bus.publish(
-          lila.hub.actorApi.playban
+          lila.core.actorApi.playban
             .Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena)),
           "playban"
         )
@@ -249,7 +249,7 @@ final class PlaybanApi(
         (delta < 0 && record.rageSit.isVeryBad).so:
           messenger.postPreset(record.userId, MsgPreset.sittingAuto).void.andDo {
             Bus.publish(
-              lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
+              lila.core.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
               "autoWarning"
             )
             if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then
@@ -258,6 +258,6 @@ final class PlaybanApi(
                 .flatMapz: user =>
                   noteApi
                     .lichessWrite(user, "Closed for ragesit recidive")
-                    .andDo(Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose"))
+                    .andDo(Bus.publish(lila.core.actorApi.playban.RageSitClose(user.id), "rageSitClose"))
           }
       case _ => funit

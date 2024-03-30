@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import java.text.NumberFormat
 import java.util.concurrent.ConcurrentHashMap
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 trait NumberHelper:
   self: I18nHelper =>

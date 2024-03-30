@@ -3,7 +3,7 @@ package lila.puzzle
 import chess.opening.{ Opening, OpeningDb, OpeningKey }
 
 import lila.common.{ Iso, LilaOpeningFamily, SimpleOpening }
-import lila.hub.i18n.I18nKey
+import lila.core.i18n.I18nKey
 
 sealed abstract class PuzzleAngle(val key: String):
   val name: I18nKey

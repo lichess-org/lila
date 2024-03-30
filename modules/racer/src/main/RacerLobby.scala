@@ -14,7 +14,7 @@ final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: akka.actor.
         api.join(raceId, player)
         raceId
 
-  private val workQueue = lila.hub.AsyncActorSequencer(
+  private val workQueue = lila.core.AsyncActorSequencer(
     maxSize = Max(128),
     timeout = 20 seconds,
     name = "racer.lobby"

@@ -11,7 +11,7 @@ final class RatingChartApi(
     historyApi: HistoryApi,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi
-)(using Executor, lila.hub.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator):
 
   def apply(user: User): Fu[Option[SafeJsonStr]] = cache.get(user.id)
 
@@ -32,7 +32,7 @@ final class RatingChartApi(
       Json.arr(date.getYear, date.getMonthValue - 1, date.getDayOfMonth, rating)
 
   private def build(userId: UserId): Fu[Option[SafeJsonStr]] =
-    given Lang = lila.hub.i18n.defaultLang
+    given Lang = lila.core.i18n.defaultLang
     userRepo.createdAtById(userId).flatMapz { createdAt =>
       historyApi
         .get(userId)

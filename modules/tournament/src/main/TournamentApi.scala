@@ -14,11 +14,11 @@ import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
-import lila.hub.team.LightTeam
-import lila.hub.round.{ AbortForce, GoBerserk }
+import lila.core.team.LightTeam
+import lila.core.round.{ AbortForce, GoBerserk }
 import lila.tournament.TeamBattle.TeamInfo
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
-import lila.hub.tournament.Status
+import lila.core.tournament.Status
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -44,8 +44,8 @@ final class TournamentApi(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
-)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.hub.i18n.Translator)
-    extends lila.hub.tournament.TournamentApi:
+)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator)
+    extends lila.core.tournament.TournamentApi:
 
   export tournamentRepo.{ byId as get }
 
@@ -608,7 +608,7 @@ final class TournamentApi(
     scheduledCreatedAndStarted.dmap: (created, started) =>
       VisibleTournaments(created, started, Nil)
 
-  def fetchModable: Fu[List[lila.hub.tournament.Tournament]] =
+  def fetchModable: Fu[List[lila.core.tournament.Tournament]] =
     fetchVisibleTournaments.map(_.all)
 
   def playerInfo(tour: Tournament, userId: UserId): Fu[Option[PlayerInfoExt]] =
@@ -617,7 +617,7 @@ final class TournamentApi(
         PlayerInfoExt(userId, player, povs).some
     }
 
-  def allCurrentLeadersInStandard: Fu[Map[lila.hub.tournament.Tournament, List[UserId]]] =
+  def allCurrentLeadersInStandard: Fu[Map[lila.core.tournament.Tournament, List[UserId]]] =
     tournamentRepo.standardPublicStartedFromSecondary.flatMap:
       _.traverse: tour =>
         tournamentTop(tour.id).dmap(tour -> _.value.map(_.userId))
@@ -718,10 +718,10 @@ final class TournamentApi(
 
   private object publish:
     private val debouncer = Debouncer[Unit](15 seconds, 1): _ =>
-      given play.api.i18n.Lang = lila.hub.i18n.defaultLang
+      given play.api.i18n.Lang = lila.core.i18n.defaultLang
       fetchUpdateTournaments.flatMap(apiJsonView.apply).foreach { json =>
         Bus.publish(
-          lila.hub.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
+          lila.core.socket.SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
           "sendToFlag"
         )
       }
@@ -740,13 +740,13 @@ final class TournamentApi(
         val lastHash: Int = ~lastPublished.getIfPresent(tourId)
         if lastHash != top.hashCode then
           Bus.publish(
-            lila.hub.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
+            lila.core.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
             "tourStanding"
           )
           lastPublished.put(tourId, top.hashCode)
       }
 
-    private val throttler = new lila.hub.EarlyMultiThrottler[TourId](logger)
+    private val throttler = new lila.core.EarlyMultiThrottler[TourId](logger)
 
     def apply(tour: Tournament): Unit =
       if !tour.isTeamBattle then throttler(tour.id, 15.seconds) { publishNow(tour.id) }

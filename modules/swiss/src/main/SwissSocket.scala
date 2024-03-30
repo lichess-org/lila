@@ -1,9 +1,9 @@
 package lila.swiss
 
-import lila.hub.LateMultiThrottler
-import lila.hub.team.IsLeaderWithCommPerm
+import lila.core.LateMultiThrottler
+import lila.core.team.IsLeaderWithCommPerm
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.hub.socket.{ protocol as P, * }
+import lila.core.socket.{ protocol as P, * }
 
 final private class SwissSocket(
     socketKit: SocketKit,

@@ -8,7 +8,7 @@ import lila.tv.Tv.Channel
 @Module
 final class Env(
     gameRepo: lila.game.GameRepo,
-    renderer: lila.hub.actors.Renderer,
+    renderer: lila.core.actors.Renderer,
     lightUserApi: lila.user.LightUserApi,
     lightUserSync: lila.common.LightUser.GetterSync,
     gameProxyRepo: lila.round.GameProxyRepo,

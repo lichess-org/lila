@@ -5,7 +5,7 @@ import com.github.benmanes.caffeine.cache.RemovalCause
 import java.util.concurrent.atomic.AtomicInteger
 
 // send a request to lila-ws and await a response
-object SocketRequest extends lila.hub.socket.SocketRequester:
+object SocketRequest extends lila.core.socket.SocketRequester:
 
   private val counter = AtomicInteger(0)
 
@@ -16,7 +16,7 @@ object SocketRequest extends lila.hub.socket.SocketRequester:
     .build[Int, Promise[String]]()
   private val asMap = inFlight.asMap()
 
-  def apply[R]: lila.hub.socket.SocketRequest[R] = (sendReq, readRes) =>
+  def apply[R]: lila.core.socket.SocketRequest[R] = (sendReq, readRes) =>
     executor ?=>
       val id = counter.getAndIncrement()
       sendReq(id)

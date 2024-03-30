@@ -10,13 +10,13 @@ import lila.chat.BusChan
 import lila.common.Json.given
 import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.{ Event, Game, Pov }
-import lila.hub.AsyncActorConcMap
-import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
-import lila.hub.game.TvSelect
-import lila.hub.round.*
-import lila.hub.actorApi.socket.remote.TellSriIn
+import lila.core.AsyncActorConcMap
+import lila.core.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
+import lila.core.game.TvSelect
+import lila.core.round.*
+import lila.core.actorApi.socket.remote.TellSriIn
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.hub.socket.{ protocol as P, * }
+import lila.core.socket.{ protocol as P, * }
 
 final class RoundSocket(
     socketKit: ParallelSocketKit,
@@ -211,7 +211,7 @@ final class RoundSocket(
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
           sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
-    case lila.hub.round.DeleteUnplayed(gameId) => finishRound(gameId)
+    case lila.core.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
   Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan):
     case lila.chat.ChatLine(id, l) =>
@@ -415,7 +415,7 @@ object RoundSocket:
         val seconds = Math.ceil(millis / 1000d / tickSeconds).toInt * tickSeconds
         s"r/goneIn $fullId $seconds"
 
-      def tellVersion(roomId: RoomId, version: SocketVersion, e: lila.hub.game.Event) =
+      def tellVersion(roomId: RoomId, version: SocketVersion, e: lila.core.game.Event) =
         val flags = StringBuilder(2)
         if e.watcher then flags += 's'
         else if e.owner then flags += 'p'

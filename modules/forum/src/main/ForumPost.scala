@@ -5,7 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.security.Granter
 import lila.user.{ Me, User }
-import lila.hub.forum.ForumPostMini
+import lila.core.forum.ForumPostMini
 
 case class OldVersion(text: String, createdAt: Instant)
 
@@ -25,7 +25,7 @@ case class ForumPost(
     erasedAt: Option[Instant] = None,
     modIcon: Option[Boolean],
     reactions: Option[ForumPost.Reactions] = None
-) extends lila.hub.forum.ForumPost:
+) extends lila.core.forum.ForumPost:
 
   private def showAuthor: String =
     author.map(_.trim).filter("" !=) | (if ~modIcon then User.anonymous.value else User.anonMod)

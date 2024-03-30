@@ -9,8 +9,8 @@ import lila.clas.{ Clas, ClasInvite }
 import lila.puzzle.PuzzleTheme
 import lila.rating.Perf
 import lila.report.Report
-import lila.hub.socket.Sri
-import lila.hub.rating.PerfKey
+import lila.core.socket.Sri
+import lila.core.rating.PerfKey
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
@@ -77,7 +77,7 @@ object ReverseRouterConversions:
   given Conversion[ForumTopicId, String]                             = _.value
   given Conversion[lila.cms.CmsPage.Id, String]                      = _.value
   given Conversion[lila.cms.CmsPage.Key, String]                     = _.value
-  given Conversion[lila.hub.i18n.Language, String]                   = _.value
+  given Conversion[lila.core.i18n.Language, String]                   = _.value
   given Conversion[chess.FideId, Int]                                = _.value
   given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value

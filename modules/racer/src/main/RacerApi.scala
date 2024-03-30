@@ -49,7 +49,7 @@ final class RacerApi(
       lila.mon.racer.race(lobby = race.isLobby).increment()
       race.id
 
-  private val rematchQueue = lila.hub.AsyncActorSequencer(
+  private val rematchQueue = lila.core.AsyncActorSequencer(
     maxSize = Max(32),
     timeout = 20 seconds,
     name = "racer.rematch"
@@ -93,7 +93,7 @@ final class RacerApi(
       race.players.foreach: player =>
         lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
         player.user.ifTrue(player.score > 0).foreach { user =>
-          Bus.publish(lila.hub.actorApi.puzzle.RacerRun(user.id, player.score), "racerRun")
+          Bus.publish(lila.core.actorApi.puzzle.RacerRun(user.id, player.score), "racerRun")
           perfsRepo.addRacerRun(user.id, player.score)
         }
       publish(race)

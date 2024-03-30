@@ -4,8 +4,8 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.timeline.{ Propagate, UblogPostLike }
-import lila.hub.i18n.Language
+import lila.core.actorApi.timeline.{ Propagate, UblogPostLike }
+import lila.core.i18n.Language
 import lila.user.{ Me, User }
 
 object UblogRank:
@@ -65,14 +65,14 @@ object UblogRank:
         val tierBase    = 24 * tierDays.map.getOrElse(tier, 0)
         val adjustBonus = 24 * days
         val likesBonus  = math.sqrt(likes.value * 25) + likes.value / 100
-        val langBonus   = if language == lila.hub.i18n.defaultLanguage then 0 else -24 * 10
+        val langBonus   = if language == lila.core.i18n.defaultLanguage then 0 else -24 * 10
 
         (tierBase + likesBonus + langBonus + adjustBonus).toInt
   }
 
 final class UblogRank(
     colls: UblogColls,
-    timeline: lila.hub.actors.Timeline
+    timeline: lila.core.actors.Timeline
 )(using Executor, akka.stream.Materializer):
 
   import UblogBsonHandlers.given, UblogRank.Tier

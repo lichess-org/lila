@@ -5,7 +5,7 @@ import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
-import lila.hub.i18n.I18nKey
+import lila.core.i18n.I18nKey
 
 final class PuzzleApi(
     colls: PuzzleColls,
@@ -55,7 +55,7 @@ final class PuzzleApi(
 
   object vote:
 
-    private val sequencer = lila.hub.AsyncActorSequencers[PuzzleId](
+    private val sequencer = lila.core.AsyncActorSequencers[PuzzleId](
       maxSize = Max(32),
       expiration = 1 minute,
       timeout = 3 seconds,

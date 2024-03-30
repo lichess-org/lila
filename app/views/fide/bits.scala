@@ -1,7 +1,7 @@
 package views.html.fide
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.hub.fide.FideTC
+import lila.core.fide.FideTC
 
 private object bits:
 
@@ -16,7 +16,7 @@ private object bits:
         div(cls := "page-menu__content box")(modifiers)
       )
 
-  val tcTrans: List[(FideTC, lila.hub.i18n.I18nKey)] =
+  val tcTrans: List[(FideTC, lila.core.i18n.I18nKey)] =
     List(
       FideTC.standard -> trans.site.classical,
       FideTC.rapid    -> trans.site.rapid,

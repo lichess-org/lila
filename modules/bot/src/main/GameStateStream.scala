@@ -19,14 +19,14 @@ import lila.game.actorApi.{
   MoveGameEvent
 }
 import lila.game.{ Game, Pov }
-import lila.hub.actorApi.map.Tell
-import lila.hub.round.BotConnected
-import lila.hub.round.QuietFlag
+import lila.core.actorApi.map.Tell
+import lila.core.round.BotConnected
+import lila.core.round.QuietFlag
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
     jsonView: BotJsonView
-)(using system: ActorSystem)(using Executor, lila.hub.i18n.Translator):
+)(using system: ActorSystem)(using Executor, lila.core.i18n.Translator):
 
   import GameStateStream.*
 

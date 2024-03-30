@@ -17,7 +17,7 @@ private class TeamSearchConfig(
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
-    teamApi: lila.hub.team.TeamApi
+    teamApi: lila.core.team.TeamApi
 )(using Executor, akka.stream.Materializer):
 
   private val config = appConfig.get[TeamSearchConfig]("teamSearch")(AutoConfig.loader)
@@ -38,7 +38,7 @@ final class Env(
     }
 
   lila.common.Bus.subscribeFun("team"):
-    case lila.hub.team.TeamCreate(team) => api.store(team)
-    case lila.hub.team.TeamUpdate(team) => api.store(team)
-    case lila.hub.team.TeamDelete(id)   => client.deleteById(id.into(Id))
-    case lila.hub.team.TeamDisable(id)  => client.deleteById(id.into(Id))
+    case lila.core.team.TeamCreate(team) => api.store(team)
+    case lila.core.team.TeamUpdate(team) => api.store(team)
+    case lila.core.team.TeamDelete(id)   => client.deleteById(id.into(Id))
+    case lila.core.team.TeamDisable(id)  => client.deleteById(id.into(Id))

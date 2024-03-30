@@ -4,9 +4,9 @@ import akka.stream.scaladsl.*
 
 import lila.security.Granter as MasterGranter
 import lila.user.{ Me, User, given }
-import lila.hub.forum.{ RemovePost, RemovePosts }
+import lila.core.forum.{ RemovePost, RemovePosts }
 import lila.common.Bus
-import lila.hub.user.MyId
+import lila.core.user.MyId
 
 final class ForumDelete(
     postRepo: ForumPostRepo,

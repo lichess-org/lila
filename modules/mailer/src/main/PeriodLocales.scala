@@ -2,7 +2,7 @@ package lila.mailer
 
 import play.api.i18n.Lang
 import java.time.Duration
-import lila.hub.i18n.{ Translate, I18nKey }
+import lila.core.i18n.{ Translate, I18nKey }
 
 object PeriodLocales:
 

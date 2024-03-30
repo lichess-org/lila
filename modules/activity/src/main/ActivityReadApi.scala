@@ -7,21 +7,21 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
 import lila.game.LightPov
 import lila.user.User
-import lila.hub.swiss.{ IdName as SwissIdName }
+import lila.core.swiss.{ IdName as SwissIdName }
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
     gameRepo: lila.game.GameRepo,
-    getPracticeStudies: lila.hub.practice.GetStudies,
-    forumPostApi: lila.hub.forum.ForumPostApi,
-    ublogApi: lila.hub.ublog.UblogApi,
-    simulApi: lila.hub.simul.SimulApi,
-    studyApi: lila.hub.study.StudyApi,
-    tourLeaderApi: lila.hub.tournament.leaderboard.Api,
-    swissApi: lila.hub.swiss.SwissApi,
-    teamApi: lila.hub.team.TeamApi,
+    getPracticeStudies: lila.core.practice.GetStudies,
+    forumPostApi: lila.core.forum.ForumPostApi,
+    ublogApi: lila.core.ublog.UblogApi,
+    simulApi: lila.core.simul.SimulApi,
+    studyApi: lila.core.study.StudyApi,
+    tourLeaderApi: lila.core.tournament.leaderboard.Api,
+    swissApi: lila.core.swiss.SwissApi,
+    teamApi: lila.core.team.TeamApi,
     lightUserApi: lila.user.LightUserApi,
-    getTourName: lila.hub.tournament.GetTourName
+    getTourName: lila.core.tournament.GetTourName
 )(using Executor):
 
   import BSONHandlers.{ *, given }
@@ -51,7 +51,7 @@ final class ActivityReadApi(
     _ <- getTourName.preload(views.flatMap(_.tours.so(_.best.map(_.tourId))))
   yield ()
 
-  private def one(practiceStudies: Option[lila.hub.practice.Studies], a: Activity): Fu[ActivityView] =
+  private def one(practiceStudies: Option[lila.core.practice.Studies], a: Activity): Fu[ActivityView] =
     for
       allForumPosts <- a.forumPosts.soFu: p =>
         forumPostApi
@@ -111,7 +111,7 @@ final class ActivityReadApi(
                 ActivityView.Tours(
                   nb = entries.size,
                   best = Heapsort.topN(entries, activities.maxSubEntries)(using
-                    Ordering.by[lila.hub.tournament.leaderboard.Entry, Double](-_.rankRatio.value)
+                    Ordering.by[lila.core.tournament.leaderboard.Entry, Double](-_.rankRatio.value)
                   )
                 )
               )

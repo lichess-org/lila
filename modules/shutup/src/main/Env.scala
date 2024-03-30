@@ -15,9 +15,9 @@ private class ShutupConfig(
 
 final class Env(
     appConfig: Configuration,
-    reporter: lila.hub.actors.Report,
-    relationApi: lila.hub.relation.RelationApi,
-    gameRepo: lila.hub.game.GameRepo,
+    reporter: lila.core.actors.Report,
+    relationApi: lila.core.relation.RelationApi,
+    gameRepo: lila.core.game.GameRepo,
     userRepo: UserRepo,
     db: lila.db.Db
 )(using ec: Executor, system: ActorSystem):
@@ -31,7 +31,7 @@ final class Env(
   // api actor
   system.actorOf(
     Props(new Actor:
-      import lila.hub.actorApi.shutup.*
+      import lila.core.actorApi.shutup.*
       def receive =
         case RecordTeamForumMessage(userId, text)         => api.teamForumMessage(userId, text)
         case RecordPrivateMessage(userId, toUserId, text) => api.privateMessage(userId, toUserId, text)

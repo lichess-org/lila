@@ -3,7 +3,7 @@ package lila.team
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.team.{ Access, LightTeam, TeamData }
+import lila.core.team.{ Access, LightTeam, TeamData }
 
 private object BSONHandlers:
 

@@ -11,8 +11,8 @@ import lila.report.Suspect
 
 final class Env(
     appConfig: Configuration,
-    tournamentApi: lila.hub.tournament.TournamentApi,
-    modApi: lila.hub.mod.ModApi,
+    tournamentApi: lila.core.tournament.TournamentApi,
+    modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     userCache: lila.user.Cached,

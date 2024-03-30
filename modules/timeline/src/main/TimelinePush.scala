@@ -2,17 +2,17 @@ package lila.timeline
 
 import akka.actor.*
 
-import lila.hub.actorApi.timeline.{ Atom, Propagate, Propagation, ReloadTimelines }
+import lila.core.actorApi.timeline.{ Atom, Propagate, Propagation, ReloadTimelines }
 import lila.security.Permission
 import lila.user.UserRepo
-import lila.hub.team.Access
+import lila.core.team.Access
 
 final private[timeline] class TimelinePush(
-    relationApi: lila.hub.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     userRepo: UserRepo,
     entryApi: EntryApi,
     unsubApi: UnsubApi,
-    teamApi: lila.hub.team.TeamApi
+    teamApi: lila.core.team.TeamApi
 ) extends Actor:
 
   private given Executor = context.dispatcher

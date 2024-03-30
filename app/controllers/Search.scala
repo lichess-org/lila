@@ -5,7 +5,7 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.{ IpAddress, config }
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 final class Search(env: Env) extends LilaController(env):
 

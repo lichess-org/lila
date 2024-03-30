@@ -26,8 +26,8 @@ import lila.common.Days
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
-import lila.hub.game.{ GameRule, Source }
-import lila.hub.rating.PerfKey
+import lila.core.game.{ GameRule, Source }
+import lila.core.rating.PerfKey
 
 case class Game(
     override val id: GameId,

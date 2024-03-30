@@ -12,7 +12,7 @@ import lila.common.{ Bearer, IpAddress, Preload }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ EndpointScopes, OAuthScope }
 import lila.setup.ApiConfig
-import lila.hub.socket.SocketVersion
+import lila.core.socket.SocketVersion
 import lila.user.User as UserModel
 
 final class Challenge(
@@ -195,9 +195,9 @@ final class Challenge(
         api.activeByIdFor(id, me).flatMap {
           case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
           case None =>
-            import lila.hub.actorApi.map.Tell
-            import lila.hub.round.Abort
-            import lila.hub.round.AbortForce
+            import lila.core.actorApi.map.Tell
+            import lila.core.round.Abort
+            import lila.core.round.AbortForce
             env.game.gameRepo
               .game(id.into(GameId))
               .dmap {
@@ -248,7 +248,7 @@ final class Challenge(
                 env.round.proxyRepo.upgradeIfPresent(g).dmap(some).dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
               }
               .orNotFound { game =>
-                env.round.tellRound(game.id, lila.hub.round.StartClock)
+                env.round.tellRound(game.id, lila.core.round.StartClock)
                 jsonOkResult
               }
 

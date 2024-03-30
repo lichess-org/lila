@@ -10,12 +10,12 @@ import scala.util.chaining.*
 import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.{ timeline as tl }
+import lila.core.actorApi.{ timeline as tl }
 import lila.memo.CacheApi.*
 import lila.security.Granter
 import lila.user.{ Me, User, UserApi, UserRepo, given }
-import lila.hub.user.MyId
-import lila.hub.team.*
+import lila.core.user.MyId
+import lila.core.team.*
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -25,10 +25,10 @@ final class TeamApi(
     userApi: UserApi,
     cached: Cached,
     notifier: Notifier,
-    timeline: lila.hub.actors.Timeline,
+    timeline: lila.core.actors.Timeline,
     chatApi: ChatApi
 )(using Executor)
-    extends lila.hub.team.TeamApi:
+    extends lila.core.team.TeamApi:
 
   import BSONHandlers.given
 

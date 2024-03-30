@@ -6,7 +6,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
-import lila.hub.actorApi.bookmark.*
+import lila.core.actorApi.bookmark.*
 
 @Module
 final private class BookmarkConfig(
@@ -40,4 +40,4 @@ final class Env(
   )
 
   lila.common.Bus.subscribeFun("roundUnplayed"):
-    case lila.hub.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
+    case lila.core.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)

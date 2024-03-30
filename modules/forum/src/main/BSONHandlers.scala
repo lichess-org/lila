@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.common.Iso
 import lila.db.dsl.{ *, given }
-import lila.hub.forum.{ ForumPostMini, ForumTopicMini }
+import lila.core.forum.{ ForumPostMini, ForumTopicMini }
 
 private object BSONHandlers:
 

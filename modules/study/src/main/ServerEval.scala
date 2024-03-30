@@ -6,7 +6,7 @@ import play.api.libs.json.*
 
 import lila.analyse.{ Advice, Analysis, Info }
 import lila.db.dsl.bsonWriteOpt
-import lila.hub.actorApi.fishnet.StudyChapterRequest
+import lila.core.actorApi.fishnet.StudyChapterRequest
 import lila.security.Granter
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
@@ -15,7 +15,7 @@ import lila.user.{ User, UserRepo }
 object ServerEval:
 
   final class Requester(
-      fishnet: lila.hub.actors.Fishnet,
+      fishnet: lila.core.actors.Fishnet,
       chapterRepo: ChapterRepo,
       userRepo: UserRepo
   )(using Executor):

@@ -4,7 +4,7 @@ package templating
 import play.api.i18n.Lang
 
 import ui.ScalatagsTemplate.*
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 trait StringHelper:
   self: I18nHelper & NumberHelper =>

@@ -6,7 +6,7 @@ import chess.format.Fen
 import ornicar.scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
-import lila.hub.swiss.IdName
+import lila.core.swiss.IdName
 
 case class Swiss(
     @Key("_id") id: SwissId,

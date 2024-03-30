@@ -14,7 +14,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     prefApi: lila.pref.PrefApi,
-    relationApi: lila.hub.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
 )(using Executor, Scheduler, akka.stream.Materializer):

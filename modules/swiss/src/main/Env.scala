@@ -6,7 +6,7 @@ import play.api.Configuration
 import lila.common.LilaScheduler
 import lila.common.config.*
 import lila.db.dsl.Coll
-import lila.hub.socket.{ GetVersion, SocketVersion }
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -16,8 +16,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.hub.game.OnStart,
-    socketKit: lila.hub.socket.SocketKit,
+    onStart: lila.core.game.OnStart,
+    socketKit: lila.core.socket.SocketKit,
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
@@ -94,10 +94,10 @@ final class Env(
 
   lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "team"):
     case lila.game.actorApi.FinishGame(game, _)               => api.finishGame(game)
-    case lila.hub.team.LeaveTeam(teamId, userId)              => api.leaveTeam(teamId, userId)
-    case lila.hub.team.KickFromTeam(teamId, teamName, userId) => api.leaveTeam(teamId, userId)
-    case lila.hub.actorApi.mod.MarkCheater(userId, true)      => api.kickLame(userId)
-    case lila.hub.actorApi.mod.MarkBooster(userId)            => api.kickLame(userId)
+    case lila.core.team.LeaveTeam(teamId, userId)              => api.leaveTeam(teamId, userId)
+    case lila.core.team.KickFromTeam(teamId, teamName, userId) => api.leaveTeam(teamId, userId)
+    case lila.core.actorApi.mod.MarkCheater(userId, true)      => api.kickLame(userId)
+    case lila.core.actorApi.mod.MarkBooster(userId)            => api.kickLame(userId)
 
   LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
     api.startPendingRounds

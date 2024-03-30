@@ -7,10 +7,10 @@ import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.hub.actorApi.socket.{ SendTo, SendTos }
+import lila.core.actorApi.socket.{ SendTo, SendTos }
 import lila.memo.CacheApi.*
 import lila.user.{ User, UserRepo }
-import lila.hub.i18n.{ Translator, LangPicker }
+import lila.core.i18n.{ Translator, LangPicker }
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,

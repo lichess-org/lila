@@ -10,10 +10,10 @@ import lila.common.config.Max
 import lila.common.{ Bus, Days, LilaStream, Template }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player }
-import lila.hub.AsyncActorSequencers
-import lila.hub.actorApi.map.TellMany
+import lila.core.AsyncActorSequencers
+import lila.core.actorApi.map.TellMany
 import lila.rating.PerfType
-import lila.hub.round.StartClock
+import lila.core.round.StartClock
 import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
 
@@ -22,7 +22,7 @@ final class ChallengeBulkApi(
     msgApi: ChallengeMsg,
     gameRepo: lila.game.GameRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.hub.game.OnStart
+    onStart: lila.core.game.OnStart
 )(using Executor, akka.stream.Materializer, Scheduler):
 
   import lila.game.BSONHandlers.given
@@ -105,7 +105,7 @@ final class ChallengeBulkApi(
             chess = chessGame,
             players = users.map(some).mapWithColor(Player.make),
             mode = bulk.mode,
-            source = lila.hub.game.Source.Api,
+            source = lila.core.game.Source.Api,
             daysPerTurn = bulk.clock.toOption,
             pgnImport = None,
             rules = bulk.rules

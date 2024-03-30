@@ -52,7 +52,7 @@ case class ForumCateg(
 
 object ForumCateg:
 
-  export lila.hub.forum.ForumCateg.*
+  export lila.core.forum.ForumCateg.*
 
   val ublogId      = ForumCategId("community-blog-discussions")
   val diagnosticId = ForumCategId("diagnostic")

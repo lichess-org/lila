@@ -4,7 +4,7 @@ import chess.FideId
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.{ fide as hub }
+import lila.core.{ fide as hub }
 
 final private class FideRepo(
     private[fide] val playerColl: Coll,

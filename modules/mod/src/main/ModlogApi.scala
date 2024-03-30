@@ -12,7 +12,7 @@ import lila.user.{ Me, User, UserRepo, given }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
-) extends lila.hub.mod.LogApi:
+) extends lila.core.mod.LogApi:
   import repo.coll
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler

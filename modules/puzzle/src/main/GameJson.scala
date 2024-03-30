@@ -12,9 +12,9 @@ final private class GameJson(
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
-)(using Executor, lila.hub.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator):
 
-  given play.api.i18n.Lang = lila.hub.i18n.defaultLang
+  given play.api.i18n.Lang = lila.core.i18n.defaultLang
 
   def apply(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
     (if bc then bcCache else cache).get(writeKey(gameId, plies))

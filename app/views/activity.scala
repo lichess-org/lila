@@ -6,10 +6,10 @@ import lila.activity.activities.*
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
-import lila.hub.forum.ForumTopicMini
-import lila.hub.forum.ForumPostMini
-import lila.hub.rating.Score
-import lila.hub.rating.RatingProg
+import lila.core.forum.ForumTopicMini
+import lila.core.forum.ForumPostMini
+import lila.core.rating.Score
+import lila.core.rating.RatingProg
 
 object activity:
 
@@ -55,7 +55,7 @@ object activity:
       )
     )
 
-  private def renderPractice(p: Map[lila.hub.practice.Study, Int])(using Context) =
+  private def renderPractice(p: Map[lila.core.practice.Study, Int])(using Context) =
     val ps = p.toSeq.sortBy(-_._2)
     entryTag(
       iconTag(licon.Bullseye),
@@ -67,7 +67,7 @@ object activity:
       )
     )
 
-  private def onePractice(tup: (lila.hub.practice.Study, Int))(using Context) =
+  private def onePractice(tup: (lila.core.practice.Study, Int))(using Context) =
     val (study, nb) = tup
     val href        = routes.Practice.show("-", study.slug, study.id)
     frag(
@@ -242,7 +242,7 @@ object activity:
       )
     )
 
-  private def renderSimuls(u: User)(simuls: List[lila.hub.simul.Simul])(using Context) =
+  private def renderSimuls(u: User)(simuls: List[lila.core.simul.Simul])(using Context) =
     entryTag(
       iconTag(licon.Group),
       div(
@@ -267,7 +267,7 @@ object activity:
       )
     )
 
-  private def renderStudies(studies: List[lila.hub.study.IdName])(using Context) =
+  private def renderStudies(studies: List[lila.core.study.IdName])(using Context) =
     entryTag(
       iconTag(licon.StudyBoard),
       div(
@@ -315,7 +315,7 @@ object activity:
       )
     )
 
-  private def renderSwisses(swisses: List[(lila.hub.swiss.IdName, Rank)])(using Context) =
+  private def renderSwisses(swisses: List[(lila.core.swiss.IdName, Rank)])(using Context) =
     entryTag(
       iconTag(licon.Trophy),
       div(
@@ -371,7 +371,7 @@ object activity:
   private def ratingProgFrag(r: RatingProg)(using ctx: Context) =
     ctx.pref.showRatings.option(ratingTag(r.after.value, ratingProgress(r.diff)))
 
-  private def scoreStr(tag: String, p: Int, name: lila.hub.i18n.I18nKey)(using Translate) =
+  private def scoreStr(tag: String, p: Int, name: lila.core.i18n.I18nKey)(using Translate) =
     if p == 0 then ""
     else s"""<$tag>${wrapNumber(name.pluralSameTxt(p))}</$tag>"""
 

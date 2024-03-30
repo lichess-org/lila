@@ -12,7 +12,7 @@ import lila.user.GameUser
 final private class ChallengeJoiner(
     gameRepo: lila.game.GameRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.hub.game.OnStart
+    onStart: lila.core.game.OnStart
 )(using Executor):
 
   def apply(c: Challenge, destUser: GameUser): Fu[Either[String, Pov]] =
@@ -44,7 +44,7 @@ private object ChallengeJoiner:
         players = ByColor: color =>
           Player.make(color, if c.finalColor == color then origUser else destUser),
         mode = if chessGame.board.variant.fromPosition then Mode.Casual else c.mode,
-        source = lila.hub.game.Source.Friend,
+        source = lila.core.game.Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,
         rules = c.rules

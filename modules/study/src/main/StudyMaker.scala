@@ -10,7 +10,7 @@ final private class StudyMaker(
     gameRepo: lila.game.GameRepo,
     chapterMaker: ChapterMaker,
     pgnDump: lila.game.PgnDump
-)(using Executor, lila.hub.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator):
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId
@@ -60,7 +60,7 @@ final private class StudyMaker(
       user: User,
       withRatings: Boolean
   ): Fu[Study.WithChapter] = {
-    given play.api.i18n.Lang = lila.hub.i18n.defaultLang
+    given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
       root <- chapterMaker.makeRoot(pov.game, data.form.pgnStr, initialFen)
       tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)

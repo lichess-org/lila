@@ -17,7 +17,7 @@ class AnnotatorTest extends munit.FunSuite:
         g,
         ByColor(lila.game.Player.make(_, none)),
         mode = chess.Mode.Casual,
-        source = lila.hub.game.Source.Api,
+        source = lila.core.game.Source.Api,
         pgnImport = none
       )
       .sloppy
@@ -38,7 +38,7 @@ class AnnotatorTest extends munit.FunSuite:
       .get
       .state
 
-  import lila.hub.i18n.*
+  import lila.core.i18n.*
   import play.api.i18n.Lang
   given Translator = new Translator:
     def to(lang: Lang): Translate = Translate(this, lang)

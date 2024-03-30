@@ -4,26 +4,26 @@ import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
-import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
+import lila.core.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.Granter as MasterGranter
 import lila.user.{ Me, User, given }
-import lila.hub.forum.{ ForumPost as _, ForumCateg as _, * }
+import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
     topicRepo: ForumTopicRepo,
     categRepo: ForumCategRepo,
     mentionNotifier: MentionNotifier,
-    modLog: lila.hub.mod.LogApi,
+    modLog: lila.core.mod.LogApi,
     config: ForumConfig,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    timeline: lila.hub.actors.Timeline,
-    shutup: lila.hub.actors.Shutup,
+    timeline: lila.core.actors.Timeline,
+    shutup: lila.core.actors.Shutup,
     detectLanguage: DetectLanguage
 )(using Executor)(using scheduler: Scheduler)
-    extends lila.hub.forum.ForumPostApi:
+    extends lila.core.forum.ForumPostApi:
 
   import BSONHandlers.given
 

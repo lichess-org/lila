@@ -9,9 +9,9 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.common.Days
 import lila.game.Game
-import lila.hub.i18n.I18nKey
-import lila.hub.{ challenge as hub }
-import lila.hub.game.GameRule
+import lila.core.i18n.I18nKey
+import lila.core.{ challenge as hub }
+import lila.core.game.GameRule
 import lila.rating.PerfType
 import lila.user.{ GameUser, Me, User }
 

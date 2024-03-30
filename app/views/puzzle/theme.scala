@@ -5,7 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.i18n.I18nKey
+import lila.core.i18n.I18nKey
 import lila.puzzle.{ PuzzleAngle, PuzzleTheme }
 
 object theme:

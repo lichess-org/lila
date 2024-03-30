@@ -8,7 +8,7 @@ import play.api.i18n.Lang
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LightUser
 import lila.game.{ Game, LightPlayer, Namer, Player, Pov }
-import lila.hub.i18n.{ I18nKey as trans, defaultLang, Translate }
+import lila.core.i18n.{ I18nKey as trans, defaultLang, Translate }
 
 trait GameHelper:
   self: RouterHelper & I18nHelper & UserHelper & AiHelper & StringHelper & NumberHelper & ChessgroundHelper =>

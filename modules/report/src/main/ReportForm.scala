@@ -6,7 +6,7 @@ import play.api.data.validation.*
 
 import lila.common.{ LightUser, config }
 import lila.user.{ Me, User }
-import lila.hub.report.SuspectId
+import lila.core.report.SuspectId
 
 final private[report] class ReportForm(
     lightUserAsync: LightUser.Getter,

@@ -5,7 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.study.Study
-import lila.hub.study.IdName
+import lila.core.study.IdName
 
 object create:
 

@@ -12,8 +12,8 @@ import scala.concurrent.blocking
 import lila.common.String.html.nl2br
 import lila.common.autoconfig.*
 import lila.common.{ Chronometer, EmailAddress }
-import lila.hub.i18n.I18nKey.emails as trans
-import lila.hub.i18n.Translate
+import lila.core.i18n.I18nKey.emails as trans
+import lila.core.i18n.Translate
 
 final class Mailer(
     config: Mailer.Config,
@@ -121,9 +121,9 @@ $serviceNote"""
           " ",
           trans.common_contact(noteContact),
           " ",
-          lila.hub.i18n.I18nKey.site.readAboutOur(
+          lila.core.i18n.I18nKey.site.readAboutOur(
             a(href := "https://lichess.org/privacy")(
-              lila.hub.i18n.I18nKey.site.privacyPolicy()
+              lila.core.i18n.I18nKey.site.privacyPolicy()
             )
           )
         )

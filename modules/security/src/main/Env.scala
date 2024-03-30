@@ -27,7 +27,7 @@ final class Env(
     oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
     db: lila.db.Db
-)(using Executor, play.api.Mode, lila.hub.i18n.Translator)(using scheduler: Scheduler):
+)(using Executor, play.api.Mode, lila.core.i18n.Translator)(using scheduler: Scheduler):
 
   private val (baseUrl, domain) = (net.baseUrl, net.domain)
 

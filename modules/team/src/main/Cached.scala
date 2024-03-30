@@ -3,9 +3,9 @@ package lila.team
 import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
-import lila.hub.team.LightTeam
+import lila.core.team.LightTeam
 import lila.memo.Syncache
-import lila.hub.team.Access
+import lila.core.team.Access
 
 final class Cached(
     teamRepo: TeamRepo,

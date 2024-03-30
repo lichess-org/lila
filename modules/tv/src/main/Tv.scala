@@ -4,7 +4,7 @@ import chess.PlayerTitle
 
 import lila.common.{ LightUser, licon }
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.SyncActor
+import lila.core.SyncActor
 
 final class Tv(
     gameRepo: GameRepo,

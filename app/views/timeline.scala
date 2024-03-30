@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.actorApi.timeline.*
+import lila.core.actorApi.timeline.*
 
 object timeline:
 
@@ -74,7 +74,7 @@ object timeline:
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          lila.rating.PerfType(lila.hub.rating.PerfKey(perfKey)).map { perf =>
+          lila.rating.PerfType(lila.core.rating.PerfKey(perfKey)).map { perf =>
             (win match
               case Some(true)  => trans.site.victoryVsYInZ
               case Some(false) => trans.site.defeatVsYInZ

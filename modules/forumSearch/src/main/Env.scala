@@ -6,7 +6,7 @@ import play.api.Configuration
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.search.*
-import lila.hub.forum.{ CreatePost, RemovePost, RemovePosts, ErasePost, ErasePosts }
+import lila.core.forum.{ CreatePost, RemovePost, RemovePosts, ErasePost, ErasePosts }
 
 @Module
 private class ForumSearchConfig(
@@ -17,7 +17,7 @@ private class ForumSearchConfig(
 final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
-    postApi: lila.hub.forum.ForumPostApi
+    postApi: lila.core.forum.ForumPostApi
 )(using Executor, akka.stream.Materializer):
 
   private val config = appConfig.get[ForumSearchConfig]("forumSearch")(AutoConfig.loader)

@@ -4,12 +4,12 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.LightUser
-import lila.hub.relation.Relations
+import lila.core.relation.Relations
 import lila.user.Me
 
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,
-    isOnline: lila.hub.socket.IsOnline
+    isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
   private given lastMsgWrites: OWrites[Msg.Last]    = Json.writes

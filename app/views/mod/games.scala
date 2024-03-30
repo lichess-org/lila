@@ -21,7 +21,7 @@ object games:
       filterForm: Form[GameMod.Filter],
       games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
       arenas: Seq[TourEntry],
-      swisses: Seq[(lila.hub.swiss.IdName, Rank)]
+      swisses: Seq[(lila.core.swiss.IdName, Rank)]
   )(using PageContext) =
     views.html.base.layout(
       title = s"${user.username} games",

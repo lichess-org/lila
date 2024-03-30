@@ -3,7 +3,7 @@ package lila.lobby
 import chess.{ ByColor, Game as ChessGame, Situation }
 
 import lila.game.{ Game, Player }
-import lila.hub.socket.Sri
+import lila.core.socket.Sri
 import lila.user.{ GameUsers, User }
 
 final private class Biter(
@@ -79,7 +79,7 @@ final private class Biter(
       ),
       players = users.mapWithColor(Player.make),
       mode = hook.realMode,
-      source = lila.hub.game.Source.Lobby,
+      source = lila.core.game.Source.Lobby,
       pgnImport = None
     )
     .start
@@ -92,7 +92,7 @@ final private class Biter(
       ),
       players = users.mapWithColor(Player.make),
       mode = seek.realMode,
-      source = lila.hub.game.Source.Lobby,
+      source = lila.core.game.Source.Lobby,
       daysPerTurn = seek.daysPerTurn,
       pgnImport = None
     )

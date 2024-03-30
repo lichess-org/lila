@@ -20,7 +20,7 @@ import lila.mod.UserWithModlog
 import lila.rating.{ Perf, PerfType }
 import lila.security.{ Granter, UserLogins }
 import lila.user.User as UserModel
-import lila.hub.rating.PerfKey
+import lila.core.rating.PerfKey
 
 final class User(
     override val env: Env,

@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.LightUser
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 case class Chart(
     question: JsonQuestion,

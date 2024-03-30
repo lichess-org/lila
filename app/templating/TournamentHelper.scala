@@ -11,7 +11,7 @@ import lila.common.licon
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
-import lila.hub.i18n.Translate
+import lila.core.i18n.Translate
 
 trait TournamentHelper extends HasEnv:
   self: I18nHelper & DateHelper & UserHelper & StringHelper & NumberHelper =>
@@ -50,7 +50,7 @@ trait TournamentHelper extends HasEnv:
   object scheduledTournamentNameShortHtml:
     private def icon(c: licon.Icon) = s"""<span data-icon="$c"></span>"""
     private val replacements =
-      given lila.hub.i18n.Translate = lila.i18n.Translator.toDefault
+      given lila.core.i18n.Translate = lila.i18n.Translator.toDefault
       List(
         "Lichess "    -> "",
         "Marathon"    -> icon(licon.Globe),

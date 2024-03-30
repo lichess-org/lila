@@ -13,7 +13,7 @@ import lila.user.User
 
 final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using
     Executor,
-    lila.hub.i18n.Translator
+    lila.core.i18n.Translator
 ):
 
   import StripeClient.*
@@ -47,7 +47,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       ) ::: data.isLifetime.so {
         List(
           "line_items[0][description]" ->
-            lila.hub.i18n.I18nKey.patron.payLifetimeOnce.txt(data.checkout.money.display)
+            lila.core.i18n.I18nKey.patron.payLifetimeOnce.txt(data.checkout.money.display)
         )
       } ::: data.giftTo.so { giftTo =>
         List(

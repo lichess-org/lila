@@ -7,7 +7,7 @@ import reactivemongo.api.bson.*
 import java.time.Period
 
 import lila.db.dsl.{ *, given }
-import lila.hub.team.{ LightTeam, Access, TeamData }
+import lila.core.team.{ LightTeam, Access, TeamData }
 import reactivemongo.akkastream.AkkaStreamCursor
 
 final class TeamRepo(val coll: Coll)(using Executor):

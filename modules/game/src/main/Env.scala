@@ -32,7 +32,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
 )(using system: ActorSystem, scheduler: Scheduler)(using
-    lila.hub.i18n.Translator,
+    lila.core.i18n.Translator,
     Executor,
     Materializer,
     play.api.Mode

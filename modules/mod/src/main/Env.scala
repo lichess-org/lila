@@ -4,20 +4,20 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 
 import lila.common.config.*
-import lila.hub.report.SuspectId
+import lila.core.report.SuspectId
 import lila.user.{ Me, User }
 
 @Module
 final class Env(
     db: lila.db.Db,
-    reporter: lila.hub.actors.Report,
-    fishnet: lila.hub.actors.Fishnet,
+    reporter: lila.core.actors.Report,
+    fishnet: lila.core.actors.Fishnet,
     perfStat: lila.perfStat.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
-    tournamentApi: lila.hub.tournament.TournamentApi,
-    swissFeature: lila.hub.swiss.SwissFeatureApi,
+    tournamentApi: lila.core.tournament.TournamentApi,
+    swissFeature: lila.core.swiss.SwissFeatureApi,
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     userRepo: lila.user.UserRepo,
@@ -31,7 +31,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.irc.IrcApi,
     msgApi: lila.msg.MsgApi
-)(using Executor, Scheduler, lila.hub.i18n.Translator):
+)(using Executor, Scheduler, lila.core.i18n.Translator):
   private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))
   private lazy val historyRepo    = HistoryRepo(db(CollName("mod_gaming_history")))
@@ -93,27 +93,27 @@ final class Env(
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
       assessApi.onAnalysisReady(game, analysis)
     },
-    "deletePublicChats" -> { case lila.hub.actorApi.security.DeletePublicChats(userId) =>
+    "deletePublicChats" -> { case lila.core.actorApi.security.DeletePublicChats(userId) =>
       publicChat.deleteAll(userId)
     },
-    "autoWarning" -> { case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
+    "autoWarning" -> { case lila.core.actorApi.mod.AutoWarning(userId, subject) =>
       logApi.modMessage(userId, subject)(using User.lichessIdAsMe)
     },
-    "selfReportMark" -> { case lila.hub.actorApi.mod.SelfReportMark(suspectId, name) =>
+    "selfReportMark" -> { case lila.core.actorApi.mod.SelfReportMark(suspectId, name) =>
       api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using User.lichessIdAsMe)
     },
-    "chatTimeout" -> { case lila.hub.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
+    "chatTimeout" -> { case lila.core.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id))
     },
     "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },
     "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) },
     "team" -> {
-      case t: lila.hub.team.TeamUpdate =>
+      case t: lila.core.team.TeamUpdate =>
         logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
-      case t: lila.hub.team.KickFromTeam =>
+      case t: lila.core.team.KickFromTeam =>
         logApi.teamKick(t.userId, t.teamName)(using t.me)
     },
-    "forum" -> { case p: lila.hub.forum.RemovePost =>
+    "forum" -> { case p: lila.core.forum.RemovePost =>
       if p.asAdmin
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
       else

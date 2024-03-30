@@ -9,7 +9,7 @@ import lila.common.{ Bus, LilaScheduler }
 
 final private class Streaming(
     api: StreamerApi,
-    isOnline: lila.hub.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.UserIds,
     twitchApi: TwitchApi,
@@ -41,7 +41,7 @@ final private class Streaming(
                     alwaysFeatured().value.contains(s.userId)
                   }
                 }
-                .map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.hub.i18n.defaultLang) }
+                .map { Twitch.Stream(name, title, _, Lang.get(langStr) | lila.core.i18n.defaultLang) }
             }.flatten
           }
           .zip(ytApi.fetchStreams(streamers))
@@ -58,7 +58,7 @@ final private class Streaming(
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     Bus.publish(
-      lila.hub.actorApi.streamer
+      lila.core.actorApi.streamer
         .StreamersOnline(newStreams.streams.map(s => (s.streamer.userId, s.streamer.name.value))),
       "streamersOnline"
     )
@@ -71,7 +71,7 @@ final private class Streaming(
           import s.streamer.userId
           if streamStartOnceEvery(userId) then
             Bus.publish(
-              lila.hub.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
+              lila.core.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
               "streamStart"
             )
         }

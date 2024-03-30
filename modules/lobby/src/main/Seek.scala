@@ -8,9 +8,9 @@ import play.api.libs.json.*
 import lila.common.Days
 import lila.common.Json.given
 import lila.rating.{ Perf, PerfType }
-import lila.hub.rating.RatingRange
+import lila.core.rating.RatingRange
 import lila.user.User
-import lila.hub.rating.PerfKey
+import lila.core.rating.PerfKey
 
 // correspondence chess, persistent
 case class Seek(
@@ -77,7 +77,7 @@ object Seek:
       color: String,
       user: User.WithPerfs,
       ratingRange: RatingRange,
-      blocking: lila.hub.pool.Blocking
+      blocking: lila.core.pool.Blocking
   ): Seek = Seek(
     _id = ThreadLocalRandom.nextString(idSize),
     variant = variant.id,

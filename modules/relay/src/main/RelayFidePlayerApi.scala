@@ -4,9 +4,9 @@ import chess.ByColor
 import chess.format.pgn.{ Tag, Tags }
 
 import lila.db.dsl.*
-import lila.hub.fide.{ Player, FideTC }
+import lila.core.fide.{ Player, FideTC }
 
-final private class RelayFidePlayerApi(guessPlayer: lila.hub.fide.GuessPlayer)(using Executor):
+final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(using Executor):
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
     val tc = guessTimeControl(tour) | FideTC.standard

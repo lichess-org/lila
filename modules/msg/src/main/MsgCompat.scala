@@ -16,7 +16,7 @@ final class MsgCompat(
     colls: MsgColls,
     security: MsgSecurity,
     cacheApi: lila.memo.CacheApi,
-    isOnline: lila.hub.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     lightUserApi: LightUserApi
 )(using Executor):
 

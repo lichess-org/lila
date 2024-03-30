@@ -302,7 +302,7 @@ final class Round(
       html.game.mini(_)
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
-    import lila.hub.round.Moretime
+    import lila.core.round.Moretime
     env.round.proxyRepo
       .game(anyId.gameId)
       .flatMap:

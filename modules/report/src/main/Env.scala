@@ -6,7 +6,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
-import lila.hub.report.SuspectId
+import lila.core.report.SuspectId
 
 @Module
 private class ReportConfig(
@@ -20,7 +20,7 @@ final class Env(
     appConfig: Configuration,
     domain: lila.common.config.NetDomain,
     db: lila.db.Db,
-    isOnline: lila.hub.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     lightUserAsync: lila.common.LightUser.Getter,
@@ -29,8 +29,8 @@ final class Env(
     userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
     ircApi: lila.irc.IrcApi,
-    captcher: lila.hub.actors.Captcher,
-    fishnet: lila.hub.actors.Fishnet,
+    captcher: lila.core.actors.Captcher,
+    fishnet: lila.core.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
 )(using ec: Executor, system: ActorSystem, scheduler: Scheduler):
@@ -64,17 +64,17 @@ final class Env(
     Props(
       new Actor:
         def receive =
-          case lila.hub.actorApi.report.Cheater(userId, text) =>
+          case lila.core.actorApi.report.Cheater(userId, text) =>
             api.autoCheatReport(userId, text)
-          case lila.hub.actorApi.report.Shutup(userId, text, critical) =>
+          case lila.core.actorApi.report.Shutup(userId, text, critical) =>
             api.autoCommReport(userId, text, critical)
     ),
     name = config.actorName
   )
 
   lila.common.Bus.subscribeFun("playban", "autoFlag"):
-    case lila.hub.actorApi.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins)
-    case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text, critical) =>
+    case lila.core.actorApi.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins)
+    case lila.core.actorApi.report.AutoFlag(suspectId, resource, text, critical) =>
       api.autoCommFlag(SuspectId(suspectId), resource, text, critical)
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>

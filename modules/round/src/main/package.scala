@@ -6,7 +6,7 @@ export lila.Lila.{ *, given }
 
 private val logger = lila.log("round")
 
-private type Events = List[lila.hub.game.Event]
+private type Events = List[lila.core.game.Event]
 
 enum OnTv:
   case Lichess(channel: String, flip: Boolean)

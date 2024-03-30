@@ -13,7 +13,7 @@ object show:
 
   def apply(
       sim: Simul,
-      socketVersion: lila.hub.socket.SocketVersion,
+      socketVersion: lila.core.socket.SocketVersion,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],

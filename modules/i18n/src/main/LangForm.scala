@@ -3,7 +3,7 @@ package lila.i18n
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.hub.i18n.Language
+import lila.core.i18n.Language
 
 object LangForm:
 

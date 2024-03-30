@@ -8,7 +8,7 @@ import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
 import lila.common.{ Days, Form as LilaForm }
-import lila.hub.rating.RatingRange
+import lila.core.rating.RatingRange
 import lila.user.Me
 
 object SetupForm:
@@ -105,7 +105,7 @@ object SetupForm:
           ) || hook.makeDaysPerTurn.isDefined
       )
 
-  object api extends lila.hub.setup.SetupForm:
+  object api extends lila.core.setup.SetupForm:
 
     lazy val clockMapping =
       mapping(
@@ -128,7 +128,7 @@ object SetupForm:
     )
 
     val rules = "rules" -> optional:
-      import lila.hub.game.GameRule
+      import lila.core.game.GameRule
       lila.common.Form.strings
         .separator(",")
         .verifying(_.forall(GameRule.byKey.contains))
@@ -167,7 +167,7 @@ object SetupForm:
     def open(isAdmin: Boolean) = Form:
       openMapping.verifying(
         "The `noAbort` rule is now restricted to challenge administrators",
-        d => !d.rules.contains(lila.hub.game.GameRule.noAbort) || isAdmin
+        d => !d.rules.contains(lila.core.game.GameRule.noAbort) || isAdmin
       )
 
     private lazy val openMapping = mapping(

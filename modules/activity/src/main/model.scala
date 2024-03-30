@@ -2,16 +2,16 @@ package lila.activity
 
 import alleycats.Zero
 
-import lila.hub.rating.{ RatingProg, Score }
+import lila.core.rating.{ RatingProg, Score }
 
 object RatingProg:
-  def add(rp1O: Option[RatingProg], rp2O: Option[RatingProg]): Option[lila.hub.rating.RatingProg] =
+  def add(rp1O: Option[RatingProg], rp2O: Option[RatingProg]): Option[lila.core.rating.RatingProg] =
     (rp1O, rp2O) match
       case (Some(rp1), Some(rp2)) => Some(rp1.copy(after = rp2.after))
       case _                      => rp2O.orElse(rp1O)
   def make(player: lila.game.LightPlayer) =
     player.rating.map: rating =>
-      lila.hub.rating.RatingProg(rating, rating.applyDiff(~player.ratingDiff))
+      lila.core.rating.RatingProg(rating, rating.applyDiff(~player.ratingDiff))
 
 object Score:
   extension (s: Score)
@@ -24,7 +24,7 @@ object Score:
       )
 
   def make(res: Option[Boolean], rp: Option[RatingProg]): Score =
-    lila.hub.rating.Score(
+    lila.core.rating.Score(
       win = res.has(true).so(1),
       loss = res.has(false).so(1),
       draw = res.isEmpty.so(1),
@@ -41,5 +41,5 @@ object Score:
         )
       case (score, _) => score
     }
-  val empty         = lila.hub.rating.Score(0, 0, 0, none)
+  val empty         = lila.core.rating.Score(0, 0, 0, none)
   given Zero[Score] = Zero(empty)

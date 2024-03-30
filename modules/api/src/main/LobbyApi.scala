@@ -7,7 +7,7 @@ import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
 import lila.rating.Perf
 import lila.user.{ User, UserPerfs }
-import lila.hub.rating.PerfKey
+import lila.core.rating.PerfKey
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,

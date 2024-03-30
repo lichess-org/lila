@@ -4,14 +4,14 @@ import lila.common.Heapsort
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.memo.CacheApi.*
-import lila.hub.swiss.FeaturedIdNames
+import lila.core.swiss.FeaturedIdNames
 
 final class SwissFeature(
     mongo: SwissMongo,
     cacheApi: CacheApi,
     swissCache: SwissCache
 )(using Executor)
-    extends lila.hub.swiss.SwissFeatureApi:
+    extends lila.core.swiss.SwissFeatureApi:
 
   import BsonHandlers.given
 
