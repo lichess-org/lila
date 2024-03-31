@@ -34,7 +34,6 @@ final class Env(
     userApi: lila.user.UserApi,
     flairApi: lila.user.FlairApi,
     timeline: lila.core.actors.Timeline,
-    bookmark: lila.core.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,

@@ -183,9 +183,6 @@ package evaluation:
   case class AutoCheck(userId: UserId)
   case class Refresh(userId: UserId)
 
-package bookmark:
-  case class Toggle(gameId: GameId, userId: UserId)
-
 package relation:
   case class Block(u1: UserId, u2: UserId)
   case class UnBlock(u1: UserId, u2: UserId)

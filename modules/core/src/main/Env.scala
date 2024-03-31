@@ -22,7 +22,6 @@ object actors:
     val ! = actor.!
   final class GameSearch(val actor: ActorSelection) extends Actor
   final class Fishnet(val actor: ActorSelection)    extends Actor
-  final class Bookmark(val actor: ActorSelection)   extends Actor
   final class Timeline(val actor: ActorSelection)   extends Actor
 
 @Module
@@ -38,7 +37,6 @@ final class Env(
   val gameSearch = GameSearch(select("actor.game.search"))
   val fishnet    = Fishnet(select("actor.fishnet"))
   val timeline   = Timeline(select("actor.timeline.user"))
-  val bookmark   = Bookmark(select("actor.bookmark"))
 
   private def select(name: String) =
     system.actorSelection("/user/" + config.getString(name))
