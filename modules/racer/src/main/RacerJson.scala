@@ -3,7 +3,7 @@ package lila.racer
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.pref.Pref
+import lila.core.pref.Pref
 import lila.storm.StormJson
 
 final class RacerJson:

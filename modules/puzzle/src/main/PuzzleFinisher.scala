@@ -16,7 +16,7 @@ final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
     userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     colls: PuzzleColls
 )(using Executor, JavaExecutor)(using scheduler: Scheduler):
 

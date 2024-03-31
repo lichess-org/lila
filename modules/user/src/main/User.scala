@@ -134,8 +134,8 @@ object User:
       new WithPerfs(user, perfs | UserPerfs.default(user.id))
     given UserIdOf[WithPerfs] = _.user.id
 
-  case class WithPerf(user: User, perf: Perf):
-    export user.{ id, createdAt, hasTitle, light }
+  case class WithPerf(user: User, perf: Perf) extends lila.core.user.WithPerf:
+    export user.{ hasTitle, light }
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean, must2fa: Boolean = false):

@@ -4,4 +4,4 @@ export lila.Lila.{ *, given }
 
 private val logger = lila.log("tv")
 
-case class RenderFeaturedJs(game: lila.game.Game, promise: Promise[String])
+case class RenderFeaturedJs(game: lila.game.Game, promise: Promise[Html])

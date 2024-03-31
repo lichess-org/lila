@@ -28,6 +28,6 @@ object embed:
     title := trans.puzzle.clickToSolve.txt()
   )(
     span(cls := "text")(trans.puzzle.puzzleOfTheDay()),
-    raw(daily.html),
+    rawHtml(daily.html),
     span(cls := "text")(daily.puzzle.color.fold(trans.site.whitePlays, trans.site.blackPlays)())
   )

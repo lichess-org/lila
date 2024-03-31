@@ -158,10 +158,10 @@ final class Env(
         none
       }
 
-  lila.core.hub.renderer.register:
+  lila.common.Bus.subscribeFun("renderer"):
     case lila.tv.RenderFeaturedJs(game, promise) =>
-      promise.success(views.html.game.mini.noCtx(lila.game.Pov.naturalOrientation(game), tv = true).render)
+      promise.success(Html(views.html.game.mini.noCtx(lila.game.Pov.naturalOrientation(game), tv = true)))
     case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
-      promise.success(views.html.puzzle.bits.daily(puzzle, fen, lastMove).render)
+      promise.success(Html(views.html.puzzle.bits.daily(puzzle, fen, lastMove)))
 
 end Env

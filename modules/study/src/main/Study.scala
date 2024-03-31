@@ -26,6 +26,8 @@ case class Study(
 
   import Study.*
 
+  val slug = lila.common.String.slugify(name.value)
+
   def owner = members.get(ownerId)
 
   def isOwner[U: UserIdOf](u: U) = ownerId.is(u)

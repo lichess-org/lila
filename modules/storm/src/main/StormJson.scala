@@ -2,7 +2,7 @@ package lila.storm
 
 import play.api.libs.json.*
 
-import lila.pref.Pref
+import lila.core.pref.Pref
 import lila.user.User
 
 final class StormJson(sign: StormSign):
@@ -52,7 +52,7 @@ object StormJson:
     )
   }
 
-  given Writes[Pref] = Writes { p =>
+  given Writes[lila.core.pref.Pref] = Writes { p =>
     Json.obj(
       "coords"      -> p.coords,
       "rookCastle"  -> p.rookCastle,

@@ -143,7 +143,8 @@ trait LilaModel:
   object Markdown extends OpaqueString[Markdown]
 
   opaque type Html = String
-  object Html extends OpaqueString[Html]
+  object Html extends OpaqueString[Html]:
+    def apply(frag: scalatags.Text.Frag): Html = frag.render
 
   opaque type UserAgent = String
   object UserAgent extends OpaqueString[UserAgent]
