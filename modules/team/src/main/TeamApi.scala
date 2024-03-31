@@ -10,7 +10,7 @@ import scala.util.chaining.*
 import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.{ timeline as tl }
+import lila.core.{ timeline as tl }
 import lila.memo.CacheApi.*
 import lila.security.Granter
 import lila.user.{ Me, User, UserApi, UserRepo, given }
@@ -25,7 +25,6 @@ final class TeamApi(
     userApi: UserApi,
     cached: Cached,
     notifier: Notifier,
-    timeline: lila.core.actors.Timeline,
     chatApi: ChatApi
 )(using Executor)
     extends lila.core.team.TeamApi:
@@ -67,7 +66,7 @@ final class TeamApi(
     yield
       cached.invalidateTeamIds(me.id)
       publish(TeamCreate(team.data))
-      timeline ! tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id)
+      tl.TimelineApi(tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id))
       team
 
   def update(old: Team, edit: TeamEdit)(using me: Me): Funit =
@@ -215,7 +214,7 @@ final class TeamApi(
       (memberRepo.add(team.id, me) >>
         teamRepo.incMembers(team.id, +1)).andDo {
         cached.invalidateTeamIds(me)
-        timeline ! tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me)
+        tl.TimelineApi(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
         publish(JoinTeam(id = team.id, userId = me))
       }
     }

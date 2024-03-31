@@ -47,12 +47,6 @@ package clas:
   case class IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
   case class ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
 
-package report:
-  case class Cheater(userId: UserId, text: String)
-  case class Shutup(userId: UserId, text: String, critical: Boolean)
-  case class AutoFlag(suspectId: UserId, resource: String, text: String, critical: Boolean)
-  case class CheatReportCreated(userId: UserId)
-
 package security:
   case class GarbageCollect(userId: UserId)
   case class CloseAccount(userId: UserId)
@@ -66,40 +60,9 @@ package puzzle:
   case class RacerRun(userId: UserId, score: Int)
   case class StreakRun(userId: UserId, score: Int)
 
-package shutup:
-  case class RecordTeamForumMessage(userId: UserId, text: String)
-  case class RecordPrivateMessage(userId: UserId, toUserId: UserId, text: String)
-  case class RecordPrivateChat(chatId: String, userId: UserId, text: String)
-  case class RecordPublicText(userId: UserId, text: String, source: PublicSource)
-
-  enum PublicSource(val parentName: String):
-    case Tournament(id: TourId)  extends PublicSource("tournament")
-    case Simul(id: SimulId)      extends PublicSource("simul")
-    case Study(id: StudyId)      extends PublicSource("study")
-    case Watcher(gameId: GameId) extends PublicSource("watcher")
-    case Team(id: TeamId)        extends PublicSource("team")
-    case Swiss(id: SwissId)      extends PublicSource("swiss")
-    case Forum(id: ForumPostId)  extends PublicSource("forum")
-    case Ublog(id: UblogPostId)  extends PublicSource("ublog")
-
-package mod:
-  case class MarkCheater(userId: UserId, value: Boolean)
-  case class MarkBooster(userId: UserId)
-  case class ChatTimeout(mod: UserId, user: UserId, reason: String, text: String)
-  case class Shadowban(user: UserId, value: Boolean)
-  case class KickFromRankings(userId: UserId)
-  case class AutoWarning(userId: UserId, subject: String)
-  case class Impersonate(userId: UserId, by: Option[UserId])
-  case class SelfReportMark(userId: UserId, name: String)
-
 package playban:
   case class Playban(userId: UserId, mins: Int, inTournament: Boolean)
   case class RageSitClose(userId: UserId)
-
-package captcha:
-  case object AnyCaptcha
-  case class GetCaptcha(id: GameId)
-  case class ValidCaptcha(id: GameId, solution: String)
 
 package lpv:
   case class AllPgnsFromText(text: String, promise: Promise[Map[String, LpvEmbed]])
@@ -124,82 +87,8 @@ package irc:
     case Info(msg: String)
     case Victory(msg: String)
 
-package timeline:
-  case class ReloadTimelines(userIds: List[UserId])
-
-  sealed abstract class Atom(val channel: String, val okForKid: Boolean):
-    def userIds: List[UserId]
-  case class Follow(u1: UserId, u2: UserId) extends Atom("follow", true):
-    def userIds = List(u1, u2)
-  case class TeamJoin(userId: UserId, teamId: TeamId) extends Atom("teamJoin", false):
-    def userIds = List(userId)
-  case class TeamCreate(userId: UserId, teamId: TeamId) extends Atom("teamCreate", false):
-    def userIds = List(userId)
-  case class ForumPost(userId: UserId, topicId: ForumTopicId, topicName: String, postId: ForumPostId)
-      extends Atom(s"forum:$topicId", false):
-    def userIds = List(userId)
-  case class UblogPost(userId: UserId, id: UblogPostId, slug: String, title: String)
-      extends Atom(s"ublog:$id", false):
-    def userIds = List(userId)
-  case class TourJoin(userId: UserId, tourId: String, tourName: String) extends Atom("tournament", true):
-    def userIds = List(userId)
-  case class GameEnd(fullId: GameFullId, opponent: Option[UserId], win: Option[Boolean], perf: String)
-      extends Atom("gameEnd", true):
-    def userIds = opponent.toList
-  case class SimulCreate(userId: UserId, simulId: SimulId, simulName: String)
-      extends Atom("simulCreate", true):
-    def userIds = List(userId)
-  case class SimulJoin(userId: UserId, simulId: SimulId, simulName: String) extends Atom("simulJoin", true):
-    def userIds = List(userId)
-  case class StudyLike(userId: UserId, studyId: StudyId, studyName: StudyName)
-      extends Atom("studyLike", true):
-    def userIds = List(userId)
-  case class PlanStart(userId: UserId) extends Atom("planStart", true):
-    def userIds = List(userId)
-  case class PlanRenew(userId: UserId, months: Int) extends Atom("planRenew", true):
-    def userIds = List(userId)
-  case class BlogPost(id: String, slug: String, title: String) extends Atom("blogPost", true):
-    def userIds = Nil
-  case class UblogPostLike(userId: UserId, id: String, title: String) extends Atom("ublogPostLike", false):
-    def userIds = List(userId)
-  case class StreamStart(id: UserId, name: String) extends Atom("streamStart", false):
-    def userIds = List(id)
-
-  enum Propagation:
-    case Users(users: List[UserId])
-    case Followers(user: UserId)
-    case Friends(user: UserId)
-    case WithTeam(teamId: TeamId)
-    case ExceptUser(user: UserId)
-    case ModsOnly(value: Boolean)
-
-  import Propagation.*
-
-  case class Propagate(data: Atom, propagations: List[Propagation] = Nil):
-    def toUsers(ids: List[UserId])       = add(Users(ids))
-    def toUser(id: UserId)               = add(Users(List(id)))
-    def toFollowersOf(id: UserId)        = add(Followers(id))
-    def toFriendsOf(id: UserId)          = add(Friends(id))
-    def withTeam(teamId: Option[TeamId]) = teamId.fold(this)(id => add(WithTeam(id)))
-    def exceptUser(id: UserId)           = add(ExceptUser(id))
-    def modsOnly(value: Boolean)         = add(ModsOnly(value))
-    private def add(p: Propagation)      = copy(propagations = p :: propagations)
-
 package notify:
   case class NotifiedBatch(userIds: Iterable[UserId])
-
-package fishnet:
-  case class AutoAnalyse(gameId: GameId)
-  case class NewKey(userId: UserId, key: String)
-  case class StudyChapterRequest(
-      studyId: StudyId,
-      chapterId: StudyChapterId,
-      initialFen: Option[Fen.Epd],
-      variant: chess.variant.Variant,
-      moves: List[Uci],
-      userId: UserId,
-      unlimited: Boolean
-  )
 
 package user:
 
@@ -209,9 +98,6 @@ package user:
 package evaluation:
   case class AutoCheck(userId: UserId)
   case class Refresh(userId: UserId)
-
-package bookmark:
-  case class Toggle(gameId: GameId, userId: UserId)
 
 package relation:
   case class Block(u1: UserId, u2: UserId)

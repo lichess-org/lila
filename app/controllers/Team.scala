@@ -258,8 +258,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def form = Auth { ctx ?=> me ?=>
     LimitPerWeek:
-      forms.anyCaptcha.flatMap: captcha =>
-        Ok.page(html.team.form.create(forms.create, captcha))
+      Ok.page(html.team.form.create(forms.create, anyCaptcha))
   }
 
   private val OneAtATime = lila.memo.FutureConcurrencyLimit[UserId](
@@ -274,10 +273,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           forms.create
             .bindFromRequest()
             .fold(
-              err =>
-                BadRequest.pageAsync:
-                  forms.anyCaptcha.map(html.team.form.create(err, _))
-              ,
+              err => BadRequest.page(html.team.form.create(err, anyCaptcha)),
               data =>
                 api.create(data, me).map { team =>
                   Redirect(routes.Team.show(team.id))

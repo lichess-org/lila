@@ -7,7 +7,6 @@ import play.api.Configuration
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.db.dsl.Coll
-import lila.core.actors
 
 @Module
 private class RelationConfig(
@@ -21,16 +20,11 @@ private class RelationConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    timeline: actors.Timeline,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi
-)(using
-    Executor,
-    ActorSystem,
-    akka.stream.Materializer
-):
+)(using Executor, ActorSystem, akka.stream.Materializer):
 
   private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)
 

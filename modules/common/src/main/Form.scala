@@ -16,11 +16,6 @@ object Form:
 
   type Options[A] = Iterable[(A, String)]
 
-  type FormLike = {
-    def apply(key: String): Field
-    def errors: Seq[FormError]
-  }
-
   def options(it: Iterable[Int], pattern: String): Options[Int] =
     it.map: d =>
       d -> (pluralize(pattern, d).format(d))

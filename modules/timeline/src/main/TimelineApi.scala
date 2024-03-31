@@ -2,35 +2,34 @@ package lila.timeline
 
 import akka.actor.*
 
-import lila.core.actorApi.timeline.{ Atom, Propagate, Propagation, ReloadTimelines }
+import lila.core.timeline.{ Atom, Propagate, Propagation, ReloadTimelines }
 import lila.security.Permission
 import lila.user.UserRepo
 import lila.core.team.Access
+import lila.core.timeline.*
 
-final private[timeline] class TimelinePush(
+private final class TimelineApi(
     relationApi: lila.core.relation.RelationApi,
     userRepo: UserRepo,
     entryApi: EntryApi,
     unsubApi: UnsubApi,
     teamApi: lila.core.team.TeamApi
-) extends Actor:
-
-  private given Executor = context.dispatcher
+)(using Executor):
 
   private val dedup = lila.memo.OnceEvery.hashCode[Atom](10 minutes)
 
-  def receive = { case Propagate(data, propagations) =>
+  def apply(propagate: Propagate): Unit =
+    import propagate.*
     if dedup(data) then
-      propagate(propagations)
+      doPropagate(propagations)
         .flatMap: users =>
           unsubApi.filterUnsub(data.channel, users)
         .foreach: users =>
           if users.nonEmpty then
             insertEntry(users, data).andDo(lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket"))
           lila.mon.timeline.notification.increment(users.size)
-  }
 
-  private def propagate(propagations: List[Propagation]): Fu[List[UserId]] =
+  private def doPropagate(propagations: List[Propagation]): Fu[List[UserId]] =
     Future
       .traverse(propagations):
         case Propagation.Users(ids)    => fuccess(ids)

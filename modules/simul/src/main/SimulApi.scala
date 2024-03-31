@@ -13,7 +13,7 @@ import lila.game.{ Game, GameRepo, LightGame }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam
-import lila.core.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin, TimelineApi }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
 import lila.core.socket.SendToFlag
@@ -26,7 +26,6 @@ final class SimulApi(
     gameRepo: GameRepo,
     onGameStart: lila.core.game.OnStart,
     socket: SimulSocket,
-    timeline: lila.core.actors.Timeline,
     repo: SimulRepo,
     verify: SimulCondition.Verify,
     cacheApi: lila.memo.CacheApi
@@ -66,7 +65,7 @@ final class SimulApi(
     _ <- repo.create(simul)
   yield
     publish()
-    timeline ! (Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
+    TimelineApi(Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
     simul
 
   def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] =
@@ -109,8 +108,9 @@ final class SimulApi(
                       val player   = SimulPlayer.make(user, variant)
                       val newSimul = simul.addApplicant(SimulApplicant(player, accepted = false))
                       repo.update(newSimul).andDo {
-                        timeline ! Propagate(SimulJoin(me.userId, simul.id, simul.fullName))
-                          .toFollowersOf(user.id)
+                        TimelineApi(
+                          Propagate(SimulJoin(me.userId, simul.id, simul.fullName)).toFollowersOf(user.id)
+                        )
                         socket.reload(newSimul.id)
                         publish()
                       }

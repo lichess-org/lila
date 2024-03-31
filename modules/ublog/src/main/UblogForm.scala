@@ -6,9 +6,10 @@ import play.api.data.Forms.*
 import lila.common.Form.{ cleanNonEmptyText, into, given }
 import lila.core.i18n.{ Language, LangList, defaultLanguage }
 import lila.user.User
+import lila.core.captcha.CaptchaApi
+import lila.core.captcha.WithCaptcha
 
-final class UblogForm(val captcher: lila.core.actors.Captcher, langList: LangList)
-    extends lila.core.CaptchedForm:
+final class UblogForm(val captcher: CaptchaApi, langList: LangList):
 
   import UblogForm.*
 
@@ -28,7 +29,7 @@ final class UblogForm(val captcher: lila.core.actors.Captcher, langList: LangLis
     )(UblogPostData.apply)(unapply)
 
   val create = Form:
-    base.verifying(captchaFailMessage, validateCaptcha)
+    base.verifying(lila.core.captcha.failMessage, captcher.validateSync)
 
   def edit(post: UblogPost) = Form(base).fill:
     UblogPostData(
@@ -59,7 +60,7 @@ object UblogForm:
       discuss: Boolean,
       gameId: GameId,
       move: String
-  ):
+  ) extends WithCaptcha:
 
     def create(user: User) =
       UblogPost(

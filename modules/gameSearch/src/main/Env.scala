@@ -10,8 +10,7 @@ import lila.search.*
 @Module
 private class GameSearchConfig(
     @ConfigName("index") val indexName: String,
-    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage
 )
 
 @Module

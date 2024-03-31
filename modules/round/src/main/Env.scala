@@ -33,8 +33,6 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     flairApi: lila.user.FlairApi,
-    timeline: lila.core.actors.Timeline,
-    bookmark: lila.core.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
@@ -117,7 +115,7 @@ final class Env(
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name)
     },
-    "adjustCheater" -> { case lila.core.actorApi.mod.MarkCheater(userId, true) =>
+    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
       resignAllGamesOf(userId)
     }
   )
@@ -172,11 +170,7 @@ final class Env(
     tellRound = tellRound
   )
 
-  private lazy val notifier = RoundNotifier(
-    timeline = timeline,
-    isUserPresent = isUserPresent,
-    notifyApi = notifyApi
-  )
+  private lazy val notifier = RoundNotifier(isUserPresent, notifyApi)
 
   private lazy val finisher = wire[Finisher]
 

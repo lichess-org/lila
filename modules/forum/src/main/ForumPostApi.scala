@@ -4,11 +4,12 @@ import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
-import lila.core.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.shutup.{ ShutupApi, PublicSource }
+import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.Granter as MasterGranter
 import lila.user.{ Me, User, given }
 import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
+import lila.core.timeline.TimelineApi
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
@@ -19,8 +20,7 @@ final class ForumPostApi(
     config: ForumConfig,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    timeline: lila.core.actors.Timeline,
-    shutup: lila.core.actors.Shutup,
+    shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage
 )(using Executor)(using scheduler: Scheduler)
     extends lila.core.forum.ForumPostApi:
@@ -55,19 +55,17 @@ final class ForumPostApi(
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
           yield
             promotion.save(post.text)
-            shutup ! {
-              if post.isTeam
-              then RecordTeamForumMessage(me, post.text)
-              else RecordPublicText(me, post.text, PublicSource.Forum(post.id))
-            }
+            if post.isTeam
+            then shutupApi.teamForumMessage(me, post.text)
+            else shutupApi.publicText(me, post.text, PublicSource.Forum(post.id))
             if anonMod
             then logAnonPost(post, edit = false)
             else if !post.troll && !categ.quiet then
-              timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
+              TimelineApi(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
                 _.toFollowersOf(me).toUsers(topicUserIds).exceptUser(me).withTeam(categ.team)
-              }
+              })
             else if categ.id == ForumCateg.diagnosticId then
-              timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds)
+              TimelineApi(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds))
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.publish(CreatePost(post.mini), "forumPost")

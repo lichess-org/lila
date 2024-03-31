@@ -33,7 +33,7 @@ final class ModApi(
         sus = prev.set(_.withMarks(_.set(_.Engine, v)))
         _ <- logApi.engine(sus, v)
       yield
-        Bus.publish(lila.core.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
+        Bus.publish(lila.core.mod.MarkCheater(sus.user.id, v), "adjustCheater")
         if v then
           notifier.reporters(me.modId, sus)
           refunder.schedule(sus)
@@ -61,7 +61,7 @@ final class ModApi(
         _ <- logApi.booster(sus, v)
       yield
         if v then
-          Bus.publish(lila.core.actorApi.mod.MarkBooster(sus.user.id), "adjustBooster")
+          Bus.publish(lila.core.mod.MarkBooster(sus.user.id), "adjustBooster")
           notifier.reporters(me.modId, sus)
         sus
 
@@ -72,7 +72,7 @@ final class ModApi(
       .so:
         userRepo.updateTroll(sus.user).void.andDo {
           logApi.troll(sus)
-          Bus.publish(lila.core.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
+          Bus.publish(lila.core.mod.Shadowban(sus.user.id, value), "shadowban")
         }
       .andDo:
         if value then notifier.reporters(me.modId, sus)
@@ -150,7 +150,7 @@ final class ModApi(
 
   def setRankban(sus: Suspect, v: Boolean)(using Me.Id): Funit =
     (sus.user.marks.rankban != v).so {
-      if v then Bus.publish(lila.core.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
+      if v then Bus.publish(lila.core.mod.KickFromRankings(sus.user.id), "kickFromRankings")
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
     }
 

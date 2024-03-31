@@ -5,7 +5,7 @@ import scalalib.actor.SyncActorMap
 import scalalib.actor.SyncActor
 
 import lila.chat.{ BusChan, ChatApi, ChatTimeout, UserLine }
-import lila.core.actorApi.shutup.PublicSource
+import lila.core.shutup.PublicSource
 import lila.log.Logger
 import lila.core.socket.{ protocol as P, * }
 import lila.core.socket.{ makeMessage }

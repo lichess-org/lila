@@ -11,12 +11,11 @@ final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    timeline: lila.core.actors.Timeline,
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,
-    shutup: lila.core.actors.Shutup,
-    captcher: lila.core.actors.Captcher,
+    shutupApi: lila.core.shutup.ShutupApi,
+    captcha: lila.core.captcha.CaptchaApi,
     cacheApi: lila.memo.CacheApi,
     langList: lila.core.i18n.LangList,
     net: NetConfig
@@ -61,7 +60,7 @@ final class Env(
             case (pinned, shuffled) => pinned ++ shuffled
 
   lila.common.Bus.subscribeFun("shadowban"):
-    case lila.core.actorApi.mod.Shadowban(userId, v) =>
+    case lila.core.mod.Shadowban(userId, v) =>
       api.setShadowban(userId, v) >>
         rank.recomputeRankOfAllPostsOfBlog(UblogBlog.Id.User(userId))
 

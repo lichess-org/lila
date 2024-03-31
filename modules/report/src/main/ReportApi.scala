@@ -17,14 +17,15 @@ final class ReportApi(
     autoAnalysis: AutoAnalysis,
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
-    playbanApi: lila.playban.PlaybanApi,
+    playbanApi: () => lila.playban.PlaybanApi,
     ircApi: lila.irc.IrcApi,
     isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
     domain: lila.common.config.NetDomain
-)(using Executor, Scheduler):
+)(using Executor, Scheduler)
+    extends lila.core.report.ReportApi:
 
   import BSONHandlers.given
   import Report.Candidate
@@ -69,7 +70,7 @@ final class ReportApi(
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate).andDo:
                 if report.isCheat then
-                  Bus.publish(lila.core.actorApi.report.CheatReportCreated(report.user), "cheatReport")
+                  Bus.publish(lila.core.report.CheatReportCreated(report.user), "cheatReport")
           }
           .andDo(maxScoreCache.invalidateUnit())
       }
@@ -188,7 +189,7 @@ final class ReportApi(
 
   def maybeAutoPlaybanReport(userId: UserId, minutes: Int): Funit =
     (minutes > 60 * 24).so(userLoginsApi.getUserIdsWithSameIpAndPrint(userId)).flatMap { ids =>
-      playbanApi
+      playbanApi()
         .bans(userId :: ids.toList)
         .map:
           _.filter { (_, bans) => bans > 4 }

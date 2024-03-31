@@ -35,7 +35,7 @@ final class Env(
   lazy val automaticEmail = wire[AutomaticEmail]
 
   lila.common.Bus.subscribeFuns(
-    "fishnet" -> { case lila.core.actorApi.fishnet.NewKey(userId, key) =>
+    "fishnet" -> { case lila.core.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key)
     },
     "planStart" -> {
