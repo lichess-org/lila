@@ -5,7 +5,6 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.config.*
-import lila.core.actorApi.bookmark.*
 
 @Module
 final class Env(
