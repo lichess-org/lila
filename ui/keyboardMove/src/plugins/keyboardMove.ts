@@ -147,7 +147,6 @@ export function initModule(opts: Opts) {
   makeBindings(opts, submit, clear);
   // returns a function that is called when any move is played
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
-    // console.log('move played, new dests', dests);
     legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     // this plays a premove if it is available in the input
     submit(opts.input.value, {

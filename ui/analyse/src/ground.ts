@@ -7,6 +7,7 @@ import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
 import * as Prefs from 'common/prefs';
 import { ctrl as makeKeyboardMove } from 'keyboardMove';
+import * as control from './control';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
@@ -27,6 +28,12 @@ export const render = (ctrl: AnalyseCtrl): VNode =>
               //   },
               //   prom,
               // );
+            },
+            userJumpPlyDelta: (plyDelta: number) => {
+              if (plyDelta === -1) control.prev(ctrl);
+              else if (plyDelta === 1) control.next(ctrl);
+              else if (plyDelta > 1) control.last(ctrl);
+              else if (plyDelta < -1) control.first(ctrl);
             },
           });
           ctrl.keyboardMove.update({
