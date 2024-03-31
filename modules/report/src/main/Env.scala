@@ -24,7 +24,7 @@ final class Env(
     fishnetApi: lila.core.fishnet.FishnetApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(using Executor, ActorSystem)(using scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   private lazy val reportColl = db(CollName("report2"))
 

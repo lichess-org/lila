@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.irc.IrcApi
-import lila.msg.MsgPreset
+import lila.core.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 import lila.user.{ Me, User, UserRepo, given }
@@ -268,7 +268,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       $doc(
         "user"   -> userId,
         "action" -> Modlog.modMessage,
-        $or($doc("details" -> MsgPreset.sandbagAuto.name), $doc("details" -> MsgPreset.boostAuto.name)),
+        $or(
+          $doc("details" -> SandbagWatch.msgPreset.sandbagAuto.name),
+          $doc("details" -> SandbagWatch.msgPreset.boostAuto.name)
+        ),
         "date".$gte(nowInstant.minusMonths(6))
       )
 

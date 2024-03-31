@@ -23,7 +23,7 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     socketKit: lila.core.socket.SocketKit,
     getLagRating: lila.core.socket.userLag.GetLagRating,
-    msgApi: lila.msg.MsgApi,
+    msgApi: lila.core.msg.MsgApi,
     langPicker: lila.core.i18n.LangPicker,
     jsDump: lila.core.i18n.JsDump,
     setupForm: lila.core.setup.SetupForm,

@@ -210,7 +210,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, perfStat, report, history),
+  Seq(evaluation, perfStat, report, history, notifyModule),
   reactivemongo.bundle
 )
 
@@ -245,7 +245,7 @@ lazy val analyse = module("analyse",
 )
 
 lazy val round = module("round",
-  Seq(history, room, fishnet, playban),
+  Seq(history, room, fishnet, playban, notifyModule),
   Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
@@ -375,7 +375,7 @@ lazy val practice = module("practice",
 )
 
 lazy val playban = module("playban",
-  Seq(msg, chat),
+  Seq(security, game, chat),
   reactivemongo.bundle
 )
 
