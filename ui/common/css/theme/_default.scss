@@ -12,8 +12,7 @@
 
 $site-hue: 37 !default;
 
-/* top level $c-variables must be parseable as valid css format (rgba, hsl) and are mixable by ui/build
-
+/* top level $c-variables must be valid css format (rgba, hsla, hex) and are mixable by ui/build
 */
 
 $c-bg: hsl(37, 7%, 14%) !default; // alias for $c-bg-high
@@ -38,10 +37,11 @@ $c-good-move: hsl(130, 67%, 62%) !default;
 $c-brilliant: hsl(129, 71%, 45%) !default;
 $c-interesting: hsl(307, 80%, 70%) !default;
 $c-dark: #333 !default;
-/* shared-color-defs is the location for theme colors that share the same definition syntax.
-   note - most of the assigned values will differ due to variables from the @including scope.
-*/
 
+/* shared-color-defs is the location for theme colors that share the same definition syntax.
+   note that many of the assigned values may depend on variables from the including scope and
+   therefore may differ between themes.
+*/
 @mixin shared-color-defs {
   --c-bg: #{$c-bg};
   --c-bg-box: #{$c-bg};
