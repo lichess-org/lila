@@ -123,7 +123,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     confirmMove: () => (root.submitMove ? root.submitMove(true) : null),
     usedSan,
     jump(plyDelta: number) {
-      root.userJumpPlyDelta && root.userJumpPlyDelta(plyDelta);
+      root.userJumpPlyDelta?.(plyDelta);
       root.redraw();
     },
     justSelected: () => performance.now() - lastSelect < 500,
