@@ -33,8 +33,10 @@ final private[puzzle] class DailyPuzzle(
       .flatMapz(makeDaily)
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
-    lila.core.hub.renderer
-      .ask[String](DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _))
+    lila.common.Bus
+      .ask[String]("renderer")(
+        DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _)
+      )
       .map: html =>
         DailyPuzzle.WithHtml(puzzle, html).some
   }.recover { case e: Exception =>
