@@ -14,16 +14,19 @@ import lila.core.i18n.Translator
 
 final class Env(
     val config: Configuration,
-    val net: NetConfig,
     val controllerComponents: ControllerComponents,
+    environment: Environment,
     shutdown: CoordinatedShutdown
 )(using val system: ActorSystem, val executor: Executor)(using
+    JavaExecutor,
     StandaloneWSClient,
     akka.stream.Materializer,
-    SessionCookieBaker,
-    Mode
+    SessionCookieBaker
 ):
+  val net = config.get[NetConfig]("net")
   export net.{ domain, baseUrl, assetBaseUrlInternal }
+
+  given Mode                   = environment.mode
   given translator: Translator = lila.i18n.Translator
   given scheduler: Scheduler   = system.scheduler
 
@@ -162,20 +165,3 @@ final class Env(
       promise.success(views.html.puzzle.bits.daily(puzzle, fen, lastMove).render)
 
 end Env
-
-final class EnvBoot(
-    config: Configuration,
-    environment: Environment,
-    controllerComponents: ControllerComponents,
-    cookieBacker: SessionCookieBaker,
-    shutdown: CoordinatedShutdown
-)(using Executor, ActorSystem, StandaloneWSClient, akka.stream.Materializer):
-  given Mode    = environment.mode
-  val netConfig = config.get[NetConfig]("net")
-
-  // eagerly load the Uptime object to fix a precise date
-  lila.common.Uptime.startedAt
-
-  val env: lila.app.Env = wire[lila.app.Env]
-
-  templating.Environment.setEnv(env)

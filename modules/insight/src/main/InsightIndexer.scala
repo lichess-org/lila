@@ -15,7 +15,7 @@ final private class InsightIndexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     storage: InsightStorage
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, JavaExecutor, Scheduler, akka.stream.Materializer):
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(256),

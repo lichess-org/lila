@@ -34,6 +34,7 @@ final class Env(
 )(using
     akka.actor.ActorSystem,
     Executor,
+    JavaExecutor,
     akka.stream.Materializer,
     lila.game.IdGenerator,
     play.api.Mode,

@@ -21,7 +21,7 @@ final class FishnetApi(
     socketExists: GameId => Fu[Boolean],
     clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
-)(using Executor, Scheduler):
+)(using Executor, JavaExecutor, Scheduler):
 
   import FishnetApi.*
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }

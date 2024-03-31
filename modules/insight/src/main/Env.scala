@@ -17,7 +17,7 @@ final class Env(
     relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, JavaExecutor, Scheduler, akka.stream.Materializer):
 
   lazy val db = mongo
     .asyncDb(

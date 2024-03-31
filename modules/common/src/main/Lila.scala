@@ -2,12 +2,16 @@ package lila
 
 object Lila extends Lila:
 
+  // global execution context that doubles as an executor
   // https://www.scala-lang.org/api/2.13.4/Executor%24.html#global:Executor
   val defaultExecutor: scala.concurrent.ExecutionContextExecutor =
     scala.concurrent.ExecutionContext.getClass
       .getDeclaredMethod("opportunistic")
       .invoke(scala.concurrent.ExecutionContext)
       .asInstanceOf[scala.concurrent.ExecutionContextExecutor]
+
+  // for scaffeine
+  given Executor = defaultExecutor
 
   export scalalib.newtypes.{ given, * }
   export scalalib.zeros.given

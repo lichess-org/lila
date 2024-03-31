@@ -18,7 +18,7 @@ final private[puzzle] class PuzzleFinisher(
     perfsRepo: UserPerfsRepo,
     historyApi: lila.history.HistoryApi,
     colls: PuzzleColls
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor, JavaExecutor)(using scheduler: Scheduler):
 
   private val sequencer = AsyncActorSequencers[PuzzleId](
     maxSize = Max(64),

@@ -28,6 +28,7 @@ final class Env(
     baseUrl: lila.common.config.BaseUrl
 )(using
     Executor,
+    JavaExecutor,
     akka.actor.ActorSystem,
     Scheduler,
     akka.stream.Materializer,

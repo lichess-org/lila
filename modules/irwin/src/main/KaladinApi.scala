@@ -23,7 +23,7 @@ final class KaladinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using Executor, Scheduler):
+)(using Executor, JavaExecutor, Scheduler):
 
   import BSONHandlers.given
 

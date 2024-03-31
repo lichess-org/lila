@@ -71,7 +71,7 @@ final class AskPipelines[K, R](
     expiration: FiniteDuration,
     timeout: FiniteDuration,
     name: String
-)(using Executor, Scheduler):
+)(using Executor, JavaExecutor, Scheduler):
 
   def apply(key: K): Fu[R] = pipelines.get(key).get
 

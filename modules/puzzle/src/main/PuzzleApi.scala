@@ -12,7 +12,7 @@ final class PuzzleApi(
     trustApi: PuzzleTrustApi,
     countApi: PuzzleCountApi,
     openingApi: PuzzleOpeningApi
-)(using Executor, Scheduler):
+)(using Executor, JavaExecutor, Scheduler):
 
   import BsonHandlers.given
 

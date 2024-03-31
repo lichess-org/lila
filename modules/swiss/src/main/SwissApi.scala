@@ -37,7 +37,7 @@ final class SwissApi(
     chatApi: lila.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
     roundSocket: lila.round.RoundSocket
-)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
+)(using scheduler: Scheduler)(using Executor, JavaExecutor, akka.stream.Materializer)
     extends lila.core.swiss.SwissApi:
 
   private val sequencer = scalalib.actor.AsyncActorSequencers[SwissId](

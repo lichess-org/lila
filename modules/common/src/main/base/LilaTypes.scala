@@ -12,6 +12,7 @@ trait LilaTypes:
 
   export scala.concurrent.{ ExecutionContext as Executor, Future, Promise }
   export scala.concurrent.duration.{ DurationInt, DurationLong, IntMult, Duration, FiniteDuration }
+  export java.util.concurrent.{ Executor as JavaExecutor }
   export akka.actor.Scheduler
   export java.time.{ Instant, LocalDateTime }
 

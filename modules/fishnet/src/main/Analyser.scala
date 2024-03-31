@@ -14,7 +14,7 @@ final class Analyser(
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
-)(using Executor, Scheduler):
+)(using Executor, JavaExecutor, Scheduler):
 
   val maxPlies = 300
 

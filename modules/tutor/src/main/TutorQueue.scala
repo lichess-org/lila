@@ -16,7 +16,7 @@ final private class TutorQueue(
     cacheApi: CacheApi,
     lightUserApi: LightUserApi,
     parallelism: SettingStore[Int] @@ Parallelism
-)(using Executor, Scheduler):
+)(using Executor, JavaExecutor, Scheduler):
 
   import TutorQueue.*
 

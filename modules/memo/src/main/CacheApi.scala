@@ -67,7 +67,10 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
 
 object CacheApi:
 
-  export scalalib.cache.*
+  def scaffeine: Scaffeine[Any, Any] =
+    scalalib.cache.scaffeine(using lila.Lila.defaultExecutor)
+  def scaffeineNoScheduler: Scaffeine[Any, Any] =
+    scalalib.cache.scaffeineNoScheduler(using lila.Lila.defaultExecutor)
 
   private[memo] type Builder = Scaffeine[Any, Any]
 

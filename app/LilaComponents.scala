@@ -26,6 +26,7 @@ final class LilaComponents(
 
   // https://www.scala-lang.org/api/2.13.4/Executor%24.html#global:Executor
   given executor: Executor = lila.Lila.defaultExecutor
+  given JavaExecutor       = lila.Lila.defaultExecutor
 
   lila.log("boot").info {
     val java             = System.getProperty("java.version")
@@ -86,16 +87,15 @@ final class LilaComponents(
         ).modifyUnderlying(_.setIoThreadsCount(8)).build()
     )
 
-  // dev assets
-  given FileMimeTypes = fileMimeTypes
-
   val env: lila.app.Env =
     lila.log("boot").info(s"Start loading lila modules")
-    val c = lila.common.Chronometer.sync(wire[lila.app.EnvBoot].env)
+    val c = lila.common.Chronometer.sync(wire[lila.app.Env])
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
 
-  lazy val devAssetsController            = wire[ExternalAssets]
+  lazy val devAssetsController =
+    given FileMimeTypes = fileMimeTypes
+    wire[ExternalAssets]
   lazy val account: Account               = wire[Account]
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]
@@ -172,6 +172,9 @@ final class LilaComponents(
   private val clasRouter: _root_.router.clas.Routes     = wire[_root_.router.clas.Routes]
   private val teamRouter: _root_.router.team.Routes     = wire[_root_.router.team.Routes]
   val router: Router                                    = wire[_root_.router.router.Routes]
+
+  lila.common.Uptime.startedAt
+  templating.Environment.setEnv(env)
 
   if configuration.get[Boolean]("kamon.enabled") then
     lila.log("boot").info("Kamon is enabled")

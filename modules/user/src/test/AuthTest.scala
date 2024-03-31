@@ -1,7 +1,6 @@
 package lila.user
 
 import java.util.Base64
-import scala.concurrent.ExecutionContext.Implicits.global
 
 import lila.common.config.Secret
 

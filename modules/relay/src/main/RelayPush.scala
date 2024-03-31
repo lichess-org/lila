@@ -13,6 +13,7 @@ import lila.study.MultiPgn
 final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using
     ActorSystem,
     Executor,
+    JavaExecutor,
     Scheduler
 ):
 

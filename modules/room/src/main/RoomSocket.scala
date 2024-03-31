@@ -43,7 +43,7 @@ object RoomSocket:
     SyncActorMap[RoomId, RoomState](
       mkActor = roomId => RoomState(roomId, send),
       accessTimeout = 5 minutes
-    )
+    )(using lila.Lila.defaultExecutor)
 
   def roomHandler(
       rooms: RoomsMap,

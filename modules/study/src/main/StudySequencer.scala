@@ -7,7 +7,7 @@ import scalalib.actor.AsyncActorSequencers
 final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(using Executor, Scheduler):
+)(using Executor, JavaExecutor, Scheduler):
 
   private val workQueue = AsyncActorSequencers[StudyId](
     maxSize = Max(64),

@@ -34,7 +34,14 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,
     langList: lila.core.i18n.LangList
-)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator)(using
+)(using
+    Executor,
+    JavaExecutor,
+    ActorSystem,
+    akka.stream.Materializer,
+    play.api.Mode,
+    lila.core.i18n.Translator
+)(using
     scheduler: Scheduler
 ):
 

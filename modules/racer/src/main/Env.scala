@@ -19,7 +19,7 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     lightUserGetter: LightUser.GetterSyncFallback,
     db: lila.db.Db
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, JavaExecutor, Scheduler, play.api.Mode):
 
   private lazy val colls = RacerColls(puzzle = puzzleColls.puzzle)
 

@@ -33,6 +33,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(using
     Executor,
+    JavaExecutor,
     Scheduler,
     akka.stream.Materializer,
     play.api.Mode,
