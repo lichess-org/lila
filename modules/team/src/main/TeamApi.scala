@@ -25,7 +25,6 @@ final class TeamApi(
     userApi: UserApi,
     cached: Cached,
     notifier: Notifier,
-    timelineApi: tl.TimelineApi,
     chatApi: ChatApi
 )(using Executor)
     extends lila.core.team.TeamApi:
@@ -67,7 +66,7 @@ final class TeamApi(
     yield
       cached.invalidateTeamIds(me.id)
       publish(TeamCreate(team.data))
-      timelineApi(tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id))
+      tl.TimelineApi(tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id))
       team
 
   def update(old: Team, edit: TeamEdit)(using me: Me): Funit =
@@ -215,7 +214,7 @@ final class TeamApi(
       (memberRepo.add(team.id, me) >>
         teamRepo.incMembers(team.id, +1)).andDo {
         cached.invalidateTeamIds(me)
-        timelineApi(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
+        tl.TimelineApi(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
         publish(JoinTeam(id = team.id, userId = me))
       }
     }

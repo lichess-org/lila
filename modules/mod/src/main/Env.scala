@@ -10,7 +10,6 @@ import lila.user.{ Me, User }
 @Module
 final class Env(
     db: lila.db.Db,
-    fishnetApi: lila.core.fishnet.FishnetApi,
     perfStat: lila.perfStat.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
@@ -95,13 +94,13 @@ final class Env(
     "deletePublicChats" -> { case lila.core.actorApi.security.DeletePublicChats(userId) =>
       publicChat.deleteAll(userId)
     },
-    "autoWarning" -> { case lila.core.actorApi.mod.AutoWarning(userId, subject) =>
+    "autoWarning" -> { case lila.core.mod.AutoWarning(userId, subject) =>
       logApi.modMessage(userId, subject)(using User.lichessIdAsMe)
     },
-    "selfReportMark" -> { case lila.core.actorApi.mod.SelfReportMark(suspectId, name) =>
+    "selfReportMark" -> { case lila.core.mod.SelfReportMark(suspectId, name) =>
       api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using User.lichessIdAsMe)
     },
-    "chatTimeout" -> { case lila.core.actorApi.mod.ChatTimeout(mod, user, reason, text) =>
+    "chatTimeout" -> { case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id))
     },
     "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },

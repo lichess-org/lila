@@ -10,7 +10,6 @@ import lila.core.socket.{ GetVersion, SocketVersion }
 @Module
 final class Env(
     captcha: lila.core.captcha.CaptchaApi,
-    timelineApi: lila.core.timeline.TimelineApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     notifyApi: NotifyApi,
@@ -60,7 +59,7 @@ final class Env(
         yield s"Added ${userIds.size} members to team ${team.name}"
 
   lila.common.Bus.subscribeFuns(
-    "shadowban" -> { case lila.core.actorApi.mod.Shadowban(userId, true) =>
+    "shadowban" -> { case lila.core.mod.Shadowban(userId, true) =>
       api.deleteRequestsByUserId(userId)
     },
     "teamIsLeader" -> {

@@ -20,16 +20,11 @@ private class RelationConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    timelineApi: lila.core.timeline.TimelineApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi
-)(using
-    Executor,
-    ActorSystem,
-    akka.stream.Materializer
-):
+)(using Executor, ActorSystem, akka.stream.Materializer):
 
   private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)
 

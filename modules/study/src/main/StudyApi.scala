@@ -7,7 +7,7 @@ import chess.format.pgn.{ Glyph, Tags }
 
 import lila.chat.ChatApi
 import lila.common.Bus
-import lila.core.timeline.{ Propagate, StudyLike }
+import lila.core.timeline.{ TimelineApi, Propagate, StudyLike }
 import lila.security.Granter
 import lila.core.socket.Sri
 import lila.core.{ study as hub }
@@ -29,7 +29,6 @@ final class StudyApi(
     topicApi: StudyTopicApi,
     lightUserApi: lila.user.LightUserApi,
     chatApi: ChatApi,
-    timelineApi: lila.core.timeline.TimelineApi,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi
 )(using Executor, akka.stream.Materializer)
@@ -805,7 +804,7 @@ final class StudyApi(
       if v then
         studyRepo.byId(studyId).foreach {
           _.filter(_.isPublic).foreach { study =>
-            timelineApi(Propagate(StudyLike(who.u, study.id, study.name)).toFollowersOf(who.u))
+            TimelineApi(Propagate(StudyLike(who.u, study.id, study.name)).toFollowersOf(who.u))
           }
         }
     }

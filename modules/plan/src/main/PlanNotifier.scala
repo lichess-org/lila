@@ -3,12 +3,10 @@ package lila.plan
 import akka.actor.*
 
 import lila.common.Bus
-import lila.core.timeline.{ Atom, Propagate }
+import lila.core.timeline.{ TimelineApi, Atom, Propagate }
 import lila.user.User
 
-final private[plan] class PlanNotifier(
-    timelineApi: lila.core.timeline.TimelineApi
-)(using ec: Executor, scheduler: Scheduler):
+final private[plan] class PlanNotifier(using ec: Executor, scheduler: Scheduler):
 
   def onCharge(user: User) =
     Bus.publish(lila.core.actorApi.plan.MonthInc(user.id, user.plan.months), "plan")
@@ -32,4 +30,4 @@ final private[plan] class PlanNotifier(
     Bus.publish(lila.core.actorApi.plan.PlanGift(from.id, to.id, isLifetime), "planStart")
 
   private def pushTimeline(user: User)(f: UserId => Atom): Unit =
-    timelineApi(Propagate(f(user.id)).toFollowersOf(user.id))
+    TimelineApi(Propagate(f(user.id)).toFollowersOf(user.id))

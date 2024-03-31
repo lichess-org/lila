@@ -1,8 +1,7 @@
 package lila.core
 package timeline
 
-trait TimelineApi:
-  def apply(propagate: Propagate): Unit
+def TimelineApi(propagate: Propagate): Unit = lila.common.Bus.publish(propagate, "timeline")
 
 case class ReloadTimelines(userIds: List[UserId])
 

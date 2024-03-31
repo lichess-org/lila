@@ -23,7 +23,6 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    timelineApi: lila.core.timeline.TimelineApi,
     chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.GetterFallback,
     onGameStart: lila.core.game.OnStart,
@@ -72,7 +71,7 @@ final class Env(
       api.finishGame(game)
       ()
     },
-    "adjustCheater" -> { case lila.core.actorApi.mod.MarkCheater(userId, true) =>
+    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
       api.ejectCheater(userId)
       ()
     },

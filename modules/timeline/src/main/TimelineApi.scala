@@ -8,14 +8,13 @@ import lila.user.UserRepo
 import lila.core.team.Access
 import lila.core.timeline.*
 
-final class TimelineApi(
+private final class TimelineApi(
     relationApi: lila.core.relation.RelationApi,
     userRepo: UserRepo,
     entryApi: EntryApi,
     unsubApi: UnsubApi,
     teamApi: lila.core.team.TeamApi
-)(using Executor)
-    extends lila.core.timeline.TimelineApi:
+)(using Executor):
 
   private val dedup = lila.memo.OnceEvery.hashCode[Atom](10 minutes)
 

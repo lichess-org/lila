@@ -25,7 +25,6 @@ final class Env(
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
     captcha: lila.core.captcha.CaptchaApi,
-    timelineApi: lila.core.timeline.TimelineApi,
     shutupApi: lila.core.shutup.ShutupApi,
     notifyApi: NotifyApi,
     relationApi: RelationApi,

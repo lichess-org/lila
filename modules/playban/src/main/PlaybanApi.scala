@@ -256,7 +256,7 @@ final class PlaybanApi(
         (delta < 0 && record.rageSit.isVeryBad).so:
           messenger.postPreset(record.userId, sittingAutoPreset).void.andDo {
             Bus.publish(
-              lila.core.actorApi.mod.AutoWarning(record.userId, sittingAutoPreset.name),
+              lila.core.mod.AutoWarning(record.userId, sittingAutoPreset.name),
               "autoWarning"
             )
             if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then

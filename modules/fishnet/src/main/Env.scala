@@ -15,7 +15,6 @@ import lila.common.config.*
 private class FishnetConfig(
     @ConfigName("collection.analysis") val analysisColl: CollName,
     @ConfigName("collection.client") val clientColl: CollName,
-    @ConfigName("actor.name") val actorName: String,
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("analysis.nodes") val analysisNodes: Int,
     @ConfigName("move.plies") val movePlies: Int,
@@ -94,12 +93,6 @@ final class Env(
 
   lazy val awaiter = wire[FishnetAwaiter]
 
-  val coreApi = new lila.core.fishnet.FishnetApi:
-    def analyseGame(gameId: GameId) =
-      val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
-      analyser(gameId, sender).void
-    def analyseStudyChapter(req: lila.core.fishnet.StudyChapterRequest) = analyser.study(req).void
-
   wire[Cleaner]
 
   private def disable(keyOrUser: String) =
@@ -122,7 +115,10 @@ final class Env(
         repo.toKey(key).flatMap { repo.enableClient(_, v = true) }.inject("done!")
       case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key).inject("done!")
 
-  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
-    case lila.core.actorApi.mod.MarkCheater(userId, true) => disable(userId.value)
-    case lila.core.actorApi.mod.MarkBooster(userId)       => disable(userId.value)
-    case lila.core.actorApi.mod.Shadowban(userId, true)   => disable(userId.value)
+  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban", "fishnet"):
+    case lila.core.mod.MarkCheater(userId, true) => disable(userId.value)
+    case lila.core.mod.MarkBooster(userId)       => disable(userId.value)
+    case lila.core.mod.Shadowban(userId, true)   => disable(userId.value)
+    case lila.core.fishnet.GameRequest(id) =>
+      analyser(id, Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true))
+    case req: lila.core.fishnet.StudyChapterRequest => analyser.study(req)

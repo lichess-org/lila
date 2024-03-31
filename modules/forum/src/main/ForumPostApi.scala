@@ -9,6 +9,7 @@ import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.Granter as MasterGranter
 import lila.user.{ Me, User, given }
 import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
+import lila.core.timeline.TimelineApi
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
@@ -19,7 +20,6 @@ final class ForumPostApi(
     config: ForumConfig,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    timelineApi: lila.core.timeline.TimelineApi,
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage
 )(using Executor)(using scheduler: Scheduler)
@@ -61,11 +61,11 @@ final class ForumPostApi(
             if anonMod
             then logAnonPost(post, edit = false)
             else if !post.troll && !categ.quiet then
-              timelineApi(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
+              TimelineApi(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
                 _.toFollowersOf(me).toUsers(topicUserIds).exceptUser(me).withTeam(categ.team)
               })
             else if categ.id == ForumCateg.diagnosticId then
-              timelineApi(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds))
+              TimelineApi(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds))
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.publish(CreatePost(post.mini), "forumPost")

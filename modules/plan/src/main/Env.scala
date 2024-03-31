@@ -23,7 +23,6 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     ws: StandaloneWSClient,
-    timelineApi: lila.core.timeline.TimelineApi,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,

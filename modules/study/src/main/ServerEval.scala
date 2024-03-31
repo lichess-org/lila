@@ -15,7 +15,6 @@ import lila.user.{ User, UserRepo }
 object ServerEval:
 
   final class Requester(
-      fishnetApi: lila.core.fishnet.FishnetApi,
       chapterRepo: ChapterRepo,
       userRepo: UserRepo
   )(using Executor):
@@ -34,7 +33,7 @@ object ServerEval:
             chapterRepo
               .startServerEval(chapter)
               .andDo:
-                fishnetApi.analyseStudyChapter(
+                lila.core.fishnet.FishnetApi.analyseStudyChapter(
                   StudyChapterRequest(
                     studyId = study.id,
                     chapterId = chapter.id,

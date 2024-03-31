@@ -6,7 +6,7 @@ import lila.common.config.NetDomain
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.timeline.{ ForumPost as TimelinePost, Propagate, TimelineApi }
 import lila.core.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
@@ -23,7 +23,6 @@ final private class ForumTopicApi(
     config: ForumConfig,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    timelineApi: lila.core.timeline.TimelineApi,
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
@@ -118,7 +117,7 @@ final private class ForumTopicApi(
             if post.isTeam then shutupApi.teamForumMessage(me, text)
             else shutupApi.publicText(me, text, PublicSource.Forum(post.id))
             if !post.troll && !categ.quiet then
-              timelineApi(
+              TimelineApi(
                 Propagate(TimelinePost(me, topic.id, topic.name, post.id))
                   .toFollowersOf(me)
                   .withTeam(categ.team)

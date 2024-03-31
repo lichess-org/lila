@@ -51,8 +51,11 @@ final class Env(
         }
     }
 
-  val api = wire[TimelineApi]
+  private val api = wire[TimelineApi]
 
-  lila.common.Bus.subscribeFun("shadowban") { case lila.core.actorApi.mod.Shadowban(userId, true) =>
-    entryApi.removeRecentFollowsBy(userId)
-  }
+  lila.common.Bus.subscribeFuns(
+    "shadowban" -> { case lila.core.mod.Shadowban(userId, true) =>
+      entryApi.removeRecentFollowsBy(userId)
+    },
+    "timeline" -> { case propagate: lila.core.timeline.Propagate => api(propagate) }
+  )

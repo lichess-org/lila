@@ -63,5 +63,5 @@ final class SelfReport(
                     (2 + hours + ThreadLocalRandom.nextInt(hours * 60)).minutes
                   ):
                     lila.common.Bus
-                      .publish(lila.core.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
+                      .publish(lila.core.mod.SelfReportMark(u.id, name), "selfReportMark")
     }

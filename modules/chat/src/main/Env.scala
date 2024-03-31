@@ -9,7 +9,6 @@ import lila.common.config.*
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,
     @ConfigName("collection.timeout") timeoutColl: CollName,
-    @ConfigName("actor.name") actorName: String,
     @ConfigName("timeout.duration") timeoutDuration: FiniteDuration,
     @ConfigName("timeout.check_every") timeoutCheckEvery: FiniteDuration
 )

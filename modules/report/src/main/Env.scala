@@ -18,13 +18,14 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
-    playbanApi: lila.playban.PlaybanApi,
+    playbanApi: => lila.playban.PlaybanApi,
     ircApi: lila.irc.IrcApi,
     captcha: lila.core.captcha.CaptchaApi,
-    fishnetApi: lila.core.fishnet.FishnetApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
 )(using Executor)(using scheduler: Scheduler):
+
+  private def lazyPlaybanApi = () => playbanApi
 
   private lazy val reportColl = db(CollName("report2"))
 

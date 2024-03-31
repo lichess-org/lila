@@ -195,7 +195,7 @@ final class ChatApi(
               publish(chat.id, ChatLine(chat.id, l), busChan)
             if isMod(mod) || isRelayMod(mod) then
               lila.common.Bus.publish(
-                lila.core.actorApi.mod.ChatTimeout(
+                lila.core.mod.ChatTimeout(
                   mod = mod.userId,
                   user = user.id,
                   reason = reason.key,
