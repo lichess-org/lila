@@ -5,7 +5,6 @@ import * as xhr from 'common/xhr';
 site.load.then(() => {
   $('#form3-leaders').each(function (this: HTMLInputElement) {
     initTagify(this, 10);
-    console.log('initTagify');
   });
   $('#form3-members').each(function (this: HTMLInputElement) {
     initTagify(this, 100);
