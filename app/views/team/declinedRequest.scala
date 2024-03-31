@@ -7,8 +7,12 @@ import lila.common.paginator.Paginator
 
 object declinedRequest:
 
-  def all(team: lila.team.Team, requests: Paginator[lila.team.RequestWithUser], search: Option[String] = None)(
-      using PageContext
+  def all(
+      team: lila.team.Team,
+      requests: Paginator[lila.team.RequestWithUser],
+      search: Option[String] = None
+  )(using
+      PageContext
   ) =
     val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
 

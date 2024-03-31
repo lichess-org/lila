@@ -23,7 +23,7 @@ site.load.then(() => {
   $('form.team-declined-request input[name="search"]').each(function (this: HTMLInputElement) {
     site.asset.userComplete({
       input: this,
-      tag: 'span'
+      tag: 'span',
     });
   });
 });
