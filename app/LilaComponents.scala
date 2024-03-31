@@ -87,12 +87,15 @@ final class LilaComponents(
     )
 
   // dev assets
-  given FileMimeTypes          = fileMimeTypes
-  lazy val devAssetsController = wire[ExternalAssets]
+  given FileMimeTypes = fileMimeTypes
 
-  lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
-  lazy val env: lila.app.Env      = boot.env
+  val env: lila.app.Env =
+    lila.log("boot").info(s"Start loading lila modules")
+    val c = lila.common.Chronometer.sync(wire[lila.app.EnvBoot].env)
+    lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
+    c.result
 
+  lazy val devAssetsController            = wire[ExternalAssets]
   lazy val account: Account               = wire[Account]
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]

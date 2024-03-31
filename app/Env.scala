@@ -168,7 +168,6 @@ final class EnvBoot(
     ws: StandaloneWSClient,
     materializer: akka.stream.Materializer
 ):
-
   given Scheduler  = system.scheduler
   given Mode       = environment.mode
   given Translator = lila.i18n.Translator
@@ -252,9 +251,6 @@ final class EnvBoot(
   val api: lila.api.Env                 = wire[lila.api.Env]
   val lilaCookie                        = wire[lila.common.LilaCookie]
 
-  val env: lila.app.Env =
-    val c = lila.common.Chronometer.sync(wire[lila.app.Env])
-    lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
-    c.result
+  val env: lila.app.Env = wire[lila.app.Env]
 
   templating.Environment.setEnv(env)
