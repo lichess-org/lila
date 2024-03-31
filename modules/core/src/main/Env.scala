@@ -14,14 +14,12 @@ object hub:
     def ask[A](using Executor, Scheduler)                   = Bus.ask[A](channel)
 
   val renderer = RemoteService("rs-renderer")
-  val captcher = RemoteService("rs-captcher")
 
 object actors:
   trait Actor:
     val actor: ActorSelection
     val ! = actor.!
   final class GameSearch(val actor: ActorSelection) extends Actor
-  final class Fishnet(val actor: ActorSelection)    extends Actor
   final class Timeline(val actor: ActorSelection)   extends Actor
 
 @Module
@@ -35,7 +33,6 @@ final class Env(
   private val config = appConfig.get[Config]("hub")
 
   val gameSearch = GameSearch(select("actor.game.search"))
-  val fishnet    = Fishnet(select("actor.fishnet"))
   val timeline   = Timeline(select("actor.timeline.user"))
 
   private def select(name: String) =

@@ -17,7 +17,7 @@ final class AssessApi(
     modApi: ModApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    fishnet: lila.core.actors.Fishnet,
+    fishnetApi: lila.core.fishnet.FishnetApi,
     gameRepo: lila.game.GameRepo,
     analysisRepo: AnalysisRepo,
     reportApi: lila.core.report.ReportApi
@@ -238,4 +238,4 @@ final class AssessApi(
 
     shouldAnalyse.mapz: reason =>
       lila.mon.cheat.autoAnalysis(reason.toString).increment()
-      fishnet ! lila.core.actorApi.fishnet.AutoAnalyse(game.id)
+      fishnetApi.analyseGame(game.id)

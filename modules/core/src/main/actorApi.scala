@@ -161,19 +161,6 @@ package timeline:
 package notify:
   case class NotifiedBatch(userIds: Iterable[UserId])
 
-package fishnet:
-  case class AutoAnalyse(gameId: GameId)
-  case class NewKey(userId: UserId, key: String)
-  case class StudyChapterRequest(
-      studyId: StudyId,
-      chapterId: StudyChapterId,
-      initialFen: Option[Fen.Epd],
-      variant: chess.variant.Variant,
-      moves: List[Uci],
-      userId: UserId,
-      unlimited: Boolean
-  )
-
 package user:
 
   import lila.common.EmailAddress

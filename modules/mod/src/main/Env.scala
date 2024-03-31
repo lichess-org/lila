@@ -10,7 +10,7 @@ import lila.user.{ Me, User }
 @Module
 final class Env(
     db: lila.db.Db,
-    fishnet: lila.core.actors.Fishnet,
+    fishnetApi: lila.core.fishnet.FishnetApi,
     perfStat: lila.perfStat.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,

@@ -39,12 +39,7 @@ final class Env(
     sink: lila.analyse.Analyser,
     userRepo: lila.user.UserRepo,
     shutdown: akka.actor.CoordinatedShutdown
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler,
-    materializer: akka.stream.Materializer
-):
+)(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 
@@ -99,20 +94,13 @@ final class Env(
 
   lazy val awaiter = wire[FishnetAwaiter]
 
-  wire[Cleaner]
+  val coreApi = new lila.core.fishnet.FishnetApi:
+    def analyseGame(gameId: GameId) =
+      val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
+      analyser(gameId, sender).void
+    def analyseStudyChapter(req: lila.core.fishnet.StudyChapterRequest) = analyser.study(req).void
 
-  // api actor
-  system.actorOf(
-    Props(
-      new Actor:
-        def receive =
-          case lila.core.actorApi.fishnet.AutoAnalyse(gameId) =>
-            val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
-            analyser(gameId, sender)
-          case req: lila.core.actorApi.fishnet.StudyChapterRequest => analyser.study(req)
-    ),
-    name = config.actorName
-  )
+  wire[Cleaner]
 
   private def disable(keyOrUser: String) =
     repo.toKey(keyOrUser).flatMap { repo.enableClient(_, v = false) }
@@ -123,7 +111,7 @@ final class Env(
         userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)).flatMap {
           if _ then
             api.createClient(UserStr(name).id).map { client =>
-              Bus.publish(lila.core.actorApi.fishnet.NewKey(client.userId, client.key.value), "fishnet")
+              Bus.publish(lila.core.fishnet.NewKey(client.userId, client.key.value), "fishnet")
               s"Created key: ${client.key.value} for: $name"
             }
           else fuccess("User missing, closed, or banned")

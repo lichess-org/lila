@@ -21,7 +21,7 @@ final class Env(
     playbanApi: lila.playban.PlaybanApi,
     ircApi: lila.irc.IrcApi,
     captcha: lila.core.captcha.CaptchaApi,
-    fishnet: lila.core.actors.Fishnet,
+    fishnetApi: lila.core.fishnet.FishnetApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
 )(using Executor, ActorSystem)(using scheduler: Scheduler):

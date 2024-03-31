@@ -6,7 +6,7 @@ import play.api.libs.json.*
 
 import lila.analyse.{ Advice, Analysis, Info }
 import lila.db.dsl.bsonWriteOpt
-import lila.core.actorApi.fishnet.StudyChapterRequest
+import lila.core.fishnet.StudyChapterRequest
 import lila.security.Granter
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
@@ -15,7 +15,7 @@ import lila.user.{ User, UserRepo }
 object ServerEval:
 
   final class Requester(
-      fishnet: lila.core.actors.Fishnet,
+      fishnetApi: lila.core.fishnet.FishnetApi,
       chapterRepo: ChapterRepo,
       userRepo: UserRepo
   )(using Executor):
@@ -34,22 +34,24 @@ object ServerEval:
             chapterRepo
               .startServerEval(chapter)
               .andDo:
-                fishnet ! StudyChapterRequest(
-                  studyId = study.id,
-                  chapterId = chapter.id,
-                  initialFen = chapter.root.fen.some,
-                  variant = chapter.setup.variant,
-                  moves = chess.format
-                    .UciDump(
-                      moves = chapter.root.mainline.map(_.move.san),
-                      initialFen = chapter.root.fen.some,
-                      variant = chapter.setup.variant,
-                      force960Notation = true
-                    )
-                    .toOption
-                    .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
-                  userId = userId,
-                  unlimited = unlimited
+                fishnetApi.analyseStudyChapter(
+                  StudyChapterRequest(
+                    studyId = study.id,
+                    chapterId = chapter.id,
+                    initialFen = chapter.root.fen.some,
+                    variant = chapter.setup.variant,
+                    moves = chess.format
+                      .UciDump(
+                        moves = chapter.root.mainline.map(_.move.san),
+                        initialFen = chapter.root.fen.some,
+                        variant = chapter.setup.variant,
+                        force960Notation = true
+                      )
+                      .toOption
+                      .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
+                    userId = userId,
+                    unlimited = unlimited
+                  )
                 )
 
   final class Merger(
