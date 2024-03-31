@@ -8,7 +8,7 @@ import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
 import lila.gathering.GatheringClock
-import lila.hub.LightTeam
+import lila.core.team.LightTeam
 import lila.user.Me
 
 final class TournamentForm:

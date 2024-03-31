@@ -23,14 +23,14 @@ final class Env(
     appConfig: Configuration,
     ws: play.api.libs.ws.StandaloneWSClient,
     settingStore: lila.memo.SettingStore.Builder,
-    isOnline: lila.hub.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    subsRepo: lila.relation.SubscriptionRepo,
+    subsRepo: lila.core.relation.SubscriptionRepo,
     prefApi: lila.pref.PrefApi,
     db: lila.db.Db,
     net: lila.common.config.NetConfig
@@ -77,10 +77,10 @@ final class Env(
   lazy val liveStreamApi = wire[LiveStreamApi]
 
   lila.common.Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api.demote(userId)
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => api.demote(userId)
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => api.demote(userId)
-    case lila.hub.actorApi.mod.Shadowban(userId, false)  => api.unignore(userId)
+    case lila.core.actorApi.mod.MarkCheater(userId, true) => api.demote(userId)
+    case lila.core.actorApi.mod.MarkBooster(userId)       => api.demote(userId)
+    case lila.core.actorApi.mod.Shadowban(userId, true)   => api.demote(userId)
+    case lila.core.actorApi.mod.Shadowban(userId, false)  => api.unignore(userId)
 
   scheduler.scheduleWithFixedDelay(1 hour, 1 day): () =>
     api.autoDemoteFakes

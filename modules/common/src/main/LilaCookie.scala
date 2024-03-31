@@ -1,6 +1,6 @@
 package lila.common
 
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 import play.api.mvc.*
 
 import lila.common.config.NetDomain

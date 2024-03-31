@@ -29,7 +29,7 @@ object side:
               separator,
               views.html.game.bits.variantLink(s.variant, s.perfType, shortName = true),
               separator,
-              if s.settings.rated then trans.ratedTournament() else trans.casualTournament()
+              if s.settings.rated then trans.site.ratedTournament() else trans.site.casualTournament()
             ),
             p(
               span(cls := "swiss__meta__round")(
@@ -57,13 +57,13 @@ object side:
           }
           .orElse(s.settings.position.map: fen =>
             div(
-              trans.customPosition(),
+              trans.site.customPosition(),
               " • ",
               views.html.base.bits.fenAnalysisLink(fen)
             )),
         teamLink(s.teamId),
         views.html.gathering.verdicts(verdicts, s.perfType, s.isEnterable) | br,
-        small(trans.by(userIdLink(s.createdBy.some))),
+        small(trans.site.by(userIdLink(s.createdBy.some))),
         br,
         absClientInstant(s.startsAt)
       ),

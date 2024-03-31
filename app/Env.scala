@@ -10,6 +10,7 @@ import lila.common.config.*
 import lila.common.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
+import lila.core.i18n.Translator
 
 final class Env(
     val config: Configuration,
@@ -17,7 +18,7 @@ final class Env(
     val user: lila.user.Env,
     val mailer: lila.mailer.Env,
     val security: lila.security.Env,
-    val hub: lila.hub.Env,
+    val hub: lila.core.Env,
     val socket: lila.socket.Env,
     val memo: lila.memo.Env,
     val msg: lila.msg.Env,
@@ -90,7 +91,8 @@ final class Env(
     val system: ActorSystem,
     val scheduler: Scheduler,
     val executor: Executor,
-    val mode: play.api.Mode
+    val mode: play.api.Mode,
+    val translator: Translator
 ):
 
   val explorerEndpoint       = config.get[String]("explorer.endpoint")
@@ -147,7 +149,12 @@ final class Env(
         none
       }
 
-  system.actorOf(Props(new templating.RendererActor), name = config.get[String]("hub.actor.renderer"))
+  lila.core.hub.renderer.register:
+    case lila.tv.RenderFeaturedJs(game, promise) =>
+      promise.success(views.html.game.mini.noCtx(lila.game.Pov.naturalOrientation(game), tv = true).render)
+    case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
+      promise.success(views.html.puzzle.bits.daily(puzzle, fen, lastMove).render)
+
 end Env
 
 final class EnvBoot(
@@ -163,20 +170,22 @@ final class EnvBoot(
     materializer: akka.stream.Materializer
 ):
 
-  given Scheduler = system.scheduler
-  given Mode      = environment.mode
-  val netConfig   = config.get[NetConfig]("net")
+  given Scheduler  = system.scheduler
+  given Mode       = environment.mode
+  given Translator = lila.i18n.Translator
+  val netConfig    = config.get[NetConfig]("net")
   export netConfig.{ domain, baseUrl, assetBaseUrlInternal }
 
   // eagerly load the Uptime object to fix a precise date
 
   // wire all the lila modules
+  val i18n: lila.i18n.Env.type               = lila.i18n.Env
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
   lazy val mongo: lila.db.Env                = wire[lila.db.Env]
   lazy val user: lila.user.Env               = wire[lila.user.Env]
   lazy val mailer: lila.mailer.Env           = wire[lila.mailer.Env]
   lazy val security: lila.security.Env       = wire[lila.security.Env]
-  lazy val hub: lila.hub.Env                 = wire[lila.hub.Env]
+  lazy val hub: lila.core.Env                = wire[lila.core.Env]
   lazy val socket: lila.socket.Env           = wire[lila.socket.Env]
   lazy val msg: lila.msg.Env                 = wire[lila.msg.Env]
   lazy val game: lila.game.Env               = wire[lila.game.Env]

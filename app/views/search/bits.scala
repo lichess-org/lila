@@ -19,7 +19,7 @@ private object bits:
   private def dateMinMax: List[Modifier] =
     List(min := dateMin, max := dateFormatter.print(nowInstant.plusDays(1)))
 
-  final class SearchForm(form: Form[?])(using Lang):
+  final class SearchForm(form: Form[?])(using Translate):
 
     def dataReqs =
       List("winner", "loser", "white", "black").map { f =>
@@ -29,7 +29,11 @@ private object bits:
     def colors(hide: Boolean) =
       chess.Color.all.map { color =>
         tr(cls := List(s"${color.name}User user-row" -> true, "none" -> hide))(
-          th(label(`for` := form3.id(form("players")(color.name)))(color.fold(trans.white, trans.black)())),
+          th(
+            label(`for` := form3.id(form("players")(color.name)))(
+              color.fold(trans.site.white, trans.site.black)()
+            )
+          ),
           td(
             st.select(
               id   := form3.id(form("players")(color.name)),
@@ -44,7 +48,7 @@ private object bits:
     def winner(hide: Boolean) =
       form("players")("winner").pipe { field =>
         tr(cls := List("winner user-row" -> true, "none" -> hide))(
-          th(label(`for` := form3.id(field))(trans.winner())),
+          th(label(`for` := form3.id(field))(trans.site.winner())),
           td(
             st.select(id := form3.id(field), name := field.name)(
               option(cls := "blank", value := "")
@@ -69,7 +73,7 @@ private object bits:
       tr(
         th(
           label(
-            trans.rating(),
+            trans.site.rating(),
             " ",
             span(cls := "help", title := ratingExplanation.txt())("(?)")
           )
@@ -84,7 +88,7 @@ private object bits:
       tr(
         th(
           label(`for` := form3.id(form("hasAi")))(
-            trans.opponent(),
+            trans.site.opponent(),
             " ",
             span(cls := "help", title := humanOrComputer.txt())("(?)")
           )
@@ -109,7 +113,7 @@ private object bits:
 
     def perf =
       tr(
-        th(label(`for` := form3.id(form("perf")))(trans.variant())),
+        th(label(`for` := form3.id(form("perf")))(trans.site.variant())),
         td(
           form3.select(
             form("perf"),
@@ -122,7 +126,7 @@ private object bits:
 
     def mode =
       tr(
-        th(label(`for` := form3.id(form("mode")))(trans.mode())),
+        th(label(`for` := form3.id(form("mode")))(trans.site.mode())),
         td(form3.select(form("mode"), Query.modes, "".some))
       )
 
@@ -138,7 +142,7 @@ private object bits:
     def duration =
       tr(
         tr(
-          th(label(trans.duration())),
+          th(label(trans.site.duration())),
           td(cls := "two-columns")(
             div(from(), " ", form3.select(form("durationMin"), Query.durations, "".some)),
             div(to(), " ", form3.select(form("durationMax"), Query.durations, "".some))
@@ -148,7 +152,7 @@ private object bits:
 
     def clockTime =
       tr(
-        th(label(trans.clockInitialTime())),
+        th(label(trans.site.clockInitialTime())),
         td(cls := "two-columns")(
           div(
             from(),
@@ -161,7 +165,7 @@ private object bits:
 
     def clockIncrement =
       tr(
-        th(label(trans.clockIncrement())),
+        th(label(trans.site.clockIncrement())),
         td(cls := "two-columns")(
           div(from(), " ", form3.select(form("clock")("incMin"), Query.clockIncs, "".some)),
           div(to(), " ", form3.select(form("clock")("incMax"), Query.clockIncs, "".some))
@@ -213,4 +217,4 @@ private object bits:
         )
       )
 
-  def of(form: Form[?])(using Lang) = SearchForm(form)
+  def of(form: Form[?])(using Translate) = SearchForm(form)

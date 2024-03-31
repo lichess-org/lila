@@ -14,8 +14,6 @@ import lila.pref.Pref
 import lila.rating.Perf
 import lila.user.{ GameUser, GameUsers, User }
 
-import actorApi.SocketStatus
-
 final class JsonView(
     lightUserGet: LightUser.Getter,
     userJsonView: lila.user.JsonView,
@@ -24,7 +22,7 @@ final class JsonView(
     takebacker: Takebacker,
     moretimer: Moretimer,
     divider: lila.game.Divider,
-    isOfferingRematch: IsOfferingRematch
+    isOfferingRematch: lila.core.round.IsOfferingRematch
 )(using Executor):
 
   import lila.tree.ExportOptions
@@ -50,7 +48,7 @@ final class JsonView(
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
       .add("provisional" -> (p.provisional.yes && withFlags.rating))
-      .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
+      .add("offeringRematch" -> isOfferingRematch(Pov(g, p).ref))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
@@ -313,8 +311,9 @@ final class JsonView(
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
 
+  private val moretimeJson = ("moretime" -> JsNumber(lila.core.round.Moretime.defaultDuration.toSeconds))
   private[round] def clockJson(clock: Clock): JsObject =
-    Json.toJsObject(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
+    Json.toJsObject(clock) + moretimeJson
 
   private def possibleMoves(pov: Pov): Option[JsValue] =
     pov.game

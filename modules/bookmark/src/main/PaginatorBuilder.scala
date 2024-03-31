@@ -14,7 +14,7 @@ final class PaginatorBuilder(
     Paginator(
       new UserAdapter(user),
       currentPage = page,
-      maxPerPage = lila.common.config.MaxPerPage(12)
+      maxPerPage = MaxPerPage(12)
     )
 
   final class UserAdapter(user: User) extends AdapterLike[Game]:

@@ -2,7 +2,7 @@ package lila.perfStat
 
 import java.time.Duration
 
-import lila.common.Heapsort
+import scalalib.HeapSort
 import lila.game.Pov
 import lila.rating.PerfType
 
@@ -188,7 +188,7 @@ case class Results(results: List[Result]):
       if pov.game.rated
       if pov.game.bothPlayersHaveMoved
     yield Results(
-      Heapsort.topN(
+      HeapSort.topN(
         Result(
           opInt,
           opId,

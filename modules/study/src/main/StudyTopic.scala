@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.common.LilaFuture
-import lila.common.config.Max
+
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
@@ -114,17 +114,17 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
   private def docTopic(doc: Bdoc): Option[StudyTopic] =
     doc.getAsOpt[StudyTopic]("_id")
 
-  private val recomputeWorkQueue = lila.hub.AsyncActorSequencer(
+  private val recomputeWorkQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(1),
     timeout = 61 seconds,
     name = "studyTopicAggregation",
-    logging = false
+    lila.log.asyncActorMonitor
   )
 
   def recompute(): Unit =
     recomputeWorkQueue(LilaFuture.makeItLast(60 seconds)(recomputeNow)).recover:
-      case _: lila.hub.BoundedAsyncActor.EnqueueException => ()
-      case e: Exception                                   => logger.warn("Can't recompute study topics!", e)
+      case _: scalalib.actor.AsyncActorBounded.EnqueueException => ()
+      case e: Exception => logger.warn("Can't recompute study topics!", e)
 
   private def recomputeNow: Funit =
     studyRepo

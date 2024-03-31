@@ -2,7 +2,7 @@ package lila.msg
 
 import lila.common.LightUser
 import lila.common.config.BaseUrl
-import lila.hub.LightTeam
+import lila.core.team.LightTeam
 
 case class MsgPreset(name: String, text: String)
 

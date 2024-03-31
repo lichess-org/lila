@@ -3,7 +3,7 @@ package lila.relay
 import chess.format.pgn.*
 import chess.{ FideId, PlayerName }
 
-import lila.hub.fide.{ PlayerToken, Tokenize }
+import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
 
 type TeamName = String

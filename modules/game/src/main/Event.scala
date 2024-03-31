@@ -20,17 +20,9 @@ import chess.{
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.core.game.Event
 
 import JsonView.{ *, given }
-
-sealed trait Event:
-  def typ: String
-  def data: JsValue
-  def only: Option[Color]   = None
-  def owner: Boolean        = false
-  def watcher: Boolean      = false
-  def troll: Boolean        = false
-  def moveBy: Option[Color] = None
 
 object Event:
 

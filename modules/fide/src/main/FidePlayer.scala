@@ -4,13 +4,13 @@ import chess.{ FideId, PlayerName, PlayerTitle }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.text.Normalizer
-import lila.hub.fide.{ FideTC, PlayerToken, Tokenize }
+import lila.core.fide.{ FideTC, PlayerToken, Tokenize }
 
 case class FidePlayer(
     @Key("_id") id: FideId,
     name: PlayerName,
     token: PlayerToken,
-    fed: Option[lila.hub.fide.Federation.Id],
+    fed: Option[lila.core.fide.Federation.Id],
     title: Option[PlayerTitle],
     standard: Option[Int],
     rapid: Option[Int],
@@ -18,7 +18,7 @@ case class FidePlayer(
     year: Option[Int],
     inactive: Option[Boolean],
     fetchedAt: Instant
-) extends lila.hub.fide.Player:
+) extends lila.core.fide.Player:
 
   def ratingOf(tc: FideTC): Option[Int] = tc match
     case FideTC.standard => standard

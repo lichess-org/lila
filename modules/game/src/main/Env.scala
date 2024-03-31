@@ -31,12 +31,11 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler,
-    materializer: Materializer,
-    mode: play.api.Mode
+)(using system: ActorSystem, scheduler: Scheduler)(using
+    lila.core.i18n.Translator,
+    Executor,
+    Materializer,
+    play.api.Mode
 ):
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)

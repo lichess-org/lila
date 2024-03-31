@@ -37,7 +37,7 @@ object bits:
       perfType: lila.rating.PerfType,
       initialFen: Option[chess.format.Fen.Epd] = None,
       shortName: Boolean = false
-  )(using Lang): Frag =
+  )(using Translate): Frag =
 
     def link(href: String, title: String, name: String) = a(
       cls     := "variant-link",

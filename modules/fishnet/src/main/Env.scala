@@ -77,7 +77,7 @@ final class Env(
   )
 
   private lazy val socketExists: GameId => Fu[Boolean] = id =>
-    Bus.ask[Boolean]("roundSocket")(lila.hub.actorApi.map.Exists(id.value, _))
+    Bus.ask[Boolean]("roundSocket")(lila.core.actorApi.map.Exists(id.value, _))
 
   lazy val api: FishnetApi = wire[FishnetApi]
 
@@ -106,10 +106,10 @@ final class Env(
     Props(
       new Actor:
         def receive =
-          case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
+          case lila.core.actorApi.fishnet.AutoAnalyse(gameId) =>
             val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
             analyser(gameId, sender)
-          case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req)
+          case req: lila.core.actorApi.fishnet.StudyChapterRequest => analyser.study(req)
     ),
     name = config.actorName
   )
@@ -123,7 +123,7 @@ final class Env(
         userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)).flatMap {
           if _ then
             api.createClient(UserStr(name).id).map { client =>
-              Bus.publish(lila.hub.actorApi.fishnet.NewKey(client.userId, client.key.value), "fishnet")
+              Bus.publish(lila.core.actorApi.fishnet.NewKey(client.userId, client.key.value), "fishnet")
               s"Created key: ${client.key.value} for: $name"
             }
           else fuccess("User missing, closed, or banned")
@@ -135,6 +135,6 @@ final class Env(
       case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key).inject("done!")
 
   Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId.value)
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId.value)
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId.value)
+    case lila.core.actorApi.mod.MarkCheater(userId, true) => disable(userId.value)
+    case lila.core.actorApi.mod.MarkBooster(userId)       => disable(userId.value)
+    case lila.core.actorApi.mod.Shadowban(userId, true)   => disable(userId.value)

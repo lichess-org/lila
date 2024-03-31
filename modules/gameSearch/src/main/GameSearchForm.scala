@@ -3,17 +3,17 @@ package lila.gameSearch
 import chess.Mode
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.i18n.Lang
 
 import java.time.LocalDate
 
 import lila.common.Form.*
 import lila.search.Range
 import lila.user.UserForm.historicalUsernameField
+import lila.core.i18n.Translate
 
 final private[gameSearch] class GameSearchForm:
 
-  def search(using lang: Lang) = Form(
+  def search(using Translate) = Form(
     mapping(
       "players" -> mapping(
         "a"      -> optional(historicalUsernameField),

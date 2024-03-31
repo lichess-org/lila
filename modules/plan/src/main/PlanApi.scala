@@ -493,7 +493,7 @@ final class PlanApi(
     }
 
   def setLifetime(user: User): Funit =
-    if user.plan.isEmpty then Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, 0), "plan")
+    if user.plan.isEmpty then Bus.publish(lila.core.actorApi.plan.MonthInc(user.id, 0), "plan")
     (userRepo.setPlan(
       user,
       user.plan.enable
@@ -656,7 +656,7 @@ final class PlanApi(
       monthlyGoalApi.get
         .map: m =>
           Bus.publish(
-            lila.hub.actorApi.plan.ChargeEvent(
+            lila.core.actorApi.plan.ChargeEvent(
               username = charge.userId.map(lightUserApi.syncFallback).fold(UserName("Anonymous"))(_.name),
               cents = charge.usd.cents,
               percent = m.percent,

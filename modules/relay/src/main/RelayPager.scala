@@ -1,6 +1,5 @@
 package lila.relay
 
-import lila.common.config.MaxPerPage
 import lila.common.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi

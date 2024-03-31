@@ -68,7 +68,7 @@ object declinedRequest:
                         value := teamRoutes.declinedRequests(team.id, requests.currentPage)
                       ),
                       button(name := "process", cls := "button button-green", value := "accept")(
-                        trans.accept()
+                        trans.site.accept()
                       )
                     )
                   )

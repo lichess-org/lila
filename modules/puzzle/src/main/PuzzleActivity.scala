@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.Json.given
-import lila.common.config.MaxPerSecond
+
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -31,7 +31,7 @@ final class PuzzleActivity(
           .sort($sort.desc(PuzzleRound.BSONFields.date))
           .batchSize(perSecond.value)
           .cursor[PuzzleRound](ReadPref.sec)
-          .documentSource(config.max | Int.MaxValue)
+          .documentSource(config.max.fold(Int.MaxValue)(_.value))
           .grouped(perSecond.value)
           .throttle(1, 1 second)
           .mapAsync(1)(enrich(config))
@@ -55,6 +55,6 @@ object PuzzleActivity:
 
   case class Config(
       user: User,
-      max: Option[Int],
+      max: Option[Max],
       before: Option[Instant]
   )

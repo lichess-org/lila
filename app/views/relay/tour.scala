@@ -160,7 +160,7 @@ object tour:
         trans.broadcast.subscribedBroadcasts()
       ),
       a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
-      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),
+      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts()),
       div(cls := "sep"),
       a(cls := menu.active("players"), href := routes.Fide.index(1))("FIDE players"),

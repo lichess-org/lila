@@ -10,7 +10,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LangPath
 import lila.common.String.html.safeJsonValue
-import lila.common.base.StringUtils.escapeHtmlRaw
+import scalalib.StringUtils.escapeHtmlRaw
 
 object layout:
 
@@ -107,7 +107,7 @@ object layout:
         if ctx.blind then "Disable" else "Enable"
       } blind mode</button></form>"""
 
-  private def zenZone(using Lang) = spaceless:
+  private def zenZone(using Translate) = spaceless:
     s"""
 <div id="zenzone">
   <a href="/" class="zen-home"></a>
@@ -124,7 +124,7 @@ object layout:
   private def anonDasher(using ctx: PageContext) =
     val prefs = trans.preferences.preferences.txt()
     frag(
-      a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.signIn()),
+      a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
       div(cls := "dasher")(
         button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
         div(id     := "dasher_app", cls         := "dropdown")
@@ -133,7 +133,7 @@ object layout:
 
   private def allNotifications(using ctx: PageContext) =
     val challengeTitle = trans.challenge.challengesX.txt(ctx.nbChallenges)
-    val notifTitle     = trans.notificationsX.txt(ctx.nbNotifications.value)
+    val notifTitle     = trans.site.notificationsX.txt(ctx.nbNotifications.value)
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
@@ -277,7 +277,7 @@ object layout:
           moreCss,
           pieceSprite,
           meta(
-            content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
+            content := openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
             name    := "description"
           ),
           link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), attr("color") := "black"),
@@ -354,7 +354,9 @@ object layout:
             .exists(_.enabled.yes)
             .option(
               div(id := "friend_box")(
-                div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag(licon.UpTriangle))),
+                div(cls := "friend_box_title")(
+                  trans.site.nbFriendsOnline.plural(0, iconTag(licon.UpTriangle))
+                ),
                 div(cls := "content_wrap none")(
                   div(cls := "content list")
                 )
@@ -423,7 +425,7 @@ object layout:
         div(cls := "site-title-nav")(
           (!ctx.isAppealUser).option(topnavToggle),
           a(cls := "site-title", href := langHref("/"))(
-            if ctx.kid.yes then span(title := trans.kidMode.txt(), cls := "kiddo")(":)")
+            if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
             div(cls := "site-icon", dataIcon := licon.Logo),
             div(cls := "site-name")(siteNameFrag)
@@ -447,7 +449,7 @@ object layout:
           teamRequests,
           if ctx.isAppealUser then
             postForm(action := routes.Auth.logout):
-              submitButton(cls := "button button-red link")(trans.logOut())
+              submitButton(cls := "button button-red link")(trans.site.logOut())
           else
             ctx.me
               .map { me =>
@@ -459,14 +461,14 @@ object layout:
 
   object inlineJs:
 
-    def apply(nonce: Nonce)(using Lang) = embedJsUnsafe(jsCode, nonce)
+    def apply(nonce: Nonce)(using Translate) = embedJsUnsafe(jsCode, nonce)
 
     private val i18nKeys = List(
-      trans.pause,
-      trans.resume,
-      trans.nbFriendsOnline,
-      trans.reconnecting,
-      trans.noNetwork,
+      trans.site.pause,
+      trans.site.resume,
+      trans.site.nbFriendsOnline,
+      trans.site.reconnecting,
+      trans.site.noNetwork,
       trans.timeago.justNow,
       trans.timeago.inNbSeconds,
       trans.timeago.inNbMinutes,
@@ -491,11 +493,11 @@ object layout:
     lila.common.Bus.subscribeFun("i18n.load"):
       case lang: Lang => cache.remove(lang)
 
-    private def jsCode(using lang: Lang) =
+    private def jsCode(using t: Translate) =
       cache.computeIfAbsent(
-        lang,
+        t.lang,
         _ =>
-          val qty  = lila.i18n.JsQuantity(lang)
+          val qty  = lila.i18n.JsQuantity(t.lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
           s"""site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
       )

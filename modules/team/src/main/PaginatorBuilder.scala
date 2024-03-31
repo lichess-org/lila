@@ -1,11 +1,11 @@
 package lila.team
 
 import lila.common.LightUser
-import lila.common.config.MaxPerPage
+
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
-import lila.user.MyId
+import lila.core.user.MyId
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,

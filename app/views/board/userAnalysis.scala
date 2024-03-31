@@ -17,7 +17,7 @@ object userAnalysis:
       inlinePgn: Option[String] = None
   )(using ctx: PageContext) =
     views.html.base.layout(
-      title = trans.analysis.txt(),
+      title = trans.site.analysis.txt(),
       moreCss = frag(
         cssTag("analyse.free"),
         (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),

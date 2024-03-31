@@ -5,8 +5,8 @@ import play.api.libs.json.*
 
 object PaginatorJson:
 
-  given Writes[config.MaxPerPage] with
-    def writes(m: config.MaxPerPage) = JsNumber(m.value)
+  given Writes[MaxPerPage] with
+    def writes(m: MaxPerPage) = JsNumber(m.value)
 
   given [A: Writes]: Writes[Paginator[A]] = Writes[Paginator[A]](apply)
 

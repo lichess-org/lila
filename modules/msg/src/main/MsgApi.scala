@@ -3,21 +3,20 @@ package lila.msg
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
-import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
-import lila.relation.Relations
+import lila.core.relation.Relations
 import lila.user.{ Me, User, UserRepo }
 
 final class MsgApi(
     colls: MsgColls,
     userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     json: MsgJson,
     notifier: MsgNotify,
     security: MsgSecurity,
-    shutup: lila.hub.actors.Shutup,
+    shutup: lila.core.actors.Shutup,
     spam: lila.security.Spam
 )(using Executor, akka.stream.Materializer):
 
@@ -153,12 +152,12 @@ final class MsgApi(
               _ <- threadWrite
             yield
               import MsgSecurity.*
-              import lila.hub.actorApi.socket.SendTo
-              import lila.hub.socket.makeMessage
+              import lila.core.actorApi.socket.SendTo
+              import lila.core.socket.makeMessage
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
                 Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
-              if send == Ok then shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+              if send == Ok then shutup ! lila.core.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
               PostResult.Success
       yield res
     }

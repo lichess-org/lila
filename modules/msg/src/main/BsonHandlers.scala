@@ -1,6 +1,6 @@
 package lila.msg
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.*
 
 import lila.db.BSON

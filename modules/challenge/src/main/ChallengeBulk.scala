@@ -6,15 +6,13 @@ import reactivemongo.api.bson.*
 
 import scala.util.chaining.*
 
-import lila.common.config.Max
 import lila.common.{ Bus, Days, LilaStream, Template }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player }
-import lila.hub.AsyncActorSequencers
-import lila.hub.actorApi.map.TellMany
+import lila.core.actorApi.map.TellMany
 import lila.rating.PerfType
-import lila.round.actorApi.round.StartClock
-import lila.setup.SetupBulk.{ ScheduledBulk, ScheduledGame, maxBulks }
+import lila.core.round.StartClock
+import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
 
 final class ChallengeBulkApi(
@@ -22,7 +20,7 @@ final class ChallengeBulkApi(
     msgApi: ChallengeMsg,
     gameRepo: lila.game.GameRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.round.OnStart
+    onStart: lila.core.game.OnStart
 )(using Executor, akka.stream.Materializer, Scheduler):
 
   import lila.game.BSONHandlers.given
@@ -35,11 +33,12 @@ final class ChallengeBulkApi(
 
   private val coll = colls.bulk
 
-  private val workQueue = AsyncActorSequencers[UserId](
+  private val workQueue = scalalib.actor.AsyncActorSequencers[UserId](
     maxSize = Max(16),
     expiration = 10 minutes,
     timeout = 10 seconds,
-    name = "challenge.bulk"
+    name = "challenge.bulk",
+    lila.log.asyncActorMonitor
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
@@ -105,7 +104,7 @@ final class ChallengeBulkApi(
             chess = chessGame,
             players = users.map(some).mapWithColor(Player.make),
             mode = bulk.mode,
-            source = lila.game.Source.Api,
+            source = lila.core.game.Source.Api,
             daysPerTurn = bulk.clock.toOption,
             pgnImport = None,
             rules = bulk.rules

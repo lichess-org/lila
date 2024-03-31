@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
-import lila.hub.socket.SocketVersion
+import lila.core.socket.SocketVersion
 
 object show:
 
@@ -35,7 +35,7 @@ object show:
             views.html.chat.json(
               c.chat,
               c.lines,
-              name = trans.chatRoom.txt(),
+              name = trans.site.chatRoom.txt(),
               timeout = c.timeout,
               writeable = ctx.userId.exists(s.canChat),
               public = true,

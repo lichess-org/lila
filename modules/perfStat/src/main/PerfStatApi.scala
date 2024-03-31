@@ -3,6 +3,7 @@ package lila.perfStat
 import lila.rating.{ Perf, PerfType, UserRankMap }
 import lila.security.Granter
 import lila.user.{ LightUserApi, Me, RankingApi, RankingsOf, User, UserApi }
+import lila.core.rating.PerfKey
 
 case class PerfStatData(
     user: User.WithPerfs,
@@ -23,7 +24,7 @@ final class PerfStatApi(
     lightUserApi: LightUserApi
 )(using Executor):
 
-  def data(name: UserStr, perfKey: Perf.Key)(using me: Option[Me]): Fu[Option[PerfStatData]] =
+  def data(name: UserStr, perfKey: PerfKey)(using me: Option[Me]): Fu[Option[PerfStatData]] =
     PerfType(perfKey).so: perfType =>
       userApi.withPerfs(name.id).flatMap {
         _.filter: u =>

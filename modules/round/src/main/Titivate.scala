@@ -6,7 +6,7 @@ import akka.stream.scaladsl.*
 import lila.common.LilaStream
 import lila.db.dsl.*
 import lila.game.{ Game, GameRepo, Query }
-import lila.round.actorApi.round.{ Abandon, QuietFlag }
+import lila.core.round.{ Abandon, QuietFlag }
 
 /*
  * Cleans up unfinished games
@@ -91,7 +91,7 @@ final private[round] class Titivate(
             tellRound(game.id, Abandon)
 
         case game if game.unplayed =>
-          lila.common.Bus.publish(lila.hub.actorApi.round.DeleteUnplayed(game.id), "roundUnplayed")
+          lila.common.Bus.publish(lila.core.round.DeleteUnplayed(game.id), "roundUnplayed")
           chatApi.remove(game.id.into(ChatId))
           gameRepo.remove(game.id)
 

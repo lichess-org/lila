@@ -8,7 +8,7 @@ import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
 import lila.common.{ Days, Form as LilaForm }
-import lila.rating.RatingRange
+import lila.core.rating.RatingRange
 import lila.user.Me
 
 object SetupForm:
@@ -105,7 +105,7 @@ object SetupForm:
           ) || hook.makeDaysPerTurn.isDefined
       )
 
-  object api:
+  object api extends lila.core.setup.SetupForm:
 
     lazy val clockMapping =
       mapping(
@@ -120,12 +120,19 @@ object SetupForm:
 
     lazy val variant = "variant" -> optional(typeIn(Variant.list.all.map(_.key).toSet))
 
-    lazy val message = optional(
+    lazy val message = "message" -> optional(
       nonEmptyText(maxLength = 8_000).verifying(
         "The message must contain {game}, which will be replaced with the game URL.",
         _.contains("{game}")
       )
     )
+
+    val rules = "rules" -> optional:
+      import lila.core.game.GameRule
+      lila.common.Form.strings
+        .separator(",")
+        .verifying(_.forall(GameRule.byKey.contains))
+        .transform[Set[GameRule]](rs => rs.flatMap(GameRule.byKey.get).toSet, _.map(_.toString).toList)
 
     def user(using from: Me) =
       Form(challengeMapping.verifying("Invalid speed", _.validSpeed(from.isBot)))
@@ -137,12 +144,12 @@ object SetupForm:
         variant,
         clock,
         optionalDays,
-        "rated"           -> boolean,
-        "color"           -> optional(color),
-        "fen"             -> fenField,
-        "message"         -> message,
+        "rated" -> boolean,
+        "color" -> optional(color),
+        "fen"   -> fenField,
+        message,
         "keepAliveStream" -> optional(boolean),
-        "rules"           -> optional(gameRules)
+        rules
       )(ApiConfig.from)(_ => none)
         .verifying("invalidFen", _.validFen)
         .verifying("can't be rated", _.validRated)
@@ -160,7 +167,7 @@ object SetupForm:
     def open(isAdmin: Boolean) = Form:
       openMapping.verifying(
         "The `noAbort` rule is now restricted to challenge administrators",
-        d => !d.rules.contains(lila.game.GameRule.NoAbort) || isAdmin
+        d => !d.rules.contains(lila.core.game.GameRule.noAbort) || isAdmin
       )
 
     private lazy val openMapping = mapping(
@@ -176,7 +183,7 @@ object SetupForm:
           .verifying("Must be 2 usernames, white and black", _.sizeIs == 2)
           .transform[List[UserStr]](UserStr.from(_), UserStr.raw(_))
       ,
-      "rules" -> optional(gameRules),
+      rules,
       "expiresAt" -> optional:
         inTheFuture(ISOInstantOrTimestamp.mapping)
           .verifying("Open challenges must expire within 2 weeks", _.isBefore(nowInstant.plusWeeks(2)))

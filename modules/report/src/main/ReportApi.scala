@@ -2,12 +2,12 @@ package lila.report
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.Max
-import lila.common.{ Bus, Heapsort }
+import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi.*
-import lila.user.{ Me, User, UserApi, UserRepo }
+import lila.user.{ Me, User, UserApi, UserRepo, modId, given }
+import lila.core.report.SuspectId
 
 final class ReportApi(
     val coll: Coll,
@@ -19,7 +19,7 @@ final class ReportApi(
     userLoginsApi: lila.security.UserLoginsApi,
     playbanApi: lila.playban.PlaybanApi,
     ircApi: lila.irc.IrcApi,
-    isOnline: lila.hub.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
@@ -69,7 +69,7 @@ final class ReportApi(
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate).andDo:
                 if report.isCheat then
-                  Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
+                  Bus.publish(lila.core.actorApi.report.CheatReportCreated(report.user), "cheatReport")
           }
           .andDo(maxScoreCache.invalidateUnit())
       }
@@ -193,7 +193,7 @@ final class ReportApi(
         .map:
           _.filter { (_, bans) => bans > 4 }
         .flatMap: bans =>
-          val topSum = Heapsort.topNToList(bans.values, 10).sum
+          val topSum = scalalib.HeapSort.topNToList(bans.values, 10).sum
           (topSum >= 80).so {
             userRepo
               .byId(userId)
@@ -517,10 +517,11 @@ final class ReportApi(
 
   object inquiries:
 
-    private val workQueue = lila.hub.AsyncActorSequencer(
+    private val workQueue = scalalib.actor.AsyncActorSequencer(
       maxSize = Max(32),
       timeout = 20 seconds,
-      name = "report.inquiries"
+      name = "report.inquiries",
+      lila.log.asyncActorMonitor
     )
 
     def allBySuspect: Fu[Map[UserId, Report.Inquiry]] =

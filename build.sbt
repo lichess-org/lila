@@ -56,8 +56,8 @@ libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ Seq(
 ) ++ tests.bundle
 
 lazy val modules = Seq(
-  common, db, rating, user, security, hub, socket,
-  msg, notifyModule, i18n, game, bookmark, search,
+  common, core, i18n, db, rating, user, security, socket,
+  msg, notifyModule, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
   importer, gathering, tournament, simul, relation, report, pref,
@@ -82,7 +82,7 @@ lazy val api = module("api",
 ) aggregate (moduleRefs: _*)
 
 lazy val i18n = module("i18n",
-  Seq(common),
+  Seq(core),
   tests.bundle ++ Seq(scalatags)
 ).settings(
   Compile / resourceGenerators += Def.task {
@@ -102,7 +102,7 @@ lazy val cms = module("cms",
 )
 
 lazy val puzzle = module("puzzle",
-  Seq(history, pref, tree),
+  Seq(history, pref),
   reactivemongo.bundle ++ tests.bundle
 )
 
@@ -142,7 +142,7 @@ lazy val feed = module("feed",
 )
 
 lazy val ublog = module("ublog",
-  Seq(timeline),
+  Seq(irc, security),
   Seq(bloomFilter) ++ reactivemongo.bundle
 )
 
@@ -160,7 +160,7 @@ lazy val common = module("common",
 )
 
 lazy val rating = module("rating",
-  Seq(i18n, db),
+  Seq(db, core),
   reactivemongo.bundle ++ tests.bundle ++ Seq(apacheMath)
 ).dependsOn(common % "test->test")
 
@@ -185,7 +185,7 @@ lazy val memo = module("memo",
 )
 
 lazy val search = module("search",
-  Seq(hub),
+  Seq(core),
   playWs.bundle
 )
 
@@ -200,7 +200,7 @@ lazy val room = module("room",
 )
 
 lazy val timeline = module("timeline",
-  Seq(team),
+  Seq(relation, security),
   reactivemongo.bundle
 )
 
@@ -210,12 +210,12 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, perfStat, tournament, swiss, report),
+  Seq(evaluation, perfStat, report, history),
   reactivemongo.bundle
 )
 
 lazy val user = module("user",
-  Seq(rating, memo, hub),
+  Seq(rating, memo),
   Seq(hasher, galimatias) ++ tests.bundle ++ playWs.bundle ++ reactivemongo.bundle
 )
 
@@ -235,12 +235,12 @@ lazy val tv = module("tv",
 )
 
 lazy val bot = module("bot",
-  Seq(challenge),
+  Seq(lobby),
   reactivemongo.bundle
 )
 
 lazy val analyse = module("analyse",
-  Seq(game, tree),
+  Seq(game),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -255,12 +255,12 @@ lazy val pool = module("pool",
 )
 
 lazy val activity = module("activity",
-  Seq(pool, puzzle, simul, ublog, study),
+  Seq(puzzle),
   reactivemongo.bundle
 )
 
 lazy val lobby = module("lobby",
-  Seq(timeline, pool),
+  Seq(game, relation, playban),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
@@ -275,12 +275,12 @@ lazy val importer = module("importer",
 )
 
 lazy val insight = module("insight",
-  Seq(round),
+  Seq(analyse, security, pref),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
 lazy val tutor = module("tutor",
-  Seq(insight),
+  Seq(insight, fishnet),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -315,7 +315,7 @@ lazy val fishnet = module("fishnet",
 )
 
 lazy val irwin = module("irwin",
-  Seq(mod, insight),
+  Seq(insight, notifyModule, report),
   reactivemongo.bundle
 )
 
@@ -330,17 +330,17 @@ lazy val security = module("security",
 )
 
 lazy val shutup = module("shutup",
-  Seq(relation),
+  Seq(user),
   tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val challenge = module("challenge",
-  Seq(setup),
+  Seq(lobby, room),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val fide = module("fide",
-  Seq(hub, memo),
+  Seq(core, memo),
   reactivemongo.bundle
 )
 
@@ -380,7 +380,7 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(challenge),
+  Seq(lobby, round),
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
@@ -415,22 +415,22 @@ lazy val msg = module("msg",
 )
 
 lazy val forum = module("forum",
-  Seq(mod),
+  Seq(security, pref, notifyModule),
   reactivemongo.bundle
 )
 
 lazy val forumSearch = module("forumSearch",
-  Seq(forum, search),
+  Seq(search),
   reactivemongo.bundle
 )
 
 lazy val team = module("team",
-  Seq(forum),
+  Seq(chat, security, notifyModule, room),
   reactivemongo.bundle
 )
 
 lazy val teamSearch = module("teamSearch",
-  Seq(team, search),
+  Seq(search),
   reactivemongo.bundle
 )
 
@@ -460,12 +460,12 @@ lazy val explorer = module("explorer",
 )
 
 lazy val notifyModule = module("notify",
-  Seq(relation),
+  Seq(pref, game),
   reactivemongo.bundle
 )
 
 lazy val socket = module("socket",
-  Seq(hub, memo),
+  Seq(core, memo),
   Seq(lettuce)
 )
 
@@ -474,7 +474,7 @@ lazy val tree = module("tree",
   Seq()
 )
 
-lazy val hub = module("hub",
+lazy val core = module("core",
   Seq(common),
   Seq(scaffeine)
 )

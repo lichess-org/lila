@@ -8,7 +8,7 @@ import lila.app.{ *, given }
 
 final class I18n(env: Env) extends LilaController(env):
 
-  private def toLang = lila.i18n.I18nLangPicker.byStr
+  private def toLang = lila.i18n.LangPicker.byStr
 
   private val form = Form(single("lang" -> text.verifying { code =>
     toLang(code).isDefined

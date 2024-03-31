@@ -2,7 +2,7 @@ package lila.base
 
 import alleycats.Zero
 import com.typesafe.config.Config
-import ornicar.scalalib.extensions.*
+import scalalib.extensions.*
 
 import java.lang.Math.{ max, min }
 import java.util.Base64
@@ -11,10 +11,17 @@ import scala.annotation.targetName
 import scala.concurrent.{ Await, ExecutionContext as EC }
 import scala.util.Try
 import scala.util.matching.Regex
+import scalalib.future.*
 
 import lila.common.Chronometer
 
 trait LilaLibraryExtensions extends LilaTypes:
+
+  /* library-agnostic way to run a future after a delay */
+  given (using sched: Scheduler, ec: Executor): FutureAfter =
+    [A] => (duration: FiniteDuration) => (fua: () => Future[A]) => akka.pattern.after(duration, sched)(fua())
+
+  export FutureExtension.*
 
   extension (self: Long)
     infix def atLeast(bottomValue: Long): Long = max(self, bottomValue)
@@ -48,11 +55,6 @@ trait LilaLibraryExtensions extends LilaTypes:
     def toTry(err: => String): Try[A] = toTryWith(lila.base.LilaException(err))
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
-
-    // move to scalalib? generalize Future away?
-    def soFu[B](f: A => Future[B]): Future[Option[B]] = self match
-      case Some(x) => f(x).map(Some(_))(scala.concurrent.ExecutionContext.parasitic)
-      case None    => Future.successful(None)
 
   extension (self: Boolean)
     // move to scalalib? generalize Future away?
@@ -116,9 +118,6 @@ trait LilaLibraryExtensions extends LilaTypes:
 
   extension [A](fua: Fu[A])
 
-    inline def dmap[B](f: A => B): Fu[B]       = fua.map(f)(EC.parasitic)
-    inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(EC.parasitic)
-
     def andDo(sideEffect: => Unit)(using Executor): Fu[A] =
       fua.andThen:
         case _ => sideEffect
@@ -127,10 +126,10 @@ trait LilaLibraryExtensions extends LilaTypes:
       fua.flatMap(_ => fub)
 
     inline def void: Fu[Unit] =
-      dmap(_ => ())
+      fua.dmap(_ => ())
 
     inline infix def inject[B](b: => B): Fu[B] =
-      dmap(_ => b)
+      fua.dmap(_ => b)
 
     def injectAnyway[B](b: => B)(using Executor): Fu[B] = fold(_ => b, _ => b)
 
@@ -211,34 +210,6 @@ trait LilaLibraryExtensions extends LilaTypes:
     def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =
       try await(duration, name)
       catch case _: Exception => default
-
-    def withTimeout(
-        duration: FiniteDuration,
-        error: => String
-    )(using Executor, Scheduler): Fu[A] =
-      withTimeoutError(duration, LilaTimeout(s"$error timeout after $duration"))
-
-    def withTimeoutError(
-        duration: FiniteDuration,
-        error: => Exception & util.control.NoStackTrace
-    )(using Executor)(using scheduler: Scheduler): Fu[A] =
-      Future.firstCompletedOf(
-        Seq(
-          fua,
-          akka.pattern.after(duration, scheduler)(Future.failed(error))
-        )
-      )
-
-    def withTimeoutDefault(
-        duration: FiniteDuration,
-        default: => A
-    )(using Executor)(using scheduler: Scheduler): Fu[A] =
-      Future.firstCompletedOf(
-        Seq(
-          fua,
-          akka.pattern.after(duration, scheduler)(Future(default))
-        )
-      )
 
     def delay(duration: FiniteDuration)(using Executor, Scheduler) =
       lila.common.LilaFuture.delay(duration)(fua)

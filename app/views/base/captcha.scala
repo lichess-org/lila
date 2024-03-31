@@ -42,21 +42,21 @@ object captcha:
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(
-              if captcha.color.white then trans.whiteCheckmatesInOneMove()
-              else trans.blackCheckmatesInOneMove()
+              if captcha.color.white then trans.site.whiteCheckmatesInOneMove()
+              else trans.site.blackCheckmatesInOneMove()
             ),
             br,
             br,
-            trans.thisIsAChessCaptcha(),
+            trans.site.thisIsAChessCaptcha(),
             br,
-            trans.clickOnTheBoardToMakeYourMove(),
+            trans.site.clickOnTheBoardToMakeYourMove(),
             br,
             br,
-            trans.help(),
+            trans.site.help(),
             " ",
-            a(title := trans.viewTheSolution.txt(), targetBlank, href := s"${url}#last")(url),
-            div(cls := "result success text", dataIcon := licon.Checkmark)(trans.checkmate()),
-            div(cls := "result failure text", dataIcon := licon.NotAllowed)(trans.notACheckmate()),
+            a(title := trans.site.viewTheSolution.txt(), targetBlank, href := s"${url}#last")(url),
+            div(cls := "result success text", dataIcon := licon.Checkmark)(trans.site.checkmate()),
+            div(cls := "result failure text", dataIcon := licon.NotAllowed)(trans.site.notACheckmate()),
             form3.hidden(form("move"))
           )
         )

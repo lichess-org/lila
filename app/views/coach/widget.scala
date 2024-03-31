@@ -84,7 +84,7 @@ object widget:
             c.user.seenAt.map: seen =>
               tr(cls := "seen")(
                 th,
-                td(trans.lastSeenActive(momentFromNow(seen)))
+                td(trans.site.lastSeenActive(momentFromNow(seen)))
               )
           )
         )

@@ -11,12 +11,10 @@ import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.common.{ Bus, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.round.{ Abort, Resign }
-import lila.hub.actorApi.simul.GetHostIds
+import lila.core.round.{ Abort, Resign }
+import lila.core.actorApi.simul.GetHostIds
 import lila.memo.SettingStore
-import lila.round.actorApi.{ GetSocketStatus, SocketStatus }
-import lila.rating.PerfType
-import lila.rating.RatingFactor
+import lila.rating.{ PerfType, RatingFactor }
 
 @Module
 private class RoundConfig(
@@ -35,8 +33,8 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     flairApi: lila.user.FlairApi,
-    timeline: lila.hub.actors.Timeline,
-    bookmark: lila.hub.actors.Bookmark,
+    timeline: lila.core.actors.Timeline,
+    bookmark: lila.core.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
@@ -50,13 +48,18 @@ final class Env(
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
-    socketKit: lila.hub.socket.ParallelSocketKit,
-    userLagPut: lila.hub.socket.userLag.Put,
+    socketKit: lila.core.socket.ParallelSocketKit,
+    userLagPut: lila.core.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder,
     notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
-)(using system: ActorSystem, scheduler: Scheduler)(using Executor, akka.stream.Materializer):
+)(using system: ActorSystem, scheduler: Scheduler)(using
+    Executor,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator
+):
+
   private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
 
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
@@ -75,7 +78,7 @@ final class Env(
   private val scheduleExpiration = ScheduleExpiration: game =>
     game.timeBeforeExpiration.foreach: centis =>
       scheduler.scheduleOnce((centis.millis + 1000).millis):
-        tellRound(game.id, actorApi.round.NoStart)
+        tellRound(game.id, lila.core.round.NoStart)
 
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
@@ -105,7 +108,7 @@ final class Env(
   private val getFactors: () => Map[PerfType, RatingFactor] = ratingFactorsSetting.get
 
   Bus.subscribeFuns(
-    "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>
+    "accountClose" -> { case lila.core.actorApi.security.CloseAccount(userId) =>
       resignAllGamesOf(userId)
     },
     "gameStartId" -> { case Game.OnStart(gameId) =>
@@ -114,7 +117,7 @@ final class Env(
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name)
     },
-    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+    "adjustCheater" -> { case lila.core.actorApi.mod.MarkCheater(userId, true) =>
       resignAllGamesOf(userId)
     }
   )
@@ -122,7 +125,7 @@ final class Env(
   lazy val tellRound: TellRound =
     TellRound((gameId: GameId, msg: Any) => roundSocket.rounds.tell(gameId, msg))
 
-  lazy val onStart: OnStart = OnStart: gameId =>
+  lazy val onStart = lila.core.game.OnStart: gameId =>
     proxyRepo
       .game(gameId)
       .foreach:
@@ -134,6 +137,7 @@ final class Env(
               Bus.publish(sg, "startGame")
               game.userIds.foreach: userId =>
                 Bus.publish(sg, s"userStartGame:$userId")
+              fishnetPlayer(game)
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
@@ -178,7 +182,7 @@ final class Env(
 
   private lazy val rematcher: Rematcher = wire[Rematcher]
 
-  lazy val isOfferingRematch = IsOfferingRematch(rematcher.isOffering)
+  lazy val isOfferingRematch = lila.core.round.IsOfferingRematch(rematcher.isOffering)
 
   private lazy val player: Player = wire[Player]
 

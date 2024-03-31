@@ -2,14 +2,14 @@ package lila.mod
 
 import lila.chat.UserChat
 import lila.report.Suspect
-import lila.swiss.Swiss
-import lila.tournament.Tournament
+import lila.core.tournament.Tournament
 import lila.user.UserRepo
+import lila.core.swiss.{ IdName as Swiss }
 
 final class PublicChat(
     chatApi: lila.chat.ChatApi,
-    tournamentApi: lila.tournament.TournamentApi,
-    swissFeature: lila.swiss.SwissFeature,
+    tournamentApi: lila.core.tournament.TournamentApi,
+    swissFeature: lila.core.swiss.SwissFeatureApi,
     userRepo: UserRepo
 )(using Executor):
 
@@ -28,8 +28,8 @@ final class PublicChat(
         .void
 
   private def tournamentChats: Fu[List[(Tournament, UserChat)]] =
-    tournamentApi.fetchVisibleTournaments.flatMap: visibleTournaments =>
-      val ids = visibleTournaments.all.map(_.id.into(ChatId))
+    tournamentApi.fetchModable.flatMap: tours =>
+      val ids = tours.map(_.id.into(ChatId))
       chatApi.userChat
         .findAll(ids)
         .map: chats =>
@@ -38,13 +38,12 @@ final class PublicChat(
               .map(_.filterLines(!_.isLichess))
               .filter(_.nonEmpty)
               .flatMap: chat =>
-                visibleTournaments.all
+                tours
                   .find(_.id.value == chat.id.value)
                   .map(_ -> chat)
 
   private def swissChats: Fu[List[(Swiss, UserChat)]] =
-    swissFeature
-      .get(Nil)
+    swissFeature.idNames
       .flatMap: swisses =>
         val all = swisses.created ::: swisses.started
         val ids = all.map(_.id.into(ChatId))

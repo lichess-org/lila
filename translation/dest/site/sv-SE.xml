@@ -286,9 +286,9 @@
   <string name="rematch">Returmatch</string>
   <string name="rematchOfferSent">Erbjudande om returmatch skickat</string>
   <string name="rematchOfferAccepted">Erbjudande om returmatch accepterat</string>
-  <string name="rematchOfferCanceled">Erbjudande om returmatch tillbakadraget</string>
+  <string name="rematchOfferCanceled">Förfrågan om returmatch tillbakadragen</string>
   <string name="rematchOfferDeclined">Erbjudande om returmatch avböjt</string>
-  <string name="cancelRematchOffer">Dra tillbaka erbjudande om returmatch</string>
+  <string name="cancelRematchOffer">Dra tillbaka förfrågan om returmatch</string>
   <string name="viewRematch">Visa returmatch</string>
   <string name="confirmMove">Bekräfta drag</string>
   <string name="play">Spela</string>

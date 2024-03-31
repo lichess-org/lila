@@ -20,7 +20,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     hcaptcha: lila.security.Hcaptcha,
     baseUrl: BaseUrl
-)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator):
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
@@ -46,11 +46,11 @@ final class Env(
       progressApi.onFinishGame(game)
     },
     "clas" -> {
-      case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
+      case lila.core.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
         promise.completeWith(api.clas.isTeacherOf(teacher, student))
-      case lila.hub.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
+      case lila.core.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
         promise.completeWith(api.clas.areKidsInSameClass(kid1, kid2))
-      case lila.hub.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
+      case lila.core.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
         promise.completeWith(matesCache.get(kid.id))
     }
   )

@@ -2,7 +2,7 @@ package lila.chat
 
 import reactivemongo.api.bson.BSONDocumentHandler
 
-import lila.hub.actorApi.shutup.PublicSource
+import lila.core.actorApi.shutup.PublicSource
 import lila.user.{ Me, User }
 
 sealed trait AnyChat:

@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import com.gilt.gfc.semver.SemVer
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 
 import scala.util.{ Failure, Success, Try }
 

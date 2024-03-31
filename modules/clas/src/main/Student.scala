@@ -1,6 +1,6 @@
 package lila.clas
 
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 
 import lila.rating.Perf
 import lila.user.{ User, UserPerfs }

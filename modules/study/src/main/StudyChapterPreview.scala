@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.fide.Federation
+import lila.core.fide.Federation
 
 case class ChapterPreview(
     id: StudyChapterId,

@@ -11,14 +11,14 @@ object bits:
   def link(simulId: lila.simul.SimulId): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
-  def jsI18n()(using Lang) = i18nJsObject(baseTranslations)
+  def jsI18n()(using Translate) = i18nJsObject(baseTranslations)
 
   def notFound()(using PageContext) =
-    views.html.base.layout(title = trans.noSimulFound.txt()):
+    views.html.base.layout(title = trans.site.noSimulFound.txt()):
       main(cls := "page-small box box-pad")(
-        h1(cls := "box__top")(trans.noSimulFound()),
-        p(trans.noSimulExplanation()),
-        p(a(href := routes.Simul.home)(trans.returnToSimulHomepage()))
+        h1(cls := "box__top")(trans.site.noSimulFound()),
+        p(trans.site.noSimulExplanation()),
+        p(a(href := routes.Simul.home)(trans.site.returnToSimulHomepage()))
       )
 
   def homepageSpotlight(s: lila.simul.Simul)(using Context) =
@@ -27,14 +27,14 @@ object bits:
       span(cls := "content")(
         span(cls := "name")(s.name, " simul"),
         span(cls := "more")(
-          trans.nbPlayers.plural(s.applicants.size, s.applicants.size.localize),
+          trans.site.nbPlayers.plural(s.applicants.size, s.applicants.size.localize),
           " • ",
-          trans.join()
+          trans.site.join()
         )
       )
     )
 
-  def allCreated(simuls: Seq[lila.simul.Simul], withName: Boolean = true)(using Lang) =
+  def allCreated(simuls: Seq[lila.simul.Simul], withName: Boolean = true)(using Translate) =
     table(cls := "slist"):
       simuls.map: simul =>
         val url = routes.Simul.show(simul.id)
@@ -56,16 +56,16 @@ object bits:
     )
 
   private val baseTranslations = Vector(
-    trans.finished,
-    trans.withdraw,
-    trans.join,
-    trans.cancel,
-    trans.joinTheGame,
-    trans.nbPlaying,
-    trans.nbWins,
-    trans.nbDraws,
-    trans.nbLosses,
-    trans.by,
-    trans.signIn,
-    trans.mustBeInTeam
+    trans.site.finished,
+    trans.site.withdraw,
+    trans.site.join,
+    trans.site.cancel,
+    trans.site.joinTheGame,
+    trans.site.nbPlaying,
+    trans.site.nbWins,
+    trans.site.nbDraws,
+    trans.site.nbLosses,
+    trans.site.by,
+    trans.site.signIn,
+    trans.site.mustBeInTeam
   )

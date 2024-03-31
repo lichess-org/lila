@@ -195,10 +195,10 @@ object discussion:
               nameValue = ("process" -> true.toString).some
             ),
             form3.submit(
-              trans.send(),
+              trans.site.send(),
               nameValue = ("process" -> false.toString).some
             )
           )
         }
-        .getOrElse(form3.submit(trans.send()))
+        .getOrElse(form3.submit(trans.site.send()))
     )

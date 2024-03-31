@@ -9,7 +9,7 @@ final class ForumTextExpand(using Executor, Scheduler):
 
   private def one(text: String)(using config.NetDomain): Fu[Frag] =
     lila.common.Bus
-      .ask("lpv")(lila.hub.actorApi.lpv.LpvLinkRenderFromText(text, _))
+      .ask("lpv")(lila.core.actorApi.lpv.LpvLinkRenderFromText(text, _))
       .map: linkRender =>
         raw:
           RawHtml.nl2br {

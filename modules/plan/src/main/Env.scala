@@ -23,17 +23,15 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     ws: StandaloneWSClient,
-    timeline: lila.hub.actors.Timeline,
+    timeline: lila.core.actors.Timeline,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
     ip2proxy: lila.security.Ip2Proxy
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode
+)(using Executor, play.api.Mode, lila.core.i18n.Translator)(using
+    system: akka.actor.ActorSystem
 ):
 
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
@@ -83,7 +81,7 @@ final class Env(
     expiration.run
 
   lila.common.Bus.subscribeFun("email"):
-    case lila.hub.actorApi.user.ChangeEmail(userId, email) => api.onEmailChange(userId, email)
+    case lila.core.actorApi.user.ChangeEmail(userId, email) => api.onEmailChange(userId, email)
 
   def cli = new lila.common.Cli:
     def process =

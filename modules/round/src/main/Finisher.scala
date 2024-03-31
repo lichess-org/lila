@@ -5,7 +5,7 @@ import chess.{ Color, DecayingStats, Status }
 import lila.common.{ Bus, Uptime }
 import lila.game.actorApi.{ AbortedBy, FinishGame }
 import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
-import lila.i18n.{ I18nKeys as trans, defaultLang }
+import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserApi, UserRepo }
 
@@ -18,9 +18,9 @@ final private class Finisher(
     playban: PlaybanApi,
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
-    getSocketStatus: Game => Fu[actorApi.SocketStatus],
+    getSocketStatus: Game => Fu[SocketStatus],
     recentTvGames: RecentTvGames
-)(using Executor):
+)(using Executor, Translator):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -44,7 +44,7 @@ final private class Finisher(
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     else if game.player(!game.player.color).isOfferingDraw then
-      apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some)
+      apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some)
     else
       val winner = Some(!game.player.color).ifFalse(game.situation.opponentHasInsufficientMaterial)
       apply(game, _.Outoftime, winner).andDo:
@@ -55,7 +55,7 @@ final private class Finisher(
     game.playerWhoDidNotMove.so: culprit =>
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
-      if game.isMandatory || game.metadata.hasRule(_.NoAbort) then
+      if game.isMandatory || game.metadata.hasRule(_.noAbort) then
         apply(game, _.NoStart, Some(!culprit.color))
       else apply(game, _.Aborted, None, Messenger.SystemMessage.Persistent("Game aborted by server").some)
 

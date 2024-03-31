@@ -2,7 +2,7 @@ package lila.tournament
 
 import chess.Color
 import chess.variant.*
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 case class Pairing(
     id: GameId,

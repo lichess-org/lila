@@ -17,7 +17,7 @@ object bits:
         _.tour.spotlight.map(_.language).exists(ctx.acceptLanguages)
       .map(spotlight)
 
-  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using Lang): Tag =
+  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using Translate): Tag =
     a(
       href := tr.path,
       cls  := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
@@ -29,18 +29,18 @@ object bits:
           tr.display.caption.fold(tr.display.name.value)(_.value),
           " • ",
           if tr.display.hasStarted
-          then trans.eventInProgress()
+          then trans.site.eventInProgress()
           else tr.display.startsAt.map(momentFromNow(_)) | "Soon"
         )
       )
     )
 
-  def howToUse(using Lang) =
+  def howToUse(using Translate) =
     a(dataIcon := licon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
       trans.broadcast.howToUseLichessBroadcasts()
     )
 
-  def jsI18n(using Lang) =
+  def jsI18n(using Translate) =
     views.html.study.jsI18n() ++
       i18nJsObject(i18nKeys)
 

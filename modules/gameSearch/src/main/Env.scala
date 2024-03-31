@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
 import lila.game.actorApi.{ FinishGame, InsertGame }
 import lila.search.*
 
@@ -21,7 +20,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     makeClient: Index => ESClient
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, lila.core.i18n.Translator):
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
 

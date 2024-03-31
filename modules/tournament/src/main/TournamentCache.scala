@@ -11,7 +11,7 @@ final class TournamentCache(
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi
-)(using Executor):
+)(using Executor)(using translator: lila.core.i18n.Translator):
 
   object tourCache:
     private val cache = cacheApi[TourId, Option[Tournament]](128, "tournament.tournament"):
@@ -26,7 +26,10 @@ final class TournamentCache(
   val nameCache = cacheApi.sync[(TourId, Lang), Option[String]](
     name = "tournament.name",
     initialCapacity = 65536,
-    compute = (id, lang) => tournamentRepo.byId(id).dmap2 { _.name()(using lang) },
+    compute = (id, lang) =>
+      tournamentRepo.byId(id).dmap2 {
+        _.name()(using translator.to(lang))
+      },
     default = _ => none,
     strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfter.Access(20 minutes)

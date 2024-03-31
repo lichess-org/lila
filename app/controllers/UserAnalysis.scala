@@ -80,7 +80,7 @@ final class UserAnalysis(
           ),
           players = ByColor(lila.game.Player.make(_, none)),
           mode = chess.Mode.Casual,
-          source = lila.game.Source.Api,
+          source = lila.core.game.Source.Api,
           pgnImport = None
         )
         .withId(lila.game.Game.syntheticId),
@@ -158,8 +158,8 @@ final class UserAnalysis(
                   _.fold(JsonOk(Json.obj("none" -> true)))(JsonOk(_))
                 }
                 .recover {
-                  case Forecast.OutOfSync        => forecastReload
-                  case _: lila.round.ClientError => forecastReload
+                  case Forecast.OutOfSync             => forecastReload
+                  case _: lila.core.round.ClientError => forecastReload
                 }
           )
   }

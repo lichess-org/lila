@@ -45,7 +45,7 @@ case class PracticeStudy(
     name: String,
     desc: String,
     chapters: List[Chapter.IdName]
-) extends lila.hub.practice.Study:
+) extends lila.core.practice.Study:
 
   def chapterIds = chapters.map(_.id)
 

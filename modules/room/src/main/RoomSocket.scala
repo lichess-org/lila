@@ -1,14 +1,16 @@
 package lila.room
 
+import play.api.libs.json.*
+import scalalib.actor.SyncActorMap
+import scalalib.actor.SyncActor
+
 import lila.chat.{ BusChan, ChatApi, ChatTimeout, UserLine }
-import lila.hub.actorApi.shutup.PublicSource
-import lila.hub.{ SyncActor, SyncActorMap }
+import lila.core.actorApi.shutup.PublicSource
 import lila.log.Logger
-import lila.hub.socket.{ protocol as P, * }
-import lila.hub.socket.{ makeMessage }
+import lila.core.socket.{ protocol as P, * }
+import lila.core.socket.{ makeMessage }
 import lila.common.Json.given
 
-import play.api.libs.json.*
 import lila.user.{ Me, FlairApi }
 
 object RoomSocket:
@@ -55,7 +57,7 @@ object RoomSocket:
       case Protocol.In.ChatSay(roomId, userId, msg) =>
         chat.userChat
           .write(
-            roomId into ChatId,
+            roomId.into(ChatId),
             userId,
             msg,
             publicSource(roomId)(PublicSource),
@@ -67,7 +69,7 @@ object RoomSocket:
           localTimeout.so { _(roomId, modId, suspect) } foreach: local =>
             val scope = if local then ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
             chat.userChat.timeout(
-              roomId into ChatId,
+              roomId.into(ChatId),
               suspect,
               r,
               text = text,
@@ -93,11 +95,11 @@ object RoomSocket:
     lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan):
       case lila.chat.ChatLine(id, line: UserLine) =>
         lila.chat.JsonView(line) foreach: jsLine =>
-          rooms.tellIfPresent(id into RoomId, NotifyVersion("message", jsLine, line.troll))
+          rooms.tellIfPresent(id.into(RoomId),(NotifyVersion)("message", jsLine, line.troll))
       case lila.chat.OnTimeout(id, userId) =>
-        rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_timeout", userId, troll = false))
+        rooms.tellIfPresent(id.into(RoomId), NotifyVersion("chat_timeout", userId, troll = false))
       case lila.chat.OnReinstate(id, userId) =>
-        rooms.tellIfPresent(id into RoomId, NotifyVersion("chat_reinstate", userId, troll = false))
+        rooms.tellIfPresent(id.into(RoomId), NotifyVersion("chat_reinstate", userId, troll = false))
 
   object Protocol:
 

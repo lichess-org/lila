@@ -5,10 +5,10 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 
 import lila.common.Form.{ cleanNonEmptyText, cleanTextWithSymbols, into, slugConstraint }
-import lila.i18n.{ LangForm, Language }
 import lila.user.User
+import lila.core.i18n.{ LangList, Language }
 
-object CmsForm:
+final class CmsForm(langList: LangList):
 
   val create = Form:
     mapping(
@@ -17,14 +17,14 @@ object CmsForm:
       "markdown" -> cleanTextWithSymbols
         .verifying(Constraints.minLength(0), Constraints.maxLength(1000_000))
         .into[Markdown],
-      "language" -> LangForm.popularLanguages.mapping,
+      "language" -> langList.popularLanguagesForm.mapping,
       "live"     -> boolean,
       "canonicalPath" -> optional:
         nonEmptyText.transform(p => if p.startsWith("/") then p else s"/$p", identity)
-    )(CmsPageData.apply)(unapply)
+    )(CmsForm.CmsPageData.apply)(unapply)
 
   def edit(page: CmsPage) = create.fill:
-    CmsPageData(
+    CmsForm.CmsPageData(
       key = page.key,
       title = page.title,
       markdown = lila.common.MarkdownToastUi.latex.removeFrom(page.markdown),
@@ -33,6 +33,7 @@ object CmsForm:
       canonicalPath = page.canonicalPath
     )
 
+object CmsForm:
   case class CmsPageData(
       key: CmsPage.Key,
       title: String,

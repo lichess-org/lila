@@ -1,7 +1,7 @@
 package lila.user
 
 import com.roundeights.hasher.Implicits.*
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 
 import java.security.MessageDigest
 import java.util.Base64

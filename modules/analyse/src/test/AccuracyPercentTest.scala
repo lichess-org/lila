@@ -2,7 +2,7 @@ package lila.analyse
 
 import chess.{ ByColor, Color }
 
-import lila.common.Maths.isCloseTo
+import scalalib.Maths.isCloseTo
 import lila.tree.Eval.Cp
 
 class AccuracyPercentTest extends munit.FunSuite:

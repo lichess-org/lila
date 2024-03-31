@@ -11,12 +11,12 @@ object bits:
 
   def communityMenu(active: String)(using Context) =
     views.html.site.bits.pageMenuSubnav(
-      a(cls := active.active("leaderboard"), href := routes.User.list)(trans.leaderboard()),
+      a(cls := active.active("leaderboard"), href := routes.User.list)(trans.site.leaderboard()),
       a(
         cls  := active.active("ratings"),
         href := routes.User.ratingDistribution("blitz")
       )(
-        trans.ratingStats()
+        trans.site.ratingStats()
       ),
       a(cls := active.active("tournament"), href := routes.Tournament.leaderboard)(
         trans.arena.tournamentWinners()
@@ -25,7 +25,7 @@ object bits:
         trans.arena.tournamentShields()
       ),
       a(cls := active.active("bots"), href := routes.PlayApi.botOnline)(
-        trans.onlineBots()
+        trans.site.onlineBots()
       )
     )
 
@@ -48,7 +48,7 @@ object bits:
       case _ => "Excellent connection"
     s"""<signal title="$title" class="q$v">$bars</signal>"""
 
-  def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(using Lang) =
+  def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(using Translate) =
     (!u.lame).so(rankMap.toList.sortBy(_._2).collect {
       case (perf, rank) if rank == 1 =>
         span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(

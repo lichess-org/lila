@@ -8,6 +8,7 @@ import chess.variant.Variant
 import lila.chat.ChatApi
 import lila.game.{ Game, Namer }
 import lila.tree.{ Branches, Root }
+import lila.core.i18n.Translator
 
 final private class ChapterMaker(
     net: lila.common.config.NetConfig,
@@ -16,7 +17,7 @@ final private class ChapterMaker(
     gameRepo: lila.game.GameRepo,
     pgnFetch: PgnFetch,
     pgnDump: lila.game.PgnDump
-)(using Executor):
+)(using Executor, Translator):
 
   import ChapterMaker.*
 
@@ -129,6 +130,7 @@ final private class ChapterMaker(
       withRatings: Boolean,
       initialFen: Option[Fen.Epd] = None
   ): Fu[Chapter] =
+    given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
       root <- makeRoot(game, data.pgn, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
@@ -175,15 +177,13 @@ final private class ChapterMaker(
       initialFen: Option[Fen.Epd]
   ): Fu[Root] =
     initialFen
-      .fold(gameRepo.initialFen(game)) { fen =>
+      .fold(gameRepo.initialFen(game)): fen =>
         fuccess(fen.some)
-      }
-      .map { goodFen =>
+      .map: goodFen =>
         val fromGame = GameToRoot(game, goodFen, withClocks = true)
         pgnOpt.flatMap(PgnImport(_, Nil).toOption.map(_.root)) match
           case Some(r) => fromGame.merge(r)
           case None    => fromGame
-      }
 
   private val UrlRegex = {
     val escapedDomain = net.domain.value.replace(".", "\\.")

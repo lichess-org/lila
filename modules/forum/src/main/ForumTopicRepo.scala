@@ -4,6 +4,7 @@ import lila.db.dsl.{ *, given }
 import lila.user.User
 
 import Filter.*
+import lila.core.forum.ForumTopicMini
 
 final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
     Executor
@@ -28,6 +29,9 @@ final private class ForumTopicRepo(val coll: Coll, filter: Filter = Safe)(using
   private lazy val stickyQuery    = $doc("sticky" -> true)
 
   def byId(id: ForumTopicId): Fu[Option[ForumTopic]] = coll.byId[ForumTopic](id)
+
+  def byIds(ids: Seq[ForumTopicId]): Fu[List[ForumTopicMini]] =
+    coll.byStringIds[ForumTopicMini](ForumTopicId.raw(ids))
 
   def close(id: ForumTopicId, value: Boolean): Funit =
     coll.updateField($id(id), "closed", value).void

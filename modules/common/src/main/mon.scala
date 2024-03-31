@@ -682,7 +682,7 @@ object mon:
       val perState = gauge("jvm.threads.group")
       val total    = gauge("jvm.threads.group.total")
       for
-        group <- ornicar.scalalib.Jvm.threadGroups()
+        group <- scalalib.Jvm.threadGroups()
         _ = total.withTags(tags("name" -> group.name)).update(group.total)
         (state, count) <- group.states
       yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)

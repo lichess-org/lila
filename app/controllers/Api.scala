@@ -8,7 +8,7 @@ import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-import lila.common.config.MaxPerSecond
+
 import lila.common.{ HTTPRequest, IpAddress, LightUser }
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
@@ -28,7 +28,7 @@ final class Api(
       "olds"    -> Json.arr()
     )
 
-  private given lila.hub.LightTeam.Api = env.team.lightTeamApi
+  private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
   val status = Anon:
     val appVersion  = get("v")
@@ -206,7 +206,7 @@ final class Api(
       val nb = getInt("nb") | Int.MaxValue
       jsonDownload:
         env.tournament.api
-          .byOwnerStream(user, status.flatMap(lila.tournament.Status.apply), MaxPerSecond(20), nb)
+          .byOwnerStream(user, status.flatMap(lila.core.tournament.Status.byId.get), MaxPerSecond(20), nb)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
 
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
@@ -339,7 +339,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: lila.core.rating.PerfKey) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:

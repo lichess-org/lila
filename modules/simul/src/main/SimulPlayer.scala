@@ -10,7 +10,6 @@ private[simul] case class SimulPlayer(
     rating: IntRating,
     provisional: Option[RatingProvisional]
 ):
-
   def is(userId: UserId): Boolean     = user == userId
   def is(other: SimulPlayer): Boolean = is(other.user)
 

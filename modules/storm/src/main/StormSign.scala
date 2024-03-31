@@ -2,7 +2,7 @@ package lila.storm
 
 import com.github.blemale.scaffeine.LoadingCache
 import com.roundeights.hasher.Algo
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.Uptime
 import lila.common.config.Secret

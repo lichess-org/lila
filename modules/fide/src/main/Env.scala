@@ -5,7 +5,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.config.CollName
 import lila.memo.CacheApi
-import lila.hub.{ fide as hub }
+import lila.core.{ fide as hub }
 
 @Module
 final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(using

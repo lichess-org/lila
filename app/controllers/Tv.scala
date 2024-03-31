@@ -89,7 +89,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
             ids = gameIds,
             format = lila.api.GameApiV2.Format.byRequest(req),
             flags = gameC.requestPgnFlags(extended = false).copy(delayMoves = false),
-            perSecond = lila.common.config.MaxPerSecond(30)
+            perSecond = MaxPerSecond(30)
           )
         noProxyBuffer(Ok.chunked(env.api.gameApiV2.exportByIds(config))).as(gameC.gameContentType(config))
       }

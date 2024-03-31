@@ -79,12 +79,6 @@ case class Perf(
 
 case object Perf:
 
-  opaque type Key = String
-  object Key extends OpaqueString[Key]
-
-  opaque type Id = Int
-  object Id extends OpaqueInt[Id]
-
   case class Typed(perf: Perf, perfType: PerfType)
   def typed(pt: PerfType, perf: Perf) = new Typed(perf, pt)
 

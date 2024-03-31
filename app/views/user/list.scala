@@ -18,7 +18,7 @@ object list:
       nbAllTime: List[User.LightCount]
   )(using ctx: PageContext) =
     views.html.base.layout(
-      title = trans.players.txt(),
+      title = trans.site.players.txt(),
       moreCss = cssTag("user.list"),
       wrapClass = "full-screen-force",
       openGraph = lila.app.ui
@@ -34,7 +34,7 @@ object list:
         bits.communityMenu("leaderboard"),
         div(cls := "community page-menu__content box box-pad")(
           st.section(cls := "community__online")(
-            h2(trans.onlinePlayers()),
+            h2(trans.site.onlinePlayers()),
             ol(cls := "user-top"):
               online.map: u =>
                 li(
@@ -43,14 +43,14 @@ object list:
                 )
           ),
           div(cls := "community__leaders")(
-            h2(trans.leaderboard()),
+            h2(trans.site.leaderboard()),
             div(cls := "leaderboards")(
               userTopPerf(leaderboards.bullet, PerfType.Bullet),
               userTopPerf(leaderboards.blitz, PerfType.Blitz),
               userTopPerf(leaderboards.rapid, PerfType.Rapid),
               userTopPerf(leaderboards.classical, PerfType.Classical),
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
-              userTopActive(nbAllTime, trans.activePlayers(), icon = licon.Swords.some),
+              userTopActive(nbAllTime, trans.site.activePlayers(), icon = licon.Swords.some),
               tournamentWinners(tourneyWinners),
               userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse),
               userTopPerf(leaderboards.chess960, PerfType.Chess960),
@@ -69,7 +69,7 @@ object list:
   private def tournamentWinners(winners: List[lila.tournament.Winner])(using Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := licon.Trophy)(
-        a(href := routes.Tournament.leaderboard)(trans.tournament())
+        a(href := routes.Tournament.leaderboard)(trans.site.tournament())
       ),
       ol(
         winners
@@ -103,6 +103,6 @@ object list:
       ol(users.map: u =>
         li(
           lightUserLink(u.user),
-          span(title := trans.gamesPlayed.txt())(s"#${u.count.localize}")
+          span(title := trans.site.gamesPlayed.txt())(s"#${u.count.localize}")
         ))
     )

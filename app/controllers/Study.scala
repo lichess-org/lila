@@ -10,7 +10,7 @@ import lila.analyse.Analysis
 import lila.app.{ *, given }
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
-import lila.hub.socket.Sri
+import lila.core.socket.Sri
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
@@ -617,5 +617,5 @@ final class Study(
       .get(lang)
       .so: lang =>
         JsonOk:
-          lila.study.JsonView.glyphs(lang)
+          lila.study.JsonView.glyphs(using env.translator.to(lang))
         .withHeaders(CACHE_CONTROL -> "max-age=3600")

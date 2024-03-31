@@ -61,7 +61,7 @@ object event:
         e.description.map: d =>
           div(cls := "desc")(markdown(e, d)),
         if e.isFinished then p(cls := "desc")("The event is finished.")
-        else if e.isNow then a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
+        else if e.isNow then a(href := e.url, cls := "button button-fat")(trans.site.eventInProgress())
         else
           ul(cls := "countdown", dataSeconds := (~e.secondsToStart + 1)):
             List("Days", "Hours", "Minutes", "Seconds").map: t =>
@@ -197,7 +197,7 @@ object event:
           help = raw("Go easy on this. The event will also remain on homepage while ongoing.").some
         )(form3.input(_, typ = "number")(step := ".01"))
       ),
-      form3.action(form3.submit(trans.apply()))
+      form3.action(form3.submit(trans.site.apply()))
     )
 
   private def layout(title: String, css: String = "mod.misc")(body: Frag)(using PageContext) =

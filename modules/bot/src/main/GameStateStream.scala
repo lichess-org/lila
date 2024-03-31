@@ -2,7 +2,7 @@ package lila.bot
 
 import akka.actor.*
 import akka.stream.scaladsl.*
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.mvc.RequestHeader
@@ -19,14 +19,15 @@ import lila.game.actorApi.{
   MoveGameEvent
 }
 import lila.game.{ Game, Pov }
-import lila.hub.actorApi.map.Tell
-import lila.round.actorApi.BotConnected
-import lila.round.actorApi.round.QuietFlag
+import lila.core.actorApi.map.Tell
+import lila.core.round.BotConnected
+import lila.core.round.QuietFlag
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
     jsonView: BotJsonView
-)(using ec: Executor, system: ActorSystem):
+)(using system: ActorSystem)(using Executor, lila.core.i18n.Translator):
+
   import GameStateStream.*
 
   private val blueprint =

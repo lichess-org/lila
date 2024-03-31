@@ -1,6 +1,6 @@
 package lila.security
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.mvc.RequestHeader
 
 import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }
@@ -115,6 +115,6 @@ final class GarbageCollector(
 
   private def doCollect(user: UserId): Unit =
     Bus.publish(
-      lila.hub.actorApi.security.GarbageCollect(user),
+      lila.core.actorApi.security.GarbageCollect(user),
       "garbageCollect"
     )

@@ -21,10 +21,9 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
-    memberRepo: lila.team.TeamMemberRepo,
-    teamCache: lila.team.Cached
+    teamApi: lila.core.team.TeamApi
 )(using
     ec: Executor,
     system: ActorSystem
@@ -55,6 +54,6 @@ final class Env(
 
   system.actorOf(Props(wire[TimelinePush]), name = config.userActorName)
 
-  lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
+  lila.common.Bus.subscribeFun("shadowban") { case lila.core.actorApi.mod.Shadowban(userId, true) =>
     entryApi.removeRecentFollowsBy(userId)
   }

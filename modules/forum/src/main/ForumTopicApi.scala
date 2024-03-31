@@ -5,12 +5,13 @@ import lila.common.String.noShouting
 import lila.common.config.NetDomain
 import lila.common.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
-import lila.hub.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
+import lila.core.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
 import lila.security.Granter as MasterGranter
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, given }
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,
@@ -18,16 +19,15 @@ final private class ForumTopicApi(
     categRepo: ForumCategRepo,
     mentionNotifier: MentionNotifier,
     paginator: ForumPaginator,
-    indexer: lila.hub.actors.ForumSearch,
+    modLog: lila.core.mod.LogApi,
     config: ForumConfig,
-    modLog: lila.mod.ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    timeline: lila.hub.actors.Timeline,
-    shutup: lila.hub.actors.Shutup,
+    timeline: lila.core.actors.Timeline,
+    shutup: lila.core.actors.Shutup,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 )(using Executor):
 
   import BSONHandlers.given
@@ -113,7 +113,6 @@ final private class ForumTopicApi(
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
           yield
-            (!categ.quiet).so(indexer ! InsertPost(post))
             promotion.save(post.text)
             shutup ! {
               val text = s"${topic.name} ${post.text}"
@@ -126,7 +125,7 @@ final private class ForumTopicApi(
                 .withTeam(categ.team)
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(CreatePost(post), "forumPost")
+            Bus.publish(CreatePost(post.mini), "forumPost")
             topic
       }
     }
@@ -162,9 +161,7 @@ final private class ForumTopicApi(
     _ <- postRepo.coll.insert.one(post)
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
     _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
-  yield
-    indexer ! InsertPost(post)
-    Bus.publish(CreatePost(post), "forumPost")
+  yield Bus.publish(CreatePost(post.mini), "forumPost")
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ).flatMap { topics =>

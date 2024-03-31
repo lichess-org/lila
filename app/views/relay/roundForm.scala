@@ -129,7 +129,7 @@ object roundForm:
         )
       ),
       form3.actions(
-        a(href := routes.RelayTour.show(t.slug, t.id))(trans.cancel()),
-        form3.submit(trans.apply())
+        a(href := routes.RelayTour.show(t.slug, t.id))(trans.site.cancel()),
+        form3.submit(trans.site.apply())
       )
     )

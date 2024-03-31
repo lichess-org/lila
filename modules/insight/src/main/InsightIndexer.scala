@@ -5,7 +5,7 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.common.LilaStream
-import lila.common.config.Max
+
 import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
@@ -17,8 +17,12 @@ final private class InsightIndexer(
     storage: InsightStorage
 )(using Executor, Scheduler, akka.stream.Materializer):
 
-  private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 1 minute, name = "insightIndexer")
+  private val workQueue = scalalib.actor.AsyncActorSequencer(
+    maxSize = Max(256),
+    timeout = 1 minute,
+    name = "insightIndexer",
+    lila.log.asyncActorMonitor
+  )
 
   def all(user: User): Funit =
     workQueue {
