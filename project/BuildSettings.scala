@@ -57,7 +57,6 @@ object BuildSettings {
     "-language:implicitConversions",
     "-release:21",
     // "-Wunused:all",
-    "-Wconf:msg= Ignoring [this] qualifier:s"
   )
 
   val srcMain = Seq(
