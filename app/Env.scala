@@ -18,7 +18,6 @@ final class Env(
     val user: lila.user.Env,
     val mailer: lila.mailer.Env,
     val security: lila.security.Env,
-    val hub: lila.core.Env,
     val socket: lila.socket.Env,
     val memo: lila.memo.Env,
     val msg: lila.msg.Env,
@@ -177,6 +176,7 @@ final class EnvBoot(
   export netConfig.{ domain, baseUrl, assetBaseUrlInternal }
 
   // eagerly load the Uptime object to fix a precise date
+  lila.common.Uptime.startedAt
 
   // wire all the lila modules
   val i18n: lila.i18n.Env.type               = lila.i18n.Env
@@ -185,7 +185,6 @@ final class EnvBoot(
   lazy val user: lila.user.Env               = wire[lila.user.Env]
   lazy val mailer: lila.mailer.Env           = wire[lila.mailer.Env]
   lazy val security: lila.security.Env       = wire[lila.security.Env]
-  lazy val hub: lila.core.Env                = wire[lila.core.Env]
   lazy val socket: lila.socket.Env           = wire[lila.socket.Env]
   lazy val msg: lila.msg.Env                 = wire[lila.msg.Env]
   lazy val game: lila.game.Env               = wire[lila.game.Env]

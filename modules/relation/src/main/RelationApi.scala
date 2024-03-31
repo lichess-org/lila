@@ -8,7 +8,6 @@ import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
 import lila.core.timeline.{ Follow as FollowUser, Propagate }
-import lila.core.actors
 import lila.memo.CacheApi.*
 import lila.relation.BSONHandlers.given
 import lila.user.User
