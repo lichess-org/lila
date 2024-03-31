@@ -12,7 +12,7 @@ final class RelayPlayerTour(
     cacheApi: lila.memo.CacheApi
 )(using Executor, akka.stream.Materializer):
 
-  private val tourIdsCache = cacheApi[chess.FideId, List[RelayTour.Id]](1024, "relay.player.tourIds"):
+  private val tourIdsCache = cacheApi[chess.FideId, List[RelayTour.Id]](128, "relay.player.tourIds"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture: fideId =>
       chapterRepo
         .studyIdsByRelayFideId(fideId)
