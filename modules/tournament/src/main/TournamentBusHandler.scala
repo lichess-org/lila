@@ -34,7 +34,7 @@ final private class TournamentBusHandler(
         winnersApi.clearAfterMarking(userId)
       ()
 
-    case lila.core.mod.MarkBooster(userId)          => ejectFromEnterable(userId)
+    case lila.core.mod.MarkBooster(userId)                   => ejectFromEnterable(userId)
     case lila.core.round.Berserk(gameId, userId)             => api.berserk(gameId, userId)
     case lila.core.actorApi.playban.Playban(userId, _, true) => api.pausePlaybanned(userId)
     case lila.core.team.KickFromTeam(teamId, _, userId)      => api.kickFromTeam(teamId, userId)

@@ -96,8 +96,8 @@ final class Env(
     case lila.game.actorApi.FinishGame(game, _)                => api.finishGame(game)
     case lila.core.team.LeaveTeam(teamId, userId)              => api.leaveTeam(teamId, userId)
     case lila.core.team.KickFromTeam(teamId, teamName, userId) => api.leaveTeam(teamId, userId)
-    case lila.core.mod.MarkCheater(userId, true)      => api.kickLame(userId)
-    case lila.core.mod.MarkBooster(userId)            => api.kickLame(userId)
+    case lila.core.mod.MarkCheater(userId, true)               => api.kickLame(userId)
+    case lila.core.mod.MarkBooster(userId)                     => api.kickLame(userId)
 
   LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
     api.startPendingRounds
