@@ -18,7 +18,7 @@ object show:
   )(using ctx: PageContext) =
     val isStreak = data.value.contains("streak")
     views.html.base.layout(
-      title = if isStreak then "Puzzle Streak" else trans.puzzles.txt(),
+      title = if isStreak then "Puzzle Streak" else trans.site.puzzles.txt(),
       moreCss = frag(
         cssTag("puzzle"),
         ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),

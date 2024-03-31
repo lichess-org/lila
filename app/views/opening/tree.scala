@@ -14,7 +14,7 @@ object tree:
     views.html.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(none).some,
-      title = trans.opening.txt()
+      title = trans.site.opening.txt()
     ) {
       main(cls := "page box box-pad opening opening--tree")(
         index.searchAndConfig(config, "", "tree"),

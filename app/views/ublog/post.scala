@@ -84,7 +84,7 @@ object post:
             else if !post.live then badTag(trans.ublog.thisIsADraft())
             else
               a(
-                titleOrText(trans.reportXToModerators.txt(user.username)),
+                titleOrText(trans.site.reportXToModerators.txt(user.username)),
                 cls := "button button-empty ublog-post__meta__report",
                 href := addQueryParams(
                   reportRoutes.form.url,
@@ -108,7 +108,7 @@ object post:
           post.isLichess.option(
             div(cls := "ublog-post__lichess")(
               views.html.base.bits.connectLinks,
-              p(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
+              p(a(href := routes.Plan.index)(trans.site.lichessPatronInfo()))
             )
           ),
           div(cls := "ublog-post__footer")(
@@ -135,7 +135,7 @@ object post:
     href     := editUrlOfPost(post),
     cls      := "button button-empty text",
     dataIcon := licon.Pencil
-  )(trans.edit())
+  )(trans.site.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using PageContext) =
     val text = if liked then trans.study.unlike.txt() else trans.study.like.txt()
@@ -168,8 +168,8 @@ object post:
       )
     ):
       List(
-        ("yes", trans.unfollowX, routes.Relation.unfollow, licon.Checkmark),
-        ("no", trans.followX, routes.Relation.follow, licon.ThumbsUp)
+        ("yes", trans.site.unfollowX, routes.Relation.unfollow, licon.Checkmark),
+        ("no", trans.site.followX, routes.Relation.follow, licon.ThumbsUp)
       ).map: (role, text, route, icon) =>
         button(
           cls      := s"ublog-post__follow__$role button button-big",

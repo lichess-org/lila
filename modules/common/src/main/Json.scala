@@ -2,7 +2,7 @@ package lila.common
 
 import chess.format.Uci
 import chess.variant.Crazyhouse
-import ornicar.scalalib.Render
+import scalalib.Render
 import play.api.libs.json.{ Json as PlayJson, * }
 
 import scala.util.NotGiven

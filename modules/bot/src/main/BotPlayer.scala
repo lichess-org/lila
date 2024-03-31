@@ -4,10 +4,10 @@ import chess.format.Uci
 
 import lila.common.Bus
 import lila.game.{ Game, GameRepo, Pov, Rematches }
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ Abort, Berserk, BotPlay, Rematch, Resign }
-import lila.round.actorApi.round.{ Draw, ResignForce, Takeback }
+import lila.core.actorApi.map.Tell
+import lila.core.round.*
 import lila.user.Me
+import lila.core.shutup.PublicSource
 
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,
@@ -16,7 +16,7 @@ final class BotPlayer(
     spam: lila.security.Spam
 )(using Executor, Scheduler):
 
-  private def clientError[A](msg: String): Fu[A] = fufail(lila.round.ClientError(msg))
+  private def clientError[A](msg: String): Fu[A] = fufail(lila.core.round.ClientError(msg))
 
   def apply(pov: Pov, uciStr: String, offeringDraw: Option[Boolean])(using me: Me): Funit =
     lila.common.LilaFuture.delay((pov.game.hasAi.so(500)) millis):
@@ -29,7 +29,7 @@ final class BotPlayer(
           else if !pov.player.isOfferingDraw && ~offeringDraw then offerDraw(pov)
           tellRound(pov.gameId, BotPlay(pov.playerId, uci, promise.some))
           promise.future.recover:
-            case _: lila.round.GameIsFinishedError if ~offeringDraw => ()
+            case _: lila.core.round.GameIsFinishedError if ~offeringDraw => ()
 
   def chat(gameId: GameId, d: BotForm.ChatData)(using me: Me) =
     (!spam.detect(d.text))
@@ -37,7 +37,7 @@ final class BotPlayer(
         lila.mon.bot.chats(me.username.value).increment()
         val chatId = ChatId(if d.room == "player" then gameId.value else s"$gameId/w")
         val source = (d.room == "spectator").option {
-          lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
+          PublicSource.Watcher(gameId)
         }
         chatApi.userChat.write(chatId, me, d.text, publicSource = source, _.Round)
       )

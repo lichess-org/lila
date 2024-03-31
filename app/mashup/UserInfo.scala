@@ -9,7 +9,7 @@ import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
 import lila.ublog.{ UblogApi, UblogPost }
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, given_MyId }
 
 case class UserInfo(
     nbs: UserInfo.NbGames,

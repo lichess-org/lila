@@ -8,10 +8,10 @@ import play.api.libs.json.*
 import lila.common.Bus
 import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.hub.socket.{ protocol as P, * }
-import lila.hub.tree.Branch
-import lila.hub.tree.Node.{ Comment, Gamebook, Shape, Shapes }
-import lila.hub.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
+import lila.core.socket.{ protocol as P, * }
+import lila.tree.Branch
+import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
+import lila.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
 
 import actorApi.Who
 
@@ -274,7 +274,7 @@ final private class StudySocket(
 
   import JsonView.given
   import jsonView.given
-  import lila.hub.tree.Node.given
+  import lila.tree.Node.given
   private type SendToStudy = StudyId => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId.into(RoomId), NotifyVersion(tpe, data))
@@ -295,7 +295,7 @@ final private class StudySocket(
       "addNode",
       Json
         .obj(
-          "n" -> minimalNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
+          "n" -> minimalNodeJsonWriter.writes(node),
           "p" -> pos,
           "d" -> dests.dests,
           "s" -> sticky

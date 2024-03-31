@@ -5,7 +5,7 @@ import com.softwaremill.macwire.*
 import io.lettuce.core.*
 import play.api.Configuration
 
-import lila.hub.socket.*
+import lila.core.socket.*
 
 @Module
 final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using Executor, Scheduler):

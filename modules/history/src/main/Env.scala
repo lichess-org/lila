@@ -13,7 +13,7 @@ final class Env(
     userApi: lila.user.UserApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.AsyncDb @@ lila.db.YoloDb
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, lila.core.i18n.Translator):
 
   private lazy val coll = db(CollName("history4")).failingSilently()
 

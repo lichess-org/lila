@@ -41,7 +41,7 @@ object Query:
   def imported(u: UserId): Bdoc = s"${F.pgnImport}.user".$eq(u)
   def importedSort: Bdoc        = $sort.desc(s"${F.pgnImport}.ca")
 
-  val friend: Bdoc = s"${F.source}".$eq(Source.Friend.id)
+  val friend: Bdoc = s"${F.source}".$eq(lila.core.game.Source.Friend.id)
 
   def clock(c: Boolean): Bdoc = F.clock.$exists(c)
 

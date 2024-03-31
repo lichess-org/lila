@@ -10,7 +10,7 @@ import lila.user.User
 
 object tree:
 
-  import trans.closingAccountWithdrawAppeal
+  import trans.site.closingAccountWithdrawAppeal
   import trans.contact.doNotMessageModerators
   import trans.appeal
   import views.html.base.navTree.*

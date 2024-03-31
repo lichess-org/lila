@@ -40,7 +40,7 @@ object search:
     views.html.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(none).some,
-      title = s"${trans.opening.txt()} • $q",
+      title = s"${trans.site.opening.txt()} • $q",
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "page box box-pad opening opening--search")(

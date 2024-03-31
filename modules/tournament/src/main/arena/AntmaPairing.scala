@@ -1,9 +1,10 @@
 package lila.tournament
 package arena
 
-import lila.common.{ Chronometer, WMMatching }
+import scalalib.WMMatching
 
-import PairingSystem.Data
+import lila.common.Chronometer
+import lila.tournament.arena.PairingSystem.Data
 
 private object AntmaPairing:
 

@@ -40,18 +40,19 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
   ): Funit =
     if !pov.isMyTurn then funit
     else
-      Uci.Move(uciMove).fold[Funit](fufail(lila.round.ClientError(s"Invalid move $uciMove on $pov"))) { uci =>
-        val promise = Promise[Unit]()
-        tellRound(
-          pov.gameId,
-          actorApi.round.HumanPlay(
-            playerId = pov.playerId,
-            uci = uci,
-            blur = true,
-            promise = promise.some
+      Uci.Move(uciMove).fold[Funit](fufail(lila.core.round.ClientError(s"Invalid move $uciMove on $pov"))) {
+        uci =>
+          val promise = Promise[Unit]()
+          tellRound(
+            pov.gameId,
+            HumanPlay(
+              playerId = pov.playerId,
+              uci = uci,
+              blur = true,
+              promise = promise.some
+            )
           )
-        )
-        saveSteps(pov, steps) >> promise.future
+          saveSteps(pov, steps) >> promise.future
       }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =

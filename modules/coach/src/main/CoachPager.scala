@@ -15,7 +15,7 @@ final class CoachPager(
     coll: Coll
 )(using Executor):
 
-  val maxPerPage = lila.common.config.MaxPerPage(10)
+  val maxPerPage = MaxPerPage(10)
 
   import CoachPager.*
   import BsonHandlers.given

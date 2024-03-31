@@ -9,7 +9,7 @@ import lila.game.Game
 final class UserGameSearch(
     forms: GameSearchForm,
     paginator: lila.search.PaginatorBuilder[Game, Query]
-):
+)(using lila.core.i18n.Translator):
 
   def apply(user: lila.user.User, page: Int)(using Request[?], FormBinding, Lang) =
     paginator(

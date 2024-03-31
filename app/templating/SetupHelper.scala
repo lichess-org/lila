@@ -5,10 +5,11 @@ import chess.variant.Variant
 import chess.{ Mode, Speed }
 import play.api.i18n.Lang
 
-import lila.i18n.I18nKeys as trans
+import lila.core.i18n.I18nKey as trans
 import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode
+import lila.core.i18n.Translate
 
 trait SetupHelper:
   self: I18nHelper =>
@@ -70,40 +71,40 @@ trait SetupHelper:
       (d.toString, s"$d days", none)
     }
 
-  def translatedTimeModeChoices(using Lang) =
+  def translatedTimeModeChoices(using Translate) =
     List(
-      (TimeMode.RealTime.id.toString, trans.realTime.txt(), none),
-      (TimeMode.Correspondence.id.toString, trans.correspondence.txt(), none),
-      (TimeMode.Unlimited.id.toString, trans.unlimited.txt(), none)
+      (TimeMode.RealTime.id.toString, trans.site.realTime.txt(), none),
+      (TimeMode.Correspondence.id.toString, trans.site.correspondence.txt(), none),
+      (TimeMode.Unlimited.id.toString, trans.site.unlimited.txt(), none)
     )
 
-  def translatedReasonChoices(using Lang) =
+  def translatedReasonChoices(using Translate) =
     List(
-      (Reason.Cheat.key, trans.cheat.txt()),
-      (Reason.Comm.key, trans.insult.txt()),
-      (Reason.Boost.key, trans.ratingManipulation.txt()),
-      (Reason.Comm.key, trans.troll.txt()),
+      (Reason.Cheat.key, trans.site.cheat.txt()),
+      (Reason.Comm.key, trans.site.insult.txt()),
+      (Reason.Boost.key, trans.site.ratingManipulation.txt()),
+      (Reason.Comm.key, trans.site.troll.txt()),
       (Reason.Sexism.key, "Sexual harassment or Sexist remarks"),
-      (Reason.Username.key, trans.username.txt()),
-      (Reason.Other.key, trans.other.txt())
+      (Reason.Username.key, trans.site.username.txt()),
+      (Reason.Other.key, trans.site.other.txt())
     )
 
-  def translatedModeChoices(using Lang) =
+  def translatedModeChoices(using Translate) =
     List(
-      (Mode.Casual.id.toString, trans.casual.txt(), none),
-      (Mode.Rated.id.toString, trans.rated.txt(), none)
+      (Mode.Casual.id.toString, trans.site.casual.txt(), none),
+      (Mode.Rated.id.toString, trans.site.rated.txt(), none)
     )
 
-  def translatedIncrementChoices(using Lang) =
+  def translatedIncrementChoices(using Translate) =
     List(
-      (1, trans.yes.txt(), none),
-      (0, trans.no.txt(), none)
+      (1, trans.site.yes.txt(), none),
+      (0, trans.site.no.txt(), none)
     )
 
-  def translatedModeChoicesTournament(using Lang) =
+  def translatedModeChoicesTournament(using Translate) =
     List(
-      (Mode.Casual.id.toString, trans.casualTournament.txt(), none),
-      (Mode.Rated.id.toString, trans.ratedTournament.txt(), none)
+      (Mode.Casual.id.toString, trans.site.casualTournament.txt(), none),
+      (Mode.Rated.id.toString, trans.site.ratedTournament.txt(), none)
     )
 
   private val encodeId = (v: Variant) => v.id.toString
@@ -113,20 +114,20 @@ trait SetupHelper:
   private def variantTuple(encode: Variant => String)(variant: Variant) =
     (encode(variant), variant.name, variant.title.some)
 
-  def translatedVariantChoices(using Lang): List[SelectChoice] =
+  def translatedVariantChoices(using Translate): List[SelectChoice] =
     translatedVariantChoices(encodeId)
 
-  def translatedVariantChoices(encode: Variant => String)(using Lang): List[SelectChoice] =
+  def translatedVariantChoices(encode: Variant => String)(using Translate): List[SelectChoice] =
     List(
-      (encode(chess.variant.Standard), trans.standard.txt(), chess.variant.Standard.title.some)
+      (encode(chess.variant.Standard), trans.site.standard.txt(), chess.variant.Standard.title.some)
     )
 
-  def translatedVariantChoicesWithVariants(using Lang): List[SelectChoice] =
+  def translatedVariantChoicesWithVariants(using Translate): List[SelectChoice] =
     translatedVariantChoicesWithVariants(encodeId)
 
   def translatedVariantChoicesWithVariants(
       encode: Variant => String
-  )(using Lang): List[SelectChoice] =
+  )(using Translate): List[SelectChoice] =
     translatedVariantChoices(encode) ::: List(
       chess.variant.Crazyhouse,
       chess.variant.Chess960,
@@ -138,12 +139,12 @@ trait SetupHelper:
       chess.variant.RacingKings
     ).map(variantTuple(encode))
 
-  def translatedVariantChoicesWithFen(using Lang) =
+  def translatedVariantChoicesWithFen(using Translate) =
     translatedVariantChoices :+
       variantTupleId(chess.variant.Chess960) :+
       variantTupleId(chess.variant.FromPosition)
 
-  def translatedAiVariantChoices(using Lang) =
+  def translatedAiVariantChoices(using Translate) =
     translatedVariantChoices :+
       variantTupleId(chess.variant.Crazyhouse) :+
       variantTupleId(chess.variant.Chess960) :+
@@ -155,175 +156,175 @@ trait SetupHelper:
       variantTupleId(chess.variant.RacingKings) :+
       variantTupleId(chess.variant.FromPosition)
 
-  def translatedVariantChoicesWithVariantsAndFen(using Lang) =
+  def translatedVariantChoicesWithVariantsAndFen(using Translate) =
     translatedVariantChoicesWithVariants :+
       variantTupleId(chess.variant.FromPosition)
 
-  def translatedSpeedChoices(using Lang) =
+  def translatedSpeedChoices(using Translate) =
     Speed.limited.map { s =>
       val minutes = s.range.max / 60 + 1
       (
         s.id.toString,
-        s.toString + " - " + trans.lessThanNbMinutes.pluralSameTxt(minutes),
+        s.toString + " - " + trans.site.lessThanNbMinutes.pluralSameTxt(minutes),
         none
       )
     }
 
-  def translatedSideChoices(using Lang) =
+  def translatedSideChoices(using Translate) =
     List(
-      ("black", trans.black.txt(), none),
-      ("random", trans.randomColor.txt(), none),
-      ("white", trans.white.txt(), none)
+      ("black", trans.site.black.txt(), none),
+      ("random", trans.site.randomColor.txt(), none),
+      ("white", trans.site.white.txt(), none)
     )
 
-  def translatedAnimationChoices(using Lang) =
+  def translatedAnimationChoices(using Translate) =
     List(
-      (Pref.Animation.NONE, trans.none.txt()),
-      (Pref.Animation.FAST, trans.fast.txt()),
-      (Pref.Animation.NORMAL, trans.normal.txt()),
-      (Pref.Animation.SLOW, trans.slow.txt())
+      (Pref.Animation.NONE, trans.site.none.txt()),
+      (Pref.Animation.FAST, trans.site.fast.txt()),
+      (Pref.Animation.NORMAL, trans.site.normal.txt()),
+      (Pref.Animation.SLOW, trans.site.slow.txt())
     )
 
-  def translatedZenChoices(using Lang) =
+  def translatedZenChoices(using Translate) =
     List(
-      (Pref.Zen.NO, trans.no.txt()),
-      (Pref.Zen.YES, trans.yes.txt()),
+      (Pref.Zen.NO, trans.site.no.txt()),
+      (Pref.Zen.YES, trans.site.yes.txt()),
       (Pref.Zen.GAME_AUTO, trans.preferences.inGameOnly.txt())
     )
 
-  def translatedBoardCoordinateChoices(using Lang) =
+  def translatedBoardCoordinateChoices(using Translate) =
     List(
-      (Pref.Coords.NONE, trans.no.txt()),
-      (Pref.Coords.INSIDE, trans.insideTheBoard.txt()),
-      (Pref.Coords.OUTSIDE, trans.outsideTheBoard.txt())
+      (Pref.Coords.NONE, trans.site.no.txt()),
+      (Pref.Coords.INSIDE, trans.site.insideTheBoard.txt()),
+      (Pref.Coords.OUTSIDE, trans.site.outsideTheBoard.txt())
     )
 
-  def translatedMoveListWhilePlayingChoices(using Lang) =
+  def translatedMoveListWhilePlayingChoices(using Translate) =
     List(
-      (Pref.Replay.NEVER, trans.never.txt()),
-      (Pref.Replay.SLOW, trans.onSlowGames.txt()),
-      (Pref.Replay.ALWAYS, trans.always.txt())
+      (Pref.Replay.NEVER, trans.site.never.txt()),
+      (Pref.Replay.SLOW, trans.site.onSlowGames.txt()),
+      (Pref.Replay.ALWAYS, trans.site.always.txt())
     )
 
-  def translatedPieceNotationChoices(using Lang) =
+  def translatedPieceNotationChoices(using Translate) =
     List(
       (Pref.PieceNotation.SYMBOL, trans.preferences.chessPieceSymbol.txt()),
       (Pref.PieceNotation.LETTER, trans.preferences.pgnLetter.txt())
     )
 
-  def translatedClockTenthsChoices(using Lang) =
+  def translatedClockTenthsChoices(using Translate) =
     List(
-      (Pref.ClockTenths.NEVER, trans.never.txt()),
+      (Pref.ClockTenths.NEVER, trans.site.never.txt()),
       (Pref.ClockTenths.LOWTIME, trans.preferences.whenTimeRemainingLessThanTenSeconds.txt()),
-      (Pref.ClockTenths.ALWAYS, trans.always.txt())
+      (Pref.ClockTenths.ALWAYS, trans.site.always.txt())
     )
 
-  def translatedMoveEventChoices(using Lang) =
+  def translatedMoveEventChoices(using Translate) =
     List(
       (Pref.MoveEvent.CLICK, trans.preferences.clickTwoSquares.txt()),
       (Pref.MoveEvent.DRAG, trans.preferences.dragPiece.txt()),
       (Pref.MoveEvent.BOTH, trans.preferences.bothClicksAndDrag.txt())
     )
 
-  def translatedTakebackChoices(using Lang) =
+  def translatedTakebackChoices(using Translate) =
     List(
-      (Pref.Takeback.NEVER, trans.never.txt()),
-      (Pref.Takeback.ALWAYS, trans.always.txt()),
+      (Pref.Takeback.NEVER, trans.site.never.txt()),
+      (Pref.Takeback.ALWAYS, trans.site.always.txt()),
       (Pref.Takeback.CASUAL, trans.preferences.inCasualGamesOnly.txt())
     )
 
-  def translatedMoretimeChoices(using Lang) =
+  def translatedMoretimeChoices(using Translate) =
     List(
-      (Pref.Moretime.NEVER, trans.never.txt()),
-      (Pref.Moretime.ALWAYS, trans.always.txt()),
+      (Pref.Moretime.NEVER, trans.site.never.txt()),
+      (Pref.Moretime.ALWAYS, trans.site.always.txt()),
       (Pref.Moretime.CASUAL, trans.preferences.inCasualGamesOnly.txt())
     )
 
-  def translatedAutoQueenChoices(using Lang) =
+  def translatedAutoQueenChoices(using Translate) =
     List(
-      (Pref.AutoQueen.NEVER, trans.never.txt()),
+      (Pref.AutoQueen.NEVER, trans.site.never.txt()),
       (Pref.AutoQueen.PREMOVE, trans.preferences.whenPremoving.txt()),
-      (Pref.AutoQueen.ALWAYS, trans.always.txt())
+      (Pref.AutoQueen.ALWAYS, trans.site.always.txt())
     )
 
-  def translatedAutoThreefoldChoices(using Lang) =
+  def translatedAutoThreefoldChoices(using Translate) =
     List(
-      (Pref.AutoThreefold.NEVER, trans.never.txt()),
-      (Pref.AutoThreefold.ALWAYS, trans.always.txt()),
+      (Pref.AutoThreefold.NEVER, trans.site.never.txt()),
+      (Pref.AutoThreefold.ALWAYS, trans.site.always.txt()),
       (Pref.AutoThreefold.TIME, trans.preferences.whenTimeRemainingLessThanThirtySeconds.txt())
     )
 
-  def submitMoveChoices(using Lang) =
+  def submitMoveChoices(using Translate) =
     List(
-      (Pref.SubmitMove.UNLIMITED, trans.unlimited.txt()),
-      (Pref.SubmitMove.CORRESPONDENCE, trans.correspondence.txt()),
-      (Pref.SubmitMove.CLASSICAL, trans.classical.txt()),
-      (Pref.SubmitMove.RAPID, trans.rapid.txt()),
-      (Pref.SubmitMove.BLITZ, trans.blitz.txt())
+      (Pref.SubmitMove.UNLIMITED, trans.site.unlimited.txt()),
+      (Pref.SubmitMove.CORRESPONDENCE, trans.site.correspondence.txt()),
+      (Pref.SubmitMove.CLASSICAL, trans.site.classical.txt()),
+      (Pref.SubmitMove.RAPID, trans.site.rapid.txt()),
+      (Pref.SubmitMove.BLITZ, trans.site.blitz.txt())
     )
 
-  def confirmResignChoices(using Lang) =
+  def confirmResignChoices(using Translate) =
     List(
-      (Pref.ConfirmResign.NO, trans.no.txt()),
-      (Pref.ConfirmResign.YES, trans.yes.txt())
+      (Pref.ConfirmResign.NO, trans.site.no.txt()),
+      (Pref.ConfirmResign.YES, trans.site.yes.txt())
     )
 
-  def translatedRookCastleChoices(using Lang) =
+  def translatedRookCastleChoices(using Translate) =
     List(
       (Pref.RookCastle.NO, trans.preferences.castleByMovingTwoSquares.txt()),
       (Pref.RookCastle.YES, trans.preferences.castleByMovingOntoTheRook.txt())
     )
 
-  def translatedChallengeChoices(using Lang) =
+  def translatedChallengeChoices(using Translate) =
     List(
-      (Pref.Challenge.NEVER, trans.never.txt()),
+      (Pref.Challenge.NEVER, trans.site.never.txt()),
       (
         Pref.Challenge.RATING,
-        trans.ifRatingIsPlusMinusX.txt(lila.pref.Pref.Challenge.ratingThreshold)
+        trans.site.ifRatingIsPlusMinusX.txt(lila.pref.Pref.Challenge.ratingThreshold)
       ),
-      (Pref.Challenge.FRIEND, trans.onlyFriends.txt()),
-      (Pref.Challenge.REGISTERED, trans.ifRegistered.txt()),
-      (Pref.Challenge.ALWAYS, trans.always.txt())
+      (Pref.Challenge.FRIEND, trans.site.onlyFriends.txt()),
+      (Pref.Challenge.REGISTERED, trans.site.ifRegistered.txt()),
+      (Pref.Challenge.ALWAYS, trans.site.always.txt())
     )
 
-  def translatedMessageChoices(using Lang) =
+  def translatedMessageChoices(using Translate) =
     List(
-      (Pref.Message.NEVER, trans.onlyExistingConversations.txt()),
-      (Pref.Message.FRIEND, trans.onlyFriends.txt()),
-      (Pref.Message.ALWAYS, trans.always.txt())
+      (Pref.Message.NEVER, trans.site.onlyExistingConversations.txt()),
+      (Pref.Message.FRIEND, trans.site.onlyFriends.txt()),
+      (Pref.Message.ALWAYS, trans.site.always.txt())
     )
 
-  def translatedStudyInviteChoices(using Lang) = privacyBaseChoices
-  def translatedPalantirChoices(using Lang)    = privacyBaseChoices
-  private def privacyBaseChoices(using Lang) =
+  def translatedStudyInviteChoices(using Translate) = privacyBaseChoices
+  def translatedPalantirChoices(using Translate)    = privacyBaseChoices
+  private def privacyBaseChoices(using Translate) =
     List(
-      (Pref.StudyInvite.NEVER, trans.never.txt()),
-      (Pref.StudyInvite.FRIEND, trans.onlyFriends.txt()),
-      (Pref.StudyInvite.ALWAYS, trans.always.txt())
+      (Pref.StudyInvite.NEVER, trans.site.never.txt()),
+      (Pref.StudyInvite.FRIEND, trans.site.onlyFriends.txt()),
+      (Pref.StudyInvite.ALWAYS, trans.site.always.txt())
     )
 
-  def translatedInsightShareChoices(using Lang) =
+  def translatedInsightShareChoices(using Translate) =
     List(
-      (Pref.InsightShare.NOBODY, trans.withNobody.txt()),
-      (Pref.InsightShare.FRIENDS, trans.withFriends.txt()),
-      (Pref.InsightShare.EVERYBODY, trans.withEverybody.txt())
+      (Pref.InsightShare.NOBODY, trans.site.withNobody.txt()),
+      (Pref.InsightShare.FRIENDS, trans.site.withFriends.txt()),
+      (Pref.InsightShare.EVERYBODY, trans.site.withEverybody.txt())
     )
 
-  def translatedBoardResizeHandleChoices(using Lang) =
+  def translatedBoardResizeHandleChoices(using Translate) =
     List(
-      (Pref.ResizeHandle.NEVER, trans.never.txt()),
+      (Pref.ResizeHandle.NEVER, trans.site.never.txt()),
       (Pref.ResizeHandle.INITIAL, trans.preferences.onlyOnInitialPosition.txt()),
-      (Pref.ResizeHandle.ALWAYS, trans.always.txt())
+      (Pref.ResizeHandle.ALWAYS, trans.site.always.txt())
     )
 
-  def translatedBooleanIntChoices(using Lang) =
+  def translatedBooleanIntChoices(using Translate) =
     List(
-      0 -> trans.no.txt(),
-      1 -> trans.yes.txt()
+      0 -> trans.site.no.txt(),
+      1 -> trans.site.yes.txt()
     )
 
-  def translatedBooleanChoices(using Lang) =
+  def translatedBooleanChoices(using Translate) =
     List(
-      false -> trans.no.txt(),
-      true  -> trans.yes.txt()
+      false -> trans.site.no.txt(),
+      true  -> trans.site.yes.txt()
     )

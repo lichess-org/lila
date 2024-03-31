@@ -1,6 +1,6 @@
 package lila.user
 
-import lila.hub.user.Count
+import lila.core.user.Count
 
 object Count:
 
@@ -10,7 +10,7 @@ object Count:
   private[user] given BSONDocumentHandler[Count] = new BSON[Count]:
 
     def reads(r: BSON.Reader): Count =
-      lila.hub.user.Count(
+      lila.core.user.Count(
         ai = r.nInt("ai"),
         draw = r.nInt("draw"),
         drawH = r.nInt("drawH"),
@@ -35,4 +35,4 @@ object Count:
         "winH"  -> w.int(o.winH)
       )
 
-  val default = lila.hub.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
+  val default = lila.core.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)

@@ -8,12 +8,11 @@ import lila.common.config.*
 import lila.db.AsyncColl
 import lila.db.dsl.Coll
 import lila.report.Suspect
-import lila.tournament.TournamentApi
 
 final class Env(
     appConfig: Configuration,
-    tournamentApi: TournamentApi,
-    modApi: lila.mod.ModApi,
+    tournamentApi: lila.core.tournament.TournamentApi,
+    modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     userCache: lila.user.Cached,
@@ -50,9 +49,9 @@ final class Env(
           leaders.toList
             .traverse: (tour, top) =>
               userRepo.byIds(
-                top.value.zipWithIndex
+                top.view.zipWithIndex
                   .filter(_._2 <= tour.nbPlayers * 2 / 100)
-                  .map(_._1.userId)
+                  .map(_._1)
                   .take(20)
               )
             .map(_.flatten.map(Suspect.apply))

@@ -39,24 +39,23 @@ object storm:
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.Cms.lonePage("storm"))(trans.aboutX("Puzzle Storm"))
+          a(href := routes.Cms.lonePage("storm"))(trans.site.aboutX("Puzzle Storm"))
         )
       )
     }
 
-  private def renderHigh(high: StormHigh)(using Lang) =
+  private def renderHigh(high: StormHigh)(using Translate) =
     frag(
       List(
         (high.allTime, trans.storm.allTime),
         (high.month, trans.storm.thisMonth),
         (high.week, trans.storm.thisWeek),
-        (high.day, trans.today)
-      ).map { case (value, name) =>
+        (high.day, trans.site.today)
+      ).map: (value, name) =>
         div(cls := "storm-dashboard__high__period")(
           strong(value),
           span(name())
         )
-      }
     )
 
   private val numberTag = tag("number")
@@ -132,8 +131,7 @@ object storm:
     )
 
   private val i18nKeys =
-    import lila.i18n.{ I18nKeys as trans }
-    import lila.i18n.I18nKeys.{ storm as s }
+    import trans.{ storm as s }
     List(
       s.moveToStart,
       s.puzzlesSolved,
@@ -163,5 +161,5 @@ object storm:
       s.clickToReload,
       s.thisRunHasExpired,
       s.thisRunWasOpenedInAnotherTab,
-      trans.flipBoard
+      trans.site.flipBoard
     )

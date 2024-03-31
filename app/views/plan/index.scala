@@ -271,7 +271,7 @@ object index:
   private def showCurrency(cur: Currency)(using ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
 
-  private def faq(using Lang) =
+  private def faq(using Translate) =
     div(cls := "faq")(
       dl(
         dt(whereMoneyGoes()),

@@ -6,8 +6,7 @@ import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
 
 import lila.db.dsl.{ *, given }
-import lila.hub.eval.{ Score, Moves, Pv }
-import lila.hub.eval.CloudEval
+import lila.tree.{ CloudEval, Score, Moves, Pv }
 
 private object BSONHandlers:
 

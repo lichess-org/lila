@@ -1,11 +1,13 @@
 package lila.base
 
 import alleycats.Zero
-import ornicar.scalalib.newtypes.*
+import scalalib.newtypes.*
 
 import java.time.Instant
 
 trait LilaModel:
+
+  export scalalib.model.{ Max, MaxPerPage, MaxPerSecond }
 
   type Update[A] = A => A
   def UpdateOf[A](f: A => A): Update[A] = f

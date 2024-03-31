@@ -41,7 +41,7 @@ object crud:
           spotlightAndTeamBattle(form, none),
           errMsg(form("setup")),
           tournament.form.setupCreate(form, Nil),
-          form3.action(form3.submit(trans.apply()))
+          form3.action(form3.submit(trans.site.apply()))
         )
       )
     }
@@ -69,7 +69,7 @@ object crud:
           spotlightAndTeamBattle(form, tour.some),
           errMsg(form("setup")),
           tournament.form.setupEdit(tour, form, Nil),
-          form3.action(form3.submit(trans.apply()))
+          form3.action(form3.submit(trans.site.apply()))
         )
       )
     }

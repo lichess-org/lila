@@ -6,7 +6,7 @@ import lila.user.{ Me, User }
 
 final class Share(
     prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 )(using Executor):
 
   def getPrefId(insighted: User) = prefApi.get(insighted.id, _.insightShare)

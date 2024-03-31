@@ -25,7 +25,7 @@ object hosted:
               tr(
                 th(cls := "count")(pager.nbResults),
                 th(colspan := 2)(h1(userLink(user, withOnline = true), " simuls")),
-                th(s"${trans.wins.txt()}/${trans.draws.txt()}/${trans.losses.txt()}")
+                th(s"${trans.site.wins.txt()}/${trans.site.draws.txt()}/${trans.site.losses.txt()}")
               )
             ),
             tbody(cls := "infinite-scroll")(

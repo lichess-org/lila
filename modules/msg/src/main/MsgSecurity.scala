@@ -2,22 +2,23 @@ package lila.msg
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
-import lila.hub.actorApi.report.AutoFlag
-import lila.hub.actorApi.team.IsLeaderOf
+import lila.core.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
+import lila.core.team.IsLeaderOf
 import lila.memo.RateLimit
 import lila.security.Granter
 import lila.shutup.Analyser
 import lila.user.User
+import lila.core.report.SuspectId
 
 final private class MsgSecurity(
     colls: MsgColls,
     prefApi: lila.pref.PrefApi,
     userRepo: lila.user.UserRepo,
     getBotUserIds: lila.user.GetBotIds,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
+    reportApi: lila.core.report.ReportApi,
     spam: lila.security.Spam,
-    chatPanicAllowed: lila.hub.chat.panic.IsAllowed
+    chatPanicAllowed: lila.core.chat.panic.IsAllowed
 )(using Executor, Scheduler):
 
   import MsgSecurity.*
@@ -84,7 +85,7 @@ final private class MsgSecurity(
             case Dirt =>
               if dirtSpamDedup(text) then
                 val resource = s"msg/${contacts.orig.id}/${contacts.dest.id}"
-                Bus.publish(AutoFlag(contacts.orig.id, resource, text, Analyser.isCritical(text)), "autoFlag")
+                reportApi.autoCommFlag(SuspectId(contacts.orig.id), resource, text, Analyser.isCritical(text))
             case Spam =>
               if dirtSpamDedup(text) && !contacts.orig.isTroll
               then logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")

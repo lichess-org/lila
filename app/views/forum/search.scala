@@ -23,7 +23,7 @@ object search:
           ),
           bits.searchForm(text)
         ),
-        strong(cls := "nb-results box__pad")(trans.nbForumPosts.pluralSame(pager.nbResults)),
+        strong(cls := "nb-results box__pad")(trans.site.nbForumPosts.pluralSame(pager.nbResults)),
         table(cls := "slist slist-pad search__results")(
           (pager.nbResults > 0).option(
             tbody(cls := "infinite-scroll")(

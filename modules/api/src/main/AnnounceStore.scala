@@ -4,7 +4,7 @@ import play.api.libs.json.Json
 
 import scala.util.Try
 
-import lila.hub.actorApi.Announce
+import lila.core.actorApi.Announce
 
 object AnnounceStore:
 

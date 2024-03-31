@@ -31,7 +31,7 @@ final class RateLimit[K](
   def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A =
     if cost < 1 then op
     else
-      storage getIfPresent k match
+      storage.getIfPresent(k) match
         case None =>
           storage.put(k, cost -> makeClearAt)
           op

@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.Json.given
-import lila.common.config.MaxPerSecond
+
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -21,6 +21,7 @@ final class PuzzleActivity(
 
   def stream(config: Config): Source[JsObject, ?] =
     val perSecond = MaxPerSecond(20)
+
     val baseQuery = $doc(PuzzleRound.BSONFields.user -> config.user.id)
     val timeQueries = List(
       config.before.map(before => $doc(PuzzleRound.BSONFields.date.$lt(before))),
@@ -28,7 +29,7 @@ final class PuzzleActivity(
     ).flatten
     val finalQuery = baseQuery.++(timeQueries*)
 
-    Source.futureSource(
+    Source.futureSource:
       colls.round
         .map(_.find(finalQuery))
         .map(_.sort($sort.desc(PuzzleRound.BSONFields.date)))
@@ -39,7 +40,6 @@ final class PuzzleActivity(
         .map(_.throttle(1, 1 second))
         .map(_.mapAsync(1)(enrich(config)))
         .map(_.mapConcat(identity))
-    )
 
   private def enrich(config: Config)(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
     colls.puzzle:
@@ -59,7 +59,7 @@ object PuzzleActivity:
 
   case class Config(
       user: User,
-      max: Option[Int],
+      max: Option[Max],
       before: Option[Instant],
       since: Option[Instant]
   )

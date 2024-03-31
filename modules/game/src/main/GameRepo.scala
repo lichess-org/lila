@@ -3,19 +3,18 @@ package lila.game
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
 import chess.{ Color, Status }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.BSONNull
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
 
-import lila.common.config
-import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
 import lila.user.User
+import lila.core.game.*
 
-final class GameRepo(val coll: Coll)(using Executor):
+final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.GameRepo:
 
   import BSONHandlers.given
   import Game.{ BSONFields as F }
@@ -137,7 +136,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       .cursor[Game](ReadPref.sec)
       .list(nb)
 
-  def unanalysedGames(gameIds: Seq[GameId], max: config.Max = config.Max(100)): Fu[List[Game]] =
+  def unanalysedGames(gameIds: Seq[GameId], max: Max = Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
       .cursor[Game](ReadPref.priTemp)

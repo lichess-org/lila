@@ -14,14 +14,10 @@ final class Env(
     userRepo: lila.user.UserRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer
-):
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   lazy val db = mongo
     .asyncDb(

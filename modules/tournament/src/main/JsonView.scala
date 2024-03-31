@@ -12,8 +12,9 @@ import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 import lila.rating.{ Perf, PerfType }
-import lila.hub.socket.SocketVersion
+import lila.core.socket.SocketVersion
 import lila.user.{ LightUserApi, Me, User }
+import lila.core.i18n.Translate
 
 final class JsonView(
     lightUserApi: LightUserApi,
@@ -31,7 +32,7 @@ final class JsonView(
     standingApi: TournamentStandingApi,
     pause: Pause,
     reloadEndpointSetting: SettingStore[String] @@ TournamentReloadEndpoint
-)(using Executor):
+)(using Executor, lila.core.i18n.Translator):
 
   import JsonView.{ *, given }
   import lila.gathering.ConditionHandlers.JSONHandlers.{ *, given }
@@ -47,7 +48,7 @@ final class JsonView(
       myInfo: Preload[Option[MyInfo]] = Preload.none
   )(using me: Option[Me])(using
       getMyTeamIds: Condition.GetMyTeamIds,
-      lightTeamApi: lila.hub.LightTeam.Api
+      lightTeamApi: lila.core.team.LightTeam.Api
   )(using Lang): Fu[JsObject] =
     for
       data   <- cachableData.get(tour.id)
@@ -573,7 +574,7 @@ object JsonView:
       .add("iconImg" -> s.iconImg)
       .add("iconFont" -> s.iconFont)
 
-  private[tournament] given (using Lang): OWrites[PerfType] =
+  private[tournament] given (using Translate): OWrites[PerfType] =
     OWrites: pt =>
       Json
         .obj("key" -> pt.key, "name" -> pt.trans)

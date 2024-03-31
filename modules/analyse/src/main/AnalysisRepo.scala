@@ -2,6 +2,7 @@ package lila.analyse
 
 import lila.db.dsl.*
 import lila.game.Game
+import lila.tree.Analysis
 
 final class AnalysisRepo(val coll: Coll)(using Executor):
 

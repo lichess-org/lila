@@ -60,7 +60,7 @@ object indexPayPal:
                   postForm(cls := "cancel", action := routes.Plan.cancel)(
                     p(stopPayments()),
                     submitButton(cls := "button button-red")(noLongerSupport()),
-                    a(dataForm := "cancel")(trans.cancel())
+                    a(dataForm := "cancel")(trans.site.cancel())
                   )
                 )
               }

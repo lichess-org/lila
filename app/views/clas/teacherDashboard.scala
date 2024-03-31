@@ -27,7 +27,7 @@ object teacherDashboard:
             cls  := active.active("progress"),
             href := clasRoutes.progress(c.id.value, PerfType.Blitz.key, 7)
           )(trans.clas.progress()),
-          a(cls := active.active("edit"), href := clasRoutes.edit(c.id.value))(trans.edit()),
+          a(cls := active.active("edit"), href := clasRoutes.edit(c.id.value))(trans.site.edit()),
           a(cls := active.active("students"), href := clasRoutes.students(c.id.value))(
             trans.clas.students()
           )
@@ -128,10 +128,10 @@ object teacherDashboard:
           thead(
             tr(
               th(dataSortDefault)(
-                trans.clas.variantXOverLastY(progress.perfType.trans, trans.nbDays.txt(progress.days)),
-                thSortNumber(trans.rating()),
+                trans.clas.variantXOverLastY(progress.perfType.trans, trans.site.nbDays.txt(progress.days)),
+                thSortNumber(trans.site.rating()),
                 thSortNumber(trans.clas.progress()),
-                thSortNumber(if progress.isPuzzle then trans.puzzles() else trans.games()),
+                thSortNumber(if progress.isPuzzle then trans.site.puzzles() else trans.site.games()),
                 if progress.isPuzzle then thSortNumber(trans.clas.winrate())
                 else thSortNumber(trans.clas.timePlaying()),
                 th
@@ -184,8 +184,8 @@ object teacherDashboard:
             tr(
               th(dataSortDefault)(
                 trans.clas.nbStudents.pluralSame(students.size),
-                thSortNumber(trans.chessBasics()),
-                thSortNumber(trans.practice()),
+                thSortNumber(trans.site.chessBasics()),
+                thSortNumber(trans.site.practice()),
                 thSortNumber(trans.coordinates.coordinates())
               )
             ),
@@ -217,7 +217,7 @@ object teacherDashboard:
   private def progressHeader(c: Clas, progress: Option[ClasProgress])(using PageContext) =
     div(cls := "progress")(
       div(cls := "progress-perf")(
-        label(trans.variant()),
+        label(trans.site.variant()),
         div(cls := "progress-choices")(
           List(
             PerfType.Bullet,
@@ -233,7 +233,7 @@ object teacherDashboard:
             )(pt.trans)
           },
           a(cls := progress.isEmpty.option("active"), href := clasRoutes.learn(c.id.value))(
-            trans.learnMenu()
+            trans.site.learnMenu()
           )
         )
       ),
@@ -258,9 +258,9 @@ object teacherDashboard:
         thead:
           tr(
             th(dataSortDefault)(trans.clas.nbStudents(students.size)),
-            thSortNumber(trans.rating()),
-            thSortNumber(trans.games()),
-            thSortNumber(trans.puzzles()),
+            thSortNumber(trans.site.rating()),
+            thSortNumber(trans.site.games()),
+            thSortNumber(trans.site.puzzles()),
             thSortNumber(trans.clas.lastActiveDate()),
             th(iconTag(licon.Shield)(title := trans.clas.managed.txt()))
           )

@@ -8,7 +8,6 @@ import play.api.data.Forms.*
 import play.api.data.format.Formatter
 
 import lila.common.Form.{ cleanNonEmptyText, defaulting, formatter, into, given }
-import lila.common.config.Max
 
 object StudyForm:
 

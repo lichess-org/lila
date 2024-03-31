@@ -34,8 +34,8 @@ object bits:
           span(cls := "clock"):
             c.daysPerTurn
               .fold(shortClockName(c.clock.map(_.config))): days =>
-                if days.value == 1 then trans.oneDay()
-                else trans.nbDays.pluralSame(days.value)
+                if days.value == 1 then trans.site.oneDay()
+                else trans.site.nbDays.pluralSame(days.value)
         )
       ),
       div(cls := "mode")(

@@ -30,7 +30,7 @@ object show:
             chat.json(
               c.chat,
               c.lines,
-              name = trans.chatRoom.txt(),
+              name = trans.site.chatRoom.txt(),
               timeout = c.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),

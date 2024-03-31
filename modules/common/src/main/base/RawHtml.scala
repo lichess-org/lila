@@ -7,7 +7,7 @@ import java.lang.{ Math, StringBuilder as jStringBuilder }
 import java.util.regex.Matcher
 import scala.annotation.{ switch, tailrec }
 
-import lila.common.base.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
+import scalalib.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
 import lila.common.{ Html, config }
 
 object RawHtml:

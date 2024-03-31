@@ -3,7 +3,7 @@ package lila.relay
 import chess.{ Elo, FideId, Outcome, PlayerName, PlayerTitle }
 
 import lila.db.dsl.{ *, given }
-import lila.hub.fide.Federation
+import lila.core.fide.Federation
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
 

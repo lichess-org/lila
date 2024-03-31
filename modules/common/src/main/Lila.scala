@@ -9,10 +9,10 @@ object Lila extends Lila:
       .invoke(scala.concurrent.ExecutionContext)
       .asInstanceOf[scala.concurrent.ExecutionContextExecutor]
 
-  export ornicar.scalalib.newtypes.{ given, * }
-  export ornicar.scalalib.zeros.given
-  export ornicar.scalalib.extensions.{ given, * }
-  export ornicar.scalalib.time.*
+  export scalalib.newtypes.{ given, * }
+  export scalalib.zeros.given
+  export scalalib.extensions.{ given, * }
+  export scalalib.time.*
 
   export cats.syntax.all.*
   export cats.{ Eq, Show }

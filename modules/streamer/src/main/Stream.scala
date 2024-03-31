@@ -7,7 +7,7 @@ import lila.common.config.NetDomain
 import lila.common.Json.given
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
-import lila.i18n.Language
+import lila.core.i18n.Language
 
 trait Stream:
   def serviceName: String
@@ -71,7 +71,7 @@ object Stream:
                 unescapeHtml(item.snippet.title),
                 item.id,
                 _,
-                item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.i18n.defaultLang
+                item.snippet.defaultAudioLanguage.flatMap(Lang.get) | lila.core.i18n.defaultLang
               )
             }
           }

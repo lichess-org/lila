@@ -2,7 +2,7 @@ package lila.study
 
 import chess.Centis
 
-import lila.hub.tree.Node.Shapes
+import lila.tree.Node.Shapes
 
 class CommentParserTest extends lila.common.LilaTest:
 

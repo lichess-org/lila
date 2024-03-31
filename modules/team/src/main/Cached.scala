@@ -3,8 +3,9 @@ package lila.team
 import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
-import lila.hub.LightTeam
+import lila.core.team.LightTeam
 import lila.memo.Syncache
+import lila.core.team.Access
 
 final class Cached(
     teamRepo: TeamRepo,
@@ -78,8 +79,8 @@ final class Cached(
           nbReqs      <- requestRepo.countPendingForTeams(leaderTeams)
         yield nbReqs
 
-  val forumAccess = cacheApi[TeamId, Team.Access](1_024, "team.forum.access"):
-    _.expireAfterWrite(5 minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Team.Access.NONE))
+  private[team] val forumAccess = cacheApi[TeamId, Access](1_024, "team.forum.access"):
+    _.expireAfterWrite(5 minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Access.None))
 
   val unsubs = cacheApi[TeamId, Int](512, "team.unsubs"):
     _.expireAfterWrite(1 hour).buildAsyncFuture(memberRepo.countUnsub)

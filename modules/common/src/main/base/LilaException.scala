@@ -9,7 +9,6 @@ trait LilaException extends Exception:
   override def toString   = message
 
 case class LilaInvalid(message: String)      extends LilaException
-case class LilaTimeout(message: String)      extends LilaException with NoStackTrace
 case class LilaNoStackTrace(message: String) extends LilaException with NoStackTrace
 
 object LilaException:

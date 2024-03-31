@@ -357,7 +357,7 @@ object mod:
     else
       mzSection("teacher")(strong(cls := "inline")(a(href := clasRoutes.teacher(u.username))(nb, " Classes")))
 
-  def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Lang) =
+  def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Translate) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(
         strong(cls := "text", dataIcon := licon.CautionTriangle)(
@@ -401,7 +401,7 @@ object mod:
         )
     )
 
-  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Lang): Frag =
+  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Translate): Frag =
     mzSection("reports")(
       div(cls := "mz_reports mz_reports--out")(
         strong(cls := "text", dataIcon := licon.CautionTriangle)(
@@ -929,7 +929,7 @@ object mod:
       case (nb, tag) if nb > 4 => frag(List.fill(3)(tag), "+", nb - 3)
       case (nb, tag) if nb > 0 => frag(List.fill(nb)(tag))
 
-  private def reportSubmitButton(r: lila.report.Report)(using Lang) =
+  private def reportSubmitButton(r: lila.report.Report)(using Translate) =
     submitButton(
       title := {
         if r.open then "open"

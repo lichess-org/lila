@@ -8,6 +8,8 @@ import reactivemongo.api.bson.BSONDocument
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.user.User
+import lila.core.{ study as hub }
+import lila.core.study.Visibility
 
 final class StudyRepo(private[study] val coll: AsyncColl)(using
     Executor,
@@ -82,9 +84,9 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   private[study] def selectOwnerId(ownerId: UserId) = $doc("ownerId" -> ownerId)
   def selectMemberId(memberId: UserId)              = $doc(F.uids -> memberId)
   private[study] val selectPublic = $doc:
-    "visibility" -> (Study.Visibility.Public: Study.Visibility)
+    "visibility" -> (Visibility.public: Visibility)
   private[study] val selectPrivateOrUnlisted =
-    "visibility".$ne(Study.Visibility.Public: Study.Visibility)
+    "visibility".$ne(Visibility.public: Visibility)
   private[study] def selectLiker(userId: UserId) = $doc(F.likers -> userId)
   private[study] def selectContributorId(userId: UserId): BSONDocument =
     selectMemberId(userId) ++ // use the index
@@ -204,17 +206,17 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
 
   private val idNameProjection = $doc("name" -> true)
 
-  def publicIdNames(ids: List[StudyId]): Fu[List[Study.IdName]] =
-    coll(_.find($inIds(ids) ++ selectPublic, idNameProjection.some).cursor[Study.IdName]().listAll())
+  def publicIdNames(ids: List[StudyId]): Fu[List[hub.IdName]] =
+    coll(_.find($inIds(ids) ++ selectPublic, idNameProjection.some).cursor[hub.IdName]().listAll())
 
   def recentByOwnerWithChapterCount(
       chapterColl: AsyncColl
-  )(userId: UserId, nb: Int): Fu[List[(Study.IdName, Int)]] =
+  )(userId: UserId, nb: Int): Fu[List[(hub.IdName, Int)]] =
     findRecentStudyWithChapterCount(selectOwnerId)(chapterColl)(userId, nb)
 
   def recentByContributorWithChapterCount(
       chapterColl: AsyncColl
-  )(userId: UserId, nb: Int): Fu[List[(Study.IdName, Int)]] =
+  )(userId: UserId, nb: Int): Fu[List[(hub.IdName, Int)]] =
     findRecentStudyWithChapterCount(selectContributorId)(chapterColl)(userId, nb)
 
   private def findRecentStudyWithChapterCount(query: UserId => BSONDocument)(

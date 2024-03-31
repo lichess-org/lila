@@ -48,7 +48,7 @@ final private[api] class Cli(
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
     case "threads" :: Nil =>
       fuccess:
-        val threads = ornicar.scalalib.Jvm.threadGroups()
+        val threads = scalalib.Jvm.threadGroups()
         s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"
 
   private def run(args: List[String]): Fu[String] = {

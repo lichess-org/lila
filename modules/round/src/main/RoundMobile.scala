@@ -9,7 +9,6 @@ import lila.common.{ LightUser, Preload }
 import lila.game.JsonView.given
 import lila.game.{ Game, GameRepo, Pov }
 import lila.pref.Pref
-import lila.round.actorApi.{ GameAndSocketStatus, SocketStatus }
 import lila.user.Me
 
 object RoundMobile:
@@ -29,12 +28,12 @@ final class RoundMobile(
     prefApi: lila.pref.PrefApi,
     takebacker: Takebacker,
     moretimer: Moretimer,
-    isOfferingRematch: IsOfferingRematch,
+    isOfferingRematch: lila.core.round.IsOfferingRematch,
     chatApi: lila.chat.ChatApi
 )(using Executor, lila.user.FlairApi):
 
   import RoundMobile.*
-  private given play.api.i18n.Lang = lila.i18n.defaultLang
+  private given play.api.i18n.Lang = lila.core.i18n.defaultLang
 
   def online(gameSockets: List[GameAndSocketStatus])(using me: Me): Fu[JsArray] =
     gameSockets
@@ -67,7 +66,7 @@ final class RoundMobile(
           .player(pov.player, users(color))
           .add("isGone" -> (game.forceDrawable && use.socketStatus.exists(_.isGone(pov.color))))
           .add("onGame" -> (pov.player.isAi || use.socketStatus.exists(_.onGame(pov.color))))
-          .add("offeringRematch" -> isOfferingRematch(pov))
+          .add("offeringRematch" -> isOfferingRematch(pov.ref))
           .add("offeringDraw" -> pov.player.isOfferingDraw)
           .add("proposingTakeback" -> pov.player.isProposingTakeback)
       Json

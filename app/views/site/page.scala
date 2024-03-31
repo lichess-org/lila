@@ -211,7 +211,7 @@ $('#asset-version-message').text(site.info.message);"""
                   """On a game analysis page, click the <em>"FEN &amp; PGN"</em> tab at the bottom, then """
                 ),
                 "\"",
-                em(trans.embedInYourWebsite(), "\".")
+                em(trans.site.embedInYourWebsite(), "\".")
               ),
               parameters,
               p("The text is automatically translated to your visitor's language.")
@@ -237,21 +237,21 @@ $('#asset-version-message').text(site.info.message);"""
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         views.html.site.bits.pageMenuSubnav(
-          a(activeCls("about"), href := "/about")(trans.aboutX("lichess.org")),
+          a(activeCls("about"), href := "/about")(trans.site.aboutX("lichess.org")),
           a(activeCls("news"), href := routes.Feed.index(1))("Lichess updates"),
           a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),
           a(activeCls("contact"), href := routes.Main.contact)(trans.contact.contact()),
-          a(activeCls("tos"), href := routes.Cms.tos)(trans.termsOfService()),
-          a(activeCls("privacy"), href := "/privacy")(trans.privacy()),
+          a(activeCls("tos"), href := routes.Cms.tos)(trans.site.termsOfService()),
+          a(activeCls("privacy"), href := "/privacy")(trans.site.privacy()),
           a(activeCls("master"), href := routes.Cms.master)("Title verification"),
           sep,
-          a(activeCls("source"), href := routes.Cms.source)(trans.sourceCode()),
-          a(activeCls("help"), href := routes.Cms.help)(trans.contribute()),
+          a(activeCls("source"), href := routes.Cms.source)(trans.site.sourceCode()),
+          a(activeCls("help"), href := routes.Cms.help)(trans.site.contribute()),
           a(activeCls("changelog"), href := routes.Cms.menuPage("changelog"))("Changelog"),
-          a(activeCls("thanks"), href := "/thanks")(trans.thankYou()),
+          a(activeCls("thanks"), href := "/thanks")(trans.site.thankYou()),
           sep,
-          a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
-          a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
+          a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.site.webmasters()),
+          a(activeCls("database"), href := "https://database.lichess.org")(trans.site.database(), external),
           a(activeCls("api"), href := routes.Api.index)("API", external),
           sep,
           a(activeCls("lag"), href := routes.Main.lag)(trans.lag.isLichessLagging()),

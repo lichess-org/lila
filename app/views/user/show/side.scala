@@ -53,14 +53,14 @@ object side:
                 )
               ),
               span(
-                if perfType.key.value == "puzzle" then trans.nbPuzzles.plural(perf.nb, perf.nb.localize)
-                else trans.nbGames.plural(perf.nb, perf.nb.localize)
+                if perfType.key.value == "puzzle" then trans.site.nbPuzzles.plural(perf.nb, perf.nb.localize)
+                else trans.site.nbGames.plural(perf.nb, perf.nb.localize)
               )
             )
           ,
           rankMap.get(perfType).ifTrue(ctx.pref.showRatings).map { rank =>
-            span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(
-              trans.rankX(rank.localize)
+            span(cls := "rank", title := trans.site.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(
+              trans.site.rankX(rank.localize)
             )
           }
         ),
@@ -98,7 +98,7 @@ object side:
       )
     )
 
-  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(using Lang) =
+  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(using Translate) =
     a(
       dataIcon := licon.Storm,
       cls := List(
@@ -120,7 +120,7 @@ object side:
       iconTag(licon.PlayTriangle)
     )
 
-  private def showRacer(racer: lila.rating.Perf.Racer)(using Lang) =
+  private def showRacer(racer: lila.rating.Perf.Racer)(using Translate) =
     a(
       dataIcon := licon.FlagChessboard,
       cls := List(
@@ -142,7 +142,7 @@ object side:
       iconTag(licon.PlayTriangle)
     )
 
-  private def showStreak(streak: lila.rating.Perf.Streak)(using Lang) =
+  private def showStreak(streak: lila.rating.Perf.Streak)(using Translate) =
     a(
       dataIcon := licon.ArrowThruApple,
       cls := List(

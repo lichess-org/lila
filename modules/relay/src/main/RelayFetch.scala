@@ -8,13 +8,13 @@ import io.mola.galimatias.URL
 import play.api.libs.json.*
 
 import lila.base.LilaInvalid
-import lila.common.config.Max
+
 import lila.common.{ LilaScheduler, Seconds }
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.round.GameProxyRepo
 import lila.study.MultiPgn
-import lila.hub.tree.Node.Comments
+import lila.tree.Node.Comments
 
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import RelayFormat.CanProxy
@@ -29,7 +29,7 @@ final private class RelayFetch(
     gameRepo: GameRepo,
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo
-)(using Executor, Scheduler)(using mode: play.api.Mode):
+)(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
   import RelayFetch.*
 
@@ -173,7 +173,8 @@ final private class RelayFetch(
           .flatMap(gameRepo.withInitialFens)
           .flatMap { games =>
             if games.size == ids.size then
-              val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
+              val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
+              given play.api.i18n.Lang = lila.core.i18n.defaultLang
               games
                 .traverse: (game, fen) =>
                   pgnDump(game, fen, pgnFlags).dmap(_.render)

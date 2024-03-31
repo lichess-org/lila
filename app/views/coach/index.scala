@@ -29,7 +29,7 @@ object index:
       moreJs = infiniteScrollTag,
       withHrefLangs = LangPath(routes.Coach.all(1)).some
     ):
-      val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
+      val langSelections = ("all", "All languages") :: lila.i18n.LangPicker
         .sortFor(LangList.popularNoRegion.filter(l => langCodes(l.code)), ctx.req)
         .map: l =>
           l.code -> LangList.name(l)

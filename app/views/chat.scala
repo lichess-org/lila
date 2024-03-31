@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
-import lila.i18n.I18nKeys
+import lila.core.i18n.{ I18nKey as trans }
 
 object chat:
 
@@ -92,12 +92,12 @@ object chat:
 
   def i18n(withNote: Boolean)(using Context) =
     i18nOptionJsObject(
-      I18nKeys.talkInChat.some,
-      I18nKeys.toggleTheChat.some,
-      I18nKeys.loginToChat.some,
-      I18nKeys.youHaveBeenTimedOut.some,
-      withNote.option(I18nKeys.notes),
-      withNote.option(I18nKeys.typePrivateNotesHere)
+      trans.site.talkInChat.some,
+      trans.site.toggleTheChat.some,
+      trans.site.loginToChat.some,
+      trans.site.youHaveBeenTimedOut.some,
+      withNote.option(trans.site.notes),
+      withNote.option(trans.site.typePrivateNotesHere)
     )
 
   val spectatorsFrag =

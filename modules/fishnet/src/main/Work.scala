@@ -3,7 +3,7 @@ package lila.fishnet
 import chess.Ply
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.IpAddress
 

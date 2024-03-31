@@ -1,6 +1,6 @@
 package lila.tournament
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.LightUser
 import lila.user.User

@@ -3,7 +3,8 @@ package lila.analyse
 import lila.common.Bus
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }
-import lila.hub.actorApi.map.TellIfExists
+import lila.core.actorApi.map.TellIfExists
+import lila.tree.Analysis
 
 final class Analyser(
     gameRepo: GameRepo,

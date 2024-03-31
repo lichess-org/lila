@@ -49,8 +49,8 @@ object wall:
             trans.clas.classNews()
           )(form3.textarea(_)(rows := 20)),
           form3.actions(
-            a(href := clasRoutes.wall(c.id.value))(trans.cancel()),
-            form3.submit(trans.apply())
+            a(href := clasRoutes.wall(c.id.value))(trans.site.cancel()),
+            form3.submit(trans.site.apply())
           )
         )
       )

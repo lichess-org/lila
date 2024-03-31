@@ -22,16 +22,18 @@ final class MongoCache[K, V: BSONHandler] private (
 
   private val cache = build { loader => k =>
     val dbKey = makeDbKey(k)
-    coll.one[Entry]($id(dbKey)) flatMap {
+    coll.one[Entry]($id(dbKey)).flatMap {
       case None =>
         lila.mon.mongoCache.request(name, hit = false).increment()
         loader(k)
           .flatMap { v =>
-            coll.update.one(
-              $id(dbKey),
-              Entry(dbKey, v, nowInstant.plus(dbTtl)),
-              upsert = true
-            ).inject(v)
+            coll.update
+              .one(
+                $id(dbKey),
+                Entry(dbKey, v, nowInstant.plus(dbTtl)),
+                upsert = true
+              )
+              .inject(v)
           }
           .mon(_.mongoCache.compute(name))
       case Some(entry) =>

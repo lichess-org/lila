@@ -35,7 +35,7 @@ trait AssetHelper extends HasEnv:
   def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def cssTag(name: String)(using ctx: Context): Frag =
-    cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
+    cssTagWithDirAndTheme(name, isRTL(using ctx.lang), ctx.pref.currentBg)
 
   def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
     if theme == "system" then

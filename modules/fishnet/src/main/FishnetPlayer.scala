@@ -1,12 +1,12 @@
 package lila.fishnet
 
 import chess.{ Black, Clock, White }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaFuture }
 import lila.game.{ Game, GameRepo, UciMemo }
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.FishnetPlay
+import lila.core.actorApi.map.Tell
+import lila.core.round.FishnetPlay
 
 final class FishnetPlayer(
     redis: FishnetRedis,

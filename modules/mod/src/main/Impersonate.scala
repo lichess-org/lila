@@ -1,7 +1,7 @@
 package lila.mod
 
 import lila.common.Bus
-import lila.hub.actorApi.mod.Impersonate
+import lila.core.mod.Impersonate
 import lila.user.{ Me, User, UserRepo }
 
 final class ImpersonateApi(userRepo: UserRepo):

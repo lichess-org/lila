@@ -6,6 +6,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.common.LightUser
+import lila.core.game.Source
 
 final class JsonView(rematches: Rematches):
 
@@ -170,5 +171,5 @@ object JsonView:
       .add("middle" -> o.middle)
       .add("end" -> o.end)
 
-  given Writes[Source]   = writeAs(_.name)
-  given Writes[GameRule] = writeAs(_.key)
+  given Writes[Source]                  = writeAs(_.name)
+  given Writes[lila.core.game.GameRule] = writeAs(_.toString)

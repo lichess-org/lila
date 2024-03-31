@@ -1,6 +1,6 @@
 package lila.base
 
-import ornicar.scalalib.newtypes.*
+import scalalib.newtypes.*
 
 trait LilaUserId:
 

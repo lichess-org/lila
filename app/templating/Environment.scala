@@ -33,8 +33,6 @@ object Environment
   def setEnv(e: Env)              = envVar = Some(e)
   def env: Env                    = envVar.get
 
-  type FormWithCaptcha = (play.api.data.Form[?], lila.common.Captcha)
-
   def netConfig                      = env.net
   def netBaseUrl                     = env.net.baseUrl.value
   def contactEmailInClear            = env.net.email.value

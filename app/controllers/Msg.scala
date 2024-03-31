@@ -80,9 +80,9 @@ final class Msg(env: Env) extends LilaController(env):
               env.msg.api
                 .post(me, userId, text)
                 .flatMap:
-                  case lila.msg.MsgApi.PostResult.Success => jsonOkResult
-                  case lila.msg.MsgApi.PostResult.Limited => rateLimited
-                  case _                                  => BadRequest(jsonError("The message was rejected"))
+                  case lila.core.msg.PostResult.Success => jsonOkResult
+                  case lila.core.msg.PostResult.Limited => rateLimited
+                  case _                                => BadRequest(jsonError("The message was rejected"))
           )
   }
 

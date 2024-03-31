@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.timeline.*
+import lila.core.timeline.*
 
 case class Entry(
     _id: BSONObjectID,

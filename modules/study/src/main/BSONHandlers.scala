@@ -10,9 +10,8 @@ import scala.util.Success
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.hub.tree.{ Root, Branch, Branches, NewBranch, Metas, NewRoot }
-import lila.hub.eval.{ Score }
-import lila.hub.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
+import lila.tree.{ Root, Branch, Branches, NewBranch, Metas, NewRoot, Score }
+import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 
 object BSONHandlers:
 
@@ -57,8 +56,8 @@ object BSONHandlers:
     x => BSONString(x.toString)
   )
 
-  given studyIdNameHandler: BSONDocumentHandler[Study.IdName]     = Macros.handler
-  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName] = Macros.handler
+  given studyIdNameHandler: BSONDocumentHandler[lila.core.study.IdName] = Macros.handler
+  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName]       = Macros.handler
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
@@ -366,10 +365,10 @@ object BSONHandlers:
         }),
       _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
     )
-  import Study.Visibility
+  import lila.core.study.Visibility
   private[study] given BSONHandler[Visibility] = tryHandler[Visibility](
     { case BSONString(v) => Visibility.byKey.get(v).toTry(s"Invalid visibility $v") },
-    v => BSONString(v.key)
+    v => BSONString(v.toString)
   )
   import Study.From
   private[study] given BSONHandler[From] = tryHandler[From](

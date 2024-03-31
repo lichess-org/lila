@@ -115,7 +115,7 @@ case object Glicko:
 
   import play.api.libs.json.{ OWrites, Json }
   given OWrites[Glicko] =
-    import lila.common.Maths.roundDownAt
+    import scalalib.Maths.roundDownAt
     OWrites: p =>
       Json
         .obj(

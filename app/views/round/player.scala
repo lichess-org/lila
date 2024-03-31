@@ -27,7 +27,7 @@ object player:
           chat.restrictedJson(
             c,
             c.lines,
-            name = trans.chatRoom.txt(),
+            name = trans.site.chatRoom.txt(),
             timeout = false,
             withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
             public = false,
@@ -38,7 +38,7 @@ object player:
           chat.json(
             c.chat,
             c.lines,
-            name = trans.chatRoom.txt(),
+            name = trans.site.chatRoom.txt(),
             timeout = c.timeout,
             public = true,
             resourceId = res
@@ -47,7 +47,7 @@ object player:
     val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
     bits.layout(
       variant = pov.game.variant,
-      title = s"${trans.play.txt()} $opponentNameOrZen",
+      title = s"${trans.site.play.txt()} $opponentNameOrZen",
       moreJs = frag(roundNvuiTag),
       pageModule = PageModule(
         "round",

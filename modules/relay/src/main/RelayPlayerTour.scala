@@ -2,7 +2,7 @@ package lila.relay
 
 import lila.common.paginator.Paginator
 import lila.db.dsl.{ *, given }
-import lila.hub.fide.Player
+import lila.core.fide.Player
 import lila.study.ChapterRepo
 
 final class RelayPlayerTour(

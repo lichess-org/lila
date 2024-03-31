@@ -89,7 +89,7 @@ object clas:
       }
     )
 
-  def teachers(clas: Clas)(using Lang) =
+  def teachers(clas: Clas)(using Translate) =
     div(cls := "clas-teachers")(
       trans.clas.teachersX(
         fragList(clas.teachers.toList.map(t => userIdLink(t.some)))
@@ -108,8 +108,8 @@ object clas:
         innerForm(form.form, none),
         views.html.base.hcaptcha.tag(form),
         form3.actions(
-          a(href := clasRoutes.index)(trans.cancel()),
-          form3.submit(trans.apply())
+          a(href := clasRoutes.index)(trans.site.cancel()),
+          form3.submit(trans.site.apply())
         )
       )
     )
@@ -120,8 +120,8 @@ object clas:
         postForm(cls := "form3", action := clasRoutes.update(c.id.value))(
           innerForm(form, c.some),
           form3.actions(
-            a(href := clasRoutes.show(c.id.value))(trans.cancel()),
-            form3.submit(trans.apply())
+            a(href := clasRoutes.show(c.id.value))(trans.site.cancel()),
+            form3.submit(trans.site.apply())
           )
         ),
         hr,
@@ -150,11 +150,11 @@ object clas:
           form3.globalError(form),
           form3.group(
             form("text"),
-            frag(trans.message())
+            frag(trans.site.message())
           )(form3.textarea(_)(rows := 3)),
           form3.actions(
-            a(href := clasRoutes.wall(c.id.value))(trans.cancel()),
-            form3.submit(trans.send())
+            a(href := clasRoutes.wall(c.id.value))(trans.site.cancel()),
+            form3.submit(trans.site.send())
           )
         )
       )

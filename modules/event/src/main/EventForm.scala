@@ -4,21 +4,12 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ PrettyDateTime, into, stringIn }
-import lila.i18n.Language
+import lila.core.i18n.{ Language, LangList }
 import lila.user.Me
 
-object EventForm:
+final class EventForm(langList: LangList):
 
-  object icon:
-    val default   = ""
-    val broadcast = "broadcast.icon"
-    val choices = List(
-      default               -> "Microphone",
-      "lichess.event.png"   -> "Lichess",
-      "trophy.event.png"    -> "Trophy",
-      broadcast             -> "Broadcast",
-      "offerspill.logo.png" -> "Offerspill"
-    )
+  import EventForm.*
 
   val form = Form(
     mapping(
@@ -27,7 +18,7 @@ object EventForm:
       "description"   -> optional(text(minLength = 5, maxLength = 4000).into[Markdown]),
       "homepageHours" -> bigDecimal(10, 2).verifying(d => d >= 0 && d <= 24),
       "url"           -> nonEmptyText,
-      "lang"          -> lila.i18n.LangForm.popularLanguages.mapping,
+      "lang"          -> langList.popularLanguagesForm.mapping,
       "enabled"       -> boolean,
       "startsAt"      -> PrettyDateTime.mapping,
       "finishesAt"    -> PrettyDateTime.mapping,
@@ -42,13 +33,26 @@ object EventForm:
       description = none,
       homepageHours = 0,
       url = "",
-      lang = lila.i18n.defaultLanguage,
+      lang = lila.core.i18n.defaultLanguage,
       enabled = true,
       startsAt = nowDateTime,
       finishesAt = nowDateTime,
       countdown = true
     )
   )
+
+object EventForm:
+
+  object icon:
+    val default   = ""
+    val broadcast = "broadcast.icon"
+    val choices = List(
+      default               -> "Microphone",
+      "lichess.event.png"   -> "Lichess",
+      "trophy.event.png"    -> "Trophy",
+      broadcast             -> "Broadcast",
+      "offerspill.logo.png" -> "Offerspill"
+    )
 
   case class Data(
       title: String,

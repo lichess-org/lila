@@ -1,6 +1,7 @@
 package lila.report
 
 import lila.user.{ Me, User }
+import lila.core.report.SuspectId
 
 case class Mod(user: User) extends AnyVal:
   def id = user.id.into(ModId)
@@ -10,9 +11,6 @@ object Mod:
 case class Suspect(user: User) extends AnyVal:
   def id                   = SuspectId(user.id)
   def set(f: User => User) = Suspect(f(user))
-case class SuspectId(value: UserId) extends AnyVal
-object SuspectId:
-  def of(u: UserStr) = SuspectId(u.id)
 
 case class Victim(user: User.WithPerf) extends AnyVal
 

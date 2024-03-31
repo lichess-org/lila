@@ -4,8 +4,8 @@ import chess.FideId
 import monocle.syntax.all.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.hub.fide.FideTC
-import lila.hub.fide.Federation.*
+import lila.core.fide.FideTC
+import lila.core.fide.Federation.*
 
 case class Federation(
     @Key("_id") id: Id,

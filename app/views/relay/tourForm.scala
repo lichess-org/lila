@@ -18,8 +18,8 @@ object tourForm:
       postForm(cls := "form3", action := routes.RelayTour.create)(
         inner(form, none),
         form3.actions(
-          a(href := routes.RelayTour.index(1))(trans.cancel()),
-          form3.submit(trans.apply())
+          a(href := routes.RelayTour.index(1))(trans.site.cancel()),
+          form3.submit(trans.site.apply())
         )
       )
     )
@@ -35,8 +35,8 @@ object tourForm:
       postForm(cls := "form3", action := routes.RelayTour.update(tour.id))(
         inner(form, tg.some),
         form3.actions(
-          a(href := routes.RelayTour.show(tour.slug, tour.id))(trans.cancel()),
-          form3.submit(trans.apply())
+          a(href := routes.RelayTour.show(tour.slug, tour.id))(trans.site.cancel()),
+          form3.submit(trans.site.apply())
         )
       ),
       div(cls := "relay-form__actions")(

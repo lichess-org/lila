@@ -1,10 +1,10 @@
 package lila.event
 import lila.db.dsl.{ *, given }
-import lila.i18n.Language
+import lila.core.i18n.Language
 import lila.memo.CacheApi.*
-import lila.user.Me
+import lila.user.{ Me, given }
 
-final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
+final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventForm)(using Executor):
 
   import BsonHandlers.given
 
@@ -38,13 +38,13 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
   def one(id: String) = coll.byId[Event](id)
 
   def editForm(event: Event) =
-    EventForm.form.fill:
+    eventForm.form.fill:
       EventForm.Data.make(event)
 
   def update(old: Event, data: EventForm.Data)(using Me): Fu[Int] =
     (coll.update.one($id(old.id), data.update(old)).andDo(promotable.invalidateUnit())).dmap(_.n)
 
-  def createForm = EventForm.form
+  def createForm = eventForm.form
 
   def create(data: EventForm.Data)(using me: Me.Id): Fu[Event] =
     val event = data.make

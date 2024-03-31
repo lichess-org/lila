@@ -2,7 +2,7 @@ package lila.analyse
 
 import chess.variant.Variant
 import com.roundeights.hasher.Algo
-import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
+import scalalib.{ SecureRandom, ThreadLocalRandom }
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.{ Json, OWrites }

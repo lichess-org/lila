@@ -2,19 +2,19 @@ package lila.gameSearch
 
 import play.api.i18n.Lang
 
-import lila.i18n.I18nKeys as trans
+import lila.core.i18n.{ Translate, I18nKey as trans }
 
 case class Sorting(f: String, order: String)
 
 object Sorting:
 
-  def fields(using lang: Lang) = List(
+  def fields(using Translate) = List(
     Fields.date          -> trans.search.date.txt(),
     Fields.turns         -> trans.search.nbTurns.txt(),
-    Fields.averageRating -> trans.rating.txt()
+    Fields.averageRating -> trans.site.rating.txt()
   )
 
-  def orders(using lang: Lang) = List(
+  def orders(using Translate) = List(
     "desc" -> trans.search.descending.txt(),
     "asc"  -> trans.search.ascending.txt()
   )

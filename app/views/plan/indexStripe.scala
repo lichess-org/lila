@@ -90,13 +90,13 @@ object indexStripe:
                           .so(info.subscription.item.price.money.amount.toString)
                       }
                     ),
-                    submitButton(cls := "button")(trans.apply()),
-                    a(dataForm := "switch")(trans.cancel())
+                    submitButton(cls := "button")(trans.site.apply()),
+                    a(dataForm := "switch")(trans.site.cancel())
                   ),
                   postForm(cls := "cancel", action := routes.Plan.cancel)(
                     p(stopPaymentsPayPal()),
                     submitButton(cls := "button button-red")(noLongerSupport()),
-                    a(dataForm := "cancel")(trans.cancel())
+                    a(dataForm := "cancel")(trans.site.cancel())
                   )
                 )
               }

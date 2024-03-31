@@ -3,7 +3,7 @@ package lila.racer
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.hub.socket.{ protocol as P, * }
+import lila.core.socket.{ protocol as P, * }
 
 final private class RacerSocket(
     api: RacerApi,

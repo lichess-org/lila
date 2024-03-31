@@ -8,7 +8,6 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.hub.actorApi.captcha.ValidCaptcha
 
 import Forms.*
 
@@ -38,8 +37,7 @@ final class Main(
       keyPages.notFound(using _)
 
   def captchaCheck(id: GameId) = Open:
-    import makeTimeout.long
-    (env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution"))).map { case valid: Boolean =>
+    env.game.captcha.validate(id, ~get("solution")).map { valid =>
       Ok(if valid then 1 else 0)
     }
 

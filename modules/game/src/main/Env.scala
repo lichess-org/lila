@@ -14,7 +14,6 @@ final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
     @ConfigName("collection.crosstable") val crosstableColl: CollName,
     @ConfigName("collection.matchup") val matchupColl: CollName,
-    @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
     val gifUrl: String
 )
@@ -31,12 +30,11 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler,
-    materializer: Materializer,
-    mode: play.api.Mode
+)(using system: ActorSystem, scheduler: Scheduler)(using
+    lila.core.i18n.Translator,
+    Executor,
+    Materializer,
+    play.api.Mode
 ):
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
@@ -71,8 +69,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  // eagerly load captcher actor
-  private val captcher = system.actorOf(Props(new Captcher(gameRepo)), name = config.captcherName)
-  scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) { () =>
-    captcher ! actorApi.NewCaptcha
-  }
+  lazy val captcha = wire[CaptchaApi]
+
+  scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration): () =>
+    captcha.newCaptcha()

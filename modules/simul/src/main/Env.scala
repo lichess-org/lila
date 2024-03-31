@@ -6,7 +6,7 @@ import play.api.Configuration
 import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
-import lila.hub.socket.{ GetVersion, SocketVersion }
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 private class SimulConfig(
@@ -23,17 +23,15 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    renderer: lila.hub.actors.Renderer,
-    timeline: lila.hub.actors.Timeline,
     chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.GetterFallback,
-    onGameStart: lila.round.OnStart,
+    onGameStart: lila.core.game.OnStart,
     cacheApi: lila.memo.CacheApi,
     historyApi: lila.history.HistoryApi,
-    socketKit: lila.hub.socket.SocketKit,
-    socketReq: lila.hub.socket.SocketRequester,
+    socketKit: lila.core.socket.SocketKit,
+    socketReq: lila.core.socket.SocketRequester,
     proxyRepo: lila.round.GameProxyRepo,
-    isOnline: lila.hub.socket.IsOnline
+    isOnline: lila.core.socket.IsOnline
 )(using Executor, Scheduler, play.api.Mode, lila.user.FlairApi.Getter):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
@@ -73,19 +71,19 @@ final class Env(
       api.finishGame(game)
       ()
     },
-    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
       api.ejectCheater(userId)
       ()
     },
-    "simulGetHosts" -> { case lila.hub.actorApi.simul.GetHostIds(promise) =>
+    "simulGetHosts" -> { case lila.core.actorApi.simul.GetHostIds(promise) =>
       promise.completeWith(api.currentHostIds)
     },
-    "moveEventSimul" -> { case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
+    "moveEventSimul" -> { case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>
       import lila.common.Json.given
       Bus.publish(
-        lila.hub.actorApi.socket.SendTo(
+        lila.core.actorApi.socket.SendTo(
           opponentUserId,
-          lila.hub.socket.makeMessage("simulPlayerMove", move.gameId)
+          lila.core.socket.makeMessage("simulPlayerMove", move.gameId)
         ),
         "socketUsers"
       )
