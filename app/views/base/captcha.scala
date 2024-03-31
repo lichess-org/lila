@@ -26,7 +26,7 @@ object captcha:
         div(
           cls := List(
             "captcha form-group" -> true,
-            "is-invalid"         -> lila.core.captcha.isFailedFixMe(form)
+            "is-invalid"         -> form.errors.exists(_.messages.has(lila.core.captcha.failMessage))
           ),
           dataCheckUrl := routes.Main.captchaCheck(captcha.gameId.value)
         )(
