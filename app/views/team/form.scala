@@ -134,9 +134,9 @@ object form:
           form3.select(
             f,
             Seq(
-              Access.None    -> "No chat",
-              Access.Leaders -> "Team leaders",
-              Access.Members -> "Team members"
+              Access.None.id    -> "No chat",
+              Access.Leaders.id -> "Team leaders",
+              Access.Members.id -> "Team members"
             )
           )
         },
@@ -152,10 +152,10 @@ object form:
           form3.select(
             f,
             Seq(
-              Access.Everyone -> "Show to everyone",
-              Access.Members  -> "Show to members",
-              Access.Leaders  -> "Show to team leaders",
-              Access.None     -> "Hide the forum"
+              Access.Everyone.id -> "Show to everyone",
+              Access.Members.id  -> "Show to members",
+              Access.Leaders.id  -> "Show to team leaders",
+              Access.None.id     -> "Hide the forum"
             )
           )
         }
