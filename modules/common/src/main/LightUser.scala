@@ -10,7 +10,9 @@ case class LightUser(
     name: UserName,
     title: Option[PlayerTitle],
     flair: Option[lila.Lila.Flair],
-    isPatron: Boolean
+    isPatron: Boolean,
+    disabled: Boolean,
+    tosViolation: Boolean
 ):
 
   def titleName: String = title.fold(name.value)(_.value + " " + name)
@@ -21,7 +23,7 @@ object LightUser:
 
   type Ghost = LightUser
 
-  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, false)
+  val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, false, false, false)
 
   given UserIdOf[LightUser] = _.id
 
@@ -33,13 +35,17 @@ object LightUser:
     .add("title", u.title)
     .add("flair", u.flair)
     .add("patron", u.isPatron)
+    .add("disabled", u.disabled)
+    .add("tosViolation", u.tosViolation)
 
   def fallback(name: UserName) = LightUser(
     id = name.id,
     name = name,
     title = None,
     flair = None,
-    isPatron = false
+    isPatron = false,
+    disabled = false,
+    tosViolation = false
   )
 
   private type GetterType          = UserId => Fu[Option[LightUser]]

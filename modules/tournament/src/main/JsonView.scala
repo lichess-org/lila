@@ -485,10 +485,12 @@ object JsonView:
     case Player.Result(player, user, rank, sheet) =>
       Json
         .obj(
-          "rank"     -> rank,
-          "score"    -> player.score,
-          "rating"   -> player.rating,
-          "username" -> user.name
+          "rank"         -> rank,
+          "score"        -> player.score,
+          "rating"       -> player.rating,
+          "username"     -> user.name,
+          "disabled"     -> user.disabled,
+          "tosViolation" -> user.tosViolation
         )
         .add("title" -> user.title)
         .add("flair" -> user.flair)
