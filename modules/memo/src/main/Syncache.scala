@@ -65,7 +65,7 @@ final class Syncache[K, V](
             else default(k)
 
   // maybe optimize later with cache batching
-  def asyncMany(ks: List[K]): Fu[List[V]] = ks traverse async
+  def asyncMany(ks: List[K]): Fu[List[V]] = ks.traverse(async)
 
   def invalidate(k: K): Unit = cache.invalidate(k)
 
