@@ -14,168 +14,18 @@ import lila.core.i18n.Translator
 
 final class Env(
     val config: Configuration,
-    val api: lila.api.Env,
-    val user: lila.user.Env,
-    val mailer: lila.mailer.Env,
-    val security: lila.security.Env,
-    val socket: lila.socket.Env,
-    val memo: lila.memo.Env,
-    val msg: lila.msg.Env,
-    val game: lila.game.Env,
-    val bookmark: lila.bookmark.Env,
-    val search: lila.search.Env,
-    val gameSearch: lila.gameSearch.Env,
-    val timeline: lila.timeline.Env,
-    val forum: lila.forum.Env,
-    val forumSearch: lila.forumSearch.Env,
-    val team: lila.team.Env,
-    val teamSearch: lila.teamSearch.Env,
-    val analyse: lila.analyse.Env,
-    val mod: lila.mod.Env,
-    val notifyM: lila.notify.Env,
-    val round: lila.round.Env,
-    val lobby: lila.lobby.Env,
-    val setup: lila.setup.Env,
-    val importer: lila.importer.Env,
-    val tournament: lila.tournament.Env,
-    val simul: lila.simul.Env,
-    val relation: lila.relation.Env,
-    val report: lila.report.Env,
-    val appeal: lila.appeal.Env,
-    val pref: lila.pref.Env,
-    val chat: lila.chat.Env,
-    val puzzle: lila.puzzle.Env,
-    val coordinate: lila.coordinate.Env,
-    val tv: lila.tv.Env,
-    val feed: lila.feed.Env,
-    val history: lila.history.Env,
-    val video: lila.video.Env,
-    val playban: lila.playban.Env,
-    val shutup: lila.shutup.Env,
-    val insight: lila.insight.Env,
-    val push: lila.push.Env,
-    val perfStat: lila.perfStat.Env,
-    val irc: lila.irc.Env,
-    val challenge: lila.challenge.Env,
-    val explorer: lila.explorer.Env,
-    val fishnet: lila.fishnet.Env,
-    val study: lila.study.Env,
-    val studySearch: lila.studySearch.Env,
-    val learn: lila.learn.Env,
-    val plan: lila.plan.Env,
-    val event: lila.event.Env,
-    val coach: lila.coach.Env,
-    val clas: lila.clas.Env,
-    val pool: lila.pool.Env,
-    val practice: lila.practice.Env,
-    val irwin: lila.irwin.Env,
-    val activity: lila.activity.Env,
-    val fide: lila.fide.Env,
-    val relay: lila.relay.Env,
-    val streamer: lila.streamer.Env,
-    val oAuth: lila.oauth.Env,
-    val bot: lila.bot.Env,
-    val evalCache: lila.evalCache.Env,
-    val swiss: lila.swiss.Env,
-    val storm: lila.storm.Env,
-    val racer: lila.racer.Env,
-    val ublog: lila.ublog.Env,
-    val opening: lila.opening.Env,
-    val tutor: lila.tutor.Env,
-    val cms: lila.cms.Env,
-    val lilaCookie: lila.common.LilaCookie,
     val net: NetConfig,
-    val controllerComponents: ControllerComponents
-)(using
-    val system: ActorSystem,
-    val scheduler: Scheduler,
-    val executor: Executor,
-    val mode: play.api.Mode,
-    val translator: Translator
-):
-
-  val explorerEndpoint       = config.get[String]("explorer.endpoint")
-  val tablebaseEndpoint      = config.get[String]("explorer.tablebase_endpoint")
-  val externalEngineEndpoint = config.get[String]("externalEngine.endpoint")
-
-  val appVersionDate    = config.getOptional[String]("app.version.date")
-  val appVersionCommit  = config.getOptional[String]("app.version.commit")
-  val appVersionMessage = config.getOptional[String]("app.version.message")
-
-  val apiTimelineSetting = memo.settingStore[Int](
-    "apiTimelineEntries",
-    default = 10,
-    text = "API timeline entries to serve".some
-  )
-  val noDelaySecretSetting = memo.settingStore[Strings](
-    "noDelaySecrets",
-    default = Strings(Nil),
-    text =
-      "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
-  )
-  val prizeTournamentMakers = memo.settingStore[UserIds](
-    "prizeTournamentMakers",
-    default = UserIds(Nil),
-    text =
-      "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
-  )
-  val apiExplorerGamesPerSecond = memo.settingStore[Int](
-    "apiExplorerGamesPerSecond",
-    default = 300,
-    text = "Opening explorer games per second".some
-  )
-  val pieceImageExternal = memo.settingStore[Boolean](
-    "pieceImageExternal",
-    default = false,
-    text = "Use external piece images".some
-  )
-
-  lazy val preloader     = wire[mashup.Preload]
-  lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
-  lazy val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
-  lazy val userInfo      = wire[mashup.UserInfo.UserInfoApi]
-  lazy val teamInfo      = wire[mashup.TeamInfoApi]
-  lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
-  lazy val pageCache     = wire[http.PageCache]
-
-  private val tryDailyPuzzle: lila.puzzle.DailyPuzzle.Try = () =>
-    Future {
-      puzzle.daily.get
-    }.flatMap(identity)
-      .withTimeoutDefault(50.millis, none)
-      .recover { case e: Exception =>
-        lila.log("preloader").warn("daily puzzle", e)
-        none
-      }
-
-  lila.core.hub.renderer.register:
-    case lila.tv.RenderFeaturedJs(game, promise) =>
-      promise.success(views.html.game.mini.noCtx(lila.game.Pov.naturalOrientation(game), tv = true).render)
-    case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
-      promise.success(views.html.puzzle.bits.daily(puzzle, fen, lastMove).render)
-
-end Env
-
-final class EnvBoot(
-    config: Configuration,
-    environment: Environment,
-    controllerComponents: ControllerComponents,
-    cookieBacker: SessionCookieBaker,
+    val controllerComponents: ControllerComponents,
     shutdown: CoordinatedShutdown
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    ws: StandaloneWSClient,
-    materializer: akka.stream.Materializer
+)(using val system: ActorSystem, val executor: Executor)(using
+    StandaloneWSClient,
+    akka.stream.Materializer,
+    SessionCookieBaker,
+    Mode
 ):
-  given Scheduler  = system.scheduler
-  given Mode       = environment.mode
-  given Translator = lila.i18n.Translator
-  val netConfig    = config.get[NetConfig]("net")
-  export netConfig.{ domain, baseUrl, assetBaseUrlInternal }
-
-  // eagerly load the Uptime object to fix a precise date
-  lila.common.Uptime.startedAt
+  export net.{ domain, baseUrl, assetBaseUrlInternal }
+  given translator: Translator = lila.i18n.Translator
+  given scheduler: Scheduler   = system.scheduler
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type          = lila.i18n.Env
@@ -250,6 +100,81 @@ final class EnvBoot(
   val cms: lila.cms.Env                 = wire[lila.cms.Env]
   val api: lila.api.Env                 = wire[lila.api.Env]
   val lilaCookie                        = wire[lila.common.LilaCookie]
+
+  val explorerEndpoint       = config.get[String]("explorer.endpoint")
+  val tablebaseEndpoint      = config.get[String]("explorer.tablebase_endpoint")
+  val externalEngineEndpoint = config.get[String]("externalEngine.endpoint")
+
+  val appVersionDate    = config.getOptional[String]("app.version.date")
+  val appVersionCommit  = config.getOptional[String]("app.version.commit")
+  val appVersionMessage = config.getOptional[String]("app.version.message")
+
+  val apiTimelineSetting = memo.settingStore[Int](
+    "apiTimelineEntries",
+    default = 10,
+    text = "API timeline entries to serve".some
+  )
+  val noDelaySecretSetting = memo.settingStore[Strings](
+    "noDelaySecrets",
+    default = Strings(Nil),
+    text =
+      "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
+  )
+  val prizeTournamentMakers = memo.settingStore[UserIds](
+    "prizeTournamentMakers",
+    default = UserIds(Nil),
+    text =
+      "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
+  )
+  val apiExplorerGamesPerSecond = memo.settingStore[Int](
+    "apiExplorerGamesPerSecond",
+    default = 300,
+    text = "Opening explorer games per second".some
+  )
+  val pieceImageExternal = memo.settingStore[Boolean](
+    "pieceImageExternal",
+    default = false,
+    text = "Use external piece images".some
+  )
+
+  lazy val preloader     = wire[mashup.Preload]
+  lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
+  lazy val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
+  lazy val userInfo      = wire[mashup.UserInfo.UserInfoApi]
+  lazy val teamInfo      = wire[mashup.TeamInfoApi]
+  lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
+  lazy val pageCache     = wire[http.PageCache]
+
+  private val tryDailyPuzzle: lila.puzzle.DailyPuzzle.Try = () =>
+    Future {
+      puzzle.daily.get
+    }.flatMap(identity)
+      .withTimeoutDefault(50.millis, none)
+      .recover { case e: Exception =>
+        lila.log("preloader").warn("daily puzzle", e)
+        none
+      }
+
+  lila.core.hub.renderer.register:
+    case lila.tv.RenderFeaturedJs(game, promise) =>
+      promise.success(views.html.game.mini.noCtx(lila.game.Pov.naturalOrientation(game), tv = true).render)
+    case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
+      promise.success(views.html.puzzle.bits.daily(puzzle, fen, lastMove).render)
+
+end Env
+
+final class EnvBoot(
+    config: Configuration,
+    environment: Environment,
+    controllerComponents: ControllerComponents,
+    cookieBacker: SessionCookieBaker,
+    shutdown: CoordinatedShutdown
+)(using Executor, ActorSystem, StandaloneWSClient, akka.stream.Materializer):
+  given Mode    = environment.mode
+  val netConfig = config.get[NetConfig]("net")
+
+  // eagerly load the Uptime object to fix a precise date
+  lila.common.Uptime.startedAt
 
   val env: lila.app.Env = wire[lila.app.Env]
 
