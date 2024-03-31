@@ -35,7 +35,7 @@ final class PuzzleActivity(
         .map(_.sort($sort.desc(PuzzleRound.BSONFields.date)))
         .map(_.batchSize(perSecond.value))
         .map(_.cursor[PuzzleRound](ReadPref.sec))
-        .map(_.documentSource(config.max.getOrElse(Int.MaxValue)))
+        .map(_.documentSource(config.max.fold(Int.MaxValue)(_.value)))
         .map(_.grouped(perSecond.value))
         .map(_.throttle(1, 1 second))
         .map(_.mapAsync(1)(enrich(config)))
