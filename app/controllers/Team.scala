@@ -399,7 +399,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       forms.searchDeclinedForm
         .bindFromRequest()
         .fold(
-          _ => BadRequest(""),
+          _ => BadRequest(),
           userQuery =>
             Ok.pageAsync:
               paginator.declinedRequests(team, page, userQuery).map {
