@@ -12,8 +12,7 @@ import lila.user.Me
 private class TimelineConfig(
     @ConfigName("collection.entry") val entryColl: CollName,
     @ConfigName("collection.unsub") val unsubColl: CollName,
-    @ConfigName("user.display_max") val userDisplayMax: Max,
-    @ConfigName("user.actor.name") val userActorName: String
+    @ConfigName("user.display_max") val userDisplayMax: Max
 )
 
 @Module
@@ -52,7 +51,7 @@ final class Env(
         }
     }
 
-  system.actorOf(Props(wire[TimelinePush]), name = config.userActorName)
+  val api = wire[TimelineApi]
 
   lila.common.Bus.subscribeFun("shadowban") { case lila.core.actorApi.mod.Shadowban(userId, true) =>
     entryApi.removeRecentFollowsBy(userId)

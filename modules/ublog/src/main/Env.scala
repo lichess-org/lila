@@ -11,7 +11,7 @@ final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    timeline: lila.core.actors.Timeline,
+    timelineApi: lila.core.timeline.TimelineApi,
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,

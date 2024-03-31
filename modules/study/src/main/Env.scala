@@ -25,7 +25,7 @@ final class Env(
     relationApi: lila.core.relation.RelationApi,
     socketKit: lila.core.socket.SocketKit,
     socketReq: lila.core.socket.SocketRequester,
-    timeline: lila.core.actors.Timeline,
+    timelineApi: lila.core.timeline.TimelineApi,
     fishnetApi: lila.core.fishnet.FishnetApi,
     chatApi: lila.chat.ChatApi,
     analyser: lila.analyse.Analyser,

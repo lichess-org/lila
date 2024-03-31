@@ -3,7 +3,7 @@ package lila.timeline
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.timeline.Atom
+import lila.core.timeline.Atom
 import lila.memo.CacheApi.*
 
 final class EntryApi(

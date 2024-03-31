@@ -5,7 +5,7 @@ import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.actorApi.timeline.Propagate
+import lila.core.timeline.Propagate
 import lila.memo.PicfitApi
 import lila.user.{ Me, User, UserApi }
 
@@ -14,7 +14,7 @@ final class UblogApi(
     rank: UblogRank,
     userApi: UserApi,
     picfitApi: PicfitApi,
-    timeline: lila.core.actors.Timeline,
+    timelineApi: lila.core.timeline.TimelineApi,
     shutupApi: ShutupApi,
     irc: lila.irc.IrcApi
 )(using Executor)
@@ -48,9 +48,11 @@ final class UblogApi(
       .andDo:
         lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
         if blog.visible then
-          timeline ! Propagate(
-            lila.core.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
-          ).toFollowersOf(user.id)
+          timelineApi(
+            Propagate(
+              lila.core.timeline.UblogPost(user.id, post.id, post.slug, post.title)
+            ).toFollowersOf(user.id)
+          )
           shutupApi.publicText(user.id, post.allText, PublicSource.Ublog(post.id))
           if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 

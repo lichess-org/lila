@@ -5,7 +5,7 @@ import scala.util.chaining.*
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.security.Granter as MasterGranter
 import lila.user.{ Me, User, given }
 import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
@@ -19,7 +19,7 @@ final class ForumPostApi(
     config: ForumConfig,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    timeline: lila.core.actors.Timeline,
+    timelineApi: lila.core.timeline.TimelineApi,
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage
 )(using Executor)(using scheduler: Scheduler)
@@ -61,11 +61,11 @@ final class ForumPostApi(
             if anonMod
             then logAnonPost(post, edit = false)
             else if !post.troll && !categ.quiet then
-              timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
+              timelineApi(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).pipe {
                 _.toFollowersOf(me).toUsers(topicUserIds).exceptUser(me).withTeam(categ.team)
-              }
+              })
             else if categ.id == ForumCateg.diagnosticId then
-              timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds)
+              timelineApi(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds))
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.publish(CreatePost(post.mini), "forumPost")

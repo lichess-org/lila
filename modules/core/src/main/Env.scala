@@ -20,7 +20,6 @@ object actors:
     val actor: ActorSelection
     val ! = actor.!
   final class GameSearch(val actor: ActorSelection) extends Actor
-  final class Timeline(val actor: ActorSelection)   extends Actor
 
 @Module
 final class Env(
@@ -33,7 +32,6 @@ final class Env(
   private val config = appConfig.get[Config]("hub")
 
   val gameSearch = GameSearch(select("actor.game.search"))
-  val timeline   = Timeline(select("actor.timeline.user"))
 
   private def select(name: String) =
     system.actorSelection("/user/" + config.getString(name))

@@ -10,7 +10,7 @@ import lila.core.socket.{ GetVersion, SocketVersion }
 @Module
 final class Env(
     captcha: lila.core.captcha.CaptchaApi,
-    timeline: lila.core.actors.Timeline,
+    timelineApi: lila.core.timeline.TimelineApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     notifyApi: NotifyApi,

@@ -33,7 +33,7 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     flairApi: lila.user.FlairApi,
-    timeline: lila.core.actors.Timeline,
+    timelineApi: lila.core.timeline.TimelineApi,
     chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
@@ -172,7 +172,7 @@ final class Env(
   )
 
   private lazy val notifier = RoundNotifier(
-    timeline = timeline,
+    timelineApi = timelineApi,
     isUserPresent = isUserPresent,
     notifyApi = notifyApi
   )
