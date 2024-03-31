@@ -18,7 +18,7 @@ private class PuzzleConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
     mongoCacheApi: lila.memo.MongoCache.Api,
