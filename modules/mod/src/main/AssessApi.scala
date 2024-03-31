@@ -17,10 +17,10 @@ final class AssessApi(
     modApi: ModApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    reporter: lila.core.actors.Report,
     fishnet: lila.core.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
-    analysisRepo: AnalysisRepo
+    analysisRepo: AnalysisRepo,
+    reportApi: lila.core.report.ReportApi
 )(using Executor):
 
   private def bottomDate = nowInstant.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
@@ -156,16 +156,11 @@ final class AssessApi(
                   playerAggregateAssessment.reportText(3)
                 )(using User.lichessIdAsMe)
             case Some(_) =>
-              fuccess {
-                reporter ! lila.core.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-              }
+              reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
           }
         case AccountAction.Report(_) =>
-          fuccess {
-            reporter ! lila.core.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-          }
+          reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
         case AccountAction.Nothing =>
-          // reporter ! lila.core.actorApi.report.Clean(userId)
           funit
     }
 

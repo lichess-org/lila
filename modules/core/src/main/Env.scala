@@ -41,7 +41,6 @@ final class Env(
   val fishnet    = Fishnet(select("actor.fishnet"))
   val timeline   = Timeline(select("actor.timeline.user"))
   val bookmark   = Bookmark(select("actor.bookmark"))
-  val report     = Report(select("actor.report"))
   val shutup     = Shutup(select("actor.shutup"))
 
   private def select(name: String) =

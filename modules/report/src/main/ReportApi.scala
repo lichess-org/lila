@@ -24,7 +24,8 @@ final class ReportApi(
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
     domain: lila.common.config.NetDomain
-)(using Executor, Scheduler):
+)(using Executor, Scheduler)
+    extends lila.core.report.ReportApi:
 
   import BSONHandlers.given
   import Report.Candidate
@@ -69,7 +70,7 @@ final class ReportApi(
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate).andDo:
                 if report.isCheat then
-                  Bus.publish(lila.core.actorApi.report.CheatReportCreated(report.user), "cheatReport")
+                  Bus.publish(lila.core.report.CheatReportCreated(report.user), "cheatReport")
           }
           .andDo(maxScoreCache.invalidateUnit())
       }

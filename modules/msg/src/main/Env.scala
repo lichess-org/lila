@@ -20,6 +20,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
+    reportApi: lila.core.report.ReportApi,
     spam: lila.security.Spam,
     chatPanicAllowed: lila.core.chat.panic.IsAllowed,
     shutup: lila.core.actors.Shutup,

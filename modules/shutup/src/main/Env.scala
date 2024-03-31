@@ -17,6 +17,7 @@ final class Env(
     appConfig: Configuration,
     reporter: lila.core.actors.Report,
     relationApi: lila.core.relation.RelationApi,
+    reportApi: lila.core.report.ReportApi,
     gameRepo: lila.core.game.GameRepo,
     userRepo: UserRepo,
     db: lila.db.Db

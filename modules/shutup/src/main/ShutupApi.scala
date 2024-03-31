@@ -11,7 +11,7 @@ final class ShutupApi(
     gameRepo: lila.core.game.GameRepo,
     userRepo: UserRepo,
     relationApi: lila.core.relation.RelationApi,
-    reporter: lila.core.actors.Report
+    reportApi: lila.core.report.ReportApi
 )(using Executor):
 
   private given BSONDocumentHandler[UserRecord] = Macros.handler
@@ -88,15 +88,13 @@ final class ShutupApi(
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }
-      reporter ! lila.core.actorApi.report.Shutup(userRecord.userId, text, analysed.critical)
-      coll.update
-        .one(
-          $id(userRecord.userId),
-          $unset(
-            TextType.values.map(_.key)
+      reportApi.autoCommReport(userRecord.userId, text, analysed.critical) >>
+        coll.update
+          .one(
+            $id(userRecord.userId),
+            $unset(TextType.values.map(_.key))
           )
-        )
-        .void
+          .void
     }
 
   private def reportText(userRecord: UserRecord) =

@@ -47,12 +47,6 @@ package clas:
   case class IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
   case class ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
 
-package report:
-  case class Cheater(userId: UserId, text: String)
-  case class Shutup(userId: UserId, text: String, critical: Boolean)
-  case class AutoFlag(suspectId: UserId, resource: String, text: String, critical: Boolean)
-  case class CheatReportCreated(userId: UserId)
-
 package security:
   case class GarbageCollect(userId: UserId)
   case class CloseAccount(userId: UserId)
