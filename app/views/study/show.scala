@@ -19,7 +19,10 @@ object show:
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s.name.value,
-      moreCss = cssTag("analyse.study"),
+      moreCss = frag(
+        cssTag("analyse.study"),
+        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
+      ),
       moreJs = analyseNvuiTag,
       pageModule = PageModule(
         "analysisBoard.study",

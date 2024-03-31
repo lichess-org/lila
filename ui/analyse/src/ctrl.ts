@@ -52,6 +52,7 @@ import Persistence from './persistence';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
 import { KeyboardMove } from 'keyboardMove';
+import * as control from './control';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -952,9 +953,17 @@ export default class AnalyseCtrl {
   withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined =>
     this.chessground && this.cgVersion.js === this.cgVersion.dom ? f(this.chessground) : undefined;
 
-  auxMove = () => {};
-  // auxMove=(orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => {};
-  flipNow = () => {};
+  userJumpPlyDelta = (plyDelta: number) => {
+    if (plyDelta === -1) control.prev(this);
+    else if (plyDelta === 1) control.next(this);
+    else if (plyDelta > 1) control.last(this);
+    else if (plyDelta < -1) control.first(this);
+  };
+
+  auxMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => {
+    const capture = this.chessground.state.pieces.get(dest);
+    this.sendMove(orig, dest, capture, prom);
+  };
 
   auxUpdate = (fen: string) => {
     this.keyboardMove?.update({ fen, canMove: true });

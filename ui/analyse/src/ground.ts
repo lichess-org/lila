@@ -7,7 +7,6 @@ import resizeHandle from 'common/resize';
 import AnalyseCtrl from './ctrl';
 import * as Prefs from 'common/prefs';
 import { ctrl as makeKeyboardMove } from 'keyboardMove';
-import * as control from './control';
 
 export const render = (ctrl: AnalyseCtrl): VNode =>
   h('div.cg-wrap.cgv' + ctrl.cgVersion.js, {
@@ -15,32 +14,13 @@ export const render = (ctrl: AnalyseCtrl): VNode =>
       insert: vnode => {
         ctrl.chessground = site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl));
         if (ctrl.data.pref.keyboardMove) {
-          ctrl.keyboardMove ??= makeKeyboardMove({
-            ...ctrl,
-            sendMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => {
-              console.log(orig, dest, prom, meta);
-              // ctrl.sendMove(
-              //   orig,
-              //   dest,
-              //   meta.captured && {
-              //     ...meta.captured,
-              //     promoted: false, // TODO
-              //   },
-              //   prom,
-              // );
-            },
-            userJumpPlyDelta: (plyDelta: number) => {
-              if (plyDelta === -1) control.prev(ctrl);
-              else if (plyDelta === 1) control.next(ctrl);
-              else if (plyDelta > 1) control.last(ctrl);
-              else if (plyDelta < -1) control.first(ctrl);
-            },
-          });
+          ctrl.keyboardMove ??= makeKeyboardMove({ ...ctrl, flipNow: ctrl.flip });
           ctrl.keyboardMove.update({
             fen: ctrl.node.fen,
-            canMove: true, // TODO
+            canMove: true,
             cg: ctrl.chessground,
           });
+          requestAnimationFrame(() => ctrl.redraw());
         }
         ctrl.setAutoShapes();
         if (ctrl.node.shapes) ctrl.chessground.setShapes(ctrl.node.shapes as DrawShape[]);
