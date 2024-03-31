@@ -87,7 +87,7 @@ final private[tv] class TvSyncActor(
       Bus.publish(lila.core.game.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
       if channel == Tv.Channel.Best then
         lila.common.Bus
-          .ask[String]("renderer")(RenderFeaturedJs(game, _))
+          .ask[Html]("renderer")(RenderFeaturedJs(game, _))
           .foreach: html =>
             val pov = Pov.naturalOrientation(game)
             val event = lila.core.game.ChangeFeatured(

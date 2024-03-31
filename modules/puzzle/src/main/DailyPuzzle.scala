@@ -34,7 +34,7 @@ final private[puzzle] class DailyPuzzle(
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
     lila.common.Bus
-      .ask[String]("renderer")(
+      .ask[Html]("renderer")(
         DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _)
       )
       .map: html =>
@@ -104,6 +104,6 @@ final private[puzzle] class DailyPuzzle(
 object DailyPuzzle:
   type Try = () => Fu[Option[DailyPuzzle.WithHtml]]
 
-  case class WithHtml(puzzle: Puzzle, html: String)
+  case class WithHtml(puzzle: Puzzle, html: Html)
 
-  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci, promise: Promise[String])
+  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci, promise: Promise[Html])
