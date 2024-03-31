@@ -14,7 +14,6 @@ final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
     @ConfigName("collection.crosstable") val crosstableColl: CollName,
     @ConfigName("collection.matchup") val matchupColl: CollName,
-    @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
     val gifUrl: String
 )
@@ -70,8 +69,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  // eagerly load captcher actor
-  private val captcher = system.actorOf(Props(new Captcher(gameRepo)), name = config.captcherName)
-  scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) { () =>
-    captcher ! actorApi.NewCaptcha
-  }
+  lazy val captcha = wire[CaptchaApi]
+
+  scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration): () =>
+    captcha.newCaptcha()

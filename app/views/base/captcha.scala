@@ -8,6 +8,7 @@ import scala.reflect.Selectable.reflectiveSelectable
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.core.captcha.Captcha
 
 object captcha:
 
@@ -15,7 +16,7 @@ object captcha:
   private val dataMoves    = attr("data-moves")
   private val dataPlayable = attr("data-playable")
 
-  def apply(form: lila.common.Form.FormLike, captcha: lila.common.Captcha)(using ctx: Context) =
+  def apply(form: lila.common.Form.FormLike, captcha: Captcha)(using ctx: Context) =
     frag(
       form3.hidden(form("gameId"), captcha.gameId.value.some),
       if ctx.blind then form3.hidden(form("move"), captcha.solutions.head.some)
@@ -25,7 +26,7 @@ object captcha:
         div(
           cls := List(
             "captcha form-group" -> true,
-            "is-invalid"         -> lila.common.Captcha.isFailed(form)
+            "is-invalid"         -> lila.core.captcha.isFailedFixMe(form)
           ),
           dataCheckUrl := routes.Main.captchaCheck(captcha.gameId.value)
         )(

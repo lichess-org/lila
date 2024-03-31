@@ -54,7 +54,6 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       err =>
                         CategGrantWrite(categId, tryingToPostAsMod = true):
                           for
-                            captcha     <- forms.anyCaptcha
                             unsub       <- env.timeline.status(s"forum:${topic.id}")
                             canModCateg <- access.isGrantedMod(categ.slug)
                             page <- renderPage:
@@ -63,7 +62,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                                   categ,
                                   topic,
                                   posts,
-                                  Some(err -> captcha),
+                                  Some(err -> anyCaptcha),
                                   unsub,
                                   canModCateg = canModCateg
                                 )

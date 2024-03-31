@@ -112,9 +112,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def form(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.create): (user, blog) =>
-        Ok.pageAsync:
-          env.ublog.form.anyCaptcha.map:
-            html.ublog.form.create(user, env.ublog.form.create, _)
+        Ok.page(html.ublog.form.create(user, env.ublog.form.create, anyCaptcha))
   }
 
   def create(username: UserStr) = AuthBody { ctx ?=> me ?=>
@@ -123,11 +121,7 @@ final class Ublog(env: Env) extends LilaController(env):
         env.ublog.form.create
           .bindFromRequest()
           .fold(
-            err =>
-              BadRequest.pageAsync:
-                env.ublog.form.anyCaptcha.map:
-                  html.ublog.form.create(user, err, _)
-            ,
+            err => BadRequest.page(html.ublog.form.create(user, err, anyCaptcha)),
             data =>
               CreateLimitPerUser(me, rateLimited, cost = if me.isVerified then 1 else 3):
                 env.ublog.api

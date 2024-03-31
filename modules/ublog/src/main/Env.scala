@@ -16,7 +16,7 @@ final class Env(
     ircApi: lila.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,
     shutup: lila.core.actors.Shutup,
-    captcher: lila.core.actors.Captcher,
+    captcha: lila.core.captcha.CaptchaApi,
     cacheApi: lila.memo.CacheApi,
     langList: lila.core.i18n.LangList,
     net: NetConfig

@@ -6,12 +6,13 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
 import lila.core.team.Access
+import lila.core.captcha.Captcha
 
 object form:
 
   import trans.team.*
 
-  def create(form: Form[?], captcha: lila.common.Captcha)(using PageContext) =
+  def create(form: Form[?], captcha: Captcha)(using PageContext) =
     views.html.base.layout(
       title = newTeam.txt(),
       moreCss = cssTag("team"),

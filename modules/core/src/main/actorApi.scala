@@ -96,11 +96,6 @@ package playban:
   case class Playban(userId: UserId, mins: Int, inTournament: Boolean)
   case class RageSitClose(userId: UserId)
 
-package captcha:
-  case object AnyCaptcha
-  case class GetCaptcha(id: GameId)
-  case class ValidCaptcha(id: GameId, solution: String)
-
 package lpv:
   case class AllPgnsFromText(text: String, promise: Promise[Map[String, LpvEmbed]])
   case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])

@@ -13,7 +13,8 @@ object hub:
     def register(f: PartialFunction[Matchable, Unit]): Unit = Bus.subscribeFun(channel)(f)
     def ask[A](using Executor, Scheduler)                   = Bus.ask[A](channel)
 
-  val renderer = RemoteService("renderer")
+  val renderer = RemoteService("rs-renderer")
+  val captcher = RemoteService("rs-captcher")
 
 object actors:
   trait Actor:
@@ -25,7 +26,6 @@ object actors:
   final class Shutup(val actor: ActorSelection)     extends Actor
   final class Timeline(val actor: ActorSelection)   extends Actor
   final class Report(val actor: ActorSelection)     extends Actor
-  final class Captcher(val actor: ActorSelection)   extends Actor
 
 @Module
 final class Env(
@@ -38,7 +38,6 @@ final class Env(
   private val config = appConfig.get[Config]("hub")
 
   val gameSearch = GameSearch(select("actor.game.search"))
-  val captcher   = Captcher(select("actor.captcher"))
   val fishnet    = Fishnet(select("actor.fishnet"))
   val timeline   = Timeline(select("actor.timeline.user"))
   val bookmark   = Bookmark(select("actor.bookmark"))
