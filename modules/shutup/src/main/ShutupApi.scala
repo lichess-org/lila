@@ -3,8 +3,8 @@ package lila.shutup
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.shutup.PublicSource
 import lila.user.UserRepo
+import lila.core.shutup.PublicSource
 
 final class ShutupApi(
     coll: Coll,
@@ -12,7 +12,8 @@ final class ShutupApi(
     userRepo: UserRepo,
     relationApi: lila.core.relation.RelationApi,
     reportApi: lila.core.report.ReportApi
-)(using Executor):
+)(using Executor)
+    extends lila.core.shutup.ShutupApi:
 
   private given BSONDocumentHandler[UserRecord] = Macros.handler
   import PublicLine.given

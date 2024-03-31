@@ -23,7 +23,7 @@ final class Env(
     db: lila.db.Db,
     flood: lila.security.Flood,
     spam: lila.security.Spam,
-    shutup: lila.core.actors.Shutup,
+    shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi
 )(using
     ec: Executor,

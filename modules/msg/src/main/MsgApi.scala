@@ -16,7 +16,7 @@ final class MsgApi(
     json: MsgJson,
     notifier: MsgNotify,
     security: MsgSecurity,
-    shutup: lila.core.actors.Shutup,
+    shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.security.Spam
 )(using Executor, akka.stream.Materializer):
 
@@ -157,7 +157,7 @@ final class MsgApi(
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
                 Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
-              if send == Ok then shutup ! lila.core.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+              if send == Ok then shutupApi.privateMessage(orig, dest, text)
               PostResult.Success
       yield res
     }

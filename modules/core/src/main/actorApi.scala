@@ -60,22 +60,6 @@ package puzzle:
   case class RacerRun(userId: UserId, score: Int)
   case class StreakRun(userId: UserId, score: Int)
 
-package shutup:
-  case class RecordTeamForumMessage(userId: UserId, text: String)
-  case class RecordPrivateMessage(userId: UserId, toUserId: UserId, text: String)
-  case class RecordPrivateChat(chatId: String, userId: UserId, text: String)
-  case class RecordPublicText(userId: UserId, text: String, source: PublicSource)
-
-  enum PublicSource(val parentName: String):
-    case Tournament(id: TourId)  extends PublicSource("tournament")
-    case Simul(id: SimulId)      extends PublicSource("simul")
-    case Study(id: StudyId)      extends PublicSource("study")
-    case Watcher(gameId: GameId) extends PublicSource("watcher")
-    case Team(id: TeamId)        extends PublicSource("team")
-    case Swiss(id: SwissId)      extends PublicSource("swiss")
-    case Forum(id: ForumPostId)  extends PublicSource("forum")
-    case Ublog(id: UblogPostId)  extends PublicSource("ublog")
-
 package mod:
   case class MarkCheater(userId: UserId, value: Boolean)
   case class MarkBooster(userId: UserId)

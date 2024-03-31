@@ -4,7 +4,7 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.shutup.{ PublicSource, RecordPublicText }
+import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.actorApi.timeline.Propagate
 import lila.memo.PicfitApi
 import lila.user.{ Me, User, UserApi }
@@ -15,7 +15,7 @@ final class UblogApi(
     userApi: UserApi,
     picfitApi: PicfitApi,
     timeline: lila.core.actors.Timeline,
-    shutup: lila.core.actors.Shutup,
+    shutupApi: ShutupApi,
     irc: lila.irc.IrcApi
 )(using Executor)
     extends lila.core.ublog.UblogApi:
@@ -51,7 +51,7 @@ final class UblogApi(
           timeline ! Propagate(
             lila.core.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
           ).toFollowersOf(user.id)
-          shutup ! RecordPublicText(user.id, post.allText, PublicSource.Ublog(post.id))
+          shutupApi.publicText(user.id, post.allText, PublicSource.Ublog(post.id))
           if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =

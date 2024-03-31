@@ -15,7 +15,7 @@ final class Env(
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,
-    shutup: lila.core.actors.Shutup,
+    shutupApi: lila.core.shutup.ShutupApi,
     captcha: lila.core.captcha.CaptchaApi,
     cacheApi: lila.memo.CacheApi,
     langList: lila.core.i18n.LangList,

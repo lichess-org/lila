@@ -26,7 +26,7 @@ final class Env(
     promotion: lila.security.PromotionApi,
     captcha: lila.core.captcha.CaptchaApi,
     timeline: lila.core.actors.Timeline,
-    shutup: lila.core.actors.Shutup,
+    shutupApi: lila.core.shutup.ShutupApi,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     prefApi: PrefApi,

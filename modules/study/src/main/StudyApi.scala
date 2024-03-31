@@ -211,7 +211,7 @@ final class StudyApi(
             study.id.into(ChatId),
             userId = userId,
             text = text,
-            publicSource = lila.core.actorApi.shutup.PublicSource.Study(studyId).some,
+            publicSource = lila.core.shutup.PublicSource.Study(studyId).some,
             busChan = _.Study
           )
         }
