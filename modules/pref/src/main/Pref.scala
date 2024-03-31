@@ -1,9 +1,11 @@
 package lila.pref
 
+import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.user.User
 
 case class Pref(
-    _id: UserId,
+    @Key("_id") id: UserId,
     bg: Int,
     bgImg: Option[String],
     is3d: Boolean,
@@ -45,11 +47,9 @@ case class Pref(
     agreement: Int,
     usingAltSocket: Option[Boolean],
     tags: Map[String, String] = Map.empty
-):
+) extends lila.core.pref.Pref:
 
   import Pref.*
-
-  inline def id = _id
 
   def realTheme      = Theme(theme)
   def realPieceSet   = PieceSet.get(pieceSet)
@@ -415,10 +415,10 @@ object Pref:
   val darkByDefaultSince   = instantOf(2021, 11, 7, 8, 0)
   val systemByDefaultSince = instantOf(2022, 12, 23, 8, 0)
 
-  def create(id: UserId) = default.copy(_id = id)
+  def create(id: UserId) = default.copy(id = id)
 
   def create(user: User) = default.copy(
-    _id = user.id,
+    id = user.id,
     bg =
       if user.createdAt.isAfter(systemByDefaultSince) then Bg.SYSTEM
       else if user.createdAt.isAfter(darkByDefaultSince) then Bg.DARK
@@ -427,7 +427,7 @@ object Pref:
   )
 
   lazy val default = Pref(
-    _id = UserId(""),
+    id = UserId(""),
     bg = Bg.DARK,
     bgImg = none,
     is3d = false,
