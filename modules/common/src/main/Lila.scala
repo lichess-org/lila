@@ -22,16 +22,6 @@ object Lila extends Lila:
   inline def nowTenths: Long = nowMillis / 100
   inline def nowSeconds: Int = (nowMillis / 1000).toInt
 
-  object makeTimeout:
-
-    import akka.util.Timeout
-    import scala.concurrent.duration.*
-
-    given short: Timeout = apply(1.second)
-    given long: Timeout  = apply(5.seconds)
-
-    def apply(duration: FiniteDuration) = akka.util.Timeout(duration)
-
   def some[A](a: A): Option[A] = Some(a)
 
 trait Lila

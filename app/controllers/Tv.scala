@@ -102,7 +102,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     Channel.byKey.get(chanKey).so(serveFeedFromChannel)
 
   private def serveFeedFromChannel(channel: Channel)(using Context): Fu[Result] =
-    import makeTimeout.short
+    given timeout: akka.util.Timeout = akka.util.Timeout(1 second)
     import akka.pattern.ask
     import play.api.libs.EventSource
     import lila.tv.TvBroadcast
