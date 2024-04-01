@@ -58,7 +58,7 @@ export interface StudyData {
   description?: string;
   topics?: Topic[];
   admin: boolean;
-  hideRatings?: boolean;
+  showRatings: boolean;
   federations?: Federations;
 }
 

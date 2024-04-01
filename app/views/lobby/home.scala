@@ -19,9 +19,12 @@ object home:
       pageModule = PageModule(
         "lobby",
         Json
-          .obj("data" -> data, "i18n" -> i18nJsObject(i18nKeys))
-          .add("hideRatings" -> !ctx.pref.showRatings)
-          .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
+          .obj(
+            "data"                    -> data,
+            "i18n"                    -> i18nJsObject(i18nKeys),
+            "showRatings"             -> ctx.pref.showRatings,
+            "hasUnreadLichessMessage" -> hasUnreadLichessMessage
+          )
           .add(
             "playban",
             playban.map: pb =>
