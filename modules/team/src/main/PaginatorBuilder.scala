@@ -2,7 +2,7 @@ package lila.team
 
 import lila.common.LightUser
 
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
 import lila.core.user.MyId

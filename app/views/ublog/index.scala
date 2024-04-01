@@ -5,7 +5,7 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.i18n.LangList
 import lila.core.i18n.Language
 import lila.ublog.{ UblogPost, UblogTopic }

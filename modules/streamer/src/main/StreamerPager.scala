@@ -2,7 +2,7 @@ package lila.streamer
 
 import reactivemongo.api.*
 
-import lila.common.paginator.{ AdapterLike, Paginator }
+import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 

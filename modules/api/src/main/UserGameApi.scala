@@ -6,7 +6,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.LightUser
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.game.Game
 import lila.user.User
 
@@ -25,12 +25,9 @@ final class UserGameApi(
       _             <- lightUser.preloadMany(pag.currentPageResults.flatMap(_.userIds))
       _ <- getTournamentName.preload(pag.currentPageResults.flatMap(_.tournamentId))(using ctx.lang)
     yield
-      given Writes[Game] = Writes { g =>
+      given Writes[Game] = Writes: g =>
         write(g, bookmarkedIds(g.id), ctx.me)(using ctx.lang)
-      }
-      Json.obj(
-        "paginator" -> lila.common.paginator.PaginatorJson(pag)
-      )
+      Json.obj("paginator" -> pag)
 
   private def write(g: Game, bookmarked: Boolean, as: Option[User])(using lang: Lang) =
     Json

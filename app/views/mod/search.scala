@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.IpAddress
 import lila.common.String.html.richText
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.mod.IpRender.RenderIp
 import lila.security.{ FingerHash, IpTrust }
 import lila.user.{ Me, User }

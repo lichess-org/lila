@@ -4,7 +4,7 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.common.LateMultiThrottler
 import lila.core.actorApi.study.RemoveStudy
 import lila.search.*

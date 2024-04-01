@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.gathering.Condition.WithVerdicts
 import lila.core.team.LightTeam
 import lila.swiss.{ Swiss, SwissPairing, SwissRoundNumber }

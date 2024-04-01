@@ -9,7 +9,7 @@ import play.api.data.Form
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 
 object topic:
 

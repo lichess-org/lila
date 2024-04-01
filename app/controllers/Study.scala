@@ -8,7 +8,7 @@ import scala.util.chaining.*
 
 import lila.analyse.Analysis
 import lila.app.{ *, given }
-import lila.common.paginator.{ Paginator, PaginatorJson }
+import scalalib.paginator.Paginator
 import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
 import lila.core.socket.Sri
 import lila.study.JsonView.JsData
@@ -154,7 +154,8 @@ final class Study(
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
     given Writes[StudyModel.WithChaptersAndLiked] = Writes[StudyModel.WithChaptersAndLiked]:
       env.study.jsonView.pagerData
-    Ok(Json.obj("paginator" -> PaginatorJson(pager)))
+    import lila.common.Json.paginatorWrite
+    Ok(Json.obj("paginator" -> pager))
 
   private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]

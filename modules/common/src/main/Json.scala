@@ -108,3 +108,18 @@ object Json:
 
   given OWrites[chess.variant.Crazyhouse.Data] = OWrites: v =>
     PlayJson.obj("pockets" -> v.pockets.all)
+
+  given Writes[MaxPerPage] with
+    def writes(m: MaxPerPage) = JsNumber(m.value)
+
+  import scalalib.paginator.Paginator
+  given paginatorWrite[A: Writes]: OWrites[Paginator[A]] = OWrites[Paginator[A]]: p =>
+    PlayJson.obj(
+      "currentPage"        -> p.currentPage,
+      "maxPerPage"         -> p.maxPerPage,
+      "currentPageResults" -> p.currentPageResults,
+      "nbResults"          -> p.nbResults,
+      "previousPage"       -> p.previousPage,
+      "nextPage"           -> p.nextPage,
+      "nbPages"            -> p.nbPages
+    )

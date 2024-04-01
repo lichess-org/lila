@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import reactivemongo.api.*
 
 import lila.coach.CoachPager.Order.{ Alphabetical, LichessRating, Login }
-import lila.common.paginator.{ AdapterLike, Paginator }
+import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.security.Permission
 import lila.user.{ Flag, User, UserMark, UserPerfs, UserPerfsRepo, UserRepo }

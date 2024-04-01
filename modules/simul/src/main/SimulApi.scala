@@ -6,7 +6,7 @@ import chess.{ ByColor, Status }
 import play.api.libs.json.Json
 
 import lila.common.Json.given
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, LightGame }

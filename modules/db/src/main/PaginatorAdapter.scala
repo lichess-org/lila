@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 
 import scala.util.chaining.*
 
-import lila.common.paginator.AdapterLike
+import scalalib.paginator.AdapterLike
 
 import dsl.*
 

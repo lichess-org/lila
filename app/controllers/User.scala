@@ -13,7 +13,7 @@ import scala.util.chaining.*
 
 import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog

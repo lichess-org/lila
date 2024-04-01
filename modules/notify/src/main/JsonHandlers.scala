@@ -93,8 +93,6 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync, jsDump: JsDump):
         "date"    -> notification.createdAt
       )
 
-  import lila.common.paginator.PaginatorJson.given
-
   given OWrites[Notification.AndUnread] = Json.writes
 
   private val i18nKeys: List[I18nKey] = List(

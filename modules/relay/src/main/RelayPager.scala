@@ -1,6 +1,6 @@
 package lila.relay
 
-import lila.common.paginator.{ AdapterLike, Paginator }
+import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.relay.RelayTour.WithLastRound

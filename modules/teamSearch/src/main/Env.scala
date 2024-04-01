@@ -6,7 +6,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.*
 import lila.common.config.*
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.search.*
 
 @Module

@@ -4,7 +4,6 @@ import alleycats.Zero
 import com.typesafe.config.Config
 import scalalib.extensions.*
 
-import java.lang.Math.{ max, min }
 import java.util.Base64
 import java.util.concurrent.TimeUnit
 import scala.annotation.targetName
@@ -22,30 +21,6 @@ trait LilaLibraryExtensions extends LilaTypes:
     [A] => (duration: FiniteDuration) => (fua: () => Future[A]) => akka.pattern.after(duration, sched)(fua())
 
   export FutureExtension.*
-
-  extension (self: Long)
-    infix def atLeast(bottomValue: Long): Long = max(self, bottomValue)
-    infix def atMost(topValue: Long): Long     = min(self, topValue)
-    def squeeze(bottom: Long, top: Long): Long = max(min(self, top), bottom)
-    def toSaturatedInt: Int =
-      if self.toInt == self then self.toInt
-      else if self > 0 then Integer.MAX_VALUE
-      else Integer.MIN_VALUE
-
-  extension (self: Int)
-    def atLeast(bottomValue: Int): Int      = max(self, bottomValue)
-    def atMost(topValue: Int): Int          = min(self, topValue)
-    def squeeze(bottom: Int, top: Int): Int = max(min(self, top), bottom)
-
-  extension (self: Float)
-    def atLeast(bottomValue: Float): Float        = max(self, bottomValue)
-    def atMost(topValue: Float): Float            = min(self, topValue)
-    def squeeze(bottom: Float, top: Float): Float = max(min(self, top), bottom)
-
-  extension (self: Double)
-    def atLeast(bottomValue: Double): Double         = max(self, bottomValue)
-    def atMost(topValue: Double): Double             = min(self, topValue)
-    def squeeze(bottom: Double, top: Double): Double = max(min(self, top), bottom)
 
   extension [A](self: Option[A])
 

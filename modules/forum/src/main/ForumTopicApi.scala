@@ -3,7 +3,7 @@ package lila.forum
 import lila.common.Bus
 import lila.common.String.noShouting
 import lila.common.config.NetDomain
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate, TimelineApi }

@@ -7,7 +7,7 @@ import reactivemongo.api.bson.*
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.common.Json.given
 import lila.common.config.*
-import lila.common.paginator.{ Paginator, PaginatorJson }
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.game.BSONHandlers.given
@@ -72,7 +72,7 @@ final private[api] class GameApi(
       maxPerPage = nb
     ).flatMap { pag =>
       gamesJson(withFlags.copy(fens = false))(pag.currentPageResults).map { games =>
-        PaginatorJson(pag.withCurrentPageResults(games))
+        Json.toJsObject(pag.withCurrentPageResults(games))
       }
     }
 
@@ -114,7 +114,7 @@ final private[api] class GameApi(
       maxPerPage = nb
     ).flatMap { pag =>
       gamesJson(withFlags.copy(fens = false))(pag.currentPageResults).map { games =>
-        PaginatorJson(pag.withCurrentPageResults(games))
+        Json.toJsObject(pag.withCurrentPageResults(games))
       }
     }
 

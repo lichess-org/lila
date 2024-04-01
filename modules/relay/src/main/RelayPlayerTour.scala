@@ -1,6 +1,6 @@
 package lila.relay
 
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.core.fide.Player
 import lila.study.ChapterRepo

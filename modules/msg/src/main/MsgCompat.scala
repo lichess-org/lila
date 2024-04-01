@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.LightUser
 import lila.common.config.*
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.user.{ LightUserApi, Me, User }
 
@@ -29,7 +29,7 @@ final class MsgCompat(
         allThreads.slice((page - 1) * maxPerPage.value, (page - 1) * maxPerPage.value + maxPerPage.value)
       lightUserApi
         .preloadMany(threads.map(_.other(me)))
-        .inject(PaginatorJson:
+        .inject(Json.toJsObject:
           Paginator
             .fromResults(
               currentPageResults = threads,

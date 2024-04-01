@@ -17,7 +17,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   import views.html.ublog.post.{ editUrlOfPost, urlOfPost }
   import views.html.ublog.blog.urlOfBlog
-  import lila.common.paginator.Paginator.given
+  import scalalib.paginator.Paginator.given
 
   def index(username: UserStr, page: Int) = Open:
     NotForKids:
