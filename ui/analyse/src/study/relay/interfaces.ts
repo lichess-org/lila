@@ -10,22 +10,6 @@ export interface RelayData {
   pinned?: { userId: string; name: string; image?: string };
 }
 
-export interface RelayGame {
-  id: string;
-  white: RelayPlayer;
-  black: RelayPlayer;
-}
-
-export interface RelayPlayer {
-  name: string;
-  rating?: number;
-  title?: string;
-  fideId?: number;
-  fed?: Federation;
-}
-
-export interface RelayGamePlayer extends RelayPlayer {}
-
 export interface RelayGroup {
   name: string;
   tours: RelayTourIdName[];

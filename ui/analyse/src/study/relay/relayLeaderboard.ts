@@ -1,11 +1,17 @@
 import { Redraw, VNode, looseH as h } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { RelayPlayer, RoundId } from './interfaces';
+import { RoundId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
+import { Federation } from '../interfaces';
 
-interface LeadPlayer extends RelayPlayer {
+interface LeadPlayer {
+  name: string;
+  rating?: number;
+  title?: string;
+  fideId?: number;
+  fed?: Federation;
   score: number;
   played: number;
 }
