@@ -109,6 +109,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       flex: 0 0 38%;
       &.video {
         flex: 0 0 50%;
+        cursor: pointer;
       }
       line-height: 0;
       img {

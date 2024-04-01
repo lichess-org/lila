@@ -21,7 +21,9 @@ case class RelayTour(
     teamTable: Boolean = false,
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,
-    image: Option[PicfitImage.Id] = None
+    image: Option[PicfitImage.Id] = None,
+    pinnedStreamer: Option[UserStr] = None,
+    pinnedStreamerImage: Option[PicfitImage.Id] = None
 ):
   lazy val slug =
     val s = lila.common.String.slugify(name.value)
@@ -92,10 +94,11 @@ object RelayTour:
   case class WithGroupTours(tour: RelayTour, group: Option[RelayGroup.WithTours])
 
   object thumbnail:
-    enum Size(val width: Int):
-      def height = width / 2
-      case Large extends Size(800)
-      case Small extends Size(400)
+    enum Size(val width: Int, aspectRatio: Float = 2.0f):
+      def height: Int = (width / aspectRatio).toInt
+      case Large     extends Size(800)
+      case Small     extends Size(400)
+      case Small16x9 extends Size(400, 16.0f / 9)
     type SizeSelector = thumbnail.type => Size
 
     def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =

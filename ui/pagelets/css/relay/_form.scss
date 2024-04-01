@@ -37,3 +37,13 @@
   @extend %image-preview-and-upload, %box-neat;
   margin-bottom: 2em;
 }
+
+.relay-pinned-streamer-edit {
+  @extend %image-preview-and-upload, %box-neat;
+  > div {
+    flex-basis: 300px;
+  }
+  span {
+    @extend %flex-between;
+  }
+}

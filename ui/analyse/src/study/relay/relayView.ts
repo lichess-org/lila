@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
 import { onClickAway } from 'common';
-import { looseH as h, onInsert } from 'common/snabbdom';
+import { looseH as h, onInsert, bind } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
@@ -60,12 +60,37 @@ export function renderStreamerMenu(relay: RelayCtrl) {
   );
 }
 
+export function renderPinnedImage(relay: RelayCtrl) {
+  if (
+    window.getComputedStyle(document.body).getPropertyValue('--allow-video') !== 'true' ||
+    !relay.pinStreamer() ||
+    !relay.data.pinned?.image
+  )
+    return undefined;
+
+  return h('img', {
+    attrs: { src: relay.data.pinned.image, style: 'cursor: pointer;' },
+    hook: bind('click', () => {
+      const url = new URL(location.href);
+      url.searchParams.set('embed', relay.data.pinned!.id);
+      window.location.replace(url);
+    }),
+  });
+}
+
 function renderBoardView(ctx: RelayViewContext) {
   const { ctrl, deps, study, gaugeOn, relay } = ctx;
   return [
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
-    renderTools(ctx, renderVideoPlayer(relay)),
+    renderTools(
+      ctx,
+      relay.data.videoUrls
+        ? renderVideoPlayer(relay)
+        : relay.isShowingPinnedImage()
+        ? renderPinnedImage(relay)
+        : undefined,
+    ),
     renderControls(ctrl),
     renderUnderboard(ctx),
     tourSide(ctrl, study, relay),

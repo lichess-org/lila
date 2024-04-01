@@ -47,9 +47,13 @@ export default class RelayCtrl {
       : undefined;
     this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
     setInterval(() => this.redraw(true), 1000);
+
     if (data.videoUrls) videoPlayerOnWindowResize(this.redraw);
+    if (data.pinned && this.pinStreamer()) this.streams.push([data.pinned.id, data.pinned.name]);
+
     site.pubsub.on('socket.in.crowd', d => {
-      const s = d.streams as [string, string][];
+      const s = (d.streams as [string, string][]) ?? [];
+      if (this.pinStreamer()) s.unshift([data.pinned!.id, data.pinned!.name]);
       if (!s) return;
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
       this.streams = s;
@@ -100,6 +104,24 @@ export default class RelayCtrl {
   };
 
   isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
+
+  pinStreamer = () => {
+    return (
+      !this.currentRound().finished &&
+      Date.now() > this.currentRound().startsAt! - 1000 * 3600 &&
+      this.data.pinned != undefined
+    );
+  };
+
+  hidePinnedImage = () => {
+    site.storage.set(`relay.hide-image.${this.id}`, 'true');
+    const url = new URL(location.href);
+    url.searchParams.delete('embed');
+    url.searchParams.set('nonce', `${Date.now()}`);
+    window.location.replace(url);
+  };
+
+  isShowingPinnedImage = () => site.storage.get(`relay.hide-image.${this.id}`) !== 'true';
 
   private socketHandlers = {
     relayData: (d: RelayData) => {

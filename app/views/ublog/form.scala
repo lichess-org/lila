@@ -89,7 +89,7 @@ object form:
             ),
             p(trans.ublog.useImagesYouMadeYourself()),
             p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
-            form3.file.selectImage
+            form3.file.selectImage()
           )
         else
           postForm(
