@@ -31,10 +31,6 @@ object Lilaism
     override def toString = value
   given cats.Show[StringValue] = cats.Show.show(_.value)
 
-  // replaces Product.unapply in play forms
-  def unapply[P <: Product](p: P)(using m: scala.deriving.Mirror.ProductOf[P]): Option[m.MirroredElemTypes] =
-    Some(Tuple.fromProductTyped(p))
-
   // move somewhere else when we have more Eqs
   given cats.Eq[play.api.i18n.Lang] = cats.Eq.fromUniversalEquals
 
