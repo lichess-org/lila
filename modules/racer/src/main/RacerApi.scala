@@ -1,6 +1,7 @@
 package lila.racer
 
-import lila.common.{ Bus, LightUser }
+import lila.common.Bus
+import lila.core.LightUser
 import lila.memo.CacheApi
 import lila.storm.StormSelector
 import lila.user.{ User, UserPerfsRepo, UserRepo }

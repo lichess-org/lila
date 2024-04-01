@@ -1,6 +1,6 @@
 package lila.msg
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.common.config.BaseUrl
 import lila.core.team.LightTeam
 

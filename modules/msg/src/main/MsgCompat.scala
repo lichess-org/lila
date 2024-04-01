@@ -5,7 +5,7 @@ import play.api.data.Forms.*
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.common.config.*
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }

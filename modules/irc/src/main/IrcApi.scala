@@ -1,6 +1,6 @@
 package lila.irc
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.core.actorApi.irc.*
 import lila.user.{ Me, User }
 

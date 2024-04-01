@@ -12,7 +12,7 @@ final private[round] class Drawer(
     messenger: Messenger,
     finisher: Finisher,
     prefApi: PrefApi,
-    isBotSync: lila.common.LightUser.IsBotSync
+    isBotSync: lila.core.LightUser.IsBotSync
 )(using Executor, Translator):
 
   private given Lang = defaultLang

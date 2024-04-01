@@ -5,7 +5,7 @@ import chess.{ Clock, Color }
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.core.game.Source
 
 final class JsonView(rematches: Rematches):

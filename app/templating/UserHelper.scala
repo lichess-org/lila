@@ -5,7 +5,8 @@ import chess.PlayerTitle
 import controllers.routes
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.{ LightUser, licon }
+import lila.common.licon
+import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserPerfs }

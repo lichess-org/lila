@@ -14,7 +14,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     userRepo: lila.user.UserRepo,
     noteApi: lila.user.NoteApi,
-    lightUser: lila.common.LightUser.Getter,
+    lightUser: lila.core.LightUser.Getter,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi
 )(using Executor, play.api.Mode):

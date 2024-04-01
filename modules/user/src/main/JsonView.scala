@@ -3,7 +3,7 @@ package lila.user
 import play.api.libs.json.*
 
 import lila.common.Json.{ writeAs, given }
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.rating.{ Perf, PerfType }
 
 import User.{ LightPerf, PlayTime }

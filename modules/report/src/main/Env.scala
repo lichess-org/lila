@@ -14,7 +14,7 @@ final class Env(
     isOnline: lila.core.socket.IsOnline,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    lightUserAsync: lila.common.LightUser.Getter,
+    lightUserAsync: lila.core.LightUser.Getter,
     gameRepo: lila.game.GameRepo,
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,

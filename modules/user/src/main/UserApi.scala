@@ -4,7 +4,8 @@ import chess.{ ByColor, PlayerTitle }
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
-import lila.common.{ LightUser, NormalizedEmailAddress }
+import lila.common.NormalizedEmailAddress
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.rating.{ Glicko, Perf, PerfType }

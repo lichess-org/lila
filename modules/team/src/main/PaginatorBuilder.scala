@@ -1,6 +1,6 @@
 package lila.team
 
-import lila.common.LightUser
+import lila.core.LightUser
 
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }

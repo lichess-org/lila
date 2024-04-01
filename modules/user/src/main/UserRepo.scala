@@ -6,7 +6,8 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress }
+import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress }
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 
 final class UserRepo(val coll: Coll)(using Executor):

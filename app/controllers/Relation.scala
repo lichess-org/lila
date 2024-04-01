@@ -7,7 +7,7 @@ import views.*
 import lila.app.{ *, given }
 
 import scalalib.paginator.{ AdapterLike, Paginator }
-import lila.common.{ LightUser, config }
+import lila.core.LightUser
 import lila.relation.Related
 import lila.relation.RelationStream.*
 import lila.user.User as UserModel

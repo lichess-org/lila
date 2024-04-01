@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import scalalib.paginator.Paginator
 import lila.game.Game
 import lila.user.User

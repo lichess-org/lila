@@ -14,7 +14,7 @@ final class Env(
     historyApi: lila.core.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
     msgApi: lila.msg.MsgApi,
-    lightUserAsync: lila.common.LightUser.Getter,
+    lightUserAsync: lila.core.LightUser.Getter,
     securityForms: lila.security.SecurityForm,
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,

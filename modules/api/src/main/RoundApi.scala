@@ -34,7 +34,7 @@ final private[api] class RoundApi(
     getLightTeam: lila.core.team.LightTeam.GetterSync,
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
-    getLightUser: lila.common.LightUser.GetterSync
+    getLightUser: lila.core.LightUser.GetterSync
 )(using Executor, lila.core.i18n.Translator):
 
   def player(

@@ -3,7 +3,7 @@ package lila.perfStat
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User
 import lila.core.i18n.Translate

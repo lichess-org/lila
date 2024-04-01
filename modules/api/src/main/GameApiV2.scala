@@ -9,7 +9,8 @@ import play.api.libs.json.*
 import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
 import lila.common.Json.given
 
-import lila.common.{ HTTPRequest, LightUser }
+import lila.common.HTTPRequest
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.WithFlags

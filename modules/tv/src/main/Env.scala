@@ -9,7 +9,7 @@ import lila.tv.Tv.Channel
 final class Env(
     gameRepo: lila.game.GameRepo,
     lightUserApi: lila.user.LightUserApi,
-    lightUserSync: lila.common.LightUser.GetterSync,
+    lightUserSync: lila.core.LightUser.GetterSync,
     gameProxyRepo: lila.round.GameProxyRepo,
     system: ActorSystem,
     recentTvGames: lila.round.RecentTvGames,

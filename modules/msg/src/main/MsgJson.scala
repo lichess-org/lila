@@ -3,7 +3,7 @@ package lila.msg
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.core.relation.Relations
 import lila.user.Me
 

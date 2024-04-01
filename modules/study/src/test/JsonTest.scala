@@ -1,7 +1,7 @@
 package lila.study
 
 import lila.tree.Node.partitionTreeJsonWriter
-import lila.common.LightUser
+import lila.core.LightUser
 import PgnImport.*
 import lila.tree.Root
 import chess.variant.{ Variant, Standard }

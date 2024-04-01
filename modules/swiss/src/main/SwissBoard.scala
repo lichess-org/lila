@@ -1,6 +1,6 @@
 package lila.swiss
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.game.Game
 
 private case class SwissBoard(

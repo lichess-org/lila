@@ -5,7 +5,8 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.{ LangPath, LightUser }
+import lila.common.LangPath
+import lila.core.LightUser
 import scalalib.paginator.Paginator
 import lila.memo.PicfitImage
 import lila.relay.RelayTour.WithLastRound

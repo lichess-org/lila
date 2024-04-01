@@ -10,7 +10,7 @@ object actions:
   private val dataHoverText = data("hover-text")
 
   def apply(
-      user: lila.common.LightUser,
+      user: lila.core.LightUser,
       relation: Option[lila.relation.Relation],
       followable: Boolean,
       blocked: Boolean,

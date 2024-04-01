@@ -7,7 +7,8 @@ import play.api.libs.json.*
 
 import lila.Lila.{ GameId, none }
 import lila.common.Json.given
-import lila.common.{ Bus, LightUser }
+import lila.common.Bus
+import lila.core.LightUser
 import lila.game.Pov
 import lila.game.actorApi.MoveGameEvent
 import lila.core.game.TvSelect

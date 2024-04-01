@@ -2,7 +2,7 @@ package lila.user
 
 import reactivemongo.api.bson.*
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, Syncache }
 

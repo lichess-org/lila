@@ -5,7 +5,7 @@ import chess.format.pgn.{ PgnStr, Tags }
 
 import scala.language.implicitConversions
 
-import lila.common.LightUser
+import lila.core.LightUser
 
 class PgnImportTest extends lila.common.LilaTest:
 

@@ -20,7 +20,7 @@ object show:
 
   def apply(
       t: Team.WithLeaders,
-      members: Paginator[lila.common.LightUser],
+      members: Paginator[lila.core.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[SocketVersion],

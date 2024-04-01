@@ -11,7 +11,7 @@ final class RacerJson:
   import StormJson.given
 
   given OWrites[RacerPlayer] = OWrites: p =>
-    p.user.so(lila.common.LightUser.write) ++
+    p.user.so(lila.core.LightUser.write) ++
       Json.obj("name" -> p.name, "score" -> p.score)
 
   // full race data

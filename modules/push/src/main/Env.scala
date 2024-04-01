@@ -21,7 +21,7 @@ final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     db: lila.db.Db,
-    getLightUser: lila.common.LightUser.GetterFallback,
+    getLightUser: lila.core.LightUser.GetterFallback,
     proxyRepo: lila.round.GameProxyRepo,
     roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,

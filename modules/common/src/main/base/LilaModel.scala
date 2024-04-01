@@ -10,7 +10,6 @@ trait LilaModel:
   export scalalib.model.{ Max, MaxPerPage, MaxPerSecond }
 
   type Update[A] = A => A
-  def UpdateOf[A](f: A => A): Update[A] = f
   // apply updates to a value, and keep track of the updates
   // so they can all be replayed on another value
   case class Updating[A](current: A, reRun: Update[A] = (a: A) => a):

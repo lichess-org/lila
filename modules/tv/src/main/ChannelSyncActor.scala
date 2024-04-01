@@ -2,7 +2,7 @@ package lila.tv
 
 import chess.Color
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.game.Game
 import scalalib.actor.SyncActor
 

@@ -6,7 +6,8 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.{ LightUser, Preload, Uptime }
+import lila.common.{ Preload, Uptime }
+import lila.core.LightUser
 import lila.game.LightPov
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*

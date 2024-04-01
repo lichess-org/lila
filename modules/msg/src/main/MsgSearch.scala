@@ -2,7 +2,8 @@ package lila.msg
 
 import reactivemongo.api.bson.*
 
-import lila.common.{ Bus, KidMode, LightUser }
+import lila.common.{ Bus, KidMode }
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.core.actorApi.clas.ClasMatesAndTeachers
 import lila.user.Me
