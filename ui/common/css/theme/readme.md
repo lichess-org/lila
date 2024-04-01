@@ -40,7 +40,7 @@ $c_<color-1>_<optional-color-2>--<operation>-<val>
 
 it performs
 a mutation on the color(s) just like an explicit scss function might. this results in a new
-css/scss variable pair in `gen/_mix.scss` and `gen/_wrapp.scss` respectively. you don't
+css/scss variable pair in `gen/_mix.scss` and `gen/_wrap.scss` respectively. you don't
 have to do anything special to make this happen aside from following the special syntax
 above within a style rule.
 
@@ -52,7 +52,7 @@ background: $c_primary_bg-zebra--mix-40;
 ```
 
 then the background will be set to
-a 40% mix of `$c-primary` with `$c-bg-zebra` assuming both are defined in a theme file.
+a 40% mix of `$c-primary` with `$c-bg-zebra`.
 
 supported operations are `fade`, `mix`, `alpha`, and `lighten`. `val` is always between
 0 and 100 (where 100 represents either 100% or 1.0 depending on the function). other
