@@ -11,7 +11,7 @@ import lila.tree.{ Branches, Root }
 import lila.core.i18n.Translator
 
 final private class ChapterMaker(
-    net: lila.common.config.NetConfig,
+    net: lila.core.config.NetConfig,
     lightUser: lila.user.LightUserApi,
     chatApi: ChatApi,
     gameRepo: lila.game.GameRepo,

@@ -12,7 +12,7 @@ import lila.tree.{ Branch, Node, Root }
 final private class ExplorerGame(
     importer: lila.explorer.ExplorerImporter,
     lightUserApi: lila.user.LightUserApi,
-    net: lila.common.config.NetConfig
+    net: lila.core.config.NetConfig
 )(using Executor):
 
   def quote(gameId: GameId): Fu[Option[Comment]] =

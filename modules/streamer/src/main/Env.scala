@@ -33,7 +33,7 @@ final class Env(
     subsRepo: lila.core.relation.SubscriptionRepo,
     prefApi: lila.pref.PrefApi,
     db: lila.db.Db,
-    net: lila.common.config.NetConfig
+    net: lila.core.config.NetConfig
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
 
   private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]

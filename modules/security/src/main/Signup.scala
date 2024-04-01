@@ -6,8 +6,9 @@ import play.api.mvc.{ Request, RequestHeader }
 
 import scala.util.chaining.*
 
-import lila.common.config.NetConfig
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
+import lila.core.config.NetConfig
+import lila.core.EmailAddress
+import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.user.{ PasswordHasher, User }
 

@@ -2,7 +2,7 @@ package lila.api
 
 import play.api.mvc.RequestHeader
 
-import lila.common.LilaCookie
+import lila.core.LilaCookie
 import lila.common.config.*
 
 final class ApiConfig(

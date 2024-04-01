@@ -1,4 +1,4 @@
-package lila.common
+package lila.core
 
 class EmailTest extends munit.FunSuite:
 

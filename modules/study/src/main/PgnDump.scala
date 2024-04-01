@@ -13,7 +13,7 @@ final class PgnDump(
     analyser: lila.analyse.Analyser,
     annotator: lila.analyse.Annotator,
     lightUserApi: lila.user.LightUserApi,
-    net: lila.common.config.NetConfig
+    net: lila.core.config.NetConfig
 )(using Executor):
 
   import PgnDump.*

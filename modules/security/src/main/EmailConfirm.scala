@@ -5,7 +5,7 @@ import play.api.mvc.{ Cookie, RequestHeader }
 import scalatags.Text.all.*
 
 import lila.common.config.*
-import lila.common.{ EmailAddress, LilaCookie }
+import lila.core.{ EmailAddress, LilaCookie }
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
 import lila.user.{ User, UserApi, UserRepo }

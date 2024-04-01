@@ -56,28 +56,7 @@ object config:
       case Array(host, port) => port.toIntOption.map(HostPort(host, _))
       case _                 => none
 
-  case class NetConfig(
-      domain: NetDomain,
-      prodDomain: NetDomain,
-      @ConfigName("base_url") baseUrl: BaseUrl,
-      @ConfigName("asset.domain") assetDomain: AssetDomain,
-      @ConfigName("asset.base_url") assetBaseUrl: AssetBaseUrl,
-      @ConfigName("asset.base_url_internal") assetBaseUrlInternal: AssetBaseUrlInternal,
-      @ConfigName("asset.minified") minifiedAssets: Boolean,
-      @ConfigName("stage.banner") stageBanner: Boolean,
-      @ConfigName("site.name") siteName: String,
-      @ConfigName("socket.domains") socketDomains: List[String],
-      @ConfigName("socket.alts") socketAlts: List[String],
-      crawlable: Boolean,
-      @ConfigName("ratelimit") rateLimit: RateLimit,
-      email: EmailAddress
-  ):
-    def isProd = domain == prodDomain
-
   given ConfigLoader[Secret]       = strLoader(Secret.apply)
-  given ConfigLoader[EmailAddress] = strLoader(EmailAddress(_))
-  given ConfigLoader[NetConfig]    = AutoConfig.loader[NetConfig]
-
   given ConfigLoader[List[String]] = ConfigLoader.seqStringLoader.map(_.toList)
 
   given [A](using l: ConfigLoader[A]): ConfigLoader[List[A]] =
@@ -91,3 +70,10 @@ object config:
   def strLoader[A](f: String => A): ConfigLoader[A]   = ConfigLoader.stringLoader.map(f)
   def intLoader[A](f: Int => A): ConfigLoader[A]      = ConfigLoader.intLoader.map(f)
   def boolLoader[A](f: Boolean => A): ConfigLoader[A] = ConfigLoader.booleanLoader.map(f)
+
+  def strLoader[A](using sr: SameRuntime[String, A]): ConfigLoader[A] =
+    ConfigLoader.stringLoader.map(sr.apply)
+  def intLoader[A](using sr: SameRuntime[Int, A]): ConfigLoader[A] =
+    ConfigLoader.intLoader.map(sr.apply)
+  def boolLoader[A](using sr: SameRuntime[Boolean, A]): ConfigLoader[A] =
+    ConfigLoader.booleanLoader.map(sr.apply)

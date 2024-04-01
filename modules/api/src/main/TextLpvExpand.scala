@@ -17,7 +17,7 @@ final class TextLpvExpand(
     pgnDump: PgnDump,
     studyPgnDump: lila.study.PgnDump,
     cacheApi: CacheApi,
-    net: lila.common.config.NetConfig
+    net: lila.core.config.NetConfig
 )(using Executor, Translator):
 
   def getPgn(id: GameId) = if notGames.contains(id.value) then fuccess(none) else gamePgnCache.get(id)

@@ -5,11 +5,12 @@ import play.api.i18n.Lang
 import reactivemongo.api.*
 
 import lila.common.config.BaseUrl
-import lila.common.{ EmailAddress, Markdown }
+import lila.common.Markdown
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Authenticator, Me, User, UserPerfs, UserPerfsRepo, UserRepo }
+import lila.core.EmailAddress
 
 final class ClasApi(
     colls: ClasColls,

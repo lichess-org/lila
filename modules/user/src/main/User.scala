@@ -4,7 +4,7 @@ import chess.PlayerTitle
 import play.api.i18n.Lang
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
-import lila.common.{ EmailAddress, NormalizedEmailAddress }
+import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.LightUser
 import lila.core.i18n.Language
 import lila.rating.{ Perf, PerfType }

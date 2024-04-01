@@ -45,11 +45,6 @@ trait LilaUserId:
       val clean = str.trim.takeWhile(' ' !=)
       if regex.matches(clean) then Some(clean.toLowerCase) else None
 
-  opaque type UserStrOrEmail = String
-  object UserStrOrEmail extends OpaqueString[UserStrOrEmail]:
-    extension (e: UserStrOrEmail)
-      def normalize = UserIdOrEmail(lila.common.EmailAddress.from(e).fold(e.toLowerCase)(_.normalize.value))
-
   opaque type UserIdOrEmail = String
   object UserIdOrEmail extends OpaqueString[UserIdOrEmail]
 

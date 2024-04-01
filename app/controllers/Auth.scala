@@ -5,7 +5,8 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ HTTPRequest, IpAddress }
+import lila.core.EmailAddress
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
@@ -82,7 +83,7 @@ final class Auth(
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url) // redirect immediately if already logged in
       case None =>
-        val prefillUsername = lila.security.UserStrOrEmail(~switch.filter(_ != "1"))
+        val prefillUsername = lila.core.UserStrOrEmail(~switch.filter(_ != "1"))
         val form            = api.loginFormFilled(prefillUsername)
         Ok.page(html.auth.login(form, referrer)).map(_.withCanonical(routes.Auth.login))
 

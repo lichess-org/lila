@@ -10,6 +10,8 @@ object MyId extends TotalWrapper[MyId, String]:
   given [M[_]]: Conversion[M[MyId], M[UserId]]   = u => UserId.from(MyId.raw(u))
   extension (me: MyId) inline def userId: UserId = me.into(UserId)
 
+case class ChangeEmail(id: UserId, email: EmailAddress)
+
 trait User:
   val id: UserId
   val count: Count

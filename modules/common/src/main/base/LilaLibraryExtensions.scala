@@ -246,8 +246,7 @@ trait LilaLibraryExtensions extends LilaTypes:
           fuccess(Some(x))
 
     def getOrElse(other: => Fu[A])(using Executor): Fu[A] = fua.flatMap { _.fold(other)(fuccess) }
-    @targetName("orZeroFu")
-    def orZeroFu(using z: Zero[A]): Fu[A] = fua.map(_.getOrElse(z.zero))(EC.parasitic)
+    def orZeroFu(using z: Zero[A]): Fu[A]                 = fua.map(_.getOrElse(z.zero))(EC.parasitic)
 
     def map2[B](f: A => B)(using Executor): Fu[Option[B]] = fua.map(_.map(f))
     def dmap2[B](f: A => B): Fu[Option[B]]                = fua.map(_.map(f))(EC.parasitic)

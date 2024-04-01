@@ -7,6 +7,7 @@ import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 
 import lila.common.config.*
+import lila.core.config.*
 import lila.common.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
@@ -31,7 +32,7 @@ final class Env(
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type          = lila.i18n.Env
-  val lilaCookie                        = wire[lila.common.LilaCookie]
+  val lilaCookie                        = wire[lila.core.LilaCookie]
   val mongo: lila.db.Env                = wire[lila.db.Env]
   val memo: lila.memo.Env               = wire[lila.memo.Env]
   val socket: lila.socket.Env           = wire[lila.socket.Env]

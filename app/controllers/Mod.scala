@@ -11,7 +11,8 @@ import scala.annotation.nowarn
 import scala.util.chaining.scalaUtilChainingOps
 
 import lila.app.{ *, given }
-import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ HTTPRequest, IpAddress }
+import lila.core.EmailAddress
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }

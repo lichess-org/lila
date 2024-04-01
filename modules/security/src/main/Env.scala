@@ -17,7 +17,7 @@ import lila.user.{ Authenticator, UserRepo }
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
-    net: NetConfig,
+    net: lila.core.config.NetConfig,
     userRepo: UserRepo,
     authenticator: Authenticator,
     mailer: lila.mailer.Mailer,

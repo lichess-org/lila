@@ -1,7 +1,12 @@
-package lila.common
+package lila.core
+
+import lila.common.Domain
+import lila.common.config.strLoader
 
 opaque type EmailAddress = String
 object EmailAddress extends OpaqueString[EmailAddress]:
+
+  given play.api.ConfigLoader[EmailAddress] = strLoader(EmailAddress(_))
 
   extension (e: EmailAddress)
 
@@ -55,3 +60,8 @@ object EmailAddress extends OpaqueString[EmailAddress]:
 
 opaque type NormalizedEmailAddress = String
 object NormalizedEmailAddress extends OpaqueString[NormalizedEmailAddress]
+
+opaque type UserStrOrEmail = String
+object UserStrOrEmail extends OpaqueString[UserStrOrEmail]:
+  extension (e: UserStrOrEmail)
+    def normalize = UserIdOrEmail(EmailAddress.from(e).fold(e.toLowerCase)(_.normalize.value))

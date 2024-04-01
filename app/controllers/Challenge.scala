@@ -83,8 +83,8 @@ final class Challenge(
 
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
-      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid contains secret
-      case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
+      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid.contains(secret)
+      case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId.contains(userId)
       case lila.challenge.Challenge.Challenger.Open                  => false
 
   private def isForMe(challenge: ChallengeModel)(using me: Option[Me]) =

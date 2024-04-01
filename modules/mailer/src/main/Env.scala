@@ -10,7 +10,7 @@ import lila.user.{ UserApi, UserRepo }
 @Module
 final class Env(
     appConfig: Configuration,
-    net: NetConfig,
+    net: lila.core.config.NetConfig,
     userRepo: UserRepo,
     userApi: UserApi,
     settingStore: lila.memo.SettingStore.Builder,

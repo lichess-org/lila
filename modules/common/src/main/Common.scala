@@ -1,7 +1,17 @@
 package lila
 
-object Common extends Common:
-  // global execution context that doubles as an executor
+object Common extends Common
+
+trait Common
+    extends lila.base.LilaTypes
+    with lila.base.LilaModel
+    with lila.base.LilaUserId
+    with cats.syntax.OptionSyntax
+    with cats.syntax.ListSyntax
+    with lila.base.LilaLibraryExtensions
+    with lila.base.JsonExtensions:
+
+  // global execution context that doubles as a java executor
   // see ExecutionContextOpportunistic.scala
   given defaultExecutor: scala.concurrent.ExecutionContextExecutor =
     scala.concurrent.ExecutionContextOpportunistic
@@ -22,15 +32,6 @@ object Common extends Common:
   inline def nowSeconds: Int = (nowMillis / 1000).toInt
 
   def some[A](a: A): Option[A] = Some(a)
-
-trait Common
-    extends lila.base.LilaTypes
-    with lila.base.LilaModel
-    with lila.base.LilaUserId
-    with cats.syntax.OptionSyntax
-    with cats.syntax.ListSyntax
-    with lila.base.LilaLibraryExtensions
-    with lila.base.JsonExtensions:
 
   trait StringValue extends Any:
     def value: String

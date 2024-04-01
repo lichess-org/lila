@@ -29,7 +29,7 @@ final class Env(
     analyser: lila.analyse.Analyser,
     annotator: lila.analyse.Annotator,
     mongo: lila.db.Env,
-    net: lila.common.config.NetConfig,
+    net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi
 )(using
     Executor,

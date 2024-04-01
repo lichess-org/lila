@@ -90,11 +90,6 @@ package irc:
 package notify:
   case class NotifiedBatch(userIds: Iterable[UserId])
 
-package user:
-
-  import lila.common.EmailAddress
-  case class ChangeEmail(id: UserId, email: EmailAddress)
-
 package evaluation:
   case class AutoCheck(userId: UserId)
   case class Refresh(userId: UserId)

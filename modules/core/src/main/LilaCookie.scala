@@ -1,4 +1,4 @@
-package lila.common
+package lila.core
 
 import scalalib.SecureRandom
 import play.api.mvc.*
@@ -72,3 +72,5 @@ object LilaCookie:
 
   val sessionId  = "sid"
   val noRemember = "noRemember"
+
+  def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)

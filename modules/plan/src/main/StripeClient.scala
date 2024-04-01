@@ -7,7 +7,7 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
-import lila.common.EmailAddress
+import lila.core.EmailAddress
 import lila.common.config.Secret
 import lila.user.User
 

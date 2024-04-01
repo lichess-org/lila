@@ -175,7 +175,7 @@ lazy val history = module("history",
 )
 
 lazy val db = module("db",
-  Seq(common),
+  Seq(core),
   Seq(hasher) ++ macwire.bundle ++ reactivemongo.bundle
 )
 
@@ -476,5 +476,5 @@ lazy val tree = module("tree",
 
 lazy val core = module("core",
   Seq(common),
-  Seq(scaffeine)
+  tests.bundle
 )
