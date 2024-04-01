@@ -1,5 +1,3 @@
-import { Federation } from '../interfaces';
-
 export interface RelayData {
   tour: RelayTour;
   rounds: RelayRound[];
