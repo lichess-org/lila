@@ -201,7 +201,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
         ]),
       ]),
       h(
-        `div.relay-tour__header__image${allowVideo ? '.video' : ''}`,
+        `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,
         embedVideo
           ? renderVideoPlayer(relay)
           : allowVideo && relay.pinStreamer() && d.pinned?.image
