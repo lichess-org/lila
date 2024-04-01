@@ -47,6 +47,10 @@
   }
 }
 
+.player-link {
+  color: $c-link !important;
+}
+
 a.user-link:hover {
   color: $c-link;
 }
