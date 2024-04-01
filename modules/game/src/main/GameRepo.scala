@@ -20,7 +20,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
   import Game.{ BSONFields as F }
   import Player.given
 
-  val fixedColorLobbyCache = lila.memo.ExpireSetMemo[GameId](2 hours)
+  val fixedColorLobbyCache = scalalib.cache.ExpireSetMemo[GameId](2 hours)
 
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
