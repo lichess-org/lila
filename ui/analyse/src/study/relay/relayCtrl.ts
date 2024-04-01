@@ -48,12 +48,13 @@ export default class RelayCtrl {
     this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
     setInterval(() => this.redraw(true), 1000);
 
+    const pinned = data.pinned;
     if (data.videoUrls) videoPlayerOnWindowResize(this.redraw);
-    if (data.pinned && this.pinStreamer()) this.streams.push([data.pinned.userId, data.pinned.name]);
+    if (pinned && this.pinStreamer()) this.streams.push([pinned.userId, pinned.name]);
 
     site.pubsub.on('socket.in.crowd', d => {
       const s = (d.streams as [string, string][]) ?? [];
-      if (this.pinStreamer()) s.unshift([data.pinned!.userId, data.pinned!.name]);
+      if (pinned && this.pinStreamer()) s.unshift([pinned.userId, pinned.name]);
       if (!s) return;
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
       this.streams = s;
