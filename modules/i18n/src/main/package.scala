@@ -3,7 +3,7 @@ package lila.i18n
 import play.api.i18n.Lang
 import lila.core.i18n.Language
 
-export lila.Lila.{ *, given }
+export lila.Common.{ *, given }
 
 private type Count      = Long
 private type MessageKey = String

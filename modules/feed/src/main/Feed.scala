@@ -6,7 +6,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 
-import lila.Lila.*
+import lila.Core.*
 
 import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }

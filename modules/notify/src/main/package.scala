@@ -1,3 +1,3 @@
 package lila.notify
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

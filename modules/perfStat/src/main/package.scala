@@ -1,3 +1,3 @@
 package lila.perfStat
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

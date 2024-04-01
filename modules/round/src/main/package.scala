@@ -2,7 +2,7 @@ package lila.round
 
 import lila.game.Event
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }
 
 private val logger = lila.log("round")
 

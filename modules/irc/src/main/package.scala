@@ -1,3 +1,3 @@
 package lila.irc
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

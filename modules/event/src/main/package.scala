@@ -1,3 +1,3 @@
 package lila.event
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

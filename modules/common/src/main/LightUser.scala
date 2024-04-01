@@ -9,7 +9,7 @@ case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[PlayerTitle],
-    flair: Option[lila.Lila.Flair],
+    flair: Option[lila.Common.Flair],
     isPatron: Boolean
 ):
 

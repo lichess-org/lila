@@ -1,5 +1,5 @@
 package lila.memo
 
-export lila.Lila.{ *, given }
+export lila.Common.{ *, given }
 
 private val logger = lila.log("memo")

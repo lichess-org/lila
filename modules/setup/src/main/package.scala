@@ -1,5 +1,5 @@
 package lila.setup
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }
 
 private val logger = lila.log("setup")

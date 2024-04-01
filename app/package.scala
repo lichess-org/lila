@@ -1,5 +1,5 @@
 package lila.app
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }
 export lila.api.Context.{ *, given }
 export lila.user.Me

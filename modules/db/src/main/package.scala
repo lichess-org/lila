@@ -2,7 +2,7 @@ package lila.db
 
 import reactivemongo.api.commands.WriteResult
 
-export lila.Lila.{ *, given }
+export lila.Common.{ *, given }
 
 trait NoDbHandler[A] // don't create default BSON handlers for this type
 

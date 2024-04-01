@@ -1,3 +1,3 @@
 package lila.pref
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

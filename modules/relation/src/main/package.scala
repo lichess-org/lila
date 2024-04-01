@@ -1,6 +1,6 @@
 package lila.relation
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }
 
 export lila.core.relation.{ Relation, Block, Follow }
 

@@ -1,3 +1,3 @@
 package lila.search
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

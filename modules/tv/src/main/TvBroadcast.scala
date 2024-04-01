@@ -5,7 +5,7 @@ import akka.stream.scaladsl.*
 import chess.format.Fen
 import play.api.libs.json.*
 
-import lila.Lila.{ GameId, none }
+import lila.Core.{ GameId, none }
 import lila.common.Json.given
 import lila.common.Bus
 import lila.core.LightUser

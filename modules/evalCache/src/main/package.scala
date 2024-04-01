@@ -3,7 +3,7 @@ package lila.evalCache
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }
 import lila.tree.CloudEval
 
 extension (e: CloudEval)

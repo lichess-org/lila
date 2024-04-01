@@ -1,6 +1,6 @@
 package lila.swiss
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }
 
 val lichessTeamId = TeamId("lichess-swiss")
 

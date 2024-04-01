@@ -1,6 +1,6 @@
 package lila.tournament
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }
 
 private type RankedPlayers = List[RankedPlayer]
 private type Ranking       = Map[UserId, Rank]

@@ -1,3 +1,3 @@
 package lila.explorer
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

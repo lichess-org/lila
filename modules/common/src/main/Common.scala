@@ -1,7 +1,6 @@
 package lila
 
-object Lila extends Lila:
-
+object Common extends Common:
   // global execution context that doubles as an executor
   // see ExecutionContextOpportunistic.scala
   given defaultExecutor: scala.concurrent.ExecutionContextExecutor =
@@ -24,7 +23,7 @@ object Lila extends Lila:
 
   def some[A](a: A): Option[A] = Some(a)
 
-trait Lila
+trait Common
     extends lila.base.LilaTypes
     with lila.base.LilaModel
     with lila.base.LilaUserId

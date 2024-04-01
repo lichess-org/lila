@@ -1,6 +1,6 @@
 package lila.tree
 
-export lila.Lila.{ *, given }
+export lila.Common.{ *, given }
 
 type InfoAdvice  = (Info, Option[Advice])
 type InfoAdvices = List[InfoAdvice]

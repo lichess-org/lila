@@ -5,13 +5,13 @@ import akka.actor.Scheduler
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ Future as ScalaFu, Promise }
 
-import lila.Lila.Fu
+import lila.Common.Fu
 
 object LilaFuture:
 
   def delay[A](
       duration: FiniteDuration
-  )(run: => Fu[A])(using ec: lila.Lila.Executor, scheduler: Scheduler): Fu[A] =
+  )(run: => Fu[A])(using ec: lila.Common.Executor, scheduler: Scheduler): Fu[A] =
     if duration == 0.millis then run
     else akka.pattern.after(duration, scheduler)(run)
 

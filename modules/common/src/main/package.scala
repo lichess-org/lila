@@ -1,3 +1,3 @@
 package lila.common
 
-export lila.Lila.{ *, given }
+export lila.Common.{ *, given }

@@ -8,7 +8,7 @@ case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[PlayerTitle],
-    flair: Option[lila.Lila.Flair],
+    flair: Option[lila.Core.Flair],
     isPatron: Boolean
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)

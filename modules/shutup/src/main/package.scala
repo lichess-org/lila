@@ -1,3 +1,3 @@
 package lila.shutup
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

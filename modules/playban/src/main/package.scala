@@ -1,3 +1,3 @@
 package lila.playban
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

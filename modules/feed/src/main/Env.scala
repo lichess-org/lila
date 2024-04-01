@@ -2,7 +2,7 @@ package lila.feed
 
 import com.softwaremill.macwire.*
 
-import lila.Lila.*
+import lila.Core.*
 import lila.common.config.CollName
 
 @Module

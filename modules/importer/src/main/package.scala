@@ -1,3 +1,3 @@
 package lila.importer
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }

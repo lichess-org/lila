@@ -1,6 +1,6 @@
 package lila.video
 
-export lila.Lila.{ *, given }
+export lila.Core.{ *, given }
 
 type Target = Int
 type Tag    = String
