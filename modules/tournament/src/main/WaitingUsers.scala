@@ -2,7 +2,7 @@ package lila.tournament
 
 import chess.Clock.Config as TournamentClock
 
-import lila.memo.ExpireSetMemo
+import scalalib.cache.ExpireSetMemo
 import lila.user.User
 
 private case class WaitingUsers(

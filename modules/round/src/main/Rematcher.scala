@@ -7,7 +7,7 @@ import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situ
 import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
-import lila.memo.ExpireSetMemo
+import scalalib.cache.ExpireSetMemo
 import lila.user.{ GameUsers, UserApi }
 
 import ChessColor.White

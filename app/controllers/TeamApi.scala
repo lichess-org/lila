@@ -104,7 +104,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
       }
   }
 
-  private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
+  private val kickLimitReportOnce = scalalib.cache.OnceEvery[UserId](10.minutes)
 
   def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(teamId, _.Kick): team =>

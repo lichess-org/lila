@@ -19,7 +19,7 @@ final class GarbageCollector(
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val justOnce = lila.memo.OnceEvery[UserId](10 minutes)
+  private val justOnce = scalalib.cache.OnceEvery[UserId](10 minutes)
 
   private case class ApplyData(
       user: User,

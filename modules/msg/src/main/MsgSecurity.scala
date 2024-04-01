@@ -48,7 +48,7 @@ final private class MsgSecurity(
     key = "msg_reply.user"
   )
 
-  private val dirtSpamDedup = lila.memo.OnceEvery.hashCode[String](1 minute)
+  private val dirtSpamDedup = scalalib.cache.OnceEvery.hashCode[String](1 minute)
 
   object can:
 

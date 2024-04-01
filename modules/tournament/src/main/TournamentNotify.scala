@@ -8,7 +8,7 @@ final private class TournamentNotify(repo: TournamentRepo, cached: TournamentCac
     Scheduler
 ):
 
-  private val doneMemo = lila.memo.ExpireSetMemo[TourId](10 minutes)
+  private val doneMemo = scalalib.cache.ExpireSetMemo[TourId](10 minutes)
 
   LilaScheduler("TournamentNotify", _.Every(10 seconds), _.AtMost(10 seconds), _.Delay(1 minute)):
     repo

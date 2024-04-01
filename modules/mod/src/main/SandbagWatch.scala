@@ -16,7 +16,7 @@ final private class SandbagWatch(
   import SandbagWatch.*
   import Outcome.*
 
-  private val messageOnceEvery = lila.memo.OnceEvery[UserId](1 hour)
+  private val messageOnceEvery = scalalib.cache.OnceEvery[UserId](1 hour)
 
   def apply(game: Game): Unit = for
     loser <- game.loser.map(_.color)

@@ -153,7 +153,7 @@ final class Main(
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
-  private val externalMonitorOnce = lila.memo.OnceEvery.hashCode[String](10.minutes)
+  private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
   def externalLink(tag: String, url: String) = Anon:
     if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
     then lila.mon.link.external(tag, ctx.isAuth).increment()

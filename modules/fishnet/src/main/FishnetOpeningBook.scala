@@ -20,7 +20,7 @@ final private class FishnetOpeningBook(
 
   import FishnetOpeningBook.{ *, given }
 
-  private val outOfBook = lila.memo.ExpireSetMemo[GameId](10 minutes)
+  private val outOfBook = scalalib.cache.ExpireSetMemo[GameId](10 minutes)
 
   def apply(game: Game, level: Int): Fu[Option[Uci]] =
     (game.ply < depth.get() && !outOfBook.get(game.id)).so:

@@ -12,7 +12,7 @@ import lila.common.config.Secret
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
     Executor
 ):
-  private val dedupMsg = lila.memo.OnceEvery.hashCode[ZulipMessage](15 minutes)
+  private val dedupMsg = scalalib.cache.OnceEvery.hashCode[ZulipMessage](15 minutes)
 
   def apply[C: Show](stream: ZulipClient.stream.Selector, topic: String)(content: C): Funit =
     apply(stream(ZulipClient.stream), topic)(content)
@@ -31,9 +31,8 @@ final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Conf
   ): Fu[Option[String]] =
     send(ZulipMessage(stream = stream, topic = topic, content = content)).map {
       // Can be `None` if the message was rate-limited (i.e Someone already created a conv a few minutes earlier)
-      _.map { msgId =>
+      _.map: msgId =>
         s"https://${config.domain}/#narrow/stream/${urlencode(stream)}/topic/${urlencode(topic)}/near/$msgId"
-      }
     }
 
   private def send(msg: ZulipMessage): Fu[Option[ZulipMessage.ID]] = dedupMsg(msg).so {

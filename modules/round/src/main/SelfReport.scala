@@ -18,7 +18,7 @@ final class SelfReport(
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
 )(using ec: Executor, scheduler: Scheduler):
 
-  private val logOnceEvery = lila.memo.OnceEvery[IpAddressStr](1 minute)
+  private val logOnceEvery = scalalib.cache.OnceEvery[IpAddressStr](1 minute)
 
   def apply(
       userId: Option[UserId],

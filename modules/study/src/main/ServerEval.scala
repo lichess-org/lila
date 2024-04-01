@@ -19,7 +19,7 @@ object ServerEval:
       userRepo: UserRepo
   )(using Executor):
 
-    private val onceEvery = lila.memo.OnceEvery[StudyChapterId](5 minutes)
+    private val onceEvery = scalalib.cache.OnceEvery[StudyChapterId](5 minutes)
 
     def apply(study: Study, chapter: Chapter, userId: UserId, unlimited: Boolean = false): Funit =
       chapter.serverEval

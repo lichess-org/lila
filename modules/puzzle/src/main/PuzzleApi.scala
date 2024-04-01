@@ -148,7 +148,7 @@ final class PuzzleApi(
 
   object casual:
 
-    private val store = lila.memo.ExpireSetMemo[CacheKey](30 minutes)
+    private val store = scalalib.cache.ExpireSetMemo[CacheKey](30 minutes)
 
     private def key(user: User, id: PuzzleId) = CacheKey(s"${user.id}:${id}")
 

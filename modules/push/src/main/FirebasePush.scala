@@ -7,7 +7,7 @@ import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.{ Chronometer, LazyFu }
-import lila.memo.FrequencyThreshold
+import scalalib.cache.FrequencyThreshold
 
 final private class FirebasePush(
     deviceApi: DeviceApi,

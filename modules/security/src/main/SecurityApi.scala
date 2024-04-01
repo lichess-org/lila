@@ -152,7 +152,7 @@ final class SecurityApi(
       .map(_.map(access => stripRolesOfOAuthUser(access.scoped)))
 
   private object upsertOauth:
-    private val sometimes = lila.memo.OnceEvery.hashCode[AccessToken.Id](1.hour)
+    private val sometimes = scalalib.cache.OnceEvery.hashCode[AccessToken.Id](1.hour)
     def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
       if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
         val mobile = Mobile.LichessMobileUa.parse(req)

@@ -142,7 +142,7 @@ final class PlaybanApi(
     }
 
   // memorize users without any ban to save DB reads
-  private val cleanUserIds = lila.memo.ExpireSetMemo[UserId](30 minutes)
+  private val cleanUserIds = scalalib.cache.ExpireSetMemo[UserId](30 minutes)
 
   def currentBan[U: UserIdOf](user: U): Fu[Option[TempBan]] =
     (!cleanUserIds.get(user.id)).so:

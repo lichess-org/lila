@@ -54,7 +54,7 @@ final private class Streaming(
     yield publishStreams(streamers, streams)
   }
 
-  private val streamStartOnceEvery = lila.memo.OnceEvery[UserId](2 hour)
+  private val streamStartOnceEvery = scalalib.cache.OnceEvery[UserId](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     Bus.publish(

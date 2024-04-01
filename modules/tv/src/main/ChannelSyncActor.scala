@@ -26,7 +26,7 @@ final private[tv] class ChannelSyncActor(
   // the list of candidates by descending rating order
   private var manyIds = List.empty[GameId]
 
-  private val candidateIds = lila.memo.ExpireSetMemo[GameId](3 minutes)
+  private val candidateIds = scalalib.cache.ExpireSetMemo[GameId](3 minutes)
 
   protected val process: SyncActor.Receive =
 
