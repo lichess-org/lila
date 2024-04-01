@@ -10,8 +10,10 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
 
 import lila.common.autoconfig.*
-import lila.common.config.*
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.config.given
+import lila.core.config.*
+import lila.common.HTTPRequest
+import lila.core.IpAddress
 
 trait Hcaptcha:
 

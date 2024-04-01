@@ -1,4 +1,4 @@
-package lila.common
+package lila.core
 
 class IpAddressTest extends munit.FunSuite:
 

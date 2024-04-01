@@ -4,7 +4,7 @@ import chess.variant.Variant
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 
 @Module
 final class Env(

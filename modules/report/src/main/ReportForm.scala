@@ -4,7 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.*
 
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 import lila.core.LightUser
 import lila.user.{ Me, User }
 import lila.core.report.SuspectId

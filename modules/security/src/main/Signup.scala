@@ -8,7 +8,8 @@ import scala.util.chaining.*
 
 import lila.core.config.NetConfig
 import lila.core.EmailAddress
-import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
+import lila.common.{ HTTPRequest }
+import lila.core.{ ApiVersion, IpAddress }
 import lila.memo.RateLimit
 import lila.user.{ PasswordHasher, User }
 
@@ -19,6 +20,7 @@ final class Signup(
     forms: SecurityForm,
     emailConfirm: EmailConfirm,
     hcaptcha: Hcaptcha,
+    passwordHasher: PasswordHasher,
     authenticator: lila.user.Authenticator,
     userRepo: lila.user.UserRepo,
     disposableEmailAttempt: DisposableEmailAttempt,
@@ -207,7 +209,7 @@ final class Signup(
       f: => Fu[Signup.Result]
   )(using req: RequestHeader): Fu[Signup.Result] =
     val ipCost = (if suspIp then 2 else 1) * (if captched then 1 else 2)
-    PasswordHasher
+    passwordHasher
       .rateLimit[Signup.Result](
         rateLimitDefault,
         enforce = netConfig.rateLimit,

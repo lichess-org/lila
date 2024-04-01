@@ -1,4 +1,4 @@
-package lila.base
+package lila.core.lilaism
 
 import scala.util.control.NoStackTrace
 

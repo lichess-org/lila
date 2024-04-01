@@ -3,7 +3,7 @@ package lila.security
 import play.api.data.Form
 import play.api.mvc.RequestHeader
 
-import lila.common.IpAddress
+import lila.core.IpAddress
 import lila.user.{ Me, User }
 import lila.core.EmailAddress
 

@@ -2,11 +2,11 @@ package lila.forum
 
 import lila.common.Bus
 import lila.common.String.noShouting
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.timeline.{ ForumPost as TimelinePost, Propagate, TimelineApi }
+import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
@@ -117,7 +117,7 @@ final private class ForumTopicApi(
             if post.isTeam then shutupApi.teamForumMessage(me, text)
             else shutupApi.publicText(me, text, PublicSource.Forum(post.id))
             if !post.troll && !categ.quiet then
-              TimelineApi(
+              lila.common.Bus.named.timeline(
                 Propagate(TimelinePost(me, topic.id, topic.name, post.id))
                   .toFollowersOf(me)
                   .withTeam(categ.team)

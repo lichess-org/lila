@@ -1,20 +1,13 @@
-package lila
+package lila.core.lilaism
 
-object Common extends Common
-
-trait Common
-    extends lila.base.LilaTypes
-    with lila.base.LilaModel
-    with lila.base.LilaUserId
-    with cats.syntax.OptionSyntax
+object Lilaism
+    extends cats.syntax.OptionSyntax
     with cats.syntax.ListSyntax
-    with lila.base.LilaLibraryExtensions
-    with lila.base.JsonExtensions:
-
-  // global execution context that doubles as a java executor
-  // see ExecutionContextOpportunistic.scala
-  given defaultExecutor: scala.concurrent.ExecutionContextExecutor =
-    scala.concurrent.ExecutionContextOpportunistic
+    with LilaTypes
+    with LilaModel
+    with LilaUserId
+    with LilaLibraryExtensions
+    with JsonExtensions:
 
   export scalalib.newtypes.{ given, * }
   export scalalib.zeros.given

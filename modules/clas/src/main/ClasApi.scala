@@ -4,7 +4,7 @@ import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 import reactivemongo.api.*
 
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
 import lila.common.Markdown
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi

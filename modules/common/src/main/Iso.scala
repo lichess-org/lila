@@ -1,5 +1,9 @@
 package lila.common
 
+import lila.core.Strings
+import lila.core.Ints
+import lila.core.IpAddress
+
 trait Iso[A, B]:
   val from: A => B
   val to: B => A

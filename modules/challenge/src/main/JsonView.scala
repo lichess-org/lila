@@ -11,7 +11,7 @@ import lila.core.socket.{ SocketVersion, userLag }
 import lila.core.i18n.{ Translate, JsDump }
 
 final class JsonView(
-    baseUrl: lila.common.config.BaseUrl,
+    baseUrl: lila.core.config.BaseUrl,
     getLightUser: lila.core.LightUser.GetterSync,
     getLagRating: userLag.GetLagRating,
     isOnline: lila.core.socket.IsOnline,

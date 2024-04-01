@@ -4,8 +4,8 @@ import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
 import kamon.metric.{ Counter, Timer }
 import kamon.tag.TagSet
 
-import lila.common.ApiVersion
-import lila.common.Domain
+import lila.core.ApiVersion
+import lila.core.Domain
 
 object mon:
 

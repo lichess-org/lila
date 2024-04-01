@@ -11,7 +11,7 @@ final private class Streaming(
     api: StreamerApi,
     isOnline: lila.core.socket.IsOnline,
     keyword: Stream.Keyword,
-    alwaysFeatured: () => lila.common.UserIds,
+    alwaysFeatured: () => lila.core.UserIds,
     twitchApi: TwitchApi,
     ytApi: YouTubeApi
 )(using Executor, Scheduler):

@@ -1,8 +1,6 @@
 package lila.core
 package timeline
 
-def TimelineApi(propagate: Propagate): Unit = lila.common.Bus.publish(propagate, "timeline")
-
 case class ReloadTimelines(userIds: List[UserId])
 
 sealed abstract class Atom(val channel: String, val okForKid: Boolean):

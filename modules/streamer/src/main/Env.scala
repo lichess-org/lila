@@ -5,7 +5,8 @@ import com.softwaremill.macwire.*
 import play.api.{ ConfigLoader, Configuration }
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.common.config.{ *, given }
+import lila.core.config.*
 
 @Module
 private class StreamerConfig(
@@ -44,7 +45,7 @@ final class Env(
 
   lazy val alwaysFeaturedSetting =
     import lila.memo.SettingStore.UserIds.given
-    import lila.common.UserIds
+    import lila.core.UserIds
     settingStore[UserIds](
       "streamerAlwaysFeatured",
       default = UserIds(Nil),

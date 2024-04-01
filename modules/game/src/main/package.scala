@@ -3,7 +3,8 @@ package lila.game
 import alleycats.Zero
 import chess.ByColor
 
-export lila.Core.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 
 type RatingDiffs = ByColor[IntRatingDiff]
 

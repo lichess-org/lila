@@ -1,7 +1,7 @@
 package lila.round
 
 import lila.game.Game
-import lila.core.timeline.{ TimelineApi, GameEnd as TLGameEnd, Propagate }
+import lila.core.timeline.{ GameEnd as TLGameEnd, Propagate }
 import lila.notify.{ GameEnd, NotifyApi }
 
 final private class RoundNotifier(
@@ -12,7 +12,7 @@ final private class RoundNotifier(
   def gameEnd(game: Game)(color: chess.Color) =
     if !game.aborted then
       game.player(color).userId.foreach { userId =>
-        TimelineApi(
+        lila.common.Bus.named.timeline(
           Propagate(
             TLGameEnd(
               fullId = game.fullIdOf(color),

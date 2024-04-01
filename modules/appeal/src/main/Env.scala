@@ -2,7 +2,7 @@ package lila.appeal
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
+import lila.core.config.*
 
 @Module
 final class Env(

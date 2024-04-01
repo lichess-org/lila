@@ -3,9 +3,7 @@ package lila.core
 import scalalib.SecureRandom
 import play.api.mvc.*
 
-import lila.common.config.NetDomain
-
-final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker):
+final class LilaCookie(domain: config.NetDomain, baker: SessionCookieBaker):
 
   private val cookieDomain = domain.value.split(":").head
 

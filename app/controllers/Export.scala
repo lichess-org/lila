@@ -10,7 +10,7 @@ import play.api.mvc.Result
 import scala.util.chaining.*
 
 import lila.app.*
-import lila.common.IpAddress
+import lila.core.IpAddress
 import lila.game.Pov
 import lila.pref.{ PieceSet, Theme }
 

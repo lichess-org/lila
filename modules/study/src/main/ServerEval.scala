@@ -33,7 +33,7 @@ object ServerEval:
             chapterRepo
               .startServerEval(chapter)
               .andDo:
-                lila.core.fishnet.FishnetApi.analyseStudyChapter(
+                lila.common.Bus.named.fishnet.analyseStudyChapter(
                   StudyChapterRequest(
                     studyId = study.id,
                     chapterId = chapter.id,

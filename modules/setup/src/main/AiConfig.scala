@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.variant.Variant
 import chess.{ ByColor, Clock }
 
-import lila.common.Days
+import lila.core.Days
 import lila.game.{ Game, IdGenerator, Player, Pov }
 import lila.lobby.Color
 import lila.rating.PerfType

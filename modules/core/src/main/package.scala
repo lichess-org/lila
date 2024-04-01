@@ -1,3 +1,3 @@
 package lila.core
 
-export lila.Common.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }

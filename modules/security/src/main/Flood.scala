@@ -2,7 +2,7 @@ package lila.security
 
 import com.github.blemale.scaffeine.Cache
 
-final class Flood:
+final class Flood(using Executor):
 
   import Flood.*
 

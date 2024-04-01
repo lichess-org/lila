@@ -15,7 +15,3 @@ case class StudyChapterRequest(
     userId: UserId,
     unlimited: Boolean
 )
-
-object FishnetApi:
-  def analyseGame(gameId: GameId): Unit = lila.common.Bus.publish(GameRequest(gameId), "fishnet")
-  def analyseStudyChapter(req: StudyChapterRequest): Unit = lila.common.Bus.publish(req, "fishnet")

@@ -6,8 +6,8 @@ import scala.util.{ Failure, Success, Try }
 
 import scalalib.actor.AsyncActorSequencer
 
-import lila.base.LilaNoStackTrace
-import lila.common.IpAddress
+import lila.core.lilaism.LilaNoStackTrace
+import lila.core.IpAddress
 import lila.db.dsl.{ *, given }
 
 import Client.Skill
@@ -162,7 +162,7 @@ final class FishnetApi(
 
 object FishnetApi:
 
-  import lila.base.LilaException
+  import lila.core.lilaism.LilaException
 
   case class Config(
       offlineMode: Boolean,

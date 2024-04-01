@@ -3,8 +3,9 @@ package lila.security
 import scalalib.ThreadLocalRandom
 import play.api.mvc.RequestHeader
 
-import lila.common.{ Bus, HTTPRequest, IpAddress }
+import lila.common.{ Bus, HTTPRequest }
 import lila.core.EmailAddress
+import lila.core.IpAddress
 import lila.user.User
 
 // codename UGC

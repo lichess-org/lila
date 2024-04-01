@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module

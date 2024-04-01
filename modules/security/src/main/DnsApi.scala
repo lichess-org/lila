@@ -4,8 +4,8 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.base.LilaException
-import lila.common.Domain
+import lila.core.lilaism.LilaException
+import lila.core.Domain
 import lila.db.dsl.given
 
 final private class DnsApi(

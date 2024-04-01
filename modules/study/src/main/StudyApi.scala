@@ -7,7 +7,7 @@ import chess.format.pgn.{ Glyph, Tags }
 
 import lila.chat.ChatApi
 import lila.common.Bus
-import lila.core.timeline.{ TimelineApi, Propagate, StudyLike }
+import lila.core.timeline.{ Propagate, StudyLike }
 import lila.security.Granter
 import lila.core.socket.Sri
 import lila.core.{ study as hub }
@@ -804,7 +804,8 @@ final class StudyApi(
       if v then
         studyRepo.byId(studyId).foreach {
           _.filter(_.isPublic).foreach { study =>
-            TimelineApi(Propagate(StudyLike(who.u, study.id, study.name)).toFollowersOf(who.u))
+            lila.common.Bus.named
+              .timeline(Propagate(StudyLike(who.u, study.id, study.name)).toFollowersOf(who.u))
           }
         }
     }

@@ -61,6 +61,6 @@ final class MsgJson(
     )
 
   private def renderContact(user: LightUser): JsObject =
-    LightUser
+    lila.common.Json.lightUser
       .writeNoId(user)
       .add("online" -> isOnline(user.id))

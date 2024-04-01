@@ -5,9 +5,9 @@ import scalatags.Text.all.*
 
 import scala.util.chaining.*
 
-import lila.base.LilaException
+import lila.core.lilaism.LilaException
 import lila.core.EmailAddress
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
 import lila.core.actorApi.mailer.CorrespondenceOpponent
 import lila.core.actorApi.msg.SystemMsg
 import lila.core.i18n.Translator

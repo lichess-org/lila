@@ -22,7 +22,7 @@ import chess.{
   Status
 }
 
-import lila.common.Days
+import lila.core.Days
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
 import lila.user.User

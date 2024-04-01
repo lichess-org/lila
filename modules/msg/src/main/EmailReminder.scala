@@ -1,6 +1,6 @@
 package lila.msg
 
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
 import lila.memo.MongoCache
 import lila.user.UserRepo
 

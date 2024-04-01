@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.common.Json.given
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.actorApi.socket.remote.TellUserIn
 
 @Module

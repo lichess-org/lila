@@ -3,7 +3,7 @@ package lila.tutor
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.common.config
+import lila.core.config
 import lila.db.dsl.Coll
 import lila.fishnet.{ Analyser, FishnetAwaiter }
 import lila.memo.CacheApi

@@ -115,7 +115,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.api.deleteTourIfOwner(tour).inject(Redirect(routes.RelayTour.by(me.username)).flashSuccess)
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.IpAddress](
     key = "relay.image.ip"
   )(
     ("fast", 10, 2.minutes),

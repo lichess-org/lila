@@ -5,7 +5,8 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.common.config.given
+import lila.core.config.*
 import lila.db.dsl.Coll
 
 @Module

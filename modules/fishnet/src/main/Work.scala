@@ -5,7 +5,7 @@ import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import scalalib.ThreadLocalRandom
 
-import lila.common.IpAddress
+import lila.core.IpAddress
 
 sealed trait Work:
   def _id: Work.Id

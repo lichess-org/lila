@@ -5,7 +5,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.user.Me
 
 @Module
@@ -23,10 +23,7 @@ final class Env(
     relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     teamApi: lila.core.team.TeamApi
-)(using
-    ec: Executor,
-    system: ActorSystem
-):
+)(using Executor):
 
   private val config = appConfig.get[TimelineConfig]("timeline")(AutoConfig.loader)
 

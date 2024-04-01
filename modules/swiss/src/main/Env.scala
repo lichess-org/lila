@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.LilaScheduler
-import lila.common.config.*
+import lila.core.config.*
 import lila.db.dsl.Coll
 import lila.core.socket.{ GetVersion, SocketVersion }
 
@@ -25,7 +25,7 @@ final class Env(
     gameProxyRepo: lila.round.GameProxyRepo,
     roundSocket: lila.round.RoundSocket,
     mongoCache: lila.memo.MongoCache.Api,
-    baseUrl: lila.common.config.BaseUrl
+    baseUrl: BaseUrl
 )(using
     Executor,
     akka.actor.ActorSystem,

@@ -8,9 +8,9 @@ import play.api.Configuration
 import lila.common.Bus
 import lila.common.config.*
 import lila.db.dsl.Coll
+import lila.core.config.CollName
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,

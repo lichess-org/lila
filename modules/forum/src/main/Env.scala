@@ -5,7 +5,7 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.core.relation.RelationApi

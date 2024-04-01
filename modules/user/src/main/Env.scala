@@ -6,7 +6,8 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.*
-import lila.common.config.*
+import lila.common.config.given
+import lila.core.config.*
 
 private class UserConfig(
     @ConfigName("online.ttl") val onlineTtl: FiniteDuration,

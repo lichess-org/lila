@@ -1,4 +1,5 @@
 package lila.analyse
 
-export lila.Core.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 export lila.tree.{ Advice, Analysis, Info, WinPercent }

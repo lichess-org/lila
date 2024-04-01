@@ -3,7 +3,7 @@ package lila.plan
 import akka.actor.*
 
 import lila.common.Bus
-import lila.core.timeline.{ TimelineApi, Atom, Propagate }
+import lila.core.timeline.{ Atom, Propagate }
 import lila.user.User
 
 final private[plan] class PlanNotifier(using ec: Executor, scheduler: Scheduler):
@@ -30,4 +30,4 @@ final private[plan] class PlanNotifier(using ec: Executor, scheduler: Scheduler)
     Bus.publish(lila.core.actorApi.plan.PlanGift(from.id, to.id, isLifetime), "planStart")
 
   private def pushTimeline(user: User)(f: UserId => Atom): Unit =
-    TimelineApi(Propagate(f(user.id)).toFollowersOf(user.id))
+    lila.common.Bus.named.timeline(Propagate(f(user.id)).toFollowersOf(user.id))

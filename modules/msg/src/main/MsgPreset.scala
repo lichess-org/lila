@@ -1,7 +1,7 @@
 package lila.msg
 
 import lila.core.LightUser
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
 import lila.core.team.LightTeam
 
 object MsgPreset:

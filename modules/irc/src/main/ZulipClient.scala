@@ -7,7 +7,7 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, WSAuthScheme }
 
 import lila.common.String.urlencode
-import lila.common.config.Secret
+import lila.core.config.Secret
 
 final private class ZulipClient(ws: StandaloneWSClient, config: ZulipClient.Config)(using
     Executor
@@ -66,6 +66,7 @@ private object ZulipClient:
 
   case class Config(domain: String, user: String, pass: Secret)
   import lila.common.autoconfig.*
+  import lila.common.config.given
   given ConfigLoader[Config] = AutoConfig.loader[Config]
 
   object stream:

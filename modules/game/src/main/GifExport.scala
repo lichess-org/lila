@@ -12,10 +12,10 @@ import scala.util.chaining.*
 
 import lila.common.Json.given
 import scalalib.Maths
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
 
 object GifExport:
-  case class UpstreamStatus(code: Int) extends lila.base.LilaException:
+  case class UpstreamStatus(code: Int) extends lila.core.lilaism.LilaException:
     val message = s"gif service status: $code"
 
 final class GifExport(

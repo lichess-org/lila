@@ -2,11 +2,16 @@ package lila.core
 package actorApi
 
 import chess.format.{ Fen, Uci }
+import chess.format.pgn.PgnStr
 import play.api.libs.json.*
 
 import java.time.Duration
 
-import lila.common.LpvEmbed
+enum LpvEmbed:
+  case PublicPgn(pgn: PgnStr)
+  case PrivateStudy
+
+type LinkRender = (String, String) => Option[scalatags.Text.Frag]
 
 // announce something to all clients
 case class Announce(msg: String, date: Instant, json: JsObject)
@@ -66,7 +71,7 @@ package playban:
 
 package lpv:
   case class AllPgnsFromText(text: String, promise: Promise[Map[String, LpvEmbed]])
-  case class LpvLinkRenderFromText(text: String, promise: Promise[lila.common.RawHtml.LinkRender])
+  case class LpvLinkRenderFromText(text: String, promise: Promise[LinkRender])
 
 package simul:
   case class GetHostIds(promise: Promise[Set[UserId]])

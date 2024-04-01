@@ -4,7 +4,7 @@ import chess.Color
 
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.PublicSource
 import lila.memo.CacheApi.*

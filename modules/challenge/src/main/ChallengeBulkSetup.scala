@@ -9,7 +9,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.common.{ Bearer, Days, Template }
+import lila.core.{ Bearer, Days, Template }
 import lila.game.IdGenerator
 import lila.core.game.GameRule
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }

@@ -10,7 +10,8 @@ import play.api.libs.ws.StandaloneWSClient
 import scala.math.Ordering.Float.TotalOrdering
 
 import lila.common.autoconfig.*
-import lila.common.config.Secret
+import lila.common.config.given
+import lila.core.config.Secret
 
 // http://detectlanguage.com
 final class DetectLanguage(

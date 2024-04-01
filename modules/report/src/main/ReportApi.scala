@@ -23,7 +23,7 @@ final class ReportApi(
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
-    domain: lila.common.config.NetDomain
+    domain: lila.core.config.NetDomain
 )(using Executor, Scheduler)
     extends lila.core.report.ReportApi:
 

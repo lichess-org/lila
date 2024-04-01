@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import scala.math
 
 import lila.common.Json.given
-import lila.common.{ ApiVersion, Preload }
+import lila.core.{ ApiVersion, Preload }
 import lila.core.LightUser
 import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
@@ -225,7 +225,6 @@ final class JsonView(
     pov.game.whitePlayer.userId.so(lightUserGet).zip(pov.game.blackPlayer.userId.so(lightUserGet)).map {
       case (white, black) =>
         import pov.*
-        import LightUser.lightUserWrites
         Json
           .obj(
             "game" -> {

@@ -6,6 +6,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
+import lila.core.config.*
 import lila.db.dsl.Coll
 
 @Module

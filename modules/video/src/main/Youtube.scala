@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.*
+import lila.core.config.*
 
 final private[video] class Youtube(
     ws: StandaloneWSClient,

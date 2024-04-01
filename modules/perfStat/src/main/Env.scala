@@ -3,7 +3,7 @@ package lila.perfStat
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.common.config.*
+import lila.core.config.*
 
 @Module
 final class Env(

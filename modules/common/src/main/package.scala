@@ -1,3 +1,8 @@
 package lila.common
 
-export lila.Common.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+
+object extensions:
+  export Chronometer.futureExtension.*
+
+export extensions.*

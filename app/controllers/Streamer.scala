@@ -129,7 +129,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       api.approval.request(me).inject(Redirect(routes.Streamer.edit))
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.IpAddress](
     key = "streamer.image.ip"
   )(
     ("fast", 10, 2.minutes),

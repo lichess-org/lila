@@ -3,11 +3,11 @@ package lila.history
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.rating.PerfType
 import lila.core.user.WithPerf
 import lila.core.rating.PerfKey
-import lila.common.Days
+import lila.core.Days
 
 @Module
 final class Env(

@@ -5,7 +5,7 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 

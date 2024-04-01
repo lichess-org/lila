@@ -9,6 +9,8 @@ import scala.annotation.{ switch, tailrec }
 
 import scalalib.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
 import lila.common.{ Html, config }
+import lila.core.config.NetDomain
+import lila.core.actorApi.LinkRender
 
 object RawHtml:
 
@@ -42,7 +44,7 @@ object RawHtml:
 
   private val atUsernamePat = atUsernameRegex.pattern
 
-  def expandAtUser(text: String)(using netDomain: config.NetDomain): List[String] =
+  def expandAtUser(text: String)(using netDomain: NetDomain): List[String] =
     val m = atUsernamePat.matcher(text)
     if m.find then
       var idx = 0
@@ -59,13 +61,11 @@ object RawHtml:
 
   def hasLinks(text: String) = urlPattern.matcher(text).find
 
-  type LinkRender = (String, String) => Option[Frag]
-
   def addLinks(
       text: String,
       expandImg: Boolean = true,
       linkRender: Option[LinkRender] = None
-  )(using netDomain: config.NetDomain): Html =
+  )(using netDomain: NetDomain): Html =
     expandAtUser(text).map { expanded =>
       val m = urlPattern.matcher(expanded)
 

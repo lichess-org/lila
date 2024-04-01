@@ -1,4 +1,4 @@
-package lila.base
+package lila.core.lilaism
 
 import scalalib.newtypes.SameRuntime
 import play.api.libs.json.*

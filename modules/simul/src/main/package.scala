@@ -1,5 +1,5 @@
 package lila.simul
 
-export lila.Core.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
 
 private val logger = lila.log("simul")

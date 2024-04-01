@@ -6,7 +6,8 @@ import reactivemongo.api.bson.BSONHandler
 
 import lila.db.dsl.*
 import play.api.data.*, Forms.*
-import lila.common.{ Ints, Iso, Strings, UserIds, config }
+import lila.core.{ Ints, Strings, UserIds, config }
+import lila.common.Iso
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
@@ -69,17 +70,17 @@ object SettingStore:
     given StringReader[String]                  = StringReader[String](some)
     def fromIso[A](using iso: Iso.StringIso[A]) = StringReader[A](v => iso.from(v).some)
 
-  private type CredOption = Option[lila.common.config.Credentials]
-  private type HostOption = Option[lila.common.config.HostPort]
+  private type CredOption = Option[lila.core.config.Credentials]
+  private type HostOption = Option[lila.core.config.HostPort]
 
   object Strings:
     val stringsIso              = Iso.strings(",")
     given BSONHandler[Strings]  = lila.db.dsl.isoHandler(using stringsIso)
     given StringReader[Strings] = StringReader.fromIso(using stringsIso)
   object UserIds:
-    val userIdsIso = Strings.stringsIso.map[lila.common.UserIds](
-      strs => lila.common.UserIds(UserId.from(strs.value)),
-      uids => lila.common.Strings(UserId.raw(uids.value))
+    val userIdsIso = Strings.stringsIso.map[lila.core.UserIds](
+      strs => lila.core.UserIds(UserId.from(strs.value)),
+      uids => lila.core.Strings(UserId.raw(uids.value))
     )
     given BSONHandler[UserIds]  = lila.db.dsl.isoHandler(using userIdsIso)
     given StringReader[UserIds] = StringReader.fromIso(using userIdsIso)
@@ -92,11 +93,11 @@ object SettingStore:
     given BSONHandler[Regex]  = lila.db.dsl.isoHandler(using regexIso)
     given StringReader[Regex] = StringReader.fromIso(using regexIso)
   object CredentialsOption:
-    val credentialsIso             = Iso.string[CredOption](lila.common.config.Credentials.read, _.so(_.show))
+    val credentialsIso             = Iso.string[CredOption](lila.core.config.Credentials.read, _.so(_.show))
     given BSONHandler[CredOption]  = lila.db.dsl.isoHandler(using credentialsIso)
     given StringReader[CredOption] = StringReader.fromIso(using credentialsIso)
   object HostPortOption:
-    val hostPortIso                = Iso.string[HostOption](lila.common.config.HostPort.read, _.so(_.show))
+    val hostPortIso                = Iso.string[HostOption](lila.core.config.HostPort.read, _.so(_.show))
     given BSONHandler[HostOption]  = lila.db.dsl.isoHandler(using hostPortIso)
     given StringReader[HostOption] = StringReader.fromIso(using hostPortIso)
 

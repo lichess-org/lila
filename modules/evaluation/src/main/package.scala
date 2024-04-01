@@ -1,3 +1,3 @@
 package lila.evaluation
 
-export lila.Core.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }

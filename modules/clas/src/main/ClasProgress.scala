@@ -10,7 +10,7 @@ import lila.game.{ Game, GameRepo }
 import lila.puzzle.PuzzleRound
 import lila.rating.PerfType
 import lila.user.User
-import lila.common.Days
+import lila.core.Days
 
 case class ClasProgress(
     perfType: PerfType,

@@ -200,7 +200,7 @@ final private class ChapterMaker(
 
 private[study] object ChapterMaker:
 
-  case class ValidationException(message: String) extends lila.base.LilaException
+  case class ValidationException(message: String) extends lila.core.lilaism.LilaException
 
   enum Mode:
     def key = toString.toLowerCase

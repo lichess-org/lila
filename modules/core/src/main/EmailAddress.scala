@@ -1,12 +1,7 @@
 package lila.core
 
-import lila.common.Domain
-import lila.common.config.strLoader
-
 opaque type EmailAddress = String
 object EmailAddress extends OpaqueString[EmailAddress]:
-
-  given play.api.ConfigLoader[EmailAddress] = strLoader(EmailAddress(_))
 
   extension (e: EmailAddress)
 

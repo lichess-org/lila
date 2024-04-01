@@ -8,6 +8,7 @@ import lila.common.autoconfig.*
 import lila.common.config.*
 import scalalib.paginator.Paginator
 import lila.search.*
+import lila.core.config.ConfigName
 
 @Module
 private class TeamSearchConfig(

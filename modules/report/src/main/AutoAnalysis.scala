@@ -18,7 +18,7 @@ final class AutoAnalysis(gameRepo: GameRepo)(using ec: Executor, scheduler: Sche
         logger.info(s"Auto-analyse ${games.size} games after report by ${candidate.reporter.user.id}")
       games.foreach: game =>
         lila.mon.cheat.autoAnalysis("Report").increment()
-        lila.core.fishnet.FishnetApi.analyseGame(game.id)
+        lila.common.Bus.named.fishnet.analyseGame(game.id)
 
   private def gamesToAnalyse(candidate: Report.Candidate): Fu[List[Game]] =
     gameRepo

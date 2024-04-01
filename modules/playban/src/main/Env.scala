@@ -3,7 +3,7 @@ package lila.playban
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 
 @Module
 @annotation.nowarn("msg=unused")

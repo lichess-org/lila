@@ -5,7 +5,6 @@ import chess.format.Uci
 import chess.Color
 import chess.format.Fen
 import play.api.libs.json.{ JsArray, JsObject }
-import lila.common.IpAddress
 
 case class Abort(playerId: GamePlayerId)
 case class Berserk(gameId: GameId, userId: UserId)
@@ -66,7 +65,7 @@ case object TooManyPlies
 opaque type IsOfferingRematch = game.PovRef => Boolean
 object IsOfferingRematch extends FunctionWrapper[IsOfferingRematch, game.PovRef => Boolean]
 
-trait BenignError                        extends lila.base.LilaException
+trait BenignError                        extends lilaism.LilaException
 case class ClientError(message: String)  extends BenignError
 case class FishnetError(message: String) extends BenignError
 case class GameIsFinishedError(id: GameId) extends BenignError:

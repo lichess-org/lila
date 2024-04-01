@@ -9,7 +9,8 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
 import lila.common.Form.into
-import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
+import lila.core.{ ApiVersion, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate.Result
@@ -26,7 +27,7 @@ final class SecurityApi(
     authenticator: lila.user.Authenticator,
     oAuthServer: OAuthServer,
     ip2proxy: Ip2Proxy,
-    proxy2faSetting: lila.memo.SettingStore[lila.common.Strings] @@ Proxy2faSetting
+    proxy2faSetting: lila.memo.SettingStore[lila.core.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
 
   val AccessUri = "access_uri"

@@ -3,7 +3,7 @@ package lila.activity
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.round.CorresMoveEvent
 
 @Module

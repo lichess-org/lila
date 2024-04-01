@@ -7,7 +7,7 @@ import java.security.MessageDigest
 
 import lila.common.Iso
 import lila.common.String.base64
-import lila.common.config.Secret
+import lila.core.config.Secret
 
 import StringToken.ValueChecker
 

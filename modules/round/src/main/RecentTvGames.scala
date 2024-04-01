@@ -2,7 +2,7 @@ package lila.round
 
 import lila.game.{ Game, GameRepo }
 
-final class RecentTvGames(gameRepo: GameRepo):
+final class RecentTvGames(gameRepo: GameRepo)(using Executor):
 
   private val fast = scalalib.cache.ExpireSetMemo[GameId](7 minutes)
   private val slow = scalalib.cache.ExpireSetMemo[GameId](2 hours)

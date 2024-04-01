@@ -6,6 +6,7 @@ import play.api.Configuration
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.db.AsyncColl
+import lila.core.config.*
 
 @Module
 private class PuzzleConfig(
@@ -26,8 +27,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     mongo: lila.db.Env
-)(using Executor, akka.actor.ActorSystem, akka.stream.Materializer, lila.core.i18n.Translator)(
-    using
+)(using Executor, akka.actor.ActorSystem, akka.stream.Materializer, lila.core.i18n.Translator)(using
     scheduler: Scheduler,
     mode: play.api.Mode
 ):

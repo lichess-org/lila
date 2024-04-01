@@ -5,7 +5,7 @@ import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.timeline.{ TimelineApi, Propagate }
+import lila.core.timeline.Propagate
 import lila.memo.PicfitApi
 import lila.user.{ Me, User, UserApi }
 
@@ -47,7 +47,7 @@ final class UblogApi(
       .andDo:
         lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
         if blog.visible then
-          TimelineApi(
+          lila.common.Bus.named.timeline(
             Propagate(
               lila.core.timeline.UblogPost(user.id, post.id, post.slug, post.title)
             ).toFollowersOf(user.id)

@@ -21,8 +21,7 @@ final class LobbySocket(
     socketKit: SocketKit,
     lobby: LobbySyncActor,
     relationApi: lila.relation.RelationApi,
-    poolApi: lila.core.pool.PoolApi,
-    cacheApi: lila.memo.CacheApi
+    poolApi: lila.core.pool.PoolApi
 )(using ec: Executor, scheduler: Scheduler):
 
   import LobbySocket.*
@@ -34,7 +33,7 @@ final class LobbySocket(
 
   private val actor: SyncActor = new SyncActor:
 
-    private val members = cacheApi.scaffeine
+    private val members = lila.memo.CacheApi.scaffeine
       .expireAfterWrite(1 hour)
       .build[SriStr, Member]()
     private val idleSris           = collection.mutable.Set[SriStr]()

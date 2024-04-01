@@ -7,6 +7,9 @@ import play.api.routing.Router
 import scala.util.matching.Regex
 
 import lila.common.Form.trueish
+import lila.core.IpAddress
+import lila.core.Bearer
+import lila.core.ApiVersion
 
 object HTTPRequest:
 

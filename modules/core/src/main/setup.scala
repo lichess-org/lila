@@ -1,8 +1,6 @@
 package lila.core
 package setup
 
-import lila.common.Days
-
 trait OpenConfig:
   val name: Option[String]
   val variant: chess.variant.Variant

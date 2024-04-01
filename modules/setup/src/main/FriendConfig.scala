@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.variant.Variant
 import chess.{ Clock, Mode }
 
-import lila.common.Days
+import lila.core.Days
 import lila.lobby.Color
 
 case class FriendConfig(

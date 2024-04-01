@@ -1,6 +1,6 @@
 package lila.security
 
-import lila.common.Domain
+import lila.core.Domain
 import lila.core.EmailAddress
 import lila.user.{ User, UserRepo }
 

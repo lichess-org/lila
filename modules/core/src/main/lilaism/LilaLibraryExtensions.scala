@@ -1,4 +1,4 @@
-package lila.base
+package lila.core.lilaism
 
 import alleycats.Zero
 import com.typesafe.config.Config
@@ -6,13 +6,10 @@ import scalalib.extensions.*
 
 import java.util.Base64
 import java.util.concurrent.TimeUnit
-import scala.annotation.targetName
-import scala.concurrent.{ Await, ExecutionContext as EC }
+import scala.concurrent.{ ExecutionContext as EC }
 import scala.util.Try
 import scala.util.matching.Regex
 import scalalib.future.*
-
-import lila.common.Chronometer
 
 trait LilaLibraryExtensions extends LilaTypes:
 
@@ -27,7 +24,7 @@ trait LilaLibraryExtensions extends LilaTypes:
     def toTryWith(err: => Exception): Try[A] =
       self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
 
-    def toTry(err: => String): Try[A] = toTryWith(lila.base.LilaException(err))
+    def toTry(err: => String): Try[A] = toTryWith(LilaException(err))
 
     def err(message: => String): A = self.getOrElse(sys.error(message))
 
@@ -120,11 +117,11 @@ trait LilaLibraryExtensions extends LilaTypes:
     def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B])(using Executor): Fu[B] =
       fua.flatMap(succ).recoverWith { case e: Exception => fail(e) }
 
-    def logFailure(logger: => lila.log.Logger, msg: Throwable => String)(using Executor): Fu[A] =
+    def logFailure(logger: => play.api.LoggerLike, msg: Throwable => String)(using Executor): Fu[A] =
       addFailureEffect: e =>
         logger.warn(msg(e), e)
 
-    def logFailure(logger: => lila.log.Logger)(using Executor): Fu[A] = logFailure(logger, _.toString)
+    def logFailure(logger: => play.api.LoggerLike)(using Executor): Fu[A] = logFailure(logger, _.toString)
 
     def addFailureEffect(effect: Throwable => Unit)(using Executor) =
       fua.failed.foreach: (e: Throwable) =>
@@ -173,36 +170,8 @@ trait LilaLibraryExtensions extends LilaTypes:
       )
       fua
 
-    def await(duration: FiniteDuration, name: String): A =
-      Chronometer.syncMon(_.blocking.time(name)) {
-        try Await.result(fua, duration)
-        catch
-          case e: Exception =>
-            lila.mon.blocking.timeout(name).increment()
-            throw e
-      }
-
-    def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =
-      try await(duration, name)
-      catch case _: Exception => default
-
-    def delay(duration: FiniteDuration)(using Executor, Scheduler) =
-      lila.common.LilaFuture.delay(duration)(fua)
-
-    def chronometer    = Chronometer(fua)
-    def chronometerTry = Chronometer.lapTry(fua)
-
-    def mon(path: lila.mon.TimerPath): Fu[A]              = chronometer.mon(path).result
-    def monTry(path: Try[A] => lila.mon.TimerPath): Fu[A] = chronometerTry.mon(r => path(r)(lila.mon)).result
-    def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer): Fu[A] =
-      chronometerTry
-        .mon: r =>
-          path(lila.mon)(r.isSuccess)
-        .result
-    def monValue(path: A => lila.mon.TimerPath): Fu[A] = chronometer.monValue(path).result
-
-    def logTime(name: String): Fu[A]                               = chronometer.pp(name)
-    def logTimeIfGt(name: String, duration: FiniteDuration): Fu[A] = chronometer.ppIfGt(name, duration)
+    // def delay(duration: FiniteDuration)(using Executor, Scheduler) =
+    //   lila.common.LilaFuture.delay(duration)(fua)
 
     def recoverDefault(using Executor)(using z: Zero[A]): Fu[A] = recoverDefault(z.zero)
 
@@ -211,7 +180,7 @@ trait LilaLibraryExtensions extends LilaTypes:
         case _: LilaException                         => default
         case _: java.util.concurrent.TimeoutException => default
         case e: Exception =>
-          lila.log("common").warn("Future.recoverDefault", e)
+          println(s"Future.recoverDefault $e")
           default
 
   extension (fua: Fu[Boolean])

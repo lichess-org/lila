@@ -4,7 +4,7 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.core.timeline.{ TimelineApi, Propagate, UblogPostLike }
+import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.core.i18n.Language
 import lila.user.{ Me, User }
 
@@ -135,7 +135,10 @@ final class UblogRank(colls: UblogColls)(using Executor, akka.stream.Materialize
                 )
                 .andDo {
                   if res.nModified > 0 && v && tier >= Tier.LOW
-                  then TimelineApi(Propagate(UblogPostLike(me, id.value, title)).toFollowersOf(me))
+                  then
+                    lila.common.Bus.named.timeline(
+                      Propagate(UblogPostLike(me, id.value, title)).toFollowersOf(me)
+                    )
                 }
                 .inject(likes)
 

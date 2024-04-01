@@ -3,7 +3,8 @@ package lila.tutor
 import lila.insight.ClockPercent
 import lila.user.User
 
-export lila.Core.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 
 private val logger = lila.log("tutor")
 

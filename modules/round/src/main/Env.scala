@@ -8,7 +8,7 @@ import play.api.Configuration
 import scala.util.matching.Regex
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.common.{ Bus, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.core.round.{ Abort, Resign }

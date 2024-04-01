@@ -2,7 +2,7 @@ package lila.security
 
 import play.api.data.validation.*
 
-import lila.common.Domain
+import lila.core.Domain
 import lila.core.EmailAddress
 import lila.user.{ User, UserRepo }
 

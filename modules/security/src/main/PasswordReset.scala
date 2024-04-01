@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import scalatags.Text.all.*
 
 import lila.core.EmailAddress
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
 import lila.user.{ Me, User, UserRepo }

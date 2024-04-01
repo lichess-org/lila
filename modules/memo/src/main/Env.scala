@@ -4,7 +4,8 @@ import com.softwaremill.macwire.*
 import lila.common.autoconfig.{ *, given }
 import play.api.{ ConfigLoader, Configuration }
 
-import lila.common.config.*
+import lila.core.config.*
+import lila.common.config.given
 
 final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,

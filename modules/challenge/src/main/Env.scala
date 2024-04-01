@@ -2,7 +2,7 @@ package lila.challenge
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module

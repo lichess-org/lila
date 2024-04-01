@@ -6,7 +6,7 @@ import play.api.libs.json.{ JsArray, JsObject }
 import java.text.NumberFormat
 import java.util.{ Currency, Locale }
 
-import lila.common.IpAddress
+import lila.core.IpAddress
 import lila.user.User
 
 case class Source(value: String) extends AnyVal

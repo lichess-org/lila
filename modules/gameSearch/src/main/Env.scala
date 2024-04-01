@@ -6,6 +6,7 @@ import play.api.Configuration
 import lila.common.autoconfig.{ *, given }
 import lila.game.actorApi.{ FinishGame, InsertGame }
 import lila.search.*
+import lila.core.config.ConfigName
 
 @Module
 private class GameSearchConfig(

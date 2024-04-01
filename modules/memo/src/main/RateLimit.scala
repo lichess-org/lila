@@ -10,7 +10,8 @@ final class RateLimit[K](
     key: String,
     enforce: Boolean = true,
     log: Boolean = true
-) extends RateLimit.RateLimiter[K]:
+)(using Executor)
+    extends RateLimit.RateLimiter[K]:
   import RateLimit.*
 
   private val storage = lila.memo.CacheApi.scaffeineNoScheduler
@@ -70,7 +71,7 @@ object RateLimit:
       key: String,
       enforce: Boolean = true,
       log: Boolean = true
-  )(rules: (String, Int, FiniteDuration)*): RateLimiter[K] =
+  )(rules: (String, Int, FiniteDuration)*)(using Executor): RateLimiter[K] =
 
     val limiters: Seq[RateLimit[K]] = rules.map: (subKey, credits, duration) =>
       RateLimit[K](

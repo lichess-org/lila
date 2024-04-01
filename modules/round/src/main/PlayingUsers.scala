@@ -2,7 +2,7 @@ package lila.round
 
 import lila.common.Bus
 
-final class PlayingUsers:
+final class PlayingUsers(using Executor):
 
   private val playing = scalalib.cache.ExpireSetMemo[UserId](4 hours)
 

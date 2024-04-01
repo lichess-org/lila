@@ -1,4 +1,4 @@
-package lila.common
+package lila.core
 
 import chess.format.pgn.PgnStr
 import io.mola.galimatias.IPv4Address.parseIPv4Address
@@ -21,7 +21,7 @@ object AssetVersion extends OpaqueString[AssetVersion]:
   def current        = stored
   def change() =
     stored = random
-    Bus.publish(Changed(current), "assetVersion")
+    current
   private def random = AssetVersion(SecureRandom.nextString(6))
   case class Changed(version: AssetVersion)
 
@@ -101,10 +101,6 @@ final class LazyFu[A](run: () => Fu[A]):
   def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value.dmap(f))
 object LazyFu:
   def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
-
-enum LpvEmbed:
-  case PublicPgn(pgn: PgnStr)
-  case PrivateStudy
 
 opaque type KidMode = Boolean
 object KidMode extends YesNo[KidMode]

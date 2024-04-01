@@ -4,12 +4,12 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.report.SuspectId
 
 @Module
 final class Env(
-    domain: lila.common.config.NetDomain,
+    domain: NetDomain,
     db: lila.db.Db,
     isOnline: lila.core.socket.IsOnline,
     userRepo: lila.user.UserRepo,

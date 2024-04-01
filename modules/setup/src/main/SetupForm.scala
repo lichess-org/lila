@@ -7,9 +7,10 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
-import lila.common.{ Days, Form as LilaForm }
+import lila.common.Form as LilaForm
 import lila.core.rating.RatingRange
 import lila.user.Me
+import lila.core.Days
 
 object SetupForm:
 

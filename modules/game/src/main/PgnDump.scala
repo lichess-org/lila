@@ -5,7 +5,7 @@ import chess.format.{ Fen, pgn as chessPgn }
 import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
 import lila.core.LightUser
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
 
 final class PgnDump(

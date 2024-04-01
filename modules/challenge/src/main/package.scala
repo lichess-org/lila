@@ -1,6 +1,7 @@
 package lila.challenge
 
-export lila.Core.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 
 private def inTwoWeeks = nowInstant.plusWeeks(2)
 

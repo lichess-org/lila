@@ -66,7 +66,7 @@ final class TeamApi(
     yield
       cached.invalidateTeamIds(me.id)
       publish(TeamCreate(team.data))
-      tl.TimelineApi(tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id))
+      lila.common.Bus.named.timeline(tl.Propagate(tl.TeamCreate(me.id, team.id)).toFollowersOf(me.id))
       team
 
   def update(old: Team, edit: TeamEdit)(using me: Me): Funit =
@@ -214,7 +214,7 @@ final class TeamApi(
       (memberRepo.add(team.id, me) >>
         teamRepo.incMembers(team.id, +1)).andDo {
         cached.invalidateTeamIds(me)
-        tl.TimelineApi(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
+        lila.common.Bus.named.timeline(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
         publish(JoinTeam(id = team.id, userId = me))
       }
     }

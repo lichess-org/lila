@@ -1,8 +1,6 @@
 package lila.core
 package challenge
 
-import lila.common.Days
-
 trait Challenge:
   import Challenge.*
   val id: Id

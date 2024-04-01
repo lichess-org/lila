@@ -23,7 +23,8 @@ object Environment
     with ChessgroundHelper
     with HtmlHelper:
 
-  export lila.Core.{ id as _, *, given }
+  export lila.core.lilaism.Lilaism.{ *, given }
+  export lila.common.extensions.*
   export lila.api.Context.{ *, given }
   export lila.api.{ PageData, Nonce }
   export lila.user.Me

@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,

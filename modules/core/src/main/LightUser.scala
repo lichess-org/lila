@@ -2,13 +2,12 @@ package lila.core
 
 import chess.PlayerTitle
 import play.api.libs.json.*
-import lila.common.Json.given
 
 case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[PlayerTitle],
-    flair: Option[lila.Core.Flair],
+    flair: Option[lila.core.Flair],
     isPatron: Boolean
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
@@ -21,15 +20,6 @@ object LightUser:
   val ghost: Ghost = LightUser(UserId("ghost"), UserName("ghost"), None, None, false)
 
   given UserIdOf[LightUser] = _.id
-
-  given lightUserWrites: OWrites[LightUser] = OWrites(write)
-
-  def write(u: LightUser): JsObject = writeNoId(u) + ("id" -> JsString(u.id.value))
-  def writeNoId(u: LightUser): JsObject = Json
-    .obj("name" -> u.name)
-    .add("title", u.title)
-    .add("flair", u.flair)
-    .add("patron", u.isPatron)
 
   def fallback(name: UserName) = LightUser(
     id = name.id,
