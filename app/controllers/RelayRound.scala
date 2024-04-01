@@ -212,7 +212,7 @@ final class RelayRound(
           ctx.userId.exists(sc.study.canContribute),
           isSubscribed,
           videoUrls.map(_.toPair),
-          pinnedStreamer.map(s => (s.user.id.value, s.streamer.name.value, rt.tour.pinnedStreamerImage))
+          pinnedStreamer.map(s => (s.user.id, s.streamer.name.value, rt.tour.pinnedStreamerImage))
         )
         chat     <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))

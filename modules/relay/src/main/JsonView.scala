@@ -96,7 +96,7 @@ final class JsonView(
       canContribute: Boolean,
       isSubscribed: Option[Boolean],
       videoUrls: Option[PairOf[String]],
-      pinned: Option[(String, String, Option[lila.memo.PicfitImage.Id])]
+      pinned: Option[(UserId, String, Option[lila.memo.PicfitImage.Id])]
   ) =
     JsonView.JsData(
       relay = apply(trs)
