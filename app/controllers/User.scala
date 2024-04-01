@@ -578,9 +578,13 @@ final class User(
               case _ =>
                 ctx.me.ifTrue(getBool("friend")) match
                   case Some(follower) =>
-                    env.relation.api.searchFollowedBy(follower, term, 10).flatMap {
-                      case Nil     => env.user.cached.userIdsLike(term)
-                      case userIds => fuccess(userIds)
+                    env.relation.api.searchFollowedBy(follower, term, 10).flatMap { userIds =>
+                      val remaining = 10 - userIds.length
+                      if remaining > 0 then
+                        env.user.cached.userIdsLike(term).map { extraUserIds =>
+                          userIds ++ (extraUserIds.diff(userIds)).take(remaining)
+                        }
+                      else fuccess(userIds)
                     }
                   case None if getBool("teacher") =>
                     env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)

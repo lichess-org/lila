@@ -30,7 +30,7 @@ object edit:
                 picture.thumbnail(s.streamer, s.user)(attr("draggable") := "true", cls := "drop-target"),
                 span(
                   label("Drag image above or"),
-                  form3.file.selectImage
+                  form3.file.selectImage()
                 )
               ),
               div(cls := "overview")(

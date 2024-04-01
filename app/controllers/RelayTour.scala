@@ -122,17 +122,17 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
     ("slow", 60, 1.day)
   )
 
-  def image(id: TourModel.Id) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def image(id: TourModel.Id, tag: Option[String]) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     WithTourCanUpdate(id): tg =>
       ctx.body.body.file("image") match
         case Some(image) =>
           ImageRateLimitPerIp(ctx.ip, rateLimited):
-            (env.relay.api.image.upload(me, tg.tour, image) >> {
+            (env.relay.api.image.upload(me, tg.tour, image, tag) >> {
               Ok
             }).recover { case e: Exception =>
               BadRequest(e.getMessage)
             }
-        case None => env.relay.api.image.delete(tg.tour) >> Ok
+        case None => env.relay.api.image.delete(tg.tour, tag) >> Ok
   }
 
   def leaderboardView(id: TourModel.Id) = Open:
