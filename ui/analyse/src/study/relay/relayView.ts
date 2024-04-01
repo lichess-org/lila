@@ -72,7 +72,7 @@ export function renderPinnedImage(relay: RelayCtrl) {
     attrs: { src: relay.data.pinned.image, style: 'cursor: pointer;' },
     hook: bind('click', () => {
       const url = new URL(location.href);
-      url.searchParams.set('embed', relay.data.pinned!.id);
+      url.searchParams.set('embed', relay.data.pinned!.userId);
       window.location.replace(url);
     }),
   });

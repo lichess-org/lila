@@ -107,8 +107,8 @@ final class JsonView(
         .add("pinned" -> pinned.map: (id, name, image) =>
           Json
             .obj(
-              "id"   -> id,
-              "name" -> name
+              "userId" -> id,
+              "name"   -> name
             )
             .add("image" -> image.map(id => picfitUrl.thumbnail(id, 1200, 675)))),
       study = studyData.study,
