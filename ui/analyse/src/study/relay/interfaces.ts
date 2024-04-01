@@ -7,6 +7,7 @@ export interface RelayData {
   group?: RelayGroup;
   isSubscribed?: boolean; // undefined if anon
   videoUrls?: [string, string];
+  pinned?: { userId: string; name: string; image?: string };
 }
 
 export interface RelayGame {

@@ -168,8 +168,8 @@ object tour:
     )
 
   object thumbnail:
-    def apply(t: RelayTour, size: RelayTour.thumbnail.SizeSelector) =
-      t.image.fold(fallback): id =>
+    def apply(image: Option[PicfitImage.Id], size: RelayTour.thumbnail.SizeSelector) =
+      image.fold(fallback): id =>
         img(
           cls     := "relay-image",
           widthA  := size(RelayTour.thumbnail).width,
