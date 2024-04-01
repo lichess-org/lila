@@ -49,7 +49,7 @@ function renderPlayer(
       result && h('span.result', result),
       h('span.info', [
         player?.team && h('span.team', player.team),
-        player?.fed && playerFed(player.fed),
+        playerFed(player?.fed),
         player && userTitle(player),
         player &&
           (fideId
@@ -63,7 +63,8 @@ function renderPlayer(
   ]);
 }
 
-export const playerFed = (fed: Federation) =>
+export const playerFed = (fed?: Federation): VNode | undefined =>
+  fed &&
   h('img.mini-game__flag', {
     attrs: { src: site.asset.url(`images/fide-fed/${fed.id}.svg`), title: `Federation: ${fed.name}` },
   });

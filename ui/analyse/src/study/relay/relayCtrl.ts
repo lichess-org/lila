@@ -1,5 +1,5 @@
 import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import { BothClocks, ChapterId, ServerClockMsg } from '../interfaces';
+import { BothClocks, ChapterId, Federations, ServerClockMsg } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
 import { Prop, Toggle, notNull, prop, toggle } from 'common';
@@ -32,6 +32,7 @@ export default class RelayCtrl {
     readonly members: StudyMemberCtrl,
     private readonly chapters: StudyChapters,
     private readonly multiCloudEval: MultiCloudEval,
+    private readonly federations: () => Federations | undefined,
     setChapter: (id: ChapterId | number) => boolean,
   ) {
     this.tourShow = toggle((location.pathname.match(/\//g) || []).length < 5);
@@ -45,7 +46,9 @@ export default class RelayCtrl {
     this.teams = data.tour.teamTable
       ? new RelayTeams(id, this.multiCloudEval, setChapter, this.roundPath, redraw)
       : undefined;
-    this.leaderboard = data.tour.leaderboard ? new RelayLeaderboard(data.tour.id, redraw) : undefined;
+    this.leaderboard = data.tour.leaderboard
+      ? new RelayLeaderboard(data.tour.id, this.federations, redraw)
+      : undefined;
     setInterval(() => this.redraw(true), 1000);
 
     const pinned = data.pinned;
