@@ -32,6 +32,7 @@ final class Env(
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type          = lila.i18n.Env
+  val lilaCookie                        = wire[lila.common.LilaCookie]
   val mongo: lila.db.Env                = wire[lila.db.Env]
   val memo: lila.memo.Env               = wire[lila.memo.Env]
   val socket: lila.socket.Env           = wire[lila.socket.Env]
@@ -102,7 +103,6 @@ final class Env(
   val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   val cms: lila.cms.Env                 = wire[lila.cms.Env]
   val api: lila.api.Env                 = wire[lila.api.Env]
-  val lilaCookie                        = wire[lila.common.LilaCookie]
 
   val explorerEndpoint       = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint      = config.get[String]("explorer.tablebase_endpoint")
