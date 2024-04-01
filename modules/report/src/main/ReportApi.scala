@@ -24,7 +24,7 @@ final class ReportApi(
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
     domain: lila.common.config.NetDomain
-)(using Executor, JavaExecutor, Scheduler)
+)(using Executor, Scheduler)
     extends lila.core.report.ReportApi:
 
   import BSONHandlers.given

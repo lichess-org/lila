@@ -11,7 +11,7 @@ final class RacerApi(
     perfsRepo: UserPerfsRepo,
     cacheApi: CacheApi,
     lightUser: LightUser.GetterSyncFallback
-)(using Executor, JavaExecutor)(using scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   import RacerRace.Id
 

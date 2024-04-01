@@ -1,6 +1,6 @@
 package lila.racer
 
-final class RacerLobby(api: RacerApi)(using Executor, JavaExecutor)(using scheduler: akka.actor.Scheduler):
+final class RacerLobby(api: RacerApi)(using Executor)(using scheduler: Scheduler):
 
   def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue:
     currentRace

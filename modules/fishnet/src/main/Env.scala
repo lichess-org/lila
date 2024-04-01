@@ -38,7 +38,7 @@ final class Env(
     sink: lila.analyse.Analyser,
     userRepo: lila.user.UserRepo,
     shutdown: akka.actor.CoordinatedShutdown
-)(using Executor, JavaExecutor, ActorSystem, Scheduler, akka.stream.Materializer):
+)(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 

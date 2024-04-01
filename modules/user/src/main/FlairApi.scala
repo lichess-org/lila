@@ -25,7 +25,7 @@ object FlairApi:
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
-final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: akka.actor.Scheduler):
+final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: Scheduler):
 
   import FlairApi.*
 

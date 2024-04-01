@@ -13,7 +13,7 @@ final private class FirebasePush(
     deviceApi: DeviceApi,
     ws: StandaloneWSClient,
     configs: FirebasePush.BothConfigs
-)(using Executor, JavaExecutor, Scheduler):
+)(using Executor, Scheduler):
 
   if configs.lichobile.googleCredentials.isDefined then
     logger.info("Lichobile Firebase push notifications are enabled.")

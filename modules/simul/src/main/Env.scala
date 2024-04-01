@@ -32,7 +32,7 @@ final class Env(
     socketReq: lila.core.socket.SocketRequester,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.core.socket.IsOnline
-)(using Executor, JavaExecutor, Scheduler, play.api.Mode, lila.user.FlairApi.Getter):
+)(using Executor, Scheduler, play.api.Mode, lila.user.FlairApi.Getter):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 

@@ -19,7 +19,7 @@ final class ChallengeApi(
     gameCache: lila.game.Cached,
     cacheApi: lila.memo.CacheApi,
     langPicker: LangPicker
-)(using Executor, JavaExecutor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.i18n.Translator):
 
   import Challenge.*
 

@@ -23,7 +23,7 @@ final class Env(
     captcha: lila.core.captcha.CaptchaApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(using Executor, JavaExecutor)(using scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   private def lazyPlaybanApi = () => playbanApi
 

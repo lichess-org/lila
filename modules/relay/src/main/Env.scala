@@ -36,7 +36,6 @@ final class Env(
     langList: lila.core.i18n.LangList
 )(using
     Executor,
-    JavaExecutor,
     ActorSystem,
     akka.stream.Materializer,
     play.api.Mode,

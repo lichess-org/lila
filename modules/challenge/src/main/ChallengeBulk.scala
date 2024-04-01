@@ -21,7 +21,7 @@ final class ChallengeBulkApi(
     gameRepo: lila.game.GameRepo,
     userApi: lila.user.UserApi,
     onStart: lila.core.game.OnStart
-)(using Executor, JavaExecutor, akka.stream.Materializer, Scheduler):
+)(using Executor, akka.stream.Materializer, Scheduler):
 
   import lila.game.BSONHandlers.given
   private given BSONDocumentHandler[ScheduledGame]      = Macros.handler

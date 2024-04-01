@@ -6,7 +6,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.common.IpAddress
 
 final private class Tor(ws: StandaloneWSClient, config: SecurityConfig.Tor)(using Executor)(using
-    scheduler: akka.actor.Scheduler
+    scheduler: Scheduler
 ):
 
   def isExitNode(ip: IpAddress) = ips contains ip

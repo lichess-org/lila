@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 
-final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor, JavaExecutor):
+final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
 
   import BsonHandlers.given
 

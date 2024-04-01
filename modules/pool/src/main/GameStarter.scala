@@ -13,7 +13,7 @@ final private class GameStarter(
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: GameId => Unit
-)(using Executor, JavaExecutor, Scheduler):
+)(using Executor, Scheduler):
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(32),

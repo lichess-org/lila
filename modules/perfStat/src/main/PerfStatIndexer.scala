@@ -7,7 +7,7 @@ import lila.user.User
 final class PerfStatIndexer(
     gameRepo: GameRepo,
     storage: PerfStatStorage
-)(using Executor, JavaExecutor, Scheduler):
+)(using Executor, Scheduler):
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),

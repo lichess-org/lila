@@ -25,7 +25,7 @@ final class Env(
     insightApi: lila.insight.InsightApi,
     db: lila.db.Db,
     insightDb: lila.db.AsyncDb @@ lila.insight.InsightDb
-)(using Executor, JavaExecutor)(using scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   lazy val irwinStream = wire[IrwinStream]
 

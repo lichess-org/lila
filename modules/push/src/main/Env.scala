@@ -27,7 +27,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi
-)(using Executor, JavaExecutor, Scheduler):
+)(using Executor, Scheduler):
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
 

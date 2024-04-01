@@ -18,7 +18,6 @@ final class Env(
     environment: Environment,
     shutdown: CoordinatedShutdown
 )(using val system: ActorSystem, val executor: Executor)(using
-    JavaExecutor,
     StandaloneWSClient,
     akka.stream.Materializer,
     SessionCookieBaker

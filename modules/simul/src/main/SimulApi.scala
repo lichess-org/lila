@@ -29,7 +29,7 @@ final class SimulApi(
     repo: SimulRepo,
     verify: SimulCondition.Verify,
     cacheApi: lila.memo.CacheApi
-)(using Executor, JavaExecutor, Scheduler)
+)(using Executor, Scheduler)
     extends lila.core.simul.SimulApi:
 
   private val workQueue = scalalib.actor.AsyncActorSequencers[SimulId](
