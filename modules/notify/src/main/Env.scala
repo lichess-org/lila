@@ -18,7 +18,6 @@ final class Env(
     getLightUser: lila.common.LightUser.Getter,
     getLightUserSync: lila.common.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi,
-    prefApi: lila.pref.PrefApi,
     subsRepo: lila.core.relation.SubscriptionRepo,
     jsDump: lila.core.i18n.JsDump,
     langPicker: lila.core.i18n.LangPicker
