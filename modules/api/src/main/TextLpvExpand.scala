@@ -26,7 +26,7 @@ final class TextLpvExpand(
 
   // forum linkRenderFromText builds a LinkRender from relative game|chapter urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks
-  def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
+  def linkRenderFromText(text: String): Fu[lila.common.RawHtml.LinkRender] =
     regex.forumPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))

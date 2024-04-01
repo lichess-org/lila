@@ -1,6 +1,4 @@
-package lila.base
-
-import lila.common.{ Html, config }
+package lila.common
 
 import RawHtml.*
 

@@ -2,7 +2,7 @@ package lila.forum
 
 import scalatags.Text.all.{ Frag, raw }
 
-import lila.base.RawHtml
+import lila.common.RawHtml
 import lila.common.config
 
 final class ForumTextExpand(using Executor, Scheduler):

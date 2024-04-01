@@ -1,4 +1,4 @@
-package lila.base
+package lila.common
 
 import scalatags.Text.all.*
 

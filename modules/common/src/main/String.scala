@@ -5,7 +5,7 @@ import scalatags.Text.all.*
 
 import java.text.Normalizer
 
-import lila.base.RawHtml
+import lila.common.RawHtml
 import scalalib.StringUtils.{ escapeHtmlRaw, safeJsonString }
 
 object String:

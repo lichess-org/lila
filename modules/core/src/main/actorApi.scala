@@ -66,7 +66,7 @@ package playban:
 
 package lpv:
   case class AllPgnsFromText(text: String, promise: Promise[Map[String, LpvEmbed]])
-  case class LpvLinkRenderFromText(text: String, promise: Promise[lila.base.RawHtml.LinkRender])
+  case class LpvLinkRenderFromText(text: String, promise: Promise[lila.common.RawHtml.LinkRender])
 
 package simul:
   case class GetHostIds(promise: Promise[Set[UserId]])
