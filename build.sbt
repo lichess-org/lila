@@ -166,7 +166,7 @@ lazy val evaluation = module("evaluation",
 )
 
 lazy val rating = module("rating",
-  Seq(db, common),
+  Seq(db),
   reactivemongo.bundle ++ tests.bundle ++ Seq(apacheMath)
 ).dependsOn(common % "test->test")
 
@@ -336,7 +336,7 @@ lazy val challenge = module("challenge",
 )
 
 lazy val fide = module("fide",
-  Seq(common, memo),
+  Seq(memo),
   reactivemongo.bundle
 )
 
@@ -461,7 +461,7 @@ lazy val notifyModule = module("notify",
 )
 
 lazy val socket = module("socket",
-  Seq(common, memo),
+  Seq(memo),
   Seq(lettuce)
 )
 
