@@ -7,6 +7,7 @@ import lila.common.Form.{ cleanText, formatter, into }
 import lila.security.Granter
 import lila.user.Me
 import lila.core.i18n.I18nKey.streamer
+import lila.user.UserForm.historicalUsernameField
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 
@@ -31,13 +32,9 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "teams" -> optional(
         of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
-      "spotlight" -> optional(spotlightMapping),
-      "grouping"  -> RelayGroup.form.mapping,
-      "pinnedStreamer" -> optional(
-        cleanText(maxLength = 20)
-          .verifying("Invalid pinned streamer", validUserStr)
-          .into[UserStr]
-      )
+      "spotlight"      -> optional(spotlightMapping),
+      "grouping"       -> RelayGroup.form.mapping,
+      "pinnedStreamer" -> optional(historicalUsernameField)
     )(Data.apply)(unapply)
   )
 
@@ -46,8 +43,6 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
   def edit(t: RelayTour.WithGroupTours) = form.fill(Data.make(t))
 
 object RelayTourForm:
-
-  def validUserStr = (s: String) => s.trim.matches("^[a-zA-Z0-9_]{3,20}$")
 
   case class Data(
       name: RelayTour.Name,
