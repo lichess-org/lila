@@ -57,7 +57,8 @@ export default class RelayCtrl {
 
     site.pubsub.on('socket.in.crowd', d => {
       const s = (d.streams as [string, string][]) ?? [];
-      if (pinned && this.pinStreamer()) s.unshift([pinned.userId, pinned.name]);
+      if (pinned && this.pinStreamer() && !s.find(x => x[0] === pinned.userId))
+        s.unshift([pinned.userId, pinned.name]);
       if (!s) return;
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
       this.streams = s;
