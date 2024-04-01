@@ -10,7 +10,7 @@ private case class WaitingUsers(
     apiUsers: Option[ExpireSetMemo[UserId]],
     clock: TournamentClock,
     date: Instant
-):
+)(using Executor):
 
   // ultrabullet -> 8
   // hyperbullet -> 10
@@ -62,7 +62,7 @@ private case class WaitingUsers(
     apiUsers.foreach(_.removeAll(us))
     copy(hash = hash -- us)
 
-final private class WaitingUsersApi:
+final private class WaitingUsersApi(using Executor):
 
   private val store = new java.util.concurrent.ConcurrentHashMap[TourId, WaitingUsers.WithNext](64)
 

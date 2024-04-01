@@ -17,7 +17,7 @@ object IpRender:
   type Rendered = String
   type RenderIp = IpAddress => Rendered
 
-final class IpRender:
+final class IpRender(using Executor):
 
   import IpRender.*
 

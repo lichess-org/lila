@@ -11,7 +11,7 @@ import scala.util.chaining.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.common.{ ApiVersion, LangPath }
+import lila.core.{ ApiVersion, LangPath }
 import lila.puzzle.{
   Puzzle as Puz,
   PuzzleAngle,

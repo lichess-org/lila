@@ -4,7 +4,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ IpAddress, config }
+import lila.core.{ IpAddress, config }
 import lila.relay.RelayTour as TourModel
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):

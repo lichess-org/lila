@@ -53,20 +53,22 @@ object config:
   final case class ConfigName(name: String) extends scala.annotation.StaticAnnotation:
     assert(name != null && name.nonEmpty)
 
+  case class Wut(domain: CollName)
+
   case class NetConfig(
       domain: NetDomain,
       prodDomain: NetDomain,
-      @ConfigName("base_url") baseUrl: BaseUrl,
-      @ConfigName("asset.domain") assetDomain: AssetDomain,
-      @ConfigName("asset.base_url") assetBaseUrl: AssetBaseUrl,
-      @ConfigName("asset.base_url_internal") assetBaseUrlInternal: AssetBaseUrlInternal,
-      @ConfigName("asset.minified") minifiedAssets: Boolean,
-      @ConfigName("stage.banner") stageBanner: Boolean,
-      @ConfigName("site.name") siteName: String,
-      @ConfigName("socket.domains") socketDomains: List[String],
-      @ConfigName("socket.alts") socketAlts: List[String],
+      baseUrl: BaseUrl,
+      assetDomain: AssetDomain,
+      assetBaseUrl: AssetBaseUrl,
+      assetBaseUrlInternal: AssetBaseUrlInternal,
+      minifiedAssets: Boolean,
+      stageBanner: Boolean,
+      siteName: String,
+      socketDomains: List[String],
+      socketAlts: List[String],
       crawlable: Boolean,
-      @ConfigName("ratelimit") rateLimit: RateLimit,
+      rateLimit: RateLimit,
       email: EmailAddress
   ):
     def isProd = domain == prodDomain

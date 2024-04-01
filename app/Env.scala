@@ -4,11 +4,12 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
-import play.api.{ Configuration, Environment, Mode }
+import play.api.{ Configuration, Environment, Mode, ConfigLoader }
 
-import lila.common.config.*
 import lila.core.config.*
-import lila.common.{ Strings, UserIds }
+import lila.common.config.given
+import lila.common.autoconfig.{ *, given }
+import lila.core.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
 import lila.core.i18n.Translator
@@ -23,7 +24,7 @@ final class Env(
     akka.stream.Materializer,
     SessionCookieBaker
 ):
-  val net = config.get[NetConfig]("net")
+  val net: NetConfig = config.get[NetConfig]("net")
   export net.{ domain, baseUrl, assetBaseUrlInternal }
 
   given Mode                   = environment.mode
@@ -165,3 +166,25 @@ final class Env(
       promise.success(Html(views.html.puzzle.bits.daily(puzzle, fen, lastMove)))
 
 end Env
+
+given ConfigLoader[NetConfig] = ConfigLoader(config =>
+  path =>
+    def get[A](at: String)(using loader: ConfigLoader[A]): A = loader.load(config, s"$path.$at")
+    import lila.common.config.given
+    NetConfig(
+      domain = get[NetDomain]("domain"),
+      prodDomain = get[NetDomain]("prodDomain"),
+      baseUrl = get[BaseUrl]("base_url"),
+      assetDomain = get[AssetDomain]("asset.domain"),
+      assetBaseUrl = get[AssetBaseUrl]("asset.base_url"),
+      assetBaseUrlInternal = get[AssetBaseUrlInternal]("asset.base_url_internal"),
+      minifiedAssets = get[Boolean]("asset.minified"),
+      stageBanner = get[Boolean]("stage.banner"),
+      siteName = get[String]("site.name"),
+      socketDomains = get[List[String]]("socket.domains"),
+      socketAlts = get[List[String]]("socket.alts"),
+      crawlable = get[Boolean]("crawlable"),
+      rateLimit = get[RateLimit]("ratelimit"),
+      email = get[lila.core.EmailAddress]("email")
+    )
+)

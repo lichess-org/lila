@@ -5,6 +5,7 @@ import lila.common.autoconfig.{ *, given }
 import play.api.{ ConfigLoader, Configuration }
 
 import lila.core.config.*
+import lila.common.autoconfig.*
 import lila.common.config.given
 
 final class MemoConfig(

@@ -9,13 +9,15 @@ import scala.util.chaining.*
 import lila.analyse.Analysis
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
-import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
+import lila.common.{ Bus, HTTPRequest }
 import lila.core.socket.Sri
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Order, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
+import lila.core.actorApi.LpvEmbed
+import lila.core.IpAddress
 
 final class Study(
     env: Env,
@@ -531,7 +533,7 @@ final class Study(
                 .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
                 .as("image/gif")
             }
-            .recover { case lila.base.LilaInvalid(msg) =>
+            .recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(msg)
             }
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))

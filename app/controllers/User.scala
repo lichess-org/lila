@@ -14,13 +14,14 @@ import scala.util.chaining.*
 import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog
 import lila.rating.{ Perf, PerfType }
 import lila.security.{ Granter, UserLogins }
 import lila.user.User as UserModel
 import lila.core.rating.PerfKey
+import lila.core.IpAddress
 
 final class User(
     override val env: Env,
@@ -601,7 +602,7 @@ final class User(
                 .map: users =>
                   Json.obj:
                     "result" -> JsArray(users.collect { case Some(u) =>
-                      lila.core.LightUser
+                      lila.common.Json.lightUser
                         .write(u)
                         .add("online" -> env.socket.isOnline(u.id))
                     })

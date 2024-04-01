@@ -3,7 +3,7 @@ package lila.api
 import scala.annotation.nowarn
 
 import lila.chat.UserLine
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 import lila.core.shutup.PublicSource
 import lila.simul.{ Simul, SimulApi }
 import lila.study.{ Study, StudyRepo }

@@ -17,7 +17,6 @@ final class UserGameApi(
 )(using Executor):
 
   import lila.game.JsonView.given
-  import LightUser.lightUserWrites
 
   def jsPaginator(pag: Paginator[Game])(using ctx: Context): Fu[JsObject] =
     for

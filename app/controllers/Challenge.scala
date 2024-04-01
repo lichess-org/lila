@@ -8,7 +8,7 @@ import lila.app.{ *, given }
 import lila.challenge.Challenge as ChallengeModel
 import lila.challenge.Challenge.Id as ChallengeId
 
-import lila.common.{ Bearer, IpAddress, Preload }
+import lila.core.{ Bearer, IpAddress, Preload }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ EndpointScopes, OAuthScope }
 import lila.setup.ApiConfig

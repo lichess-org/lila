@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import scala.util.matching.Regex
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
 

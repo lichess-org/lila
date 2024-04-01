@@ -19,7 +19,6 @@ final private class GameConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
@@ -36,7 +35,6 @@ final class Env(
     Materializer,
     play.api.Mode
 ):
-
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
 
   lazy val gameRepo = new GameRepo(db(config.gameColl))

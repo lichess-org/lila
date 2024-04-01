@@ -34,10 +34,11 @@ object Environment
   def setEnv(e: Env)              = envVar = Some(e)
   def env: Env                    = envVar.get
 
-  def netConfig                      = env.net
-  def netBaseUrl                     = env.net.baseUrl.value
-  def contactEmailInClear            = env.net.email.value
-  given lila.common.config.NetDomain = env.net.domain
+  def netConfig           = env.net
+  def netBaseUrl          = env.net.baseUrl.value
+  def contactEmailInClear = env.net.email.value
+
+  given lila.core.config.NetDomain = env.net.domain
 
   lazy val siteName: String =
     if env.net.siteName == "localhost:9663" then "lichess.dev"

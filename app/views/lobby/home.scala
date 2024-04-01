@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LangPath
+import lila.core.LangPath
 import lila.game.Pov
 
 object home:

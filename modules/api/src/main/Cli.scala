@@ -33,7 +33,7 @@ final private[api] class Cli(
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
       import lila.core.AssetVersion
       val current = AssetVersion.change()
-      Bus.publish(Changed(current), "assetVersion")
+      Bus.publish(AssetVersion.Changed(current), "assetVersion")
       fuccess(s"Changed to ${AssetVersion.current}")
     case "announce" :: "cancel" :: Nil =>
       AnnounceStore.set(none)

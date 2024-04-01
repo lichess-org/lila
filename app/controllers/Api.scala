@@ -9,8 +9,8 @@ import scala.util.chaining.*
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 
-import lila.common.{ HTTPRequest, IpAddress }
-import lila.core.LightUser
+import lila.common.HTTPRequest
+import lila.core.{ IpAddress, LightUser }
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
 
@@ -79,7 +79,7 @@ final class Api(
     env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
       val streamingIds = env.streamer.liveStreamApi.userIds
       def toJson(u: LightUser) =
-        LightUser
+        lila.common.Json.lightUser
           .write(u)
           .add("online" -> env.socket.isOnline(u.id))
           .add("playing" -> env.round.playing(u.id))

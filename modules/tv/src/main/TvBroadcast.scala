@@ -5,7 +5,6 @@ import akka.stream.scaladsl.*
 import chess.format.Fen
 import play.api.libs.json.*
 
-import lila.Core.{ GameId, none }
 import lila.common.Json.given
 import lila.common.Bus
 import lila.core.LightUser
@@ -68,7 +67,7 @@ final private class TvBroadcast(
               val user = p.userId.flatMap(lightUserSync)
               Json
                 .obj("color" -> p.color.name)
-                .add("user" -> user.map(LightUser.write))
+                .add("user" -> user)
                 .add("ai" -> p.aiLevel)
                 .add("rating" -> p.rating)
                 .add("seconds" -> game.clock.map(_.remainingTime(pov.color).roundSeconds))

@@ -49,7 +49,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       (s.streams
         .zip(users))
         .map: (stream, user) =>
-          lila.core.LightUser.write(user) ++
+          Json.toJsObject(user) ++
             lila.streamer.Stream.toJson(env.memo.picfitUrl, stream)
 
   def show(username: UserStr) = Open:

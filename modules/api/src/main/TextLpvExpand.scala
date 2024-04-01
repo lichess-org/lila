@@ -4,11 +4,12 @@ import chess.format.pgn.PgnStr
 import scalatags.Text.all.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.common.LpvEmbed
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import lila.core.i18n.{ Translate, Translator }
+import lila.core.actorApi.LpvEmbed
+import lila.core.actorApi.LinkRender
 
 final class TextLpvExpand(
     gameRepo: GameRepo,
@@ -26,7 +27,7 @@ final class TextLpvExpand(
 
   // forum linkRenderFromText builds a LinkRender from relative game|chapter urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks
-  def linkRenderFromText(text: String): Fu[lila.common.RawHtml.LinkRender] =
+  def linkRenderFromText(text: String): Fu[LinkRender] =
     regex.forumPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))

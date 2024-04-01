@@ -3,7 +3,7 @@ package lila.mod
 import akka.actor.*
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.report.SuspectId
 import lila.user.{ Me, User }
 

@@ -6,10 +6,11 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, LpvEmbed }
+import lila.common.HTTPRequest
 import lila.game.{ PgnDump, Pov }
 import lila.oauth.AccessToken
 import lila.tree.ExportOptions
+import lila.core.actorApi.LpvEmbed
 
 final class Analyse(
     env: Env,

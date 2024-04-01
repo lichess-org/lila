@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LangPath
+import lila.core.LangPath
 import scalalib.paginator.Paginator
 import lila.i18n.LangList
 import lila.user.{ Flag, Flags }

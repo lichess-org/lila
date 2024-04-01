@@ -237,4 +237,4 @@ final class AssessApi(
 
     shouldAnalyse.mapz: reason =>
       lila.mon.cheat.autoAnalysis(reason.toString).increment()
-      lila.core.fishnet.FishnetApi.analyseGame(game.id)
+      lila.common.Bus.named.fishnet.analyseGame(game.id)

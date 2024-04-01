@@ -5,7 +5,7 @@ import play.api.Configuration
 
 import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module

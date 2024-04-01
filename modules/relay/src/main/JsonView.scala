@@ -3,7 +3,7 @@ package lila.relay
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.study.ChapterPreview
 import lila.user.Me

@@ -17,10 +17,8 @@ object config:
   given ConfigLoader[AssetBaseUrl]         = strLoader
   given ConfigLoader[AssetBaseUrlInternal] = strLoader
   given ConfigLoader[RateLimit]            = boolLoader
-  // given ConfigLoader[NetConfig]            = AutoConfig.loader[NetConfig]
-
-  given ConfigLoader[Secret]       = strLoader(Secret.apply)
-  given ConfigLoader[List[String]] = ConfigLoader.seqStringLoader.map(_.toList)
+  given ConfigLoader[Secret]               = strLoader(Secret.apply)
+  given ConfigLoader[List[String]]         = ConfigLoader.seqStringLoader.map(_.toList)
 
   given [A](using l: ConfigLoader[A]): ConfigLoader[List[A]] =
     ConfigLoader { c => k =>
@@ -34,9 +32,6 @@ object config:
   def intLoader[A](f: Int => A): ConfigLoader[A]      = ConfigLoader.intLoader.map(f)
   def boolLoader[A](f: Boolean => A): ConfigLoader[A] = ConfigLoader.booleanLoader.map(f)
 
-  def strLoader[A](using sr: SameRuntime[String, A]): ConfigLoader[A] =
-    ConfigLoader.stringLoader.map(sr.apply)
-  def intLoader[A](using sr: SameRuntime[Int, A]): ConfigLoader[A] =
-    ConfigLoader.intLoader.map(sr.apply)
-  def boolLoader[A](using sr: SameRuntime[Boolean, A]): ConfigLoader[A] =
-    ConfigLoader.booleanLoader.map(sr.apply)
+  def strLoader[A](using sr: SameRuntime[String, A]): ConfigLoader[A]   = strLoader(sr.apply)
+  def intLoader[A](using sr: SameRuntime[Int, A]): ConfigLoader[A]      = intLoader(sr.apply)
+  def boolLoader[A](using sr: SameRuntime[Boolean, A]): ConfigLoader[A] = boolLoader(sr.apply)

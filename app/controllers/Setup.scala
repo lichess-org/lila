@@ -6,7 +6,8 @@ import play.api.mvc.{ Request, Result }
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, IpAddress, Preload }
+import lila.core.{ IpAddress, Preload }
+import lila.common.HTTPRequest
 import lila.game.{ AnonCookie, Pov }
 import lila.memo.RateLimit
 import lila.rating.Perf

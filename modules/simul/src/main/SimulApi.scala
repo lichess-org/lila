@@ -13,7 +13,7 @@ import lila.game.{ Game, GameRepo, LightGame }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam
-import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin, TimelineApi }
+import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
 import lila.core.socket.SendToFlag
@@ -65,7 +65,8 @@ final class SimulApi(
     _ <- repo.create(simul)
   yield
     publish()
-    lila.common.Bus.named.timeline(Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
+    lila.common.Bus.named
+      .timeline(Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
     simul
 
   def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] =

@@ -88,8 +88,9 @@ final class Msg(env: Env) extends LilaController(env):
 
   private def inboxJson(using me: Me) =
     env.msg.api.myThreads.flatMap(env.msg.json.threads).map { threads =>
+      import lila.common.Json.lightUserWrites
       Json.obj(
-        "me"       -> lila.core.LightUser.write(me.light).add("bot" -> me.isBot),
+        "me"       -> Json.toJsObject(me.light).add("bot" -> me.isBot),
         "contacts" -> threads
       )
     }

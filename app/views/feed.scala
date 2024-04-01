@@ -67,7 +67,7 @@ object feed:
       pagerNext(ups, np => routes.Feed.index(np).url)
     )
 
-  val lobbyUpdates = renderCache[List[Update]](1 minute): ups =>
+  val lobbyUpdates = renderCache[List[Update]](1 minute)(using env.executor): ups =>
     div(cls := "daily-feed__updates")(
       ups.map: update =>
         div(cls := "daily-feed__update")(
