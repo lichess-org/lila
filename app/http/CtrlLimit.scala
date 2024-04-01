@@ -1,9 +1,9 @@
-package lila.memo
+package lila.app
+package http
 
-import play.api.mvc.Result
+import lila.memo.ConcurrencyLimit
 
-/** only allow X futures at a time per key
-  */
+/** only allow X futures at a time per key */
 final class FutureConcurrencyLimit[K](
     key: String,
     ttl: FiniteDuration,
@@ -15,7 +15,7 @@ final class FutureConcurrencyLimit[K](
 
   private lazy val monitor = lila.mon.security.concurrencyLimit(key)
 
-  def apply(k: K, limited: => Fu[Result])(op: => Fu[Result]): Fu[Result] =
+  def apply[A](k: K, limited: => Fu[A])(op: => Fu[A]): Fu[A] =
     storage.get(k) match
       case c @ _ if c >= maxConcurrency =>
         monitor.increment()
