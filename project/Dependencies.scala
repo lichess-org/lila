@@ -17,7 +17,7 @@ object Dependencies {
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.10.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
-  val scalalib    = "com.github.lichess-org"       %% "scalalib"                        % "10.0.3"
+  val scalalib    = "com.github.lichess-org"       %% "scalalib"                        % "10.0.4"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val chess       = "org.lichess"                  %% "scalachess"                      % chessVersion
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
