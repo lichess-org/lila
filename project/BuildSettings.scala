@@ -26,7 +26,7 @@ object BuildSettings {
       cats,
       alleycats,
       play.api,
-      chess,
+      chess.core,
       kittens
     )
 

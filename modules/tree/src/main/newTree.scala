@@ -11,6 +11,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
 import chess.Color
 import play.api.libs.json.*
+import chess.json.Json.given
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
