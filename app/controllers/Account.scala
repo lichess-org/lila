@@ -130,7 +130,7 @@ final class Account(
         .get(me)
         .map: prefs =>
           Ok:
-            lila.core.Json.lightUser.write(me.light) ++ Json.obj(
+            lila.common.Json.lightUser.write(me.light) ++ Json.obj(
               "coach" -> isGranted(_.Coach),
               "prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false)
             )

@@ -7,7 +7,7 @@ import play.api.libs.json.Json
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.Json.given
+import lila.common.Json.given
 import scalalib.paginator.Paginator
 import lila.mod.Modlog
 import lila.core.socket.SocketVersion

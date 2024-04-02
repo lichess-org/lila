@@ -7,7 +7,7 @@ import play.api.libs.json.*
 
 import java.time.LocalDate
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.common.LateMultiThrottler
 import lila.search.*
 import lila.study.{ Chapter, ChapterRepo, Study, StudyRepo }

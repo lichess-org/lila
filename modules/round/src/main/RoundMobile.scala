@@ -4,7 +4,7 @@ import chess.{ ByColor, Color }
 import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.chat.Chat
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.core.Preload
 import lila.core.LightUser
 import lila.game.JsonView.given

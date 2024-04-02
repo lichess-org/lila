@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.dsl.{ *, given }
 import lila.insight.BSONHandlers.given

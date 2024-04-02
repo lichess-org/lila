@@ -10,7 +10,7 @@ import views.*
 import scala.util.chaining.*
 
 import lila.app.{ *, given }
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.core.{ ApiVersion, LangPath }
 import lila.puzzle.{
   Puzzle as Puz,

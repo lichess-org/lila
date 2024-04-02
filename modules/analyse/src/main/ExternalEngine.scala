@@ -8,7 +8,7 @@ import play.api.data.Forms.*
 import play.api.libs.json.{ Json, OWrites }
 
 import lila.common.Form.{ *, given }
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
 import lila.user.User

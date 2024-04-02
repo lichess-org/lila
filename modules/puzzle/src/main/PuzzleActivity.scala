@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 
-import lila.core.Json.given
+import lila.common.Json.given
 
 import lila.db.dsl.{ *, given }
 import lila.user.User

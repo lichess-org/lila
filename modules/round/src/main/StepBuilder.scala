@@ -25,7 +25,7 @@ object Step:
 
   given Writes[Step] = Writes: step =>
     import play.api.libs.json.*
-    import lila.core.Json.given
+    import lila.common.Json.given
     import step.*
     Json
       .obj(

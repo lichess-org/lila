@@ -2,7 +2,7 @@ package lila.api
 
 import play.api.libs.json.{ JsObject, Json, Writes }
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
 import lila.rating.Perf

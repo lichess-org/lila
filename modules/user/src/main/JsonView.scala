@@ -2,7 +2,7 @@ package lila.user
 
 import play.api.libs.json.*
 
-import lila.core.Json.{ writeAs, given }
+import lila.common.Json.{ writeAs, given }
 import lila.core.LightUser
 import lila.rating.{ Perf, PerfType }
 

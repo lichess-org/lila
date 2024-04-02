@@ -102,7 +102,7 @@ object ChapterPreview:
         Player(n | PlayerName("Unknown player"), t, e, c, f, te)
 
   object json:
-    import lila.core.Json.{ given }
+    import lila.common.Json.{ given }
 
     def readFirstId(js: AsJsons): Option[StudyChapterId] = for
       arr <- js.asOpt[JsArray]

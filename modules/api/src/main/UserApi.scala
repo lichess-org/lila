@@ -3,7 +3,7 @@ package lila.api
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.core.config.*
 import lila.rating.{ PerfType, UserRankMap }
 import lila.security.Granter

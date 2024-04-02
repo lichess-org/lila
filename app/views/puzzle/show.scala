@@ -5,7 +5,7 @@ import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.core.Json.given
+import lila.common.Json.given
 
 object show:
 

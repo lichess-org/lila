@@ -121,7 +121,7 @@ final class RelayTeamTable(
         yield newTable) | table
 
     object json:
-      import lila.core.Json.given
+      import lila.common.Json.given
       given [A: Writes]: Writes[Pair[A]] = Writes: p =>
         Json.arr(p.a, p.b)
       given Writes[TeamWithPoints] = Json.writes[TeamWithPoints]

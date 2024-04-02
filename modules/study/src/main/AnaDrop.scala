@@ -6,7 +6,7 @@ import chess.opening.*
 import chess.variant.Variant
 import play.api.libs.json.JsObject
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.tree.Branch
 
 case class AnaDrop(

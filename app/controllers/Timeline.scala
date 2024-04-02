@@ -5,7 +5,7 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.Json.given
+import lila.common.Json.given
 
 import lila.timeline.Entry.given
 

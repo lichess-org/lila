@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.core.LazyFu
 import lila.common.autoconfig.*
 import lila.core.config.ConfigName

@@ -3,7 +3,7 @@ package lila.timeline
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.core.timeline.*
 

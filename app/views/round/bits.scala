@@ -8,7 +8,7 @@ import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.core.LangPath
 import lila.game.{ Game, Pov }
 

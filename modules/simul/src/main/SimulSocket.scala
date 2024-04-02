@@ -2,7 +2,7 @@ package lila.simul
 
 import play.api.libs.json.*
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.game.{ Game, Pov }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }

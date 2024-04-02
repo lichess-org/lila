@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import reactivemongo.api.Cursor
 
 import lila.chat.BusChan
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.common.{ Bus, Lilakka }
 import lila.game.{ Event, Game, Pov }
 import scalalib.actor.AsyncActorConcMap

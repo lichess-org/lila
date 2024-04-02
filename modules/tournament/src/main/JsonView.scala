@@ -5,7 +5,7 @@ import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.common.Uptime
 import lila.core.LightUser
 import lila.game.LightPov
@@ -17,7 +17,7 @@ import lila.core.socket.SocketVersion
 import lila.user.{ LightUserApi, Me, User }
 import lila.core.i18n.Translate
 import lila.core.Preload
-import lila.core.Json.lightUser.writeNoId
+import lila.common.Json.lightUser.writeNoId
 
 final class JsonView(
     lightUserApi: LightUserApi,

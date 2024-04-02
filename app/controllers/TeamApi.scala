@@ -24,7 +24,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def all(page: Int) = Anon:
     import env.team.jsonView.given
-    import lila.core.Json.paginatorWrite
+    import lila.common.Json.paginatorWrite
     JsonOk:
       for
         pager <- paginator.popularTeamsWithPublicLeaders(page)
@@ -66,7 +66,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def search(text: String, page: Int) = Anon:
     import env.team.jsonView.given
-    import lila.core.Json.paginatorWrite
+    import lila.common.Json.paginatorWrite
     JsonOk:
       if text.trim.isEmpty
       then paginator.popularTeamsWithPublicLeaders(page)

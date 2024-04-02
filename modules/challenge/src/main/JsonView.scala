@@ -3,7 +3,7 @@ package lila.challenge
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.common.licon
 import lila.game.JsonView.given
 import lila.core.i18n.I18nKey as trans

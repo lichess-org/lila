@@ -2,7 +2,7 @@ package lila.lobby
 
 import play.api.libs.json.*
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.game.Pov
 import scalalib.actor.SyncActor
 import lila.core.timeline.*
@@ -122,7 +122,7 @@ final class LobbySocket(
     private def tellActiveHookSubscribers(msg: JsObject): Unit =
       send(P.Out.tellSris(hookSubscriberSris.diff(idleSris).map { Sri(_) }, msg))
 
-    import lila.core.Json.given
+    import lila.common.Json.given
     private def gameStartRedirect(pov: Pov) = makeMessage(
       "redirect",
       Json

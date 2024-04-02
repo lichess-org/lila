@@ -602,7 +602,7 @@ final class User(
                 .map: users =>
                   Json.obj:
                     "result" -> JsArray(users.collect { case Some(u) =>
-                      lila.core.Json.lightUser
+                      lila.common.Json.lightUser
                         .write(u)
                         .add("online" -> env.socket.isOnline(u.id))
                     })

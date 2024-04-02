@@ -2,7 +2,7 @@ package lila.bot
 
 import play.api.libs.json.*
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.game.JsonView.given
 import lila.game.{ Game, GameRepo, Pov }
 import lila.core.i18n.Translate

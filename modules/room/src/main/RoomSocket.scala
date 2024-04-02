@@ -9,7 +9,7 @@ import lila.core.shutup.PublicSource
 import lila.log.Logger
 import lila.core.socket.{ protocol as P, * }
 import lila.core.socket.{ makeMessage }
-import lila.core.Json.given
+import lila.common.Json.given
 
 import lila.user.{ Me, FlairApi }
 

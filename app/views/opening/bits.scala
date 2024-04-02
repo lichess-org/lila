@@ -70,7 +70,7 @@ object bits:
     PageModule(
       "opening",
       page.so: p =>
-        import lila.core.Json.given
+        import lila.common.Json.given
         Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
     )
 

@@ -7,7 +7,7 @@ import chess.format.pgn.{ PgnStr, Tag }
 import play.api.libs.json.*
 
 import lila.analyse.{ AccuracyPercent, Analysis, JsonView as analysisJson }
-import lila.core.Json.given
+import lila.common.Json.given
 
 import lila.common.HTTPRequest
 import lila.core.LightUser

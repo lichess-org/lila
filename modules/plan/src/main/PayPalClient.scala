@@ -11,7 +11,7 @@ import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse, WSAuthScheme
 
 import java.util.Currency
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.core.config.*
 import lila.common.autoconfig.*
 import lila.common.config.given

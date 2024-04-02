@@ -2,7 +2,7 @@ package lila.insight
 
 import play.api.libs.json.*
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.i18n.Translate
 

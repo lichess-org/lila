@@ -79,7 +79,7 @@ final class Env(
       promise.completeWith(api.currentHostIds)
     },
     "moveEventSimul" -> { case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>
-      import lila.core.Json.given
+      import lila.common.Json.given
       Bus.publish(
         lila.core.actorApi.socket.SendTo(
           opponentUserId,

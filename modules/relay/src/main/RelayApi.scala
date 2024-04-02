@@ -418,7 +418,7 @@ final class RelayApi(
     studyApi.members(id.into(StudyId)).map {
       _.map(_.contributorIds).withFilter(_.nonEmpty).foreach { userIds =>
         import lila.core.actorApi.socket.SendTos
-        import lila.core.Json.given
+        import lila.common.Json.given
         import lila.core.socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
         lila.common.Bus.publish(SendTos(userIds, payload), "socketUsers")

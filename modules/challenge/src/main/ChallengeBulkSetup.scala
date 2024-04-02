@@ -216,7 +216,7 @@ object ChallengeBulkSetup:
 
   def toJson(bulk: ScheduledBulk) =
     import bulk.*
-    import lila.core.Json.given
+    import lila.common.Json.given
     import lila.game.JsonView.given
     Json
       .obj(

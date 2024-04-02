@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.core.Json.given
+import lila.common.Json.given
 
 final class IrwinStream:
 

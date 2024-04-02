@@ -2,7 +2,7 @@ package lila.simul
 
 import play.api.libs.json.*
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.core.LightUser
 import lila.game.{ Game, GameRepo }
 import lila.gathering.Condition.WithVerdicts

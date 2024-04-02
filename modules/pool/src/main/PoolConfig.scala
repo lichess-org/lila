@@ -24,7 +24,7 @@ object PoolConfig:
   def clockToId(clock: chess.Clock.Config) = PoolConfigId(clock.show)
 
   import play.api.libs.json.*
-  import lila.core.Json.given
+  import lila.common.Json.given
   private given Lang = lila.core.i18n.defaultLang
   given (using Translator): OWrites[PoolConfig] = OWrites: p =>
     Json.obj(

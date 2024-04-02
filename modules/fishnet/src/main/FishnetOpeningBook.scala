@@ -8,7 +8,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.game.Game
 import lila.memo.SettingStore
 

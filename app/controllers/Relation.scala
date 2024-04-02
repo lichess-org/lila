@@ -110,7 +110,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   private def jsonRelatedPaginator(pag: Paginator[Related]) =
     given Writes[UserModel.WithPerfs] = lila.user.JsonView.nameWrites
     import lila.relation.JsonView.given
-    import lila.core.Json.paginatorWrite
+    import lila.common.Json.paginatorWrite
     Json.obj("paginator" -> pag.mapResults: r =>
       Json.toJsObject(r) ++ Json
         .obj:

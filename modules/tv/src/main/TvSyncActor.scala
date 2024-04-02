@@ -4,7 +4,7 @@ import scalalib.actor.SyncActor
 import play.api.libs.json.Json
 
 import lila.common.Bus
-import lila.core.Json.given
+import lila.common.Json.given
 import lila.game.{ Game, Pov }
 
 final private[tv] class TvSyncActor(
