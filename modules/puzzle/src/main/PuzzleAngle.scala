@@ -55,4 +55,4 @@ object PuzzleAngle:
       openings: PuzzleOpeningCollection
   )
 
-  given Iso.StringIso[PuzzleAngle] = lila.common.Iso.string(findOrMix, _.key)
+  given Iso.StringIso[PuzzleAngle] = scalalib.Iso.string(findOrMix, _.key)

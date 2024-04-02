@@ -45,9 +45,12 @@ object Dependencies {
   }
 
   object scalalib {
-    val version = "11.0.0"
-    val lila    = "org.lichess" %% "scalalib-lila" % version
-    def bundle  = Seq(lila)
+    val version  = "11.1.0"
+    val core     = "org.lichess" %% "scalalib-core"      % version
+    val model    = "org.lichess" %% "scalalib-model"     % version
+    val playJson = "org.lichess" %% "scalalib-play-json" % version
+    val lila     = "org.lichess" %% "scalalib-lila"      % version
+    def bundle   = Seq(core, model, playJson, lila)
   }
 
   object flexmark {

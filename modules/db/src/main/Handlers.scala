@@ -6,8 +6,7 @@ import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 
 import scala.util.{ Failure, NotGiven, Success, Try }
 
-import lila.common.Iso
-import lila.common.Iso.*
+import lila.common.Iso.{ *, given }
 import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.IpAddress
 
