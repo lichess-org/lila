@@ -17,3 +17,4 @@ trait IrcApi:
   def broadcastStart(id: RelayRoundId, fullName: String): Funit
   def broadcastError(id: RelayRoundId, name: String, error: String): Funit
   def monitorMod(icon: String, text: String, tpe: ModDomain)(using MyId): Funit
+  def ublogPost(user: LightUser, id: UblogPostId, slug: String, title: String, intro: String): Funit

@@ -155,7 +155,7 @@ lazy val feed = module("feed",
 )
 
 lazy val ublog = module("ublog",
-  Seq(irc, security),
+  Seq(security),
   Seq(bloomFilter) ++ reactivemongo.bundle
 )
 
