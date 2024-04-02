@@ -25,10 +25,10 @@ final class UserAnalysis(
       case Array(key) => load("", Variant.orDefault(Variant.LilaKey(key)))
       case Array(key, fen) =>
         Variant(Variant.LilaKey(key)) match
-          case Some(variant) if variant != Standard           => load(fen, variant)
+          case Some(variant) if variant != Standard            => load(fen, variant)
           case _ if Fen.Full.clean(fen) == Standard.initialFen => load("", Standard)
-          case Some(Standard)                                 => load(fen, FromPosition)
-          case _                                              => load(arg, FromPosition)
+          case Some(Standard)                                  => load(fen, FromPosition)
+          case _                                               => load(arg, FromPosition)
       case _ => load("", Standard)
 
   def load(urlFen: String, variant: Variant) = Open:
