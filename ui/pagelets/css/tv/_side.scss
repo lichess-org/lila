@@ -11,7 +11,7 @@
       order: 2;
       color: mix($c-brag, $c-bg-page, 60%);
       font-size: 2.5em;
-      margin-#{$start-direction}: 0.8rem;
+      margin-inline-start: 0.8rem;
     }
 
     > span {

@@ -152,7 +152,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
 
     .setting {
       @extend %flex-center-nowrap;
-      margin-#{$end-direction}: -1em;
+      margin-inline-end: -1em;
       label {
         padding: 0 0.5em;
         cursor: pointer;
@@ -183,7 +183,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     }
     &__status {
       font-size: 1rem;
-      margin-#{$end-direction}: 1ch;
+      margin-inline-end: 1ch;
     }
     &__label {
       .round-state {
@@ -232,7 +232,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       }
       .status {
         padding: 0.5em 1.5rem 0.5em 0;
-        text-align: $end-direction;
+        text-align: end;
       }
     }
   }
@@ -284,19 +284,19 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     }
     thead {
       th {
-        text-align: $end-direction;
+        text-align: end;
         padding: 0 2rem 0.5rem 2rem;
       }
     }
     th {
       &:nth-child(1) {
-        text-align: $start-direction;
+        text-align: start;
         padding-right: 2rem;
       }
       a {
         @extend %flex-center-nowrap;
         .mini-game__flag {
-          margin-#{$end-direction}: 1em;
+          margin-inline-end: 1em;
           opacity: 0.7;
         }
         color: $c-font;
@@ -306,7 +306,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       }
     }
     td {
-      text-align: $end-direction;
+      text-align: end;
       padding: 1rem 2rem;
       &:last-child {
         font-weight: bold;
@@ -362,7 +362,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     font-weight: bold;
     align-self: center;
     width: 1.8ch;
-    text-align: $end-direction;
+    text-align: end;
     color: $c-font-dimmer;
   }
   &--current::before,

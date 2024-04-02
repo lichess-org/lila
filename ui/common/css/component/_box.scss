@@ -28,7 +28,7 @@ $vp-max-width: 1200px;
       }
 
       > :not(:first-child) {
-        margin-#{$start-direction}: 1rem;
+        margin-inline-start: 1rem;
       }
     }
   }

@@ -11,7 +11,7 @@ group.radio {
 
   input {
     position: absolute;
-    #{$start-direction}: -99999px;
+    left: -99999px;
   }
 
   label,
@@ -22,7 +22,7 @@ group.radio {
     padding: 10px;
     height: 100%;
     cursor: pointer;
-    border-#{$end-direction}: $border;
+    border-inline-end: $border;
     user-select: none;
 
     &:hover {
@@ -31,7 +31,7 @@ group.radio {
   }
 
   div:last-child label {
-    border-#{$end-direction}: 0;
+    border-inline-end: 0;
   }
 
   input:checked + label {

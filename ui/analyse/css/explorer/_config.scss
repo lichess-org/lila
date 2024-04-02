@@ -64,16 +64,16 @@
     .player-name {
       border-radius: $box-radius-size !important;
       font-weight: bold;
-      padding-#{$end-direction}: 1em;
-      padding-#{$start-direction}: 1em;
+      padding-left: 1em;
+      padding-right: 1em;
       text-transform: none;
-      margin-#{$end-direction}: 0.5em;
+      margin-inline-end: 0.5em;
       &.active:hover {
         background: mix($c-secondary, white, 80);
       }
     }
     .color {
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
     }
   }
 
@@ -124,11 +124,11 @@
       .remove {
         @extend %button-none;
         $remove-button-diameter: 1.75em;
-        margin-#{$start-direction}: -$remove-button-diameter;
+        margin-inline-start: -$remove-button-diameter;
         width: $remove-button-diameter;
         height: $remove-button-diameter;
         top: -1.5em;
-        #{$end-direction}: -0.65em;
+        @include inline-end(-0.65em);
         background-color: $c-bg-popup;
         position: relative;
         border-radius: 50%;

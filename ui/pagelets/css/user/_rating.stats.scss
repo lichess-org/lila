@@ -11,7 +11,7 @@
     &::before {
       font-size: 4.5em;
       color: $c-font-dim;
-      margin-#{$end-direction}: 1rem;
+      margin-inline-end: 1rem;
     }
   }
 

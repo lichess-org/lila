@@ -44,7 +44,7 @@
   .playing input,
   .eval input {
     vertical-align: middle;
-    margin-#{$end-direction}: 3px;
+    margin-inline-end: 3px;
   }
 
   .now-playing {
@@ -128,8 +128,8 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        #{$start-direction}: 0;
-        #{$end-direction}: 0;
+        left: 0;
+        right: 0;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.7) inset;
       }
       tick {

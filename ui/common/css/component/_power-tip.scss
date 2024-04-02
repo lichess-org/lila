@@ -45,7 +45,7 @@
       }
       &__flag {
         @extend %flex-center;
-        margin-#{$start-direction}: 0.5ch;
+        margin-inline-start: 0.5ch;
         flex: 1 1 auto;
         overflow: hidden;
         font-size: 0.9em;

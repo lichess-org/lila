@@ -79,7 +79,7 @@
       /* original size: width: 140.625%; height: 179.6875%; size on 3D board, with height/width = 90.78571% */
       width: 100%;
       height: 140.7465%;
-      #{$start-direction}: 0;
+      @include inline-start(0);
       top: -34%;
     }
   }

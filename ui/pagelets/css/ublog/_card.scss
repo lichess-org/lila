@@ -48,11 +48,11 @@
     opacity: 1;
   }
   time {
-    #{$start-direction}: 0;
+    @include inline-start(0);
     border-radius: 0 0 $box-radius-size 0;
   }
   .user-link {
-    #{$end-direction}: 0;
+    @include inline-end(0);
     border-radius: 0 0 0 $box-radius-size;
   }
 
