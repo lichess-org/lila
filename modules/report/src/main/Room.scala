@@ -2,7 +2,7 @@ package lila.report
 
 import cats.derived.*
 
-import lila.core.Iso
+import lila.common.Iso
 import lila.user.Me
 
 enum Room derives Eq:

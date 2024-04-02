@@ -4,7 +4,7 @@ import play.api.data.Form
 import play.api.data.Forms.*
 import reactivemongo.api.bson.BSONHandler
 
-import lila.core.Iso
+import lila.common.Iso
 import lila.memo.SettingStore.{ Formable, StringReader }
 import lila.security.{ Granter, Permission }
 import lila.user.Me

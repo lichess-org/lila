@@ -3,7 +3,7 @@ package lila.security
 import scalatags.Text.all.*
 
 import lila.core.config.*
-import lila.core.Iso
+import lila.common.Iso
 import lila.core.EmailAddress
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer

@@ -2,7 +2,7 @@ package lila.forum
 
 import reactivemongo.api.bson.*
 
-import lila.core.Iso
+import lila.common.Iso
 import lila.db.dsl.{ *, given }
 import lila.core.forum.{ ForumPostMini, ForumTopicMini }
 

@@ -4,11 +4,12 @@ import reactivemongo.api.bson.*
 
 import scala.util.Success
 
-import lila.common.LichessDay
+import lila.common.{ Iso, LichessDay }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
-import lila.core.Iso
-import lila.core.rating.{ PerfKey, RatingProg, Score }
+import lila.core.rating.PerfKey
+import lila.core.rating.RatingProg
+import lila.core.rating.Score
 
 private object BSONHandlers:
 

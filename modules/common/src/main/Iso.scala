@@ -1,4 +1,4 @@
-package lila.core
+package lila.common
 
 import lila.core.Strings
 import lila.core.Ints

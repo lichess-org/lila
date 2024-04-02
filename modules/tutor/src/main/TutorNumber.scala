@@ -3,7 +3,7 @@ package lila.tutor
 import alleycats.Zero
 
 import lila.analyse.AccuracyPercent
-import lila.core.Iso
+import lila.common.Iso
 import lila.insight.ClockPercent
 
 trait TutorNumber[V]:
