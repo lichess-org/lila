@@ -4,10 +4,9 @@ import chess.Centis
 import com.github.blemale.scaffeine.Cache
 import lila.core.socket.userLag.*
 
-object UserLagCache:
+final class UserLagCache(using Executor):
 
-  private val cache: Cache[UserId, Centis] = lila.memo.CacheApi
-    .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
+  private val cache: Cache[UserId, Centis] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(15 minutes)
     .build[UserId, Centis]()
 

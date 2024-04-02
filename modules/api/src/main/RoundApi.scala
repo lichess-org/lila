@@ -35,7 +35,8 @@ final private[api] class RoundApi(
     getLightTeam: lila.core.team.LightTeam.GetterSync,
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
-    getLightUser: lila.core.LightUser.GetterSync
+    getLightUser: lila.core.LightUser.GetterSync,
+    userLag: lila.socket.UserLagCache
 )(using Executor, lila.core.i18n.Translator):
 
   def player(
@@ -205,7 +206,7 @@ final private[api] class RoundApi(
 
   private def withOpponentSignal(pov: Pov)(json: JsObject) =
     if pov.game.speed <= chess.Speed.Bullet then
-      json.add("opponentSignal", pov.opponent.userId.flatMap(lila.socket.UserLagCache.getLagRating))
+      json.add("opponentSignal", pov.opponent.userId.flatMap(userLag.getLagRating))
     else json
 
   private def withPuzzleOpening(

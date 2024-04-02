@@ -18,11 +18,12 @@ import lila.core.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, Te
 import lila.core.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
 import lila.core.socket.{ SocketRequester as _, * }
 
-final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown, requester: SocketRequester)(
-    using
-    Executor,
-    Scheduler
-):
+final class RemoteSocket(
+    redisClient: RedisClient,
+    shutdown: CoordinatedShutdown,
+    requester: SocketRequester,
+    userLag: UserLagCache
+)(using Executor, Scheduler):
 
   import RemoteSocket.*, Protocol.*
 
@@ -46,7 +47,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       Bus.publish(lila.core.actorApi.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
       lags.foreach: (userId, centis) =>
-        UserLagCache.put(userId, centis)
+        userLag.put(userId, centis)
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellSri(sri, userId, typ, msg) =>

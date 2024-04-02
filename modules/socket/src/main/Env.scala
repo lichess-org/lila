@@ -15,6 +15,7 @@ final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using E
   val requester = new SocketRequester
 
   val remoteSocket: RemoteSocket = wire[RemoteSocket]
+  export remoteSocket.{ kit, parallelKit }
 
   remoteSocket.subscribe("site-in", RemoteSocket.Protocol.In.baseReader)(remoteSocket.baseHandler)
 
@@ -22,8 +23,5 @@ final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using E
 
   val isOnline = IsOnline(userId => remoteSocket.onlineUserIds.get contains userId)
 
-  def kit: SocketKit                 = remoteSocket.kit
-  def parallelKit: ParallelSocketKit = remoteSocket.parallelKit
-
-  def getLagRating: userLag.GetLagRating = UserLagCache.getLagRating
-  def putLag: userLag.Put                = UserLagCache.put
+  val userLag = new UserLagCache
+  export userLag.{ getLagRating, put as putLag }
