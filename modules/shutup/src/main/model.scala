@@ -1,6 +1,6 @@
 package lila.shutup
 
-import lila.hub.actorApi.shutup.PublicSource
+import lila.core.shutup.PublicSource
 
 case class UserRecord(
     _id: UserId,

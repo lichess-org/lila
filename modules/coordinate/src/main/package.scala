@@ -1,3 +1,4 @@
 package lila.coordinate
 
-export lila.Lila.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*

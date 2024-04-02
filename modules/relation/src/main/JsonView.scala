@@ -1,6 +1,8 @@
 package lila.relation
 
 import play.api.libs.json.*
+import scalalib.json.Json.writeAs
+import lila.common.Json.given
 
 object JsonView:
 

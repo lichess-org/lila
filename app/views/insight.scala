@@ -28,7 +28,7 @@ object insight:
           "initialQuestion" -> question,
           "i18n"            -> Json.obj(),
           "myUserId"        -> ctx.userId,
-          "user" -> (lila.common.LightUser.write(u.light) ++ Json.obj(
+          "user" -> (lila.common.Json.lightUser.write(u.light) ++ Json.obj(
             "nbGames" -> insightUser.count,
             "stale"   -> stale,
             "shareId" -> prefId
@@ -67,7 +67,7 @@ object insight:
       )
     )
 
-  def refreshForm(u: User, action: String)(using Lang) =
+  def refreshForm(u: User, action: String)(using Translate) =
     postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
       button(dataIcon := licon.Checkmark, cls := "button text")(action),
       div(cls := "crunching none")(

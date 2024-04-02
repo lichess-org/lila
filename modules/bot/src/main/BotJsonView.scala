@@ -1,11 +1,11 @@
 package lila.bot
 
-import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.game.JsonView.given
 import lila.game.{ Game, GameRepo, Pov }
+import lila.core.i18n.Translate
 
 final class BotJsonView(
     lightUserApi: lila.user.LightUserApi,
@@ -13,9 +13,9 @@ final class BotJsonView(
     rematches: lila.game.Rematches
 )(using Executor):
 
-  def gameFull(game: Game)(using Lang): Fu[JsObject] = gameRepo.withInitialFen(game).flatMap(gameFull)
+  def gameFull(game: Game)(using Translate): Fu[JsObject] = gameRepo.withInitialFen(game).flatMap(gameFull)
 
-  def gameFull(wf: Game.WithInitialFen)(using Lang): Fu[JsObject] =
+  def gameFull(wf: Game.WithInitialFen)(using Translate): Fu[JsObject] =
     gameState(wf).map { state =>
       gameImmutable(wf) ++ Json.obj(
         "type"  -> "gameFull",
@@ -23,7 +23,7 @@ final class BotJsonView(
       )
     }
 
-  def gameImmutable(wf: Game.WithInitialFen)(using Lang): JsObject =
+  def gameImmutable(wf: Game.WithInitialFen)(using Translate): JsObject =
     import wf.*
     Json
       .obj(

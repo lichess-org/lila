@@ -4,6 +4,7 @@ package templating
 import play.api.i18n.Lang
 
 import ui.ScalatagsTemplate.*
+import lila.core.i18n.Translate
 
 trait StringHelper:
   self: I18nHelper & NumberHelper =>
@@ -12,14 +13,14 @@ trait StringHelper:
 
   def pluralize(s: String, n: Int) = s"$n $s${if n != 1 then "s" else ""}"
 
-  def pluralizeLocalize(s: String, n: Int)(using Lang) = s"${n.localize} $s${if n != 1 then "s" else ""}"
+  def pluralizeLocalize(s: String, n: Int)(using Translate) = s"${n.localize} $s${if n != 1 then "s" else ""}"
 
   def showNumber(n: Int): String = if n > 0 then s"+$n" else n.toString
 
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
   private val NumberLastRegex  = """\s(\d++)$""".r.unanchored
 
-  def splitNumber(s: Frag)(using Lang): Frag =
+  def splitNumber(s: Frag)(using Translate): Frag =
     val rendered = s.render
     rendered match
       case NumberFirstRegex(number, html) =>

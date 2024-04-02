@@ -15,7 +15,7 @@ object index:
     views.html.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(page.some).some,
-      title = trans.opening.txt(),
+      title = trans.site.opening.txt(),
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",

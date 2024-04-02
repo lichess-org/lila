@@ -4,6 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.core.relation.Relation
 
 object mini:
 
@@ -11,11 +12,11 @@ object mini:
       userId: UserId,
       blocked: Boolean,
       followable: Boolean,
-      relation: Option[lila.relation.Relation] = None
+      relation: Option[Relation] = None
   )(using Context) =
     relation match
       case None if followable && !blocked =>
-        val name   = trans.follow.txt()
+        val name   = trans.site.follow.txt()
         val isLong = name.sizeIs > 8
         a(
           cls      := s"btn-rack__btn relation-button${(!isLong).so(" text")}",
@@ -23,18 +24,18 @@ object mini:
           href     := s"${routes.Relation.follow(userId)}?mini=1",
           title    := isLong.option(name)
         )((!isLong).option(name))
-      case Some(true) =>
+      case Some(Relation.Follow) =>
         a(
           cls      := "btn-rack__btn relation-button text",
-          title    := trans.unfollow.txt(),
+          title    := trans.site.unfollow.txt(),
           href     := s"${routes.Relation.unfollow(userId)}?mini=1",
           dataIcon := licon.ThumbsUp
-        )(trans.following())
-      case Some(false) =>
+        )(trans.site.following())
+      case Some(Relation.Block) =>
         a(
           cls      := "btn-rack__btn relation-button text",
-          title    := trans.unblock.txt(),
+          title    := trans.site.unblock.txt(),
           href     := s"${routes.Relation.unblock(userId)}?mini=1",
           dataIcon := licon.NotAllowed
-        )(trans.blocked())
+        )(trans.site.blocked())
       case _ => emptyFrag

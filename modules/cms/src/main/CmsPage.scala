@@ -2,7 +2,7 @@ package lila.cms
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.i18n.Language
+import lila.core.i18n.Language
 
 case class CmsPage(
     @Key("_id") id: CmsPage.Id,
@@ -21,7 +21,7 @@ object CmsPage:
 
   opaque type Id = String
   object Id extends OpaqueString[Id]:
-    def random = Id(ornicar.scalalib.ThreadLocalRandom.nextString(6))
+    def random = Id(scalalib.ThreadLocalRandom.nextString(6))
 
   opaque type Key = String
   object Key extends OpaqueString[Key]

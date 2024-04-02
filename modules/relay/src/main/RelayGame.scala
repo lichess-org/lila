@@ -3,7 +3,7 @@ package lila.relay
 import chess.format.pgn.{ Tag, TagType, Tags }
 
 import lila.study.{ MultiPgn, PgnImport }
-import lila.hub.tree.Root
+import lila.tree.Root
 
 case class RelayGame(
     tags: Tags,
@@ -49,7 +49,7 @@ private object RelayGame:
   val nameTags: TagNames   = List(_.White, _.Black)
   val fideIdTags: TagNames = List(_.WhiteFideId, _.BlackFideId)
 
-  import lila.common.Iso
+  import scalalib.Iso
   import chess.format.pgn.{ InitialComments, Pgn }
   val iso: Iso[RelayGames, MultiPgn] =
     import lila.study.PgnDump.WithFlags

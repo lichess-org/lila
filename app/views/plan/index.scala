@@ -18,7 +18,7 @@ object index:
   private val namespaceAttr = attr("data-namespace")
 
   def apply(
-      email: Option[lila.common.EmailAddress],
+      email: Option[lila.core.EmailAddress],
       stripePublicKey: String,
       payPalPublicKey: String,
       patron: Option[lila.plan.Patron],
@@ -271,7 +271,7 @@ object index:
   private def showCurrency(cur: Currency)(using ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
 
-  private def faq(using Lang) =
+  private def faq(using Translate) =
     div(cls := "faq")(
       dl(
         dt(whereMoneyGoes()),

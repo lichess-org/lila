@@ -7,8 +7,9 @@ import lila.relation.RelationRepo.makeId
 
 final class SubscriptionRepo(colls: Colls, userRepo: lila.user.UserRepo)(using
     Executor
-):
-  val coll = colls.subscription
+) extends lila.core.relation.SubscriptionRepo:
+
+  private val coll = colls.subscription
 
   // for streaming, streamerId is the user UserId of the streamer being subscribed to
   def subscribersOnlineSince(streamerId: UserId, daysAgo: Int): Fu[List[UserId]] =

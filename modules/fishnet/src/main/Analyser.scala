@@ -3,8 +3,9 @@ package lila.fishnet
 import chess.Ply
 
 import lila.analyse.AnalysisRepo
-import lila.common.config.Max
+
 import lila.game.{ Game, UciMemo }
+import scalalib.actor.AsyncActorSequencer
 
 final class Analyser(
     repo: FishnetRepo,
@@ -17,8 +18,12 @@ final class Analyser(
 
   val maxPlies = 300
 
-  private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, "fishnetAnalyser")
+  private val workQueue = AsyncActorSequencer(
+    maxSize = Max(256),
+    timeout = 5 seconds,
+    "fishnetAnalyser",
+    lila.log.asyncActorMonitor
+  )
 
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
     (game.metadata.analysed.so(analysisRepo.exists(game.id.value))).flatMap {
@@ -61,7 +66,7 @@ final class Analyser(
       _.fold[Fu[Analyser.Result]](fuccess(Analyser.Result.NoGame))(apply(_, sender))
     }
 
-  def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
+  def study(req: lila.core.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
     analysisRepo.exists(req.chapterId.value).flatMap {
       if _ then fuccess(Analyser.Result.NoChapter)
       else

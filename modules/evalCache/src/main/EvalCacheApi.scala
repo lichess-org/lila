@@ -6,14 +6,14 @@ import play.api.libs.json.JsObject
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import lila.hub.eval.CloudEval
+import lila.tree.CloudEval
 
 final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.CacheApi)(using Executor):
 
   import EvalCacheEntry.*
   import BSONHandlers.given
 
-  def getEvalJson(variant: Variant, fen: Fen.Epd, multiPv: MultiPv): Fu[Option[JsObject]] =
+  def getEvalJson(variant: Variant, fen: Fen.Full, multiPv: MultiPv): Fu[Option[JsObject]] =
     getEval(Id(variant, SmallFen.make(variant, fen.simple)), multiPv)
       .map:
         _.map { JsonView.writeEval(_, fen) }
@@ -22,13 +22,13 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
   val getSinglePvEval: CloudEval.GetSinglePvEval = (variant, fen) =>
     getEval(Id(variant, SmallFen.make(variant, fen.simple)), MultiPv(1))
 
-  private def monitorRequest(fen: Fen.Epd)(res: Option[Any]) =
+  private def monitorRequest(fen: Fen.Full)(res: Option[Any]) =
     Fen
       .readPly(fen)
       .foreach: ply =>
         lila.mon.evalCache.request(ply.value, res.isDefined).increment()
 
-  private[evalCache] def drop(variant: Variant, fen: Fen.Epd): Funit =
+  private[evalCache] def drop(variant: Variant, fen: Fen.Full): Funit =
     val id = Id(variant, SmallFen.make(variant, fen.simple))
     coll(_.delete.one($id(id)).void)
 

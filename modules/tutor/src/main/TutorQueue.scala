@@ -5,7 +5,6 @@ import com.softwaremill.tagging.*
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.game.Pov
 import lila.memo.{ CacheApi, SettingStore }
@@ -21,7 +20,12 @@ final private class TutorQueue(
 
   import TutorQueue.*
 
-  private val workQueue = lila.hub.AsyncActorSequencer(maxSize = Max(64), timeout = 5.seconds, "tutorQueue")
+  private val workQueue = scalalib.actor.AsyncActorSequencer(
+    maxSize = Max(64),
+    timeout = 5.seconds,
+    "tutorQueue",
+    lila.log.asyncActorMonitor
+  )
 
   private val durationCache = cacheApi.unit[FiniteDuration]:
     _.refreshAfterWrite(1 minutes).buildAsyncFuture: _ =>
@@ -53,7 +57,7 @@ final private class TutorQueue(
     all <- gameRepo.recentPovsByUserFromSecondary(user, 60, $doc(lila.game.Game.BSONFields.turns.$gt(10)))
     (rated, casual) = all.partition(_.game.rated)
     many            = rated ::: casual.take(30 - rated.size)
-    povs            = ornicar.scalalib.ThreadLocalRandom.shuffle(many).take(30)
+    povs            = scalalib.ThreadLocalRandom.shuffle(many).take(30)
     _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
   yield povs.map { pov =>
     import chess.format.pgn.*

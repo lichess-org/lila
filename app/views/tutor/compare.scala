@@ -11,9 +11,9 @@ import lila.tutor.{ Grade, TutorCompare, TutorMetric }
 
 private object compare:
 
-  def show(comp: TutorCompare.AnyComparison)(using Lang) = showWithPerf(comp, none)
+  def show(comp: TutorCompare.AnyComparison)(using Translate) = showWithPerf(comp, none)
 
-  def showWithPerf(comp: TutorCompare.AnyComparison, perf: Option[PerfType] = None)(using Lang) =
+  def showWithPerf(comp: TutorCompare.AnyComparison, perf: Option[PerfType] = None)(using Translate) =
     li(
       "Your ",
       perf.map(p => frag(p.trans, " ")),

@@ -3,9 +3,9 @@ package lila.fishnet
 import chess.Ply
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
-import lila.common.IpAddress
+import lila.core.IpAddress
 
 sealed trait Work:
   def _id: Work.Id
@@ -43,7 +43,7 @@ object Work:
 
   private[fishnet] case class Game(
       id: String, // can be a study chapter ID, if studyId is set
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       studyId: Option[StudyId],
       variant: Variant,
       moves: String

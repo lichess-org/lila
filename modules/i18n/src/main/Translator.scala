@@ -4,10 +4,15 @@ import play.api.i18n.Lang
 import scalatags.Text.all.*
 
 import lila.common.String.html.escapeHtml
+import lila.core.i18n.{ Translator, TranslatorFrag, TranslatorTxt, I18nKey, Translate }
 
-object Translator:
+object Translator extends Translator:
 
-  object frag:
+  def to(lang: Lang): Translate = Translate(this, lang)
+
+  def toDefault: Translate = Translate(this, lila.core.i18n.defaultLang)
+
+  object frag extends TranslatorFrag:
     def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag =
       translate(key, lang, I18nQuantity.Other /* grmbl */, args)
 
@@ -41,7 +46,7 @@ object Translator:
       case f: StringFrag => RawFrag(f.render)
       case a             => RawFrag(a.toString)
 
-  object txt:
+  object txt extends TranslatorTxt:
 
     def literal(key: I18nKey, args: Seq[Any], lang: Lang): String =
       translate(key, lang, I18nQuantity.Other /* grmbl */, args)

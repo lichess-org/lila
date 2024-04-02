@@ -407,6 +407,14 @@ object dsl extends dsl with Handlers:
     ): Fu[List[D]] =
       ids.nonEmpty.so(list[D]($inIds(ids), readPref))
 
+    def byIdsProj[D: BSONDocumentReader, I: BSONWriter](
+        ids: Iterable[I],
+        projection: Bdoc,
+        readPref: ReadPref = _.pri
+    ): Fu[List[D]] =
+      ids.nonEmpty.so:
+        coll.find($inIds(ids), projection.some).cursor[D](readPref).listAll()
+
     def byStringIds[D: BSONDocumentReader](
         ids: Iterable[String],
         readPref: ReadPref = _.pri

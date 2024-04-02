@@ -5,12 +5,13 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Glicko, Perf, PerfType }
+import lila.core.rating.PerfKey
 
 final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
   import UserPerfs.given
 
-  def glickoField(perf: Perf.Key) = s"$perf.gl"
+  def glickoField(perf: PerfKey) = s"$perf.gl"
 
   def byId[U: UserIdOf](u: U): Fu[UserPerfs] =
     coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
@@ -64,12 +65,12 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
   def setPerf(userId: UserId, pt: PerfType, perf: Perf) =
     coll.update.one($id(userId), $set(pt.key.value -> perf), upsert = true).void
 
-  def glicko(userId: UserId, perfType: PerfType): Fu[Glicko] =
+  def glicko(userId: UserId, perf: PerfKey): Fu[Glicko] =
     coll
-      .find($id(userId), $doc(s"${perfType.key}.gl" -> true).some)
+      .find($id(userId), $doc(s"$perf.gl" -> true).some)
       .one[Bdoc]
       .dmap:
-        _.flatMap(_.child(perfType.key.value))
+        _.flatMap(_.child(perf.value))
           .flatMap(_.getAsOpt[Glicko]("gl")) | Glicko.default
 
   def addStormRun  = addStormLikeRun("storm")

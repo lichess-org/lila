@@ -50,7 +50,7 @@ object studentDashboard:
               ),
               td(
                 user.seenAt.map: seen =>
-                  trans.lastSeenActive(momentFromNow(seen))
+                  trans.site.lastSeenActive(momentFromNow(seen))
               ),
               challengeTd(user)
             )
@@ -64,9 +64,9 @@ object studentDashboard:
       thead:
         tr(
           th(dataSortDefault)(trans.clas.nbStudents(students.size)),
-          thSortNumber(trans.rating()),
-          thSortNumber(trans.games()),
-          thSortNumber(trans.puzzles()),
+          thSortNumber(trans.site.rating()),
+          thSortNumber(trans.site.games()),
+          thSortNumber(trans.site.puzzles()),
           th
         )
       ,
@@ -104,5 +104,5 @@ object studentDashboard:
           cls      := List("button button-empty text" -> true, "disabled" -> !online),
           title    := trans.challenge.challengeToPlay.txt(),
           href     := online.option(s"${routes.Lobby.home}?user=${user.username}#friend")
-        )(trans.play())
+        )(trans.site.play())
       )

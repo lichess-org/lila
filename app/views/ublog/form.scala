@@ -5,10 +5,10 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Captcha
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
+import lila.core.captcha.Captcha
 
 object form:
 
@@ -59,7 +59,7 @@ object form:
               submitButton(
                 cls   := "button button-red button-empty confirm",
                 title := trans.ublog.deleteBlog.txt()
-              )(trans.delete())
+              )(trans.site.delete())
         )
       )
 
@@ -89,7 +89,7 @@ object form:
             ),
             p(trans.ublog.useImagesYouMadeYourself()),
             p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
-            form3.file.selectImage
+            form3.file.selectImage()
           )
         else
           postForm(
@@ -126,7 +126,7 @@ object form:
         form("markdown"),
         trans.ublog.postBody(),
         help = frag(
-          trans.embedsAvailable(),
+          trans.site.embedsAvailable(),
           br,
           tips
         ).some
@@ -146,7 +146,7 @@ object form:
               form3.group(form("topics"), frag(trans.ublog.selectPostTopics()), half = true)(
                 form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
               ),
-              form3.group(form("language"), trans.language(), half = true):
+              form3.group(form("language"), trans.site.language(), half = true):
                 form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
             ),
             form3.split(
@@ -173,9 +173,9 @@ object form:
           href := post
             .fold(user => routes.Ublog.index(user.username), views.html.ublog.post.urlOfPost)
         )(
-          trans.cancel()
+          trans.site.cancel()
         ),
-        form3.submit((if post.isRight then trans.apply else trans.ublog.saveDraft) ())
+        form3.submit((if post.isRight then trans.site.apply else trans.ublog.saveDraft) ())
       )
     )
 

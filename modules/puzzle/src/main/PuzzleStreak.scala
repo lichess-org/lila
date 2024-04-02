@@ -91,12 +91,12 @@ final class PuzzleStreakApi(colls: PuzzleColls, cacheApi: CacheApi)(using Execut
     if nb < poolSize * 0.9 then logger.warn(s"Streak selector wanted $poolSize puzzles, only got $nb")
     if nb > 1 then
       val rest = puzzles.toVector.drop(1)
-      lila.common.Maths.mean(rest.map(_.glicko.intRating.value)).foreach { r =>
+      scalalib.Maths.mean(rest.map(_.glicko.intRating.value)).foreach { r =>
         lila.mon.streak.selector.rating.record(r.toInt)
       }
       (0 to poolSize by 10).foreach { i =>
         val slice = rest.drop(i).take(10)
-        lila.common.Maths.mean(slice.map(_.glicko.intRating.value)).foreach { r =>
+        scalalib.Maths.mean(slice.map(_.glicko.intRating.value)).foreach { r =>
           lila.mon.streak.selector.ratingSlice(i).record(r.toInt)
         }
       }

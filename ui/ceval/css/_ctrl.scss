@@ -15,7 +15,7 @@
   .switch {
     @extend %flex-center;
     flex: 0 0 40px;
-    margin-#{$start-direction}: 6px;
+    margin-inline-start: 6px;
   }
 
   pearl {
@@ -44,7 +44,7 @@
     .cloud,
     .infinite {
       @extend %roboto, %box-radius;
-      margin-#{$start-direction}: 4px;
+      margin-inline-start: 4px;
       background: $c-secondary-dim;
       color: $c-secondary-over;
       padding: 1px 3px;
@@ -58,7 +58,7 @@
 
     .deeper {
       color: $c-primary;
-      margin-#{$end-direction}: 4px;
+      margin-inline-end: 4px;
 
       &::before {
         vertical-align: top;
@@ -90,7 +90,7 @@
     color: $c-font-dim;
     font-size: 16px;
     padding: 0 6px;
-    margin-#{$end-direction}: 6px;
+    margin-inline-end: 6px;
 
     &:hover {
       color: $c-font;
@@ -128,7 +128,7 @@
     font-size: 16px;
     padding: 0 6px;
     margin-top: -3px; // bar
-    margin-#{$end-direction}: 6px;
+    margin-inline-end: 6px;
 
     &:hover {
       color: $c-font;
@@ -141,7 +141,7 @@
   }
 
   .technology {
-    margin-#{$start-direction}: 5px;
+    margin-inline-start: 5px;
 
     &.good {
       color: $c-good;

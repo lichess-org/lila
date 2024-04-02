@@ -3,22 +3,17 @@ package lila.setup
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.oauth.OAuthServer
-
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     perfsRepo: lila.user.UserPerfsRepo,
-    fishnetPlayer: lila.fishnet.FishnetPlayer,
-    onStart: lila.round.OnStart,
-    gameCache: lila.game.Cached,
-    oauthServer: OAuthServer
+    onStart: lila.core.game.OnStart,
+    gameCache: lila.game.Cached
 )(using Executor, akka.stream.Materializer, lila.game.IdGenerator):
 
-  lazy val forms = SetupForm
+  val forms = SetupForm
 
-  lazy val processor = wire[Processor]
+  val setupForm: lila.core.setup.SetupForm = SetupForm.api
 
-  lazy val bulk = wire[SetupBulkApi]
+  val processor = wire[Processor]

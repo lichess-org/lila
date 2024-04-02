@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.{ IpAddress, config }
+import lila.core.{ IpAddress, config }
 import lila.team.{ Team as TeamModel, TeamSecurity }
 
 import Api.ApiResult
@@ -24,7 +24,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def all(page: Int) = Anon:
     import env.team.jsonView.given
-    import lila.common.paginator.PaginatorJson.given
+    import lila.common.Json.paginatorWrite
     JsonOk:
       for
         pager <- paginator.popularTeamsWithPublicLeaders(page)
@@ -58,7 +58,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         if _ then
           apiC.jsonDownload(
             env.team
-              .memberStream(team, config.MaxPerSecond(20))
+              .memberStream(team, MaxPerSecond(20))
               .map: (user, joinedAt) =>
                 env.api.userApi.one(user, joinedAt.some)
           )
@@ -66,11 +66,16 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def search(text: String, page: Int) = Anon:
     import env.team.jsonView.given
-    import lila.common.paginator.PaginatorJson.given
+    import lila.common.Json.paginatorWrite
     JsonOk:
       if text.trim.isEmpty
       then paginator.popularTeamsWithPublicLeaders(page)
-      else env.teamSearch(text, page).flatMap(_.mapFutureList(env.team.memberRepo.addPublicLeaderIds))
+      else
+        for
+          ids   <- env.teamSearch(text, page)
+          teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
+          leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
+        yield leads
 
   def teamsOf(username: UserStr) = AnonOrScoped(): ctx ?=>
     import env.team.jsonView.given
@@ -99,7 +104,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
       }
   }
 
-  private val kickLimitReportOnce = lila.memo.OnceEvery[UserId](10.minutes)
+  private val kickLimitReportOnce = scalalib.cache.OnceEvery[UserId](10.minutes)
 
   def kickUser(teamId: TeamId, username: UserStr) = Scoped(_.Team.Lead) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(teamId, _.Kick): team =>

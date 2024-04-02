@@ -1,10 +1,10 @@
 package lila.notify
 import alleycats.Zero
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.common.licon
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.notify.Notification.*
 
 sealed abstract class NotificationContent(val key: String)

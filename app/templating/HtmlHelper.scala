@@ -5,7 +5,7 @@ import lila.app.ui.ScalatagsTemplate.*
 
 trait HtmlHelper:
 
-  def renderCache[A](ttl: FiniteDuration)(toFrag: A => Frag): A => Frag =
+  def renderCache[A](ttl: FiniteDuration)(using Executor)(toFrag: A => Frag): A => Frag =
     val cache = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterWrite(1 minute)
       .build[A, String]()

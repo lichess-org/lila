@@ -1,4 +1,5 @@
-import { h, VNode } from 'snabbdom';
+import { VNode } from 'snabbdom';
+import { looseH as h } from 'common/snabbdom';
 import renderClocks from '../view/clocks';
 import AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
@@ -25,7 +26,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       color,
       ticking === color,
       ctrl.bottomColor() !== color,
-      study.data.hideRatings && looksLikeLichessGame(tags),
+      study.data.showRatings || !looksLikeLichessGame(tags),
     ),
   );
 }
@@ -38,24 +39,25 @@ function renderPlayer(
   color: Color,
   ticking: boolean,
   top: boolean,
-  hideRatings?: boolean,
+  showRatings: boolean,
 ): VNode {
   const player = players?.[color],
     fideId = findTag(tags, `${color}fideid`),
-    rating = !hideRatings && player?.rating,
+    team = findTag(tags, `${color}team`),
+    rating = showRatings && player?.rating,
     result = resultOf(tags, color === 'white');
   return h(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     h('div.left', [
       result && h('span.result', result),
       h('span.info', [
-        player?.team && h('span.team', player.team),
-        player?.fed && playerFed(player.fed),
+        team ? h('span.team', team) : undefined,
+        playerFed(player?.fed),
         player && userTitle(player),
         player &&
           (fideId
             ? h('a.name', { attrs: { href: `/fide/${fideId}/redirect` } }, player.name)
             : h('span.name', player.name)),
-        rating && h('span.elo', rating),
+        rating && h('span.elo', `${rating}`),
       ]),
     ]),
     materialDiffs[top ? 0 : 1],
@@ -63,7 +65,8 @@ function renderPlayer(
   ]);
 }
 
-export const playerFed = (fed: Federation) =>
+export const playerFed = (fed?: Federation): VNode | undefined =>
+  fed &&
   h('img.mini-game__flag', {
     attrs: { src: site.asset.url(`images/fide-fed/${fed.id}.svg`), title: `Federation: ${fed.name}` },
   });

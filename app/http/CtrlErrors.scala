@@ -6,7 +6,8 @@ import play.api.i18n.Lang
 import play.api.libs.json.{ JsArray, JsObject, JsString, Json, Reads, Writes }
 import play.api.mvc.*
 
-import lila.i18n.{ I18nKey, Translator }
+import lila.core.i18n.I18nKey
+import lila.core.i18n.Translate
 
 trait CtrlErrors extends ControllerHelpers:
 
@@ -26,7 +27,7 @@ trait CtrlErrors extends ControllerHelpers:
       )
       .andThen((__ \ "").json.prune)
 
-  def errorsAsJson(form: Form[?])(using lang: Lang): JsObject =
+  def errorsAsJson(form: Form[?])(using t: Translate): JsObject =
     val json = JsObject:
       form.errors
         .groupBy(_.key)
@@ -34,25 +35,25 @@ trait CtrlErrors extends ControllerHelpers:
         .mapValues: errors =>
           JsArray:
             errors.map: e =>
-              JsString(Translator.txt.literal(I18nKey(e.message), e.args, lang))
+              JsString(lila.i18n.Translator.txt.literal(I18nKey(e.message), e.args, t.lang))
         .toMap
     json.validate(jsonGlobalErrorRenamer).getOrElse(json)
 
   /* This is what we want
    * { "error" -> { "key" -> "value" } }
    */
-  def jsonFormError(form: Form[?])(using Lang): Result =
+  def jsonFormError(form: Form[?])(using Translate): Result =
     BadRequest(jsonError(errorsAsJson(form)))
 
   /* For compat with old clients
    * { "error" -> { "key" -> "value" }, "key" -> "value" }
    */
-  def doubleJsonFormErrorBody(form: Form[?])(using Lang): JsObject =
+  def doubleJsonFormErrorBody(form: Form[?])(using Translate): JsObject =
     val json = errorsAsJson(form)
     json ++ jsonError(json)
 
-  def doubleJsonFormError(form: Form[?])(using Lang) =
+  def doubleJsonFormError(form: Form[?])(using Translate) =
     BadRequest(doubleJsonFormErrorBody(form))
 
-  def badJsonFormError(form: Form[?])(using Lang) =
+  def badJsonFormError(form: Form[?])(using Translate) =
     BadRequest(errorsAsJson(form))

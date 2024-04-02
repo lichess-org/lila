@@ -2,7 +2,7 @@ package lila.clas
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
+import lila.core.config.*
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -11,16 +11,16 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     gameRepo: lila.game.GameRepo,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
     msgApi: lila.msg.MsgApi,
-    lightUserAsync: lila.common.LightUser.Getter,
+    lightUserAsync: lila.core.LightUser.Getter,
     securityForms: lila.security.SecurityForm,
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
     hcaptcha: lila.security.Hcaptcha,
     baseUrl: BaseUrl
-)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator):
 
   lazy val nameGenerator: NameGenerator = wire[NameGenerator]
 
@@ -46,11 +46,11 @@ final class Env(
       progressApi.onFinishGame(game)
     },
     "clas" -> {
-      case lila.hub.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
+      case lila.core.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
         promise.completeWith(api.clas.isTeacherOf(teacher, student))
-      case lila.hub.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
+      case lila.core.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
         promise.completeWith(api.clas.areKidsInSameClass(kid1, kid2))
-      case lila.hub.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
+      case lila.core.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
         promise.completeWith(matesCache.get(kid.id))
     }
   )

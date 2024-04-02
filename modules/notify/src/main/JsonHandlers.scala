@@ -1,13 +1,13 @@
 package lila.notify
 
-import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
-import lila.i18n.{ I18nKeys as trans, JsDump }
+import lila.core.LightUser
+import lila.core.i18n.I18nKey.{ site as trans }
+import lila.core.i18n.{ I18nKey, Translate, JsDump }
 
-final class JSONHandlers(getLightUser: LightUser.GetterSync):
+final class JSONHandlers(getLightUser: LightUser.GetterSync, jsDump: JsDump):
 
   given Writes[Notification] with
 
@@ -93,11 +93,9 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
         "date"    -> notification.createdAt
       )
 
-  import lila.common.paginator.PaginatorJson.given
-
   given OWrites[Notification.AndUnread] = Json.writes
 
-  private val i18nKeys = List(
+  private val i18nKeys: List[I18nKey] = List(
     trans.mentionedYouInX,
     trans.xMentionedYouInY,
     trans.startedStreaming,
@@ -119,7 +117,7 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
     trans.timeAlmostUp
   )
 
-  def apply(notify: Notification.AndUnread)(using lang: Lang) =
+  def apply(notify: Notification.AndUnread)(using Translate) =
     Json.toJsObject(notify) ++ Json.obj(
-      "i18n" -> JsDump.keysToObject(i18nKeys, lang)
+      "i18n" -> jsDump.keysToObject(i18nKeys)
     )

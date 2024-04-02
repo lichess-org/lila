@@ -6,7 +6,7 @@ import controllers.team.routes.Team as teamRoutes
 import scalatags.Text.all.Tag
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.LightTeam
+import lila.core.team.LightTeam
 import lila.team.Team
 
 trait TeamHelper:

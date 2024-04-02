@@ -2,13 +2,14 @@ package lila.api
 
 import chess.ByColor
 import chess.format.pgn.Pgn
-import chess.format.{ EpdFen, Fen }
+import chess.format.Fen
 import play.api.i18n.Lang
 
 import lila.analyse.{ Analysis, Annotator }
 import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
+import lila.core.i18n.Translate
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,
@@ -18,45 +19,40 @@ final class PgnDump(
     getSwissName: lila.swiss.GetSwissName
 )(using Executor):
 
-  private given Lang = lila.i18n.defaultLang
+  private given Lang = lila.core.i18n.defaultLang
 
   def apply(
       game: Game,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       analysis: Option[Analysis],
       flags: WithFlags,
       teams: Option[GameTeams] = None,
       realPlayers: Option[RealPlayers] = None
-  ): Fu[Pgn] =
+  )(using Translate): Fu[Pgn] =
     dumper(game, initialFen, flags, teams)
-      .flatMap { pgn =>
+      .flatMap: pgn =>
         if flags.tags then
-          (game.simulId
-            .so(simulApi.idToName))
+          game.simulId
+            .so(simulApi.idToName)
             .orElse(game.tournamentId.so(getTournamentName.async))
             .orElse(game.swissId.so(getSwissName.async))
-            .map {
-              _.fold(pgn)(pgn.withEvent)
-            }
+            .map(_.fold(pgn)(pgn.withEvent))
         else fuccess(pgn)
-      }
-      .map { pgn =>
+      .map: pgn =>
         val evaled = analysis.ifTrue(flags.evals).fold(pgn)(annotator.addEvals(pgn, _))
         if flags.literate then annotator(evaled, game, analysis)
         else evaled
-      }
-      .map { pgn =>
+      .map: pgn =>
         realPlayers.fold(pgn)(_.update(game, pgn))
-      }
 
-  def formatter(
-      flags: WithFlags
-  ): (Game, Option[EpdFen], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Future[
+  def formatter(flags: WithFlags)(using
+      Translate
+  ): (Game, Option[Fen.Full], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Fu[
     String
   ] =
     (
         game: Game,
-        initialFen: Option[Fen.Epd],
+        initialFen: Option[Fen.Full],
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]

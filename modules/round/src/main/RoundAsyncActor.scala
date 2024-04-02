@@ -7,13 +7,10 @@ import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
-import lila.hub.AsyncActor
-import lila.hub.actorApi.round.{ Abort, BotPlay, FishnetPlay, FishnetStart, IsOnGame, Rematch, Resign }
+import scalalib.actor.AsyncActor
+import lila.core.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.hub.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
-
-import actorApi.*
-import round.*
+import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
@@ -22,7 +19,7 @@ final private class RoundAsyncActor(
     putUserLag: userLag.Put,
     private var version: SocketVersion
 )(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
-    extends AsyncActor:
+    extends AsyncActor(RoundAsyncActor.monitor):
 
   import RoundSocket.Protocol
   import RoundAsyncActor.*
@@ -140,7 +137,7 @@ final private class RoundAsyncActor(
       fuccess:
         promise.success:
           (userId.is(whitePlayer.userId) && whitePlayer.isOnline) ||
-            (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
+          (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
 
     case lila.chat.RoundLine(line, watcher) =>
       lila.chat
@@ -169,6 +166,7 @@ final private class RoundAsyncActor(
           .inject(Nil)
 
     case a: lila.analyse.actorApi.AnalysisProgress =>
+      import lila.tree.{ TreeBuilder, ExportOptions }
       fuccess:
         socketSend:
           RP.Out.tellRoom(
@@ -177,8 +175,8 @@ final private class RoundAsyncActor(
               "analysisProgress",
               Json.obj(
                 "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
-                "tree" -> lila.hub.tree.Node.minimalNodeJsonWriter.writes:
-                  TreeBuilder(a.game, a.analysis.some, a.initialFen, JsonView.WithFlags())
+                "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
+                  TreeBuilder(a.game, a.analysis.some, a.initialFen, ExportOptions())
               )
             )
           )
@@ -483,6 +481,8 @@ object RoundAsyncActor:
   case object Stop
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
+
+  private val monitor = AsyncActor.Monitor(msg => lila.log("asyncActor").warn(s"unhandled msg: $msg"))
 
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[Instant]):
 

@@ -1,19 +1,19 @@
 package lila.puzzle
 
-import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.game.GameRepo
 import lila.rating.Perf
 import lila.user.Me
-import lila.hub.tree.{ Metas, NewBranch, NewTree }
+import lila.tree.{ Metas, NewBranch, NewTree }
+import lila.core.i18n.{ Translate, Translator, defaultLang }
 import chess.format.*
 
 final class JsonView(
     gameJson: GameJson,
     gameRepo: GameRepo
-)(using Executor):
+)(using Executor, Translator):
 
   import JsonView.*
 
@@ -21,7 +21,7 @@ final class JsonView(
       puzzle: Puzzle,
       angle: Option[PuzzleAngle],
       replay: Option[PuzzleReplay]
-  )(using Lang)(using Option[Me], Perf): Fu[JsObject] =
+  )(using Translate)(using Option[Me], Perf): Fu[JsObject] =
     gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
@@ -38,7 +38,7 @@ final class JsonView(
                 "key" -> a.key,
                 "name" -> {
                   if a == PuzzleAngle.mix
-                  then lila.i18n.I18nKeys.puzzle.puzzleThemes.txt()
+                  then lila.core.i18n.I18nKey.puzzle.puzzleThemes.txt()
                   else a.name.txt()
                 },
                 "desc" -> a.description.txt()
@@ -76,7 +76,7 @@ final class JsonView(
       "ratingDiff" -> ratingDiff
     )
 
-  def pref(p: lila.pref.Pref) =
+  def pref(p: lila.core.pref.Pref) =
     Json.obj(
       "coords"       -> p.coords,
       "keyboardMove" -> p.keyboardMove,
@@ -89,7 +89,7 @@ final class JsonView(
       "is3d"         -> p.is3d
     )
 
-  def dashboardJson(dash: PuzzleDashboard, days: Int)(using Lang) = Json.obj(
+  def dashboardJson(dash: PuzzleDashboard, days: Int)(using Translate) = Json.obj(
     "days"   -> days,
     "global" -> dashboardResults(dash.global),
     "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { (key, res) =>
@@ -215,7 +215,7 @@ object JsonView:
   private def simplifyThemes(themes: Set[PuzzleTheme.Key]) =
     themes.filterNot(_ == PuzzleTheme.mate.key)
 
-  def angles(all: PuzzleAngle.All)(using Lang) = Json.obj(
+  def angles(all: PuzzleAngle.All)(using Translate) = Json.obj(
     "themes" -> JsObject:
       all.themes.map: (i18n, themes) =>
         i18n.txt() -> JsArray:
@@ -229,7 +229,7 @@ object JsonView:
               )
   )
 
-  def openings(all: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine])(using Lang): JsObject =
+  def openings(all: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine])(using Translate): JsObject =
     Json.obj(
       "openings" ->
         all

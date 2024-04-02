@@ -9,13 +9,12 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 import lila.user.User.lichessId
+import lila.core.tournament.leaderboard.Ratio
+import lila.core.tournament.Status
 
 object BSONHandlers:
 
-  private[tournament] given BSONHandler[Status] = tryHandler(
-    { case BSONInteger(v) => Status(v).toTry(s"No such status: $v") },
-    x => BSONInteger(x.id)
-  )
+  private[tournament] given BSONHandler[Status] = valueMapHandler(Status.byId)(_.id)
 
   private[tournament] given BSONHandler[Schedule.Freq] = tryHandler(
     { case BSONString(v) => Schedule.Freq.byName.get(v).toTry(s"No such freq: $v") },
@@ -39,8 +38,8 @@ object BSONHandlers:
 
   given BSONDocumentHandler[TeamBattle] = Macros.handler
 
-  private given BSONHandler[LeaderboardApi.Ratio] = BSONIntegerHandler.as(
-    i => LeaderboardApi.Ratio(i.toDouble / 100_000),
+  private given BSONHandler[Ratio] = BSONIntegerHandler.as(
+    i => Ratio(i.toDouble / 100_000),
     r => (r.value * 100_000).toInt
   )
 
@@ -50,7 +49,7 @@ object BSONHandlers:
     def reads(r: BSON.Reader) =
       val variant = Variant.idOrDefault(r.getO[Variant.Id]("variant"))
       val position: Option[Fen.Standard] =
-        r.getO[Fen.Epd]("fen")
+        r.getO[Fen.Full]("fen")
           .map(_.opening: Fen.Standard)
           .filter(_ != Fen.Standard.initial)
           .orElse(r.getO[chess.opening.Eco]("eco").flatMap(Thematic.byEco).map(_.fen)) // for BC

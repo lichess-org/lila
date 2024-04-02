@@ -9,7 +9,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
-import lila.hub.tree.{ Branch, Branches }
+import lila.tree.{ Branch, Branches }
 
 import Node.BsonFields as F
 
@@ -91,13 +91,13 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def setTagsFor(chapter: Chapter) =
     coll(_.updateField($id(chapter.id), "tags", chapter.tags)).void
 
-  def setShapes(shapes: lila.hub.tree.Node.Shapes) =
+  def setShapes(shapes: lila.tree.Node.Shapes) =
     setNodeValue(F.shapes, shapes.value.nonEmpty.option(shapes))
 
-  def setComments(comments: lila.hub.tree.Node.Comments) =
+  def setComments(comments: lila.tree.Node.Comments) =
     setNodeValue(F.comments, comments.value.nonEmpty.option(comments))
 
-  def setGamebook(gamebook: lila.hub.tree.Node.Gamebook) =
+  def setGamebook(gamebook: lila.tree.Node.Gamebook) =
     setNodeValue(F.gamebook, gamebook.nonEmpty.option(gamebook))
 
   def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue(F.glyphs, glyphs.nonEmpty)

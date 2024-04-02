@@ -11,7 +11,7 @@ private object PrefHandlers:
 
     def reads(r: BSON.Reader): Pref =
       Pref(
-        _id = r.get[UserId]("_id"),
+        id = r.get[UserId]("_id"),
         bg = r.getD("bg", Pref.default.bg),
         bgImg = r.strO("bgImg"),
         is3d = r.getD("is3d", Pref.default.is3d),
@@ -57,7 +57,7 @@ private object PrefHandlers:
 
     def writes(w: BSON.Writer, o: Pref) =
       $doc(
-        "_id"            -> o._id,
+        "_id"            -> o.id,
         "bg"             -> o.bg,
         "bgImg"          -> o.bgImg,
         "is3d"           -> o.is3d,

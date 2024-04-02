@@ -9,7 +9,7 @@ import play.api.libs.json.*
 case class Step(
     ply: Ply,
     move: Option[Uci.WithSan],
-    fen: Fen.Epd,
+    fen: Fen.Full,
     check: Check,
     // None when not computed yet
     dests: Option[Map[Square, List[Square]]],
@@ -59,7 +59,7 @@ object StepBuilder:
       id: GameId,
       sans: Vector[SanStr],
       variant: Variant,
-      initialFen: Fen.Epd
+      initialFen: Fen.Full
   ): JsArray =
     val (init, games, error) = chess.Replay.gameMoveWhileValid(sans, initialFen, variant)
     error.foreach(logChessError(id.value))

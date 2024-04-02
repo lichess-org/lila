@@ -27,7 +27,7 @@
     &__disclaimer {
       color: $c-font-dimmer;
       font-size: 0.9rem;
-      margin-#{$start-direction}: -0.5rem;
+      margin-inline-start: -0.5rem;
       vertical-align: top;
       @media (hover: none) {
         display: none;
@@ -62,7 +62,7 @@
     }
   }
   &__tier {
-    margin-#{$start-direction}: 1em;
+    margin-inline-start: 1em;
   }
   &__like {
     font-weight: bold;
@@ -75,7 +75,7 @@
       content: $licon-Heart;
     }
     &--mini {
-      margin-#{$start-direction}: 1rem;
+      margin-inline-start: 1rem;
       color: $c-font;
       transition: 0.3s;
       &:hover {
@@ -167,7 +167,7 @@
   }
   legend {
     width: 100%;
-    padding-#{$start-direction}: 1em;
+    padding-inline-start: 1em;
     > span {
       @extend %flex-between;
     }

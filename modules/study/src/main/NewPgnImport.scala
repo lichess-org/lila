@@ -14,10 +14,10 @@ import chess.format.pgn.{
 }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
-import lila.hub.tree.Node.{ Comment, Comments, Shapes }
-import lila.common.LightUser
+import lila.tree.Node.{ Comment, Comments, Shapes }
+import lila.core.LightUser
 import lila.importer.{ ImportData, Preprocessed }
-import lila.hub.tree.{ NewRoot, NewTree, NewBranch, Metas }
+import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
 
 object NewPgnImport:
 

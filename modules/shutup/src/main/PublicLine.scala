@@ -3,7 +3,7 @@ package lila.shutup
 import scala.util.Success
 
 import lila.db.dsl.given
-import lila.hub.actorApi.shutup.PublicSource as Source
+import lila.core.shutup.PublicSource as Source
 
 case class PublicLine(
     text: String,

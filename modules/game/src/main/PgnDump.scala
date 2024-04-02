@@ -4,8 +4,9 @@ import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, PgnTree, SanS
 import chess.format.{ Fen, pgn as chessPgn }
 import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
-import lila.common.LightUser
-import lila.common.config.BaseUrl
+import lila.core.LightUser
+import lila.core.config.BaseUrl
+import lila.core.i18n.Translate
 
 final class PgnDump(
     baseUrl: BaseUrl,
@@ -16,10 +17,10 @@ final class PgnDump(
 
   def apply(
       game: Game,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       flags: WithFlags,
       teams: Option[ByColor[TeamId]] = None
-  ): Fu[Pgn] =
+  )(using Translate): Fu[Pgn] =
     val imported = game.pgnImport.flatMap: pgni =>
       Parser.full(pgni.pgn).toOption
 
@@ -61,32 +62,24 @@ final class PgnDump(
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
-  private def eventOf(game: Game) =
-    val perf = game.perfType.trans(using lila.i18n.defaultLang)
+  private def eventOf(game: Game)(using lila.core.i18n.Translate) =
+    val perf = game.perfType.trans
     game.tournamentId
-      .map { id =>
-        s"${game.mode} $perf tournament https://lichess.org/tournament/$id"
-      }
-      .orElse(game.simulId.map { id =>
-        s"$perf simul https://lichess.org/simul/$id"
-      })
-      .getOrElse {
-        s"${game.mode} $perf game"
-      }
+      .map(id => s"${game.mode} $perf tournament https://lichess.org/tournament/$id")
+      .orElse(game.simulId.map(id => s"$perf simul https://lichess.org/simul/$id"))
+      .getOrElse(s"${game.mode} $perf game")
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
-    p.ratingDiff.map { rd =>
-      Tag(tag(Tag), s"${if rd >= 0 then "+" else ""}$rd")
-    }
+    p.ratingDiff.map(rd => Tag(tag(Tag), s"${if rd >= 0 then "+" else ""}$rd"))
 
   def tags(
       game: Game,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
-  ): Fu[Tags] =
+  )(using lila.core.i18n.Translate): Fu[Tags] =
     gameLightUsers(game).map:
       case ByColor(wu, bu) =>
         Tags:
@@ -102,32 +95,20 @@ final class PgnDump(
             Tag(_.White, player(game.whitePlayer, wu)).some,
             Tag(_.Black, player(game.blackPlayer, bu)).some,
             Tag(_.Result, result(game)).some,
-            importedDate.isEmpty.option(
-              Tag(
-                _.UTCDate,
-                imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt)
-              )
-            ),
-            importedDate.isEmpty.option(
-              Tag(
-                _.UTCTime,
-                imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt)
-              )
-            ),
+            importedDate.isEmpty.option:
+              Tag(_.UTCDate, imported.flatMap(_.tags(_.UTCDate)) | Tag.UTCDate.format.print(game.createdAt))
+            ,
+            importedDate.isEmpty.option:
+              Tag(_.UTCTime, imported.flatMap(_.tags(_.UTCTime)) | Tag.UTCTime.format.print(game.createdAt))
+            ,
             withRating.option(Tag(_.WhiteElo, rating(game.whitePlayer))),
             withRating.option(Tag(_.BlackElo, rating(game.blackPlayer))),
             withRating.so(ratingDiffTag(game.whitePlayer, _.WhiteRatingDiff)),
             withRating.so(ratingDiffTag(game.blackPlayer, _.BlackRatingDiff)),
-            wu.flatMap(_.title)
-              .map:
-                Tag(_.WhiteTitle, _)
-            ,
-            bu.flatMap(_.title)
-              .map:
-                Tag(_.BlackTitle, _)
-            ,
-            teams.map { t => Tag("WhiteTeam", t.white) },
-            teams.map { t => Tag("BlackTeam", t.black) },
+            wu.flatMap(_.title).map(Tag(_.WhiteTitle, _)),
+            bu.flatMap(_.title).map(Tag(_.BlackTitle, _)),
+            teams.map(t => Tag("WhiteTeam", t.white)),
+            teams.map(t => Tag("BlackTeam", t.black)),
             Tag(_.Variant, game.variant.name.capitalize).some,
             Tag.timeControl(game.clock.map(_.config)).some,
             Tag(_.ECO, game.opening.fold("?")(_.opening.eco)).some,
@@ -146,18 +127,14 @@ final class PgnDump(
             ).some
           ).flatten ::: customStartPosition(game.variant)
             .so(initialFen)
-            .so: fen =>
-              List(
-                Tag(_.FEN, fen.value),
-                Tag("SetUp", "1")
-              )
+            .so(fen => List(Tag(_.FEN, fen.value), Tag("SetUp", "1")))
 
 object PgnDump:
 
   private val delayMovesBy         = 3
   private val delayKeepsFirstMoves = 5
 
-  def makeTree(
+  private[game] def makeTree(
       moves: Seq[SanStr],
       from: Ply,
       clocks: Vector[Centis],

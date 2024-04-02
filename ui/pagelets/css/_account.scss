@@ -19,7 +19,7 @@
 
   .current {
     color: $c-brag;
-    margin-#{$start-direction}: 1em;
+    margin-inline-start: 1em;
     font-weight: bold;
   }
 
@@ -103,12 +103,12 @@
       }
 
       label {
-        margin-#{$start-direction}: 1rem;
+        margin-inline-start: 1rem;
         cursor: pointer;
       }
       em {
         @extend %roboto;
-        margin-#{$start-direction}: 1rem;
+        margin-inline-start: 1rem;
         color: $c-font-dimmer;
         unicode-bidi: plaintext;
       }
@@ -121,7 +121,7 @@
 
     i {
       font-size: 45px;
-      margin-#{$end-direction}: 15px;
+      margin-inline-end: 15px;
     }
 
     code {
@@ -164,13 +164,16 @@
       white-space: nowrap;
 
       &::after {
-        margin-#{$start-direction}: 1em;
+        margin-inline-start: 1em;
         content: '';
         display: inline-block;
         vertical-align: middle;
         width: 100%;
         height: 1px;
-        background: linear-gradient(to $end-direction, fade-out($c-accent, 0.5), $c-bg-box 80%);
+        background: linear-gradient(to right, fade-out($c-accent, 0.5), $c-bg-box 80%);
+        @include if-rtl {
+          background: linear-gradient(to left, fade-out($c-accent, 0.5), $c-bg-box 80%);
+        }
       }
     }
   }

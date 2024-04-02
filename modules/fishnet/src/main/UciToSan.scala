@@ -6,7 +6,7 @@ import chess.format.pgn.SanStr
 import chess.{ MoveOrDrop, Ply, Replay, Situation }
 
 import lila.analyse.{ Analysis, Info }
-import lila.base.LilaException
+import lila.core.lilaism.LilaException
 
 // Even though Info.variation is a List[SanStr]
 // When we receive them from Fishnet clients it's actually a list of UCI moves.

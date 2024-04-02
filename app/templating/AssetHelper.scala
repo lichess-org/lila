@@ -3,7 +3,7 @@ package templating
 import play.api.libs.json.{ JsValue, Json, Writes }
 
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.AssetVersion
+import lila.core.AssetVersion
 import lila.common.String.html.safeJsonValue
 
 trait AssetHelper extends HasEnv:
@@ -35,19 +35,19 @@ trait AssetHelper extends HasEnv:
   def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def cssTag(name: String)(using ctx: Context): Frag =
-    cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
+    cssTagWithTheme(name, ctx.pref.currentBg)
 
-  def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
+  def cssTagWithTheme(name: String, theme: String): Frag =
     if theme == "system" then
       frag(
-        cssTagWithDirAndSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
-        cssTagWithDirAndSimpleTheme(name, isRTL, "dark")(media  := "(prefers-color-scheme: dark)")
+        cssTagWithSimpleTheme(name, "light")(media := "(prefers-color-scheme: light)"),
+        cssTagWithSimpleTheme(name, "dark")(media  := "(prefers-color-scheme: dark)")
       )
-    else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
+    else cssTagWithSimpleTheme(name, theme)
 
-  private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
+  private def cssTagWithSimpleTheme(name: String, theme: String): Tag =
     cssAt:
-      s"css/$name.${if isRTL then "rtl" else "ltr"}.$theme.${if minifiedAssets then "min" else "dev"}.css"
+      s"css/$name.$theme.${if minifiedAssets then "min" else "dev"}.css"
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if minifiedAssets then "min" else "dev"}.css")

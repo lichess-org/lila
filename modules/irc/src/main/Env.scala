@@ -5,13 +5,13 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 
 import lila.common.Lilakka
-import lila.hub.actorApi.irc.Event
-import lila.hub.actorApi.plan.ChargeEvent
+import lila.core.actorApi.irc.Event
+import lila.core.actorApi.plan.ChargeEvent
 
 @Module
 final class Env(
     appConfig: Configuration,
-    getLightUser: lila.common.LightUser.Getter,
+    getLightUser: lila.core.LightUser.Getter,
     noteApi: lila.user.NoteApi,
     ws: StandaloneWSClient,
     shutdown: akka.actor.CoordinatedShutdown,

@@ -1,10 +1,12 @@
 package lila.user
 
-import lila.common.config.Secret
+import lila.core.config.Secret
 
 import User.ClearPassword as P
 
 class PasswordHasherTest extends munit.FunSuite:
+
+  given Executor = scala.concurrent.ExecutionContextOpportunistic
 
   test("bad secrets throw exceptions") {
     intercept[IllegalArgumentException] {

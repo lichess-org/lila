@@ -5,8 +5,9 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
-import lila.i18n.{ LangList, Language }
+import scalalib.paginator.Paginator
+import lila.i18n.LangList
+import lila.core.i18n.Language
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
 
@@ -78,10 +79,10 @@ object index:
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
         st.title := "Lichess community blogs"
       ).some,
-      withHrefLangs = lila.common.LangPath(langHref(routes.Ublog.communityAll())).some
+      withHrefLangs = lila.core.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
       val langSelections: List[(String, String)] = ("all", "All languages") ::
-        lila.i18n.I18nLangPicker
+        lila.i18n.LangPicker
           .sortFor(LangList.popularNoRegion, ctx.req)
           .map: l =>
             l.language -> LangList.name(l)

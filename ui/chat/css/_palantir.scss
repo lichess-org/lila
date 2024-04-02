@@ -47,8 +47,8 @@
 
   &::after {
     top: 1px;
-    #{$start-direction}: 0;
-    #{$end-direction}: auto;
+    @include inline-start(0);
+    @include inline-end(auto);
     background: none;
     box-shadow: none;
   }

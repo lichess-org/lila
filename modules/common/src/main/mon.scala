@@ -4,8 +4,8 @@ import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
 import kamon.metric.{ Counter, Timer }
 import kamon.tag.TagSet
 
-import lila.common.ApiVersion
-import lila.common.Domain
+import lila.core.ApiVersion
+import lila.core.Domain
 
 object mon:
 
@@ -682,7 +682,7 @@ object mon:
       val perState = gauge("jvm.threads.group")
       val total    = gauge("jvm.threads.group.total")
       for
-        group <- ornicar.scalalib.Jvm.threadGroups()
+        group <- scalalib.Jvm.threadGroups()
         _ = total.withTags(tags("name" -> group.name)).update(group.total)
         (state, count) <- group.states
       yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)

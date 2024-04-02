@@ -1,7 +1,7 @@
 package lila.irwin
 
 import lila.game.Pov
-import lila.report.SuspectId
+import lila.core.report.SuspectId
 
 case class IrwinReport(
     _id: UserId,

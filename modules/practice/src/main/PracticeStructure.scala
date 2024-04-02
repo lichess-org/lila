@@ -42,11 +42,11 @@ case class PracticeSection(
 case class PracticeStudy(
     id: StudyId,
     hide: Boolean,
-    name: String,
+    name: StudyName,
     desc: String,
     chapters: List[Chapter.IdName]
-) extends lila.hub.practice.Study:
-
+) extends lila.core.practice.Study:
+  val slug       = lila.common.String.slugify(name.value)
   def chapterIds = chapters.map(_.id)
 
 object PracticeStructure:

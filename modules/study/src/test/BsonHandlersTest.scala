@@ -10,11 +10,11 @@ import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Com
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 
 import lila.importer.{ ImportData, Preprocessed }
-import lila.hub.tree.Node.{ Comment, Comments, Shapes }
+import lila.tree.Node.{ Comment, Comments, Shapes }
 
 import scala.language.implicitConversions
 
-import lila.hub.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
+import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
 import BSONHandlers.given
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }

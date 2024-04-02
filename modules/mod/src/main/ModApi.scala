@@ -2,10 +2,12 @@ package lila.mod
 
 import chess.PlayerTitle
 
-import lila.common.{ Bus, EmailAddress }
-import lila.report.{ ModId, Room, Suspect, SuspectId }
+import lila.common.Bus
+import lila.report.{ ModId, Room, Suspect }
 import lila.security.{ Granter, Permission }
-import lila.user.{ LightUserApi, Me, User, UserRepo }
+import lila.user.{ LightUserApi, Me, User, UserRepo, modId, given }
+import lila.core.report.SuspectId
+import lila.core.EmailAddress
 
 final class ModApi(
     userRepo: UserRepo,
@@ -15,7 +17,8 @@ final class ModApi(
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
-)(using Executor):
+)(using Executor)
+    extends lila.core.mod.ModApi:
 
   def setAlt(prev: Suspect, v: Boolean)(using me: Me.Id): Funit =
     for
@@ -31,7 +34,7 @@ final class ModApi(
         sus = prev.set(_.withMarks(_.set(_.Engine, v)))
         _ <- logApi.engine(sus, v)
       yield
-        Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
+        Bus.publish(lila.core.mod.MarkCheater(sus.user.id, v), "adjustCheater")
         if v then
           notifier.reporters(me.modId, sus)
           refunder.schedule(sus)
@@ -59,7 +62,7 @@ final class ModApi(
         _ <- logApi.booster(sus, v)
       yield
         if v then
-          Bus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), "adjustBooster")
+          Bus.publish(lila.core.mod.MarkBooster(sus.user.id), "adjustBooster")
           notifier.reporters(me.modId, sus)
         sus
 
@@ -70,7 +73,7 @@ final class ModApi(
       .so:
         userRepo.updateTroll(sus.user).void.andDo {
           logApi.troll(sus)
-          Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
+          Bus.publish(lila.core.mod.Shadowban(sus.user.id, value), "shadowban")
         }
       .andDo:
         if value then notifier.reporters(me.modId, sus)
@@ -148,7 +151,7 @@ final class ModApi(
 
   def setRankban(sus: Suspect, v: Boolean)(using Me.Id): Funit =
     (sus.user.marks.rankban != v).so {
-      if v then Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
+      if v then Bus.publish(lila.core.mod.KickFromRankings(sus.user.id), "kickFromRankings")
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
     }
 

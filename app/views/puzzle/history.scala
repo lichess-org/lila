@@ -5,7 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.puzzle.PuzzleHistory.{ PuzzleSession, SessionRound }
 import lila.puzzle.PuzzleTheme
 import lila.user.User

@@ -1,8 +1,9 @@
 package lila.i18n
 
 import play.api.i18n.Lang
+import lila.core.i18n.Language
 
-object LangList:
+object LangList extends lila.core.i18n.LangList:
 
   val all: Map[Lang, String] = Map(
     Lang("en", "GB")  -> "English",
@@ -138,7 +139,7 @@ object LangList:
   def name(lang: Lang): String   = all.getOrElse(lang, lang.code)
   def name(code: String): String = Lang.get(code).fold(code)(name)
 
-  def nameByStr(str: String): String      = I18nLangPicker.byStr(str).fold(str)(name)
+  def nameByStr(str: String): String      = LangPicker.byStr(str).fold(str)(name)
   def nameByLanguage(l: Language): String = nameByStr(l.value)
 
   lazy val languageChoices: List[(Language, String)] = all.view
@@ -172,3 +173,14 @@ object LangList:
           dir == Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC
         }
     )
+
+  lazy val allLanguagesForm = new LangForm:
+    val choices = languageChoices
+    val mapping = languageMapping(choices)
+
+  lazy val popularLanguagesForm = new LangForm:
+    val choices = popularLanguageChoices
+    val mapping = languageMapping(choices)
+
+  private def languageMapping(choices: List[(Language, String)]): play.api.data.Mapping[Language] =
+    play.api.data.Forms.text.verifying(l => choices.exists(_._1.value == l)).transform(Language(_), _.value)

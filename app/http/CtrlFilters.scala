@@ -5,7 +5,7 @@ import alleycats.Zero
 import play.api.http.*
 import play.api.mvc.*
 
-import lila.common.{ HTTPRequest, config }
+import lila.common.HTTPRequest
 import lila.security.{ Granter, Permission }
 
 trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConversions:
@@ -108,7 +108,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
 
   def Reasonable(
       page: Int,
-      max: config.Max = config.Max(40),
+      max: Max = Max(40),
       errorPage: => Fu[Result] = BadRequest("resource too old")
   )(result: => Fu[Result]): Fu[Result] =
     if page < max.value && page > 0 then result else errorPage

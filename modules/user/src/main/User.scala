@@ -4,14 +4,16 @@ import chess.PlayerTitle
 import play.api.i18n.Lang
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
-import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
-import lila.i18n.Language
+import lila.core.{ EmailAddress, NormalizedEmailAddress }
+import lila.core.LightUser
+import lila.core.i18n.Language
 import lila.rating.{ Perf, PerfType }
+import lila.core.rating.PerfKey
 
 case class User(
     id: UserId,
     username: UserName,
-    count: lila.hub.user.Count,
+    count: lila.core.user.Count,
     enabled: UserEnabled,
     roles: List[String],
     profile: Option[Profile] = None,
@@ -27,7 +29,7 @@ case class User(
     totpSecret: Option[TotpSecret] = None,
     marks: UserMarks = UserMarks.empty,
     hasEmail: Boolean
-) extends lila.hub.user.User:
+) extends lila.core.user.User:
 
   override def equals(other: Any) = other match
     case u: User => id == u.id
@@ -114,7 +116,7 @@ object User:
     def titleUsernameWithBestRating =
       title.fold(usernameWithBestRating): t =>
         s"$t $usernameWithBestRating"
-    def lightPerf(key: Perf.Key) =
+    def lightPerf(key: PerfKey) =
       perfs(key).map: perf =>
         User.LightPerf(light, key, perf.intRating, perf.progress)
 
@@ -125,8 +127,8 @@ object User:
       new WithPerfs(user, perfs | UserPerfs.default(user.id))
     given UserIdOf[WithPerfs] = _.user.id
 
-  case class WithPerf(user: User, perf: Perf):
-    export user.{ id, createdAt, hasTitle, light }
+  case class WithPerf(user: User, perf: Perf) extends lila.core.user.WithPerf:
+    export user.{ hasTitle, light }
 
   type CredentialCheck = ClearPassword => Boolean
   case class LoginCandidate(user: User, check: CredentialCheck, isBlanked: Boolean, must2fa: Boolean = false):
@@ -176,7 +178,7 @@ object User:
   opaque type Erased = Boolean
   object Erased extends YesNo[Erased]
 
-  case class LightPerf(user: LightUser, perfKey: Perf.Key, rating: IntRating, progress: IntRatingDiff)
+  case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
   case class LightCount(user: LightUser, count: Int)
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
@@ -296,7 +298,7 @@ object User:
       User(
         id = r.get[UserId](id),
         username = r.get[UserName](username),
-        count = r.get[lila.hub.user.Count](count),
+        count = r.get[lila.core.user.Count](count),
         enabled = r.get[UserEnabled](enabled),
         roles = ~r.getO[List[String]](roles),
         profile = r.getO[Profile](profile),

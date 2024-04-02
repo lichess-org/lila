@@ -2,8 +2,9 @@ package lila.user
 
 import chess.Speed
 
-import lila.common.Heapsort.*
+import scalalib.HeapSort.*
 import lila.rating.{ Glicko, Perf, PerfType }
+import lila.core.rating.PerfKey
 
 case class UserPerfs(
     id: UserId,
@@ -118,27 +119,27 @@ case class UserPerfs(
       val p = apply(t).progress
       if p > max then p else max
 
-  lazy val perfsMap: Map[Perf.Key, Perf] = Map(
-    Perf.Key("chess960")       -> chess960,
-    Perf.Key("kingOfTheHill")  -> kingOfTheHill,
-    Perf.Key("threeCheck")     -> threeCheck,
-    Perf.Key("antichess")      -> antichess,
-    Perf.Key("atomic")         -> atomic,
-    Perf.Key("horde")          -> horde,
-    Perf.Key("racingKings")    -> racingKings,
-    Perf.Key("crazyhouse")     -> crazyhouse,
-    Perf.Key("ultraBullet")    -> ultraBullet,
-    Perf.Key("bullet")         -> bullet,
-    Perf.Key("blitz")          -> blitz,
-    Perf.Key("rapid")          -> rapid,
-    Perf.Key("classical")      -> classical,
-    Perf.Key("correspondence") -> correspondence,
-    Perf.Key("puzzle")         -> puzzle
+  lazy val perfsMap: Map[PerfKey, Perf] = Map(
+    PerfKey("chess960")       -> chess960,
+    PerfKey("kingOfTheHill")  -> kingOfTheHill,
+    PerfKey("threeCheck")     -> threeCheck,
+    PerfKey("antichess")      -> antichess,
+    PerfKey("atomic")         -> atomic,
+    PerfKey("horde")          -> horde,
+    PerfKey("racingKings")    -> racingKings,
+    PerfKey("crazyhouse")     -> crazyhouse,
+    PerfKey("ultraBullet")    -> ultraBullet,
+    PerfKey("bullet")         -> bullet,
+    PerfKey("blitz")          -> blitz,
+    PerfKey("rapid")          -> rapid,
+    PerfKey("classical")      -> classical,
+    PerfKey("correspondence") -> correspondence,
+    PerfKey("puzzle")         -> puzzle
   )
 
-  def ratingOf(pt: Perf.Key): Option[IntRating] = perfsMap.get(pt).map(_.intRating)
+  def ratingOf(pt: PerfKey): Option[IntRating] = perfsMap.get(pt).map(_.intRating)
 
-  def apply(key: Perf.Key): Option[Perf] = perfsMap.get(key)
+  def apply(key: PerfKey): Option[Perf] = perfsMap.get(key)
 
   def apply(perfType: PerfType): Perf = perfType match
     case PerfType.Standard       => standard

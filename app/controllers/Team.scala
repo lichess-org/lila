@@ -8,7 +8,8 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, LightUser, config }
+import lila.common.HTTPRequest
+import lila.core.LightUser
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
 import lila.user.User as UserModel
 
@@ -38,7 +39,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       Found(api.team(id)) { renderTeam(_, page, mod && canEnterModView) }
 
   def members(id: TeamId, page: Int) = Open:
-    Reasonable(page, config.Max(50)):
+    Reasonable(page, Max(50)):
       Found(api.teamEnabled(id)): team =>
         val canSee =
           fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so:
@@ -57,11 +58,11 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         if text.trim.isEmpty
         then paginator.popularTeams(page).map { html.team.list.all(_) }
         else
-          env
-            .teamSearch(text, page)
-            .flatMap(_.mapFutureList(env.team.memberRepo.addMyLeadership))
-            .map:
-              html.team.list.search(text, _)
+          for
+            ids   <- env.teamSearch(text, page)
+            teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
+            forMe <- teams.mapFutureList(env.team.memberRepo.addMyLeadership)
+          yield html.team.list.search(text, forMe)
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
     team    <- api.withLeaders(team)
@@ -83,19 +84,19 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       ctx: Context
   ): Boolean =
     import info.*
-    team.enabled && !team.isChatFor(_.NONE) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
-      (team.isChatFor(_.LEADERS) && info.ledByMe) ||
-      (team.isChatFor(_.MEMBERS) && info.mine) ||
+    team.enabled && !team.isChatFor(_.None) && ctx.kid.no && HTTPRequest.isHuman(ctx.req) && {
+      (team.isChatFor(_.Leaders) && info.ledByMe) ||
+      (team.isChatFor(_.Members) && info.mine) ||
       (canEnterModView && requestModView)
     }
 
   private def canHaveForum(team: TeamModel, asMod: Boolean)(member: Option[TeamMember])(using
       ctx: Context
   ): Boolean =
-    team.enabled && !team.isForumFor(_.NONE) && ctx.kid.no && {
-      team.isForumFor(_.EVERYONE) ||
-      (team.isForumFor(_.LEADERS) && member.exists(_.perms.nonEmpty)) ||
-      (team.isForumFor(_.MEMBERS) && member.isDefined) ||
+    team.enabled && !team.isForumFor(_.None) && ctx.kid.no && {
+      team.isForumFor(_.Everyone) ||
+      (team.isForumFor(_.Leaders) && member.exists(_.perms.nonEmpty)) ||
+      (team.isForumFor(_.Members) && member.isDefined) ||
       (isGrantedOpt(_.ModerateForum) && asMod)
     }
 
@@ -258,11 +259,10 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def form = Auth { ctx ?=> me ?=>
     LimitPerWeek:
-      forms.anyCaptcha.flatMap: captcha =>
-        Ok.page(html.team.form.create(forms.create, captcha))
+      Ok.page(html.team.form.create(forms.create, anyCaptcha))
   }
 
-  private val OneAtATime = lila.memo.FutureConcurrencyLimit[UserId](
+  private val OneAtATime = lila.app.http.FutureConcurrencyLimit[UserId](
     key = "team.concurrency.user",
     ttl = 10.minutes,
     maxConcurrency = 1
@@ -274,10 +274,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           forms.create
             .bindFromRequest()
             .fold(
-              err =>
-                BadRequest.pageAsync:
-                  forms.anyCaptcha.map(html.team.form.create(err, _))
-              ,
+              err => BadRequest.page(html.team.form.create(err, anyCaptcha)),
               data =>
                 api.create(data, me).map { team =>
                   Redirect(routes.Team.show(team.id))
@@ -390,12 +387,18 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         )
   }
 
-  def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ ?=>
+  def declinedRequests(id: TeamId, page: Int) = AuthBody { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.Request): team =>
-      Ok.pageAsync:
-        paginator.declinedRequests(team, page).map {
-          html.team.declinedRequest.all(team, _)
-        }
+      forms.searchDeclinedForm
+        .bindFromRequest()
+        .fold(
+          _ => BadRequest(""),
+          userQuery =>
+            Ok.pageAsync:
+              paginator.declinedRequests(team, page, userQuery).map {
+                html.team.declinedRequest.all(team, _, userQuery)
+              }
+        )
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
@@ -406,7 +409,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           val admins = t.leaders.filter(_.hasPerm(_.Admin))
           if admins.nonEmpty && admins.forall(_.is(me))
           then
-            val msg = lila.i18n.I18nKeys.team.onlyLeaderLeavesTeam.txt()
+            val msg = lila.core.i18n.I18nKey.team.onlyLeaderLeavesTeam.txt()
             negotiate(
               html = Redirect(routes.Team.edit(team.id)).flashFailure(msg),
               json = JsonBadRequest(msg)
@@ -467,7 +470,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   You received this because you are subscribed to messages of the team $url."""
                   env.msg.api
                     .multiPost(
-                      env.team.memberStream.subscribedIds(team, config.MaxPerSecond(50)),
+                      env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
                       full
                     )
                     .addEffect: nb =>

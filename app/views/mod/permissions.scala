@@ -54,8 +54,8 @@ object permissions:
                 )
           ),
           form3.actions(
-            a(href := routes.User.show(u.username))(trans.cancel()),
-            submitButton(cls := "button")(trans.save())
+            a(href := routes.User.show(u.username))(trans.site.cancel()),
+            submitButton(cls := "button")(trans.site.save())
           )
         )
       )

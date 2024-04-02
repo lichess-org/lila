@@ -3,14 +3,14 @@ package lila.study
 import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{ PgnStr, Tags }
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.importer.{ ImportData, Preprocessed }
-import lila.hub.tree.{ Root, Branch, Branches }
-import lila.hub.tree.Node.{ Comment, Comments, Shapes }
+import lila.tree.{ Root, Branch, Branches }
+import lila.tree.Node.{ Comment, Comments, Shapes }
 
 import scala.language.implicitConversions
 
-import lila.hub.tree.{ Branch, Branches, Root }
+import lila.tree.{ Branch, Branches, Root }
 
 import lila.db.BSON
 import BSONHandlers.given
@@ -18,7 +18,7 @@ import lila.db.BSON.Writer
 import lila.db.BSON.Reader
 import lila.db.dsl.Bdoc
 import Helpers.*
-import lila.hub.tree.NewRoot
+import lila.tree.NewRoot
 
 class PgnRoundTripTest extends munit.FunSuite:
 

@@ -7,7 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object emailConfirm:
 
-  def apply(query: String, user: Option[lila.user.User.WithPerfs], email: Option[lila.common.EmailAddress])(
+  def apply(query: String, user: Option[lila.user.User.WithPerfs], email: Option[lila.core.EmailAddress])(
       using ctx: PageContext
   ) =
     views.html.base.layout(

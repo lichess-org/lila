@@ -23,7 +23,7 @@
     }
 
     th {
-      border-#{$start-direction}: 3px solid transparent;
+      border-inline-start: 3px solid transparent;
 
       @include transition;
     }

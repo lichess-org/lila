@@ -5,13 +5,13 @@ import akka.stream.scaladsl.*
 import chess.format.Fen
 import play.api.libs.json.*
 
-import lila.Lila.{ GameId, none }
 import lila.common.Json.given
-import lila.common.{ Bus, LightUser }
+import lila.common.Bus
+import lila.core.LightUser
 import lila.game.Pov
 import lila.game.actorApi.MoveGameEvent
-import lila.round.actorApi.TvSelect
-import lila.hub.socket.makeMessage
+import lila.core.game.TvSelect
+import lila.core.socket.makeMessage
 
 final private class TvBroadcast(
     lightUserSync: LightUser.GetterSync,
@@ -67,7 +67,7 @@ final private class TvBroadcast(
               val user = p.userId.flatMap(lightUserSync)
               Json
                 .obj("color" -> p.color.name)
-                .add("user" -> user.map(LightUser.write))
+                .add("user" -> user)
                 .add("ai" -> p.aiLevel)
                 .add("rating" -> p.rating)
                 .add("seconds" -> game.clock.map(_.remainingTime(pov.color).roundSeconds))
@@ -107,7 +107,7 @@ object TvBroadcast:
   type SourceType = Source[JsValue, ?]
   type Queue      = SourceQueueWithComplete[JsValue]
 
-  case class Featured(id: GameId, data: JsObject, fen: Fen.Epd):
+  case class Featured(id: GameId, data: JsObject, fen: Fen.Full):
     def dataWithFen = data ++ Json.obj("fen" -> fen)
     def socketMsg   = makeMessage("featured", dataWithFen)
 

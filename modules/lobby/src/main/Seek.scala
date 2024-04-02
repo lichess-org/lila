@@ -2,13 +2,15 @@ package lila.lobby
 
 import chess.variant.Variant
 import chess.{ Mode, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 
-import lila.common.Days
+import lila.core.Days
 import lila.common.Json.given
-import lila.rating.{ Perf, PerfType, RatingRange }
+import lila.rating.{ Perf, PerfType }
+import lila.core.rating.RatingRange
 import lila.user.User
+import lila.core.rating.PerfKey
 
 // correspondence chess, persistent
 case class Seek(
@@ -75,7 +77,7 @@ object Seek:
       color: String,
       user: User.WithPerfs,
       ratingRange: RatingRange,
-      blocking: lila.pool.Blocking
+      blocking: lila.core.pool.Blocking
   ): Seek = Seek(
     _id = ThreadLocalRandom.nextString(idSize),
     variant = variant.id,
@@ -104,6 +106,6 @@ object Seek:
     b => LobbyPerf(IntRating(b.abs), RatingProvisional(b < 0)),
     x => x.rating.value * (if x.provisional.yes then -1 else 1)
   )
-  private given BSONHandler[Map[Perf.Key, LobbyPerf]] = typedMapHandler[Perf.Key, LobbyPerf]
+  private given BSONHandler[Map[PerfKey, LobbyPerf]]  = typedMapHandler[PerfKey, LobbyPerf]
   private[lobby] given BSONDocumentHandler[LobbyUser] = Macros.handler
   private[lobby] given BSONDocumentHandler[Seek]      = Macros.handler

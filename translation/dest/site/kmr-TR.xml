@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Vê girêdankê parve bike da ku hevalên te bi te ra bilîzin</string>
   <string name="gameOver">Lîstik bi dawî bû</string>
   <string name="waitingForOpponent">Li benda reqîbê ye</string>
+  <string name="orLetYourOpponentScanQrCode">An bi reqîbê xwe vê koda QRê bide skenkirin</string>
   <string name="waiting">Li bendê ye</string>
   <string name="yourTurn">Dora te ye</string>
   <string name="aiNameLevelAiLevel">%1$s asta %2$s</string>
@@ -70,6 +71,7 @@
   <string name="makeMainLine">Bike rêza esasî</string>
   <string name="deleteFromHere">Ji vir pê de jê bibe</string>
   <string name="forceVariation">Zorê bide bo vê varyasyonê</string>
+  <string name="copyVariationPgn">PGNa varyasyonê kopî bike</string>
   <string name="move">Hemle</string>
   <string name="variantLoss">Windakirina varyantê</string>
   <string name="variantWin">Rêya serkeftinê</string>

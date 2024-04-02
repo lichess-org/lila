@@ -3,12 +3,14 @@ package lila.api
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
-import lila.common.{ HTTPRequest, KidMode }
-import lila.i18n.{ Language, defaultLanguage }
+import lila.common.HTTPRequest
+import lila.core.i18n.{ Language, Translate, defaultLanguage }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.pref.Pref
-import lila.user.{ Me, MyId, User }
+import lila.user.{ Me, User }
+import lila.core.user.MyId
+import lila.core.KidMode
 
 /* Who is logged in, and how */
 final class LoginContext(
@@ -54,6 +56,7 @@ class Context(
   def flash(name: String): Option[String] = req.flash.get(name)
   def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
   def canPalantir                         = kid.no && me.exists(!_.marks.troll)
+  lazy val translate                      = Translate(lila.i18n.Translator, lang)
   lazy val acceptLanguages: Set[Language] =
     req.acceptLanguages.view.map(Language.apply).toSet + defaultLanguage ++
       user.flatMap(_.language).toSet
@@ -63,15 +66,16 @@ object Context:
   given (using ctx: Context): Option[Me]     = ctx.me
   given (using ctx: Context): Option[MyId]   = ctx.myId
   given (using ctx: Context): KidMode        = ctx.kid
+  given (using ctx: Context): Translate      = ctx.translate
   given (using page: PageContext): Context   = page.ctx
   given (using embed: EmbedContext): Context = embed.ctx
 
-  import lila.i18n.I18nLangPicker
+  import lila.i18n.LangPicker
   import lila.pref.RequestPref
   def minimal(req: RequestHeader) =
-    Context(req, I18nLangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+    Context(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
   def minimalBody[A](req: Request[A]) =
-    BodyContext(req, I18nLangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
+    BodyContext(req, LangPicker(req), LoginContext.anon, RequestPref.fromRequest(req))
 
 final class BodyContext[A](
     val body: Request[A],

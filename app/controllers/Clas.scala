@@ -210,7 +210,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
-  def progress(id: ClasId, key: lila.rating.Perf.Key, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
+  def progress(id: ClasId, key: lila.core.rating.PerfKey, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
     lila.rating
       .PerfType(key)
       .so: perfType =>
@@ -380,7 +380,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           data =>
             Found(env.user.repo.enabledById(data.username)): user =>
               import lila.clas.ClasInvite.{ Feedback as F }
-              import lila.i18n.{ I18nKeys as trans }
+              import lila.core.i18n.{ I18nKey as trans }
               env.clas.api.invite.create(clas, user, data.realName).map { feedback =>
                 Redirect(routes.Clas.studentForm(clas.id.value)).flashing:
                   feedback match

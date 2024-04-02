@@ -3,17 +3,17 @@ package lila.shutup
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.GameRepo
-import lila.hub.actorApi.shutup.PublicSource
 import lila.user.UserRepo
+import lila.core.shutup.PublicSource
 
 final class ShutupApi(
     coll: Coll,
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     userRepo: UserRepo,
-    relationApi: lila.relation.RelationApi,
-    reporter: lila.hub.actors.Report
-)(using Executor):
+    relationApi: lila.core.relation.RelationApi,
+    reportApi: lila.core.report.ReportApi
+)(using Executor)
+    extends lila.core.shutup.ShutupApi:
 
   private given BSONDocumentHandler[UserRecord] = Macros.handler
   import PublicLine.given
@@ -32,7 +32,7 @@ final class ShutupApi(
 
   def privateChat(chatId: String, userId: UserId, text: String) =
     gameRepo.getSourceAndUserIds(GameId(chatId)).flatMap {
-      case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
+      case (source, _) if source.has(lila.core.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
         record(userId, text, TextType.PrivateChat, none, userIds.find(userId !=))
     }
@@ -89,15 +89,13 @@ final class ShutupApi(
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }
-      reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, text, analysed.critical)
-      coll.update
-        .one(
-          $id(userRecord.userId),
-          $unset(
-            TextType.values.map(_.key)
+      reportApi.autoCommReport(userRecord.userId, text, analysed.critical) >>
+        coll.update
+          .one(
+            $id(userRecord.userId),
+            $unset(TextType.values.map(_.key))
           )
-        )
-        .void
+          .void
     }
 
   private def reportText(userRecord: UserRecord) =

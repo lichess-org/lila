@@ -1,15 +1,16 @@
 package lila.clas
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 import reactivemongo.api.*
 
-import lila.common.config.BaseUrl
-import lila.common.{ EmailAddress, Markdown }
+import lila.core.config.BaseUrl
+import lila.common.Markdown
 import lila.db.dsl.{ *, given }
 import lila.msg.MsgApi
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Authenticator, Me, User, UserPerfs, UserPerfsRepo, UserRepo }
+import lila.core.EmailAddress
 
 final class ClasApi(
     colls: ClasColls,
@@ -20,7 +21,7 @@ final class ClasApi(
     msgApi: MsgApi,
     authenticator: Authenticator,
     baseUrl: BaseUrl
-)(using Executor):
+)(using Executor, lila.core.i18n.Translator):
 
   import BsonHandlers.given
 
@@ -291,12 +292,12 @@ final class ClasApi(
       coll.delete.one($id(s.student.id)).void
 
     private[ClasApi] def sendWelcomeMessage(teacherId: UserId, student: User, clas: Clas): Funit =
+      given Lang = student.realLang | lila.core.i18n.defaultLang
       msgApi
         .post(
           orig = teacherId,
           dest = student.id,
-          text = s"""${lila.i18n.I18nKeys.clas.welcomeToClass
-              .txt(clas.name)(using student.realLang | lila.i18n.defaultLang)}
+          text = s"""${lila.core.i18n.I18nKey.clas.welcomeToClass.txt(clas.name)}
 
 $baseUrl/class/${clas.id}
 
@@ -373,8 +374,8 @@ ${clas.desc}""",
       val url = s"$baseUrl/class/invitation/${invite._id}"
       if student.kid then fuccess(ClasInvite.Feedback.CantMsgKid(url))
       else
-        import lila.i18n.I18nKeys.clas.*
-        given play.api.i18n.Lang = student.realLang | lila.i18n.defaultLang
+        import lila.core.i18n.I18nKey.clas.*
+        given play.api.i18n.Lang = student.realLang | lila.core.i18n.defaultLang
         msgApi
           .post(
             orig = teacher.userId,

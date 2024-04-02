@@ -1,6 +1,6 @@
 package controllers
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.data.Form
 import play.api.data.Forms.*
 import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
@@ -10,10 +10,11 @@ import views.*
 
 import lila.app.*
 import lila.common.Json.given
-import lila.common.{ Bearer, HTTPRequest, IpAddress }
+import lila.core.{ Bearer, IpAddress }
 import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
 
 import Api.ApiResult
+import lila.common.HTTPRequest
 
 final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 

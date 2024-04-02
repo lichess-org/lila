@@ -16,11 +16,6 @@ case class Related(
     relation: Option[Relation]
 )
 
-case class Relations(
-    in: Option[Relation],
-    out: Option[Relation]
-)
-
 private object BSONHandlers:
 
   import reactivemongo.api.bson.*

@@ -4,12 +4,12 @@ import chess.Color
 
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicText }
+import lila.core.shutup.PublicSource
 import lila.memo.CacheApi.*
 import lila.security.{ Flood, Granter }
-import lila.user.{ FlairApi, Me, User, UserRepo }
+import lila.user.{ FlairApi, Me, User, UserRepo, given }
 
 final class ChatApi(
     coll: Coll,
@@ -17,7 +17,7 @@ final class ChatApi(
     chatTimeout: ChatTimeout,
     flood: Flood,
     spam: lila.security.Spam,
-    shutup: lila.hub.actors.Shutup,
+    shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
 )(using Executor, Scheduler, FlairApi):
@@ -80,9 +80,9 @@ final class ChatApi(
                   .andDo:
                     if persist then
                       if publicSource.isDefined then cached.invalidate(chatId)
-                      shutup ! publicSource.match
-                        case Some(source) => RecordPublicText(userId, text, source)
-                        case _            => RecordPrivateChat(chatId.value, userId, text)
+                      publicSource.match
+                        case Some(source) => shutupApi.publicText(userId, text, source)
+                        case _            => shutupApi.privateChat(chatId.value, userId, text)
                       lila.mon.chat
                         .message(publicSource.fold("player")(_.parentName), line.troll)
                         .increment()
@@ -195,7 +195,7 @@ final class ChatApi(
               publish(chat.id, ChatLine(chat.id, l), busChan)
             if isMod(mod) || isRelayMod(mod) then
               lila.common.Bus.publish(
-                lila.hub.actorApi.mod.ChatTimeout(
+                lila.core.mod.ChatTimeout(
                   mod = mod.userId,
                   user = user.id,
                   reason = reason.key,
@@ -205,7 +205,7 @@ final class ChatApi(
               )
               if isNew then
                 lila.common.Bus
-                  .publish(lila.hub.actorApi.security.DeletePublicChats(user.id), "deletePublicChats")
+                  .publish(lila.core.actorApi.security.DeletePublicChats(user.id), "deletePublicChats")
             else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
           }
 

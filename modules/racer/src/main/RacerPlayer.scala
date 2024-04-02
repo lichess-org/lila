@@ -1,6 +1,8 @@
 package lila.racer
 
-import lila.common.{ CuteNameGenerator, LightUser }
+import scalalib.cuteName.CuteNameGenerator
+
+import lila.core.LightUser
 import lila.user.User
 
 case class RacerPlayer(id: RacerPlayer.Id, user: Option[LightUser], createdAt: Instant, score: Int):
@@ -9,7 +11,7 @@ case class RacerPlayer(id: RacerPlayer.Id, user: Option[LightUser], createdAt: I
 
   lazy val name: UserName = id match
     case Id.User(id) => user.fold(id.into(UserName))(_.name)
-    case Id.Anon(id) => CuteNameGenerator.fromSeed(id.hashCode)
+    case Id.Anon(id) => UserName(CuteNameGenerator.fromSeed(id.hashCode))
 
 object RacerPlayer:
   enum Id:

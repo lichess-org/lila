@@ -6,9 +6,9 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.gathering.Condition.WithVerdicts
-import lila.hub.LightTeam
+import lila.core.team.LightTeam
 import lila.swiss.{ Swiss, SwissPairing, SwissRoundNumber }
 
 object show:
@@ -40,7 +40,7 @@ object show:
               chat.json(
                 c.chat,
                 c.lines,
-                name = trans.chatRoom.txt(),
+                name = trans.site.chatRoom.txt(),
                 timeout = c.timeout,
                 public = true,
                 resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),

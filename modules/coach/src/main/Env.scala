@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.core.config.*
 
 @Module
 final class Env(

@@ -8,12 +8,13 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Glicko, Perf, PerfType }
+import lila.core.rating.PerfId
 
 final class RankingApi(
     coll: AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
-    lightUser: lila.common.LightUser.Getter
+    lightUser: lila.core.LightUser.Getter
 )(using Executor):
 
   import RankingApi.*
@@ -46,7 +47,7 @@ final class RankingApi(
   private def makeId(userId: UserId, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
-  private[user] def topPerf(perfId: Perf.Id, nb: Int): Fu[List[User.LightPerf]] =
+  private[user] def topPerf(perfId: PerfId, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)).so { perfKey =>
       coll:
         _.find($doc("perf" -> perfId, "stable" -> true))
@@ -140,7 +141,7 @@ final class RankingApi(
 
     def apply(pt: PerfType) = cache.get(pt.id)
 
-    private val cache = mongoCache[Perf.Id, List[NbUsers]](
+    private val cache = mongoCache[PerfId, List[NbUsers]](
       PerfType.leaderboardable.size,
       "user:rating:distribution",
       179 minutes,
@@ -150,7 +151,7 @@ final class RankingApi(
         loader(compute)
 
     // from 600 to 2800 by Stat.group
-    private def compute(perfId: Perf.Id): Fu[List[NbUsers]] =
+    private def compute(perfId: PerfId): Fu[List[NbUsers]] =
       lila.rating
         .PerfType(perfId)
         .exists(lila.rating.PerfType.leaderboardable.contains)
@@ -195,7 +196,7 @@ final class RankingApi(
      * ...
      * rating.distribution.bullet.2800 => 0.9997
      */
-    private def monitorRatingDistribution(perfId: Perf.Id)(nbUsersList: List[NbUsers]): Unit =
+    private def monitorRatingDistribution(perfId: PerfId)(nbUsersList: List[NbUsers]): Unit =
       val total = nbUsersList.sum
       (Stat.minRating.value to 2800 by Stat.group).toList
         .zip(nbUsersList)

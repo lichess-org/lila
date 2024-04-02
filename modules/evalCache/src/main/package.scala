@@ -3,8 +3,9 @@ package lila.evalCache
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 
-export lila.Lila.{ *, given }
-import lila.hub.eval.CloudEval
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
+import lila.tree.CloudEval
 
 extension (e: CloudEval)
   def multiPv = MultiPv(e.pvs.size)

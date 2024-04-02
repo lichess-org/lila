@@ -1,5 +1,5 @@
 package lila.streamer
-import lila.i18n.Language
+import lila.core.i18n.Language
 import lila.memo.CacheApi.*
 
 case class LiveStreams(streams: List[Stream]):

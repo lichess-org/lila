@@ -7,7 +7,7 @@ import views.*
 import java.util.Currency
 
 import lila.app.{ *, given }
-import lila.common.EmailAddress
+import lila.core.EmailAddress
 import lila.plan.{
   CreateStripeSession,
   CustomerInfo,
@@ -182,14 +182,14 @@ final class Plan(env: Env) extends LilaController(env):
       .inject(jsonOkResult)
       .recover(badStripeApiCall)
 
-  private val CheckoutRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val CheckoutRateLimit = lila.memo.RateLimit.composite[lila.core.IpAddress](
     key = "plan.checkout.ip"
   )(
     ("fast", 8, 10.minute),
     ("slow", 40, 1.day)
   )
 
-  private val CaptureRateLimit = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val CaptureRateLimit = lila.memo.RateLimit.composite[lila.core.IpAddress](
     key = "plan.capture.ip"
   )(
     ("fast", 8, 10.minute),

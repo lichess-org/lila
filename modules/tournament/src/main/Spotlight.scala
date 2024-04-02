@@ -1,6 +1,6 @@
 package lila.tournament
 
-import lila.common.Heapsort.topN
+import scalalib.HeapSort.topN
 import lila.common.licon
 import lila.rating.Perf
 import lila.user.{ Me, User }

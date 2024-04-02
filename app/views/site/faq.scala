@@ -65,9 +65,9 @@ object faq:
           areThereWebsitesBasedOnLichess.txt(),
           p(
             yesLichessInspiredOtherOpenSourceWebsites(
-              a(href := "/source")(trans.sourceCode()),
+              a(href := "/source")(trans.site.sourceCode()),
               a(href := "/api")("API"),
-              a(href := "https://database.lichess.org")(trans.database())
+              a(href := "https://database.lichess.org")(trans.site.database())
             )
           ),
           ul(
@@ -126,10 +126,10 @@ object faq:
           ),
           ul(
             li(inferiorThanXsEqualYtimeControl(29, "UltraBullet")),
-            li(inferiorThanXsEqualYtimeControl(179, trans.bullet())),
-            li(inferiorThanXsEqualYtimeControl(479, trans.blitz())),
-            li(inferiorThanXsEqualYtimeControl(1499, trans.rapid())),
-            li(superiorThanXsEqualYtimeControl(1500, trans.classical()))
+            li(inferiorThanXsEqualYtimeControl(179, trans.site.bullet())),
+            li(inferiorThanXsEqualYtimeControl(479, trans.site.blitz())),
+            li(inferiorThanXsEqualYtimeControl(1499, trans.site.rapid())),
+            li(superiorThanXsEqualYtimeControl(1500, trans.site.classical()))
           )
         ),
         question(

@@ -167,7 +167,7 @@ object SwissForm:
       rated: Option[Boolean],
       nbRounds: Int,
       description: Option[String],
-      position: Option[Fen.Epd],
+      position: Option[Fen.Full],
       chatFor: Option[Int],
       roundInterval: Option[Int],
       password: Option[String],

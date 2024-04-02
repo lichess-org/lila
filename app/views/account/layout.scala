@@ -25,7 +25,7 @@ object layout:
           .option(
             views.html.site.bits.pageMenuSubnav(
               a(activeCls("editProfile"), href := routes.Account.profile)(
-                trans.editProfile()
+                trans.site.editProfile()
               ),
               div(cls := "sep"),
               lila.pref.PrefCateg.values.map: categ =>
@@ -33,14 +33,14 @@ object layout:
                   bits.categName(categ)
                 ),
               a(activeCls("notification"), href := routes.Pref.form("notification"))(
-                trans.notifications()
+                trans.site.notifications()
               ),
               a(activeCls("kid"), href := routes.Account.kid)(
-                trans.kidMode()
+                trans.site.kidMode()
               ),
               div(cls := "sep"),
               a(activeCls("username"), href := routes.Account.username)(
-                trans.changeUsername()
+                trans.site.changeUsername()
               ),
               isGranted(_.Coach).option(
                 a(activeCls("coach"), href := routes.Coach.edit)(
@@ -48,10 +48,10 @@ object layout:
                 )
               ),
               a(activeCls("password"), href := routes.Account.passwd)(
-                trans.changePassword()
+                trans.site.changePassword()
               ),
               a(activeCls("email"), href := routes.Account.email)(
-                trans.changeEmail()
+                trans.site.changeEmail()
               ),
               a(activeCls("twofactor"), href := routes.Account.twoFactor)(
                 trans.tfa.twoFactorAuth()
@@ -60,7 +60,7 @@ object layout:
                 trans.oauthScope.apiAccessTokens()
               ),
               a(activeCls("security"), href := routes.Account.security)(
-                trans.security()
+                trans.site.security()
               ),
               div(cls := "sep"),
               a(activeCls("network"), href := routes.Account.network(none))(

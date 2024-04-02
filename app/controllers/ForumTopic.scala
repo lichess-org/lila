@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.IpAddress
+import lila.core.IpAddress
 import lila.forum.ForumCateg.diagnosticId
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
@@ -21,8 +21,8 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     NoBot:
       NotForKids:
         FoundPage(env.forum.categRepo.byId(categId)): categ =>
-          categ.team.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
-            forms.anyCaptcha.map { html.forum.topic.form(categ, forms.topic(inOwnTeam), _) }
+          categ.team.so(env.team.api.isLeader(_, me)).map { inOwnTeam =>
+            html.forum.topic.form(categ, forms.topic(inOwnTeam), anyCaptcha)
           }
   }
 
@@ -35,11 +35,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               .topic(inOwnTeam)
               .bindFromRequest()
               .fold(
-                err =>
-                  BadRequest.pageAsync:
-                    forms.anyCaptcha.map:
-                      html.forum.topic.form(categ, err, _)
-                ,
+                err => BadRequest.page(html.forum.topic.form(categ, err, anyCaptcha)),
                 data =>
                   CreateRateLimit(ctx.ip, rateLimited):
                     topicApi.makeTopic(categ, data).map { topic =>
@@ -62,10 +58,10 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             canModCateg  <- access.isGrantedMod(categ.slug)
             replyBlocked <- ctx.me.soUse(access.isReplyBlockedOnUBlog(topic, canModCateg))
             inOwnTeam    <- ~(categ.team, ctx.me).mapN(env.team.api.isLeader(_, _))
-            form <- ctx.me
+            form = ctx.me
               .filter(_ => canWrite && topic.open && !topic.isOld && !replyBlocked)
               .soUse: _ ?=>
-                forms.postWithCaptcha(inOwnTeam).map(some)
+                forms.postWithCaptcha(inOwnTeam).some
             _ <- env.user.lightUserApi.preloadMany(posts.currentPageResults.flatMap(_.post.userId))
             res <-
               if canRead then
@@ -114,9 +110,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                 if _ then showDiagnostic(slug, text)
                 else
                   FoundPage(env.forum.categRepo.byId(diagnosticId)): categ =>
-                    forms.anyCaptcha.map {
-                      html.forum.topic.makeDiagnostic(categ, forms.topic(false), _, text)
-                    }
+                    html.forum.topic.makeDiagnostic(categ, forms.topic(false), anyCaptcha, text)
         )
   }
 
@@ -126,8 +120,6 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   }
 
   private def showDiagnostic(slug: String, formText: String)(using Context, Me) =
-    Found(topicApi.showLastPage(diagnosticId, slug)): (categ, topic, posts) =>
-      for
-        form <- forms.postWithCaptcha(false)
-        res  <- Ok.page(html.forum.topic.show(categ, topic, posts, form.some, None, true, formText.some))
-      yield res
+    FoundPage(topicApi.showLastPage(diagnosticId, slug)): (categ, topic, posts) =>
+      val form = forms.postWithCaptcha(false).some
+      html.forum.topic.show(categ, topic, posts, form, None, true, formText.some)

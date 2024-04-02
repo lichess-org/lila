@@ -5,12 +5,14 @@ import play.api.data.Form
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
+import lila.core.team.Access
+import lila.core.captcha.Captcha
 
 object form:
 
   import trans.team.*
 
-  def create(form: Form[?], captcha: lila.common.Captcha)(using PageContext) =
+  def create(form: Form[?], captcha: Captcha)(using PageContext) =
     views.html.base.layout(
       title = newTeam.txt(),
       moreCss = cssTag("team"),
@@ -22,12 +24,12 @@ object form:
           h1(cls := "box__top")(newTeam()),
           postForm(cls := "form3", action := teamRoutes.create)(
             form3.globalError(form),
-            form3.group(form("name"), trans.name())(form3.input(_)),
+            form3.group(form("name"), trans.site.name())(form3.input(_)),
             entryFields(form, none),
             textFields(form),
             views.html.base.captcha(form, captcha),
             form3.actions(
-              a(href := teamRoutes.home(1))(trans.cancel()),
+              a(href := teamRoutes.home(1))(trans.site.cancel()),
               form3.submit(newTeam())
             )
           )
@@ -48,8 +50,8 @@ object form:
               textFields(form),
               accessFields(form),
               form3.actions(
-                a(href := teamRoutes.show(t.id))(trans.cancel()),
-                form3.submit(trans.apply())
+                a(href := teamRoutes.show(t.id))(trans.site.cancel()),
+                form3.submit(trans.site.apply())
               )
             )
           ),
@@ -71,7 +73,7 @@ object form:
                 dataIcon := licon.Trash,
                 cls      := "text button button-empty button-red explain",
                 st.title := "Deletes the team and its memberships. Cannot be reverted!"
-              )(trans.delete())
+              )(trans.site.delete())
             )
           ),
           (t.disabled && isGranted(_.ManageTeam)).option(
@@ -89,7 +91,7 @@ object form:
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
   private def flairField(form: Form[?], team: Team)(using Context) =
-    form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value), label = trans.setFlair()):
+    form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value), label = trans.site.setFlair()):
       span(cls := "flair-container".some)(team.name, teamFlair(team))
 
   private def textFields(form: Form[?])(using Context) = frag(
@@ -102,16 +104,16 @@ object form:
     )(cls := form("intro").value.isEmpty.option("accent")),
     form3.group(
       form("description"),
-      trans.description(),
+      trans.site.description(),
       help = frag("Full description visible on the team page.", br, markdownAvailable).some
     )(
       form3.textarea(_)(rows := 10)
     ),
     form3.group(
       form("descPrivate"),
-      trans.descPrivate(),
+      trans.site.descPrivate(),
       help = frag(
-        trans.descPrivateHelp(),
+        trans.site.descPrivateHelp(),
         br,
         markdownAvailable
       ).some
@@ -132,9 +134,9 @@ object form:
           form3.select(
             f,
             Seq(
-              Team.Access.NONE    -> "No chat",
-              Team.Access.LEADERS -> "Team leaders",
-              Team.Access.MEMBERS -> "Team members"
+              Access.None.id    -> "No chat",
+              Access.Leaders.id -> "Team leaders",
+              Access.Members.id -> "Team members"
             )
           )
         },
@@ -150,10 +152,10 @@ object form:
           form3.select(
             f,
             Seq(
-              Team.Access.EVERYONE -> "Show to everyone",
-              Team.Access.MEMBERS  -> "Show to members",
-              Team.Access.LEADERS  -> "Show to team leaders",
-              Team.Access.NONE     -> "Hide the forum"
+              Access.Everyone.id -> "Show to everyone",
+              Access.Members.id  -> "Show to members",
+              Access.Leaders.id  -> "Show to team leaders",
+              Access.None.id     -> "Hide the forum"
             )
           )
         }

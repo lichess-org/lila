@@ -4,7 +4,7 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.rating.RatingRange
+import lila.core.rating.RatingRange
 
 object filter:
 
@@ -14,7 +14,7 @@ object filter:
         table(
           tbody(
             tr(cls := "variant")(
-              td(trans.variant()),
+              td(trans.site.variant()),
               td(
                 renderCheckboxes(
                   form,
@@ -24,11 +24,11 @@ object filter:
               )
             ),
             tr(
-              td(trans.timeControl()),
+              td(trans.site.timeControl()),
               td(renderCheckboxes(form, "speed", translatedSpeedChoices))
             ),
             tr(cls := "inline")(
-              td(trans.increment()),
+              td(trans.site.increment()),
               td(
                 renderCheckboxes(
                   form,
@@ -39,13 +39,13 @@ object filter:
             ),
             ctx.isAuth.option(
               tr(cls := "inline")(
-                td(trans.mode()),
+                td(trans.site.mode()),
                 td(renderCheckboxes(form, "mode", translatedModeChoices))
               )
             ),
             ctx.isAuth.option(
               tr(
-                td(trans.ratingRange()),
+                td(trans.site.ratingRange()),
                 td(
                   label(cls := "range")("? - ?"),
                   div(cls := "rating-range") {
@@ -80,9 +80,11 @@ object filter:
             cls      := "button button-empty button-red text reset",
             dataIcon := licon.NotAllowed
           )(
-            trans.reset()
+            trans.site.reset()
           ),
-          submitButton(cls := "button button-green text apply", dataIcon := licon.Checkmark)(trans.apply())
+          submitButton(cls := "button button-green text apply", dataIcon := licon.Checkmark)(
+            trans.site.apply()
+          )
         )
       )
     )

@@ -15,7 +15,7 @@ object bookmark:
           "bookmarked" -> bookmarked
         ),
         href  := routes.Game.bookmark(g.id),
-        title := trans.bookmarkThisGame.txt()
+        title := trans.site.bookmarkThisGame.txt()
       )(
         iconTag(licon.Star)(cls        := "on is3"),
         iconTag(licon.StarOutline)(cls := "off is3"),

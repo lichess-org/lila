@@ -5,13 +5,13 @@ import scalatags.Text.all.*
 
 import scala.util.chaining.*
 
-import lila.base.LilaException
-import lila.common.EmailAddress
-import lila.common.config.BaseUrl
-import lila.hub.actorApi.mailer.CorrespondenceOpponent
-import lila.hub.actorApi.msg.SystemMsg
-import lila.i18n.I18nKeys.emails as trans
-import lila.i18n.PeriodLocales.showDuration
+import lila.core.lilaism.LilaException
+import lila.core.EmailAddress
+import lila.core.config.BaseUrl
+import lila.core.actorApi.mailer.CorrespondenceOpponent
+import lila.core.msg.SystemMsg
+import lila.core.i18n.Translator
+import lila.core.i18n.I18nKey.emails as trans
 import lila.user.{ User, UserApi, UserRepo }
 
 final class AutomaticEmail(
@@ -20,7 +20,7 @@ final class AutomaticEmail(
     mailer: Mailer,
     baseUrl: BaseUrl,
     lightUser: lila.user.LightUserApi
-)(using Executor):
+)(using Executor, Translator):
 
   import Mailer.html.*
 
@@ -46,8 +46,8 @@ The Lichess team"""
   def welcomePM(user: User): Funit = fuccess:
     alsoSendAsPrivateMessage(user): lang =>
       given Lang = lang
-      import lila.i18n.I18nKeys.*
-      s"""${onboarding.welcome.txt()}\n${lichessPatronInfo.txt()}"""
+      import lila.core.i18n.I18nKey
+      s"""${I18nKey.onboarding.welcome.txt()}\n${I18nKey.site.lichessPatronInfo.txt()}"""
 
   def onTitleSet(username: UserStr): Funit = {
     for
@@ -220,7 +220,7 @@ $disableSettingNotice $disableLink"""
   private def showGame(opponent: CorrespondenceOpponent)(using Lang) =
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
     opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:"): remainingTime =>
-      s"You have ${showDuration(remainingTime)} remaining in your game with $opponentName:"
+      s"You have ${PeriodLocales.showDuration(remainingTime)} remaining in your game with $opponentName:"
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
     body(userLang(user)).tap: txt =>
@@ -249,4 +249,4 @@ $disableSettingNotice $disableLink"""
       .flatMapz: user =>
         sendAsPrivateMessageAndEmail(user)(subject, body)
 
-  private def userLang(user: User): Lang = user.realLang | lila.i18n.defaultLang
+  private def userLang(user: User): Lang = user.realLang | lila.core.i18n.defaultLang

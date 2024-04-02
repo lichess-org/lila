@@ -4,9 +4,10 @@ import chess.format.pgn.{ Comment, Glyphs, Move, Pgn, PgnStr, Tag }
 import chess.opening.*
 import chess.{ Color, Ply, Status, Tree, Variation }
 
+import lila.tree.{ Advice, Analysis }
 import lila.game.{ Game, GameDrawOffers }
 
-final class Annotator(netDomain: lila.common.config.NetDomain):
+final class Annotator(netDomain: lila.core.config.NetDomain):
 
   def apply(p: Pgn, game: Game, analysis: Option[Analysis]): Pgn =
     annotateStatus(game.winnerColor, game.status) {
@@ -42,14 +43,13 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
       case text => p.updateLastPly(_.copy(result = text.some))
 
   private def annotateOpening(opening: Option[Opening.AtPly])(p: Pgn) =
-    opening.fold(p) { o =>
+    opening.fold(p): o =>
       p.updatePly(o.ply, _.copy(opening = s"${o.opening.eco} ${o.opening.name}".some)).getOrElse(p)
-    }
 
   // add advices into mainline
   private def annotateTurns(p: Pgn, advices: List[Advice]): Pgn =
     advices
-      .foldLeft(p) { (pgn, advice) =>
+      .foldLeft(p): (pgn, advice) =>
         pgn
           .modifyInMainline(
             advice.ply,
@@ -63,7 +63,6 @@ final class Annotator(netDomain: lila.common.config.NetDomain):
               )
           )
           .getOrElse(pgn)
-      }
 
   private def annotateDrawOffers(pgn: Pgn, drawOffers: GameDrawOffers): Pgn =
     if drawOffers.isEmpty then pgn

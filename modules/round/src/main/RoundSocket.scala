@@ -8,17 +8,16 @@ import reactivemongo.api.Cursor
 
 import lila.chat.BusChan
 import lila.common.Json.given
-import lila.common.{ Bus, IpAddress, Lilakka }
+import lila.common.{ Bus, Lilakka }
 import lila.game.{ Event, Game, Pov }
-import lila.hub.AsyncActorConcMap
-import lila.hub.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
-import lila.hub.actorApi.round.{ Abort, Berserk, Rematch, Resign, TourStanding }
-import lila.hub.actorApi.socket.remote.TellSriIn
+import scalalib.actor.AsyncActorConcMap
+import lila.core.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
+import lila.core.game.TvSelect
+import lila.core.round.*
+import lila.core.actorApi.socket.remote.TellSriIn
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.hub.socket.{ protocol as P, * }
-
-import actorApi.*
-import actorApi.round.*
+import lila.core.socket.{ protocol as P, * }
+import lila.core.IpAddress
 
 final class RoundSocket(
     socketKit: ParallelSocketKit,
@@ -191,7 +190,7 @@ final class RoundSocket(
     "finishGame",
     "roundUnplayed"
   ):
-    case actorApi.TvSelect(gameId, speed, _, json) =>
+    case TvSelect(gameId, speed, _, json) =>
       sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
       val gameId = GameId(id)
@@ -213,7 +212,7 @@ final class RoundSocket(
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
           sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
-    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => finishRound(gameId)
+    case lila.core.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
   Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan):
     case lila.chat.ChatLine(id, l) =>
@@ -417,7 +416,7 @@ object RoundSocket:
         val seconds = Math.ceil(millis / 1000d / tickSeconds).toInt * tickSeconds
         s"r/goneIn $fullId $seconds"
 
-      def tellVersion(roomId: RoomId, version: SocketVersion, e: Event) =
+      def tellVersion(roomId: RoomId, version: SocketVersion, e: lila.core.game.Event) =
         val flags = StringBuilder(2)
         if e.watcher then flags += 's'
         else if e.owner then flags += 'p'

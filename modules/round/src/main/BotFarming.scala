@@ -1,6 +1,6 @@
 package lila.round
 
-import lila.common.LightUser.IsBotSync
+import lila.core.LightUser.IsBotSync
 import lila.game.{ CrosstableApi, Game, GameRepo }
 
 final private class BotFarming(

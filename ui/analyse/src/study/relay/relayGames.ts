@@ -52,7 +52,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                       ? [
                           h('span.mini-game__user', [
                             h(`i.is.color-icon.${c}`),
-                            p.fed && playerFed(p.fed),
+                            playerFed(p.fed),
                             h('span.name', [userTitle(p), p.name]),
                           ]),
                           h(s == '1' ? 'good' : s == '0' ? 'bad' : 'status', [s]),

@@ -1,6 +1,6 @@
 package lila.forum
 
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.user.Me
 

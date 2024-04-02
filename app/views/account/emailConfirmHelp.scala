@@ -12,24 +12,24 @@ object emailConfirmHelp:
 
   def apply(form: Form[?], status: Option[Status])(using PageContext) =
     views.html.base.layout(
-      title = trans.emailConfirmHelp.txt(),
+      title = trans.site.emailConfirmHelp.txt(),
       moreCss = cssTag("email-confirm")
     )(
       frag(
         main(cls := "page-small box box-pad email-confirm-help")(
-          h1(cls := "box__top")(trans.emailConfirmHelp()),
-          p(trans.emailConfirmNotReceived()),
+          h1(cls := "box__top")(trans.site.emailConfirmHelp()),
+          p(trans.site.emailConfirmNotReceived()),
           st.form(cls := "form3", action := routes.Account.emailConfirmHelp, method := "get")(
             form3.split(
               form3.group(
                 form("username"),
-                trans.username(),
-                help = trans.whatSignupUsername().some
+                trans.site.username(),
+                help = trans.site.whatSignupUsername().some
               ) { f =>
                 form3.input(f)(pattern := lila.user.User.newUsernameRegex.regex)
               },
               div(cls := "form-group")(
-                form3.submit(trans.apply())
+                form3.submit(trans.site.apply())
               )
             )
           ),
@@ -37,45 +37,45 @@ object emailConfirmHelp:
             status.map {
               case Status.NoSuchUser(name) =>
                 frag(
-                  p(trans.usernameNotFound(strong(name))),
+                  p(trans.site.usernameNotFound(strong(name))),
                   p(
                     a(href := routes.Auth.signup)(
-                      trans.usernameCanBeUsedForNewAccount()
+                      trans.site.usernameCanBeUsedForNewAccount()
                     )
                   )
                 )
               case Status.EmailSent(name, email) =>
                 frag(
-                  p(trans.emailSent(email.conceal)),
+                  p(trans.site.emailSent(email.conceal)),
                   p(
-                    trans.emailCanTakeSomeTime(),
+                    trans.site.emailCanTakeSomeTime(),
                     br,
-                    strong(trans.refreshInboxAfterFiveMinutes())
+                    strong(trans.site.refreshInboxAfterFiveMinutes())
                   ),
-                  p(trans.checkSpamFolder()),
-                  p(trans.emailForSignupHelp()),
+                  p(trans.site.checkSpamFolder()),
+                  p(trans.site.emailForSignupHelp()),
                   hr,
                   p(i(s"Hello, please confirm my account: $name")),
                   hr,
                   p(
-                    trans.copyTextToEmail(
+                    trans.site.copyTextToEmail(
                       a(href := s"mailto:$contactEmailInClear?subject=Confirm account $name")(
                         contactEmailInClear
                       )
                     )
                   ),
-                  p(trans.waitForSignupHelp())
+                  p(trans.site.waitForSignupHelp())
                 )
               case Status.Confirmed(name) =>
                 frag(
-                  p(trans.accountConfirmed(strong(name))),
-                  p(trans.accountCanLogin(a(href := routes.Auth.login)(name))),
-                  p(trans.accountConfirmationEmailNotNeeded())
+                  p(trans.site.accountConfirmed(strong(name))),
+                  p(trans.site.accountCanLogin(a(href := routes.Auth.login)(name))),
+                  p(trans.site.accountConfirmationEmailNotNeeded())
                 )
               case Status.Closed(name) =>
-                p(trans.accountClosed(strong(name)))
+                p(trans.site.accountClosed(strong(name)))
               case Status.NoEmail(name) =>
-                p(trans.accountRegisteredWithoutEmail(strong(name)))
+                p(trans.site.accountRegisteredWithoutEmail(strong(name)))
             }
           )
         )

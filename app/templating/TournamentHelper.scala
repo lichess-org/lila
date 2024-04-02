@@ -11,6 +11,7 @@ import lila.common.licon
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
+import lila.core.i18n.Translate
 
 trait TournamentHelper extends HasEnv:
   self: I18nHelper & DateHelper & UserHelper & StringHelper & NumberHelper =>
@@ -29,33 +30,35 @@ trait TournamentHelper extends HasEnv:
       }
     }
 
-  def tournamentLink(tour: Tournament)(using Lang): Frag =
+  def tournamentLink(tour: Tournament)(using Translate): Frag =
     a(
       dataIcon := licon.Trophy.value,
       cls      := (if tour.isScheduled then "text is-gold" else "text"),
       href     := routes.Tournament.show(tour.id.value).url
     )(tour.name())
 
-  def tournamentLink(tourId: TourId)(using Lang): Frag =
+  def tournamentLink(tourId: TourId)(using Translate): Frag =
     a(
       dataIcon := licon.Trophy.value,
       cls      := "text",
       href     := routes.Tournament.show(tourId.value).url
     )(tournamentIdToName(tourId))
 
-  def tournamentIdToName(id: TourId)(using Lang): String =
+  def tournamentIdToName(id: TourId)(using Translate): String =
     env.tournament.getTourName.sync(id).getOrElse("Tournament")
 
   object scheduledTournamentNameShortHtml:
     private def icon(c: licon.Icon) = s"""<span data-icon="$c"></span>"""
-    private val replacements = List(
-      "Lichess "    -> "",
-      "Marathon"    -> icon(licon.Globe),
-      "HyperBullet" -> s"H${icon(PerfType.Bullet.icon)}",
-      "SuperBlitz"  -> s"S${icon(PerfType.Blitz.icon)}"
-    ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
-      pt.trans(using lila.i18n.defaultLang) -> icon(pt.icon)
-    }
+    private val replacements =
+      given lila.core.i18n.Translate = lila.i18n.Translator.toDefault
+      List(
+        "Lichess "    -> "",
+        "Marathon"    -> icon(licon.Globe),
+        "HyperBullet" -> s"H${icon(PerfType.Bullet.icon)}",
+        "SuperBlitz"  -> s"S${icon(PerfType.Blitz.icon)}"
+      ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
+        pt.trans -> icon(pt.icon)
+      }
     def apply(name: String): Frag = raw:
       replacements.foldLeft(name):
         case (n, (from, to)) => n.replace(from, to)

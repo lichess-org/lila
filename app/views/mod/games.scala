@@ -11,7 +11,6 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
 import lila.game.Pov
 import lila.rating.PerfType
-import lila.swiss.Swiss
 import lila.tournament.LeaderboardApi.TourEntry
 import lila.user.User
 
@@ -22,7 +21,7 @@ object games:
       filterForm: Form[GameMod.Filter],
       games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
       arenas: Seq[TourEntry],
-      swisses: Seq[(Swiss.IdName, Rank)]
+      swisses: Seq[(lila.core.swiss.IdName, Rank)]
   )(using PageContext) =
     views.html.base.layout(
       title = s"${user.username} games",

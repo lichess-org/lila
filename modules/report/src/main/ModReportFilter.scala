@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.user.Me
+import lila.user.{ Me, given }
 
 final class ModReportFilter:
 

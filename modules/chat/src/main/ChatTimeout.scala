@@ -1,6 +1,6 @@
 package lila.chat
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.data.Form
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
@@ -15,7 +15,7 @@ final class ChatTimeout(
 
   import ChatTimeout.*
 
-  private val global = new lila.memo.ExpireSetMemo[UserId](duration)
+  private val global = new scalalib.cache.ExpireSetMemo[UserId](duration)
 
   def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Fu[Boolean] =
     isActive(chat.id, user.id).flatMap {

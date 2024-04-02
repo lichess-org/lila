@@ -1,9 +1,9 @@
 package lila.relay
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.Seconds
+import lila.core.Seconds
 import lila.study.Study
 
 case class RelayRound(

@@ -3,8 +3,8 @@ package lila.study
 import cats.syntax.all.*
 import monocle.syntax.all.*
 import chess.variant.Variant
-import lila.hub.tree.{ Branch, Branches, Root }
-import lila.hub.tree.NewRoot
+import lila.tree.{ Branch, Branches, Root }
+import lila.tree.NewRoot
 
 object TreeBuilder:
 

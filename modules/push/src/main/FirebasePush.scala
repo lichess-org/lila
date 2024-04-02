@@ -6,9 +6,9 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.Max
-import lila.common.{ Chronometer, LazyFu }
-import lila.memo.FrequencyThreshold
+import lila.common.Chronometer
+import scalalib.cache.FrequencyThreshold
+import lila.core.LazyFu
 
 final private class FirebasePush(
     deviceApi: DeviceApi,
@@ -22,7 +22,12 @@ final private class FirebasePush(
     logger.info("Mobile Firebase push notifications are enabled.")
 
   private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(512), timeout = 10 seconds, name = "firebasePush")
+    scalalib.actor.AsyncActorSequencer(
+      maxSize = Max(512),
+      timeout = 10 seconds,
+      name = "firebasePush",
+      lila.log.asyncActorMonitor
+    )
 
   def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
     deviceApi
@@ -114,7 +119,7 @@ final private class FirebasePush(
 
 private object FirebasePush:
 
-  final class Config(val url: String, val json: lila.common.config.Secret):
+  final class Config(val url: String, val json: lila.core.config.Secret):
     lazy val googleCredentials: Option[GoogleCredentials] =
       try
         json.value.some
@@ -131,5 +136,6 @@ private object FirebasePush:
           none
   final class BothConfigs(val lichobile: Config, val mobile: Config)
   import lila.common.autoconfig.*
+  import lila.common.config.given
   given ConfigLoader[Config]      = AutoConfig.loader[Config]
   given ConfigLoader[BothConfigs] = AutoConfig.loader[BothConfigs]

@@ -117,4 +117,4 @@ final class PrefApi(
 
   def saveNewUserPrefs(user: User, req: RequestHeader): Funit =
     val reqPref = RequestPref.fromRequest(req)
-    (reqPref != Pref.default).so(setPref(reqPref.copy(_id = user.id)))
+    (reqPref != Pref.default).so(setPref(reqPref.copy(id = user.id)))

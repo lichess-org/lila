@@ -4,39 +4,19 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.user.UserRepo
 
-private class ShutupConfig(
-    @ConfigName("collection.shutup") val shutupColl: CollName,
-    @ConfigName("actor.name") val actorName: String
-)
-
+@Module
 final class Env(
     appConfig: Configuration,
-    reporter: lila.hub.actors.Report,
-    relationApi: lila.relation.RelationApi,
-    gameRepo: lila.game.GameRepo,
+    relationApi: lila.core.relation.RelationApi,
+    reportApi: lila.core.report.ReportApi,
+    gameRepo: lila.core.game.GameRepo,
     userRepo: UserRepo,
     db: lila.db.Db
-)(using ec: Executor, system: ActorSystem):
+)(using Executor):
 
-  private val config = appConfig.get[ShutupConfig]("shutup")(AutoConfig.loader)
-
-  private lazy val coll = db(config.shutupColl)
+  private lazy val coll = db(CollName("shutup"))
 
   lazy val api = wire[ShutupApi]
-
-  // api actor
-  system.actorOf(
-    Props(new Actor:
-      import lila.hub.actorApi.shutup.*
-      def receive =
-        case RecordTeamForumMessage(userId, text)         => api.teamForumMessage(userId, text)
-        case RecordPrivateMessage(userId, toUserId, text) => api.privateMessage(userId, toUserId, text)
-        case RecordPrivateChat(chatId, userId, text)      => api.privateChat(chatId, userId, text)
-        case RecordPublicText(userId, text, source)       => api.publicText(userId, text, source)
-    ),
-    name = config.actorName
-  )

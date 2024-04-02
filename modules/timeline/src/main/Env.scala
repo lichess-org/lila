@@ -5,15 +5,14 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.user.Me
 
 @Module
 private class TimelineConfig(
     @ConfigName("collection.entry") val entryColl: CollName,
     @ConfigName("collection.unsub") val unsubColl: CollName,
-    @ConfigName("user.display_max") val userDisplayMax: Max,
-    @ConfigName("user.actor.name") val userActorName: String
+    @ConfigName("user.display_max") val userDisplayMax: Max
 )
 
 @Module
@@ -21,14 +20,10 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
-    memberRepo: lila.team.TeamMemberRepo,
-    teamCache: lila.team.Cached
-)(using
-    ec: Executor,
-    system: ActorSystem
-):
+    teamApi: lila.core.team.TeamApi
+)(using Executor):
 
   private val config = appConfig.get[TimelineConfig]("timeline")(AutoConfig.loader)
 
@@ -53,8 +48,11 @@ final class Env(
         }
     }
 
-  system.actorOf(Props(wire[TimelinePush]), name = config.userActorName)
+  private val api = wire[TimelineApi]
 
-  lila.common.Bus.subscribeFun("shadowban") { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
-    entryApi.removeRecentFollowsBy(userId)
-  }
+  lila.common.Bus.subscribeFuns(
+    "shadowban" -> { case lila.core.mod.Shadowban(userId, true) =>
+      entryApi.removeRecentFollowsBy(userId)
+    },
+    "timeline" -> { case propagate: lila.core.timeline.Propagate => api(propagate) }
+  )

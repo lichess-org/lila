@@ -40,7 +40,7 @@ $c-mselect: $c-primary;
 
     position: absolute;
     top: 0;
-    #{$start-direction}: 0;
+    @include inline-start(0);
     min-width: 100%;
     max-height: 60vh;
     overflow-y: auto;
@@ -51,7 +51,31 @@ $c-mselect: $c-primary;
 
     @include transition(transform);
 
-    .current {
+    .mselect__toggle:checked ~ & {
+      transform: scale(1, 1);
+
+      @media (max-width: at-most($small)) {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%) scale(1, 1);
+      }
+
+      .mselect__item {
+        opacity: 1;
+        transition: opacity 125ms ease-in-out 125ms;
+      }
+    }
+  }
+  &__item {
+    white-space: nowrap;
+    display: block;
+    padding: 0.3em 1em;
+
+    @include transition;
+
+    color: $c-mselect;
+
+    &.current {
       background: $c-bg-zebra;
 
       @extend %flex-between-nowrap;
@@ -65,40 +89,15 @@ $c-mselect: $c-primary;
       }
     }
 
-    > * {
-      white-space: nowrap;
-      display: block;
-      padding: 0.3em 1em;
-
-      @include transition;
-
-      color: $c-mselect;
-
-      &:hover {
-        background: $c-mselect;
-        color: #fff;
-      }
-
-      &::before {
-        margin-#{$end-direction}: 0.4em;
-      }
-
-      opacity: 0;
+    &:hover {
+      background: $c-mselect;
+      color: #fff;
     }
 
-    .mselect__toggle:checked ~ & {
-      transform: scale(1, 1);
-
-      @media (max-width: at-most($small)) {
-        position: fixed;
-        top: 50%;
-        transform: translateY(-50%) scale(1, 1);
-      }
-
-      > * {
-        opacity: 1;
-        transition: opacity 125ms ease-in-out 125ms;
-      }
+    &::before {
+      margin-inline-end: 0.4em;
     }
+
+    opacity: 0;
   }
 }

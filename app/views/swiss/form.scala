@@ -28,7 +28,7 @@ object form:
                 cls      := "text",
                 href     := routes.Cms.lonePage("event-tips")
               )(
-                trans.ourEventTips()
+                trans.site.ourEventTips()
               )
             ),
             form3.split(fields.name, fields.nbRounds),
@@ -44,8 +44,8 @@ object form:
             ),
             form3.globalError(form),
             form3.actions(
-              a(href := teamRoutes.show(teamId))(trans.cancel()),
-              form3.submit(trans.createANewTournament(), icon = licon.Trophy.some)
+              a(href := teamRoutes.show(teamId))(trans.site.cancel()),
+              form3.submit(trans.site.createANewTournament(), icon = licon.Trophy.some)
             )
           )
         )
@@ -76,13 +76,13 @@ object form:
             ),
             form3.globalError(form),
             form3.actions(
-              a(href := routes.Swiss.show(swiss.id))(trans.cancel()),
-              form3.submit(trans.save(), icon = licon.Trophy.some)
+              a(href := routes.Swiss.show(swiss.id))(trans.site.cancel()),
+              form3.submit(trans.site.save(), icon = licon.Trophy.some)
             )
           ),
           postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
             submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
-              trans.cancelTournament()
+              trans.site.cancelTournament()
             )
           )
         )
@@ -90,12 +90,12 @@ object form:
     }
 
   private def advancedSettings(settings: Frag*)(using Context) =
-    details(summary(trans.advancedSettings()), settings)
+    details(summary(trans.site.advancedSettings()), settings)
 
   private def condition(form: Form[SwissForm.SwissData])(using ctx: PageContext) =
     frag(
       form3.split(
-        form3.group(form("conditions.nbRatedGame.nb"), trans.minimumRatedGames(), half = true)(
+        form3.group(form("conditions.nbRatedGame.nb"), trans.site.minimumRatedGames(), half = true)(
           form3.select(_, ConditionForm.nbRatedGameChoices)
         ),
         (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)).so {
@@ -108,10 +108,10 @@ object form:
         }
       ),
       form3.split(
-        form3.group(form("conditions.minRating.rating"), trans.minimumRating(), half = true)(
+        form3.group(form("conditions.minRating.rating"), trans.site.minimumRating(), half = true)(
           form3.select(_, ConditionForm.minRatingChoices)
         ),
-        form3.group(form("conditions.maxRating.rating"), trans.maximumWeeklyRating(), half = true)(
+        form3.group(form("conditions.maxRating.rating"), trans.site.maximumWeeklyRating(), half = true)(
           form3.select(_, ConditionForm.maxRatingChoices)
         )
       )
@@ -122,15 +122,15 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
   private def disabledAfterStart = swiss.exists(!_.isCreated)
 
   def name =
-    form3.group(form("name"), trans.name()) { f =>
+    form3.group(form("name"), trans.site.name()) { f =>
       div(
         form3.input(f),
         small(cls := "form-help")(
-          trans.safeTournamentName(),
+          trans.site.safeTournamentName(),
           br,
-          trans.inappropriateNameWarning(),
+          trans.site.inappropriateNameWarning(),
           br,
-          trans.emptyTournamentName()
+          trans.site.emptyTournamentName()
         )
       )
     }
@@ -148,14 +148,14 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
     frag(
       form3.checkbox(
         form("rated"),
-        trans.rated(),
-        help = trans.ratedFormHelp().some,
+        trans.site.rated(),
+        help = trans.site.ratedFormHelp().some,
         half = true
       ),
       form3.hidden(form("rated"), "false".some) // hack allow disabling rated
     )
   def variant =
-    form3.group(form("variant"), trans.variant(), half = true)(
+    form3.group(form("variant"), trans.site.variant(), half = true)(
       form3.select(
         _,
         translatedVariantChoicesWithVariants(_.key).map(x => x._1 -> x._2),
@@ -164,10 +164,10 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
     )
   def clock =
     form3.split(
-      form3.group(form("clock.limit"), trans.clockInitialTime(), half = true)(
+      form3.group(form("clock.limit"), trans.site.clockInitialTime(), half = true)(
         form3.select(_, SwissForm.clockLimitChoices, disabled = disabledAfterStart)
       ),
-      form3.group(form("clock.increment"), trans.clockIncrement(), half = true)(
+      form3.group(form("clock.increment"), trans.site.clockIncrement(), half = true)(
         form3.select(_, GatheringClock.incrementChoices, disabled = disabledAfterStart)
       )
     )
@@ -178,35 +178,36 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
   def description =
     form3.group(
       form("description"),
-      trans.tournDescription(),
-      help = trans.tournDescriptionHelp().some,
+      trans.site.tournDescription(),
+      help = trans.site.tournDescriptionHelp().some,
       half = true
     )(form3.textarea(_)(rows := 4))
   def position =
     form3.group(
       form("position"),
-      trans.startPosition(),
+      trans.site.startPosition(),
       klass = "position",
       half = true,
-      help =
-        trans.positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.boardEditor.txt())).some
+      help = trans.site
+        .positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.site.boardEditor.txt()))
+        .some
     )(form3.input(_))
   def startsAt =
     form3.group(
       form("startsAt"),
       trans.swiss.tournStartDate(),
-      help = trans.inYourLocalTimezone().some,
+      help = trans.site.inYourLocalTimezone().some,
       half = true
     )(form3.flatpickr(_))
 
   def chatFor =
-    form3.group(form("chatFor"), trans.tournChat(), half = true) { f =>
+    form3.group(form("chatFor"), trans.site.tournChat(), half = true) { f =>
       form3.select(
         f,
         Seq(
-          Swiss.ChatFor.NONE    -> trans.noChat.txt(),
-          Swiss.ChatFor.LEADERS -> trans.onlyTeamLeaders.txt(),
-          Swiss.ChatFor.MEMBERS -> trans.onlyTeamMembers.txt(),
+          Swiss.ChatFor.NONE    -> trans.site.noChat.txt(),
+          Swiss.ChatFor.LEADERS -> trans.site.onlyTeamLeaders.txt(),
+          Swiss.ChatFor.MEMBERS -> trans.site.onlyTeamMembers.txt(),
           Swiss.ChatFor.ALL     -> trans.study.everyone.txt()
         )
       )
@@ -215,8 +216,8 @@ final private class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[S
   def entryCode =
     form3.group(
       form("password"),
-      trans.tournamentEntryCode(),
-      help = trans.makePrivateTournament().some,
+      trans.site.tournamentEntryCode(),
+      help = trans.site.makePrivateTournament().some,
       half = true
     )(form3.input(_)(autocomplete := "off"))
 

@@ -4,7 +4,7 @@ import alleycats.Zero
 
 import scala.util.{ Failure, Success }
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.db.dsl.*
 
 final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using Executor):

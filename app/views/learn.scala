@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.LangPath
+import lila.core.LangPath
 
 object index:
 
@@ -204,7 +204,7 @@ object index:
     nailedIt,
     rightOn,
     stageXComplete,
-    trans.yourScore,
+    trans.site.yourScore,
     next,
     nextX,
     backToMenu,

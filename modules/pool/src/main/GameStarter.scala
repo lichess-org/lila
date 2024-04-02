@@ -2,10 +2,10 @@ package lila.pool
 
 import chess.ByColor
 
-import lila.common.config.Max
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 import lila.rating.Perf
 import lila.user.{ UserPerfsRepo, UserRepo }
+import lila.core.pool.{ Pairing, Pairings }
 
 final private class GameStarter(
     userRepo: UserRepo,
@@ -15,10 +15,12 @@ final private class GameStarter(
     onStart: GameId => Unit
 )(using Executor, Scheduler):
 
-  import PoolApi.*
-
-  private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(32), timeout = 10 seconds, name = "gameStarter")
+  private val workQueue = scalalib.actor.AsyncActorSequencer(
+    maxSize = Max(32),
+    timeout = 10 seconds,
+    name = "gameStarter",
+    lila.log.asyncActorMonitor
+  )
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
     couples.nonEmpty.so:
@@ -49,11 +51,7 @@ final private class GameStarter(
           _ <- gameRepo.insertDenormalized(game)
         yield
           onStart(game.id)
-          Pairing(
-            game,
-            whiteSri = whiteMember.sri,
-            blackSri = blackMember.sri
-          )
+          Pairing(ByColor(whiteMember.sri -> game.fullIds.white, blackMember.sri -> game.fullIds.black))
 
   private def makeGame(
       id: GameId,
@@ -71,5 +69,5 @@ final private class GameStarter(
       mode = chess.Mode.Rated,
       status = chess.Status.Created,
       daysPerTurn = none,
-      metadata = Game.metadata(lila.game.Source.Pool)
+      metadata = Game.metadata(lila.core.game.Source.Pool)
     )

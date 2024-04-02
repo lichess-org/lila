@@ -1,6 +1,6 @@
 package lila.api
 
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 
 opaque type Nonce = String
 

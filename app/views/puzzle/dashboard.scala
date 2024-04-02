@@ -106,12 +106,12 @@ object dashboard:
             ),
             views.html.base.bits.mselect(
               s"${baseClass}__day-select box__top__actions",
-              span(trans.nbDays.pluralSame(days)),
+              span(trans.site.nbDays.pluralSame(days)),
               PuzzleDashboard.dayChoices.map { d =>
                 a(
                   cls  := (d == days).option("current"),
                   href := routes.Puzzle.dashboard(d, path, user.username.some)
-                )(trans.nbDays.pluralSame(d))
+                )(trans.site.nbDays.pluralSame(d))
               }
             )
           ),
@@ -148,7 +148,7 @@ object dashboard:
       ctx.pref.showRatings.option(
         div(cls := s"$metricClass $metricClass--perf")(
           strong(results.performance, results.unclear.so("?")),
-          span(trans.performance())
+          span(trans.site.performance())
         )
       ),
       div(
