@@ -4,6 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.core.relation.Relation
 
 object actions:
 
@@ -11,7 +12,7 @@ object actions:
 
   def apply(
       user: lila.core.LightUser,
-      relation: Option[lila.relation.Relation],
+      relation: Option[Relation],
       followable: Boolean,
       blocked: Boolean,
       signup: Boolean = false
@@ -64,7 +65,7 @@ object actions:
                         dataIcon := licon.NotAllowed
                       )
                     )
-                  case Some(true) =>
+                  case Some(Relation.Follow) =>
                     a(
                       dataIcon := licon.ThumbsUp,
                       cls      := "btn-rack__btn relation-button text hover-text",
@@ -72,7 +73,7 @@ object actions:
                       titleOrText(trans.site.following.txt()),
                       dataHoverText := trans.site.unfollow.txt()
                     )
-                  case Some(false) =>
+                  case Some(Relation.Block) =>
                     a(
                       dataIcon := licon.NotAllowed,
                       cls      := "btn-rack__btn relation-button text hover-text",
