@@ -37,7 +37,7 @@ object declinedRequest:
               method := "GET",
               action := teamRoutes.declinedRequests(team.id, 1)
             )(
-              div(cls := "team-declined-request__input")(
+              div(
                 input(
                   st.name     := "search",
                   value       := search,
