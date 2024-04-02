@@ -98,8 +98,8 @@ export function initModule(opts: Opts) {
         clear();
       }
     } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {
-      if ('who' === v.toLowerCase() && opts.ctrl.opponent) {
-        site.sound.say(opts.ctrl.opponent, false, true);
+      if ('who' === v.toLowerCase()) {
+        if (opts.ctrl.opponent) site.sound.say(opts.ctrl.opponent, false, true);
         clear();
       }
     } else if (v.length > 0 && 'draw'.startsWith(v.toLowerCase())) {
