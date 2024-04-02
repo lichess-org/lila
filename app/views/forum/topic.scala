@@ -8,8 +8,8 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Captcha
-import lila.common.paginator.Paginator
+import lila.core.captcha.Captcha
+import scalalib.paginator.Paginator
 
 object topic:
 
@@ -71,7 +71,7 @@ object topic:
       categ: lila.forum.ForumCateg,
       topic: lila.forum.ForumTopic,
       posts: Paginator[lila.forum.ForumPost.WithFrag],
-      formWithCaptcha: Option[FormWithCaptcha],
+      formWithCaptcha: Option[(Form[?], Captcha)],
       unsub: Option[Boolean],
       canModCateg: Boolean,
       formText: Option[String] = None,

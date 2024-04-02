@@ -2,7 +2,7 @@ package lila.chat
 
 import play.api.libs.json.JsArray
 
-import lila.core.actorApi.shutup.PublicSource
+import lila.core.shutup.PublicSource
 import lila.user.User
 
 case class UserModInfo(

@@ -11,9 +11,10 @@ import scala.concurrent.blocking
 
 import lila.common.String.html.nl2br
 import lila.common.autoconfig.*
-import lila.common.{ Chronometer, EmailAddress }
+import lila.common.Chronometer
 import lila.core.i18n.I18nKey.emails as trans
 import lila.core.i18n.Translate
+import lila.core.EmailAddress
 
 final class Mailer(
     config: Mailer.Config,

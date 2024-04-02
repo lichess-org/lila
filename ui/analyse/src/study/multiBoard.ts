@@ -197,7 +197,7 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
 
 const renderUser = (player: ChapterPreviewPlayer): VNode =>
   h('span.mini-game__user', [
-    player.fed && playerFed(player.fed),
+    playerFed(player.fed),
     h('span.name', [userTitle(player), player.name]),
     player.rating && h('span.rating', player.rating.toString()),
   ]);

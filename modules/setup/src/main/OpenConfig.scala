@@ -4,7 +4,7 @@ import chess.Clock
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 
-import lila.common.Days
+import lila.core.Days
 import lila.core.game.GameRule
 import lila.rating.PerfType
 
@@ -14,7 +14,7 @@ final case class OpenConfig(
     clock: Option[Clock.Config],
     days: Option[Days],
     rated: Boolean,
-    position: Option[Fen.Epd],
+    position: Option[Fen.Full],
     userIds: Option[(UserId, UserId)],
     rules: Set[GameRule] = Set.empty,
     expiresAt: Option[Instant]
@@ -37,7 +37,7 @@ object OpenConfig:
       cl: Option[Clock.Config],
       days: Option[Days],
       rated: Boolean,
-      pos: Option[Fen.Epd],
+      pos: Option[Fen.Full],
       usernames: Option[List[UserStr]],
       rules: Option[Set[GameRule]],
       expiresAt: Option[Instant]

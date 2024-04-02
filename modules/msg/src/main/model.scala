@@ -1,6 +1,6 @@
 package lila.msg
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.core.relation.Relations
 import lila.user.User
 

@@ -20,7 +20,7 @@
 
     justify-content: center;
     width: 2.4em;
-    margin-#{$end-direction}: 0.1em;
+    margin-inline-end: 0.1em;
     transition: 2.5s;
   }
 
@@ -115,7 +115,7 @@
     }
 
     .switch {
-      margin-#{$end-direction}: 0.5em;
+      margin-inline-end: 0.5em;
     }
   }
 }

@@ -109,6 +109,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       flex: 0 0 38%;
       &.video {
         flex: 0 0 50%;
+        cursor: pointer;
       }
       line-height: 0;
       img {
@@ -151,7 +152,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
 
     .setting {
       @extend %flex-center-nowrap;
-      margin-#{$end-direction}: -1em;
+      margin-inline-end: -1em;
       label {
         padding: 0 0.5em;
         cursor: pointer;
@@ -166,11 +167,11 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     .fullscreen-mask {
       display: block;
     }
+    .mselect__item {
+      opacity: unset;
+    }
     .mselect__list {
       transform: unset;
-      > * {
-        opacity: unset;
-      }
       a {
         gap: 1em;
       }
@@ -182,7 +183,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     }
     &__status {
       font-size: 1rem;
-      margin-#{$end-direction}: 1ch;
+      margin-inline-end: 1ch;
     }
     &__label {
       .round-state {
@@ -197,42 +198,43 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       color: $c-good;
     }
     .mselect__list {
-      display: table;
       left: unset;
       right: 0;
-      overflow: hidden;
-      tr {
-        display: table-row;
-        &.current-round {
-          background: mix($c-primary, $c-bg-box, 15%);
-          border: 1px solid mix($c-primary, $c-bg-box, 40%);
-          border-width: 1px 0;
-        }
-        &:hover *,
-        &:hover .round-state::before {
-          background: $c-primary;
-          color: $c-primary-over;
-        }
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: 50vh;
+    }
+    tr {
+      display: table-row;
+      &.current-round {
+        background: mix($c-primary, $c-bg-box, 15%);
+        border: 1px solid mix($c-primary, $c-bg-box, 40%);
+        border-width: 1px 0;
       }
-      td {
-        cursor: pointer;
+      &:hover *,
+      &:hover .round-state::before {
+        background: $c-primary;
+        color: $c-primary-over;
       }
-      .name {
-        padding: 0.3em 1em;
-      }
-      .time,
-      .status {
-        font-size: 0.9rem;
-        color: $c-font-dim;
-      }
-      .time {
-        @extend %roboto;
-        padding: 0.5em 1em;
-      }
-      .status {
-        padding: 0.5em 1.5rem 0.5em 0;
-        text-align: $end-direction;
-      }
+    }
+    td {
+      cursor: pointer;
+    }
+    .name {
+      padding: 0.3em 1em;
+    }
+    .time,
+    .status {
+      font-size: 0.9rem;
+      color: $c-font-dim;
+    }
+    .time {
+      @extend %roboto;
+      padding: 0.5em 1em;
+    }
+    .status {
+      padding: 0.5em 1.5rem 0.5em 0;
+      text-align: end;
     }
   }
 
@@ -283,19 +285,19 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     }
     thead {
       th {
-        text-align: $end-direction;
+        text-align: end;
         padding: 0 2rem 0.5rem 2rem;
       }
     }
     th {
       &:nth-child(1) {
-        text-align: $start-direction;
+        text-align: start;
         padding-right: 2rem;
       }
       a {
         @extend %flex-center-nowrap;
         .mini-game__flag {
-          margin-#{$end-direction}: 1em;
+          margin-inline-end: 1em;
           opacity: 0.7;
         }
         color: $c-font;
@@ -305,7 +307,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       }
     }
     td {
-      text-align: $end-direction;
+      text-align: end;
       padding: 1rem 2rem;
       &:last-child {
         font-weight: bold;
@@ -361,7 +363,7 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     font-weight: bold;
     align-self: center;
     width: 1.8ch;
-    text-align: $end-direction;
+    text-align: end;
     color: $c-font-dimmer;
   }
   &--current::before,

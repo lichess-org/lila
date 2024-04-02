@@ -1,6 +1,5 @@
 package lila.challenge
 
-import lila.Lila
 import lila.core.i18n.I18nKey.challenge as trans
 import lila.pref.Pref
 import lila.rating.PerfType

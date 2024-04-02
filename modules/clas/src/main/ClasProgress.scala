@@ -10,6 +10,7 @@ import lila.game.{ Game, GameRepo }
 import lila.puzzle.PuzzleRound
 import lila.rating.PerfType
 import lila.user.User
+import lila.core.Days
 
 case class ClasProgress(
     perfType: PerfType,
@@ -42,7 +43,7 @@ case class StudentProgress(
 final class ClasProgressApi(
     gameRepo: GameRepo,
     perfsRepo: lila.user.UserPerfsRepo,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
     studentCache: ClasStudentCache
 )(using Executor):
@@ -60,7 +61,7 @@ final class ClasProgressApi(
 
     val progressesFu = for
       usersWithPerf <- perfsRepo.withPerf(users, perfType)
-      progresses    <- historyApi.progresses(usersWithPerf, perfType, days)
+      progresses    <- historyApi.progresses(usersWithPerf, perfType.key, Days(days))
     yield progresses
 
     playStatsFu.zip(progressesFu).map { case (playStats, progresses) =>

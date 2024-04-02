@@ -6,12 +6,13 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
 import lila.core.team.Access
+import lila.core.captcha.Captcha
 
 object form:
 
   import trans.team.*
 
-  def create(form: Form[?], captcha: lila.common.Captcha)(using PageContext) =
+  def create(form: Form[?], captcha: Captcha)(using PageContext) =
     views.html.base.layout(
       title = newTeam.txt(),
       moreCss = cssTag("team"),
@@ -133,9 +134,9 @@ object form:
           form3.select(
             f,
             Seq(
-              Access.None    -> "No chat",
-              Access.Leaders -> "Team leaders",
-              Access.Members -> "Team members"
+              Access.None.id    -> "No chat",
+              Access.Leaders.id -> "Team leaders",
+              Access.Members.id -> "Team members"
             )
           )
         },
@@ -151,10 +152,10 @@ object form:
           form3.select(
             f,
             Seq(
-              Access.Everyone -> "Show to everyone",
-              Access.Members  -> "Show to members",
-              Access.Leaders  -> "Show to team leaders",
-              Access.None     -> "Hide the forum"
+              Access.Everyone.id -> "Show to everyone",
+              Access.Members.id  -> "Show to members",
+              Access.Leaders.id  -> "Show to team leaders",
+              Access.None.id     -> "Hide the forum"
             )
           )
         }

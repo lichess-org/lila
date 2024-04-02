@@ -5,8 +5,9 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.{ LangPath, LightUser }
-import lila.common.paginator.Paginator
+import lila.core.LangPath
+import lila.core.LightUser
+import scalalib.paginator.Paginator
 import lila.memo.PicfitImage
 import lila.relay.RelayTour.WithLastRound
 import lila.relay.{ RelayRound, RelayTour }
@@ -168,8 +169,8 @@ object tour:
     )
 
   object thumbnail:
-    def apply(t: RelayTour, size: RelayTour.thumbnail.SizeSelector) =
-      t.image.fold(fallback): id =>
+    def apply(image: Option[PicfitImage.Id], size: RelayTour.thumbnail.SizeSelector) =
+      image.fold(fallback): id =>
         img(
           cls     := "relay-image",
           widthA  := size(RelayTour.thumbnail).width,

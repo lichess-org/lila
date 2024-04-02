@@ -7,6 +7,17 @@ object PerfKey extends OpaqueString[PerfKey]
 opaque type PerfId = Int
 object PerfId extends OpaqueInt[PerfId]
 
+trait Perf:
+  val glicko: Glicko
+  export glicko.{ intRating, intDeviation }
+
+trait Glicko:
+  val rating: Double
+  val deviation: Double
+  val volatility: Double
+  def intRating    = IntRating(rating.toInt)
+  def intDeviation = deviation.toInt
+
 case class RatingProg(before: IntRating, after: IntRating):
   def diff    = IntRatingDiff(after.value - before.value)
   def isEmpty = diff == IntRatingDiff(0)

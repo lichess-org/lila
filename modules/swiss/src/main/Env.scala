@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.LilaScheduler
-import lila.common.config.*
+import lila.core.config.*
 import lila.db.dsl.Coll
 import lila.core.socket.{ GetVersion, SocketVersion }
 
@@ -25,7 +25,7 @@ final class Env(
     gameProxyRepo: lila.round.GameProxyRepo,
     roundSocket: lila.round.RoundSocket,
     mongoCache: lila.memo.MongoCache.Api,
-    baseUrl: lila.common.config.BaseUrl
+    baseUrl: BaseUrl
 )(using
     Executor,
     akka.actor.ActorSystem,
@@ -96,8 +96,8 @@ final class Env(
     case lila.game.actorApi.FinishGame(game, _)                => api.finishGame(game)
     case lila.core.team.LeaveTeam(teamId, userId)              => api.leaveTeam(teamId, userId)
     case lila.core.team.KickFromTeam(teamId, teamName, userId) => api.leaveTeam(teamId, userId)
-    case lila.core.actorApi.mod.MarkCheater(userId, true)      => api.kickLame(userId)
-    case lila.core.actorApi.mod.MarkBooster(userId)            => api.kickLame(userId)
+    case lila.core.mod.MarkCheater(userId, true)               => api.kickLame(userId)
+    case lila.core.mod.MarkBooster(userId)                     => api.kickLame(userId)
 
   LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
     api.startPendingRounds

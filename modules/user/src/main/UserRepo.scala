@@ -6,7 +6,9 @@ import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress }
+import lila.core.ApiVersion
+import lila.core.{ EmailAddress, NormalizedEmailAddress }
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 
 final class UserRepo(val coll: Coll)(using Executor):
@@ -366,7 +368,7 @@ final class UserRepo(val coll: Coll)(using Executor):
         else $set(F.email -> normalized, F.verbatimEmail -> email) ++ $unset(F.prevEmail)
       )
       .map: _ =>
-        lila.common.Bus.publish(lila.core.actorApi.user.ChangeEmail(id, email), "email")
+        lila.common.Bus.publish(lila.core.user.ChangeEmail(id, email), "email")
 
   private[user] def anyEmail(doc: Bdoc): Option[EmailAddress] =
     doc.getAsOpt[EmailAddress](F.verbatimEmail).orElse(doc.getAsOpt[EmailAddress](F.email))

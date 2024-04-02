@@ -2,7 +2,7 @@ package lila.racer
 
 import com.softwaremill.macwire.*
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.db.AsyncColl
 import lila.storm.{ StormJson, StormSelector, StormSign }
 

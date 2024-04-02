@@ -12,7 +12,7 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
   font-size: 1rem;
   align-items: stretch;
   background: $c-bg-box;
-  padding-#{$end-direction}: 6px;
+  padding-inline-end: 6px;
 
   #voice-bar.puz & {
     background: $c-bg-zebra;
@@ -62,7 +62,7 @@ $c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
 
 button#microphone-button {
   margin: 4px;
-  margin-#{$end-direction}: 8px;
+  margin-inline-end: 8px;
   width: 42px; // compensate for width difference between speaker and cancel buttons
   height: 30px;
   border: 1px solid transparent;
@@ -136,7 +136,7 @@ button#microphone-button {
   }
 
   .switch + label {
-    margin-#{$start-direction}: 1ch;
+    margin-inline-start: 1ch;
   }
 
   input[type='range'] {
@@ -151,7 +151,7 @@ button#microphone-button {
   select {
     flex: 1 4 auto;
     min-width: 0;
-    margin-#{$start-direction}: 1ch;
+    margin-inline-start: 1ch;
     padding: 4px;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.common.Json.given
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.actorApi.socket.remote.TellUserIn
 
 @Module
@@ -20,9 +20,10 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
+    reportApi: lila.core.report.ReportApi,
+    shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.security.Spam,
     chatPanicAllowed: lila.core.chat.panic.IsAllowed,
-    shutup: lila.core.actors.Shutup,
     mongoCache: lila.memo.MongoCache.Api
 )(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator):
 
@@ -54,7 +55,7 @@ final class Env(
         )
 
   Bus.subscribeFuns(
-    "msgSystemSend" -> { case lila.core.actorApi.msg.SystemMsg(userId, text) =>
+    "msgSystemSend" -> { case lila.core.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text)
     },
     "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>

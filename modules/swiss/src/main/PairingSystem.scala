@@ -69,4 +69,4 @@ final private class PairingSystem(trf: SwissTrf, executable: String)(using
       }
 
 private object PairingSystem:
-  case class BBPairingException(message: String, swiss: Swiss) extends lila.base.LilaException
+  case class BBPairingException(message: String, swiss: Swiss) extends lila.core.lilaism.LilaException

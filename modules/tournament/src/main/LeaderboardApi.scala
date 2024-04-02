@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 
 import scalalib.Maths
 
-import lila.common.paginator.{ AdapterLike, Paginator }
+import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.user.User

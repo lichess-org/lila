@@ -25,7 +25,7 @@ export function render(ctrl: LobbyController) {
         transp = !!member && !active;
       return h('div', { class: { active, transp: !active && transp }, attrs: { 'data-id': pool.id } }, [
         h('div.clock', `${pool.lim}+${pool.inc}`),
-        active && member!.range && !ctrl.opts.hideRatings
+        active && member!.range && ctrl.opts.showRatings
           ? h('div.range', member.range.replace('-', '–'))
           : h('div.perf', pool.perf),
         active ? spinner() : null,

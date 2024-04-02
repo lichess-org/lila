@@ -3,7 +3,7 @@ package lila.notify
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.core.i18n.I18nKey.{ site as trans }
 import lila.core.i18n.{ I18nKey, Translate, JsDump }
 
@@ -92,8 +92,6 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync, jsDump: JsDump):
         "read"    -> notification.read.value,
         "date"    -> notification.createdAt
       )
-
-  import lila.common.paginator.PaginatorJson.given
 
   given OWrites[Notification.AndUnread] = Json.writes
 

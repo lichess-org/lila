@@ -262,7 +262,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 $doc(F.provisional.$ne(true))
               }
         ) -> {
-          sortDate ::: limitGames :: (metric.match {
+          sortDate ::: limitGames :: (metric.match
             case M.MeanCpl =>
               List(
                 projectForMove,
@@ -408,9 +408,9 @@ final private class AggregationPipeline(store: InsightStorage)(using
                   GroupFunction("$avg", $divide("$" + F.moves("v"), TimeVariance.intFactor))
                 ) :::
                 List(includeSomeGameIds)
-          } ::: dimension.match
-            case D.OpeningVariation | D.OpeningFamily => List(sortNb, limit(12))
-            case _                                    => Nil
+            ::: dimension.match
+              case D.OpeningVariation | D.OpeningFamily => List(sortNb, limit(12))
+              case _                                    => Nil
           ).flatten
         }
         pipeline

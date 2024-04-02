@@ -9,7 +9,7 @@ import scala.util.chaining.*
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
-import lila.common.LangPath
+import lila.core.LangPath
 import lila.game.{ Game, Pov }
 
 object bits:
@@ -142,7 +142,7 @@ object bits:
   )(using Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Epd],
+      (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Full],
       tour,
       simul = simul,
       userTv = userTv,

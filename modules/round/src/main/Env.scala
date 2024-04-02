@@ -8,11 +8,11 @@ import play.api.Configuration
 import scala.util.matching.Regex
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.common.{ Bus, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.core.round.{ Abort, Resign }
-import lila.core.actorApi.simul.GetHostIds
+import lila.core.simul.GetHostIds
 import lila.memo.SettingStore
 import lila.rating.{ PerfType, RatingFactor }
 
@@ -33,8 +33,6 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     flairApi: lila.user.FlairApi,
-    timeline: lila.core.actors.Timeline,
-    bookmark: lila.core.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
@@ -117,7 +115,7 @@ final class Env(
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name)
     },
-    "adjustCheater" -> { case lila.core.actorApi.mod.MarkCheater(userId, true) =>
+    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
       resignAllGamesOf(userId)
     }
   )
@@ -172,11 +170,7 @@ final class Env(
     tellRound = tellRound
   )
 
-  private lazy val notifier = RoundNotifier(
-    timeline = timeline,
-    isUserPresent = isUserPresent,
-    notifyApi = notifyApi
-  )
+  private lazy val notifier = RoundNotifier(isUserPresent, notifyApi)
 
   private lazy val finisher = wire[Finisher]
 

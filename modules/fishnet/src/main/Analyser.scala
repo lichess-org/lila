@@ -66,7 +66,7 @@ final class Analyser(
       _.fold[Fu[Analyser.Result]](fuccess(Analyser.Result.NoGame))(apply(_, sender))
     }
 
-  def study(req: lila.core.actorApi.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
+  def study(req: lila.core.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
     analysisRepo.exists(req.chapterId.value).flatMap {
       if _ then fuccess(Analyser.Result.NoChapter)
       else

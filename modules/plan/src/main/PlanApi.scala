@@ -3,11 +3,13 @@ package lila.plan
 import play.api.i18n.Lang
 import reactivemongo.api.*
 
-import lila.common.config.Secret
-import lila.common.{ Bus, EmailAddress, IpAddress }
+import lila.core.config.Secret
+import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.{ Me, User, UserRepo }
+import lila.core.EmailAddress
+import lila.core.IpAddress
 
 final class PlanApi(
     stripeClient: StripeClient,

@@ -21,7 +21,7 @@ object Federation:
 trait Player:
   def id: FideId
   def name: PlayerName
-  def fed: Option[lila.core.fide.Federation.Id]
+  def fed: Option[Federation.Id]
   def title: Option[PlayerTitle]
   def ratingOf(tc: FideTC): Option[Int]
 

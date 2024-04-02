@@ -49,17 +49,18 @@
         font-size: 1.4em;
 
         .line {
-          @include rtl-mirrored;
-
           flex: 0 0 auto;
           font-size: 1.5em;
+          @include if-rtl {
+            transform: scaleX(-1);
+          }
         }
       }
 
       &__actions {
         @extend %flex-center-nowrap;
 
-        margin-#{$end-direction}: 0.7em;
+        margin-inline-end: 0.7em;
       }
     }
 
@@ -109,7 +110,7 @@
 
       &__submit {
         outline: 0;
-        margin-#{$start-direction}: 1em;
+        margin-inline-start: 1em;
         border-radius: 99px;
         background: $c-font-dimmer;
 

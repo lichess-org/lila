@@ -151,7 +151,7 @@ object Chapter:
 
   /* Last position of the main line.
    * Used for chapter previews. */
-  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: BothClocks)
+  case class LastPosDenorm(fen: Fen.Full, uci: Option[Uci], clocks: BothClocks)
 
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 

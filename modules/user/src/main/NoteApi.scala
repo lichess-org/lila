@@ -2,7 +2,7 @@ package lila.user
 
 import scalalib.ThreadLocalRandom
 
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 
 case class Note(

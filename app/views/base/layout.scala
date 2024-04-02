@@ -8,17 +8,19 @@ import play.api.i18n.Lang
 import lila.app.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LangPath
+import lila.core.LangPath
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
 object layout:
 
   object bits:
-    val doctype                   = raw("<!DOCTYPE html>")
-    def htmlTag(using lang: Lang) = html(st.lang := lang.code, dir := isRTL.option("rtl"))
-    val topComment                = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
-    val charset                   = raw("""<meta charset="utf-8">""")
+    val doctype = raw("<!DOCTYPE html>")
+    def htmlTag(using lang: Lang) =
+      val isRTL = lila.i18n.LangList.isRTL(lang)
+      html(st.lang := lang.code, dir := isRTL.option("rtl"), cls := (if isRTL then "dir-rtl" else "dir-ltr"))
+    val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
+    val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw:
       """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
     def metaCsp(csp: ContentSecurityPolicy): Frag = raw:

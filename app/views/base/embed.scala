@@ -16,7 +16,7 @@ object embed:
           layout.bits.metaCsp(basicCsp.withNonce(ctx.nonce).withInlineIconFont),
           st.headTitle(title),
           layout.bits.pieceSprite(ctx.pieceSet),
-          cssTagWithDirAndTheme(cssModule, isRTL = lila.i18n.LangList.isRTL(ctx.lang), ctx.bg),
+          cssTagWithTheme(cssModule, ctx.bg),
           (ctx.bg == "system").option(embedJsUnsafe(systemThemePolyfillJs, ctx.nonce))
         ),
         st.body(cls := s"${ctx.bg} highlight ${ctx.boardClass}")(

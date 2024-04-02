@@ -41,6 +41,10 @@ object UblogPost:
 
   export lila.core.ublog.UblogPost.*
 
+  def slug(title: String) =
+    val s = lila.common.String.slugify(title)
+    if s.isEmpty then "-" else s
+
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]
   opaque type Views = Int

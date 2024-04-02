@@ -3,7 +3,7 @@ package crud
 
 import chess.Mode
 
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.db.dsl.*
 import lila.db.paginator.Adapter
 import lila.tournament.BSONHandlers.given

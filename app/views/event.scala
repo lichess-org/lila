@@ -71,7 +71,8 @@ object event:
   private object markdown:
     private val renderer = new MarkdownRender(table = true, list = true)
     // hashcode caching is safe for official events
-    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
+    private val cache = lila.memo.CacheApi
+      .scaffeineNoScheduler(using env.executor)
       .expireAfterAccess(10 minutes)
       .maximumSize(64)
       .build[Int, Html]()

@@ -6,7 +6,7 @@ import play.api.data.Forms.*
 import play.api.data.Mapping
 import play.api.data.format.Formats.doubleFormat
 
-import lila.common.Days
+import lila.core.Days
 import lila.common.Form.{ *, given }
 import lila.core.game.GameRule
 import lila.lobby.Color
@@ -37,4 +37,4 @@ private object Mappings:
   val speed       = number.verifying(Config.speeds contains _)
   val fenField = optional:
     import lila.common.Form.fen.{ mapping, truncateMoveNumber }
-    mapping.transform[Fen.Epd](truncateMoveNumber, identity)
+    mapping.transform[Fen.Full](truncateMoveNumber, identity)

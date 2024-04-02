@@ -20,7 +20,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
   import Game.{ BSONFields as F }
   import Player.given
 
-  val fixedColorLobbyCache = lila.memo.ExpireSetMemo[GameId](2 hours)
+  val fixedColorLobbyCache = scalalib.cache.ExpireSetMemo[GameId](2 hours)
 
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
@@ -399,13 +399,13 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
       .skip(ThreadLocalRandom.nextInt(distribution))
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen.Epd] = None): Funit =
+  def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen.Full] = None): Funit =
     val g2 =
       if g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))) then
         g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
-    val fen: Option[Fen.Epd] = initialFen.orElse {
+    val fen: Option[Fen.Full] = initialFen.orElse {
       (g2.variant.fromPosition || g2.variant.chess960)
         .option(Fen.write(g2.chess))
         .filterNot(_.isInitial)
@@ -464,10 +464,10 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
   def setImportCreatedAt(g: Game) =
     coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
 
-  def initialFen(gameId: GameId): Fu[Option[Fen.Epd]] =
-    coll.primitiveOne[Fen.Epd]($id(gameId), F.initialFen)
+  def initialFen(gameId: GameId): Fu[Option[Fen.Full]] =
+    coll.primitiveOne[Fen.Full]($id(gameId), F.initialFen)
 
-  def initialFen(game: Game): Fu[Option[Fen.Epd]] =
+  def initialFen(game: Game): Fu[Option[Fen.Full]] =
     if game.imported || !game.variant.standardInitialPosition then
       initialFen(game.id).dmap:
         case None if game.variant == chess.variant.Chess960 => Fen.initial.some
@@ -482,7 +482,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
   def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
     initialFen(game).dmap { Game.WithInitialFen(game, _) }
 
-  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Epd])]] =
+  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Full])]] =
     games.map { game =>
       initialFen(game).dmap { game -> _ }
     }.parallel

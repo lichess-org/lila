@@ -2,7 +2,7 @@ package lila.cms
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.{ AssetBaseUrl, BaseUrl, CollName }
+import lila.core.config.{ AssetBaseUrl, BaseUrl, CollName }
 import lila.memo.CacheApi
 
 @Module

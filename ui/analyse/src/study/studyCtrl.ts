@@ -167,6 +167,7 @@ export default class StudyCtrl {
         this.members,
         this.chapters.list,
         this.multiCloudEval,
+        () => this.data.federations,
         id => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(

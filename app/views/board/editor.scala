@@ -11,7 +11,7 @@ import lila.common.Json.given
 object editor:
 
   def apply(
-      fen: Option[Fen.Epd],
+      fen: Option[Fen.Full],
       positionsJson: JsArray,
       endgamePositionsJson: JsArray
   )(using PageContext) =
@@ -39,7 +39,7 @@ object editor:
         )
       )
 
-  def jsData(fen: Option[Fen.Epd] = None)(using ctx: Context) =
+  def jsData(fen: Option[Fen.Full] = None)(using ctx: Context) =
     Json
       .obj(
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",

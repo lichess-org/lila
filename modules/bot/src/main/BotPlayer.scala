@@ -7,6 +7,7 @@ import lila.game.{ Game, GameRepo, Pov, Rematches }
 import lila.core.actorApi.map.Tell
 import lila.core.round.*
 import lila.user.Me
+import lila.core.shutup.PublicSource
 
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,
@@ -36,7 +37,7 @@ final class BotPlayer(
         lila.mon.bot.chats(me.username.value).increment()
         val chatId = ChatId(if d.room == "player" then gameId.value else s"$gameId/w")
         val source = (d.room == "spectator").option {
-          lila.core.actorApi.shutup.PublicSource.Watcher(gameId)
+          PublicSource.Watcher(gameId)
         }
         chatApi.userChat.write(chatId, me, d.text, publicSource = source, _.Round)
       )

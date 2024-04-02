@@ -61,7 +61,7 @@ object dgt:
     )
 
   def play(token: AccessToken)(using PageContext) =
-    layout("play", s"'${token.plain.value}'".some)(
+    layout("play", s"${token.plain.value}".some)(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
         h2(iconTag(licon.InfoCircle, ifMoveNotDetected())),

@@ -5,7 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge.Status
-import lila.common.LightUser
+import lila.core.LightUser
 
 object mine:
 

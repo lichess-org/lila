@@ -8,7 +8,8 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, LightUser, config }
+import lila.common.HTTPRequest
+import lila.core.LightUser
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
 import lila.user.User as UserModel
 
@@ -258,11 +259,10 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def form = Auth { ctx ?=> me ?=>
     LimitPerWeek:
-      forms.anyCaptcha.flatMap: captcha =>
-        Ok.page(html.team.form.create(forms.create, captcha))
+      Ok.page(html.team.form.create(forms.create, anyCaptcha))
   }
 
-  private val OneAtATime = lila.memo.FutureConcurrencyLimit[UserId](
+  private val OneAtATime = lila.app.http.FutureConcurrencyLimit[UserId](
     key = "team.concurrency.user",
     ttl = 10.minutes,
     maxConcurrency = 1
@@ -274,10 +274,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           forms.create
             .bindFromRequest()
             .fold(
-              err =>
-                BadRequest.pageAsync:
-                  forms.anyCaptcha.map(html.team.form.create(err, _))
-              ,
+              err => BadRequest.page(html.team.form.create(err, anyCaptcha)),
               data =>
                 api.create(data, me).map { team =>
                   Redirect(routes.Team.show(team.id))

@@ -6,7 +6,7 @@ import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module

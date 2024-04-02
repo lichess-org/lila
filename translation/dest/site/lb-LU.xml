@@ -825,7 +825,7 @@
   <string name="tryAnotherMoveForWhite">Probéier een aneren Zuch fir Wäiss</string>
   <string name="tryAnotherMoveForBlack">Probéier een aneren Zuch fir Schwaarz</string>
   <string name="solution">Léisung</string>
-  <string name="waitingForAnalysis">Waarden op d\'Analys</string>
+  <string name="waitingForAnalysis">Op d\'Analys waarden</string>
   <string name="noMistakesFoundForWhite">Keng Feeler vun Wäiss fonnt</string>
   <string name="noMistakesFoundForBlack">Keng Feeler vun Schwaarz fonnt</string>
   <string name="doneReviewingWhiteMistakes">Wäiss Feeler all nogekuckt</string>

@@ -7,8 +7,8 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
-import lila.common.EmailAddress
-import lila.common.config.Secret
+import lila.core.EmailAddress
+import lila.core.config.*
 import lila.user.User
 
 final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using
@@ -204,7 +204,9 @@ object StripeClient:
   class InvalidRequestException(status: Int, msg: String) extends StatusException(status, msg)
   object CantUseException extends StripeException("You already donated this week, thank you.")
 
+  import lila.common.config.given
   import lila.common.autoconfig.*
+
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,

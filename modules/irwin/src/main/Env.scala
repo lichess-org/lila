@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.db.AsyncColl
 import lila.db.dsl.Coll
 import lila.report.Suspect
@@ -25,10 +25,7 @@ final class Env(
     insightApi: lila.insight.InsightApi,
     db: lila.db.Db,
     insightDb: lila.db.AsyncDb @@ lila.insight.InsightDb
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor)(using scheduler: Scheduler):
 
   lazy val irwinStream = wire[IrwinStream]
 

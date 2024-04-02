@@ -15,12 +15,9 @@ import lila.common.Form.{
 }
 import lila.db.dsl.{ *, given }
 import lila.core.team.Access
+import lila.core.captcha.CaptchaApi
 
-final private[team] class TeamForm(
-    teamRepo: TeamRepo,
-    val captcher: lila.core.actors.Captcher
-)(using Executor)
-    extends lila.core.CaptchedForm:
+final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(using Executor):
 
   private object Fields:
     val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
@@ -59,7 +56,7 @@ final private[team] class TeamForm(
       Fields.move
     )(TeamSetup.apply)(unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
-      .verifying(captchaFailMessage, validateCaptcha)
+      .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
   def edit(team: Team)(using lila.user.Me) = Form(
     mapping(
@@ -115,7 +112,7 @@ final private[team] class TeamForm(
     single:
       "userId" -> lila.user.UserForm.historicalUsernameField
 
-  def createWithCaptcha(using lila.user.Me) = withCaptcha(create)
+  def createWithCaptcha(using lila.user.Me) = create -> captcha.any
 
   val pmAll = Form:
     single("message" -> cleanTextWithSymbols.verifying(Constraints.minLength(3), Constraints.maxLength(9000)))
@@ -149,7 +146,7 @@ private[team] case class TeamSetup(
     flair: Option[Flair],
     gameId: GameId,
     move: String
-):
+) extends lila.core.captcha.WithCaptcha:
   def isOpen = !request
 
 private[team] case class TeamEdit(

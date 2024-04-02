@@ -3,10 +3,13 @@ package lila.history
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.common.config.CollName
+import lila.core.config.CollName
+import lila.rating.PerfType
+import lila.core.user.WithPerf
+import lila.core.rating.PerfKey
+import lila.core.Days
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     userRepo: lila.user.UserRepo,
@@ -20,3 +23,7 @@ final class Env(
   lazy val api = wire[HistoryApi]
 
   lazy val ratingChartApi = wire[RatingChartApi]
+
+  lazy val userHistoryApi = new lila.core.history.HistoryApi:
+    def addPuzzle                                                                           = api.addPuzzle
+    def progresses: (List[WithPerf], PerfKey, Days) => Future[List[(IntRating, IntRating)]] = api.progresses

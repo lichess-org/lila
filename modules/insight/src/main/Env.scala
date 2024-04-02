@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.core.config.*
 
 @Module
 @annotation.nowarn("msg=unused")

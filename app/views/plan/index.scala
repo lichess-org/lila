@@ -18,7 +18,7 @@ object index:
   private val namespaceAttr = attr("data-namespace")
 
   def apply(
-      email: Option[lila.common.EmailAddress],
+      email: Option[lila.core.EmailAddress],
       stripePublicKey: String,
       payPalPublicKey: String,
       patron: Option[lila.plan.Patron],

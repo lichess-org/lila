@@ -3,7 +3,7 @@ package lila.racer
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.pref.Pref
+import lila.core.pref.Pref
 import lila.storm.StormJson
 
 final class RacerJson:
@@ -11,7 +11,7 @@ final class RacerJson:
   import StormJson.given
 
   given OWrites[RacerPlayer] = OWrites: p =>
-    p.user.so(lila.common.LightUser.write) ++
+    p.user.so(Json.toJsObject) ++
       Json.obj("name" -> p.name, "score" -> p.score)
 
   // full race data

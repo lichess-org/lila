@@ -2,13 +2,13 @@ package lila.analyse
 import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnStr, Tag, Tags }
 import chess.{ ByColor, Ply }
 
-import lila.common.config.{ BaseUrl, NetDomain }
+import lila.core.config.{ BaseUrl, NetDomain }
 import lila.game.PgnDump
 import lila.tree.Eval
 
 class AnnotatorTest extends munit.FunSuite:
 
-  given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
+  given Executor = scala.concurrent.ExecutionContextOpportunistic
 
   val annotator = Annotator(NetDomain("l.org"))
   def makeGame(g: chess.Game) =

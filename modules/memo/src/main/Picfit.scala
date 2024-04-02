@@ -10,7 +10,7 @@ import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
-import lila.common.IpAddress
+import lila.core.IpAddress
 
 case class PicfitImage(
     _id: PicfitImage.Id,
@@ -145,7 +145,7 @@ object PicfitApi:
       .map(PicfitImage.Id(_))
       .toSet
 
-final class PicfitUrl(config: PicfitConfig):
+final class PicfitUrl(config: PicfitConfig)(using Executor):
 
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio

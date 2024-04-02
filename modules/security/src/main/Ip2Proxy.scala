@@ -3,7 +3,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.IpAddress
+import lila.core.IpAddress
 
 trait Ip2Proxy:
 

@@ -33,8 +33,10 @@ final private[puzzle] class DailyPuzzle(
       .flatMapz(makeDaily)
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
-    lila.core.hub.renderer
-      .ask[String](DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _))
+    lila.common.Bus
+      .ask[Html]("renderer")(
+        DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _)
+      )
       .map: html =>
         DailyPuzzle.WithHtml(puzzle, html).some
   }.recover { case e: Exception =>
@@ -102,6 +104,6 @@ final private[puzzle] class DailyPuzzle(
 object DailyPuzzle:
   type Try = () => Fu[Option[DailyPuzzle.WithHtml]]
 
-  case class WithHtml(puzzle: Puzzle, html: String)
+  case class WithHtml(puzzle: Puzzle, html: Html)
 
-  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci, promise: Promise[String])
+  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci, promise: Promise[Html])

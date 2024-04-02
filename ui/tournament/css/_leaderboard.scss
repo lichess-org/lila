@@ -17,7 +17,7 @@ $user-list-width: 35ch;
 
     font-size: 1.45em;
     line-height: 2.5em;
-    padding-#{$start-direction}: 0.8rem;
+    padding-inline-start: 0.8rem;
     text-transform: uppercase;
     margin: 0;
     white-space: nowrap;
@@ -52,7 +52,7 @@ $user-list-width: 35ch;
 .tournament-shields {
   h2 {
     position: relative;
-    padding-#{$start-direction}: 95px;
+    padding-inline-start: 95px;
     border-bottom: $border;
   }
 }
@@ -60,7 +60,7 @@ $user-list-width: 35ch;
 .shield-trophy {
   position: absolute;
   top: -11px;
-  #{$start-direction}: 15px;
+  @include inline-start(15px);
   width: 67px;
   height: 80px;
   background: img-url('trophy/shield-gold.png') no-repeat;
@@ -86,7 +86,7 @@ $user-list-width: 35ch;
   font-size: 1.1em;
 
   .shield-trophy {
-    #{$start-direction}: calc(var(--box-padding) - 10px);
+    @include inline-start(calc(var(--box-padding) - 10px));
     transform: scale(0.7);
   }
 

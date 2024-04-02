@@ -16,11 +16,6 @@ object Form:
 
   type Options[A] = Iterable[(A, String)]
 
-  type FormLike = {
-    def apply(key: String): Field
-    def errors: Seq[FormError]
-  }
-
   def options(it: Iterable[Int], pattern: String): Options[Int] =
     it.map: d =>
       d -> (pluralize(pattern, d).format(d))
@@ -182,12 +177,12 @@ object Form:
       }
 
   object fen:
-    val mapping = trim(of[String]).into[Fen.Epd]
+    val mapping = trim(of[String]).into[Fen.Full]
     def playable(strict: Boolean) = mapping
       .verifying("Invalid position", fen => Fen.read(fen).exists(_.playable(strict)))
-      .transform[Fen.Epd](if strict then truncateMoveNumber else identity, identity)
+      .transform[Fen.Full](if strict then truncateMoveNumber else identity, identity)
     val playableStrict = playable(strict = true)
-    def truncateMoveNumber(fen: Fen.Epd) =
+    def truncateMoveNumber(fen: Fen.Full) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if g.fullMoveNumber >= 150 then
           Fen.write(g.copy(fullMoveNumber = g.fullMoveNumber.map(_ % 100))) // keep the start ply low

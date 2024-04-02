@@ -7,8 +7,7 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
 
-import lila.common.config.NetConfig
-import lila.common.{ *, given }
+import lila.core.config.NetConfig
 import lila.db.dsl.{ *, given }
 
 import Stream.YouTube

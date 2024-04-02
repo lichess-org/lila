@@ -22,7 +22,7 @@ final private class SwissRankingApi(
       }.toMap
     )
 
-  private val scoreCache = cacheApi.scaffeine
+  private val scoreCache = CacheApi.scaffeine
     .expireAfterWrite(60 minutes)
     .build[SwissId, Ranking]()
 

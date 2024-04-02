@@ -6,7 +6,7 @@ import scalalib.cuteName.CuteNameGenerator
 
 import scala.jdk.CollectionConverters.*
 
-import lila.common.IpAddress
+import lila.core.IpAddress
 import lila.memo.CacheApi
 import lila.security.Granter
 import lila.user.Me
@@ -17,7 +17,7 @@ object IpRender:
   type Rendered = String
   type RenderIp = IpAddress => Rendered
 
-final class IpRender:
+final class IpRender(using Executor):
 
   import IpRender.*
 

@@ -9,7 +9,8 @@ object SocketRequest extends lila.core.socket.SocketRequester:
 
   private val counter = AtomicInteger(0)
 
-  private val inFlight = lila.memo.CacheApi.scaffeineNoScheduler
+  private val inFlight = lila.memo.CacheApi
+    .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
     .expireAfterWrite(30.seconds)
     .removalListener: (id, _, cause) =>
       if cause != RemovalCause.EXPLICIT then logger.warn(s"SocketRequest $id removed: $cause")

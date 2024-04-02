@@ -1,6 +1,6 @@
 package lila.api
 
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
 
 class ReferrerRedirectTest extends munit.FunSuite:
 

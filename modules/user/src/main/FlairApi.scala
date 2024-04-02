@@ -25,7 +25,7 @@ object FlairApi:
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
-final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: akka.actor.Scheduler):
+final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: Scheduler):
 
   import FlairApi.*
 
@@ -53,4 +53,4 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
   scheduler.scheduleOnce(11 seconds)(refresh())
 
   lila.common.Bus.subscribeFun("assetVersion"):
-    case lila.common.AssetVersion.Changed(_) => refresh()
+    case lila.core.AssetVersion.Changed(_) => refresh()

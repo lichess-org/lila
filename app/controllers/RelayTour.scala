@@ -4,7 +4,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ IpAddress, config }
+import lila.core.{ IpAddress, config }
 import lila.relay.RelayTour as TourModel
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
@@ -115,24 +115,24 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.api.deleteTourIfOwner(tour).inject(Redirect(routes.RelayTour.by(me.username)).flashSuccess)
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.IpAddress](
     key = "relay.image.ip"
   )(
     ("fast", 10, 2.minutes),
     ("slow", 60, 1.day)
   )
 
-  def image(id: TourModel.Id) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def image(id: TourModel.Id, tag: Option[String]) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     WithTourCanUpdate(id): tg =>
       ctx.body.body.file("image") match
         case Some(image) =>
           ImageRateLimitPerIp(ctx.ip, rateLimited):
-            (env.relay.api.image.upload(me, tg.tour, image) >> {
+            (env.relay.api.image.upload(me, tg.tour, image, tag) >> {
               Ok
             }).recover { case e: Exception =>
               BadRequest(e.getMessage)
             }
-        case None => env.relay.api.image.delete(tg.tour) >> Ok
+        case None => env.relay.api.image.delete(tg.tour, tag) >> Ok
   }
 
   def leaderboardView(id: TourModel.Id) = Open:

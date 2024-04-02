@@ -7,7 +7,7 @@ import chess.{ Color, Mode, Speed }
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.Days
+import lila.core.Days
 import lila.game.Game
 import lila.core.i18n.I18nKey
 import lila.core.{ challenge as hub }
@@ -19,7 +19,7 @@ case class Challenge(
     @Key("_id") id: Challenge.Id,
     status: Challenge.Status,
     variant: Variant,
-    initialFen: Option[Fen.Epd],
+    initialFen: Option[Fen.Full],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
@@ -70,7 +70,7 @@ case class Challenge(
 
   def speed = speedOf(timeControl)
 
-  def notableInitialFen: Option[Fen.Epd] = variant match
+  def notableInitialFen: Option[Fen.Full] = variant match
     case FromPosition | Horde | RacingKings | Chess960 => initialFen
     case _                                             => none
 
@@ -172,7 +172,7 @@ object Challenge:
 
   def make(
       variant: Variant,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       timeControl: TimeControl,
       mode: Mode,
       color: String,

@@ -1,6 +1,8 @@
 package lila.core
 package user
 
+import lila.core.rating.Perf
+
 opaque type MyId = String
 object MyId extends TotalWrapper[MyId, String]:
   given Conversion[MyId, UserId]                 = UserId(_)
@@ -8,11 +10,19 @@ object MyId extends TotalWrapper[MyId, String]:
   given [M[_]]: Conversion[M[MyId], M[UserId]]   = u => UserId.from(MyId.raw(u))
   extension (me: MyId) inline def userId: UserId = me.into(UserId)
 
+case class ChangeEmail(id: UserId, email: EmailAddress)
+
 trait User:
-  def count: Count
-  def createdAt: Instant
+  val id: UserId
+  val count: Count
+  val createdAt: Instant
 
   def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
+
+trait WithPerf:
+  val user: User
+  val perf: Perf
+  export user.{ id, createdAt }
 
 case class Count(
     ai: Int,

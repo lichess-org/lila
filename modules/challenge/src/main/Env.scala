@@ -2,7 +2,7 @@ package lila.challenge
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
@@ -14,7 +14,7 @@ final class Env(
     onStart: lila.core.game.OnStart,
     gameCache: lila.game.Cached,
     rematches: lila.game.Rematches,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUser: lila.core.LightUser.GetterSync,
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.core.socket.IsOnline,
     db: lila.db.Db,
@@ -23,7 +23,7 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     socketKit: lila.core.socket.SocketKit,
     getLagRating: lila.core.socket.userLag.GetLagRating,
-    msgApi: lila.msg.MsgApi,
+    msgApi: lila.core.msg.MsgApi,
     langPicker: lila.core.i18n.LangPicker,
     jsDump: lila.core.i18n.JsDump,
     setupForm: lila.core.setup.SetupForm,

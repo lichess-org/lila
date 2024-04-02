@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import scala.util.chaining.*
 
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, LightPov, Pov }
 import lila.gathering.Condition
@@ -117,7 +117,7 @@ final class TournamentApi(
   def teamBattleTeamInfo(tour: Tournament, teamId: TeamId): Fu[Option[TeamBattle.TeamInfo]] =
     tour.teamBattle.exists(_.teams(teamId)).soFu(cached.teamInfo.get(tour.id -> teamId))
 
-  private val hadPairings = lila.memo.ExpireSetMemo[TourId](1 hour)
+  private val hadPairings = scalalib.cache.ExpireSetMemo[TourId](1 hour)
 
   private[tournament] def makePairings(
       forTour: Tournament,
@@ -337,7 +337,7 @@ final class TournamentApi(
     }
 
   private object updateNbPlayers:
-    private val onceEvery = lila.memo.OnceEvery[TourId](1 second)
+    private val onceEvery = scalalib.cache.OnceEvery[TourId](1 second)
     def apply(tourId: TourId): Funit = onceEvery(tourId).so {
       playerRepo.count(tourId).flatMap { tournamentRepo.setNbPlayers(tourId, _) }
     }

@@ -1,6 +1,7 @@
 package lila.history
 
-export lila.Lila.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 
 private type ID         = String
 private type Date       = Int

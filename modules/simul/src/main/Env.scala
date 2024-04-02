@@ -5,7 +5,7 @@ import play.api.Configuration
 
 import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
@@ -23,9 +23,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    timeline: lila.core.actors.Timeline,
     chatApi: lila.chat.ChatApi,
-    lightUser: lila.common.LightUser.GetterFallback,
+    lightUser: lila.core.LightUser.GetterFallback,
     onGameStart: lila.core.game.OnStart,
     cacheApi: lila.memo.CacheApi,
     historyApi: lila.history.HistoryApi,
@@ -72,11 +71,11 @@ final class Env(
       api.finishGame(game)
       ()
     },
-    "adjustCheater" -> { case lila.core.actorApi.mod.MarkCheater(userId, true) =>
+    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
       api.ejectCheater(userId)
       ()
     },
-    "simulGetHosts" -> { case lila.core.actorApi.simul.GetHostIds(promise) =>
+    "simulGetHosts" -> { case lila.core.simul.GetHostIds(promise) =>
       promise.completeWith(api.currentHostIds)
     },
     "moveEventSimul" -> { case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>

@@ -3,7 +3,7 @@ package lila.user
 import com.roundeights.hasher.Implicits.*
 import reactivemongo.api.bson.*
 
-import lila.common.NormalizedEmailAddress
+import lila.core.NormalizedEmailAddress
 import lila.db.dsl.{ *, given }
 import lila.user.User.{ BSONFields as F, ClearPassword, PasswordAndToken }
 

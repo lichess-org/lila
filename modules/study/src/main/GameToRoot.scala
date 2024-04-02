@@ -9,7 +9,7 @@ import lila.tree.{ ExportOptions, TreeBuilder, Root }
 
 private object GameToRoot:
 
-  def apply(game: Game, initialFen: Option[Fen.Epd], withClocks: Boolean): Root =
+  def apply(game: Game, initialFen: Option[Fen.Full], withClocks: Boolean): Root =
     val root = TreeBuilder(
       game = game,
       analysis = none,

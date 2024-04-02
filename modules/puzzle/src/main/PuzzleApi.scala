@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.User
@@ -148,7 +148,7 @@ final class PuzzleApi(
 
   object casual:
 
-    private val store = lila.memo.ExpireSetMemo[CacheKey](30 minutes)
+    private val store = scalalib.cache.ExpireSetMemo[CacheKey](30 minutes)
 
     private def key(user: User, id: PuzzleId) = CacheKey(s"${user.id}:${id}")
 

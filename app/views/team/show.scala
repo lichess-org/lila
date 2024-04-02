@@ -8,7 +8,7 @@ import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.mod.Modlog
 import lila.core.socket.SocketVersion
 import lila.core.socket.SocketVersion.given
@@ -20,7 +20,7 @@ object show:
 
   def apply(
       t: Team.WithLeaders,
-      members: Paginator[lila.common.LightUser],
+      members: Paginator[lila.core.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[SocketVersion],

@@ -9,7 +9,7 @@ import lila.tree.Node.destString
 
 case class AnaDests(
     variant: Variant,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     path: String,
     chapterId: Option[StudyChapterId]
 ):
@@ -39,7 +39,7 @@ object AnaDests:
     for
       d <- o.obj("d")
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
-      fen  <- d.get[Fen.Epd]("fen")
+      fen  <- d.get[Fen.Full]("fen")
       path <- d.str("path")
       chapterId = d.get[StudyChapterId]("ch")
     yield AnaDests(variant = variant, fen = fen, path = path, chapterId = chapterId)

@@ -1,6 +1,6 @@
 package lila.bookmark
 
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }
 import lila.user.User

@@ -1,6 +1,6 @@
 package lila.storm
 
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.common.{ Bus, LichessDay }
 import lila.db.dsl.*
 import lila.db.paginator.Adapter

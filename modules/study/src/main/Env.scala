@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
@@ -25,13 +25,11 @@ final class Env(
     relationApi: lila.core.relation.RelationApi,
     socketKit: lila.core.socket.SocketKit,
     socketReq: lila.core.socket.SocketRequester,
-    timeline: lila.core.actors.Timeline,
-    fishnet: lila.core.actors.Fishnet,
     chatApi: lila.chat.ChatApi,
     analyser: lila.analyse.Analyser,
     annotator: lila.analyse.Annotator,
     mongo: lila.db.Env,
-    net: lila.common.config.NetConfig,
+    net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi
 )(using
     Executor,

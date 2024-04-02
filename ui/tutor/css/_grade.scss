@@ -21,7 +21,7 @@
       @extend %flex-center;
       > div {
         flex: 13% 0 0;
-        margin-#{$end-direction}: 1.28%;
+        margin-inline-end: 1.28%;
         height: 1.5em;
         line-height: 1.5em;
         border: $border;

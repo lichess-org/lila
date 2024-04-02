@@ -6,8 +6,8 @@ import views.*
 
 import lila.app.{ *, given }
 
-import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
-import lila.common.{ LightUser, config }
+import scalalib.paginator.{ AdapterLike, Paginator }
+import lila.core.LightUser
 import lila.relation.Related
 import lila.relation.RelationStream.*
 import lila.user.User as UserModel
@@ -110,12 +110,13 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   private def jsonRelatedPaginator(pag: Paginator[Related]) =
     given Writes[UserModel.WithPerfs] = lila.user.JsonView.nameWrites
     import lila.relation.JsonView.given
-    Json.obj("paginator" -> PaginatorJson(pag.mapResults: r =>
+    import lila.common.Json.paginatorWrite
+    Json.obj("paginator" -> pag.mapResults: r =>
       Json.toJsObject(r) ++ Json
         .obj:
           "perfs" -> r.user.perfs.bestRatedPerf.map:
             lila.user.JsonView.perfTypedJson
-        .add("online" -> env.socket.isOnline(r.user.id))))
+        .add("online" -> env.socket.isOnline(r.user.id)))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):

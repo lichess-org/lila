@@ -1,6 +1,6 @@
 package lila.report
 
-import lila.common.Iso
+import scalalib.Iso
 import lila.user.Me
 
 sealed trait Reason:

@@ -16,7 +16,7 @@ import Node.{ Comments, Comment, Gamebook, Shapes }
 
 case class Metas(
     ply: Ply,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     check: Check,
     // None when not computed yet
     dests: Option[Map[Square, Bitboard]] = None,

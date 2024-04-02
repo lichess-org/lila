@@ -16,7 +16,7 @@ object login:
       title = trans.site.signIn.txt(),
       moreJs = jsModuleInit("login", "login"),
       moreCss = cssTag("auth"),
-      withHrefLangs = lila.common.LangPath(routes.Auth.login).some
+      withHrefLangs = lila.core.LangPath(routes.Auth.login).some
     ) {
       def addReferrer(url: String): String = referrer.fold(url) {
         addQueryParam(url, "referrer", _)

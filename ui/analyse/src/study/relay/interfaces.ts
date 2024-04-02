@@ -1,5 +1,3 @@
-import { Federation } from '../interfaces';
-
 export interface RelayData {
   tour: RelayTour;
   rounds: RelayRound[];
@@ -7,23 +5,8 @@ export interface RelayData {
   group?: RelayGroup;
   isSubscribed?: boolean; // undefined if anon
   videoUrls?: [string, string];
+  pinned?: { userId: string; name: string; image?: string };
 }
-
-export interface RelayGame {
-  id: string;
-  white: RelayPlayer;
-  black: RelayPlayer;
-}
-
-export interface RelayPlayer {
-  name: string;
-  rating?: number;
-  title?: string;
-  fideId?: number;
-  fed?: Federation;
-}
-
-export interface RelayGamePlayer extends RelayPlayer {}
 
 export interface RelayGroup {
   name: string;

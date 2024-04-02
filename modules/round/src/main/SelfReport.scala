@@ -5,7 +5,7 @@ import scalalib.ThreadLocalRandom
 
 import scala.util.matching.Regex
 
-import lila.common.{ IpAddress, IpAddressStr }
+import lila.core.{ IpAddress, IpAddressStr }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.UserApi
@@ -18,7 +18,7 @@ final class SelfReport(
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
 )(using ec: Executor, scheduler: Scheduler):
 
-  private val logOnceEvery = lila.memo.OnceEvery[IpAddressStr](1 minute)
+  private val logOnceEvery = scalalib.cache.OnceEvery[IpAddressStr](1 minute)
 
   def apply(
       userId: Option[UserId],
@@ -63,5 +63,5 @@ final class SelfReport(
                     (2 + hours + ThreadLocalRandom.nextInt(hours * 60)).minutes
                   ):
                     lila.common.Bus
-                      .publish(lila.core.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
+                      .publish(lila.core.mod.SelfReportMark(u.id, name), "selfReportMark")
     }

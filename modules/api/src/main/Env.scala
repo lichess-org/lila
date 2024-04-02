@@ -15,7 +15,7 @@ import lila.user.User
 @Module
 final class Env(
     appConfig: Configuration,
-    net: NetConfig,
+    net: lila.core.config.NetConfig,
     securityEnv: lila.security.Env,
     mailerEnv: lila.mailer.Env,
     teamSearchEnv: lila.teamSearch.Env,

@@ -6,7 +6,8 @@ import lila.core.socket.userLag.*
 
 object UserLagCache:
 
-  private val cache: Cache[UserId, Centis] = lila.memo.CacheApi.scaffeineNoScheduler
+  private val cache: Cache[UserId, Centis] = lila.memo.CacheApi
+    .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
     .expireAfterWrite(15 minutes)
     .build[UserId, Centis]()
 
