@@ -16,9 +16,13 @@ import lila.core.round.Mlat
 import lila.core.actorApi.security.CloseAccount
 import lila.core.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
 import lila.core.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
-import lila.core.socket.*
+import lila.core.socket.{ SocketRequester as _, * }
 
-final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown)(using Executor, Scheduler):
+final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown, requester: SocketRequester)(
+    using
+    Executor,
+    Scheduler
+):
 
   import RemoteSocket.*, Protocol.*
 
@@ -49,7 +53,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
       Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
-    case In.ReqResponse(reqId, response) => SocketRequest.onResponse(reqId, response)
+    case In.ReqResponse(reqId, response) => requester.onResponse(reqId, response)
     case In.Ping(id)                     => send(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -169,7 +173,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     subPromise.future
 
   Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping"): () =>
-    SocketRequest[Unit](
+    requester[Unit](
       id => send(Protocol.Out.stop(id)),
       res => logger.info(s"lila-ws says: $res")
     ).withTimeout(1 second, "Lilakka.shutdown")
