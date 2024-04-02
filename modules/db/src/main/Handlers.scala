@@ -6,8 +6,8 @@ import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 
 import scala.util.{ Failure, NotGiven, Success, Try }
 
-import lila.common.Iso
-import lila.common.Iso.*
+import lila.core.Iso
+import lila.core.Iso.*
 import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.IpAddress
 
@@ -143,6 +143,8 @@ trait Handlers:
 
   given BSONWriter[BSONNull.type] with
     def writeTry(n: BSONNull.type) = Success(BSONNull)
+
+  given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)
 
   given BSONHandler[IpAddress] = stringIsoHandler
 
