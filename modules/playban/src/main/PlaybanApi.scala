@@ -158,7 +158,7 @@ final class PlaybanApi(
         .addEffect: ban =>
           if ban.isEmpty then cleanUserIds.put(user.id)
 
-  val hasCurrentBan: lila.core.playban.HasCurrentBan = userId => currentBan(userId).map(_.isDefined)
+  val HasCurrentPlayban: lila.core.playban.HasCurrentPlayban = userId => currentBan(userId).map(_.isDefined)
 
   val bansOf: lila.core.playban.BansOf = userIds =>
     coll

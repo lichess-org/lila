@@ -7,4 +7,4 @@ object RageSit extends OpaqueInt[RageSit]:
 
 type BansOf        = List[UserId] => Fu[Map[UserId, Int]]
 type RageSitOf     = UserId => Fu[RageSit]
-type HasCurrentBan = UserId => Fu[Boolean]
+type HasCurrentPlayban = UserId => Fu[Boolean]

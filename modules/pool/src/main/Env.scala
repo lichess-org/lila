@@ -11,7 +11,7 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     gameRepo: lila.game.GameRepo,
     idGenerator: lila.game.IdGenerator,
-    hasCurrentBan: lila.core.playban.HasCurrentBan,
+    HasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     rageSitOf: lila.core.playban.RageSitOf
 )(using Executor, akka.actor.ActorSystem, Scheduler):
 

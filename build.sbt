@@ -230,7 +230,7 @@ lazy val tv = module("tv",
 )
 
 lazy val bot = module("bot",
-  Seq(lobby),
+  Seq(chat, game),
   reactivemongo.bundle
 )
 
@@ -255,7 +255,7 @@ lazy val activity = module("activity",
 )
 
 lazy val lobby = module("lobby",
-  Seq(game, relation, playban),
+  Seq(game, relation),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
