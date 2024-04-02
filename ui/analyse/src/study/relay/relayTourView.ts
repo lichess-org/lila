@@ -195,8 +195,8 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data,
     study = ctrl.study!,
     group = d.group,
-    allowVideo = window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true',
-    embedVideo = d.videoUrls && allowVideo;
+    embedVideo =
+      d.videoUrls && window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
 
   return [
     h('div.relay-tour__header', [
@@ -211,7 +211,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
         `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,
         embedVideo
           ? renderVideoPlayer(relay)
-          : allowVideo && relay.pinStreamer() && d.pinned?.image
+          : relay.pinStreamer() && d.pinned?.image
           ? renderPinnedImage(relay)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
