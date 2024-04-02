@@ -17,3 +17,6 @@ case class StudyChapterRequest(
     userId: UserId,
     unlimited: Boolean
 )
+
+type AnalysisAwaiter       = (Seq[GameId], FiniteDuration) => Funit
+type SystemAnalysisRequest = GameId => Funit

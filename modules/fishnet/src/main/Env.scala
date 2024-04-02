@@ -88,6 +88,7 @@ final class Env(
   private val limiter = wire[FishnetLimiter]
 
   lazy val analyser = wire[Analyser]
+  export analyser.systemRequest
 
   lazy val awaiter = wire[FishnetAwaiter]
 
