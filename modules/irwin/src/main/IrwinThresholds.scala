@@ -4,7 +4,7 @@ import play.api.data.Form
 import play.api.data.Forms.{ single, text }
 import reactivemongo.api.bson.BSONHandler
 
-import lila.common.Iso
+import scalalib.Iso
 import lila.memo.SettingStore.{ Formable, StringReader }
 import lila.core.Ints
 
@@ -14,7 +14,7 @@ private object IrwinThresholds:
 
   private val defaultThresholds = IrwinThresholds(101, 101)
 
-  given iso: Iso.StringIso[IrwinThresholds] = Iso
+  given iso: Iso.StringIso[IrwinThresholds] = lila.common.Iso
     .ints(",")
     .map[IrwinThresholds](
       {
