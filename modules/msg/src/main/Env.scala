@@ -55,7 +55,7 @@ final class Env(
         )
 
   Bus.subscribeFuns(
-    "msgSystemSend" -> { case lila.core.actorApi.msg.SystemMsg(userId, text) =>
+    "msgSystemSend" -> { case lila.core.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text)
     },
     "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>

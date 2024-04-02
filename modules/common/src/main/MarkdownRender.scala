@@ -38,7 +38,7 @@ import scala.util.matching.Regex
 import lila.common.RawHtml
 import lila.core.config.AssetDomain
 import lila.core.config.NetDomain
-import lila.core.actorApi.LpvEmbed
+import lila.core.actorApi.lpv.LpvEmbed
 
 final class MarkdownRender(
     autoLink: Boolean = true,
