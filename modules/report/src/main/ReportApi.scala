@@ -18,7 +18,7 @@ final class ReportApi(
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
     playbansOf: () => lila.core.playban.BansOf,
-    ircApi: lila.irc.IrcApi,
+    ircApi: lila.core.irc.IrcApi,
     isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
@@ -66,7 +66,7 @@ final class ReportApi(
             if report.isRecentComm &&
               report.score.value >= thresholds.discord() &&
               prev.exists(_.score.value < thresholds.discord())
-            then ircApi.commReportBurst(c.suspect.user)
+            then ircApi.commReportBurst(c.suspect.user.light)
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate).andDo:
                 if report.isCheat then

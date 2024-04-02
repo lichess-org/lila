@@ -76,13 +76,6 @@ package mailer:
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
 
-package irc:
-  enum Event:
-    case Error(msg: String)
-    case Warning(msg: String)
-    case Info(msg: String)
-    case Victory(msg: String)
-
 package notify:
   case class NotifiedBatch(userIds: Iterable[UserId])
 

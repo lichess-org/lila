@@ -27,7 +27,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
-    ircApi: lila.irc.IrcApi,
+    ircApi: lila.core.irc.IrcApi,
     msgApi: lila.core.msg.MsgApi
 )(using Executor, Scheduler, lila.core.i18n.Translator):
   private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))

@@ -1,18 +1,19 @@
 package lila.irc
 
 import lila.core.LightUser
-import lila.core.actorApi.irc.*
+import lila.core.irc.*
 import lila.user.{ Me, User }
 
 final class IrcApi(
     zulip: ZulipClient,
     noteApi: lila.user.NoteApi
-)(using lightUser: LightUser.Getter, ec: Executor):
+)(using lightUser: LightUser.Getter, ec: Executor)
+    extends lila.core.irc.IrcApi:
 
   import IrcApi.*
 
-  def commReportBurst(user: User): Funit =
-    val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.username}")
+  def commReportBurst(user: LightUser): Funit =
+    val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.name}")
     zulip(_.mod.commsPrivate, "burst")(md)
 
   def inquiry(user: User, domain: ModDomain, room: String)(using mod: Me): Funit =
@@ -170,9 +171,6 @@ final class IrcApi(
     private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
 
 object IrcApi:
-
-  enum ModDomain:
-    case Admin, Cheat, Boost, Comm, Other
 
   private val userRegex = lila.common.String.atUsernameRegex.pattern
   private val postRegex = lila.common.String.forumPostPathRegex.pattern

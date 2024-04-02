@@ -320,7 +320,7 @@ lazy val oauth = module("oauth",
 )
 
 lazy val security = module("security",
-  Seq(irc, oauth, mailer),
+  Seq(oauth, mailer),
   Seq(maxmind, hasher, uaparser) ++ tests.bundle ++ reactivemongo.bundle
 )
 
@@ -395,7 +395,7 @@ lazy val plan = module("plan",
 )
 
 lazy val relation = module("relation",
-  Seq(game, pref),
+  Seq(user, pref),
   reactivemongo.bundle
 )
 
