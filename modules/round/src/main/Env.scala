@@ -44,7 +44,6 @@ final class Env(
     rematches: lila.game.Rematches,
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
-    historyApi: lila.history.HistoryApi,
     socketKit: lila.core.socket.ParallelSocketKit,
     userLagPut: lila.core.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,

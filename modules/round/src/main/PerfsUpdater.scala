@@ -3,14 +3,12 @@ package lila.round
 import chess.{ ByColor, Color, Speed }
 
 import lila.game.{ Game, GameRepo, RatingDiffs }
-import lila.history.HistoryApi
 import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator, glicko2 }
 import lila.user.{ RankingApi, User, UserApi, UserPerfs }
 
 final class PerfsUpdater(
     gameRepo: GameRepo,
     userApi: UserApi,
-    historyApi: HistoryApi,
     rankingApi: RankingApi,
     botFarming: BotFarming,
     ratingFactors: () => RatingFactors
@@ -64,11 +62,14 @@ final class PerfsUpdater(
               ratingOf(perfsW) - ratingOf(white.perfs),
               ratingOf(perfsB) - ratingOf(black.perfs)
             ).map(_.into(IntRatingDiff))
+            lila.common.Bus
+              .publish(
+                lila.game.actorApi.PerfsUpdate(game, ByColor(white.user -> perfsW, black.user -> perfsB)),
+                "perfsUpdate"
+              )
             gameRepo
               .setRatingDiffs(game.id, ratingDiffs)
               .zip(userApi.updatePerfs(ByColor(white.perfs -> perfsW, black.perfs -> perfsB), game.perfType))
-              .zip(historyApi.add(white.user, game, perfsW))
-              .zip(historyApi.add(black.user, game, perfsB))
               .zip(rankingApi.save(white.user, game.perfType, perfsW))
               .zip(rankingApi.save(black.user, game.perfType, perfsB))
               .inject(ratingDiffs.some)
