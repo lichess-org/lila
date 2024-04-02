@@ -422,12 +422,12 @@ export default class AnalyseCtrl {
     if (this.canJumpTo(path)) this.userJump(path);
   }
 
-  mainlinePathToPly(ply: Ply): Tree.Path {
+  mainlinePlyToPath(ply: Ply): Tree.Path {
     return treeOps.takePathWhile(this.mainline, n => n.ply <= ply);
   }
 
   jumpToMain = (ply: Ply): void => {
-    this.userJump(this.mainlinePathToPly(ply));
+    this.userJump(this.mainlinePlyToPath(ply));
   };
 
   jumpToIndex = (index: number): void => {
@@ -459,7 +459,7 @@ export default class AnalyseCtrl {
       } as AnalyseData;
       if (andReload) {
         this.reloadData(data, false);
-        this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
+        this.userJump(this.mainlinePlyToPath(this.tree.lastPly()));
         this.redraw();
       }
       return data;
