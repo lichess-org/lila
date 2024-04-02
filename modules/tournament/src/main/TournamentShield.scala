@@ -6,6 +6,7 @@ import lila.common.licon
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
 import lila.user.User
+import lila.core.tournament.Status
 
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,

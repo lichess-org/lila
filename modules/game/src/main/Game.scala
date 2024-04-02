@@ -22,15 +22,17 @@ import chess.{
   Status
 }
 
-import lila.common.Days
+import lila.core.Days
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
+import lila.core.game.{ GameRule, Source }
+import lila.core.rating.PerfKey
 
 case class Game(
-    id: GameId,
+    override val id: GameId,
     players: ByColor[Player],
-    chess: ChessGame,
+    override val chess: ChessGame,
     loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
     status: Status,
     daysPerTurn: Option[Days],
@@ -40,16 +42,14 @@ case class Game(
     createdAt: Instant = nowInstant,
     movedAt: Instant = nowInstant,
     metadata: Metadata
-):
+) extends lila.tree.Game:
 
-  export chess.{ situation, ply, clock, sans, startedAtPly, player as turnColor }
-  export chess.situation.board
-  export chess.situation.board.{ history, variant }
   export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
   export players.{ white as whitePlayer, black as blackPlayer, apply as player }
 
   lazy val clockHistory = chess.clock.flatMap(loadClockHistory)
 
+  def drawOfferPlies                                   = drawOffers.normalizedPlies
   def player(playerId: GamePlayerId): Option[Player]   = players.find(_.id == playerId)
   def player[U: UserIdOf](user: U): Option[Player]     = players.find(_.isUser(user))
   def opponentOf[U: UserIdOf](user: U): Option[Player] = player(user).map(opponent)
@@ -81,6 +81,8 @@ case class Game(
     players.contains(player).option(GameFullId(s"$id${player.id}"))
 
   def fullIdOf(color: Color) = GameFullId(s"$id${player(color).id}")
+
+  def fullIds: ByColor[GameFullId] = ByColor(fullIdOf)
 
   export tournamentId.{ isDefined as isTournament }
   export simulId.{ isDefined as isSimul }
@@ -252,7 +254,7 @@ case class Game(
   def speed = Speed(chess.clock.map(_.config))
 
   lazy val perfType: PerfType = PerfType(variant, speed)
-  def perfKey: Perf.Key       = perfType.key
+  def perfKey: PerfKey        = perfType.key
 
   def ratingVariant: Variant =
     if isTournament && variant.fromPosition then Standard else variant
@@ -306,7 +308,7 @@ case class Game(
       !rulePreventsDraw
 
   def swissPreventsDraw = isSwiss && playedTurns < 60
-  def rulePreventsDraw  = hasRule(_.NoEarlyDraw) && playedTurns < 60
+  def rulePreventsDraw  = hasRule(_.noEarlyDraw) && playedTurns < 60
 
   def playerHasOfferedDrawRecently(color: Color) =
     drawOffers.lastBy(color).exists(_ >= ply - 20)
@@ -318,7 +320,7 @@ case class Game(
   def playerCouldRematch =
     finishedOrAborted &&
       nonMandatory &&
-      !hasRule(_.NoRematch) &&
+      !hasRule(_.noRematch) &&
       !boosted &&
       !(hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60))
 
@@ -331,12 +333,12 @@ case class Game(
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
   def moretimeable(color: Color) =
-    playable && canTakebackOrAddTime && !hasRule(_.NoGiveTime) && {
+    playable && canTakebackOrAddTime && !hasRule(_.noGiveTime) && {
       clock.so(_.moretimeable(color)) || correspondenceClock.so(_.moretimeable(color))
     }
 
   def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
-  def abortableByUser = abortable && !hasRule(_.NoAbort)
+  def abortableByUser = abortable && !hasRule(_.noAbort)
 
   def berserkable =
     isTournament && clock.so(_.config.berserkable) && status == Status.Started && playedTurns < 2
@@ -366,10 +368,10 @@ case class Game(
     Progress(this, updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
 
   def resignable      = playable && !abortable
-  def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss && !hasRule(_.NoClaimWin)
+  def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss && !hasRule(_.noClaimWin)
   def forceResignableNow = forceResignable && bothPlayersHaveMoved
   def drawable           = playable && !abortable && !swissPreventsDraw && !rulePreventsDraw
-  def forceDrawable      = playable && nonAi && !abortable && !isSwiss && !hasRule(_.NoClaimWin)
+  def forceDrawable      = playable && nonAi && !abortable && !isSwiss && !hasRule(_.noClaimWin)
 
   def finish(status: Status, winner: Option[Color]): Game =
     copy(
@@ -591,7 +593,7 @@ case class Game(
 object Game:
 
   case class OnStart(id: GameId)
-  case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
+  case class WithInitialFen(game: Game, fen: Option[Fen.Full])
 
   case class SideAndStart(color: Color, startedAtPly: Ply):
     def startColor = startedAtPly.turn

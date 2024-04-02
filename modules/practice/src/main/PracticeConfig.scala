@@ -26,6 +26,6 @@ final class PracticeConfigSection(
 final class PracticeConfigStudy(
     val id: String, // study ID
     val hide: Option[Boolean] = None,
-    val name: String,
+    val name: StudyName,
     val desc: String
 )

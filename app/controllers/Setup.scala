@@ -6,13 +6,14 @@ import play.api.mvc.{ Request, Result }
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, IpAddress, Preload }
+import lila.core.{ IpAddress, Preload }
+import lila.common.HTTPRequest
 import lila.game.{ AnonCookie, Pov }
 import lila.memo.RateLimit
 import lila.rating.Perf
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
-import lila.socket.Socket.Sri
+import lila.core.socket.Sri
 
 final class Setup(
     env: Env,
@@ -87,7 +88,7 @@ final class Setup(
                         case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
                         case _                                     => none
                       .so: challenger =>
-                        val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
+                        val timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn)
                         val challenge = lila.challenge.Challenge.make(
                           variant = config.variant,
                           initialFen = config.fen,
@@ -141,7 +142,7 @@ final class Setup(
                       userConfig.withinLimits,
                       sri,
                       req.sid,
-                      lila.pool.Blocking(blocking)
+                      lila.core.pool.Blocking(blocking)
                     )(using me)
                   yield hookResponse(res)
           )
@@ -164,7 +165,7 @@ final class Setup(
                   )
                 )(hookConfig.withRatingRange)
                 .updateFrom(game)
-              allBlocking = lila.pool.Blocking(blocking ++ game.userIds)
+              allBlocking = lila.core.pool.Blocking(blocking ++ game.userIds)
               hookResult <- processor.hook(hookConfigWithRating, sri, ctx.req.sid, allBlocking)(using orig)
             yield hookResponse(hookResult)
 
@@ -198,7 +199,7 @@ final class Setup(
                   blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
                   uniqId = author.fold(_.value, u => s"sri:${u.id}")
                   res <- config.fixColor
-                    .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking))
+                    .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
                     .match
                       case Left(hook) =>
                         PostRateLimit(req.ipAddress, rateLimited):
@@ -223,7 +224,7 @@ final class Setup(
     Ok.page(html.setup.filter(forms.filter))
 
   def validateFen = Open:
-    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).flatMap(ValidFen(getBool("strict"))) match
+    (get("fen").map(Fen.Full.clean): Option[Fen.Full]).flatMap(ValidFen(getBool("strict"))) match
       case None    => BadRequest
       case Some(v) => Ok.page(html.board.bits.miniSpan(v.fen.board, v.color))
 

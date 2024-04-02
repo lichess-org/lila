@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.config.*
+import lila.core.config.*
 import lila.rating.{ PerfType, UserRankMap }
 import lila.security.Granter
 import lila.user.{ Me, Trophy, User }
@@ -26,7 +26,7 @@ final class UserApi(
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
     net: NetConfig
-)(using Executor):
+)(using Executor, lila.core.i18n.Translator):
 
   def one(u: User.WithPerfs, joinedAt: Option[Instant] = None): JsObject = {
     addStreaming(jsonView.full(u.user, u.perfs.some, withProfile = true), u.id) ++

@@ -5,7 +5,7 @@ import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
 import lila.common.Chronometer
 import lila.db.dsl.*
 import chess.format.UciPath
-import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot, order }
+import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
 import chess.format.UciCharPair
 import lila.tree.NewTree.*
 import chess.Variation

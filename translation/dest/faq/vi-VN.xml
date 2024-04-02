@@ -19,8 +19,8 @@
   <string name="keyboardShortcuts">Có những phím tắt nào?</string>
   <string name="keyboardShortcutsExplanation">Một số trang trên Lichess có phím tắt mà bạn có thể sử dụng. Hãy thử nhấn \'?\' ở trang nghiên cứu, phân tích, câu đố hoặc trang ván đấu để hiển thị các phím tắt khả dụng.</string>
   <string name="fairPlay">Chơi Công Bằng</string>
-  <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được bồi thường Elo tự động từ những kẻ gian lận?</string>
-  <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu tính Elo mới nhất của họ trong vòng 5 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất xếp hạng (do thua hoặc hòa) và Elo của bạn không phải là tạm thời, bạn sẽ được hoàn lại Elo. Điểm hoàn lại được giới hạn dựa trên Elo cao nhất của bạn và tiến độ Elo của bạn sau ván đấu. (Ví dụ: nếu Elo của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
+  <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được hoàn lại hệ số tự động từ những kẻ gian lận?</string>
+  <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu đã xếp hạng mới nhất của họ trong vòng 5 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất hệ số (do thua hoặc hòa) và hệ số của bạn không phải là tạm thời, bạn sẽ được hoàn lại hệ số. Điểm hoàn lại được giới hạn dựa trên hệ số cao nhất của bạn và tiến độ hệ số của bạn sau ván đấu. (Ví dụ: nếu hệ số của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
   <string name="preventLeavingGameWithoutResigning">Chuyện gì sẽ xảy ra đối với những kỳ thủ rời khỏi ván đấu thay vì chịu thua?</string>
   <string name="leavingGameWithoutResigningExplanation">Nếu đối thủ của bạn thường xuyên hủy/rời khỏi ván cờ, họ sẽ bị \"cấm chơi\", có nghĩa là họ tạm thời bị cấm chơi. Điều này không được công khai trên hồ sơ của họ. Nếu hành vi vẫn tiếp tục, độ dài của thời gian cấm sẽ tăng lên - và hành vi này kéo dài có thể dẫn đến việc đóng tài khoản.</string>
   <string name="howCanIBecomeModerator">Làm sao để tôi có thể trở thành một điều hành viên?</string>
@@ -102,38 +102,38 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván (Berserk) và giành chiến thắng 100%% các ván trong một %s.</string>
   <string name="aHourlyBulletTournament">một giải đấu Cờ Siêu Chớp hàng giờ</string>
   <string name="goldenZeeExplanation">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại AI cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đánh bại Stockfish, và lời hứa đã được tôn vinh.</string>
-  <string name="lichessRatings">Xếp hạng Lichess</string>
+  <string name="lichessRatings">Hệ số Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Lichess sử dụng hệ thống xếp hạng nào?</string>
   <string name="ratingSystemUsedByLichess">Xếp hạng được tính bằng phương pháp xếp hạng Glicko-2 do Mark Glickman phát triển. Đây là một phương pháp đánh giá rất phổ biến và được sử dụng bởi một số lượng lớn các tổ chức cờ vua (FIDE là một ví dụ ngược lại đáng chú ý, vì họ vẫn sử dụng hệ thống đánh giá Elo lỗi thời).
 
-Về cơ bản, xếp hạng Glicko sử dụng \"khoảng tin cậy\" để tính toán và cho ra xếp hạng của bạn. Khi bạn bắt đầu sử dụng trang web lần đầu tiên, hệ số Elo của bạn bắt đầu ở mức 1500 ± 1000. 1500 thể hiện hệ số Elo của bạn và 1000 thể hiện khoảng tin cậy.
+Về cơ bản, xếp hạng Glicko sử dụng \"khoảng tin cậy\" để tính toán và cho ra xếp hạng của bạn. Khi bạn bắt đầu sử dụng trang web lần đầu tiên, hệ số Elo của bạn bắt đầu ở mức 1500 ± 1000. 1500 thể hiện hệ số của bạn và 1000 thể hiện khoảng tin cậy.
 
-Về cơ bản, hệ thống chắc chắn 90% rằng xếp hạng của bạn nằm trong khoảng 500 đến 2500. Điều này cực kỳ không chắc chắn. Do đó, khi một người chơi mới bắt đầu, xếp hạng của họ sẽ thay đổi rất đáng kể, có thể vài trăm điểm một lần. Nhưng sau một số trận đấu với những người chơi đã có uy tín, khoảng tin cậy sẽ thu hẹp lại  và số điểm đạt được/mất đi sau mỗi trận đấu sẽ giảm xuống.
+Về cơ bản, hệ thống chắc chắn 90% rằng hệ số của bạn nằm trong khoảng 500 đến 2500. Điều này cực kỳ không chắc chắn. Do đó, khi một người chơi mới bắt đầu, hệ số của họ sẽ thay đổi rất đáng kể, có thể vài trăm điểm một lần. Nhưng sau một số trận đấu với những người chơi đã có uy tín, khoảng tin cậy sẽ thu hẹp lại và số điểm đạt được/mất đi sau mỗi trận đấu sẽ giảm xuống.
 
 Một điểm cần lưu ý nữa là, khi thời gian trôi qua, khoảng tin cậy sẽ tăng lên. Điều này cho phép bạn tăng/giảm điểm nhanh hơn để phù hợp với bất kỳ thay đổi nào trong cấp độ kỹ năng của bạn trong thời gian đó.</string>
-  <string name="whatIsProvisionalRating">Tại sao lại có dấu chấm hỏi (?) bên cạnh hệ số Elo?</string>
-  <string name="provisionalRatingExplanation">Dấu chấm hỏi có nghĩa là hệ số Elo tạm thời. Các lý do bao gồm:</string>
-  <string name="notPlayedEnoughRatedGamesAgainstX">Người chơi vẫn chưa hoàn thành đủ các ván đấu có xếp hạng so với %1$s trong danh mục xếp hạng.</string>
+  <string name="whatIsProvisionalRating">Tại sao lại có dấu chấm hỏi (?) bên cạnh hệ số?</string>
+  <string name="provisionalRatingExplanation">Dấu chấm hỏi có nghĩa là hệ số tạm thời. Các lý do bao gồm:</string>
+  <string name="notPlayedEnoughRatedGamesAgainstX">Người chơi vẫn chưa hoàn thành đủ các ván đấu có xếp hạng so với %1$s trong danh mục hệ số.</string>
   <string name="similarOpponents">đối thủ có năng lực tương đương</string>
-  <string name="notPlayedRecently">Người chơi không chơi đủ các ván đấu gần đây. Tùy thuộc vào số lượng ván đấu bạn đã chơi, có thể mất khoảng một năm không hoạt động để hệ số Elo của bạn trở lại tạm thời.</string>
-  <string name="ratingDeviationMorethanOneHundredTen">Cụ thể, điều đó có nghĩa là độ lệch Glicko-2 lớn hơn 110. Độ lệch là mức độ tin cậy của hệ thống trong xếp hạng. Độ lệch càng thấp, hệ số Elo càng ổn định.</string>
+  <string name="notPlayedRecently">Kỳ thủ không chơi đủ các ván đấu gần đây. Tùy thuộc vào số lượng ván đấu bạn đã chơi, có thể mất khoảng một năm không hoạt động để hệ số của bạn trở lại tạm thời.</string>
+  <string name="ratingDeviationMorethanOneHundredTen">Cụ thể, điều đó có nghĩa là độ lệch Glicko-2 lớn hơn 110. Độ lệch là mức độ tin cậy của hệ thống trong xếp hạng. Độ lệch càng thấp, hệ số càng ổn định.</string>
   <string name="howDoLeaderoardsWork">Thứ hạng và bảng thành tích hoạt động như thế nào?</string>
   <string name="inOrderToAppearsYouMust">Để nhận được %1$s, bạn phải:</string>
   <string name="ratingLeaderboards">thứ hạng trên bảng xếp hạng</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">đã chơi ít nhất 30 ván xếp hạng trong một xếp hạng nhất định,</string>
-  <string name="havePlayedARatedGameAtLeastOneWeekAgo">đã chơi một ván xếp hạng trong tuần trước cho xếp hạng này,</string>
+  <string name="havePlayedARatedGameAtLeastOneWeekAgo">đã chơi một ván xếp hạng trong tuần trước cho hệ số này,</string>
   <string name="ratingDeviationLowerThanXinChessYinVariants">có độ lệch xếp hạng thấp hơn %1$s trong cờ vua tiêu chuẩn và thấp hơn %2$s trong các biến thể,</string>
-  <string name="beInTopTen">nằm trong top 10 trong bảng xếp hạng này.</string>
+  <string name="beInTopTen">nằm trong top 10 trong bảng này.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">Yêu cầu thứ hai là những người chơi không còn sử dụng tài khoản của họ sẽ bị ngừng đưa vào bảng xếp hạng.</string>
-  <string name="whyAreRatingHigher">Tại sao hệ số Elo lại cao hơn so với các trang web và tổ chức khác như FIDE, USCF và ICC?</string>
-  <string name="whyAreRatingHigherExplanation">Tốt nhất là không nên coi xếp hạng là con số tuyệt đối hoặc so sánh chúng với các tổ chức khác. Các tổ chức khác nhau có các cấp độ người chơi khác nhau, các hệ thống xếp hạng khác nhau (Elo, Glicko, Glicko-2 hoặc một phiên bản sửa đổi đã nói ở trên). Những yếu tố này có thể ảnh hưởng mạnh đến con số tuyệt đối (xếp hạng).
+  <string name="whyAreRatingHigher">Tại sao hệ số lại cao hơn so với các trang web và tổ chức khác như FIDE, USCF và ICC?</string>
+  <string name="whyAreRatingHigherExplanation">Tốt nhất là không nên coi hệ số là con số tuyệt đối hoặc so sánh chúng với các tổ chức khác. Các tổ chức khác nhau có các cấp độ người chơi khác nhau, các hệ thống xếp hạng khác nhau (Elo, Glicko, Glicko-2 hoặc một phiên bản sửa đổi đã nói ở trên). Những yếu tố này có thể ảnh hưởng mạnh đến con số tuyệt đối (hệ số).
 
-Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (trái ngược với số liệu \"tuyệt đối\"): Trong một nhóm người chơi, sự khác biệt tương đối về xếp hạng của họ sẽ giúp bạn ước tính ai sẽ thắng/hòa/thua và tần suất ra sao. Nói \"Tôi có xếp hạng X\" chẳng có nghĩa gì trừ khi có người chơi khác so sánh xếp hạng đó với bạn.</string>
-  <string name="howToHideRatingWhilePlaying">Làm thế nào để ẩn hệ số Elo trong lúc chơi?</string>
+Tốt nhất bạn nên coi xếp hạng là số liệu \"tương đối\" (trái ngược với số liệu \"tuyệt đối\"): Trong một nhóm người chơi, sự khác biệt tương đối về xếp hạng của họ sẽ giúp bạn ước tính ai sẽ thắng/hòa/thua và tần suất ra sao. Nói \"Tôi có hệ số X\" chẳng có nghĩa gì trừ khi có người chơi khác so sánh hệ số đó với bạn.</string>
+  <string name="howToHideRatingWhilePlaying">Làm thế nào để ẩn hệ số trong khi chơi?</string>
   <string name="enableZenMode">Bật chế độ Zen trong %1$s hoặc bằng cách nhấn %2$s trong khi chơi.</string>
   <string name="displayPreferences">tùy chọn hiển thị</string>
-  <string name="connexionLostCanIGetMyRatingBack">Tôi đã thua một ván đấu do lag/mất kết nối. Tôi có thể lấy lại điểm Elo của mình không?</string>
-  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Rất tiếc, chúng tôi không thể trả lại điểm Elo cho các ván đấu bị thua do lag hoặc mất kết nối, bất kể vấn đề là do bạn hay do chúng tôi. Tuy nhiên, trường hợp thứ hai là rất hiếm. Cũng lưu ý rằng khi Lichess khởi động lại và bạn thua do hết giờ vì điều đó, chúng tôi sẽ hủy trò chơi để tránh bị mất oan.</string>
+  <string name="connexionLostCanIGetMyRatingBack">Tôi đã thua một ván đấu do lag/mất kết nối. Tôi có thể lấy lại điểm hệ số của mình không?</string>
+  <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">Rất tiếc, chúng tôi không thể trả lại điểm hệ số cho các ván đấu bị thua do lag hoặc mất kết nối, bất kể vấn đề là do bạn hay do chúng tôi. Tuy nhiên, trường hợp thứ hai là rất hiếm. Cũng lưu ý rằng khi Lichess khởi động lại và bạn thua do hết giờ vì điều đó, chúng tôi sẽ hủy trò chơi để tránh bị mất oan.</string>
   <string name="howToThreeDots">Làm thế nào để...</string>
   <string name="enableDisableNotificationPopUps">Bật hoặc tắt cửa sổ thông báo?</string>
   <string name="viewSiteInformationPopUp">Xem cửa sổ thông tin trang web</string>

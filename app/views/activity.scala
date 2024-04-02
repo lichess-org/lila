@@ -3,10 +3,13 @@ package views.html
 import controllers.routes
 
 import lila.activity.activities.*
-import lila.activity.model.*
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
+import lila.core.forum.ForumTopicMini
+import lila.core.forum.ForumPostMini
+import lila.core.rating.Score
+import lila.core.rating.RatingProg
 
 object activity:
 
@@ -52,7 +55,7 @@ object activity:
       )
     )
 
-  private def renderPractice(p: Map[lila.practice.PracticeStudy, Int])(using Context) =
+  private def renderPractice(p: Map[lila.core.practice.Study, Int])(using Context) =
     val ps = p.toSeq.sortBy(-_._2)
     entryTag(
       iconTag(licon.Bullseye),
@@ -64,7 +67,7 @@ object activity:
       )
     )
 
-  private def onePractice(tup: (lila.practice.PracticeStudy, Int))(using Context) =
+  private def onePractice(tup: (lila.core.practice.Study, Int))(using Context) =
     val (study, nb) = tup
     val href        = routes.Practice.show("-", study.slug, study.id)
     frag(
@@ -124,7 +127,7 @@ object activity:
       )
     }
 
-  private def renderForumPosts(posts: Map[lila.forum.ForumTopic, List[lila.forum.ForumPost]])(using
+  private def renderForumPosts(posts: Map[ForumTopicMini, List[ForumPostMini]])(using
       ctx: Context
   ) =
     ctx.kid.no.option(
@@ -202,8 +205,8 @@ object activity:
             frag(
               a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color.name))(
                 pov.game.win.map(_ == pov.color) match
-                  case Some(true)  => trans.victory()
-                  case Some(false) => trans.defeat()
+                  case Some(true)  => trans.site.victory()
+                  case Some(false) => trans.site.defeat()
                   case _           => "Draw"
               ),
               " vs ",
@@ -239,25 +242,24 @@ object activity:
       )
     )
 
-  private def renderSimuls(u: User)(simuls: List[lila.simul.Simul])(using Context) =
+  private def renderSimuls(u: User)(simuls: List[lila.core.simul.Simul])(using Context) =
     entryTag(
       iconTag(licon.Group),
       div(
-        simuls.groupBy(_.isHost(u.some)).toSeq.map { (isHost, simuls) =>
+        simuls.groupBy(_.hostId.is(u)).toSeq.map { (isHost, simuls) =>
           frag(
             if isHost then trans.activity.hostedNbSimuls.pluralSame(simuls.size)
             else trans.activity.joinedNbSimuls.pluralSame(simuls.size),
             subTag(
               simuls.map: s =>
-                val win = s.pairingOf(u.id).flatMap(_.wins)
                 div(
                   a(href := routes.Simul.show(s.id))(
                     s.name,
                     " simul by ",
                     userIdLink(s.hostId.some)
                   ),
-                  if isHost then scoreFrag(Score(s.wins, s.losses, s.draws, none))
-                  else scoreFrag(Score(win.has(true).so(1), win.has(false).so(1), win.isEmpty.so(1), none))
+                  if isHost then scoreFrag(s.hostScore)
+                  else s.playerScore(u.id).map(scoreFrag)
                 )
             )
           )
@@ -265,7 +267,7 @@ object activity:
       )
     )
 
-  private def renderStudies(studies: List[lila.study.Study.IdName])(using Context) =
+  private def renderStudies(studies: List[lila.core.study.IdName])(using Context) =
     entryTag(
       iconTag(licon.StudyBoard),
       div(
@@ -313,7 +315,7 @@ object activity:
       )
     )
 
-  private def renderSwisses(swisses: List[(lila.swiss.Swiss.IdName, Rank)])(using Context) =
+  private def renderSwisses(swisses: List[(lila.core.swiss.IdName, Rank)])(using Context) =
     entryTag(
       iconTag(licon.Trophy),
       div(
@@ -356,16 +358,20 @@ object activity:
   private val winTag   = tag("win")
 
   private def scoreFrag(s: Score)(using Context) = raw:
-    s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr(
+    s"""<score>${scoreStr("win", s.win, trans.site.nbWins)}${scoreStr(
+        "draw",
+        s.draw,
+        trans.site.nbDraws
+      )}${scoreStr(
         "loss",
         s.loss,
-        trans.nbLosses
+        trans.site.nbLosses
       )}</score>"""
 
   private def ratingProgFrag(r: RatingProg)(using ctx: Context) =
     ctx.pref.showRatings.option(ratingTag(r.after.value, ratingProgress(r.diff)))
 
-  private def scoreStr(tag: String, p: Int, name: lila.i18n.I18nKey)(using Context) =
+  private def scoreStr(tag: String, p: Int, name: lila.core.i18n.I18nKey)(using Translate) =
     if p == 0 then ""
     else s"""<$tag>${wrapNumber(name.pluralSameTxt(p))}</$tag>"""
 

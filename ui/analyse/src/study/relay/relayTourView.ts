@@ -13,7 +13,7 @@ import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { makeChat } from '../../view/components';
 import { gamesList } from './relayGames';
-import { renderStreamerMenu } from './relayView';
+import { renderStreamerMenu, renderPinnedImage } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
 import { leaderboardView } from './relayLeaderboard';
 import { gameLinksListener } from '../studyChapters';
@@ -187,9 +187,10 @@ const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
 const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
   const d = relay.data,
     study = ctrl.study!,
-    group = relay.data.group,
-    allowVideo =
-      d.videoUrls && window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
+    group = d.group,
+    allowVideo = window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true',
+    embedVideo = d.videoUrls && allowVideo;
+
   return [
     h('div.relay-tour__header', [
       h('div.relay-tour__header__content', [
@@ -200,15 +201,17 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
         ]),
       ]),
       h(
-        `div.relay-tour__header__image${allowVideo ? '.video' : ''}`,
-        allowVideo
+        `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,
+        embedVideo
           ? renderVideoPlayer(relay)
+          : allowVideo && relay.pinStreamer() && d.pinned?.image
+          ? renderPinnedImage(relay)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
           : study.members.isOwner()
           ? h(
               'a.button.relay-tour__header__image-upload',
-              { attrs: { href: `/broadcast/${relay.data.tour.id}/edit` } },
+              { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
               'Upload tournament image',
             )
           : undefined,

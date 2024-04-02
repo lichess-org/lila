@@ -99,11 +99,11 @@
   <string name="connexionLostCanIGetMyRatingBack">من یک بازی را به خاطر قطعی/وقفه اینترنت باختم. آیا می‌توانم امتیاز درجه‌بندی‌ام را پس بگیرم؟</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">صرف‌نظر از اینکه مشکل از سمت شما بوده یا ما، متاسفانه ما نمی‌توانیم برای بازی‌های باخته به خاطر قطعی/وقفه اینترنت، امتیاز پس دهیم. هر چند حالت دوم بسیار نادر است. همچنین توجه داشته باشید که وقتی Lichess بازراه‌اندازی می‌شود و به همین خاطر، آن لحظه شما می‌بازید، ما بازی را لغو می‌کنیم تا از باخت ناعادلانه جلوگیری کنیم.</string>
   <string name="howToThreeDots">چگونه...</string>
-  <string name="enableDisableNotificationPopUps">فعال کردن یا خاموش کردن اعلان ها؟</string>
-  <string name="viewSiteInformationPopUp">مشاهده نوتیف اطلاعات سایت</string>
+  <string name="enableDisableNotificationPopUps">فعال یا غیرفعال سازی اعلان‌های بالاپَر؟</string>
+  <string name="viewSiteInformationPopUp">دیدن بالاپَر اطلاعات وبگاه</string>
   <string name="lichessCanOptionnalySendPopUps">لیچس میتواند در صورتی بخواهید اعلان ارسال کند، برای مثال وقتی که نوبت حرکت شماست و یا پیام خصوصی دریافت کرده اید. 
 برای نماد قفل در کنار ادرس lichess.org در نوار URL مرورگر کلیک کنید. 
 سپس انتخاب کنید که آیا میخواهید اعلان های لایچس مجاز باشند و یا مسدود شوند.</string>
   <string name="enableAutoplayForSoundsQ">پخش خودکار صدا را فعال می‌کنید؟</string>
-  <string name="desktop">دسکتاپ</string>
+  <string name="desktop">رایانه</string>
 </resources>

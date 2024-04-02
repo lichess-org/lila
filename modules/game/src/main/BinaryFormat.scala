@@ -275,7 +275,7 @@ object BinaryFormat:
               if bitAt(int, j) == 1 then set = set + Square.at(7 - j, 7 * i).get
       UnmovedRooks(set)
 
-  @inline private def toInt(b: Byte): Int = b & 0xff
+  inline private def toInt(inline b: Byte): Int = b & 0xff
 
   def writeInt24(int: Int) =
     val i = if int < (1 << 24) then int else 0

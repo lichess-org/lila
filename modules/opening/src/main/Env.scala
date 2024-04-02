@@ -5,7 +5,7 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 
@@ -16,9 +16,9 @@ final class Env(
     pgnDump: PgnDump,
     cacheApi: CacheApi,
     appConfig: Configuration,
-    cookieBaker: lila.common.LilaCookie,
+    cookieBaker: lila.core.LilaCookie,
     ws: StandaloneWSClient
-)(using Executor, Scheduler):
+)(using Executor, Scheduler, lila.core.i18n.Translator):
 
   private val explorerEndpoint = appConfig.get[String]("explorer.endpoint").taggedWith[ExplorerEndpoint]
   private lazy val wikiColl    = db(CollName("opening_wiki"))

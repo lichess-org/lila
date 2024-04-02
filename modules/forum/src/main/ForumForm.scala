@@ -9,9 +9,8 @@ import lila.user.Me
 
 final private[forum] class ForumForm(
     promotion: lila.security.PromotionApi,
-    val captcher: lila.hub.actors.Captcher
-)(using Executor)
-    extends lila.hub.CaptchedForm:
+    val captcha: lila.core.captcha.CaptchaApi
+)(using Executor):
 
   import ForumForm.*
 
@@ -22,7 +21,7 @@ final private[forum] class ForumForm(
       "move"    -> text,
       "modIcon" -> optional(boolean)
     )(PostData.apply)(unapply)
-      .verifying(captchaFailMessage, validateCaptcha)
+      .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
   def post(inOwnTeam: Boolean)(using Me) = Form(postMapping(inOwnTeam))
 
@@ -32,7 +31,7 @@ final private[forum] class ForumForm(
         "changes" -> userTextMapping(inOwnTeam, previousText.some)
       )(PostEdit.apply)(_.changes.some)
 
-  def postWithCaptcha(inOwnTeam: Boolean)(using Me) = withCaptcha(post(inOwnTeam))
+  def postWithCaptcha(inOwnTeam: Boolean)(using Me) = post(inOwnTeam) -> captcha.any
 
   def topic(inOwnTeam: Boolean)(using Me) =
     Form:
@@ -60,7 +59,7 @@ object ForumForm:
       gameId: GameId,
       move: String,
       modIcon: Option[Boolean]
-  )
+  ) extends lila.core.captcha.WithCaptcha
 
   case class TopicData(
       name: String,

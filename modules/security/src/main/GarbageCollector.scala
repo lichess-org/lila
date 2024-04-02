@@ -1,9 +1,11 @@
 package lila.security
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.mvc.RequestHeader
 
-import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ Bus, HTTPRequest }
+import lila.core.EmailAddress
+import lila.core.IpAddress
 import lila.user.User
 
 // codename UGC
@@ -19,7 +21,7 @@ final class GarbageCollector(
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val justOnce = lila.memo.OnceEvery[UserId](10 minutes)
+  private val justOnce = scalalib.cache.OnceEvery[UserId](10 minutes)
 
   private case class ApplyData(
       user: User,
@@ -115,6 +117,6 @@ final class GarbageCollector(
 
   private def doCollect(user: UserId): Unit =
     Bus.publish(
-      lila.hub.actorApi.security.GarbageCollect(user),
+      lila.core.actorApi.security.GarbageCollect(user),
       "garbageCollect"
     )

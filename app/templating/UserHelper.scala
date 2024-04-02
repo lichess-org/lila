@@ -3,15 +3,15 @@ package templating
 
 import chess.PlayerTitle
 import controllers.routes
-import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.{ LightUser, licon }
-import lila.i18n.{ I18nKey, I18nKeys as trans }
+import lila.common.licon
+import lila.core.LightUser
+import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserPerfs }
-
-import mashup.*
+import lila.core.rating.PerfKey
+import lila.app.mashup.*
 
 trait UserHelper extends HasEnv:
   self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
@@ -45,9 +45,9 @@ trait UserHelper extends HasEnv:
       provisional: RatingProvisional,
       clueless: Boolean,
       icon: licon.Icon
-  )(using Lang): Frag =
+  )(using Translate): Frag =
     span(
-      title    := trans.ratingXOverYGames.pluralTxt(nb, name, nb.localize),
+      title    := trans.site.ratingXOverYGames.pluralTxt(nb, name, nb.localize),
       dataIcon := icon,
       cls      := "text"
     )(
@@ -55,7 +55,7 @@ trait UserHelper extends HasEnv:
       else frag(rating, provisional.yes.option("?"))
     )
 
-  def showPerfRating(p: Perf.Typed)(using Lang): Frag =
+  def showPerfRating(p: Perf.Typed)(using Translate): Frag =
     import p.*
     showPerfRating(
       perf.intRating,
@@ -66,15 +66,15 @@ trait UserHelper extends HasEnv:
       perfType.icon
     )
 
-  def showPerfRating(perfs: UserPerfs, perfType: PerfType)(using Lang): Frag =
+  def showPerfRating(perfs: UserPerfs, perfType: PerfType)(using Translate): Frag =
     showPerfRating(perfs.typed(perfType))
 
-  def showPerfRating(perfs: UserPerfs, perfKey: Perf.Key)(using Lang): Option[Frag] =
+  def showPerfRating(perfs: UserPerfs, perfKey: PerfKey)(using Translate): Option[Frag] =
     PerfType(perfKey).map(showPerfRating(perfs, _))
 
-  def showBestPerf(perfs: UserPerfs)(using Lang): Option[Frag] =
+  def showBestPerf(perfs: UserPerfs)(using Translate): Option[Frag] =
     perfs.bestRatedPerf.map(showPerfRating)
-  def showBestPerfs(perfs: UserPerfs, nb: Int)(using Lang): List[Frag] =
+  def showBestPerfs(perfs: UserPerfs, nb: Int)(using Translate): List[Frag] =
     perfs.bestPerfs(nb).map(showPerfRating)
 
   def showRatingDiff(diff: IntRatingDiff): Frag = diff.value match
@@ -108,7 +108,7 @@ trait UserHelper extends HasEnv:
       truncate: Option[Int] = None,
       params: String = "",
       modIcon: Boolean = false
-  )(using Lang): Tag =
+  )(using Translate): Tag =
     userIdOption
       .flatMap(u => lightUser(u.id))
       .fold[Tag](anonUserSpan(cssClass, modIcon)): user =>
@@ -132,7 +132,7 @@ trait UserHelper extends HasEnv:
       withTitle: Boolean = true,
       truncate: Option[Int] = None,
       params: String = ""
-  )(using Lang): Tag =
+  )(using Translate): Tag =
     userIdNameLink(
       userId = user.id,
       username = user.name,
@@ -152,7 +152,7 @@ trait UserHelper extends HasEnv:
       withOnline: Boolean = true,
       withTitle: Boolean = true,
       params: String = ""
-  )(using Lang): Tag =
+  )(using Translate): Tag =
     span(
       cls      := userClass(user.id, cssClass, withOnline),
       dataHref := userUrl(user.name)
@@ -179,7 +179,7 @@ trait UserHelper extends HasEnv:
       flair: Option[Flair],
       params: String,
       modIcon: Boolean
-  )(using Lang): Tag =
+  )(using Translate): Tag =
     a(
       cls  := userClass(userId, cssClass, withOnline),
       href := userUrl(username, params = params)
@@ -199,7 +199,7 @@ trait UserHelper extends HasEnv:
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None,
       params: String = ""
-  )(using Lang): Tag =
+  )(using Translate): Tag =
     a(
       cls  := userClass(user.id, cssClass, withOnline, withPowerTip),
       href := userUrl(user.username, params)
@@ -213,7 +213,7 @@ trait UserHelper extends HasEnv:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None
-  )(using Lang): Tag =
+  )(using Translate): Tag =
     span(
       cls      := userClass(user.id, cssClass, withOnline, withPowerTip),
       dataHref := userUrl(user.username)
@@ -225,7 +225,7 @@ trait UserHelper extends HasEnv:
       withTitle: Boolean = true,
       withPerfRating: Option[Perf | UserPerfs] = None,
       name: Option[Frag] = None
-  )(using Lang) = frag(
+  )(using Translate) = frag(
     withOnline.so(lineIcon(user)),
     withTitle.option(titleTag(user.title)),
     name | user.username,
@@ -233,7 +233,7 @@ trait UserHelper extends HasEnv:
     withPerfRating.map(userRating(user, _))
   )
 
-  def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using Lang): Tag =
+  def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using Translate): Tag =
     val user = lightUser(userId)
     val name = user.fold(userId.into(UserName))(_.name)
     span(
@@ -274,26 +274,27 @@ trait UserHelper extends HasEnv:
         "ulpt"      -> withPowerTip
       )
 
-  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Lang): Frag =
+  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): Frag =
     if filter == GameFilter.Search then frag(iconTag(licon.Search), br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
-  private def transLocalize(key: I18nKey, number: Int)(using Lang) = key.pluralSameTxt(number)
+  private def transLocalize(key: lila.core.i18n.I18nKey, number: Int)(using Translate) =
+    key.pluralSameTxt(number)
 
-  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Lang): String =
+  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): String =
     filter match
-      case GameFilter.All      => transLocalize(trans.nbGames, u.count.game)
-      case GameFilter.Me       => nbs.withMe.so { transLocalize(trans.nbGamesWithYou, _) }
-      case GameFilter.Rated    => transLocalize(trans.nbRated, u.count.rated)
-      case GameFilter.Win      => transLocalize(trans.nbWins, u.count.win)
-      case GameFilter.Loss     => transLocalize(trans.nbLosses, u.count.loss)
-      case GameFilter.Draw     => transLocalize(trans.nbDraws, u.count.draw)
-      case GameFilter.Playing  => transLocalize(trans.nbPlaying, nbs.playing)
-      case GameFilter.Bookmark => transLocalize(trans.nbBookmarks, nbs.bookmark)
-      case GameFilter.Imported => transLocalize(trans.nbImportedGames, nbs.imported)
+      case GameFilter.All      => transLocalize(trans.site.nbGames, u.count.game)
+      case GameFilter.Me       => nbs.withMe.so { transLocalize(trans.site.nbGamesWithYou, _) }
+      case GameFilter.Rated    => transLocalize(trans.site.nbRated, u.count.rated)
+      case GameFilter.Win      => transLocalize(trans.site.nbWins, u.count.win)
+      case GameFilter.Loss     => transLocalize(trans.site.nbLosses, u.count.loss)
+      case GameFilter.Draw     => transLocalize(trans.site.nbDraws, u.count.draw)
+      case GameFilter.Playing  => transLocalize(trans.site.nbPlaying, nbs.playing)
+      case GameFilter.Bookmark => transLocalize(trans.site.nbBookmarks, nbs.bookmark)
+      case GameFilter.Imported => transLocalize(trans.site.nbImportedGames, nbs.imported)
       case GameFilter.Search   => trans.search.advancedSearch.txt()
 
-  def describeUser(user: User.WithPerfs)(using Lang) =
+  def describeUser(user: User.WithPerfs)(using Translate) =
     val name      = user.titleUsername
     val nbGames   = user.count.game
     val createdAt = showEnglishDate(user.createdAt)
@@ -305,11 +306,11 @@ trait UserHelper extends HasEnv:
   val lineIconChar   = licon.Disc
 
   val lineIcon: Frag = i(cls := "line")
-  def patronIcon(using Lang): Frag =
+  def patronIcon(using Translate): Frag =
     i(cls := "line patron", title := trans.patron.lichessPatron.txt())
-  val moderatorIcon: Frag                                 = i(cls := "line moderator", title := "Lichess Mod")
-  private def lineIcon(patron: Boolean)(using Lang): Frag = if patron then patronIcon else lineIcon
-  private def lineIcon(user: Option[LightUser])(using Lang): Frag = lineIcon(user.exists(_.isPatron))
-  def lineIcon(user: LightUser)(using Lang): Frag                 = lineIcon(user.isPatron)
-  def lineIcon(user: User)(using Lang): Frag                      = lineIcon(user.isPatron)
+  val moderatorIcon: Frag = i(cls := "line moderator", title := "Lichess Mod")
+  private def lineIcon(patron: Boolean)(using Translate): Frag = if patron then patronIcon else lineIcon
+  private def lineIcon(user: Option[LightUser])(using Translate): Frag = lineIcon(user.exists(_.isPatron))
+  def lineIcon(user: LightUser)(using Translate): Frag                 = lineIcon(user.isPatron)
+  def lineIcon(user: User)(using Translate): Frag                      = lineIcon(user.isPatron)
   def lineIconChar(user: User): Frag = if user.isPatron then patronIconChar else lineIconChar

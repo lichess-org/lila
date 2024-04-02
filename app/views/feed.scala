@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.feed.Feed.Update
 
 object feed:
@@ -67,7 +67,7 @@ object feed:
       pagerNext(ups, np => routes.Feed.index(np).url)
     )
 
-  val lobbyUpdates = renderCache[List[Update]](1 minute): ups =>
+  val lobbyUpdates = renderCache[List[Update]](1 minute)(using env.executor): ups =>
     div(cls := "daily-feed__updates")(
       ups.map: update =>
         div(cls := "daily-feed__update")(
@@ -152,7 +152,7 @@ object feed:
       cls := customClass.getOrElse(s"daily-feed__update__marker ${flair.nonEmpty.so(" nobg")}")
     )
 
-  def atom(ups: List[Update])(using Lang) =
+  def atom(ups: List[Update])(using Translate) =
     import views.html.base.atom.atomDate
     views.html.base.atom(
       elems = ups,

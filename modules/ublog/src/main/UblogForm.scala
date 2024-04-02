@@ -4,10 +4,12 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanNonEmptyText, into, given }
-import lila.i18n.{ LangForm, Language, defaultLanguage }
+import lila.core.i18n.{ Language, LangList, defaultLanguage }
 import lila.user.User
+import lila.core.captcha.CaptchaApi
+import lila.core.captcha.WithCaptcha
 
-final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.CaptchedForm:
+final class UblogForm(val captcher: CaptchaApi, langList: LangList):
 
   import UblogForm.*
 
@@ -18,7 +20,7 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
       "markdown"    -> cleanNonEmptyText(minLength = 0, maxLength = 100_000).into[Markdown],
       "imageAlt"    -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
       "imageCredit" -> optional(cleanNonEmptyText(minLength = 3, maxLength = 200)),
-      "language"    -> optional(LangForm.popularLanguages.mapping),
+      "language"    -> optional(langList.popularLanguagesForm.mapping),
       "topics"      -> optional(text),
       "live"        -> boolean,
       "discuss"     -> boolean,
@@ -27,7 +29,7 @@ final class UblogForm(val captcher: lila.hub.actors.Captcher) extends lila.hub.C
     )(UblogPostData.apply)(unapply)
 
   val create = Form:
-    base.verifying(captchaFailMessage, validateCaptcha)
+    base.verifying(lila.core.captcha.failMessage, captcher.validateSync)
 
   def edit(post: UblogPost) = Form(base).fill:
     UblogPostData(
@@ -58,7 +60,7 @@ object UblogForm:
       discuss: Boolean,
       gameId: GameId,
       move: String
-  ):
+  ) extends WithCaptcha:
 
     def create(user: User) =
       UblogPost(

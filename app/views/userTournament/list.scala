@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.user.User
 
 object list:
@@ -16,18 +16,18 @@ object list:
       path: String,
       pager: Paginator[lila.tournament.LeaderboardApi.TourEntry],
       count: String
-  )(using Lang) =
-    if pager.nbResults == 0 then div(cls := "box-pad")(trans.nothingToSeeHere())
+  )(using Translate) =
+    if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
     else
       div(cls := "tournament-list")(
         table(cls := "slist")(
           thead(
             tr(
               th(cls := "count")(count),
-              th(h1(frag(userLink(u, withOnline = true), " • ", trans.tournaments()))),
-              th(trans.games()),
-              th(trans.points()),
-              th(trans.rank())
+              th(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
+              th(trans.site.games()),
+              th(trans.site.points()),
+              th(trans.site.rank())
             )
           ),
           tbody(cls := "infinite-scroll")(

@@ -28,7 +28,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       hook.rating
         ? h('span.ulink.ulpt', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
         : noarg('anonymous'),
-      hook.rating && !ctrl.opts.hideRatings ? hook.rating + (hook.prov ? '?' : '') : '',
+      hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : '',
       hook.clock,
       h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, noarg(hook.ra ? 'rated' : 'casual')),
     ]),

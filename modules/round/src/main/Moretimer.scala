@@ -2,9 +2,10 @@ package lila.round
 
 import chess.{ ByColor, Color }
 
-import lila.common.Preload
+import lila.core.Preload
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
+import lila.core.round.ClientError
 
 final class Moretimer(
     messenger: Messenger,
@@ -29,7 +30,7 @@ final class Moretimer(
               p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
 
   def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =
-    (game.canTakebackOrAddTime && game.playable && !game.metadata.hasRule(_.NoGiveTime))
+    (game.canTakebackOrAddTime && game.playable && !game.metadata.hasRule(_.noGiveTime))
       .so(isAllowedByPrefs(game, prefs))
 
   private[round] def give(game: Game, colors: List[Color], unchecked: FiniteDuration): Progress =
@@ -55,7 +56,7 @@ final class Moretimer(
 
   private def IfAllowed[A](game: Game, prefs: Preload[ByColor[Pref]])(f: => A): Fu[A] =
     if !game.playable then fufail(ClientError("[moretimer] game is over " + game.id))
-    else if !game.canTakebackOrAddTime || game.metadata.hasRule(_.NoGiveTime) then
+    else if !game.canTakebackOrAddTime || game.metadata.hasRule(_.noGiveTime) then
       fufail(ClientError("[moretimer] game disallows it " + game.id))
     else
       isAllowedByPrefs(game, prefs).flatMap:

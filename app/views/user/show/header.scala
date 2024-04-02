@@ -24,7 +24,7 @@ object header:
         titleTag(u.title),
         u.username,
         userFlair(u).map: flair =>
-          if ctx.isAuth then a(href := routes.Account.profile, title := trans.setFlair.txt())(flair)
+          if ctx.isAuth then a(href := routes.Account.profile, title := trans.site.setFlair.txt())(flair)
           else flair
       )
     frag(
@@ -61,7 +61,7 @@ object header:
               cls        := "nm-item",
               dataToints := u.toints
             )(
-              splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
+              splitNumber(trans.site.nbTournamentPoints.pluralSame(u.toints))
             )
           ),
           (info.nbSimuls > 0).option(
@@ -69,7 +69,7 @@ object header:
               href := routes.Simul.byUser(u.username),
               cls  := "nm-item"
             )(
-              splitNumber(trans.nbSimuls.pluralSame(info.nbSimuls))
+              splitNumber(trans.site.nbSimuls.pluralSame(info.nbSimuls))
             )
           ),
           (info.nbRelays > 0).option(
@@ -81,14 +81,14 @@ object header:
             )
           ),
           a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
-            splitNumber(trans.`nbStudies`.pluralSame(info.nbStudies))
+            splitNumber(trans.site.`nbStudies`.pluralSame(info.nbStudies))
           ),
           ctx.kid.no.option(
             a(
               cls  := "nm-item",
               href := routes.ForumPost.search("user:" + u.username, 1).url
             )(
-              splitNumber(trans.nbForumPosts.pluralSame(info.nbForumPosts))
+              splitNumber(trans.site.nbForumPosts.pluralSame(info.nbForumPosts))
             )
           ),
           (ctx.kid.no && (info.ublog.exists(_.nbPosts > 0) || ctx.is(u))).option(
@@ -110,13 +110,13 @@ object header:
                 a(
                   cls  := "btn-rack__btn",
                   href := routes.Account.profile,
-                  titleOrText(trans.editProfile.txt()),
+                  titleOrText(trans.site.editProfile.txt()),
                   dataIcon := licon.Gear
                 ),
                 a(
                   cls  := "btn-rack__btn",
                   href := routes.Relation.blocks(),
-                  titleOrText(trans.listBlockedPlayers.txt()),
+                  titleOrText(trans.site.listBlockedPlayers.txt()),
                   dataIcon := licon.NotAllowed
                 )
               )
@@ -132,7 +132,7 @@ object header:
           a(
             cls  := "btn-rack__btn",
             href := routes.User.tv(u.username),
-            titleOrText(trans.watchGames.txt()),
+            titleOrText(trans.site.watchGames.txt()),
             dataIcon := licon.AnalogTv
           ),
           ctx
@@ -148,18 +148,18 @@ object header:
           a(
             cls  := "btn-rack__btn",
             href := s"${routes.UserAnalysis.index}#explorer/${u.username}",
-            titleOrText(trans.openingExplorer.txt()),
+            titleOrText(trans.site.openingExplorer.txt()),
             dataIcon := licon.Book
           ),
           a(
             cls  := "btn-rack__btn",
             href := routes.User.download(u.username),
-            titleOrText(trans.exportGames.txt()),
+            titleOrText(trans.site.exportGames.txt()),
             dataIcon := licon.Download
           ),
           (ctx.isAuth && ctx.kid.no && ctx.isnt(u)).option(
             a(
-              titleOrText(trans.reportXToModerators.txt(u.username)),
+              titleOrText(trans.site.reportXToModerators.txt(u.username)),
               cls      := "btn-rack__btn",
               href     := s"${reportRoutes.form}?username=${u.username}",
               dataIcon := licon.CautionTriangle
@@ -188,7 +188,7 @@ object header:
                       u.lame.option(
                         div(cls := "warning tos_warning")(
                           span(dataIcon := licon.CautionCircle, cls := "is4"),
-                          trans.thisAccountViolatedTos()
+                          trans.site.thisAccountViolatedTos()
                         )
                       )
                     )
@@ -216,41 +216,41 @@ object header:
                       " ",
                       c.name
                     ),
-                  p(cls := "thin")(trans.memberSince(), " ", showDate(u.createdAt)),
+                  p(cls := "thin")(trans.site.memberSince(), " ", showDate(u.createdAt)),
                   u.seenAt.map { seen =>
-                    p(cls := "thin")(trans.lastSeenActive(momentFromNow(seen)))
+                    p(cls := "thin")(trans.site.lastSeenActive(momentFromNow(seen)))
                   },
                   ctx
                     .is(u)
                     .option(
-                      a(href := routes.Account.profile, title := trans.editProfile.txt())(
-                        trans.profileCompletion(s"${profile.completionPercent}%")
+                      a(href := routes.Account.profile, title := trans.site.editProfile.txt())(
+                        trans.site.profileCompletion(s"${profile.completionPercent}%")
                       )
                     ),
                   (ctx.is(u) || isGranted(_.CloseAccount)).option(
                     frag(
                       br,
-                      a(href := routes.Relation.following(u.username))(trans.friends())
+                      a(href := routes.Relation.following(u.username))(trans.site.friends())
                     )
                   ),
                   (ctx.is(u) || isGranted(_.BoostHunter)).option(
                     frag(
                       br,
-                      a(href := s"${routes.User.opponents}?u=${u.username}")(trans.favoriteOpponents())
+                      a(href := s"${routes.User.opponents}?u=${u.username}")(trans.site.favoriteOpponents())
                     )
                   ),
                   u.playTime.map: playTime =>
                     frag(
-                      p(trans.tpTimeSpentPlaying(showDuration(playTime.totalDuration))),
+                      p(trans.site.tpTimeSpentPlaying(showDuration(playTime.totalDuration))),
                       playTime.nonEmptyTvDuration.map { tvDuration =>
-                        p(trans.tpTimeSpentOnTV(showDuration(tvDuration)))
+                        p(trans.site.tpTimeSpentOnTV(showDuration(tvDuration)))
                       }
                     ),
                   (!hideTroll).option(
                     div(cls := "social_links col2")(
-                      profile.actualLinks.nonEmpty.option(strong(trans.socialMediaLinks())),
+                      profile.actualLinks.nonEmpty.option(strong(trans.site.socialMediaLinks())),
                       profile.actualLinks.map: link =>
-                        a(href := link.url, targetBlank, noFollow)(link.site.name)
+                        a(href := link.url, targetBlank, noFollow, relMe)(link.site.name)
                     )
                   ),
                   div(cls := "teams col2")(
@@ -294,11 +294,11 @@ object header:
           ),
           href := routes.User.gamesAll(u.username)
         )(
-          trans.nbGames.plural(info.user.count.game, info.user.count.game.localize),
+          trans.site.nbGames.plural(info.user.count.game, info.user.count.game.localize),
           (info.nbs.playing > 0).option(
             span(
               cls   := "unread",
-              title := trans.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
+              title := trans.site.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
             )(info.nbs.playing)
           )
         )
@@ -308,7 +308,7 @@ object header:
   def noteZone(u: User, notes: List[lila.user.Note])(using ctx: Context) = div(cls := "note-zone")(
     postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
       form3.textarea(lila.user.UserForm.note("text"))(
-        placeholder := trans.writeAPrivateNoteAboutThisUser.txt()
+        placeholder := trans.site.writeAPrivateNoteAboutThisUser.txt()
       ),
       if isGranted(_.ModNote) then
         div(cls := "mod-note")(
@@ -320,9 +320,9 @@ object header:
           ),
           submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note")
         )
-      else submitButton(cls := "button", name := "noteType", value := "normal")(trans.save())
+      else submitButton(cls := "button", name := "noteType", value := "normal")(trans.site.save())
     ),
-    notes.isEmpty.option(div(trans.noNoteYet())),
+    notes.isEmpty.option(div(trans.site.noNoteYet())),
     notes.map: note =>
       div(cls := "note")(
         p(cls := "note__text")(richText(note.text, expandImg = false)),
@@ -346,7 +346,7 @@ object header:
                   cls      := "button-empty button-red confirm button text",
                   style    := "float:right",
                   dataIcon := licon.Trash
-                )(trans.delete())
+                )(trans.site.delete())
               )
             )
           )

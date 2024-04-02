@@ -4,40 +4,20 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
-import lila.hub.actorApi.bookmark.*
-
-@Module
-final private class BookmarkConfig(
-    @ConfigName("collection.bookmark") val bookmarkCollName: CollName,
-    @ConfigName("actor.name") val actorName: String
-)
+import lila.core.config.*
 
 @Module
 final class Env(
-    appConfig: Configuration,
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     gameProxyRepo: lila.round.GameProxyRepo
-)(using ec: Executor, system: ActorSystem):
+)(using Executor):
 
-  private val config = appConfig.get[BookmarkConfig]("bookmark")(AutoConfig.loader)
-
-  private lazy val bookmarkColl = db(config.bookmarkCollName)
+  private lazy val bookmarkColl = db(CollName("bookmark"))
 
   lazy val paginator = wire[PaginatorBuilder]
 
   lazy val api = wire[BookmarkApi]
 
-  system.actorOf(
-    Props(
-      new Actor:
-        def receive =
-          case Toggle(gameId, userId) => api.toggle(gameId, userId)
-    ),
-    name = config.actorName
-  )
-
   lila.common.Bus.subscribeFun("roundUnplayed"):
-    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
+    case lila.core.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)

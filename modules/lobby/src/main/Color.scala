@@ -1,6 +1,6 @@
 package lila.lobby
 
-import ornicar.scalalib.ThreadLocalRandom.nextBoolean
+import scalalib.ThreadLocalRandom.nextBoolean
 
 sealed abstract class Color(val name: String):
 

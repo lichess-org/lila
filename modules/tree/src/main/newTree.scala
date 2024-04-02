@@ -9,13 +9,14 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import chess.opening.Opening
 import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
+import chess.Color
+import play.api.libs.json.*
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
-import chess.Color
 
 case class Metas(
     ply: Ply,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     check: Check,
     // None when not computed yet
     dests: Option[Map[Square, Bitboard]] = None,
@@ -95,7 +96,7 @@ case class NewBranch(
   def setComp = copy(comp = true)
 
   def merge(n: NewBranch): Option[NewBranch] =
-    if this.sameId(n) then
+    Option.when(this.sameId(n)):
       copy(
         metas = metas.copy(
           shapes = metas.shapes ++ n.metas.shapes,
@@ -107,8 +108,7 @@ case class NewBranch(
           crazyData = n.metas.crazyData.orElse(metas.crazyData)
         ),
         forceVariation = n.forceVariation || forceVariation
-      ).some
-    else none
+      )
 
 object NewBranch:
   given HasId[NewBranch, UciCharPair] = _.id
@@ -116,11 +116,6 @@ object NewBranch:
     extension (a: NewBranch) def merge(other: NewBranch): Option[NewBranch] = a.merge(other)
 
 type NewTree = ChessNode[NewBranch]
-
-extension (tree: Tree[NewBranch])
-  def order: Option[List[UciCharPair]] =
-    val ids = tree.childAndVariations.map(_.id)
-    Option.when(ids.sizeIs > 1)(ids)
 
 object NewTree:
   // default case class constructor not working with type alias?
@@ -141,7 +136,7 @@ object NewTree:
       child = branch.children.first.map(fromBranch(_, branch.children.variations))
     )
 
-  def fromBranch(branch: Branch, variations: List[Branch]): NewTree =
+  def fromBranch(branch: Branch, variations: List[Branch] = Nil): NewTree =
     NewTree(
       value = fromBranch(branch),
       child = branch.children.first.map(fromBranch(_, branch.children.variations)),
@@ -174,9 +169,10 @@ object NewTree:
       node.crazyData
     )
 
-  // given defaultNodeJsonWriter: Writes[NewTree] = makeNodeJsonWriter(alwaysChildren = true)
+  given defaultNodeJsonWriter: Writes[NewTree] =
+    NewRoot.makeNodeWriter(alwaysChildren = true)(NewRoot.branchWriter)
+
   // def minimalNodeJsonWriter: Writes[NewTree]   = makeNodeJsonWriter(alwaysChildren = false)
-  // def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[NewTree] = ?so
   // Optional for the first node with the given id
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
   // def fromNodeToBranch(node: Node): NewBranch = ???
@@ -242,17 +238,15 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def modifyWithParentPathMetas(path: UciPath, f: Metas => Metas): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then copy(metas = f(metas)).some
     else
-      tree.flatMap(
+      tree.flatMap:
         _.modifyChildAt(path.ids, _.focus(_.value.metas).modify(f).some).map(x => copy(tree = x.some))
-      )
 
   def modifyAt(path: UciPath, f: Metas => Metas): Option[NewRoot] =
     def b(n: NewBranch): NewBranch = n.focus(_.metas).modify(f)
     if path.isEmpty then copy(metas = f(metas)).some
     else
-      tree.flatMap(
+      tree.flatMap:
         _.modifyAt(path.ids, Tree.liftOption(b)).map(x => copy(tree = x.some))
-      )
 
   def modifyBranchAt(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
     path.nonEmpty.so:
@@ -262,9 +256,8 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
   def modifyWithParentPath(path: UciPath, f: NewBranch => NewBranch): Option[NewRoot] =
     if tree.isEmpty && path.isEmpty then this.some
     else
-      tree.flatMap(
+      tree.flatMap:
         _.modifyChildAt(path.ids, _.focus(_.value).modify(f).some).map(x => copy(tree = x.some))
-      )
 
   def updateTree(f: NewTree => Option[NewTree]): NewRoot =
     copy(tree = tree.flatMap(f))
@@ -303,9 +296,8 @@ object NewRoot:
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
 
   import NewTree.*
-  import play.api.libs.json.*
   import lila.common.Json.given
-  import JsonHandlers.given
+  import Eval.jsonWrites
   import Node.given
 
   given defaultNodeJsonWriter: Writes[NewRoot]         = makeRootJsonWriter(alwaysChildren = true)
@@ -323,10 +315,10 @@ object NewRoot:
       )
       .add("check", check)
       .add("eval", eval.filterNot(_.isEmpty))
-      .add("comments", if comments.nonEmpty then Some(comments) else None)
+      .add("comments", Option.when(comments.nonEmpty)(comments))
       .add("gamebook", gamebook)
       .add("glyphs", glyphs.nonEmpty)
-      .add("shapes", if shapes.value.nonEmpty then Some(shapes.value) else None)
+      .add("shapes", Option.when(shapes.value.nonEmpty)(shapes.value))
       .add("opening", opening)
       .add("dests", dests)
       .add("drops", drops.map(drops => JsString(drops.map(_.key).mkString)))
@@ -346,18 +338,19 @@ object NewRoot:
     wa.writes(tree.value)
       .add(
         "children",
-        if alwaysChildren || tree.childAndChildVariations.nonEmpty then
-          nodeListJsonWriter(true)(wa).writes(tree.childAndChildVariations).some
-        else None
+        Option.when(alwaysChildren || tree.childAndChildVariations.nonEmpty):
+          nodeListJsonWriter(true)(wa).writes(tree.childAndChildVariations)
       )
+
+  def makeNodeWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[ChessNode[A]] =
+    makeTreeWriter(alwaysChildren)(wa).contramap(identity)
 
   def makeMainlineWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[ChessNode[A]] = Writes: tree =>
     wa.writes(tree.value)
       .add(
         "children",
-        if alwaysChildren || tree.childVariations.nonEmpty then
-          nodeListJsonWriter(true)(wa).writes(tree.childVariations).some
-        else None
+        Option.when(alwaysChildren || tree.childVariations.nonEmpty):
+          nodeListJsonWriter(true)(wa).writes(tree.childVariations)
       )
 
   def nodeListJsonWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[List[Tree[A]]] =
@@ -376,9 +369,8 @@ object NewRoot:
         .add("forceVariation", none[Boolean])
         .add(
           "children",
-          if alwaysChildren || root.tree.map(_.childAndVariations).exists(_.nonEmpty) then
+          (alwaysChildren || root.tree.map(_.childAndVariations).exists(_.nonEmpty)).option:
             root.tree.map(_.childAndVariations).map(nodeListJsonWriter(true)(branchWriter).writes)
-          else None
         )
 
   val partitionTreeJsonWriter: Writes[NewRoot] = Writes: root =>

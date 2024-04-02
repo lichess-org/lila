@@ -8,6 +8,7 @@ import views.*
 import lila.app.{ *, given }
 import lila.insight.{ InsightDimension, InsightMetric }
 import lila.user.User
+import lila.core.i18n.Translate
 
 final class Insight(env: Env) extends LilaController(env):
 
@@ -53,7 +54,7 @@ final class Insight(env: Env) extends LilaController(env):
     OpenOrScopedBody(parse.json)(): ctx ?=>
       AccessibleApi(username) { processQuestion(_, ctx.body) }
 
-  private def processQuestion(user: User, body: Request[JsValue])(using Lang) =
+  private def processQuestion(user: User, body: Request[JsValue])(using Translate) =
     body.body
       .validate[lila.insight.JsonQuestion]
       .fold(

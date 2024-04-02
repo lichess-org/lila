@@ -2,4 +2,38 @@
 <resources>
   <string name="learnChess">චෙස් ඉගෙන ගන්න</string>
   <string name="byPlaying">සෙල්ලම් කිරීමෙන්!</string>
+  <string name="menu">මෙනු</string>
+  <string name="progressX">ප්‍රගතිය: %s</string>
+  <string name="resetMyProgress">මගේ ප්‍රගතිය යළි පිහිටුවන්න</string>
+  <string name="youWillLoseAllYourProgress">ඔබේ සියලු ප්‍රගතිය ඔබට අහිමි වනු ඇත!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">සෙල්ලම් කරන්න!</string>
+  <string name="chessPieces">චෙස් ඉත්තෝ​</string>
+  <string name="theRook">රුක්</string>
+  <string name="itMovesInStraightLines">එය සරල රේඛා ඔස්සේ ගමන් කරයි</string>
+  <string name="rookIntro">රුක් යනු බලවත් ඉත්තෙකි. එයට අනුබල දීමට ඔබ සූදානම්ද​?</string>
+  <string name="rookGoal">රුක් මත ක්ලික් කරන්න
+එය තරුව වෙත ගෙන ඒමට!</string>
+  <string name="grabAllTheStars">සියලුම තරු අල්ලා ගන්න!</string>
+  <string name="theFewerMoves">ඔබ චලනයන් අඩුවෙන් කරන්නේද​, ලකුණු වැඩියෙන් ලැබේ!</string>
+  <string name="useTwoRooks">දේවල් වේගවත් කිරීමට රුක්ලා දෙන්නම භාවිතා කරන්න​!</string>
+  <string name="rookComplete">සුභ පැතුම්! ඔබ සාර්ථකව රුක් ප්‍රගුණ කර ඇත.</string>
+  <string name="theBishop">බිශොප්</string>
+  <string name="itMovesDiagonally">එය ඇදේට ගමන් කරයි</string>
+  <string name="bishopIntro">මීළඟට අපි බිෂොප්ව උපාමාරු කරන්නේ කෙසේදැයි ඉගෙන ගනිමු!</string>
+  <string name="youNeedBothBishops">එක් ලා-කොටු බිශොපෙක්,
+එක් තද​-කොටු බිශොපෙක්,
+ඔබට දෙදෙනාම අවශ්‍ය වේ!</string>
+  <string name="bishopComplete">සුභ පැතුම්! ඔබට බිෂොප්ව අණ කළ හැකිය.</string>
+  <string name="theQueen">රැජින</string>
+  <string name="queenCombinesRookAndBishop">රැජින = රූක් + බිෂොප්</string>
+  <string name="queenIntro">බලවත්ම චෙස් ඉත්තා ඇතුල් වේ. ඇගේ මහිමය රැජින!</string>
+  <string name="queenComplete">සුභ පැතුම්! රැජින ඔබට රහස් නැත.</string>
+  <string name="theKing">රජු</string>
+  <string name="theMostImportantPiece">වැදගත්ම ඉත්තා</string>
+  <string name="kingIntro">ඔබ රජු ය. ඔබ සටනට වැටුණොත්, ක්රීඩාව අහිමි වේ.</string>
+  <string name="theKingIsSlow">රජු මන්දගාමී ය.</string>
+  <string name="lastOne">අන්තිම එක!</string>
+  <string name="kingComplete">ඔබට දැන් අණ දෙන නිලධාරියාට අණ කළ හැකිය!</string>
+  <string name="theKnight">නයිට්</string>
+  <string name="itMovesInAnLShape">එය L හැඩයකට ගමන් කරයි</string>
 </resources>

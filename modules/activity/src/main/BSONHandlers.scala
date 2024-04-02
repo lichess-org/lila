@@ -7,12 +7,14 @@ import scala.util.Success
 import lila.common.{ Iso, LichessDay }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
+import lila.core.rating.PerfKey
+import lila.core.rating.RatingProg
+import lila.core.rating.Score
 
 private object BSONHandlers:
 
   import Activity.*
   import activities.*
-  import model.*
 
   val idSep                         = ':'
   def regexId(userId: UserId): Bdoc = "_id".$startsWith(s"$userId$idSep")
@@ -57,7 +59,7 @@ private object BSONHandlers:
     )
 
   private given Iso.StringIso[PerfType] =
-    Iso.string[PerfType](str => PerfType(Perf.Key(str)).err(s"No such perf $str"), _.key.value)
+    Iso.string[PerfType](str => PerfType(PerfKey(str)).err(s"No such perf $str"), _.key.value)
   private[activity] given BSONHandler[Games] = typedMapHandlerIso[PerfType, Score].as(Games(_), _.value)
 
   given lila.db.BSON[Storm] with

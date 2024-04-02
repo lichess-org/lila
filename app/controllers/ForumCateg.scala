@@ -3,7 +3,7 @@ package controllers
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.config
+import lila.core.config
 import lila.forum.ForumCateg.{ diagnosticId, ublogId }
 import lila.team.Team
 
@@ -12,9 +12,9 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
   def index = Open:
     NotForKids:
       for
-        allTeamIds <- ctx.userId.so(teamCache.teamIdsList)
+        allTeamIds <- ctx.userId.so(env.team.cached.teamIdsList)
         teamIds <- allTeamIds.filterA:
-          teamCache.forumAccess.get(_).map(_ != Team.Access.NONE)
+          env.team.api.forumAccessOf(_).map(_ != lila.core.team.Access.None)
         categs <- postApi.categsForUser(teamIds, ctx.me)
         _      <- env.user.lightUserApi.preloadMany(categs.flatMap(_.lastPostUserId))
         page   <- renderPage(html.forum.categ.index(categs))
@@ -25,7 +25,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
     else if slug == diagnosticId && !isGrantedOpt(_.ModerateForum) then notFound
     else
       NotForKids:
-        Reasonable(page, config.Max(50), notFound):
+        Reasonable(page, Max(50), notFound):
           Found(categApi.show(slug, page)): (categ, topics) =>
             for
               canRead     <- access.isGrantedRead(categ.id)

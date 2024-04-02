@@ -2,10 +2,10 @@ package lila.oauth
 
 import reactivemongo.api.bson.*
 
-import lila.common.Bearer
+import lila.core.Bearer
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
-import lila.hub.actorApi.oauth.TokenRevoke
+import lila.core.actorApi.oauth.TokenRevoke
 
 final class AccessTokenApi(
     coll: Coll,

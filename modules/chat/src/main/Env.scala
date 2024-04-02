@@ -4,12 +4,11 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,
     @ConfigName("collection.timeout") timeoutColl: CollName,
-    @ConfigName("actor.name") actorName: String,
     @ConfigName("timeout.duration") timeoutDuration: FiniteDuration,
     @ConfigName("timeout.check_every") timeoutCheckEvery: FiniteDuration
 )
@@ -23,7 +22,7 @@ final class Env(
     db: lila.db.Db,
     flood: lila.security.Flood,
     spam: lila.security.Spam,
-    shutup: lila.hub.actors.Shutup,
+    shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi
 )(using
     ec: Executor,
@@ -43,6 +42,8 @@ final class Env(
   lazy val api = wire[ChatApi]
 
   lazy val panic = wire[ChatPanic]
+
+  def allowedDuringPanic: lila.core.chat.panic.IsAllowed = panic.allowed
 
   scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery): () =>
     timeout.checkExpired.foreach(api.userChat.reinstate)

@@ -1,14 +1,14 @@
 package lila.user
 
 import com.roundeights.hasher.Implicits.*
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 
 import java.security.MessageDigest
 import java.util.Base64
 import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 
-import lila.common.config.Secret
+import lila.core.config.Secret
 
 /** Encryption for bcrypt hashes.
   *
@@ -42,11 +42,11 @@ case class HashedPassword(bytes: Array[Byte]) extends AnyVal:
   def parse     = (bytes.lengthIs == 39).option(bytes.splitAt(16))
   def isBlanked = bytes.isEmpty
 
-final private class PasswordHasher(
+final class PasswordHasher(
     secret: Secret,
     logRounds: Int,
     hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
-):
+)(using Executor):
   import org.mindrot.BCrypt
   import User.ClearPassword
 
@@ -63,11 +63,11 @@ final private class PasswordHasher(
       val hash = aes.decrypt(Aes.iv(salt), encHash)
       MessageDigest.isEqual(hash, bHash(salt, p))
 
-object PasswordHasher:
-
-  import play.api.mvc.RequestHeader
+  import lila.core.IpAddress
   import lila.memo.RateLimit
-  import lila.common.{ HTTPRequest, IpAddress }
+  import play.api.mvc.RequestHeader
+  import lila.core.config
+  import lila.common.HTTPRequest
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 200,
@@ -89,10 +89,10 @@ object PasswordHasher:
 
   def rateLimit[A](
       default: => Fu[A],
-      enforce: lila.common.config.RateLimit,
+      enforce: config.RateLimit,
       ipCost: Int,
       userCost: Int = 1
-  )(id: UserIdOrEmail, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] =
+  )(id: UserIdOrEmail, req: RequestHeader)(run: lila.memo.RateLimit.Charge => Fu[A]): Fu[A] =
     if enforce.yes then
       val ip = HTTPRequest.ipAddress(req)
       rateLimitPerUser.chargeable(id, default, cost = userCost, msg = s"IP: $ip"): chargeUser =>

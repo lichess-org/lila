@@ -3,7 +3,7 @@ package lila.relay
 import chess.{ Elo, FideId, Outcome, PlayerName, PlayerTitle }
 
 import lila.db.dsl.{ *, given }
-import lila.fide.{ Federation, FidePlayerApi }
+import lila.core.fide.Federation
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
 
@@ -34,7 +34,7 @@ final class RelayLeaderboardApi(
     tourRepo: RelayTourRepo,
     roundRepo: RelayRoundRepo,
     chapterRepo: ChapterRepo,
-    playerApi: FidePlayerApi,
+    federationsOf: Federation.FedsOf,
     cacheApi: CacheApi
 )(using Executor, Scheduler):
 
@@ -85,7 +85,7 @@ final class RelayLeaderboardApi(
                 prevFideId.orElse(game.fideIds(color))
               )
             )
-    federations <- playerApi.federationsOf(players.values.flatMap(_._5).toList)
+    federations <- federationsOf(players.values.flatMap(_._5).toList)
   yield RelayLeaderboard:
     players.toList
       .sortBy: (_, player) =>

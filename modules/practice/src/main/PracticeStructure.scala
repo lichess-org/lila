@@ -40,15 +40,13 @@ case class PracticeSection(
   def study(id: StudyId): Option[PracticeStudy] = studiesByIds.get(id)
 
 case class PracticeStudy(
-    id: StudyId, // study ID
+    id: StudyId,
     hide: Boolean,
-    name: String,
+    name: StudyName,
     desc: String,
     chapters: List[Chapter.IdName]
-):
-
-  val slug = lila.common.String.slugify(name)
-
+) extends lila.core.practice.Study:
+  val slug       = lila.common.String.slugify(name.value)
   def chapterIds = chapters.map(_.id)
 
 object PracticeStructure:

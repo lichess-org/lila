@@ -11,10 +11,6 @@ const dbs =
     ' ',
   );
 
-function ucfirst(s) {
-  return s[0].toUpperCase() + s.slice(1);
-}
-
 function xmlName(name) {
   return name === 'clas' ? 'class' : name;
 }
@@ -26,14 +22,14 @@ function keyListFrom(name) {
         const strings = (xml.resources.string || []).map(e => e['$'].name);
         const plurals = (xml.resources.plurals || []).map(e => e['$'].name);
         const keys = strings.concat(plurals);
-        const spaces = name == 'site' ? '  ' : '    ';
+        const spaces = '    ';
 
         resolve({
           name,
           code:
             keys
               .map(
-                k => `${spaces}val \`${k}\` = I18nKey("${name === 'site' ? '' : xmlName(name) + ':'}${k}")`,
+                k => `${spaces}val \`${k}\`: I18nKey = "${name === 'site' ? '' : xmlName(name) + ':'}${k}"`,
               )
               .join('\n') + '\n',
         });
@@ -44,16 +40,32 @@ function keyListFrom(name) {
 
 Promise.all(dbs.map(keyListFrom)).then(objs => {
   function dbCode(obj) {
-    return obj.name === 'site' ? obj.code : `  object ${obj.name}:\n${obj.code}`;
+    return `  object ${obj.name}:\n${obj.code}`;
   }
 
   const code = `// Generated with bin/trans-dump.js
-package lila.i18n
+package lila.core.i18n
 
-// format: OFF
-object I18nKeys:
+opaque type I18nKey = String
+object I18nKey:
+  def apply(key: String): I18nKey = key
+  import scalatags.Text.RawFrag
+  extension (key: I18nKey)
+    def value: String = key
+    def txt(args: Any*)(using trans: Translate): String =
+      trans.translator.txt.literal(key, args, trans.lang)
+    def pluralTxt(count: Count, args: Any*)(using trans: Translate): String =
+      trans.translator.txt.plural(key, count, args, trans.lang)
+    def pluralSameTxt(count: Long)(using trans: Translate): String = pluralTxt(count, count)
+    def apply(args: Matchable*)(using trans: Translate): RawFrag =
+      trans.translator.frag.literal(key, args, trans.lang)
+    def plural(count: Count, args: Matchable*)(using trans: Translate): RawFrag =
+      trans.translator.frag.plural(key, count, args, trans.lang)
+    def pluralSame(count: Int)(using trans: Translate): RawFrag = plural(count, count)
+
+  // format: OFF
 ${objs.map(dbCode).join('\n')}
 `;
 
-  return writeFile(path.resolve(lilaDir, 'modules/i18n/src/main/I18nKeys.scala'), code);
+  return writeFile(path.resolve(lilaDir, 'modules/hub/src/main/i18n/key.scala'), code);
 });

@@ -12,7 +12,7 @@ import lila.tree.{ Branch, Node, Root }
 final private class ExplorerGame(
     importer: lila.explorer.ExplorerImporter,
     lightUserApi: lila.user.LightUserApi,
-    net: lila.common.config.NetConfig
+    net: lila.core.config.NetConfig
 )(using Executor):
 
   def quote(gameId: GameId): Fu[Option[Comment]] =
@@ -42,7 +42,7 @@ final private class ExplorerGame(
         }
       }
 
-  private def compareFens(a: Fen.Epd, b: Fen.Epd) = a.simple == b.simple
+  private def compareFens(a: Fen.Full, b: Fen.Full) = a.simple == b.simple
 
   private def merge(fromNode: Node, fromPath: UciPath, game: Root): Option[(Branch, UciPath)] =
     val gameNodes = game.mainline.dropWhile(n => !compareFens(n.fen, fromNode.fen)).drop(1)

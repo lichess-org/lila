@@ -6,7 +6,7 @@ import reactivemongo.akkastream.cursorProducer
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
 import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
-import lila.i18n.{ I18nKey, I18nKeys as trans }
+import lila.core.i18n.I18nKey
 import lila.memo.{ CacheApi, MongoCache }
 
 case class PuzzleOpeningCollection(
@@ -161,8 +161,8 @@ object PuzzleOpening:
     lazy val variationKeys = variations.view.map(_.key).toSet
 
   enum Order(val key: String, val name: I18nKey):
-    case Popular      extends Order("popular", trans.study.mostPopular)
-    case Alphabetical extends Order("alphabetical", trans.study.alphabetical)
+    case Popular      extends Order("popular", I18nKey.study.mostPopular)
+    case Alphabetical extends Order("alphabetical", I18nKey.study.alphabetical)
 
   object Order:
     val default                   = Popular

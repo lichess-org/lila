@@ -8,8 +8,8 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Captcha
-import lila.common.paginator.Paginator
+import lila.core.captcha.Captcha
+import scalalib.paginator.Paginator
 
 object topic:
 
@@ -30,31 +30,31 @@ object topic:
           )
         ),
         st.section(cls := "warning")(
-          h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.important()),
+          h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.site.important()),
           p:
-            trans.yourQuestionMayHaveBeenAnswered:
-              strong(a(href := routes.Main.faq)(trans.inTheFAQ()))
+            trans.site.yourQuestionMayHaveBeenAnswered:
+              strong(a(href := routes.Main.faq)(trans.site.inTheFAQ()))
           ,
           p:
-            trans.toReportSomeoneForCheatingOrBadBehavior:
-              strong(a(href := reportRoutes.form)(trans.useTheReportForm()))
+            trans.site.toReportSomeoneForCheatingOrBadBehavior:
+              strong(a(href := reportRoutes.form)(trans.site.useTheReportForm()))
           ,
           p:
-            trans.toRequestSupport:
-              strong(a(href := routes.Main.contact)(trans.tryTheContactPage()))
+            trans.site.toRequestSupport:
+              strong(a(href := routes.Main.contact)(trans.site.tryTheContactPage()))
           ,
           p:
-            trans.makeSureToRead:
-              strong(a(href := routes.Cms.lonePage("forum-etiquette"))(trans.theForumEtiquette()))
+            trans.site.makeSureToRead:
+              strong(a(href := routes.Cms.lonePage("forum-etiquette"))(trans.site.theForumEtiquette()))
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
-          form3.group(form("name"), trans.subject())(form3.input(_)(autofocus)),
-          form3.group(form("post")("text"), trans.message())(
+          form3.group(form("name"), trans.site.subject())(form3.input(_)(autofocus)),
+          form3.group(form("post")("text"), trans.site.message())(
             form3.textarea(_, klass = "post-text-area")(rows := 10)
           ),
           views.html.base.captcha(form("post"), captcha),
           form3.actions(
-            a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
+            a(href := routes.ForumCateg.show(categ.slug))(trans.site.cancel()),
             isGranted(_.PublicMod).option(
               form3.submit(
                 frag("Create as a mod"),
@@ -62,7 +62,7 @@ object topic:
                 icon = licon.Agent.some
               )
             ),
-            form3.submit(trans.createTheTopic())
+            form3.submit(trans.site.createTheTopic())
           )
         )
       )
@@ -71,7 +71,7 @@ object topic:
       categ: lila.forum.ForumCateg,
       topic: lila.forum.ForumTopic,
       posts: Paginator[lila.forum.ForumPost.WithFrag],
-      formWithCaptcha: Option[FormWithCaptcha],
+      formWithCaptcha: Option[(Form[?], Captcha)],
       unsub: Option[Boolean],
       canModCateg: Boolean,
       formText: Option[String] = None,
@@ -129,19 +129,19 @@ object topic:
         ),
         pager,
         div(cls := "forum-topic__actions")(
-          if topic.isOld then p(trans.thisTopicIsArchived())
-          else if formWithCaptcha.isDefined then h2(id := "reply")(trans.replyToThisTopic())
-          else if topic.closed then p(trans.thisTopicIsNowClosed())
+          if topic.isOld then p(trans.site.thisTopicIsArchived())
+          else if formWithCaptcha.isDefined then h2(id := "reply")(trans.site.replyToThisTopic())
+          else if topic.closed then p(trans.site.thisTopicIsNowClosed())
           else
             teamOnly
               .map: teamId =>
                 p:
-                  trans.joinTheTeamXToPost:
-                    a(href := teamRoutes.show(teamId))(trans.teamNamedX(teamLink(teamId, true)))
+                  trans.site.joinTheTeamXToPost:
+                    a(href := teamRoutes.show(teamId))(trans.site.teamNamedX(teamLink(teamId, true)))
               .orElse:
                 if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
                 else if replyBlocked then p(trans.ublog.youBlockedByBlogAuthor()).some
-                else ctx.isAuth.option(p(trans.youCannotPostYetPlaySomeGames()))
+                else ctx.isAuth.option(p(trans.site.youCannotPostYetPlaySomeGames()))
           ,
           div(
             unsub.map: uns =>
@@ -150,10 +150,10 @@ object topic:
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
                 button(cls := "button button-empty text on", dataIcon := licon.Eye, bits.dataUnsub := "off"):
-                  trans.subscribe()
+                  trans.site.subscribe()
                 ,
                 button(cls := "button button-empty text off", dataIcon := licon.Eye, bits.dataUnsub := "on"):
-                  trans.unsubscribe()
+                  trans.site.unsubscribe()
               ),
             (canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor))).option(
               postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
@@ -180,7 +180,7 @@ object topic:
           )(
             form3.group(
               form("text"),
-              trans.message(),
+              trans.site.message(),
               help = a(
                 dataIcon := licon.InfoCircle,
                 cls      := "text",
@@ -194,7 +194,7 @@ object topic:
               ),
             views.html.base.captcha(form, captcha),
             form3.actions(
-              a(href := routes.ForumCateg.show(categ.slug))(trans.cancel()),
+              a(href := routes.ForumCateg.show(categ.slug))(trans.site.cancel()),
               (isGranted(_.PublicMod) || isGranted(_.SeeReport)).option(
                 form3.submit(
                   frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).so("(anonymously)")}"),
@@ -202,7 +202,7 @@ object topic:
                   icon = licon.Agent.some
                 )
               ),
-              form3.submit(trans.reply())
+              form3.submit(trans.site.reply())
             )
           )
       )
@@ -221,12 +221,12 @@ object topic:
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         boxTop(h1(dataIcon := licon.BubbleConvo, cls := "text")("Diagnostics")),
         st.section(cls := "warning")(
-          h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.important()),
+          h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.site.important()),
           p("Unsolicited reports will be ignored."),
           p("Only you and the Lichess moderators can see this forum.")
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
-          form3.group(form("post")("text"), trans.message())(
+          form3.group(form("post")("text"), trans.site.message())(
             form3.textarea(_, klass = "post-text-area")(rows := 10)(text)
           ),
           form3.hidden("name", me.username.value),

@@ -1,14 +1,14 @@
 package lila.puzzle
 
-import lila.i18n.{ I18nKey, I18nKeys as trans }
+import lila.core.i18n.I18nKey
 
 enum PuzzleDifficulty(val ratingDelta: Int, val name: I18nKey):
   lazy val key = toString.toLowerCase
-  case Easiest extends PuzzleDifficulty(-600, trans.puzzle.easiest)
-  case Easier  extends PuzzleDifficulty(-300, trans.puzzle.easier)
-  case Normal  extends PuzzleDifficulty(0, trans.puzzle.normal)
-  case Harder  extends PuzzleDifficulty(300, trans.puzzle.harder)
-  case Hardest extends PuzzleDifficulty(600, trans.puzzle.hardest)
+  case Easiest extends PuzzleDifficulty(-600, I18nKey.puzzle.easiest)
+  case Easier  extends PuzzleDifficulty(-300, I18nKey.puzzle.easier)
+  case Normal  extends PuzzleDifficulty(0, I18nKey.puzzle.normal)
+  case Harder  extends PuzzleDifficulty(300, I18nKey.puzzle.harder)
+  case Hardest extends PuzzleDifficulty(600, I18nKey.puzzle.hardest)
 
 object PuzzleDifficulty:
   val all                            = values.toList

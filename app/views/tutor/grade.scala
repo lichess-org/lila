@@ -27,7 +27,7 @@ object grade:
       metricOptions: TutorBothValueOptions[A],
       position: InsightPosition,
       titleTag: Text.Tag = h2
-  )(using Lang): Option[Tag] =
+  )(using Translate): Option[Tag] =
     metricOptions.asAvailable.map { metric =>
       div(cls := "tutor-grade tutor-grade--detail")(
         titleTag(cls := "tutor-grade__name")(concept.show(c)),

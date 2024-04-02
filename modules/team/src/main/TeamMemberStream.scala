@@ -3,7 +3,6 @@ package lila.team
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
-import lila.common.config.MaxPerSecond
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserApi }
 

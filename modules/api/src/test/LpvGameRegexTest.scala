@@ -2,7 +2,7 @@ package lila.api
 
 import scala.util.matching.Regex
 
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 
 class LpvGameRegexTest extends munit.FunSuite:
 

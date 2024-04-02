@@ -91,7 +91,7 @@ final class ApiMoveStream(
         (clock.config.estimateTotalSeconds / 60).atLeast(3).atMost(60)
       .seconds
 
-  private def toJson(game: Game, fen: Fen.Epd, lastMoveUci: Option[String]): JsObject =
+  private def toJson(game: Game, fen: Fen.Full, lastMoveUci: Option[String]): JsObject =
     toJson(
       fen,
       lastMoveUci,
@@ -99,7 +99,7 @@ final class ApiMoveStream(
         ByColor(clk.remainingTime)
     )
 
-  private def toJson(fen: Fen.Epd, lastMoveUci: Option[String], clock: Option[ByColor[Centis]]): JsObject =
+  private def toJson(fen: Fen.Full, lastMoveUci: Option[String], clock: Option[ByColor[Centis]]): JsObject =
     clock.foldLeft(
       Json
         .obj("fen" -> fen)

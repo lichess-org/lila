@@ -12,7 +12,7 @@ final class StreamerApi(
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
     notifyApi: lila.notify.NotifyApi,
-    subsRepo: lila.relation.SubscriptionRepo,
+    subsRepo: lila.core.relation.SubscriptionRepo,
     ytApi: YouTubeApi
 )(using Executor):
 

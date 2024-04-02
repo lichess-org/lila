@@ -1,6 +1,7 @@
 package lila.game
 
 import chess.Color
+import lila.core.game.PovRef
 
 /* Prev game ID -> Next game ID
  * The next game might not yet exist in the DB,

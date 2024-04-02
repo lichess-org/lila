@@ -6,18 +6,17 @@ import chess.{ ByColor, Status }
 import play.api.libs.json.Json
 
 import lila.common.Json.given
-import lila.common.config.{ Max, MaxPerPage }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, LightGame }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
-import lila.hub.LightTeam
-import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lila.core.team.LightTeam
+import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-import lila.socket.SendToFlag
+import lila.core.socket.SendToFlag
 import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
 
 final class SimulApi(
@@ -25,19 +24,20 @@ final class SimulApi(
     perfsRepo: UserPerfsRepo,
     userApi: UserApi,
     gameRepo: GameRepo,
-    onGameStart: lila.round.OnStart,
+    onGameStart: lila.core.game.OnStart,
     socket: SimulSocket,
-    timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     verify: SimulCondition.Verify,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler):
+)(using Executor, Scheduler)
+    extends lila.core.simul.SimulApi:
 
-  private val workQueue = lila.hub.AsyncActorSequencers[SimulId](
+  private val workQueue = scalalib.actor.AsyncActorSequencers[SimulId](
     maxSize = Max(128),
     expiration = 10 minutes,
     timeout = 10 seconds,
-    name = "simulApi"
+    name = "simulApi",
+    lila.log.asyncActorMonitor
   )
 
   def currentHostIds: Fu[Set[UserId]] = currentHostIdsCache.get {}
@@ -65,7 +65,8 @@ final class SimulApi(
     _ <- repo.create(simul)
   yield
     publish()
-    timeline ! (Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
+    lila.common.Bus.named
+      .timeline(Propagate(SimulCreate(me.userId, simul.id, simul.fullName)).toFollowersOf(me.userId))
     simul
 
   def update(prev: Simul, setup: SimulForm.Setup, teams: Seq[LightTeam])(using me: Me): Fu[Simul] =
@@ -108,8 +109,9 @@ final class SimulApi(
                       val player   = SimulPlayer.make(user, variant)
                       val newSimul = simul.addApplicant(SimulApplicant(player, accepted = false))
                       repo.update(newSimul).andDo {
-                        timeline ! Propagate(SimulJoin(me.userId, simul.id, simul.fullName))
-                          .toFollowersOf(user.id)
+                        lila.common.Bus.named.timeline(
+                          Propagate(SimulJoin(me.userId, simul.id, simul.fullName)).toFollowersOf(user.id)
+                        )
                         socket.reload(newSimul.id)
                         publish()
                       }
@@ -129,18 +131,16 @@ final class SimulApi(
           userApi
             .withPerfs(started.hostId)
             .orFail(s"No such host: ${simul.hostId}")
-            .flatMap { host =>
+            .flatMap: host =>
               started.pairings.mapWithIndex(makeGame(started, host)).parallel.map { games =>
                 games.headOption.foreach: (game, _) =>
                   socket.startSimul(simul, game)
                 games.foldLeft(started):
                   case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
               }
-            }
-            .flatMap { s =>
-              Bus.publish(Simul.OnStart(s), "startSimul")
+            .flatMap: s =>
+              Bus.publish(lila.core.simul.OnStart(s), "startSimul")
               update(s).andDo(currentHostIdsCache.invalidateUnit())
-            }
       }
 
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit =
@@ -176,9 +176,9 @@ final class SimulApi(
   private def onComplete(simul: Simul): Unit =
     currentHostIdsCache.invalidateUnit()
     Bus.publish(
-      lila.hub.actorApi.socket.SendTo(
+      lila.core.actorApi.socket.SendTo(
         simul.hostId,
-        lila.socket.Socket.makeMessage(
+        lila.core.socket.makeMessage(
           "simulEnd",
           Json.obj(
             "id"   -> simul.id,
@@ -252,7 +252,7 @@ final class SimulApi(
         .copy(clock = clock.start.some),
       players = users.mapWithColor((c, u) => lila.game.Player.make(c, u.only(perfType).some)),
       mode = chess.Mode.Casual,
-      source = lila.game.Source.Simul,
+      source = lila.core.game.Source.Simul,
       pgnImport = None
     )
     game2 = game1

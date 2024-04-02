@@ -2,8 +2,7 @@ package lila.fide
 
 import reactivemongo.api.*
 
-import lila.common.config.MaxPerPage
-import lila.common.paginator.{ AdapterLike, Paginator }
+import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.*
 import lila.db.paginator.{ Adapter, CachedAdapter }
 
@@ -23,7 +22,7 @@ final class FidePaginator(repo: FideRepo)(using Executor):
             .find($empty)
             .sort($sort.desc("standard.top10Rating"))
             .skip(offset)
-            .cursor[Federation]()
+            .cursor[lila.fide.Federation]()
             .list(length)
       ,
       currentPage = page,

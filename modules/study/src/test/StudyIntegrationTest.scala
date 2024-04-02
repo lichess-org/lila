@@ -7,7 +7,6 @@ import play.api.libs.json.*
 
 import java.time.Instant
 
-import lila.socket.{ AnaAny, AnaDrop, AnaMove }
 import lila.study.StudySocket.Protocol.In.AtPosition
 import lila.tree.Node.Comment.Text
 import lila.tree.Node.{ Comment, Shape, Shapes }

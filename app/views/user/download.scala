@@ -9,12 +9,12 @@ import lila.user.User
 object download:
   def apply(user: lila.user.User)(using ctx: PageContext): Frag =
     views.html.base.layout(
-      title = s"${user.username} • ${trans.exportGames.txt()}",
+      title = s"${user.username} • ${trans.site.exportGames.txt()}",
       moreCss = cssTag("search"),
       moreJs = jsModule("userGamesDownload")
     ) {
       main(cls := "box page-small search")(
-        boxTop(h1(userLink(user), s" • ${trans.exportGames.txt()}")),
+        boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),
         form(
           id  := "dl-form",
           cls := "box__pad search__form"
@@ -48,7 +48,7 @@ object download:
                   cls  := "button",
                   href := routes.Game.exportByUser(user.username),
                   downloadAttr
-                )(trans.download())
+                )(trans.site.download())
               )
             )
           ),
@@ -72,8 +72,8 @@ object download:
     td(cls := "single"):
       select(id := "dl-color", name := "color")(
         option(value := ""),
-        option(value := "white")(trans.white()),
-        option(value := "black")(trans.black())
+        option(value := "white")(trans.site.white()),
+        option(value := "black")(trans.site.black())
       )
   )
 
@@ -101,12 +101,12 @@ object download:
   )
 
   private def mode(using Context): Frag = tr(
-    th(label(`for` := "dl-rated")(trans.mode())),
+    th(label(`for` := "dl-rated")(trans.site.mode())),
     td(cls := "single")(
       select(id := "dl-rated", name := "rated")(
         option(value := ""),
-        option(value := "false")(trans.casual()),
-        option(value := "true")(trans.rated())
+        option(value := "false")(trans.site.casual()),
+        option(value := "true")(trans.site.rated())
       )
     )
   )
@@ -122,8 +122,8 @@ object download:
     td(cls := "single")(
       select(id := "dl-analysis", name := "analysed")(
         option(value := ""),
-        option(value := "true")(trans.yes()),
-        option(value := "false")(trans.no())
+        option(value := "true")(trans.site.yes()),
+        option(value := "false")(trans.site.no())
       )
     )
   )
@@ -131,7 +131,7 @@ object download:
   private def perfToggles(using Context): Frag =
     val perfTypes = lila.rating.PerfType.nonPuzzle
     tr(
-      th(cls := "top")(label(`for` := "dl-perfs")(trans.variants())),
+      th(cls := "top")(label(`for` := "dl-perfs")(trans.site.variants())),
       td(
         div(id := "dl-perfs", cls := "toggle-columns")(
           perfTypes.map(perfToggle)
@@ -156,12 +156,18 @@ object download:
     td(
       div(id := "dl-includes", cls := "toggle-columns")(
         div(form3.cmnToggle("dl-tags", "tags", true), label(`for` := "dl-tags")(trans.study.pgnTags())),
-        div(form3.cmnToggle("dl-clocks", "clocks", false), label(`for` := "dl-clocks")(trans.moveTimes())),
+        div(
+          form3.cmnToggle("dl-clocks", "clocks", false),
+          label(`for` := "dl-clocks")(trans.site.moveTimes())
+        ),
         div(
           form3.cmnToggle("dl-evals", "evals", false),
           label(`for` := "dl-evals")(trans.search.evaluation())
         ),
-        div(form3.cmnToggle("dl-opening", "opening", false), label(`for` := "dl-opening")(trans.opening()))
+        div(
+          form3.cmnToggle("dl-opening", "opening", false),
+          label(`for` := "dl-opening")(trans.site.opening())
+        )
       )
     )
   )

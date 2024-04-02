@@ -304,7 +304,7 @@
   <string name="eventInProgress">Práve sa hrá</string>
   <string name="finished">Ukončené</string>
   <string name="abortGame">Zrušiť hru</string>
-  <string name="gameAborted">Hra bola zrušená</string>
+  <string name="gameAborted">Partia zrušená</string>
   <string name="standard">Štandard</string>
   <string name="unlimited">Bez času</string>
   <string name="mode">Režim partie</string>

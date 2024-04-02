@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.Json.given
-import lila.common.config.MaxPerSecond
+
 import lila.db.dsl.{ *, given }
 import lila.user.User
 
@@ -21,21 +21,25 @@ final class PuzzleActivity(
 
   def stream(config: Config): Source[JsObject, ?] =
     val perSecond = MaxPerSecond(20)
+
+    val baseQuery = $doc(PuzzleRound.BSONFields.user -> config.user.id)
+    val timeQueries = List(
+      config.before.map(before => $doc(PuzzleRound.BSONFields.date.$lt(before))),
+      config.since.map(since => $doc(PuzzleRound.BSONFields.date.$gte(since)))
+    ).flatten
+    val finalQuery = baseQuery.++(timeQueries*)
+
     Source.futureSource:
-      colls.round.map:
-        _.find(
-          $doc(PuzzleRound.BSONFields.user -> config.user.id) ++
-            config.before.so: before =>
-              $doc(PuzzleRound.BSONFields.date.$lt(before))
-        )
-          .sort($sort.desc(PuzzleRound.BSONFields.date))
-          .batchSize(perSecond.value)
-          .cursor[PuzzleRound](ReadPref.sec)
-          .documentSource(config.max | Int.MaxValue)
-          .grouped(perSecond.value)
-          .throttle(1, 1 second)
-          .mapAsync(1)(enrich(config))
-          .mapConcat(identity)
+      colls.round
+        .map(_.find(finalQuery))
+        .map(_.sort($sort.desc(PuzzleRound.BSONFields.date)))
+        .map(_.batchSize(perSecond.value))
+        .map(_.cursor[PuzzleRound](ReadPref.sec))
+        .map(_.documentSource(config.max.fold(Int.MaxValue)(_.value)))
+        .map(_.grouped(perSecond.value))
+        .map(_.throttle(1, 1 second))
+        .map(_.mapAsync(1)(enrich(config)))
+        .map(_.mapConcat(identity))
 
   private def enrich(config: Config)(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
     colls.puzzle:
@@ -55,6 +59,7 @@ object PuzzleActivity:
 
   case class Config(
       user: User,
-      max: Option[Int],
-      before: Option[Instant]
+      max: Option[Max],
+      before: Option[Instant],
+      since: Option[Instant]
   )

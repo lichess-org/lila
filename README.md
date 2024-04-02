@@ -1,7 +1,7 @@
 # [lichess.org](https://lichess.org)
 
-[![Build server](https://github.com/lichess-org/lila/workflows/Build%20server/badge.svg)](https://github.com/lichess-org/lila/actions?query=workflow%3A%22Build+server%22)
-[![Build assets](https://github.com/lichess-org/lila/workflows/Build%20assets/badge.svg)](https://github.com/lichess-org/lila/actions?query=workflow%3A%22Build+assets%22)
+[![Build server](https://github.com/lichess-org/lila/actions/workflows/server.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/server.yml)
+[![Build assets](https://github.com/lichess-org/lila/actions/workflows/assets.yml/badge.svg)](https://github.com/lichess-org/lila/actions/workflows/assets.yml)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/lichess/localized.svg)](https://crowdin.com/project/lichess)
 [![Twitter](https://img.shields.io/badge/Twitter-%40lichess-blue.svg)](https://twitter.com/lichess)
 [![Discord](https://img.shields.io/discord/280713822073913354?label=Discord&logo=discord&style=flat)](https://discord.gg/lichess)

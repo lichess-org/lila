@@ -2,8 +2,8 @@ package lila.feed
 
 import com.softwaremill.macwire.*
 
-import lila.Lila.*
-import lila.common.config.CollName
+import lila.core.lilaism.Lilaism.*
+import lila.core.config.CollName
 
 @Module
 final class Env(cacheApi: lila.memo.CacheApi, db: lila.db.Db)(using Executor):

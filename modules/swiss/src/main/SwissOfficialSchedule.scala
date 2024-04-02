@@ -61,7 +61,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
 
   private def makeSwiss(config: Config, startAt: Instant) =
     Swiss(
-      _id = Swiss.makeId,
+      id = Swiss.makeId,
       name = config.name,
       clock = config.clock,
       variant = chess.variant.Standard,

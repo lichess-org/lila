@@ -2,17 +2,19 @@ package lila.tournament
 
 import reactivemongo.api.bson.*
 
-import lila.common.Maths
-import lila.common.config.MaxPerPage
-import lila.common.paginator.{ AdapterLike, Paginator }
+import scalalib.Maths
+
+import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
+import lila.core.rating.PerfId
 
 final class LeaderboardApi(
     repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
-)(using Executor):
+)(using Executor)
+    extends lila.core.tournament.leaderboard.Api:
 
   import LeaderboardApi.*
   import BSONHandlers.given
@@ -106,13 +108,11 @@ final class LeaderboardApi(
 
 object LeaderboardApi:
 
+  import lila.core.tournament.leaderboard.Ratio
+
   private val rankRatioMultiplier = 100 * 1000
 
   case class TourEntry(tour: Tournament, entry: Entry)
-
-  opaque type Ratio = Double
-  object Ratio extends OpaqueDouble[Ratio]:
-    extension (a: Ratio) def percent = (a.value * 100).toInt.atLeast(1)
 
   case class Entry(
       id: TourPlayerId,
@@ -126,7 +126,7 @@ object LeaderboardApi:
       speed: Option[Schedule.Speed],
       perf: PerfType,
       date: Instant
-  )
+  ) extends lila.core.tournament.leaderboard.Entry
 
   case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]):
     import ChartData.*
@@ -154,4 +154,4 @@ object LeaderboardApi:
       def rankPercentMean                = rank.mean.map(rankPercent)
       def rankPercentMedian              = rank.median.map(rankPercent)
 
-    case class AggregationResult(_id: Perf.Id, nb: Int, points: List[Int], ratios: List[Int])
+    case class AggregationResult(_id: PerfId, nb: Int, points: List[Int], ratios: List[Int])

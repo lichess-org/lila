@@ -6,11 +6,11 @@ import play.api.data.Forms.*
 import play.api.data.Mapping
 import play.api.data.format.Formats.doubleFormat
 
-import lila.common.Days
+import lila.core.Days
 import lila.common.Form.{ *, given }
-import lila.game.GameRule
+import lila.core.game.GameRule
 import lila.lobby.Color
-import lila.rating.RatingRange
+import lila.core.rating.RatingRange
 
 private object Mappings:
 
@@ -31,14 +31,10 @@ private object Mappings:
     number
       .verifying(HookConfig.modes contains _)
       .verifying(_ == Mode.Casual.id || withRated)
-  val ratingRange = text.verifying(RatingRange.valid(_))
+  val ratingRange = text.verifying(RatingRange.isValid)
   val color       = text.verifying(Color.names contains _)
   val level       = number.verifying(AiConfig.levels contains _)
   val speed       = number.verifying(Config.speeds contains _)
   val fenField = optional:
     import lila.common.Form.fen.{ mapping, truncateMoveNumber }
-    mapping.transform[Fen.Epd](truncateMoveNumber, identity)
-  val gameRules: Mapping[Set[GameRule]] = lila.common.Form.strings
-    .separator(",")
-    .verifying(_.forall(GameRule.byKey.contains))
-    .transform[Set[GameRule]](rs => rs.flatMap(GameRule.byKey.get).toSet, _.map(_.key).toList)
+    mapping.transform[Fen.Full](truncateMoveNumber, identity)

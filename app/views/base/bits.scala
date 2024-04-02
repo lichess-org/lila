@@ -8,7 +8,7 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 
 object bits:
 
@@ -45,7 +45,8 @@ z-index: 99;
       a(
         href := routes.Main.externalLink("mastodon", "https://mastodon.online/@lichess"),
         targetBlank,
-        rel := "me"
+        noFollow,
+        relMe
       )("Mastodon"),
       a(href := routes.Main.externalLink("twitter", "https://twitter.com/lichess"), targetBlank, noFollow)(
         "Twitter"
@@ -70,8 +71,8 @@ z-index: 99;
       )("Instagram")
     )
 
-  def fenAnalysisLink(fen: Fen.Epd)(using Lang) =
-    a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.analysis())
+  def fenAnalysisLink(fen: Fen.Full)(using Translate) =
+    a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.site.analysis())
 
   def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pagination(page => s"$route?page=$page", pager, showPost)

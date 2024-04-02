@@ -7,9 +7,8 @@ import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
 
-import lila.base.LilaInvalid
-import lila.common.config.Max
-import lila.common.{ LilaScheduler, Seconds }
+import lila.core.lilaism.LilaInvalid
+import lila.common.LilaScheduler
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.round.GameProxyRepo
@@ -18,6 +17,7 @@ import lila.tree.Node.Comments
 
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import RelayFormat.CanProxy
+import lila.core.Seconds
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -29,7 +29,7 @@ final private class RelayFetch(
     gameRepo: GameRepo,
     pgnDump: PgnDump,
     gameProxy: GameProxyRepo
-)(using Executor, Scheduler)(using mode: play.api.Mode):
+)(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
   import RelayFetch.*
 
@@ -173,7 +173,8 @@ final private class RelayFetch(
           .flatMap(gameRepo.withInitialFens)
           .flatMap { games =>
             if games.size == ids.size then
-              val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
+              val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
+              given play.api.i18n.Lang = lila.core.i18n.defaultLang
               games
                 .traverse: (game, fen) =>
                   pgnDump(game, fen, pgnFlags).dmap(_.render)
@@ -311,7 +312,8 @@ private object RelayFetch:
         .map(_._1)
 
     private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, Int => RelayGame]] =
-      CacheApi.scaffeineNoScheduler
+      CacheApi
+        .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
         .expireAfterAccess(2 minutes)
         .maximumSize(512)
         .build(compute)

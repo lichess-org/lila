@@ -22,4 +22,4 @@ final class Env(
 
   lazy val api = wire[PoolApi]
 
-  def poolConfigs = PoolList.all
+  export PoolList.{ all, isClockCompatible }

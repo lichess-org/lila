@@ -21,7 +21,7 @@ object finishedList:
           iconTag(licon.Trophy)(cls := "text"),
           userIdLink(t.winnerId, withOnline = false)
         ),
-        span(trans.nbPlayers.plural(t.nbPlayers, t.nbPlayers.localize))
+        span(trans.site.nbPlayers.plural(t.nbPlayers, t.nbPlayers.localize))
       )
     )
 
@@ -33,9 +33,9 @@ object finishedList:
           t.clock.show,
           " • ",
           if t.variant.exotic then t.variant.name else t.perfType.trans,
-          t.position.isDefined.option(frag(" • ", trans.thematic())),
+          t.position.isDefined.option(frag(" • ", trans.site.thematic())),
           " • ",
-          if t.mode.rated then trans.ratedTournament() else trans.casualTournament(),
+          if t.mode.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
           " • ",
           t.durationString
         )

@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import chess.Color
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.*
 import lila.memo.CacheApi

@@ -5,7 +5,7 @@ import scala.util.Try
 import play.api.libs.json.Json
 import com.roundeights.hasher.Algo
 import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 
 import lila.common.String.urlencode
 

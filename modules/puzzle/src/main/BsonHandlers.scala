@@ -17,7 +17,7 @@ object BsonHandlers:
     def readDocument(r: BSONDocument) = for
       id      <- r.getAsTry[PuzzleId](id)
       gameId  <- r.getAsTry[GameId](gameId)
-      fen     <- r.getAsTry[Fen.Epd](fen)
+      fen     <- r.getAsTry[Fen.Full](fen)
       lineStr <- r.getAsTry[String](line)
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
       glicko  <- r.getAsTry[Glicko](glicko)

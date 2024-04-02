@@ -2,7 +2,7 @@ package lila.security
 
 import com.github.blemale.scaffeine.Cache
 
-final class Flood:
+final class Flood(using Executor):
 
   import Flood.*
 
@@ -50,4 +50,4 @@ object Flood:
         similar(m2.text, msg.text)
 
   private def similar(s1: String, s2: String): Boolean =
-    Levenshtein.isDistanceLessThan(s1, s2, (s1.length.min(s2.length) >> 3).atLeast(2))
+    scalalib.Levenshtein.isDistanceLessThan(s1, s2, (s1.length.min(s2.length) >> 3).atLeast(2))

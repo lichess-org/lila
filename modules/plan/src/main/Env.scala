@@ -5,7 +5,8 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.common.config.given
+import lila.core.config.*
 import lila.db.dsl.Coll
 
 @Module
@@ -23,18 +24,13 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     ws: StandaloneWSClient,
-    timeline: lila.hub.actors.Timeline,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
     ip2proxy: lila.security.Ip2Proxy
-)(using
-    ec: Executor,
-    system: akka.actor.ActorSystem,
-    mode: play.api.Mode
-):
+)(using Executor, play.api.Mode, lila.core.i18n.Translator)(using scheduler: Scheduler):
 
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
 
@@ -73,17 +69,13 @@ final class Env(
 
   lazy val webhook = wire[PlanWebhook]
 
-  private lazy val expiration = new Expiration(
-    userRepo,
-    mongo.patron,
-    notifier
-  )
+  private lazy val expiration = new Expiration(userRepo, mongo.patron, notifier)
 
-  system.scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes): () =>
+  scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes): () =>
     expiration.run
 
   lila.common.Bus.subscribeFun("email"):
-    case lila.hub.actorApi.user.ChangeEmail(userId, email) => api.onEmailChange(userId, email)
+    case lila.core.user.ChangeEmail(userId, email) => api.onEmailChange(userId, email)
 
   def cli = new lila.common.Cli:
     def process =

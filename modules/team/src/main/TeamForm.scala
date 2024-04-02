@@ -14,12 +14,10 @@ import lila.common.Form.{
   given
 }
 import lila.db.dsl.{ *, given }
+import lila.core.team.Access
+import lila.core.captcha.CaptchaApi
 
-final private[team] class TeamForm(
-    teamRepo: TeamRepo,
-    val captcher: lila.hub.actors.Captcher
-)(using Executor)
-    extends lila.hub.CaptchedForm:
+final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(using Executor):
 
   private object Fields:
     val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
@@ -37,12 +35,13 @@ final private[team] class TeamForm(
       "description" -> cleanText(minLength = 30, maxLength = 4000).into[Markdown]
     val descPrivate =
       "descPrivate" -> optional(cleanNonEmptyText(maxLength = 4000).into[Markdown])
-    val request     = "request"     -> boolean
-    val gameId      = "gameId"      -> of[GameId]
-    val move        = "move"        -> text
-    val chat        = "chat"        -> numberIn(Team.Access.allInTeam)
-    val forum       = "forum"       -> numberIn(Team.Access.all)
-    val hideMembers = "hideMembers" -> boolean
+    val request                            = "request"     -> boolean
+    val gameId                             = "gameId"      -> of[GameId]
+    val move                               = "move"        -> text
+    private def inAccess(cs: List[Access]) = numberIn(cs.map(_.id)).transform[Access](Access.byId, _.id)
+    val chat                               = "chat"        -> inAccess(Access.allInTeam)
+    val forum                              = "forum"       -> inAccess(Access.all)
+    val hideMembers                        = "hideMembers" -> boolean
 
   def create(using lila.user.Me) = Form:
     mapping(
@@ -57,7 +56,7 @@ final private[team] class TeamForm(
       Fields.move
     )(TeamSetup.apply)(unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
-      .verifying(captchaFailMessage, validateCaptcha)
+      .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
   def edit(team: Team)(using lila.user.Me) = Form(
     mapping(
@@ -113,7 +112,7 @@ final private[team] class TeamForm(
     single:
       "userId" -> lila.user.UserForm.historicalUsernameField
 
-  def createWithCaptcha(using lila.user.Me) = withCaptcha(create)
+  def createWithCaptcha(using lila.user.Me) = create -> captcha.any
 
   val pmAll = Form:
     single("message" -> cleanTextWithSymbols.verifying(Constraints.minLength(3), Constraints.maxLength(9000)))
@@ -143,7 +142,7 @@ private[team] case class TeamSetup(
     flair: Option[Flair],
     gameId: GameId,
     move: String
-):
+) extends lila.core.captcha.WithCaptcha:
   def isOpen = !request
 
 private[team] case class TeamEdit(
@@ -152,8 +151,8 @@ private[team] case class TeamEdit(
     description: Markdown,
     descPrivate: Option[Markdown],
     request: Boolean,
-    chat: Team.Access,
-    forum: Team.Access,
+    chat: Access,
+    forum: Access,
     hideMembers: Boolean,
     flair: Option[Flair]
 ):

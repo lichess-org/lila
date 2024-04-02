@@ -10,7 +10,7 @@
   <string name="dropARookAtB4">Поставити туру на b4 (лише для варіанту Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Пропонувати або прийняти нічию</string>
   <string name="readOutClocks">Дізнатись залишок часу</string>
-  <string name="readOutOpponentName">Прочитати ім\'я супротивника</string>
+  <string name="readOutOpponentName">Прочитати ім\'я суперника</string>
   <string name="otherCommands">Інші команди</string>
   <string name="tips">Поради</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Якщо вищеперелічені ходи незрозумілі, дізнайтесь про них тут:</string>

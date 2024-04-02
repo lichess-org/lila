@@ -3,21 +3,17 @@ package lila.team
 import akka.actor.*
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
-import lila.mod.ModlogApi
+import lila.core.config.*
 import lila.notify.NotifyApi
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
-    captcher: lila.hub.actors.Captcher,
-    timeline: lila.hub.actors.Timeline,
-    teamSearch: lila.hub.actors.TeamSearch,
+    captcha: lila.core.captcha.CaptchaApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    modLog: ModlogApi,
     notifyApi: NotifyApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: lila.core.socket.SocketKit,
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
@@ -63,19 +59,19 @@ final class Env(
         yield s"Added ${userIds.size} members to team ${team.name}"
 
   lila.common.Bus.subscribeFuns(
-    "shadowban" -> { case lila.hub.actorApi.mod.Shadowban(userId, true) =>
+    "shadowban" -> { case lila.core.mod.Shadowban(userId, true) =>
       api.deleteRequestsByUserId(userId)
     },
     "teamIsLeader" -> {
-      case lila.hub.actorApi.team.IsLeader(teamId, userId, promise) =>
+      case lila.core.team.IsLeader(teamId, userId, promise) =>
         promise.completeWith(api.isLeader(teamId, userId))
-      case lila.hub.actorApi.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
+      case lila.core.team.IsLeaderWithCommPerm(teamId, userId, promise) =>
         promise.completeWith(api.hasPerm(teamId, userId, _.Comm))
     },
-    "teamJoinedBy" -> { case lila.hub.actorApi.team.TeamIdsJoinedBy(userId, promise) =>
+    "teamJoinedBy" -> { case lila.core.team.TeamIdsJoinedBy(userId, promise) =>
       promise.completeWith(cached.teamIdsList(userId))
     },
-    "teamIsLeaderOf" -> { case lila.hub.actorApi.team.IsLeaderOf(leaderId, memberId, promise) =>
+    "teamIsLeaderOf" -> { case lila.core.team.IsLeaderOf(leaderId, memberId, promise) =>
       promise.completeWith(api.isLeaderOf(leaderId, memberId))
     }
   )

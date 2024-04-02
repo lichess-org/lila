@@ -3,12 +3,13 @@ package lila.user
 import play.api.libs.json.*
 
 import lila.common.Json.{ writeAs, given }
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.rating.{ Perf, PerfType }
 
 import User.{ LightPerf, PlayTime }
+import lila.core.rating.PerfKey
 
-final class JsonView(isOnline: lila.socket.IsOnline):
+final class JsonView(isOnline: lila.core.socket.IsOnline):
 
   import JsonView.{ *, given }
   private given OWrites[Profile]  = Json.writes
@@ -79,7 +80,7 @@ object JsonView:
       .add("patron" -> l.user.isPatron)
 
   val modWrites = OWrites[User]: u =>
-    LightUser.write(u.light) ++ Json
+    Json.toJsObject(u.light) ++ Json
       .obj("games" -> u.count.game)
       .add("tos" -> u.marks.dirty)
 
@@ -93,7 +94,7 @@ object JsonView:
       )
       .add("prov", o.glicko.provisional)
 
-  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).toSet
+  private val standardPerfKeys: Set[PerfKey] = PerfType.standard.map(_.key).toSet
 
   def perfTypedJson(p: Perf.Typed): JsObject =
     Json.obj(p.perfType.key.value -> p.perf)

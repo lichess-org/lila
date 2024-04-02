@@ -1,7 +1,6 @@
 package lila.insight
 
-import lila.common.Heapsort.botN
-import lila.common.config
+import scalalib.HeapSort.botN
 import lila.game.{ Game, GameRepo, Pov }
 import lila.user.User
 
@@ -43,12 +42,11 @@ final class InsightApi(
       }
       .monSuccess(_.insight.user)
 
-  def askPeers[X](question: Question[X], rating: MeanRating, nbGames: config.Max): Fu[Answer[X]] =
+  def askPeers[X](question: Question[X], rating: MeanRating, nbGames: Max): Fu[Answer[X]] =
     pipeline
       .aggregate(question, Right(Question.Peers(rating)), withPovs = false, nbGames = nbGames)
-      .map { aggDocs =>
+      .map: aggDocs =>
         Answer(question, AggregationClusters(question, aggDocs), Nil)
-      }
       .monSuccess(_.insight.peers)
 
   def userStatus(user: User): Fu[UserStatus] =

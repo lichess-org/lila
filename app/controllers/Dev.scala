@@ -23,7 +23,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.round.selfReportMarkUser,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
-    env.rating.ratingFactorsSetting,
+    env.round.ratingFactorsSetting,
     env.plan.donationGoalSetting,
     env.apiTimelineSetting,
     env.apiExplorerGamesPerSecond,

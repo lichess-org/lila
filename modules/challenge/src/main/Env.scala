@@ -2,8 +2,8 @@ package lila.challenge
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.core.config.*
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -11,23 +11,34 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.round.OnStart,
+    onStart: lila.core.game.OnStart,
     gameCache: lila.game.Cached,
     rematches: lila.game.Rematches,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUser: lila.core.LightUser.GetterSync,
     lightUserApi: lila.user.LightUserApi,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    msgApi: lila.msg.MsgApi,
+    socketKit: lila.core.socket.SocketKit,
+    getLagRating: lila.core.socket.userLag.GetLagRating,
+    msgApi: lila.core.msg.MsgApi,
+    langPicker: lila.core.i18n.LangPicker,
+    jsDump: lila.core.i18n.JsDump,
+    setupForm: lila.core.setup.SetupForm,
+    oauthServer: lila.oauth.OAuthServer,
     baseUrl: BaseUrl
 )(using
-    scheduler: Scheduler,
-    system: akka.actor.ActorSystem
-)(using Executor, akka.stream.Materializer, play.api.Mode):
+    scheduler: Scheduler
+)(using
+    akka.actor.ActorSystem,
+    Executor,
+    akka.stream.Materializer,
+    lila.game.IdGenerator,
+    play.api.Mode,
+    lila.core.i18n.Translator
+):
 
   private val colls = wire[ChallengeColls]
 
@@ -48,6 +59,10 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
+  lazy val bulkSetup = wire[ChallengeBulkSetup]
+
+  lazy val bulkSetupApi = wire[ChallengeBulkSetupApi]
+
   lazy val bulk = wire[ChallengeBulkApi]
 
   lazy val msg = wire[ChallengeMsg]
@@ -56,14 +71,14 @@ final class Env(
 
   val forms = new ChallengeForm
 
-  system.scheduler.scheduleWithFixedDelay(10 seconds, 3343 millis): () =>
+  scheduler.scheduleWithFixedDelay(10 seconds, 3343 millis): () =>
     api.sweep
 
-  system.scheduler.scheduleWithFixedDelay(20 seconds, 2897 millis): () =>
+  scheduler.scheduleWithFixedDelay(20 seconds, 2897 millis): () =>
     bulk.tick
 
   lila.common.Bus.subscribeFun("roundUnplayed"):
-    case lila.hub.actorApi.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
+    case lila.core.round.DeleteUnplayed(gameId) => api.removeByGameId(gameId)
 
 private class ChallengeColls(db: lila.db.Db):
   val challenge = db(CollName("challenge"))

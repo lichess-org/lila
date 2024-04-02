@@ -7,12 +7,12 @@ import views.html
 import lila.app.{ *, given }
 import lila.challenge.Challenge as ChallengeModel
 import lila.challenge.Challenge.Id as ChallengeId
-import lila.common.config.Max
-import lila.common.{ Bearer, IpAddress, Preload }
+
+import lila.core.{ Bearer, IpAddress, Preload }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ EndpointScopes, OAuthScope }
 import lila.setup.ApiConfig
-import lila.socket.SocketVersion
+import lila.core.socket.SocketVersion
 import lila.user.User as UserModel
 
 final class Challenge(
@@ -83,8 +83,8 @@ final class Challenge(
 
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
-      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid contains secret
-      case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
+      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid.contains(secret)
+      case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId.contains(userId)
       case lila.challenge.Challenge.Challenger.Open                  => false
 
   private def isForMe(challenge: ChallengeModel)(using me: Option[Me]) =
@@ -195,9 +195,9 @@ final class Challenge(
         api.activeByIdFor(id, me).flatMap {
           case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
           case None =>
-            import lila.hub.actorApi.map.Tell
-            import lila.hub.actorApi.round.Abort
-            import lila.round.actorApi.round.AbortForce
+            import lila.core.actorApi.map.Tell
+            import lila.core.round.Abort
+            import lila.core.round.AbortForce
             env.game.gameRepo
               .game(id.into(GameId))
               .dmap {
@@ -248,7 +248,7 @@ final class Challenge(
                 env.round.proxyRepo.upgradeIfPresent(g).dmap(some).dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
               }
               .orNotFound { game =>
-                env.round.tellRound(game.id, lila.round.actorApi.round.StartClock)
+                env.round.tellRound(game.id, lila.core.round.StartClock)
                 jsonOkResult
               }
 
@@ -340,7 +340,7 @@ final class Challenge(
 
   private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
     import lila.challenge.Challenge.*
-    val timeControl = TimeControl.make(config.clock, config.days)
+    val timeControl = makeTimeControl(config.clock, config.days)
     env.user.perfsRepo
       .withPerf(orig -> dest, config.perfType, _.sec)
       .map: (orig, dest) =>

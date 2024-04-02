@@ -2,8 +2,9 @@ package lila.security
 
 import play.api.mvc.RequestHeader
 
-import lila.common.{ ApiVersion, HTTPRequest }
-import lila.socket.Socket.Sri
+import lila.common.HTTPRequest
+import lila.core.socket.Sri
+import lila.core.ApiVersion
 
 object Mobile:
 

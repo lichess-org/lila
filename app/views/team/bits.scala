@@ -40,7 +40,8 @@ object bits:
 
   private[team] object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
-    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
+    private val cache = lila.memo.CacheApi
+      .scaffeineNoScheduler(using env.executor)
       .expireAfterAccess(10 minutes)
       .maximumSize(1024)
       .build[Markdown, Html]()

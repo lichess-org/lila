@@ -6,8 +6,8 @@ import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
 import play.api.Configuration
 
-import lila.common.config.*
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.core.config.*
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -23,10 +23,10 @@ final class Env(
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
     lightUserApi: lila.user.LightUserApi,
-    onStart: lila.round.OnStart,
+    onStart: lila.core.game.OnStart,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: lila.core.socket.SocketKit,
     settingStore: lila.memo.SettingStore.Builder
 )(using scheduler: Scheduler)(using
     Executor,
@@ -34,7 +34,8 @@ final class Env(
     akka.stream.Materializer,
     lila.game.IdGenerator,
     play.api.Mode,
-    lila.user.FlairApi.Getter
+    lila.user.FlairApi.Getter,
+    lila.core.i18n.Translator
 ):
 
   lazy val forms = wire[TournamentForm]

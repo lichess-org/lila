@@ -3,14 +3,14 @@ package lila.notify
 import play.api.libs.json.Json
 
 import lila.common.Bus
-import lila.common.config.MaxPerPage
-import lila.common.paginator.Paginator
+
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.hub.actorApi.socket.{ SendTo, SendTos }
-import lila.i18n.*
+import lila.core.actorApi.socket.{ SendTo, SendTos }
 import lila.memo.CacheApi.*
 import lila.user.{ User, UserRepo }
+import lila.core.i18n.{ Translator, LangPicker }
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
@@ -18,8 +18,9 @@ final class NotifyApi(
     colls: NotifyColls,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi,
-    maxPerPage: MaxPerPage
-)(using Executor):
+    maxPerPage: MaxPerPage,
+    langPicker: LangPicker
+)(using Executor, Translator):
 
   import Notification.*
   import BSONHandlers.given
@@ -144,8 +145,8 @@ final class NotifyApi(
             for
               notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
               langStr       <- userRepo.langOf(note.to)
-              lang = I18nLangPicker.byStrOrDefault(langStr)
-            yield jsonHandlers(notifications)(using lang)
+              lang = langPicker.byStrOrDefault(langStr)
+            yield jsonHandlers(notifications)(using summon[Translator].to(lang))
         ),
         "socketUsers"
       )

@@ -1,9 +1,9 @@
 package lila.insight
 
-import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
+import lila.core.i18n.Translate
 
 final class JsonView:
 
@@ -12,9 +12,7 @@ final class JsonView:
   case class Categ(name: String, items: List[JsValue])
   private given Writes[Categ] = Json.writes
 
-  def ui(families: List[LilaOpeningFamily], openings: List[SimpleOpening], asMod: Boolean)(using
-      lang: Lang
-  ) =
+  def ui(families: List[LilaOpeningFamily], openings: List[SimpleOpening], asMod: Boolean)(using Translate) =
 
     val openingFamilyJson = Json.obj(
       "key"         -> D.OpeningFamily.key,
@@ -133,8 +131,8 @@ final class JsonView:
 
   given Writes[InsightPosition] = Writes(p => JsString(p.name))
 
-  private given dimWrites[X](using lang: Lang): Writes[InsightDimension[X]] =
-    Writes { d =>
+  private given dimWrites[X](using Translate): Writes[InsightDimension[X]] =
+    Writes: d =>
       Json.obj(
         "key"         -> d.key,
         "name"        -> d.name,
@@ -142,16 +140,14 @@ final class JsonView:
         "description" -> d.description,
         "values"      -> InsightDimension.valuesOf(d).map(InsightDimension.valueToJson(d))
       )
-    }
 
-  given Writes[InsightMetric] = Writes { m =>
+  given Writes[InsightMetric] = Writes: m =>
     Json.obj(
       "key"         -> m.key,
       "name"        -> m.name,
       "description" -> m.description,
       "position"    -> m.position
     )
-  }
 
   private given Writes[Chart.Xaxis] = Json.writes
   private given Writes[Chart.Yaxis] = Json.writes

@@ -6,9 +6,10 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 
-import lila.Lila.*
-import lila.common.config.{ Max, MaxPerPage }
-import lila.common.paginator.Paginator
+import lila.core.lilaism.Lilaism.*
+export lila.common.extensions.unapply
+
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.memo.CacheApi
@@ -37,7 +38,7 @@ object Feed:
 
   type GetLastUpdates = () => List[Update]
 
-  import ornicar.scalalib.ThreadLocalRandom
+  import scalalib.ThreadLocalRandom
   def makeId = ThreadLocalRandom.nextString(6)
 
 final class FeedApi(coll: Coll, cacheApi: CacheApi)(using Executor):

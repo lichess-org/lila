@@ -3,7 +3,7 @@ package lila.security
 import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest.*
-import lila.common.config.NetConfig
+import lila.core.config.NetConfig
 
 /* CSRF protection by using the HTTP origin header.
  * This applies to all incoming HTTP requests, and therefore, all forms of the site.

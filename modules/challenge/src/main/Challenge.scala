@@ -4,19 +4,22 @@ import cats.derived.*
 import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Horde, RacingKings, Variant }
 import chess.{ Color, Mode, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.Days
-import lila.game.{ Game, GameRule }
-import lila.i18n.{ I18nKey, I18nKeys }
+import lila.core.Days
+import lila.game.Game
+import lila.core.i18n.I18nKey
+import lila.core.{ challenge as hub }
+import lila.core.game.GameRule
 import lila.rating.PerfType
 import lila.user.{ GameUser, Me, User }
 
 case class Challenge(
-    _id: Challenge.Id,
+    @Key("_id") id: Challenge.Id,
     status: Challenge.Status,
     variant: Variant,
-    initialFen: Option[Fen.Epd],
+    initialFen: Option[Fen.Full],
     timeControl: Challenge.TimeControl,
     mode: Mode,
     colorChoice: Challenge.ColorChoice,
@@ -31,15 +34,10 @@ case class Challenge(
     name: Option[String] = None,
     declineReason: Option[Challenge.DeclineReason] = None,
     rules: Set[GameRule] = Set.empty
-):
+) extends hub.Challenge:
 
   import Challenge.*
 
-  inline def id = _id
-
-  def challengerUser = challenger match
-    case u: Challenger.Registered => u.some
-    case _                        => none
   def challengerUserId = challengerUser.map(_.id)
   def challengerIsAnon = challenger match
     case _: Challenger.Anonymous => true
@@ -55,12 +53,6 @@ case class Challenge(
     case TimeControl.Correspondence(d) => d.some
     case _                             => none
   def unlimited = timeControl == TimeControl.Unlimited
-
-  def clock = timeControl match
-    case c: TimeControl.Clock => c.some
-    case _                    => none
-
-  def hasClock = clock.isDefined
 
   def openDest = destUser.isEmpty
   def online   = status == Status.Created
@@ -78,7 +70,7 @@ case class Challenge(
 
   def speed = speedOf(timeControl)
 
-  def notableInitialFen: Option[Fen.Epd] = variant match
+  def notableInitialFen: Option[Fen.Full] = variant match
     case FromPosition | Horde | RacingKings | Chess960 => initialFen
     case _                                             => none
 
@@ -102,8 +94,7 @@ case class Challenge(
 
 object Challenge:
 
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
+  export hub.Challenge.*
 
   enum Status(val id: Int):
     val name = Status.this.toString.toLowerCase
@@ -120,17 +111,17 @@ object Challenge:
   enum DeclineReason(val trans: I18nKey):
     val key = DeclineReason.this.toString.toLowerCase
 
-    case Generic     extends DeclineReason(I18nKeys.challenge.declineGeneric)
-    case Later       extends DeclineReason(I18nKeys.challenge.declineLater)
-    case TooFast     extends DeclineReason(I18nKeys.challenge.declineTooFast)
-    case TooSlow     extends DeclineReason(I18nKeys.challenge.declineTooSlow)
-    case TimeControl extends DeclineReason(I18nKeys.challenge.declineTimeControl)
-    case Rated       extends DeclineReason(I18nKeys.challenge.declineRated)
-    case Casual      extends DeclineReason(I18nKeys.challenge.declineCasual)
-    case Standard    extends DeclineReason(I18nKeys.challenge.declineStandard)
-    case Variant     extends DeclineReason(I18nKeys.challenge.declineVariant)
-    case NoBot       extends DeclineReason(I18nKeys.challenge.declineNoBot)
-    case OnlyBot     extends DeclineReason(I18nKeys.challenge.declineOnlyBot)
+    case Generic     extends DeclineReason(I18nKey.challenge.declineGeneric)
+    case Later       extends DeclineReason(I18nKey.challenge.declineLater)
+    case TooFast     extends DeclineReason(I18nKey.challenge.declineTooFast)
+    case TooSlow     extends DeclineReason(I18nKey.challenge.declineTooSlow)
+    case TimeControl extends DeclineReason(I18nKey.challenge.declineTimeControl)
+    case Rated       extends DeclineReason(I18nKey.challenge.declineRated)
+    case Casual      extends DeclineReason(I18nKey.challenge.declineCasual)
+    case Standard    extends DeclineReason(I18nKey.challenge.declineStandard)
+    case Variant     extends DeclineReason(I18nKey.challenge.declineVariant)
+    case NoBot       extends DeclineReason(I18nKey.challenge.declineNoBot)
+    case OnlyBot     extends DeclineReason(I18nKey.challenge.declineOnlyBot)
 
   object DeclineReason:
 
@@ -140,32 +131,10 @@ object Challenge:
     val allExceptBot       = all.filterNot(r => r == NoBot || r == OnlyBot)
     def apply(key: String) = all.find { d => d.key == key.toLowerCase || d.trans.value == key } | Generic
 
-  case class Rating(int: IntRating, provisional: RatingProvisional):
-    def show = s"$int${if provisional.yes then "?" else ""}"
-  object Rating:
-    def apply(p: lila.rating.Perf): Rating = Rating(p.intRating, p.provisional)
-
-  enum Challenger:
-    case Registered(id: UserId, rating: Rating)
-    case Anonymous(secret: String)
-    case Open
-
-  sealed trait TimeControl:
-    def realTime: Option[chess.Clock.Config] = none
-  object TimeControl:
-    def make(clock: Option[chess.Clock.Config], days: Option[Days]) =
-      clock.map(Clock.apply).orElse(days.map(Correspondence.apply)).getOrElse(Unlimited)
-    case object Unlimited                 extends TimeControl
-    case class Correspondence(days: Days) extends TimeControl
-    case class Clock(config: chess.Clock.Config) extends TimeControl:
-      override def realTime = config.some
-      // All durations are expressed in seconds
-      export config.{ limit, increment, show }
-
   enum ColorChoice(val trans: I18nKey) derives Eq:
-    case Random extends ColorChoice(I18nKeys.randomColor)
-    case White  extends ColorChoice(I18nKeys.white)
-    case Black  extends ColorChoice(I18nKeys.black)
+    case Random extends ColorChoice(I18nKey.site.randomColor)
+    case White  extends ColorChoice(I18nKey.site.white)
+    case Black  extends ColorChoice(I18nKey.site.black)
   object ColorChoice:
     def apply(c: Color) = c.fold[ColorChoice](White, Black)
 
@@ -187,18 +156,23 @@ object Challenge:
   private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
     PerfType(variant, speedOf(timeControl))
 
-  private val idSize = 8
-
-  private def randomId = ThreadLocalRandom.nextString(idSize)
+  private val idSize   = 8
+  private def randomId = Id(ThreadLocalRandom.nextString(idSize))
 
   def toRegistered(u: User.WithPerf): Challenger.Registered =
-    Challenger.Registered(u.id, Rating(u.perf))
+    Challenger.Registered(u.id, Rating(u.perf.intRating, u.perf.provisional))
 
   def randomColor = chess.Color.fromWhite(ThreadLocalRandom.nextBoolean())
 
+  def makeTimeControl(clock: Option[chess.Clock.Config], days: Option[Days]): TimeControl =
+    clock
+      .map(TimeControl.Clock.apply)
+      .orElse(days.map(TimeControl.Correspondence.apply))
+      .getOrElse(TimeControl.Unlimited)
+
   def make(
       variant: Variant,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       timeControl: TimeControl,
       mode: Mode,
       color: String,
@@ -220,7 +194,7 @@ object Challenge:
       case _                                                                           => mode
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
-      _id = id.map(_.value) | randomId,
+      id = id.fold(randomId)(_.into(Id)),
       status = Status.Created,
       variant = variant,
       initialFen =

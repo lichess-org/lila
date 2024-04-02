@@ -2,7 +2,8 @@ package lila.analyse
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
+import lila.core.config.NetConfig
+import lila.core.config.CollName
 
 @Module
 final class Env(
@@ -22,6 +23,6 @@ final class Env(
 
   lazy val externalEngine = ExternalEngineApi(db(CollName("external_engine")), cacheApi)
 
-  lila.common.Bus.subscribeFun("oauth") { case lila.hub.actorApi.oauth.TokenRevoke(id) =>
+  lila.common.Bus.subscribeFun("oauth") { case lila.core.actorApi.oauth.TokenRevoke(id) =>
     externalEngine.onTokenRevoke(id)
   }

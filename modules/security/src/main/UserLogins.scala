@@ -2,9 +2,10 @@ package lila.security
 
 import reactivemongo.api.bson.*
 
-import lila.common.{ EmailAddress, IpAddress }
+import lila.core.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
+import lila.core.EmailAddress
 
 case class UserLogins(
     ips: List[UserLogins.IPData],
@@ -12,7 +13,6 @@ case class UserLogins(
     uas: List[Dated[UserAgent]],
     otherUsers: List[UserLogins.OtherUser[User]]
 ):
-
   import UserLogins.OtherUser
 
   def rawIps = ips.map(_.ip.value)

@@ -31,11 +31,11 @@ object side:
                 tour.perfType,
                 shortName = true
               ),
-              tour.position.isDefined.so(s"$separator${trans.thematic.txt()}"),
+              tour.position.isDefined.so(s"$separator${trans.site.thematic.txt()}"),
               separator,
               tour.durationString
             ),
-            if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
+            if tour.mode.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
             separator,
             trans.arena.arena(),
             (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)).option(
@@ -71,7 +71,7 @@ object side:
         views.html.gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
         tour.noBerserk.option(div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed())),
         tour.noStreak.option(div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks())),
-        (!tour.isScheduled).option(frag(small(trans.by(userIdLink(tour.createdBy.some))), br)),
+        (!tour.isScheduled).option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)).option(
           absClientInstant(
             tour.startsAt
@@ -83,9 +83,9 @@ object side:
           }
           .orElse(tour.position.map { fen =>
             p(
-              trans.customPosition(),
+              trans.site.customPosition(),
               separator,
-              views.html.base.bits.fenAnalysisLink(fen.into(chess.format.Fen.Epd))
+              views.html.base.bits.fenAnalysisLink(fen.into(chess.format.Fen.Full))
             )
           })
       ),

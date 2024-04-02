@@ -34,7 +34,7 @@ object homepageSpotlight:
                 frag(
                   span(cls := "headline")(spot.headline),
                   span(cls := "more")(
-                    trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
+                    trans.site.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
                     " • ",
                     if tour.isStarted then timeRemaining(tour.finishesAt)
                     else momentFromNow(tour.startsAt)
@@ -58,9 +58,9 @@ object homepageSpotlight:
               )
             ),
             span(cls := "more")(
-              trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
+              trans.site.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
               " • ",
-              if tour.isStarted then trans.eventInProgress() else momentFromNow(tour.startsAt)
+              if tour.isStarted then trans.site.eventInProgress() else momentFromNow(tour.startsAt)
             )
           )
         )

@@ -5,13 +5,13 @@
   <string name="thisIsYourProfilePage">Це сторінка вашого профілю.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Чи буде дитина використовувати обліковий запис? Ви можете увімкнути %s.</string>
   <string name="whatNowSuggestions">Що тепер? Ось кілька пропозицій:</string>
-  <string name="learnChessRules">Вивчайте шахові правила</string>
-  <string name="improveWithChessTacticsPuzzles">Вдосконалюйтесь, вирішуючи тактичні задачі.</string>
+  <string name="learnChessRules">Вивчайте правила шахів</string>
+  <string name="improveWithChessTacticsPuzzles">Удосконалюйтеся, вирішуючи тактичні задачі.</string>
   <string name="playTheArtificialIntelligence">Зіграйте проти штучного інтелекту.</string>
-  <string name="playOpponentsFromAroundTheWorld">Грайте з гравцями з усього світу</string>
+  <string name="playOpponentsFromAroundTheWorld">Грайте з гравцями з усього світу.</string>
   <string name="followYourFriendsOnLichess">Слідкуйте за своїми друзями на Lichess.</string>
   <string name="playInTournaments">Грайте в турнірах.</string>
-  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Вивчайте з %1$s та %2$s.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Учіться, використовуючи %1$s та %2$s.</string>
   <string name="configureLichess">Налаштуйте Lichess на свій смак.</string>
   <string name="exploreTheSiteAndHaveFun">Досліджуйте сайт і веселіться :)</string>
 </resources>

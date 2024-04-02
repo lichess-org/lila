@@ -25,7 +25,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       seek.rating
         ? h('span.ulpt', { attrs: { 'data-href': '/@/' + seek.username } }, seek.username)
         : 'Anonymous',
-      seek.rating && !ctrl.opts.hideRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
+      seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
       seek.days ? ctrl.trans.pluralSame('nbDays', seek.days) : '∞',
       h('span', [
         h('span.varicon', { attrs: { 'data-icon': perfIcons[seek.perf.key] } }),

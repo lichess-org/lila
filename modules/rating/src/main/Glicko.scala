@@ -8,10 +8,7 @@ case class Glicko(
     rating: Double,
     deviation: Double,
     volatility: Double
-):
-
-  def intRating    = IntRating(rating.toInt)
-  def intDeviation = deviation.toInt
+) extends lila.core.rating.Glicko:
 
   def intervalMin = (rating - deviation * 2).toInt
   def intervalMax = (rating + deviation * 2).toInt
@@ -115,7 +112,7 @@ case object Glicko:
 
   import play.api.libs.json.{ OWrites, Json }
   given OWrites[Glicko] =
-    import lila.common.Maths.roundDownAt
+    import scalalib.Maths.roundDownAt
     OWrites: p =>
       Json
         .obj(

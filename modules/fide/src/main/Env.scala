@@ -3,8 +3,9 @@ package lila.fide
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.memo.CacheApi
+import lila.core.{ fide as hub }
 
 @Module
 final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(using
@@ -20,6 +21,11 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
   lazy val federationApi = wire[FederationApi]
 
   lazy val paginator = wire[FidePaginator]
+
+  def federationsOf: hub.Federation.FedsOf      = playerApi.federationsOf
+  def federationNamesOf: hub.Federation.NamesOf = playerApi.federationNamesOf
+  def tokenize: hub.Tokenize                    = FidePlayer.tokenize
+  def guessPlayer: hub.GuessPlayer              = playerApi.guessPlayer.apply
 
   private lazy val fideSync = wire[FidePlayerSync]
 

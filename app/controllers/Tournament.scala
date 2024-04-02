@@ -6,20 +6,21 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.common.{ HTTPRequest, Preload }
+import lila.common.HTTPRequest
 import lila.gathering.Condition.GetMyTeamIds
 import lila.memo.CacheApi.*
 import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm, VisibleTournaments }
+import lila.core.Preload
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private def repo                     = env.tournament.tournamentRepo
-  private def api                      = env.tournament.api
-  private def jsonView                 = env.tournament.jsonView
-  private def forms                    = env.tournament.forms
-  private def cachedTour(id: TourId)   = env.tournament.cached.tourCache.byId(id)
-  private given lila.user.FlairApi     = env.user.flairApi
-  private given lila.hub.LightTeam.Api = env.team.lightTeamApi
+  private def repo                           = env.tournament.tournamentRepo
+  private def api                            = env.tournament.api
+  private def jsonView                       = env.tournament.jsonView
+  private def forms                          = env.tournament.forms
+  private def cachedTour(id: TourId)         = env.tournament.cached.tourCache.byId(id)
+  private given lila.user.FlairApi           = env.user.flairApi
+  private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
   private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
 

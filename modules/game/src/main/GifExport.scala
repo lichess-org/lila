@@ -11,11 +11,11 @@ import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 import scala.util.chaining.*
 
 import lila.common.Json.given
-import lila.common.Maths
-import lila.common.config.BaseUrl
+import scalalib.Maths
+import lila.core.config.BaseUrl
 
 object GifExport:
-  case class UpstreamStatus(code: Int) extends lila.base.LilaException:
+  case class UpstreamStatus(code: Int) extends lila.core.lilaism.LilaException:
     val message = s"gif service status: $code"
 
 final class GifExport(
@@ -29,7 +29,7 @@ final class GifExport(
 
   def fromPov(
       pov: Pov,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       theme: String,
       piece: String
   ): Fu[Source[ByteString, ?]] =
@@ -119,7 +119,7 @@ final class GifExport(
         }
       case None => moveTimes.map(_.atMost(targetMaxTime))
 
-  private def frames(game: Game, initialFen: Option[Fen.Epd]) =
+  private def frames(game: Game, initialFen: Option[Fen.Full]) =
     Replay.gameMoveWhileValid(
       game.sans,
       initialFen | game.variant.initialFen,

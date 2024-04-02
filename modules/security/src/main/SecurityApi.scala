@@ -1,7 +1,7 @@
 package lila.security
 
 import com.softwaremill.tagging.*
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
@@ -9,12 +9,14 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
 import lila.common.Form.into
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
+import lila.core.{ ApiVersion, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate.Result
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ Me, User, UserRepo }
+import lila.core.{ EmailAddress, UserStrOrEmail }
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -25,7 +27,7 @@ final class SecurityApi(
     authenticator: lila.user.Authenticator,
     oAuthServer: OAuthServer,
     ip2proxy: Ip2Proxy,
-    proxy2faSetting: lila.memo.SettingStore[lila.common.Strings] @@ Proxy2faSetting
+    proxy2faSetting: lila.memo.SettingStore[lila.core.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
 
   val AccessUri = "access_uri"
@@ -152,7 +154,7 @@ final class SecurityApi(
       .map(_.map(access => stripRolesOfOAuthUser(access.scoped)))
 
   private object upsertOauth:
-    private val sometimes = lila.memo.OnceEvery.hashCode[AccessToken.Id](1.hour)
+    private val sometimes = scalalib.cache.OnceEvery.hashCode[AccessToken.Id](1.hour)
     def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
       if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
         val mobile = Mobile.LichessMobileUa.parse(req)

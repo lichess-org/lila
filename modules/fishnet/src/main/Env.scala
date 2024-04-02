@@ -10,12 +10,12 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
+import lila.core.config.*
 
 @Module
 private class FishnetConfig(
     @ConfigName("collection.analysis") val analysisColl: CollName,
     @ConfigName("collection.client") val clientColl: CollName,
-    @ConfigName("actor.name") val actorName: String,
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("analysis.nodes") val analysisNodes: Int,
     @ConfigName("move.plies") val movePlies: Int,
@@ -29,7 +29,7 @@ final class Env(
     appConfig: Configuration,
     uciMemo: lila.game.UciMemo,
     requesterApi: lila.analyse.RequesterApi,
-    evalCacheApi: lila.evalCache.EvalCacheApi,
+    getSinglePvEval: lila.tree.CloudEval.GetSinglePvEval,
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     db: lila.db.Db,
@@ -39,12 +39,7 @@ final class Env(
     sink: lila.analyse.Analyser,
     userRepo: lila.user.UserRepo,
     shutdown: akka.actor.CoordinatedShutdown
-)(using
-    ec: Executor,
-    system: ActorSystem,
-    scheduler: Scheduler,
-    materializer: akka.stream.Materializer
-):
+)(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 
@@ -77,7 +72,7 @@ final class Env(
   )
 
   private lazy val socketExists: GameId => Fu[Boolean] = id =>
-    Bus.ask[Boolean]("roundSocket")(lila.hub.actorApi.map.Exists(id.value, _))
+    Bus.ask[Boolean]("roundSocket")(lila.core.actorApi.map.Exists(id.value, _))
 
   lazy val api: FishnetApi = wire[FishnetApi]
 
@@ -101,19 +96,6 @@ final class Env(
 
   wire[Cleaner]
 
-  // api actor
-  system.actorOf(
-    Props(
-      new Actor:
-        def receive =
-          case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
-            val sender = Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true)
-            analyser(gameId, sender)
-          case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser.study(req)
-    ),
-    name = config.actorName
-  )
-
   private def disable(keyOrUser: String) =
     repo.toKey(keyOrUser).flatMap { repo.enableClient(_, v = false) }
 
@@ -123,7 +105,7 @@ final class Env(
         userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)).flatMap {
           if _ then
             api.createClient(UserStr(name).id).map { client =>
-              Bus.publish(lila.hub.actorApi.fishnet.NewKey(client.userId, client.key.value), "fishnet")
+              Bus.publish(lila.core.fishnet.NewKey(client.userId, client.key.value), "fishnet")
               s"Created key: ${client.key.value} for: $name"
             }
           else fuccess("User missing, closed, or banned")
@@ -134,7 +116,10 @@ final class Env(
         repo.toKey(key).flatMap { repo.enableClient(_, v = true) }.inject("done!")
       case "fishnet" :: "client" :: "disable" :: key :: Nil => disable(key).inject("done!")
 
-  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) => disable(userId.value)
-    case lila.hub.actorApi.mod.MarkBooster(userId)       => disable(userId.value)
-    case lila.hub.actorApi.mod.Shadowban(userId, true)   => disable(userId.value)
+  Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban", "fishnet"):
+    case lila.core.mod.MarkCheater(userId, true) => disable(userId.value)
+    case lila.core.mod.MarkBooster(userId)       => disable(userId.value)
+    case lila.core.mod.Shadowban(userId, true)   => disable(userId.value)
+    case lila.core.fishnet.GameRequest(id) =>
+      analyser(id, Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true))
+    case req: lila.core.fishnet.StudyChapterRequest => analyser.study(req)

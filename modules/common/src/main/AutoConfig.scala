@@ -4,8 +4,9 @@ package autoconfig
 import com.typesafe.config.*
 import play.api.ConfigLoader
 
-import scala.annotation.StaticAnnotation
 import scala.quoted.*
+
+import lila.core.config.ConfigName
 
 // Copied from https://github.com/keynmol/autoconfig-lichess-play-derivation/blob/main/macros.scala
 // Thanks velvetbaldmime :)
@@ -14,8 +15,6 @@ import scala.quoted.*
   * @param name
   *   the name of the configuration key
   */
-final case class ConfigName(name: String) extends StaticAnnotation:
-  assert(name != null && name.nonEmpty)
 
 given [A](using loader: ConfigLoader[A]): ConfigLoader[Seq[A]] =
   ConfigLoader.seqConfigLoader.map(_.map { loader.load(_, "") })

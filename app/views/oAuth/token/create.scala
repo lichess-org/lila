@@ -5,7 +5,7 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.I18nKeys.oauthScope as ot
+import lila.core.i18n.I18nKey.oauthScope as ot
 
 object create:
 
@@ -64,8 +64,8 @@ object create:
               )
           ),
           form3.actions(
-            a(href := routes.OAuthToken.index)(trans.cancel()),
-            form3.submit(trans.create())(data("danger-title") := ot.doNotShareIt.txt())
+            a(href := routes.OAuthToken.index)(trans.site.cancel()),
+            form3.submit(trans.site.create())(data("danger-title") := ot.doNotShareIt.txt())
           ),
           br,
           br,

@@ -7,8 +7,7 @@ import chess.{ ErrorStr, Game, Replay, Square }
 
 import scala.concurrent.duration.*
 
-import lila.common.config.Max
-import lila.hub.AsyncActorSequencers
+import scalalib.actor.AsyncActorSequencers
 import lila.study.MultiPgn
 
 final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using
@@ -21,7 +20,8 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
     maxSize = Max(8),
     expiration = 1 minute,
     timeout = 10 seconds,
-    name = "relay.push"
+    name = "relay.push",
+    lila.log.asyncActorMonitor
   )
 
   case class Failure(tags: Tags, error: String)
@@ -42,7 +42,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(usin
   private def push(rt: RelayRound.WithTour, games: Vector[RelayGame]) =
     workQueue(rt.round.id):
       sync
-        .updateStudyChapters(rt, games)
+        .updateStudyChapters(rt, rt.tour.players.fold(games)(_.update(games)))
         .map: res =>
           SyncLog.event(res.nbMoves, none)
         .recover:

@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.LangPath
+import lila.core.LangPath
 
 object mobile:
 
@@ -16,7 +16,7 @@ object mobile:
     ):
       main(
         div(cls := "mobile page-small box box-pad")(
-          h1(cls := "box__top")(trans.playChessEverywhere()),
+          h1(cls := "box__top")(trans.site.playChessEverywhere()),
           div(cls := "sides")(
             div(cls := "left-side")(
               div(cls := "stores")(
@@ -24,26 +24,26 @@ object mobile:
                 appleStoreButton
               ),
               div(cls := "apk")(views.html.cms.render(p)),
-              h2(trans.asFreeAsLichess()),
+              h2(trans.site.asFreeAsLichess()),
               ul(cls := "block")(
-                li(trans.builtForTheLoveOfChessNotMoney()),
-                li(trans.everybodyGetsAllFeaturesForFree()),
-                li(trans.zeroAdvertisement()),
+                li(trans.site.builtForTheLoveOfChessNotMoney()),
+                li(trans.site.everybodyGetsAllFeaturesForFree()),
+                li(trans.site.zeroAdvertisement()),
                 li("Entirely ", a(href := "https://github.com/lichess-org/lichobile")("Open Source"))
               ),
-              h2(trans.fullFeatured()),
+              h2(trans.site.fullFeatured()),
               ul(cls := "block")(
-                li(trans.phoneAndTablet()),
-                li(trans.bulletBlitzClassical()),
-                li(trans.correspondenceChess()),
-                li(trans.onlineAndOfflinePlay()),
-                li(trans.tournaments()),
-                li(trans.puzzles()),
-                li(trans.gameAnalysis()),
-                li(trans.boardEditor()),
+                li(trans.site.phoneAndTablet()),
+                li(trans.site.bulletBlitzClassical()),
+                li(trans.site.correspondenceChess()),
+                li(trans.site.onlineAndOfflinePlay()),
+                li(trans.site.tournaments()),
+                li(trans.site.puzzles()),
+                li(trans.site.gameAnalysis()),
+                li(trans.site.boardEditor()),
                 li("Lichess TV"),
-                li(trans.followAndChallengeFriends()),
-                li(trans.availableInNbLanguages.pluralSame(80))
+                li(trans.site.followAndChallengeFriends()),
+                li(trans.site.availableInNbLanguages.pluralSame(80))
               )
             ),
             div(cls := "right-side")(

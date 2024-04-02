@@ -2,19 +2,21 @@ package lila.round
 
 import chess.{ ByColor, Color }
 
-import lila.common.{ Bus, Preload }
+import lila.common.Bus
 import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
-import lila.i18n.{ I18nKeys as trans, defaultLang }
+import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
+import lila.core.round.*
 import lila.pref.{ Pref, PrefApi }
 
 import RoundAsyncActor.TakebackSituation
+import lila.core.Preload
 
 final private class Takebacker(
     messenger: Messenger,
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     prefApi: PrefApi
-)(using Executor):
+)(using Executor, Translator):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -41,7 +43,7 @@ final private class Takebacker(
           double(game).andDo(publishTakeback(pov)).dmap(_ -> situation)
         case Pov(game, color) if (game.playerCanProposeTakeback(color)) && situation.offerable =>
           {
-            messenger.volatile(game, trans.takebackPropositionSent.txt())
+            messenger.volatile(game, trans.site.takebackPropositionSent.txt())
             val progress = Progress(game).map { g =>
               g.updatePlayer(color, _.proposeTakeback(g.ply))
             }
@@ -55,7 +57,7 @@ final private class Takebacker(
   def no(situation: TakebackSituation)(pov: Pov)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     pov match
       case Pov(game, color) if pov.player.isProposingTakeback =>
-        messenger.volatile(game, trans.takebackPropositionCanceled.txt())
+        messenger.volatile(game, trans.site.takebackPropositionCanceled.txt())
         val progress = Progress(game).map { g =>
           g.updatePlayer(color, _.removeTakebackProposition)
         }
@@ -64,7 +66,7 @@ final private class Takebacker(
           .andDo(publishTakebackOffer(progress.game))
           .inject(List(Event.TakebackOffers(white = false, black = false)) -> situation.decline)
       case Pov(game, color) if pov.opponent.isProposingTakeback =>
-        messenger.volatile(game, trans.takebackPropositionDeclined.txt())
+        messenger.volatile(game, trans.site.takebackPropositionDeclined.txt())
         val progress = Progress(game).map { g =>
           g.updatePlayer(!color, _.removeTakebackProposition)
         }
@@ -114,7 +116,7 @@ final private class Takebacker(
 
   private def saveAndNotify(p1: Progress)(using proxy: GameProxy): Fu[Events] =
     val p2 = p1 + Event.Reload
-    messenger.system(p2.game, trans.takebackPropositionAccepted.txt())
+    messenger.system(p2.game, trans.site.takebackPropositionAccepted.txt())
     proxy.save(p2).inject(p2.events)
 
   private def publishTakebackOffer(game: Game): Unit =

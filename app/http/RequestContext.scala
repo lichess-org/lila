@@ -6,7 +6,7 @@ import play.api.mvc.*
 
 import lila.api.{ LoginContext, Nonce, PageData }
 import lila.common.HTTPRequest
-import lila.i18n.I18nLangPicker
+import lila.i18n.LangPicker
 import lila.oauth.OAuthScope
 import lila.security.{ AppealUser, FingerPrintedUser }
 import lila.user.Me
@@ -44,7 +44,7 @@ trait RequestContext(using Executor):
         BodyContext(req, lang, userCtx, _)
 
   private def getAndSaveLang(req: RequestHeader, me: Option[Me]): Lang =
-    val lang = I18nLangPicker(req, me.flatMap(_.lang))
+    val lang = LangPicker(req, me.flatMap(_.lang))
     me.filter(_.lang.forall(_ != lang.code)).foreach { env.user.repo.setLang(_, lang) }
     lang
 

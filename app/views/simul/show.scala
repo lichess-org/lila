@@ -8,13 +8,12 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.gathering.Condition
 import lila.simul.Simul
-import lila.socket.SocketVersion
 
 object show:
 
   def apply(
       sim: Simul,
-      socketVersion: SocketVersion,
+      socketVersion: lila.core.socket.SocketVersion,
       data: play.api.libs.json.JsObject,
       chatOption: Option[lila.chat.UserChat.Mine],
       stream: Option[lila.streamer.Stream],
@@ -35,7 +34,7 @@ object show:
             views.html.chat.json(
               c.chat,
               c.lines,
-              name = trans.chatRoom.txt(),
+              name = trans.site.chatRoom.txt(),
               timeout = c.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
@@ -56,7 +55,7 @@ object show:
                   div(cls := "setup")(
                     sim.variants.map(_.name).mkString(", "),
                     " • ",
-                    trans.casual(),
+                    trans.site.casual(),
                     ((isGranted(_.ManageSimul) || userIsHost) && sim.isCreated).option(
                       frag(
                         " • ",
@@ -66,13 +65,13 @@ object show:
                   )
                 )
               ),
-              trans.simulHostExtraTime(),
+              trans.site.simulHostExtraTime(),
               ": ",
               pluralize("minute", sim.clock.hostExtraMinutes.value),
               br,
               sim.clock.hostExtraTimePerPlayerForDisplay.map: time =>
                 frag(
-                  trans.simulHostExtraTimePerPlayer(),
+                  trans.site.simulHostExtraTimePerPlayer(),
                   ": ",
                   time match
                     case Left(minutes)  => pluralize("minute", minutes.value)
@@ -80,10 +79,10 @@ object show:
                   ,
                   br
                 ),
-              trans.hostColorX(sim.color match
-                case Some("white") => trans.white()
-                case Some("black") => trans.black()
-                case _             => trans.randomColor()
+              trans.site.hostColorX(sim.color match
+                case Some("white") => trans.site.white()
+                case Some("black") => trans.site.black()
+                case _             => trans.site.randomColor()
               ),
               sim.position
                 .flatMap(p => lila.tournament.Thematic.byFen(p.opening))
@@ -99,7 +98,7 @@ object show:
                 })
             ),
             views.html.gathering.verdicts(verdicts, sim.mainPerfType, relevant = !userIsHost) | br,
-            trans.by(userIdLink(sim.hostId.some)),
+            trans.site.by(userIdLink(sim.hostId.some)),
             sim.estimatedStartAt.map: d =>
               frag(br, absClientInstant(d))
           ),

@@ -3,29 +3,29 @@ package lila.msg
 import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
-import lila.common.config.MaxPerPage
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
-import lila.relation.Relations
+import lila.core.relation.Relations
 import lila.user.{ Me, User, UserRepo }
+import lila.core.msg.PostResult
 
 final class MsgApi(
     colls: MsgColls,
     userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     json: MsgJson,
     notifier: MsgNotify,
     security: MsgSecurity,
-    shutup: lila.hub.actors.Shutup,
+    shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.security.Spam
-)(using Executor, akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer)
+    extends lila.core.msg.MsgApi:
 
   val msgsPerPage = MaxPerPage(100)
   val inboxSize   = 50
 
   import BsonHandlers.{ *, given }
-  import MsgApi.*
 
   def myThreads(using me: Me): Fu[List[MsgThread]] =
     colls.thread
@@ -153,12 +153,12 @@ final class MsgApi(
               _ <- threadWrite
             yield
               import MsgSecurity.*
-              import lila.hub.actorApi.socket.SendTo
-              import lila.socket.Socket.makeMessage
+              import lila.core.actorApi.socket.SendTo
+              import lila.core.socket.makeMessage
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
                 Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
-              if send == Ok then shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(orig, dest, text)
+              if send == Ok then shutupApi.privateMessage(orig, dest, text)
               PostResult.Success
       yield res
     }
@@ -182,7 +182,7 @@ final class MsgApi(
       .flatMap: res =>
         (res.nModified > 0).so(notifier.onRead(threadId, userId, contactId))
 
-  def postPreset(destId: UserId, preset: MsgPreset): Fu[PostResult] =
+  def postPreset(destId: UserId, preset: lila.core.msg.MsgPreset): Fu[PostResult] =
     systemPost(destId, preset.text)
 
   def systemPost(destId: UserId, text: String) =
@@ -365,7 +365,3 @@ final class MsgApi(
           // filter conversation where only team messages where sent
           msgs <- doc.getAsOpt[NonEmptyList[Msg]]("msgs")
         yield (tid, msgs)).toList
-
-object MsgApi:
-  enum PostResult:
-    case Success, Invalid, Limited, Bounced

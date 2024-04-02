@@ -5,12 +5,13 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
+import play.api.i18n.Lang
 
 final class RatingChartApi(
     historyApi: HistoryApi,
     userRepo: UserRepo,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, lila.core.i18n.Translator):
 
   def apply(user: User): Fu[Option[SafeJsonStr]] = cache.get(user.id)
 
@@ -31,13 +32,14 @@ final class RatingChartApi(
       Json.arr(date.getYear, date.getMonthValue - 1, date.getDayOfMonth, rating)
 
   private def build(userId: UserId): Fu[Option[SafeJsonStr]] =
+    given Lang = lila.core.i18n.defaultLang
     userRepo.createdAtById(userId).flatMapz { createdAt =>
       historyApi
         .get(userId)
         .map2: history =>
           RatingChartApi.perfTypes.map: pt =>
             Json.obj(
-              "name"   -> pt.trans(using lila.i18n.defaultLang),
+              "name"   -> pt.trans,
               "points" -> ratingsMapToJson(createdAt, history(pt))
             )
         .map2(Json.toJson)

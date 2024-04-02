@@ -8,7 +8,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, config }
-import lila.i18n.I18nLangPicker
+import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.security.Permission
 
@@ -25,12 +25,13 @@ abstract private[controllers] class LilaController(val env: Env)
     with http.RequestContext(using env.executor)
     with http.CtrlErrors:
 
-  def controllerComponents = env.controllerComponents
-  given Executor           = env.executor
-  given Scheduler          = env.scheduler
-  given FormBinding        = parse.formBinding(parse.DefaultMaxTextLength)
+  def controllerComponents        = env.controllerComponents
+  given Executor                  = env.executor
+  given Scheduler                 = env.scheduler
+  given FormBinding               = parse.formBinding(parse.DefaultMaxTextLength)
+  given lila.core.i18n.Translator = env.translator
 
-  given netDomain: lila.common.config.NetDomain = env.net.domain
+  given netDomain: lila.core.config.NetDomain = env.net.domain
 
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
@@ -311,8 +312,8 @@ abstract private[controllers] class LilaController(val env: Env)
     if ctx.isAuth
     then redirectWithQueryString(path)
     else
-      import I18nLangPicker.ByHref
-      I18nLangPicker.byHref(langCode, ctx.req) match
+      import LangPicker.ByHref
+      LangPicker.byHref(langCode, ctx.req) match
         case ByHref.NotFound => notFound(using ctx)
         case ByHref.Redir(code) =>
           redirectWithQueryString(s"/$code${~path.some.filter("/" !=)}")
@@ -338,6 +339,8 @@ abstract private[controllers] class LilaController(val env: Env)
     id.fold(fuccess(ctx.user))(meOrFetch)
 
   given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
+
+  def anyCaptcha = env.game.captcha.any
 
   /* We roll our own action, as we don't want to compose play Actions. */
   private def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:

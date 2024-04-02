@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.fide.{ Federation, FidePlayer }
 
 object federation:
@@ -19,7 +19,7 @@ object federation:
     )
 
   private def federationList(feds: Paginator[Federation])(using Context) =
-    def ratingCell(stats: Federation.Stats) =
+    def ratingCell(stats: lila.core.fide.Federation.Stats) =
       td(if stats.top10Rating > 0 then stats.top10Rating else "-")
     table(cls := "slist slist-pad")(
       thead:
@@ -44,7 +44,7 @@ object federation:
       )
     )
 
-  def flag(id: Federation.Id, title: Option[String]) = img(
+  def flag(id: lila.core.fide.Federation.Id, title: Option[String]) = img(
     cls      := "flag",
     st.title := title.getOrElse(id.value),
     src      := assetUrl(s"images/fide-fed/${id}.svg")
@@ -58,7 +58,7 @@ object federation:
       cls := "fide-federation",
       div(cls := "box__top fide-federation__head")(
         flag(fed.id, none),
-        div(h1(fed.name), p(trans.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
+        div(h1(fed.name), p(trans.site.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
         (fed.id.value == "KOS").option(p(cls := "fide-federation__kosovo")(kosovoText))
       ),
       div(cls := "fide-cards fide-federation__cards box__pad")(

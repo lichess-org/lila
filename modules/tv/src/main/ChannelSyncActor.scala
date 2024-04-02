@@ -2,9 +2,9 @@ package lila.tv
 
 import chess.Color
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.game.Game
-import lila.hub.SyncActor
+import scalalib.actor.SyncActor
 
 final private[tv] class ChannelSyncActor(
     channel: Tv.Channel,
@@ -26,7 +26,7 @@ final private[tv] class ChannelSyncActor(
   // the list of candidates by descending rating order
   private var manyIds = List.empty[GameId]
 
-  private val candidateIds = lila.memo.ExpireSetMemo[GameId](3 minutes)
+  private val candidateIds = scalalib.cache.ExpireSetMemo[GameId](3 minutes)
 
   protected val process: SyncActor.Receive =
 

@@ -10,7 +10,7 @@ import lila.notify.MentionedInThread
 final class MentionNotifier(
     userRepo: lila.user.UserRepo,
     notifyApi: lila.notify.NotifyApi,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     prefApi: lila.pref.PrefApi
 )(using Executor):
 

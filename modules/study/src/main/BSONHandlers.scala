@@ -10,7 +10,7 @@ import scala.util.Success
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
-import lila.tree.{ Score, Root, Branch, Branches, NewBranch, Metas, NewRoot }
+import lila.tree.{ Root, Branch, Branches, NewBranch, Metas, NewRoot, Score }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
 
 object BSONHandlers:
@@ -56,8 +56,8 @@ object BSONHandlers:
     x => BSONString(x.toString)
   )
 
-  given studyIdNameHandler: BSONDocumentHandler[Study.IdName]     = Macros.handler
-  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName] = Macros.handler
+  given studyIdNameHandler: BSONDocumentHandler[lila.core.study.IdName] = Macros.handler
+  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName]       = Macros.handler
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
@@ -132,7 +132,7 @@ object BSONHandlers:
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
-      fen <- doc.getAsOpt[Fen.Epd](F.fen)
+      fen <- doc.getAsOpt[Fen.Full](F.fen)
       check          = ~doc.getAsOpt[Check](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
@@ -167,7 +167,7 @@ object BSONHandlers:
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
-      fen <- doc.getAsOpt[Fen.Epd](F.fen)
+      fen <- doc.getAsOpt[Fen.Full](F.fen)
       check          = ~doc.getAsOpt[Check](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
@@ -241,7 +241,7 @@ object BSONHandlers:
       val r        = Reader(rootNode)
       Root(
         ply = r.get[Ply](F.ply),
-        fen = r.get[Fen.Epd](F.fen),
+        fen = r.get[Fen.Full](F.fen),
         check = r.yesnoD(F.check),
         shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
         comments = r.getO[Comments](F.comments) | Comments.empty,
@@ -277,7 +277,7 @@ object BSONHandlers:
       NewRoot(
         Metas(
           ply = r.get[Ply](F.ply),
-          fen = r.get[Fen.Epd](F.fen),
+          fen = r.get[Fen.Full](F.fen),
           check = r.yesnoD(F.check),
           shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
           comments = r.getO[Comments](F.comments) | Comments.empty,
@@ -333,12 +333,12 @@ object BSONHandlers:
   given BSONHandler[Chapter.BothClocks] = clockPair.as[Chapter.BothClocks](ByColor.fromPair, _.toPair)
   given BSON[Chapter.LastPosDenorm] with
     def reads(r: Reader) = Chapter.LastPosDenorm(
-      fen = r.getO[Fen.Epd]("fen") | Fen.initial,
+      fen = r.getO[Fen.Full]("fen") | Fen.initial,
       uci = r.getO[Uci]("uci"),
       clocks = ~r.getO[Chapter.BothClocks]("clocks")
     )
     def writes(w: Writer, l: Chapter.LastPosDenorm) = $doc(
-      "fen"    -> l.fen.some.filterNot(Fen.Epd.isInitial),
+      "fen"    -> l.fen.some.filterNot(Fen.Full.isInitial),
       "uci"    -> l.uci,
       "clocks" -> l.clocks.some.filter(_.exists(_.isDefined))
     )
@@ -365,10 +365,10 @@ object BSONHandlers:
         }),
       _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
     )
-  import Study.Visibility
+  import lila.core.study.Visibility
   private[study] given BSONHandler[Visibility] = tryHandler[Visibility](
     { case BSONString(v) => Visibility.byKey.get(v).toTry(s"Invalid visibility $v") },
-    v => BSONString(v.key)
+    v => BSONString(v.toString)
   )
   import Study.From
   private[study] given BSONHandler[From] = tryHandler[From](

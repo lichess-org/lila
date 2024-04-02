@@ -3,7 +3,7 @@ package lila.relay
 import chess.format.pgn.*
 import chess.{ FideId, PlayerName }
 
-import lila.fide.{ FidePlayer, PlayerToken }
+import lila.core.fide.{ PlayerToken, Tokenize }
 import lila.study.ChapterPreview
 
 type TeamName = String
@@ -29,14 +29,6 @@ private class RelayTeamsTextarea(val text: String):
     .mapValues(_.map(_._2))
     .toMap
 
-  private lazy val tokenizedPlayerTeams: Map[PlayerToken | FideId, TeamName] =
-    playerTeams.mapKeys(tokenizePlayer)
-
-  private val tokenizePlayer: PlayerNameStr | FideId => PlayerToken | FideId =
-    case name: PlayerNameStr => FidePlayer.tokenize(name)
-    // typing with `fideId: FideId` results in a compiler warning. The current code however is ok.
-    case fideId => fideId
-
   private lazy val playerTeams: Map[PlayerNameStr | FideId, TeamName] =
     teams.flatMap: (team, players) =>
       players.map(_ -> team)
@@ -53,7 +45,16 @@ private class RelayTeamsTextarea(val text: String):
       found.fold(tags): team =>
         tags + Tag(_.teams(color), team)
 
-  private def findMatching(player: PlayerNameStr | FideId): Option[TeamName] =
+  private def findMatching(player: PlayerNameStr | FideId)(using tokenize: Tokenize): Option[TeamName] =
+
+    val tokenizePlayer: PlayerNameStr | FideId => PlayerToken | FideId =
+      case name: PlayerNameStr => tokenize(name)
+      // typing with `fideId: FideId` results in a compiler warning. The current code however is ok.
+      case fideId => fideId
+
+    lazy val tokenizedPlayerTeams: Map[PlayerToken | FideId, TeamName] =
+      playerTeams.mapKeys(tokenizePlayer)
+
     playerTeams.get(player).orElse(tokenizedPlayerTeams.get(tokenizePlayer(player)))
 
 final class RelayTeamTable(

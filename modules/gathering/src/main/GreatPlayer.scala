@@ -1,6 +1,6 @@
 package lila.gathering
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 object GreatPlayer:
 

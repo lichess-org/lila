@@ -14,7 +14,7 @@ object embed:
       title = "lichess.org chess puzzle",
       cssModule = "tv.embed"
     )(
-      dailyLink(daily)(using config.lang)(
+      dailyLink(daily)(using config.translate)(
         targetBlank,
         id  := "daily-puzzle",
         cls := "embedded"
@@ -23,11 +23,11 @@ object embed:
       jsModule("puzzle.embed")
     )
 
-  def dailyLink(daily: DailyPuzzle.WithHtml)(using Lang) = a(
+  def dailyLink(daily: DailyPuzzle.WithHtml)(using Translate) = a(
     href  := routes.Puzzle.daily,
     title := trans.puzzle.clickToSolve.txt()
   )(
     span(cls := "text")(trans.puzzle.puzzleOfTheDay()),
-    raw(daily.html),
-    span(cls := "text")(daily.puzzle.color.fold(trans.whitePlays, trans.blackPlays)())
+    rawHtml(daily.html),
+    span(cls := "text")(daily.puzzle.color.fold(trans.site.whitePlays, trans.site.blackPlays)())
   )

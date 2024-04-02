@@ -14,7 +14,7 @@ object home:
     views.html.base.layout(
       title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home"),
-      withHrefLangs = lila.common.LangPath(routes.Swiss.home).some
+      withHrefLangs = lila.core.LangPath(routes.Swiss.home).some
     ):
       main(cls := "page-small box box-pad page swiss-home")(
         h1(cls := "box__top")(trans.swiss.swissTournaments()),
@@ -49,7 +49,7 @@ object home:
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
-                trans.by(span(cls := "team")(team.name, teamFlair(team)))
+                trans.site.by(span(cls := "team")(team.name, teamFlair(team)))
               )
             ),
             td(cls := "infos")(
@@ -63,7 +63,7 @@ object home:
                 " • ",
                 if s.variant.exotic then s.variant.name else s.perfType.trans,
                 " • ",
-                (if s.settings.rated then trans.ratedTournament else trans.casualTournament) ()
+                (if s.settings.rated then trans.site.ratedTournament else trans.site.casualTournament) ()
               )
             ),
             td(
@@ -74,7 +74,7 @@ object home:
           )
     )
 
-  private def comparison(using Lang) = table(cls := "comparison slist")(
+  private def comparison(using Translate) = table(cls := "comparison slist")(
     thead(
       tr(
         th(trans.swiss.comparison()),
@@ -110,28 +110,28 @@ object home:
       ),
       tr(
         th(trans.swiss.lateJoin()),
-        td(trans.yes()),
+        td(trans.site.yes()),
         td(trans.swiss.lateJoinUntil())
       ),
       tr(
         th(trans.swiss.pause()),
-        td(trans.yes()),
+        td(trans.site.yes()),
         td(trans.swiss.pauseSwiss())
       ),
       tr(
         th(trans.swiss.streaksAndBerserk()),
-        td(trans.yes()),
-        td(trans.no())
+        td(trans.site.yes()),
+        td(trans.site.no())
       ),
       tr(
         th(trans.swiss.similarToOTB()),
-        td(trans.no()),
-        td(trans.yes())
+        td(trans.site.no()),
+        td(trans.site.yes())
       ),
       tr(
         th(trans.swiss.unlimitedAndFree()),
-        td(trans.yes()),
-        td(trans.yes())
+        td(trans.site.yes()),
+        td(trans.site.yes())
       )
     )
   )
@@ -142,7 +142,7 @@ object home:
       p(strong(title), content)
     )
 
-  private def faq(using Lang) = frag(
+  private def faq(using Translate) = frag(
     faqEntry(
       trans.swiss.swissVsArenaQ(),
       trans.swiss.swissVsArenaA()

@@ -2,7 +2,7 @@ package lila.puzzle
 
 import akka.pattern.ask
 import chess.format.{ BoardFen, Uci }
-import ornicar.scalalib.ThreadLocalRandom.odds
+import scalalib.ThreadLocalRandom.odds
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
@@ -12,9 +12,8 @@ import Puzzle.BSONFields as F
 final private[puzzle] class DailyPuzzle(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,
-    renderer: lila.hub.actors.Renderer,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, Scheduler):
 
   import BsonHandlers.given
 
@@ -34,10 +33,12 @@ final private[puzzle] class DailyPuzzle(
       .flatMapz(makeDaily)
 
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle.WithHtml]] = {
-    import makeTimeout.short
-    (renderer.actor ? DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head)).map {
-      case html: String => DailyPuzzle.WithHtml(puzzle, html).some
-    }
+    lila.common.Bus
+      .ask[Html]("renderer")(
+        DailyPuzzle.Render(puzzle, puzzle.fenAfterInitialMove.board, puzzle.line.head, _)
+      )
+      .map: html =>
+        DailyPuzzle.WithHtml(puzzle, html).some
   }.recover { case e: Exception =>
     logger.warn("make daily", e)
     none
@@ -103,6 +104,6 @@ final private[puzzle] class DailyPuzzle(
 object DailyPuzzle:
   type Try = () => Fu[Option[DailyPuzzle.WithHtml]]
 
-  case class WithHtml(puzzle: Puzzle, html: String)
+  case class WithHtml(puzzle: Puzzle, html: Html)
 
-  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci)
+  case class Render(puzzle: Puzzle, fen: BoardFen, lastMove: Uci, promise: Promise[Html])
