@@ -111,9 +111,9 @@ export default class RelayCtrl {
   isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
 
   pinStreamer = () =>
-    !this.currentRound().finished &&
-    Date.now() > this.currentRound().startsAt! - 1000 * 3600 &&
-    this.data.pinned != undefined;
+    // TODO - fix the finished flag on server. we need it
+    //!this.currentRound().finished &&
+    Date.now() > this.currentRound().startsAt! - 1000 * 3600 && this.data.pinned != undefined;
 
   hidePinnedImage = () => {
     site.storage.set(`relay.hide-image.${this.id}`, 'true');
