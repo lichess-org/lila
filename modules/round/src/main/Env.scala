@@ -34,7 +34,6 @@ final class Env(
     userApi: lila.user.UserApi,
     flairApi: lila.user.FlairApi,
     chatApi: lila.chat.ChatApi,
-    fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
@@ -135,7 +134,7 @@ final class Env(
               Bus.publish(sg, "startGame")
               game.userIds.foreach: userId =>
                 Bus.publish(sg, s"userStartGame:$userId")
-              fishnetPlayer(game)
+              if game.playableByAi then Bus.publish(game, "fishnetPlay")
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 

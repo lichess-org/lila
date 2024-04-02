@@ -12,8 +12,7 @@ final class FishnetPlayer(
     redis: FishnetRedis,
     openingBook: FishnetOpeningBook,
     gameRepo: GameRepo,
-    uciMemo: UciMemo,
-    val maxPlies: Int
+    uciMemo: UciMemo
 )(using Executor, Scheduler):
 
   def apply(game: Game): Funit =
@@ -57,7 +56,7 @@ final class FishnetPlayer(
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if game.situation.playable(true) then
-      if game.ply <= maxPlies then
+      if game.ply <= lila.core.fishnet.maxPlies then
         gameRepo.initialFen(game).zip(uciMemo.get(game)).map { case (initialFen, moves) =>
           Work.Move(
             _id = Work.makeId,

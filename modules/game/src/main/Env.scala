@@ -37,19 +37,19 @@ final class Env(
 ):
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
 
-  lazy val gameRepo = new GameRepo(db(config.gameColl))
+  val gameRepo = new GameRepo(db(config.gameColl))
 
-  lazy val idGenerator = wire[IdGenerator]
+  val idGenerator = wire[IdGenerator]
+
+  val divider = wire[Divider]
+
+  val cached: Cached = wire[Cached]
+
+  val uciMemo = wire[UciMemo]
 
   lazy val gifExport = new GifExport(ws, lightUserApi, baseUrl, config.gifUrl)
 
-  lazy val divider = wire[Divider]
-
-  lazy val cached: Cached = wire[Cached]
-
   lazy val paginator = wire[PaginatorBuilder]
-
-  lazy val uciMemo = wire[UciMemo]
 
   lazy val pgnDump = wire[PgnDump]
 

@@ -368,7 +368,7 @@ final private class RoundAsyncActor(
 
     case FishnetStart =>
       proxy.withGame: g =>
-        g.playableByAi.so(player.requestFishnet(g, this))
+        fuccess(g.playableByAi.so(player.requestFishnet(g, this)))
 
     case Tick =>
       proxy.withGameOptionSync { g =>
