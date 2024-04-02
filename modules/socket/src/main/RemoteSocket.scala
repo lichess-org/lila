@@ -11,7 +11,7 @@ import scala.util.chaining.*
 
 import lila.common.{ Bus, Lilakka }
 import lila.core.actorApi.Announce
-import lila.core.actorApi.relation.{ Follow, UnFollow }
+import lila.core.relation.{ Follow, UnFollow }
 import lila.core.round.Mlat
 import lila.core.actorApi.security.CloseAccount
 import lila.core.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }

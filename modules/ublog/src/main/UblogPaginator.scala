@@ -135,7 +135,7 @@ final class UblogPaginator(
         relationApi.coll
           .aggregateList(length, _.sec) { framework =>
             import framework.*
-            Match($doc("u1" -> userId, "r" -> lila.core.relation.Follow)) -> List(
+            Match($doc("u1" -> userId, "r" -> lila.core.relation.Relation.Follow)) -> List(
               Group(BSONNull)("ids" -> PushField("u2")),
               PipelineOperator:
                 $lookup.pipelineFull(

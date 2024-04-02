@@ -2,11 +2,13 @@ package lila.relation
 
 import reactivemongo.api.bson.*
 
+import lila.core.relation.Relation.{ Follow, Block }
 import lila.db.dsl.{ *, given }
 
 final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(using Executor):
 
-  import RelationRepo.*
+  import RelationRepo.makeId
+
   val coll = colls.relation
 
   def following(userId: UserId) = relating(userId, Follow)
@@ -92,12 +94,10 @@ final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(usi
       )
       .cursor[Bdoc]()
       .list(nb)
-      .dmap {
+      .dmap:
         _.flatMap { _.string("_id") }
-      }
-      .flatMap { ids =>
+      .flatMap: ids =>
         coll.delete.one($inIds(ids)).void
-      }
 
   def filterBlocked(by: UserId, candidates: Iterable[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("u2", $doc("u2".$in(candidates), "u1" -> by, "r" -> Block))

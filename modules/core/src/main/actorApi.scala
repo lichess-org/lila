@@ -90,15 +90,6 @@ package evaluation:
   case class AutoCheck(userId: UserId)
   case class Refresh(userId: UserId)
 
-package relation:
-  case class Block(u1: UserId, u2: UserId)
-  case class UnBlock(u1: UserId, u2: UserId)
-  case class Follow(u1: UserId, u2: UserId)
-  case class UnFollow(u1: UserId, u2: UserId)
-
-package study:
-  case class RemoveStudy(studyId: StudyId)
-
 package plan:
   case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)
   case class MonthInc(userId: UserId, months: Int)

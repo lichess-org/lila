@@ -149,6 +149,10 @@ trait Handlers:
 
   given BSONHandler[NormalizedEmailAddress] = stringIsoHandler
 
+  import lila.core.relation.Relation
+  given BSONHandler[Relation] =
+    BSONBooleanHandler.as[Relation](if _ then Relation.Follow else Relation.Block, _.isFollow)
+
   given BSONHandler[chess.Color] = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite(_), _.white)
 
   import lila.common.{ LilaOpeningFamily, SimpleOpening }
