@@ -90,63 +90,17 @@ trait LilaLibraryExtensions extends LilaTypes:
 
   extension [A](fua: Fu[A])
 
-    def andDo(sideEffect: => Unit)(using Executor): Fu[A] =
-      fua.andThen:
-        case _ => sideEffect
-
     infix def >>[B](fub: => Fu[B])(using Executor): Fu[B] =
       fua.flatMap(_ => fub)
-
-    inline def void: Fu[Unit] =
-      fua.dmap(_ => ())
-
-    inline infix def inject[B](b: => B): Fu[B] =
-      fua.dmap(_ => b)
-
-    def injectAnyway[B](b: => B)(using Executor): Fu[B] = fold(_ => b, _ => b)
-
-    def effectFold(fail: Exception => Unit, succ: A => Unit)(using Executor): Unit =
-      fua.onComplete:
-        case scala.util.Failure(e: Exception) => fail(e)
-        case scala.util.Failure(e)            => throw e // Throwables
-        case scala.util.Success(e)            => succ(e)
 
     def fold[B](fail: Exception => B, succ: A => B)(using Executor): Fu[B] =
       fua.map(succ).recover { case e: Exception => fail(e) }
 
-    def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B])(using Executor): Fu[B] =
-      fua.flatMap(succ).recoverWith { case e: Exception => fail(e) }
-
     def logFailure(logger: => play.api.LoggerLike, msg: Throwable => String)(using Executor): Fu[A] =
-      addFailureEffect: e =>
+      fua.addFailureEffect: e =>
         logger.warn(msg(e), e)
 
     def logFailure(logger: => play.api.LoggerLike)(using Executor): Fu[A] = logFailure(logger, _.toString)
-
-    def addFailureEffect(effect: Throwable => Unit)(using Executor) =
-      fua.failed.foreach: (e: Throwable) =>
-        effect(e)
-      fua
-
-    def addEffect(effect: A => Unit)(using Executor): Fu[A] =
-      fua.foreach(effect)
-      fua
-
-    def addEffects(fail: Exception => Unit, succ: A => Unit)(using Executor): Fu[A] =
-      fua.onComplete:
-        case scala.util.Failure(e: Exception) => fail(e)
-        case scala.util.Failure(e)            => throw e // Throwables
-        case scala.util.Success(e)            => succ(e)
-      fua
-
-    def addEffects(f: Try[A] => Unit)(using Executor): Fu[A] =
-      fua.onComplete(f)
-      fua
-
-    def addEffectAnyway(inAnyCase: => Unit)(using Executor): Fu[A] =
-      fua.onComplete: _ =>
-        inAnyCase
-      fua
 
     def mapFailure(f: Exception => Exception)(using Executor): Fu[A] =
       fua.recoverWith:
@@ -157,31 +111,19 @@ trait LilaLibraryExtensions extends LilaTypes:
         LilaException(s"$p ${e.getMessage}")
 
     def thenPp(using Executor): Fu[A] =
-      effectFold(
+      fua.addEffects(
         e => pprint.pprintln("[failure] " + e),
         a => pprint.pprintln("[success] " + a)
       )
-      fua
 
     def thenPp(msg: String)(using Executor): Fu[A] =
-      effectFold(
+      fua.addEffects(
         e => pprint.pprintln(s"[$msg] [failure] $e"),
         a => pprint.pprintln(s"[$msg] [success] $a")
       )
-      fua
 
     // def delay(duration: FiniteDuration)(using Executor, Scheduler) =
     //   lila.common.LilaFuture.delay(duration)(fua)
-
-    def recoverDefault(using Executor)(using z: Zero[A]): Fu[A] = recoverDefault(z.zero)
-
-    def recoverDefault(using Executor)(default: => A): Fu[A] =
-      fua.recover:
-        case _: LilaException                         => default
-        case _: java.util.concurrent.TimeoutException => default
-        case e: Exception =>
-          println(s"Future.recoverDefault $e")
-          default
 
   extension (fua: Fu[Boolean])
 
