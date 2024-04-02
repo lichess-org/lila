@@ -4,6 +4,7 @@ import chess.format.Uci
 import chess.variant.Crazyhouse
 import scalalib.Render
 import play.api.libs.json.{ Json as PlayJson, * }
+import lila.core.Iso
 
 import scala.util.NotGiven
 

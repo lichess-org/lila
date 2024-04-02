@@ -7,7 +7,7 @@ import reactivemongo.api.bson.BSONHandler
 import lila.db.dsl.*
 import play.api.data.*, Forms.*
 import lila.core.{ Ints, Strings, UserIds, config }
-import lila.common.Iso
+import lila.core.Iso
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,

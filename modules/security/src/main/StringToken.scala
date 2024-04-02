@@ -5,7 +5,7 @@ import com.roundeights.hasher.Algo
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 
-import lila.common.Iso
+import lila.core.Iso
 import lila.common.String.base64
 import lila.core.config.Secret
 

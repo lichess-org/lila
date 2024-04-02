@@ -2,7 +2,8 @@ package lila.puzzle
 
 import chess.opening.{ Opening, OpeningDb, OpeningKey }
 
-import lila.common.{ Iso, LilaOpeningFamily, SimpleOpening }
+import lila.common.{ LilaOpeningFamily, SimpleOpening }
+import lila.core.Iso
 import lila.core.i18n.I18nKey
 
 sealed abstract class PuzzleAngle(val key: String):
@@ -55,4 +56,4 @@ object PuzzleAngle:
       openings: PuzzleOpeningCollection
   )
 
-  given Iso.StringIso[PuzzleAngle] = lila.common.Iso.string(findOrMix, _.key)
+  given Iso.StringIso[PuzzleAngle] = lila.core.Iso.string(findOrMix, _.key)

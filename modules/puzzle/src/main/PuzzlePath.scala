@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import lila.common.Iso
+import lila.core.Iso
 import lila.db.dsl.{ *, given }
 import lila.rating.Perf
 import lila.user.Me
