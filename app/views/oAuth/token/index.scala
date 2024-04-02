@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.I18nKeys.oauthScope as ot
+import lila.core.i18n.I18nKey.oauthScope as ot
 
 object index:
 
@@ -73,7 +73,7 @@ object index:
                 postForm(action := routes.OAuthToken.delete(t.id.value))(
                   submitButton(
                     cls := "button button-red button-empty confirm"
-                  )(trans.delete())
+                  )(trans.site.delete())
                 )
               )
             )

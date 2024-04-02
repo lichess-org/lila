@@ -7,13 +7,13 @@ import reactivemongo.api.bson.*
 
 import scala.util.chaining.*
 
-import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.WithTour
 import lila.security.Granter
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
-import lila.user.{ Me, MyId, User }
+import lila.user.{ Me, User, given }
+import lila.core.user.MyId
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
@@ -171,7 +171,8 @@ final class RelayApi(
           "players"         -> tour.players,
           "teams"           -> tour.teams,
           "spotlight"       -> tour.spotlight,
-          "ownerId"         -> tour.ownerId.some
+          "ownerId"         -> tour.ownerId.some,
+          "pinnedStreamer"  -> tour.pinnedStreamer
         )
       )
       _ <- data.grouping.so(updateGrouping(tour, _))
@@ -326,7 +327,7 @@ final class RelayApi(
               s,
               _.copy(
                 id = round.studyId,
-                visibility = Study.Visibility.Public
+                visibility = lila.core.study.Visibility.public
               )
             ) >>
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
@@ -347,19 +348,23 @@ final class RelayApi(
   export tourRepo.{ isSubscribed, setSubscribed as subscribe }
 
   object image:
-    private def rel(t: RelayTour) = s"relay:${t.id}"
+    def rel(rt: RelayTour, tag: Option[String]) =
+      tag.fold(s"relay:${rt.id}")(t => s"relay.$t:${rt.id}")
 
-    def upload(user: User, t: RelayTour, picture: PicfitApi.FilePart): Fu[RelayTour] = for
-      image <- picfitApi.uploadFile(rel(t), picture, userId = user.id)
-      _     <- tourRepo.coll.updateField($id(t.id), "image", image.id)
+    def upload(
+        user: User,
+        t: RelayTour,
+        picture: PicfitApi.FilePart,
+        tag: Option[String] = None
+    ): Fu[RelayTour] = for
+      image <- picfitApi.uploadFile(rel(t, tag), picture, userId = user.id)
+      _     <- tourRepo.coll.updateField($id(t.id), tag.getOrElse("image"), image.id)
     yield t.copy(image = image.id.some)
 
-    def delete(t: RelayTour): Fu[RelayTour] = for
-      _ <- deleteImage(t)
-      _ <- tourRepo.coll.unsetField($id(t.id), "image")
+    def delete(t: RelayTour, tag: Option[String] = None): Fu[RelayTour] = for
+      _ <- picfitApi.deleteByRel(rel(t, tag))
+      _ <- tourRepo.coll.unsetField($id(t.id), tag.getOrElse("image"))
     yield t.copy(image = none)
-
-    def deleteImage(post: RelayTour): Funit = picfitApi.deleteByRel(rel(post))
 
   private[relay] def autoStart: Funit =
     roundRepo.coll
@@ -412,9 +417,9 @@ final class RelayApi(
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi.members(id.into(StudyId)).map {
       _.map(_.contributorIds).withFilter(_.nonEmpty).foreach { userIds =>
-        import lila.hub.actorApi.socket.SendTos
+        import lila.core.actorApi.socket.SendTos
         import lila.common.Json.given
-        import lila.socket.Socket.makeMessage
+        import lila.core.socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
         lila.common.Bus.publish(SendTos(userIds, payload), "socketUsers")
       }

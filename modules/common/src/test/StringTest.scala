@@ -1,10 +1,11 @@
 package lila.common
 
 import scalatags.Text.all.*
+import lila.core.config.NetDomain
 
 class StringTest extends munit.FunSuite:
 
-  given config.NetDomain = config.NetDomain("lichess.org")
+  given NetDomain = NetDomain("lichess.org")
 
   val i18nValidStrings = List(
     """éâòöÌÒÒçÇ""",

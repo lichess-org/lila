@@ -10,7 +10,6 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.common.config.{ Max, MaxPerSecond }
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
 
 final class RelayRound(
@@ -200,8 +199,9 @@ final class RelayRound(
         group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
-        streamer <- embed.so(env.streamer.api.find)
-        stream   <- streamer.soFu(env.streamer.liveStreamApi.of)
+        pinnedStreamer <- rt.tour.pinnedStreamer.so(env.streamer.api.find)
+        streamer       <- embed.so(env.streamer.api.find)
+        stream         <- streamer.soFu(env.streamer.liveStreamApi.of)
         videoUrls =
           if embed.contains("fake") then
             lila.streamer.Stream
@@ -216,7 +216,8 @@ final class RelayRound(
           group,
           ctx.userId.exists(sc.study.canContribute),
           isSubscribed,
-          videoUrls.map(_.toPair)
+          videoUrls.map(_.toPair),
+          pinnedStreamer.map(s => (s.user.id, s.streamer.name.value, rt.tour.pinnedStreamerImage))
         )
         chat     <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
@@ -235,7 +236,7 @@ final class RelayRound(
     key = "broadcast.round.user"
   )
 
-  private val CreateLimitPerIP = lila.memo.RateLimit[lila.common.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.core.IpAddress](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.ip"

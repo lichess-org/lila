@@ -1,13 +1,14 @@
 package lila.study
 
-import chess.format.{ UciCharPair, UciPath }
+import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
 
 import lila.common.Chronometer
 import lila.db.dsl.*
+import chess.format.UciPath
+import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
+import chess.format.UciCharPair
 import lila.tree.NewTree.*
-import lila.tree.{ Branch, Branches, NewBranch, NewRoot, NewTree, Root }
-
-import BSONHandlers.{ readBranch, writeBranch, readNewBranch, writeNewBranch }
+import chess.Variation
 
 private object StudyFlatTree:
 
@@ -46,7 +47,6 @@ private object StudyFlatTree:
     private def traverse(children: List[FlatNode]): Branches =
       children
         .foldLeft(Map.empty[UciPath, Branches]) { (roots, flat) =>
-          // assumes that node has a greater depth than roots (sort beforehand)
           flat
             .toNodeWithChildren(roots.get(flat.path))
             .fold(roots): node =>
@@ -61,6 +61,7 @@ private object StudyFlatTree:
     private def traverseN(xs: List[FlatNode]): Option[NewTree] =
       xs.nonEmpty.so(
         xs.foldLeft(Map.empty[UciPath, NewTree]) { (roots, flat) =>
+          // assumes that node has a greater depth than roots (sort beforehand)
           flat
             .toNodeWithChild(roots.get(flat.path))
             .fold(roots): node =>
@@ -81,11 +82,10 @@ private object StudyFlatTree:
     def newRootChildren(root: NewRoot): List[(String, Bdoc)] =
       Chronometer.syncMon(_.study.tree.write):
         root.tree.so:
-          _.foldLeft(List.empty)((acc, branch) => acc :+ writeBranch_(branch))
-
-    private def writeBranch_(branch: NewBranch) =
-      val order = (branch.path.computeIds.size > 1).option(branch.path.computeIds.toList)
-      UciPathDb.encodeDbKey(branch.path) -> writeNewBranch(branch, order)
+          _.mapAccuml_(UciPath.root)((acc, branch) =>
+            val path = acc + branch.id
+            path -> (UciPathDb.encodeDbKey(path) -> writeNewBranch(branch))
+          ).toList
 
     private def traverse(node: Branch, parentPath: UciPath): List[(String, Bdoc)] =
       (parentPath.depth < Node.MAX_PLIES).so:

@@ -22,7 +22,7 @@ object close:
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
             div(cls := "form-group")(closeAccountExplanation()),
             div(cls := "form-group")(cantOpenSimilarAccount()),
-            form3.passwordModified(form("passwd"), trans.password())(autofocus, autocomplete := "off"),
+            form3.passwordModified(form("passwd"), trans.site.password())(autofocus, autocomplete := "off"),
             form3.actions(
               frag(
                 a(href := routes.User.show(me.username))(changedMindDoNotCloseAccount()),

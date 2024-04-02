@@ -6,13 +6,16 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.licon
 import lila.game.JsonView.given
-import lila.i18n.I18nKeys as trans
-import lila.socket.{ SocketVersion, UserLagCache }
+import lila.core.i18n.I18nKey as trans
+import lila.core.socket.{ SocketVersion, userLag }
+import lila.core.i18n.{ Translate, JsDump }
 
 final class JsonView(
-    baseUrl: lila.common.config.BaseUrl,
-    getLightUser: lila.common.LightUser.GetterSync,
-    isOnline: lila.socket.IsOnline
+    baseUrl: lila.core.config.BaseUrl,
+    getLightUser: lila.core.LightUser.GetterSync,
+    getLagRating: userLag.GetLagRating,
+    isOnline: lila.core.socket.IsOnline,
+    jsDump: JsDump
 ):
 
   import Challenge.*
@@ -30,18 +33,20 @@ final class JsonView(
       .add("patron" -> light.so(_.isPatron))
       .add("flair" -> light.flatMap(_.flair))
       .add("online" -> isOnline(r.id))
-      .add("lag" -> UserLagCache.getLagRating(r.id))
+      .add("lag" -> getLagRating(r.id))
 
-  def apply(a: AllChallenges)(using lang: Lang): JsObject =
+  def apply(a: AllChallenges)(using Translate): JsObject =
     Json.obj(
       "in"   -> a.in.map(apply(Direction.In.some)),
       "out"  -> a.out.map(apply(Direction.Out.some)),
-      "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys, lang),
+      "i18n" -> jsDump.keysToObject(i18nKeys),
       "reasons" -> JsObject(Challenge.DeclineReason.allExceptBot.map: r =>
         r.key -> JsString(r.trans.txt()))
     )
 
-  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(using Lang) =
+  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(using
+      Translate
+  ) =
     Json.obj(
       "challenge"     -> apply(direction)(challenge),
       "socketVersion" -> socketVersion
@@ -49,7 +54,7 @@ final class JsonView(
 
   private given OWrites[Challenge.Open] = Json.writes
 
-  def apply(direction: Option[Direction])(c: Challenge)(using Lang): JsObject =
+  def apply(direction: Option[Direction])(c: Challenge)(using Translate): JsObject =
     Json
       .obj(
         "id"         -> c.id,
@@ -96,11 +101,11 @@ final class JsonView(
     else c.perfType.icon
 
   private val i18nKeys = List(
-    trans.rated,
-    trans.casual,
-    trans.waiting,
-    trans.accept,
-    trans.decline,
-    trans.viewInFullSize,
-    trans.cancel
+    trans.site.rated,
+    trans.site.casual,
+    trans.site.waiting,
+    trans.site.accept,
+    trans.site.decline,
+    trans.site.viewInFullSize,
+    trans.site.cancel
   )

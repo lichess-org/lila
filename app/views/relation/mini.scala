@@ -15,7 +15,7 @@ object mini:
   )(using Context) =
     relation match
       case None if followable && !blocked =>
-        val name   = trans.follow.txt()
+        val name   = trans.site.follow.txt()
         val isLong = name.sizeIs > 8
         a(
           cls      := s"btn-rack__btn relation-button${(!isLong).so(" text")}",
@@ -26,15 +26,15 @@ object mini:
       case Some(true) =>
         a(
           cls      := "btn-rack__btn relation-button text",
-          title    := trans.unfollow.txt(),
+          title    := trans.site.unfollow.txt(),
           href     := s"${routes.Relation.unfollow(userId)}?mini=1",
           dataIcon := licon.ThumbsUp
-        )(trans.following())
+        )(trans.site.following())
       case Some(false) =>
         a(
           cls      := "btn-rack__btn relation-button text",
-          title    := trans.unblock.txt(),
+          title    := trans.site.unblock.txt(),
           href     := s"${routes.Relation.unblock(userId)}?mini=1",
           dataIcon := licon.NotAllowed
-        )(trans.blocked())
+        )(trans.site.blocked())
       case _ => emptyFrag

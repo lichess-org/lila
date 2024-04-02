@@ -5,16 +5,17 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.{ HTTPRequest, LangPath }
+import lila.common.HTTPRequest
 import lila.security.PasswordCheck
+import lila.core.LangPath
 
 object signup:
 
   def apply(form: lila.security.HcaptchaForm[?])(using ctx: PageContext) =
     views.html.base.layout(
-      title = trans.signUp.txt(),
+      title = trans.site.signUp.txt(),
       moreJs = frag(
-        jsModuleInit("login", "'signup'"),
+        jsModuleInit("login", "signup"),
         views.html.base.hcaptcha.script(form),
         fingerprintTag
       ),
@@ -23,7 +24,7 @@ object signup:
       withHrefLangs = LangPath(routes.Auth.signup).some
     ) {
       main(cls := "auth auth-signup box box-pad")(
-        h1(cls := "box__top")(trans.signUp()),
+        h1(cls := "box__top")(trans.site.signUp()),
         postForm(
           id := "signup-form",
           cls := List(
@@ -38,22 +39,22 @@ object signup:
           globalErrorNamed(form.form, PasswordCheck.errorSame),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
           div(cls := "form-group text", dataIcon := licon.InfoCircle)(
-            trans.computersAreNotAllowedToPlay(),
+            trans.site.computersAreNotAllowedToPlay(),
             br,
             small(
-              trans.byRegisteringYouAgreeToBeBoundByOur(
-                a(href := routes.Cms.tos)(trans.termsOfService())
+              trans.site.byRegisteringYouAgreeToBeBoundByOur(
+                a(href := routes.Cms.tos)(trans.site.termsOfService())
               ),
               br,
-              trans.readAboutOur(
-                a(href := routes.Cms.menuPage("privacy"))(trans.privacyPolicy())
+              trans.site.readAboutOur(
+                a(href := routes.Cms.menuPage("privacy"))(trans.site.privacyPolicy())
               ),
               br
             )
           ),
           agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
           views.html.base.hcaptcha.tag(form),
-          button(cls := "submit button text big")(trans.signUp())
+          button(cls := "submit button text big")(trans.site.signUp())
         )
       )
     }
@@ -69,8 +70,8 @@ object signup:
     )
 
   private def agreements(using Context) = List(
-    "assistance" -> trans.agreementAssistance(),
-    "nice"       -> trans.agreementNice(),
-    "account"    -> trans.agreementMultipleAccounts(a(href := routes.Cms.tos)(trans.termsOfService())),
-    "policy"     -> trans.agreementPolicy()
+    "assistance" -> trans.site.agreementAssistance(),
+    "nice"       -> trans.site.agreementNice(),
+    "account" -> trans.site.agreementMultipleAccounts(a(href := routes.Cms.tos)(trans.site.termsOfService())),
+    "policy"  -> trans.site.agreementPolicy()
   )

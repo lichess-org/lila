@@ -1,11 +1,12 @@
 package lila.study
 
 import chess.format.UciPath
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.config.Max
 import lila.user.User
+import lila.core.{ study as hub }
+import lila.core.study.Visibility
 
 case class Study(
     @Key("_id") id: StudyId,
@@ -13,7 +14,7 @@ case class Study(
     members: StudyMembers,
     position: Position.Ref,
     ownerId: UserId,
-    visibility: Study.Visibility,
+    visibility: Visibility,
     settings: Settings,
     from: Study.From,
     likes: Study.Likes,
@@ -21,8 +22,11 @@ case class Study(
     topics: Option[StudyTopics] = None,
     createdAt: Instant,
     updatedAt: Instant
-):
+) extends hub.Study:
+
   import Study.*
+
+  val slug = lila.common.String.slugify(name.value)
 
   def owner = members.get(ownerId)
 
@@ -44,9 +48,9 @@ case class Study(
   def rewindTo(chapterId: StudyChapterId): Study =
     copy(position = Position.Ref(chapterId = chapterId, path = UciPath.root))
 
-  def isPublic   = visibility == Study.Visibility.Public
-  def isUnlisted = visibility == Study.Visibility.Unlisted
-  def isPrivate  = visibility == Study.Visibility.Private
+  def isPublic   = visibility == Visibility.public
+  def isUnlisted = visibility == Visibility.unlisted
+  def isPrivate  = visibility == Visibility.`private`
 
   def isNew = (nowSeconds - createdAt.toSeconds) < 4
 
@@ -62,7 +66,7 @@ case class Study(
       id = Study.makeId,
       members = StudyMembers(Map(user.id -> owner)),
       ownerId = owner.id,
-      visibility = Study.Visibility.Private,
+      visibility = Visibility.`private`,
       from = Study.From.Study(id),
       likes = Likes(1),
       createdAt = nowInstant,
@@ -89,15 +93,7 @@ object Study:
   val previewNbMembers  = 4
   val previewNbChapters = 4
 
-  case class IdName(@Key("_id") id: StudyId, name: StudyName)
-
   def toName(str: String) = StudyName(lila.common.String.fullCleanUp(str).take(100))
-
-  enum Visibility:
-    case Private, Unlisted, Public
-    val key = Visibility.this.toString.toLowerCase
-  object Visibility:
-    val byKey = values.mapBy(_.key)
 
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]
@@ -130,7 +126,7 @@ object Study:
       sticky: String,
       description: String
   ):
-    def vis = Visibility.byKey.getOrElse(visibility, Visibility.Public)
+    def vis = Visibility.byKey.getOrElse(visibility, Visibility.public)
     def settings =
       Settings(computer, explorer, cloneable, shareable, chat, sticky == "true", description == "true")
 
@@ -162,7 +158,7 @@ object Study:
       members = StudyMembers(Map(user.id -> owner)),
       position = Position.Ref(StudyChapterId(""), UciPath.root),
       ownerId = user.id,
-      visibility = Visibility.Public,
+      visibility = Visibility.public,
       settings = settings | Settings.init,
       from = from,
       likes = Likes(1),

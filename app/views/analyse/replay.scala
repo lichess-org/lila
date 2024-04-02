@@ -15,14 +15,14 @@ import bits.dataPanel
 
 object replay:
 
-  private[analyse] def titleOf(pov: Pov)(using Lang) =
+  private[analyse] def titleOf(pov: Pov)(using Translate) =
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
-        .fold(trans.analysis.txt())(_.opening.name)}"
+        .fold(trans.site.analysis.txt())(_.opening.name)}"
 
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialFen: Option[chess.format.Fen.Epd],
+      initialFen: Option[chess.format.Fen.Full],
       pgn: PgnStr,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
@@ -39,7 +39,7 @@ object replay:
       views.html.chat.json(
         c.chat,
         c.lines,
-        name = trans.spectatorRoom.txt(),
+        name = trans.site.spectatorRoom.txt(),
         timeout = c.timeout,
         withNoteAge = ctx.isAuth.option(game.secondsSinceCreation),
         public = true,
@@ -54,7 +54,7 @@ object replay:
         href := cdnUrl(
           routes.Export.gif(pov.gameId, pov.color.name, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
         )
-      )(trans.gameAsGIF()),
+      )(trans.site.gameAsGIF()),
       a(
         dataIcon := licon.NodeBranching,
         cls      := "text position-gif",
@@ -71,10 +71,10 @@ object replay:
             )
             .url
         )
-      )(trans.screenshotCurrentPosition())
+      )(trans.site.screenshotCurrentPosition())
     )
     val shareLinks = frag(
-      a(dataIcon := licon.Expand, cls := "text embed-howto")(trans.embedInYourWebsite()),
+      a(dataIcon := licon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
       div(
         input(
           id         := "game-url",
@@ -97,20 +97,20 @@ object replay:
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?literate=1",
         downloadAttr
-      )(trans.downloadAnnotated()),
+      )(trans.site.downloadAnnotated()),
       a(
         dataIcon := licon.Download,
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
         downloadAttr
-      )(trans.downloadRaw()),
+      )(trans.site.downloadRaw()),
       game.isPgnImport.option(
         a(
           dataIcon := licon.Download,
           cls      := "text",
           href     := s"${routes.Game.exportOne(game.id)}?imported=1",
           downloadAttr
-        )(trans.downloadImported())
+        )(trans.site.downloadImported())
       )
     )
 
@@ -121,20 +121,18 @@ object replay:
         (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = frag(
-        analyseNvuiTag,
-        analyseInit(
-          "replay",
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> jsI18n(),
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson
-            )
-            .add("hunter" -> isGranted(_.ViewBlurs)) ++
-            views.html.board.bits.explorerAndCevalConfig
-        )
+      moreJs = analyseNvuiTag,
+      pageModule = bits.analyseModule(
+        "replay",
+        Json
+          .obj(
+            "data"   -> data,
+            "i18n"   -> jsI18n(),
+            "userId" -> ctx.userId,
+            "chat"   -> chatJson
+          )
+          .add("hunter" -> isGranted(_.ViewBlurs)) ++
+          views.html.board.bits.explorerAndCevalConfig
       ),
       openGraph = povOpenGraph(pov).some
     ):
@@ -161,14 +159,16 @@ object replay:
                 div(role := "tablist", cls := "analyse__underboard__menu")(
                   game.analysable.option(
                     span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
-                      trans.computerAnalysis()
+                      trans.site.computerAnalysis()
                     )
                   ),
                   (!game.isPgnImport).option(
                     frag(
                       (game.ply > 1)
-                        .option(span(role := "tab", dataPanel := "move-times")(trans.moveTimes())),
-                      cross.isDefined.option(span(role := "tab", dataPanel := "ctable")(trans.crosstable()))
+                        .option(span(role := "tab", dataPanel := "move-times")(trans.site.moveTimes())),
+                      cross.isDefined.option(
+                        span(role := "tab", dataPanel := "ctable")(trans.site.crosstable())
+                      )
                     )
                   ),
                   span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
@@ -185,7 +185,7 @@ object replay:
                         ):
                           submitButton(cls := "button text"):
                             span(cls := "is3 text", dataIcon := licon.BarChart)(
-                              trans.requestAComputerAnalysis()
+                              trans.site.requestAComputerAnalysis()
                             )
                     )
                   ),

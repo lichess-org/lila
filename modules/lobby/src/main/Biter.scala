@@ -3,10 +3,8 @@ package lila.lobby
 import chess.{ ByColor, Game as ChessGame, Situation }
 
 import lila.game.{ Game, Player }
-import lila.socket.Socket.Sri
+import lila.core.socket.Sri
 import lila.user.{ GameUsers, User }
-
-import actorApi.{ JoinHook, JoinSeek }
 
 final private class Biter(
     userRepo: lila.user.UserRepo,
@@ -81,7 +79,7 @@ final private class Biter(
       ),
       players = users.mapWithColor(Player.make),
       mode = hook.realMode,
-      source = lila.game.Source.Lobby,
+      source = lila.core.game.Source.Lobby,
       pgnImport = None
     )
     .start
@@ -94,7 +92,7 @@ final private class Biter(
       ),
       players = users.mapWithColor(Player.make),
       mode = seek.realMode,
-      source = lila.game.Source.Lobby,
+      source = lila.core.game.Source.Lobby,
       daysPerTurn = seek.daysPerTurn,
       pgnImport = None
     )

@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">तुमचे खाते चिन्हांकित किंवा प्रतिबंधित नाही. सर्व व्यवस्थित झाले आहे!</string>
+  <string name="engineMarked">खेळताना बाहेरून मदत घेतल्यामूळे तुमचे खाते चिन्हांकित केले आहे.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">तुमचे खाते ईतरांशी संपर्क साधण्यास प्रतिबंधित आहे.</string>
+</resources>

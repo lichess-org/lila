@@ -1,6 +1,7 @@
 package lila.study
 
-export lila.Lila.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 
 private val logger = lila.log("study")
 

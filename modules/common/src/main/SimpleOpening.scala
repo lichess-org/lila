@@ -9,7 +9,6 @@ import chess.opening.{ Opening, OpeningDb, OpeningName, OpeningVariation }
  * there's only one "Sicilian Defense: Smith-Morra Gambit Accepted" SimpleOpening,
  * even tho there are multiple Opening with that name.
  */
-
 case class SimpleOpening(ref: Opening, name: SimpleOpening.Name, family: LilaOpeningFamily):
   import SimpleOpening.*
   val key            = nameToKey(name.into(OpeningName)).into(Key)

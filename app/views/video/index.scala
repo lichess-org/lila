@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 
 object index:
 

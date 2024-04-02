@@ -1,6 +1,6 @@
 package lila.security
 
-import lila.socket.Socket.Sri
+import lila.core.socket.Sri
 
 class MobileTest extends munit.FunSuite:
 

@@ -1,7 +1,7 @@
 package lila.game
 
 import chess.Color
-import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
+import scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.db.dsl.{ *, given }
 

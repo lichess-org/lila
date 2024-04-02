@@ -1,6 +1,7 @@
 package lila.fishnet
 
 import chess.format.Fen
+import lila.tree.CloudEval
 
 import JsonApi.Request.Evaluation
 
@@ -8,9 +9,7 @@ trait IFishnetEvalCache:
   def skipPositions(game: Work.Game): Fu[List[Int]]
   def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]]
 
-final private class FishnetEvalCache(
-    evalCacheApi: lila.evalCache.EvalCacheApi
-)(using Executor)
+final private class FishnetEvalCache(getSinglePvEval: CloudEval.GetSinglePvEval)(using Executor)
     extends IFishnetEvalCache:
 
   val maxPlies = 15
@@ -39,7 +38,7 @@ final private class FishnetEvalCache(
       }.toMap
     }
 
-  private def rawEvals(game: Work.Game): Fu[List[(Int, lila.evalCache.EvalCacheEntry.Eval)]] =
+  private def rawEvals(game: Work.Game): Fu[List[(Int, CloudEval)]] =
     chess.Replay
       .situationsFromUci(
         game.uciList.take(maxPlies - 1),
@@ -49,7 +48,7 @@ final private class FishnetEvalCache(
       .fold(
         _ => fuccess(Nil),
         _.mapWithIndex: (sit, index) =>
-          evalCacheApi.getSinglePvEval(game.variant, Fen.write(sit)).dmap2 { index -> _ }
+          getSinglePvEval(game.variant, Fen.write(sit)).dmap2 { index -> _ }
         .parallel
           .map(_.flatten)
       )

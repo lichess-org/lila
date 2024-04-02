@@ -7,11 +7,14 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
-import lila.common.EmailAddress
-import lila.common.config.Secret
+import lila.core.EmailAddress
+import lila.core.config.*
 import lila.user.User
 
-final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using Executor):
+final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using
+    Executor,
+    lila.core.i18n.Translator
+):
 
   import StripeClient.*
   import JsonHandlers.stripe.given
@@ -44,7 +47,7 @@ final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Co
       ) ::: data.isLifetime.so {
         List(
           "line_items[0][description]" ->
-            lila.i18n.I18nKeys.patron.payLifetimeOnce.txt(data.checkout.money.display)
+            lila.core.i18n.I18nKey.patron.payLifetimeOnce.txt(data.checkout.money.display)
         )
       } ::: data.giftTo.so { giftTo =>
         List(
@@ -201,7 +204,9 @@ object StripeClient:
   class InvalidRequestException(status: Int, msg: String) extends StatusException(status, msg)
   object CantUseException extends StripeException("You already donated this week, thank you.")
 
+  import lila.common.config.given
   import lila.common.autoconfig.*
+
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,

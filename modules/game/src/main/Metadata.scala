@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 
 import lila.db.ByteArray
+import lila.core.game.{ Source, GameRule }
 
 private[game] case class Metadata(
     source: Option[Source],
@@ -52,12 +53,6 @@ case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
 
 object GameDrawOffers:
   val empty = GameDrawOffers(Set.empty, Set.empty)
-
-enum GameRule:
-  case NoAbort, NoRematch, NoGiveTime, NoClaimWin, NoEarlyDraw
-  val key = lila.common.String.lcfirst(toString)
-object GameRule:
-  val byKey = values.mapBy(_.key)
 
 case class PgnImport(
     user: Option[UserId],

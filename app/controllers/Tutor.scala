@@ -8,6 +8,7 @@ import lila.common.LilaOpeningFamily
 import lila.rating.{ Perf, PerfType }
 import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
 import lila.user.User as UserModel
+import lila.core.rating.PerfKey
 
 final class Tutor(env: Env) extends LilaController(env):
 
@@ -19,15 +20,15 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok.page(views.html.tutor.home(av, user))
   }
 
-  def perf(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
+  def perf(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
     Ok.page(views.html.tutor.perf(full.report, perf, user))
   }
 
-  def openings(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def openings(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.html.tutor.openings(perf, user))
   }
 
-  def opening(username: UserStr, perf: Perf.Key, colName: String, opName: String) =
+  def opening(username: UserStr, perf: PerfKey, colName: String, opName: String) =
     TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
       chess.Color
         .fromName(colName)
@@ -41,15 +42,15 @@ final class Tutor(env: Env) extends LilaController(env):
               }
     }
 
-  def skills(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.html.tutor.skills(perf, user))
   }
 
-  def phases(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def phases(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.html.tutor.phases(perf, user))
   }
 
-  def time(username: UserStr, perf: Perf.Key) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def time(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.html.tutor.time(perf, user))
   }
 
@@ -89,7 +90,7 @@ final class Tutor(env: Env) extends LilaController(env):
         case available: TutorFullReport.Available => f(user)(available)
     }
 
-  private def TutorPerfPage(username: UserStr, perf: Perf.Key)(
+  private def TutorPerfPage(username: UserStr, perf: PerfKey)(
       f: Context ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
   ): EssentialAction =
     TutorPage(username) { _ ?=> user => availability =>

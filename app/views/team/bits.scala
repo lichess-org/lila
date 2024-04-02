@@ -40,7 +40,8 @@ object bits:
 
   private[team] object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
-    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
+    private val cache = lila.memo.CacheApi
+      .scaffeineNoScheduler(using env.executor)
       .expireAfterAccess(10 minutes)
       .maximumSize(1024)
       .build[Markdown, Html]()
@@ -79,6 +80,7 @@ object bits:
   private[team] def layout(
       title: String,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
+      pageModule: Option[PageModule] = None,
       moreJs: Frag = emptyFrag,
       robots: Boolean = netConfig.crawlable
   )(body: Frag)(using PageContext) =
@@ -86,6 +88,7 @@ object bits:
       title = title,
       moreCss = cssTag("team"),
       moreJs = frag(infiniteScrollTag, moreJs),
+      pageModule = pageModule,
       openGraph = openGraph,
       robots = robots
     )(body)

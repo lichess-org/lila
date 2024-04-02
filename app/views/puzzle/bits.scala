@@ -10,13 +10,14 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 import lila.user.User
+import lila.core.i18n.I18nKey
 
 object bits:
 
   def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
     views.html.board.bits.mini(fen, p.color, lastMove.some)(span)
 
-  def jsI18n(streak: Boolean)(using Lang) =
+  def jsI18n(streak: Boolean)(using Translate) =
     if streak then i18nJsObject(streakI18nKeys)
     else i18nJsObject(trainingI18nKeys)
 
@@ -33,7 +34,7 @@ object bits:
     val u = user.filterNot(ctx.is).map(_.username)
     views.html.site.bits.pageMenuSubnav(
       a(href := routes.Puzzle.home)(
-        trans.puzzles()
+        trans.site.puzzles()
       ),
       a(cls := active.active("themes"), href := routes.Puzzle.themes)(
         trans.puzzle.puzzleThemes()
@@ -61,18 +62,18 @@ object bits:
       )
     )
 
-  private val themeI18nKeys =
+  private val themeI18nKeys: List[I18nKey] =
     PuzzleTheme.visible.map(_.name) ::: PuzzleTheme.visible.map(_.description)
 
-  private val baseI18nKeys = List(
+  private val baseI18nKeys: List[I18nKey] = List(
     trans.puzzle.bestMove,
     trans.puzzle.keepGoing,
     trans.puzzle.notTheMove,
     trans.puzzle.trySomethingElse,
-    trans.yourTurn,
+    trans.site.yourTurn,
     trans.puzzle.findTheBestMoveForBlack,
     trans.puzzle.findTheBestMoveForWhite,
-    trans.viewTheSolution,
+    trans.site.viewTheSolution,
     trans.puzzle.puzzleSuccess,
     trans.puzzle.puzzleComplete,
     trans.puzzle.hidden,
@@ -84,23 +85,23 @@ object bits:
     trans.puzzle.continueTraining,
     trans.puzzle.didYouLikeThisPuzzle,
     trans.puzzle.voteToLoadNextOne,
-    trans.analysis,
-    trans.playWithTheMachine,
+    trans.site.analysis,
+    trans.site.playWithTheMachine,
     trans.preferences.zenMode,
-    trans.asWhite,
-    trans.asBlack,
-    trans.randomColor,
-    trans.flipBoard
+    trans.site.asWhite,
+    trans.site.asBlack,
+    trans.site.randomColor,
+    trans.site.flipBoard
   ) ::: views.html.board.userAnalysisI18n.cevalTranslations.toList
 
-  private val trainingI18nKeys = baseI18nKeys ::: List(
+  private val trainingI18nKeys: List[I18nKey] = baseI18nKeys ::: List[I18nKey](
     trans.puzzle.example,
     trans.puzzle.dailyPuzzle,
     trans.puzzle.addAnotherTheme,
     trans.puzzle.difficultyLevel,
-    trans.rated,
+    trans.site.rated,
     trans.puzzle.yourPuzzleRatingWillNotChange,
-    trans.signUp,
+    trans.site.signUp,
     trans.puzzle.toGetPersonalizedPuzzles,
     trans.puzzle.nbPointsBelowYourPuzzleRating,
     trans.puzzle.nbPointsAboveYourPuzzleRating
@@ -108,7 +109,7 @@ object bits:
     themeI18nKeys :::
     PuzzleDifficulty.all.map(_.name)
 
-  private val streakI18nKeys = baseI18nKeys ::: List(
+  private val streakI18nKeys: List[I18nKey] = baseI18nKeys ::: List[I18nKey](
     trans.storm.skip,
     trans.puzzle.streakDescription,
     trans.puzzle.yourStreakX,

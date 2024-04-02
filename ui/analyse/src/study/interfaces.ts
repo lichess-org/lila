@@ -37,6 +37,8 @@ export interface StudyVm {
   gamebookOverride: GamebookOverride;
 }
 
+export type Federations = { [key: string]: string };
+
 export interface StudyData {
   id: string;
   name: string;
@@ -56,7 +58,8 @@ export interface StudyData {
   description?: string;
   topics?: Topic[];
   admin: boolean;
-  hideRatings?: boolean;
+  showRatings: boolean;
+  federations?: Federations;
 }
 
 export interface StudyDataFromServer extends StudyData {
@@ -119,7 +122,6 @@ export interface StudyChapter {
   description?: string;
   relayPath?: Tree.Path;
   serverEval?: StudyChapterServerEval;
-  feds?: [string?, string?];
 }
 
 export interface StudyChapterServerEval {
@@ -176,7 +178,7 @@ export interface ChapterPreviewBase {
 
 export interface ChapterPreviewFromServer extends ChapterPreviewBase {
   fen?: string; // defaults to initial
-  players?: [ChapterPreviewPlayer, ChapterPreviewPlayer];
+  players?: PairOf<ChapterPreviewPlayerFromServer>;
   thinkTime?: number; // seconds since last move
   orientation?: Color; // defaults to white
   variant?: VariantKey; // defaults to standard
@@ -196,13 +198,22 @@ export interface ChapterPreviewPlayers {
   black: ChapterPreviewPlayer;
 }
 
-export interface ChapterPreviewPlayer {
+export interface Federation {
+  id: string;
+  name: string;
+}
+export interface ChapterPreviewBase {
   name: string;
   title?: string;
   rating?: number;
   clock?: ClockCentis;
-  fed?: string;
   team?: string;
+}
+export interface ChapterPreviewPlayerFromServer extends ChapterPreviewBase {
+  fed?: string;
+}
+export interface ChapterPreviewPlayer extends ChapterPreviewBase {
+  fed?: Federation;
 }
 
 export type Orientation = 'black' | 'white' | 'auto';
@@ -262,7 +273,7 @@ export interface ServerNodeMsg extends WithWhoAndPos {
 }
 export interface ServerClockMsg extends WithWhoAndPos {
   c?: number;
-  relayClocks?: [ClockCentis, ClockCentis];
+  relayClocks?: PairOf<ClockCentis>;
 }
 
 export interface WithWho {

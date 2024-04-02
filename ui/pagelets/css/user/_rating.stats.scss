@@ -11,7 +11,7 @@
     &::before {
       font-size: 4.5em;
       color: $c-font-dim;
-      margin-#{$end-direction}: 1rem;
+      margin-inline-end: 1rem;
     }
   }
 
@@ -27,7 +27,7 @@
   .mselect {
     display: inline-block;
 
-    &__list > * {
+    &__item {
       font-size: 1.3rem;
       @include padding-direction(0.3em, 1em, 0.3em, 0.7em);
     }

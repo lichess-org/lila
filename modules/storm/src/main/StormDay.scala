@@ -1,7 +1,6 @@
 package lila.storm
 
-import lila.common.config.MaxPerPage
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.common.{ Bus, LichessDay }
 import lila.db.dsl.*
 import lila.db.paginator.Adapter
@@ -61,7 +60,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsR
     lila.mon.storm.run.score(user.isDefined).record(data.score)
     user.so: u =>
       if mobile || sign.check(u, ~data.signed) then
-        Bus.publish(lila.hub.actorApi.puzzle.StormRun(u.id, data.score), "stormRun")
+        Bus.publish(lila.core.actorApi.puzzle.StormRun(u.id, data.score), "stormRun")
         highApi.get(u.id).flatMap { prevHigh =>
           val todayId = Id.today(u.id)
           coll

@@ -21,26 +21,26 @@
     <item quantity="other">%s раундів за швейцарською системою</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
-    <item quantity="one">Один тур за день</item>
-    <item quantity="few">Один тур за %s дні</item>
-    <item quantity="many">Один тур за %s днів</item>
-    <item quantity="other">Один тур кожні %s днів</item>
+    <item quantity="one">Один раунд за день</item>
+    <item quantity="few">Один раунд за %s дні</item>
+    <item quantity="many">Один раунд за %s днів</item>
+    <item quantity="other">Один раунд кожні %s днів</item>
   </plurals>
-  <string name="roundsAreStartedManually">Тури розпочинаються вручну</string>
+  <string name="roundsAreStartedManually">Раунди розпочинаються вручну</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">%s секунда між турами</item>
-    <item quantity="few">%s секунди між турами</item>
-    <item quantity="many">%s секунд між турами</item>
-    <item quantity="other">%s секунд між турами</item>
+    <item quantity="one">%s секунда між раундами</item>
+    <item quantity="few">%s секунди між раундами</item>
+    <item quantity="many">%s секунд між раундами</item>
+    <item quantity="other">%s секунд між раундами</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">%s хвилина між турами</item>
-    <item quantity="few">%s хвилини між турами</item>
-    <item quantity="many">%s хвилин між турами</item>
-    <item quantity="other">%s хвилин між турами</item>
+    <item quantity="one">%s хвилина між раундами</item>
+    <item quantity="few">%s хвилини між раундами</item>
+    <item quantity="many">%s хвилин між раундами</item>
+    <item quantity="other">%s хвилин між раундами</item>
   </plurals>
   <string name="startingIn" comment="Displayed above a timer">Початок через</string>
-  <string name="nextRound">Наступний тур</string>
+  <string name="nextRound">Наступний раунд</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Поточна гра</item>
     <item quantity="few">Поточні гри</item>
@@ -48,12 +48,12 @@
     <item quantity="other">Поточні ігри</item>
   </plurals>
   <string name="tournStartDate">Дата початку турніру</string>
-  <string name="numberOfRounds">Кількість турів</string>
-  <string name="numberOfRoundsHelp">Непарна кількість турів забезпечує оптимальний баланс кольору.</string>
-  <string name="roundInterval">Інтервал між турами</string>
+  <string name="numberOfRounds">Кількість раундів</string>
+  <string name="numberOfRoundsHelp">Непарна кількість раундів забезпечує оптимальний баланс кольору.</string>
+  <string name="roundInterval">Інтервал між раундами</string>
   <string name="forbiddenPairings">Заборонені пари</string>
   <string name="forbiddenPairingsHelp">Імена гравців, які не повинні грати разом (наприклад, родичі). Два імені у рядку, розділені пробілом.</string>
-  <string name="manualPairings">Задання парингів уручну в наступному раунді</string>
+  <string name="manualPairings">Підбір пар в наступному раунді вручну</string>
   <string name="manualPairingsHelp">Зазначте всі пари для наступного раунду вручну. Одна пара гравців в рядку. Приклад:
 Гравець A Гравець Б
 Гравець В Гравець Г
@@ -77,7 +77,7 @@
   <string name="dutchSystem">Голландська система</string>
   <string name="FIDEHandbook">Довідник ФІДЕ</string>
   <string name="pairingsA">Використовується %1$s, реалізована за допомогою %2$s, відповідно до %3$s.</string>
-  <string name="moreRoundsThanPlayersQ">Що станеться, якщо в турнірі більше раундів ніж гравців?</string>
+  <string name="moreRoundsThanPlayersQ">Що станеться, якщо в турнірі більше раундів, ніж гравців?</string>
   <string name="moreRoundsThanPlayersA">Коли всі можливі пари зіграють, турнір буде закінчено і оголосять переможця.</string>
   <string name="restrictedToTeamsQ">Чому це обмежено для команд?</string>
   <string name="restrictedToTeamsA">Швейцарські турніри не були розроблені для онлайн шахів. Вони вимагають від гравців пунктуальності, відданості та терпіння.
@@ -103,10 +103,10 @@
   <string name="roundRobinQ">Як щодо кругової системи?</string>
   <string name="roundRobinA">Ми хотіли б її додати, але, на жаль, кругова система не працює онлайн.
 Причина в тому, що немає чесного способу уникнути дострокового виходу людей з турніру. Не можна очікувати, що всі гравці зіграють свої ігри під час онлайн заходу. Якщо цього не станеться, результати більшості турнірів за круговою системою будуть зіпсованими та нечесними, що суперечить причині іх створення.
-Найближча альтернатива круговій системі онлайн - гра у турнірі за швейцарською системою з дуже великою кількістю турів. Тоді всі можливі пари зможуть зіграти до закінчення турніру.</string>
+Найближча альтернатива круговій системі онлайн - гра у турнірі за швейцарською системою з дуже великою кількістю раундів. Тоді всі можливі пари зможуть зіграти до закінчення турніру.</string>
   <string name="otherSystemsQ">Як щодо інших турнірних систем?</string>
   <string name="otherSystemsA">На даний момент ми не плануємо додавати більше турнірних систем.</string>
-  <string name="swissDescription">У турнірі за швейцарською системою %1$s кожен учасник не обов\'язково грає з кожним іншим учасником. Учасники діляться на пари за допомогою набору правил для забезпечення підбору гравців з однаковим рівнем та кількістю очків та грають один з одним, але не більше одного разу. Переможцем стає учасник з найбільшою сумарною кількістю очків за всі тури. Всі учасники грають в кожному турі, крім випадку, коли немає непарної кількості гравців.</string>
+  <string name="swissDescription">У турнірі за швейцарською системою %1$s кожен учасник не обов\'язково грає з кожним іншим учасником. Учасники діляться на пари за допомогою набору правил для забезпечення підбору гравців з однаковим рівнем та кількістю очків та грають один з одним, але не більше одного разу. Переможцем стає учасник з найбільшою сумарною кількістю очків за всі раунди. Всі учасники грають в кожному раунді, крім випадку, коли немає непарної кількості гравців.</string>
   <string name="teamOnly">Турніри за швейцарською системою можуть бути створені лише лідерами команд, а брати участь у них можуть лише члени команди.           
 %1$s щоб почати гру в швейцарських турнірах.</string>
   <string name="joinOrCreateTeam">Приєднатися або створити команду</string>
@@ -115,7 +115,7 @@
   <string name="comparison">Порівняння</string>
   <string name="tournDuration">Тривалість турніру</string>
   <string name="predefinedDuration">Попередньо визначена тривалість у хвилинах</string>
-  <string name="durationUnknown">Попередньо визначений максимум турів, тривалість невідома</string>
+  <string name="durationUnknown">Визначений максимум раундів, але тривалість невідома</string>
   <string name="numberOfGames">Кількість ігор</string>
   <string name="numberOfGamesAsManyAsPossible">Стільки, скільки може бути зіграно за відведений час</string>
   <string name="numberOfGamesPreDefined">Вирішено заздалегідь, однаково для всіх гравців</string>
@@ -131,7 +131,7 @@
   <string name="lateJoin">Запізнення</string>
   <string name="lateJoinUntil">Так, якщо не зіграно половина раундів</string>
   <string name="pause">Пауза</string>
-  <string name="pauseSwiss">Так, але може зменшити кількість турів</string>
+  <string name="pauseSwiss">Так, але може зменшити кількість раундів</string>
   <string name="streaksAndBerserk">Серії та Берсерк</string>
   <string name="similarToOTB">Подібно до класичних турнірів</string>
   <string name="unlimitedAndFree">Без обмежень та безкоштовно</string>

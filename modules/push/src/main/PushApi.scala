@@ -3,14 +3,16 @@ package lila.push
 import akka.actor.*
 import play.api.libs.json.*
 
-import lila.challenge.Challenge
+import lila.core.challenge.Challenge
 import lila.common.String.shorten
-import lila.common.{ LazyFu, LightUser, LilaFuture }
+import lila.common.LilaFuture
+import lila.core.LightUser
 import lila.game.{ Game, Namer, Pov }
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.push.TourSoon
-import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
+import lila.core.actorApi.map.Tell
+import lila.core.actorApi.push.TourSoon
+import lila.core.round.{ IsOnGame, MoveEvent }
 import lila.notify.*
+import lila.core.LazyFu
 
 final private class PushApi(
     firebasePush: FirebasePush,
@@ -19,7 +21,7 @@ final private class PushApi(
     roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
-    postApi: lila.forum.ForumPostApi
+    postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
   import PushApi.*
@@ -237,7 +239,7 @@ final private class PushApi(
   def challengeCreate(c: Challenge): Funit =
     c.destUser.so: dest =>
       c.challengerUser
-        .ifFalse(c.hasClock)
+        .ifTrue(c.clock.isEmpty)
         .so: challenger =>
           lightUser(challenger.id).flatMap: lightChallenger =>
             maybePushNotif(
@@ -260,7 +262,7 @@ final private class PushApi(
 
   def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
     c.challengerUser
-      .ifTrue(c.finalColor.white && !c.hasClock)
+      .ifTrue(c.finalColor.white && c.clock.isEmpty)
       .so: challenger =>
         joinerId
           .so(lightUser.optional)
@@ -406,7 +408,7 @@ final private class PushApi(
       monitor(lila.mon.push.send)("firebaseData", res.isSuccess, 1)
 
   private def describeChallenge(c: Challenge) =
-    import lila.challenge.Challenge.TimeControl.*
+    import lila.core.challenge.Challenge.TimeControl.*
     List(
       if c.mode.rated then "Rated" else "Casual",
       c.timeControl match

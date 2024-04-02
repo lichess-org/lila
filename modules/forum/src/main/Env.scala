@@ -5,13 +5,12 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
-import lila.hub.actorApi.team.CreateTeam
-import lila.mod.ModlogApi
+import lila.core.config.*
 import lila.notify.NotifyApi
 import lila.pref.PrefApi
-import lila.relation.RelationApi
+import lila.core.relation.RelationApi
 import lila.user.User
+import lila.core.forum.ForumPostMiniView
 
 @Module
 final private class ForumConfig(
@@ -20,22 +19,18 @@ final private class ForumConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    modLog: ModlogApi,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    captcher: lila.hub.actors.Captcher,
-    timeline: lila.hub.actors.Timeline,
-    shutup: lila.hub.actors.Shutup,
-    forumSearch: lila.hub.actors.ForumSearch,
+    captcha: lila.core.captcha.CaptchaApi,
+    shutupApi: lila.core.shutup.ShutupApi,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     prefApi: PrefApi,
+    modLog: lila.core.mod.LogApi,
     userRepo: lila.user.UserRepo,
-    gameRepo: lila.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer):
@@ -65,12 +60,12 @@ final class Env(
   lazy val forms                            = wire[ForumForm]
 
   lazy val recentTeamPosts = RecentTeamPosts: id =>
-    postRepo.recentInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniPosts)
+    postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
-    case CreateTeam(id, name, author)   => categApi.makeTeam(id, name, author)
+    case lila.core.team.TeamCreate(t)   => categApi.makeTeam(t.id, t.name, t.userId)
     case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
 
-private type RecentTeamPostsType                   = TeamId => Fu[List[MiniForumPost]]
+private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]
 opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType
 object RecentTeamPosts extends TotalWrapper[RecentTeamPosts, RecentTeamPostsType]

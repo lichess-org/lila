@@ -18,7 +18,7 @@ main.importer {
 
     .analyse > span {
       float: left;
-      margin-#{$end-direction}: 10px;
+      margin-inline-end: 10px;
     }
 
     .analyse > label {
@@ -26,7 +26,7 @@ main.importer {
     }
 
     .upload input {
-      margin-#{$start-direction}: 1em;
+      margin-inline-start: 1em;
     }
 
     button.submit {

@@ -8,7 +8,6 @@ import play.api.data.Forms.*
 import play.api.data.format.Formatter
 
 import lila.common.Form.{ cleanNonEmptyText, defaulting, formatter, into, given }
-import lila.common.config.Max
 
 object StudyForm:
 
@@ -34,7 +33,7 @@ object StudyForm:
     case class Data(
         gameId: Option[GameId] = None,
         orientation: Option[ChapterMaker.Orientation] = None,
-        fen: Option[Fen.Epd] = None,
+        fen: Option[Fen.Full] = None,
         pgnStr: Option[PgnStr] = None,
         variant: Option[Variant] = None,
         asStr: Option[String] = None

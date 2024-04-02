@@ -3,7 +3,7 @@ package lila.db
 import reactivemongo.api.*
 
 import lila.common.Chronometer
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.db.dsl.Coll
 
 final class AsyncDb(

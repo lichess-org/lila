@@ -5,24 +5,17 @@ import scalatags.Text.all.*
 
 import java.text.Normalizer
 
-import lila.base.RawHtml
-import lila.common.base.StringUtils.{ escapeHtmlRaw, safeJsonString }
+import lila.common.RawHtml
+import lila.core.config.NetDomain
+import scalalib.StringUtils.{ escapeHtmlRaw, safeJsonString }
 
 object String:
 
   export RawHtml.hasLinks
 
-  private val slugR              = """[^\w-]""".r
-  private val slugMultiDashRegex = """-{2,}""".r
+  export lila.core.slug.{ apply as slugify }
 
   def lcfirst(str: String) = s"${str(0).toLower}${str.drop(1)}"
-
-  def slugify(input: String) =
-    val nowhitespace = input.trim.replace(' ', '-')
-    val singleDashes = slugMultiDashRegex.replaceAllIn(nowhitespace, "-")
-    val normalized   = Normalizer.normalize(singleDashes, Normalizer.Form.NFD)
-    val slug         = slugR.replaceAllIn(normalized, "")
-    slug.toLowerCase
 
   def urlencode(str: String): String = java.net.URLEncoder.encode(str, "UTF-8")
 
@@ -141,9 +134,7 @@ object String:
 
     inline def raw(inline html: Html) = scalatags.Text.all.raw(html.value)
 
-    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(using
-        config.NetDomain
-    ): Frag =
+    def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(using NetDomain): Frag =
       raw:
         val withLinks = RawHtml.addLinks(rawText, expandImg)
         if nl2br then RawHtml.nl2br(withLinks.value) else withLinks
@@ -161,13 +152,13 @@ object String:
     def unescapeHtml(html: Html): Html =
       html.map(org.apache.commons.text.StringEscapeUtils.unescapeHtml4)
 
-    def markdownLinksOrRichText(text: String)(using config.NetDomain): Frag =
+    def markdownLinksOrRichText(text: String)(using NetDomain): Frag =
       val escaped = Html(escapeHtmlRaw(text))
       val marked  = RawHtml.justMarkdownLinks(escaped)
       if marked == escaped then richText(text)
       else nl2brUnsafe(marked.value)
 
-    def safeJsonValue(jsValue: JsValue): String =
+    def safeJsonValue(jsValue: JsValue): SafeJsonStr = SafeJsonStr:
       // Borrowed from:
       // https://github.com/playframework/play-json/blob/160f66a84a9c5461c52b50ac5e222534f9e05442/play-json/js/src/main/scala/StaticBinding.scala#L65
       jsValue match
@@ -183,7 +174,7 @@ object String:
               s"${safeJsonString(k)}:${safeJsonValue(v)}"
             .mkString("{", ",", "}")
 
-  def underscoreFen(fen: chess.format.Fen.Epd) = fen.value.replace(" ", "_")
+  def underscoreFen(fen: chess.format.Fen.Full) = fen.value.replace(" ", "_")
 
   object charset:
     import akka.util.ByteString

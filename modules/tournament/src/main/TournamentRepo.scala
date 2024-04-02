@@ -3,9 +3,10 @@ package lila.tournament
 import chess.variant.Variant
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.db.dsl.{ *, given }
 import lila.user.User
+import lila.core.tournament.Status
 
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
   import BSONHandlers.given
@@ -49,7 +50,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
   private[tournament] def idsCursor(ids: Iterable[TourId]) =
     coll.find($inIds(ids)).cursor[Tournament]()
 
-  def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
+  private[tournament] def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
     coll.list[Tournament](
       startedSelect ++ $doc(
         "password".$exists(false),

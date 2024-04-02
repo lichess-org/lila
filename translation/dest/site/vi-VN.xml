@@ -84,7 +84,7 @@
   <string name="unknown">Không chắc</string>
   <string name="database">Cơ sở dữ liệu</string>
   <string name="whiteDrawBlack">Trắng / Hòa / Đen</string>
-  <string name="averageRatingX">Hệ số Elo bình quân: %s</string>
+  <string name="averageRatingX">Hệ số bình quân: %s</string>
   <string name="recentGames">Các ván cờ gần đây</string>
   <string name="topGames">Các ván đấu hàng đầu</string>
   <string name="masterDbExplanation">Các ván đấu OTB của các kỳ thủ có hệ số Elo FIDE %1$s+ từ năm %2$s đến %3$s</string>
@@ -133,7 +133,7 @@
     <item quantity="other">%s sai lầm</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="other">%s nước đi không chính xác</item>
+    <item quantity="other">%s không chính xác</item>
   </plurals>
   <string name="moveTimes">Thời gian nghĩ nước đi</string>
   <string name="flipBoard">Quay bàn cờ</string>
@@ -190,13 +190,13 @@
     <item quantity="other">%s phút</item>
   </plurals>
   <string name="time">Thời gian</string>
-  <string name="rating">Hệ số Elo</string>
-  <string name="ratingStats">Thống kê Elo</string>
+  <string name="rating">Hệ số</string>
+  <string name="ratingStats">Thống kê hệ số</string>
   <string name="username">Tên đăng nhập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
   <string name="changeUsername">Thay đổi tên đăng nhập</string>
   <string name="changeUsernameNotSame">Bạn chỉ có thể thay đổi cách viết hoa/thường. Ví dụ \"johndoe\" thành \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Thay đổi tên người dùng của bạn. Điều này chỉ có thể thực hiện một lần và bạn chỉ được thay đổi cách viết hoa/viết thường các chữ trong tên người dùng của bạn. Ví dụ: \"m_dInhHoaNGvIet\" có thể đổi thành \"M_DinhHoangViet\".</string>
+  <string name="changeUsernameDescription">Thay đổi tên người dùng của bạn. Điều này chỉ có thể thực hiện một lần và bạn chỉ được thay đổi cách viết hoa/viết thường các chữ trong tên người dùng của bạn.</string>
   <string name="signupUsernameHint">Hãy đảm bảo chọn tên người dùng thân thiện với mọi người. Bạn sẽ không thể thay đổi nó và bất kỳ tài khoản nào có tên người dùng không phù hợp sẽ bị đóng!</string>
   <string name="signupEmailHint">Chúng tôi chỉ sử dụng nó cho việc khôi phục mật khẩu.</string>
   <string name="password">Mật khẩu</string>
@@ -242,7 +242,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s ván cờ với bạn</item>
   </plurals>
-  <string name="cancel">Hủy bỏ</string>
+  <string name="cancel">Hủy</string>
   <string name="whiteTimeOut">Trắng hết giờ</string>
   <string name="blackTimeOut">Đen hết giờ</string>
   <string name="drawOfferSent">Đã gửi đề nghị hòa</string>
@@ -304,7 +304,7 @@
     <item quantity="other">%s ván đang chơi</item>
   </plurals>
   <string name="exportGames">Xuất các ván cờ</string>
-  <string name="ratingRange">Phạm vi Elo</string>
+  <string name="ratingRange">Phạm vi hệ số</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">Cho thêm %s giây</item>
   </plurals>
@@ -346,12 +346,12 @@
   <plurals name="needNbMoreGames">
     <item quantity="other">Bạn cần chơi thêm %s ván xếp hạng</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Hệ số Elo %s của bạn là tạm thời</string>
-  <string name="yourPerfRatingIsTooHigh">Hệ số Elo %1$s (%2$s) của bạn quá cao</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số Elo %1$s hàng tuần của bạn quá cao (%2$s)</string>
+  <string name="yourPerfRatingIsProvisional">Hệ số %s của bạn là tạm thời</string>
+  <string name="yourPerfRatingIsTooHigh">Hệ số %1$s của bạn (%2$s) quá cao</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Hệ số %1$s hàng tuần của bạn (%2$s) quá cao</string>
   <string name="yourPerfRatingIsTooLow">Hệ số Elo %1$s (%2$s) của bạn quá thấp</string>
   <string name="ratedMoreThanInPerf">Hệ số %2$s ≥ %1$s</string>
-  <string name="ratedLessThanInPerf">Xếp hạng %2$s tuần trước ≤ %1$s</string>
+  <string name="ratedLessThanInPerf">Hệ số %2$s tuần trước ≤ %1$s</string>
   <string name="mustBeInTeam">Phải ở trong đội %s</string>
   <string name="youAreNotInTeam">Bạn không ở trong đội %s</string>
   <string name="backToGame">Quay lại ván đấu</string>
@@ -360,7 +360,7 @@
   <string name="xCreatedTeamY">%1$s đã tạo đội %2$s</string>
   <string name="startedStreaming">đã bắt đầu phát trực tiếp</string>
   <string name="xStartedStreaming">%s đã bắt đầu phát trực tiếp</string>
-  <string name="averageElo">Hệ số Elo bình quân</string>
+  <string name="averageElo">Hệ số bình quân</string>
   <string name="location">Vị trí</string>
   <string name="filterGames">Lọc ván cờ</string>
   <string name="reset">Đặt lại từ đầu</string>
@@ -414,7 +414,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   </plurals>
   <string name="more">Xem thêm</string>
   <string name="memberSince">Thành viên từ</string>
-  <string name="lastSeenActive">Lần đăng nhập cuối %s</string>
+  <string name="lastSeenActive">Hoạt động %s</string>
   <string name="player">Người chơi</string>
   <string name="list">Danh sách</string>
   <string name="graph">Biểu đồ</string>
@@ -471,7 +471,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="isPrivate">Riêng tư</string>
   <string name="reportXToModerators">Báo cáo %s tới các điều hành viên</string>
   <string name="profileCompletion">Hoàn thành hồ sơ: %s</string>
-  <string name="xRating">Elo %s</string>
+  <string name="xRating">Hệ số %s</string>
   <string name="ifNoneLeaveEmpty">Nếu không có, hãy để trống</string>
   <string name="profile">Hồ sơ</string>
   <string name="editProfile">Chỉnh sửa thông tin cá nhân</string>
@@ -600,7 +600,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="error.maxLength">Chỉ được dài tối đa %s ký tự</string>
   <string name="error.min">Phải ≥ %s</string>
   <string name="error.max">Phải ≤ %s</string>
-  <string name="ifRatingIsPlusMinusX">Nếu hệ số Elo trong phạm vi ± %s</string>
+  <string name="ifRatingIsPlusMinusX">Nếu hệ số trong phạm vi ± %s</string>
   <string name="ifRegistered">Chỉ người có tài khoản</string>
   <string name="onlyExistingConversations">Chỉ từ các cuộc trò chuyện hiện tại</string>
   <string name="onlyFriends">Chỉ bạn bè</string>
@@ -680,18 +680,18 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="tournamentDoesNotExist">Giải đấu này không tồn tại.</string>
   <string name="tournamentMayHaveBeenCanceled">Giải đấu có thể đã bị huỷ, nếu tất cả người chơi rời giải trước khi giải đấu bắt đầu.</string>
   <string name="returnToTournamentsHomepage">Trở về trang chủ các giải đấu</string>
-  <string name="weeklyPerfTypeRatingDistribution">Phân bố hệ số Elo %s hàng tuần</string>
+  <string name="weeklyPerfTypeRatingDistribution">Phân bổ hệ số %s hàng tuần</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="other">%1$s người chơi %2$s tuần này.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Hệ số Elo %1$s của bạn là %2$s.</string>
+  <string name="yourPerfTypeRatingIsRating">Hệ số %1$s của bạn là %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s người chơi %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s giỏi hơn %2$s người chơi %3$s.</string>
   <string name="betterThanPercentPlayers">Bạn giỏi hơn %1$s người chơi %2$s</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có hệ số Elo %s.</string>
-  <string name="yourRating">Hệ số Elo của bạn</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có hệ số %s đã thiết lập.</string>
+  <string name="yourRating">Hệ số của bạn</string>
   <string name="cumulative">Giỏi hơn so với còn lại</string>
-  <string name="glicko2Rating">Xếp hạng Glicko-2</string>
+  <string name="glicko2Rating">Hệ số Glicko-2</string>
   <string name="checkYourEmail">Kiểm tra Email của bạn</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Chúng tôi đã gửi cho bạn một email. Nhấn vào link trong Email để kích hoạt tài khoản của bạn.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Nếu bạn không thấy ở trong email, kiểm tra lại ở các nơi khác có thể có, như thư mục rác, thư rác, mạng xã hội hay các thư mục khác.</string>
@@ -733,7 +733,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="bulletBlitzClassical">Cờ đạn, cờ chớp, cờ nhanh, cờ chậm</string>
   <string name="correspondenceChess">Cờ qua thư</string>
   <string name="onlineAndOfflinePlay">Chơi trực tuyến và ngoại tuyến</string>
-  <string name="viewTheSolution">Xem lời giải</string>
+  <string name="viewTheSolution">Xem đáp án</string>
   <string name="followAndChallengeFriends">Theo dõi và thách đấu bạn bè</string>
   <plurals name="availableInNbLanguages">
     <item quantity="other">Hỗ trợ %s ngôn ngữ!</item>
@@ -771,7 +771,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="custom">Tuỳ chỉnh</string>
   <string name="notifications">Thông báo</string>
   <string name="notificationsX">Số thông báo: %1$s</string>
-  <string name="perfRatingX">Hệ số Elo: %s</string>
+  <string name="perfRatingX">Hệ số: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="other">%s giây còn lại để đi nước đầu tiên</item>
   </plurals>
@@ -800,7 +800,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="youCanDoBetter">Bạn có thể làm tốt hơn</string>
   <string name="tryAnotherMoveForWhite">Tìm nước đi khác cho trắng</string>
   <string name="tryAnotherMoveForBlack">Tìm nước đi khác cho đen</string>
-  <string name="solution">Lời giải</string>
+  <string name="solution">Đáp án</string>
   <string name="waitingForAnalysis">Đang chờ phân tích</string>
   <string name="noMistakesFoundForWhite">Bên trắng không mắc sai lầm nào</string>
   <string name="noMistakesFoundForBlack">Bên đen không mắc sai lầm nào</string>
@@ -883,8 +883,8 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="congratsYouWon">Chúc mừng, bạn đã giành chiến thắng!</string>
   <string name="gameVsX">Ván đấu với %1$s</string>
   <string name="resVsX">%1$s với %2$s</string>
-  <string name="lostAgainstTOSViolator">Bạn đã mất điểm Elo vào người vi phạm Điều khoản Dịch vụ của Lichess</string>
-  <string name="refundXpointsTimeControlY">Hoàn lại: %1$s điểm Elo %2$s.</string>
+  <string name="lostAgainstTOSViolator">Bạn đã mất điểm hệ số vào người vi phạm Điều khoản Dịch vụ của Lichess</string>
+  <string name="refundXpointsTimeControlY">Hoàn lại: %1$s điểm hệ số %2$s.</string>
   <string name="timeAlmostUp">Thời gian sắp hết!</string>
   <string name="clickToRevealEmailAddress">[Nhấp để tiết lộ địa chỉ email]</string>
   <string name="download">Tải về</string>
@@ -893,12 +893,12 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="cancelTournament">Hủy giải đấu</string>
   <string name="tournDescription">Mô tả giải đấu</string>
   <string name="tournDescriptionHelp">Có điều gì đặc biệt bạn muốn nói với những người tham gia không? Cố gắng viết ngắn gọn. Các liên kết cấu trúc Markdown có sẵn: [Văn bản](https://url)</string>
-  <string name="ratedFormHelp">Các ván đấu có xếp hạng và ảnh hưởng đến hệ số Elo của người chơi</string>
+  <string name="ratedFormHelp">Các ván đấu có xếp hạng và ảnh hưởng đến hệ số của người chơi</string>
   <string name="onlyMembersOfTeam">Chỉ thành viên của đội</string>
   <string name="noRestriction">Không giới hạn</string>
   <string name="minimumRatedGames">Số ván đã xếp hạng tối thiểu</string>
-  <string name="minimumRating">Hệ số Elo tối thiểu</string>
-  <string name="maximumWeeklyRating">Hệ số Elo cao nhất trong tuần</string>
+  <string name="minimumRating">Hệ số tối thiểu</string>
+  <string name="maximumWeeklyRating">Hệ số cao nhất trong tuần</string>
   <string name="positionInputHelp">Dán một FEN hợp lệ để bắt đầu tất cả ván đấu bằng một thế cờ nhất định đó.
 Nó chỉ dùng được cho cờ vua tiêu chuẩn, không được với các biến thể.
 Bạn có thể dùng %s để tạo ra một FEN rồi dán ở đây.
@@ -945,7 +945,7 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="ourEventTips">Lời khuyên của chúng tôi để tổ chức các sự kiện</string>
   <string name="instructions">Hướng dẫn</string>
   <string name="showMeEverything">Cho tôi xem mọi thứ nào</string>
-  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là một phần mềm mã nguồn mở/hoàn toàn miễn phí.
-Tất cả chi phí vận hành, phát triển và nội dung được tài trợ bởi những đóng góp của người dùng.</string>
+  <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là phần mềm hoàn toàn miễn phí/mã nguồn mở.
+Mọi chi phí vận hành, phát triển, và nội dung được tài trợ bởi những đóng góp của người dùng.</string>
   <string name="nothingToSeeHere">Không có gì để xem ở đây vào lúc này.</string>
 </resources>

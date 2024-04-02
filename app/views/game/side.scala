@@ -14,7 +14,7 @@ object side:
 
   def apply(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.Fen.Epd],
+      initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
@@ -29,7 +29,7 @@ object side:
 
   def meta(
       pov: lila.game.Pov,
-      initialFen: Option[chess.format.Fen.Epd],
+      initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       userTv: Option[lila.user.User] = None,
@@ -46,7 +46,7 @@ object side:
                   views.html.bookmark.toggle(game, bookmarked),
                   if game.imported then
                     div(
-                      a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
+                      a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
                       separator,
                       bits.variantLink(game.variant, game.perfType, initialFen = initialFen, shortName = true)
                     )
@@ -54,7 +54,7 @@ object side:
                     frag(
                       widgets.showClock(game),
                       separator,
-                      (if game.rated then trans.rated else trans.casual).txt(),
+                      (if game.rated then trans.site.rated else trans.site.casual).txt(),
                       separator,
                       bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )
@@ -65,14 +65,14 @@ object side:
                 .flatMap(_.user)
                 .map: importedBy =>
                   small(
-                    trans.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
+                    trans.site.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
                     ctx
                       .is(importedBy)
                       .option(form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
                         submitButton(
                           cls   := "button-link confirm",
-                          title := trans.deleteThisImportedGame.txt()
-                        )(trans.delete.txt())
+                          title := trans.site.deleteThisImportedGame.txt()
+                        )(trans.site.delete.txt())
                       )
                   )
             )
@@ -95,7 +95,7 @@ object side:
             game.winner.map: winner =>
               frag(
                 separator,
-                winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious)()
+                winner.color.fold(trans.site.whiteIsVictorious, trans.site.blackIsVictorious)()
               )
           )
         ),
@@ -105,7 +105,7 @@ object side:
             .map: number =>
               val url = routes.UserAnalysis
                 .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Fen.initial)}")
-              st.section(trans.chess960StartPosition(a(href := url)(number)))
+              st.section(trans.site.chess960StartPosition(a(href := url)(number)))
         ),
         userTv.map: u =>
           st.section(cls := "game__tv"):

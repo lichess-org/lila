@@ -8,11 +8,11 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 
 object bits:
 
-  def mselect(id: String, current: Frag, items: Seq[Frag]) =
+  def mselect(id: String, current: Frag, items: Seq[Tag]) =
     div(cls := "mselect")(
       input(
         tpe          := "checkbox",
@@ -22,7 +22,7 @@ object bits:
       ),
       label(`for` := s"mselect-$id", cls := "mselect__label")(current),
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
-      st.nav(cls := "mselect__list")(items)
+      st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item")))
     )
 
   lazy val stage = a(
@@ -42,15 +42,37 @@ z-index: 99;
 
   val connectLinks =
     div(cls := "connect-links")(
-      a(href := "https://mastodon.online/@lichess", targetBlank, rel := "me")("Mastodon"),
-      a(href := "https://twitter.com/lichess", targetBlank, noFollow)("Twitter"),
-      a(href := "https://discord.gg/lichess", targetBlank, noFollow)("Discord"),
-      a(href := "https://www.youtube.com/c/LichessDotOrg", targetBlank, noFollow)("YouTube"),
-      a(href := "https://www.twitch.tv/lichessdotorg", targetBlank, noFollow)("Twitch")
+      a(
+        href := routes.Main.externalLink("mastodon", "https://mastodon.online/@lichess"),
+        targetBlank,
+        noFollow,
+        relMe
+      )("Mastodon"),
+      a(href := routes.Main.externalLink("twitter", "https://twitter.com/lichess"), targetBlank, noFollow)(
+        "Twitter"
+      ),
+      a(href := routes.Main.externalLink("discord", "https://discord.gg/lichess"), targetBlank, noFollow)(
+        "Discord"
+      ),
+      a(
+        href := routes.Main.externalLink("youtube", "https://youtube.com/c/LichessDotOrg"),
+        targetBlank,
+        noFollow
+      )("YouTube"),
+      a(
+        href := routes.Main.externalLink("twitch", "https://www.twitch.tv/lichessdotorg"),
+        targetBlank,
+        noFollow
+      )("Twitch"),
+      a(
+        href := routes.Main.externalLink("instagram", "https://instagram.com/lichessdotorg"),
+        targetBlank,
+        noFollow
+      )("Instagram")
     )
 
-  def fenAnalysisLink(fen: Fen.Epd)(using Lang) =
-    a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.analysis())
+  def fenAnalysisLink(fen: Fen.Full)(using Translate) =
+    a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.site.analysis())
 
   def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pagination(page => s"$route?page=$page", pager, showPost)

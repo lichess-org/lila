@@ -10,6 +10,7 @@ import reactivemongo.api.bson.*
 import java.util.zip.ZipInputStream
 
 import lila.db.dsl.{ *, given }
+import lila.core.fide.{ FideTC, Federation }
 
 final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     Executor,
@@ -37,7 +38,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
           for
             obj       <- objs
             code      <- obj.getAsOpt[Federation.Id]("_id")
-            name      <- Federation.names.get(code)
+            name      <- lila.fide.Federation.names.get(code)
             nbPlayers <- obj.int("count")
             if nbPlayers >= 5
           yield (code, name, nbPlayers)
@@ -78,7 +79,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
               nbPlayers = ~o.int(s"$tc-count"),
               top10Rating = ~o.double(s"$tc-top").map(_.toInt)
             )
-            Federation(
+            lila.fide.Federation(
               id = code,
               name = name,
               nbPlayers = nbPlayers,

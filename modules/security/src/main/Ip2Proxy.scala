@@ -3,7 +3,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.IpAddress
+import lila.core.IpAddress
 
 trait Ip2Proxy:
 
@@ -20,8 +20,10 @@ object IsProxy extends OpaqueString[IsProxy]:
   def unapply(a: IsProxy): Option[String] = a.name
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
   val vpn         = IsProxy("VPN") // paid VPNs (safe for users)
+  val privacy     = IsProxy("CPN") // consumer privacy network (akin vpn)
   val tor         = IsProxy("TOR") // tor exit node
   val server      = IsProxy("DCH") // servers
+  val enterprise  = IsProxy("EPN") // enterprise private network
   val public      = IsProxy("PUB") // public proxies (unsafe for users)
   val web         = IsProxy("WEB") // web proxies (garbage)
   val search      = IsProxy("SES") // search engine crawlers

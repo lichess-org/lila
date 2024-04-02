@@ -72,8 +72,8 @@ object admin:
             ),
             p(cls := "form-help box__pad")("To remove a leader, remove all permissions."),
             form3.actions(cls := "box__pad")(
-              a(href := teamRoutes.show(t.id))(trans.cancel()),
-              form3.submit(trans.save())
+              a(href := teamRoutes.show(t.id))(trans.site.cancel()),
+              form3.submit(trans.site.save())
             )
           )
         )
@@ -93,8 +93,8 @@ object admin:
             postForm(action := teamRoutes.kick(t.id))(
               form3.group(form("members"), frag(whoToKick()))(teamMembersAutoComplete(t)),
               form3.actions(
-                a(href := teamRoutes.show(t.id))(trans.cancel()),
-                form3.submit(lila.i18n.I18nKeys.study.kick())
+                a(href := teamRoutes.show(t.id))(trans.site.cancel()),
+                form3.submit(lila.core.i18n.I18nKey.study.kick())
               )
             )
           ),
@@ -110,8 +110,8 @@ object admin:
                   form3.textarea(_)(rows := 4)
                 ),
               form3.actions(
-                a(href := teamRoutes.show(t.id))(trans.cancel()),
-                form3.submit(trans.save())
+                a(href := teamRoutes.show(t.id))(trans.site.cancel()),
+                form3.submit(trans.site.save())
               )
             )
           )
@@ -165,7 +165,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
           postForm(cls := "form3", action := teamRoutes.pmAllSubmit(t.id))(
             form3.group(
               form("message"),
-              trans.message(),
+              trans.site.message(),
               help = frag(
                 pluralizeLocalize("member", unsubs),
                 " out of ",
@@ -189,14 +189,14 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
                     "."
                   ),
                   form3.actions(
-                    a(href := teamRoutes.show(t.slug))(trans.cancel()),
-                    (remaining > 0).option(form3.submit(trans.send()))
+                    a(href := teamRoutes.show(t.slug))(trans.site.cancel()),
+                    (remaining > 0).option(form3.submit(trans.site.send()))
                   )
                 )
           )
         )
       )
 
-  private def adminTop(t: Team, title: Frag)(using Lang) =
+  private def adminTop(t: Team, title: Frag)(using Translate) =
     boxTop:
       h1(a(href := teamRoutes.show(t.slug))(t.name), " • ", title)

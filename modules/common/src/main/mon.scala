@@ -4,7 +4,8 @@ import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
 import kamon.metric.{ Counter, Timer }
 import kamon.tag.TagSet
 
-import lila.common.ApiVersion
+import lila.core.ApiVersion
+import lila.core.Domain
 
 object mon:
 
@@ -198,8 +199,30 @@ object mon:
   object user:
     val online = gauge("user.online").withoutTags()
     object register:
-      def count(api: Option[ApiVersion]) = counter("user.register.count").withTag("api", apiTag(api))
-      def mustConfirmEmail(v: String)    = counter("user.register.mustConfirmEmail").withTag("type", v)
+      def count(
+          emailDomain: Option[Domain],
+          confirm: String,
+          captcha: String,
+          ipSusp: Boolean,
+          fp: Boolean,
+          proxy: Option[String],
+          country: String,
+          dispAttempts: Int,
+          api: Option[ApiVersion]
+      ) =
+        counter("user.register.count").withTags:
+          tags(
+            "email"        -> emailDomain.fold("?")(_.value),
+            "confirm"      -> confirm,
+            "captcha"      -> captcha,
+            "ipSusp"       -> ipSusp,
+            "fp"           -> fp,
+            "proxy"        -> proxy.getOrElse("no"),
+            "country"      -> country,
+            "dispAttempts" -> dispAttempts,
+            "api"          -> apiTag(api)
+          )
+      def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) =
         counter("user.register.confirmEmail").withTag("success", successTag(success))
       val modConfirmEmail = counter("user.register.modConfirmEmail").withoutTags()
@@ -650,13 +673,16 @@ object mon:
     val time    = future("fide.sync.time")
     val players = gauge("fide.sync.players").withoutTags()
     val deleted = gauge("fide.sync.deleted").withoutTags()
+  object link:
+    def external(tag: String, auth: Boolean) = counter("link.external").withTags:
+      tags("tag" -> tag, "auth" -> auth)
 
   object jvm:
     def threads() =
       val perState = gauge("jvm.threads.group")
       val total    = gauge("jvm.threads.group.total")
       for
-        group <- ornicar.scalalib.Jvm.threadGroups()
+        group <- scalalib.Jvm.threadGroups()
         _ = total.withTags(tags("name" -> group.name)).update(group.total)
         (state, count) <- group.states
       yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)

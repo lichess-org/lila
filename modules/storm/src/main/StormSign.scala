@@ -2,17 +2,17 @@ package lila.storm
 
 import com.github.blemale.scaffeine.LoadingCache
 import com.roundeights.hasher.Algo
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.Uptime
-import lila.common.config.Secret
+import lila.core.config.Secret
 import lila.memo.CacheApi
 import lila.user.User
 
-final class StormSign(secret: Secret, cacheApi: CacheApi):
+final class StormSign(secret: Secret)(using Executor):
 
   private val store: LoadingCache[UserId, String] =
-    cacheApi.scaffeine
+    CacheApi.scaffeine
       .expireAfterAccess(24 hours)
       .build(_ => ThreadLocalRandom.nextString(12))
 

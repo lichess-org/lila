@@ -1,11 +1,18 @@
 import { Redraw, VNode, looseH as h } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { RelayPlayer, RoundId } from './interfaces';
+import { RoundId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
+import { Federation, Federations } from '../interfaces';
+import { defined } from 'common';
 
-interface LeadPlayer extends RelayPlayer {
+interface LeadPlayer {
+  name: string;
+  rating?: number;
+  title?: string;
+  fideId?: number;
+  fed?: string;
   score: number;
   played: number;
 }
@@ -16,6 +23,7 @@ export default class RelayLeaderboard {
 
   constructor(
     private readonly roundId: RoundId,
+    private readonly federations: () => Federations | undefined,
     private readonly redraw: Redraw,
   ) {}
 
@@ -26,6 +34,11 @@ export default class RelayLeaderboard {
     }
     this.leaderboard = await xhr.json(`/broadcast/${this.roundId}/leaderboard`);
     this.redraw();
+  };
+
+  expandFederation = (p: LeadPlayer): Federation | undefined => {
+    const name = p.fed && this.federations()?.[p.fed];
+    return defined(name) ? { id: p.fed!, name } : undefined;
   };
 }
 
@@ -38,10 +51,13 @@ export const leaderboardView = (ctrl: RelayLeaderboard): VNode =>
         insert: () => ctrl.loadFromXhr(true),
       },
     },
-    ctrl.leaderboard ? renderPlayers(ctrl.leaderboard) : [spinner()],
+    ctrl.leaderboard ? renderPlayers(ctrl.leaderboard, ctrl.expandFederation) : [spinner()],
   );
 
-const renderPlayers = (players: LeadPlayer[]): VNode => {
+const renderPlayers = (
+  players: LeadPlayer[],
+  expandFederation: (p: LeadPlayer) => Federation | undefined,
+): VNode => {
   const withRating = !!players.find(p => p.rating);
   return h('table.relay-tour__leaderboard.slist.slist-invert.slist-pad', [
     h(
@@ -56,7 +72,7 @@ const renderPlayers = (players: LeadPlayer[]): VNode => {
             'th',
             player.fideId
               ? h('a', { attrs: { href: `/fide/${player.fideId}/redirect` } }, [
-                  player.fed && playerFed(player.fed),
+                  playerFed(expandFederation(player)),
                   userTitle(player),
                   player.name,
                 ])

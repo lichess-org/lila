@@ -1,7 +1,6 @@
 package lila.insight
 
 import chess.{ Color, Role }
-import play.api.i18n.Lang
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
@@ -13,6 +12,7 @@ import lila.insight.BSONHandlers.given
 import lila.insight.InsightEntry.BSONFields as F
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
+import lila.core.i18n.Translate
 
 enum InsightDimension[A](
     val key: String,
@@ -264,7 +264,7 @@ object InsightDimension:
   def valueByKey[X](d: InsightDimension[X], key: String): Option[X] = d match
     case Period                  => key.toIntOption.map(lila.insight.Period.apply)
     case Date                    => None
-    case Perf                    => PerfType(lila.rating.Perf.Key(key))
+    case Perf                    => PerfType(lila.core.rating.PerfKey(key))
     case Phase                   => key.toIntOption.flatMap(lila.insight.Phase.byId.get)
     case Result                  => key.toIntOption.flatMap(lila.insight.Result.byId.get)
     case Termination             => key.toIntOption.flatMap(lila.insight.Termination.byId.get)
@@ -285,7 +285,7 @@ object InsightDimension:
     case Blur                    => lila.insight.Blur(key == "true").some
     case TimeVariance            => key.toFloatOption.map(lila.insight.TimeVariance.byId)
 
-  def valueToJson[X](d: InsightDimension[X])(v: X)(using lang: Lang): JsObject =
+  def valueToJson[X](d: InsightDimension[X])(v: X)(using Translate): JsObject =
     Json.obj(
       "key"  -> valueKey(d)(v),
       "name" -> valueJson(d)(v)
@@ -317,7 +317,7 @@ object InsightDimension:
       case TimeVariance            => v.id
     ).toString
 
-  def valueJson[X](d: InsightDimension[X])(v: X)(using lang: Lang): JsValue =
+  def valueJson[X](d: InsightDimension[X])(v: X)(using Translate): JsValue =
     d match
       case Date                    => JsNumber(v.min.toSeconds)
       case Period                  => JsString(v.toString)

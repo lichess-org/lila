@@ -37,7 +37,7 @@ export function view(root: StudyCtrl): VNode {
 }
 
 const doRender = (root: StudyCtrl): VNode =>
-  h('div', renderPgnTags(root.tags, root.trans, root.data.hideRatings));
+  h('div', renderPgnTags(root.tags, root.trans, root.data.showRatings));
 
 const editable = (value: string, submit: (v: string, el: HTMLInputElement) => void): VNode =>
   h('input', {
@@ -55,7 +55,7 @@ const fixed = (text: string) => h('span', text);
 
 type TagRow = (string | VNode)[];
 
-function renderPgnTags(tags: TagsForm, trans: Trans, hideRatings?: boolean): VNode {
+function renderPgnTags(tags: TagsForm, trans: Trans, showRatings: boolean): VNode {
   let rows: TagRow[] = [];
   const chapter = tags.getChapter();
   if (chapter.setup.variant.key !== 'standard') rows.push(['Variant', fixed(chapter.setup.variant.name)]);
@@ -63,7 +63,7 @@ function renderPgnTags(tags: TagsForm, trans: Trans, hideRatings?: boolean): VNo
     chapter.tags
       .filter(
         tag =>
-          !hideRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags),
+          showRatings || !['WhiteElo', 'BlackElo'].includes(tag[0]) || !looksLikeLichessGame(chapter.tags),
       )
       .map(tag => [tag[0], tags.editable() ? editable(tag[1], tags.submit(tag[0])) : fixed(tag[1])]),
   );

@@ -1,5 +1,7 @@
 package lila.user
 
+import lila.core.user.MyId
+
 final class GetBotIds(f: () => Fu[Set[UserId]]) extends (() => Fu[Set[UserId]]):
   def apply() = f()
 
@@ -9,7 +11,7 @@ final class RankingsOf(f: UserId => lila.rating.UserRankMap) extends (UserId => 
 /* User who is currently logged in */
 opaque type Me = User
 object Me extends TotalWrapper[Me, User]:
-  export lila.user.MyId as Id
+  export lila.core.user.MyId as Id
   given UserIdOf[Me]                           = _.id
   given Conversion[Me, User]                   = identity
   given Conversion[Me, UserId]                 = _.id
@@ -22,17 +24,10 @@ object Me extends TotalWrapper[Me, User]:
     inline def modId: ModId = userId.into(ModId)
     inline def myId: MyId   = userId.into(MyId)
 
-opaque type MyId = String
-object MyId extends TotalWrapper[MyId, String]:
-  given Conversion[MyId, UserId]               = UserId(_)
-  given UserIdOf[MyId]                         = u => u
-  given [M[_]]: Conversion[M[MyId], M[UserId]] = u => UserId.from(MyId.raw(u))
-  given Conversion[Me, MyId]                   = _.id.into(MyId)
-  given (using me: Me): MyId                   = Me.myId(me)
-  given (using me: MyId): Option[MyId]         = Some(me)
-  extension (me: Me.Id)
-    inline def modId: ModId   = me.into(ModId)
-    inline def userId: UserId = me.into(UserId)
+given Conversion[Me, MyId]           = _.id.into(MyId)
+given (using me: Me): MyId           = Me.myId(me)
+given (using me: MyId): Option[MyId] = Some(me)
+extension (me: Me.Id) inline def modId: ModId = me.into(ModId)
 
 opaque type UserEnabled = Boolean
 object UserEnabled extends YesNo[UserEnabled]

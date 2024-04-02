@@ -8,7 +8,6 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.hub.actorApi.captcha.ValidCaptcha
 
 import Forms.*
 
@@ -38,8 +37,7 @@ final class Main(
       keyPages.notFound(using _)
 
   def captchaCheck(id: GameId) = Open:
-    import makeTimeout.long
-    (env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution"))).map { case valid: Boolean =>
+    env.game.captcha.validate(id, ~get("solution")).map { valid =>
       Ok(if valid then 1 else 0)
     }
 
@@ -155,7 +153,13 @@ final class Main(
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
-  lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
+  def externalLink(tag: String, url: String) = Anon:
+    if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
+    then lila.mon.link.external(tag, ctx.isAuth).increment()
+    Redirect(url)
+
+  lila.memo.RateLimit.composite[lila.core.IpAddress](
     key = "image.upload.ip"
   )(
     ("fast", 10, 2.minutes),

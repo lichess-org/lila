@@ -2,7 +2,9 @@ package lila.common
 
 import chess.format.pgn.PgnStr
 
-import lila.common.config.AssetDomain
+import lila.core.config.AssetDomain
+import lila.core.actorApi.lpv.LpvEmbed
+import lila.core.config.NetDomain
 
 class MarkdownTest extends munit.FunSuite:
 
@@ -26,7 +28,7 @@ class MarkdownTest extends munit.FunSuite:
 """)
     )
   }
-  val domain     = config.NetDomain("http://l.org")
+  val domain     = NetDomain("http://l.org")
   val gameId     = GameId("gameId12")
   val studyId    = StudyId("StudyId1")
   val chapterId  = StudyChapterId("ChaptId1")

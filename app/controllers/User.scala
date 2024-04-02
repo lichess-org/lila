@@ -13,14 +13,15 @@ import scala.util.chaining.*
 
 import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
-import lila.common.paginator.Paginator
-import lila.common.{ HTTPRequest, IpAddress }
+import scalalib.paginator.Paginator
+import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog
 import lila.rating.{ Perf, PerfType }
 import lila.security.{ Granter, UserLogins }
-import lila.socket.UserLagCache
 import lila.user.User as UserModel
+import lila.core.rating.PerfKey
+import lila.core.IpAddress
 
 final class User(
     override val env: Env,
@@ -170,7 +171,7 @@ final class User(
           ctx.isAuth.so(env.pref.api.followable(user.id)),
           ctx.userId.so(relationApi.fetchRelation(_, user.id))
         ).flatMapN: (blocked, crosstable, followable, relation) =>
-          val ping = env.socket.isOnline(user.id).so(UserLagCache.getLagRating(user.id))
+          val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
           negotiate(
             html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
               Ok.page(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
@@ -201,7 +202,7 @@ final class User(
     EnabledUser(username): u =>
       env.history
         .ratingChartApi(u)
-        .dmap(_ | "[]") // send an empty JSON array if no history JSON is available
+        .dmap(_ | SafeJsonStr("[]")) // send an empty JSON array if no history JSON is available
         .dmap(jsonStr => Ok(jsonStr).as(JSON))
 
   private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
@@ -271,15 +272,15 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  def topNb(nb: Int, perfKey: Perf.Key) = Open:
+  def topNb(nb: Int, perfKey: PerfKey) = Open:
     Found(topNbUsers(nb, perfKey)): (users, perfType) =>
       negotiate(
         (nb == 200).so(Ok.page(html.user.top(perfType, users))),
         topNbJson(users)
       )
 
-  def topNbApi(nb: Int, perfKey: Perf.Key) = Anon:
-    if nb == 1 && perfKey == Perf.Key("standard") then
+  def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
+    if nb == 1 && perfKey == PerfKey("standard") then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
@@ -287,7 +288,7 @@ final class User(
       }
     else Found(topNbUsers(nb, perfKey)) { users => topNbJson(users._1) }
 
-  private def topNbUsers(nb: Int, perfKey: Perf.Key) =
+  private def topNbUsers(nb: Int, perfKey: PerfKey) =
     PerfType(perfKey).soFu: perfType =>
       env.user.cached.top200Perf.get(perfType.id).dmap {
         _.take(nb.atLeast(1).atMost(200)) -> perfType
@@ -545,7 +546,7 @@ final class User(
       yield Ok(page)
   }
 
-  def perfStat(username: UserStr, perfKey: Perf.Key) = Open:
+  def perfStat(username: UserStr, perfKey: PerfKey) = Open:
     Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiate(
         Ok.pageAsync:
@@ -578,9 +579,13 @@ final class User(
               case _ =>
                 ctx.me.ifTrue(getBool("friend")) match
                   case Some(follower) =>
-                    env.relation.api.searchFollowedBy(follower, term, 10).flatMap {
-                      case Nil     => env.user.cached.userIdsLike(term)
-                      case userIds => fuccess(userIds)
+                    env.relation.api.searchFollowedBy(follower, term, 10).flatMap { userIds =>
+                      val remaining = 10 - userIds.length
+                      if remaining > 0 then
+                        env.user.cached.userIdsLike(term).map { extraUserIds =>
+                          userIds ++ (extraUserIds.diff(userIds)).take(remaining)
+                        }
+                      else fuccess(userIds)
                     }
                   case None if getBool("teacher") =>
                     env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
@@ -597,14 +602,14 @@ final class User(
                 .map: users =>
                   Json.obj:
                     "result" -> JsArray(users.collect { case Some(u) =>
-                      lila.common.LightUser
+                      lila.common.Json.lightUser
                         .write(u)
                         .add("online" -> env.socket.isOnline(u.id))
                     })
             else fuccess(Json.toJson(userIds))
           }.map(JsonOk)
 
-  def ratingDistribution(perfKey: Perf.Key, username: Option[UserStr] = None) = Open:
+  def ratingDistribution(perfKey: PerfKey, username: Option[UserStr] = None) = Open:
     Found(PerfType(perfKey).filter(PerfType.isLeaderboardable)): perfType =>
       env.user.rankingApi
         .weeklyRatingDistribution(perfType)

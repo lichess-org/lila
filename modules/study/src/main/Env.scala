@@ -4,8 +4,8 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.*
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.core.config.*
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -19,19 +19,26 @@ final class Env(
     userRepo: lila.user.UserRepo,
     explorerImporter: lila.explorer.ExplorerImporter,
     notifyApi: lila.notify.NotifyApi,
-    fidePlayerApi: lila.fide.FidePlayerApi,
+    federations: lila.core.fide.Federation.FedsOf,
+    federationNames: lila.core.fide.Federation.NamesOf,
     prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    timeline: lila.hub.actors.Timeline,
-    fishnet: lila.hub.actors.Fishnet,
+    relationApi: lila.core.relation.RelationApi,
+    socketKit: lila.core.socket.SocketKit,
+    socketReq: lila.core.socket.SocketRequester,
     chatApi: lila.chat.ChatApi,
     analyser: lila.analyse.Analyser,
     annotator: lila.analyse.Annotator,
     mongo: lila.db.Env,
-    net: lila.common.config.NetConfig,
+    net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode, lila.user.FlairApi.Getter):
+)(using
+    Executor,
+    Scheduler,
+    akka.stream.Materializer,
+    play.api.Mode,
+    lila.user.FlairApi.Getter,
+    lila.core.i18n.Translator
+):
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
 

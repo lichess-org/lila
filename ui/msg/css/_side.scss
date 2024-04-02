@@ -20,7 +20,7 @@
     background: $c-bg-zebra;
     overflow: hidden;
     user-select: none;
-    border-#{$end-direction}: $border;
+    border-inline-end: $border;
 
     ::-webkit-scrollbar,
     ::-webkit-scrollbar-corner {
@@ -117,7 +117,7 @@
 
       &__new {
         color: $c-primary;
-        margin-#{$start-direction}: 0.3em;
+        margin-inline-start: 0.3em;
       }
     }
   }

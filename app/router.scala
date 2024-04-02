@@ -9,7 +9,8 @@ import lila.clas.{ Clas, ClasInvite }
 import lila.puzzle.PuzzleTheme
 import lila.rating.Perf
 import lila.report.Report
-import lila.socket.Socket.Sri
+import lila.core.socket.Sri
+import lila.core.rating.PerfKey
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
@@ -40,8 +41,8 @@ given clasId: Conversion[String, Clas.Id]                                = Clas.
 given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasInvite.Id(_)
 given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
-given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr from _
-given perfKey: Conversion[String, Perf.Key]                              = Perf.Key(_)
+given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr.from(_)
+given perfKey: Conversion[String, PerfKey]                               = PerfKey(_)
 given puzzleKey: Conversion[String, PuzzleTheme.Key]                     = PuzzleTheme.Key(_)
 given Conversion[String, Variant.LilaKey]                                = Variant.LilaKey(_)
 given variantKeyOpt: Conversion[Option[String], Option[Variant.LilaKey]] = Variant.LilaKey.from(_)
@@ -76,7 +77,7 @@ object ReverseRouterConversions:
   given Conversion[ForumTopicId, String]                             = _.value
   given Conversion[lila.cms.CmsPage.Id, String]                      = _.value
   given Conversion[lila.cms.CmsPage.Key, String]                     = _.value
-  given Conversion[lila.i18n.Language, String]                       = _.value
+  given Conversion[lila.core.i18n.Language, String]                  = _.value
   given Conversion[chess.FideId, Int]                                = _.value
   given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
@@ -85,6 +86,6 @@ object ReverseRouterConversions:
   given clasIdConv: Conversion[Clas.Id, String]                      = _.value
   given clasInviteIdConv: Conversion[ClasInvite.Id, String]          = _.value
   given relayTourIdConv: Conversion[lila.relay.RelayTour.Id, String] = _.value
-  given perfKeyConv: Conversion[Perf.Key, String]                    = _.value
+  given perfKeyConv: Conversion[PerfKey, String]                     = _.value
   given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]           = _.value
   given localDateConv: Conversion[java.time.LocalDate, String]       = _.toString

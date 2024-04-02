@@ -11,7 +11,7 @@ import scala.util.chaining.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.common.{ ApiVersion, LangPath }
+import lila.core.{ ApiVersion, LangPath }
 import lila.puzzle.{
   Puzzle as Puz,
   PuzzleAngle,
@@ -23,6 +23,7 @@ import lila.puzzle.{
 }
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
+import lila.core.i18n.Translate
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -220,7 +221,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       views.html.puzzle.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
     .map(_.noCache.enforceCrossSiteIsolation)
 
-  private def streakJsonAndPuzzle(using Lang) =
+  private def streakJsonAndPuzzle(using Translate) =
     given Option[Me] = none
     given Perf       = Perf.default
     env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
@@ -230,7 +231,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   private def setStreakResult(userId: UserId, score: Int) =
-    lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
+    lila.common.Bus.publish(lila.core.actorApi.puzzle.StreakRun(userId, score), "streakRun")
     env.user.perfsRepo.addStreakRun(userId, score)
 
   def apiStreak = Anon:
@@ -367,8 +368,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
     val config = lila.puzzle.PuzzleActivity.Config(
       user = me,
-      max = getInt("max").map(_.atLeast(1)),
-      before = getTimestamp("before")
+      max = getIntAs[Max]("max").map(_.atLeast(1)),
+      before = getTimestamp("before"),
+      since = getTimestamp("since")
     )
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(env.puzzle.activity.stream(config))(jsToNdJson)
   }

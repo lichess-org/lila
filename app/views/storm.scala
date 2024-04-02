@@ -6,8 +6,8 @@ import play.api.libs.json.*
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LangPath
-import lila.common.paginator.Paginator
+import lila.core.LangPath
+import scalalib.paginator.Paginator
 import lila.storm.{ StormDay, StormHigh }
 import lila.user.User
 
@@ -16,7 +16,7 @@ object storm:
   def home(data: JsObject, high: Option[StormHigh])(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("storm")),
-      moreJs = jsModuleInit("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))),
+      pageModule = PageModule("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))).some,
       title = "Puzzle Storm",
       zoomable = true,
       zenable = true,
@@ -39,24 +39,23 @@ object storm:
           )
         },
         div(cls := "storm__about__link")(
-          a(href := routes.Cms.lonePage("storm"))(trans.aboutX("Puzzle Storm"))
+          a(href := routes.Cms.lonePage("storm"))(trans.site.aboutX("Puzzle Storm"))
         )
       )
     }
 
-  private def renderHigh(high: StormHigh)(using Lang) =
+  private def renderHigh(high: StormHigh)(using Translate) =
     frag(
       List(
         (high.allTime, trans.storm.allTime),
         (high.month, trans.storm.thisMonth),
         (high.week, trans.storm.thisWeek),
-        (high.day, trans.today)
-      ).map { case (value, name) =>
+        (high.day, trans.site.today)
+      ).map: (value, name) =>
         div(cls := "storm-dashboard__high__period")(
           strong(value),
           span(name())
         )
-      }
     )
 
   private val numberTag = tag("number")
@@ -132,8 +131,7 @@ object storm:
     )
 
   private val i18nKeys =
-    import lila.i18n.{ I18nKeys as trans }
-    import lila.i18n.I18nKeys.{ storm as s }
+    import trans.{ storm as s }
     List(
       s.moveToStart,
       s.puzzlesSolved,
@@ -163,5 +161,5 @@ object storm:
       s.clickToReload,
       s.thisRunHasExpired,
       s.thisRunWasOpenedInAnotherTab,
-      trans.flipBoard
+      trans.site.flipBoard
     )

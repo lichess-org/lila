@@ -20,9 +20,10 @@ import reactivemongo.api.bson.*
 
 import scala.util.{ Success, Try }
 
-import lila.common.Days
+import lila.core.Days
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import lila.core.game.{ GameRule, Source }
 
 object BSONHandlers:
 
@@ -41,7 +42,7 @@ object BSONHandlers:
     x => byteArrayHandler.writeTry(BinaryFormat.unmovedRooks.write(x)).get
   )
 
-  given BSONHandler[GameRule] = valueMapHandler(GameRule.byKey)(_.key)
+  given BSONHandler[GameRule] = valueMapHandler(GameRule.byKey)(_.toString)
 
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*
@@ -118,7 +119,7 @@ object BSONHandlers:
             lastMove = clm.lastMove,
             castles = clm.castles,
             halfMoveClock = halfMoveClock
-              .orElse(r.getO[Fen.Epd](F.initialFen).flatMap { fen =>
+              .orElse(r.getO[Fen.Full](F.initialFen).flatMap { fen =>
                 Fen.readHalfMoveClockAndFullMoveNumber(fen)._1
               })
               .getOrElse(playedPlies.into(HalfMoveClock))

@@ -5,7 +5,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.Domain
+import lila.core.Domain
 import lila.db.dsl.*
 
 /* An expensive API detecting disposable email.
@@ -66,10 +66,10 @@ final private class VerifyMail(
           disposable = ~js.boolean("disposable")
           privacy    = ~js.boolean("privacy")
         yield
-          val ok = !block && !disposable
+          val ok = !disposable
           logger.info:
             s"VerifyMail $domain = $ok {block:$block,disposable:$disposable,privacy:$privacy}"
           ok
         ).getOrElse:
-          throw lila.base.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
+          throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
       .monTry(res => _.security.verifyMailApi.fetch(res.isSuccess, res.getOrElse(true)))

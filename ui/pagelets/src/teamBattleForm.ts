@@ -1,4 +1,6 @@
 import * as xhr from 'common/xhr';
+import { Textcomplete } from '@textcomplete/core';
+import { TextareaEditor } from '@textcomplete/textarea';
 
 interface Team {
   id: string;
@@ -11,14 +13,7 @@ site.load.then(() => {
   $('#form3-teams').each(function (this: HTMLTextAreaElement) {
     const textarea = this;
 
-    const textcomplete = new window.Textcomplete(new window.Textcomplete.editors.Textarea(textarea), {
-      dropdown: {
-        maxCount: 10,
-        placement: 'bottom',
-      },
-    });
-
-    textcomplete.register([
+    new Textcomplete(new TextareaEditor(textarea), [
       {
         id: 'team',
         match: /(^|\s)(.+)$/,
@@ -39,12 +34,5 @@ site.load.then(() => {
         replace: (team: Team) => '$1' + team.id + ' "' + team.name + '" by ' + team.owner + '\n',
       },
     ]);
-
-    textcomplete.on('rendered', function () {
-      if (textcomplete.dropdown.items.length) {
-        // Activate the first item by default.
-        textcomplete.dropdown.items[0].activate();
-      }
-    });
   });
 });

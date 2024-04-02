@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
-import lila.i18n.defaultLang
+import lila.core.i18n.defaultLang
 
 object mini:
 
@@ -32,13 +32,13 @@ object mini:
   def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
     val link = if tv then channelKey.fold(routes.Tv.index) { routes.Tv.onChannel }
     else routes.Round.watcher(pov.gameId, pov.color.name)
-    renderMini(pov, link.url.some)(using defaultLang, None)
+    renderMini(pov, link.url.some)(using lila.i18n.Translator.toDefault, None)
 
   private def renderMini(
       pov: Pov,
       link: Option[String] = None,
       showRatings: Boolean = true
-  )(using Lang, Option[Me]): Tag =
+  )(using Translate, Option[Me]): Tag =
     import pov.game
     val tag                                    = if link.isDefined then a else span
     def showTimeControl(c: chess.Clock.Config) = s"${c.limitSeconds}+${c.increment}"
@@ -62,7 +62,7 @@ object mini:
 
     dataState := s"${fen},${pov.color.name},${~pov.game.lastMoveKeys}"
 
-  private def renderPlayer(pov: Pov, withRating: Boolean)(using Lang) =
+  private def renderPlayer(pov: Pov, withRating: Boolean)(using Translate) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
         playerUsername(pov.player.light, pov.player.userId.flatMap(lightUser), withRating = false),

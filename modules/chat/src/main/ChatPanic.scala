@@ -1,19 +1,19 @@
 package lila.chat
 
-import lila.user.User
+import lila.core.user.User
 
 final class ChatPanic:
 
   private var until: Option[Instant] = none
 
-  def allowed(u: User): Boolean =
-    !enabled || {
-      (u.count.gameH > 10 && u.createdSinceDays(1)) || u.isVerified
-    }
+  def allowed(u: User): Boolean = !enabled || (
+    u.count.winH + u.count.lossH > 10 && u.createdSinceDays(1)
+  )
 
-  def allowed(id: UserId, fetch: UserId => Fu[Option[User]]): Fu[Boolean] =
-    if enabled then fetch(id).dmap { _.so(allowed) }
-    else fuTrue
+  val allowed: lila.core.chat.panic.IsAllowed = id =>
+    fetch =>
+      if enabled then fetch(id).dmap { _.so(allowed) }
+      else fuTrue
 
   def enabled =
     until.exists { d =>

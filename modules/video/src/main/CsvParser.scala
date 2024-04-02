@@ -220,5 +220,5 @@ object CSVParser:
         state match
           case Field | QuoteEnd =>
             fields :+= field.toString
-          case _ => {}
+          case _ =>
         Some(fields.toList)

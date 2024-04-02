@@ -18,7 +18,7 @@ object theirs:
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
-      moreJs = bits.js(c, json, owner = false, color),
+      pageModule = bits.jsModule(c, json, owner = false, color).some,
       moreCss = cssTag("challenge.page")
     ):
       main(cls := "page-small challenge-page challenge-theirs box box-pad"):
@@ -51,10 +51,11 @@ object theirs:
                 )
               else if !c.mode.rated || ctx.isAuth then
                 frag(
-                  (c.mode.rated && c.unlimited).option(badTag(trans.bewareTheGameIsRatedButHasNoClock())),
+                  (c.mode.rated && c.unlimited)
+                    .option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
                   postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
                     submitButton(cls := "text button button-fat", dataIcon := licon.PlayTriangle)(
-                      trans.joinTheGame()
+                      trans.site.joinTheGame()
                     )
                   )
                 )
@@ -62,11 +63,11 @@ object theirs:
                 frag(
                   hr,
                   badTag(
-                    p(trans.thisGameIsRated()),
+                    p(trans.site.thisGameIsRated()),
                     a(
                       cls  := "button",
                       href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "white")}"
-                    )(trans.signIn())
+                    )(trans.site.signIn())
                   )
                 )
             )
@@ -74,7 +75,7 @@ object theirs:
             div(cls := "follow-up")(
               h1(cls := "box__top")(trans.challenge.challengeDeclined()),
               bits.details(c, color),
-              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.site.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
@@ -85,12 +86,12 @@ object theirs:
                 href := routes.Round.watcher(c.id, "white"),
                 cls  := "button button-fat"
               )(
-                trans.joinTheGame()
+                trans.site.joinTheGame()
               )
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
               h1(cls := "box__top")(trans.challenge.challengeCanceled()),
               bits.details(c, color),
-              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.site.newOpponent())
             )

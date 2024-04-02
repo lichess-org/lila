@@ -4,7 +4,7 @@ import chess.format.pgn.{ Tag, Tags }
 import chess.{ Elo, FideId, PlayerName, PlayerTitle }
 import play.api.data.Forms.*
 
-import lila.fide.{ FidePlayer, PlayerToken }
+import lila.core.fide.{ Player, PlayerToken }
 
 // used to change names and ratings of broadcast players
 private case class RelayPlayer(
@@ -23,9 +23,26 @@ private class RelayPlayersTextarea(val text: String):
     lines.nonEmpty.so:
       text.linesIterator.take(1000).toList.flatMap(parse).toMap
 
+  object tokenize:
+    private val nonLetterRegex = """[^a-zA-Z0-9\s]+""".r
+    private val splitRegex     = """\W""".r
+    def apply(str: String): PlayerToken =
+      splitRegex
+        .split:
+          java.text.Normalizer
+            .normalize(str.trim, java.text.Normalizer.Form.NFD)
+            .replaceAllIn(nonLetterRegex, "")
+            .toLowerCase
+        .toList
+        .map(_.trim)
+        .filter(_.nonEmpty)
+        .distinct
+        .sorted
+        .mkString(" ")
+
   // With tokenized player names
   private lazy val tokenizedPlayers: Map[PlayerToken, RelayPlayer] =
-    players.mapKeys(name => FidePlayer.tokenize(name.value))
+    players.mapKeys(name => tokenize(name.value))
 
   // With player names combinations.
   // For example, if the tokenized player name is "A B C D", the combinations will be:
@@ -81,5 +98,5 @@ private class RelayPlayersTextarea(val text: String):
     players
       .get(name)
       .orElse:
-        val token = FidePlayer.tokenize(name.value)
+        val token = tokenize(name.value)
         tokenizedPlayers.get(token).orElse(combinationPlayers.get(token))

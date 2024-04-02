@@ -1,7 +1,7 @@
 package lila.mod
 
 import lila.report.{ ModId, Suspect }
-import lila.user.Me
+import lila.user.{ Me, modId }
 
 case class Modlog(
     mod: ModId,
@@ -52,6 +52,7 @@ case class Modlog(
     case Modlog.chatTimeout         => "chat timeout"
     case Modlog.troll               => "shadowban"
     case Modlog.untroll             => "un-shadowban"
+    case Modlog.fullCommsExport     => "exported all comms"
     case Modlog.permissions         => "set permissions"
     case Modlog.kickFromRankings    => "kick from rankings"
     case Modlog.reportban           => "reportban"
@@ -111,6 +112,7 @@ object Modlog:
   val unbooster           = "unbooster"
   val troll               = "troll"
   val untroll             = "untroll"
+  val fullCommsExport     = "fullCommsExport"
   val permissions         = "permissions"
   val disableTwoFactor    = "disableTwoFactor"
   val closeAccount        = "closeAccount"

@@ -1,6 +1,6 @@
 package lila.clas
 
-final class ClasMarkup:
+final class ClasMarkup(using Executor):
 
   private val renderer = lila.common.MarkdownRender(
     autoLink = true,

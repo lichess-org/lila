@@ -13,10 +13,7 @@ object perfStat:
 
   import trans.perfStat.*
 
-  def apply(
-      data: PerfStatData,
-      ratingChart: Option[String]
-  )(using PageContext) =
+  def apply(data: PerfStatData, ratingChart: Option[SafeJsonStr])(using PageContext) =
     import data.*
     import stat.perfType
     views.html.base.layout(
@@ -27,7 +24,7 @@ object perfStat:
         ratingChart.map: rc =>
           jsModuleInit(
             "chart.ratingHistory",
-            s"{data:$rc,singlePerfName:'${perfType.trans(using lila.i18n.defaultLang)}'}"
+            SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using ctxTrans.translator.toDefault)}'}")
           )
       ),
       moreCss = cssTag("perf-stat")
@@ -73,14 +70,14 @@ object perfStat:
     )
   )
 
-  private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
+  private def decimal(v: Double) = scalalib.Maths.roundDownAt(v, 2)
 
   private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(using
       ctx: Context
   ): Frag =
     st.section(cls := "glicko")(
       h2(
-        trans.perfRatingX(
+        trans.site.perfRatingX(
           strong(
             if perf.glicko.clueless then "?"
             else decimal(perf.glicko.rating).toString
@@ -99,12 +96,12 @@ object perfStat:
         percentile.filter(_ != 0.0 && perf.glicko.provisional.no).map { percentile =>
           span(cls := "details")(
             if ctx.is(u) then
-              trans.youAreBetterThanPercentOfPerfTypePlayers(
+              trans.site.youAreBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
                 a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
               )
             else
-              trans.userIsBetterThanPercentOfPerfTypePlayers(
+              trans.site.userIsBetterThanPercentOfPerfTypePlayers(
                 a(href := routes.User.show(u.username))(u.username),
                 a(href := routes.User.ratingDistribution(perfType.key, u.username.some))(
                   strong(percentile, "%")
@@ -138,7 +135,7 @@ object perfStat:
   private def pct(num: Int, denom: Int): String =
     (denom != 0).so(s"${Math.round(num * 100.0 / denom)}%")
 
-  private def counter(count: lila.perfStat.Count)(using Lang): Frag =
+  private def counter(count: lila.perfStat.Count)(using Translate): Frag =
     st.section(cls := "counter split")(
       div(
         table(
@@ -186,7 +183,7 @@ object perfStat:
               td(tag("green")(pct(count.win, count.all)))
             ),
             tr(cls := "full")(
-              th(trans.draws()),
+              th(trans.site.draws()),
               td(count.draw.localize),
               td(pct(count.draw, count.all))
             ),
@@ -212,7 +209,7 @@ object perfStat:
       opt: Option[lila.perfStat.RatingAt],
       pctStr: Option[String],
       color: String
-  )(using Lang): Frag = opt match
+  )(using Translate): Frag = opt match
     case Some(r) =>
       div(
         h2(title(strong(tag(color)(r.int, pctStr.map(st.title := _))))),
@@ -220,15 +217,17 @@ object perfStat:
       )
     case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
 
-  private def highlow(stat: PerfStat, pctLow: Option[Double], pctHigh: Option[Double])(using Lang): Frag =
+  private def highlow(stat: PerfStat, pctLow: Option[Double], pctHigh: Option[Double])(using
+      Translate
+  ): Frag =
     import stat.perfType
-    def titleOf(v: Double) = trans.betterThanPercentPlayers.txt(s"$v%", perfType.trans)
+    def titleOf(v: Double) = trans.site.betterThanPercentPlayers.txt(s"$v%", perfType.trans)
     st.section(cls := "highlow split")(
       highlowSide(highestRating(_), stat.highest, pctHigh.map(titleOf), "green"),
       highlowSide(lowestRating(_), stat.lowest, pctLow.map(titleOf), "red")
     )
 
-  private def fromTo(s: lila.perfStat.Streak)(using Lang): Frag =
+  private def fromTo(s: lila.perfStat.Streak)(using Translate): Frag =
     s.from match
       case Some(from) =>
         fromXToY(
@@ -241,12 +240,12 @@ object perfStat:
       case None => nbsp
 
   private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(using
-      Lang
+      Translate
   ): Frag =
     div(cls := "streak")(
       h3(
         title(
-          if s.v > 0 then tag(color)(trans.nbGames.plural(s.v, strong(s.v.localize)))
+          if s.v > 0 then tag(color)(trans.site.nbGames.plural(s.v, strong(s.v.localize)))
           else "-"
         )
       ),
@@ -254,7 +253,7 @@ object perfStat:
     )
 
   private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String)(using
-      Lang
+      Translate
   ): Frag =
     div(
       h2(title),
@@ -262,13 +261,13 @@ object perfStat:
       resultStreakSideStreak(s.cur, currentStreak(_), color)
     )
 
-  private def resultStreak(streak: lila.perfStat.ResultStreak)(using Lang): Frag =
+  private def resultStreak(streak: lila.perfStat.ResultStreak)(using Translate): Frag =
     st.section(cls := "resultStreak split")(
       resultStreakSide(streak.win, winningStreak(), "green"),
       resultStreakSide(streak.loss, losingStreak(), "red")
     )
 
-  private def resultTable(results: lila.perfStat.Results, title: Frag, user: User)(using Lang) =
+  private def resultTable(results: lila.perfStat.Results, title: Frag, user: User)(using Translate) =
     div:
       table(
         thead:
@@ -296,12 +295,12 @@ object perfStat:
       )
     )
 
-  private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Lang): Frag =
+  private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Translate): Frag =
     div(
       div(cls := "streak")(
         h3(
           title(
-            if s.v > 0 then trans.nbGames.plural(s.v, strong(s.v.localize))
+            if s.v > 0 then trans.site.nbGames.plural(s.v, strong(s.v.localize))
             else "-"
           )
         ),
@@ -309,19 +308,19 @@ object perfStat:
       )
     )
 
-  private def playStreakNbStreaks(streaks: lila.perfStat.Streaks)(using Lang): Frag =
+  private def playStreakNbStreaks(streaks: lila.perfStat.Streaks)(using Translate): Frag =
     div(cls := "split")(
       playStreakNbStreak(streaks.max, longestStreak(_)),
       playStreakNbStreak(streaks.cur, currentStreak(_))
     )
 
-  private def playStreakNb(playStreak: lila.perfStat.PlayStreak)(using Lang): Frag =
+  private def playStreakNb(playStreak: lila.perfStat.PlayStreak)(using Translate): Frag =
     st.section(cls := "playStreak")(
       h2(span(title := lessThanOneHour.txt())(gamesInARow())),
       playStreakNbStreaks(playStreak.nb)
     )
 
-  private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Lang): Frag =
+  private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Translate): Frag =
     div(
       div(cls := "streak")(
         h3(title(showDuration(s.duration))),
@@ -329,13 +328,13 @@ object perfStat:
       )
     )
 
-  private def playStreakTimeStreaks(streaks: lila.perfStat.Streaks)(using Lang): Frag =
+  private def playStreakTimeStreaks(streaks: lila.perfStat.Streaks)(using Translate): Frag =
     div(cls := "split")(
       playStreakTimeStreak(streaks.max, longestStreak(_)),
       playStreakTimeStreak(streaks.cur, currentStreak(_))
     )
 
-  private def playStreakTime(playStreak: lila.perfStat.PlayStreak)(using Lang): Frag =
+  private def playStreakTime(playStreak: lila.perfStat.PlayStreak)(using Translate): Frag =
     st.section(cls := "playStreak")(
       h2(span(title := lessThanOneHour.txt())(maxTimePlaying())),
       playStreakTimeStreaks(playStreak.time)

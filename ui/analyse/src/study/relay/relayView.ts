@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
 import { onClickAway } from 'common';
-import { looseH as h, onInsert } from 'common/snabbdom';
+import { looseH as h, onInsert, bind } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
@@ -73,8 +73,8 @@ function renderBoardView(ctx: RelayViewContext, wide: boolean) {
   return [
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
-    wide && renderVideoPlayer(relay),
-    renderTools(ctx, wide ? undefined : renderVideoPlayer(relay)),
+    wide && renderImageOrPlayer(relay),
+    renderTools(ctx, wide ? undefined : renderImageOrPlayer(relay)),
     renderControls(ctrl),
     renderUnderboard(ctx),
     ...tourSide(ctrl, study, relay),
@@ -105,4 +105,29 @@ export function renderStreamerMenu(relay: RelayCtrl) {
       ),
     ),
   );
+}
+
+function renderImageOrPlayer(relay: RelayCtrl) {
+  return relay.data.videoUrls
+    ? renderVideoPlayer(relay)
+    : relay.pinStreamer() && relay.allowPinnedImageOnUniboards()
+    ? renderPinnedImage(relay)
+    : undefined;
+}
+
+export function renderPinnedImage(relay: RelayCtrl) {
+  if (!relay.pinStreamer() || !relay.data.pinned?.image) return undefined;
+  return h('img.link', {
+    attrs: { src: relay.data.pinned.image },
+    hook: bind('click', () => {
+      if (window.getComputedStyle(document.body).getPropertyValue('--allow-video') !== 'true') {
+        const url = `${window.location.origin}/streamer/${relay.data.pinned!.userId}`;
+        window.open(url, '_blank', 'noopener');
+        return;
+      }
+      const url = new URL(location.href);
+      url.searchParams.set('embed', relay.data.pinned!.userId);
+      window.location.replace(url);
+    }),
+  });
 }

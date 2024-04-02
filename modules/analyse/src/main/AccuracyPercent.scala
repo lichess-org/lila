@@ -2,10 +2,11 @@ package lila.analyse
 
 import chess.{ ByColor, Color }
 
-import lila.common.Maths
+import scalalib.Maths
 import lila.game.Game
 import lila.tree.Eval
 import lila.tree.Eval.Cp
+import lila.tree.{ Analysis, WinPercent }
 
 // Quality of a move, based on previous and next WinPercent
 opaque type AccuracyPercent = Double

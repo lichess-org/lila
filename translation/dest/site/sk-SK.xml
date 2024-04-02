@@ -304,7 +304,7 @@
   <string name="eventInProgress">Práve sa hrá</string>
   <string name="finished">Ukončené</string>
   <string name="abortGame">Zrušiť hru</string>
-  <string name="gameAborted">Hra bola zrušená</string>
+  <string name="gameAborted">Partia zrušená</string>
   <string name="standard">Štandard</string>
   <string name="unlimited">Bez času</string>
   <string name="mode">Režim partie</string>
@@ -439,7 +439,7 @@
   <string name="youAreNotInTeam">Nie ste členom tímu %s</string>
   <string name="backToGame">Návrat do hry</string>
   <string name="siteDescription">Šach online zadarmo. Hrajte šach teraz v novom rozhraní. Bez registrácie, reklám a zásuvných modulov. Hrajte šach s počítačom, priateľmi alebo náhodnými protivníkmi.</string>
-  <string name="xJoinedTeamY">%1$s sa pripojil/a k tímu %2$s</string>
+  <string name="xJoinedTeamY">%1$s vstúpill/a do družstva %2$s</string>
   <string name="xCreatedTeamY">%1$s vytvoril/a tím %2$s</string>
   <string name="startedStreaming">začal vysielať</string>
   <string name="xStartedStreaming">%s začal vysielať</string>
@@ -989,7 +989,7 @@
   <string name="invitedYouToX">Vás pozval(a) k \"%1$s\".</string>
   <string name="xInvitedYouToY">%1$s Vás pozval(a) k \"%2$s\".</string>
   <string name="youAreNowPartOfTeam">Teraz si členom tímu.</string>
-  <string name="youHaveJoinedTeamX">Pripojili ste sa k družstvu %1$s.</string>
+  <string name="youHaveJoinedTeamX">Vstúpili ste do družstva %1$s.</string>
   <string name="someoneYouReportedWasBanned">Hráč, ktorého ste nahlásili bol zabanovaný</string>
   <string name="congratsYouWon">Gratulujeme, vyhrali ste!</string>
   <string name="gameVsX">v partii proti %1$s</string>

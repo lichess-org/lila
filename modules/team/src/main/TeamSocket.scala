@@ -1,10 +1,10 @@
 package lila.team
 
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.RemoteSocket.{ Protocol as P, * }
+import lila.core.socket.{ protocol as P, * }
 
 final private class TeamSocket(
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: SocketKit,
     chat: lila.chat.ChatApi,
     api: TeamApi
 )(using Executor, lila.user.FlairApi.Getter):
@@ -13,7 +13,7 @@ final private class TeamSocket(
 
   subscribeChat(rooms, _.Team)
 
-  private lazy val handler: Handler = roomHandler(
+  private lazy val handler: SocketHandler = roomHandler(
     rooms,
     chat,
     logger,
@@ -24,10 +24,8 @@ final private class TeamSocket(
     chatBusChan = _.Team
   )
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("team-out").apply
+  private lazy val send = socketKit.send("team-out")
 
-  remoteSocketApi
-    .subscribe("team-in", RP.In.reader)(
-      handler.orElse(remoteSocketApi.baseHandler)
-    )
+  socketKit
+    .subscribe("team-in", RP.In.reader)(handler.orElse(socketKit.baseHandler))
     .andDo(send(P.Out.boot))

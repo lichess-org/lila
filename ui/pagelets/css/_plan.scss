@@ -53,7 +53,7 @@
 
     .change form button,
     .change form a {
-      margin-#{$start-direction}: 10px;
+      margin-inline-start: 10px;
     }
 
     .thanks {
@@ -118,7 +118,7 @@
 
   .text {
     flex: 1 1 45%;
-    margin-#{$end-direction}: 1em;
+    margin-inline-end: 1em;
     flex-flow: column nowrap;
   }
 
@@ -156,7 +156,7 @@
     group.freq input:checked + label::before,
     group .lifetime-check input + label::before {
       content: '✓';
-      padding-#{$end-direction}: 5px;
+      padding-inline-end: 5px;
     }
 
     group .lifetime-check input + label {
@@ -173,7 +173,7 @@
         .button {
           flex: 1 1 auto;
           font-weight: normal;
-          margin-#{$end-direction}: 1em;
+          margin-inline-end: 1em;
           height: 55px;
         }
 
@@ -192,7 +192,7 @@
         font-size: 1rem;
         .links {
           a {
-            margin-#{$start-direction}: 2em;
+            margin-inline-start: 2em;
           }
         }
       }

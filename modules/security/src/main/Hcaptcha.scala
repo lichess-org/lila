@@ -10,8 +10,10 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
 
 import lila.common.autoconfig.*
-import lila.common.config.*
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.config.given
+import lila.core.config.*
+import lila.common.HTTPRequest
+import lila.core.IpAddress
 
 trait Hcaptcha:
 
@@ -25,10 +27,11 @@ trait Hcaptcha:
 object Hcaptcha:
 
   enum Result(val ok: Boolean):
-    case Valid extends Result(true)
-    case Skip  extends Result(true)
-    case Pass  extends Result(true)
-    case Fail  extends Result(false)
+    case Valid    extends Result(true)
+    case Disabled extends Result(true)
+    case IpFirst  extends Result(true)
+    case Mobile   extends Result(true)
+    case Fail     extends Result(false)
 
   val field = "h-captcha-response" -> optional(nonEmptyText)
   val form  = Form(single(field))
@@ -50,6 +53,7 @@ final class HcaptchaSkip(config: HcaptchaPublicConfig) extends Hcaptcha:
   def verify(response: String)(using RequestHeader) = fuccess(Hcaptcha.Result.Valid)
 
 final class HcaptchaReal(
+    ipTrust: IpTrust,
     ws: StandaloneWSClient,
     netDomain: NetDomain,
     config: Hcaptcha.Config
@@ -68,23 +72,25 @@ final class HcaptchaReal(
     override def toString = `error-codes`.mkString(",")
   private given Reads[BadResponse] = Json.reads[BadResponse]
 
-  private object skip:
-    private val memo = lila.memo.HashCodeExpireSetMemo[IpAddress](24 hours)
-
-    def get(using req: RequestHeader): Boolean  = !memo.get(HTTPRequest.ipAddress(req))
-    def getFu(using RequestHeader): Fu[Boolean] = fuccess(get)
+  private object skipIp:
+    private val memo = scalalib.cache.HashCodeExpireSetMemo[IpAddress](24 hours)
+    def get(using req: RequestHeader): Fu[Boolean] =
+      val ip = HTTPRequest.ipAddress(req)
+      (!memo.get(ip)).so:
+        ipTrust.isSuspicious(ip).not
 
     def record(using req: RequestHeader) = memo.put(HTTPRequest.ipAddress(req))
 
   def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]] =
-    skip.getFu.map: skip =>
+    skipIp.get.map: skip =>
       lila.mon.security.hCaptcha
         .form(HTTPRequest.clientName(req), if skip then "skip" else "show")
         .increment()
       HcaptchaForm(form, config.public, skip)
 
   def verify(response: String)(using req: RequestHeader): Fu[Result] =
-    val client = HTTPRequest.clientName(req)
+    val client                           = HTTPRequest.clientName(req)
+    given Conversion[Result, Fu[Result]] = fuccess
     ws.url(config.endpoint)
       .post(
         Map(
@@ -94,7 +100,7 @@ final class HcaptchaReal(
           "sitekey"  -> config.publicKey
         )
       )
-      .map {
+      .flatMap {
         case res if res.status == 200 =>
           res.body[JsValue].validate[GoodResponse] match
             case JsSuccess(res, _) =>
@@ -106,15 +112,18 @@ final class HcaptchaReal(
                 case Some(err) if err.missingInput =>
                   if HTTPRequest.apiVersion(req).isDefined then
                     lila.mon.security.hCaptcha.hit(client, "api").increment()
-                    Result.Pass
-                  else if skip.get then
-                    lila.mon.security.hCaptcha.hit(client, "skip").increment()
-                    skip.record
-                    Result.Skip
+                    Result.Mobile
                   else
-                    logger.info(s"hcaptcha missing ${HTTPRequest.printClient(req)}")
-                    lila.mon.security.hCaptcha.hit(client, "missing").increment()
-                    Result.Fail
+                    skipIp.get.map:
+                      if _
+                      then
+                        lila.mon.security.hCaptcha.hit(client, "skip").increment()
+                        skipIp.record
+                        Result.IpFirst
+                      else
+                        logger.info(s"hcaptcha missing ${HTTPRequest.printClient(req)}")
+                        lila.mon.security.hCaptcha.hit(client, "missing").increment()
+                        Result.Fail
                 case Some(err) =>
                   lila.mon.security.hCaptcha.hit(client, err.toString).increment()
                   Result.Fail

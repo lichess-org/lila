@@ -3,8 +3,10 @@ package lila.pool
 import akka.actor.*
 
 import lila.game.Game
-import lila.rating.{ PerfType, RatingRange }
-import lila.socket.Socket.{ Sri, Sris }
+import lila.rating.PerfType
+import lila.core.rating.{ RatingRange, PerfKey }
+import lila.core.socket.{ Sri, Sris }
+import lila.core.pool.{ PoolMember, PoolConfigId, Joiner }
 import lila.user.Me
 
 final class PoolApi(
@@ -13,11 +15,11 @@ final class PoolApi(
     gameStarter: GameStarter,
     playbanApi: lila.playban.PlaybanApi,
     system: ActorSystem
-)(using Executor):
-  import PoolApi.*
+)(using Executor)
+    extends lila.core.pool.PoolApi:
   import PoolActor.*
 
-  private val actors: Map[PoolConfig.Id, ActorRef] = configs
+  private val actors: Map[PoolConfigId, ActorRef] = configs
     .map: config =>
       config.id -> system
         .actorOf(
@@ -26,12 +28,12 @@ final class PoolApi(
         )
     .toMap
 
-  val poolPerfTypes: Map[PoolConfig.Id, PerfType] = configs
+  val poolPerfKeys: Map[PoolConfigId, PerfKey] = configs
     .map: config =>
-      config.id -> config.perfType
+      config.id -> config.perfType.key
     .toMap
 
-  def join(poolId: PoolConfig.Id, joiner: Joiner): Unit =
+  def join(poolId: PoolConfigId, joiner: Joiner): Unit =
     playbanApi
       .hasCurrentBan(joiner)
       .foreach:
@@ -42,27 +44,9 @@ final class PoolApi(
             case (_, actor) => actor ! Leave(joiner.me)
         case _ =>
 
-  def leave(poolId: PoolConfig.Id, userId: UserId) = sendTo(poolId, Leave(userId))
+  def leave(poolId: PoolConfigId, userId: UserId) = sendTo(poolId, Leave(userId))
 
-  def socketIds(ids: Sris) = actors.values.foreach(_ ! ids)
+  def setOnlineSris(ids: Sris): Unit = actors.values.foreach(_ ! ids)
 
-  private def sendTo(poolId: PoolConfig.Id, msg: Any) =
+  private def sendTo(poolId: PoolConfigId, msg: Any) =
     actors.get(poolId).foreach { _ ! msg }
-
-object PoolApi:
-
-  case class Joiner(
-      sri: Sri,
-      rating: IntRating,
-      ratingRange: Option[RatingRange],
-      lame: Boolean,
-      blocking: Blocking
-  )(using val me: Me.Id):
-    def is(member: PoolMember) = member.is(me)
-
-  object Joiner:
-    given UserIdOf[Joiner] = _.me.userId
-
-  case class Pairing(game: Game, whiteSri: Sri, blackSri: Sri):
-    def sri(color: chess.Color) = color.fold(whiteSri, blackSri)
-  case class Pairings(pairings: List[Pairing])

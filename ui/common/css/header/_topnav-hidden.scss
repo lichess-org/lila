@@ -3,13 +3,13 @@
     display: block;
     position: absolute;
     top: -9999px;
-    #{$start-direction}: -9999px;
+    left: -9999px;
   }
 
   .hbg {
     position: absolute;
     top: 0;
-    #{$start-direction}: 0;
+    @include inline-start(0);
     width: $site-header-height;
     height: $site-header-height;
     cursor: pointer;
@@ -34,10 +34,10 @@
       }
 
       top: 50%;
-      #{$start-direction}: 8.5px;
+      @include inline-start(8.5px);
 
       @include mq-site-header-tall {
-        #{$start-direction}: 13px;
+        @include inline-start(13px);
       }
 
       transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
@@ -107,10 +107,16 @@
     position: fixed;
     top: $site-header-height;
     bottom: 0;
-    #{$start-direction}: 0;
+    @include inline-start(0);
     background: $c-bg-high;
 
+    -webkit-clip-path: inset(0 100% 0 0); // ios 12.x
     clip-path: inset(0 100% 0 0);
+
+    @include if-rtl {
+      -webkit-clip-path: inset(0 0 0 100%);
+      clip-path: inset(0 0 0 100%);
+    }
     transition: clip-path 200ms;
 
     padding-bottom: 1.2rem;
@@ -128,8 +134,6 @@
       max-width: 70%;
     }
 
-    z-index: z('topnav');
-
     a {
       color: $c-font;
       text-decoration: none;
@@ -145,7 +149,7 @@
 
       > a {
         font-size: 1.2em;
-        padding-#{$start-direction}: 1.2rem;
+        padding-inline-start: 1.2rem;
         font-weight: bold;
         display: block;
       }
@@ -159,7 +163,7 @@
         flex-flow: column;
 
         a {
-          padding-#{$start-direction}: 2.4rem;
+          padding-inline-start: 2.4rem;
         }
       }
 
@@ -170,6 +174,8 @@
     }
 
     .topnav-toggle:checked ~ & {
+      z-index: z('topnav');
+      -webkit-clip-path: inset(0 0 0 0); // ios 12.x
       clip-path: inset(0 0 0 0);
       a {
         opacity: 1;
@@ -181,10 +187,5 @@
   body.masked {
     /* prevent scrolling while topnav is open */
     overflow: hidden;
-
-    /* awkwardly make up for the disappearance of the scroll bar */
-    /* actually don't, since on mobile devices the scrool bar
-     * has no width, and that menu is mainly for mobile. */
-    // padding-#{$end-direction}: 15px;
   }
 }

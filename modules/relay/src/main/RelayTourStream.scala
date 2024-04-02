@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
-import lila.common.config.{ Max, MaxPerSecond }
 import lila.db.dsl.{ *, given }
 
 final class RelayTourStream(

@@ -21,7 +21,7 @@
     width: 50px;
     height: 50px;
     opacity: 0.9;
-    margin-#{$end-direction}: 10px;
+    margin-inline-end: 10px;
     padding: 10px;
     background: rgba(120, 120, 120, 1);
     display: block;
@@ -72,7 +72,7 @@
       width: 50px;
       height: 50px;
       opacity: 0.9;
-      margin-#{$end-direction}: 10px;
+      margin-inline-end: 10px;
       padding: 10px;
     }
 

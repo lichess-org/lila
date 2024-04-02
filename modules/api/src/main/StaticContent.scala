@@ -3,7 +3,7 @@ package lila.api
 import play.api.libs.json.{ JsArray, Json }
 
 import lila.common.Json.given
-import lila.common.config.NetConfig
+import lila.core.config.NetConfig
 
 object StaticContent:
 

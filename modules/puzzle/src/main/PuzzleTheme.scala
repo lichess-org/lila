@@ -1,7 +1,7 @@
 package lila.puzzle
 
-import lila.i18n.I18nKeys.puzzleTheme as i
-import lila.i18n.{ I18nKey, I18nKeys as trans }
+import lila.core.i18n.I18nKey.puzzleTheme as i
+import lila.core.i18n.I18nKey
 
 case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey)
 
@@ -38,7 +38,7 @@ object PuzzleTheme:
     PuzzleTheme(Key("dovetailMate"), i.dovetailMate, i.dovetailMateDescription)
   val equality       = PuzzleTheme(Key("equality"), i.equality, i.equalityDescription)
   val endgame        = PuzzleTheme(Key("endgame"), i.endgame, i.endgameDescription)
-  val enPassant      = PuzzleTheme(Key("enPassant"), trans.learn.enPassant, i.enPassantDescription)
+  val enPassant      = PuzzleTheme(Key("enPassant"), I18nKey.learn.enPassant, i.enPassantDescription)
   val exposedKing    = PuzzleTheme(Key("exposedKing"), i.exposedKing, i.exposedKingDescription)
   val fork           = PuzzleTheme(Key("fork"), i.fork, i.forkDescription)
   val hangingPiece   = PuzzleTheme(Key("hangingPiece"), i.hangingPiece, i.hangingPieceDescription)
@@ -81,10 +81,10 @@ object PuzzleTheme:
   val checkFirst      = PuzzleTheme(Key("checkFirst"), I18nKey("Check first"), I18nKey("Check first"))
 
   val categorized = List[(I18nKey, List[PuzzleTheme])](
-    trans.puzzle.recommended -> List(
+    I18nKey.puzzle.recommended -> List(
       mix
     ),
-    trans.puzzle.phases -> List(
+    I18nKey.puzzle.phases -> List(
       opening,
       middlegame,
       endgame,
@@ -95,7 +95,7 @@ object PuzzleTheme:
       queenEndgame,
       queenRookEndgame
     ),
-    trans.puzzle.motifs -> List(
+    I18nKey.puzzle.motifs -> List(
       advancedPawn,
       attackingF2F7,
       capturingDefender,
@@ -111,7 +111,7 @@ object PuzzleTheme:
       skewer,
       trappedPiece
     ),
-    trans.puzzle.advanced -> List(
+    I18nKey.puzzle.advanced -> List(
       attraction,
       clearance,
       defensiveMove,
@@ -122,7 +122,7 @@ object PuzzleTheme:
       xRayAttack,
       zugzwang
     ),
-    trans.puzzle.mates -> List(
+    I18nKey.puzzle.mates -> List(
       mate,
       mateIn1,
       mateIn2,
@@ -138,25 +138,25 @@ object PuzzleTheme:
       hookMate,
       smotheredMate
     ),
-    trans.puzzle.specialMoves -> List(
+    I18nKey.puzzle.specialMoves -> List(
       castling,
       enPassant,
       promotion,
       underPromotion
     ),
-    trans.puzzle.goals -> List(
+    I18nKey.puzzle.goals -> List(
       equality,
       advantage,
       crushing,
       mate
     ),
-    trans.puzzle.lengths -> List(
+    I18nKey.puzzle.lengths -> List(
       oneMove,
       short,
       long,
       veryLong
     ),
-    trans.puzzle.origin -> List(
+    I18nKey.puzzle.origin -> List(
       master,
       masterVsMaster,
       superGM

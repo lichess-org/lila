@@ -6,7 +6,7 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 
 @Module
 final private class PushConfig(
@@ -21,12 +21,12 @@ final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     db: lila.db.Db,
-    getLightUser: lila.common.LightUser.GetterFallback,
+    getLightUser: lila.core.LightUser.GetterFallback,
     proxyRepo: lila.round.GameProxyRepo,
     roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.notify.GetNotifyAllows,
-    postApi: lila.forum.ForumPostApi
+    postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler):
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
@@ -58,19 +58,19 @@ final class Env(
   ):
     case lila.game.actorApi.FinishGame(game, _) =>
       logUnit { pushApi.finish(game) }
-    case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
+    case lila.core.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
       logUnit { pushApi.move(move) }
-    case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) =>
+    case lila.core.round.CorresTakebackOfferEvent(gameId) =>
       logUnit { pushApi.takebackOffer(gameId) }
-    case lila.hub.actorApi.round.CorresDrawOfferEvent(gameId) =>
+    case lila.core.round.CorresDrawOfferEvent(gameId) =>
       logUnit { pushApi.drawOffer(gameId) }
-    case lila.challenge.Event.Create(c) =>
+    case lila.core.challenge.Event.Create(c) =>
       logUnit { pushApi.challengeCreate(c) }
-    case lila.challenge.Event.Accept(c, joinerId) =>
+    case lila.core.challenge.Event.Accept(c, joinerId) =>
       logUnit { pushApi.challengeAccept(c, joinerId) }
     case lila.game.actorApi.CorresAlarmEvent(pov) =>
       logUnit { pushApi.corresAlarm(pov) }
     case lila.notify.PushNotification(to, content, _) =>
       logUnit { pushApi.notifyPush(to, content) }
-    case t: lila.hub.actorApi.push.TourSoon =>
+    case t: lila.core.actorApi.push.TourSoon =>
       logUnit { pushApi.tourSoon(t) }

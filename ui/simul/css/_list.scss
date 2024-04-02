@@ -6,7 +6,7 @@
     color: $c-font-page;
     max-width: 350px;
     margin-top: 9em;
-    margin-#{$end-direction}: $block-gap;
+    margin-inline-end: $block-gap;
 
     img {
       @extend %box-radius;

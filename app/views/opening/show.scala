@@ -13,8 +13,8 @@ object show:
   def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(page.some),
-      title = s"${trans.opening.txt()} • ${page.name}",
+      pageModule = pageModule(page.some).some,
+      title = s"${trans.site.opening.txt()} • ${page.name}",
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
@@ -79,7 +79,7 @@ object show:
                   cls      := "button text",
                   dataIcon := licon.Book,
                   href     := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
-                )(trans.openingExplorer())
+                )(trans.site.openingExplorer())
               ),
               if page.explored.so(_.history).nonEmpty then
                 div(cls := "opening__popularity opening__popularity--chart")(

@@ -63,22 +63,19 @@ final class PracticeApi(
     def form = configStore.makeForm
 
   object structure:
-    private val cache = cacheApi.unit[PracticeStructure] {
-      _.expireAfterAccess(3.hours)
-        .buildAsyncFuture { _ =>
-          for
-            conf     <- config.get
-            chapters <- studyApi.chapterIdNames(conf.studyIds)
-          yield PracticeStructure.make(conf, chapters)
-        }
-    }
-
+    private val cache = cacheApi.unit[PracticeStructure]:
+      _.expireAfterAccess(3.hours).buildAsyncFuture: _ =>
+        for
+          conf     <- config.get
+          chapters <- studyApi.chapterIdNames(conf.studyIds)
+        yield PracticeStructure.make(conf, chapters)
     def get     = cache.getUnit
     def clear() = cache.invalidateUnit()
     def onSave(study: Study) =
-      get.foreach { structure =>
+      get.foreach: structure =>
         if structure.hasStudy(study.id) then clear()
-      }
+
+    val getStudies: lila.core.practice.GetStudies = () => get.map(_.study)
 
   object progress:
 
@@ -92,18 +89,12 @@ final class PracticeApi(
     private def save(p: PracticeProgress): Funit =
       coll.update.one($id(p.id), p, upsert = true).void
 
-    def setNbMoves(user: User, chapterId: StudyChapterId, score: NbMoves): Funit =
-      get(user)
-        .flatMap { prog =>
-          save(prog.withNbMoves(chapterId, score))
-        }
-        .andDo(
-          studyApi
-            .studyIdOf(chapterId)
-            .foreach:
-              _.so: studyId =>
-                Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), "finishPractice")
-        )
+    def setNbMoves(user: User, chapterId: StudyChapterId, score: NbMoves): Funit = for
+      prog    <- get(user)
+      _       <- save(prog.withNbMoves(chapterId, score))
+      studyId <- studyApi.studyIdOf(chapterId)
+    yield studyId.so: studyId =>
+      Bus.publish(lila.core.practice.OnComplete(user.id, studyId, chapterId), "finishPractice")
 
     def reset(user: User) =
       coll.delete.one($id(user.id)).void

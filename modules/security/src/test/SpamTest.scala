@@ -1,6 +1,6 @@
 package lila.security
 
-import lila.common.Strings
+import lila.core.Strings
 
 class SpamTest extends munit.FunSuite:
 

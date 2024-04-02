@@ -11,16 +11,16 @@ import lila.common.Json.given
 object editor:
 
   def apply(
-      fen: Option[Fen.Epd],
+      fen: Option[Fen.Full],
       positionsJson: JsArray,
       endgamePositionsJson: JsArray
   )(using PageContext) =
     views.html.base.layout(
-      title = trans.boardEditor.txt(),
-      moreJs = jsModuleInit(
+      title = trans.site.boardEditor.txt(),
+      pageModule = PageModule(
         "editor",
         jsData(fen) ++ Json.obj("positions" -> positionsJson, "endgamePositions" -> endgamePositionsJson)
-      ),
+      ).some,
       moreCss = cssTag("editor"),
       zoomable = true,
       openGraph = lila.app.ui
@@ -30,7 +30,7 @@ object editor:
           description = "Load opening positions or create your own chess position on a chess board editor"
         )
         .some
-    )(
+    ):
       main(id := "board-editor")(
         div(cls := "board-editor")(
           div(cls := "spare"),
@@ -38,9 +38,8 @@ object editor:
           div(cls := "spare")
         )
       )
-    )
 
-  def jsData(fen: Option[Fen.Epd] = None)(using ctx: Context) =
+  def jsData(fen: Option[Fen.Full] = None)(using ctx: Context) =
     Json
       .obj(
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",
@@ -51,23 +50,23 @@ object editor:
       .add("fen" -> fen)
 
   private val i18nKeys = List(
-    trans.setTheBoard,
-    trans.boardEditor,
-    trans.startPosition,
-    trans.clearBoard,
-    trans.flipBoard,
-    trans.loadPosition,
-    trans.popularOpenings,
-    trans.endgamePositions,
-    trans.castling,
-    trans.whiteCastlingKingside,
-    trans.blackCastlingKingside,
-    trans.whitePlays,
-    trans.blackPlays,
-    trans.variant,
-    trans.continueFromHere,
-    trans.playWithTheMachine,
-    trans.playWithAFriend,
-    trans.analysis,
-    trans.toStudy
+    trans.site.setTheBoard,
+    trans.site.boardEditor,
+    trans.site.startPosition,
+    trans.site.clearBoard,
+    trans.site.flipBoard,
+    trans.site.loadPosition,
+    trans.site.popularOpenings,
+    trans.site.endgamePositions,
+    trans.site.castling,
+    trans.site.whiteCastlingKingside,
+    trans.site.blackCastlingKingside,
+    trans.site.whitePlays,
+    trans.site.blackPlays,
+    trans.site.variant,
+    trans.site.continueFromHere,
+    trans.site.playWithTheMachine,
+    trans.site.playWithAFriend,
+    trans.site.analysis,
+    trans.site.toStudy
   )

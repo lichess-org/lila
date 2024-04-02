@@ -34,7 +34,7 @@
     }
 
     label {
-      margin-#{$end-direction}: 0.8em;
+      margin-inline-end: 0.8em;
     }
 
     input[type='text'],
@@ -61,7 +61,7 @@
     }
 
     .error {
-      margin-#{$start-direction}: 160px;
+      margin-inline-start: 160px;
       color: red;
     }
 
@@ -81,7 +81,7 @@
       .spinner {
         display: inline-block;
         vertical-align: middle;
-        margin-#{$end-direction}: 10px;
+        margin-inline-end: 10px;
       }
 
       .wait {

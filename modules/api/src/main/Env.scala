@@ -8,14 +8,14 @@ import play.api.{ Configuration, Mode }
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.common.config.*
-import lila.hub.actorApi.Announce
-import lila.hub.actorApi.lpv.*
+import lila.core.actorApi.Announce
+import lila.core.actorApi.lpv.*
 import lila.user.User
 
 @Module
 final class Env(
     appConfig: Configuration,
-    net: NetConfig,
+    net: lila.core.config.NetConfig,
     securityEnv: lila.security.Env,
     mailerEnv: lila.mailer.Env,
     teamSearchEnv: lila.teamSearch.Env,
@@ -62,12 +62,11 @@ final class Env(
     cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
-)(using
-    ec: Executor,
-    val mode: Mode,
-    system: ActorSystem,
-    scheduler: Scheduler,
-    materializer: akka.stream.Materializer
+)(using val mode: Mode, scheduler: Scheduler)(using
+    Executor,
+    ActorSystem,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator
 ):
 
   val config = ApiConfig.loadFrom(appConfig)

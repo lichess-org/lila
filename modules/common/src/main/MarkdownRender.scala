@@ -35,8 +35,10 @@ import scala.jdk.CollectionConverters.*
 import scala.util.Try
 import scala.util.matching.Regex
 
-import lila.base.RawHtml
-import lila.common.config.AssetDomain
+import lila.common.RawHtml
+import lila.core.config.AssetDomain
+import lila.core.config.NetDomain
+import lila.core.actorApi.lpv.LpvEmbed
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -109,7 +111,7 @@ object MarkdownRender:
   type Key         = String
   type PgnSourceId = String
 
-  case class PgnSourceExpand(domain: config.NetDomain, getPgn: PgnSourceId => Option[LpvEmbed])
+  case class PgnSourceExpand(domain: NetDomain, getPgn: PgnSourceId => Option[LpvEmbed])
 
   private val rel = "nofollow noopener noreferrer"
 
@@ -193,7 +195,7 @@ object MarkdownRender:
       )
 
     final class PgnRegexes(val game: Regex, val chapter: Regex)
-    def makePgnRegexes(domain: config.NetDomain): PgnRegexes =
+    def makePgnRegexes(domain: NetDomain): PgnRegexes =
       val quotedDomain = java.util.regex.Pattern.quote(domain.value)
       PgnRegexes(
         s"""^(?:https?://)?$quotedDomain/(?:embed/)?(?:game/)?(\\w{8})(?:(?:/(white|black))|\\w{4}|)(?:#(\\d+))?$$""".r,

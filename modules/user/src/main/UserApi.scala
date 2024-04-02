@@ -4,11 +4,13 @@ import chess.{ ByColor, PlayerTitle }
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
-import lila.common.{ LightUser, NormalizedEmailAddress }
+import lila.core.NormalizedEmailAddress
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User.userHandler
+import lila.core.lilaism.LilaInvalid
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
@@ -149,7 +151,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def setBot(user: User): Funit =
     if user.count.game > 0
-    then fufail(lila.base.LilaInvalid("You already have games played. Make a new account."))
+    then fufail(LilaInvalid("You already have games played. Make a new account."))
     else
       userRepo.setTitle(user.id, PlayerTitle.BOT) >>
         userRepo.setRoles(user.id, Nil) >>

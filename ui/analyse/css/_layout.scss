@@ -20,14 +20,13 @@ body {
   &__side {
     grid-area: side;
     justify-content: start;
-    margin: $analyse-block-gap;
   }
 
   &__board {
     grid-area: board;
 
     cg-container {
-      #{$end-direction}: 0;
+      @include inline-end(0);
     }
   }
 

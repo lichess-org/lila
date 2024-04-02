@@ -1,15 +1,23 @@
 package lila.study
 
-import chess.MoveOrDrop.*
-import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags }
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
 import monocle.syntax.all.*
-
-import lila.common.LightUser
+import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
+import chess.format.pgn.{
+  Glyphs,
+  ParsedPgn,
+  ParsedPgnTree,
+  San,
+  Tags,
+  PgnStr,
+  PgnNodeData,
+  Comment as ChessComment
+}
+import chess.format.{ Fen, Uci, UciCharPair, UciPath }
+import chess.MoveOrDrop.*
+import lila.tree.Node.{ Comment, Comments, Shapes }
+import lila.core.LightUser
 import lila.importer.{ ImportData, Preprocessed }
-import lila.tree.Node.{ Comment, Comments }
-import lila.tree.{ Metas, NewBranch, NewRoot, NewTree }
+import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
 
 object NewPgnImport:
 
@@ -53,52 +61,48 @@ object NewPgnImport:
                 statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
               )
             }
-            if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
-            else
-              end.map(PgnImport.endComment).fold(root) { comment =>
-                root
-                  .focus(_.tree.some)
-                  .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
-              }
+            val commented =
+              if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
+              else
+                end.map(PgnImport.endComment).fold(root) { comment =>
+                  root
+                    .focus(_.tree.some)
+                    .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
+                }
             Result(
-              root = root,
+              root = commented,
               variant = game.variant,
               tags = PgnTags(parsedPgn.tags),
               end = end
             )
     }
 
-  case class Context(game: chess.Game, path: UciPath)
-
   private def makeTree(
       setup: chess.Game,
       node: ParsedPgnTree,
       annotator: Option[Comment.Author]
   ): Option[PgnNode[NewBranch]] =
-    node.mapAccumlOption_(Context(setup, UciPath.root)) { (context, data) =>
-      transform(context, data, annotator)
-    }
+    node.mapAccumlOption_(setup): (setup, data) =>
+      transform(setup, data, annotator)
 
   private def transform(
-      context: Context,
+      context: chess.Game,
       data: PgnNodeData,
       annotator: Option[Comment.Author]
-  ): (Context, Option[NewBranch]) =
+  ): (chess.Game, Option[NewBranch]) =
     data
-      .san(context.game.situation)
+      .san(context.situation)
       .map(moveOrDrop =>
-        val game   = moveOrDrop.applyGame(context.game)
+        val game   = moveOrDrop.applyGame(context)
         val uci    = moveOrDrop.toUci
         val id     = UciCharPair(uci)
-        val path   = context.path + id
         val sanStr = moveOrDrop.toSanStr
         (
-          Context(game, path),
+          game,
           PgnImport.parseComments(data.metas.comments, annotator) match
             case (shapes, clock, comments) =>
               NewBranch(
                 id = id,
-                path = path,
                 move = Uci.WithSan(uci, sanStr),
                 comp = false,
                 forceVariation = false,

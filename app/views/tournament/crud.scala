@@ -6,7 +6,7 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.tournament.Tournament
 import lila.tournament.crud.CrudForm
 
@@ -41,7 +41,7 @@ object crud:
           spotlightAndTeamBattle(form, none),
           errMsg(form("setup")),
           tournament.form.setupCreate(form, Nil),
-          form3.action(form3.submit(trans.apply()))
+          form3.action(form3.submit(trans.site.apply()))
         )
       )
     }
@@ -69,7 +69,7 @@ object crud:
           spotlightAndTeamBattle(form, tour.some),
           errMsg(form("setup")),
           tournament.form.setupEdit(tour, form, Nil),
-          form3.action(form3.submit(trans.apply()))
+          form3.action(form3.submit(trans.site.apply()))
         )
       )
     }

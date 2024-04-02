@@ -4,9 +4,9 @@ import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, RequestHeader }
 import scalatags.Text.all.*
 
-import lila.common.config.*
-import lila.common.{ EmailAddress, LilaCookie }
-import lila.i18n.I18nKeys.emails as trans
+import lila.core.config.*
+import lila.core.{ EmailAddress, LilaCookie }
+import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
 import lila.user.{ User, UserApi, UserRepo }
 
@@ -32,7 +32,7 @@ final class EmailConfirmMailer(
     mailer: Mailer,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using Executor)
+)(using Executor, lila.core.i18n.Translator)
     extends EmailConfirm:
 
   import Mailer.html.*
@@ -116,7 +116,9 @@ object EmailConfirm:
       }
 
   import lila.memo.RateLimit
-  import lila.common.{ HTTPRequest, IpAddress }
+  import lila.common.HTTPRequest
+  import lila.core.IpAddress
+  given Executor = scala.concurrent.ExecutionContextOpportunistic
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 40,

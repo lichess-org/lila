@@ -9,11 +9,11 @@
   a {
     @extend %page-text;
 
-    margin-#{$end-direction}: 1.2em;
+    margin-inline-end: 1.2em;
     white-space: nowrap;
 
     @media (any-pointer: coarse) {
-      padding: 0.5em 0.7em;
+      padding: 0.5em;
     }
 
     @include transition(color);
@@ -25,7 +25,7 @@
 }
 
 .connect-links {
-  display: flex;
+  @extend %flex-center;
   justify-content: center;
   flex: 1 0 100%;
   margin-top: 0.5em;

@@ -104,7 +104,7 @@ const renderTeams = (
 
 const playerView = (p: ChapterPreviewPlayer) =>
   h('span.relay-tour__team-match__game__player', [
-    h('span.mini-game__user', [p.fed && playerFed(p.fed), h('span.name', [userTitle(p), p.name])]),
+    h('span.mini-game__user', [playerFed(p.fed), h('span.name', [userTitle(p), p.name])]),
     p.rating && h('rating', `${p.rating}`),
   ]);
 

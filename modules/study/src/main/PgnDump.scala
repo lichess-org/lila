@@ -1,20 +1,19 @@
 package lila.study
 
 import akka.stream.scaladsl.*
-import chess.format.pgn as chessPgn
-import chess.format.pgn.{ Comment, Glyphs, InitialComments, Pgn, PgnStr, PgnTree, Tag, Tags }
+import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
+import chess.format.{ pgn as chessPgn }
 
-import lila.analyse.Analysis
 import lila.common.String.slugify
+import lila.tree.{ Analysis, Root, Branch, Branches, NewBranch, NewTree, NewRoot }
 import lila.tree.Node.{ Shape, Shapes }
-import lila.tree.{ NewBranch, NewTree, Root }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
     analyser: lila.analyse.Analyser,
     annotator: lila.analyse.Annotator,
     lightUserApi: lila.user.LightUserApi,
-    net: lila.common.config.NetConfig
+    net: lila.core.config.NetConfig
 )(using Executor):
 
   import PgnDump.*
@@ -108,6 +107,9 @@ object PgnDump:
   )
   val fullFlags = WithFlags(true, true, true, true, true)
 
+  private type Variations = List[Branch]
+  private val noVariations: Variations = Nil
+
   def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
     Pgn(
       tags,
@@ -117,6 +119,13 @@ object PgnDump:
 
   def rootToTree(root: Root)(using WithFlags): Option[PgnTree] =
     NewTree(root).map(treeToTree)
+
+  def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
+    Pgn(
+      tags,
+      InitialComments(root.comments.value.map(_.text.into(Comment)) ::: shapeComment(root.shapes).toList),
+      root.tree.map(treeToTree(_)(using flags))
+    )
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
     if flags.variations then tree.map(branchToMove) else tree.mapMainline(branchToMove)

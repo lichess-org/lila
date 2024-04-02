@@ -12,7 +12,7 @@ trait FlashHelper:
   def successFlash(using ctx: Context): Option[Tag] =
     ctx.flash("success").map { msg =>
       flashMessage("success"):
-        if msg.isEmpty then trans.success()(using ctx.lang) else msg
+        if msg.isEmpty then trans.site.success() else msg
     }
 
   def warningFlash(using ctx: Context): Option[Tag] =

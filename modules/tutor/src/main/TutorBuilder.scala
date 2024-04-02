@@ -2,7 +2,6 @@ package lila.tutor
 
 import chess.Color
 
-import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.insight.{
   Answer as InsightAnswer,
@@ -108,7 +107,7 @@ private object TutorBuilder:
   type Count = Int
   type Pair  = ValueCount[Value]
 
-  val peerNbGames = config.Max(5_000)
+  val peerNbGames = Max(5_000)
 
   def answerMine[Dim](question: Question[Dim], user: TutorUser)(using
       insightApi: InsightApi,
@@ -118,7 +117,7 @@ private object TutorBuilder:
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key.value))
     .map(AnswerMine.apply)
 
-  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(using
+  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: Max = peerNbGames)(using
       insightApi: InsightApi,
       ec: Executor
   ): Fu[AnswerPeer[Dim]] = insightApi
@@ -126,7 +125,7 @@ private object TutorBuilder:
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key.value))
     .map(AnswerPeer.apply)
 
-  def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: config.Max = peerNbGames)(using
+  def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: Max = peerNbGames)(using
       InsightApi,
       Executor
   ): Fu[Answers[Dim]] = for

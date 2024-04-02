@@ -1,7 +1,7 @@
 package lila.playban
 
 import chess.{ Color, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import scala.math.{ log10, sqrt }
 

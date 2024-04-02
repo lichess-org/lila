@@ -1,11 +1,11 @@
 package lila.round
 
 import com.softwaremill.tagging.*
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import scala.util.matching.Regex
 
-import lila.common.{ IpAddress, IpAddressStr }
+import lila.core.{ IpAddress, IpAddressStr }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.UserApi
@@ -18,7 +18,7 @@ final class SelfReport(
     markUserSetting: SettingStore[Regex] @@ SelfReportMarkUser
 )(using ec: Executor, scheduler: Scheduler):
 
-  private val logOnceEvery = lila.memo.OnceEvery[IpAddressStr](1 minute)
+  private val logOnceEvery = scalalib.cache.OnceEvery[IpAddressStr](1 minute)
 
   def apply(
       userId: Option[UserId],
@@ -32,12 +32,11 @@ final class SelfReport(
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
       def doLog(): Unit =
-        if name != "ceval" then
-          if logOnceEvery(ip.str) then
-            lila.log("cheat").branch("jslog").info {
-              s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
-            }
-            lila.mon.cheat.selfReport(name, userId.isDefined).increment()
+        if name != "ceval" && logOnceEvery(ip.str) then
+          lila.log("cheat").branch("jslog").info {
+            s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
+          }
+          lila.mon.cheat.selfReport(name, userId.isDefined).increment()
       if fullId.value == "____________" then doLog()
       else
         proxyRepo
@@ -51,7 +50,7 @@ final class SelfReport(
                     name.contains("stockfish") || name.contains("userscript") ||
                       name.contains("__puppeteer_evaluation_script__")
                   ))
-                then tellRound(pov.gameId, lila.round.actorApi.round.Cheat(pov.color))
+                then tellRound(pov.gameId, lila.core.round.Cheat(pov.color))
                 if markUserSetting.get().matches(name) then
                   val rating = u.perfs.bestRating
                   val hours =
@@ -64,5 +63,5 @@ final class SelfReport(
                     (2 + hours + ThreadLocalRandom.nextInt(hours * 60)).minutes
                   ):
                     lila.common.Bus
-                      .publish(lila.hub.actorApi.mod.SelfReportMark(u.id, name), "selfReportMark")
+                      .publish(lila.core.mod.SelfReportMark(u.id, name), "selfReportMark")
     }

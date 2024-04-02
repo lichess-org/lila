@@ -3,7 +3,7 @@ package lila.relay
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.study.ChapterPreview
 import lila.user.Me
@@ -95,21 +95,30 @@ final class JsonView(
       group: Option[RelayGroup.WithTours],
       canContribute: Boolean,
       isSubscribed: Option[Boolean],
-      videoUrls: Option[PairOf[String]]
+      videoUrls: Option[PairOf[String]],
+      pinned: Option[(UserId, String, Option[lila.memo.PicfitImage.Id])]
   ) =
     JsonView.JsData(
       relay = apply(trs)
         .add("sync" -> (canContribute.so(trs.rounds.find(_.id == currentRoundId).map(_.sync))))
         .add("group" -> group)
         .add("isSubscribed" -> isSubscribed)
-        .add("videoUrls" -> videoUrls),
+        .add("videoUrls" -> videoUrls)
+        .add("pinned" -> pinned.map: (id, name, image) =>
+          Json
+            .obj(
+              "userId" -> id,
+              "name"   -> name
+            )
+            .add("image" -> image.map(id => picfitUrl.thumbnail(id, 1200, 675)))),
       study = studyData.study,
-      analysis = studyData.analysis
+      analysis = studyData.analysis,
+      group = group.map(_.group.name)
     )
 
 object JsonView:
 
-  case class JsData(relay: JsObject, study: JsObject, analysis: JsObject)
+  case class JsData(relay: JsObject, study: JsObject, analysis: JsObject, group: Option[RelayGroup.Name])
 
   given OWrites[SyncLog.Event] = Json.writes
 

@@ -6,7 +6,8 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.*
-import lila.common.config.*
+import lila.common.config.given
+import lila.core.config.*
 
 private class UserConfig(
     @ConfigName("online.ttl") val onlineTtl: FiniteDuration,
@@ -24,8 +25,8 @@ final class Env(
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
-    isOnline: lila.socket.IsOnline,
-    onlineIds: lila.socket.OnlineIds,
+    isOnline: lila.core.socket.IsOnline,
+    onlineIds: lila.core.socket.OnlineIds,
     assetBaseUrlInternal: AssetBaseUrlInternal
 )(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer, play.api.Mode):
 
@@ -61,10 +62,10 @@ final class Env(
 
   lazy val cached: Cached = wire[Cached]
 
-  private lazy val passHasher = PasswordHasher(
+  lazy val passwordHasher = PasswordHasher(
     secret = config.passwordBPassSecret,
     logRounds = 10,
-    hashTimer = res => lila.common.Chronometer.syncMon(_.user.auth.hashTime)(res)
+    hashTimer = lila.common.Chronometer.syncMon(_.user.auth.hashTime)
   )
 
   lazy val authenticator = wire[Authenticator]
@@ -76,15 +77,15 @@ final class Env(
   export flairApi.getter
 
   lila.common.Bus.subscribeFuns(
-    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
       rankingApi.remove(userId)
       repo.setRoles(userId, Nil)
     },
-    "adjustBooster" -> { case lila.hub.actorApi.mod.MarkBooster(userId) =>
+    "adjustBooster" -> { case lila.core.mod.MarkBooster(userId) =>
       rankingApi.remove(userId)
       repo.setRoles(userId, Nil)
     },
-    "kickFromRankings" -> { case lila.hub.actorApi.mod.KickFromRankings(userId) =>
+    "kickFromRankings" -> { case lila.core.mod.KickFromRankings(userId) =>
       rankingApi.remove(userId)
     }
   )

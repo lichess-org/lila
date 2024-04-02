@@ -5,6 +5,10 @@
 #dasher_app {
   @extend %box-radius-left;
 
+  #top.scrolled & {
+    border-radius: 0 0 0 $box-radius-size;
+  }
+
   width: 225px;
 
   .spinner {
@@ -19,7 +23,7 @@
 
     signal {
       position: absolute;
-      #{$end-direction}: 1rem;
+      @include inline-end(1rem);
       top: 1rem;
       font-size: 1.7rem;
     }
@@ -75,13 +79,13 @@
     }
 
     .accepted {
-      border-#{$start-direction}: 4px solid $c-dasher;
+      border-inline-start: 4px solid $c-dasher;
     }
 
     .current {
       background: $c-dasher !important;
       color: $c-dasher-over !important;
-      border-#{$start-direction}: none;
+      border-inline-start: none;
     }
 
     .help {
@@ -220,11 +224,11 @@
 
     position: absolute;
     top: 100%;
-    #{$end-direction}: 0;
+    @include inline-end(0);
     background-color: #000000bb;
 
     #images-viewport {
-      max-height: ($thumb-h + 2px) * 4;
+      max-height: min(100vh - 450px, 30vh);
       overflow: hidden auto;
     }
 

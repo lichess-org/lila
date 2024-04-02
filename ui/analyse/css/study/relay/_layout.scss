@@ -38,8 +38,37 @@ main.is-relay {
   }
 }
 
+main.is-relay.wide {
+  .now-playing {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%/3, max(220px, 100%/8)), 1fr));
+  }
+}
+
+main.is-relay.wide.with-video {
+  max-height: calc(100vh - $site-header-outer-height - $block-gap);
+
+  .relay-tour {
+    @extend %flex-column;
+    overflow: hidden;
+
+    &__header {
+      flex-shrink: 0;
+    }
+  }
+
+  .study__multiboard {
+    overflow-y: auto;
+    min-height: 0;
+  }
+}
+
 /* tour overview */
 main.is-relay.has-relay-tour {
+  #video-player-placeholder {
+    width: unset;
+    height: 100%;
+  }
+
   grid-template-rows: auto;
   grid-template-areas:
     'relay-tour'
@@ -109,6 +138,9 @@ main.analyse.is-relay:not(.has-relay-tour) {
     .analyse__underboard {
       margin-top: unset;
     }
+    .eval-chart-and-training {
+      flex-wrap: nowrap;
+    }
   }
 
   @include mq-at-least-col3 {
@@ -136,7 +168,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
 
     &.wide {
-      grid-template-rows: var(--cg-height) 2.5em;
+      grid-template-rows: var(--cg-height) 2.5em 1fr auto;
       grid-template-columns: $col3-uniboard-side $analyse-block-gap var(--col3-uniboard-width) $analyse-block-gap 1fr 1fr;
       grid-template-areas:
         'side        . board gauge tools    chat'
@@ -147,7 +179,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
       .mchat,
       .chat__members {
         margin-top: 0;
-        margin-#{$start-direction}: $analyse-block-gap;
+        margin-inline-start: $analyse-block-gap;
       }
 
       #video-player-placeholder {
@@ -157,6 +189,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
 
     &.wide.with-video {
+      overflow: hidden;
       grid-template-rows: calc(var(--cg-height) * 9 / 16) calc(var(--cg-height) * 7 / 16) 2.5em;
       grid-template-areas:
         'side        . board gauge video    video'
@@ -168,6 +201,11 @@ main.analyse.is-relay:not(.has-relay-tour) {
       .analyse__tools,
       .mchat {
         margin-top: $analyse-block-gap;
+      }
+      .analyse__underboard {
+        display: flex;
+        flex-flow: column;
+        overflow-y: hidden;
       }
     }
 
@@ -184,13 +222,13 @@ main.analyse.is-relay:not(.has-relay-tour) {
       }
 
       #video-player-placeholder {
-        margin-#{$start-direction}: $analyse-block-gap;
+        margin-inline-start: $analyse-block-gap;
       }
     }
   }
 
   .eval-chart-and-training {
-    @extend %flex-center-nowrap;
+    @extend %flex-center;
     gap: $analyse-block-gap;
     .study__server-eval {
       flex: 1 1 100%;

@@ -4,16 +4,17 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanText, formatter, into }
-import lila.i18n.LangForm
 import lila.security.Granter
 import lila.user.Me
+import lila.core.i18n.I18nKey.streamer
+import lila.user.UserForm.historicalUsernameField
 
-final class RelayTourForm:
+final class RelayTourForm(langList: lila.core.i18n.LangList):
 
   import RelayTourForm.*
 
   val spotlightMapping =
-    mapping("enabled" -> boolean, "lang" -> LangForm.popularLanguages.mapping, "title" -> optional(text))(
+    mapping("enabled" -> boolean, "lang" -> langList.popularLanguagesForm.mapping, "title" -> optional(text))(
       RelayTour.Spotlight.apply
     )(unapply)
 
@@ -31,8 +32,9 @@ final class RelayTourForm:
       "teams" -> optional(
         of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
-      "spotlight" -> optional(spotlightMapping),
-      "grouping"  -> RelayGroup.form.mapping
+      "spotlight"      -> optional(spotlightMapping),
+      "grouping"       -> RelayGroup.form.mapping,
+      "pinnedStreamer" -> optional(historicalUsernameField)
     )(Data.apply)(unapply)
   )
 
@@ -52,7 +54,8 @@ object RelayTourForm:
       players: Option[RelayPlayersTextarea],
       teams: Option[RelayTeamsTextarea],
       spotlight: Option[RelayTour.Spotlight],
-      grouping: Option[RelayGroup.form.Data]
+      grouping: Option[RelayGroup.form.Data],
+      pinnedStreamer: Option[UserStr]
   ):
 
     def update(tour: RelayTour)(using me: Me) =
@@ -66,7 +69,8 @@ object RelayTourForm:
           teamTable = teamTable,
           players = players,
           teams = teams,
-          spotlight = spotlight.filterNot(_.isEmpty)
+          spotlight = spotlight.filterNot(_.isEmpty),
+          pinnedStreamer = pinnedStreamer
         )
         .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
@@ -85,7 +89,8 @@ object RelayTourForm:
         teamTable = teamTable,
         players = players,
         teams = teams,
-        spotlight = spotlight.filterNot(_.isEmpty)
+        spotlight = spotlight.filterNot(_.isEmpty),
+        pinnedStreamer = pinnedStreamer
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
@@ -102,5 +107,6 @@ object RelayTourForm:
         players = tour.players,
         teams = tour.teams,
         spotlight = tour.spotlight,
-        grouping = group.map(RelayGroup.form.Data.apply)
+        grouping = group.map(RelayGroup.form.Data.apply),
+        pinnedStreamer = tour.pinnedStreamer
       )

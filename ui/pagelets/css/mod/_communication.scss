@@ -9,15 +9,18 @@
   }
 
   .user-link {
-    margin-#{$start-direction}: -0.5em;
+    margin-inline-start: -0.5em;
   }
 
   .actions {
     @extend %flex-center;
 
     .priv {
-      margin-#{$start-direction}: 1em;
+      margin-inline-start: 1em;
       font-weight: normal;
+    }
+    .comms-export {
+      margin-inline-start: 1em;
     }
   }
 

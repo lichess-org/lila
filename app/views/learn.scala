@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.LangPath
+import lila.core.LangPath
 
 object index:
 
@@ -14,13 +14,13 @@ object index:
   def apply(data: Option[play.api.libs.json.JsValue])(using PageContext) =
     views.html.base.layout(
       title = s"${learnChess.txt()} - ${byPlaying.txt()}",
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "learn",
         Json.obj(
           "data" -> data,
           "i18n" -> i18nJsObject(i18nKeys)
         )
-      ),
+      ).some,
       moreCss = cssTag("learn"),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -204,7 +204,7 @@ object index:
     nailedIt,
     rightOn,
     stageXComplete,
-    trans.yourScore,
+    trans.site.yourScore,
     next,
     nextX,
     backToMenu,

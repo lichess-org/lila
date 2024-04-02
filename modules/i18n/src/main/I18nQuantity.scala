@@ -1,6 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
+import lila.core.i18n.Language
 
 private enum I18nQuantity:
   case Zero, One, Two, Few, Many, Other

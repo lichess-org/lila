@@ -10,12 +10,12 @@ import lila.user.{ UserApi, UserRepo }
 @Module
 final class Env(
     appConfig: Configuration,
-    net: NetConfig,
+    net: lila.core.config.NetConfig,
     userRepo: UserRepo,
     userApi: UserApi,
     settingStore: lila.memo.SettingStore.Builder,
     lightUser: lila.user.LightUserApi
-)(using Executor, ActorSystem, Scheduler):
+)(using Executor, ActorSystem, Scheduler, lila.core.i18n.Translator):
   private val baseUrl = net.baseUrl
   import Mailer.given
 
@@ -35,20 +35,20 @@ final class Env(
   lazy val automaticEmail = wire[AutomaticEmail]
 
   lila.common.Bus.subscribeFuns(
-    "fishnet" -> { case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
+    "fishnet" -> { case lila.core.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key)
     },
     "planStart" -> {
-      case lila.hub.actorApi.plan.PlanStart(userId) =>
+      case lila.core.actorApi.plan.PlanStart(userId) =>
         automaticEmail.onPatronNew(userId)
-      case lila.hub.actorApi.plan.PlanGift(from, to, lifetime) =>
+      case lila.core.actorApi.plan.PlanGift(from, to, lifetime) =>
         automaticEmail.onPatronGift(from, to, lifetime)
     },
-    "planExpire" -> { case lila.hub.actorApi.plan.PlanExpire(userId) =>
+    "planExpire" -> { case lila.core.actorApi.plan.PlanExpire(userId) =>
       automaticEmail.onPatronStop(userId)
     },
     "dailyCorrespondenceNotif" -> {
-      case lila.hub.actorApi.mailer.CorrespondenceOpponents(userId, opponents) =>
+      case lila.core.actorApi.mailer.CorrespondenceOpponents(userId, opponents) =>
         automaticEmail.dailyCorrespondenceNotice(userId, opponents)
     }
   )

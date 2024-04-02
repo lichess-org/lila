@@ -78,16 +78,16 @@ object bits:
       )
     }
 
-  def contextual(streamers: List[UserId])(using Lang): Option[Tag] =
+  def contextual(streamers: List[UserId])(using Translate): Option[Tag] =
     streamers.nonEmpty.option(div(cls := "context-streamers"):
       streamers.map(contextual)
     )
 
-  def contextual(userId: UserId)(using Lang): Tag =
+  def contextual(userId: UserId)(using Translate): Tag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := licon.Mic):
       xIsStreaming(strong(titleNameOrId(userId)))
 
-  def rules(using Lang) =
+  def rules(using Translate) =
     ul(cls := "streamer-rules")(
       h2(trans.streamer.rules()),
       ul(
@@ -128,8 +128,8 @@ object bits:
             checked = s.subscribed
           )
         ),
-        trans.subscribe()
+        trans.site.subscribe()
       )
     }
-  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using Lang) =
+  def streamerProfile(s: lila.streamer.Streamer.WithContext)(using Translate) =
     span(cls := "streamer-profile")(userLink(s.user))

@@ -3,18 +3,14 @@ package lila.evalCache
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 
-export lila.Lila.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
+import lila.tree.CloudEval
 
-opaque type Knodes = Int
-object Knodes extends OpaqueInt[Knodes]:
-  extension (a: Knodes)
-    def intNodes: Int =
-      val nodes = a.value * 1000d
-      if nodes.toInt == nodes then nodes.toInt
-      else Integer.MAX_VALUE
-
-opaque type Moves = NonEmptyList[Uci]
-object Moves extends TotalWrapper[Moves, NonEmptyList[Uci]]
+extension (e: CloudEval)
+  def multiPv = MultiPv(e.pvs.size)
+  def takePvs(multiPv: MultiPv) =
+    e.copy(pvs = NonEmptyList(e.pvs.head, e.pvs.tail.take(e.multiPv.value - 1)))
 
 opaque type SmallFen = String
 object SmallFen extends OpaqueString[SmallFen]:

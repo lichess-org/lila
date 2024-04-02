@@ -3,16 +3,21 @@ import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 
 object declinedRequest:
 
-  def all(team: lila.team.Team, requests: Paginator[lila.team.RequestWithUser])(using PageContext) =
+  def all(
+      team: lila.team.Team,
+      requests: Paginator[lila.team.RequestWithUser],
+      search: Option[UserStr]
+  )(using PageContext) =
     val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
 
     views.html.base.layout(
       title = title,
-      moreCss = frag(cssTag("team"))
+      moreCss = frag(cssTag("team")),
+      moreJs = jsModule("team.admin")
     ) {
       val pager = views.html.base.bits
         .paginationByQuery(teamRoutes.declinedRequests(team.id, 1), requests, showPost = true)
@@ -26,6 +31,20 @@ object declinedRequest:
               ),
               " • ",
               trans.team.declinedRequests()
+            ),
+            st.form(
+              cls    := "search team-declined-request",
+              method := "GET",
+              action := teamRoutes.declinedRequests(team.id, 1)
+            )(
+              div(
+                input(
+                  st.name     := "search",
+                  value       := search,
+                  placeholder := trans.search.search.txt()
+                ),
+                submitButton(cls := "button", dataIcon := licon.Search)
+              )
             )
           ),
           pager,
@@ -47,7 +66,7 @@ object declinedRequest:
                         value := teamRoutes.declinedRequests(team.id, requests.currentPage)
                       ),
                       button(name := "process", cls := "button button-green", value := "accept")(
-                        trans.accept()
+                        trans.site.accept()
                       )
                     )
                   )

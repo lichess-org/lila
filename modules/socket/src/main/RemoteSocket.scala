@@ -10,13 +10,13 @@ import java.util.concurrent.atomic.AtomicReference
 import scala.util.chaining.*
 
 import lila.common.{ Bus, Lilakka }
-import lila.hub.actorApi.Announce
-import lila.hub.actorApi.relation.{ Follow, UnFollow }
-import lila.hub.actorApi.round.Mlat
-import lila.hub.actorApi.security.CloseAccount
-import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
-import lila.hub.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
-import lila.socket.Socket.Sri
+import lila.core.actorApi.Announce
+import lila.core.actorApi.relation.{ Follow, UnFollow }
+import lila.core.round.Mlat
+import lila.core.actorApi.security.CloseAccount
+import lila.core.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
+import lila.core.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
+import lila.core.socket.*
 
 final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown)(using Executor, Scheduler):
 
@@ -28,7 +28,10 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
 
   val onlineUserIds: AtomicReference[Set[UserId]] = AtomicReference(initialUserIds)
 
-  val baseHandler: Handler =
+  def kit         = SocketKit(subscribe, channel => makeSender(channel, 1).send, baseHandler)
+  def parallelKit = ParallelSocketKit(subscribeRoundRobin, makeSender, baseHandler)
+
+  val baseHandler: SocketHandler =
     case In.ConnectUser(userId) =>
       onlineUserIds.getAndUpdate(_ + userId)
     case In.ConnectUsers(userIds) =>
@@ -36,7 +39,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate(_ -- userIds)
     case In.NotifiedBatch(userIds) =>
-      Bus.publish(lila.hub.actorApi.notify.NotifiedBatch(userIds), "notify")
+      Bus.publish(lila.core.actorApi.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
       lags.foreach: (userId, centis) =>
         UserLagCache.put(userId, centis)
@@ -72,9 +75,8 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       if onlineUserIds.get.contains(userId) then send(Out.tellUser(userId, payload))
     case SendToOnlineUser(userId, makePayload) =>
       if onlineUserIds.get.contains(userId) then
-        makePayload().foreach { payload =>
+        makePayload().foreach: payload =>
           send(Out.tellUser(userId, payload))
-        }
     case Announce(_, _, json) =>
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
     case Mlat(millis) =>
@@ -87,21 +89,21 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       send(Out.tellSris(Sri.from(sris), payload))
     case CloseAccount(userId) =>
       send(Out.disconnectUser(userId))
-    case lila.hub.actorApi.mod.Shadowban(userId, v) =>
+    case lila.core.mod.Shadowban(userId, v) =>
       send(Out.setTroll(userId, v))
-    case lila.hub.actorApi.mod.Impersonate(userId, modId) =>
+    case lila.core.mod.Impersonate(userId, modId) =>
       send(Out.impersonate(userId, modId))
     case ApiUserIsOnline(userId, value) =>
       send(Out.apiUserOnline(userId, value))
       if value then onlineUserIds.getAndUpdate(_ + userId)
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
-    case lila.hub.actorApi.streamer.StreamersOnline(streamers) =>
+    case lila.core.actorApi.streamer.StreamersOnline(streamers) =>
       send(Out.streamersOnline(streamers))
   }
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
-    def apply(msg: String)               = if !stopping then super.send(channel, msg)
+    def apply(msg: String)               = if !stopping then super.sendTo(channel, msg)
     def sticky(_id: String, msg: String) = apply(msg)
 
   final class RoundRobinSender(val conn: PubSub[String, String], channel: Channel, parallelism: Int)
@@ -117,19 +119,31 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     if parallelism > 1 then RoundRobinSender(redisClient.connectPubSub(), channel, parallelism)
     else StoppableSender(redisClient.connectPubSub(), channel)
 
-  private val send: Send = makeSender("site-out").apply
+  private val send: SocketSend = makeSender("site-out").send
 
-  def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Funit =
+  def subscribe(channel: Channel, reader: In.Reader)(handler: SocketHandler): Funit =
+    val fullReader = reader.orElse(Protocol.In.baseReader)
     connectAndSubscribe(channel): str =>
-      RawMsg(str) match
-        case None => logger.error(s"Invalid $channel $str")
-        case Some(msg) =>
-          reader(msg).collect(handler) match
-            case Some(_) => // processed
-            case None    => logger.warn(s"Unhandled $channel $str")
+      val parts = str.split(" ", 2)
+      parts.headOption
+        .map:
+          new lila.core.socket.protocol.RawMsg(_, ~parts.lift(1))
+        .match
+          case None => logger.error(s"Invalid $channel $str")
+          case Some(raw) =>
+            fullReader
+              .applyOrElse(
+                raw,
+                raw =>
+                  logger.info(s"Unread $channel $raw")
+                  none
+              )
+              .collect(handler) match
+              case Some(_) => // processed
+              case None    => logger.info(s"Unhandled $channel $str")
 
   def subscribeRoundRobin(channel: Channel, reader: In.Reader, parallelism: Int)(
-      handler: Handler
+      handler: SocketHandler
   ): Funit =
     // subscribe to main channel
     subscribe(channel, reader)(handler) >> {
@@ -169,100 +183,60 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
 
 object RemoteSocket:
 
-  type Send = String => Unit
-
-  trait Sender:
-    def apply(msg: String): Unit
-    def sticky(_id: String, msg: String): Unit
-
+  trait Sender extends ParallelSocketSend:
     protected val conn: PubSub[String, String]
-    protected def send(channel: Channel, msg: String) = conn.async.publish(channel, msg)
+    protected def sendTo(channel: Channel, msg: String) = conn.async.publish(channel, msg)
 
   object Protocol:
-
-    final class RawMsg(val path: String, val args: Args):
-      def get(nb: Int)(f: PartialFunction[Array[String], Option[In]]): Option[In] =
-        f.applyOrElse(args.split(" ", nb), (_: Array[String]) => None)
-      def all = args.split(' ')
-    def RawMsg(msg: String): Option[RawMsg] =
-      val parts = msg.split(" ", 2)
-      parts.headOption.map {
-        new RawMsg(_, ~parts.lift(1))
-      }
 
     trait In
     object In:
 
-      type Reader = RawMsg => Option[In]
+      export lila.core.socket.protocol.In.*
+      import lila.core.socket.protocol.RawMsg
 
-      case object WsBoot                                                               extends In
-      case class ConnectUser(userId: UserId)                                           extends In
-      case class ConnectUsers(userIds: Iterable[UserId])                               extends In
-      case class DisconnectUsers(userIds: Iterable[UserId])                            extends In
-      case class ConnectSris(cons: Iterable[(Sri, Option[UserId])])                    extends In
-      case class DisconnectSris(sris: Iterable[Sri])                                   extends In
-      case class NotifiedBatch(userIds: Iterable[UserId])                              extends In
-      case class Lag(userId: UserId, lag: Centis)                                      extends In
-      case class Lags(lags: Map[UserId, Centis])                                       extends In
-      case class TellSri(sri: Sri, userId: Option[UserId], typ: String, msg: JsObject) extends In
-      case class TellUser(userId: UserId, typ: String, msg: JsObject)                  extends In
-      case class ReqResponse(reqId: Int, response: String)                             extends In
-      case class Ping(id: String)                                                      extends In
-
-      val baseReader: Reader = raw =>
-        raw.path match
-          case "connect/user"     => ConnectUser(UserId(raw.args)).some
-          case "connect/users"    => ConnectUsers(UserId.from(commas(raw.args))).some
-          case "disconnect/users" => DisconnectUsers(UserId.from(commas(raw.args))).some
-          case "connect/sris" =>
-            ConnectSris {
-              commas(raw.args).map(_.split(' ')).map { s =>
-                (Sri(s(0)), UserId.from(s.lift(1)))
-              }
-            }.some
-          case "disconnect/sris" => DisconnectSris(commas(raw.args).map { Sri(_) }).some
-          case "notified/batch"  => NotifiedBatch(UserId.from(commas(raw.args))).some
-          case "lag" =>
-            raw.all.pipe { s =>
-              Centis.from(s.lift(1).flatMap(_.toIntOption)).map { Lag(UserId(s(0)), _) }
+      val baseReader: Reader =
+        case RawMsg("connect/user", raw)     => ConnectUser(UserId(raw.args)).some
+        case RawMsg("connect/users", raw)    => ConnectUsers(UserId.from(commas(raw.args))).some
+        case RawMsg("disconnect/users", raw) => DisconnectUsers(UserId.from(commas(raw.args))).some
+        case RawMsg("connect/sris", raw) =>
+          ConnectSris {
+            commas(raw.args).map(_.split(' ')).map { s =>
+              (Sri(s(0)), UserId.from(s.lift(1)))
             }
-          case "lags" =>
-            Lags(commas(raw.args).flatMap {
-              _.split(':') match
-                case Array(user, l) =>
-                  l.toIntOption.map { lag =>
-                    UserId(user) -> Centis(lag)
-                  }
-                case _ => None
-            }.toMap).some
-          case "tell/sri" => raw.get(3)(tellSriMapper)
-          case "tell/user" =>
-            raw.get(2) { case Array(user, payload) =>
-              for
-                obj <- Json.parse(payload).asOpt[JsObject]
-                typ <- obj.str("t")
-              yield TellUser(UserId(user), typ, obj)
-            }
-          case "req/response" =>
-            raw.get(2) { case Array(reqId, response) =>
-              reqId.toIntOption.map { ReqResponse(_, response) }
-            }
-          case "ping" => Ping(raw.args).some
-          case "boot" => WsBoot.some
-          case _      => none
-
-      def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = { case Array(sri, user, payload) =>
-        for
-          obj <- Json.parse(payload).asOpt[JsObject]
-          typ <- obj.str("t")
-        yield TellSri(Sri(sri), UserId.from(optional(user)), typ, obj)
-      }
-
-      def commas(str: String): Array[String]    = if str == "-" then Array.empty else str.split(',')
-      def boolean(str: String): Boolean         = str == "+"
-      def optional(str: String): Option[String] = if str == "-" then None else Some(str)
+          }.some
+        case RawMsg("disconnect/sris", raw) => DisconnectSris(commas(raw.args).map { Sri(_) }).some
+        case RawMsg("notified/batch", raw)  => NotifiedBatch(UserId.from(commas(raw.args))).some
+        case RawMsg("lag", raw) =>
+          raw.all.pipe { s =>
+            Centis.from(s.lift(1).flatMap(_.toIntOption)).map { Lag(UserId(s(0)), _) }
+          }
+        case RawMsg("lags", raw) =>
+          Lags(commas(raw.args).flatMap {
+            _.split(':') match
+              case Array(user, l) =>
+                l.toIntOption.map { lag =>
+                  UserId(user) -> Centis(lag)
+                }
+              case _ => None
+          }.toMap).some
+        case RawMsg("tell/sri", raw) => raw.get(3)(lila.core.socket.protocol.In.tellSriMapper)
+        case RawMsg("tell/user", raw) =>
+          raw.get(2) { case Array(user, payload) =>
+            for
+              obj <- Json.parse(payload).asOpt[JsObject]
+              typ <- obj.str("t")
+            yield TellUser(UserId(user), typ, obj)
+          }
+        case RawMsg("req/response", raw) =>
+          raw.get(2) { case Array(reqId, response) =>
+            reqId.toIntOption.map { ReqResponse(_, response) }
+          }
+        case RawMsg("ping", raw) => Ping(raw.args).some
+        case RawMsg("boot", raw) => WsBoot.some
 
     object Out:
+      export lila.core.socket.protocol.Out.*
       def tellUser(userId: UserId, payload: JsObject) =
         s"tell/users $userId ${Json.stringify(payload)}"
       def tellUsers(userIds: Set[UserId], payload: JsObject) =
@@ -271,10 +245,6 @@ object RemoteSocket:
         s"tell/all ${Json.stringify(payload)}"
       def tellFlag(flag: String, payload: JsObject) =
         s"tell/flag $flag ${Json.stringify(payload)}"
-      def tellSri(sri: Sri, payload: JsValue) =
-        s"tell/sri $sri ${Json.stringify(payload)}"
-      def tellSris(sris: Iterable[Sri], payload: JsValue) =
-        s"tell/sris ${commas(sris)} ${Json.stringify(payload)}"
       def mlat(millis: Int) =
         s"mlat ${millis}"
       def disconnectUser(userId: UserId) =
@@ -289,18 +259,6 @@ object RemoteSocket:
       def streamersOnline(streamers: Iterable[(UserId, String)]) =
         s"streamers/online ${commas(streamers.map { (u, s) => s"$u:$s" })}"
       def respond(reqId: Int, payload: JsObject) = s"req/response $reqId ${Json.stringify(payload)}"
-      def boot                                   = "boot"
-      def pong(id: String)                       = s"pong $id"
       def stop(reqId: Int)                       = s"lila/stop $reqId"
 
-      def commas(strs: Iterable[Any]): String = if strs.isEmpty then "-" else strs.mkString(",")
-      def boolean(v: Boolean): String         = if v then "+" else "-"
-      def optional(str: Option[String])       = str.getOrElse("-")
-      def color(c: Color): String             = c.fold("w", "b")
-      def color(c: Option[Color]): String     = optional(c.map(_.fold("w", "b")))
-
   val initialUserIds = Set(UserId("lichess"))
-
-  type Channel = String
-  type Args    = String
-  type Handler = PartialFunction[Protocol.In, Unit]

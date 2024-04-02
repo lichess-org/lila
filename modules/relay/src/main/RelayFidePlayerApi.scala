@@ -4,9 +4,9 @@ import chess.ByColor
 import chess.format.pgn.{ Tag, Tags }
 
 import lila.db.dsl.*
-import lila.fide.{ FidePlayer, FidePlayerApi, FideTC }
+import lila.core.fide.{ Player, FideTC }
 
-final private class RelayFidePlayerApi(playerApi: FidePlayerApi)(using Executor):
+final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(using Executor):
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
     val tc = guessTimeControl(tour) | FideTC.standard
@@ -19,7 +19,7 @@ final private class RelayFidePlayerApi(playerApi: FidePlayerApi)(using Executor)
       .zip(tags.names)
       .zip(tags.titles))
       .traverse:
-        case ((fideId, name), title) => playerApi.guessPlayer(fideId, name, title)
+        case ((fideId, name), title) => guessPlayer(fideId, name, title)
       .map:
         update(tags, tc, _)
 
@@ -31,7 +31,7 @@ final private class RelayFidePlayerApi(playerApi: FidePlayerApi)(using Executor)
       .so: tcStr =>
         FideTC.values.find(tc => tcStr.contains(tc.toString))
 
-  private def update(tags: Tags, tc: FideTC, fidePlayers: ByColor[Option[FidePlayer]]): Tags =
+  private def update(tags: Tags, tc: FideTC, fidePlayers: ByColor[Option[Player]]): Tags =
     chess.Color.all.foldLeft(tags): (tags, color) =>
       tags ++ Tags:
         fidePlayers(color).so: fide =>

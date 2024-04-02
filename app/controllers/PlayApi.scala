@@ -37,7 +37,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
                 _       <- env.pref.api.setBot(me)
                 _       <- env.streamer.api.delete(me)
               yield env.user.lightUserApi.invalidate(me)
-            }.pipe(toResult).recover { case lila.base.LilaInvalid(msg) =>
+            }.pipe(toResult).recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(jsonError(msg))
             }
     else impl.command(cmd)(WithPovAsBot)
@@ -125,7 +125,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
 
   private def toResult(f: Funit): Fu[Result] = catchClientError(f.inject(jsonOkResult))
   private def catchClientError(f: Fu[Result]): Fu[Result] =
-    f.recover { case e: lila.round.BenignError =>
+    f.recover { case e: lila.core.round.BenignError =>
       BadRequest(jsonError(e.getMessage))
     }
 

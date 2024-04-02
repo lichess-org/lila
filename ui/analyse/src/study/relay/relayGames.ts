@@ -28,10 +28,6 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
     chapters.length == 1 && chapters[0].name == 'Chapter 1'
       ? []
       : chapters.map((c, i) => {
-          const players = c.players || {
-            white: { name: 'Unknown player' },
-            black: { name: 'Unknown player' },
-          };
           const status =
             !c.status || c.status == '*' ? renderClocks(c) : [c.status.slice(2, 3), c.status.slice(0, 1)];
           return h(
@@ -47,15 +43,20 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               cloudEval && verticalEvalGauge(c, cloudEval),
               h(
                 'span.relay-game__players',
-                [players.black, players.white].map((p, i) => {
+                [c.players?.black, c.players?.white].map((p, i) => {
                   const s = status[i];
-                  return h('span.relay-game__player', [
-                    h('span.mini-game__user', [
-                      p.fed && playerFed(p.fed),
-                      h('span.name', [userTitle(p), p.name]),
-                    ]),
-                    h(s == '1' ? 'good' : s == '0' ? 'bad' : 'status', [s]),
-                  ]);
+                  return h(
+                    'span.relay-game__player',
+                    p
+                      ? [
+                          h('span.mini-game__user', [
+                            playerFed(p.fed),
+                            h('span.name', [userTitle(p), p.name]),
+                          ]),
+                          h(s == '1' ? 'good' : s == '0' ? 'bad' : 'status', [s]),
+                        ]
+                      : [h('span.mini-game__user', h('span.name', 'Unknown player'))],
+                  );
                 }),
               ),
             ],

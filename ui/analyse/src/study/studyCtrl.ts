@@ -153,6 +153,7 @@ export default class StudyCtrl {
       this.send,
       () => this.setTab('chapters'),
       chapterId => xhr.chapterConfig(data.id, chapterId),
+      () => this.data.federations,
       this.ctrl,
     );
     this.multiCloudEval = new MultiCloudEval(this.redraw, this.chapters.list, this.send);
@@ -166,6 +167,7 @@ export default class StudyCtrl {
         this.members,
         this.chapters.list,
         this.multiCloudEval,
+        () => this.data.federations,
         id => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(

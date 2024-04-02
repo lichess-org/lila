@@ -53,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Όλα τα συγχρονισμένα μέλη παραμένουν στην ίδια θέση</string>
   <string name="shareChanges">Διαμοιρασμός στους θεατές των αλλαγών και αποθήκευση τους στο σέρβερ</string>
   <string name="playing">Παίζονται</string>
+  <string name="showEvalBar">Μπάρες αξιολόγησης</string>
   <string name="first">Πρώτη</string>
   <string name="previous">Προηγούμενη</string>
   <string name="next">Επόμενη</string>

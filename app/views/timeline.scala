@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.hub.actorApi.timeline.*
+import lila.core.timeline.*
 
 object timeline:
 
@@ -15,11 +15,11 @@ object timeline:
 
   def more(entries: Vector[lila.timeline.Entry])(using PageContext) =
     views.html.base.layout(
-      title = trans.timeline.txt(),
+      title = trans.site.timeline.txt(),
       moreCss = cssTag("slist")
     ):
       main(cls := "timeline page-small box")(
-        h1(cls := "box__top")(trans.timeline()),
+        h1(cls := "box__top")(trans.site.timeline()),
         table(cls := "slist slist-pad"):
           tbody:
             filterEntries(entries).map: e =>
@@ -37,13 +37,13 @@ object timeline:
   private def entry(e: lila.timeline.Entry)(using ctx: Context) =
     frag(
       e.decode.map[Frag]:
-        case Follow(u1, u2) => trans.xStartedFollowingY(userLink(u1), userLink(u2))
+        case Follow(u1, u2) => trans.site.xStartedFollowingY(userLink(u1), userLink(u2))
         case TeamJoin(userId, teamId) =>
-          trans.xJoinedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
+          trans.site.xJoinedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
         case TeamCreate(userId, teamId) =>
-          trans.xCreatedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
+          trans.site.xCreatedTeamY(userLink(userId), teamLink(teamId, withIcon = false))
         case ForumPost(userId, _, topicName, postId) =>
-          trans.xPostedInForumY(
+          trans.site.xPostedInForumY(
             userLink(userId),
             a(
               href  := routes.ForumPost.redirect(postId),
@@ -59,42 +59,42 @@ object timeline:
             )(shorten(title, 40))
           )
         case TourJoin(userId, tourId, tourName) =>
-          trans.xCompetesInY(
+          trans.site.xCompetesInY(
             userLink(userId),
             a(href := routes.Tournament.show(tourId))(tourName)
           )
         case SimulCreate(userId, simulId, simulName) =>
-          trans.xHostsY(
+          trans.site.xHostsY(
             userLink(userId),
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case SimulJoin(userId, simulId, simulName) =>
-          trans.xJoinsY(
+          trans.site.xJoinsY(
             userLink(userId),
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          lila.rating.PerfType(lila.rating.Perf.Key(perfKey)).map { perf =>
+          lila.rating.PerfType(lila.core.rating.PerfKey(perfKey)).map { perf =>
             (win match
-              case Some(true)  => trans.victoryVsYInZ
-              case Some(false) => trans.defeatVsYInZ
-              case None        => trans.drawVsYInZ
+              case Some(true)  => trans.site.victoryVsYInZ
+              case Some(false) => trans.site.defeatVsYInZ
+              case None        => trans.site.drawVsYInZ
             )(
               a(
                 href     := routes.Round.player(playerId),
                 dataIcon := perf.icon,
                 cls      := "text glpt"
               )(win match
-                case Some(true)  => trans.victory()
-                case Some(false) => trans.defeat()
-                case None        => trans.draw()
+                case Some(true)  => trans.site.victory()
+                case Some(false) => trans.site.defeat()
+                case None        => trans.site.draw()
               ),
               userIdLink(opponent),
               perf.trans
             )
           }
         case StudyLike(userId, studyId, studyName) =>
-          trans.xLikesY(
+          trans.site.xLikesY(
             userLink(userId),
             a(href := routes.Study.show(studyId))(studyName)
           )
@@ -107,13 +107,13 @@ object timeline:
           a(cls := "text", dataIcon := licon.InkQuill, href := routes.Ublog.historicalBlogPost(id, slug)):
             title
         case UblogPostLike(userId, postId, postTitle) =>
-          trans.xLikesY(
+          trans.site.xLikesY(
             userLink(userId),
             a(href := routes.Ublog.redirect(postId))(postTitle)
           )
         case StreamStart(id, name) =>
           views.html.streamer.bits
-            .redirectLink(id)(cls := "text", dataIcon := licon.Mic)(trans.xStartedStreaming(name))
+            .redirectLink(id)(cls := "text", dataIcon := licon.Mic)(trans.site.xStartedStreaming(name))
       ,
       " ",
       momentFromNowWithPreload(e.date)

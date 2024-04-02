@@ -5,8 +5,8 @@ import play.api.libs.json.*
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LangPath
-import lila.i18n.I18nKeys.storm as s
+import lila.core.LangPath
+import lila.core.i18n.I18nKey.storm as s
 
 object racer:
 
@@ -27,7 +27,7 @@ object racer:
           )
         ),
         div(cls := "racer-home__about")(
-          a(href := routes.Cms.lonePage("racer"))(trans.aboutX("Puzzle Racer"))
+          a(href := routes.Cms.lonePage("racer"))(trans.site.aboutX("Puzzle Racer"))
         )
       )
     }
@@ -35,7 +35,7 @@ object racer:
   def show(data: JsObject)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("racer"),
-      moreJs = jsModuleInit("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))),
+      pageModule = PageModule("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))).some,
       title = "Puzzle Racer",
       zoomable = true,
       zenable = true
@@ -66,7 +66,7 @@ object racer:
       s.joinRematch,
       s.waitingToStart,
       s.createNewGame,
-      trans.toInviteSomeoneToPlayGiveThisUrl,
+      trans.site.toInviteSomeoneToPlayGiveThisUrl,
       s.skip,
       s.skipHelp,
       s.skipExplanation,
@@ -74,5 +74,5 @@ object racer:
       s.failedPuzzles,
       s.slowPuzzles,
       s.skippedPuzzle,
-      trans.flipBoard
+      trans.site.flipBoard
     )

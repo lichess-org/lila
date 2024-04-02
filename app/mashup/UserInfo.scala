@@ -9,14 +9,14 @@ import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.security.Granter
 import lila.ublog.{ UblogApi, UblogPost }
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, given_MyId }
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
     user: User.WithPerfs,
     trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
-    ratingChart: Option[String],
+    ratingChart: Option[SafeJsonStr],
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,

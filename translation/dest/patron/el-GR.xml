@@ -45,6 +45,7 @@
   <string name="otherMethods">Υπάρχουν άλλοι τρόποι δωρεάς;</string>
   <string name="lichessIsRegisteredWith">Το Lichess έχει καταχωρηθεί με %s.</string>
   <string name="bankTransfers">Επίσης δεχόμαστε τραπεζικές μεταφορές</string>
+  <string name="onlyDonationFromAbove">Λάβετε υπόψη ότι μόνο το παραπάνω έντυπο δωρεάς παρέχει την ιδιότητα του Δωρητή.</string>
   <string name="patronFeatures">Υπάρχουν κάποιες δυνατότητες μόνο για Υποστηρικτές;</string>
   <string name="noPatronFeatures">Όχι, επειδή το Lichess είναι δωρεάν για πάντα και για όλους. Αυτό είναι μία υπόσχεση.
 Όμως, οι Υποστηρικτές μπορούν να καυχώνται για το υπέροχο εικονίδιο στο προφίλ τους.</string>
@@ -59,6 +60,7 @@
   <string name="nextPayment">Επόμενη πληρωμή</string>
   <string name="youWillBeChargedXOnY">Θα χρεωθείτε %1$s την %2$s.</string>
   <string name="makeAdditionalDonation">Κάντε μια πρόσθετη δωρεά τώρα</string>
+  <string name="giftPatronWingsShort">Δωρίστε τα φτερά του Δωρητή</string>
   <string name="giftPatronWings">Δωρίστε τα φτερά Υποστηρικτή σε έναν παίκτη</string>
   <string name="update">Ενημέρωση</string>
   <string name="changeMonthlyAmount">Αλλαγή του μηνιαίου ποσού (%s)</string>

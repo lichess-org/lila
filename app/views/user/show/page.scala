@@ -28,6 +28,7 @@ object page:
           description = describeUser(u)
         )
         .some,
+      pageModule = pageModule(info),
       moreJs = moreJs(info),
       moreCss = frag(
         cssTag("user.show"),
@@ -45,7 +46,7 @@ object page:
 
   def games(
       info: UserInfo,
-      games: lila.common.paginator.Paginator[Game],
+      games: scalalib.paginator.Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
@@ -56,6 +57,7 @@ object page:
     val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
     views.html.base.layout(
       title = s"${u.username} $filterName$pageName",
+      pageModule = pageModule(info),
       moreJs = moreJs(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
@@ -78,14 +80,13 @@ object page:
     frag(
       infiniteScrollTag,
       jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
-      info.ratingChart.map: rc =>
-        jsModuleInit(
-          "chart.ratingHistory",
-          s"{data:$rc}"
-        ),
       withSearch.option(jsModule("gameSearch")),
       isGranted(_.UserModView).option(jsModule("mod.user"))
     )
+
+  private def pageModule(info: UserInfo)(using PageContext) =
+    info.ratingChart.map: rc =>
+      PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
   def disabled(u: User)(using PageContext) =
     views.html.base.layout(title = u.username, robots = false):
@@ -95,10 +96,10 @@ object page:
       )
 
   private val i18nKeys = List(
-    trans.youAreLeavingLichess,
-    trans.neverTypeYourPassword,
-    trans.cancel,
-    trans.proceedToX
+    trans.site.youAreLeavingLichess,
+    trans.site.neverTypeYourPassword,
+    trans.site.cancel,
+    trans.site.proceedToX
   )
 
   private val dataUsername = attr("data-username")

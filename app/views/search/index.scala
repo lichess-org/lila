@@ -5,7 +5,7 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 
 object index:
 
@@ -35,7 +35,7 @@ object index:
           globalError(form),
           table(
             tr(
-              th(label(trans.players())),
+              th(label(trans.site.players())),
               td(cls := "usernames two-columns")(List("a", "b").map { p =>
                 div(form3.input(form("players")(p))(tpe := "text"))
               })

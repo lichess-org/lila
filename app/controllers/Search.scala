@@ -4,18 +4,19 @@ import play.api.i18n.Lang
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ IpAddress, config }
+import lila.core.{ IpAddress, config }
+import lila.core.i18n.Translate
 
 final class Search(env: Env) extends LilaController(env):
 
-  def searchForm(using Lang) = env.gameSearch.forms.search
+  def searchForm(using Translate) = env.gameSearch.forms.search
 
   private val SearchRateLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 50,
     duration = 5.minutes,
     key = "search.games.ip"
   )
-  private val SearchConcurrencyLimitPerIP = lila.memo.FutureConcurrencyLimit[IpAddress](
+  private val SearchConcurrencyLimitPerIP = lila.app.http.FutureConcurrencyLimit[IpAddress](
     key = "search.games.concurrency.ip",
     ttl = 10.minutes,
     maxConcurrency = 1
@@ -31,7 +32,7 @@ final class Search(env: Env) extends LilaController(env):
       else
         NoCrawlers:
           val page = p.atLeast(1)
-          Reasonable(page, config.Max(100)):
+          Reasonable(page, Max(100)):
             val cost = scala.math.sqrt(page.toDouble).toInt
             def limited =
               val form = searchForm

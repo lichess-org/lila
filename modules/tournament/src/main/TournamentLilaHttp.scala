@@ -6,7 +6,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.{ LilaScheduler, LilaStream }
-import lila.memo.{ ExpireSetMemo, FrequencyThreshold }
+import scalalib.cache.{ ExpireSetMemo, FrequencyThreshold }
 
 final class TournamentLilaHttp(
     tournamentRepo: TournamentRepo,

@@ -8,44 +8,15 @@ export function initModule(): StudyTour {
     chapter,
   };
 
-  function forceLtr(s: Shepherd.Step.StepOptions): Shepherd.Step.StepOptions {
-    s.classes = 'force-ltr';
-    return s;
-  }
-
   function study(ctrl: AnalyseCtrl) {
-    if (ctrl.study?.data.chapter.gamebook) {
-      return;
-    }
+    if (ctrl.study?.data.chapter.gamebook) return;
 
     const helpButtonSelector = 'main.analyse .study__buttons .help';
     if (!$(helpButtonSelector).length) return;
 
-    const tour = new Shepherd.Tour({
-      defaultStepOptions: {
-        scrollTo: false,
-      },
-      exitOnEsc: true,
+    const onTab = (tab: Tab): Shepherd.Step.StepOptionsWhen => ({
+      'before-show': () => ctrl.study?.setTab(tab),
     });
-
-    const buttons: Shepherd.Step.StepOptionsButton[] = [
-      {
-        text: 'Next',
-        action: tour.next,
-      },
-    ];
-
-    const cancelIcon: Shepherd.Step.StepOptionsCancelIcon = {
-      enabled: true,
-    };
-
-    const onTab = (tab: Tab): Shepherd.Step.StepOptionsWhen => {
-      return {
-        'before-show': function () {
-          ctrl.study?.setTab(tab);
-        },
-      };
-    };
 
     const closeActionMenu: Shepherd.Step.StepOptionsWhen = {
       'before-show': () => {
@@ -53,6 +24,8 @@ export function initModule(): StudyTour {
         ctrl.redraw();
       },
     };
+
+    const tourCtrl = new TourCtrl();
 
     const steps: Shepherd.Step.StepOptions[] = [
       {
@@ -64,16 +37,12 @@ export function initModule(): StudyTour {
           'and of course for chess lessons!<br><br>' +
           "It's a powerful tool, let's take some time to see how it works.",
         attachTo: { element: helpButtonSelector, on: 'top' },
-        buttons,
-        cancelIcon,
       },
       {
         title: 'Shared and saved',
         text: 'Other members can see your moves in real time!<br>' + 'Plus, everything is saved forever.',
         attachTo: { element: 'main.analyse .areplay', on: 'left' },
         when: closeActionMenu,
-        buttons,
-        cancelIcon,
       },
       {
         title: 'Study members',
@@ -82,8 +51,6 @@ export function initModule(): StudyTour {
           "<br><i data-icon=''></i> Contributors can make moves and update the study.",
         attachTo: { element: '.study__members', on: 'right' },
         when: onTab('members'),
-        buttons,
-        cancelIcon,
       },
     ];
 
@@ -93,8 +60,6 @@ export function initModule(): StudyTour {
         text: "By clicking the <i data-icon=''></i> button.<br>" + 'Then decide who can contribute or not.',
         attachTo: { element: '.study__members .add', on: 'right' },
         when: onTab('members'),
-        buttons,
-        cancelIcon,
       });
     }
 
@@ -105,8 +70,6 @@ export function initModule(): StudyTour {
         'Each chapter has a distinct initial position and move tree.',
       attachTo: { element: '.study__chapters', on: 'right' },
       when: onTab('chapters'),
-      buttons,
-      cancelIcon,
     });
 
     if (ctrl.study?.members.canContribute()) {
@@ -115,8 +78,7 @@ export function initModule(): StudyTour {
         text: "By clicking the <i data-icon=''></i> button.",
         attachTo: { element: '.study__chapters .add', on: 'right' },
         when: onTab('chapters'),
-        buttons,
-        cancelIcon,
+        scrollTo: true,
       });
       steps.push({
         title: 'Comment on a position',
@@ -124,8 +86,6 @@ export function initModule(): StudyTour {
           "With the <i data-icon=''></i> button, or a right click on the move list on the right.<br>" +
           'Comments are shared and persisted.',
         attachTo: { element: '.study__buttons .left-buttons .comments', on: 'top' },
-        buttons,
-        cancelIcon,
       });
       steps.push({
         title: 'Annotate a position',
@@ -133,8 +93,6 @@ export function initModule(): StudyTour {
           'With the !? button, or a right click on the move list on the right.<br>' +
           'Annotation glyphs are shared and persisted.',
         attachTo: { element: '.study__buttons .left-buttons .glyphs', on: 'top' },
-        buttons,
-        cancelIcon,
       });
     }
 
@@ -145,48 +103,26 @@ export function initModule(): StudyTour {
         "There is also a <a href='//lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way'>blog post about studies</a>.<br>" +
         'Power users might want to press "?" to see keyboard shortcuts.<br>' +
         'Have fun!',
+      attachTo: { element: helpButtonSelector, on: 'top' },
       buttons: [
         {
           text: 'Done',
-          action: tour.next,
+          action: tourCtrl.tour.next,
         },
       ],
-      attachTo: { element: helpButtonSelector, on: 'top' },
     });
 
-    steps.map(forceLtr).forEach(s => tour.addStep(s));
-
-    tour.start();
-
-    site.pubsub.on('analyse.close-all', tour.cancel);
+    tourCtrl.startTour(steps);
   }
 
   function chapter(setTab: (tab: ChapterTab) => void) {
     const viewSel = 'dialog div.dialog-content';
 
-    const tour = new Shepherd.Tour({
-      defaultStepOptions: {
-        scrollTo: false,
-      },
-      exitOnEsc: true,
+    const tourCtrl = new TourCtrl();
+
+    const onTab = (tab: ChapterTab): Shepherd.Step.StepOptionsWhen => ({
+      'before-show': () => setTab(tab),
     });
-
-    const buttons: Shepherd.Step.StepOptionsButton[] = [
-      {
-        text: 'Next',
-        action: tour.next,
-      },
-    ];
-
-    const cancelIcon: Shepherd.Step.StepOptionsCancelIcon = {
-      enabled: true,
-    };
-
-    const onTab = (tab: ChapterTab): Shepherd.Step.StepOptionsWhen => {
-      return {
-        'before-show': () => setTab(tab),
-      };
-    };
 
     const steps: Shepherd.Step.StepOptions[] = [
       {
@@ -196,24 +132,18 @@ export function initModule(): StudyTour {
           'Each chapter has a distinct move tree,<br>' +
           'and can be created in various ways.',
         attachTo: { element: `${viewSel} label[for=chapter-name]`, on: 'left' },
-        buttons,
-        cancelIcon,
       },
       {
         title: 'From initial position',
         text: 'Just a board setup for a new game.<br>' + 'Suited to explore openings.',
         attachTo: { element: `${viewSel} .tabs-horiz .init`, on: 'top' },
         when: onTab('init'),
-        buttons,
-        cancelIcon,
       },
       {
         title: 'Custom position',
         text: 'Setup the board your way.<br>' + 'Suited to explore endgames.',
         attachTo: { element: `${viewSel} .tabs-horiz .edit`, on: 'bottom' },
         when: onTab('edit'),
-        buttons,
-        cancelIcon,
       },
       {
         title: 'Load an existing lichess game',
@@ -223,8 +153,6 @@ export function initModule(): StudyTour {
           'to load the game moves in the chapter.',
         attachTo: { element: `${viewSel} .tabs-horiz .game`, on: 'top' },
         when: onTab('game'),
-        buttons,
-        cancelIcon,
       },
       {
         title: 'From a FEN string',
@@ -234,24 +162,18 @@ export function initModule(): StudyTour {
           'to start the chapter from a position.',
         attachTo: { element: `${viewSel} .tabs-horiz .fen`, on: 'top' },
         when: onTab('fen'),
-        buttons,
-        cancelIcon,
       },
       {
         title: 'From a PGN game',
         text: 'Paste a game in PGN format.<br>' + 'to load moves, comments and variations in the chapter.',
         attachTo: { element: `${viewSel} .tabs-horiz .pgn`, on: 'top' },
         when: onTab('pgn'),
-        buttons,
-        cancelIcon,
       },
       {
         title: 'Studies support variants',
         text: 'Yes, you can study crazyhouse,<br>' + 'and all lichess variants!',
         attachTo: { element: `${viewSel} label[for=chapter-variant]`, on: 'left' },
         when: onTab('init'),
-        buttons,
-        cancelIcon,
       },
       {
         title: 'Thanks for your time',
@@ -259,17 +181,51 @@ export function initModule(): StudyTour {
         buttons: [
           {
             text: 'Done',
-            action: tour.next,
+            action: tourCtrl.tour.next,
           },
         ],
         attachTo: { element: `${viewSel} .help`, on: 'bottom' },
       },
     ];
 
-    steps.map(forceLtr).forEach(s => tour.addStep(s));
+    tourCtrl.startTour(steps);
+  }
+}
 
-    tour.start();
+class TourCtrl {
+  tour: Shepherd.Tour;
+  constructor() {
+    this.tour = new Shepherd.Tour({
+      defaultStepOptions: {
+        scrollTo: false,
+        classes: 'force-ltr',
+        cancelIcon: {
+          enabled: true,
+        },
+      },
+      exitOnEsc: true,
+    });
+    site.pubsub.on('analyse.close-all', this.tour.cancel);
+  }
 
-    site.pubsub.on('analyse.close-all', tour.cancel);
+  buildTour(steps: Shepherd.Step.StepOptions[]) {
+    const buttons: Shepherd.Step.StepOptionsButton[] = [
+      {
+        text: 'Next',
+        action: this.tour.next,
+      },
+    ];
+    steps.forEach(s =>
+      this.tour.addStep({
+        ...s,
+        buttons: s.buttons ?? buttons,
+      }),
+    );
+  }
+
+  startTour(steps: Shepherd.Step.StepOptions[]) {
+    Shepherd.activeTour?.cancel();
+    this.buildTour(steps);
+    this.tour.start();
   }
 }

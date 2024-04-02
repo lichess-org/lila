@@ -4,22 +4,22 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.I18nKeys as trans
+import lila.core.i18n.I18nKey as trans
 import lila.tournament.Tournament
 
 object bits:
 
   def notFound()(using PageContext) =
     views.html.base.layout(
-      title = trans.tournamentNotFound.txt()
+      title = trans.site.tournamentNotFound.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "box__top")(trans.tournamentNotFound()),
-        p(trans.tournamentDoesNotExist()),
-        p(trans.tournamentMayHaveBeenCanceled()),
+        h1(cls := "box__top")(trans.site.tournamentNotFound()),
+        p(trans.site.tournamentDoesNotExist()),
+        p(trans.site.tournamentMayHaveBeenCanceled()),
         br,
         br,
-        a(href := routes.Tournament.home)(trans.returnToTournamentsHomepage())
+        a(href := routes.Tournament.home)(trans.site.returnToTournamentsHomepage())
       )
     }
 
@@ -67,39 +67,39 @@ object bits:
   )
 
   private val i18nKeys = List(
-    trans.standing,
-    trans.starting,
+    trans.site.standing,
+    trans.site.starting,
     trans.swiss.startingIn,
-    trans.tournamentIsStarting,
-    trans.youArePlaying,
-    trans.standByX,
-    trans.tournamentPairingsAreNowClosed,
-    trans.join,
-    trans.pause,
-    trans.withdraw,
-    trans.joinTheGame,
-    trans.signIn,
-    trans.averageElo,
-    trans.gamesPlayed,
-    trans.nbPlayers,
-    trans.winRate,
-    trans.berserkRate,
+    trans.site.tournamentIsStarting,
+    trans.site.youArePlaying,
+    trans.site.standByX,
+    trans.site.tournamentPairingsAreNowClosed,
+    trans.site.join,
+    trans.site.pause,
+    trans.site.withdraw,
+    trans.site.joinTheGame,
+    trans.site.signIn,
+    trans.site.averageElo,
+    trans.site.gamesPlayed,
+    trans.site.nbPlayers,
+    trans.site.winRate,
+    trans.site.berserkRate,
     trans.study.downloadAllGames,
-    trans.performance,
-    trans.tournamentComplete,
-    trans.movesPlayed,
-    trans.whiteWins,
-    trans.blackWins,
-    trans.drawRate,
-    trans.nextXTournament,
-    trans.averageOpponent,
-    trans.tournamentEntryCode,
-    trans.topGames
+    trans.site.performance,
+    trans.site.tournamentComplete,
+    trans.site.movesPlayed,
+    trans.site.whiteWins,
+    trans.site.blackWins,
+    trans.site.drawRate,
+    trans.site.nextXTournament,
+    trans.site.averageOpponent,
+    trans.site.tournamentEntryCode,
+    trans.site.topGames
   )
 
   private val teamBattleI18nKeys = List(
     trans.arena.viewAllXTeams,
-    trans.players,
+    trans.site.players,
     trans.arena.averagePerformance,
     trans.arena.averageScore,
     trans.team.teamPage,
@@ -109,6 +109,6 @@ object bits:
   )
 
   private val schedulei18nKeys = List(
-    trans.ratedTournament,
-    trans.casualTournament
+    trans.site.ratedTournament,
+    trans.site.casualTournament
   )

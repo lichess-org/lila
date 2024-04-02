@@ -39,8 +39,8 @@ object search:
   def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(none),
-      title = s"${trans.opening.txt()} • $q",
+      pageModule = pageModule(none).some,
+      title = s"${trans.site.opening.txt()} • $q",
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "page box box-pad opening opening--search")(

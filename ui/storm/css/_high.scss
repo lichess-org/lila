@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
     flex: 1 1 auto;
-    margin-#{$end-direction}: 4%;
+    margin-inline-end: 4%;
     background: $c-bg-box;
     padding: 3em 1em 1.5em 1em;
 
@@ -23,7 +23,7 @@
       margin-bottom: 1vh;
 
       &:nth-child(2) {
-        margin-#{$end-direction}: 0;
+        margin-inline-end: 0;
       }
     }
 
@@ -54,7 +54,7 @@
     }
 
     &:last-child {
-      margin-#{$end-direction}: 0;
+      margin-inline-end: 0;
     }
   }
 }

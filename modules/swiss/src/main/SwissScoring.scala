@@ -10,7 +10,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
 
   def apply(id: SwissId): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
 
-  private val sequencer = lila.hub.AskPipelines[SwissId, Option[SwissScoring.Result]](
+  private val sequencer = lila.common.AskPipelines[SwissId, Option[SwissScoring.Result]](
     compute = recompute,
     expiration = 1 minute,
     timeout = 10 seconds,

@@ -32,7 +32,7 @@ fetch(this.dataset.action, {method:'post'})
             submitButton(
               attr("data-action") := routes.Relation.block(userId),
               cls                 := "report-block button",
-              st.title            := trans.block.txt()
+              st.title            := trans.site.block.txt()
             )(span(cls := "text", dataIcon := licon.NotAllowed)("Block ", titleNameOrId(userId)))
           )
         ),

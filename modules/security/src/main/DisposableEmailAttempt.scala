@@ -2,7 +2,8 @@ package lila.security
 
 import play.api.data.Form
 
-import lila.common.{ EmailAddress, IpAddress }
+import lila.core.EmailAddress
+import lila.core.IpAddress
 import lila.memo.CacheApi
 import lila.user.User
 
@@ -14,11 +15,11 @@ final class DisposableEmailAttempt(
   import DisposableEmailAttempt.*
 
   private val byIp =
-    cacheApi.notLoadingSync[IpAddress, Set[Attempt]](64, "security.disposableEmailAttempt.ip"):
+    cacheApi.notLoadingSync[IpAddress, Set[Attempt]](512, "security.disposableEmailAttempt.ip"):
       _.expireAfterWrite(1 day).build()
 
   private val byId =
-    cacheApi.notLoadingSync[UserId, Set[Attempt]](64, "security.disposableEmailAttempt.id"):
+    cacheApi.notLoadingSync[UserId, Set[Attempt]](512, "security.disposableEmailAttempt.id"):
       _.expireAfterWrite(1 day).build()
 
   def onFail(form: Form[?], ip: IpAddress): Unit = for
@@ -41,6 +42,8 @@ final class DisposableEmailAttempt(
       logger
         .branch("disposableEmailAttempt")
         .info(s"User ${user.id} signed up with $email after trying ${dispEmails.mkString(", ")}")
+
+  def count(id: UserId): Int = byId.getIfPresent(id).so(_.size)
 
 private object DisposableEmailAttempt:
 

@@ -3,7 +3,7 @@ package lila.puzzle
 import chess.opening.{ Opening, OpeningDb, OpeningKey }
 
 import lila.common.{ Iso, LilaOpeningFamily, SimpleOpening }
-import lila.i18n.I18nKey
+import lila.core.i18n.I18nKey
 
 sealed abstract class PuzzleAngle(val key: String):
   val name: I18nKey
@@ -51,8 +51,8 @@ object PuzzleAngle:
   def findOrMix(key: String): PuzzleAngle = find(key) | mix
 
   case class All(
-      themes: List[(lila.i18n.I18nKey, List[PuzzleTheme.WithCount])],
+      themes: List[(I18nKey, List[PuzzleTheme.WithCount])],
       openings: PuzzleOpeningCollection
   )
 
-  given Iso.StringIso[PuzzleAngle] = lila.common.Iso.string(findOrMix, _.key)
+  given Iso.StringIso[PuzzleAngle] = scalalib.Iso.string(findOrMix, _.key)

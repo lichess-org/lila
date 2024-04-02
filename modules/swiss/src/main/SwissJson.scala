@@ -4,12 +4,12 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 import lila.quote.Quote.given
-import lila.socket.{ SocketVersion, given }
+import lila.core.socket.SocketVersion
 import lila.user.{ User, UserPerfsRepo, UserRepo }
 
 final class SwissJson(

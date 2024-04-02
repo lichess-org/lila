@@ -17,16 +17,16 @@ object userAnalysis:
       inlinePgn: Option[String] = None
   )(using ctx: PageContext) =
     views.html.base.layout(
-      title = trans.analysis.txt(),
+      title = trans.site.analysis.txt(),
       moreCss = frag(
         cssTag("analyse.free"),
         (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
         withForecast.option(cssTag("analyse.forecast")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = frag(
-        analyseNvuiTag,
-        analyseInit(
+      moreJs = analyseNvuiTag,
+      pageModule = views.html.analyse.bits
+        .analyseModule(
           "userAnalysis",
           Json
             .obj(
@@ -37,7 +37,7 @@ object userAnalysis:
             .add("inlinePgn", inlinePgn) ++
             views.html.board.bits.explorerAndCevalConfig
         )
-      ),
+        .some,
       csp = analysisCsp.withExternalAnalysisApis.some,
       openGraph = lila.app.ui
         .OpenGraph(
@@ -47,7 +47,7 @@ object userAnalysis:
         )
         .some,
       zoomable = true
-    ) {
+    ):
       main(
         cls := List(
           "analyse"       -> true,
@@ -74,4 +74,3 @@ object userAnalysis:
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
       )
-    }

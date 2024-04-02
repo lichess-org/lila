@@ -1,4 +1,6 @@
 import * as xhr from 'common/xhr';
+import { Textcomplete } from '@textcomplete/core';
+import { TextareaEditor } from '@textcomplete/textarea';
 
 site.load.then(() => {
   $('.forum')
@@ -103,56 +105,48 @@ site.load.then(() => {
     const textarea = this,
       topicId = $(this).attr('data-topic');
 
-    if (topicId)
-      site.asset.loadIife('vendor/textcomplete.min.js').then(function () {
-        const searchCandidates = function (term: string, candidateUsers: string[]) {
-          return candidateUsers.filter((user: string) => user.toLowerCase().startsWith(term.toLowerCase()));
-        };
+    if (!topicId) return;
 
-        // We only ask the server for the thread participants once the user has clicked the text box as most hits to the
-        // forums will be only to read the thread. So the 'thread participants' starts out empty until the post text area
-        // is focused.
-        const threadParticipants = xhr.json('/forum/participants/' + topicId);
+    const searchCandidates = function (term: string, candidateUsers: string[]) {
+      return candidateUsers.filter((user: string) => user.toLowerCase().startsWith(term.toLowerCase()));
+    };
 
-        const textcomplete = new window.Textcomplete(new window.Textcomplete.editors.Textarea(textarea));
+    // We only ask the server for the thread participants once the user has clicked the text box as most hits to the
+    // forums will be only to read the thread. So the 'thread participants' starts out empty until the post text area
+    // is focused.
+    const threadParticipants = xhr.json('/forum/participants/' + topicId);
 
-        textcomplete.register(
-          [
-            {
-              match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
-              search: function (term: string, callback: (names: string[]) => void) {
-                // Initially we only autocomplete by participants in the thread. As the user types more,
-                // we can autocomplete against all users on the site.
-                threadParticipants.then(function (participants) {
-                  const forumParticipantCandidates = searchCandidates(term, participants);
+    new Textcomplete(new TextareaEditor(textarea), [
+      {
+        index: 2,
+        match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
+        search: function (term: string, callback: (names: string[]) => void) {
+          // Initially we only autocomplete by participants in the thread. As the user types more,
+          // we can autocomplete against all users on the site.
+          threadParticipants.then(function (participants) {
+            const forumParticipantCandidates = searchCandidates(term, participants);
 
-                  if (forumParticipantCandidates.length != 0) {
-                    // We always prefer a match on the forum thread participants' usernames
-                    callback(forumParticipantCandidates);
-                  } else if (term.length >= 3) {
-                    // We fall back to every site user after 3 letters of the username have been entered
-                    // and there are no matches in the forum thread participants
-                    xhr
-                      .json(xhr.url('/api/player/autocomplete', { term }), { cache: 'default' })
-                      .then(candidateUsers => callback(searchCandidates(term, candidateUsers)))
-                      .catch(error => {
-                        console.error('Autocomplete request failed:', error);
-                        callback([]);
-                      });
-                  } else {
-                    callback([]);
-                  }
+            if (forumParticipantCandidates.length != 0) {
+              // We always prefer a match on the forum thread participants' usernames
+              callback(forumParticipantCandidates);
+            } else if (term.length >= 3) {
+              // We fall back to every site user after 3 letters of the username have been entered
+              // and there are no matches in the forum thread participants
+              xhr
+                .json(xhr.url('/api/player/autocomplete', { term }), { cache: 'default' })
+                .then(candidateUsers => callback(searchCandidates(term, candidateUsers)))
+                .catch(error => {
+                  console.error('Autocomplete request failed:', error);
+                  callback([]);
                 });
-              },
-              replace: (mention: string) => '$1@' + mention + ' ',
-            },
-          ],
-          {
-            placement: 'top',
-            appendTo: '#lichess_forum',
-          },
-        );
-      });
+            } else {
+              callback([]);
+            }
+          });
+        },
+        replace: (mention: string) => '$1@' + mention + ' ',
+      },
+    ]);
   });
 
   $('.forum').on('click', '.reactions-auth button', e => {

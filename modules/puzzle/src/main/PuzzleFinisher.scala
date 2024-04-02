@@ -5,25 +5,27 @@ import chess.Mode
 import scala.util.chaining.*
 
 import lila.common.Bus
-import lila.common.config.Max
+
 import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
 import lila.rating.{ Glicko, Perf, PerfType, glicko2 }
 import lila.user.{ Me, UserPerfsRepo, UserRepo }
+import scalalib.actor.AsyncActorSequencers
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
     userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     colls: PuzzleColls
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
-  private val sequencer = lila.hub.AsyncActorSequencers[PuzzleId](
+  private val sequencer = AsyncActorSequencers[PuzzleId](
     maxSize = Max(64),
     expiration = 5 minutes,
     timeout = 5 seconds,
-    name = "puzzle.finish"
+    name = "puzzle.finish",
+    lila.log.asyncActorMonitor
   )
 
   def batch(

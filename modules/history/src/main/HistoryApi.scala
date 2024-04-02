@@ -8,6 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ User, UserApi, UserPerfs }
+import lila.core.Days
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(
     using Executor
@@ -15,15 +16,16 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
 
   import History.{ given, * }
 
-  def addPuzzle(user: User, completedAt: Instant, perf: Perf): Funit = withColl: coll =>
-    val days = daysBetween(user.createdAt, completedAt)
-    coll.update
-      .one(
-        $id(user.id),
-        $set(s"puzzle.$days" -> perf.intRating),
-        upsert = true
-      )
-      .void
+  def addPuzzle(user: lila.core.user.User, completedAt: Instant, perf: lila.core.rating.Perf): Funit =
+    withColl: coll =>
+      val days = daysBetween(user.createdAt, completedAt)
+      coll.update
+        .one(
+          $id(user.id),
+          $set(s"puzzle.$days" -> perf.intRating),
+          upsert = true
+        )
+        .void
 
   def add(user: User, game: Game, perfs: UserPerfs): Funit = withColl: coll =>
     val isStd = game.ratingVariant.standard
@@ -66,7 +68,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
       .void
 
   private def daysBetween(from: Instant, to: Instant): Int =
-    ornicar.scalalib.time.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay)
+    scalalib.time.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay)
 
   def get(userId: UserId): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
 
@@ -74,22 +76,22 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
     withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key.value).dmap(~_))
 
   def progresses(
-      users: List[User.WithPerf],
-      perfType: PerfType,
-      days: Int
-  ): Fu[List[(IntRating, IntRating)]] =
+      users: List[lila.core.user.WithPerf],
+      perfKey: lila.core.rating.PerfKey,
+      days: Days
+  ): Fu[List[PairOf[IntRating]]] =
     withColl:
       _.optionsByOrderedIds[Bdoc, UserId](
         users.map(_.id),
-        $doc(perfType.key.value -> true).some
+        $doc(perfKey.value -> true).some
       )(_.getAsTry[UserId]("_id").get).map { hists =>
         import History.ratingsReader
         users.zip(hists).map { (user, doc) =>
           val current      = user.perf.intRating
-          val previousDate = daysBetween(user.createdAt, nowInstant.minusDays(days))
+          val previousDate = daysBetween(user.createdAt, nowInstant.minusDays(days.value))
           val previous =
             doc
-              .flatMap(_.child(perfType.key.value))
+              .flatMap(_.child(perfKey.value))
               .flatMap(ratingsReader.readOpt)
               .fold(current): hist =>
                 hist.foldLeft(hist.headOption.fold(current)(_._2)):

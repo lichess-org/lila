@@ -6,8 +6,10 @@ import play.api.mvc.{ Request, RequestHeader }
 
 import scala.util.chaining.*
 
-import lila.common.config.NetConfig
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
+import lila.core.config.NetConfig
+import lila.core.EmailAddress
+import lila.common.{ HTTPRequest }
+import lila.core.{ ApiVersion, IpAddress }
 import lila.memo.RateLimit
 import lila.user.{ PasswordHasher, User }
 
@@ -18,6 +20,7 @@ final class Signup(
     forms: SecurityForm,
     emailConfirm: EmailConfirm,
     hcaptcha: Hcaptcha,
+    passwordHasher: PasswordHasher,
     authenticator: lila.user.Authenticator,
     userRepo: lila.user.UserRepo,
     disposableEmailAttempt: DisposableEmailAttempt,
@@ -69,9 +72,9 @@ final class Signup(
           data =>
             for
               suspIp <- ipTrust.isSuspicious(ip)
+              ipData <- ipTrust.data(ip)
               result <- hcaptcha.verify().flatMap {
-                case Hcaptcha.Result.Fail           => fuccess(Signup.Result.MissingCaptcha)
-                case Hcaptcha.Result.Pass if !blind => fuccess(Signup.Result.MissingCaptcha)
+                case Hcaptcha.Result.Fail => fuccess(Signup.Result.MissingCaptcha)
                 case hcaptchaResult =>
                   signupRateLimit(
                     data.username.id,
@@ -79,7 +82,14 @@ final class Signup(
                     captched = hcaptchaResult == Hcaptcha.Result.Valid
                   ):
                     MustConfirmEmail(data.fingerPrint, data.email, suspIp = suspIp).flatMap { mustConfirm =>
-                      lila.mon.user.register.count(none)
+                      monitor(
+                        data,
+                        hcaptchaResult,
+                        mustConfirm,
+                        ipData,
+                        ipSusp = suspIp,
+                        api = none
+                      )
                       lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
                       val passwordHash = authenticator.passEnc(data.clearPassword)
                       userRepo
@@ -133,9 +143,17 @@ final class Signup(
         data =>
           for
             suspIp <- ipTrust.isSuspicious(ip)
+            ipData <- ipTrust.data(ip)
             result <- signupRateLimit(data.username.id, suspIp = suspIp, captched = false):
               val mustConfirm = MustConfirmEmail.YesBecauseMobile
-              lila.mon.user.register.count(apiVersion.some).increment()
+              monitor(
+                data,
+                captcha = Hcaptcha.Result.Mobile,
+                mustConfirm,
+                ipData,
+                suspIp,
+                apiVersion.some
+              )
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
               val passwordHash = authenticator.passEnc(User.ClearPassword(data.password))
               userRepo
@@ -155,6 +173,28 @@ final class Signup(
           yield result
       )
 
+  private def monitor(
+      data: SecurityForm.AnySignupData,
+      captcha: Hcaptcha.Result,
+      confirm: MustConfirmEmail,
+      ipData: IpTrust.IpData,
+      ipSusp: Boolean,
+      api: Option[ApiVersion]
+  ) =
+    lila.mon.user.register
+      .count(
+        data.email.domain,
+        confirm = confirm.toString,
+        captcha = captcha.toString,
+        ipSusp = ipSusp,
+        fp = data.fp.isDefined,
+        proxy = ipData.proxy.name,
+        country = ipData.location.shortCountry,
+        dispAttempts = disposableEmailAttempt.count(data.username.id),
+        api
+      )
+      .increment()
+
   private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
     key = "account.create.ip",
     enforce = netConfig.rateLimit.value
@@ -169,7 +209,7 @@ final class Signup(
       f: => Fu[Signup.Result]
   )(using req: RequestHeader): Fu[Signup.Result] =
     val ipCost = (if suspIp then 2 else 1) * (if captched then 1 else 2)
-    PasswordHasher
+    passwordHasher
       .rateLimit[Signup.Result](
         rateLimitDefault,
         enforce = netConfig.rateLimit,

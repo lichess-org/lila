@@ -5,7 +5,7 @@ import chess.format.pgn.{ Comment as ChessComment, Glyphs, ParsedPgn, PgnNodeDat
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.tree.{ Branch, Branches, Root }

@@ -8,13 +8,16 @@ import play.api.mvc.*
 import views.*
 
 import scala.annotation.nowarn
+import scala.util.chaining.scalaUtilChainingOps
 
 import lila.app.{ *, given }
-import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
+import lila.core.EmailAddress
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.{ FingerHash, Granter, Permission }
 import lila.user.User as UserModel
+import lila.core.IpAddress
 
 final class Mod(
     env: Env,
@@ -289,6 +292,19 @@ final class Mod(
 
   def communicationPublic(username: UserStr)  = communications(username, priv = false)
   def communicationPrivate(username: UserStr) = communications(username, priv = true)
+
+  def fullCommsExport(username: UserStr) =
+    SecureBody(_.FullCommsExport) { ctx ?=> me ?=>
+      Found(env.user.repo.byId(username)): user =>
+        val source = env.msg.api
+          .modFullCommsExport(user.id)
+          .map: (tid, msgs) =>
+            s"=== 0 === thread: ${tid}\n${msgs.map(m => s"${m.date} ${m.user}: ${m.text}\n--- 0 ---\n").toList.mkString("\n")}"
+        Ok.chunked(source)
+          .pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
+          .andDo(env.mod.logApi.fullCommExport(Suspect(user)))
+          .andDo(env.irc.api.fullCommExport(user))
+    }
 
   protected[controllers] def redirect(username: UserStr, mod: Boolean = true) =
     Redirect(userUrl(username, mod))

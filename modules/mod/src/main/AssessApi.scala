@@ -1,25 +1,25 @@
 package lila.mod
 
 import chess.{ Black, Color, White }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.dsl.{ *, given }
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment, Statistics }
-import lila.game.{ Game, Player, Pov, Source }
-import lila.report.SuspectId
+import lila.game.{ Game, Player, Pov }
+import lila.core.report.SuspectId
 import lila.user.User
+import lila.core.game.Source
 
 final class AssessApi(
     assessRepo: AssessmentRepo,
     modApi: ModApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    reporter: lila.hub.actors.Report,
-    fishnet: lila.hub.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
-    analysisRepo: AnalysisRepo
+    analysisRepo: AnalysisRepo,
+    reportApi: lila.core.report.ReportApi
 )(using Executor):
 
   private def bottomDate = nowInstant.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
@@ -155,16 +155,11 @@ final class AssessApi(
                   playerAggregateAssessment.reportText(3)
                 )(using User.lichessIdAsMe)
             case Some(_) =>
-              fuccess {
-                reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-              }
+              reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
           }
         case AccountAction.Report(_) =>
-          fuccess {
-            reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-          }
+          reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
         case AccountAction.Nothing =>
-          // reporter ! lila.hub.actorApi.report.Clean(userId)
           funit
     }
 
@@ -242,4 +237,4 @@ final class AssessApi(
 
     shouldAnalyse.mapz: reason =>
       lila.mon.cheat.autoAnalysis(reason.toString).increment()
-      fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
+      lila.common.Bus.named.fishnet.analyseGame(game.id)

@@ -3,15 +3,14 @@ package lila.setup
 import lila.common.Bus
 import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.Seek
-import lila.lobby.actorApi.{ AddHook, AddSeek }
+import lila.lobby.{ AddHook, AddSeek }
 import lila.user.{ Me, User, UserPerfsRepo }
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,
     gameRepo: GameRepo,
     perfsRepo: UserPerfsRepo,
-    fishnetPlayer: lila.fishnet.FishnetPlayer,
-    onStart: lila.round.OnStart
+    onStart: lila.core.game.OnStart
 )(using Executor, IdGenerator):
 
   def ai(config: AiConfig)(using me: Option[Me]): Fu[Pov] = for
@@ -19,7 +18,6 @@ final private[setup] class Processor(
     pov <- config.pov(me)
     _   <- gameRepo.insertDenormalized(pov.game)
     _ = onStart(pov.gameId)
-    _ <- pov.game.player.isAi.so(fishnetPlayer(pov.game))
   yield pov
 
   def apiAi(config: ApiAiConfig)(using me: Me): Fu[Pov] = for
@@ -27,14 +25,13 @@ final private[setup] class Processor(
     pov <- config.pov(me.some)
     _   <- gameRepo.insertDenormalized(pov.game)
     _ = onStart(pov.gameId)
-    _ <- pov.game.player.isAi.so(fishnetPlayer(pov.game))
   yield pov
 
   def hook(
       configBase: HookConfig,
-      sri: lila.socket.Socket.Sri,
+      sri: lila.core.socket.Sri,
       sid: Option[String],
-      blocking: lila.pool.Blocking
+      blocking: lila.core.pool.Blocking
   )(using me: Option[User.WithPerfs]): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor

@@ -35,7 +35,7 @@ object mini:
           ping.map(bits.signalBars)
         ),
         if u.lame && ctx.isnt(u) && !isGranted(_.UserModView)
-        then div(cls := "upt__info__warning")(trans.thisAccountViolatedTos())
+        then div(cls := "upt__info__warning")(trans.site.thisAccountViolatedTos())
         else
           ctx.pref.showRatings.option(div(cls := "upt__info__ratings"):
             u.perfs.best8Perfs.map(showPerfRating(u.perfs, _))
@@ -48,7 +48,7 @@ object mini:
               a(
                 dataIcon := licon.AnalogTv,
                 cls      := "btn-rack__btn",
-                title    := trans.watchGames.txt(),
+                title    := trans.site.watchGames.txt(),
                 href     := routes.User.tv(u.username)
               ),
               (!blocked).option(
@@ -56,7 +56,7 @@ object mini:
                   a(
                     dataIcon := licon.BubbleSpeech,
                     cls      := "btn-rack__btn",
-                    title    := trans.chat.txt(),
+                    title    := trans.site.chat.txt(),
                     href     := routes.Msg.convo(u.username)
                   ),
                   a(
@@ -76,9 +76,9 @@ object mini:
               a(
                 cls   := "upt__score",
                 href  := s"${routes.User.games(u.username, "me")}#games",
-                title := trans.nbGames.pluralTxt(cross.nbGames, cross.nbGames.localize)
+                title := trans.site.nbGames.pluralTxt(cross.nbGames, cross.nbGames.localize)
               ):
-                trans.yourScore(raw:
+                trans.site.yourScore(raw:
                   val opponent = ~cross.showOpponentScore(myId)
                   s"""<strong>${cross.showScore(myId)}</strong> - <strong>$opponent</strong>"""
                 )
@@ -86,7 +86,7 @@ object mini:
       isGranted(_.UserModView).option(
         div(cls := "upt__mod")(
           span(
-            trans.nbGames.plural(u.count.game, u.count.game.localize),
+            trans.site.nbGames.plural(u.count.game, u.count.game.localize),
             " ",
             momentFromNowOnce(u.createdAt)
           ),

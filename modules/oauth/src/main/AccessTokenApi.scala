@@ -2,10 +2,10 @@ package lila.oauth
 
 import reactivemongo.api.bson.*
 
-import lila.common.Bearer
+import lila.core.Bearer
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
-import lila.hub.actorApi.oauth.TokenRevoke
+import lila.core.actorApi.oauth.TokenRevoke
 
 final class AccessTokenApi(
     coll: Coll,
@@ -16,12 +16,24 @@ final class AccessTokenApi(
   import OAuthScope.given
   import AccessToken.{ BSONFields as F, given }
 
-  private def create(token: AccessToken): Fu[AccessToken] = coll.insert.one(token).inject(token)
+  private def createAndRotate(token: AccessToken): Fu[AccessToken] = for
+    oldIds <- coll
+      .find($doc(F.userId -> token.userId, F.clientOrigin -> token.clientOrigin), $doc(F.id -> true).some)
+      .sort($doc(F.usedAt -> -1, F.createdAt -> -1))
+      .skip(30)
+      .cursor[Bdoc]()
+      .listAll()
+      .dmap:
+        _.flatMap { _.getAsOpt[AccessToken.Id](F.id) }
+    _ <- oldIds.nonEmpty.so:
+      coll.delete.one($doc(F.id.$in(oldIds))).void
+    _ <- coll.insert.one(token)
+  yield token
 
   def create(setup: OAuthTokenForm.Data, me: User, isStudent: Boolean): Fu[AccessToken] =
-    (fuccess(isStudent) >>| userRepo.isManaged(me.id)) flatMap { noBot =>
+    (fuccess(isStudent) >>| userRepo.isManaged(me.id)).flatMap { noBot =>
       val plain = Bearer.randomPersonal()
-      create:
+      createAndRotate:
         AccessToken(
           id = AccessToken.Id.from(plain),
           plain = plain,
@@ -42,7 +54,7 @@ final class AccessTokenApi(
 
   def create(granted: AccessTokenRequest.Granted): Fu[AccessToken] =
     val plain = Bearer.random()
-    create:
+    createAndRotate:
       AccessToken(
         id = AccessToken.Id.from(plain),
         plain = plain,
@@ -73,7 +85,7 @@ final class AccessTokenApi(
                 )
               .getOrElse:
                 val plain = Bearer.randomPersonal()
-                create:
+                createAndRotate:
                   AccessToken(
                     id = AccessToken.Id.from(plain),
                     plain = plain,
@@ -158,7 +170,8 @@ final class AccessTokenApi(
           F.id     -> id,
           F.userId -> user.id
         )
-      .void.andDo(onRevoke(id))
+      .void
+      .andDo(onRevoke(id))
 
   def revokeByClientOrigin(clientOrigin: String, user: User): Funit =
     coll
@@ -190,11 +203,11 @@ final class AccessTokenApi(
   def test(bearers: List[Bearer]): Fu[Map[Bearer, Option[AccessToken]]] =
     coll
       .optionsByOrderedIds[AccessToken, AccessToken.Id](
-        bearers map AccessToken.Id.from,
+        bearers.map(AccessToken.Id.from),
         readPref = _.sec
       )(_.id)
       .flatMap: tokens =>
-        userRepo.filterDisabled(tokens.flatten.map(_.userId)) map { closedUserIds =>
+        userRepo.filterDisabled(tokens.flatten.map(_.userId)).map { closedUserIds =>
           val openTokens = tokens.map(_.filter(token => !closedUserIds(token.userId)))
           bearers.zip(openTokens).toMap
         }

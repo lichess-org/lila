@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
-import lila.socket.SocketVersion
+import lila.core.socket.SocketVersion
 
 object show:
 
@@ -36,7 +36,7 @@ object show:
                 .json(
                   c.chat,
                   c.lines,
-                  name = trans.chatRoom.txt(),
+                  name = trans.site.chatRoom.txt(),
                   timeout = c.timeout,
                   writeable = ctx.userId.exists(rt.study.canChat),
                   public = true,
@@ -63,7 +63,7 @@ object show:
         div(cls := "box relay-tour")(
           div(cls := "relay-tour__header")(
             div(cls := "relay-tour__header__content")(
-              h1(rt.tour.name),
+              h1(data.group.fold(rt.tour.name.value)(_.value)),
               div(cls := "relay-tour__header__selectors"):
                 div(cls := "mselect relay-tour__mselect"):
                   label(cls := "mselect__label"):

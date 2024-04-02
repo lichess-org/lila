@@ -30,10 +30,10 @@ final class Editor(env: Env) extends LilaController(env):
   def index = load("")
 
   def load(urlFen: String) = Open:
-    val fen: Option[Fen.Epd] = lila.common.String
+    val fen: Option[Fen.Full] = lila.common.String
       .decodeUriPath(urlFen)
       .filter(_.nonEmpty)
-      .map(Fen.Epd.clean)
+      .map(Fen.Full.clean)
     Ok.page:
       html.board.editor(fen, positionsJson, endgamePositionsJson)
 
@@ -45,9 +45,9 @@ final class Editor(env: Env) extends LilaController(env):
       Redirect:
         if game.playable
         then routes.Round.watcher(game.id, "white").url
-        else editorUrl(get("fen").fold(Fen.write(game.chess))(Fen.Epd.clean), game.variant)
+        else editorUrl(get("fen").fold(Fen.write(game.chess))(Fen.Full.clean), game.variant)
 
-  private[controllers] def editorUrl(fen: Fen.Epd, variant: Variant): String =
+  private[controllers] def editorUrl(fen: Fen.Full, variant: Variant): String =
     if fen == Fen.initial && variant.standard then routes.Editor.index.url
     else
       val params = variant.exotic.so(s"?variant=${variant.key}")

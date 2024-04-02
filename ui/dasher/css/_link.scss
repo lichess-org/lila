@@ -23,9 +23,10 @@
   }
 
   .links .user-link::before {
-    @include rtl-mirrored;
-
     display: inline-block;
+    @include if-rtl {
+      transform: scaleX(-1);
+    }
   }
 
   .links a:hover,
@@ -43,18 +44,18 @@
 
   .links button {
     width: 100%;
-    text-align: $start-direction;
+    text-align: start;
     border: 0;
     background: none;
   }
 
-  .subs {
+  .subs:not(:first-child) {
     border-top: $border;
   }
 
   .sub {
     &::before {
-      float: $end-direction;
+      float: inline-end;
       font-size: 80%;
       margin-top: 0.25rem;
       color: $c-dasher;

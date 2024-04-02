@@ -8,25 +8,25 @@ import scalatags.text.Builder
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.licon
-import lila.i18n.I18nKey
+import lila.core.i18n.{ Translate, I18nKey }
 
 trait FormHelper:
   self: I18nHelper =>
 
-  def errMsg(form: Field)(using Lang): Seq[Tag] = errMsg(form.errors)
+  def errMsg(form: Field)(using Translate): Seq[Tag] = errMsg(form.errors)
 
-  def errMsg(form: Form[?])(using Lang): Seq[Tag] = errMsg(form.errors)
+  def errMsg(form: Form[?])(using Translate): Seq[Tag] = errMsg(form.errors)
 
-  def errMsg(error: FormError)(using Lang): Tag =
+  def errMsg(error: FormError)(using Translate): Tag =
     p(cls := "error")(transKey(I18nKey(error.message), error.args))
 
-  def errMsg(errors: Seq[FormError])(using Lang): Seq[Tag] =
+  def errMsg(errors: Seq[FormError])(using Translate): Seq[Tag] =
     errors.map(errMsg)
 
-  def globalError(form: Form[?])(using Lang): Option[Tag] =
+  def globalError(form: Form[?])(using Translate): Option[Tag] =
     form.globalError.map(errMsg)
 
-  def globalErrorNamed(form: Form[?], name: String)(using Lang): Option[Frag] =
+  def globalErrorNamed(form: Form[?], name: String)(using Translate): Option[Frag] =
     form.globalError.find(_.message == name).map(errMsg)
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
@@ -34,8 +34,8 @@ trait FormHelper:
   val postForm     = form(method := "post")
   val submitButton = button(tpe := "submit")
 
-  def markdownAvailable(using Lang): Frag =
-    trans.markdownAvailable:
+  def markdownAvailable(using Translate): Frag =
+    trans.site.markdownAvailable:
       a(
         href := "https://guides.github.com/features/mastering-markdown/",
         targetBlank
@@ -70,9 +70,9 @@ trait FormHelper:
     private def groupLabel(field: Field) = label(cls := "form-label", `for` := id(field))
     private val helper                   = small(cls := "form-help")
 
-    private def errors(errs: Seq[FormError])(using Lang): Frag = errs.distinct.map(error)
-    private def errors(field: Field)(using Lang): Frag         = errors(field.errors)
-    private def error(err: FormError)(using Lang): Frag =
+    private def errors(errs: Seq[FormError])(using Translate): Frag = errs.distinct.map(error)
+    private def errors(field: Field)(using Translate): Frag         = errors(field.errors)
+    private def error(err: FormError)(using Translate): Frag =
       p(cls := "error")(transKey(I18nKey(err.message), err.args))
 
     private def validationModifiers(field: Field): Seq[Modifier] =
@@ -95,7 +95,7 @@ trait FormHelper:
         klass: String = "",
         half: Boolean = false,
         help: Option[Frag] = None
-    )(content: Field => Frag)(using Lang): Tag =
+    )(content: Field => Frag)(using Translate): Tag =
       div(
         cls := List(
           "form-group" -> true,
@@ -228,7 +228,7 @@ trait FormHelper:
     // allows disabling of a field that defaults to true
     def hiddenFalse(field: Field): Tag = form3.hidden(field, "false".some)
 
-    def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(using Lang): Frag =
+    def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(using Translate): Frag =
       group(field, content)(input(_, typ = "password")(required)(modifiers))
 
     def passwordComplexityMeter(labelContent: Frag): Frag =
@@ -238,7 +238,7 @@ trait FormHelper:
           for (_ <- 1 to 4) yield span
       )
 
-    def globalError(form: Form[?])(using Lang): Option[Frag] =
+    def globalError(form: Form[?])(using Translate): Option[Frag] =
       form.globalError.map: err =>
         div(cls := "form-group is-invalid")(error(err))
 
@@ -267,7 +267,7 @@ trait FormHelper:
 
     private val exceptEmojis = data("except-emojis") := lila.user.FlairApi.adminFlairs.mkString(" ")
     def flairPickerGroup(field: Field, current: Option[Flair], label: Frag)(view: Frag)(using Context): Tag =
-      form3.group(field, trans.flair(), half = true): f =>
+      form3.group(field, trans.site.flair(), half = true): f =>
         flairPicker(f, current, label)(view)
 
     def flairPicker(field: Field, current: Option[Flair], label: Frag, anyFlair: Boolean = false)(view: Frag)(
@@ -288,7 +288,7 @@ trait FormHelper:
           )
         ),
         current.isDefined.option(p:
-          button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.delete())
+          button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.site.delete())
         )
       )
 

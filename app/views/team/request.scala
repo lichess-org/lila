@@ -25,7 +25,7 @@ object request:
           postForm(cls := "form3", action := teamRoutes.requestCreate(t.id))(
             (!t.open).so(
               frag(
-                form3.group(form("message"), trans.message())(form3.textarea(_)()),
+                form3.group(form("message"), trans.site.message())(form3.textarea(_)()),
                 p(willBeReviewed())
               )
             ),
@@ -36,7 +36,7 @@ object request:
             ),
             form3.globalError(form),
             form3.actions(
-              a(href := teamRoutes.show(t.slug))(trans.cancel()),
+              a(href := teamRoutes.show(t.slug))(trans.site.cancel()),
               form3.submit(joinTeam())
             )
           )
@@ -59,7 +59,7 @@ object request:
   private[team] def list(requests: List[lila.team.RequestWithUser], t: Option[lila.team.Team])(using
       ctx: PageContext
   ) =
-    table(cls := "slist requests @if(t.isEmpty){all}else{for-team} datatable")(
+    table(cls := "slist requests datatable")(
       tbody(
         requests.map { request =>
           tr(
@@ -75,9 +75,11 @@ object request:
                   value := t.fold(teamRoutes.requests)(te => teamRoutes.show(te.id))
                 ),
                 button(name := "process", cls := "button button-empty button-red", value := "decline")(
-                  trans.decline()
+                  trans.site.decline()
                 ),
-                button(name := "process", cls := "button button-green", value := "accept")(trans.accept())
+                button(name := "process", cls := "button button-green", value := "accept")(
+                  trans.site.accept()
+                )
               )
             )
           )

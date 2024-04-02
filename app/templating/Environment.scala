@@ -23,7 +23,8 @@ object Environment
     with ChessgroundHelper
     with HtmlHelper:
 
-  export lila.Lila.{ id as _, *, given }
+  export lila.core.lilaism.Lilaism.{ *, given }
+  export lila.common.extensions.*
   export lila.api.Context.{ *, given }
   export lila.api.{ PageData, Nonce }
   export lila.user.Me
@@ -33,12 +34,11 @@ object Environment
   def setEnv(e: Env)              = envVar = Some(e)
   def env: Env                    = envVar.get
 
-  type FormWithCaptcha = (play.api.data.Form[?], lila.common.Captcha)
+  def netConfig           = env.net
+  def netBaseUrl          = env.net.baseUrl.value
+  def contactEmailInClear = env.net.email.value
 
-  def netConfig                      = env.net
-  def netBaseUrl                     = env.net.baseUrl.value
-  def contactEmailInClear            = env.net.email.value
-  given lila.common.config.NetDomain = env.net.domain
+  given lila.core.config.NetDomain = env.net.domain
 
   lazy val siteName: String =
     if env.net.siteName == "localhost:9663" then "lichess.dev"

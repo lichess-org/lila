@@ -4,8 +4,8 @@ import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.common.Json.given
-import lila.common.config.*
-import lila.hub.actorApi.socket.remote.TellUserIn
+import lila.core.config.*
+import lila.core.actorApi.socket.remote.TellUserIn
 
 @Module
 final class Env(
@@ -13,18 +13,19 @@ final class Env(
     db: lila.db.Db,
     lightUserApi: lila.user.LightUserApi,
     getBotUserIds: lila.user.GetBotIds,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
+    reportApi: lila.core.report.ReportApi,
+    shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.security.Spam,
-    chatPanic: lila.chat.ChatPanic,
-    shutup: lila.hub.actors.Shutup,
+    chatPanicAllowed: lila.core.chat.panic.IsAllowed,
     mongoCache: lila.memo.MongoCache.Api
-)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer):
+)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator):
 
   private val colls = wire[MsgColls]
 
@@ -54,7 +55,7 @@ final class Env(
         )
 
   Bus.subscribeFuns(
-    "msgSystemSend" -> { case lila.hub.actorApi.msg.SystemMsg(userId, text) =>
+    "msgSystemSend" -> { case lila.core.msg.SystemMsg(userId, text) =>
       api.systemPost(userId, text)
     },
     "remoteSocketIn:msgRead" -> { case TellUserIn(userId, msg) =>

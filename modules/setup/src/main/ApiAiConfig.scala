@@ -4,11 +4,12 @@ import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ ByColor, Clock }
 
-import lila.common.Days
-import lila.game.{ Game, IdGenerator, Player, Pov, Source }
+import lila.core.Days
+import lila.game.{ Game, IdGenerator, Player, Pov }
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.user.GameUser
+import lila.core.game.Source
 
 final case class ApiAiConfig(
     variant: Variant,
@@ -16,7 +17,7 @@ final case class ApiAiConfig(
     daysO: Option[Days],
     color: Color,
     level: Int,
-    fen: Option[Fen.Epd] = None
+    fen: Option[Fen.Full] = None
 ) extends Config
     with Positional:
 
@@ -65,7 +66,7 @@ object ApiAiConfig extends BaseConfig:
       cl: Option[Clock.Config],
       d: Option[Days],
       c: Option[String],
-      pos: Option[Fen.Epd]
+      pos: Option[Fen.Full]
   ) =
     ApiAiConfig(
       variant = Variant.orDefault(v),

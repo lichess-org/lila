@@ -5,7 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge.Status
-import lila.common.LightUser
+import lila.core.LightUser
 
 object mine:
 
@@ -19,12 +19,12 @@ object mine:
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr"):
-        submitButton(cls := "button button-red text", dataIcon := licon.X)(trans.cancel())
+        submitButton(cls := "button button-red text", dataIcon := licon.X)(trans.site.cancel())
 
     views.html.base.layout(
       title = challengeTitle(c),
       openGraph = challengeOpenGraph(c).some,
-      moreJs = bits.js(c, json, owner = true),
+      pageModule = bits.jsModule(c, json, owner = true).some,
       moreCss = cssTag("challenge.page")
     ):
       val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
@@ -40,23 +40,23 @@ object mine:
                 .map { destId =>
                   div(cls := "waiting")(
                     userIdLink(destId.some, cssClass = "target".some),
-                    if !c.hasClock then
+                    if c.clock.isEmpty then
                       div(cls := "correspondence-waiting text", dataIcon := licon.Checkmark):
                         "Challenge sent"
                     else spinner,
-                    p(trans.waitingForOpponent())
+                    p(trans.site.waitingForOpponent())
                   )
                 }
                 .getOrElse {
                   if c.isOpen then
                     div(cls := "waiting")(
                       spinner,
-                      p(trans.waitingForOpponent())
+                      p(trans.site.waitingForOpponent())
                     )
                   else
                     div(cls := "invite")(
                       div(
-                        h2(cls := "ninja-title", trans.toInviteSomeoneToPlayGiveThisUrl()),
+                        h2(cls := "ninja-title", trans.site.toInviteSomeoneToPlayGiveThisUrl()),
                         br,
                         p(cls := "challenge-id-form")(
                           input(
@@ -74,7 +74,7 @@ object mine:
                             dataIcon := licon.Link
                           )
                         ),
-                        p(trans.theFirstPersonToComeOnThisUrlWillPlayWithYou())
+                        p(trans.site.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                       ),
                       ctx.isAuth.option(
                         div(cls := "invite__user")(
@@ -101,7 +101,7 @@ object mine:
                         )
                       ),
                       div(cls := "invite__qrcode")(
-                        h2(cls := "ninja-title", trans.orLetYourOpponentScanQrCode()),
+                        h2(cls := "ninja-title", trans.site.orLetYourOpponentScanQrCode()),
                         img(
                           src := s"https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=$challengeLink",
                           alt := "QR Code"
@@ -125,19 +125,19 @@ object mine:
                 footer(userIdLink(c.destUserId))
               ),
               bits.details(c, color),
-              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.site.newOpponent())
             )
           case Status.Accepted =>
             div(cls := "follow-up")(
               h1(cls := "box__top")(trans.challenge.challengeAccepted()),
               bits.details(c, color),
               a(id := "challenge-redirect", href := routes.Round.watcher(c.id, "white"), cls := "button-fat"):
-                trans.joinTheGame()
+                trans.site.joinTheGame()
             )
           case Status.Canceled =>
             div(cls := "follow-up")(
               h1(cls := "box__top")(trans.challenge.challengeCanceled()),
               bits.details(c, color),
-              a(cls := "button button-fat", href := routes.Lobby.home)(trans.newOpponent())
+              a(cls := "button button-fat", href := routes.Lobby.home)(trans.site.newOpponent())
             )
       )

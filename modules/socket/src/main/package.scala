@@ -3,23 +3,7 @@ package lila.socket
 import alleycats.Zero
 import play.api.libs.json.*
 
-export lila.Lila.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 
 private val logger = lila.log("socket")
-
-opaque type SocketVersion = Int
-object SocketVersion extends OpaqueInt[SocketVersion]:
-  extension (o: SocketVersion) def incVersion = SocketVersion(o + 1)
-  given Zero[SocketVersion]                   = Zero(0)
-
-opaque type SocketSend = String => Unit
-object SocketSend extends FunctionWrapper[SocketSend, String => Unit]
-
-opaque type IsOnline = UserId => Boolean
-object IsOnline extends FunctionWrapper[IsOnline, UserId => Boolean]
-
-opaque type OnlineIds = () => Set[UserId]
-object OnlineIds extends FunctionWrapper[OnlineIds, () => Set[UserId]]
-
-case class GetVersion(promise: Promise[SocketVersion])
-case class SendToFlag(flag: String, message: JsObject)

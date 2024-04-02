@@ -1,20 +1,6 @@
 package lila.user
 
-case class Count(
-    ai: Int,
-    draw: Int,
-    drawH: Int, // only against human opponents
-    game: Int,
-    loss: Int,
-    lossH: Int, // only against human opponents
-    rated: Int,
-    win: Int,
-    winH: Int
-): // only against human opponents
-
-  def gameH = winH + lossH + drawH
-
-  def casual = game - rated
+import lila.core.user.Count
 
 object Count:
 
@@ -24,7 +10,7 @@ object Count:
   private[user] given BSONDocumentHandler[Count] = new BSON[Count]:
 
     def reads(r: BSON.Reader): Count =
-      Count(
+      lila.core.user.Count(
         ai = r.nInt("ai"),
         draw = r.nInt("draw"),
         drawH = r.nInt("drawH"),
@@ -49,4 +35,4 @@ object Count:
         "winH"  -> w.int(o.winH)
       )
 
-  val default = Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
+  val default = lila.core.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)

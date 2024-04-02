@@ -9,7 +9,7 @@ import scala.util.chaining.*
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
-import lila.common.LangPath
+import lila.core.LangPath
 import lila.game.{ Game, Pov }
 
 object bits:
@@ -84,7 +84,7 @@ object bits:
   def others(playing: List[Pov], simul: Option[lila.simul.Simul])(using Context) =
     frag(
       h3(
-        simul.fold(trans.currentGames()): s =>
+        simul.fold(trans.site.currentGames()): s =>
           span(cls := "simul")(
             a(href := routes.Simul.show(s.id))("SIMUL"),
             span(cls := "win")(s.wins, " W"),
@@ -97,8 +97,11 @@ object bits:
             " ongoing"
           ),
         "round-toggle-autoswitch".pipe: id =>
-          span(cls := "move-on switcher", st.title := trans.automaticallyProceedToNextGameAfterMoving.txt())(
-            label(`for` := id)(trans.autoSwitch()),
+          span(
+            cls      := "move-on switcher",
+            st.title := trans.site.automaticallyProceedToNextGameAfterMoving.txt()
+          )(
+            label(`for` := id)(trans.site.autoSwitch()),
             span(cls := "switch")(form3.cmnToggle(id, id, checked = false))
           )
       ),
@@ -122,7 +125,7 @@ object bits:
                 span(cls := "indicator")(
                   if pov.isMyTurn then
                     pov.remainingSeconds
-                      .fold[Frag](trans.yourTurn())(secondsFromNow(_, alwaysRelative = true))
+                      .fold[Frag](trans.site.yourTurn())(secondsFromNow(_, alwaysRelative = true))
                   else nbsp
                 )
               )
@@ -139,7 +142,7 @@ object bits:
   )(using Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Epd],
+      (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Full],
       tour,
       simul = simul,
       userTv = userTv,

@@ -1,7 +1,7 @@
 package lila.irc
 
-import lila.common.{ Heapsort, LightUser }
-import lila.hub.actorApi.irc.*
+import lila.core.LightUser
+import lila.core.actorApi.irc.*
 import lila.user.{ Me, User }
 
 final class IrcApi(
@@ -57,6 +57,11 @@ final class IrcApi(
             modOnly = true,
             dox = false
           )
+
+  def fullCommExport(user: User)(using mod: Me): Funit =
+    val topic = "/" + user.username
+    zulip(_.mod.trustSafety, topic):
+      s"${markdown.modLink(mod.username)} exported all comms of ${markdown.userLink(user.username)}"
 
   def usertableCheck(user: User)(using mod: Me): Funit =
     zulip(_.mod.cafeteria, "reports"):
@@ -134,7 +139,7 @@ final class IrcApi(
     zulip(_.general, "lila")(s":info: ${markdown.linkifyUsers(msg)}")
 
   object charge:
-    import lila.hub.actorApi.plan.ChargeEvent
+    import lila.core.actorApi.plan.ChargeEvent
     private var buffer: Vector[ChargeEvent] = Vector.empty
     private given Ordering[ChargeEvent]     = Ordering.by[ChargeEvent, Int](_.cents)
 
@@ -143,7 +148,7 @@ final class IrcApi(
       buffer.head.date
         .isBefore(nowInstant.minusHours(12))
         .so:
-          val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
+          val firsts    = scalalib.HeapSort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
           val amountSum = buffer.map(_.cents).sum
           val patrons =
             if firsts.lengthIs > 10

@@ -4,16 +4,13 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.game.Pov
-import lila.hub.SyncActor
-import lila.hub.actorApi.timeline.*
-import lila.pool.{ PoolApi, PoolConfig }
+import scalalib.actor.SyncActor
+import lila.core.timeline.*
 import lila.rating.RatingRange
-import lila.round.ChangeFeatured
-import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ Sri, Sris, makeMessage }
+import lila.core.game.ChangeFeatured
+import lila.core.socket.{ protocol as P, * }
+import lila.core.pool.PoolConfigId
 import lila.user.Me
-
-import actorApi.*
 
 case class LobbyCounters(members: Int, rounds: Int)
 
@@ -21,11 +18,10 @@ final class LobbySocket(
     biter: Biter,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    socketKit: SocketKit,
     lobby: LobbySyncActor,
     relationApi: lila.relation.RelationApi,
-    poolApi: PoolApi,
-    cacheApi: lila.memo.CacheApi
+    poolApi: lila.core.pool.PoolApi
 )(using ec: Executor, scheduler: Scheduler):
 
   import LobbySocket.*
@@ -37,7 +33,7 @@ final class LobbySocket(
 
   private val actor: SyncActor = new SyncActor:
 
-    private val members = cacheApi.scaffeine
+    private val members = lila.memo.CacheApi.scaffeine
       .expireAfterWrite(1 hour)
       .build[SriStr, Member]()
     private val idleSris           = collection.mutable.Set[SriStr]()
@@ -99,13 +95,13 @@ final class LobbySocket(
         send(Out.tellLobbyUsers(List(seek.user.id), gameStartRedirect(game.pov(creatorColor))))
         send(Out.tellLobbyUsers(List(userId), gameStartRedirect(game.pov(!creatorColor))))
 
-      case PoolApi.Pairings(pairings) => send(Out.pairings(pairings))
+      case lila.core.pool.Pairings(pairings) => send(Out.pairings(pairings))
 
       case HookIds(ids) => tellActiveHookSubscribers(makeMessage("hli", ids.mkString("")))
 
       case AddSeek(_) | RemoveSeek(_) => tellActive(makeMessage("reload_seeks"))
 
-      case ChangeFeatured(_, msg) => tellActive(msg)
+      case ChangeFeatured(msg) => tellActive(msg)
 
       case SetIdle(sri, true)  => idleSris += sri.value
       case SetIdle(sri, false) => idleSris -= sri.value
@@ -193,18 +189,18 @@ final class LobbySocket(
           user     <- member.user
           d        <- o.obj("d")
           id       <- d.str("id")
-          perfType <- poolApi.poolPerfTypes.get(PoolConfig.Id(id))
-          ratingRange = d.str("range").flatMap(RatingRange.apply)
+          perfType <- poolApi.poolPerfKeys.get(PoolConfigId(id))
+          ratingRange = d.str("range").flatMap(RatingRange.parse)
           blocking    = d.get[UserId]("blocking")
         yield
           lobby ! CancelHook(member.sri) // in case there's one...
           perfsRepo.glicko(user.id, perfType).foreach { glicko =>
             poolApi.join(
-              PoolConfig.Id(id),
-              PoolApi.Joiner(
+              PoolConfigId(id),
+              lila.core.pool.Joiner(
                 sri = member.sri,
                 rating = glicko.establishedIntRating | IntRating(
-                  lila.common.Maths.boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
+                  scalalib.Maths.boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
                 ),
                 ratingRange = ratingRange,
                 lame = user.lame,
@@ -219,7 +215,7 @@ final class LobbySocket(
         for
           id   <- o.str("d")
           user <- member.user
-        do poolApi.leave(PoolConfig.Id(id), user.id)
+        do poolApi.leave(PoolConfigId(id), user.id)
     // entering the hooks view
     case ("hookIn", _) =>
       HookPoolLimit(member, cost = 2, msg = "hookIn"):
@@ -233,16 +229,16 @@ final class LobbySocket(
         user
           .filter(_.enabled.yes)
           .so: u =>
-            remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
+            socketKit.baseHandler(P.In.ConnectUser(u.id))
             relationApi.fetchBlocking(u.id)
           .map: blocks =>
-            val member = Member(sri, user.map { LobbyUser.make(_, lila.pool.Blocking(blocks)) })
+            val member = Member(sri, user.map { LobbyUser.make(_, lila.core.pool.Blocking(blocks)) })
             actor ! Join(member)
             member
       }
     }
 
-  private val handler: Handler =
+  private val handler: SocketHandler =
 
     case P.In.ConnectSris(cons) =>
       cons.foreach { case (sri, userId) =>
@@ -271,9 +267,9 @@ final class LobbySocket(
   private val messagesHandled: Set[String] =
     Set("join", "cancel", "joinSeek", "cancelSeek", "idle", "poolIn", "poolOut", "hookIn", "hookOut")
 
-  remoteSocketApi.subscribe("lobby-in", In.reader)(handler.orElse(remoteSocketApi.baseHandler))
+  socketKit.subscribe("lobby-in", In.reader)(handler.orElse(socketKit.baseHandler))
 
-  private val send: String => Unit = remoteSocketApi.makeSender("lobby-out").apply
+  private val send = socketKit.send("lobby-out")
 
 private object LobbySocket:
 
@@ -287,21 +283,18 @@ private object LobbySocket:
   object Protocol:
     object In:
       case class Counters(members: Int, rounds: Int) extends P.In
-
-      val reader: P.In.Reader = raw =>
-        raw.path match
-          case "counters" =>
-            raw.get(2) { case Array(m, r) =>
-              (m.toIntOption, r.toIntOption).mapN(Counters.apply)
-            }
-          case _ => P.In.baseReader(raw)
+      val reader: P.In.Reader =
+        case P.RawMsg("counters", raw) =>
+          raw.get(2) { case Array(m, r) =>
+            (m.toIntOption, r.toIntOption).mapN(Counters.apply)
+          }
     object Out:
-      def pairings(pairings: List[PoolApi.Pairing]) =
+      def pairings(pairings: List[lila.core.pool.Pairing]) =
         val redirs = for
           pairing <- pairings
           color   <- chess.Color.all
-          sri    = pairing.sri(color)
-          fullId = pairing.game.fullIdOf(color)
+          sri    = pairing.players(color)._1
+          fullId = pairing.players(color)._2
         yield s"$sri:$fullId"
         s"lobby/pairings ${P.Out.commas(redirs)}"
       def tellLobby(payload: JsObject)       = s"tell/lobby ${Json.stringify(payload)}"

@@ -6,13 +6,13 @@ import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.common.Json.{ *, given }
-import lila.socket.Socket.Sri
+import lila.core.socket.Sri
 import lila.tree.Node.Shape
+import lila.core.i18n.Translate
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUserApi: lila.user.LightUserApi,
-    fidePlayerApi: lila.fide.FidePlayerApi
+    lightUserApi: lila.user.LightUserApi
 )(using Executor):
 
   import JsonView.given
@@ -21,6 +21,7 @@ final class JsonView(
       study: Study,
       previews: ChapterPreview.AsJsons,
       chapter: Chapter,
+      fedNames: Option[JsObject],
       withMembers: Boolean
   )(using me: Option[lila.user.Me]) =
 
@@ -28,9 +29,7 @@ final class JsonView(
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))
 
     for
-      liked       <- me.so(studyRepo.liked(study, _))
-      fidePlayers <- fidePlayerApi.players(chapter.tags.fideIds)
-      feds = fidePlayers.mapList(_.flatMap(_.fed)).some.filter(_.exists(_.isDefined))
+      liked <- me.so(studyRepo.liked(study, _))
       relayPath = chapter.relay
         .filter(_.secondsSinceLastMove < 3600 || chapter.tags.outcome.isEmpty)
         .map(_.path)
@@ -65,10 +64,10 @@ final class JsonView(
           .add("description", chapter.description)
           .add("serverEval", chapter.serverEval)
           .add("relayPath", relayPath)
-          .add("feds" -> feds)
           .pipe(addChapterMode(chapter))
       )
       .add("description", study.description)
+      .add("federations", fedNames)
 
   def chapterConfig(c: Chapter) =
     Json
@@ -127,7 +126,7 @@ object JsonView:
 
   case class JsData(study: JsObject, analysis: JsObject)
 
-  given OWrites[Study.IdName] = Json.writes
+  given OWrites[lila.core.study.IdName] = Json.writes
 
   def metadata(study: Study) = Json.obj(
     "id"        -> study.id,
@@ -136,14 +135,13 @@ object JsonView:
     "updatedAt" -> study.updatedAt
   )
 
-  def glyphs(lang: play.api.i18n.Lang): JsObject =
+  def glyphs(using Translate): JsObject =
     import lila.tree.Node.given
-    import lila.i18n.I18nKeys.{ study as trans }
+    import lila.core.i18n.I18nKey.{ study as trans }
     import chess.format.pgn.Glyph
     import Glyph.MoveAssessment.*
     import Glyph.PositionAssessment.*
     import Glyph.Observation.*
-    given play.api.i18n.Lang = lang
     Json.obj(
       "move" -> List(
         good.copy(name = trans.goodMove.txt()),
@@ -179,8 +177,8 @@ object JsonView:
 
   private given Reads[Square] = Reads: v =>
     (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
-  private[study] given Writes[Sri]              = writeAs(_.value)
-  private[study] given Writes[Study.Visibility] = writeAs(_.key)
+  private[study] given Writes[Sri]                        = writeAs(_.value)
+  private[study] given Writes[lila.core.study.Visibility] = writeAs(_.toString)
   private[study] given Writes[Study.From] = Writes:
     case Study.From.Scratch   => JsString("scratch")
     case Study.From.Game(id)  => Json.obj("game" -> id)

@@ -4,39 +4,30 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
-
-@Module
-private class ReportConfig(
-    @ConfigName("collection.report") val reportColl: CollName,
-    @ConfigName("score.threshold") val scoreThreshold: Int,
-    @ConfigName("actor.name") val actorName: String
-)
+import lila.core.config.*
+import lila.core.report.SuspectId
 
 @Module
 final class Env(
-    appConfig: Configuration,
-    domain: lila.common.config.NetDomain,
+    domain: NetDomain,
     db: lila.db.Db,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    lightUserAsync: lila.common.LightUser.Getter,
+    lightUserAsync: lila.core.LightUser.Getter,
     gameRepo: lila.game.GameRepo,
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
-    playbanApi: lila.playban.PlaybanApi,
+    playbanApi: => lila.playban.PlaybanApi,
     ircApi: lila.irc.IrcApi,
-    captcher: lila.hub.actors.Captcher,
-    fishnet: lila.hub.actors.Fishnet,
+    captcha: lila.core.captcha.CaptchaApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
-)(using ec: Executor, system: ActorSystem, scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
-  private val config = appConfig.get[ReportConfig]("report")(AutoConfig.loader)
+  private def lazyPlaybanApi = () => playbanApi
 
-  private lazy val reportColl = db(config.reportColl)
+  private lazy val reportColl = db(CollName("report2"))
 
   lazy val scoreThresholdsSetting = ReportThresholds.makeScoreSetting(settingStore)
 
@@ -57,24 +48,6 @@ final class Env(
   lazy val api = wire[ReportApi]
 
   lazy val modFilters = new ModReportFilter
-
-  // api actor
-  system.actorOf(
-    Props(
-      new Actor:
-        def receive =
-          case lila.hub.actorApi.report.Cheater(userId, text) =>
-            api.autoCheatReport(userId, text)
-          case lila.hub.actorApi.report.Shutup(userId, text, critical) =>
-            api.autoCommReport(userId, text, critical)
-    ),
-    name = config.actorName
-  )
-
-  lila.common.Bus.subscribeFun("playban", "autoFlag"):
-    case lila.hub.actorApi.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins)
-    case lila.hub.actorApi.report.AutoFlag(suspectId, resource, text, critical) =>
-      api.autoCommFlag(SuspectId(suspectId), resource, text, critical)
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
     api.inquiries.expire

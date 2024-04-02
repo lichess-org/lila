@@ -55,7 +55,7 @@ object header:
               }
               .getOrElse(
                 frag(
-                  p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
+                  p(cls := "at")(trans.site.lastSeenActive(momentFromNow(s.streamer.seenAt))),
                   s.streamer.liveAt.map { liveAt =>
                     p(cls := "at")(lastStream(momentFromNow(liveAt)))
                   }

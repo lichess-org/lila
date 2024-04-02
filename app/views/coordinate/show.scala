@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.LangPath
+import lila.core.LangPath
 
 object show:
 
@@ -15,7 +15,7 @@ object show:
         cssTag("coordinateTrainer"),
         cssTag("voice")
       ),
-      moreJs = jsModuleInit("coordinateTrainer", bits.coordinateConfig(scoreOption)),
+      pageModule = PageModule("coordinateTrainer", bits.coordinateConfig(scoreOption)).some,
       csp = defaultCsp.withPeer.withWebAssembly.some,
       openGraph = lila.app.ui
         .OpenGraph(

@@ -2,16 +2,12 @@ package lila.round
 
 import lila.game.Event
 
-export lila.Lila.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 
-private type Events = List[Event]
 private val logger = lila.log("round")
 
-trait BenignError                        extends lila.base.LilaException
-case class ClientError(message: String)  extends BenignError
-case class FishnetError(message: String) extends BenignError
-case class GameIsFinishedError(pov: lila.game.Pov) extends BenignError:
-  val message = s"$pov game is finished"
+private type Events = List[lila.core.game.Event]
 
 enum OnTv:
   case Lichess(channel: String, flip: Boolean)

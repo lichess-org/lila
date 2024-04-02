@@ -8,10 +8,10 @@ import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.mod.Modlog
-import lila.socket.SocketVersion
-import lila.socket.SocketVersion.given
+import lila.core.socket.SocketVersion
+import lila.core.socket.SocketVersion.given
 import lila.team.Team
 
 object show:
@@ -20,7 +20,7 @@ object show:
 
   def apply(
       t: Team.WithLeaders,
-      members: Paginator[lila.common.LightUser],
+      members: Paginator[lila.core.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[SocketVersion],
@@ -36,7 +36,7 @@ object show:
           description = t.intro.so { shorten(_, 152) }
         )
         .some,
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "team",
         Json
           .obj("id" -> t.id)
@@ -45,13 +45,13 @@ object show:
             views.html.chat.json(
               chat.chat,
               chat.lines,
-              name = if t.isChatFor(_.LEADERS) then leadersChat.txt() else trans.chatRoom.txt(),
+              name = if t.isChatFor(_.Leaders) then leadersChat.txt() else trans.site.chatRoom.txt(),
               timeout = chat.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
               localMod = info.havePerm(_.Comm)
             ))
-      ),
+      ).some,
       robots = t.team.enabled
     ):
       val canManage     = asMod && isGranted(_.ManageTeam)
@@ -109,7 +109,7 @@ object show:
                     frag(
                       strong(beingReviewed()),
                       postForm(action := teamRoutes.quit(t.id)):
-                        submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
+                        submitButton(cls := "button button-red button-empty confirm")(trans.site.cancel())
                     )
                   else (ctx.isAuth && !asMod).option(joinButton(t.team))
                 )
@@ -254,7 +254,7 @@ object show:
               (t.enabled && info.simuls.nonEmpty).option(
                 frag(
                   st.section(cls := "team-show__tour team-events team-simuls")(
-                    h2(trans.simultaneousExhibitions()),
+                    h2(trans.site.simultaneousExhibitions()),
                     views.html.simul.bits.allCreated(info.simuls)
                   )
                 )
@@ -262,7 +262,7 @@ object show:
               (t.enabled && info.tours.nonEmpty).option(
                 frag(
                   st.section(cls := "team-show__tour team-events team-tournaments")(
-                    h2(a(href := teamRoutes.tournaments(t.id))(trans.tournaments())),
+                    h2(a(href := teamRoutes.tournaments(t.id))(trans.site.tournaments())),
                     table(cls := "slist")(
                       tournaments.renderList(
                         info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
@@ -273,21 +273,21 @@ object show:
               ),
               info.forum.map { forumPosts =>
                 st.section(cls := "team-show__forum")(
-                  h2(a(href := teamForumUrl(t.id))(trans.forum())),
+                  h2(a(href := teamForumUrl(t.id))(trans.site.forum())),
                   forumPosts.take(10).map { post =>
-                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.postId))(
+                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.post.id))(
                       div(cls := "meta")(
-                        strong(post.topicName),
+                        strong(post.topic.name),
                         em(
-                          post.userId.map(titleNameOrId),
+                          post.post.userId.map(titleNameOrId),
                           " • ",
-                          momentFromNow(post.createdAt)
+                          momentFromNow(post.post.createdAt)
                         )
                       ),
-                      p(shorten(post.text, 200))
+                      p(shorten(post.post.text, 200))
                     )
                   },
-                  a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
+                  a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.site.forum(), " »")
                 )
               }
             )

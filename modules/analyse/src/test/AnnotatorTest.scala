@@ -2,13 +2,13 @@ package lila.analyse
 import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnStr, Tag, Tags }
 import chess.{ ByColor, Ply }
 
-import lila.common.config.{ BaseUrl, NetDomain }
+import lila.core.config.{ BaseUrl, NetDomain }
 import lila.game.PgnDump
 import lila.tree.Eval
 
 class AnnotatorTest extends munit.FunSuite:
 
-  given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
+  given Executor = scala.concurrent.ExecutionContextOpportunistic
 
   val annotator = Annotator(NetDomain("l.org"))
   def makeGame(g: chess.Game) =
@@ -17,7 +17,7 @@ class AnnotatorTest extends munit.FunSuite:
         g,
         ByColor(lila.game.Player.make(_, none)),
         mode = chess.Mode.Casual,
-        source = lila.game.Source.Api,
+        source = lila.core.game.Source.Api,
         pgnImport = none
       )
       .sloppy
@@ -38,6 +38,20 @@ class AnnotatorTest extends munit.FunSuite:
       .get
       .state
 
+  import lila.core.i18n.*
+  import play.api.i18n.Lang
+  given Translator = new Translator:
+    def to(lang: Lang): Translate = Translate(this, lang)
+    def toDefault: Translate      = Translate(this, defaultLang)
+    val txt = new TranslatorTxt:
+      def literal(key: I18nKey, args: Seq[Any], lang: Lang): String              = key.value
+      def plural(key: I18nKey, count: Count, args: Seq[Any], lang: Lang): String = key.value
+    val frag = new TranslatorFrag:
+      import scalatags.Text.{ Frag, RawFrag }
+      def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag              = RawFrag(key.value)
+      def plural(key: I18nKey, count: Count, args: Seq[Matchable], lang: Lang): RawFrag = RawFrag(key.value)
+
+  given Lang = defaultLang
   val dumper = PgnDump(BaseUrl("l.org/"), lila.user.LightUserApi.mock)
   val dumped =
     dumper(makeGame(playedGame), None, PgnDump.WithFlags(tags = false)).await(1.second, "test dump")

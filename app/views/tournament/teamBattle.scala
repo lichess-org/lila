@@ -14,10 +14,7 @@ object teamBattle:
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      moreJs = frag(
-        iifeModule("vendor/textcomplete.min.js"),
-        jsModule("teamBattleForm")
-      )
+      moreJs = jsModule("teamBattleForm")
     ):
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
@@ -41,7 +38,7 @@ object teamBattle:
               form3.input(_)(tpe := "number")
             ),
             form3.globalError(form),
-            form3.submit(trans.save())(tour.isFinished.option(disabled))
+            form3.submit(trans.site.save())(tour.isFinished.option(disabled))
           )
         )
       )
@@ -79,7 +76,7 @@ object teamBattle:
         )
       )
 
-  def teamInfo(tour: Tournament, team: lila.hub.LightTeam, info: TeamBattle.TeamInfo)(using
+  def teamInfo(tour: Tournament, team: lila.core.team.LightTeam, info: TeamBattle.TeamInfo)(using
       ctx: PageContext
   ) =
     views.html.base.layout(
@@ -99,7 +96,7 @@ object teamBattle:
             tr(th("Players"), td(info.nbPlayers)),
             ctx.pref.showRatings.option(
               frag(
-                tr(th(trans.averageElo()), td(info.avgRating)),
+                tr(th(trans.site.averageElo()), td(info.avgRating)),
                 tr(th(trans.arena.averagePerformance()), td(info.avgPerf))
               )
             ),
@@ -109,10 +106,10 @@ object teamBattle:
         table(cls := "slist slist-pad tour__team-info")(
           thead(
             tr(
-              th(trans.rank()),
-              th(trans.player()),
-              th(trans.tournamentPoints()),
-              ctx.pref.showRatings.option(th(trans.performance()))
+              th(trans.site.rank()),
+              th(trans.site.player()),
+              th(trans.site.tournamentPoints()),
+              ctx.pref.showRatings.option(th(trans.site.performance()))
             )
           ),
           tbody(

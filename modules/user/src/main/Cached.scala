@@ -2,17 +2,17 @@ package lila.user
 
 import reactivemongo.api.bson.*
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
-
-import User.{ LightCount, LightPerf }
+import lila.user.User.{ LightCount, LightPerf }
+import lila.core.rating.PerfId
 
 final class Cached(
     userRepo: UserRepo,
     userApi: UserApi,
-    onlineUserIds: lila.socket.OnlineIds,
+    onlineUserIds: lila.core.socket.OnlineIds,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
@@ -29,7 +29,7 @@ final class Cached(
         .withTimeout(2 minutes, "user.Cached.top10")
         .monSuccess(_.user.leaderboardCompute)
 
-  val top200Perf = mongoCache[Perf.Id, List[User.LightPerf]](
+  val top200Perf = mongoCache[PerfId, List[User.LightPerf]](
     PerfType.leaderboardable.size,
     "user:top200:perf",
     19 minutes,

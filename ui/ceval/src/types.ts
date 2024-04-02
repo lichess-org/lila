@@ -43,6 +43,7 @@ export interface ExternalEngineInfo extends EngineInfo {
 export interface BrowserEngineInfo extends EngineInfo {
   minMem?: number;
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string };
+  requires: Requires[];
   obsoletedBy?: Feature;
 }
 
@@ -123,8 +124,8 @@ export interface ParentCtrl {
   getNode(): Tree.Node;
   showComputer(): boolean;
   toggleComputer?: () => void;
-  clearCeval?: () => void;
-  restartCeval?: () => void;
+  clearCeval: () => void;
+  restartCeval: () => void;
   redraw?: () => void;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
   trans: Trans;

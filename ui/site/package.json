@@ -21,8 +21,7 @@
         "src/tvEmbed.ts": "tvEmbed",
         "src/puzzleEmbed.ts": "puzzle.embed",
         "src/lpvEmbed.ts": "lpv.embed",
-        "src/devMode.ts": "devMode",
-        "src/eventCountdown.ts": "event.countdown"
+        "src/devMode.ts": "devMode"
       }
     },
     "copy": [

@@ -6,9 +6,9 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.game.{ Game, LightPlayer, Namer, Player, Pov }
-import lila.i18n.{ I18nKeys as trans, defaultLang }
+import lila.core.i18n.{ I18nKey as trans, defaultLang, Translate }
 
 trait GameHelper:
   self: RouterHelper & I18nHelper & UserHelper & AiHelper & StringHelper & NumberHelper & ChessgroundHelper =>
@@ -60,33 +60,31 @@ trait GameHelper:
     val moves = (game.ply.value - game.startedAtPly.value + 1) / 2
     s"$p1 $plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!"
 
-  def shortClockName(clock: Option[Clock.Config])(using lang: Lang): Frag =
-    clock.fold[Frag](trans.unlimited())(shortClockName)
+  def shortClockName(clock: Option[Clock.Config])(using t: Translate): Frag =
+    clock.fold[Frag](trans.site.unlimited())(shortClockName)
 
   def shortClockName(clock: Clock.Config): Frag = raw(clock.show)
 
-  def shortClockName(game: Game)(using lang: Lang): Frag =
+  def shortClockName(game: Game)(using Translate): Frag =
     game.correspondenceClock
-      .map(c => trans.nbDays(c.daysPerTurn))
+      .map(c => trans.site.nbDays(c.daysPerTurn))
       .orElse(game.clock.map(_.config).map(shortClockName))
-      .getOrElse(trans.unlimited())
+      .getOrElse(trans.site.unlimited())
 
-  def modeName(mode: Mode)(using lang: Lang): String =
+  def modeName(mode: Mode)(using Translate): String =
     mode match
-      case Mode.Casual => trans.casual.txt()
-      case Mode.Rated  => trans.rated.txt()
-
-  def modeNameNoCtx(mode: Mode): String = modeName(mode)(using defaultLang)
+      case Mode.Casual => trans.site.casual.txt()
+      case Mode.Rated  => trans.site.rated.txt()
 
   def playerUsername(
       player: LightPlayer,
       user: Option[LightUser],
       withRating: Boolean = true,
       withTitle: Boolean = true
-  )(using Lang): Frag =
+  )(using Translate): Frag =
     player.aiLevel.fold[Frag](
       user
-        .fold[Frag](trans.anonymous.txt()): user =>
+        .fold[Frag](trans.site.anonymous.txt()): user =>
           frag(
             titleTag(withTitle.so(user.title)),
             user.name,
@@ -124,7 +122,6 @@ trait GameHelper:
       mod: Boolean = false,
       link: Boolean = true
   )(using ctx: Context): Frag =
-    given Lang     = ctx.lang
     val statusIcon = (withBerserk && player.berserk).option(berserkIconSpan)
     player.userId.flatMap(lightUser) match
       case None =>
@@ -133,7 +130,7 @@ trait GameHelper:
           (player.aiLevel, player.name) match
             case (Some(level), _) => aiNameFrag(level)
             case (_, Some(name))  => name
-            case _                => trans.anonymous()
+            case _                => trans.site.anonymous()
           ,
           player.rating.ifTrue(withRating && ctx.pref.showRatings).map { rating => s" ($rating)" },
           statusIcon
@@ -174,7 +171,7 @@ trait GameHelper:
       case None =>
         val klass = cssClass.so(" " + _)
         span(cls := s"user-link$klass")(
-          player.aiLevel.fold(trans.anonymous())(aiNameFrag),
+          player.aiLevel.fold(trans.site.anonymous())(aiNameFrag),
           player.rating.ifTrue(withRating && ctx.pref.showRatings).map { rating => s" ($rating)" },
           statusIcon
         )
@@ -198,46 +195,50 @@ trait GameHelper:
           statusIcon
         )
 
-  private def tosMark(mark: Boolean)(using Lang): Option[Tag] =
-    mark.option(span(cls := "tos_violation", title := trans.thisAccountViolatedTos.txt()))
+  private def tosMark(mark: Boolean)(using Translate): Option[Tag] =
+    mark.option(span(cls := "tos_violation", title := trans.site.thisAccountViolatedTos.txt()))
 
-  def gameEndStatus(game: Game)(using lang: Lang): String =
+  def gameEndStatus(game: Game)(using Translate): String =
     game.status match
-      case S.Aborted => trans.gameAborted.txt()
-      case S.Mate    => trans.checkmate.txt()
+      case S.Aborted => trans.site.gameAborted.txt()
+      case S.Mate    => trans.site.checkmate.txt()
       case S.Resign =>
-        (if game.loser.exists(_.color.white) then trans.whiteResigned else trans.blackResigned).txt()
-      case S.UnknownFinish => trans.finished.txt()
-      case S.Stalemate     => trans.stalemate.txt()
+        (if game.loser.exists(_.color.white) then trans.site.whiteResigned else trans.site.blackResigned)
+          .txt()
+      case S.UnknownFinish => trans.site.finished.txt()
+      case S.Stalemate     => trans.site.stalemate.txt()
       case S.Timeout =>
         (game.loser, game.turnColor) match
-          case (Some(p), _) if p.color.white => trans.whiteLeftTheGame.txt()
-          case (Some(_), _)                  => trans.blackLeftTheGame.txt()
-          case (None, White)                 => trans.whiteLeftTheGame.txt() + " • " + trans.draw.txt()
-          case (None, Black)                 => trans.blackLeftTheGame.txt() + " • " + trans.draw.txt()
+          case (Some(p), _) if p.color.white => trans.site.whiteLeftTheGame.txt()
+          case (Some(_), _)                  => trans.site.blackLeftTheGame.txt()
+          case (None, White) => trans.site.whiteLeftTheGame.txt() + " • " + trans.site.draw.txt()
+          case (None, Black) => trans.site.blackLeftTheGame.txt() + " • " + trans.site.draw.txt()
       case S.Draw =>
         import lila.game.DrawReason.*
         game.drawReason match
-          case Some(MutualAgreement)      => trans.drawByMutualAgreement.txt()
-          case Some(FiftyMoves)           => trans.fiftyMovesWithoutProgress.txt() + " • " + trans.draw.txt()
-          case Some(ThreefoldRepetition)  => trans.threefoldRepetition.txt() + " • " + trans.draw.txt()
-          case Some(InsufficientMaterial) => trans.insufficientMaterial.txt() + " • " + trans.draw.txt()
-          case _                          => trans.draw.txt()
+          case Some(MutualAgreement) => trans.site.drawByMutualAgreement.txt()
+          case Some(FiftyMoves) => trans.site.fiftyMovesWithoutProgress.txt() + " • " + trans.site.draw.txt()
+          case Some(ThreefoldRepetition) =>
+            trans.site.threefoldRepetition.txt() + " • " + trans.site.draw.txt()
+          case Some(InsufficientMaterial) =>
+            trans.site.insufficientMaterial.txt() + " • " + trans.site.draw.txt()
+          case _ => trans.site.draw.txt()
       case S.Outoftime =>
         (game.turnColor, game.loser) match
-          case (White, Some(_)) => trans.whiteTimeOut.txt()
-          case (White, None)    => trans.whiteTimeOut.txt() + " • " + trans.draw.txt()
-          case (Black, Some(_)) => trans.blackTimeOut.txt()
-          case (Black, None)    => trans.blackTimeOut.txt() + " • " + trans.draw.txt()
+          case (White, Some(_)) => trans.site.whiteTimeOut.txt()
+          case (White, None)    => trans.site.whiteTimeOut.txt() + " • " + trans.site.draw.txt()
+          case (Black, Some(_)) => trans.site.blackTimeOut.txt()
+          case (Black, None)    => trans.site.blackTimeOut.txt() + " • " + trans.site.draw.txt()
       case S.NoStart =>
-        (if game.loser.exists(_.color.white) then trans.whiteDidntMove else trans.blackDidntMove).txt()
-      case S.Cheat => trans.cheatDetected.txt()
+        (if game.loser.exists(_.color.white) then trans.site.whiteDidntMove else trans.site.blackDidntMove)
+          .txt()
+      case S.Cheat => trans.site.cheatDetected.txt()
       case S.VariantEnd =>
         game.variant match
-          case chess.variant.KingOfTheHill => trans.kingInTheCenter.txt()
-          case chess.variant.ThreeCheck    => trans.threeChecks.txt()
-          case chess.variant.RacingKings   => trans.raceFinished.txt()
-          case _                           => trans.variantEnding.txt()
+          case chess.variant.KingOfTheHill => trans.site.kingInTheCenter.txt()
+          case chess.variant.ThreeCheck    => trans.site.threeChecks.txt()
+          case chess.variant.RacingKings   => trans.site.raceFinished.txt()
+          case _                           => trans.site.variantEnding.txt()
       case _ => ""
 
   def gameTitle(game: Game, color: Color): String =
@@ -271,7 +272,7 @@ trait GameHelper:
       s"${chess.Speed(clock).name} (${clock.show})"
     }
     val variant = c.variant.exotic.so(s" ${c.variant.name}")
-    val challenger = c.challengerUser.fold(trans.anonymous.txt()(using ctx.lang)): reg =>
+    val challenger = c.challengerUser.fold(trans.site.anonymous.txt()): reg =>
       s"${titleNameOrId(reg.id)}${ctx.pref.showRatings.so(s" (${reg.rating.show})")}"
     val players =
       if c.isOpen then "Open challenge"

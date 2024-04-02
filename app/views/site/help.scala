@@ -14,51 +14,50 @@ object help:
   private def voice(text: String)         = strong(cls := "val-to-word", text)
   private def phonetic(text: String)      = strong(cls := "val-to-word phonetic", text)
 
-  private def navigateMoves(using Lang) = frag(
-    header(trans.navigateMoveTree()),
-    row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
-    row(frag(kbd("k"), or, kbd("j")), trans.keyMoveBackwardOrForward()),
-    row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
-    row(frag(kbd("0"), or, kbd("$")), trans.keyGoToStartOrEnd()),
-    row(frag(kbd("home"), or, kbd("end")), trans.keyGoToStartOrEnd())
+  private def navigateMoves(using Translate) = frag(
+    header(trans.site.navigateMoveTree()),
+    row(frag(kbd("←"), or, kbd("→")), trans.site.keyMoveBackwardOrForward()),
+    row(frag(kbd("k"), or, kbd("j")), trans.site.keyMoveBackwardOrForward()),
+    row(frag(kbd("↑"), or, kbd("↓")), trans.site.keyGoToStartOrEnd()),
+    row(frag(kbd("0"), or, kbd("$")), trans.site.keyGoToStartOrEnd()),
+    row(frag(kbd("home"), or, kbd("end")), trans.site.keyGoToStartOrEnd())
   )
-  private def flip(using Lang)       = row(kbd("f"), trans.flipBoard())
-  private def zen(using Lang)        = row(kbd("z"), trans.preferences.zenMode())
-  private def helpDialog(using Lang) = row(kbd("?"), trans.showHelpDialog())
-  private def localAnalysis(using Lang) = frag(
-    row(kbd("l"), trans.toggleLocalAnalysis()),
-    row(kbd("space"), trans.playComputerMove()),
-    row(kbd("x"), trans.showThreat())
+  private def flip(using Translate)       = row(kbd("f"), trans.site.flipBoard())
+  private def zen(using Translate)        = row(kbd("z"), trans.preferences.zenMode())
+  private def helpDialog(using Translate) = row(kbd("?"), trans.site.showHelpDialog())
+  private def localAnalysis(using Translate) = frag(
+    row(kbd("l"), trans.site.toggleLocalAnalysis()),
+    row(kbd("space"), trans.site.playComputerMove()),
+    row(kbd("x"), trans.site.showThreat())
   )
   private def phonetics = "abcdefgh"
     .map(_.toString)
     .map: letter =>
       frag(s"${letter.capitalize} = ", phonetic(letter), ". ")
 
-  def round(using Lang) =
+  def round(using Translate) =
     frag(
-      h2(trans.keyboardShortcuts()),
+      h2(trans.site.keyboardShortcuts()),
       table(
         tbody(
           navigateMoves,
-          header(trans.other()),
+          header(trans.site.other()),
           flip,
           zen,
-          row(frag(kbd("shift"), kbd("B")), "Toggle blindfold mode"),
           helpDialog
         )
       )
     )
-  def puzzle(using Lang) =
+  def puzzle(using Translate) =
     frag(
-      h2(trans.keyboardShortcuts()),
+      h2(trans.site.keyboardShortcuts()),
       table(
         tbody(
           navigateMoves,
-          header(trans.analysisOptions()),
+          header(trans.site.analysisOptions()),
           localAnalysis,
           row(kbd("n"), trans.puzzle.nextPuzzle()),
-          header(trans.other()),
+          header(trans.site.other()),
           flip,
           zen,
           row(frag(kbd("shift"), kbd("B")), "Toggle blindfold mode"),
@@ -66,36 +65,36 @@ object help:
         )
       )
     )
-  def analyse(isStudy: Boolean)(using Lang) =
+  def analyse(isStudy: Boolean)(using Translate) =
     frag(
-      h2(trans.keyboardShortcuts()),
+      h2(trans.site.keyboardShortcuts()),
       table(
         tbody(
-          row(frag(kbd("←"), or, kbd("→")), trans.keyMoveBackwardOrForward()),
-          row(frag(kbd("k"), or, kbd("j")), trans.keyMoveBackwardOrForward()),
-          row(kbd("shift"), trans.keyCycleSelectedVariation()),
-          row(frag(kbd("↑"), or, kbd("↓")), trans.cyclePreviousOrNextVariation()),
-          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), trans.keyPreviousBranch()),
-          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), trans.keyNextBranch()),
-          row(frag(kbd("↑"), or, kbd("↓")), trans.keyGoToStartOrEnd()),
-          row(frag(kbd("0"), or, kbd("$")), trans.keyGoToStartOrEnd()),
-          row(frag(kbd("home"), or, kbd("end")), trans.keyGoToStartOrEnd()),
-          header(trans.analysisOptions()),
+          row(frag(kbd("←"), or, kbd("→")), trans.site.keyMoveBackwardOrForward()),
+          row(frag(kbd("k"), or, kbd("j")), trans.site.keyMoveBackwardOrForward()),
+          row(kbd("shift"), trans.site.keyCycleSelectedVariation()),
+          row(frag(kbd("↑"), or, kbd("↓")), trans.site.cyclePreviousOrNextVariation()),
+          row(frag(kbd("shift"), kbd("←"), or, kbd("shift"), kbd("K")), trans.site.keyPreviousBranch()),
+          row(frag(kbd("shift"), kbd("→"), or, kbd("shift"), kbd("J")), trans.site.keyNextBranch()),
+          row(frag(kbd("↑"), or, kbd("↓")), trans.site.keyGoToStartOrEnd()),
+          row(frag(kbd("0"), or, kbd("$")), trans.site.keyGoToStartOrEnd()),
+          row(frag(kbd("home"), or, kbd("end")), trans.site.keyGoToStartOrEnd()),
+          header(trans.site.analysisOptions()),
           flip,
-          row(frag(kbd("shift"), kbd("I")), trans.inlineNotation()),
+          row(frag(kbd("shift"), kbd("I")), trans.site.inlineNotation()),
           localAnalysis,
-          row(kbd("z"), trans.toggleAllAnalysis()),
-          row(kbd("a"), trans.bestMoveArrow()),
-          row(kbd("v"), trans.toggleVariationArrows()),
-          row(kbd("e"), trans.openingEndgameExplorer()),
-          row(frag(kbd("shift"), kbd("space")), trans.playFirstOpeningEndgameExplorerMove()),
-          row(kbd("r"), trans.keyRequestComputerAnalysis()),
-          row(kbd("enter"), trans.keyNextLearnFromYourMistakes()),
-          row(kbd("b"), trans.keyNextBlunder()),
-          row(kbd("m"), trans.keyNextMistake()),
-          row(kbd("i"), trans.keyNextInaccuracy()),
-          row(kbd("c"), trans.focusChat()),
-          row(frag(kbd("shift"), kbd("C")), trans.keyShowOrHideComments()),
+          row(kbd("z"), trans.site.toggleAllAnalysis()),
+          row(kbd("a"), trans.site.bestMoveArrow()),
+          row(kbd("v"), trans.site.toggleVariationArrows()),
+          row(kbd("e"), trans.site.openingEndgameExplorer()),
+          row(frag(kbd("shift"), kbd("space")), trans.site.playFirstOpeningEndgameExplorerMove()),
+          row(kbd("r"), trans.site.keyRequestComputerAnalysis()),
+          row(kbd("enter"), trans.site.keyNextLearnFromYourMistakes()),
+          row(kbd("b"), trans.site.keyNextBlunder()),
+          row(kbd("m"), trans.site.keyNextMistake()),
+          row(kbd("i"), trans.site.keyNextInaccuracy()),
+          row(kbd("c"), trans.site.focusChat()),
+          row(frag(kbd("shift"), kbd("C")), trans.site.keyShowOrHideComments()),
           helpDialog,
           isStudy.option(
             frag(
@@ -104,17 +103,17 @@ object help:
               row(kbd("g"), trans.study.annotateWithGlyphs()),
               row(kbd("n"), trans.study.nextChapter()),
               row(kbd("p"), trans.study.prevChapter()),
-              row(frag((1 to 6).map(kbd(_))), trans.toggleGlyphAnnotations()),
-              row(frag(kbd("shift"), (1 to 8).map(kbd(_))), trans.togglePositionAnnotations())
+              row(frag((1 to 6).map(kbd(_))), trans.site.toggleGlyphAnnotations()),
+              row(frag(kbd("shift"), (1 to 8).map(kbd(_))), trans.site.togglePositionAnnotations())
             )
           ),
-          header(trans.mouseTricks()),
+          header(trans.site.mouseTricks()),
           tr(
             td(cls := "mouse", colspan := 2)(
               ul(
-                li(trans.youCanAlsoScrollOverTheBoardToMoveInTheGame()),
-                li(trans.scrollOverComputerVariationsToPreviewThem()),
-                li(trans.analysisShapesHowTo())
+                li(trans.site.youCanAlsoScrollOverTheBoardToMoveInTheGame()),
+                li(trans.site.scrollOverComputerVariationsToPreviewThem()),
+                li(trans.site.analysisShapesHowTo())
               )
             )
           )
@@ -122,7 +121,7 @@ object help:
       )
     )
 
-  def keyboardMove(using Lang) =
+  def keyboardMove(using Translate) =
     import trans.keyboardMove.*
     frag(
       h2(keyboardInputCommands()),
@@ -137,16 +136,16 @@ object help:
           row(kbd("c8=Q"), promoteC8ToQueen()),
           row(kbd("R@b4"), dropARookAtB4()),
           header(otherCommands()),
-          row(kbd("/"), trans.focusChat()),
+          row(kbd("/"), trans.site.focusChat()),
           row(kbd("clock"), readOutClocks()),
           row(kbd("who"), readOutOpponentName()),
           row(kbd("draw"), offerOrAcceptDraw()),
-          row(kbd("resign"), trans.resignTheGame()),
+          row(kbd("resign"), trans.site.resignTheGame()),
           row(kbd("zerk"), trans.arena.berserk()),
           row(kbd("next"), trans.puzzle.nextPuzzle()),
           row(kbd("upv"), trans.puzzle.upVote()),
           row(kbd("downv"), trans.puzzle.downVote()),
-          row(frag(kbd("help"), or, kbd("?")), trans.showHelpDialog()),
+          row(frag(kbd("help"), or, kbd("?")), trans.site.showHelpDialog()),
           header(tips()),
           tr(
             td(cls := "tips", colspan := 2)(
@@ -169,13 +168,13 @@ object help:
       )
     )
 
-  def voiceMove(using Lang) =
+  def voiceMove(using Translate) =
     import trans.voiceCommands.*
     frag(
       h2(voiceCommands()),
       table(
         tbody(
-          tr(th(p(trans.instructions()))),
+          tr(th(p(trans.site.instructions()))),
           tr(
             td(cls := "tips")(
               ul(
@@ -219,8 +218,8 @@ object help:
               row(voice("O-O-O"), trans.keyboardMove.queensideCastle()),
               row(phonetic("a,7,g,1"), phoneticAlphabetIsBest()),
               row(voice("draw"), trans.keyboardMove.offerOrAcceptDraw()),
-              row(voice("resign"), trans.resignTheGame()),
-              row(voice("takeback"), trans.proposeATakeback())
+              row(voice("resign"), trans.site.resignTheGame()),
+              row(voice("takeback"), trans.site.proposeATakeback())
             )
           ),
           table(
@@ -233,10 +232,10 @@ object help:
               row(voice("next"), trans.puzzle.nextPuzzle()),
               row(voice("upvote"), trans.puzzle.upVote()),
               row(voice("solve"), showPuzzleSolution()),
-              row(voice("help"), trans.showHelpDialog()),
+              row(voice("help"), trans.site.showHelpDialog()),
               tr(
                 td,
-                td(button(cls := "button", cls := "all-phrases-button")(trans.showMeEverything()))
+                td(button(cls := "button", cls := "all-phrases-button")(trans.site.showMeEverything()))
               )
             )
           )

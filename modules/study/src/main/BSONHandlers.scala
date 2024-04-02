@@ -1,18 +1,17 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Glyphs, SanStr, Tag, Tags }
+import chess.format.pgn.{ Glyph, Glyphs, Tag, Tags, SanStr }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
-import chess.{ ByColor, Centis, Check, FideId, Ply, PromotableRole, Role, Square }
+import chess.{ Centis, ByColor, Square, PromotableRole, Role, Outcome, Ply, Check, FideId }
 import reactivemongo.api.bson.*
-
 import scala.util.Success
 
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
+import lila.tree.{ Root, Branch, Branches, NewBranch, Metas, NewRoot, Score }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Score }
 
 object BSONHandlers:
 
@@ -57,8 +56,8 @@ object BSONHandlers:
     x => BSONString(x.toString)
   )
 
-  given studyIdNameHandler: BSONDocumentHandler[Study.IdName]     = Macros.handler
-  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName] = Macros.handler
+  given studyIdNameHandler: BSONDocumentHandler[lila.core.study.IdName] = Macros.handler
+  given chapterIdNameHandler: BSONDocumentHandler[Chapter.IdName]       = Macros.handler
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
@@ -133,7 +132,7 @@ object BSONHandlers:
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
-      fen <- doc.getAsOpt[Fen.Epd](F.fen)
+      fen <- doc.getAsOpt[Fen.Full](F.fen)
       check          = ~doc.getAsOpt[Check](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
@@ -168,7 +167,7 @@ object BSONHandlers:
       ply <- doc.getAsOpt[Ply](F.ply)
       uci <- doc.getAsOpt[Uci](F.uci)
       san <- doc.getAsOpt[SanStr](F.san)
-      fen <- doc.getAsOpt[Fen.Epd](F.fen)
+      fen <- doc.getAsOpt[Fen.Full](F.fen)
       check          = ~doc.getAsOpt[Check](F.check)
       shapes         = doc.getAsOpt[Shapes](F.shapes).getOrElse(Shapes.empty)
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
@@ -180,7 +179,6 @@ object BSONHandlers:
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield NewBranch(
       id = id,
-      path = path,
       forceVariation = forceVariation,
       move = Uci.WithSan(uci, san),
       metas = Metas(
@@ -197,6 +195,7 @@ object BSONHandlers:
       )
     )
 
+  // shallow write, as not writing children
   private[study] def writeBranch(n: Branch) =
     import Node.{ BsonFields as F }
     val w = new Writer
@@ -216,7 +215,7 @@ object BSONHandlers:
       F.forceVariation -> w.boolO(n.forceVariation)
     )
 
-  private[study] def writeNewBranch(n: NewBranch, order: Option[List[UciCharPair]]) =
+  private[study] def writeNewBranch(n: NewBranch) =
     import Node.{ BsonFields as F }
     val w = new Writer
     $doc(
@@ -242,7 +241,7 @@ object BSONHandlers:
       val r        = Reader(rootNode)
       Root(
         ply = r.get[Ply](F.ply),
-        fen = r.get[Fen.Epd](F.fen),
+        fen = r.get[Fen.Full](F.fen),
         check = r.yesnoD(F.check),
         shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
         comments = r.getO[Comments](F.comments) | Comments.empty,
@@ -278,7 +277,7 @@ object BSONHandlers:
       NewRoot(
         Metas(
           ply = r.get[Ply](F.ply),
-          fen = r.get[Fen.Epd](F.fen),
+          fen = r.get[Fen.Full](F.fen),
           check = r.yesnoD(F.check),
           shapes = r.getO[Shapes](F.shapes) | Shapes.empty,
           comments = r.getO[Comments](F.comments) | Comments.empty,
@@ -318,6 +317,10 @@ object BSONHandlers:
   )
   given (using handler: BSONHandler[List[Tag]]): BSONHandler[Tags] = handler.as[Tags](Tags.apply, _.value)
   private given BSONDocumentHandler[Chapter.Setup]                 = Macros.handler
+  given BSONHandler[Option[FideId]] = quickHandler(
+    { case BSONInteger(v) => (v > 0).option(FideId(v)) },
+    id => BSONInteger(id.so(_.value))
+  )
   given BSONDocumentHandler[Chapter.Relay] =
     given BSONHandler[Option[FideId]] = quickHandler(
       { case BSONInteger(v) => (v > 0).option(FideId(v)) },
@@ -330,12 +333,12 @@ object BSONHandlers:
   given BSONHandler[Chapter.BothClocks] = clockPair.as[Chapter.BothClocks](ByColor.fromPair, _.toPair)
   given BSON[Chapter.LastPosDenorm] with
     def reads(r: Reader) = Chapter.LastPosDenorm(
-      fen = r.getO[Fen.Epd]("fen") | Fen.initial,
+      fen = r.getO[Fen.Full]("fen") | Fen.initial,
       uci = r.getO[Uci]("uci"),
       clocks = ~r.getO[Chapter.BothClocks]("clocks")
     )
     def writes(w: Writer, l: Chapter.LastPosDenorm) = $doc(
-      "fen"    -> l.fen.some.filterNot(Fen.Epd.isInitial),
+      "fen"    -> l.fen.some.filterNot(Fen.Full.isInitial),
       "uci"    -> l.uci,
       "clocks" -> l.clocks.some.filter(_.exists(_.isDefined))
     )
@@ -362,10 +365,10 @@ object BSONHandlers:
         }),
       _.members.view.map((id, m) => id.value -> DbMember(m.role)).toMap
     )
-  import Study.Visibility
+  import lila.core.study.Visibility
   private[study] given BSONHandler[Visibility] = tryHandler[Visibility](
     { case BSONString(v) => Visibility.byKey.get(v).toTry(s"Invalid visibility $v") },
-    v => BSONString(v.key)
+    v => BSONString(v.toString)
   )
   import Study.From
   private[study] given BSONHandler[From] = tryHandler[From](

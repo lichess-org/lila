@@ -1,15 +1,15 @@
 package lila.app
 package templating
-import play.api.libs.json.{ JsValue, Json }
+import play.api.libs.json.{ JsValue, Json, Writes }
 
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.AssetVersion
+import lila.core.AssetVersion
 import lila.common.String.html.safeJsonValue
 
 trait AssetHelper extends HasEnv:
   self: I18nHelper & SecurityHelper =>
 
-  case class PageModule(name: String, data: JsValue)
+  case class PageModule(name: String, data: JsValue | SafeJsonStr)
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -35,19 +35,19 @@ trait AssetHelper extends HasEnv:
   def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def cssTag(name: String)(using ctx: Context): Frag =
-    cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
+    cssTagWithTheme(name, ctx.pref.currentBg)
 
-  def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
+  def cssTagWithTheme(name: String, theme: String): Frag =
     if theme == "system" then
       frag(
-        cssTagWithDirAndSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
-        cssTagWithDirAndSimpleTheme(name, isRTL, "dark")(media  := "(prefers-color-scheme: dark)")
+        cssTagWithSimpleTheme(name, "light")(media := "(prefers-color-scheme: light)"),
+        cssTagWithSimpleTheme(name, "dark")(media  := "(prefers-color-scheme: dark)")
       )
-    else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
+    else cssTagWithSimpleTheme(name, theme)
 
-  private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
+  private def cssTagWithSimpleTheme(name: String, theme: String): Tag =
     cssAt:
-      s"css/$name.${if isRTL then "rtl" else "ltr"}.$theme.${if minifiedAssets then "min" else "dev"}.css"
+      s"css/$name.$theme.${if minifiedAssets then "min" else "dev"}.css"
 
   def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if minifiedAssets then "min" else "dev"}.css")
@@ -55,8 +55,12 @@ trait AssetHelper extends HasEnv:
   private def cssAt(path: String): Tag =
     link(href := assetUrl(path), rel := "stylesheet")
 
-  def jsonScript(json: JsValue, id: String = "page-init-data") =
-    script(tpe := "application/json", st.id := id)(raw(safeJsonValue(json)))
+  def jsonScript(json: JsValue | SafeJsonStr, id: String = "page-init-data") =
+    script(tpe := "application/json", st.id := id):
+      raw:
+        json match
+          case json: JsValue => safeJsonValue(json).value
+          case json          => json.toString
 
   val systemThemePolyfillJs = """
 if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
@@ -71,29 +75,26 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   // jsModule is esm, no defer needed
   def jsModule(name: String): Frag =
     script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets.so(".min")}.js"))
-  def jsModuleInit(name: String)(using PageContext) =
+
+  def jsModuleInit(name: String)(using PageContext): Frag =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name')"))
-  def jsModuleInit(name: String, text: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})"))
-  def jsModuleInit(name: String, json: JsValue)(using PageContext): Frag =
-    jsModuleInit(name, safeJsonValue(json))
-  def jsModuleInit(name: String, text: String, nonce: lila.api.Nonce) =
+  def jsModuleInit(name: String, json: SafeJsonStr)(using PageContext): Frag =
+    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$json})"))
+  def jsModuleInit[A: Writes](name: String, value: A)(using PageContext): Frag =
+    jsModuleInit(name, safeJsonValue(Json.toJson(value)))
+
+  def jsModuleInit(name: String, text: SafeJsonStr, nonce: lila.api.Nonce): Frag =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})", nonce))
-  def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
-    jsModule(name),
-    embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:${safeJsonValue(json)}})", nonce)
-  )
+  def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce): Frag =
+    jsModuleInit(name, safeJsonValue(json), nonce)
 
   def jsPageModule(name: String)(using PageContext) =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$name')"))
 
-  def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
-    jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
-
   def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analysisBoard.nvui"))
   def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui"))
   def roundNvuiTag(using ctx: PageContext)   = ctx.blind.option(jsModule("round.nvui"))
-  def infiniteScrollTag(using PageContext)   = jsModuleInit("infiniteScroll", "'.infinite-scroll'")
+  def infiniteScrollTag(using PageContext)   = jsModuleInit("infiniteScroll")
   def captchaTag                             = jsModule("captcha")
   def cashTag                                = iifeModule("javascripts/vendor/cash.min.js")
   def fingerprintTag                         = iifeModule("javascripts/fipr.js")

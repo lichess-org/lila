@@ -1,20 +1,20 @@
 package lila.lobby
 
+import scalalib.actor.SyncActor
+
 import lila.common.{ Bus, LilaScheduler }
 import lila.game.Game
-import lila.hub.SyncActor
-import lila.socket.Socket.{ Sri, Sris }
-
-import actorApi.*
+import lila.core.socket.{ Sri, Sris }
+import lila.core.pool.{ IsClockCompatible, HookThieve }
 
 final private class LobbySyncActor(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
     playbanApi: lila.playban.PlaybanApi,
-    poolApi: lila.pool.PoolApi,
-    onStart: lila.round.OnStart
-)(using Executor)
+    poolApi: lila.core.pool.PoolApi,
+    onStart: lila.core.game.OnStart
+)(using Executor, IsClockCompatible)
     extends SyncActor:
 
   import LobbySyncActor.*
@@ -23,7 +23,10 @@ final private class LobbySyncActor(
 
   private var remoteDisconnectAllAt = nowInstant
 
-  private var socket: SyncActor = SyncActor.stub
+  private var socket: SyncActor = new SyncActor:
+    val process = { case msg =>
+      println(s"stub trouper received: $msg")
+    }
 
   val process: SyncActor.Receive =
 
@@ -101,7 +104,7 @@ final private class LobbySyncActor(
         .foreach { this ! WithPromise(_, promise) }
 
     case WithPromise(Sris(sris), promise) =>
-      poolApi.socketIds(Sris(sris))
+      poolApi.setOnlineSris(Sris(sris))
       val fewSecondsAgo = nowInstant.minusSeconds(5)
       if remoteDisconnectAllAt.isBefore(fewSecondsAgo)
       then
@@ -124,10 +127,10 @@ final private class LobbySyncActor(
     case HookSub(member, true) =>
       socket ! AllHooksFor(member, hookRepo.filter { biter.showHookTo(_, member) }.toSeq)
 
-    case lila.pool.HookThieve.GetCandidates(clock, promise) =>
-      promise.success(lila.pool.HookThieve.PoolHooks(hookRepo.poolCandidates(clock)))
+    case HookThieve.GetCandidates(clock, promise) =>
+      promise.success(HookThieve.PoolHooks(hookRepo.poolCandidates(clock)))
 
-    case lila.pool.HookThieve.StolenHookIds(ids) =>
+    case HookThieve.StolenHookIds(ids) =>
       hookRepo.byIds(ids.toSet).foreach(remove)
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit =
@@ -155,7 +158,7 @@ final private class LobbySyncActor(
   def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs.register(g)
 
   private object recentlyAbortedUserIdPairs:
-    private val cache = lila.memo.ExpireSetMemo[CacheKey](1 hour)
+    private val cache = scalalib.cache.ExpireSetMemo[CacheKey](1 hour)
     private def makeKey(u1: UserId, u2: UserId) = CacheKey:
       if u1.value < u2.value then s"$u1/$u2" else s"$u2/$u1"
 
@@ -195,7 +198,7 @@ private object LobbySyncActor:
   )(makeActor: () => LobbySyncActor)(using ec: Executor, scheduler: Scheduler) =
     val actor = makeActor()
     Bus.subscribe(actor, "lobbyActor")
-    scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => actor ! actorApi.Resync)
+    scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => actor ! Resync)
     lila.common.LilaScheduler(
       "LobbySyncActor",
       _.Every(broomPeriod),

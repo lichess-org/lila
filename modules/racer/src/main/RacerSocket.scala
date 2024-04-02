@@ -3,12 +3,12 @@ package lila.racer
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.RemoteSocket.{ Protocol as P, * }
+import lila.core.socket.{ protocol as P, * }
 
 final private class RacerSocket(
     api: RacerApi,
     json: RacerJson,
-    remoteSocketApi: lila.socket.RemoteSocket
+    socketKit: SocketKit
 )(using Executor):
 
   import RacerSocket.*
@@ -16,11 +16,11 @@ final private class RacerSocket(
   def publishState(race: RacerRace): Unit = send:
     Protocol.Out.publishState(race.id, json.state(race))
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("racer-out").apply
+  private lazy val send: SocketSend = socketKit.send("racer-out")
 
   lazy val rooms = makeRoomMap(send)
 
-  private lazy val racerHandler: Handler =
+  private lazy val racerHandler: SocketHandler =
     case Protocol.In.PlayerJoin(raceId, playerId) =>
       api.join(raceId, playerId)
     case Protocol.In.PlayerScore(raceId, playerId, score) =>
@@ -32,8 +32,8 @@ final private class RacerSocket(
         .filter(_.owner == playerId)
         .foreach(api.manualStart)
 
-  remoteSocketApi.subscribe("racer-in", Protocol.In.reader):
-    racerHandler.orElse(minRoomHandler(rooms, logger)).orElse(remoteSocketApi.baseHandler)
+  socketKit.subscribe("racer-in", Protocol.In.reader.orElse(RP.In.reader)):
+    racerHandler.orElse(minRoomHandler(rooms, logger)).orElse(socketKit.baseHandler)
 
   api.registerSocket(this)
 
@@ -47,23 +47,19 @@ object RacerSocket:
       case class PlayerScore(race: RacerRace.Id, player: RacerPlayer.Id, score: Int) extends P.In
       case class RaceStart(race: RacerRace.Id, player: RacerPlayer.Id)               extends P.In
 
-      val reader: P.In.Reader = raw => raceReader(raw).orElse(RP.In.reader(raw))
-
-      val raceReader: P.In.Reader = raw =>
-        raw.path match
-          case "racer/join" =>
-            raw.get(2) { case Array(raceId, playerId) =>
-              PlayerJoin(RacerRace.Id(raceId), RacerPlayer.Id(playerId)).some
-            }
-          case "racer/score" =>
-            raw.get(3) { case Array(raceId, playerId, scoreStr) =>
-              scoreStr.toIntOption.map { PlayerScore(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
-            }
-          case "racer/start" =>
-            raw.get(2) { case Array(raceId, playerId) =>
-              RaceStart(RacerRace.Id(raceId), RacerPlayer.Id(playerId)).some
-            }
-          case _ => none
+      val reader: P.In.Reader =
+        case P.RawMsg("racer/join", raw) =>
+          raw.get(2) { case Array(raceId, playerId) =>
+            PlayerJoin(RacerRace.Id(raceId), RacerPlayer.Id(playerId)).some
+          }
+        case P.RawMsg("racer/score", raw) =>
+          raw.get(3) { case Array(raceId, playerId, scoreStr) =>
+            scoreStr.toIntOption.map { PlayerScore(RacerRace.Id(raceId), RacerPlayer.Id(playerId), _) }
+          }
+        case P.RawMsg("racer/start", raw) =>
+          raw.get(2) { case Array(raceId, playerId) =>
+            RaceStart(RacerRace.Id(raceId), RacerPlayer.Id(playerId)).some
+          }
 
     object Out:
 

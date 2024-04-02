@@ -130,7 +130,7 @@ final class Preload(
         currentGameMyTurn(_, lightUserApi.sync)
       }
 
-  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(using
+  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.core.LightUser.GetterSync)(using
       me: Me
   ): Fu[Option[CurrentGame]] =
     ~povs.collectFirst {

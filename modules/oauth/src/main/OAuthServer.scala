@@ -4,10 +4,11 @@ import com.softwaremill.tagging.*
 import play.api.mvc.{ RequestHeader, Result }
 import com.roundeights.hasher.Algo
 
-import lila.common.{ Bearer, HTTPRequest, Strings }
+import lila.common.HTTPRequest
+import lila.core.{ Bearer, Strings }
 import lila.memo.SettingStore
 import lila.user.{ User, UserRepo }
-import lila.common.config.Secret
+import lila.core.config.Secret
 
 final class OAuthServer(
     tokenApi: AccessTokenApi,
@@ -101,7 +102,7 @@ object OAuthServer:
   type AccessResult = Either[AuthError, OAuthScope.Access]
   type AuthResult   = Either[AuthError, OAuthScope.Scoped]
 
-  sealed abstract class AuthError(val message: String) extends lila.base.LilaException
+  sealed abstract class AuthError(val message: String) extends lila.core.lilaism.LilaException
   case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")
   case object NoSuchToken                              extends AuthError("No such token")
   case class MissingScope(scopes: TokenScopes)         extends AuthError("Missing scope")

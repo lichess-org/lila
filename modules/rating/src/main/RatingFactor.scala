@@ -1,22 +1,19 @@
 package lila.rating
 
-import play.api.data.Form
-import play.api.data.Forms.{ single, text }
 import reactivemongo.api.bson.BSONHandler
 
-import lila.common.Iso
-import lila.memo.SettingStore.{ Formable, StringReader }
+import scalalib.Iso
+import lila.core.rating.PerfKey
 
 opaque type RatingFactor = Double
 object RatingFactor extends OpaqueDouble[RatingFactor]:
 
   private val separator = ","
 
-  private def write(rfs: RatingFactors): String =
+  def write(rfs: RatingFactors): String =
     rfs
-      .map { case (pt, f) =>
+      .map: (pt, f) =>
         s"${pt.key}=$f"
-      }
       .mkString(separator)
 
   private def read(s: String): RatingFactors =
@@ -26,14 +23,12 @@ object RatingFactor extends OpaqueDouble[RatingFactor]:
       .flatMap {
         case Array(ptk, fs) =>
           for
-            pt <- PerfType(Perf.Key(ptk))
+            pt <- PerfType(PerfKey(ptk))
             f  <- fs.toDoubleOption
           yield pt -> RatingFactor(f)
         case _ => None
       } toMap
 
-  private given Iso.StringIso[RatingFactors] = Iso.string(read, write)
+  given Iso.StringIso[RatingFactors] = Iso.string(read, write)
 
-  given BSONHandler[RatingFactors]  = lila.db.dsl.isoHandler
-  given StringReader[RatingFactors] = StringReader.fromIso
-  given Formable[RatingFactors]     = new Formable(rfs => Form(single("v" -> text)).fill(write(rfs)))
+  given BSONHandler[RatingFactors] = lila.db.dsl.isoHandler

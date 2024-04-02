@@ -3,7 +3,7 @@ package lila.simul
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.game.{ Game, GameRepo }
 import lila.gathering.Condition.WithVerdicts
 import lila.rating.PerfType
@@ -12,7 +12,7 @@ final class JsonView(
     gameRepo: GameRepo,
     getLightUser: LightUser.GetterFallback,
     proxyRepo: lila.round.GameProxyRepo,
-    isOnline: lila.socket.IsOnline
+    isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
   private def fetchGames(simul: Simul): Fu[List[Game]] =

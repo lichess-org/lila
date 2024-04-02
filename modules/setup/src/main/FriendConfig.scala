@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.variant.Variant
 import chess.{ Clock, Mode }
 
-import lila.common.Days
+import lila.core.Days
 import lila.lobby.Color
 
 case class FriendConfig(
@@ -15,7 +15,7 @@ case class FriendConfig(
     days: Days,
     mode: Mode,
     color: Color,
-    fen: Option[Fen.Epd] = None
+    fen: Option[Fen.Full] = None
 ) extends HumanConfig
     with Positional:
 
@@ -35,7 +35,7 @@ object FriendConfig extends BaseHumanConfig:
       d: Days,
       m: Option[Int],
       c: String,
-      fen: Option[Fen.Epd]
+      fen: Option[Fen.Full]
   ) =
     new FriendConfig(
       variant = chess.variant.Variant.orDefault(v),
@@ -72,7 +72,7 @@ object FriendConfig extends BaseHumanConfig:
         days = r.get("d"),
         mode = Mode.orDefault(r.int("m")),
         color = Color.White,
-        fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty)
+        fen = r.getO[Fen.Full]("f").filter(_.value.nonEmpty)
       )
 
     def writes(w: BSON.Writer, o: FriendConfig) =

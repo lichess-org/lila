@@ -51,7 +51,7 @@
 
     display: none;
     position: absolute;
-    #{$end-direction}: 0;
+    @include inline-end(0);
     top: $site-header-height;
     background: $c-bg-header-dropdown;
     z-index: z('dropdown');
@@ -74,8 +74,9 @@
   }
 
   .signin {
-    @extend %page-link;
+    @extend %flex-center-nowrap;
     text-transform: uppercase;
+    padding: 0 0.7rem;
   }
 
   .link-center {
@@ -114,27 +115,17 @@
 
   .dasher {
     @extend %flex-center-nowrap;
-
-    > a,
-    > button {
-      @extend %flex-center-nowrap;
-      margin: 0;
-      padding: 1rem;
-    }
-
-    > button {
-      font-size: 2rem;
-    }
   }
 }
 
 #user_tag {
-  padding-#{$end-direction}: 0.75rem;
+  @extend %flex-center-nowrap;
   white-space: nowrap;
   gap: 0.5rem;
 
   &::after {
     @extend %data-icon;
+    color: c-dimmer($c-font, 15%);
     content: $licon-AccountCircle;
     font-size: 2rem;
   }

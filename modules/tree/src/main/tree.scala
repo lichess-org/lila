@@ -9,7 +9,7 @@ import chess.{ Ply, Square, Check }
 import chess.bitboard.Bitboard
 import chess.variant.{ Variant, Crazyhouse }
 import play.api.libs.json.*
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.Json.given
 import Node.{ Comments, Comment, Gamebook, Shapes }
@@ -28,11 +28,6 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 
   def get(id: UciCharPair): Option[Branch] = nodes.find(_.id == id)
   def hasNode(id: UciCharPair): Boolean    = nodes.exists(_.id == id)
-
-  def getNodeAndIndex(id: UciCharPair): Option[(Branch, Int)] =
-    nodes.zipWithIndex.collectFirst {
-      case pair if pair._1.id == id => pair
-    }
 
   def nodeAt(path: UciPath): Option[Branch] =
     path.split.flatMap { (head, rest) =>
@@ -54,8 +49,8 @@ case class Branches(nodes: List[Branch]) extends AnyVal:
 
   def addNodeAt(node: Branch, path: UciPath): Option[Branches] =
     path.split match
-      case None               => addNode(node).some
-      case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
+      case None             => addNode(node).some
+      case Some(head, tail) => updateChildren(head, _.addNodeAt(node, tail))
 
   // suboptimal due to using List instead of Vector
   def addNode(node: Branch): Branches =
@@ -152,7 +147,7 @@ object Branches:
 
 sealed trait Node:
   def ply: Ply
-  def fen: Fen.Epd
+  def fen: Fen.Full
   def check: Check
   // None when not computed yet
   def dests: Option[Map[Square, Bitboard]]
@@ -183,7 +178,7 @@ sealed trait Node:
 
 case class Root(
     ply: Ply,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     check: Check,
     // None when not computed yet
     dests: Option[Map[Square, Bitboard]] = None,
@@ -205,11 +200,11 @@ case class Root(
   def forceVariation = false
 
   // def addChild(branch: Branch)     = copy(children = children :+ branch)
-  def addChild(child: Branch)      = copy(children = children.addNode(child))
-  def prependChild(branch: Branch) = copy(children = branch :: children)
+  def addChild(child: Branch): Root = copy(children = children.addNode(child))
+  def prependChild(branch: Branch)  = copy(children = branch :: children)
   def dropFirstChild = copy(children = if children.isEmpty then children else Branches(children.variations))
 
-  def withChildren(f: Branches => Option[Branches]) =
+  def withChildren(f: Branches => Option[Branches]): Option[Root] =
     f(children).map { newChildren =>
       copy(children = newChildren)
     }
@@ -312,7 +307,7 @@ case class Branch(
     id: UciCharPair,
     ply: Ply,
     move: Uci.WithSan,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     check: Check,
     // None when not computed yet
     dests: Option[Map[Square, Bitboard]] = None,
@@ -468,16 +463,7 @@ object Node:
       )
     def nonEmpty = deviation.nonEmpty || hint.nonEmpty
 
-  given OWrites[chess.opening.Opening] = OWrites { o =>
-    Json.obj(
-      "eco"  -> o.eco,
-      "name" -> o.name
-    )
-  }
-
-  private given Writes[Square] = Writes[Square] { p =>
-    JsString(p.key)
-  }
+  import chess.json.Json.given
   private val shapeCircleWrites = Json.writes[Shape.Circle]
   private val shapeArrowWrites  = Json.writes[Shape.Arrow]
   given shapeWrites: Writes[Shape] = Writes[Shape] {
@@ -487,14 +473,7 @@ object Node:
   given Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
     JsArray(s.value.map(shapeWrites.writes))
   }
-  given Writes[Glyph] = Json.writes[Glyph]
-  given Writes[Glyphs] = Writes[Glyphs] { gs =>
-    Json.toJson(gs.toList)
-  }
 
-  given Writes[Centis] = Writes { clock =>
-    JsNumber(clock.centis)
-  }
   given Writes[Comment.Id] = Writes { id =>
     JsString(id.value)
   }
@@ -510,8 +489,7 @@ object Node:
   given Writes[Node.Comment]  = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
 
-  import lila.common.Json.given
-  import JsonHandlers.given
+  import Eval.jsonWrites
 
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
 

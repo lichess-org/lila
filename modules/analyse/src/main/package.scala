@@ -1,6 +1,5 @@
 package lila.analyse
 
-export lila.Lila.{ *, given }
-
-type InfoAdvice  = (Info, Option[Advice])
-type InfoAdvices = List[InfoAdvice]
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
+export lila.tree.{ Advice, Analysis, Info, WinPercent }

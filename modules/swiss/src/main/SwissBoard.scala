@@ -1,6 +1,6 @@
 package lila.swiss
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.game.Game
 
 private case class SwissBoard(
@@ -15,14 +15,13 @@ private object SwissBoard:
 
 final private class SwissBoardApi(
     rankingApi: SwissRankingApi,
-    cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     gameProxyRepo: lila.round.GameProxyRepo
 )(using Executor):
 
   private val displayBoards = 6
 
-  private val boardsCache = cacheApi.scaffeine
+  private val boardsCache = lila.memo.CacheApi.scaffeine
     .expireAfterWrite(60 minutes)
     .build[SwissId, List[SwissBoard]]()
 

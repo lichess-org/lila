@@ -4,9 +4,9 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.LilaScheduler
-import lila.common.config.*
+import lila.core.config.*
 import lila.db.dsl.Coll
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -16,8 +16,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    onStart: lila.round.OnStart,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    onStart: lila.core.game.OnStart,
+    socketKit: lila.core.socket.SocketKit,
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
@@ -25,7 +25,7 @@ final class Env(
     gameProxyRepo: lila.round.GameProxyRepo,
     roundSocket: lila.round.RoundSocket,
     mongoCache: lila.memo.MongoCache.Api,
-    baseUrl: lila.common.config.BaseUrl
+    baseUrl: BaseUrl
 )(using
     Executor,
     akka.actor.ActorSystem,
@@ -92,12 +92,12 @@ final class Env(
 
   wire[SwissNotify]
 
-  lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "teamLeave"):
-    case lila.game.actorApi.FinishGame(game, _)              => api.finishGame(game)
-    case lila.hub.actorApi.team.LeaveTeam(teamId, userId)    => api.leaveTeam(teamId, userId)
-    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.leaveTeam(teamId, userId)
-    case lila.hub.actorApi.mod.MarkCheater(userId, true)     => api.kickLame(userId)
-    case lila.hub.actorApi.mod.MarkBooster(userId)           => api.kickLame(userId)
+  lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "team"):
+    case lila.game.actorApi.FinishGame(game, _)                => api.finishGame(game)
+    case lila.core.team.LeaveTeam(teamId, userId)              => api.leaveTeam(teamId, userId)
+    case lila.core.team.KickFromTeam(teamId, teamName, userId) => api.leaveTeam(teamId, userId)
+    case lila.core.mod.MarkCheater(userId, true)               => api.kickLame(userId)
+    case lila.core.mod.MarkBooster(userId)                     => api.kickLame(userId)
 
   LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
     api.startPendingRounds

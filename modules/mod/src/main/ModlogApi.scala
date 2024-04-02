@@ -5,14 +5,14 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.irc.IrcApi
-import lila.msg.MsgPreset
+import lila.core.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
-import lila.user.{ Me, User, UserRepo }
+import lila.user.{ Me, User, UserRepo, given }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
-):
+) extends lila.core.mod.LogApi:
   import repo.coll
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
@@ -50,6 +50,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def troll(sus: Suspect)(using Me.Id) = add:
     Modlog.make(sus, if sus.user.marks.troll then Modlog.troll else Modlog.untroll)
+
+  def fullCommExport(sus: Suspect)(using Me.Id) = add:
+    Modlog.make(sus, Modlog.fullCommsExport)
 
   def setKidMode(mod: ModId, kid: UserId) = add:
     Modlog(mod, kid.some, Modlog.setKidMode)
@@ -89,21 +92,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def setEmail(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.setEmail)
 
-  def deletePost(user: Option[UserId], text: String)(using Me) = add:
+  def deletePost(user: Option[UserId], text: String)(using Me.Id) = add:
     Modlog(
       user,
       Modlog.deletePost,
       details = Some(text.take(400))
     )
 
-  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using Me) = add:
+  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using Me.Id) = add:
     Modlog(
       none,
       if closed then Modlog.closeTopic else Modlog.openTopic,
       details = s"$categ/$topicSlug".some
     )
 
-  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using Me) = add:
+  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using Me.Id) = add:
     Modlog(
       none,
       if sticky then Modlog.stickyTopic else Modlog.unstickyTopic,
@@ -265,7 +268,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       $doc(
         "user"   -> userId,
         "action" -> Modlog.modMessage,
-        $or($doc("details" -> MsgPreset.sandbagAuto.name), $doc("details" -> MsgPreset.boostAuto.name)),
+        $or(
+          $doc("details" -> SandbagWatch.msgPreset.sandbagAuto.name),
+          $doc("details" -> SandbagWatch.msgPreset.boostAuto.name)
+        ),
         "date".$gte(nowInstant.minusMonths(6))
       )
 

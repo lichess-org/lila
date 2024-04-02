@@ -1,22 +1,24 @@
 package lila.simul
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.format.Fen
 import chess.variant.Variant
 import chess.{ Color, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.user.User
+import lila.core.rating.Score
 
 case class Simul(
-    _id: SimulId,
+    @Key("_id") id: SimulId,
     name: String,
     status: SimulStatus,
     clock: SimulClock,
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
     variants: List[Variant],
-    position: Option[Fen.Epd],
+    position: Option[Fen.Full],
     createdAt: Instant,
     estimatedStartAt: Option[Instant] = None,
     hostId: UserId,
@@ -30,9 +32,7 @@ case class Simul(
     text: String,
     featurable: Option[Boolean],
     conditions: SimulCondition.All
-):
-  inline def id = _id
-
+) extends lila.core.simul.Simul:
   def fullName = s"$name simul"
 
   def isCreated = !isStarted
@@ -138,17 +138,19 @@ case class Simul(
   def ongoing = pairings.count(_.ongoing)
 
   def pairingOf(userId: UserId) = pairings.find(_.is(userId))
+  def playerIds                 = pairings.map(_.player.user)
+  def hostScore                 = lila.core.rating.Score(wins, losses, draws, none)
+  def playerScore(userId: UserId) = pairingOf(userId).map: p =>
+    Score(p.wins.has(true).so(1), p.wins.has(false).so(1), p.wins.isEmpty.so(1), none)
 
 object Simul:
-
-  case class OnStart(simul: Simul) extends AnyVal
 
   def make(
       host: User.WithPerfs,
       name: String,
       clock: SimulClock,
       variants: List[Variant],
-      position: Option[Fen.Epd],
+      position: Option[Fen.Full],
       color: String,
       text: String,
       estimatedStartAt: Option[Instant],
@@ -157,7 +159,7 @@ object Simul:
   ): Simul =
     val hostPerf = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) })
     Simul(
-      _id = SimulId(ThreadLocalRandom.nextString(8)),
+      id = SimulId(ThreadLocalRandom.nextString(8)),
       name = name,
       status = SimulStatus.Created,
       clock = clock,

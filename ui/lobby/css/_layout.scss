@@ -16,6 +16,10 @@
   &__winners {
     min-height: 20em;
   }
+  //sets min height when we disable Show player ratings and there is only Tournament winners box to display
+  &__wide-winners {
+    min-height: 20em;
+  }
 
   @include mq-at-least-col2 {
     --cols: 2; // ui/lobby/src/main.ts
@@ -70,7 +74,7 @@
 
     &__side,
     &__timeline {
-      margin-#{$start-direction}: 0;
+      margin-inline-start: 0;
     }
   }
 

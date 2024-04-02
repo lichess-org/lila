@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
 
 import lila.db.dsl.{ *, given }
-import lila.tree.Score
+import lila.tree.{ CloudEval, Score, Moves, Pv }
 
 private object BSONHandlers:
 
@@ -67,5 +67,5 @@ private object BSONHandlers:
       }
   )
 
-  given BSONDocumentReader[Eval]           = Macros.reader
+  given BSONDocumentReader[CloudEval]      = Macros.reader
   given BSONDocumentReader[EvalCacheEntry] = Macros.reader

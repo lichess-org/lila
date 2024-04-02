@@ -6,8 +6,8 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LangPath
-import lila.common.paginator.Paginator
+import lila.core.LangPath
+import scalalib.paginator.Paginator
 import lila.i18n.LangList
 import lila.user.{ Flag, Flags }
 
@@ -29,7 +29,7 @@ object index:
       moreJs = infiniteScrollTag,
       withHrefLangs = LangPath(routes.Coach.all(1)).some
     ):
-      val langSelections = ("all", "All languages") :: lila.i18n.I18nLangPicker
+      val langSelections = ("all", "All languages") :: lila.i18n.LangPicker
         .sortFor(LangList.popularNoRegion.filter(l => langCodes(l.code)), ctx.req)
         .map: l =>
           l.code -> LangList.name(l)

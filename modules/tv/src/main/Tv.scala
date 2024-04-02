@@ -1,10 +1,11 @@
 package lila.tv
 
+import scalalib.actor.SyncActor
 import chess.PlayerTitle
 
-import lila.common.{ LightUser, licon }
+import lila.common.licon
+import lila.core.LightUser
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.SyncActor
 
 final class Tv(
     gameRepo: GameRepo,

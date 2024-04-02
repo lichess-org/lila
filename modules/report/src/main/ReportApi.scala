@@ -2,12 +2,12 @@ package lila.report
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.Max
-import lila.common.{ Bus, Heapsort }
+import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi.*
-import lila.user.{ Me, User, UserApi, UserRepo }
+import lila.user.{ Me, User, UserApi, UserRepo, modId, given }
+import lila.core.report.SuspectId
 
 final class ReportApi(
     val coll: Coll,
@@ -17,14 +17,15 @@ final class ReportApi(
     autoAnalysis: AutoAnalysis,
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
-    playbanApi: lila.playban.PlaybanApi,
+    playbanApi: () => lila.playban.PlaybanApi,
     ircApi: lila.irc.IrcApi,
-    isOnline: lila.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
     thresholds: Thresholds,
-    domain: lila.common.config.NetDomain
-)(using Executor, Scheduler):
+    domain: lila.core.config.NetDomain
+)(using Executor, Scheduler)
+    extends lila.core.report.ReportApi:
 
   import BSONHandlers.given
   import Report.Candidate
@@ -69,7 +70,7 @@ final class ReportApi(
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate).andDo:
                 if report.isCheat then
-                  Bus.publish(lila.hub.actorApi.report.CheatReportCreated(report.user), "cheatReport")
+                  Bus.publish(lila.core.report.CheatReportCreated(report.user), "cheatReport")
           }
           .andDo(maxScoreCache.invalidateUnit())
       }
@@ -188,12 +189,12 @@ final class ReportApi(
 
   def maybeAutoPlaybanReport(userId: UserId, minutes: Int): Funit =
     (minutes > 60 * 24).so(userLoginsApi.getUserIdsWithSameIpAndPrint(userId)).flatMap { ids =>
-      playbanApi
+      playbanApi()
         .bans(userId :: ids.toList)
         .map:
           _.filter { (_, bans) => bans > 4 }
         .flatMap: bans =>
-          val topSum = Heapsort.topNToList(bans.values, 10).sum
+          val topSum = scalalib.HeapSort.topNToList(bans.values, 10).sum
           (topSum >= 80).so {
             userRepo
               .byId(userId)
@@ -517,10 +518,11 @@ final class ReportApi(
 
   object inquiries:
 
-    private val workQueue = lila.hub.AsyncActorSequencer(
+    private val workQueue = scalalib.actor.AsyncActorSequencer(
       maxSize = Max(32),
       timeout = 20 seconds,
-      name = "report.inquiries"
+      name = "report.inquiries",
+      lila.log.asyncActorMonitor
     )
 
     def allBySuspect: Fu[Map[UserId, Report.Inquiry]] =

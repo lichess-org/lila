@@ -3,13 +3,13 @@ package lila.msg
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
-import lila.relation.Relations
+import lila.core.LightUser
+import lila.core.relation.Relations
 import lila.user.Me
 
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,
-    isOnline: lila.socket.IsOnline
+    isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
   private given lastMsgWrites: OWrites[Msg.Last]    = Json.writes
@@ -61,6 +61,6 @@ final class MsgJson(
     )
 
   private def renderContact(user: LightUser): JsObject =
-    LightUser
+    lila.common.Json.lightUser
       .writeNoId(user)
       .add("online" -> isOnline(user.id))

@@ -6,7 +6,7 @@ import java.time.{ Duration, LocalTime }
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.mailer.*
+import lila.core.actorApi.mailer.*
 import lila.notify.NotifyColls
 import lila.user.UserRepo
 

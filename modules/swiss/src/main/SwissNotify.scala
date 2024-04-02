@@ -2,12 +2,12 @@ package lila.swiss
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.push.TourSoon
+import lila.core.actorApi.push.TourSoon
 
 final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
   import BsonHandlers.given
 
-  private val doneMemo = lila.memo.ExpireSetMemo[SwissId](10 minutes)
+  private val doneMemo = scalalib.cache.ExpireSetMemo[SwissId](10 minutes)
 
   LilaScheduler("SwissNotify", _.Every(20 seconds), _.AtMost(10 seconds), _.Delay(1 minute)):
     mongo.swiss

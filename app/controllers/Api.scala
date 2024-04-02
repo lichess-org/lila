@@ -8,8 +8,9 @@ import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-import lila.common.config.MaxPerSecond
-import lila.common.{ HTTPRequest, IpAddress, LightUser }
+
+import lila.common.HTTPRequest
+import lila.core.{ IpAddress, LightUser }
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
 
@@ -28,7 +29,7 @@ final class Api(
       "olds"    -> Json.arr()
     )
 
-  private given lila.hub.LightTeam.Api = env.team.lightTeamApi
+  private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
   val status = Anon:
     val appVersion  = get("v")
@@ -78,7 +79,7 @@ final class Api(
     env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
       val streamingIds = env.streamer.liveStreamApi.userIds
       def toJson(u: LightUser) =
-        LightUser
+        lila.common.Json.lightUser
           .write(u)
           .add("online" -> env.socket.isOnline(u.id))
           .add("playing" -> env.round.playing(u.id))
@@ -206,7 +207,7 @@ final class Api(
       val nb = getInt("nb") | Int.MaxValue
       jsonDownload:
         env.tournament.api
-          .byOwnerStream(user, status.flatMap(lila.tournament.Status.apply), MaxPerSecond(20), nb)
+          .byOwnerStream(user, status.flatMap(lila.core.tournament.Status.byId.get), MaxPerSecond(20), nb)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
 
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
@@ -288,7 +289,7 @@ final class Api(
           JsonOptionOk:
             env.evalCache.api.getEvalJson(
               Variant.orDefault(getAs[Variant.LilaKey]("variant")),
-              chess.format.Fen.Epd.clean(fen),
+              chess.format.Fen.Full.clean(fen),
               getIntAs[MultiPv]("multiPv") | MultiPv(1)
             )
 
@@ -339,7 +340,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: lila.core.rating.PerfKey) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:
