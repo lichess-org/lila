@@ -2,7 +2,7 @@ package lila.ublog
 
 import bloomfilter.mutable.BloomFilter
 
-import lila.common.IpAddress
+import lila.core.IpAddress
 import lila.db.dsl.{ *, given }
 
 final class UblogViewCounter(colls: UblogColls)(using Executor):

@@ -20,7 +20,7 @@ import reactivemongo.api.bson.*
 
 import scala.util.{ Success, Try }
 
-import lila.common.Days
+import lila.core.Days
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.core.game.{ GameRule, Source }
@@ -119,7 +119,7 @@ object BSONHandlers:
             lastMove = clm.lastMove,
             castles = clm.castles,
             halfMoveClock = halfMoveClock
-              .orElse(r.getO[Fen.Epd](F.initialFen).flatMap { fen =>
+              .orElse(r.getO[Fen.Full](F.initialFen).flatMap { fen =>
                 Fen.readHalfMoveClockAndFullMoveNumber(fen)._1
               })
               .getOrElse(playedPlies.into(HalfMoveClock))

@@ -3,7 +3,7 @@ package lila.swiss
 import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.core.swiss.IdName
@@ -93,7 +93,7 @@ object Swiss:
       nbRounds: Int,
       rated: Boolean,
       description: Option[String] = None,
-      position: Option[Fen.Epd],
+      position: Option[Fen.Full],
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
       conditions: SwissCondition.All,

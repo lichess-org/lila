@@ -6,7 +6,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.game.{ Game, LightPlayer, Namer, Player, Pov }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translate }
 

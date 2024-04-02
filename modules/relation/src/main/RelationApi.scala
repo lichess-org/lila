@@ -7,8 +7,7 @@ import lila.common.Bus
 import lila.common.Json.given
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
-import lila.core.actorApi.timeline.{ Follow as FollowUser, Propagate }
-import lila.core.actors
+import lila.core.timeline.{ Follow as FollowUser, Propagate }
 import lila.memo.CacheApi.*
 import lila.relation.BSONHandlers.given
 import lila.user.User
@@ -16,7 +15,6 @@ import lila.core.relation.Relations
 
 final class RelationApi(
     repo: RelationRepo,
-    timeline: actors.Timeline,
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
@@ -79,7 +77,7 @@ final class RelationApi(
   def countFollowing(userId: UserId) = countFollowingCache.get(userId)
 
   def reachedMaxFollowing(userId: UserId): Fu[Boolean] =
-    countFollowingCache.get(userId).map(_ >= config.maxFollow.value)
+    countFollowingCache.get(userId).map(config.maxFollow <= _)
 
   def countBlocking(userId: UserId) =
     coll.countSel($doc("u1" -> userId, "r" -> Block))
@@ -118,7 +116,7 @@ final class RelationApi(
           case _ =>
             (repo.follow(u1, u2) >> limitFollow(u1)).andDo {
               countFollowingCache.update(u1, prev => (prev + 1).atMost(config.maxFollow.value))
-              timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1)
+              lila.common.Bus.named.timeline(Propagate(FollowUser(u1, u2)).toFriendsOf(u1))
               Bus.publish(lila.core.actorApi.relation.Follow(u1, u2), "relation")
               lila.mon.relation.follow.increment()
             }
@@ -134,7 +132,7 @@ final class RelationApi(
 
   private def limitFollow(u: UserId) =
     countFollowing(u).flatMap: nb =>
-      (nb > config.maxFollow.value).so {
+      (config.maxFollow < nb).so {
         limitFollowRateLimiter(u, fuccess(Nil)):
           fetchFollowing(u).flatMap(userRepo.filterClosedOrInactiveIds(nowInstant.minusDays(90)))
         .flatMap:
@@ -193,4 +191,4 @@ final class RelationApi(
     repo
       .followingLike(u, term)
       .map: list =>
-        lila.common.Heapsort.topN(list, max)(using stringOrdering[UserId].reverse)
+        scalalib.HeapSort.topN(list, max)(using stringOrdering[UserId].reverse)

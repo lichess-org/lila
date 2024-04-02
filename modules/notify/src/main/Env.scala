@@ -8,17 +8,16 @@ import play.api.Configuration
 import lila.common.Bus
 import lila.common.config.*
 import lila.db.dsl.Coll
+import lila.core.config.CollName
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
-    getLightUser: lila.common.LightUser.Getter,
-    getLightUserSync: lila.common.LightUser.GetterSync,
+    getLightUser: lila.core.LightUser.Getter,
+    getLightUserSync: lila.core.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi,
-    prefApi: lila.pref.PrefApi,
     subsRepo: lila.core.relation.SubscriptionRepo,
     jsDump: lila.core.i18n.JsDump,
     langPicker: lila.core.i18n.LangPicker

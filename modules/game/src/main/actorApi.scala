@@ -26,7 +26,7 @@ private[game] case object NewCaptcha
 
 case class MoveGameEvent(
     game: Game,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     move: String
 )
 object MoveGameEvent:

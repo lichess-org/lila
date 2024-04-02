@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.config.*
+import lila.core.config.*
 import lila.rating.{ PerfType, UserRankMap }
 import lila.security.Granter
 import lila.user.{ Me, Trophy, User }

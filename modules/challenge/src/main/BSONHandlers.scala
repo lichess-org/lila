@@ -3,7 +3,7 @@ package lila.challenge
 import chess.variant.Variant
 import reactivemongo.api.bson.*
 
-import lila.common.Days
+import lila.core.Days
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }

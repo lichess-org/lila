@@ -73,7 +73,7 @@ function renderHook(ctrl: LobbyController, hook: Hook): string {
   if (hook.rating) {
     html += '<a class="opponent ulpt is color-icon ' + color + '" href="/@/' + hook.u + '">';
     html += ' ' + hook.u;
-    if (!ctrl.opts.hideRatings) html += ' (' + hook.rating + (hook.prov ? '?' : '') + ')';
+    if (ctrl.opts.showRatings) html += ' (' + hook.rating + (hook.prov ? '?' : '') + ')';
     html += '</a>';
   } else {
     html += '<span class="opponent anon ' + color + '">' + ctrl.trans('anonymous') + '</span>';

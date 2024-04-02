@@ -41,7 +41,7 @@ given clasId: Conversion[String, Clas.Id]                                = Clas.
 given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasInvite.Id(_)
 given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
-given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr from _
+given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr.from(_)
 given perfKey: Conversion[String, PerfKey]                               = PerfKey(_)
 given puzzleKey: Conversion[String, PuzzleTheme.Key]                     = PuzzleTheme.Key(_)
 given Conversion[String, Variant.LilaKey]                                = Variant.LilaKey(_)
@@ -77,7 +77,7 @@ object ReverseRouterConversions:
   given Conversion[ForumTopicId, String]                             = _.value
   given Conversion[lila.cms.CmsPage.Id, String]                      = _.value
   given Conversion[lila.cms.CmsPage.Key, String]                     = _.value
-  given Conversion[lila.core.i18n.Language, String]                   = _.value
+  given Conversion[lila.core.i18n.Language, String]                  = _.value
   given Conversion[chess.FideId, Int]                                = _.value
   given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value

@@ -22,7 +22,7 @@ object Analyser:
   // incompatible with richText
   def highlightBad(text: String): scalatags.Text.Frag =
     import scalatags.Text.all.*
-    import lila.common.base.StringUtils.escapeHtmlRaw
+    import scalalib.StringUtils.escapeHtmlRaw
     val words = Analyser(text).badWords
     if words.isEmpty then frag(text)
     else

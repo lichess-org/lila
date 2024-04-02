@@ -3,7 +3,7 @@ package lila.perfStat
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User
 import lila.core.i18n.Translate
@@ -55,7 +55,7 @@ object JsonView:
     Json.obj("glicko" -> p.glicko, "nb" -> p.nb, "progress" -> p.progress)
 
   private given Writes[Avg] = Writes: a =>
-    JsNumber(lila.common.Maths.roundDownAt(a.avg, 2))
+    JsNumber(scalalib.Maths.roundDownAt(a.avg, 2))
 
   given (using Translate): OWrites[PerfType] = OWrites: pt =>
     Json.obj(

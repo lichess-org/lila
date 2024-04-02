@@ -4,8 +4,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.config.{ Max, MaxPerSecond }
-import lila.common.{ IpAddress, config }
+import lila.core.{ IpAddress, config }
 import lila.relay.RelayTour as TourModel
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
@@ -16,7 +15,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def indexLang = LangPage(routes.RelayTour.index())(indexResults(1, ""))
 
   private def indexResults(page: Int, q: String)(using ctx: Context) =
-    Reasonable(page, config.Max(20)):
+    Reasonable(page, Max(20)):
       q.trim.take(100).some.filter(_.nonEmpty) match
         case Some(query) =>
           env.relay.pager
@@ -37,7 +36,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def help     = page("broadcasts", "help")
 
   def by(owner: UserStr, page: Int) = Open:
-    Reasonable(page, config.Max(20)):
+    Reasonable(page, Max(20)):
       FoundPage(env.user.lightUser(owner.id)): owner =>
         env.relay.pager
           .byOwner(owner.id, page)
@@ -45,7 +44,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
             html.relay.tour.byOwner(_, owner)
 
   def subscribed(page: Int) = Auth { ctx ?=> me ?=>
-    Reasonable(page, config.Max(20)):
+    Reasonable(page, Max(20)):
       env.relay.pager
         .subscribedBy(me.userId, page)
         .flatMap: pager =>
@@ -116,24 +115,24 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.api.deleteTourIfOwner(tour).inject(Redirect(routes.RelayTour.by(me.username)).flashSuccess)
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.IpAddress](
     key = "relay.image.ip"
   )(
     ("fast", 10, 2.minutes),
     ("slow", 60, 1.day)
   )
 
-  def image(id: TourModel.Id) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def image(id: TourModel.Id, tag: Option[String]) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     WithTourCanUpdate(id): tg =>
       ctx.body.body.file("image") match
         case Some(image) =>
           ImageRateLimitPerIp(ctx.ip, rateLimited):
-            (env.relay.api.image.upload(me, tg.tour, image) >> {
+            (env.relay.api.image.upload(me, tg.tour, image, tag) >> {
               Ok
             }).recover { case e: Exception =>
               BadRequest(e.getMessage)
             }
-        case None => env.relay.api.image.delete(tg.tour) >> Ok
+        case None => env.relay.api.image.delete(tg.tour, tag) >> Ok
   }
 
   def leaderboardView(id: TourModel.Id) = Open:

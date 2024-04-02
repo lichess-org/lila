@@ -5,12 +5,14 @@ import play.api.libs.json.*
 
 import lila.core.challenge.Challenge
 import lila.common.String.shorten
-import lila.common.{ LazyFu, LightUser, LilaFuture }
+import lila.common.LilaFuture
+import lila.core.LightUser
 import lila.game.{ Game, Namer, Pov }
 import lila.core.actorApi.map.Tell
 import lila.core.actorApi.push.TourSoon
 import lila.core.round.{ IsOnGame, MoveEvent }
 import lila.notify.*
+import lila.core.LazyFu
 
 final private class PushApi(
     firebasePush: FirebasePush,

@@ -3,11 +3,11 @@ package lila.perfStat
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.common.config.*
+import lila.core.config.*
 
 @Module
 final class Env(
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUser: lila.core.LightUser.GetterSync,
     lightUserApi: lila.user.LightUserApi,
     gameRepo: lila.game.GameRepo,
     userApi: lila.user.UserApi,

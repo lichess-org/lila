@@ -5,10 +5,10 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Captcha
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogPost, UblogTopic }
 import lila.user.User
+import lila.core.captcha.Captcha
 
 object form:
 
@@ -89,7 +89,7 @@ object form:
             ),
             p(trans.ublog.useImagesYouMadeYourself()),
             p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
-            form3.file.selectImage
+            form3.file.selectImage()
           )
         else
           postForm(

@@ -41,6 +41,10 @@ object UblogPost:
 
   export lila.core.ublog.UblogPost.*
 
+  def slug(title: String) =
+    val s = lila.common.String.slugify(title)
+    if s.isEmpty then "-" else s
+
   opaque type Likes = Int
   object Likes extends OpaqueInt[Likes]
   opaque type Views = Int
@@ -72,7 +76,7 @@ object UblogPost:
 
   case class BlogPreview(nbPosts: Int, latests: List[PreviewPost])
 
-  def randomId = UblogPostId(ornicar.scalalib.ThreadLocalRandom.nextString(8))
+  def randomId = UblogPostId(scalalib.ThreadLocalRandom.nextString(8))
 
   object thumbnail:
     enum Size(val width: Int):

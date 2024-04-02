@@ -12,11 +12,7 @@ object UblogPost:
   case class Create(post: UblogPost) extends AnyVal
 
   case class LightPost(id: UblogPostId, title: String):
-    def slug = UblogPost.slug(title)
-
-  def slug(title: String) =
-    val s = lila.common.String.slugify(title)
-    if s.isEmpty then "-" else s
+    def slug = lila.core.slug(title)
 
 trait UblogApi:
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]]

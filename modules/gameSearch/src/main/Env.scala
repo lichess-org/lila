@@ -4,15 +4,14 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
 import lila.game.actorApi.{ FinishGame, InsertGame }
 import lila.search.*
+import lila.core.config.ConfigName
 
 @Module
 private class GameSearchConfig(
     @ConfigName("index") val indexName: String,
-    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
-    @ConfigName("actor.name") val actorName: String
+    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage
 )
 
 @Module

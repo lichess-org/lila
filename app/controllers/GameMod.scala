@@ -8,7 +8,7 @@ import scala.util.chaining.*
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.Form.{ stringIn, given }
-import lila.common.config
+import lila.core.config
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.PerfKey
@@ -89,7 +89,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
           ids = gameIds,
           format = GameApiV2.Format.PGN,
           flags = lila.game.PgnDump.WithFlags(),
-          perSecond = config.MaxPerSecond(100),
+          perSecond = MaxPerSecond(100),
           playerFile = none
         )
       )

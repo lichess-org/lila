@@ -14,8 +14,8 @@ import play.api.libs.ws.{
 
 import scala.util.matching.Regex
 
-import lila.base.{ LilaInvalid, LilaException }
-import lila.common.config.{ Credentials, HostPort, Max }
+import lila.core.lilaism.{ LilaInvalid, LilaException }
+import lila.core.config.{ Credentials, HostPort }
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
 import lila.study.MultiPgn

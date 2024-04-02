@@ -132,7 +132,11 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                             update: (_, v) => setupTick(v, ceval),
                             insert: v => {
                               setupTick(v, ceval);
-                              observer = new ResizeObserver(() => setupTick(v, ceval));
+                              let animationFrameRequestId: number;
+                              observer = new ResizeObserver(() => {
+                                cancelAnimationFrame(animationFrameRequestId);
+                                animationFrameRequestId = requestAnimationFrame(() => setupTick(v, ceval));
+                              });
                               observer.observe(v.elm!.parentElement!);
                             },
                             destroy: () => observer?.disconnect(),

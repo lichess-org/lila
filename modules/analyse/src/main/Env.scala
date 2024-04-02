@@ -2,7 +2,8 @@ package lila.analyse
 
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
+import lila.core.config.NetConfig
+import lila.core.config.CollName
 
 @Module
 final class Env(

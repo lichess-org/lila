@@ -46,7 +46,7 @@ object page:
 
   def games(
       info: UserInfo,
-      games: lila.common.paginator.Paginator[Game],
+      games: scalalib.paginator.Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       searchForm: Option[Form[?]],
       social: UserInfo.Social,

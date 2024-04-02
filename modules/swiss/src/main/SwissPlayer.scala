@@ -1,6 +1,6 @@
 package lila.swiss
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.user.User
 
 case class SwissPlayer(
@@ -63,13 +63,13 @@ object SwissPlayer:
   sealed private[swiss] trait Viewish:
     val player: SwissPlayer
     val rank: Int
-    val user: lila.common.LightUser
+    val user: lila.core.LightUser
     val sheet: SwissSheet
 
   private[swiss] case class View(
       player: SwissPlayer,
       rank: Int,
-      user: lila.common.LightUser,
+      user: lila.core.LightUser,
       pairings: Map[SwissRoundNumber, SwissPairing],
       sheet: SwissSheet
   ) extends Viewish
@@ -77,7 +77,7 @@ object SwissPlayer:
   private[swiss] case class ViewExt(
       player: SwissPlayer,
       rank: Int,
-      user: lila.common.LightUser,
+      user: lila.core.LightUser,
       pairings: Map[SwissRoundNumber, SwissPairing.View],
       sheet: SwissSheet
   ) extends Viewish

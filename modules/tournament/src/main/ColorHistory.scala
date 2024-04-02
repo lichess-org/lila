@@ -37,9 +37,9 @@ case class ColorHistory(strike: Int, balance: Int) extends Ordered[ColorHistory]
 
 private case class PlayerWithColorHistory(player: Player, colorHistory: ColorHistory)
 
-final private class ColorHistoryApi(cacheApi: CacheApi):
+final private class ColorHistoryApi(using Executor):
 
-  private val cache = cacheApi.scaffeine
+  private val cache = CacheApi.scaffeine
     .expireAfterAccess(1 hour)
     .build[TourPlayerId, ColorHistory]()
 

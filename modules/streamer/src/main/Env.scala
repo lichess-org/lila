@@ -5,7 +5,8 @@ import com.softwaremill.macwire.*
 import play.api.{ ConfigLoader, Configuration }
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.common.config.{ *, given }
+import lila.core.config.*
 
 @Module
 private class StreamerConfig(
@@ -33,7 +34,7 @@ final class Env(
     subsRepo: lila.core.relation.SubscriptionRepo,
     prefApi: lila.pref.PrefApi,
     db: lila.db.Db,
-    net: lila.common.config.NetConfig
+    net: lila.core.config.NetConfig
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
 
   private given ConfigLoader[TwitchConfig]   = AutoConfig.loader[TwitchConfig]
@@ -44,7 +45,7 @@ final class Env(
 
   lazy val alwaysFeaturedSetting =
     import lila.memo.SettingStore.UserIds.given
-    import lila.common.UserIds
+    import lila.core.UserIds
     settingStore[UserIds](
       "streamerAlwaysFeatured",
       default = UserIds(Nil),
@@ -77,10 +78,10 @@ final class Env(
   lazy val liveStreamApi = wire[LiveStreamApi]
 
   lila.common.Bus.subscribeFun("adjustCheater", "adjustBooster", "shadowban"):
-    case lila.core.actorApi.mod.MarkCheater(userId, true) => api.demote(userId)
-    case lila.core.actorApi.mod.MarkBooster(userId)       => api.demote(userId)
-    case lila.core.actorApi.mod.Shadowban(userId, true)   => api.demote(userId)
-    case lila.core.actorApi.mod.Shadowban(userId, false)  => api.unignore(userId)
+    case lila.core.mod.MarkCheater(userId, true) => api.demote(userId)
+    case lila.core.mod.MarkBooster(userId)       => api.demote(userId)
+    case lila.core.mod.Shadowban(userId, true)   => api.demote(userId)
+    case lila.core.mod.Shadowban(userId, false)  => api.unignore(userId)
 
   scheduler.scheduleWithFixedDelay(1 hour, 1 day): () =>
     api.autoDemoteFakes

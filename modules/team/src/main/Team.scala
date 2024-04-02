@@ -1,6 +1,6 @@
 package lila.team
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.nio.charset.StandardCharsets.UTF_8

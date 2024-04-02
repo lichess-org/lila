@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ Clock, Game as ChessGame, Situation, Speed }
 
-import lila.common.Days
+import lila.core.Days
 import lila.game.Game
 import lila.lobby.Color
 import lila.rating.PerfType
@@ -63,7 +63,7 @@ private[setup] trait Config:
 trait Positional:
   self: Config =>
 
-  def fen: Option[Fen.Epd]
+  def fen: Option[Fen.Full]
 
   def strictFen: Boolean
 

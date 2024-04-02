@@ -7,8 +7,8 @@ import views.html
 import lila.app.{ *, given }
 import lila.challenge.Challenge as ChallengeModel
 import lila.challenge.Challenge.Id as ChallengeId
-import lila.common.config.Max
-import lila.common.{ Bearer, IpAddress, Preload }
+
+import lila.core.{ Bearer, IpAddress, Preload }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ EndpointScopes, OAuthScope }
 import lila.setup.ApiConfig
@@ -83,8 +83,8 @@ final class Challenge(
 
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
-      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid contains secret
-      case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId contains userId
+      case lila.challenge.Challenge.Challenger.Anonymous(secret)     => ctx.req.sid.contains(secret)
+      case lila.challenge.Challenge.Challenger.Registered(userId, _) => ctx.userId.contains(userId)
       case lila.challenge.Challenge.Challenger.Open                  => false
 
   private def isForMe(challenge: ChallengeModel)(using me: Option[Me]) =

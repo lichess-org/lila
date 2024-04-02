@@ -8,5 +8,19 @@
 #video-player-placeholder {
   aspect-ratio: 16/9;
   width: 100%;
-  display: none;
+}
+
+img.video-player-close {
+  z-index: z('video-player-controls');
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(10);
+  }
+}
+
+img.link {
+  cursor: pointer;
 }

@@ -3,7 +3,7 @@ package ui
 
 import alleycats.Zero
 import chess.PlayerTitle
-import ornicar.scalalib.Render
+import scalalib.Render
 import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder

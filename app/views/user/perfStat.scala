@@ -70,7 +70,7 @@ object perfStat:
     )
   )
 
-  private def decimal(v: Double) = lila.common.Maths.roundDownAt(v, 2)
+  private def decimal(v: Double) = scalalib.Maths.roundDownAt(v, 2)
 
   private def glicko(u: User, perfType: PerfType, perf: Perf, percentile: Option[Double])(using
       ctx: Context

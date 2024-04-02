@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
-import lila.core.AsyncActor
+import scalalib.actor.AsyncActor
 import lila.core.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
@@ -19,7 +19,7 @@ final private class RoundAsyncActor(
     putUserLag: userLag.Put,
     private var version: SocketVersion
 )(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
-    extends AsyncActor:
+    extends AsyncActor(RoundAsyncActor.monitor):
 
   import RoundSocket.Protocol
   import RoundAsyncActor.*
@@ -137,7 +137,7 @@ final private class RoundAsyncActor(
       fuccess:
         promise.success:
           (userId.is(whitePlayer.userId) && whitePlayer.isOnline) ||
-            (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
+          (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
 
     case lila.chat.RoundLine(line, watcher) =>
       lila.chat
@@ -481,6 +481,8 @@ object RoundAsyncActor:
   case object Stop
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
+
+  private val monitor = AsyncActor.Monitor(msg => lila.log("asyncActor").warn(s"unhandled msg: $msg"))
 
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[Instant]):
 

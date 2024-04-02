@@ -2,9 +2,41 @@ package lila.common
 
 import scala.util.Try
 
-import lila.Lila.Fu
-
 object Chronometer:
+
+  object futureExtension:
+
+    import scala.concurrent.{ Await, ExecutionContext as EC }
+    extension [A](fua: Future[A])
+
+      def await(duration: FiniteDuration, name: String): A =
+        Chronometer.syncMon(_.blocking.time(name)) {
+          try Await.result(fua, duration)
+          catch
+            case e: Exception =>
+              lila.mon.blocking.timeout(name).increment()
+              throw e
+        }
+      def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =
+        try await(duration, name)
+        catch case _: Exception => default
+
+      def chronometer    = Chronometer(fua)
+      def chronometerTry = Chronometer.lapTry(fua)
+
+      def mon(path: lila.mon.TimerPath): Fu[A] = chronometer.mon(path).result
+      def monTry(path: Try[A] => lila.mon.TimerPath): Fu[A] =
+        chronometerTry.mon(r => path(r)(lila.mon)).result
+      def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer): Fu[A] =
+        chronometerTry
+          .mon: r =>
+            path(lila.mon)(r.isSuccess)
+          .result
+      def monValue(path: A => lila.mon.TimerPath): Fu[A] = chronometer.monValue(path).result
+
+      def logTime(name: String): Fu[A]                               = chronometer.pp(name)
+      def logTimeIfGt(name: String, duration: FiniteDuration): Fu[A] = chronometer.ppIfGt(name, duration)
+  end futureExtension
 
   case class Lap[A](result: A, nanos: Long):
 

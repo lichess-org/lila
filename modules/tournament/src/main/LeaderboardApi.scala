@@ -2,9 +2,9 @@ package lila.tournament
 
 import reactivemongo.api.bson.*
 
-import lila.common.Maths
-import lila.common.config.MaxPerPage
-import lila.common.paginator.{ AdapterLike, Paginator }
+import scalalib.Maths
+
+import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.user.User

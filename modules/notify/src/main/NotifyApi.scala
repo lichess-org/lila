@@ -3,8 +3,8 @@ package lila.notify
 import play.api.libs.json.Json
 
 import lila.common.Bus
-import lila.common.config.MaxPerPage
-import lila.common.paginator.Paginator
+
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.core.actorApi.socket.{ SendTo, SendTos }

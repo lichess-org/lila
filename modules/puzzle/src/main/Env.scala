@@ -6,6 +6,7 @@ import play.api.Configuration
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.db.AsyncColl
+import lila.core.config.*
 
 @Module
 private class PuzzleConfig(
@@ -18,8 +19,7 @@ private class PuzzleConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    renderer: lila.core.actors.Renderer,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
     mongoCacheApi: lila.memo.MongoCache.Api,

@@ -8,7 +8,7 @@ import lila.tree.{ CloudEval, Pv }
 
 object JsonView:
 
-  def writeEval(e: CloudEval, fen: Fen.Epd) =
+  def writeEval(e: CloudEval, fen: Fen.Full) =
     Json.obj(
       "fen"    -> fen,
       "knodes" -> e.knodes,

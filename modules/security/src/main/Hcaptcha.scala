@@ -10,8 +10,10 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.RequestHeader
 
 import lila.common.autoconfig.*
-import lila.common.config.*
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.config.given
+import lila.core.config.*
+import lila.common.HTTPRequest
+import lila.core.IpAddress
 
 trait Hcaptcha:
 
@@ -71,7 +73,7 @@ final class HcaptchaReal(
   private given Reads[BadResponse] = Json.reads[BadResponse]
 
   private object skipIp:
-    private val memo = lila.memo.HashCodeExpireSetMemo[IpAddress](24 hours)
+    private val memo = scalalib.cache.HashCodeExpireSetMemo[IpAddress](24 hours)
     def get(using req: RequestHeader): Fu[Boolean] =
       val ip = HTTPRequest.ipAddress(req)
       (!memo.get(ip)).so:

@@ -8,7 +8,8 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, LightUser, config }
+import lila.common.HTTPRequest
+import lila.core.LightUser
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
 import lila.user.User as UserModel
 
@@ -38,7 +39,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       Found(api.team(id)) { renderTeam(_, page, mod && canEnterModView) }
 
   def members(id: TeamId, page: Int) = Open:
-    Reasonable(page, config.Max(50)):
+    Reasonable(page, Max(50)):
       Found(api.teamEnabled(id)): team =>
         val canSee =
           fuccess(team.publicMembers || isGrantedOpt(_.ManageTeam)) >>| ctx.userId.so:
@@ -258,11 +259,10 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def form = Auth { ctx ?=> me ?=>
     LimitPerWeek:
-      forms.anyCaptcha.flatMap: captcha =>
-        Ok.page(html.team.form.create(forms.create, captcha))
+      Ok.page(html.team.form.create(forms.create, anyCaptcha))
   }
 
-  private val OneAtATime = lila.memo.FutureConcurrencyLimit[UserId](
+  private val OneAtATime = lila.app.http.FutureConcurrencyLimit[UserId](
     key = "team.concurrency.user",
     ttl = 10.minutes,
     maxConcurrency = 1
@@ -274,10 +274,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           forms.create
             .bindFromRequest()
             .fold(
-              err =>
-                BadRequest.pageAsync:
-                  forms.anyCaptcha.map(html.team.form.create(err, _))
-              ,
+              err => BadRequest.page(html.team.form.create(err, anyCaptcha)),
               data =>
                 api.create(data, me).map { team =>
                   Redirect(routes.Team.show(team.id))
@@ -390,12 +387,18 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         )
   }
 
-  def declinedRequests(id: TeamId, page: Int) = Auth { ctx ?=> _ ?=>
+  def declinedRequests(id: TeamId, page: Int) = AuthBody { ctx ?=> _ ?=>
     WithOwnedTeamEnabled(id, _.Request): team =>
-      Ok.pageAsync:
-        paginator.declinedRequests(team, page).map {
-          html.team.declinedRequest.all(team, _)
-        }
+      forms.searchDeclinedForm
+        .bindFromRequest()
+        .fold(
+          _ => BadRequest(""),
+          userQuery =>
+            Ok.pageAsync:
+              paginator.declinedRequests(team, page, userQuery).map {
+                html.team.declinedRequest.all(team, _, userQuery)
+              }
+        )
   }
 
   def quit(id: TeamId) = AuthOrScoped(_.Team.Write) { ctx ?=> me ?=>
@@ -467,7 +470,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   You received this because you are subscribed to messages of the team $url."""
                   env.msg.api
                     .multiPost(
-                      env.team.memberStream.subscribedIds(team, config.MaxPerSecond(50)),
+                      env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
                       full
                     )
                     .addEffect: nb =>

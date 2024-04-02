@@ -1,5 +1,7 @@
 package lila.common
 
+import lila.core.config
+
 /* Schedules an async function to be run periodically
  * Prevents concurrent execution of the function
  * Guarantees next execution even if the function fails or never completes

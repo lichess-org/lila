@@ -9,7 +9,7 @@ import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.security.{ Hcaptcha, HcaptchaForm }
 
 final class ClasForm(
-    lightUserAsync: lila.common.LightUser.Getter,
+    lightUserAsync: lila.core.LightUser.Getter,
     securityForms: lila.security.SecurityForm,
     nameGenerator: NameGenerator,
     hcaptcha: Hcaptcha

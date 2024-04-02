@@ -5,7 +5,7 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.Secret
+import lila.core.config.Secret
 
 final private class TwitchApi(ws: StandaloneWSClient, config: TwitchConfig)(using Executor):
 

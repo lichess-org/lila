@@ -2,10 +2,10 @@ package lila.lobby
 
 import chess.variant.Variant
 import chess.{ Mode, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 
-import lila.common.Days
+import lila.core.Days
 import lila.common.Json.given
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.RatingRange

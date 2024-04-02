@@ -3,6 +3,7 @@ package lila.ublog
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import com.softwaremill.macwire.*
 
+import lila.core.config.*
 import lila.common.config.*
 import lila.db.dsl.Coll
 
@@ -11,12 +12,11 @@ final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    timeline: lila.core.actors.Timeline,
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,
-    shutup: lila.core.actors.Shutup,
-    captcher: lila.core.actors.Captcher,
+    shutupApi: lila.core.shutup.ShutupApi,
+    captcha: lila.core.captcha.CaptchaApi,
     cacheApi: lila.memo.CacheApi,
     langList: lila.core.i18n.LangList,
     net: NetConfig
@@ -43,7 +43,7 @@ final class Env(
   val lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]] =
     cacheApi.unit[List[UblogPost.PreviewPost]]:
       _.refreshAfterWrite(10 seconds).buildAsyncFuture: _ =>
-        import ornicar.scalalib.ThreadLocalRandom
+        import scalalib.ThreadLocalRandom
         val lookInto = 7
         val keep     = 3
         api
@@ -61,7 +61,7 @@ final class Env(
             case (pinned, shuffled) => pinned ++ shuffled
 
   lila.common.Bus.subscribeFun("shadowban"):
-    case lila.core.actorApi.mod.Shadowban(userId, v) =>
+    case lila.core.mod.Shadowban(userId, v) =>
       api.setShadowban(userId, v) >>
         rank.recomputeRankOfAllPostsOfBlog(UblogBlog.Id.User(userId))
 

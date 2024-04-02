@@ -6,8 +6,8 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.Strings
-import lila.common.config.*
+import lila.core.Strings
+import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
 import lila.oauth.OAuthServer
@@ -17,10 +17,11 @@ import lila.user.{ Authenticator, UserRepo }
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
-    net: NetConfig,
+    net: lila.core.config.NetConfig,
     userRepo: UserRepo,
     authenticator: Authenticator,
     mailer: lila.mailer.Mailer,
+    hasher: lila.user.PasswordHasher,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,

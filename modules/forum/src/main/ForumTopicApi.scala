@@ -2,11 +2,11 @@ package lila.forum
 
 import lila.common.Bus
 import lila.common.String.noShouting
-import lila.common.config.NetDomain
-import lila.common.paginator.*
+import lila.core.config.NetDomain
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.shutup.{ PublicSource, RecordPublicText, RecordTeamForumMessage }
-import lila.core.actorApi.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.shutup.{ ShutupApi, PublicSource }
+import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
@@ -23,8 +23,7 @@ final private class ForumTopicApi(
     config: ForumConfig,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    timeline: lila.core.actors.Timeline,
-    shutup: lila.core.actors.Shutup,
+    shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
     relationApi: lila.core.relation.RelationApi
@@ -114,15 +113,15 @@ final private class ForumTopicApi(
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
           yield
             promotion.save(post.text)
-            shutup ! {
-              val text = s"${topic.name} ${post.text}"
-              if post.isTeam then RecordTeamForumMessage(me, text)
-              else RecordPublicText(me, text, PublicSource.Forum(post.id))
-            }
+            val text = s"${topic.name} ${post.text}"
+            if post.isTeam then shutupApi.teamForumMessage(me, text)
+            else shutupApi.publicText(me, text, PublicSource.Forum(post.id))
             if !post.troll && !categ.quiet then
-              timeline ! Propagate(TimelinePost(me, topic.id, topic.name, post.id))
-                .toFollowersOf(me)
-                .withTeam(categ.team)
+              lila.common.Bus.named.timeline(
+                Propagate(TimelinePost(me, topic.id, topic.name, post.id))
+                  .toFollowersOf(me)
+                  .withTeam(categ.team)
+              )
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.publish(CreatePost(post.mini), "forumPost")

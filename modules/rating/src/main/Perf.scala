@@ -10,9 +10,9 @@ case class Perf(
     nb: Int,
     recent: List[IntRating],
     latest: Option[Instant]
-):
+) extends lila.core.rating.Perf:
 
-  export glicko.{ intRating, intDeviation, rankable, clueless, provisional, established }
+  export glicko.{ rankable, clueless, provisional, established }
 
   def progress: IntRatingDiff = {
     for

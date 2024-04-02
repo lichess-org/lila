@@ -5,8 +5,9 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.{ HTTPRequest, LangPath }
+import lila.common.HTTPRequest
 import lila.security.PasswordCheck
+import lila.core.LangPath
 
 object signup:
 

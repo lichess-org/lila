@@ -1,6 +1,6 @@
 package lila.irc
 
-import lila.common.{ Heapsort, LightUser }
+import lila.core.LightUser
 import lila.core.actorApi.irc.*
 import lila.user.{ Me, User }
 
@@ -148,7 +148,7 @@ final class IrcApi(
       buffer.head.date
         .isBefore(nowInstant.minusHours(12))
         .so:
-          val firsts    = Heapsort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
+          val firsts    = scalalib.HeapSort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
           val amountSum = buffer.map(_.cents).sum
           val patrons =
             if firsts.lengthIs > 10

@@ -1,6 +1,6 @@
 package lila.relay
 
-final class RelayMarkup:
+final class RelayMarkup(using Executor):
 
   private val renderer = lila.common.MarkdownRender(
     autoLink = true,

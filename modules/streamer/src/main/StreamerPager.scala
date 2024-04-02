@@ -2,7 +2,7 @@ package lila.streamer
 
 import reactivemongo.api.*
 
-import lila.common.paginator.{ AdapterLike, Paginator }
+import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 
@@ -10,7 +10,7 @@ final class StreamerPager(
     coll: Coll,
     userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
-    maxPerPage: lila.common.config.MaxPerPage,
+    maxPerPage: MaxPerPage,
     subsRepo: lila.core.relation.SubscriptionRepo
 )(using Executor):
 

@@ -7,7 +7,7 @@ import chess.{ Color, Ply, Status, Tree, Variation }
 import lila.tree.{ Advice, Analysis }
 import lila.game.{ Game, GameDrawOffers }
 
-final class Annotator(netDomain: lila.common.config.NetDomain):
+final class Annotator(netDomain: lila.core.config.NetDomain):
 
   def apply(p: Pgn, game: Game, analysis: Option[Analysis]): Pgn =
     annotateStatus(game.winnerColor, game.status) {

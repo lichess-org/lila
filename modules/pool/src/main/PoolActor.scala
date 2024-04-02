@@ -2,7 +2,7 @@ package lila.pool
 
 import akka.actor.*
 import akka.pattern.pipe
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.core.socket.Sris
 import lila.core.pool.{ PoolMember, HookThieve, Joiner }

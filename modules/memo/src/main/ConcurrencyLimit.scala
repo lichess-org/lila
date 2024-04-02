@@ -44,14 +44,14 @@ object ConcurrencyLimit:
       ttl: FiniteDuration,
       maxConcurrency: Int,
       toString: K => String = (k: K) => k.toString
-  ):
+  )(using Executor):
     private val storage = lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterWrite(ttl)
       .build[String, Int]()
 
     private val concurrentMap = storage.underlying.asMap
 
-    def get(k: K) = ~storage.getIfPresent(toString(k))
+    def get(k: K) = storage.getIfPresent(toString(k)).orZero
     def inc(k: K) = concurrentMap.compute(toString(k), (_, c) => (~Option(c) + 1).atMost(maxConcurrency))
     def dec(k: K) = concurrentMap.computeIfPresent(toString(k), (_, c) => (c - 1).atLeast(0))
 

@@ -81,7 +81,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
       baseJson(tour).add("winner" -> winner.map(userJson))
     }
 
-  private def userJson(u: lila.common.LightUser) =
+  private def userJson(u: lila.core.LightUser) =
     Json.obj(
       "id"    -> u.id,
       "name"  -> u.name,

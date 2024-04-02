@@ -4,12 +4,12 @@ import akka.stream.scaladsl.*
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ ByColor, Clock, Mode }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.common.{ Bearer, Days, Template }
+import lila.core.{ Bearer, Days, Template }
 import lila.game.IdGenerator
 import lila.core.game.GameRule
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
@@ -45,7 +45,7 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
           variant: Option[Variant.LilaKey],
           clock: Option[Clock.Config],
           days: Option[Days],
-          fen: Option[Fen.Epd],
+          fen: Option[Fen.Full],
           rated: Boolean,
           pairTs: Option[Long],
           clockTs: Option[Long],
@@ -178,7 +178,7 @@ object ChallengeBulkSetup:
       message: Option[Template],
       rules: Set[GameRule] = Set.empty,
       pairedAt: Option[Instant] = None,
-      fen: Option[Fen.Epd] = None
+      fen: Option[Fen.Full] = None
   ):
     def userSet = Set(games.flatMap(g => List(g.white, g.black)))
     def collidesWith(other: ScheduledBulk) = {
@@ -202,7 +202,7 @@ object ChallengeBulkSetup:
       startClocksAt: Option[Instant],
       message: Option[Template],
       rules: Set[GameRule],
-      fen: Option[Fen.Epd] = None
+      fen: Option[Fen.Full] = None
   ):
     def clockOrDays = clock.toLeft(days | Days(3))
 

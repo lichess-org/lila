@@ -3,16 +3,17 @@ package lila.shutup
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.shutup.PublicSource
 import lila.user.UserRepo
+import lila.core.shutup.PublicSource
 
 final class ShutupApi(
     coll: Coll,
     gameRepo: lila.core.game.GameRepo,
     userRepo: UserRepo,
     relationApi: lila.core.relation.RelationApi,
-    reporter: lila.core.actors.Report
-)(using Executor):
+    reportApi: lila.core.report.ReportApi
+)(using Executor)
+    extends lila.core.shutup.ShutupApi:
 
   private given BSONDocumentHandler[UserRecord] = Macros.handler
   import PublicLine.given
@@ -88,15 +89,13 @@ final class ShutupApi(
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }
-      reporter ! lila.core.actorApi.report.Shutup(userRecord.userId, text, analysed.critical)
-      coll.update
-        .one(
-          $id(userRecord.userId),
-          $unset(
-            TextType.values.map(_.key)
+      reportApi.autoCommReport(userRecord.userId, text, analysed.critical) >>
+        coll.update
+          .one(
+            $id(userRecord.userId),
+            $unset(TextType.values.map(_.key))
           )
-        )
-        .void
+          .void
     }
 
   private def reportText(userRecord: UserRecord) =

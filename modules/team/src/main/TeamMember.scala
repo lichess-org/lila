@@ -1,6 +1,6 @@
 package lila.team
 
-import lila.common.LightUser
+import lila.core.LightUser
 
 case class TeamMember(
     _id: String,

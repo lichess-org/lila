@@ -1,20 +1,18 @@
 package lila.tv
 
-import akka.pattern.ask as actorAsk
+import scalalib.actor.SyncActor
 import play.api.libs.json.Json
 
 import lila.common.Bus
 import lila.common.Json.given
 import lila.game.{ Game, Pov }
-import lila.core.SyncActor
 
 final private[tv] class TvSyncActor(
-    renderer: lila.core.actors.Renderer,
     lightUserApi: lila.user.LightUserApi,
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
     rematches: lila.game.Rematches
-)(using Executor)
+)(using Executor, Scheduler)
     extends SyncActor:
 
   import TvSyncActor.*
@@ -88,8 +86,9 @@ final private[tv] class TvSyncActor(
       )
       Bus.publish(lila.core.game.TvSelect(game.id, game.speed, channel.key, data), "tvSelect")
       if channel == Tv.Channel.Best then
-        actorAsk(renderer.actor, RenderFeaturedJs(game))(makeTimeout(100 millis)).foreach {
-          case html: String =>
+        lila.common.Bus
+          .ask[Html]("renderer")(RenderFeaturedJs(game, _))
+          .foreach: html =>
             val pov = Pov.naturalOrientation(game)
             val event = lila.core.game.ChangeFeatured(
               makeMessage(
@@ -102,7 +101,6 @@ final private[tv] class TvSyncActor(
               )
             )
             Bus.publish(event, "changeFeaturedGame")
-        }
 
 private[tv] object TvSyncActor:
 

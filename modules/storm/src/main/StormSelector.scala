@@ -112,12 +112,12 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
     if nb < poolSize * 0.9 then logger.warn(s"Selector wanted $poolSize puzzles, only got $nb")
     if nb > 1 then
       val rest = puzzles.toVector.drop(1)
-      lila.common.Maths.mean(IntRating.raw(rest.map(_.rating))).foreach { r =>
+      scalalib.Maths.mean(IntRating.raw(rest.map(_.rating))).foreach { r =>
         lila.mon.storm.selector.rating.record(r.toInt)
       }
       (0 to poolSize by 10).foreach { i =>
         val slice = rest.drop(i).take(10)
-        lila.common.Maths.mean(IntRating.raw(slice.map(_.rating))).foreach { r =>
+        scalalib.Maths.mean(IntRating.raw(slice.map(_.rating))).foreach { r =>
           lila.mon.storm.selector.ratingSlice(i).record(r.toInt)
         }
       }

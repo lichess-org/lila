@@ -177,7 +177,7 @@ object JsonView:
 
   private given Reads[Square] = Reads: v =>
     (v.asOpt[String].flatMap { Square.fromKey(_) }).fold[JsResult[Square]](JsError(Nil))(JsSuccess(_))
-  private[study] given Writes[Sri]                       = writeAs(_.value)
+  private[study] given Writes[Sri]                        = writeAs(_.value)
   private[study] given Writes[lila.core.study.Visibility] = writeAs(_.toString)
   private[study] given Writes[Study.From] = Writes:
     case Study.From.Scratch   => JsString("scratch")

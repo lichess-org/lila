@@ -4,7 +4,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.format.Fen
 import chess.variant.Variant
 import chess.{ Color, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
 import lila.user.User
@@ -18,7 +18,7 @@ case class Simul(
     applicants: List[SimulApplicant],
     pairings: List[SimulPairing],
     variants: List[Variant],
-    position: Option[Fen.Epd],
+    position: Option[Fen.Full],
     createdAt: Instant,
     estimatedStartAt: Option[Instant] = None,
     hostId: UserId,
@@ -150,7 +150,7 @@ object Simul:
       name: String,
       clock: SimulClock,
       variants: List[Variant],
-      position: Option[Fen.Epd],
+      position: Option[Fen.Full],
       color: String,
       text: String,
       estimatedStartAt: Option[Instant],

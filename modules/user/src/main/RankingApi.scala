@@ -14,7 +14,7 @@ final class RankingApi(
     coll: AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
-    lightUser: lila.common.LightUser.Getter
+    lightUser: lila.core.LightUser.Getter
 )(using Executor):
 
   import RankingApi.*

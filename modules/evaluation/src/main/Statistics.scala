@@ -2,7 +2,7 @@ package lila.evaluation
 
 import chess.{ Centis, Stats }
 
-import lila.common.Maths
+import scalalib.Maths
 
 object Statistics:
 

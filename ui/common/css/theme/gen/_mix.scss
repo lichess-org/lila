@@ -91,8 +91,8 @@
   --c_bad--fade-80: hsla(0, 60%, 50%, 0.2);
   --c_bad--fade-40: hsla(0, 60%, 50%, 0.6);
   --c_accent--fade-30: hsla(22, 100%, 42%, 0.7);
-  --c_font_white--mix-20: hsl(0, 0%, 95%);
   --c_primary_bg--mix-18: hsl(208, 25%, 21%);
+  --c_font_white--mix-20: hsl(0, 0%, 95%);
   --c_primary_black--mix-80: hsl(209, 62%, 45%);
   --c_primary_white--mix-60: hsl(209, 79%, 74%);
   --c_primary_white--mix-40: hsl(209, 79%, 82%);
@@ -129,13 +129,13 @@
   --c_bad_bg--mix-25: hsl(3, 36%, 23%);
   --c_yellow_bg--mix-30: hsl(59, 63%, 25%);
   --c_primary_bg--mix-17: hsl(208, 24%, 21%);
-  --c_accent_bg--mix-60: hsl(22, 83%, 31%);
-  --c_accent_bg-zebra--mix-10: hsl(23, 24%, 20%);
   --c_secondary_bg-popup--mix-10: hsl(70, 14%, 23%);
-  --c_font_bg--mix-30: hsl(36, 2%, 32%);
-  --c_bg--alpha-40: hsla(37, 7%, 14%, 0.4);
   --c_accent_black--mix-70: hsl(22, 100%, 29%);
   --c_primary_font--mix-90: hsl(209, 74%, 58%);
+  --c_accent_bg--mix-60: hsl(22, 83%, 31%);
+  --c_accent_bg-zebra--mix-10: hsl(23, 24%, 20%);
+  --c_font_bg--mix-30: hsl(36, 2%, 32%);
+  --c_bg--alpha-40: hsla(37, 7%, 14%, 0.4);
 }
 
 @mixin light-mix {
@@ -231,8 +231,8 @@
   --c_bad--fade-80: hsla(0, 60%, 50%, 0.2);
   --c_bad--fade-40: hsla(0, 60%, 50%, 0.6);
   --c_accent--fade-30: hsla(22, 100%, 42%, 0.7);
-  --c_font_white--mix-20: hsl(0, 0%, 86%);
   --c_primary_bg--mix-18: hsl(209, 66%, 90%);
+  --c_font_white--mix-20: hsl(0, 0%, 86%);
   --c_primary_black--mix-80: hsl(209, 77%, 37%);
   --c_primary_white--mix-60: hsl(209, 66%, 68%);
   --c_primary_white--mix-40: hsl(209, 66%, 78%);
@@ -269,13 +269,13 @@
   --c_bad_bg--mix-25: hsl(0, 60%, 88%);
   --c_yellow_bg--mix-30: hsl(60, 100%, 85%);
   --c_primary_bg--mix-17: hsl(209, 66%, 91%);
-  --c_accent_bg--mix-60: hsl(22, 72%, 65%);
-  --c_accent_bg-zebra--mix-10: hsl(23, 51%, 91%);
   --c_secondary_bg-popup--mix-10: hsl(70, 14%, 23%);
-  --c_font_bg--mix-30: hsl(0, 0%, 79%);
-  --c_bg--alpha-40: hsla(0, 0%, 100%, 0.4);
   --c_accent_black--mix-70: hsl(22, 100%, 29%);
   --c_primary_font--mix-90: hsl(209, 72%, 44%);
+  --c_accent_bg--mix-60: hsl(22, 72%, 65%);
+  --c_accent_bg-zebra--mix-10: hsl(23, 51%, 91%);
+  --c_font_bg--mix-30: hsl(0, 0%, 79%);
+  --c_bg--alpha-40: hsla(0, 0%, 100%, 0.4);
 }
 
 @mixin transp-mix {
@@ -371,8 +371,8 @@
   --c_bad--fade-80: hsla(0, 60%, 50%, 0.2);
   --c_bad--fade-40: hsla(0, 60%, 50%, 0.6);
   --c_accent--fade-30: hsla(22, 100%, 42%, 0.7);
-  --c_font_white--mix-20: hsl(0, 0%, 96%);
   --c_primary_bg--mix-18: hsla(209, 62%, 10%, 0.67);
+  --c_font_white--mix-20: hsl(0, 0%, 96%);
   --c_primary_black--mix-80: hsl(209, 62%, 45%);
   --c_primary_white--mix-60: hsl(209, 79%, 74%);
   --c_primary_white--mix-40: hsl(209, 79%, 82%);
@@ -409,11 +409,11 @@
   --c_bad_bg--mix-25: hsla(0, 60%, 13%, 0.7);
   --c_yellow_bg--mix-30: hsla(60, 100%, 15%, 0.72);
   --c_primary_bg--mix-17: hsla(209, 62%, 10%, 0.67);
-  --c_accent_bg--mix-60: hsla(22, 100%, 25%, 0.84);
-  --c_accent_bg-zebra--mix-10: hsla(22, 72%, 94%, 0.15);
   --c_secondary_bg-popup--mix-10: hsla(88, 62%, 4%, 0.64);
-  --c_font_bg--mix-30: hsla(0, 0%, 24%, 0.72);
-  --c_bg--alpha-40: hsla(0, 0%, 0%, 0.4);
   --c_accent_black--mix-70: hsl(22, 100%, 29%);
   --c_primary_font--mix-90: hsl(209, 75%, 58%);
+  --c_accent_bg--mix-60: hsla(22, 100%, 25%, 0.84);
+  --c_accent_bg-zebra--mix-10: hsla(22, 72%, 94%, 0.15);
+  --c_font_bg--mix-30: hsla(0, 0%, 24%, 0.72);
+  --c_bg--alpha-40: hsla(0, 0%, 0%, 0.4);
 }

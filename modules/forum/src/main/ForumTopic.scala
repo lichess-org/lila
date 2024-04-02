@@ -1,10 +1,9 @@
 package lila.forum
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scala.util.chaining.*
 
-import lila.common.config.MaxPerPage
 import lila.user.User
 
 case class ForumTopic(

@@ -3,7 +3,7 @@ package lila.tournament
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Mode, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import scala.util.chaining.*
 

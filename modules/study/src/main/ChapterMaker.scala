@@ -11,7 +11,7 @@ import lila.tree.{ Branches, Root }
 import lila.core.i18n.Translator
 
 final private class ChapterMaker(
-    net: lila.common.config.NetConfig,
+    net: lila.core.config.NetConfig,
     lightUser: lila.user.LightUserApi,
     chatApi: ChatApi,
     gameRepo: lila.game.GameRepo,
@@ -128,7 +128,7 @@ final private class ChapterMaker(
       order: Int,
       userId: UserId,
       withRatings: Boolean,
-      initialFen: Option[Fen.Epd] = None
+      initialFen: Option[Fen.Full] = None
   ): Fu[Chapter] =
     given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
@@ -174,7 +174,7 @@ final private class ChapterMaker(
   private[study] def makeRoot(
       game: Game,
       pgnOpt: Option[PgnStr],
-      initialFen: Option[Fen.Epd]
+      initialFen: Option[Fen.Full]
   ): Fu[Root] =
     initialFen
       .fold(gameRepo.initialFen(game)): fen =>
@@ -200,7 +200,7 @@ final private class ChapterMaker(
 
 private[study] object ChapterMaker:
 
-  case class ValidationException(message: String) extends lila.base.LilaException
+  case class ValidationException(message: String) extends lila.core.lilaism.LilaException
 
   enum Mode:
     def key = toString.toLowerCase
@@ -225,7 +225,7 @@ private[study] object ChapterMaker:
       name: StudyChapterName,
       game: Option[String] = None,
       variant: Option[Variant] = None,
-      fen: Option[Fen.Epd] = None,
+      fen: Option[Fen.Full] = None,
       pgn: Option[PgnStr] = None,
       orientation: Orientation = Orientation.Auto,
       mode: ChapterMaker.Mode = ChapterMaker.Mode.Normal,

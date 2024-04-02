@@ -5,8 +5,8 @@ case class OnComplete(userId: UserId, studyId: StudyId, chapterId: StudyChapterI
 
 trait Study:
   val id: StudyId
-  val name: String
-  val slug = lila.common.String.slugify(name)
+  val name: StudyName
+  def slug: String
 
 type Studies    = StudyId => Option[Study]
 type GetStudies = () => Fu[Studies]

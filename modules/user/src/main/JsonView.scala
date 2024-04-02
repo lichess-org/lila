@@ -3,7 +3,7 @@ package lila.user
 import play.api.libs.json.*
 
 import lila.common.Json.{ writeAs, given }
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.rating.{ Perf, PerfType }
 
 import User.{ LightPerf, PlayTime }
@@ -80,7 +80,7 @@ object JsonView:
       .add("patron" -> l.user.isPatron)
 
   val modWrites = OWrites[User]: u =>
-    LightUser.write(u.light) ++ Json
+    Json.toJsObject(u.light) ++ Json
       .obj("games" -> u.count.game)
       .add("tos" -> u.marks.dirty)
 

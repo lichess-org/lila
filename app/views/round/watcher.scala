@@ -57,7 +57,7 @@ object watcher:
         div(cls := "round__underchat")(bits.underchat(pov.game))
       )
 
-  def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Epd], pgn: chess.format.pgn.Pgn)(using
+  def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Full], pgn: chess.format.pgn.Pgn)(using
       ctx: PageContext
   ) =
     bits.layout(

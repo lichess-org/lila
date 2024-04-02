@@ -4,8 +4,8 @@ import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, PgnTree, SanS
 import chess.format.{ Fen, pgn as chessPgn }
 import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 
-import lila.common.LightUser
-import lila.common.config.BaseUrl
+import lila.core.LightUser
+import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
 
 final class PgnDump(
@@ -17,7 +17,7 @@ final class PgnDump(
 
   def apply(
       game: Game,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       flags: WithFlags,
       teams: Option[ByColor[TeamId]] = None
   )(using Translate): Fu[Pgn] =
@@ -74,7 +74,7 @@ final class PgnDump(
 
   def tags(
       game: Game,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,

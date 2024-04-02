@@ -4,11 +4,11 @@ import chess.format.pgn.PgnStr
 import scalatags.Text.all.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
-import lila.common.LpvEmbed
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import lila.core.i18n.{ Translate, Translator }
+import lila.core.actorApi.lpv.*
 
 final class TextLpvExpand(
     gameRepo: GameRepo,
@@ -17,7 +17,7 @@ final class TextLpvExpand(
     pgnDump: PgnDump,
     studyPgnDump: lila.study.PgnDump,
     cacheApi: CacheApi,
-    net: lila.common.config.NetConfig
+    net: lila.core.config.NetConfig
 )(using Executor, Translator):
 
   def getPgn(id: GameId) = if notGames.contains(id.value) then fuccess(none) else gamePgnCache.get(id)
@@ -26,7 +26,7 @@ final class TextLpvExpand(
 
   // forum linkRenderFromText builds a LinkRender from relative game|chapter urls -> lpv div tags.
   // substitution occurs in common/../RawHtml.scala addLinks
-  def linkRenderFromText(text: String): Fu[lila.base.RawHtml.LinkRender] =
+  def linkRenderFromText(text: String): Fu[LinkRender] =
     regex.forumPgnCandidatesRe
       .findAllMatchIn(text)
       .map(_.group(1))

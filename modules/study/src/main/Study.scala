@@ -1,10 +1,9 @@
 package lila.study
 
 import chess.format.UciPath
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.config.Max
 import lila.user.User
 import lila.core.{ study as hub }
 import lila.core.study.Visibility
@@ -26,6 +25,8 @@ case class Study(
 ) extends hub.Study:
 
   import Study.*
+
+  val slug = lila.common.String.slugify(name.value)
 
   def owner = members.get(ownerId)
 

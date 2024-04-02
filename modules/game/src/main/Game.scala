@@ -22,7 +22,7 @@ import chess.{
   Status
 }
 
-import lila.common.Days
+import lila.core.Days
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
@@ -593,7 +593,7 @@ case class Game(
 object Game:
 
   case class OnStart(id: GameId)
-  case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
+  case class WithInitialFen(game: Game, fen: Option[Fen.Full])
 
   case class SideAndStart(color: Color, startedAtPly: Ply):
     def startColor = startedAtPly.turn

@@ -21,7 +21,7 @@ import play.api.libs.json.Json
 import java.time.Instant
 
 import lila.analyse.{ Analysis, Annotator }
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 
 import JsonApi.*
 import readers.given
@@ -36,9 +36,9 @@ final class AnnotatorTest extends munit.FunSuite:
 
 case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expected: PgnStr):
 
-  given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.global
-  val annotator                           = Annotator(NetDomain("l.org"))
-  val analysisBuilder                     = AnalysisBuilder(FishnetEvalCache.mock)
+  given Executor      = scala.concurrent.ExecutionContextOpportunistic
+  val annotator       = Annotator(NetDomain("l.org"))
+  val analysisBuilder = AnalysisBuilder(FishnetEvalCache.mock)
 
   lazy val parsedPgn = Parser.full(pgn).toOption.get
   lazy val dumped    = parsedPgn.toPgn

@@ -2,10 +2,10 @@ package lila.security
 
 import com.github.blemale.scaffeine.Cache
 
-import lila.common.config.NetDomain
+import lila.core.config.NetDomain
 import lila.user.Me
 
-final class PromotionApi(domain: NetDomain):
+final class PromotionApi(domain: NetDomain)(using Executor):
 
   def test(text: String, prevText: Option[String] = None)(using me: Me): Boolean =
     me.isVerified || me.isAdmin || {

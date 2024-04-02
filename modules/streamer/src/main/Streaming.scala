@@ -1,6 +1,6 @@
 package lila.streamer
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 
 import scala.util.chaining.*
@@ -11,7 +11,7 @@ final private class Streaming(
     api: StreamerApi,
     isOnline: lila.core.socket.IsOnline,
     keyword: Stream.Keyword,
-    alwaysFeatured: () => lila.common.UserIds,
+    alwaysFeatured: () => lila.core.UserIds,
     twitchApi: TwitchApi,
     ytApi: YouTubeApi
 )(using Executor, Scheduler):
@@ -54,7 +54,7 @@ final private class Streaming(
     yield publishStreams(streamers, streams)
   }
 
-  private val streamStartOnceEvery = lila.memo.OnceEvery[UserId](2 hour)
+  private val streamStartOnceEvery = scalalib.cache.OnceEvery[UserId](2 hour)
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     Bus.publish(

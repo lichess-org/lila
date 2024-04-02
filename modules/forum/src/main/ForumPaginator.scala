@@ -1,9 +1,10 @@
 package lila.forum
 
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.user.Me
+import lila.core.config.NetDomain
 
 final class ForumPaginator(
     topicRepo: ForumTopicRepo,
@@ -15,7 +16,7 @@ final class ForumPaginator(
   import BSONHandlers.given
 
   def topicPosts(topic: ForumTopic, page: Int)(using me: Option[Me])(using
-      netDomain: lila.common.config.NetDomain
+      netDomain: NetDomain
   ): Fu[Paginator[ForumPost.WithFrag]] =
     Paginator(
       Adapter[ForumPost](

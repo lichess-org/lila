@@ -1,8 +1,8 @@
 package lila.tournament
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.user.User
 
 private[tournament] case class Player(

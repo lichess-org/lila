@@ -89,9 +89,9 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       send(Out.tellSris(Sri.from(sris), payload))
     case CloseAccount(userId) =>
       send(Out.disconnectUser(userId))
-    case lila.core.actorApi.mod.Shadowban(userId, v) =>
+    case lila.core.mod.Shadowban(userId, v) =>
       send(Out.setTroll(userId, v))
-    case lila.core.actorApi.mod.Impersonate(userId, modId) =>
+    case lila.core.mod.Impersonate(userId, modId) =>
       send(Out.impersonate(userId, modId))
     case ApiUserIsOnline(userId, value) =>
       send(Out.apiUserOnline(userId, value))

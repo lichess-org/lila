@@ -5,7 +5,7 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.core.relation.RelationApi
@@ -24,9 +24,8 @@ final class Env(
     db: lila.db.Db,
     spam: lila.security.Spam,
     promotion: lila.security.PromotionApi,
-    captcher: lila.core.actors.Captcher,
-    timeline: lila.core.actors.Timeline,
-    shutup: lila.core.actors.Shutup,
+    captcha: lila.core.captcha.CaptchaApi,
+    shutupApi: lila.core.shutup.ShutupApi,
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     prefApi: PrefApi,
@@ -64,7 +63,7 @@ final class Env(
     postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
-    case lila.core.team.TeamCreate(t)    => categApi.makeTeam(t.id, t.name, t.userId)
+    case lila.core.team.TeamCreate(t)   => categApi.makeTeam(t.id, t.name, t.userId)
     case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
 
 private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]

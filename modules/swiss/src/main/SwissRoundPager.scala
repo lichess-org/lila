@@ -1,7 +1,6 @@
 package lila.swiss
 
-import lila.common.config
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 
@@ -9,7 +8,7 @@ final class SwissRoundPager(mongo: SwissMongo)(using Executor):
 
   import BsonHandlers.given
 
-  private val maxPerPage = config.MaxPerPage(50)
+  private val maxPerPage = MaxPerPage(50)
 
   def apply(swiss: Swiss, round: SwissRoundNumber, page: Int): Fu[Paginator[SwissPairing]] =
     Paginator(

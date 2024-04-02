@@ -5,7 +5,7 @@ import chess.format.{ Fen, UciCharPair }
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.game.{ Game, GameRepo }
 
 final private class GameJson(
@@ -72,7 +72,7 @@ final private class GameJson(
 
   private def playersJson(game: Game) = JsArray(game.players.mapList: p =>
     val user = p.userId.fold(LightUser.ghost)(lightUserApi.syncFallback)
-    LightUser.writeNoId(user) ++
+    Json.toJsObject(user) ++
       Json
         .obj("color" -> p.color.name)
         .add("rating" -> p.rating)

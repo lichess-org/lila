@@ -10,7 +10,7 @@ import lila.user.{ UserApi, UserRepo }
 @Module
 final class Env(
     appConfig: Configuration,
-    net: NetConfig,
+    net: lila.core.config.NetConfig,
     userRepo: UserRepo,
     userApi: UserApi,
     settingStore: lila.memo.SettingStore.Builder,
@@ -35,7 +35,7 @@ final class Env(
   lazy val automaticEmail = wire[AutomaticEmail]
 
   lila.common.Bus.subscribeFuns(
-    "fishnet" -> { case lila.core.actorApi.fishnet.NewKey(userId, key) =>
+    "fishnet" -> { case lila.core.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key)
     },
     "planStart" -> {

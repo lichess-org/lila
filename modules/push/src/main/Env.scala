@@ -6,7 +6,7 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 
 @Module
 final private class PushConfig(
@@ -21,7 +21,7 @@ final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     db: lila.db.Db,
-    getLightUser: lila.common.LightUser.GetterFallback,
+    getLightUser: lila.core.LightUser.GetterFallback,
     proxyRepo: lila.round.GameProxyRepo,
     roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,

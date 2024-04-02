@@ -3,7 +3,7 @@ package lila.lobby
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.core.pool.IsClockCompatible
 
 @Module

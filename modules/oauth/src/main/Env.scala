@@ -4,8 +4,9 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.common.config.{ Secret, CollName }
-import lila.common.Strings
+import lila.core.config.{ Secret, CollName }
+import lila.core.Strings
+import lila.common.config.given
 import lila.memo.SettingStore.Strings.given
 
 @Module

@@ -7,10 +7,11 @@ import views.*
 import lila.app.{ *, given }
 import lila.chat.Chat
 import lila.common.Json.given
-import lila.common.{ HTTPRequest, Preload }
+import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel, PgnDump, Pov }
 import lila.tournament.Tournament as Tour
 import lila.user.{ FlairApi, User as UserModel }
+import lila.core.Preload
 
 final class Round(
     env: Env,

@@ -4,9 +4,9 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
 import lila.search.*
 import lila.core.forum.{ CreatePost, RemovePost, RemovePosts, ErasePost, ErasePosts }
+import lila.core.config.ConfigName
 
 @Module
 private class ForumSearchConfig(

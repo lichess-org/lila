@@ -14,7 +14,7 @@ case class ChapterPreview(
     name: StudyChapterName,
     players: Option[ChapterPreview.Players],
     orientation: Color,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     lastMove: Option[Uci],
     lastMoveAt: Option[Instant],
     /* None = No Result PGN tag, the chapter may not be a game
@@ -160,7 +160,7 @@ object ChapterPreview:
         name = name,
         players = tags.flatMap(ChapterPreview.players(lastPos.so(_.clocks))),
         orientation = orientation,
-        fen = lastPos.map(_.fen).orElse(doc.getAsOpt[Fen.Epd]("rootFen")).getOrElse(Fen.initial),
+        fen = lastPos.map(_.fen).orElse(doc.getAsOpt[Fen.Full]("rootFen")).getOrElse(Fen.initial),
         lastMove = lastPos.flatMap(_.uci),
         lastMoveAt = lastMoveAt,
         result = tags.flatMap(_(_.Result)).map(Outcome.fromResult)

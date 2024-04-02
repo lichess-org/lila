@@ -3,7 +3,7 @@ package lila.study
 import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{ PgnStr, Tags }
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Shapes }

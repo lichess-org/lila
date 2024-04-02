@@ -2,7 +2,7 @@ package lila.bot
 
 import akka.actor.*
 import akka.stream.scaladsl.*
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.mvc.RequestHeader

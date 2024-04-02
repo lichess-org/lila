@@ -76,7 +76,7 @@ final class JsonView(
       "ratingDiff" -> ratingDiff
     )
 
-  def pref(p: lila.pref.Pref) =
+  def pref(p: lila.core.pref.Pref) =
     Json.obj(
       "coords"       -> p.coords,
       "keyboardMove" -> p.keyboardMove,

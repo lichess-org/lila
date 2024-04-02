@@ -3,14 +3,13 @@ package lila.team
 import akka.actor.*
 import com.softwaremill.macwire.*
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.notify.NotifyApi
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
-    captcher: lila.core.actors.Captcher,
-    timeline: lila.core.actors.Timeline,
+    captcha: lila.core.captcha.CaptchaApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     notifyApi: NotifyApi,
@@ -60,7 +59,7 @@ final class Env(
         yield s"Added ${userIds.size} members to team ${team.name}"
 
   lila.common.Bus.subscribeFuns(
-    "shadowban" -> { case lila.core.actorApi.mod.Shadowban(userId, true) =>
+    "shadowban" -> { case lila.core.mod.Shadowban(userId, true) =>
       api.deleteRequestsByUserId(userId)
     },
     "teamIsLeader" -> {

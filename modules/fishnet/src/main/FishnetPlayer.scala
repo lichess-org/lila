@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import chess.{ Black, Clock, White }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaFuture }
 import lila.game.{ Game, GameRepo, UciMemo }

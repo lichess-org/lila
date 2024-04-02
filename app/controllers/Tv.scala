@@ -89,7 +89,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
             ids = gameIds,
             format = lila.api.GameApiV2.Format.byRequest(req),
             flags = gameC.requestPgnFlags(extended = false).copy(delayMoves = false),
-            perSecond = lila.common.config.MaxPerSecond(30)
+            perSecond = MaxPerSecond(30)
           )
         noProxyBuffer(Ok.chunked(env.api.gameApiV2.exportByIds(config))).as(gameC.gameContentType(config))
       }
@@ -102,7 +102,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
     Channel.byKey.get(chanKey).so(serveFeedFromChannel)
 
   private def serveFeedFromChannel(channel: Channel)(using Context): Fu[Result] =
-    import makeTimeout.short
+    given timeout: akka.util.Timeout = akka.util.Timeout(1 second)
     import akka.pattern.ask
     import play.api.libs.EventSource
     import lila.tv.TvBroadcast

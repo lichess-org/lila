@@ -3,7 +3,7 @@ package lila.tournament
 import chess.variant.Variant
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.db.dsl.{ *, given }
 import lila.user.User
 import lila.core.tournament.Status

@@ -60,6 +60,7 @@
   }
 
   .log {
+    @extend %break-word;
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0.3em 0.7em;

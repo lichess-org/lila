@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LangPath
+import lila.core.LangPath
 import lila.game.Pov
 
 object home:
@@ -19,9 +19,12 @@ object home:
       pageModule = PageModule(
         "lobby",
         Json
-          .obj("data" -> data, "i18n" -> i18nJsObject(i18nKeys))
-          .add("hideRatings" -> !ctx.pref.showRatings)
-          .add("hasUnreadLichessMessage", hasUnreadLichessMessage)
+          .obj(
+            "data"                    -> data,
+            "i18n"                    -> i18nJsObject(i18nKeys),
+            "showRatings"             -> ctx.pref.showRatings,
+            "hasUnreadLichessMessage" -> hasUnreadLichessMessage
+          )
           .add(
             "playban",
             playban.map: pb =>

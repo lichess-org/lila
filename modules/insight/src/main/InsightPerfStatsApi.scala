@@ -3,7 +3,6 @@ package lila.insight
 import chess.{ ByColor, Centis }
 import reactivemongo.api.bson.*
 
-import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType }
 import lila.user.User
@@ -29,7 +28,7 @@ final class InsightPerfStatsApi(
   def apply(
       user: User,
       perfTypes: List[PerfType],
-      gameIdsPerPerf: config.Max
+      gameIdsPerPerf: Max
   ): Fu[Map[PerfType, InsightPerfStats.WithGameIds]] =
     storage.coll:
       _.aggregateList(perfTypes.size): framework =>
