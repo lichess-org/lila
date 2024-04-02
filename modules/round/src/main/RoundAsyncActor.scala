@@ -165,21 +165,10 @@ final private class RoundAsyncActor(
           }
           .inject(Nil)
 
-    case a: lila.analyse.actorApi.AnalysisProgress =>
-      import lila.tree.{ TreeBuilder, ExportOptions }
+    case lila.core.analyse.AnalysisProgress(payload) =>
       fuccess:
         socketSend:
-          RP.Out.tellRoom(
-            roomId,
-            makeMessage(
-              "analysisProgress",
-              Json.obj(
-                "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
-                "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
-                  TreeBuilder(a.game, a.analysis.some, a.initialFen, ExportOptions())
-              )
-            )
-          )
+          RP.Out.tellRoom(roomId, makeMessage("analysisProgress", payload()))
 
     // round stuff
 

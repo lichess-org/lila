@@ -240,7 +240,7 @@ lazy val analyse = module("analyse",
 )
 
 lazy val round = module("round",
-  Seq(history, room, analyse, playban, notifyModule, pref),
+  Seq(history, room, game, playban, notifyModule, pref),
   Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 

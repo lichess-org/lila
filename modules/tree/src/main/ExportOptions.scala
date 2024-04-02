@@ -12,3 +12,5 @@ case class ExportOptions(
     nvui: Boolean = false,
     lichobileCompat: Boolean = false
 )
+object ExportOptions:
+  val default = ExportOptions()
