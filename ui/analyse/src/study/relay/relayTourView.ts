@@ -124,7 +124,7 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
             'nav.mselect__list',
             group.tours.map(tour =>
               h(
-                `a${tour.id == relay.data.tour.id ? '.current' : ''}`,
+                `a.mselect__item${tour.id == relay.data.tour.id ? '.current' : ''}`,
                 { attrs: { href: `/broadcast/-/${tour.id}` } },
                 tour.name,
               ),
@@ -151,22 +151,37 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
       ? [
           h('label.fullscreen-mask', clickHook),
           h(
-            'table.mselect__list',
-            {
-              hook: bind('click', (e: MouseEvent) => {
-                const target = e.target as HTMLElement;
-                if (target.tagName != 'A') site.redirect($(target).parents('tr').find('a').attr('href')!);
-              }),
-            },
-            relay.data.rounds.map(round =>
-              h(`tr${round.id == study.data.id ? '.current-round' : ''}`, [
-                h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
-                h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
-                h(
-                  'td.status',
-                  roundStateIcon(round, false) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
+            'div.relay-tour__round-select__list.mselect__list',
+            h(
+              'table',
+              h(
+                'tbody',
+                {
+                  hook: bind('click', (e: MouseEvent) => {
+                    const target = e.target as HTMLElement;
+                    if (target.tagName != 'A') site.redirect($(target).parents('tr').find('a').attr('href')!);
+                  }),
+                },
+                [
+                  ...relay.data.rounds,
+                  ...relay.data.rounds,
+                  ...relay.data.rounds,
+                  ...relay.data.rounds,
+                  ...relay.data.rounds,
+                  ...relay.data.rounds,
+                  ...relay.data.rounds,
+                ].map(round =>
+                  h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
+                    h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
+                    h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+                    h(
+                      'td.status',
+                      roundStateIcon(round, false) ||
+                        (round.startsAt ? site.timeago(round.startsAt) : undefined),
+                    ),
+                  ]),
                 ),
-              ]),
+              ),
             ),
           ),
         ]

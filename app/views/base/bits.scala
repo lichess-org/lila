@@ -12,7 +12,7 @@ import scalalib.paginator.Paginator
 
 object bits:
 
-  def mselect(id: String, current: Frag, items: Seq[Frag]) =
+  def mselect(id: String, current: Frag, items: Seq[Tag]) =
     div(cls := "mselect")(
       input(
         tpe          := "checkbox",
@@ -22,7 +22,7 @@ object bits:
       ),
       label(`for` := s"mselect-$id", cls := "mselect__label")(current),
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
-      st.nav(cls := "mselect__list")(items)
+      st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item")))
     )
 
   lazy val stage = a(

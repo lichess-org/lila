@@ -167,11 +167,11 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
     .fullscreen-mask {
       display: block;
     }
+    .mselect__item {
+      opacity: unset;
+    }
     .mselect__list {
       transform: unset;
-      > * {
-        opacity: unset;
-      }
       a {
         gap: 1em;
       }
@@ -198,42 +198,43 @@ $hover-bg: mix($c-primary, $c-bg-box, 30%);
       color: $c-good;
     }
     .mselect__list {
-      display: table;
       left: unset;
       right: 0;
-      overflow: hidden;
-      tr {
-        display: table-row;
-        &.current-round {
-          background: mix($c-primary, $c-bg-box, 15%);
-          border: 1px solid mix($c-primary, $c-bg-box, 40%);
-          border-width: 1px 0;
-        }
-        &:hover *,
-        &:hover .round-state::before {
-          background: $c-primary;
-          color: $c-primary-over;
-        }
+      overflow-x: hidden;
+      overflow-y: auto;
+      max-height: 50vh;
+    }
+    tr {
+      display: table-row;
+      &.current-round {
+        background: mix($c-primary, $c-bg-box, 15%);
+        border: 1px solid mix($c-primary, $c-bg-box, 40%);
+        border-width: 1px 0;
       }
-      td {
-        cursor: pointer;
+      &:hover *,
+      &:hover .round-state::before {
+        background: $c-primary;
+        color: $c-primary-over;
       }
-      .name {
-        padding: 0.3em 1em;
-      }
-      .time,
-      .status {
-        font-size: 0.9rem;
-        color: $c-font-dim;
-      }
-      .time {
-        @extend %roboto;
-        padding: 0.5em 1em;
-      }
-      .status {
-        padding: 0.5em 1.5rem 0.5em 0;
-        text-align: end;
-      }
+    }
+    td {
+      cursor: pointer;
+    }
+    .name {
+      padding: 0.3em 1em;
+    }
+    .time,
+    .status {
+      font-size: 0.9rem;
+      color: $c-font-dim;
+    }
+    .time {
+      @extend %roboto;
+      padding: 0.5em 1em;
+    }
+    .status {
+      padding: 0.5em 1.5rem 0.5em 0;
+      text-align: end;
     }
   }
 
