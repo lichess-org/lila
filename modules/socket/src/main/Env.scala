@@ -12,6 +12,9 @@ final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using E
 
   private val redisClient = RedisClient.create(RedisURI.create(appConfig.get[String]("socket.redis.uri")))
 
+  val userLag = new UserLagCache
+  export userLag.{ getLagRating, put as putLag }
+
   val requester = new SocketRequester
 
   val remoteSocket: RemoteSocket = wire[RemoteSocket]
@@ -22,6 +25,3 @@ final class Env(appConfig: Configuration, shutdown: CoordinatedShutdown)(using E
   val onlineIds = OnlineIds(() => remoteSocket.onlineUserIds.get)
 
   val isOnline = IsOnline(userId => remoteSocket.onlineUserIds.get contains userId)
-
-  val userLag = new UserLagCache
-  export userLag.{ getLagRating, put as putLag }
