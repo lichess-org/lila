@@ -17,7 +17,7 @@ final class ReportApi(
     autoAnalysis: AutoAnalysis,
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
-    playbanApi: () => lila.playban.PlaybanApi,
+    playbansOf: () => lila.core.playban.BansOf,
     ircApi: lila.irc.IrcApi,
     isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
@@ -189,8 +189,7 @@ final class ReportApi(
 
   def maybeAutoPlaybanReport(userId: UserId, minutes: Int): Funit =
     (minutes > 60 * 24).so(userLoginsApi.getUserIdsWithSameIpAndPrint(userId)).flatMap { ids =>
-      playbanApi()
-        .bans(userId :: ids.toList)
+      playbansOf()(userId :: ids.toList)
         .map:
           _.filter { (_, bans) => bans > 4 }
         .flatMap: bans =>

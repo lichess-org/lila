@@ -159,18 +159,19 @@ final class PlaybanApi(
 
   def hasCurrentBan[U: UserIdOf](u: U): Fu[Boolean] = currentBan(u).map(_.isDefined)
 
-  def bans(userIds: List[UserId]): Fu[Map[UserId, Int]] = coll
-    .aggregateList(Int.MaxValue, _.pri): framework =>
-      import framework.*
-      Match($inIds(userIds) ++ $doc("b".$exists(true))) -> List(
-        Project($doc("bans" -> $doc("$size" -> "$b")))
-      )
-    .map:
-      _.flatMap: obj =>
-        obj.getAsOpt[UserId]("_id").flatMap { id =>
-          obj.getAsOpt[Int]("bans").map { id -> _ }
-        }
-      .toMap
+  val bansOf: lila.core.playban.BansOf = userIds =>
+    coll
+      .aggregateList(Int.MaxValue, _.pri): framework =>
+        import framework.*
+        Match($inIds(userIds) ++ $doc("b".$exists(true))) -> List(
+          Project($doc("bans" -> $doc("$size" -> "$b")))
+        )
+      .map:
+        _.flatMap: obj =>
+          obj.getAsOpt[UserId]("_id").flatMap { id =>
+            obj.getAsOpt[Int]("bans").map { id -> _ }
+          }
+        .toMap
 
   def bans(userId: UserId): Fu[Int] = coll
     .aggregateOne(_.sec): framework =>
