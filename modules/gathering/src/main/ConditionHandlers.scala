@@ -22,7 +22,7 @@ object ConditionHandlers:
     given BSONDocumentHandler[AllowList]   = Macros.handler
 
   object JSONHandlers:
-    import lila.common.Json.given
+    import lila.core.Json.given
     import play.api.libs.json.*
 
     def verdictsFor(verdicts: WithVerdicts, pt: PerfType)(using translate: Translate) =

@@ -2,7 +2,7 @@ package lila.studySearch
 
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 
 private[studySearch] case class Query(text: String, userId: Option[UserId])
 

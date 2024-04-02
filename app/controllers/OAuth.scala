@@ -9,7 +9,7 @@ import scalatags.Text.all.stringFrag
 import views.*
 
 import lila.app.*
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.core.{ Bearer, IpAddress }
 import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
 
@@ -154,7 +154,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     val bearers = Bearer.from(body.trim.split(',').view.take(1000).toList)
     testTokenRateLimit(req.ipAddress, fuccess(ApiResult.Limited), cost = bearers.size):
       env.oAuth.tokenApi.test(bearers).map { tokens =>
-        import lila.common.Json.given
+        import lila.core.Json.given
         ApiResult.Data(JsObject(tokens.map { (bearer, token) =>
           bearer.value -> token.fold[JsValue](JsNull): t =>
             Json.obj(

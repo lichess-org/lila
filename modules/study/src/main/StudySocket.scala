@@ -6,7 +6,7 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.common.Json.{ *, given }
+import lila.core.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch

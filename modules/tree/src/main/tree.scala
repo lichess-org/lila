@@ -11,7 +11,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import play.api.libs.json.*
 import scalalib.ThreadLocalRandom
 
-import lila.common.Json.given
+import lila.core.Json.given
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
 //opaque type not working due to cyclic ref try again later

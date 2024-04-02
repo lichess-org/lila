@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.common.{ LilaScheduler, LilaStream }
 import scalalib.cache.{ ExpireSetMemo, FrequencyThreshold }
 

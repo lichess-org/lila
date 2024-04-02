@@ -8,7 +8,7 @@ import play.api.libs.json.*
 import scala.util.chaining.*
 
 import lila.common.Bus
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.game.actorApi.{ FinishGame, MoveGameEvent }
 import lila.game.{ Game, GameRepo }
 

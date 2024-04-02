@@ -2,7 +2,7 @@ package lila.history
 
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.rating.PerfType
 import lila.user.{ User, UserRepo }
 import play.api.i18n.Lang

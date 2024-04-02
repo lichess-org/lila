@@ -3,7 +3,7 @@ package lila.analyse
 import chess.{ ByColor, Color, Ply }
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.game.Game
 import lila.tree.Eval.jsonWrites
 import lila.tree.Analysis

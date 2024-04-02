@@ -3,7 +3,7 @@ package lila.activity
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.core.Json.{ *, given }
 import lila.game.LightPov
 import lila.rating.PerfType
 import lila.core.simul.Simul

@@ -3,7 +3,7 @@ package lila.swiss
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts

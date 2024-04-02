@@ -6,7 +6,7 @@ import chess.opening.*
 import chess.variant.Variant
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.tree.Branch
 
 trait AnaAny:

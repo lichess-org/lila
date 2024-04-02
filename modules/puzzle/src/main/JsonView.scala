@@ -2,7 +2,7 @@ package lila.puzzle
 
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.core.Json.{ *, given }
 import lila.game.GameRepo
 import lila.rating.Perf
 import lila.user.Me

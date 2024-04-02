@@ -5,7 +5,7 @@ import chess.format.{ Fen, Uci }
 import chess.{ Move, Ply }
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.game.Game
 
 case class Forecast(_id: GameFullId, steps: Forecast.Steps, date: Instant):

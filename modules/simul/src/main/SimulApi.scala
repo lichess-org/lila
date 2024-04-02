@@ -5,7 +5,7 @@ import chess.variant.Variant
 import chess.{ ByColor, Status }
 import play.api.libs.json.Json
 
-import lila.common.Json.given
+import lila.core.Json.given
 import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }

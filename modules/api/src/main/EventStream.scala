@@ -6,7 +6,7 @@ import play.api.libs.json.*
 
 import lila.challenge.Challenge
 import lila.common.Bus
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.game.actorApi.{ FinishGame, StartGame }
 import lila.game.{ Game, Pov, Rematches }
 import lila.user.{ LightUserApi, Me, User, UserRepo }

@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.ui.ScalatagsTemplate.*
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.common.licon
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }

@@ -4,7 +4,7 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.common.Bus
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
 import lila.core.timeline.{ Follow as FollowUser, Propagate }

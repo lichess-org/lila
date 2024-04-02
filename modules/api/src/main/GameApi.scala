@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.common.config.*
 import lila.core.config.*
 import scalalib.paginator.Paginator

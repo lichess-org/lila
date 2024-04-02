@@ -32,7 +32,7 @@ final class StormJson(sign: StormSign):
 
 object StormJson:
 
-  import lila.common.Json.given
+  import lila.core.Json.given
 
   given OWrites[StormHigh] = Json.writes
 

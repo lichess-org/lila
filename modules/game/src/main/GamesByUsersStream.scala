@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.db.dsl.given
 
 import actorApi.{ FinishGame, StartGame }

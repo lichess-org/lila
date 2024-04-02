@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.core.config.NetDomain
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.common.String.html.unescapeHtml
 import lila.common.String.removeMultibyteSymbols
 import lila.core.i18n.Language

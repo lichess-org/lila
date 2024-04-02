@@ -86,7 +86,7 @@ object Eval:
   val empty = Eval(None, None, None)
 
   import play.api.libs.json.*
-  import lila.common.Json.given
+  import lila.core.Json.given
   given jsonWrites: Writes[Eval] = Json.writes[Eval]
 
 opaque type Moves = NonEmptyList[Uci]

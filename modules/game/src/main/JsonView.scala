@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.{ Clock, Color }
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.core.Json.{ *, given }
 import lila.core.LightUser
 import lila.core.game.Source
 

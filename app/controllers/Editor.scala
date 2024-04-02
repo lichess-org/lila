@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.Json.given
+import lila.core.Json.given
 
 final class Editor(env: Env) extends LilaController(env):
 

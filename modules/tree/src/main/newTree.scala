@@ -296,7 +296,7 @@ object NewRoot:
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
 
   import NewTree.*
-  import lila.common.Json.given
+  import lila.core.Json.given
   import Eval.jsonWrites
   import Node.given
 

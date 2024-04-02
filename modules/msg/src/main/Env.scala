@@ -3,7 +3,7 @@ package lila.msg
 import com.softwaremill.macwire.*
 
 import lila.common.Bus
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.core.config.*
 import lila.core.actorApi.socket.remote.TellUserIn
 

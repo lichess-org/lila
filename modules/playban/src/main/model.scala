@@ -2,7 +2,7 @@ package lila.playban
 
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 
 case class UserRecord(
     _id: UserId,

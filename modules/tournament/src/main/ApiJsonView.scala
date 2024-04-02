@@ -2,7 +2,7 @@ package lila.tournament
 
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
 import lila.rating.PerfType

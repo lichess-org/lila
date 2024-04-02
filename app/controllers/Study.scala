@@ -156,7 +156,7 @@ final class Study(
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
     given Writes[StudyModel.WithChaptersAndLiked] = Writes[StudyModel.WithChaptersAndLiked]:
       env.study.jsonView.pagerData
-    import lila.common.Json.paginatorWrite
+    import lila.core.Json.paginatorWrite
     Ok(Json.obj("paginator" -> pager))
 
   private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
@@ -542,7 +542,7 @@ final class Study(
     get("term").filter(_.nonEmpty) match
       case None => BadRequest("No search term provided")
       case Some(term) =>
-        import lila.common.Json.given
+        import lila.core.Json.given
         env.study.topicApi.findLike(term, getUserStr("user").map(_.id)).map { JsonOk(_) }
 
   def topics = Open:

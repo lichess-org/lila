@@ -2,7 +2,7 @@ package lila.learn
 
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.core.Json.{ *, given }
 
 object JSONHandlers:
 

@@ -21,7 +21,7 @@ object RelayLeaderboard:
   )
 
   import play.api.libs.json.*
-  import lila.common.Json.given
+  import lila.core.Json.given
   given OWrites[Player] = OWrites: p =>
     Json
       .obj("name" -> p.name, "score" -> p.score, "played" -> p.played)
@@ -41,7 +41,7 @@ final class RelayLeaderboardApi(
   import BSONHandlers.given
 
   import play.api.libs.json.*
-  import lila.common.Json.writeAs
+  import lila.core.Json.writeAs
   private given Writes[RelayLeaderboard] = writeAs(_.players)
 
   def apply(tour: RelayTour): Fu[Option[JsonStr]] = tour.autoLeaderboard.soFu:

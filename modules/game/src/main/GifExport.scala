@@ -10,7 +10,7 @@ import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
 import scala.util.chaining.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import scalalib.Maths
 import lila.core.config.BaseUrl
 

@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.*
 import play.api.libs.ws.JsonBodyWritables.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 
 sealed trait ESClient:
 

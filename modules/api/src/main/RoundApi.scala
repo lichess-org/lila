@@ -5,7 +5,7 @@ import play.api.libs.json.*
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.api.Context.given
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.common.HTTPRequest
 import lila.game.{ Game, Pov }
 import lila.pref.Pref

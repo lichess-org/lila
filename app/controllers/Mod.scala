@@ -534,7 +534,7 @@ final class Mod(
   }
 
   def apiUserLog(username: UserStr) = SecuredScoped(_.ModLog) { _ ?=> me ?=>
-    import lila.common.Json.given
+    import lila.core.Json.given
     Found(env.user.repo.byId(username)): user =>
       for
         logs      <- env.mod.logApi.userHistory(user.id)

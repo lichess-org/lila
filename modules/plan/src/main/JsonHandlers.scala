@@ -7,11 +7,11 @@ import java.util.Currency
 import scala.util.Try
 
 import lila.core.IpAddress
-import lila.common.Json.given
+import lila.core.Json.given
 
 private object JsonHandlers:
 
-  given Reads[Currency] = lila.common.Json.tryRead(code => Try(Currency.getInstance(code.toUpperCase)))
+  given Reads[Currency] = lila.core.Json.tryRead(code => Try(Currency.getInstance(code.toUpperCase)))
 
   object stripe:
     given Reads[StripePrice] = Json.reads

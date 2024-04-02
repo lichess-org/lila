@@ -3,7 +3,7 @@ package lila.forumSearch
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.search.*
 import lila.core.forum.{ ForumPostApi, ForumPostMini, ForumPostMiniView }
 

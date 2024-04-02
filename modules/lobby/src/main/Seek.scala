@@ -6,7 +6,7 @@ import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 
 import lila.core.Days
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.RatingRange
 import lila.user.User

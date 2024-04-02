@@ -2,7 +2,7 @@ package lila.msg
 
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.core.LightUser
 import lila.core.relation.Relations
 import lila.user.Me
@@ -61,6 +61,6 @@ final class MsgJson(
     )
 
   private def renderContact(user: LightUser): JsObject =
-    lila.common.Json.lightUser
+    lila.core.Json.lightUser
       .writeNoId(user)
       .add("online" -> isOnline(user.id))

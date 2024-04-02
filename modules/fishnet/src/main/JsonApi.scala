@@ -4,7 +4,7 @@ import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.core.Json.{ *, given }
 import lila.core.IpAddress
 import lila.fishnet.Work as W
 import lila.tree.Eval.{ Cp, Mate }

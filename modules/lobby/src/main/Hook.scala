@@ -64,7 +64,7 @@ case class Hook(
   lazy val perf: Option[LobbyPerf] = user.map(_.perfAt(perfType))
   def rating: Option[IntRating]    = perf.map(_.rating)
 
-  import lila.common.Json.given
+  import lila.core.Json.given
   def render: JsObject = Json
     .obj(
       "id"    -> id,

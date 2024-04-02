@@ -4,7 +4,7 @@ import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.core.LightUser
 import scalalib.paginator.Paginator
 import lila.game.Game

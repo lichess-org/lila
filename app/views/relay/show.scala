@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.core.socket.SocketVersion
 
 object show:

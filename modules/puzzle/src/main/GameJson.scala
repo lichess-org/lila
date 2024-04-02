@@ -4,7 +4,7 @@ import chess.Ply
 import chess.format.{ Fen, UciCharPair }
 import play.api.libs.json.*
 
-import lila.common.Json.given
+import lila.core.Json.given
 import lila.core.LightUser
 import lila.game.{ Game, GameRepo }
 
