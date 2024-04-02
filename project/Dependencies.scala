@@ -13,11 +13,10 @@ object Dependencies {
   val lilaMaven = "lila-maven".at("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
   val sonashots = "sonashots".at("https://oss.sonatype.org/content/repositories/snapshots")
 
-  val chessVersion = "15.9.4"
+  val chessVersion = "15.9.5"
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.10.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
-  val scalalib    = "com.github.lichess-org"       %% "scalalib"                        % "10.0.5"
   val hasher      = "com.roundeights"              %% "hasher"                          % "1.3.1"
   val chess       = "org.lichess"                  %% "scalachess"                      % chessVersion
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
@@ -43,6 +42,12 @@ object Dependencies {
 
   object tests {
     val bundle = Seq(munit)
+  }
+
+  object scalalib {
+    val version = "11.0.0"
+    val lila    = "lichess.std" %% "lila" % version
+    def bundle  = Seq(lila)
   }
 
   object flexmark {
