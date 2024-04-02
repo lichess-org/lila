@@ -463,16 +463,7 @@ object Node:
       )
     def nonEmpty = deviation.nonEmpty || hint.nonEmpty
 
-  given OWrites[chess.opening.Opening] = OWrites { o =>
-    Json.obj(
-      "eco"  -> o.eco,
-      "name" -> o.name
-    )
-  }
-
-  private given Writes[Square] = Writes[Square] { p =>
-    JsString(p.key)
-  }
+  import chess.json.Json.given
   private val shapeCircleWrites = Json.writes[Shape.Circle]
   private val shapeArrowWrites  = Json.writes[Shape.Arrow]
   given shapeWrites: Writes[Shape] = Writes[Shape] {
@@ -482,14 +473,7 @@ object Node:
   given Writes[Node.Shapes] = Writes[Node.Shapes] { s =>
     JsArray(s.value.map(shapeWrites.writes))
   }
-  given Writes[Glyph] = Json.writes[Glyph]
-  given Writes[Glyphs] = Writes[Glyphs] { gs =>
-    Json.toJson(gs.toList)
-  }
 
-  given Writes[Centis] = Writes { clock =>
-    JsNumber(clock.centis)
-  }
   given Writes[Comment.Id] = Writes { id =>
     JsString(id.value)
   }

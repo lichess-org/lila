@@ -47,9 +47,8 @@ ThisBuild / libraryDependencySchemes ++= Seq(
 )
 
 // format: off
-libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ Seq(
-  play.json, play.server, play.netty, play.logback,
-  chess, compression, hasher,
+libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
+  play.json, play.server, play.netty, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
@@ -75,13 +74,13 @@ lazy val moduleCPDeps = moduleRefs map { sbt.ClasspathDependency(_, None) }
 
 lazy val core = module("core",
   Seq(),
-  Seq(galimatias, chess, scalatags) ++ scalalib.bundle ++ reactivemongo.bundle ++ tests.bundle
+  Seq(galimatias, scalatags) ++ scalalib.bundle ++ reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val common = module("common",
   Seq(core),
   Seq(
-    kamon.core, scaffeine, apacheText
+    kamon.core, scaffeine, apacheText, chess.playJson
   ) ++ tests.bundle ++ reactivemongo.bundle ++ flexmark.bundle
 )
 
@@ -342,7 +341,7 @@ lazy val fide = module("fide",
 
 lazy val study = module("study",
   Seq(explorer, analyse, notifyModule, room, pref),
-  Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, testKit)
+  Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
@@ -467,7 +466,7 @@ lazy val socket = module("socket",
 
 lazy val tree = module("tree",
   Seq(common),
-  Seq()
+  Seq(chess.playJson)
 )
 
 lazy val api = module("api",
