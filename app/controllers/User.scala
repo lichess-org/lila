@@ -381,7 +381,7 @@ final class User(
 
           val rageSit = isGranted(_.CheatHunter).so(
             env.playban.api
-              .getRageSit(user.id)
+              .rageSitOf(user.id)
               .zip(env.playban.api.bans(user.id))
               .map(view.showRageSitAndPlaybans)
           )

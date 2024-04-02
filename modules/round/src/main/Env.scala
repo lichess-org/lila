@@ -65,7 +65,15 @@ final class Env(
     if !game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1) then fuccess(1f -> 1f)
     else
       def of(color: chess.Color): Fu[Float] =
-        game.player(color).userId.fold(defaultGoneWeight)(uid => playban.getRageSit(uid).dmap(_.goneWeight))
+        def rageSitGoneWeight(sit: lila.core.playban.RageSit): Float =
+          import scala.math.{ log10, sqrt }
+          import lila.playban.RageSit.extensions.*
+          if !sit.isBad then 1f
+          else (1 - 0.7 * sqrt(log10(-(sit.counterView) - 3))).toFloat.max(0.1f)
+        game
+          .player(color)
+          .userId
+          .fold(defaultGoneWeight)(uid => playban.rageSitOf(uid).dmap(rageSitGoneWeight))
       of(chess.White).zip(of(chess.Black))
 
   private val isSimulHost =
