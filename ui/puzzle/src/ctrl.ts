@@ -137,7 +137,6 @@ export default class PuzzleCtrl implements ParentCtrl {
         game: { variant: { key: 'standard' } },
         player: { color: this.pov },
       },
-      sendMove: this.playUserMove,
       auxMove: this.auxMove,
       redraw: this.redraw,
       flipNow: this.flip,

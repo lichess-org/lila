@@ -56,7 +56,6 @@ export interface RootData {
 export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
   userJumpPlyDelta?: (plyDelta: Ply) => void;
-  sendMove?: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => void;
   submitMove?: (v: boolean) => void;
   crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
   data: RootData;
