@@ -70,10 +70,9 @@ final class RelationApi(
   def fetchAreFriends(u1: UserId, u2: UserId): Fu[Boolean] =
     fetchFollows(u1, u2) >>& fetchFollows(u2, u1)
 
-  private val countFollowingCache = cacheApi[UserId, Int](16_384, "relation.count.following") {
-    _.maximumSize(8_192).buildAsyncFuture: userId =>
+  private val countFollowingCache = cacheApi[UserId, Int](16_384, "relation.count.following"):
+    _.maximumSize(16_384).buildAsyncFuture: userId =>
       coll.countSel($doc("u1" -> userId, "r" -> Follow))
-  }
 
   def countFollowing(userId: UserId) = countFollowingCache.get(userId)
 
