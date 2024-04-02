@@ -15,7 +15,7 @@ final case class ApiConfig(
     days: Option[Days],
     rated: Boolean,
     color: Color,
-    position: Option[Fen.Epd] = None,
+    position: Option[Fen.Full] = None,
     message: Option[Template],
     keepAliveStream: Boolean,
     rules: Set[GameRule] = Set.empty
@@ -49,7 +49,7 @@ object ApiConfig extends BaseHumanConfig:
       d: Option[Days],
       r: Boolean,
       c: Option[String],
-      pos: Option[Fen.Epd],
+      pos: Option[Fen.Full],
       msg: Option[String],
       keepAliveStream: Option[Boolean],
       rules: Option[Set[GameRule]]

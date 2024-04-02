@@ -128,7 +128,7 @@ final private class ChapterMaker(
       order: Int,
       userId: UserId,
       withRatings: Boolean,
-      initialFen: Option[Fen.Epd] = None
+      initialFen: Option[Fen.Full] = None
   ): Fu[Chapter] =
     given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
@@ -174,7 +174,7 @@ final private class ChapterMaker(
   private[study] def makeRoot(
       game: Game,
       pgnOpt: Option[PgnStr],
-      initialFen: Option[Fen.Epd]
+      initialFen: Option[Fen.Full]
   ): Fu[Root] =
     initialFen
       .fold(gameRepo.initialFen(game)): fen =>
@@ -225,7 +225,7 @@ private[study] object ChapterMaker:
       name: StudyChapterName,
       game: Option[String] = None,
       variant: Option[Variant] = None,
-      fen: Option[Fen.Epd] = None,
+      fen: Option[Fen.Full] = None,
       pgn: Option[PgnStr] = None,
       orientation: Orientation = Orientation.Auto,
       mode: ChapterMaker.Mode = ChapterMaker.Mode.Normal,

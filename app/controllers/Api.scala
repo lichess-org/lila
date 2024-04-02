@@ -289,7 +289,7 @@ final class Api(
           JsonOptionOk:
             env.evalCache.api.getEvalJson(
               Variant.orDefault(getAs[Variant.LilaKey]("variant")),
-              chess.format.Fen.Epd.clean(fen),
+              chess.format.Fen.Full.clean(fen),
               getIntAs[MultiPv]("multiPv") | MultiPv(1)
             )
 

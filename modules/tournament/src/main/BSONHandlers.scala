@@ -49,7 +49,7 @@ object BSONHandlers:
     def reads(r: BSON.Reader) =
       val variant = Variant.idOrDefault(r.getO[Variant.Id]("variant"))
       val position: Option[Fen.Standard] =
-        r.getO[Fen.Epd]("fen")
+        r.getO[Fen.Full]("fen")
           .map(_.opening: Fen.Standard)
           .filter(_ != Fen.Standard.initial)
           .orElse(r.getO[chess.opening.Eco]("eco").flatMap(Thematic.byEco).map(_.fen)) // for BC

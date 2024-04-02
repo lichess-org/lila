@@ -85,7 +85,7 @@ object side:
             p(
               trans.site.customPosition(),
               separator,
-              views.html.base.bits.fenAnalysisLink(fen.into(chess.format.Fen.Epd))
+              views.html.base.bits.fenAnalysisLink(fen.into(chess.format.Fen.Full))
             )
           })
       ),

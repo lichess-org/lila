@@ -73,7 +73,7 @@ final private[api] class RoundApi(
       users: GameUsers,
       tour: Option[TourView],
       tv: Option[lila.round.OnTv],
-      initialFenO: Option[Option[Fen.Epd]] = None // Preload[Option[Fen.Epd]]?
+      initialFenO: Option[Option[Fen.Full]] = None // Preload[Option[Fen.Full]]?
   )(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- initialFenO.fold(gameRepo.initialFen(pov.game))(fuccess)
@@ -109,7 +109,7 @@ final private[api] class RoundApi(
       users: GameUsers,
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       withFlags: ExportOptions,
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
@@ -153,7 +153,7 @@ final private[api] class RoundApi(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       orientation: chess.Color,
       owner: Boolean,
       me: Option[User]
@@ -177,14 +177,14 @@ final private[api] class RoundApi(
   private def withTree(
       pov: Pov,
       analysis: Option[Analysis],
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       withFlags: ExportOptions
   )(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
       lila.tree.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
     ))
 
-  private def withSteps(pov: Pov, initialFen: Option[Fen.Epd])(obj: JsObject) =
+  private def withSteps(pov: Pov, initialFen: Option[Fen.Full])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
       id = pov.gameId,
       sans = pov.game.sans,

@@ -138,7 +138,7 @@ final private[api] class GameApi(
   private def gameToJson(
       g: Game,
       analysisOption: Option[Analysis],
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       withFlags: WithFlags
   ) =
     Json

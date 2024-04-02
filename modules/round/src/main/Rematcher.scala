@@ -129,7 +129,7 @@ object Rematcher:
   def returnChessGame(
       variant: Variant,
       clock: Option[Clock],
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       shouldRepeatChess960Position: Boolean
   ): ChessGame =
     val prevSituation = initialFen.flatMap(Fen.readWithMoveNumber(variant, _))

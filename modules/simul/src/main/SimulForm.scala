@@ -119,7 +119,7 @@ object SimulForm:
       clockExtra: LimitMinutes,
       clockExtraPerPlayer: LimitSeconds,
       variants: List[Variant.Id],
-      position: Option[Fen.Epd],
+      position: Option[Fen.Full],
       color: String,
       text: String,
       estimatedStartAt: Option[Instant] = None,

@@ -593,7 +593,7 @@ case class Game(
 object Game:
 
   case class OnStart(id: GameId)
-  case class WithInitialFen(game: Game, fen: Option[Fen.Epd])
+  case class WithInitialFen(game: Game, fen: Option[Fen.Full])
 
   case class SideAndStart(color: Color, startedAtPly: Ply):
     def startColor = startedAtPly.turn

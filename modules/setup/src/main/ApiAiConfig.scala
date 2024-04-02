@@ -17,7 +17,7 @@ final case class ApiAiConfig(
     daysO: Option[Days],
     color: Color,
     level: Int,
-    fen: Option[Fen.Epd] = None
+    fen: Option[Fen.Full] = None
 ) extends Config
     with Positional:
 
@@ -66,7 +66,7 @@ object ApiAiConfig extends BaseConfig:
       cl: Option[Clock.Config],
       d: Option[Days],
       c: Option[String],
-      pos: Option[Fen.Epd]
+      pos: Option[Fen.Full]
   ) =
     ApiAiConfig(
       variant = Variant.orDefault(v),

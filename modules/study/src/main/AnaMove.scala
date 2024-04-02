@@ -19,7 +19,7 @@ case class AnaMove(
     orig: chess.Square,
     dest: chess.Square,
     variant: Variant,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     path: UciPath,
     chapterId: Option[StudyChapterId],
     promotion: Option[chess.PromotableRole]
@@ -40,7 +40,7 @@ case class AnaMove(
           check = game.situation.check,
           dests = Some(movable.so(game.situation.destinations)),
           opening =
-            (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)).so(OpeningDb.findByEpdFen(fen)),
+            (game.ply <= 30 && Variant.list.openingSensibleVariants(variant)).so(OpeningDb.findByFullFen(fen)),
           drops = if movable then game.situation.drops else Some(Nil),
           crazyData = game.situation.board.crazyData
         )
@@ -53,7 +53,7 @@ object AnaMove:
       d    <- o.obj("d")
       orig <- d.str("orig").flatMap { chess.Square.fromKey(_) }
       dest <- d.str("dest").flatMap { chess.Square.fromKey(_) }
-      fen  <- d.get[Fen.Epd]("fen")
+      fen  <- d.get[Fen.Full]("fen")
       path <- d.get[UciPath]("path")
       variant = Variant.orDefault(d.get[Variant.LilaKey]("variant"))
     yield AnaMove(

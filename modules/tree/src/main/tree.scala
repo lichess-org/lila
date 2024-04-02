@@ -147,7 +147,7 @@ object Branches:
 
 sealed trait Node:
   def ply: Ply
-  def fen: Fen.Epd
+  def fen: Fen.Full
   def check: Check
   // None when not computed yet
   def dests: Option[Map[Square, Bitboard]]
@@ -178,7 +178,7 @@ sealed trait Node:
 
 case class Root(
     ply: Ply,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     check: Check,
     // None when not computed yet
     dests: Option[Map[Square, Bitboard]] = None,
@@ -307,7 +307,7 @@ case class Branch(
     id: UciCharPair,
     ply: Ply,
     move: Uci.WithSan,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     check: Check,
     // None when not computed yet
     dests: Option[Map[Square, Bitboard]] = None,

@@ -12,7 +12,7 @@ final class JsonView(rematches: Rematches):
 
   import JsonView.given
 
-  def base(game: Game, initialFen: Option[Fen.Epd]) =
+  def base(game: Game, initialFen: Option[Fen.Full]) =
     Json
       .obj(
         "id"        -> game.id,
@@ -38,7 +38,7 @@ final class JsonView(rematches: Rematches):
       .add("drawOffers" -> (!game.drawOffers.isEmpty).option(game.drawOffers.normalizedPlies))
 
     // adds fields that could be computed by the client instead
-  def baseWithChessDenorm(game: Game, initialFen: Option[Fen.Epd]) =
+  def baseWithChessDenorm(game: Game, initialFen: Option[Fen.Full]) =
     base(game, initialFen) ++ Json
       .obj(
         "player" -> game.turnColor,
@@ -83,8 +83,8 @@ final class JsonView(rematches: Rematches):
       .add("winner" -> pov.game.winnerColor)
       .add("ratingDiff" -> pov.player.ratingDiff)
 
-  def maybeFen(pov: Pov): Fen.Epd =
-    if pov.player.blindfold then Fen.Epd("8/8/8/8/8/8/8/8") else Fen.write(pov.game.chess)
+  def maybeFen(pov: Pov): Fen.Full =
+    if pov.player.blindfold then Fen.Full("8/8/8/8/8/8/8/8") else Fen.write(pov.game.chess)
 
   def player(p: Player, user: Option[LightUser]) =
     Json

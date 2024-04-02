@@ -40,7 +40,7 @@ object Forecast:
       ply: Ply,
       uci: String,
       san: SanStr,
-      fen: Fen.Epd,
+      fen: Fen.Full,
       check: Option[Boolean]
   ):
 

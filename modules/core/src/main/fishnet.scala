@@ -9,7 +9,7 @@ case class GameRequest(gameId: GameId)
 case class StudyChapterRequest(
     studyId: StudyId,
     chapterId: StudyChapterId,
-    initialFen: Option[Fen.Epd],
+    initialFen: Option[Fen.Full],
     variant: chess.variant.Variant,
     moves: List[Uci],
     userId: UserId,

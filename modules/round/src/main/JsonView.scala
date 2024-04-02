@@ -61,7 +61,7 @@ final class JsonView(
       pov: Pov,
       prefs: ByColor[Pref],
       users: GameUsers,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       flags: ExportOptions
   ): Fu[JsObject] = for
     takebackable <- takebacker.isAllowedIn(pov.game, Preload(prefs))
@@ -165,7 +165,7 @@ final class JsonView(
       pref: Option[Pref],
       me: Option[UserId],
       tv: Option[OnTv],
-      initialFen: Option[Fen.Epd] = None,
+      initialFen: Option[Fen.Full] = None,
       flags: ExportOptions
   ) =
     getSocketStatus(pov.game).map: socket =>
@@ -221,7 +221,7 @@ final class JsonView(
           Json.obj("id" -> userId)
         })
 
-  def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Epd]) =
+  def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Full]) =
     pov.game.whitePlayer.userId.so(lightUserGet).zip(pov.game.blackPlayer.userId.so(lightUserGet)).map {
       case (white, black) =>
         import pov.*
@@ -249,7 +249,7 @@ final class JsonView(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       orientation: chess.Color,
       owner: Boolean,
       division: Option[chess.Division] = None

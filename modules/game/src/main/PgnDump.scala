@@ -17,7 +17,7 @@ final class PgnDump(
 
   def apply(
       game: Game,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       flags: WithFlags,
       teams: Option[ByColor[TeamId]] = None
   )(using Translate): Fu[Pgn] =
@@ -74,7 +74,7 @@ final class PgnDump(
 
   def tags(
       game: Game,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       imported: Option[ParsedPgn],
       withOpening: Boolean,
       withRating: Boolean,

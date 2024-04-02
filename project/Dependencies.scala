@@ -13,7 +13,7 @@ object Dependencies {
   val lilaMaven = "lila-maven".at("https://raw.githubusercontent.com/lichess-org/lila-maven/master")
   val sonashots = "sonashots".at("https://oss.sonatype.org/content/repositories/snapshots")
 
-  val chessVersion = "15.9.5"
+  val chessVersion = "15.6.1"
 
   val cats        = "org.typelevel"                %% "cats-core"                       % "2.10.0"
   val alleycats   = "org.typelevel"                %% "alleycats-core"                  % "2.10.0"
@@ -46,7 +46,7 @@ object Dependencies {
 
   object scalalib {
     val version = "11.0.0"
-    val lila    = "lichess.std" %% "lila" % version
+    val lila    = "org.lichess" %% "scalalib-lila" % version
     def bundle  = Seq(lila)
   }
 

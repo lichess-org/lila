@@ -8,7 +8,7 @@ import lila.rating.Glicko
 case class Puzzle(
     id: PuzzleId,
     gameId: GameId,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
     plays: Int,
@@ -27,7 +27,7 @@ case class Puzzle(
   lazy val initialGame: chess.Game =
     chess.Game(none, fenAfterInitialMove.some).withTurns(initialPly + 1)
 
-  lazy val fenAfterInitialMove: Fen.Epd =
+  lazy val fenAfterInitialMove: Fen.Full =
     situationAfterInitialMove.map(Fen.write).err(s"Can't apply puzzle $id first move")
 
   def color = !fen.colorOrWhite

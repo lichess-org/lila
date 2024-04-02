@@ -174,7 +174,7 @@ object String:
               s"${safeJsonString(k)}:${safeJsonValue(v)}"
             .mkString("{", ",", "}")
 
-  def underscoreFen(fen: chess.format.Fen.Epd) = fen.value.replace(" ", "_")
+  def underscoreFen(fen: chess.format.Fen.Full) = fen.value.replace(" ", "_")
 
   object charset:
     import akka.util.ByteString

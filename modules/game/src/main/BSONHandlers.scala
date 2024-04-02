@@ -119,7 +119,7 @@ object BSONHandlers:
             lastMove = clm.lastMove,
             castles = clm.castles,
             halfMoveClock = halfMoveClock
-              .orElse(r.getO[Fen.Epd](F.initialFen).flatMap { fen =>
+              .orElse(r.getO[Fen.Full](F.initialFen).flatMap { fen =>
                 Fen.readHalfMoveClockAndFullMoveNumber(fen)._1
               })
               .getOrElse(playedPlies.into(HalfMoveClock))
