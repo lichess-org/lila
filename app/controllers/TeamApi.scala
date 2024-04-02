@@ -49,7 +49,11 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
                 "requested" -> requested
               )
             if !joined then baseResponse
-            else baseResponse ++ Json.obj("private_description" -> team.descPrivate.get.toString())
+            else
+              team.descPrivate match
+                case Some(privateDesc) =>
+                  baseResponse ++ Json.obj("private_description" -> privateDesc.toString())
+                case None => baseResponse
 
   def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>
     Found(api.teamEnabled(teamId)): team =>
