@@ -16,6 +16,7 @@ import lila.common.Form.{
 import lila.db.dsl.{ *, given }
 import lila.core.team.Access
 import lila.core.captcha.CaptchaApi
+import lila.user.UserForm.historicalUsernameField
 
 final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(using Executor):
 
@@ -110,7 +111,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
 
   val selectMember = Form:
     single:
-      "userId" -> lila.user.UserForm.historicalUsernameField
+      "userId" -> historicalUsernameField
 
   def createWithCaptcha(using lila.user.Me) = create -> captcha.any
 
@@ -129,8 +130,8 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
       "names" -> cleanText(maxLength = 9000)
         .transform[String](_.split(sep).take(300).toList.flatMap(UserStr.read).mkString(sep), identity)
 
-  val searchDeclinedForm: Form[Option[String]] = Form(
-    single("search" -> optional(cleanText(maxLength = 30)))
+  val searchDeclinedForm: Form[Option[UserStr]] = Form(
+    single("search" -> optional(historicalUsernameField))
   )
 
   private def teamExists(setup: TeamSetup) =

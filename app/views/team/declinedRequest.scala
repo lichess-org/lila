@@ -10,10 +10,8 @@ object declinedRequest:
   def all(
       team: lila.team.Team,
       requests: Paginator[lila.team.RequestWithUser],
-      search: Option[String] = None
-  )(using
-      PageContext
-  ) =
+      search: Option[UserStr]
+  )(using PageContext) =
     val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
 
     views.html.base.layout(

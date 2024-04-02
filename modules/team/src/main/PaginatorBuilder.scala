@@ -96,14 +96,14 @@ final private[team] class PaginatorBuilder(
   def declinedRequests(
       team: Team,
       page: Int,
-      userQuery: Option[String] = None
+      userQuery: Option[UserStr] = None
   ): Fu[Paginator[RequestWithUser]] =
     Paginator(
       adapter = DeclinedRequestAdapter(team, userQuery),
       page,
       maxRequestsPerPage
     )
-  final private class DeclinedRequestAdapter(team: Team, userQuery: Option[String] = None)
+  final private class DeclinedRequestAdapter(team: Team, userQuery: Option[UserStr] = None)
       extends AdapterLike[RequestWithUser]:
     val nbResults        = requestRepo.countDeclinedByTeam(team.id)
     private def selector = requestRepo.teamDeclinedQuery(team.id, userQuery)

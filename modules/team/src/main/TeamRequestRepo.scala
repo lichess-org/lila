@@ -30,11 +30,10 @@ final class TeamRequestRepo(val coll: Coll)(using Executor):
   def selectId(teamId: TeamId, userId: UserId) = $id(TeamRequest.makeId(teamId, userId))
   def teamQuery(teamId: TeamId)                = $doc("team" -> teamId)
   def teamsQuery(teamIds: List[TeamId])        = $doc("team".$in(teamIds))
-  def teamDeclinedQuery(teamId: TeamId, userQuery: Option[String] = None) =
+  def teamDeclinedQuery(teamId: TeamId, userQuery: Option[UserStr] = None) =
     val baseQuery = $and(teamQuery(teamId), $doc("declined" -> true))
-    userQuery match
-      case None        => baseQuery
-      case Some(value) => $and(baseQuery, $doc("user" -> value.toLowerCase))
+    userQuery.fold(baseQuery): userStr =>
+      $and(baseQuery, $doc("user" -> userStr.id))
 
   def teamActiveQuery(teamId: TeamId)         = $and(teamQuery(teamId), $doc("declined".$ne(true)))
   def teamsActiveQuery(teamIds: List[TeamId]) = $and(teamsQuery(teamIds), $doc("declined".$ne(true)))
