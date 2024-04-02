@@ -41,3 +41,8 @@ object Iso:
       str => Ints(str.split(sep).iterator.map(_.trim).flatMap(_.toIntOption).toList),
       strs => strs.value.mkString(sep)
     )
+
+  given StringIso[IpAddress] = string[IpAddress](IpAddress.unchecked, _.value)
+
+  import play.api.i18n.Lang
+  given StringIso[Lang] = string[Lang](Lang.apply, _.toString)
