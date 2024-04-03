@@ -2,7 +2,7 @@ package lila.pref
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.user.User
+import lila.core.user.User
 
 case class Pref(
     @Key("_id") id: UserId,

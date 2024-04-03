@@ -400,7 +400,7 @@ lazy val relation = module("relation",
 )
 
 lazy val pref = module("pref",
-  Seq(user),
+  Seq(memo),
   reactivemongo.bundle
 )
 
