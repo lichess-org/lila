@@ -79,7 +79,7 @@ final class Challenge(
           json = Ok(json)
         ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
       }
-      .map(env.lilaCookie.ensure(ctx.req))
+      .map(env.security.lilaCookie.ensure(ctx.req))
 
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
@@ -139,7 +139,7 @@ final class Challenge(
       .so {
         env.game.gameRepo.game(c.id.into(GameId)).map {
           _.map { game =>
-            env.lilaCookie.cookie(
+            env.security.lilaCookie.cookie(
               AnonCookie.name,
               game.player(if owner then c.finalColor else !c.finalColor).id.value,
               maxAge = AnonCookie.maxAge.some,

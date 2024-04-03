@@ -109,8 +109,8 @@ trait ResponseBuilder(using Executor)
         if HTTPRequest.isClosedLoginPath(ctx.req)
         then controllers.routes.Auth.login
         else controllers.routes.Auth.signup
-      ).withCookies(env.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri)),
-      json = env.lilaCookie.ensure(ctx.req):
+      ).withCookies(env.security.lilaCookie.session(env.security.api.AccessUri, ctx.req.uri)),
+      json = env.security.lilaCookie.ensure(ctx.req):
         Unauthorized(jsonError("Login required"))
     )
 

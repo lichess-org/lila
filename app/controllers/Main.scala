@@ -29,7 +29,7 @@ final class Main(
         _ => BadRequest,
         (enable, redirect) =>
           Redirect(redirect).withCookies:
-            lila.api.ApiConfig.blindCookie.make(env.lilaCookie)(enable != "0")
+            lila.api.ApiConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
       )
 
   def handlerNotFound(using RequestHeader) =
@@ -125,7 +125,7 @@ final class Main(
     if ctx.isAuth then Redirect(routes.Lobby.home)
     else
       Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies:
-        env.lilaCookie.withSession(remember = true): s =>
+        env.security.lilaCookie.withSession(remember = true): s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
   def legacyQaQuestion(id: Int, slug: String) = Open:

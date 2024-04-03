@@ -6,7 +6,7 @@ import play.api.data.Forms.*
 import play.api.mvc.RequestHeader
 
 import lila.common.Form.{ numberIn, typeIn, given }
-import lila.core.LilaCookie
+import lila.core.security.LilaCookie
 
 case class OpeningConfig(ratings: Set[Int], speeds: Set[Speed]):
 
