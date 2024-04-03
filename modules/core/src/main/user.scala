@@ -38,3 +38,10 @@ case class Count(
 
 trait FlairApi:
   def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]]
+
+trait Note:
+  val text: String
+
+trait NoteApi:
+  def recentByUserForMod(userId: UserId): Fu[Option[Note]]
+  def write(to: UserId, text: String, modOnly: Boolean, dox: Boolean)(using MyId): Funit

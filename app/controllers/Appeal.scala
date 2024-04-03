@@ -117,8 +117,10 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   }
 
   def sendToZulip(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
-    asMod(username): (_, suspect) =>
-      env.irc.api.userAppeal(suspect.user).inject(NoContent)
+    asMod(username): (_, s) =>
+      env.irc.api
+        .userAppeal(s.user.light)
+        .inject(NoContent)
   }
 
   def snooze(username: UserStr, dur: String) = Secure(_.Appeals) { _ ?=> _ ?=>

@@ -12,7 +12,7 @@ import lila.core.actorApi.plan.ChargeEvent
 final class Env(
     appConfig: Configuration,
     getLightUser: lila.core.LightUser.Getter,
-    noteApi: lila.user.NoteApi,
+    noteApi: lila.core.user.NoteApi,
     ws: StandaloneWSClient,
     shutdown: akka.actor.CoordinatedShutdown,
     mode: Mode

@@ -1,12 +1,13 @@
 package lila.irc
 
 import lila.core.LightUser
+import lila.core.LightUser.Me.given
 import lila.core.irc.*
-import lila.user.{ Me, User }
+import lila.core.user.MyId
 
 final class IrcApi(
     zulip: ZulipClient,
-    noteApi: lila.user.NoteApi
+    noteApi: lila.core.user.NoteApi
 )(using lightUser: LightUser.Getter, ec: Executor)
     extends lila.core.irc.IrcApi:
 
@@ -16,76 +17,75 @@ final class IrcApi(
     val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.name}")
     zulip(_.mod.commsPrivate, "burst")(md)
 
-  def inquiry(user: User, domain: ModDomain, room: String)(using mod: Me): Funit =
+  def inquiry(user: LightUser, domain: ModDomain, room: String)(using mod: LightUser.Me): Funit =
     val stream = domain match
       case ModDomain.Comm  => ZulipClient.stream.mod.commsPrivate
       case ModDomain.Cheat => ZulipClient.stream.mod.hunterCheat
       case ModDomain.Boost => ZulipClient.stream.mod.hunterBoost
       case _               => ZulipClient.stream.mod.adminGeneral
     noteApi
-      .byUserForMod(user.id)
-      .map(_.headOption.filter(_.date.isAfter(nowInstant.minusMinutes(5))))
+      .recentByUserForMod(user.id)
       .flatMap:
         case None =>
-          zulip.sendAndGetLink(stream, "/" + user.username):
-            val link = markdown.userLink(user.username)
-            s"${markdown.userLink(mod.username)} :monkahmm: is looking at a $room report about **$link**"
+          zulip.sendAndGetLink(stream, "/" + user.name):
+            val link = markdown.userLink(user.name)
+            s"${markdown.userLink(mod.name)} :monkahmm: is looking at a $room report about **$link**"
 
         case Some(note) =>
-          zulip.sendAndGetLink(stream, "/" + user.username):
-            val link = markdown.userLink(user.username)
-            s"${markdown.modLink(mod.username)} :pepenote: **$link** (${markdown.userNotesLink(user.username)}):\n" +
+          zulip.sendAndGetLink(stream, "/" + user.name):
+            val link = markdown.userLink(user.name)
+            s"${markdown.modLink(mod.name)} :pepenote: **$link** (${markdown.userNotesLink(user.name)}):\n" +
               markdown.linkifyUsers(note.text.take(2000))
       .flatMapz: zulipLink =>
         noteApi.write(
-          user,
+          user.id,
           s"$domain discussion: $zulipLink",
           modOnly = true,
           dox = domain == ModDomain.Admin
         )
 
-  def nameCloseVote(user: User, reason: Option[String])(using mod: Me): Funit =
-    val topic = "/" + user.username
-    zulip(_.mod.usernames, topic)(
-      s"created on: ${user.createdAt.date}, ${user.count.game} games${reason.fold("")(r => s", reason: $r")}"
-    ) >>
+  def nameCloseVote(user: LightUser, details: String, reason: Option[String])(using
+      mod: LightUser.Me
+  ): Funit =
+    val topic = "/" + user.name
+    zulip(_.mod.usernames, topic)(s"$details${reason.fold("")(r => s", reason: $r")}") >>
       zulip
         .sendAndGetLink(_.mod.usernames, topic)("/poll Close?\n🔨 Yes\n🍃 No")
         .flatMapz: zulipLink =>
           noteApi.write(
-            user,
-            s"username discussion: $zulipLink",
+            user.id,
+            s"name discussion: $zulipLink",
             modOnly = true,
             dox = false
           )
 
-  def fullCommExport(user: User)(using mod: Me): Funit =
-    val topic = "/" + user.username
+  def fullCommExport(user: LightUser)(using mod: LightUser.Me): Funit =
+    val topic = "/" + user.name
     zulip(_.mod.trustSafety, topic):
-      s"${markdown.modLink(mod.username)} exported all comms of ${markdown.userLink(user.username)}"
+      s"${markdown.modLink(mod.name)} exported all comms of ${markdown.userLink(user.name)}"
 
-  def usertableCheck(user: User)(using mod: Me): Funit =
+  def usertableCheck(user: LightUser)(using mod: LightUser.Me): Funit =
     zulip(_.mod.cafeteria, "reports"):
-      s"**${markdown.userLinkNoNotes(user.username)}** usertable check (requested by ${markdown.modLink(mod.username)})"
+      s"**${markdown.userLinkNoNotes(user.name)}** usertable check (requested by ${markdown.modLink(mod.name)})"
 
-  def commlog(user: User, reportBy: Option[UserId])(using mod: Me): Funit =
+  def commlog(user: LightUser, reportBy: Option[UserId])(using mod: LightUser.Me): Funit =
     zulip(_.mod.adminLog, "private comms checks"):
       val checkedOut =
-        val finalS = if user.username.value.endsWith("s") then "" else "s"
-        s"**${markdown.modLink(mod.username)}** checked out **${markdown.userLink(user.username)}**'$finalS communications "
+        val finalS = if user.name.value.endsWith("s") then "" else "s"
+        s"**${markdown.modLink(mod.name)}** checked out **${markdown.userLink(user.name)}**'$finalS communications "
       checkedOut + reportBy
         .filterNot(_.is(mod))
         .fold("spontaneously"): by =>
           s"while investigating a report created by ${markdown.userLink(by.into(UserName))}"
 
-  def monitorMod(icon: String, text: String, tpe: ModDomain)(using modId: Me.Id): Funit =
+  def monitorMod(icon: String, text: String, tpe: ModDomain)(using modId: MyId): Funit =
     lightUser(modId).flatMapz: mod =>
       zulip(_.mod.adminMonitor(tpe), mod.name.value):
         s"${markdown.userLink(mod.name)} :$icon: ${markdown.linkifyPostsAndUsers(text)}"
 
-  def chatPanic(mod: Me, v: Boolean): Funit =
+  def chatPanic(v: Boolean)(using mod: LightUser.Me): Funit =
     val msg =
-      s":stop: ${markdown.modLink(mod.username)} ${if v then "enabled" else "disabled"} ${markdown
+      s":stop: ${markdown.modLink(mod.name)} ${if v then "enabled" else "disabled"} ${markdown
           .lichessLink("/mod/chat-panic", " Chat Panic")}"
     zulip(_.mod.log, "chat panic")(msg) >> zulip(_.mod.commsPublic, "main")(msg)
 
@@ -107,17 +107,17 @@ final class IrcApi(
     zulip(_.broadcast, "non-tiered broadcasts"):
       s":note: ${markdown.broadcastLink(id, fullName)}"
 
-  def userAppeal(user: User)(using mod: Me): Funit =
+  def userAppeal(user: LightUser)(using mod: LightUser.Me): Funit =
     zulip
-      .sendAndGetLink(_.mod.adminAppeal, "/" + user.username):
-        val link = markdown.lichessLink(s"/appeal/${user.username}", user.username)
-        s"${markdown.modLink(mod.username)} :monkahmm: is looking at the appeal of **$link**"
+      .sendAndGetLink(_.mod.adminAppeal, "/" + user.name):
+        val link = markdown.lichessLink(s"/appeal/${user.name}", user.name)
+        s"${markdown.modLink(mod.name)} :monkahmm: is looking at the appeal of **$link**"
       .flatMapz: zulipAppealConv =>
-        noteApi.write(user, s"Appeal discussion: $zulipAppealConv", modOnly = true, dox = true)
+        noteApi.write(user.id, s"Appeal discussion: $zulipAppealConv", modOnly = true, dox = true)
 
-  def nameClosePreset(username: UserName): Funit =
-    zulip(_.mod.adminGeneral, "username 48h closure"):
-      s"@**remind** here in 48h to close ${markdown.userLink(username)}"
+  def nameClosePreset(name: UserName): Funit =
+    zulip(_.mod.adminGeneral, "name 48h closure"):
+      s"@**remind** here in 48h to close ${markdown.userLink(name)}"
 
   def stop(): Funit = zulip(_.general, "lila")("Lichess is restarting.")
 
@@ -164,9 +164,9 @@ final class IrcApi(
     private def displayMessage(text: String) =
       zulip(_.general, "lila")(markdown.linkifyUsers(text))
 
-    private def userAt(username: UserName) =
-      if username == UserName("Anonymous") then username
-      else s"@$username"
+    private def userAt(name: UserName) =
+      if name == UserName("Anonymous") then name
+      else s"@$name"
 
     private def amount(cents: Int) = s"$$${BigDecimal(cents.toLong, 2)}"
 
@@ -180,7 +180,6 @@ object IrcApi:
     def lichessLink[N: Show](path: String, name: N) = show"[$name](https://lichess.org$path)"
     def userLink(name: UserName): String            = lichessLink(s"/@/$name?mod&notes", name.value)
     def userLink(user: LightUser): String           = userLink(user.name)
-    def userLink(user: User): String                = userLink(user.light)
     def userLinkNoNotes(name: UserName): String     = lichessLink(s"/@/$name?mod", name.value)
     def userIdLinks(ids: List[UserId]): String =
       UserName.from[List, UserId](ids).map(markdown.userLink).mkString(", ")

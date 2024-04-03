@@ -1,7 +1,7 @@
 package lila.appeal
 
 import lila.db.dsl.{ *, given }
-import lila.user.{ Me, NoteApi, User, UserMark, UserRepo }
+import lila.user.{ Me, NoteApi, User, UserMark, UserRepo, given }
 
 import Appeal.Filter
 
@@ -47,8 +47,8 @@ final class AppealApi(
     val appeal = prev.post(text, me.value)
     (coll.update.one($id(appeal.id), appeal) >> {
       preset.so: note =>
-        userRepo.byId(appeal.id).flatMapz {
-          noteApi.write(_, s"Appeal reply: $note", modOnly = true, dox = false)
+        userRepo.byId(appeal.id).flatMapz { user =>
+          noteApi.write(user.id, s"Appeal reply: $note", modOnly = true, dox = false)
         }
     }).inject(appeal)
 

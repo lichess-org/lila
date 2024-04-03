@@ -505,7 +505,7 @@ final class User(
       val isMod = data.mod && isGranted(_.ModNote)
       val dox   = isMod && (data.dox || lila.fide.FideWebsite.urlToFideId(data.text).isDefined)
       for
-        _        <- env.user.noteApi.write(user, data.text, isMod, dox)
+        _        <- env.user.noteApi.write(user.id, data.text, isMod, dox)
         newTitle <- isMod.so(env.fide.playerApi.urlToTitle(data.text))
         _        <- newTitle.so(env.user.repo.setTitle(user.id, _))
         result   <- f(user)

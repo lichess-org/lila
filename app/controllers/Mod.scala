@@ -183,7 +183,7 @@ final class Mod(
           import lila.core.irc.ModDomain
           env.irc.api
             .inquiry(
-              user = user,
+              user = user.light,
               domain = report.room match
                 case Room.Cheat => ModDomain.Cheat
                 case Room.Boost => ModDomain.Boost
@@ -208,11 +208,16 @@ final class Mod(
         _.filter(_.reason == lila.report.Reason.Username).map(_.bestAtom.simplifiedText)
       }
       .flatMap: reason =>
-        env.user.repo.byId(username).orNotFound { env.irc.api.nameCloseVote(_, reason).inject(NoContent) }
+        env.user.repo.byId(username).orNotFound { user =>
+          val details = s"created on: ${user.createdAt.date}, ${user.count.game} games"
+          env.irc.api
+            .nameCloseVote(user.light, details, reason)
+            .inject(NoContent)
+        }
 
   }
   def askUsertableCheck(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
-    env.user.repo.byId(username).orNotFound { env.irc.api.usertableCheck(_).inject(NoContent) }
+    env.user.lightUser(username.id).orNotFound { env.irc.api.usertableCheck(_).inject(NoContent) }
   }
 
   def table = Secure(_.Admin) { ctx ?=> _ ?=>
@@ -261,7 +266,7 @@ final class Mod(
               }
             ).flatMapN { (chats, convos, publicLines, notes, history, inquiry, logins) =>
               if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
-                env.irc.api.commlog(user = user, inquiry.map(_.oldestAtom.by.userId))
+                env.irc.api.commlog(user = user.light, inquiry.map(_.oldestAtom.by.userId))
                 if isGranted(_.MonitoredCommMod) then
                   env.irc.api.monitorMod(
                     "eyes",
@@ -303,7 +308,7 @@ final class Mod(
         Ok.chunked(source)
           .pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
           .andDo(env.mod.logApi.fullCommExport(Suspect(user)))
-          .andDo(env.irc.api.fullCommExport(user))
+          .andDo(env.irc.api.fullCommExport(user.light))
     }
 
   protected[controllers] def redirect(username: UserStr, mod: Boolean = true) =
@@ -508,7 +513,7 @@ final class Mod(
   def chatPanicPost = OAuthMod(_.Shadowban) { ctx ?=> me ?=>
     val v = getBool("v")
     env.chat.panic.set(v)
-    env.irc.api.chatPanic(me, v)
+    env.irc.api.chatPanic(v)
     fuccess(().some)
   }(_ => (_, _) ?=> Redirect(routes.Mod.chatPanic))
 
