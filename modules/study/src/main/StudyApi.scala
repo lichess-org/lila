@@ -793,7 +793,7 @@ final class StudyApi(
       for
         _ <- studyRepo.delete(study)
         _ <- chapterRepo.deleteByStudy(study)
-      yield Bus.publish(lila.core.actorApi.study.RemoveStudy(study.id), "study")
+      yield Bus.publish(lila.core.study.RemoveStudy(study.id), "study")
 
   def deleteById(id: StudyId) =
     studyRepo.byId(id).flatMap(_.so(delete))

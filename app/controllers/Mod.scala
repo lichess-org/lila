@@ -180,7 +180,7 @@ final class Mod(
       case Some(report) =>
         Found(env.user.repo.byId(report.user)): user =>
           import lila.report.Room
-          import lila.irc.IrcApi.ModDomain
+          import lila.core.irc.ModDomain
           env.irc.api
             .inquiry(
               user = user,
@@ -266,7 +266,7 @@ final class Mod(
                   env.irc.api.monitorMod(
                     "eyes",
                     s"spontaneously checked out @${user.username}'s private comms",
-                    lila.irc.IrcApi.ModDomain.Comm
+                    lila.core.irc.ModDomain.Comm
                   )
               env.appeal.api
                 .byUserIds(user.id :: logins.userLogins.otherUserIds)

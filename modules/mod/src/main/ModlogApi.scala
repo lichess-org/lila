@@ -4,7 +4,7 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.irc.IrcApi
+import lila.core.irc.IrcApi
 import lila.core.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
@@ -333,7 +333,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       case _                                                => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
     userRepo.getRoles(m.mod).map(Permission(_)).flatMap { permissions =>
-      import IrcApi.{ ModDomain as domain }
+      import lila.core.irc.{ ModDomain as domain }
       val monitorType = m.action match
         case M.closeAccount | M.alt => None
         case M.engine | M.unengine | M.reopenAccount | M.unalt =>

@@ -120,6 +120,6 @@ object userLag:
   type GetLagRating = UserId => Option[Int]
   type Put          = (UserId, chess.Centis) => Unit
 
-type SocketRequest[R] = (Int => Unit, String => R) => Executor ?=> Fu[R]
+type SocketRequest[R] = (Int => Unit, String => R) => Fu[R]
 trait SocketRequester:
   def apply[R]: SocketRequest[R]

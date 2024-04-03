@@ -3,7 +3,7 @@ package lila.study
 import lila.db.dsl.{ *, given }
 import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
-import lila.core.relation.{ Block, Follow }
+import lila.core.relation.Relation.{ Block, Follow }
 import lila.security.Granter
 import lila.user.{ Me, User }
 import lila.core.user.MyId

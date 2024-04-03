@@ -14,6 +14,8 @@ object Json:
     .flatMapResult: str =>
       JsResult.fromTry(UserStr.read(str).toTry(s"Invalid username: $str"))
 
+  given Writes[lila.core.relation.Relation] = writeAs(_.isFollow)
+
   given Reads[LilaOpeningFamily] = Reads[LilaOpeningFamily]: f =>
     f.get[String]("key")
       .flatMap(LilaOpeningFamily.find)

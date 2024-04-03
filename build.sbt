@@ -155,7 +155,7 @@ lazy val feed = module("feed",
 )
 
 lazy val ublog = module("ublog",
-  Seq(irc, security),
+  Seq(security),
   Seq(bloomFilter) ++ reactivemongo.bundle
 )
 
@@ -205,7 +205,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, perfStat, report, history, notifyModule),
+  Seq(evaluation, perfStat, report, history, notifyModule, chat),
   reactivemongo.bundle
 )
 
@@ -230,7 +230,7 @@ lazy val tv = module("tv",
 )
 
 lazy val bot = module("bot",
-  Seq(lobby),
+  Seq(chat, game),
   reactivemongo.bundle
 )
 
@@ -240,12 +240,12 @@ lazy val analyse = module("analyse",
 )
 
 lazy val round = module("round",
-  Seq(history, room, fishnet, playban, notifyModule, pref),
+  Seq(room, game, playban, notifyModule, pref),
   Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val pool = module("pool",
-  Seq(playban),
+  Seq(game, user),
   reactivemongo.bundle
 )
 
@@ -255,7 +255,7 @@ lazy val activity = module("activity",
 )
 
 lazy val lobby = module("lobby",
-  Seq(game, relation, playban),
+  Seq(game, relation),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
@@ -275,7 +275,7 @@ lazy val insight = module("insight",
 )
 
 lazy val tutor = module("tutor",
-  Seq(insight, fishnet),
+  Seq(insight),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -320,7 +320,7 @@ lazy val oauth = module("oauth",
 )
 
 lazy val security = module("security",
-  Seq(irc, oauth, mailer),
+  Seq(oauth, mailer),
   Seq(maxmind, hasher, uaparser) ++ tests.bundle ++ reactivemongo.bundle
 )
 
@@ -395,7 +395,7 @@ lazy val plan = module("plan",
 )
 
 lazy val relation = module("relation",
-  Seq(game, pref),
+  Seq(user, pref),
   reactivemongo.bundle
 )
 
@@ -430,7 +430,7 @@ lazy val teamSearch = module("teamSearch",
 )
 
 lazy val clas = module("clas",
-  Seq(msg, puzzle),
+  Seq(security, puzzle),
   reactivemongo.bundle ++ Seq(bloomFilter)
 )
 
@@ -440,7 +440,7 @@ lazy val bookmark = module("bookmark",
 )
 
 lazy val report = module("report",
-  Seq(playban),
+  Seq(game, security),
   reactivemongo.bundle
 )
 

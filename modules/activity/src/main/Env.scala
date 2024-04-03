@@ -69,7 +69,7 @@ final class Env(
     case lila.core.simul.OnStart(simul)                   => write.simul(simul)
     case CorresMoveEvent(move, Some(userId), _, _, _)     => write.corresMove(move.gameId, userId)
     case lila.core.actorApi.plan.MonthInc(userId, months) => write.plan(userId, months)
-    case lila.core.actorApi.relation.Follow(from, to)     => write.follow(from, to)
+    case lila.core.relation.Follow(from, to)              => write.follow(from, to)
     case lila.core.study.StartStudy(id)                   =>
       // wait some time in case the study turns private
       scheduler.scheduleOnce(5 minutes) { write.study(id) }

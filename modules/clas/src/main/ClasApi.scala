@@ -7,7 +7,7 @@ import reactivemongo.api.*
 import lila.core.config.BaseUrl
 import lila.common.Markdown
 import lila.db.dsl.{ *, given }
-import lila.msg.MsgApi
+import lila.core.msg.MsgApi
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Authenticator, Me, User, UserPerfs, UserPerfsRepo, UserRepo }
 import lila.core.EmailAddress

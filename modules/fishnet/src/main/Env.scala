@@ -18,7 +18,6 @@ private class FishnetConfig(
     @ConfigName("collection.client") val clientColl: CollName,
     @ConfigName("offline_mode") val offlineMode: Boolean,
     @ConfigName("analysis.nodes") val analysisNodes: Int,
-    @ConfigName("move.plies") val movePlies: Int,
     @ConfigName("client_min_version") val clientMinVersion: String,
     @ConfigName("redis.uri") val redisUri: String,
     val explorerEndpoint: String
@@ -84,13 +83,12 @@ final class Env(
 
   private lazy val openingBook: FishnetOpeningBook = wire[FishnetOpeningBook]
 
-  lazy val player =
-    def mk = (plies: Int) => wire[FishnetPlayer]
-    mk(config.movePlies)
+  lazy val player = wire[FishnetPlayer]
 
   private val limiter = wire[FishnetLimiter]
 
   lazy val analyser = wire[Analyser]
+  export analyser.systemRequest
 
   lazy val awaiter = wire[FishnetAwaiter]
 
@@ -123,3 +121,6 @@ final class Env(
     case lila.core.fishnet.GameRequest(id) =>
       analyser(id, Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true))
     case req: lila.core.fishnet.StudyChapterRequest => analyser.study(req)
+
+  Bus.subscribeFun("fishnetPlay"):
+    case game: lila.game.Game => player(game)
