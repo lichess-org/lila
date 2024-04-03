@@ -9,12 +9,13 @@ import reactivemongo.api.bson.*
 import lila.core.ApiVersion
 import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.LightUser
+import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
+import lila.user.UserMarkExtensions.*
 
-final class UserRepo(val coll: Coll)(using Executor):
+final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
   import User.{ BSONFields as F, given }
-  import UserMark.given
 
   def withColl[A](f: Coll => A): A = f(coll)
 
@@ -197,11 +198,11 @@ final class UserRepo(val coll: Coll)(using Executor):
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then $doc(F.marks -> mark.key)
     else F.marks.$ne(mark.key)
-  def engineSelect = markSelect(UserMark.Engine)
-  def trollSelect  = markSelect(UserMark.Troll)
-  val lame         = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key)))
-  val lameOrTroll  = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key)))
-  val notLame      = $doc(F.marks.$nin(List(UserMark.Engine.key, UserMark.Boost.key)))
+  def engineSelect       = markSelect(UserMark.engine)
+  def trollSelect        = markSelect(UserMark.troll)
+  val lame               = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost)))
+  val lameOrTroll        = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost, UserMark.troll)))
+  val notLame            = $doc(F.marks.$nin(List(UserMark.engine, UserMark.boost)))
   val enabledNoBotSelect = enabledSelect ++ $doc(F.title.$ne(PlayerTitle.BOT))
   val patronSelect       = $doc(s"${F.plan}.active" -> true)
 
@@ -279,14 +280,14 @@ final class UserRepo(val coll: Coll)(using Executor):
   private def setMark(mark: UserMark)(id: UserId, v: Boolean): Funit =
     coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
 
-  def setEngine    = setMark(UserMark.Engine)
-  def setBoost     = setMark(UserMark.Boost)
-  def setTroll     = setMark(UserMark.Troll)
-  def setReportban = setMark(UserMark.Reportban)
-  def setRankban   = setMark(UserMark.Rankban)
-  def setArenaBan  = setMark(UserMark.ArenaBan)
-  def setPrizeban  = setMark(UserMark.PrizeBan)
-  def setAlt       = setMark(UserMark.Alt)
+  def setEngine    = setMark(UserMark.engine)
+  def setBoost     = setMark(UserMark.boost)
+  def setTroll     = setMark(UserMark.troll)
+  def setReportban = setMark(UserMark.reportban)
+  def setRankban   = setMark(UserMark.rankban)
+  def setArenaBan  = setMark(UserMark.arenaBan)
+  def setPrizeban  = setMark(UserMark.prizeBan)
+  def setAlt       = setMark(UserMark.alt)
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
 

@@ -9,6 +9,7 @@ import lila.core.{ IpAddress, IpAddressStr }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.UserApi
+import lila.user.UserMarkExtensions.*
 
 final class SelfReport(
     tellRound: TellRound,

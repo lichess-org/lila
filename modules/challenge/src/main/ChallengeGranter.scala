@@ -5,6 +5,7 @@ import lila.pref.Pref
 import lila.rating.PerfType
 import lila.relation.{ Block, Follow }
 import lila.user.{ Me, User }
+import lila.user.UserMarkExtensions.*
 import lila.core.i18n.Translate
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)

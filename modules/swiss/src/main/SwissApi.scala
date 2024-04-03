@@ -19,6 +19,7 @@ import lila.gathering.GreatPlayer
 import lila.rating.Perf
 import lila.core.round.QuietFlag
 import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
+import lila.user.UserMarkExtensions.*
 import lila.core.swiss.{ IdName, SwissFinish }
 
 final class SwissApi(

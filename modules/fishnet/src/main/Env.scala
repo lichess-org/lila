@@ -11,6 +11,7 @@ import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.common.config.*
 import lila.core.config.*
+import lila.user.UserMarkExtensions.*
 
 @Module
 private class FishnetConfig(

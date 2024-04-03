@@ -23,7 +23,7 @@ final class ModApi(
   def setAlt(prev: Suspect, v: Boolean)(using me: Me.Id): Funit =
     for
       _ <- userRepo.setAlt(prev.user.id, v)
-      sus = prev.set(_.withMarks(_.set(_.Alt, v)))
+      sus = prev.set(_.withMarks(_.set(_.alt, v)))
       _ <- logApi.alt(sus, v)
     yield if v then notifier.reporters(me.modId, sus)
 
@@ -31,7 +31,7 @@ final class ModApi(
     (prev.user.marks.engine != v).so {
       for
         _ <- userRepo.setEngine(prev.user.id, v)
-        sus = prev.set(_.withMarks(_.set(_.Engine, v)))
+        sus = prev.set(_.withMarks(_.set(_.engine, v)))
         _ <- logApi.engine(sus, v)
       yield
         Bus.publish(lila.core.mod.MarkCheater(sus.user.id, v), "adjustCheater")
@@ -58,7 +58,7 @@ final class ModApi(
     else
       for
         _ <- userRepo.setBoost(prev.user.id, v)
-        sus = prev.set(_.withMarks(_.set(_.Boost, v)))
+        sus = prev.set(_.withMarks(_.set(_.boost, v)))
         _ <- logApi.booster(sus, v)
       yield
         if v then
@@ -68,7 +68,7 @@ final class ModApi(
 
   def setTroll(prev: Suspect, value: Boolean)(using me: Me.Id): Fu[Suspect] =
     val changed = value != prev.user.marks.troll
-    val sus     = prev.set(_.withMarks(_.set(_.Troll, value)))
+    val sus     = prev.set(_.withMarks(_.set(_.troll, value)))
     changed
       .so:
         userRepo.updateTroll(sus.user).void.andDo {

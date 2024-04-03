@@ -6,6 +6,7 @@ import lila.pref.Pref
 import lila.core.relation.Relation.{ Block, Follow }
 import lila.security.Granter
 import lila.user.{ Me, User }
+import lila.user.UserMarkExtensions.*
 import lila.core.user.MyId
 
 final private class StudyInvite(

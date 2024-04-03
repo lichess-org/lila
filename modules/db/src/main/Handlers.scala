@@ -217,6 +217,9 @@ trait Handlers:
     t => BSONString(t.value)
   )
 
+  import lila.core.user.UserMark
+  given markHandler: BSONHandler[UserMark] = valueMapHandler(UserMark.byKey)(_.key)
+
   def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(using
       keyHandler: BSONHandler[K]
   ): BSONHandler[V] = new:

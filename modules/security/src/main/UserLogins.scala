@@ -190,6 +190,7 @@ object UserLogins:
       .map(Dated.apply)
 
   case class Alts(users: Set[User]):
+    import lila.user.UserMarkExtensions.*
     lazy val boosters = users.count(_.marks.boost)
     lazy val engines  = users.count(_.marks.engine)
     lazy val trolls   = users.count(_.marks.troll)

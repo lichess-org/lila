@@ -6,9 +6,11 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.LightUser
+import lila.core.user.{ UserMark, UserMarks, UserEnabled }
 import lila.core.i18n.Language
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.PerfKey
+import lila.user.UserMarkExtensions.*
 
 case class User(
     id: UserId,
@@ -27,7 +29,7 @@ case class User(
     plan: Plan,
     flair: Option[Flair] = None,
     totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks.empty,
+    marks: UserMarks = UserMarks(Nil),
     hasEmail: Boolean
 ) extends lila.core.user.User:
 
@@ -107,7 +109,7 @@ object User:
 
   given UserIdOf[User] = _.id
 
-  export lila.user.UserEnabled as Enabled
+  export lila.core.user.UserEnabled as Enabled
 
   case class WithPerfs(user: User, perfs: UserPerfs):
     export user.*
@@ -311,7 +313,7 @@ object User:
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
         flair = r.getO[Flair](flair).filter(FlairApi.exists),
-        marks = r.getO[UserMarks](marks) | UserMarks.empty,
+        marks = r.getO[UserMarks](marks) | UserMarks(Nil),
         hasEmail = r.contains(email)
       )
 

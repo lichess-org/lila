@@ -6,6 +6,7 @@ import reactivemongo.api.bson.*
 
 import lila.core.NormalizedEmailAddress
 import lila.core.LightUser
+import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.rating.{ Glicko, Perf, PerfType }
@@ -16,7 +17,6 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     Executor,
     akka.stream.Materializer
 ):
-
   // hit by game rounds
   object gamePlayers:
     private type PlayersKey = (PairOf[Option[UserId]], PerfType)
@@ -196,7 +196,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           Match:
             $doc(
               s"user.${F.enabled}" -> true,
-              s"user.${F.marks}".$nin(List(UserMark.Engine.key, UserMark.Boost.key)),
+              s"user.${F.marks}".$nin(List(UserMark.engine, UserMark.boost)),
               s"user.${F.title}".$ne(PlayerTitle.BOT)
             )
           ,

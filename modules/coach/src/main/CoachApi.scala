@@ -5,6 +5,7 @@ import lila.memo.PicfitApi
 import lila.notify.NotifyApi
 import lila.security.Granter
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
+import lila.user.UserMarkExtensions.*
 
 final class CoachApi(
     coachColl: Coll,
