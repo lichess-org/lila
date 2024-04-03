@@ -205,9 +205,9 @@ object mod:
       isGranted(_.ModMessage).option(
         postForm(action := routes.Mod.warn(u.username, ""), cls := "pm-preset")(
           st.select(
-            option(value := "")("Send PM"),
+            st.option(value := "")("Send PM"),
             pmPresets.value.map { preset =>
-              option(st.value := preset.name, title := preset.text)(preset.name)
+              st.option(st.value := preset.name, title := preset.text)(preset.name)
             }
           )
         )

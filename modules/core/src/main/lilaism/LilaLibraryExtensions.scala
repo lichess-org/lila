@@ -9,15 +9,18 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.{ ExecutionContext as EC }
 import scala.util.Try
 import scala.util.matching.Regex
-import scalalib.future.*
+import scalalib.future.FutureAfter
+import scalalib.future.given
+import scalalib.future.extensions.*
 
 trait LilaLibraryExtensions extends LilaTypes:
+
+  export scalalib.future.extensions.*
+  export scalalib.future.given_Zero_Future
 
   /* library-agnostic way to run a future after a delay */
   given (using sched: Scheduler, ec: Executor): FutureAfter =
     [A] => (duration: FiniteDuration) => (fua: () => Future[A]) => akka.pattern.after(duration, sched)(fua())
-
-  export FutureExtension.*
 
   extension [A](self: Option[A])
 
@@ -140,32 +143,3 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     // inline def unary_! = fua.map { !_ }(EC.parasitic)
     inline def not = fua.map { !_ }(EC.parasitic)
-
-  extension [A](fua: Fu[Option[A]])
-
-    def orFail(msg: => String)(using Executor): Fu[A] =
-      fua.flatMap:
-        _.fold[Fu[A]](fufail(msg))(fuccess)
-
-    def orFailWith(err: => Exception)(using Executor): Fu[A] =
-      fua.flatMap:
-        _.fold[Fu[A]](fufail(err))(fuccess)
-
-    def orElse(other: => Fu[Option[A]])(using Executor): Fu[Option[A]] =
-      fua.flatMap:
-        _.fold(other): x =>
-          fuccess(Some(x))
-
-    def getOrElse(other: => Fu[A])(using Executor): Fu[A] = fua.flatMap { _.fold(other)(fuccess) }
-    def orZeroFu(using z: Zero[A]): Fu[A]                 = fua.map(_.getOrElse(z.zero))(EC.parasitic)
-
-    def map2[B](f: A => B)(using Executor): Fu[Option[B]] = fua.map(_.map(f))
-    def dmap2[B](f: A => B): Fu[Option[B]]                = fua.map(_.map(f))(EC.parasitic)
-
-    def getIfPresent: Option[A] =
-      fua.value match
-        case Some(scala.util.Success(v)) => v
-        case _                           => None
-
-    def mapz[B: Zero](fb: A => B)(using Executor): Fu[B]                = fua.map { _.so(fb) }
-    infix def flatMapz[B: Zero](fub: A => Fu[B])(using Executor): Fu[B] = fua.flatMap { _.so(fub) }

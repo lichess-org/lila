@@ -18,10 +18,10 @@ object userTable:
   def selectAltAll(using Context) = canCloseAlt.option(
     sortNoneTh(
       select(style := "width: 2em")(
-        option(value := "")(""),
-        option(value := "all")("Select all"),
-        option(value := "none")("Select none"),
-        option(value := "alt")("Alt selected")
+        st.option(value := "")(""),
+        st.option(value := "all")("Select all"),
+        st.option(value := "none")("Select none"),
+        st.option(value := "alt")("Alt selected")
       )
     )
   )

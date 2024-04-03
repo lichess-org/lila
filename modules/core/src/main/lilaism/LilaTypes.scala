@@ -22,9 +22,6 @@ trait LilaTypes:
   val fuTrue                         = fuccess(true)
   val fuFalse                        = fuccess(false)
 
-  given [A](using az: Zero[A]): Zero[Fu[A]] with
-    def zero = fuccess(az.zero)
-
   given Zero[JsObject] with
     def zero = JsObject(Seq.empty)
 
