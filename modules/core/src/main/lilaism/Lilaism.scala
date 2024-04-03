@@ -12,6 +12,7 @@ object Lilaism
   export scalalib.zeros.given
   export scalalib.extensions.{ given, * }
   export scalalib.json.extensions.*
+  export scalalib.json.Json.given_Zero_JsObject
   export scalalib.time.*
 
   export cats.syntax.all.*
