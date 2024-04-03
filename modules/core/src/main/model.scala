@@ -54,19 +54,10 @@ object IpAddressStr extends OpaqueString[IpAddressStr]
 
 opaque type Domain = String
 object Domain extends OpaqueString[Domain]:
-  extension (a: Domain)
-    // heuristic to remove user controlled subdomain tails:
-    // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
-    def withoutSubdomain: Option[Domain] =
-      a.value.split('.').toList.reverse match
-        case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain.from(s"$tail.$sld.$tld")
-        case tld :: sld :: _                              => Domain.from(s"$sld.$tld")
-        case _                                            => none
-    def lower = Domain.Lower(a.value.toLowerCase)
+  extension (a: Domain) def lower = Domain.Lower(a.value.toLowerCase)
 
   // https://stackoverflow.com/a/26987741/1744715
-  private val regex =
-    """(?i)^_?[a-z0-9-]{1,63}+(?:\._?[a-z0-9-]{1,63}+)*$""".r
+  private val regex                     = """(?i)^_?[a-z0-9-]{1,63}+(?:\._?[a-z0-9-]{1,63}+)*$""".r
   def isValid(str: String)              = str.contains('.') && regex.matches(str)
   def from(str: String): Option[Domain] = isValid(str).option(Domain(str))
   def unsafe(str: String): Domain       = Domain(str)
