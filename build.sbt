@@ -130,7 +130,7 @@ lazy val racer = module("racer",
 )
 
 lazy val video = module("video",
-  Seq(user),
+  Seq(memo),
   reactivemongo.bundle ++ macwire.bundle
 )
 
@@ -145,7 +145,7 @@ lazy val streamer = module("streamer",
 )
 
 lazy val coordinate = module("coordinate",
-  Seq(user),
+  Seq(db),
   reactivemongo.bundle ++ macwire.bundle
 )
 
