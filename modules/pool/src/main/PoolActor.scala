@@ -102,7 +102,7 @@ final private class PoolActor(
 
 private object PoolActor:
 
-  case class Join(joiner: Joiner, rageSit: lila.playban.RageSit)
+  case class Join(joiner: Joiner, rageSit: lila.core.playban.RageSit)
   case class Leave(userId: UserId) extends AnyVal
 
   case object ScheduledWave

@@ -63,7 +63,7 @@ private[setup] trait Config:
 trait Positional:
   self: Config =>
 
-  def fen: Option[Fen.Epd]
+  def fen: Option[Fen.Full]
 
   def strictFen: Boolean
 

@@ -10,7 +10,7 @@ import scala.concurrent.duration.*
 import scalalib.actor.AsyncActorSequencers
 import lila.study.MultiPgn
 
-final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.irc.IrcApi)(using
+final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.core.irc.IrcApi)(using
     ActorSystem,
     Executor,
     Scheduler

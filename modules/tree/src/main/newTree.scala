@@ -11,12 +11,13 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
 import chess.Color
 import play.api.libs.json.*
+import chess.json.Json.given
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
 case class Metas(
     ply: Ply,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     check: Check,
     // None when not computed yet
     dests: Option[Map[Square, Bitboard]] = None,

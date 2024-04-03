@@ -29,7 +29,7 @@ final class GifExport(
 
   def fromPov(
       pov: Pov,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       theme: String,
       piece: String
   ): Fu[Source[ByteString, ?]] =
@@ -119,7 +119,7 @@ final class GifExport(
         }
       case None => moveTimes.map(_.atMost(targetMaxTime))
 
-  private def frames(game: Game, initialFen: Option[Fen.Epd]) =
+  private def frames(game: Game, initialFen: Option[Fen.Full]) =
     Replay.gameMoveWhileValid(
       game.sans,
       initialFen | game.variant.initialFen,

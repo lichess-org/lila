@@ -36,7 +36,7 @@
     }
 
     > :first-child {
-      margin-#{$start-direction}: auto !important;
+      margin-inline-start: auto !important;
     }
   }
 
@@ -50,7 +50,7 @@
   }
 
   #{$index-tag} {
-    padding-#{$end-direction}: 0.15em;
+    padding-inline-end: 0.15em;
   }
 
   #{$move-tag} {
@@ -93,11 +93,11 @@
     }
 
     strong {
-      margin-#{$start-direction}: 0.5em;
+      margin-inline-start: 0.5em;
     }
 
     &::before {
-      margin-#{$end-direction}: 0.3em;
+      margin-inline-end: 0.3em;
     }
 
     body.zenable.zen & {

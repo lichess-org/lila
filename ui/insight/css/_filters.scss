@@ -16,14 +16,7 @@
 
     &.selected .ms-choice {
       $c-sel-ms-choice: fade-out($c-accent, 0.3);
-
-      background: linear-gradient(
-        to $end-direction,
-        $c-sel-ms-choice 0px,
-        $c-sel-ms-choice 5px,
-        rgba(0, 0, 0, 0) 5px,
-        rgba(0, 0, 0, 0) 100%
-      );
+      @include gradient-border($c-sel-ms-choice, to right, to left);
     }
 
     &:hover .ms-choice {
@@ -57,16 +50,16 @@
   }
 
   .ms-drop ul > li label input {
-    margin-#{$end-direction}: 5px;
+    margin-inline-end: 5px;
     cursor: pointer;
   }
 
   .ms-drop {
-    margin-#{$start-direction}: 99%;
+    margin-inline-start: 99%;
     @media (max-width: at-most($x-small)) {
-      margin-#{$start-direction}: 50%;
+      margin-inline-start: 50%;
     }
     top: 0;
-    #{$start-direction}: 0;
+    @include inline-start(0);
   }
 }

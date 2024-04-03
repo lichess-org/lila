@@ -22,8 +22,8 @@
 
     date {
       flex: 0 0 40px;
-      margin-#{$start-direction}: -55px;
-      margin-#{$end-direction}: 15px;
+      margin-inline-start: -55px;
+      margin-inline-end: 15px;
     }
 
     lanes {
@@ -114,7 +114,7 @@
 
     &.yesterday {
       text-align: right;
-      padding-#{$end-direction}: 5px;
+      padding-inline-end: 5px;
     }
 
     .icon {
@@ -124,7 +124,7 @@
 
     .body {
       flex: 1 0;
-      margin-#{$end-direction}: 0;
+      margin-inline-end: 0;
       overflow: hidden;
     }
   }
@@ -139,7 +139,7 @@
     position: absolute;
     display: inline;
     height: 100%;
-    border-#{$start-direction}: 1px dashed $c-border;
+    border-inline-start: 1px dashed $c-border;
     padding: 2px 5px;
 
     &:first-child {

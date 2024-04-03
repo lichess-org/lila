@@ -52,7 +52,7 @@ final class TournamentForm:
       waitMinutes = none,
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
-      position = tour.position.map(_.into(Fen.Epd)),
+      position = tour.position.map(_.into(Fen.Full)),
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
@@ -149,7 +149,7 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Option[Int],
     startDate: Option[Instant],
     variant: Option[String],
-    position: Option[Fen.Epd],
+    position: Option[Fen.Full],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],

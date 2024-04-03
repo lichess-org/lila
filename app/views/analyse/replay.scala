@@ -22,7 +22,7 @@ object replay:
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialFen: Option[chess.format.Fen.Epd],
+      initialFen: Option[chess.format.Fen.Full],
       pgn: PgnStr,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,

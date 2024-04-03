@@ -75,7 +75,7 @@ final class Env(
       api.ejectCheater(userId)
       ()
     },
-    "simulGetHosts" -> { case lila.core.actorApi.simul.GetHostIds(promise) =>
+    "simulGetHosts" -> { case lila.core.simul.GetHostIds(promise) =>
       promise.completeWith(api.currentHostIds)
     },
     "moveEventSimul" -> { case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>

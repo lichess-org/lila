@@ -7,7 +7,7 @@ trait OpenConfig:
   val clock: Option[chess.Clock.Config]
   val days: Option[Days]
   val rated: Boolean
-  val position: Option[chess.format.Fen.Epd]
+  val position: Option[chess.format.Fen.Full]
   val userIds: Option[PairOf[UserId]]
   val rules: Set[game.GameRule]
   val expiresAt: Option[Instant]

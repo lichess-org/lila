@@ -33,7 +33,7 @@ object StudyForm:
     case class Data(
         gameId: Option[GameId] = None,
         orientation: Option[ChapterMaker.Orientation] = None,
-        fen: Option[Fen.Epd] = None,
+        fen: Option[Fen.Full] = None,
         pgnStr: Option[PgnStr] = None,
         variant: Option[Variant] = None,
         asStr: Option[String] = None

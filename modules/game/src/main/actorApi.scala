@@ -26,7 +26,7 @@ private[game] case object NewCaptcha
 
 case class MoveGameEvent(
     game: Game,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     move: String
 )
 object MoveGameEvent:
@@ -49,3 +49,5 @@ object BoardGone:
   def makeChan(gameId: GameId) = s"boardGone:$gameId"
 
 case class NotifyRematch(newGame: Game)
+
+case class PerfsUpdate(game: Game, perfs: ByColor[(User, lila.user.UserPerfs)])

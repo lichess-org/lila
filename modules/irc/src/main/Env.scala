@@ -5,7 +5,7 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.{ Configuration, Mode }
 
 import lila.common.Lilakka
-import lila.core.actorApi.irc.Event
+import lila.core.irc.Event
 import lila.core.actorApi.plan.ChargeEvent
 
 @Module

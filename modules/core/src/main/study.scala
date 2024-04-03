@@ -20,3 +20,4 @@ trait StudyApi:
   def byId(id: StudyId): Fu[Option[Study]]
 
 case class StartStudy(studyId: StudyId)
+case class RemoveStudy(studyId: StudyId)

@@ -6,6 +6,7 @@ import lila.analyse.AnalysisRepo
 
 import lila.game.{ Game, UciMemo }
 import scalalib.actor.AsyncActorSequencer
+import lila.core.fishnet.SystemAnalysisRequest
 
 final class Analyser(
     repo: FishnetRepo,
@@ -24,6 +25,12 @@ final class Analyser(
     "fishnetAnalyser",
     lila.log.asyncActorMonitor
   )
+
+  val systemRequest: SystemAnalysisRequest = gameId =>
+    gameRepo.game(gameId).orFail(s"No game $gameId").flatMap {
+      apply(_, systemSender, ignoreConcurrentCheck = true).void
+    }
+  private val systemSender = Work.Sender(lila.user.User.lichessId, none, mod = false, system = true)
 
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
     (game.metadata.analysed.so(analysisRepo.exists(game.id.value))).flatMap {

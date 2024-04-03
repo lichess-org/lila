@@ -224,7 +224,7 @@ final class Setup(
     Ok.page(html.setup.filter(forms.filter))
 
   def validateFen = Open:
-    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).flatMap(ValidFen(getBool("strict"))) match
+    (get("fen").map(Fen.Full.clean): Option[Fen.Full]).flatMap(ValidFen(getBool("strict"))) match
       case None    => BadRequest
       case Some(v) => Ok.page(html.board.bits.miniSpan(v.fen.board, v.color))
 

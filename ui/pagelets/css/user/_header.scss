@@ -16,7 +16,7 @@
   .closed {
     color: $c-bad;
     font-weight: bold;
-    margin-#{$end-direction}: 1em;
+    margin-inline-end: 1em;
   }
 
   .line {

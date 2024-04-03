@@ -7,7 +7,7 @@
 
   &__list {
     display: grid;
-    margin-#{$start-direction}: var(--box-padding);
+    margin-inline-start: var(--box-padding);
     grid-template-columns: repeat(auto-fill, minmax(50ch, 1fr));
 
     @media (max-width: at-most($xx-small)) {
@@ -44,7 +44,7 @@
         display: none;
       }
 
-      padding-#{$start-direction}: 1em;
+      padding-inline-start: 1em;
     }
 
     > span {
@@ -64,7 +64,7 @@
 
         color: $c-font-dimmer;
         font-size: 0.8em;
-        margin-#{$start-direction}: 0.7ch;
+        margin-inline-start: 0.7ch;
         letter-spacing: -1px;
       }
     }

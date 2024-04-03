@@ -71,11 +71,11 @@
     &:hover {
       @extend %box-radius;
 
-      padding-#{$start-direction}: 3.2rem;
+      padding-inline-start: 3.2rem;
       background: mix($c-brag, $c-bg-page, 20%);
 
       &::before {
-        #{$start-direction}: 0.5rem;
+        @include inline-start(0.5rem);
       }
     }
   }
@@ -90,7 +90,7 @@
 
     position: absolute;
     top: 0.3rem;
-    #{$start-direction}: 0;
+    @include inline-start(0);
     font-size: 2.2em;
     opacity: 0.6;
     color: $c-brag;

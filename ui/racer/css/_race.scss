@@ -15,7 +15,7 @@ $c-bg-position-y: 2px;
   &__tracks {
     position: absolute;
     top: 0;
-    #{$start-direction}: 0;
+    @include inline-start(0);
   }
 
   &::before {
@@ -36,7 +36,17 @@ $c-bg-position-y: 2px;
       transform: translateX(0);
     }
     to {
-      transform: translateX(-101px * $transform-direction);
+      transform: translateX(-101px);
+    }
+  }
+  @include if-rtl {
+    @keyframes road-scroll {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(101px);
+      }
     }
   }
 
@@ -49,7 +59,7 @@ $c-bg-position-y: 2px;
     position: relative;
     height: $track-height;
     z-index: 1;
-    margin-#{$end-direction}: 140px;
+    margin-inline-end: 140px;
   }
 
   &__score {
@@ -60,7 +70,7 @@ $c-bg-position-y: 2px;
     justify-content: flex-end;
     position: absolute;
     top: 0;
-    #{$end-direction}: -140px;
+    @include inline-end(-140px);
     color: #bbb;
     width: 3.8ch;
     padding-right: 0.8ch;
@@ -88,7 +98,7 @@ $c-bg-position-y: 2px;
     transition: transform 4s;
 
     &__name {
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
       white-space: nowrap;
     }
 
@@ -100,11 +110,17 @@ $c-bg-position-y: 2px;
       font-size: $car-width;
       line-height: 0;
       text-shadow: -1px 1px 2px #000;
-      transform: scaleX($transform-direction) translateX(0px);
+      transform: translateX(0px);
+      @include if-rtl {
+        transform: scaleX(-1) translateX(0px);
+      }
       transition: all 0.9s ease-out;
 
       .racer__race__track--boost & {
-        transform: translateX(6px) scaleX(0.95 * $transform-direction) skewX(7deg) rotate(-3deg);
+        transform: translateX(6px) scaleX(0.95) skewX(7deg) rotate(-3deg);
+        @include if-rtl {
+          transform: translateX(6px) scaleX(-0.95) skewX(7deg) rotate(-3deg);
+        }
         transition: all 0.15s ease-out;
         &::before {
           content: 'A';

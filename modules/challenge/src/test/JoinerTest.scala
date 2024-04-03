@@ -25,7 +25,7 @@ final class JoinerTest extends munit.FunSuite:
     val position = "r1bqkbnr/ppp2ppp/2npp3/8/8/2NPP3/PPP2PPP/R1BQKBNR w KQkq - 2 4"
     val challenge = Challenge.make(
       variant = FromPosition,
-      initialFen = Some(chess.format.Fen.Epd(position)),
+      initialFen = Some(chess.format.Fen.Full(position)),
       timeControl = timeControl,
       mode = chess.Mode.Casual,
       color = "white",

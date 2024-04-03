@@ -93,7 +93,7 @@ object Swiss:
       nbRounds: Int,
       rated: Boolean,
       description: Option[String] = None,
-      position: Option[Fen.Epd],
+      position: Option[Fen.Full],
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
       conditions: SwissCondition.All,

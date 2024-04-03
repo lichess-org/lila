@@ -2,7 +2,7 @@ package lila.api
 
 import chess.ByColor
 import chess.format.pgn.Pgn
-import chess.format.{ EpdFen, Fen }
+import chess.format.Fen
 import play.api.i18n.Lang
 
 import lila.analyse.{ Analysis, Annotator }
@@ -23,7 +23,7 @@ final class PgnDump(
 
   def apply(
       game: Game,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       analysis: Option[Analysis],
       flags: WithFlags,
       teams: Option[GameTeams] = None,
@@ -47,12 +47,12 @@ final class PgnDump(
 
   def formatter(flags: WithFlags)(using
       Translate
-  ): (Game, Option[EpdFen], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Fu[
+  ): (Game, Option[Fen.Full], Option[Analysis], Option[ByColor[TeamId]], Option[RealPlayers]) => Fu[
     String
   ] =
     (
         game: Game,
-        initialFen: Option[Fen.Epd],
+        initialFen: Option[Fen.Full],
         analysis: Option[Analysis],
         teams: Option[GameTeams],
         realPlayers: Option[RealPlayers]

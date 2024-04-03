@@ -18,7 +18,7 @@ class JsonViewTest extends munit.FunSuite:
     Puzzle(
       id = PuzzleId("12345"),
       gameId = GameId("12345678"),
-      fen = Fen.Epd(fen),
+      fen = Fen.Full(fen),
       line = NonEmptyList.fromListUnsafe(ucis.split(' ').toList.map(Uci.Move.apply)).sequence.get,
       glicko = Glicko.default,
       plays = 1,

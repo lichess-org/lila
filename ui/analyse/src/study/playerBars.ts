@@ -43,13 +43,14 @@ function renderPlayer(
 ): VNode {
   const player = players?.[color],
     fideId = findTag(tags, `${color}fideid`),
+    team = findTag(tags, `${color}team`),
     rating = showRatings && player?.rating,
     result = resultOf(tags, color === 'white');
   return h(`div.study__player.study__player-${top ? 'top' : 'bot'}`, { class: { ticking } }, [
     h('div.left', [
       result && h('span.result', result),
       h('span.info', [
-        player?.team && h('span.team', player.team),
+        team ? h('span.team', team) : undefined,
         playerFed(player?.fed),
         player && userTitle(player),
         player &&

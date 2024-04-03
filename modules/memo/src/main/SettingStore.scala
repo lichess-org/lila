@@ -7,7 +7,7 @@ import reactivemongo.api.bson.BSONHandler
 import lila.db.dsl.*
 import play.api.data.*, Forms.*
 import lila.core.{ Ints, Strings, UserIds, config }
-import lila.common.Iso
+import scalalib.Iso
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
@@ -74,7 +74,7 @@ object SettingStore:
   private type HostOption = Option[lila.core.config.HostPort]
 
   object Strings:
-    val stringsIso              = Iso.strings(",")
+    val stringsIso              = lila.common.Iso.strings(",")
     given BSONHandler[Strings]  = lila.db.dsl.isoHandler(using stringsIso)
     given StringReader[Strings] = StringReader.fromIso(using stringsIso)
   object UserIds:
@@ -85,7 +85,7 @@ object SettingStore:
     given BSONHandler[UserIds]  = lila.db.dsl.isoHandler(using userIdsIso)
     given StringReader[UserIds] = StringReader.fromIso(using userIdsIso)
   object Ints:
-    val intsIso              = Iso.ints(",")
+    val intsIso              = lila.common.Iso.ints(",")
     given BSONHandler[Ints]  = lila.db.dsl.isoHandler(using intsIso)
     given StringReader[Ints] = StringReader.fromIso(using intsIso)
   object Regex:

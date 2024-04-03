@@ -107,7 +107,7 @@ object TvBroadcast:
   type SourceType = Source[JsValue, ?]
   type Queue      = SourceQueueWithComplete[JsValue]
 
-  case class Featured(id: GameId, data: JsObject, fen: Fen.Epd):
+  case class Featured(id: GameId, data: JsObject, fen: Fen.Full):
     def dataWithFen = data ++ Json.obj("fen" -> fen)
     def socketMsg   = makeMessage("featured", dataWithFen)
 

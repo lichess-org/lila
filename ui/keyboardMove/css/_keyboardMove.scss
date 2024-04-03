@@ -6,7 +6,7 @@
     width: 4.5em;
     font-size: 1.1em;
     font-weight: bold;
-    margin-#{$end-direction}: 1rem;
+    margin-inline-end: 1rem;
     border: $border;
 
     @include transition;
@@ -25,11 +25,11 @@
 .keyboard-move-help {
   td.tips li {
     list-style: disc;
-    margin-#{$start-direction}: 2em;
-    margin-#{$end-direction}: 1em;
+    margin-inline-start: 2em;
+    margin-inline-end: 1em;
   }
 
   a {
-    margin-#{$start-direction}: 0.25em;
+    margin-inline-start: 0.25em;
   }
 }

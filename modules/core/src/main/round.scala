@@ -19,7 +19,7 @@ case object QuietFlag
 
 case class MoveEvent(
     gameId: GameId,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     move: String
 )
 case class CorresMoveEvent(

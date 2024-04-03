@@ -7,12 +7,6 @@ import play.api.libs.json.*
 
 import java.time.Duration
 
-enum LpvEmbed:
-  case PublicPgn(pgn: PgnStr)
-  case PrivateStudy
-
-type LinkRender = (String, String) => Option[scalatags.Text.Frag]
-
 // announce something to all clients
 case class Announce(msg: String, date: Instant, json: JsObject)
 
@@ -57,9 +51,6 @@ package security:
   case class CloseAccount(userId: UserId)
   case class DeletePublicChats(userId: UserId)
 
-package msg:
-  case class SystemMsg(userId: UserId, text: String)
-
 package puzzle:
   case class StormRun(userId: UserId, score: Int)
   case class RacerRun(userId: UserId, score: Int)
@@ -70,12 +61,12 @@ package playban:
   case class RageSitClose(userId: UserId)
 
 package lpv:
+  enum LpvEmbed:
+    case PublicPgn(pgn: PgnStr)
+    case PrivateStudy
+  type LinkRender = (String, String) => Option[scalatags.Text.Frag]
   case class AllPgnsFromText(text: String, promise: Promise[Map[String, LpvEmbed]])
   case class LpvLinkRenderFromText(text: String, promise: Promise[LinkRender])
-
-package simul:
-  case class GetHostIds(promise: Promise[Set[UserId]])
-  case class PlayerMove(gameId: GameId)
 
 package mailer:
   case class CorrespondenceOpponent(
@@ -85,28 +76,12 @@ package mailer:
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
 
-package irc:
-  enum Event:
-    case Error(msg: String)
-    case Warning(msg: String)
-    case Info(msg: String)
-    case Victory(msg: String)
-
 package notify:
   case class NotifiedBatch(userIds: Iterable[UserId])
 
 package evaluation:
   case class AutoCheck(userId: UserId)
   case class Refresh(userId: UserId)
-
-package relation:
-  case class Block(u1: UserId, u2: UserId)
-  case class UnBlock(u1: UserId, u2: UserId)
-  case class Follow(u1: UserId, u2: UserId)
-  case class UnFollow(u1: UserId, u2: UserId)
-
-package study:
-  case class RemoveStudy(studyId: StudyId)
 
 package plan:
   case class ChargeEvent(username: UserName, cents: Int, percent: Int, date: Instant)

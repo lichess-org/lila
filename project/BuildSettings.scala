@@ -22,12 +22,11 @@ object BuildSettings {
     )
 
   lazy val defaultLibs: Seq[ModuleID] =
-    akka.bundle ++ macwire.bundle ++ Seq(
+    akka.bundle ++ macwire.bundle ++ scalalib.bundle ++ Seq(
       cats,
       alleycats,
       play.api,
-      chess,
-      scalalib,
+      chess.core,
       kittens
     )
 
@@ -55,7 +54,7 @@ object BuildSettings {
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-release:21",
+    "-release:21"
     // "-Wunused:all",
   )
 

@@ -142,7 +142,7 @@ object bits:
   )(using Context) =
     views.html.game.side(
       pov,
-      (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Epd],
+      (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Full],
       tour,
       simul = simul,
       userTv = userTv,

@@ -34,8 +34,6 @@ trait I18nHelper:
 
   def shortLangName(str: String) = langName(str).takeWhile(','.!=)
 
-  def isRTL(using lang: Lang) = lila.i18n.LangList.isRTL(lang)
-
   def langHref(call: Call)(using Context): String = langHref(call.url)
   def langHref(path: String)(using ctx: Context): String =
     if ctx.isAuth || ctx.lang.language == "en"

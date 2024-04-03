@@ -37,4 +37,4 @@ private object Mappings:
   val speed       = number.verifying(Config.speeds contains _)
   val fenField = optional:
     import lila.common.Form.fen.{ mapping, truncateMoveNumber }
-    mapping.transform[Fen.Epd](truncateMoveNumber, identity)
+    mapping.transform[Fen.Full](truncateMoveNumber, identity)

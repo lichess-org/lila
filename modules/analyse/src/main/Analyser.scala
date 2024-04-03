@@ -1,5 +1,7 @@
 package lila.analyse
 
+import play.api.libs.json.*
+
 import lila.common.Bus
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }
@@ -42,12 +44,7 @@ final class Analyser(
           Bus.publish(
             TellIfExists(
               id.value,
-              actorApi.AnalysisProgress(
-                analysis = analysis,
-                game = g.game,
-                variant = g.game.variant,
-                initialFen = g.fen | g.game.variant.initialFen
-              )
+              () => makeProgressPayload(analysis, g.game, g.fen | g.game.variant.initialFen)
             ),
             "roundSocket"
           )
@@ -55,3 +52,14 @@ final class Analyser(
       case _ =>
         fuccess:
           Bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
+
+  private def makeProgressPayload(
+      analysis: Analysis,
+      game: Game,
+      initialFen: chess.format.Fen.Full
+  ): JsObject =
+    Json.obj(
+      "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
+      "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
+        lila.tree.TreeBuilder(game, analysis.some, initialFen, lila.tree.ExportOptions.default)
+    )

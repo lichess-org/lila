@@ -129,8 +129,8 @@ final class UserApi(
                   as.isDefined.so:
                     Json.obj(
                       "followable" -> followable,
-                      "following"  -> relation.has(true),
-                      "blocking"   -> relation.has(false),
+                      "following"  -> relation.exists(_.isFollow),
+                      "blocking"   -> relation.exists(!_.isFollow),
                       "followsYou" -> isFollowed
                     )
               }.noNull

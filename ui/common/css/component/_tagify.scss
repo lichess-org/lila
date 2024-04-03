@@ -196,7 +196,7 @@
 
       &:empty {
         &::after {
-          margin-#{$start-direction}: 0;
+          @include inline-start(0);
         }
       }
     }
@@ -207,7 +207,7 @@
   + input,
   + textarea {
     position: absolute !important;
-    #{$start-direction}: -9999em !important;
+    left: -9999em !important;
     transform: scale(0) !important;
   }
 
@@ -263,9 +263,9 @@
         content: '';
         position: absolute;
         border-radius: inherit;
-        #{$start-direction}: 0;
+        left: 0;
+        right: 0;
         top: 0;
-        #{$end-direction}: 0;
         bottom: 0;
         z-index: -1;
         pointer-events: none;
@@ -282,11 +282,10 @@
         &::before {
           $size: -$tagMargin / 2;
           $size: -2px;
-
           top: $size;
-          #{$end-direction}: $size;
+          left: $size;
           bottom: $size;
-          #{$start-direction}: $size;
+          right: $size;
           box-shadow: 0 0 0 $tag-inset-shadow-size $tag-hover inset;
           box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-hover, $tag-hover)
             inset;
@@ -316,10 +315,10 @@
 
     &--hide {
       width: 0 !important;
-      padding-#{$start-direction}: 0;
-      padding-#{$end-direction}: 0;
-      margin-#{$start-direction}: 0;
-      margin-#{$end-direction}: 0;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 0;
+      margin-right: 0;
       opacity: 0;
       transform: scale(0);
       transition: $tag-hide-transition;
@@ -414,8 +413,8 @@
 
       width: $size;
       height: $size;
-      margin-#{$end-direction}: $size / 3;
-      margin-#{$start-direction}: auto;
+      margin-inline-end: $size / 3;
+      margin-inline-start: auto;
 
       overflow: hidden;
       transition: 0.2s ease-out;
@@ -626,7 +625,7 @@
       opacity: 0.5;
       position: absolute;
       top: 50%;
-      #{$end-direction}: 0;
+      @include inline-end(0);
       bottom: 0;
       font: $size monospace;
       line-height: $size / 2;
@@ -645,7 +644,7 @@
     #{$self}__tag {
       position: absolute;
       top: 0;
-      #{$end-direction}: 1.8em;
+      @include inline-end(1.8em);
       bottom: 0;
 
       div {

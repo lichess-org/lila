@@ -17,8 +17,8 @@ final class ReportApi(
     autoAnalysis: AutoAnalysis,
     securityApi: lila.security.SecurityApi,
     userLoginsApi: lila.security.UserLoginsApi,
-    playbanApi: () => lila.playban.PlaybanApi,
-    ircApi: lila.irc.IrcApi,
+    playbansOf: () => lila.core.playban.BansOf,
+    ircApi: lila.core.irc.IrcApi,
     isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
@@ -66,7 +66,7 @@ final class ReportApi(
             if report.isRecentComm &&
               report.score.value >= thresholds.discord() &&
               prev.exists(_.score.value < thresholds.discord())
-            then ircApi.commReportBurst(c.suspect.user)
+            then ircApi.commReportBurst(c.suspect.user.light)
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate).andDo:
                 if report.isCheat then
@@ -189,8 +189,7 @@ final class ReportApi(
 
   def maybeAutoPlaybanReport(userId: UserId, minutes: Int): Funit =
     (minutes > 60 * 24).so(userLoginsApi.getUserIdsWithSameIpAndPrint(userId)).flatMap { ids =>
-      playbanApi()
-        .bans(userId :: ids.toList)
+      playbansOf()(userId :: ids.toList)
         .map:
           _.filter { (_, bans) => bans > 4 }
         .flatMap: bans =>

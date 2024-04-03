@@ -1,6 +1,6 @@
 package lila.pool
 
-import lila.playban.RageSit
+import lila.core.playban.RageSit
 import lila.core.rating.RatingRange
 import lila.core.pool.{ PoolMember, Joiner }
 
@@ -22,5 +22,5 @@ object PoolMember:
       rating = joiner.rating,
       ratingRange = joiner.ratingRange,
       blocking = joiner.blocking,
-      rageSitCounter = rageSit.counter / 10
+      rageSitCounter = rageSit.counterView
     )

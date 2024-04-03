@@ -4,7 +4,7 @@ import play.api.data.Form
 import play.api.data.Forms.{ single, text }
 import reactivemongo.api.bson.BSONHandler
 
-import lila.common.Iso
+import scalalib.Iso
 import lila.memo.SettingStore.{ Formable, StringReader }
 import lila.core.Ints
 
@@ -16,7 +16,7 @@ private object ReportThresholds:
 
   private val defaultScoreThresholds = ScoreThresholds(40, 50)
 
-  given iso: Iso.StringIso[ScoreThresholds] = Iso
+  given iso: Iso.StringIso[ScoreThresholds] = lila.common.Iso
     .ints(",")
     .map[ScoreThresholds](
       {

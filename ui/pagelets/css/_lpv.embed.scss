@@ -11,8 +11,8 @@ body {
 
   position: fixed;
   top: 0;
-  #{$start-direction}: 0;
-  #{$end-direction}: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
   justify-content: center;
   height: 100%;

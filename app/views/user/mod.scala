@@ -13,7 +13,7 @@ import lila.core.EmailAddress
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
-import lila.playban.RageSit
+import lila.core.playban.RageSit
 import lila.security.{ Dated, Granter, Permission, UserAgentParser, UserClient, UserLogins }
 import lila.user.{ Me, User }
 

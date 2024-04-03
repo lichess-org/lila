@@ -1,18 +1,19 @@
 package lila.irc
 
 import lila.core.LightUser
-import lila.core.actorApi.irc.*
+import lila.core.irc.*
 import lila.user.{ Me, User }
 
 final class IrcApi(
     zulip: ZulipClient,
     noteApi: lila.user.NoteApi
-)(using lightUser: LightUser.Getter, ec: Executor):
+)(using lightUser: LightUser.Getter, ec: Executor)
+    extends lila.core.irc.IrcApi:
 
   import IrcApi.*
 
-  def commReportBurst(user: User): Funit =
-    val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.username}")
+  def commReportBurst(user: LightUser): Funit =
+    val md = markdown.linkifyUsers(s"Burst of comm reports about @${user.name}")
     zulip(_.mod.commsPrivate, "burst")(md)
 
   def inquiry(user: User, domain: ModDomain, room: String)(using mod: Me): Funit =
@@ -92,14 +93,14 @@ final class IrcApi(
     zulip(_.broadcast, "lila error log")(s"${markdown.broadcastLink(id, name)} $error")
 
   def ublogPost(
-      user: User,
+      user: LightUser,
       id: UblogPostId,
       slug: String,
       title: String,
       intro: String
   ): Funit =
     zulip(_.blog, "non-tiered new posts"):
-      val link = markdown.lichessLink(s"/@/${user.username}/blog/$slug/$id", title)
+      val link = markdown.lichessLink(s"/@/${user.name}/blog/$slug/$id", title)
       s":note: $link $intro - by ${markdown.userLink(user)}"
 
   def broadcastStart(id: RelayRoundId, fullName: String): Funit =
@@ -171,9 +172,6 @@ final class IrcApi(
 
 object IrcApi:
 
-  enum ModDomain:
-    case Admin, Cheat, Boost, Comm, Other
-
   private val userRegex = lila.common.String.atUsernameRegex.pattern
   private val postRegex = lila.common.String.forumPostPathRegex.pattern
 
@@ -181,7 +179,8 @@ object IrcApi:
     def link(url: String, name: String)             = s"[$name]($url)"
     def lichessLink[N: Show](path: String, name: N) = show"[$name](https://lichess.org$path)"
     def userLink(name: UserName): String            = lichessLink(s"/@/$name?mod&notes", name.value)
-    def userLink(user: User): String                = userLink(user.username)
+    def userLink(user: LightUser): String           = userLink(user.name)
+    def userLink(user: User): String                = userLink(user.light)
     def userLinkNoNotes(name: UserName): String     = lichessLink(s"/@/$name?mod", name.value)
     def userIdLinks(ids: List[UserId]): String =
       UserName.from[List, UserId](ids).map(markdown.userLink).mkString(", ")

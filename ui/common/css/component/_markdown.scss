@@ -26,7 +26,7 @@
     ol,
     ul {
       margin: $element-margin 0;
-      padding-#{$start-direction}: 2em;
+      padding-inline-start: 2em;
     }
 
     li ol,
@@ -139,8 +139,8 @@
 @mixin rendered-markdown--quote {
   blockquote {
     color: $c-font-dim;
-    border-#{$start-direction}: 0.3em solid $c-font-dimmer;
-    padding-#{$start-direction}: 1em;
+    border-inline-start: 0.3em solid $c-font-dimmer;
+    padding-inline-start: 1em;
   }
 }
 

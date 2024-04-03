@@ -9,7 +9,7 @@
     // i {
     //   flex: 0 0 auto;
     //   font-size: 4.5em;
-    //   margin-#{$end-direction}: .5em;
+    //   margin-inline-end: .5em;
     // }
 
     h1 {
@@ -25,10 +25,10 @@
 
     .mselect {
       display: inline-block;
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
       font-size: 2em;
 
-      &__list > * {
+      &__item {
         font-size: 1.3rem;
         padding: 0.3em 1em 0.3em 0.7em;
       }
@@ -90,10 +90,12 @@
       $c-fix: mix($c-good, $c-darken, 50%);
       $c-fail: mix($c-bad, $c-darken, 80%);
 
+      color: $c-good-over;
+
       background:
         #{$glow-gradient},
         linear-gradient(
-          to $end-direction,
+          to right,
           $c-first 0%,
           $c-first var(--first),
           $c-fix var(--first),
@@ -101,7 +103,20 @@
           $c-fail var(--win),
           $c-fail 100%
         );
-      color: $c-good-over;
+
+      @include if-rtl {
+        background:
+          #{$glow-gradient},
+          linear-gradient(
+            to left,
+            $c-first 0%,
+            $c-first var(--first),
+            $c-fix var(--first),
+            $c-fix var(--win),
+            $c-fail var(--win),
+            $c-fail 100%
+          );
+      }
     }
 
     &--perf {
@@ -199,7 +214,7 @@
 
     &__meta {
       flex: 1 1 40%;
-      margin-#{$end-direction}: 3vw;
+      margin-inline-end: 3vw;
     }
 
     &__name {
@@ -219,7 +234,7 @@
     .puzzle-dashboard__metric--fix {
       i {
         font-size: 1.6em;
-        margin-#{$start-direction}: 0.3em;
+        margin-inline-start: 0.3em;
       }
     }
   }

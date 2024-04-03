@@ -183,7 +183,7 @@ object communication:
                     strong(userLink(modConvo.contact)),
                     showSbMark(modConvo.contact),
                     modConvo.relations.in
-                      .has(Follow)
+                      .exists(_.isFollow)
                       .option(
                         span(cls := "friend_title")(
                           "is following this user",

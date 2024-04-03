@@ -76,7 +76,7 @@ final class Export(env: Env) extends LilaController(env):
       theme: Option[String],
       piece: Option[String]
   ) =
-    exportImageOf(fuccess(Fen.read(Variant.orDefault(variant), Fen.Epd.clean(fen)))) { situation =>
+    exportImageOf(fuccess(Fen.read(Variant.orDefault(variant), Fen.Full.clean(fen)))) { situation =>
       env.game.gifExport
         .thumbnail(
           situation = situation,
