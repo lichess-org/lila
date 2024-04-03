@@ -10,7 +10,6 @@ import lila.core.user.{ UserMark, UserMarks, UserEnabled }
 import lila.core.i18n.Language
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.PerfKey
-import lila.user.UserMarkExtensions.*
 
 case class User(
     id: UserId,
@@ -335,7 +334,7 @@ object User:
         plan       -> o.plan.nonEmpty,
         totpSecret -> o.totpSecret,
         flair      -> o.flair,
-        marks      -> o.marks.nonEmpty
+        marks      -> o.marks.value.nonEmpty.option(o.marks)
       )
 
   given BSONDocumentHandler[Speaker] = Macros.handler[Speaker]

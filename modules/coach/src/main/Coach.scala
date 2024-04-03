@@ -1,7 +1,6 @@
 package lila.coach
 
 import lila.memo.PicfitImage
-import lila.user.UserMarkExtensions.*
 
 case class Coach(
     _id: Coach.Id, // user ID

@@ -1,7 +1,6 @@
 package lila.security
 
 import lila.user.{ Me, User }
-import lila.user.UserMarkExtensions.*
 
 object Granter:
 

@@ -8,6 +8,8 @@ import lila.security.{ Granter, Permission }
 import lila.user.{ LightUserApi, Me, User, UserRepo, modId, given }
 import lila.core.report.SuspectId
 import lila.core.EmailAddress
+import lila.core.user.UserMarks
+import lila.core.user.UserMark
 
 final class ModApi(
     userRepo: UserRepo,
@@ -19,6 +21,11 @@ final class ModApi(
     refunder: RatingRefund
 )(using Executor)
     extends lila.core.mod.ModApi:
+
+  extension (a: UserMarks)
+    def set(sel: UserMark.type => UserMark, v: Boolean) = UserMarks:
+      if v then sel(UserMark) :: a.value
+      else a.value.filter(sel(UserMark) !=)
 
   def setAlt(prev: Suspect, v: Boolean)(using me: Me.Id): Funit =
     for

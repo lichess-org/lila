@@ -54,8 +54,8 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       appeals                          <- env.appeal.api.myQueue(filter)
       inquiries                        <- env.report.api.inquiries.allBySuspect
       ((scores, streamers), nbAppeals) <- reportC.getScores
-      _ = env.user.lightUserApi.preloadUsers(appeals.map(_.user))
-      markedByMap <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
+      _                                <- env.user.lightUserApi.preloadMany(appeals.map(_.user.id))
+      markedByMap                      <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
       page <- renderPage(
         html.appeal.queue(appeals, inquiries, filter, markedByMap, scores, streamers, nbAppeals)
       )

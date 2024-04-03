@@ -3,7 +3,6 @@ package lila.chat
 import reactivemongo.api.bson.BSONDocumentHandler
 
 import lila.user.{ Me, User }
-import lila.user.UserMarkExtensions.*
 
 sealed trait AnyChat:
   def id: ChatId

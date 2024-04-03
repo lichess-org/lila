@@ -17,7 +17,6 @@ import lila.core.team.LightTeam
 import lila.core.round.{ AbortForce, GoBerserk }
 import lila.tournament.TeamBattle.TeamInfo
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
-import lila.user.UserMarkExtensions.*
 import lila.core.tournament.Status
 
 final class TournamentApi(

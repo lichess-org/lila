@@ -11,7 +11,6 @@ import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.LightUser
 import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
-import lila.user.UserMarkExtensions.*
 
 final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 

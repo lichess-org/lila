@@ -937,7 +937,7 @@ object mod:
       }
     )(reportScore(r.score), " ", strong(r.reason.name))
 
-  def userMarks(o: User, playbans: Option[Int]) =
+  def userMarks(o: lila.core.user.User, playbans: Option[Int]) =
     div(cls := "user_marks")(
       playbans.map: nb =>
         playban(nb),

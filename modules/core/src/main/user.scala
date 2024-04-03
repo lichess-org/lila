@@ -57,7 +57,19 @@ object UserMark:
   val bannable: Set[UserMark]      = Set(boost, engine, troll, alt)
 
 opaque type UserMarks = List[UserMark]
-object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]
+object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
+  extension (a: UserMarks)
+    def hasMark(mark: UserMark): Boolean = a.value contains mark
+    def dirty                            = a.value.exists(UserMark.bannable.contains)
+    def clean                            = !a.dirty
+    def boost: Boolean                   = hasMark(UserMark.boost)
+    def engine: Boolean                  = hasMark(UserMark.engine)
+    def troll: Boolean                   = hasMark(UserMark.troll)
+    def reportban: Boolean               = hasMark(UserMark.reportban)
+    def rankban: Boolean                 = hasMark(UserMark.rankban)
+    def prizeban: Boolean                = hasMark(UserMark.prizeBan)
+    def arenaBan: Boolean                = hasMark(UserMark.arenaBan)
+    def alt: Boolean                     = hasMark(UserMark.alt)
 
 abstract class UserRepo(val coll: reactivemongo.api.bson.collection.BSONCollection)
 

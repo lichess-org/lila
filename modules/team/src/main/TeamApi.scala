@@ -14,7 +14,6 @@ import lila.core.{ timeline as tl }
 import lila.memo.CacheApi.*
 import lila.security.Granter
 import lila.user.{ Me, User, UserApi, UserRepo, given }
-import lila.user.UserMarkExtensions.*
 import lila.core.user.MyId
 import lila.core.team.*
 
