@@ -10,8 +10,6 @@ import scala.concurrent.{ ExecutionContext as EC }
 import scala.util.Try
 import scala.util.matching.Regex
 import scalalib.future.FutureAfter
-import scalalib.future.given
-import scalalib.future.extensions.*
 
 trait LilaLibraryExtensions extends LilaTypes:
 
@@ -36,19 +34,6 @@ trait LilaLibraryExtensions extends LilaTypes:
     def soFu[B](f: => Future[B]): Future[Option[B]] =
       if self then f.map(Some(_))(scala.concurrent.ExecutionContext.parasitic)
       else Future.successful(None)
-
-  extension (s: String)
-
-    def replaceIf(t: Char, r: Char): String =
-      if s.indexOf(t.toInt) >= 0 then s.replace(t, r) else s
-
-    def replaceIf(t: Char, r: CharSequence): String =
-      if s.indexOf(t.toInt) >= 0 then s.replace(String.valueOf(t), r) else s
-
-    def replaceIf(t: CharSequence, r: CharSequence): String =
-      if s.contains(t) then s.replace(t, r) else s
-
-    def replaceAllIn(regex: Regex, replacement: String) = regex.replaceAllIn(s, replacement)
 
   extension (config: Config)
     def millis(name: String): Int              = config.getDuration(name, TimeUnit.MILLISECONDS).toInt
@@ -124,9 +109,6 @@ trait LilaLibraryExtensions extends LilaTypes:
         e => pprint.pprintln(s"[$msg] [failure] $e"),
         a => pprint.pprintln(s"[$msg] [success] $a")
       )
-
-    // def delay(duration: FiniteDuration)(using Executor, Scheduler) =
-    //   lila.common.LilaFuture.delay(duration)(fua)
 
   extension (fua: Fu[Boolean])
 

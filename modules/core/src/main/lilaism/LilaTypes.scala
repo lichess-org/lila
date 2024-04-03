@@ -21,8 +21,3 @@ trait LilaTypes:
   val funit                          = Future.unit
   val fuTrue                         = fuccess(true)
   val fuFalse                        = fuccess(false)
-
-  given Zero[JsObject] with
-    def zero = JsObject(Seq.empty)
-
-  given [A](using sr: SameRuntime[Boolean, A]): Zero[A] = Zero(sr(false))
