@@ -276,7 +276,7 @@ final class Challenge(
     import play.api.data.Forms.*
     Found(api.byId(id)): c =>
       if isMine(c) then
-        Form(single("username" -> lila.user.UserForm.historicalUsernameField))
+        Form(single("username" -> lila.common.Form.username.historicalField))
           .bindFromRequest()
           .fold(
             _ => NoContent,

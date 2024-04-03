@@ -27,6 +27,8 @@ trait LilaUserId:
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
     given UserIdOf[UserName] = n => UserId(n.value.toLowerCase)
+    // what existing usernames are like
+    val historicalRegex = "(?i)[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]".r
 
   // maybe an Id, maybe a Name... something that's probably cased wrong
   opaque type UserStr = String

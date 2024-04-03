@@ -110,7 +110,7 @@ lazy val i18n = module("i18n",
 )
 
 lazy val cms = module("cms",
-  Seq(user),
+  Seq(memo),
   reactivemongo.bundle
 )
 
@@ -150,7 +150,7 @@ lazy val coordinate = module("coordinate",
 )
 
 lazy val feed = module("feed",
-  Seq(user),
+  Seq(memo),
   reactivemongo.bundle
 )
 
@@ -200,7 +200,7 @@ lazy val timeline = module("timeline",
 )
 
 lazy val event = module("event",
-  Seq(user),
+  Seq(memo),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 

@@ -230,8 +230,6 @@ object User:
     def nonEmptyTvDuration = (tv > 0).option(tvDuration)
   given BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
 
-  // what existing usernames are like
-  val historicalUsernameRegex = "(?i)[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]".r
   // what new usernames should be like -- now split into further parts for clearer error messages
   val newUsernameRegex   = "(?i)[a-z][a-z0-9_-]{0,28}[a-z0-9]".r
   val newUsernamePrefix  = "(?i)^[a-z].*".r
@@ -239,7 +237,8 @@ object User:
   val newUsernameChars   = "(?i)^[a-z0-9_-]*$".r
   val newUsernameLetters = "(?i)^([a-z0-9][_-]?)+$".r
 
-  def couldBeUsername(str: UserStr) = noGhost(str.id) && historicalUsernameRegex.matches(str.value)
+  def couldBeUsername(str: UserStr) =
+    noGhost(str.id) && lila.core.UserName.historicalRegex.matches(str.value)
 
   def validateId(str: UserStr): Option[UserId] = couldBeUsername(str).option(str.id)
 

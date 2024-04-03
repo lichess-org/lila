@@ -158,7 +158,7 @@ object EmailConfirm:
     import play.api.data.Forms.*
 
     val helpForm = Form(
-      single("username" -> lila.user.UserForm.historicalUsernameField)
+      single("username" -> lila.common.Form.username.historicalField)
     )
 
     def getStatus(userApi: UserApi, userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =

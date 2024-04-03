@@ -20,7 +20,7 @@ final private[report] class ReportForm(
 
   def create(using me: Me) = Form:
     mapping(
-      "username" -> lila.user.UserForm.historicalUsernameField
+      "username" -> lila.common.Form.username.historicalField
         .verifying("Unknown username", { blockingFetchUser(_).isDefined })
         .verifying(
           "You cannot report yourself",
@@ -43,7 +43,7 @@ final private[report] class ReportForm(
 
   val flag = Form:
     mapping(
-      "username" -> lila.user.UserForm.historicalUsernameField,
+      "username" -> lila.common.Form.username.historicalField,
       "resource" -> nonEmptyText,
       "text"     -> text(minLength = 3, maxLength = 140)
     )(ReportFlag.apply)(unapply)

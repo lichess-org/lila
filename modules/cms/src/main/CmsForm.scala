@@ -5,7 +5,6 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraints
 
 import lila.common.Form.{ cleanNonEmptyText, cleanTextWithSymbols, into, slugConstraint }
-import lila.user.User
 import lila.core.i18n.{ LangList, Language }
 
 final class CmsForm(langList: LangList):
@@ -42,7 +41,7 @@ object CmsForm:
       live: Boolean,
       canonicalPath: Option[String]
   ):
-    def create(user: User) =
+    def create(user: UserId) =
       CmsPage(
         id = CmsPage.Id.random,
         key = key,
@@ -52,7 +51,7 @@ object CmsForm:
         live = live,
         canonicalPath = canonicalPath,
         at = nowInstant,
-        by = user.id
+        by = user
       )
 
-    def update(prev: CmsPage, user: User) = create(user).copy(id = prev.id)
+    def update(prev: CmsPage, user: UserId) = create(user).copy(id = prev.id)

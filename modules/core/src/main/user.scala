@@ -35,3 +35,6 @@ case class Count(
     win: Int,
     winH: Int // only against human opponents
 )
+
+trait FlairApi:
+  def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]]

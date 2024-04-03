@@ -59,7 +59,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
 
     def addLeader(t: Team.WithLeaders)(using Me): Form[UserStr] = Form:
       single:
-        "name" -> lila.user.UserForm.historicalUsernameField
+        "name" -> lila.common.Form.username.historicalField
           .verifying(
             s"No more than ${Team.maxLeaders} leaders, please",
             _ => t.leaders.sizeIs < Team.maxLeaders
@@ -78,7 +78,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
           )
 
     private val permissionsForm = mapping(
-      "name" -> lila.user.UserForm.historicalUsernameField,
+      "name" -> lila.common.Form.username.historicalField,
       "perms" -> seq(nonEmptyText)
         .transform[Set[Permission]](
           _.flatMap(Permission.byKey.get).toSet,
