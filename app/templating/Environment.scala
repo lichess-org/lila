@@ -25,6 +25,7 @@ object Environment
 
   export lila.core.lilaism.Lilaism.{ *, given }
   export lila.common.extensions.*
+  export lila.user.UserMarkExtensions.*
   export lila.api.Context.{ *, given }
   export lila.api.{ PageData, Nonce }
   export lila.user.Me
