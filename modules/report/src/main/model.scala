@@ -19,7 +19,7 @@ case class Reporter(user: User) extends AnyVal:
 
 opaque type ReporterId = String
 object ReporterId extends OpaqueUserId[ReporterId]:
-  def lichess = User.lichessId.into(ReporterId)
+  def lichess = UserId.lichess.into(ReporterId)
   def irwin   = User.irwinId.into(ReporterId)
   def kaladin = User.kaladinId.into(ReporterId)
 

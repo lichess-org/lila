@@ -87,7 +87,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       yield xx -> yy
     }
 
-  def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(User.lichessId, id)
+  def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(UserId.lichess, id)
 
   def byOrderedIds(ids: Seq[UserId], readPref: ReadPref): Fu[List[User]] =
     coll.byOrderedIds[User, UserId](ids, readPref = readPref)(_.id)
@@ -120,7 +120,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def usernamesByIds(ids: List[UserId]) =
     coll.distinctEasy[UserName, List](F.username, $inIds(ids), _.sec)
 
-  def createdAtById(id: UserId) =
+  def createdAtById(id: UserId): Fu[Option[Instant]] =
     coll.primitiveOne[Instant]($id(id), F.createdAt)
 
   def orderByGameCount(u1: UserId, u2: UserId): Fu[Option[(UserId, UserId)]] =
@@ -163,7 +163,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         $inc(F.colorIt -> value)
       )
 
-  def lichess = byId(User.lichessId)
+  def lichess = byId(UserId.lichess)
   def irwin   = byId(User.irwinId)
   def kaladin = byId(User.kaladinId)
 

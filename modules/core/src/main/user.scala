@@ -65,6 +65,9 @@ trait UserApi:
   def emailOrPrevious(id: UserId): Fu[Option[EmailAddress]]
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
   def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]]
+  def createdAtById(id: UserId): Fu[Option[Instant]]
+  def isEnabled(id: UserId): Fu[Boolean]
+  def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]]
 
 trait LightUserApiMinimal:
   def async: LightUser.Getter

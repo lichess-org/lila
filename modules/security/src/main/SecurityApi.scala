@@ -82,7 +82,7 @@ final class SecurityApi(
       .match
         case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
         case None        => User.validateId(str.into(UserStr)).so(authenticator.loginCandidateById)
-      .map(_.filter(_.user.isnt(User.lichessId)))
+      .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
           must2fa(req).map:

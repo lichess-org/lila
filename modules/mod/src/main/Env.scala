@@ -89,7 +89,7 @@ final class Env(
                   api.autoMark(
                     SuspectId(userId),
                     s"Cheat detected during game, ${count} times"
-                  )(using User.lichessIdAsMe)
+                  )(using UserId.lichessAsMe)
                 else reportApi.autoCheatDetectedReport(userId, count)
               }
             }
@@ -101,10 +101,10 @@ final class Env(
       publicChat.deleteAll(userId)
     },
     "autoWarning" -> { case lila.core.mod.AutoWarning(userId, subject) =>
-      logApi.modMessage(userId, subject)(using User.lichessIdAsMe)
+      logApi.modMessage(userId, subject)(using UserId.lichessAsMe)
     },
     "selfReportMark" -> { case lila.core.mod.SelfReportMark(suspectId, name) =>
-      api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using User.lichessIdAsMe)
+      api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using UserId.lichessAsMe)
     },
     "chatTimeout" -> { case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id))

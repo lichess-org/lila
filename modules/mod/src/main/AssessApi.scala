@@ -153,7 +153,7 @@ final class AssessApi(
                 .autoMark(
                   SuspectId(userId),
                   playerAggregateAssessment.reportText(3)
-                )(using User.lichessIdAsMe)
+                )(using UserId.lichessAsMe)
             case Some(_) =>
               reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
           }

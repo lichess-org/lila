@@ -12,8 +12,7 @@ import lila.core.Days
 @Module
 final class Env(
     mongoCache: lila.memo.MongoCache.Api,
-    userRepo: lila.user.UserRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using Executor, Scheduler, lila.core.i18n.Translator):

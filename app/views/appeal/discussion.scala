@@ -155,7 +155,7 @@ object discussion:
     if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else
       span(
-        userIdLink(User.lichessId.some),
+        userIdLink(UserId.lichess.some),
         isGranted(_.Appeals).option(
           frag(
             " (",

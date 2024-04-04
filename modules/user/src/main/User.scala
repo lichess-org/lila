@@ -156,9 +156,6 @@ object User:
       case InvalidTotpToken          extends Result(none)
 
   val anonMod: String                  = "A Lichess Moderator"
-  val lichessName: UserName            = UserName("lichess")
-  val lichessId: UserId                = lichessName.id
-  val lichessIdAsMe: Me.Id             = lichessId.into(Me.Id)
   val broadcasterId                    = UserId("broadcaster")
   val irwinId                          = UserId("irwin")
   val kaladinId                        = UserId("kaladin")
@@ -167,8 +164,7 @@ object User:
   val challengermodeId                 = UserId("challengermode")
   val watcherbotId                     = UserId("watcherbot")
   val ghostId                          = UserId("ghost")
-  def isLichess[U: UserIdOf](user: U)  = lichessId.is(user)
-  def isOfficial[U: UserIdOf](user: U) = isLichess(user) || broadcasterId.is(user)
+  def isOfficial[U: UserIdOf](user: U) = UserId.lichess.is(user) || broadcasterId.is(user)
 
   val seenRecently = 2.minutes
 
@@ -210,7 +206,7 @@ object User:
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
     def isDaysOld(days: Int)   = createdAt.isBefore(nowInstant.minusDays(days))
     def isHoursOld(hours: Int) = createdAt.isBefore(nowInstant.minusHours(hours))
-    def isLichess              = _id == User.lichessId
+    def isLichess              = _id == UserId.lichess
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid
     def userIds = List(orig.id, dest.id)

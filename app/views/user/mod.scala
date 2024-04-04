@@ -196,7 +196,7 @@ object mod:
             submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
           )
         },
-        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == User.lichessId)).option {
+        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == UserId.lichess)).option {
           postForm(action := routes.Mod.impersonate(u.username))(
             submitButton(cls := "btn-rack__btn")("Impersonate")
           )

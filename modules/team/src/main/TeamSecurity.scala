@@ -66,7 +66,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
           )
           .verifying(
             "You can't make Lichess a leader",
-            n => Granter(_.ManageTeam) || n.isnt(User.lichessId)
+            n => Granter(_.ManageTeam) || n.isnt(UserId.lichess)
           )
           .verifying(
             "This user is already a team leader",
@@ -91,8 +91,8 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
         .verifying(
           "You can't make Lichess a leader",
           Granter(_.ManageTeam) ||
-            !_.exists(_.name.is(User.lichessId)) ||
-            t.leaders.exists(_.is(User.lichessId))
+            !_.exists(_.name.is(UserId.lichess)) ||
+            t.leaders.exists(_.is(UserId.lichess))
         )
         .verifying(
           "There must be at least one leader able to manage permissions",

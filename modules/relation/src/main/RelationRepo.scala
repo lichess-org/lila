@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.core.relation.Relation.{ Follow, Block }
 import lila.db.dsl.{ *, given }
 
-final private class RelationRepo(colls: Colls, userRepo: lila.user.UserRepo)(using Executor):
+final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(using Executor):
 
   import RelationRepo.makeId
 

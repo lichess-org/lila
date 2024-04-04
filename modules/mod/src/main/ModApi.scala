@@ -87,13 +87,13 @@ final class ModApi(
       .inject(sus)
 
   def autoTroll(sus: Suspect, note: String): Funit =
-    given Me.Id = User.lichessIdAsMe
+    given Me.Id = UserId.lichessAsMe
     setTroll(sus, true) >>
       noteApi.lichessWrite(sus.user, note)
       >> reportApi.autoProcess(sus, Set(Room.Comm))
 
   def garbageCollect(userId: UserId): Funit =
-    given Me.Id = User.lichessIdAsMe
+    given Me.Id = UserId.lichessAsMe
     for
       sus <- reportApi.getSuspect(userId).orFail(s"No such suspect $userId")
       _   <- setAlt(sus, v = true)

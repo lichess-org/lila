@@ -30,7 +30,7 @@ final class Analyser(
     gameRepo.game(gameId).orFail(s"No game $gameId").flatMap {
       apply(_, systemSender, ignoreConcurrentCheck = true).void
     }
-  private val systemSender = Work.Sender(lila.user.User.lichessId, none, mod = false, system = true)
+  private val systemSender = Work.Sender(UserId.lichess, none, mod = false, system = true)
 
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
     (game.metadata.analysed.so(analysisRepo.exists(game.id.value))).flatMap {

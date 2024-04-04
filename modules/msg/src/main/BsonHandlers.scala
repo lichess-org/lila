@@ -48,5 +48,5 @@ private object BsonHandlers:
     // looks weird, but maybe.. it is the way
 
   def selectNotDeleted(using me: Me) =
-    if User.isLichess(me) then $empty // using "del" is too expensive
+    if UserId.lichess.is(me) then $empty // using "del" is too expensive
     else $doc("del".$ne(me.userId))

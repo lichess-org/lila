@@ -220,7 +220,7 @@ lazy val game = module("game",
 )
 
 lazy val gameSearch = module("gameSearch",
-  Seq(game, search),
+  Seq(game, user, search),
   reactivemongo.bundle
 )
 
@@ -235,7 +235,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(game),
+  Seq(game, user),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -255,7 +255,7 @@ lazy val activity = module("activity",
 )
 
 lazy val lobby = module("lobby",
-  Seq(game, relation),
+  Seq(game, relation, user),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
@@ -265,7 +265,7 @@ lazy val setup = module("setup",
 )
 
 lazy val importer = module("importer",
-  Seq(game),
+  Seq(game, user),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -285,7 +285,7 @@ lazy val opening = module("opening",
 )
 
 lazy val gathering = module("gathering",
-  Seq(history),
+  Seq(history, user),
   tests.bundle
 )
 
@@ -385,7 +385,7 @@ lazy val irc = module("irc",
 )
 
 lazy val mailer = module("mailer",
-  Seq(memo),
+  Seq(memo, user),
   reactivemongo.bundle ++ Seq(scalatags, hasher, play.mailer)
 )
 
@@ -395,7 +395,7 @@ lazy val plan = module("plan",
 )
 
 lazy val relation = module("relation",
-  Seq(user, pref),
+  Seq(pref),
   reactivemongo.bundle
 )
 

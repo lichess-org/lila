@@ -17,7 +17,7 @@ case class Note(
 ) extends lila.core.user.Note:
   def userIds            = List(from, to)
   def isFrom(user: User) = user.id.is(from)
-  def searchable = mod && from.isnt(User.lichessId) && from.isnt(User.watcherbotId) &&
+  def searchable = mod && from.isnt(UserId.lichess) && from.isnt(User.watcherbotId) &&
     !text.startsWith("Appeal reply:")
 
 final class NoteApi(userRepo: UserRepo, coll: Coll)(using
@@ -79,7 +79,7 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using
         coll.insert.one(bson).void
 
   def lichessWrite(to: User, text: String) =
-    write(to.id, text, modOnly = true, dox = false)(using User.lichessIdAsMe)
+    write(to.id, text, modOnly = true, dox = false)(using UserId.lichessAsMe)
 
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 

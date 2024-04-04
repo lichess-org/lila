@@ -10,15 +10,15 @@ import lila.db.paginator.*
 import lila.core.timeline.{ Follow as FollowUser, Propagate }
 import lila.memo.CacheApi.*
 import lila.relation.BSONHandlers.given
-import lila.user.User
 import lila.core.relation.{ Relation, Relations }
 import lila.core.relation.Relation.{ Follow, Block }
+import lila.core.user.UserApi
 
 final class RelationApi(
     repo: RelationRepo,
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi,
-    userRepo: lila.user.UserRepo,
+    userApi: UserApi,
     config: RelationConfig
 )(using Executor)
     extends lila.core.relation.RelationApi(repo.coll):
@@ -28,7 +28,8 @@ final class RelationApi(
   def fetchRelation(u1: UserId, u2: UserId): Fu[Option[Relation]] =
     (u1 != u2).so(coll.primitiveOne[Relation]($doc("u1" -> u1, "u2" -> u2), "r"))
 
-  def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
+  def fetchRelation[U1: UserIdOf, U2: UserIdOf](u1: U1, u2: U2): Fu[Option[Relation]] =
+    fetchRelation(u1.id, u2.id)
 
   def fetchRelations(u1: UserId, u2: UserId): Fu[Relations] =
     fetchRelation(u2, u1).zip(fetchRelation(u1, u2)).dmap(Relations.apply)
@@ -109,7 +110,7 @@ final class RelationApi(
 
   def follow(u1: UserId, u2: UserId): Funit =
     (u1 != u2).so(prefApi.followable(u2).flatMapz {
-      userRepo.isEnabled(u2).flatMapz {
+      userApi.isEnabled(u2).flatMapz {
         fetchRelation(u1, u2).zip(fetchRelation(u2, u1)).flatMap {
           case (Some(Follow), _) => funit
           case (_, Some(Block))  => funit
@@ -134,7 +135,7 @@ final class RelationApi(
     countFollowing(u).flatMap: nb =>
       (config.maxFollow < nb).so {
         limitFollowRateLimiter(u, fuccess(Nil)):
-          fetchFollowing(u).flatMap(userRepo.filterClosedOrInactiveIds(nowInstant.minusDays(90)))
+          fetchFollowing(u).flatMap(userApi.filterClosedOrInactiveIds(nowInstant.minusDays(90)))
         .flatMap:
           case Nil => repo.drop(u, Follow, nb - config.maxFollow.value)
           case inactiveIds =>
@@ -146,7 +147,7 @@ final class RelationApi(
       (config.maxBlock < nb).so(repo.drop(u, Block, nb - config.maxBlock.value))
 
   def block(u1: UserId, u2: UserId): Funit =
-    (u1 != u2 && u2 != User.lichessId).so(fetchBlocks(u1, u2).flatMap {
+    (u1 != u2 && u2 != UserId.lichess).so(fetchBlocks(u1, u2).flatMap {
       if _ then funit
       else
         for

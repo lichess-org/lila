@@ -25,7 +25,7 @@ object RacerPlayer:
       case User(uid) => uid.some
       case _         => none
 
-  val lichess = Id.User(User.lichessId)
+  val lichess = Id.User(UserId.lichess)
 
   def make(id: Id, user: Option[LightUser]) =
     RacerPlayer(id = id, user = user, score = 0, createdAt = nowInstant)

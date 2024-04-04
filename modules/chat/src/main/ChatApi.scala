@@ -108,14 +108,14 @@ final class ChatApi(
     def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
-      val line = UserLine(User.lichessName, None, false, flair = true, text, troll = false, deleted = false)
+      val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
       persistLine(chatId, line).andDo:
         cached.invalidate(chatId)
         publish(chatId, ChatLine(chatId, line), busChan)
 
     // like system, but not persisted.
     def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
-      val line = UserLine(User.lichessName, None, false, flair = true, text, troll = false, deleted = false)
+      val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
       publish(chatId, ChatLine(chatId, line), busChan)
 
     def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
@@ -177,7 +177,7 @@ final class ChatApi(
             case _ => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
           val line = (isNew && c.hasRecentLine(user)).option(
             UserLine(
-              username = User.lichessName,
+              username = UserName.lichess,
               title = None,
               patron = false,
               flair = true,

@@ -20,7 +20,16 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     akka.stream.Materializer
 ) extends lila.core.user.UserApi:
 
-  export userRepo.{ byId, email, emailOrPrevious, pair, enabledByIds }
+  export userRepo.{
+    byId,
+    email,
+    emailOrPrevious,
+    pair,
+    enabledByIds,
+    createdAtById,
+    isEnabled,
+    filterClosedOrInactiveIds
+  }
 
   // hit by game rounds
   object gamePlayers:

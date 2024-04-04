@@ -72,7 +72,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
 
   def get(userId: UserId): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
 
-  def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
+  def ratingsMap[U: UserIdOf](user: U, perf: PerfType): Fu[RatingsMap] =
     withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key.value).dmap(~_))
 
   def progresses(

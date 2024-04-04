@@ -119,7 +119,7 @@ final class Env(
     case lila.core.mod.MarkBooster(userId)       => disable(userId.value)
     case lila.core.mod.Shadowban(userId, true)   => disable(userId.value)
     case lila.core.fishnet.GameRequest(id) =>
-      analyser(id, Work.Sender(userId = lila.user.User.lichessId, ip = none, mod = false, system = true))
+      analyser(id, Work.Sender(userId = UserId.lichess, ip = none, mod = false, system = true))
     case req: lila.core.fishnet.StudyChapterRequest => analyser.study(req)
 
   Bus.subscribeFun("fishnetPlay"):

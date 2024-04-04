@@ -58,10 +58,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     Modlog(mod, kid.some, Modlog.setKidMode)
 
   def loginWithBlankedPassword(user: UserId) = add:
-    Modlog(User.lichessId.into(ModId), user.some, Modlog.blankedPassword)
+    Modlog(UserId.lichess.into(ModId), user.some, Modlog.blankedPassword)
 
   def loginWithWeakPassword(user: UserId) = add:
-    Modlog(User.lichessId.into(ModId), user.some, Modlog.weakPassword)
+    Modlog(UserId.lichess.into(ModId), user.some, Modlog.weakPassword)
 
   def disableTwoFactor(mod: ModId, user: UserId) = add:
     Modlog(mod, user.some, Modlog.disableTwoFactor)
@@ -71,7 +71,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def selfCloseAccount(user: UserId, openReports: List[Report]) = add:
     Modlog(
-      User.lichessId.into(ModId),
+      UserId.lichess.into(ModId),
       user.some,
       Modlog.selfCloseAccount,
       details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty)
@@ -197,7 +197,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     Modlog(coach.some, Modlog.coachReview, details = s"by $author".some)
 
   def cheatDetected(user: UserId, gameId: GameId) = add:
-    Modlog(User.lichessId.into(ModId), user.some, Modlog.cheatDetected, details = s"game $gameId".some)
+    Modlog(UserId.lichess.into(ModId), user.some, Modlog.cheatDetected, details = s"game $gameId".some)
 
   def cheatDetectedAndCount(user: UserId, gameId: GameId): Fu[Int] = for
     prevCount <- countRecentCheatDetected(user)

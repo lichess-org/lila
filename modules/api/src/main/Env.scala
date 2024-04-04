@@ -142,5 +142,5 @@ final class Env(
     lila.mon.bus.classifiers.update(lila.common.Bus.size())
     lila.mon.jvm.threads()
     // ensure the Lichess user is online
-    socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
-    userEnv.repo.setSeenAt(User.lichessId)
+    socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + UserId.lichess)
+    userEnv.repo.setSeenAt(UserId.lichess)

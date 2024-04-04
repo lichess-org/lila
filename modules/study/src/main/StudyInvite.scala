@@ -39,7 +39,7 @@ final private class StudyInvite(
       userRepo
         .enabledById(invitedUsername)
         .map(
-          _.filterNot(u => User.lichessId.is(u) && !Granter(_.StudyAdmin))
+          _.filterNot(u => UserId.lichess.is(u) && !Granter(_.StudyAdmin))
         )
         .orFail("No such invited")
     _         <- study.members.contains(invited).so(fufail[Unit]("Already a member"))

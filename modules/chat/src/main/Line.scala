@@ -8,7 +8,7 @@ sealed trait Line:
   def text: String
   def author: String
   def deleted: Boolean
-  def isSystem    = author == User.lichessName.value
+  def isSystem    = author == UserName.lichess.value
   def isHuman     = !isSystem
   def humanAuthor = isHuman.option(author)
   def troll: Boolean
@@ -34,7 +34,7 @@ case class UserLine(
 
   def isVisible = !troll && !deleted
 
-  def isLichess = userId.is(User.lichessId)
+  def isLichess = userId.is(UserId.lichess)
 
 case class PlayerLine(color: Color, text: String) extends Line:
   def deleted     = false

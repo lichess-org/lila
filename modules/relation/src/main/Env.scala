@@ -21,8 +21,8 @@ private class RelationConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo,
-    userApi: lila.user.UserApi,
+    userRepo: lila.core.user.UserRepo,
+    userAPi: lila.core.user.UserApi,
     prefApi: lila.pref.PrefApi,
     cacheApi: lila.memo.CacheApi
 )(using Executor, ActorSystem, akka.stream.Materializer):
