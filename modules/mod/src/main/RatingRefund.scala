@@ -13,7 +13,7 @@ final private class RatingRefund(
     userApi: UserApi,
     scheduler: Scheduler,
     notifier: ModNotifier,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     rankingApi: RankingApi,
     logApi: ModlogApi,
     perfStat: lila.core.perfStat.PerfStatApi

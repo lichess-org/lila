@@ -59,12 +59,12 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
       .void
 
   // used for rating refunds
-  def setPerfRating(user: User, perf: PerfType, rating: IntRating): Funit = withColl: coll =>
+  def setPerfRating(user: User, perf: PerfKey, rating: IntRating): Funit = withColl: coll =>
     val days = daysBetween(user.createdAt, nowInstant)
     coll.update
       .one(
         $id(user.id),
-        $set(s"${perf.key}.$days" -> $int(rating))
+        $set(s"$perf.$days" -> $int(rating))
       )
       .void
 

@@ -205,7 +205,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, report, history, notifyModule, chat),
+  Seq(evaluation, report, notifyModule, chat),
   reactivemongo.bundle
 )
 
