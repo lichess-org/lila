@@ -190,7 +190,7 @@ lazy val chat = module("chat",
 )
 
 lazy val room = module("room",
-  Seq(chat),
+  Seq(user),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
@@ -240,7 +240,7 @@ lazy val analyse = module("analyse",
 )
 
 lazy val round = module("round",
-  Seq(room, game, playban, notifyModule, pref),
+  Seq(room, game, playban, notifyModule, pref, chat),
   Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
@@ -330,7 +330,7 @@ lazy val shutup = module("shutup",
 )
 
 lazy val challenge = module("challenge",
-  Seq(lobby, room),
+  Seq(lobby, room, oauth),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
@@ -340,7 +340,7 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(explorer, analyse, notifyModule, room, pref),
+  Seq(explorer, analyse, notifyModule, room, pref, chat),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 

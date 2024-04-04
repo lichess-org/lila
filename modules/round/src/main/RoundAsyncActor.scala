@@ -139,14 +139,12 @@ final private class RoundAsyncActor(
           (userId.is(whitePlayer.userId) && whitePlayer.isOnline) ||
           (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
 
-    case lila.chat.RoundLine(line, watcher) =>
-      lila.chat
-        .JsonView(line)
-        .map: json =>
-          publish(List(line match
-            case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
-            case l: lila.chat.PlayerLine => Event.PlayerMessage(json)
-          ))
+    case lila.chat.RoundLine(line, json, watcher) =>
+      fuccess:
+        publish(List(line match
+          case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
+          case l: lila.chat.PlayerLine => Event.PlayerMessage(json)
+        ))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
       handle(fullId.playerId): pov =>

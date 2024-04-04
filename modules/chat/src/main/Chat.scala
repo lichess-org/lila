@@ -109,7 +109,7 @@ object Chat:
 
   import BSONFields.*
   import reactivemongo.api.bson.BSONDocument
-  import Line.given
+  import lila.chat.Line.given
   import lila.db.dsl.given
 
   given BSONDocumentHandler[MixedChat] = new BSON[MixedChat]:

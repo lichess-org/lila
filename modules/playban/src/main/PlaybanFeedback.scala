@@ -1,6 +1,5 @@
 package lila.playban
 
-import lila.chat.ChatApi
 import lila.game.Pov
 
 final private class PlaybanFeedback(

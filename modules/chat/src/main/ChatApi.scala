@@ -10,6 +10,7 @@ import lila.core.shutup.PublicSource
 import lila.memo.CacheApi.*
 import lila.security.{ Flood, Granter }
 import lila.user.{ FlairApi, Me, User, UserRepo, given }
+import lila.core.chat.{OnTimeout, OnReinstate}
 
 final class ChatApi(
     coll: Coll,
@@ -24,7 +25,7 @@ final class ChatApi(
     extends lila.core.chat.ChatApi:
 
   import Chat.given
-  export userChat.volatile
+  export userChat.{ write, volatile, timeout }
 
   def exists(id: ChatId) = coll.exists($id(id))
 
@@ -88,7 +89,7 @@ final class ChatApi(
                       lila.mon.chat
                         .message(publicSource.fold("player")(_.parentName), line.troll)
                         .increment()
-                    publish(chatId, ChatLine(chatId, line), busChan)
+                    publishLine(chatId, line, busChan)
               else
                 logger.info(s"Link check rejected $line in $publicSource")
                 funit
@@ -113,12 +114,12 @@ final class ChatApi(
       val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
       persistLine(chatId, line).andDo:
         cached.invalidate(chatId)
-        publish(chatId, ChatLine(chatId, line), busChan)
+        publishLine(chatId, line, busChan)
 
     // like system, but not persisted.
     def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
       val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
-      publish(chatId, ChatLine(chatId, line), busChan)
+      publishLine(chatId, line, busChan)
 
     def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
       (if isVolatile then volatile else system) (chatId, text, busChan)
@@ -194,7 +195,7 @@ final class ChatApi(
             cached.invalidate(chat.id)
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
             line.foreach: l =>
-              publish(chat.id, ChatLine(chat.id, l), busChan)
+              publishLine(chat.id, l, busChan)
             if isMod(mod) || isRelayMod(mod) then
               lila.common.Bus.publish(
                 lila.core.mod.ChatTimeout(
@@ -273,7 +274,7 @@ final class ChatApi(
     def write(chatId: ChatId, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text).so: line =>
         persistLine(chatId, line).andDo:
-          publish(chatId, ChatLine(chatId, line), busChan)
+          publishLine(chatId, line, busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment()
 
     private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
@@ -286,11 +287,16 @@ final class ChatApi(
     Bus.publish(msg, busChan(BusChan).chan)
     Bus.publish(msg, Chat.chanOf(chatId))
 
+  private def publishLine(chatId: ChatId, line: Line, busChan: BusChan.Select): Funit =
+    JsonView(line)(using summon[FlairApi].getter).map: json =>
+      publish(chatId, ChatLine(chatId, line, json), busChan)
+
   def remove(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
   def removeAll(chatIds: List[ChatId]) = coll.delete.one($inIds(chatIds)).void
 
-  private def persistLine(chatId: ChatId, line: Line): Funit =
+  private def persistLine(chatId: ChatId, line: lila.core.chat.Line): Funit =
+    import lila.chat.Line.given
     coll.update
       .one(
         $id(chatId),
