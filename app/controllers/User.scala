@@ -22,6 +22,7 @@ import lila.security.{ Granter, UserLogins }
 import lila.user.User as UserModel
 import lila.core.rating.PerfKey
 import lila.core.IpAddress
+import lila.core.user.LightPerf
 
 final class User(
     override val env: Env,
@@ -259,7 +260,7 @@ final class User(
             html.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
         json =
-          given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+          given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
           JsonOk(leaderboards)
       )
@@ -294,8 +295,8 @@ final class User(
         _.take(nb.atLeast(1).atMost(200)) -> perfType
       }
 
-  private def topNbJson(users: List[UserModel.LightPerf]) =
-    given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+  private def topNbJson(users: List[LightPerf]) =
+    given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
     Ok(Json.obj("users" -> users))
 
   def topWeek = Open:
@@ -530,7 +531,7 @@ final class User(
     Found(user): user =>
       for
         usersAndGames <- env.game.favoriteOpponents(user.id)
-        withPerfs     <- env.user.perfsRepo.withPerfs(usersAndGames.map(_._1))
+        withPerfs     <- env.user.api.listWithPerfs(usersAndGames.map(_._1))
         ops = withPerfs.toList.zip(usersAndGames.map(_._2))
         followables <- env.pref.api.followables(ops.map(_._1.id))
         relateds <-

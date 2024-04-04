@@ -5,6 +5,7 @@ import lila.memo.PicfitApi
 import lila.notify.NotifyApi
 import lila.security.Granter
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
+import lila.rating.UserPerfs
 
 final class CoachApi(
     coachColl: Coll,
@@ -51,9 +52,9 @@ final class CoachApi(
     canCoach(user).so:
       coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
 
-  def setRating(u: User.WithPerfs): Funit =
-    canCoach(u.user).so:
-      perfsRepo.perfsOf(u.id).flatMap { perfs =>
+  def updateRatingFromDb(user: lila.core.user.User): Funit =
+    canCoach(user).so:
+      perfsRepo.perfsOf(user).flatMap { perfs =>
         coachColl.update.one($id(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void
       }
 

@@ -3,8 +3,16 @@ package actorApi
 
 import chess.ByColor
 import chess.format.Fen
+import lila.rating.UserPerfs
+import lila.core.user.User
 
 case class StartGame(game: Game)
+
+case class FinishGame(
+    game: Game,
+    // users and perfs BEFORE the game result is applied
+    usersBeforeGame: ByColor[Option[(User, UserPerfs)]]
+)
 
 case class InsertGame(game: Game)
 
@@ -40,4 +48,4 @@ object BoardGone:
 
 case class NotifyRematch(newGame: Game)
 
-case class PerfsUpdate(game: Game, perfs: ByColor[(User, lila.user.UserPerfs)])
+case class PerfsUpdate(game: Game, perfs: ByColor[(lila.core.user.User, lila.rating.UserPerfs)])

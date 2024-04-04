@@ -6,6 +6,8 @@ import com.softwaremill.macwire.*
 import lila.core.config.*
 import lila.core.report.SuspectId
 import lila.user.{ Me, User }
+import lila.core.user.WithPerf
+import chess.ByColor
 
 @Module
 final class Env(
@@ -71,10 +73,14 @@ final class Env(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
         users
-          .map(_.filter(_.enabled.yes).map(_.only(game.perfType)))
-          .mapN: (whiteUser, blackUser) =>
+          .traverse:
+            _.filter(_._1.enabled.yes).map: u =>
+              new lila.core.user.WithPerf:
+                val user = u._1
+                val perf = u._2(game.perfType)
+          .foreach: users =>
             sandbagWatch(game)
-            assessApi.onGameReady(game, whiteUser, blackUser)
+            assessApi.onGameReady(game, users)
         if game.status == chess.Status.Cheat then
           game.loserUserId.foreach: userId =>
             logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>

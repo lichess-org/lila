@@ -31,11 +31,3 @@ private object SocketStatus:
   val default = SocketStatus(SocketVersion(0), false, false, false, false)
 private case class GameAndSocketStatus(game: lila.game.Game, socket: SocketStatus)
 private case class RoomCrowd(white: Boolean, black: Boolean)
-
-case class FinishGame(
-    game: Game,
-    // users and perfs BEFORE the game result is applied
-    users: ByColor[Option[WithPerfs]]
-):
-  export users.{ white, black }
-  def isVsSelf = white.isDefined && white == black

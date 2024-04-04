@@ -7,7 +7,8 @@ import lila.coach.CoachPager.Order.{ Alphabetical, LichessRating, Login }
 import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.security.Permission
-import lila.user.{ Flag, User, UserPerfs, UserPerfsRepo, UserRepo }
+import lila.user.{ Flag, User, UserPerfsRepo, UserRepo }
+import lila.rating.UserPerfs
 import lila.core.user.UserMark
 
 final class CoachPager(

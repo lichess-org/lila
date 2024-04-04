@@ -170,6 +170,8 @@ object PerfType:
 
   val default = Standard
 
+  given Conversion[PerfType, PerfKey] = _.key
+
   def apply(key: PerfKey): Option[PerfType] = byKey.get(key)
   def orDefault(key: PerfKey): PerfType     = apply(key) | default
 

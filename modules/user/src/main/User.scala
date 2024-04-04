@@ -6,11 +6,12 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.LightUser
-import lila.core.user.{ UserMark, UserMarks, UserEnabled }
+import lila.core.user.{ UserMark, UserMarks, UserEnabled, LightCount, Emails }
 import lila.core.i18n.Language
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.PerfKey
-import lila.core.user.Emails
+import lila.rating.UserPerfs
+import lila.core.user.LightPerf
 
 case class User(
     id: UserId,
@@ -56,8 +57,6 @@ case class User(
 
   def countRated = count.rated
 
-  def hasTitle = title.exists(PlayerTitle.BOT != _)
-
   lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
   def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).toMillis).millis
@@ -76,7 +75,7 @@ case class User(
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
-  def lightCount = User.LightCount(light, count.game)
+  def lightCount = LightCount(light, count.game)
 
   def isPatron = plan.active
 
@@ -119,8 +118,7 @@ object User:
         s"$t $usernameWithBestRating"
     def lightPerf(key: PerfKey) =
       perfs(key).map: perf =>
-        User.LightPerf(light, key, perf.intRating, perf.progress)
-
+        LightPerf(light, key, perf.intRating, perf.progress)
     def only(pt: PerfType) = WithPerf(user, perfs(pt))
 
   object WithPerfs:
@@ -177,9 +175,6 @@ object User:
   case class GDPRErase(user: User) extends AnyVal
   opaque type Erased = Boolean
   object Erased extends YesNo[Erased]
-
-  case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
-  case class LightCount(user: LightUser, count: Int)
 
   case class WithPerfsAndEmails(user: User.WithPerfs, emails: Emails)
 

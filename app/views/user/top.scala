@@ -9,7 +9,7 @@ import lila.user.User
 
 object top:
 
-  def apply(perfType: lila.rating.PerfType, users: List[User.LightPerf])(using ctx: PageContext) =
+  def apply(perfType: lila.rating.PerfType, users: List[lila.core.user.LightPerf])(using ctx: PageContext) =
 
     val title = s"${perfType.trans} top 200"
 

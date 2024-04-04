@@ -9,7 +9,9 @@ object PerfId extends OpaqueInt[PerfId]
 
 trait Perf:
   val glicko: Glicko
+  val nb: Int
   export glicko.{ intRating, intDeviation, provisional }
+  def progress: IntRatingDiff
 
 trait Glicko:
   val rating: Double

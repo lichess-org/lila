@@ -9,10 +9,11 @@ import lila.core.LightUser
 import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.{ Glicko, Perf, PerfType, UserPerfs }
 import lila.user.User.userHandler
 import lila.core.lilaism.LilaInvalid
 import lila.core.user.WithEmails
+import lila.core.rating.PerfKey
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
@@ -103,7 +104,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def listWithPerf[U: UserIdOf](
       us: List[U],
-      pt: PerfType,
+      pk: PerfKey,
       readPref: ReadPref = _.sec
   ): Fu[List[User.WithPerf]] = us.nonEmpty.so:
     val ids = us.map(_.id)
@@ -111,7 +112,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .aggregateList(Int.MaxValue, readPref): framework =>
         import framework.*
         Match($inIds(ids)) -> List(
-          PipelineOperator(perfsRepo.aggregate.lookup(pt)),
+          PipelineOperator(perfsRepo.aggregate.lookup(pk)),
           AddFields($sort.orderField(ids)),
           Sort(Ascending("_order"))
         )
@@ -119,7 +120,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         for
           doc  <- docs
           user <- doc.asOpt[User]
-          perf = perfsRepo.aggregate.readFirst(doc, pt)
+          perf = perfsRepo.aggregate.readFirst(doc, pk)
         yield User.WithPerf(user, perf)
 
   def pairWithPerf(userIds: ByColor[Option[UserId]], pt: PerfType): Fu[ByColor[Option[User.WithPerf]]] =
@@ -132,6 +133,10 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .flatMapz:
         case Left(g)  => fuccess(g.some)
         case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => u.withPerf(p).some)
+
+  def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]] =
+    byId(userId).flatMapz: user =>
+      perfsRepo.intRatingOf(user.id, perf).map(r => (user, r).some)
 
   private def readEmails(doc: Bdoc) = lila.core.user.Emails(
     current = userRepo.anyEmail(doc),

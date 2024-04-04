@@ -15,7 +15,7 @@ object bits:
   def underboards(
       tours: List[lila.tournament.Tournament],
       simuls: List[lila.simul.Simul],
-      leaderboard: List[lila.user.User.LightPerf],
+      leaderboard: List[lila.core.user.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
   )(using ctx: Context) =
     frag(

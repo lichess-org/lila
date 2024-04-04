@@ -3,8 +3,8 @@ package lila.round
 import chess.{ ByColor, Color, Speed }
 
 import lila.game.{ Game, GameRepo, RatingDiffs }
-import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator, glicko2 }
-import lila.user.{ RankingApi, User, UserApi, UserPerfs }
+import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator, glicko2, UserPerfs }
+import lila.user.{ RankingApi, User, UserApi }
 
 final class PerfsUpdater(
     gameRepo: GameRepo,

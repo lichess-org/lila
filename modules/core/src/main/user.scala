@@ -5,6 +5,7 @@ import play.api.i18n.Lang
 import chess.PlayerTitle
 
 import lila.core.rating.Perf
+import lila.core.rating.PerfKey
 
 opaque type MyId = String
 object MyId extends TotalWrapper[MyId, String]:
@@ -27,9 +28,11 @@ trait User:
   val enabled: UserEnabled
   val marks: UserMarks
   val lang: Option[String]
+  val roles: List[String]
 
   def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
   def realLang: Option[Lang]      = lang.flatMap(Lang.get)
+  def hasTitle: Boolean           = title.exists(PlayerTitle.BOT != _)
 
 object User:
   given UserIdOf[User] = _.id
@@ -51,6 +54,9 @@ case class Count(
     winH: Int // only against human opponents
 )
 
+case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
+case class LightCount(user: LightUser, count: Int)
+
 trait UserApi:
   def byId[U: UserIdOf](u: U): Fu[Option[User]]
   def email(id: UserId): Fu[Option[EmailAddress]]
@@ -58,6 +64,7 @@ trait UserApi:
   def pair(x: UserId, y: UserId): Fu[Option[(User, User)]]
   def emailOrPrevious(id: UserId): Fu[Option[EmailAddress]]
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
+  def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]]
 
 trait LightUserApiMinimal:
   def async: LightUser.Getter

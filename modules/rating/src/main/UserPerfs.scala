@@ -1,10 +1,11 @@
-package lila.user
+package lila.rating
 
 import chess.Speed
 
 import scalalib.HeapSort.*
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.core.rating.PerfKey
+import lila.core.user.LightPerf
 
 case class UserPerfs(
     id: UserId,
@@ -196,8 +197,6 @@ case class UserPerfs(
 
 object UserPerfs:
 
-  given UserIdOf[User] = _.id
-
   def dubiousPuzzle(puzzle: Perf, standard: Perf) =
     puzzle.glicko.rating > 3000 && !standard.glicko.establishedIntRating.exists(_ > 2100) ||
       puzzle.glicko.rating > 2900 && !standard.glicko.establishedIntRating.exists(_ > 2000) ||
@@ -280,11 +279,11 @@ object UserPerfs:
   import lila.db.dsl.{ *, given }
   import reactivemongo.api.bson.*
 
-  def idPerfReader(pt: PerfType) = BSONDocumentReader.option[(UserId, Perf)] { doc =>
+  def idPerfReader(pk: PerfKey) = BSONDocumentReader.option[(UserId, Perf)] { doc =>
     import Perf.given
     for
       id   <- doc.getAsOpt[UserId]("_id")
-      perf <- doc.getAsOpt[Perf](pt.key.value)
+      perf <- doc.getAsOpt[Perf](pk.value)
     yield (id, perf)
   }
 
@@ -344,19 +343,19 @@ object UserPerfs:
       )
 
   case class Leaderboards(
-      ultraBullet: List[User.LightPerf],
-      bullet: List[User.LightPerf],
-      blitz: List[User.LightPerf],
-      rapid: List[User.LightPerf],
-      classical: List[User.LightPerf],
-      crazyhouse: List[User.LightPerf],
-      chess960: List[User.LightPerf],
-      kingOfTheHill: List[User.LightPerf],
-      threeCheck: List[User.LightPerf],
-      antichess: List[User.LightPerf],
-      atomic: List[User.LightPerf],
-      horde: List[User.LightPerf],
-      racingKings: List[User.LightPerf]
+      ultraBullet: List[LightPerf],
+      bullet: List[LightPerf],
+      blitz: List[LightPerf],
+      rapid: List[LightPerf],
+      classical: List[LightPerf],
+      crazyhouse: List[LightPerf],
+      chess960: List[LightPerf],
+      kingOfTheHill: List[LightPerf],
+      threeCheck: List[LightPerf],
+      antichess: List[LightPerf],
+      atomic: List[LightPerf],
+      horde: List[LightPerf],
+      racingKings: List[LightPerf]
   )
 
   val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)

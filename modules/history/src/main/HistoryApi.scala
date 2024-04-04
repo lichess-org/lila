@@ -6,8 +6,8 @@ import reactivemongo.api.bson.*
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserApi, UserPerfs }
+import lila.rating.{ Perf, PerfType, UserPerfs }
+import lila.core.user.{ User, UserApi }
 import lila.core.Days
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(
@@ -107,19 +107,19 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
 
     private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating"):
       _.expireAfterAccess(20 minutes).buildAsyncFuture: (userId, perf) =>
-        userApi.withPerfs(userId).orFail(s"No such user: $userId").flatMap { user =>
-          val currentRating = user.perfs(perf).intRating
-          val firstDay      = daysBetween(user.createdAt, nowInstant.minusWeeks(1))
-          val days          = firstDay to (firstDay + 6) toList
-          val project = $doc:
-            ("_id" -> BSONBoolean(false)) :: days.map: d =>
-              s"${perf.key}.$d" -> BSONBoolean(true)
-          withColl(_.find($id(user.id), project.some).one[Bdoc].map {
-            _.flatMap:
-              _.child(perf.key.value).map {
-                _.elements.foldLeft(currentRating):
-                  case (max, BSONElement(_, BSONInteger(v))) if max < v => IntRating(v)
-                  case (max, _)                                         => max
-              }
-          }).dmap(_ | currentRating)
+        userApi.withIntRatingIn(userId, perf.key).orFail(s"No such user: $userId").flatMap {
+          (user, currentRating) =>
+            val firstDay = daysBetween(user.createdAt, nowInstant.minusWeeks(1))
+            val days     = firstDay to (firstDay + 6) toList
+            val project = $doc:
+              ("_id" -> BSONBoolean(false)) :: days.map: d =>
+                s"${perf.key}.$d" -> BSONBoolean(true)
+            withColl(_.find($id(user.id), project.some).one[Bdoc].map {
+              _.flatMap:
+                _.child(perf.key.value).map {
+                  _.elements.foldLeft(currentRating):
+                    case (max, BSONElement(_, BSONInteger(v))) if max < v => IntRating(v)
+                    case (max, _)                                         => max
+                }
+            }).dmap(_ | currentRating)
         }

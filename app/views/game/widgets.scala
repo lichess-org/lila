@@ -123,7 +123,7 @@ object widgets:
           .getOrElse:
             span(title := trans.site.unlimited.txt())("∞")
 
-  private lazy val anonSpan = span(cls := "anon")(lila.user.User.anonymous)
+  private lazy val anonSpan = span(cls := "anon")(UserName.anonymous)
 
   private def gamePlayer(player: Player)(using ctx: Context) =
     div(cls := s"player ${player.color.name}"):
