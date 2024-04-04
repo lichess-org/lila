@@ -6,9 +6,12 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.LightUser
+import lila.core.user.{ UserMark, UserMarks, UserEnabled, LightCount, Emails }
 import lila.core.i18n.Language
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.PerfKey
+import lila.rating.UserPerfs
+import lila.core.user.LightPerf
 
 case class User(
     id: UserId,
@@ -27,7 +30,7 @@ case class User(
     plan: Plan,
     flair: Option[Flair] = None,
     totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks.empty,
+    marks: UserMarks = UserMarks(Nil),
     hasEmail: Boolean
 ) extends lila.core.user.User:
 
@@ -44,7 +47,6 @@ case class User(
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
-  def realLang: Option[Lang]     = lang.flatMap(Lang.get)
   def language: Option[Language] = realLang.map(Language.apply)
 
   def titleUsername: String = title.fold(username.value)(t => s"$t $username")
@@ -54,8 +56,6 @@ case class User(
   def hasGames = count.game > 0
 
   def countRated = count.rated
-
-  def hasTitle = title.exists(PlayerTitle.BOT != _)
 
   lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
@@ -75,7 +75,7 @@ case class User(
 
   def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
-  def lightCount = User.LightCount(light, count.game)
+  def lightCount = LightCount(light, count.game)
 
   def isPatron = plan.active
 
@@ -107,7 +107,7 @@ object User:
 
   given UserIdOf[User] = _.id
 
-  export lila.user.UserEnabled as Enabled
+  export lila.core.user.UserEnabled as Enabled
 
   case class WithPerfs(user: User, perfs: UserPerfs):
     export user.*
@@ -118,8 +118,7 @@ object User:
         s"$t $usernameWithBestRating"
     def lightPerf(key: PerfKey) =
       perfs(key).map: perf =>
-        User.LightPerf(light, key, perf.intRating, perf.progress)
-
+        LightPerf(light, key, perf.intRating, perf.progress)
     def only(pt: PerfType) = WithPerf(user, perfs(pt))
 
   object WithPerfs:
@@ -156,11 +155,7 @@ object User:
       case MissingTotpToken          extends Result(none)
       case InvalidTotpToken          extends Result(none)
 
-  val anonymous: UserName              = UserName("Anonymous")
   val anonMod: String                  = "A Lichess Moderator"
-  val lichessName: UserName            = UserName("lichess")
-  val lichessId: UserId                = lichessName.id
-  val lichessIdAsMe: Me.Id             = lichessId.into(Me.Id)
   val broadcasterId                    = UserId("broadcaster")
   val irwinId                          = UserId("irwin")
   val kaladinId                        = UserId("kaladin")
@@ -169,8 +164,7 @@ object User:
   val challengermodeId                 = UserId("challengermode")
   val watcherbotId                     = UserId("watcherbot")
   val ghostId                          = UserId("ghost")
-  def isLichess[U: UserIdOf](user: U)  = lichessId.is(user)
-  def isOfficial[U: UserIdOf](user: U) = isLichess(user) || broadcasterId.is(user)
+  def isOfficial[U: UserIdOf](user: U) = UserId.lichess.is(user) || broadcasterId.is(user)
 
   val seenRecently = 2.minutes
 
@@ -178,13 +172,7 @@ object User:
   opaque type Erased = Boolean
   object Erased extends YesNo[Erased]
 
-  case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
-  case class LightCount(user: LightUser, count: Int)
-
-  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
-    def strList = current.map(_.value).toList ::: previous.map(_.value).toList
-
-  case class WithEmails(user: User.WithPerfs, emails: Emails)
+  case class WithPerfsAndEmails(user: User.WithPerfs, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal:
     override def toString = "ClearPassword(****)"
@@ -218,7 +206,7 @@ object User:
     def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
     def isDaysOld(days: Int)   = createdAt.isBefore(nowInstant.minusDays(days))
     def isHoursOld(hours: Int) = createdAt.isBefore(nowInstant.minusHours(hours))
-    def isLichess              = _id == User.lichessId
+    def isLichess              = _id == UserId.lichess
   case class Contacts(orig: Contact, dest: Contact):
     def hasKid  = orig.isKid || dest.isKid
     def userIds = List(orig.id, dest.id)
@@ -230,8 +218,6 @@ object User:
     def nonEmptyTvDuration = (tv > 0).option(tvDuration)
   given BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
 
-  // what existing usernames are like
-  val historicalUsernameRegex = "(?i)[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]".r
   // what new usernames should be like -- now split into further parts for clearer error messages
   val newUsernameRegex   = "(?i)[a-z][a-z0-9_-]{0,28}[a-z0-9]".r
   val newUsernamePrefix  = "(?i)^[a-z].*".r
@@ -239,7 +225,8 @@ object User:
   val newUsernameChars   = "(?i)^[a-z0-9_-]*$".r
   val newUsernameLetters = "(?i)^([a-z0-9][_-]?)+$".r
 
-  def couldBeUsername(str: UserStr) = noGhost(str.id) && historicalUsernameRegex.matches(str.value)
+  def couldBeUsername(str: UserStr) =
+    noGhost(str.id) && lila.core.UserName.historicalRegex.matches(str.value)
 
   def validateId(str: UserStr): Option[UserId] = couldBeUsername(str).option(str.id)
 
@@ -248,10 +235,10 @@ object User:
   def noGhost(id: UserId) = !isGhost(id)
 
   object BSONFields:
+    export lila.core.user.BSONFields.*
     val id                    = "_id"
     val username              = "username"
     val count                 = "count"
-    val enabled               = "enabled"
     val roles                 = "roles"
     val profile               = "profile"
     val flair                 = "flair"
@@ -263,7 +250,6 @@ object User:
     val kid                   = "kid"
     val createdWithApiVersion = "createdWithApiVersion"
     val lang                  = "lang"
-    val title                 = "title"
     val email                 = "email"
     val verbatimEmail         = "verbatimEmail"
     val mustConfirmEmail      = "mustConfirmEmail"
@@ -312,7 +298,7 @@ object User:
         plan = r.getO[Plan](plan) | Plan.empty,
         totpSecret = r.getO[TotpSecret](totpSecret),
         flair = r.getO[Flair](flair).filter(FlairApi.exists),
-        marks = r.getO[UserMarks](marks) | UserMarks.empty,
+        marks = r.getO[UserMarks](marks) | UserMarks(Nil),
         hasEmail = r.contains(email)
       )
 
@@ -334,7 +320,7 @@ object User:
         plan       -> o.plan.nonEmpty,
         totpSecret -> o.totpSecret,
         flair      -> o.flair,
-        marks      -> o.marks.nonEmpty
+        marks      -> o.marks.value.nonEmpty.option(o.marks)
       )
 
   given BSONDocumentHandler[Speaker] = Macros.handler[Speaker]

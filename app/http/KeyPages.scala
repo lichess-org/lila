@@ -18,7 +18,7 @@ final class KeyPages(val env: Env)(using Executor)
   def home(status: Results.Status)(using ctx: Context): Fu[Result] =
     homeHtml
       .map: html =>
-        env.lilaCookie.ensure(ctx.req)(status(html))
+        env.security.lilaCookie.ensure(ctx.req)(status(html))
 
   def homeHtml(using ctx: Context): Fu[Frag] =
     env

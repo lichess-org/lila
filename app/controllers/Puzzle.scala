@@ -282,7 +282,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 .so(env.puzzle.session.setDifficulty)
                 .inject(
                   Redirect(routes.Puzzle.show(theme))
-                    .withCookies(env.lilaCookie.session(cookieDifficulty, diff))
+                    .withCookies(env.security.lilaCookie.session(cookieDifficulty, diff))
                 )
         )
   }

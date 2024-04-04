@@ -56,7 +56,7 @@ case class Hook(
     nonWideRatingRange.orElse(rating.map(lila.rating.RatingRange.defaultFor)).getOrElse(RatingRange.default)
 
   def userId   = user.map(_.id)
-  def username = user.fold(User.anonymous)(_.username)
+  def username = user.fold(UserName.anonymous)(_.username)
   def lame     = user.so(_.lame)
 
   lazy val perfType: PerfType = PerfType(realVariant, speed)

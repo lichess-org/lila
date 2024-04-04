@@ -6,7 +6,6 @@ import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.memo.CacheApi.*
-import lila.user.User
 
 final private[video] class VideoApi(
     videoColl: Coll,
@@ -19,7 +18,7 @@ final private[video] class VideoApi(
   private given BSONDocumentHandler[TagNb]            = Macros.handler
   import View.given
 
-  private def videoViews(userOption: Option[User])(videos: Seq[Video]): Fu[Seq[VideoView]] =
+  private def videoViews(userOption: Option[UserId])(videos: Seq[Video]): Fu[Seq[VideoView]] =
     userOption match
       case None =>
         fuccess {
@@ -39,7 +38,7 @@ final private[video] class VideoApi(
     def find(id: Video.ID): Fu[Option[Video]] =
       videoColl.find($id(id)).one[Video]
 
-    def search(user: Option[User], query: String, page: Int): Fu[Paginator[VideoView]] =
+    def search(user: Option[UserId], query: String, page: Int): Fu[Paginator[VideoView]] =
       val q = query
         .split(' ')
         .map { word =>
@@ -83,7 +82,7 @@ final private[video] class VideoApi(
     def allIds: Fu[List[Video.ID]] =
       videoColl.distinctEasy[String, List]("_id", $empty, _.sec)
 
-    def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] =
+    def popular(user: Option[UserId], page: Int): Fu[Paginator[VideoView]] =
       Paginator(
         adapter = (new Adapter[Video](
           collection = videoColl,
@@ -96,7 +95,7 @@ final private[video] class VideoApi(
         maxPerPage = maxPerPage
       )
 
-    def byTags(user: Option[User], tags: List[Tag], page: Int): Fu[Paginator[VideoView]] =
+    def byTags(user: Option[UserId], tags: List[Tag], page: Int): Fu[Paginator[VideoView]] =
       if tags.isEmpty then popular(user, page)
       else
         Paginator(
@@ -111,7 +110,7 @@ final private[video] class VideoApi(
           maxPerPage = maxPerPage
         )
 
-    def byAuthor(user: Option[User], author: String, page: Int): Fu[Paginator[VideoView]] =
+    def byAuthor(user: Option[UserId], author: String, page: Int): Fu[Paginator[VideoView]] =
       Paginator(
         adapter = (new Adapter[Video](
           collection = videoColl,
@@ -124,7 +123,7 @@ final private[video] class VideoApi(
         maxPerPage = maxPerPage
       )
 
-    def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] =
+    def similar(user: Option[UserId], video: Video, max: Int): Fu[Seq[VideoView]] =
       videoColl
         .aggregateList(maxDocs = max, _.sec): framework =>
           import framework.*
@@ -154,10 +153,8 @@ final private[video] class VideoApi(
 
     object count:
 
-      private val cache = cacheApi.unit[Long] {
-        _.refreshAfterWrite(3 hours)
-          .buildAsyncFuture(_ => videoColl.countAll)
-      }
+      private val cache = cacheApi.unit[Long]:
+        _.refreshAfterWrite(3 hours).buildAsyncFuture(_ => videoColl.countAll)
 
       def apply: Fu[Long] = cache.getUnit
 
@@ -174,20 +171,20 @@ final private[video] class VideoApi(
 
     def add(a: View) = viewColl.insert.one(a).void.recover(lila.db.recoverDuplicateKey(_ => ()))
 
-    def hasSeen(user: User, video: Video): Fu[Boolean] =
+    def hasSeen(user: UserId, video: Video): Fu[Boolean] =
       viewColl
         .countSel(
           $doc(
-            View.BSONFields.id -> View.makeId(video.id, user.id)
+            View.BSONFields.id -> View.makeId(video.id, user)
           )
         )
         .map(0 !=)
 
-    def seenVideoIds(user: User, videos: Seq[Video]): Fu[Set[Video.ID]] =
+    def seenVideoIds(user: UserId, videos: Seq[Video]): Fu[Set[Video.ID]] =
       viewColl.distinctEasy[String, Set](
         View.BSONFields.videoId,
         $inIds(videos.map: v =>
-          View.makeId(v.id, user.id)),
+          View.makeId(v.id, user)),
         _.sec
       )
 

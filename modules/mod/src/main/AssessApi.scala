@@ -1,6 +1,6 @@
 package lila.mod
 
-import chess.{ Black, Color, White }
+import chess.{ Black, Color, White, ByColor }
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.*
 
@@ -153,7 +153,7 @@ final class AssessApi(
                 .autoMark(
                   SuspectId(userId),
                   playerAggregateAssessment.reportText(3)
-                )(using User.lichessIdAsMe)
+                )(using UserId.lichessAsMe)
             case Some(_) =>
               reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
           }
@@ -169,7 +169,7 @@ final class AssessApi(
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent
 
-  def onGameReady(game: Game, white: User.WithPerf, black: User.WithPerf): Funit =
+  def onGameReady(game: Game, players: ByColor[lila.core.user.WithPerf]): Funit =
 
     import AutoAnalysis.Reason.*
 
@@ -177,12 +177,12 @@ final class AssessApi(
       game.playerBlurPercent(player.color) >= 70
 
     def winnerGreatProgress(player: Player): Boolean =
-      game.winner.has(player) && player.color.fold(white, black).perf.progress >= 90
+      game.winner.has(player) && players(player.color).perf.progress >= 90
 
     def noFastCoefVariation(player: Player): Option[Float] =
       Statistics.noFastMoves(Pov(game, player)).so(Statistics.moveTimeCoefVariation(Pov(game, player)))
 
-    def winnerUserOption = game.winnerColor.map(_.fold(white, black))
+    def winnerUserOption = game.winnerColor.map(players(_))
     def winnerNbGames    = winnerUserOption.map(_.perf.nb)
 
     def suspCoefVariation(c: Color) =
@@ -200,7 +200,7 @@ final class AssessApi(
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if !game.analysable then fuccess(none)
-      else if game.speed >= chess.Speed.Blitz && (white.hasTitle || black.hasTitle) then
+      else if game.speed >= chess.Speed.Blitz && players.exists(_.user.hasTitle) then
         fuccess(TitledPlayer.some)
       else if !game.source.exists(assessableSources.contains) then fuccess(none)
       // give up on correspondence games

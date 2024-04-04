@@ -155,7 +155,7 @@ object discussion:
     if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else
       span(
-        userIdLink(User.lichessId.some),
+        userIdLink(UserId.lichess.some),
         isGranted(_.Appeals).option(
           frag(
             " (",
@@ -180,9 +180,9 @@ object discussion:
           form3.actions(
             div(
               select(cls := "appeal-presets")(
-                option(st.value := "")("Presets"),
+                st.option(st.value := "")("Presets"),
                 ps.value.map { case ModPreset(name, text, _) =>
-                  option(
+                  st.option(
                     st.value := text,
                     st.title := text
                   )(name)

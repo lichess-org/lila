@@ -3,6 +3,8 @@ package fishnet
 
 import chess.format.{ Uci, Fen }
 
+val maxPlies = 300
+
 case class NewKey(userId: UserId, key: String)
 
 case class GameRequest(gameId: GameId)
@@ -15,3 +17,6 @@ case class StudyChapterRequest(
     userId: UserId,
     unlimited: Boolean
 )
+
+type AnalysisAwaiter       = (Seq[GameId], FiniteDuration) => Funit
+type SystemAnalysisRequest = GameId => Funit

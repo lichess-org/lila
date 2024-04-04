@@ -11,7 +11,7 @@ final private class LobbySyncActor(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
-    playbanApi: lila.playban.PlaybanApi,
+    hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     poolApi: lila.core.pool.PoolApi,
     onStart: lila.core.game.OnStart
 )(using Executor, IsClockCompatible)
@@ -135,10 +135,9 @@ final private class LobbySyncActor(
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit =
     user
-      .so(playbanApi.currentBan)
+      .so(u => hasCurrentPlayban(u.id))
       .foreach:
-        case None => f
-        case _    =>
+        if _ then () else f
 
   private def biteHook(hookId: String, sri: Sri, user: Option[LobbyUser]) =
     hookRepo.byId(hookId).foreach { hook =>

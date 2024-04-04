@@ -1,12 +1,14 @@
 package lila.clas
 
 import scalalib.SecureRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.rating.Perf
-import lila.user.{ User, UserPerfs }
+import lila.user.User
+import lila.rating.UserPerfs
 
 case class Student(
-    _id: Student.Id, // userId:clasId
+    @Key("_id") id: Student.Id, // userId:clasId
     userId: UserId,
     clasId: Clas.Id,
     realName: String,
@@ -15,10 +17,6 @@ case class Student(
     created: Clas.Recorded,
     archived: Option[Clas.Recorded]
 ):
-
-  inline def id = _id
-
-  def is(user: User)     = userId == user.id
   def is(other: Student) = id == other.id
 
   def isArchived = archived.isDefined
@@ -26,14 +24,16 @@ case class Student(
 
 object Student:
 
+  given UserIdOf[Student] = _.userId
+
   opaque type Id = String
   object Id extends OpaqueString[Id]
 
-  def id(userId: UserId, clasId: Clas.Id) = Id(s"$userId:$clasId")
+  def makeId(userId: UserId, clasId: Clas.Id) = Id(s"$userId:$clasId")
 
   def make(user: User, clas: Clas, teacherId: UserId, realName: String, managed: Boolean) =
     Student(
-      _id = id(user.id, clas.id),
+      id = makeId(user.id, clas.id),
       userId = user.id,
       clasId = clas.id,
       realName = realName,

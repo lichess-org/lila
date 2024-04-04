@@ -8,12 +8,12 @@ import lila.user.{ User, UserApi, UserRepo }
 
 final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
 
-  def apply(query: String): Fu[List[User.WithEmails]] =
+  def apply(query: String): Fu[List[User.WithPerfsAndEmails]] =
     EmailAddress
       .from(query)
       .map(searchEmail)
       .getOrElse(searchUsername(UserStr(query)))
-      .flatMap(userApi.withEmails)
+      .flatMap(userApi.withPerfsAndEmails)
 
   private def searchUsername(username: UserStr) = userRepo.byId(username).map(_.toList)
 

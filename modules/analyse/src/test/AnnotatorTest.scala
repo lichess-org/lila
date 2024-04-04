@@ -5,6 +5,8 @@ import chess.{ ByColor, Ply }
 import lila.core.config.{ BaseUrl, NetDomain }
 import lila.game.PgnDump
 import lila.tree.Eval
+import lila.core.user.LightUserApiMinimal
+import lila.core.LightUser
 
 class AnnotatorTest extends munit.FunSuite:
 
@@ -51,8 +53,13 @@ class AnnotatorTest extends munit.FunSuite:
       def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag              = RawFrag(key.value)
       def plural(key: I18nKey, count: Count, args: Seq[Matchable], lang: Lang): RawFrag = RawFrag(key.value)
 
+  object LightUserApi:
+    def mock: LightUserApiMinimal = new:
+      val sync  = LightUser.GetterSync(id => LightUser.fallback(id.into(UserName)).some)
+      val async = LightUser.Getter(id => fuccess(sync(id)))
+
   given Lang = defaultLang
-  val dumper = PgnDump(BaseUrl("l.org/"), lila.user.LightUserApi.mock)
+  val dumper = PgnDump(BaseUrl("l.org/"), LightUserApi.mock)
   val dumped =
     dumper(makeGame(playedGame), None, PgnDump.WithFlags(tags = false)).await(1.second, "test dump")
 

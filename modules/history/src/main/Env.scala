@@ -12,8 +12,7 @@ import lila.core.Days
 @Module
 final class Env(
     mongoCache: lila.memo.MongoCache.Api,
-    userRepo: lila.user.UserRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using Executor, Scheduler, lila.core.i18n.Translator):
@@ -27,3 +26,8 @@ final class Env(
   lazy val userHistoryApi = new lila.core.history.HistoryApi:
     def addPuzzle                                                                           = api.addPuzzle
     def progresses: (List[WithPerf], PerfKey, Days) => Future[List[(IntRating, IntRating)]] = api.progresses
+
+  lila.common.Bus.subscribeFun("perfsUpdate"):
+    case lila.game.actorApi.PerfsUpdate(game, bothPerfs) =>
+      bothPerfs.mapList: (user, perfs) =>
+        api.add(user, game, perfs)

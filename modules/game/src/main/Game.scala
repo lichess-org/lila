@@ -25,7 +25,7 @@ import chess.{
 import lila.core.Days
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
-import lila.user.User
+import lila.core.user.User
 import lila.core.game.{ GameRule, Source }
 import lila.core.rating.PerfKey
 
@@ -42,7 +42,8 @@ case class Game(
     createdAt: Instant = nowInstant,
     movedAt: Instant = nowInstant,
     metadata: Metadata
-) extends lila.tree.Game:
+) extends lila.tree.Game
+    with lila.core.game.Game:
 
   export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
   export players.{ white as whitePlayer, black as blackPlayer, apply as player }

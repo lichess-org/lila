@@ -10,7 +10,7 @@ import lila.rating.PerfType.Correspondence
 
 object bits:
 
-  def gameIcon(game: Game): licon.Icon =
+  def gameIcon(game: Game): Icon =
     if game.fromPosition then licon.Feather
     else if game.imported then licon.UploadCloud
     else if game.variant.exotic then game.perfType.icon

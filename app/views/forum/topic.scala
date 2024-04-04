@@ -243,9 +243,9 @@ object topic:
           name := "reason",
           cls  := "form-control"
         )(
-          option(value := "")("no message"),
+          st.option(value := "")("no message"),
           lila.msg.MsgPreset.forumDeletion.presets.map: reason =>
-            option(value := reason)(reason)
+            st.option(value := reason)(reason)
         ),
         form3.actions(
           button(cls := "cancel button button-empty", tpe := "button")("Cancel"),

@@ -34,7 +34,7 @@ private[lobby] object LobbyUser:
       blocking = blocking
     )
 
-  private def perfMapOf(perfs: lila.user.UserPerfs): PerfMap =
+  private def perfMapOf(perfs: lila.rating.UserPerfs): PerfMap =
     perfs.perfs.view.collect {
       case (pt, perf) if pt != PerfType.Puzzle && perf.nonEmpty =>
         pt.key -> LobbyPerf(perf.intRating, perf.provisional)

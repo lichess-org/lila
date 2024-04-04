@@ -1,20 +1,37 @@
 package lila.core
 package rating
 
+import lila.core.i18n.Translate
+
 opaque type PerfKey = String
 object PerfKey extends OpaqueString[PerfKey]
 
 opaque type PerfId = Int
 object PerfId extends OpaqueInt[PerfId]
 
+trait PerfType:
+  val id: PerfId
+  val key: PerfKey
+  val icon: Icon
+  def is(other: PerfType): Boolean
+  def trans(using Translate): String
+  def desc(using Translate): String
+
+object PerfType:
+  given Conversion[PerfType, PerfKey] = _.key
+  given Conversion[PerfType, PerfId]  = _.id
+
 trait Perf:
   val glicko: Glicko
-  export glicko.{ intRating, intDeviation }
+  val nb: Int
+  export glicko.{ intRating, intDeviation, provisional }
+  def progress: IntRatingDiff
 
 trait Glicko:
   val rating: Double
   val deviation: Double
   val volatility: Double
+  def provisional: RatingProvisional
   def intRating    = IntRating(rating.toInt)
   def intDeviation = deviation.toInt
 

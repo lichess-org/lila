@@ -138,7 +138,7 @@ case class Tournament(
       )
     }
 
-  def nonLichessCreatedBy = (createdBy != User.lichessId).option(createdBy)
+  def nonLichessCreatedBy = (createdBy != UserId.lichess).option(createdBy)
 
   def ratingVariant = if variant.fromPosition then chess.variant.Standard else variant
 
@@ -197,7 +197,7 @@ object Tournament:
       status = Status.Created,
       clock = Schedule.clockFor(sched),
       minutes = minutes,
-      createdBy = User.lichessId,
+      createdBy = UserId.lichess,
       createdAt = nowInstant,
       nbPlayers = 0,
       variant = sched.variant,

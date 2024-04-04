@@ -6,7 +6,8 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.streamer.Stream.YouTube
-import lila.user.{ User, UserPerfs }
+import lila.user.User
+import lila.rating.UserPerfs
 
 object show:
 

@@ -20,7 +20,7 @@ object GifExport:
 
 final class GifExport(
     ws: StandaloneWSClient,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     baseUrl: BaseUrl,
     url: String
 )(using Executor):

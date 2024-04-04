@@ -1,16 +1,15 @@
 package lila.chat
 
+import play.api.libs.json.JsObject
+
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
+export lila.core.chat.{ Line, ChatLine, BusChan }
 
 private val logger = lila.log("chat")
 
-case class ChatLine(chatId: ChatId, line: Line)
-case class RoundLine(line: Line, watcher: Boolean)
+case class RoundLine(line: Line, json: JsObject, watcher: Boolean)
 case class Timeout(chatId: ChatId, mod: UserId, userId: UserId, reason: ChatTimeout.Reason, local: Boolean)
-
-case class OnTimeout(chatId: ChatId, userId: UserId)
-case class OnReinstate(chatId: ChatId, userId: UserId)
 
 opaque type AllMessages = Boolean
 object AllMessages extends YesNo[AllMessages]

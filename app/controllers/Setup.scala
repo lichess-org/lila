@@ -247,7 +247,7 @@ final class Setup(
     if ctx.isAuth then redir
     else
       redir.withCookies(
-        env.lilaCookie.cookie(
+        env.security.lilaCookie.cookie(
           AnonCookie.name,
           pov.playerId.value,
           maxAge = AnonCookie.maxAge.some,

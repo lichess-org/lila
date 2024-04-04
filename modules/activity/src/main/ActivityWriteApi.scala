@@ -39,7 +39,7 @@ final class ActivityWriteApi(
 
   def forumPost(post: lila.core.forum.ForumPostMini): Funit =
     post.userId
-      .filterNot(_.is(User.lichessId))
+      .filterNot(_.is(UserId.lichess))
       .so: userId =>
         update(userId): a =>
           $doc(ActivityFields.forumPosts -> (~a.forumPosts + post.id))

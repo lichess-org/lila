@@ -1,10 +1,9 @@
 package lila.playban
 
-import lila.chat.ChatApi
 import lila.game.Pov
 
 final private class PlaybanFeedback(
-    chatApi: ChatApi,
+    chatApi: lila.core.chat.ChatApi,
     lightUser: lila.core.LightUser.Getter
 )(using Executor):
 
@@ -23,6 +22,6 @@ final private class PlaybanFeedback(
     pov.player.userId.foreach { userId =>
       lightUser(userId).foreach { light =>
         val message = template.replace("{user}", light.fold(userId.value)(_.name.value))
-        chatApi.userChat.volatile(pov.gameId.into(ChatId), message, _.Round)
+        chatApi.volatile(pov.gameId.into(ChatId), message, _.round)
       }
     }

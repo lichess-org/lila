@@ -186,7 +186,7 @@ final class MsgApi(
     systemPost(destId, preset.text)
 
   def systemPost(destId: UserId, text: String) =
-    post(User.lichessId, destId, text, multi = true, ignoreSecurity = true)
+    post(UserId.lichess, destId, text, multi = true, ignoreSecurity = true)
 
   def multiPost(destSource: Source[UserId, ?], text: String)(using me: Me): Fu[Int] =
     val now = nowInstant // same timestamp on all
@@ -288,7 +288,7 @@ final class MsgApi(
   )
   def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] =
     colls.thread.secondaryPreferred.exists:
-      $id(MsgThread.id(userId, User.lichessId)) ++ hasUnreadLichessMessageSelect
+      $id(MsgThread.id(userId, UserId.lichess)) ++ hasUnreadLichessMessageSelect
 
   def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =
     colls.thread

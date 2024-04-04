@@ -7,8 +7,10 @@ import scala.util.Success
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.{ Glicko, Perf, PerfType, UserPerfs }
 import lila.core.rating.PerfId
+import lila.core.user.LightPerf
+import lila.core.rating.PerfKey
 
 final class RankingApi(
     coll: AsyncCollFailingSilently,
@@ -47,7 +49,7 @@ final class RankingApi(
   private def makeId(userId: UserId, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
-  private[user] def topPerf(perfId: PerfId, nb: Int): Fu[List[User.LightPerf]] =
+  private[user] def topPerf(perfId: PerfId, nb: Int): Fu[List[LightPerf]] =
     PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)).so { perfKey =>
       coll:
         _.find($doc("perf" -> perfId, "stable" -> true))
@@ -57,7 +59,7 @@ final class RankingApi(
           .flatMap:
             _.map: r =>
               lightUser(r.user).map2: light =>
-                User.LightPerf(
+                LightPerf(
                   user = light,
                   perfKey = perfKey,
                   rating = r.rating,
@@ -101,18 +103,18 @@ final class RankingApi(
 
     private type Rank = Int
 
-    def of(userId: UserId): Map[PerfType, Rank] =
+    def of(userId: UserId): Map[PerfKey, Rank] =
       cache.getUnit.value match
         case Some(Success(all)) =>
           all.flatMap: (pt, ranking) =>
             ranking.get(userId).map(pt -> _)
         case _ => Map.empty
 
-    private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]]:
+    private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
       _.refreshAfterWrite(15 minutes).buildAsyncFuture: _ =>
         PerfType.leaderboardable
           .traverse: pt =>
-            compute(pt).dmap(pt -> _)
+            compute(pt).dmap(pt.key -> _)
           .map(_.toMap)
           .chronometer
           .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")

@@ -3,7 +3,7 @@ import alleycats.Zero
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.licon
+import lila.core.Icon
 import scalalib.paginator.Paginator
 import lila.notify.Notification.*
 
@@ -72,7 +72,7 @@ case class GenericLink(
     url: String,
     title: Option[String],
     text: Option[String],
-    icon: licon.Icon
+    icon: Icon
 ) extends NotificationContent("genericLink")
 
 case class BroadcastRound(

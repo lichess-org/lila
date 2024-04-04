@@ -6,16 +6,32 @@ import reactivemongo.api.bson.*
 
 import lila.core.NormalizedEmailAddress
 import lila.core.LightUser
+import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.{ Glicko, Perf, PerfType, UserPerfs }
 import lila.user.User.userHandler
 import lila.core.lilaism.LilaInvalid
+import lila.core.user.WithEmails
+import lila.core.rating.PerfKey
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
     akka.stream.Materializer
-):
+) extends lila.core.user.UserApi:
+
+  export userRepo.{
+    byId,
+    email,
+    emailOrPrevious,
+    pair,
+    enabledByIds,
+    createdAtById,
+    isEnabled,
+    filterClosedOrInactiveIds,
+    isKid,
+    langOf
+  }
 
   // hit by game rounds
   object gamePlayers:
@@ -99,7 +115,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   def listWithPerf[U: UserIdOf](
       us: List[U],
-      pt: PerfType,
+      pk: PerfKey,
       readPref: ReadPref = _.sec
   ): Fu[List[User.WithPerf]] = us.nonEmpty.so:
     val ids = us.map(_.id)
@@ -107,7 +123,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
       .aggregateList(Int.MaxValue, readPref): framework =>
         import framework.*
         Match($inIds(ids)) -> List(
-          PipelineOperator(perfsRepo.aggregate.lookup(pt)),
+          PipelineOperator(perfsRepo.aggregate.lookup(pk)),
           AddFields($sort.orderField(ids)),
           Sort(Ascending("_order"))
         )
@@ -115,7 +131,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         for
           doc  <- docs
           user <- doc.asOpt[User]
-          perf = perfsRepo.aggregate.readFirst(doc, pt)
+          perf = perfsRepo.aggregate.readFirst(doc, pk)
         yield User.WithPerf(user, perf)
 
   def pairWithPerf(userIds: ByColor[Option[UserId]], pt: PerfType): Fu[ByColor[Option[User.WithPerf]]] =
@@ -129,7 +145,30 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         case Left(g)  => fuccess(g.some)
         case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => u.withPerf(p).some)
 
-  def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] = for
+  def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]] =
+    byId(userId).flatMapz: user =>
+      perfsRepo.intRatingOf(user.id, perf).map(r => (user, r).some)
+
+  private def readEmails(doc: Bdoc) = lila.core.user.Emails(
+    current = userRepo.anyEmail(doc),
+    previous = doc.getAsOpt[NormalizedEmailAddress](User.BSONFields.prevEmail)
+  )
+
+  def withEmails[U: UserIdOf](users: List[U]): Fu[List[WithEmails]] =
+    userRepo.coll
+      .list[Bdoc]($inIds(users.map(_.id)), _.priTemp)
+      .map: docs =>
+        for
+          doc  <- docs
+          user <- summon[BSONHandler[User]].readOpt(doc)
+        yield WithEmails(user, readEmails(doc))
+
+  def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]] =
+    withEmails(List(user)).dmap(_.headOption)
+
+  def withPerfsAndEmails[U: UserIdOf](
+      users: List[U]
+  )(using r: BSONHandler[User]): Fu[List[User.WithPerfsAndEmails]] = for
     perfs <- perfsRepo.idsMap(users, _.sec)
     users <- userRepo.coll
       .list[Bdoc]($inIds(users.map(_.id)), _.priTemp)
@@ -137,17 +176,11 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         for
           doc  <- docs
           user <- r.readOpt(doc)
-        yield User.WithEmails(
-          User.WithPerfs(user, perfs.get(user.id)),
-          User.Emails(
-            current = userRepo.anyEmail(doc),
-            previous = doc.getAsOpt[NormalizedEmailAddress](User.BSONFields.prevEmail)
-          )
-        )
+        yield User.WithPerfsAndEmails(User.WithPerfs(user, perfs.get(user.id)), readEmails(doc))
   yield users
 
-  def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
-    withEmails(List(u)).map(_.headOption)
+  def withPerfsAndEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithPerfsAndEmails]] =
+    withPerfsAndEmails(List(u)).map(_.headOption)
 
   def setBot(user: User): Funit =
     if user.count.game > 0
@@ -196,7 +229,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
           Match:
             $doc(
               s"user.${F.enabled}" -> true,
-              s"user.${F.marks}".$nin(List(UserMark.Engine.key, UserMark.Boost.key)),
+              s"user.${F.marks}".$nin(List(UserMark.engine, UserMark.boost)),
               s"user.${F.title}".$ne(PlayerTitle.BOT)
             )
           ,

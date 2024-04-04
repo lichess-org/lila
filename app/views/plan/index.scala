@@ -241,7 +241,7 @@ object index:
                     form(cls := "currency none", action := routes.Plan.list)(
                       select(name := "currency")(
                         lila.plan.CurrencyApi.currencyList.map { cur =>
-                          option(
+                          st.option(
                             value := cur.getCurrencyCode,
                             (pricing.currencyCode == cur.getCurrencyCode).option(selected)
                           )(showCurrency(cur))

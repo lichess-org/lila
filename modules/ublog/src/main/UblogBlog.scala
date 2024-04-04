@@ -36,6 +36,6 @@ object UblogBlog:
   class Allows(creator: UserId):
     def moderate(using Option[Me]): Boolean   = Granter.opt(_.ModerateBlog)
     def edit(using me: Option[Me]): Boolean   = me.exists(creator.is(_)) || moderate
-    def create(using me: Option[Me]): Boolean = edit || (creator == User.lichessId && Granter.opt(_.Pages))
+    def create(using me: Option[Me]): Boolean = edit || (creator == UserId.lichess && Granter.opt(_.Pages))
     def draft(using me: Option[Me]): Boolean =
-      create || (Granter.opt(_.LichessTeam) && creator == User.lichessId)
+      create || (Granter.opt(_.LichessTeam) && creator == UserId.lichess)

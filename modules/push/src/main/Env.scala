@@ -68,7 +68,7 @@ final class Env(
       logUnit { pushApi.challengeCreate(c) }
     case lila.core.challenge.Event.Accept(c, joinerId) =>
       logUnit { pushApi.challengeAccept(c, joinerId) }
-    case lila.game.actorApi.CorresAlarmEvent(pov) =>
+    case lila.core.game.CorresAlarmEvent(userId, pov: lila.game.Pov, opponent) =>
       logUnit { pushApi.corresAlarm(pov) }
     case lila.notify.PushNotification(to, content, _) =>
       logUnit { pushApi.notifyPush(to, content) }

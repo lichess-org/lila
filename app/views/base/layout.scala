@@ -320,8 +320,8 @@ object layout:
             )
           },
           dataDev,
-          dataVapid    := (ctx.isAuth && env.lilaCookie.isRememberMe(ctx.req)).option(vapidPublicKey),
-          dataUser     := ctx.userId,
+          dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req)).option(vapidPublicKey),
+          dataUser  := ctx.userId,
           dataSoundSet := pref.currentSoundSet.toString,
           dataSocketDomains,
           pref.isUsingAltSocket.option(dataSocketAlts),

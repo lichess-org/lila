@@ -22,7 +22,7 @@ import lila.core.Seconds
 final private class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
-    irc: lila.irc.IrcApi,
+    irc: lila.core.irc.IrcApi,
     formatApi: RelayFormatApi,
     delayer: RelayDelay,
     fidePlayers: RelayFidePlayerApi,

@@ -6,6 +6,7 @@ import chess.PlayerTitle
 import lila.common.licon
 import lila.core.LightUser
 import lila.game.{ Game, GameRepo, Pov }
+import lila.core.Icon
 
 final class Tv(
     gameRepo: GameRepo,
@@ -68,7 +69,7 @@ object Tv:
 
   enum Channel(
       val name: String,
-      val icon: licon.Icon,
+      val icon: Icon,
       val secondsSinceLastMove: Int,
       filters: Seq[Candidate => Boolean]
   ):

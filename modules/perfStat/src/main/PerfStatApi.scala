@@ -1,9 +1,9 @@
 package lila.perfStat
 
-import lila.rating.{ Perf, PerfType, UserRankMap }
+import lila.rating.{ Perf, UserRankMap }
 import lila.security.Granter
 import lila.user.{ LightUserApi, Me, RankingApi, RankingsOf, User, UserApi }
-import lila.core.rating.PerfKey
+import lila.core.rating.{ PerfType, PerfKey }
 
 case class PerfStatData(
     user: User.WithPerfs,
@@ -13,7 +13,7 @@ case class PerfStatData(
     percentileLow: Option[Double],
     percentileHigh: Option[Double]
 ):
-  def rank = ranks.get(stat.perfType)
+  def rank = ranks.get(stat.perfType.key)
 
 final class PerfStatApi(
     storage: PerfStatStorage,
@@ -22,33 +22,42 @@ final class PerfStatApi(
     rankingsOf: RankingsOf,
     rankingApi: RankingApi,
     lightUserApi: LightUserApi
-)(using Executor):
+)(using Executor)
+    extends lila.core.perfStat.PerfStatApi:
 
   def data(name: UserStr, perfKey: PerfKey)(using me: Option[Me]): Fu[Option[PerfStatData]] =
-    PerfType(perfKey).so: perfType =>
-      userApi.withPerfs(name.id).flatMap {
-        _.filter: u =>
-          (u.enabled.yes && (!u.lame || me.exists(_.is(u)))) || me.soUse(Granter(_.UserModView))
-        .filter: u =>
-          !u.isBot || (perfType =!= PerfType.UltraBullet)
-        .soFu: u =>
-          for
-            oldPerfStat <- get(u.user, perfType)
-            perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
+    lila.rating
+      .PerfType(perfKey)
+      .so: perfType =>
+        userApi.withPerfs(name.id).flatMap {
+          _.filter: u =>
+            (u.enabled.yes && (!u.lame || me.exists(_.is(u)))) || me.soUse(Granter(_.UserModView))
+          .filter: u =>
+            !u.isBot || (!perfType.is(lila.rating.PerfType.UltraBullet))
+          .soFu: u =>
+            for
+              oldPerfStat <- get(u.user.id, perfType)
+              perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
 
-            distribution <- u.perfs(perfType).established.soFu(rankingApi.weeklyRatingDistribution(perfType))
-            percentile     = calcPercentile(distribution, u.perfs(perfType).intRating)
-            percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
-            percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
-            _              = lightUserApi.preloadUser(u.user)
-            _ <- lightUserApi.preloadMany(perfStat.userIds)
-          yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
-      }
+              distribution <- u
+                .perfs(perfType)
+                .established
+                .soFu(rankingApi.weeklyRatingDistribution(perfType))
+              percentile     = calcPercentile(distribution, u.perfs(perfType).intRating)
+              percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
+              percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
+              _              = lightUserApi.preloadUser(u.user)
+              _ <- lightUserApi.preloadMany(perfStat.userIds)
+            yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
+        }
 
   private def calcPercentile(wrd: Option[List[Int]], intRating: IntRating): Option[Double] =
     wrd.map: distrib =>
       val (under, sum) = lila.user.Stat.percentile(distrib, intRating)
       Math.round(under * 1000.0 / sum) / 10.0
 
-  def get(user: User, perfType: PerfType): Fu[PerfStat] =
-    storage.find(user.id, perfType).getOrElse(indexer.userPerf(user, perfType))
+  def get(user: UserId, perfType: PerfType): Fu[PerfStat] =
+    storage.find(user, perfType).getOrElse(indexer.userPerf(user, perfType))
+
+  def highestRating(user: UserId, perfType: PerfType): Fu[Option[IntRating]] =
+    get(user, perfType).map(_.highest.map(_.int))

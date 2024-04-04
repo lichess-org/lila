@@ -72,7 +72,7 @@ final class Pref(env: Env) extends LilaController(env):
 
   def set(name: String) = OpenBody:
     if name == "zoom"
-    then Ok.withCookies(env.lilaCookie.cookie("zoom", (getInt("v") | 85).toString))
+    then Ok.withCookies(env.security.lilaCookie.cookie("zoom", (getInt("v") | 85).toString))
     else if name == "agreement" then
       ctx.me.so(api.agree(_)).inject {
         if HTTPRequest.isXhr(ctx.req) then NoContent else Redirect(routes.Lobby.home)
@@ -88,7 +88,7 @@ final class Pref(env: Env) extends LilaController(env):
               v =>
                 ctx.me
                   .so(api.setPref(_, change.update(v)))
-                  .inject(env.lilaCookie.session(name, v.toString)(using ctx.req))
+                  .inject(env.security.lilaCookie.session(name, v.toString)(using ctx.req))
                   .map: cookie =>
                     Ok(()).withCookies(cookie)
             )

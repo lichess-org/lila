@@ -35,7 +35,7 @@ final class I18n(env: Env) extends LilaController(env):
                     else path + "?" + query
                   catch case _: Exception => routes.Lobby.home.url
               if ctx.isAnon
-              then redir.withCookies(env.lilaCookie.session("lang", lang.code))
+              then redir.withCookies(env.security.lilaCookie.session("lang", lang.code))
               else redir
             ,
             Ok(Json.obj("lang" -> lang.code))

@@ -37,7 +37,7 @@ case class Study(
   def canChat(id: UserId) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
   def canContribute[U: UserIdOf](u: U) =
-    isOwner(u) || members.get(u.id).exists(_.canContribute) || u.is(User.lichessId)
+    isOwner(u) || members.get(u.id).exists(_.canContribute) || u.is(UserId.lichess)
 
   def canView(id: Option[UserId]) = !isPrivate || id.exists(members.contains)
 

@@ -2,17 +2,16 @@ package lila.coach
 
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
-import lila.notify.NotifyApi
 import lila.security.Granter
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
+import lila.rating.UserPerfs
 
 final class CoachApi(
     coachColl: Coll,
     userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
     picfitApi: PicfitApi,
-    cacheApi: lila.memo.CacheApi,
-    notifyApi: NotifyApi
+    cacheApi: lila.memo.CacheApi
 )(using Executor):
 
   import BsonHandlers.given
@@ -51,9 +50,9 @@ final class CoachApi(
     canCoach(user).so:
       coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
 
-  def setRating(u: User.WithPerfs): Funit =
-    canCoach(u.user).so:
-      perfsRepo.perfsOf(u.id).flatMap { perfs =>
+  def updateRatingFromDb(user: lila.core.user.User): Funit =
+    canCoach(user).so:
+      perfsRepo.perfsOf(user).flatMap { perfs =>
         coachColl.update.one($id(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void
       }
 

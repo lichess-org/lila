@@ -22,6 +22,7 @@ import lila.security.{ Granter, UserLogins }
 import lila.user.User as UserModel
 import lila.core.rating.PerfKey
 import lila.core.IpAddress
+import lila.core.user.LightPerf
 
 final class User(
     override val env: Env,
@@ -259,7 +260,7 @@ final class User(
             html.user.list(tourneyWinners, topOnline, leaderboards, nbAllTime)
         yield Ok(page),
         json =
-          given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+          given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
           import lila.user.JsonView.leaderboardsWrites
           JsonOk(leaderboards)
       )
@@ -294,8 +295,8 @@ final class User(
         _.take(nb.atLeast(1).atMost(200)) -> perfType
       }
 
-  private def topNbJson(users: List[UserModel.LightPerf]) =
-    given OWrites[UserModel.LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
+  private def topNbJson(users: List[LightPerf]) =
+    given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
     Ok(Json.obj("users" -> users))
 
   def topWeek = Open:
@@ -334,7 +335,7 @@ final class User(
               .byUsersForMod(familyUserIds)
               .logTimeIfGt(s"${user.username} noteApi.forMod", 2 seconds)
           ))
-          .zip(env.playban.api.bans(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds))
+          .zip(env.playban.api.bansOf(familyUserIds).logTimeIfGt(s"${user.username} playban.bans", 2 seconds))
           .zip(lila.security.UserLogins.withMeSortedWithEmails(env.user.repo, user, userLogins))
       otherUsers <- env.user.perfsRepo.withPerfs(othersWithEmail.others.map(_.user))
       otherUsers <- env.mod.logApi.addModlog(otherUsers)
@@ -345,8 +346,8 @@ final class User(
       ctx: Context,
       me: Me
   ): Fu[Result] =
-    env.user.api.withEmails(username).orFail(s"No such user $username").flatMap {
-      case UserModel.WithEmails(user, emails) =>
+    env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
+      case UserModel.WithPerfsAndEmails(user, emails) =>
         withPageContext:
           import html.user.{ mod as view }
           import lila.app.ui.ScalatagsExtensions.{ emptyFrag, given }
@@ -381,7 +382,7 @@ final class User(
 
           val rageSit = isGranted(_.CheatHunter).so(
             env.playban.api
-              .getRageSit(user.id)
+              .rageSitOf(user.id)
               .zip(env.playban.api.bans(user.id))
               .map(view.showRageSitAndPlaybans)
           )
@@ -448,8 +449,8 @@ final class User(
     }
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
-    env.user.api.withEmails(username).orFail(s"No such user $username").flatMap {
-      case UserModel.WithEmails(user, emails) =>
+    env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
+      case UserModel.WithPerfsAndEmails(user, emails) =>
         env.user.repo.isErased(user).flatMap { erased =>
           Ok.page:
             html.user.mod.actions(
@@ -505,7 +506,7 @@ final class User(
       val isMod = data.mod && isGranted(_.ModNote)
       val dox   = isMod && (data.dox || lila.fide.FideWebsite.urlToFideId(data.text).isDefined)
       for
-        _        <- env.user.noteApi.write(user, data.text, isMod, dox)
+        _        <- env.user.noteApi.write(user.id, data.text, isMod, dox)
         newTitle <- isMod.so(env.fide.playerApi.urlToTitle(data.text))
         _        <- newTitle.so(env.user.repo.setTitle(user.id, _))
         result   <- f(user)
@@ -530,7 +531,7 @@ final class User(
     Found(user): user =>
       for
         usersAndGames <- env.game.favoriteOpponents(user.id)
-        withPerfs     <- env.user.perfsRepo.withPerfs(usersAndGames.map(_._1))
+        withPerfs     <- env.user.api.listWithPerfs(usersAndGames.map(_._1))
         ops = withPerfs.toList.zip(usersAndGames.map(_._2))
         followables <- env.pref.api.followables(ops.map(_._1.id))
         relateds <-
@@ -558,7 +559,7 @@ final class User(
         JsonOk:
           getBool("graph")
             .soFu:
-              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType)
+              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
             .map: graph =>
               env.perfStat.jsonView(data).add("graph", graph)
       )

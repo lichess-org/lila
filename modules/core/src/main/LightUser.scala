@@ -2,6 +2,7 @@ package lila.core
 
 import chess.PlayerTitle
 import play.api.libs.json.*
+import lila.core.user.MyId
 
 case class LightUser(
     id: UserId,
@@ -28,6 +29,14 @@ object LightUser:
     flair = None,
     isPatron = false
   )
+
+  opaque type Me = LightUser
+  object Me extends TotalWrapper[Me, LightUser]:
+    given UserIdOf[Me]              = _.id
+    given Conversion[Me, LightUser] = identity
+    given Conversion[Me, UserId]    = _.id
+    given Conversion[Me, MyId]      = _.id.into(MyId)
+    given (using me: Me): MyId      = me.id.into(MyId)
 
   private type GetterType          = UserId => Fu[Option[LightUser]]
   opaque type Getter <: GetterType = GetterType

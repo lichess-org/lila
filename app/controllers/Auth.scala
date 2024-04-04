@@ -64,7 +64,7 @@ final class Auth(
       result: Result
   )(using RequestHeader) =
     result.withCookies(
-      env.lilaCookie.withSession(remember = remember) {
+      env.security.lilaCookie.withSession(remember = remember) {
         _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
       }
     )
@@ -151,7 +151,7 @@ final class Auth(
       negotiate(
         Redirect(routes.Auth.login),
         jsonOkResult
-      ).dmap(_.withCookies(env.lilaCookie.newSession))
+      ).dmap(_.withCookies(env.security.lilaCookie.newSession))
 
   // mobile app BC logout with GET
   def logoutGet = Auth { ctx ?=> _ ?=>
@@ -159,7 +159,7 @@ final class Auth(
       html = Ok.page(html.auth.bits.logout()),
       json =
         ctx.req.session.get(api.sessionIdKey).foreach(env.security.store.delete)
-        jsonOkResult.withCookies(env.lilaCookie.newSession)
+        jsonOkResult.withCookies(env.security.lilaCookie.newSession)
     )
   }
 
@@ -189,7 +189,7 @@ final class Auth(
               case Signup.Result.ConfirmEmail(user, email) =>
                 Redirect(routes.Auth.checkYourEmail).withCookies(
                   lila.security.EmailConfirm.cookie
-                    .make(env.lilaCookie, user, email)(using ctx.req)
+                    .make(env.security.lilaCookie, user, email)(using ctx.req)
                 )
               case Signup.Result.AllSet(user, email) =>
                 welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
@@ -224,7 +224,7 @@ final class Auth(
         case Some(userEmail) =>
           env.user.repo.exists(userEmail.username).flatMap {
             if _ then Ok.async(accountC.renderCheckYourEmail)
-            else Redirect(routes.Auth.signup).withCookies(env.lilaCookie.newSession)
+            else Redirect(routes.Auth.signup).withCookies(env.security.lilaCookie.newSession)
           }
 
   // after signup and before confirmation
@@ -253,7 +253,7 @@ final class Auth(
                               .inject:
                                 Redirect(routes.Auth.checkYourEmail).withCookies:
                                   lila.security.EmailConfirm.cookie
-                                    .make(env.lilaCookie, user, newUserEmail.email)(using ctx.req)
+                                    .make(env.security.lilaCookie, user, newUserEmail.email)(using ctx.req)
                       else Redirect(routes.Auth.login)
         )
     }

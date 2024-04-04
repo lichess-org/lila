@@ -61,16 +61,15 @@ export function renderStreamerMenu(relay: RelayCtrl) {
 }
 
 export function renderPinnedImage(relay: RelayCtrl) {
-  if (
-    window.getComputedStyle(document.body).getPropertyValue('--allow-video') !== 'true' ||
-    !relay.pinStreamer() ||
-    !relay.data.pinned?.image
-  )
-    return undefined;
-
-  return h('img', {
-    attrs: { src: relay.data.pinned.image, style: 'cursor: pointer;' },
+  if (!relay.pinStreamer() || !relay.data.pinned?.image) return undefined;
+  return h('img.link', {
+    attrs: { src: relay.data.pinned.image },
     hook: bind('click', () => {
+      if (window.getComputedStyle(document.body).getPropertyValue('--allow-video') !== 'true') {
+        const url = `${window.location.origin}/streamer/${relay.data.pinned!.userId}`;
+        window.open(url, '_blank', 'noopener'); //if (!window.open(url, '_blank', 'noopener')) window.location.href = url; //safari
+        return;
+      }
       const url = new URL(location.href);
       url.searchParams.set('embed', relay.data.pinned!.userId);
       window.location.replace(url);

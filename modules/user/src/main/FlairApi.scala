@@ -12,22 +12,25 @@ object FlairApi:
 
   type FlairMap = Map[UserId, Flair]
 
-  def formField(anyFlair: Boolean = false)(using by: Me): play.api.data.Mapping[Option[Flair]] =
+  def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]] =
     import play.api.data.Forms.*
     import lila.common.Form.into
     optional:
       text
         .into[Flair]
         .verifying(exists)
-        .verifying(f => anyFlair || !adminFlairs(f) || by.isAdmin)
+        .verifying(f => anyFlair || !adminFlairs(f) || asAdmin)
 
-  def formPair(anyFlair: Boolean = false)(using by: Me) = "flair" -> formField(anyFlair)
+  def formPair(anyFlair: Boolean = false, asAdmin: Boolean = false)(using by: Me) =
+    "flair" -> formField(anyFlair, asAdmin)
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
 
-final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: Scheduler):
+final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler: Scheduler)
+    extends lila.core.user.FlairApi:
 
   import FlairApi.*
+  export FlairApi.formField
 
   val getter = Getter: id =>
     lightUserApi.async(id).dmap(_.flatMap(_.flair))

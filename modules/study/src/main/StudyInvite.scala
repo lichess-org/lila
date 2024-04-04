@@ -3,7 +3,7 @@ package lila.study
 import lila.db.dsl.{ *, given }
 import lila.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
-import lila.core.relation.{ Block, Follow }
+import lila.core.relation.Relation.{ Block, Follow }
 import lila.security.Granter
 import lila.user.{ Me, User }
 import lila.core.user.MyId
@@ -39,7 +39,7 @@ final private class StudyInvite(
       userRepo
         .enabledById(invitedUsername)
         .map(
-          _.filterNot(u => User.lichessId.is(u) && !Granter(_.StudyAdmin))
+          _.filterNot(u => UserId.lichess.is(u) && !Granter(_.StudyAdmin))
         )
         .orFail("No such invited")
     _         <- study.members.contains(invited).so(fufail[Unit]("Already a member"))

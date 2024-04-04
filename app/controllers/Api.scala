@@ -203,7 +203,7 @@ final class Api(
     }
 
   def tournamentsByOwner(name: UserStr, status: List[Int]) = Anon:
-    Found(meOrFetch(name).map(_.filterNot(_.is(lila.user.User.lichessId)))): user =>
+    Found(meOrFetch(name).map(_.filterNot(_.is(UserId.lichess)))): user =>
       val nb = getInt("nb") | Int.MaxValue
       jsonDownload:
         env.tournament.api

@@ -15,7 +15,7 @@ final class UblogApi(
     userApi: UserApi,
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
-    irc: lila.irc.IrcApi
+    irc: lila.core.irc.IrcApi
 )(using Executor)
     extends lila.core.ublog.UblogApi:
 
@@ -152,7 +152,7 @@ final class UblogApi(
   private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
     (post.markdown.value.sizeIs > 1000).so(
       irc.ublogPost(
-        user,
+        user.light,
         id = post.id,
         slug = post.slug,
         title = post.title,

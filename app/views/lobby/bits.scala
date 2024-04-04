@@ -15,7 +15,7 @@ object bits:
   def underboards(
       tours: List[lila.tournament.Tournament],
       simuls: List[lila.simul.Simul],
-      leaderboard: List[lila.user.User.LightPerf],
+      leaderboard: List[lila.core.user.LightPerf],
       tournamentWinners: List[lila.tournament.Winner]
   )(using ctx: Context) =
     frag(
@@ -83,7 +83,7 @@ object bits:
       cls := "unread-lichess-message",
       p(trans.site.showUnreadLichessMessage()),
       p:
-        a(cls := "button button-big", href := routes.Msg.convo(lila.user.User.lichessId)):
+        a(cls := "button button-big", href := routes.Msg.convo(UserId.lichess)):
           trans.site.clickHereToReadIt()
     )
 

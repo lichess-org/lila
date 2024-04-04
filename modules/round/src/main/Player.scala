@@ -12,7 +12,6 @@ import lila.game.{ Game, Pov, Progress, UciMemo }
 import lila.core.round.*
 
 final private class Player(
-    fishnetPlayer: lila.fishnet.FishnetPlayer,
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration,
     uciMemo: UciMemo
@@ -117,10 +116,10 @@ final private class Player(
         FishnetError:
           s"Not AI turn move: $uci id: ${game.id} playable: ${game.playable} player: ${game.player}"
 
-  private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Funit =
+  private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Unit =
     game.playableByAi.so:
-      if game.ply <= fishnetPlayer.maxPlies then fishnetPlayer(game)
-      else fuccess(round ! ResignAi)
+      if game.ply <= lila.core.fishnet.maxPlies then Bus.publish(game, "fishnetPlay")
+      else round ! ResignAi
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(0).some)

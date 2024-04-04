@@ -1,14 +1,16 @@
 package lila.appeal
 
 import lila.db.dsl.{ *, given }
-import lila.user.{ Me, NoteApi, User, UserMark, UserRepo }
+import lila.user.{ Me, User, given }
+import lila.core.user.{ UserMark, NoteApi, UserRepo }
 
 import Appeal.Filter
+import lila.core.user.MyId
 
 final class AppealApi(
     coll: Coll,
-    userRepo: UserRepo,
     noteApi: NoteApi,
+    userRepo: UserRepo,
     snoozer: lila.memo.Snoozer[Appeal.SnoozeKey]
 )(using Executor):
 
@@ -43,13 +45,11 @@ final class AppealApi(
         val appeal = prev.post(text, me)
         coll.update.one($id(appeal.id), appeal).inject(appeal)
 
-  def reply(text: String, prev: Appeal, preset: Option[String])(using me: Me) =
-    val appeal = prev.post(text, me.value)
+  def reply(text: String, prev: Appeal, preset: Option[String])(using me: MyId) =
+    val appeal = prev.post(text, me)
     (coll.update.one($id(appeal.id), appeal) >> {
       preset.so: note =>
-        userRepo.byId(appeal.id).flatMapz {
-          noteApi.write(_, s"Appeal reply: $note", modOnly = true, dox = false)
-        }
+        noteApi.write(appeal.userId, s"Appeal reply: $note", modOnly = true, dox = false)
     }).inject(appeal)
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))

@@ -5,6 +5,7 @@ import chess.{ Centis, Speed }
 import lila.core.i18n.{ I18nKey, Translate }
 
 import lila.common.licon
+import lila.core.Icon
 import lila.core.rating.{ PerfId, PerfKey }
 
 enum PerfType(
@@ -12,12 +13,11 @@ enum PerfType(
     val key: PerfKey,
     private val name: String,
     private val title: String,
-    val icon: licon.Icon
-) derives Eq:
-
-  def iconString                     = icon.toString
-  def trans(using Translate): String = PerfType.trans(this)
-  def desc(using Translate): String  = PerfType.desc(this)
+    val icon: Icon
+) extends lila.core.rating.PerfType:
+  def is(other: lila.core.rating.PerfType) = id == other.id
+  def trans(using Translate): String       = PerfType.trans(this)
+  def desc(using Translate): String        = PerfType.desc(this)
 
   case UltraBullet
       extends PerfType(
@@ -200,7 +200,7 @@ object PerfType:
   val standard: List[PerfType]          = List(Bullet, Blitz, Rapid, Classical, Correspondence)
   val standardWithUltra: List[PerfType] = UltraBullet :: standard
 
-  def variantOf(pt: PerfType): chess.variant.Variant = pt match
+  def variantOf(pt: lila.core.rating.PerfType): chess.variant.Variant = pt match
     case Crazyhouse    => chess.variant.Crazyhouse
     case Chess960      => chess.variant.Chess960
     case KingOfTheHill => chess.variant.KingOfTheHill
@@ -248,7 +248,7 @@ object PerfType:
             case _              => 7 * 60 * 100
       .to(Map)
 
-  def iconByVariant(variant: chess.variant.Variant): licon.Icon =
+  def iconByVariant(variant: chess.variant.Variant): Icon =
     byVariant(variant).fold(licon.CrownElite)(_.icon)
 
   val translated: Set[PerfType] = Set(Bullet, Blitz, Rapid, Classical, Correspondence, Puzzle)

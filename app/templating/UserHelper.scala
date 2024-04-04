@@ -8,10 +8,11 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.licon
 import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserPerfs }
+import lila.rating.{ Perf, PerfType, UserPerfs }
+import lila.user.User
 import lila.core.rating.PerfKey
 import lila.app.mashup.*
+import lila.core.Icon
 
 trait UserHelper extends HasEnv:
   self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
@@ -44,7 +45,7 @@ trait UserHelper extends HasEnv:
       nb: Int,
       provisional: RatingProvisional,
       clueless: Boolean,
-      icon: licon.Icon
+      icon: Icon
   )(using Translate): Frag =
     span(
       title    := trans.site.ratingXOverYGames.pluralTxt(nb, name, nb.localize),
@@ -88,7 +89,7 @@ trait UserHelper extends HasEnv:
   def usernameOrId(userId: UserId): String  = lightUser(userId).fold(userId.value)(_.name.value)
   def titleNameOrId(userId: UserId): String = lightUser(userId).fold(userId.value)(_.titleName)
   def titleNameOrAnon(userId: Option[UserId]): String =
-    userId.flatMap(lightUser).fold(User.anonymous.value)(_.titleName)
+    userId.flatMap(lightUser).fold(UserName.anonymous.value)(_.titleName)
 
   def isOnline(userId: UserId) = env.socket.isOnline(userId)
 
@@ -97,7 +98,7 @@ trait UserHelper extends HasEnv:
   def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
     span(cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined))(
       if modIcon then frag(moderatorIcon, User.anonMod)
-      else User.anonymous
+      else UserName.anonymous
     )
 
   def userIdLink[U: UserIdOf](

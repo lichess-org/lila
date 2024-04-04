@@ -8,10 +8,7 @@ import lila.core.LightUser
 import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
 
-final class PgnDump(
-    baseUrl: BaseUrl,
-    lightUserApi: lila.user.ILightUserApi
-)(using Executor):
+final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiMinimal)(using Executor):
 
   import PgnDump.*
 
@@ -56,7 +53,7 @@ final class PgnDump(
 
   def player(p: Player, u: Option[LightUser]): String | UserName =
     p.aiLevel.fold(
-      u.fold(p.nameSplit.map(_._1.value).orElse(p.name.map(_.value)) | lila.user.User.anonymous)(_.name)
+      u.fold(p.nameSplit.map(_._1.value).orElse(p.name.map(_.value)) | lila.core.UserName.anonymous)(_.name)
     )("lichess AI level " + _)
 
   private val customStartPosition: Set[chess.variant.Variant] =

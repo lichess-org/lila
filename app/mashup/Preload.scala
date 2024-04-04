@@ -152,7 +152,7 @@ object Preload:
       relays: List[lila.relay.RelayTour.ActiveWithSomeRounds],
       simuls: List[Simul],
       featured: Option[Game],
-      leaderboard: List[User.LightPerf],
+      leaderboard: List[lila.core.user.LightPerf],
       tournamentWinners: List[Winner],
       puzzle: Option[lila.puzzle.DailyPuzzle.WithHtml],
       streams: LiveStreams.WithTitles,

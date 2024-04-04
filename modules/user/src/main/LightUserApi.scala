@@ -8,11 +8,8 @@ import lila.memo.{ CacheApi, Syncache }
 
 import User.BSONFields as F
 
-trait ILightUserApi:
-  def async: LightUser.Getter
-  def sync: LightUser.GetterSync
-
-final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) extends ILightUserApi:
+final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
+    extends lila.core.user.LightUserApi:
 
   val async = LightUser.Getter: id =>
     if User.isGhost(id) then fuccess(LightUser.ghost.some) else cache.async(id)
@@ -75,9 +72,3 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
       s"${F.plan}.active" -> true,
       F.flair             -> true
     ).some
-
-object LightUserApi:
-
-  def mock: ILightUserApi = new:
-    def sync  = LightUser.GetterSync(id => LightUser.fallback(id.into(UserName)).some)
-    def async = LightUser.Getter(id => fuccess(sync(id)))

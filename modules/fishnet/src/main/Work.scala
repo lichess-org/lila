@@ -59,7 +59,7 @@ object Work:
   ):
 
     override def toString =
-      if system then lila.user.User.lichessId.value
+      if system then UserId.lichess.value
       else userId.value
 
   case class Clock(wtime: Int, btime: Int, inc: chess.Clock.IncrementSeconds)

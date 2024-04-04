@@ -154,7 +154,7 @@ final class Account(
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>
       env.security.api.saveAuthentication(me, ctx.mobileApiVersion)).map { sessionId =>
-      result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
+      result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
     }
 
   private def emailForm(using me: Me) =
@@ -263,7 +263,7 @@ final class Account(
             env.api.accountClosure
               .close(me.value)
               .inject:
-                Redirect(routes.User.show(me.username)).withCookies(env.lilaCookie.newSession)
+                Redirect(routes.User.show(me.username)).withCookies(env.security.lilaCookie.newSession)
   }
 
   def kid = Auth { _ ?=> me ?=>

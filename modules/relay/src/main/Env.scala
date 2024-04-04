@@ -28,7 +28,7 @@ final class Env(
     guessPlayer: lila.core.fide.GuessPlayer,
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
-    irc: lila.irc.IrcApi,
+    irc: lila.core.irc.IrcApi,
     baseUrl: BaseUrl,
     notifyApi: lila.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
@@ -40,9 +40,7 @@ final class Env(
     akka.stream.Materializer,
     play.api.Mode,
     lila.core.i18n.Translator
-)(using
-    scheduler: Scheduler
-):
+)(using scheduler: Scheduler):
 
   lazy val roundForm = wire[RelayRoundForm]
 
@@ -118,7 +116,7 @@ final class Env(
     api.autoStart >> api.autoFinishNotSyncing
 
   lila.common.Bus.subscribeFuns(
-    "study" -> { case lila.core.actorApi.study.RemoveStudy(studyId) =>
+    "study" -> { case lila.core.study.RemoveStudy(studyId) =>
       api.onStudyRemove(studyId)
     },
     "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>

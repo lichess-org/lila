@@ -6,7 +6,8 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.perfStat.{ PerfStat, PerfStatData }
-import lila.rating.{ Perf, PerfType }
+import lila.rating.Perf
+import lila.core.rating.PerfType
 import lila.user.User
 
 object perfStat:

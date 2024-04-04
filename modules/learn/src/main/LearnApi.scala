@@ -1,25 +1,24 @@
 package lila.learn
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final class LearnApi(coll: Coll)(using Executor):
 
   import BSONHandlers.given
 
-  def get(user: User): Fu[LearnProgress] =
-    coll.one[LearnProgress]($id(user.id)).dmap { _ | LearnProgress.empty(user.id) }
+  def get(user: UserId): Fu[LearnProgress] =
+    coll.one[LearnProgress]($id(user)).dmap { _ | LearnProgress.empty(user.id) }
 
   private def save(p: LearnProgress): Funit =
     coll.update.one($id(p.id), p, upsert = true).void
 
-  def setScore(user: User, stage: String, level: Int, score: StageProgress.Score) =
+  def setScore(user: UserId, stage: String, level: Int, score: StageProgress.Score) =
     get(user).flatMap { prog =>
       save(prog.withScore(stage, level, score))
     }
 
-  def reset(user: User) =
-    coll.delete.one($id(user.id)).void
+  def reset(user: UserId) =
+    coll.delete.one($id(user)).void
 
   private val maxCompletion = 110
 

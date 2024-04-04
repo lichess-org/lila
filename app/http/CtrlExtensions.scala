@@ -9,10 +9,12 @@ trait CtrlExtensions extends ControllerHelpers:
 
   val env: Env
 
+  export lila.user.given_Me
+
   extension (req: RequestHeader)
     def ipAddress = HTTPRequest.ipAddress(req)
     def referer   = HTTPRequest.referer(req)
-    def sid       = lila.core.LilaCookie.sid(req)
+    def sid       = lila.security.LilaCookie.sid(req)
 
   extension (result: Result)
     def toFuccess                         = Future.successful(result)
