@@ -1,6 +1,7 @@
 package lila.security
 
-import lila.user.{ Me, User }
+import lila.user.Me
+import lila.core.user.User
 
 object Granter:
 

@@ -11,8 +11,8 @@ import reactivemongo.api.{ Cursor, WriteConcern }
 
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
-import lila.user.User
-import lila.core.game.*
+import lila.core.user.User
+import lila.core.game.{ Game as _, Pov as _, * }
 
 final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.GameRepo:
 
@@ -88,9 +88,9 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
 
   def remove(id: GameId) = coll.delete.one($id(id)).void
 
-  def userPovsByGameIds(
+  def userPovsByGameIds[U: UserIdOf](
       gameIds: List[GameId],
-      user: User,
+      user: U,
       readPref: ReadPref = _.priTemp
   ): Fu[List[Pov]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPref = readPref)(_.id).dmap {

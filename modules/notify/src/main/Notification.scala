@@ -3,52 +3,15 @@ import alleycats.Zero
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.licon
+import lila.core.Icon
 import scalalib.paginator.Paginator
 import lila.notify.Notification.*
-
-sealed abstract class NotificationContent(val key: String)
-
-case class MentionedInThread(
-    mentionedBy: UserId,
-    topicName: String,
-    topidId: ForumTopicId,
-    category: ForumCategId,
-    postId: ForumPostId
-) extends NotificationContent("mention")
-
-case class StreamStart(
-    streamerId: UserId,
-    streamerName: String
-) extends NotificationContent("streamStart")
-
-case class PrivateMessage(user: UserId, text: String) extends NotificationContent("privateMessage")
-
-case class InvitedToStudy(
-    invitedBy: UserId,
-    studyName: StudyName,
-    studyId: StudyId
-) extends NotificationContent("invitedStudy")
-
-case class TeamJoined(
-    id: TeamId,
-    name: String
-) extends NotificationContent("teamJoined")
+import lila.core.notify.NotificationContent
 
 case class TitledTournamentInvitation(
     id: TourId,
     text: String
 ) extends NotificationContent("titledTourney")
-
-case class GameEnd(
-    gameId: GameFullId,
-    opponentId: Option[UserId],
-    win: Option[Win]
-) extends NotificationContent("gameEnd")
-
-case object ReportedBanned extends NotificationContent("reportedBanned")
-
-case class RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")
 
 case object CoachReview extends NotificationContent("coachReview")
 
@@ -59,33 +22,6 @@ case class CorresAlarm(
     gameId: GameId,
     opponent: String
 ) extends NotificationContent("corresAlarm")
-
-case class IrwinDone(
-    userId: UserId
-) extends NotificationContent("irwinDone")
-
-case class KaladinDone(
-    userId: UserId
-) extends NotificationContent("kaladinDone")
-
-case class GenericLink(
-    url: String,
-    title: Option[String],
-    text: Option[String],
-    icon: licon.Icon
-) extends NotificationContent("genericLink")
-
-case class BroadcastRound(
-    url: String,
-    title: String,
-    text: String
-) extends NotificationContent("broadcastRound")
-
-case class PushNotification(
-    to: Iterable[NotifyAllows],
-    content: NotificationContent,
-    params: Iterable[(String, String)] = Nil
-)
 
 private[notify] case class Notification(
     @Key("_id") id: Notification.Id,

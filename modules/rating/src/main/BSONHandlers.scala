@@ -3,7 +3,7 @@ package lila.rating
 import reactivemongo.api.bson.BSONHandler
 
 import lila.db.dsl.given
-import lila.core.rating.{ PerfId, PerfKey }
+import lila.core.perf.{ PerfType, PerfId, PerfKey }
 
 object BSONHandlers:
 

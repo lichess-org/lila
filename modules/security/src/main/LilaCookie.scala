@@ -1,9 +1,12 @@
-package lila.core
+package lila
+package security
 
 import scalalib.SecureRandom
 import play.api.mvc.*
 
-final class LilaCookie(domain: config.NetDomain, baker: SessionCookieBaker):
+import lila.core.config.NetDomain
+
+final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) extends lila.core.security.LilaCookie:
 
   private val cookieDomain = domain.value.split(":").head
 

@@ -41,7 +41,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.0.0"
+    val version  = "16.0.1"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -49,7 +49,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.1.1"
+    val version  = "11.1.3"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version

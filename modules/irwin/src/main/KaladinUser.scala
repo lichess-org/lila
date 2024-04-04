@@ -1,22 +1,21 @@
 package lila.irwin
 
-import lila.rating.{ Perf, PerfType }
+import reactivemongo.api.bson.Macros.Annotations.Key
+
+import lila.rating.Perf
 import lila.report.Suspect
-import lila.core.rating.PerfId
+import lila.core.perf.{ PerfId, PerfType }
 import lila.core.report.SuspectId
 
 case class KaladinUser(
-    _id: UserId,
+    @Key("_id") id: UserId,
     priority: Int,
     queuedAt: Instant,
     queuedBy: KaladinUser.Requester,
     startedAt: Option[Instant] = None,
     response: Option[KaladinUser.Response] = None
 ):
-
-  inline def id = _id
-
-  def suspectId = SuspectId(_id)
+  def suspectId = SuspectId(id)
 
   def recentlyQueued = queuedAt.isAfter(nowInstant.minusWeeks(1))
 
@@ -39,7 +38,7 @@ case class KaladinUser(
 object KaladinUser:
 
   def make(suspect: Suspect, by: Requester) = KaladinUser(
-    _id = suspect.id.value,
+    id = suspect.id.value,
     priority = by.priority,
     queuedAt = nowInstant,
     queuedBy = by

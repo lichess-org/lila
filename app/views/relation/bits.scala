@@ -12,7 +12,7 @@ import lila.user.User
 
 object bits:
 
-  def friends(u: User, pag: Paginator[Related])(using PageContext) =
+  def friends(u: User, pag: Paginator[Related[User.WithPerfs]])(using PageContext) =
     layout(s"${u.username} • ${trans.site.friends.txt()}")(
       boxTop(
         h1(
@@ -23,7 +23,7 @@ object bits:
       pagTable(pag, routes.Relation.following(u.username))
     )
 
-  def blocks(u: User, pag: Paginator[Related])(using PageContext) =
+  def blocks(u: User, pag: Paginator[Related[User.WithPerfs]])(using PageContext) =
     layout(s"${u.username} • ${trans.site.blocks.pluralSameTxt(pag.nbResults)}")(
       boxTop(
         h1(userLink(u, withOnline = false)),
@@ -32,7 +32,7 @@ object bits:
       pagTable(pag, routes.Relation.blocks())
     )
 
-  def opponents(u: User, sugs: List[lila.relation.Related])(using ctx: PageContext) =
+  def opponents(u: User, sugs: List[Related[User.WithPerfs]])(using ctx: PageContext) =
     layout(s"${u.username} • ${trans.site.favoriteOpponents.txt()}")(
       boxTop:
         h1(
@@ -71,7 +71,7 @@ object bits:
     ):
       main(cls := "box page-small")(content)
 
-  private def pagTable(pager: Paginator[Related], call: Call)(using ctx: Context) =
+  private def pagTable(pager: Paginator[Related[User.WithPerfs]], call: Call)(using ctx: Context) =
     table(cls := "slist slist-pad")(
       if pager.nbResults > 0
       then

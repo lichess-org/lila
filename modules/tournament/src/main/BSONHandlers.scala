@@ -7,8 +7,8 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.rating.PerfType
-import lila.user.User.lichessId
+import lila.core.perf.PerfType
+import UserId.lichess
 import lila.core.tournament.leaderboard.Ratio
 import lila.core.tournament.Status
 
@@ -76,7 +76,7 @@ object BSONHandlers:
         yield Schedule(freq, speed, variant, position, startsAt.dateTime, conditions),
         nbPlayers = r.int("nbPlayers"),
         createdAt = r.date("createdAt"),
-        createdBy = r.getO[UserId]("createdBy") | lichessId,
+        createdBy = r.getO[UserId]("createdBy") | UserId.lichess,
         startsAt = startsAt,
         winnerId = r.getO[UserId]("winner"),
         featuredId = r.getO[GameId]("featured"),

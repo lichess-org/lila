@@ -14,7 +14,7 @@ final class Env(
     tournamentApi: lila.core.tournament.TournamentApi,
     modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     userCache: lila.user.Cached,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,

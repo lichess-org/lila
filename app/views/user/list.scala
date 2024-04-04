@@ -6,16 +6,17 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.licon
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.user.User
+import lila.core.user.LightCount
 
 object list:
 
   def apply(
       tourneyWinners: List[lila.tournament.Winner],
       online: List[User.WithPerfs],
-      leaderboards: lila.user.UserPerfs.Leaderboards,
-      nbAllTime: List[User.LightCount]
+      leaderboards: lila.rating.UserPerfs.Leaderboards,
+      nbAllTime: List[LightCount]
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = trans.site.players.txt(),
@@ -83,7 +84,7 @@ object list:
       )
     )
 
-  private def userTopPerf(users: List[User.LightPerf], perfType: PerfType)(using ctx: Context) =
+  private def userTopPerf(users: List[lila.core.user.LightPerf], perfType: PerfType)(using ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := perfType.icon)(
         a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
@@ -95,7 +96,7 @@ object list:
         ))
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[licon.Icon])(using
+  private def userTopActive(users: List[LightCount], hTitle: Frag, icon: Option[Icon])(using
       Context
   ) =
     st.section(cls := "user-top")(

@@ -5,7 +5,7 @@ import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import scalalib.ThreadLocalRandom
 
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.core.swiss.IdName
 
 case class Swiss(
@@ -45,7 +45,7 @@ case class Swiss(
 
   def speed = chess.Speed(clock)
 
-  def perfType: PerfType = PerfType(variant, speed)
+  def perfType: PerfType = lila.rating.PerfType(variant, speed)
 
   def estimatedDuration: FiniteDuration = {
     (clock.limit.toSeconds + clock.increment.toSeconds * 80 + 10) * settings.nbRounds

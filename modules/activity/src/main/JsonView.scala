@@ -5,7 +5,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.game.LightPov
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.core.simul.Simul
 import lila.user.User
 import lila.activity.activities.*

@@ -4,9 +4,10 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.{ Glicko, Perf }
 import lila.user.User
 import lila.core.i18n.Translate
+import lila.core.perf.PerfType
 
 final class JsonView(getLightUser: LightUser.GetterSync):
 

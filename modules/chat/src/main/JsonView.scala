@@ -23,7 +23,7 @@ object JsonView:
       case c: MixedChat => JsArray(c.lines.map(lineWriter.writes))
       case c: UserChat  => JsArray(c.lines.map(userLineWriter.writes))
 
-  def apply(line: Line)(using getFlair: FlairApi.Getter)(using Executor): Fu[JsObject] =
+  private[chat] def apply(line: Line)(using getFlair: FlairApi.Getter)(using Executor): Fu[JsObject] =
     line.userIdMaybe
       .ifTrue(line.flair)
       .so(getFlair)

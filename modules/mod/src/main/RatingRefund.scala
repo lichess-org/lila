@@ -3,8 +3,7 @@ package lila.mod
 import lila.db.dsl.*
 import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
-import lila.perfStat.PerfStat
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.report.Suspect
 import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
 
@@ -14,10 +13,10 @@ final private class RatingRefund(
     userApi: UserApi,
     scheduler: Scheduler,
     notifier: ModNotifier,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     rankingApi: RankingApi,
     logApi: ModlogApi,
-    perfStat: lila.perfStat.PerfStatApi
+    perfStat: lila.core.perfStat.PerfStatApi
 )(using Executor):
 
   import RatingRefund.*
@@ -48,9 +47,9 @@ final private class RatingRefund(
               rating <- op.rating
             yield refs.add(victim, g.perfType, -diff, rating)) | refs
 
-        def pointsToRefund(ref: Refund, curRating: IntRating, stats: PerfStat): Int = {
+        def pointsToRefund(ref: Refund, curRating: IntRating, highest: Option[IntRating]): Int = {
           (ref.diff.value - ((ref.diff.value + curRating.value - ref.topRating.value).atLeast(0)) / 2)
-            .atMost(stats.highest.fold(100)(_.int.value - curRating.value + 20))
+            .atMost(highest.fold(100)(_.value - curRating.value + 20))
         }.squeeze(0, 150)
 
         def refundPoints(victim: User.WithPerf, pt: PerfType, points: Int): Funit =
@@ -62,8 +61,8 @@ final private class RatingRefund(
 
         def applyRefund(ref: Refund) =
           userApi.withPerf(ref.victim, ref.perf).flatMapz { user =>
-            perfStat.get(user.user, ref.perf).flatMap { stats =>
-              val points = pointsToRefund(ref, curRating = user.perf.intRating, stats = stats)
+            perfStat.highestRating(user.user.id, ref.perf).flatMap { highest =>
+              val points = pointsToRefund(ref, curRating = user.perf.intRating, highest = highest)
               (points > 0).so(refundPoints(user, ref.perf, points))
             }
           }

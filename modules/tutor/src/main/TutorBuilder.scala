@@ -13,7 +13,7 @@ import lila.insight.{
   InsightPerfStatsApi,
   Question
 }
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.user.{ User, UserApi }
 
 final private class TutorBuilder(
@@ -62,7 +62,7 @@ final private class TutorBuilder(
   yield TutorFullReport(user.id, nowInstant, perfs)
 
   private[tutor] def eligiblePerfTypesOf(user: User.WithPerfs) =
-    PerfType.standardWithUltra.filter: pt =>
+    lila.rating.PerfType.standardWithUltra.filter: pt =>
       user.perfs(pt).latest.exists(_.isAfter(nowInstant.minusMonths(12)))
 
   private def hasFreshReport(user: User): Fu[Boolean] = colls.report.exists:

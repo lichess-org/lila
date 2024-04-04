@@ -7,7 +7,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
 import lila.common.String.html.richText
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 object teacherDashboard:
 

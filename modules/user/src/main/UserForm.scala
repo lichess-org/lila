@@ -71,11 +71,3 @@ object UserForm:
 
   val title = Form:
     single("title" -> of[String].transform[Option[PlayerTitle]](PlayerTitle.get, _.so(_.value)))
-
-  lazy val historicalUsernameConstraints = Seq(
-    Constraints.minLength(2),
-    Constraints.maxLength(30),
-    Constraints.pattern(regex = User.historicalUsernameRegex)
-  )
-  lazy val historicalUsernameField =
-    trim(text).verifying(historicalUsernameConstraints*).into[UserStr]

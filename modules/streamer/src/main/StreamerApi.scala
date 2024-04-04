@@ -11,7 +11,7 @@ final class StreamerApi(
     userApi: UserApi,
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     subsRepo: lila.core.relation.SubscriptionRepo,
     ytApi: YouTubeApi
 )(using Executor):
@@ -95,7 +95,7 @@ final class StreamerApi(
     (~list).so(
       notifyApi.notifyOne(
         current,
-        lila.notify.GenericLink(
+        lila.core.notify.GenericLink(
           url = "/streamer/edit",
           title = "Listed on /streamer".some,
           text = "Your streamer page is public".some,

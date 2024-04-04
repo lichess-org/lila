@@ -2,7 +2,8 @@ package lila.gathering
 
 import lila.core.team.LightTeam.TeamName
 import lila.core.i18n.{ Translate, I18nKey as trans }
-import lila.rating.{ Perf, PerfType }
+import lila.rating.Perf
+import lila.core.perf.PerfType
 import lila.user.Me
 
 trait Condition:

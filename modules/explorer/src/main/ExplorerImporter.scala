@@ -24,7 +24,7 @@ final class ExplorerImporter(
           gameImporter(
             ImportData(pgn, none),
             forceId = id.some
-          )(using lila.user.User.lichessIdAsMe.some).map(some)
+          )(using UserId.lichessAsMe.some).map(some)
         }
     }
 

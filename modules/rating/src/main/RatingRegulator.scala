@@ -1,5 +1,7 @@
 package lila.rating
 
+import lila.core.perf.PerfType
+
 object RatingRegulator:
 
   def apply(factors: RatingFactors)(perfType: PerfType, before: Perf, after: Perf): Perf =

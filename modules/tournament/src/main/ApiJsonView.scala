@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.user.LightUserApi
 import lila.core.i18n.Translate
 
@@ -90,7 +90,7 @@ final class ApiJsonView(lightUserApi: LightUserApi)(using Executor):
 
   private val perfPositions: Map[PerfType, Int] = {
     import PerfType.*
-    List(Bullet, Blitz, Rapid, Classical, UltraBullet) ::: variants
+    List(Bullet, Blitz, Rapid, Classical, UltraBullet) ::: lila.rating.PerfType.variants
   }.zipWithIndex.toMap
 
   private def perfJson(p: PerfType)(using Translate) =

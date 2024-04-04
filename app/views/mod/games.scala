@@ -10,7 +10,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
 import lila.game.Pov
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.tournament.LeaderboardApi.TourEntry
 import lila.user.User
 
@@ -37,7 +37,7 @@ object games:
               form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
                 filterForm("perf"),
-                PerfType.nonPuzzle.map: p =>
+                lila.rating.PerfType.nonPuzzle.map: p =>
                   p.key -> p.trans,
                 "Variant".some
               ),

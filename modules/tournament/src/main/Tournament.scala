@@ -9,7 +9,7 @@ import scala.util.chaining.*
 
 import lila.gathering.GreatPlayer
 import lila.core.i18n.defaultLang
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.user.{ Me, User }
 import lila.core.i18n.Translate
 import lila.core.tournament.Status
@@ -113,7 +113,7 @@ case class Tournament(
 
   def speed = Speed(clock)
 
-  def perfType: PerfType = PerfType(variant, speed)
+  def perfType: PerfType = lila.rating.PerfType(variant, speed)
 
   def durationString =
     if minutes < 60 then s"${minutes}m"
@@ -138,7 +138,7 @@ case class Tournament(
       )
     }
 
-  def nonLichessCreatedBy = (createdBy != User.lichessId).option(createdBy)
+  def nonLichessCreatedBy = (createdBy != UserId.lichess).option(createdBy)
 
   def ratingVariant = if variant.fromPosition then chess.variant.Standard else variant
 
@@ -197,7 +197,7 @@ object Tournament:
       status = Status.Created,
       clock = Schedule.clockFor(sched),
       minutes = minutes,
-      createdBy = User.lichessId,
+      createdBy = UserId.lichess,
       createdAt = nowInstant,
       nbPlayers = 0,
       variant = sched.variant,

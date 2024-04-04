@@ -11,7 +11,7 @@ final class Env(
     appConfig: Configuration,
     messenger: lila.core.msg.MsgApi,
     reportApi: lila.core.report.ReportApi,
-    chatApi: lila.chat.ChatApi,
+    chatApi: lila.core.chat.ChatApi,
     userRepo: lila.user.UserRepo,
     noteApi: lila.user.NoteApi,
     lightUser: lila.core.LightUser.Getter,

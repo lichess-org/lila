@@ -1,6 +1,6 @@
 package lila.team
 
-import lila.notify.{ NotifyApi, TeamJoined }
+import lila.core.notify.{ NotifyApi, TeamJoined }
 
 final private class Notifier(notifyApi: NotifyApi):
 

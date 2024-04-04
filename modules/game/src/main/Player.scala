@@ -3,7 +3,7 @@ package lila.game
 import cats.derived.*
 import chess.{ ByColor, Color, Elo, PlayerName, Ply }
 
-import lila.user.User
+import lila.core.user.WithPerf
 
 case class PlayerUser(id: UserId, rating: IntRating, ratingDiff: Option[IntRatingDiff]) derives Eq
 
@@ -88,7 +88,7 @@ object Player:
     aiLevel = aiLevel
   )
 
-  def make(color: Color, userPerf: (UserId, lila.rating.Perf)): Player = make(
+  def make(color: Color, userPerf: (UserId, lila.core.rating.Perf)): Player = make(
     color = color,
     userId = userPerf._1,
     rating = userPerf._2.intRating,
@@ -110,7 +110,7 @@ object Player:
       provisional = provisional
     )
 
-  def make(color: Color, user: Option[User.WithPerf]): Player =
+  def make(color: Color, user: Option[WithPerf]): Player =
     user.fold(makeAnon(color))(u => make(color, u.user.id -> u.perf))
 
   def makeImported(

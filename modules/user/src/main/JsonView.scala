@@ -4,10 +4,11 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ writeAs, given }
 import lila.core.LightUser
-import lila.rating.{ Perf, PerfType }
-
-import User.{ LightPerf, PlayTime }
-import lila.core.rating.PerfKey
+import lila.rating.{ Perf, UserPerfs }
+import lila.user.User.PlayTime
+import lila.core.perf.PerfKey
+import lila.core.user.LightPerf
+import lila.core.perf.PerfType
 
 final class JsonView(isOnline: lila.core.socket.IsOnline):
 
@@ -54,7 +55,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline):
   def lightPerfIsOnline(lp: LightPerf) =
     lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
 
-  given lightPerfIsOnlineWrites: OWrites[User.LightPerf] = OWrites(lightPerfIsOnline)
+  given lightPerfIsOnlineWrites: OWrites[LightPerf] = OWrites(lightPerfIsOnline)
 
   def disabled(u: LightUser) = Json.obj(
     "id"       -> u.id,
@@ -94,7 +95,7 @@ object JsonView:
       )
       .add("prov", o.glicko.provisional)
 
-  private val standardPerfKeys: Set[PerfKey] = PerfType.standard.map(_.key).toSet
+  private val standardPerfKeys: Set[PerfKey] = lila.rating.PerfType.standard.map(_.key).toSet
 
   def perfTypedJson(p: Perf.Typed): JsObject =
     Json.obj(p.perfType.key.value -> p.perf)
@@ -134,7 +135,7 @@ object JsonView:
             .add("dox", note.dox)
       )
 
-  given leaderboardsWrites(using OWrites[User.LightPerf]): OWrites[UserPerfs.Leaderboards] =
+  given leaderboardsWrites(using OWrites[LightPerf]): OWrites[UserPerfs.Leaderboards] =
     OWrites: leaderboards =>
       Json.obj(
         "bullet"        -> leaderboards.bullet,
@@ -152,7 +153,7 @@ object JsonView:
         "racingKings"   -> leaderboards.racingKings
       )
 
-  given leaderboardStandardTopOneWrites(using OWrites[User.LightPerf]): OWrites[UserPerfs.Leaderboards] =
+  given leaderboardStandardTopOneWrites(using OWrites[LightPerf]): OWrites[UserPerfs.Leaderboards] =
     OWrites: leaderboards =>
       Json.obj(
         "bullet"      -> leaderboards.bullet.headOption,

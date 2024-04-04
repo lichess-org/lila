@@ -24,6 +24,15 @@ object OnStart extends FunctionWrapper[OnStart, GameId => Unit]
 case class TvSelect(gameId: GameId, speed: chess.Speed, channel: String, data: JsObject)
 case class ChangeFeatured(mgs: JsObject)
 
+case class CorresAlarmEvent(userId: UserId, pov: Pov, opponent: String)
+
+trait Game:
+  val id: GameId
+
+trait Pov:
+  val game: Game
+  val color: Color
+
 enum Source(val id: Int) derives Eq:
   def name = toString.toLowerCase
   case Lobby      extends Source(id = 1)

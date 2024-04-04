@@ -1,6 +1,6 @@
 package lila.tutor
 
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.tutor.TutorCompare.AnyComparison
 
 case class TutorFullReport(

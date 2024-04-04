@@ -202,6 +202,14 @@ object Form:
       def unbind(key: String, url: URL) = stringFormat.unbind(key, url.toString)
     val field = of[URL]
 
+  object username:
+    val historicalConstraints = Seq(
+      Constraints.minLength(2),
+      Constraints.maxLength(30),
+      Constraints.pattern(regex = lila.core.UserName.historicalRegex)
+    )
+    val historicalField = trim(text).verifying(historicalConstraints*).into[UserStr]
+
   given autoFormat[A, T](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],

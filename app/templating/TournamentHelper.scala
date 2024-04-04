@@ -8,10 +8,11 @@ import play.api.libs.json.Json
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.common.licon
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
 import lila.core.i18n.Translate
+import lila.core.Icon
 
 trait TournamentHelper extends HasEnv:
   self: I18nHelper & DateHelper & UserHelper & StringHelper & NumberHelper =>
@@ -48,7 +49,7 @@ trait TournamentHelper extends HasEnv:
     env.tournament.getTourName.sync(id).getOrElse("Tournament")
 
   object scheduledTournamentNameShortHtml:
-    private def icon(c: licon.Icon) = s"""<span data-icon="$c"></span>"""
+    private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""
     private val replacements =
       given lila.core.i18n.Translate = lila.i18n.Translator.toDefault
       List(
@@ -56,14 +57,15 @@ trait TournamentHelper extends HasEnv:
         "Marathon"    -> icon(licon.Globe),
         "HyperBullet" -> s"H${icon(PerfType.Bullet.icon)}",
         "SuperBlitz"  -> s"S${icon(PerfType.Blitz.icon)}"
-      ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
-        pt.trans -> icon(pt.icon)
+      ) ::: lila.rating.PerfType.leaderboardable.filterNot(lila.rating.PerfType.translated.contains).map {
+        pt =>
+          pt.trans -> icon(pt.icon)
       }
     def apply(name: String): Frag = raw:
       replacements.foldLeft(name):
         case (n, (from, to)) => n.replace(from, to)
 
-  def tournamentIcon(tour: Tournament): licon.Icon =
+  def tournamentIcon(tour: Tournament): Icon =
     tour.schedule.map(_.freq) match
       case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => licon.Globe
       case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.icon

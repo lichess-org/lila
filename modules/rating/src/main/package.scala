@@ -2,11 +2,12 @@ package lila.rating
 
 import alleycats.Zero
 
+import lila.core.perf.{ PerfKey, PerfType }
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
-type UserRankMap   = Map[lila.rating.PerfType, Int]
-type RatingFactors = Map[lila.rating.PerfType, RatingFactor]
+type UserRankMap   = Map[PerfKey, Int]
+type RatingFactors = Map[PerfType, RatingFactor]
 
 given intZero: Zero[IntRating] = Zero(IntRating(0))
 

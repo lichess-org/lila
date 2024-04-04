@@ -6,7 +6,7 @@ import lila.common.Json.given
 import lila.core.LightUser
 import lila.game.{ Game, GameRepo }
 import lila.gathering.Condition.WithVerdicts
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 final class JsonView(
     gameRepo: GameRepo,
@@ -91,7 +91,7 @@ final class JsonView(
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) =
     Json.obj(
       "key"  -> v.key,
-      "icon" -> PerfType(v, speed).icon.toString,
+      "icon" -> lila.rating.PerfType(v, speed).icon.toString,
       "name" -> v.name
     )
 

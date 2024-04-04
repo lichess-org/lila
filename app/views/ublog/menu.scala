@@ -9,7 +9,7 @@ object menu:
 
   def apply(active: Either[UserId, String])(using ctx: Context) =
     def isRight(s: String) = active.fold(_ => false, _ == s)
-    val lichess            = active.left.toOption.has(lila.user.User.lichessId)
+    val lichess            = active.left.toOption.has(UserId.lichess)
     val community = active == Right("community") || (active.left.toOption.exists(ctx.isnt) && !lichess)
     val mine      = active.left.toOption.exists(ctx.is)
     views.html.site.bits.pageMenuSubnav(

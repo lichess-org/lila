@@ -7,8 +7,8 @@ import lila.core.config.*
 @Module
 final class Env(
     db: lila.db.Db,
-    noteApi: lila.user.NoteApi,
-    userRepo: lila.user.UserRepo,
+    noteApi: lila.core.user.NoteApi,
+    userRepo: lila.core.user.UserRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 

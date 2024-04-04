@@ -59,7 +59,7 @@ object kaladin:
             tbody(
               dashboard.recent.map { entry =>
                 tr(cls := "report")(
-                  td(userIdLink(entry._id.some, params = "?mod")),
+                  td(userIdLink(entry.id.some, params = "?mod")),
                   td(cls := "little")(momentFromNow(entry.queuedAt)),
                   td(cls := "little")(entry.startedAt.map { momentFromNow(_) }),
                   td(cls := "little completed")(entry.response.map(_.at).map { momentFromNow(_) }),

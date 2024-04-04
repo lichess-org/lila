@@ -14,7 +14,8 @@ import lila.game.{ Game, GameRepo, Pov }
 import lila.core.round.{ Abort, Resign }
 import lila.core.simul.GetHostIds
 import lila.memo.SettingStore
-import lila.rating.{ PerfType, RatingFactor }
+import lila.rating.RatingFactor
+import lila.core.perf.PerfType
 
 @Module
 private class RoundConfig(
@@ -39,7 +40,7 @@ final class Env(
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
     rankingApi: lila.user.RankingApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
     rematches: lila.game.Rematches,
     divider: lila.game.Divider,
@@ -48,7 +49,6 @@ final class Env(
     userLagPut: lila.core.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder,
-    notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
     Executor,
@@ -206,7 +206,7 @@ final class Env(
 
   system.actorOf(Props(wire[Titivate]), name = "titivate")
 
-  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game)
+  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game, lightUserApi)
 
   private lazy val takebacker = wire[Takebacker]
 

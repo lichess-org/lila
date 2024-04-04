@@ -52,7 +52,7 @@ object side:
         variantTeamLinks
           .get(tour.variant.key)
           .filter { (team, _) =>
-            tour.createdBy.is(lila.user.User.lichessId) || tour.conditions.teamMember
+            tour.createdBy.is(UserId.lichess) || tour.conditions.teamMember
               .exists(_.teamId == team.id)
           }
           .map { (team, link) =>

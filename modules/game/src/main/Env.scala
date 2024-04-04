@@ -25,9 +25,9 @@ final class Env(
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     baseUrl: BaseUrl,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     mongoCache: lila.memo.MongoCache.Api,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
 )(using system: ActorSystem, scheduler: Scheduler)(using
     lila.core.i18n.Translator,

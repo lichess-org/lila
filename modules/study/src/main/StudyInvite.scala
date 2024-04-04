@@ -1,7 +1,7 @@
 package lila.study
 
 import lila.db.dsl.{ *, given }
-import lila.notify.{ InvitedToStudy, NotifyApi }
+import lila.core.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
 import lila.core.relation.Relation.{ Block, Follow }
 import lila.security.Granter
@@ -39,7 +39,7 @@ final private class StudyInvite(
       userRepo
         .enabledById(invitedUsername)
         .map(
-          _.filterNot(u => User.lichessId.is(u) && !Granter(_.StudyAdmin))
+          _.filterNot(u => UserId.lichess.is(u) && !Granter(_.StudyAdmin))
         )
         .orFail("No such invited")
     _         <- study.members.contains(invited).so(fufail[Unit]("Already a member"))
@@ -64,16 +64,14 @@ final private class StudyInvite(
       else if inviter.hasTitle then 10
       else 100
     _ <- shouldNotify.so(notifyRateLimit.zero(inviter.userId, rateLimitCost):
-      notifyApi
-        .notifyOne(
-          invited,
-          lila.notify.InvitedToStudy(
-            invitedBy = inviter.userId,
-            studyName = study.name,
-            studyId = study.id
-          )
+      notifyApi.notifyOne(
+        invited,
+        InvitedToStudy(
+          invitedBy = inviter.userId,
+          studyName = study.name,
+          studyId = study.id
         )
-        .void
+      )
     )
   yield invited
 

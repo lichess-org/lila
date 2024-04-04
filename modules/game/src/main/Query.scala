@@ -4,7 +4,7 @@ import chess.Status
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import lila.core.user.User
 
 object Query:
 
@@ -47,9 +47,8 @@ object Query:
 
   def clockHistory(c: Boolean): Bdoc = F.whiteClockHistory.$exists(c)
 
-  def user(u: UserId): Bdoc            = F.playerUids.$eq(u)
+  def user[U: UserIdOf](u: U): Bdoc    = F.playerUids.$eq(u.id)
   def users(u: Iterable[UserId]): Bdoc = F.playerUids.$in(u)
-  def user(u: User): Bdoc              = user(u.id)
 
   val noAnon = $doc(
     "p0.e".$exists(true),

@@ -7,7 +7,6 @@ import lila.common.Form.{ cleanText, formatter, into }
 import lila.security.Granter
 import lila.user.Me
 import lila.core.i18n.I18nKey.streamer
-import lila.user.UserForm.historicalUsernameField
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 
@@ -34,7 +33,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       ),
       "spotlight"      -> optional(spotlightMapping),
       "grouping"       -> RelayGroup.form.mapping,
-      "pinnedStreamer" -> optional(historicalUsernameField)
+      "pinnedStreamer" -> optional(lila.common.Form.username.historicalField)
     )(Data.apply)(unapply)
   )
 

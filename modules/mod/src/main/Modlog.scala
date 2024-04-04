@@ -12,7 +12,7 @@ case class Modlog(
     index: Option[String] = None
 ):
 
-  def isLichess = mod.is(lila.user.User.lichessId)
+  def isLichess = mod.is(UserId.lichess)
 
   def notable      = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess

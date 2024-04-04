@@ -8,9 +8,10 @@ import lila.core.config.BaseUrl
 import lila.common.Markdown
 import lila.db.dsl.{ *, given }
 import lila.core.msg.MsgApi
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ Authenticator, Me, User, UserPerfs, UserPerfsRepo, UserRepo }
+import lila.rating.{ Perf, UserPerfs }
+import lila.user.{ Authenticator, Me, User, UserPerfsRepo, UserRepo }
 import lila.core.EmailAddress
+import lila.core.perf.PerfType
 
 final class ClasApi(
     colls: ClasColls,
@@ -200,7 +201,7 @@ final class ClasApi(
       }
 
     def get(clas: Clas, userId: UserId): Fu[Option[Student]] =
-      coll.one[Student]($id(Student.id(userId, clas.id)))
+      coll.one[Student]($id(Student.makeId(userId, clas.id)))
 
     def get(clas: Clas, user: User): Fu[Option[Student.WithUser]] =
       get(clas, user.id).map2 { Student.WithUser(_, user) }
@@ -312,7 +313,7 @@ ${clas.desc}""",
 
     def create(clas: Clas, user: User, realName: String)(using teacher: Me): Fu[ClasInvite.Feedback] =
       student
-        .archive(Student.id(user.id, clas.id), v = false)
+        .archive(Student.makeId(user.id, clas.id), v = false)
         .map2[ClasInvite.Feedback](_ => Already)
         .getOrElse {
           lila.mon.clas.student.invite(teacher.userId.value).increment()

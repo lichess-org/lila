@@ -6,7 +6,7 @@ import chess.variant.{ FromPosition, Variant }
 
 import lila.core.Days
 import lila.core.game.GameRule
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 final case class OpenConfig(
     name: Option[String],
@@ -20,7 +20,7 @@ final case class OpenConfig(
     expiresAt: Option[Instant]
 ) extends lila.core.setup.OpenConfig:
 
-  def perfType = PerfType(variant, chess.Speed(clock))
+  def perfType = lila.rating.PerfType(variant, chess.Speed(clock))
 
   def validFen = Variant.isValidInitialFen(variant, position)
 

@@ -1,9 +1,9 @@
 package lila.game
 
 import chess.Color
-import lila.core.game.*
+import lila.core.game.{ Game as _, * }
 
-case class Pov(game: Game, color: Color):
+case class Pov(game: Game, color: Color) extends lila.core.game.Pov:
 
   export game.{ id as gameId }
 

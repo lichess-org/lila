@@ -315,7 +315,7 @@ object inquiry:
     }
 
   private val farmWithRegex =
-    ("^Boosting: farms rating points from @(" + User.historicalUsernameRegex.pattern + ")").r.unanchored
+    ("^Boosting: farms rating points from @(" + lila.core.UserName.historicalRegex.pattern + ")").r.unanchored
   private val sandbagWithRegex =
     "^Sandbagging: throws games to (.+)".r.unanchored
 

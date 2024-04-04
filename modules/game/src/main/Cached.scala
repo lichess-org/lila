@@ -28,7 +28,7 @@ final class Cached(
     game.userIds.foreach(lastPlayedPlayingIdCache.invalidate)
   }
 
-  private val nbPlayingCache = cacheApi[UserId, Int](256, "game.nbPlaying"):
+  private val nbPlayingCache = cacheApi[UserId, Int](512, "game.nbPlaying"):
     _.expireAfterWrite(15 seconds).buildAsyncFuture: userId =>
       gameRepo.coll.countSel(Query.nowPlaying(userId))
 

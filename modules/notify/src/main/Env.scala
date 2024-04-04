@@ -9,12 +9,14 @@ import lila.common.Bus
 import lila.common.config.*
 import lila.db.dsl.Coll
 import lila.core.config.CollName
+import lila.core.notify.{ NotifyApi as _, * }
 
 @Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo,
+    userRepo: lila.core.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     getLightUser: lila.core.LightUser.Getter,
     getLightUserSync: lila.core.LightUser.GetterSync,
     cacheApi: lila.memo.CacheApi,
@@ -39,12 +41,8 @@ final class Env(
   Bus.subscribeFuns(
     "notify" -> {
       case lila.core.actorApi.notify.NotifiedBatch(userIds) => api.markAllRead(userIds)
-      case lila.game.actorApi.CorresAlarmEvent(pov) =>
-        pov.player.userId.so: userId =>
-          lila.game.Namer
-            .playerText(pov.opponent)(using getLightUser)
-            .foreach: opponent =>
-              api.notifyOne(userId, CorresAlarm(gameId = pov.gameId, opponent = opponent))
+      case lila.core.game.CorresAlarmEvent(userId, pov, opponent) =>
+        api.notifyOne(userId, CorresAlarm(pov.game.id, opponent))
     },
     "streamStart" -> { case lila.core.actorApi.streamer.StreamStart(userId, streamerName) =>
       subsRepo
@@ -57,7 +55,3 @@ final class Env(
   lazy val cli = wire[NotifyCli]
 
 final class NotifyColls(val notif: Coll, val pref: Coll)
-
-private type GetNotifyAllowsType                   = (UserId, NotificationPref.Event) => Fu[Allows]
-opaque type GetNotifyAllows <: GetNotifyAllowsType = GetNotifyAllowsType
-object GetNotifyAllows extends TotalWrapper[GetNotifyAllows, GetNotifyAllowsType]

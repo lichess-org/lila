@@ -5,6 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.user.User
+import lila.core.perf.PerfType
 
 object download:
   def apply(user: lila.user.User)(using ctx: PageContext): Frag =
@@ -71,9 +72,9 @@ object download:
     th(label(`for` := "dl-color")(trans.search.color())),
     td(cls := "single"):
       select(id := "dl-color", name := "color")(
-        option(value := ""),
-        option(value := "white")(trans.site.white()),
-        option(value := "black")(trans.site.black())
+        st.option(value := ""),
+        st.option(value := "white")(trans.site.white()),
+        st.option(value := "black")(trans.site.black())
       )
   )
 
@@ -104,9 +105,9 @@ object download:
     th(label(`for` := "dl-rated")(trans.site.mode())),
     td(cls := "single")(
       select(id := "dl-rated", name := "rated")(
-        option(value := ""),
-        option(value := "false")(trans.site.casual()),
-        option(value := "true")(trans.site.rated())
+        st.option(value := ""),
+        st.option(value := "false")(trans.site.casual()),
+        st.option(value := "true")(trans.site.rated())
       )
     )
   )
@@ -121,9 +122,9 @@ object download:
     ),
     td(cls := "single")(
       select(id := "dl-analysis", name := "analysed")(
-        option(value := ""),
-        option(value := "true")(trans.site.yes()),
-        option(value := "false")(trans.site.no())
+        st.option(value := ""),
+        st.option(value := "true")(trans.site.yes()),
+        st.option(value := "false")(trans.site.no())
       )
     )
   )
@@ -139,7 +140,7 @@ object download:
       )
     )
 
-  private def perfToggle(perfType: lila.rating.PerfType)(using Context): Frag = div(
+  private def perfToggle(perfType: PerfType)(using Context): Frag = div(
     form3.cmnToggle(
       s"dl-perf-${perfType.key}",
       "",

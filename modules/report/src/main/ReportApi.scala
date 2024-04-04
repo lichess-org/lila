@@ -222,14 +222,14 @@ final class ReportApi(
       _ <- doProcessReport(
         $inIds(all.filter(_.open).map(_.id)),
         unsetInquiry = false
-      )(using User.lichessIdAsMe)
+      )(using UserId.lichessAsMe)
     yield open
 
   def reopenReports(suspect: Suspect): Funit =
     for
       all <- recent(suspect, 10)
       closed = all
-        .filter(_.done.map(_.by).has(User.lichessId.into(ModId)))
+        .filter(_.done.map(_.by).has(UserId.lichess.into(ModId)))
         .filterNot(_.isAlreadySlain(suspect.user))
       _ <-
         coll.update

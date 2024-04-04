@@ -4,11 +4,12 @@ import scalalib.HeapSort.topN
 import lila.common.licon
 import lila.rating.Perf
 import lila.user.{ Me, User }
+import lila.core.Icon
 
 case class Spotlight(
     headline: String,
     homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
-    iconFont: Option[licon.Icon] = None,
+    iconFont: Option[Icon] = None,
     iconImg: Option[String] = None
 )
 

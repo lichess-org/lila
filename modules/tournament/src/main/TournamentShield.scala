@@ -7,6 +7,7 @@ import lila.db.dsl.*
 import lila.memo.CacheApi.*
 import lila.user.User
 import lila.core.tournament.Status
+import lila.core.Icon
 
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
@@ -95,7 +96,7 @@ object TournamentShield:
 
   private type SpeedOrVariant = Either[Schedule.Speed, chess.variant.Variant]
 
-  enum Category(val of: SpeedOrVariant, val icon: licon.Icon):
+  enum Category(val of: SpeedOrVariant, val icon: Icon):
     def key  = of.fold(_.key, _.key.value)
     def name = of.fold(_.name, _.name)
     def matches(tour: Tournament) =

@@ -4,8 +4,8 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Glicko, Perf, PerfType }
-import lila.core.rating.PerfKey
+import lila.rating.{ Glicko, Perf, UserPerfs }
+import lila.core.perf.{ PerfKey, PerfType }
 
 final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
@@ -22,10 +22,10 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
   ): Fu[Map[UserId, UserPerfs]] =
     coll.idsMap[UserPerfs, UserId](u.map(_.id), none, readPref)(_.id)
 
-  def idsMap[U: UserIdOf](u: Seq[U], pt: PerfType, readPref: ReadPref): Fu[Map[UserId, Perf]] =
-    given BSONDocumentReader[(UserId, Perf)] = UserPerfs.idPerfReader(pt)
+  def idsMap[U: UserIdOf](u: Seq[U], pk: PerfKey, readPref: ReadPref): Fu[Map[UserId, Perf]] =
+    given BSONDocumentReader[(UserId, Perf)] = UserPerfs.idPerfReader(pk)
     coll
-      .find($inIds(u.map(_.id)), $doc(pt.key.value -> true).some)
+      .find($inIds(u.map(_.id)), $doc(pk.value -> true).some)
       .cursor[(UserId, Perf)](readPref)
       .listAll()
       .map(_.toMap)
@@ -62,8 +62,8 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
   def setBotInitialPerfs(id: UserId) =
     coll.update.one($id(id), UserPerfs.defaultBot(id), upsert = true).void
 
-  def setPerf(userId: UserId, pt: PerfType, perf: Perf) =
-    coll.update.one($id(userId), $set(pt.key.value -> perf), upsert = true).void
+  def setPerf(userId: UserId, pk: PerfKey, perf: Perf) =
+    coll.update.one($id(userId), $set(pk.value -> perf), upsert = true).void
 
   def glicko(userId: UserId, perf: PerfKey): Fu[Glicko] =
     coll
@@ -87,33 +87,33 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
       )
       .void
 
-  private def docPerf(doc: Bdoc, perfType: PerfType): Option[Perf] =
-    doc.getAsOpt[Perf](perfType.key.value)
+  private def docPerf(doc: Bdoc, perfKey: PerfKey): Option[Perf] =
+    doc.getAsOpt[Perf](perfKey.value)
 
-  def perfOptionOf[U: UserIdOf](u: U, perfType: PerfType): Fu[Option[Perf]] =
+  def perfOptionOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Option[Perf]] =
     coll
       .find(
         $id(u.id),
-        $doc(perfType.key.value -> true).some
+        $doc(perfKey.value -> true).some
       )
       .one[Bdoc]
       .dmap:
-        _.flatMap { docPerf(_, perfType) }
+        _.flatMap { docPerf(_, perfKey) }
 
-  def perfOf[U: UserIdOf](u: U, perfType: PerfType): Fu[Perf] =
-    perfOptionOf(u, perfType).dmap(_ | Perf.default)
+  def perfOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Perf] =
+    perfOptionOf(u, perfKey).dmap(_ | Perf.default)
 
-  def usingPerfOf[A, U: UserIdOf](u: U, perfType: PerfType)(f: Perf ?=> Fu[A]): Fu[A] =
-    perfOf(u, perfType)
+  def usingPerfOf[A, U: UserIdOf](u: U, perfKey: PerfKey)(f: Perf ?=> Fu[A]): Fu[A] =
+    perfOf(u, perfKey)
       .flatMap: perf =>
         given Perf = perf
         f
 
-  def perfOf(ids: Iterable[UserId], perfType: PerfType): Fu[Map[UserId, Perf]] = ids.nonEmpty.so:
+  def perfOf(ids: Iterable[UserId], perfKey: PerfKey): Fu[Map[UserId, Perf]] = ids.nonEmpty.so:
     coll
       .find(
         $inIds(ids),
-        $doc(perfType.key.value -> true).some
+        $doc(perfKey.value -> true).some
       )
       .cursor[Bdoc]()
       .listAll()
@@ -121,7 +121,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
         for
           doc  <- docs
           id   <- doc.getAsOpt[UserId]("_id")
-          perf <- docPerf(doc, perfType)
+          perf <- docPerf(doc, perfKey)
         yield id -> perf
       .map: pairs =>
         val h = pairs.toMap
@@ -130,21 +130,31 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
   def perfsOf(ids: Iterable[UserId]): Fu[Map[UserId, UserPerfs]] = ids.nonEmpty.so:
     coll.find($inIds(ids)).cursor[UserPerfs]().listAll().map(_.mapBy(_.id))
 
-  def withPerf(users: List[User], perfType: PerfType): Fu[List[User.WithPerf]] =
-    perfOf(users.map(_.id), perfType).map: perfs =>
+  def withPerf(users: List[User], perfKey: PerfKey): Fu[List[User.WithPerf]] =
+    perfOf(users.map(_.id), perfKey).map: perfs =>
       users.map(u => u.withPerf(perfs.getOrElse(u.id, Perf.default)))
 
-  def withPerf(user: User, perfType: PerfType): Fu[User.WithPerf] =
-    perfOf(user.id, perfType).dmap(user.withPerf)
+  def withPerf(user: User, perfKey: PerfKey): Fu[User.WithPerf] =
+    perfOf(user.id, perfKey).dmap(user.withPerf)
 
-  def withPerf(us: PairOf[User], perfType: PerfType, readPref: ReadPref): Fu[PairOf[User.WithPerf]] =
-    perfOf(us, perfType, readPref).dmap: (x, y) =>
+  def withPerf(us: PairOf[User], perfKey: PerfKey, readPref: ReadPref): Fu[PairOf[User.WithPerf]] =
+    perfOf(us, perfKey, readPref).dmap: (x, y) =>
       User.WithPerf(us._1, x) -> User.WithPerf(us._2, y)
 
-  def perfOf[U: UserIdOf](us: PairOf[U], perfType: PerfType, readPref: ReadPref): Fu[PairOf[Perf]] =
+  def perfOf[U: UserIdOf](us: PairOf[U], perfKey: PerfKey, readPref: ReadPref): Fu[PairOf[Perf]] =
     val (x, y) = us
-    idsMap(List(x, y), perfType, readPref).dmap: ps =>
+    idsMap(List(x, y), perfKey, readPref).dmap: ps =>
       ps.getOrElse(x.id, Perf.default) -> ps.getOrElse(y.id, Perf.default)
+
+  def perfOf(userId: UserId, pk: PerfKey): Fu[Perf] =
+    coll
+      .find($id(userId), $doc(pk.value -> true).some)
+      .one[Bdoc]
+      .dmap:
+        _.flatMap(_.getAsOpt[Perf](pk.value)).getOrElse(Perf.default)
+
+  def intRatingOf(userId: UserId, pk: PerfKey): Fu[IntRating] =
+    perfOf(userId, pk).map(_.intRating)
 
   def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean] =
     if puzzle.glicko.rating < 2500
@@ -156,17 +166,17 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
   object aggregate:
     val lookup = $lookup.simple(coll, "perfs", "_id", "_id")
 
-    def lookup(pt: PerfType): Bdoc =
-      val pipe = List($doc("$project" -> $doc(pt.key.value -> true)))
+    def lookup(pk: PerfKey): Bdoc =
+      val pipe = List($doc("$project" -> $doc(pk.value -> true)))
       $lookup.pipeline(coll, "perfs", "_id", "_id", pipe)
 
     def readFirst[U: UserIdOf](root: Bdoc, u: U): UserPerfs =
       root.getAsOpt[List[UserPerfs]]("perfs").flatMap(_.headOption).getOrElse(UserPerfs.default(u.id))
 
-    def readFirst[U: UserIdOf](root: Bdoc, pt: PerfType): Perf = (for
+    def readFirst[U: UserIdOf](root: Bdoc, pk: PerfKey): Perf = (for
       perfs <- root.getAsOpt[List[Bdoc]]("perfs")
       perfs <- perfs.headOption
-      perf  <- perfs.getAsOpt[Perf](pt.key.value)
+      perf  <- perfs.getAsOpt[Perf](pk.value)
     yield perf).getOrElse(Perf.default)
 
     def readFrom[U: UserIdOf](doc: Bdoc, u: U): UserPerfs =

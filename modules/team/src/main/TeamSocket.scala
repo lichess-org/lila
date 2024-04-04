@@ -11,7 +11,7 @@ final private class TeamSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Team)
+  subscribeChat(rooms, _.team)
 
   private lazy val handler: SocketHandler = roomHandler(
     rooms,
@@ -21,7 +21,7 @@ final private class TeamSocket(
     localTimeout = Some: (roomId, modId, suspectId) =>
       api.hasPerm(roomId.into(TeamId), modId, _.Comm) >>&
         api.hasPerm(roomId.into(TeamId), suspectId, _.Comm).not,
-    chatBusChan = _.Team
+    chatBusChan = _.team
   )
 
   private lazy val send = socketKit.send("team-out")

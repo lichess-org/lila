@@ -364,7 +364,7 @@ object GameApiV2:
       until: Option[Instant] = None,
       max: Option[Max] = None,
       rated: Option[Boolean] = None,
-      perfType: Set[lila.rating.PerfType],
+      perfType: Set[lila.core.perf.PerfType],
       analysed: Option[Boolean] = None,
       color: Option[chess.Color],
       flags: WithFlags,

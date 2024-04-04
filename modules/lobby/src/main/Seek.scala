@@ -10,7 +10,7 @@ import lila.common.Json.given
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.RatingRange
 import lila.user.User
-import lila.core.rating.PerfKey
+import lila.core.perf.PerfKey
 
 // correspondence chess, persistent
 case class Seek(

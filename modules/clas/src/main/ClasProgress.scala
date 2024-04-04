@@ -8,7 +8,7 @@ import java.time.Duration
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }
 import lila.puzzle.PuzzleRound
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.user.User
 import lila.core.Days
 

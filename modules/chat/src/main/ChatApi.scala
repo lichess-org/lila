@@ -10,6 +10,7 @@ import lila.core.shutup.PublicSource
 import lila.memo.CacheApi.*
 import lila.security.{ Flood, Granter }
 import lila.user.{ FlairApi, Me, User, UserRepo, given }
+import lila.core.chat.{ OnTimeout, OnReinstate }
 
 final class ChatApi(
     coll: Coll,
@@ -20,9 +21,11 @@ final class ChatApi(
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
-)(using Executor, Scheduler, FlairApi):
+)(using Executor, Scheduler, FlairApi)
+    extends lila.core.chat.ChatApi:
 
   import Chat.given
+  export userChat.{ write, volatile, timeout }
 
   def exists(id: ChatId) = coll.exists($id(id))
 
@@ -86,7 +89,7 @@ final class ChatApi(
                       lila.mon.chat
                         .message(publicSource.fold("player")(_.parentName), line.troll)
                         .increment()
-                    publish(chatId, ChatLine(chatId, line), busChan)
+                    publishLine(chatId, line, busChan)
               else
                 logger.info(s"Link check rejected $line in $publicSource")
                 funit
@@ -108,15 +111,15 @@ final class ChatApi(
     def clear(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
-      val line = UserLine(User.lichessName, None, false, flair = true, text, troll = false, deleted = false)
+      val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
       persistLine(chatId, line).andDo:
         cached.invalidate(chatId)
-        publish(chatId, ChatLine(chatId, line), busChan)
+        publishLine(chatId, line, busChan)
 
     // like system, but not persisted.
     def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit =
-      val line = UserLine(User.lichessName, None, false, flair = true, text, troll = false, deleted = false)
-      publish(chatId, ChatLine(chatId, line), busChan)
+      val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
+      publishLine(chatId, line, busChan)
 
     def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
       (if isVolatile then volatile else system) (chatId, text, busChan)
@@ -131,7 +134,7 @@ final class ChatApi(
     )(using mod: Me.Id): Funit =
       coll.byId[UserChat](chatId.value).zip(userRepo.me(mod)).zip(userRepo.byId(userId)).flatMap {
         case ((Some(chat), Some(me)), Some(user))
-            if isMod(me) || (busChan(BusChan) == BusChan.Study && isRelayMod(me)) ||
+            if isMod(me) || (busChan(BusChan) == BusChan.study && isRelayMod(me)) ||
               scope == ChatTimeout.Scope.Local =>
           doTimeout(chat, me, user, reason, scope, text, busChan)
         case _ => funit
@@ -148,10 +151,10 @@ final class ChatApi(
             scope = ChatTimeout.Scope.Global,
             text = data.text,
             busChan = data.chan match
-              case "tournament" => _.Tournament
-              case "swiss"      => _.Swiss
-              case "team"       => _.Team
-              case _            => _.Study
+              case "tournament" => _.tournament
+              case "swiss"      => _.swiss
+              case "team"       => _.team
+              case _            => _.study
           )
 
     def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
@@ -177,7 +180,7 @@ final class ChatApi(
             case _ => s"${user.username} was timed out 15 minutes by a page mod (not a Lichess mod)"
           val line = (isNew && c.hasRecentLine(user)).option(
             UserLine(
-              username = User.lichessName,
+              username = UserName.lichess,
               title = None,
               patron = false,
               flair = true,
@@ -192,7 +195,7 @@ final class ChatApi(
             cached.invalidate(chat.id)
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
             line.foreach: l =>
-              publish(chat.id, ChatLine(chat.id, l), busChan)
+              publishLine(chat.id, l, busChan)
             if isMod(mod) || isRelayMod(mod) then
               lila.common.Bus.publish(
                 lila.core.mod.ChatTimeout(
@@ -226,7 +229,7 @@ final class ChatApi(
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach: r =>
-        Bus.publish(OnReinstate(r.chat, r.user), BusChan.Global.chan)
+        Bus.publish(OnReinstate(r.chat, r.user), BusChan.global.chan)
 
     private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
       userRepo.speaker(userId).zip(chatTimeout.isActive(chatId, userId)).dmap {
@@ -271,7 +274,7 @@ final class ChatApi(
     def write(chatId: ChatId, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text).so: line =>
         persistLine(chatId, line).andDo:
-          publish(chatId, ChatLine(chatId, line), busChan)
+          publishLine(chatId, line, busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment()
 
     private def makeLine(chatId: ChatId, color: Color, t1: String): Option[Line] =
@@ -284,11 +287,16 @@ final class ChatApi(
     Bus.publish(msg, busChan(BusChan).chan)
     Bus.publish(msg, Chat.chanOf(chatId))
 
+  private def publishLine(chatId: ChatId, line: Line, busChan: BusChan.Select): Funit =
+    JsonView(line)(using summon[FlairApi].getter).map: json =>
+      publish(chatId, ChatLine(chatId, line, json), busChan)
+
   def remove(chatId: ChatId) = coll.delete.one($id(chatId)).void
 
   def removeAll(chatIds: List[ChatId]) = coll.delete.one($inIds(chatIds)).void
 
-  private def persistLine(chatId: ChatId, line: Line): Funit =
+  private def persistLine(chatId: ChatId, line: lila.core.chat.Line): Funit =
+    import lila.chat.Line.given
     coll.update
       .one(
         $id(chatId),

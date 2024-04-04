@@ -8,10 +8,7 @@ import lila.core.LightUser
 import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
 
-final class PgnDump(
-    baseUrl: BaseUrl,
-    lightUserApi: lila.user.ILightUserApi
-)(using Executor):
+final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiMinimal)(using Executor):
 
   import PgnDump.*
 
@@ -56,14 +53,14 @@ final class PgnDump(
 
   def player(p: Player, u: Option[LightUser]): String | UserName =
     p.aiLevel.fold(
-      u.fold(p.nameSplit.map(_._1.value).orElse(p.name.map(_.value)) | lila.user.User.anonymous)(_.name)
+      u.fold(p.nameSplit.map(_._1.value).orElse(p.name.map(_.value)) | lila.core.UserName.anonymous)(_.name)
     )("lichess AI level " + _)
 
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
   private def eventOf(game: Game)(using lila.core.i18n.Translate) =
-    val perf = game.perfType.trans
+    val perf = game.perfType.nameKey
     game.tournamentId
       .map(id => s"${game.mode} $perf tournament https://lichess.org/tournament/$id")
       .orElse(game.simulId.map(id => s"$perf simul https://lichess.org/simul/$id"))

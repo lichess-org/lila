@@ -6,23 +6,18 @@ object Lilaism
     with LilaTypes
     with LilaModel
     with LilaUserId
-    with LilaLibraryExtensions
-    with JsonExtensions:
+    with LilaLibraryExtensions:
 
   export scalalib.newtypes.{ given, * }
   export scalalib.zeros.given
   export scalalib.extensions.{ given, * }
+  export scalalib.json.extensions.*
+  export scalalib.json.Json.given_Zero_JsObject
   export scalalib.time.*
 
   export cats.syntax.all.*
   export cats.{ Eq, Show }
   export cats.data.NonEmptyList
-
-  inline def nowNanos: Long  = System.nanoTime()
-  inline def nowMillis: Long = System.currentTimeMillis()
-  inline def nowCentis: Long = nowMillis / 10
-  inline def nowTenths: Long = nowMillis / 100
-  inline def nowSeconds: Int = (nowMillis / 1000).toInt
 
   def some[A](a: A): Option[A] = Some(a)
 

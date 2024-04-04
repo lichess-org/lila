@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.core.i18n.{ LangPicker, LangList, Language, defaultLanguage }
-import lila.user.Me
+import lila.core.user.MyId
 
 final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker: LangPicker)(using Executor):
 
@@ -38,7 +38,7 @@ final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker
 
   def create(page: CmsPage): Funit = coll.insert.one(page).void
 
-  def update(prev: CmsPage, data: CmsForm.CmsPageData)(using me: Me): Fu[CmsPage] =
+  def update(prev: CmsPage, data: CmsForm.CmsPageData)(using me: MyId): Fu[CmsPage] =
     val page = data.update(prev, me)
     coll.update.one($id(page.id), page).inject(page)
 

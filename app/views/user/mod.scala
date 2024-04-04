@@ -37,7 +37,7 @@ object mod:
 
   def actions(
       u: User,
-      emails: User.Emails,
+      emails: lila.core.user.Emails,
       erased: User.Erased,
       pmPresets: ModPresets
   )(using Context): Frag =
@@ -196,7 +196,7 @@ object mod:
             submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
           )
         },
-        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == User.lichessId)).option {
+        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == UserId.lichess)).option {
           postForm(action := routes.Mod.impersonate(u.username))(
             submitButton(cls := "btn-rack__btn")("Impersonate")
           )
@@ -205,9 +205,9 @@ object mod:
       isGranted(_.ModMessage).option(
         postForm(action := routes.Mod.warn(u.username, ""), cls := "pm-preset")(
           st.select(
-            option(value := "")("Send PM"),
+            st.option(value := "")("Send PM"),
             pmPresets.value.map { preset =>
-              option(st.value := preset.name, title := preset.text)(preset.name)
+              st.option(st.value := preset.name, title := preset.text)(preset.name)
             }
           )
         )
@@ -852,7 +852,7 @@ object mod:
     )
 
   def apply(
-      users: List[User.WithEmails],
+      users: List[User.WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false,
       checkboxes: Boolean = false
@@ -872,7 +872,7 @@ object mod:
           )
         ),
         tbody(
-          users.map { case lila.user.User.WithEmails(u, emails) =>
+          users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
             tr(
               if showUsernames || Granter.canViewAltUsername(u.user)
               then
@@ -937,7 +937,7 @@ object mod:
       }
     )(reportScore(r.score), " ", strong(r.reason.name))
 
-  def userMarks(o: User, playbans: Option[Int]) =
+  def userMarks(o: lila.core.user.User, playbans: Option[Int]) =
     div(cls := "user_marks")(
       playbans.map: nb =>
         playban(nb),

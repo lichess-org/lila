@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.user.User
+import lila.core.user.User
 
 final class PrefApi(
     val coll: Coll,

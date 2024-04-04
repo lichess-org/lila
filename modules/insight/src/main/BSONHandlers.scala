@@ -8,7 +8,7 @@ import lila.common.SimpleOpening
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 object BSONHandlers:
 

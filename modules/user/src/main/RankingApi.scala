@@ -7,8 +7,10 @@ import scala.util.Success
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.rating.{ Glicko, Perf, PerfType }
-import lila.core.rating.PerfId
+import lila.rating.{ Glicko, Perf, UserPerfs }
+import lila.core.perf.{ PerfId, PerfType }
+import lila.core.user.LightPerf
+import lila.core.perf.PerfKey
 
 final class RankingApi(
     coll: AsyncCollFailingSilently,
@@ -24,7 +26,7 @@ final class RankingApi(
     save(user, perfType, perfs(perfType))
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2 && PerfType.isLeaderboardable(perfType)).so(coll:
+    (user.rankable && perf.nb >= 2 && lila.rating.PerfType.isLeaderboardable(perfType)).so(coll:
       _.update
         .one(
           $id(makeId(user.id, perfType)),
@@ -32,7 +34,7 @@ final class RankingApi(
             "perf"      -> perfType.id,
             "rating"    -> perf.intRating,
             "prog"      -> perf.progress,
-            "stable"    -> perf.rankable(PerfType.variantOf(perfType)),
+            "stable"    -> perf.rankable(lila.rating.PerfType.variantOf(perfType)),
             "expiresAt" -> nowInstant.plusDays(7)
           ),
           upsert = true
@@ -47,24 +49,27 @@ final class RankingApi(
   private def makeId(userId: UserId, perfType: PerfType) =
     s"$userId:${perfType.id}"
 
-  private[user] def topPerf(perfId: PerfId, nb: Int): Fu[List[User.LightPerf]] =
-    PerfType.id2key(perfId).filter(k => PerfType(k).exists(PerfType.isLeaderboardable)).so { perfKey =>
-      coll:
-        _.find($doc("perf" -> perfId, "stable" -> true))
-          .sort($doc("rating" -> -1))
-          .cursor[Ranking]()
-          .list(nb)
-          .flatMap:
-            _.map: r =>
-              lightUser(r.user).map2: light =>
-                User.LightPerf(
-                  user = light,
-                  perfKey = perfKey,
-                  rating = r.rating,
-                  progress = ~r.prog
-                )
-            .parallel.dmap(_.flatten)
-    }
+  private[user] def topPerf(perfId: PerfId, nb: Int): Fu[List[LightPerf]] =
+    lila.rating.PerfType
+      .id2key(perfId)
+      .filter(k => PerfType(k).exists(lila.rating.PerfType.isLeaderboardable))
+      .so { perfKey =>
+        coll:
+          _.find($doc("perf" -> perfId, "stable" -> true))
+            .sort($doc("rating" -> -1))
+            .cursor[Ranking]()
+            .list(nb)
+            .flatMap:
+              _.map: r =>
+                lightUser(r.user).map2: light =>
+                  LightPerf(
+                    user = light,
+                    perfKey = perfKey,
+                    rating = r.rating,
+                    progress = ~r.prog
+                  )
+              .parallel.dmap(_.flatten)
+      }
 
   private[user] def fetchLeaderboard(nb: Int): Fu[UserPerfs.Leaderboards] =
     for
@@ -101,18 +106,18 @@ final class RankingApi(
 
     private type Rank = Int
 
-    def of(userId: UserId): Map[PerfType, Rank] =
+    def of(userId: UserId): Map[PerfKey, Rank] =
       cache.getUnit.value match
         case Some(Success(all)) =>
           all.flatMap: (pt, ranking) =>
             ranking.get(userId).map(pt -> _)
         case _ => Map.empty
 
-    private val cache = cacheApi.unit[Map[PerfType, Map[UserId, Rank]]]:
+    private val cache = cacheApi.unit[Map[PerfKey, Map[UserId, Rank]]]:
       _.refreshAfterWrite(15 minutes).buildAsyncFuture: _ =>
-        PerfType.leaderboardable
+        lila.rating.PerfType.leaderboardable
           .traverse: pt =>
-            compute(pt).dmap(pt -> _)
+            compute(pt).dmap(pt.key -> _)
           .map(_.toMap)
           .chronometer
           .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")
@@ -142,7 +147,7 @@ final class RankingApi(
     def apply(pt: PerfType) = cache.get(pt.id)
 
     private val cache = mongoCache[PerfId, List[NbUsers]](
-      PerfType.leaderboardable.size,
+      lila.rating.PerfType.leaderboardable.size,
       "user:rating:distribution",
       179 minutes,
       _.toString
@@ -152,8 +157,7 @@ final class RankingApi(
 
     // from 600 to 2800 by Stat.group
     private def compute(perfId: PerfId): Fu[List[NbUsers]] =
-      lila.rating
-        .PerfType(perfId)
+      PerfType(perfId)
         .exists(lila.rating.PerfType.leaderboardable.contains)
         .so(coll:
           _.aggregateList(maxDocs = Int.MaxValue): framework =>

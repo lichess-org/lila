@@ -267,7 +267,7 @@ object post:
               "User tier:",
               st.select(name := "tier", cls := "form-control")(UblogRank.Tier.verboseOptions.map:
                 (value, name) =>
-                  option(st.value := value.toString, (blog.tier == value).option(selected))(name)
+                  st.option(st.value := value.toString, (blog.tier == value).option(selected))(name)
               )
             ),
             span(

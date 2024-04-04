@@ -30,17 +30,13 @@ final class Env(
     settingStore: SettingStore.Builder,
     irc: lila.core.irc.IrcApi,
     baseUrl: BaseUrl,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,
     langList: lila.core.i18n.LangList
-)(using
-    Executor,
-    ActorSystem,
-    akka.stream.Materializer,
-    play.api.Mode,
-    lila.core.i18n.Translator
-)(using scheduler: Scheduler):
+)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator)(using
+    scheduler: Scheduler
+):
 
   lazy val roundForm = wire[RelayRoundForm]
 

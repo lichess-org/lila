@@ -27,6 +27,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
+    cookieBaker: play.api.mvc.SessionCookieBaker,
     db: lila.db.Db
 )(using Executor, play.api.Mode, lila.core.i18n.Translator)(using scheduler: Scheduler):
 
@@ -35,6 +36,8 @@ final class Env(
   private val config = appConfig.get[SecurityConfig]("security")
 
   private def hcaptchaPublicConfig = config.hcaptcha.public
+
+  val lilaCookie = wire[LilaCookie]
 
   lazy val firewall = Firewall(
     coll = db(config.collection.firewall),

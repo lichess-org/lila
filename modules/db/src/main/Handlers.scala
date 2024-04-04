@@ -145,10 +145,6 @@ trait Handlers:
 
   given BSONHandler[IpAddress] = stringIsoHandler
 
-  given BSONHandler[EmailAddress] = stringIsoHandler
-
-  given BSONHandler[NormalizedEmailAddress] = stringIsoHandler
-
   import lila.core.relation.Relation
   given BSONHandler[Relation] =
     BSONBooleanHandler.as[Relation](if _ then Relation.Follow else Relation.Block, _.isFollow)
@@ -216,6 +212,9 @@ trait Handlers:
     { case BSONString(t) => PlayerTitle.get(t).toTry(s"No such player title: $t") },
     t => BSONString(t.value)
   )
+
+  import lila.core.user.UserMark
+  given markHandler: BSONHandler[UserMark] = valueMapHandler(UserMark.byKey)(_.key)
 
   def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(using
       keyHandler: BSONHandler[K]

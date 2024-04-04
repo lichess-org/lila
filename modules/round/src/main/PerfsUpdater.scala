@@ -3,8 +3,9 @@ package lila.round
 import chess.{ ByColor, Color, Speed }
 
 import lila.game.{ Game, GameRepo, RatingDiffs }
-import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator, glicko2 }
-import lila.user.{ RankingApi, User, UserApi, UserPerfs }
+import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, glicko2, UserPerfs }
+import lila.user.{ RankingApi, User, UserApi }
+import lila.core.perf.PerfType
 
 final class PerfsUpdater(
     gameRepo: GameRepo,
@@ -155,18 +156,18 @@ final class PerfsUpdater(
     )
     val r = RatingRegulator(ratingFactors())
     val perfs2 = perfs1.copy(
-      chess960 = r(PT.Chess960, perfs.chess960, perfs1.chess960),
-      kingOfTheHill = r(PT.KingOfTheHill, perfs.kingOfTheHill, perfs1.kingOfTheHill),
-      threeCheck = r(PT.ThreeCheck, perfs.threeCheck, perfs1.threeCheck),
-      antichess = r(PT.Antichess, perfs.antichess, perfs1.antichess),
-      atomic = r(PT.Atomic, perfs.atomic, perfs1.atomic),
-      horde = r(PT.Horde, perfs.horde, perfs1.horde),
-      racingKings = r(PT.RacingKings, perfs.racingKings, perfs1.racingKings),
-      crazyhouse = r(PT.Crazyhouse, perfs.crazyhouse, perfs1.crazyhouse),
-      bullet = r(PT.Bullet, perfs.bullet, perfs1.bullet),
-      blitz = r(PT.Blitz, perfs.blitz, perfs1.blitz),
-      rapid = r(PT.Rapid, perfs.rapid, perfs1.rapid),
-      classical = r(PT.Classical, perfs.classical, perfs1.classical),
-      correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence)
+      chess960 = r(PerfType.Chess960, perfs.chess960, perfs1.chess960),
+      kingOfTheHill = r(PerfType.KingOfTheHill, perfs.kingOfTheHill, perfs1.kingOfTheHill),
+      threeCheck = r(PerfType.ThreeCheck, perfs.threeCheck, perfs1.threeCheck),
+      antichess = r(PerfType.Antichess, perfs.antichess, perfs1.antichess),
+      atomic = r(PerfType.Atomic, perfs.atomic, perfs1.atomic),
+      horde = r(PerfType.Horde, perfs.horde, perfs1.horde),
+      racingKings = r(PerfType.RacingKings, perfs.racingKings, perfs1.racingKings),
+      crazyhouse = r(PerfType.Crazyhouse, perfs.crazyhouse, perfs1.crazyhouse),
+      bullet = r(PerfType.Bullet, perfs.bullet, perfs1.bullet),
+      blitz = r(PerfType.Blitz, perfs.blitz, perfs1.blitz),
+      rapid = r(PerfType.Rapid, perfs.rapid, perfs1.rapid),
+      classical = r(PerfType.Classical, perfs.classical, perfs1.classical),
+      correspondence = r(PerfType.Correspondence, perfs.correspondence, perfs1.correspondence)
     )
     if isStd then perfs2.updateStandard else perfs2

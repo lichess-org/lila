@@ -1,10 +1,11 @@
-package lila.user
+package lila.rating
 
 import chess.Speed
 
 import scalalib.HeapSort.*
-import lila.rating.{ Glicko, Perf, PerfType }
-import lila.core.rating.PerfKey
+import lila.rating.{ Glicko, Perf }
+import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.user.LightPerf
 
 case class UserPerfs(
     id: UserId,
@@ -57,7 +58,7 @@ case class UserPerfs(
   def bestPerf: Option[PerfType]    = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 1).headOption
   private def bestOf(perfTypes: List[PerfType], nb: Int) = perfTypes
     .sortBy: pt =>
-      -(apply(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
+      -(apply(pt).nb * lila.rating.PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
     .take(nb)
   def hasEstablishedRating(pt: PerfType) = apply(pt).established
 
@@ -75,14 +76,14 @@ case class UserPerfs(
   private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating.value)
 
   def bestPerfs(nb: Int): List[Perf.Typed] =
-    val ps = PerfType.nonPuzzle.map: pt =>
+    val ps = lila.rating.PerfType.nonPuzzle.map: pt =>
       pt -> apply(pt)
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
     ps.filter(p => p._2.nb >= minNb).topN(nb).map(Perf.typed)
 
-  def bestRating: IntRating = bestRatingIn(PerfType.leaderboardable)
+  def bestRating: IntRating = bestRatingIn(lila.rating.PerfType.leaderboardable)
 
-  def bestStandardRating: IntRating = bestRatingIn(PerfType.standard)
+  def bestStandardRating: IntRating = bestRatingIn(lila.rating.PerfType.standard)
 
   def bestRatingIn(types: List[PerfType]): IntRating =
     val ps = types.map(apply) match
@@ -112,7 +113,7 @@ case class UserPerfs(
         case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
         case (ro, _)                                                  => ro
 
-  def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
+  def bestProgress: IntRatingDiff = bestProgressIn(lila.rating.PerfType.leaderboardable)
 
   def bestProgressIn(types: List[PerfType]): IntRatingDiff =
     types.foldLeft(IntRatingDiff(0)): (max, t) =>
@@ -196,8 +197,6 @@ case class UserPerfs(
 
 object UserPerfs:
 
-  given UserIdOf[User] = _.id
-
   def dubiousPuzzle(puzzle: Perf, standard: Perf) =
     puzzle.glicko.rating > 3000 && !standard.glicko.establishedIntRating.exists(_ > 2100) ||
       puzzle.glicko.rating > 2900 && !standard.glicko.establishedIntRating.exists(_ > 2000) ||
@@ -280,11 +279,11 @@ object UserPerfs:
   import lila.db.dsl.{ *, given }
   import reactivemongo.api.bson.*
 
-  def idPerfReader(pt: PerfType) = BSONDocumentReader.option[(UserId, Perf)] { doc =>
+  def idPerfReader(pk: PerfKey) = BSONDocumentReader.option[(UserId, Perf)] { doc =>
     import Perf.given
     for
       id   <- doc.getAsOpt[UserId]("_id")
-      perf <- doc.getAsOpt[Perf](pt.key.value)
+      perf <- doc.getAsOpt[Perf](pk.value)
     yield (id, perf)
   }
 
@@ -344,19 +343,19 @@ object UserPerfs:
       )
 
   case class Leaderboards(
-      ultraBullet: List[User.LightPerf],
-      bullet: List[User.LightPerf],
-      blitz: List[User.LightPerf],
-      rapid: List[User.LightPerf],
-      classical: List[User.LightPerf],
-      crazyhouse: List[User.LightPerf],
-      chess960: List[User.LightPerf],
-      kingOfTheHill: List[User.LightPerf],
-      threeCheck: List[User.LightPerf],
-      antichess: List[User.LightPerf],
-      atomic: List[User.LightPerf],
-      horde: List[User.LightPerf],
-      racingKings: List[User.LightPerf]
+      ultraBullet: List[LightPerf],
+      bullet: List[LightPerf],
+      blitz: List[LightPerf],
+      rapid: List[LightPerf],
+      classical: List[LightPerf],
+      crazyhouse: List[LightPerf],
+      chess960: List[LightPerf],
+      kingOfTheHill: List[LightPerf],
+      threeCheck: List[LightPerf],
+      antichess: List[LightPerf],
+      atomic: List[LightPerf],
+      horde: List[LightPerf],
+      racingKings: List[LightPerf]
   )
 
   val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)

@@ -18,12 +18,12 @@ final class Messenger(api: ChatApi):
     case Messenger.SystemMessage.Volatile(msg)   => system(persistent = false)(game, msg)
 
   def system(persistent: Boolean)(game: Game, message: String): Unit = if game.nonAi then
-    api.userChat.volatile(chatWatcherId(game.id.into(ChatId)), message, _.Round)
-    if persistent then api.userChat.system(game.id.into(ChatId), message, _.Round)
-    else api.userChat.volatile(game.id.into(ChatId), message, _.Round)
+    api.userChat.volatile(chatWatcherId(game.id.into(ChatId)), message, _.round)
+    if persistent then api.userChat.system(game.id.into(ChatId), message, _.round)
+    else api.userChat.volatile(game.id.into(ChatId), message, _.round)
 
   def watcher(gameId: GameId, userId: UserId, text: String) =
-    api.userChat.write(gameWatcherId(gameId), userId, text, PublicSource.Watcher(gameId).some, _.Round)
+    api.userChat.write(gameWatcherId(gameId), userId, text, PublicSource.Watcher(gameId).some, _.round)
 
   private val whisperCommands = List("/whisper ", "/w ", "/W ")
 
@@ -32,20 +32,20 @@ final class Messenger(api: ChatApi):
       .collectFirst:
         case command if text.startsWith(command) =>
           val source = PublicSource.Watcher(gameId)
-          api.userChat.write(gameWatcherId(gameId), userId, text.drop(command.length), source.some, _.Round)
+          api.userChat.write(gameWatcherId(gameId), userId, text.drop(command.length), source.some, _.round)
       .getOrElse:
         (!text.startsWith("/")).so: // mistyped command?
-          api.userChat.write(gameId.into(ChatId), userId, text, publicSource = none, _.Round)
+          api.userChat.write(gameId.into(ChatId), userId, text, publicSource = none, _.round)
 
   def owner(game: Game, anonColor: chess.Color, text: String): Funit =
     (game.fromFriend || presets.contains(text))
-      .so(api.playerChat.write(game.id.into(ChatId), anonColor, text, _.Round))
+      .so(api.playerChat.write(game.id.into(ChatId), anonColor, text, _.round))
 
   def timeout(chatId: ChatId, suspect: UserId, reason: String, text: String)(using mod: Me.Id): Funit =
     ChatTimeout
       .Reason(reason)
       .so: r =>
-        api.userChat.timeout(chatId, suspect, r, ChatTimeout.Scope.Global, text, _.Round)
+        api.userChat.timeout(chatId, suspect, r, ChatTimeout.Scope.Global, text, _.round)
 
   private val presets = Set(
     "Hello",

@@ -1,8 +1,7 @@
 package lila.perfStat
 
 import lila.game.{ Game, GameRepo, Pov, Query }
-import lila.rating.PerfType
-import lila.user.User
+import lila.core.perf.PerfType
 
 final class PerfStatIndexer(
     gameRepo: GameRepo,
@@ -16,17 +15,17 @@ final class PerfStatIndexer(
     lila.log.asyncActorMonitor
   )
 
-  private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] =
+  private[perfStat] def userPerf(user: UserId, perfType: PerfType): Fu[PerfStat] =
     workQueue:
       storage
-        .find(user.id, perfType)
+        .find(user, perfType)
         .getOrElse(
           gameRepo
             .sortedCursor(
               Query.user(user.id) ++
                 Query.finished ++
                 Query.turnsGt(2) ++
-                Query.variant(PerfType.variantOf(perfType)),
+                Query.variant(lila.rating.PerfType.variantOf(perfType)),
               Query.sortChronological,
               readPref = _.priTemp
             )

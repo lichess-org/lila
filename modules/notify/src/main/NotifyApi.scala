@@ -9,18 +9,19 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.core.actorApi.socket.{ SendTo, SendTos }
 import lila.memo.CacheApi.*
-import lila.user.{ User, UserRepo }
 import lila.core.i18n.{ Translator, LangPicker }
+import lila.core.notify.{ NotificationPref as _, * }
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
     colls: NotifyColls,
-    userRepo: UserRepo,
+    userApi: lila.core.user.UserApi,
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage,
     langPicker: LangPicker
-)(using Executor, Translator):
+)(using Executor, Translator)
+    extends lila.core.notify.NotifyApi(colls.pref):
 
   import Notification.*
   import BSONHandlers.given
@@ -29,21 +30,21 @@ final class NotifyApi(
   object prefs:
     import NotificationPref.{ *, given }
 
-    def form(me: User) =
+    def form[U: UserIdOf](me: U) =
       colls.pref
         .byId[NotificationPref](me.id)
         .dmap(_ | default)
         .map(NotificationPref.form.form.fill)
 
-    def set(me: User, pref: NotificationPref) =
+    def set[U: UserIdOf](me: U, pref: NotificationPref) =
       colls.pref.update.one($id(me.id), pref, upsert = true).void
 
-    def allows(userId: UserId, event: Event): Fu[Allows] =
+    def allows(userId: UserId, event: PrefEvent): Fu[Allows] =
       colls.pref
         .primitiveOne[Allows]($id(userId), event.key)
         .dmap(_ | default.allows(event))
 
-    def getAllows(userIds: Iterable[UserId], event: NotificationPref.Event): Fu[List[NotifyAllows]] =
+    def getAllows(userIds: Iterable[UserId], event: PrefEvent): Fu[List[NotifyAllows]] =
       userIds.nonEmpty.so:
         colls.pref.tempPrimary
           .find($inIds(userIds), $doc(event.key -> true).some)
@@ -61,10 +62,8 @@ final class NotifyApi(
             }
             customAllows ::: defaultAllows.toList
 
-  private val unreadCountCache = cacheApi[UserId, UnreadCount](32768, "notify.unreadCountCache") {
-    _.expireAfterAccess(15 minutes)
-      .buildAsyncFuture(repo.expireAndCount)
-  }
+  private val unreadCountCache = cacheApi[UserId, UnreadCount](65_536, "notify.unreadCountCache"):
+    _.expireAfterAccess(15 minutes).buildAsyncFuture(repo.expireAndCount)
 
   def getNotifications(userId: UserId, page: Int): Fu[Paginator[Notification]] =
     Paginator(
@@ -109,7 +108,7 @@ final class NotifyApi(
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)
     shouldSkip(note).not.flatMapz {
-      NotificationPref.Event.byKey.get(content.key) match
+      NotificationPref.events.get(content.key) match
         case None => bellOne(note)
         case Some(event) =>
           prefs.allows(note.to, event).map { allows =>
@@ -121,7 +120,7 @@ final class NotifyApi(
   // notifyMany tells clients that an update is available to bump their bell. there's no need
   // to assemble full notification pages for all clients at once, let them initiate
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
-    NotificationPref.Event.byKey
+    NotificationPref.events
       .get(content.key)
       .so: event =>
         prefs
@@ -131,7 +130,7 @@ final class NotifyApi(
             bellMany(recips, content)
 
   private[notify] def notifyManyIgnoringPrefs(userIds: Seq[UserId], content: NotificationContent): Funit =
-    val recips = userIds.map(NotifyAllows(_, Allows.all))
+    val recips = userIds.map(NotifyAllows(_, lila.notify.Allows.all))
     pushMany(recips, content)
     bellMany(recips, content)
 
@@ -144,7 +143,7 @@ final class NotifyApi(
           () =>
             for
               notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
-              langStr       <- userRepo.langOf(note.to)
+              langStr       <- userApi.langOf(note.to)
               lang = langPicker.byStrOrDefault(langStr)
             yield jsonHandlers(notifications)(using summon[Translator].to(lang))
         ),
@@ -176,12 +175,12 @@ final class NotifyApi(
 
   private def shouldSkip(note: Notification): Fu[Boolean] = note.content match
     case MentionedInThread(_, _, topicId, _, _) =>
-      userRepo.isKid(note.to) >>|
+      userApi.isKid(note.to) >>|
         repo.hasRecent(note, "content.topicId" -> topicId, 3.days)
     case InvitedToStudy(_, _, studyId) =>
-      userRepo.isKid(note.to) >>|
+      userApi.isKid(note.to) >>|
         repo.hasRecent(note, "content.studyId" -> studyId, 3.days)
     case PrivateMessage(sender, _) =>
       repo.hasRecentPrivateMessageFrom(note.to, sender)
     case _: CorresAlarm => fuFalse
-    case _              => userRepo.isKid(note.to)
+    case _              => userApi.isKid(note.to)

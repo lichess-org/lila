@@ -321,8 +321,8 @@ abstract private[controllers] class LilaController(val env: Env)
         case ByHref.Found(lang) =>
           f(using ctx.withLang(lang))
 
-  import lila.rating.{ Perf, PerfType }
-  def WithMyPerf[A](pt: PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+  import lila.rating.Perf
+  def WithMyPerf[A](pt: lila.core.perf.PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
     .soFu(env.user.perfsRepo.perfOf(_, pt))
     .flatMap: perf =>
       f(using perf | Perf.default)

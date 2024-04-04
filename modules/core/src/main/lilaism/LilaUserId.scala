@@ -1,6 +1,7 @@
 package lila.core.lilaism
 
 import scalalib.newtypes.*
+import lila.core.user.MyId
 
 trait LilaUserId:
 
@@ -17,6 +18,8 @@ trait LilaUserId:
   opaque type UserId = String
   object UserId extends OpaqueString[UserId]:
     given UserIdOf[UserId] = _.value
+    val lichess: UserId    = "lichess"
+    val lichessAsMe: MyId  = lichess.into(MyId)
 
   // specialized UserIds like Coach.Id
   trait OpaqueUserId[A] extends OpaqueString[A]:
@@ -27,6 +30,10 @@ trait LilaUserId:
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
     given UserIdOf[UserName] = n => UserId(n.value.toLowerCase)
+    // what existing usernames are like
+    val historicalRegex     = "(?i)[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]".r
+    val anonymous: UserName = "Anonymous"
+    val lichess: UserName   = "lichess"
 
   // maybe an Id, maybe a Name... something that's probably cased wrong
   opaque type UserStr = String

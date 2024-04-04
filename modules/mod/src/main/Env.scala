@@ -6,11 +6,13 @@ import com.softwaremill.macwire.*
 import lila.core.config.*
 import lila.core.report.SuspectId
 import lila.user.{ Me, User }
+import lila.core.user.WithPerf
+import chess.ByColor
 
 @Module
 final class Env(
     db: lila.db.Db,
-    perfStat: lila.perfStat.PerfStatApi,
+    perfStat: lila.core.perfStat.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
@@ -22,8 +24,8 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     chatApi: lila.chat.ChatApi,
-    notifyApi: lila.notify.NotifyApi,
-    historyApi: lila.history.HistoryApi,
+    notifyApi: lila.core.notify.NotifyApi,
+    historyApi: lila.core.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
@@ -71,10 +73,14 @@ final class Env(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
         users
-          .map(_.filter(_.enabled.yes).map(_.only(game.perfType)))
-          .mapN: (whiteUser, blackUser) =>
+          .traverse:
+            _.filter(_._1.enabled.yes).map: u =>
+              new lila.core.user.WithPerf:
+                val user = u._1
+                val perf = u._2(game.perfType)
+          .foreach: users =>
             sandbagWatch(game)
-            assessApi.onGameReady(game, whiteUser, blackUser)
+            assessApi.onGameReady(game, users)
         if game.status == chess.Status.Cheat then
           game.loserUserId.foreach: userId =>
             logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>
@@ -83,7 +89,7 @@ final class Env(
                   api.autoMark(
                     SuspectId(userId),
                     s"Cheat detected during game, ${count} times"
-                  )(using User.lichessIdAsMe)
+                  )(using UserId.lichessAsMe)
                 else reportApi.autoCheatDetectedReport(userId, count)
               }
             }
@@ -95,10 +101,10 @@ final class Env(
       publicChat.deleteAll(userId)
     },
     "autoWarning" -> { case lila.core.mod.AutoWarning(userId, subject) =>
-      logApi.modMessage(userId, subject)(using User.lichessIdAsMe)
+      logApi.modMessage(userId, subject)(using UserId.lichessAsMe)
     },
     "selfReportMark" -> { case lila.core.mod.SelfReportMark(suspectId, name) =>
-      api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using User.lichessIdAsMe)
+      api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using UserId.lichessAsMe)
     },
     "chatTimeout" -> { case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
       logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id))

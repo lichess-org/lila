@@ -141,7 +141,7 @@ final class Mod(
     if username == UserName("-") && env.mod.impersonate.isImpersonated(me) then
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
-    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(lila.user.User.lichessId)) then
+    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
       Found(env.user.repo.byId(username)): user =>
         env.mod.impersonate.start(me, user)
         Redirect(routes.User.show(user.username))
@@ -183,7 +183,7 @@ final class Mod(
           import lila.core.irc.ModDomain
           env.irc.api
             .inquiry(
-              user = user,
+              user = user.light,
               domain = report.room match
                 case Room.Cheat => ModDomain.Cheat
                 case Room.Boost => ModDomain.Boost
@@ -208,11 +208,16 @@ final class Mod(
         _.filter(_.reason == lila.report.Reason.Username).map(_.bestAtom.simplifiedText)
       }
       .flatMap: reason =>
-        env.user.repo.byId(username).orNotFound { env.irc.api.nameCloseVote(_, reason).inject(NoContent) }
+        env.user.repo.byId(username).orNotFound { user =>
+          val details = s"created on: ${user.createdAt.date}, ${user.count.game} games"
+          env.irc.api
+            .nameCloseVote(user.light, details, reason)
+            .inject(NoContent)
+        }
 
   }
   def askUsertableCheck(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
-    env.user.repo.byId(username).orNotFound { env.irc.api.usertableCheck(_).inject(NoContent) }
+    env.user.lightUser(username.id).orNotFound { env.irc.api.usertableCheck(_).inject(NoContent) }
   }
 
   def table = Secure(_.Admin) { ctx ?=> _ ?=>
@@ -261,7 +266,7 @@ final class Mod(
               }
             ).flatMapN { (chats, convos, publicLines, notes, history, inquiry, logins) =>
               if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
-                env.irc.api.commlog(user = user, inquiry.map(_.oldestAtom.by.userId))
+                env.irc.api.commlog(user = user.light, inquiry.map(_.oldestAtom.by.userId))
                 if isGranted(_.MonitoredCommMod) then
                   env.irc.api.monitorMod(
                     "eyes",
@@ -303,7 +308,7 @@ final class Mod(
         Ok.chunked(source)
           .pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
           .andDo(env.mod.logApi.fullCommExport(Suspect(user)))
-          .andDo(env.irc.api.fullCommExport(user))
+          .andDo(env.irc.api.fullCommExport(user.light))
     }
 
   protected[controllers] def redirect(username: UserStr, mod: Boolean = true) =
@@ -403,7 +408,7 @@ final class Mod(
     for
       uids       <- env.security.api.recentUserIdsByFingerHash(hash)
       users      <- env.user.repo.usersFromSecondary(uids.reverse)
-      withEmails <- env.user.api.withEmails(users)
+      withEmails <- env.user.api.withPerfsAndEmails(users)
       uas        <- env.security.api.printUas(hash)
       page <- renderPage(html.mod.search.print(hash, withEmails, uas, env.security.printBan.blocks(hash)))
     yield Ok(page)
@@ -420,7 +425,7 @@ final class Mod(
       for
         uids       <- env.security.api.recentUserIdsByIp(address)
         users      <- env.user.repo.usersFromSecondary(uids.reverse)
-        withEmails <- env.user.api.withEmails(users)
+        withEmails <- env.user.api.withPerfsAndEmails(users)
         uas        <- env.security.api.ipUas(address)
         data       <- env.security.ipTrust.data(address)
         blocked = env.security.firewall.blocksIp(address)
@@ -479,7 +484,7 @@ final class Mod(
         val username = query.lift(1)
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
           env.mod.search(q).map(_.filter(_.user.enabled.yes)).flatMap {
-            case List(UserModel.WithEmails(user, _)) =>
+            case List(UserModel.WithPerfsAndEmails(user, _)) =>
               for
                 _ <- (!user.everLoggedIn).so {
                   lila.mon.user.register.modConfirmEmail.increment()
@@ -508,7 +513,7 @@ final class Mod(
   def chatPanicPost = OAuthMod(_.Shadowban) { ctx ?=> me ?=>
     val v = getBool("v")
     env.chat.panic.set(v)
-    env.irc.api.chatPanic(me, v)
+    env.irc.api.chatPanic(v)
     fuccess(().some)
   }(_ => (_, _) ?=> Redirect(routes.Mod.chatPanic))
 
