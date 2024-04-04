@@ -4,7 +4,7 @@ import alleycats.Zero
 
 import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
-import lila.history.HistoryApi
+import lila.core.history.HistoryApi
 import lila.core.team.LightTeam
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Me, User }
@@ -80,7 +80,7 @@ object TournamentCondition:
   final class Verify(historyApi: HistoryApi)(using Executor):
 
     def apply(all: All, perfType: PerfType)(using me: Me)(using GetMyTeamIds, Perf): Fu[WithVerdicts] =
-      given GetMaxRating = historyApi.lastWeekTopRating(me.value, _)
+      given GetMaxRating = historyApi.lastWeekTopRating(me.userId, _)
       all.withVerdicts(perfType)
 
     def rejoin(all: All)(using Me)(using GetMyTeamIds): Fu[WithVerdicts] =

@@ -13,7 +13,7 @@ import lila.core.rating.PerfKey
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(
     using Executor
-):
+) extends lila.core.history.HistoryApi:
 
   import History.{ given, * }
 
@@ -102,25 +102,23 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
         }
       }
 
-  object lastWeekTopRating:
+  def lastWeekTopRating(user: UserId, perf: PerfKey): Fu[IntRating] = lastWeekTopRatingCache.get(user -> perf)
 
-    def apply(user: User, perf: PerfType): Fu[IntRating] = cache.get(user.id -> perf)
-
-    private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating"):
-      _.expireAfterAccess(20 minutes).buildAsyncFuture: (userId, perf) =>
-        userApi.withIntRatingIn(userId, perf.key).orFail(s"No such user: $userId").flatMap {
-          (user, currentRating) =>
-            val firstDay = daysBetween(user.createdAt, nowInstant.minusWeeks(1))
-            val days     = firstDay to (firstDay + 6) toList
-            val project = $doc:
-              ("_id" -> BSONBoolean(false)) :: days.map: d =>
-                s"${perf.key}.$d" -> BSONBoolean(true)
-            withColl(_.find($id(user.id), project.some).one[Bdoc].map {
-              _.flatMap:
-                _.child(perf.key.value).map {
-                  _.elements.foldLeft(currentRating):
-                    case (max, BSONElement(_, BSONInteger(v))) if max < v => IntRating(v)
-                    case (max, _)                                         => max
-                }
-            }).dmap(_ | currentRating)
-        }
+  private val lastWeekTopRatingCache = cacheApi[(UserId, PerfKey), IntRating](1024, "lastWeekTopRating"):
+    _.expireAfterAccess(20 minutes).buildAsyncFuture: (userId, perf) =>
+      userApi.withIntRatingIn(userId, perf).orFail(s"No such user: $userId").flatMap {
+        (user, currentRating) =>
+          val firstDay = daysBetween(user.createdAt, nowInstant.minusWeeks(1))
+          val days     = firstDay to (firstDay + 6) toList
+          val project = $doc:
+            ("_id" -> BSONBoolean(false)) :: days.map: d =>
+              s"$perf.$d" -> BSONBoolean(true)
+          withColl(_.find($id(user.id), project.some).one[Bdoc].map {
+            _.flatMap:
+              _.child(perf.value).map {
+                _.elements.foldLeft(currentRating):
+                  case (max, BSONElement(_, BSONInteger(v))) if max < v => IntRating(v)
+                  case (max, _)                                         => max
+              }
+          }).dmap(_ | currentRating)
+      }

@@ -285,7 +285,7 @@ lazy val opening = module("opening",
 )
 
 lazy val gathering = module("gathering",
-  Seq(history, user),
+  Seq(user),
   tests.bundle
 )
 

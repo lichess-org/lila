@@ -27,7 +27,7 @@ final class Env(
     lightUser: lila.core.LightUser.GetterFallback,
     onGameStart: lila.core.game.OnStart,
     cacheApi: lila.memo.CacheApi,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     socketKit: lila.core.socket.SocketKit,
     socketReq: lila.core.socket.SocketRequester,
     proxyRepo: lila.round.GameProxyRepo,
