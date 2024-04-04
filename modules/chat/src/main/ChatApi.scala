@@ -10,7 +10,7 @@ import lila.core.shutup.PublicSource
 import lila.memo.CacheApi.*
 import lila.security.{ Flood, Granter }
 import lila.user.{ FlairApi, Me, User, UserRepo, given }
-import lila.core.chat.{OnTimeout, OnReinstate}
+import lila.core.chat.{ OnTimeout, OnReinstate }
 
 final class ChatApi(
     coll: Coll,
