@@ -18,3 +18,19 @@ object BSONHandlers:
       key => PerfType(key).err(s"Unknown perf type $key"),
       _.key
     )
+
+  object core:
+
+    import lila.core.rating.PerfType
+
+    given perfTypeIdHandler: BSONHandler[PerfType] =
+      summon[BSONHandler[PerfId]].as[PerfType](
+        id => PerfType.byId.get(id).err(s"Unknown perf id $id"),
+        _.id
+      )
+
+    given perfTypeKeyHandler: BSONHandler[PerfType] =
+      summon[BSONHandler[PerfKey]].as[PerfType](
+        key => PerfType(key).err(s"Unknown perf type $key"),
+        _.key
+      )

@@ -13,7 +13,8 @@ enum PerfType(
     private val name: String,
     private val title: String,
     val icon: licon.Icon
-) derives Eq:
+) extends lila.core.rating.PerfType
+    derives Eq:
 
   def iconString                     = icon.toString
   def trans(using Translate): String = PerfType.trans(this)
@@ -171,6 +172,7 @@ object PerfType:
   val default = Standard
 
   given Conversion[PerfType, PerfKey] = _.key
+  given Conversion[PerfType, PerfId]  = _.id
 
   def apply(key: PerfKey): Option[PerfType] = byKey.get(key)
   def orDefault(key: PerfKey): PerfType     = apply(key) | default
@@ -202,7 +204,7 @@ object PerfType:
   val standard: List[PerfType]          = List(Bullet, Blitz, Rapid, Classical, Correspondence)
   val standardWithUltra: List[PerfType] = UltraBullet :: standard
 
-  def variantOf(pt: PerfType): chess.variant.Variant = pt match
+  def variantOf(pt: lila.core.rating.PerfType): chess.variant.Variant = pt match
     case Crazyhouse    => chess.variant.Crazyhouse
     case Chess960      => chess.variant.Chess960
     case KingOfTheHill => chess.variant.KingOfTheHill

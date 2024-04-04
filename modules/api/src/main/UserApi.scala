@@ -149,12 +149,16 @@ final class UserApi(
 
   private def trophiesJson(all: UserApi.TrophiesAndAwards)(using Lang): JsArray =
     JsArray {
-      all.ranks.toList.sortBy(_._2).collect {
-        case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
-        case (perf, rank) if rank <= 10  => perfTopTrophy(perf, 10, "Top 10")
-        case (perf, rank) if rank <= 50  => perfTopTrophy(perf, 50, "Top 50")
-        case (perf, rank) if rank <= 100 => perfTopTrophy(perf, 10, "Top 100")
-      } ::: all.trophies.map { t =>
+      all.ranks.toList
+        .sortBy(_._2)
+        .flatMap: (perf, rank) =>
+          PerfType(perf).map(_ -> rank)
+        .collect {
+          case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
+          case (perf, rank) if rank <= 10  => perfTopTrophy(perf, 10, "Top 10")
+          case (perf, rank) if rank <= 50  => perfTopTrophy(perf, 50, "Top 50")
+          case (perf, rank) if rank <= 100 => perfTopTrophy(perf, 10, "Top 100")
+        } ::: all.trophies.map { t =>
         Json
           .obj(
             "type" -> t.kind._id,

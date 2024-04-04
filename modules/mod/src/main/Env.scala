@@ -12,7 +12,7 @@ import chess.ByColor
 @Module
 final class Env(
     db: lila.db.Db,
-    perfStat: lila.perfStat.PerfStatApi,
+    perfStat: lila.core.perfStat.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,

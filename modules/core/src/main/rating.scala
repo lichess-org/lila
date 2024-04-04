@@ -1,11 +1,18 @@
 package lila.core
 package rating
 
+import lila.core.i18n.Translate
+
 opaque type PerfKey = String
 object PerfKey extends OpaqueString[PerfKey]
 
 opaque type PerfId = Int
 object PerfId extends OpaqueInt[PerfId]
+
+trait PerfType:
+  val id: PerfId
+  val key: PerfKey
+  def trans(using Translate): String
 
 trait Perf:
   val glicko: Glicko

@@ -57,7 +57,7 @@ object JsonView:
   private given Writes[Avg] = Writes: a =>
     JsNumber(scalalib.Maths.roundDownAt(a.avg, 2))
 
-  given (using Translate): OWrites[PerfType] = OWrites: pt =>
+  given (using Translate): OWrites[lila.core.rating.PerfType] = OWrites: pt =>
     Json.obj(
       "key"  -> pt.key,
       "name" -> pt.trans

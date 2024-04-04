@@ -142,7 +142,7 @@ case class UserPerfs(
 
   def apply(key: PerfKey): Option[Perf] = perfsMap.get(key)
 
-  def apply(perfType: PerfType): Perf = perfType match
+  def apply(perfType: lila.core.rating.PerfType): Perf = perfType match
     case PerfType.Standard       => standard
     case PerfType.UltraBullet    => ultraBullet
     case PerfType.Bullet         => bullet
