@@ -140,7 +140,7 @@ lazy val coach = module("coach",
 )
 
 lazy val streamer = module("streamer",
-  Seq(notifyModule, user, pref),
+  Seq(user, pref),
   reactivemongo.bundle
 )
 
@@ -205,7 +205,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, report, notifyModule, chat),
+  Seq(evaluation, report, chat),
   reactivemongo.bundle
 )
 
@@ -240,7 +240,7 @@ lazy val analyse = module("analyse",
 )
 
 lazy val round = module("round",
-  Seq(room, game, playban, notifyModule, pref, chat),
+  Seq(room, game, playban, pref, chat),
   Seq(scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
@@ -310,7 +310,7 @@ lazy val fishnet = module("fishnet",
 )
 
 lazy val irwin = module("irwin",
-  Seq(insight, notifyModule, report),
+  Seq(insight, report),
   reactivemongo.bundle
 )
 
@@ -340,7 +340,7 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(explorer, analyse, notifyModule, room, pref, chat),
+  Seq(explorer, analyse, room, pref, chat),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 
@@ -405,12 +405,12 @@ lazy val pref = module("pref",
 )
 
 lazy val msg = module("msg",
-  Seq(shutup, notifyModule, security, pref),
+  Seq(shutup, security, pref),
   reactivemongo.bundle
 )
 
 lazy val forum = module("forum",
-  Seq(security, pref, notifyModule, pref),
+  Seq(security, pref, pref),
   reactivemongo.bundle
 )
 
@@ -420,7 +420,7 @@ lazy val forumSearch = module("forumSearch",
 )
 
 lazy val team = module("team",
-  Seq(chat, security, notifyModule, room),
+  Seq(chat, security, room),
   reactivemongo.bundle
 )
 

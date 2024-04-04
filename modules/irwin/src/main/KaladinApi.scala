@@ -21,7 +21,7 @@ final class KaladinApi(
     insightApi: lila.insight.InsightApi,
     modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler):
 
@@ -70,7 +70,7 @@ final class KaladinApi(
               if enoughMoves then
                 lila.mon.mod.kaladin.request(requester.name).increment()
                 insightApi.indexAll(user.user) >>
-                  coll(_.update.one($id(req._id), req, upsert = true)).void
+                  coll(_.update.one($id(req.id), req, upsert = true)).void
               else
                 lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
                 funit
@@ -143,12 +143,9 @@ final class KaladinApi(
     private[KaladinApi] def apply(user: KaladinUser): Funit =
       subs.get(user.suspectId).so { modIds =>
         subs = subs - user.suspectId
-        modIds
-          .map { modId =>
-            notifyApi.notifyOne(modId, lila.notify.KaladinDone(user.suspectId.value))
-          }
-          .parallel
-          .void
+        modIds.toSeq.traverse_ { modId =>
+          notifyApi.notifyOne(modId, lila.core.notify.KaladinDone(user.suspectId.value))
+        }
       }
 
   private[irwin] def monitorQueued: Funit =

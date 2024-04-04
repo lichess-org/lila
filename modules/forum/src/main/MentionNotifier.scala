@@ -1,15 +1,11 @@
 package lila.forum
 
-import lila.notify.MentionedInThread
+import lila.core.notify.*
 
-/** Notifier to inform users if they have been mentioned in a post
-  *
-  * @param notifyApi
-  *   Api for sending inbox messages
-  */
+/** Notifier to inform users if they have been mentioned in a post */
 final class MentionNotifier(
     userRepo: lila.user.UserRepo,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: NotifyApi,
     relationApi: lila.core.relation.RelationApi,
     prefApi: lila.pref.PrefApi
 )(using Executor):
@@ -21,7 +17,7 @@ final class MentionNotifier(
           .traverse_ { user =>
             notifyApi.notifyOne(
               user,
-              lila.notify.MentionedInThread(
+              MentionedInThread(
                 mentionedBy = author,
                 topicName = topic.name,
                 topidId = topic.id,

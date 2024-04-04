@@ -9,6 +9,7 @@ import lila.common.Bus
 import lila.common.config.*
 import lila.db.dsl.Coll
 import lila.core.config.CollName
+import lila.core.notify.{ NotifyApi as _, * }
 
 @Module
 final class Env(
@@ -54,7 +55,3 @@ final class Env(
   lazy val cli = wire[NotifyCli]
 
 final class NotifyColls(val notif: Coll, val pref: Coll)
-
-private type GetNotifyAllowsType                   = (UserId, NotificationPref.Event) => Fu[Allows]
-opaque type GetNotifyAllows <: GetNotifyAllowsType = GetNotifyAllowsType
-object GetNotifyAllows extends TotalWrapper[GetNotifyAllows, GetNotifyAllowsType]

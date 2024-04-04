@@ -21,7 +21,7 @@ final private class NotifyCli(api: NotifyApi, userRepo: UserRepo)(using Material
   private def notifyUrlTo(userIds: Source[UserId, ?], url: String, words: List[String]) =
     val title        = words.takeWhile(_ != "|").mkString(" ").some.filter(_.nonEmpty)
     val text         = words.dropWhile(_ != "|").drop(1).mkString(" ").some.filter(_.nonEmpty)
-    val notification = GenericLink(url, title, text, lila.common.licon.InfoCircle)
+    val notification = lila.core.notify.GenericLink(url, title, text, lila.common.licon.InfoCircle)
     userIds
       .grouped(20)
       .mapAsyncUnordered(1): uids =>

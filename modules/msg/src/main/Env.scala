@@ -18,7 +18,7 @@ final class Env(
     userCache: lila.user.Cached,
     relationApi: lila.core.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     reportApi: lila.core.report.ReportApi,
     shutupApi: lila.core.shutup.ShutupApi,

@@ -6,7 +6,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.notify.NotifyApi
 import lila.pref.PrefApi
 import lila.core.relation.RelationApi
 import lila.user.User
@@ -26,7 +25,7 @@ final class Env(
     promotion: lila.security.PromotionApi,
     captcha: lila.core.captcha.CaptchaApi,
     shutupApi: lila.core.shutup.ShutupApi,
-    notifyApi: NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     relationApi: RelationApi,
     prefApi: PrefApi,
     modLog: lila.core.mod.LogApi,

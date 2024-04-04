@@ -25,7 +25,7 @@ final class Env(
     proxyRepo: lila.round.GameProxyRepo,
     roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
-    notifyAllows: lila.notify.GetNotifyAllows,
+    notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler):
 
@@ -70,7 +70,7 @@ final class Env(
       logUnit { pushApi.challengeAccept(c, joinerId) }
     case lila.core.game.CorresAlarmEvent(userId, pov: lila.game.Pov, opponent) =>
       logUnit { pushApi.corresAlarm(pov) }
-    case lila.notify.PushNotification(to, content, _) =>
+    case lila.core.notify.PushNotification(to, content, _) =>
       logUnit { pushApi.notifyPush(to, content) }
     case t: lila.core.actorApi.push.TourSoon =>
       logUnit { pushApi.tourSoon(t) }

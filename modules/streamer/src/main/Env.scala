@@ -27,7 +27,7 @@ final class Env(
     isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     picfitApi: lila.memo.PicfitApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,

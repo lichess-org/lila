@@ -8,7 +8,6 @@ import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
@@ -18,7 +17,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     explorerImporter: lila.explorer.ExplorerImporter,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,
     federationNames: lila.core.fide.Federation.NamesOf,
     prefApi: lila.pref.PrefApi,

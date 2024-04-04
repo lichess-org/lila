@@ -7,11 +7,10 @@ import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.core.actorApi.mailer.*
-import lila.notify.NotifyColls
+import lila.core.notify.NotifyApi
 import lila.user.UserRepo
 
-final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, notifyColls: NotifyColls)(
-    using
+final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, notifyApi: NotifyApi)(using
     Executor,
     akka.stream.Materializer
 ):
@@ -30,7 +29,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
       .monSuccess(_.round.correspondenceEmail.time)
 
   private def opponentStream =
-    notifyColls.pref
+    notifyApi.prefColl
       .aggregateWith(readPreference = ReadPref.priTemp): framework =>
         import framework.*
         // hit partial index

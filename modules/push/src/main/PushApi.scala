@@ -11,8 +11,9 @@ import lila.game.{ Game, Namer, Pov }
 import lila.core.actorApi.map.Tell
 import lila.core.actorApi.push.TourSoon
 import lila.core.round.{ IsOnGame, MoveEvent }
-import lila.notify.*
+import lila.core.notify.*
 import lila.core.LazyFu
+import lila.core.notify.*
 
 final private class PushApi(
     firebasePush: FirebasePush,
@@ -20,7 +21,7 @@ final private class PushApi(
     proxyRepo: lila.round.GameProxyRepo,
     roundMobile: lila.round.RoundMobile,
     gameRepo: lila.game.GameRepo,
-    notifyAllows: lila.notify.GetNotifyAllows,
+    notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
@@ -71,7 +72,7 @@ final private class PushApi(
               firebaseMod = offlineRoundNotif
             )
           for
-            _ <- IfAway(pov)(maybePushNotif(userId, _.finish, NotificationPref.GameEvent, data))
+            _ <- IfAway(pov)(maybePushNotif(userId, _.finish, PrefEvent.gameEvent, data))
             _ <- alwaysPushFirebaseData(userId, _.finish, data)
           yield ()
       }
@@ -105,7 +106,7 @@ final private class PushApi(
                     )
                   for
                     _ <- pov.isMyTurn.so:
-                      IfAway(pov)(maybePushNotif(userId, _.move, NotificationPref.GameEvent, data))
+                      IfAway(pov)(maybePushNotif(userId, _.move, PrefEvent.gameEvent, data))
                     _ <- alwaysPushFirebaseData(userId, _.move, data)
                   yield ()
               }
@@ -135,7 +136,7 @@ final private class PushApi(
                       mobileCompatible = true,
                       firebaseMod = offlineRoundNotif
                     )
-                  IfAway(pov)(maybePushNotif(userId, _.takeback, NotificationPref.GameEvent, data)) >>
+                  IfAway(pov)(maybePushNotif(userId, _.takeback, PrefEvent.gameEvent, data)) >>
                     alwaysPushFirebaseData(userId, _.takeback, data)
               }
 
@@ -164,7 +165,7 @@ final private class PushApi(
                       firebaseMod = offlineRoundNotif,
                       mobileCompatible = true
                     )
-                  IfAway(pov)(maybePushNotif(userId, _.draw, NotificationPref.GameEvent, data)) >>
+                  IfAway(pov)(maybePushNotif(userId, _.draw, PrefEvent.gameEvent, data)) >>
                     alwaysPushFirebaseData(userId, _.draw, data)
               }
 
@@ -183,7 +184,7 @@ final private class PushApi(
           mobileCompatible = true,
           firebaseMod = offlineRoundNotif
         )
-      maybePushNotif(userId, _.corresAlarm, NotificationPref.GameEvent, data) >>
+      maybePushNotif(userId, _.corresAlarm, PrefEvent.gameEvent, data) >>
         alwaysPushFirebaseData(userId, _.corresAlarm, data)
 
   private def corresGamePayload(pov: Pov, typ: String, userId: UserId): Fu[Data.Payload] =
@@ -245,7 +246,7 @@ final private class PushApi(
             maybePushNotif(
               dest.id,
               _.challenge.create,
-              NotificationPref.Challenge,
+              PrefEvent.challenge,
               LazyFu.sync:
                 Data(
                   title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
@@ -270,7 +271,7 @@ final private class PushApi(
             maybePushNotif(
               challenger.id,
               _.challenge.accept,
-              NotificationPref.Challenge,
+              PrefEvent.challenge,
               LazyFu.sync:
                 Data(
                   title = s"${lightJoiner.fold("A player")(_.titleName)} accepts your challenge!",
@@ -290,7 +291,7 @@ final private class PushApi(
       maybePushNotif(
         userId,
         _.tourSoon,
-        NotificationPref.TournamentSoon,
+        PrefEvent.tournamentSoon,
         LazyFu.sync:
           Data(
             title = tour.tourName,
@@ -389,7 +390,7 @@ final private class PushApi(
   private def maybePushNotif(
       userId: UserId,
       monitor: MonitorType,
-      event: NotificationPref.Event,
+      event: PrefEvent,
       data: LazyFu[Data]
   ): Funit =
     notifyAllows(userId, event).flatMap: allows =>

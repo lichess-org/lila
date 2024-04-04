@@ -2,7 +2,7 @@ package lila.round
 
 import lila.game.Game
 import lila.core.timeline.{ GameEnd as TLGameEnd, Propagate }
-import lila.notify.{ GameEnd, NotifyApi }
+import lila.core.notify.{ GameEnd, NotifyApi }
 
 final private class RoundNotifier(
     isUserPresent: (Game, UserId) => Fu[Boolean],

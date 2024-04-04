@@ -17,7 +17,7 @@ final class IrwinApi(
     analysisRepo: AnalysisRepo,
     modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor):
 
@@ -155,7 +155,7 @@ final class IrwinApi(
         subs = subs - report.suspectId
         modIds
           .map { modId =>
-            notifyApi.notifyOne(modId, lila.notify.IrwinDone(report.suspectId.value))
+            notifyApi.notifyOne(modId, lila.core.notify.IrwinDone(report.suspectId.value))
           }
           .parallel
           .void

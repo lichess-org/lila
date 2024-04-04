@@ -39,7 +39,7 @@ final class Env(
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
     rankingApi: lila.user.RankingApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
     rematches: lila.game.Rematches,
     divider: lila.game.Divider,
@@ -48,7 +48,6 @@ final class Env(
     userLagPut: lila.core.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder,
-    notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
     Executor,

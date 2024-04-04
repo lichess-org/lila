@@ -4,7 +4,6 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
-import lila.notify.NotifyApi
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
@@ -12,7 +11,7 @@ final class Env(
     captcha: lila.core.captcha.CaptchaApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    notifyApi: NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     socketKit: lila.core.socket.SocketKit,
     chatApi: lila.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,

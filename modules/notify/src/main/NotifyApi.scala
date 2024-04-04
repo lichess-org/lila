@@ -10,6 +10,7 @@ import lila.db.paginator.Adapter
 import lila.core.actorApi.socket.{ SendTo, SendTos }
 import lila.memo.CacheApi.*
 import lila.core.i18n.{ Translator, LangPicker }
+import lila.core.notify.{ NotificationPref as _, * }
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
@@ -19,7 +20,8 @@ final class NotifyApi(
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage,
     langPicker: LangPicker
-)(using Executor, Translator):
+)(using Executor, Translator)
+    extends lila.core.notify.NotifyApi(colls.pref):
 
   import Notification.*
   import BSONHandlers.given
@@ -37,12 +39,12 @@ final class NotifyApi(
     def set[U: UserIdOf](me: U, pref: NotificationPref) =
       colls.pref.update.one($id(me.id), pref, upsert = true).void
 
-    def allows(userId: UserId, event: Event): Fu[Allows] =
+    def allows(userId: UserId, event: PrefEvent): Fu[Allows] =
       colls.pref
         .primitiveOne[Allows]($id(userId), event.key)
         .dmap(_ | default.allows(event))
 
-    def getAllows(userIds: Iterable[UserId], event: NotificationPref.Event): Fu[List[NotifyAllows]] =
+    def getAllows(userIds: Iterable[UserId], event: PrefEvent): Fu[List[NotifyAllows]] =
       userIds.nonEmpty.so:
         colls.pref.tempPrimary
           .find($inIds(userIds), $doc(event.key -> true).some)
@@ -60,9 +62,8 @@ final class NotifyApi(
             }
             customAllows ::: defaultAllows.toList
 
-  private val unreadCountCache = cacheApi[UserId, UnreadCount](65_536, "notify.unreadCountCache") {
+  private val unreadCountCache = cacheApi[UserId, UnreadCount](65_536, "notify.unreadCountCache"):
     _.expireAfterAccess(15 minutes).buildAsyncFuture(repo.expireAndCount)
-  }
 
   def getNotifications(userId: UserId, page: Int): Fu[Paginator[Notification]] =
     Paginator(
@@ -107,7 +108,7 @@ final class NotifyApi(
   def notifyOne[U: UserIdOf](to: U, content: NotificationContent): Funit =
     val note = Notification.make(to, content)
     shouldSkip(note).not.flatMapz {
-      NotificationPref.Event.byKey.get(content.key) match
+      NotificationPref.events.get(content.key) match
         case None => bellOne(note)
         case Some(event) =>
           prefs.allows(note.to, event).map { allows =>
@@ -119,7 +120,7 @@ final class NotifyApi(
   // notifyMany tells clients that an update is available to bump their bell. there's no need
   // to assemble full notification pages for all clients at once, let them initiate
   def notifyMany(userIds: Iterable[UserId], content: NotificationContent): Funit =
-    NotificationPref.Event.byKey
+    NotificationPref.events
       .get(content.key)
       .so: event =>
         prefs
@@ -129,7 +130,7 @@ final class NotifyApi(
             bellMany(recips, content)
 
   private[notify] def notifyManyIgnoringPrefs(userIds: Seq[UserId], content: NotificationContent): Funit =
-    val recips = userIds.map(NotifyAllows(_, Allows.all))
+    val recips = userIds.map(NotifyAllows(_, lila.notify.Allows.all))
     pushMany(recips, content)
     bellMany(recips, content)
 
