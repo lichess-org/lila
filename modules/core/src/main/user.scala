@@ -70,6 +70,8 @@ trait UserApi:
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]]
   def langOf(id: UserId): Fu[Option[String]]
   def isKid[U: UserIdOf](id: U): Fu[Boolean]
+  def isTroll(id: UserId): Fu[Boolean]
+  def isBot(id: UserId): Fu[Boolean]
 
 trait LightUserApiMinimal:
   val async: LightUser.Getter

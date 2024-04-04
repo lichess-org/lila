@@ -325,7 +325,7 @@ lazy val security = module("security",
 )
 
 lazy val shutup = module("shutup",
-  Seq(user),
+  Seq(db),
   tests.bundle ++ reactivemongo.bundle
 )
 

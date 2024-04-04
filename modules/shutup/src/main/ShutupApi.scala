@@ -3,13 +3,12 @@ package lila.shutup
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.UserRepo
 import lila.core.shutup.PublicSource
 
 final class ShutupApi(
     coll: Coll,
     gameRepo: lila.core.game.GameRepo,
-    userRepo: UserRepo,
+    userApi: lila.core.user.UserApi,
     relationApi: lila.core.relation.RelationApi,
     reportApi: lila.core.report.ReportApi
 )(using Executor)
@@ -47,14 +46,14 @@ final class ShutupApi(
       source: Option[PublicSource] = None,
       toUserId: Option[UserId] = None
   ): Funit =
-    userRepo.isTroll(userId).flatMap {
+    userApi.isTroll(userId).flatMap {
       if _ then funit
       else
         toUserId.so { relationApi.fetchFollows(_, userId) }.flatMap {
           if _ then funit
           else
             Analyser(text)
-              .removeEngineIfBot(userRepo.isBot(userId))
+              .removeEngineIfBot(userApi.isBot(userId))
               .flatMap: analysed =>
                 val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
                   $doc(
