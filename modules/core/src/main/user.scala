@@ -68,6 +68,8 @@ trait UserApi:
   def createdAtById(id: UserId): Fu[Option[Instant]]
   def isEnabled(id: UserId): Fu[Boolean]
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]]
+  def langOf(id: UserId): Fu[Option[String]]
+  def isKid[U: UserIdOf](id: U): Fu[Boolean]
 
 trait LightUserApiMinimal:
   val async: LightUser.Getter
@@ -112,6 +114,9 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
     def alt: Boolean                     = hasMark(UserMark.alt)
 
 abstract class UserRepo(val coll: reactivemongo.api.bson.collection.BSONCollection)
+object BSONFields:
+  val enabled = "enabled"
+  val title   = "title"
 
 trait FlairApi:
   def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]]

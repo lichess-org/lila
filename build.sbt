@@ -140,7 +140,7 @@ lazy val coach = module("coach",
 )
 
 lazy val streamer = module("streamer",
-  Seq(notifyModule, pref),
+  Seq(notifyModule, user, pref),
   reactivemongo.bundle
 )
 
@@ -455,7 +455,7 @@ lazy val explorer = module("explorer",
 )
 
 lazy val notifyModule = module("notify",
-  Seq(user, game),
+  Seq(game),
   reactivemongo.bundle
 )
 

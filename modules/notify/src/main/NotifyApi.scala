@@ -9,14 +9,13 @@ import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.core.actorApi.socket.{ SendTo, SendTos }
 import lila.memo.CacheApi.*
-import lila.user.{ User, UserRepo }
 import lila.core.i18n.{ Translator, LangPicker }
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
     colls: NotifyColls,
-    userRepo: UserRepo,
+    userApi: lila.core.user.UserApi,
     cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage,
     langPicker: LangPicker
@@ -29,13 +28,13 @@ final class NotifyApi(
   object prefs:
     import NotificationPref.{ *, given }
 
-    def form(me: User) =
+    def form[U: UserIdOf](me: U) =
       colls.pref
         .byId[NotificationPref](me.id)
         .dmap(_ | default)
         .map(NotificationPref.form.form.fill)
 
-    def set(me: User, pref: NotificationPref) =
+    def set[U: UserIdOf](me: U, pref: NotificationPref) =
       colls.pref.update.one($id(me.id), pref, upsert = true).void
 
     def allows(userId: UserId, event: Event): Fu[Allows] =
@@ -144,7 +143,7 @@ final class NotifyApi(
           () =>
             for
               notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
-              langStr       <- userRepo.langOf(note.to)
+              langStr       <- userApi.langOf(note.to)
               lang = langPicker.byStrOrDefault(langStr)
             yield jsonHandlers(notifications)(using summon[Translator].to(lang))
         ),
@@ -176,12 +175,12 @@ final class NotifyApi(
 
   private def shouldSkip(note: Notification): Fu[Boolean] = note.content match
     case MentionedInThread(_, _, topicId, _, _) =>
-      userRepo.isKid(note.to) >>|
+      userApi.isKid(note.to) >>|
         repo.hasRecent(note, "content.topicId" -> topicId, 3.days)
     case InvitedToStudy(_, _, studyId) =>
-      userRepo.isKid(note.to) >>|
+      userApi.isKid(note.to) >>|
         repo.hasRecent(note, "content.studyId" -> studyId, 3.days)
     case PrivateMessage(sender, _) =>
       repo.hasRecentPrivateMessageFrom(note.to, sender)
     case _: CorresAlarm => fuFalse
-    case _              => userRepo.isKid(note.to)
+    case _              => userApi.isKid(note.to)

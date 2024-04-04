@@ -235,10 +235,10 @@ object User:
   def noGhost(id: UserId) = !isGhost(id)
 
   object BSONFields:
+    export lila.core.user.BSONFields.*
     val id                    = "_id"
     val username              = "username"
     val count                 = "count"
-    val enabled               = "enabled"
     val roles                 = "roles"
     val profile               = "profile"
     val flair                 = "flair"
@@ -250,7 +250,6 @@ object User:
     val kid                   = "kid"
     val createdWithApiVersion = "createdWithApiVersion"
     val lang                  = "lang"
-    val title                 = "title"
     val email                 = "email"
     val verbatimEmail         = "verbatimEmail"
     val mustConfirmEmail      = "mustConfirmEmail"

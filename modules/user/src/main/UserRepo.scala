@@ -2,7 +2,6 @@ package lila.user
 
 import chess.PlayerTitle
 import scalalib.ThreadLocalRandom
-import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
@@ -103,16 +102,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def disabledById(id: UserId): Fu[Option[User]] =
     User.noGhost(id).so(coll.one[User](disabledSelect ++ $id(id)))
-
-  def enabledTitledCursor(proj: Option[Bdoc]) =
-    coll
-      .find(
-        enabledSelect ++ $doc(
-          F.title -> $doc("$exists" -> true, "$nin" -> List(PlayerTitle.LM, PlayerTitle.BOT))
-        ),
-        proj
-      )
-      .cursor[Bdoc](ReadPref.priTemp)
 
   def usernameById(id: UserId): Fu[Option[UserName]] =
     coll.primitiveOne[UserName]($id(id), F.username)

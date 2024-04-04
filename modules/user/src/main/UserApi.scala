@@ -28,7 +28,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     enabledByIds,
     createdAtById,
     isEnabled,
-    filterClosedOrInactiveIds
+    filterClosedOrInactiveIds,
+    isKid,
+    langOf
   }
 
   // hit by game rounds
