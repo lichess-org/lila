@@ -340,7 +340,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: lila.core.rating.PerfKey) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: lila.core.perf.PerfKey) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:

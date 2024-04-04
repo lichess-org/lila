@@ -9,11 +9,11 @@ import lila.core.LightUser
 import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.rating.{ Glicko, Perf, PerfType, UserPerfs }
+import lila.rating.{ Glicko, Perf, UserPerfs }
 import lila.user.User.userHandler
 import lila.core.lilaism.LilaInvalid
 import lila.core.user.WithEmails
-import lila.core.rating.PerfKey
+import lila.core.perf.{ PerfKey, PerfType }
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,

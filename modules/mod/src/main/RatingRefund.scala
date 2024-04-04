@@ -3,7 +3,7 @@ package lila.mod
 import lila.db.dsl.*
 import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.report.Suspect
 import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
 

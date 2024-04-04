@@ -8,9 +8,10 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.licon
 import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }
-import lila.rating.{ Perf, PerfType, UserPerfs }
+import lila.rating.{ Perf, UserPerfs }
+import lila.core.perf.PerfType
 import lila.user.User
-import lila.core.rating.PerfKey
+import lila.core.perf.PerfKey
 import lila.app.mashup.*
 import lila.core.Icon
 

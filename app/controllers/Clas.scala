@@ -210,8 +210,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
-  def progress(id: ClasId, key: lila.core.rating.PerfKey, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
-    lila.rating
+  def progress(id: ClasId, key: lila.core.perf.PerfKey, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
+    lila.core.perf
       .PerfType(key)
       .so: perfType =>
         WithClass(id): clas =>

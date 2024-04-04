@@ -7,7 +7,7 @@ import chess.{ Clock, Game as ChessGame, Situation, Speed }
 import lila.core.Days
 import lila.game.Game
 import lila.lobby.Color
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 private[setup] trait Config:
 
@@ -58,7 +58,7 @@ private[setup] trait Config:
 
   def makeSpeed: Speed = chess.Speed(makeClock)
 
-  def perfType: PerfType = PerfType(variant, makeSpeed)
+  def perfType: PerfType = lila.rating.PerfType(variant, makeSpeed)
 
 trait Positional:
   self: Config =>

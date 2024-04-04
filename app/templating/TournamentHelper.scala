@@ -8,7 +8,7 @@ import play.api.libs.json.Json
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.common.licon
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
 import lila.core.i18n.Translate
@@ -57,8 +57,9 @@ trait TournamentHelper extends HasEnv:
         "Marathon"    -> icon(licon.Globe),
         "HyperBullet" -> s"H${icon(PerfType.Bullet.icon)}",
         "SuperBlitz"  -> s"S${icon(PerfType.Blitz.icon)}"
-      ) ::: PerfType.leaderboardable.filterNot(PerfType.translated.contains).map { pt =>
-        pt.trans -> icon(pt.icon)
+      ) ::: lila.rating.PerfType.leaderboardable.filterNot(lila.rating.PerfType.translated.contains).map {
+        pt =>
+          pt.trans -> icon(pt.icon)
       }
     def apply(name: String): Frag = raw:
       replacements.foldLeft(name):

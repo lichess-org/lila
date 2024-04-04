@@ -5,13 +5,14 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.core.perf.PerfType
 
 object variant:
 
   def show(
       p: lila.cms.CmsPage.Render,
       variant: chess.variant.Variant,
-      perfType: lila.rating.PerfType
+      perfType: PerfType
   )(using PageContext) =
     layout(
       active = perfType.some,
@@ -46,7 +47,7 @@ object variant:
   private def layout(
       title: String,
       klass: String,
-      active: Option[lila.rating.PerfType] = None,
+      active: Option[PerfType] = None,
       openGraph: Option[lila.app.ui.OpenGraph] = None
   )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
@@ -59,7 +60,7 @@ object variant:
         views.html.site.bits.pageMenuSubnav(
           lila.rating.PerfType.variants.map { pt =>
             a(
-              cls      := List("text" -> true, "active" -> active.exists(pt.is)),
+              cls      := List("text" -> true, "active" -> active.has(pt)),
               href     := routes.Cms.variant(pt.key),
               dataIcon := pt.icon
             )(pt.trans)

@@ -17,10 +17,9 @@ import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog
-import lila.rating.{ Perf, PerfType }
 import lila.security.{ Granter, UserLogins }
 import lila.user.User as UserModel
-import lila.core.rating.PerfKey
+import lila.core.perf.{ PerfKey, PerfType }
 import lila.core.IpAddress
 import lila.core.user.LightPerf
 
@@ -611,7 +610,7 @@ final class User(
           }.map(JsonOk)
 
   def ratingDistribution(perfKey: PerfKey, username: Option[UserStr] = None) = Open:
-    Found(PerfType(perfKey).filter(PerfType.isLeaderboardable)): perfType =>
+    Found(PerfType(perfKey).filter(lila.rating.PerfType.isLeaderboardable)): perfType =>
       env.user.rankingApi
         .weeklyRatingDistribution(perfType)
         .flatMap: data =>

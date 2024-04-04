@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import chess.PlayerTitle
 
 import lila.core.rating.Perf
-import lila.core.rating.PerfKey
+import lila.core.perf.PerfKey
 
 opaque type MyId = String
 object MyId extends TotalWrapper[MyId, String]:

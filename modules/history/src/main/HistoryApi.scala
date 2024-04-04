@@ -9,7 +9,7 @@ import lila.game.Game
 import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.core.user.{ User, UserApi }
 import lila.core.Days
-import lila.core.rating.PerfKey
+import lila.core.perf.PerfKey
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(
     using Executor
@@ -78,7 +78,7 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
 
   def progresses(
       users: List[lila.core.user.WithPerf],
-      perfKey: lila.core.rating.PerfKey,
+      perfKey: lila.core.perf.PerfKey,
       days: Days
   ): Fu[List[PairOf[IntRating]]] =
     withColl:

@@ -1,6 +1,8 @@
 package lila.core
 package timeline
 
+import lila.core.perf.PerfKey
+
 case class ReloadTimelines(userIds: List[UserId])
 
 sealed abstract class Atom(val channel: String, val okForKid: Boolean):
@@ -19,7 +21,7 @@ case class UblogPost(userId: UserId, id: UblogPostId, slug: String, title: Strin
   def userIds = List(userId)
 case class TourJoin(userId: UserId, tourId: String, tourName: String) extends Atom("tournament", true):
   def userIds = List(userId)
-case class GameEnd(fullId: GameFullId, opponent: Option[UserId], win: Option[Boolean], perf: String)
+case class GameEnd(fullId: GameFullId, opponent: Option[UserId], win: Option[Boolean], perf: PerfKey)
     extends Atom("gameEnd", true):
   def userIds = opponent.toList
 case class SimulCreate(userId: UserId, simulId: SimulId, simulName: String) extends Atom("simulCreate", true):

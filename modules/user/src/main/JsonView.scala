@@ -4,10 +4,11 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ writeAs, given }
 import lila.core.LightUser
-import lila.rating.{ Perf, PerfType, UserPerfs }
+import lila.rating.{ Perf, UserPerfs }
 import lila.user.User.PlayTime
-import lila.core.rating.PerfKey
+import lila.core.perf.PerfKey
 import lila.core.user.LightPerf
+import lila.core.perf.PerfType
 
 final class JsonView(isOnline: lila.core.socket.IsOnline):
 
@@ -94,7 +95,7 @@ object JsonView:
       )
       .add("prov", o.glicko.provisional)
 
-  private val standardPerfKeys: Set[PerfKey] = PerfType.standard.map(_.key).toSet
+  private val standardPerfKeys: Set[PerfKey] = lila.rating.PerfType.standard.map(_.key).toSet
 
   def perfTypedJson(p: Perf.Typed): JsObject =
     Json.obj(p.perfType.key.value -> p.perf)

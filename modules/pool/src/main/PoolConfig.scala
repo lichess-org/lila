@@ -1,10 +1,10 @@
 package lila.pool
 
-import lila.rating.{ Perf, PerfType }
+import lila.rating.Perf
 import play.api.i18n.Lang
 import lila.core.i18n.Translator
 import lila.core.pool.PoolConfigId
-import lila.core.rating.PerfKey
+import lila.core.perf.{ PerfKey, PerfType }
 
 case class PoolConfig(
     clock: chess.Clock.Config,

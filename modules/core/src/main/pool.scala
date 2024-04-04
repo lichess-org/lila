@@ -6,6 +6,7 @@ import chess.Clock
 
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
+import lila.core.perf.PerfKey
 import chess.ByColor
 
 opaque type Blocking = Set[UserId]
@@ -58,6 +59,6 @@ object Joiner:
 
 trait PoolApi:
   def setOnlineSris(ids: socket.Sris): Unit
-  def poolPerfKeys: Map[PoolConfigId, rating.PerfKey]
+  def poolPerfKeys: Map[PoolConfigId, PerfKey]
   def join(poolId: PoolConfigId, joiner: Joiner): Unit
   def leave(poolId: PoolConfigId, user: UserId): Unit

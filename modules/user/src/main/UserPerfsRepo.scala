@@ -4,8 +4,8 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Glicko, Perf, PerfType, UserPerfs }
-import lila.core.rating.{ PerfKey }
+import lila.rating.{ Glicko, Perf, UserPerfs }
+import lila.core.perf.{ PerfKey, PerfType }
 
 final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 

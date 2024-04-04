@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.core.user.{ LightCount, LightPerf }
-import lila.core.rating.PerfId
+import lila.core.perf.PerfId
 
 final class Cached(
     userRepo: UserRepo,

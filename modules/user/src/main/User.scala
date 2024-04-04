@@ -8,8 +8,8 @@ import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.LightUser
 import lila.core.user.{ UserMark, UserMarks, UserEnabled, LightCount, Emails }
 import lila.core.i18n.Language
-import lila.rating.{ Perf, PerfType }
-import lila.core.rating.PerfKey
+import lila.rating.Perf
+import lila.core.perf.{ PerfKey, PerfType }
 import lila.rating.UserPerfs
 import lila.core.user.LightPerf
 
@@ -112,7 +112,7 @@ object User:
   case class WithPerfs(user: User, perfs: UserPerfs):
     export user.*
     def usernameWithBestRating = s"$username (${perfs.bestRating})"
-    def hasVariantRating       = PerfType.variants.exists(perfs.apply(_).nonEmpty)
+    def hasVariantRating       = lila.rating.PerfType.variants.exists(perfs.apply(_).nonEmpty)
     def titleUsernameWithBestRating =
       title.fold(usernameWithBestRating): t =>
         s"$t $usernameWithBestRating"

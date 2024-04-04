@@ -4,9 +4,10 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.rating.{ Glicko, Perf, PerfType }
+import lila.rating.{ Glicko, Perf }
 import lila.user.User
 import lila.core.i18n.Translate
+import lila.core.perf.PerfType
 
 final class JsonView(getLightUser: LightUser.GetterSync):
 
@@ -57,7 +58,7 @@ object JsonView:
   private given Writes[Avg] = Writes: a =>
     JsNumber(scalalib.Maths.roundDownAt(a.avg, 2))
 
-  given (using Translate): OWrites[lila.core.rating.PerfType] = OWrites: pt =>
+  given (using Translate): OWrites[PerfType] = OWrites: pt =>
     Json.obj(
       "key"  -> pt.key,
       "name" -> pt.trans

@@ -60,7 +60,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
   private def eventOf(game: Game)(using lila.core.i18n.Translate) =
-    val perf = game.perfType.trans
+    val perf = game.perfType.nameKey
     game.tournamentId
       .map(id => s"${game.mode} $perf tournament https://lichess.org/tournament/$id")
       .orElse(game.simulId.map(id => s"$perf simul https://lichess.org/simul/$id"))

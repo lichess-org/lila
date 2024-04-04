@@ -4,6 +4,7 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import lila.db.BSON
 import lila.db.dsl.given
+import lila.core.perf.PerfType
 
 case class Perf(
     glicko: Glicko,

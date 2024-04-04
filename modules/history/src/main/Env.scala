@@ -4,9 +4,9 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
 import lila.core.config.CollName
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.core.user.WithPerf
-import lila.core.rating.PerfKey
+import lila.core.perf.PerfKey
 import lila.core.Days
 
 @Module

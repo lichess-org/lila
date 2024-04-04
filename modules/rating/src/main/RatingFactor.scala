@@ -3,7 +3,7 @@ package lila.rating
 import reactivemongo.api.bson.BSONHandler
 
 import scalalib.Iso
-import lila.core.rating.PerfKey
+import lila.core.perf.{ PerfType, PerfKey }
 
 opaque type RatingFactor = Double
 object RatingFactor extends OpaqueDouble[RatingFactor]:

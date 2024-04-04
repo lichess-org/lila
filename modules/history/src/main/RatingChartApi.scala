@@ -3,10 +3,9 @@ package lila.history
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.rating.PerfType
 import play.api.i18n.Lang
 import lila.core.user.{ User, UserApi }
-import lila.core.rating.PerfKey
+import lila.core.perf.{ PerfKey, PerfType }
 
 final class RatingChartApi(
     historyApi: HistoryApi,
@@ -49,7 +48,7 @@ final class RatingChartApi(
 
 object RatingChartApi:
 
-  import lila.rating.PerfType.*
+  import lila.core.perf.PerfType.*
   private val perfTypes = List(
     Bullet,
     Blitz,

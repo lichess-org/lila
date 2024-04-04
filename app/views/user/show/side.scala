@@ -5,8 +5,8 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.rating.PerfType
-import lila.rating.{ PerfType as PTs }
+import lila.core.perf.PerfType
+import lila.core.perf.{ PerfType as PTs }
 import lila.user.User
 
 object side:
@@ -21,13 +21,13 @@ object side:
       perf.nonEmpty.option(showPerf(perf, perfType))
 
     def showPerf(perf: lila.rating.Perf, perfType: PerfType) =
-      val isPuzzle = perfType == lila.rating.PerfType.Puzzle
+      val isPuzzle = perfType == PerfType.Puzzle
       a(
         dataIcon := perfType.icon,
         title    := perfType.desc,
         cls := List(
           "empty"  -> perf.isEmpty,
-          "active" -> active.exists(perfType.is)
+          "active" -> active.has(perfType)
         ),
         href := ctx.pref.showRatings.so:
           if isPuzzle then routes.Puzzle.dashboard(30, "home", u.username.some).url

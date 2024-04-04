@@ -2,6 +2,7 @@ package lila.mod
 
 import lila.core.notify.*
 import lila.report.Suspect
+import lila.core.perf.PerfType
 
 final private class ModNotifier(
     notifyApi: NotifyApi,
@@ -17,6 +18,6 @@ final private class ModNotifier(
         .void
     }
 
-  def refund(user: lila.user.User, pt: lila.rating.PerfType, points: Int): Funit =
+  def refund(user: lila.user.User, pt: PerfType, points: Int): Funit =
     given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang
     notifyApi.notifyOne(user, RatingRefund(perf = pt.trans, points))

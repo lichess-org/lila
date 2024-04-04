@@ -10,7 +10,7 @@ import lila.puzzle.PuzzleTheme
 import lila.rating.Perf
 import lila.report.Report
 import lila.core.socket.Sri
-import lila.core.rating.PerfKey
+import lila.core.perf.PerfKey
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow

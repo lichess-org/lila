@@ -3,7 +3,7 @@ package views.html
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.Condition
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 object gathering:
 

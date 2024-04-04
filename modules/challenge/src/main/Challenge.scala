@@ -12,7 +12,7 @@ import lila.game.Game
 import lila.core.i18n.I18nKey
 import lila.core.{ challenge as hub }
 import lila.core.game.GameRule
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.user.{ GameUser, Me, User }
 
 case class Challenge(
@@ -154,7 +154,7 @@ object Challenge:
     case _                         => Speed.Correspondence
 
   private def perfTypeOf(variant: Variant, timeControl: TimeControl): PerfType =
-    PerfType(variant, speedOf(timeControl))
+    lila.rating.PerfType(variant, speedOf(timeControl))
 
   private val idSize   = 8
   private def randomId = Id(ThreadLocalRandom.nextString(idSize))

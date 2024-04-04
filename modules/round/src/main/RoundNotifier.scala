@@ -18,7 +18,7 @@ final private class RoundNotifier(
               fullId = game.fullIdOf(color),
               opponent = game.player(!color).userId,
               win = game.winnerColor.map(color ==),
-              perf = game.perfType.key.value
+              perf = game.perfType
             )
           ).toUser(userId)
         )

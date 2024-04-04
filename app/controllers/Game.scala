@@ -9,7 +9,7 @@ import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 
-import lila.core.rating.PerfKey
+import lila.core.perf.{ PerfKey, PerfType }
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -61,7 +61,6 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     meOrFetch(username).flatMap:
       _.filter(u => u.enabled.yes || ctx.is(u) || isGrantedOpt(_.GamesModView)).so: user =>
         val format = GameApiV2.Format.byRequest(req)
-        import lila.rating.{ Perf, PerfType }
         WithVs: vs =>
           env.security.ipTrust
             .throttle(MaxPerSecond:

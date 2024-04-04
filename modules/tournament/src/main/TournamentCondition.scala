@@ -6,8 +6,9 @@ import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
 import lila.core.history.HistoryApi
 import lila.core.team.LightTeam
-import lila.rating.{ Perf, PerfType }
+import lila.rating.Perf
 import lila.user.{ Me, User }
+import lila.core.perf.PerfType
 
 object TournamentCondition:
 

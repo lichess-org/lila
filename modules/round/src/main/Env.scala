@@ -14,7 +14,8 @@ import lila.game.{ Game, GameRepo, Pov }
 import lila.core.round.{ Abort, Resign }
 import lila.core.simul.GetHostIds
 import lila.memo.SettingStore
-import lila.rating.{ PerfType, RatingFactor }
+import lila.rating.RatingFactor
+import lila.core.perf.PerfType
 
 @Module
 private class RoundConfig(

@@ -12,12 +12,13 @@ import lila.game.LightPov
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
-import lila.rating.{ Perf, PerfType }
+import lila.rating.Perf
 import lila.core.socket.SocketVersion
 import lila.user.{ LightUserApi, Me, User }
 import lila.core.i18n.Translate
 import lila.core.Preload
 import lila.common.Json.lightUser.writeNoId
+import lila.core.perf.PerfType
 
 final class JsonView(
     lightUserApi: LightUserApi,

@@ -3,8 +3,8 @@ package lila.rating
 import chess.Speed
 
 import scalalib.HeapSort.*
-import lila.rating.{ Glicko, Perf, PerfType }
-import lila.core.rating.PerfKey
+import lila.rating.{ Glicko, Perf }
+import lila.core.perf.{ PerfKey, PerfType }
 import lila.core.user.LightPerf
 
 case class UserPerfs(
@@ -58,7 +58,7 @@ case class UserPerfs(
   def bestPerf: Option[PerfType]    = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 1).headOption
   private def bestOf(perfTypes: List[PerfType], nb: Int) = perfTypes
     .sortBy: pt =>
-      -(apply(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
+      -(apply(pt).nb * lila.rating.PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
     .take(nb)
   def hasEstablishedRating(pt: PerfType) = apply(pt).established
 
@@ -76,14 +76,14 @@ case class UserPerfs(
   private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating.value)
 
   def bestPerfs(nb: Int): List[Perf.Typed] =
-    val ps = PerfType.nonPuzzle.map: pt =>
+    val ps = lila.rating.PerfType.nonPuzzle.map: pt =>
       pt -> apply(pt)
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
     ps.filter(p => p._2.nb >= minNb).topN(nb).map(Perf.typed)
 
-  def bestRating: IntRating = bestRatingIn(PerfType.leaderboardable)
+  def bestRating: IntRating = bestRatingIn(lila.rating.PerfType.leaderboardable)
 
-  def bestStandardRating: IntRating = bestRatingIn(PerfType.standard)
+  def bestStandardRating: IntRating = bestRatingIn(lila.rating.PerfType.standard)
 
   def bestRatingIn(types: List[PerfType]): IntRating =
     val ps = types.map(apply) match
@@ -113,7 +113,7 @@ case class UserPerfs(
         case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
         case (ro, _)                                                  => ro
 
-  def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
+  def bestProgress: IntRatingDiff = bestProgressIn(lila.rating.PerfType.leaderboardable)
 
   def bestProgressIn(types: List[PerfType]): IntRatingDiff =
     types.foldLeft(IntRatingDiff(0)): (max, t) =>
@@ -142,7 +142,7 @@ case class UserPerfs(
 
   def apply(key: PerfKey): Option[Perf] = perfsMap.get(key)
 
-  def apply(perfType: lila.core.rating.PerfType): Perf = perfType match
+  def apply(perfType: PerfType): Perf = perfType match
     case PerfType.Standard       => standard
     case PerfType.UltraBullet    => ultraBullet
     case PerfType.Bullet         => bullet

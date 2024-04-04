@@ -24,10 +24,9 @@ import chess.{
 
 import lila.core.Days
 import lila.db.ByteArray
-import lila.rating.{ Perf, PerfType }
 import lila.core.user.User
 import lila.core.game.{ GameRule, Source }
-import lila.core.rating.PerfKey
+import lila.core.perf.{ PerfKey, PerfType }
 
 case class Game(
     override val id: GameId,
@@ -254,14 +253,14 @@ case class Game(
 
   def speed = Speed(chess.clock.map(_.config))
 
-  lazy val perfType: PerfType = PerfType(variant, speed)
+  lazy val perfType: PerfType = lila.rating.PerfType(variant, speed)
   def perfKey: PerfKey        = perfType.key
 
   def ratingVariant: Variant =
     if isTournament && variant.fromPosition then Standard else variant
 
   def ratingPerfType: Option[PerfType] =
-    if variant.fromPosition then isTournament.option(PerfType(ratingVariant, speed))
+    if variant.fromPosition then isTournament.option(lila.rating.PerfType(ratingVariant, speed))
     else perfType.some
 
   def started = status >= Status.Started

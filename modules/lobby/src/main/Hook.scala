@@ -5,7 +5,7 @@ import chess.{ Clock, Mode, Speed }
 import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
 import lila.user.User
@@ -59,7 +59,7 @@ case class Hook(
   def username = user.fold(UserName.anonymous)(_.username)
   def lame     = user.so(_.lame)
 
-  lazy val perfType: PerfType = PerfType(realVariant, speed)
+  lazy val perfType: PerfType = lila.rating.PerfType(realVariant, speed)
 
   lazy val perf: Option[LobbyPerf] = user.map(_.perfAt(perfType))
   def rating: Option[IntRating]    = perf.map(_.rating)

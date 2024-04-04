@@ -8,7 +8,8 @@ import lila.common.Bus
 
 import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
-import lila.rating.{ Glicko, Perf, PerfType, glicko2 }
+import lila.rating.{ Glicko, Perf, glicko2 }
+import lila.core.perf.PerfType
 import lila.user.{ Me, UserPerfsRepo, UserRepo }
 import scalalib.actor.AsyncActorSequencers
 

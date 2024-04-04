@@ -2,7 +2,7 @@ package lila.challenge
 
 import lila.core.i18n.I18nKey.challenge as trans
 import lila.pref.Pref
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.relation.{ Block, Follow }
 import lila.user.{ Me, User }
 import lila.core.i18n.Translate

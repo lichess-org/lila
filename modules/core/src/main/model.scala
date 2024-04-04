@@ -9,9 +9,6 @@ import play.api.mvc.Call
 import java.net.InetAddress
 import scala.util.Try
 
-opaque type Icon = String
-object Icon extends OpaqueString[Icon]
-
 opaque type ApiVersion = Int
 object ApiVersion extends OpaqueInt[ApiVersion]:
   def puzzleV2(v: ApiVersion) = v >= 6
