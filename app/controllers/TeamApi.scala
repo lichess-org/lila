@@ -43,17 +43,13 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
             _           <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
           yield some:
             import env.team.jsonView.given
-            val baseResponse = Json.toJsObject(withLeaders) ++ Json
+            import lila.common.Json.given
+            Json.toJsObject(withLeaders) ++ Json
               .obj(
                 "joined"    -> joined,
                 "requested" -> requested
               )
-            if !joined then baseResponse
-            else
-              team.descPrivate match
-                case Some(privateDesc) =>
-                  baseResponse ++ Json.obj("private_description" -> privateDesc.toString())
-                case None => baseResponse
+              .add("descriptionPrivate" -> team.descPrivate.ifTrue(joined))
 
   def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>
     Found(api.teamEnabled(teamId)): team =>
