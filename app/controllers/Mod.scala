@@ -408,7 +408,7 @@ final class Mod(
     for
       uids       <- env.security.api.recentUserIdsByFingerHash(hash)
       users      <- env.user.repo.usersFromSecondary(uids.reverse)
-      withEmails <- env.user.api.withEmails(users)
+      withEmails <- env.user.api.withPerfsAndEmails(users)
       uas        <- env.security.api.printUas(hash)
       page <- renderPage(html.mod.search.print(hash, withEmails, uas, env.security.printBan.blocks(hash)))
     yield Ok(page)
@@ -425,7 +425,7 @@ final class Mod(
       for
         uids       <- env.security.api.recentUserIdsByIp(address)
         users      <- env.user.repo.usersFromSecondary(uids.reverse)
-        withEmails <- env.user.api.withEmails(users)
+        withEmails <- env.user.api.withPerfsAndEmails(users)
         uas        <- env.security.api.ipUas(address)
         data       <- env.security.ipTrust.data(address)
         blocked = env.security.firewall.blocksIp(address)
@@ -484,7 +484,7 @@ final class Mod(
         val username = query.lift(1)
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
           env.mod.search(q).map(_.filter(_.user.enabled.yes)).flatMap {
-            case List(UserModel.WithEmails(user, _)) =>
+            case List(UserModel.WithPerfsAndEmails(user, _)) =>
               for
                 _ <- (!user.everLoggedIn).so {
                   lila.mon.user.register.modConfirmEmail.increment()

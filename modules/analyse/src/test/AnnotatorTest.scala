@@ -51,8 +51,13 @@ class AnnotatorTest extends munit.FunSuite:
       def literal(key: I18nKey, args: Seq[Matchable], lang: Lang): RawFrag              = RawFrag(key.value)
       def plural(key: I18nKey, count: Count, args: Seq[Matchable], lang: Lang): RawFrag = RawFrag(key.value)
 
+  object LightUserApi:
+    def mock: LightUserApiMinimal = new:
+      def sync  = LightUser.GetterSync(id => LightUser.fallback(id.into(UserName)).some)
+      def async = LightUser.Getter(id => fuccess(sync(id)))
+
   given Lang = defaultLang
-  val dumper = PgnDump(BaseUrl("l.org/"), lila.user.LightUserApi.mock)
+  val dumper = PgnDump(BaseUrl("l.org/"), LightUserApi.mock)
   val dumped =
     dumper(makeGame(playedGame), None, PgnDump.WithFlags(tags = false)).await(1.second, "test dump")
 

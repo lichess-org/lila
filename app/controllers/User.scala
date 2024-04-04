@@ -345,8 +345,8 @@ final class User(
       ctx: Context,
       me: Me
   ): Fu[Result] =
-    env.user.api.withEmails(username).orFail(s"No such user $username").flatMap {
-      case UserModel.WithEmails(user, emails) =>
+    env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
+      case UserModel.WithPerfsAndEmails(user, emails) =>
         withPageContext:
           import html.user.{ mod as view }
           import lila.app.ui.ScalatagsExtensions.{ emptyFrag, given }
@@ -448,8 +448,8 @@ final class User(
     }
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
-    env.user.api.withEmails(username).orFail(s"No such user $username").flatMap {
-      case UserModel.WithEmails(user, emails) =>
+    env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
+      case UserModel.WithPerfsAndEmails(user, emails) =>
         env.user.repo.isErased(user).flatMap { erased =>
           Ok.page:
             html.user.mod.actions(

@@ -37,7 +37,7 @@ object mod:
 
   def actions(
       u: User,
-      emails: User.Emails,
+      emails: lila.core.user.Emails,
       erased: User.Erased,
       pmPresets: ModPresets
   )(using Context): Frag =
@@ -852,7 +852,7 @@ object mod:
     )
 
   def apply(
-      users: List[User.WithEmails],
+      users: List[User.WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false,
       checkboxes: Boolean = false
@@ -872,7 +872,7 @@ object mod:
           )
         ),
         tbody(
-          users.map { case lila.user.User.WithEmails(u, emails) =>
+          users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
             tr(
               if showUsernames || Granter.canViewAltUsername(u.user)
               then

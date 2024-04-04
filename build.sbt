@@ -215,7 +215,7 @@ lazy val user = module("user",
 )
 
 lazy val game = module("game",
-  Seq(tree, user),
+  Seq(tree, rating, memo),
   Seq(compression) ++ tests.bundle ++ reactivemongo.bundle
 )
 
@@ -385,7 +385,7 @@ lazy val irc = module("irc",
 )
 
 lazy val mailer = module("mailer",
-  Seq(user),
+  Seq(memo),
   reactivemongo.bundle ++ Seq(scalatags, hasher, play.mailer)
 )
 

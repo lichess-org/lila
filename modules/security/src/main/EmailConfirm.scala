@@ -165,7 +165,7 @@ object EmailConfirm:
       import Status.*
       userApi.withEmails(u).flatMap {
         case None => fuccess(NoSuchUser(u.into(UserName)))
-        case Some(User.WithEmails(user, emails)) =>
+        case Some(lila.core.user.WithEmails(user, emails)) =>
           if user.enabled.no then fuccess(Closed(user.username))
           else
             userRepo.mustConfirmEmail(user.id).dmap {

@@ -36,7 +36,7 @@ object userTable:
   )
 
   def apply(
-      users: List[User.WithEmails],
+      users: List[User.WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
   )(using Context, Me) =
@@ -55,7 +55,7 @@ object userTable:
           )
         ),
         tbody:
-          users.map { case lila.user.User.WithEmails(u, emails) =>
+          users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
             tr(
               if showUsernames || Granter.canViewAltUsername(u.user)
               then

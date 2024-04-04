@@ -25,7 +25,7 @@ import chess.{
 import lila.core.Days
 import lila.db.ByteArray
 import lila.rating.{ Perf, PerfType }
-import lila.user.User
+import lila.core.user.User
 import lila.core.game.{ GameRule, Source }
 import lila.core.rating.PerfKey
 

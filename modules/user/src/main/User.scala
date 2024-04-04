@@ -10,6 +10,7 @@ import lila.core.user.{ UserMark, UserMarks, UserEnabled }
 import lila.core.i18n.Language
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.PerfKey
+import lila.core.user.Emails
 
 case class User(
     id: UserId,
@@ -45,7 +46,6 @@ case class User(
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
-  def realLang: Option[Lang]     = lang.flatMap(Lang.get)
   def language: Option[Language] = realLang.map(Language.apply)
 
   def titleUsername: String = title.fold(username.value)(t => s"$t $username")
@@ -157,7 +157,6 @@ object User:
       case MissingTotpToken          extends Result(none)
       case InvalidTotpToken          extends Result(none)
 
-  val anonymous: UserName              = UserName("Anonymous")
   val anonMod: String                  = "A Lichess Moderator"
   val lichessName: UserName            = UserName("lichess")
   val lichessId: UserId                = lichessName.id
@@ -182,10 +181,7 @@ object User:
   case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
   case class LightCount(user: LightUser, count: Int)
 
-  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
-    def strList = current.map(_.value).toList ::: previous.map(_.value).toList
-
-  case class WithEmails(user: User.WithPerfs, emails: Emails)
+  case class WithPerfsAndEmails(user: User.WithPerfs, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal:
     override def toString = "ClearPassword(****)"

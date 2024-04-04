@@ -12,11 +12,15 @@ import lila.memo.CacheApi
 import lila.rating.{ Glicko, Perf, PerfType }
 import lila.user.User.userHandler
 import lila.core.lilaism.LilaInvalid
+import lila.core.user.WithEmails
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
     akka.stream.Materializer
-):
+) extends lila.core.user.UserApi:
+
+  export userRepo.{ byId, email, emailOrPrevious, pair, enabledByIds }
+
   // hit by game rounds
   object gamePlayers:
     private type PlayersKey = (PairOf[Option[UserId]], PerfType)
@@ -129,7 +133,26 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         case Left(g)  => fuccess(g.some)
         case Right(u) => perfsRepo.perfOf(u.id, pt).dmap(p => u.withPerf(p).some)
 
-  def withEmails[U: UserIdOf](users: List[U])(using r: BSONHandler[User]): Fu[List[User.WithEmails]] = for
+  private def readEmails(doc: Bdoc) = lila.core.user.Emails(
+    current = userRepo.anyEmail(doc),
+    previous = doc.getAsOpt[NormalizedEmailAddress](User.BSONFields.prevEmail)
+  )
+
+  def withEmails[U: UserIdOf](users: List[U]): Fu[List[WithEmails]] =
+    userRepo.coll
+      .list[Bdoc]($inIds(users.map(_.id)), _.priTemp)
+      .map: docs =>
+        for
+          doc  <- docs
+          user <- summon[BSONHandler[User]].readOpt(doc)
+        yield WithEmails(user, readEmails(doc))
+
+  def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]] =
+    withEmails(List(user)).dmap(_.headOption)
+
+  def withPerfsAndEmails[U: UserIdOf](
+      users: List[U]
+  )(using r: BSONHandler[User]): Fu[List[User.WithPerfsAndEmails]] = for
     perfs <- perfsRepo.idsMap(users, _.sec)
     users <- userRepo.coll
       .list[Bdoc]($inIds(users.map(_.id)), _.priTemp)
@@ -137,17 +160,11 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         for
           doc  <- docs
           user <- r.readOpt(doc)
-        yield User.WithEmails(
-          User.WithPerfs(user, perfs.get(user.id)),
-          User.Emails(
-            current = userRepo.anyEmail(doc),
-            previous = doc.getAsOpt[NormalizedEmailAddress](User.BSONFields.prevEmail)
-          )
-        )
+        yield User.WithPerfsAndEmails(User.WithPerfs(user, perfs.get(user.id)), readEmails(doc))
   yield users
 
-  def withEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithEmails]] =
-    withEmails(List(u)).map(_.headOption)
+  def withPerfsAndEmails[U: UserIdOf](u: U)(using r: BSONHandler[User]): Fu[Option[User.WithPerfsAndEmails]] =
+    withPerfsAndEmails(List(u)).map(_.headOption)
 
   def setBot(user: User): Funit =
     if user.count.game > 0

@@ -1,6 +1,9 @@
 package lila.core
 package user
 
+import play.api.i18n.Lang
+import chess.PlayerTitle
+
 import lila.core.rating.Perf
 
 opaque type MyId = String
@@ -17,12 +20,19 @@ object UserEnabled extends YesNo[UserEnabled]
 
 trait User:
   val id: UserId
+  val username: UserName
+  val title: Option[PlayerTitle]
   val count: Count
   val createdAt: Instant
   val enabled: UserEnabled
   val marks: UserMarks
+  val lang: Option[String]
 
   def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
+  def realLang: Option[Lang]      = lang.flatMap(Lang.get)
+
+object User:
+  given UserIdOf[User] = _.id
 
 trait WithPerf:
   val user: User
@@ -40,6 +50,25 @@ case class Count(
     win: Int,
     winH: Int // only against human opponents
 )
+
+trait UserApi:
+  def byId[U: UserIdOf](u: U): Fu[Option[User]]
+  def email(id: UserId): Fu[Option[EmailAddress]]
+  def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]]
+  def pair(x: UserId, y: UserId): Fu[Option[(User, User)]]
+  def emailOrPrevious(id: UserId): Fu[Option[EmailAddress]]
+  def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
+
+trait LightUserApiMinimal:
+  def async: LightUser.Getter
+  def sync: LightUser.GetterSync
+trait LightUserApi extends LightUserApiMinimal:
+  def preloadMany(ids: Seq[UserId]): Funit
+
+case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
+  def strList = current.map(_.value).toList ::: previous.map(_.value).toList
+
+case class WithEmails(user: User, emails: Emails)
 
 enum UserMark:
   case boost
