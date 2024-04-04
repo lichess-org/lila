@@ -25,12 +25,12 @@ object BSONHandlers:
 
     given perfTypeIdHandler: BSONHandler[PerfType] =
       summon[BSONHandler[PerfId]].as[PerfType](
-        id => PerfType.byId.get(id).err(s"Unknown perf id $id"),
+        id => lila.rating.PerfType.byId.get(id).err(s"Unknown perf id $id"),
         _.id
       )
 
     given perfTypeKeyHandler: BSONHandler[PerfType] =
       summon[BSONHandler[PerfKey]].as[PerfType](
-        key => PerfType(key).err(s"Unknown perf type $key"),
+        key => lila.rating.PerfType(key).err(s"Unknown perf type $key"),
         _.key
       )

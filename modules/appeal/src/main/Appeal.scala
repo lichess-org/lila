@@ -3,6 +3,7 @@ package lila.appeal
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.common.licon
+import lila.core.Icon
 import lila.core.user.UserMark
 import lila.core.user.User
 
@@ -94,7 +95,7 @@ object Appeal:
       def is(mark: UserMark) = filter.contains(mark)
       def key                = filter.fold("clean")(_.key)
 
-    val allWithIcon = List[(Filter, Either[licon.Icon, String])](
+    val allWithIcon = List[(Filter, Either[Icon, String])](
       UserMark.troll.some  -> Left(licon.BubbleSpeech),
       UserMark.boost.some  -> Left(licon.LineGraph),
       UserMark.engine.some -> Left(licon.Cogs),

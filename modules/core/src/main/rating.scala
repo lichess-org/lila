@@ -12,7 +12,14 @@ object PerfId extends OpaqueInt[PerfId]
 trait PerfType:
   val id: PerfId
   val key: PerfKey
+  val icon: Icon
+  def is(other: PerfType): Boolean
   def trans(using Translate): String
+  def desc(using Translate): String
+
+object PerfType:
+  given Conversion[PerfType, PerfKey] = _.key
+  given Conversion[PerfType, PerfId]  = _.id
 
 trait Perf:
   val glicko: Glicko

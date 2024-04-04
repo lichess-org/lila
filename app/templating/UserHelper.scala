@@ -12,6 +12,7 @@ import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.user.User
 import lila.core.rating.PerfKey
 import lila.app.mashup.*
+import lila.core.Icon
 
 trait UserHelper extends HasEnv:
   self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
@@ -44,7 +45,7 @@ trait UserHelper extends HasEnv:
       nb: Int,
       provisional: RatingProvisional,
       clueless: Boolean,
-      icon: licon.Icon
+      icon: Icon
   )(using Translate): Frag =
     span(
       title    := trans.site.ratingXOverYGames.pluralTxt(nb, name, nb.localize),

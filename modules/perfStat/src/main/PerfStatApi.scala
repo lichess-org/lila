@@ -33,7 +33,7 @@ final class PerfStatApi(
           _.filter: u =>
             (u.enabled.yes && (!u.lame || me.exists(_.is(u)))) || me.soUse(Granter(_.UserModView))
           .filter: u =>
-            !u.isBot || (perfType =!= lila.rating.PerfType.UltraBullet)
+            !u.isBot || (!perfType.is(lila.rating.PerfType.UltraBullet))
           .soFu: u =>
             for
               oldPerfStat <- get(u.user.id, perfType)

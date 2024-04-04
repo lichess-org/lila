@@ -6,6 +6,7 @@ import lila.common.Json.given
 import lila.rating.PerfType
 import play.api.i18n.Lang
 import lila.core.user.{ User, UserApi }
+import lila.core.rating.PerfKey
 
 final class RatingChartApi(
     historyApi: HistoryApi,
@@ -15,9 +16,9 @@ final class RatingChartApi(
 
   def apply[U: UserIdOf](user: U): Fu[Option[SafeJsonStr]] = cache.get(user.id)
 
-  def singlePerf(user: User, perfType: PerfType): Fu[JsArray] =
+  def singlePerf(user: User, perfKey: PerfKey): Fu[JsArray] =
     historyApi
-      .ratingsMap(user, perfType)
+      .ratingsMap(user, perfKey)
       .map(ratingsMapToJson(user.createdAt, _))
       .map(JsArray.apply)
 

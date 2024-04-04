@@ -59,7 +59,7 @@ object variant:
         views.html.site.bits.pageMenuSubnav(
           lila.rating.PerfType.variants.map { pt =>
             a(
-              cls      := List("text" -> true, "active" -> active.has(pt)),
+              cls      := List("text" -> true, "active" -> active.exists(pt.is)),
               href     := routes.Cms.variant(pt.key),
               dataIcon := pt.icon
             )(pt.trans)

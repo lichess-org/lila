@@ -559,7 +559,7 @@ final class User(
         JsonOk:
           getBool("graph")
             .soFu:
-              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType)
+              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
             .map: graph =>
               env.perfStat.jsonView(data).add("graph", graph)
       )
