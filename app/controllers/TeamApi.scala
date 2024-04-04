@@ -31,7 +31,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         _     <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
       yield pager
 
-  def show(id: TeamId) = OpenOrScoped(): ctx?=>
+  def show(id: TeamId) = OpenOrScoped(): ctx ?=>
     JsonOptionOk:
       api
         .teamEnabled(id)
