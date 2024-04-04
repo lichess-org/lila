@@ -370,7 +370,7 @@ lazy val practice = module("practice",
 )
 
 lazy val playban = module("playban",
-  Seq(security, game, chat),
+  Seq(security, game),
   reactivemongo.bundle
 )
 

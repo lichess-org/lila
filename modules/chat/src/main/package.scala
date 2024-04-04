@@ -2,6 +2,7 @@ package lila.chat
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
+export lila.core.chat.BusChan
 
 private val logger = lila.log("chat")
 

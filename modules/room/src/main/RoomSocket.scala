@@ -92,7 +92,7 @@ object RoomSocket:
   def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using FlairApi.Getter)(using
       Executor
   ) =
-    lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan):
+    lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.global.chan):
       case lila.chat.ChatLine(id, line: UserLine) =>
         lila.chat.JsonView(line) foreach: jsLine =>
           rooms.tellIfPresent(id.into(RoomId),(NotifyVersion)("message", jsLine, line.troll))

@@ -20,9 +20,11 @@ final class ChatApi(
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
-)(using Executor, Scheduler, FlairApi):
+)(using Executor, Scheduler, FlairApi)
+    extends lila.core.chat.ChatApi:
 
   import Chat.given
+  export userChat.volatile
 
   def exists(id: ChatId) = coll.exists($id(id))
 
@@ -131,7 +133,7 @@ final class ChatApi(
     )(using mod: Me.Id): Funit =
       coll.byId[UserChat](chatId.value).zip(userRepo.me(mod)).zip(userRepo.byId(userId)).flatMap {
         case ((Some(chat), Some(me)), Some(user))
-            if isMod(me) || (busChan(BusChan) == BusChan.Study && isRelayMod(me)) ||
+            if isMod(me) || (busChan(BusChan) == BusChan.study && isRelayMod(me)) ||
               scope == ChatTimeout.Scope.Local =>
           doTimeout(chat, me, user, reason, scope, text, busChan)
         case _ => funit
@@ -148,10 +150,10 @@ final class ChatApi(
             scope = ChatTimeout.Scope.Global,
             text = data.text,
             busChan = data.chan match
-              case "tournament" => _.Tournament
-              case "swiss"      => _.Swiss
-              case "team"       => _.Team
-              case _            => _.Study
+              case "tournament" => _.tournament
+              case "swiss"      => _.swiss
+              case "team"       => _.team
+              case _            => _.study
           )
 
     def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
@@ -226,7 +228,7 @@ final class ChatApi(
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach: r =>
-        Bus.publish(OnReinstate(r.chat, r.user), BusChan.Global.chan)
+        Bus.publish(OnReinstate(r.chat, r.user), BusChan.global.chan)
 
     private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
       userRepo.speaker(userId).zip(chatTimeout.isActive(chatId, userId)).dmap {

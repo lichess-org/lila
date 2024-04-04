@@ -51,7 +51,7 @@ final private class TournamentSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Tournament)
+  subscribeChat(rooms, _.tournament)
 
   private lazy val handler: SocketHandler =
     roomHandler(
@@ -59,7 +59,7 @@ final private class TournamentSocket(
       chat,
       logger,
       roomId => _.Tournament(roomId.into(TourId)).some,
-      chatBusChan = _.Tournament,
+      chatBusChan = _.tournament,
       localTimeout = Some: (roomId, modId, _) =>
         repo.fetchCreatedBy(roomId.into(TourId)).map(_.has(modId))
     )

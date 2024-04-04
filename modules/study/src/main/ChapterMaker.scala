@@ -166,7 +166,7 @@ final private class ChapterMaker(
           userId = userId,
           text = s"I'm studying this game on ${net.domain}/study/${study.id}",
           publicSource = none,
-          _.Round,
+          _.round,
           persist = false
         )
       }

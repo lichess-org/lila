@@ -154,7 +154,7 @@ final class StudyApi(
 
   def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
     study <- justCloneNoChecks(me, prev, update)
-    _ <- chatApi.userChat.system(study.id.into(ChatId), s"Cloned from lichess.org/study/${prev.id}", _.Study)
+    _ <- chatApi.userChat.system(study.id.into(ChatId), s"Cloned from lichess.org/study/${prev.id}", _.study)
   yield study.some
 
   def justCloneNoChecks(
@@ -211,7 +211,7 @@ final class StudyApi(
             userId = userId,
             text = text,
             publicSource = lila.core.shutup.PublicSource.Study(studyId).some,
-            busChan = _.Study
+            busChan = _.study
           )
         }
 

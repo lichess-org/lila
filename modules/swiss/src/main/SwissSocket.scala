@@ -24,7 +24,7 @@ final private class SwissSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Swiss)
+  subscribeChat(rooms, _.swiss)
 
   private lazy val handler: SocketHandler =
     roomHandler(
@@ -35,7 +35,7 @@ final private class SwissSocket(
       localTimeout = Some: (roomId, modId, _) =>
         teamOf(SwissId(roomId.value)).flatMapz: teamId =>
           lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeaderWithCommPerm(teamId, modId, _) },
-      chatBusChan = _.Swiss
+      chatBusChan = _.swiss
     )
 
   private lazy val send = socketKit.send("swiss-out")
