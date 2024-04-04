@@ -26,7 +26,7 @@ final class Study(
     apiC: => Api
 ) extends LilaController(env):
 
-  private given lila.user.FlairApi = env.user.flairApi
+  import env.user.flairApi.given
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):

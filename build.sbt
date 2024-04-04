@@ -190,7 +190,7 @@ lazy val chat = module("chat",
 )
 
 lazy val room = module("room",
-  Seq(user),
+  Seq(common),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
@@ -235,7 +235,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(game, user),
+  Seq(game),
   tests.bundle ++ reactivemongo.bundle
 )
 

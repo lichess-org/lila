@@ -30,7 +30,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     isEnabled,
     filterClosedOrInactiveIds,
     isKid,
-    langOf
+    langOf,
+    isBot,
+    isTroll
   }
 
   // hit by game rounds

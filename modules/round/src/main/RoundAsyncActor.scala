@@ -11,6 +11,7 @@ import scalalib.actor.AsyncActor
 import lila.core.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
+import lila.core.user.FlairGet
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
@@ -18,7 +19,7 @@ final private class RoundAsyncActor(
     socketSend: SocketSend,
     putUserLag: userLag.Put,
     private var version: SocketVersion
-)(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
+)(using Executor, FlairGet)(using proxy: GameProxy)
     extends AsyncActor(RoundAsyncActor.monitor):
 
   import RoundSocket.Protocol

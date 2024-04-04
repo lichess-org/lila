@@ -11,7 +11,8 @@ import lila.core.socket.{ protocol as P, * }
 import lila.core.socket.{ makeMessage }
 import lila.common.Json.given
 
-import lila.user.{ Me, FlairApi }
+import lila.core.user.FlairGet
+import lila.core.user.MyId
 
 object RoomSocket:
 
@@ -88,9 +89,7 @@ object RoomSocket:
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
-  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using FlairApi.Getter)(using
-      Executor
-  ) =
+  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using FlairGet, Executor) =
     lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.global.chan):
       case lila.core.chat.ChatLine(id, line, json) if line.userIdMaybe.isDefined =>
         rooms.tellIfPresent(id.into(RoomId),(NotifyVersion)("message", json, line.troll))
@@ -104,7 +103,7 @@ object RoomSocket:
     object In:
 
       case class ChatSay(roomId: RoomId, userId: UserId, msg: String) extends P.In
-      case class ChatTimeout(roomId: RoomId, mod: Me.Id, suspect: UserId, reason: String, text: String)
+      case class ChatTimeout(roomId: RoomId, mod: MyId, suspect: UserId, reason: String, text: String)
           extends P.In
       case class KeepAlives(roomIds: Iterable[RoomId])                    extends P.In
       case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)       extends P.In
@@ -118,7 +117,7 @@ object RoomSocket:
           }
         case P.RawMsg("chat/timeout", raw) =>
           raw.get(5) { case Array(roomId, userId, suspect, reason, text) =>
-            ChatTimeout(RoomId(roomId), Me.Id(userId), UserId(suspect), reason, text).some
+            ChatTimeout(RoomId(roomId), MyId(userId), UserId(suspect), reason, text).some
           }
         case P.RawMsg("tell/room/sri", raw) =>
           raw.get(4) { case arr @ Array(roomId, _, _, _) =>

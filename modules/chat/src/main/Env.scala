@@ -5,6 +5,8 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
+import lila.core.user.FlairGet
+import lila.core.user.FlairGetMap
 
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,
@@ -24,10 +26,7 @@ final class Env(
     spam: lila.security.Spam,
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using Executor, FlairGet, FlairGetMap)(using scheduler: Scheduler):
 
   private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
   import config.*

@@ -7,6 +7,7 @@ import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
+import lila.core.user.FlairGet
 
 @Module
 private class SimulConfig(
@@ -32,7 +33,7 @@ final class Env(
     socketReq: lila.core.socket.SocketRequester,
     proxyRepo: lila.round.GameProxyRepo,
     isOnline: lila.core.socket.IsOnline
-)(using Executor, Scheduler, play.api.Mode, lila.user.FlairApi.Getter):
+)(using Executor, Scheduler, play.api.Mode, FlairGet):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 
