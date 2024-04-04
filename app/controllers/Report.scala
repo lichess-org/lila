@@ -140,7 +140,7 @@ final class Report(
 
   def form = Auth { _ ?=> _ ?=>
     getUserStr("username").so(env.user.repo.byId).flatMap { user =>
-      if user.map(_.id).has(UserModel.lichessId) then Redirect(controllers.routes.Main.contact)
+      if user.exists(_.is(UserId.lichess)) then Redirect(controllers.routes.Main.contact)
       else
         Ok.pageAsync:
           val form = env.report.forms.create

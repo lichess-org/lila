@@ -12,7 +12,7 @@ final class RelationStream(colls: Colls)(using akka.stream.Materializer):
 
   private val coll = colls.relation
 
-  def follow(userId: UserId, direction: Direction, perSecond: MaxPerSecond): Source[UserId, ?] =
+  def follow(userId: UserId, direction: Direction, perSecond: MaxPerSecond): Source[Seq[UserId], ?] =
     coll
       .find(
         $doc(selectField(direction) -> userId, "r" -> lila.core.relation.Relation.Follow),
@@ -24,7 +24,6 @@ final class RelationStream(colls: Colls)(using akka.stream.Materializer):
       .grouped(perSecond.value)
       .map(_.flatMap(_.getAsOpt[UserId](projectField(direction))))
       .throttle(1, 1 second)
-      .mapConcat(identity)
 
   private def selectField(d: Direction) = d match
     case Direction.Following => "u1"

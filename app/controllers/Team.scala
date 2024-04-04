@@ -182,7 +182,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
                         env.msg.api.systemPost(
                           change.user,
                           lila.msg.MsgPreset.newPermissions(
-                            if asMod then LightUser.fallback(UserModel.lichessName) else me.light,
+                            if asMod then LightUser.fallback(UserName.lichess) else me.light,
                             team.team.light,
                             change.perms.map(_.name),
                             env.net.baseUrl

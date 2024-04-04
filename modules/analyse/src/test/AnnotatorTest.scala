@@ -55,8 +55,8 @@ class AnnotatorTest extends munit.FunSuite:
 
   object LightUserApi:
     def mock: LightUserApiMinimal = new:
-      def sync  = LightUser.GetterSync(id => LightUser.fallback(id.into(UserName)).some)
-      def async = LightUser.Getter(id => fuccess(sync(id)))
+      val sync  = LightUser.GetterSync(id => LightUser.fallback(id.into(UserName)).some)
+      val async = LightUser.Getter(id => fuccess(sync(id)))
 
   given Lang = defaultLang
   val dumper = PgnDump(BaseUrl("l.org/"), LightUserApi.mock)

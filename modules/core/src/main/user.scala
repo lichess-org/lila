@@ -70,9 +70,10 @@ trait UserApi:
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]]
 
 trait LightUserApiMinimal:
-  def async: LightUser.Getter
-  def sync: LightUser.GetterSync
+  val async: LightUser.Getter
+  val sync: LightUser.GetterSync
 trait LightUserApi extends LightUserApiMinimal:
+  val syncFallback: LightUser.GetterSyncFallback
   def preloadMany(ids: Seq[UserId]): Funit
 
 case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):

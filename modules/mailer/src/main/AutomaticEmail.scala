@@ -18,7 +18,7 @@ final class AutomaticEmail(
     userApi: UserApi,
     mailer: Mailer,
     baseUrl: BaseUrl,
-    lightUser: lila.user.LightUserApi
+    lightUser: lila.core.user.LightUserApi
 )(using Executor, Translator):
 
   import Mailer.html.*

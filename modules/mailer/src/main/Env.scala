@@ -5,16 +5,14 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.config.*
-import lila.user.{ UserApi, UserRepo }
 
 @Module
 final class Env(
     appConfig: Configuration,
     net: lila.core.config.NetConfig,
-    userRepo: UserRepo,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     settingStore: lila.memo.SettingStore.Builder,
-    lightUser: lila.user.LightUserApi
+    lightUser: lila.core.user.LightUserApi
 )(using Executor, ActorSystem, Scheduler, lila.core.i18n.Translator):
   private val baseUrl = net.baseUrl
   import Mailer.given
