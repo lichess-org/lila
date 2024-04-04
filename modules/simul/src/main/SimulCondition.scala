@@ -48,9 +48,9 @@ object SimulCondition:
     import lila.gathering.ConditionHandlers.BSONHandlers.given
     Macros.handler
 
-  final class Verify(historyApi: lila.history.HistoryApi):
+  final class Verify(historyApi: lila.core.history.HistoryApi):
     def apply(simul: Simul, pt: PerfType)(using
         me: Me
     )(using Executor, Condition.GetMyTeamIds, Perf): Fu[WithVerdicts] =
-      given GetMaxRating = historyApi.lastWeekTopRating(me.value, _)
+      given GetMaxRating = historyApi.lastWeekTopRating(me.userId, _)
       simul.conditions.withVerdicts(pt)

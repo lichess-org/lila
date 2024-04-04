@@ -45,10 +45,10 @@ object SwissCondition:
     val empty       = All(none, none, none, none, none, PlayYourGames.some)
     given Zero[All] = Zero(empty)
 
-  final class Verify(historyApi: lila.history.HistoryApi, banApi: SwissBanApi):
+  final class Verify(historyApi: lila.core.history.HistoryApi, banApi: SwissBanApi):
     def apply(swiss: Swiss)(using me: Me)(using Perf, Executor): Fu[WithVerdicts] =
       val getBan: GetBannedUntil = banApi.bannedUntil
-      given GetMaxRating         = historyApi.lastWeekTopRating(me.value, _)
+      given GetMaxRating         = historyApi.lastWeekTopRating(me.userId, _)
       swiss.settings.conditions.withVerdicts(swiss.perfType, getBan)
 
   object form:

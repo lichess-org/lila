@@ -24,7 +24,7 @@ final class Env(
     roundSocket: lila.round.RoundSocket,
     lightUserApi: lila.user.LightUserApi,
     onStart: lila.core.game.OnStart,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     socketKit: lila.core.socket.SocketKit,
     settingStore: lila.memo.SettingStore.Builder

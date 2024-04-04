@@ -23,10 +23,6 @@ final class Env(
 
   lazy val ratingChartApi = wire[RatingChartApi]
 
-  lazy val userHistoryApi = new lila.core.history.HistoryApi:
-    def addPuzzle                                                                           = api.addPuzzle
-    def progresses: (List[WithPerf], PerfKey, Days) => Future[List[(IntRating, IntRating)]] = api.progresses
-
   lila.common.Bus.subscribeFun("perfsUpdate"):
     case lila.game.actorApi.PerfsUpdate(game, bothPerfs) =>
       bothPerfs.mapList: (user, perfs) =>
