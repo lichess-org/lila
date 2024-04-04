@@ -135,7 +135,7 @@ lazy val video = module("video",
 )
 
 lazy val coach = module("coach",
-  Seq(notifyModule, security),
+  Seq(game, security),
   reactivemongo.bundle
 )
 
@@ -265,7 +265,7 @@ lazy val setup = module("setup",
 )
 
 lazy val importer = module("importer",
-  Seq(game, user),
+  Seq(game),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -455,7 +455,7 @@ lazy val explorer = module("explorer",
 )
 
 lazy val notifyModule = module("notify",
-  Seq(game),
+  Seq(memo),
   reactivemongo.bundle
 )
 

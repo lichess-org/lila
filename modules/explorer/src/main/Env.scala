@@ -9,7 +9,6 @@ case class InternalEndpoint(value: String) extends AnyVal with StringValue
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
     gameImporter: lila.importer.Importer,
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor):

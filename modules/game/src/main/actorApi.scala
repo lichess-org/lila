@@ -18,10 +18,6 @@ case class InsertGame(game: Game)
 
 case class AbortedBy(pov: Pov)
 
-case class CorresAlarmEvent(pov: Pov)
-
-private[game] case object NewCaptcha
-
 case class MoveGameEvent(
     game: Game,
     fen: Fen.Full,

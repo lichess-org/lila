@@ -11,7 +11,6 @@ final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
-    notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi

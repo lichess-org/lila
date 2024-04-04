@@ -42,7 +42,8 @@ case class Game(
     createdAt: Instant = nowInstant,
     movedAt: Instant = nowInstant,
     metadata: Metadata
-) extends lila.tree.Game:
+) extends lila.tree.Game
+    with lila.core.game.Game:
 
   export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
   export players.{ white as whitePlayer, black as blackPlayer, apply as player }

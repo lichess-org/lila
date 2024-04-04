@@ -2,7 +2,6 @@ package lila.coach
 
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
-import lila.notify.NotifyApi
 import lila.security.Granter
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 import lila.rating.UserPerfs
@@ -12,8 +11,7 @@ final class CoachApi(
     userRepo: UserRepo,
     perfsRepo: UserPerfsRepo,
     picfitApi: PicfitApi,
-    cacheApi: lila.memo.CacheApi,
-    notifyApi: NotifyApi
+    cacheApi: lila.memo.CacheApi
 )(using Executor):
 
   import BsonHandlers.given

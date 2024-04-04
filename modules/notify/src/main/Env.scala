@@ -40,12 +40,8 @@ final class Env(
   Bus.subscribeFuns(
     "notify" -> {
       case lila.core.actorApi.notify.NotifiedBatch(userIds) => api.markAllRead(userIds)
-      case lila.game.actorApi.CorresAlarmEvent(pov) =>
-        pov.player.userId.so: userId =>
-          lila.game.Namer
-            .playerText(pov.opponent)(using getLightUser)
-            .foreach: opponent =>
-              api.notifyOne(userId, CorresAlarm(gameId = pov.gameId, opponent = opponent))
+      case lila.core.game.CorresAlarmEvent(userId, pov, opponent) =>
+        api.notifyOne(userId, CorresAlarm(pov.game.id, opponent))
     },
     "streamStart" -> { case lila.core.actorApi.streamer.StreamStart(userId, streamerName) =>
       subsRepo
