@@ -119,7 +119,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
               .flatMap: nb =>
                 lila.mon.fideSync.players.update(nb)
                 setDeletedFlags(startAt).map: deleted =>
-                  lila.mon.fideSync.deleted.update(nb)
+                  lila.mon.fideSync.deleted.update(deleted)
                   logger.info(s"RelayFidePlayerApi.update upserted: $nb, deleted: $nb")
 
           case res => fufail(s"RelayFidePlayerApi.pull ${res.status} ${res.statusText}")
