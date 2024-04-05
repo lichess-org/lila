@@ -195,7 +195,7 @@ lazy val room = module("room",
 )
 
 lazy val timeline = module("timeline",
-  Seq(relation, security),
+  Seq(security),
   reactivemongo.bundle
 )
 
@@ -255,7 +255,7 @@ lazy val activity = module("activity",
 )
 
 lazy val lobby = module("lobby",
-  Seq(game, relation, user),
+  Seq(game, user),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
@@ -330,7 +330,7 @@ lazy val shutup = module("shutup",
 )
 
 lazy val challenge = module("challenge",
-  Seq(lobby, room, oauth),
+  Seq(user, pref, game, room, oauth),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
