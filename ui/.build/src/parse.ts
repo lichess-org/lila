@@ -18,8 +18,6 @@ export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<s
       if (modules.has(dep)) deplist.push(dep);
     }
     moduleDeps.set(mod.name, deplist);
-    // for package.jsons with multiple esm bundles, subsequent bundles depend on the first
-    mod.bundles?.esm?.slice(1).forEach(r => moduleDeps.set(r.output, [mod.name, ...deplist]));
   }
   return [modules, moduleDeps];
 };

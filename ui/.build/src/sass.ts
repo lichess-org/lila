@@ -58,7 +58,6 @@ async function parseScss(src: string) {
   processed.add(src);
   try {
     const text = await fs.promises.readFile(src, 'utf8');
-    //if (!path.dirname(src).endsWith('gen')) {
     for (const match of text.matchAll(/\$c_([-_a-z0-9]+)/g)) {
       const [str, mix] = [match[1], parseColor(match[1])];
       if (!mix) {
@@ -71,10 +70,13 @@ async function parseScss(src: string) {
     }
     for (const match of text.matchAll(/@(?:import|use)\s+['"](.*)['"]/g)) {
       if (match.length !== 2) continue;
+
       const absDep = fs.existsSync(path.resolve(path.dirname(src), match[1]) + '.scss')
         ? path.resolve(path.dirname(src), match[1] + '.scss')
         : path.resolve(path.dirname(src), resolvePartial(match[1]));
+
       if (!absDep.startsWith(env.uiDir) || /node_modules.*\.css/.test(absDep)) continue;
+
       const dep = absDep.slice(env.uiDir.length + 1);
       if (!importMap.get(dep)?.add(src)) importMap.set(dep, new Set<string>([src]));
       await parseScss(dep);
@@ -113,7 +115,6 @@ async function parseThemeColorDefs() {
 
 // given color definitions and mix instructions, build mixed color css variables in themed scss mixins
 async function buildColorMixes() {
-  await fs.promises.mkdir(path.join(env.themeDir, 'gen'), { recursive: true });
   const out = fs.createWriteStream(path.join(env.themeDir, 'gen', '_mix.scss'));
   for (const theme of themeColorMap.keys()) {
     const colorMap = themeColorMap.get(theme)!;

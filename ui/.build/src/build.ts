@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
 import * as cps from 'node:child_process';
 import * as ps from 'node:process';
+import * as path from 'node:path';
 import { parseModules } from './parse';
 import { tsc, stopTsc } from './tsc';
 import { sass, stopSass } from './sass';
@@ -30,7 +31,11 @@ export async function build(mods: string[]) {
 
   if (mods.length) env.log(`Building ${c.grey(buildModules.map(x => x.name).join(', '))}`);
 
-  await Promise.allSettled([fs.promises.mkdir(env.jsDir), fs.promises.mkdir(env.cssDir)]);
+  await Promise.allSettled([
+    fs.promises.mkdir(env.jsDir),
+    fs.promises.mkdir(env.cssDir),
+    fs.promises.mkdir(path.join(env.themeDir, 'gen'), { recursive: true }),
+  ]);
   sass();
   await tsc();
   await copies();
