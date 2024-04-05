@@ -34,7 +34,7 @@ export async function build(mods: string[]) {
   await Promise.allSettled([
     fs.promises.mkdir(env.jsDir),
     fs.promises.mkdir(env.cssDir),
-    fs.promises.mkdir(path.join(env.themeDir, 'gen'), { recursive: true }),
+    fs.promises.mkdir(path.join(env.themeDir, 'gen')),
   ]);
   sass();
   await tsc();
