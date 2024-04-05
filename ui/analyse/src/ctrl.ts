@@ -478,6 +478,19 @@ export default class AnalyseCtrl {
       encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
+  crazyValid = (role: cg.Role, key: cg.Key): boolean => {
+    const color = this.chessground.state.movable.color ?? '';
+    return (
+      (color === 'white' || color === 'black') &&
+      crazyValid(this.chessground, this.node.drops, { color, role }, key)
+    );
+  };
+
+  sendNewPiece = (role: cg.Role, key: cg.Key): void => {
+    const color = this.chessground.state.movable.color ?? '';
+    if (color === 'white' || color === 'black') this.userNewPiece({ color, role }, key);
+  };
+
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
     if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;

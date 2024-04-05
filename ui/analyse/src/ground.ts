@@ -14,7 +14,11 @@ export const render = (ctrl: AnalyseCtrl): VNode =>
       insert: vnode => {
         ctrl.chessground = site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl));
         if (ctrl.data.pref.keyboardMove) {
-          ctrl.keyboardMove ??= makeKeyboardMove({ ...ctrl, flipNow: ctrl.flip });
+          ctrl.keyboardMove ??= makeKeyboardMove({
+            ...ctrl,
+            data: { ...ctrl.data, crazyhouse: ctrl.node.crazy },
+            flipNow: ctrl.flip,
+          });
           ctrl.keyboardMove.update({
             fen: ctrl.node.fen,
             canMove: true,
