@@ -81,7 +81,7 @@ final class SecurityApi(
       .from(str.value)
       .match
         case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-        case None        => User.validateId(str.into(UserStr)).so(authenticator.loginCandidateById)
+        case None        => str.into(UserStr).validateId.so(authenticator.loginCandidateById)
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>

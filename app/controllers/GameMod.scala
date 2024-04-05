@@ -112,7 +112,7 @@ object GameMod:
           .replace(",", " ")
           .split(' ')
           .map(_.trim)
-      .flatMap(lila.user.User.validateId)
+      .flatMap(_.validateId)
       .toList
       .distinct
 

@@ -163,7 +163,6 @@ object User:
   val lichess4545Id                    = UserId("lichess4545")
   val challengermodeId                 = UserId("challengermode")
   val watcherbotId                     = UserId("watcherbot")
-  val ghostId                          = UserId("ghost")
   def isOfficial[U: UserIdOf](user: U) = UserId.lichess.is(user) || broadcasterId.is(user)
 
   val seenRecently = 2.minutes
@@ -224,15 +223,6 @@ object User:
   val newUsernameSuffix  = "(?i).*[a-z0-9]$".r
   val newUsernameChars   = "(?i)^[a-z0-9_-]*$".r
   val newUsernameLetters = "(?i)^([a-z0-9][_-]?)+$".r
-
-  def couldBeUsername(str: UserStr) =
-    noGhost(str.id) && lila.core.UserName.historicalRegex.matches(str.value)
-
-  def validateId(str: UserStr): Option[UserId] = couldBeUsername(str).option(str.id)
-
-  def isGhost(id: UserId) = id == ghostId || id.value.startsWith("!")
-
-  def noGhost(id: UserId) = !isGhost(id)
 
   object BSONFields:
     export lila.core.user.BSONFields.*
