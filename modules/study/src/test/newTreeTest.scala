@@ -88,7 +88,7 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       val oldRoot = root.toRoot
       oldRoot.updateMainlineLast(_.copy(clock = c)).toNewRoot == root.updateMainlineLast(_.copy(clock = c))
 
-  test("takeMainlineWhile".ignore):
+  test("takeMainlineWhile"):
     forAll: (root: NewRoot, f: Option[Centis] => Boolean) =>
       val c = root
       val x = c.toRoot.takeMainlineWhile(b => f(b.clock)).toNewRoot
