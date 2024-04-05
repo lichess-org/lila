@@ -252,7 +252,6 @@ class Sound {
     });
   }
   rewire(ctx: AudioContext) {
-    this.node?.disconnect();
     this.ctx = ctx;
     this.node = this.ctx.createGain();
     this.node.connect(this.ctx.destination);
