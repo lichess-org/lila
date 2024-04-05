@@ -160,7 +160,7 @@ lazy val ublog = module("ublog",
 )
 
 lazy val evaluation = module("evaluation",
-  Seq(analyse),
+  Seq(analyse, user),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -285,27 +285,27 @@ lazy val opening = module("opening",
 )
 
 lazy val gathering = module("gathering",
-  Seq(user),
+  Seq(rating),
   tests.bundle
 )
 
 lazy val tournament = module("tournament",
-  Seq(gathering, round),
+  Seq(gathering, user, round),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val swiss = module("swiss",
-  Seq(gathering, round),
+  Seq(gathering, user, round),
   Seq(scalatags, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val simul = module("simul",
-  Seq(gathering, round),
+  Seq(gathering, user, round),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
 lazy val fishnet = module("fishnet",
-  Seq(analyse),
+  Seq(analyse, user),
   Seq(lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 

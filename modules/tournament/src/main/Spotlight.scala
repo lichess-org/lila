@@ -5,6 +5,7 @@ import lila.common.licon
 import lila.rating.Perf
 import lila.user.{ Me, User }
 import lila.core.Icon
+import lila.core.LightUser
 
 case class Spotlight(
     headline: String,
@@ -52,8 +53,8 @@ object Spotlight:
         case ExperimentalMarathon                 => false
 
   private def canMaybeJoinLimited(tour: Tournament)(using me: User.WithPerfs): Boolean =
-    given Me   = Me(me.user)
-    given Perf = me.perfs(tour.perfType)
+    given LightUser.Me = LightUser.Me(me.user.light)
+    given Perf         = me.perfs(tour.perfType)
     tour.conditions.isRatingLimited &&
     tour.conditions.nbRatedGame.forall { c =>
       c(tour.perfType).accepted

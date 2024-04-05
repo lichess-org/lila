@@ -84,7 +84,7 @@ final class JsonView(
       stats       <- statsApi(tour)
       shieldOwner <- full.so { shieldApi.currentOwner(tour) }
       teamsToJoinWith <- full.so(~(for u <- me; battle <- tour.teamBattle
-      yield getMyTeamIds(u).map: teams =>
+      yield getMyTeamIds(u.lightMe).map: teams =>
         battle.teams.intersect(teams.toSet).toList))
       teamStanding <- getTeamStanding(tour)
       myTeam       <- myInfo.flatMap(_.teamId).so { getMyRankedTeam(tour, _) }
