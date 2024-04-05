@@ -6,7 +6,7 @@ import lila.core.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.core.team.IsLeaderOf
 import lila.memo.RateLimit
 import lila.security.Granter
-import lila.shutup.Analyser
+import lila.core.shutup.TextAnalyser
 import lila.user.User
 import lila.core.report.SuspectId
 
@@ -18,7 +18,8 @@ final private class MsgSecurity(
     relationApi: lila.core.relation.RelationApi,
     reportApi: lila.core.report.ReportApi,
     spam: lila.security.Spam,
-    chatPanicAllowed: lila.core.chat.panic.IsAllowed
+    chatPanicAllowed: lila.core.chat.panic.IsAllowed,
+    textAnalyser: TextAnalyser
 )(using Executor, Scheduler):
 
   import MsgSecurity.*
@@ -85,7 +86,12 @@ final private class MsgSecurity(
             case Dirt =>
               if dirtSpamDedup(text) then
                 val resource = s"msg/${contacts.orig.id}/${contacts.dest.id}"
-                reportApi.autoCommFlag(SuspectId(contacts.orig.id), resource, text, Analyser.isCritical(text))
+                reportApi.autoCommFlag(
+                  SuspectId(contacts.orig.id),
+                  resource,
+                  text,
+                  textAnalyser.isCritical(text)
+                )
             case Spam =>
               if dirtSpamDedup(text) && !contacts.orig.isTroll
               then logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
@@ -99,7 +105,7 @@ final private class MsgSecurity(
     ): Fu[Option[Verdict]] =
       def limitWith(limiter: RateLimit[UserId]) =
         val cost = limitCost(contacts.orig) * {
-          if !contacts.orig.isVerified && Analyser.containsLink(text) then 2 else 1
+          if !contacts.orig.isVerified && textAnalyser.containsLink(text) then 2 else 1
         }
         limiter(contacts.orig.id, Limit.some, cost)(none)
       if unlimited then fuccess(none)
@@ -120,7 +126,7 @@ final private class MsgSecurity(
       contacts.orig.isTroll.so(fuccess(Troll.some))
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
-      (isNew && Analyser(text).dirty)
+      (isNew && textAnalyser(text).dirty)
         .so(userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)).not)
         .dmap {
           _.option(Dirt)

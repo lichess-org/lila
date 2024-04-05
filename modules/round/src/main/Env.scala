@@ -16,6 +16,7 @@ import lila.core.simul.GetHostIds
 import lila.memo.SettingStore
 import lila.rating.RatingFactor
 import lila.core.perf.PerfType
+import lila.core.user.{ FlairGet, FlairGetMap }
 
 @Module
 private class RoundConfig(
@@ -33,7 +34,6 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    flairApi: lila.user.FlairApi,
     chatApi: lila.chat.ChatApi,
     crosstableApi: lila.game.CrosstableApi,
     playban: lila.playban.PlaybanApi,
@@ -51,6 +51,8 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     shutdown: akka.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
+    FlairGet,
+    FlairGetMap,
     Executor,
     akka.stream.Materializer,
     lila.core.i18n.Translator
@@ -87,8 +89,7 @@ final class Env(
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
-  private given lila.user.FlairApi.Getter = flairApi.getter
-  lazy val roundSocket: RoundSocket       = wire[RoundSocket]
+  lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: UserId) =
     gameRepo

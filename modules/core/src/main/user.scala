@@ -70,6 +70,10 @@ trait UserApi:
   def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]]
   def langOf(id: UserId): Fu[Option[String]]
   def isKid[U: UserIdOf](id: U): Fu[Boolean]
+  def isTroll(id: UserId): Fu[Boolean]
+  def isBot(id: UserId): Fu[Boolean]
+  def filterDisabled(userIds: Iterable[UserId]): Fu[Set[UserId]]
+  def isManaged(id: UserId): Fu[Boolean]
 
 trait LightUserApiMinimal:
   val async: LightUser.Getter
@@ -118,12 +122,17 @@ object BSONFields:
   val enabled = "enabled"
   val title   = "title"
 
-trait FlairApi:
-  def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]]
-
 trait Note:
   val text: String
 
 trait NoteApi:
   def recentByUserForMod(userId: UserId): Fu[Option[Note]]
   def write(to: UserId, text: String, modOnly: Boolean, dox: Boolean)(using MyId): Funit
+
+type FlairMap    = Map[UserId, Flair]
+type FlairGet    = UserId => Fu[Option[Flair]]
+type FlairGetMap = List[UserId] => Fu[FlairMap]
+trait FlairApi:
+  given flairOf: FlairGet
+  given flairsOf: FlairGetMap
+  def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]]

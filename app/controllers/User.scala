@@ -141,7 +141,7 @@ final class User(
           )
 
   private def EnabledUser(username: UserStr)(f: UserModel => Fu[Result])(using ctx: Context): Fu[Result] =
-    if UserModel.isGhost(username.id)
+    if username.id.isGhost
     then
       negotiate(
         Ok.page(html.site.bits.ghost),
@@ -419,7 +419,7 @@ final class User(
                 .inject(html.user.mod.assessments(user, as))
             }
 
-          val boardTokens = env.oAuth.tokenApi.usedBoardApi(user).map(html.user.mod.boardTokens)
+          val boardTokens = env.oAuth.tokenApi.usedBoardApi.map(html.user.mod.boardTokens)
 
           val teacher = env.clas.api.clas.countOf(user).map(html.user.mod.teacher(user))
 
@@ -568,7 +568,7 @@ final class User(
       get("term").flatMap(UserSearch.read) match
         case None => BadRequest("No search term provided")
         case Some(term) if getBool("exists") =>
-          UserModel.validateId(term.into(UserStr)).so(env.user.repo.exists).map(JsonOk)
+          term.into(UserStr).validateId.so(env.user.repo.exists).map(JsonOk)
         case Some(term) =>
           {
             (get("tour"), get("swiss"), get("team")) match

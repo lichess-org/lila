@@ -23,7 +23,6 @@ final class DgtCtrl(env: Env) extends LilaController(env):
               description = "DGT board automatic token",
               scopes = dgtScopes.value.map(_.key)
             ),
-            me,
             isStudent = false
           ) >>
             env.pref.api.saveTag(me, _.dgt, true)
@@ -47,5 +46,5 @@ final class DgtCtrl(env: Env) extends LilaController(env):
     _.Board.Play
   )
 
-  private def findToken(using me: Me) =
-    env.oAuth.tokenApi.findCompatiblePersonal(me, dgtScopes)
+  private def findToken(using Me) =
+    env.oAuth.tokenApi.findCompatiblePersonal(dgtScopes)

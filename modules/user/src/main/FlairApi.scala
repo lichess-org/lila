@@ -1,16 +1,12 @@
 package lila.user
 
+import lila.core.user.{ FlairGet, FlairGetMap }
+
 object FlairApi:
 
   private var db: Set[Flair] = Set.empty
 
   def exists(flair: Flair): Boolean = db.isEmpty || db(flair)
-
-  private type GetterType          = UserId => Fu[Option[Flair]]
-  opaque type Getter <: GetterType = GetterType
-  object Getter extends TotalWrapper[Getter, GetterType]
-
-  type FlairMap = Map[UserId, Flair]
 
   def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]] =
     import play.api.data.Forms.*
@@ -32,10 +28,9 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
   import FlairApi.*
   export FlairApi.formField
 
-  val getter = Getter: id =>
-    lightUserApi.async(id).dmap(_.flatMap(_.flair))
+  given flairOf: FlairGet = id => lightUserApi.async(id).dmap(_.flatMap(_.flair))
 
-  def flairsOf(ids: List[UserId]): Fu[Map[UserId, Flair]] =
+  given flairsOf: FlairGetMap = ids =>
     lightUserApi
       .asyncMany(ids.distinct)
       .map: users =>

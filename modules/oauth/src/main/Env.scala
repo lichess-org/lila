@@ -12,7 +12,7 @@ import lila.memo.SettingStore.Strings.given
 @Module
 final class Env(
     cacheApi: lila.memo.CacheApi,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     settingStore: lila.memo.SettingStore.Builder,
     appConfig: Configuration,
     db: lila.db.Db
@@ -28,7 +28,7 @@ final class Env(
 
   lazy val authorizationApi = AuthorizationApi(db(CollName("oauth2_authorization")))
 
-  lazy val tokenApi = AccessTokenApi(db(CollName("oauth2_access_token")), cacheApi, userRepo)
+  lazy val tokenApi = AccessTokenApi(db(CollName("oauth2_access_token")), cacheApi, userApi)
 
   private val mobileSecret = appConfig.get[Secret]("oauth.mobile.secret").taggedWith[MobileSecret]
   lazy val server          = wire[OAuthServer]

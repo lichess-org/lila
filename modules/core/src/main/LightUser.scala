@@ -32,11 +32,10 @@ object LightUser:
 
   opaque type Me = LightUser
   object Me extends TotalWrapper[Me, LightUser]:
-    given UserIdOf[Me]              = _.id
-    given Conversion[Me, LightUser] = identity
-    given Conversion[Me, UserId]    = _.id
-    given Conversion[Me, MyId]      = _.id.into(MyId)
-    given (using me: Me): MyId      = me.id.into(MyId)
+    extension (me: Me) def userId: UserId = me.id
+    given UserIdOf[Me]                    = _.id
+    given Conversion[Me, LightUser]       = identity
+    given (using me: Me): MyId            = me.id.into(MyId)
 
   private type GetterType          = UserId => Fu[Option[LightUser]]
   opaque type Getter <: GetterType = GetterType

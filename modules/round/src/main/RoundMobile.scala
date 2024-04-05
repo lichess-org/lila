@@ -31,7 +31,7 @@ final class RoundMobile(
     moretimer: Moretimer,
     isOfferingRematch: lila.core.round.IsOfferingRematch,
     chatApi: lila.chat.ChatApi
-)(using Executor, lila.user.FlairApi):
+)(using Executor, lila.core.user.FlairGetMap):
 
   import RoundMobile.*
   private given play.api.i18n.Lang = lila.core.i18n.defaultLang

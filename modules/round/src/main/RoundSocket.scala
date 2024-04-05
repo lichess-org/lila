@@ -18,6 +18,7 @@ import lila.core.actorApi.socket.remote.TellSriIn
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
 import lila.core.IpAddress
+import lila.core.user.FlairGet
 
 final class RoundSocket(
     socketKit: ParallelSocketKit,
@@ -29,7 +30,7 @@ final class RoundSocket(
     goneWeightsFor: Game => Fu[(Float, Float)],
     mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
-)(using Executor, lila.user.FlairApi.Getter)(using scheduler: Scheduler):
+)(using Executor, FlairGet)(using scheduler: Scheduler):
 
   import RoundSocket.*
 

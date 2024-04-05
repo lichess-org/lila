@@ -3,7 +3,7 @@ package lila.challenge
 import lila.core.i18n.I18nKey.challenge as trans
 import lila.pref.Pref
 import lila.core.perf.PerfType
-import lila.relation.{ Block, Follow }
+import lila.core.relation.{ Block, Follow }
 import lila.user.{ Me, User }
 import lila.core.i18n.Translate
 
@@ -36,7 +36,7 @@ object ChallengeDenied:
 final class ChallengeGranter(
     prefApi: lila.pref.PrefApi,
     perfsRepo: lila.user.UserPerfsRepo,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 ):
 
   import ChallengeDenied.Reason.*
@@ -54,7 +54,7 @@ final class ChallengeGranter(
     } { from =>
       type Res = Option[ChallengeDenied.Reason]
       given Conversion[Res, Fu[Res]] = fuccess
-      relationApi.fetchRelation(dest, from).zip(prefApi.get(dest).map(_.challenge)).flatMap {
+      relationApi.fetchRelation(dest.id, from.userId).zip(prefApi.get(dest).map(_.challenge)).flatMap {
         case (Some(Block), _)                                  => YouAreBlocked.some
         case (_, Pref.Challenge.NEVER)                         => TheyDontAcceptChallenges.some
         case (Some(Follow), _)                                 => none // always accept from followed

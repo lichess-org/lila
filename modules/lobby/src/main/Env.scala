@@ -11,7 +11,7 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     onStart: lila.core.game.OnStart,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     gameCache: lila.game.Cached,
     userRepo: lila.user.UserRepo,

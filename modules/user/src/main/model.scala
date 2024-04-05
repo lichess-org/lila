@@ -17,6 +17,7 @@ object Me extends TotalWrapper[Me, User]:
   given Conversion[Me, User]                   = identity
   given Conversion[Me, UserId]                 = _.id
   given Conversion[Option[Me], Option[UserId]] = _.map(_.id)
+  given (using me: Me): LightUser.Me           = me.lightMe
   given [M[_]]: Conversion[M[Me], M[User]]     = Me.raw(_)
   given (using me: Me): Option[Me]             = Some(me)
   given lila.db.NoDbHandler[Me] with {}

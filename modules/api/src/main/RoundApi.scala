@@ -247,7 +247,7 @@ final private[api] class RoundApi(
     jsonFu.flatMap { withExternalEngines(me, _) }
 
   def withExternalEngines(me: Option[User], json: JsObject): Fu[JsObject] =
-    me.so(externalEngineApi.list)
+    me.so(u => externalEngineApi.list(u.id))
       .map: engines =>
         json.add("externalEngines", engines.nonEmpty.option(engines))
 

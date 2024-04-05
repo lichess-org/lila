@@ -7,7 +7,7 @@ import lila.gathering.{ Condition, ConditionList }
 import lila.core.history.HistoryApi
 import lila.core.team.LightTeam
 import lila.rating.Perf
-import lila.user.{ Me, User }
+import lila.user.{ Me, User, given }
 import lila.core.perf.PerfType
 
 object TournamentCondition:
@@ -29,12 +29,10 @@ object TournamentCondition:
         GetMyTeamIds
     ): Fu[WithVerdicts] =
       list
-        .map {
+        .traverse:
           case c: MaxRating  => c(perfType).map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
-        }
-        .parallel
         .dmap(WithVerdicts.apply)
 
     def withRejoinVerdicts(using
@@ -43,11 +41,9 @@ object TournamentCondition:
         getMyTeamIds: GetMyTeamIds
     ): Fu[WithVerdicts] =
       list
-        .map {
+        .traverse:
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
           case c             => fuccess(WithVerdict(c, Accepted))
-        }
-        .parallel
         .dmap(WithVerdicts.apply)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember

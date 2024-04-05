@@ -11,6 +11,7 @@ import lila.common.{ HTTPRequest, config }
 import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.security.Permission
+import lila.user.Me
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -227,7 +228,7 @@ abstract private[controllers] class LilaController(val env: Env)
         f(using ctx)(using scoped.me)
 
   private def handleScopedCommon(selectors: Seq[OAuthScope.Selector])(using req: RequestHeader)(
-      f: OAuthScope.Scoped => Fu[Result]
+      f: OAuthScope.Scoped[Me] => Fu[Result]
   ) =
     val accepted = OAuthScope.select(selectors).into(EndpointScopes)
     env.security.api.oauthScoped(req, accepted).flatMap {

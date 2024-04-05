@@ -10,17 +10,18 @@ import lila.challenge.Challenge.Id as ChallengeId
 
 import lila.core.{ Bearer, IpAddress, Preload }
 import lila.game.{ AnonCookie, Pov }
-import lila.oauth.{ EndpointScopes, OAuthScope }
+import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 import lila.core.socket.SocketVersion
-import lila.user.User as UserModel
+import lila.user.{ Me, User as UserModel }
 
 final class Challenge(
     env: Env,
     apiC: Api
 ) extends LilaController(env):
 
-  def api = env.challenge.api
+  def api                                 = env.challenge.api
+  private given OAuthServer.FetchUser[Me] = env.user.repo.me
 
   def all = Auth { ctx ?=> me ?=>
     XhrOrRedirectHome:
@@ -214,8 +215,8 @@ final class Challenge(
                   Bearer.from(get("opponentToken")) match
                     case Some(bearer) =>
                       val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
-                      env.oAuth.server.auth(bearer, required, ctx.req.some).map {
-                        case Right(access) if pov.opponent.isUser(access.user) =>
+                      env.oAuth.server.auth[Me](bearer, required, ctx.req.some).map {
+                        case Right(access) if pov.opponent.isUser(access.me) =>
                           lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                           jsonOkResult
                         case Right(_)  => BadRequest(jsonError("Not the opponent token"))
@@ -237,20 +238,21 @@ final class Challenge(
     val accepted = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
     (Bearer.from(get("token1")), Bearer.from(get("token2")))
       .mapN:
-        env.oAuth.server.authBoth(accepted, req)
+        env.oAuth.server.authBoth[Me](accepted, req)
       .so:
         _.flatMap:
           case Left(e) => handleScopedFail(accepted, e)
           case Right((u1, u2)) =>
             env.game.gameRepo
               .game(id)
-              .flatMapz { g =>
-                env.round.proxyRepo.upgradeIfPresent(g).dmap(some).dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
-              }
-              .orNotFound { game =>
+              .flatMapz: g =>
+                env.round.proxyRepo
+                  .upgradeIfPresent(g)
+                  .dmap(some)
+                  .dmap(_.filter(_.hasUserIds(u1.userId, u2.userId)))
+              .orNotFound: game =>
                 env.round.tellRound(game.id, lila.core.round.StartClock)
                 jsonOkResult
-              }
 
   private val ChallengeIpRateLimit = lila.memo.RateLimit[IpAddress](
     500,
