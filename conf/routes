@@ -872,6 +872,7 @@ GET   /dgt                             controllers.DgtCtrl.index
 GET   /dgt/play                        controllers.DgtCtrl.play
 GET   /dgt/config                      controllers.DgtCtrl.config
 POST  /dgt/config/token                controllers.DgtCtrl.generateToken
+POST  /dgt/config/menu-shortcut        controllers.DgtCtrl.menuShortcut
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 

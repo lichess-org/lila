@@ -82,12 +82,7 @@ object dgt:
           h2(lichessConnectivity()),
           if token.isDefined then
             p(cls := "text", dataIcon := licon.Checkmark)(
-              validDgtOauthToken(),
-              br,
-              br,
-              dgtPlayMenuEntryAdded(
-                strong(dgtBoard())
-              )
+              validDgtOauthToken()
             )
           else
             frag(
@@ -171,7 +166,7 @@ object dgt:
           }
         ),
         st.section(
-          h2(debug()),
+          h2(misc()),
           div(cls := "form-group")(
             st.label(cls := "form-label")(verboseLogging()),
             radios(
@@ -180,6 +175,13 @@ object dgt:
             ),
             st.small(cls := "form-help")(
               toSeeConsoleMessage()
+            )
+          ),
+          div(cls := "form-group")(
+            st.label(cls := "form-label")(menuShortcut()),
+            radios(
+              "dgt-menu-shortcut",
+              List((false, trans.site.no.txt()), (true, trans.site.yes.txt()))
             )
           )
         ),

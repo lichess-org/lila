@@ -14,18 +14,30 @@ final class DgtCtrl(env: Env) extends LilaController(env):
       findToken.map(views.html.dgt.config)
   }
 
+  def menuShortcut = Auth { ctx ?=> me ?=>
+    ctx.req
+      .getQueryString("include")
+      .map(_ match
+        case "true"  => true
+        case "false" => false
+      ) match
+      case Some(bool) => env.pref.api.saveTag(me, _.dgt, bool) >> Ok
+      case None       => BadRequest
+  }
+
   def generateToken = Auth { _ ?=> me ?=>
     findToken.flatMap: t =>
       t.isEmpty
         .so {
-          env.oAuth.tokenApi.create(
-            lila.oauth.OAuthTokenForm.Data(
-              description = "DGT board automatic token",
-              scopes = dgtScopes.value.map(_.key)
-            ),
-            isStudent = false
-          ) >>
-            env.pref.api.saveTag(me, _.dgt, true)
+          env.oAuth.tokenApi
+            .create(
+              lila.oauth.OAuthTokenForm.Data(
+                description = "DGT board automatic token",
+                scopes = dgtScopes.value.map(_.key)
+              ),
+              isStudent = false
+            )
+            .void
         }
         .inject(Redirect(routes.DgtCtrl.config))
   }
@@ -34,7 +46,6 @@ final class DgtCtrl(env: Env) extends LilaController(env):
     findToken.flatMap:
       case None => Redirect(routes.DgtCtrl.config)
       case Some(t) =>
-        if !ctx.pref.hasDgt then env.pref.api.saveTag(me, _.dgt, true)
         Ok.page(views.html.dgt.play(t))
   }
 

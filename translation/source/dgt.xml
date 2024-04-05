@@ -23,7 +23,6 @@
   <string name="dgtConfigure">DGT - Configure</string>
   <string name="lichessConnectivity">Lichess connectivity</string>
   <string name="validDgtOauthToken">You have an OAuth token suitable for DGT play.</string>
-  <string name="dgtPlayMenuEntryAdded">A %s entry was added to your PLAY menu at the top.</string>
   <string name="noSuitableOauthToken">No suitable OAuth token has been created.</string>
   <string name="dgtBoardConnectivity">DGT board connectivity</string>
   <string name="clickToGenerateOne">Click to generate one</string>
@@ -39,9 +38,10 @@
   <string name="moveFormatDescription">SAN is the standard on Lichess like "Nf6". UCI is common on engines like "g8f6".</string>
   <string name="keywords">Keywords</string>
   <string name="keywordFormatDescription">Keywords are in JSON format. They are used to translate moves and results into your language. Default is English, but feel free to change it.</string>
-  <string name="debug">Debug</string>
+  <string name="misc">Miscellaneous</string>
   <string name="verboseLogging">Verbose logging</string>
   <string name="toSeeConsoleMessage">To see console message press Command + Option + C (Mac) or Control + Shift + C (Windows, Linux, Chrome OS)</string>
+  <string name="menuShortcut">Include Play Menu shortcut</string>
   <string name="playWithDgtBoard">Play with a DGT board</string>
   <string name="configure">Configure</string>
 </resources>

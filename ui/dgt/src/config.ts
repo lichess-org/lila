@@ -45,6 +45,7 @@ export default function () {
       ['dgt-speech-announce-all-moves', 'true'],
       ['dgt-speech-announce-move-format', 'san'],
       ['dgt-verbose', 'false'],
+      ['dgt-menu-shortcut', 'false'],
     ].forEach(([k, v]) => {
       if (!localStorage.getItem(k)) localStorage.setItem(k, v);
     });
@@ -54,7 +55,7 @@ export default function () {
     ['dgt-livechess-url', 'dgt-speech-keywords'].forEach(k => {
       form[k].value = localStorage.getItem(k);
     });
-    ['dgt-speech-synthesis', 'dgt-speech-announce-all-moves', 'dgt-verbose'].forEach(k =>
+    ['dgt-speech-synthesis', 'dgt-speech-announce-all-moves', 'dgt-verbose', 'dgt-menu-shortcut'].forEach(k =>
       [true, false].forEach(v => {
         const input = document.getElementById(`${k}_${v}`) as HTMLInputElement;
         input.checked = localStorage.getItem(k) == '' + v;
@@ -73,6 +74,14 @@ export default function () {
 
     form.addEventListener('submit', (e: Event) => {
       e.preventDefault();
+      const menuStorage : string = '' + localStorage.getItem('dgt-menu-shortcut');
+      const menuForm : string = form['dgt-menu-shortcut'].value;
+      if (menuStorage != menuForm) {
+        const req = new XMLHttpRequest();
+        req.addEventListener("load", () => window.location.reload());
+        req.open("POST", "/dgt/config/menu-shortcut?include=" + menuForm);
+        req.send();
+      }
       Array.from(new FormData(form).entries()).forEach(([k, v]) => localStorage.setItem(k, v.toString()));
     });
   }
