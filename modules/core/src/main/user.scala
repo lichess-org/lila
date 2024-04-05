@@ -72,6 +72,8 @@ trait UserApi:
   def isKid[U: UserIdOf](id: U): Fu[Boolean]
   def isTroll(id: UserId): Fu[Boolean]
   def isBot(id: UserId): Fu[Boolean]
+  def filterDisabled(userIds: Iterable[UserId]): Fu[Set[UserId]]
+  def isManaged(id: UserId): Fu[Boolean]
 
 trait LightUserApiMinimal:
   val async: LightUser.Getter

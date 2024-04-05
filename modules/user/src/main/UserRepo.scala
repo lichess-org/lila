@@ -53,8 +53,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         Left(LightUser.ghost).some
       }
 
-  def me[U: UserIdOf](u: U): Fu[Option[Me]] =
-    enabledById(u).dmap(Me.from(_))
+  def me(id: UserId): Fu[Option[Me]]        = enabledById(id).dmap(Me.from(_))
+  def me[U: UserIdOf](u: U): Fu[Option[Me]] = me(u.id)
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
   def byPrevEmail(

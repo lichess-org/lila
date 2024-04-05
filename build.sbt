@@ -315,12 +315,12 @@ lazy val irwin = module("irwin",
 )
 
 lazy val oauth = module("oauth",
-  Seq(user),
+  Seq(memo),
   reactivemongo.bundle
 )
 
 lazy val security = module("security",
-  Seq(oauth, mailer),
+  Seq(oauth, user, mailer),
   Seq(maxmind, hasher, uaparser) ++ tests.bundle ++ reactivemongo.bundle
 )
 

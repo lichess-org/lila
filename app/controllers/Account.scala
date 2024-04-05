@@ -307,8 +307,8 @@ final class Account(
     for
       _                    <- env.security.api.dedup(me, req)
       sessions             <- env.security.api.locatedOpenSessions(me, 50)
-      clients              <- env.oAuth.tokenApi.listClients(me, 50)
-      personalAccessTokens <- env.oAuth.tokenApi.countPersonal(me)
+      clients              <- env.oAuth.tokenApi.listClients(50)
+      personalAccessTokens <- env.oAuth.tokenApi.countPersonal
       currentSessionId = ~env.security.api.reqSessionId(req)
       page <- renderPage:
         html.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)

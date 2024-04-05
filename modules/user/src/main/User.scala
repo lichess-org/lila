@@ -159,7 +159,6 @@ object User:
   val broadcasterId                    = UserId("broadcaster")
   val irwinId                          = UserId("irwin")
   val kaladinId                        = UserId("kaladin")
-  val explorerId                       = UserId("openingexplorer")
   val lichess4545Id                    = UserId("lichess4545")
   val challengermodeId                 = UserId("challengermode")
   val watcherbotId                     = UserId("watcherbot")

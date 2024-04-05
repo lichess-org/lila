@@ -120,12 +120,12 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
 
   private val revokeClientForm = Form(single("origin" -> text))
 
-  def revokeClient = AuthBody { ctx ?=> me ?=>
+  def revokeClient = AuthBody { ctx ?=> _ ?=>
     revokeClientForm
       .bindFromRequest()
       .fold(
         _ => BadRequest,
-        origin => env.oAuth.tokenApi.revokeByClientOrigin(origin, me).inject(NoContent)
+        origin => env.oAuth.tokenApi.revokeByClientOrigin(origin).inject(NoContent)
       )
   }
 

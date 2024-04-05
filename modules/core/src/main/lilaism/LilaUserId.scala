@@ -24,6 +24,7 @@ trait LilaUserId:
     val lichess: UserId    = "lichess"
     val lichessAsMe: MyId  = lichess.into(MyId)
     val ghost: UserId      = "ghost"
+    val explorer: UserId   = "openingexplorer"
 
   // specialized UserIds like Coach.Id
   trait OpaqueUserId[A] extends OpaqueString[A]:
