@@ -405,7 +405,7 @@ lazy val pref = module("pref",
 )
 
 lazy val msg = module("msg",
-  Seq(shutup, security, pref),
+  Seq(security, pref),
   reactivemongo.bundle
 )
 
