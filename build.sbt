@@ -160,7 +160,7 @@ lazy val ublog = module("ublog",
 )
 
 lazy val evaluation = module("evaluation",
-  Seq(analyse),
+  Seq(analyse, user),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -305,7 +305,7 @@ lazy val simul = module("simul",
 )
 
 lazy val fishnet = module("fishnet",
-  Seq(analyse),
+  Seq(analyse, user),
   Seq(lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
