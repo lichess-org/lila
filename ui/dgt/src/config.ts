@@ -59,7 +59,7 @@ export default function () {
       [true, false].forEach(v => {
         const input = document.getElementById(`${k}_${v}`) as HTMLInputElement;
         input.checked = localStorage.getItem(k) == '' + v;
-      }),
+      })
     );
     ['san', 'uci'].forEach(v => {
       const k = 'dgt-speech-announce-move-format';
@@ -74,12 +74,12 @@ export default function () {
 
     form.addEventListener('submit', (e: Event) => {
       e.preventDefault();
-      const menuStorage : string = '' + localStorage.getItem('dgt-menu-shortcut');
-      const menuForm : string = form['dgt-menu-shortcut'].value;
+      const menuStorage: string = '' + localStorage.getItem('dgt-menu-shortcut');
+      const menuForm: string = form['dgt-menu-shortcut'].value;
       if (menuStorage != menuForm) {
         const req = new XMLHttpRequest();
-        req.addEventListener("load", () => window.location.reload());
-        req.open("POST", "/dgt/config/menu-shortcut?include=" + menuForm);
+        req.addEventListener('load', () => window.location.reload());
+        req.open('POST', '/dgt/config/menu-shortcut?include=' + menuForm);
         req.send();
       }
       Array.from(new FormData(form).entries()).forEach(([k, v]) => localStorage.setItem(k, v.toString()));
