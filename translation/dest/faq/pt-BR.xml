@@ -103,8 +103,8 @@ Não peça pelo título de LM.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar freneticamente 100%% dos jogos de %s.</string>
   <string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
   <string name="goldenZeeExplanation">ZugAddict estava realizando uma stream e, pelas últimas 2 horas, tentava derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-a ele que, se ele conseguisse vencer na stream, ganharia um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
-  <string name="lichessRatings">Pontuações no Lichess</string>
-  <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o Lichess utiliza?</string>
+  <string name="lichessRatings">Ratings no Lichess</string>
+  <string name="whichRatingSystemUsedByLichess">Qual é o sistema de rating que o Lichess utiliza?</string>
   <string name="ratingSystemUsedByLichess">As pontuações são calculadas utilizando o sistema de pontuaçao Glicko-2, desenvolvido por Mark Glickman. Este é um sistema de pontuação muito popular e é utilizado por um número considerável de organizações de xadrez (a FIDE é um contraexemplo notável, já que eles ainda usam o sistema de pontuação Elo).
 
 Fundamentalmente, as pontuações do Glicko usam \"intervalos de confiança\" quando calculam e representam sua pontuação. Ao começar a usar o site, sua pontuação começa em 1500 ± 700. O \"1500\" representa sua pontuação e o \"700\" representa o intervalo de confiança.
@@ -112,7 +112,7 @@ Fundamentalmente, as pontuações do Glicko usam \"intervalos de confiança\" qu
 Basicamente, o sistema tem 90% de certeza que sua pontuação está entre 800 e 2200. É incrivelmente incerto. Consequentemente, quando um jogador acabou começar, sua pontuação vai mudar drasticamente, potencialmente várias centenas de pontos de uma vez. Mas depois de algumas partidas contra jogadores estabelecidos, o intervalo de confiança diminui e o número de pontos ganhados/perdidos após cada jogo será menor
 
 Outro ponto importante é que, à medida que o tempo passa, o intervalo de confiança aumenta. Isto permite a você ganhar/perder pontos mais rapidamente para corresponder às mudanças no seu nível ao longo do tempo.</string>
-  <string name="whatIsProvisionalRating">Por que é que há um ponto de interrogação (?) depois d uma pontuação?</string>
+  <string name="whatIsProvisionalRating">Por que é que há um ponto de interrogação (?) depois de uma pontuação?</string>
   <string name="provisionalRatingExplanation">O ponto de interrogação significa que a pontuação é provisória. As razões incluem:</string>
   <string name="notPlayedEnoughRatedGamesAgainstX">O jogador ainda não finalizou um número suficiente de jogos com rating contra %1$s na categoria em questão.</string>
   <string name="similarOpponents">oponentes de nível semelhante</string>
@@ -130,7 +130,7 @@ Outro ponto importante é que, à medida que o tempo passa, o intervalo de confi
   <string name="whyAreRatingHigherExplanation">É melhor não considerar classificações como números absolutos, ou compará-las com outras organizações. Diferentes organizações têm diferentes níveis de jogadores, diferentes sistemas de classificação (Elo, Glicko, Glicko-2 ou uma versão modificada deles). Estes fatores podem afetar drasticamente os números absolutos (classificações).
 
 É melhor pensar em classificações como figuras \"relativas\" (e não \"absolutas\"): Dentro de um conjunto de jogadores, suas diferenças relativas nas classificações ajudarão você a estimar quem vai ganhar/empatar/perder e com que frequência. Dizer \"eu tenho uma classificação X\" não significa nada a menos que haja outros jogadores com quem comparar essa avaliação.</string>
-  <string name="howToHideRatingWhilePlaying">Como ocultar as pontuações enquanto jogo?</string>
+  <string name="howToHideRatingWhilePlaying">Como ocultar os ratings enquanto jogo?</string>
   <string name="enableZenMode">Ative o Zen-mode em %1$s, ou pressionando %2$s durante uma partida.</string>
   <string name="displayPreferences">preferências de exibição</string>
   <string name="connexionLostCanIGetMyRatingBack">Perdi uma partida por atraso/desconexão. Posso ter a minha pontuação de volta?</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">Svisa</string>
   <string name="swissTournaments">Svisaj turniroj</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Vidi la raŭndon</item>
@@ -38,6 +39,7 @@
   <string name="roundInterval">Tempo inter raŭndoj</string>
   <string name="forbiddenPairings">Malpermesataj paroj</string>
   <string name="forbiddenPairingsHelp">Salutnomoj de ludantoj kiuj devas ne kunludi (ekz. gefratoj). Metu po du salutnomojn por linio, kaj apartigu ilin per spaco.</string>
+  <string name="manualPairings">Permanaj parigoj in la sekva raŭndo</string>
   <string name="newSwiss">Nova svisa turniro</string>
   <string name="swissVsArenaQ">Kiam oni uzu svisan turniron anstataŭ arenan?</string>
   <string name="swissVsArenaA">En svisa turniro, ĉiuj partoprenantoj ludas la saman nombron da ludoj, kaj ludas unu kontraŭ la alia nur unufoje.
