@@ -25,7 +25,7 @@ object indexStripe:
       moreCss = cssTag("plan"),
       moreJs = frag(
         index.stripeScript,
-        jsModule("plan"),
+        jsModule("pagelets.plan"),
         embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")""")
       ),
       csp = defaultCsp.withStripe.some

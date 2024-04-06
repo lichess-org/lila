@@ -37,7 +37,7 @@ object form:
       )
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
-    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")):
+    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("pagelets.team")):
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(

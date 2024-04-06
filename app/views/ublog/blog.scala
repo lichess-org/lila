@@ -19,7 +19,7 @@ object blog:
       moreCss = cssTag("ublog"),
       moreJs = frag(
         posts.hasNextPage.option(infiniteScrollTag),
-        ctx.isAuth.option(jsModule("ublog"))
+        ctx.isAuth.option(jsModule("pagelets.ublog"))
       ),
       title = title,
       atomLinkTag = link(

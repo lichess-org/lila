@@ -79,8 +79,8 @@ object page:
     import play.api.libs.json.Json
     frag(
       infiniteScrollTag,
-      jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
-      withSearch.option(jsModule("gameSearch")),
+      jsModuleInit("pagelets.user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
+      withSearch.option(jsModule("pagelets.gameSearch")),
       isGranted(_.UserModView).option(jsModule("mod.user"))
     )
 

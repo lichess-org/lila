@@ -45,7 +45,7 @@ object index:
               namespaceAttr := "paypalSubscription"
             )
           ),
-          jsModule("checkout"),
+          jsModule("pagelets.checkout"),
           embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
               lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
             )})""")

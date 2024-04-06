@@ -32,7 +32,7 @@ object edit:
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
-      evenMoreJs = jsModule("coach.form"),
+      evenMoreJs = jsModule("pagelets.coach.form"),
       active = "coach"
     ):
       div(cls := "coach-edit box")(

@@ -20,7 +20,7 @@ object crud:
       title = title,
       moreCss = cssTag(css),
       moreJs = frag(
-        jsModule("flatpickr"),
+        jsModule("pagelets.flatpickr"),
         evenMoreJs
       )
     ) {

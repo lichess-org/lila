@@ -19,5 +19,5 @@ object embed:
       ),
       cashTag,
       chessgroundTag,
-      jsModule("tvEmbed")
+      jsModule("site.tvEmbed")
     )

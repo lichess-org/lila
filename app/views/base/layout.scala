@@ -194,7 +194,7 @@ object layout:
       frag(cashTag, jsModule("site")),
       moreJs,
       ctx.data.inquiry.isDefined.option(jsModule("mod.inquiry")),
-      (!netConfig.isProd).option(jsModule("devMode"))
+      (!netConfig.isProd).option(jsModule("site.devMode"))
     )
 
   private def hrefLang(langStr: String, path: String) =
@@ -283,9 +283,9 @@ object layout:
           cssTag("theme-all"),
           cssTag("site"),
           pref.is3d.option(cssTag("board-3d")),
-          ctx.data.inquiry.isDefined.option(cssTagNoTheme("mod.inquiry")),
-          ctx.impersonatedBy.isDefined.option(cssTagNoTheme("mod.impersonate")),
-          ctx.blind.option(cssTagNoTheme("blind")),
+          ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
+          ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
+          ctx.blind.option(cssTag("blind")),
           moreCss,
           pieceSprite,
           meta(

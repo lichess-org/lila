@@ -24,8 +24,8 @@ object post:
     views.html.base.layout(
       moreCss = cssTag("ublog"),
       moreJs = frag(
-        jsModule("expandText"),
-        ctx.isAuth.option(jsModule("ublog"))
+        jsModule("pagelets.expandText"),
+        ctx.isAuth.option(jsModule("pagelets.ublog"))
       ),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
       openGraph = lila.app.ui

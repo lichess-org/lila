@@ -51,7 +51,7 @@ object roundForm:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
-      moreJs = jsModule("flatpickr")
+      moreJs = jsModule("pagelets.flatpickr")
     ):
       main(cls := "page-small box box-pad")(body)
 

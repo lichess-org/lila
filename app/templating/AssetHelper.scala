@@ -34,14 +34,8 @@ trait AssetHelper extends HasEnv:
 
   def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
-  def cssTag(name: String)(using ctx: Context): Frag =
-    cssTagNoTheme(name)
-
-  def cssTagNoTheme(name: String): Frag =
-    cssAt(s"css/$name.${if minifiedAssets then "min" else "dev"}.css")
-
-  private def cssAt(path: String): Tag =
-    link(href := assetUrl(path), rel := "stylesheet")
+  def cssTag(key: String)(using ctx: Context): Frag =
+    link(href := staticAssetUrl(s"css/${env.manifest.css(key)}"), rel := "stylesheet")
 
   def jsonScript(json: JsValue | SafeJsonStr, id: String = "page-init-data") =
     script(tpe := "application/json", st.id := id):
@@ -55,30 +49,45 @@ trait AssetHelper extends HasEnv:
 
   private val loadEsmFunction = "site.asset.loadEsm"
 
-  // jsModule is esm, no defer needed
-  def jsModule(name: String): Frag =
-    script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets.so(".min")}.js"))
+  def jsModuleName(key: String): String =
+    env.manifest
+      .js(key)
+      .fold(key): asset =>
+        asset.name
 
-  def jsModuleInit(name: String)(using PageContext): Frag =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name')"))
-  def jsModuleInit(name: String, json: SafeJsonStr)(using PageContext): Frag =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$json})"))
-  def jsModuleInit[A: Writes](name: String, value: A)(using PageContext): Frag =
-    jsModuleInit(name, safeJsonValue(Json.toJson(value)))
+  def jsModuleDeps(key: String): Frag =
+    env.manifest
+      .js(key)
+      .fold(emptyFrag): asset =>
+        asset.imports.map: dep =>
+          script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
 
-  def jsModuleInit(name: String, text: SafeJsonStr, nonce: lila.api.Nonce): Frag =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})", nonce))
-  def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce): Frag =
-    jsModuleInit(name, safeJsonValue(json), nonce)
+  def jsModule(key: String): Frag =
+    frag(
+      script(tpe := "module", src := staticAssetUrl(s"compiled/${jsModuleName(key)}")),
+      jsModuleDeps(key)
+    )
+  def jsModuleInit(key: String)(using PageContext): Frag =
+    frag(jsModule(key), embedJsUnsafeLoadThen(s"$loadEsmFunction('${jsModuleName(key)}')"))
+  def jsModuleInit(key: String, json: SafeJsonStr)(using PageContext): Frag =
+    frag(jsModule(key), embedJsUnsafeLoadThen(s"$loadEsmFunction('${jsModuleName(key)}',{init:$json})"))
+  def jsModuleInit[A: Writes](key: String, value: A)(using PageContext): Frag =
+    jsModuleInit(key, safeJsonValue(Json.toJson(value)))
+  def jsModuleInit(key: String, text: SafeJsonStr, nonce: lila.api.Nonce): Frag =
+    frag(
+      jsModule(key),
+      embedJsUnsafeLoadThen(s"$loadEsmFunction('${jsModuleName(key)}',{init:$text})", nonce)
+    )
+  def jsModuleInit(key: String, json: JsValue, nonce: lila.api.Nonce): Frag =
+    jsModuleInit(key, safeJsonValue(json), nonce)
+  def jsPageModule(key: String)(using PageContext) =
+    frag(jsModule(key), embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${jsModuleName(key)}')"))
 
-  def jsPageModule(name: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('$name')"))
-
-  def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analysisBoard.nvui"))
+  def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analyse.nvui"))
   def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui"))
   def roundNvuiTag(using ctx: PageContext)   = ctx.blind.option(jsModule("round.nvui"))
-  def infiniteScrollTag(using PageContext)   = jsModuleInit("infiniteScroll")
-  def captchaTag                             = jsModule("captcha")
+  def infiniteScrollTag(using PageContext)   = jsModuleInit("pagelets.infiniteScroll")
+  def captchaTag                             = jsModule("pagelets.captcha")
   def cashTag                                = iifeModule("javascripts/vendor/cash.min.js")
   def fingerprintTag                         = iifeModule("javascripts/fipr.js")
   def chessgroundTag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))

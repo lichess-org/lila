@@ -13,7 +13,7 @@ object games:
     views.html.base.layout(
       title = s"${channel.name} • ${trans.site.currentGames.txt()}",
       moreCss = cssTag("tv.games"),
-      moreJs = jsModule("tvGames")
+      moreJs = jsModule("pagelets.tvGames")
     ) {
       main(
         cls     := "page-menu tv-games",

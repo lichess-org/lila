@@ -18,7 +18,7 @@ object topic:
       title = "New forum topic",
       moreCss = cssTag("forum"),
       moreJs = frag(
-        jsModule("forum"),
+        jsModule("pagelets.forum"),
         captchaTag
       )
     ):
@@ -80,9 +80,9 @@ object topic:
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       moreJs = frag(
-        jsModule("forum"),
+        jsModule("pagelets.forum"),
         formWithCaptcha.isDefined.option(captchaTag),
-        jsModule("expandText")
+        jsModule("pagelets.expandText")
       ),
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
@@ -214,7 +214,7 @@ object topic:
       title = "Diagnostic report",
       moreCss = cssTag("forum"),
       moreJs = frag(
-        jsModule("forum"),
+        jsModule("pagelets.forum"),
         captchaTag
       )
     ):

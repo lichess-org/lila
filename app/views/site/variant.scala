@@ -53,7 +53,7 @@ object variant:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("variant"),
-      moreJs = jsModule("expandText"),
+      moreJs = jsModule("pagelets.expandText"),
       openGraph = openGraph
     ):
       main(cls := "page-menu")(

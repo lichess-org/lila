@@ -15,7 +15,7 @@ object signup:
     views.html.base.layout(
       title = trans.site.signUp.txt(),
       moreJs = frag(
-        jsModuleInit("login", "signup"),
+        jsModuleInit("pagelets.login", "signup"),
         views.html.base.hcaptcha.script(form),
         fingerprintTag
       ),
