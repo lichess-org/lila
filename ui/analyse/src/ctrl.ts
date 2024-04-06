@@ -979,6 +979,10 @@ export default class AnalyseCtrl {
   };
 
   auxUpdate = (fen: string) => {
+    // if controller and chessground board state differ, ignore this update. once the chessground
+    // state is updated to match, auxUpdate will be called again.
+    if (!fen.startsWith(this.chessground?.getFen())) return;
+
     this.keyboardMove?.update({ fen, canMove: true });
   };
 }
