@@ -21,7 +21,7 @@ object show:
       title = s.name.value,
       moreCss = frag(
         cssTag("analyse.study"),
-        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
+        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove"))
       ),
       moreJs = analyseNvuiTag,
       pageModule = PageModule(
