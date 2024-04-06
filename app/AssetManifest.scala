@@ -9,19 +9,16 @@ case class AssetMaps(js: Map[String, SplitAsset], css: Map[String, String])
 
 final class AssetManifest(environment: Environment):
 
+  private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty)
+  private val keyRe           = """^(?!chunk\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
+
   def refresh: Unit =
     maps = makeMaps
-    forClient = makeClientJson
 
   def js(key: String): Option[SplitAsset] = maps.js.get(key)
   def css(key: String): Option[String]    = maps.css.get(key)
-  def clientJson                          = forClient
 
   refresh
-
-  private var forClient: JsObject = Json.obj()
-  private var maps: AssetMaps     = AssetMaps(Map.empty, Map.empty)
-  private val keyRe               = """^(?!chunk\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
 
   private def key(fullName: String): String =
     fullName match
@@ -69,11 +66,6 @@ final class AssetManifest(environment: Environment):
             .toMap
         )
       }
-
-  private def makeClientJson = Json.obj(
-    "js"  -> JsObject(maps.js.map { case (key, asset) => key -> JsString(asset.name) }),
-    "css" -> JsObject(maps.css.map { case (key, name) => key -> JsString(name) })
-  )
 
 object AssetManifest:
   def apply(environment: Environment): AssetManifest =

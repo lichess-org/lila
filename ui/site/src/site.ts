@@ -24,20 +24,11 @@ import watchers from './watchers';
 import { Chessground } from 'chessground';
 import { domDialog, ready, snabDialog } from './dialog';
 
-declare const __debug__: boolean;
-declare const __info__: {
-  date: string;
-  commit: string;
-  message: string;
-};
-
 // window.site.{load, quantity, i18n} are initialized in layout.scala embedded script tags
 
 window.$as = <T>(cashOrHtml: Cash | string) =>
   (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 const s = window.site;
-s.debug = __debug__;
-s.info = __info__;
 s.StrongSocket = StrongSocket;
 s.mousetrap = new Mousetrap(document);
 s.requestIdleCallback = requestIdleCallback;

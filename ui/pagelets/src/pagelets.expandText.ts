@@ -153,5 +153,5 @@ site.load.then(() => {
 
   as.filter(a => a.type === 'twitter').forEach(expandTwitter);
 
-  if ($('.lpv--autostart').length) site.asset.loadEsm('lpv');
+  if ($('.lpv--autostart').length) site.asset.loadEsm('pagelets.lpv');
 });

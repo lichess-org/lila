@@ -35,7 +35,7 @@ trait AssetHelper extends HasEnv:
   def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def cssTag(key: String)(using ctx: Context): Frag =
-    link(href := staticAssetUrl(s"css/${env.manifest.css(key)}"), rel := "stylesheet")
+    link(href := staticAssetUrl(s"css/${env.manifest.css(key).getOrElse(key)}"), rel := "stylesheet")
 
   def jsonScript(json: JsValue | SafeJsonStr, id: String = "page-init-data") =
     script(tpe := "application/json", st.id := id):

@@ -130,7 +130,7 @@ export function boot() {
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
-    if (showDebug) site.asset.loadEsm('diagnosticDialog');
+    if (showDebug) site.asset.loadEsm('pagelets.diagnosticDialog');
 
     const pageAnnounce = document.body.getAttribute('data-announce');
     if (pageAnnounce) announce(JSON.parse(pageAnnounce));

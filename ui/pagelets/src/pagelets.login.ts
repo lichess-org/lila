@@ -108,5 +108,5 @@ function signupStart() {
     else return false;
   });
 
-  site.asset.loadEsm('passwordComplexity', { init: 'form3-password' });
+  site.asset.loadEsm('pagelets.passwordComplexity', { init: 'form3-password' });
 }

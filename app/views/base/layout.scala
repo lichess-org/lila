@@ -191,7 +191,7 @@ object layout:
     frag(
       ctx.needsFp.option(fingerprintTag),
       ctx.nonce.map(inlineJs.apply),
-      frag(cashTag, jsModule("site")),
+      frag(cashTag, jsModule("manifest"), jsModule("site")),
       moreJs,
       ctx.data.inquiry.isDefined.option(jsModule("mod.inquiry")),
       (!netConfig.isProd).option(jsModule("site.devMode"))
@@ -511,6 +511,7 @@ object layout:
         _ =>
           val qty  = lila.i18n.JsQuantity(t.lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
-          s"""site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
+          """window.site??={};site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
+            s"window.site.quantity=$qty;window.site.siteI18n=$i18n;"
       )
   end inlineJs
