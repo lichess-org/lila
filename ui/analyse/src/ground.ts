@@ -16,7 +16,12 @@ export const render = (ctrl: AnalyseCtrl): VNode =>
         if (ctrl.data.pref.keyboardMove) {
           ctrl.keyboardMove ??= makeKeyboardMove({
             ...ctrl,
-            data: { ...ctrl.data, crazyhouse: ctrl.node.crazy },
+            data: {
+              ...ctrl.data,
+              // TODO: improve this disgraceful shoehorning
+              player: ctrl.chessground.state.movable as { color: Color },
+              crazyhouse: ctrl.node.crazy,
+            },
             flipNow: ctrl.flip,
           });
           ctrl.keyboardMove.update({
