@@ -688,7 +688,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bạn giỏi hơn %1$s người chơi %2$s.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s giỏi hơn %2$s người chơi %3$s.</string>
   <string name="betterThanPercentPlayers">Bạn giỏi hơn %1$s người chơi %2$s</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có hệ số %s đã thiết lập.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Bạn chưa có hệ số %s được thiết lập.</string>
   <string name="yourRating">Hệ số của bạn</string>
   <string name="cumulative">Giỏi hơn so với còn lại</string>
   <string name="glicko2Rating">Hệ số Glicko-2</string>
