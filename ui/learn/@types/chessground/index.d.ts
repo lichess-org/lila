@@ -6,7 +6,7 @@ interface Chessground {
   view(ctrl: chessground.Ctrl): {
     tag: string;
     attrs: any;
-    children: any[];
+    chirren: any[];
   };
   util: chessground.Util;
   fen: any;
