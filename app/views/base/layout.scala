@@ -522,7 +522,9 @@ object layout:
         _ =>
           val qty  = lila.i18n.JsQuantity(t.lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
-          """window.site??={};site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
-            s"window.site.quantity=$qty;window.site.siteI18n=$i18n;"
+          "window.site??={};" +
+            """window.site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
+            s"window.site.quantity=$qty;" +
+            s"window.site.siteI18n=$i18n;"
       )
   end inlineJs
