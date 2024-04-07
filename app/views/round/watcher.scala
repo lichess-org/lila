@@ -35,7 +35,7 @@ object watcher:
     bits.layout(
       variant = pov.game.variant,
       title = s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator",
-      modules = roundNvuiTag.toList,
+      modules = roundNvuiTag,
       pageModule = PageModule(
         "round",
         Json.obj(
