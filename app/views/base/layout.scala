@@ -189,10 +189,10 @@ object layout:
 
   // consolidate script packaging here to dedup chunk dependencies
   private def loadScripts(modules: EsmList)(using ctx: PageContext) =
-    val esms = "site" :: modules.map(_.key).toList ++ ctx.data.inquiry.isDefined
-      .option("mod.inquiry")
-      .toList ++
-      (!netConfig.isProd).option("site.devMode").toList
+    val esms = "site"
+      :: modules.map(_.key).toList
+      ++ ctx.data.inquiry.isDefined.thenList("mod.inquiry")
+      ++ (!netConfig.isProd).thenList("site.devMode")
     frag(
       jsTag("manifest"),
       ctx.needsFp.option(fingerprintTag),
