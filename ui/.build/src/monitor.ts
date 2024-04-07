@@ -11,7 +11,7 @@ const watchers: fs.FSWatcher[] = [];
 let reinitTimeout: NodeJS.Timeout | undefined;
 let tscTimeout: NodeJS.Timeout | undefined;
 
-export function stopTickling() {
+export function stopMonitor() {
   for (const w of watchers) w.close();
   watchers.length = 0;
   clearTimeout(tscTimeout);
@@ -19,7 +19,7 @@ export function stopTickling() {
   reinitTimeout = undefined;
 }
 
-export async function startTickling(mods: string[]) {
+export async function startMonitor(mods: string[]) {
   if (!env.watch) return;
   const typePkgs = await globArray('*/package.json', { cwd: env.typesDir, abs: true });
   const typings = await globArray('*/*.d.ts', { cwd: env.typesDir, abs: true });

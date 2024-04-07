@@ -6,7 +6,7 @@ import { tsc, stopTsc } from './tsc';
 import { sass, stopSass } from './sass';
 import { esbuild, stopEsbuild } from './esbuild';
 import { copies, stopCopies } from './copies';
-import { startTickling, stopTickling } from './tickler';
+import { startMonitor, stopMonitor } from './monitor';
 import { clean } from './clean';
 import { LichessModule, env, errorMark, colors as c } from './main';
 
@@ -40,11 +40,11 @@ export async function build(mods: string[]) {
   await tsc();
   await copies();
   await esbuild();
-  startTickling(mods);
+  startMonitor(mods);
 }
 
 export async function stop() {
-  stopTickling();
+  stopMonitor();
   stopSass();
   stopTsc();
   stopCopies();

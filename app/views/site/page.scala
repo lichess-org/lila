@@ -225,11 +225,13 @@ $('#asset-version-message').text(site.info.message);"""
       active: String,
       contentCls: String = "",
       moreCss: Frag = emptyFrag,
-      moreJs: Frag = emptyFrag
+      moreJs: Frag = emptyFrag,
+      esModules: Seq[EsmInit] = Nil
   )(body: Frag)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = moreCss,
+      esModules = esModules,
       moreJs = moreJs
     ):
       val sep                  = div(cls := "sep")

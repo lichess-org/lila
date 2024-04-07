@@ -5,6 +5,7 @@ import * as path from 'node:path';
 import clr from 'tinycolor2';
 import { env, colors as c, lines, errorMark } from './main';
 import { globArray } from './parse';
+import { css as cssManifest } from './manifest';
 
 type ColorMix = { c1: string; c2?: string; op: string; val: number };
 const colorMixMap = new Map<string, ColorMix>(); // ('bg--fade-10', {c1: 'bg', op: 'fade', val: 10})
@@ -119,6 +120,7 @@ async function buildColorMixes() {
   for (const theme of themeColorMap.keys()) {
     const colorMap = themeColorMap.get(theme)!;
     out.write(`@mixin ${theme}-mix {\n`);
+    const colors: string[] = [];
     for (const [colorMix, mix] of colorMixMap) {
       const c1 = colorMap.get(mix.c1)?.clone() ?? new clr(mix.c1);
       const c2 = (mix.c2 ? colorMap.get(mix.c2) : undefined) ?? new clr(mix.c2);
@@ -132,10 +134,10 @@ async function buildColorMixes() {
           : mix.op === 'fade'
           ? c1.setAlpha(c1.getAlpha() * (1 - clamp(mix.val / 100, { min: 0, max: 1 })))
           : undefined;
-      if (mixed) out.write(`  --c_${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};\n`);
+      if (mixed) colors.push(`  --c_${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};`);
       else env.log(`${errorMark} - invalid mix op: '${c.magenta(colorMix)}'`, { ctx: 'sass' });
     }
-    out.write('}\n\n');
+    out.write(colors.sort().join('\n') + '\n}\n\n');
   }
   out.end();
 }
@@ -193,7 +195,10 @@ function compile(sources: string[], tellTheWorld = true) {
     for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
   });
   sassPs.stderr?.on('data', (buf: Buffer) => sassError(buf.toString('utf8')));
-  sassPs.on('close', (code: number) => env.done(code, 'sass'));
+  sassPs.on('close', (code: number) => {
+    if (code === 0) cssManifest();
+    env.done(code, 'sass');
+  });
 }
 
 function parseColor(colorMix: string) {

@@ -28,7 +28,7 @@ object show:
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
       title = fullName(s, team),
-      moreJs = frag(hasScheduleInput.option(jsModule("pagelets.flatpickr"))),
+      esModules = hasScheduleInput.option(jsModule("pagelets.flatpickr")).toList,
       pageModule = PageModule(
         "swiss",
         Json

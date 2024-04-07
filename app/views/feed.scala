@@ -16,11 +16,9 @@ object feed:
       title = title,
       active = "news",
       moreCss = cssTag("dailyFeed"),
-      moreJs = frag(
-        infiniteScrollTag,
-        edit.option(jsModule("pagelets.flatpickr")),
-        edit.option(jsModule("pagelets.dailyFeed"))
-      )
+      esModules = infiniteScrollTag :: (if edit then
+                                          List(jsModule("pagelets.flatpickr"), jsModule("pagelets.dailyFeed"))
+                                        else Nil)
     )
 
   def index(ups: Paginator[Update])(using PageContext) =

@@ -13,6 +13,7 @@ object bits:
       pageModule: PageModule,
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
+      esModules: List[EsmInit] = Nil,
       openGraph: Option[lila.app.ui.OpenGraph] = None
   )(body: Frag)(using PageContext): Frag =
     views.html.base.layout(
@@ -29,4 +30,4 @@ object bits:
   def csp(using PageContext) = analysisCsp.withPeer.withInlineIconFont.withChessDbCn.some
 
   def analyseModule(mode: String, json: JsObject)(using ctx: PageContext) =
-    PageModule("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
+    PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))

@@ -2,6 +2,7 @@ package lila.app
 package templating
 import play.api.libs.json.{ JsValue, Json, Writes }
 
+import lila.api.Nonce
 import lila.app.ui.ScalatagsTemplate.*
 import lila.core.AssetVersion
 import lila.common.String.html.safeJsonValue
@@ -10,6 +11,7 @@ trait AssetHelper extends HasEnv:
   self: I18nHelper & SecurityHelper =>
 
   case class PageModule(name: String, data: JsValue | SafeJsonStr)
+  case class EsmInit(key: String, init: Frag)
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -47,41 +49,28 @@ trait AssetHelper extends HasEnv:
   // load iife scripts in <head> and defer
   def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
-  private val loadEsmFunction = "site.asset.loadEsm"
+  private val load = "site.asset.loadEsm"
 
-  def jsModuleName(key: String): String =
-    env.manifest
-      .js(key)
-      .fold(key): asset =>
-        asset.name
-
-  def jsModuleDeps(key: String): Frag =
-    env.manifest
-      .js(key)
-      .fold(emptyFrag): asset =>
-        asset.imports.map: dep =>
-          script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
-
-  def jsModule(key: String): Frag =
-    frag(
-      script(tpe := "module", src := staticAssetUrl(s"compiled/${jsModuleName(key)}")),
-      jsModuleDeps(key)
-    )
-  def jsModuleInit(key: String)(using PageContext): Frag =
-    frag(jsModule(key), embedJsUnsafeLoadThen(s"$loadEsmFunction('${jsModuleName(key)}')"))
-  def jsModuleInit(key: String, json: SafeJsonStr)(using PageContext): Frag =
-    frag(jsModule(key), embedJsUnsafeLoadThen(s"$loadEsmFunction('${jsModuleName(key)}',{init:$json})"))
-  def jsModuleInit[A: Writes](key: String, value: A)(using PageContext): Frag =
+  def jsName(key: String): String =
+    env.manifest.js(key).fold(key)(_.name)
+  def jsDeps(keys: List[String]): Frag = frag:
+    env.manifest.deps(keys).map { dep => script(tpe := "module", src := staticAssetUrl(s"compiled/$dep")) }
+  def jsTag(key: String): Frag =
+    script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
+  def jsModule(key: String): EsmInit =
+    EsmInit(key, emptyFrag)
+  def jsModuleInit(key: String)(using PageContext): EsmInit =
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}')"))
+  def jsModuleInit(key: String, json: SafeJsonStr)(using PageContext): EsmInit =
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}',{init:$json})"))
+  def jsModuleInit[A: Writes](key: String, value: A)(using PageContext): EsmInit =
     jsModuleInit(key, safeJsonValue(Json.toJson(value)))
-  def jsModuleInit(key: String, text: SafeJsonStr, nonce: lila.api.Nonce): Frag =
-    frag(
-      jsModule(key),
-      embedJsUnsafeLoadThen(s"$loadEsmFunction('${jsModuleName(key)}',{init:$text})", nonce)
-    )
-  def jsModuleInit(key: String, json: JsValue, nonce: lila.api.Nonce): Frag =
+  def jsModuleInit(key: String, text: SafeJsonStr, nonce: Nonce): EsmInit =
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}',{init:$text})", nonce))
+  def jsModuleInit(key: String, json: JsValue, nonce: Nonce): EsmInit =
     jsModuleInit(key, safeJsonValue(json), nonce)
-  def jsPageModule(key: String)(using PageContext) =
-    frag(jsModule(key), embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${jsModuleName(key)}')"))
+  def jsPageModule(key: String)(using PageContext): EsmInit =
+    EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${jsName(key)}')"))
 
   def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analyse.nvui"))
   def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui"))
@@ -120,7 +109,7 @@ trait AssetHelper extends HasEnv:
       s""" nonce="$nonce""""
     s"""<script$nonce>$js</script>"""
 
-  def embedJsUnsafe(js: String, nonce: lila.api.Nonce): Frag = raw:
+  def embedJsUnsafe(js: String, nonce: Nonce): Frag = raw:
     s"""<script nonce="$nonce">$js</script>"""
 
   private val onLoadFunction = "site.load.then"
@@ -128,5 +117,5 @@ trait AssetHelper extends HasEnv:
   def embedJsUnsafeLoadThen(js: String)(using PageContext): Frag =
     embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""")
 
-  def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =
+  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
     embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""", nonce)

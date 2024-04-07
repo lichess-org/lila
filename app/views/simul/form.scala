@@ -15,7 +15,7 @@ object form:
     views.html.base.layout(
       title = trans.site.hostANewSimul.txt(),
       moreCss = cssTag("simul.form"),
-      moreJs = jsModule("pagelets.flatpickr")
+      esModules = List(jsModule("pagelets.flatpickr"))
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(cls := "box__top")(trans.site.hostANewSimul()),
@@ -37,7 +37,7 @@ object form:
     views.html.base.layout(
       title = s"Edit ${simul.fullName}",
       moreCss = cssTag("simul.form"),
-      moreJs = jsModule("pagelets.flatpickr")
+      esModules = List(jsModule("pagelets.flatpickr"))
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(cls := "box__top")("Edit ", simul.fullName),

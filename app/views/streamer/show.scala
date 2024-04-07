@@ -21,7 +21,7 @@ object show:
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
-      moreJs = jsModule("pagelets.streamer"),
+      esModules = List(jsModule("pagelets.streamer")),
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${s.titleName} streams chess",

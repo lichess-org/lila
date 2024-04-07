@@ -23,9 +23,9 @@ object indexStripe:
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
+      esModules = List(jsModule("pagelets.plan")),
       moreJs = frag(
         index.stripeScript,
-        jsModule("pagelets.plan"),
         embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")""")
       ),
       csp = defaultCsp.withStripe.some

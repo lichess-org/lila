@@ -45,12 +45,12 @@ object index:
               namespaceAttr := "paypalSubscription"
             )
           ),
-          jsModule("pagelets.checkout"),
           embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
               lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
             )})""")
         )
       ),
+      esModules = List(jsModule("pagelets.checkout")),
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),

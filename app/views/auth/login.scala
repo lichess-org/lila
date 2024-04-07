@@ -14,7 +14,7 @@ object login:
   def apply(form: Form[?], referrer: Option[String])(using PageContext) =
     views.html.base.layout(
       title = trans.site.signIn.txt(),
-      moreJs = jsModuleInit("pagelets.login", "login"),
+      esModules = List(jsModuleInit("pagelets.login", "login")),
       moreCss = cssTag("auth"),
       withHrefLangs = lila.core.LangPath(routes.Auth.login).some
     ) {

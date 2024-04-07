@@ -18,7 +18,7 @@ object index:
     import commons.*
     views.html.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),
-      moreJs = frag(
+      esModules = List(
         jsModule("pagelets.gameSearch"),
         infiniteScrollTag
       ),

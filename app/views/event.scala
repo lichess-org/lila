@@ -48,7 +48,7 @@ object event:
     views.html.base.layout(
       title = e.title,
       moreCss = cssTag("event"),
-      moreJs = jsModule("pagelets.eventCountdown")
+      esModules = List(jsModule("pagelets.eventCountdown"))
     ):
       main(cls := "page-small event box box-pad")(
         boxTop(
@@ -205,7 +205,7 @@ object event:
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
-      moreJs = jsModule("pagelets.flatpickr")
+      esModules = List(jsModule("pagelets.flatpickr"))
     ):
       main(cls := "page-menu")(
         mod.menu("event"),

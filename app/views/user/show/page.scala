@@ -29,7 +29,7 @@ object page:
         )
         .some,
       pageModule = pageModule(info),
-      moreJs = moreJs(info),
+      esModules = esModules(info),
       moreCss = frag(
         cssTag("user.show"),
         isGranted(_.UserModView).option(cssTag("mod.user"))
@@ -58,7 +58,7 @@ object page:
     views.html.base.layout(
       title = s"${u.username} $filterName$pageName",
       pageModule = pageModule(info),
-      moreJs = moreJs(info, filters.current.name == "search"),
+      esModules = esModules(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
         (filters.current.name == "search").option(cssTag("user.show.search")),
@@ -75,14 +75,11 @@ object page:
       )
     }
 
-  private def moreJs(info: UserInfo, withSearch: Boolean = false)(using PageContext) =
+  private def esModules(info: UserInfo, withSearch: Boolean = false)(using PageContext) =
     import play.api.libs.json.Json
-    frag(
-      infiniteScrollTag,
-      jsModuleInit("pagelets.user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
-      withSearch.option(jsModule("pagelets.gameSearch")),
-      isGranted(_.UserModView).option(jsModule("mod.user"))
-    )
+    infiniteScrollTag :: jsModuleInit("pagelets.user", Json.obj("i18n" -> i18nJsObject(i18nKeys))) ::
+      withSearch.option(jsModule("pagelets.gameSearch")).toList ++
+      isGranted(_.UserModView).option(jsModule("mod.user")).toList
 
   private def pageModule(info: UserInfo)(using PageContext) =
     info.ratingChart.map: rc =>

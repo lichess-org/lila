@@ -12,7 +12,7 @@ object passwd:
     account.layout(
       title = trans.site.changePassword.txt(),
       active = "password",
-      evenMoreJs = jsModuleInit("pagelets.passwordComplexity")
+      esModules = List(jsModuleInit("pagelets.passwordComplexity"))
     ):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.changePassword()),

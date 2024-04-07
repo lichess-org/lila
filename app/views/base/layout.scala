@@ -187,14 +187,19 @@ object layout:
       style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  private def loadScripts(moreJs: Frag)(using ctx: PageContext) =
+  private def loadScripts(esModules: Seq[EsmInit])(using ctx: PageContext) =
+    val esms =
+      "manifest" :: "site" :: esModules.map(_.key).toList ++ ctx.data.inquiry.isDefined
+        .option("mod.inquiry")
+        .toList ++
+        (!netConfig.isProd).option("site.devMode").toList
     frag(
       ctx.needsFp.option(fingerprintTag),
       ctx.nonce.map(inlineJs.apply),
-      frag(cashTag, jsModule("manifest"), jsModule("site")),
-      moreJs,
-      ctx.data.inquiry.isDefined.option(jsModule("mod.inquiry")),
-      (!netConfig.isProd).option(jsModule("site.devMode"))
+      cashTag,
+      esms.map(jsTag),
+      env.manifest.deps(esms).map(jsTag),
+      esModules.map(_.init)
     )
 
   private def hrefLang(langStr: String, path: String) =
@@ -251,6 +256,7 @@ object layout:
       fullTitle: Option[String] = None,
       robots: Boolean = netConfig.crawlable,
       moreCss: Frag = emptyFrag,
+      esModules: Seq[EsmInit] = Nil,
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
@@ -382,9 +388,9 @@ object layout:
             )
           ),
           spinnerMask,
-          loadScripts(moreJs),
-          pageModule.map: mod =>
-            frag(jsonScript(mod.data), jsPageModule(mod.name))
+          loadScripts(esModules ++ pageModule.map(mod => jsPageModule(mod.name)).toList),
+          moreJs,
+          pageModule.map { mod => frag(jsonScript(mod.data)) }
         )
       )
     )
