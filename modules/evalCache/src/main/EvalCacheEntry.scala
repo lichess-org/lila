@@ -1,6 +1,8 @@
 package lila.evalCache
 
-import chess.variant.Variant
+import chess.format.{ BinaryFen, Fen }
+import chess.{ FullMoveNumber, HalfMoveClock, Situation }
+import chess.variant.{ Chess960, FromPosition, Standard, Variant }
 
 import lila.tree.CloudEval
 import lila.core.chess.MultiPv
@@ -23,4 +25,8 @@ case class EvalCacheEntry(
 
 object EvalCacheEntry:
 
-  case class Id(variant: Variant, smallFen: SmallFen)
+  case class Id(position: BinaryFen)
+
+  object Id:
+    def from(variant: Variant, fen: Fen.Full): Option[Id] =
+      Fen.read(variant, fen).map(sit => Id(BinaryFen.writeNormalized(sit)))
