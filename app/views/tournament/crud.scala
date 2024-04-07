@@ -15,7 +15,7 @@ object crud:
 
   private def layout(
       title: String,
-      esModules: List[EsmInit] = Nil,
+      modules: EsmInit | EsmList = Nil,
       evenMoreJs: Frag = emptyFrag,
       css: String = "mod.misc"
   )(
@@ -24,7 +24,10 @@ object crud:
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
-      esModules = List(jsModule("pagelets.flatpick")) ++ esModules,
+      modules = jsModule("bits.flatpick") :: (modules match
+        case one: EsmInit  => List(one)
+        case list: EsmList => list
+      ),
       moreJs = evenMoreJs
     ) {
       main(cls := "page-menu")(
@@ -113,7 +116,7 @@ object crud:
   def index(tours: Paginator[Tournament])(using PageContext) =
     layout(
       title = "Tournament manager",
-      esModules = List(infiniteScrollTag)
+      modules = infiniteScrollTag
     ) {
       div(cls := "crud page-menu__content box")(
         boxTop(

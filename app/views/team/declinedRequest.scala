@@ -17,7 +17,7 @@ object declinedRequest:
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team")),
-      esModules = List(jsModule("mod.team.admin"))
+      modules = jsModule("mod.team.admin")
     ) {
       val pager = views.html.base.bits
         .paginationByQuery(teamRoutes.declinedRequests(team.id, 1), requests, showPost = true)

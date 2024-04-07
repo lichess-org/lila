@@ -19,7 +19,7 @@ object history:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     )(
       main(cls := "page-menu")(
         bits.pageMenu("history", user.some),

@@ -14,5 +14,5 @@ object bits:
         cssTag("appeal"),
         isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
-      esModules = jsModule("mod.appeal") :: isGranted(_.UserModView).option(jsModule("mod.user")).toList
+      modules = jsModule("mod.appeal") :: isGranted(_.UserModView).thenList(jsModule("mod.user"))
     )(body)

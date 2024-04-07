@@ -19,7 +19,7 @@ object bits:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("clas"),
-      esModules = List(jsModule("pagelets.clas")),
+      modules = jsModule("bits.clas"),
       moreJs = moreJs,
       csp = csp
     )(

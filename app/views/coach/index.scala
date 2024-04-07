@@ -26,7 +26,7 @@ object index:
     views.html.base.layout(
       title = lichessCoaches.txt(),
       moreCss = cssTag("coach"),
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       withHrefLangs = LangPath(routes.Coach.all(1)).some
     ):
       val langSelections = ("all", "All languages") :: lila.i18n.LangPicker

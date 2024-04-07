@@ -50,7 +50,7 @@ object index:
             )})""")
         )
       ),
-      esModules = List(jsModule("pagelets.checkout")),
+      modules = jsModule("bits.checkout"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = becomePatron.txt(),

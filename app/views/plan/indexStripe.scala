@@ -23,7 +23,7 @@ object indexStripe:
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
-      esModules = List(jsModule("pagelets.plan")),
+      modules = jsModule("bits.plan"),
       moreJs = frag(
         index.stripeScript,
         embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")""")

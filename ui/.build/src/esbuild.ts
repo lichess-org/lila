@@ -36,9 +36,9 @@ export async function esbuild(): Promise<void> {
     logLevel: 'silent',
     sourcemap: !env.prod,
     minify: env.prod,
-    outdir: env.outDir,
-    entryNames: 'compiled/[name].[hash]',
-    chunkNames: 'compiled/[name].[hash]',
+    outdir: env.jsDir,
+    entryNames: '[name].[hash]',
+    chunkNames: 'common.[hash]',
     plugins: [onEndPlugin],
   });
   if (env.watch) {

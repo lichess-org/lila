@@ -77,7 +77,7 @@ object categ:
     views.html.base.layout(
       title = categ.name,
       moreCss = cssTag("forum"),
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       csp = defaultCsp.withInlineIconFont.some,
       openGraph = lila.app.ui
         .OpenGraph(

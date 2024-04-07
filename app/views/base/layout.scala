@@ -187,19 +187,20 @@ object layout:
       style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  private def loadScripts(esModules: Seq[EsmInit])(using ctx: PageContext) =
-    val esms =
-      "manifest" :: "site" :: esModules.map(_.key).toList ++ ctx.data.inquiry.isDefined
-        .option("mod.inquiry")
-        .toList ++
-        (!netConfig.isProd).option("site.devMode").toList
+  // consolidate script packaging here to dedup chunk dependencies
+  private def loadScripts(modules: EsmList)(using ctx: PageContext) =
+    val esms = "site" :: modules.map(_.key).toList ++ ctx.data.inquiry.isDefined
+      .option("mod.inquiry")
+      .toList ++
+      (!netConfig.isProd).option("site.devMode").toList
     frag(
+      jsTag("manifest"),
       ctx.needsFp.option(fingerprintTag),
       ctx.nonce.map(inlineJs.apply),
       cashTag,
       esms.map(jsTag),
       env.manifest.deps(esms).map(jsTag),
-      esModules.map(_.init)
+      modules.map(_.init)
     )
 
   private def hrefLang(langStr: String, path: String) =
@@ -256,7 +257,7 @@ object layout:
       fullTitle: Option[String] = None,
       robots: Boolean = netConfig.crawlable,
       moreCss: Frag = emptyFrag,
-      esModules: Seq[EsmInit] = Nil,
+      modules: EsmInit | EsmList = Nil,
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
@@ -269,6 +270,7 @@ object layout:
       withHrefLangs: Option[LangPath] = None
   )(body: Frag)(using ctx: PageContext): Frag =
     import ctx.pref
+    updateManifest
     frag(
       doctype,
       htmlTag(
@@ -314,7 +316,11 @@ object layout:
           piecesPreload,
           manifests,
           jsLicense,
-          withHrefLangs.map(hrefLangs)
+          withHrefLangs.map(hrefLangs),
+          loadScripts(modules match
+            case one: EsmInit  => List(one)
+            case list: EsmList => list
+            ++ pageModule.map(mod => jsPageModule(mod.name)).toList)
         ),
         st.body(
           cls := {
@@ -388,7 +394,6 @@ object layout:
             )
           ),
           spinnerMask,
-          loadScripts(esModules ++ pageModule.map(mod => jsPageModule(mod.name)).toList),
           moreJs,
           pageModule.map { mod => frag(jsonScript(mod.data)) }
         )

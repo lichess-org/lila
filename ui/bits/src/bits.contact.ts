@@ -1,4 +1,4 @@
-import contactEmail from './pagelets.contactEmail';
+import contactEmail from './bits.contactEmail';
 
 site.load.then(() => {
   location.hash ||= '#help-root';

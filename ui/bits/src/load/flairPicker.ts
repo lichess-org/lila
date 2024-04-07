@@ -13,7 +13,7 @@ export default function flairPicker(element: HTMLElement) {
     $(e.target).remove();
   });
   $(element).on('toggle', () =>
-    site.asset.loadEsm('pagelets.flairPicker', {
+    site.asset.loadEsm('bits.flairPicker', {
       init: {
         element: element.querySelector('.flair-picker')!,
         close,

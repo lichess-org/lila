@@ -206,7 +206,7 @@ object dgt:
   private def layout(path: String, token: Option[String] = None)(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("dgt"),
-      esModules = List(token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _))),
+      modules = token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)),
       title = playWithDgtBoard.txt(),
       csp = defaultCsp.withAnyWs.some
     ):

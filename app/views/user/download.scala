@@ -12,7 +12,7 @@ object download:
     views.html.base.layout(
       title = s"${user.username} • ${trans.site.exportGames.txt()}",
       moreCss = cssTag("search"),
-      esModules = List(jsModule("pagelets.userGamesDownload"))
+      modules = jsModule("bits.userGamesDownload")
     ) {
       main(cls := "box page-small search")(
         boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),

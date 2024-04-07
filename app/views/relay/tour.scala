@@ -26,7 +26,7 @@ object tour:
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       withHrefLangs = LangPath(routes.RelayTour.index()).some
     ):
       def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
@@ -60,7 +60,7 @@ object tour:
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       main(cls := "relay-index page-menu")(
         pageMenu("index"),
@@ -77,7 +77,7 @@ object tour:
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       main(cls := "relay-index page-menu")(
         pageMenu("by", owner.some),
@@ -94,7 +94,7 @@ object tour:
     views.html.base.layout(
       title = subscribedBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       main(cls := "relay-index page-menu")(
         pageMenu("subscribed"),

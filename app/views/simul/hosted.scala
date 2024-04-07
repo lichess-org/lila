@@ -14,7 +14,7 @@ object hosted:
     views.html.base.layout(
       title = s"${user.username} hosted simuls",
       moreCss = cssTag("user-simul"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       main(cls := "page-small box simul-list")(
         if pager.nbResults == 0 then

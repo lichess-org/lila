@@ -76,7 +76,7 @@ object tourForm:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
-      esModules = List(jsModule("pagelets.relayForm"))
+      modules = jsModule("bits.relayForm")
     )(menu match
       case Some(active) =>
         main(cls := "page page-menu")(

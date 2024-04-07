@@ -20,7 +20,7 @@ object perfStat:
     views.html.base.layout(
       title = s"${user.username} - ${perfStats.txt(perfType.trans)}",
       robots = false,
-      esModules = jsModule("pagelets.user") ::
+      modules = jsModule("bits.user") ::
         ratingChart.map { rc =>
           jsModuleInit(
             "chart.ratingHistory",

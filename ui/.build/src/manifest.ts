@@ -16,20 +16,20 @@ export async function css() {
   const newCssManifest: Manifest = {};
   for (const [name, hash] of css) newCssManifest[name] = { hash };
   if (equivalent(newCssManifest, current.css)) return;
-  current.css = { ...current.css, ...newCssManifest };
+  current.css = shallowSort({ ...current.css, ...newCssManifest });
   clearTimeout(writeTimer);
   writeTimer = setTimeout(write, 500);
 }
 
+const jsPathRe = /\.\.\/\.\.\/public\/compiled\/(.*)\.([A-Z0-9]+)\.js$/;
 export async function js(meta: es.Metafile) {
   const newJsManifest: Manifest = {};
-  for (const [file, info] of Object.entries(meta.outputs)) {
-    const out = parsePath(file);
-    if (!out) continue;
-    let { type, name, hash } = out;
-    if (type !== 'js') continue;
-    if (name === 'chunk') {
-      name = `chunk-${hash}`;
+  for (const [filename, info] of Object.entries(meta.outputs)) {
+    const match = filename.match(jsPathRe);
+    if (!match || !match[1] || !match[2]) continue;
+    let [name, hash] = [match[1], match[2]];
+    if (name === 'common') {
+      name = `common.${hash}`;
       newJsManifest[name] = {};
     } else newJsManifest[name] = { hash };
     const imports: string[] = [];
@@ -42,7 +42,7 @@ export async function js(meta: es.Metafile) {
     newJsManifest[name].imports = imports;
   }
   if (equivalent(newJsManifest, current.js)) return;
-  current.js = { ...current.js, ...newJsManifest };
+  current.js = shallowSort({ ...current.js, ...newJsManifest });
   clearTimeout(writeTimer);
   writeTimer = setTimeout(write, 500);
 }
@@ -58,7 +58,7 @@ async function write() {
     'const m=window.site.manifest={css:{},js:{}};',
   ];
   for (const [name, info] of Object.entries(current.js)) {
-    if (!/chunk\.[A-Z0-9]{8}/.test(name)) clientJs.push(`m.js['${name}']='${info.hash}';`);
+    if (!/common\.[A-Z0-9]{8}/.test(name)) clientJs.push(`m.js['${name}']='${info.hash}';`);
   }
   for (const [name, info] of Object.entries(current.css)) {
     clientJs.push(`m.css['${name}']='${info.hash}';`);
@@ -66,7 +66,7 @@ async function write() {
 
   const clientManifest = clientJs.join('\n');
   const hash = crypto.createHash('sha256').update(clientManifest).digest('hex').slice(0, 8);
-  const serverManifest = { js: { ...current.js, manifest: hash }, css: { ...current.css } };
+  const serverManifest = { js: { manifest: { hash }, ...current.js }, css: { ...current.css } };
 
   await Promise.all([
     fs.promises.writeFile(path.join(env.jsDir, `manifest.${hash}.js`), clientManifest),
@@ -89,21 +89,22 @@ async function hashMove(src: string) {
   return [path.basename(src, '.css'), hash];
 }
 
+function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {
+  // es6 string properties are insertion order, we need more determinism
+  const sorted: { [key: string]: any } = {};
+  for (const key of Object.keys(obj).sort()) sorted[key] = obj[key];
+  return sorted;
+}
+
 function parsePath(path: string) {
-  const matchers = {
-    css: /\.\.\/\.\.\/public\/css\/(.*)\.([A-Z0-9]+)\.css$/,
-    js: /\.\.\/\.\.\/public\/compiled\/(.*)\.([A-Z0-9]+)\.js$/,
-  };
-  for (const [type, re] of Object.entries(matchers)) {
-    const match = path.match(re);
-    if (match) return { type, name: match[1], hash: match[2] };
-  }
-  return undefined;
+  const match = path.match(jsPathRe);
+  return match ? { name: match[1], hash: match[2] } : undefined;
 }
 
 function equivalent(a: any, b: any) {
+  // key order does NOT matter
   if (typeof a !== typeof b) return false;
-  if (Array.isArray(a)) return a.length === b.length && a.every(x => b.includes(x)); // don't care about order
+  if (Array.isArray(a)) return a.length === b.length && a.every(x => b.includes(x));
   if (typeof a !== 'object') return a === b;
   for (const key in a) {
     if (!(key in b) || !equivalent(a[key], b[key])) return false;

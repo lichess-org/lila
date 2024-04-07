@@ -12,14 +12,15 @@ import lila.feed.Feed.Update
 object feed:
 
   private def layout(title: String, edit: Boolean = false)(using PageContext) =
-    views.html.site.page.layout(
-      title = title,
-      active = "news",
-      moreCss = cssTag("dailyFeed"),
-      esModules = infiniteScrollTag :: (if edit then
-                                          List(jsModule("pagelets.flatpickr"), jsModule("pagelets.dailyFeed"))
-                                        else Nil)
-    )
+    views.html.site.page
+      .layout(
+        title = title,
+        active = "news",
+        moreCss = cssTag("dailyFeed"),
+        modules = infiniteScrollTag
+          :: edit.thenList(jsModule("bits.flatpickr"))
+          ++ edit.thenList(jsModule("bits.dailyFeed"))
+      )
 
   def index(ups: Paginator[Update])(using PageContext) =
     layout("Updates"):

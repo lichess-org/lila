@@ -15,7 +15,7 @@ object ofPlayer:
     views.html.base.layout(
       title = user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
       moreCss = cssTag("puzzle.page"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     )(
       main(cls := "page-menu")(
         bits.pageMenu("player", user),

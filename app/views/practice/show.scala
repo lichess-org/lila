@@ -15,7 +15,7 @@ object show:
     views.html.base.layout(
       title = us.practiceStudy.name.value,
       moreCss = cssTag("analyse.practice"),
-      moreJs = analyseNvuiTag,
+      modules = analyseNvuiTag.toList,
       pageModule = PageModule(
         "analysisBoard.study",
         Json.obj(

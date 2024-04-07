@@ -32,7 +32,7 @@ object bits:
   )(content: Modifier*)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("tutor"),
-      esModules = List(jsModule("tutor")),
+      modules = jsModule("tutor"),
       title = title,
       csp = defaultCsp.withInlineIconFont.some
     ):

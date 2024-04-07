@@ -12,7 +12,7 @@ object lag:
       title = "Is Lichess lagging?",
       active = "lag",
       moreCss = cssTag("lag"),
-      esModules = List(jsModuleInit("chart.lag"))
+      modules = jsModuleInit("chart.lag")
     ):
       div(cls := "box box-pad lag")(
         h1(cls := "box__top")(

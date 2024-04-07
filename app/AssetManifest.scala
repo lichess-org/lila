@@ -2,28 +2,35 @@ package lila.app
 
 import play.api.{ Environment, Mode }
 import play.api.libs.json.{ JsObject, Json, JsValue, JsString }
+import java.nio.file.{ Files, Path, Paths }
+import java.time.Instant
 
 case class SplitAsset(name: String, imports: List[String])
 case class AssetMaps(js: Map[String, SplitAsset], css: Map[String, String])
 
 final class AssetManifest(environment: Environment):
 
-  private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty)
-  private val keyRe           = """^(?!chunk\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
-
-  def reload(istream: Option[java.io.InputStream] = None): AssetManifest =
-    istream
-      .orElse(
-        environment
-          .resourceAsStream(s"manifest.${if environment.mode == Mode.Prod then "prod" else "dev"}.json")
-      )
-      .fold(AssetMaps(Map.empty, Map.empty))(readMaps)
-    this
+  private val filename = s"manifest.${if environment.mode == Mode.Prod then "prod" else "dev"}.json"
+  private val pathname = environment.getFile(s"conf/$filename").toPath
+  private var lastModified: Instant = Instant.MIN
+  private var maps: AssetMaps       = AssetMaps(Map.empty, Map.empty)
+  private val keyRe                 = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
 
   def js(key: String): Option[SplitAsset] = maps.js.get(key)
   def css(key: String): Option[String]    = maps.css.get(key)
   def deps(keys: List[String]): List[String] =
     keys.flatMap { key => js(key).fold(List.empty[String])(asset => asset.imports) }.distinct
+
+  def reload(istream: Option[java.io.InputStream] = None): AssetManifest =
+    istream.orElse(updated).fold(maps)(readMaps)
+    this
+
+  private def updated: Option[java.io.InputStream] =
+    val current = Files.getLastModifiedTime(pathname).toInstant
+    if current.isAfter(lastModified) then
+      lastModified = current
+      Some(Files.newInputStream(pathname))
+    else None
 
   private def key(fullName: String): String =
     fullName match

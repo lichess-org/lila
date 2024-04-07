@@ -13,13 +13,14 @@ object bits:
       pageModule: PageModule,
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
-      esModules: List[EsmInit] = Nil,
+      modules: EsmInit | EsmList = Nil,
       openGraph: Option[lila.app.ui.OpenGraph] = None
   )(body: Frag)(using PageContext): Frag =
     views.html.base.layout(
       title = title,
       moreCss = moreCss,
       moreJs = moreJs,
+      modules = modules,
       pageModule = pageModule.some,
       openGraph = openGraph,
       robots = false,

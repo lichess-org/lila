@@ -119,6 +119,69 @@ importers:
         specifier: workspace:*
         version: link:../tree
 
+  ui/bits:
+    dependencies:
+      '@fnando/sparkline':
+        specifier: ^0.3.10
+        version: 0.3.10
+      '@textcomplete/core':
+        specifier: ^0.1.13
+        version: 0.1.13
+      '@textcomplete/textarea':
+        specifier: ^0.1.13
+        version: 0.1.13(@textcomplete/core@0.1.13)
+      '@toast-ui/editor':
+        specifier: 3.1.7
+        version: 3.1.7
+      '@types/debounce-promise':
+        specifier: ^3.1.6
+        version: 3.1.9
+      '@types/fnando__sparkline':
+        specifier: ^0.3.7
+        version: 0.3.7
+      '@types/yaireo__tagify':
+        specifier: 4.17.5
+        version: 4.17.5
+      '@types/zxcvbn':
+        specifier: ^4.4.4
+        version: 4.4.4
+      '@yaireo/tagify':
+        specifier: 4.17.9
+        version: 4.17.9(prop-types@15.8.1)
+      chat:
+        specifier: workspace:*
+        version: link:../chat
+      chess:
+        specifier: workspace:*
+        version: link:../chess
+      common:
+        specifier: workspace:*
+        version: link:../common
+      cropperjs:
+        specifier: ^1.6.1
+        version: 1.6.1
+      debounce-promise:
+        specifier: ^3.1.2
+        version: 3.1.2
+      emoji-mart:
+        specifier: ^5.5.2
+        version: 5.5.2
+      flatpickr:
+        specifier: ^4.6.13
+        version: 4.6.13
+      lichess-pgn-viewer:
+        specifier: ^2.1.0
+        version: 2.1.0
+      prop-types:
+        specifier: ^15.8.1
+        version: 15.8.1
+      tablesort:
+        specifier: ^5.3.0
+        version: 5.3.0
+      zxcvbn:
+        specifier: ^4.4.2
+        version: 4.4.2
+
   ui/board:
     dependencies:
       common:
@@ -448,69 +511,6 @@ importers:
       lichess-pgn-viewer:
         specifier: ^2.1.0
         version: 2.1.0
-
-  ui/pagelets:
-    dependencies:
-      '@fnando/sparkline':
-        specifier: ^0.3.10
-        version: 0.3.10
-      '@textcomplete/core':
-        specifier: ^0.1.13
-        version: 0.1.13
-      '@textcomplete/textarea':
-        specifier: ^0.1.13
-        version: 0.1.13(@textcomplete/core@0.1.13)
-      '@toast-ui/editor':
-        specifier: 3.1.7
-        version: 3.1.7
-      '@types/debounce-promise':
-        specifier: ^3.1.6
-        version: 3.1.9
-      '@types/fnando__sparkline':
-        specifier: ^0.3.7
-        version: 0.3.7
-      '@types/yaireo__tagify':
-        specifier: 4.17.5
-        version: 4.17.5
-      '@types/zxcvbn':
-        specifier: ^4.4.4
-        version: 4.4.4
-      '@yaireo/tagify':
-        specifier: 4.17.9
-        version: 4.17.9(prop-types@15.8.1)
-      chat:
-        specifier: workspace:*
-        version: link:../chat
-      chess:
-        specifier: workspace:*
-        version: link:../chess
-      common:
-        specifier: workspace:*
-        version: link:../common
-      cropperjs:
-        specifier: ^1.6.1
-        version: 1.6.1
-      debounce-promise:
-        specifier: ^3.1.2
-        version: 3.1.2
-      emoji-mart:
-        specifier: ^5.5.2
-        version: 5.5.2
-      flatpickr:
-        specifier: ^4.6.13
-        version: 4.6.13
-      lichess-pgn-viewer:
-        specifier: ^2.1.0
-        version: 2.1.0
-      prop-types:
-        specifier: ^15.8.1
-        version: 15.8.1
-      tablesort:
-        specifier: ^5.3.0
-        version: 5.3.0
-      zxcvbn:
-        specifier: ^4.4.2
-        version: 4.4.2
 
   ui/palantir:
     dependencies:

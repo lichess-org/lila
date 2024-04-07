@@ -15,7 +15,7 @@ object bits:
       u,
       title = s"${u.username} best tournaments",
       path = "best",
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       views.html.userTournament.list(u, "best", pager, "BEST")
 
@@ -24,17 +24,17 @@ object bits:
       u,
       title = s"${u.username} recent tournaments",
       path = "recent",
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
 
-  def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(
+  def layout(u: User, title: String, path: String, modules: EsmInit | EsmList = Nil)(
       body: Frag
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("user-tournament"),
-      moreJs = moreJs
+      modules = modules
     ):
       main(cls := "page-menu")(
         views.html.site.bits.pageMenuSubnav(

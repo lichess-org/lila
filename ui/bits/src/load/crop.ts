@@ -1,6 +1,6 @@
 import { isSafari } from 'common/device';
-import { type CropOpts as Params } from '../pagelets.cropDialog';
-export { type CropOpts } from '../pagelets.cropDialog';
+import { type CropOpts as Params } from '../bits.cropDialog';
+export { type CropOpts } from '../bits.cropDialog';
 
 export function wireCropDialog(args?: {
   aspectRatio: number;
@@ -11,13 +11,13 @@ export function wireCropDialog(args?: {
   onCropped?: (result: Blob | boolean) => void;
 }) {
   if (!args) {
-    site.asset.loadEsm('pagelets.cropDialog'); // preload
+    site.asset.loadEsm('bits.cropDialog'); // preload
     return;
   }
   const cropOpts = { ...args };
   if (!cropOpts.onCropped) cropOpts.onCropped = () => site.reload();
   cropOpts.max = { ...(cropOpts.max || {}), megabytes: 6 }; // mirrors the nginx config `client_max_body_size`
-  cropOpts.selectClicks?.on('click', () => site.asset.loadEsm('pagelets.cropDialog', { init: cropOpts }));
+  cropOpts.selectClicks?.on('click', () => site.asset.loadEsm('bits.cropDialog', { init: cropOpts }));
   cropOpts.selectDrags?.on('dragover', e => e.preventDefault());
   cropOpts.selectDrags?.on('drop', e => {
     e.preventDefault();
@@ -30,7 +30,7 @@ export function wireCropDialog(args?: {
       } else continue;
 
       if (init.source) {
-        site.asset.loadEsm('pagelets.cropDialog', { init });
+        site.asset.loadEsm('bits.cropDialog', { init });
         break;
       }
     }
