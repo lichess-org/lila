@@ -47,9 +47,8 @@ interface CrazyPocket {
 }
 
 export interface RootData {
-  crazyhouse?: { pockets: [CrazyPocket, CrazyPocket] };
   game: { variant: { key: VariantKey } };
-  player: { color: Color };
+  player: { color: Color | 'both' };
   opponent?: { color: Color; user?: { username: string } };
 }
 
@@ -58,6 +57,7 @@ export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   userJumpPlyDelta?: (plyDelta: Ply) => void;
   submitMove?: (v: boolean) => void;
   crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
+  getCrazyhousePockets?: () => [CrazyPocket, CrazyPocket] | undefined;
   data: RootData;
 }
 
@@ -79,14 +79,16 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
   return {
     drop(key, piece) {
       const role = sanToRole[piece];
-      const crazyData = root.data.crazyhouse;
-      const color = root.data.player.color;
+      const crazyhousePockets = root.getCrazyhousePockets?.();
+      const color = root.data.player.color === 'both' ? cg.state.movable.color : root.data.player.color;
+      // Unable to determine what color we are
+      if (!color || color === 'both') return;
       // Crazyhouse not set up properly
       if (!root.crazyValid || !root.sendNewPiece) return;
       // Square occupied
-      if (!role || !crazyData || cg.state.pieces.has(key)) return;
+      if (!role || !crazyhousePockets || cg.state.pieces.has(key)) return;
       // Piece not in Pocket
-      if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
+      if (!crazyhousePockets[color === 'white' ? 0 : 1][role]) return;
       if (!root.crazyValid(role, key)) return;
       cg.cancelMove();
       cg.newPiece({ role, color }, key);

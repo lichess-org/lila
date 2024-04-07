@@ -509,6 +509,8 @@ export default class RoundController implements MoveRootCtrl {
 
   crazyValid = (role: cg.Role, key: cg.Key) => crazyValid(this.data, role, key);
 
+  getCrazyhousePockets = () => this.data.crazyhouse?.pockets;
+
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
       return crazyValid(this.data, drop.role, drop.key);
