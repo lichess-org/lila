@@ -1,10 +1,9 @@
-import { RoundData, Step } from './interfaces';
+import { RoundData, Step, RoundOpts, NvuiPlugin } from './interfaces';
 import { attributesModule, classModule, init } from 'snabbdom';
 import boot from './boot';
 import menuHover from 'common/menuHover';
 import RoundController from './ctrl';
 import { main as view } from './view/main';
-import { RoundOpts, NvuiPlugin } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
