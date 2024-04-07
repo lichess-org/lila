@@ -720,6 +720,8 @@
   <string name="cyclePreviousOrNextVariation">Тренутна/претходна варијација</string>
   <string name="toggleGlyphAnnotations">Анотација потеза</string>
   <string name="togglePositionAnnotations">Анотација позиције</string>
+  <string name="variationArrowsInfo">Стрелице за варијације вам омогућавају да се крећете без коришћења листе за померање.</string>
+  <string name="playSelectedMove">игра изабрани потез</string>
   <string name="newTournament">Нови турнир</string>
   <string name="tournamentHomeTitle">Шаховски турнир који комбинује различита временска ограничења и варијанте</string>
   <string name="tournamentHomeDescription">Играјте брзи турнир у шаху! Придружите се званичном организованом турниру или направите свој. Буллет, Блитз, Цлассицал, Цхесс960, Кинг оф тхе Хилл, Тхреецхецк и друге опције су доступне за неограничену шаховску забаву.</string>
@@ -736,6 +738,7 @@
   <string name="yourPerfTypeRatingIsRating">твоје %1$s рејтинг је %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">ви сте бољи од %1$s од %2$s играча.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s је бољи од %2$s играча %3$s.</string>
+  <string name="betterThanPercentPlayers">Боље од %1$s од %2$s играча</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немате утврђен %s рејтинг.</string>
   <string name="yourRating">Ваш рејтинг</string>
   <string name="cumulative">Кумулативно</string>

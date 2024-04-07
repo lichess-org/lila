@@ -67,5 +67,5 @@ object I18nKey:
 ${objs.map(dbCode).join('\n')}
 `;
 
-  return writeFile(path.resolve(lilaDir, 'modules/hub/src/main/i18n/key.scala'), code);
+  return writeFile(path.resolve(lilaDir, 'modules/core/src/main/i18n/key.scala'), code);
 });
