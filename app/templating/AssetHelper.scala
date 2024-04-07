@@ -27,6 +27,8 @@ trait AssetHelper extends HasEnv:
 
   def assetVersion = AssetVersion.current
 
+  def updateManifest = env.manifest.update
+
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______2"
 
@@ -52,8 +54,6 @@ trait AssetHelper extends HasEnv:
 
   private val load = "site.asset.loadEsm"
 
-  def updateManifest = if !isJar then env.manifest.reload()
-  def isJar = classOf[AssetHelper].getProtectionDomain.getCodeSource.getLocation.getPath.endsWith(".jar")
   def jsName(key: String): String =
     env.manifest.js(key).fold(key)(_.name)
   def jsTag(key: String): Frag =

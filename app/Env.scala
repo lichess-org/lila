@@ -6,7 +6,6 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode, ConfigLoader }
 import play.api.libs.json.*
-import java.io.InputStream
 
 import lila.core.config.*
 import lila.common.config.given

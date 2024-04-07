@@ -21,16 +21,12 @@ final class AssetManifest(environment: Environment):
   def deps(keys: List[String]): List[String] =
     keys.flatMap { key => js(key).fold(List.empty[String])(asset => asset.imports) }.distinct
 
-  def reload(istream: Option[java.io.InputStream] = None): AssetManifest =
-    istream.orElse(updated).fold(maps)(readMaps)
-    this
-
-  private def updated: Option[java.io.InputStream] =
+  def update: AssetManifest =
     val current = Files.getLastModifiedTime(pathname).toInstant
     if current.isAfter(lastModified) then
       lastModified = current
-      Some(Files.newInputStream(pathname))
-    else None
+      maps = readMaps(Files.newInputStream(pathname))
+    this
 
   private def key(fullName: String): String =
     fullName match
@@ -60,7 +56,7 @@ final class AssetManifest(environment: Environment):
         (k, SplitAsset(name, imports))
       }
       .toMap
-    maps = AssetMaps(
+    AssetMaps(
       js.map { case (k, asset) =>
         k -> (if asset.imports.nonEmpty then asset.copy(imports = closure(asset.name, js).distinct)
               else asset)
@@ -77,4 +73,4 @@ final class AssetManifest(environment: Environment):
 
 object AssetManifest:
   def apply(environment: Environment): AssetManifest =
-    new AssetManifest(environment).reload()
+    new AssetManifest(environment).update
