@@ -20,7 +20,7 @@
       @include transition;
     }
 
-    &[href=""] {
+    &[href=''] {
       pointer-events: none;
     }
 
