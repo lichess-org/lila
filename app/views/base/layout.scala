@@ -188,15 +188,13 @@ object layout:
     )
 
   // consolidate script packaging here to dedup chunk dependencies
-  private def loadScripts(modules: EsmList)(using ctx: PageContext) =
+  private def preloadScripts(modules: EsmList)(using ctx: PageContext) =
     val esms = "site"
       :: modules.map(_.key).toList
       ++ ctx.data.inquiry.isDefined.thenList("mod.inquiry")
       ++ (!netConfig.isProd).thenList("site.devMode")
     frag(
       jsTag("manifest"),
-      ctx.needsFp.option(fingerprintTag),
-      ctx.nonce.map(inlineJs.apply),
       cashTag,
       esms.map(jsTag),
       env.manifest.deps(esms).map(jsTag),
@@ -270,7 +268,7 @@ object layout:
       withHrefLangs: Option[LangPath] = None
   )(body: Frag)(using ctx: PageContext): Frag =
     import ctx.pref
-    updateManifest
+    if !netConfig.isProd then updateManifest
     frag(
       doctype,
       htmlTag(
@@ -282,7 +280,6 @@ object layout:
           viewport,
           metaCsp(csp),
           metaThemeColor,
-          systemThemeScript,
           st.headTitle:
             val prodTitle = fullTitle | s"$title • $siteName"
             if netConfig.isProd then prodTitle
@@ -316,11 +313,7 @@ object layout:
           piecesPreload,
           manifests,
           jsLicense,
-          withHrefLangs.map(hrefLangs),
-          loadScripts(modules match
-            case one: EsmInit  => List(one)
-            case list: EsmList => list
-            ++ pageModule.map(mod => jsPageModule(mod.name)).toList)
+          withHrefLangs.map(hrefLangs)
         ),
         st.body(
           cls := {
@@ -394,8 +387,16 @@ object layout:
             )
           ),
           spinnerMask,
-          moreJs,
-          pageModule.map { mod => frag(jsonScript(mod.data)) }
+          div(id := "inline-scripts")(
+            frag(ctx.needsFp.option(fingerprintTag), ctx.nonce.map(inlineJs.apply)),
+            preloadScripts(modules match
+              case one: EsmInit  => List(one)
+              case list: EsmList => list
+              ++ pageModule.map(mod => jsPageModule(mod.name)).toList),
+            systemThemeScript,
+            moreJs,
+            pageModule.map { mod => frag(jsonScript(mod.data)) }
+          )
         )
       )
     )

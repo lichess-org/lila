@@ -48,12 +48,17 @@ export async function js(meta: es.Metafile) {
 }
 
 async function write() {
+  const commitMessage = cps
+    .execSync('git log -1 --pretty=%s', { encoding: 'utf-8' })
+    .trim()
+    .replace(/'/g, '&#39;')
+    .replace(/"/g, '&quot;');
   const clientJs: string[] = [
     'window.site??={};',
     'window.site.info??={};',
     `window.site.info.date='${new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00'}';`,
     `window.site.info.commit='${cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim()}';`,
-    `window.site.info.message='${cps.execSync('git log -1 --pretty=%s', { encoding: 'utf-8' }).trim()}';`,
+    `window.site.info.message='${commitMessage}';`,
     `window.site.debug=${env.debug};`,
     'const m=window.site.manifest={css:{},js:{}};',
   ];

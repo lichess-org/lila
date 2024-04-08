@@ -27,7 +27,7 @@ trait AssetHelper extends HasEnv:
 
   def assetVersion = AssetVersion.current
 
-  def updateManifest = env.manifest.update
+  def updateManifest = if !env.net.isProd then env.manifest.update
 
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______2"
