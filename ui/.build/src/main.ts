@@ -18,7 +18,8 @@ const args = [
   ['--watch', '-w'],
   ['--prod', '-p'],
   ['--debug', '-d'],
-  ['--clean', '-c'],
+  ['--clean-build', '-c'],
+  ['--clean'],
   ['--update'],
   ['--no-install', '-n'],
 ];
@@ -49,7 +50,7 @@ export function main() {
   env.watch = env.rebuild || args.includes('--watch') || oneDashArgs.includes('w');
   env.prod = args.includes('--prod') || oneDashArgs.includes('p');
   env.debug = args.includes('--debug') || oneDashArgs.includes('d');
-  env.clean = args.some(x => x === '--clean') || oneDashArgs.includes('c');
+  env.clean = args.some(x => x === '--clean-build') || oneDashArgs.includes('c');
   env.install = !args.includes('--no-install') && !oneDashArgs.includes('n');
   env.rgb = args.includes('--rgb');
 
@@ -61,7 +62,7 @@ export function main() {
   if (args.length === 1 && (args[0] === '--help' || args[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
   } else if (args.includes('--clean')) {
-    env.log('Cleaning then exiting. Use -c to clean then build');
+    env.log('Cleaning then exiting. Use --clean-build or -c to clean then build');
     clean();
   } else {
     build(args.filter(x => !x.startsWith('-')));
