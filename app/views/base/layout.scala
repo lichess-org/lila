@@ -189,18 +189,20 @@ object layout:
 
   // consolidate script packaging here to dedup chunk dependencies
   private def loadScripts(modules: EsmList)(using ctx: PageContext) =
-    val esms = "site"
-      :: modules.map(_.key).toList
-      ++ ctx.data.inquiry.isDefined.thenList("mod.inquiry")
-      ++ (!netConfig.isProd).thenList("site.devMode")
+    val esmKeys: List[String] = "site" :: {
+      modules.map(_.map(_.key)) ::: List(
+        ctx.data.inquiry.isDefined.option("mod.inquiry"),
+        (!netConfig.isProd).option("site.devMode")
+      )
+    }.flatten
     frag(
       jsTag("manifest"),
       ctx.needsFp.option(fingerprintTag),
       ctx.nonce.map(inlineJs.apply),
       cashTag,
-      esms.map(jsTag),
-      env.manifest.deps(esms).map(jsTag),
-      modules.map(_.init)
+      esmKeys.map(jsTag),
+      env.manifest.deps(esmKeys).map(jsTag),
+      modules.flatMap(_.map(_.init))
     )
 
   private def hrefLang(langStr: String, path: String) =
@@ -318,9 +320,9 @@ object layout:
           jsLicense,
           withHrefLangs.map(hrefLangs),
           loadScripts(modules match
-            case one: EsmInit  => List(one)
-            case list: EsmList => list
-            ++ pageModule.map(mod => jsPageModule(mod.name)).toList)
+            case one: EsmInit  => List(one.some)
+            case list: EsmList => list ::: List(pageModule.map(mod => jsPageModule(mod.name)))
+          )
         ),
         st.body(
           cls := {

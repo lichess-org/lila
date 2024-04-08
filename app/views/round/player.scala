@@ -48,7 +48,7 @@ object player:
     bits.layout(
       variant = pov.game.variant,
       title = s"${trans.site.play.txt()} $opponentNameOrZen",
-      modules = roundNvuiTag,
+      modules = List(roundNvuiTag),
       pageModule = PageModule(
         "round",
         Json

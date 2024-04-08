@@ -16,10 +16,9 @@ final class AssetManifest(environment: Environment):
   private var maps: AssetMaps       = AssetMaps(Map.empty, Map.empty)
   private val keyRe                 = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
 
-  def js(key: String): Option[SplitAsset] = maps.js.get(key)
-  def css(key: String): Option[String]    = maps.css.get(key)
-  def deps(keys: List[String]): List[String] =
-    keys.flatMap { key => js(key).fold(List.empty[String])(asset => asset.imports) }.distinct
+  def js(key: String): Option[SplitAsset]    = maps.js.get(key)
+  def css(key: String): Option[String]       = maps.css.get(key)
+  def deps(keys: List[String]): List[String] = keys.flatMap { key => js(key).so(_.imports) }.distinct
 
   def update: AssetManifest =
     val current = Files.getLastModifiedTime(pathname).toInstant

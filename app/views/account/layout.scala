@@ -18,8 +18,8 @@ object layout:
       title = title,
       moreCss = frag(cssTag("account"), evenMoreCss),
       moreJs = evenMoreJs,
-      modules = jsModule("bits.account") :: (modules match
-        case one: EsmInit  => List(one)
+      modules = List(jsModule("bits.account").some) ::: (modules match
+        case one: EsmInit  => List(one.some)
         case list: EsmList => list
       )
     ):

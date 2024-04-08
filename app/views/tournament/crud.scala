@@ -24,8 +24,8 @@ object crud:
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
-      modules = jsModule("bits.flatpick") :: (modules match
-        case one: EsmInit  => List(one)
+      modules = List(jsModule("bits.flatpick").some) ::: (modules match
+        case one: EsmInit  => List(one.some)
         case list: EsmList => list
       ),
       moreJs = evenMoreJs
