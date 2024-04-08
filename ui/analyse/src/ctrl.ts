@@ -487,7 +487,7 @@ export default class AnalyseCtrl {
   };
 
   sendNewPiece = (role: cg.Role, key: cg.Key): void => {
-    const color = this.chessground.state.movable.color ?? '';
+    const color = this.chessground.state.movable.color;
     if (color === 'white' || color === 'black') this.userNewPiece({ color, role }, key);
   };
 
