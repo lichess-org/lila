@@ -27,7 +27,7 @@ trait RequestContext(using Executor):
     pref <- env.pref.api.get(userCtx.me, req)
   yield BodyContext(req, lang, userCtx, pref)
 
-  def oauthContext(scoped: OAuthScope.Scoped)(using req: RequestHeader): Fu[Context] =
+  def oauthContext(scoped: OAuthScope.Scoped[Me])(using req: RequestHeader): Fu[Context] =
     val lang    = getAndSaveLang(req, scoped.me.some)
     val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api
@@ -35,7 +35,7 @@ trait RequestContext(using Executor):
       .map:
         Context(req, lang, userCtx, _)
 
-  def oauthBodyContext[A](scoped: OAuthScope.Scoped)(using req: Request[A]): Fu[BodyContext[A]] =
+  def oauthBodyContext[A](scoped: OAuthScope.Scoped[Me])(using req: Request[A]): Fu[BodyContext[A]] =
     val lang    = getAndSaveLang(req, scoped.me.some)
     val userCtx = LoginContext(scoped.me.some, false, none, scoped.scopes.some)
     env.pref.api

@@ -260,7 +260,7 @@ trait UserHelper extends HasEnv:
     case p: UserPerfs => p.bestRatedPerf.so(p => renderRating(p.perf))
 
   def userUrl(username: UserName, params: String = ""): Option[String] =
-    (!User.isGhost(username.id)).option(s"""${routes.User.show(username.value)}$params""")
+    username.id.noGhost.option(s"""${routes.User.show(username.value)}$params""")
 
   def userClass(
       userId: UserId,
@@ -268,7 +268,7 @@ trait UserHelper extends HasEnv:
       withOnline: Boolean,
       withPowerTip: Boolean = true
   ): List[(String, Boolean)] =
-    if User.isGhost(userId) then List("user-link" -> true, ~cssClass -> cssClass.isDefined)
+    if userId.isGhost then List("user-link" -> true, ~cssClass -> cssClass.isDefined)
     else
       (withOnline.so(List((if isOnline(userId) then "online" else "offline") -> true))) ::: List(
         "user-link" -> true,

@@ -20,7 +20,7 @@ final class LobbySocket(
     userApi: lila.user.UserApi,
     socketKit: SocketKit,
     lobby: LobbySyncActor,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     poolApi: lila.core.pool.PoolApi
 )(using ec: Executor, scheduler: Scheduler):
 

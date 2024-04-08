@@ -119,7 +119,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def ofPlayer(name: Option[UserStr], page: Int) = Open:
-    val userId = name.flatMap(lila.user.User.validateId)
+    val userId = name.flatMap(_.validateId)
     for
       user    <- userId.so(env.user.repo.enabledById).orElse(fuccess(ctx.me.map(_.value)))
       puzzles <- user.soFu(env.puzzle.api.puzzle.of(_, page))

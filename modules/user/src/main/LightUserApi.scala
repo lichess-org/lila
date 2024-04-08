@@ -12,14 +12,14 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
     extends lila.core.user.LightUserApi:
 
   val async = LightUser.Getter: id =>
-    if User.isGhost(id) then fuccess(LightUser.ghost.some) else cache.async(id)
+    if id.isGhost then fuccess(LightUser.ghost.some) else cache.async(id)
   val asyncFallback = LightUser.GetterFallback: id =>
-    if User.isGhost(id) then fuccess(LightUser.ghost)
+    if id.isGhost then fuccess(LightUser.ghost)
     else cache.async(id).dmap(_ | LightUser.fallback(id.into(UserName)))
   val sync = LightUser.GetterSync: id =>
-    if User.isGhost(id) then LightUser.ghost.some else cache.sync(id)
+    if id.isGhost then LightUser.ghost.some else cache.sync(id)
   val syncFallback = LightUser.GetterSyncFallback: id =>
-    if User.isGhost(id) then LightUser.ghost else cache.sync(id) | LightUser.fallback(id.into(UserName))
+    if id.isGhost then LightUser.ghost else cache.sync(id) | LightUser.fallback(id.into(UserName))
 
   export cache.{ asyncMany, invalidate, preloadOne, preloadMany }
 
@@ -38,7 +38,7 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
     name = "user.light",
     initialCapacity = 1024 * 1024,
     compute = id =>
-      if User.isGhost(id) then fuccess(LightUser.ghost.some)
+      if id.isGhost then fuccess(LightUser.ghost.some)
       else
         repo.coll
           .find($id(id), projection)

@@ -74,7 +74,7 @@ final class Env(
 
   val flairApi = wire[FlairApi]
 
-  export flairApi.getter
+  export flairApi.{ flairOf, flairsOf }
 
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>

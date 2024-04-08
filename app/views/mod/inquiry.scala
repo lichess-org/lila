@@ -309,7 +309,7 @@ object inquiry:
         }
         .flatten
         .flatMap(UserStr.read)
-        .flatMap(User.validateId)
+        .flatMap(_.validateId)
         .distinct
         .toNel
     }

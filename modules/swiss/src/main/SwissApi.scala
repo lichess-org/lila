@@ -18,7 +18,7 @@ import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 import lila.rating.Perf
 import lila.core.round.QuietFlag
-import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
+import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo, given }
 import lila.core.swiss.{ IdName, SwissFinish }
 
 final class SwissApi(
@@ -170,7 +170,7 @@ final class SwissApi(
   def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] =
     me.foldUse(fuccess(swiss.settings.conditions.accepted)): me ?=>
       perfsRepo
-        .withPerf(me.value, swiss.perfType)
+        .withPerf(me, swiss.perfType)
         .flatMap: user =>
           given Perf = user.perf
           verify(swiss)

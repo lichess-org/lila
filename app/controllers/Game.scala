@@ -64,7 +64,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         WithVs: vs =>
           env.security.ipTrust
             .throttle(MaxPerSecond:
-              if ctx.is(lila.user.User.explorerId) then env.apiExplorerGamesPerSecond.get()
+              if ctx.is(UserId.explorer) then env.apiExplorerGamesPerSecond.get()
               else if ctx.is(user) then 60
               else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
               else 25
@@ -91,7 +91,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
                 ongoing = getBool("ongoing") || !finished,
                 finished = finished
               )
-              if ctx.is(lila.user.User.explorerId) then
+              if ctx.is(UserId.explorer) then
                 Ok.chunked(env.api.gameApiV2.exportByUser(config))
                   .pipe(noProxyBuffer)
                   .as(gameContentType(config))

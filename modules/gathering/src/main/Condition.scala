@@ -4,7 +4,7 @@ import lila.core.team.LightTeam.TeamName
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.rating.Perf
 import lila.core.perf.PerfType
-import lila.user.Me
+import lila.core.LightUser.Me
 
 trait Condition:
 
@@ -35,7 +35,7 @@ object Condition:
 
   case class NbRatedGame(nb: Int) extends Condition with FlatCond:
     def apply(pt: PerfType)(using me: Me, perf: Perf) =
-      if me.hasTitle then Accepted
+      if me.title.isDefined then Accepted
       else if perf.nb >= nb then Accepted
       else
         Refused: t =>
@@ -109,7 +109,7 @@ object Condition:
     private def allowAnyTitledUser         = segments contains titled
     def apply(pt: PerfType)(using me: Me, perf: Perf): Condition.Verdict =
       if segments.contains(me.userId.value) then Accepted
-      else if allowAnyTitledUser && me.hasTitle then Accepted
+      else if allowAnyTitledUser && me.title.isDefined then Accepted
       else Refused { _ => "Your name is not in the tournament line-up." }
     def userIds: Set[UserId]                = UserId.from(segments - titled)
     def name(pt: PerfType)(using Translate) = "Fixed line-up"

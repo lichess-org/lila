@@ -302,7 +302,7 @@ final class TournamentApi(
                     data.team match
                       case None if prevPlayer.isDefined => proceedWithTeam(none) // re-join ongoing
                       case Some(team) if battle.teams.contains(team) =>
-                        getMyTeamIds(me).flatMap: myTeams =>
+                        getMyTeamIds(me.lightMe).flatMap: myTeams =>
                           if myTeams.has(team) then proceedWithTeam(team.some)
                           else fuccess(JoinResult.MissingTeam)
                       case _ => fuccess(JoinResult.MissingTeam)

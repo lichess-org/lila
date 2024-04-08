@@ -45,7 +45,7 @@ $pocket-height: 60px;
   }
 
   @include mq-at-least-col3 {
-    grid-template-rows: $pocket-height $meta-height $chat-height $pocket-height;
+    grid-template-rows: $pocket-height auto auto $pocket-height;
     grid-template-areas:
       'side    . board gauge pocket-top'
       'side    . board gauge tools'

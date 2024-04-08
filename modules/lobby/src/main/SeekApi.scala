@@ -8,7 +8,7 @@ import lila.user.User
 final class SeekApi(
     config: SeekApi.Config,
     biter: Biter,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     perfsRepo: lila.user.UserPerfsRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):

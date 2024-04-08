@@ -21,43 +21,40 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.find(enabledNoBotSelect ++ notLame).sort($sort.desc("count.game")).cursor[User]().list(nb)
 
   def byId[U: UserIdOf](u: U): Fu[Option[User]] =
-    User
-      .noGhost(u.id)
-      .so(
-        coll
-          .byId[User](u)
-          .recover:
-            case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
-              none // probably GDPRed user
-      )
+    u.id.noGhost.so:
+      coll
+        .byId[User](u)
+        .recover:
+          case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
+            none // probably GDPRed user
 
   def byIds[U: UserIdOf](
       us: Iterable[U],
       readPref: ReadPref = _.pri
   ): Fu[List[User]] =
-    val ids = us.map(_.id).filter(User.noGhost)
+    val ids = us.map(_.id).filter(_.noGhost)
     ids.nonEmpty.so(coll.byIds[User, UserId](ids, readPref))
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, _.sec)
 
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
-    User.noGhost(u.id).so(coll.one[User](enabledSelect ++ $id(u)))
+    u.id.noGhost.so(coll.one[User](enabledSelect ++ $id(u)))
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
-    val ids = us.map(_.id).filter(User.noGhost)
+    val ids = us.map(_.id).filter(_.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), _.priTemp)
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
-    if User.isGhost(id)
+    if id.isGhost
     then fuccess(Left(LightUser.ghost).some)
     else
       coll.byId[User](id).map2(Right.apply).recover { case _: exceptions.BSONValueNotFoundException =>
         Left(LightUser.ghost).some
       }
 
-  def me[U: UserIdOf](u: U): Fu[Option[Me]] =
-    enabledById(u).dmap(Me.from(_))
+  def me(id: UserId): Fu[Option[Me]]        = enabledById(id).dmap(Me.from(_))
+  def me[U: UserIdOf](u: U): Fu[Option[Me]] = me(u.id)
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
   def byPrevEmail(
@@ -98,10 +95,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.optionsByOrderedIds[User, UserId](userIds, readPref = _.sec)(_.id)
 
   def isEnabled(id: UserId): Fu[Boolean] =
-    User.noGhost(id).so(coll.exists(enabledSelect ++ $id(id)))
+    id.noGhost.so(coll.exists(enabledSelect ++ $id(id)))
 
   def disabledById(id: UserId): Fu[Option[User]] =
-    User.noGhost(id).so(coll.one[User](disabledSelect ++ $id(id)))
+    id.noGhost.so(coll.one[User](disabledSelect ++ $id(id)))
 
   def usernameById(id: UserId): Fu[Option[UserName]] =
     coll.primitiveOne[UserName]($id(id), F.username)

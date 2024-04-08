@@ -13,7 +13,7 @@ final private class SimulSocket(
     socketKit: SocketKit,
     socketRequest: SocketRequester,
     chat: lila.chat.ChatApi
-)(using Executor, lila.user.FlairApi.Getter):
+)(using Executor, lila.core.user.FlairGet):
 
   def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
     rooms.tell(simulId.into(RoomId), NotifyVersion("hostGame", gameId.value))

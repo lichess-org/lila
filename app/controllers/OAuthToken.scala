@@ -11,7 +11,7 @@ final class OAuthToken(env: Env) extends LilaController(env):
 
   def index = Auth { ctx ?=> me ?=>
     Ok.pageAsync:
-      tokenApi.listPersonal(me).map(html.oAuth.token.index(_))
+      tokenApi.listPersonal.map(html.oAuth.token.index(_))
   }
 
   def create = Auth { ctx ?=> me ?=>
@@ -31,11 +31,11 @@ final class OAuthToken(env: Env) extends LilaController(env):
         err => BadRequest.page(html.oAuth.token.create(err, me)),
         setup =>
           tokenApi
-            .create(setup, me, env.clas.studentCache.isStudent(me))
+            .create(setup, env.clas.studentCache.isStudent(me))
             .inject(Redirect(routes.OAuthToken.index).flashSuccess)
       )
   }
 
-  def delete(id: String) = Auth { _ ?=> me ?=>
-    tokenApi.revokeById(AccessToken.Id(id), me).inject(Redirect(routes.OAuthToken.index).flashSuccess)
+  def delete(id: String) = Auth { _ ?=> _ ?=>
+    tokenApi.revokeById(AccessToken.Id(id)).inject(Redirect(routes.OAuthToken.index).flashSuccess)
   }

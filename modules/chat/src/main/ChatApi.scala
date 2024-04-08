@@ -9,8 +9,9 @@ import lila.db.dsl.{ *, given }
 import lila.core.shutup.PublicSource
 import lila.memo.CacheApi.*
 import lila.security.{ Flood, Granter }
-import lila.user.{ FlairApi, Me, User, UserRepo, given }
+import lila.user.{ Me, User, UserRepo, given }
 import lila.core.chat.{ OnTimeout, OnReinstate }
+import lila.core.user.{ FlairGet, FlairGetMap }
 
 final class ChatApi(
     coll: Coll,
@@ -21,7 +22,7 @@ final class ChatApi(
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
-)(using Executor, Scheduler, FlairApi)
+)(using Executor, Scheduler, FlairGet, FlairGetMap)
     extends lila.core.chat.ChatApi:
 
   import Chat.given
@@ -288,7 +289,7 @@ final class ChatApi(
     Bus.publish(msg, Chat.chanOf(chatId))
 
   private def publishLine(chatId: ChatId, line: Line, busChan: BusChan.Select): Funit =
-    JsonView(line)(using summon[FlairApi].getter).map: json =>
+    JsonView(line).map: json =>
       publish(chatId, ChatLine(chatId, line, json), busChan)
 
   def remove(chatId: ChatId) = coll.delete.one($id(chatId)).void

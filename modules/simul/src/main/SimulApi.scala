@@ -17,7 +17,7 @@ import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType }
 import lila.core.socket.SendToFlag
-import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
+import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo, given }
 
 final class SimulApi(
     userRepo: UserRepo,

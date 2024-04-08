@@ -11,10 +11,10 @@ final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo
 
   val coll = colls.relation
 
-  def following(userId: UserId) = relating(userId, Follow)
+  def following(userId: UserId): Fu[Set[UserId]] = relating(userId, Follow)
 
-  def blockers(userId: UserId) = relaters(userId, Block)
-  def blocking(userId: UserId) = relating(userId, Block)
+  def blockers(userId: UserId): Fu[Set[UserId]] = relaters(userId, Block)
+  def blocking(userId: UserId): Fu[Set[UserId]] = relating(userId, Block)
 
   def freshFollowersFromSecondary(userId: UserId): Fu[List[UserId]] =
     coll

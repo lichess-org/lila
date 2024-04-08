@@ -24,6 +24,7 @@ final class Env(
     shutupApi: lila.core.shutup.ShutupApi,
     spam: lila.security.Spam,
     chatPanicAllowed: lila.core.chat.panic.IsAllowed,
+    textAnalyser: lila.core.shutup.TextAnalyser,
     mongoCache: lila.memo.MongoCache.Api
 )(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator):
 

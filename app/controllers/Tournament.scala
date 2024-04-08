@@ -14,12 +14,12 @@ import lila.core.Preload
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
-  private def repo                           = env.tournament.tournamentRepo
-  private def api                            = env.tournament.api
-  private def jsonView                       = env.tournament.jsonView
-  private def forms                          = env.tournament.forms
-  private def cachedTour(id: TourId)         = env.tournament.cached.tourCache.byId(id)
-  private given lila.user.FlairApi           = env.user.flairApi
+  private def repo                   = env.tournament.tournamentRepo
+  private def api                    = env.tournament.api
+  private def jsonView               = env.tournament.jsonView
+  private def forms                  = env.tournament.forms
+  private def cachedTour(id: TourId) = env.tournament.cached.tourCache.byId(id)
+  import env.user.flairApi.given
   private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
   private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
