@@ -18,7 +18,7 @@ final class MsgApi(
     notifier: MsgNotify,
     security: MsgSecurity,
     shutupApi: lila.core.shutup.ShutupApi,
-    spam: lila.security.Spam
+    spam: lila.core.security.SpamApi
 )(using Executor, akka.stream.Materializer)
     extends lila.core.msg.MsgApi:
 

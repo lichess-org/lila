@@ -161,7 +161,7 @@ final class ChatApi(
 
     def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
       userRepo
-        .lightById(username)
+        .byId(username)
         .flatMapz: user =>
           chatTimeout.history(user, 20).dmap { UserModInfo(user, _).some }
 

@@ -13,7 +13,7 @@ final class BotPlayer(
     chatApi: lila.chat.ChatApi,
     gameRepo: GameRepo,
     rematches: Rematches,
-    spam: lila.security.Spam
+    spam: lila.core.security.SpamApi
 )(using Executor, Scheduler):
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.core.round.ClientError(msg))

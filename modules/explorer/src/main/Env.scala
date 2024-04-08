@@ -13,8 +13,10 @@ final class Env(
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor):
 
-  private lazy val internalEndpoint = InternalEndpoint {
+  private val internalEndpoint = InternalEndpoint {
     appConfig.get[String]("explorer.internal_endpoint")
   }
 
-  lazy val importer = wire[ExplorerImporter]
+  val importer = wire[ExplorerImporter]
+
+  val getGame: lila.game.actorApi.ExplorerGame = importer.apply

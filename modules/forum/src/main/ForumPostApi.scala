@@ -17,8 +17,8 @@ final class ForumPostApi(
     mentionNotifier: MentionNotifier,
     modLog: lila.core.mod.LogApi,
     config: ForumConfig,
-    spam: lila.security.Spam,
-    promotion: lila.security.PromotionApi,
+    spam: lila.core.security.SpamApi,
+    promotion: lila.core.security.PromotionApi,
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage
 )(using Executor)(using scheduler: Scheduler)
@@ -53,7 +53,7 @@ final class ForumPostApi(
             _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
           yield
-            promotion.save(post.text)
+            promotion.save(me, post.text)
             if post.isTeam
             then shutupApi.teamForumMessage(me, post.text)
             else shutupApi.publicText(me, post.text, PublicSource.Forum(post.id))
@@ -86,7 +86,7 @@ final class ForumPostApi(
             for
               _ <- postRepo.coll.update.one($id(post.id), newPost)
               _ <- newPost.isAnonModPost.so(logAnonPost(newPost, edit = true))
-            yield promotion.save(newPost.text)
+            yield promotion.save(me, newPost.text)
           save.inject(newPost)
       }
 

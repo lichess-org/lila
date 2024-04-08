@@ -3,26 +3,26 @@ package lila.security
 import com.github.blemale.scaffeine.Cache
 
 import lila.core.config.NetDomain
-import lila.user.Me
+import lila.core.user.User
 
-final class PromotionApi(domain: NetDomain)(using Executor):
+final class PromotionApi(domain: NetDomain)(using Executor) extends lila.core.security.PromotionApi:
 
-  def test(text: String, prevText: Option[String] = None)(using me: Me): Boolean =
-    me.isVerified || me.isAdmin || {
+  def test(author: User, text: String, prevText: Option[String] = None): Boolean =
+    Granter.ofUser(_.Verified)(author) || Granter.ofUser(_.Admin)(author) || {
       val promotions = extract(text)
       promotions.isEmpty || {
         val prevTextPromotion = prevText.so(extract)
-        val prev              = ~cache.getIfPresent(me) -- prevTextPromotion
+        val prev              = ~cache.getIfPresent(author.id) -- prevTextPromotion
         val accept            = prev.sizeIs < 3 && !prev.exists(promotions.contains)
-        if !accept then logger.info(s"Promotion @${me.username} ${identify(text).mkString(", ")}")
+        if !accept then logger.info(s"Promotion @${author.username} ${identify(text).mkString(", ")}")
         accept
       }
     }
 
-  def save(text: String)(using me: Me): Unit =
+  def save(author: UserId, text: String): Unit =
     val promotions = extract(text)
     if promotions.nonEmpty
-    then cache.put(me, ~cache.getIfPresent(me) ++ promotions)
+    then cache.put(author, ~cache.getIfPresent(author) ++ promotions)
 
   private type Id = String
 

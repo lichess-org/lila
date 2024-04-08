@@ -50,7 +50,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       apiVersion: Option[ApiVersion],
       up: Boolean,
       fp: Option[FingerPrint],
-      proxy: IsProxy
+      proxy: lila.core.security.IsProxy
   ): Funit =
     coll.insert
       .one:

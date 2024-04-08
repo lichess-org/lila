@@ -135,7 +135,7 @@ lazy val video = module("video",
 )
 
 lazy val coach = module("coach",
-  Seq(game, security),
+  Seq(game, user),
   reactivemongo.bundle
 )
 
@@ -155,7 +155,7 @@ lazy val feed = module("feed",
 )
 
 lazy val ublog = module("ublog",
-  Seq(security),
+  Seq(user),
   Seq(bloomFilter) ++ reactivemongo.bundle
 )
 
@@ -170,7 +170,7 @@ lazy val rating = module("rating",
 ).dependsOn(common % "test->test")
 
 lazy val perfStat = module("perfStat",
-  Seq(game, security),
+  Seq(game, user),
   reactivemongo.bundle
 )
 
@@ -195,7 +195,7 @@ lazy val room = module("room",
 )
 
 lazy val timeline = module("timeline",
-  Seq(security),
+  Seq(user),
   reactivemongo.bundle
 )
 
@@ -205,7 +205,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, report, chat),
+  Seq(evaluation, report, chat, security),
   reactivemongo.bundle
 )
 
@@ -340,7 +340,7 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(explorer, analyse, room, pref, chat),
+  Seq(importer, analyse, room, pref, chat),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 
@@ -360,7 +360,7 @@ lazy val learn = module("learn",
 )
 
 lazy val evalCache = module("evalCache",
-  Seq(security, tree),
+  Seq(user, tree),
   reactivemongo.bundle
 )
 
@@ -370,7 +370,7 @@ lazy val practice = module("practice",
 )
 
 lazy val playban = module("playban",
-  Seq(security, game),
+  Seq(user, game),
   reactivemongo.bundle
 )
 
@@ -390,7 +390,7 @@ lazy val mailer = module("mailer",
 )
 
 lazy val plan = module("plan",
-  Seq(security),
+  Seq(user),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -405,12 +405,12 @@ lazy val pref = module("pref",
 )
 
 lazy val msg = module("msg",
-  Seq(security, pref),
+  Seq(user, pref),
   reactivemongo.bundle
 )
 
 lazy val forum = module("forum",
-  Seq(security, pref, pref),
+  Seq(user, pref, pref),
   reactivemongo.bundle
 )
 
@@ -440,7 +440,7 @@ lazy val bookmark = module("bookmark",
 )
 
 lazy val report = module("report",
-  Seq(game, security),
+  Seq(game, user),
   reactivemongo.bundle
 )
 
