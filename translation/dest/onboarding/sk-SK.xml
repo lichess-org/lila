@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Vitajte!</string>
+  <string name="welcomeToLichess">Vitajte na lichess.org!</string>
+  <string name="thisIsYourProfilePage">Toto je Váš používateľský profil.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Bude tento profil používať aj dieťa? Možno sa Vám bude hodiť zapnúť %s.</string>
+  <string name="whatNowSuggestions">Čo ďalej? Skúste niečo z tohto:</string>
+  <string name="learnChessRules">Naučte sa pravidlá šachu</string>
+  <string name="improveWithChessTacticsPuzzles">Zlepšite sa pomocou šachových puzzles.</string>
+  <string name="playTheArtificialIntelligence">Zahrajte si proti AI.</string>
+  <string name="playOpponentsFromAroundTheWorld">Hrajte so súpermi z celého sveta.</string>
+  <string name="followYourFriendsOnLichess">Sledujte svojich priateľov na Lichess.</string>
+  <string name="playInTournaments">Zúčastnite sa turnajov.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Naučte sa niečo nové zo sekcie %1$s alebo %2$s.</string>
+  <string name="configureLichess">Nastavte si Lichess tak, ako len chcete.</string>
+  <string name="exploreTheSiteAndHaveFun">Objavte, čo sa ešte skrýva na webstránke a hlavne sa bavte :)</string>
+</resources>

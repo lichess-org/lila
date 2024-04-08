@@ -11,28 +11,28 @@ object msg:
     views.html.base.layout(
       moreCss = frag(cssTag("msg")),
       pageModule = PageModule("msg", Json.obj("data" -> json, "i18n" -> i18nJsObject(i18nKeys))).some,
-      title = trans.inbox.txt(),
+      title = trans.site.inbox.txt(),
       csp = defaultCsp.withInlineIconFont.some
     ) {
       main(cls := "box msg-app")
     }
 
   private val i18nKeys = List(
-    trans.inbox,
+    trans.site.inbox,
     trans.challenge.challengeToPlay,
-    trans.block,
-    trans.unblock,
-    trans.blocked,
-    trans.delete,
-    trans.reportXToModerators,
-    trans.searchOrStartNewDiscussion,
-    trans.players,
-    trans.friends,
-    trans.discussions,
-    trans.today,
-    trans.yesterday,
-    trans.youAreLeavingLichess,
-    trans.neverTypeYourPassword,
-    trans.cancel,
-    trans.proceedToX
+    trans.site.block,
+    trans.site.unblock,
+    trans.site.blocked,
+    trans.site.delete,
+    trans.site.reportXToModerators,
+    trans.site.searchOrStartNewDiscussion,
+    trans.site.players,
+    trans.site.friends,
+    trans.site.discussions,
+    trans.site.today,
+    trans.site.yesterday,
+    trans.site.youAreLeavingLichess,
+    trans.site.neverTypeYourPassword,
+    trans.site.cancel,
+    trans.site.proceedToX
   )

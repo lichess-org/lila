@@ -4,7 +4,7 @@ import chess.Color
 
 import lila.common.SimpleOpening
 import lila.game.Pov
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 case class InsightEntry(
     id: String, // gameId + w/b

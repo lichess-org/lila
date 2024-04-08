@@ -6,11 +6,11 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.{ Game, Pov }
-import lila.rating.PerfType.Correspondence
+import lila.core.perf.PerfType
 
 object bits:
 
-  def gameIcon(game: Game): licon.Icon =
+  def gameIcon(game: Game): Icon =
     if game.fromPosition then licon.Feather
     else if game.imported then licon.UploadCloud
     else if game.variant.exotic then game.perfType.icon
@@ -19,7 +19,7 @@ object bits:
 
   def sides(
       pov: Pov,
-      initialFen: Option[chess.format.Fen.Epd],
+      initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       cross: Option[lila.game.Crosstable.WithMatchup],
       simul: Option[lila.simul.Simul],
@@ -34,10 +34,10 @@ object bits:
 
   def variantLink(
       variant: chess.variant.Variant,
-      perfType: lila.rating.PerfType,
-      initialFen: Option[chess.format.Fen.Epd] = None,
+      perfType: PerfType,
+      initialFen: Option[chess.format.Fen.Full] = None,
       shortName: Boolean = false
-  )(using Lang): Frag =
+  )(using Translate): Frag =
 
     def link(href: String, title: String, name: String) = a(
       cls     := "variant-link",
@@ -57,10 +57,10 @@ object bits:
         name = (if shortName && variant == chess.variant.KingOfTheHill then variant.shortName
                 else variant.name).toUpperCase
       )
-    else if perfType == Correspondence then
+    else if perfType == PerfType.Correspondence then
       link(
         href = s"${routes.Main.faq}#correspondence",
-        title = Correspondence.desc,
-        name = Correspondence.trans
+        title = PerfType.Correspondence.desc,
+        name = PerfType.Correspondence.trans
       )
     else span(title := perfType.desc)(perfType.trans)

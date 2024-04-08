@@ -4,15 +4,16 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import lila.db.BSON
 import lila.db.dsl.given
+import lila.core.perf.PerfType
 
 case class Perf(
     glicko: Glicko,
     nb: Int,
     recent: List[IntRating],
     latest: Option[Instant]
-):
+) extends lila.core.rating.Perf:
 
-  export glicko.{ intRating, intDeviation, rankable, clueless, provisional, established }
+  export glicko.{ rankable, clueless, established }
 
   def progress: IntRatingDiff = {
     for
@@ -78,12 +79,6 @@ case class Perf(
   def showRatingProvisional = glicko.display
 
 case object Perf:
-
-  opaque type Key = String
-  object Key extends OpaqueString[Key]
-
-  opaque type Id = Int
-  object Id extends OpaqueInt[Id]
 
   case class Typed(perf: Perf, perfType: PerfType)
   def typed(pt: PerfType, perf: Perf) = new Typed(perf, pt)

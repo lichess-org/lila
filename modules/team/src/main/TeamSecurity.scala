@@ -4,7 +4,7 @@ package team
 import cats.derived.*
 
 import lila.memo.CacheApi.*
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.{ Me, User, UserRepo }
 
 object TeamSecurity:
@@ -59,14 +59,14 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
 
     def addLeader(t: Team.WithLeaders)(using Me): Form[UserStr] = Form:
       single:
-        "name" -> lila.user.UserForm.historicalUsernameField
+        "name" -> lila.common.Form.username.historicalField
           .verifying(
             s"No more than ${Team.maxLeaders} leaders, please",
             _ => t.leaders.sizeIs < Team.maxLeaders
           )
           .verifying(
             "You can't make Lichess a leader",
-            n => Granter(_.ManageTeam) || n.isnt(User.lichessId)
+            n => Granter[Me](_.ManageTeam) || n.isnt(UserId.lichess)
           )
           .verifying(
             "This user is already a team leader",
@@ -78,7 +78,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
           )
 
     private val permissionsForm = mapping(
-      "name" -> lila.user.UserForm.historicalUsernameField,
+      "name" -> lila.common.Form.username.historicalField,
       "perms" -> seq(nonEmptyText)
         .transform[Set[Permission]](
           _.flatMap(Permission.byKey.get).toSet,
@@ -90,9 +90,9 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
       single("leaders" -> seq(permissionsForm))
         .verifying(
           "You can't make Lichess a leader",
-          Granter(_.ManageTeam) ||
-            !_.exists(_.name.is(User.lichessId)) ||
-            t.leaders.exists(_.is(User.lichessId))
+          Granter[Me](_.ManageTeam) ||
+            !_.exists(_.name.is(UserId.lichess)) ||
+            t.leaders.exists(_.is(UserId.lichess))
         )
         .verifying(
           "There must be at least one leader able to manage permissions",
@@ -113,7 +113,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
         .verifying(
           "You cannot evict the team creator",
           d =>
-            Granter(_.ManageTeam) || !t.hasAdminCreator || d.exists: l =>
+            Granter[Me](_.ManageTeam) || !t.hasAdminCreator || d.exists: l =>
               l.name.is(t.createdBy) && l.perms(Permission.Admin)
         )
         .verifying(

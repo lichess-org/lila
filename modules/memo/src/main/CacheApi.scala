@@ -6,7 +6,6 @@ import com.github.blemale.scaffeine.*
 final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
 
   import CacheApi.*
-  export CacheApi.scaffeine
 
   // AsyncLoadingCache with monitoring
   def apply[K, V](initialCapacity: Int, name: String)(
@@ -67,7 +66,7 @@ final class CacheApi(using Executor, Scheduler)(using mode: play.api.Mode):
 
 object CacheApi:
 
-  export lila.common.LilaCache.*
+  export scalalib.cache.{ scaffeine, scaffeineNoScheduler }
 
   private[memo] type Builder = Scaffeine[Any, Any]
 

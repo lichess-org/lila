@@ -3,17 +3,16 @@ package lila.shutup
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.GameRepo
-import lila.hub.actorApi.shutup.PublicSource
-import lila.user.UserRepo
+import lila.core.shutup.PublicSource
 
 final class ShutupApi(
     coll: Coll,
-    gameRepo: GameRepo,
-    userRepo: UserRepo,
-    relationApi: lila.relation.RelationApi,
-    reporter: lila.hub.actors.Report
-)(using Executor):
+    gameRepo: lila.core.game.GameRepo,
+    userApi: lila.core.user.UserApi,
+    relationApi: lila.core.relation.RelationApi,
+    reportApi: lila.core.report.ReportApi
+)(using Executor)
+    extends lila.core.shutup.ShutupApi:
 
   private given BSONDocumentHandler[UserRecord] = Macros.handler
   import PublicLine.given
@@ -32,7 +31,7 @@ final class ShutupApi(
 
   def privateChat(chatId: String, userId: UserId, text: String) =
     gameRepo.getSourceAndUserIds(GameId(chatId)).flatMap {
-      case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
+      case (source, _) if source.has(lila.core.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
         record(userId, text, TextType.PrivateChat, none, userIds.find(userId !=))
     }
@@ -47,14 +46,14 @@ final class ShutupApi(
       source: Option[PublicSource] = None,
       toUserId: Option[UserId] = None
   ): Funit =
-    userRepo.isTroll(userId).flatMap {
+    userApi.isTroll(userId).flatMap {
       if _ then funit
       else
         toUserId.so { relationApi.fetchFollows(_, userId) }.flatMap {
           if _ then funit
           else
             Analyser(text)
-              .removeEngineIfBot(userRepo.isBot(userId))
+              .removeEngineIfBot(userApi.isBot(userId))
               .flatMap: analysed =>
                 val pushPublicLine = source.ifTrue(analysed.badWords.nonEmpty).so { source =>
                   $doc(
@@ -89,15 +88,13 @@ final class ShutupApi(
         val repText = reportText(userRecord)
         if repText.isEmpty then analysed.badWords.mkString(", ") else repText
       }
-      reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, text, analysed.critical)
-      coll.update
-        .one(
-          $id(userRecord.userId),
-          $unset(
-            TextType.values.map(_.key)
+      reportApi.autoCommReport(userRecord.userId, text, analysed.critical) >>
+        coll.update
+          .one(
+            $id(userRecord.userId),
+            $unset(TextType.values.map(_.key))
           )
-        )
-        .void
+          .void
     }
 
   private def reportText(userRecord: UserRecord) =

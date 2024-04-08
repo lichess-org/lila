@@ -5,7 +5,7 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
 
@@ -27,7 +27,7 @@ object topic:
               h2(trans.study.myTopics()),
               postForm(cls := "form3", action := routes.Study.topics)(
                 form3.textarea(form("topics"))(rows := 10, attrData("max") := StudyTopics.userMax),
-                form3.submit(trans.save())
+                form3.submit(trans.site.save())
               )
             )
           },

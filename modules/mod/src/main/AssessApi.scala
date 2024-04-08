@@ -1,25 +1,25 @@
 package lila.mod
 
-import chess.{ Black, Color, White }
-import ornicar.scalalib.ThreadLocalRandom
+import chess.{ Black, Color, White, ByColor }
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.dsl.{ *, given }
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment, Statistics }
-import lila.game.{ Game, Player, Pov, Source }
-import lila.report.SuspectId
+import lila.game.{ Game, Player, Pov }
+import lila.core.report.SuspectId
 import lila.user.User
+import lila.core.game.Source
 
 final class AssessApi(
     assessRepo: AssessmentRepo,
     modApi: ModApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    reporter: lila.hub.actors.Report,
-    fishnet: lila.hub.actors.Fishnet,
     gameRepo: lila.game.GameRepo,
-    analysisRepo: AnalysisRepo
+    analysisRepo: AnalysisRepo,
+    reportApi: lila.core.report.ReportApi
 )(using Executor):
 
   private def bottomDate = nowInstant.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
@@ -153,18 +153,13 @@ final class AssessApi(
                 .autoMark(
                   SuspectId(userId),
                   playerAggregateAssessment.reportText(3)
-                )(using User.lichessIdAsMe)
+                )(using UserId.lichessAsMe)
             case Some(_) =>
-              fuccess {
-                reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-              }
+              reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
           }
         case AccountAction.Report(_) =>
-          fuccess {
-            reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
-          }
+          reportApi.autoCheatReport(userId, playerAggregateAssessment.reportText(3))
         case AccountAction.Nothing =>
-          // reporter ! lila.hub.actorApi.report.Clean(userId)
           funit
     }
 
@@ -174,7 +169,7 @@ final class AssessApi(
   private def randomPercent(percent: Int): Boolean =
     ThreadLocalRandom.nextInt(100) < percent
 
-  def onGameReady(game: Game, white: User.WithPerf, black: User.WithPerf): Funit =
+  def onGameReady(game: Game, players: ByColor[lila.core.user.WithPerf]): Funit =
 
     import AutoAnalysis.Reason.*
 
@@ -182,12 +177,12 @@ final class AssessApi(
       game.playerBlurPercent(player.color) >= 70
 
     def winnerGreatProgress(player: Player): Boolean =
-      game.winner.has(player) && player.color.fold(white, black).perf.progress >= 90
+      game.winner.has(player) && players(player.color).perf.progress >= 90
 
     def noFastCoefVariation(player: Player): Option[Float] =
       Statistics.noFastMoves(Pov(game, player)).so(Statistics.moveTimeCoefVariation(Pov(game, player)))
 
-    def winnerUserOption = game.winnerColor.map(_.fold(white, black))
+    def winnerUserOption = game.winnerColor.map(players(_))
     def winnerNbGames    = winnerUserOption.map(_.perf.nb)
 
     def suspCoefVariation(c: Color) =
@@ -205,7 +200,7 @@ final class AssessApi(
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if !game.analysable then fuccess(none)
-      else if game.speed >= chess.Speed.Blitz && (white.hasTitle || black.hasTitle) then
+      else if game.speed >= chess.Speed.Blitz && players.exists(_.user.hasTitle) then
         fuccess(TitledPlayer.some)
       else if !game.source.exists(assessableSources.contains) then fuccess(none)
       // give up on correspondence games
@@ -242,4 +237,4 @@ final class AssessApi(
 
     shouldAnalyse.mapz: reason =>
       lila.mon.cheat.autoAnalysis(reason.toString).increment()
-      fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
+      lila.common.Bus.named.fishnet.analyseGame(game.id)

@@ -2,7 +2,6 @@ package lila.chat
 
 import reactivemongo.api.bson.BSONDocumentHandler
 
-import lila.hub.actorApi.shutup.PublicSource
 import lila.user.{ Me, User }
 
 sealed trait AnyChat:
@@ -82,6 +81,8 @@ object Chat:
   opaque type ResourceId = String
   object ResourceId extends OpaqueString[ResourceId]
 
+  import lila.core.shutup.PublicSource
+
   case class Setup(id: ChatId, publicSource: PublicSource)
 
   def tournamentSetup(tourId: TourId) = Setup(tourId.into(ChatId), PublicSource.Tournament(tourId))
@@ -108,7 +109,7 @@ object Chat:
 
   import BSONFields.*
   import reactivemongo.api.bson.BSONDocument
-  import Line.given
+  import lila.chat.Line.given
   import lila.db.dsl.given
 
   given BSONDocumentHandler[MixedChat] = new BSON[MixedChat]:

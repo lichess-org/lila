@@ -22,5 +22,3 @@ case class FeaturedSwisses(
     started: List[Swiss]
 ):
   def teamIds: Set[TeamId] = (created ::: started).view.map(_.teamId).toSet
-
-case class SwissFinish(id: SwissId, ranking: Ranking)

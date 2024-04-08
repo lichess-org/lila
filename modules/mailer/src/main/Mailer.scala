@@ -1,9 +1,8 @@
 package lila.mailer
 
 import akka.actor.ActorSystem
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.ConfigLoader
-import play.api.i18n.Lang
 import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scalatags.Text.all.{ html as htmlTag, * }
 import scalatags.Text.tags2.title as titleTag
@@ -12,8 +11,10 @@ import scala.concurrent.blocking
 
 import lila.common.String.html.nl2br
 import lila.common.autoconfig.*
-import lila.common.{ Chronometer, EmailAddress }
-import lila.i18n.I18nKeys.emails as trans
+import lila.common.Chronometer
+import lila.core.i18n.I18nKey.emails as trans
+import lila.core.i18n.Translate
+import lila.core.EmailAddress
 
 final class Mailer(
     config: Mailer.Config,
@@ -84,12 +85,12 @@ object Mailer:
 
   object txt:
 
-    private def serviceNote(using Lang): String = s"""
+    private def serviceNote(using Translate): String = s"""
 ${trans.common_note("https://lichess.org").render}
 
 ${trans.common_contact("https://lichess.org/contact").render}"""
 
-    def addServiceNote(body: String)(using Lang) = s"""$body
+    def addServiceNote(body: String)(using Translate) = s"""$body
 
 $serviceNote"""
 
@@ -114,28 +115,28 @@ $serviceNote"""
       href     := "https://lichess.org/"
     )(span(itemprop := "name")("lichess.org"))
 
-    def serviceNote(using Lang) =
+    def serviceNote(using Translate) =
       publisher(
         small(
           trans.common_note(Mailer.html.noteLink),
           " ",
           trans.common_contact(noteContact),
           " ",
-          lila.i18n.I18nKeys.readAboutOur(
+          lila.core.i18n.I18nKey.site.readAboutOur(
             a(href := "https://lichess.org/privacy")(
-              lila.i18n.I18nKeys.privacyPolicy()
+              lila.core.i18n.I18nKey.site.privacyPolicy()
             )
           )
         )
       )
 
-    def standardEmail(body: String)(using Lang): Frag =
+    def standardEmail(body: String)(using Translate): Frag =
       emailMessage(
         pDesc(nl2br(body)),
         serviceNote
       )
 
-    def url(u: String, clickOrPaste: Boolean = true)(using Lang) =
+    def url(u: String, clickOrPaste: Boolean = true)(using Translate) =
       frag(
         meta(itemprop := "url", content := u),
         p(a(itemprop := "target", href := u)(u)),

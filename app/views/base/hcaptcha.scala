@@ -1,7 +1,7 @@
 package views.html
 package base
 
-import lila.app.templating.Environment.given
+import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.security.HcaptchaForm
 

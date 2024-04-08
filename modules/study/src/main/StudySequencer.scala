@@ -2,8 +2,7 @@ package lila.study
 
 import alleycats.Zero
 
-import lila.common.config.Max
-import lila.hub.AsyncActorSequencers
+import scalalib.actor.AsyncActorSequencers
 
 final private class StudySequencer(
     studyRepo: StudyRepo,
@@ -14,7 +13,8 @@ final private class StudySequencer(
     maxSize = Max(64),
     expiration = 1 minute,
     timeout = 10 seconds,
-    name = "study"
+    name = "study",
+    lila.log.asyncActorMonitor
   )
 
   def sequenceStudy[A <: Matchable: Zero](studyId: StudyId)(f: Study => Fu[A]): Fu[A] =

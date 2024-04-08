@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.i18n.I18nKeys as trans
+import lila.core.i18n.I18nKey as trans
 import lila.swiss.Swiss
 
 object bits:
@@ -23,15 +23,15 @@ object bits:
 
   def notFound()(using PageContext) =
     views.html.base.layout(
-      title = trans.tournamentNotFound.txt()
+      title = trans.site.tournamentNotFound.txt()
     ) {
       main(cls := "page-small box box-pad")(
-        h1(cls := "box__top")(trans.tournamentNotFound()),
-        p(trans.tournamentDoesNotExist()),
-        p(trans.tournamentMayHaveBeenCanceled()),
+        h1(cls := "box__top")(trans.site.tournamentNotFound()),
+        p(trans.site.tournamentDoesNotExist()),
+        p(trans.site.tournamentMayHaveBeenCanceled()),
         br,
         br,
-        a(href := routes.Swiss.home)(trans.returnToTournamentsHomepage())
+        a(href := routes.Swiss.home)(trans.site.returnToTournamentsHomepage())
       )
     }
 
@@ -54,7 +54,7 @@ object bits:
                   " • ",
                   if s.variant.exotic then s.variant.name else s.perfType.trans,
                   " • ",
-                  if s.settings.rated then trans.ratedTournament() else trans.casualTournament(),
+                  if s.settings.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
                   " • ",
                   s.estimatedDurationString
                 )
@@ -69,7 +69,7 @@ object bits:
       )
     )
 
-  def showInterval(s: Swiss)(using Lang): Frag =
+  def showInterval(s: Swiss)(using Translate): Frag =
     s.settings.dailyInterval match
       case Some(d)                         => trans.swiss.oneRoundEveryXDays.pluralSame(d)
       case None if s.settings.manualRounds => trans.swiss.roundsAreStartedManually()
@@ -84,9 +84,9 @@ object bits:
       span(cls := "content")(
         span(cls := "name")(s.name, " Swiss"),
         span(cls := "more")(
-          trans.nbPlayers.plural(s.nbPlayers, s.nbPlayers.localize),
+          trans.site.nbPlayers.plural(s.nbPlayers, s.nbPlayers.localize),
           " • ",
-          if s.isStarted then trans.eventInProgress() else momentFromNow(s.startsAt)
+          if s.isStarted then trans.site.eventInProgress() else momentFromNow(s.startsAt)
         )
       )
     )
@@ -94,27 +94,27 @@ object bits:
   def jsI18n(using PageContext) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
-    trans.join,
-    trans.withdraw,
-    trans.youArePlaying,
-    trans.joinTheGame,
-    trans.signIn,
-    trans.averageElo,
-    trans.gamesPlayed,
-    trans.whiteWins,
-    trans.blackWins,
-    trans.drawRate,
+    trans.site.join,
+    trans.site.withdraw,
+    trans.site.youArePlaying,
+    trans.site.joinTheGame,
+    trans.site.signIn,
+    trans.site.averageElo,
+    trans.site.gamesPlayed,
+    trans.site.whiteWins,
+    trans.site.blackWins,
+    trans.site.drawRate,
     trans.swiss.byes,
     trans.swiss.absences,
     trans.study.downloadAllGames,
-    trans.winRate,
-    trans.points,
+    trans.site.winRate,
+    trans.site.points,
     trans.swiss.tieBreak,
-    trans.performance,
-    trans.standByX,
-    trans.averageOpponent,
-    trans.tournamentComplete,
-    trans.tournamentEntryCode,
+    trans.site.performance,
+    trans.site.standByX,
+    trans.site.averageOpponent,
+    trans.site.tournamentComplete,
+    trans.site.tournamentEntryCode,
     trans.swiss.viewAllXRounds,
     trans.swiss.ongoingGames,
     trans.swiss.startingIn,

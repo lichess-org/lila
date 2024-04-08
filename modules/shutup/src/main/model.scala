@@ -1,6 +1,6 @@
 package lila.shutup
 
-import lila.hub.actorApi.shutup.PublicSource
+import lila.core.shutup.PublicSource
 
 case class UserRecord(
     _id: UserId,
@@ -24,10 +24,7 @@ case class UserRecord(
       TextReport(TextType.PublicChat, ~puc)
     )
 
-case class TextAnalysis(
-    text: String,
-    badWords: List[String]
-):
+case class TextAnalysis(text: String, badWords: List[String]) extends lila.core.shutup.TextAnalysis:
 
   lazy val nbWords = text.split("""\s+""").length
 

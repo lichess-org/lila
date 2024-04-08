@@ -8,15 +8,15 @@ import play.api.Configuration
 import scala.util.matching.Regex
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.core.config.*
 import lila.common.{ Bus, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.actorApi.round.{ Abort, Resign }
-import lila.hub.actorApi.simul.GetHostIds
+import lila.core.round.{ Abort, Resign }
+import lila.core.simul.GetHostIds
 import lila.memo.SettingStore
-import lila.round.actorApi.{ GetSocketStatus, SocketStatus }
-import lila.rating.PerfType
 import lila.rating.RatingFactor
+import lila.core.perf.PerfType
+import lila.core.user.{ FlairGet, FlairGetMap }
 
 @Module
 private class RoundConfig(
@@ -34,29 +34,30 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    flairApi: lila.user.FlairApi,
-    timeline: lila.hub.actors.Timeline,
-    bookmark: lila.hub.actors.Bookmark,
     chatApi: lila.chat.ChatApi,
-    fishnetPlayer: lila.fishnet.FishnetPlayer,
     crosstableApi: lila.game.CrosstableApi,
     playban: lila.playban.PlaybanApi,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
     rankingApi: lila.user.RankingApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
     rematches: lila.game.Rematches,
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
-    historyApi: lila.history.HistoryApi,
-    socketKit: lila.hub.socket.ParallelSocketKit,
-    userLagPut: lila.hub.socket.userLag.Put,
+    socketKit: lila.core.socket.ParallelSocketKit,
+    userLagPut: lila.core.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder,
-    notifyColls: lila.notify.NotifyColls,
     shutdown: akka.actor.CoordinatedShutdown
-)(using system: ActorSystem, scheduler: Scheduler)(using Executor, akka.stream.Materializer):
+)(using system: ActorSystem, scheduler: Scheduler)(using
+    FlairGet,
+    FlairGetMap,
+    Executor,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator
+):
+
   private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
 
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
@@ -66,7 +67,15 @@ final class Env(
     if !game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1) then fuccess(1f -> 1f)
     else
       def of(color: chess.Color): Fu[Float] =
-        game.player(color).userId.fold(defaultGoneWeight)(uid => playban.getRageSit(uid).dmap(_.goneWeight))
+        def rageSitGoneWeight(sit: lila.core.playban.RageSit): Float =
+          import scala.math.{ log10, sqrt }
+          import lila.playban.RageSit.extensions.*
+          if !sit.isBad then 1f
+          else (1 - 0.7 * sqrt(log10(-(sit.counterView) - 3))).toFloat.max(0.1f)
+        game
+          .player(color)
+          .userId
+          .fold(defaultGoneWeight)(uid => playban.rageSitOf(uid).dmap(rageSitGoneWeight))
       of(chess.White).zip(of(chess.Black))
 
   private val isSimulHost =
@@ -75,13 +84,12 @@ final class Env(
   private val scheduleExpiration = ScheduleExpiration: game =>
     game.timeBeforeExpiration.foreach: centis =>
       scheduler.scheduleOnce((centis.millis + 1000).millis):
-        tellRound(game.id, actorApi.round.NoStart)
+        tellRound(game.id, lila.core.round.NoStart)
 
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
 
-  private given lila.user.FlairApi.Getter = flairApi.getter
-  lazy val roundSocket: RoundSocket       = wire[RoundSocket]
+  lazy val roundSocket: RoundSocket = wire[RoundSocket]
 
   private def resignAllGamesOf(userId: UserId) =
     gameRepo
@@ -105,7 +113,7 @@ final class Env(
   private val getFactors: () => Map[PerfType, RatingFactor] = ratingFactorsSetting.get
 
   Bus.subscribeFuns(
-    "accountClose" -> { case lila.hub.actorApi.security.CloseAccount(userId) =>
+    "accountClose" -> { case lila.core.actorApi.security.CloseAccount(userId) =>
       resignAllGamesOf(userId)
     },
     "gameStartId" -> { case Game.OnStart(gameId) =>
@@ -114,7 +122,7 @@ final class Env(
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name)
     },
-    "adjustCheater" -> { case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+    "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>
       resignAllGamesOf(userId)
     }
   )
@@ -122,7 +130,7 @@ final class Env(
   lazy val tellRound: TellRound =
     TellRound((gameId: GameId, msg: Any) => roundSocket.rounds.tell(gameId, msg))
 
-  lazy val onStart: OnStart = OnStart: gameId =>
+  lazy val onStart = lila.core.game.OnStart: gameId =>
     proxyRepo
       .game(gameId)
       .foreach:
@@ -134,6 +142,7 @@ final class Env(
               Bus.publish(sg, "startGame")
               game.userIds.foreach: userId =>
                 Bus.publish(sg, s"userStartGame:$userId")
+              if game.playableByAi then Bus.publish(game, "fishnetPlay")
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
@@ -168,17 +177,13 @@ final class Env(
     tellRound = tellRound
   )
 
-  private lazy val notifier = RoundNotifier(
-    timeline = timeline,
-    isUserPresent = isUserPresent,
-    notifyApi = notifyApi
-  )
+  private lazy val notifier = RoundNotifier(isUserPresent, notifyApi)
 
   private lazy val finisher = wire[Finisher]
 
   private lazy val rematcher: Rematcher = wire[Rematcher]
 
-  lazy val isOfferingRematch = IsOfferingRematch(rematcher.isOffering)
+  lazy val isOfferingRematch = lila.core.round.IsOfferingRematch(rematcher.isOffering)
 
   private lazy val player: Player = wire[Player]
 
@@ -202,7 +207,7 @@ final class Env(
 
   system.actorOf(Props(wire[Titivate]), name = "titivate")
 
-  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game)
+  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game, lightUserApi)
 
   private lazy val takebacker = wire[Takebacker]
 

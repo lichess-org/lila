@@ -258,6 +258,7 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="abortGame">තරඟය නවත්වන්න</string>
   <string name="gameAborted">තරගය අත්හැර දැමුනි</string>
   <string name="standard">සම්මත</string>
+  <string name="customPosition">Custom පිහිටීම</string>
   <string name="unlimited">සිමාරහිත</string>
   <string name="mode">ප්‍රකාරය</string>
   <string name="casual">සාමාන්‍ය</string>

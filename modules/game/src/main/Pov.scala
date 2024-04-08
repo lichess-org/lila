@@ -1,8 +1,9 @@
 package lila.game
 
 import chess.Color
+import lila.core.game.{ Game as _, * }
 
-case class Pov(game: Game, color: Color):
+case class Pov(game: Game, color: Color) extends lila.core.game.Pov:
 
   export game.{ id as gameId }
 
@@ -84,19 +85,6 @@ object Pov:
     else if !a.hasMoved && b.hasMoved then true
     else if !b.hasMoved && a.hasMoved then false
     else orInf(a.remainingSeconds) < orInf(b.remainingSeconds)
-
-case class PovRef(gameId: GameId, color: Color):
-
-  def unary_! = PovRef(gameId, !color)
-
-  override def toString = s"$gameId/${color.name}"
-
-case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
-
-object PlayerRef:
-
-  def apply(fullId: GameFullId): PlayerRef =
-    PlayerRef(fullId.gameId, fullId.playerId)
 
 case class LightPov(game: LightGame, color: Color):
   export game.{ id as gameId }

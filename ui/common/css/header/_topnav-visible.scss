@@ -28,7 +28,7 @@
         line-height: $site-header-height;
         padding: 0 0.7rem;
         text-transform: uppercase;
-        border-#{$start-direction}: 2px solid transparent;
+        border-inline-start: 2px solid transparent;
       }
 
       .home {
@@ -40,12 +40,12 @@
       visibility: hidden;
       max-height: inherit;
       position: absolute;
-      #{$start-direction}: 0;
+      @include inline-start(0);
       background: $c-bg-header-dropdown;
       min-width: 10rem;
       box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.3);
       border-radius: 0 3px 3px 3px;
-      border-#{$start-direction}: 2px solid $c-primary;
+      border-inline-start: 2px solid $c-primary;
       @if $theme == 'transp' {
         @include back-blur();
       }
@@ -66,16 +66,12 @@
         &:first-child {
           border-radius: 0 3px 0 0;
         }
-
-        &:last-child {
-          border-radius: 0 0 3px 1px;
-        }
       }
     }
 
     &.blind div {
       display: block;
-      margin-#{$start-direction}: -9000px;
+      margin-inline-start: -9000px;
     }
 
     &.hover section:hover,

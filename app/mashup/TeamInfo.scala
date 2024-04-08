@@ -1,14 +1,13 @@
 package lila.app
 package mashup
 
-import lila.forum.MiniForumPost
+import lila.core.forum.ForumPostMini
 import lila.simul.{ Simul, SimulApi }
 import lila.swiss.{ Swiss, SwissApi }
 import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo, TeamSecurity }
 import lila.tournament.{ Tournament, TournamentApi }
 import lila.user.User
-
-import concurrent.duration.DurationInt
+import lila.core.forum.ForumPostMiniView
 
 case class TeamInfo(
     withLeaders: Team.WithLeaders,
@@ -16,7 +15,7 @@ case class TeamInfo(
     myRequest: Option[TeamRequest],
     subscribed: Boolean,
     requests: List[RequestWithUser],
-    forum: Option[List[MiniForumPost]],
+    forum: Option[List[ForumPostMiniView]],
     tours: TeamInfo.PastAndNext,
     simuls: Seq[Simul]
 ):
@@ -29,7 +28,7 @@ case class TeamInfo(
 
   def hasRequests = requests.nonEmpty
 
-  def userIds = forum.so(_.flatMap(_.userId))
+  def userIds = forum.so(_.flatMap(_.post.userId))
 
 object TeamInfo:
   val pmAllCost    = 5
@@ -61,8 +60,8 @@ final class TeamInfoApi(
   import TeamInfo.*
 
   object pmAll:
-    lazy val dedup = lila.memo.OnceEvery.hashCode[(TeamId, String)](10 minutes)
-    lazy val limiter = mongoRateLimitApi[TeamId](
+    val dedup = scalalib.cache.OnceEvery.hashCode[(TeamId, String)](10 minutes)
+    val limiter = mongoRateLimitApi[TeamId](
       "team.pm.all",
       credits = pmAllCredits * pmAllCost,
       duration = pmAllDays.days

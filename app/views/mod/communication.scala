@@ -5,7 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
-import lila.hub.actorApi.shutup.PublicSource
+import lila.core.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.relation.Follow
@@ -183,7 +183,7 @@ object communication:
                     strong(userLink(modConvo.contact)),
                     showSbMark(modConvo.contact),
                     modConvo.relations.in
-                      .has(Follow)
+                      .exists(_.isFollow)
                       .option(
                         span(cls := "friend_title")(
                           "is following this user",

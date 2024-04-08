@@ -151,7 +151,7 @@ object Chapter:
 
   /* Last position of the main line.
    * Used for chapter previews. */
-  case class LastPosDenorm(fen: Fen.Epd, uci: Option[Uci], clocks: BothClocks)
+  case class LastPosDenorm(fen: Fen.Full, uci: Option[Uci], clocks: BothClocks)
 
   case class IdName(@Key("_id") id: StudyChapterId, name: StudyChapterName)
 
@@ -162,7 +162,7 @@ object Chapter:
 
   def fixName(n: StudyChapterName) = StudyChapterName(lila.common.String.softCleanUp(n.value).take(80))
 
-  def makeId = StudyChapterId(ornicar.scalalib.ThreadLocalRandom.nextString(8))
+  def makeId = StudyChapterId(scalalib.ThreadLocalRandom.nextString(8))
 
   def make(
       studyId: StudyId,

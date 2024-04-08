@@ -5,41 +5,41 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.game.FavoriteOpponents
 import lila.relation.Related
 import lila.user.User
 
 object bits:
 
-  def friends(u: User, pag: Paginator[Related])(using PageContext) =
-    layout(s"${u.username} • ${trans.friends.txt()}")(
+  def friends(u: User, pag: Paginator[Related[User.WithPerfs]])(using PageContext) =
+    layout(s"${u.username} • ${trans.site.friends.txt()}")(
       boxTop(
         h1(
           a(href := routes.User.show(u.username), dataIcon := licon.LessThan, cls := "text"),
-          trans.friends()
+          trans.site.friends()
         )
       ),
       pagTable(pag, routes.Relation.following(u.username))
     )
 
-  def blocks(u: User, pag: Paginator[Related])(using PageContext) =
-    layout(s"${u.username} • ${trans.blocks.pluralSameTxt(pag.nbResults)}")(
+  def blocks(u: User, pag: Paginator[Related[User.WithPerfs]])(using PageContext) =
+    layout(s"${u.username} • ${trans.site.blocks.pluralSameTxt(pag.nbResults)}")(
       boxTop(
         h1(userLink(u, withOnline = false)),
-        div(cls := "actions")(trans.blocks.pluralSame(pag.nbResults))
+        div(cls := "actions")(trans.site.blocks.pluralSame(pag.nbResults))
       ),
       pagTable(pag, routes.Relation.blocks())
     )
 
-  def opponents(u: User, sugs: List[lila.relation.Related])(using ctx: PageContext) =
-    layout(s"${u.username} • ${trans.favoriteOpponents.txt()}")(
+  def opponents(u: User, sugs: List[Related[User.WithPerfs]])(using ctx: PageContext) =
+    layout(s"${u.username} • ${trans.site.favoriteOpponents.txt()}")(
       boxTop:
         h1(
           a(href := routes.User.show(u.username), dataIcon := licon.LessThan, cls := "text"),
-          trans.favoriteOpponents(),
+          trans.site.favoriteOpponents(),
           " (",
-          trans.nbGames.pluralSame(FavoriteOpponents.gameLimit),
+          trans.site.nbGames.pluralSame(FavoriteOpponents.gameLimit),
           ")"
         )
       ,
@@ -53,14 +53,14 @@ object bits:
                 td:
                   r.nbGames.filter(_ > 0).map { nbGames =>
                     a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}"):
-                      trans.nbGames.plural(nbGames, nbGames.localize)
+                      trans.site.nbGames.plural(nbGames, nbGames.localize)
                   }
                 ,
                 td:
                   views.html.relation
                     .actions(r.user.light, r.relation, followable = r.followable, blocked = false)
               )
-          else tr(td(trans.none()))
+          else tr(td(trans.site.none()))
     )
 
   def layout(title: String)(content: Modifier*)(using PageContext) =
@@ -71,7 +71,7 @@ object bits:
     ):
       main(cls := "box page-small")(content)
 
-  private def pagTable(pager: Paginator[Related], call: Call)(using ctx: Context) =
+  private def pagTable(pager: Paginator[Related[User.WithPerfs]], call: Call)(using ctx: Context) =
     table(cls := "slist slist-pad")(
       if pager.nbResults > 0
       then
@@ -80,10 +80,10 @@ object bits:
             tr(cls := "paginated")(
               td(userLink(r.user)),
               ctx.pref.showRatings.option(td(showBestPerf(r.user.perfs))),
-              td(trans.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
+              td(trans.site.nbGames.plural(r.user.count.game, r.user.count.game.localize)),
               td(actions(r.user.light, relation = r.relation, followable = r.followable, blocked = false))
             ),
           pagerNextTable(pager, np => addQueryParam(call.url, "page", np.toString))
         )
-      else tbody(tr(td(colspan := 2)(trans.none())))
+      else tbody(tr(td(colspan := 2)(trans.site.none())))
     )

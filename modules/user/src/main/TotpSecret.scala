@@ -1,7 +1,7 @@
 package lila.user
 
 import org.apache.commons.codec.binary.Base32
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 import reactivemongo.api.bson.*
 
 import java.nio.ByteBuffer

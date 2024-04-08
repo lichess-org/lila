@@ -1,17 +1,16 @@
 package lila.tutor
 
 import lila.analyse.WinPercent
-import lila.common.config
 import lila.db.dsl.*
 import lila.insight.*
 import lila.insight.BSONHandlers.given
 import lila.insight.InsightEntry.BSONFields as F
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 object TutorConversion:
 
-  val maxGames = config.Max(10_000)
+  val maxGames = Max(10_000)
 
   private[tutor] def compute(
       users: NonEmptyList[TutorUser]

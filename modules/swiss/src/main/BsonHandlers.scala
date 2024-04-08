@@ -89,7 +89,7 @@ object BsonHandlers:
         nbRounds = r.get[Int]("n"),
         rated = r.boolO("r") | true,
         description = r.strO("d"),
-        position = r.getO[Fen.Epd]("f"),
+        position = r.getO[Fen.Full]("f"),
         chatFor = r.intO("c") | Swiss.ChatFor.default,
         roundInterval = (r.intO("i") | 60).seconds,
         password = r.strO("p"),
@@ -124,6 +124,5 @@ object BsonHandlers:
       )
     }
 
-  import Swiss.IdName
-  given BSONDocumentHandler[IdName]   = Macros.handler
-  given BSONDocumentHandler[SwissBan] = Macros.handler
+  given BSONDocumentHandler[lila.core.swiss.IdName] = Macros.handler
+  given BSONDocumentHandler[SwissBan]               = Macros.handler

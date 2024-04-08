@@ -66,7 +66,7 @@ final class Opening(env: Env) extends LilaController(env):
           .bindFromRequest()
           .fold(
             _ => redirect,
-            text => env.opening.wiki.write(op, text, me.value).inject(redirect)
+            text => env.opening.wiki.write(op, text, me.userId).inject(redirect)
           )
   }
 

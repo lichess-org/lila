@@ -18,8 +18,8 @@ object tourForm:
       postForm(cls := "form3", action := routes.RelayTour.create)(
         inner(form, none),
         form3.actions(
-          a(href := routes.RelayTour.index(1))(trans.cancel()),
-          form3.submit(trans.apply())
+          a(href := routes.RelayTour.index(1))(trans.site.cancel()),
+          form3.submit(trans.site.apply())
         )
       )
     )
@@ -35,8 +35,8 @@ object tourForm:
       postForm(cls := "form3", action := routes.RelayTour.update(tour.id))(
         inner(form, tg.some),
         form3.actions(
-          a(href := routes.RelayTour.show(tour.slug, tour.id))(trans.cancel()),
-          form3.submit(trans.apply())
+          a(href := routes.RelayTour.show(tour.slug, tour.id))(trans.site.cancel()),
+          form3.submit(trans.site.apply())
         )
       ),
       div(cls := "relay-form__actions")(
@@ -57,7 +57,7 @@ object tourForm:
 
   private def image(t: RelayTour)(using ctx: PageContext) =
     div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
-      views.html.relay.tour.thumbnail(t, _.Size.Small)(
+      views.html.relay.tour.thumbnail(t.image, _.Size.Small)(
         cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
         attr("draggable") := "true"
       ),
@@ -68,7 +68,7 @@ object tourForm:
           "A picture of the city where the tournament takes place is a good idea, but feel free to design something different."
         ),
         p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB.")),
-        form3.file.selectImage
+        form3.file.selectImage()
       )
     )
 
@@ -173,20 +173,57 @@ Team Dogs ; Scooby Doo"""),
       )
     else form3.hidden(form("tier")),
     isGranted(_.StudyAdmin).option(
-      form3.split(
-        form3.checkbox(
-          form("spotlight.enabled"),
-          "Show a homepage spotlight",
-          help = raw("As a Big Blue Button - for admins only").some,
-          half = true
+      frag(
+        form3.split(
+          form3.checkbox(
+            form("spotlight.enabled"),
+            "Show a homepage spotlight",
+            help = raw("As a Big Blue Button - for admins only").some,
+            half = true
+          ),
+          form3.group(
+            form("spotlight.lang"),
+            "Homepage spotlight language",
+            help = raw("Only show to users who speak this language. English is shown to everyone.").some,
+            half = true
+          ):
+            form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
         ),
-        form3.group(
-          form("spotlight.lang"),
-          "Homepage spotlight language",
-          help = raw("Only show to users who speak this language. English is shown to everyone.").some,
-          half = true
-        ):
-          form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
+        tg.map: t =>
+          div(
+            cls              := "relay-pinned-streamer-edit",
+            data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
+          )(
+            div(
+              form3.group(
+                form("pinnedStreamer"),
+                "Pinned streamer",
+                help = frag(
+                  p("The pinned streamer is featured even when they're not watching the broadcast."),
+                  p("An optional placeholder image will embed their stream when clicked."),
+                  p(
+                    "To upload one, you must first submit this form with a pinned streamer. "
+                      + "Then return to this page and choose an image."
+                  )
+                ).some
+              )(form3.input(_)),
+              span(
+                button(tpe := "button", cls := "button streamer-select-image")("select image"),
+                button(
+                  tpe              := "button",
+                  cls              := "button button-empty button-red streamer-delete-image",
+                  data("post-url") := routes.RelayTour.image(t.tour.id, "pinnedStreamerImage".some)
+                )("delete image")
+              )
+            ),
+            views.html.relay.tour.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
+              cls := List(
+                "streamer-drop-target" -> true,
+                "user-image"           -> t.tour.pinnedStreamerImage.isDefined
+              ),
+              attr("draggable") := "true"
+            )
+          )
       )
     )
   )

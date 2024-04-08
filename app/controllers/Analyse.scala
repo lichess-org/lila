@@ -6,10 +6,11 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, LpvEmbed }
+import lila.common.HTTPRequest
 import lila.game.{ PgnDump, Pov }
 import lila.oauth.AccessToken
-import lila.round.JsonView.WithFlags
+import lila.tree.ExportOptions
+import lila.core.actorApi.lpv.LpvEmbed
 
 final class Analyse(
     env: Env,
@@ -63,7 +64,7 @@ final class Analyse(
                   lila.round.OnTv.User(u.id),
                 analysis,
                 initialFen = initialFen,
-                withFlags = WithFlags(
+                withFlags = ExportOptions(
                   movetimes = true,
                   clocks = true,
                   division = true,
@@ -108,10 +109,10 @@ final class Analyse(
             case _            => NotFound(html.analyse.embed.notFound)
       }
 
-  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Epd])(or: => Fu[Result])(using
+  private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Full])(or: => Fu[Result])(using
       Context
   ): Fu[Result] =
-    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).fold(or): atFen =>
+    (get("fen").map(Fen.Full.clean): Option[Fen.Full]).fold(or): atFen =>
       val url = routes.Round.watcher(pov.gameId, pov.color.name)
       chess.Replay
         .plyAtFen(pov.game.sans, initialFen, pov.game.variant, atFen)

@@ -5,7 +5,7 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.User
 
 object userTable:
@@ -18,10 +18,10 @@ object userTable:
   def selectAltAll(using Context) = canCloseAlt.option(
     sortNoneTh(
       select(style := "width: 2em")(
-        option(value := "")(""),
-        option(value := "all")("Select all"),
-        option(value := "none")("Select none"),
-        option(value := "alt")("Alt selected")
+        st.option(value := "")(""),
+        st.option(value := "all")("Select all"),
+        st.option(value := "none")("Select none"),
+        st.option(value := "alt")("Alt selected")
       )
     )
   )
@@ -36,7 +36,7 @@ object userTable:
   )
 
   def apply(
-      users: List[User.WithEmails],
+      users: List[User.WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
   )(using Context, Me) =
@@ -55,9 +55,9 @@ object userTable:
           )
         ),
         tbody:
-          users.map { case lila.user.User.WithEmails(u, emails) =>
+          users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
             tr(
-              if showUsernames || Granter.canViewAltUsername(u.user)
+              if showUsernames || lila.security.Granter.canViewAltUsername(u.user)
               then
                 td(dataSort := u.id)(
                   userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),

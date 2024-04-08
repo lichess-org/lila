@@ -14,7 +14,7 @@ object message:
   def apply(
       title: String,
       back: Option[String] = None,
-      icon: Option[licon.Icon] = None,
+      icon: Option[Icon] = None,
       moreCss: Option[Frag] = None
   )(message: Modifier*)(using PageContext) =
     views.html.base.layout(title = title, moreCss = ~moreCss):

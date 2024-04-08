@@ -13,7 +13,7 @@ object show:
       data: lila.practice.JsonView.JsData
   )(using PageContext) =
     views.html.base.layout(
-      title = us.practiceStudy.name,
+      title = us.practiceStudy.name.value,
       moreCss = cssTag("analyse.practice"),
       moreJs = analyseNvuiTag,
       pageModule = PageModule(

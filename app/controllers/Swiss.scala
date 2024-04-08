@@ -7,7 +7,7 @@ import scala.util.chaining.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.hub.LightTeam
+import lila.core.team.LightTeam
 import lila.swiss.Swiss.ChatFor
 import lila.swiss.{ Swiss as SwissModel, SwissForm }
 

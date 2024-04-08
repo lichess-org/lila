@@ -19,8 +19,8 @@
       .ublog-post-card__title {
         position: absolute;
         bottom: 0;
-        #{$start-direction}: 0;
-        #{$end-direction}: 0;
+        left: 0;
+        right: 0;
         padding: 3% 4% 3% 6%;
         background: $c-bg-zebra;
         opacity: 0.9;

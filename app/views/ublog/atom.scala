@@ -16,7 +16,7 @@ object atom:
   def user(
       user: User,
       posts: Seq[UblogPost.PreviewPost]
-  )(using Lang) =
+  )(using Translate) =
     views.html.base.atom(
       elems = posts,
       htmlCall = routes.Ublog.index(user.username),

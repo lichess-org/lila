@@ -6,9 +6,10 @@ import play.api.data.validation.Constraints
 import play.api.mvc.RequestHeader
 
 import lila.common.Form.*
-import lila.common.{ EmailAddress, Form as LilaForm, LameName }
+import lila.common.{ Form as LilaForm, LameName }
 import lila.user.User.{ ClearPassword, TotpToken }
 import lila.user.{ Me, TotpSecret, User, UserRepo }
+import lila.core.EmailAddress
 
 final class SecurityForm(
     userRepo: UserRepo,
@@ -73,7 +74,7 @@ final class SecurityForm(
       .verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
       .verifying(
         "usernameAlreadyUsed",
-        u => !User.isGhost(u.id) && !userRepo.exists(u).await(3 seconds, "signupUsername")
+        u => u.id.noGhost && !userRepo.exists(u).await(3 seconds, "signupUsername")
       )
 
     private val agreementBool = boolean.verifying(b => b)

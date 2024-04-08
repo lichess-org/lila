@@ -1,7 +1,7 @@
 package lila.security
 
 import com.softwaremill.tagging.*
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
@@ -9,12 +9,15 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
 import lila.common.Form.into
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
+import lila.core.{ ApiVersion, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate.Result
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ Me, User, UserRepo }
+import lila.core.{ EmailAddress, UserStrOrEmail }
+import lila.core.security.{ IsProxy, Ip2ProxyApi }
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -24,8 +27,8 @@ final class SecurityApi(
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     oAuthServer: OAuthServer,
-    ip2proxy: Ip2Proxy,
-    proxy2faSetting: lila.memo.SettingStore[lila.common.Strings] @@ Proxy2faSetting
+    ip2proxy: Ip2ProxyApi,
+    proxy2faSetting: lila.memo.SettingStore[lila.core.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
 
   val AccessUri = "access_uri"
@@ -79,8 +82,8 @@ final class SecurityApi(
       .from(str.value)
       .match
         case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-        case None        => User.validateId(str.into(UserStr)).so(authenticator.loginCandidateById)
-      .map(_.filter(_.user.isnt(User.lichessId)))
+        case None        => str.into(UserStr).validateId.so(authenticator.loginCandidateById)
+      .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
           must2fa(req).map:
@@ -143,24 +146,25 @@ final class SecurityApi(
   def oauthScoped(
       req: RequestHeader,
       required: lila.oauth.EndpointScopes
-  ): Fu[OAuthServer.AuthResult] =
+  ): Fu[OAuthServer.AuthResult[Me]] =
+    given OAuthServer.FetchUser[Me] = userRepo.me
     oAuthServer
-      .auth(req, required)
+      .auth[Me](req, required)
       .addEffect:
         case Right(access) => upsertOauth(access, req)
         case _             => ()
       .map(_.map(access => stripRolesOfOAuthUser(access.scoped)))
 
   private object upsertOauth:
-    private val sometimes = lila.memo.OnceEvery.hashCode[AccessToken.Id](1.hour)
-    def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
+    private val sometimes = scalalib.cache.OnceEvery.hashCode[AccessToken.Id](1.hour)
+    def apply(access: OAuthScope.Access[Me], req: RequestHeader): Unit =
       if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
         val mobile = Mobile.LichessMobileUa.parse(req)
-        store.upsertOAuth(access.user.id, access.tokenId, mobile, req)
+        store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
 
-  private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
+  private lazy val nonModRoles: Set[String] = lila.core.perm.Permission.nonModPermissions.map(_.dbKey)
 
-  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
+  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped[Me]) =
     if scoped.scopes.has(_.Web.Mod) then scoped
     else scoped.copy(me = stripRolesOf(scoped.me))
 

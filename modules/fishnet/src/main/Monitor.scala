@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 final private class Monitor(
     repo: FishnetRepo,

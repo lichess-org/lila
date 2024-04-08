@@ -9,11 +9,9 @@ import java.util.concurrent.TimeUnit
 import lila.common.Bus
 import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Game, Pov, Progress, UciMemo }
-
-import actorApi.round.{ Draw, ForecastPlay, HumanPlay, Takeback, TooManyPlies }
+import lila.core.round.*
 
 final private class Player(
-    fishnetPlayer: lila.fishnet.FishnetPlayer,
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration,
     uciMemo: UciMemo
@@ -46,7 +44,7 @@ final private class Player(
                   proxy.save(progress) >>
                     postHumanOrBotPlay(round, pov, progress, moveOrDrop)
               }
-          case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(pov))
+          case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(game.id))
           case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
           case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
           case _ => fufail(ClientError(s"$pov move refused for some reason"))
@@ -64,7 +62,7 @@ final private class Player(
             case MoveApplied(progress, moveOrDrop, _) =>
               proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
           }
-      case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(pov))
+      case Pov(game, _) if game.finished           => fufail(GameIsFinishedError(game.id))
       case Pov(game, _) if game.aborted            => fufail(ClientError(s"$pov game is aborted"))
       case Pov(game, color) if !game.turnOf(color) => fufail(ClientError(s"$pov not your turn"))
       case _ => fufail(ClientError(s"$pov move refused for some reason"))
@@ -118,10 +116,10 @@ final private class Player(
         FishnetError:
           s"Not AI turn move: $uci id: ${game.id} playable: ${game.playable} player: ${game.player}"
 
-  private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Funit =
+  private[round] def requestFishnet(game: Game, round: RoundAsyncActor): Unit =
     game.playableByAi.so:
-      if game.ply <= fishnetPlayer.maxPlies then fishnetPlayer(game)
-      else fuccess(round ! actorApi.round.ResignAi)
+      if game.ply <= lila.core.fishnet.maxPlies then Bus.publish(game, "fishnetPlay")
+      else round ! ResignAi
 
   private val fishnetLag = MoveMetrics(clientLag = Centis(5).some)
   private val botLag     = MoveMetrics(clientLag = Centis(0).some)
@@ -148,7 +146,7 @@ final private class Player(
           )
 
   private def notifyMove(moveOrDrop: MoveOrDrop, game: Game): Unit =
-    import lila.hub.actorApi.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
+    import lila.core.round.{ CorresMoveEvent, MoveEvent, SimulMoveEvent }
     val color = moveOrDrop.color
     val moveEvent = MoveEvent(
       gameId = game.id,

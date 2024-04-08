@@ -30,7 +30,7 @@ object edit:
                 picture.thumbnail(s.streamer, s.user)(attr("draggable") := "true", cls := "drop-target"),
                 span(
                   label("Drag image above or"),
-                  form3.file.selectImage
+                  form3.file.selectImage()
                 )
               ),
               div(cls := "overview")(
@@ -197,7 +197,7 @@ object edit:
                         name  := "approval.quick",
                         value := "decline"
                       ),
-                      form3.submit(trans.apply())
+                      form3.submit(trans.site.apply())
                     )
                   )
                 ),
@@ -237,8 +237,8 @@ object edit:
                 )(form3.input(_)),
                 form3.group(form("description"), longDescription())(form3.textarea(_)(rows := 10)),
                 form3.actions(
-                  a(href := routes.Streamer.show(s.user.username))(trans.cancel()),
-                  form3.submit(trans.apply())
+                  a(href := routes.Streamer.show(s.user.username))(trans.site.cancel()),
+                  form3.submit(trans.site.apply())
                 )
               )
             )

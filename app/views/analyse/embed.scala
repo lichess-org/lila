@@ -41,10 +41,10 @@ object embed:
     .add("orientation", orientation.map(_.name))
 
   val lpvI18n = List(
-    trans.flipBoard,
-    trans.analysis,
-    trans.practiceWithComputer,
-    trans.download
+    trans.site.flipBoard,
+    trans.site.analysis,
+    trans.site.practiceWithComputer,
+    trans.site.download
   )
 
   def notFound(using EmbedContext) =

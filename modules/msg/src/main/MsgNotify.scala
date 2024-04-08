@@ -6,16 +6,13 @@ import java.util.concurrent.ConcurrentHashMap
 
 import lila.common.String.shorten
 import lila.db.dsl.{ *, given }
-import lila.notify.PrivateMessage
+import lila.core.notify.*
 import lila.user.User
 
 final private class MsgNotify(
     colls: MsgColls,
-    notifyApi: lila.notify.NotifyApi
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+    notifyApi: NotifyApi
+)(using ec: Executor, scheduler: Scheduler):
 
   import BsonHandlers.given
 
@@ -26,7 +23,7 @@ final private class MsgNotify(
   def onPost(threadId: MsgThread.Id): Unit = schedule(threadId)
 
   def onRead(threadId: MsgThread.Id, userId: UserId, contactId: UserId): Funit =
-    (!cancel(threadId)).so(
+    (!cancel(threadId)).so:
       notifyApi
         .markRead(
           userId,
@@ -36,15 +33,12 @@ final private class MsgNotify(
           )
         )
         .void
-    )
 
   def deleteAllBy(threads: List[MsgThread], user: User): Funit =
-    threads
-      .map: thread =>
-        cancel(thread.id)
-        notifyApi.remove(thread.other(user.id), $doc("content.user" -> user.id)).void
-      .parallel
-      .void
+    threads.traverse_ { thread =>
+      cancel(thread.id)
+      notifyApi.remove(thread.other(user.id), $doc("content.user" -> user.id)).void
+    }
 
   private def schedule(threadId: MsgThread.Id): Unit = delayed.compute(
     threadId,

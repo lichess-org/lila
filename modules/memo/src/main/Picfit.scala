@@ -7,10 +7,10 @@ import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData
 import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
-import lila.common.IpAddress
+import lila.core.IpAddress
 
 case class PicfitImage(
     _id: PicfitImage.Id,
@@ -56,7 +56,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
           case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
-              _id = PicfitImage.Id(s"$userId:$rel:${ThreadLocalRandom nextString 8}.$extension"),
+              _id = PicfitImage.Id(s"$userId:$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
               user = userId,
               rel = rel,
               name = part.filename,
@@ -68,12 +68,12 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
               coll.insert.one(image).inject(image)
 
   def deleteByIdsAndUser(ids: Seq[Id], user: UserId): Funit =
-    ids.nonEmpty so ids.traverse_ { id =>
+    ids.nonEmpty.so(ids.traverse_ { id =>
       coll
         .findAndRemove($id(id) ++ $doc("user" -> user))
         .flatMap { _.result[PicfitImage].so(picfitServer.delete) }
         .void
-    }
+    })
 
   def deleteByRel(rel: String): Funit =
     coll
@@ -89,7 +89,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     )
     def upload(rel: String, image: FilePart, me: UserId, ip: IpAddress): Fu[Option[String]] =
       RateLimitPerIp(ip, fuccess(none)):
-        uploadFile(s"$rel:${ornicar.scalalib.ThreadLocalRandom.nextString(12)}", image, me)
+        uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
           .map(pic => url.resize(pic.id, sizePx).some)
 
   private object picfitServer:
@@ -101,7 +101,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
           WSBodyWritables.bodyWritable
         )
         .flatMap:
-          case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String] take 200}")
+          case res if res.status != 200 => fufail(s"${res.statusText} ${res.body[String].take(200)}")
           case _ =>
             if image.size > 0 then lila.mon.picfit.uploadSize(image.user.value).record(image.size)
             // else logger.warn(s"Unknown image size: ${image.id} by ${image.user}")
@@ -113,7 +113,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
         case res if res.status != 200 =>
           logger
             .branch("picfit")
-            .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String] take 200}")
+            .error(s"deleteFromPicfit ${image.id} ${res.statusText} ${res.body[String].take(200)}")
           funit
         case _ => funit
       }
@@ -145,7 +145,7 @@ object PicfitApi:
       .map(PicfitImage.Id(_))
       .toSet
 
-final class PicfitUrl(config: PicfitConfig):
+final class PicfitUrl(config: PicfitConfig)(using Executor):
 
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
@@ -175,10 +175,10 @@ final class PicfitUrl(config: PicfitConfig):
     s"${config.endpointGet}/display?${signQueryString(queryString)}"
 
   private object signQueryString:
-    private val signer = com.roundeights.hasher.Algo hmac config.secretKey.value
+    private val signer = com.roundeights.hasher.Algo.hmac(config.secretKey.value)
     private val cache: LoadingCache[String, String] =
       CacheApi.scaffeineNoScheduler
         .expireAfterWrite(10 minutes)
         .build { qs => signer.sha1(qs.replace(":", "%3A")).hex }
 
-    def apply(qs: String) = s"$qs&sig=${cache get qs}"
+    def apply(qs: String) = s"$qs&sig=${cache.get(qs)}"

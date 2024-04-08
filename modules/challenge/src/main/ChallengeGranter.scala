@@ -1,13 +1,11 @@
 package lila.challenge
 
-import play.api.i18n.Lang
-
-import lila.Lila
-import lila.i18n.I18nKeys.challenge as trans
+import lila.core.i18n.I18nKey.challenge as trans
 import lila.pref.Pref
-import lila.rating.PerfType
-import lila.relation.{ Block, Follow }
+import lila.core.perf.PerfType
+import lila.core.relation.{ Block, Follow }
 import lila.user.{ Me, User }
+import lila.core.i18n.Translate
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
 
@@ -23,7 +21,7 @@ object ChallengeDenied:
     case BotUltraBullet
     case SelfChallenge
 
-  def translated(d: ChallengeDenied)(using Lang): String =
+  def translated(d: ChallengeDenied)(using Translate): String =
     d.reason match
       case Reason.YouAreAnon               => trans.registerToSendChallenges.txt()
       case Reason.YouAreBlocked            => trans.youCannotChallengeX.txt(d.dest.titleUsername)
@@ -38,7 +36,7 @@ object ChallengeDenied:
 final class ChallengeGranter(
     prefApi: lila.pref.PrefApi,
     perfsRepo: lila.user.UserPerfsRepo,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 ):
 
   import ChallengeDenied.Reason.*
@@ -56,7 +54,7 @@ final class ChallengeGranter(
     } { from =>
       type Res = Option[ChallengeDenied.Reason]
       given Conversion[Res, Fu[Res]] = fuccess
-      relationApi.fetchRelation(dest, from).zip(prefApi.get(dest).map(_.challenge)).flatMap {
+      relationApi.fetchRelation(dest.id, from.userId).zip(prefApi.get(dest).map(_.challenge)).flatMap {
         case (Some(Block), _)                                  => YouAreBlocked.some
         case (_, Pref.Challenge.NEVER)                         => TheyDontAcceptChallenges.some
         case (Some(Follow), _)                                 => none // always accept from followed

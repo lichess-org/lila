@@ -4,7 +4,7 @@ import alleycats.Zero
 
 import lila.analyse.AccuracyPercent
 import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats }
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.user.User
 
 case class ValueCount[V](value: V, count: Int):

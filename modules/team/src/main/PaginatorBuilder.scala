@@ -1,11 +1,11 @@
 package lila.team
 
-import lila.common.LightUser
-import lila.common.config.MaxPerPage
-import lila.common.paginator.*
+import lila.core.LightUser
+
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
-import lila.user.MyId
+import lila.core.user.MyId
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
@@ -93,15 +93,20 @@ final private[team] class PaginatorBuilder(
         users <- lightUserApi.asyncManyFallback(userIds)
       yield users.zip(dates).map(TeamMember.UserAndDate.apply)
 
-  def declinedRequests(team: Team, page: Int): Fu[Paginator[RequestWithUser]] =
+  def declinedRequests(
+      team: Team,
+      page: Int,
+      userQuery: Option[UserStr] = None
+  ): Fu[Paginator[RequestWithUser]] =
     Paginator(
-      adapter = DeclinedRequestAdapter(team),
+      adapter = DeclinedRequestAdapter(team, userQuery),
       page,
       maxRequestsPerPage
     )
-  final private class DeclinedRequestAdapter(team: Team) extends AdapterLike[RequestWithUser]:
+  final private class DeclinedRequestAdapter(team: Team, userQuery: Option[UserStr] = None)
+      extends AdapterLike[RequestWithUser]:
     val nbResults        = requestRepo.countDeclinedByTeam(team.id)
-    private def selector = requestRepo.teamDeclinedQuery(team.id)
+    private def selector = requestRepo.teamDeclinedQuery(team.id, userQuery)
     private def sorting  = $sort.desc("date")
 
     def slice(offset: Int, length: Int): Fu[Seq[RequestWithUser]] =

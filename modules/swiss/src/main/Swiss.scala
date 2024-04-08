@@ -1,14 +1,15 @@
 package lila.swiss
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.Clock.Config as ClockConfig
-import chess.Speed
 import chess.format.Fen
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
-import lila.rating.PerfType
+import lila.core.perf.PerfType
+import lila.core.swiss.IdName
 
 case class Swiss(
-    _id: SwissId,
+    @Key("_id") id: SwissId,
     name: String,
     clock: ClockConfig,
     variant: chess.variant.Variant,
@@ -24,8 +25,6 @@ case class Swiss(
     finishedAt: Option[Instant],
     winnerId: Option[UserId] = None
 ):
-  inline def id = _id
-
   def isCreated            = round.value == 0
   def isStarted            = !isCreated && !isFinished
   def isFinished           = finishedAt.isDefined
@@ -44,9 +43,9 @@ case class Swiss(
       nextRoundAt = none
     )
 
-  def speed = Speed(clock)
+  def speed = chess.Speed(clock)
 
-  def perfType: PerfType = PerfType(variant, speed)
+  def perfType: PerfType = lila.rating.PerfType(variant, speed)
 
   def estimatedDuration: FiniteDuration = {
     (clock.limit.toSeconds + clock.increment.toSeconds * 80 + 10) * settings.nbRounds
@@ -68,6 +67,8 @@ case class Swiss(
       settings.dailyInterval.isEmpty &&
       clock.estimateTotalSeconds * 2 * settings.nbRounds > 3600 * 8
 
+  def idName = IdName(id, name)
+
   lazy val looksLikePrize = lila.gathering.looksLikePrize(s"$name ${~settings.description}")
 
 object Swiss:
@@ -88,14 +89,11 @@ object Swiss:
   opaque type Score = Int
   object Score extends OpaqueInt[Score]
 
-  case class IdName(_id: SwissId, name: String):
-    inline def id = _id
-
   case class Settings(
       nbRounds: Int,
       rated: Boolean,
       description: Option[String] = None,
-      position: Option[Fen.Epd],
+      position: Option[Fen.Full],
       chatFor: ChatFor = ChatFor.default,
       password: Option[String] = None,
       conditions: SwissCondition.All,

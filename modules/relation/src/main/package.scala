@@ -1,9 +1,6 @@
 package lila.relation
 
-export lila.Lila.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 
-type Relation = Boolean
-val Follow: Relation = true
-val Block: Relation  = false
-
-private type OnlineStudyingCache = com.github.blemale.scaffeine.Cache[UserId, String]
+export lila.core.relation.{ Relation, Block, Follow }

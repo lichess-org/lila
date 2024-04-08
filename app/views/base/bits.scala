@@ -8,11 +8,11 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.*
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 
 object bits:
 
-  def mselect(id: String, current: Frag, items: Seq[Frag]) =
+  def mselect(id: String, current: Frag, items: Seq[Tag]) =
     div(cls := "mselect")(
       input(
         tpe          := "checkbox",
@@ -22,7 +22,7 @@ object bits:
       ),
       label(`for` := s"mselect-$id", cls := "mselect__label")(current),
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
-      st.nav(cls := "mselect__list")(items)
+      st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item")))
     )
 
   lazy val stage = a(
@@ -71,8 +71,8 @@ z-index: 99;
       )("Instagram")
     )
 
-  def fenAnalysisLink(fen: Fen.Epd)(using Lang) =
-    a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.analysis())
+  def fenAnalysisLink(fen: Fen.Full)(using Translate) =
+    a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.site.analysis())
 
   def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pagination(page => s"$route?page=$page", pager, showPost)

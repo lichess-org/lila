@@ -7,7 +7,7 @@ package lila.tournament
  * (e.g. 20 seconds for second pause in 5+0) with maximum of 120 seconds.
  * After 20 minutes without any pause, the delay is reinitialized to 10s.
  */
-final private class Pause:
+final private class Pause(using Executor):
 
   import Pause.*
 

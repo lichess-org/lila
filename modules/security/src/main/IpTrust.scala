@@ -2,10 +2,11 @@ package lila.security
 
 import play.api.mvc.RequestHeader
 
-import lila.common.config.MaxPerSecond
-import lila.common.{ HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
+import lila.core.IpAddress
+import lila.core.security.{ IsProxy, Ip2ProxyApi }
 
-final class IpTrust(proxyApi: Ip2Proxy, geoApi: GeoIP, firewallApi: Firewall):
+final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)(using Executor):
 
   import IpTrust.*
 

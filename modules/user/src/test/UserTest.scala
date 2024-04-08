@@ -12,7 +12,7 @@ class UserTest extends munit.FunSuite:
       User.newUsernameChars.pattern.matcher(str).matches &&
       User.newUsernameLetters.pattern.matcher(str).matches
 
-  import User.couldBeUsername
+  import UserStr.couldBeUsername
 
   test("username regex bad prefix: can login") {
     assert(couldBeUsername("000"))

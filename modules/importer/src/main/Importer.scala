@@ -1,11 +1,11 @@
 package lila.importer
 
 import lila.game.{ Game, GameRepo }
-import lila.user.Me
+import lila.core.user.MyId
 
 final class Importer(gameRepo: GameRepo)(using Executor):
 
-  def apply(data: ImportData, forceId: Option[GameId] = None)(using me: Option[Me.Id]): Fu[Game] =
+  def apply(data: ImportData, forceId: Option[GameId] = None)(using me: Option[MyId]): Fu[Game] =
 
     def gameExists(processing: => Fu[Game]): Fu[Game] =
       gameRepo.findPgnImport(data.pgn).flatMap { _.fold(processing)(fuccess) }

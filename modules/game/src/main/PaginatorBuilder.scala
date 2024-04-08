@@ -1,7 +1,6 @@
 package lila.game
 
-import lila.common.config.MaxPerPage
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.db.dsl.*
 import lila.db.paginator.*
 

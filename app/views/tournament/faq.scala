@@ -12,14 +12,14 @@ object faq:
 
   def page(using PageContext) =
     views.html.base.layout(
-      title = trans.tournamentFAQ.txt(),
+      title = trans.site.tournamentFAQ.txt(),
       moreCss = cssTag("page")
     ) {
       main(cls := "page-small box box-pad page")(
         boxTop(
           h1(
             a(href := routes.Tournament.home, dataIcon := licon.LessThan, cls := "text"),
-            trans.tournamentFAQ()
+            trans.site.tournamentFAQ()
           )
         ),
         div(cls := "body")(apply())
@@ -65,7 +65,7 @@ object faq:
         ),
         tbody(
           tr(
-            td(trans.standard(), ", Chess960, Horde"),
+            td(trans.site.standard(), ", Chess960, Horde"),
             td(30)
           ),
           tr(

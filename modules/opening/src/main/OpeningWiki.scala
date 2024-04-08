@@ -7,7 +7,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.user.User
 
 case class OpeningWiki(
     markup: Option[Html],
@@ -31,7 +30,7 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
       coll.primitiveOne[List[Revision]]($id(op.key), "revisions")
   yield wiki.copy(revisions = (~revisions).take(25))
 
-  def write(op: Opening, text: String, by: User): Funit =
+  def write(op: Opening, text: String, by: UserId): Funit =
     coll.update
       .one(
         $id(op.key),

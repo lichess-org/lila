@@ -1,14 +1,16 @@
 package lila.tournament
 
-import lila.common.Heapsort.topN
+import scalalib.HeapSort.topN
 import lila.common.licon
 import lila.rating.Perf
 import lila.user.{ Me, User }
+import lila.core.Icon
+import lila.core.LightUser
 
 case class Spotlight(
     headline: String,
     homepageHours: Option[Int] = None, // feature on homepage hours before start (max 24)
-    iconFont: Option[licon.Icon] = None,
+    iconFont: Option[Icon] = None,
     iconImg: Option[String] = None
 )
 
@@ -51,8 +53,8 @@ object Spotlight:
         case ExperimentalMarathon                 => false
 
   private def canMaybeJoinLimited(tour: Tournament)(using me: User.WithPerfs): Boolean =
-    given Me   = Me(me.user)
-    given Perf = me.perfs(tour.perfType)
+    given LightUser.Me = LightUser.Me(me.user.light)
+    given Perf         = me.perfs(tour.perfType)
     tour.conditions.isRatingLimited &&
     tour.conditions.nbRatedGame.forall { c =>
       c(tour.perfType).accepted

@@ -92,5 +92,5 @@ object bits:
       )
     )
 
-  def streamers(streamers: List[UserId])(using Lang) =
+  def streamers(streamers: List[UserId])(using Translate) =
     views.html.streamer.bits.contextual(streamers).map(_(cls := "none"))

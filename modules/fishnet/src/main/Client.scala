@@ -1,11 +1,11 @@
 package lila.fishnet
 
 import com.gilt.gfc.semver.SemVer
-import ornicar.scalalib.SecureRandom
+import scalalib.SecureRandom
 
 import scala.util.{ Failure, Success, Try }
 
-import lila.common.IpAddress
+import lila.core.IpAddress
 
 case class Client(
     _id: Client.Key,                   // API key used to authenticate and assign move or analysis
@@ -25,7 +25,7 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def lichess = this.is(lila.user.User.lichessId)
+  def lichess = this.is(UserId.lichess)
 
   def offline = key == Client.offline.key
 

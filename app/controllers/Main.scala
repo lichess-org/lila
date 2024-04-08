@@ -8,7 +8,6 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.hub.actorApi.captcha.ValidCaptcha
 
 import Forms.*
 
@@ -30,7 +29,7 @@ final class Main(
         _ => BadRequest,
         (enable, redirect) =>
           Redirect(redirect).withCookies:
-            lila.api.ApiConfig.blindCookie.make(env.lilaCookie)(enable != "0")
+            lila.api.ApiConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
       )
 
   def handlerNotFound(using RequestHeader) =
@@ -38,8 +37,7 @@ final class Main(
       keyPages.notFound(using _)
 
   def captchaCheck(id: GameId) = Open:
-    import makeTimeout.long
-    (env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution"))).map { case valid: Boolean =>
+    env.game.captcha.validate(id, ~get("solution")).map { valid =>
       Ok(if valid then 1 else 0)
     }
 
@@ -127,7 +125,7 @@ final class Main(
     if ctx.isAuth then Redirect(routes.Lobby.home)
     else
       Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies:
-        env.lilaCookie.withSession(remember = true): s =>
+        env.security.lilaCookie.withSession(remember = true): s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
   def legacyQaQuestion(id: Int, slug: String) = Open:
@@ -155,13 +153,13 @@ final class Main(
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
-  private val externalMonitorOnce = lila.memo.OnceEvery.hashCode[String](10.minutes)
+  private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
   def externalLink(tag: String, url: String) = Anon:
     if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
     then lila.mon.link.external(tag, ctx.isAuth).increment()
     Redirect(url)
 
-  lila.memo.RateLimit.composite[lila.common.IpAddress](
+  lila.memo.RateLimit.composite[lila.core.IpAddress](
     key = "image.upload.ip"
   )(
     ("fast", 10, 2.minutes),

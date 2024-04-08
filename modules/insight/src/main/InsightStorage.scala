@@ -6,7 +6,7 @@ import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 final private class InsightStorage(val coll: AsyncColl)(using Executor):
 
@@ -60,7 +60,7 @@ final private class InsightStorage(val coll: AsyncColl)(using Executor):
 
   def nbByPerf(userId: UserId): Fu[Map[PerfType, Int]] =
     coll {
-      _.aggregateList(PerfType.nonPuzzle.size) { framework =>
+      _.aggregateList(lila.rating.PerfType.nonPuzzle.size) { framework =>
         import framework.*
         Match($doc(F.userId -> userId)) -> List(
           GroupField(F.perf)("nb" -> SumAll)

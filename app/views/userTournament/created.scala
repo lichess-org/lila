@@ -5,7 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.user.User
 
 object created:
@@ -19,16 +19,16 @@ object created:
       path = path,
       moreJs = infiniteScrollTag
     ):
-      if pager.nbResults == 0 then div(cls := "box-pad")(trans.nothingToSeeHere())
+      if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(
             thead(
               tr(
                 th(cls := "count")(pager.nbResults),
-                th(colspan := 2)(h1(frag(userLink(u, withOnline = true), " • ", trans.tournaments()))),
-                th(trans.winner()),
-                th(trans.players())
+                th(colspan := 2)(h1(frag(userLink(u, withOnline = true), " • ", trans.site.tournaments()))),
+                th(trans.site.winner()),
+                th(trans.site.players())
               )
             ),
             tbody(cls := "infinite-scroll")(

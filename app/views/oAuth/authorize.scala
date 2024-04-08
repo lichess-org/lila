@@ -5,7 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.oauth.{ AuthorizationRequest, OAuthScope }
 import lila.user.User
 
@@ -85,7 +85,7 @@ object authorize:
           "Not ",
           me.username,
           "? ",
-          a(href := switchLoginUrl(none))(trans.signIn())
+          a(href := switchLoginUrl(none))(trans.site.signIn())
         )
       },
       if prompt.looksLikeLichessMobile

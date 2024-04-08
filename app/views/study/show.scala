@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
-import lila.hub.socket.SocketVersion
+import lila.core.socket.SocketVersion
 
 object show:
 
@@ -29,7 +29,7 @@ object show:
         Json.obj(
           "study" -> data.study
             .add("admin", isGranted(_.StudyAdmin))
-            .add("hideRatings", !ctx.pref.showRatings),
+            .add("showRatings", ctx.pref.showRatings),
           "data"     -> data.analysis,
           "i18n"     -> jsI18n(),
           "tagTypes" -> lila.study.PgnTags.typesToString,
@@ -38,7 +38,7 @@ object show:
             views.html.chat.json(
               c.chat,
               c.lines,
-              name = trans.chatRoom.txt(),
+              name = trans.site.chatRoom.txt(),
               timeout = c.timeout,
               writeable = ctx.userId.exists(s.canChat),
               public = true,

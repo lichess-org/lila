@@ -3,12 +3,14 @@ package lila.user
 import play.api.libs.json.*
 
 import lila.common.Json.{ writeAs, given }
-import lila.common.LightUser
-import lila.rating.{ Perf, PerfType }
+import lila.core.LightUser
+import lila.rating.{ Perf, UserPerfs }
+import lila.user.User.PlayTime
+import lila.core.perf.PerfKey
+import lila.core.user.LightPerf
+import lila.core.perf.PerfType
 
-import User.{ LightPerf, PlayTime }
-
-final class JsonView(isOnline: lila.hub.socket.IsOnline):
+final class JsonView(isOnline: lila.core.socket.IsOnline):
 
   import JsonView.{ *, given }
   private given OWrites[Profile]  = Json.writes
@@ -53,7 +55,7 @@ final class JsonView(isOnline: lila.hub.socket.IsOnline):
   def lightPerfIsOnline(lp: LightPerf) =
     lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
 
-  given lightPerfIsOnlineWrites: OWrites[User.LightPerf] = OWrites(lightPerfIsOnline)
+  given lightPerfIsOnlineWrites: OWrites[LightPerf] = OWrites(lightPerfIsOnline)
 
   def disabled(u: LightUser) = Json.obj(
     "id"       -> u.id,
@@ -78,8 +80,8 @@ object JsonView:
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
 
-  val modWrites = OWrites[User]: u =>
-    LightUser.write(u.light) ++ Json
+  val modWrites = OWrites[lila.core.user.User]: u =>
+    Json.toJsObject(u.light) ++ Json
       .obj("games" -> u.count.game)
       .add("tos" -> u.marks.dirty)
 
@@ -93,7 +95,7 @@ object JsonView:
       )
       .add("prov", o.glicko.provisional)
 
-  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).toSet
+  private val standardPerfKeys: Set[PerfKey] = lila.rating.PerfType.standard.map(_.key).toSet
 
   def perfTypedJson(p: Perf.Typed): JsObject =
     Json.obj(p.perfType.key.value -> p.perf)
@@ -133,7 +135,7 @@ object JsonView:
             .add("dox", note.dox)
       )
 
-  given leaderboardsWrites(using OWrites[User.LightPerf]): OWrites[UserPerfs.Leaderboards] =
+  given leaderboardsWrites(using OWrites[LightPerf]): OWrites[UserPerfs.Leaderboards] =
     OWrites: leaderboards =>
       Json.obj(
         "bullet"        -> leaderboards.bullet,
@@ -151,7 +153,7 @@ object JsonView:
         "racingKings"   -> leaderboards.racingKings
       )
 
-  given leaderboardStandardTopOneWrites(using OWrites[User.LightPerf]): OWrites[UserPerfs.Leaderboards] =
+  given leaderboardStandardTopOneWrites(using OWrites[LightPerf]): OWrites[UserPerfs.Leaderboards] =
     OWrites: leaderboards =>
       Json.obj(
         "bullet"      -> leaderboards.bullet.headOption,

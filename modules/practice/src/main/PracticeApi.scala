@@ -75,7 +75,7 @@ final class PracticeApi(
       get.foreach: structure =>
         if structure.hasStudy(study.id) then clear()
 
-    val getStudies: lila.hub.practice.GetStudies = () => get.map(_.study)
+    val getStudies: lila.core.practice.GetStudies = () => get.map(_.study)
 
   object progress:
 
@@ -94,7 +94,7 @@ final class PracticeApi(
       _       <- save(prog.withNbMoves(chapterId, score))
       studyId <- studyApi.studyIdOf(chapterId)
     yield studyId.so: studyId =>
-      Bus.publish(lila.hub.practice.OnComplete(user.id, studyId, chapterId), "finishPractice")
+      Bus.publish(lila.core.practice.OnComplete(user.id, studyId, chapterId), "finishPractice")
 
     def reset(user: User) =
       coll.delete.one($id(user.id)).void

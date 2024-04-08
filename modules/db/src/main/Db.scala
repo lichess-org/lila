@@ -3,7 +3,7 @@ package lila.db
 import reactivemongo.api.*
 
 import lila.common.Chronometer
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.db.dsl.Coll
 
 final class AsyncDb(
@@ -40,11 +40,10 @@ final class Db(
   private lazy val db: DB = Chronometer.syncEffect(
     MongoConnection
       .fromString(uri)
-      .flatMap { parsedUri =>
+      .flatMap: parsedUri =>
         driver
           .connect(parsedUri, name.some)
           .flatMap(_.database(parsedUri.db.getOrElse("lichess")))
-      }
       .await(5.seconds, s"db:$name")
   ) { lap =>
     logger.info(s"MongoDB connected to $uri in ${lap.showDuration}")

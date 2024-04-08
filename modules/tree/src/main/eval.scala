@@ -87,6 +87,7 @@ object Eval:
 
   import play.api.libs.json.*
   import lila.common.Json.given
+  import chess.json.Json.given
   given jsonWrites: Writes[Eval] = Json.writes[Eval]
 
 opaque type Moves = NonEmptyList[Uci]
@@ -105,4 +106,4 @@ case class Pv(score: Score, moves: Moves)
 case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: Depth, by: UserId)
 
 object CloudEval:
-  type GetSinglePvEval = (Variant, Fen.Epd) => Fu[Option[CloudEval]]
+  type GetSinglePvEval = (Variant, Fen.Full) => Fu[Option[CloudEval]]

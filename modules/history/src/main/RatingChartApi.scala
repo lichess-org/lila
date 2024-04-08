@@ -3,20 +3,21 @@ package lila.history
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.rating.PerfType
-import lila.user.{ User, UserRepo }
+import play.api.i18n.Lang
+import lila.core.user.{ User, UserApi }
+import lila.core.perf.{ PerfKey, PerfType }
 
 final class RatingChartApi(
     historyApi: HistoryApi,
-    userRepo: UserRepo,
+    userApi: UserApi,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, lila.core.i18n.Translator):
 
-  def apply(user: User): Fu[Option[SafeJsonStr]] = cache.get(user.id)
+  def apply[U: UserIdOf](user: U): Fu[Option[SafeJsonStr]] = cache.get(user.id)
 
-  def singlePerf(user: User, perfType: PerfType): Fu[JsArray] =
+  def singlePerf(user: User, perfKey: PerfKey): Fu[JsArray] =
     historyApi
-      .ratingsMap(user, perfType)
+      .ratingsMap(user, perfKey)
       .map(ratingsMapToJson(user.createdAt, _))
       .map(JsArray.apply)
 
@@ -31,13 +32,14 @@ final class RatingChartApi(
       Json.arr(date.getYear, date.getMonthValue - 1, date.getDayOfMonth, rating)
 
   private def build(userId: UserId): Fu[Option[SafeJsonStr]] =
-    userRepo.createdAtById(userId).flatMapz { createdAt =>
+    given Lang = lila.core.i18n.defaultLang
+    userApi.createdAtById(userId).flatMapz { createdAt =>
       historyApi
         .get(userId)
         .map2: history =>
           RatingChartApi.perfTypes.map: pt =>
             Json.obj(
-              "name"   -> pt.trans(using lila.i18n.defaultLang),
+              "name"   -> pt.trans,
               "points" -> ratingsMapToJson(createdAt, history(pt))
             )
         .map2(Json.toJson)
@@ -46,7 +48,7 @@ final class RatingChartApi(
 
 object RatingChartApi:
 
-  import lila.rating.PerfType.*
+  import lila.core.perf.PerfType.*
   private val perfTypes = List(
     Bullet,
     Blitz,

@@ -4,18 +4,17 @@ import chess.Outcome
 import chess.format.Fen
 
 import lila.game.Game
-import lila.round.JsonView.WithFlags
 import lila.tree.Node.Comment
-import lila.tree.Root
+import lila.tree.{ ExportOptions, TreeBuilder, Root }
 
 private object GameToRoot:
 
-  def apply(game: Game, initialFen: Option[Fen.Epd], withClocks: Boolean): Root =
-    val root = lila.round.TreeBuilder(
+  def apply(game: Game, initialFen: Option[Fen.Full], withClocks: Boolean): Root =
+    val root = TreeBuilder(
       game = game,
       analysis = none,
       initialFen = initialFen | game.variant.initialFen,
-      withFlags = WithFlags(clocks = withClocks)
+      withFlags = ExportOptions(clocks = withClocks)
     )
     endComment(game).fold(root) { comment =>
       root.updateMainlineLast { _.setComment(comment) }

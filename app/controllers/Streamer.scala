@@ -49,7 +49,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       (s.streams
         .zip(users))
         .map: (stream, user) =>
-          lila.common.LightUser.write(user) ++
+          Json.toJsObject(user) ++
             lila.streamer.Stream.toJson(env.memo.picfitUrl, stream)
 
   def show(username: UserStr) = Open:
@@ -129,7 +129,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       api.approval.request(me).inject(Redirect(routes.Streamer.edit))
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.IpAddress](
     key = "streamer.image.ip"
   )(
     ("fast", 10, 2.minutes),

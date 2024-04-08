@@ -5,9 +5,9 @@ import play.api.data.Forms.*
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.common.config.*
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.user.{ LightUserApi, Me, User }
 
@@ -16,7 +16,7 @@ final class MsgCompat(
     colls: MsgColls,
     security: MsgSecurity,
     cacheApi: lila.memo.CacheApi,
-    isOnline: lila.hub.socket.IsOnline,
+    isOnline: lila.core.socket.IsOnline,
     lightUserApi: LightUserApi
 )(using Executor):
 
@@ -29,7 +29,7 @@ final class MsgCompat(
         allThreads.slice((page - 1) * maxPerPage.value, (page - 1) * maxPerPage.value + maxPerPage.value)
       lightUserApi
         .preloadMany(threads.map(_.other(me)))
-        .inject(PaginatorJson:
+        .inject(Json.toJsObject:
           Paginator
             .fromResults(
               currentPageResults = threads,
@@ -82,7 +82,7 @@ final class MsgCompat(
   def create(using play.api.mvc.Request[?], FormBinding)(using me: Me): Either[Form[?], Fu[UserId]] =
     Form(
       mapping(
-        "username" -> lila.user.UserForm.historicalUsernameField
+        "username" -> lila.common.Form.username.historicalField
           .verifying("Unknown username", { blockingFetchUser(_).isDefined })
           .verifying(
             "Sorry, this player doesn't accept new messages",
@@ -117,7 +117,7 @@ final class MsgCompat(
   private case class ThreadData(user: UserStr, subject: String, text: String)
 
   private def renderUser(user: LightUser) =
-    LightUser.write(user) ++ Json.obj(
+    Json.toJsObject(user) ++ Json.obj(
       "online"   -> isOnline(user.id),
       "username" -> user.name // for mobile app BC
     )

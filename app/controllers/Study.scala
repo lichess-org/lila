@@ -8,14 +8,16 @@ import scala.util.chaining.*
 
 import lila.analyse.Analysis
 import lila.app.{ *, given }
-import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
-import lila.hub.socket.Sri
+import scalalib.paginator.Paginator
+import lila.common.{ Bus, HTTPRequest }
+import lila.core.socket.Sri
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Order, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
+import lila.core.actorApi.lpv.LpvEmbed
+import lila.core.IpAddress
 
 final class Study(
     env: Env,
@@ -24,7 +26,7 @@ final class Study(
     apiC: => Api
 ) extends LilaController(env):
 
-  private given lila.user.FlairApi = env.user.flairApi
+  import env.user.flairApi.given
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
@@ -154,7 +156,8 @@ final class Study(
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
     given Writes[StudyModel.WithChaptersAndLiked] = Writes[StudyModel.WithChaptersAndLiked]:
       env.study.jsonView.pagerData
-    Ok(Json.obj("paginator" -> PaginatorJson(pager)))
+    import lila.common.Json.paginatorWrite
+    Ok(Json.obj("paginator" -> pager))
 
   private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]
@@ -530,7 +533,7 @@ final class Study(
                 .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
                 .as("image/gif")
             }
-            .recover { case lila.base.LilaInvalid(msg) =>
+            .recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(msg)
             }
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
@@ -617,5 +620,5 @@ final class Study(
       .get(lang)
       .so: lang =>
         JsonOk:
-          lila.study.JsonView.glyphs(lang)
+          lila.study.JsonView.glyphs(using env.translator.to(lang))
         .withHeaders(CACHE_CONTROL -> "max-age=3600")

@@ -1,18 +1,19 @@
 package lila.study
 
 import lila.db.dsl.{ *, given }
-import lila.notify.{ InvitedToStudy, NotifyApi }
+import lila.core.notify.{ InvitedToStudy, NotifyApi }
 import lila.pref.Pref
-import lila.relation.{ Block, Follow }
-import lila.security.Granter
-import lila.user.{ Me, MyId, User }
+import lila.core.relation.Relation.{ Block, Follow }
+import lila.core.perm.Granter
+import lila.user.{ Me, User }
+import lila.core.user.MyId
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
     userRepo: lila.user.UserRepo,
     notifyApi: NotifyApi,
     prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 )(using Executor):
 
   private val notifyRateLimit = lila.memo.RateLimit[UserId](
@@ -32,13 +33,13 @@ final private class StudyInvite(
     _       <- (study.nbMembers >= maxMembers).so(fufail[Unit](s"Max study members reached: $maxMembers"))
     inviter <- userRepo.me(byUserId).orFail("No such inviter")
     given Me = inviter
-    _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)).so:
+    _ <- (!study.isOwner(inviter) && !Granter[Me](_.StudyAdmin)).so:
       fufail[Unit]("Only the study owner can invite")
     invited <-
       userRepo
         .enabledById(invitedUsername)
         .map(
-          _.filterNot(u => User.lichessId.is(u) && !Granter(_.StudyAdmin))
+          _.filterNot(u => UserId.lichess.is(u) && !Granter[Me](_.StudyAdmin))
         )
         .orFail("No such invited")
     _         <- study.members.contains(invited).so(fufail[Unit]("Already a member"))
@@ -46,7 +47,7 @@ final private class StudyInvite(
     _         <- relation.has(Block).so(fufail[Unit]("This user does not want to join"))
     isPresent <- getIsPresent(invited.id)
     _ <-
-      if isPresent || Granter(_.StudyAdmin) then funit
+      if isPresent || Granter[Me](_.StudyAdmin) then funit
       else
         prefApi.get(invited).map(_.studyInvite).flatMap {
           case Pref.StudyInvite.ALWAYS => funit
@@ -58,21 +59,19 @@ final private class StudyInvite(
     _ <- studyRepo.addMember(study, StudyMember.make(invited))
     shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =
-      if Granter(_.StudyAdmin) then 1
+      if Granter[Me](_.StudyAdmin) then 1
       else if relation.has(Follow) then 5
       else if inviter.hasTitle then 10
       else 100
     _ <- shouldNotify.so(notifyRateLimit.zero(inviter.userId, rateLimitCost):
-      notifyApi
-        .notifyOne(
-          invited,
-          lila.notify.InvitedToStudy(
-            invitedBy = inviter.userId,
-            studyName = study.name,
-            studyId = study.id
-          )
+      notifyApi.notifyOne(
+        invited,
+        InvitedToStudy(
+          invitedBy = inviter.userId,
+          studyName = study.name,
+          studyId = study.id
         )
-        .void
+      )
     )
   yield invited
 

@@ -4,15 +4,15 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.irc.IrcApi
-import lila.msg.MsgPreset
+import lila.core.irc.IrcApi
+import lila.core.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
-import lila.security.Permission
-import lila.user.{ Me, User, UserRepo }
+import lila.core.perm.Permission
+import lila.user.{ Me, User, UserRepo, given }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
-):
+) extends lila.core.mod.LogApi:
   import repo.coll
 
   private given BSONDocumentHandler[Modlog]           = Macros.handler
@@ -58,10 +58,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     Modlog(mod, kid.some, Modlog.setKidMode)
 
   def loginWithBlankedPassword(user: UserId) = add:
-    Modlog(User.lichessId.into(ModId), user.some, Modlog.blankedPassword)
+    Modlog(UserId.lichess.into(ModId), user.some, Modlog.blankedPassword)
 
   def loginWithWeakPassword(user: UserId) = add:
-    Modlog(User.lichessId.into(ModId), user.some, Modlog.weakPassword)
+    Modlog(UserId.lichess.into(ModId), user.some, Modlog.weakPassword)
 
   def disableTwoFactor(mod: ModId, user: UserId) = add:
     Modlog(mod, user.some, Modlog.disableTwoFactor)
@@ -71,7 +71,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def selfCloseAccount(user: UserId, openReports: List[Report]) = add:
     Modlog(
-      User.lichessId.into(ModId),
+      UserId.lichess.into(ModId),
       user.some,
       Modlog.selfCloseAccount,
       details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty)
@@ -92,21 +92,21 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def setEmail(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.setEmail)
 
-  def deletePost(user: Option[UserId], text: String)(using Me) = add:
+  def deletePost(user: Option[UserId], text: String)(using Me.Id) = add:
     Modlog(
       user,
       Modlog.deletePost,
       details = Some(text.take(400))
     )
 
-  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using Me) = add:
+  def toggleCloseTopic(categ: ForumCategId, topicSlug: String, closed: Boolean)(using Me.Id) = add:
     Modlog(
       none,
       if closed then Modlog.closeTopic else Modlog.openTopic,
       details = s"$categ/$topicSlug".some
     )
 
-  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using Me) = add:
+  def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using Me.Id) = add:
     Modlog(
       none,
       if sticky then Modlog.stickyTopic else Modlog.unstickyTopic,
@@ -197,7 +197,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     Modlog(coach.some, Modlog.coachReview, details = s"by $author".some)
 
   def cheatDetected(user: UserId, gameId: GameId) = add:
-    Modlog(User.lichessId.into(ModId), user.some, Modlog.cheatDetected, details = s"game $gameId".some)
+    Modlog(UserId.lichess.into(ModId), user.some, Modlog.cheatDetected, details = s"game $gameId".some)
 
   def cheatDetectedAndCount(user: UserId, gameId: GameId): Fu[Int] = for
     prevCount <- countRecentCheatDetected(user)
@@ -268,7 +268,10 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       $doc(
         "user"   -> userId,
         "action" -> Modlog.modMessage,
-        $or($doc("details" -> MsgPreset.sandbagAuto.name), $doc("details" -> MsgPreset.boostAuto.name)),
+        $or(
+          $doc("details" -> SandbagWatch.msgPreset.sandbagAuto.name),
+          $doc("details" -> SandbagWatch.msgPreset.boostAuto.name)
+        ),
         "date".$gte(nowInstant.minusMonths(6))
       )
 
@@ -329,8 +332,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       case M.blogTier | M.blogPostEdit                      => "note"
       case _                                                => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
-    userRepo.getRoles(m.mod).map(Permission(_)).flatMap { permissions =>
-      import IrcApi.{ ModDomain as domain }
+    userRepo.getRoles(m.mod).map(Permission.ofDbKeys(_)).flatMap { permissions =>
+      import lila.core.irc.{ ModDomain as domain }
       val monitorType = m.action match
         case M.closeAccount | M.alt => None
         case M.engine | M.unengine | M.reopenAccount | M.unalt =>

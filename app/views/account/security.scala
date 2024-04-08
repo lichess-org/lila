@@ -16,10 +16,10 @@ object security:
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
   )(using PageContext) =
-    account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security"):
+    account.layout(title = s"${u.username} - ${trans.site.security.txt()}", active = "security"):
       div(cls := "security")(
         div(cls := "box")(
-          h1(cls := "box__top")(trans.security()),
+          h1(cls := "box__top")(trans.site.security()),
           standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "box__pad")(
             p(
@@ -34,7 +34,7 @@ object security:
                 "You can also ",
                 postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
                   submitButton(cls := "button button-empty button-red confirm")(
-                    trans.revokeAllSessions()
+                    trans.site.revokeAllSessions()
                   )
                 ),
                 "."
@@ -50,7 +50,7 @@ object security:
       curSessionId: Option[String],
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(using Lang) =
+  )(using Translate) =
     st.table(cls := "slist slist-pad")(
       sessions.map { s =>
         tr(
@@ -76,7 +76,11 @@ object security:
             td(
               (s.session.id != cur).option(
                 postForm(action := routes.Account.signout(s.session.id))(
-                  submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := licon.X)
+                  submitButton(
+                    cls      := "button button-red",
+                    title    := trans.site.logOut.txt(),
+                    dataIcon := licon.X
+                  )
                 )
               )
             )

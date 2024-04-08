@@ -1,10 +1,12 @@
 package lila.tv
 
+import scalalib.actor.SyncActor
 import chess.PlayerTitle
 
-import lila.common.{ LightUser, licon }
+import lila.common.licon
+import lila.core.LightUser
 import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.SyncActor
+import lila.core.Icon
 
 final class Tv(
     gameRepo: GameRepo,
@@ -57,7 +59,7 @@ final class Tv(
 
 object Tv:
   import chess.{ variant as V, Speed as S }
-  import lila.rating.{ PerfType as P }
+  import lila.core.perf.{ PerfType as P }
 
   case class Champion(user: LightUser, rating: IntRating, gameId: GameId, color: chess.Color)
   case class Champions(channels: Map[Channel, Champion]):
@@ -67,7 +69,7 @@ object Tv:
 
   enum Channel(
       val name: String,
-      val icon: licon.Icon,
+      val icon: Icon,
       val secondsSinceLastMove: Int,
       filters: Seq[Candidate => Boolean]
   ):

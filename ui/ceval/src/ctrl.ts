@@ -1,12 +1,12 @@
 import throttle from 'common/throttle';
 import { Engines } from './engines/engines';
 import { CevalOpts, CevalState, CevalEngine, Work, Step, Hovering, PvBoard, Started } from './types';
-import { sanIrreversible, showEngineError, fewerCores, constrain } from './util';
+import { sanIrreversible, showEngineError, fewerCores } from './util';
 import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
 import { lichessRules } from 'chessops/compat';
 import { povChances } from './winningChances';
-import { prop, readonlyProp, Prop, Toggle, toggle } from 'common';
+import { prop, readonlyProp, Prop, Toggle, toggle, constrain } from 'common';
 import { Result } from '@badrap/result';
 import { storedIntProp } from 'common/storage';
 import { Rules } from 'chessops';

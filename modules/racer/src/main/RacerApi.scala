@@ -1,7 +1,7 @@
 package lila.racer
 
-import lila.common.config.Max
-import lila.common.{ Bus, LightUser }
+import lila.common.Bus
+import lila.core.LightUser
 import lila.memo.CacheApi
 import lila.storm.StormSelector
 import lila.user.{ User, UserPerfsRepo, UserRepo }
@@ -12,7 +12,7 @@ final class RacerApi(
     perfsRepo: UserPerfsRepo,
     cacheApi: CacheApi,
     lightUser: LightUser.GetterSyncFallback
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
   import RacerRace.Id
 
@@ -49,10 +49,11 @@ final class RacerApi(
       lila.mon.racer.race(lobby = race.isLobby).increment()
       race.id
 
-  private val rematchQueue = lila.hub.AsyncActorSequencer(
+  private val rematchQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(32),
     timeout = 20 seconds,
-    name = "racer.rematch"
+    name = "racer.rematch",
+    lila.log.asyncActorMonitor
   )
 
   def rematch(race: RacerRace, player: RacerPlayer.Id): Fu[RacerRace.Id] = race.rematch.flatMap(get) match
@@ -93,7 +94,7 @@ final class RacerApi(
       race.players.foreach: player =>
         lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
         player.user.ifTrue(player.score > 0).foreach { user =>
-          Bus.publish(lila.hub.actorApi.puzzle.RacerRun(user.id, player.score), "racerRun")
+          Bus.publish(lila.core.actorApi.puzzle.RacerRun(user.id, player.score), "racerRun")
           perfsRepo.addRacerRun(user.id, player.score)
         }
       publish(race)

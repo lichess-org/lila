@@ -20,7 +20,7 @@ final class SwissStandingApi(
 
   private val perPage = 10
 
-  private val pageCache = cacheApi.scaffeine
+  private val pageCache = lila.memo.CacheApi.scaffeine
     .expireAfterWrite(60 minutes)
     .build[(SwissId, Int), JsObject]()
 

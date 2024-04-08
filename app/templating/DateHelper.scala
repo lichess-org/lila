@@ -8,12 +8,11 @@ import java.time.{ Duration, LocalDate }
 import java.util.concurrent.ConcurrentHashMap
 
 import lila.app.ui.ScalatagsTemplate.*
-import lila.i18n.PeriodLocales
 
 trait DateHelper:
   self: I18nHelper & StringHelper & NumberHelper =>
 
-  export PeriodLocales.showDuration
+  export lila.mailer.PeriodLocales.showDuration
 
   private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
   private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]
@@ -36,13 +35,14 @@ trait DateHelper:
       _ => DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
     )
 
-  def showInstant(instant: Instant)(using Lang): String =
-    dateTimeFormatter.print(instant)
+  def showInstant(instant: Instant)(using t: Translate): String =
+    dateTimeFormatter(using t.lang).print(instant)
 
-  def showDate(instant: Instant)(using Lang): String =
+  def showDate(instant: Instant)(using Translate): String =
     showDate(instant.date)
 
-  def showDate(date: LocalDate)(using lang: Lang): String =
+  def showDate(date: LocalDate)(using t: Translate): String =
+    given lang: Lang = t.lang
     if lang.language == "ar"
     then dateFormatter.print(date).replaceAll("\u200f", "")
     else dateFormatter.print(date)
@@ -50,13 +50,13 @@ trait DateHelper:
   def showEnglishDate(instant: Instant): String    = englishDateFormatter.print(instant)
   def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter.print(instant)
 
-  def semanticDate(instant: Instant)(using lang: Lang): Tag =
+  def semanticDate(instant: Instant)(using t: Translate): Tag =
     timeTag(datetimeAttr := isoDateTime(instant))(showDate(instant))
 
-  def semanticDate(date: LocalDate)(using lang: Lang): Tag =
+  def semanticDate(date: LocalDate)(using t: Translate): Tag =
     timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant))(showDate(date))
 
-  def showMinutes(minutes: Int)(using Lang): String =
+  def showMinutes(minutes: Int)(using Translate): String =
     showDuration(Duration.ofMinutes(minutes))
 
   def isoDateTime(instant: Instant): String = isoDateTimeFormatter.print(instant)
@@ -75,7 +75,7 @@ trait DateHelper:
   ): Frag =
     momentFromNow(instant, alwaysRelative, once)(momentFromNowServerText(instant))
 
-  def absClientInstant(instant: Instant)(using Lang): Tag =
+  def absClientInstant(instant: Instant)(using Translate): Tag =
     absClientInstantEmpty(instant)(showInstant(instant))
 
   private def absClientInstantEmpty(instant: Instant): Tag =
@@ -86,7 +86,7 @@ trait DateHelper:
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false): Tag =
     momentFromNow(nowInstant.plusSeconds(seconds), alwaysRelative)
 
-  def momentFromNowServer(instant: Instant)(using Lang): Frag =
+  def momentFromNowServer(instant: Instant)(using Translate): Frag =
     timeTag(title := f"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
   def momentFromNowServerText(instant: Instant, inFuture: Boolean = false): String =

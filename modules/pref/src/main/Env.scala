@@ -2,7 +2,7 @@ package lila.pref
 
 import com.softwaremill.macwire.Module
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 
 @Module
 final class Env(

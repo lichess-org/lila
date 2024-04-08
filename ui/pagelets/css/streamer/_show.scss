@@ -19,7 +19,7 @@
     @include fluid-size('font-size', 23px, 40px);
 
     &::before {
-      margin-#{$end-direction}: 0.2em;
+      margin-inline-end: 0.2em;
       display: none;
 
       @media (min-width: at-least($xx-small)) {
@@ -33,7 +33,7 @@
   }
 
   .streamer-chat {
-    margin-#{$end-direction}: $block-gap;
+    margin-inline-end: $block-gap;
     display: none;
 
     @media (min-width: at-least($medium)) {
@@ -98,7 +98,7 @@
 
       &::before {
         font-size: 1.6em;
-        margin-#{$end-direction}: 0.1em;
+        margin-inline-end: 0.1em;
       }
     }
   }

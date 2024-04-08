@@ -3,11 +3,11 @@
 
   div {
     display: inline-block;
-    margin-#{$start-direction}: 10px;
+    margin-inline-start: 10px;
   }
 
   mpiece {
-    margin-#{$start-direction}: -10px;
+    margin-inline-start: -10px;
     background-size: cover;
     display: inline-block;
 

@@ -130,7 +130,7 @@ final class Account(
         .get(me)
         .map: prefs =>
           Ok:
-            lila.common.LightUser.write(me.light) ++ Json.obj(
+            lila.common.Json.lightUser.write(me.light) ++ Json.obj(
               "coach" -> isGranted(_.Coach),
               "prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false)
             )
@@ -154,7 +154,7 @@ final class Account(
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>
       env.security.api.saveAuthentication(me, ctx.mobileApiVersion)).map { sessionId =>
-      result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
+      result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
     }
 
   private def emailForm(using me: Me) =
@@ -184,7 +184,7 @@ final class Account(
             env.security.emailChange
               .send(me, newUserEmail.email)
               .inject(Redirect(routes.Account.email).flashSuccess:
-                lila.i18n.I18nKeys.checkYourEmail.txt()
+                lila.core.i18n.I18nKey.site.checkYourEmail.txt()
               )
   }
 
@@ -263,7 +263,7 @@ final class Account(
             env.api.accountClosure
               .close(me.value)
               .inject:
-                Redirect(routes.User.show(me.username)).withCookies(env.lilaCookie.newSession)
+                Redirect(routes.User.show(me.username)).withCookies(env.security.lilaCookie.newSession)
   }
 
   def kid = Auth { _ ?=> me ?=>
@@ -307,8 +307,8 @@ final class Account(
     for
       _                    <- env.security.api.dedup(me, req)
       sessions             <- env.security.api.locatedOpenSessions(me, 50)
-      clients              <- env.oAuth.tokenApi.listClients(me, 50)
-      personalAccessTokens <- env.oAuth.tokenApi.countPersonal(me)
+      clients              <- env.oAuth.tokenApi.listClients(50)
+      personalAccessTokens <- env.oAuth.tokenApi.countPersonal
       currentSessionId = ~env.security.api.reqSessionId(req)
       page <- renderPage:
         html.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
@@ -350,13 +350,11 @@ final class Account(
                       lila.mon.user.auth.reopenRequest(code).increment()
                       renderReopen(none, msg.some).map { BadRequest(_) }
                     case Right(user) =>
-                      auth.MagicLinkRateLimit(user, data.email, ctx.req, rateLimited):
+                      env.security.magicLink.rateLimit[Result](user, data.email, ctx.req, rateLimited):
                         lila.mon.user.auth.reopenRequest("success").increment()
                         env.security.reopen
                           .send(user, data.email)
-                          .inject(Redirect:
-                            routes.Account.reopenSent
-                          )
+                          .inject(Redirect(routes.Account.reopenSent))
                   }
             )
       else renderReopen(none, none).map { BadRequest(_) }

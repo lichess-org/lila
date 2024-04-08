@@ -9,12 +9,13 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
-import lila.common.EmailAddress
+import lila.core.EmailAddress
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
-import lila.playban.RageSit
-import lila.security.{ Dated, Granter, Permission, UserAgentParser, UserClient, UserLogins }
+import lila.core.playban.RageSit
+import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
+import lila.core.perm.Permission
 import lila.user.{ Me, User }
 
 object mod:
@@ -37,7 +38,7 @@ object mod:
 
   def actions(
       u: User,
-      emails: User.Emails,
+      emails: lila.core.user.Emails,
       erased: User.Erased,
       pmPresets: ModPresets
   )(using Context): Frag =
@@ -196,7 +197,7 @@ object mod:
             submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
           )
         },
-        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == User.lichessId)).option {
+        (isGranted(_.Impersonate) || (isGranted(_.Admin) && u.id == UserId.lichess)).option {
           postForm(action := routes.Mod.impersonate(u.username))(
             submitButton(cls := "btn-rack__btn")("Impersonate")
           )
@@ -205,9 +206,9 @@ object mod:
       isGranted(_.ModMessage).option(
         postForm(action := routes.Mod.warn(u.username, ""), cls := "pm-preset")(
           st.select(
-            option(value := "")("Send PM"),
+            st.option(value := "")("Send PM"),
             pmPresets.value.map { preset =>
-              option(st.value := preset.name, title := preset.text)(preset.name)
+              st.option(st.value := preset.name, title := preset.text)(preset.name)
             }
           )
         )
@@ -257,13 +258,16 @@ object mod:
       (!allowed).option(disabled)
     )("GDPR erasure")
 
+  private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
+    isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
+
   def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
     frag(
-      canViewRoles(u).option(
+      canViewRolesOf(u).option(
         mzSection("roles")(
           (if isGranted(_.ChangePermission) then a(href := routes.Mod.permissions(u.username)) else span) (
             strong(cls := "text inline", dataIcon := " ")("Permissions: "),
-            if u.roles.isEmpty then "Add some" else Permission(u.roles).map(_.name).mkString(", ")
+            if u.roles.isEmpty then "Add some" else Permission(u).map(_.name).mkString(", ")
           )
         )
       ),
@@ -357,7 +361,7 @@ object mod:
     else
       mzSection("teacher")(strong(cls := "inline")(a(href := clasRoutes.teacher(u.username))(nb, " Classes")))
 
-  def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Lang) =
+  def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Translate) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(
         strong(cls := "text", dataIcon := licon.CautionTriangle)(
@@ -401,7 +405,7 @@ object mod:
         )
     )
 
-  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Lang): Frag =
+  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Translate): Frag =
     mzSection("reports")(
       div(cls := "mz_reports mz_reports--out")(
         strong(cls := "text", dataIcon := licon.CautionTriangle)(
@@ -650,7 +654,7 @@ object mod:
               ).flatten.mkString(" "),
               cls := o.is(u).option("same")
             )(
-              if o.is(u) || Granter.canViewAltUsername(o)
+              if o.is(u) || lila.security.Granter.canViewAltUsername(o)
               then td(dataSort := o.id)(userLink(o, withPerfRating = o.perfs.some, params = "?mod"))
               else td,
               isGranted(_.Admin).option(td(emailValueOf(othersWithEmail)(o))),
@@ -852,7 +856,7 @@ object mod:
     )
 
   def apply(
-      users: List[User.WithEmails],
+      users: List[User.WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false,
       checkboxes: Boolean = false
@@ -872,9 +876,9 @@ object mod:
           )
         ),
         tbody(
-          users.map { case lila.user.User.WithEmails(u, emails) =>
+          users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
             tr(
-              if showUsernames || Granter.canViewAltUsername(u.user)
+              if showUsernames || lila.security.Granter.canViewAltUsername(u.user)
               then
                 td(
                   userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
@@ -929,7 +933,7 @@ object mod:
       case (nb, tag) if nb > 4 => frag(List.fill(3)(tag), "+", nb - 3)
       case (nb, tag) if nb > 0 => frag(List.fill(nb)(tag))
 
-  private def reportSubmitButton(r: lila.report.Report)(using Lang) =
+  private def reportSubmitButton(r: lila.report.Report)(using Translate) =
     submitButton(
       title := {
         if r.open then "open"
@@ -937,7 +941,7 @@ object mod:
       }
     )(reportScore(r.score), " ", strong(r.reason.name))
 
-  def userMarks(o: User, playbans: Option[Int]) =
+  def userMarks(o: lila.core.user.User, playbans: Option[Int]) =
     div(cls := "user_marks")(
       playbans.map: nb =>
         playban(nb),

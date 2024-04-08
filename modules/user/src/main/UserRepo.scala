@@ -1,18 +1,19 @@
 package lila.user
 
 import chess.PlayerTitle
-import ornicar.scalalib.ThreadLocalRandom
-import reactivemongo.akkastream.cursorProducer
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress }
+import lila.core.ApiVersion
+import lila.core.{ EmailAddress, NormalizedEmailAddress }
+import lila.core.LightUser
+import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
 
-final class UserRepo(val coll: Coll)(using Executor):
+final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
   import User.{ BSONFields as F, given }
-  import UserMark.given
 
   def withColl[A](f: Coll => A): A = f(coll)
 
@@ -20,43 +21,40 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.find(enabledNoBotSelect ++ notLame).sort($sort.desc("count.game")).cursor[User]().list(nb)
 
   def byId[U: UserIdOf](u: U): Fu[Option[User]] =
-    User
-      .noGhost(u.id)
-      .so(
-        coll
-          .byId[User](u)
-          .recover:
-            case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
-              none // probably GDPRed user
-      )
+    u.id.noGhost.so:
+      coll
+        .byId[User](u)
+        .recover:
+          case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
+            none // probably GDPRed user
 
   def byIds[U: UserIdOf](
       us: Iterable[U],
       readPref: ReadPref = _.pri
   ): Fu[List[User]] =
-    val ids = us.map(_.id).filter(User.noGhost)
+    val ids = us.map(_.id).filter(_.noGhost)
     ids.nonEmpty.so(coll.byIds[User, UserId](ids, readPref))
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, _.sec)
 
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
-    User.noGhost(u.id).so(coll.one[User](enabledSelect ++ $id(u)))
+    u.id.noGhost.so(coll.one[User](enabledSelect ++ $id(u)))
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
-    val ids = us.map(_.id).filter(User.noGhost)
+    val ids = us.map(_.id).filter(_.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), _.priTemp)
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
-    if User.isGhost(id)
+    if id.isGhost
     then fuccess(Left(LightUser.ghost).some)
     else
       coll.byId[User](id).map2(Right.apply).recover { case _: exceptions.BSONValueNotFoundException =>
         Left(LightUser.ghost).some
       }
 
-  def me[U: UserIdOf](u: U): Fu[Option[Me]] =
-    enabledById(u).dmap(Me.from(_))
+  def me(id: UserId): Fu[Option[Me]]        = enabledById(id).dmap(Me.from(_))
+  def me[U: UserIdOf](u: U): Fu[Option[Me]] = me(u.id)
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
   def byPrevEmail(
@@ -85,7 +83,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       yield xx -> yy
     }
 
-  def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(User.lichessId, id)
+  def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(UserId.lichess, id)
 
   def byOrderedIds(ids: Seq[UserId], readPref: ReadPref): Fu[List[User]] =
     coll.byOrderedIds[User, UserId](ids, readPref = readPref)(_.id)
@@ -97,20 +95,10 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.optionsByOrderedIds[User, UserId](userIds, readPref = _.sec)(_.id)
 
   def isEnabled(id: UserId): Fu[Boolean] =
-    User.noGhost(id).so(coll.exists(enabledSelect ++ $id(id)))
+    id.noGhost.so(coll.exists(enabledSelect ++ $id(id)))
 
   def disabledById(id: UserId): Fu[Option[User]] =
-    User.noGhost(id).so(coll.one[User](disabledSelect ++ $id(id)))
-
-  def enabledTitledCursor(proj: Option[Bdoc]) =
-    coll
-      .find(
-        enabledSelect ++ $doc(
-          F.title -> $doc("$exists" -> true, "$nin" -> List(PlayerTitle.LM, PlayerTitle.BOT))
-        ),
-        proj
-      )
-      .cursor[Bdoc](ReadPref.priTemp)
+    id.noGhost.so(coll.one[User](disabledSelect ++ $id(id)))
 
   def usernameById(id: UserId): Fu[Option[UserName]] =
     coll.primitiveOne[UserName]($id(id), F.username)
@@ -118,7 +106,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def usernamesByIds(ids: List[UserId]) =
     coll.distinctEasy[UserName, List](F.username, $inIds(ids), _.sec)
 
-  def createdAtById(id: UserId) =
+  def createdAtById(id: UserId): Fu[Option[Instant]] =
     coll.primitiveOne[Instant]($id(id), F.createdAt)
 
   def orderByGameCount(u1: UserId, u2: UserId): Fu[Option[(UserId, UserId)]] =
@@ -161,7 +149,7 @@ final class UserRepo(val coll: Coll)(using Executor):
         $inc(F.colorIt -> value)
       )
 
-  def lichess = byId(User.lichessId)
+  def lichess = byId(UserId.lichess)
   def irwin   = byId(User.irwinId)
   def kaladin = byId(User.kaladinId)
 
@@ -195,11 +183,11 @@ final class UserRepo(val coll: Coll)(using Executor):
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then $doc(F.marks -> mark.key)
     else F.marks.$ne(mark.key)
-  def engineSelect = markSelect(UserMark.Engine)
-  def trollSelect  = markSelect(UserMark.Troll)
-  val lame         = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key)))
-  val lameOrTroll  = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key)))
-  val notLame      = $doc(F.marks.$nin(List(UserMark.Engine.key, UserMark.Boost.key)))
+  def engineSelect       = markSelect(UserMark.engine)
+  def trollSelect        = markSelect(UserMark.troll)
+  val lame               = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost)))
+  val lameOrTroll        = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost, UserMark.troll)))
+  val notLame            = $doc(F.marks.$nin(List(UserMark.engine, UserMark.boost)))
   val enabledNoBotSelect = enabledSelect ++ $doc(F.title.$ne(PlayerTitle.BOT))
   val patronSelect       = $doc(s"${F.plan}.active" -> true)
 
@@ -277,14 +265,14 @@ final class UserRepo(val coll: Coll)(using Executor):
   private def setMark(mark: UserMark)(id: UserId, v: Boolean): Funit =
     coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
 
-  def setEngine    = setMark(UserMark.Engine)
-  def setBoost     = setMark(UserMark.Boost)
-  def setTroll     = setMark(UserMark.Troll)
-  def setReportban = setMark(UserMark.Reportban)
-  def setRankban   = setMark(UserMark.Rankban)
-  def setArenaBan  = setMark(UserMark.ArenaBan)
-  def setPrizeban  = setMark(UserMark.PrizeBan)
-  def setAlt       = setMark(UserMark.Alt)
+  def setEngine    = setMark(UserMark.engine)
+  def setBoost     = setMark(UserMark.boost)
+  def setTroll     = setMark(UserMark.troll)
+  def setReportban = setMark(UserMark.reportban)
+  def setRankban   = setMark(UserMark.rankban)
+  def setArenaBan  = setMark(UserMark.arenaBan)
+  def setPrizeban  = setMark(UserMark.prizeBan)
+  def setAlt       = setMark(UserMark.alt)
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
 
@@ -366,7 +354,7 @@ final class UserRepo(val coll: Coll)(using Executor):
         else $set(F.email -> normalized, F.verbatimEmail -> email) ++ $unset(F.prevEmail)
       )
       .map: _ =>
-        lila.common.Bus.publish(lila.hub.actorApi.user.ChangeEmail(id, email), "email")
+        lila.common.Bus.publish(lila.core.user.ChangeEmail(id, email), "email")
 
   private[user] def anyEmail(doc: Bdoc): Option[EmailAddress] =
     doc.getAsOpt[EmailAddress](F.verbatimEmail).orElse(doc.getAsOpt[EmailAddress](F.email))

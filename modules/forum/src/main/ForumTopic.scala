@@ -1,14 +1,13 @@
 package lila.forum
 
-import ornicar.scalalib.ThreadLocalRandom
-
+import scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 import scala.util.chaining.*
 
-import lila.common.config.MaxPerPage
 import lila.user.User
 
 case class ForumTopic(
-    _id: ForumTopicId,
+    @Key("_id") id: ForumTopicId,
     categId: ForumCategId,
     slug: String,
     name: String,
@@ -25,9 +24,6 @@ case class ForumTopic(
     userId: Option[UserId] = None, // only since SB mutes
     ublogId: Option[String] = None
 ):
-
-  inline def id = _id
-
   def updatedAt(forUser: Option[User]): Instant =
     if forUser.exists(_.marks.troll) then updatedAtTroll else updatedAt
   def nbPosts(forUser: Option[User]): Int   = if forUser.exists(_.marks.troll) then nbPostsTroll else nbPosts
@@ -38,8 +34,6 @@ case class ForumTopic(
   def open = !closed
 
   def isTooBig = nbPosts > (if isTeam then 500 else 50)
-
-  def possibleTeamId = ForumCateg.toTeamId(categId)
 
   def isSticky = ~sticky
 
@@ -87,7 +81,7 @@ object ForumTopic:
       troll: Boolean = false,
       ublogId: Option[String] = None
   ): ForumTopic = ForumTopic(
-    _id = ForumTopicId(ThreadLocalRandom.nextString(idSize)),
+    id = ForumTopicId(ThreadLocalRandom.nextString(idSize)),
     categId = categId,
     slug = slug,
     name = name,

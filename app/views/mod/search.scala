@@ -6,16 +6,16 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.IpAddress
+import lila.core.IpAddress
 import lila.common.String.html.richText
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.mod.IpRender.RenderIp
 import lila.security.{ FingerHash, IpTrust }
 import lila.user.{ Me, User }
 
 object search:
 
-  def apply(form: Form[?], users: List[User.WithEmails])(using PageContext, Me) =
+  def apply(form: Form[?], users: List[User.WithPerfsAndEmails])(using PageContext, Me) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
@@ -40,7 +40,7 @@ object search:
 
   def print(
       fh: FingerHash,
-      users: List[User.WithEmails],
+      users: List[User.WithPerfsAndEmails],
       uas: List[String],
       blocked: Boolean
   )(using PageContext, Me) =
@@ -81,7 +81,7 @@ object search:
 
   def ip(
       address: IpAddress,
-      users: List[lila.user.User.WithEmails],
+      users: List[lila.user.User.WithPerfsAndEmails],
       uas: List[String],
       data: IpTrust.IpData,
       blocked: Boolean
@@ -119,7 +119,7 @@ object search:
         )
       )
 
-  def clas(c: lila.clas.Clas, users: List[User.WithEmails])(using PageContext, Me) =
+  def clas(c: lila.clas.Clas, users: List[User.WithPerfsAndEmails])(using PageContext, Me) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),

@@ -2,22 +2,24 @@ package lila.msg
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
-import lila.hub.actorApi.report.AutoFlag
-import lila.hub.actorApi.team.IsLeaderOf
+import lila.core.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
+import lila.core.team.IsLeaderOf
 import lila.memo.RateLimit
-import lila.security.Granter
-import lila.shutup.Analyser
+import lila.core.perm.Granter
+import lila.core.shutup.TextAnalyser
 import lila.user.User
+import lila.core.report.SuspectId
 
 final private class MsgSecurity(
     colls: MsgColls,
     prefApi: lila.pref.PrefApi,
     userRepo: lila.user.UserRepo,
     getBotUserIds: lila.user.GetBotIds,
-    relationApi: lila.relation.RelationApi,
-    spam: lila.security.Spam,
-    chatPanicAllowed: lila.hub.chat.panic.IsAllowed
+    relationApi: lila.core.relation.RelationApi,
+    reportApi: lila.core.report.ReportApi,
+    spam: lila.core.security.SpamApi,
+    chatPanicAllowed: lila.core.chat.panic.IsAllowed,
+    textAnalyser: TextAnalyser
 )(using Executor, Scheduler):
 
   import MsgSecurity.*
@@ -47,7 +49,7 @@ final private class MsgSecurity(
     key = "msg_reply.user"
   )
 
-  private val dirtSpamDedup = lila.memo.OnceEvery.hashCode[String](1 minute)
+  private val dirtSpamDedup = scalalib.cache.OnceEvery.hashCode[String](1 minute)
 
   object can:
 
@@ -84,7 +86,12 @@ final private class MsgSecurity(
             case Dirt =>
               if dirtSpamDedup(text) then
                 val resource = s"msg/${contacts.orig.id}/${contacts.dest.id}"
-                Bus.publish(AutoFlag(contacts.orig.id, resource, text, Analyser.isCritical(text)), "autoFlag")
+                reportApi.autoCommFlag(
+                  SuspectId(contacts.orig.id),
+                  resource,
+                  text,
+                  textAnalyser.isCritical(text)
+                )
             case Spam =>
               if dirtSpamDedup(text) && !contacts.orig.isTroll
               then logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
@@ -98,7 +105,7 @@ final private class MsgSecurity(
     ): Fu[Option[Verdict]] =
       def limitWith(limiter: RateLimit[UserId]) =
         val cost = limitCost(contacts.orig) * {
-          if !contacts.orig.isVerified && Analyser.containsLink(text) then 2 else 1
+          if !contacts.orig.isVerified && textAnalyser.containsLink(text) then 2 else 1
         }
         limiter(contacts.orig.id, Limit.some, cost)(none)
       if unlimited then fuccess(none)
@@ -119,7 +126,7 @@ final private class MsgSecurity(
       contacts.orig.isTroll.so(fuccess(Troll.some))
 
     private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
-      (isNew && Analyser(text).dirty)
+      (isNew && textAnalyser(text).dirty)
         .so(userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)).not)
         .dmap {
           _.option(Dirt)
@@ -135,7 +142,7 @@ final private class MsgSecurity(
 
     def post(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       fuccess(!contacts.dest.isLichess) >>& {
-        fuccess(Granter.byRoles(_.PublicMod)(~contacts.orig.roles)) >>| {
+        fuccess(Granter.ofDbKeys(_.PublicMod, ~contacts.orig.roles)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
             chatPanicAllowed(contacts.orig.id)(userRepo.byId) >>&

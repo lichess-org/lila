@@ -56,12 +56,15 @@ object AccessTokenRequest:
   case class BasicAuth(clientId: ClientId, clientSecret: LegacyClientApi.ClientSecret)
   object BasicAuth:
     def from(req: RequestHeader): Option[BasicAuth] =
-      req.headers.get(HeaderNames.AUTHORIZATION).flatMap { authorization =>
-        val prefix = "Basic "
-        authorization.startsWith(prefix) option authorization.stripPrefix(prefix)
-      } flatMap base64.decode flatMap {
-        _.split(":", 2) match
-          case Array(clientId, clientSecret) =>
-            Some(BasicAuth(ClientId(clientId), LegacyClientApi.ClientSecret(clientSecret)))
-          case _ => None
-      }
+      req.headers
+        .get(HeaderNames.AUTHORIZATION)
+        .flatMap: authorization =>
+          val prefix = "Basic "
+          Option.when(authorization.startsWith(prefix))(authorization.stripPrefix(prefix))
+        .flatMap(base64.decode)
+        .flatMap {
+          _.split(":", 2) match
+            case Array(clientId, clientSecret) =>
+              Some(BasicAuth(ClientId(clientId), LegacyClientApi.ClientSecret(clientSecret)))
+            case _ => None
+        }

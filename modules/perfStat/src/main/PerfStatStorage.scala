@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
 

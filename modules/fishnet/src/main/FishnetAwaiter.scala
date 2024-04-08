@@ -3,7 +3,7 @@ package lila.fishnet
 import lila.common.Bus
 
 /* async wait for analysis to complete */
-final class FishnetAwaiter(using Executor, Scheduler):
+final class FishnetAwaiter(using Executor, Scheduler) extends lila.core.fishnet.AnalysisAwaiter:
 
   private val busChannel = "analysisReady"
 
@@ -18,5 +18,3 @@ final class FishnetAwaiter(using Executor, Scheduler):
       promise.future.withTimeoutDefault(atMost, {}).addEffectAnyway {
         Bus.unsubscribe(listener, busChannel)
       }
-
-  def apply(gameId: GameId, atMost: FiniteDuration): Funit = apply(List(gameId), atMost)

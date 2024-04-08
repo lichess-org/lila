@@ -1,24 +1,25 @@
 package lila.api
 
 import chess.format.Fen
-import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.api.Context.given
 import lila.common.Json.given
-import lila.common.{ HTTPRequest, Preload }
+import lila.common.HTTPRequest
 import lila.game.{ Game, Pov }
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
-import lila.round.JsonView.WithFlags
+import lila.tree.ExportOptions
 import lila.round.{ Forecast, JsonView }
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.Node.partitionTreeJsonWriter
-import lila.user.{ GameUsers, User }
+import lila.user.{ GameUsers, User, Me }
+import lila.core.i18n.Translate
+import lila.core.Preload
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -31,11 +32,12 @@ final private[api] class RoundApi(
     simulApi: lila.simul.SimulApi,
     puzzleOpeningApi: lila.puzzle.PuzzleOpeningApi,
     externalEngineApi: lila.analyse.ExternalEngineApi,
-    getLightTeam: lila.hub.LightTeam.GetterSync,
+    getLightTeam: lila.core.team.LightTeam.GetterSync,
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
-    getLightUser: lila.common.LightUser.GetterSync
-)(using Executor):
+    getLightUser: lila.core.LightUser.GetterSync,
+    userLag: lila.socket.UserLagCache
+)(using Executor, lila.core.i18n.Translator):
 
   def player(
       pov: Pov,
@@ -46,7 +48,6 @@ final private[api] class RoundApi(
       initialFen <- gameRepo.initialFen(pov.game)
       users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType))
       prefs      <- prefApi.get(users.map(_.map(_.user)), pov.color, ctx.pref)
-      given Lang = ctx.lang
       (json, simul, swiss, note, forecast, bookmarked) <-
         (
           jsonView.playerJson(pov, prefs, users, initialFen, ctxFlags),
@@ -73,11 +74,11 @@ final private[api] class RoundApi(
       users: GameUsers,
       tour: Option[TourView],
       tv: Option[lila.round.OnTv],
-      initialFenO: Option[Option[Fen.Epd]] = None // Preload[Option[Fen.Epd]]?
+      initialFenO: Option[Option[Fen.Full]] = None // Preload[Option[Fen.Full]]?
   )(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- initialFenO.fold(gameRepo.initialFen(pov.game))(fuccess)
-      given Lang = ctx.lang
+      given Translate = ctx.translate
       (json, simul, swiss, note, bookmarked) <-
         (
           jsonView.watcherJson(pov, users, ctx.pref.some, ctx.me, tv, initialFen, ctxFlags),
@@ -97,8 +98,8 @@ final private[api] class RoundApi(
   }.mon(_.round.api.watcher)
 
   private def ctxFlags(using ctx: Context) =
-    WithFlags(
-      blurs = Granter.opt(_.ViewBlurs),
+    ExportOptions(
+      blurs = Granter.opt[Me](_.ViewBlurs),
       rating = ctx.pref.showRatings,
       nvui = ctx.blind,
       lichobileCompat = HTTPRequest.isLichobile(ctx.req)
@@ -109,11 +110,11 @@ final private[api] class RoundApi(
       users: GameUsers,
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
-      initialFen: Option[Fen.Epd],
-      withFlags: WithFlags,
+      initialFen: Option[Fen.Full],
+      withFlags: ExportOptions,
       owner: Boolean = false
   )(using ctx: Context): Fu[JsObject] = withExternalEngines(ctx.me) {
-    given Lang = ctx.lang
+    given Translate = ctx.translate
     (
       jsonView.watcherJson(
         pov,
@@ -122,7 +123,7 @@ final private[api] class RoundApi(
         ctx.me,
         tv,
         initialFen = initialFen,
-        flags = withFlags.copy(blurs = Granter.opt(_.ViewBlurs))
+        flags = withFlags.copy(blurs = Granter.opt[Me](_.ViewBlurs))
       ),
       tourApi.gameView.analysis(pov.game),
       pov.game.simulId.so(simulApi.find),
@@ -153,7 +154,7 @@ final private[api] class RoundApi(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       orientation: chess.Color,
       owner: Boolean,
       me: Option[User]
@@ -161,7 +162,7 @@ final private[api] class RoundApi(
     withExternalEngines(me) {
       owner.so(forecastApi.loadForDisplay(pov)).map { fco =>
         withForecast(pov, owner, fco) {
-          withTree(pov, analysis = none, initialFen, WithFlags(opening = true)) {
+          withTree(pov, analysis = none, initialFen, ExportOptions(opening = true)) {
             jsonView.userAnalysisJson(
               pov,
               pref,
@@ -177,14 +178,14 @@ final private[api] class RoundApi(
   private def withTree(
       pov: Pov,
       analysis: Option[Analysis],
-      initialFen: Option[Fen.Epd],
-      withFlags: WithFlags
+      initialFen: Option[Fen.Full],
+      withFlags: ExportOptions
   )(obj: JsObject) =
     obj + ("treeParts" -> partitionTreeJsonWriter.writes(
-      lila.round.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
+      lila.tree.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
     ))
 
-  private def withSteps(pov: Pov, initialFen: Option[Fen.Epd])(obj: JsObject) =
+  private def withSteps(pov: Pov, initialFen: Option[Fen.Full])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(
       id = pov.gameId,
       sans = pov.game.sans,
@@ -205,7 +206,7 @@ final private[api] class RoundApi(
 
   private def withOpponentSignal(pov: Pov)(json: JsObject) =
     if pov.game.speed <= chess.Speed.Bullet then
-      json.add("opponentSignal", pov.opponent.userId.flatMap(lila.socket.UserLagCache.getLagRating))
+      json.add("opponentSignal", pov.opponent.userId.flatMap(userLag.getLagRating))
     else json
 
   private def withPuzzleOpening(
@@ -246,11 +247,11 @@ final private[api] class RoundApi(
     jsonFu.flatMap { withExternalEngines(me, _) }
 
   def withExternalEngines(me: Option[User], json: JsObject): Fu[JsObject] =
-    me.so(externalEngineApi.list)
+    me.so(u => externalEngineApi.list(u.id))
       .map: engines =>
         json.add("externalEngines", engines.nonEmpty.option(engines))
 
-  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using lang: Lang) =
+  def withTournament(pov: Pov, viewO: Option[TourView])(json: JsObject)(using Translate) =
     json.add("tournament" -> viewO.map { v =>
       Json
         .obj(

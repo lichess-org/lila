@@ -4,10 +4,11 @@ import alleycats.Zero
 
 import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
-import lila.history.HistoryApi
-import lila.hub.LightTeam
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ Me, User }
+import lila.core.history.HistoryApi
+import lila.core.team.LightTeam
+import lila.rating.Perf
+import lila.user.{ Me, User, given }
+import lila.core.perf.PerfType
 
 object TournamentCondition:
 
@@ -28,12 +29,10 @@ object TournamentCondition:
         GetMyTeamIds
     ): Fu[WithVerdicts] =
       list
-        .map {
+        .traverse:
           case c: MaxRating  => c(perfType).map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(perfType)))
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
-        }
-        .parallel
         .dmap(WithVerdicts.apply)
 
     def withRejoinVerdicts(using
@@ -42,11 +41,9 @@ object TournamentCondition:
         getMyTeamIds: GetMyTeamIds
     ): Fu[WithVerdicts] =
       list
-        .map {
+        .traverse:
           case c: TeamMember => c.apply.map { c.withVerdict(_) }
           case c             => fuccess(WithVerdict(c, Accepted))
-        }
-        .parallel
         .dmap(WithVerdicts.apply)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember
@@ -80,7 +77,7 @@ object TournamentCondition:
   final class Verify(historyApi: HistoryApi)(using Executor):
 
     def apply(all: All, perfType: PerfType)(using me: Me)(using GetMyTeamIds, Perf): Fu[WithVerdicts] =
-      given GetMaxRating = historyApi.lastWeekTopRating(me.value, _)
+      given GetMaxRating = historyApi.lastWeekTopRating(me.userId, _)
       all.withVerdicts(perfType)
 
     def rejoin(all: All)(using Me)(using GetMyTeamIds): Fu[WithVerdicts] =

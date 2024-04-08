@@ -106,7 +106,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       orDefault = _ =>
         isGranted(_.UserModView).so(FoundPage(env.clas.api.clas.byId(id)): clas =>
           env.clas.api.student.allWithUsers(clas).flatMap { students =>
-            env.user.api.withEmails(students.map(_.user)).map {
+            env.user.api.withPerfsAndEmails(students.map(_.user)).map {
               html.mod.search.clas(clas, _)
             }
           })
@@ -210,8 +210,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
-  def progress(id: ClasId, key: lila.rating.Perf.Key, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
-    lila.rating
+  def progress(id: ClasId, key: lila.core.perf.PerfKey, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
+    lila.core.perf
       .PerfType(key)
       .so: perfType =>
         WithClass(id): clas =>
@@ -380,7 +380,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           data =>
             Found(env.user.repo.enabledById(data.username)): user =>
               import lila.clas.ClasInvite.{ Feedback as F }
-              import lila.i18n.{ I18nKeys as trans }
+              import lila.core.i18n.{ I18nKey as trans }
               env.clas.api.invite.create(clas, user, data.realName).map { feedback =>
                 Redirect(routes.Clas.studentForm(clas.id.value)).flashing:
                   feedback match
@@ -499,7 +499,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def becomeTeacher = AuthBody { ctx ?=> me ?=>
     couldBeTeacher.elseNotFound:
-      val perm = lila.security.Permission.Teacher.dbKey
+      val perm = lila.core.perm.Permission.Teacher.dbKey
       ((!me.roles.has(perm))
         .so(env.user.repo.setRoles(me, perm :: me.roles).void))
         .inject(Redirect(routes.Clas.index))

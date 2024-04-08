@@ -9,7 +9,7 @@ import lila.db.dsl.{ *, given }
 final class SwissTrf(
     sheetApi: SwissSheetApi,
     mongo: SwissMongo,
-    baseUrl: lila.common.config.BaseUrl
+    baseUrl: lila.core.config.BaseUrl
 )(using Executor):
 
   private type Bits = List[(Int, String)]

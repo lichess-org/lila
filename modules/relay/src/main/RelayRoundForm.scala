@@ -8,9 +8,10 @@ import scala.util.Try
 import scala.util.chaining.*
 
 import lila.common.Form.{ cleanText, into }
-import lila.common.Seconds
-import lila.security.Granter
+import lila.core.Seconds
+import lila.core.perm.Granter
 import lila.user.{ Me, User }
+import lila.relay.RelayRound.Sync
 
 final class RelayRoundForm(using mode: play.api.Mode):
 
@@ -127,7 +128,7 @@ object RelayRoundForm:
         finished = ~finished
       )
 
-    private def makeSync(user: User) =
+    private def makeSync(user: User): Sync =
       RelayRound.Sync(
         upstream = syncUrl
           .flatMap(cleanUrl)
@@ -139,7 +140,7 @@ object RelayRoundForm:
           }),
         until = none,
         nextAt = none,
-        period = period.ifTrue(Granter.of(_.StudyAdmin)(user)),
+        period = period.ifTrue(Granter.ofUser(_.StudyAdmin)(user)),
         delay = delay,
         log = SyncLog.empty
       )

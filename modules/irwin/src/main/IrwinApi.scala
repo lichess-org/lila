@@ -6,17 +6,18 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov, Query }
-import lila.report.{ Mod, ModId, Report, Reporter, Suspect, SuspectId }
-import lila.user.{ Me, User, UserRepo }
+import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
+import lila.core.report.SuspectId
+import lila.user.{ Me, User, UserRepo, modId, given }
 
 final class IrwinApi(
     reportColl: Coll,
     gameRepo: GameRepo,
     userRepo: UserRepo,
     analysisRepo: AnalysisRepo,
-    modApi: lila.mod.ModApi,
+    modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor):
 
@@ -154,7 +155,7 @@ final class IrwinApi(
         subs = subs - report.suspectId
         modIds
           .map { modId =>
-            notifyApi.notifyOne(modId, lila.notify.IrwinDone(report.suspectId.value))
+            notifyApi.notifyOne(modId, lila.core.notify.IrwinDone(report.suspectId.value))
           }
           .parallel
           .void

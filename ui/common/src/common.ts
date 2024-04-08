@@ -6,8 +6,11 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
-export const clamp = (value: number, bounds: { min: number; max: number }) =>
+export const clamp = (value: number, bounds: { min: number; max: number }): number =>
   Math.max(bounds.min, Math.min(value, bounds.max));
+
+export const constrain = (value: number, constraints: { min?: number; max?: number }): number =>
+  clamp(value, { min: constraints.min ?? value, max: constraints.max ?? value });
 
 export function as<T>(v: T, f: () => void): () => T {
   return () => {

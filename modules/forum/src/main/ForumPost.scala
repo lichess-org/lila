@@ -1,14 +1,16 @@
 package lila.forum
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.{ Me, User }
+import lila.core.forum.ForumPostMini
 
 case class OldVersion(text: String, createdAt: Instant)
 
 case class ForumPost(
-    _id: ForumPostId,
+    @Key("_id") id: ForumPostId,
     topicId: ForumTopicId,
     categId: ForumCategId,
     author: Option[String],
@@ -23,12 +25,10 @@ case class ForumPost(
     erasedAt: Option[Instant] = None,
     modIcon: Option[Boolean],
     reactions: Option[ForumPost.Reactions] = None
-):
-
-  inline def id = _id
+) extends lila.core.forum.ForumPost:
 
   private def showAuthor: String =
-    author.map(_.trim).filter("" !=) | (if ~modIcon then User.anonymous.value else User.anonMod)
+    author.map(_.trim).filter("" !=) | (if ~modIcon then UserName.anonymous.value else User.anonMod)
 
   def showUserIdOrAuthor: String = if erased then "<erased>" else userId.fold(showAuthor)(_.value)
 
@@ -44,7 +44,7 @@ case class ForumPost(
   def canBeEditedByMe(using me: Me): Boolean =
     userId match
       case Some(userId) if me.is(userId) => true
-      case None if (Granter(_.PublicMod) || Granter(_.SeeReport)) && isAnonModPost =>
+      case None if (Granter[Me](_.PublicMod) || Granter[Me](_.SeeReport)) && isAnonModPost =>
         true
       case _ => false
 
@@ -76,6 +76,15 @@ case class ForumPost(
   def erased = erasedAt.isDefined
 
   def isBy(u: User) = userId.exists(_ == u.id)
+
+  def mini = ForumPostMini(
+    id = id,
+    topicId = topicId,
+    userId = userId,
+    text = text,
+    troll = troll,
+    createdAt = createdAt
+  )
 
   override def toString = s"Post($categId/$topicId/$id)"
 
@@ -122,7 +131,7 @@ object ForumPost:
       modIcon: Option[Boolean] = none
   ): ForumPost =
     ForumPost(
-      _id = ForumPostId(ThreadLocalRandom.nextString(idSize)),
+      id = ForumPostId(ThreadLocalRandom.nextString(idSize)),
       topicId = topicId,
       author = none,
       userId = userId,

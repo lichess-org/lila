@@ -3,28 +3,19 @@ package lila.notify
 import alleycats.Zero
 import reactivemongo.api.bson.*
 
-import NotificationPref.*
+import lila.core.notify.{ Allows, PrefEvent }
+import lila.core.{ notify as core }
 
-opaque type Allows = Int
-object Allows extends OpaqueInt[Allows]:
-  extension (e: Allows)
-    def push: Boolean   = (e & PUSH) != 0
-    def web: Boolean    = (e & WEB) != 0
-    def device: Boolean = (e & DEVICE) != 0
-    def bell: Boolean   = (e & BELL) != 0
-    def any: Boolean    = e != 0
-
-  given Zero[Allows] = Zero(Allows(0))
+object Allows:
+  import NotificationPref.*
 
   def fromForm(bell: Boolean, push: Boolean): Allows =
-    Allows((bell.so(BELL)) | (push.so(PUSH)))
+    core.Allows((bell.so(BELL)) | (push.so(PUSH)))
 
   def toForm(allows: Allows): Some[(Boolean, Boolean)] =
     Some((allows.bell, allows.push))
 
-  val all = Allows(BELL | WEB | DEVICE | PUSH)
-
-case class NotifyAllows(userId: UserId, allows: Allows)
+  val all = core.Allows(BELL | WEB | DEVICE | PUSH)
 
 case class NotificationPref(
     privateMessage: Allows,
@@ -37,50 +28,30 @@ case class NotificationPref(
     broadcastRound: Allows = NotificationPref.default.broadcastRound,
     correspondenceEmail: Boolean
 ):
-  // def allows(key: String): Allows =
-  //   NotificationPref.Event.byKey.get(key) so allows
-  def allows(event: Event): Allows = event match
-    case PrivateMessage => privateMessage
-    case Challenge      => challenge
-    case Mention        => mention
-    case StreamStart    => streamStart
-    case TournamentSoon => tournamentSoon
-    case GameEvent      => gameEvent
-    case InvitedStudy   => invitedStudy
-    case BroadcastRound => broadcastRound
+  def allows(event: PrefEvent): Allows = event match
+    case PrefEvent.privateMessage => privateMessage
+    case PrefEvent.challenge      => challenge
+    case PrefEvent.mention        => mention
+    case PrefEvent.streamStart    => streamStart
+    case PrefEvent.tournamentSoon => tournamentSoon
+    case PrefEvent.gameEvent      => gameEvent
+    case PrefEvent.invitedStudy   => invitedStudy
+    case PrefEvent.broadcastRound => broadcastRound
 
 object NotificationPref:
-  val BELL   = 1
-  val WEB    = 2
-  val DEVICE = 4
-  val PUSH   = WEB | DEVICE
+  export lila.core.notify.NotificationPref.*
 
-  enum Event:
-    case PrivateMessage
-    case Challenge
-    case Mention
-    case StreamStart
-    case TournamentSoon
-    case GameEvent
-    case InvitedStudy
-    case BroadcastRound
-
-    def key = lila.common.String.lcfirst(this.toString)
-
-  object Event:
-    val byKey = values.mapBy(_.key)
-
-  export Event.*
+  val events = PrefEvent.values.mapBy(_.key)
 
   val default: NotificationPref = NotificationPref(
-    privateMessage = Allows(BELL | PUSH),
-    challenge = Allows(BELL | PUSH),
-    mention = Allows(BELL | PUSH),
-    streamStart = Allows(BELL | PUSH),
-    tournamentSoon = Allows(PUSH),
-    gameEvent = Allows(PUSH),
-    invitedStudy = Allows(BELL | PUSH),
-    broadcastRound = Allows(BELL | PUSH),
+    privateMessage = core.Allows(BELL | PUSH),
+    challenge = core.Allows(BELL | PUSH),
+    mention = core.Allows(BELL | PUSH),
+    streamStart = core.Allows(BELL | PUSH),
+    tournamentSoon = core.Allows(PUSH),
+    gameEvent = core.Allows(PUSH),
+    invitedStudy = core.Allows(BELL | PUSH),
+    broadcastRound = core.Allows(BELL | PUSH),
     correspondenceEmail = false
   )
 

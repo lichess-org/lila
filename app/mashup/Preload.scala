@@ -130,7 +130,7 @@ final class Preload(
         currentGameMyTurn(_, lightUserApi.sync)
       }
 
-  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(using
+  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.core.LightUser.GetterSync)(using
       me: Me
   ): Fu[Option[CurrentGame]] =
     ~povs.collectFirst {
@@ -152,7 +152,7 @@ object Preload:
       relays: List[lila.relay.RelayTour.ActiveWithSomeRounds],
       simuls: List[Simul],
       featured: Option[Game],
-      leaderboard: List[User.LightPerf],
+      leaderboard: List[lila.core.user.LightPerf],
       tournamentWinners: List[Winner],
       puzzle: Option[lila.puzzle.DailyPuzzle.WithHtml],
       streams: LiveStreams.WithTitles,

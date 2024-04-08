@@ -7,7 +7,8 @@ import reactivemongo.api.bson.*
 import java.time.Period
 
 import lila.db.dsl.{ *, given }
-import lila.hub.LightTeam
+import lila.core.team.{ LightTeam, Access, TeamData }
+import reactivemongo.akkastream.AkkaStreamCursor
 
 final class TeamRepo(val coll: Coll)(using Executor):
 
@@ -62,10 +63,11 @@ final class TeamRepo(val coll: Coll)(using Executor):
       )
       .void
 
-  def cursor = coll.find(enabledSelect).cursor[Team](ReadPref.sec)
+  private[team] def cursor: AkkaStreamCursor[TeamData] =
+    coll.find(enabledSelect).cursor[TeamData]()
 
-  def forumAccess(id: TeamId): Fu[Option[Team.Access]] =
-    coll.secondaryPreferred.primitiveOne[Team.Access]($id(id), "forum")
+  private[team] def forumAccess(id: TeamId): Fu[Option[Access]] =
+    coll.secondaryPreferred.primitiveOne[Access]($id(id), "forum")
 
   def filterHideMembers(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
     ids.nonEmpty.so(
@@ -74,10 +76,9 @@ final class TeamRepo(val coll: Coll)(using Executor):
     )
 
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]] =
-    ids.nonEmpty.so(
+    ids.nonEmpty.so:
       coll.secondaryPreferred
-        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Team.Access.EVERYONE)))
-    )
+        .distinctEasy[TeamId, Set]("_id", $inIds(ids) ++ $doc("forum".$ne(Access.Everyone)))
 
   private[team] val enabledSelect = $doc("enabled" -> true)
 

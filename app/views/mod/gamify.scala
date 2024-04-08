@@ -102,7 +102,7 @@ object gamify:
     }
 
   def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(using
-      lang: Lang
+      Translate
   ) =
     div(cls := "champ")(
       st.img(src := assetUrl(s"images/mod/$img.png")),

@@ -32,7 +32,7 @@ $box-padding: var(--box-padding);
 
   .user-link em {
     font-weight: bold;
-    padding-#{$start-direction}: 5px;
+    padding-inline-start: 5px;
   }
 
   .game-list {

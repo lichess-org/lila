@@ -5,16 +5,15 @@ import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comme
 import chess.format.{ pgn as chessPgn }
 
 import lila.common.String.slugify
-import lila.tree.{ Root, Branch, Branches, NewBranch, NewTree, NewRoot }
+import lila.tree.{ Analysis, Root, Branch, Branches, NewBranch, NewTree, NewRoot }
 import lila.tree.Node.{ Shape, Shapes }
-import lila.analyse.Analysis
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
     analyser: lila.analyse.Analyser,
     annotator: lila.analyse.Annotator,
     lightUserApi: lila.user.LightUserApi,
-    net: lila.common.config.NetConfig
+    net: lila.core.config.NetConfig
 )(using Executor):
 
   import PgnDump.*

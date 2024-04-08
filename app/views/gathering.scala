@@ -3,7 +3,7 @@ package views.html
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.Condition
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 
 object gathering:
 
@@ -20,7 +20,7 @@ object gathering:
         )
       )(
         div(
-          (vs.list.sizeIs < 2).option(p(trans.conditionOfEntry())),
+          (vs.list.sizeIs < 2).option(p(trans.site.conditionOfEntry())),
           vs.list.map: v =>
             p(
               cls := List(
@@ -28,11 +28,11 @@ object gathering:
                 "accepted"  -> (relevant && ctx.isAuth && v.verdict.accepted),
                 "refused"   -> (relevant && ctx.isAuth && !v.verdict.accepted)
               ),
-              title := v.verdict.reason.map(_(ctx.lang))
+              title := v.verdict.reason.map(_(ctx.translate))
             ):
               v.condition match
                 case Condition.TeamMember(teamId, teamName) =>
-                  trans.mustBeInTeam(teamLink(teamId, withIcon = false))
+                  trans.site.mustBeInTeam(teamLink(teamId, withIcon = false))
                 case condition =>
                   v.verdict match
                     case Condition.RefusedUntil(until) =>

@@ -4,7 +4,8 @@ import com.softwaremill.macwire.*
 import play.api.ConfigLoader
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
+import lila.common.config.{ *, given }
+import lila.core.config.*
 
 import SecurityConfig.*
 

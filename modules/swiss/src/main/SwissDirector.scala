@@ -10,7 +10,7 @@ final private class SwissDirector(
     pairingSystem: PairingSystem,
     manualPairing: SwissManualPairing,
     gameRepo: lila.game.GameRepo,
-    onStart: lila.round.OnStart
+    onStart: lila.core.game.OnStart
 )(using
     ec: Executor,
     idGenerator: lila.game.IdGenerator
@@ -94,7 +94,7 @@ final private class SwissDirector(
           lila.game.Player.make(c, player.userId, player.rating, player.provisional)
         ,
         mode = chess.Mode(swiss.settings.rated),
-        source = lila.game.Source.Swiss,
+        source = lila.core.game.Source.Swiss,
         pgnImport = None
       )
       .withId(pairing.gameId)

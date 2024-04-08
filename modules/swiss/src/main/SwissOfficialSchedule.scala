@@ -61,7 +61,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
 
   private def makeSwiss(config: Config, startAt: Instant) =
     Swiss(
-      _id = Swiss.makeId,
+      id = Swiss.makeId,
       name = config.name,
       clock = config.clock,
       variant = chess.variant.Standard,
@@ -69,7 +69,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
       nbPlayers = 0,
       nbOngoing = 0,
       createdAt = nowInstant,
-      createdBy = lila.user.User.lichessId,
+      createdBy = UserId.lichess,
       teamId = lichessTeamId,
       nextRoundAt = startAt.some,
       startsAt = startAt,

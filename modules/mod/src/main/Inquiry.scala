@@ -1,6 +1,6 @@
 package lila.mod
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.report.{ Report, ReportApi }
 import lila.user.{ Me, Note, NoteApi, User, UserApi }
 
@@ -26,7 +26,7 @@ final class InquiryApi(
 ):
 
   def forMod(using mod: Me)(using Executor): Fu[Option[Inquiry]] =
-    lila.security.Granter(_.SeeReport).so {
+    lila.core.perm.Granter[Me](_.SeeReport).so {
       reportApi.inquiries
         .ofModId(mod)
         .flatMapz: report =>

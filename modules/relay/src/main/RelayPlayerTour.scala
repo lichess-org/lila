@@ -1,8 +1,8 @@
 package lila.relay
 
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
-import lila.hub.fide.Player
+import lila.core.fide.Player
 import lila.study.ChapterRepo
 
 final class RelayPlayerTour(
@@ -12,7 +12,7 @@ final class RelayPlayerTour(
     cacheApi: lila.memo.CacheApi
 )(using Executor, akka.stream.Materializer):
 
-  private val tourIdsCache = cacheApi[chess.FideId, List[RelayTour.Id]](1024, "relay.player.tourIds"):
+  private val tourIdsCache = cacheApi[chess.FideId, List[RelayTour.Id]](128, "relay.player.tourIds"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture: fideId =>
       chapterRepo
         .studyIdsByRelayFideId(fideId)

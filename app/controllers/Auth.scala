@@ -5,12 +5,14 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
+import lila.core.EmailAddress
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.User.ClearPassword
 import lila.user.{ PasswordHasher, User as UserModel }
+import lila.core.IpAddress
 
 final class Auth(
     env: Env,
@@ -62,7 +64,7 @@ final class Auth(
       result: Result
   )(using RequestHeader) =
     result.withCookies(
-      env.lilaCookie.withSession(remember = remember) {
+      env.security.lilaCookie.withSession(remember = remember) {
         _ + (api.sessionIdKey -> sessionId) - api.AccessUri - lila.security.EmailConfirm.cookie.name
       }
     )
@@ -82,7 +84,7 @@ final class Auth(
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url) // redirect immediately if already logged in
       case None =>
-        val prefillUsername = lila.security.UserStrOrEmail(~switch.filter(_ != "1"))
+        val prefillUsername = lila.core.UserStrOrEmail(~switch.filter(_ != "1"))
         val form            = api.loginFormFilled(prefillUsername)
         Ok.page(html.auth.login(form, referrer)).map(_.withCanonical(routes.Auth.login))
 
@@ -149,7 +151,7 @@ final class Auth(
       negotiate(
         Redirect(routes.Auth.login),
         jsonOkResult
-      ).dmap(_.withCookies(env.lilaCookie.newSession))
+      ).dmap(_.withCookies(env.security.lilaCookie.newSession))
 
   // mobile app BC logout with GET
   def logoutGet = Auth { ctx ?=> _ ?=>
@@ -157,7 +159,7 @@ final class Auth(
       html = Ok.page(html.auth.bits.logout()),
       json =
         ctx.req.session.get(api.sessionIdKey).foreach(env.security.store.delete)
-        jsonOkResult.withCookies(env.lilaCookie.newSession)
+        jsonOkResult.withCookies(env.security.lilaCookie.newSession)
     )
   }
 
@@ -187,7 +189,7 @@ final class Auth(
               case Signup.Result.ConfirmEmail(user, email) =>
                 Redirect(routes.Auth.checkYourEmail).withCookies(
                   lila.security.EmailConfirm.cookie
-                    .make(env.lilaCookie, user, email)(using ctx.req)
+                    .make(env.security.lilaCookie, user, email)(using ctx.req)
                 )
               case Signup.Result.AllSet(user, email) =>
                 welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
@@ -222,7 +224,7 @@ final class Auth(
         case Some(userEmail) =>
           env.user.repo.exists(userEmail.username).flatMap {
             if _ then Ok.async(accountC.renderCheckYourEmail)
-            else Redirect(routes.Auth.signup).withCookies(env.lilaCookie.newSession)
+            else Redirect(routes.Auth.signup).withCookies(env.security.lilaCookie.newSession)
           }
 
   // after signup and before confirmation
@@ -251,7 +253,7 @@ final class Auth(
                               .inject:
                                 Redirect(routes.Auth.checkYourEmail).withCookies:
                                   lila.security.EmailConfirm.cookie
-                                    .make(env.lilaCookie, user, newUserEmail.email)(using ctx.req)
+                                    .make(env.security.lilaCookie, user, newUserEmail.email)(using ctx.req)
                       else Redirect(routes.Auth.login)
         )
     }
@@ -406,7 +408,7 @@ final class Auth(
                 data =>
                   env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
                     case Some((user, storedEmail)) =>
-                      MagicLinkRateLimit(user, storedEmail, ctx.req, rateLimited):
+                      env.security.magicLink.rateLimit[Result](user, storedEmail, ctx.req, rateLimited):
                         lila.mon.user.auth.magicLinkRequest("success").increment()
                         env.security.magicLink
                           .send(user, storedEmail)
@@ -498,7 +500,7 @@ final class Auth(
       val ip          = req.ipAddress
       val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
       passwordCost(req).flatMap: cost =>
-        PasswordHasher.rateLimit[Result](
+        env.user.passwordHasher.rateLimit[Result](
           rateLimited,
           enforce = env.net.rateLimit,
           ipCost = cost.toInt + EmailAddress.isValid(id.value).so(2),
@@ -507,7 +509,7 @@ final class Auth(
 
   private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, ctx: Context): Fu[Result] =
     passwordCost(req).flatMap: cost =>
-      PasswordHasher.rateLimit[Result](
+      env.user.passwordHasher.rateLimit[Result](
         rateLimited,
         enforce = env.net.rateLimit,
         ipCost = cost.toInt
@@ -518,8 +520,6 @@ final class Auth(
       .rateLimitCostFactor(req.ipAddress, _.proxyMultiplier(if HTTPRequest.nginxWhitelist(req) then 1 else 8))
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result]
-
-  private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result]
 
   private[controllers] def RedirectToProfileIfLoggedIn(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me.fold(f)(me => Redirect(routes.User.show(me.username)))

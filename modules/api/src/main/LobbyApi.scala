@@ -5,8 +5,9 @@ import play.api.libs.json.{ JsObject, Json, Writes }
 import lila.common.Json.given
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
-import lila.rating.Perf
-import lila.user.{ User, UserPerfs }
+import lila.rating.{ Perf, UserPerfs }
+import lila.user.User
+import lila.core.perf.PerfKey
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
@@ -48,7 +49,7 @@ final class LobbyApi(
 
   private def ratingMap(perfs: UserPerfs): JsObject =
     Writes
-      .keyMapWrites[Perf.Key, JsObject, Map]
+      .keyMapWrites[PerfKey, JsObject, Map]
       .writes(
         perfs.perfsMap.view.mapValues { perf =>
           Json

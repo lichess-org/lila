@@ -10,7 +10,8 @@ import java.util.{ Currency, Locale }
 import scala.util.Try
 
 import lila.common.autoconfig.AutoConfig
-import lila.common.config
+import lila.common.config.given
+import lila.core.config.Secret
 
 case class CurrencyWithRate(currency: Currency, rate: Double)
 
@@ -73,7 +74,7 @@ final class CurrencyApi(
 
 object CurrencyApi:
 
-  case class Config(appId: config.Secret)
+  case class Config(appId: Secret)
   given ConfigLoader[Config] = AutoConfig.loader
 
   val acceptableCurrencies: Set[Currency] = payPalCurrencies.intersect(stripeCurrencies)

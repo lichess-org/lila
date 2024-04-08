@@ -4,11 +4,12 @@ import chess.format.Fen
 import chess.variant.Variant
 import chess.{ ByColor, Clock }
 
-import lila.common.Days
-import lila.game.{ Game, IdGenerator, Player, Pov, Source }
+import lila.core.Days
+import lila.game.{ Game, IdGenerator, Player, Pov }
 import lila.lobby.Color
-import lila.rating.PerfType
+import lila.core.perf.PerfType
 import lila.user.GameUser
+import lila.core.game.Source
 
 case class AiConfig(
     variant: chess.variant.Variant,
@@ -18,7 +19,7 @@ case class AiConfig(
     days: Days,
     level: Int,
     color: Color,
-    fen: Option[Fen.Epd] = None
+    fen: Option[Fen.Full] = None
 ) extends Config
     with Positional:
 
@@ -28,7 +29,7 @@ case class AiConfig(
 
   private def game(user: GameUser)(using IdGenerator): Fu[Game] =
     fenGame: chessGame =>
-      PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
+      lila.rating.PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
       Game
         .make(
           chess = chessGame,
@@ -59,7 +60,7 @@ object AiConfig extends BaseConfig:
       d: Days,
       level: Int,
       c: String,
-      fen: Option[Fen.Epd]
+      fen: Option[Fen.Full]
   ) =
     new AiConfig(
       variant = chess.variant.Variant.orDefault(v),
@@ -102,7 +103,7 @@ object AiConfig extends BaseConfig:
         days = r.get("d"),
         level = r.int("l"),
         color = Color.White,
-        fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty)
+        fen = r.getO[Fen.Full]("f").filter(_.value.nonEmpty)
       )
 
     def writes(w: BSON.Writer, o: AiConfig) =

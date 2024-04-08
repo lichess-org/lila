@@ -22,24 +22,24 @@ site.pubsub.on('socket.in.reload', () =>
   $$('.simul-list__content').html(html);
   site.contentLoaded();
 }))"""),
-      title = trans.simultaneousExhibitions.txt(),
+      title = trans.site.simultaneousExhibitions.txt(),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = trans.simultaneousExhibitions.txt(),
+          title = trans.site.simultaneousExhibitions.txt(),
           url = s"$netBaseUrl${routes.Simul.home}",
-          description = trans.aboutSimul.txt()
+          description = trans.site.aboutSimul.txt()
         )
         .some,
-      withHrefLangs = lila.common.LangPath(routes.Simul.home).some
+      withHrefLangs = lila.core.LangPath(routes.Simul.home).some
     ) {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(
-          p(trans.aboutSimul()),
+          p(trans.site.aboutSimul()),
           img(src := assetUrl("images/fischer-simul.jpg"), alt := "Simul IRL with Bobby Fischer")(
-            em("[1964] ", trans.aboutSimulImage()),
-            p(trans.aboutSimulRealLife()),
-            p(trans.aboutSimulRules()),
-            p(trans.aboutSimulSettings())
+            em("[1964] ", trans.site.aboutSimulImage()),
+            p(trans.site.aboutSimulRealLife()),
+            p(trans.site.aboutSimulRules()),
+            p(trans.site.aboutSimulSettings())
           )
         ),
         div(cls := "page-menu__content simul-list__content")(

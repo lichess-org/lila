@@ -1,9 +1,9 @@
 package lila.study
 
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.i18n.{ I18nKey, I18nKeys as trans }
+import lila.core.i18n.I18nKey
 import lila.user.{ Me, User }
 
 final class StudyPager(
@@ -11,7 +11,7 @@ final class StudyPager(
     chapterRepo: ChapterRepo
 )(using Executor):
 
-  val maxPerPage                = lila.common.config.MaxPerPage(16)
+  val maxPerPage                = MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4
 
   import BSONHandlers.given
@@ -148,13 +148,13 @@ final class StudyPager(
 
 enum Order(val key: String, val name: I18nKey):
 
-  case Hot          extends Order("hot", trans.study.hot)
-  case Newest       extends Order("newest", trans.study.dateAddedNewest)
-  case Oldest       extends Order("oldest", trans.study.dateAddedOldest)
-  case Updated      extends Order("updated", trans.study.recentlyUpdated)
-  case Popular      extends Order("popular", trans.study.mostPopular)
-  case Alphabetical extends Order("alphabetical", trans.study.alphabetical)
-  case Mine         extends Order("mine", trans.study.myStudies)
+  case Hot          extends Order("hot", I18nKey.study.hot)
+  case Newest       extends Order("newest", I18nKey.study.dateAddedNewest)
+  case Oldest       extends Order("oldest", I18nKey.study.dateAddedOldest)
+  case Updated      extends Order("updated", I18nKey.study.recentlyUpdated)
+  case Popular      extends Order("popular", I18nKey.study.mostPopular)
+  case Alphabetical extends Order("alphabetical", I18nKey.study.alphabetical)
+  case Mine         extends Order("mine", I18nKey.study.myStudies)
 
 object Order:
   val default                   = Hot

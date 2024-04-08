@@ -1,8 +1,6 @@
 package lila.racer
 
-import lila.common.config.Max
-
-final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: akka.actor.Scheduler):
+final class RacerLobby(api: RacerApi)(using Executor)(using scheduler: Scheduler):
 
   def join(player: RacerPlayer.Id): Fu[RacerRace.Id] = workQueue:
     currentRace
@@ -14,10 +12,11 @@ final class RacerLobby(api: RacerApi)(using ec: Executor, scheduler: akka.actor.
         api.join(raceId, player)
         raceId
 
-  private val workQueue = lila.hub.AsyncActorSequencer(
+  private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(128),
     timeout = 20 seconds,
-    name = "racer.lobby"
+    name = "racer.lobby",
+    lila.log.asyncActorMonitor
   )
 
   private val fallbackRace = RacerRace.make(RacerPlayer.lichess, Nil, 10)

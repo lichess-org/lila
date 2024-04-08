@@ -60,6 +60,7 @@
   }
 
   .log {
+    @extend %break-word;
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0.3em 0.7em;
@@ -73,14 +74,14 @@
       &::before {
         color: $c-good;
         font-size: 1.3em;
-        margin-#{$end-direction}: 0.5em;
+        margin-inline-end: 0.5em;
       }
     }
 
     time {
       @extend %roboto;
 
-      margin-#{$start-direction}: 0.3em;
+      margin-inline-start: 0.3em;
     }
 
     .err::before {

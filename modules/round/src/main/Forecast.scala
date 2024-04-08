@@ -40,7 +40,7 @@ object Forecast:
       ply: Ply,
       uci: String,
       san: SanStr,
-      fen: Fen.Epd,
+      fen: Fen.Full,
       check: Option[Boolean]
   ):
 
@@ -52,5 +52,5 @@ object Forecast:
   given Format[Step]     = Json.format
   given Writes[Forecast] = Json.writes
 
-  case object OutOfSync extends lila.base.LilaException:
+  case object OutOfSync extends lila.core.lilaism.LilaException:
     val message = "Forecast out of sync"

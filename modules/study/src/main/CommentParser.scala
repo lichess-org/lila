@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.Comment as ChessComment
 import chess.{ Centis, Square }
 
-import lila.common.Maths
+import scalalib.Maths
 import lila.tree.Node.{ Shape, Shapes }
 
 private[study] object CommentParser:

@@ -8,7 +8,7 @@ import lila.user.User
 final class SeekApi(
     config: SeekApi.Config,
     biter: Biter,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     perfsRepo: lila.user.UserPerfsRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
@@ -43,7 +43,7 @@ final class SeekApi(
       case u: User.WithPerfs => fuccess(u)
       case u: User           => perfsRepo.withPerfs(u)
     blocking <- relationApi.fetchBlocking(user.id)
-    seeks    <- forUser(LobbyUser.make(user, lila.pool.Blocking(blocking)))
+    seeks    <- forUser(LobbyUser.make(user, lila.core.pool.Blocking(blocking)))
   yield seeks
 
   def forUser(user: LobbyUser): Fu[List[Seek]] =

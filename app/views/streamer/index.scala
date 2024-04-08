@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 
 object index:
 
@@ -47,7 +47,7 @@ object index:
                 p(cls := "at")(currentlyStreaming(strong(s.cleanStatus)))
               .getOrElse:
                 frag(
-                  p(cls := "at")(trans.lastSeenActive(momentFromNow(s.streamer.seenAt))),
+                  p(cls := "at")(trans.site.lastSeenActive(momentFromNow(s.streamer.seenAt))),
                   s.streamer.liveAt.map: liveAt =>
                     p(cls := "at")(lastStream(momentFromNow(liveAt)))
                 )
