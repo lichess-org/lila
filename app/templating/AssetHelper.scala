@@ -13,6 +13,8 @@ trait AssetHelper extends HasEnv:
   case class PageModule(name: String, data: JsValue | SafeJsonStr)
   case class EsmInit(key: String, init: Frag)
   type EsmList = List[Option[EsmInit]]
+  given Conversion[EsmInit, EsmList] with
+    def apply(init: EsmInit): EsmList = List(Some(init))
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain

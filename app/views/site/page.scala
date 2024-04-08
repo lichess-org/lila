@@ -226,7 +226,7 @@ $('#asset-version-message').text(site.info.message);"""
       contentCls: String = "",
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
-      modules: EsmInit | EsmList = Nil
+      modules: EsmList = Nil
   )(body: Frag)(using PageContext) =
     views.html.base.layout(
       title = title,

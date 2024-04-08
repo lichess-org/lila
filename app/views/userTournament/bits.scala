@@ -28,7 +28,7 @@ object bits:
     ):
       views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
 
-  def layout(u: User, title: String, path: String, modules: EsmInit | EsmList = Nil)(
+  def layout(u: User, title: String, path: String, modules: EsmList = Nil)(
       body: Frag
   )(using ctx: PageContext) =
     views.html.base.layout(

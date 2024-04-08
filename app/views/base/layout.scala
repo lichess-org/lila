@@ -188,25 +188,18 @@ object layout:
     )
 
   // consolidate script packaging here to dedup chunk dependencies
-  private def preloadScripts(modules: EsmInit | EsmList, pageModule: Option[EsmInit])(using
-      ctx: PageContext
-  ) =
-    val esmList = modules match
-      case one: EsmInit  => List(one.some)
-      case many: EsmList => many
-    val esmKeys: List[String] = "site" :: {
-      esmList.map(_.map(_.key)) ++ (List(
-        ctx.data.inquiry.isDefined.option("mod.inquiry"),
-        (!netConfig.isProd).option("site.devMode")
-      ) ++ List(pageModule.map(_.key)))
+  private def preloadScripts(modules: EsmList)(using ctx: PageContext) =
+    val keys: List[String] = "site" :: {
+      ctx.data.inquiry.isDefined.option("mod.inquiry")
+        :: (!netConfig.isProd).option("site.devMode")
+        :: modules.map(_.map(_.key))
     }.flatten
     frag(
       jsTag("manifest"),
       cashTag,
-      esmKeys.map(jsTag),
-      env.manifest.deps(esmKeys).map(jsTag),
-      esmList.flatMap(_.map(_.init)),
-      pageModule.map(_.init)
+      keys.map(jsTag),
+      env.manifest.deps(keys).map(jsTag),
+      modules.flatMap(_.map(_.init))
     )
 
   private def hrefLang(langStr: String, path: String) =
@@ -263,7 +256,7 @@ object layout:
       fullTitle: Option[String] = None,
       robots: Boolean = netConfig.crawlable,
       moreCss: Frag = emptyFrag,
-      modules: EsmInit | EsmList = Nil,
+      modules: EsmList = Nil,
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
@@ -397,7 +390,7 @@ object layout:
           spinnerMask,
           div(id := "inline-scripts")(
             frag(ctx.needsFp.option(fingerprintTag), ctx.nonce.map(inlineJs.apply)),
-            preloadScripts(modules, pageModule.map(mod => jsPageModule(mod.name))),
+            preloadScripts(modules ++ List(pageModule.map(mod => jsPageModule(mod.name)))),
             systemThemeScript,
             moreJs,
             pageModule.map { mod => frag(jsonScript(mod.data)) }

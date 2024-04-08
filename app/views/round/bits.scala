@@ -19,7 +19,7 @@ object bits:
       title: String,
       pageModule: Option[PageModule],
       moreJs: Frag = emptyFrag,
-      modules: EsmInit | EsmList = Nil,
+      modules: EsmList = Nil,
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       moreCss: Frag = emptyFrag,
       playing: Boolean = false,
