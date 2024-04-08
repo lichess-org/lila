@@ -14,7 +14,8 @@ import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
 import lila.core.playban.RageSit
-import lila.security.{ Dated, Granter, Permission, UserAgentParser, UserClient, UserLogins }
+import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
+import lila.core.perm.Permission
 import lila.user.{ Me, User }
 
 object mod:
@@ -257,13 +258,16 @@ object mod:
       (!allowed).option(disabled)
     )("GDPR erasure")
 
+  private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
+    isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
+
   def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
     frag(
-      canViewRoles(u).option(
+      canViewRolesOf(u).option(
         mzSection("roles")(
           (if isGranted(_.ChangePermission) then a(href := routes.Mod.permissions(u.username)) else span) (
             strong(cls := "text inline", dataIcon := " ")("Permissions: "),
-            if u.roles.isEmpty then "Add some" else Permission(u.roles).map(_.name).mkString(", ")
+            if u.roles.isEmpty then "Add some" else Permission(u).map(_.name).mkString(", ")
           )
         )
       ),
@@ -650,7 +654,7 @@ object mod:
               ).flatten.mkString(" "),
               cls := o.is(u).option("same")
             )(
-              if o.is(u) || Granter.canViewAltUsername(o)
+              if o.is(u) || lila.security.Granter.canViewAltUsername(o)
               then td(dataSort := o.id)(userLink(o, withPerfRating = o.perfs.some, params = "?mod"))
               else td,
               isGranted(_.Admin).option(td(emailValueOf(othersWithEmail)(o))),
@@ -874,7 +878,7 @@ object mod:
         tbody(
           users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
             tr(
-              if showUsernames || Granter.canViewAltUsername(u.user)
+              if showUsernames || lila.security.Granter.canViewAltUsername(u.user)
               then
                 td(
                   userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),

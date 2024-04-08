@@ -3,7 +3,7 @@ package lila.forum
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.{ Me, User }
 import lila.core.forum.ForumPostMini
 
@@ -44,7 +44,7 @@ case class ForumPost(
   def canBeEditedByMe(using me: Me): Boolean =
     userId match
       case Some(userId) if me.is(userId) => true
-      case None if (Granter(_.PublicMod) || Granter(_.SeeReport)) && isAnonModPost =>
+      case None if (Granter[Me](_.PublicMod) || Granter[Me](_.SeeReport)) && isAnonModPost =>
         true
       case _ => false
 

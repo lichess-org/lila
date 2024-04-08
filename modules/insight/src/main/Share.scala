@@ -1,7 +1,7 @@
 package lila.insight
 
 import lila.pref.Pref
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.{ Me, User }
 
 final class Share(
@@ -12,7 +12,7 @@ final class Share(
   def getPrefId(insighted: User) = prefApi.get(insighted.id, _.insightShare)
 
   def grant(insighted: User)(using to: Option[Me]): Fu[Boolean] =
-    if to.exists(Granter(_.SeeInsight)(using _)) then fuTrue
+    if to.soUse(Granter[Me](_.SeeInsight)) then fuTrue
     else
       getPrefId(insighted).flatMap {
         case _ if to.contains(insighted) => fuTrue

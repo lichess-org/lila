@@ -2,6 +2,7 @@ package lila.user
 
 import lila.core.user.MyId
 import lila.core.LightUser
+import lila.core.perm.Grantable
 
 final class GetBotIds(f: () => Fu[Set[UserId]]) extends (() => Fu[Set[UserId]]):
   def apply() = f()
@@ -21,6 +22,9 @@ object Me extends TotalWrapper[Me, User]:
   given [M[_]]: Conversion[M[Me], M[User]]     = Me.raw(_)
   given (using me: Me): Option[Me]             = Some(me)
   given lila.db.NoDbHandler[Me] with {}
+  given Grantable[Me] = new Grantable[User]:
+    def enabled(me: Me) = me.enabled
+    def roles(me: Me)   = me.roles
   extension (me: Me)
     def userId: UserId        = me.id
     def lightMe: LightUser.Me = LightUser.Me(me.value.light)

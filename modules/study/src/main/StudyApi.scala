@@ -8,7 +8,7 @@ import chess.format.pgn.{ Glyph, Tags }
 import lila.chat.ChatApi
 import lila.common.Bus
 import lila.core.timeline.{ Propagate, StudyLike }
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.{ study as hub }
 import lila.tree.Branch
@@ -48,7 +48,7 @@ final class StudyApi(
 
   def byIdAndOwnerOrAdmin(id: StudyId, owner: User) =
     byId(id).map:
-      _.filter(_.isOwner(owner.id) || Granter.of(_.StudyAdmin)(owner))
+      _.filter(_.isOwner(owner.id) || Granter.ofUser(_.StudyAdmin)(owner))
 
   def isOwnerOrAdmin(id: StudyId, owner: User) = byIdAndOwnerOrAdmin(id, owner).map(_.isDefined)
 

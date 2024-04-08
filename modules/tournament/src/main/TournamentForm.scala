@@ -84,7 +84,7 @@ final class TournamentForm:
       "clockTime"      -> numberInDouble(timeChoices),
       "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes" -> {
-        if lila.security.Granter(_.ManageTournament) then number
+        if lila.core.perm.Granter[Me](_.ManageTournament) then number
         else numberIn(minuteChoicesKeepingCustom(prev))
       },
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),

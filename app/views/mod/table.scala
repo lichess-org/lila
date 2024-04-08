@@ -32,7 +32,7 @@ object table:
                   td(userLink(user)),
                   td(
                     a(href := routes.Mod.permissions(user.username))(
-                      lila.security.Permission(user.roles).map(_.name).mkString(", ")
+                      lila.core.perm.Permission(user).map(_.name).mkString(", ")
                     )
                   ),
                   td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce))

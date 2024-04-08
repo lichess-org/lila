@@ -6,18 +6,18 @@ import play.api.http.*
 import play.api.mvc.*
 
 import lila.common.HTTPRequest
-import lila.security.{ Granter, Permission }
+import lila.core.perm.{ Granter, Permission }
 
 trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConversions:
 
   def isGranted(permission: Permission.Selector)(using Me): Boolean =
-    Granter(permission(Permission))
+    Granter[Me](permission)
 
   def isGrantedOpt(permission: Permission.Selector)(using Option[Me]): Boolean =
-    isGranted(permission(Permission))
+    Granter.opt[Me](permission)
 
-  def isGranted(permission: Permission)(using me: Option[Me]): Boolean =
-    me.exists(Granter(permission)(using _))
+  // def isGranted(permission: Permission)(using me: Option[Me]): Boolean =
+  //   Granter.opt[Me](permission)
 
   def NoCurrentGame(a: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
     ctx.me

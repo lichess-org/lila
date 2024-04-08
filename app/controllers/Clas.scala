@@ -499,7 +499,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def becomeTeacher = AuthBody { ctx ?=> me ?=>
     couldBeTeacher.elseNotFound:
-      val perm = lila.security.Permission.Teacher.dbKey
+      val perm = lila.core.perm.Permission.Teacher.dbKey
       ((!me.roles.has(perm))
         .so(env.user.repo.setRoles(me, perm :: me.roles).void))
         .inject(Redirect(routes.Clas.index))

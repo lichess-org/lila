@@ -6,7 +6,7 @@ import reactivemongo.api.bson.BSONHandler
 
 import scalalib.Iso
 import lila.memo.SettingStore.{ Formable, StringReader }
-import lila.security.{ Granter, Permission }
+import lila.core.perm.{ Granter, Permission }
 import lila.user.Me
 
 final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
@@ -19,7 +19,7 @@ final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
     case _        => none
 
   def getPmPresets(using Me): ModPresets =
-    ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter(_))))
+    ModPresets(pmPresets.get().value.filter(_.permissions.exists(Granter[Me](_))))
 
   def getPmPresetsOpt(using mod: Option[Me]): ModPresets =
     mod.map(getPmPresets(using _)).getOrElse(ModPresets(Nil))
@@ -84,7 +84,7 @@ object ModPresets:
           }
 
     private def toPermisssions(s: String): Set[Permission] =
-      Permission(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList) match
+      Permission.ofDbKeys(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList) match
         case set if set.nonEmpty => set
         case _                   => Set(Permission.Admin)
 

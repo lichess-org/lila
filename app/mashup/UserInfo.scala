@@ -7,7 +7,7 @@ import lila.bookmark.BookmarkApi
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Me, User, given_MyId }
 
@@ -59,9 +59,9 @@ object UserInfo:
       ).mapN(Social.apply)
 
     def fetchNotes(u: User)(using Me) =
-      noteApi.get(u, Granter(_.ModNote)).dmap {
+      noteApi.get(u, Granter[Me](_.ModNote)).dmap {
         _.filter: n =>
-          (!n.dox || Granter(_.Admin))
+          (!n.dox || Granter[Me](_.Admin))
       }
 
   case class NbGames(

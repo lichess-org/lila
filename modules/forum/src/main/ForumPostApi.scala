@@ -6,7 +6,7 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
-import lila.security.Granter as MasterGranter
+import lila.core.perm.Granter as MasterGranter
 import lila.user.{ Me, User, given }
 import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
 
@@ -32,8 +32,8 @@ final class ForumPostApi(
       data: ForumForm.PostData
   )(using me: Me): Fu[ForumPost] =
     detectLanguage(data.text).zip(recentUserIds(topic, topic.nbPosts)).flatMap { (lang, topicUserIds) =>
-      val publicMod = MasterGranter(_.PublicMod)
-      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
+      val publicMod = MasterGranter[Me](_.PublicMod)
+      val modIcon   = ~data.modIcon && (publicMod || MasterGranter[Me](_.SeeReport))
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,
