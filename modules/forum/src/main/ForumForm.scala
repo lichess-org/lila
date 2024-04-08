@@ -8,7 +8,7 @@ import lila.common.Form.given
 import lila.user.Me
 
 final private[forum] class ForumForm(
-    promotion: lila.security.PromotionApi,
+    promotion: lila.core.security.PromotionApi,
     val captcha: lila.core.captcha.CaptchaApi
 )(using Executor):
 
@@ -43,11 +43,11 @@ final private[forum] class ForumForm(
   val deleteWithReason = Form:
     single("reason" -> optional(nonEmptyText))
 
-  private def userTextMapping(inOwnTeam: Boolean, previousText: Option[String] = None)(using Me) =
+  private def userTextMapping(inOwnTeam: Boolean, previousText: Option[String] = None)(using me: Me) =
     cleanText(minLength = 3)
       .verifying(
         "You have reached the daily maximum for links in forum posts.",
-        t => inOwnTeam || promotion.test(t, previousText)
+        t => inOwnTeam || promotion.test(me, t, previousText)
       )
 
   val diagnostic = Form(single("text" -> nonEmptyText(maxLength = 100000)))

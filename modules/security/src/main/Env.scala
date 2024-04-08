@@ -60,7 +60,7 @@ final class Env(
 
   private lazy val tor: Tor = wire[Tor]
 
-  lazy val ip2proxy: Ip2Proxy =
+  lazy val ip2proxy: lila.core.security.Ip2ProxyApi =
     if config.ip2Proxy.enabled && config.ip2Proxy.url.nonEmpty then
       def mk = (url: String) => wire[Ip2ProxyServer]
       mk(config.ip2Proxy.url)
@@ -155,5 +155,9 @@ final class Env(
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
 
   lazy val cli = wire[Cli]
+
+  lazy val coreApi = new lila.core.security.SecurityApi:
+    export api.shareAnIpOrFp
+    export userLogins.getUserIdsWithSameIpAndPrint
 
 private trait Proxy2faSetting

@@ -43,8 +43,6 @@ case class User(
   override def toString =
     s"User $username games:${count.game}${marks.troll.so(" troll")}${marks.engine.so(" engine")}${enabled.no.so(" closed")}"
 
-  def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
-
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
   def language: Option[Language] = realLang.map(Language.apply)
@@ -94,14 +92,13 @@ case class User(
 
   def addRole(role: String) = copy(roles = role :: roles)
 
-  def isVerified                 = roles.exists(_.contains("ROLE_VERIFIED"))
-  def isSuperAdmin               = roles.exists(_.contains("ROLE_SUPER_ADMIN"))
-  def isAdmin                    = roles.exists(_.contains("ROLE_ADMIN")) || isSuperAdmin
-  def isApiHog                   = roles.exists(_.contains("ROLE_API_HOG"))
+  import lila.core.perm.Granter
+  def isSuperAdmin               = Granter.ofUser(_.SuperAdmin)(this)
+  def isAdmin                    = Granter.ofUser(_.Admin)(this)
+  def isVerified                 = Granter.ofUser(_.Verified)(this)
+  def isApiHog                   = Granter.ofUser(_.ApiHog)(this)
   def isVerifiedOrAdmin          = isVerified || isAdmin
-  def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || roles.exists(_.contains("ROLE_CHALLENGE_ADMIN"))
-
-  def has2fa = totpSecret.isDefined
+  def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || Granter.ofUser(_.ApiChallengeAdmin)(this)
 
 object User:
 
@@ -137,7 +134,7 @@ object User:
     import LoginCandidate.*
     def apply(p: PasswordAndToken): Result =
       val res =
-        if !user.has2fa && must2fa then Result.Must2fa
+        if user.totpSecret.isEmpty && must2fa then Result.Must2fa
         else if check(p.password) then
           user.totpSecret.fold[Result](Result.Success(user)): tp =>
             p.token.fold[Result](Result.MissingTotpToken): token =>

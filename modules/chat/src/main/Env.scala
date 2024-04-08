@@ -22,8 +22,8 @@ final class Env(
     userRepo: lila.user.UserRepo,
     flairApi: lila.user.FlairApi,
     db: lila.db.Db,
-    flood: lila.security.Flood,
-    spam: lila.security.Spam,
+    flood: lila.core.security.FloodApi,
+    spam: lila.core.security.SpamApi,
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi
 )(using Executor, FlairGet, FlairGetMap)(using scheduler: Scheduler):

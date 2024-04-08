@@ -6,6 +6,8 @@ import lila.core.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 import lila.core.EmailAddress
+import lila.core.security.IsProxy
+import lila.core.security.Ip2ProxyApi
 
 case class UserLogins(
     ips: List[UserLogins.IPData],
@@ -35,7 +37,7 @@ final class UserLoginsApi(
     store: Store,
     userRepo: UserRepo,
     geoIP: GeoIP,
-    ip2proxy: Ip2Proxy,
+    ip2proxy: Ip2ProxyApi,
     printBan: PrintBan
 )(using Executor):
 

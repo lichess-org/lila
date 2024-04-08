@@ -4,36 +4,10 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.IpAddress
+import lila.core.security.{ IsProxy, Ip2ProxyApi }
 
-trait Ip2Proxy:
-
-  def apply(ip: IpAddress): Fu[IsProxy]
-
-  def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]]
-
-opaque type IsProxy = String
-object IsProxy extends OpaqueString[IsProxy]:
-  extension (a: IsProxy)
-    def is                                  = a.value.nonEmpty
-    def in(any: (IsProxy.type => IsProxy)*) = any.exists(f => f(IsProxy) == a)
-    def name                                = a.value.nonEmpty.option(a.value)
-  def unapply(a: IsProxy): Option[String] = a.name
-  // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
-  val vpn         = IsProxy("VPN") // paid VPNs (safe for users)
-  val privacy     = IsProxy("CPN") // consumer privacy network (akin vpn)
-  val tor         = IsProxy("TOR") // tor exit node
-  val server      = IsProxy("DCH") // servers
-  val enterprise  = IsProxy("EPN") // enterprise private network
-  val public      = IsProxy("PUB") // public proxies (unsafe for users)
-  val web         = IsProxy("WEB") // web proxies (garbage)
-  val search      = IsProxy("SES") // search engine crawlers
-  val residential = IsProxy("RES") // residential proxies (suspect)
-  val empty       = IsProxy("")
-
-final class Ip2ProxySkip extends Ip2Proxy:
-
-  def apply(ip: IpAddress): Fu[IsProxy] = fuccess(IsProxy.empty)
-
+final class Ip2ProxySkip extends Ip2ProxyApi:
+  def apply(ip: IpAddress): Fu[IsProxy]                            = fuccess(IsProxy.empty)
   def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]] = fuccess(Map.empty)
 
 final class Ip2ProxyServer(
@@ -42,7 +16,7 @@ final class Ip2ProxyServer(
     checkUrl: String,
     tor: Tor
 )(using Executor, Scheduler)
-    extends Ip2Proxy:
+    extends Ip2ProxyApi:
 
   def apply(ip: IpAddress): Fu[IsProxy] =
     if tor.isExitNode(ip)

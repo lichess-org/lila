@@ -80,7 +80,7 @@ object JsonView:
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
 
-  val modWrites = OWrites[User]: u =>
+  val modWrites = OWrites[lila.core.user.User]: u =>
     Json.toJsObject(u.light) ++ Json
       .obj("games" -> u.count.game)
       .add("tos" -> u.marks.dirty)

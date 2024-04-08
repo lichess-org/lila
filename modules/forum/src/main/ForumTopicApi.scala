@@ -21,8 +21,8 @@ final private class ForumTopicApi(
     paginator: ForumPaginator,
     modLog: lila.core.mod.LogApi,
     config: ForumConfig,
-    spam: lila.security.Spam,
-    promotion: lila.security.PromotionApi,
+    spam: lila.core.security.SpamApi,
+    promotion: lila.core.security.PromotionApi,
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
@@ -112,7 +112,7 @@ final private class ForumTopicApi(
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
           yield
-            promotion.save(post.text)
+            promotion.save(me, post.text)
             val text = s"${topic.name} ${post.text}"
             if post.isTeam then shutupApi.teamForumMessage(me, text)
             else shutupApi.publicText(me, text, PublicSource.Forum(post.id))

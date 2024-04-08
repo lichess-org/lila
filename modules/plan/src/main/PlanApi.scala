@@ -24,7 +24,7 @@ final class PlanApi(
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,
     pricingApi: PlanPricingApi,
-    ip2proxy: lila.security.Ip2Proxy
+    ip2proxy: lila.core.security.Ip2ProxyApi
 )(using Executor):
 
   import BsonHandlers.given

@@ -8,7 +8,8 @@ import lila.core.config.NetDomain
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.PublicSource
 import lila.memo.CacheApi.*
-import lila.security.{ Flood, Granter }
+import lila.core.perm.Granter
+import lila.core.security.{ FloodSource, FloodApi, SpamApi }
 import lila.user.{ Me, User, UserRepo, given }
 import lila.core.chat.{ OnTimeout, OnReinstate }
 import lila.core.user.{ FlairGet, FlairGetMap }
@@ -17,8 +18,8 @@ final class ChatApi(
     coll: Coll,
     userRepo: UserRepo,
     chatTimeout: ChatTimeout,
-    flood: Flood,
-    spam: lila.security.Spam,
+    flood: FloodApi,
+    spam: SpamApi,
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
@@ -237,7 +238,7 @@ final class ChatApi(
           Writer.preprocessUserInput(t1, user.username.some).flatMap { t2 =>
             val allow =
               if user.isBot then !lila.common.String.hasLinks(t2)
-              else flood.allowMessage(userId.into(Flood.Source), t2)
+              else flood.allowMessage(userId.into(FloodSource), t2)
             allow.option(
               UserLine(
                 user.username,
@@ -281,7 +282,7 @@ final class ChatApi(
       Writer
         .preprocessUserInput(t1, none)
         .flatMap: t2 =>
-          flood.allowMessage(Flood.Source(s"$chatId/${color.letter}"), t2).option(PlayerLine(color, t2))
+          flood.allowMessage(FloodSource(s"$chatId/${color.letter}"), t2).option(PlayerLine(color, t2))
 
   private def publish(chatId: ChatId, msg: Any, busChan: BusChan.Select): Unit =
     Bus.publish(msg, busChan(BusChan).chan)

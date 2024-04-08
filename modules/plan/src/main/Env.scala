@@ -29,7 +29,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
-    ip2proxy: lila.security.Ip2Proxy
+    ip2proxy: lila.core.security.Ip2ProxyApi
 )(using Executor, play.api.Mode, lila.core.i18n.Translator)(using scheduler: Scheduler):
 
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)

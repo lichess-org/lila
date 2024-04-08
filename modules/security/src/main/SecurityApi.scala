@@ -17,6 +17,7 @@ import lila.user.User.LoginCandidate.Result
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ Me, User, UserRepo }
 import lila.core.{ EmailAddress, UserStrOrEmail }
+import lila.core.security.{ IsProxy, Ip2ProxyApi }
 
 final class SecurityApi(
     userRepo: UserRepo,
@@ -26,7 +27,7 @@ final class SecurityApi(
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     oAuthServer: OAuthServer,
-    ip2proxy: Ip2Proxy,
+    ip2proxy: Ip2ProxyApi,
     proxy2faSetting: lila.memo.SettingStore[lila.core.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
 

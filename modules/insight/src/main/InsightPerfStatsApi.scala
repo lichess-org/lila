@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.rating.Perf
-import lila.user.User
+import lila.core.user.User
 import lila.core.perf.{ PerfId, PerfType }
 
 case class InsightPerfStats(

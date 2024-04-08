@@ -17,7 +17,7 @@ final class Env(
     divider: lila.game.Divider,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
-    explorerImporter: lila.explorer.ExplorerImporter,
+    explorerImporter: lila.game.actorApi.ExplorerGame,
     notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,
     federationNames: lila.core.fide.Federation.NamesOf,

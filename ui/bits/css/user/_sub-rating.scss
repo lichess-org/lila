@@ -20,6 +20,10 @@
       @include transition;
     }
 
+    &[href=''] {
+      pointer-events: none;
+    }
+
     &[href]:hover {
       background: $c_bg-page_bg--mix-50;
 

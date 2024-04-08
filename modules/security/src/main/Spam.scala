@@ -2,9 +2,9 @@ package lila.security
 
 import lila.common.constants.bannedYoutubeIds
 
-final class Spam(spamKeywords: () => lila.core.Strings):
+final class Spam(spamKeywords: () => lila.core.Strings) extends lila.core.security.SpamApi:
 
-  def detect(text: String) =
+  def detect(text: String): Boolean =
     staticBlacklist.exists(text.contains) ||
       spamKeywords().value.exists(text.contains)
 
@@ -35,7 +35,7 @@ final class Spam(spamKeywords: () => lila.core.Strings):
     "/password/reset/confirm/"
   ) ::: bannedYoutubeIds ::: referBlacklist
 
-  def replace(text: String) =
+  def replace(text: String): String =
     replacements.foldLeft(text) { case (t, (regex, rep)) =>
       regex.replaceAllIn(t, rep)
     }
