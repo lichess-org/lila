@@ -16,9 +16,9 @@ object layout:
 
   object bits:
     val doctype = raw("<!DOCTYPE html>")
-    def htmlTag(using lang: Lang, ctx: Context) =
-      val isRTL = lila.i18n.LangList.isRTL(lang)
-      html(st.lang := lang.code, dir := isRTL.option("rtl"), ctx.pref.themeColorClass.map(cls := _))
+    def htmlTag(using ctx: Context) =
+      val isRTL = lila.i18n.LangList.isRTL(ctx.lang)
+      html(st.lang := ctx.lang.code, dir := isRTL.option("rtl"), ctx.pref.themeColorClass.map(cls := _))
     val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
     val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw:
@@ -39,7 +39,7 @@ object layout:
             "document.documentElement.classList.add('light');"
         )
       )
-    def systemThemeEmbedScript(using ctx: EmbedContext) =
+    def systemThemeEmbedScript =
       "<script>if (window.matchMedia('(prefers-color-scheme: light)').matches) " +
         "document.documentElement.classList.add('light');</script>"
     def pieceSprite(using ctx: PageContext): Frag = pieceSprite(ctx.pref.currentPieceSet)
