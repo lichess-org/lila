@@ -20,15 +20,13 @@ object perfStat:
     views.html.base.layout(
       title = s"${user.username} - ${perfStats.txt(perfType.trans)}",
       robots = false,
-      modules = List(
-        jsModule("bits.user").some,
+      modules = jsModule("bits.user") ++
         ratingChart.map { rc =>
           jsModuleInit(
             "chart.ratingHistory",
             SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using ctxTrans.translator.toDefault)}'}")
-          )
-        }
-      ),
+          ).some
+        },
       moreCss = cssTag("perf-stat")
     ):
       main(cls := s"page-menu")(

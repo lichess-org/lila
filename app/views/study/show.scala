@@ -20,7 +20,7 @@ object show:
     views.html.base.layout(
       title = s.name.value,
       moreCss = cssTag("analyse.study"),
-      modules = List(analyseNvuiTag),
+      modules = analyseNvuiTag,
       pageModule = PageModule(
         "analysisBoard.study",
         Json.obj(

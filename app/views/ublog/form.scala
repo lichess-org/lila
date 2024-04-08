@@ -19,7 +19,7 @@ object form:
   def create(user: User, f: Form[UblogPostData], captcha: Captcha)(using PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
-      modules = List(jsModule("bits.ublogForm").some, captchaTag.some),
+      modules = jsModule("bits.ublogForm") ++ captchaTag,
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
     ):
       main(cls := "page-menu page-small")(

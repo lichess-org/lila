@@ -12,16 +12,13 @@ object layout:
       active: String,
       evenMoreCss: Frag = emptyFrag,
       evenMoreJs: Frag = emptyFrag,
-      modules: EsmInit | EsmList = Nil
+      modules: EsmList = Nil
   )(body: Frag)(using ctx: PageContext): Frag =
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("account"), evenMoreCss),
       moreJs = evenMoreJs,
-      modules = List(jsModule("bits.account").some) ::: (modules match
-        case one: EsmInit  => List(one.some)
-        case list: EsmList => list
-      )
+      modules = modules
     ):
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(

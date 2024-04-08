@@ -15,7 +15,7 @@ object crud:
 
   private def layout(
       title: String,
-      modules: EsmInit | EsmList = Nil,
+      modules: EsmList = Nil,
       evenMoreJs: Frag = emptyFrag,
       css: String = "mod.misc"
   )(
@@ -24,10 +24,7 @@ object crud:
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
-      modules = List(jsModule("bits.flatpick").some) ::: (modules match
-        case one: EsmInit  => List(one.some)
-        case list: EsmList => list
-      ),
+      modules = jsModule("bits.flatpick") ++ modules,
       moreJs = evenMoreJs
     ) {
       main(cls := "page-menu")(
