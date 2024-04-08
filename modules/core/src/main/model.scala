@@ -93,5 +93,7 @@ final class LazyFu[A](run: () => Fu[A]):
 object LazyFu:
   def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
 
+case class CircularDep[A](resolve: () => A)
+
 opaque type KidMode = Boolean
 object KidMode extends YesNo[KidMode]

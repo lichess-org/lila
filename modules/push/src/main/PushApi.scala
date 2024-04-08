@@ -18,8 +18,8 @@ import lila.core.notify.*
 final private class PushApi(
     firebasePush: FirebasePush,
     webPush: WebPush,
-    proxyRepo: lila.round.GameProxyRepo,
-    roundMobile: lila.round.RoundMobile,
+    gameProxy: lila.game.core.GameProxy,
+    roundJson: lila.game.core.RoundJson,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi
@@ -79,7 +79,7 @@ final private class PushApi(
 
   def move(move: MoveEvent): Funit =
     LilaFuture.delay(2 seconds):
-      proxyRepo
+      gameProxy
         .game(move.gameId)
         .flatMap:
           _.filter(_.playable).so: game =>
@@ -88,7 +88,7 @@ final private class PushApi(
                 pov.player.userId.so: userId =>
                   val data = LazyFu: () =>
                     for
-                      _ <- proxyRepo.flushIfPresent(
+                      _ <- gameProxy.flushIfPresent(
                         game.id
                       ) // ensure game is updated before we count user games
                       nbMyTurn <- gameRepo.countWhereUserTurn(userId)
@@ -113,7 +113,7 @@ final private class PushApi(
 
   def takebackOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
-      proxyRepo
+      gameProxy
         .game(gameId)
         .flatMap:
           _.filter(_.playable).so: game =>
@@ -142,7 +142,7 @@ final private class PushApi(
 
   def drawOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
-      proxyRepo
+      gameProxy
         .game(gameId)
         .flatMap:
           _.filter(_.playable).so: game =>
@@ -188,8 +188,8 @@ final private class PushApi(
         alwaysPushFirebaseData(userId, _.corresAlarm, data)
 
   private def corresGamePayload(pov: Pov, typ: String, userId: UserId): Fu[Data.Payload] =
-    roundMobile
-      .offline(pov.game, pov.fullId.anyId)
+    roundJson
+      .mobileOffline(pov.game, pov.fullId.anyId)
       .map: round =>
         payload(userId)(
           "type"   -> typ,

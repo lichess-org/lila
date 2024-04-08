@@ -225,7 +225,7 @@ lazy val gameSearch = module("gameSearch",
 )
 
 lazy val tv = module("tv",
-  Seq(round),
+  Seq(game, user),
   Seq(hasher) ++ reactivemongo.bundle
 )
 
@@ -290,17 +290,17 @@ lazy val gathering = module("gathering",
 )
 
 lazy val tournament = module("tournament",
-  Seq(gathering, user, round),
+  Seq(gathering, user, game, room, chat),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val swiss = module("swiss",
-  Seq(gathering, user, round),
+  Seq(gathering, user, game, chat, room),
   Seq(scalatags, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val simul = module("simul",
-  Seq(gathering, user, round),
+  Seq(gathering, user, game, chat, room),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
@@ -345,7 +345,7 @@ lazy val study = module("study",
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
-  Seq(study, round),
+  Seq(study),
   tests.bundle ++ Seq(galimatias) ++ reactivemongo.bundle
 )
 
@@ -375,7 +375,7 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(lobby, round),
+  Seq(lobby),
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
@@ -435,7 +435,7 @@ lazy val clas = module("clas",
 )
 
 lazy val bookmark = module("bookmark",
-  Seq(round),
+  Seq(game),
   reactivemongo.bundle
 )
 

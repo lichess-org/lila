@@ -251,7 +251,7 @@ final class Challenge(
                   .dmap(some)
                   .dmap(_.filter(_.hasUserIds(u1.userId, u2.userId)))
               .orNotFound: game =>
-                env.round.tellRound(game.id, lila.core.round.StartClock)
+                env.round.roundApi.tell(game.id, lila.core.round.StartClock)
                 jsonOkResult
 
   private val ChallengeIpRateLimit = lila.memo.RateLimit[IpAddress](

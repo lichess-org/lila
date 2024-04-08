@@ -312,7 +312,7 @@ final class Round(
             .isAllowedIn(pov.game, Preload.none)
             .map:
               if _ then
-                env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
+                env.round.roundApi.tell(pov.gameId, Moretime(pov.playerId, seconds.seconds))
                 jsonOkResult
               else BadRequest(jsonError("This game doesn't allow giving time"))
   }

@@ -100,7 +100,6 @@ object UserInfo:
       relayApi: lila.relay.RelayApi,
       ratingChartApi: lila.history.RatingChartApi,
       userApi: lila.api.UserApi,
-      isHostingSimul: lila.round.IsSimulHost,
       streamerApi: lila.streamer.StreamerApi,
       teamApi: lila.team.TeamApi,
       teamCache: lila.team.Cached,
@@ -111,7 +110,7 @@ object UserInfo:
       (
         perfsRepo.withPerfs(user),
         userApi.getTrophiesAndAwards(user).mon(_.user.segment("trophies")),
-        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user.segment("simul"))),
+        (nbs.playing > 0).so(simulApi.isSimulHost(user.id).mon(_.user.segment("simul"))),
         ((ctx.noBlind && ctx.pref.showRatings).so(ratingChartApi(user))).mon(_.user.segment("ratingChart")),
         (!user.is(UserId.lichess) && !user.isBot).so {
           postApi.nbByUser(user.id).mon(_.user.segment("nbForumPosts"))
