@@ -345,13 +345,12 @@ final class TournamentApi(
   def selfPause(tourId: TourId, userId: UserId): Funit =
     withdraw(tourId, userId, isPause = true, isStalling = false)
 
-  private def stallPause(tourId: TourId, userId: UserId): Funit =
-    withdraw(tourId, userId, isPause = false, isStalling = true)
-
-  private[tournament] def sittingDetected(game: Game, player: UserId): Funit =
-    game.tournamentId.so { stallPause(_, player) }
-
-  private def withdraw(tourId: TourId, userId: UserId, isPause: Boolean, isStalling: Boolean): Funit =
+  private[tournament] def withdraw(
+      tourId: TourId,
+      userId: UserId,
+      isPause: Boolean,
+      isStalling: Boolean
+  ): Funit =
     Parallel(tourId, "withdraw")(cached.tourCache.enterable):
       case tour if tour.isCreated =>
         (playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)).andDo {

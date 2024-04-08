@@ -30,7 +30,7 @@ final class AccountClosure(
     "garbageCollect" -> { case lila.core.actorApi.security.GarbageCollect(userId) =>
       (modApi.garbageCollect(userId) >> lichessClose(userId))
     },
-    "rageSitClose" -> { case lila.core.actorApi.playban.RageSitClose(userId) => lichessClose(userId) }
+    "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessClose(userId) }
   )
 
   def close(u: User)(using me: Me): Funit = for
