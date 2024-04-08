@@ -37,9 +37,8 @@ object Granter:
 
 enum Permission(val key: String, val alsoGrants: List[Permission], val name: String):
   def this(key: String, name: String) = this(key, Nil, name)
-  def dbKey = s"ROLE_$key"
-  final def grants(p: Permission): Boolean =
-    this == p || alsoGrants.exists(_.grants(p))
+  def dbKey                                = s"ROLE_$key"
+  final def grants(p: Permission): Boolean = this == p || alsoGrants.exists(_.grants(p))
 
   case ViewBlurs        extends Permission("VIEW_BLURS", "View blurs")
   case ModerateForum    extends Permission("MODERATE_FORUM", "Moderate forum")

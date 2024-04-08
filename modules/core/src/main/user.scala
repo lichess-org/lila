@@ -29,16 +29,22 @@ trait User:
   val marks: UserMarks
   val lang: Option[String]
   val roles: List[String]
+  val flair: Option[lila.core.Flair]
 
   def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
   def realLang: Option[Lang]      = lang.flatMap(Lang.get)
   def hasTitle: Boolean           = title.exists(PlayerTitle.BOT != _)
+  def isPatron: Boolean
+  def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
 
 object User:
   given UserIdOf[User] = _.id
   given perm.Grantable[User] = new:
     def enabled(u: User) = u.enabled
     def roles(u: User)   = u.roles
+
+case class Me(user: User):
+  export user.*
 
 trait WithPerf:
   val user: User

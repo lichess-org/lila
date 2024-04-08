@@ -185,7 +185,7 @@ lazy val search = module("search",
 )
 
 lazy val chat = module("chat",
-  Seq(security),
+  Seq(memo, user),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
@@ -270,12 +270,12 @@ lazy val importer = module("importer",
 )
 
 lazy val insight = module("insight",
-  Seq(analyse, security, pref),
+  Seq(analyse, pref),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
 lazy val tutor = module("tutor",
-  Seq(insight),
+  Seq(insight, user),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -420,7 +420,7 @@ lazy val forumSearch = module("forumSearch",
 )
 
 lazy val team = module("team",
-  Seq(chat, security, room),
+  Seq(chat, user, room),
   reactivemongo.bundle
 )
 

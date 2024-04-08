@@ -7,11 +7,9 @@ import play.api.Configuration
 import lila.core.config.*
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi,

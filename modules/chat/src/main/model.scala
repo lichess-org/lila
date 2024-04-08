@@ -3,10 +3,10 @@ package lila.chat
 import play.api.libs.json.JsArray
 
 import lila.core.shutup.PublicSource
-import lila.user.User
+import lila.core.LightUser
 
 case class UserModInfo(
-    user: User,
+    user: LightUser,
     history: List[ChatTimeout.UserEntry]
 )
 

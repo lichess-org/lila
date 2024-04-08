@@ -43,8 +43,6 @@ case class User(
   override def toString =
     s"User $username games:${count.game}${marks.troll.so(" troll")}${marks.engine.so(" engine")}${enabled.no.so(" closed")}"
 
-  def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
-
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
   def language: Option[Language] = realLang.map(Language.apply)

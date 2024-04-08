@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.common.config
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import lila.core.user.User
 
 final private class AggregationPipeline(store: InsightStorage)(using
     ec: Executor
