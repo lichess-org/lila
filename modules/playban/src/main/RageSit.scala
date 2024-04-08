@@ -47,5 +47,3 @@ object RageSit:
       case Speed.Blitz           => 1
       case _                     => 2
   }
-
-case class SittingDetected(game: Game, userId: UserId)

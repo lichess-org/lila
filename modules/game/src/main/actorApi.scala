@@ -6,8 +6,6 @@ import chess.format.Fen
 import lila.rating.UserPerfs
 import lila.core.user.User
 
-type ExplorerGame = GameId => Fu[Option[Game]]
-
 case class StartGame(game: Game)
 
 case class FinishGame(

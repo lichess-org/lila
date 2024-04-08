@@ -22,8 +22,8 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     historyApi: lila.core.history.HistoryApi,
-    gameProxyRepo: lila.round.GameProxyRepo,
-    roundSocket: lila.round.RoundSocket,
+    gameProxy: lila.game.core.GameProxy,
+    roundApi: lila.game.core.RoundApi,
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: BaseUrl
 )(using

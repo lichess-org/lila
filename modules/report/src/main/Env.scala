@@ -52,4 +52,4 @@ final class Env(
     api.inquiries.expire
 
   lila.common.Bus.subscribeFun("playban"):
-    case lila.core.playban.Playban(userId, mins) => api.maybeAutoPlaybanReport(userId, mins)
+    case lila.core.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins)

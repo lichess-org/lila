@@ -37,7 +37,7 @@ final class SwissApi(
     verify: SwissCondition.Verify,
     chatApi: lila.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
-    roundSocket: lila.round.RoundSocket
+    roundApi: lila.game.core.RoundApi
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
     extends lila.core.swiss.SwissApi:
 
@@ -589,7 +589,7 @@ final class SwissApi(
       .flatMap:
         _.traverse_ { (swissId, gameIds) =>
           Sequencing[List[Game]](swissId)(cache.swissCache.byId) { _ =>
-            roundSocket
+            roundApi
               .getGames(gameIds)
               .map: pairs =>
                 val games               = pairs.collect { case (_, Some(g)) => g }

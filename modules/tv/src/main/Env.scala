@@ -10,9 +10,9 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     lightUserApi: lila.user.LightUserApi,
     lightUserSync: lila.core.LightUser.GetterSync,
-    gameProxyRepo: lila.round.GameProxyRepo,
+    gameProxy: lila.game.core.GameProxy,
     system: ActorSystem,
-    recentTvGames: lila.round.RecentTvGames,
+    onTvGame: lila.game.core.OnTvGame,
     rematches: lila.game.Rematches
 )(using Executor, Scheduler):
 

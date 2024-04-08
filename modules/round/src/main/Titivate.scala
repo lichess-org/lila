@@ -13,7 +13,7 @@ import lila.core.round.{ Abandon, QuietFlag }
  * and flagged games when no one is around
  */
 final private[round] class Titivate(
-    tellRound: TellRound,
+    roundApi: lila.game.core.RoundApi,
     gameRepo: GameRepo,
     chatApi: lila.chat.ChatApi
 )(using akka.stream.Materializer)
@@ -84,11 +84,11 @@ final private[round] class Titivate(
 
         case game if game.outoftime(withGrace = true) =>
           fuccess:
-            tellRound(game.id, QuietFlag)
+            roundApi.tell(game.id, QuietFlag)
 
         case game if game.abandoned =>
           fuccess:
-            tellRound(game.id, Abandon)
+            roundApi.tell(game.id, Abandon)
 
         case game if game.unplayed =>
           lila.common.Bus.publish(lila.core.round.DeleteUnplayed(game.id), "roundUnplayed")
