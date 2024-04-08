@@ -3,6 +3,7 @@ package lila.clas
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
+import lila.user.Me
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -38,8 +39,8 @@ final class Env(
 
   lazy val markup = wire[ClasMarkup]
 
-  def hasClas(using me: lila.user.Me) =
-    lila.security.Granter(_.Teacher) || studentCache.isStudent(me)
+  def hasClas(using me: Me) =
+    lila.core.perm.Granter[Me](_.Teacher) || studentCache.isStudent(me)
 
   lila.common.Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>

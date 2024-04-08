@@ -6,7 +6,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.config.*
 import lila.rating.UserRankMap
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.{ Me, Trophy, User }
 import lila.core.perf.PerfType
 
@@ -141,10 +141,10 @@ final class UserApi(
       case (trophies, shields, revols) =>
         val roleTrophies = trophyApi.roleBasedTrophies(
           u,
-          Granter.of(_.PublicMod)(u),
-          Granter.of(_.Developer)(u),
-          Granter.of(_.Verified)(u),
-          Granter.of(_.ContentTeam)(u)
+          Granter.ofUser(_.PublicMod)(u),
+          Granter.ofUser(_.Developer)(u),
+          Granter.ofUser(_.Verified)(u),
+          Granter.ofUser(_.ContentTeam)(u)
         )
         UserApi.TrophiesAndAwards(userCache.rankingsOf(u.id), trophies ::: roleTrophies, shields, revols)
 

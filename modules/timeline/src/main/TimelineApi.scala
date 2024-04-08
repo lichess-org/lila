@@ -3,7 +3,7 @@ package lila.timeline
 import akka.actor.*
 
 import lila.core.timeline.{ Atom, Propagate, Propagation, ReloadTimelines }
-import lila.security.Permission
+import lila.core.perm.Permission
 import lila.user.UserRepo
 import lila.core.team.Access
 import lila.core.timeline.*

@@ -4,8 +4,9 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.security.Permission
+import lila.core.perm.Permission
 import lila.user.{ Me, User }
+import lila.security.Granter.canGrant
 
 object permissions:
 

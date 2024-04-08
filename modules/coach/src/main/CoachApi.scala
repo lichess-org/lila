@@ -2,7 +2,7 @@ package lila.coach
 
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 import lila.rating.UserPerfs
 
@@ -21,7 +21,7 @@ final class CoachApi(
   def find(username: UserStr): Fu[Option[Coach.WithUser]] =
     userRepo.byId(username).flatMapz(find)
 
-  def canCoach = Granter.of(_.Coach)
+  def canCoach = Granter.ofUser(_.Coach)
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
     canCoach(user).so:
@@ -84,7 +84,7 @@ final class CoachApi(
       userRepo.coll.secondaryPreferred
         .distinctEasy[Flag.Code, Set](
           "profile.country",
-          $doc("roles" -> lila.security.Permission.Coach.dbKey, "enabled" -> true)
+          $doc("roles" -> lila.core.perm.Permission.Coach.dbKey, "enabled" -> true)
         )
         .map: codes =>
           ("all", "All countries") :: Flags.all

@@ -161,7 +161,7 @@ final class SecurityApi(
         val mobile = Mobile.LichessMobileUa.parse(req)
         store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
 
-  private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
+  private lazy val nonModRoles: Set[String] = lila.core.perm.Permission.nonModPermissions.map(_.dbKey)
 
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped[Me]) =
     if scoped.scopes.has(_.Web.Mod) then scoped

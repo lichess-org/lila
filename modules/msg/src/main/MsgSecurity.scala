@@ -5,7 +5,7 @@ import lila.db.dsl.{ *, given }
 import lila.core.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.core.team.IsLeaderOf
 import lila.memo.RateLimit
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.core.shutup.TextAnalyser
 import lila.user.User
 import lila.core.report.SuspectId

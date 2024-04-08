@@ -135,9 +135,9 @@ final class ChatApi(
     )(using mod: Me.Id): Funit =
       coll.byId[UserChat](chatId.value).zip(userRepo.me(mod)).zip(userRepo.byId(userId)).flatMap {
         case ((Some(chat), Some(me)), Some(user))
-            if isMod(using me) || (busChan(BusChan) == BusChan.study && isRelayMod(me)) ||
+            if isMod(using me) || (busChan(BusChan) == BusChan.study && isRelayMod(using me)) ||
               scope == ChatTimeout.Scope.Local =>
-          doTimeout(chat, me, user, reason, scope, text, busChan)
+          doTimeout(chat, user, reason, scope, text, busChan)(using me)
         case _ => funit
       }
 
@@ -166,13 +166,12 @@ final class ChatApi(
 
     private def doTimeout(
         c: UserChat,
-        mod: Me,
         user: User,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
         text: String,
         busChan: BusChan.Select
-    ): Funit =
+    )(using mod: Me): Funit =
       chatTimeout
         .add(c, mod, user, reason, scope)
         .flatMap: isNew =>
@@ -197,7 +196,7 @@ final class ChatApi(
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
             line.foreach: l =>
               publishLine(chat.id, l, busChan)
-            if isMod(using mod) || isRelayMod(mod) then
+            if isMod || isRelayMod then
               lila.common.Bus.publish(
                 lila.core.mod.ChatTimeout(
                   mod = mod.userId,
@@ -225,8 +224,8 @@ final class ChatApi(
         }
         .inject(change)
 
-    private def isMod(using Me)      = Granter(_.ChatTimeout)
-    private def isRelayMod(using Me) = Granter(_.BroadcastTimeout)
+    private def isMod(using Me)      = Granter[Me](_.ChatTimeout)
+    private def isRelayMod(using Me) = Granter[Me](_.BroadcastTimeout)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach: r =>

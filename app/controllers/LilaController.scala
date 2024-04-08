@@ -10,7 +10,7 @@ import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, config }
 import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
-import lila.security.Permission
+import lila.core.perm.Permission
 import lila.user.Me
 
 abstract private[controllers] class LilaController(val env: Env)

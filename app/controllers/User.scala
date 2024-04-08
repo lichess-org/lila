@@ -17,7 +17,7 @@ import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog
-import lila.security.{ Granter, UserLogins }
+import lila.security.UserLogins
 import lila.user.User as UserModel
 import lila.core.perf.{ PerfKey, PerfType }
 import lila.core.IpAddress
@@ -403,7 +403,7 @@ final class User(
           yield html.user.mod.otherUsers(me, user, data, appeals)
 
           val identification = userLoginsFu.map: logins =>
-            Granter(_.ViewPrintNoIP).so(html.user.mod.identification(logins))
+            isGranted(_.ViewPrintNoIP).so(html.user.mod.identification(logins))
 
           val kaladin = isGranted(_.MarkEngine).so(env.irwin.kaladinApi.get(user).map {
             _.flatMap(_.response).so(html.kaladin.report)
@@ -588,7 +588,7 @@ final class User(
                       else fuccess(userIds)
                     }
                   case None if getBool("teacher") =>
-                    env.user.repo.userIdsLikeWithRole(term, lila.security.Permission.Teacher.dbKey)
+                    env.user.repo.userIdsLikeWithRole(term, lila.core.perm.Permission.Teacher.dbKey)
                   case None => env.user.cached.userIdsLike(term)
           }.flatMap { userIds =>
             if getBool("names") then
