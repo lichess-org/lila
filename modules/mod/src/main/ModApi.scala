@@ -139,7 +139,7 @@ final class ModApi(
 
   def setPermissions(username: UserStr, permissions: Set[Permission])(using Me): Funit =
     withUser(username): user =>
-      val finalPermissions = Permission(user.roles).filter { p =>
+      val finalPermissions = Permission(user).filter { p =>
         // only remove permissions the mod can actually grant
         permissions.contains(p) || !lila.security.Granter.canGrant[Me](p)
       } ++
@@ -148,7 +148,7 @@ final class ModApi(
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >>
         logApi.setPermissions(
           user.id,
-          lila.security.Permission.diff(Permission(user.roles), finalPermissions)
+          lila.security.Permission.diff(Permission(user), finalPermissions)
         )
 
   def setReportban(sus: Suspect, v: Boolean)(using Me.Id): Funit =

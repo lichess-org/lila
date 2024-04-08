@@ -14,32 +14,32 @@ trait Grantable[U]:
 object Granter:
 
   def apply[U: Grantable](permission: Permission)(using me: U): Boolean =
-    me.isEnabled && apply(permission, me.dbKeys)
+    me.isEnabled && ofDbKeys(permission, me.dbKeys)
 
   def apply[U: Grantable](f: Permission.Selector)(using me: U): Boolean =
-    me.isEnabled && apply(f(Permission), me.dbKeys)
+    me.isEnabled && ofDbKeys(f(Permission), me.dbKeys)
 
   def opt[U: Grantable](f: Permission.Selector)(using me: Option[U]): Boolean =
     me.soUse(apply(f))
 
   def of[U: Grantable](permission: Permission)(user: U): Boolean =
-    user.isEnabled && apply(permission, user.dbKeys)
+    user.isEnabled && ofDbKeys(permission, user.dbKeys)
 
   def of[U: Grantable](f: Permission.Selector)(user: U): Boolean =
-    user.isEnabled && apply(f(Permission), user.dbKeys)
+    user.isEnabled && ofDbKeys(f(Permission), user.dbKeys)
 
   def ofUser(f: Permission.Selector)(user: User): Boolean = of[User](f)(user)
 
-  def apply(permission: Permission, dbKeys: Seq[String]): Boolean =
-    Permission(dbKeys).exists(_.grants(permission))
-
-  def byRoles(f: Permission.Selector)(roles: Seq[String]): Boolean =
-    apply(f(Permission), roles)
+  def ofDbKeys(permission: Permission, dbKeys: Seq[String]): Boolean =
+    Permission.ofDbKeys(dbKeys).exists(_.grants(permission))
+  def ofDbKeys(f: Permission.Selector, dbKeys: Seq[String]): Boolean =
+    ofDbKeys(f(Permission), dbKeys)
 
 enum Permission(val key: String, val alsoGrants: List[Permission], val name: String):
   def this(key: String, name: String) = this(key, Nil, name)
-  def dbKey                                = s"ROLE_$key"
-  final def grants(p: Permission): Boolean = this == p || alsoGrants.exists(_.grants(p))
+  def dbKey = s"ROLE_$key"
+  final def grants(p: Permission): Boolean =
+    this == p || alsoGrants.exists(_.grants(p))
 
   case ViewBlurs        extends Permission("VIEW_BLURS", "View blurs")
   case ModerateForum    extends Permission("MODERATE_FORUM", "Moderate forum")
@@ -58,9 +58,9 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case SetKidMode       extends Permission("SET_KID_MODE", List(UserModView), "Set Kid Mode")
   case MarkEngine       extends Permission("ADJUST_CHEATER", List(UserModView), "Mark as cheater")
   case MarkBooster      extends Permission("ADJUST_BOOSTER", List(UserModView), "Mark as booster")
+  case ViewPrintNoIP    extends Permission("VIEW_PRINT_NOIP", "View Print & NoIP")
   case IpBan            extends Permission("IP_BAN", List(UserModView, ViewPrintNoIP), "IP ban")
   case PrintBan         extends Permission("PRINT_BAN", List(UserModView), "Print ban")
-  case ViewPrintNoIP    extends Permission("VIEW_PRINT_NOIP", "View Print & NoIP")
   case DisableTwoFactor extends Permission("DISABLE_2FA", "Disable 2FA")
   case CloseAccount     extends Permission("CLOSE_ACCOUNT", List(UserModView), "Close/reopen account")
   case GdprErase        extends Permission("GDPR_ERASE", List(CloseAccount), "GDPR erase account")
@@ -250,5 +250,6 @@ object Permission:
 
   val allByDbKey: Map[String, Permission] = all.mapBy(_.dbKey)
 
-  def apply(dbKey: String): Option[Permission]    = allByDbKey.get(dbKey)
-  def apply(dbKeys: Seq[String]): Set[Permission] = dbKeys.flatMap(allByDbKey.get).toSet
+  def apply[U: Grantable](u: U): Set[Permission]     = ofDbKeys(u.dbKeys)
+  def ofDbKey(dbKey: String): Option[Permission]     = allByDbKey.get(dbKey)
+  def ofDbKeys(dbKeys: Seq[String]): Set[Permission] = dbKeys.flatMap(allByDbKey.get).toSet

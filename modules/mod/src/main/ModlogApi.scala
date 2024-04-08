@@ -332,7 +332,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       case M.blogTier | M.blogPostEdit                      => "note"
       case _                                                => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
-    userRepo.getRoles(m.mod).map(Permission(_)).flatMap { permissions =>
+    userRepo.getRoles(m.mod).map(Permission.ofDbKeys(_)).flatMap { permissions =>
       import lila.core.irc.{ ModDomain as domain }
       val monitorType = m.action match
         case M.closeAccount | M.alt => None

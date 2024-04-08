@@ -7,6 +7,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.core.perm.Permission
 import lila.user.{ Me, User }
 import lila.security.Granter.canGrant
+import lila.security.Permission.findGranterPackage
 
 object permissions:
 
@@ -18,7 +19,6 @@ object permissions:
         cssTag("form3")
       )
     ):
-      val userPerms = Permission(u.roles)
       main(cls := "mod-permissions page-small box box-pad")(
         boxTop(h1(userLink(u), " permissions")),
         standardFlash,
@@ -26,18 +26,18 @@ object permissions:
           p(cls := "granted")("In green, permissions enabled manually or by a package."),
           div(cls := "permission-list")(
             lila.security.Permission.categorized
-              .filter { (_, ps) => ps.exists(canGrant(_)) }
+              .filter { (_, ps) => ps.exists(canGrant[Me](_)) }
               .map: (categ, perms) =>
                 st.section(
                   h2(categ),
                   perms
-                    .filter(canGrant)
+                    .filter(canGrant[Me])
                     .map: perm =>
                       val id = s"permission-${perm.dbKey}"
                       div(
                         cls := isGranted(perm, u).option("granted"),
                         title := isGranted(perm, u).so {
-                          Permission.findGranterPackage(userPerms, perm).map { p =>
+                          findGranterPackage(Permission(u), perm).map { p =>
                             s"Granted by package: $p"
                           }
                         }

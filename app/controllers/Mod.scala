@@ -464,11 +464,12 @@ final class Mod(
         .fold(
           _ => BadRequest.page(html.mod.permissions(user)),
           permissions =>
-            val newPermissions = Permission(permissions).diff(Permission(user.roles))
-            (modApi.setPermissions(user.username, Permission(permissions)) >> {
+            val newPermissions = Permission.ofDbKeys(permissions).diff(Permission(user))
+            (modApi.setPermissions(user.username, Permission.ofDbKeys(permissions)) >> {
               newPermissions(Permission.Coach).so(env.mailer.automaticEmail.onBecomeCoach(user))
             } >> {
-              Permission(permissions)
+              Permission
+                .ofDbKeys(permissions)
                 .exists(_.grants(Permission.SeeReport))
                 .so(env.plan.api.setLifetime(user))
             }).inject(Redirect(routes.Mod.permissions(user.username.value)).flashSuccess)

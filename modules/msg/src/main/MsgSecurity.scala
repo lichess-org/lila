@@ -142,7 +142,7 @@ final private class MsgSecurity(
 
     def post(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       fuccess(!contacts.dest.isLichess) >>& {
-        fuccess(Granter.byRoles(_.PublicMod)(~contacts.orig.roles)) >>| {
+        fuccess(Granter.ofDbKeys(_.PublicMod, ~contacts.orig.roles)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
             chatPanicAllowed(contacts.orig.id)(userRepo.byId) >>&

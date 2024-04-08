@@ -184,7 +184,7 @@ final class UserApi(
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
 
   private def wikiGroups(u: User): List[String] =
-    val perms          = lila.security.Permission.expanded(u.roles).map(_.name).toList
+    val perms          = lila.security.Permission.expanded(u).map(_.name).toList
     val wikiAdminGroup = "Administrators"
     if perms.contains("Admin") then wikiAdminGroup :: perms else perms
 

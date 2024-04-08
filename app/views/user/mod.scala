@@ -267,7 +267,7 @@ object mod:
         mzSection("roles")(
           (if isGranted(_.ChangePermission) then a(href := routes.Mod.permissions(u.username)) else span) (
             strong(cls := "text inline", dataIcon := " ")("Permissions: "),
-            if u.roles.isEmpty then "Add some" else Permission(u.roles).map(_.name).mkString(", ")
+            if u.roles.isEmpty then "Add some" else Permission(u).map(_.name).mkString(", ")
           )
         )
       ),
