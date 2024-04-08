@@ -479,7 +479,7 @@ export default class AnalyseCtrl {
   }
 
   crazyValid = (role: cg.Role, key: cg.Key): boolean => {
-    const color = this.chessground.state.movable.color ?? '';
+    const color = this.chessground.state.movable.color;
     return (
       (color === 'white' || color === 'black') &&
       crazyValid(this.chessground, this.node.drops, { color, role }, key)
