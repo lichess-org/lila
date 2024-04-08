@@ -35,8 +35,9 @@ export const loadCssPath = async (key: string): Promise<void> => {
 };
 
 export const jsModule = (name: string) => {
+  if (name.endsWith('.js')) name = name.slice(0, -3);
   const hash = site.manifest.js[name];
-  return `compiled/${name}${hash ? '.' + hash : ''}`;
+  return `compiled/${name}${hash ? '.' + hash : ''}.js`;
 };
 
 const scriptCache = new Map<string, Promise<void>>();
