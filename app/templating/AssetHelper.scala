@@ -12,7 +12,7 @@ trait AssetHelper extends HasEnv:
 
   case class PageModule(name: String, data: JsValue | SafeJsonStr)
   case class EsmInit(key: String, init: Frag)
-  type EsmList = List[EsmInit]
+  type EsmList = List[Option[EsmInit]]
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -75,9 +75,9 @@ trait AssetHelper extends HasEnv:
   def jsPageModule(key: String)(using PageContext): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${jsName(key)}')"))
 
-  def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analyse.nvui")).toList
-  def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui")).toList
-  def roundNvuiTag(using ctx: PageContext)   = ctx.blind.option(jsModule("round.nvui")).toList
+  def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analyse.nvui"))
+  def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui"))
+  def roundNvuiTag(using ctx: PageContext)   = ctx.blind.option(jsModule("round.nvui"))
   def infiniteScrollTag(using PageContext)   = jsModuleInit("bits.infiniteScroll")
   def captchaTag                             = jsModule("bits.captcha")
   def cashTag                                = iifeModule("javascripts/vendor/cash.min.js")

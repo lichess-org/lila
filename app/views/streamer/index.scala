@@ -62,7 +62,7 @@ object index:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("streamer.list"),
-      modules = infiniteScrollTag :: jsModule("bits.streamer") :: Nil
+      modules = List(infiniteScrollTag.some, jsModule("bits.streamer").some)
     ) {
       main(cls := "page-menu")(
         bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),

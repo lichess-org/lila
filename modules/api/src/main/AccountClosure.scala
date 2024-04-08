@@ -1,7 +1,7 @@
 package lila.api
 
 import lila.common.Bus
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.{ Me, User }
 
 final class AccountClosure(
@@ -36,7 +36,7 @@ final class AccountClosure(
   def close(u: User)(using me: Me): Funit = for
     playbanned <- playbanApi.HasCurrentPlayban(u.id)
     selfClose = me.is(u)
-    modClose  = !selfClose && Granter(_.CloseAccount)
+    modClose  = !selfClose && Granter[Me](_.CloseAccount)
     badApple  = u.lameOrTrollOrAlt || modClose
     _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
     _       <- relationApi.unfollowAll(u.id)

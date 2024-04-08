@@ -28,7 +28,7 @@ object show:
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
       title = fullName(s, team),
-      modules = hasScheduleInput.thenList(jsModule("bits.flatpickr")),
+      modules = List(hasScheduleInput.option(jsModule("bits.flatpickr"))),
       pageModule = PageModule(
         "swiss",
         Json

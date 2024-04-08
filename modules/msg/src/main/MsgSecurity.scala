@@ -5,7 +5,7 @@ import lila.db.dsl.{ *, given }
 import lila.core.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.core.team.IsLeaderOf
 import lila.memo.RateLimit
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.core.shutup.TextAnalyser
 import lila.user.User
 import lila.core.report.SuspectId
@@ -142,7 +142,7 @@ final private class MsgSecurity(
 
     def post(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
       fuccess(!contacts.dest.isLichess) >>& {
-        fuccess(Granter.byRoles(_.PublicMod)(~contacts.orig.roles)) >>| {
+        fuccess(Granter.ofDbKeys(_.PublicMod, ~contacts.orig.roles)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
             chatPanicAllowed(contacts.orig.id)(userRepo.byId) >>&

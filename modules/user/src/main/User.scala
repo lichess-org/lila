@@ -106,6 +106,9 @@ case class User(
 object User:
 
   given UserIdOf[User] = _.id
+  given lila.core.perm.Grantable[User] = new:
+    def enabled(u: User) = u.enabled
+    def roles(u: User)   = u.roles
 
   export lila.core.user.UserEnabled as Enabled
 

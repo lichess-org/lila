@@ -17,8 +17,10 @@ object blog:
     val title = trans.ublog.xBlog.txt(user.username)
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      modules = posts.hasNextPage.thenList(infiniteScrollTag)
-        ++ ctx.isAuth.thenList(jsModule("bits.ublog")),
+      modules = List(
+        posts.hasNextPage.option(infiniteScrollTag),
+        ctx.isAuth.option(jsModule("bits.ublog"))
+      ),
       title = title,
       atomLinkTag = link(
         href     := routes.Ublog.userAtom(user.username),

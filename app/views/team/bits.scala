@@ -88,8 +88,8 @@ object bits:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
-      modules = infiniteScrollTag :: (modules match
-        case one: EsmInit  => List(one)
+      modules = List(infiniteScrollTag.some) ::: (modules match
+        case one: EsmInit  => List(one.some)
         case list: EsmList => list
       ),
       moreJs = moreJs,

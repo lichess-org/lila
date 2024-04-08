@@ -75,12 +75,14 @@ object page:
       )
     }
 
-  private def esModules(info: UserInfo, withSearch: Boolean = false)(using PageContext) =
+  private def esModules(info: UserInfo, withSearch: Boolean = false)(using PageContext): EsmList =
     import play.api.libs.json.Json
-    infiniteScrollTag
-      :: jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(i18nKeys)))
-      :: withSearch.thenList(jsModule("bits.gameSearch"))
-      ++ isGranted(_.UserModView).thenList(jsModule("mod.user"))
+    List(
+      infiniteScrollTag.some,
+      jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(i18nKeys))).some,
+      withSearch.option(jsModule("bits.gameSearch")),
+      isGranted(_.UserModView).option(jsModule("mod.user"))
+    )
 
   private def pageModule(info: UserInfo)(using PageContext) =
     info.ratingChart.map: rc =>

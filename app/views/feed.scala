@@ -17,9 +17,11 @@ object feed:
         title = title,
         active = "news",
         moreCss = cssTag("dailyFeed"),
-        modules = infiniteScrollTag
-          :: edit.thenList(jsModule("bits.flatpickr"))
-          ++ edit.thenList(jsModule("bits.dailyFeed"))
+        modules = List(
+          infiniteScrollTag.some,
+          edit.option(jsModule("bits.flatpickr")),
+          edit.option(jsModule("bits.dailyFeed"))
+        )
       )
 
   def index(ups: Paginator[Update])(using PageContext) =

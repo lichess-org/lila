@@ -10,7 +10,7 @@ import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
-import lila.security.Granter as MasterGranter
+import lila.core.perm.Granter as MasterGranter
 import lila.user.{ Me, User, given }
 
 final private class ForumTopicApi(
@@ -102,7 +102,7 @@ final private class ForumTopicApi(
         lang = lang.map(_.language),
         number = 1,
         categId = categ.id,
-        modIcon = (~data.post.modIcon && MasterGranter(_.PublicMod)).option(true)
+        modIcon = (~data.post.modIcon && MasterGranter[Me](_.PublicMod)).option(true)
       )
       findDuplicate(topic).flatMap {
         case Some(dup) => fuccess(dup)
@@ -172,14 +172,14 @@ final private class ForumTopicApi(
 
   def toggleClose(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
     topicRepo.close(topic.id, topic.open) >> {
-      (MasterGranter(_.ModerateForum) || topic.isAuthor(me.value)).so {
+      (MasterGranter[Me](_.ModerateForum) || topic.isAuthor(me.value)).so {
         modLog.toggleCloseTopic(categ.id, topic.slug, topic.open)
       }
     }
 
-  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
+  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using Me): Funit =
     topicRepo.sticky(topic.id, !topic.isSticky) >> {
-      MasterGranter(_.ModerateForum).so(modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky))
+      MasterGranter[Me](_.ModerateForum).so(modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky))
     }
 
   def denormalize(topic: ForumTopic): Funit = for

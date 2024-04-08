@@ -4,7 +4,7 @@ import chess.PlayerTitle
 
 import lila.common.Bus
 import lila.report.{ ModId, Room, Suspect }
-import lila.security.{ Granter, Permission }
+import lila.core.perm.{ Granter, Permission }
 import lila.user.{ LightUserApi, Me, User, UserRepo, modId, given }
 import lila.core.report.SuspectId
 import lila.core.EmailAddress
@@ -139,16 +139,16 @@ final class ModApi(
 
   def setPermissions(username: UserStr, permissions: Set[Permission])(using Me): Funit =
     withUser(username): user =>
-      val finalPermissions = Permission(user.roles).filter { p =>
+      val finalPermissions = Permission(user).filter { p =>
         // only remove permissions the mod can actually grant
-        permissions.contains(p) || !Granter.canGrant(p)
+        permissions.contains(p) || !lila.security.Granter.canGrant[Me](p)
       } ++
         // only add permissions the mod can actually grant
-        permissions.filter(Granter.canGrant)
+        permissions.filter(lila.security.Granter.canGrant[Me])
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >>
         logApi.setPermissions(
           user.id,
-          Permission.diff(Permission(user.roles), finalPermissions)
+          lila.security.Permission.diff(Permission(user), finalPermissions)
         )
 
   def setReportban(sus: Suspect, v: Boolean)(using Me.Id): Funit =

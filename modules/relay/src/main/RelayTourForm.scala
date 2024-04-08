@@ -4,7 +4,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanText, formatter, into }
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.Me
 import lila.core.i18n.I18nKey.streamer
 
@@ -63,7 +63,7 @@ object RelayTourForm:
           name = name,
           description = description,
           markup = markup,
-          tier = tier.ifTrue(Granter(_.Relay)),
+          tier = tier.ifTrue(Granter[Me](_.Relay)),
           autoLeaderboard = autoLeaderboard,
           teamTable = teamTable,
           players = players,
@@ -71,7 +71,7 @@ object RelayTourForm:
           spotlight = spotlight.filterNot(_.isEmpty),
           pinnedStreamer = pinnedStreamer
         )
-        .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
+        .giveOfficialToBroadcasterIf(Granter[Me](_.StudyAdmin))
 
     def make(using me: Me) =
       RelayTour(
@@ -80,7 +80,7 @@ object RelayTourForm:
         description = description,
         markup = markup,
         ownerId = me,
-        tier = tier.ifTrue(Granter(_.Relay)),
+        tier = tier.ifTrue(Granter[Me](_.Relay)),
         active = false,
         createdAt = nowInstant,
         syncedAt = none,
@@ -90,7 +90,7 @@ object RelayTourForm:
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty),
         pinnedStreamer = pinnedStreamer
-      ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
+      ).giveOfficialToBroadcasterIf(Granter[Me](_.StudyAdmin))
 
   object Data:
 

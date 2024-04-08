@@ -78,8 +78,8 @@ final class Dev(env: Env) extends LilaController(env):
       )
   }
 
-  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> me ?=>
-    lila.security.Granter(_.Cli).so {
+  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> _ ?=>
+    isGranted(_.Cli).so {
       runCommand(ctx.body.body).map { Ok(_) }
     }
   }

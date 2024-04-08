@@ -36,6 +36,9 @@ trait User:
 
 object User:
   given UserIdOf[User] = _.id
+  given perm.Grantable[User] = new:
+    def enabled(u: User) = u.enabled
+    def roles(u: User)   = u.roles
 
 trait WithPerf:
   val user: User

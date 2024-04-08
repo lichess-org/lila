@@ -125,6 +125,3 @@ trait LilaLibraryExtensions extends LilaTypes:
 
     // inline def unary_! = fua.map { !_ }(EC.parasitic)
     inline def not = fua.map { !_ }(EC.parasitic)
-
-  extension (condition: Boolean)
-    def thenList[A](value: => A): List[A] = if condition then List(value) else Nil

@@ -5,7 +5,7 @@ import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.User
 
 object userTable:
@@ -57,7 +57,7 @@ object userTable:
         tbody:
           users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
             tr(
-              if showUsernames || Granter.canViewAltUsername(u.user)
+              if showUsernames || lila.security.Granter.canViewAltUsername(u.user)
               then
                 td(dataSort := u.id)(
                   userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),

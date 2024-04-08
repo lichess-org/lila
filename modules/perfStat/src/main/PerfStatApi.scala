@@ -1,7 +1,7 @@
 package lila.perfStat
 
 import lila.rating.{ Perf, UserRankMap }
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.user.{ LightUserApi, Me, RankingApi, RankingsOf, User, UserApi }
 import lila.core.perf.{ PerfType, PerfKey }
 
@@ -29,7 +29,7 @@ final class PerfStatApi(
     PerfType(perfKey).so: perfType =>
       userApi.withPerfs(name.id).flatMap {
         _.filter: u =>
-          (u.enabled.yes && (!u.lame || me.exists(_.is(u)))) || me.soUse(Granter(_.UserModView))
+          (u.enabled.yes && (!u.lame || me.exists(_.is(u)))) || me.soUse(Granter[Me](_.UserModView))
         .filter: u =>
           !u.isBot || (perfType =!= lila.core.perf.PerfType.UltraBullet)
         .soFu: u =>

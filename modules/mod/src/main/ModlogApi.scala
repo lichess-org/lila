@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.core.irc.IrcApi
 import lila.core.msg.MsgPreset
 import lila.report.{ Mod, ModId, Report, Suspect }
-import lila.security.Permission
+import lila.core.perm.Permission
 import lila.user.{ Me, User, UserRepo, given }
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
@@ -332,7 +332,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       case M.blogTier | M.blogPostEdit                      => "note"
       case _                                                => "gear"
     val text = s"""${m.showAction.capitalize} ${m.user.so(u => s"@$u")} ${~m.details}"""
-    userRepo.getRoles(m.mod).map(Permission(_)).flatMap { permissions =>
+    userRepo.getRoles(m.mod).map(Permission.ofDbKeys(_)).flatMap { permissions =>
       import lila.core.irc.{ ModDomain as domain }
       val monitorType = m.action match
         case M.closeAccount | M.alt => None
