@@ -61,6 +61,7 @@ export function main() {
   if (args.length === 1 && (args[0] === '--help' || args[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
   } else if (args.includes('--clean')) {
+    env.log('Cleaning then exiting. Use -c to clean then build');
     clean();
   } else {
     build(args.filter(x => !x.startsWith('-')));
