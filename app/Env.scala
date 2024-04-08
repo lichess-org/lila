@@ -5,7 +5,6 @@ import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode, ConfigLoader }
-import play.api.libs.json.*
 
 import lila.core.config.*
 import lila.common.config.given
@@ -14,7 +13,6 @@ import lila.core.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
 import lila.core.i18n.Translator
-import alleycats.std.map
 
 final class Env(
     val config: Configuration,
