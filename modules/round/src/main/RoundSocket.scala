@@ -81,8 +81,8 @@ final class RoundSocket(
     rounds.getIfPresent(gameId).so(_.flushGame())
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
-    mkAsyncActor =
-      id => makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo.game(id).recoverDefault(none)),
+    mkAsyncActor = id =>
+      makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo.game(id).recoverDefault(none[Game])),
     initialCapacity = 65_536
   )
 

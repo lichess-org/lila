@@ -25,7 +25,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         else
           for
             ids <- env.forumSearch(text, page, ctx.troll)
-            posts <- ids.mapFutureList: ids =>
+            posts <- lila.common.hotfix.mapFutureList(ids): ids =>
               env.forum.postApi.viewsFromIds(ids)
             pager <- posts.mapFutureResults: post =>
               access.isGrantedRead(post.topic.categId).map {
