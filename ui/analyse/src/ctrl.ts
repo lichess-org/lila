@@ -51,7 +51,7 @@ import { uciToMove } from 'chessground/util';
 import Persistence from './persistence';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
-import { KeyboardMove } from 'keyboardMove';
+import { KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
 
 export default class AnalyseCtrl {
@@ -362,6 +362,24 @@ export default class AnalyseCtrl {
     return config;
   }
 
+  setChessground = (cg: CgApi) => {
+    this.chessground = cg;
+
+    if (this.data.pref.keyboardMove) {
+      this.keyboardMove ??= makeKeyboardMove({
+        ...this,
+        data: { ...this.data, player: { color: 'both' } },
+        flipNow: this.flip,
+      });
+      this.keyboardMove.update({ fen: this.node.fen, canMove: true, cg });
+      requestAnimationFrame(() => this.redraw());
+    }
+
+    this.setAutoShapes();
+    if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
+    this.cgVersion.dom = this.cgVersion.js;
+  };
+
   private onChange: () => void = throttle(300, () => {
     site.pubsub.emit('analysis.change', this.node.fen, this.path);
   });
@@ -485,6 +503,8 @@ export default class AnalyseCtrl {
       crazyValid(this.chessground, this.node.drops, { color, role }, key)
     );
   };
+
+  getCrazyhousePockets = () => this.node.crazy?.pockets;
 
   sendNewPiece = (role: cg.Role, key: cg.Key): void => {
     const color = this.chessground.state.movable.color;
