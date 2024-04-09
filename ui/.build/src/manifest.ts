@@ -86,18 +86,10 @@ async function hashMove(src: string) {
   const content = await fs.promises.readFile(src, 'utf-8');
   const hash = crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
   const basename = path.basename(src, '.css');
-  const srcMapMove = env.prod
-    ? Promise.resolve()
-    : /*new Promise<void>(async resolve => {
-        const mapContent = await fs.promises.readFile(`${src}.map`, 'utf-8');
-        const cssMap = JSON.parse(mapContent);
-        cssMap.file = `${basename}.${hash}.css`;
-        await fs.promises.writeFile(path.join(env.cssDir, `${basename}.css.map`), JSON.stringify(cssMap));
-        resolve();*/
-      fs.promises.rename(`${src}.map`, path.join(env.cssDir, `${basename}.css.map`));
-  //});
-  await fs.promises.rename(src, path.join(env.cssDir, `${basename}.${hash}.css`));
-  await srcMapMove;
+  await Promise.allSettled([
+    env.prod ? undefined : fs.promises.rename(`${src}.map`, path.join(env.cssDir, `${basename}.css.map`)),
+    fs.promises.rename(src, path.join(env.cssDir, `${basename}.${hash}.css`)),
+  ]);
   return [path.basename(src, '.css'), hash];
 }
 
