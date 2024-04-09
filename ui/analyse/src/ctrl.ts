@@ -419,7 +419,7 @@ export default class AnalyseCtrl {
     }
     site.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
-    this.auxUpdate(this.node.fen);
+    this.pluginUpdate(this.node.fen);
   }
 
   userJump = (path: Tree.Path): void => {
@@ -592,7 +592,7 @@ export default class AnalyseCtrl {
     this.tree.addDests(dests, path);
     if (path === this.path) {
       this.showGround();
-      this.auxUpdate(this.node.fen);
+      this.pluginUpdate(this.node.fen);
       if (this.outcome()) this.ceval.stop();
     }
     this.withCg(cg => cg.playPremove());
@@ -993,14 +993,14 @@ export default class AnalyseCtrl {
     else if (plyDelta < -1) control.first(this);
   };
 
-  auxMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => {
+  pluginMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => {
     const capture = this.chessground.state.pieces.get(dest);
     this.sendMove(orig, dest, capture, prom);
   };
 
-  auxUpdate = (fen: string) => {
+  pluginUpdate = (fen: string) => {
     // if controller and chessground board state differ, ignore this update. once the chessground
-    // state is updated to match, auxUpdate will be called again.
+    // state is updated to match, pluginUpdate will be called again.
     if (!fen.startsWith(this.chessground?.getFen())) return;
 
     this.keyboardMove?.update({ fen, canMove: true });

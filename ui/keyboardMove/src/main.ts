@@ -100,7 +100,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
       if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
       cg.cancelMove();
       promote(cg, dest, role);
-      root.auxMove(orig, dest, role);
+      root.pluginMove(orig, dest, role);
     },
     update(up: MoveUpdate) {
       if (up.cg) cg = up.cg;
