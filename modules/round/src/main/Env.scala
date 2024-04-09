@@ -196,12 +196,6 @@ final class Env(
 
   lazy val mobile = wire[RoundMobile]
 
-  MoveLatMonitor.start(scheduler)
-
-  system.actorOf(Props(wire[Titivate]), name = "titivate")
-
-  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game, lightUserApi)
-
   private lazy val takebacker = wire[Takebacker]
 
   lazy val moretimer = wire[Moretimer]
@@ -219,6 +213,12 @@ final class Env(
     export roundSocket.rounds.{ tell, ask }
     export roundSocket.getGames
   val onTvGame: lila.game.core.OnTvGame = recentTvGames.put
+
+  MoveLatMonitor.start(scheduler)
+
+  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game, lightUserApi)
+
+  system.actorOf(Props(wire[Titivate]), name = "titivate")
 
   def resign(pov: Pov): Unit =
     if pov.game.abortableByUser then roundApi.tell(pov.gameId, Abort(pov.playerId))
