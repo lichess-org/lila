@@ -102,8 +102,8 @@ enum UserMark:
   case troll
   case reportban
   case rankban
-  case arenaBan
-  case prizeBan
+  case arenaban
+  case prizeban
   case alt
   def key = toString
 
