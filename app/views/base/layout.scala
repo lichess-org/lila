@@ -314,7 +314,8 @@ object layout:
           piecesPreload,
           manifests,
           jsLicense,
-          withHrefLangs.map(hrefLangs)
+          withHrefLangs.map(hrefLangs),
+          systemThemeScript
         ),
         st.body(
           cls := {
@@ -391,7 +392,6 @@ object layout:
           div(id := "inline-scripts")(
             frag(ctx.needsFp.option(fingerprintTag), ctx.nonce.map(inlineJs.apply)),
             preloadScripts(modules ++ List(pageModule.map(mod => jsPageModule(mod.name)))),
-            systemThemeScript,
             moreJs,
             pageModule.map { mod => frag(jsonScript(mod.data)) }
           )
