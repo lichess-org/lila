@@ -5,7 +5,7 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
+import lila.core.app.LangPath
 import lila.core.LightUser
 import scalalib.paginator.Paginator
 import lila.memo.PicfitImage

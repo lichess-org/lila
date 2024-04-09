@@ -7,7 +7,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.PasswordCheck
-import lila.core.LangPath
+import lila.core.app.LangPath
 
 object signup:
 

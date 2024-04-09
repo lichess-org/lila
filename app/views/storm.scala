@@ -6,7 +6,7 @@ import play.api.libs.json.*
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
+import lila.core.app.LangPath
 import scalalib.paginator.Paginator
 import lila.storm.{ StormDay, StormHigh }
 import lila.user.User

@@ -1,9 +1,5 @@
 package lila.core
 
-opaque type LangPath = String
-object LangPath extends OpaqueString[LangPath]:
-  def apply(call: play.api.mvc.Call): LangPath = LangPath(call.url)
-
 case class Strings(value: List[String]) extends AnyVal
 case class UserIds(value: List[UserId]) extends AnyVal
 case class Ints(value: List[Int])       extends AnyVal
