@@ -8,7 +8,7 @@
 
   @media (hover: hover) {
     &:hover:not(.disabled):not([disabled]) {
-      background: $c_secondary_bg--mix-75;
+      background: $m-secondary_bg--mix-75;
       color: #fff;
     }
   }

@@ -37,18 +37,18 @@
   }
 
   &:not(.created):not(.loading) tbody tr:hover {
-    background: $c_primary_bg--mix-15;
+    background: $m-primary_bg--mix-15;
     cursor: pointer;
   }
 
   tr.me td:first-child {
-    $c-me-border: $c_secondary_bg--mix-70;
+    $c-me-border: $m-secondary_bg--mix-70;
 
     @include gradient-border($c-me-border, to right, to left);
   }
 
   tr.active td:last-child {
-    $c-active-border: $c_primary_bg--mix-70;
+    $c-active-border: $m-primary_bg--mix-70;
     @include gradient-border($c-active-border, to left, to right);
   }
 
@@ -92,7 +92,7 @@
 
       // background: mix($c-link, $c-bg-box, 15%);
       &:hover {
-        background: $c_primary_bg--mix-35;
+        background: $m-primary_bg--mix-35;
       }
     }
 
@@ -101,21 +101,21 @@
 
       // background: mix($c-good, $c-bg-box, 15%);
       &:hover {
-        background: $c_secondary_bg--mix-35;
+        background: $m-secondary_bg--mix-35;
       }
     }
 
     .loss {
-      color: $c_bad_bg--mix-60;
+      color: $m-bad_bg--mix-60;
 
       // background: mix($c-bad, $c-bg-box, 10%);
       &:hover {
-        background: $c_bad_bg--mix-20;
+        background: $m-bad_bg--mix-20;
       }
     }
 
     .draw {
-      color: $c_brag_bg--mix-70;
+      color: $m-brag_bg--mix-70;
     }
 
     bye {
@@ -127,7 +127,7 @@
     }
 
     absent {
-      color: $c_bad_bg--mix-60;
+      color: $m-bad_bg--mix-60;
     }
 
     r {

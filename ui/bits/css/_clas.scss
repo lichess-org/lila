@@ -1,6 +1,6 @@
 $c-bg-clas: $c-clas;
 $c-bg-clas-over: white;
-$c-bg-clas-over-dim: $c_clas_white--mix-20;
+$c-bg-clas-over-dim: $m-clas_white--mix-20;
 
 %archived {
   @extend %box-radius, %flex-between;
@@ -19,7 +19,7 @@ $c-bg-clas-over-dim: $c_clas_white--mix-20;
   }
 
   &.active {
-    color: $c_font_clas--mix-40;
+    color: $m-font_clas--mix-40;
   }
 
   &::after {
@@ -46,7 +46,7 @@ $c-bg-clas-over-dim: $c_clas_white--mix-20;
 }
 
 .slist tbody tr:nth-child(2n) {
-  background: $c_clas_bg--mix-7;
+  background: $m-clas_bg--mix-7;
 }
 
 .clas-index {
@@ -80,7 +80,7 @@ $c-bg-clas-over-dim: $c_clas_white--mix-20;
       @include transition;
 
       &::before {
-        color: $c_clas_bg--mix-80;
+        color: $m-clas_bg--mix-80;
         font-size: 5em;
         margin-inline-end: 0.4em;
 
@@ -91,7 +91,7 @@ $c-bg-clas-over-dim: $c_clas_white--mix-20;
       }
 
       &:hover {
-        background: $c_clas_bg--mix-10;
+        background: $m-clas_bg--mix-10;
 
         &::before {
           color: $c-clas;
@@ -173,14 +173,14 @@ $c-bg-clas-over-dim: $c_clas_white--mix-20;
 
     .button {
       font-size: 1.2em;
-      color: $c_font_clas--mix-40;
+      color: $m-font_clas--mix-40;
     }
 
     .user-link {
       @extend %flex-center;
 
       &:hover {
-        color: $c_font_clas--mix-40;
+        color: $m-font_clas--mix-40;
       }
 
       span {
@@ -237,12 +237,12 @@ $c-bg-clas-over-dim: $c_clas_white--mix-20;
       }
 
       &:hover {
-        background: $c_clas_bg-zebra--mix-20;
+        background: $m-clas_bg-zebra--mix-20;
       }
 
       &.active {
         background: $c-bg-box;
-        color: $c_font_clas--mix-40;
+        color: $m-font_clas--mix-40;
         font-weight: bold;
 
         .dashboard-teacher-overview &,
@@ -329,7 +329,7 @@ $c-bg-clas-over-dim: $c_clas_white--mix-20;
         color: $c-clas;
 
         &:hover {
-          background: $c_clas_bg--mix-30;
+          background: $m-clas_bg--mix-30;
           color: $c-font-clear;
         }
 
@@ -470,7 +470,7 @@ $c-bg-clas-over-dim: $c_clas_white--mix-20;
   &__managed {
     @extend %box-radius, %flex-between;
 
-    background: $c_primary--fade-80;
+    background: $m-primary--fade-80;
     padding: 1em 2em;
     margin: 1em 0 2em 0;
 
@@ -614,7 +614,7 @@ $c-bg-clas-over-dim: $c_clas_white--mix-20;
 
   li:hover,
   .active {
-    background-color: $c_accent_bg-popup--mix-10;
+    background-color: $m-accent_bg-popup--mix-10;
   }
 
   a {

@@ -72,7 +72,7 @@
       }
 
       &::before {
-        color: $c_primary_bg--mix-80;
+        color: $m-primary_bg--mix-80;
         font-size: 4em;
         margin-inline-end: 0.2em;
 
@@ -88,7 +88,7 @@
     }
 
     &:hover {
-      background: $c_primary_bg--mix-10;
+      background: $m-primary_bg--mix-10;
 
       .top::before {
         color: $c-link;

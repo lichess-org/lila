@@ -154,7 +154,7 @@
 
     &.active {
       animation: level-fade-in 1s ease-out;
-      background: $c_primary_black--mix-80;
+      background: $m-primary_black--mix-80;
       border: 1px solid $c-level;
       box-shadow: 0 0 10px $c-level;
       color: white;
@@ -164,11 +164,11 @@
       }
 
       &:nth-child(3) {
-        background: $c_primary_white--mix-60;
+        background: $m-primary_white--mix-60;
       }
 
       &:nth-child(4) {
-        background: $c_primary_white--mix-40;
+        background: $m-primary_white--mix-40;
       }
     }
   }

@@ -24,7 +24,7 @@
   }
   &__error {
     @extend %box-neat;
-    background: $c_bad_bg--mix-20;
+    background: $m-bad_bg--mix-20;
     border: 1px solid $c-error;
     padding: 1em 2em;
   }

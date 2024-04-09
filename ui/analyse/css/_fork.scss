@@ -11,7 +11,7 @@ $c-fork: $c-primary;
 
   move {
     @extend %san, %flex-center;
-    background: $c_primary_bg--mix-25;
+    background: $m-primary_bg--mix-25;
     color: $c-font-clear;
     flex: 0 0 50%;
     cursor: pointer;
@@ -22,10 +22,10 @@ $c-fork: $c-primary;
       border-inline-end: 1px solid $c-bg-box;
     }
     &.correct {
-      background: $c_secondary_bg--mix-25;
+      background: $m-secondary_bg--mix-25;
     }
     &.wrong {
-      background: $c_bad_bg--mix-25;
+      background: $m-bad_bg--mix-25;
     }
   }
 

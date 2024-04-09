@@ -69,7 +69,7 @@
       text-transform: none;
       margin-inline-end: 0.5em;
       &.active:hover {
-        background: $c_secondary_white--mix-80;
+        background: $m-secondary_white--mix-80;
       }
     }
     .color {
@@ -92,7 +92,7 @@
       background: none;
       padding: 0.1em 0.5em;
       &:invalid {
-        background: $c_bad_bg--mix-30;
+        background: $m-bad_bg--mix-30;
       }
     }
   }

@@ -25,7 +25,7 @@
     }
 
     &[href]:hover {
-      background: $c_bg-page_bg--mix-50;
+      background: $m-bg-page_bg--mix-50;
 
       &::before {
         color: $c-link;

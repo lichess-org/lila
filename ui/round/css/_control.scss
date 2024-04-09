@@ -178,7 +178,7 @@
     }
 
     &.me {
-      background: $c_primary_bg--mix-80;
+      background: $m-primary_bg--mix-80;
     }
 
     @keyframes rubber-band {
@@ -247,7 +247,7 @@
     }
 
     &.fbt:not(.disabled):hover {
-      background: $c_primary_bg--mix-70;
+      background: $m-primary_bg--mix-70;
       color: #fff;
       animation: none;
     }
@@ -263,7 +263,7 @@
       height: 6rem;
       border: 0;
       opacity: 0.7;
-      background: $c_bad_bg--mix-50;
+      background: $m-bad_bg--mix-50;
 
       @include transition;
 

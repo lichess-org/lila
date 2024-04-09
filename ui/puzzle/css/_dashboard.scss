@@ -84,9 +84,9 @@
     background: $c-bg-zebra2;
 
     &--win {
-      $c-first: $c_secondary_dark--mix-85;
-      $c-fix: $c_secondary_dark--mix-50;
-      $c-fail: $c_bad_dark--mix-80;
+      $c-first: $m-secondary_dark--mix-85;
+      $c-fix: $m-secondary_dark--mix-50;
+      $c-fail: $m-bad_dark--mix-80;
 
       color: $c-over;
 
@@ -118,7 +118,7 @@
     }
 
     &--perf {
-      background: #{$glow-gradient} $c_brag_dark--mix-85;
+      background: #{$glow-gradient} $m-brag_dark--mix-85;
       color: $c-over;
     }
 
@@ -135,7 +135,7 @@
       &[href] {
         opacity: 1;
         cursor: pointer;
-        background: #{$glow-gradient} $c_primary_dark--mix-80;
+        background: #{$glow-gradient} $m-primary_dark--mix-80;
 
         &:hover {
           background: #{$glow-gradient} $c-primary;
@@ -150,7 +150,7 @@
 
         i {
           opacity: 1;
-          color: $c_primary_bg--mix-70;
+          color: $m-primary_bg--mix-70;
           position: absolute;
           font-size: 5.5em !important;
           margin-bottom: 0.2em;

@@ -91,12 +91,12 @@ team {
   }
 
   tr.active td:last-child {
-    $c-active-border: $c_primary_bg--mix-70;
+    $c-active-border: $m-primary_bg--mix-70;
     @include gradient-border($c-active-border, to left, to right);
   }
 
   .tour__main & tr:hover {
-    background: $c_primary_bg--mix-30 !important;
+    background: $m-primary_bg--mix-30 !important;
   }
 
   td {

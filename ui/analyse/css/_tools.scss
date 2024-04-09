@@ -16,7 +16,7 @@
       .title {
         font-size: 0.9rem;
         line-height: 1.9em;
-        background: $c_secondary_bg--mix-40;
+        background: $m-secondary_bg--mix-40;
         padding: 0 7px;
         a {
           font-weight: bold;
@@ -96,7 +96,7 @@
       }
 
       &.highlighted {
-        background: $c_primary_bg--mix-80;
+        background: $m-primary_bg--mix-80;
         color: $c-over;
 
         &:hover {

@@ -79,7 +79,7 @@
     @extend %flex-between, %box-neat;
 
     --c-font: #{$c-secondary};
-    --c-bg: #{$c_secondary_bg--mix-10};
+    --c-bg: #{$m-secondary_bg--mix-10};
 
     padding: $block-gap 4vw;
     margin-bottom: 4rem;

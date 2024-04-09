@@ -31,19 +31,19 @@
     &.inaccuracy {
       color: $c-inaccuracy;
       &:hover {
-        color: $c_inaccuracy_font--mix-70;
+        color: $m-inaccuracy_font--mix-70;
       }
     }
     &.mistake {
       color: $c-mistake;
       &:hover {
-        color: $c_mistake_font--mix-70;
+        color: $m-mistake_font--mix-70;
       }
     }
     &.blunder {
       color: $c-blunder;
       &:hover {
-        color: $c_blunder_font--mix-70;
+        color: $m-blunder_font--mix-70;
       }
     }
   }

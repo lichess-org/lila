@@ -69,7 +69,7 @@
 
   input:hover,
   input:focus {
-    background: $c_primary_bg--mix-10;
+    background: $m-primary_bg--mix-10;
   }
 
   select {
@@ -88,7 +88,7 @@
   .topic {
     @extend %box-radius;
 
-    background: $c_primary_bg--mix-17;
+    background: $m-primary_bg--mix-17;
     padding: 0.2em 0.6em;
     margin: 0.2em;
     unicode-bidi: plaintext;

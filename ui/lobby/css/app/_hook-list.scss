@@ -13,11 +13,11 @@
     }
 
     &.cancel td {
-      background: $c_secondary--fade-60;
+      background: $m-secondary--fade-60;
     }
 
     &.join:hover td {
-      background: $c_accent--fade-50;
+      background: $m-accent--fade-50;
       color: #fff;
     }
 
@@ -76,7 +76,7 @@
     padding: 0.5em 0.7em;
     border-bottom: $border;
     cursor: pointer;
-    background: $c_bg--fade-50;
+    background: $m-bg--fade-50;
 
     &:first-child {
       width: 16px;

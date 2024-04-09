@@ -21,7 +21,7 @@ th[aria-sort='descending']:not(.no-sort):after {
 }
 
 th[aria-sort]:not(.no-sort) {
-  background: $c_accent--fade-85;
+  background: $m-accent--fade-85;
   color: $c-font-clear;
   &:after {
     visibility: visible;

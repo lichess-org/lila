@@ -32,8 +32,8 @@ body > header {
       &.scrolled {
         border-color: black;
       }
-      border-bottom: 1px solid $c_body-gradient_bg-page--mix-50;
-      background-image: linear-gradient(to bottom, $c-body-gradient, $c_body-gradient_bg-page--mix-50 60px);
+      border-bottom: 1px solid $m-body-gradient_bg-page--mix-50;
+      background-image: linear-gradient(to bottom, $c-body-gradient, $m-body-gradient_bg-page--mix-50 60px);
     }
     @include if-light {
       &.scrolled {

@@ -27,7 +27,7 @@
     }
 
     .fbt.yes {
-      $act-confirm-shade: $c_accent_black--mix-70;
+      $act-confirm-shade: $m-accent_black--mix-70;
 
       position: absolute;
       @include inline-end(0);

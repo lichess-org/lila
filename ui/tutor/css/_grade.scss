@@ -27,18 +27,18 @@
         border: $border;
         background: $c-bg-low;
         &.lit {
-          background: $c_secondary_bg--mix-80;
+          background: $m-secondary_bg--mix-80;
         }
       }
       &--1,
       &--2 {
         > div.lit {
-          background: $c_bad_bg--mix-80;
+          background: $m-bad_bg--mix-80;
         }
       }
       &--3 {
         > div.lit {
-          background: $c_brag_bg--mix-80;
+          background: $m-brag_bg--mix-80;
         }
       }
       &--4 {

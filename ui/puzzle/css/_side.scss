@@ -156,7 +156,7 @@
         background-image: url(../piece/cburnett/bK.svg);
       }
       .label.active {
-        background: $c_primary_bg--mix-50;
+        background: $m-primary_bg--mix-50;
       }
     }
   }
@@ -195,7 +195,7 @@
         bottom: 0;
         @include inline-start(0);
         width: var(---p);
-        background: $c_primary_bg-page--mix-60
+        background: $m-primary_bg-page--mix-60
           linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
         animation: bar-glider-anim 3s linear infinite;
 
@@ -227,7 +227,7 @@
     }
 
     &--daily {
-      outline: 3px solid $c_secondary_bg-page--mix-50;
+      outline: 3px solid $m-secondary_bg-page--mix-50;
       h2 {
         margin: 0;
         text-align: center;
@@ -254,7 +254,7 @@
       }
 
       &:hover {
-        background: $c_primary_bg--mix-10;
+        background: $m-primary_bg--mix-10;
       }
 
       &.strike a {

@@ -52,7 +52,7 @@ $user-list-width: 30ch;
       grid-template-columns: repeat(auto-fit, minmax($user-list-width, 1fr));
 
       .user-top {
-        border: 1px solid $c_brag--fade-50;
+        border: 1px solid $m-brag--fade-50;
       }
 
       h2 {

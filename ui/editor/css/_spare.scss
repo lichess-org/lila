@@ -21,11 +21,11 @@
     @include transition;
 
     &:hover {
-      background: $c_primary--fade-80;
+      background: $m-primary--fade-80;
     }
 
     &.selected-square {
-      background: $c_primary--fade-50;
+      background: $m-primary--fade-50;
     }
 
     div {
@@ -36,11 +36,11 @@
       @extend %box-radius-left;
 
       &:hover {
-        background: $c_secondary--fade-80;
+        background: $m-secondary--fade-80;
       }
 
       &.selected-square {
-        background: $c_secondary--fade-40;
+        background: $m-secondary--fade-40;
       }
 
       piece {
@@ -52,11 +52,11 @@
       @extend %box-radius-right;
 
       &:hover {
-        background: $c_bad--fade-80;
+        background: $m-bad--fade-80;
       }
 
       &.selected-square {
-        background: $c_bad--fade-40;
+        background: $m-bad--fade-40;
       }
 
       piece {

@@ -7,9 +7,8 @@ import { env, colors as c, lines, errorMark } from './main';
 import { globArray } from './parse';
 import { css as cssManifest } from './manifest';
 
-type ColorMix = { c1: string; c2?: string; op: string; val: number };
-const colorMixMap = new Map<string, ColorMix>(); // ('bg--fade-10', {c1: 'bg', op: 'fade', val: 10})
-const themeColorMap = new Map<string, Map<string, clr.Instance>>(); // ('dark', ('bg', clr('#000'))
+const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
+const themeColorMap = new Map<string, Map<string, clr.Instance>>();
 const sassWatch: fs.FSWatcher[] = [];
 const importMap = new Map<string, Set<string>>(); // (cssFile, sourcesThatImportIt)
 const processed = new Set<string>();
@@ -59,7 +58,7 @@ async function parseScss(src: string) {
   processed.add(src);
   try {
     const text = await fs.promises.readFile(src, 'utf8');
-    for (const match of text.matchAll(/\$c_([-_a-z0-9]+)/g)) {
+    for (const match of text.matchAll(/\$m-([-_a-z0-9]+)/g)) {
       const [str, mix] = [match[1], parseColor(match[1])];
       if (!mix) {
         env.log(`${errorMark} - invalid color mix: '${c.magenta(str)}' in '${c.cyan(src)}'`, {
@@ -92,7 +91,7 @@ async function parseThemeColorDefs() {
   const themeFiles = await globArray('./common/css/theme/_*.scss', { abs: false });
   const themes: string[] = ['dark'];
   for (const themeFile of themeFiles ?? []) {
-    const theme = /_([^_]+)\.scss/.exec(themeFile)?.[1];
+    const theme = /_([^/]+)\.scss/.exec(themeFile)?.[1];
     if (!theme) {
       env.log(`${errorMark} - invalid theme filename '${c.cyan(themeFile)}'`, { ctx: 'sass' });
       continue;
@@ -134,7 +133,7 @@ async function buildColorMixes() {
           : mix.op === 'fade'
           ? c1.setAlpha(c1.getAlpha() * (1 - clamp(mix.val / 100, { min: 0, max: 1 })))
           : undefined;
-      if (mixed) colors.push(`  --c_${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};`);
+      if (mixed) colors.push(`  --m-${colorMix}: ${env.rgb ? mixed.toRgbString() : mixed.toHslString()};`);
       else env.log(`${errorMark} - invalid mix op: '${c.magenta(colorMix)}'`, { ctx: 'sass' });
     }
     out.write(colors.sort().join('\n') + '\n}\n\n');
@@ -145,18 +144,18 @@ async function buildColorMixes() {
 // create scss variables for all css color variables as $c-color: var(--c-color) in _wrap.scss
 async function buildColorWrap() {
   const cssVars = new Set<string>();
-  for (const color of colorMixMap.keys()) cssVars.add(`_${color}`);
+  for (const color of colorMixMap.keys()) cssVars.add(`m-${color}`);
 
   for (const file of await globArray(path.join(env.themeDir, '_*.scss'))) {
     for (const line of (await fs.promises.readFile(file, 'utf8')).split('\n')) {
-      if (line.startsWith('//') || !line.includes('--c')) continue;
-      cssVars.add(line.split(':')[0].trim().replace('--c', ''));
+      if (line.startsWith('//') || !/--[cm]/.test(line)) continue;
+      cssVars.add(line.split(':')[0].trim().replace('--', ''));
     }
   }
   const scssWrap =
-    Array.from(cssVars)
+    [...new Set(Array.from(cssVars))]
       .sort()
-      .map(variable => `$c${variable}: var(--c${variable});`)
+      .map(variable => `$${variable}: var(--${variable});`)
       .join('\n') + '\n';
 
   const wrapFile = path.join(env.themeDir, 'gen', '_wrap.scss');

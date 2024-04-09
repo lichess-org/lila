@@ -21,7 +21,7 @@
       @include transition;
 
       &.disabled {
-        background: $c_accent_bg--mix-15;
+        background: $m-accent_bg--mix-15;
         color: transparent;
         cursor: default;
       }

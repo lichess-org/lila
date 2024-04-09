@@ -20,18 +20,18 @@
   $tag-text-color: $c-font-clearer !default;
   $tag-text-color--edit: $c-font-clearer !default;
   $tag-bg: $c-bg-zebra2 !default;
-  $tag-hover: $c_primary_bg-zebra2--mix-20 !default;
-  $tag-remove: $c_bad_bg-zebra2--mix-60 !default;
+  $tag-hover: $m-primary_bg-zebra2--mix-20 !default;
+  $tag-remove: $m-bad_bg-zebra2--mix-60 !default;
   $tag-remove-btn-color: $tag-text-color !default;
   $tag-remove-btn-bg: none !default;
   $tag-remove-btn-bg--hover: $c-bad !default;
   $tag-invalid-color: $tag-remove !default;
-  $tag-invalid-bg: $c_bad_bg-zebra2--mix-20 !default;
+  $tag-invalid-bg: $m-bad_bg-zebra2--mix-20 !default;
   $tag-inset-shadow-size: 1.5em !default;
   $tag-hide-transition: 0.3s !default;
 
-  $placeholder-color: $c_font--fade-50 !default;
-  $placeholder-color-focus: $c_font--fade-70 !default;
+  $placeholder-color: $m-font--fade-50 !default;
+  $placeholder-color-focus: $m-font--fade-70 !default;
   $input-color: inherit !default;
   $tagify-dd-bg-color: white !default;
   $tagify-dd-color-primary: $c-primary !default;
@@ -48,7 +48,7 @@
   --tag-inset-shadow-size: #{$tag-inset-shadow-size};
   --tag-invalid-color: #{$tag-invalid-color};
   --tag-invalid-bg: #{$tag-invalid-bg};
-  --tag-remove-bg: #{$c_bad_bg-zebra2--mix-30};
+  --tag-remove-bg: #{$m-bad_bg-zebra2--mix-30};
   --tag-remove-btn-color: #{$tag-remove-btn-color};
   --tag-remove-btn-bg: #{$tag-remove-btn-bg};
   --tag-remove-btn-bg--hover: #{$tag-remove-btn-bg--hover};

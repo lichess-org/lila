@@ -22,7 +22,7 @@
     @include transition;
 
     &:hover {
-      background: $c_primary_bg--mix-20;
+      background: $m-primary_bg--mix-20;
     }
 
     &::before {

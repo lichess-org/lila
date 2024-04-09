@@ -7,15 +7,15 @@
   --c-lpv-bg-controls: var(--c-lpv-bg);
   --c-lpv-bg-movelist: var(--c-lpv-bg);
   --c-lpv-bg-variation: #{$c-bg-zebra2};
-  --c-lpv-bg-pane: #{$c_bg-zebra2--fade-1};
+  --c-lpv-bg-pane: #{$m-bg-zebra2--fade-1};
   --c-lpv-pgn-text: #{$c-bg-zebra2};
   --c-lpv-font: #{$c-font};
   --c-lpv-font-shy: #{$c-font-dim};
   --c-lpv-accent-over: #{$c-over};
-  --c-lpv-fbt-hover: #{$c_primary_bg--mix-75};
-  --c-lpv-font-bg: #{$c_font_bg--mix-20};
-  --c-lpv-current-move: #{$c_primary_bg--mix-70};
-  --c-lpv-move-hover: #{$c_primary_bg--mix-30};
+  --c-lpv-fbt-hover: #{$m-primary_bg--mix-75};
+  --c-lpv-font-bg: #{$m-font_bg--mix-20};
+  --c-lpv-current-move: #{$m-primary_bg--mix-70};
+  --c-lpv-move-hover: #{$m-primary_bg--mix-30};
   --c-lpv-border: #{$c-border};
   --c-lpv-side-border: hsl(37deg, 5%, 13%); //#{$c-border-page};
   --c-lpv-inaccuracy: #{$c-inaccuracy};
@@ -24,12 +24,12 @@
   --c-lpv-good-move: #{$c-good};
   --c-lpv-brilliant: #{$c-brilliant};
   --c-lpv-interesting: #{$c-interesting};
-  --c-lpv-bg-inaccuracy-hover: #{$c_inaccuracy_bg--mix-30};
-  --c-lpv-bg-mistake-hover: #{$c_mistake_bg--mix-30};
-  --c-lpv-bg-blunder-hover: #{$c_blunder_bg--mix-30};
-  --c-lpv-bg-good-hover: #{$c_good-move_bg--mix-30};
-  --c-lpv-bg-brilliant-hover: #{$c_brilliant_bg--mix-30};
-  --c-lpv-bg-interesting-hover: #{$c_interesting_bg--mix-30};
+  --c-lpv-bg-inaccuracy-hover: #{$m-inaccuracy_bg--mix-30};
+  --c-lpv-bg-mistake-hover: #{$m-mistake_bg--mix-30};
+  --c-lpv-bg-blunder-hover: #{$m-blunder_bg--mix-30};
+  --c-lpv-bg-good-hover: #{$m-good-move_bg--mix-30};
+  --c-lpv-bg-brilliant-hover: #{$m-brilliant_bg--mix-30};
+  --c-lpv-bg-interesting-hover: #{$m-interesting_bg--mix-30};
 
   @extend %box-neat-force;
   &__player__title {

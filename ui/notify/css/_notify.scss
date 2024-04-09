@@ -102,7 +102,7 @@
   }
 
   &.new {
-    background: $c_secondary_bg-popup--mix-27;
+    background: $m-secondary_bg-popup--mix-27;
 
     i {
       color: $c-secondary;
@@ -110,7 +110,7 @@
     }
 
     &:hover {
-      background: $c_secondary_bg-popup--mix-36;
+      background: $m-secondary_bg-popup--mix-36;
       i {
         opacity: 1;
       }

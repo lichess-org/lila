@@ -1,4 +1,4 @@
-$hover-bg: $c_primary_bg--mix-30;
+$hover-bg: $m-primary_bg--mix-30;
 
 .relay-tour {
   @extend %box-neat-force;
@@ -88,13 +88,13 @@ $hover-bg: $c_primary_bg--mix-30;
     padding-top: 1em;
     padding-bottom: 1em;
     margin: -1em 0;
-    background: $c_primary_bg--mix-10;
+    background: $m-primary_bg--mix-10;
     strong {
       @extend %roboto;
       font-size: 1.2em;
     }
     &.ongoing {
-      background: $c_accent_bg--mix-10;
+      background: $m-accent_bg--mix-10;
       color: $c-accent;
     }
   }
@@ -206,8 +206,8 @@ $hover-bg: $c_primary_bg--mix-30;
     tr {
       display: table-row;
       &.current-round {
-        background: $c_primary_bg--mix-15;
-        border: 1px solid $c_primary_bg--mix-40;
+        background: $m-primary_bg--mix-15;
+        border: 1px solid $m-primary_bg--mix-40;
         border-width: 1px 0;
       }
       &:hover *,
@@ -340,7 +340,7 @@ $hover-bg: $c_primary_bg--mix-30;
   border-bottom: $border;
   border-left: 3px solid transparent;
   &:hover {
-    background: $c_primary_bg--mix-12;
+    background: $m-primary_bg--mix-12;
     color: $c-font-clearer;
     .mini-game__flag {
       opacity: 1;
@@ -348,7 +348,7 @@ $hover-bg: $c_primary_bg--mix-30;
     border-left-color: $c-primary;
   }
   &--current {
-    background: $c_primary_bg--mix-20;
+    background: $m-primary_bg--mix-20;
     border-left-color: $c-primary;
   }
   &__players {
@@ -416,7 +416,7 @@ $hover-bg: $c_primary_bg--mix-30;
 
       &:hover,
       &:hover::before {
-        background: $c_primary_font--mix-90;
+        background: $m-primary_font--mix-90;
         color: white;
       }
     }
@@ -454,7 +454,7 @@ $hover-bg: $c_primary_bg--mix-30;
     }
 
     &:hover {
-      background: $c_primary_bg--mix-30;
+      background: $m-primary_bg--mix-30;
       &,
       &::before {
         color: $c-font-clearer;

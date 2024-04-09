@@ -7,8 +7,8 @@
     @extend %box-radius, %flex-center-nowrap;
 
     padding: 0.7em;
-    background: $c_bad_bg--mix-10;
-    border: 1px solid $c_bad_bg--mix-30;
+    background: $m-bad_bg--mix-10;
+    border: 1px solid $m-bad_bg--mix-30;
     color: $c-bad;
 
     span {

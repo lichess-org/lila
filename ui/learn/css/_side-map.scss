@@ -36,7 +36,7 @@
   }
 
   .categ > h2:hover {
-    background: $c_primary--fade-80;
+    background: $m-primary--fade-80;
   }
 
   .categ.active {
@@ -81,7 +81,7 @@
     }
 
     &.active {
-      background: $c_primary--fade-80;
+      background: $m-primary--fade-80;
     }
 
     &.active img {
@@ -89,7 +89,7 @@
     }
 
     &.done:hover {
-      background: $c_secondary--fade-80;
+      background: $m-secondary--fade-80;
     }
 
     &.done img {
@@ -97,7 +97,7 @@
     }
 
     &.future:hover {
-      background: $c_primary--fade-80;
+      background: $m-primary--fade-80;
     }
 
     &.future img {

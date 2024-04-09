@@ -32,7 +32,7 @@
     }
 
     &:hover {
-      background: $c_primary_bg--mix-10;
+      background: $m-primary_bg--mix-10;
 
       img {
         opacity: 1;
@@ -73,7 +73,7 @@
       @extend %box-neat;
 
       font-size: 1.2em;
-      background: $c_secondary_bg--mix-20;
+      background: $m-secondary_bg--mix-20;
       color: $c-good;
       margin: 2em 4em;
 
@@ -86,7 +86,7 @@
       }
 
       &:hover {
-        background: $c_secondary_bg--mix-25;
+        background: $m-secondary_bg--mix-25;
       }
 
       @media (max-width: at-most($small)) {

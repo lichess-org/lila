@@ -62,14 +62,14 @@
       overflow: hidden;
 
       &.active {
-        background: $c_primary_bg--mix-20;
+        background: $m-primary_bg--mix-20;
         color: $c-font-clear;
-        border-color: $c_primary_bg--mix-40;
+        border-color: $m-primary_bg--mix-40;
       }
       &:hover {
-        background: $c_primary_bg--mix-12;
+        background: $m-primary_bg--mix-12;
         color: $c-font-clear;
-        border-color: $c_primary_bg--mix-50;
+        border-color: $m-primary_bg--mix-50;
       }
     }
     cg-board {
@@ -137,7 +137,7 @@
         width: 100%;
         top: 2.5px;
         opacity: 1;
-        border-bottom: 5px solid $c_accent--fade-50;
+        border-bottom: 5px solid $m-accent--fade-50;
         height: 50%;
       }
     }

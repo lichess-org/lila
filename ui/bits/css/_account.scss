@@ -65,7 +65,7 @@
   .brand {
     @extend %box-neat;
 
-    background: $c_accent_bg--mix-10;
+    background: $m-accent_bg--mix-10;
     padding: 1.5em;
   }
 
@@ -83,14 +83,14 @@
     fieldset {
       @extend %box-neat;
       border: $c-border;
-      background: $c_accent_bg--mix-10;
+      background: $m-accent_bg--mix-10;
       flex: 1 1 49%;
     }
     legend {
       @extend %roboto, %box-radius-top;
       text-transform: uppercase;
       letter-spacing: 0.2ch;
-      background: $c_accent_bg--mix-10;
+      background: $m-accent_bg--mix-10;
       padding: 0.2em 1em;
       margin-left: 1em;
     }
@@ -170,9 +170,9 @@
         vertical-align: middle;
         width: 100%;
         height: 1px;
-        background: linear-gradient(to right, $c_accent--fade-50, $c-bg-box 80%);
+        background: linear-gradient(to right, $m-accent--fade-50, $c-bg-box 80%);
         @include if-rtl {
-          background: linear-gradient(to left, $c_accent--fade-50, $c-bg-box 80%);
+          background: linear-gradient(to left, $m-accent--fade-50, $c-bg-box 80%);
         }
       }
     }
@@ -231,7 +231,7 @@
     text-align: center;
     color: $c-good;
     border: 1px solid $c-good;
-    background: $c_secondary_bg--mix-10;
+    background: $m-secondary_bg--mix-10;
     padding: 2rem;
   }
 

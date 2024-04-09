@@ -49,7 +49,7 @@
     font-size: 0.9rem;
     line-height: 1.9em;
     padding: 0;
-    background: $c_secondary_bg--mix-30;
+    background: $m-secondary_bg--mix-30;
     .ddloader {
       padding-inline-start: 7px;
     }
@@ -58,7 +58,7 @@
       direction: ltr;
       padding: 0 7px;
       color: $c-font-clear;
-      background: $c_secondary_bg--mix-40;
+      background: $m-secondary_bg--mix-40;
       strong {
         margin-inline-end: 0.5ch;
       }
@@ -76,7 +76,7 @@
       color: $c-font-dim;
       &:hover {
         color: $c-font-clear;
-        background: $c_secondary_bg--mix-50;
+        background: $m-secondary_bg--mix-50;
       }
     }
   }
@@ -97,7 +97,7 @@
     }
 
     &:hover {
-      background: $c_secondary_bg--mix-20;
+      background: $m-secondary_bg--mix-20;
     }
   }
 
@@ -112,7 +112,7 @@
       @extend %roboto;
       font-size: 0.8rem;
       line-height: 1.8em;
-      background: $c_secondary_bg--mix-40;
+      background: $m-secondary_bg--mix-40;
       padding-inline-start: 7px;
     }
     td:first-child {
@@ -135,7 +135,7 @@
 
     tbody tr.sum {
       /* sum row */
-      background: $c_primary_bg--mix-25;
+      background: $m-primary_bg--mix-25;
       font-weight: bold;
 
       @include mq-at-least-col2 {
@@ -157,7 +157,7 @@
     overflow: hidden;
     vertical-align: middle;
     background-clip: padding-box;
-    border: 0 solid $c_font--fade-83;
+    border: 0 solid $m-font--fade-83;
     border-width: 1px 0;
     height: 16px;
     line-height: 14px;

@@ -33,7 +33,7 @@ $c-report-high-over: white;
       justify-content: center;
 
       &:hover {
-        background: $c_brag--fade-50;
+        background: $m-brag--fade-50;
         color: $c-report-high-over;
       }
 
@@ -146,7 +146,7 @@ $c-report-high-over: white;
 
   .marked-by-me {
     @include user_marks;
-    background: $c_brag_bg--mix-60;
+    background: $m-brag_bg--mix-60;
   }
 
   .appeal-queue {

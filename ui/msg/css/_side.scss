@@ -56,12 +56,12 @@
       cursor: pointer;
 
       &:hover {
-        background: $c_secondary_bg--mix-15;
+        background: $m-secondary_bg--mix-15;
       }
 
       &:active,
       &.active {
-        background: $c_secondary_bg--mix-30;
+        background: $m-secondary_bg--mix-30;
       }
 
       .user-link {

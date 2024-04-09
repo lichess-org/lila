@@ -25,14 +25,14 @@
     padding: 0.5em 0.7em 0.5em 1.5em;
 
     &:hover {
-      background: $c_primary_bg--mix-10;
+      background: $m-primary_bg--mix-10;
     }
 
     &.opening-mine {
       color: $c-brag;
       font-weight: bold;
       &:hover {
-        background: $c_brag_bg--mix-20;
+        background: $m-brag_bg--mix-20;
       }
     }
 

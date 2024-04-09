@@ -28,7 +28,7 @@
       .highlight,
       tbody tr:hover td,
       tbody tr:hover th {
-        background: $c_primary_bg-page--mix-15 !important;
+        background: $m-primary_bg-page--mix-15 !important;
         a {
           color: $c-font-clearer;
         }
@@ -36,7 +36,7 @@
     }
     @media (max-width: at-most($x-small)) {
       .highlight {
-        background: $c_primary_bg-page--mix-15 !important;
+        background: $m-primary_bg-page--mix-15 !important;
       }
       .cmn-toggle + label {
         display: inline-block;

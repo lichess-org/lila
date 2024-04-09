@@ -8,13 +8,13 @@
     @extend %flex-column, %box-neat;
     background: $c-bg-zebra;
     position: relative;
-    outline: 3px solid $c_font_bg--mix-30;
+    outline: 3px solid $m-font_bg--mix-30;
     cursor: pointer;
     color: $c-font;
     &:hover {
-      outline: 3px solid $c_primary_bg--mix-60;
-      background: $c_primary_bg--mix-10; //mix($c-link, $c-bg-zebra, 10%);
-      box-shadow: 0 0 30px $c_primary_bg--mix-50;
+      outline: 3px solid $m-primary_bg--mix-60;
+      background: $m-primary_bg--mix-10; //mix($c-link, $c-bg-zebra, 10%);
+      box-shadow: 0 0 30px $m-primary_bg--mix-50;
       piece {
         opacity: 0.8;
       }
@@ -51,7 +51,7 @@
       }
       cg-board {
         box-shadow: none;
-        background-color: $c_bg--alpha-40;
+        background-color: $m-bg--alpha-40;
         background-blend-mode: darken;
         @include if-light {
           background-blend-mode: soft-light;

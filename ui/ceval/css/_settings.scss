@@ -107,7 +107,7 @@
         border-bottom: 3px solid $c-primary;
 
         &:hover {
-          border-color: $c_primary_white--mix-80;
+          border-color: $m-primary_white--mix-80;
         }
 
         &.arrow-down {
@@ -125,7 +125,7 @@
         border-color: $c-secondary;
 
         &:hover {
-          border-color: $c_secondary_white--mix-80;
+          border-color: $m-secondary_white--mix-80;
         }
       }
     }

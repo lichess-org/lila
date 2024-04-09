@@ -38,12 +38,12 @@ cg-resize {
 
     &:hover {
       border-radius: 50%;
-      background: $c_accent--fade-50;
+      background: $m-accent--fade-50;
     }
 
     .resizing & {
       border-radius: 50%;
-      background: $c_secondary--fade-50;
+      background: $m-secondary--fade-50;
     }
   }
 }

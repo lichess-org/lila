@@ -81,7 +81,7 @@ $border: $border-width $border-style $c-border;
 
   html.light & {
     text-shadow: 0 1px 0 $c-font-shadow;
-    @include to-bottom($c_primary_bg--mix-20 0%, rgb(197, 216, 234));
+    @include to-bottom($m-primary_bg--mix-20 0%, rgb(197, 216, 234));
   }
 }
 
@@ -95,7 +95,7 @@ $border: $border-width $border-style $c-border;
 
   html.light & {
     text-shadow: 0 1px 0 $c-font-shadow;
-    @include to-bottom($c_primary_bg--mix-25 0%, $c_primary_bg-page--mix-20);
+    @include to-bottom($m-primary_bg--mix-25 0%, $m-primary_bg-page--mix-20);
     text-shadow: $text-shadow;
   }
 }

@@ -21,37 +21,37 @@
     &.inaccuracy {
       color: $c-inaccuracy;
       &:hover {
-        background: $c_inaccuracy_bg--mix-30;
+        background: $m-inaccuracy_bg--mix-30;
       }
     }
     &.mistake {
       color: $c-mistake;
       &:hover {
-        background: $c_mistake_bg--mix-30;
+        background: $m-mistake_bg--mix-30;
       }
     }
     &.blunder {
       color: $c-blunder;
       &:hover {
-        background: $c_blunder_bg--mix-30;
+        background: $m-blunder_bg--mix-30;
       }
     }
     &.good {
       color: $c-good-move;
       &:hover {
-        background: $c_good-move_bg--mix-30;
+        background: $m-good-move_bg--mix-30;
       }
     }
     &.brilliant {
       color: $c-brilliant;
       &:hover {
-        background: $c_brilliant_bg--mix-30;
+        background: $m-brilliant_bg--mix-30;
       }
     }
     &.interesting {
       color: $c-interesting;
       &:hover {
-        background: $c_interesting_bg--mix-30;
+        background: $m-interesting_bg--mix-30;
       }
     }
   }
@@ -85,16 +85,16 @@
 
   move.active {
     font-weight: bold;
-    background: $c_primary_bg--mix-25;
+    background: $m-primary_bg--mix-25;
     color: $c-font-clear;
   }
 
   &-inline move.active,
   line move.active {
     @extend %box-radius;
-    background: $c_primary_bg--mix-40;
+    background: $m-primary_bg--mix-40;
     color: $c-font-clearer;
-    outline: 1px solid $c_primary_bg--mix-60;
+    outline: 1px solid $m-primary_bg--mix-60;
   }
 
   move.nongame {

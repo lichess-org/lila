@@ -36,7 +36,7 @@
     padding: 1.2em var(---box-padding) 2.3em var(---box-padding);
     @include transition(background);
     &:hover {
-      background: $c_primary_bg--mix-18;
+      background: $m-primary_bg--mix-18;
     }
     h2 {
       @extend %flex-between;

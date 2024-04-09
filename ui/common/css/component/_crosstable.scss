@@ -50,7 +50,7 @@
   &__matchup {
     flex: 1 1 auto;
     font-weight: bold;
-    background: $c_primary_bg--mix-20;
+    background: $m-primary_bg--mix-20;
   }
 
   povs {
@@ -72,7 +72,7 @@
     }
 
     &.current a {
-      background: $c_accent_bg--mix-70;
+      background: $m-accent_bg--mix-70;
       color: #fff;
       opacity: 1 !important;
     }

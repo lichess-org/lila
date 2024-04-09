@@ -159,17 +159,17 @@
   }
 
   &.running .time {
-    background: $c_secondary_bg--mix-30;
+    background: $m-secondary_bg--mix-30;
     color: $c-font-clearer;
   }
 
   &.emerg .time,
   &.outoftime .time {
-    background-color: $c_bad_bg--mix-25;
+    background-color: $m-bad_bg--mix-25;
   }
 
   &.emerg.running .time {
-    background-color: $c_bad_bg--mix-50;
+    background-color: $m-bad_bg--mix-50;
     color: $c-font-clearer;
   }
 

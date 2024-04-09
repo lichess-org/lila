@@ -17,9 +17,9 @@
     cursor: pointer;
     border: $border;
 
-    background: $c_font--fade-95;
+    background: $m-font--fade-95;
     @include if-light {
-      background: $c_bg--fade-50;
+      background: $m-bg--fade-50;
     }
 
     color: $c-font;
@@ -27,7 +27,7 @@
     @include transition;
 
     &:hover {
-      background: $c_accent--fade-80 !important;
+      background: $m-accent--fade-80 !important;
       opacity: 1;
     }
   }

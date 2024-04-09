@@ -34,7 +34,7 @@
 
     &::after {
       content: '';
-      background: $c_accent--fade-40;
+      background: $m-accent--fade-40;
       height: 2px;
       position: absolute;
       width: 96%;
@@ -240,7 +240,7 @@
     }
 
     a:hover {
-      background: $c_accent_bg--mix-20;
+      background: $m-accent_bg--mix-20;
     }
 
     a:hover::before {
@@ -296,7 +296,7 @@
     }
 
     ul > li label:not(.optgroup):hover {
-      background: $c_accent_bg--mix-20;
+      background: $m-accent_bg--mix-20;
     }
 
     ul > li label.optgroup {
@@ -398,7 +398,7 @@
       }
 
       &:hover {
-        background: $c_accent_bg--mix-20;
+        background: $m-accent_bg--mix-20;
       }
     }
 

@@ -154,7 +154,7 @@
       }
 
       &:not(.disabled):hover {
-        background: $c_brag_white--mix-80;
+        background: $m-brag_white--mix-80;
       }
 
       i {
@@ -259,11 +259,11 @@
       &.spy_filter {
         tbody tr {
           &:hover {
-            background: $c_brag_bg--mix-15;
+            background: $m-brag_bg--mix-15;
             cursor: pointer;
           }
           &.selected {
-            background: $c_brag_bg--mix-40;
+            background: $m-brag_bg--mix-40;
           }
         }
       }

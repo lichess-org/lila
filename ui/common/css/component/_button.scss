@@ -23,7 +23,7 @@
     @extend %button-raised-shadow;
 
     color: $c-over;
-    background: $c_primary--lighten-7;
+    background: $m-primary--lighten-7;
   }
 
   &:not(.disabled):focus-visible {
@@ -47,7 +47,7 @@
     background: $c-secondary;
 
     &:not(.disabled):hover {
-      background: $c_secondary--lighten-4;
+      background: $m-secondary--lighten-4;
     }
   }
 
@@ -55,7 +55,7 @@
     background: $c-error;
 
     &:not(.disabled):hover {
-      background: $c_bad--lighten-11;
+      background: $m-bad--lighten-11;
     }
   }
 
