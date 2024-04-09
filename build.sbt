@@ -375,7 +375,7 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(lobby),
+  Seq(game, user),
   Seq(googleOAuth) ++ reactivemongo.bundle
 )
 
