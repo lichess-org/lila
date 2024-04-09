@@ -269,7 +269,7 @@ object layout:
       withHrefLangs: Option[LangPath] = None
   )(body: Frag)(using ctx: PageContext): Frag =
     import ctx.pref
-    updateManifest
+    updateManifest()
     frag(
       doctype,
       htmlTag(

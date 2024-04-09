@@ -20,12 +20,13 @@ final class AssetManifest(environment: Environment):
   def css(key: String): Option[String]       = maps.css.get(key)
   def deps(keys: List[String]): List[String] = keys.flatMap { key => js(key).so(_.imports) }.distinct
 
-  def update: AssetManifest =
+  def update(): Unit =
     val current = Files.getLastModifiedTime(pathname).toInstant
     if current.isAfter(lastModified) then
       lastModified = current
       maps = readMaps(Files.newInputStream(pathname))
-    this
+
+  update()
 
   private def keyOf(fullName: String): String =
     fullName match
@@ -69,7 +70,3 @@ final class AssetManifest(environment: Environment):
         }
         .toMap
     )
-
-object AssetManifest:
-  def apply(environment: Environment): AssetManifest =
-    new AssetManifest(environment).update
