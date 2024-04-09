@@ -114,6 +114,10 @@ body {
     .eval-gauge {
       display: block;
     }
+
+    .keyboard-move {
+      margin-top: $analyse-block-gap;
+    }
   }
 
   @include mq-is-col2-squeeze {
@@ -122,7 +126,7 @@ body {
 
   @include mq-at-least-col3 {
     grid-template-columns: $col3-uniboard-side $analyse-block-gap var(--col3-uniboard-width) $analyse-block-gap $col3-uniboard-table;
-    grid-template-rows: auto $chat-height 2.5em 1fr;
+    grid-template-rows: auto $chat-height auto 2.5em 1fr;
     grid-template-areas:
       'side    . board   gauge tools'
       'chat    . board   gauge tools'

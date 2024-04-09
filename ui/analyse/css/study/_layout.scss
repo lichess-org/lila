@@ -2,6 +2,7 @@
   margin-top: calc($analyse-block-gap / 2);
 }
 
-.keyboard-move {
+.analyse .keyboard-move {
   margin-top: calc($analyse-block-gap * 2);
+  margin-bottom: calc($analyse-block-gap * -1);
 }
