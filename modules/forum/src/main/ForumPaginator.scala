@@ -24,10 +24,10 @@ final class ForumPaginator(
         selector = postRepo.forUser(me).selectTopic(topic.id),
         projection = none,
         sort = postRepo.sortQuery
-      ),
+      ).mapFutureList(textExpand.manyPosts),
       currentPage = page,
       maxPerPage = config.postMaxPerPage
-    ).flatMap(_.mapFutureList(textExpand.manyPosts))
+    )
 
   def categTopics(
       categ: ForumCateg,

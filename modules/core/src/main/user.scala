@@ -102,8 +102,8 @@ enum UserMark:
   case troll
   case reportban
   case rankban
-  case arenaBan
-  case prizeBan
+  case arenaban
+  case prizeban
   case alt
   def key = toString
 
@@ -122,8 +122,8 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
     def troll: Boolean                   = hasMark(UserMark.troll)
     def reportban: Boolean               = hasMark(UserMark.reportban)
     def rankban: Boolean                 = hasMark(UserMark.rankban)
-    def prizeban: Boolean                = hasMark(UserMark.prizeBan)
-    def arenaBan: Boolean                = hasMark(UserMark.arenaBan)
+    def prizeban: Boolean                = hasMark(UserMark.prizeban)
+    def arenaBan: Boolean                = hasMark(UserMark.arenaban)
     def alt: Boolean                     = hasMark(UserMark.alt)
 
 abstract class UserRepo(val coll: reactivemongo.api.bson.collection.BSONCollection)

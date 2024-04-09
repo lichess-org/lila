@@ -21,7 +21,7 @@ export const loadCss = (href: string): Promise<void> =>
     if (loadedCss.has(href)) return resolve();
     const el = document.createElement('link');
     el.rel = 'stylesheet';
-    el.href = url(site.debug ? `${href}?_=${Date.now()}` : href);
+    el.href = url(href);
     el.onload = () => {
       loadedCss.add(href);
       resolve();

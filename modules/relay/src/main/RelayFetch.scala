@@ -11,7 +11,6 @@ import lila.core.lilaism.LilaInvalid
 import lila.common.LilaScheduler
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
-import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 
@@ -28,7 +27,7 @@ final private class RelayFetch(
     fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
-    gameProxy: GameProxyRepo
+    gameProxy: lila.game.core.GameProxy
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
   import RelayFetch.*

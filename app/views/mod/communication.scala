@@ -32,7 +32,7 @@ object communication:
         cssTag("mod.communication"),
         isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
-      modules = isGranted(_.UserModView).option(jsModule("mod.user"))
+      modules = isGranted(_.UserModView).so(jsModule("mod.user"))
     ):
       main(id := "communication", cls := "box box-pad")(
         boxTop(

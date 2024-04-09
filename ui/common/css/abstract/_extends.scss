@@ -87,7 +87,7 @@
 %active-soft {
   @extend %active-inset-shadow;
 
-  background: $c-shade;
+  background: $c-shade !important;
   color: $c-font-clearer;
   text-shadow: 1px 1px 1px $c-font-shadow !important;
   font-weight: bold;

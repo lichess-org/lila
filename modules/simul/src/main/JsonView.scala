@@ -11,13 +11,13 @@ import lila.core.perf.PerfType
 final class JsonView(
     gameRepo: GameRepo,
     getLightUser: LightUser.GetterFallback,
-    proxyRepo: lila.round.GameProxyRepo,
+    gameProxy: lila.game.core.GameProxy,
     isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
   private def fetchGames(simul: Simul): Fu[List[Game]] =
     if simul.isFinished then gameRepo.gamesFromSecondary(simul.gameIds)
-    else simul.gameIds.map(proxyRepo.game).parallel.dmap(_.flatten)
+    else simul.gameIds.traverse(gameProxy.game).dmap(_.flatten)
 
   def apply(simul: Simul, verdicts: WithVerdicts): Fu[JsObject] = for
     games      <- fetchGames(simul)

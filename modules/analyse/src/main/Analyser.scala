@@ -44,7 +44,8 @@ final class Analyser(
           Bus.publish(
             TellIfExists(
               id.value,
-              () => makeProgressPayload(analysis, g.game, g.fen | g.game.variant.initialFen)
+              lila.core.analyse.AnalysisProgress: () =>
+                makeProgressPayload(analysis, g.game, g.fen | g.game.variant.initialFen)
             ),
             "roundSocket"
           )

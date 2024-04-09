@@ -10,7 +10,7 @@ import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
 
 final private class ExplorerGame(
-    importer: lila.game.actorApi.ExplorerGame,
+    importer: lila.game.core.ExplorerGame,
     lightUserApi: lila.user.LightUserApi,
     net: lila.core.config.NetConfig
 )(using Executor):

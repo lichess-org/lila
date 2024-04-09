@@ -56,10 +56,6 @@ package puzzle:
   case class RacerRun(userId: UserId, score: Int)
   case class StreakRun(userId: UserId, score: Int)
 
-package playban:
-  case class Playban(userId: UserId, mins: Int, inTournament: Boolean)
-  case class RageSitClose(userId: UserId)
-
 package lpv:
   enum LpvEmbed:
     case PublicPgn(pgn: PgnStr)

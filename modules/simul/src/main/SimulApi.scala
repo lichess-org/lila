@@ -40,9 +40,11 @@ final class SimulApi(
     lila.log.asyncActorMonitor
   )
 
+  export repo.{ find, byIds, byTeamLeaders }
+
   def currentHostIds: Fu[Set[UserId]] = currentHostIdsCache.get {}
 
-  export repo.{ find, byIds, byTeamLeaders }
+  def isSimulHost(userId: UserId): Fu[Boolean] = currentHostIds.map(_ contains userId)
 
   private val currentHostIdsCache = cacheApi.unit[Set[UserId]]:
     _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>

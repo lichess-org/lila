@@ -53,7 +53,7 @@ final private class RoundAsyncActor(
     def setBye(): Unit =
       bye = true
 
-    private def isHostingSimul: Fu[Boolean] = mightBeSimul.so(userId).so(isSimulHost.apply)
+    private def isHostingSimul: Fu[Boolean] = mightBeSimul.so(userId).so(simulApi.resolve().isSimulHost)
 
     private def timeoutMillis: Long = {
       val base = {
@@ -495,6 +495,6 @@ object RoundAsyncActor:
       val player: Player,
       val drawer: Drawer,
       val forecastApi: ForecastApi,
-      val isSimulHost: IsSimulHost,
+      val simulApi: lila.core.CircularDep[lila.core.simul.SimulApi],
       val jsonView: JsonView
   )

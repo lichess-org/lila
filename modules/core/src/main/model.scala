@@ -18,10 +18,18 @@ object ApiVersion extends OpaqueInt[ApiVersion]:
 opaque type AssetVersion = String
 object AssetVersion extends OpaqueString[AssetVersion]:
   private var stored = random
+  private var dirty  = true
   def current        = stored
   def change() =
     stored = random
+    dirty = true
     current
+  def checkResetDirty =
+    if dirty then
+      dirty = false
+      true
+    else false
+
   private def random = AssetVersion(SecureRandom.nextString(6))
   case class Changed(version: AssetVersion)
 
@@ -92,6 +100,8 @@ final class LazyFu[A](run: () => Fu[A]):
   def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value.dmap(f))
 object LazyFu:
   def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
+
+case class CircularDep[A](resolve: () => A)
 
 opaque type KidMode = Boolean
 object KidMode extends YesNo[KidMode]

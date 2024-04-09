@@ -29,7 +29,7 @@ final class JsonView(
     statsApi: TournamentStatsApi,
     shieldApi: TournamentShieldApi,
     cacheApi: lila.memo.CacheApi,
-    proxyRepo: lila.round.GameProxyRepo,
+    gameProxy: lila.game.core.GameProxy,
     perfsRepo: lila.user.UserPerfsRepo,
     verify: TournamentCondition.Verify,
     duelStore: DuelStore,
@@ -212,7 +212,7 @@ final class JsonView(
       .ifTrue(tour.isStarted)
       .so(pairingRepo.byId)
       .flatMapz: pairing =>
-        proxyRepo
+        gameProxy
           .game(pairing.gameId)
           .flatMapz: game =>
             cached

@@ -15,7 +15,7 @@ trait Simul:
 
 trait SimulApi:
   def byIds(ids: List[SimulId]): Fu[List[Simul]]
+  def isSimulHost(userId: UserId): Fu[Boolean]
 
 case class OnStart(simul: Simul) extends AnyVal
-case class GetHostIds(promise: Promise[Set[UserId]])
 case class PlayerMove(gameId: GameId)

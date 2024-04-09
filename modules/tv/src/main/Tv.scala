@@ -11,31 +11,29 @@ import lila.core.Icon
 final class Tv(
     gameRepo: GameRepo,
     actor: SyncActor,
-    gameProxyRepo: lila.round.GameProxyRepo
+    gameProxy: lila.game.core.GameProxy
 )(using Executor):
 
   import Tv.*
   import ChannelSyncActor.*
 
-  import gameProxyRepo.game as roundProxyGame
-
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(roundProxyGame)
+    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(gameProxy.game)
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     actor
       .ask[Option[GameId]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
-      .flatMapz(roundProxyGame)
+      .flatMapz(gameProxy.game)
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
     actor.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)).flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for
-          game <- gameId.so(roundProxyGame)
+          game <- gameId.so(gameProxy.game)
           games <-
             historyIds
               .map: id =>
-                roundProxyGame(id).orElse(gameRepo.game(id))
+                gameProxy.game(id).orElse(gameRepo.game(id))
               .parallel
               .dmap(_.flatten)
           history = games.map(Pov.naturalOrientation)
@@ -44,7 +42,7 @@ final class Tv(
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
     getGameIds(channel, max).flatMap {
-      _.map(roundProxyGame).parallel.map(_.flatten)
+      _.map(gameProxy.game).parallel.map(_.flatten)
     }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =
