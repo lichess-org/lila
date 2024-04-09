@@ -1,4 +1,5 @@
 package lila.core
+package data
 
 case class Strings(value: List[String]) extends AnyVal
 case class UserIds(value: List[UserId]) extends AnyVal
@@ -25,6 +26,3 @@ object LazyFu:
   def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
 
 case class CircularDep[A](resolve: () => A)
-
-opaque type KidMode = Boolean
-object KidMode extends YesNo[KidMode]

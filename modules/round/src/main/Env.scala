@@ -83,7 +83,7 @@ final class Env(
       scheduler.scheduleOnce((centis.millis + 1000).millis):
         roundApi.tell(game.id, lila.core.round.NoStart)
 
-  private val simulApi = lila.core.CircularDep(() => simulApiCircularDep)
+  private val simulApi = lila.core.data.CircularDep(() => simulApiCircularDep)
 
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]

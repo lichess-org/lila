@@ -102,7 +102,7 @@ final class Challenge(
             case Right(Some(pov)) =>
               negotiateApi(
                 html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
-                api = _ => env.api.roundApi.player(pov, lila.core.Preload.none, none).map { Ok(_) }
+                api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map { Ok(_) }
               ).flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
             case invalid =>
               negotiate(

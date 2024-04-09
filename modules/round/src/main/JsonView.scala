@@ -7,7 +7,7 @@ import play.api.libs.json.*
 import scala.math
 
 import lila.common.Json.given
-import lila.core.Preload
+import lila.core.data.Preload
 import lila.core.LightUser
 import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }

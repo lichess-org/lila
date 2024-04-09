@@ -10,7 +10,7 @@ import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.pref.Pref
 import lila.user.{ Me, User }
 import lila.core.user.MyId
-import lila.core.KidMode
+import lila.core.user.KidMode
 
 /* Who is logged in, and how */
 final class LoginContext(

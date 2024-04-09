@@ -20,7 +20,7 @@ import reactivemongo.api.bson.*
 
 import scala.util.{ Success, Try }
 
-import lila.core.Days
+import lila.core.data.Days
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.core.game.{ GameRule, Source }

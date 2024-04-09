@@ -12,7 +12,7 @@ import lila.core.config.Secret
 
 final class OAuthServer(
     tokenApi: AccessTokenApi,
-    originBlocklist: SettingStore[lila.core.Strings] @@ OriginBlocklist,
+    originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
     mobileSecret: Secret @@ MobileSecret
 )(using Executor):
 

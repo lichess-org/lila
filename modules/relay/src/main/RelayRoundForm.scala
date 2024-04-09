@@ -8,7 +8,7 @@ import scala.util.Try
 import scala.util.chaining.*
 
 import lila.common.Form.{ cleanText, into }
-import lila.core.Seconds
+import lila.core.data.Seconds
 import lila.core.perm.Granter
 import lila.user.{ Me, User }
 import lila.relay.RelayRound.Sync

@@ -2,7 +2,7 @@ package lila.relay
 
 import chess.format.pgn.PgnStr
 
-import lila.core.Seconds
+import lila.core.data.Seconds
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi

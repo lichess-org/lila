@@ -7,7 +7,7 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.core.actorApi.clas.ClasMatesAndTeachers
 import lila.user.Me
-import lila.core.KidMode
+import lila.core.user.KidMode
 
 final class MsgSearch(
     colls: MsgColls,

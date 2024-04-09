@@ -9,7 +9,7 @@ import play.api.{ Configuration, Environment, Mode, ConfigLoader }
 import lila.core.config.*
 import lila.common.config.given
 import lila.common.autoconfig.{ *, given }
-import lila.core.{ Strings, UserIds }
+import lila.core.data.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
 import lila.core.i18n.Translator

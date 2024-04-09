@@ -11,8 +11,7 @@ import lila.game.{ Game, Namer, Pov }
 import lila.core.actorApi.map.Tell
 import lila.core.actorApi.push.TourSoon
 import lila.core.round.{ IsOnGame, MoveEvent }
-import lila.core.notify.*
-import lila.core.LazyFu
+import lila.core.data.LazyFu
 import lila.core.notify.*
 
 final private class PushApi(

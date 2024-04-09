@@ -9,7 +9,7 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.core.{ Days, Template }
+import lila.core.data.{ Days, Template }
 import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.core.game.GameRule

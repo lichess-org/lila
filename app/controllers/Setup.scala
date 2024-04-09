@@ -54,7 +54,7 @@ final class Setup(
               processor.ai(config).flatMap { pov =>
                 negotiateApi(
                   html = redirectPov(pov),
-                  api = _ => env.api.roundApi.player(pov, lila.core.Preload.none, none).map(Created(_))
+                  api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map(Created(_))
                 )
               }
           )
