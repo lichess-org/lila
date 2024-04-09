@@ -46,11 +46,11 @@ final class GarbageCollector(
             retries = 5,
             logger = none
           )
-          .recoverDefault >> apply(applyData)
+          .recoverDefault(e => logger.info(e.getMessage, e)) >> apply(applyData)
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
     userLogins.userHasPrint(data.user).flatMap {
-      case false => fufail("No print available yet")
+      case false => fufail(s"never got a print for ${data.user.username}")
       case _     => funit
     }
 
