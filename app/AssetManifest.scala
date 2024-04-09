@@ -27,7 +27,7 @@ final class AssetManifest(environment: Environment):
       maps = readMaps(Files.newInputStream(pathname))
     this
 
-  private def key(fullName: String): String =
+  private def keyOf(fullName: String): String =
     fullName match
       case keyRe(k, _) => k
       case _           => fullName
@@ -37,7 +37,7 @@ final class AssetManifest(environment: Environment):
       jsMap: Map[String, SplitAsset],
       visited: Set[String] = Set.empty
   ): List[String] =
-    val k = key(name)
+    val k = keyOf(name)
     jsMap.get(k) match
       case Some(asset) if !visited.contains(k) =>
         asset.imports.flatMap: importName =>
@@ -49,14 +49,14 @@ final class AssetManifest(environment: Environment):
     val js = (manifest \ "js")
       .as[JsObject]
       .value
-      .map { case (k, value) =>
+      .map { (k, value) =>
         val name    = (value \ "hash").asOpt[String].fold(s"$k.js")(h => s"$k.$h.js")
         val imports = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
         (k, SplitAsset(name, imports))
       }
       .toMap
     AssetMaps(
-      js.map { case (k, asset) =>
+      js.map { (k, asset) =>
         k -> (if asset.imports.nonEmpty then asset.copy(imports = closure(asset.name, js).distinct)
               else asset)
       },
