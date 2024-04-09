@@ -88,7 +88,14 @@ async function hashMove(src: string) {
   const basename = path.basename(src, '.css');
   const srcMapMove = env.prod
     ? Promise.resolve()
-    : fs.promises.rename(`${src}.map`, path.join(env.cssDir, `${basename}.map`));
+    : /*new Promise<void>(async resolve => {
+        const mapContent = await fs.promises.readFile(`${src}.map`, 'utf-8');
+        const cssMap = JSON.parse(mapContent);
+        cssMap.file = `${basename}.${hash}.css`;
+        await fs.promises.writeFile(path.join(env.cssDir, `${basename}.css.map`), JSON.stringify(cssMap));
+        resolve();*/
+      fs.promises.rename(`${src}.map`, path.join(env.cssDir, `${basename}.css.map`));
+  //});
   await fs.promises.rename(src, path.join(env.cssDir, `${basename}.${hash}.css`));
   await srcMapMove;
   return [path.basename(src, '.css'), hash];

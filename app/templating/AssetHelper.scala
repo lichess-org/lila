@@ -16,7 +16,7 @@ trait AssetHelper extends HasEnv:
   given Conversion[EsmInit, EsmList] with
     def apply(esmInit: EsmInit): EsmList = List(Some(esmInit))
   given Conversion[Option[EsmInit], EsmList] with
-    def apply(esmInit: Option[EsmInit]): EsmList = List(esmInit)
+    def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
