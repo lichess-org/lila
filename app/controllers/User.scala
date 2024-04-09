@@ -419,7 +419,7 @@ final class User(
                 .inject(html.user.mod.assessments(user, as))
             }
 
-          val boardTokens = env.oAuth.tokenApi.usedBoardApi.map(html.user.mod.boardTokens)
+          val boardTokens = env.oAuth.tokenApi.usedBoardApi(user).map(html.user.mod.boardTokens)
 
           val teacher = env.clas.api.clas.countOf(user).map(html.user.mod.teacher(user))
 

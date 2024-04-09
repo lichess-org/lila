@@ -110,13 +110,13 @@ final class AccessTokenApi(
       .cursor[AccessToken]()
       .list(100)
 
-  def usedBoardApi(using me: MyId): Fu[List[AccessToken]] =
+  def usedBoardApi(user: UserId): Fu[List[AccessToken]] =
     coll
       .find:
         $doc(
           F.scopes -> OAuthScope.Board.Play.key,
           F.usedAt.$exists(true),
-          F.userId -> me
+          F.userId -> user
         )
       .sort($sort.desc(F.createdAt))
       .cursor[AccessToken]()
