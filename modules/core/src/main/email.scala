@@ -1,5 +1,7 @@
 package lila.core
 
+import lila.core.net.Domain
+
 opaque type EmailAddress = String
 object EmailAddress extends OpaqueString[EmailAddress]:
 

@@ -20,7 +20,7 @@ import lila.mod.UserWithModlog
 import lila.security.UserLogins
 import lila.user.User as UserModel
 import lila.core.perf.{ PerfKey, PerfType }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.core.user.LightPerf
 
 final class User(

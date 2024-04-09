@@ -3,7 +3,7 @@ package controllers
 import views.*
 
 import lila.app.{ *, given }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.core.i18n.I18nKey as trans
 import lila.msg.MsgPreset
 

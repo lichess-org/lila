@@ -17,7 +17,7 @@ import lila.core.round.*
 import lila.core.actorApi.socket.remote.TellSriIn
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.core.user.FlairGet
 
 final class RoundSocket(

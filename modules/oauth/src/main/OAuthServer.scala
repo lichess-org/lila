@@ -5,14 +5,14 @@ import play.api.mvc.{ RequestHeader, Result }
 import com.roundeights.hasher.Algo
 
 import lila.common.HTTPRequest
-import lila.core.{ Bearer, Strings }
+import lila.core.net.Bearer
 import lila.memo.SettingStore
 import lila.core.user.User
 import lila.core.config.Secret
 
 final class OAuthServer(
     tokenApi: AccessTokenApi,
-    originBlocklist: SettingStore[Strings] @@ OriginBlocklist,
+    originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
     mobileSecret: Secret @@ MobileSecret
 )(using Executor):
 

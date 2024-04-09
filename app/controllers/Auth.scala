@@ -12,7 +12,7 @@ import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.User.ClearPassword
 import lila.user.{ PasswordHasher, User as UserModel }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 final class Auth(
     env: Env,

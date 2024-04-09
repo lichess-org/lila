@@ -3,7 +3,7 @@ package lila.relay
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.Seconds
+import lila.core.data.Seconds
 import lila.study.Study
 
 case class RelayRound(

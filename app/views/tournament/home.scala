@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
+import lila.core.app.LangPath
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
 

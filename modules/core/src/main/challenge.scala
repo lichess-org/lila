@@ -1,6 +1,8 @@
 package lila.core
 package challenge
 
+import lila.core.data.Days
+
 trait Challenge:
   import Challenge.*
   val id: Id

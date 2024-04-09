@@ -6,7 +6,7 @@ import scalalib.cuteName.CuteNameGenerator
 
 import scala.jdk.CollectionConverters.*
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.memo.CacheApi
 import lila.core.perm.Granter
 import lila.user.Me

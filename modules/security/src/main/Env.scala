@@ -6,7 +6,7 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.Strings
+import lila.core.data.Strings
 import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given

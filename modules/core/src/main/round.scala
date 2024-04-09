@@ -1,10 +1,11 @@
 package lila.core
 package round
 
-import chess.format.Uci
 import chess.Color
-import chess.format.Fen
+import chess.format.{ Uci, Fen }
 import play.api.libs.json.{ JsArray, JsObject }
+
+import lila.core.net.IpAddress
 
 case class Abort(playerId: GamePlayerId)
 case class Berserk(gameId: GameId, userId: UserId)

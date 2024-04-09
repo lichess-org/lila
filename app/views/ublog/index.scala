@@ -79,7 +79,7 @@ object index:
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
         st.title := "Lichess community blogs"
       ).some,
-      withHrefLangs = lila.core.LangPath(langHref(routes.Ublog.communityAll())).some
+      withHrefLangs = lila.core.app.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
       val langSelections: List[(String, String)] = ("all", "All languages") ::
         lila.i18n.LangPicker

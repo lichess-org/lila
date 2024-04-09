@@ -182,14 +182,14 @@ final class Plan(env: Env) extends LilaController(env):
       .inject(jsonOkResult)
       .recover(badStripeApiCall)
 
-  private val CheckoutRateLimit = lila.memo.RateLimit.composite[lila.core.IpAddress](
+  private val CheckoutRateLimit = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
     key = "plan.checkout.ip"
   )(
     ("fast", 8, 10.minute),
     ("slow", 40, 1.day)
   )
 
-  private val CaptureRateLimit = lila.memo.RateLimit.composite[lila.core.IpAddress](
+  private val CaptureRateLimit = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
     key = "plan.capture.ip"
   )(
     ("fast", 8, 10.minute),

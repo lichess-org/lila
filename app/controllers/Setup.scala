@@ -6,7 +6,7 @@ import play.api.mvc.{ Request, Result }
 import views.*
 
 import lila.app.{ *, given }
-import lila.core.{ IpAddress, Preload }
+import lila.core.net.IpAddress
 import lila.common.HTTPRequest
 import lila.game.{ AnonCookie, Pov }
 import lila.memo.RateLimit
@@ -54,7 +54,7 @@ final class Setup(
               processor.ai(config).flatMap { pov =>
                 negotiateApi(
                   html = redirectPov(pov),
-                  api = _ => env.api.roundApi.player(pov, Preload.none, none).map(Created(_))
+                  api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map(Created(_))
                 )
               }
           )

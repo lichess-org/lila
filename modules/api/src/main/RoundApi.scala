@@ -19,7 +19,7 @@ import lila.tournament.GameView as TourView
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.user.{ GameUsers, User, Me }
 import lila.core.i18n.Translate
-import lila.core.Preload
+import lila.core.data.Preload
 
 final private[api] class RoundApi(
     jsonView: JsonView,

@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Variant }
 import chess.{ Clock, Speed }
 
-import lila.core.{ Days, Template }
+import lila.core.data.{ Days, Template }
 import lila.core.game.GameRule
 import lila.lobby.Color
 import lila.core.perf.PerfType

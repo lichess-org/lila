@@ -2,6 +2,7 @@ package lila.core
 package security
 
 import lila.core.user.{ User, UserEnabled }
+import lila.core.net.IpAddress
 
 trait LilaCookie:
   import play.api.mvc.*

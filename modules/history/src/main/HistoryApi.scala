@@ -8,7 +8,7 @@ import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.core.user.{ User, UserApi }
-import lila.core.Days
+import lila.core.data.Days
 import lila.core.perf.PerfKey
 
 final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(

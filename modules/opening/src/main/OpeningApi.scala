@@ -5,6 +5,7 @@ import play.api.mvc.RequestHeader
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 import lila.core.i18n.{ Translator, Translate }
+import lila.core.net.Crawler
 
 final class OpeningApi(
     wikiApi: OpeningWikiApi,

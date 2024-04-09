@@ -495,6 +495,6 @@ object RoundAsyncActor:
       val player: Player,
       val drawer: Drawer,
       val forecastApi: ForecastApi,
-      val simulApi: lila.core.CircularDep[lila.core.simul.SimulApi],
+      val simulApi: lila.core.data.CircularDep[lila.core.simul.SimulApi],
       val jsonView: JsonView
   )

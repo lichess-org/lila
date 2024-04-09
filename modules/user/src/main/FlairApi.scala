@@ -51,4 +51,4 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
   scheduler.scheduleOnce(11 seconds)(refresh())
 
   lila.common.Bus.subscribeFun("assetVersion"):
-    case lila.core.AssetVersion.Changed(_) => refresh()
+    case lila.core.net.AssetVersion.Changed(_) => refresh()

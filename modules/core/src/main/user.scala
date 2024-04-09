@@ -16,6 +16,9 @@ object MyId extends TotalWrapper[MyId, String]:
 
 case class ChangeEmail(id: UserId, email: EmailAddress)
 
+opaque type KidMode = Boolean
+object KidMode extends YesNo[KidMode]
+
 opaque type UserEnabled = Boolean
 object UserEnabled extends YesNo[UserEnabled]
 

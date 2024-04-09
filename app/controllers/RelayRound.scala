@@ -231,7 +231,7 @@ final class RelayRound(
     key = "broadcast.round.user"
   )
 
-  private val CreateLimitPerIP = lila.memo.RateLimit[lila.core.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.core.net.IpAddress](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.ip"

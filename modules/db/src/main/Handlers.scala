@@ -8,7 +8,7 @@ import scala.util.{ Failure, NotGiven, Success, Try }
 
 import lila.common.Iso.{ *, given }
 import lila.core.{ EmailAddress, NormalizedEmailAddress }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 trait Handlers:
 

@@ -14,7 +14,7 @@ object home:
     views.html.base.layout(
       title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home"),
-      withHrefLangs = lila.core.LangPath(routes.Swiss.home).some
+      withHrefLangs = lila.core.app.LangPath(routes.Swiss.home).some
     ):
       main(cls := "page-small box box-pad page swiss-home")(
         h1(cls := "box__top")(trans.swiss.swissTournaments()),

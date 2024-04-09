@@ -159,7 +159,7 @@ final class Main(
     then lila.mon.link.external(tag, ctx.isAuth).increment()
     Redirect(url)
 
-  lila.memo.RateLimit.composite[lila.core.IpAddress](
+  lila.memo.RateLimit.composite[lila.core.net.IpAddress](
     key = "image.upload.ip"
   )(
     ("fast", 10, 2.minutes),

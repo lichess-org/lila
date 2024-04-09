@@ -7,6 +7,7 @@ import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+import lila.core.net.Crawler
 
 final private class OpeningExplorer(
     ws: StandaloneWSClient,

@@ -139,9 +139,6 @@ trait LilaModel:
   object Html extends OpaqueString[Html]:
     def apply(frag: scalatags.Text.Frag): Html = frag.render
 
-  opaque type UserAgent = String
-  object UserAgent extends OpaqueString[UserAgent]
-
   opaque type MultiPv = Int
   object MultiPv extends OpaqueInt[MultiPv]
 
@@ -154,6 +151,3 @@ trait LilaModel:
   // JSON string that is safe to include in HTML
   opaque type SafeJsonStr = String
   object SafeJsonStr extends OpaqueString[SafeJsonStr]
-
-  opaque type Crawler = Boolean
-  object Crawler extends YesNo[Crawler]

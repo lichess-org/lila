@@ -30,7 +30,7 @@ site.pubsub.on('socket.in.reload', () =>
           description = trans.site.aboutSimul.txt()
         )
         .some,
-      withHrefLangs = lila.core.LangPath(routes.Simul.home).some
+      withHrefLangs = lila.core.app.LangPath(routes.Simul.home).some
     ) {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(

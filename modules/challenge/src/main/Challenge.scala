@@ -7,7 +7,7 @@ import chess.{ Color, Mode, Speed }
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.Days
+import lila.core.data.Days
 import lila.game.Game
 import lila.core.i18n.I18nKey
 import lila.core.{ challenge as hub }

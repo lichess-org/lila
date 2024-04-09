@@ -9,7 +9,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.core.{ Bearer, Days, Template }
+import lila.core.data.{ Days, Template }
+import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.core.game.GameRule
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
@@ -249,7 +250,7 @@ object ChallengeBulkSetup:
       .add("rules" -> nonEmptyRules)
       .add("fen" -> fen)
 
-  private[challenge] def extractTokenPairs(str: String): List[(Bearer, Bearer)] =
+  private[challenge] def extractTokenPairs(str: String): List[PairOf[Bearer]] =
     str
       .split(',')
       .view

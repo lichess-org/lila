@@ -6,7 +6,7 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.common.String.html.richText
 import scalalib.paginator.Paginator
 import lila.mod.IpRender.RenderIp

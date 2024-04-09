@@ -10,7 +10,7 @@ import lila.common.Form.{ *, given }
 import lila.common.Form as LilaForm
 import lila.core.rating.RatingRange
 import lila.user.Me
-import lila.core.Days
+import lila.core.data.Days
 
 object SetupForm:
 

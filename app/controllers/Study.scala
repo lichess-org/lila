@@ -17,7 +17,7 @@ import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Order, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.core.actorApi.lpv.LpvEmbed
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 final class Study(
     env: Env,

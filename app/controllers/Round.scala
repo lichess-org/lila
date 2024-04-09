@@ -11,7 +11,7 @@ import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel, PgnDump, Pov }
 import lila.tournament.Tournament as Tour
 import lila.user.{ User as UserModel }
-import lila.core.Preload
+import lila.core.data.Preload
 
 final class Round(
     env: Env,

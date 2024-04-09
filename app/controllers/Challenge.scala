@@ -8,7 +8,7 @@ import lila.app.{ *, given }
 import lila.challenge.Challenge as ChallengeModel
 import lila.challenge.Challenge.Id as ChallengeId
 
-import lila.core.{ Bearer, IpAddress, Preload }
+import lila.core.net.{ Bearer, IpAddress }
 import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
@@ -102,7 +102,7 @@ final class Challenge(
             case Right(Some(pov)) =>
               negotiateApi(
                 html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
-                api = _ => env.api.roundApi.player(pov, Preload.none, none).map { Ok(_) }
+                api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map { Ok(_) }
               ).flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
             case invalid =>
               negotiate(

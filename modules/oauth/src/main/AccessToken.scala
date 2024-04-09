@@ -3,7 +3,7 @@ package lila.oauth
 import reactivemongo.api.bson.*
 import com.roundeights.hasher.Algo
 
-import lila.core.Bearer
+import lila.core.net.Bearer
 
 case class AccessToken(
     id: AccessToken.Id,

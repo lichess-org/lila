@@ -9,7 +9,7 @@ import scala.util.chaining.*
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
-import lila.core.LangPath
+import lila.core.app.LangPath
 import lila.game.{ Game, Pov }
 
 object bits:

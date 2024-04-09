@@ -45,7 +45,7 @@ final class Env(
 
   lazy val alwaysFeaturedSetting =
     import lila.memo.SettingStore.UserIds.given
-    import lila.core.UserIds
+    import lila.core.data.UserIds
     settingStore[UserIds](
       "streamerAlwaysFeatured",
       default = UserIds(Nil),

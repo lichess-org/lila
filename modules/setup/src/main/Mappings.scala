@@ -6,7 +6,7 @@ import play.api.data.Forms.*
 import play.api.data.Mapping
 import play.api.data.format.Formats.doubleFormat
 
-import lila.core.Days
+import lila.core.data.Days
 import lila.common.Form.{ *, given }
 import lila.core.game.GameRule
 import lila.lobby.Color
