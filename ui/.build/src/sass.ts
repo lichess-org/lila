@@ -167,7 +167,7 @@ async function buildColorWrap() {
   await fs.promises.writeFile(wrapFile, scssWrap);
 }
 
-// compile an array of concrete scss files to public/css/*.css
+// compile an array of concrete scss files to ui/.build/dist/css/*.css (css temp dir prior to hashMove)
 function compile(sources: string[], tellTheWorld = true) {
   if (!sources.length) return;
   if (tellTheWorld) {
@@ -277,7 +277,7 @@ class BuildTimer {
   };
 
   async fire() {
-    const sources = [...this.dependencies];
+    const sources = [...this.dependencies].filter(src => /\/[^_][^/]+\.scss$/.test(src));
     const touched = [...this.touched];
     this.clear();
 
