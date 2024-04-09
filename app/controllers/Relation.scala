@@ -133,7 +133,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   private def RelatedPager(adapter: AdapterLike[UserId], page: Int)(using Context) =
     Paginator(
-      adapter = adapter.mapFutureList(followship),
+      adapter = lila.common.hotfix.mapFutureList(adapter)(followship),
       currentPage = page,
       maxPerPage = MaxPerPage(30)
     )
