@@ -1,23 +1,24 @@
 package lila.core.lilaism
 
-object Lilaism
-    extends cats.syntax.OptionSyntax
-    with cats.syntax.ListSyntax
-    with LilaTypes
-    with LilaModel
-    with LilaUserId
-    with LilaLibraryExtensions:
+object Lilaism extends LilaLibraryExtensions:
 
-  export scalalib.newtypes.{ given, * }
-  export scalalib.zeros.given
-  export scalalib.extensions.{ given, * }
-  export scalalib.json.extensions.*
-  export scalalib.json.Json.given_Zero_JsObject
-  export scalalib.time.*
-
-  export cats.syntax.all.*
-  export cats.{ Eq, Show }
-  export cats.data.NonEmptyList
+  export lila.core.id.{
+    GameId,
+    ChatId,
+    TeamId,
+    Flair,
+    StudyId,
+    StudyChapterId,
+    TourId,
+    SimulId,
+    SwissId,
+    ForumPostId,
+    UblogPostId
+  }
+  export lila.core.userId.{ UserId, UserName, UserStr, MyId, UserIdOf }
+  export lila.core.data.{ Markdown, Html }
+  export lila.core.rating.{ IntRating, IntRatingDiff, RatingProvisional }
+  export lila.core.email.EmailAddress
 
   def some[A](a: A): Option[A] = Some(a)
 

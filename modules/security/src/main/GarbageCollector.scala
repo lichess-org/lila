@@ -4,7 +4,6 @@ import scalalib.ThreadLocalRandom
 import play.api.mvc.RequestHeader
 
 import lila.common.{ Bus, HTTPRequest }
-import lila.core.EmailAddress
 import lila.core.net.IpAddress
 import lila.user.User
 

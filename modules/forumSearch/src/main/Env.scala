@@ -7,6 +7,7 @@ import lila.common.autoconfig.{ *, given }
 import lila.search.*
 import lila.core.forum.{ CreatePost, RemovePost, RemovePosts, ErasePost, ErasePosts }
 import lila.core.config.ConfigName
+import lila.core.id.ForumPostId
 
 @Module
 private class ForumSearchConfig(

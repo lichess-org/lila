@@ -1,18 +1,8 @@
-package lila.core.lilaism
+package lila.core
 
 import scalalib.newtypes.*
-import lila.core.user.MyId
 
-trait LilaUserId:
-
-  trait UserIdOf[U]:
-    def apply(u: U): UserId
-    extension (u: U)
-      inline def id: UserId                        = apply(u)
-      inline def is[T: UserIdOf](other: T)         = u.id == other.id
-      inline def isnt[T: UserIdOf](other: T)       = u.id != other.id
-      inline def is[T: UserIdOf](other: Option[T]) = other.exists(_.id == u.id)
-      inline def isMe: Boolean                     = u.id == "me"
+object userId:
 
   // the id of a user, always lowercased
   opaque type UserId = String
@@ -26,10 +16,26 @@ trait LilaUserId:
     val ghost: UserId      = "ghost"
     val explorer: UserId   = "openingexplorer"
 
+  trait UserIdOf[U]:
+    def apply(u: U): UserId
+    extension (u: U)
+      inline def id: UserId                        = apply(u)
+      inline def is[T: UserIdOf](other: T)         = u.id == other.id
+      inline def isnt[T: UserIdOf](other: T)       = u.id != other.id
+      inline def is[T: UserIdOf](other: Option[T]) = other.exists(_.id == u.id)
+      inline def isMe: Boolean                     = u.id == UserId("me")
+
   // specialized UserIds like Coach.Id
   trait OpaqueUserId[A] extends OpaqueString[A]:
-    given UserIdOf[A]                          = _.value
+    given UserIdOf[A]                          = _.into(UserId)
     extension (a: A) inline def userId: UserId = a.into(UserId)
+
+  opaque type MyId = String
+  object MyId extends TotalWrapper[MyId, String]:
+    given Conversion[MyId, UserId]                 = UserId(_)
+    given UserIdOf[MyId]                           = u => u
+    given [M[_]]: Conversion[M[MyId], M[UserId]]   = u => UserId.from(MyId.raw(u))
+    extension (me: MyId) inline def userId: UserId = me.into(UserId)
 
   // Properly cased for display
   opaque type UserName = String

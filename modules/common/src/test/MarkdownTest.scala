@@ -14,10 +14,8 @@ class MarkdownTest extends munit.FunSuite:
     val md = Markdown("https://example.com")
     assertEquals(
       render(md),
-      Html(
-        """<p><a href="https://example.com" rel="nofollow noopener noreferrer">https://example.com</a></p>
-"""
-      )
+      Html("""<p><a href="https://example.com" rel="nofollow noopener noreferrer">https://example.com</a></p>
+""")
     )
   }
   test("markdown links remove tracking tags") {

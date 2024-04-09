@@ -1,10 +1,11 @@
 package lila.core
 package history
 
-import lila.core.rating.Perf
+import lila.core.rating.{ Perf, IntRating }
 import lila.core.perf.PerfKey
 import lila.core.user.User
 import lila.core.user.WithPerf
+import lila.core.userId.UserId
 import lila.core.data.Days
 
 trait HistoryApi:

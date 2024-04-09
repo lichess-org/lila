@@ -1,15 +1,19 @@
 package lila.core
 package challenge
 
+import _root_.chess.variant.Variant
+import _root_.chess.{ Color, Mode }
+
 import lila.core.data.Days
+import lila.core.userId.UserId
 
 trait Challenge:
   import Challenge.*
   val id: Id
-  val variant: chess.variant.Variant
-  val mode: chess.Mode
+  val variant: Variant
+  val mode: Mode
   val timeControl: TimeControl
-  val finalColor: chess.Color
+  val finalColor: Color
   val destUser: Option[Challenger.Registered]
   val challenger: Challenger
   def challengerUser = challenger match
@@ -24,16 +28,16 @@ object Challenge:
   object Id extends OpaqueString[Id]
 
   sealed trait TimeControl:
-    def realTime: Option[chess.Clock.Config] = none
+    def realTime: Option[_root_.chess.Clock.Config] = none
   object TimeControl:
     case object Unlimited                 extends TimeControl
     case class Correspondence(days: Days) extends TimeControl
-    case class Clock(config: chess.Clock.Config) extends TimeControl:
+    case class Clock(config: _root_.chess.Clock.Config) extends TimeControl:
       override def realTime = config.some
       // All durations are expressed in seconds
       export config.{ limit, increment, show }
 
-  case class Rating(int: IntRating, provisional: RatingProvisional):
+  case class Rating(int: rating.IntRating, provisional: rating.RatingProvisional):
     def show = s"$int${if provisional.yes then "?" else ""}"
 
   enum Challenger:

@@ -5,8 +5,8 @@ import chess.{ ByColor, Color }
 import scalalib.Maths
 import lila.game.Game
 import lila.tree.Eval
-import lila.tree.Eval.Cp
 import lila.tree.{ Analysis, WinPercent }
+import lila.core.data.Percent
 
 // Quality of a move, based on previous and next WinPercent
 opaque type AccuracyPercent = Double
@@ -74,8 +74,8 @@ for x in xs:
     gameAccuracy(startColor, analysis.infos.map(_.eval).flatMap(_.forceAsCp))
 
   // a mean of volatility-weighted mean and harmonic mean
-  def gameAccuracy(startColor: Color, cps: List[Cp]): Option[ByColor[AccuracyPercent]] =
-    val allWinPercents      = (Cp.initial :: cps).map(WinPercent.fromCentiPawns)
+  def gameAccuracy(startColor: Color, cps: List[Eval.Cp]): Option[ByColor[AccuracyPercent]] =
+    val allWinPercents      = (Eval.Cp.initial :: cps).map(WinPercent.fromCentiPawns)
     val windowSize          = (cps.size / 10).atLeast(2).atMost(8)
     val allWinPercentValues = WinPercent.raw(allWinPercents)
     val windows =

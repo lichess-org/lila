@@ -13,6 +13,7 @@ import lila.relation.BSONHandlers.given
 import lila.core.relation.{ Relation, Relations }
 import lila.core.relation.Relation.{ Follow, Block }
 import lila.core.user.UserApi
+import lila.core.userId.UserSearch
 
 final class RelationApi(
     repo: RelationRepo,

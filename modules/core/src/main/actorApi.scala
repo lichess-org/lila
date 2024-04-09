@@ -1,11 +1,14 @@
 package lila.core
 package actorApi
 
-import chess.format.{ Fen, Uci }
-import chess.format.pgn.PgnStr
+import _root_.chess.format.{ Fen, Uci }
+import _root_.chess.format.pgn.PgnStr
 import play.api.libs.json.*
-
 import java.time.Duration
+import scala.concurrent.ExecutionContext
+
+import lila.core.userId.*
+import lila.core.id.GameId
 
 // announce something to all clients
 case class Announce(msg: String, date: Instant, json: JsObject)
@@ -29,7 +32,10 @@ package socket:
     def apply[A: Writes](userId: UserId, typ: String, data: A): SendTo =
       SendTo(userId, Json.obj("t" -> typ, "d" -> data))
     def onlineUser[A: Writes](userId: UserId, typ: String, data: () => Fu[A]): SendToOnlineUser =
-      SendToOnlineUser(userId, () => data().dmap { d => Json.obj("t" -> typ, "d" -> d) })
+      SendToOnlineUser(
+        userId,
+        () => data().map(d => Json.obj("t" -> typ, "d" -> d))(using ExecutionContext.parasitic)
+      )
   case class SendTos(userIds: Set[UserId], message: JsObject)
   object SendTos:
     def apply[A: Writes](userIds: Set[UserId], typ: String, data: A): SendTos =

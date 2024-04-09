@@ -4,7 +4,6 @@ import scalalib.ThreadLocalRandom
 
 import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
-import lila.core.user.MyId
 
 case class Note(
     _id: String,

@@ -2,17 +2,13 @@ package lila.core
 package user
 
 import play.api.i18n.Lang
-import chess.PlayerTitle
+import _root_.chess.PlayerTitle
 
-import lila.core.rating.Perf
+import lila.core.rating.{ Perf, IntRating, IntRatingDiff }
 import lila.core.perf.PerfKey
-
-opaque type MyId = String
-object MyId extends TotalWrapper[MyId, String]:
-  given Conversion[MyId, UserId]                 = UserId(_)
-  given UserIdOf[MyId]                           = u => u
-  given [M[_]]: Conversion[M[MyId], M[UserId]]   = u => UserId.from(MyId.raw(u))
-  extension (me: MyId) inline def userId: UserId = me.into(UserId)
+import lila.core.userId.*
+import lila.core.email.*
+import lila.core.id.Flair
 
 case class ChangeEmail(id: UserId, email: EmailAddress)
 
@@ -32,7 +28,7 @@ trait User:
   val marks: UserMarks
   val lang: Option[String]
   val roles: List[String]
-  val flair: Option[lila.core.Flair]
+  val flair: Option[Flair]
 
   def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
   def realLang: Option[Lang]      = lang.flatMap(Lang.get)

@@ -1,6 +1,8 @@
 package lila.core
 package pref
 
+import lila.core.userId.UserId
+
 trait Pref:
   val id: UserId
   val coords: Int

@@ -1,6 +1,5 @@
 package lila.user
 
-import lila.core.user.MyId
 import lila.core.LightUser
 import lila.core.perm.Grantable
 

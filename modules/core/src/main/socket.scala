@@ -3,6 +3,9 @@ package socket
 
 import play.api.libs.json.*
 import alleycats.Zero
+import _root_.chess.{ Color, Centis }
+
+import lila.core.userId.UserId
 
 opaque type IsOnline = UserId => Boolean
 object IsOnline extends FunctionWrapper[IsOnline, UserId => Boolean]
@@ -94,8 +97,8 @@ object protocol:
     case class ConnectSris(cons: Iterable[(Sri, Option[UserId])])                    extends In
     case class DisconnectSris(sris: Iterable[Sri])                                   extends In
     case class NotifiedBatch(userIds: Iterable[UserId])                              extends In
-    case class Lag(userId: UserId, lag: chess.Centis)                                extends In
-    case class Lags(lags: Map[UserId, chess.Centis])                                 extends In
+    case class Lag(userId: UserId, lag: Centis)                                      extends In
+    case class Lags(lags: Map[UserId, Centis])                                       extends In
     case class TellSri(sri: Sri, userId: Option[UserId], typ: String, msg: JsObject) extends In
     case class TellUser(userId: UserId, typ: String, msg: JsObject)                  extends In
     case class ReqResponse(reqId: Int, response: String)                             extends In
@@ -110,15 +113,15 @@ object protocol:
     def tellSris(sris: Iterable[Sri], payload: JsValue) =
       s"tell/sris ${commas(sris)} ${Json.stringify(payload)}"
 
-    def commas(strs: Iterable[Any]): String   = if strs.isEmpty then "-" else strs.mkString(",")
-    def boolean(v: Boolean): String           = if v then "+" else "-"
-    def optional(str: Option[String])         = str.getOrElse("-")
-    def color(c: chess.Color): String         = c.fold("w", "b")
-    def color(c: Option[chess.Color]): String = optional(c.map(_.fold("w", "b")))
+    def commas(strs: Iterable[Any]): String = if strs.isEmpty then "-" else strs.mkString(",")
+    def boolean(v: Boolean): String         = if v then "+" else "-"
+    def optional(str: Option[String])       = str.getOrElse("-")
+    def color(c: Color): String             = c.fold("w", "b")
+    def color(c: Option[Color]): String     = optional(c.map(_.fold("w", "b")))
 
 object userLag:
   type GetLagRating = UserId => Option[Int]
-  type Put          = (UserId, chess.Centis) => Unit
+  type Put          = (UserId, Centis) => Unit
 
 type SocketRequest[R] = (Int => Unit, String => R) => Fu[R]
 trait SocketRequester:

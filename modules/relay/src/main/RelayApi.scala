@@ -13,7 +13,6 @@ import lila.relay.RelayRound.WithTour
 import lila.core.perm.Granter
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
 import lila.user.{ Me, User, given }
-import lila.core.user.MyId
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,

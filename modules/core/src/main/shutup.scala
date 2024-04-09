@@ -1,6 +1,9 @@
 package lila.core
 package shutup
 
+import lila.core.id.*
+import lila.core.userId.UserId
+
 enum PublicSource(val parentName: String):
   case Tournament(id: TourId)  extends PublicSource("tournament")
   case Simul(id: SimulId)      extends PublicSource("simul")

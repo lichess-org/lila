@@ -3,6 +3,13 @@ package study
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.core.id.StudyId
+import lila.core.userId.UserId
+import lila.core.study.StudyName
+
+opaque type StudyName = String
+object StudyName extends OpaqueString[StudyName]
+
 case class IdName(@Key("_id") id: StudyId, name: StudyName)
 
 trait Study:

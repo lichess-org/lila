@@ -3,6 +3,11 @@ package notify
 
 import alleycats.Zero
 
+import lila.core.id.*
+import lila.core.study.StudyName
+import lila.core.chess.Win
+import lila.core.userId.*
+
 abstract class NotificationContent(val key: String)
 
 case class IrwinDone(userId: UserId)   extends NotificationContent("irwinDone")
