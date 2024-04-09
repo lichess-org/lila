@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
 
 final private class FishnetLimiter(

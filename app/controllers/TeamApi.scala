@@ -4,7 +4,7 @@ import play.api.libs.json.*
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.core.{ IpAddress, config }
+import lila.core.net.IpAddress
 import lila.team.{ Team as TeamModel, TeamSecurity }
 
 import Api.ApiResult

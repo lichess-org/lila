@@ -7,7 +7,7 @@ import play.api.ConfigLoader
 
 import scala.util.Try
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.common.autoconfig.*
 import lila.core.config.ConfigName
 import lila.core.security.IsProxy

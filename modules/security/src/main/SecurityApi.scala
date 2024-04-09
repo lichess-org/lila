@@ -10,7 +10,7 @@ import reactivemongo.api.bson.*
 
 import lila.common.Form.into
 import lila.common.HTTPRequest
-import lila.core.{ ApiVersion, IpAddress }
+import lila.core.net.{ ApiVersion, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate.Result

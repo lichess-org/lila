@@ -3,7 +3,7 @@ package templating
 import play.api.libs.json.{ JsValue, Json, Writes }
 
 import lila.app.ui.ScalatagsTemplate.*
-import lila.core.AssetVersion
+import lila.core.net.AssetVersion
 import lila.common.String.html.safeJsonValue
 
 trait AssetHelper extends HasEnv:

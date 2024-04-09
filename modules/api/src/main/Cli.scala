@@ -31,7 +31,7 @@ final private[api] class Cli(
   def process =
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
-      import lila.core.AssetVersion
+      import lila.core.net.AssetVersion
       val current = AssetVersion.change()
       Bus.publish(AssetVersion.Changed(current), "assetVersion")
       fuccess(s"Changed to ${AssetVersion.current}")

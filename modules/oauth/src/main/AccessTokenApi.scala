@@ -2,7 +2,7 @@ package lila.oauth
 
 import reactivemongo.api.bson.*
 
-import lila.core.Bearer
+import lila.core.net.Bearer
 import lila.db.dsl.{ *, given }
 import lila.core.actorApi.oauth.TokenRevoke
 import lila.core.user.MyId

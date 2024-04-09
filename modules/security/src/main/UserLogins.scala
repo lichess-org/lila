@@ -2,7 +2,7 @@ package lila.security
 
 import reactivemongo.api.bson.*
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
 import lila.core.EmailAddress

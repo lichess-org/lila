@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest
 import lila.core.socket.Sri
-import lila.core.ApiVersion
+import lila.core.net.ApiVersion
 
 object Mobile:
 

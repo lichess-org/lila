@@ -10,7 +10,8 @@ import lila.api.GameApiV2
 import lila.app.{ *, given }
 
 import lila.common.HTTPRequest
-import lila.core.{ IpAddress, LightUser }
+import lila.core.LightUser
+import lila.core.net.IpAddress
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
 

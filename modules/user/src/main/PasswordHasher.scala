@@ -63,7 +63,7 @@ final class PasswordHasher(
       val hash = aes.decrypt(Aes.iv(salt), encHash)
       MessageDigest.isEqual(hash, bHash(salt, p))
 
-  import lila.core.IpAddress
+  import lila.core.net.IpAddress
   import lila.memo.RateLimit
   import play.api.mvc.RequestHeader
   import lila.core.config

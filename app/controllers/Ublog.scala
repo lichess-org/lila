@@ -221,7 +221,7 @@ final class Ublog(env: Env) extends LilaController(env):
         )
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.IpAddress](
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
     key = "ublog.image.ip"
   )(
     ("fast", 10, 2.minutes),

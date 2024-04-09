@@ -5,7 +5,7 @@ import scalalib.SecureRandom
 
 import scala.util.{ Failure, Success, Try }
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 case class Client(
     _id: Client.Key,                   // API key used to authenticate and assign move or analysis

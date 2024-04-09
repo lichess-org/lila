@@ -18,7 +18,7 @@ import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.FingerHash
 import lila.user.User as UserModel
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 final class Mod(
     env: Env,

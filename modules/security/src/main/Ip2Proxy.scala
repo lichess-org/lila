@@ -3,7 +3,7 @@ import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.core.security.{ IsProxy, Ip2ProxyApi }
 
 final class Ip2ProxySkip extends Ip2ProxyApi:

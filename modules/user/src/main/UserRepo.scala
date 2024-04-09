@@ -5,7 +5,7 @@ import scalalib.ThreadLocalRandom
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.core.ApiVersion
+import lila.core.net.ApiVersion
 import lila.core.{ EmailAddress, NormalizedEmailAddress }
 import lila.core.LightUser
 import lila.core.user.UserMark

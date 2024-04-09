@@ -5,7 +5,7 @@ import scalalib.ThreadLocalRandom
 
 import scala.util.matching.Regex
 
-import lila.core.{ IpAddress, IpAddressStr }
+import lila.core.net.{ IpAddress, IpAddressStr }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.UserApi

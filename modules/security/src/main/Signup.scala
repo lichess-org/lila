@@ -9,7 +9,7 @@ import scala.util.chaining.*
 import lila.core.config.NetConfig
 import lila.core.EmailAddress
 import lila.common.{ HTTPRequest }
-import lila.core.{ ApiVersion, IpAddress }
+import lila.core.net.{ ApiVersion, IpAddress }
 import lila.memo.RateLimit
 import lila.user.{ PasswordHasher, User }
 

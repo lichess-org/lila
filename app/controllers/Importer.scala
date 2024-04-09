@@ -9,7 +9,7 @@ import scala.util.{ Either, Left, Right }
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 final class Importer(env: Env) extends LilaController(env):
 

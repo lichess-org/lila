@@ -2,7 +2,7 @@ package lila.common
 
 import lila.core.Strings
 import lila.core.Ints
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 import scalalib.Iso as LibIso
 
