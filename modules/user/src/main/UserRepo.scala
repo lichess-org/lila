@@ -270,8 +270,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setTroll     = setMark(UserMark.troll)
   def setReportban = setMark(UserMark.reportban)
   def setRankban   = setMark(UserMark.rankban)
-  def setArenaBan  = setMark(UserMark.arenaBan)
-  def setPrizeban  = setMark(UserMark.prizeBan)
+  def setArenaBan  = setMark(UserMark.arenaban)
+  def setPrizeban  = setMark(UserMark.prizeban)
   def setAlt       = setMark(UserMark.alt)
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
