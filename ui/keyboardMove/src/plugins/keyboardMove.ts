@@ -11,6 +11,8 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 // accept partial ICCF because submit runs on every keypress
 const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
 
+const isKey = (v: string): v is Key => !!v.match(keyRegex);
+
 interface SubmitOpts {
   isTrusted: boolean;
   force?: boolean;
@@ -31,8 +33,6 @@ export function initModule(opts: Opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
-
-  const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
   const submit: Submit = (v: string, submitOpts: SubmitOpts) => {
     if (!submitOpts.isTrusted) return;
