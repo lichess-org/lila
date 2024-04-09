@@ -8,6 +8,7 @@ import lila.user.{ User, UserRepo }
 import lila.core.EmailAddress
 import lila.core.security.IsProxy
 import lila.core.security.Ip2ProxyApi
+import lila.core.net.UserAgent
 
 case class UserLogins(
     ips: List[UserLogins.IPData],

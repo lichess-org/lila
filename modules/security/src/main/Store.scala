@@ -12,6 +12,7 @@ import lila.db.dsl.{ *, given }
 import lila.oauth.AccessToken
 import lila.core.socket.Sri
 import lila.user.User
+import lila.core.net.UserAgent
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 

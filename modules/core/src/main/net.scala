@@ -41,6 +41,13 @@ object Domain extends OpaqueString[Domain]:
 
   opaque type Lower = String
   object Lower extends OpaqueString[Lower]
+
+opaque type UserAgent = String
+object UserAgent extends OpaqueString[UserAgent]
+
+opaque type Crawler = Boolean
+object Crawler extends YesNo[Crawler]
+
 opaque type ApiVersion = Int
 object ApiVersion extends OpaqueInt[ApiVersion]:
   def puzzleV2(v: ApiVersion) = v >= 6

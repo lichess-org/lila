@@ -2,16 +2,14 @@ package lila.security
 
 import org.uaparser.scala.*
 
-import lila.common.UserAgent as UA
+import lila.core.net.UserAgent as UA
 
 object UserAgentParser:
 
   private val generic = org.uaparser.scala.Parser.default
 
-  private given Conversion[UA, String] = _.value
-
   def parse(agent: UA): Client =
-    lichessBot(agent).orElse(lichessMobile(agent)).getOrElse(generic.parse(agent.value))
+    lichessBot(agent.value).orElse(lichessMobile(agent)).getOrElse(generic.parse(agent.value))
 
   private def lichessBot(agent: String): Option[Client] =
     agent
