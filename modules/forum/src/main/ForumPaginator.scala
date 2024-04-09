@@ -27,7 +27,8 @@ final class ForumPaginator(
       ),
       currentPage = page,
       maxPerPage = config.postMaxPerPage
-    ).flatMap(_.mapFutureList(textExpand.manyPosts))
+    ).flatMap: pag =>
+      textExpand.manyPosts(pag.currentPageResults).map(pag.withCurrentPageResults)
 
   def categTopics(
       categ: ForumCateg,
