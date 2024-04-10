@@ -55,7 +55,6 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     else result.withHeaders(permissionsPolicyHeader)
 
   private def addEmbedderPolicyHeaders(req: RequestHeader)(result: Result) =
-    val actionName = HTTPRequest.actionName(req)
-    if actionName != "Plan.index" && actionName != "Plan.list" && HTTPRequest.supportsCoepCredentialless(req)
+    if actionSupportsCoepCredentialless(result) && HTTPRequest.supportsCoepCredentialless(req)
     then result.withHeaders(embedderPolicy("credentialless")*)
     else result

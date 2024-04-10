@@ -3,6 +3,7 @@ package http
 
 import play.api.http.HeaderNames
 import play.api.mvc.*
+import play.api.libs.typedmap.{ TypedKey, TypedMap }
 
 import lila.common.HTTPRequest
 
@@ -39,7 +40,9 @@ trait ResponseHeaders extends HeaderNames:
     "Cross-Origin-Embedder-Policy" -> "require-corp" // for Stockfish worker
   )
 
-  def embedderPolicy = ResponseHeaders.embedderPolicy
+  def embedderPolicy                   = ResponseHeaders.embedderPolicy
+  def actionSupportsCoepCredentialless = ResponseHeaders.actionSupportsCoepCredentialless
+  def disableCoepCredentialless        = ResponseHeaders.disableCoepCredentialless
 
   val permissionsPolicyHeader =
     "Permissions-Policy" -> List(
@@ -58,6 +61,14 @@ trait ResponseHeaders extends HeaderNames:
   def lastModified(date: Instant) = LAST_MODIFIED -> date.atZone(utcZone)
 
 object ResponseHeaders:
+  private val disableCoepCrentiallessKey = TypedKey[Unit]("no-coep-credentialless")
+
+  def actionSupportsCoepCredentialless(result: Result) =
+    result.attrs.get(ResponseHeaders.disableCoepCrentiallessKey).isEmpty
+  // no idea if there's a better way to get a flag to HttpFilter.
+  def disableCoepCredentialless(result: Result) =
+    result.withAttrs(TypedMap(ResponseHeaders.disableCoepCrentiallessKey -> ()))
+
   def embedderPolicy(policy: "credentialless" | "require-corp") = List(
     "Cross-Origin-Opener-Policy"   -> "same-origin",
     "Cross-Origin-Embedder-Policy" -> policy
