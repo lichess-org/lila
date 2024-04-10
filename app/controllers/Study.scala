@@ -18,6 +18,7 @@ import lila.study.{ Chapter, Order, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.core.actorApi.lpv.LpvEmbed
 import lila.core.net.IpAddress
+import lila.core.id.RelayRoundId
 
 final class Study(
     env: Env,

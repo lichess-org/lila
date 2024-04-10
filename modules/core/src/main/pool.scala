@@ -4,7 +4,8 @@ package pool
 import alleycats.Zero
 import _root_.chess.{ Clock, ByColor }
 
-import lila.core.rating.{ RatingRange, IntRating }
+import lila.core.rating.RatingRange
+import lila.core.rating.data.IntRating
 import lila.core.socket.Sri
 import lila.core.perf.PerfKey
 import lila.core.id.GameFullId

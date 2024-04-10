@@ -10,7 +10,7 @@ case class RelayRound(
     /* Same as the Study id it refers to */
     @Key("_id") id: RelayRoundId,
     tourId: RelayTour.Id,
-    name: RelayRoundName,
+    name: RelayRound.Name,
     caption: Option[RelayRound.Caption],
     sync: RelayRound.Sync,
     /* When it's planned to start */
@@ -60,6 +60,9 @@ case class RelayRound(
 object RelayRound:
 
   def makeId = RelayRoundId(ThreadLocalRandom.nextString(8))
+
+  opaque type Name = String
+  object Name extends OpaqueString[Name]
 
   opaque type Caption = String
   object Caption extends OpaqueString[Caption]

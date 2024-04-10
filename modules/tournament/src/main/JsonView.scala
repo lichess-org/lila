@@ -19,6 +19,7 @@ import lila.core.i18n.Translate
 import lila.core.data.Preload
 import lila.common.Json.lightUser.writeNoId
 import lila.core.perf.PerfType
+import lila.core.chess.Rank
 
 final class JsonView(
     lightUserApi: LightUserApi,

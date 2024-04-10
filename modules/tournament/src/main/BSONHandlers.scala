@@ -11,6 +11,7 @@ import lila.core.perf.PerfType
 import UserId.lichess
 import lila.core.tournament.leaderboard.Ratio
 import lila.core.tournament.Status
+import lila.core.id.TourPlayerId
 
 object BSONHandlers:
 

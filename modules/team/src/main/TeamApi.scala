@@ -15,6 +15,7 @@ import lila.memo.CacheApi.*
 import lila.core.perm.Granter
 import lila.user.{ Me, User, UserApi, UserRepo, given }
 import lila.core.team.*
+import lila.core.userId.UserSearch
 
 final class TeamApi(
     teamRepo: TeamRepo,

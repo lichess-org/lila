@@ -1,6 +1,6 @@
 package lila.mod
 
-import lila.report.{ ModId, Suspect }
+import lila.report.Suspect
 import lila.user.{ Me, modId }
 
 case class Modlog(
@@ -11,7 +11,6 @@ case class Modlog(
     date: Instant = nowInstant,
     index: Option[String] = None
 ):
-
   def isLichess = mod.is(UserId.lichess)
 
   def notable      = action != Modlog.terminateTournament

@@ -5,6 +5,7 @@ import alleycats.Zero
 import lila.core.perf.PerfType
 import lila.core.rating.Score
 import lila.activity.Score.plus
+import lila.core.chess.Rank
 
 object activities:
 

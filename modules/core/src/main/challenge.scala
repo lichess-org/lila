@@ -6,6 +6,7 @@ import _root_.chess.{ Color, Mode }
 
 import lila.core.data.Days
 import lila.core.userId.UserId
+import lila.core.rating.data.*
 
 trait Challenge:
   import Challenge.*
@@ -37,7 +38,7 @@ object Challenge:
       // All durations are expressed in seconds
       export config.{ limit, increment, show }
 
-  case class Rating(int: rating.IntRating, provisional: rating.RatingProvisional):
+  case class Rating(int: IntRating, provisional: RatingProvisional):
     def show = s"$int${if provisional.yes then "?" else ""}"
 
   enum Challenger:

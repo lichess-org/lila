@@ -11,6 +11,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
 import lila.game.Pov
 import lila.core.perf.PerfType
+import lila.core.chess.Rank
 import lila.tournament.LeaderboardApi.TourEntry
 import lila.user.User
 

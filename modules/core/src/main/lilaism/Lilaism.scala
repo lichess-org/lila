@@ -13,11 +13,12 @@ object Lilaism extends LilaLibraryExtensions:
     SimulId,
     SwissId,
     ForumPostId,
-    UblogPostId
+    UblogPostId,
+    RoomId
   }
   export lila.core.userId.{ UserId, UserName, UserStr, MyId, UserIdOf }
-  export lila.core.data.{ Markdown, Html }
-  export lila.core.rating.{ IntRating, IntRatingDiff, RatingProvisional }
+  export lila.core.data.{ Markdown, Html, JsonStr }
+  export lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
   export lila.core.email.EmailAddress
 
   def some[A](a: A): Option[A] = Some(a)

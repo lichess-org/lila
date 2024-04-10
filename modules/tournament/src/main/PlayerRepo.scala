@@ -7,6 +7,8 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.tournament.BSONHandlers.given
 import lila.user.User
+import lila.core.userId.UserSearch
+import lila.core.chess.Rank
 
 final class PlayerRepo(coll: Coll)(using Executor):
 

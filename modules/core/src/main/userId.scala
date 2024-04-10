@@ -66,8 +66,5 @@ object userId:
       val clean = str.trim.takeWhile(' ' !=)
       if regex.matches(clean) then Some(clean.toLowerCase) else None
 
-  opaque type UserIdOrEmail = String
-  object UserIdOrEmail extends OpaqueString[UserIdOrEmail]
-
   opaque type ModId = String
   object ModId extends OpaqueUserId[ModId]

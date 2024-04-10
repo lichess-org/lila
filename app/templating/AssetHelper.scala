@@ -4,6 +4,7 @@ import play.api.libs.json.{ JsValue, Json, Writes }
 
 import lila.app.ui.ScalatagsTemplate.*
 import lila.core.net.AssetVersion
+import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
 
 trait AssetHelper extends HasEnv:

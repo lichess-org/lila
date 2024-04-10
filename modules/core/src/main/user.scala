@@ -4,7 +4,8 @@ package user
 import play.api.i18n.Lang
 import _root_.chess.PlayerTitle
 
-import lila.core.rating.{ Perf, IntRating, IntRatingDiff }
+import lila.core.rating.Perf
+import lila.core.rating.data.{ IntRating, IntRatingDiff }
 import lila.core.perf.PerfKey
 import lila.core.userId.*
 import lila.core.email.*

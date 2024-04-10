@@ -3,6 +3,7 @@ package lila.round
 import lila.game.Game
 import lila.core.timeline.{ GameEnd as TLGameEnd, Propagate }
 import lila.core.notify.{ GameEnd, NotifyApi }
+import lila.core.chess.Win
 
 final private class RoundNotifier(
     isUserPresent: (Game, UserId) => Fu[Boolean],

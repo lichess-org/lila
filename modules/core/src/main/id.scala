@@ -35,6 +35,9 @@ object id:
   object GamePlayerId extends OpaqueString[GamePlayerId]:
     val size = 4
 
+  opaque type TourId = String
+  object TourId extends OpaqueString[TourId]
+
   opaque type TourPlayerId = String
   object TourPlayerId extends OpaqueString[TourPlayerId]
 
@@ -59,23 +62,14 @@ object id:
   opaque type StudyChapterId = String
   object StudyChapterId extends OpaqueString[StudyChapterId]
 
-  opaque type StudyChapterName = String
-  object StudyChapterName extends OpaqueString[StudyChapterName]
-
   opaque type RelayRoundId = String
   object RelayRoundId extends OpaqueString[RelayRoundId]
-
-  opaque type RelayRoundName = String
-  object RelayRoundName extends OpaqueString[RelayRoundName]
 
   opaque type PuzzleId = String
   object PuzzleId extends OpaqueString[PuzzleId]
 
   opaque type Flair = String
   object Flair extends OpaqueString[Flair]
-
-  opaque type TourId = String
-  object TourId extends OpaqueString[TourId]
 
   opaque type TeamId = String
   object TeamId extends OpaqueString[TeamId]

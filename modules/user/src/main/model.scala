@@ -2,6 +2,7 @@ package lila.user
 
 import lila.core.LightUser
 import lila.core.perm.Grantable
+import lila.core.userId.ModId
 
 final class GetBotIds(f: () => Fu[Set[UserId]]) extends (() => Fu[Set[UserId]]):
   def apply() = f()
@@ -12,7 +13,7 @@ final class RankingsOf(f: UserId => lila.rating.UserRankMap) extends (UserId => 
 /* User who is currently logged in */
 opaque type Me = User
 object Me extends TotalWrapper[Me, User]:
-  export lila.core.user.MyId as Id
+  export lila.core.userId.MyId as Id
   given UserIdOf[Me]                           = _.id
   given Conversion[Me, User]                   = identity
   given Conversion[Me, UserId]                 = _.id

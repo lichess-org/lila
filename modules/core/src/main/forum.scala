@@ -7,7 +7,7 @@ import lila.core.userId.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 case class CreatePost(post: ForumPostMini)
-case class RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using MyId)
+case class RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
 case class RemovePosts(ids: List[ForumPostId])
 // case class PostCloseToggle(categ: ForumCategId, topicSlug: String, closed: Boolean)(using val me: user.MyId)
 // erasing = blankng, still in db but with empty text

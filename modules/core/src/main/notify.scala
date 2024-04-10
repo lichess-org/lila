@@ -4,7 +4,7 @@ package notify
 import alleycats.Zero
 
 import lila.core.id.*
-import lila.core.study.StudyName
+import lila.core.study.data.StudyName
 import lila.core.chess.Win
 import lila.core.userId.*
 

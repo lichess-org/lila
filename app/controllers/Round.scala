@@ -12,6 +12,7 @@ import lila.game.{ Game as GameModel, PgnDump, Pov }
 import lila.tournament.Tournament as Tour
 import lila.user.{ User as UserModel }
 import lila.core.data.Preload
+import lila.core.id.{ GameFullId, GameAnyId }
 
 final class Round(
     env: Env,

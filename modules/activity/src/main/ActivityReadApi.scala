@@ -8,6 +8,7 @@ import lila.db.dsl.*
 import lila.game.LightPov
 import lila.user.User
 import lila.core.swiss.{ IdName as SwissIdName }
+import lila.core.chess.Rank
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,

@@ -1,8 +1,9 @@
 package lila.core
+package rating
 
 import alleycats.Zero
 
-object rating:
+object data:
 
   opaque type IntRating = Int
   object IntRating extends OpaqueInt[IntRating]:
@@ -18,55 +19,57 @@ object rating:
   opaque type RatingProvisional = Boolean
   object RatingProvisional extends YesNo[RatingProvisional]
 
-  trait Perf:
-    val glicko: Glicko
-    val nb: Int
-    export glicko.{ intRating, intDeviation, provisional }
-    def progress: IntRatingDiff
+import data.*
 
-  trait Glicko:
-    val rating: Double
-    val deviation: Double
-    val volatility: Double
-    def provisional: RatingProvisional
-    def intRating    = IntRating(rating.toInt)
-    def intDeviation = deviation.toInt
+trait Perf:
+  val glicko: Glicko
+  val nb: Int
+  export glicko.{ intRating, intDeviation, provisional }
+  def progress: IntRatingDiff
 
-  case class RatingProg(before: IntRating, after: IntRating):
-    def diff    = IntRatingDiff(after - before)
-    def isEmpty = diff == IntRatingDiff(0)
-  case class Score(win: Int, loss: Int, draw: Int, rp: Option[RatingProg]):
-    def size = win + loss + draw
+trait Glicko:
+  val rating: Double
+  val deviation: Double
+  val volatility: Double
+  def provisional: RatingProvisional
+  def intRating: IntRating = IntRating(rating.toInt)
+  def intDeviation         = deviation.toInt
 
-  case class RatingRange(min: IntRating, max: IntRating):
-    def contains(rating: IntRating) =
-      (min <= RatingRange.min || rating >= min) &&
-        (max >= RatingRange.max || rating <= max)
-    override def toString = s"$min-$max"
+case class RatingProg(before: IntRating, after: IntRating):
+  def diff    = IntRatingDiff(after.value - before.value)
+  def isEmpty = diff == IntRatingDiff(0)
+case class Score(win: Int, loss: Int, draw: Int, rp: Option[RatingProg]):
+  def size = win + loss + draw
 
-  object RatingRange:
+case class RatingRange(min: IntRating, max: IntRating):
+  def contains(rating: IntRating) =
+    (min <= RatingRange.min || rating >= min) &&
+      (max >= RatingRange.max || rating <= max)
+  override def toString = s"$min-$max"
 
-    val min = IntRating(400)
-    val max = IntRating(2900)
+object RatingRange:
 
-    val broad   = RatingRange(min, max)
-    val default = broad
+  val min = IntRating(400)
+  val max = IntRating(2900)
 
-    def noneIfDefault(from: String): Option[RatingRange] =
-      if from == default.toString then none
-      else parse(from).filter(_ != default)
+  val broad   = RatingRange(min, max)
+  val default = broad
 
-    private def readRating(str: String) = IntRating.from(str.toIntOption)
+  def noneIfDefault(from: String): Option[RatingRange] =
+    if from == default.toString then none
+    else parse(from).filter(_ != default)
 
-    // ^\d{3,4}\-\d{3,4}$
-    def parse(from: String): Option[RatingRange] = for
-      min <- readRating(from.takeWhile('-' !=))
-      if acceptable(min)
-      max <- readRating(from.dropWhile('-' !=).tail)
-      if acceptable(max)
-      if min < max
-    yield RatingRange(min, max)
+  private def readRating(str: String) = IntRating.from(str.toIntOption)
 
-    def isValid(from: String): Boolean = parse(from).isDefined
-    def orDefault(from: String)        = parse(from) | default
-    def acceptable(rating: IntRating)  = broad.contains(rating)
+  // ^\d{3,4}\-\d{3,4}$
+  def parse(from: String): Option[RatingRange] = for
+    min <- readRating(from.takeWhile('-' !=))
+    if acceptable(min)
+    max <- readRating(from.dropWhile('-' !=).tail)
+    if acceptable(max)
+    if min < max
+  yield RatingRange(min, max)
+
+  def isValid(from: String): Boolean = parse(from).isDefined
+  def orDefault(from: String)        = parse(from) | default
+  def acceptable(rating: IntRating)  = broad.contains(rating)

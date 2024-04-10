@@ -4,6 +4,7 @@ import lila.user.User
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
+export lila.core.userId.ModId
 
 private val logger = lila.log("mod")
 

@@ -9,6 +9,7 @@ import lila.chat.ChatApi
 import lila.game.{ Game, Namer }
 import lila.tree.{ Branches, Root }
 import lila.core.i18n.Translator
+import lila.core.id.GameFullId
 
 final private class ChapterMaker(
     net: lila.core.config.NetConfig,

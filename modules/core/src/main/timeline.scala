@@ -3,7 +3,7 @@ package timeline
 
 import lila.core.perf.PerfKey
 import lila.core.id.*
-import lila.core.study.StudyName
+import lila.core.study.data.StudyName
 import lila.core.userId.UserId
 
 case class ReloadTimelines(userIds: List[UserId])

@@ -1,7 +1,6 @@
 package lila.core
 
 import lila.core.net.Domain
-import lila.core.userId.UserIdOrEmail
 import scalalib.newtypes.OpaqueString
 
 object email:
@@ -68,3 +67,6 @@ object email:
       def normalize = UserIdOrEmail(
         EmailAddress.from(e).fold(e.toLowerCase)(e => EmailAddress.normalize(e).value)
       )
+
+  opaque type UserIdOrEmail = String
+  object UserIdOrEmail extends OpaqueString[UserIdOrEmail]

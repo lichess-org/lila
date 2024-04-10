@@ -6,6 +6,7 @@ import lila.common.Json.given
 import play.api.i18n.Lang
 import lila.core.user.{ User, UserApi }
 import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.data.SafeJsonStr
 
 final class RatingChartApi(
     historyApi: HistoryApi,

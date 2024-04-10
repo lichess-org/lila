@@ -5,10 +5,16 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.id.StudyId
 import lila.core.userId.UserId
-import lila.core.study.StudyName
 
-opaque type StudyName = String
-object StudyName extends OpaqueString[StudyName]
+object data:
+
+  opaque type StudyName = String
+  object StudyName extends OpaqueString[StudyName]
+
+  opaque type StudyChapterName = String
+  object StudyChapterName extends OpaqueString[StudyChapterName]
+
+import data.*
 
 case class IdName(@Key("_id") id: StudyId, name: StudyName)
 

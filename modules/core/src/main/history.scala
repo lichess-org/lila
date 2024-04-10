@@ -1,7 +1,8 @@
 package lila.core
 package history
 
-import lila.core.rating.{ Perf, IntRating }
+import lila.core.rating.Perf
+import lila.core.rating.data.IntRating
 import lila.core.perf.PerfKey
 import lila.core.user.User
 import lila.core.user.WithPerf

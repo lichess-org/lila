@@ -11,6 +11,7 @@ import lila.common.{ HTTPRequest }
 import lila.core.net.{ ApiVersion, IpAddress }
 import lila.memo.RateLimit
 import lila.user.{ PasswordHasher, User }
+import lila.core.email.UserIdOrEmail
 
 final class Signup(
     store: Store,

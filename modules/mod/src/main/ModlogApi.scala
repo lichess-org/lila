@@ -6,9 +6,10 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.core.irc.IrcApi
 import lila.core.msg.MsgPreset
-import lila.report.{ Mod, ModId, Report, Suspect }
+import lila.report.{ Mod, Report, Suspect }
 import lila.core.perm.Permission
 import lila.user.{ Me, User, UserRepo, given }
+import lila.core.id.ForumCategId
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
