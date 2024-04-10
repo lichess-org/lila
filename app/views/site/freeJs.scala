@@ -52,7 +52,7 @@ object freeJs:
         ),
         tbody(
           uiModules.map { module =>
-            val file = env.manifest.js(name).fold(s"$name.js")(_.name)
+            val file = env.manifest.js(module).fold(s"$module.js")(_.name)
             tr(
               td(a(href := assetUrl(s"compiled/$file"))(file)),
               td(agpl),
