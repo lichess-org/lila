@@ -25,9 +25,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         then Redirect(routes.ForumCateg.index)
         else
           for
-            ids <- env.forumSearch(text, page, ctx.troll)
-            posts <- lila.common.hotfix.mapFutureList(ids): ids =>
-              env.forum.postApi.viewsFromIds(ids)
+            ids   <- env.forumSearch(text, page, ctx.troll)
+            posts <- ids.mapFutureList(env.forum.postApi.viewsFromIds)
             pager <- posts.mapFutureResults: post =>
               access.isGrantedRead(post.topic.categId).map {
                 lila.forum.PostView.WithReadPerm(post, _)

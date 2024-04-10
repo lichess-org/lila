@@ -74,8 +74,8 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
       else
         for
           ids   <- env.teamSearch(text, page)
-          teams <- lila.common.hotfix.mapFutureList(ids)(env.team.teamRepo.byOrderedIds)
-          leads <- lila.common.hotfix.mapFutureList(teams)(env.team.memberRepo.addPublicLeaderIds)
+          teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
+          leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
         yield leads
 
   def teamsOf(username: UserStr) = AnonOrScoped(): ctx ?=>
