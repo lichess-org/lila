@@ -42,6 +42,7 @@ class VideoPlayer {
 
     this.iframe.id = 'video-player';
     this.iframe.src = relay.data.videoUrls![0];
+    this.iframe.setAttribute('credentialless', ''); // a feeble mewling ignored by all
     this.iframe.allow = 'autoplay';
     this.close = document.createElement('img');
     this.close.src = site.asset.flairSrc('symbols.cancel');

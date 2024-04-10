@@ -72,7 +72,7 @@ final class Plan(env: Env) extends LilaController(env):
           bestIds = bestIds,
           pricing = pricing
         )
-    yield Ok(page)
+    yield Ok(page).disableCoepCredentialless
 
   private def indexStripePatron(patron: lila.plan.Patron, customer: StripeCustomer)(using
       ctx: Context,
@@ -84,20 +84,22 @@ final class Plan(env: Env) extends LilaController(env):
     res <- info match
       case Some(info: CustomerInfo.Monthly) =>
         Ok.page(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
+
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email.map { EmailAddress(_) }, patron.some)
       case None =>
         env.user.repo.email(me).flatMap {
           renderIndex(_, patron.some)
         }
-  yield res
+  yield res.disableCoepCredentialless
 
   private def indexPayPalPatron(patron: lila.plan.Patron, sub: PayPalSubscription)(using
       ctx: Context,
       me: Me
   ) =
-    Ok.pageAsync:
+    Ok.pageAsync {
       env.plan.api.giftsFrom(me).map { html.plan.indexPayPal(me, patron, sub, _) }
+    }.map(_.disableCoepCredentialless)
 
   private def myCurrency(using ctx: Context): Currency =
     get("currency")

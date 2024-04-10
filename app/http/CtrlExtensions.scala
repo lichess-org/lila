@@ -31,6 +31,8 @@ trait CtrlExtensions extends ControllerHelpers:
           if HTTPRequest.supportsCoepCredentialless(req) then "credentialless" else "require-corp"
         )*
       )
+    def disableCoepCredentialless: Result =
+      ResponseHeaders.disableCoepCredentialless(result)
     def noCache: Result = result.withHeaders(
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
       EXPIRES       -> "0"

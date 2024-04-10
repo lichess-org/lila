@@ -203,7 +203,14 @@ final class RelayRound(
         pinnedStreamer <- rt.tour.pinnedStreamer.so(env.streamer.api.find)
         streamer       <- embed.so(env.streamer.api.find)
         stream         <- streamer.soFu(env.streamer.liveStreamApi.of)
-        videoUrls          = stream.flatMap(_.stream).map(_.urls(netDomain))
+        videoUrls = stream
+          .flatMap(_.stream)
+          .map(_.urls(netDomain))
+          .orElse(
+            lila.streamer.Stream
+              .Urls("https://player.twitch.tv/?channel=infrinjin&parent=schlawg.org", "")
+              .some
+          )
         crossSiteIsolation = videoUrls.isEmpty
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
@@ -220,7 +227,8 @@ final class RelayRound(
         page <- renderPage:
           html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
-      yield if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation else Ok(page)
+      yield
+        if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation else Ok(page).disableCoepCredentialless
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)
