@@ -22,9 +22,9 @@ final class Env(
     analysisRepo: lila.analyse.AnalysisRepo,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi,
-    insightApi: lila.insight.InsightApi,
+    insightApi: lila.game.core.insight.InsightApi,
     db: lila.db.Db,
-    insightDb: lila.db.AsyncDb @@ lila.insight.InsightDb
+    insightDb: lila.db.AsyncDb @@ lila.game.core.insight.InsightDb
 )(using Executor)(using scheduler: Scheduler):
 
   lazy val irwinStream = wire[IrwinStream]

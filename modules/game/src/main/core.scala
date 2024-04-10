@@ -18,3 +18,10 @@ trait RoundApi:
   def tell(gameId: GameId, msg: Matchable): Unit
   def ask[A](gameId: GameId)(makeMsg: Promise[A] => Matchable): Fu[A]
   def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]]
+
+object insight:
+
+  trait InsightDb
+
+  trait InsightApi:
+    def indexAll(user: lila.core.user.User): Funit

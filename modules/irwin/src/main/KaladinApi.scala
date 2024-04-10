@@ -19,7 +19,7 @@ final class KaladinApi(
     perfsRepo: UserPerfsRepo,
     gameRepo: GameRepo,
     cacheApi: CacheApi,
-    insightApi: lila.insight.InsightApi,
+    insightApi: lila.game.core.insight.InsightApi,
     modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.core.notify.NotifyApi,
