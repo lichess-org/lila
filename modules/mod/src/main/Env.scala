@@ -117,7 +117,7 @@ final class Env(
       case t: lila.core.team.KickFromTeam =>
         logApi.teamKick(t.userId, t.teamName)(using t.me)
     },
-    "forum" -> { case p: lila.core.forum.RemovePost =>
+    "forumPost" -> { case p: lila.core.forum.RemovePost =>
       if p.asAdmin
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
       else
