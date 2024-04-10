@@ -34,8 +34,6 @@ object freeJs:
     "swiss"
   )
 
-  private val renames = Map()
-
   def apply(): Frag =
     frag(
       boxTop(
@@ -54,7 +52,6 @@ object freeJs:
         ),
         tbody(
           uiModules.map { module =>
-            val name = renames.getOrElse(module, module)
             val file = env.manifest.js(name).fold(s"$name.js")(_.name)
             tr(
               td(a(href := assetUrl(s"compiled/$file"))(file)),
