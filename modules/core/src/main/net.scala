@@ -49,30 +49,29 @@ object net:
   opaque type Crawler = Boolean
   object Crawler extends YesNo[Crawler]
 
-opaque type AssetVersion = String
-object AssetVersion extends OpaqueString[AssetVersion]:
-  private var stored = random
-  private var dirty  = false
-  def current        = stored
-  def change() =
-    stored = random
-    dirty = true
-    current
-  def checkResetDirty =
-    if dirty then
-      dirty = false
-      true
-    else false
+  opaque type AssetVersion = String
+  object AssetVersion extends OpaqueString[AssetVersion]:
+    private var stored = random
+    private var dirty  = false
+    def current        = stored
+    def change() =
+      stored = random
+      dirty = true
+      current
+    def checkResetDirty =
+      if dirty then
+        dirty = false
+        true
+      else false
 
-  private def random = AssetVersion(SecureRandom.nextString(6))
-  case class Changed(version: AssetVersion)
+    private def random = AssetVersion(SecureRandom.nextString(6))
+    case class Changed(version: AssetVersion)
 
   opaque type ApiVersion = Int
   object ApiVersion extends OpaqueInt[ApiVersion]:
     def puzzleV2(v: ApiVersion) = v >= 6
     val lichobile: ApiVersion   = 6
     val mobile: ApiVersion      = 10 // i.e. github.com/lichess-org/mobile
-
 
   opaque type Bearer = String
   object Bearer extends OpaqueString[Bearer]:
