@@ -3,7 +3,7 @@ package lila.setup
 import chess.variant.Variant
 import chess.{ Clock, Mode }
 
-import lila.core.data.Days
+import scalalib.model.Days
 import lila.lobby.{ Color, Hook, Seek }
 import lila.rating.{ Perf }
 import lila.rating.RatingRange.withinLimits

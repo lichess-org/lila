@@ -4,7 +4,6 @@ import scalalib.ThreadLocalRandom
 
 import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
-import lila.core.user.MyId
 
 case class Note(
     _id: String,
@@ -28,7 +27,7 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using
   import reactivemongo.api.bson.*
   private given bsonHandler: BSONDocumentHandler[Note] = Macros.handler[Note]
 
-  def get(user: User, isMod: Boolean)(using me: Me.Id): Fu[List[Note]] =
+  def get(user: User, isMod: Boolean)(using me: MyId): Fu[List[Note]] =
     coll
       .find(
         $doc("to" -> user.id) ++ {

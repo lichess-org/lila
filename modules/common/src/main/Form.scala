@@ -206,7 +206,7 @@ object Form:
     val historicalConstraints = Seq(
       Constraints.minLength(2),
       Constraints.maxLength(30),
-      Constraints.pattern(regex = lila.core.UserName.historicalRegex)
+      Constraints.pattern(regex = UserName.historicalRegex)
     )
     val historicalField = trim(text).verifying(historicalConstraints*).into[UserStr]
 

@@ -1,7 +1,8 @@
 package lila.core
 package irc
 
-import lila.core.user.MyId
+import lila.core.id.{ RelayRoundId, UblogPostId }
+import lila.core.userId.MyId
 
 enum ModDomain:
   case Admin, Cheat, Boost, Comm, Other

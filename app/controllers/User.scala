@@ -22,6 +22,7 @@ import lila.user.User as UserModel
 import lila.core.perf.{ PerfKey, PerfType }
 import lila.core.net.IpAddress
 import lila.core.user.LightPerf
+import lila.core.userId.UserSearch
 
 final class User(
     override val env: Env,
@@ -202,7 +203,9 @@ final class User(
     EnabledUser(username): u =>
       env.history
         .ratingChartApi(u)
-        .dmap(_ | SafeJsonStr("[]")) // send an empty JSON array if no history JSON is available
+        .dmap(
+          _ | lila.core.data.SafeJsonStr("[]")
+        ) // send an empty JSON array if no history JSON is available
         .dmap(jsonStr => Ok(jsonStr).as(JSON))
 
   private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =

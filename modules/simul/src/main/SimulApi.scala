@@ -178,7 +178,7 @@ final class SimulApi(
   private def onComplete(simul: Simul): Unit =
     currentHostIdsCache.invalidateUnit()
     Bus.publish(
-      lila.core.actorApi.socket.SendTo(
+      lila.core.socket.SendTo(
         simul.hostId,
         lila.core.socket.makeMessage(
           "simulEnd",

@@ -27,7 +27,7 @@ final class AccountClosure(
 )(using Executor):
 
   Bus.subscribeFuns(
-    "garbageCollect" -> { case lila.core.actorApi.security.GarbageCollect(userId) =>
+    "garbageCollect" -> { case lila.core.security.GarbageCollect(userId) =>
       (modApi.garbageCollect(userId) >> lichessClose(userId))
     },
     "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessClose(userId) }
@@ -59,7 +59,7 @@ final class AccountClosure(
     _ <- u.marks.troll.so(relationApi.fetchFollowing(u.id).flatMap {
       activityWrite.unfollowAll(u, _)
     })
-  yield Bus.publish(lila.core.actorApi.security.CloseAccount(u.id), "accountClose")
+  yield Bus.publish(lila.core.security.CloseAccount(u.id), "accountClose")
 
   private def lichessClose(userId: UserId) =
     userRepo.lichessAnd(userId).flatMapz { (lichess, user) => close(user)(using Me(lichess)) }

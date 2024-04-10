@@ -10,7 +10,8 @@ final class InsightApi(
     gameRepo: GameRepo,
     indexer: InsightIndexer,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor)
+    extends lila.game.core.insight.InsightApi:
 
   import InsightApi.*
 

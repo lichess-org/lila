@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
+import scalalib.Json.given
 import views.*
 
 import lila.app.{ *, given }
@@ -115,7 +116,6 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     import lila.common.Json.{ *, given }
     given Writes[WithPerfs] = writeAs(_.user.light)
     import lila.relation.JsonView.given
-    import lila.common.Json.paginatorWrite
     Json.obj("paginator" -> pag.mapResults: r =>
       Json.toJsObject(r) ++ Json
         .obj:

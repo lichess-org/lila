@@ -3,7 +3,6 @@ package lila.mod
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.core.EmailAddress
 import lila.user.{ User, UserApi, UserRepo }
 
 final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):

@@ -10,6 +10,7 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 
 import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.id.GameAnyId
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 

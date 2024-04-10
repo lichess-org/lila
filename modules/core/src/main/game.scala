@@ -3,7 +3,10 @@ package game
 
 import cats.derived.*
 import play.api.libs.json.*
-import chess.Color
+import _root_.chess.{ Color, Speed }
+
+import lila.core.id.{ GameId, GameFullId, GamePlayerId }
+import lila.core.userId.UserId
 
 case class PovRef(gameId: GameId, color: Color):
   def unary_!           = PovRef(gameId, !color)
@@ -21,7 +24,7 @@ object GameRule:
 opaque type OnStart = GameId => Unit
 object OnStart extends FunctionWrapper[OnStart, GameId => Unit]
 
-case class TvSelect(gameId: GameId, speed: chess.Speed, channel: String, data: JsObject)
+case class TvSelect(gameId: GameId, speed: Speed, channel: String, data: JsObject)
 case class ChangeFeatured(mgs: JsObject)
 
 case class CorresAlarmEvent(userId: UserId, pov: Pov, opponent: String)

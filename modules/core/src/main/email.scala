@@ -1,64 +1,72 @@
 package lila.core
 
 import lila.core.net.Domain
+import scalalib.newtypes.OpaqueString
 
-opaque type EmailAddress = String
-object EmailAddress extends OpaqueString[EmailAddress]:
+object email:
 
-  extension (e: EmailAddress)
+  opaque type EmailAddress = String
+  object EmailAddress extends OpaqueString[EmailAddress]:
 
-    def username = e.takeWhile(_ != '@')
+    extension (e: EmailAddress)
 
-    def conceal = e.split('@') match
-      case Array(name, domain) => s"${name.take(3)}*****@$domain"
-      case _                   => e
+      def username = e.takeWhile(_ != '@')
 
-    def normalize = NormalizedEmailAddress: // changing normalization requires database migration!
-      val lower = e.toLowerCase
-      lower.split('@') match
-        case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
-          val normalizedName = name
-            .replace(".", "")    // remove all dots
-            .takeWhile('+' != _) // skip everything after the first '+'
-          if normalizedName.isEmpty then lower else s"$normalizedName@$domain"
-        case _ => lower
+      def conceal = e.split('@') match
+        case Array(name, domain) => s"${name.take(3)}*****@$domain"
+        case _                   => e
 
-    def domain: Option[Domain] =
-      e.split('@') match
-        case Array(_, domain) => Domain.from(domain.toLowerCase)
-        case _                => none
+      def normalize = NormalizedEmailAddress: // changing normalization requires database migration!
+        val lower = e.toLowerCase
+        lower.split('@') match
+          case Array(name, domain) if EmailAddress.gmailLikeNormalizedDomains(domain) =>
+            val normalizedName = name
+              .replace(".", "")    // remove all dots
+              .takeWhile('+' != _) // skip everything after the first '+'
+            if normalizedName.isEmpty then lower else s"$normalizedName@$domain"
+          case _ => lower
 
-    def similarTo(other: EmailAddress) = e.normalize == other.normalize
+      def domain: Option[Domain] =
+        e.split('@') match
+          case Array(_, domain) => Domain.from(domain.toLowerCase)
+          case _                => none
 
-    def isNoReply  = e.startsWith("noreply.") && e.endsWith("@lichess.org")
-    def isSendable = !e.isNoReply
+      def similarTo(other: EmailAddress) = e.normalize == other.normalize
 
-    def looksLikeFakeEmail =
-      e.domain.map(_.lower.value).exists(EmailAddress.gmailDomains.contains) &&
-        e.username.count('.' == _) >= 4
+      def isNoReply  = e.startsWith("noreply.") && e.endsWith("@lichess.org")
+      def isSendable = !e.isNoReply
 
-  private val regex =
-    """(?i)^[a-z0-9.!#$%&'*+/=?^_`{|}~\-]+@[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?(?:\.[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?)*$""".r
+      def looksLikeFakeEmail =
+        e.domain.map(_.lower.value).exists(EmailAddress.gmailDomains.contains) &&
+          e.username.count('.' == _) >= 4
 
-  val maxLength = 320
+    private val regex =
+      """(?i)^[a-z0-9.!#$%&'*+/=?^_`{|}~\-]+@[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?(?:\.[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?)*$""".r
 
-  val gmailDomains = Set("gmail.com", "googlemail.com")
+    val maxLength = 320
 
-  // adding normalized domains requires database migration!
-  private val gmailLikeNormalizedDomains = gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me")
+    val gmailDomains = Set("gmail.com", "googlemail.com")
 
-  def isValid(str: String) =
-    str.sizeIs < maxLength &&
-      regex.matches(str) && !str.contains("..") && !str.contains(".@") && !str.startsWith(".")
+    // adding normalized domains requires database migration!
+    private val gmailLikeNormalizedDomains = gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me")
 
-  def from(str: String): Option[EmailAddress] = isValid(str).option(EmailAddress(str))
+    def isValid(str: String) =
+      str.sizeIs < maxLength &&
+        regex.matches(str) && !str.contains("..") && !str.contains(".@") && !str.startsWith(".")
 
-  val clasIdRegex = """^noreply\.class\.(\w{8})\.[\w-]+@lichess\.org""".r
+    def from(str: String): Option[EmailAddress] = isValid(str).option(EmailAddress(str))
 
-opaque type NormalizedEmailAddress = String
-object NormalizedEmailAddress extends OpaqueString[NormalizedEmailAddress]
+    val clasIdRegex = """^noreply\.class\.(\w{8})\.[\w-]+@lichess\.org""".r
 
-opaque type UserStrOrEmail = String
-object UserStrOrEmail extends OpaqueString[UserStrOrEmail]:
-  extension (e: UserStrOrEmail)
-    def normalize = UserIdOrEmail(EmailAddress.from(e).fold(e.toLowerCase)(_.normalize.value))
+  opaque type NormalizedEmailAddress = String
+  object NormalizedEmailAddress extends OpaqueString[NormalizedEmailAddress]
+
+  opaque type UserStrOrEmail = String
+  object UserStrOrEmail extends OpaqueString[UserStrOrEmail]:
+    extension (e: UserStrOrEmail)
+      def normalize = UserIdOrEmail(
+        EmailAddress.from(e).fold(e.toLowerCase)(e => EmailAddress.normalize(e).value)
+      )
+
+  opaque type UserIdOrEmail = String
+  object UserIdOrEmail extends OpaqueString[UserIdOrEmail]

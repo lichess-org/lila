@@ -6,13 +6,13 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.EmailAddress
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.User.ClearPassword
 import lila.user.{ PasswordHasher, User as UserModel }
 import lila.core.net.IpAddress
+import lila.core.email.{ UserStrOrEmail, UserIdOrEmail }
 
 final class Auth(
     env: Env,
@@ -84,7 +84,7 @@ final class Auth(
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url) // redirect immediately if already logged in
       case None =>
-        val prefillUsername = lila.core.UserStrOrEmail(~switch.filter(_ != "1"))
+        val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
         val form            = api.loginFormFilled(prefillUsername)
         Ok.page(html.auth.login(form, referrer)).map(_.withCanonical(routes.Auth.login))
 

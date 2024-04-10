@@ -1,6 +1,7 @@
 package lila.notify
 
 import play.api.libs.json.*
+import scalalib.Json.given
 
 import lila.common.Json.given
 import lila.core.LightUser

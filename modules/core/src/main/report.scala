@@ -1,6 +1,8 @@
 package lila.core
 package report
 
+import lila.core.userId.UserId
+
 case class SuspectId(value: UserId) extends AnyVal
 
 case class CheatReportCreated(userId: UserId)

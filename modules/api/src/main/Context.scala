@@ -9,7 +9,6 @@ import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.pref.Pref
 import lila.user.{ Me, User }
-import lila.core.user.MyId
 import lila.core.user.KidMode
 
 /* Who is logged in, and how */

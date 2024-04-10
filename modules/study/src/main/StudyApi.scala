@@ -16,7 +16,6 @@ import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 
 import actorApi.Who
-import lila.core.user.MyId
 
 final class StudyApi(
     studyRepo: StudyRepo,

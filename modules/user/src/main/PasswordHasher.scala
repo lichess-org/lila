@@ -9,6 +9,7 @@ import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 
 import lila.core.config.Secret
+import lila.core.email.UserIdOrEmail
 
 /** Encryption for bcrypt hashes.
   *

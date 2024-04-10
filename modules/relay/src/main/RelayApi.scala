@@ -11,9 +11,9 @@ import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.WithTour
 import lila.core.perm.Granter
+import lila.core.study.data.StudyName
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
 import lila.user.{ Me, User, given }
-import lila.core.user.MyId
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
@@ -417,7 +417,7 @@ final class RelayApi(
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi.members(id.into(StudyId)).map {
       _.map(_.contributorIds).withFilter(_.nonEmpty).foreach { userIds =>
-        import lila.core.actorApi.socket.SendTos
+        import lila.core.socket.SendTos
         import lila.common.Json.given
         import lila.core.socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))

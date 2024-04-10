@@ -10,12 +10,10 @@ import java.util.concurrent.atomic.AtomicReference
 import scala.util.chaining.*
 
 import lila.common.{ Bus, Lilakka }
-import lila.core.actorApi.Announce
 import lila.core.relation.{ Follow, UnFollow }
 import lila.core.round.Mlat
-import lila.core.actorApi.security.CloseAccount
-import lila.core.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
-import lila.core.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
+import lila.core.security.CloseAccount
+import lila.core.socket.remote.*
 import lila.core.socket.{ SocketRequester as _, * }
 
 final class RemoteSocket(
@@ -80,7 +78,7 @@ final class RemoteSocket(
       if onlineUserIds.get.contains(userId) then send(Out.tellUser(userId, payload))
     case SendToOnlineUser(userId, makePayload) =>
       if onlineUserIds.get.contains(userId) then
-        makePayload().foreach: payload =>
+        makePayload.value.foreach: payload =>
           send(Out.tellUser(userId, payload))
     case Announce(_, _, json) =>
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))

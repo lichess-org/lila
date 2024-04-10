@@ -1,6 +1,26 @@
 package lila.core
 package rating
 
+import alleycats.Zero
+
+object data:
+
+  opaque type IntRating = Int
+  object IntRating extends OpaqueInt[IntRating]:
+    extension (r: IntRating) def applyDiff(diff: IntRatingDiff): IntRating = r + diff.value
+
+  opaque type IntRatingDiff = Int
+  object IntRatingDiff extends OpaqueInt[IntRatingDiff]:
+    given Zero[IntRatingDiff] = Zero(0)
+
+  opaque type Rating = Double
+  object Rating extends OpaqueDouble[Rating]
+
+  opaque type RatingProvisional = Boolean
+  object RatingProvisional extends YesNo[RatingProvisional]
+
+import data.*
+
 trait Perf:
   val glicko: Glicko
   val nb: Int
@@ -12,8 +32,8 @@ trait Glicko:
   val deviation: Double
   val volatility: Double
   def provisional: RatingProvisional
-  def intRating    = IntRating(rating.toInt)
-  def intDeviation = deviation.toInt
+  def intRating: IntRating = IntRating(rating.toInt)
+  def intDeviation         = deviation.toInt
 
 case class RatingProg(before: IntRating, after: IntRating):
   def diff    = IntRatingDiff(after.value - before.value)

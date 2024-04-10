@@ -3,11 +3,10 @@ package lila.mod
 import chess.PlayerTitle
 
 import lila.common.Bus
-import lila.report.{ ModId, Room, Suspect }
+import lila.report.{ Room, Suspect }
 import lila.core.perm.{ Granter, Permission }
 import lila.user.{ LightUserApi, Me, User, UserRepo, modId, given }
 import lila.core.report.SuspectId
-import lila.core.EmailAddress
 import lila.core.user.UserMarks
 import lila.core.user.UserMark
 

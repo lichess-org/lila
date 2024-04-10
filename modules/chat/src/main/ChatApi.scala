@@ -209,7 +209,7 @@ final class ChatApi(
               )
               if isNew then
                 lila.common.Bus
-                  .publish(lila.core.actorApi.security.DeletePublicChats(user.id), "deletePublicChats")
+                  .publish(lila.core.security.DeletePublicChats(user.id), "deletePublicChats")
             else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
           }
 

@@ -4,7 +4,8 @@ package perf
 import cats.derived.*
 import lila.core.i18n.Translate
 import lila.core.i18n.I18nKey
-import chess.Speed
+import _root_.chess.Speed
+import _root_.chess.variant
 
 opaque type PerfKey = String
 object PerfKey extends OpaqueString[PerfKey]
@@ -95,10 +96,10 @@ enum PerfType(
       extends PerfType(
         PerfId(5),
         key = PerfKey("standard"),
-        name = chess.variant.Standard.name,
+        name = variant.Standard.name,
         title = "Standard rules of chess",
         icon = Icon.Crown,
-        nameKey = I18nKey(chess.variant.Standard.name),
+        nameKey = I18nKey(variant.Standard.name),
         descKey = I18nKey("Standard rules of chess")
       )
 
@@ -106,10 +107,10 @@ enum PerfType(
       extends PerfType(
         PerfId(11),
         key = PerfKey("chess960"),
-        name = chess.variant.Chess960.name,
+        name = variant.Chess960.name,
         title = "Chess960 variant",
         icon = Icon.DieSix,
-        nameKey = I18nKey(chess.variant.Chess960.name),
+        nameKey = I18nKey(variant.Chess960.name),
         descKey = I18nKey("Chess960 variant")
       )
 
@@ -117,10 +118,10 @@ enum PerfType(
       extends PerfType(
         PerfId(12),
         key = PerfKey("kingOfTheHill"),
-        name = chess.variant.KingOfTheHill.name,
+        name = variant.KingOfTheHill.name,
         title = "King of the Hill variant",
         icon = Icon.FlagKingHill,
-        nameKey = I18nKey(chess.variant.KingOfTheHill.name),
+        nameKey = I18nKey(variant.KingOfTheHill.name),
         descKey = I18nKey("King of the Hill variant")
       )
 
@@ -128,10 +129,10 @@ enum PerfType(
       extends PerfType(
         PerfId(13),
         key = PerfKey("antichess"),
-        name = chess.variant.Antichess.name,
+        name = variant.Antichess.name,
         title = "Antichess variant",
         icon = Icon.Antichess,
-        nameKey = I18nKey(chess.variant.Antichess.name),
+        nameKey = I18nKey(variant.Antichess.name),
         descKey = I18nKey("Antichess variant")
       )
 
@@ -139,10 +140,10 @@ enum PerfType(
       extends PerfType(
         PerfId(14),
         key = PerfKey("atomic"),
-        name = chess.variant.Atomic.name,
+        name = variant.Atomic.name,
         title = "Atomic variant",
         icon = Icon.Atom,
-        nameKey = I18nKey(chess.variant.Atomic.name),
+        nameKey = I18nKey(variant.Atomic.name),
         descKey = I18nKey("Atomic variant")
       )
 
@@ -150,10 +151,10 @@ enum PerfType(
       extends PerfType(
         PerfId(15),
         key = PerfKey("threeCheck"),
-        name = chess.variant.ThreeCheck.name,
+        name = variant.ThreeCheck.name,
         title = "Three-check variant",
         icon = Icon.ThreeCheckStack,
-        nameKey = I18nKey(chess.variant.ThreeCheck.name),
+        nameKey = I18nKey(variant.ThreeCheck.name),
         descKey = I18nKey("Three-check variant")
       )
 
@@ -161,10 +162,10 @@ enum PerfType(
       extends PerfType(
         PerfId(16),
         key = PerfKey("horde"),
-        name = chess.variant.Horde.name,
+        name = variant.Horde.name,
         title = "Horde variant",
         icon = Icon.Keypad,
-        nameKey = I18nKey(chess.variant.Horde.name),
+        nameKey = I18nKey(variant.Horde.name),
         descKey = I18nKey("Horde variant")
       )
 
@@ -172,10 +173,10 @@ enum PerfType(
       extends PerfType(
         PerfId(17),
         key = PerfKey("racingKings"),
-        name = chess.variant.RacingKings.name,
+        name = variant.RacingKings.name,
         title = "Racing kings variant",
         icon = Icon.FlagRacingKings,
-        nameKey = I18nKey(chess.variant.RacingKings.name),
+        nameKey = I18nKey(variant.RacingKings.name),
         descKey = I18nKey("Racing kings variant")
       )
 
@@ -183,10 +184,10 @@ enum PerfType(
       extends PerfType(
         PerfId(18),
         key = PerfKey("crazyhouse"),
-        name = chess.variant.Crazyhouse.name,
+        name = variant.Crazyhouse.name,
         title = "Crazyhouse variant",
         icon = Icon.Crazyhouse,
-        nameKey = I18nKey(chess.variant.Crazyhouse.name),
+        nameKey = I18nKey(variant.Crazyhouse.name),
         descKey = I18nKey("Crazyhouse variant")
       )
 

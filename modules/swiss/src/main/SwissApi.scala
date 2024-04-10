@@ -20,6 +20,7 @@ import lila.rating.Perf
 import lila.core.round.QuietFlag
 import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo, given }
 import lila.core.swiss.{ IdName, SwissFinish }
+import lila.core.userId.UserSearch
 
 final class SwissApi(
     mongo: SwissMongo,

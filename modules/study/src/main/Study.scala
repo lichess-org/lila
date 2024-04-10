@@ -7,6 +7,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.user.User
 import lila.core.{ study as hub }
 import lila.core.study.Visibility
+import lila.core.data.OpaqueInstant
 
 case class Study(
     @Key("_id") id: StudyId,

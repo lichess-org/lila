@@ -6,7 +6,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.core.i18n.{ LangPicker, LangList, Language, defaultLanguage }
-import lila.core.user.MyId
 
 final class CmsApi(coll: Coll, markup: CmsMarkup, langList: LangList, langPicker: LangPicker)(using Executor):
 

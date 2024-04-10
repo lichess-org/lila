@@ -8,6 +8,7 @@ import lila.game.GameRepo
 import lila.memo.CacheApi.*
 import lila.user.{ Me, User, UserApi, UserRepo, modId, given }
 import lila.core.report.SuspectId
+import lila.core.userId.ModId
 
 final class ReportApi(
     val coll: Coll,

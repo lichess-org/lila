@@ -10,6 +10,7 @@ import lila.rating.Perf
 import lila.core.perf.{ PerfKey, PerfType }
 import lila.core.rating.RatingProg
 import lila.core.rating.Score
+import lila.core.chess.Rank
 
 private object BSONHandlers:
 

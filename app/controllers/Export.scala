@@ -13,6 +13,7 @@ import lila.app.*
 import lila.core.net.IpAddress
 import lila.game.Pov
 import lila.pref.{ PieceSet, Theme }
+import lila.core.id.PuzzleId
 
 final class Export(env: Env) extends LilaController(env):
 

@@ -5,7 +5,6 @@ import lila.user.{ Me, User, given }
 import lila.core.user.{ UserMark, NoteApi, UserRepo }
 
 import Appeal.Filter
-import lila.core.user.MyId
 
 final class AppealApi(
     coll: Coll,

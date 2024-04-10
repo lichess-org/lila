@@ -2,10 +2,12 @@ package lila.core
 package history
 
 import lila.core.rating.Perf
+import lila.core.rating.data.IntRating
 import lila.core.perf.PerfKey
 import lila.core.user.User
 import lila.core.user.WithPerf
-import lila.core.data.Days
+import lila.core.userId.UserId
+import scalalib.model.Days
 
 trait HistoryApi:
   def addPuzzle(user: User, completedAt: Instant, perf: Perf): Funit

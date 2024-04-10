@@ -148,9 +148,9 @@ final class PuzzleApi(
 
   object casual:
 
-    private val store = scalalib.cache.ExpireSetMemo[CacheKey](30 minutes)
+    private val store = scalalib.cache.ExpireSetMemo[String](30 minutes)
 
-    private def key(user: User, id: PuzzleId) = CacheKey(s"${user.id}:${id}")
+    private def key(user: User, id: PuzzleId) = s"${user.id}:${id}"
 
     def setCasualIfNotYetPlayed(user: User, puzzle: Puzzle): Funit =
       round.exists(user, puzzle.id).not.mapz(store.put(key(user, puzzle.id)))

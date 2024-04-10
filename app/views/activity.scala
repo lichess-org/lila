@@ -10,6 +10,7 @@ import lila.core.forum.ForumTopicMini
 import lila.core.forum.ForumPostMini
 import lila.core.rating.Score
 import lila.core.rating.RatingProg
+import lila.core.chess.Rank
 
 object activity:
 

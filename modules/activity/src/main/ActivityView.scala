@@ -8,6 +8,7 @@ import lila.activity.activities.*
 import lila.core.forum.ForumPostMini
 import lila.core.forum.ForumTopicMini
 import lila.core.rating.Score
+import lila.core.chess.Rank
 
 case class ActivityView(
     interval: TimeInterval,

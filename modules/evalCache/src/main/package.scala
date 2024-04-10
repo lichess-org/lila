@@ -6,6 +6,7 @@ import chess.variant.Variant
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 import lila.tree.CloudEval
+import lila.core.chess.MultiPv
 
 extension (e: CloudEval)
   def multiPv = MultiPv(e.pvs.size)

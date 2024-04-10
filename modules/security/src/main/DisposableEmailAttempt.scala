@@ -2,7 +2,6 @@ package lila.security
 
 import play.api.data.Form
 
-import lila.core.EmailAddress
 import lila.core.net.IpAddress
 import lila.memo.CacheApi
 import lila.user.User
