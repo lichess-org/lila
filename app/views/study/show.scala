@@ -22,7 +22,7 @@ object show:
       moreCss = cssTag("analyse.study"),
       modules = analyseNvuiTag,
       pageModule = PageModule(
-        "analysisBoard.study",
+        "analyse.study",
         Json.obj(
           "study" -> data.study
             .add("admin", isGranted(_.StudyAdmin))

@@ -34,7 +34,7 @@ object freeJs:
     "swiss"
   )
 
-  private val renames = Map("analyse" -> "analysisBoard")
+  private val renames = Map()
 
   def apply(): Frag =
     frag(

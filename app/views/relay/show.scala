@@ -22,7 +22,7 @@ object show:
       moreCss = cssTag("analyse.relay"),
       modules = analyseNvuiTag,
       pageModule = PageModule(
-        "analysisBoard.study",
+        "analyse.study",
         Json
           .obj(
             "relay"    -> data.relay,

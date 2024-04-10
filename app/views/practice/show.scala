@@ -17,7 +17,7 @@ object show:
       moreCss = cssTag("analyse.practice"),
       modules = List(analyseNvuiTag),
       pageModule = PageModule(
-        "analysisBoard.study",
+        "analyse.study",
         Json.obj(
           "practice" -> data.practice,
           "study"    -> data.study,
