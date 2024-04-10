@@ -1,7 +1,6 @@
 package lila.importer
 
 import lila.game.{ Game, GameRepo }
-import lila.core.user.MyId
 
 final class Importer(gameRepo: GameRepo)(using Executor):
 

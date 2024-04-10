@@ -9,7 +9,6 @@ import lila.common.Form.*
 import lila.common.{ Form as LilaForm, LameName }
 import lila.user.User.{ ClearPassword, TotpToken }
 import lila.user.{ Me, TotpSecret, User, UserRepo }
-import lila.core.EmailAddress
 
 final class SecurityForm(
     userRepo: UserRepo,

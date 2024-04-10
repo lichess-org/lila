@@ -16,7 +16,7 @@ import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.user.User.LoginCandidate.Result
 import lila.user.User.{ ClearPassword, LoginCandidate }
 import lila.user.{ Me, User, UserRepo }
-import lila.core.{ EmailAddress, UserStrOrEmail }
+import lila.core.email.UserStrOrEmail
 import lila.core.security.{ IsProxy, Ip2ProxyApi }
 
 final class SecurityApi(

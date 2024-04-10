@@ -1,28 +1,58 @@
 package lila.core
-package data
 
-case class Strings(value: List[String]) extends AnyVal
-case class UserIds(value: List[UserId]) extends AnyVal
-case class Ints(value: List[Int])       extends AnyVal
+import scalalib.newtypes.OpaqueString
+import scala.concurrent.ExecutionContext
 
-case class Template(value: String) extends AnyVal
+import lila.core.userId.UserId
 
-opaque type Days = Int
-object Days extends OpaqueInt[Days]
+// has to be an object, not a package,
+// to makes sure opaque types don't leak out
+object data:
 
-opaque type Seconds = Int
-object Seconds extends OpaqueInt[Seconds]
+  case class Strings(value: List[String]) extends AnyVal
+  case class UserIds(value: List[UserId]) extends AnyVal
+  case class Ints(value: List[Int])       extends AnyVal
 
-case class Preload[A](value: Option[A]) extends AnyVal:
-  def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(fuccess)
-object Preload:
-  def apply[A](value: A): Preload[A] = Preload(value.some)
-  def none[A]                        = Preload[A](None)
+  case class Template(value: String) extends AnyVal
 
-final class LazyFu[A](run: () => Fu[A]):
-  lazy val value: Fu[A]             = run()
-  def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value.dmap(f))
-object LazyFu:
-  def sync[A](v: => A): LazyFu[A] = LazyFu(() => fuccess(v))
+  trait OpaqueInstant[A](using A =:= Instant) extends TotalWrapper[A, Instant]
 
-case class CircularDep[A](resolve: () => A)
+  trait Percent[A]:
+    def value(a: A): Double
+    def apply(a: Double): A
+  object Percent:
+    def of[A](w: TotalWrapper[A, Double]): Percent[A] = new:
+      def apply(a: Double): A = w(a)
+      def value(a: A): Double = w.value(a)
+    def toInt[A](a: A)(using p: Percent[A]): Int = Math.round(p.value(a)).toInt // round to closest
+
+  opaque type RichText = String
+  object RichText extends OpaqueString[RichText]
+
+  opaque type Markdown = String
+  object Markdown extends OpaqueString[Markdown]
+
+  opaque type Html = String
+  object Html extends OpaqueString[Html]:
+    def apply(frag: scalatags.Text.Frag): Html = frag.render
+
+  opaque type JsonStr = String
+  object JsonStr extends OpaqueString[JsonStr]
+
+  // JSON string that is safe to include in HTML
+  opaque type SafeJsonStr = String
+  object SafeJsonStr extends OpaqueString[SafeJsonStr]
+
+  case class Preload[A](value: Option[A]) extends AnyVal:
+    def orLoad(f: => Fu[A]): Fu[A] = value.fold(f)(Future.successful)
+  object Preload:
+    def apply[A](value: A): Preload[A] = Preload(value.some)
+    def none[A]                        = Preload[A](None)
+
+  final class LazyFu[A](run: () => Fu[A]):
+    lazy val value: Fu[A]             = run()
+    def dmap[B](f: A => B): LazyFu[B] = LazyFu(() => value.map(f)(using ExecutionContext.parasitic))
+  object LazyFu:
+    def sync[A](v: => A): LazyFu[A] = LazyFu(() => Future.successful(v))
+
+  case class CircularDep[A](resolve: () => A)

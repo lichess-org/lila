@@ -14,7 +14,8 @@ import lila.core.perf.PerfType
 import lila.core.round.StartClock
 import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
 import lila.user.User
-import lila.core.data.{ Days, Template }
+import lila.core.data.Template
+import scalalib.model.Days
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,

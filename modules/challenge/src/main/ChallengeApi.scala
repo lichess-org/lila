@@ -3,7 +3,7 @@ package lila.challenge
 import lila.common.Bus
 
 import lila.game.{ Game, Pov }
-import lila.core.actorApi.socket.SendTo
+import lila.core.socket.SendTo
 import lila.core.i18n.LangPicker
 import lila.memo.CacheApi.*
 import lila.user.{ LightUserApi, Me, User, UserPerfsRepo, UserRepo }

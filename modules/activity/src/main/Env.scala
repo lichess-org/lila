@@ -5,6 +5,7 @@ import com.softwaremill.tagging.*
 
 import lila.core.config.*
 import lila.core.round.CorresMoveEvent
+import lila.common.Bus
 
 @Module
 final class Env(
@@ -32,7 +33,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  lila.common.Bus.subscribeFuns(
+  Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, _) if !game.aborted => write.game(game)
     },
@@ -50,8 +51,7 @@ final class Env(
     }
   )
 
-  lila.common.Bus.subscribeFun(
-    "forumPost",
+  Bus.subscribeFun(
     "ublogPost",
     "finishPractice",
     "team",
@@ -63,7 +63,6 @@ final class Env(
     "streamStart",
     "swissFinish"
   ):
-    case lila.core.forum.CreatePost(post)                 => write.forumPost(post)
     case lila.core.ublog.UblogPost.Create(post)           => write.ublogPost(post)
     case prog: lila.core.practice.OnComplete              => write.practice(prog)
     case lila.core.simul.OnStart(simul)                   => write.simul(simul)
@@ -77,3 +76,6 @@ final class Env(
     case lila.core.team.JoinTeam(id, userId)                => write.team(id, userId)
     case lila.core.actorApi.streamer.StreamStart(userId, _) => write.streamStart(userId)
     case lila.core.swiss.SwissFinish(swissId, ranking)      => write.swiss(swissId, ranking)
+
+  Bus.chan.forumPost.subscribe:
+    case lila.core.forum.CreatePost(post) => write.forumPost(post)

@@ -8,7 +8,6 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.{ Me, User, UserRepo }
-import lila.core.EmailAddress
 import lila.core.net.IpAddress
 
 final class PlanApi(

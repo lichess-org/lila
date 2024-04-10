@@ -1,5 +1,7 @@
 package lila.core
 
+import lila.core.email.{ EmailAddress, NormalizedEmailAddress }
+
 class EmailTest extends munit.FunSuite:
 
   test("normalize gmail") {

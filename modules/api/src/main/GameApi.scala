@@ -3,6 +3,7 @@ package lila.api
 import chess.format.Fen
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
+import scalalib.Json.given
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.common.Json.given

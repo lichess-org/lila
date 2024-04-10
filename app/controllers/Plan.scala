@@ -7,7 +7,6 @@ import views.*
 import java.util.Currency
 
 import lila.app.{ *, given }
-import lila.core.EmailAddress
 import lila.plan.{
   CreateStripeSession,
   CustomerInfo,

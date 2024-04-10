@@ -7,10 +7,12 @@ import lila.common.Bus
 import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.core.actorApi.socket.{ SendTo, SendTos }
+import lila.core.socket.{ SendTo, SendTos }
 import lila.memo.CacheApi.*
 import lila.core.i18n.{ Translator, LangPicker }
 import lila.core.notify.{ NotificationPref as _, * }
+import lila.core.socket.SendToOnlineUser
+import lila.core.data.LazyFu
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
@@ -137,15 +139,17 @@ final class NotifyApi(
   private def bellOne(note: Notification): Funit =
     insertNotification(note).andDo(
       Bus.publish(
-        SendTo.onlineUser(
+        SendToOnlineUser(
           note.to,
-          "notifications",
-          () =>
+          LazyFu: () =>
             for
               notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
               langStr       <- userApi.langOf(note.to)
               lang = langPicker.byStrOrDefault(langStr)
-            yield jsonHandlers(notifications)(using summon[Translator].to(lang))
+            yield Json.obj(
+              "t" -> "notifications",
+              "d" -> jsonHandlers(notifications)(using summon[Translator].to(lang))
+            )
         ),
         "socketUsers"
       )

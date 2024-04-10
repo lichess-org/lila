@@ -124,7 +124,7 @@ final private class ForumTopicApi(
               )
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(CreatePost(post.mini), "forumPost")
+            Bus.chan.forumPost(CreatePost(post.mini))
             topic
       }
     }
@@ -160,7 +160,7 @@ final private class ForumTopicApi(
     _ <- postRepo.coll.insert.one(post)
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
     _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
-  yield Bus.publish(CreatePost(post.mini), "forumPost")
+  yield Bus.chan.forumPost(CreatePost(post.mini))
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ).flatMap { topics =>

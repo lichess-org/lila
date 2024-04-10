@@ -57,7 +57,7 @@ case class Appeal(
 object Appeal:
 
   opaque type Id = String
-  object Id extends OpaqueUserId[Id]
+  object Id extends lila.core.userId.OpaqueUserId[Id]
 
   given UserIdOf[Appeal] = _.id.userId
 

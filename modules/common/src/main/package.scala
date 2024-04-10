@@ -9,10 +9,3 @@ object extensions:
     Some(Tuple.fromProductTyped(p))
 
 export extensions.*
-
-object hotfix:
-  import scalalib.paginator.Paginator
-  def mapFutureList[A, B](pag: Paginator[A])(f: Seq[A] => Future[Seq[B]])(using
-      Executor
-  ): Future[Paginator[B]] =
-    f(pag.currentPageResults).map(pag.withCurrentPageResults)

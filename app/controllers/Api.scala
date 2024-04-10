@@ -12,6 +12,7 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.LightUser
 import lila.core.net.IpAddress
+import lila.core.chess.MultiPv
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
 

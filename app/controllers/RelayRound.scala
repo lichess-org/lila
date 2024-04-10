@@ -11,6 +11,7 @@ import scala.annotation.nowarn
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.core.id.RelayRoundId
 
 final class RelayRound(
     env: Env,

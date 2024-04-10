@@ -3,6 +3,7 @@ package lila.practice
 import play.api.ConfigLoader
 
 import lila.common.autoconfig.{ *, given }
+import lila.core.study.data.StudyName
 
 final class PracticeConfig(val sections: List[PracticeConfigSection]):
 

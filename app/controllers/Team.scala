@@ -60,8 +60,8 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         else
           for
             ids   <- env.teamSearch(text, page)
-            teams <- lila.common.hotfix.mapFutureList(ids)(env.team.teamRepo.byOrderedIds)
-            forMe <- lila.common.hotfix.mapFutureList(teams)(env.team.memberRepo.addMyLeadership)
+            teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
+            forMe <- teams.mapFutureList(env.team.memberRepo.addMyLeadership)
           yield html.team.list.search(text, forMe)
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for

@@ -1,7 +1,10 @@
 package lila.core
 package fishnet
 
-import chess.format.{ Uci, Fen }
+import _root_.chess.format.{ Uci, Fen }
+
+import lila.core.userId.UserId
+import lila.core.id.{ GameId, StudyId, StudyChapterId }
 
 val maxPlies = 300
 
@@ -12,7 +15,7 @@ case class StudyChapterRequest(
     studyId: StudyId,
     chapterId: StudyChapterId,
     initialFen: Option[Fen.Full],
-    variant: chess.variant.Variant,
+    variant: _root_.chess.variant.Variant,
     moves: List[Uci],
     userId: UserId,
     unlimited: Boolean

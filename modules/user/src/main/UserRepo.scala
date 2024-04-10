@@ -6,10 +6,11 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.core.net.ApiVersion
-import lila.core.{ EmailAddress, NormalizedEmailAddress }
+import lila.core.email.NormalizedEmailAddress
 import lila.core.LightUser
 import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
+import lila.core.userId.UserSearch
 
 final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 

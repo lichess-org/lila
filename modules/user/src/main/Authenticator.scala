@@ -3,9 +3,9 @@ package lila.user
 import com.roundeights.hasher.Implicits.*
 import reactivemongo.api.bson.*
 
-import lila.core.NormalizedEmailAddress
 import lila.db.dsl.{ *, given }
 import lila.user.User.{ BSONFields as F, ClearPassword, PasswordAndToken }
+import lila.core.email.NormalizedEmailAddress
 
 final class Authenticator(
     passHasher: PasswordHasher,

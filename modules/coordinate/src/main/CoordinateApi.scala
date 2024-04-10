@@ -4,7 +4,6 @@ import chess.{ ByColor, Color }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.core.user.MyId
 
 final class CoordinateApi(scoreColl: Coll)(using Executor):
 

@@ -8,6 +8,7 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.id.GameFullId
 
 import Forms.*
 

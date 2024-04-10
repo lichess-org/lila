@@ -22,7 +22,7 @@ import chess.{
   Status
 }
 
-import lila.core.data.Days
+import scalalib.model.Days
 import lila.db.ByteArray
 import lila.core.user.User
 import lila.core.game.{ GameRule, Source }

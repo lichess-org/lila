@@ -1,5 +1,7 @@
 package lila.coach
 
+import lila.core.data.RichText
+
 case class CoachProfile(
     headline: Option[String] = None,
     hourlyRate: Option[String] = None,

@@ -13,6 +13,7 @@ import lila.app.{ *, given }
 import lila.common.Json.given
 import lila.core.net.ApiVersion
 import lila.core.app.LangPath
+import lila.core.id.PuzzleId
 import lila.puzzle.{
   Puzzle as Puz,
   PuzzleAngle,

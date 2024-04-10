@@ -1,9 +1,10 @@
 package lila.coach
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.memo.PicfitImage
 
 case class Coach(
-    _id: Coach.Id, // user ID
+    @Key("_id") id: Coach.Id, // user ID
     listed: Coach.Listed,
     available: Coach.Available,
     profile: CoachProfile,
@@ -14,9 +15,6 @@ case class Coach(
     createdAt: Instant,
     updatedAt: Instant
 ):
-
-  inline def id = _id
-
   def hasPicture = picture.isDefined
 
   def daysOld = daysBetween(createdAt, nowInstant)
@@ -26,7 +24,7 @@ case class Coach(
 object Coach:
 
   opaque type Id = String
-  object Id extends OpaqueUserId[Id]
+  object Id extends lila.core.userId.OpaqueUserId[Id]
 
   given UserIdOf[Coach] = _.id.userId
 
@@ -34,7 +32,7 @@ object Coach:
 
   def make(user: lila.user.User.WithPerfs) =
     Coach(
-      _id = user.id.into(Id),
+      id = user.id.into(Id),
       listed = Listed(false),
       available = Available(true),
       profile = CoachProfile(),

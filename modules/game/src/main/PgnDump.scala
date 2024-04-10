@@ -53,7 +53,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
 
   def player(p: Player, u: Option[LightUser]): String | UserName =
     p.aiLevel.fold(
-      u.fold(p.nameSplit.map(_._1.value).orElse(p.name.map(_.value)) | lila.core.UserName.anonymous)(_.name)
+      u.fold(p.nameSplit.map(_._1.value).orElse(p.name.map(_.value)) | UserName.anonymous)(_.name)
     )("lichess AI level " + _)
 
   private val customStartPosition: Set[chess.variant.Variant] =

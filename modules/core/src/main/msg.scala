@@ -1,6 +1,8 @@
 package lila.core
 package msg
 
+import lila.core.userId.UserId
+
 enum PostResult:
   case Success, Invalid, Limited, Bounced
 

@@ -2,6 +2,8 @@ package lila.fishnet
 
 import scalalib.ThreadLocalRandom
 
+import lila.core.chess.Depth
+
 final private class Monitor(
     repo: FishnetRepo,
     cacheApi: lila.memo.CacheApi

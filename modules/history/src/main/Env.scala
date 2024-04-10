@@ -7,7 +7,7 @@ import lila.core.config.CollName
 import lila.core.perf.PerfType
 import lila.core.user.WithPerf
 import lila.core.perf.PerfKey
-import lila.core.data.Days
+import scalalib.model.Days
 
 @Module
 final class Env(

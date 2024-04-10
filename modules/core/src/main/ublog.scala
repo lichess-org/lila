@@ -1,6 +1,9 @@
 package lila.core
 package ublog
 
+import lila.core.id.UblogPostId
+import lila.core.userId.UserId
+
 trait UblogPost:
   val id: UblogPostId
   val created: UblogPost.Recorded

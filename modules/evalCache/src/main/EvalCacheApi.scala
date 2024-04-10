@@ -7,6 +7,7 @@ import play.api.libs.json.JsObject
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.tree.CloudEval
+import lila.core.chess.MultiPv
 
 final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.CacheApi)(using Executor):
 

@@ -2,12 +2,13 @@ package lila.mod
 
 import akka.actor.*
 import com.softwaremill.macwire.*
+import chess.ByColor
 
 import lila.core.config.*
 import lila.core.report.SuspectId
 import lila.user.{ Me, User }
 import lila.core.user.WithPerf
-import chess.ByColor
+import lila.common.Bus
 
 @Module
 final class Env(
@@ -69,7 +70,7 @@ final class Env(
 
   private lazy val sandbagWatch = wire[SandbagWatch]
 
-  lila.common.Bus.subscribeFuns(
+  Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
         users
@@ -97,7 +98,7 @@ final class Env(
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
       assessApi.onAnalysisReady(game, analysis)
     },
-    "deletePublicChats" -> { case lila.core.actorApi.security.DeletePublicChats(userId) =>
+    "deletePublicChats" -> { case lila.core.security.DeletePublicChats(userId) =>
       publicChat.deleteAll(userId)
     },
     "autoWarning" -> { case lila.core.mod.AutoWarning(userId, subject) =>
@@ -116,12 +117,13 @@ final class Env(
         logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
       case t: lila.core.team.KickFromTeam =>
         logApi.teamKick(t.userId, t.teamName)(using t.me)
-    },
-    "forumPost" -> { case p: lila.core.forum.RemovePost =>
+    }
+  )
+
+  Bus.chan.forumPost.subscribe:
+    case p: lila.core.forum.RemovePost =>
       if p.asAdmin
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
       else
         logger.info:
           s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
-    }
-  )

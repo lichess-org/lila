@@ -1,6 +1,9 @@
 package lila.core
 package playban
 
+import lila.core.id.TourId
+import lila.core.userId.UserId
+
 opaque type RageSit = Int
 object RageSit extends OpaqueInt[RageSit]:
   extension (a: RageSit) def counterView = a.value / 10

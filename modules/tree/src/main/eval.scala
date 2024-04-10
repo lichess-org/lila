@@ -103,7 +103,7 @@ object Knodes extends OpaqueInt[Knodes]:
 
 case class Pv(score: Score, moves: Moves)
 
-case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: Depth, by: UserId)
+case class CloudEval(pvs: NonEmptyList[Pv], knodes: Knodes, depth: lila.core.chess.Depth, by: UserId)
 
 object CloudEval:
   type GetSinglePvEval = (Variant, Fen.Full) => Fu[Option[CloudEval]]

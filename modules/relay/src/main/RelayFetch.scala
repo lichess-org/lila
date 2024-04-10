@@ -16,7 +16,7 @@ import lila.tree.Node.Comments
 
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import RelayFormat.CanProxy
-import lila.core.data.Seconds
+import scalalib.model.Seconds
 
 final private class RelayFetch(
     sync: RelaySync,

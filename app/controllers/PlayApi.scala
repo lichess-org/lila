@@ -7,6 +7,7 @@ import scala.util.chaining.*
 
 import lila.app.*
 import lila.game.Pov
+import lila.core.id.GameAnyId
 
 // both bot & board APIs
 final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):

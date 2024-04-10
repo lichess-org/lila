@@ -12,7 +12,6 @@ import lila.core.socket.{ makeMessage }
 import lila.common.Json.given
 
 import lila.core.user.FlairGet
-import lila.core.user.MyId
 
 object RoomSocket:
 
@@ -110,7 +109,7 @@ object RoomSocket:
       case class SetVersions(versions: Iterable[(String, SocketVersion)]) extends P.In
 
       val reader: P.In.Reader =
-        case P.RawMsg("room/alives", raw) => KeepAlives(P.In.commas(raw.args) map { RoomId(_) }).some
+        case P.RawMsg("room/alives", raw) => KeepAlives(RoomId.from(P.In.commas(raw.args))).some
         case P.RawMsg("chat/say", raw) =>
           raw.get(3) { case Array(roomId, userId, msg) =>
             ChatSay(RoomId(roomId), UserId(userId), msg).some
