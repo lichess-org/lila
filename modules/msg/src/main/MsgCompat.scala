@@ -3,6 +3,7 @@ package lila.msg
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.*
+import scalalib.Json.given
 
 import lila.common.Json.given
 import lila.core.LightUser

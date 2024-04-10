@@ -3,6 +3,7 @@ package lila.api
 import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import scalalib.Json.given
 
 import lila.common.Json.given
 import lila.core.LightUser

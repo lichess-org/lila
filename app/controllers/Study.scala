@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.Json.given
 import views.*
 
 import scala.util.chaining.*
@@ -155,9 +156,7 @@ final class Study(
     )
 
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
-    given Writes[StudyModel.WithChaptersAndLiked] = Writes[StudyModel.WithChaptersAndLiked]:
-      env.study.jsonView.pagerData
-    import lila.common.Json.paginatorWrite
+    given Writes[StudyModel.WithChaptersAndLiked] = Writes(env.study.jsonView.pagerData)
     Ok(Json.obj("paginator" -> pager))
 
   private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
