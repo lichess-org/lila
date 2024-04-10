@@ -4,7 +4,7 @@ package setup
 import _root_.chess.{ format, Clock }
 import _root_.chess.variant.Variant
 
-import lila.core.data.Days
+import scalalib.model.Days
 import lila.core.game.GameRule
 import lila.core.userId.UserId
 

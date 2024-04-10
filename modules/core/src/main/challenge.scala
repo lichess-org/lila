@@ -4,7 +4,7 @@ package challenge
 import _root_.chess.variant.Variant
 import _root_.chess.{ Color, Mode }
 
-import lila.core.data.Days
+import scalalib.model.Days
 import lila.core.userId.UserId
 import lila.core.rating.data.*
 

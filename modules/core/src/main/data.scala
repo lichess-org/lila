@@ -15,12 +15,6 @@ object data:
 
   case class Template(value: String) extends AnyVal
 
-  opaque type Days = Int
-  object Days extends OpaqueInt[Days]
-
-  opaque type Seconds = Int
-  object Seconds extends OpaqueInt[Seconds]
-
   trait OpaqueInstant[A](using A =:= Instant) extends TotalWrapper[A, Instant]
 
   trait Percent[A]:
@@ -31,9 +25,6 @@ object data:
       def apply(a: Double): A = w(a)
       def value(a: A): Double = w.value(a)
     def toInt[A](a: A)(using p: Percent[A]): Int = Math.round(p.value(a)).toInt // round to closest
-
-  opaque type CacheKey = String
-  object CacheKey extends OpaqueString[CacheKey]
 
   opaque type RichText = String
   object RichText extends OpaqueString[RichText]
