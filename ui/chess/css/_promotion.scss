@@ -3,8 +3,8 @@
   z-index: z('cg__promotion');
 
   position: absolute;
-  width: var(---cg-width, 100%);
-  height: var(---cg-height, 100%);
+  width: var(--cg-width, 100%); // TODO add hyphen once chessground is updated
+  height: var(--cg-height, 100%); // TODO add hyphen once chessground is updated
   @include inline-end(0);
 
   square {
