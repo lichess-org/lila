@@ -39,7 +39,10 @@ trait ResponseHeaders extends HeaderNames:
     "Cross-Origin-Embedder-Policy" -> "require-corp" // for Stockfish worker
   )
 
-  def embedderPolicy = ResponseHeaders.embedderPolicy
+  val credentiallessHeaders = List(
+    "Cross-Origin-Opener-Policy"   -> "same-origin",
+    "Cross-Origin-Embedder-Policy" -> "credentialless"
+  )
 
   val permissionsPolicyHeader =
     "Permissions-Policy" -> List(
@@ -56,9 +59,3 @@ trait ResponseHeaders extends HeaderNames:
   def asAttachmentStream(name: String)(res: Result) = noProxyBuffer(asAttachment(name)(res))
 
   def lastModified(date: Instant) = LAST_MODIFIED -> date.atZone(utcZone)
-
-object ResponseHeaders:
-  def embedderPolicy(policy: "credentialless" | "require-corp") = List(
-    "Cross-Origin-Opener-Policy"   -> "same-origin",
-    "Cross-Origin-Embedder-Policy" -> policy
-  )

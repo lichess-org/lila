@@ -21,8 +21,7 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
         handle(req).map: result =>
           monitoring(req, startTime):
             addContextualResponseHeaders(req):
-              addEmbedderPolicyHeaders(req):
-                result
+              result
       }
 
   private def monitoring(req: RequestHeader, startTime: Long)(result: Result) =
@@ -53,9 +52,3 @@ final class HttpFilter(env: Env)(using val mat: Materializer)(using Executor)
     if HTTPRequest.isApiOrApp(req)
     then result.withHeaders(headersForApiOrApp(using req)*)
     else result.withHeaders(permissionsPolicyHeader)
-
-  private def addEmbedderPolicyHeaders(req: RequestHeader)(result: Result) =
-    val actionName = HTTPRequest.actionName(req)
-    if actionName != "Plan.index" && actionName != "Plan.list" && HTTPRequest.supportsCoepCredentialless(req)
-    then result.withHeaders(embedderPolicy("credentialless")*)
-    else result

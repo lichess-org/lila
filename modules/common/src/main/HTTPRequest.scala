@@ -40,14 +40,10 @@ object HTTPRequest:
   def userAgent(req: RequestHeader): Option[UserAgent] = UserAgent.from:
     req.headers.get(HeaderNames.USER_AGENT)
 
-  val isChrome96Plus   = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
-  val isChrome113Plus  = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
-  val isFirefox119Plus = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
-  val isMobileBrowser  = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
-
-  def supportsCoepCredentialless(req: RequestHeader) =
-    isChrome96Plus(req) || (isFirefox119Plus(req) && !HTTPRequest.isMobileBrowser(req))
-
+  val isChrome96Plus                               = UaMatcher("""Chrome/(?:\d{3,}|9[6-9])""")
+  val isChrome113Plus                              = UaMatcher("""Chrome/(?:11[3-9]|1[2-9]\d)""")
+  val isFirefox119Plus                             = UaMatcher("""Firefox/(?:119|1[2-9]\d)""")
+  val isMobileBrowser                              = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
   def isLichessMobile(ua: UserAgent): Boolean      = ua.value.startsWith("Lichess Mobile/")
   def isLichessMobile(req: RequestHeader): Boolean = userAgent(req).exists(isLichessMobile)
   def isLichobile(req: RequestHeader)              = userAgent(req).exists(_.value.contains("Lichobile/"))
