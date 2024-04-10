@@ -21,9 +21,7 @@ object BSONHandlers:
     def reads(r: Reader) =
       val brush = r.str("b")
       r.getO[Square]("p")
-        .map { pos =>
-          Shape.Circle(brush, pos)
-        }
+        .map(pos => Shape.Circle(brush, pos))
         .getOrElse(Shape.Arrow(brush, r.get[Square]("o"), r.get[Square]("d")))
     def writes(w: Writer, t: Shape) =
       t match
@@ -140,6 +138,7 @@ object BSONHandlers:
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
       eval           = doc.getAsOpt[Score](F.score).map(_.eval)
       clock          = doc.getAsOpt[Centis](F.clock)
+      emt            = doc.getAsOpt[Centis](F.emt)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield Branch(
@@ -175,6 +174,7 @@ object BSONHandlers:
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
       eval           = doc.getAsOpt[Score](F.score).map(_.eval)
       clock          = doc.getAsOpt[Centis](F.clock)
+      emt            = doc.getAsOpt[Centis](F.emt)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield NewBranch(

@@ -14,12 +14,15 @@ private[study] object CommentParser:
   private val arrowsRemoveRegex    = """\[\%cal[\s\r\n]++((?:\w{5}[,\s]*+)++)\]""".r
   private val clockRegex           = """(?s)\[\%clk[\s\r\n]++([\d:\.]++)\]""".r.unanchored
   private val clockRemoveRegex     = """\[\%clk[\s\r\n]++[\d:\.]++\]""".r
+  private val emtRegex             = """(?s)\[\%emt[\s\r\n]++([\d:\.]++)\]""".r.unanchored
+  private val emtRemoveRegex       = """\[\%emt[\s\r\n]++[\d:\.]++\]""".r
   private val tcecClockRegex       = """(?s)tl=([\d:\.]++)""".r.unanchored
   private val tcecClockRemoveRegex = """tl=[\d:\.]++""".r
 
   case class ParsedComment(
       shapes: Shapes,
       clock: Option[Centis],
+      emt: Option[Centis],
       comment: String
   )
 
@@ -27,9 +30,11 @@ private[study] object CommentParser:
     parseShapes(comment.value) match
       case (shapes, c2) =>
         parseClock(c2) match
-          case (clock, c3) => ParsedComment(shapes, clock, c3)
+          case (clock, c3) =>
+            parseEmt(c3) match
+              case (emt, c4) => ParsedComment(shapes, clock, emt, c4)
 
-  private type ClockAndComment = (Option[Centis], String)
+  private type CentisAndComment = (Option[Centis], String)
 
   private def readCentis(hours: String, minutes: String, seconds: String): Option[Centis] =
     for
@@ -52,11 +57,16 @@ private[study] object CommentParser:
         readCentis(hours, minutes, seconds)
       case _ => none
 
-  private def parseClock(comment: String): ClockAndComment =
+  private def parseClock(comment: String): CentisAndComment =
     comment match
       case clockRegex(str)     => readCentis(str) -> clockRemoveRegex.replaceAllIn(comment, "").trim
       case tcecClockRegex(str) => readCentis(str) -> tcecClockRemoveRegex.replaceAllIn(comment, "").trim
       case _                   => None            -> comment
+
+  private def parseEmt(comment: String): CentisAndComment =
+    comment match
+      case emtRegex(str) => readCentis(str) -> emtRemoveRegex.replaceAllIn(comment, "").trim
+      case _             => None            -> comment
 
   private type ShapesAndComment = (Shapes, String)
 

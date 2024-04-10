@@ -31,7 +31,7 @@ object PgnImport:
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match
-          case (shapes, _, comments) =>
+          case (shapes, _, _, comments) =>
             val root = Root(
               ply = replay.setup.ply,
               fen = initialFen | game.variant.initialFen,
@@ -40,6 +40,7 @@ object PgnImport:
               comments = comments,
               glyphs = Glyphs.empty,
               clock = parsedPgn.tags.clockConfig.map(_.limit),
+              emt = none,
               crazyData = replay.setup.situation.board.crazyData,
               children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, _, annotator))
             )
@@ -88,19 +89,21 @@ object PgnImport:
   def parseComments(
       comments: List[ChessComment],
       annotator: Option[Comment.Author]
-  ): (Shapes, Option[Centis], Comments) =
-    comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) { case ((shapes, clock, comments), txt) =>
-      CommentParser(txt) match
-        case CommentParser.ParsedComment(s, c, str) =>
-          (
-            (shapes ++ s),
-            c.orElse(clock),
-            (str.trim match
-              case "" => comments
-              case com =>
-                comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
+  ): (Shapes, Option[Centis], Option[Centis], Comments) =
+    comments.foldLeft((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))) {
+      case ((shapes, clock, emt, comments), txt) =>
+        CommentParser(txt) match
+          case CommentParser.ParsedComment(s, c, e, str) =>
+            (
+              (shapes ++ s),
+              c.orElse(clock),
+              e.orElse(emt),
+              (str.trim match
+                case "" => comments
+                case com =>
+                  comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
+              )
             )
-          )
     }
 
   private def makeBranches(
@@ -128,7 +131,7 @@ object PgnImport:
             val uci    = moveOrDrop.toUci
             val sanStr = moveOrDrop.toSanStr
             parseComments(node.value.metas.comments, annotator) match
-              case (shapes, clock, comments) =>
+              case (shapes, clock, emt, comments) =>
                 Branch(
                   id = UciCharPair(uci),
                   ply = game.ply,
@@ -139,6 +142,7 @@ object PgnImport:
                   comments = comments,
                   glyphs = node.value.metas.glyphs,
                   clock = clock,
+                  emt = emt,
                   crazyData = game.situation.board.crazyData,
                   children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
                 ).some

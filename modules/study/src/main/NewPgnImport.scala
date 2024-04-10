@@ -33,7 +33,7 @@ object NewPgnImport:
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = PgnImport.findAnnotator(parsedPgn, contributors)
         PgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
-          case (shapes, _, comments) =>
+          case (shapes, _, _, comments) =>
             val root: NewRoot =
               NewRoot(
                 Metas(
@@ -49,7 +49,8 @@ object NewPgnImport:
                   glyphs = Glyphs.empty,
                   opening = None,
                   crazyData = replay.setup.situation.board.crazyData,
-                  clock = parsedPgn.tags.clockConfig.map(_.limit)
+                  clock = parsedPgn.tags.clockConfig.map(_.limit),
+                  emt = None
                 ),
                 parsedPgn.tree.flatMap(makeTree(replay.setup, _, annotator))
               )
@@ -100,7 +101,7 @@ object NewPgnImport:
         (
           game,
           PgnImport.parseComments(data.metas.comments, annotator) match
-            case (shapes, clock, comments) =>
+            case (shapes, clock, emt, comments) =>
               NewBranch(
                 id = id,
                 move = Uci.WithSan(uci, sanStr),
@@ -119,6 +120,7 @@ object NewPgnImport:
                   glyphs = data.metas.glyphs,
                   opening = None,
                   clock = clock,
+                  emt = emt,
                   crazyData = game.situation.board.crazyData
                 )
               ).some
