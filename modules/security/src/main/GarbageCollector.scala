@@ -116,6 +116,6 @@ final class GarbageCollector(
 
   private def doCollect(user: UserId): Unit =
     Bus.publish(
-      lila.core.actorApi.security.GarbageCollect(user),
+      lila.core.security.GarbageCollect(user),
       "garbageCollect"
     )

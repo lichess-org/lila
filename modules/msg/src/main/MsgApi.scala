@@ -153,7 +153,7 @@ final class MsgApi(
               _ <- threadWrite
             yield
               import MsgSecurity.*
-              import lila.core.actorApi.socket.SendTo
+              import lila.core.socket.SendTo
               import lila.core.socket.makeMessage
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)

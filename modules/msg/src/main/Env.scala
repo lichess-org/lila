@@ -5,7 +5,7 @@ import com.softwaremill.macwire.*
 import lila.common.Bus
 import lila.common.Json.given
 import lila.core.config.*
-import lila.core.actorApi.socket.remote.TellUserIn
+import lila.core.socket.remote.TellUserIn
 
 @Module
 final class Env(

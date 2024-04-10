@@ -112,7 +112,7 @@ final class Env(
   private val getFactors: () => Map[PerfType, RatingFactor] = ratingFactorsSetting.get
 
   Bus.subscribeFuns(
-    "accountClose" -> { case lila.core.actorApi.security.CloseAccount(userId) =>
+    "accountClose" -> { case lila.core.security.CloseAccount(userId) =>
       resignAllGamesOf(userId)
     },
     "gameStartId" -> { case Game.OnStart(gameId) =>

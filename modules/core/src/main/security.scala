@@ -5,6 +5,10 @@ import lila.core.user.{ User, UserEnabled }
 import lila.core.net.IpAddress
 import lila.core.userId.UserId
 
+case class GarbageCollect(userId: UserId)
+case class CloseAccount(userId: UserId)
+case class DeletePublicChats(userId: UserId)
+
 trait LilaCookie:
   import play.api.mvc.*
   def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(using

@@ -8,7 +8,6 @@ import java.util.Base64
 import java.util.concurrent.TimeUnit
 import scala.concurrent.{ ExecutionContext as EC }
 import scala.util.Try
-import scala.util.matching.Regex
 import scalalib.future.FutureAfter
 
 trait LilaLibraryExtensions extends CoreExports:

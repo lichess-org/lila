@@ -417,7 +417,7 @@ final class RelayApi(
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi.members(id.into(StudyId)).map {
       _.map(_.contributorIds).withFilter(_.nonEmpty).foreach { userIds =>
-        import lila.core.actorApi.socket.SendTos
+        import lila.core.socket.SendTos
         import lila.common.Json.given
         import lila.core.socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))

@@ -10,9 +10,6 @@ import scala.concurrent.ExecutionContext
 import lila.core.userId.*
 import lila.core.id.GameId
 
-// announce something to all clients
-case class Announce(msg: String, date: Instant, json: JsObject)
-
 package streamer:
   case class StreamStart(userId: UserId, streamerName: String)
   case class StreamersOnline(streamers: Iterable[(UserId, String)])
@@ -24,38 +21,10 @@ package map:
   case class TellAll(msg: Any)
   case class Exists(id: String, promise: Promise[Boolean])
 
-package socket:
-
-  case class SendTo(userId: UserId, message: JsObject)
-  case class SendToOnlineUser(userId: UserId, message: () => Fu[JsObject])
-  object SendTo:
-    def apply[A: Writes](userId: UserId, typ: String, data: A): SendTo =
-      SendTo(userId, Json.obj("t" -> typ, "d" -> data))
-    def onlineUser[A: Writes](userId: UserId, typ: String, data: () => Fu[A]): SendToOnlineUser =
-      SendToOnlineUser(
-        userId,
-        () => data().map(d => Json.obj("t" -> typ, "d" -> d))(using ExecutionContext.parasitic)
-      )
-  case class SendTos(userIds: Set[UserId], message: JsObject)
-  object SendTos:
-    def apply[A: Writes](userIds: Set[UserId], typ: String, data: A): SendTos =
-      SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
-  object remote:
-    case class TellSriIn(sri: String, user: Option[UserId], msg: JsObject)
-    case class TellSriOut(sri: String, payload: JsValue)
-    case class TellSrisOut(sris: Iterable[String], payload: JsValue)
-    case class TellUserIn(user: UserId, msg: JsObject)
-  case class ApiUserIsOnline(userId: UserId, isOnline: Boolean)
-
 package clas:
   case class AreKidsInSameClass(kid1: UserId, kid2: UserId, promise: Promise[Boolean])
   case class IsTeacherOf(teacher: UserId, student: UserId, promise: Promise[Boolean])
   case class ClasMatesAndTeachers(kid: UserId, promise: Promise[Set[UserId]])
-
-package security:
-  case class GarbageCollect(userId: UserId)
-  case class CloseAccount(userId: UserId)
-  case class DeletePublicChats(userId: UserId)
 
 package puzzle:
   case class StormRun(userId: UserId, score: Int)
