@@ -26,10 +26,14 @@ trait CtrlExtensions extends ControllerHelpers:
       result.withHeaders(LINK -> s"<${env.net.baseUrl}${url}>; rel=\"canonical\"")
     def withCanonical(url: Call): Result = withCanonical(url.url)
     def enforceCrossSiteIsolation(using req: RequestHeader): Result =
+      val coep =
+        if HTTPRequest.isChrome96Plus(req) ||
+          (HTTPRequest.isFirefox119Plus(req) && !HTTPRequest.isMobileBrowser(req))
+        then "credentialless"
+        else "require-corp"
       result.withHeaders(
-        ResponseHeaders.embedderPolicy(
-          if HTTPRequest.supportsCoepCredentialless(req) then "credentialless" else "require-corp"
-        )*
+        "Cross-Origin-Embedder-Policy" -> coep,
+        "Cross-Origin-Opener-Policy"   -> "same-origin"
       )
     def disableCoepCredentialless: Result =
       ResponseHeaders.disableCoepCredentialless(result)
