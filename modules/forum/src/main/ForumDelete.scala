@@ -44,4 +44,4 @@ final class ForumDelete(
     }
 
   private def publishDelete(p: ForumPost)(using Me) =
-    Bus.publish(RemovePost(p.id, p.userId, p.text, asAdmin = MasterGranter[Me](_.ModerateForum)), "forumPost")
+    Bus.chan.forumPost(RemovePost(p.id, p.userId, p.text, asAdmin = MasterGranter[Me](_.ModerateForum)))

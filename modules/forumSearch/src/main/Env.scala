@@ -37,7 +37,7 @@ final class Env(
 
   private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
 
-  lila.common.Bus.subscribeFun("forumPost"):
+  lila.common.Bus.chan.forumPost.subscribe:
     case CreatePost(post)        => api.store(post)
     case RemovePost(id, _, _, _) => client.deleteById(id.into(Id))
     case RemovePosts(ids)        => client.deleteByIds(Id.from[List, ForumPostId](ids))

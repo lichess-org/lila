@@ -68,7 +68,7 @@ final class ForumPostApi(
                 .timeline(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds))
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(CreatePost(post.mini), "forumPost")
+            Bus.chan.forumPost(CreatePost(post.mini))
             post
       }
     }
@@ -222,13 +222,13 @@ final class ForumPostApi(
       .one($id(post.id), post.erase)
       .void
       .andDo:
-        Bus.publish(ErasePost(post.id), "forumPost")
+        Bus.chan.forumPost(ErasePost(post.id))
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
       .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
       .map: ids =>
-        Bus.publish(ErasePosts(ids), "forumPost")
+        Bus.chan.forumPost(ErasePosts(ids))
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId).flatMapz { post =>
