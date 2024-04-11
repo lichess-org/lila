@@ -65,6 +65,7 @@ object config:
       assetBaseUrl: AssetBaseUrl,
       assetBaseUrlInternal: AssetBaseUrlInternal,
       minifiedAssets: Boolean,
+      externalManifest: Boolean,
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],

@@ -76,7 +76,7 @@ async function write() {
   await Promise.all([
     fs.promises.writeFile(path.join(env.jsDir, `manifest.${hash}.js`), clientManifest),
     fs.promises.writeFile(
-      path.join(env.confDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`),
+      path.join(env.jsDir, `manifest.${env.prod ? 'prod' : 'dev'}.json`),
       JSON.stringify(serverManifest, null, env.prod ? undefined : 2),
     ),
   ]);

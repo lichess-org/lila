@@ -1,30 +1,49 @@
 package lila.app
 
 import play.api.{ Environment, Mode }
+import play.api.libs.ws.StandaloneWSClient
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.json.{ JsObject, Json, JsValue, JsString }
 import java.nio.file.{ Files, Path, Paths }
 import java.time.Instant
 
+import lila.core.config.NetConfig
+
 case class SplitAsset(name: String, imports: List[String])
 case class AssetMaps(js: Map[String, SplitAsset], css: Map[String, String])
 
-final class AssetManifest(environment: Environment):
+final class AssetManifest(environment: Environment, net: NetConfig)(using ws: StandaloneWSClient)(using
+    Executor
+):
 
-  private val filename = s"manifest.${if environment.mode == Mode.Prod then "prod" else "dev"}.json"
-  private val pathname = environment.getFile(s"conf/$filename").toPath
   private var lastModified: Instant = Instant.MIN
   private var maps: AssetMaps       = AssetMaps(Map.empty, Map.empty)
+  private val defaultFilename       = s"manifest.${if net.minifiedAssets then "prod" else "dev"}.json"
   private val keyRe                 = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
 
   def js(key: String): Option[SplitAsset]    = maps.js.get(key)
   def css(key: String): Option[String]       = maps.css.get(key)
   def deps(keys: List[String]): List[String] = keys.flatMap { key => js(key).so(_.imports) }.distinct
+  def lastUpdate: Instant                    = lastModified
 
-  def update(): Unit =
-    val current = Files.getLastModifiedTime(pathname).toInstant
-    if current.isAfter(lastModified) then
-      lastModified = current
-      maps = readMaps(Files.newInputStream(pathname))
+  def update(manifestName: Option[String] = None): Unit =
+    val filename = manifestName.getOrElse(defaultFilename)
+    if environment.mode == Mode.Prod || net.externalManifest then
+      fetchManifestJson(filename).foreach:
+        case Some(manifestJson) =>
+          maps = readMaps(manifestJson)
+          lastModified = Instant.now
+        case _ => ()
+    else
+      val pathname = environment.getFile(s"public/compiled/$filename").toPath
+      val current  = Files.getLastModifiedTime(pathname).toInstant
+      if current.isAfter(lastModified) then
+        try
+          maps = readMaps(Json.parse(Files.newInputStream(pathname)))
+          lastModified = current
+        catch
+          case e: Throwable =>
+            lila.log("assetManifest").warn(s"Error reading $pathname", e)
 
   update()
 
@@ -45,8 +64,7 @@ final class AssetManifest(environment: Environment):
           importName :: closure(importName, jsMap, visited + name)
       case _ => Nil
 
-  private def readMaps(istream: java.io.InputStream) =
-    val manifest = Json.parse(istream)
+  private def readMaps(manifest: JsValue) =
     val js = (manifest \ "js")
       .as[JsObject]
       .value
@@ -70,3 +88,17 @@ final class AssetManifest(environment: Environment):
         }
         .toMap
     )
+
+  private def fetchManifestJson(filename: String) =
+    val resource = s"${net.assetBaseUrlInternal}/assets/compiled/$filename"
+    ws.url(resource)
+      .get()
+      .map:
+        case res if res.status == 200 => res.body[JsValue].some
+        case res =>
+          lila.log("assetManifest").warn(s"${res.status} fetching $resource")
+          none
+      .recoverWith:
+        case e: Exception =>
+          lila.log("assetManifest").warn(s"fetching $resource", e)
+          fuccess(none)

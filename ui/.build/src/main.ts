@@ -157,9 +157,6 @@ class Env {
   get themeGenDir(): string {
     return path.join(this.themeDir, 'gen');
   }
-  get confDir(): string {
-    return path.join(this.rootDir, 'conf');
-  }
   get cssDir(): string {
     return path.join(this.outDir, 'css');
   }
