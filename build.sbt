@@ -425,7 +425,7 @@ lazy val forumSearch = module("forumSearch",
 )
 
 lazy val team = module("team",
-  Seq(chat, user, room),
+  Seq(user, room),
   reactivemongo.bundle
 )
 

@@ -48,6 +48,7 @@ enum TimeoutScope:
   case Local, Global
 
 trait ChatApi:
+  def exists(chatId: ChatId): Fu[Boolean]
   def write(
       chatId: ChatId,
       userId: UserId,

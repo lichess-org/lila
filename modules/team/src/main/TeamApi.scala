@@ -7,7 +7,6 @@ import java.time.Period
 import scala.util.Try
 import scala.util.chaining.*
 
-import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.core.{ timeline as tl }
@@ -25,7 +24,7 @@ final class TeamApi(
     userApi: UserApi,
     cached: Cached,
     notifier: Notifier,
-    chatApi: ChatApi
+    chatApi: lila.core.chat.ChatApi
 )(using Executor)
     extends lila.core.team.TeamApi:
 

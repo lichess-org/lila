@@ -13,7 +13,7 @@ final class Env(
     userApi: lila.user.UserApi,
     notifyApi: lila.core.notify.NotifyApi,
     socketKit: lila.core.socket.SocketKit,
-    chatApi: lila.chat.ChatApi,
+    chat: lila.core.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     userJson: lila.user.JsonView,
