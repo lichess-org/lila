@@ -19,7 +19,7 @@ import lila.game.actorApi.{
   MoveGameEvent
 }
 import lila.game.{ Game, Pov }
-import lila.core.actorApi.map.Tell
+import lila.core.misc.map.Tell
 import lila.core.round.BotConnected
 import lila.core.round.QuietFlag
 

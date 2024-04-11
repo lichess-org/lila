@@ -10,6 +10,8 @@ import lila.core.userId.*
 
 abstract class NotificationContent(val key: String)
 
+case class NotifiedBatch(userIds: Iterable[UserId])
+
 case class IrwinDone(userId: UserId)   extends NotificationContent("irwinDone")
 case class KaladinDone(userId: UserId) extends NotificationContent("kaladinDone")
 case class InvitedToStudy(invitedBy: UserId, studyName: StudyName, studyId: StudyId)

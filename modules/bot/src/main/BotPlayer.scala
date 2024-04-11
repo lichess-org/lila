@@ -4,7 +4,7 @@ import chess.format.Uci
 
 import lila.common.Bus
 import lila.game.{ Game, GameRepo, Pov, Rematches }
-import lila.core.actorApi.map.Tell
+import lila.core.misc.map.Tell
 import lila.core.round.*
 import lila.user.Me
 import lila.core.shutup.PublicSource

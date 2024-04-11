@@ -42,7 +42,7 @@ final class RemoteSocket(
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate(_ -- userIds)
     case In.NotifiedBatch(userIds) =>
-      Bus.publish(lila.core.actorApi.notify.NotifiedBatch(userIds), "notify")
+      Bus.publish(lila.core.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
       lags.foreach: (userId, centis) =>
         userLag.put(userId, centis)
@@ -101,7 +101,7 @@ final class RemoteSocket(
       if value then onlineUserIds.getAndUpdate(_ + userId)
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
-    case lila.core.actorApi.streamer.StreamersOnline(streamers) =>
+    case lila.core.misc.streamer.StreamersOnline(streamers) =>
       send(Out.streamersOnline(streamers))
   }
 

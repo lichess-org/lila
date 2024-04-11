@@ -196,7 +196,7 @@ final class Challenge(
         api.activeByIdFor(id, me).flatMap {
           case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
           case None =>
-            import lila.core.actorApi.map.Tell
+            import lila.core.misc.map.Tell
             import lila.core.round.Abort
             import lila.core.round.AbortForce
             env.game.gameRepo

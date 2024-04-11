@@ -47,11 +47,11 @@ final class Env(
       progressApi.onFinishGame(game)
     },
     "clas" -> {
-      case lila.core.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
+      case lila.core.misc.clas.IsTeacherOf(teacher, student, promise) =>
         promise.completeWith(api.clas.isTeacherOf(teacher, student))
-      case lila.core.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
+      case lila.core.misc.clas.AreKidsInSameClass(kid1, kid2, promise) =>
         promise.completeWith(api.clas.areKidsInSameClass(kid1, kid2))
-      case lila.core.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
+      case lila.core.misc.clas.ClasMatesAndTeachers(kid, promise) =>
         promise.completeWith(matesCache.get(kid.id))
     }
   )

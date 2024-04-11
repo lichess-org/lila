@@ -603,7 +603,7 @@ final class SwissApi(
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
                   Bus.publish(
-                    lila.core.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag),
+                    lila.core.misc.map.TellMany(flagged.map(_.id.value), QuietFlag),
                     "roundSocket"
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))

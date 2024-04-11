@@ -2,7 +2,7 @@ package lila.msg
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
+import lila.core.misc.clas.{ AreKidsInSameClass, IsTeacherOf }
 import lila.core.team.IsLeaderOf
 import lila.memo.RateLimit
 import lila.core.perm.Granter

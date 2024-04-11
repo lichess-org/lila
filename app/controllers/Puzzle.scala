@@ -234,7 +234,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   private def setStreakResult(userId: UserId, score: Int) =
-    lila.common.Bus.publish(lila.core.actorApi.puzzle.StreakRun(userId, score), "streakRun")
+    lila.common.Bus.publish(lila.core.misc.puzzle.StreakRun(userId, score), "streakRun")
     env.user.perfsRepo.addStreakRun(userId, score)
 
   def apiStreak = Anon:

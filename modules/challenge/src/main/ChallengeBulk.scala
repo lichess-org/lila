@@ -9,7 +9,7 @@ import scala.util.chaining.*
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player }
-import lila.core.actorApi.map.TellMany
+import lila.core.misc.map.TellMany
 import lila.core.perf.PerfType
 import lila.core.round.StartClock
 import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }

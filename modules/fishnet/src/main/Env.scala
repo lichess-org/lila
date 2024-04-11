@@ -71,7 +71,7 @@ final class Env(
   )
 
   private lazy val socketExists: GameId => Fu[Boolean] = id =>
-    Bus.ask[Boolean]("roundSocket")(lila.core.actorApi.map.Exists(id.value, _))
+    Bus.ask[Boolean]("roundSocket")(lila.core.misc.map.Exists(id.value, _))
 
   lazy val api: FishnetApi = wire[FishnetApi]
 
