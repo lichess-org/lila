@@ -203,14 +203,7 @@ final class RelayRound(
         pinnedStreamer <- rt.tour.pinnedStreamer.so(env.streamer.api.find)
         streamer       <- embed.so(env.streamer.api.find)
         stream         <- streamer.soFu(env.streamer.liveStreamApi.of)
-        videoUrls = stream
-          .flatMap(_.stream)
-          .map(_.urls(netDomain))
-          .orElse(
-            lila.streamer.Stream
-              .Urls("https://player.twitch.tv/?channel=infrinjin&parent=schlawg.org", "")
-              .some
-          )
+        videoUrls          = stream.flatMap(_.stream).map(_.urls(netDomain))
         crossSiteIsolation = videoUrls.isEmpty
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
