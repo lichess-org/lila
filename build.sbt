@@ -83,7 +83,7 @@ lazy val coreI18n = module("coreI18n",
 )
 
 lazy val common = module("common",
-  Seq(core, coreI18n),
+  Seq(core),
   Seq(
     kamon.core, scaffeine, apacheText, chess.playJson
   ) ++ tests.bundle ++ reactivemongo.bundle ++ flexmark.bundle
@@ -100,7 +100,7 @@ lazy val memo = module("memo",
 )
 
 lazy val i18n = module("i18n",
-  Seq(common),
+  Seq(common, coreI18n),
   tests.bundle ++ Seq(scalatags)
 ).settings(
   Compile / resourceGenerators += Def.task {
@@ -114,8 +114,13 @@ lazy val i18n = module("i18n",
   }.taskValue
 )
 
+lazy val rating = module("rating",
+  Seq(db, coreI18n),
+  reactivemongo.bundle ++ tests.bundle ++ Seq(apacheMath)
+).dependsOn(common % "test->test")
+
 lazy val cms = module("cms",
-  Seq(memo),
+  Seq(memo, coreI18n),
   reactivemongo.bundle
 )
 
@@ -169,11 +174,6 @@ lazy val evaluation = module("evaluation",
   tests.bundle ++ reactivemongo.bundle
 )
 
-lazy val rating = module("rating",
-  Seq(db),
-  reactivemongo.bundle ++ tests.bundle ++ Seq(apacheMath)
-).dependsOn(common % "test->test")
-
 lazy val perfStat = module("perfStat",
   Seq(game, user),
   reactivemongo.bundle
@@ -205,7 +205,7 @@ lazy val timeline = module("timeline",
 )
 
 lazy val event = module("event",
-  Seq(memo),
+  Seq(memo, coreI18n),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
@@ -320,7 +320,7 @@ lazy val irwin = module("irwin",
 )
 
 lazy val oauth = module("oauth",
-  Seq(memo),
+  Seq(memo, coreI18n),
   reactivemongo.bundle
 )
 
@@ -390,7 +390,7 @@ lazy val irc = module("irc",
 )
 
 lazy val mailer = module("mailer",
-  Seq(memo),
+  Seq(memo, coreI18n),
   reactivemongo.bundle ++ Seq(scalatags, hasher, play.mailer)
 )
 
@@ -405,7 +405,7 @@ lazy val relation = module("relation",
 )
 
 lazy val pref = module("pref",
-  Seq(memo),
+  Seq(memo, coreI18n),
   reactivemongo.bundle
 )
 
@@ -460,7 +460,7 @@ lazy val explorer = module("explorer",
 )
 
 lazy val notifyModule = module("notify",
-  Seq(memo),
+  Seq(memo, coreI18n),
   reactivemongo.bundle
 )
 
