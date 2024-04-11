@@ -18,16 +18,6 @@ details.
 
 See the LICENSE file for a copy of the _GNU Affero General Public License_.
 
-## Additional permission under GNU AGPL version 3 section 7
-
-If you modify this Program, or any covered work, by linking or combining it
-with Highcharts (or a modified version of that library), containing parts
-covered by the terms of the _Creative Commons (CC) Attribution-NonCommercial_
-license, the licensors of this Program grant you additional permission to
-convey the resulting work. Corresponding Source for a non-source form of such a
-combination shall include the source code for the parts of Highcharts used as
-well as that of the covered work.
-
 ## Exceptions (free)
 
 <!-- prettier-ignore -->
