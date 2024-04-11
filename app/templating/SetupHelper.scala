@@ -305,9 +305,9 @@ trait SetupHelper:
 
   def translatedInsightShareChoices(using Translate) =
     List(
-      (Pref.InsightShare.NOBODY, trans.site.withNobody.txt()),
-      (Pref.InsightShare.FRIENDS, trans.site.withFriends.txt()),
-      (Pref.InsightShare.EVERYBODY, trans.site.withEverybody.txt())
+      (lila.core.pref.InsightShare.NOBODY, trans.site.withNobody.txt()),
+      (lila.core.pref.InsightShare.FRIENDS, trans.site.withFriends.txt()),
+      (lila.core.pref.InsightShare.EVERYBODY, trans.site.withEverybody.txt())
     )
 
   def translatedBoardResizeHandleChoices(using Translate) =

@@ -22,8 +22,15 @@ trait Pref:
 trait PrefApi:
   def followable(userId: UserId): Fu[Boolean]
   def getMessage(userId: UserId): Fu[Int]
+  def getInsightShare(userId: UserId): Future[Int]
+  def mentionableIds(userIds: Set[UserId]): Fu[Set[UserId]]
 
 object Message:
   val NEVER  = 1
   val FRIEND = 2
   val ALWAYS = 3
+
+object InsightShare:
+  val NOBODY    = 0
+  val FRIENDS   = 1
+  val EVERYBODY = 2

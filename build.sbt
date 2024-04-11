@@ -275,7 +275,7 @@ lazy val importer = module("importer",
 )
 
 lazy val insight = module("insight",
-  Seq(analyse, pref),
+  Seq(analyse),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
@@ -415,7 +415,7 @@ lazy val msg = module("msg",
 )
 
 lazy val forum = module("forum",
-  Seq(user, pref, pref),
+  Seq(user),
   reactivemongo.bundle
 )
 

@@ -217,9 +217,7 @@ object Pref:
   object ConfirmResign extends BooleanPref
 
   object InsightShare:
-    val NOBODY    = 0
-    val FRIENDS   = 1
-    val EVERYBODY = 2
+    import lila.core.pref.InsightShare.*
 
     val choices = Seq(
       NOBODY    -> "With nobody",
@@ -454,7 +452,7 @@ object Pref:
     studyInvite = StudyInvite.ALWAYS,
     submitMove = SubmitMove.CORRESPONDENCE,
     confirmResign = ConfirmResign.YES,
-    insightShare = InsightShare.FRIENDS,
+    insightShare = lila.core.pref.InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     voice = None,
     zen = Zen.NO,

@@ -6,7 +6,6 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.pref.PrefApi
 import lila.core.relation.RelationApi
 import lila.user.User
 import lila.core.forum.ForumPostMiniView
@@ -27,7 +26,7 @@ final class Env(
     shutupApi: lila.core.shutup.ShutupApi,
     notifyApi: lila.core.notify.NotifyApi,
     relationApi: RelationApi,
-    prefApi: PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     modLog: lila.core.mod.LogApi,
     userRepo: lila.user.UserRepo,
     cacheApi: lila.memo.CacheApi,

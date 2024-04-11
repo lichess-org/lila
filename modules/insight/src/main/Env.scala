@@ -11,7 +11,7 @@ final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env

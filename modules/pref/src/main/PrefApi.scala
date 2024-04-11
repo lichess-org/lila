@@ -71,7 +71,8 @@ final class PrefApi(
       .map: opponent =>
         myPov.fold(ByColor(myPref, opponent), ByColor(opponent, myPref))
 
-  def getMessage(userId: UserId): Future[Int] = get(userId, _.message)
+  def getMessage(userId: UserId): Future[Int]      = get(userId, _.message)
+  def getInsightShare(userId: UserId): Future[Int] = get(userId, _.insightShare)
 
   def followable(userId: UserId): Fu[Boolean] =
     coll.primitiveOne[Boolean]($id(userId), "follow").map(_ | Pref.default.follow)
@@ -115,7 +116,7 @@ final class PrefApi(
     _.copy(
       takeback = Pref.Takeback.NEVER,
       moretime = Pref.Moretime.NEVER,
-      insightShare = Pref.InsightShare.EVERYBODY
+      insightShare = lila.core.pref.InsightShare.EVERYBODY
     )
   )
 
