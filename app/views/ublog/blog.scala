@@ -64,7 +64,7 @@ object blog:
   private def tierForm(blog: UblogBlog) = postForm(action := routes.Ublog.setTier(blog.id.full)) {
     val form = lila.ublog.UblogForm.tier.fill(blog.tier)
     frag(
-      span(dataIcon := licon.Agent, cls := "text")("Set to:"),
+      span(dataIcon := Icon.Agent, cls := "text")("Set to:"),
       form3.select(form("tier"), lila.ublog.UblogRank.Tier.options)
     )
   }

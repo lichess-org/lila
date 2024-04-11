@@ -105,7 +105,7 @@ object timeline:
           trans.patron.xIsPatronForNbMonths
             .plural(months, userLink(userId), months)
         case BlogPost(id, slug, title) =>
-          a(cls := "text", dataIcon := licon.InkQuill, href := routes.Ublog.historicalBlogPost(id, slug)):
+          a(cls := "text", dataIcon := Icon.InkQuill, href := routes.Ublog.historicalBlogPost(id, slug)):
             title
         case UblogPostLike(userId, postId, postTitle) =>
           trans.site.xLikesY(
@@ -114,7 +114,7 @@ object timeline:
           )
         case StreamStart(id, name) =>
           views.html.streamer.bits
-            .redirectLink(id)(cls := "text", dataIcon := licon.Mic)(trans.site.xStartedStreaming(name))
+            .redirectLink(id)(cls := "text", dataIcon := Icon.Mic)(trans.site.xStartedStreaming(name))
       ,
       " ",
       momentFromNowWithPreload(e.date)

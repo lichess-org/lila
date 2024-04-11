@@ -27,28 +27,28 @@ object chatPanic:
             state
               .map { s =>
                 frag(
-                  goodTag(cls := "text", dataIcon := licon.Checkmark)(strong("ENABLED")),
+                  goodTag(cls := "text", dataIcon := Icon.Checkmark)(strong("ENABLED")),
                   ". Expires ",
                   momentFromNow(s)
                 )
               }
-              .getOrElse(badTag(cls := "text", dataIcon := licon.X)(strong("DISABLED")))
+              .getOrElse(badTag(cls := "text", dataIcon := Icon.X)(strong("DISABLED")))
           ),
           div(cls := "forms")(
             if state.isDefined then
               frag(
                 postForm(action := s"${routes.Mod.chatPanicPost}?v=0")(
-                  submitButton(cls := "button button-fat button-red text", dataIcon := licon.X)("Disable")
+                  submitButton(cls := "button button-fat button-red text", dataIcon := Icon.X)("Disable")
                 ),
                 postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
-                  submitButton(cls := "button button-fat button-green text", dataIcon := licon.Checkmark)(
+                  submitButton(cls := "button button-fat button-green text", dataIcon := Icon.Checkmark)(
                     "Renew for two hours"
                   )
                 )
               )
             else
               postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
-                submitButton(cls := "button button-fat text", dataIcon := licon.Checkmark)("Enable")
+                submitButton(cls := "button button-fat text", dataIcon := Icon.Checkmark)("Enable")
               )
           )
         )

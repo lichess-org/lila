@@ -18,7 +18,7 @@ object finishedList:
       td(cls := "date")(momentFromNow(t.startsAt)),
       td(cls := "players")(
         span(
-          iconTag(licon.Trophy)(cls := "text"),
+          iconTag(Icon.Trophy)(cls := "text"),
           userIdLink(t.winnerId, withOnline = false)
         ),
         span(trans.site.nbPlayers.plural(t.nbPlayers, t.nbPlayers.localize))

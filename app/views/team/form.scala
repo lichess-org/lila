@@ -60,7 +60,7 @@ object form:
             postForm(cls := "inline", action := teamRoutes.disable(t.id))(
               explainInput,
               submitButton(
-                dataIcon := licon.CautionCircle,
+                dataIcon := Icon.CautionCircle,
                 cls      := "submit button text explain button-empty button-red",
                 st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
               )(closeTeam())
@@ -70,7 +70,7 @@ object form:
             postForm(cls := "inline", action := teamRoutes.close(t.id))(
               explainInput,
               submitButton(
-                dataIcon := licon.Trash,
+                dataIcon := Icon.Trash,
                 cls      := "text button button-empty button-red explain",
                 st.title := "Deletes the team and its memberships. Cannot be reverted!"
               )(trans.site.delete())

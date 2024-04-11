@@ -21,7 +21,7 @@ object search:
         autocomplete   := "off",
         spellcheck     := "false"
       ),
-      submitButton(cls := "button", dataIcon := licon.Search)
+      submitButton(cls := "button", dataIcon := Icon.Search)
     )
 
   def resultsList(results: List[OpeningSearchResult]) =

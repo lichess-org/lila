@@ -65,7 +65,7 @@ object side:
             )
           }
         ),
-        ctx.pref.showRatings.option(iconTag(licon.PlayTriangle))
+        ctx.pref.showRatings.option(iconTag(Icon.PlayTriangle))
       )
 
     div(cls := "side sub-ratings")(
@@ -101,7 +101,7 @@ object side:
 
   private def showStorm(storm: lila.rating.Perf.Storm, user: User)(using Translate) =
     a(
-      dataIcon := licon.Storm,
+      dataIcon := Icon.Storm,
       cls := List(
         "empty" -> !storm.nonEmpty
       ),
@@ -118,12 +118,12 @@ object side:
           )
         )
       ),
-      iconTag(licon.PlayTriangle)
+      iconTag(Icon.PlayTriangle)
     )
 
   private def showRacer(racer: lila.rating.Perf.Racer)(using Translate) =
     a(
-      dataIcon := licon.FlagChessboard,
+      dataIcon := Icon.FlagChessboard,
       cls := List(
         "empty" -> !racer.nonEmpty
       ),
@@ -140,12 +140,12 @@ object side:
           )
         )
       ),
-      iconTag(licon.PlayTriangle)
+      iconTag(Icon.PlayTriangle)
     )
 
   private def showStreak(streak: lila.rating.Perf.Streak)(using Translate) =
     a(
-      dataIcon := licon.ArrowThruApple,
+      dataIcon := Icon.ArrowThruApple,
       cls := List(
         "empty" -> !streak.nonEmpty
       ),
@@ -162,5 +162,5 @@ object side:
           )
         )
       ),
-      iconTag(licon.PlayTriangle)
+      iconTag(Icon.PlayTriangle)
     )

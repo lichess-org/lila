@@ -101,7 +101,7 @@ object tournaments:
                 )
             )
           ),
-          td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)
+          td(cls := "text", dataIcon := Icon.User)(any.nbPlayers.localize)
         )
 
   private def renderStartsAt(any: TeamInfo.AnyTour)(using Translate): Frag =

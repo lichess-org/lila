@@ -109,12 +109,12 @@ object side:
         ),
         userTv.map: u =>
           st.section(cls := "game__tv"):
-            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := licon.AnalogTv)(u.titleUsername)
+            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := Icon.AnalogTv)(u.titleUsername)
         ,
         tour
           .map: t =>
             st.section(cls := "game__tournament")(
-              a(cls := "text", dataIcon := licon.Trophy, href := routes.Tournament.show(t.tour.id)):
+              a(cls := "text", dataIcon := Icon.Trophy, href := routes.Tournament.show(t.tour.id)):
                 t.tour.name()
               ,
               div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)

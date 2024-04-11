@@ -93,7 +93,7 @@ object discussion:
               cls  := "button button-empty mod-zone-toggle",
               href := routes.User.mod(appeal.id),
               titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := licon.Agent
+              dataIcon := Icon.Agent
             )
           )
         )
@@ -122,7 +122,7 @@ object discussion:
         as.left
           .exists(_.markedByMe)
           .option(
-            div(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
+            div(dataIcon := Icon.CautionTriangle, cls := "marked-by-me text")(
               "You have marked this user. Appeal should be handled by another moderator"
             )
           ),

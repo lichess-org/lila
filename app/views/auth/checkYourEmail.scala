@@ -19,7 +19,7 @@ object checkYourEmail:
       main(
         cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
       )(
-        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.site.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
         p(trans.site.weHaveSentYouAnEmailClickTheLink()),
         h2("Not receiving it?"),
         ol(

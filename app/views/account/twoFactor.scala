@@ -74,7 +74,7 @@ object twoFactor:
       div(cls := "twofactor box box-pad")(
         boxTop(
           h1(
-            i(cls := "is-green text", dataIcon := licon.Checkmark),
+            i(cls := "is-green text", dataIcon := Icon.Checkmark),
             twoFactorEnabled()
           )
         ),

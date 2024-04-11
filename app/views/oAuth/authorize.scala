@@ -61,7 +61,7 @@ object authorize:
               case None =>
                 submitButton(
                   cls      := s"$buttonClass disabled",
-                  dataIcon := isDanger.option(licon.CautionTriangle),
+                  dataIcon := isDanger.option(Icon.CautionTriangle),
                   disabled := true,
                   id       := "oauth-authorize",
                   title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"

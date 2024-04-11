@@ -166,6 +166,6 @@ object dashboard:
             trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
           )
         ),
-        iconTag(if results.canReplay then licon.PlayTriangle else licon.Checkmark)
+        iconTag(if results.canReplay then Icon.PlayTriangle else Icon.Checkmark)
       )
     )

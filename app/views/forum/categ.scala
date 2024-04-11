@@ -26,7 +26,7 @@ object categ:
     ):
       main(cls := "forum index box")(
         boxTop(
-          h1(dataIcon := licon.BubbleConvo, cls := "text")("Lichess Forum"),
+          h1(dataIcon := Icon.BubbleConvo, cls := "text")("Lichess Forum"),
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
@@ -51,7 +51,7 @@ object categ:
       a(
         href     := routes.ForumTopic.form(categ.slug),
         cls      := "button button-empty button-green text",
-        dataIcon := licon.Pencil
+        dataIcon := Icon.Pencil
       ):
         trans.site.createANewTopic()
     )
@@ -92,7 +92,7 @@ object categ:
           h1(
             a(
               href     := categ.team.fold(routes.ForumCateg.index)(teamRoutes.show(_)),
-              dataIcon := licon.LessThan,
+              dataIcon := Icon.LessThan,
               cls      := "text"
             ),
             categ.team.fold(frag(categ.name))(teamLink(_, true))

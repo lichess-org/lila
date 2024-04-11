@@ -54,7 +54,7 @@ object theirs:
                   (c.mode.rated && c.unlimited)
                     .option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
                   postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
-                    submitButton(cls := "text button button-fat", dataIcon := licon.PlayTriangle)(
+                    submitButton(cls := "text button button-fat", dataIcon := Icon.PlayTriangle)(
                       trans.site.joinTheGame()
                     )
                   )

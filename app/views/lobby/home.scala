@@ -145,7 +145,7 @@ object home:
             )
           ),
           a(href := "https://shop.spreadshirt.com/lichess-org")(
-            iconTag(licon.Tshirt),
+            iconTag(Icon.Tshirt),
             span(cls := "lobby__support__text")(
               strong("Swag Store"),
               span(trans.site.playChessInStyle())

@@ -117,8 +117,8 @@ object perfStat:
         progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if perf.progress > 0 then tag("green")(dataIcon := licon.ArrowUpRight)(perf.progress)
-          else if perf.progress < 0 then tag("red")(dataIcon := licon.ArrowDownRight)(-perf.progress)
+          if perf.progress > 0 then tag("green")(dataIcon := Icon.ArrowUpRight)(perf.progress)
+          else if perf.progress < 0 then tag("red")(dataIcon := Icon.ArrowDownRight)(-perf.progress)
           else "-"
         ),
         ". ",

@@ -16,7 +16,7 @@ object perf:
       cls := "tutor__perf box",
       boxTop(
         h1(
-          a(href := routes.Tutor.user(user.username), dataIcon := licon.LessThan, cls := "text"),
+          a(href := routes.Tutor.user(user.username), dataIcon := Icon.LessThan, cls := "text"),
           bits.otherUser(user),
           "Tutor: ",
           report.perf.trans

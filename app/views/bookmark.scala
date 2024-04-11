@@ -17,12 +17,12 @@ object bookmark:
         href  := routes.Game.bookmark(g.id),
         title := trans.site.bookmarkThisGame.txt()
       )(
-        iconTag(licon.Star)(cls        := "on is3"),
-        iconTag(licon.StarOutline)(cls := "off is3"),
+        iconTag(Icon.Star)(cls        := "on is3"),
+        iconTag(Icon.StarOutline)(cls := "off is3"),
         span(g.showBookmarks)
       )
     else if g.hasBookmarks then
       span(cls := "bookmark")(
-        span(dataIcon := licon.StarOutline, cls := "is3")(g.showBookmarks)
+        span(dataIcon := Icon.StarOutline, cls := "is3")(g.showBookmarks)
       )
     else emptyFrag

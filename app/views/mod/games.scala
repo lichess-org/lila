@@ -87,7 +87,7 @@ object games:
                 ),
                 thSortNumber("Opponent"),
                 thSortNumber("Speed"),
-                th(iconTag(licon.Trophy)),
+                th(iconTag(Icon.Trophy)),
                 thSortNumber("Moves"),
                 thSortNumber("Result"),
                 thSortNumber("ACPL", br, "(Avg ± SD)"),
@@ -123,14 +123,14 @@ object games:
                     td(dataSort := pov.game.tournamentId.so(_.value))(
                       pov.game.tournamentId.map { tourId =>
                         a(
-                          dataIcon := licon.Trophy,
+                          dataIcon := Icon.Trophy,
                           href     := routes.Tournament.show(tourId).url,
                           title    := tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId.map { swissId =>
                         a(
-                          dataIcon := licon.Trophy,
+                          dataIcon := Icon.Trophy,
                           href     := routes.Swiss.show(swissId).url,
                           title    := s"Swiss #${swissId}"
                         )

@@ -41,7 +41,7 @@ object reopen:
       title = trans.site.reopenYourAccount.txt()
     ):
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.site.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
         p(trans.site.sentEmailWithLink()),
         p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )

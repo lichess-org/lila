@@ -46,7 +46,7 @@ object mini:
           (myId.isnt(u.id) && u.enabled.yes).option(
             div(cls := "upt__actions btn-rack")(
               a(
-                dataIcon := licon.AnalogTv,
+                dataIcon := Icon.AnalogTv,
                 cls      := "btn-rack__btn",
                 title    := trans.site.watchGames.txt(),
                 href     := routes.User.tv(u.username)
@@ -54,13 +54,13 @@ object mini:
               (!blocked).option(
                 frag(
                   a(
-                    dataIcon := licon.BubbleSpeech,
+                    dataIcon := Icon.BubbleSpeech,
                     cls      := "btn-rack__btn",
                     title    := trans.site.chat.txt(),
                     href     := routes.Msg.convo(u.username)
                   ),
                   a(
-                    dataIcon := licon.Swords,
+                    dataIcon := Icon.Swords,
                     cls      := "btn-rack__btn",
                     title    := trans.challenge.challengeToPlay.txt(),
                     href     := s"${routes.Lobby.home}?user=${u.username}#friend"

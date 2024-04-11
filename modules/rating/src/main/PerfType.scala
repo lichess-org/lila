@@ -5,8 +5,8 @@ import chess.variant
 import chess.{ Centis, Speed }
 import lila.core.i18n.{ I18nKey, Translate }
 
-import lila.common.licon
-import lila.core.Icon
+import lila.common.Icon
+import lila.common.Icon
 import lila.core.perf.{ PerfId, PerfKey }
 
 enum PerfType(
@@ -250,6 +250,6 @@ object PerfType:
       .to(Map)
 
   def iconByVariant(variant: chess.variant.Variant): Icon =
-    byVariant(variant).fold(licon.CrownElite)(_.icon)
+    byVariant(variant).fold(Icon.CrownElite)(_.icon)
 
   val translated: Set[PerfType] = Set(Bullet, Blitz, Rapid, Classical, Correspondence, Puzzle)

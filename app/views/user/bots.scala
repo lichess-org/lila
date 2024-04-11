@@ -55,7 +55,7 @@ object bots:
             .map { bio => td(shorten(bio, 400)) }
         ),
         a(
-          dataIcon := licon.Swords,
+          dataIcon := Icon.Swords,
           cls      := List("bots__list__entry__play button button-empty text" -> true),
           st.title := trans.challenge.challengeToPlay.txt(),
           href     := s"${routes.Lobby.home}?user=${u.username}#friend"

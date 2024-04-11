@@ -23,7 +23,7 @@ object roundForm:
   def edit(rt: RelayRound.WithTour, form: Form[Data])(using PageContext) =
     layout(rt.fullName)(
       boxTop(
-        h1(dataIcon := licon.Pencil, cls := "text")(
+        h1(dataIcon := Icon.Pencil, cls := "text")(
           a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name),
           " • ",
           a(href := rt.path)(rt.round.name)
@@ -63,7 +63,7 @@ object roundForm:
       div(cls := "form-group")(
         bits.howToUse,
         (create && t.createdAt.isBefore(nowInstant.minusMinutes(1))).option:
-          p(dataIcon := licon.InfoCircle, cls := "text"):
+          p(dataIcon := Icon.InfoCircle, cls := "text"):
             theNewRoundHelp()
       ),
       form3.globalError(form),

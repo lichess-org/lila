@@ -5,7 +5,7 @@ import chess.PlayerTitle
 import controllers.routes
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.licon
+import lila.common.Icon
 import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.rating.{ Perf, UserPerfs }
@@ -13,7 +13,7 @@ import lila.rating.PerfType
 import lila.user.User
 import lila.core.perf.PerfKey
 import lila.app.mashup.*
-import lila.core.Icon
+import lila.common.Icon
 
 trait UserHelper extends HasEnv:
   self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
@@ -277,7 +277,7 @@ trait UserHelper extends HasEnv:
       )
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): Frag =
-    if filter == GameFilter.Search then frag(iconTag(licon.Search), br, trans.search.advancedSearch())
+    if filter == GameFilter.Search then frag(iconTag(Icon.Search), br, trans.search.advancedSearch())
     else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
   private def transLocalize(key: lila.core.i18n.I18nKey, number: Int)(using Translate) =
@@ -304,8 +304,8 @@ trait UserHelper extends HasEnv:
       s" Current ${p.perfType.trans} rating: ${p.perf.intRating}."
     s"$name played $nbGames games since $createdAt.$currentRating"
 
-  val patronIconChar = licon.Wings
-  val lineIconChar   = licon.Disc
+  val patronIconChar = Icon.Wings
+  val lineIconChar   = Icon.Disc
 
   val lineIcon: Frag = i(cls := "line")
   def patronIcon(using Translate): Frag =

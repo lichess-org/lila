@@ -8,7 +8,7 @@ import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
 
-import lila.core.Icon
+import lila.common.Icon
 
 // collection of lila attrs
 trait ScalatagsAttrs:

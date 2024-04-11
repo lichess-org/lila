@@ -16,7 +16,7 @@ object close:
       active = "close"
     ):
       div(cls := "box box-pad")(
-        boxTop(h1(cls := "text", dataIcon := licon.CautionCircle)(closeAccount())),
+        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)(closeAccount())),
         if managed then p(managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
@@ -28,7 +28,7 @@ object close:
                 a(href := routes.User.show(me.username))(changedMindDoNotCloseAccount()),
                 form3.submit(
                   closeAccount(),
-                  icon = licon.CautionCircle.some,
+                  icon = Icon.CautionCircle.some,
                   confirm = closingIsDefinitive.txt().some
                 )(cls := "button-red")
               )

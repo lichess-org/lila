@@ -1,10 +1,10 @@
 package lila.tournament
 
 import scalalib.HeapSort.topN
-import lila.common.licon
+import lila.common.Icon
 import lila.rating.Perf
 import lila.user.{ Me, User }
-import lila.core.Icon
+import lila.common.Icon
 import lila.core.LightUser
 
 case class Spotlight(

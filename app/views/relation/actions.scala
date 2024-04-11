@@ -23,7 +23,7 @@ object actions:
           titleOrText(trans.challenge.challengeToPlay.txt()),
           href     := s"${routes.Lobby.home}?user=${user.name}#friend",
           cls      := "btn-rack__btn",
-          dataIcon := licon.Swords
+          dataIcon := Icon.Swords
         )
       ),
       ctx.userId
@@ -36,7 +36,7 @@ object actions:
                     titleOrText(trans.site.composeMessage.txt()),
                     href     := routes.Msg.convo(user.name),
                     cls      := "btn-rack__btn",
-                    dataIcon := licon.BubbleSpeech
+                    dataIcon := Icon.BubbleSpeech
                   )
                 ),
                 (!blocked && !user.isPatron).option(
@@ -44,7 +44,7 @@ object actions:
                     titleOrText(trans.patron.giftPatronWingsShort.txt()),
                     href     := s"${routes.Plan.list}?dest=gift&giftUsername=${user.name}",
                     cls      := "btn-rack__btn",
-                    dataIcon := licon.Wings
+                    dataIcon := Icon.Wings
                   )
                 ),
                 relation match
@@ -55,19 +55,19 @@ object actions:
                           cls  := "btn-rack__btn relation-button",
                           href := routes.Relation.follow(user.name),
                           titleOrText(trans.site.follow.txt()),
-                          dataIcon := licon.ThumbsUp
+                          dataIcon := Icon.ThumbsUp
                         )
                       ),
                       a(
                         cls  := "btn-rack__btn relation-button",
                         href := routes.Relation.block(user.name),
                         titleOrText(trans.site.block.txt()),
-                        dataIcon := licon.NotAllowed
+                        dataIcon := Icon.NotAllowed
                       )
                     )
                   case Some(Relation.Follow) =>
                     a(
-                      dataIcon := licon.ThumbsUp,
+                      dataIcon := Icon.ThumbsUp,
                       cls      := "btn-rack__btn relation-button text hover-text",
                       href     := routes.Relation.unfollow(user.name),
                       titleOrText(trans.site.following.txt()),
@@ -75,7 +75,7 @@ object actions:
                     )
                   case Some(Relation.Block) =>
                     a(
-                      dataIcon := licon.NotAllowed,
+                      dataIcon := Icon.NotAllowed,
                       cls      := "btn-rack__btn relation-button text hover-text",
                       href     := routes.Relation.unblock(user.name),
                       titleOrText(trans.site.blocked.txt()),

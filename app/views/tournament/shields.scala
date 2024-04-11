@@ -52,7 +52,7 @@ object shields:
         div(cls := "page-menu__content box")(
           boxTop(
             h1(
-              a(href := routes.Tournament.shields, dataIcon := licon.LessThan, cls := "text"),
+              a(href := routes.Tournament.shields, dataIcon := Icon.LessThan, cls := "text"),
               frag(categ.name, " • ", trans.arena.tournamentShields())
             )
           ),

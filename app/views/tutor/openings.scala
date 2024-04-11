@@ -15,7 +15,7 @@ object openings:
         h1(
           a(
             href     := routes.Tutor.perf(user.username, report.perf.key),
-            dataIcon := licon.LessThan,
+            dataIcon := Icon.LessThan,
             cls      := "text"
           ),
           bits.otherUser(user),
@@ -54,7 +54,7 @@ object openings:
           }),
           a(
             cls      := "tutor__openings__color__explorer button button-no-upper text",
-            dataIcon := licon.Book,
+            dataIcon := Icon.Book,
             href     := s"${routes.UserAnalysis.index}?color=${color.name}#explorer/${user.username}"
           )("Personal explorer as ", color.name)
         )

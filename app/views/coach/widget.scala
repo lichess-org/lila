@@ -77,8 +77,8 @@ object widget:
                 th(availability()),
                 td:
                   if c.coach.available.yes
-                  then span(cls := "text", dataIcon := licon.Checkmark)(accepting())
-                  else span(cls := "text", dataIcon := licon.X)(notAccepting())
+                  then span(cls := "text", dataIcon := Icon.Checkmark)(accepting())
+                  else span(cls := "text", dataIcon := Icon.X)(notAccepting())
               )
             ),
             c.user.seenAt.map: seen =>

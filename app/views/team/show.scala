@@ -62,7 +62,7 @@ object show:
           data("socket-version") := v
       )(
         boxTop(
-          h1(cls := "text", dataIcon := licon.Group)(t.name, teamFlair(t.team)),
+          h1(cls := "text", dataIcon := Icon.Group)(t.name, teamFlair(t.team)),
           div:
             if t.disabled then span(cls := "staff")("CLOSED")
             else
@@ -84,7 +84,7 @@ object show:
                 ),
                 info.ledByMe.option(
                   a(
-                    dataIcon := licon.InfoCircle,
+                    dataIcon := Icon.InfoCircle,
                     href     := routes.Cms.lonePage("team-etiquette"),
                     cls      := "text"
                   )("Team Etiquette")
@@ -135,7 +135,7 @@ object show:
                   a(
                     href     := routes.Tournament.teamBattleForm(t.id),
                     cls      := "button button-empty text",
-                    dataIcon := licon.Trophy
+                    dataIcon := Icon.Trophy
                   ):
                     span(
                       strong(teamBattle()),
@@ -145,7 +145,7 @@ object show:
                   a(
                     href     := s"${routes.Tournament.form}?team=${t.id}",
                     cls      := "button button-empty text",
-                    dataIcon := licon.Trophy
+                    dataIcon := Icon.Trophy
                   ):
                     span(
                       strong(teamTournament()),
@@ -155,7 +155,7 @@ object show:
                   a(
                     href     := s"${routes.Swiss.form(t.id)}",
                     cls      := "button button-empty text",
-                    dataIcon := licon.Trophy
+                    dataIcon := Icon.Trophy
                   ):
                     span(
                       strong(trans.swiss.swissTournaments()),
@@ -168,7 +168,7 @@ object show:
                   a(
                     href     := teamRoutes.pmAll(t.id),
                     cls      := "button button-empty text",
-                    dataIcon := licon.Envelope
+                    dataIcon := Icon.Envelope
                   ):
                     span(
                       strong(messageAllMembers()),
@@ -180,7 +180,7 @@ object show:
                 a(
                   href     := teamRoutes.edit(t.id),
                   cls      := "button button-empty text",
-                  dataIcon := licon.Gear
+                  dataIcon := Icon.Gear
                 )(
                   trans.settings.settings()
                 )
@@ -189,21 +189,21 @@ object show:
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.leaders(t.id),
-                  dataIcon := licon.Group
+                  dataIcon := Icon.Group
                 )(teamLeaders())
               ),
               ((t.enabled && info.havePerm(_.Kick)) || canManage).option(
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.kick(t.id),
-                  dataIcon := licon.InternalArrow
+                  dataIcon := Icon.InternalArrow
                 )(kickSomeone())
               ),
               ((t.enabled && info.havePerm(_.Request)) || canManage).option(
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.declinedRequests(t.id),
-                  dataIcon := licon.Cancel
+                  dataIcon := Icon.Cancel
                 )(
                   declinedRequests()
                 )

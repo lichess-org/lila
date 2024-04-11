@@ -16,7 +16,7 @@ object bits:
     layout(s"${u.username} • ${trans.site.friends.txt()}")(
       boxTop(
         h1(
-          a(href := routes.User.show(u.username), dataIcon := licon.LessThan, cls := "text"),
+          a(href := routes.User.show(u.username), dataIcon := Icon.LessThan, cls := "text"),
           trans.site.friends()
         )
       ),
@@ -36,7 +36,7 @@ object bits:
     layout(s"${u.username} • ${trans.site.favoriteOpponents.txt()}")(
       boxTop:
         h1(
-          a(href := routes.User.show(u.username), dataIcon := licon.LessThan, cls := "text"),
+          a(href := routes.User.show(u.username), dataIcon := Icon.LessThan, cls := "text"),
           trans.site.favoriteOpponents(),
           " (",
           trans.site.nbGames.pluralSame(FavoriteOpponents.gameLimit),

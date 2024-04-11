@@ -33,7 +33,7 @@ object player:
         autocomplete   := "off",
         spellcheck     := "false"
       ),
-      submitButton(cls := "button", dataIcon := licon.Search)
+      submitButton(cls := "button", dataIcon := Icon.Search)
     )
 
   def playerList(
@@ -46,7 +46,7 @@ object player:
       thead:
         tr(
           th(title),
-          withFlag.option(th(iconTag(licon.FlagOutline))),
+          withFlag.option(th(iconTag(Icon.FlagOutline))),
           th("Classic"),
           th("Rapid"),
           th("Blitz"),

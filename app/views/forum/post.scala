@@ -40,7 +40,7 @@ object post:
                     momentFromNow(post.createdAt)
               ),
               (!post.erased && ctx.me.soUse(post.shouldShowEditForm)).option(
-                button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := licon.Pencil)(
+                button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := Icon.Pencil)(
                   "Edit"
                 )
               ),
@@ -51,7 +51,7 @@ object post:
                   postForm(action := routes.ForumPost.delete(post.id))(
                     submitButton(
                       cls      := "mod delete button button-empty confirm",
-                      dataIcon := licon.Trash,
+                      dataIcon := Icon.Trash,
                       title    := "Delete"
                     )
                   ).some
@@ -61,7 +61,7 @@ object post:
                       a(
                         cls      := "mod delete button button-empty",
                         href     := routes.ForumPost.delete(post.id),
-                        dataIcon := licon.Trash,
+                        dataIcon := Icon.Trash,
                         title    := "Delete"
                       )
                     else
@@ -76,7 +76,7 @@ object post:
                               reportRoutes.form.url,
                               Map("username" -> userId, "postUrl" -> postUrl, "reason" -> "comm")
                             ),
-                            dataIcon := licon.CautionTriangle
+                            dataIcon := Icon.CautionTriangle
                           )
                         )
                   ).some

@@ -44,7 +44,7 @@ object communication:
                 cls  := "button button-empty mod-zone-toggle",
                 href := routes.User.mod(u.username),
                 titleOrText("Mod zone (Hotkey: m)"),
-                dataIcon := licon.Agent
+                dataIcon := Icon.Agent
               ),
               isGranted(_.ViewPrivateComms)
                 .option {
@@ -214,4 +214,4 @@ object communication:
       )
 
   private def showSbMark(u: User) =
-    u.marks.troll.option(span(cls := "user_marks")(iconTag(licon.BubbleSpeech)))
+    u.marks.troll.option(span(cls := "user_marks")(iconTag(Icon.BubbleSpeech)))
