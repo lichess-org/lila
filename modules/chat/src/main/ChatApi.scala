@@ -27,7 +27,7 @@ final class ChatApi(
     extends lila.core.chat.ChatApi:
 
   import Chat.given
-  export userChat.{ write, volatile, timeout }
+  export userChat.{ write, volatile, timeout, system }
 
   def exists(id: ChatId) = coll.exists($id(id))
 

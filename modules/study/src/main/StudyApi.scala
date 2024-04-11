@@ -5,7 +5,6 @@ import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 
-import lila.chat.ChatApi
 import lila.common.Bus
 import lila.core.timeline.{ Propagate, StudyLike }
 import lila.core.perm.Granter
@@ -27,7 +26,7 @@ final class StudyApi(
     explorerGameHandler: ExplorerGame,
     topicApi: StudyTopicApi,
     lightUserApi: lila.user.LightUserApi,
-    chatApi: ChatApi,
+    chatApi: lila.core.chat.ChatApi,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi
 )(using Executor, akka.stream.Materializer)
@@ -153,7 +152,7 @@ final class StudyApi(
 
   def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
     study <- justCloneNoChecks(me, prev, update)
-    _ <- chatApi.userChat.system(study.id.into(ChatId), s"Cloned from lichess.org/study/${prev.id}", _.study)
+    _     <- chatApi.system(study.id.into(ChatId), s"Cloned from lichess.org/study/${prev.id}", _.study)
   yield study.some
 
   def justCloneNoChecks(
@@ -205,7 +204,7 @@ final class StudyApi(
     byId(studyId).foreach:
       _.foreach: study =>
         (study.canChat(userId)).so {
-          chatApi.userChat.write(
+          chatApi.write(
             study.id.into(ChatId),
             userId = userId,
             text = text,
