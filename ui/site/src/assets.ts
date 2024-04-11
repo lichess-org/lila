@@ -21,7 +21,7 @@ export const loadCss = (href: string): Promise<void> =>
     if (loadedCss.has(href)) return resolve();
     const el = document.createElement('link');
     el.rel = 'stylesheet';
-    el.href = url(href);
+    el.href = url(href, { noVersion: true });
     el.onload = () => {
       loadedCss.add(href);
       resolve();
@@ -31,13 +31,13 @@ export const loadCss = (href: string): Promise<void> =>
 
 export const loadCssPath = async (key: string): Promise<void> => {
   const hash = site.manifest.css[key];
-  await loadCss(`css/${key}${hash ? '.' + hash : ''}.css`);
+  await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`);
 };
 
 export const jsModule = (name: string) => {
   if (name.endsWith('.js')) name = name.slice(0, -3);
   const hash = site.manifest.js[name];
-  return `compiled/${name}${hash ? '.' + hash : ''}.js`;
+  return `compiled/${name}${hash ? `.${hash}` : ''}.js`;
 };
 
 const scriptCache = new Map<string, Promise<void>>();
