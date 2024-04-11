@@ -19,7 +19,7 @@ final class Env(
     isOnline: lila.core.socket.IsOnline,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi,
     socketKit: lila.core.socket.SocketKit,
     getLagRating: lila.core.socket.userLag.GetLagRating,

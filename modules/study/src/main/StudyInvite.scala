@@ -2,7 +2,6 @@ package lila.study
 
 import lila.db.dsl.{ *, given }
 import lila.core.notify.{ InvitedToStudy, NotifyApi }
-import lila.pref.Pref
 import lila.core.relation.Relation.{ Block, Follow }
 import lila.core.perm.Granter
 import lila.user.{ Me, User }
@@ -11,7 +10,7 @@ final private class StudyInvite(
     studyRepo: StudyRepo,
     userRepo: lila.user.UserRepo,
     notifyApi: NotifyApi,
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi
 )(using Executor):
 
@@ -48,13 +47,14 @@ final private class StudyInvite(
     _ <-
       if isPresent || Granter[Me](_.StudyAdmin) then funit
       else
-        prefApi.get(invited).map(_.studyInvite).flatMap {
-          case Pref.StudyInvite.ALWAYS => funit
-          case Pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
-          case Pref.StudyInvite.FRIEND =>
-            if relation.has(Follow) then funit
-            else fufail("This user only accept study invitations from friends")
-        }
+        prefApi
+          .getStudyInvite(invited.id)
+          .flatMap:
+            case lila.core.pref.StudyInvite.ALWAYS => funit
+            case lila.core.pref.StudyInvite.NEVER  => fufail("This user doesn't accept study invitations")
+            case lila.core.pref.StudyInvite.FRIEND =>
+              if relation.has(Follow) then funit
+              else fufail("This user only accept study invitations from friends")
     _ <- studyRepo.addMember(study, StudyMember.make(invited))
     shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =

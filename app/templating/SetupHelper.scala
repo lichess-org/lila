@@ -277,14 +277,14 @@ trait SetupHelper:
 
   def translatedChallengeChoices(using Translate) =
     List(
-      (Pref.Challenge.NEVER, trans.site.never.txt()),
+      (lila.core.pref.Challenge.NEVER, trans.site.never.txt()),
       (
-        Pref.Challenge.RATING,
+        lila.core.pref.Challenge.RATING,
         trans.site.ifRatingIsPlusMinusX.txt(lila.pref.Pref.Challenge.ratingThreshold)
       ),
-      (Pref.Challenge.FRIEND, trans.site.onlyFriends.txt()),
-      (Pref.Challenge.REGISTERED, trans.site.ifRegistered.txt()),
-      (Pref.Challenge.ALWAYS, trans.site.always.txt())
+      (lila.core.pref.Challenge.FRIEND, trans.site.onlyFriends.txt()),
+      (lila.core.pref.Challenge.REGISTERED, trans.site.ifRegistered.txt()),
+      (lila.core.pref.Challenge.ALWAYS, trans.site.always.txt())
     )
 
   def translatedMessageChoices(using Translate) =
@@ -298,9 +298,9 @@ trait SetupHelper:
   def translatedPalantirChoices(using Translate)    = privacyBaseChoices
   private def privacyBaseChoices(using Translate) =
     List(
-      (Pref.StudyInvite.NEVER, trans.site.never.txt()),
-      (Pref.StudyInvite.FRIEND, trans.site.onlyFriends.txt()),
-      (Pref.StudyInvite.ALWAYS, trans.site.always.txt())
+      (lila.core.pref.StudyInvite.NEVER, trans.site.never.txt()),
+      (lila.core.pref.StudyInvite.FRIEND, trans.site.onlyFriends.txt()),
+      (lila.core.pref.StudyInvite.ALWAYS, trans.site.always.txt())
     )
 
   def translatedInsightShareChoices(using Translate) =

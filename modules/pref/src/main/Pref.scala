@@ -343,11 +343,7 @@ object Pref:
     )
 
   object Challenge:
-    val NEVER      = 1
-    val RATING     = 2
-    val FRIEND     = 3
-    val REGISTERED = 4
-    val ALWAYS     = 5
+    import lila.core.pref.Challenge.*
 
     val ratingThreshold = 300
 
@@ -369,9 +365,7 @@ object Pref:
     )
 
   object StudyInvite:
-    val NEVER  = 1
-    val FRIEND = 2
-    val ALWAYS = 3
+    import lila.core.pref.StudyInvite.*
 
     val choices = Seq(
       NEVER  -> "Never",
@@ -447,9 +441,9 @@ object Pref:
     coords = Coords.INSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
-    challenge = Challenge.REGISTERED,
+    challenge = lila.core.pref.Challenge.REGISTERED,
     message = lila.core.pref.Message.ALWAYS,
-    studyInvite = StudyInvite.ALWAYS,
+    studyInvite = lila.core.pref.StudyInvite.ALWAYS,
     submitMove = SubmitMove.CORRESPONDENCE,
     confirmResign = ConfirmResign.YES,
     insightShare = lila.core.pref.InsightShare.FRIENDS,

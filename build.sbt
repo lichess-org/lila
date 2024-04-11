@@ -335,7 +335,7 @@ lazy val shutup = module("shutup",
 )
 
 lazy val challenge = module("challenge",
-  Seq(user, pref, game, room, oauth),
+  Seq(user, game, room, oauth),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
@@ -345,7 +345,7 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(importer, analyse, room, pref, user),
+  Seq(importer, analyse, room, user),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 
@@ -410,7 +410,7 @@ lazy val pref = module("pref",
 )
 
 lazy val msg = module("msg",
-  Seq(user, pref),
+  Seq(user),
   reactivemongo.bundle
 )
 
