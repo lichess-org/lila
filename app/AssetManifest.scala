@@ -27,17 +27,13 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   def lastUpdate: Instant                    = lastModified
 
   def update(filename: String = defaultFilename): Unit =
-    "AssetManifest.update".pp
-    if (environment.mode == Mode.Prod).pp("isProd") || net.externalManifest.pp("externalManifest") then
-      "right branch".pp
+    if environment.mode == Mode.Prod || net.externalManifest then
       fetchManifestJson(filename).foreach:
         case Some(manifestJson) =>
           maps = readMaps(manifestJson)
-          maps.pp("maps")
           lastModified = Instant.now
         case _ => ()
     else
-      "wrong branch".pp
       val pathname = environment.getFile(s"public/compiled/$filename").toPath
       try
         val current = Files.getLastModifiedTime(pathname).toInstant
@@ -94,7 +90,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
 
   private def fetchManifestJson(filename: String) =
     val resource = s"${net.assetBaseUrlInternal}/assets/compiled/$filename"
-    ws.url(resource.pp("fetching"))
+    ws.url(resource)
       .get()
       .map:
         case res if res.status == 200 => res.body[JsValue].some
