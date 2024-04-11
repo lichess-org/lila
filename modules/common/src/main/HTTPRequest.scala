@@ -52,9 +52,6 @@ object HTTPRequest:
   def isAndroid                     = UaMatcher("Android")
   def isLitools(req: RequestHeader) = userAgent(req).has(UserAgent("litools"))
 
-  def supportsCoepCredentialless(req: RequestHeader) =
-    isChrome96Plus(req) || (isFirefox119Plus(req) && !isMobileBrowser(req))
-
   def origin(req: RequestHeader): Option[String]  = req.headers.get(HeaderNames.ORIGIN)
   def referer(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.REFERER)
 

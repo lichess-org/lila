@@ -62,10 +62,18 @@ trait ResponseHeaders extends HeaderNames:
 
   object embedderPolicy:
 
-    def isSet(result: Result) = result.header.headers.contains(embedderPolicyHeader).pp("is set")
+    def isSet(result: Result) = result.header.headers.contains(embedderPolicyHeader)
+
+    def forReq(req: RequestHeader) =
+      if supportsCoepCredentialless(req) then credentialless else requireCorp
+
+    def supportsCoepCredentialless(req: RequestHeader) =
+      import HTTPRequest.*
+      isChrome96Plus(req) || (isFirefox119Plus(req) && !isMobileBrowser(req))
 
     def default        = headers("unsafe-none")
     def credentialless = headers("credentialless")
+    def requireCorp    = headers("require-corp")
 
     private val openerPolicyHeader   = "Cross-Origin-Opener-Policy"
     private val embedderPolicyHeader = "Cross-Origin-Embedder-Policy"
