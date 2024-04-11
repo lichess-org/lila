@@ -24,7 +24,7 @@ object homepageSpotlight:
               .getOrElse {
                 spot.iconFont.fold[Frag](iconTag(Icon.Trophy)(cls := "img")) {
                   case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
-                  case i           => iconTag(i)(cls := "img")
+                  case i          => iconTag(i)(cls := "img")
                 }
               },
             span(cls := "content")(

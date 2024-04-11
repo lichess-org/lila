@@ -63,19 +63,19 @@ final class Env(
     "streamStart",
     "swissFinish"
   ):
-    case lila.core.ublog.UblogPost.Create(post)           => write.ublogPost(post)
-    case prog: lila.core.practice.OnComplete              => write.practice(prog)
-    case lila.core.simul.OnStart(simul)                   => write.simul(simul)
-    case CorresMoveEvent(move, Some(userId), _, _, _)     => write.corresMove(move.gameId, userId)
+    case lila.core.ublog.UblogPost.Create(post)       => write.ublogPost(post)
+    case prog: lila.core.practice.OnComplete          => write.practice(prog)
+    case lila.core.simul.OnStart(simul)               => write.simul(simul)
+    case CorresMoveEvent(move, Some(userId), _, _, _) => write.corresMove(move.gameId, userId)
     case lila.core.misc.plan.MonthInc(userId, months) => write.plan(userId, months)
-    case lila.core.relation.Follow(from, to)              => write.follow(from, to)
-    case lila.core.study.StartStudy(id)                   =>
+    case lila.core.relation.Follow(from, to)          => write.follow(from, to)
+    case lila.core.study.StartStudy(id)               =>
       // wait some time in case the study turns private
       scheduler.scheduleOnce(5 minutes) { write.study(id) }
-    case lila.core.team.TeamCreate(t)                       => write.team(t.id, t.userId)
-    case lila.core.team.JoinTeam(id, userId)                => write.team(id, userId)
+    case lila.core.team.TeamCreate(t)                   => write.team(t.id, t.userId)
+    case lila.core.team.JoinTeam(id, userId)            => write.team(id, userId)
     case lila.core.misc.streamer.StreamStart(userId, _) => write.streamStart(userId)
-    case lila.core.swiss.SwissFinish(swissId, ranking)      => write.swiss(swissId, ranking)
+    case lila.core.swiss.SwissFinish(swissId, ranking)  => write.swiss(swissId, ranking)
 
   Bus.chan.forumPost.subscribe:
     case lila.core.forum.CreatePost(post) => write.forumPost(post)

@@ -45,8 +45,7 @@ final class Env(
     "planExpire" -> { case lila.core.misc.plan.PlanExpire(userId) =>
       automaticEmail.onPatronStop(userId)
     },
-    "dailyCorrespondenceNotif" -> {
-      case lila.core.misc.mailer.CorrespondenceOpponents(userId, opponents) =>
-        automaticEmail.dailyCorrespondenceNotice(userId, opponents)
+    "dailyCorrespondenceNotif" -> { case lila.core.misc.mailer.CorrespondenceOpponents(userId, opponents) =>
+      automaticEmail.dailyCorrespondenceNotice(userId, opponents)
     }
   )
