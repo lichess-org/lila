@@ -123,9 +123,6 @@ final class ChatApi(
       val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
       publishLine(chatId, line, busChan)
 
-    def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
-      (if isVolatile then volatile else system) (chatId, text, busChan)
-
     def timeout(
         chatId: ChatId,
         userId: UserId,

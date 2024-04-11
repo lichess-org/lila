@@ -36,7 +36,7 @@ final class SwissApi(
     banApi: SwissBanApi,
     boardApi: SwissBoardApi,
     verify: SwissCondition.Verify,
-    chatApi: lila.chat.ChatApi,
+    chatApi: lila.core.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
     roundApi: lila.game.core.RoundApi
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
@@ -613,7 +613,9 @@ final class SwissApi(
         }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
-    chatApi.userChat.service(id.into(ChatId), text, _.swiss, isVolatile = volatile)
+    if volatile
+    then chatApi.volatile(id.into(ChatId), text, _.swiss)
+    else chatApi.system(id.into(ChatId), text, _.swiss)
 
   def withdrawAll(user: User, teamIds: List[TeamId]): Funit =
     mongo.swiss
