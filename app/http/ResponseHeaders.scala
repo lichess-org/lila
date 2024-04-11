@@ -59,3 +59,18 @@ trait ResponseHeaders extends HeaderNames:
   def asAttachmentStream(name: String)(res: Result) = noProxyBuffer(asAttachment(name)(res))
 
   def lastModified(date: Instant) = LAST_MODIFIED -> date.atZone(utcZone)
+
+  object embedderPolicy:
+
+    def isSet(result: Result) = result.header.headers.contains(embedderPolicyHeader).pp("is set")
+
+    def default        = headers("unsafe-none")
+    def credentialless = headers("credentialless")
+
+    private val openerPolicyHeader   = "Cross-Origin-Opener-Policy"
+    private val embedderPolicyHeader = "Cross-Origin-Embedder-Policy"
+
+    private def headers(policy: "credentialless" | "require-corp" | "unsafe-none") = List(
+      openerPolicyHeader   -> "same-origin",
+      embedderPolicyHeader -> policy
+    )
