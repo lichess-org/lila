@@ -26,8 +26,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   def deps(keys: List[String]): List[String] = keys.flatMap { key => js(key).so(_.imports) }.distinct
   def lastUpdate: Instant                    = lastModified
 
-  def update(manifestName: Option[String] = None): Unit =
-    val filename = manifestName.getOrElse(defaultFilename)
+  def update(filename: String = defaultFilename): Unit =
     if environment.mode == Mode.Prod || net.externalManifest then
       fetchManifestJson(filename).foreach:
         case Some(manifestJson) =>
@@ -36,14 +35,14 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         case _ => ()
     else
       val pathname = environment.getFile(s"public/compiled/$filename").toPath
-      val current  = Files.getLastModifiedTime(pathname).toInstant
-      if current.isAfter(lastModified) then
-        try
+      try
+        val current = Files.getLastModifiedTime(pathname).toInstant
+        if current.isAfter(lastModified) then
           maps = readMaps(Json.parse(Files.newInputStream(pathname)))
           lastModified = current
-        catch
-          case e: Throwable =>
-            lila.log("assetManifest").warn(s"Error reading $pathname", e)
+      catch
+        case _: Throwable =>
+          lila.log("assetManifest").warn(s"Error reading $pathname")
 
   update()
 
