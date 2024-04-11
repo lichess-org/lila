@@ -5,7 +5,8 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.core.timeline.*
-import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.perf.PerfKey
+import lila.common.perf.PerfType
 
 object timeline:
 

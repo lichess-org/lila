@@ -3,7 +3,8 @@ package lila.perfStat
 import lila.rating.{ Perf, UserRankMap }
 import lila.core.perm.Granter
 import lila.user.{ LightUserApi, Me, RankingApi, RankingsOf, User, UserApi }
-import lila.core.perf.{ PerfType, PerfKey }
+import lila.core.perf.PerfKey
+import lila.common.perf.PerfType
 
 case class PerfStatData(
     user: User.WithPerfs,
@@ -23,7 +24,7 @@ final class PerfStatApi(
     rankingApi: RankingApi,
     lightUserApi: LightUserApi
 )(using Executor)
-    extends lila.core.perfStat.PerfStatApi:
+    extends lila.core.perf.PerfStatApi:
 
   def data(name: UserStr, perfKey: PerfKey)(using me: Option[Me]): Fu[Option[PerfStatData]] =
     PerfType(perfKey).so: perfType =>
@@ -31,7 +32,7 @@ final class PerfStatApi(
         _.filter: u =>
           (u.enabled.yes && (!u.lame || me.exists(_.is(u)))) || me.soUse(Granter[Me](_.UserModView))
         .filter: u =>
-          !u.isBot || (perfType =!= lila.core.perf.PerfType.UltraBullet)
+          !u.isBot || (perfType =!= lila.common.perf.PerfType.UltraBullet)
         .soFu: u =>
           for
             oldPerfStat <- get(u.user.id, perfType)
@@ -57,5 +58,6 @@ final class PerfStatApi(
   def get(user: UserId, perfType: PerfType): Fu[PerfStat] =
     storage.find(user, perfType).getOrElse(indexer.userPerf(user, perfType))
 
-  def highestRating(user: UserId, perfType: PerfType): Fu[Option[IntRating]] =
-    get(user, perfType).map(_.highest.map(_.int))
+  def highestRating(user: UserId, perfKey: PerfKey): Fu[Option[IntRating]] =
+    PerfType(perfKey).so: perfType =>
+      get(user, perfType).map(_.highest.map(_.int))

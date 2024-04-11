@@ -8,8 +8,8 @@ import scala.util.chaining.*
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-
-import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.perf.PerfKey
+import lila.common.perf.PerfType
 import lila.core.id.GameAnyId
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):

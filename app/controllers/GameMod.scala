@@ -11,7 +11,8 @@ import lila.common.Form.{ stringIn, given }
 import lila.core.config
 import lila.db.dsl.{ *, given }
 import lila.rating.Perf
-import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.perf.PerfKey
+import lila.common.perf.PerfType
 
 final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 

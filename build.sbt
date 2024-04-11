@@ -77,8 +77,13 @@ lazy val core = module("core",
   Seq(galimatias, scalatags) ++ scalalib.bundle ++ reactivemongo.bundle ++ tests.bundle
 )
 
+lazy val coreI18n = module("coreI18n",
+  Seq(),
+  Seq(scalatags) ++ scalalib.bundle
+)
+
 lazy val common = module("common",
-  Seq(core),
+  Seq(core, coreI18n),
   Seq(
     kamon.core, scaffeine, apacheText, chess.playJson
   ) ++ tests.bundle ++ reactivemongo.bundle ++ flexmark.bundle

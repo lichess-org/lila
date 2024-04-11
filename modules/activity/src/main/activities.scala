@@ -2,7 +2,7 @@ package lila.activity
 
 import alleycats.Zero
 
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 import lila.core.rating.Score
 import lila.activity.Score.plus
 import lila.core.chess.Rank

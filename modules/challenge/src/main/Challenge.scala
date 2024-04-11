@@ -12,7 +12,7 @@ import lila.game.Game
 import lila.core.i18n.I18nKey
 import lila.core.{ challenge as hub }
 import lila.core.game.GameRule
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 import lila.user.{ GameUser, Me, User }
 
 case class Challenge(

@@ -13,7 +13,8 @@ import lila.rating.{ Glicko, Perf, UserPerfs }
 import lila.user.User.userHandler
 import lila.core.lilaism.LilaInvalid
 import lila.core.user.WithEmails
-import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.perf.PerfKey
+import lila.common.perf.PerfType
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,

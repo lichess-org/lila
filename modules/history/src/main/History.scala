@@ -2,7 +2,7 @@ package lila.history
 
 import scala.util.Success
 
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 
 case class History(
     standard: RatingsMap,

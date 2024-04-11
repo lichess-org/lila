@@ -7,7 +7,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.perfStat.{ PerfStat, PerfStatData }
 import lila.rating.Perf
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 import lila.core.data.SafeJsonStr
 import lila.user.User
 

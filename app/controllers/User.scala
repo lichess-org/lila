@@ -19,7 +19,8 @@ import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog
 import lila.security.UserLogins
 import lila.user.User as UserModel
-import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.perf.PerfKey
+import lila.common.perf.PerfType
 import lila.core.net.IpAddress
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch

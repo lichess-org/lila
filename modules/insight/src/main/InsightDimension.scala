@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.insight.BSONHandlers.given
 import lila.insight.InsightEntry.BSONFields as F
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 import lila.core.i18n.Translate
 
 enum InsightDimension[A](

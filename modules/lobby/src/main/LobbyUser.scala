@@ -3,7 +3,8 @@ package lila.lobby
 import lila.core.pool.Blocking
 import lila.rating.{ Glicko, Perf }
 import lila.user.User
-import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.perf.PerfKey
+import lila.common.perf.PerfType
 
 private[lobby] case class LobbyUser(
     id: UserId,

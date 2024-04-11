@@ -6,10 +6,11 @@ import lila.core.i18n.{ I18nKey, Translate }
 
 import lila.common.licon
 import lila.core.Icon
-import lila.core.perf.{ PerfType, PerfId, PerfKey }
+import lila.core.perf.{ PerfId, PerfKey }
+import lila.common.perf.PerfType
 
 object PerfType:
-  import lila.core.perf.PerfType.*
+  import lila.common.perf.PerfType.*
 
   val default = Standard
 

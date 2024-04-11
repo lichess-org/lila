@@ -7,7 +7,7 @@ import lila.gathering.{ Condition, ConditionList }
 import lila.core.i18n.{ I18nKey, Translate }
 import lila.rating.Perf
 import lila.user.Me
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 import lila.core.LightUser
 
 object SwissCondition:

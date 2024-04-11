@@ -9,7 +9,7 @@ import lila.common.licon
 import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.rating.{ Perf, UserPerfs }
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 import lila.user.User
 import lila.core.perf.PerfKey
 import lila.app.mashup.*

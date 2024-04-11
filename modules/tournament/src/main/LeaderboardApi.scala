@@ -7,7 +7,8 @@ import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.rating.Perf
 import lila.user.User
-import lila.core.perf.{ PerfId, PerfType }
+import lila.core.perf.PerfId
+import lila.common.perf.PerfType
 import lila.core.chess.Rank
 
 final class LeaderboardApi(

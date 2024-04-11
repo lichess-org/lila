@@ -8,7 +8,7 @@ import play.api.libs.json.Json
 import lila.app.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.common.licon
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 import lila.tournament.{ Schedule, Tournament }
 import lila.user.User
 import lila.core.i18n.Translate

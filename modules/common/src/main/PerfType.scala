@@ -1,17 +1,14 @@
-package lila.core
+package lila.common
 package perf
 
 import cats.derived.*
-import lila.core.i18n.Translate
-import lila.core.i18n.I18nKey
 import _root_.chess.Speed
 import _root_.chess.variant
 
-opaque type PerfKey = String
-object PerfKey extends OpaqueString[PerfKey]
-
-opaque type PerfId = Int
-object PerfId extends OpaqueInt[PerfId]
+import lila.core.i18n.Translate
+import lila.core.i18n.I18nKey
+import lila.core.perf.{ PerfId, PerfKey }
+import lila.core.Icon
 
 enum PerfType(
     val id: PerfId,

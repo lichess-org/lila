@@ -6,7 +6,7 @@ import lila.common.Json.given
 import lila.core.LightUser
 import lila.game.{ Game, GameRepo }
 import lila.gathering.Condition.WithVerdicts
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 
 final class JsonView(
     gameRepo: GameRepo,

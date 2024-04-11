@@ -13,7 +13,7 @@ import lila.common.Bus
 @Module
 final class Env(
     db: lila.db.Db,
-    perfStat: lila.core.perfStat.PerfStatApi,
+    perfStat: lila.core.perf.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,

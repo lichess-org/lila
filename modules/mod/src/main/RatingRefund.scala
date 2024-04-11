@@ -3,7 +3,7 @@ package lila.mod
 import lila.db.dsl.*
 import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 import lila.report.Suspect
 import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
 
@@ -16,7 +16,7 @@ final private class RatingRefund(
     historyApi: lila.core.history.HistoryApi,
     rankingApi: RankingApi,
     logApi: ModlogApi,
-    perfStat: lila.core.perfStat.PerfStatApi
+    perfStat: lila.core.perf.PerfStatApi
 )(using Executor):
 
   import RatingRefund.*

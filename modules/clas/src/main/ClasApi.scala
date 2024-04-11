@@ -10,7 +10,7 @@ import lila.db.dsl.{ *, given }
 import lila.core.msg.MsgApi
 import lila.rating.{ Perf, UserPerfs }
 import lila.user.{ Authenticator, Me, User, UserPerfsRepo, UserRepo }
-import lila.core.perf.PerfType
+import lila.common.perf.PerfType
 
 final class ClasApi(
     colls: ClasColls,

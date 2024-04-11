@@ -5,7 +5,8 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import play.api.i18n.Lang
 import lila.core.user.{ User, UserApi }
-import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.perf.PerfKey
+import lila.common.perf.PerfType
 import lila.core.data.SafeJsonStr
 
 final class RatingChartApi(
@@ -49,7 +50,7 @@ final class RatingChartApi(
 
 object RatingChartApi:
 
-  import lila.core.perf.PerfType.*
+  import lila.common.perf.PerfType.*
   private val perfTypes = List(
     Bullet,
     Blitz,
