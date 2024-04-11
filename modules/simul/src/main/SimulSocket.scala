@@ -12,7 +12,7 @@ final private class SimulSocket(
     jsonView: JsonView,
     socketKit: SocketKit,
     socketRequest: SocketRequester,
-    chat: lila.chat.ChatApi
+    chat: lila.core.chat.ChatApi
 )(using Executor, lila.core.user.FlairGet):
 
   def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
