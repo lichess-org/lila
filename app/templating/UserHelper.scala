@@ -315,4 +315,4 @@ trait UserHelper extends HasEnv:
   private def lineIcon(user: Option[LightUser])(using Translate): Frag = lineIcon(user.exists(_.isPatron))
   def lineIcon(user: LightUser)(using Translate): Frag                 = lineIcon(user.isPatron)
   def lineIcon(user: User)(using Translate): Frag                      = lineIcon(user.isPatron)
-  def lineIconChar(user: User): Frag = if user.isPatron then patronIconChar else lineIconChar
+  def lineIconChar(user: User): Icon = if user.isPatron then patronIconChar else lineIconChar
