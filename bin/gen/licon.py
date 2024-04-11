@@ -25,7 +25,9 @@ scala_preamble = comment_preamble + """
 package lila.common
 
 opaque type Icon = String
-object Icon extends OpaqueString[Icon]:
+object Icon:
+  def apply(char: String): Icon            = char
+  extension (icon: Icon) def value: String = icon
 """
 
 def main():

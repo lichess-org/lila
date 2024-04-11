@@ -13,7 +13,9 @@
 package lila.common
 
 opaque type Icon = String
-object Icon extends OpaqueString[Icon]:
+object Icon:
+  def apply(char: String): Icon            = char
+  extension (icon: Icon) def value: String = icon
   val Tools: Icon           = "" // e000
   val Bullseye: Icon        = "" // e001
   val Agent: Icon           = "" // e002
