@@ -11,7 +11,7 @@ import lila.core.i18n.Language
 import lila.rating.Perf
 import lila.core.perf.PerfKey
 import lila.rating.UserPerfs
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.core.user.LightPerf
 
 case class User(

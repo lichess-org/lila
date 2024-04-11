@@ -6,7 +6,7 @@ import chess.variant.Variant
 import chess.{ Color, Speed }
 import scalalib.ThreadLocalRandom
 
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.user.User
 import lila.core.rating.Score
 

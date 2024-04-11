@@ -8,7 +8,7 @@ import lila.core.config.*
 import lila.rating.UserRankMap
 import lila.core.perm.Granter
 import lila.user.{ Me, Trophy, User }
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 final class UserApi(
     jsonView: lila.user.JsonView,

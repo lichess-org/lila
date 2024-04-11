@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.rating.Perf
 import lila.core.user.User
 import lila.core.perf.PerfId
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 case class InsightPerfStats(
     rating: MeanRating,

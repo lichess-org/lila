@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import lila.core.i18n.Translator
 import lila.core.pool.PoolConfigId
 import lila.core.perf.PerfKey
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 case class PoolConfig(
     clock: chess.Clock.Config,

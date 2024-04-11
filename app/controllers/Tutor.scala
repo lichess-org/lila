@@ -6,7 +6,7 @@ import views.*
 import lila.app.{ *, given }
 import lila.common.LilaOpeningFamily
 import lila.rating.Perf
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
 import lila.user.User as UserModel
 import lila.core.perf.PerfKey

@@ -5,7 +5,7 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
 import lila.user.User
 

@@ -13,7 +13,7 @@ import lila.insight.{
   InsightPerfStatsApi,
   Question
 }
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.user.{ User, UserApi }
 
 final private class TutorBuilder(

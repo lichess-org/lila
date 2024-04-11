@@ -8,7 +8,7 @@ import scalalib.model.Days
 import lila.core.data.Template
 import lila.core.game.GameRule
 import lila.lobby.Color
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 final case class ApiConfig(
     variant: chess.variant.Variant,

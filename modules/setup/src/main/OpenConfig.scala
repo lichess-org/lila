@@ -6,7 +6,7 @@ import chess.variant.{ FromPosition, Variant }
 
 import scalalib.model.Days
 import lila.core.game.GameRule
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 final case class OpenConfig(
     name: Option[String],

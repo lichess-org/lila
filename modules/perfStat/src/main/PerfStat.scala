@@ -5,7 +5,7 @@ import java.time.Duration
 
 import scalalib.HeapSort
 import lila.game.Pov
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 case class PerfStat(
     @Key("_id") id: String, // userId/perfId

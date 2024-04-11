@@ -4,7 +4,7 @@ import alleycats.Zero
 
 import lila.analyse.AccuracyPercent
 import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats }
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.user.User
 import lila.core.data.Percent
 

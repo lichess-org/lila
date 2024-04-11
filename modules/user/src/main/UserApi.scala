@@ -14,7 +14,7 @@ import lila.user.User.userHandler
 import lila.core.lilaism.LilaInvalid
 import lila.core.user.WithEmails
 import lila.core.perf.PerfKey
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,

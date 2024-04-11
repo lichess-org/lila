@@ -5,7 +5,7 @@ import chess.Speed
 import scalalib.HeapSort.*
 import lila.rating.{ Glicko, Perf }
 import lila.core.perf.PerfKey
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.core.user.LightPerf
 
 case class UserPerfs(

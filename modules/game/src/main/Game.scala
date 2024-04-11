@@ -27,7 +27,7 @@ import lila.db.ByteArray
 import lila.core.user.User
 import lila.core.game.{ GameRule, Source }
 import lila.core.perf.PerfKey
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 case class Game(
     override val id: GameId,

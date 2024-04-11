@@ -11,7 +11,7 @@ import lila.rating.{ Glicko, Perf, UserPerfs }
 import lila.core.perf.PerfId
 import lila.core.user.LightPerf
 import lila.core.perf.PerfKey
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 final class RankingApi(
     coll: AsyncCollFailingSilently,

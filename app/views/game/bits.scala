@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.{ Game, Pov }
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 object bits:
 

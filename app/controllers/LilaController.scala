@@ -323,7 +323,7 @@ abstract private[controllers] class LilaController(val env: Env)
           f(using ctx.withLang(lang))
 
   import lila.rating.Perf
-  def WithMyPerf[A](pt: lila.common.perf.PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+  def WithMyPerf[A](pt: lila.rating.PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
     .soFu(env.user.perfsRepo.perfOf(_, pt))
     .flatMap: perf =>
       f(using perf | Perf.default)

@@ -8,7 +8,7 @@ import lila.rating.{ Perf, UserPerfs }
 import lila.user.User.PlayTime
 import lila.core.perf.PerfKey
 import lila.core.user.LightPerf
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 final class JsonView(isOnline: lila.core.socket.IsOnline):
 

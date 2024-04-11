@@ -1,6 +1,6 @@
 package lila.rating
 
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 object RatingRegulator:
 

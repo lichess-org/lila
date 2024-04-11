@@ -7,7 +7,7 @@ import lila.core.LightUser
 import lila.rating.{ Glicko, Perf }
 import lila.user.User
 import lila.core.i18n.Translate
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 final class JsonView(getLightUser: LightUser.GetterSync):
 

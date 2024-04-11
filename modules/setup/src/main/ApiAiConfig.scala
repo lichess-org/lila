@@ -7,7 +7,7 @@ import chess.{ ByColor, Clock }
 import scalalib.model.Days
 import lila.game.{ Game, IdGenerator, Player, Pov }
 import lila.lobby.Color
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.user.GameUser
 import lila.core.game.Source
 

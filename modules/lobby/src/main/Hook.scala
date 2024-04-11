@@ -5,7 +5,7 @@ import chess.{ Clock, Mode, Speed }
 import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
 import lila.user.User

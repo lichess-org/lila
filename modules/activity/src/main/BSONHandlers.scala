@@ -8,7 +8,7 @@ import lila.common.{ Iso, LichessDay }
 import lila.db.dsl.{ *, given }
 import lila.rating.Perf
 import lila.core.perf.PerfKey
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.core.rating.RatingProg
 import lila.core.rating.Score
 import lila.core.chess.Rank

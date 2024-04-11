@@ -7,7 +7,7 @@ import chess.{ Clock, Game as ChessGame, Situation, Speed }
 import scalalib.model.Days
 import lila.game.Game
 import lila.lobby.Color
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 
 private[setup] trait Config:
 

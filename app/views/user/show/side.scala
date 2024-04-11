@@ -5,8 +5,8 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.perf.PerfType
-import lila.common.perf.{ PerfType as PTs }
+import lila.rating.PerfType
+import lila.rating.{ PerfType as PTs }
 import lila.user.User
 
 object side:

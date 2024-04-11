@@ -14,7 +14,7 @@ import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.core.game.GameRule
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.user.{ User, Me }
 import scalalib.model.Days
 

@@ -14,7 +14,7 @@ import lila.game.{ Game, GameRepo, Pov }
 import lila.core.round.{ Abort, Resign }
 import lila.memo.SettingStore
 import lila.rating.RatingFactor
-import lila.common.perf.PerfType
+import lila.rating.PerfType
 import lila.core.user.{ FlairGet, FlairGetMap }
 
 @Module
