@@ -362,9 +362,7 @@ object Pref:
     )
 
   object Message:
-    val NEVER  = 1
-    val FRIEND = 2
-    val ALWAYS = 3
+    import lila.core.pref.Message.*
 
     val choices = Seq(
       NEVER  -> "Only existing conversations",
@@ -452,7 +450,7 @@ object Pref:
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.REGISTERED,
-    message = Message.ALWAYS,
+    message = lila.core.pref.Message.ALWAYS,
     studyInvite = StudyInvite.ALWAYS,
     submitMove = SubmitMove.CORRESPONDENCE,
     confirmResign = ConfirmResign.YES,

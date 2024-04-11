@@ -12,7 +12,7 @@ import lila.core.report.SuspectId
 
 final private class MsgSecurity(
     colls: MsgColls,
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     userRepo: lila.user.UserRepo,
     getBotUserIds: lila.user.GetBotIds,
     relationApi: lila.core.relation.RelationApi,
@@ -152,10 +152,10 @@ final private class MsgSecurity(
       }
 
     private def create(contacts: User.Contacts): Fu[Boolean] =
-      prefApi.get(contacts.dest.id, _.message).flatMap {
-        case lila.pref.Pref.Message.NEVER  => fuccess(false)
-        case lila.pref.Pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
-        case lila.pref.Pref.Message.ALWAYS => fuccess(true)
+      prefApi.getMessage(contacts.dest.id).flatMap {
+        case lila.core.pref.Message.NEVER  => fuccess(false)
+        case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
+        case lila.core.pref.Message.ALWAYS => fuccess(true)
       }
 
     // Even if the dest prefs disallow it,

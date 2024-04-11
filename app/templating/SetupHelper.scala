@@ -289,9 +289,9 @@ trait SetupHelper:
 
   def translatedMessageChoices(using Translate) =
     List(
-      (Pref.Message.NEVER, trans.site.onlyExistingConversations.txt()),
-      (Pref.Message.FRIEND, trans.site.onlyFriends.txt()),
-      (Pref.Message.ALWAYS, trans.site.always.txt())
+      (lila.core.pref.Message.NEVER, trans.site.onlyExistingConversations.txt()),
+      (lila.core.pref.Message.FRIEND, trans.site.onlyFriends.txt()),
+      (lila.core.pref.Message.ALWAYS, trans.site.always.txt())
     )
 
   def translatedStudyInviteChoices(using Translate) = privacyBaseChoices

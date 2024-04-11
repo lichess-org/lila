@@ -32,7 +32,6 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     subsRepo: lila.core.relation.SubscriptionRepo,
-    prefApi: lila.pref.PrefApi,
     db: lila.db.Db,
     net: lila.core.config.NetConfig
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
