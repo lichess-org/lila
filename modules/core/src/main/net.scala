@@ -52,17 +52,10 @@ object net:
   opaque type AssetVersion = String
   object AssetVersion extends OpaqueString[AssetVersion]:
     private var stored = random
-    private var dirty  = false
     def current        = stored
     def change() =
       stored = random
-      dirty = true
       current
-    def checkResetDirty =
-      if dirty then
-        dirty = false
-        true
-      else false
 
     private def random = AssetVersion(SecureRandom.nextString(6))
     case class Changed(version: AssetVersion)
