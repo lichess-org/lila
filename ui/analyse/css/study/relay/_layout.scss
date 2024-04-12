@@ -12,10 +12,22 @@ body {
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
-    &__side {
-      grid-area: side;
+  }
+  .relay-tour__side {
+    grid-area: side;
+  }
+  .relay-tour__header__image {
+    display: flex;
+    &.video {
+      display: block;
+    }
+    justify-content: end;
+    > img {
+      width: unset;
+      max-height: 200px;
     }
   }
+
   .analyse__round-training,
   .relay-admin__container {
     grid-area: relay-admin;
@@ -50,10 +62,12 @@ main.is-relay.wide.with-video {
   .relay-tour {
     @extend %flex-column;
     overflow: hidden;
-
-    &__header {
-      flex-shrink: 0;
-    }
+  }
+  .relay-tour__header {
+    flex-shrink: 0;
+  }
+  .relay-tour__header__image {
+    display: block !important;
   }
 
   .study__multiboard {

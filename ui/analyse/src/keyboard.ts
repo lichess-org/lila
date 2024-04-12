@@ -64,6 +64,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
   if (ctrl.studyPractice) return;
 
   kbd
+    .bind('F', ctrl.fullscreen)
     .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;

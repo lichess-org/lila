@@ -257,6 +257,19 @@ export default class AnalyseCtrl {
     this.persistence?.save();
   };
 
+  fullscreen = () => {
+    const el = document.getElementById('main-wrap') as any;
+    //const doc = document as any;
+    if (document.fullscreenElement) document.exitFullscreen();
+    //else if (doc.webkitFullscreenElement) doc.webkitExitFullscreen();
+    //else if (doc.mozFullScreenElement) doc.mozCancelFullScreen();
+    //else if (doc.msFullscreenElement) doc.msExitFullscreen();
+    else if (el.requestFullscreen) el.requestFullscreen();
+    //else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    //else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    //else if (el.msRequestFullscreen) el.msRequestFullscreen();
+  };
+
   flip = () => {
     this.flipped = !this.flipped;
     this.study?.onFlip();
