@@ -29,7 +29,6 @@ case class Metas(
     glyphs: Glyphs = Glyphs.empty,
     opening: Option[Opening] = None,
     clock: Option[Centis] = None,
-    emt: Option[Centis] = None,
     crazyData: Option[Crazyhouse.Data] = None
     // TODO, add support for variationComments
 ):
@@ -80,7 +79,6 @@ case class NewBranch(
     glyphs,
     opening,
     clock,
-    emt,
     crazyData
   }
   override def toString                    = s"$ply, $id, ${move.uci}"
@@ -169,7 +167,6 @@ object NewTree:
       node.glyphs,
       node.opening,
       node.clock,
-      node.emt,
       node.crazyData
     )
 

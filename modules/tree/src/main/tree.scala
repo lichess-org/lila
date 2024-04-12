@@ -164,7 +164,6 @@ sealed trait Node:
   def addChild(branch: Branch): Node
   def dropFirstChild: Node
   def clock: Option[Centis]
-  def emt: Option[Centis]
   def forceVariation: Boolean
 
   // implementation dependent
@@ -192,7 +191,6 @@ case class Root(
     children: Branches = Branches.empty,
     opening: Option[Opening] = None,
     clock: Option[Centis] = None, // clock state at game start, assumed same for both players
-    emt: Option[Centis] = None,
     crazyData: Option[Crazyhouse.Data]
 ) extends Node:
 
@@ -323,7 +321,6 @@ case class Branch(
     opening: Option[Opening] = None,
     comp: Boolean = false,
     clock: Option[Centis] = None, // clock state after the move is played, and the increment applied
-    emt: Option[Centis] = None,   // estimated move time
     crazyData: Option[Crazyhouse.Data],
     forceVariation: Boolean = false // cannot be mainline
 ) extends Node:

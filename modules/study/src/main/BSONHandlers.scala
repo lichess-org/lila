@@ -138,7 +138,6 @@ object BSONHandlers:
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
       eval           = doc.getAsOpt[Score](F.score).map(_.eval)
       clock          = doc.getAsOpt[Centis](F.clock)
-      emt            = doc.getAsOpt[Centis](F.emt)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield Branch(
@@ -174,7 +173,6 @@ object BSONHandlers:
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
       eval           = doc.getAsOpt[Score](F.score).map(_.eval)
       clock          = doc.getAsOpt[Centis](F.clock)
-      emt            = doc.getAsOpt[Centis](F.emt)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield NewBranch(

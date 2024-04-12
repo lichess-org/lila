@@ -40,7 +40,6 @@ object PgnImport:
               comments = comments,
               glyphs = Glyphs.empty,
               clock = parsedPgn.tags.clockConfig.map(_.limit),
-              emt = none,
               crazyData = replay.setup.situation.board.crazyData,
               children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, _, annotator))
             )
@@ -142,7 +141,6 @@ object PgnImport:
                   comments = comments,
                   glyphs = node.value.metas.glyphs,
                   clock = clock,
-                  emt = emt,
                   crazyData = game.situation.board.crazyData,
                   children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
                 ).some
