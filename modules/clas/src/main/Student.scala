@@ -3,8 +3,6 @@ package lila.clas
 import scalalib.SecureRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-
-
 import lila.core.perf.UserPerfs
 import lila.core.perf.UserWithPerfs
 

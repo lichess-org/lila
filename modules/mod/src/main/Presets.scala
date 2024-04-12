@@ -8,7 +8,6 @@ import scalalib.Iso
 import lila.memo.SettingStore.{ Formable, StringReader }
 import lila.core.perm.{ Granter, Permission }
 
-
 final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 
   import ModPresets.setting.given

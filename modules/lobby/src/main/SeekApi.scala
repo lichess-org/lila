@@ -41,7 +41,7 @@ final class SeekApi(
   def forMe(using me: User | UserWithPerfs): Fu[List[Seek]] = for
     user <- me match
       case u: UserWithPerfs => fuccess(u)
-      case u: User      => perfsRepo.withPerfs(u)
+      case u: User          => perfsRepo.withPerfs(u)
     blocking <- relationApi.fetchBlocking(user.id)
     seeks    <- forUser(LobbyUser.make(user, lila.core.pool.Blocking(blocking)))
   yield seeks

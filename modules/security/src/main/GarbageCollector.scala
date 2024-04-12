@@ -6,7 +6,6 @@ import play.api.mvc.RequestHeader
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.net.IpAddress
 
-
 // codename UGC
 final class GarbageCollector(
     userLogins: UserLoginsApi,

@@ -11,7 +11,6 @@ import lila.core.game.ChangeFeatured
 import lila.core.socket.{ protocol as P, * }
 import lila.core.pool.PoolConfigId
 
-
 case class LobbyCounters(members: Int, rounds: Int)
 
 final class LobbySocket(

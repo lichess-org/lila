@@ -7,7 +7,6 @@ import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.study.ChapterPreview
 
-
 final class JsonView(
     baseUrl: BaseUrl,
     markup: RelayMarkup,

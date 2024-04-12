@@ -8,7 +8,6 @@ import lila.core.rating.RatingRange
 import lila.core.socket.{ Sri, Sris }
 import lila.core.pool.{ PoolMember, PoolConfigId, Joiner }
 
-
 final class PoolApi(
     val configs: List[PoolConfig],
     hookThieve: HookThieve,

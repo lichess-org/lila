@@ -4,7 +4,6 @@ import lila.chat.{ ChatApi, ChatTimeout }
 import lila.game.Game
 import lila.core.shutup.PublicSource
 
-
 final class Messenger(api: ChatApi):
 
   def system(game: Game, message: String): Unit =

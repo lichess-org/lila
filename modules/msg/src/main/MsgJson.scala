@@ -6,7 +6,6 @@ import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.relation.Relations
 
-
 final class MsgJson(
     lightUserApi: lila.user.LightUserApi,
     isOnline: lila.core.socket.IsOnline

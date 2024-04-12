@@ -10,7 +10,6 @@ import lila.common.Form.{ *, given }
 import lila.gathering.GatheringClock
 import lila.core.team.LightTeam
 
-
 final class TournamentForm:
 
   import TournamentForm.*

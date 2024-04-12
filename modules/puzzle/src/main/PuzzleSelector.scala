@@ -2,8 +2,6 @@ package lila.puzzle
 
 import lila.db.dsl.{ *, given }
 
-
-
 final class PuzzleSelector(
     colls: PuzzleColls,
     pathApi: PuzzlePathApi,

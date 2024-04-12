@@ -3,8 +3,6 @@ package lila.puzzle
 import scalalib.Iso
 import lila.db.dsl.{ *, given }
 
-
-
 object PuzzlePath:
 
   val sep = '|'

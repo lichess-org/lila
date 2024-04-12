@@ -4,7 +4,6 @@ import cats.derived.*
 
 import scalalib.Iso
 
-
 enum Room derives Eq:
 
   case Cheat, Boost, Print, Comm, Other, Xfiles

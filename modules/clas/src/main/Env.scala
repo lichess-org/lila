@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 
 import lila.core.config.*
 
-
 @Module
 @annotation.nowarn("msg=unused")
 final class Env(

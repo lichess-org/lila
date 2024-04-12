@@ -11,7 +11,6 @@ import play.api.data.validation.Constraint
 import lila.common.Form.{ *, given }
 import lila.core.team.LightTeam
 
-
 object SimulForm:
 
   val clockTimeChoices = options((5 to 15 by 5) ++ (20 to 90 by 10) ++ (120 to 180 by 20), "%d minute{s}")

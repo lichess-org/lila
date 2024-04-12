@@ -10,7 +10,6 @@ import lila.core.net.IpAddress
 import lila.memo.CacheApi
 import lila.core.perm.Granter
 
-
 object IpRender:
 
   type Raw      = String

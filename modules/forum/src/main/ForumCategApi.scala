@@ -3,7 +3,6 @@ package lila.forum
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 
-
 final class ForumCategApi(
     postRepo: ForumPostRepo,
     topicRepo: ForumTopicRepo,

@@ -5,7 +5,6 @@ import play.api.data.Form
 import lila.core.net.IpAddress
 import lila.memo.CacheApi
 
-
 final class DisposableEmailAttempt(
     cacheApi: CacheApi,
     disposableApi: DisposableEmailDomain

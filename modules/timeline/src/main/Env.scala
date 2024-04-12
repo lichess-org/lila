@@ -7,7 +7,6 @@ import play.api.Configuration
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 
-
 @Module
 private class TimelineConfig(
     @ConfigName("collection.entry") val entryColl: CollName,

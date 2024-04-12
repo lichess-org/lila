@@ -2,8 +2,6 @@ package lila.puzzle
 
 import lila.db.dsl.*
 
-
-
 // mobile app
 final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(using
     Executor

@@ -3,8 +3,6 @@ package actorApi
 
 import chess.format.UciPath
 
-
-
 case class SaveStudy(study: Study)
 case class SetTag(chapterId: StudyChapterId, name: String, value: String):
   def tag = chess.format.pgn.Tag(name, lila.common.String.fullCleanUp(value).take(140))

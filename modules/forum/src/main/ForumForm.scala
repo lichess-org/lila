@@ -6,7 +6,6 @@ import play.api.data.Forms.*
 import lila.common.Form.cleanText
 import lila.common.Form.given
 
-
 final private[forum] class ForumForm(
     promotion: lila.core.security.PromotionApi,
     val captcha: lila.core.captcha.CaptchaApi

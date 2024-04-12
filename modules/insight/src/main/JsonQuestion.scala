@@ -2,7 +2,6 @@ package lila.insight
 
 import play.api.libs.json.*
 
-
 case class JsonQuestion(
     dimension: String,
     metric: String,

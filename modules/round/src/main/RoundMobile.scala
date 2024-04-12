@@ -11,7 +11,6 @@ import lila.game.JsonView.given
 import lila.game.{ Game, GameRepo, Pov }
 import lila.pref.Pref
 
-
 object RoundMobile:
 
   enum UseCase(val socketStatus: Option[SocketStatus], val chat: Boolean, val prefs: Boolean):
