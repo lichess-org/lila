@@ -45,7 +45,7 @@ object edit:
               (ctx.is(s.user) && s.streamer.listed.value).option(
                 div(
                   cls      := s"status is${granted.so("-green")}",
-                  dataIcon := (if granted then licon.Checkmark else licon.InfoCircle)
+                  dataIcon := (if granted then Icon.Checkmark else Icon.InfoCircle)
                 )(
                   if granted then
                     frag(
@@ -88,7 +88,7 @@ object edit:
                 ),
               modData.map { case ((log, notes), same) =>
                 div(cls := "mod_log status")(
-                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
+                  strong(cls := "text", dataIcon := Icon.CautionTriangle)(
                     "Moderation history",
                     log.isEmpty.option(": nothing to show.")
                   ),
@@ -107,7 +107,7 @@ object edit:
                     )
                   ),
                   br,
-                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
+                  strong(cls := "text", dataIcon := Icon.CautionTriangle)(
                     "Moderator notes",
                     notes.isEmpty.option(": nothing to show.")
                   ),
@@ -123,7 +123,7 @@ object edit:
                     )
                   ),
                   br,
-                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
+                  strong(cls := "text", dataIcon := Icon.CautionTriangle)(
                     "Streamers with same Twitch or YouTube",
                     same.isEmpty.option(": nothing to show.")
                   ),
@@ -192,7 +192,7 @@ object edit:
                           name  := "approval.quick",
                           value := "approve"
                         ),
-                      form3.submit("Decline and next", icon = licon.X.some)(
+                      form3.submit("Decline and next", icon = Icon.X.some)(
                         cls   := "button-red",
                         name  := "approval.quick",
                         value := "decline"

@@ -13,8 +13,8 @@ import lila.common.HTTPRequest
 import lila.core.net.{ ApiVersion, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
-import lila.user.User.LoginCandidate.Result
-import lila.user.User.{ ClearPassword, LoginCandidate }
+import lila.user.LoginCandidate.Result
+import lila.user.{ ClearPassword, LoginCandidate }
 import lila.user.{ Me, User, UserRepo }
 import lila.core.email.UserStrOrEmail
 import lila.core.security.{ IsProxy, Ip2ProxyApi }
@@ -99,7 +99,7 @@ final class SecurityApi(
   ): LoginCandidate.Result =
     import LoginCandidate.Result.*
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
-      val result = c(User.PasswordAndToken(password, token.map(User.TotpToken.apply)))
+      val result = c(lila.user.PasswordAndToken(password, token.map(lila.user.TotpToken.apply)))
       if result == BlankedPassword then
         lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
         BlankedPassword
@@ -146,10 +146,9 @@ final class SecurityApi(
   def oauthScoped(
       req: RequestHeader,
       required: lila.oauth.EndpointScopes
-  ): Fu[OAuthServer.AuthResult[Me]] =
-    given OAuthServer.FetchUser[Me] = userRepo.me
+  ): Fu[OAuthServer.AuthResult] =
     oAuthServer
-      .auth[Me](req, required)
+      .auth(req, required)
       .addEffect:
         case Right(access) => upsertOauth(access, req)
         case _             => ()
@@ -157,14 +156,14 @@ final class SecurityApi(
 
   private object upsertOauth:
     private val sometimes = scalalib.cache.OnceEvery.hashCode[AccessToken.Id](1.hour)
-    def apply(access: OAuthScope.Access[Me], req: RequestHeader): Unit =
+    def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
       if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
         val mobile = Mobile.LichessMobileUa.parse(req)
         store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
 
   private lazy val nonModRoles: Set[String] = lila.core.perm.Permission.nonModPermissions.map(_.dbKey)
 
-  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped[Me]) =
+  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
     if scoped.scopes.has(_.Web.Mod) then scoped
     else scoped.copy(me = stripRolesOf(scoped.me))
 

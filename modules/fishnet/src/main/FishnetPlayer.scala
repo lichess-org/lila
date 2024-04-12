@@ -5,7 +5,7 @@ import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaFuture }
 import lila.game.{ Game, GameRepo, UciMemo }
-import lila.core.actorApi.map.Tell
+import lila.core.misc.map.Tell
 import lila.core.round.FishnetPlay
 
 final class FishnetPlayer(

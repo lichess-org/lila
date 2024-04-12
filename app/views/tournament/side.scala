@@ -42,7 +42,7 @@ object side:
               frag(
                 " ",
                 a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(
-                  iconTag(licon.Gear)
+                  iconTag(Icon.Gear)
                 )
               )
             )
@@ -64,13 +64,13 @@ object side:
         tour.description.map: d =>
           st.section(cls := "description")(
             shieldOwner.map: owner =>
-              p(cls := "defender", dataIcon := licon.Shield)(trans.arena.defender(), userIdLink(owner.some)),
+              p(cls := "defender", dataIcon := Icon.Shield)(trans.arena.defender(), userIdLink(owner.some)),
             markdownLinksOrRichText(d)
           ),
         tour.looksLikePrize.option(bits.userPrizeDisclaimer(tour.createdBy)),
         views.html.gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
-        tour.noBerserk.option(div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed())),
-        tour.noStreak.option(div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks())),
+        tour.noBerserk.option(div(cls := "text", dataIcon := Icon.Berserk)(trans.arena.noBerserkAllowed())),
+        tour.noStreak.option(div(cls := "text", dataIcon := Icon.Fire)(trans.arena.noArenaStreaks())),
         (!tour.isScheduled).option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)).option(
           absClientInstant(
@@ -94,7 +94,7 @@ object side:
     )
 
   private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
-    st.section(cls := "team-battle", dataIcon := licon.Group):
+    st.section(cls := "team-battle", dataIcon := Icon.Group):
       div(
         p(trans.team.battleOfNbTeams.pluralSameTxt(battle.teams.size)),
         trans.team.nbLeadersPerTeam.pluralSameTxt(battle.nbLeaders),
@@ -102,7 +102,7 @@ object side:
           frag(
             " ",
             a(href := routes.Tournament.teamBattleEdit(tour.id), title := trans.arena.editTeamBattle.txt()):
-              iconTag(licon.Gear)
+              iconTag(Icon.Gear)
           )
         )
       )

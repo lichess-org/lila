@@ -3,11 +3,10 @@ package lila.pool
 import akka.actor.*
 
 import lila.game.Game
-import lila.core.perf.{ PerfType, PerfKey }
+
 import lila.core.rating.RatingRange
 import lila.core.socket.{ Sri, Sris }
 import lila.core.pool.{ PoolMember, PoolConfigId, Joiner }
-import lila.user.Me
 
 final class PoolApi(
     val configs: List[PoolConfig],

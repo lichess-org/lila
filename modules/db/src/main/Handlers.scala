@@ -10,6 +10,7 @@ import lila.common.Iso.{ *, given }
 import lila.core.email.NormalizedEmailAddress
 import lila.core.net.IpAddress
 import lila.core.data.Percent
+import lila.common.Icon
 
 trait Handlers:
 
@@ -164,12 +165,22 @@ trait Handlers:
 
   given BSONHandler[chess.Mode] = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
 
+  given BSONHandler[Icon] = BSONStringHandler.as[Icon](Icon(_), _.value)
+
+  given perfKeyHandler: BSONHandler[PerfKey] =
+    BSONStringHandler.as[PerfKey](key => PerfKey(key).err(s"Unknown perf key $key"), _.value)
+
+  given perfKeyFailingIso: Iso.StringIso[PerfKey] =
+    Iso.string[PerfKey](str => PerfKey(str).err(s"Unknown perf $str"), _.value)
+
   given [T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
     { case arr: BSONArray => for a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) yield (a, b) },
     { case (a, b) => BSONArray(a, b) }
   )
 
   given NoDbHandler[chess.Square] with {} // no default opaque handler for chess.Square
+
+  given lila.db.NoDbHandler[lila.core.user.Me] with {}
 
   def chessPosKeyHandler: BSONHandler[chess.Square] = tryHandler(
     { case BSONString(str) => chess.Square.fromKey(str).toTry(s"No such key $str") },

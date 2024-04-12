@@ -3,7 +3,6 @@ package http
 
 import play.api.http.HeaderNames
 import play.api.mvc.*
-import play.api.libs.typedmap.{ TypedKey, TypedMap }
 
 import lila.common.HTTPRequest
 
@@ -40,9 +39,10 @@ trait ResponseHeaders extends HeaderNames:
     "Cross-Origin-Embedder-Policy" -> "require-corp" // for Stockfish worker
   )
 
-  def embedderPolicy                   = ResponseHeaders.embedderPolicy
-  def actionSupportsCoepCredentialless = ResponseHeaders.actionSupportsCoepCredentialless
-  def disableCoepCredentialless        = ResponseHeaders.disableCoepCredentialless
+  val credentiallessHeaders = List(
+    "Cross-Origin-Opener-Policy"   -> "same-origin",
+    "Cross-Origin-Embedder-Policy" -> "credentialless"
+  )
 
   val permissionsPolicyHeader =
     "Permissions-Policy" -> List(
@@ -60,16 +60,25 @@ trait ResponseHeaders extends HeaderNames:
 
   def lastModified(date: Instant) = LAST_MODIFIED -> date.atZone(utcZone)
 
-object ResponseHeaders:
-  private val disableCoepCrentiallessKey = TypedKey[Unit]("no-coep-credentialless")
+  object embedderPolicy:
 
-  def actionSupportsCoepCredentialless(result: Result) =
-    result.attrs.get(ResponseHeaders.disableCoepCrentiallessKey).isEmpty
-  // no idea if there's a better way to get a flag to HttpFilter.
-  def disableCoepCredentialless(result: Result) =
-    result.withAttrs(TypedMap(ResponseHeaders.disableCoepCrentiallessKey -> ()))
+    def isSet(result: Result) = result.header.headers.contains(embedderPolicyHeader)
 
-  def embedderPolicy(policy: "credentialless" | "require-corp") = List(
-    "Cross-Origin-Opener-Policy"   -> "same-origin",
-    "Cross-Origin-Embedder-Policy" -> policy
-  )
+    def forReq(req: RequestHeader) =
+      if supportsCoepCredentialless(req) then credentialless else requireCorp
+
+    def supportsCoepCredentialless(req: RequestHeader) =
+      import HTTPRequest.*
+      isChrome96Plus(req) || (isFirefox119Plus(req) && !isMobileBrowser(req))
+
+    def unsafe         = headers("unsafe-none")
+    def credentialless = headers("credentialless")
+    def requireCorp    = headers("require-corp")
+
+    private val openerPolicyHeader   = "Cross-Origin-Opener-Policy"
+    private val embedderPolicyHeader = "Cross-Origin-Embedder-Policy"
+
+    private def headers(policy: "credentialless" | "require-corp" | "unsafe-none") = List(
+      openerPolicyHeader   -> (if policy == "unsafe-none" then policy else "same-origin"),
+      embedderPolicyHeader -> policy
+    )

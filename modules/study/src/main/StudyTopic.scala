@@ -7,7 +7,6 @@ import lila.common.LilaFuture
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 opaque type StudyTopic = String
 object StudyTopic extends OpaqueString[StudyTopic]:

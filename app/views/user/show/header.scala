@@ -7,7 +7,9 @@ import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
-import lila.user.User
+import lila.user.Plan.sinceDate
+import lila.user.Profile.*
+import lila.user.PlayTime.*
 
 object header:
 
@@ -111,13 +113,13 @@ object header:
                   cls  := "btn-rack__btn",
                   href := routes.Account.profile,
                   titleOrText(trans.site.editProfile.txt()),
-                  dataIcon := licon.Gear
+                  dataIcon := Icon.Gear
                 ),
                 a(
                   cls  := "btn-rack__btn",
                   href := routes.Relation.blocks(),
                   titleOrText(trans.site.listBlockedPlayers.txt()),
-                  dataIcon := licon.NotAllowed
+                  dataIcon := Icon.NotAllowed
                 )
               )
             ),
@@ -126,14 +128,14 @@ object header:
               cls  := "btn-rack__btn mod-zone-toggle",
               href := routes.User.mod(u.username),
               titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := licon.Agent
+              dataIcon := Icon.Agent
             )
           ),
           a(
             cls  := "btn-rack__btn",
             href := routes.User.tv(u.username),
             titleOrText(trans.site.watchGames.txt()),
-            dataIcon := licon.AnalogTv
+            dataIcon := Icon.AnalogTv
           ),
           ctx
             .isnt(u)
@@ -149,20 +151,20 @@ object header:
             cls  := "btn-rack__btn",
             href := s"${routes.UserAnalysis.index}#explorer/${u.username}",
             titleOrText(trans.site.openingExplorer.txt()),
-            dataIcon := licon.Book
+            dataIcon := Icon.Book
           ),
           a(
             cls  := "btn-rack__btn",
             href := routes.User.download(u.username),
             titleOrText(trans.site.exportGames.txt()),
-            dataIcon := licon.Download
+            dataIcon := Icon.Download
           ),
           (ctx.isAuth && ctx.kid.no && ctx.isnt(u)).option(
             a(
               titleOrText(trans.site.reportXToModerators.txt(u.username)),
               cls      := "btn-rack__btn",
               href     := s"${reportRoutes.form}?username=${u.username}",
-              dataIcon := licon.CautionTriangle
+              dataIcon := Icon.CautionTriangle
             )
           )
         )
@@ -187,7 +189,7 @@ object header:
                     frag(
                       u.lame.option(
                         div(cls := "warning tos_warning")(
-                          span(dataIcon := licon.CautionCircle, cls := "is4"),
+                          span(dataIcon := Icon.CautionCircle, cls := "is4"),
                           trans.site.thisAccountViolatedTos()
                         )
                       )
@@ -263,7 +265,7 @@ object header:
                 )
               ),
               info.insightVisible.option(
-                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := licon.Target):
+                a(cls := "insight", href := routes.Insight.index(u.username), dataIcon := Icon.Target):
                   span(
                     strong("Chess Insights"),
                     em("Analytics from ", if ctx.is(u) then "your" else s"${u.username}'s", " games")
@@ -345,7 +347,7 @@ object header:
                 submitButton(
                   cls      := "button-empty button-red confirm button text",
                   style    := "float:right",
-                  dataIcon := licon.Trash
+                  dataIcon := Icon.Trash
                 )(trans.site.delete())
               )
             )

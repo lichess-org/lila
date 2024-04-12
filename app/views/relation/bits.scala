@@ -8,22 +8,22 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.game.FavoriteOpponents
 import lila.relation.Related
-import lila.user.User
+import lila.core.perf.UserWithPerfs
 
 object bits:
 
-  def friends(u: User, pag: Paginator[Related[User.WithPerfs]])(using PageContext) =
+  def friends(u: User, pag: Paginator[Related[UserWithPerfs]])(using PageContext) =
     layout(s"${u.username} • ${trans.site.friends.txt()}")(
       boxTop(
         h1(
-          a(href := routes.User.show(u.username), dataIcon := licon.LessThan, cls := "text"),
+          a(href := routes.User.show(u.username), dataIcon := Icon.LessThan, cls := "text"),
           trans.site.friends()
         )
       ),
       pagTable(pag, routes.Relation.following(u.username))
     )
 
-  def blocks(u: User, pag: Paginator[Related[User.WithPerfs]])(using PageContext) =
+  def blocks(u: User, pag: Paginator[Related[UserWithPerfs]])(using PageContext) =
     layout(s"${u.username} • ${trans.site.blocks.pluralSameTxt(pag.nbResults)}")(
       boxTop(
         h1(userLink(u, withOnline = false)),
@@ -32,11 +32,11 @@ object bits:
       pagTable(pag, routes.Relation.blocks())
     )
 
-  def opponents(u: User, sugs: List[Related[User.WithPerfs]])(using ctx: PageContext) =
+  def opponents(u: User, sugs: List[Related[UserWithPerfs]])(using ctx: PageContext) =
     layout(s"${u.username} • ${trans.site.favoriteOpponents.txt()}")(
       boxTop:
         h1(
-          a(href := routes.User.show(u.username), dataIcon := licon.LessThan, cls := "text"),
+          a(href := routes.User.show(u.username), dataIcon := Icon.LessThan, cls := "text"),
           trans.site.favoriteOpponents(),
           " (",
           trans.site.nbGames.pluralSame(FavoriteOpponents.gameLimit),
@@ -71,7 +71,7 @@ object bits:
     ):
       main(cls := "box page-small")(content)
 
-  private def pagTable(pager: Paginator[Related[User.WithPerfs]], call: Call)(using ctx: Context) =
+  private def pagTable(pager: Paginator[Related[UserWithPerfs]], call: Call)(using ctx: Context) =
     table(cls := "slist slist-pad")(
       if pager.nbResults > 0
       then

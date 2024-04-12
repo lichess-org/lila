@@ -38,7 +38,7 @@ import scala.util.matching.Regex
 import lila.common.RawHtml
 import lila.core.config.AssetDomain
 import lila.core.config.NetDomain
-import lila.core.actorApi.lpv.LpvEmbed
+import lila.core.misc.lpv.LpvEmbed
 
 final class MarkdownRender(
     autoLink: Boolean = true,
@@ -272,7 +272,7 @@ object MarkdownRender:
             .withAttr(link)
             .tag("a")
             .withAttr()
-            .attr("data-icon", licon.Padlock.toString)
+            .attr("data-icon", Icon.Padlock.toString)
             .attr("class", "private-study")
             .attr("title", "Private")
             .attr("aria-label", "Private")

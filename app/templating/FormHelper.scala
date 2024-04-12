@@ -7,9 +7,8 @@ import scalatags.generic.TypedTag
 import scalatags.text.Builder
 
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.licon
 import lila.core.i18n.{ Translate, I18nKey }
-import lila.core.Icon
+import lila.common.Icon
 
 trait FormHelper:
   self: I18nHelper =>
@@ -200,7 +199,7 @@ trait FormHelper:
 
     def submit(
         content: Frag,
-        icon: Option[Icon] = Some(licon.Checkmark),
+        icon: Option[Icon] = Some(Icon.Checkmark),
         nameValue: Option[(String, String)] = None,
         confirm: Option[String] = None
     ): Tag =

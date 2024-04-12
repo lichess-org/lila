@@ -10,7 +10,6 @@ import lila.core.app.LangPath
 import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
-import lila.user.User
 
 object list:
 
@@ -129,7 +128,7 @@ object list:
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using PageContext) =
     if pager.currentPageResults.isEmpty then
       div(cls := "nostudies")(
-        iconTag(licon.StudyBoard),
+        iconTag(Icon.StudyBoard),
         p(trans.study.noneYet())
       )
     else
@@ -157,7 +156,7 @@ object list:
       a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
       a(
         cls      := "text",
-        dataIcon := licon.InfoCircle,
+        dataIcon := Icon.InfoCircle,
         href     := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way"
       ):
         trans.study.whatAreStudies()
@@ -166,7 +165,7 @@ object list:
   private[study] def searchForm(placeholder: String, value: String) =
     form(cls := "search", action := routes.Study.search(), method := "get")(
       input(name       := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
-      submitButton(cls := "button", dataIcon  := licon.Search)
+      submitButton(cls := "button", dataIcon  := Icon.Search)
     )
 
   private def layout(

@@ -28,11 +28,9 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     picfitApi: lila.memo.PicfitApi,
     notifyApi: lila.core.notify.NotifyApi,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
+    userRepo: lila.core.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     subsRepo: lila.core.relation.SubscriptionRepo,
-    prefApi: lila.pref.PrefApi,
     db: lila.db.Db,
     net: lila.core.config.NetConfig
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):

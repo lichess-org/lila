@@ -9,8 +9,10 @@ import lila.core.config.*
 @Module
 final class Env(
     appConfig: Configuration,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
+    perfsRepo: lila.core.user.PerfsRepo,
+    userRepo: lila.core.user.UserRepo,
+    userApi: lila.core.user.UserApi,
+    flagApi: lila.core.user.FlagApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi

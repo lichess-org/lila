@@ -72,5 +72,5 @@ final class Env(
       logUnit { pushApi.corresAlarm(pov) }
     case lila.core.notify.PushNotification(to, content, _) =>
       logUnit { pushApi.notifyPush(to, content) }
-    case t: lila.core.actorApi.push.TourSoon =>
+    case t: lila.core.misc.push.TourSoon =>
       logUnit { pushApi.tourSoon(t) }

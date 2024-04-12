@@ -14,7 +14,7 @@ object bits:
   def create(using PageContext) =
     views.html.site.message(
       title = becomeStreamer.txt(),
-      icon = Some(licon.Mic),
+      icon = Some(Icon.Mic),
       moreCss = cssTag("streamer.form").some
     )(
       postForm(cls := "streamer-new", action := routes.Streamer.create)(
@@ -25,7 +25,7 @@ object bits:
         br,
         br,
         p(style := "text-align: center")(
-          submitButton(cls := "button button-fat text", dataIcon := licon.Mic)(hereWeGo())
+          submitButton(cls := "button button-fat text", dataIcon := Icon.Mic)(hereWeGo())
         )
       )
     )
@@ -52,7 +52,7 @@ object bits:
         )("Approval requests")
       ),
       a(
-        dataIcon := licon.InfoCircle,
+        dataIcon := Icon.InfoCircle,
         cls      := "text",
         href     := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community"
       )(
@@ -72,7 +72,7 @@ object bits:
         cls   := "stream highlight",
         title := s.status
       )(
-        strong(cls := "text", dataIcon := licon.Mic)(l.titleName(s)),
+        strong(cls := "text", dataIcon := Icon.Mic)(l.titleName(s)),
         " ",
         s.cleanStatus
       )
@@ -84,7 +84,7 @@ object bits:
     )
 
   def contextual(userId: UserId)(using Translate): Tag =
-    redirectLink(userId)(cls := "context-streamer text", dataIcon := licon.Mic):
+    redirectLink(userId)(cls := "context-streamer text", dataIcon := Icon.Mic):
       xIsStreaming(strong(titleNameOrId(userId)))
 
   def rules(using Translate) =
@@ -109,7 +109,7 @@ object bits:
 
   def streamerTitle(s: lila.streamer.Streamer.WithContext) =
     span(cls := "streamer-title")(
-      h1(dataIcon := licon.Mic)(titleTag(s.user.title), s.streamer.name),
+      h1(dataIcon := Icon.Mic)(titleTag(s.user.title), s.streamer.name),
       s.streamer.lastStreamLang.map: language =>
         span(cls := "streamer-lang")(LangList.nameByLanguage(language))
     )

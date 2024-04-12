@@ -120,7 +120,7 @@ $('#asset-version-message').text(site.info.message);"""
                   st.title := "Copy code",
                   cls      := "copy button",
                   dataRel  := "tv-embed-src",
-                  dataIcon := licon.Link
+                  dataIcon := Icon.Link
                 )
               ),
               parameters,
@@ -139,7 +139,7 @@ $('#asset-version-message').text(site.info.message);"""
                   st.title := "Copy code",
                   cls      := "copy button",
                   dataRel  := "tv-channel-embed-src",
-                  dataIcon := licon.Link
+                  dataIcon := Icon.Link
                 )
               )
             )
@@ -165,7 +165,7 @@ $('#asset-version-message').text(site.info.message);"""
                   st.title := "Copy code",
                   cls      := "copy button",
                   dataRel  := "puzzle-embed-src",
-                  dataIcon := licon.Link
+                  dataIcon := Icon.Link
                 )
               ),
               parameters,
@@ -235,7 +235,7 @@ $('#asset-version-message').text(site.info.message);"""
       moreJs = moreJs
     ):
       val sep                  = div(cls := "sep")
-      val external             = frag(" ", i(dataIcon := licon.ExternalArrow))
+      val external             = frag(" ", i(dataIcon := Icon.ExternalArrow))
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         views.html.site.bits.pageMenuSubnav(

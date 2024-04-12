@@ -49,7 +49,7 @@ object clas:
           href     := clasRoutes.form,
           cls      := "new button button-empty",
           title    := trans.clas.newClass.txt(),
-          dataIcon := licon.PlusButton
+          dataIcon := Icon.PlusButton
         )
       ),
       if current.isEmpty then frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
@@ -78,7 +78,7 @@ object clas:
       classes.map { clas =>
         div(
           cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
-          dataIcon := licon.Group
+          dataIcon := Icon.Group
         )(
           a(cls := "overlay", href := clasRoutes.show(clas.id.value)),
           div(

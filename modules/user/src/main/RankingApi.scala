@@ -8,9 +8,10 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Glicko, Perf, UserPerfs }
-import lila.core.perf.{ PerfId, PerfType }
 import lila.core.user.LightPerf
-import lila.core.perf.PerfKey
+import lila.core.perf.{ PerfId, UserPerfs }
+import lila.rating.PerfType
+import lila.rating.GlickoExt.rankable
 
 final class RankingApi(
     coll: AsyncCollFailingSilently,
@@ -34,7 +35,7 @@ final class RankingApi(
             "perf"      -> perfType.id,
             "rating"    -> perf.intRating,
             "prog"      -> perf.progress,
-            "stable"    -> perf.rankable(lila.rating.PerfType.variantOf(perfType)),
+            "stable"    -> perf.glicko.rankable(lila.rating.PerfType.variantOf(perfType)),
             "expiresAt" -> nowInstant.plusDays(7)
           ),
           upsert = true
@@ -52,8 +53,8 @@ final class RankingApi(
   private[user] def topPerf(perfId: PerfId, nb: Int): Fu[List[LightPerf]] =
     lila.rating.PerfType
       .id2key(perfId)
-      .filter(k => PerfType(k).exists(lila.rating.PerfType.isLeaderboardable))
-      .so { perfKey =>
+      .filter(k => lila.rating.PerfType.isLeaderboardable(PerfType(k)))
+      .so: perfKey =>
         coll:
           _.find($doc("perf" -> perfId, "stable" -> true))
             .sort($doc("rating" -> -1))
@@ -69,9 +70,8 @@ final class RankingApi(
                     progress = ~r.prog
                   )
               .parallel.dmap(_.flatten)
-      }
 
-  private[user] def fetchLeaderboard(nb: Int): Fu[UserPerfs.Leaderboards] =
+  private[user] def fetchLeaderboard(nb: Int): Fu[lila.rating.UserPerfs.Leaderboards] =
     for
       ultraBullet   <- topPerf(PerfType.UltraBullet.id, nb)
       bullet        <- topPerf(PerfType.Bullet.id, nb)
@@ -86,7 +86,7 @@ final class RankingApi(
       horde         <- topPerf(PerfType.Horde.id, nb)
       racingKings   <- topPerf(PerfType.RacingKings.id, nb)
       crazyhouse    <- topPerf(PerfType.Crazyhouse.id, nb)
-    yield UserPerfs.Leaderboards(
+    yield lila.rating.UserPerfs.Leaderboards(
       ultraBullet = ultraBullet,
       bullet = bullet,
       blitz = blitz,

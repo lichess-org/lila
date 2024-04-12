@@ -5,8 +5,8 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
-import lila.core.perf.PerfType
+
+import lila.rating.PerfType
 
 object bits:
 
@@ -52,8 +52,8 @@ object bits:
   def perfTrophies(u: User, rankMap: lila.rating.UserRankMap)(using Translate) = (!u.lame).so:
     rankMap.toList
       .sortBy(_._2)
-      .flatMap: (perf, rank) =>
-        PerfType(perf).map(_ -> rank)
+      .map: (perf, rank) =>
+        PerfType(perf) -> rank
       .collect:
         case (perf, rank) if rank == 1 =>
           span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(

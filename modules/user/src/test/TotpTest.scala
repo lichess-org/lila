@@ -2,23 +2,24 @@ package lila.user
 
 import java.nio.charset.StandardCharsets.UTF_8
 
-import User.TotpToken
+import lila.core.user.TotpSecret
+import lila.user.TotpSecret.*
 
 class TotpTest extends munit.FunSuite:
 
   test("read and write secret") {
-    val secret = TotpSecret.random
-    assertEquals(TotpSecret(secret.base32).base32, secret.base32)
+    val secret = random
+    assertEquals(decode(secret.base32).base32, secret.base32)
   }
 
   test("authenticate") {
-    val secret = TotpSecret.random
+    val secret = random
     val token  = secret.currentTotp
     assert(secret.verify(token))
   }
 
   test("not authenticate") {
-    val secret = TotpSecret("base32secret3232")
+    val secret = decode("base32secret3232")
     assert(!secret.verify(TotpToken("")))
     assert(!secret.verify(TotpToken("000000")))
     assert(!secret.verify(TotpToken("123456")))
@@ -26,7 +27,7 @@ class TotpTest extends munit.FunSuite:
 
   test("reference") {
     // https://tools.ietf.org/html/rfc6238#appendix-B
-    val secret = TotpSecret("12345678901234567890".getBytes(UTF_8))
+    val secret = new TotpSecret("12345678901234567890".getBytes(UTF_8))
     assertEquals(secret.totp(59 / 30), TotpToken("287082"))
     assertEquals(secret.totp(1111111109L / 30), TotpToken("081804"))
     assertEquals(secret.totp(1111111111L / 30), TotpToken("050471"))

@@ -24,7 +24,7 @@ object create:
   )(using PageContext) =
     views.html.site.message(
       title = trans.site.toStudy.txt(),
-      icon = Some(licon.StudyBoard),
+      icon = Some(Icon.StudyBoard),
       back = backUrl,
       moreCss = cssTag("study.create").some
     ) {
@@ -41,7 +41,7 @@ object create:
               name     := "as",
               value    := "study",
               cls      := "submit button large new text",
-              dataIcon := licon.StudyBoard
+              dataIcon := Icon.StudyBoard
             )(trans.study.createStudy())
           ),
           div(cls := "studies")(

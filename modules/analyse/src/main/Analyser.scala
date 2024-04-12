@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import lila.common.Bus
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }
-import lila.core.actorApi.map.TellIfExists
+import lila.core.misc.map.TellIfExists
 import lila.tree.Analysis
 
 final class Analyser(

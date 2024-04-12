@@ -14,7 +14,7 @@ object tourForm:
 
   def create(form: Form[Data])(using PageContext) =
     layout(newBroadcast.txt(), menu = "new".some)(
-      boxTop(h1(dataIcon := licon.RadioTower, cls := "text")(newBroadcast())),
+      boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(newBroadcast())),
       postForm(cls := "form3", action := routes.RelayTour.create)(
         inner(form, none),
         form3.actions(
@@ -28,7 +28,7 @@ object tourForm:
     import tg.*
     layout(tour.name.value, menu = none)(
       boxTop:
-        h1(dataIcon := licon.Pencil, cls := "text"):
+        h1(dataIcon := Icon.Pencil, cls := "text"):
           a(href := routes.RelayTour.show(tour.slug, tour.id))(tour.name)
       ,
       image(tour),

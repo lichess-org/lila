@@ -49,7 +49,6 @@ final class PasswordHasher(
     hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
 )(using Executor):
   import org.mindrot.BCrypt
-  import User.ClearPassword
 
   private val aes = new Aes(secret)
   private def bHash(salt: Array[Byte], p: ClearPassword) =

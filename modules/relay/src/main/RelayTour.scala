@@ -4,7 +4,6 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
 import lila.memo.{ PicfitImage, PicfitUrl }
-import lila.user.User
 
 case class RelayTour(
     @Key("_id") id: RelayTour.Id,
@@ -34,7 +33,7 @@ case class RelayTour(
   def official = tier.isDefined
 
   def giveOfficialToBroadcasterIf(cond: Boolean) =
-    if cond && official then copy(ownerId = User.broadcasterId) else this
+    if cond && official then copy(ownerId = UserId.broadcaster) else this
 
   def path: String = s"/broadcast/$slug/$id"
 

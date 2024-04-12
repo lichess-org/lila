@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 object leaderboard:
 
@@ -42,7 +42,7 @@ object leaderboard:
     ) {
       def eliteWinners =
         section(
-          h2(cls := "text", dataIcon := licon.CrownElite)("Elite Arena"),
+          h2(cls := "text", dataIcon := Icon.CrownElite)("Elite Arena"),
           ul(
             winners.elite.map { w =>
               li(
@@ -55,7 +55,7 @@ object leaderboard:
 
       def marathonWinners =
         section(
-          h2(cls := "text", dataIcon := licon.Globe)("Marathon"),
+          h2(cls := "text", dataIcon := Icon.Globe)("Marathon"),
           ul(
             winners.marathon.map { w =>
               li(
@@ -79,13 +79,12 @@ object leaderboard:
             freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
             freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
             marathonWinners,
-            lila.tournament.WinnersApi.variants.map { v =>
+            lila.tournament.WinnersApi.variants.map: v =>
               lila.rating.PerfType.byVariant(v).map { pt =>
-                winners.variants.get(pt.key.into(chess.variant.Variant.LilaKey)).map {
+                winners.variants.get(chess.variant.Variant.LilaKey(pt.key.value)).map {
                   freqWinners(_, pt, v.name)
                 }
               }
-            }
           )
         )
       )

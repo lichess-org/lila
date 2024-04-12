@@ -35,10 +35,11 @@ object LightUser:
 
   opaque type Me = LightUser
   object Me extends TotalWrapper[Me, LightUser]:
-    extension (me: Me) def userId: UserId = me.id
-    given UserIdOf[Me]                    = _.id
-    given Conversion[Me, LightUser]       = identity
-    given (using me: Me): MyId            = me.id.into(MyId)
+    extension (me: Me) def userId: UserId   = me.id
+    given UserIdOf[Me]                      = _.id
+    given Conversion[Me, LightUser]         = identity
+    given (using me: Me): MyId              = me.id.into(MyId)
+    given (using me: lila.core.user.Me): Me = me.lightMe
 
   private type GetterType          = UserId => Fu[Option[LightUser]]
   opaque type Getter <: GetterType = GetterType

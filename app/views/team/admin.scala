@@ -40,7 +40,7 @@ object admin:
             )
           ),
           postForm(cls := "team-permissions form3", action := teamRoutes.permissions(t.id))(
-            globalError(permsForm).map(_(cls := "box__pad text", dataIcon := licon.CautionTriangle)),
+            globalError(permsForm).map(_(cls := "box__pad text", dataIcon := Icon.CautionTriangle)),
             table(cls := "slist slist-pad slist-resp")(
               thead:
                 tr(
@@ -153,7 +153,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
                       momentFromNow(t.startsAt),
                       " ",
                       a(
-                        dataIcon     := licon.Forward,
+                        dataIcon     := Icon.Forward,
                         cls          := "text copy-url-button",
                         data.copyurl := s"${netConfig.domain}${routes.Tournament.show(t.id).url}"
                       )

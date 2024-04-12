@@ -6,7 +6,6 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
 
 object insight:
 
@@ -47,7 +46,7 @@ object insight:
       moreCss = cssTag("insight")
     )(
       main(cls := "box box-pad page-small")(
-        boxTop(h1(cls := "text", dataIcon := licon.Target)(trans.insight.xChessInsights(u.username))),
+        boxTop(h1(cls := "text", dataIcon := Icon.Target)(trans.insight.xChessInsights(u.username))),
         p(trans.insight.xHasNoChessInsights(userLink(u))),
         refreshForm(u, trans.insight.generateInsights.txt(u.username))
       )
@@ -69,7 +68,7 @@ object insight:
 
   def refreshForm(u: User, action: String)(using Translate) =
     postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
-      button(dataIcon := licon.Checkmark, cls := "button text")(action),
+      button(dataIcon := Icon.Checkmark, cls := "button text")(action),
       div(cls := "crunching none")(
         spinner,
         br,

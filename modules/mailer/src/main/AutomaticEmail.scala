@@ -7,14 +7,13 @@ import scala.util.chaining.*
 
 import lila.core.lilaism.LilaException
 import lila.core.config.BaseUrl
-import lila.core.actorApi.mailer.CorrespondenceOpponent
+import lila.core.misc.mailer.CorrespondenceOpponent
 import lila.core.msg.SystemMsg
 import lila.core.i18n.Translator
 import lila.core.i18n.I18nKey.emails as trans
-import lila.core.user.{ User, UserApi }
 
 final class AutomaticEmail(
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     mailer: Mailer,
     baseUrl: BaseUrl,
     lightUser: lila.core.user.LightUserApi

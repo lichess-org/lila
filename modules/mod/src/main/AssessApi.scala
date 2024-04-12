@@ -9,7 +9,7 @@ import lila.db.dsl.{ *, given }
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment, Statistics }
 import lila.game.{ Game, Player, Pov }
 import lila.core.report.SuspectId
-import lila.user.User
+
 import lila.core.game.Source
 
 final class AssessApi(

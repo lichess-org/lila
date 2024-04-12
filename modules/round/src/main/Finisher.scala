@@ -8,6 +8,7 @@ import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserApi, UserRepo }
+import lila.core.perf.UserWithPerfs
 
 final private class Finisher(
     gameRepo: GameRepo,
@@ -128,7 +129,7 @@ final private class Finisher(
             message.foreach { messenger(game, _) }
             gameRepo.game(game.id).foreach { newGame =>
               newGame.foreach(proxy.setFinishedGame)
-              val finish = FinishGame(newGame | game, users.map(_.map(u => (u.user, u.perfs))))
+              val finish = FinishGame(newGame | game, users)
               Bus.publish(finish, "finishGame")
               game.userIds.foreach: userId =>
                 Bus.publish(finish, s"userFinishGame:$userId")
@@ -137,7 +138,7 @@ final private class Finisher(
 
   private def updateCountAndPerfs(
       game: Game,
-      users: ByColor[Option[User.WithPerfs]]
+      users: ByColor[Option[UserWithPerfs]]
   ): Fu[Option[RatingDiffs]] =
     val isVsSelf = users.tupled.so((w, b) => w._1.is(b._1))
     (!isVsSelf && !game.aborted).so:
@@ -148,7 +149,7 @@ final private class Finisher(
         .zip(users.black.so(incNbGames(game)))
         .dmap(_._1._1)
 
-  private def incNbGames(game: Game)(user: User.WithPerfs): Funit =
+  private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
     game.finished.so { user.noBot || game.nonAi }.so {
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
       val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))

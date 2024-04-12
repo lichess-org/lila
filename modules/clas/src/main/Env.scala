@@ -3,7 +3,6 @@ package lila.clas
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
-import lila.user.Me
 
 @Module
 @annotation.nowarn("msg=unused")
@@ -40,18 +39,18 @@ final class Env(
   lazy val markup = wire[ClasMarkup]
 
   def hasClas(using me: Me) =
-    lila.core.perm.Granter[Me](_.Teacher) || studentCache.isStudent(me)
+    lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)
 
   lila.common.Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>
       progressApi.onFinishGame(game)
     },
     "clas" -> {
-      case lila.core.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
+      case lila.core.misc.clas.IsTeacherOf(teacher, student, promise) =>
         promise.completeWith(api.clas.isTeacherOf(teacher, student))
-      case lila.core.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
+      case lila.core.misc.clas.AreKidsInSameClass(kid1, kid2, promise) =>
         promise.completeWith(api.clas.areKidsInSameClass(kid1, kid2))
-      case lila.core.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
+      case lila.core.misc.clas.ClasMatesAndTeachers(kid, promise) =>
         promise.completeWith(matesCache.get(kid.id))
     }
   )

@@ -49,7 +49,7 @@ object show:
           div(cls := "simul__meta")(
             div(cls := "game-infos")(
               div(cls := "header")(
-                iconTag(licon.Group),
+                iconTag(Icon.Group),
                 div(
                   span(cls := "clock")(sim.clock.config.show),
                   div(cls := "setup")(
@@ -59,7 +59,7 @@ object show:
                     ((isGranted(_.ManageSimul) || userIsHost) && sim.isCreated).option(
                       frag(
                         " • ",
-                        a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(licon.Gear))
+                        a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(Icon.Gear))
                       )
                     )
                   )

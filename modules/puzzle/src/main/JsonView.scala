@@ -4,8 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.game.GameRepo
-import lila.rating.Perf
-import lila.user.Me
+
 import lila.tree.{ Metas, NewBranch, NewTree }
 import lila.core.i18n.{ Translate, Translator, defaultLang }
 import chess.format.*
@@ -119,7 +118,7 @@ final class JsonView(
       }
       .parallel
   yield
-    import lila.rating.Glicko.given
+    import lila.rating.Glicko.glickoWrites
     Json.obj("puzzles" -> jsons).add("glicko" -> me.map(_ => perf.glicko))
 
   object bc:

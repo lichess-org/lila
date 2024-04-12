@@ -4,7 +4,7 @@ import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.perm.Granter
-import lila.user.{ Me, User }
+
 import lila.core.forum.ForumPostMini
 
 case class OldVersion(text: String, createdAt: Instant)
@@ -28,7 +28,7 @@ case class ForumPost(
 ) extends lila.core.forum.ForumPost:
 
   private def showAuthor: String =
-    author.map(_.trim).filter("" !=) | (if ~modIcon then UserName.anonymous.value else User.anonMod)
+    author.map(_.trim).filter("" !=) | (if ~modIcon then UserName.anonymous.value else UserName.anonMod)
 
   def showUserIdOrAuthor: String = if erased then "<erased>" else userId.fold(showAuthor)(_.value)
 
@@ -44,7 +44,7 @@ case class ForumPost(
   def canBeEditedByMe(using me: Me): Boolean =
     userId match
       case Some(userId) if me.is(userId) => true
-      case None if (Granter[Me](_.PublicMod) || Granter[Me](_.SeeReport)) && isAnonModPost =>
+      case None if (Granter(_.PublicMod) || Granter(_.SeeReport)) && isAnonModPost =>
         true
       case _ => false
 

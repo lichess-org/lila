@@ -5,7 +5,6 @@ import chess.format.pgn.PgnStr
 
 import lila.common.Bus
 import lila.study.{ ChapterRepo, PgnDump, StudyRepo }
-import lila.user.User
 
 final class RelayPgnStream(
     roundRepo: RelayRoundRepo,

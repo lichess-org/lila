@@ -8,8 +8,9 @@ import lila.core.i18n.{ Language, Translate, defaultLanguage }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.pref.Pref
-import lila.user.{ Me, User }
+
 import lila.core.user.KidMode
+import lila.user.UserExt.userLanguage
 
 /* Who is logged in, and how */
 final class LoginContext(
@@ -58,7 +59,7 @@ class Context(
   lazy val translate                      = Translate(lila.i18n.Translator, lang)
   lazy val acceptLanguages: Set[Language] =
     req.acceptLanguages.view.map(Language.apply).toSet + defaultLanguage ++
-      user.flatMap(_.language).toSet
+      user.flatMap(_.userLanguage).toSet
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }

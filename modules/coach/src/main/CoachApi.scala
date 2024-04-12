@@ -3,13 +3,14 @@ package lila.coach
 import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.core.perm.Granter
-import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
-import lila.rating.UserPerfs
+import lila.core.perf.UserPerfs
+import lila.rating.UserPerfsExt.bestStandardRating
 
 final class CoachApi(
     coachColl: Coll,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
+    userRepo: lila.core.user.UserRepo,
+    userApi: lila.core.user.UserApi,
+    flagApi: lila.core.user.FlagApi,
     picfitApi: PicfitApi,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
@@ -19,19 +20,19 @@ final class CoachApi(
   def byId[U: UserIdOf](u: U): Fu[Option[Coach]] = coachColl.byId[Coach](u)
 
   def find(username: UserStr): Fu[Option[Coach.WithUser]] =
-    userRepo.byId(username).flatMapz(find)
+    userApi.byId(username).flatMapz(find)
 
   def canCoach = Granter.ofUser(_.Coach)
 
   def find(user: User): Fu[Option[Coach.WithUser]] =
     canCoach(user).so:
       byId(user.id).flatMapz: coach =>
-        perfsRepo.withPerfs(user).dmap(coach.withUser).dmap(some)
+        userApi.withPerfs(user).dmap(coach.withUser).dmap(some)
 
   def findOrInit(using me: Me): Fu[Option[Coach.WithUser]] =
     val user = me.value
     canCoach(user).so:
-      find(user).orElse(perfsRepo.withPerfs(user).flatMap { user =>
+      find(user).orElse(userApi.withPerfs(user).flatMap { user =>
         val c = Coach.make(user).withUser(user)
         coachColl.insert.one(c.coach).inject(c.some)
       })
@@ -50,9 +51,9 @@ final class CoachApi(
     canCoach(user).so:
       coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
 
-  def updateRatingFromDb(user: lila.core.user.User): Funit =
+  def updateRatingFromDb(user: User): Funit =
     canCoach(user).so:
-      perfsRepo.perfsOf(user).flatMap { perfs =>
+      userApi.perfsOf(user).flatMap { perfs =>
         coachColl.update.one($id(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void
       }
 
@@ -80,16 +81,16 @@ final class CoachApi(
 
   private val countriesCache = cacheApi.unit[CountrySelection]:
     _.refreshAfterWrite(1 hour).buildAsyncFuture: _ =>
-      import lila.user.{ Flag, Flags }
+      import lila.core.user.Flag
       userRepo.coll.secondaryPreferred
         .distinctEasy[Flag.Code, Set](
           "profile.country",
           $doc("roles" -> lila.core.perm.Permission.Coach.dbKey, "enabled" -> true)
         )
         .map: codes =>
-          ("all", "All countries") :: Flags.all
+          ("all", "All countries") :: flagApi.all
             .collect:
-              case f if codes.contains(f.code) && !Flags.nonCountries.contains(f.code) => f.code -> f.name
+              case f if codes.contains(f.code) && !flagApi.nonCountries.contains(f.code) => f.code -> f.name
             .sortBy(_._2)
         .map(CountrySelection(_))
 

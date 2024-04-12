@@ -177,7 +177,7 @@ object tour:
           heightA := size(RelayTour.thumbnail).height,
           src     := url(id, size)
         )
-    def fallback = iconTag(licon.RadioTower)(cls := "relay-image--fallback")
+    def fallback = iconTag(Icon.RadioTower)(cls := "relay-image--fallback")
     def url(id: PicfitImage.Id, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
@@ -206,7 +206,7 @@ object tour:
                 tr.crowd
                   .filter(_ > 2)
                   .map: nb =>
-                    span(cls := "relay-card__crowd text", dataIcon := licon.User)(nb.localize)
+                    span(cls := "relay-card__crowd text", dataIcon := Icon.User)(nb.localize)
               )
             else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
           ),

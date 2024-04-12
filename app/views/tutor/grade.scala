@@ -47,7 +47,7 @@ object grade:
           (!metric.mine.reliableEnough).option(
             frag(
               " (",
-              em(cls := "text", dataIcon := licon.CautionTriangle)("small sample!"),
+              em(cls := "text", dataIcon := Icon.CautionTriangle)("small sample!"),
               ")"
             )
           )

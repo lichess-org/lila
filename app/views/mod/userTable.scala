@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.core.perm.Granter
-import lila.user.User
+import lila.user.WithPerfsAndEmails
 
 object userTable:
 
@@ -36,7 +36,7 @@ object userTable:
   )
 
   def apply(
-      users: List[User.WithPerfsAndEmails],
+      users: List[WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
   )(using Context, Me) =
@@ -55,7 +55,7 @@ object userTable:
           )
         ),
         tbody:
-          users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
+          users.map { case lila.user.WithPerfsAndEmails(u, emails) =>
             tr(
               if showUsernames || lila.security.Granter.canViewAltUsername(u.user)
               then

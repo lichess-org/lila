@@ -5,11 +5,9 @@ import play.api.mvc.*
 
 import lila.common.HTTPRequest
 
-trait CtrlExtensions extends ControllerHelpers:
+trait CtrlExtensions extends ControllerHelpers with ResponseHeaders:
 
   val env: Env
-
-  export lila.user.given_Me
 
   extension (req: RequestHeader)
     def ipAddress = HTTPRequest.ipAddress(req)
@@ -26,13 +24,7 @@ trait CtrlExtensions extends ControllerHelpers:
       result.withHeaders(LINK -> s"<${env.net.baseUrl}${url}>; rel=\"canonical\"")
     def withCanonical(url: Call): Result = withCanonical(url.url)
     def enforceCrossSiteIsolation(using req: RequestHeader): Result =
-      result.withHeaders(
-        ResponseHeaders.embedderPolicy(
-          if HTTPRequest.supportsCoepCredentialless(req) then "credentialless" else "require-corp"
-        )*
-      )
-    def disableCoepCredentialless: Result =
-      ResponseHeaders.disableCoepCredentialless(result)
+      result.withHeaders(embedderPolicy.forReq(req)*)
     def noCache: Result = result.withHeaders(
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
       EXPIRES       -> "0"

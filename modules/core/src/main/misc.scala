@@ -1,11 +1,8 @@
 package lila.core
-package actorApi
+package misc
 
 import _root_.chess.format.{ Fen, Uci }
-import _root_.chess.format.pgn.PgnStr
 import play.api.libs.json.*
-import java.time.Duration
-import scala.concurrent.ExecutionContext
 
 import lila.core.userId.*
 import lila.core.id.GameId
@@ -32,6 +29,7 @@ package puzzle:
   case class StreakRun(userId: UserId, score: Int)
 
 package lpv:
+  import _root_.chess.format.pgn.PgnStr
   enum LpvEmbed:
     case PublicPgn(pgn: PgnStr)
     case PrivateStudy
@@ -42,13 +40,10 @@ package lpv:
 package mailer:
   case class CorrespondenceOpponent(
       opponentId: Option[UserId],
-      remainingTime: Option[Duration],
+      remainingTime: Option[java.time.Duration],
       gameId: GameId
   )
   case class CorrespondenceOpponents(userId: UserId, opponents: List[CorrespondenceOpponent])
-
-package notify:
-  case class NotifiedBatch(userIds: Iterable[UserId])
 
 package evaluation:
   case class AutoCheck(userId: UserId)

@@ -5,7 +5,7 @@ import play.api.data.Forms.*
 
 import lila.common.Form.{ cleanNonEmptyText, into, given }
 import lila.core.i18n.{ Language, LangList, defaultLanguage }
-import lila.user.User
+
 import lila.core.captcha.CaptchaApi
 import lila.core.captcha.WithCaptcha
 
@@ -69,7 +69,7 @@ object UblogForm:
         title = title,
         intro = intro,
         markdown = markdown,
-        language = language.orElse(user.language) | defaultLanguage,
+        language = language.orElse(user.realLang.map(Language.apply)) | defaultLanguage,
         topics = topics.so(UblogTopic.fromStrList),
         image = none,
         live = false,

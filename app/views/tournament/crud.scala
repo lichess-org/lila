@@ -65,7 +65,7 @@ object crud:
             cls    := "box__top__actions",
             action := routes.TournamentCrud.cloneT(tour.id),
             method := "get"
-          )(form3.submit("Clone", licon.Trophy.some)(cls := "button-green button-empty"))
+          )(form3.submit("Clone", Icon.Trophy.some)(cls := "button-green button-empty"))
         ),
         standardFlash,
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
@@ -119,7 +119,7 @@ object crud:
         boxTop(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := licon.PlusButton)
+            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := Icon.PlusButton)
           )
         ),
         table(cls := "slist slist-pad")(
@@ -147,7 +147,7 @@ object crud:
                 td(tour.clock.toString),
                 td(tour.minutes, "m"),
                 td(showInstant(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
-                td(a(href := routes.Tournament.show(tour.id), dataIcon := licon.Eye, title := "View on site"))
+                td(a(href := routes.Tournament.show(tour.id), dataIcon := Icon.Eye, title := "View on site"))
               )
             },
             pagerNextTable(tours, routes.TournamentCrud.index(_).url)

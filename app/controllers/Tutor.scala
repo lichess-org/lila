@@ -5,11 +5,11 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.LilaOpeningFamily
-import lila.rating.Perf
-import lila.core.perf.PerfType
+
+import lila.rating.PerfType
 import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
 import lila.user.User as UserModel
-import lila.core.perf.PerfKey
+import lila.core.perf.{ UserWithPerfs, PerfKeyStr }
 
 final class Tutor(env: Env) extends LilaController(env):
 
@@ -21,15 +21,17 @@ final class Tutor(env: Env) extends LilaController(env):
     Ok.page(views.html.tutor.home(av, user))
   }
 
-  def perf(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => full => perf =>
-    Ok.page(views.html.tutor.perf(full.report, perf, user))
+  def perf(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) {
+    _ ?=> user => full => perf =>
+      Ok.page(views.html.tutor.perf(full.report, perf, user))
   }
 
-  def openings(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.html.tutor.openings(perf, user))
+  def openings(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) {
+    _ ?=> user => _ => perf =>
+      Ok.page(views.html.tutor.openings(perf, user))
   }
 
-  def opening(username: UserStr, perf: PerfKey, colName: String, opName: String) =
+  def opening(username: UserStr, perf: PerfKeyStr, colName: String, opName: String) =
     TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
       chess.Color
         .fromName(colName)
@@ -43,15 +45,15 @@ final class Tutor(env: Env) extends LilaController(env):
               }
     }
 
-  def skills(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def skills(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.html.tutor.skills(perf, user))
   }
 
-  def phases(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def phases(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.html.tutor.phases(perf, user))
   }
 
-  def time(username: UserStr, perf: PerfKey) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
+  def time(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
     Ok.page(views.html.tutor.time(perf, user))
   }
 
@@ -63,7 +65,7 @@ final class Tutor(env: Env) extends LilaController(env):
       username: UserStr
   )(f: Context ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
     Secure(_.Beta) { ctx ?=> me ?=>
-      def proceed(user: UserModel.WithPerfs) = env.tutor.api.availability(user).flatMap(f(user.user))
+      def proceed(user: UserWithPerfs) = env.tutor.api.availability(user).flatMap(f(user.user))
       if me.is(username) then env.user.api.withPerfs(me.value).flatMap(proceed)
       else
         Found(env.user.api.withPerfs(username)): user =>
@@ -91,15 +93,17 @@ final class Tutor(env: Env) extends LilaController(env):
         case available: TutorFullReport.Available => f(user)(available)
     }
 
-  private def TutorPerfPage(username: UserStr, perf: PerfKey)(
+  private def TutorPerfPage(username: UserStr, perf: PerfKeyStr)(
       f: Context ?=> UserModel => TutorFullReport.Available => TutorPerfReport => Fu[Result]
   ): EssentialAction =
     TutorPage(username) { _ ?=> user => availability =>
-      PerfType(perf).fold(redirHome(user).toFuccess): perf =>
-        availability match
-          case full @ TutorFullReport.Available(report, _) =>
-            report(perf).fold(redirHome(user).toFuccess):
-              f(user)(full)
+      PerfKey
+        .read(perf)
+        .fold(redirHome(user).toFuccess): perf =>
+          availability match
+            case full @ TutorFullReport.Available(report, _) =>
+              report(perf).fold(redirHome(user).toFuccess):
+                f(user)(full)
     }
 
   private def redirHome(user: UserModel) = Redirect(routes.Tutor.user(user.username))

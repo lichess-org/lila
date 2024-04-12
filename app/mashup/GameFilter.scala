@@ -8,7 +8,7 @@ import play.api.mvc.Request
 import scalalib.paginator.Paginator
 import lila.db.dsl.*
 import lila.game.{ Game, Query }
-import lila.user.User
+import lila.core.user.User
 
 enum GameFilter:
   val name = lila.common.String.lcfirst(toString)

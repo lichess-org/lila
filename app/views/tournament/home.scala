@@ -80,7 +80,7 @@ object home:
                 a(
                   href     := routes.Tournament.form,
                   cls      := "button button-green text",
-                  dataIcon := licon.PlusButton
+                  dataIcon := Icon.PlusButton
                 )(trans.site.createANewTournament())
               )
             )

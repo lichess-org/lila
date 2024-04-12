@@ -35,7 +35,7 @@ object theme:
       )
 
   private[puzzle] def info(using Context) =
-    p(cls := "puzzle-themes__db text", dataIcon := licon.Heart):
+    p(cls := "puzzle-themes__db text", dataIcon := Icon.Heart):
       trans.puzzleTheme.puzzleDownloadInformation:
         a(href := "https://database.lichess.org/")("database.lichess.org")
 

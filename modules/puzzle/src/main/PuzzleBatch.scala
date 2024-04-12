@@ -1,8 +1,6 @@
 package lila.puzzle
 
 import lila.db.dsl.*
-import lila.rating.Perf
-import lila.user.Me
 
 // mobile app
 final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: PuzzlePathApi)(using

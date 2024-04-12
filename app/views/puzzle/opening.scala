@@ -29,9 +29,9 @@ object opening:
           mine.isEmpty.option(
             frag(
               p(cls := "help help-touchscreen")(
-                iconTag(licon.InfoCircle, trans.puzzle.useFindInPage())
+                iconTag(Icon.InfoCircle, trans.puzzle.useFindInPage())
               ),
-              p(cls := "help help-keyboard")(iconTag(licon.InfoCircle, trans.puzzle.useCtrlF()))
+              p(cls := "help help-keyboard")(iconTag(Icon.InfoCircle, trans.puzzle.useCtrlF()))
             )
           ),
           div(cls := "puzzle-themes")(

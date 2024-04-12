@@ -3,9 +3,11 @@ package lila.mod
 import lila.db.dsl.*
 import lila.game.BSONHandlers.given
 import lila.game.{ Game, GameRepo, Query }
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.report.Suspect
 import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
+import lila.core.user.WithPerf
+import lila.rating.PerfExt.refund
 
 final private class RatingRefund(
     gameRepo: GameRepo,
@@ -16,7 +18,7 @@ final private class RatingRefund(
     historyApi: lila.core.history.HistoryApi,
     rankingApi: RankingApi,
     logApi: ModlogApi,
-    perfStat: lila.core.perfStat.PerfStatApi
+    perfStat: lila.core.perf.PerfStatApi
 )(using Executor):
 
   import RatingRefund.*
@@ -52,7 +54,7 @@ final private class RatingRefund(
             .atMost(highest.fold(100)(_.value - curRating.value + 20))
         }.squeeze(0, 150)
 
-        def refundPoints(victim: User.WithPerf, pt: PerfType, points: Int): Funit =
+        def refundPoints(victim: WithPerf, pt: PerfType, points: Int): Funit =
           val newPerf = victim.perf.refund(points)
           perfsRepo.setPerf(victim.id, pt, newPerf) >>
             historyApi.setPerfRating(victim.user, pt, newPerf.intRating) >>

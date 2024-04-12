@@ -5,7 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 object variant:
 

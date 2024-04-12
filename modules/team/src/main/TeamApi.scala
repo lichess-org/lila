@@ -7,7 +7,6 @@ import java.time.Period
 import scala.util.Try
 import scala.util.chaining.*
 
-import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.core.{ timeline as tl }
@@ -25,7 +24,7 @@ final class TeamApi(
     userApi: UserApi,
     cached: Cached,
     notifier: Notifier,
-    chatApi: ChatApi
+    chatApi: lila.core.chat.ChatApi
 )(using Executor)
     extends lila.core.team.TeamApi:
 
@@ -108,7 +107,7 @@ final class TeamApi(
       .teamIdsList(member.id)
       .map(_.take(lila.team.Team.maxJoinCeiling))
       .flatMap { allIds =>
-        if viewer.exists(_.is(member)) || Granter.opt[Me](_.UserModView) then fuccess(allIds)
+        if viewer.exists(_.is(member)) || Granter.opt(_.UserModView) then fuccess(allIds)
         else
           allIds.nonEmpty.so:
             teamRepo.filterHideMembers(allIds).flatMap { hiddenIds =>
@@ -227,7 +226,7 @@ final class TeamApi(
           .enabledById(userId)
           .flatMapz: user =>
             memberRepo
-              .add(team.id, Me(user))
+              .add(team.id, user.id)
               .map: _ =>
                 cached.invalidateTeamIds(user.id)
                 1
@@ -275,7 +274,7 @@ final class TeamApi(
     myself <- memberRepo.get(team.id, me)
     allowed = userId.isnt(team.createdBy) && kicked.exists: kicked =>
       myself.exists: myself =>
-        kicked.perms.isEmpty || myself.hasPerm(_.Admin) || Granter[Me](_.ManageTeam)
+        kicked.perms.isEmpty || myself.hasPerm(_.Admin) || Granter(_.ManageTeam)
     _ <- allowed.so:
       // create a request to set declined in order to prevent kicked use to rejoin
       val request = TeamRequest.make(team.id, userId, "Kicked from team", declined = true)
@@ -320,7 +319,7 @@ final class TeamApi(
 
   def toggleEnabled(team: Team, explain: String)(using me: Me): Funit =
     isCreatorGranted(team, _.Admin).flatMap: activeCreator =>
-      if Granter[Me](_.ManageTeam) || me.is(team.createdBy) || !activeCreator
+      if Granter(_.ManageTeam) || me.is(team.createdBy) || !activeCreator
       then
         logger.info(s"toggleEnabled ${team.id}: ${!team.enabled} by @${me}: $explain")
         if team.enabled then

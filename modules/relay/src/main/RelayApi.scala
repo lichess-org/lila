@@ -181,8 +181,8 @@ final class RelayApi(
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
   private def updateGrouping(tour: RelayTour, data: RelayGroup.form.Data)(using me: Me): Funit =
-    Granter[Me](_.Relay).so:
-      val canGroup = fuccess(Granter[Me](_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
+    Granter(_.Relay).so:
+      val canGroup = fuccess(Granter(_.StudyAdmin)) >>| tourRepo.isOwnerOfAll(me.userId, data.tourIds)
       canGroup.flatMapz(groupRepo.update(tour.id, data))
 
   def create(data: RelayRoundForm.Data, tour: RelayTour)(using me: Me): Fu[RelayRound.WithTourAndStudy] =
@@ -287,7 +287,7 @@ final class RelayApi(
         tourById(relay.tourId).map2(relay.withTour)
 
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
-    fuccess(Granter[Me](_.StudyAdmin) || me.is(tour.ownerId)) >>|
+    fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
       roundRepo
         .studyIdsOf(tour.id)
         .flatMap: ids =>

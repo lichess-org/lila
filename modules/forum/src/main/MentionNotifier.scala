@@ -7,7 +7,7 @@ final class MentionNotifier(
     userRepo: lila.user.UserRepo,
     notifyApi: NotifyApi,
     relationApi: lila.core.relation.RelationApi,
-    prefApi: lila.pref.PrefApi
+    prefApi: lila.core.pref.PrefApi
 )(using Executor):
 
   def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =

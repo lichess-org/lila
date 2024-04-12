@@ -38,7 +38,7 @@ object network:
         br,
         br,
         cfRouting.nonEmpty.option(
-          p(cls := "saved text", dataIcon := licon.Checkmark)(
+          p(cls := "saved text", dataIcon := Icon.Checkmark)(
             trans.preferences.yourPreferencesHaveBeenSaved()
           )
         )

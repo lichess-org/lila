@@ -4,6 +4,7 @@ package i18n
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalatags.Text.RawFrag
+export scalalib.newtypes.{ given, * }
 
 /* play.api.i18n.Lang is composed of language and country.
  * Let's make new types for those so we don't mix them.

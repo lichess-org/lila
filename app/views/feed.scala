@@ -32,7 +32,7 @@ object feed:
               a(
                 href     := routes.Feed.createForm,
                 cls      := "button button-green",
-                dataIcon := licon.PlusButton
+                dataIcon := Icon.PlusButton
               )
             ),
             views.html.site.bits.atomLink(routes.Feed.atom)
@@ -57,7 +57,7 @@ object feed:
                     a(
                       href     := routes.Feed.edit(update.id),
                       cls      := "button button-green button-empty button-thin text",
-                      dataIcon := licon.Pencil
+                      dataIcon := Icon.Pencil
                     ),
                     (!update.public).option(badTag(nbsp, "[Draft]")),
                     update.future.option(goodTag(nbsp, "[Future]"))

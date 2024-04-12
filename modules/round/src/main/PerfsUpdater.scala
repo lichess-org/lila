@@ -5,7 +5,11 @@ import chess.{ ByColor, Color, Speed }
 import lila.game.{ Game, GameRepo, RatingDiffs }
 import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, glicko2, UserPerfs }
 import lila.user.{ RankingApi, User, UserApi }
-import lila.core.perf.PerfType
+import lila.rating.PerfType
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
+import lila.rating.PerfExt.toRating
+import lila.rating.PerfExt.addOrReset
+import lila.rating.GlickoExt.average
 
 final class PerfsUpdater(
     gameRepo: GameRepo,
@@ -15,8 +19,10 @@ final class PerfsUpdater(
     ratingFactors: () => RatingFactors
 )(using Executor):
 
+  import PerfsUpdater.*
+
   // returns rating diffs
-  def save(game: Game, white: User.WithPerfs, black: User.WithPerfs): Fu[Option[RatingDiffs]] =
+  def save(game: Game, white: UserWithPerfs, black: UserWithPerfs): Fu[Option[RatingDiffs]] =
     botFarming(game).flatMap {
       if _ then fuccess(none)
       else
@@ -65,7 +71,10 @@ final class PerfsUpdater(
             ).map(_.into(IntRatingDiff))
             lila.common.Bus
               .publish(
-                lila.game.actorApi.PerfsUpdate(game, ByColor(white.user -> perfsW, black.user -> perfsB)),
+                lila.game.actorApi.PerfsUpdate(
+                  game,
+                  ByColor(UserWithPerfs(white.user, perfsW), UserWithPerfs(black.user, perfsB))
+                ),
                 "perfsUpdate"
               )
             gameRepo
@@ -123,7 +132,7 @@ final class PerfsUpdater(
     try Glicko.system.updateRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
-  private def mkPerfs(ratings: Ratings, users: PairOf[User.WithPerfs], game: Game): UserPerfs =
+  private def mkPerfs(ratings: Ratings, users: PairOf[UserWithPerfs], game: Game): UserPerfs =
     val (player, opponent) = users
     val perfs              = player.perfs
     val speed              = game.speed
@@ -171,3 +180,26 @@ final class PerfsUpdater(
       correspondence = r(PerfType.Correspondence, perfs.correspondence, perfs1.correspondence)
     )
     if isStd then perfs2.updateStandard else perfs2
+
+private object PerfsUpdater:
+
+  extension (p: UserPerfs)
+    def updateStandard =
+      p.copy(
+        standard =
+          val subs = List(p.bullet, p.blitz, p.rapid, p.classical, p.correspondence).filter(_.provisional.no)
+          subs.maxByOption(_.latest.fold(0L)(_.toMillis)).flatMap(_.latest).fold(p.standard) { date =>
+            val nb = subs.map(_.nb).sum
+            val glicko = new lila.core.rating.Glicko(
+              rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
+              deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
+              volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum
+            )
+            new Perf(
+              glicko = glicko,
+              nb = nb,
+              recent = Nil,
+              latest = date.some
+            )
+          }
+      )

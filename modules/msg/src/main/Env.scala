@@ -17,7 +17,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
     relationApi: lila.core.relation.RelationApi,
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     notifyApi: lila.core.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     reportApi: lila.core.report.ReportApi,

@@ -8,7 +8,7 @@ import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
 
-import lila.core.Icon
+import lila.common.Icon
 
 // collection of lila attrs
 trait ScalatagsAttrs:
@@ -119,6 +119,8 @@ object ScalatagsTemplate extends ScalatagsTemplate
 
 // generic extensions
 trait ScalatagsExtensions:
+
+  given Render[Icon] = _.value
 
   given [A](using Render[A]): Conversion[A, scalatags.Text.Frag] = a => StringFrag(a.render)
 

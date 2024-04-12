@@ -9,8 +9,7 @@ import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.common.config.*
 import lila.socket.Announce
-import lila.core.actorApi.lpv.*
-import lila.user.User
+import lila.core.misc.lpv.*
 
 @Module
 final class Env(

@@ -5,11 +5,12 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestAny3Perfs
 
 object bots:
 
-  def apply(users: List[User.WithPerfs])(using PageContext) =
+  def apply(users: List[UserWithPerfs])(using PageContext) =
     val title = s"${users.size} Online bots"
     views.html.base.layout(
       title = title,
@@ -38,7 +39,7 @@ object bots:
             )
       )
 
-  private def botTable(users: List[User.WithPerfs])(using ctx: Context) = div(cls := "bots__list")(
+  private def botTable(users: List[UserWithPerfs])(using ctx: Context) = div(cls := "bots__list")(
     users.map: u =>
       div(cls := "bots__list__entry")(
         div(cls := "bots__list__entry__desc")(
@@ -55,7 +56,7 @@ object bots:
             .map { bio => td(shorten(bio, 400)) }
         ),
         a(
-          dataIcon := licon.Swords,
+          dataIcon := Icon.Swords,
           cls      := List("bots__list__entry__play button button-empty text" -> true),
           st.title := trans.challenge.challengeToPlay.txt(),
           href     := s"${routes.Lobby.home}?user=${u.username}#friend"

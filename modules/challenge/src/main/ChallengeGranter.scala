@@ -1,10 +1,9 @@
 package lila.challenge
 
 import lila.core.i18n.I18nKey.challenge as trans
-import lila.pref.Pref
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.core.relation.{ Block, Follow }
-import lila.user.{ Me, User }
+
 import lila.core.i18n.Translate
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
@@ -34,7 +33,7 @@ object ChallengeDenied:
       case Reason.SelfChallenge  => "You cannot challenge yourself."
 
 final class ChallengeGranter(
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     perfsRepo: lila.user.UserPerfsRepo,
     relationApi: lila.core.relation.RelationApi
 ):
@@ -47,20 +46,20 @@ final class ChallengeGranter(
       Executor
   )(using me: Option[Me]): Fu[Option[ChallengeDenied]] = me
     .fold[Fu[Option[ChallengeDenied.Reason]]] {
-      prefApi.get(dest).map(_.challenge).map {
-        case Pref.Challenge.ALWAYS => none
-        case _                     => YouAreAnon.some
+      prefApi.getChallenge(dest.id).map {
+        case lila.core.pref.Challenge.ALWAYS => none
+        case _                               => YouAreAnon.some
       }
     } { from =>
       type Res = Option[ChallengeDenied.Reason]
       given Conversion[Res, Fu[Res]] = fuccess
-      relationApi.fetchRelation(dest.id, from.userId).zip(prefApi.get(dest).map(_.challenge)).flatMap {
+      relationApi.fetchRelation(dest.id, from.userId).zip(prefApi.getChallenge(dest.id)).flatMap {
         case (Some(Block), _)                                  => YouAreBlocked.some
-        case (_, Pref.Challenge.NEVER)                         => TheyDontAcceptChallenges.some
+        case (_, lila.core.pref.Challenge.NEVER)               => TheyDontAcceptChallenges.some
         case (Some(Follow), _)                                 => none // always accept from followed
         case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
-        case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
-        case (_, Pref.Challenge.RATING) =>
+        case (_, lila.core.pref.Challenge.FRIEND)              => FriendsOnly.some
+        case (_, lila.core.pref.Challenge.RATING) =>
           perfsRepo
             .perfsOf(from.value -> dest, _.sec)
             .map: (fromPerfs, destPerfs) =>
@@ -70,9 +69,9 @@ final class ChallengeGranter(
                 val diff =
                   math.abs(fromPerfs(perfType).intRating.value - destPerfs(perfType).intRating.value)
                 (diff > ratingThreshold).option(RatingOutsideRange(perfType))
-        case (_, Pref.Challenge.REGISTERED) => none
-        case _ if from == dest              => SelfChallenge.some
-        case _                              => none
+        case (_, lila.core.pref.Challenge.REGISTERED) => none
+        case _ if from == dest                        => SelfChallenge.some
+        case _                                        => none
       }
     }
     .map:

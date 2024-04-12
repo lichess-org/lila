@@ -22,9 +22,9 @@ object homepageSpotlight:
                 img(cls := "img", src := assetUrl(s"images/$i"))
               }
               .getOrElse {
-                spot.iconFont.fold[Frag](iconTag(licon.Trophy)(cls := "img")) {
-                  case licon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
-                  case i           => iconTag(i)(cls := "img")
+                spot.iconFont.fold[Frag](iconTag(Icon.Trophy)(cls := "img")) {
+                  case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
+                  case i          => iconTag(i)(cls := "img")
                 }
               },
             span(cls := "content")(
@@ -51,7 +51,7 @@ object homepageSpotlight:
             span(cls := "name")(
               tour.name(),
               tour.isTeamRelated.option(
-                iconTag(licon.Group)(
+                iconTag(Icon.Group)(
                   cls   := "tour-team-icon",
                   title := tour.conditions.teamMember.fold(trans.team.teamBattle.txt())(_.teamName)
                 )

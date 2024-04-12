@@ -44,8 +44,8 @@ object bits:
             if withName then userIdLink(simul.hostId.some)
             else a(href := url)(userIdSpanMini(simul.hostId, true))
           ,
-          td(cls := "text", dataIcon := licon.Clock)(simul.clock.config.show),
-          td(cls := "text", dataIcon := licon.User)(simul.applicants.size)
+          td(cls := "text", dataIcon := Icon.Clock)(simul.clock.config.show),
+          td(cls := "text", dataIcon := Icon.User)(simul.applicants.size)
         )
 
   private[simul] def setup(sim: lila.simul.Simul) =

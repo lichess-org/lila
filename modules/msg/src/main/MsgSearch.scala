@@ -5,8 +5,8 @@ import reactivemongo.api.bson.*
 import lila.common.Bus
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.clas.ClasMatesAndTeachers
-import lila.user.Me
+import lila.core.misc.clas.ClasMatesAndTeachers
+
 import lila.core.user.KidMode
 import lila.core.userId.UserSearch
 

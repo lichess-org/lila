@@ -11,11 +11,12 @@ import lila.common.String.html.richText
 import scalalib.paginator.Paginator
 import lila.mod.IpRender.RenderIp
 import lila.security.{ FingerHash, IpTrust }
-import lila.user.{ Me, User }
+
+import lila.user.WithPerfsAndEmails
 
 object search:
 
-  def apply(form: Form[?], users: List[User.WithPerfsAndEmails])(using PageContext, Me) =
+  def apply(form: Form[?], users: List[WithPerfsAndEmails])(using PageContext, Me) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
@@ -40,7 +41,7 @@ object search:
 
   def print(
       fh: FingerHash,
-      users: List[User.WithPerfsAndEmails],
+      users: List[WithPerfsAndEmails],
       uas: List[String],
       blocked: Boolean
   )(using PageContext, Me) =
@@ -81,7 +82,7 @@ object search:
 
   def ip(
       address: IpAddress,
-      users: List[lila.user.User.WithPerfsAndEmails],
+      users: List[lila.user.WithPerfsAndEmails],
       uas: List[String],
       data: IpTrust.IpData,
       blocked: Boolean
@@ -119,7 +120,7 @@ object search:
         )
       )
 
-  def clas(c: lila.clas.Clas, users: List[User.WithPerfsAndEmails])(using PageContext, Me) =
+  def clas(c: lila.clas.Clas, users: List[WithPerfsAndEmails])(using PageContext, Me) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),

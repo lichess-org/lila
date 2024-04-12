@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.user.LightUserApi
 import lila.core.i18n.Translate
 

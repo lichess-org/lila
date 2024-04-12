@@ -19,7 +19,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     gameProxy: lila.game.core.GameProxy,
-    chatApi: lila.chat.ChatApi,
+    chatApi: lila.core.chat.ChatApi,
     roundApi: lila.game.core.RoundApi,
     lightUserApi: lila.user.LightUserApi,
     onStart: lila.core.game.OnStart,

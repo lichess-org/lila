@@ -6,7 +6,6 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
 
 object tree:
 
@@ -382,14 +381,14 @@ object tree:
             )
         ),
         div(cls := "appeal__rules")(
-          p(cls := "text warning-closure", dataIcon := licon.CautionTriangle)(closingAccountWithdrawAppeal()),
-          p(cls := "text", dataIcon := licon.InfoCircle)(doNotMessageModerators()),
+          p(cls := "text warning-closure", dataIcon := Icon.CautionTriangle)(closingAccountWithdrawAppeal()),
+          p(cls := "text", dataIcon := Icon.InfoCircle)(doNotMessageModerators()),
           p(
-            a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Cms.lonePage("appeal"))(
+            a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Cms.lonePage("appeal"))(
               "Read more about the appeal process"
             )
           ),
-          p(a(cls := "text", dataIcon := licon.Download, href := routes.Account.data)("Export personal data"))
+          p(a(cls := "text", dataIcon := Icon.Download, href := routes.Account.data)("Export personal data"))
         )
       )
     }

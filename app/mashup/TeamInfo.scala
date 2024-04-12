@@ -6,8 +6,8 @@ import lila.simul.{ Simul, SimulApi }
 import lila.swiss.{ Swiss, SwissApi }
 import lila.team.{ RequestWithUser, Team, TeamApi, TeamMember, TeamRequest, TeamRequestRepo, TeamSecurity }
 import lila.tournament.{ Tournament, TournamentApi }
-import lila.user.User
 import lila.core.forum.ForumPostMiniView
+import lila.core.user.User
 
 case class TeamInfo(
     withLeaders: Team.WithLeaders,

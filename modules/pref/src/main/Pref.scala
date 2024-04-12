@@ -2,8 +2,6 @@ package lila.pref
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.user.User
-
 case class Pref(
     @Key("_id") id: UserId,
     bg: Int,
@@ -222,9 +220,7 @@ object Pref:
   object ConfirmResign extends BooleanPref
 
   object InsightShare:
-    val NOBODY    = 0
-    val FRIENDS   = 1
-    val EVERYBODY = 2
+    import lila.core.pref.InsightShare.*
 
     val choices = Seq(
       NOBODY    -> "With nobody",
@@ -350,11 +346,7 @@ object Pref:
     )
 
   object Challenge:
-    val NEVER      = 1
-    val RATING     = 2
-    val FRIEND     = 3
-    val REGISTERED = 4
-    val ALWAYS     = 5
+    import lila.core.pref.Challenge.*
 
     val ratingThreshold = 300
 
@@ -367,9 +359,7 @@ object Pref:
     )
 
   object Message:
-    val NEVER  = 1
-    val FRIEND = 2
-    val ALWAYS = 3
+    import lila.core.pref.Message.*
 
     val choices = Seq(
       NEVER  -> "Only existing conversations",
@@ -378,9 +368,7 @@ object Pref:
     )
 
   object StudyInvite:
-    val NEVER  = 1
-    val FRIEND = 2
-    val ALWAYS = 3
+    import lila.core.pref.StudyInvite.*
 
     val choices = Seq(
       NEVER  -> "Never",
@@ -456,12 +444,12 @@ object Pref:
     coords = Coords.INSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
-    challenge = Challenge.REGISTERED,
-    message = Message.ALWAYS,
-    studyInvite = StudyInvite.ALWAYS,
+    challenge = lila.core.pref.Challenge.REGISTERED,
+    message = lila.core.pref.Message.ALWAYS,
+    studyInvite = lila.core.pref.StudyInvite.ALWAYS,
     submitMove = SubmitMove.CORRESPONDENCE,
     confirmResign = ConfirmResign.YES,
-    insightShare = InsightShare.FRIENDS,
+    insightShare = lila.core.pref.InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     voice = None,
     zen = Zen.NO,

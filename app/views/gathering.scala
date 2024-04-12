@@ -3,7 +3,7 @@ package views.html
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.Condition
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 object gathering:
 
@@ -12,7 +12,7 @@ object gathering:
   ): Option[Tag] =
     vs.nonEmpty.option(
       st.section(
-        dataIcon := relevant.option(if ctx.isAuth && vs.accepted then licon.Checkmark else licon.Padlock),
+        dataIcon := relevant.option(if ctx.isAuth && vs.accepted then Icon.Checkmark else Icon.Padlock),
         cls := List(
           "conditions" -> true,
           "accepted"   -> (relevant && ctx.isAuth && vs.accepted),

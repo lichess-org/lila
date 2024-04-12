@@ -83,16 +83,16 @@ z-index: 99;
   def pagination(url: Int => String, page: Int, nbPages: Int, showPost: Boolean): Tag =
     st.nav(cls := "pagination")(
       if page > 1
-      then a(href   := url(page - 1), dataIcon := licon.LessThan)
-      else span(cls := "disabled", dataIcon    := licon.LessThan),
+      then a(href   := url(page - 1), dataIcon := Icon.LessThan)
+      else span(cls := "disabled", dataIcon    := Icon.LessThan),
       sliding(page, nbPages, 3, showPost = showPost).map:
         case None                 => raw(" &hellip; ")
         case Some(p) if p == page => span(cls := "current")(p)
         case Some(p)              => a(href := url(p))(p)
       ,
       if page < nbPages
-      then a(rel    := "next", dataIcon     := licon.GreaterThan, href := url(page + 1))
-      else span(cls := "disabled", dataIcon := licon.GreaterThan)
+      then a(rel    := "next", dataIcon     := Icon.GreaterThan, href := url(page + 1))
+      else span(cls := "disabled", dataIcon := Icon.GreaterThan)
     )
 
   private def sliding(page: Int, nbPages: Int, length: Int, showPost: Boolean): List[Option[Int]] =

@@ -5,9 +5,9 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.rating.{ Glicko, Perf }
-import lila.user.User
+
 import lila.core.i18n.Translate
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 final class JsonView(getLightUser: LightUser.GetterSync):
 
@@ -44,7 +44,7 @@ final class JsonView(getLightUser: LightUser.GetterSync):
 
 object JsonView:
 
-  import lila.rating.Glicko.given
+  import lila.rating.Glicko.glickoWrites
 
   private given Writes[Instant] = Writes: d =>
     JsString(isoDateTimeFormatter.print(d))

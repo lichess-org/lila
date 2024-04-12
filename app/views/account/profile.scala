@@ -42,7 +42,7 @@ object profile:
                 a(
                   href     := s"${routes.Pref.form("display")}#showFlairs",
                   cls      := "text",
-                  dataIcon := licon.InfoCircle
+                  dataIcon := Icon.InfoCircle
                 ):
                   trans.site.youCanHideFlair()
           ),

@@ -4,7 +4,6 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final private class DeviceApi(coll: Coll)(using Executor):
 

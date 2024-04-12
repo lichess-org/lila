@@ -16,7 +16,6 @@ import lila.core.config.*
 import lila.common.autoconfig.*
 import lila.common.config.given
 import lila.memo.CacheApi
-import lila.user.User
 
 final private class PayPalClient(
     ws: StandaloneWSClient,

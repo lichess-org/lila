@@ -41,7 +41,7 @@ object queue:
                   .contains(appeal.userId)
                   .option(
                     span(
-                      dataIcon := licon.CautionTriangle,
+                      dataIcon := Icon.CautionTriangle,
                       cls      := "marked-by-me text"
                     )("My mark")
                   ),

@@ -3,7 +3,6 @@ package lila.study
 import chess.format.Fen
 
 import lila.game.{ Game, Namer, Pov }
-import lila.user.User
 
 final private class StudyMaker(
     lightUserApi: lila.user.LightUserApi,

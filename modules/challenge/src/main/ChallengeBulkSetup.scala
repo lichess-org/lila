@@ -14,8 +14,8 @@ import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.core.game.GameRule
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
-import lila.core.perf.PerfType
-import lila.user.{ User, Me }
+import lila.rating.PerfType
+
 import scalalib.model.Days
 
 final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
@@ -99,13 +99,12 @@ final class ChallengeBulkSetupApi(
   )
 
   def apply(data: BulkFormData, me: User): Fu[Result] =
-    given OAuthServer.FetchUser[Me] = userRepo.me
     Source(extractTokenPairs(data.tokens))
       .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
       .mapAsync(8): token =>
         oauthServer
-          .auth[Me](token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
+          .auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
           .map {
             _.left.map { BadToken(token, _) }
           }

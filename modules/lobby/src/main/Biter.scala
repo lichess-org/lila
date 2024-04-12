@@ -4,11 +4,11 @@ import chess.{ ByColor, Game as ChessGame, Situation }
 
 import lila.game.{ Game, Player }
 import lila.core.socket.Sri
-import lila.user.{ GameUsers, User }
+import lila.core.user.GameUsers
+import lila.core.user.WithPerf
 
 final private class Biter(
-    userRepo: lila.user.UserRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     gameRepo: lila.game.GameRepo
 )(using Executor, lila.game.IdGenerator):
 
@@ -24,7 +24,7 @@ final private class Biter(
 
   private def join(hook: Hook, sri: Sri, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] =
     for
-      users <- userApi.gamePlayers(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
+      users <- userApi.gamePlayersAny(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
       (joiner, owner) = users.toPair
       ownerColor <- assignCreatorColor(owner, joiner, hook.realColor)
       game <- makeGame(
@@ -39,11 +39,8 @@ final private class Biter(
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] =
     for
-      users <- userApi.gamePlayers
-        .loggedIn(
-          ByColor(lobbyUser.id, seek.user.id),
-          seek.perfType
-        )
+      users <- userApi
+        .gamePlayersLoggedIn(ByColor(lobbyUser.id, seek.user.id), seek.perfType)
         .orFail(s"No such seek users: $seek")
       (joiner, owner) = users.toPair
       ownerColor <- assignCreatorColor(owner.some, joiner.some, seek.realColor)
@@ -61,13 +58,13 @@ final private class Biter(
     then gameRepo.fixedColorLobbyCache.put(game.id)
 
   private def assignCreatorColor(
-      creatorUser: Option[User.WithPerf],
-      joinerUser: Option[User.WithPerf],
+      creatorUser: Option[WithPerf],
+      joinerUser: Option[WithPerf],
       color: Color
   ): Fu[chess.Color] =
     color match
       case Color.Random =>
-        userRepo.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)).map { chess.Color.fromWhite(_) }
+        userApi.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)).map { chess.Color.fromWhite(_) }
       case Color.White => fuccess(chess.White)
       case Color.Black => fuccess(chess.Black)
 

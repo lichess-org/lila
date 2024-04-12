@@ -6,15 +6,15 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.game.{ Game, Pov }
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 object bits:
 
   def gameIcon(game: Game): Icon =
-    if game.fromPosition then licon.Feather
-    else if game.imported then licon.UploadCloud
+    if game.fromPosition then Icon.Feather
+    else if game.imported then Icon.UploadCloud
     else if game.variant.exotic then game.perfType.icon
-    else if game.hasAi then licon.Cogs
+    else if game.hasAi then Icon.Cogs
     else game.perfType.icon
 
   def sides(

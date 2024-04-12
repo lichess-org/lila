@@ -11,13 +11,13 @@ import lila.core.perm.{ Granter, Permission }
 trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConversions:
 
   def isGranted(permission: Permission.Selector)(using Me): Boolean =
-    Granter[Me](permission)
+    Granter(permission)
 
   def isGrantedOpt(permission: Permission.Selector)(using Option[Me]): Boolean =
-    Granter.opt[Me](permission)
+    Granter.opt(permission)
 
   // def isGranted(permission: Permission)(using me: Option[Me]): Boolean =
-  //   Granter.opt[Me](permission)
+  //   Granter.opt(permission)
 
   def NoCurrentGame(a: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
     ctx.me

@@ -1,2 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="activity">ක්‍රියාකාරකම්</string>
+  <string name="hostedALiveStream">සජීවී ප්‍රවාහයක් පැවැත්වීය</string>
+  <plurals name="supportedNbMonths">
+    <item quantity="one">%2$s ලෙස මාස %1$s සඳහා lichess.org වෙත​ සහාය දක්වා ඇත​</item>
+    <item quantity="other">%2$s ලෙස මාස %1$s සඳහා lichess.org වෙත​ සහාය දක්වා ඇත​</item>
+  </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">%2$s හි %1$s position එක​ පුහුණු විය</item>
+    <item quantity="other">%2$s හි %1$s positions​ පුහුණු විය</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">%s පුහුණු ප්‍රහේලිකාව විසඳා ඇත</item>
+    <item quantity="other">%s පුහුණු ප්‍රහේලිකා විසඳා ඇත</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s %2$s ක්‍රීඩා කළා</item>
+    <item quantity="other">%1$s %2$s ක්‍රීඩා කළා</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%1$s පණිවිඩයක් %2$s හි පළ කරන ලදී</item>
+    <item quantity="other">%1$s පණිවිඩ %2$s හි පළ කරන ලදී</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s ඇදීමක් ක්‍රීඩා කළා</item>
+    <item quantity="other">%1$s ඇදීම් ක්‍රීඩා කළා</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">%1$s ලිපි හුවමාරු ක්‍රීඩාවේ</item>
+    <item quantity="other">%1$s ලිපි හුවමාරු ක්‍රීඩාවේ</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s ලිපි හුවමාරු ක්‍රීඩාව සම්පූර්ණ කරන ලදී</item>
+    <item quantity="other">%s ලිපි හුවමාරු ක්‍රීඩා සම්පූර්ණ කරන ලදී</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s ක්‍රීඩකයා follow කිරීම ආරම්භ විය</item>
+    <item quantity="other">%s ක්‍රීඩකයන් අනුගමනය කිරීම ආරම්භ විය</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">නව followers %sදෙනෙක් ලබා ගන්නා ලදී</item>
+    <item quantity="other">නව followers %sදෙනෙක් ලබා ගන්නා ලදී</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">%s සමගාමී ප්‍රදර්ශනයක් පවත්වන ලදී</item>
+    <item quantity="other">සමගාමී ප්‍රදර්ශන %sක් පවත්වන​ ලදී</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">%s සමගාමී ප්‍රදර්ශනයට සහභාගී විය</item>
+    <item quantity="other">%s සමගාමී ප්‍රදර්ශනවලට සහභාගී විය</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s නව අධ්‍යයනයක් සාදන ලදී</item>
+    <item quantity="other">%s නව අධ්‍යයන සාදන ලදී</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">%s Arena තරඟාවලියට තරඟ කළා</item>
+    <item quantity="other">%s Arena තරඟාවලි වලට තරඟ කළා</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%4$s හි %3$s ක්‍රීඩාව සමඟින් #%1$s (ඉහළම %2$s%%) ශ්‍රේණිගත කර ඇත</item>
+    <item quantity="other">%4$s ක්‍රීඩා %3$s සමඟින් #%1$s (ඉහළම %2$s%%) ශ්‍රේණිගත කර ඇත</item>
+  </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">%s ස්විස් තරඟාවලියට තරඟ කළා</item>
+    <item quantity="other">%s ස්විස් තරඟාවලි වල තරඟ කළා</item>
+  </plurals>
+  <string name="rankedInSwissTournament">%2$s හි #%1$s ශ්‍රේණිගත කර ඇත</string>
+  <string name="signedUp">Lichess.org වෙත ලියාපදිංචි විය</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">%s කණ්ඩායමට එක් විය</item>
+    <item quantity="other">කණ්ඩායම් %sකට සම්බන්ධ විය</item>
+  </plurals>
+</resources>

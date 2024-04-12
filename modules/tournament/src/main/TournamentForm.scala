@@ -9,7 +9,6 @@ import play.api.data.Forms.*
 import lila.common.Form.{ *, given }
 import lila.gathering.GatheringClock
 import lila.core.team.LightTeam
-import lila.user.Me
 
 final class TournamentForm:
 
@@ -84,7 +83,7 @@ final class TournamentForm:
       "clockTime"      -> numberInDouble(timeChoices),
       "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes" -> {
-        if lila.core.perm.Granter[Me](_.ManageTournament) then number
+        if lila.core.perm.Granter(_.ManageTournament) then number
         else numberIn(minuteChoicesKeepingCustom(prev))
       },
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),

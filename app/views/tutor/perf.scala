@@ -5,9 +5,8 @@ import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.tutor.{ TutorCompare, TutorFullReport, TutorPerfReport }
-import lila.user.User
 
 object perf:
 
@@ -16,7 +15,7 @@ object perf:
       cls := "tutor__perf box",
       boxTop(
         h1(
-          a(href := routes.Tutor.user(user.username), dataIcon := licon.LessThan, cls := "text"),
+          a(href := routes.Tutor.user(user.username), dataIcon := Icon.LessThan, cls := "text"),
           bits.otherUser(user),
           "Tutor: ",
           report.perf.trans

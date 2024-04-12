@@ -66,7 +66,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
           )
           .verifying(
             "You can't make Lichess a leader",
-            n => Granter[Me](_.ManageTeam) || n.isnt(UserId.lichess)
+            n => Granter(_.ManageTeam) || n.isnt(UserId.lichess)
           )
           .verifying(
             "This user is already a team leader",
@@ -90,7 +90,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
       single("leaders" -> seq(permissionsForm))
         .verifying(
           "You can't make Lichess a leader",
-          Granter[Me](_.ManageTeam) ||
+          Granter(_.ManageTeam) ||
             !_.exists(_.name.is(UserId.lichess)) ||
             t.leaders.exists(_.is(UserId.lichess))
         )
@@ -113,7 +113,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
         .verifying(
           "You cannot evict the team creator",
           d =>
-            Granter[Me](_.ManageTeam) || !t.hasAdminCreator || d.exists: l =>
+            Granter(_.ManageTeam) || !t.hasAdminCreator || d.exists: l =>
               l.name.is(t.createdBy) && l.perms(Permission.Admin)
         )
         .verifying(

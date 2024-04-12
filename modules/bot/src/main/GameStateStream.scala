@@ -19,7 +19,7 @@ import lila.game.actorApi.{
   MoveGameEvent
 }
 import lila.game.{ Game, Pov }
-import lila.core.actorApi.map.Tell
+import lila.core.misc.map.Tell
 import lila.core.round.BotConnected
 import lila.core.round.QuietFlag
 
@@ -36,7 +36,7 @@ final class GameStateStream(
   def apply(init: Game.WithInitialFen, as: chess.Color)(using
       lang: Lang,
       req: RequestHeader,
-      me: lila.user.Me
+      me: Me
   ): Source[Option[JsObject], ?] =
 
     // terminate previous one if any

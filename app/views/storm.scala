@@ -9,7 +9,6 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import scalalib.paginator.Paginator
 import lila.storm.{ StormDay, StormHigh }
-import lila.user.User
 
 object storm:
 

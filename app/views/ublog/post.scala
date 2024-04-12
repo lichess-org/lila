@@ -7,7 +7,6 @@ import play.api.mvc.Call
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
-import lila.user.User
 
 object post:
 
@@ -58,7 +57,7 @@ object post:
               href     := routes.Ublog.index(user.username),
               dataHref := routes.User.show(user.username)
             )(userLinkContent(user)),
-            iconTag(licon.InfoCircle)(
+            iconTag(Icon.InfoCircle)(
               cls      := "ublog-post__meta__disclaimer",
               st.title := "Opinions expressed by Lichess contributors are their own."
             ),
@@ -91,7 +90,7 @@ object post:
                     "reason"   -> "comm"
                   )
                 ),
-                dataIcon := licon.CautionTriangle
+                dataIcon := Icon.CautionTriangle
               )
             ,
             langName(post.language)
@@ -113,7 +112,7 @@ object post:
               a(
                 href     := routes.Ublog.discuss(post.id),
                 cls      := "button text ublog-post__discuss",
-                dataIcon := licon.BubbleConvo
+                dataIcon := Icon.BubbleConvo
               )(trans.ublog.discussThisBlogPostInTheForum())
             ),
             (ctx.isAuth && ctx.isnt(user)).option(
@@ -131,7 +130,7 @@ object post:
   private def editButton(post: UblogPost)(using PageContext) = a(
     href     := editUrlOfPost(post),
     cls      := "button button-empty text",
-    dataIcon := licon.Pencil
+    dataIcon := Icon.Pencil
   )(trans.site.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using PageContext) =
@@ -165,8 +164,8 @@ object post:
       )
     ):
       List(
-        ("yes", trans.site.unfollowX, routes.Relation.unfollow, licon.Checkmark),
-        ("no", trans.site.followX, routes.Relation.follow, licon.ThumbsUp)
+        ("yes", trans.site.unfollowX, routes.Relation.unfollow, Icon.Checkmark),
+        ("no", trans.site.followX, routes.Relation.follow, Icon.ThumbsUp)
       ).map: (role, text, route, icon) =>
         button(
           cls      := s"ublog-post__follow__$role button button-big",
@@ -216,7 +215,7 @@ object post:
     a(
       href     := routes.Ublog.form(user.username),
       cls      := "button button-green",
-      dataIcon := licon.PlusButton,
+      dataIcon := Icon.PlusButton,
       title    := trans.ublog.newPost.txt()
     )
 

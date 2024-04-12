@@ -7,7 +7,6 @@ import java.text.NumberFormat
 import java.util.{ Currency, Locale }
 
 import lila.core.net.IpAddress
-import lila.user.User
 
 case class Source(value: String) extends AnyVal
 

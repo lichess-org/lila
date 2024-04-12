@@ -11,7 +11,6 @@ import reactivemongo.api.{ Cursor, WriteConcern }
 
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
-import lila.core.user.User
 import lila.core.game.{ Game as _, Pov as _, * }
 
 final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.GameRepo:

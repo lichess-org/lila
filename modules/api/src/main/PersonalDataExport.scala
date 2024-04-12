@@ -8,7 +8,6 @@ import lila.coach.Coach
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.streamer.Streamer
-import lila.user.User
 
 final class PersonalDataExport(
     securityEnv: lila.security.Env,

@@ -120,7 +120,7 @@ object layout:
     s"""
 <div id="zenzone">
   <a href="/" class="zen-home"></a>
-  <a data-icon="${licon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
+  <a data-icon="${Icon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
         .txt()}</a>
 </div>"""
 
@@ -135,7 +135,7 @@ object layout:
     frag(
       a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
       div(cls := "dasher")(
-        button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
+        button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := Icon.Gear),
         div(id     := "dasher_app", cls         := "dropdown")
       )
     )
@@ -146,18 +146,18 @@ object layout:
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}"></span>
+    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${Icon.Swords}"></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}"></span>
+    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${Icon.BellOutline}"></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
 
-  private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
+  private val clinputLink = a(cls := "link")(span(dataIcon := Icon.Search))
 
   private def clinput(using ctx: PageContext) =
     div(id := "clinput")(
@@ -173,7 +173,7 @@ object layout:
 
   private val warnNoAutoplay =
     div(id := "warn-no-autoplay")(
-      a(dataIcon := licon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
+      a(dataIcon := Icon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
     )
 
   private def current2dTheme(using ctx: PageContext) =
@@ -377,7 +377,7 @@ object layout:
             .option(
               div(id := "friend_box")(
                 div(cls := "friend_box_title")(
-                  trans.site.nbFriendsOnline.plural(0, iconTag(licon.UpTriangle))
+                  trans.site.nbFriendsOnline.plural(0, iconTag(Icon.UpTriangle))
                 ),
                 div(cls := "content_wrap none")(
                   div(cls := "content list")
@@ -388,7 +388,7 @@ object layout:
             a(
               id       := "network-status",
               cls      := "link text",
-              dataIcon := licon.ChasingArrows
+              dataIcon := Icon.ChasingArrows
             )
           ),
           spinnerMask,
@@ -422,7 +422,7 @@ object layout:
           title     := "Moderation",
           href      := reportRoutes.list,
           dataCount := score,
-          dataIcon  := licon.Agent
+          dataIcon  := Icon.Agent
         ).some
       else
         isGranted(_.PublicChatView).option(
@@ -430,7 +430,7 @@ object layout:
             cls      := "link",
             title    := "Moderation",
             href     := routes.Mod.publicChat,
-            dataIcon := licon.Agent
+            dataIcon := Icon.Agent
           )
         )
 
@@ -440,7 +440,7 @@ object layout:
           cls       := "link data-count link-center",
           href      := teamRoutes.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon  := licon.Group,
+          dataIcon  := Icon.Group,
           title     := trans.team.teams.txt()
         )
       )
@@ -452,7 +452,7 @@ object layout:
           a(cls := "site-title", href := langHref("/"))(
             if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
-            div(cls := "site-icon", dataIcon := licon.Logo),
+            div(cls := "site-icon", dataIcon := Icon.Logo),
             div(cls := "site-name")(siteNameFrag)
           ),
           (!ctx.isAppealUser).option(

@@ -43,7 +43,7 @@ object declinedRequest:
                   value       := search,
                   placeholder := trans.search.search.txt()
                 ),
-                submitButton(cls := "button", dataIcon := licon.Search)
+                submitButton(cls := "button", dataIcon := Icon.Search)
               )
             )
           ),

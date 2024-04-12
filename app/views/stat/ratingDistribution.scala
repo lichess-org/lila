@@ -7,14 +7,15 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
-import lila.user.User
-import lila.core.perf.PerfType
+
+import lila.rating.PerfType
+import lila.core.perf.UserWithPerfs
 
 object ratingDistribution:
 
-  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User.WithPerfs])(using
+  def apply(perfType: PerfType, data: List[Int], otherUser: Option[UserWithPerfs])(using
       ctx: PageContext,
-      me: Option[User.WithPerfs]
+      me: Option[UserWithPerfs]
   ) =
     val myVisiblePerfs = me.map(_.perfs).ifTrue(ctx.pref.showRatings)
     views.html.base.layout(

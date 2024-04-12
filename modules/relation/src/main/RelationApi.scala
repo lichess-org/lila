@@ -17,7 +17,7 @@ import lila.core.userId.UserSearch
 
 final class RelationApi(
     repo: RelationRepo,
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     cacheApi: lila.memo.CacheApi,
     userApi: UserApi,
     config: RelationConfig

@@ -71,7 +71,7 @@ object gamify:
         div(id := "mod-gamify", cls := "page-menu__content box")(
           boxTop(
             h1(
-              a(href := routes.Mod.gamify, dataIcon := licon.LessThan),
+              a(href := routes.Mod.gamify, dataIcon := Icon.LessThan),
               title
             )
           ),

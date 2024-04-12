@@ -8,8 +8,8 @@ import lila.common.String.shorten
 import lila.common.LilaFuture
 import lila.core.LightUser
 import lila.game.{ Game, Namer, Pov }
-import lila.core.actorApi.map.Tell
-import lila.core.actorApi.push.TourSoon
+import lila.core.misc.map.Tell
+import lila.core.misc.push.TourSoon
 import lila.core.round.{ IsOnGame, MoveEvent }
 import lila.core.data.LazyFu
 import lila.core.study.data.StudyName

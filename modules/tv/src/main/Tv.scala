@@ -3,10 +3,10 @@ package lila.tv
 import scalalib.actor.SyncActor
 import chess.PlayerTitle
 
-import lila.common.licon
+import lila.common.Icon
 import lila.core.LightUser
 import lila.game.{ Game, GameRepo, Pov }
-import lila.core.Icon
+import lila.common.Icon
 
 final class Tv(
     gameRepo: GameRepo,
@@ -57,11 +57,11 @@ final class Tv(
 
 object Tv:
   import chess.{ variant as V, Speed as S }
-  import lila.core.perf.{ PerfType as P }
+  import lila.rating.{ PerfType as P }
 
   case class Champion(user: LightUser, rating: IntRating, gameId: GameId, color: chess.Color)
   case class Champions(channels: Map[Channel, Champion]):
-    def get = channels.get
+    export channels.get
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
 
@@ -77,7 +77,7 @@ object Tv:
     case Best
         extends Channel(
           name = "Top Rated",
-          icon = licon.CrownElite,
+          icon = Icon.CrownElite,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(rated(2150), standard, noBot)
         )
@@ -175,14 +175,14 @@ object Tv:
     case Bot
         extends Channel(
           name = "Bot",
-          icon = licon.Cogs,
+          icon = Icon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(standard, hasBot)
         )
     case Computer
         extends Channel(
           name = "Computer",
-          icon = licon.Cogs,
+          icon = Icon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(computerFromInitialPosition)
         )
