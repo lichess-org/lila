@@ -19,6 +19,12 @@ import lila.core.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
 
+case class Context(
+    currentGame: chess.Game,
+    currentClock: Option[Centis],
+    previousClock: Option[Centis]
+)
+
 object NewPgnImport:
 
   case class Result(
@@ -35,7 +41,7 @@ object NewPgnImport:
         PgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, _, comments) =>
             val clock = parsedPgn.tags.clockConfig.map(_.limit)
-            val setup = Context(replay.setup, clock)
+            val setup = Context(replay.setup, clock, clock)
             val root: NewRoot =
               NewRoot(
                 Metas(
@@ -79,11 +85,6 @@ object NewPgnImport:
             )
     }
 
-  case class Context(
-      game: chess.Game,
-      clock: Option[Centis]
-  )
-
   private def makeTree(
       context: Context,
       node: ParsedPgnTree,
@@ -98,9 +99,9 @@ object NewPgnImport:
       annotator: Option[Comment.Author]
   ): (Context, Option[NewBranch]) =
     data
-      .san(context.game.situation)
+      .san(context.currentGame.situation)
       .map(moveOrDrop =>
-        val game   = moveOrDrop.applyGame(context.game)
+        val game   = moveOrDrop.applyGame(context.currentGame)
         val uci    = moveOrDrop.toUci
         val id     = UciCharPair(uci)
         val sanStr = moveOrDrop.toSanStr
@@ -123,12 +124,12 @@ object NewPgnImport:
                 gamebook = None,
                 glyphs = data.metas.glyphs,
                 opening = None,
-                clock = clock.orElse((context.clock, emt).mapN(_ + _)),
+                clock = clock.orElse((context.previousClock, emt).mapN(_ - _)),
                 crazyData = game.situation.board.crazyData
               )
             )
 
-        (Context(game, newBranch.metas.clock), newBranch.some)
+        (Context(game, newBranch.metas.clock, context.currentClock), newBranch.some)
       )
       .toOption
       .match

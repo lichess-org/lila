@@ -43,7 +43,8 @@ object PgnImport:
               glyphs = Glyphs.empty,
               clock = clock,
               crazyData = replay.setup.situation.board.crazyData,
-              children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, clock, _, annotator))
+              children = parsedPgn.tree
+                .fold(Branches.empty)(makeBranches(Context(replay.setup, clock, clock), _, annotator))
             )
             val end: Option[End] = (game.finished
               .option(game.status))
@@ -108,35 +109,33 @@ object PgnImport:
     }
 
   private def makeBranches(
-      prev: chess.Game,
-      prevClock: Option[Centis],
+      context: Context,
       node: PgnNode[PgnNodeData],
       annotator: Option[Comment.Author]
   ): Branches =
     val variations =
-      node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(prev, prevClock, x.toNode, annotator))
+      node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(context, x.toNode, annotator))
     removeDuplicatedChildrenFirstNode(
-      Branches(makeBranch(prev, prevClock, node, annotator).fold(variations)(_ +: variations))
+      Branches(makeBranch(context, node, annotator).fold(variations)(_ +: variations))
     )
 
   private def makeBranch(
-      prev: chess.Game,
-      prevClock: Option[Centis],
+      context: Context,
       node: PgnNode[PgnNodeData],
       annotator: Option[Comment.Author]
   ): Option[Branch] =
     try
       node.value
-        .san(prev.situation)
+        .san(context.currentGame.situation)
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
-            val game   = moveOrDrop.applyGame(prev)
+            val game   = moveOrDrop.applyGame(context.currentGame)
             val uci    = moveOrDrop.toUci
             val sanStr = moveOrDrop.toSanStr
             parseComments(node.value.metas.comments, annotator) match
               case (shapes, clock, emt, comments) =>
-                val _clock = clock.orElse((prevClock, emt).mapN(_ + _))
+                val _clock = clock.orElse((context.previousClock, emt).mapN(_ - _))
                 Branch(
                   id = UciCharPair(uci),
                   ply = game.ply,
@@ -148,7 +147,9 @@ object PgnImport:
                   glyphs = node.value.metas.glyphs,
                   clock = _clock,
                   crazyData = game.situation.board.crazyData,
-                  children = node.child.fold(Branches.empty)(makeBranches(game, _clock, _, annotator))
+                  children = node.child.fold(Branches.empty)(
+                    makeBranches(Context(game, _clock, context.currentClock), _, annotator)
+                  )
                 ).some
         )
     catch
