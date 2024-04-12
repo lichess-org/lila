@@ -72,7 +72,7 @@ final class Challenge(
             else
               Ok.pageAsync:
                 c.challengerUserId
-                  .so(env.user.api.withPerf(_, c.perfType))
+                  .so(env.user.api.byIdWithPerf(_, c.perfType))
                   .map:
                     html.challenge.theirs(c, json, _, color)
           ,

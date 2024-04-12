@@ -13,7 +13,7 @@ object indexStripe:
   private val dataForm = attr("data-form")
 
   def apply(
-      me: lila.user.User,
+      me: User,
       patron: lila.plan.Patron,
       info: lila.plan.CustomerInfo.Monthly,
       stripePublicKey: String,

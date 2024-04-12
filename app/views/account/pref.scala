@@ -17,7 +17,7 @@ object pref:
   private def setting(name: Frag, body: Frag, settingId: String) =
     st.section(a(href := "#" + settingId)(h2(id := settingId)(name)), body)
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using PageContext) =
+  def apply(u: User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using PageContext) =
     account.layout(
       title = s"${bits.categName(categ)} - ${u.username} - ${preferences.txt()}",
       active = categ.slug

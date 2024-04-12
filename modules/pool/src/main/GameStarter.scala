@@ -4,12 +4,10 @@ import chess.ByColor
 
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
 
-import lila.user.{ UserPerfsRepo, UserRepo }
 import lila.core.pool.{ Pairing, Pairings }
 
 final private class GameStarter(
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
     onStart: GameId => Unit
@@ -27,7 +25,7 @@ final private class GameStarter(
       workQueue:
         val userIds = couples.flatMap(_.userIds)
         for
-          (perfs, ids) <- perfsRepo.perfOf(userIds, pool.perfType).zip(idGenerator.games(couples.size))
+          (perfs, ids) <- userApi.perfOf(userIds, pool.perfType).zip(idGenerator.games(couples.size))
           pairings     <- couples.zip(ids).map((one(pool, perfs)).tupled).parallel
         yield lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
 
@@ -39,7 +37,7 @@ final private class GameStarter(
     (perfs.get(p1.userId), perfs.get(p2.userId)).tupled
       .soFu: (perf1, perf2) =>
         for
-          p1White <- userRepo.firstGetsWhite(p1.userId, p2.userId)
+          p1White <- userApi.firstGetsWhite(p1.userId, p2.userId)
           (whitePerf, blackPerf)     = if p1White then perf1 -> perf2 else perf2 -> perf1
           (whiteMember, blackMember) = if p1White then p1 -> p2 else p2 -> p1
           game = makeGame(

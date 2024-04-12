@@ -9,7 +9,7 @@ object table:
 
   private val dataSort = attr("data-sort")
 
-  def apply(users: List[lila.user.User])(using PageContext) =
+  def apply(users: List[User])(using PageContext) =
 
     val title = "All mods"
 

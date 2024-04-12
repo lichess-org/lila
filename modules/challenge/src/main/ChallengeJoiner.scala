@@ -20,7 +20,7 @@ final private class ChallengeJoiner(
       if _ then fuccess(Left("The challenge has already been accepted"))
       else
         c.challengerUserId
-          .so(userApi.withPerf(_, c.perfType))
+          .so(userApi.byIdWithPerf(_, c.perfType))
           .flatMap: origUser =>
             val game = ChallengeJoiner.createGame(c, origUser, destUser)
             gameRepo

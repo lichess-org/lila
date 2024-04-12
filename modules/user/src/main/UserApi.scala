@@ -44,9 +44,10 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     countEngines,
     firstGetsWhite,
     incColor,
-    userIdsWithRoles
+    userIdsWithRoles,
+    containsDisabled
   }
-  export perfsRepo.{ perfsOf, setPerf, dubiousPuzzle, glicko }
+  export perfsRepo.{ perfOf, perfsOf, setPerf, dubiousPuzzle, glicko, withPerf }
   export gamePlayers.{ apply as gamePlayersAny, loggedIn as gamePlayersLoggedIn }
 
   // hit by game rounds
@@ -102,7 +103,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         yield UserWithPerfs(user, perfs)
 
   def enabledWithPerf[U: UserIdOf](id: U, perfType: PerfType): Fu[Option[WithPerf]] =
-    withPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
+    byIdWithPerf(id, perfType).dmap(_.filter(_.user.enabled.yes))
 
   def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]] =
     us.nonEmpty.so:
@@ -122,8 +123,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
             perfs = perfsRepo.aggregate.readFirst(doc, user)
           yield UserWithPerfs(user, perfs)
 
-  def withPerf[U: UserIdOf](id: U, pt: PerfType): Fu[Option[WithPerf]] =
-    userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pt).dmap(some))
+  def byIdWithPerf[U: UserIdOf](id: U, pk: PerfKey): Fu[Option[WithPerf]] =
+    userRepo.byId(id).flatMapz(perfsRepo.withPerf(_, pk).dmap(some))
 
   def pairWithPerfs(userIds: ByColor[Option[UserId]]): Fu[ByColor[Option[UserWithPerfs]]] =
     listWithPerfs(userIds.flatten).map: users =>

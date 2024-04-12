@@ -12,7 +12,7 @@ object indexPayPal:
   private val dataForm = attr("data-form")
 
   def apply(
-      me: lila.user.User,
+      me: User,
       patron: lila.plan.Patron,
       subscription: lila.plan.PayPalSubscription,
       gifts: List[lila.plan.Charge.Gift]

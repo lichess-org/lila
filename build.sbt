@@ -225,12 +225,12 @@ lazy val game = module("game",
 )
 
 lazy val gameSearch = module("gameSearch",
-  Seq(game, user, search),
+  Seq(game, search),
   reactivemongo.bundle
 )
 
 lazy val tv = module("tv",
-  Seq(game, user),
+  Seq(game),
   Seq(hasher) ++ reactivemongo.bundle
 )
 
@@ -250,7 +250,7 @@ lazy val round = module("round",
 )
 
 lazy val pool = module("pool",
-  Seq(game, user),
+  Seq(game),
   reactivemongo.bundle
 )
 
@@ -265,7 +265,7 @@ lazy val lobby = module("lobby",
 )
 
 lazy val setup = module("setup",
-  Seq(lobby, user),
+  Seq(lobby),
   reactivemongo.bundle
 )
 

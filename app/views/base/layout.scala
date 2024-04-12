@@ -117,7 +117,7 @@ object layout:
         .txt()}</a>
 </div>"""
 
-  private def dasher(me: lila.user.User) =
+  private def dasher(me: User) =
     div(cls := "dasher")(
       a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
       div(id := "dasher_app", cls := "dropdown")

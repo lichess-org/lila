@@ -9,7 +9,7 @@ import lila.tutor.TutorPerfReport
 
 object time:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using PageContext) =
+  def apply(report: TutorPerfReport, user: User)(using PageContext) =
     bits.layout(menu = perf.menu(user, report, "time"))(
       cls := "tutor__time box",
       boxTop(

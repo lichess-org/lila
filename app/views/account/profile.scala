@@ -14,7 +14,7 @@ object profile:
     trans.site.oneUrlPerLine()
   )
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?])(using ctx: PageContext) =
+  def apply(u: User, form: play.api.data.Form[?])(using ctx: PageContext) =
     account.layout(
       title = s"${u.username} - ${trans.site.editProfile.txt()}",
       active = "editProfile"

@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object username:
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?])(using PageContext) =
+  def apply(u: User, form: play.api.data.Form[?])(using PageContext) =
     account.layout(
       title = s"${u.username} - ${trans.site.editProfile.txt()}",
       active = "username"

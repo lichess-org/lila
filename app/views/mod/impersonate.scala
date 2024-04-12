@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object impersonate:
 
-  def apply(user: lila.user.User)(using Translate) =
+  def apply(user: User)(using Translate) =
     div(id := "impersonate")(
       div(cls := "meat")(
         "You are impersonating ",

@@ -291,7 +291,7 @@ final class PlanApi(
     def userSubscription(user: User): Fu[Option[PayPalSubscription]] =
       userSubscriptionId(user).flatMapz(payPalClient.getSubscription)
 
-    def createOrder(checkout: PlanCheckout, user: User, giftTo: Option[lila.user.User]) =
+    def createOrder(checkout: PlanCheckout, user: User, giftTo: Option[User]) =
       for
         isLifetime <- pricingApi.isLifetime(checkout.money)
         order      <- payPalClient.createOrder(CreatePayPalOrder(checkout, user, giftTo, isLifetime))

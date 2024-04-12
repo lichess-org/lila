@@ -62,7 +62,7 @@ final private class RatingRefund(
             notifier.refund(victim.user, pt, points)
 
         def applyRefund(ref: Refund) =
-          userApi.withPerf(ref.victim, ref.perf).flatMapz { user =>
+          userApi.byIdWithPerf(ref.victim, ref.perf).flatMapz { user =>
             perfStat.highestRating(user.user.id, ref.perf).flatMap { highest =>
               val points = pointsToRefund(ref, curRating = user.perf.intRating, highest = highest)
               (points > 0).so(refundPoints(user, ref.perf, points))

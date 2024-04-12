@@ -8,7 +8,7 @@ import lila.tutor.TutorPerfReport
 
 object openings:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using ctx: PageContext) =
+  def apply(report: TutorPerfReport, user: User)(using ctx: PageContext) =
     bits.layout(menu = perf.menu(user, report, "openings"))(
       cls := "tutor__openings box",
       boxTop(

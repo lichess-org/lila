@@ -10,7 +10,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 object security:
 
   def apply(
-      u: lila.user.User,
+      u: User,
       sessions: List[lila.security.LocatedSession],
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],

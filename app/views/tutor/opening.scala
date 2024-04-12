@@ -13,7 +13,7 @@ object opening:
       perfReport: TutorPerfReport,
       report: TutorOpeningFamily,
       as: chess.Color,
-      user: lila.user.User,
+      user: User,
       puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
   )(using PageContext) =
     bits.layout(

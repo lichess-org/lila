@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 
 object download:
-  def apply(user: lila.user.User)(using ctx: PageContext): Frag =
+  def apply(user: User)(using ctx: PageContext): Frag =
     views.html.base.layout(
       title = s"${user.username} • ${trans.site.exportGames.txt()}",
       moreCss = cssTag("search"),

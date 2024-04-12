@@ -137,7 +137,7 @@ object bits:
       data: play.api.libs.json.JsObject,
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using Context) =
     views.html.game.side(

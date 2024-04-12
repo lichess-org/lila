@@ -204,14 +204,17 @@ object user:
     def isManaged(id: UserId): Fu[Boolean]
     def countEngines(userIds: List[UserId]): Fu[Int]
     def getTitle(id: UserId): Fu[Option[PlayerTitle]]
-    def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]]
+    def withPerf(id: User, pk: PerfKey): Fu[WithPerf]
     def withPerfs(u: User): Fu[UserWithPerfs]
     def withPerfs[U: UserIdOf](id: U): Fu[Option[UserWithPerfs]]
+    def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]]
     def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs]
+    def perfOf(ids: Iterable[UserId], perfKey: PerfKey): Fu[Map[UserId, Perf]]
     def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean]
     def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit
     def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]]
     def incColor(userId: UserId, value: Int): Unit
+    def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean]
     def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean]
     def gamePlayersAny(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers]
     def gamePlayersLoggedIn(
@@ -220,6 +223,7 @@ object user:
         useCache: Boolean = true
     ): Fu[Option[ByColor[WithPerf]]]
     def glicko(userId: UserId, perf: PerfKey): Fu[Glicko]
+    def containsDisabled(userIds: Iterable[UserId]): Fu[Boolean]
 
   trait LightUserApiMinimal:
     val async: LightUser.Getter
@@ -227,6 +231,7 @@ object user:
   trait LightUserApi extends LightUserApiMinimal:
     val syncFallback: LightUser.GetterSyncFallback
     def preloadMany(ids: Seq[UserId]): Funit
+    val isBotSync: LightUser.IsBotSync
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
     def strList = current.map(_.value).toList ::: previous.map(_.value).toList
