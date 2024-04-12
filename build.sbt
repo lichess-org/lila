@@ -190,7 +190,7 @@ lazy val search = module("search",
 )
 
 lazy val chat = module("chat",
-  Seq(memo, corei18n),
+  Seq(memo, coreI18n),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
