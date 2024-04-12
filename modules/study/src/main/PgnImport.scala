@@ -30,6 +30,8 @@ object PgnImport:
     ImportData(pgn, analyse = none).preprocess(user = none).map {
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
+
+        val clock = parsedPgn.tags.clockConfig.map(_.limit)
         parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, _, comments) =>
             val root = Root(
@@ -39,9 +41,9 @@ object PgnImport:
               shapes = shapes,
               comments = comments,
               glyphs = Glyphs.empty,
-              clock = parsedPgn.tags.clockConfig.map(_.limit),
+              clock = clock,
               crazyData = replay.setup.situation.board.crazyData,
-              children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, _, annotator))
+              children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, clock, _, annotator))
             )
             val end: Option[End] = (game.finished
               .option(game.status))
@@ -107,16 +109,19 @@ object PgnImport:
 
   private def makeBranches(
       prev: chess.Game,
+      prevClock: Option[Centis],
       node: PgnNode[PgnNodeData],
       annotator: Option[Comment.Author]
   ): Branches =
-    val variations = node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(prev, x.toNode, annotator))
+    val variations =
+      node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(prev, prevClock, x.toNode, annotator))
     removeDuplicatedChildrenFirstNode(
-      Branches(makeBranch(prev, node, annotator).fold(variations)(_ +: variations))
+      Branches(makeBranch(prev, prevClock, node, annotator).fold(variations)(_ +: variations))
     )
 
   private def makeBranch(
       prev: chess.Game,
+      prevClock: Option[Centis],
       node: PgnNode[PgnNodeData],
       annotator: Option[Comment.Author]
   ): Option[Branch] =
@@ -131,6 +136,7 @@ object PgnImport:
             val sanStr = moveOrDrop.toSanStr
             parseComments(node.value.metas.comments, annotator) match
               case (shapes, clock, emt, comments) =>
+                val _clock = clock.orElse((prevClock, emt).mapN(_ + _))
                 Branch(
                   id = UciCharPair(uci),
                   ply = game.ply,
@@ -140,9 +146,9 @@ object PgnImport:
                   shapes = shapes,
                   comments = comments,
                   glyphs = node.value.metas.glyphs,
-                  clock = clock,
+                  clock = _clock,
                   crazyData = game.situation.board.crazyData,
-                  children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
+                  children = node.child.fold(Branches.empty)(makeBranches(game, _clock, _, annotator))
                 ).some
         )
     catch
