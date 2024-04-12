@@ -8,7 +8,7 @@ import lila.core.user.User
 trait SecurityHelper:
 
   def isGranted(f: Permission.Selector)(using Option[Me]): Boolean =
-    Granter.opt[Me](f)
+    Granter.opt(f)
 
   def isGranted(permission: Permission.Selector, user: User): Boolean =
     Granter.ofUser(permission)(user)

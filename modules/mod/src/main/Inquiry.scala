@@ -27,7 +27,7 @@ final class InquiryApi(
 ):
 
   def forMod(using mod: Me)(using Executor): Fu[Option[Inquiry]] =
-    lila.core.perm.Granter[Me](_.SeeReport).so {
+    lila.core.perm.Granter(_.SeeReport).so {
       reportApi.inquiries
         .ofModId(mod)
         .flatMapz: report =>

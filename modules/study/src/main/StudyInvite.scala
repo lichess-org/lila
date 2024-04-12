@@ -30,13 +30,13 @@ final private class StudyInvite(
     _       <- (study.nbMembers >= maxMembers).so(fufail[Unit](s"Max study members reached: $maxMembers"))
     inviter <- userRepo.me(byUserId).orFail("No such inviter")
     given Me = inviter
-    _ <- (!study.isOwner(inviter) && !Granter[Me](_.StudyAdmin)).so:
+    _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)).so:
       fufail[Unit]("Only the study owner can invite")
     invited <-
       userRepo
         .enabledById(invitedUsername)
         .map(
-          _.filterNot(u => UserId.lichess.is(u) && !Granter[Me](_.StudyAdmin))
+          _.filterNot(u => UserId.lichess.is(u) && !Granter(_.StudyAdmin))
         )
         .orFail("No such invited")
     _         <- study.members.contains(invited).so(fufail[Unit]("Already a member"))
@@ -44,7 +44,7 @@ final private class StudyInvite(
     _         <- relation.has(Block).so(fufail[Unit]("This user does not want to join"))
     isPresent <- getIsPresent(invited.id)
     _ <-
-      if isPresent || Granter[Me](_.StudyAdmin) then funit
+      if isPresent || Granter(_.StudyAdmin) then funit
       else
         prefApi
           .getStudyInvite(invited.id)
@@ -57,7 +57,7 @@ final private class StudyInvite(
     _ <- studyRepo.addMember(study, StudyMember.make(invited))
     shouldNotify = !isPresent && (!inviter.marks.troll || relation.has(Follow))
     rateLimitCost =
-      if Granter[Me](_.StudyAdmin) then 1
+      if Granter(_.StudyAdmin) then 1
       else if relation.has(Follow) then 5
       else if inviter.hasTitle then 10
       else 100

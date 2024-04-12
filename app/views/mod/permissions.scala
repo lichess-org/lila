@@ -26,12 +26,12 @@ object permissions:
           p(cls := "granted")("In green, permissions enabled manually or by a package."),
           div(cls := "permission-list")(
             lila.security.Permission.categorized
-              .filter { (_, ps) => ps.exists(canGrant[Me](_)) }
+              .filter { (_, ps) => ps.exists(canGrant(_)) }
               .map: (categ, perms) =>
                 st.section(
                   h2(categ),
                   perms
-                    .filter(canGrant[Me])
+                    .filter(canGrant)
                     .map: perm =>
                       val id = s"permission-${perm.dbKey}"
                       div(

@@ -12,7 +12,6 @@ import lila.core.perf.{ PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.email.*
 import lila.core.id.Flair
-import lila.core.perm.Grantable
 
 object user:
 
@@ -161,9 +160,6 @@ object user:
 
   object User:
     given UserIdOf[User] = _.id
-    given perm.Grantable[User] = new:
-      def enabled(u: User) = u.enabled
-      def roles(u: User)   = u.roles
 
   case class Count(
       ai: Int,
@@ -291,15 +287,11 @@ object user:
     given (using me: Me): LightUser.Me           = me.lightMe
     given [M[_]]: Conversion[M[Me], M[User]]     = Me.raw(_)
     given (using me: Me): Option[Me]             = Some(me)
-    given Grantable[Me] = new Grantable[User]:
-      def enabled(me: Me) = me.enabled
-      def roles(me: Me)   = me.roles
     extension (me: Me)
       def userId: UserId        = me.id
       def lightMe: LightUser.Me = LightUser.Me(me.value.light)
       inline def modId: ModId   = userId.into(ModId)
       inline def myId: MyId     = userId.into(MyId)
-    // given (using me: Me): LightUser.Me = LightUser.Me(me.light)
 
   final class Flag(val code: Flag.Code, val name: Flag.Name, val abrev: Option[String]):
     def shortName = abrev | name

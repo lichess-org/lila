@@ -46,7 +46,7 @@ object Reason:
   def isGranted(reason: Reason)(using Me) =
     import lila.core.perm.Granter
     reason match
-      case Cheat                                               => Granter[Me](_.MarkEngine)
-      case Comm | Sexism                                       => Granter[Me](_.Shadowban)
-      case Boost                                               => Granter[Me](_.MarkBooster)
-      case AltPrint | CheatPrint | Playbans | Username | Other => Granter[Me](_.Admin)
+      case Cheat                                               => Granter(_.MarkEngine)
+      case Comm | Sexism                                       => Granter(_.Shadowban)
+      case Boost                                               => Granter(_.MarkBooster)
+      case AltPrint | CheatPrint | Playbans | Username | Other => Granter(_.Admin)

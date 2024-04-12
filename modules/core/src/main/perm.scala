@@ -1,33 +1,26 @@
 package lila.core
 package perm
 
-import lila.core.user.{ User, UserEnabled }
-
-trait Grantable[U]:
-  def enabled(u: U): UserEnabled
-  def roles(u: U): List[String]
-  extension (u: U)
-    inline def isEnabled: Boolean   = enabled(u).yes
-    inline def dbKeys: List[String] = roles(u)
+import lila.core.user.{ User, Me }
 
 object Granter:
 
-  def apply[U: Grantable](permission: Permission)(using me: U): Boolean =
-    me.isEnabled && ofDbKeys(permission, me.dbKeys)
+  def apply(permission: Permission)(using me: Me): Boolean =
+    me.enabled.yes && ofDbKeys(permission, me.roles)
 
-  def apply[U: Grantable](f: Permission.Selector)(using me: U): Boolean =
-    me.isEnabled && ofDbKeys(f(Permission), me.dbKeys)
+  def apply(f: Permission.Selector)(using me: Me): Boolean =
+    me.enabled.yes && ofDbKeys(f(Permission), me.roles)
 
-  def opt[U: Grantable](f: Permission.Selector)(using me: Option[U]): Boolean =
+  def opt(f: Permission.Selector)(using me: Option[Me]): Boolean =
     me.exists(of(f))
 
-  def of[U: Grantable](permission: Permission)(user: U): Boolean =
-    user.isEnabled && ofDbKeys(permission, user.dbKeys)
+  def of(permission: Permission)(user: User): Boolean =
+    user.enabled.yes && ofDbKeys(permission, user.roles)
 
-  def of[U: Grantable](f: Permission.Selector)(user: U): Boolean =
-    user.isEnabled && ofDbKeys(f(Permission), user.dbKeys)
+  def of(f: Permission.Selector)(user: User): Boolean =
+    user.enabled.yes && ofDbKeys(f(Permission), user.roles)
 
-  def ofUser(f: Permission.Selector)(user: User): Boolean = of[User](f)(user)
+  def ofUser(f: Permission.Selector)(user: User): Boolean = of(f)(user)
 
   def ofDbKeys(permission: Permission, dbKeys: Seq[String]): Boolean =
     Permission.ofDbKeys(dbKeys).exists(_.grants(permission))
@@ -248,6 +241,6 @@ object Permission:
 
   val allByDbKey: Map[String, Permission] = all.mapBy(_.dbKey)
 
-  def apply[U: Grantable](u: U): Set[Permission]     = ofDbKeys(u.dbKeys)
+  def apply(u: User): Set[Permission]                = ofDbKeys(u.roles)
   def ofDbKey(dbKey: String): Option[Permission]     = allByDbKey.get(dbKey)
   def ofDbKeys(dbKeys: Seq[String]): Set[Permission] = dbKeys.flatMap(allByDbKey.get).toSet

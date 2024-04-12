@@ -35,7 +35,7 @@ final class PerfStatApi(
       .so: perfKey =>
         userApi.withPerfs(name.id).flatMap {
           _.filter: u =>
-            (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter[Me](_.UserModView))
+            (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
           .filter: u =>
             !u.isBot || (perfKey != PerfKey.ultraBullet)
           .soFu: u =>

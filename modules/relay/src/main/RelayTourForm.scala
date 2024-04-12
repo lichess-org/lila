@@ -63,7 +63,7 @@ object RelayTourForm:
           name = name,
           description = description,
           markup = markup,
-          tier = tier.ifTrue(Granter[Me](_.Relay)),
+          tier = tier.ifTrue(Granter(_.Relay)),
           autoLeaderboard = autoLeaderboard,
           teamTable = teamTable,
           players = players,
@@ -71,7 +71,7 @@ object RelayTourForm:
           spotlight = spotlight.filterNot(_.isEmpty),
           pinnedStreamer = pinnedStreamer
         )
-        .giveOfficialToBroadcasterIf(Granter[Me](_.StudyAdmin))
+        .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
     def make(using me: Me) =
       RelayTour(
@@ -80,7 +80,7 @@ object RelayTourForm:
         description = description,
         markup = markup,
         ownerId = me,
-        tier = tier.ifTrue(Granter[Me](_.Relay)),
+        tier = tier.ifTrue(Granter(_.Relay)),
         active = false,
         createdAt = nowInstant,
         syncedAt = none,
@@ -90,7 +90,7 @@ object RelayTourForm:
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty),
         pinnedStreamer = pinnedStreamer
-      ).giveOfficialToBroadcasterIf(Granter[Me](_.StudyAdmin))
+      ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
 

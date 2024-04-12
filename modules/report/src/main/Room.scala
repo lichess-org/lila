@@ -37,12 +37,12 @@ object Room:
   def isGranted(room: Room)(using Me) =
     import lila.core.perm.Granter
     room match
-      case Cheat  => Granter[Me](_.MarkEngine)
-      case Boost  => Granter[Me](_.MarkBooster)
-      case Print  => Granter[Me](_.Admin)
-      case Comm   => Granter[Me](_.Shadowban)
-      case Other  => Granter[Me](_.Admin)
-      case Xfiles => Granter[Me](_.MarkEngine)
+      case Cheat  => Granter(_.MarkEngine)
+      case Boost  => Granter(_.MarkBooster)
+      case Print  => Granter(_.Admin)
+      case Comm   => Granter(_.Shadowban)
+      case Other  => Granter(_.Admin)
+      case Xfiles => Granter(_.MarkEngine)
 
   def filterGranted(reports: List[Report])(using mod: Me) = reports.filter: r =>
     isGranted(r.room) && (r.user.isnt(mod) || mod.isSuperAdmin)

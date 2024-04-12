@@ -61,9 +61,9 @@ object UserInfo:
       ).mapN(Social.apply)
 
     def fetchNotes(u: User)(using Me) =
-      noteApi.get(u, Granter[Me](_.ModNote)).dmap {
+      noteApi.get(u, Granter(_.ModNote)).dmap {
         _.filter: n =>
-          (!n.dox || Granter[Me](_.Admin))
+          (!n.dox || Granter(_.Admin))
       }
 
   case class NbGames(

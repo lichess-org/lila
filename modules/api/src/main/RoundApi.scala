@@ -99,7 +99,7 @@ final private[api] class RoundApi(
 
   private def ctxFlags(using ctx: Context) =
     ExportOptions(
-      blurs = Granter.opt[Me](_.ViewBlurs),
+      blurs = Granter.opt(_.ViewBlurs),
       rating = ctx.pref.showRatings,
       nvui = ctx.blind,
       lichobileCompat = HTTPRequest.isLichobile(ctx.req)
@@ -123,7 +123,7 @@ final private[api] class RoundApi(
         ctx.me,
         tv,
         initialFen = initialFen,
-        flags = withFlags.copy(blurs = Granter.opt[Me](_.ViewBlurs))
+        flags = withFlags.copy(blurs = Granter.opt(_.ViewBlurs))
       ),
       tourApi.gameView.analysis(pov.game),
       pov.game.simulId.so(simulApi.find),

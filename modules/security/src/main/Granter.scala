@@ -1,6 +1,5 @@
 package lila.security
 
-import lila.core.perm.Grantable
 import lila.core.perm.Permission
 
 object Granter:
@@ -8,15 +7,15 @@ object Granter:
   export lila.core.perm.Granter.*
 
   def canViewAltUsername(user: User)(using Option[Me]): Boolean =
-    opt[Me](_.Admin) || {
-      (opt[Me](_.CheatHunter) && user.marks.engine) ||
-      (opt[Me](_.BoostHunter) && user.marks.boost) ||
-      (opt[Me](_.Shusher) && user.marks.troll)
+    opt(_.Admin) || {
+      (opt(_.CheatHunter) && user.marks.engine) ||
+      (opt(_.BoostHunter) && user.marks.boost) ||
+      (opt(_.Shusher) && user.marks.troll)
     }
 
-  def canCloseAlt(using Me) = apply[Me](_.CloseAccount) && apply[Me](_.ViewPrintNoIP)
+  def canCloseAlt(using Me) = apply(_.CloseAccount) && apply(_.ViewPrintNoIP)
 
-  def canGrant[U: Grantable](permission: Permission)(using me: U): Boolean =
+  def canGrant(permission: Permission)(using me: Me): Boolean =
     apply(_.SuperAdmin) || {
       apply(_.ChangePermission) && Permission.nonModPermissions(permission)
     } || {

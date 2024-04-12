@@ -32,8 +32,8 @@ final class ForumPostApi(
       data: ForumForm.PostData
   )(using me: Me): Fu[ForumPost] =
     detectLanguage(data.text).zip(recentUserIds(topic, topic.nbPosts)).flatMap { (lang, topicUserIds) =>
-      val publicMod = MasterGranter[Me](_.PublicMod)
-      val modIcon   = ~data.modIcon && (publicMod || MasterGranter[Me](_.SeeReport))
+      val publicMod = MasterGranter(_.PublicMod)
+      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,

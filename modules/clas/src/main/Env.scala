@@ -39,7 +39,7 @@ final class Env(
   lazy val markup = wire[ClasMarkup]
 
   def hasClas(using me: Me) =
-    lila.core.perm.Granter[Me](_.Teacher) || studentCache.isStudent(me)
+    lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)
 
   lila.common.Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>

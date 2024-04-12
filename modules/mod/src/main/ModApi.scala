@@ -140,10 +140,10 @@ final class ModApi(
     withUser(username): user =>
       val finalPermissions = Permission(user).filter { p =>
         // only remove permissions the mod can actually grant
-        permissions.contains(p) || !lila.security.Granter.canGrant[Me](p)
+        permissions.contains(p) || !lila.security.Granter.canGrant(p)
       } ++
         // only add permissions the mod can actually grant
-        permissions.filter(lila.security.Granter.canGrant[Me])
+        permissions.filter(lila.security.Granter.canGrant)
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >>
         logApi.setPermissions(
           user.id,
