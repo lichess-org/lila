@@ -13,8 +13,8 @@ import lila.core.i18n.I18nKey
 import lila.core.{ challenge as hub }
 import lila.core.game.GameRule
 import lila.rating.PerfType
-import lila.user.{ GameUser, Me, User }
 import lila.core.user.WithPerf
+import lila.core.user.GameUser
 
 case class Challenge(
     @Key("_id") id: Challenge.Id,

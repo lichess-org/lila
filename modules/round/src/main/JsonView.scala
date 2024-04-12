@@ -13,7 +13,7 @@ import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
 
-import lila.user.{ GameUser, GameUsers }
+import lila.core.user.{ GameUser, GameUsers }
 import lila.core.user.WithPerf
 import lila.core.net.ApiVersion
 import lila.core.perf.KeyedPerf

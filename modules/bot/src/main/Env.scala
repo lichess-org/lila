@@ -8,7 +8,7 @@ import lila.core.socket.IsOnline
 final class Env(
     chatApi: lila.chat.ChatApi,
     gameRepo: lila.game.GameRepo,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     rematches: lila.game.Rematches,
     isOfferingRematch: lila.core.round.IsOfferingRematch,
     spam: lila.core.security.SpamApi,

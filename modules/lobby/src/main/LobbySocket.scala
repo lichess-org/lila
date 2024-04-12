@@ -15,8 +15,7 @@ case class LobbyCounters(members: Int, rounds: Int)
 
 final class LobbySocket(
     biter: Biter,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     socketKit: SocketKit,
     lobby: LobbySyncActor,
     relationApi: lila.core.relation.RelationApi,
@@ -193,7 +192,7 @@ final class LobbySocket(
           blocking    = d.get[UserId]("blocking")
         yield
           lobby ! CancelHook(member.sri) // in case there's one...
-          perfsRepo.glicko(user.id, perfType).foreach { glicko =>
+          userApi.glicko(user.id, perfType).foreach { glicko =>
             poolApi.join(
               PoolConfigId(id),
               lila.core.pool.Joiner(

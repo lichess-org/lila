@@ -6,10 +6,10 @@ import lila.memo.CacheApi.*
 import lila.core.perf.UserWithPerfs
 
 final class SeekApi(
+    userApi: lila.core.user.UserApi,
     config: SeekApi.Config,
     biter: Biter,
     relationApi: lila.core.relation.RelationApi,
-    perfsRepo: lila.user.UserPerfsRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
   import config.*
@@ -41,7 +41,7 @@ final class SeekApi(
   def forMe(using me: User | UserWithPerfs): Fu[List[Seek]] = for
     user <- me match
       case u: UserWithPerfs => fuccess(u)
-      case u: User          => perfsRepo.withPerfs(u)
+      case u: User          => userApi.withPerfs(u)
     blocking <- relationApi.fetchBlocking(user.id)
     seeks    <- forUser(LobbyUser.make(user, lila.core.pool.Blocking(blocking)))
   yield seeks
@@ -106,7 +106,7 @@ final class SeekApi(
       .void
       .andDo(cacheClear())
 
-  def removeByUser(user: lila.user.User) =
+  def removeByUser(user: User) =
     coll.delete.one($doc("user.id" -> user.id)).void.andDo(cacheClear())
 
 private object SeekApi:

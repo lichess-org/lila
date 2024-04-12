@@ -130,7 +130,7 @@ lazy val puzzle = module("puzzle",
 )
 
 lazy val storm = module("storm",
-  Seq(puzzle),
+  Seq(puzzle, user),
   reactivemongo.bundle
 )
 
@@ -255,17 +255,17 @@ lazy val pool = module("pool",
 )
 
 lazy val activity = module("activity",
-  Seq(puzzle),
+  Seq(puzzle, user),
   reactivemongo.bundle
 )
 
 lazy val lobby = module("lobby",
-  Seq(game, user),
+  Seq(game),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
 lazy val setup = module("setup",
-  Seq(lobby),
+  Seq(lobby, user),
   reactivemongo.bundle
 )
 

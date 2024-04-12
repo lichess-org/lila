@@ -7,7 +7,7 @@ import chess.{ ByColor, Mode, Situation }
 import scala.util.chaining.*
 
 import lila.game.{ Game, Player, Pov }
-import lila.user.GameUser
+import lila.core.user.GameUser
 
 final private class ChallengeJoiner(
     gameRepo: lila.game.GameRepo,

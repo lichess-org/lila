@@ -17,7 +17,7 @@ import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.Node.partitionTreeJsonWriter
-import lila.user.{ GameUsers, User, Me }
+import lila.core.user.GameUsers
 import lila.core.i18n.Translate
 import lila.core.data.Preload
 

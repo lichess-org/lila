@@ -83,11 +83,6 @@ object JsonView:
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
 
-  val modWrites = OWrites[User]: u =>
-    Json.toJsObject(u.light) ++ Json
-      .obj("games" -> u.count.game)
-      .add("tos" -> u.marks.dirty)
-
   given perfWrites: OWrites[Perf] = OWrites: o =>
     Json
       .obj(

@@ -4,7 +4,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
 import reactivemongo.api.bson.collection.BSONCollection
 import play.api.i18n.Lang
-import _root_.chess.PlayerTitle
+import _root_.chess.{ ByColor, PlayerTitle }
 
 import lila.core.perf.Perf
 import lila.core.rating.data.{ IntRating, IntRatingDiff }
@@ -12,6 +12,7 @@ import lila.core.perf.{ PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.email.*
 import lila.core.id.Flair
+import lila.core.rating.Glicko
 
 object user:
 
@@ -210,6 +211,15 @@ object user:
     def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean]
     def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit
     def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]]
+    def incColor(userId: UserId, value: Int): Unit
+    def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean]
+    def gamePlayersAny(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers]
+    def gamePlayersLoggedIn(
+        ids: ByColor[UserId],
+        perf: PerfKey,
+        useCache: Boolean = true
+    ): Fu[Option[ByColor[WithPerf]]]
+    def glicko(userId: UserId, perf: PerfKey): Fu[Glicko]
 
   trait LightUserApiMinimal:
     val async: LightUser.Getter
@@ -311,3 +321,6 @@ object user:
   trait FlagApi:
     val all: List[Flag]
     val nonCountries: List[Flag.Code]
+
+  type GameUser  = Option[WithPerf]
+  type GameUsers = ByColor[GameUser]

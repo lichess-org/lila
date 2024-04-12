@@ -8,7 +8,7 @@ import lila.common.Bus
 import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import scalalib.cache.ExpireSetMemo
-import lila.user.{ GameUsers, UserApi }
+import lila.core.user.{ GameUsers, UserApi }
 
 import ChessColor.White
 
@@ -99,7 +99,7 @@ final private class Rematcher(
         initialFen,
         !chess960.get(pov.gameId)
       )
-      users <- userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType)
+      users <- userApi.gamePlayersAny(pov.game.userIdPair, pov.game.perfType)
       sloppy = Game.make(
         chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),

@@ -15,6 +15,7 @@ import lila.core.lilaism.LilaInvalid
 import lila.core.user.{ WithEmails, WithPerf }
 
 import lila.rating.PerfType
+import lila.core.user.GameUsers
 
 final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: CacheApi)(using
     Executor,
@@ -40,28 +41,32 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     isTroll,
     isManaged,
     filterDisabled,
-    countEngines
+    countEngines,
+    firstGetsWhite,
+    incColor,
+    userIdsWithRoles
   }
-  export perfsRepo.{ perfsOf, setPerf, dubiousPuzzle }
+  export perfsRepo.{ perfsOf, setPerf, dubiousPuzzle, glicko }
+  export gamePlayers.{ apply as gamePlayersAny, loggedIn as gamePlayersLoggedIn }
 
   // hit by game rounds
   object gamePlayers:
-    private type PlayersKey = (PairOf[Option[UserId]], PerfType)
+    private type PlayersKey = (PairOf[Option[UserId]], PerfKey)
 
-    def apply(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
-      cache.get(userIds.toPair -> perfType)
+    def apply(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers] =
+      cache.get(userIds.toPair -> perf)
 
-    def noCache(userIds: ByColor[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
-      fetch(userIds.toPair, perfType)
+    def noCache(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers] =
+      fetch(userIds.toPair, perf)
 
     def loggedIn(
         ids: ByColor[UserId],
-        perfType: PerfType,
+        perf: PerfKey,
         useCache: Boolean = true
     ): Fu[Option[ByColor[WithPerf]]] =
       val users =
-        if useCache then apply(ids.map(some), perfType)
-        else fetch(ids.map(some).toPair, perfType)
+        if useCache then apply(ids.map(some), perf)
+        else fetch(ids.map(some).toPair, perf)
       users.map:
         case ByColor(Some(x), Some(y)) => ByColor(x, y).some
         case _                         => none
@@ -69,9 +74,9 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     private[UserApi] val cache = cacheApi[PlayersKey, GameUsers](1024, "user.perf.pair"):
       _.expireAfterWrite(3 seconds).buildAsyncFuture(fetch)
 
-    private def fetch(userIds: PairOf[Option[UserId]], perfType: PerfType): Fu[GameUsers] =
+    private def fetch(userIds: PairOf[Option[UserId]], perf: PerfKey): Fu[GameUsers] =
       val (x, y) = userIds
-      listWithPerf(List(x, y).flatten, perfType, _.pri).map: users =>
+      listWithPerf(List(x, y).flatten, perf, _.pri).map: users =>
         ByColor(x, y).map(_.flatMap(id => users.find(_.id == id)))
 
   def updatePerfs(ups: ByColor[(UserPerfs, UserPerfs)], gamePerfType: PerfType) =
