@@ -125,7 +125,7 @@ lazy val cms = module("cms",
 )
 
 lazy val puzzle = module("puzzle",
-  Seq(game, user),
+  Seq(game),
   reactivemongo.bundle ++ tests.bundle
 )
 

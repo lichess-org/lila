@@ -12,7 +12,6 @@ import lila.rating.glicko2
 import lila.rating.PerfType
 import lila.core.rating.Glicko
 import lila.core.perf.Perf
-import lila.user.{ Me, UserPerfsRepo, UserRepo }
 import lila.rating.GlickoExt.sanityCheck
 import lila.rating.PerfExt.*
 import lila.rating.GlickoExt.cap
@@ -21,8 +20,7 @@ import lila.rating.GlickoExt.clueless
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     historyApi: lila.core.history.HistoryApi,
     colls: PuzzleColls
 )(using Executor)(using scheduler: Scheduler):
@@ -95,7 +93,7 @@ final private[puzzle] class PuzzleFinisher(
                     none
                   )
                   updateRatings(userRating, puzzleRating, win)
-                  perfsRepo
+                  userApi
                     .dubiousPuzzle(me.userId, perf)
                     .map: dubiousPuzzleRating =>
                       val newPuzzleGlicko = (!dubiousPuzzleRating).so(
@@ -143,7 +141,7 @@ final private[puzzle] class PuzzleFinisher(
                       .void
                   })
                   .zip((userPerf != perf).so {
-                    perfsRepo
+                    userApi
                       .setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent)
                       .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf)) void
                   })

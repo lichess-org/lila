@@ -1,13 +1,12 @@
 package lila.puzzle
 
 import lila.db.dsl.{ *, given }
-import lila.user.{ UserWithPerfs, UserPerfsRepo }
 import lila.core.perf.UserWithPerfs
 
-final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)(using Executor):
+final private class PuzzleTrustApi(colls: PuzzleColls, userApi: lila.core.user.UserApi)(using Executor):
 
   def vote(user: User, round: PuzzleRound, vote: Boolean): Fu[Option[Int]] =
-    perfsRepo
+    userApi
       .withPerfs(user)
       .flatMap: user =>
         val w = base(user) + {
@@ -29,7 +28,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)
       .dmap(_.some.filter(0 <))
 
   def theme(user: User): Fu[Option[Int]] =
-    perfsRepo
+    userApi
       .withPerfs(user)
       .map: user =>
         base(user).some.filter(0 <)

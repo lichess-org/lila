@@ -42,7 +42,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     filterDisabled,
     countEngines
   }
-  export perfsRepo.perfsOf
+  export perfsRepo.{ perfsOf, setPerf, dubiousPuzzle }
 
   // hit by game rounds
   object gamePlayers:

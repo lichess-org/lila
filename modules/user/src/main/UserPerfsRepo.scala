@@ -70,7 +70,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def setBotInitialPerfs(id: UserId) =
     coll.update.one($id(id), lila.rating.UserPerfs.defaultBot(id), upsert = true).void
 
-  def setPerf(userId: UserId, pk: PerfKey, perf: Perf) =
+  def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit =
     coll.update.one($id(userId), $set(pk.value -> perf), upsert = true).void
 
   def glicko(userId: UserId, perf: PerfKey): Fu[Glicko] =
