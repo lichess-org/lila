@@ -7,8 +7,10 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.rating.{ PerfType as PTs }
-import lila.rating.UserWithPerfs
+import lila.core.perf.{ UserWithPerfs, PuzPerf }
 import lila.rating.GlickoExt.clueless
+import lila.rating.UserPerfsExt.dubiousPuzzle
+import lila.rating.UserWithPerfs.hasVariantRating
 
 object side:
 
@@ -100,7 +102,7 @@ object side:
       )
     )
 
-  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(using Translate) =
+  private def showStorm(storm: PuzPerf, user: User)(using Translate) =
     a(
       dataIcon := Icon.Storm,
       cls := List(
@@ -122,7 +124,7 @@ object side:
       iconTag(Icon.PlayTriangle)
     )
 
-  private def showRacer(racer: lila.rating.Perf.Racer)(using Translate) =
+  private def showRacer(racer: PuzPerf)(using Translate) =
     a(
       dataIcon := Icon.FlagChessboard,
       cls := List(
@@ -144,7 +146,7 @@ object side:
       iconTag(Icon.PlayTriangle)
     )
 
-  private def showStreak(streak: lila.rating.Perf.Streak)(using Translate) =
+  private def showStreak(streak: PuzPerf)(using Translate) =
     a(
       dataIcon := Icon.ArrowThruApple,
       cls := List(

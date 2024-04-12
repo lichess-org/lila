@@ -28,8 +28,8 @@ final class JsonView(
       JsObject:
         games.value.toList
           .sortBy((_, s) => -s.size)
-          .map: (pt, score) =>
-            pt.key.value -> Json.toJson(score)
+          .map: (pk, score) =>
+            pk.value -> Json.toJson(score)
 
     given Writes[chess.variant.Variant] = writeAs(_.key)
 

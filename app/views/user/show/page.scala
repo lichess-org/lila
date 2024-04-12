@@ -9,6 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Game
 
 import lila.core.data.SafeJsonStr
+import lila.rating.UserWithPerfs.titleUsernameWithBestRating
 
 object page:
 

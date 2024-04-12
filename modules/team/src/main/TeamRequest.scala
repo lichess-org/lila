@@ -2,7 +2,7 @@ package lila.team
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 case class TeamRequest(
     @Key("_id") id: TeamRequest.ID,

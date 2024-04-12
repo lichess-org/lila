@@ -16,7 +16,7 @@ case class Note(
 ) extends lila.core.user.Note:
   def userIds            = List(from, to)
   def isFrom(user: User) = user.id.is(from)
-  def searchable = mod && from.isnt(UserId.lichess) && from.isnt(ids.watcherbotId) &&
+  def searchable = mod && from.isnt(UserId.lichess) && from.isnt(UserId.watcherbot) &&
     !text.startsWith("Appeal reply:")
 
 final class NoteApi(userRepo: UserRepo, coll: Coll)(using Executor) extends lila.core.user.NoteApi:

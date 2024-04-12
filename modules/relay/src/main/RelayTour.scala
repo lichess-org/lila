@@ -33,7 +33,7 @@ case class RelayTour(
   def official = tier.isDefined
 
   def giveOfficialToBroadcasterIf(cond: Boolean) =
-    if cond && official then copy(ownerId = lila.user.ids.broadcasterId) else this
+    if cond && official then copy(ownerId = UserId.broadcaster) else this
 
   def path: String = s"/broadcast/$slug/$id"
 

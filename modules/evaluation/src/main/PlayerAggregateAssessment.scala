@@ -1,9 +1,11 @@
 package lila.evaluation
 
 import scala.math.sqrt
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestRating
 
 case class PlayerAggregateAssessment(
-    user: lila.user.UserWithPerfs,
+    user: UserWithPerfs,
     playerAssessments: List[PlayerAssessment]
 ):
   import Statistics.*

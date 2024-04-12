@@ -287,7 +287,7 @@ final class Mod(
                       .take(15),
                     convos,
                     publicLines,
-                    notes.filter(_.from != lila.user.ids.irwinId),
+                    notes.filter(_.from != UserId.irwin),
                     history,
                     logins,
                     appeals,

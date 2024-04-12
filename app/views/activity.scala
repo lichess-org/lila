@@ -11,7 +11,8 @@ import lila.core.forum.ForumPostMini
 import lila.core.rating.Score
 import lila.core.rating.RatingProg
 import lila.core.chess.Rank
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.dubiousPuzzle
 
 object activity:
 
@@ -118,7 +119,8 @@ object activity:
     )
 
   private def renderGames(games: Games)(using Context) =
-    games.value.toSeq.sortBy(-_._2.size).map { case (pt, score) =>
+    games.value.toSeq.sortBy(-_._2.size).map { (pk, score) =>
+      val pt = lila.rating.PerfType(pk)
       entryTag(
         iconTag(pt.icon),
         scoreFrag(score),

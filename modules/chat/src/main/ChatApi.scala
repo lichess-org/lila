@@ -10,7 +10,7 @@ import lila.core.shutup.PublicSource
 import lila.memo.CacheApi.*
 import lila.core.perm.Granter
 import lila.core.security.{ FloodSource, FloodApi, SpamApi }
-import lila.user.{ Me, User, UserRepo, given }
+import lila.user.UserRepo
 import lila.core.chat.{ OnTimeout, OnReinstate }
 import lila.core.user.{ FlairGet, FlairGetMap }
 
@@ -139,7 +139,7 @@ final class ChatApi(
         case _ => funit
       }
 
-    def publicTimeout(data: ChatTimeout.TimeoutFormData)(using Me): Funit =
+    def publicTimeout(data: ChatTimeout.TimeoutFormData)(using MyId): Funit =
       ChatTimeout
         .Reason(data.reason)
         .so: reason =>

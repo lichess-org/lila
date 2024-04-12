@@ -76,24 +76,23 @@ object timeline:
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          PerfType(perfKey).map: perf =>
-            (win match
-              case Some(true)  => trans.site.victoryVsYInZ
-              case Some(false) => trans.site.defeatVsYInZ
-              case None        => trans.site.drawVsYInZ
-            )(
-              a(
-                href     := routes.Round.player(playerId),
-                dataIcon := perf.icon,
-                cls      := "text glpt"
-              )(win match
-                case Some(true)  => trans.site.victory()
-                case Some(false) => trans.site.defeat()
-                case None        => trans.site.draw()
-              ),
-              userIdLink(opponent),
-              perf.trans
-            )
+          (win match
+            case Some(true)  => trans.site.victoryVsYInZ
+            case Some(false) => trans.site.defeatVsYInZ
+            case None        => trans.site.drawVsYInZ
+          )(
+            a(
+              href     := routes.Round.player(playerId),
+              dataIcon := PerfType(perfKey).icon,
+              cls      := "text glpt"
+            )(win match
+              case Some(true)  => trans.site.victory()
+              case Some(false) => trans.site.defeat()
+              case None        => trans.site.draw()
+            ),
+            userIdLink(opponent),
+            PerfType(perfKey).trans
+          )
         case StudyLike(userId, studyId, studyName) =>
           trans.site.xLikesY(
             userLink(userId),

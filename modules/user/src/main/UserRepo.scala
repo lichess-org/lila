@@ -153,10 +153,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
         $inc(F.colorIt -> value)
       )
 
-  def lichess = byId(UserId.lichess)
-  def irwin   = byId(ids.irwinId)
-  def kaladin = byId(ids.kaladinId)
-
   def setProfile(id: UserId, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
 

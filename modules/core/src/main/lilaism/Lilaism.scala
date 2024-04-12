@@ -21,7 +21,7 @@ object Lilaism extends LilaLibraryExtensions:
   export lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
   export lila.core.perf.{ PerfKey, Perf }
   export lila.core.email.EmailAddress
-  export lila.core.user.User
+  export lila.core.user.{ User, Me }
 
   def some[A](a: A): Option[A] = Some(a)
 

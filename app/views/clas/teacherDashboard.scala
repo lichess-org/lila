@@ -10,6 +10,8 @@ import lila.common.String.html.richText
 import lila.rating.PerfType
 import lila.core.user.WithPerf
 import lila.rating.PerfExt.showRatingProvisional
+import lila.rating.UserPerfsExt.bestAny3Perfs
+import lila.rating.UserPerfsExt.bestRating
 
 object teacherDashboard:
 

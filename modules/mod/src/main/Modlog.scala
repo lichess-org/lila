@@ -1,7 +1,6 @@
 package lila.mod
 
 import lila.report.Suspect
-import lila.user.{ Me, modId }
 
 case class Modlog(
     mod: ModId,

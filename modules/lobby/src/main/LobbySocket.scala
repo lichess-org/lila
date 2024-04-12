@@ -10,7 +10,7 @@ import lila.rating.RatingRange
 import lila.core.game.ChangeFeatured
 import lila.core.socket.{ protocol as P, * }
 import lila.core.pool.PoolConfigId
-import lila.user.Me
+
 
 case class LobbyCounters(members: Int, rounds: Int)
 

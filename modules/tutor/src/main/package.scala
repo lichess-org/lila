@@ -1,6 +1,7 @@
 package lila.tutor
 
 import lila.insight.ClockPercent
+import lila.core.perf.UserWithPerfs
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
@@ -12,6 +13,6 @@ private given Ordering[ClockPercent]                 = doubleOrdering
 private given Ordering[IntRating]                    = intOrdering
 private given Ordering[GoodPercent]                  = doubleOrdering
 
-private given Conversion[lila.user.UserWithPerfs, User] = _.user
+private given Conversion[UserWithPerfs, User] = _.user
 
 private def roundToInt(d: Double) = Math.round(d).toInt

@@ -5,7 +5,8 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestAny3Perfs
 
 object bots:
 

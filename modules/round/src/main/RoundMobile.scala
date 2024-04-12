@@ -10,7 +10,7 @@ import lila.core.LightUser
 import lila.game.JsonView.given
 import lila.game.{ Game, GameRepo, Pov }
 import lila.pref.Pref
-import lila.user.Me
+
 
 object RoundMobile:
 

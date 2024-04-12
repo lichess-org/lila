@@ -9,7 +9,7 @@ import lila.rating.UserRankMap
 import lila.core.perm.Granter
 import lila.user.{ Me, Trophy, User }
 import lila.rating.PerfType
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -153,8 +153,8 @@ final class UserApi(
     JsArray {
       all.ranks.toList
         .sortBy(_._2)
-        .flatMap: (perf, rank) =>
-          PerfType(perf).map(_ -> rank)
+        .map: (perf, rank) =>
+          PerfType(perf) -> rank
         .collect {
           case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
           case (perf, rank) if rank <= 10  => perfTopTrophy(perf, 10, "Top 10")

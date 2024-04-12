@@ -1,5 +1,4 @@
 package lila.core
-package user
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 import play.api.i18n.Lang
@@ -7,260 +6,288 @@ import _root_.chess.PlayerTitle
 
 import lila.core.perf.Perf
 import lila.core.rating.data.{ IntRating, IntRatingDiff }
-import lila.core.perf.PerfKey
+import lila.core.perf.{ PerfKey, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.email.*
 import lila.core.id.Flair
+import lila.core.perm.Grantable
 
-case class User(
-    id: UserId,
-    username: UserName,
-    count: Count,
-    enabled: UserEnabled,
-    roles: List[String],
-    profile: Option[Profile] = None,
-    toints: Int = 0,
-    playTime: Option[PlayTime],
-    title: Option[PlayerTitle] = None,
-    createdAt: Instant,
-    seenAt: Option[Instant],
-    kid: Boolean,
-    lang: Option[String],
-    plan: Plan,
-    flair: Option[Flair] = None,
-    totpSecret: Option[TotpSecret] = None,
-    marks: UserMarks = UserMarks(Nil),
-    hasEmail: Boolean
-):
-  override def equals(other: Any) = other match
-    case u: User => id == u.id
-    case _       => false
+object user:
 
-  override def hashCode: Int = id.hashCode
+  case class User(
+      id: UserId,
+      username: UserName,
+      count: Count,
+      enabled: UserEnabled,
+      roles: List[String],
+      profile: Option[Profile] = None,
+      toints: Int = 0,
+      playTime: Option[PlayTime],
+      title: Option[PlayerTitle] = None,
+      createdAt: Instant,
+      seenAt: Option[Instant],
+      kid: Boolean,
+      lang: Option[String],
+      plan: Plan,
+      flair: Option[Flair] = None,
+      totpSecret: Option[TotpSecret] = None,
+      marks: UserMarks = UserMarks(Nil),
+      hasEmail: Boolean
+  ):
+    import lila.core.user.UserMarks.*
+    import lila.core.user.UserEnabled.*
 
-  override def toString =
-    import lila.core.lilaism.Core.given
-    s"User $username games:${count.game}${marks.troll.so(" troll")}${marks.engine.so(" engine")}${enabled.no.so(" closed")}"
+    override def equals(other: Any) = other match
+      case u: User => id == u.id
+      case _       => false
 
-  def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
+    override def hashCode: Int = id.hashCode
 
-  def realLang: Option[Lang] = lang.flatMap(Lang.get)
+    override def toString =
+      s"User $username games:${count.game} ${marks.value.mkString(", ")}"
 
-  def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
+    def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
 
-  def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
+    def realLang: Option[Lang] = lang.flatMap(Lang.get)
 
-  def profileOrDefault = profile | Profile.default
+    def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
 
-  def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
+    def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
 
-  def titleUsername: String = title.fold(username.value)(t => s"$t $username")
+    def profileOrDefault = profile | Profile.default
 
-  def hasGames = count.game > 0
+    def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
 
-  def countRated = count.rated
+    def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 
-  // lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
+    def hasGames = count.game > 0
 
-  def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).toMillis).millis
+    def countRated = count.rated
 
-  def everLoggedIn = seenAt.exists(createdAt != _)
+    // lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
-  def lame = marks.boost || marks.engine
+    def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).toMillis).millis
 
-  def lameOrTroll      = lame || marks.troll
-  def lameOrAlt        = lame || marks.alt
-  def lameOrTrollOrAlt = lameOrTroll || marks.alt
+    def everLoggedIn = seenAt.exists(createdAt != _)
 
-  def canBeFeatured = hasTitle && !lameOrTroll
+    def lame = marks.boost || marks.engine
 
-  def canFullyLogin = enabled.yes || !lameOrTrollOrAlt
+    def lameOrTroll      = lame || marks.troll
+    def lameOrAlt        = lame || marks.alt
+    def lameOrTrollOrAlt = lameOrTroll || marks.alt
 
-  def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
+    def canBeFeatured = hasTitle && !lameOrTroll
 
-  def lightCount = LightCount(light, count.game)
+    def canFullyLogin = enabled.yes || !lameOrTrollOrAlt
 
-  def isPatron = plan.active
+    def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
-  def activePlan: Option[Plan] = plan.active.option(plan)
+    def lightCount = LightCount(light, count.game)
 
-  def planMonths: Option[Int] = activePlan.map(_.months)
+    def isPatron = plan.active
 
-  def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
+    def activePlan: Option[Plan] = plan.active.option(plan)
 
-  def isBot = title.contains(PlayerTitle.BOT)
-  def noBot = !isBot
+    def planMonths: Option[Int] = activePlan.map(_.months)
 
-  def rankable = enabled.yes && noBot && !marks.rankban
+    def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
 
-  def withPerf(perf: Perf): WithPerf = WithPerf(this, perf)
+    def isBot = title.contains(PlayerTitle.BOT)
+    def noBot = !isBot
 
-  def addRole(role: String) = copy(roles = role :: roles)
+    def rankable = enabled.yes && noBot && !marks.rankban
 
-  import lila.core.perm.Granter
-  def isSuperAdmin               = Granter.ofUser(_.SuperAdmin)(this)
-  def isAdmin                    = Granter.ofUser(_.Admin)(this)
-  def isVerified                 = Granter.ofUser(_.Verified)(this)
-  def isApiHog                   = Granter.ofUser(_.ApiHog)(this)
-  def isVerifiedOrAdmin          = isVerified || isAdmin
-  def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || Granter.ofUser(_.ApiChallengeAdmin)(this)
-end User
+    def withPerf(perf: Perf): WithPerf = WithPerf(this, perf)
 
-opaque type KidMode = Boolean
-object KidMode extends YesNo[KidMode]
+    def addRole(role: String) = copy(roles = role :: roles)
 
-opaque type UserEnabled = Boolean
-object UserEnabled extends YesNo[UserEnabled]
+    import lila.core.perm.Granter
+    def isSuperAdmin               = Granter.ofUser(_.SuperAdmin)(this)
+    def isAdmin                    = Granter.ofUser(_.Admin)(this)
+    def isVerified                 = Granter.ofUser(_.Verified)(this)
+    def isApiHog                   = Granter.ofUser(_.ApiHog)(this)
+    def isVerifiedOrAdmin          = isVerified || isAdmin
+    def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || Granter.ofUser(_.ApiChallengeAdmin)(this)
+  end User
 
-case class PlayTime(total: Int, tv: Int)
+  opaque type KidMode = Boolean
+  object KidMode extends YesNo[KidMode]
 
-case class Plan(months: Int, active: Boolean, since: Option[Instant])
+  opaque type UserEnabled = Boolean
+  object UserEnabled extends YesNo[UserEnabled]
 
-case class TotpSecret(secret: Array[Byte]) extends AnyVal:
-  override def toString = "TotpSecret(****)"
+  case class PlayTime(total: Int, tv: Int)
 
-case class Profile(
-    @Key("country") flag: Option[String] = None,
-    location: Option[String] = None,
-    bio: Option[String] = None,
-    firstName: Option[String] = None,
-    lastName: Option[String] = None,
-    fideRating: Option[Int] = None,
-    uscfRating: Option[Int] = None,
-    ecfRating: Option[Int] = None,
-    rcfRating: Option[Int] = None,
-    cfcRating: Option[Int] = None,
-    dsbRating: Option[Int] = None,
-    links: Option[String] = None
-):
-  def nonEmptyRealName =
-    List(ne(firstName), ne(lastName)).flatten match
-      case Nil   => none
-      case names => (names.mkString(" ")).some
+  case class Plan(months: Int, active: Boolean, since: Option[Instant])
 
-  def nonEmptyLocation = ne(location)
+  case class TotpSecret(secret: Array[Byte]) extends AnyVal:
+    override def toString = "TotpSecret(****)"
 
-  def nonEmptyBio = ne(bio)
+  case class Profile(
+      @Key("country") flag: Option[String] = None,
+      location: Option[String] = None,
+      bio: Option[String] = None,
+      firstName: Option[String] = None,
+      lastName: Option[String] = None,
+      fideRating: Option[Int] = None,
+      uscfRating: Option[Int] = None,
+      ecfRating: Option[Int] = None,
+      rcfRating: Option[Int] = None,
+      cfcRating: Option[Int] = None,
+      dsbRating: Option[Int] = None,
+      links: Option[String] = None
+  ):
+    def nonEmptyRealName =
+      List(ne(firstName), ne(lastName)).flatten match
+        case Nil   => none
+        case names => (names.mkString(" ")).some
 
-  def isEmpty = completionPercent == 0
+    def nonEmptyLocation = ne(location)
 
-  def completionPercent: Int =
-    100 * List(flag, bio, firstName, lastName).count(_.isDefined) / 4
+    def nonEmptyBio = ne(bio)
 
-  private def ne(str: Option[String]) = str.filter(_.nonEmpty)
-end Profile
+    def isEmpty = completionPercent == 0
 
-object Profile:
-  val default = Profile()
+    def completionPercent: Int =
+      100 * List(flag, bio, firstName, lastName).count(_.isDefined) / 4
 
-object User:
-  given UserIdOf[User] = _.id
-  given perm.Grantable[User] = new:
-    def enabled(u: User) = u.enabled
-    def roles(u: User)   = u.roles
+    private def ne(str: Option[String]) = str.filter(_.nonEmpty)
+  end Profile
 
-case class Me(user: User):
-  export user.*
+  object Profile:
+    val default = Profile()
 
-case class Count(
-    ai: Int,
-    draw: Int,
-    drawH: Int, // only against human opponents
-    game: Int,
-    loss: Int,
-    lossH: Int, // only against human opponents
-    rated: Int,
-    win: Int,
-    winH: Int // only against human opponents
-)
+  object User:
+    given UserIdOf[User] = _.id
+    given perm.Grantable[User] = new:
+      def enabled(u: User) = u.enabled
+      def roles(u: User)   = u.roles
 
-case class WithPerf(user: User, perf: Perf):
-  export user.{ id, createdAt, hasTitle, light }
+  case class Count(
+      ai: Int,
+      draw: Int,
+      drawH: Int, // only against human opponents
+      game: Int,
+      loss: Int,
+      lossH: Int, // only against human opponents
+      rated: Int,
+      win: Int,
+      winH: Int // only against human opponents
+  )
 
-case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
-case class LightCount(user: LightUser, count: Int)
+  case class WithPerf(user: User, perf: Perf):
+    export user.{ id, createdAt, hasTitle, light }
 
-case class ChangeEmail(id: UserId, email: EmailAddress)
+  case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
+  case class LightCount(user: LightUser, count: Int)
 
-trait UserApi:
-  def byId[U: UserIdOf](u: U): Fu[Option[User]]
-  def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
-  def email(id: UserId): Fu[Option[EmailAddress]]
-  def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]]
-  def pair(x: UserId, y: UserId): Fu[Option[(User, User)]]
-  def emailOrPrevious(id: UserId): Fu[Option[EmailAddress]]
-  def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
-  def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]]
-  def createdAtById(id: UserId): Fu[Option[Instant]]
-  def isEnabled(id: UserId): Fu[Boolean]
-  def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]]
-  def langOf(id: UserId): Fu[Option[String]]
-  def isKid[U: UserIdOf](id: U): Fu[Boolean]
-  def isTroll(id: UserId): Fu[Boolean]
-  def isBot(id: UserId): Fu[Boolean]
-  def filterDisabled(userIds: Iterable[UserId]): Fu[Set[UserId]]
-  def isManaged(id: UserId): Fu[Boolean]
+  case class ChangeEmail(id: UserId, email: EmailAddress)
 
-trait LightUserApiMinimal:
-  val async: LightUser.Getter
-  val sync: LightUser.GetterSync
-trait LightUserApi extends LightUserApiMinimal:
-  val syncFallback: LightUser.GetterSyncFallback
-  def preloadMany(ids: Seq[UserId]): Funit
+  trait UserApi:
+    def byId[U: UserIdOf](u: U): Fu[Option[User]]
+    def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
+    def me[U: UserIdOf](u: U): Fu[Option[Me]]
+    def email(id: UserId): Fu[Option[EmailAddress]]
+    def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]]
+    def pair(x: UserId, y: UserId): Fu[Option[(User, User)]]
+    def emailOrPrevious(id: UserId): Fu[Option[EmailAddress]]
+    def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
+    def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]]
+    def createdAtById(id: UserId): Fu[Option[Instant]]
+    def isEnabled(id: UserId): Fu[Boolean]
+    def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]]
+    def langOf(id: UserId): Fu[Option[String]]
+    def isKid[U: UserIdOf](id: U): Fu[Boolean]
+    def isTroll(id: UserId): Fu[Boolean]
+    def isBot(id: UserId): Fu[Boolean]
+    def filterDisabled(userIds: Iterable[UserId]): Fu[Set[UserId]]
+    def isManaged(id: UserId): Fu[Boolean]
+    def countEngines(userIds: List[UserId]): Fu[Int]
+    def getTitle(id: UserId): Fu[Option[PlayerTitle]]
+    def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]]
 
-case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
-  def strList = current.map(_.value).toList ::: previous.map(_.value).toList
+  trait LightUserApiMinimal:
+    val async: LightUser.Getter
+    val sync: LightUser.GetterSync
+  trait LightUserApi extends LightUserApiMinimal:
+    val syncFallback: LightUser.GetterSyncFallback
+    def preloadMany(ids: Seq[UserId]): Funit
 
-case class WithEmails(user: User, emails: Emails)
+  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
+    def strList = current.map(_.value).toList ::: previous.map(_.value).toList
 
-enum UserMark:
-  case boost
-  case engine
-  case troll
-  case reportban
-  case rankban
-  case arenaban
-  case prizeban
-  case alt
-  def key = toString
+  case class WithEmails(user: User, emails: Emails)
 
-object UserMark:
-  val byKey: Map[String, UserMark] = values.mapBy(_.key)
-  val bannable: Set[UserMark]      = Set(boost, engine, troll, alt)
+  enum UserMark:
+    case boost
+    case engine
+    case troll
+    case reportban
+    case rankban
+    case arenaban
+    case prizeban
+    case alt
+    def key = toString
 
-opaque type UserMarks = List[UserMark]
-object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
-  extension (a: UserMarks)
-    def hasMark(mark: UserMark): Boolean = a.value contains mark
-    def dirty                            = a.value.exists(UserMark.bannable.contains)
-    def clean                            = !a.dirty
-    def boost: Boolean                   = hasMark(UserMark.boost)
-    def engine: Boolean                  = hasMark(UserMark.engine)
-    def troll: Boolean                   = hasMark(UserMark.troll)
-    def reportban: Boolean               = hasMark(UserMark.reportban)
-    def rankban: Boolean                 = hasMark(UserMark.rankban)
-    def prizeban: Boolean                = hasMark(UserMark.prizeban)
-    def arenaBan: Boolean                = hasMark(UserMark.arenaban)
-    def alt: Boolean                     = hasMark(UserMark.alt)
+  object UserMark:
+    val byKey: Map[String, UserMark] = values.mapBy(_.key)
+    val bannable: Set[UserMark]      = Set(boost, engine, troll, alt)
 
-abstract class UserRepo(val coll: reactivemongo.api.bson.collection.BSONCollection):
-  given userHandler: reactivemongo.api.bson.BSONDocumentHandler[User]
+  opaque type UserMarks = List[UserMark]
+  object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
+    extension (a: UserMarks)
+      def hasMark(mark: UserMark): Boolean = a.value contains mark
+      def dirty                            = a.value.exists(UserMark.bannable.contains)
+      def clean                            = !a.dirty
+      def boost: Boolean                   = hasMark(UserMark.boost)
+      def engine: Boolean                  = hasMark(UserMark.engine)
+      def troll: Boolean                   = hasMark(UserMark.troll)
+      def reportban: Boolean               = hasMark(UserMark.reportban)
+      def rankban: Boolean                 = hasMark(UserMark.rankban)
+      def prizeban: Boolean                = hasMark(UserMark.prizeban)
+      def arenaBan: Boolean                = hasMark(UserMark.arenaban)
+      def alt: Boolean                     = hasMark(UserMark.alt)
 
-object BSONFields:
-  val enabled = "enabled"
-  val title   = "title"
+  abstract class UserRepo(val coll: reactivemongo.api.bson.collection.BSONCollection):
+    given userHandler: reactivemongo.api.bson.BSONDocumentHandler[User]
 
-trait Note:
-  val text: String
+  object BSONFields:
+    val enabled = "enabled"
+    val title   = "title"
 
-trait NoteApi:
-  def recentByUserForMod(userId: UserId): Fu[Option[Note]]
-  def write(to: UserId, text: String, modOnly: Boolean, dox: Boolean)(using MyId): Funit
+  trait Note:
+    val text: String
 
-type FlairMap    = Map[UserId, Flair]
-type FlairGet    = UserId => Fu[Option[Flair]]
-type FlairGetMap = List[UserId] => Fu[FlairMap]
-trait FlairApi:
-  given flairOf: FlairGet
-  given flairsOf: FlairGetMap
-  def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]]
+  trait NoteApi:
+    def recentByUserForMod(userId: UserId): Fu[Option[Note]]
+    def write(to: UserId, text: String, modOnly: Boolean, dox: Boolean)(using MyId): Funit
+
+  type FlairMap    = Map[UserId, Flair]
+  type FlairGet    = UserId => Fu[Option[Flair]]
+  type FlairGetMap = List[UserId] => Fu[FlairMap]
+  trait FlairApi:
+    given flairOf: FlairGet
+    given flairsOf: FlairGetMap
+    def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]]
+
+  /* User who is currently logged in */
+  opaque type Me = User
+  object Me extends TotalWrapper[Me, User]:
+    export lila.core.userId.MyId as Id
+    given UserIdOf[Me]                           = _.id
+    given Conversion[Me, User]                   = identity
+    given Conversion[Me, UserId]                 = _.id
+    given Conversion[Option[Me], Option[UserId]] = _.map(_.id)
+    given (using me: Me): LightUser.Me           = me.lightMe
+    given [M[_]]: Conversion[M[Me], M[User]]     = Me.raw(_)
+    given (using me: Me): Option[Me]             = Some(me)
+    given Grantable[Me] = new Grantable[User]:
+      def enabled(me: Me) = me.enabled
+      def roles(me: Me)   = me.roles
+    extension (me: Me)
+      def userId: UserId        = me.id
+      def lightMe: LightUser.Me = LightUser.Me(me.value.light)
+      inline def modId: ModId   = userId.into(ModId)
+      inline def myId: MyId     = userId.into(MyId)
+
+  given (using me: Me): LightUser.Me = LightUser.Me(me.light)

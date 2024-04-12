@@ -8,17 +8,18 @@ import lila.rating.{ Glicko, Perf, UserPerfs }
 import lila.rating.PerfType
 import lila.core.user.WithPerf
 import lila.core.rating.Glicko
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
 
 final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
-  import UserPerfs.given
-  import lila.rating.Perf.given
+  import lila.rating.UserPerfs.userPerfsHandler
+  import lila.rating.Perf.perfHandler
   import lila.rating.Glicko.glickoHandler
 
   def glickoField(perf: PerfKey) = s"$perf.gl"
 
   def byId[U: UserIdOf](u: U): Fu[UserPerfs] =
-    coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
+    coll.byId[UserPerfs](u.id).dmap(_ | lila.rating.UserPerfs.default(u.id))
 
   def idsMap[U: UserIdOf](
       u: Seq[U],
@@ -27,7 +28,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
     coll.idsMap[UserPerfs, UserId](u.map(_.id), none, readPref)(_.id)
 
   def idsMap[U: UserIdOf](u: Seq[U], pk: PerfKey, readPref: ReadPref): Fu[Map[UserId, Perf]] =
-    given BSONDocumentReader[(UserId, Perf)] = UserPerfs.idPerfReader(pk)
+    given BSONDocumentReader[(UserId, Perf)] = lila.rating.UserPerfs.idPerfReader(pk)
     coll
       .find($inIds(u.map(_.id)), $doc(pk.value -> true).some)
       .cursor[(UserId, Perf)](readPref)
@@ -35,12 +36,15 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
       .map(_.toMap)
 
   def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs] =
-    coll.byId[UserPerfs](u.id).dmap(_ | UserPerfs.default(u.id))
+    coll.byId[UserPerfs](u.id).dmap(_ | lila.rating.UserPerfs.default(u.id))
 
   def perfsOf[U: UserIdOf](us: PairOf[U], readPref: ReadPref): Fu[PairOf[UserPerfs]] =
     val (x, y) = us
     idsMap(List(x, y), readPref).dmap: ps =>
-      ps.getOrElse(x.id, UserPerfs.default(x.id)) -> ps.getOrElse(y.id, UserPerfs.default(y.id))
+      ps.getOrElse(x.id, lila.rating.UserPerfs.default(x.id)) -> ps.getOrElse(
+        y.id,
+        lila.rating.UserPerfs.default(y.id)
+      )
 
   def withPerfs(u: User): Fu[UserWithPerfs] =
     perfsOf(u).dmap(UserWithPerfs(u, _))
@@ -51,7 +55,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
   def withPerfs(us: Seq[User], readPref: ReadPref = _.sec): Fu[List[UserWithPerfs]] =
     idsMap(us, readPref).map: perfs =>
-      us.view.map(u => UserWithPerfs(u, perfs.get(u.id))).toList
+      us.view.map(u => lila.rating.UserWithPerfs(u, perfs.get(u.id))).toList
 
   def updatePerfs(prev: UserPerfs, cur: UserPerfs) =
     val diff = for
@@ -62,9 +66,9 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
     diff.nonEmpty.so(coll.update.one($id(cur.id), $doc("$set" -> $doc(diff*)), upsert = true).void)
 
   def setManagedUserInitialPerfs(id: UserId) =
-    coll.update.one($id(id), UserPerfs.defaultManaged(id), upsert = true).void
+    coll.update.one($id(id), lila.rating.UserPerfs.defaultManaged(id), upsert = true).void
   def setBotInitialPerfs(id: UserId) =
-    coll.update.one($id(id), UserPerfs.defaultBot(id), upsert = true).void
+    coll.update.one($id(id), lila.rating.UserPerfs.defaultBot(id), upsert = true).void
 
   def setPerf(userId: UserId, pk: PerfKey, perf: Perf) =
     coll.update.one($id(userId), $set(pk.value -> perf), upsert = true).void
@@ -165,7 +169,7 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
     then fuFalse
     else
       perfOptionOf(id, PerfType.Standard).map:
-        _.forall(UserPerfs.dubiousPuzzle(puzzle, _))
+        _.forall(lila.rating.UserPerfs.dubiousPuzzle(puzzle, _))
 
   object aggregate:
     val lookup = $lookup.simple(coll, "perfs", "_id", "_id")
@@ -175,7 +179,10 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
       $lookup.pipeline(coll, "perfs", "_id", "_id", pipe)
 
     def readFirst[U: UserIdOf](root: Bdoc, u: U): UserPerfs =
-      root.getAsOpt[List[UserPerfs]]("perfs").flatMap(_.headOption).getOrElse(UserPerfs.default(u.id))
+      root
+        .getAsOpt[List[UserPerfs]]("perfs")
+        .flatMap(_.headOption)
+        .getOrElse(lila.rating.UserPerfs.default(u.id))
 
     def readFirst[U: UserIdOf](root: Bdoc, pk: PerfKey): Perf = (for
       perfs <- root.getAsOpt[List[Bdoc]]("perfs")
@@ -184,4 +191,4 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
     yield perf).getOrElse(Perf.default)
 
     def readFrom[U: UserIdOf](doc: Bdoc, u: U): UserPerfs =
-      doc.asOpt[UserPerfs].getOrElse(UserPerfs.default(u.id))
+      doc.asOpt[UserPerfs].getOrElse(lila.rating.UserPerfs.default(u.id))

@@ -36,7 +36,7 @@ final class GameStateStream(
   def apply(init: Game.WithInitialFen, as: chess.Color)(using
       lang: Lang,
       req: RequestHeader,
-      me: lila.user.Me
+      me: Me
   ): Source[Option[JsObject], ?] =
 
     // terminate previous one if any

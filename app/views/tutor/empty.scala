@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 import lila.tutor.TutorQueue
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 object empty:
 

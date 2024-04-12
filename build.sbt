@@ -210,7 +210,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, report, chat, security),
+  Seq(evaluation, report, user, chat, security),
   reactivemongo.bundle
 )
 
@@ -315,7 +315,7 @@ lazy val fishnet = module("fishnet",
 )
 
 lazy val irwin = module("irwin",
-  Seq(analyse, report),
+  Seq(analyse, report, user),
   reactivemongo.bundle
 )
 
@@ -445,7 +445,7 @@ lazy val bookmark = module("bookmark",
 )
 
 lazy val report = module("report",
-  Seq(game, user),
+  Seq(game),
   reactivemongo.bundle
 )
 

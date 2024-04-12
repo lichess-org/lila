@@ -9,7 +9,7 @@ import lila.common.Icon
 import lila.rating.PerfType
 
 import lila.core.user.LightCount
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 object list:
 

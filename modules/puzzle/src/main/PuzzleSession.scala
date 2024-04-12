@@ -5,7 +5,7 @@ import chess.Color
 import scala.util.chaining.*
 
 import lila.memo.CacheApi
-import lila.rating.Perf
+
 import lila.user.{ Me, User }
 import lila.rating.GlickoExt.clueless
 

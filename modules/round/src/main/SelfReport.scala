@@ -9,6 +9,7 @@ import lila.core.net.{ IpAddress, IpAddressStr }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.UserApi
+import lila.rating.UserPerfsExt.bestRating
 
 final class SelfReport(
     roundApi: lila.game.core.RoundApi,

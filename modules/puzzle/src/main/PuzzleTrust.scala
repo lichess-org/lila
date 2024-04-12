@@ -2,6 +2,7 @@ package lila.puzzle
 
 import lila.db.dsl.{ *, given }
 import lila.user.{ UserWithPerfs, UserPerfsRepo }
+import lila.core.perf.UserWithPerfs
 
 final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)(using Executor):
 

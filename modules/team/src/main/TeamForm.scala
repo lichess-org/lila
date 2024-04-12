@@ -43,7 +43,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
     val forum                              = "forum"       -> inAccess(Access.all)
     val hideMembers                        = "hideMembers" -> boolean
 
-  def create(using lila.user.Me) = Form:
+  def create(using Me) = Form:
     mapping(
       Fields.name,
       Fields.password,
@@ -58,7 +58,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
-  def edit(team: Team)(using lila.user.Me) = Form(
+  def edit(team: Team)(using Me) = Form(
     mapping(
       Fields.password,
       Fields.intro,
@@ -112,7 +112,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
     single:
       "userId" -> lila.common.Form.username.historicalField
 
-  def createWithCaptcha(using lila.user.Me) = create -> captcha.any
+  def createWithCaptcha(using Me) = create -> captcha.any
 
   val pmAll = Form:
     single("message" -> cleanTextWithSymbols.verifying(Constraints.minLength(3), Constraints.maxLength(9000)))

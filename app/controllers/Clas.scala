@@ -11,6 +11,7 @@ import lila.app.{ *, given }
 import lila.clas.Clas.Id as ClasId
 import lila.clas.ClasForm.ClasData
 import lila.clas.ClasInvite
+import lila.core.perf.PerfKeyStr
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -210,19 +211,17 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
-  def progress(id: ClasId, key: lila.core.perf.PerfKey, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
-    lila.rating
-      .PerfType(key)
-      .so: perfType =>
-        WithClass(id): clas =>
-          env.clas.api.student.activeWithUsers(clas).flatMap { students =>
-            Reasonable(clas, students, "progress"):
-              for
-                progress <- env.clas.progressApi(perfType, days, students)
-                students <- env.clas.api.student.withPerf(students, perfType)
-                page     <- renderPage(views.html.clas.teacherDashboard.progress(clas, students, progress))
-              yield Ok(page)
-          }
+  def progress(id: ClasId, perfKey: PerfKeyStr, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
+    WithClass(id): clas =>
+      Found(PerfKey.read(perfKey)): perfKey =>
+        env.clas.api.student.activeWithUsers(clas).flatMap { students =>
+          Reasonable(clas, students, "progress"):
+            for
+              progress <- env.clas.progressApi(perfKey, days, students)
+              students <- env.clas.api.student.withPerf(students, perfKey)
+              page     <- renderPage(views.html.clas.teacherDashboard.progress(clas, students, progress))
+            yield Ok(page)
+        }
   }
 
   def learn(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>

@@ -7,6 +7,7 @@ import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
+import lila.core.perf.UserWithPerfs
 import lila.game.Pov
 
 object home:
@@ -43,7 +44,7 @@ object home:
         .some,
       withHrefLangs = LangPath("/").some
     ) {
-      given Option[lila.user.UserWithPerfs] = homepage.me
+      given Option[UserWithPerfs] = homepage.me
       main(
         cls := List(
           "lobby"      -> true,

@@ -6,7 +6,7 @@ import lila.game.{ Game, GameRepo, RatingDiffs }
 import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, glicko2, UserPerfs }
 import lila.user.{ RankingApi, User, UserApi }
 import lila.rating.PerfType
-import lila.rating.UserWithPerfs
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.PerfExt.toRating
 import lila.rating.PerfExt.addOrReset
 import lila.rating.GlickoExt.average
@@ -18,6 +18,8 @@ final class PerfsUpdater(
     botFarming: BotFarming,
     ratingFactors: () => RatingFactors
 )(using Executor):
+
+  import PerfsUpdater.*
 
   // returns rating diffs
   def save(game: Game, white: UserWithPerfs, black: UserWithPerfs): Fu[Option[RatingDiffs]] =
@@ -178,3 +180,26 @@ final class PerfsUpdater(
       correspondence = r(PerfType.Correspondence, perfs.correspondence, perfs1.correspondence)
     )
     if isStd then perfs2.updateStandard else perfs2
+
+private object PerfsUpdater:
+
+  extension (p: UserPerfs)
+    def updateStandard =
+      p.copy(
+        standard =
+          val subs = List(p.bullet, p.blitz, p.rapid, p.classical, p.correspondence).filter(_.provisional.no)
+          subs.maxByOption(_.latest.fold(0L)(_.toMillis)).flatMap(_.latest).fold(p.standard) { date =>
+            val nb = subs.map(_.nb).sum
+            val glicko = new lila.core.rating.Glicko(
+              rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
+              deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
+              volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum
+            )
+            new Perf(
+              glicko = glicko,
+              nb = nb,
+              recent = Nil,
+              latest = date.some
+            )
+          }
+      )

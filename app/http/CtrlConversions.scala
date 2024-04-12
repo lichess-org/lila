@@ -4,7 +4,7 @@ package http
 import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 import lila.core.i18n.Translate
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 import lila.core.user.User
 
 trait CtrlConversions:
@@ -17,5 +17,3 @@ trait CtrlConversions:
   given reqBody(using it: BodyContext[?]): Request[?] = it.body
 
   given Conversion[UserWithPerfs, User] = _.user
-
-  export lila.user.{ given_MyId, given_Conversion_Me_MyId }

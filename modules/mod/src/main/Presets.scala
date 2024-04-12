@@ -7,7 +7,7 @@ import reactivemongo.api.bson.BSONHandler
 import scalalib.Iso
 import lila.memo.SettingStore.{ Formable, StringReader }
 import lila.core.perm.{ Granter, Permission }
-import lila.user.Me
+
 
 final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 

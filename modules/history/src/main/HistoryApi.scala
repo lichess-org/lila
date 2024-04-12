@@ -6,8 +6,9 @@ import reactivemongo.api.bson.*
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.rating.{ Perf, PerfType, UserPerfs }
+import lila.rating.{ PerfType }
 import scalalib.model.Days
+import lila.core.perf.UserPerfs
 
 final class HistoryApi(
     withColl: AsyncCollFailingSilently,
@@ -79,7 +80,7 @@ final class HistoryApi(
 
   def progresses(
       users: List[lila.core.user.WithPerf],
-      perfKey: lila.core.perf.PerfKey,
+      perfKey: PerfKey,
       days: Days
   ): Fu[List[PairOf[IntRating]]] =
     withColl:

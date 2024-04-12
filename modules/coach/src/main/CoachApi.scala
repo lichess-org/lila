@@ -4,7 +4,8 @@ import lila.db.dsl.{ *, given }
 import lila.memo.PicfitApi
 import lila.core.perm.Granter
 import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
-import lila.rating.UserPerfs
+import lila.core.perf.UserPerfs
+import lila.rating.UserPerfsExt.bestStandardRating
 
 final class CoachApi(
     coachColl: Coll,

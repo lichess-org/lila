@@ -17,7 +17,7 @@ final class Env(
     notifyApi: lila.core.notify.NotifyApi,
     userCache: lila.user.Cached,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     perfsRepo: lila.user.UserPerfsRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     settingStore: lila.memo.SettingStore.Builder,
@@ -45,7 +45,7 @@ final class Env(
         suspects <-
           leaders.toList
             .traverse: (tour, top) =>
-              userRepo.byIds(
+              userApi.byIds(
                 top.view.zipWithIndex
                   .filter(_._2 <= tour.nbPlayers * 2 / 100)
                   .map(_._1)

@@ -10,8 +10,7 @@ import lila.common.Json.given
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.RatingRange
 
-
-import lila.user.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 // correspondence chess, persistent
 case class Seek(
@@ -107,6 +106,6 @@ object Seek:
     b => LobbyPerf(IntRating(b.abs), RatingProvisional(b < 0)),
     x => x.rating.value * (if x.provisional.yes then -1 else 1)
   )
-  private given BSONHandler[Map[PerfKey, LobbyPerf]]  = typedMapHandler[PerfKey, LobbyPerf]
+  private given BSONHandler[Map[PerfKey, LobbyPerf]]  = typedMapHandlerIso[PerfKey, LobbyPerf]
   private[lobby] given BSONDocumentHandler[LobbyUser] = Macros.handler
   private[lobby] given BSONDocumentHandler[Seek]      = Macros.handler

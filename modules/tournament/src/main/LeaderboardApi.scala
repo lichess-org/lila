@@ -5,7 +5,7 @@ import scalalib.Maths
 import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.db.dsl.{ *, given }
-import lila.rating.Perf
+
 
 import lila.core.perf.PerfId
 import lila.rating.PerfType

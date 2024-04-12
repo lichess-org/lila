@@ -8,7 +8,7 @@ import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserApi, UserRepo }
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 final private class Finisher(
     gameRepo: GameRepo,

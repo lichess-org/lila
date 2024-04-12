@@ -8,7 +8,7 @@ import play.api.libs.json.*
 import lila.rating.PerfType
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
-import lila.user.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 // realtime chess, volatile
 case class Hook(

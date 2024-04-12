@@ -3,7 +3,7 @@ package lila.clas
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
-import lila.user.Me
+
 
 @Module
 @annotation.nowarn("msg=unused")

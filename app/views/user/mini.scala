@@ -4,8 +4,9 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 import lila.user.Profile.flagInfo
+import lila.rating.UserPerfsExt.best8Perfs
 
 object mini:
 

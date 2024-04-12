@@ -27,7 +27,6 @@ object Environment
   export lila.common.extensions.*
   export lila.api.Context.{ *, given }
   export lila.api.{ PageData, Nonce }
-  export lila.user.Me
   export lila.common.Icon
 
   private var envVar: Option[Env] = None

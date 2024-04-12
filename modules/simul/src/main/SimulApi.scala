@@ -15,9 +15,11 @@ import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam
 import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
-import lila.rating.{ Perf, PerfType, UserWithPerfs }
+import lila.rating.PerfType
 import lila.core.socket.SendToFlag
-import lila.user.{ Me, UserApi, UserPerfsRepo, UserRepo, given }
+import lila.user.{ UserApi, UserPerfsRepo, UserRepo }
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserWithPerfs.only
 
 final class SimulApi(
     userRepo: UserRepo,

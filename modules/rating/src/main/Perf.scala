@@ -8,6 +8,7 @@ import lila.rating.PerfType
 import lila.core.rating.Glicko
 import lila.rating.GlickoExt.*
 import lila.core.perf.Perf
+import lila.core.perf.PuzPerf
 
 object PerfExt:
 
@@ -67,10 +68,7 @@ object PerfExt:
     def showRatingProvisional = p.glicko.display
     def established           = p.glicko.established
 
-case object Perf:
-
-  case class Typed(perf: Perf, perfType: PerfType)
-  def typed(pt: PerfType, perf: Perf) = new Typed(perf, pt)
+object Perf:
 
   val default = new Perf(lila.rating.Glicko.default, 0, Nil, None)
 
@@ -81,25 +79,7 @@ case object Perf:
 
   val recentMaxSize = 12
 
-  trait PuzPerf:
-    val score: Int
-    val runs: Int
-    def nonEmpty = runs > 0
-    def option   = nonEmpty.option(this)
-
-  case class Storm(score: Int, runs: Int) extends PuzPerf
-  object Storm:
-    val default = Storm(0, 0)
-
-  case class Racer(score: Int, runs: Int) extends PuzPerf
-  object Racer:
-    val default = Racer(0, 0)
-
-  case class Streak(score: Int, runs: Int) extends PuzPerf
-  object Streak:
-    val default = Streak(0, 0)
-
-  given BSONDocumentHandler[Perf] = new BSON[Perf]:
+  given perfHandler: BSONDocumentHandler[Perf] = new BSON[Perf]:
 
     import lila.rating.Glicko.glickoHandler
 
@@ -120,6 +100,4 @@ case object Perf:
         "la" -> o.latest.map(w.date)
       )
 
-  given BSONDocumentHandler[Storm]  = Macros.handler[Storm]
-  given BSONDocumentHandler[Racer]  = Macros.handler[Racer]
-  given BSONDocumentHandler[Streak] = Macros.handler[Streak]
+  given BSONDocumentHandler[PuzPerf] = Macros.handler[PuzPerf]

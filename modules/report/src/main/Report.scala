@@ -5,7 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
-import lila.user.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 case class Report(
     @Key("_id") id: Report.Id, // also the url slug

@@ -24,9 +24,9 @@ object RatingFactor extends OpaqueDouble[RatingFactor]:
       .flatMap {
         case Array(ptk, fs) =>
           for
-            pt <- PerfType(PerfKey(ptk))
+            pk <- PerfKey(ptk)
             f  <- fs.toDoubleOption
-          yield pt -> RatingFactor(f)
+          yield PerfType(pk) -> RatingFactor(f)
         case _ => None
       } toMap
 

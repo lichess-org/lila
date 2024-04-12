@@ -12,7 +12,8 @@ import lila.core.LightUser
 import lila.relation.Related
 import lila.relation.RelationStream.*
 import lila.user.User as UserModel
-import lila.user.UserWithPerfs
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestRatedPerf
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -120,7 +121,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       Json.toJsObject(r) ++ Json
         .obj:
           "perfs" -> r.user.perfs.bestRatedPerf.map:
-            lila.user.JsonView.perfTypedJson
+            lila.user.JsonView.keyedPerfJson
         .add("online" -> env.socket.isOnline(r.user.id)))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>

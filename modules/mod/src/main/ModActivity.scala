@@ -46,7 +46,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
               "open" -> false,
               who match
                 case Who.Me(userId) => "done.by" -> userId
-                case Who.Team       => "done.by".$nin(List(UserId.lichess, lila.user.ids.irwinId))
+                case Who.Team       => "done.by".$nin(List(UserId.lichess, UserId.irwin))
               ,
               "done.at".$gt(Period.dateSince(period))
             )

@@ -15,7 +15,4 @@ object BSONHandlers:
     )
 
   given perfTypeKeyHandler: BSONHandler[PerfType] =
-    summon[BSONHandler[PerfKey]].as[PerfType](
-      key => PerfType(key).err(s"Unknown perf type $key"),
-      _.key
-    )
+    perfKeyHandler.as[PerfType](PerfType(_), _.key)

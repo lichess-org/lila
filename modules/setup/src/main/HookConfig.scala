@@ -9,7 +9,7 @@ import lila.rating.{ Perf }
 import lila.rating.RatingRange.withinLimits
 import lila.user.{ Me, User }
 import lila.core.rating.RatingRange
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 case class HookConfig(
     variant: chess.variant.Variant,

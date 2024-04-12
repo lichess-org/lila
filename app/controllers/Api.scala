@@ -15,6 +15,7 @@ import lila.core.net.IpAddress
 import lila.core.chess.MultiPv
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
+import lila.core.perf.PerfKeyStr
 
 final class Api(
     env: Env,
@@ -246,7 +247,7 @@ final class Api(
 
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val max = ctx.me.fold(300): u =>
-      if u.is(lila.user.ids.lichess4545Id) then 900 else 500
+      if u.is(UserId.lichess4545) then 900 else 500
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)): ids =>
       GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         ndJson.addKeepAlive:
@@ -271,7 +272,7 @@ final class Api(
 
   private def gamesByIdsMax(using ctx: Context) =
     ctx.me.fold(500): u =>
-      if u == lila.user.ids.challengermodeId then 10_000 else 1000
+      if u == UserId.challengermode then 10_000 else 1000
 
   private def withIdsFromReqBody[Id](
       req: Request[String],
@@ -342,7 +343,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: lila.core.perf.PerfKey) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: PerfKeyStr) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:

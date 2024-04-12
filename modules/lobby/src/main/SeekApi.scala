@@ -3,7 +3,7 @@ package lila.lobby
 import lila.common.config.*
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.user.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 final class SeekApi(
     config: SeekApi.Config,

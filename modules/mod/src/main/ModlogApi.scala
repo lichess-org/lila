@@ -10,7 +10,7 @@ import lila.report.{ Mod, Report, Suspect }
 import lila.core.perm.Permission
 import lila.user.{ Me, User, UserRepo, given }
 import lila.core.id.ForumCategId
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -308,7 +308,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .map:
         _.foldLeft(users.map(UserWithModlog(_, Nil))): (users, log) =>
           users.map:
-            case UserWithModlog(user, prevLog) if log.user.is(user) =>
+            case UserWithModlog(user, prevLog) if log.user.is(user.user) =>
               UserWithModlog(user, log :: prevLog)
             case u => u
 

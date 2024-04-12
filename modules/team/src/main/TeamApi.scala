@@ -226,7 +226,7 @@ final class TeamApi(
           .enabledById(userId)
           .flatMapz: user =>
             memberRepo
-              .add(team.id, Me(user))
+              .add(team.id, user.id)
               .map: _ =>
                 cached.invalidateTeamIds(user.id)
                 1

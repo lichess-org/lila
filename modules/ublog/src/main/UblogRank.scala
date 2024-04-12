@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.core.i18n.Language
 import lila.user.{ Me, User }
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 object UblogRank:
 

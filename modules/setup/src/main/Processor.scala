@@ -5,7 +5,7 @@ import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.Seek
 import lila.lobby.{ AddHook, AddSeek }
 import lila.user.{ Me, User, UserPerfsRepo }
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,

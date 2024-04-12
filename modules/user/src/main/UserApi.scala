@@ -9,7 +9,7 @@ import lila.core.LightUser
 import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.rating.{ Glicko, Perf, UserPerfs }
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.user.BSONHandlers.userHandler
 import lila.core.lilaism.LilaInvalid
 import lila.core.user.{ WithEmails, WithPerf }
@@ -24,9 +24,11 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
   export userRepo.{
     byId,
     byIds,
+    me,
     email,
     emailOrPrevious,
     pair,
+    getTitle,
     enabledByIds,
     createdAtById,
     isEnabled,
@@ -36,7 +38,8 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     isBot,
     isTroll,
     isManaged,
-    filterDisabled
+    filterDisabled,
+    countEngines
   }
 
   // hit by game rounds
@@ -182,7 +185,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         for
           doc  <- docs
           user <- summon[BSONReader[User]].readOpt(doc)
-        yield WithPerfsAndEmails(UserWithPerfs(user, perfs.get(user.id)), readEmails(doc))
+        yield WithPerfsAndEmails(lila.rating.UserWithPerfs(user, perfs.get(user.id)), readEmails(doc))
   yield users
 
   def withPerfsAndEmails[U: UserIdOf](u: U): Fu[Option[WithPerfsAndEmails]] =
@@ -219,7 +222,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         import framework.*
         import lila.user.{ BSONFields as F }
         Match(
-          $inIds(ids) ++ $doc("standard.gl.d".$lt(Glicko.provisionalDeviation))
+          $inIds(ids) ++ $doc("standard.gl.d".$lt(lila.rating.Glicko.provisionalDeviation))
         ) -> List(
           Sort(Descending("standard.gl.r")),
           Limit(nb * 5),

@@ -9,8 +9,6 @@ trait CtrlExtensions extends ControllerHelpers:
 
   val env: Env
 
-  export lila.user.given_Me
-
   extension (req: RequestHeader)
     def ipAddress = HTTPRequest.ipAddress(req)
     def referer   = HTTPRequest.referer(req)

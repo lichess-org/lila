@@ -9,7 +9,8 @@ import scalalib.ThreadLocalRandom
 import lila.rating.PerfType
 
 import lila.core.rating.Score
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestPerf
 
 case class Simul(
     @Key("_id") id: SimulId,

@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.game.FavoriteOpponents
 import lila.relation.Related
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 object bits:
 

@@ -20,8 +20,8 @@ import lila.core.user.{
   Count
 }
 import lila.core.i18n.Language
-
-import lila.rating.{ Perf, UserPerfs, PerfType }
+import lila.rating.PerfType
+import lila.core.perf.{ Perf, UserPerfs, UserWithPerfs }
 
 object UserExt:
   extension (u: User) def userLanguage: Option[Language] = u.realLang.map(Language.apply)
@@ -52,15 +52,6 @@ object LoginCandidate:
     case WeakPassword              extends Result(none)
     case MissingTotpToken          extends Result(none)
     case InvalidTotpToken          extends Result(none)
-
-object ids:
-  val broadcasterId                    = UserId("broadcaster")
-  val irwinId                          = UserId("irwin")
-  val kaladinId                        = UserId("kaladin")
-  val lichess4545Id                    = UserId("lichess4545")
-  val challengermodeId                 = UserId("challengermode")
-  val watcherbotId                     = UserId("watcherbot")
-  def isOfficial[U: UserIdOf](user: U) = UserId.lichess.is(user) || broadcasterId.is(user)
 
 case class GDPRErase(user: User) extends AnyVal
 opaque type Erased = Boolean

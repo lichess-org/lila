@@ -9,6 +9,7 @@ import lila.rating.{ Perf, PerfType, UserPerfs }
 import lila.core.user.{ LightCount, LightPerf }
 import lila.core.perf.PerfId
 import lila.core.userId.UserSearch
+import lila.core.perf.UserWithPerfs
 
 final class Cached(
     userRepo: UserRepo,

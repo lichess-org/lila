@@ -3,7 +3,7 @@ package lila.pool
 import chess.ByColor
 
 import lila.game.{ Game, GameRepo, IdGenerator, Player }
-import lila.rating.Perf
+
 import lila.user.{ UserPerfsRepo, UserRepo }
 import lila.core.pool.{ Pairing, Pairings }
 

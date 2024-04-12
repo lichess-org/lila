@@ -105,7 +105,7 @@ final class Gamify(
       $doc("$lt" -> to)
     }
 
-  private val hidden = List(UserId.lichess, lila.user.ids.irwinId)
+  private val hidden = List(UserId.lichess, UserId.irwin)
 
   private def actionLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModCount]] =
     logRepo.coll

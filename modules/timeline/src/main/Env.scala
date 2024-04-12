@@ -6,7 +6,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.user.Me
+
 
 @Module
 private class TimelineConfig(

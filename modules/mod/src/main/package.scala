@@ -3,7 +3,7 @@ package lila.mod
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 export lila.core.userId.ModId
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 private val logger = lila.log("mod")
 

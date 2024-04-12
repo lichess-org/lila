@@ -3,10 +3,10 @@ package lila.clas
 import scalalib.SecureRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.rating.Perf
 
-import lila.rating.UserPerfs
-import lila.rating.UserWithPerfs
+
+import lila.core.perf.UserPerfs
+import lila.core.perf.UserWithPerfs
 
 case class Student(
     @Key("_id") id: Student.Id, // userId:clasId

@@ -146,10 +146,9 @@ final class SecurityApi(
   def oauthScoped(
       req: RequestHeader,
       required: lila.oauth.EndpointScopes
-  ): Fu[OAuthServer.AuthResult[Me]] =
-    given OAuthServer.FetchUser[Me] = userRepo.me
+  ): Fu[OAuthServer.AuthResult] =
     oAuthServer
-      .auth[Me](req, required)
+      .auth(req, required)
       .addEffect:
         case Right(access) => upsertOauth(access, req)
         case _             => ()
@@ -157,14 +156,14 @@ final class SecurityApi(
 
   private object upsertOauth:
     private val sometimes = scalalib.cache.OnceEvery.hashCode[AccessToken.Id](1.hour)
-    def apply(access: OAuthScope.Access[Me], req: RequestHeader): Unit =
+    def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
       if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
         val mobile = Mobile.LichessMobileUa.parse(req)
         store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
 
   private lazy val nonModRoles: Set[String] = lila.core.perm.Permission.nonModPermissions.map(_.dbKey)
 
-  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped[Me]) =
+  private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
     if scoped.scopes.has(_.Web.Mod) then scoped
     else scoped.copy(me = stripRolesOf(scoped.me))
 

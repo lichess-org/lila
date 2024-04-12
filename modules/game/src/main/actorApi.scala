@@ -3,7 +3,7 @@ package actorApi
 
 import chess.ByColor
 import chess.format.Fen
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 case class StartGame(game: Game)
 

@@ -8,9 +8,9 @@ import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.core.perm.Permission
 import lila.user.{ Flag, User, UserPerfsRepo, UserRepo }
-import lila.rating.UserPerfs
+import lila.core.perf.UserPerfs
 import lila.core.user.UserMark
-import lila.user.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 final class CoachPager(
     userRepo: UserRepo,

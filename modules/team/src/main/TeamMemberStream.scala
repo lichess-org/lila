@@ -5,7 +5,7 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserApi }
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 final class TeamMemberStream(
     memberRepo: TeamMemberRepo,

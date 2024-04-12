@@ -9,7 +9,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 
 import lila.rating.PerfType
-import lila.rating.UserWithPerfs
+import lila.core.perf.UserWithPerfs
 
 object ratingDistribution:
 

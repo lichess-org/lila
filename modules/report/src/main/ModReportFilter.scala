@@ -1,7 +1,5 @@
 package lila.report
 
-import lila.user.{ Me, given }
-
 final class ModReportFilter:
 
   // mutable storage, because I cba to put it in DB
