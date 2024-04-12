@@ -620,7 +620,7 @@ final class User(
 
   def ratingDistribution(perfKey: PerfKeyStr, username: Option[UserStr] = None) = Open:
     Found(PerfType.read(perfKey).filter(lila.rating.PerfType.isLeaderboardable)): perfType =>
-      env.user.rankingApi
+      env.perfStat.api
         .weeklyRatingDistribution(perfType)
         .flatMap: data =>
           WithMyPerfs:

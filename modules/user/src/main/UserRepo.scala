@@ -223,8 +223,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
     coll.update.one($id(id), $inc($doc(incs*)))
 
-  def incToints(id: UserId, nb: Int) = coll.update.one($id(id), $inc("toints" -> nb))
-  def removeAllToints                = coll.update.one($empty, $unset("toints"), multi = true)
+  def incToints(id: UserId, nb: Int): Funit = coll.update.one($id(id), $inc("toints" -> nb)).void
+  def removeAllToints                       = coll.update.one($empty, $unset("toints"), multi = true)
 
   def create(
       name: UserName,

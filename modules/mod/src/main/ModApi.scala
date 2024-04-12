@@ -172,12 +172,11 @@ final class ModApi(
     }
 
   def allMods =
+    def timeNoSee(u: User): Duration = (nowMillis - (u.seenAt | u.createdAt).toMillis).millis
     userRepo
       .userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList)
       .flatMap(userRepo.enabledByIds)
-      .dmap {
-        _.sortBy(_.timeNoSee)
-      }
+      .map(_.sortBy(timeNoSee))
 
   private def withUser[A](username: UserStr)(op: User => Fu[A]): Fu[A] =
     userRepo.byId(username).orFail(s"[mod] missing user $username").flatMap(op)

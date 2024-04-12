@@ -5,7 +5,6 @@ import cats.derived.*
 
 import lila.memo.CacheApi.*
 import lila.core.perm.Granter
-import lila.user.{ Me, User, UserRepo }
 
 object TeamSecurity:
   enum Permission(val name: String, val desc: String) derives Eq:
@@ -28,7 +27,7 @@ object TeamSecurity:
 
   case class NewPermissions(user: UserId, perms: Set[Permission])
 
-final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached: Cached)(using
+final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.UserApi, cached: Cached)(using
     Executor
 ):
 
@@ -119,7 +118,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
         .verifying(
           "Kid accounts cannot manage permissions",
           d =>
-            userRepo
+            userApi
               .filterKid(d.filter(_.perms(Permission.Admin)).map(_.name))
               .await(1.second, "team leader kids")
               .isEmpty

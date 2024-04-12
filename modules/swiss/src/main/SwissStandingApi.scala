@@ -13,7 +13,7 @@ import lila.db.dsl.{ *, given }
 final class SwissStandingApi(
     mongo: SwissMongo,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
 
   import BsonHandlers.given

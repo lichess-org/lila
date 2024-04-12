@@ -11,7 +11,6 @@ import lila.core.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
 import lila.core.perm.Granter as MasterGranter
-import lila.user.{ Me, User, given }
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,

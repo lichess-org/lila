@@ -8,7 +8,7 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Icon
 import lila.rating.PerfType
 
-import lila.core.user.LightCount
+import lila.user.LightCount
 import lila.core.perf.UserWithPerfs
 
 object list:

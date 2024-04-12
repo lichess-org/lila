@@ -17,7 +17,7 @@ object FlairApi:
         .verifying(exists)
         .verifying(f => anyFlair || !adminFlairs(f) || asAdmin)
 
-  def formPair(anyFlair: Boolean = false, asAdmin: Boolean = false)(using by: Me) =
+  def formPair(anyFlair: Boolean = false, asAdmin: Boolean = false) =
     "flair" -> formField(anyFlair, asAdmin)
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))

@@ -7,7 +7,7 @@ import lila.core.perm.Granter
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     notifyApi: NotifyApi,
     prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi
@@ -28,12 +28,12 @@ final private class StudyInvite(
       getIsPresent: UserId => Fu[Boolean]
   ): Fu[User] = for
     _       <- (study.nbMembers >= maxMembers).so(fufail[Unit](s"Max study members reached: $maxMembers"))
-    inviter <- userRepo.me(byUserId).orFail("No such inviter")
+    inviter <- userApi.me(byUserId).orFail("No such inviter")
     given Me = inviter
     _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)).so:
       fufail[Unit]("Only the study owner can invite")
     invited <-
-      userRepo
+      userApi
         .enabledById(invitedUsername)
         .map(
           _.filterNot(u => UserId.lichess.is(u) && !Granter(_.StudyAdmin))

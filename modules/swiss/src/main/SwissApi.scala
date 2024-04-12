@@ -18,16 +18,12 @@ import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 
 import lila.core.round.QuietFlag
-import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo, given }
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
 
 final class SwissApi(
     mongo: SwissMongo,
     cache: SwissCache,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
-    userApi: UserApi,
     socket: SwissSocket,
     director: SwissDirector,
     scoring: SwissScoring,
@@ -37,7 +33,8 @@ final class SwissApi(
     boardApi: SwissBoardApi,
     verify: SwissCondition.Verify,
     chatApi: lila.core.chat.ChatApi,
-    lightUserApi: lila.user.LightUserApi,
+    userApi: lila.core.user.UserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     roundApi: lila.game.core.RoundApi
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
     extends lila.core.swiss.SwissApi:
@@ -135,7 +132,7 @@ final class SwissApi(
 
   private def recomputePlayerRatings(swiss: Swiss): Funit = for
     ranking <- rankingApi(swiss)
-    perfs   <- perfsRepo.perfOf(ranking.keys, swiss.perfType)
+    perfs   <- userApi.perfOf(ranking.keys, swiss.perfType)
     update = mongo.player.update(ordered = false)
     elements <- perfs.toSeq.traverse: (userId, perf) =>
       update.element(
@@ -170,7 +167,7 @@ final class SwissApi(
 
   def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] =
     me.foldUse(fuccess(swiss.settings.conditions.accepted)): me ?=>
-      perfsRepo
+      userApi
         .withPerf(me, swiss.perfType)
         .flatMap: user =>
           given Perf = user.perf
@@ -188,7 +185,7 @@ final class SwissApi(
           .flatMap: rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
               for
-                user <- perfsRepo.withPerf(me.value, swiss.perfType)
+                user <- userApi.withPerf(me.value, swiss.perfType)
                 given Perf = user.perf
                 verified <- verify(swiss)
                 ok = verified.accepted && swiss.isEnterable
@@ -245,7 +242,7 @@ final class SwissApi(
       .map((Swiss.PastAndNext.apply).tupled)
 
   def playerInfo(swiss: Swiss, userId: UserId): Fu[Option[SwissPlayer.ViewExt]] =
-    userRepo.byId(userId).flatMapz { user =>
+    userApi.byId(userId).flatMapz { user =>
       mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value).flatMapz { player =>
         SwissPairing
           .fields { f =>

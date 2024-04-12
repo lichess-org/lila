@@ -27,16 +27,12 @@ case class TrophyKind(
 )
 
 object TrophyKind:
-  val marathonWinner         = "marathonWinner"
-  val marathonTopTen         = "marathonTopTen"
-  val marathonTopFifty       = "marathonTopFifty"
-  val marathonTopHundred     = "marathonTopHundred"
-  val marathonTopFivehundred = "marathonTopFivehundred"
-  val moderator              = "moderator"
-  val developer              = "developer"
-  val verified               = "verified"
-  val contentTeam            = "contentTeam"
-  val zugMiracle             = "zugMiracle"
+  export lila.core.user.TrophyKind.*
+  val moderator   = "moderator"
+  val developer   = "developer"
+  val verified    = "verified"
+  val contentTeam = "contentTeam"
+  val zugMiracle  = "zugMiracle"
 
   object Unknown
       extends TrophyKind(

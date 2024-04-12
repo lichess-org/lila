@@ -53,7 +53,6 @@ object LoginCandidate:
     case MissingTotpToken          extends Result(none)
     case InvalidTotpToken          extends Result(none)
 
-case class GDPRErase(user: User) extends AnyVal
 opaque type Erased = Boolean
 object Erased extends YesNo[Erased]
 

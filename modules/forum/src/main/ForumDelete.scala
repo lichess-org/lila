@@ -3,7 +3,6 @@ package lila.forum
 import akka.stream.scaladsl.*
 
 import lila.core.perm.Granter as MasterGranter
-import lila.user.{ Me, User, given }
 import lila.core.forum.{ RemovePost, RemovePosts }
 import lila.common.Bus
 

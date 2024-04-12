@@ -161,7 +161,7 @@ object form:
         help = trans.site.simulDescriptionHelp().some
       )(form3.textarea(_)(rows := 10)),
       ctx.me
-        .exists(_.canBeFeatured)
+        .exists(lila.simul.canBeFeatured)
         .option(
           form3.checkbox(
             form("featured"),

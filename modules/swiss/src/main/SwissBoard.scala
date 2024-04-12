@@ -16,7 +16,7 @@ private object SwissBoard:
 
 final private class SwissBoardApi(
     rankingApi: SwissRankingApi,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     gameProxy: lila.game.core.GameProxy
 )(using Executor):
 

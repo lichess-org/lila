@@ -81,11 +81,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
         _.flatMap(_.child(perf.value))
           .flatMap(_.getAsOpt[Glicko]("gl")) | lila.rating.Glicko.default
 
-  def addStormRun  = addStormLikeRun("storm")
-  def addRacerRun  = addStormLikeRun("racer")
-  def addStreakRun = addStormLikeRun("streak")
-
-  private def addStormLikeRun(field: String)(userId: UserId, score: Int): Funit =
+  def addPuzRun(field: String, userId: UserId, score: Int): Funit =
     coll.update
       .one(
         $id(userId),

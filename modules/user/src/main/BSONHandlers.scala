@@ -127,6 +127,6 @@ object BSONHandlers:
 
   given BSONDocumentHandler[Contact] = Macros.handler[Contact]
 
-  private[user] given BSONDocumentHandler[lila.core.LightUser]       = Macros.handler
-  private[user] given BSONDocumentHandler[lila.core.user.LightPerf]  = Macros.handler
-  private[user] given BSONDocumentHandler[lila.core.user.LightCount] = Macros.handler
+  private[user] given BSONDocumentHandler[lila.core.LightUser]      = Macros.handler
+  private[user] given BSONDocumentHandler[lila.core.user.LightPerf] = Macros.handler
+  private[user] given BSONDocumentHandler[lila.user.LightCount]     = Macros.handler

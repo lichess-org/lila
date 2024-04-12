@@ -31,8 +31,8 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
 
   val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
-  def preloadUser(user: User)        = cache.set(user.id, user.light.some)
-  def preloadUsers(users: Seq[User]) = users.foreach(preloadUser)
+  def preloadUser(user: User): Unit        = cache.set(user.id, user.light.some)
+  def preloadUsers(users: Seq[User]): Unit = users.foreach(preloadUser)
 
   private val cache: Syncache[UserId, Option[LightUser]] = cacheApi.sync[UserId, Option[LightUser]](
     name = "user.light",

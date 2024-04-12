@@ -16,7 +16,7 @@ final class TournamentStandingApi(
     playerRepo: PlayerRepo,
     cached: TournamentCache,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor, akka.stream.Materializer):
 
   private val perPage = 10

@@ -56,7 +56,7 @@ object ratingDistribution:
             myVisiblePerfs
               .flatMap(_(perfType).glicko.establishedIntRating)
               .map: rating =>
-                val (under, sum) = lila.user.Stat.percentile(data, rating)
+                val (under, sum) = lila.perfStat.percentileOf(data, rating)
                 div(
                   trans.site.nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
                   br,

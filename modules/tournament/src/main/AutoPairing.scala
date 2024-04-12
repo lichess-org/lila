@@ -7,7 +7,7 @@ import lila.game.{ Game, GameRepo, Player as GamePlayer }
 final class AutoPairing(
     gameRepo: GameRepo,
     duelStore: DuelStore,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     onStart: lila.core.game.OnStart
 )(using Executor):
 

@@ -20,12 +20,10 @@ final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using Executo
 
 /* For data we don't really care about,
  * this DB coll with fallback to default when any operation fails. */
-final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(using
-    Executor,
-    Scheduler
-):
+final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(using Executor, Scheduler)
+    extends lila.core.db.AsyncCollFailingSilently:
 
-  def apply[A](f: Coll => Fu[A])(using default: Zero[A]) =
+  def apply[A](f: Coll => Fu[A])(using default: Zero[A]): Fu[A] =
     coll.get
       .withTimeout(timeout, coll.name.value)
       .transformWith:

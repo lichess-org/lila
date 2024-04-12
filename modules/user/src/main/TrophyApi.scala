@@ -10,7 +10,8 @@ final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
     cacheApi: CacheApi
-)(using Executor):
+)(using Executor)
+    extends lila.core.user.TrophyApi:
 
   val kindCache = cacheApi.sync[String, TrophyKind](
     name = "trophy.kind",

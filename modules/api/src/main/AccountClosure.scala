@@ -69,7 +69,7 @@ final class AccountClosure(
       case Some(user) =>
         userRepo.setEraseAt(user)
         email.gdprErase(user)
-        lila.common.Bus.publish(lila.user.GDPRErase(user), "gdprErase")
+        lila.common.Bus.publish(lila.core.user.GDPRErase(user), "gdprErase")
         Right(s"Erasing all data about $username in 24h")
     }
 

@@ -16,14 +16,11 @@ private class SimulConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     chat: lila.core.chat.ChatApi,
     lightUser: lila.core.LightUser.GetterFallback,
     onGameStart: lila.core.game.OnStart,

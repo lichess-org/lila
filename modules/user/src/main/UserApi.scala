@@ -31,6 +31,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     emailOrPrevious,
     pair,
     getTitle,
+    enabledById,
     enabledByIds,
     createdAtById,
     isEnabled,
@@ -45,9 +46,24 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     firstGetsWhite,
     incColor,
     userIdsWithRoles,
-    containsDisabled
+    containsDisabled,
+    containsEngine,
+    filterLame,
+    filterExists,
+    filterKid,
+    incToints
   }
-  export perfsRepo.{ perfOf, perfsOf, setPerf, dubiousPuzzle, glicko, withPerf }
+  export perfsRepo.{
+    perfOf,
+    perfsOf,
+    setPerf,
+    dubiousPuzzle,
+    glicko,
+    withPerf,
+    usingPerfOf,
+    perfOptionOf,
+    addPuzRun
+  }
   export gamePlayers.{ apply as gamePlayersAny, loggedIn as gamePlayersLoggedIn }
 
   // hit by game rounds

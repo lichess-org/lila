@@ -16,13 +16,11 @@ import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam
 import lila.core.round.{ AbortForce, GoBerserk }
 import lila.tournament.TeamBattle.TeamInfo
-import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 import lila.core.tournament.Status
 
 final class TournamentApi(
     cached: TournamentCache,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     gameRepo: GameRepo,
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
@@ -34,14 +32,14 @@ final class TournamentApi(
     socket: TournamentSocket,
     roundApi: lila.game.core.RoundApi,
     gameProxy: lila.game.core.GameProxy,
-    trophyApi: lila.user.TrophyApi,
+    trophyApi: lila.core.user.TrophyApi,
     colorHistoryApi: ColorHistoryApi,
     verify: TournamentCondition.Verify,
     duelStore: DuelStore,
     pause: Pause,
     waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator)
     extends lila.core.tournament.TournamentApi:
 
@@ -214,9 +212,8 @@ final class TournamentApi(
             socket.finish(tour.id)
             publish()
             playerRepo.withPoints(tour.id).foreach {
-              _.foreach { p =>
-                userRepo.incToints(p.userId, p.score)
-              }
+              _.foreach: p =>
+                userApi.incToints(p.userId, p.score)
             }
             awardTrophies(tour).logFailure(logger, _ => s"${tour.id} awardTrophies")
             callbacks.indexLeaderboard(tour).logFailure(logger, _ => s"${tour.id} indexLeaderboard")
@@ -234,7 +231,7 @@ final class TournamentApi(
     else funit
 
   private def awardTrophies(tour: Tournament): Funit =
-    import lila.user.TrophyKind.*
+    import lila.core.user.TrophyKind.*
     import lila.tournament.Tournament.tournamentUrl
     tour.schedule.exists(_.freq == Schedule.Freq.Marathon).so {
       playerRepo
@@ -259,7 +256,7 @@ final class TournamentApi(
       if tour.isStarted && playerExists
       then verify.rejoin(tour.conditions)
       else
-        perfsRepo
+        userApi
           .usingPerfOf(me, tour.perfType):
             verify(tour.conditions, tour.perfType)
 
@@ -289,7 +286,7 @@ final class TournamentApi(
               else if !pause.canJoin(me, tour) then fuccess(JoinResult.Paused)
               else
                 def proceedWithTeam(team: Option[TeamId]): Fu[JoinResult] = for
-                  user <- perfsRepo.withPerf(me.value, tour.perfType)
+                  user <- userApi.withPerf(me.value, tour.perfType)
                   _    <- playerRepo.join(tour.id, user, team, prevPlayer)
                   _    <- updateNbPlayers(tour.id)
                 yield
@@ -411,7 +408,7 @@ final class TournamentApi(
               }
 
   private def updatePlayerAfterGame(tour: Tournament, game: Game, pairing: Pairing)(userId: UserId): Funit =
-    tour.mode.rated.so { perfsRepo.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>
+    tour.mode.rated.so { userApi.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
         cached.sheet
           .addResult(tour, userId, pairing)
@@ -486,7 +483,7 @@ final class TournamentApi(
     }
 
   private def recomputePlayerAndSheet(tour: Tournament)(userId: UserId): Funit =
-    tour.mode.rated.so { perfsRepo.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>
+    tour.mode.rated.so { userApi.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>
       playerRepo.update(tour.id, userId) { player =>
         cached.sheet.recompute(tour, userId).map { sheet =>
           player.copy(
