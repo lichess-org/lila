@@ -65,18 +65,6 @@ case class ClearPassword(value: String) extends AnyVal:
 case class TotpToken(value: String) extends AnyVal
 case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 
-case class Speaker(
-    username: UserName,
-    title: Option[PlayerTitle],
-    flair: Option[Flair],
-    enabled: Boolean,
-    plan: Option[Plan],
-    marks: Option[UserMarks]
-):
-  def isBot    = title.contains(PlayerTitle.BOT)
-  def isTroll  = marks.exists(_.troll)
-  def isPatron = plan.exists(_.active)
-
 case class Contact(
     _id: UserId,
     kid: Option[Boolean],

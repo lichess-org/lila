@@ -19,8 +19,7 @@ import lila.core.user.Plan
 final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
   import lila.user.{ BSONFields as F }
-  import lila.user.BSONHandlers.given
-  export lila.user.BSONHandlers.userHandler
+  export lila.user.BSONHandlers.given
 
   def withColl[A](f: Coll => A): A = f(coll)
 
@@ -481,17 +480,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def setFlair(user: User, flair: Option[Flair]): Funit =
     coll.updateOrUnsetField($id(user.id), F.flair, flair).void
 
-  private val speakerProjection = $doc(
-    F.username -> true,
-    F.title    -> true,
-    F.plan     -> true,
-    F.flair    -> true,
-    F.enabled  -> true,
-    F.marks    -> true
-  )
-
-  def speaker(id: UserId): Fu[Option[Speaker]] =
-    coll.one[Speaker]($id(id), speakerProjection)
+  def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
+    coll.one[A]($id(id), proj)
 
   def contacts(orig: UserId, dest: UserId): Fu[Option[Contacts]] =
     coll

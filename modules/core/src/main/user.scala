@@ -1,7 +1,7 @@
 package lila.core
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
 import reactivemongo.api.bson.collection.BSONCollection
 import play.api.i18n.Lang
 import _root_.chess.PlayerTitle
@@ -184,6 +184,7 @@ object user:
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]
     def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
+    def byIdAs[U: BSONDocumentReader](id: String, proj: BSONDocument): Fu[Option[U]]
     def me[U: UserIdOf](u: U): Fu[Option[Me]]
     def email(id: UserId): Fu[Option[EmailAddress]]
     def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]]
@@ -251,15 +252,19 @@ object user:
 
   abstract class UserRepo(val coll: BSONCollection):
     given userHandler: BSONDocumentHandler[User]
+    given planHandler: BSONDocumentHandler[Plan]
   abstract class PerfsRepo(val coll: BSONCollection):
     def aggregateLookup: BSONDocument
     def aggregateReadFirst[U: UserIdOf](root: BSONDocument, u: U): UserPerfs
 
   object BSONFields:
-    val enabled = "enabled"
-    val title   = "title"
-    val roles   = "roles"
-    val marks   = "marks"
+    val enabled  = "enabled"
+    val title    = "title"
+    val roles    = "roles"
+    val marks    = "marks"
+    val username = "username"
+    val flair    = "flair"
+    val plan     = "plan"
 
   trait Note:
     val text: String

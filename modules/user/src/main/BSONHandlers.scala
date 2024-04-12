@@ -9,10 +9,8 @@ import lila.db.dsl.{ *, given }
 object BSONFields:
   export lila.core.user.BSONFields.*
   val id                    = "_id"
-  val username              = "username"
   val count                 = "count"
   val profile               = "profile"
-  val flair                 = "flair"
   val toints                = "toints"
   val playTime              = "time"
   val playTimeTotal         = "time.total"
@@ -26,7 +24,6 @@ object BSONFields:
   val mustConfirmEmail      = "mustConfirmEmail"
   val prevEmail             = "prevEmail"
   val colorIt               = "colorIt"
-  val plan                  = "plan"
   val salt                  = "salt"
   val bpass                 = "bpass"
   val sha512                = "sha512"
@@ -40,9 +37,9 @@ object BSONFields:
 
 object BSONHandlers:
 
-  given BSONDocumentHandler[PlayTime]              = Macros.handler[PlayTime]
-  private[user] given BSONDocumentHandler[Plan]    = Macros.handler[Plan]
-  private[user] given BSONDocumentHandler[Profile] = Macros.handler[Profile]
+  given playTimeHandler: BSONDocumentHandler[PlayTime] = Macros.handler[PlayTime]
+  given planHandler: BSONDocumentHandler[Plan]         = Macros.handler[Plan]
+  given profileHandler: BSONDocumentHandler[Profile]   = Macros.handler[Profile]
   private[user] given BSONHandler[TotpSecret] = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => new TotpSecret(v.byteArray) },
     v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
@@ -128,7 +125,6 @@ object BSONHandlers:
         marks      -> o.marks.value.nonEmpty.option(o.marks)
       )
 
-  given BSONDocumentHandler[Speaker] = Macros.handler[Speaker]
   given BSONDocumentHandler[Contact] = Macros.handler[Contact]
 
   private[user] given BSONDocumentHandler[lila.core.LightUser]       = Macros.handler

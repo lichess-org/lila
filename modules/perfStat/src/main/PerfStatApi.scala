@@ -2,7 +2,7 @@ package lila.perfStat
 
 import lila.rating.{ Perf, UserRankMap }
 import lila.core.perm.Granter
-import lila.user.{ LightUserApi, Me, RankingApi, RankingsOf, User, UserApi }
+import lila.user.{ LightUserApi, RankingApi, RankingsOf, UserApi }
 
 import lila.rating.PerfType
 import lila.rating.PerfExt.established
