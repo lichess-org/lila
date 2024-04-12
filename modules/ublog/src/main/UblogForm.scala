@@ -63,14 +63,13 @@ object UblogForm:
   ) extends WithCaptcha:
 
     def create(user: User) =
-      import lila.user.UserExt.*
       UblogPost(
         id = UblogPost.randomId,
         blog = UblogBlog.Id.User(user.id),
         title = title,
         intro = intro,
         markdown = markdown,
-        language = language.orElse(user.userLanguage) | defaultLanguage,
+        language = language.orElse(user.realLang.map(Language.apply)) | defaultLanguage,
         topics = topics.so(UblogTopic.fromStrList),
         image = none,
         live = false,

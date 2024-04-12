@@ -1,12 +1,14 @@
 package lila.core
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
+import reactivemongo.api.bson.collection.BSONCollection
 import play.api.i18n.Lang
 import _root_.chess.PlayerTitle
 
 import lila.core.perf.Perf
 import lila.core.rating.data.{ IntRating, IntRatingDiff }
-import lila.core.perf.{ PerfKey, UserWithPerfs }
+import lila.core.perf.{ PerfKey, UserPerfs, UserWithPerfs }
 import lila.core.userId.*
 import lila.core.email.*
 import lila.core.id.Flair
@@ -205,6 +207,9 @@ object user:
     def countEngines(userIds: List[UserId]): Fu[Int]
     def getTitle(id: UserId): Fu[Option[PlayerTitle]]
     def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]]
+    def withPerfs(u: User): Fu[UserWithPerfs]
+    def withPerfs[U: UserIdOf](id: U): Fu[Option[UserWithPerfs]]
+    def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs]
 
   trait LightUserApiMinimal:
     val async: LightUser.Getter
@@ -248,12 +253,17 @@ object user:
       def arenaBan: Boolean                = hasMark(UserMark.arenaban)
       def alt: Boolean                     = hasMark(UserMark.alt)
 
-  abstract class UserRepo(val coll: reactivemongo.api.bson.collection.BSONCollection):
-    given userHandler: reactivemongo.api.bson.BSONDocumentHandler[User]
+  abstract class UserRepo(val coll: BSONCollection):
+    given userHandler: BSONDocumentHandler[User]
+  abstract class PerfsRepo(val coll: BSONCollection):
+    def aggregateLookup: BSONDocument
+    def aggregateReadFirst[U: UserIdOf](root: BSONDocument, u: U): UserPerfs
 
   object BSONFields:
     val enabled = "enabled"
     val title   = "title"
+    val roles   = "roles"
+    val marks   = "marks"
 
   trait Note:
     val text: String
@@ -289,5 +299,15 @@ object user:
       def lightMe: LightUser.Me = LightUser.Me(me.value.light)
       inline def modId: ModId   = userId.into(ModId)
       inline def myId: MyId     = userId.into(MyId)
+    // given (using me: Me): LightUser.Me = LightUser.Me(me.light)
 
-  given (using me: Me): LightUser.Me = LightUser.Me(me.light)
+  final class Flag(val code: Flag.Code, val name: Flag.Name, val abrev: Option[String]):
+    def shortName = abrev | name
+
+  object Flag:
+    type Code = String
+    type Name = String
+
+  trait FlagApi:
+    val all: List[Flag]
+    val nonCountries: List[Flag.Code]

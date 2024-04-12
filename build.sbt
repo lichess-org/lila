@@ -145,7 +145,7 @@ lazy val video = module("video",
 )
 
 lazy val coach = module("coach",
-  Seq(game, user),
+  Seq(game),
   reactivemongo.bundle
 )
 
@@ -165,12 +165,12 @@ lazy val feed = module("feed",
 )
 
 lazy val ublog = module("ublog",
-  Seq(user),
+  Seq(coreI18n, memo),
   Seq(bloomFilter) ++ reactivemongo.bundle
 )
 
 lazy val evaluation = module("evaluation",
-  Seq(analyse, user),
+  Seq(analyse),
   tests.bundle ++ reactivemongo.bundle
 )
 

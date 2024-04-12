@@ -7,14 +7,14 @@ import lila.coach.CoachPager.Order.{ Alphabetical, LichessRating, Login }
 import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.core.perm.Permission
-import lila.user.{ Flag, User, UserPerfsRepo, UserRepo }
 import lila.core.perf.UserPerfs
 import lila.core.user.UserMark
 import lila.core.perf.UserWithPerfs
+import lila.core.user.Flag
 
 final class CoachPager(
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
+    userRepo: lila.core.user.UserRepo,
+    perfsRepo: lila.core.user.PerfsRepo,
     coll: Coll
 )(using Executor):
 
@@ -57,9 +57,9 @@ final class CoachPager(
               UnwindField("_user"),
               Match(
                 $doc(
-                  s"_user.${lila.user.BSONFields.roles}"   -> Permission.Coach.dbKey,
-                  s"_user.${lila.user.BSONFields.enabled}" -> true,
-                  s"_user.${lila.user.BSONFields.marks}"
+                  s"_user.${lila.core.user.BSONFields.roles}"   -> Permission.Coach.dbKey,
+                  s"_user.${lila.core.user.BSONFields.enabled}" -> true,
+                  s"_user.${lila.core.user.BSONFields.marks}"
                     .$nin(List(UserMark.engine, UserMark.boost, UserMark.troll))
                 ) ++ country.so { c =>
                   $doc("_user.profile.country" -> c.code)
@@ -67,15 +67,15 @@ final class CoachPager(
               ),
               Skip(offset),
               Limit(length),
-              PipelineOperator(perfsRepo.aggregate.lookup)
+              PipelineOperator(perfsRepo.aggregateLookup)
             )
           .map: docs =>
-            import lila.user.BSONHandlers.userHandler
+            import userRepo.userHandler
             for
               doc   <- docs
               coach <- doc.asOpt[Coach]
               user  <- doc.getAsOpt[User]("_user")
-              perfs = perfsRepo.aggregate.readFirst(doc, user)
+              perfs = perfsRepo.aggregateReadFirst(doc, user)
             yield coach.withUser(UserWithPerfs(user, perfs))
 
     Paginator(

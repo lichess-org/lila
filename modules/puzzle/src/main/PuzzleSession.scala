@@ -6,7 +6,6 @@ import scala.util.chaining.*
 
 import lila.memo.CacheApi
 
-import lila.user.{ Me, User }
 import lila.rating.GlickoExt.clueless
 
 private case class PuzzleSession(

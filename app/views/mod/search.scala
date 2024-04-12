@@ -11,7 +11,7 @@ import lila.common.String.html.richText
 import scalalib.paginator.Paginator
 import lila.mod.IpRender.RenderIp
 import lila.security.{ FingerHash, IpTrust }
-import lila.user.{ Me, User }
+
 import lila.user.WithPerfsAndEmails
 
 object search:

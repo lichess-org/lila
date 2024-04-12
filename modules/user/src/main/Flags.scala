@@ -1,19 +1,8 @@
 package lila.user
 
-import scala.*
+import lila.core.user.Flag
 
-final class Flag(
-    val code: Flag.Code,
-    val name: Flag.Name,
-    val abrev: Option[String]
-):
-  def shortName = abrev | name
-
-object Flag:
-  type Code = String
-  type Name = String
-
-object Flags:
+object Flags extends lila.core.user.FlagApi:
 
   import Flag.*
 

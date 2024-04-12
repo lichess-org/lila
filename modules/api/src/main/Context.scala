@@ -8,7 +8,7 @@ import lila.core.i18n.{ Language, Translate, defaultLanguage }
 import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.pref.Pref
-import lila.user.{ Me, User }
+
 import lila.core.user.KidMode
 import lila.user.UserExt.userLanguage
 

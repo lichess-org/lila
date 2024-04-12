@@ -5,7 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.core.perm.Permission
-import lila.user.{ Me, User }
+
 import lila.security.Granter.canGrant
 import lila.security.Permission.findGranterPackage
 

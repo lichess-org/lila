@@ -6,7 +6,7 @@ import chess.ByColor
 
 import lila.core.config.*
 import lila.core.report.SuspectId
-import lila.user.{ Me, User }
+
 import lila.core.user.WithPerf
 import lila.common.Bus
 import lila.rating.UserWithPerfs.only

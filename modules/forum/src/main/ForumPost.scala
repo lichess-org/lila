@@ -4,7 +4,7 @@ import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.perm.Granter
-import lila.user.{ Me, User }
+
 import lila.core.forum.ForumPostMini
 
 case class OldVersion(text: String, createdAt: Instant)

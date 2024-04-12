@@ -10,7 +10,7 @@ import lila.core.user.WithPerf
 import lila.core.rating.Glicko
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 
-final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
+final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsRepo(c):
 
   import lila.rating.UserPerfs.userPerfsHandler
   import lila.rating.Perf.perfHandler
@@ -192,3 +192,5 @@ final class UserPerfsRepo(private[user] val coll: Coll)(using Executor):
 
     def readFrom[U: UserIdOf](doc: Bdoc, u: U): UserPerfs =
       doc.asOpt[UserPerfs].getOrElse(lila.rating.UserPerfs.default(u.id))
+
+  export aggregate.{ lookup as aggregateLookup, readFirst as aggregateReadFirst }

@@ -4,7 +4,6 @@ import lila.db.dsl.{ *, given }
 import lila.core.notify.{ InvitedToStudy, NotifyApi }
 import lila.core.relation.Relation.{ Block, Follow }
 import lila.core.perm.Granter
-import lila.user.{ Me, User }
 
 final private class StudyInvite(
     studyRepo: StudyRepo,

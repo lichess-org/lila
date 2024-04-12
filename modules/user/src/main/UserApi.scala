@@ -41,6 +41,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     filterDisabled,
     countEngines
   }
+  export perfsRepo.perfsOf
 
   // hit by game rounds
   object gamePlayers:

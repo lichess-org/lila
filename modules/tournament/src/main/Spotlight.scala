@@ -3,7 +3,6 @@ package lila.tournament
 import scalalib.HeapSort.topN
 import lila.common.Icon
 
-import lila.user.{ Me, User }
 import lila.core.LightUser
 import lila.core.perf.UserWithPerfs
 

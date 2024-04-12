@@ -7,7 +7,7 @@ import scalalib.model.Days
 import lila.lobby.{ Color, Hook, Seek }
 import lila.rating.{ Perf }
 import lila.rating.RatingRange.withinLimits
-import lila.user.{ Me, User }
+
 import lila.core.rating.RatingRange
 import lila.core.perf.UserWithPerfs
 

@@ -10,7 +10,6 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.relation.Follow
 import lila.shutup.Analyser
-import lila.user.{ Me, User }
 
 object communication:
 

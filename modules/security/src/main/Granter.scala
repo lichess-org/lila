@@ -1,6 +1,5 @@
 package lila.security
 
-import lila.user.{ Me, User }
 import lila.core.perm.Grantable
 import lila.core.perm.Permission
 
