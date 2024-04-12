@@ -39,6 +39,9 @@ class CommentParserTest extends lila.common.LilaTest:
   test("parse clock: only"):
     assertEquals(C("[%clk 10:40:33]").clock, Some(Centis(3843300)))
 
+  test("parse emt only seconds"):
+    assertEquals(C("[%clk 00:00:33]").clock, Some(Centis(3300)))
+
   test("parse clock: one hour"):
     assertEquals(C("[%clk 1:40:33]").clock, Some(Centis(603300)))
 
@@ -60,8 +63,14 @@ class CommentParserTest extends lila.common.LilaTest:
   test("parse clock: no seconds"):
     assertEquals(C("Hello there [%clk 2:10] something else").clock, Some(Centis(780000)))
 
+  test("parse emt: no seconds"):
+    assertEquals(C("Hello there [%emt 2:10] something else").emt, Some(Centis(780000)))
+
   test("parse clock: alt format"):
     assertEquals(C("Hello there [%clk 2:10.33] something else").clock, Some(Centis(783300)))
+
+  test("parse emt: alt format"):
+    assertEquals(C("Hello there [%emt 2:10.33] something else").emt, Some(Centis(783300)))
 
   test("parse clock: TCEC"):
     assertEquals(
@@ -124,4 +133,13 @@ class CommentParserTest extends lila.common.LilaTest:
       case C.ParsedComment(shapes, clock, None, "Hello there") =>
         shapes.value.size == 6 &&
         clock == Some(Centis(3843300))
+    }
+
+  test("multiple shapes + clock + emt"):
+    assertMatch(
+      C("Hello there [%emt 10:40:33][%clk 10:40:33][%csl \n\n Gb4,Yd5,Rf6][%cal\nGe2e4,Ye2d4,Re2g4]")
+    ) { case C.ParsedComment(shapes, clock, emt, "Hello there") =>
+      shapes.value.size == 6 &&
+      clock == Some(Centis(3843300)) &&
+      emt == Some(Centis(3843300))
     }
