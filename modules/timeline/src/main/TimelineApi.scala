@@ -10,7 +10,7 @@ import lila.core.timeline.*
 
 private final class TimelineApi(
     relationApi: lila.core.relation.RelationApi,
-    userRepo: UserRepo,
+    userApi: lila.core.user.UserApi,
     entryApi: EntryApi,
     unsubApi: UnsubApi,
     teamApi: lila.core.team.TeamApi
@@ -43,7 +43,7 @@ private final class TimelineApi(
           case (fus, Propagation.ExceptUser(id)) => fus.dmap(_.filter(id !=))
           case (fus, Propagation.ModsOnly(true)) =>
             fus.flatMap: us =>
-              userRepo.userIdsWithRoles(modPermissions.map(_.dbKey)).dmap { userIds =>
+              userApi.userIdsWithRoles(modPermissions.map(_.dbKey)).dmap { userIds =>
                 us.filter(userIds.contains)
               }
           case (fus, Propagation.WithTeam(teamId)) =>

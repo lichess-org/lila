@@ -209,6 +209,7 @@ object user:
     def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs]
     def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean]
     def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit
+    def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]]
 
   trait LightUserApiMinimal:
     val async: LightUser.Getter
