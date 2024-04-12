@@ -64,7 +64,7 @@ object dgt:
     layout("play", s"${token.plain.value}".some)(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
-        h2(iconTag(licon.InfoCircle, ifMoveNotDetected())),
+        h2(iconTag(Icon.InfoCircle, ifMoveNotDetected())),
         p(checkYouHaveMadeOpponentsMove()),
         p(
           asALastResort(
@@ -81,7 +81,7 @@ object dgt:
         st.section(
           h2(lichessConnectivity()),
           if token.isDefined then
-            p(cls := "text", dataIcon := licon.Checkmark)(
+            p(cls := "text", dataIcon := Icon.Checkmark)(
               validDgtOauthToken(),
               br,
               br,

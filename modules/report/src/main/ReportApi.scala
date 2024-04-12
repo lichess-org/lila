@@ -6,19 +6,17 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.GameRepo
 import lila.memo.CacheApi.*
-import lila.user.{ Me, User, UserApi, UserRepo, modId, given }
 import lila.core.report.SuspectId
+import lila.core.userId.ModId
 
 final class ReportApi(
     val coll: Coll,
-    userRepo: UserRepo,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     gameRepo: GameRepo,
     autoAnalysis: AutoAnalysis,
-    securityApi: lila.security.SecurityApi,
-    userLoginsApi: lila.security.UserLoginsApi,
-    playbanApi: () => lila.playban.PlaybanApi,
-    ircApi: lila.irc.IrcApi,
+    securityApi: lila.core.security.SecurityApi,
+    playbansOf: () => lila.core.playban.BansOf,
+    ircApi: lila.core.irc.IrcApi,
     isOnline: lila.core.socket.IsOnline,
     cacheApi: lila.memo.CacheApi,
     snoozer: lila.memo.Snoozer[Report.SnoozeKey],
@@ -66,7 +64,7 @@ final class ReportApi(
             if report.isRecentComm &&
               report.score.value >= thresholds.discord() &&
               prev.exists(_.score.value < thresholds.discord())
-            then ircApi.commReportBurst(c.suspect.user)
+            then ircApi.commReportBurst(c.suspect.user.light)
             coll.update.one($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate).andDo:
                 if report.isCheat then
@@ -106,11 +104,11 @@ final class ReportApi(
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
       (candidate.isComm && candidate.suspect.user.marks.troll)
 
-  def getMyMod(using me: Me.Id): Fu[Option[Mod]]         = userRepo.byId(me).dmap2(Mod.apply)
-  def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]         = userRepo.byId(u).dmap2(Mod.apply)
-  def getSuspect[U: UserIdOf](u: U): Fu[Option[Suspect]] = userRepo.byId(u).dmap2(Suspect.apply)
+  def getMyMod(using me: MyId): Fu[Option[Mod]]          = userApi.byId(me).dmap2(Mod.apply)
+  def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]         = userApi.byId(u).dmap2(Mod.apply)
+  def getSuspect[U: UserIdOf](u: U): Fu[Option[Suspect]] = userApi.byId(u).dmap2(Suspect.apply)
 
-  def getLichessMod: Fu[Mod] = userRepo.lichess.dmap2(Mod.apply).orFail("User lichess is missing")
+  def getLichessMod: Fu[Mod] = userApi.byId(UserId.lichess).dmap2(Mod.apply).orFail("User lichess is missing")
   def getLichessReporter: Fu[Reporter] =
     getLichessMod.map: l =>
       Reporter(l.user)
@@ -159,7 +157,7 @@ final class ReportApi(
       }
 
   def autoCheatDetectedReport(userId: UserId, cheatedGames: Int): Funit =
-    userRepo.byId(userId).zip(getLichessReporter).flatMap {
+    userApi.byId(userId).zip(getLichessReporter).flatMap {
       case (Some(user), reporter) if !user.marks.engine =>
         lila.mon.cheat.autoReport.increment()
         create(
@@ -188,15 +186,14 @@ final class ReportApi(
     }
 
   def maybeAutoPlaybanReport(userId: UserId, minutes: Int): Funit =
-    (minutes > 60 * 24).so(userLoginsApi.getUserIdsWithSameIpAndPrint(userId)).flatMap { ids =>
-      playbanApi()
-        .bans(userId :: ids.toList)
+    (minutes > 60 * 24).so(securityApi.getUserIdsWithSameIpAndPrint(userId)).flatMap { ids =>
+      playbansOf()(userId :: ids.toList)
         .map:
           _.filter { (_, bans) => bans > 4 }
         .flatMap: bans =>
           val topSum = scalalib.HeapSort.topNToList(bans.values, 10).sum
           (topSum >= 80).so {
-            userRepo
+            userApi
               .byId(userId)
               .zip(getLichessReporter)
               .zip(findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)))
@@ -223,14 +220,14 @@ final class ReportApi(
       _ <- doProcessReport(
         $inIds(all.filter(_.open).map(_.id)),
         unsetInquiry = false
-      )(using User.lichessIdAsMe)
+      )(using UserId.lichessAsMe)
     yield open
 
   def reopenReports(suspect: Suspect): Funit =
     for
       all <- recent(suspect, 10)
       closed = all
-        .filter(_.done.map(_.by).has(User.lichessId.into(ModId)))
+        .filter(_.done.map(_.by).has(UserId.lichess.into(ModId)))
         .filterNot(_.isAlreadySlain(suspect.user))
       _ <-
         coll.update
@@ -246,7 +243,7 @@ final class ReportApi(
   def autoBoostReport(winnerId: UserId, loserId: UserId, seriousness: Int): Funit =
     securityApi
       .shareAnIpOrFp(winnerId, loserId)
-      .zip(userRepo.pair(winnerId, loserId))
+      .zip(userApi.pair(winnerId, loserId))
       .zip(getLichessReporter)
       .flatMap {
         case ((isSame, Some((winner, loser))), reporter) if !winner.lame && !loser.lame =>
@@ -266,7 +263,7 @@ final class ReportApi(
       }
 
   def autoSandbagReport(winnerIds: List[UserId], loserId: UserId, seriousness: Int): Funit =
-    userRepo.byId(loserId).zip(getLichessReporter).flatMap {
+    userApi.byId(loserId).zip(getLichessReporter).flatMap {
       case (Some(loser), reporter) if !loser.lame =>
         create(
           Candidate(
@@ -289,7 +286,7 @@ final class ReportApi(
     maxScoreCache.invalidateUnit()
     lila.mon.mod.report.close.increment()
 
-  def autoProcess(sus: Suspect, rooms: Set[Room])(using Me.Id): Funit =
+  def autoProcess(sus: Suspect, rooms: Set[Room])(using MyId): Funit =
     val selector = $doc(
       "user" -> sus.user.id,
       "room".$in(rooms),
@@ -299,7 +296,7 @@ final class ReportApi(
       .andDo(maxScoreCache.invalidateUnit())
       .andDo(lila.mon.mod.report.close.increment())
 
-  private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: Me.Id): Funit =
+  private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: MyId): Funit =
     coll.update
       .one(
         selector,
@@ -485,7 +482,7 @@ final class ReportApi(
               if reports.sizeIs < 4 then fuccess(none) // not enough data to know
               else
                 val userIds = reports.map(_.user).distinct
-                userRepo.countEngines(userIds).map { nbEngines =>
+                userApi.countEngines(userIds).map { nbEngines =>
                   Accuracy {
                     Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
                   }.some

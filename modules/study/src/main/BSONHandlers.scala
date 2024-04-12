@@ -61,8 +61,8 @@ object BSONHandlers:
 
   given BSONHandler[Comment.Author] = quickHandler[Comment.Author](
     {
-      case BSONString(n) if n == lila.user.User.lichessId.value || n == "l" => Comment.Author.Lichess
-      case BSONString(name)                                                 => Comment.Author.External(name)
+      case BSONString(n) if n == UserId.lichess.value || n == "l" => Comment.Author.Lichess
+      case BSONString(name)                                       => Comment.Author.External(name)
       case doc: Bdoc =>
         {
           for

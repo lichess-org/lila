@@ -12,12 +12,13 @@ import scala.util.chaining.scalaUtilChainingOps
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.EmailAddress
+import lila.core.perm.Permission
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
-import lila.security.{ FingerHash, Granter, Permission }
+import lila.security.FingerHash
 import lila.user.User as UserModel
-import lila.core.IpAddress
+import lila.core.net.IpAddress
+import lila.core.userId.ModId
 
 final class Mod(
     env: Env,
@@ -141,7 +142,7 @@ final class Mod(
     if username == UserName("-") && env.mod.impersonate.isImpersonated(me) then
       env.mod.impersonate.stop(me)
       Redirect(routes.User.show(me.username))
-    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(lila.user.User.lichessId)) then
+    else if isGranted(_.Impersonate) || (isGranted(_.Admin) && username.is(UserId.lichess)) then
       Found(env.user.repo.byId(username)): user =>
         env.mod.impersonate.start(me, user)
         Redirect(routes.User.show(user.username))
@@ -180,20 +181,20 @@ final class Mod(
       case Some(report) =>
         Found(env.user.repo.byId(report.user)): user =>
           import lila.report.Room
-          import lila.irc.IrcApi.ModDomain
+          import lila.core.irc.ModDomain
           env.irc.api
             .inquiry(
-              user = user,
+              user = user.light,
               domain = report.room match
                 case Room.Cheat => ModDomain.Cheat
                 case Room.Boost => ModDomain.Boost
                 case Room.Comm  => ModDomain.Comm
                 // spontaneous inquiry
-                case _ if Granter(_.Admin)       => ModDomain.Admin
-                case _ if Granter(_.CheatHunter) => ModDomain.Cheat // heuristic
-                case _ if Granter(_.Shusher)     => ModDomain.Comm
-                case _ if Granter(_.BoostHunter) => ModDomain.Boost
-                case _                           => ModDomain.Admin
+                case _ if isGranted(_.Admin)       => ModDomain.Admin
+                case _ if isGranted(_.CheatHunter) => ModDomain.Cheat // heuristic
+                case _ if isGranted(_.Shusher)     => ModDomain.Comm
+                case _ if isGranted(_.BoostHunter) => ModDomain.Boost
+                case _                             => ModDomain.Admin
               ,
               room = if report.isSpontaneous then "Spontaneous inquiry" else report.room.name
             )
@@ -208,11 +209,16 @@ final class Mod(
         _.filter(_.reason == lila.report.Reason.Username).map(_.bestAtom.simplifiedText)
       }
       .flatMap: reason =>
-        env.user.repo.byId(username).orNotFound { env.irc.api.nameCloseVote(_, reason).inject(NoContent) }
+        env.user.repo.byId(username).orNotFound { user =>
+          val details = s"created on: ${user.createdAt.date}, ${user.count.game} games"
+          env.irc.api
+            .nameCloseVote(user.light, details, reason)
+            .inject(NoContent)
+        }
 
   }
   def askUsertableCheck(username: UserStr) = Secure(_.SendToZulip) { _ ?=> _ ?=>
-    env.user.repo.byId(username).orNotFound { env.irc.api.usertableCheck(_).inject(NoContent) }
+    env.user.lightUser(username.id).orNotFound { env.irc.api.usertableCheck(_).inject(NoContent) }
   }
 
   def table = Secure(_.Admin) { ctx ?=> _ ?=>
@@ -261,12 +267,12 @@ final class Mod(
               }
             ).flatMapN { (chats, convos, publicLines, notes, history, inquiry, logins) =>
               if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
-                env.irc.api.commlog(user = user, inquiry.map(_.oldestAtom.by.userId))
+                env.irc.api.commlog(user = user.light, inquiry.map(_.oldestAtom.by.userId))
                 if isGranted(_.MonitoredCommMod) then
                   env.irc.api.monitorMod(
                     "eyes",
                     s"spontaneously checked out @${user.username}'s private comms",
-                    lila.irc.IrcApi.ModDomain.Comm
+                    lila.core.irc.ModDomain.Comm
                   )
               env.appeal.api
                 .byUserIds(user.id :: logins.userLogins.otherUserIds)
@@ -281,7 +287,7 @@ final class Mod(
                       .take(15),
                     convos,
                     publicLines,
-                    notes.filter(_.from != lila.user.User.irwinId),
+                    notes.filter(_.from != UserId.irwin),
                     history,
                     logins,
                     appeals,
@@ -303,7 +309,7 @@ final class Mod(
         Ok.chunked(source)
           .pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
           .andDo(env.mod.logApi.fullCommExport(Suspect(user)))
-          .andDo(env.irc.api.fullCommExport(user))
+          .andDo(env.irc.api.fullCommExport(user.light))
     }
 
   protected[controllers] def redirect(username: UserStr, mod: Boolean = true) =
@@ -403,7 +409,7 @@ final class Mod(
     for
       uids       <- env.security.api.recentUserIdsByFingerHash(hash)
       users      <- env.user.repo.usersFromSecondary(uids.reverse)
-      withEmails <- env.user.api.withEmails(users)
+      withEmails <- env.user.api.withPerfsAndEmails(users)
       uas        <- env.security.api.printUas(hash)
       page <- renderPage(html.mod.search.print(hash, withEmails, uas, env.security.printBan.blocks(hash)))
     yield Ok(page)
@@ -420,7 +426,7 @@ final class Mod(
       for
         uids       <- env.security.api.recentUserIdsByIp(address)
         users      <- env.user.repo.usersFromSecondary(uids.reverse)
-        withEmails <- env.user.api.withEmails(users)
+        withEmails <- env.user.api.withPerfsAndEmails(users)
         uas        <- env.security.api.ipUas(address)
         data       <- env.security.ipTrust.data(address)
         blocked = env.security.firewall.blocksIp(address)
@@ -452,19 +458,19 @@ final class Mod(
   }
 
   def savePermissions(username: UserStr) = SecureBody(_.ChangePermission) { ctx ?=> me ?=>
-    import lila.security.Permission
     Found(env.user.repo.byId(username)): user =>
       Form(single("permissions" -> list(text.verifying(Permission.allByDbKey.contains))))
         .bindFromRequest()
         .fold(
           _ => BadRequest.page(html.mod.permissions(user)),
           permissions =>
-            val newPermissions = Permission(permissions).diff(Permission(user.roles))
-            (modApi.setPermissions(user.username, Permission(permissions)) >> {
+            val newPermissions = Permission.ofDbKeys(permissions).diff(Permission(user))
+            (modApi.setPermissions(user.username, Permission.ofDbKeys(permissions)) >> {
               newPermissions(Permission.Coach).so(env.mailer.automaticEmail.onBecomeCoach(user))
             } >> {
-              Permission(permissions)
-                .exists(_.is(Permission.SeeReport))
+              Permission
+                .ofDbKeys(permissions)
+                .exists(_.grants(Permission.SeeReport))
                 .so(env.plan.api.setLifetime(user))
             }).inject(Redirect(routes.Mod.permissions(user.username.value)).flashSuccess)
         )
@@ -479,7 +485,7 @@ final class Mod(
         val username = query.lift(1)
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
           env.mod.search(q).map(_.filter(_.user.enabled.yes)).flatMap {
-            case List(UserModel.WithEmails(user, _)) =>
+            case List(lila.user.WithPerfsAndEmails(user, _)) =>
               for
                 _ <- (!user.everLoggedIn).so {
                   lila.mon.user.register.modConfirmEmail.increment()
@@ -508,7 +514,7 @@ final class Mod(
   def chatPanicPost = OAuthMod(_.Shadowban) { ctx ?=> me ?=>
     val v = getBool("v")
     env.chat.panic.set(v)
-    env.irc.api.chatPanic(me, v)
+    env.irc.api.chatPanic(v)
     fuccess(().some)
   }(_ => (_, _) ?=> Redirect(routes.Mod.chatPanic))
 

@@ -3,7 +3,7 @@ package lila.security
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.Domain
+import lila.core.net.Domain
 
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,
@@ -43,6 +43,15 @@ final class DisposableEmailDomain(
     apply(domain) && !mxRecordPasslist(domain.withoutSubdomain | domain)
 
 private object DisposableEmailDomain:
+
+  extension (a: Domain)
+    // heuristic to remove user controlled subdomain tails:
+    // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
+    def withoutSubdomain: Option[Domain] =
+      a.value.split('.').toList.reverse match
+        case tld :: sld :: tail :: _ if sld.lengthIs <= 3 => Domain.from(s"$tail.$sld.$tld")
+        case tld :: sld :: _                              => Domain.from(s"$sld.$tld")
+        case _                                            => none
 
   def whitelisted(domain: Domain) = whitelist.contains(domain.withoutSubdomain.|(domain).lower)
 

@@ -14,7 +14,7 @@ object theme:
     views.html.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
       moreCss = cssTag("puzzle.page"),
-      withHrefLangs = lila.core.LangPath(routes.Puzzle.themes).some
+      withHrefLangs = lila.core.app.LangPath(routes.Puzzle.themes).some
     ):
       main(cls := "page-menu")(
         bits.pageMenu("themes", ctx.me),
@@ -35,7 +35,7 @@ object theme:
       )
 
   private[puzzle] def info(using Context) =
-    p(cls := "puzzle-themes__db text", dataIcon := licon.Heart):
+    p(cls := "puzzle-themes__db text", dataIcon := Icon.Heart):
       trans.puzzleTheme.puzzleDownloadInformation:
         a(href := "https://database.lichess.org/")("database.lichess.org")
 

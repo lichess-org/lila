@@ -10,7 +10,8 @@ import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, config }
 import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
-import lila.security.Permission
+import lila.core.perm.Permission
+import lila.core.perf.UserWithPerfs
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -321,12 +322,11 @@ abstract private[controllers] class LilaController(val env: Env)
         case ByHref.Found(lang) =>
           f(using ctx.withLang(lang))
 
-  import lila.rating.{ Perf, PerfType }
-  def WithMyPerf[A](pt: PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+  def WithMyPerf[A](pt: lila.rating.PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
     .soFu(env.user.perfsRepo.perfOf(_, pt))
     .flatMap: perf =>
-      f(using perf | Perf.default)
-  def WithMyPerfs[A](f: Option[lila.user.User.WithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+      f(using perf | lila.rating.Perf.default)
+  def WithMyPerfs[A](f: Option[UserWithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
     .soFu(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)

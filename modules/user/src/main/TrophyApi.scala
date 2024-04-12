@@ -12,18 +12,17 @@ final class TrophyApi(
     cacheApi: CacheApi
 )(using Executor):
 
-  val kindCache =
-    cacheApi.sync[String, TrophyKind](
-      name = "trophy.kind",
-      initialCapacity = 32,
-      compute = id =>
-        given BSONDocumentReader[TrophyKind] = Macros.reader[TrophyKind]
-        kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown)
-      ,
-      default = _ => TrophyKind.Unknown,
-      strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
-      expireAfter = Syncache.ExpireAfter.Write(1 hour)
-    )
+  val kindCache = cacheApi.sync[String, TrophyKind](
+    name = "trophy.kind",
+    initialCapacity = 32,
+    compute = id =>
+      given BSONDocumentReader[TrophyKind] = Macros.reader[TrophyKind]
+      kindColl.byId[TrophyKind](id).dmap(_ | TrophyKind.Unknown)
+    ,
+    default = _ => TrophyKind.Unknown,
+    strategy = Syncache.Strategy.WaitAfterUptime(20 millis),
+    expireAfter = Syncache.ExpireAfter.Write(1 hour)
+  )
 
   private given BSONHandler[TrophyKind]     = BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
   private given BSONDocumentHandler[Trophy] = Macros.handler[Trophy]

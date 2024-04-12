@@ -10,15 +10,18 @@ import java.util.concurrent.atomic.AtomicReference
 import scala.util.chaining.*
 
 import lila.common.{ Bus, Lilakka }
-import lila.core.actorApi.Announce
-import lila.core.actorApi.relation.{ Follow, UnFollow }
+import lila.core.relation.{ Follow, UnFollow }
 import lila.core.round.Mlat
-import lila.core.actorApi.security.CloseAccount
-import lila.core.actorApi.socket.remote.{ TellSriIn, TellSriOut, TellSrisOut, TellUserIn }
-import lila.core.actorApi.socket.{ ApiUserIsOnline, SendTo, SendToOnlineUser, SendTos }
-import lila.core.socket.*
+import lila.core.security.CloseAccount
+import lila.core.socket.remote.*
+import lila.core.socket.{ SocketRequester as _, * }
 
-final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown)(using Executor, Scheduler):
+final class RemoteSocket(
+    redisClient: RedisClient,
+    shutdown: CoordinatedShutdown,
+    requester: SocketRequester,
+    userLag: UserLagCache
+)(using Executor, Scheduler):
 
   import RemoteSocket.*, Protocol.*
 
@@ -39,17 +42,17 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate(_ -- userIds)
     case In.NotifiedBatch(userIds) =>
-      Bus.publish(lila.core.actorApi.notify.NotifiedBatch(userIds), "notify")
+      Bus.publish(lila.core.notify.NotifiedBatch(userIds), "notify")
     case In.Lags(lags) =>
       lags.foreach: (userId, centis) =>
-        UserLagCache.put(userId, centis)
+        userLag.put(userId, centis)
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellSri(sri, userId, typ, msg) =>
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.TellUser(userId, typ, msg) =>
       Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
-    case In.ReqResponse(reqId, response) => SocketRequest.onResponse(reqId, response)
+    case In.ReqResponse(reqId, response) => requester.onResponse(reqId, response)
     case In.Ping(id)                     => send(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
@@ -75,7 +78,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       if onlineUserIds.get.contains(userId) then send(Out.tellUser(userId, payload))
     case SendToOnlineUser(userId, makePayload) =>
       if onlineUserIds.get.contains(userId) then
-        makePayload().foreach: payload =>
+        makePayload.value.foreach: payload =>
           send(Out.tellUser(userId, payload))
     case Announce(_, _, json) =>
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
@@ -98,7 +101,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
       if value then onlineUserIds.getAndUpdate(_ + userId)
     case Follow(u1, u2)   => send(Out.follow(u1, u2))
     case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
-    case lila.core.actorApi.streamer.StreamersOnline(streamers) =>
+    case lila.core.misc.streamer.StreamersOnline(streamers) =>
       send(Out.streamersOnline(streamers))
   }
 
@@ -169,7 +172,7 @@ final class RemoteSocket(redisClient: RedisClient, shutdown: CoordinatedShutdown
     subPromise.future
 
   Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping"): () =>
-    SocketRequest[Unit](
+    requester[Unit](
       id => send(Protocol.Out.stop(id)),
       res => logger.info(s"lila-ws says: $res")
     ).withTimeout(1 second, "Lilakka.shutdown")

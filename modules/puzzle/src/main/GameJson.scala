@@ -11,7 +11,7 @@ import lila.game.{ Game, GameRepo }
 final private class GameJson(
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor, lila.core.i18n.Translator):
 
   given play.api.i18n.Lang = lila.core.i18n.defaultLang

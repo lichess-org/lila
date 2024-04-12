@@ -5,7 +5,6 @@ import play.api.data.Forms.*
 
 import lila.common.Form.{ PrettyDateTime, into, stringIn }
 import lila.core.i18n.{ Language, LangList }
-import lila.user.Me
 
 final class EventForm(langList: LangList):
 
@@ -22,7 +21,7 @@ final class EventForm(langList: LangList):
       "enabled"       -> boolean,
       "startsAt"      -> PrettyDateTime.mapping,
       "finishesAt"    -> PrettyDateTime.mapping,
-      "hostedBy"      -> optional(lila.user.UserForm.historicalUsernameField),
+      "hostedBy"      -> optional(lila.common.Form.username.historicalField),
       "icon"          -> stringIn(icon.choices),
       "countdown"     -> boolean
     )(Data.apply)(unapply)
@@ -69,7 +68,7 @@ object EventForm:
       countdown: Boolean
   ):
 
-    def update(event: Event)(using me: Me.Id) =
+    def update(event: Event)(using me: MyId) =
       event.copy(
         title = title,
         headline = headline,
@@ -87,7 +86,7 @@ object EventForm:
         updatedBy = me.some
       )
 
-    def make(using me: Me.Id) =
+    def make(using me: MyId) =
       Event(
         _id = Event.makeId,
         title = title,

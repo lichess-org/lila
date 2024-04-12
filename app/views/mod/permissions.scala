@@ -4,8 +4,10 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.security.Permission
-import lila.user.{ Me, User }
+import lila.core.perm.Permission
+
+import lila.security.Granter.canGrant
+import lila.security.Permission.findGranterPackage
 
 object permissions:
 
@@ -17,7 +19,6 @@ object permissions:
         cssTag("form3")
       )
     ):
-      val userPerms = Permission(u.roles)
       main(cls := "mod-permissions page-small box box-pad")(
         boxTop(h1(userLink(u), " permissions")),
         standardFlash,
@@ -36,7 +37,7 @@ object permissions:
                       div(
                         cls := isGranted(perm, u).option("granted"),
                         title := isGranted(perm, u).so {
-                          Permission.findGranterPackage(userPerms, perm).map { p =>
+                          findGranterPackage(Permission(u), perm).map { p =>
                             s"Granted by package: $p"
                           }
                         }

@@ -7,8 +7,10 @@ import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.util.{ Failure, NotGiven, Success, Try }
 
 import lila.common.Iso.{ *, given }
-import lila.core.{ EmailAddress, NormalizedEmailAddress }
-import lila.core.IpAddress
+import lila.core.email.NormalizedEmailAddress
+import lila.core.net.IpAddress
+import lila.core.data.Percent
+import lila.common.Icon
 
 trait Handlers:
 
@@ -145,9 +147,9 @@ trait Handlers:
 
   given BSONHandler[IpAddress] = stringIsoHandler
 
-  given BSONHandler[EmailAddress] = stringIsoHandler
-
-  given BSONHandler[NormalizedEmailAddress] = stringIsoHandler
+  import lila.core.relation.Relation
+  given BSONHandler[Relation] =
+    BSONBooleanHandler.as[Relation](if _ then Relation.Follow else Relation.Block, _.isFollow)
 
   given BSONHandler[chess.Color] = BSONBooleanHandler.as[chess.Color](chess.Color.fromWhite(_), _.white)
 
@@ -163,12 +165,22 @@ trait Handlers:
 
   given BSONHandler[chess.Mode] = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
 
+  given BSONHandler[Icon] = BSONStringHandler.as[Icon](Icon(_), _.value)
+
+  given perfKeyHandler: BSONHandler[PerfKey] =
+    BSONStringHandler.as[PerfKey](key => PerfKey(key).err(s"Unknown perf key $key"), _.value)
+
+  given perfKeyFailingIso: Iso.StringIso[PerfKey] =
+    Iso.string[PerfKey](str => PerfKey(str).err(s"Unknown perf $str"), _.value)
+
   given [T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
     { case arr: BSONArray => for a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) yield (a, b) },
     { case (a, b) => BSONArray(a, b) }
   )
 
   given NoDbHandler[chess.Square] with {} // no default opaque handler for chess.Square
+
+  given lila.db.NoDbHandler[lila.core.user.Me] with {}
 
   def chessPosKeyHandler: BSONHandler[chess.Square] = tryHandler(
     { case BSONString(str) => chess.Square.fromKey(str).toTry(s"No such key $str") },
@@ -212,6 +224,9 @@ trait Handlers:
     { case BSONString(t) => PlayerTitle.get(t).toTry(s"No such player title: $t") },
     t => BSONString(t.value)
   )
+
+  import lila.core.user.UserMark
+  given markHandler: BSONHandler[UserMark] = valueMapHandler(UserMark.byKey)(_.key)
 
   def valueMapHandler[K, V](mapping: Map[K, V])(toKey: V => K)(using
       keyHandler: BSONHandler[K]

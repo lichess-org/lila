@@ -16,7 +16,7 @@ object phases:
         h1(
           a(
             href     := routes.Tutor.perf(user.username, report.perf.key),
-            dataIcon := licon.LessThan,
+            dataIcon := Icon.LessThan,
             cls      := "text"
           ),
           bits.otherUser(user),
@@ -41,12 +41,12 @@ object phases:
               div(cls := "tutor__phases__phase__buttons")(
                 a(
                   cls      := "button button-no-upper text",
-                  dataIcon := licon.ArcheryTarget,
+                  dataIcon := Icon.ArcheryTarget,
                   href     := routes.Puzzle.show(phase.phase.name)
                 )("Train with ", phase.phase.name, " puzzles"),
                 a(
                   cls      := "button button-no-upper text",
-                  dataIcon := licon.AnalogTv,
+                  dataIcon := Icon.AnalogTv,
                   href     := s"${routes.Video.index}?tags=${phase.phase.name}"
                 )("Watch ", phase.phase.name, " videos")
               ),

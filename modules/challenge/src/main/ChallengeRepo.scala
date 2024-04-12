@@ -1,7 +1,6 @@
 package lila.challenge
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final private class ChallengeRepo(colls: ChallengeColls)(using
     ec: Executor

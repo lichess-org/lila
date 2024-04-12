@@ -6,18 +6,18 @@ import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo, Pov, Query }
-import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
+import lila.report.{ Mod, Report, Reporter, Suspect }
 import lila.core.report.SuspectId
-import lila.user.{ Me, User, UserRepo, modId, given }
+import lila.core.userId.ModId
 
 final class IrwinApi(
     reportColl: Coll,
     gameRepo: GameRepo,
-    userRepo: UserRepo,
+    userApi: lila.core.user.UserApi,
     analysisRepo: AnalysisRepo,
     modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor):
 
@@ -62,18 +62,18 @@ final class IrwinApi(
       }
 
     private def getSuspect(suspectId: UserId) =
-      userRepo.byId(suspectId).orFail(s"suspect $suspectId not found").dmap(Suspect.apply)
+      userApi.byId(suspectId).orFail(s"suspect $suspectId not found").dmap(Suspect.apply)
 
     private def markOrReport(report: IrwinReport): Funit =
-      userRepo.getTitle(report.suspectId.value).flatMap { title =>
+      userApi.getTitle(report.suspectId.value).flatMap { title =>
         if report.activation >= thresholds.get().mark && title.isEmpty then
           modApi
-            .autoMark(report.suspectId, report.note)(using User.irwinId.into(Me.Id))
+            .autoMark(report.suspectId, report.note)(using UserId.irwin.into(MyId))
             .andDo(lila.mon.mod.irwin.mark.increment())
         else if report.activation >= thresholds.get().report then
           for
             suspect <- getSuspect(report.suspectId.value)
-            irwin   <- userRepo.irwin.orFail(s"Irwin user not found").dmap(Mod.apply)
+            irwin   <- userApi.byId(UserId.irwin).orFail("Irwin user not found").dmap(Mod.apply)
             _ <- reportApi.create(
               Report.Candidate(
                 reporter = Reporter(irwin.user),
@@ -147,7 +147,7 @@ final class IrwinApi(
 
     private var subs = Map.empty[SuspectId, Set[ModId]]
 
-    def add(suspectId: SuspectId)(using me: Me.Id): Unit =
+    def add(suspectId: SuspectId)(using me: MyId): Unit =
       subs = subs.updated(suspectId, ~subs.get(suspectId) + me.modId)
 
     private[IrwinApi] def apply(report: IrwinReport): Funit =
@@ -155,7 +155,7 @@ final class IrwinApi(
         subs = subs - report.suspectId
         modIds
           .map { modId =>
-            notifyApi.notifyOne(modId, lila.notify.IrwinDone(report.suspectId.value))
+            notifyApi.notifyOne(modId, lila.core.notify.IrwinDone(report.suspectId.value))
           }
           .parallel
           .void

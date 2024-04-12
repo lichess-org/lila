@@ -6,10 +6,9 @@ import com.softwaremill.macwire.*
 import lila.common.Bus
 import scalalib.paginator.*
 import lila.common.LateMultiThrottler
-import lila.core.actorApi.study.RemoveStudy
+import lila.core.study.RemoveStudy
 import lila.search.*
 import lila.study.Study
-import lila.user.User
 
 final class Env(
     studyRepo: lila.study.StudyRepo,

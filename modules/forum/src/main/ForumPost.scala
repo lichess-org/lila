@@ -3,8 +3,8 @@ package lila.forum
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.security.Granter
-import lila.user.{ Me, User }
+import lila.core.perm.Granter
+
 import lila.core.forum.ForumPostMini
 
 case class OldVersion(text: String, createdAt: Instant)
@@ -28,7 +28,7 @@ case class ForumPost(
 ) extends lila.core.forum.ForumPost:
 
   private def showAuthor: String =
-    author.map(_.trim).filter("" !=) | (if ~modIcon then User.anonymous.value else User.anonMod)
+    author.map(_.trim).filter("" !=) | (if ~modIcon then UserName.anonymous.value else UserName.anonMod)
 
   def showUserIdOrAuthor: String = if erased then "<erased>" else userId.fold(showAuthor)(_.value)
 

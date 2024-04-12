@@ -1,7 +1,7 @@
 package lila.swiss
 
 import lila.core.LightUser
-import lila.user.User
+import lila.core.user.WithPerf
 
 case class SwissPlayer(
     id: SwissPlayer.Id, // swissId:userId
@@ -36,7 +36,7 @@ object SwissPlayer:
 
   def makeId(swissId: SwissId, userId: UserId) = Id(s"$swissId:$userId")
 
-  private[swiss] def make(swissId: SwissId, user: User.WithPerf): SwissPlayer =
+  private[swiss] def make(swissId: SwissId, user: WithPerf): SwissPlayer =
     SwissPlayer(
       id = makeId(swissId, user.id),
       swissId = swissId,

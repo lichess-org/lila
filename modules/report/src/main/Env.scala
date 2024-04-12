@@ -12,20 +12,18 @@ final class Env(
     domain: NetDomain,
     db: lila.db.Db,
     isOnline: lila.core.socket.IsOnline,
-    userRepo: lila.user.UserRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     lightUserAsync: lila.core.LightUser.Getter,
     gameRepo: lila.game.GameRepo,
-    securityApi: lila.security.SecurityApi,
-    userLoginsApi: lila.security.UserLoginsApi,
-    playbanApi: => lila.playban.PlaybanApi,
-    ircApi: lila.irc.IrcApi,
+    securityApi: lila.core.security.SecurityApi,
+    playbansOf: => lila.core.playban.BansOf,
+    ircApi: lila.core.irc.IrcApi,
     captcha: lila.core.captcha.CaptchaApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi
 )(using Executor)(using scheduler: Scheduler):
 
-  private def lazyPlaybanApi = () => playbanApi
+  private def lazyPlaybansOf = () => playbansOf
 
   private lazy val reportColl = db(CollName("report2"))
 
@@ -51,3 +49,6 @@ final class Env(
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
     api.inquiries.expire
+
+  lila.common.Bus.subscribeFun("playban"):
+    case lila.core.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins)

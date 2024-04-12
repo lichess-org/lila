@@ -5,15 +5,15 @@ import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.variant.Variant
 
-import lila.chat.ChatApi
 import lila.game.{ Game, Namer }
 import lila.tree.{ Branches, Root }
 import lila.core.i18n.Translator
+import lila.core.id.GameFullId
 
 final private class ChapterMaker(
     net: lila.core.config.NetConfig,
     lightUser: lila.user.LightUserApi,
-    chatApi: ChatApi,
+    chatApi: lila.core.chat.ChatApi,
     gameRepo: lila.game.GameRepo,
     pgnFetch: PgnFetch,
     pgnDump: lila.game.PgnDump
@@ -161,12 +161,12 @@ final private class ChapterMaker(
   def notifyChat(study: Study, game: Game, userId: UserId) =
     if study.isPublic then
       List(game.hasUserId(userId).option(game.id.value), s"${game.id}/w".some).flatten.foreach { chatId =>
-        chatApi.userChat.write(
+        chatApi.write(
           chatId = ChatId(chatId),
           userId = userId,
           text = s"I'm studying this game on ${net.domain}/study/${study.id}",
           publicSource = none,
-          _.Round,
+          _.round,
           persist = false
         )
       }

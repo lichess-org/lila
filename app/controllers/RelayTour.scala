@@ -4,7 +4,7 @@ import play.api.mvc.*
 import views.*
 
 import lila.app.{ *, given }
-import lila.core.{ IpAddress, config }
+import lila.core.net.IpAddress
 import lila.relay.RelayTour as TourModel
 
 final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
@@ -115,7 +115,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.api.deleteTourIfOwner(tour).inject(Redirect(routes.RelayTour.by(me.username)).flashSuccess)
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.IpAddress](
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[IpAddress](
     key = "relay.image.ip"
   )(
     ("fast", 10, 2.minutes),

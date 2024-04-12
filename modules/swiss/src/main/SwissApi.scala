@@ -16,10 +16,11 @@ import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
-import lila.rating.Perf
+
 import lila.core.round.QuietFlag
-import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
+import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo, given }
 import lila.core.swiss.{ IdName, SwissFinish }
+import lila.core.userId.UserSearch
 
 final class SwissApi(
     mongo: SwissMongo,
@@ -35,9 +36,9 @@ final class SwissApi(
     banApi: SwissBanApi,
     boardApi: SwissBoardApi,
     verify: SwissCondition.Verify,
-    chatApi: lila.chat.ChatApi,
+    chatApi: lila.core.chat.ChatApi,
     lightUserApi: lila.user.LightUserApi,
-    roundSocket: lila.round.RoundSocket
+    roundApi: lila.game.core.RoundApi
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
     extends lila.core.swiss.SwissApi:
 
@@ -170,7 +171,7 @@ final class SwissApi(
   def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] =
     me.foldUse(fuccess(swiss.settings.conditions.accepted)): me ?=>
       perfsRepo
-        .withPerf(me.value, swiss.perfType)
+        .withPerf(me, swiss.perfType)
         .flatMap: user =>
           given Perf = user.perf
           verify(swiss)
@@ -589,7 +590,7 @@ final class SwissApi(
       .flatMap:
         _.traverse_ { (swissId, gameIds) =>
           Sequencing[List[Game]](swissId)(cache.swissCache.byId) { _ =>
-            roundSocket
+            roundApi
               .getGames(gameIds)
               .map: pairs =>
                 val games               = pairs.collect { case (_, Some(g)) => g }
@@ -602,7 +603,7 @@ final class SwissApi(
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
                   Bus.publish(
-                    lila.core.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag),
+                    lila.core.misc.map.TellMany(flagged.map(_.id.value), QuietFlag),
                     "roundSocket"
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
@@ -612,7 +613,9 @@ final class SwissApi(
         }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
-    chatApi.userChat.service(id.into(ChatId), text, _.Swiss, isVolatile = volatile)
+    if volatile
+    then chatApi.volatile(id.into(ChatId), text, _.swiss)
+    else chatApi.system(id.into(ChatId), text, _.swiss)
 
   def withdrawAll(user: User, teamIds: List[TeamId]): Funit =
     mongo.swiss

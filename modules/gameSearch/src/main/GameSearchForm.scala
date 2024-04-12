@@ -8,7 +8,6 @@ import java.time.LocalDate
 
 import lila.common.Form.*
 import lila.search.Range
-import lila.user.UserForm.historicalUsernameField
 import lila.core.i18n.Translate
 
 final private[gameSearch] class GameSearchForm:
@@ -16,12 +15,12 @@ final private[gameSearch] class GameSearchForm:
   def search(using Translate) = Form(
     mapping(
       "players" -> mapping(
-        "a"      -> optional(historicalUsernameField),
-        "b"      -> optional(historicalUsernameField),
-        "winner" -> optional(historicalUsernameField),
-        "loser"  -> optional(historicalUsernameField),
-        "white"  -> optional(historicalUsernameField),
-        "black"  -> optional(historicalUsernameField)
+        "a"      -> optional(username.historicalField),
+        "b"      -> optional(username.historicalField),
+        "winner" -> optional(username.historicalField),
+        "loser"  -> optional(username.historicalField),
+        "white"  -> optional(username.historicalField),
+        "black"  -> optional(username.historicalField)
       )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
       "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id.value))),

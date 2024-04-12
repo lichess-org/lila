@@ -7,6 +7,8 @@ import scala.util.chaining.*
 
 import lila.app.*
 import lila.game.Pov
+import lila.core.id.GameAnyId
+import lila.core.perf.UserWithPerfs
 
 // both bot & board APIs
 final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
@@ -152,7 +154,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
       case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
     }
 
-  private val botsCache = env.memo.cacheApi.unit[List[lila.user.User.WithPerfs]]:
+  private val botsCache = env.memo.cacheApi.unit[List[UserWithPerfs]]:
     _.expireAfterWrite(10 seconds).buildAsyncFuture: _ =>
       env.user.api.visibleBotsByIds(env.bot.onlineApiUsers.get)
 

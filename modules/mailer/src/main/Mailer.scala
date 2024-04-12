@@ -14,7 +14,6 @@ import lila.common.autoconfig.*
 import lila.common.Chronometer
 import lila.core.i18n.I18nKey.emails as trans
 import lila.core.i18n.Translate
-import lila.core.EmailAddress
 
 final class Mailer(
     config: Mailer.Config,

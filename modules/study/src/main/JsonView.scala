@@ -23,7 +23,7 @@ final class JsonView(
       chapter: Chapter,
       fedNames: Option[JsObject],
       withMembers: Boolean
-  )(using me: Option[lila.user.Me]) =
+  )(using me: Option[Me]) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))

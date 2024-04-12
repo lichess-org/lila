@@ -1,11 +1,13 @@
 package lila.notify
 
 import play.api.libs.json.*
+import scalalib.Json.given
 
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.i18n.I18nKey.{ site as trans }
 import lila.core.i18n.{ I18nKey, Translate, JsDump }
+import lila.core.notify.*
 
 final class JSONHandlers(getLightUser: LightUser.GetterSync, jsDump: JsDump):
 

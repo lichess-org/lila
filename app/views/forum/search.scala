@@ -18,7 +18,7 @@ object search:
       main(cls := "box search")(
         boxTop(
           h1(
-            a(href := routes.ForumCateg.index, dataIcon := licon.LessThan, cls := "text"),
+            a(href := routes.ForumCateg.index, dataIcon := Icon.LessThan, cls := "text"),
             title
           ),
           bits.searchForm(text)
@@ -27,7 +27,7 @@ object search:
         table(cls := "slist slist-pad search__results")(
           (pager.nbResults > 0).option(
             tbody(cls := "infinite-scroll")(
-              pager.currentPageResults.map { viewWithRead =>
+              pager.currentPageResults.map: viewWithRead =>
                 val view = viewWithRead.view
                 val info =
                   td(cls := "info")(
@@ -50,13 +50,9 @@ object search:
                       ),
                       info
                     )
-                  else
-                    frag(
-                      td("[You can't access this team forum post]"),
-                      info
-                    )
+                  else td(colspan := "2")("[You can't access this team forum post]")
                 )
-              },
+              ,
               pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
             )
           )

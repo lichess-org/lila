@@ -7,7 +7,6 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.core.LightUser
 import lila.oauth.{ AuthorizationRequest, OAuthScope }
-import lila.user.User
 
 object authorize:
 
@@ -61,7 +60,7 @@ object authorize:
               case None =>
                 submitButton(
                   cls      := s"$buttonClass disabled",
-                  dataIcon := isDanger.option(licon.CautionTriangle),
+                  dataIcon := isDanger.option(Icon.CautionTriangle),
                   disabled := true,
                   id       := "oauth-authorize",
                   title := s"The website ${prompt.redirectUri.host | prompt.redirectUri.withoutQuery} will get access to your Lichess account. Continue?"

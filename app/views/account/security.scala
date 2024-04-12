@@ -57,7 +57,7 @@ object security:
           td(cls := "icon")(
             span(
               cls := curSessionId.map { cur => s"is-${if cur == s.session.id then "gold" else "green"}" },
-              dataIcon := (if s.session.isMobile then licon.PhoneMobile else licon.ScreenDesktop)
+              dataIcon := (if s.session.isMobile then Icon.PhoneMobile else Icon.ScreenDesktop)
             )
           ),
           td(cls := "info")(
@@ -79,7 +79,7 @@ object security:
                   submitButton(
                     cls      := "button button-red",
                     title    := trans.site.logOut.txt(),
-                    dataIcon := licon.X
+                    dataIcon := Icon.X
                   )
                 )
               )
@@ -89,7 +89,7 @@ object security:
       },
       clients.map { client =>
         tr(
-          td(cls := "icon")(span(cls := "is-green", dataIcon := licon.ThreeCheckStack)),
+          td(cls := "icon")(span(cls := "is-green", dataIcon := Icon.ThreeCheckStack)),
           td(cls := "info")(
             strong(client.origin),
             p(cls := "ua")(
@@ -110,14 +110,14 @@ object security:
           td(
             postForm(action := routes.OAuth.revokeClient)(
               input(tpe        := "hidden", name             := "origin", value    := client.origin),
-              submitButton(cls := "button button-red", title := "Revoke", dataIcon := licon.X)
+              submitButton(cls := "button button-red", title := "Revoke", dataIcon := Icon.X)
             )
           )
         )
       },
       (personalAccessTokens > 0).option(
         tr(
-          td(cls := "icon")(span(cls := "is-green", dataIcon := licon.Tools)),
+          td(cls := "icon")(span(cls := "is-green", dataIcon := Icon.Tools)),
           td(cls := "info")(
             strong("Personal access tokens"),
             " can be used to access your account. Revoke any that you do not recognize."
@@ -127,7 +127,7 @@ object security:
               href     := routes.OAuthToken.index,
               cls      := "button",
               title    := trans.oauthScope.apiAccessTokens.txt(),
-              dataIcon := licon.Gear
+              dataIcon := Icon.Gear
             )
           )
         )

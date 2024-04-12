@@ -145,7 +145,7 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.passwdChange.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.passwd(err))): data =>
-          env.user.authenticator.setPassword(me, UserModel.ClearPassword(data.newPasswd1)) >>
+          env.user.authenticator.setPassword(me, lila.user.ClearPassword(data.newPasswd1)) >>
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
 
@@ -154,7 +154,7 @@ final class Account(
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>
       env.security.api.saveAuthentication(me, ctx.mobileApiVersion)).map { sessionId =>
-      result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
+      result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
     }
 
   private def emailForm(using me: Me) =
@@ -231,7 +231,7 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.setupTwoFactor.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.twoFactor.setup(err))): data =>
-          env.user.repo.setupTwoFactor(me, TotpSecret(data.secret)) >>
+          env.user.repo.setupTwoFactor(me, TotpSecret.decode(data.secret)) >>
             refreshSessionId(Redirect(routes.Account.twoFactor).flashSuccess)
   }
 
@@ -263,7 +263,7 @@ final class Account(
             env.api.accountClosure
               .close(me.value)
               .inject:
-                Redirect(routes.User.show(me.username)).withCookies(env.lilaCookie.newSession)
+                Redirect(routes.User.show(me.username)).withCookies(env.security.lilaCookie.newSession)
   }
 
   def kid = Auth { _ ?=> me ?=>
@@ -307,8 +307,8 @@ final class Account(
     for
       _                    <- env.security.api.dedup(me, req)
       sessions             <- env.security.api.locatedOpenSessions(me, 50)
-      clients              <- env.oAuth.tokenApi.listClients(me, 50)
-      personalAccessTokens <- env.oAuth.tokenApi.countPersonal(me)
+      clients              <- env.oAuth.tokenApi.listClients(50)
+      personalAccessTokens <- env.oAuth.tokenApi.countPersonal
       currentSessionId = ~env.security.api.reqSessionId(req)
       page <- renderPage:
         html.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)

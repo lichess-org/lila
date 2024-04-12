@@ -5,6 +5,7 @@ import chess.ByColor
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
+export lila.core.id.{ GameFullId, GamePlayerId, GameAnyId }
 
 type RatingDiffs = ByColor[IntRatingDiff]
 

@@ -6,7 +6,6 @@ import play.api.data.validation.*
 
 import lila.core.config.NetDomain
 import lila.core.LightUser
-import lila.user.{ Me, User }
 import lila.core.report.SuspectId
 
 final private[report] class ReportForm(
@@ -18,9 +17,9 @@ final private[report] class ReportForm(
     then Valid
     else Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
 
-  def create(using me: Me) = Form:
+  def create(using me: MyId) = Form:
     mapping(
-      "username" -> lila.user.UserForm.historicalUsernameField
+      "username" -> lila.common.Form.username.historicalField
         .verifying("Unknown username", { blockingFetchUser(_).isDefined })
         .verifying(
           "You cannot report yourself",
@@ -28,7 +27,7 @@ final private[report] class ReportForm(
         )
         .verifying(
           "Don't report Lichess. Use lichess.org/contact instead.",
-          u => !User.isOfficial(u)
+          u => !UserId.isOfficial(u)
         ),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
       "text"   -> text(minLength = 5, maxLength = 2000)
@@ -43,7 +42,7 @@ final private[report] class ReportForm(
 
   val flag = Form:
     mapping(
-      "username" -> lila.user.UserForm.historicalUsernameField,
+      "username" -> lila.common.Form.username.historicalField,
       "resource" -> nonEmptyText,
       "text"     -> text(minLength = 3, maxLength = 140)
     )(ReportFlag.apply)(unapply)

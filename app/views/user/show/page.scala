@@ -7,7 +7,9 @@ import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Game
-import lila.user.User
+
+import lila.core.data.SafeJsonStr
+import lila.rating.UserWithPerfs.titleUsernameWithBestRating
 
 object page:
 

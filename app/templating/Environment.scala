@@ -27,8 +27,7 @@ object Environment
   export lila.common.extensions.*
   export lila.api.Context.{ *, given }
   export lila.api.{ PageData, Nonce }
-  export lila.user.Me
-  export lila.common.licon
+  export lila.common.Icon
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = envVar = Some(e)

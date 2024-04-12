@@ -22,10 +22,10 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     getLightUser: lila.core.LightUser.GetterFallback,
-    proxyRepo: lila.round.GameProxyRepo,
-    roundMobile: lila.round.RoundMobile,
+    gameProxy: lila.game.core.GameProxy,
+    roundJson: lila.game.core.RoundJson,
     gameRepo: lila.game.GameRepo,
-    notifyAllows: lila.notify.GetNotifyAllows,
+    notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler):
 
@@ -68,9 +68,9 @@ final class Env(
       logUnit { pushApi.challengeCreate(c) }
     case lila.core.challenge.Event.Accept(c, joinerId) =>
       logUnit { pushApi.challengeAccept(c, joinerId) }
-    case lila.game.actorApi.CorresAlarmEvent(pov) =>
+    case lila.core.game.CorresAlarmEvent(userId, pov: lila.game.Pov, opponent) =>
       logUnit { pushApi.corresAlarm(pov) }
-    case lila.notify.PushNotification(to, content, _) =>
+    case lila.core.notify.PushNotification(to, content, _) =>
       logUnit { pushApi.notifyPush(to, content) }
-    case t: lila.core.actorApi.push.TourSoon =>
+    case t: lila.core.misc.push.TourSoon =>
       logUnit { pushApi.tourSoon(t) }

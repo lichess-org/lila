@@ -18,13 +18,12 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
-    proxyRepo: lila.round.GameProxyRepo,
-    chatApi: lila.chat.ChatApi,
-    tellRound: lila.round.TellRound,
-    roundSocket: lila.round.RoundSocket,
+    gameProxy: lila.game.core.GameProxy,
+    chatApi: lila.core.chat.ChatApi,
+    roundApi: lila.game.core.RoundApi,
     lightUserApi: lila.user.LightUserApi,
     onStart: lila.core.game.OnStart,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     socketKit: lila.core.socket.SocketKit,
     settingStore: lila.memo.SettingStore.Builder
@@ -34,7 +33,7 @@ final class Env(
     akka.stream.Materializer,
     lila.game.IdGenerator,
     play.api.Mode,
-    lila.user.FlairApi.Getter,
+    lila.core.user.FlairGet,
     lila.core.i18n.Translator
 ):
 

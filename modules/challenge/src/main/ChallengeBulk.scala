@@ -9,13 +9,13 @@ import scala.util.chaining.*
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Player }
-import lila.core.actorApi.map.TellMany
+import lila.core.misc.map.TellMany
 import lila.rating.PerfType
 import lila.core.round.StartClock
 import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
-import lila.user.User
-import lila.core.Days
-import lila.core.Template
+
+import lila.core.data.Template
+import scalalib.model.Days
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,
@@ -92,7 +92,7 @@ final class ChallengeBulkApi(
     def timeControl =
       bulk.clock.fold(Challenge.TimeControl.Clock.apply, Challenge.TimeControl.Correspondence.apply)
     val (chessGame, state) = ChallengeJoiner.gameSetup(bulk.variant, timeControl, bulk.fen)
-    PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
+    lila.rating.PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
         userApi.gamePlayers

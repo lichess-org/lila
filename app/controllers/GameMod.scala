@@ -7,11 +7,11 @@ import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-import lila.common.Form.{ stringIn, given }
+import lila.common.Form.{ stringIn, perfKey, given }
 import lila.core.config
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Perf, PerfType }
-import lila.core.rating.PerfKey
+
+import lila.rating.PerfType
 
 final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 
@@ -112,7 +112,7 @@ object GameMod:
           .replace(",", " ")
           .split(' ')
           .map(_.trim)
-      .flatMap(lila.user.User.validateId)
+      .flatMap(_.validateId)
       .toList
       .distinct
 
@@ -143,7 +143,7 @@ object GameMod:
     mapping(
       "arena"     -> optional(nonEmptyText),
       "swiss"     -> optional(nonEmptyText),
-      "perf"      -> optional(of[PerfKey]),
+      "perf"      -> optional(perfKey),
       "opponents" -> optional(nonEmptyText),
       "nbGamesOpt" -> optional(
         number(min = 1).transform(

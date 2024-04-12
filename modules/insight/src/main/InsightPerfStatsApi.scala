@@ -4,9 +4,9 @@ import chess.{ ByColor, Centis }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Perf, PerfType }
-import lila.user.User
-import lila.core.rating.PerfId
+
+import lila.core.perf.PerfId
+import lila.rating.PerfType
 
 case class InsightPerfStats(
     rating: MeanRating,

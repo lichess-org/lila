@@ -17,7 +17,7 @@ object index:
             submitButton(
               cls      := "button frameless",
               st.title := ot.newAccessToken.txt(),
-              dataIcon := licon.PlusButton
+              dataIcon := Icon.PlusButton
             )
           )
         ),
@@ -45,8 +45,8 @@ object index:
         ),
         tokens.headOption.filter(_.isBrandNew).map { token =>
           div(cls := "box__pad brand")(
-            if token.isDangerous then iconTag(licon.CautionTriangle)(cls := "is-red")
-            else iconTag(licon.Checkmark)(cls                            := "is-green"),
+            if token.isDangerous then iconTag(Icon.CautionTriangle)(cls := "is-red")
+            else iconTag(Icon.Checkmark)(cls                            := "is-green"),
             div(
               if token.isDangerous
               then p(strong(ot.doNotShareIt()))

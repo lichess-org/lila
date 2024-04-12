@@ -2,11 +2,14 @@ package lila.core
 package pool
 
 import alleycats.Zero
-import chess.Clock
+import _root_.chess.{ Clock, ByColor }
 
 import lila.core.rating.RatingRange
+import lila.core.rating.data.IntRating
 import lila.core.socket.Sri
-import chess.ByColor
+import lila.core.id.GameFullId
+import lila.core.userId.*
+import lila.core.perf.PerfKey
 
 opaque type Blocking = Set[UserId]
 object Blocking extends TotalWrapper[Blocking, Set[UserId]]:
@@ -37,7 +40,7 @@ case class Pairings(pairings: List[Pairing])
 
 object HookThieve:
 
-  case class GetCandidates(clock: chess.Clock.Config, promise: Promise[PoolHooks])
+  case class GetCandidates(clock: Clock.Config, promise: Promise[PoolHooks])
   case class StolenHookIds(ids: Vector[String])
 
   case class PoolHook(hookId: String, member: PoolMember):
@@ -51,13 +54,13 @@ case class Joiner(
     ratingRange: Option[RatingRange],
     lame: Boolean,
     blocking: Blocking
-)(using val me: lila.core.user.MyId)
+)(using val me: MyId)
 
 object Joiner:
   given UserIdOf[Joiner] = _.me.userId
 
 trait PoolApi:
   def setOnlineSris(ids: socket.Sris): Unit
-  def poolPerfKeys: Map[PoolConfigId, rating.PerfKey]
+  def poolPerfKeys: Map[PoolConfigId, PerfKey]
   def join(poolId: PoolConfigId, joiner: Joiner): Unit
   def leave(poolId: PoolConfigId, user: UserId): Unit

@@ -13,7 +13,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     historyApi: lila.core.history.HistoryApi,
     puzzleColls: lila.puzzle.PuzzleColls,
-    msgApi: lila.msg.MsgApi,
+    msgApi: lila.core.msg.MsgApi,
     lightUserAsync: lila.core.LightUser.Getter,
     securityForms: lila.security.SecurityForm,
     authenticator: lila.user.Authenticator,
@@ -38,19 +38,19 @@ final class Env(
 
   lazy val markup = wire[ClasMarkup]
 
-  def hasClas(using me: lila.user.Me) =
-    lila.security.Granter(_.Teacher) || studentCache.isStudent(me)
+  def hasClas(using me: Me) =
+    lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)
 
   lila.common.Bus.subscribeFuns(
     "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>
       progressApi.onFinishGame(game)
     },
     "clas" -> {
-      case lila.core.actorApi.clas.IsTeacherOf(teacher, student, promise) =>
+      case lila.core.misc.clas.IsTeacherOf(teacher, student, promise) =>
         promise.completeWith(api.clas.isTeacherOf(teacher, student))
-      case lila.core.actorApi.clas.AreKidsInSameClass(kid1, kid2, promise) =>
+      case lila.core.misc.clas.AreKidsInSameClass(kid1, kid2, promise) =>
         promise.completeWith(api.clas.areKidsInSameClass(kid1, kid2))
-      case lila.core.actorApi.clas.ClasMatesAndTeachers(kid, promise) =>
+      case lila.core.misc.clas.ClasMatesAndTeachers(kid, promise) =>
         promise.completeWith(matesCache.get(kid.id))
     }
   )

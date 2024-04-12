@@ -185,9 +185,9 @@ object help:
                 ),
                 li(
                   instructions1(
-                    i(dataIcon := licon.Voice),
-                    i(dataIcon := licon.InfoCircle),
-                    i(dataIcon := licon.Gear)
+                    i(dataIcon := Icon.Voice),
+                    i(dataIcon := Icon.InfoCircle),
+                    i(dataIcon := Icon.Gear)
                   )
                 ),
                 li(instructions2()),

@@ -3,6 +3,7 @@ package lila.api
 import chess.format.Fen
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
+import scalalib.Json.given
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.common.Json.given
@@ -15,7 +16,6 @@ import lila.game.BSONHandlers.given
 import lila.game.Game.BSONFields as G
 import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game }
-import lila.user.User
 
 final private[api] class GameApi(
     net: NetConfig,

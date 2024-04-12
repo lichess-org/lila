@@ -39,11 +39,11 @@ object bits:
           td(tour.durationString),
           tour.conditions.teamMember match
             case Some(t) =>
-              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := t.teamName)(visiblePlayers)
+              td(dataIcon := Icon.Group, cls := "text tour-team-icon", title := t.teamName)(visiblePlayers)
             case _ if tour.isTeamBattle =>
-              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := trans.team.teamBattle.txt()):
+              td(dataIcon := Icon.Group, cls := "text tour-team-icon", title := trans.team.teamBattle.txt()):
                 visiblePlayers
-            case None => td(dataIcon := licon.User, cls := "text")(visiblePlayers)
+            case None => td(dataIcon := Icon.User, cls := "text")(visiblePlayers)
         )
     )
 

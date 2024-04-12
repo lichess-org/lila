@@ -3,7 +3,6 @@ package lila.oauth
 import cats.derived.*
 import lila.core.i18n.I18nKey
 import lila.core.i18n.I18nKey.{ oauthScope as trans }
-import lila.user.User
 
 sealed abstract class OAuthScope(val key: String, val name: I18nKey):
   override def toString = s"Scope($key)"
@@ -86,7 +85,7 @@ object OAuthScope:
     case object Mobile extends OAuthScope("web:mobile", I18nKey("Official Lichess mobile app"))
     case object Mod    extends OAuthScope("web:mod", trans.webMod)
 
-  case class Scoped(me: lila.user.Me, scopes: TokenScopes):
+  case class Scoped(me: Me, scopes: TokenScopes):
     def user: User = me.value
 
   case class Access(scoped: Scoped, tokenId: AccessToken.Id):

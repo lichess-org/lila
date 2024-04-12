@@ -15,9 +15,11 @@ import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam
 import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
-import lila.rating.{ Perf, PerfType }
+import lila.rating.PerfType
 import lila.core.socket.SendToFlag
-import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
+import lila.user.{ UserApi, UserPerfsRepo, UserRepo }
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserWithPerfs.only
 
 final class SimulApi(
     userRepo: UserRepo,
@@ -40,9 +42,11 @@ final class SimulApi(
     lila.log.asyncActorMonitor
   )
 
+  export repo.{ find, byIds, byTeamLeaders }
+
   def currentHostIds: Fu[Set[UserId]] = currentHostIdsCache.get {}
 
-  export repo.{ find, byIds, byTeamLeaders }
+  def isSimulHost(userId: UserId): Fu[Boolean] = currentHostIds.map(_ contains userId)
 
   private val currentHostIdsCache = cacheApi.unit[Set[UserId]]:
     _.refreshAfterWrite(5 minutes).buildAsyncFuture: _ =>
@@ -176,7 +180,7 @@ final class SimulApi(
   private def onComplete(simul: Simul): Unit =
     currentHostIdsCache.invalidateUnit()
     Bus.publish(
-      lila.core.actorApi.socket.SendTo(
+      lila.core.socket.SendTo(
         simul.hostId,
         lila.core.socket.makeMessage(
           "simulEnd",
@@ -229,7 +233,7 @@ final class SimulApi(
       _.expireAfterWrite(5.minutes).buildAsyncFuture(repo.countByHost)
     export cache.get
 
-  private def makeGame(simul: Simul, host: User.WithPerfs)(
+  private def makeGame(simul: Simul, host: UserWithPerfs)(
       pairing: SimulPairing,
       number: Int
   ): Fu[(Game, chess.Color)] = for

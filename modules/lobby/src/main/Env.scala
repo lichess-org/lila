@@ -7,17 +7,14 @@ import lila.core.config.*
 import lila.core.pool.IsClockCompatible
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     onStart: lila.core.game.OnStart,
-    relationApi: lila.relation.RelationApi,
-    playbanApi: lila.playban.PlaybanApi,
+    relationApi: lila.core.relation.RelationApi,
+    hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     gameCache: lila.game.Cached,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     gameRepo: lila.game.GameRepo,
     poolApi: lila.core.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,

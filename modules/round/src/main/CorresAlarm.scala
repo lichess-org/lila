@@ -7,11 +7,13 @@ import reactivemongo.api.bson.*
 import lila.common.{ Bus, LilaScheduler, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
+import lila.core.user.LightUserApi
 
 final private class CorresAlarm(
     coll: Coll,
     hasUserId: (Game, UserId) => Fu[Boolean],
-    proxyGame: GameId => Fu[Option[Game]]
+    proxyGame: GameId => Fu[Option[Game]],
+    lightUser: LightUserApi
 )(using Executor, Scheduler, akka.stream.Materializer):
 
   private case class Alarm(
@@ -59,7 +61,12 @@ final private class CorresAlarm(
           deleteAlarm(game.id).zip(
             pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)).addEffect {
               if _ then () // already looking at the game
-              else Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "notify")
+              else
+                pov.player.userId.so: userId =>
+                  lila.game.Namer
+                    .playerText(pov.opponent)(using lightUser.async)
+                    .foreach: opponent =>
+                      Bus.publish(lila.core.game.CorresAlarmEvent(userId, pov, opponent), "notify")
             }
           )
         case (alarm, None) => deleteAlarm(alarm._id)

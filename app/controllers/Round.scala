@@ -10,8 +10,9 @@ import lila.common.Json.given
 import lila.common.HTTPRequest
 import lila.game.{ Game as GameModel, PgnDump, Pov }
 import lila.tournament.Tournament as Tour
-import lila.user.{ FlairApi, User as UserModel }
-import lila.core.Preload
+import lila.user.{ User as UserModel }
+import lila.core.data.Preload
+import lila.core.id.{ GameFullId, GameAnyId }
 
 final class Round(
     env: Env,
@@ -24,7 +25,7 @@ final class Round(
 ) extends LilaController(env)
     with TheftPrevention:
 
-  private given FlairApi = env.user.flairApi
+  import env.user.flairApi.given
 
   private def renderPlayer(pov: Pov)(using ctx: Context): Fu[Result] =
     pov.game.playableByAi.so(env.fishnet.player(pov.game))
@@ -312,7 +313,7 @@ final class Round(
             .isAllowedIn(pov.game, Preload.none)
             .map:
               if _ then
-                env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
+                env.round.roundApi.tell(pov.gameId, Moretime(pov.playerId, seconds.seconds))
                 jsonOkResult
               else BadRequest(jsonError("This game doesn't allow giving time"))
   }

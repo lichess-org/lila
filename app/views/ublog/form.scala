@@ -7,7 +7,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogPost, UblogTopic }
-import lila.user.User
+
 import lila.core.captcha.Captcha
 
 object form:
@@ -47,7 +47,7 @@ object form:
               if ctx.is(post.created.by) then trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
             ),
-            a(href := postView.urlOfPost(post), dataIcon := licon.Eye, cls := "text", targetBlank)("Preview")
+            a(href := postView.urlOfPost(post), dataIcon := Icon.Eye, cls := "text", targetBlank)("Preview")
           ),
           image(post),
           inner(f, Right(post), none),
@@ -184,7 +184,7 @@ object form:
     p(trans.ublog.inappropriateContentAccountClosed()),
     p(
       a(
-        dataIcon := licon.InfoCircle,
+        dataIcon := Icon.InfoCircle,
         href     := routes.Cms.lonePage("blog-etiquette"),
         cls      := "text",
         targetBlank
@@ -194,7 +194,7 @@ object form:
   )
 
   def tips(using PageContext) = a(
-    dataIcon := licon.InfoCircle,
+    dataIcon := Icon.InfoCircle,
     href     := routes.Cms.lonePage("blog-tips"),
     cls      := "text",
     targetBlank

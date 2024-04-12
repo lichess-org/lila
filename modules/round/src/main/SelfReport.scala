@@ -5,13 +5,14 @@ import scalalib.ThreadLocalRandom
 
 import scala.util.matching.Regex
 
-import lila.core.{ IpAddress, IpAddressStr }
+import lila.core.net.{ IpAddress, IpAddressStr }
 import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.UserApi
+import lila.rating.UserPerfsExt.bestRating
 
 final class SelfReport(
-    tellRound: TellRound,
+    roundApi: lila.game.core.RoundApi,
     userApi: UserApi,
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,
@@ -50,7 +51,7 @@ final class SelfReport(
                     name.contains("stockfish") || name.contains("userscript") ||
                       name.contains("__puppeteer_evaluation_script__")
                   ))
-                then tellRound(pov.gameId, lila.core.round.Cheat(pov.color))
+                then roundApi.tell(pov.gameId, lila.core.round.Cheat(pov.color))
                 if markUserSetting.get().matches(name) then
                   val rating = u.perfs.bestRating
                   val hours =

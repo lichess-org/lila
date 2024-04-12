@@ -17,7 +17,7 @@ object cms:
       frag(
         editButton(page),
         (!page.live).option(
-          span(cls := "cms__draft text", dataIcon := licon.Eye)(
+          span(cls := "cms__draft text", dataIcon := Icon.Eye)(
             "This draft is not published"
           )
         ),
@@ -29,7 +29,7 @@ object cms:
       a(
         href     := routes.Cms.edit(p.id),
         cls      := "button button-empty text",
-        dataIcon := licon.Pencil
+        dataIcon := Icon.Pencil
       )("Edit")
     )
 
@@ -51,7 +51,7 @@ object cms:
             a(
               href     := routes.Cms.createForm,
               cls      := "button button-green",
-              dataIcon := licon.PlusButton
+              dataIcon := Icon.PlusButton
             )
           )
         ),
@@ -82,8 +82,8 @@ object cms:
               td(shorten(page.markdown.value, 140)),
               td(cls := "lang")(page.language.toUpperCase),
               td(
-                if page.live then goodTag(iconTag(licon.Checkmark))
-                else badTag(iconTag(licon.X))
+                if page.live then goodTag(iconTag(Icon.Checkmark))
+                else badTag(iconTag(Icon.X))
               ),
               td(dataSort := page.at.toMillis)(
                 userIdLink(page.by.some, withOnline = false, withTitle = false),
@@ -111,7 +111,7 @@ object cms:
           a(
             href     := page.canonicalPath.getOrElse(routes.Cms.lonePage(page.key).url),
             cls      := "button button-green",
-            dataIcon := licon.Eye
+            dataIcon := Icon.Eye
           )
       ),
       standardFlash,

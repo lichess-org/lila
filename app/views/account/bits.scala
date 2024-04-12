@@ -6,7 +6,6 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
 import lila.pref.PrefCateg
-import lila.user.User
 
 object bits:
 

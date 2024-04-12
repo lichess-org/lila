@@ -6,13 +6,15 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
+import lila.core.user.WithPerf
+import lila.rating.GlickoExt.display
 
 object theirs:
 
   def apply(
       c: Challenge,
       json: play.api.libs.json.JsObject,
-      user: Option[lila.user.User.WithPerf],
+      user: Option[WithPerf],
       color: Option[chess.Color]
   )(using ctx: PageContext) =
     views.html.base.layout(
@@ -54,7 +56,7 @@ object theirs:
                   (c.mode.rated && c.unlimited)
                     .option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
                   postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
-                    submitButton(cls := "text button button-fat", dataIcon := licon.PlayTriangle)(
+                    submitButton(cls := "text button button-fat", dataIcon := Icon.PlayTriangle)(
                       trans.site.joinTheGame()
                     )
                   )

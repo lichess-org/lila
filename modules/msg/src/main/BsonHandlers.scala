@@ -5,7 +5,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.user.{ Me, User }
 
 private object BsonHandlers:
 
@@ -48,5 +47,5 @@ private object BsonHandlers:
     // looks weird, but maybe.. it is the way
 
   def selectNotDeleted(using me: Me) =
-    if User.isLichess(me) then $empty // using "del" is too expensive
+    if UserId.lichess.is(me) then $empty // using "del" is too expensive
     else $doc("del".$ne(me.userId))

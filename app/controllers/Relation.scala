@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
+import scalalib.Json.given
 import views.*
 
 import lila.app.{ *, given }
@@ -11,6 +12,8 @@ import lila.core.LightUser
 import lila.relation.Related
 import lila.relation.RelationStream.*
 import lila.user.User as UserModel
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestRatedPerf
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -104,18 +107,21 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     apiC.jsonDownload:
       env.relation.stream
         .follow(me, Direction.Following, MaxPerSecond(30))
+        .mapAsync(1): ids =>
+          env.user.api.listWithPerfs(ids.toList)
+        .mapConcat(identity)
         .map(env.api.userApi.one(_, None))
   }
 
-  private def jsonRelatedPaginator(pag: Paginator[Related]) =
-    given Writes[UserModel.WithPerfs] = lila.user.JsonView.nameWrites
+  private def jsonRelatedPaginator(pag: Paginator[Related[UserWithPerfs]]) =
+    import lila.common.Json.{ *, given }
+    given Writes[UserWithPerfs] = writeAs(_.user.light)
     import lila.relation.JsonView.given
-    import lila.common.Json.paginatorWrite
     Json.obj("paginator" -> pag.mapResults: r =>
       Json.toJsObject(r) ++ Json
         .obj:
           "perfs" -> r.user.perfs.bestRatedPerf.map:
-            lila.user.JsonView.perfTypedJson
+            lila.user.JsonView.keyedPerfJson
         .add("online" -> env.socket.isOnline(r.user.id)))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
@@ -133,7 +139,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       maxPerPage = MaxPerPage(30)
     )
 
-  private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related]] = for
+  private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related[UserWithPerfs]]] = for
     users       <- env.user.api.listWithPerfs(userIds.toList)
     followables <- ctx.isAuth.so(env.pref.api.followableIds(users.map(_.id)))
     rels <- users.traverse: u =>

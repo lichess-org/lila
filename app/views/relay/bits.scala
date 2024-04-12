@@ -9,7 +9,7 @@ import lila.relay.RelayTour
 
 object bits:
 
-  def broadcastH1 = h1(dataIcon := licon.RadioTower, cls := "text")
+  def broadcastH1 = h1(dataIcon := Icon.RadioTower, cls := "text")
 
   def spotlight(trs: List[RelayTour.ActiveWithSomeRounds])(using ctx: Context): List[Tag] =
     trs
@@ -22,7 +22,7 @@ object bits:
       href := tr.path,
       cls  := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
     )(
-      i(cls := "img", dataIcon := licon.RadioTower),
+      i(cls := "img", dataIcon := Icon.RadioTower),
       span(cls := "content")(
         span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(
@@ -36,7 +36,7 @@ object bits:
     )
 
   def howToUse(using Translate) =
-    a(dataIcon := licon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
+    a(dataIcon := Icon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
       trans.broadcast.howToUseLichessBroadcasts()
     )
 

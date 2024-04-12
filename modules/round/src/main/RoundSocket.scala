@@ -11,13 +11,14 @@ import lila.common.Json.given
 import lila.common.{ Bus, Lilakka }
 import lila.game.{ Event, Game, Pov }
 import scalalib.actor.AsyncActorConcMap
-import lila.core.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
+import lila.core.misc.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.core.game.TvSelect
 import lila.core.round.*
-import lila.core.actorApi.socket.remote.TellSriIn
+import lila.core.socket.remote.TellSriIn
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
+import lila.core.user.FlairGet
 
 final class RoundSocket(
     socketKit: ParallelSocketKit,
@@ -29,7 +30,7 @@ final class RoundSocket(
     goneWeightsFor: Game => Fu[(Float, Float)],
     mobileSocket: RoundMobile,
     shutdown: CoordinatedShutdown
-)(using Executor, lila.user.FlairApi.Getter)(using scheduler: Scheduler):
+)(using Executor, FlairGet)(using scheduler: Scheduler):
 
   import RoundSocket.*
 
@@ -80,8 +81,8 @@ final class RoundSocket(
     rounds.getIfPresent(gameId).so(_.flushGame())
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
-    mkAsyncActor =
-      id => makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo.game(id).recoverDefault(none)),
+    mkAsyncActor = id =>
+      makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo.game(id).recoverDefault(none[Game])),
     initialCapacity = 65_536
   )
 
@@ -214,14 +215,14 @@ final class RoundSocket(
           sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
     case lila.core.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
-  Bus.subscribeFun(BusChan.Round.chan, BusChan.Global.chan):
-    case lila.chat.ChatLine(id, l) =>
-      val line = lila.chat.RoundLine(l, id.value.endsWith("/w"))
+  Bus.subscribeFun(BusChan.round.chan, BusChan.global.chan):
+    case lila.core.chat.ChatLine(id, l, json) =>
+      val line = lila.chat.RoundLine(l, json, id.value.endsWith("/w"))
       rounds.tellIfPresent(GameId.take(id.value), line)
-    case lila.chat.OnTimeout(id, userId) =>
+    case lila.core.chat.OnTimeout(id, userId) =>
       send:
         RP.Out.tellRoom(GameId.take(id.value).into(RoomId), makeMessage("chat_timeout", userId))
-    case lila.chat.OnReinstate(id, userId) =>
+    case lila.core.chat.OnReinstate(id, userId) =>
       send:
         RP.Out.tellRoom(GameId.take(id.value).into(RoomId), makeMessage("chat_reinstate", userId))
 

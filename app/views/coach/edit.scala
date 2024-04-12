@@ -42,7 +42,7 @@ object edit:
             a(
               href     := routes.Coach.show(c.user.username),
               cls      := "button button-empty text",
-              dataIcon := licon.Eye
+              dataIcon := Icon.Eye
             )("Preview coach page")
           ),
           div(cls := "overview")(
@@ -147,6 +147,6 @@ object edit:
               )(form3.textarea(_)(rows := 6))
             )
           ),
-          div(cls := "status text", dataIcon := licon.Checkmark)("Your changes have been saved.")
+          div(cls := "status text", dataIcon := Icon.Checkmark)("Your changes have been saved.")
         )
       )

@@ -1,7 +1,8 @@
 package lila.core
 package mod
 
-import lila.core.user.MyId
+import lila.core.id.{ ForumCategId, ForumPostId }
+import lila.core.userId.*
 
 trait LogApi:
   def toggleStickyTopic(categ: ForumCategId, topicSlug: String, sticky: Boolean)(using MyId): Funit

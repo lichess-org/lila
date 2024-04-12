@@ -1,12 +1,12 @@
 package lila.puzzle
 
 import lila.db.dsl.{ *, given }
-import lila.user.{ User, UserPerfsRepo }
+import lila.core.perf.UserWithPerfs
 
-final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)(using Executor):
+final private class PuzzleTrustApi(colls: PuzzleColls, userApi: lila.core.user.UserApi)(using Executor):
 
   def vote(user: User, round: PuzzleRound, vote: Boolean): Fu[Option[Int]] =
-    perfsRepo
+    userApi
       .withPerfs(user)
       .flatMap: user =>
         val w = base(user) + {
@@ -28,12 +28,12 @@ final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)
       .dmap(_.some.filter(0 <))
 
   def theme(user: User): Fu[Option[Int]] =
-    perfsRepo
+    userApi
       .withPerfs(user)
       .map: user =>
         base(user).some.filter(0 <)
 
-  private def base(user: User.WithPerfs): Int = {
+  private def base(user: UserWithPerfs): Int = {
     seniorityBonus(user.user) +
       ratingBonus(user) +
       titleBonus(user.user) +
@@ -55,7 +55,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls, perfsRepo: UserPerfsRepo)
   // 1500 = 0
   // 1800 = 1
   // 3000 = 5
-  private def ratingBonus(user: User.WithPerfs) = user.perfs.standard.glicko.establishedIntRating
+  private def ratingBonus(user: UserWithPerfs) = user.perfs.standard.glicko.establishedIntRating
     .so { rating =>
       (rating.value - 1500) / 300
     }

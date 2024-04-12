@@ -277,37 +277,37 @@ trait SetupHelper:
 
   def translatedChallengeChoices(using Translate) =
     List(
-      (Pref.Challenge.NEVER, trans.site.never.txt()),
+      (lila.core.pref.Challenge.NEVER, trans.site.never.txt()),
       (
-        Pref.Challenge.RATING,
+        lila.core.pref.Challenge.RATING,
         trans.site.ifRatingIsPlusMinusX.txt(lila.pref.Pref.Challenge.ratingThreshold)
       ),
-      (Pref.Challenge.FRIEND, trans.site.onlyFriends.txt()),
-      (Pref.Challenge.REGISTERED, trans.site.ifRegistered.txt()),
-      (Pref.Challenge.ALWAYS, trans.site.always.txt())
+      (lila.core.pref.Challenge.FRIEND, trans.site.onlyFriends.txt()),
+      (lila.core.pref.Challenge.REGISTERED, trans.site.ifRegistered.txt()),
+      (lila.core.pref.Challenge.ALWAYS, trans.site.always.txt())
     )
 
   def translatedMessageChoices(using Translate) =
     List(
-      (Pref.Message.NEVER, trans.site.onlyExistingConversations.txt()),
-      (Pref.Message.FRIEND, trans.site.onlyFriends.txt()),
-      (Pref.Message.ALWAYS, trans.site.always.txt())
+      (lila.core.pref.Message.NEVER, trans.site.onlyExistingConversations.txt()),
+      (lila.core.pref.Message.FRIEND, trans.site.onlyFriends.txt()),
+      (lila.core.pref.Message.ALWAYS, trans.site.always.txt())
     )
 
   def translatedStudyInviteChoices(using Translate) = privacyBaseChoices
   def translatedPalantirChoices(using Translate)    = privacyBaseChoices
   private def privacyBaseChoices(using Translate) =
     List(
-      (Pref.StudyInvite.NEVER, trans.site.never.txt()),
-      (Pref.StudyInvite.FRIEND, trans.site.onlyFriends.txt()),
-      (Pref.StudyInvite.ALWAYS, trans.site.always.txt())
+      (lila.core.pref.StudyInvite.NEVER, trans.site.never.txt()),
+      (lila.core.pref.StudyInvite.FRIEND, trans.site.onlyFriends.txt()),
+      (lila.core.pref.StudyInvite.ALWAYS, trans.site.always.txt())
     )
 
   def translatedInsightShareChoices(using Translate) =
     List(
-      (Pref.InsightShare.NOBODY, trans.site.withNobody.txt()),
-      (Pref.InsightShare.FRIENDS, trans.site.withFriends.txt()),
-      (Pref.InsightShare.EVERYBODY, trans.site.withEverybody.txt())
+      (lila.core.pref.InsightShare.NOBODY, trans.site.withNobody.txt()),
+      (lila.core.pref.InsightShare.FRIENDS, trans.site.withFriends.txt()),
+      (lila.core.pref.InsightShare.EVERYBODY, trans.site.withEverybody.txt())
     )
 
   def translatedBoardResizeHandleChoices(using Translate) =

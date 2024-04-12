@@ -3,12 +3,13 @@ package lila.setup
 import chess.variant.Variant
 import chess.{ Clock, Mode }
 
-import lila.core.Days
+import scalalib.model.Days
 import lila.lobby.{ Color, Hook, Seek }
 import lila.rating.{ Perf }
 import lila.rating.RatingRange.withinLimits
-import lila.user.{ Me, User }
+
 import lila.core.rating.RatingRange
+import lila.core.perf.UserWithPerfs
 
 case class HookConfig(
     variant: chess.variant.Variant,
@@ -46,7 +47,7 @@ case class HookConfig(
 
   def hook(
       sri: lila.core.socket.Sri,
-      user: Option[User.WithPerfs],
+      user: Option[UserWithPerfs],
       sid: Option[String],
       blocking: lila.core.pool.Blocking
   ): Either[Hook, Option[Seek]] =

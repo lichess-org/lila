@@ -21,7 +21,7 @@ object config:
             postForm(action := routes.Practice.configSave)(
               textarea(cls := "practice_text", name := "text")(form("text").value),
               errMsg(form("text")),
-              submitButton(cls := "button button-fat text", dataIcon := licon.Checkmark)("Save")
+              submitButton(cls := "button button-fat text", dataIcon := Icon.Checkmark)("Save")
             ),
             div(cls := "preview")(
               ol(

@@ -6,9 +6,9 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
+import lila.core.user.FlairGet
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
@@ -17,26 +17,26 @@ final class Env(
     divider: lila.game.Divider,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
-    explorerImporter: lila.explorer.ExplorerImporter,
-    notifyApi: lila.notify.NotifyApi,
+    explorerImporter: lila.game.core.ExplorerGame,
+    notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,
     federationNames: lila.core.fide.Federation.NamesOf,
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi,
     socketKit: lila.core.socket.SocketKit,
     socketReq: lila.core.socket.SocketRequester,
-    chatApi: lila.chat.ChatApi,
+    chatApi: lila.core.chat.ChatApi,
     analyser: lila.analyse.Analyser,
     annotator: lila.analyse.Annotator,
     mongo: lila.db.Env,
     net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi
 )(using
+    FlairGet,
     Executor,
     Scheduler,
     akka.stream.Materializer,
     play.api.Mode,
-    lila.user.FlairApi.Getter,
     lila.core.i18n.Translator
 ):
 

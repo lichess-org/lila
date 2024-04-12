@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 import lila.tutor.TutorQueue
-import lila.user.User
+import lila.core.perf.UserWithPerfs
 
 object empty:
 
@@ -22,7 +22,7 @@ object empty:
       )
     )
 
-  def queued(in: TutorQueue.InQueue, user: User.WithPerfs, waitGames: List[(Pov, PgnStr)])(using
+  def queued(in: TutorQueue.InQueue, user: UserWithPerfs, waitGames: List[(Pov, PgnStr)])(using
       PageContext
   ) =
     bits.layout(
@@ -57,7 +57,7 @@ object empty:
       st.data("pov") := game._1.color.name
     )
 
-  private def nbGames(user: User.WithPerfs)(using Translate) =
+  private def nbGames(user: UserWithPerfs)(using Translate) =
     val nb = lila.rating.PerfType.standardWithUltra.foldLeft(0): (nb, pt) =>
       nb + user.perfs(pt).nb
     p(s"Looks like you have ", strong(nb.atMost(10_000).localize), " rated games to look at, excellent!")

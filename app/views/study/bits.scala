@@ -28,7 +28,7 @@ object bits:
     postForm(cls := "new-study", action := routes.Study.create)(
       submitButton(
         cls      := "button button-green",
-        dataIcon := licon.PlusButton,
+        dataIcon := Icon.PlusButton,
         title    := trans.study.createStudy.txt()
       )
     )
@@ -50,17 +50,17 @@ object bits:
   def widget(s: Study.WithChaptersAndLiked, tag: Tag = h2)(using ctx: PageContext) =
     frag(
       a(cls := "overlay", href := routes.Study.show(s.study.id), title := s.study.name),
-      div(cls := "top", dataIcon := licon.StudyBoard)(
+      div(cls := "top", dataIcon := Icon.StudyBoard)(
         div(
           tag(cls := "study-name")(s.study.name),
           span(
             (!s.study.isPublic).option(
               frag(
-                iconTag(licon.Padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
+                iconTag(Icon.Padlock)(cls := "private", ariaTitle(trans.study.`private`.txt())),
                 " "
               )
             ),
-            iconTag(if s.liked then licon.Heart else licon.HeartOutline),
+            iconTag(if s.liked then Icon.Heart else Icon.HeartOutline),
             " ",
             s.study.likes.value,
             " • ",
@@ -73,7 +73,7 @@ object bits:
       div(cls := "body")(
         ol(cls := "chapters")(
           s.chapters.map { name =>
-            li(cls := "text", dataIcon := licon.DiscBigOutline)(
+            li(cls := "text", dataIcon := Icon.DiscBigOutline)(
               if ctx.userId.exists(s.study.isMember) then name
               else removeMultibyteSymbols(name.value)
             )
@@ -83,7 +83,7 @@ object bits:
           s.study.members.members.values
             .take(Study.previewNbMembers)
             .map { m =>
-              li(cls := "text", dataIcon := (if m.canContribute then licon.RadioTower else licon.Eye))(
+              li(cls := "text", dataIcon := (if m.canContribute then Icon.RadioTower else Icon.Eye))(
                 titleNameOrId(m.id)
               )
             }

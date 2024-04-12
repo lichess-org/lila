@@ -1,5 +1,7 @@
 package lila.core
 
+import lila.core.email.EmailAddress
+
 object config:
 
   opaque type Every = FiniteDuration

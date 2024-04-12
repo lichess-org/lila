@@ -8,7 +8,7 @@ import lila.game.{ Game, Pov }
 
 import Forecast.Step
 
-final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
+final class ForecastApi(coll: Coll, roundApi: lila.game.core.RoundApi)(using Executor):
 
   private given BSONDocumentHandler[Step]     = Macros.handler
   private given BSONDocumentHandler[Forecast] = Macros.handler
@@ -43,7 +43,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
       Uci.Move(uciMove).fold[Funit](fufail(lila.core.round.ClientError(s"Invalid move $uciMove on $pov"))) {
         uci =>
           val promise = Promise[Unit]()
-          tellRound(
+          roundApi.tell(
             pov.gameId,
             HumanPlay(
               playerId = pov.playerId,

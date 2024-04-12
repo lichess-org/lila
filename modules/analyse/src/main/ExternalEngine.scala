@@ -11,7 +11,6 @@ import lila.common.Form.{ *, given }
 import lila.common.Json.given
 import lila.db.dsl.{ list as _, *, given }
 import lila.memo.CacheApi
-import lila.user.User
 
 import AnalyseBsonHandlers.given
 
@@ -97,24 +96,24 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
   private def doFetchList(userId: UserId) = coll.list[ExternalEngine]($doc("userId" -> userId), 64)
   private def reloadCache(userId: UserId) = userCache.put(userId, doFetchList(userId))
 
-  def list(by: User): Fu[List[ExternalEngine]] = userCache.get(by.id)
+  def list(by: UserId): Fu[List[ExternalEngine]] = userCache.get(by)
 
-  def create(by: User, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] =
-    val engine = data.make(by.id)
+  def create(by: UserId, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] =
+    val engine = data.make(by)
     val bson = {
       engineHandler.writeOpt(engine).err("external engine bson")
     } ++ $doc("oauthToken" -> oauthTokenId)
     coll.insert.one(bson).andDo(reloadCache(by.id)).inject(engine)
 
-  def find(by: User, id: String): Fu[Option[ExternalEngine]] =
+  def find(by: UserId, id: String): Fu[Option[ExternalEngine]] =
     list(by).map(_.find(_._id == id))
 
   def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] =
     val engine = data.update(prev)
     coll.update.one($id(engine._id), engine).andDo(reloadCache(engine.userId)).inject(engine)
 
-  def delete(by: User, id: String): Fu[Boolean] =
-    coll.delete.one($doc("userId" -> by.id) ++ $id(id)).map { result =>
+  def delete(by: UserId, id: String): Fu[Boolean] =
+    coll.delete.one($doc("userId" -> by) ++ $id(id)).map { result =>
       reloadCache(by.id)
       result.n > 0
     }

@@ -4,14 +4,14 @@ import play.api.libs.json.*
 import scalalib.actor.SyncActorMap
 import scalalib.actor.SyncActor
 
-import lila.chat.{ BusChan, ChatApi, ChatTimeout, UserLine }
+import lila.core.chat.{ BusChan, ChatApi, TimeoutScope }
 import lila.core.shutup.PublicSource
 import lila.log.Logger
 import lila.core.socket.{ protocol as P, * }
 import lila.core.socket.{ makeMessage }
 import lila.common.Json.given
 
-import lila.user.{ Me, FlairApi }
+import lila.core.user.FlairGet
 
 object RoomSocket:
 
@@ -55,8 +55,7 @@ object RoomSocket:
   )(using Executor): SocketHandler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
-        chat.userChat
-          .write(
+        chat.write(
             roomId.into(ChatId),
             userId,
             msg,
@@ -65,10 +64,10 @@ object RoomSocket:
           )
 
       case Protocol.In.ChatTimeout(roomId, modId, suspect, reason, text) =>
-        lila.chat.ChatTimeout.Reason(reason).foreach: r =>
+        lila.core.chat.TimeoutReason(reason).foreach: r =>
           localTimeout.so { _(roomId, modId, suspect) } foreach: local =>
-            val scope = if local then ChatTimeout.Scope.Local else ChatTimeout.Scope.Global
-            chat.userChat.timeout(
+            val scope = if local then TimeoutScope.Local else TimeoutScope.Global
+            chat.timeout(
               roomId.into(ChatId),
               suspect,
               r,
@@ -89,16 +88,13 @@ object RoomSocket:
 
   private val chatMsgs = Set("message", "chat_timeout", "chat_reinstate")
 
-  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using FlairApi.Getter)(using
-      Executor
-  ) =
-    lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.Global.chan):
-      case lila.chat.ChatLine(id, line: UserLine) =>
-        lila.chat.JsonView(line) foreach: jsLine =>
-          rooms.tellIfPresent(id.into(RoomId),(NotifyVersion)("message", jsLine, line.troll))
-      case lila.chat.OnTimeout(id, userId) =>
+  def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using FlairGet, Executor) =
+    lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.global.chan):
+      case lila.core.chat.ChatLine(id, line, json) if line.userIdMaybe.isDefined =>
+        rooms.tellIfPresent(id.into(RoomId),(NotifyVersion)("message", json, line.troll))
+      case lila.core.chat.OnTimeout(id, userId) =>
         rooms.tellIfPresent(id.into(RoomId), NotifyVersion("chat_timeout", userId, troll = false))
-      case lila.chat.OnReinstate(id, userId) =>
+      case lila.core.chat.OnReinstate(id, userId) =>
         rooms.tellIfPresent(id.into(RoomId), NotifyVersion("chat_reinstate", userId, troll = false))
 
   object Protocol:
@@ -106,21 +102,21 @@ object RoomSocket:
     object In:
 
       case class ChatSay(roomId: RoomId, userId: UserId, msg: String) extends P.In
-      case class ChatTimeout(roomId: RoomId, mod: Me.Id, suspect: UserId, reason: String, text: String)
+      case class ChatTimeout(roomId: RoomId, mod: MyId, suspect: UserId, reason: String, text: String)
           extends P.In
       case class KeepAlives(roomIds: Iterable[RoomId])                    extends P.In
       case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri)       extends P.In
       case class SetVersions(versions: Iterable[(String, SocketVersion)]) extends P.In
 
       val reader: P.In.Reader =
-        case P.RawMsg("room/alives", raw) => KeepAlives(P.In.commas(raw.args) map { RoomId(_) }).some
+        case P.RawMsg("room/alives", raw) => KeepAlives(RoomId.from(P.In.commas(raw.args))).some
         case P.RawMsg("chat/say", raw) =>
           raw.get(3) { case Array(roomId, userId, msg) =>
             ChatSay(RoomId(roomId), UserId(userId), msg).some
           }
         case P.RawMsg("chat/timeout", raw) =>
           raw.get(5) { case Array(roomId, userId, suspect, reason, text) =>
-            ChatTimeout(RoomId(roomId), Me.Id(userId), UserId(suspect), reason, text).some
+            ChatTimeout(RoomId(roomId), MyId(userId), UserId(suspect), reason, text).some
           }
         case P.RawMsg("tell/room/sri", raw) =>
           raw.get(4) { case arr @ Array(roomId, _, _, _) =>

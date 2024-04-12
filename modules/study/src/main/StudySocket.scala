@@ -20,14 +20,14 @@ final private class StudySocket(
     jsonView: JsonView,
     socketKit: SocketKit,
     socketRequest: SocketRequester,
-    chatApi: lila.chat.ChatApi
-)(using Executor, Scheduler, lila.user.FlairApi.Getter):
+    chatApi: lila.core.chat.ChatApi
+)(using Executor, Scheduler, lila.core.user.FlairGet):
 
   import StudySocket.{ *, given }
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Study)
+  subscribeChat(rooms, _.study)
 
   def isPresent(studyId: StudyId, userId: UserId): Fu[Boolean] =
     socketRequest[Boolean](
@@ -253,7 +253,7 @@ final private class StudySocket(
       api.isContributor(roomId, modId) >>& api.isMember(roomId, suspectId).not >>&
         Bus.ask("isOfficialRelay") { actorApi.IsOfficialRelay(roomId, _) }.not
     },
-    chatBusChan = _.Study
+    chatBusChan = _.study
   )
 
   private def moveOrDrop(studyId: StudyId, m: AnaAny, opts: MoveOpts)(who: Who) =

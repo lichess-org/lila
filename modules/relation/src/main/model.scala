@@ -9,8 +9,8 @@ case class Followed(u2: UserId):
 case class Blocked(u2: UserId):
   def userId = u2
 
-case class Related(
-    user: lila.user.User.WithPerfs,
+case class Related[U](
+    user: U,
     nbGames: Option[Int],
     followable: Boolean,
     relation: Option[Relation]

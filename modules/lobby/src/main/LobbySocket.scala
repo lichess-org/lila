@@ -10,17 +10,15 @@ import lila.rating.RatingRange
 import lila.core.game.ChangeFeatured
 import lila.core.socket.{ protocol as P, * }
 import lila.core.pool.PoolConfigId
-import lila.user.Me
 
 case class LobbyCounters(members: Int, rounds: Int)
 
 final class LobbySocket(
     biter: Biter,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     socketKit: SocketKit,
     lobby: LobbySyncActor,
-    relationApi: lila.relation.RelationApi,
+    relationApi: lila.core.relation.RelationApi,
     poolApi: lila.core.pool.PoolApi
 )(using ec: Executor, scheduler: Scheduler):
 
@@ -194,7 +192,7 @@ final class LobbySocket(
           blocking    = d.get[UserId]("blocking")
         yield
           lobby ! CancelHook(member.sri) // in case there's one...
-          perfsRepo.glicko(user.id, perfType).foreach { glicko =>
+          userApi.glicko(user.id, perfType).foreach { glicko =>
             poolApi.join(
               PoolConfigId(id),
               lila.core.pool.Joiner(
@@ -205,7 +203,7 @@ final class LobbySocket(
                 ratingRange = ratingRange,
                 lame = user.lame,
                 blocking = user.blocking.map(_ ++ blocking)
-              )(using user.id.into(Me.Id))
+              )(using user.id.into(MyId))
             )
           }
       }

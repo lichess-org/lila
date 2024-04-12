@@ -5,7 +5,6 @@ import play.api.mvc.{ Cookie, RequestHeader }
 import scalatags.Text.all.*
 
 import lila.core.config.*
-import lila.core.{ EmailAddress, LilaCookie }
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
 import lila.user.{ User, UserApi, UserRepo }
@@ -117,7 +116,7 @@ object EmailConfirm:
 
   import lila.memo.RateLimit
   import lila.common.HTTPRequest
-  import lila.core.IpAddress
+  import lila.core.net.IpAddress
   given Executor = scala.concurrent.ExecutionContextOpportunistic
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
@@ -158,14 +157,14 @@ object EmailConfirm:
     import play.api.data.Forms.*
 
     val helpForm = Form(
-      single("username" -> lila.user.UserForm.historicalUsernameField)
+      single("username" -> lila.common.Form.username.historicalField)
     )
 
     def getStatus(userApi: UserApi, userRepo: UserRepo, u: UserStr)(using Executor): Fu[Status] =
       import Status.*
       userApi.withEmails(u).flatMap {
         case None => fuccess(NoSuchUser(u.into(UserName)))
-        case Some(User.WithEmails(user, emails)) =>
+        case Some(lila.core.user.WithEmails(user, emails)) =>
           if user.enabled.no then fuccess(Closed(user.username))
           else
             userRepo.mustConfirmEmail(user.id).dmap {

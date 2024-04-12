@@ -1,9 +1,9 @@
 package lila.core
 package report
 
+import lila.core.userId.UserId
+
 case class SuspectId(value: UserId) extends AnyVal
-object SuspectId:
-  def of(u: UserStr) = SuspectId(u.id)
 
 case class CheatReportCreated(userId: UserId)
 

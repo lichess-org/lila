@@ -1,14 +1,14 @@
 package lila.tournament
 
 import reactivemongo.api.bson.*
-
 import scalalib.Maths
-
 import scalalib.paginator.{ AdapterLike, Paginator }
+
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Perf, PerfType }
-import lila.user.User
-import lila.core.rating.PerfId
+
+import lila.core.perf.PerfId
+import lila.rating.PerfType
+import lila.core.chess.Rank
 
 final class LeaderboardApi(
     repo: LeaderboardRepo,
@@ -57,7 +57,7 @@ final class LeaderboardApi(
                   rank = ChartData.Ints(agg.ratios)
                 )
               }
-            .sortLike(PerfType.leaderboardable, _._1)
+            .sortLike(lila.rating.PerfType.leaderboardable, _._1)
 
   def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] =
     repo.coll

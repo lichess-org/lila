@@ -7,7 +7,6 @@ import play.api.data.{ Field, Form }
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.HcaptchaForm
-import lila.user.User
 
 object bits:
 
@@ -45,7 +44,7 @@ object bits:
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
-            fail.option(span(cls := "is-red", dataIcon := licon.X)),
+            fail.option(span(cls := "is-red", dataIcon := Icon.X)),
             trans.site.passwordReset()
           )
         ),
@@ -63,7 +62,7 @@ object bits:
       title = trans.site.passwordReset.txt()
     ):
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.site.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
         p(trans.site.weHaveSentYouAnEmailTo(email)),
         p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
@@ -79,8 +78,8 @@ object bits:
       main(cls := "page-small box box-pad")(
         boxTop(
           (ok match
-            case Some(true)  => h1(cls := "is-green text", dataIcon := licon.Checkmark)
-            case Some(false) => h1(cls := "is-red text", dataIcon := licon.X)
+            case Some(true)  => h1(cls := "is-green text", dataIcon := Icon.Checkmark)
+            case Some(false) => h1(cls := "is-red text", dataIcon := Icon.X)
             case _           => h1
           )(
             userLink(me, withOnline = false),
@@ -113,7 +112,7 @@ object bits:
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
-            fail.option(span(cls := "is-red", dataIcon := licon.X)),
+            fail.option(span(cls := "is-red", dataIcon := Icon.X)),
             "Log in by email"
           )
         ),
@@ -132,7 +131,7 @@ object bits:
       title = "Log in by email"
     ):
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.site.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
         p("We've sent you an email with a link."),
         p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )

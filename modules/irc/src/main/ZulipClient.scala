@@ -67,6 +67,7 @@ private object ZulipClient:
   case class Config(domain: String, user: String, pass: Secret)
   import lila.common.autoconfig.*
   import lila.common.config.given
+  import lila.core.irc.ModDomain
   given ConfigLoader[Config] = AutoConfig.loader[Config]
 
   object stream:
@@ -82,11 +83,11 @@ private object ZulipClient:
       val cafeteria    = "mod-cafeteria"
       val usernames    = "mod-usernames"
       val trustSafety  = "org-trustsafety"
-      def adminMonitor(tpe: IrcApi.ModDomain) = tpe match
-        case IrcApi.ModDomain.Comm  => "mod-admin-monitor-comm"
-        case IrcApi.ModDomain.Cheat => "mod-admin-monitor-cheat"
-        case IrcApi.ModDomain.Boost => "mod-admin-monitor-boost"
-        case _                      => "mod-admin-monitor-other"
+      def adminMonitor(tpe: ModDomain) = tpe match
+        case ModDomain.Comm  => "mod-admin-monitor-comm"
+        case ModDomain.Cheat => "mod-admin-monitor-cheat"
+        case ModDomain.Boost => "mod-admin-monitor-boost"
+        case _               => "mod-admin-monitor-other"
     val general   = "general"
     val broadcast = "content-broadcast"
     val blog      = "content-blog"

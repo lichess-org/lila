@@ -8,6 +8,7 @@ import java.text.Normalizer
 import lila.common.RawHtml
 import lila.core.config.NetDomain
 import scalalib.StringUtils.{ escapeHtmlRaw, safeJsonString }
+import lila.core.data.SafeJsonStr
 
 object String:
 

@@ -8,20 +8,20 @@ import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.game.{ BinaryFormat, GameRepo }
 import lila.memo.CacheApi
-import lila.report.{ Mod, ModId, Report, Reporter, Suspect }
-import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
+import lila.report.{ Mod, Report, Reporter, Suspect }
 import lila.core.report.SuspectId
+import lila.core.userId.ModId
+import lila.core.perf.UserWithPerfs
 
 final class KaladinApi(
     coll: AsyncColl,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
+    userApi: lila.user.UserApi,
     gameRepo: GameRepo,
     cacheApi: CacheApi,
-    insightApi: lila.insight.InsightApi,
+    insightApi: lila.game.core.insight.InsightApi,
     modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler):
 
@@ -64,13 +64,13 @@ final class KaladinApi(
       _.fold(KaladinUser.make(sus, requester).some)(_.queueAgain(requester))
         .so: req =>
           for
-            user        <- perfsRepo.withPerfs(sus.user)
+            user        <- userApi.withPerfs(sus.user)
             enoughMoves <- hasEnoughRecentMoves(user)
             _ <-
               if enoughMoves then
                 lila.mon.mod.kaladin.request(requester.name).increment()
                 insightApi.indexAll(user.user) >>
-                  coll(_.update.one($id(req._id), req, upsert = true)).void
+                  coll(_.update.one($id(req.id), req, upsert = true)).void
               else
                 lila.mon.mod.kaladin.insufficientMoves(requester.name).increment()
                 funit
@@ -108,7 +108,7 @@ final class KaladinApi(
 
     def sendReport = for
       suspect <- getSuspect(user.suspectId.value)
-      kaladin <- userRepo.kaladin.orFail(s"Kaladin user not found").dmap(Mod.apply)
+      kaladin <- userApi.byId(UserId.kaladin).orFail("Kaladin user not found").dmap(Mod.apply)
       _ <- reportApi.create(
         Report
           .Candidate(
@@ -123,11 +123,11 @@ final class KaladinApi(
       ()
 
     if pred.percent >= thresholds.get().mark then
-      userRepo.hasTitle(user.id).flatMap {
+      userApi.getTitle(user.id).dmap(_.isDefined).flatMap {
         if _ then sendReport
         else
           modApi
-            .autoMark(user.suspectId, pred.note)(using User.kaladinId.into(Me.Id))
+            .autoMark(user.suspectId, pred.note)(using UserId.kaladin.into(MyId))
             .andDo(lila.mon.mod.kaladin.mark.increment())
       }
     else if pred.percent >= thresholds.get().report then sendReport
@@ -143,12 +143,9 @@ final class KaladinApi(
     private[KaladinApi] def apply(user: KaladinUser): Funit =
       subs.get(user.suspectId).so { modIds =>
         subs = subs - user.suspectId
-        modIds
-          .map { modId =>
-            notifyApi.notifyOne(modId, lila.notify.KaladinDone(user.suspectId.value))
-          }
-          .parallel
-          .void
+        modIds.toSeq.traverse_ { modId =>
+          notifyApi.notifyOne(modId, lila.core.notify.KaladinDone(user.suspectId.value))
+        }
       }
 
   private[irwin] def monitorQueued: Funit =
@@ -201,7 +198,7 @@ final class KaladinApi(
         }.dmap(_.isEnough)
       )
     }
-    def apply(u: User.WithPerfs): Fu[Boolean] =
+    def apply(u: UserWithPerfs): Fu[Boolean] =
       fuccess(u.perfs.blitz.nb + u.perfs.rapid.nb > 30) >>& cache.get(u.id)
 
   private[irwin] def autoRequest(requester: KaladinUser.Requester)(user: Suspect) =
@@ -214,7 +211,7 @@ final class KaladinApi(
     suspects.traverse_(autoRequest(KaladinUser.Requester.TopOnline))
 
   private def getSuspect(suspectId: UserId) =
-    userRepo.byId(suspectId).orFail(s"suspect $suspectId not found").dmap(Suspect.apply)
+    userApi.byId(suspectId).orFail(s"suspect $suspectId not found").dmap(Suspect.apply)
 
   lila.common.Bus.subscribeFun("cheatReport") { case lila.core.report.CheatReportCreated(userId) =>
     getSuspect(userId).flatMap(autoRequest(KaladinUser.Requester.Report))

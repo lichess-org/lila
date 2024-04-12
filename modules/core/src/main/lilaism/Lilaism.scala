@@ -1,28 +1,27 @@
 package lila.core.lilaism
 
-object Lilaism
-    extends cats.syntax.OptionSyntax
-    with cats.syntax.ListSyntax
-    with LilaTypes
-    with LilaModel
-    with LilaUserId
-    with LilaLibraryExtensions
-    with JsonExtensions:
+object Lilaism extends LilaLibraryExtensions:
 
-  export scalalib.newtypes.{ given, * }
-  export scalalib.zeros.given
-  export scalalib.extensions.{ given, * }
-  export scalalib.time.*
-
-  export cats.syntax.all.*
-  export cats.{ Eq, Show }
-  export cats.data.NonEmptyList
-
-  inline def nowNanos: Long  = System.nanoTime()
-  inline def nowMillis: Long = System.currentTimeMillis()
-  inline def nowCentis: Long = nowMillis / 10
-  inline def nowTenths: Long = nowMillis / 100
-  inline def nowSeconds: Int = (nowMillis / 1000).toInt
+  export lila.core.id.{
+    GameId,
+    ChatId,
+    TeamId,
+    Flair,
+    StudyId,
+    StudyChapterId,
+    TourId,
+    SimulId,
+    SwissId,
+    ForumPostId,
+    UblogPostId,
+    RoomId
+  }
+  export lila.core.userId.{ UserId, UserName, UserStr, MyId, UserIdOf }
+  export lila.core.data.{ Markdown, Html, JsonStr }
+  export lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
+  export lila.core.perf.{ PerfKey, Perf }
+  export lila.core.email.EmailAddress
+  export lila.core.user.{ User, Me }
 
   def some[A](a: A): Option[A] = Some(a)
 

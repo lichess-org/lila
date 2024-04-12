@@ -9,6 +9,7 @@ import lila.game.{ Game, Pov }
 import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.user.{ NoteApi, UserRepo }
 import lila.core.game.Source
+import lila.core.playban.RageSit as RageSitCounter
 
 final class PlaybanApi(
     coll: Coll,
@@ -105,9 +106,11 @@ final class PlaybanApi(
     }
 
   private def propagateSitting(game: Game, userId: UserId): Funit =
-    rageSitCache.get(userId).map { rageSit =>
-      if rageSit.isBad then Bus.publish(SittingDetected(game, userId), "playban")
-    }
+    game.tournamentId.so: tourId =>
+      rageSitCache.get(userId).map { rageSit =>
+        if rageSit.isBad
+        then Bus.publish(lila.core.playban.SittingDetected(tourId, userId), "playban")
+      }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
     IfBlameable(game) {
@@ -157,20 +160,21 @@ final class PlaybanApi(
         .addEffect: ban =>
           if ban.isEmpty then cleanUserIds.put(user.id)
 
-  def hasCurrentBan[U: UserIdOf](u: U): Fu[Boolean] = currentBan(u).map(_.isDefined)
+  val HasCurrentPlayban: lila.core.playban.HasCurrentPlayban = userId => currentBan(userId).map(_.isDefined)
 
-  def bans(userIds: List[UserId]): Fu[Map[UserId, Int]] = coll
-    .aggregateList(Int.MaxValue, _.pri): framework =>
-      import framework.*
-      Match($inIds(userIds) ++ $doc("b".$exists(true))) -> List(
-        Project($doc("bans" -> $doc("$size" -> "$b")))
-      )
-    .map:
-      _.flatMap: obj =>
-        obj.getAsOpt[UserId]("_id").flatMap { id =>
-          obj.getAsOpt[Int]("bans").map { id -> _ }
-        }
-      .toMap
+  val bansOf: lila.core.playban.BansOf = userIds =>
+    coll
+      .aggregateList(Int.MaxValue, _.pri): framework =>
+        import framework.*
+        Match($inIds(userIds) ++ $doc("b".$exists(true))) -> List(
+          Project($doc("bans" -> $doc("$size" -> "$b")))
+        )
+      .map:
+        _.flatMap: obj =>
+          obj.getAsOpt[UserId]("_id").flatMap { id =>
+            obj.getAsOpt[Int]("bans").map { id -> _ }
+          }
+        .toMap
 
   def bans(userId: UserId): Fu[Int] = coll
     .aggregateOne(_.sec): framework =>
@@ -180,12 +184,14 @@ final class PlaybanApi(
       )
     .map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
 
-  def getRageSit(userId: UserId) = rageSitCache.get(userId)
+  val rageSitOf: lila.core.playban.RageSitOf = userId => rageSitCache.get(userId)
 
-  private val rageSitCache = cacheApi[UserId, RageSit](32768, "playban.ragesit") {
+  private val rageSitCache = cacheApi[UserId, RageSitCounter](32_768, "playban.ragesit") {
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture { userId =>
-        coll.primitiveOne[RageSit]($doc("_id" -> userId, "c".$exists(true)), "c").map(_ | RageSit.empty)
+        coll
+          .primitiveOne[RageSitCounter]($doc("_id" -> userId, "c".$exists(true)), "c")
+          .map(_ | RageSit.empty)
       }
   }
 
@@ -231,8 +237,7 @@ final class PlaybanApi(
         lila.mon.playban.ban.count.increment()
         lila.mon.playban.ban.mins.record(ban.mins)
         Bus.publish(
-          lila.core.actorApi.playban
-            .Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena)),
+          lila.core.playban.Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena)),
           "playban"
         )
         coll
@@ -265,6 +270,6 @@ final class PlaybanApi(
                 .flatMapz: user =>
                   noteApi
                     .lichessWrite(user, "Closed for ragesit recidive")
-                    .andDo(Bus.publish(lila.core.actorApi.playban.RageSitClose(user.id), "rageSitClose"))
+                    .andDo(Bus.publish(lila.core.playban.RageSitClose(user.id), "rageSitClose"))
           }
       case _ => funit

@@ -3,7 +3,7 @@ package lila.tutor
 import lila.common.{ Chronometer, LilaScheduler, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.user.User
+import lila.core.perf.UserWithPerfs
 
 final class TutorApi(
     colls: TutorColls,
@@ -14,7 +14,7 @@ final class TutorApi(
 
   import TutorBsonHandlers.given
 
-  def availability(user: User.WithPerfs): Fu[TutorFullReport.Availability] =
+  def availability(user: UserWithPerfs): Fu[TutorFullReport.Availability] =
     cache.get(user.id).flatMap {
       case Some(report) if report.isFresh => fuccess(TutorFullReport.Available(report, none))
       case Some(report) => queue.status(user).dmap(some).map { TutorFullReport.Available(report, _) }

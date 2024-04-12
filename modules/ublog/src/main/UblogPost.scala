@@ -4,7 +4,8 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
 import lila.memo.{ PicfitImage, PicfitUrl }
-import lila.user.{ Me, User }
+
+import lila.core.data.OpaqueInstant
 
 case class UblogPost(
     @Key("_id") id: UblogPostId,
@@ -61,7 +62,7 @@ object UblogPost:
     val created: Recorded
     val lived: Option[Recorded]
     def slug      = UblogPost.slug(title)
-    def isLichess = created.by.is(User.lichessId)
+    def isLichess = created.by.is(UserId.lichess)
 
   case class PreviewPost(
       @Key("_id") id: UblogPostId,

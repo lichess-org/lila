@@ -69,7 +69,7 @@ final private class SwissOfficialSchedule(mongo: SwissMongo, cache: SwissCache)(
       nbPlayers = 0,
       nbOngoing = 0,
       createdAt = nowInstant,
-      createdBy = lila.user.User.lichessId,
+      createdBy = UserId.lichess,
       teamId = lichessTeamId,
       nextRoundAt = startAt.some,
       startsAt = startAt,

@@ -13,7 +13,7 @@ import lila.common.autoconfig.*
 import lila.common.config.given
 import lila.core.config.*
 import lila.common.HTTPRequest
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 trait Hcaptcha:
 

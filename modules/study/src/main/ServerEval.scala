@@ -7,10 +7,10 @@ import play.api.libs.json.*
 import lila.analyse.{ Advice, Analysis, Info }
 import lila.db.dsl.bsonWriteOpt
 import lila.core.fishnet.StudyChapterRequest
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, Me, UserRepo }
 
 object ServerEval:
 
@@ -28,7 +28,7 @@ object ServerEval:
         .so:
           val unlimitedFu =
             fuccess(unlimited) >>|
-              fuccess(userId == User.lichessId) >>| userRepo.me(userId).map(_.soUse(Granter.opt(_.Relay)))
+              fuccess(userId == UserId.lichess) >>| userRepo.me(userId).map(_.soUse(Granter.opt(_.Relay)))
           unlimitedFu.flatMap: unlimited =>
             chapterRepo
               .startServerEval(chapter)

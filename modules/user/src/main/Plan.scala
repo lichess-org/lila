@@ -1,38 +1,32 @@
 package lila.user
 
-case class Plan(
-    months: Int,
-    active: Boolean,
-    since: Option[Instant]
-):
-
-  def incMonths =
-    copy(
-      months = months + 1,
-      active = true,
-      since = since.orElse(nowInstant.some)
-    )
-
-  def disable = copy(active = false)
-
-  def enable =
-    copy(
-      active = true,
-      months = months.atLeast(1),
-      since = since.orElse(nowInstant.some)
-    )
-
-  def isEmpty = months == 0
-
-  def nonEmpty = (!isEmpty).option(this)
-
-  def sinceDate = since | nowInstant
+import lila.core.user.Plan
 
 object Plan:
 
-  val empty = Plan(0, active = false, none)
-  def start = Plan(1, active = true, nowInstant.some)
+  extension (p: Plan)
 
-  import lila.db.dsl.given
-  import reactivemongo.api.bson.*
-  private[user] given BSONDocumentHandler[Plan] = Macros.handler[Plan]
+    def incMonths: Plan =
+      p.copy(
+        months = p.months + 1,
+        active = true,
+        since = p.since.orElse(nowInstant.some)
+      )
+
+    def disable: Plan = p.copy(active = false)
+
+    def enable: Plan =
+      p.copy(
+        active = true,
+        months = p.months.atLeast(1),
+        since = p.since.orElse(nowInstant.some)
+      )
+
+    def isEmpty: Boolean = p.months == 0
+
+    def nonEmpty: Option[Plan] = Option.when(!p.isEmpty)(p)
+
+    def sinceDate = p.since | nowInstant
+
+  val empty = new Plan(0, active = false, none)
+  def start = new Plan(1, active = true, nowInstant.some)

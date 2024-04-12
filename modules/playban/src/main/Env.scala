@@ -11,7 +11,7 @@ final class Env(
     appConfig: Configuration,
     messenger: lila.core.msg.MsgApi,
     reportApi: lila.core.report.ReportApi,
-    chatApi: lila.chat.ChatApi,
+    chatApi: lila.core.chat.ChatApi,
     userRepo: lila.user.UserRepo,
     noteApi: lila.user.NoteApi,
     lightUser: lila.core.LightUser.Getter,
@@ -19,10 +19,9 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(using Executor, play.api.Mode):
 
-  private lazy val playbanColl = db(
-    CollName(appConfig.get[String]("playban.collection.playban"))
-  )
+  private val playbanColl = db(CollName(appConfig.get[String]("playban.collection.playban")))
 
-  private lazy val feedback = wire[PlaybanFeedback]
+  private val feedback = wire[PlaybanFeedback]
 
-  lazy val api = wire[PlaybanApi]
+  val api = wire[PlaybanApi]
+  export api.{ bansOf, HasCurrentPlayban, rageSitOf }

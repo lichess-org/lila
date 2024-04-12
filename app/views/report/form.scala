@@ -6,7 +6,6 @@ import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
 
 object form:
 
@@ -31,7 +30,7 @@ object form:
             p(
               a(
                 href     := routes.Cms.lonePage("report-faq"),
-                dataIcon := licon.InfoCircle,
+                dataIcon := Icon.InfoCircle,
                 cls      := "text"
               ):
                 "Read more about Lichess reports"

@@ -8,12 +8,12 @@ import lila.app.{ *, given }
 import lila.challenge.Challenge as ChallengeModel
 import lila.challenge.Challenge.Id as ChallengeId
 
-import lila.core.{ Bearer, IpAddress, Preload }
+import lila.core.net.{ Bearer, IpAddress }
 import lila.game.{ AnonCookie, Pov }
-import lila.oauth.{ EndpointScopes, OAuthScope }
+import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 import lila.core.socket.SocketVersion
-import lila.user.User as UserModel
+import lila.user.{ Me, User as UserModel }
 
 final class Challenge(
     env: Env,
@@ -79,7 +79,7 @@ final class Challenge(
           json = Ok(json)
         ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
       }
-      .map(env.lilaCookie.ensure(ctx.req))
+      .map(env.security.lilaCookie.ensure(ctx.req))
 
   private def isMine(challenge: ChallengeModel)(using Context) =
     challenge.challenger match
@@ -101,7 +101,7 @@ final class Challenge(
             case Right(Some(pov)) =>
               negotiateApi(
                 html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
-                api = _ => env.api.roundApi.player(pov, Preload.none, none).map { Ok(_) }
+                api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map { Ok(_) }
               ).flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
             case invalid =>
               negotiate(
@@ -139,7 +139,7 @@ final class Challenge(
       .so {
         env.game.gameRepo.game(c.id.into(GameId)).map {
           _.map { game =>
-            env.lilaCookie.cookie(
+            env.security.lilaCookie.cookie(
               AnonCookie.name,
               game.player(if owner then c.finalColor else !c.finalColor).id.value,
               maxAge = AnonCookie.maxAge.some,
@@ -195,7 +195,7 @@ final class Challenge(
         api.activeByIdFor(id, me).flatMap {
           case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
           case None =>
-            import lila.core.actorApi.map.Tell
+            import lila.core.misc.map.Tell
             import lila.core.round.Abort
             import lila.core.round.AbortForce
             env.game.gameRepo
@@ -215,7 +215,7 @@ final class Challenge(
                     case Some(bearer) =>
                       val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
                       env.oAuth.server.auth(bearer, required, ctx.req.some).map {
-                        case Right(access) if pov.opponent.isUser(access.user) =>
+                        case Right(access) if pov.opponent.isUser(access.me) =>
                           lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                           jsonOkResult
                         case Right(_)  => BadRequest(jsonError("Not the opponent token"))
@@ -244,13 +244,14 @@ final class Challenge(
           case Right((u1, u2)) =>
             env.game.gameRepo
               .game(id)
-              .flatMapz { g =>
-                env.round.proxyRepo.upgradeIfPresent(g).dmap(some).dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
-              }
-              .orNotFound { game =>
-                env.round.tellRound(game.id, lila.core.round.StartClock)
+              .flatMapz: g =>
+                env.round.proxyRepo
+                  .upgradeIfPresent(g)
+                  .dmap(some)
+                  .dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
+              .orNotFound: game =>
+                env.round.roundApi.tell(game.id, lila.core.round.StartClock)
                 jsonOkResult
-              }
 
   private val ChallengeIpRateLimit = lila.memo.RateLimit[IpAddress](
     500,
@@ -276,7 +277,7 @@ final class Challenge(
     import play.api.data.Forms.*
     Found(api.byId(id)): c =>
       if isMine(c) then
-        Form(single("username" -> lila.user.UserForm.historicalUsernameField))
+        Form(single("username" -> lila.common.Form.username.historicalField))
           .bindFromRequest()
           .fold(
             _ => NoContent,

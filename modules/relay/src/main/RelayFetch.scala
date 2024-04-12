@@ -11,24 +11,23 @@ import lila.core.lilaism.LilaInvalid
 import lila.common.LilaScheduler
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
-import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import RelayFormat.CanProxy
-import lila.core.Seconds
+import scalalib.model.Seconds
 
 final private class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
-    irc: lila.irc.IrcApi,
+    irc: lila.core.irc.IrcApi,
     formatApi: RelayFormatApi,
     delayer: RelayDelay,
     fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
-    gameProxy: GameProxyRepo
+    gameProxy: lila.game.core.GameProxy
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
   import RelayFetch.*

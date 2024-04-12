@@ -9,8 +9,8 @@ import lila.game.{ Game, Pov }
 
 final private[tv] class TvSyncActor(
     lightUserApi: lila.user.LightUserApi,
-    recentTvGames: lila.round.RecentTvGames,
-    gameProxyRepo: lila.round.GameProxyRepo,
+    onTvGame: lila.game.core.OnTvGame,
+    gameProxy: lila.game.core.GameProxy,
     rematches: lila.game.Rematches
 )(using Executor, Scheduler)
     extends SyncActor:
@@ -23,7 +23,7 @@ final private[tv] class TvSyncActor(
     c -> ChannelSyncActor(
       c,
       onSelect = this.!,
-      gameProxyRepo.game,
+      gameProxy.game,
       rematches.getAcceptedId,
       lightUserApi.sync
     )
@@ -72,7 +72,7 @@ final private[tv] class TvSyncActor(
       val user   = player.userId.flatMap(lightUserApi.sync)
       (user, player.rating).mapN: (u, r) =>
         channelChampions += (channel -> Tv.Champion(u, r, game.id, game.naturalOrientation))
-      recentTvGames.put(game)
+      onTvGame(game)
       val data = Json.obj(
         "channel" -> channel.key,
         "id"      -> game.id,

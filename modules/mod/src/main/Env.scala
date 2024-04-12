@@ -2,15 +2,19 @@ package lila.mod
 
 import akka.actor.*
 import com.softwaremill.macwire.*
+import chess.ByColor
 
 import lila.core.config.*
 import lila.core.report.SuspectId
-import lila.user.{ Me, User }
+
+import lila.core.user.WithPerf
+import lila.common.Bus
+import lila.rating.UserWithPerfs.only
 
 @Module
 final class Env(
     db: lila.db.Db,
-    perfStat: lila.perfStat.PerfStatApi,
+    perfStat: lila.core.perf.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
@@ -22,12 +26,12 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     chatApi: lila.chat.ChatApi,
-    notifyApi: lila.notify.NotifyApi,
-    historyApi: lila.history.HistoryApi,
+    notifyApi: lila.core.notify.NotifyApi,
+    historyApi: lila.core.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
-    ircApi: lila.irc.IrcApi,
+    ircApi: lila.core.irc.IrcApi,
     msgApi: lila.core.msg.MsgApi
 )(using Executor, Scheduler, lila.core.i18n.Translator):
   private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
@@ -67,14 +71,14 @@ final class Env(
 
   private lazy val sandbagWatch = wire[SandbagWatch]
 
-  lila.common.Bus.subscribeFuns(
+  Bus.subscribeFuns(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
         users
           .map(_.filter(_.enabled.yes).map(_.only(game.perfType)))
           .mapN: (whiteUser, blackUser) =>
             sandbagWatch(game)
-            assessApi.onGameReady(game, whiteUser, blackUser)
+            assessApi.onGameReady(game, ByColor(whiteUser, blackUser))
         if game.status == chess.Status.Cheat then
           game.loserUserId.foreach: userId =>
             logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>
@@ -83,7 +87,7 @@ final class Env(
                   api.autoMark(
                     SuspectId(userId),
                     s"Cheat detected during game, ${count} times"
-                  )(using User.lichessIdAsMe)
+                  )(using UserId.lichessAsMe)
                 else reportApi.autoCheatDetectedReport(userId, count)
               }
             }
@@ -91,17 +95,17 @@ final class Env(
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
       assessApi.onAnalysisReady(game, analysis)
     },
-    "deletePublicChats" -> { case lila.core.actorApi.security.DeletePublicChats(userId) =>
+    "deletePublicChats" -> { case lila.core.security.DeletePublicChats(userId) =>
       publicChat.deleteAll(userId)
     },
     "autoWarning" -> { case lila.core.mod.AutoWarning(userId, subject) =>
-      logApi.modMessage(userId, subject)(using User.lichessIdAsMe)
+      logApi.modMessage(userId, subject)(using UserId.lichessAsMe)
     },
     "selfReportMark" -> { case lila.core.mod.SelfReportMark(suspectId, name) =>
-      api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using User.lichessIdAsMe)
+      api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using UserId.lichessAsMe)
     },
     "chatTimeout" -> { case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
-      logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id))
+      logApi.chatTimeout(user, reason, text)(using mod.into(MyId))
     },
     "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },
     "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) },
@@ -110,12 +114,13 @@ final class Env(
         logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
       case t: lila.core.team.KickFromTeam =>
         logApi.teamKick(t.userId, t.teamName)(using t.me)
-    },
-    "forum" -> { case p: lila.core.forum.RemovePost =>
+    }
+  )
+
+  Bus.chan.forumPost.subscribe:
+    case p: lila.core.forum.RemovePost =>
       if p.asAdmin
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
       else
         logger.info:
           s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
-    }
-  )

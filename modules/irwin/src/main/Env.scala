@@ -14,17 +14,17 @@ final class Env(
     tournamentApi: lila.core.tournament.TournamentApi,
     modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     userCache: lila.user.Cached,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.user.UserApi,
     perfsRepo: lila.user.UserPerfsRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi,
-    insightApi: lila.insight.InsightApi,
+    insightApi: lila.game.core.insight.InsightApi,
     db: lila.db.Db,
-    insightDb: lila.db.AsyncDb @@ lila.insight.InsightDb
+    insightDb: lila.db.AsyncDb @@ lila.game.core.insight.InsightDb
 )(using Executor)(using scheduler: Scheduler):
 
   lazy val irwinStream = wire[IrwinStream]
@@ -45,7 +45,7 @@ final class Env(
         suspects <-
           leaders.toList
             .traverse: (tour, top) =>
-              userRepo.byIds(
+              userApi.byIds(
                 top.view.zipWithIndex
                   .filter(_._2 <= tour.nbPlayers * 2 / 100)
                   .map(_._1)

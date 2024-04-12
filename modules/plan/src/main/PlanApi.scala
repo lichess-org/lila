@@ -8,8 +8,7 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.user.{ Me, User, UserRepo }
-import lila.core.EmailAddress
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 final class PlanApi(
     stripeClient: StripeClient,
@@ -24,7 +23,7 @@ final class PlanApi(
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,
     pricingApi: PlanPricingApi,
-    ip2proxy: lila.security.Ip2Proxy
+    ip2proxy: lila.core.security.Ip2ProxyApi
 )(using Executor):
 
   import BsonHandlers.given
@@ -495,7 +494,7 @@ final class PlanApi(
     }
 
   def setLifetime(user: User): Funit =
-    if user.plan.isEmpty then Bus.publish(lila.core.actorApi.plan.MonthInc(user.id, 0), "plan")
+    if user.plan.isEmpty then Bus.publish(lila.core.misc.plan.MonthInc(user.id, 0), "plan")
     (userRepo.setPlan(
       user,
       user.plan.enable
@@ -658,7 +657,7 @@ final class PlanApi(
       monthlyGoalApi.get
         .map: m =>
           Bus.publish(
-            lila.core.actorApi.plan.ChargeEvent(
+            lila.core.misc.plan.ChargeEvent(
               username = charge.userId.map(lightUserApi.syncFallback).fold(UserName("Anonymous"))(_.name),
               cents = charge.usd.cents,
               percent = m.percent,

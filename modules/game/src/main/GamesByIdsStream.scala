@@ -6,8 +6,6 @@ import play.api.libs.json.*
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 
-import actorApi.{ FinishGame, StartGame }
-
 final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 
   def apply(streamId: String, initialIds: Set[GameId], maxGames: Int): Source[JsValue, ?] =
@@ -20,8 +18,8 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
         var watchedIds = initialIds
         val chans      = List("startGame", "finishGame", streamChan(streamId))
         val sub = Bus.subscribeFun(chans*) {
-          case StartGame(game) if watchedIds(game.id) => queue.offer(game)
-          case FinishGame(game, _) if watchedIds(game.id) =>
+          case actorApi.StartGame(game) if watchedIds(game.id) => queue.offer(game)
+          case actorApi.FinishGame(game, _) if watchedIds(game.id) =>
             queue.offer(game)
             watchedIds = watchedIds - game.id
           case WatchGames(ids) =>

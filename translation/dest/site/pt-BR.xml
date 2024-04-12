@@ -202,7 +202,7 @@
     <item quantity="other">%s minutos</item>
   </plurals>
   <string name="time">Tempo</string>
-  <string name="rating">Classificação</string>
+  <string name="rating">Rating</string>
   <string name="ratingStats">Estatísticas de classificação</string>
   <string name="username">Nome de usuário</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
@@ -324,7 +324,7 @@
     <item quantity="other">%s jogando</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Classificação entre</string>
+  <string name="ratingRange">Rating entre</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundos</item>
     <item quantity="other">Dar %s segundos</item>
@@ -374,8 +374,8 @@
     <item quantity="one">Você precisa jogar ainda %s partidas valendo pontos</item>
     <item quantity="other">Você precisa jogar ainda %s partidas valendo pontos</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Sua pontuação %s é provisória</string>
-  <string name="yourPerfRatingIsTooHigh">Sua %1$s pontuação (%2$s) é muito alta</string>
+  <string name="yourPerfRatingIsProvisional">Seu rating %s é provisório</string>
+  <string name="yourPerfRatingIsTooHigh">Seu %1$s rating (%2$s) é muito alta</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Seu melhor rating %1$s da semana (%2$s) é muito alto</string>
   <string name="yourPerfRatingIsTooLow">Sua %1$s pontuação (%2$s) é muito baixa</string>
   <string name="ratedMoreThanInPerf">Pontuação ≥ %1$s em %2$s</string>
@@ -503,7 +503,7 @@
   <string name="isPrivate">Privado</string>
   <string name="reportXToModerators">Reportar %s aos moderadores</string>
   <string name="profileCompletion">Conclusão do perfil: %s</string>
-  <string name="xRating">%s de rating</string>
+  <string name="xRating">Rating %s</string>
   <string name="ifNoneLeaveEmpty">Se nenhuma, deixe vazio</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
@@ -523,7 +523,7 @@
   <string name="previouslyOnLichessTV">Anteriormente em Lichess TV</string>
   <string name="onlinePlayers">Jogadores online</string>
   <string name="activePlayers">Jogadores ativos</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos, mas não há controle de tempo!</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale rating, mas não há controle de tempo!</string>
   <string name="success">Sucesso</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s partidas em andamento</item>
@@ -925,7 +925,7 @@
   <string name="gameVsX">Jogo vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="lostAgainstTOSViolator">Você perdeu rating para alguém que violou os termos de serviço do Lichess</string>
-  <string name="refundXpointsTimeControlY">Reembolso: %1$s %2$s pontos de classificação.</string>
+  <string name="refundXpointsTimeControlY">Reembolso: %1$s %2$s pontos de rating.</string>
   <string name="timeAlmostUp">O tempo está quase acabando!</string>
   <string name="clickToRevealEmailAddress">[Clique para revelar o endereço de e-mail]</string>
   <string name="download">Baixar</string>

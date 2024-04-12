@@ -11,8 +11,8 @@ import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
 import lila.game.Pov
 import lila.rating.PerfType
+import lila.core.chess.Rank
 import lila.tournament.LeaderboardApi.TourEntry
-import lila.user.User
 
 object games:
 
@@ -37,7 +37,7 @@ object games:
               form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
                 filterForm("perf"),
-                PerfType.nonPuzzle.map: p =>
+                lila.rating.PerfType.nonPuzzle.map: p =>
                   p.key -> p.trans,
                 "Variant".some
               ),
@@ -86,7 +86,7 @@ object games:
                 ),
                 thSortNumber("Opponent"),
                 thSortNumber("Speed"),
-                th(iconTag(licon.Trophy)),
+                th(iconTag(Icon.Trophy)),
                 thSortNumber("Moves"),
                 thSortNumber("Result"),
                 thSortNumber("ACPL", br, "(Avg ± SD)"),
@@ -122,14 +122,14 @@ object games:
                     td(dataSort := pov.game.tournamentId.so(_.value))(
                       pov.game.tournamentId.map { tourId =>
                         a(
-                          dataIcon := licon.Trophy,
+                          dataIcon := Icon.Trophy,
                           href     := routes.Tournament.show(tourId).url,
                           title    := tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId.map { swissId =>
                         a(
-                          dataIcon := licon.Trophy,
+                          dataIcon := Icon.Trophy,
                           href     := routes.Swiss.show(swissId).url,
                           title    := s"Swiss #${swissId}"
                         )

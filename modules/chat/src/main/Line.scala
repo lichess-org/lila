@@ -2,19 +2,6 @@ package lila.chat
 
 import chess.{ Color, PlayerTitle }
 
-import lila.user.User
-
-sealed trait Line:
-  def text: String
-  def author: String
-  def deleted: Boolean
-  def isSystem    = author == User.lichessName.value
-  def isHuman     = !isSystem
-  def humanAuthor = isHuman.option(author)
-  def troll: Boolean
-  def flair: Boolean
-  def userIdMaybe: Option[UserId]
-
 case class UserLine(
     username: UserName,
     title: Option[PlayerTitle],
@@ -34,7 +21,7 @@ case class UserLine(
 
   def isVisible = !troll && !deleted
 
-  def isLichess = userId.is(User.lichessId)
+  def isLichess = userId.is(UserId.lichess)
 
 case class PlayerLine(color: Color, text: String) extends Line:
   def deleted     = false
@@ -58,10 +45,11 @@ object Line:
     userLineToStr
   )
 
-  private[chat] given BSONHandler[Line] = BSONStringHandler.as[Line](
-    v => strToLine(v).getOrElse(invalidLine),
-    lineToStr
-  )
+  private[chat] given lineHandler: BSONHandler[lila.core.chat.Line] =
+    BSONStringHandler.as[lila.core.chat.Line](
+      v => strToLine(v).getOrElse(invalidLine),
+      lineToStr
+    )
 
   private val trollChar       = "!"
   private val deletedChar     = "?"

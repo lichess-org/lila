@@ -3,7 +3,7 @@ package lila.forum
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
+
 import lila.forum.Filter.*
 import lila.core.forum.ForumPostMini
 import reactivemongo.api.CursorOps
@@ -118,5 +118,5 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using
 
   private[forum] def nonGhostCursor: AkkaStreamCursor[ForumPostMini] =
     coll
-      .find($doc("userId".$ne(User.ghostId)), miniProjection.some)
+      .find($doc("userId".$ne(UserId.ghost)), miniProjection.some)
       .cursor[ForumPostMini](ReadPref.sec)

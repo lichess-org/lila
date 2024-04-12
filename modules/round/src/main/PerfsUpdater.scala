@@ -3,21 +3,26 @@ package lila.round
 import chess.{ ByColor, Color, Speed }
 
 import lila.game.{ Game, GameRepo, RatingDiffs }
-import lila.history.HistoryApi
-import lila.rating.{ Glicko, Perf, PerfType as PT, RatingFactors, RatingRegulator, glicko2 }
-import lila.user.{ RankingApi, User, UserApi, UserPerfs }
+import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, glicko2, UserPerfs }
+import lila.user.{ RankingApi, User, UserApi }
+import lila.rating.PerfType
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
+import lila.rating.PerfExt.toRating
+import lila.rating.PerfExt.addOrReset
+import lila.rating.GlickoExt.average
 
 final class PerfsUpdater(
     gameRepo: GameRepo,
     userApi: UserApi,
-    historyApi: HistoryApi,
     rankingApi: RankingApi,
     botFarming: BotFarming,
     ratingFactors: () => RatingFactors
 )(using Executor):
 
+  import PerfsUpdater.*
+
   // returns rating diffs
-  def save(game: Game, white: User.WithPerfs, black: User.WithPerfs): Fu[Option[RatingDiffs]] =
+  def save(game: Game, white: UserWithPerfs, black: UserWithPerfs): Fu[Option[RatingDiffs]] =
     botFarming(game).flatMap {
       if _ then fuccess(none)
       else
@@ -64,11 +69,17 @@ final class PerfsUpdater(
               ratingOf(perfsW) - ratingOf(white.perfs),
               ratingOf(perfsB) - ratingOf(black.perfs)
             ).map(_.into(IntRatingDiff))
+            lila.common.Bus
+              .publish(
+                lila.game.actorApi.PerfsUpdate(
+                  game,
+                  ByColor(UserWithPerfs(white.user, perfsW), UserWithPerfs(black.user, perfsB))
+                ),
+                "perfsUpdate"
+              )
             gameRepo
               .setRatingDiffs(game.id, ratingDiffs)
               .zip(userApi.updatePerfs(ByColor(white.perfs -> perfsW, black.perfs -> perfsB), game.perfType))
-              .zip(historyApi.add(white.user, game, perfsW))
-              .zip(historyApi.add(black.user, game, perfsB))
               .zip(rankingApi.save(white.user, game.perfType, perfsW))
               .zip(rankingApi.save(black.user, game.perfType, perfsB))
               .inject(ratingDiffs.some)
@@ -121,7 +132,7 @@ final class PerfsUpdater(
     try Glicko.system.updateRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
-  private def mkPerfs(ratings: Ratings, users: PairOf[User.WithPerfs], game: Game): UserPerfs =
+  private def mkPerfs(ratings: Ratings, users: PairOf[UserWithPerfs], game: Game): UserPerfs =
     val (player, opponent) = users
     val perfs              = player.perfs
     val speed              = game.speed
@@ -154,18 +165,41 @@ final class PerfsUpdater(
     )
     val r = RatingRegulator(ratingFactors())
     val perfs2 = perfs1.copy(
-      chess960 = r(PT.Chess960, perfs.chess960, perfs1.chess960),
-      kingOfTheHill = r(PT.KingOfTheHill, perfs.kingOfTheHill, perfs1.kingOfTheHill),
-      threeCheck = r(PT.ThreeCheck, perfs.threeCheck, perfs1.threeCheck),
-      antichess = r(PT.Antichess, perfs.antichess, perfs1.antichess),
-      atomic = r(PT.Atomic, perfs.atomic, perfs1.atomic),
-      horde = r(PT.Horde, perfs.horde, perfs1.horde),
-      racingKings = r(PT.RacingKings, perfs.racingKings, perfs1.racingKings),
-      crazyhouse = r(PT.Crazyhouse, perfs.crazyhouse, perfs1.crazyhouse),
-      bullet = r(PT.Bullet, perfs.bullet, perfs1.bullet),
-      blitz = r(PT.Blitz, perfs.blitz, perfs1.blitz),
-      rapid = r(PT.Rapid, perfs.rapid, perfs1.rapid),
-      classical = r(PT.Classical, perfs.classical, perfs1.classical),
-      correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence)
+      chess960 = r(PerfType.Chess960, perfs.chess960, perfs1.chess960),
+      kingOfTheHill = r(PerfType.KingOfTheHill, perfs.kingOfTheHill, perfs1.kingOfTheHill),
+      threeCheck = r(PerfType.ThreeCheck, perfs.threeCheck, perfs1.threeCheck),
+      antichess = r(PerfType.Antichess, perfs.antichess, perfs1.antichess),
+      atomic = r(PerfType.Atomic, perfs.atomic, perfs1.atomic),
+      horde = r(PerfType.Horde, perfs.horde, perfs1.horde),
+      racingKings = r(PerfType.RacingKings, perfs.racingKings, perfs1.racingKings),
+      crazyhouse = r(PerfType.Crazyhouse, perfs.crazyhouse, perfs1.crazyhouse),
+      bullet = r(PerfType.Bullet, perfs.bullet, perfs1.bullet),
+      blitz = r(PerfType.Blitz, perfs.blitz, perfs1.blitz),
+      rapid = r(PerfType.Rapid, perfs.rapid, perfs1.rapid),
+      classical = r(PerfType.Classical, perfs.classical, perfs1.classical),
+      correspondence = r(PerfType.Correspondence, perfs.correspondence, perfs1.correspondence)
     )
     if isStd then perfs2.updateStandard else perfs2
+
+private object PerfsUpdater:
+
+  extension (p: UserPerfs)
+    def updateStandard =
+      p.copy(
+        standard =
+          val subs = List(p.bullet, p.blitz, p.rapid, p.classical, p.correspondence).filter(_.provisional.no)
+          subs.maxByOption(_.latest.fold(0L)(_.toMillis)).flatMap(_.latest).fold(p.standard) { date =>
+            val nb = subs.map(_.nb).sum
+            val glicko = new lila.core.rating.Glicko(
+              rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
+              deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
+              volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum
+            )
+            new Perf(
+              glicko = glicko,
+              nb = nb,
+              recent = Nil,
+              latest = date.some
+            )
+          }
+      )

@@ -16,7 +16,7 @@ object skills:
         h1(
           a(
             href     := routes.Tutor.perf(user.username, report.perf.key),
-            dataIcon := licon.LessThan,
+            dataIcon := Icon.LessThan,
             cls      := "text"
           ),
           bits.otherUser(user),

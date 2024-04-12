@@ -30,7 +30,7 @@ object importGame:
         p(cls := "explanation")(
           trans.site.importGameExplanation(),
           br,
-          a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault()):
+          a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Study.allDefault()):
             trans.site.importGameCaveat()
         ),
         standardFlash,
@@ -53,9 +53,9 @@ object importGame:
             help = Some(analyseHelp),
             disabled = ctx.isAnon
           ),
-          a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault(1)):
+          a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Study.allDefault(1)):
             trans.site.importGameDataPrivacyWarning()
           ,
-          form3.action(form3.submit(trans.site.importGame(), licon.UploadCloud.some))
+          form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
         )
       )

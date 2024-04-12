@@ -5,7 +5,7 @@ import java.util.Base64
 import lila.core.config.Secret
 
 import Authenticator.AuthData
-import User.ClearPassword as P
+import lila.user.ClearPassword as P
 
 class AuthTest extends munit.FunSuite:
 

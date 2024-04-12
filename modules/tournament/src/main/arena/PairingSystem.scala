@@ -1,6 +1,8 @@
 package lila.tournament
 package arena
 
+import lila.core.chess.Rank
+
 final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,

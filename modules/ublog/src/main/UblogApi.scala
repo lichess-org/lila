@@ -7,15 +7,14 @@ import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.Propagate
 import lila.memo.PicfitApi
-import lila.user.{ Me, User, UserApi }
 
 final class UblogApi(
     colls: UblogColls,
     rank: UblogRank,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
-    irc: lila.irc.IrcApi
+    irc: lila.core.irc.IrcApi
 )(using Executor)
     extends lila.core.ublog.UblogApi:
 
@@ -152,7 +151,7 @@ final class UblogApi(
   private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
     (post.markdown.value.sizeIs > 1000).so(
       irc.ublogPost(
-        user,
+        user.light,
         id = post.id,
         slug = post.slug,
         title = post.title,

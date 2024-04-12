@@ -11,7 +11,7 @@ final private class LobbySyncActor(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
-    playbanApi: lila.playban.PlaybanApi,
+    hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     poolApi: lila.core.pool.PoolApi,
     onStart: lila.core.game.OnStart
 )(using Executor, IsClockCompatible)
@@ -135,10 +135,9 @@ final private class LobbySyncActor(
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit =
     user
-      .so(playbanApi.currentBan)
+      .so(u => hasCurrentPlayban(u.id))
       .foreach:
-        case None => f
-        case _    =>
+        if _ then () else f
 
   private def biteHook(hookId: String, sri: Sri, user: Option[LobbyUser]) =
     hookRepo.byId(hookId).foreach { hook =>
@@ -158,8 +157,8 @@ final private class LobbySyncActor(
   def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs.register(g)
 
   private object recentlyAbortedUserIdPairs:
-    private val cache = scalalib.cache.ExpireSetMemo[CacheKey](1 hour)
-    private def makeKey(u1: UserId, u2: UserId) = CacheKey:
+    private val cache = scalalib.cache.ExpireSetMemo[String](1 hour)
+    private def makeKey(u1: UserId, u2: UserId) = String:
       if u1.value < u2.value then s"$u1/$u2" else s"$u2/$u1"
 
     def register(g: Game) =

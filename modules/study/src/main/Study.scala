@@ -4,9 +4,9 @@ import chess.format.UciPath
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.user.User
 import lila.core.{ study as hub }
 import lila.core.study.Visibility
+import lila.core.data.OpaqueInstant
 
 case class Study(
     @Key("_id") id: StudyId,
@@ -37,7 +37,7 @@ case class Study(
   def canChat(id: UserId) = Settings.UserSelection.allows(settings.chat, this, id.some)
 
   def canContribute[U: UserIdOf](u: U) =
-    isOwner(u) || members.get(u.id).exists(_.canContribute) || u.is(User.lichessId)
+    isOwner(u) || members.get(u.id).exists(_.canContribute) || u.is(UserId.lichess)
 
   def canView(id: Option[UserId]) = !isPrivate || id.exists(members.contains)
 

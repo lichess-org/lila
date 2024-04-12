@@ -5,7 +5,6 @@ import lila.core.LightUser
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
-import lila.core.user.MyId
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,

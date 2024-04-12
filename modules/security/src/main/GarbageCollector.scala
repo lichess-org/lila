@@ -4,9 +4,7 @@ import scalalib.ThreadLocalRandom
 import play.api.mvc.RequestHeader
 
 import lila.common.{ Bus, HTTPRequest }
-import lila.core.EmailAddress
-import lila.core.IpAddress
-import lila.user.User
+import lila.core.net.IpAddress
 
 // codename UGC
 final class GarbageCollector(
@@ -46,11 +44,11 @@ final class GarbageCollector(
             retries = 5,
             logger = none
           )
-          .recoverDefault >> apply(applyData)
+          .recoverDefault(e => logger.info(e.getMessage, e)) >> apply(applyData)
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
     userLogins.userHasPrint(data.user).flatMap {
-      case false => fufail("No print available yet")
+      case false => fufail(s"never got a print for ${data.user.username}")
       case _     => funit
     }
 
@@ -117,6 +115,6 @@ final class GarbageCollector(
 
   private def doCollect(user: UserId): Unit =
     Bus.publish(
-      lila.core.actorApi.security.GarbageCollect(user),
+      lila.core.security.GarbageCollect(user),
       "garbageCollect"
     )

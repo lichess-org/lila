@@ -6,7 +6,8 @@ import play.api.libs.json.Json
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
+import lila.core.app.LangPath
+import lila.core.perf.UserWithPerfs
 import lila.game.Pov
 
 object home:
@@ -43,7 +44,7 @@ object home:
         .some,
       withHrefLangs = LangPath("/").some
     ) {
-      given Option[lila.user.User.WithPerfs] = homepage.me
+      given Option[UserWithPerfs] = homepage.me
       main(
         cls := List(
           "lobby"      -> true,
@@ -145,7 +146,7 @@ object home:
             )
           ),
           a(href := "https://shop.spreadshirt.com/lichess-org")(
-            iconTag(licon.Tshirt),
+            iconTag(Icon.Tshirt),
             span(cls := "lobby__support__text")(
               strong("Swag Store"),
               span(trans.site.playChessInStyle())

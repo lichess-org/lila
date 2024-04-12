@@ -9,12 +9,14 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.core.{ Bearer, Days, Template }
+import lila.core.data.Template
+import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.core.game.GameRule
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.rating.PerfType
-import lila.user.User
+
+import scalalib.model.Days
 
 final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
@@ -80,10 +82,11 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
       )
   )
 
-final class ChallengeBulkSetupApi(oauthServer: OAuthServer, idGenerator: IdGenerator)(using
-    Executor,
-    akka.stream.Materializer
-):
+final class ChallengeBulkSetupApi(
+    oauthServer: OAuthServer,
+    idGenerator: IdGenerator,
+    userRepo: lila.user.UserRepo
+)(using Executor, akka.stream.Materializer):
 
   import ChallengeBulkSetup.*
 
@@ -100,14 +103,16 @@ final class ChallengeBulkSetupApi(oauthServer: OAuthServer, idGenerator: IdGener
       .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
       .mapAsync(8): token =>
-        oauthServer.auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none).map {
-          _.left.map { BadToken(token, _) }
-        }
+        oauthServer
+          .auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
+          .map {
+            _.left.map { BadToken(token, _) }
+          }
       .runFold[Either[List[BadToken], List[UserId]]](Right(Nil)):
         case (Left(bads), Left(bad))       => Left(bad :: bads)
         case (Left(bads), _)               => Left(bads)
         case (Right(_), Left(bad))         => Left(bad :: Nil)
-        case (Right(users), Right(scoped)) => Right(scoped.me :: users)
+        case (Right(users), Right(scoped)) => Right(scoped.me.userId :: users)
       .flatMap:
         case Left(errors) => fuccess(Left(ScheduleError.BadTokens(errors.reverse)))
         case Right(allPlayers) =>
@@ -185,7 +190,7 @@ object ChallengeBulkSetup:
       pairAt == other.pairAt || startClocksAt.exists(other.startClocksAt.contains)
     } && userSet.exists(other.userSet.contains)
     def nonEmptyRules = rules.nonEmpty.option(rules)
-    def perfType      = PerfType(variant, chess.Speed(clock.left.toOption))
+    def perfType      = lila.rating.PerfType(variant, chess.Speed(clock.left.toOption))
 
   enum ScheduleError:
     case BadTokens(tokens: List[BadToken])
@@ -245,7 +250,7 @@ object ChallengeBulkSetup:
       .add("rules" -> nonEmptyRules)
       .add("fen" -> fen)
 
-  private[challenge] def extractTokenPairs(str: String): List[(Bearer, Bearer)] =
+  private[challenge] def extractTokenPairs(str: String): List[PairOf[Bearer]] =
     str
       .split(',')
       .view

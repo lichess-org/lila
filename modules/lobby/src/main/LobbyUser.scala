@@ -1,9 +1,12 @@
 package lila.lobby
 
 import lila.core.pool.Blocking
-import lila.rating.{ Glicko, Perf, PerfType }
-import lila.user.User
-import lila.core.rating.PerfKey
+import lila.rating.{ Glicko, Perf }
+
+import lila.rating.PerfType
+import lila.core.perf.UserWithPerfs
+import lila.core.perf.UserPerfs
+import lila.rating.UserPerfsExt.perfsList
 
 private[lobby] case class LobbyUser(
     id: UserId,
@@ -24,7 +27,7 @@ private[lobby] object LobbyUser:
 
   type PerfMap = Map[PerfKey, LobbyPerf]
 
-  def make(user: User.WithPerfs, blocking: Blocking) =
+  def make(user: UserWithPerfs, blocking: Blocking) =
     LobbyUser(
       id = user.id,
       username = user.username,
@@ -34,10 +37,10 @@ private[lobby] object LobbyUser:
       blocking = blocking
     )
 
-  private def perfMapOf(perfs: lila.user.UserPerfs): PerfMap =
-    perfs.perfs.view.collect {
-      case (pt, perf) if pt != PerfType.Puzzle && perf.nonEmpty =>
-        pt.key -> LobbyPerf(perf.intRating, perf.provisional)
+  private def perfMapOf(perfs: UserPerfs): PerfMap =
+    perfs.perfsList.view.collect {
+      case (pk, perf) if pk != PerfKey.puzzle && perf.nonEmpty =>
+        pk -> LobbyPerf(perf.intRating, perf.provisional)
     }.toMap
 
 // TODO opaque type Int (minus for provisional)

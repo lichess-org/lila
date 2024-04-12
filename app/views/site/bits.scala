@@ -69,5 +69,5 @@ object bits:
     cls      := "atom",
     st.title := "Atom RSS feed",
     href     := url,
-    dataIcon := licon.RssFeed
+    dataIcon := Icon.RssFeed
   )

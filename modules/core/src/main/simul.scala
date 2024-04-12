@@ -1,8 +1,11 @@
 package lila.core
 package simul
 
-import chess.variant.Variant
+import _root_.chess.variant.Variant
+
 import lila.core.rating.Score
+import lila.core.id.{ SimulId, GameId }
+import lila.core.userId.UserId
 
 trait Simul:
   def id: SimulId
@@ -15,7 +18,7 @@ trait Simul:
 
 trait SimulApi:
   def byIds(ids: List[SimulId]): Fu[List[Simul]]
+  def isSimulHost(userId: UserId): Fu[Boolean]
 
 case class OnStart(simul: Simul) extends AnyVal
-case class GetHostIds(promise: Promise[Set[UserId]])
 case class PlayerMove(gameId: GameId)

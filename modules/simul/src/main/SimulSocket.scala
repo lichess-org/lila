@@ -12,8 +12,8 @@ final private class SimulSocket(
     jsonView: JsonView,
     socketKit: SocketKit,
     socketRequest: SocketRequester,
-    chat: lila.chat.ChatApi
-)(using Executor, lila.user.FlairApi.Getter):
+    chat: lila.core.chat.ChatApi
+)(using Executor, lila.core.user.FlairGet):
 
   def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
     rooms.tell(simulId.into(RoomId), NotifyVersion("hostGame", gameId.value))
@@ -52,7 +52,7 @@ final private class SimulSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Simul)
+  subscribeChat(rooms, _.simul)
 
   private lazy val handler: SocketHandler =
     roomHandler(
@@ -60,7 +60,7 @@ final private class SimulSocket(
       chat,
       logger,
       roomId => _.Simul(roomId.into(SimulId)).some,
-      chatBusChan = _.Simul,
+      chatBusChan = _.simul,
       localTimeout = Some: (roomId, modId, _) =>
         repo.hostId(roomId.into(SimulId)).map(_.has(modId))
     )

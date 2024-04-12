@@ -2,11 +2,10 @@ package lila.forum
 
 import akka.stream.scaladsl.*
 
-import lila.security.Granter as MasterGranter
+import lila.core.perm.Granter as MasterGranter
 import lila.user.{ Me, User, given }
 import lila.core.forum.{ RemovePost, RemovePosts }
 import lila.common.Bus
-import lila.core.user.MyId
 
 final class ForumDelete(
     postRepo: ForumPostRepo,
@@ -45,4 +44,4 @@ final class ForumDelete(
     }
 
   private def publishDelete(p: ForumPost)(using Me) =
-    Bus.publish(RemovePost(p.id, p.userId, p.text, asAdmin = MasterGranter(_.ModerateForum)), "forumPost")
+    Bus.chan.forumPost(RemovePost(p.id, p.userId, p.text, asAdmin = MasterGranter(_.ModerateForum)))

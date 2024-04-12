@@ -7,7 +7,6 @@ import lila.common.LilaFuture
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 opaque type StudyTopic = String
 object StudyTopic extends OpaqueString[StudyTopic]:
@@ -118,7 +117,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     maxSize = Max(1),
     timeout = 61 seconds,
     name = "studyTopicAggregation",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.copy(overflow = _ => ())
   )
 
   def recompute(): Unit =

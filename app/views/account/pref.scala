@@ -76,7 +76,7 @@ object pref:
               showPlayerRatings(),
               frag(
                 radios(form("ratings"), booleanChoices),
-                div(cls := "help text shy", dataIcon := licon.InfoCircle)(explainShowPlayerRatings())
+                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(explainShowPlayerRatings())
               ),
               "showRatings"
             ),
@@ -128,7 +128,7 @@ object pref:
               promoteToQueenAutomatically(),
               frag(
                 radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
-                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
+                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
                   explainPromoteToQueenAutomatically()
                 )
               ),
@@ -143,7 +143,7 @@ object pref:
               moveConfirmation(),
               frag(
                 bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
-                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
+                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
                   "Multiple choices. ",
                   explainCanThenBeTemporarilyDisabled()
                 )
@@ -213,6 +213,6 @@ object pref:
               "shareYourInsightsData"
             )
           ),
-          p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())
+          p(cls := "saved text none", dataIcon := Icon.Checkmark)(yourPreferencesHaveBeenSaved())
         )
       )

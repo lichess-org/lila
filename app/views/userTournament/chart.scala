@@ -3,7 +3,6 @@ package userTournament
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.*
-import lila.user.User
 
 object chart:
 

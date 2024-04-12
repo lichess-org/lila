@@ -2,7 +2,6 @@ package lila.insight
 
 import scalalib.HeapSort.botN
 import lila.game.{ Game, GameRepo, Pov }
-import lila.user.User
 
 final class InsightApi(
     storage: InsightStorage,
@@ -10,7 +9,8 @@ final class InsightApi(
     gameRepo: GameRepo,
     indexer: InsightIndexer,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor)
+    extends lila.game.core.insight.InsightApi:
 
   import InsightApi.*
 

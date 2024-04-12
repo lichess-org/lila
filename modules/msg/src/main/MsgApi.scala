@@ -18,7 +18,7 @@ final class MsgApi(
     notifier: MsgNotify,
     security: MsgSecurity,
     shutupApi: lila.core.shutup.ShutupApi,
-    spam: lila.security.Spam
+    spam: lila.core.security.SpamApi
 )(using Executor, akka.stream.Materializer)
     extends lila.core.msg.MsgApi:
 
@@ -153,7 +153,7 @@ final class MsgApi(
               _ <- threadWrite
             yield
               import MsgSecurity.*
-              import lila.core.actorApi.socket.SendTo
+              import lila.core.socket.SendTo
               import lila.core.socket.makeMessage
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
@@ -186,7 +186,7 @@ final class MsgApi(
     systemPost(destId, preset.text)
 
   def systemPost(destId: UserId, text: String) =
-    post(User.lichessId, destId, text, multi = true, ignoreSecurity = true)
+    post(UserId.lichess, destId, text, multi = true, ignoreSecurity = true)
 
   def multiPost(destSource: Source[UserId, ?], text: String)(using me: Me): Fu[Int] =
     val now = nowInstant // same timestamp on all
@@ -238,6 +238,7 @@ final class MsgApi(
           UnwindField("contact")
         )
       .flatMap: docs =>
+        import lila.user.BSONHandlers.userHandler
         (for
           doc     <- docs
           msgs    <- doc.getAsOpt[List[Msg]]("msgs")
@@ -288,7 +289,7 @@ final class MsgApi(
   )
   def hasUnreadLichessMessage(userId: UserId): Fu[Boolean] =
     colls.thread.secondaryPreferred.exists:
-      $id(MsgThread.id(userId, User.lichessId)) ++ hasUnreadLichessMessageSelect
+      $id(MsgThread.id(userId, UserId.lichess)) ++ hasUnreadLichessMessageSelect
 
   def allMessagesOf(userId: UserId): Source[(String, Instant), ?] =
     colls.thread

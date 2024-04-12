@@ -5,6 +5,7 @@ import lila.game.{ GameRepo, IdGenerator, Pov }
 import lila.lobby.Seek
 import lila.lobby.{ AddHook, AddSeek }
 import lila.user.{ Me, User, UserPerfsRepo }
+import lila.core.perf.UserWithPerfs
 
 final private[setup] class Processor(
     gameCache: lila.game.Cached,
@@ -32,7 +33,7 @@ final private[setup] class Processor(
       sri: lila.core.socket.Sri,
       sid: Option[String],
       blocking: lila.core.pool.Blocking
-  )(using me: Option[User.WithPerfs]): Fu[Processor.HookResult] =
+  )(using me: Option[UserWithPerfs]): Fu[Processor.HookResult] =
     import Processor.HookResult.*
     val config = configBase.fixColor
     config.hook(sri, me, sid, blocking) match

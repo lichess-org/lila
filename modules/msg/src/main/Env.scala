@@ -5,7 +5,7 @@ import com.softwaremill.macwire.*
 import lila.common.Bus
 import lila.common.Json.given
 import lila.core.config.*
-import lila.core.actorApi.socket.remote.TellUserIn
+import lila.core.socket.remote.TellUserIn
 
 @Module
 final class Env(
@@ -17,13 +17,14 @@ final class Env(
     userRepo: lila.user.UserRepo,
     userCache: lila.user.Cached,
     relationApi: lila.core.relation.RelationApi,
-    prefApi: lila.pref.PrefApi,
-    notifyApi: lila.notify.NotifyApi,
+    prefApi: lila.core.pref.PrefApi,
+    notifyApi: lila.core.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
     reportApi: lila.core.report.ReportApi,
     shutupApi: lila.core.shutup.ShutupApi,
-    spam: lila.security.Spam,
+    spam: lila.core.security.SpamApi,
     chatPanicAllowed: lila.core.chat.panic.IsAllowed,
+    textAnalyser: lila.core.shutup.TextAnalyser,
     mongoCache: lila.memo.MongoCache.Api
 )(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator):
 

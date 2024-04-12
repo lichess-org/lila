@@ -4,7 +4,6 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
-import lila.notify.NotifyApi
 import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
@@ -12,14 +11,14 @@ final class Env(
     captcha: lila.core.captcha.CaptchaApi,
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
-    notifyApi: NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     socketKit: lila.core.socket.SocketKit,
-    chatApi: lila.chat.ChatApi,
+    chat: lila.core.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     userJson: lila.user.JsonView,
     db: lila.db.Db
-)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer, lila.user.FlairApi.Getter):
+)(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer, lila.core.user.FlairGet):
 
   lazy val teamRepo    = TeamRepo(db(CollName("team")))
   lazy val memberRepo  = TeamMemberRepo(db(CollName("team_member")))

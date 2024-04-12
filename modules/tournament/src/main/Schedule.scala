@@ -122,7 +122,7 @@ case class Schedule(
   def similarTo(other: Schedule) =
     similarSpeed(other) && sameVariant(other) && sameFreq(other) && sameConditions(other)
 
-  def perfType = PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
+  def perfType = lila.rating.PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
 
   def plan                                  = Schedule.Plan(this, None)
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)

@@ -1,8 +1,8 @@
 package lila.user
 
 import scalalib.ThreadLocalRandom
-
 import scalalib.paginator.Paginator
+
 import lila.db.dsl.{ *, given }
 
 case class Note(
@@ -13,21 +13,18 @@ case class Note(
     mod: Boolean,
     dox: Boolean,
     date: Instant
-):
+) extends lila.core.user.Note:
   def userIds            = List(from, to)
   def isFrom(user: User) = user.id.is(from)
-  def searchable = mod && from.isnt(User.lichessId) && from.isnt(User.watcherbotId) &&
+  def searchable = mod && from.isnt(UserId.lichess) && from.isnt(UserId.watcherbot) &&
     !text.startsWith("Appeal reply:")
 
-final class NoteApi(userRepo: UserRepo, coll: Coll)(using
-    Executor,
-    play.api.libs.ws.StandaloneWSClient
-):
+final class NoteApi(userRepo: UserRepo, coll: Coll)(using Executor) extends lila.core.user.NoteApi:
 
   import reactivemongo.api.bson.*
   private given bsonHandler: BSONDocumentHandler[Note] = Macros.handler[Note]
 
-  def get(user: User, isMod: Boolean)(using me: Me.Id): Fu[List[Note]] =
+  def get(user: User, isMod: Boolean)(using me: MyId): Fu[List[Note]] =
     coll
       .find(
         $doc("to" -> user.id) ++ {
@@ -43,12 +40,16 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using
       .cursor[Note]()
       .list(20)
 
-  def byUserForMod(id: UserId): Fu[List[Note]] =
+  def byUserForMod(id: UserId, max: Max = Max(50)): Fu[List[Note]] =
     coll
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort.desc("date"))
       .cursor[Note]()
-      .list(50)
+      .list(max.value)
+
+  def recentByUserForMod(id: UserId): Fu[Option[Note]] =
+    byUserForMod(id, Max(1))
+      .map(_.headOption.filter(_.date.isAfter(nowInstant.minusMinutes(5))))
 
   def byUsersForMod(ids: List[UserId]): Fu[List[Note]] =
     coll
@@ -57,11 +58,11 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using
       .cursor[Note]()
       .list(100)
 
-  def write(to: User, text: String, modOnly: Boolean, dox: Boolean)(using me: Me): Funit =
+  def write(to: UserId, text: String, modOnly: Boolean, dox: Boolean)(using me: MyId): Funit =
     val note = Note(
       _id = ThreadLocalRandom.nextString(8),
       from = me,
-      to = to.id,
+      to = to,
       text = text,
       mod = modOnly,
       dox = modOnly && dox,
@@ -74,8 +75,7 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using
         coll.insert.one(bson).void
 
   def lichessWrite(to: User, text: String) =
-    userRepo.lichess.flatMapz: lichess =>
-      write(to, text, modOnly = true, dox = false)(using Me(lichess))
+    write(to.id, text, modOnly = true, dox = false)(using UserId.lichessAsMe)
 
   def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 

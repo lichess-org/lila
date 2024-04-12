@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.user.User
+
 import lila.core.simul.Simul
 
 final class ActivityWriteApi(
@@ -39,7 +39,7 @@ final class ActivityWriteApi(
 
   def forumPost(post: lila.core.forum.ForumPostMini): Funit =
     post.userId
-      .filterNot(_.is(User.lichessId))
+      .filterNot(_.is(UserId.lichess))
       .so: userId =>
         update(userId): a =>
           $doc(ActivityFields.forumPosts -> (~a.forumPosts + post.id))

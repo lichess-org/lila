@@ -6,8 +6,10 @@ import play.api.i18n.Lang
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.perfStat.{ PerfStat, PerfStatData }
-import lila.rating.{ Perf, PerfType }
-import lila.user.User
+
+import lila.rating.PerfType
+import lila.core.data.SafeJsonStr
+import lila.rating.GlickoExt.clueless
 
 object perfStat:
 
@@ -115,8 +117,8 @@ object perfStat:
         progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if perf.progress > 0 then tag("green")(dataIcon := licon.ArrowUpRight)(perf.progress)
-          else if perf.progress < 0 then tag("red")(dataIcon := licon.ArrowDownRight)(-perf.progress)
+          if perf.progress > 0 then tag("green")(dataIcon := Icon.ArrowUpRight)(perf.progress)
+          else if perf.progress < 0 then tag("red")(dataIcon := Icon.ArrowDownRight)(-perf.progress)
           else "-"
         ),
         ". ",

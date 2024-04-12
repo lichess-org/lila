@@ -6,7 +6,8 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.core.timeline.{ Propagate, UblogPostLike }
 import lila.core.i18n.Language
-import lila.user.{ Me, User }
+
+import lila.core.perf.UserWithPerfs
 
 object UblogRank:
 
@@ -19,7 +20,7 @@ object UblogRank:
     val HIGH: Tier    = 4
     val BEST: Tier    = 5
 
-    def default(user: User.WithPerfs) =
+    def default(user: UserWithPerfs) =
       if user.marks.troll then Tier.HIDDEN
       else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > 2200)
       then Tier.NORMAL

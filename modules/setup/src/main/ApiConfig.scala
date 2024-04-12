@@ -3,8 +3,9 @@ package lila.setup
 import chess.format.Fen
 import chess.variant.{ Chess960, FromPosition, Variant }
 import chess.{ Clock, Speed }
+import scalalib.model.Days
 
-import lila.core.{ Days, Template }
+import lila.core.data.Template
 import lila.core.game.GameRule
 import lila.lobby.Color
 import lila.rating.PerfType
@@ -21,7 +22,7 @@ final case class ApiConfig(
     rules: Set[GameRule] = Set.empty
 ):
 
-  def perfType: PerfType = PerfType(variant, chess.Speed(days.isEmpty.so(clock)))
+  def perfType: PerfType = lila.rating.PerfType(variant, chess.Speed(days.isEmpty.so(clock)))
 
   def validFen = Variant.isValidInitialFen(variant, position)
 

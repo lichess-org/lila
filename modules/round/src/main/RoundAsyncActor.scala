@@ -11,6 +11,7 @@ import scalalib.actor.AsyncActor
 import lila.core.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
+import lila.core.user.FlairGet
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
@@ -18,7 +19,7 @@ final private class RoundAsyncActor(
     socketSend: SocketSend,
     putUserLag: userLag.Put,
     private var version: SocketVersion
-)(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
+)(using Executor, FlairGet)(using proxy: GameProxy)
     extends AsyncActor(RoundAsyncActor.monitor):
 
   import RoundSocket.Protocol
@@ -52,7 +53,7 @@ final private class RoundAsyncActor(
     def setBye(): Unit =
       bye = true
 
-    private def isHostingSimul: Fu[Boolean] = mightBeSimul.so(userId).so(isSimulHost.apply)
+    private def isHostingSimul: Fu[Boolean] = mightBeSimul.so(userId).so(simulApi.resolve().isSimulHost)
 
     private def timeoutMillis: Long = {
       val base = {
@@ -139,14 +140,12 @@ final private class RoundAsyncActor(
           (userId.is(whitePlayer.userId) && whitePlayer.isOnline) ||
           (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
 
-    case lila.chat.RoundLine(line, watcher) =>
-      lila.chat
-        .JsonView(line)
-        .map: json =>
-          publish(List(line match
-            case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
-            case l: lila.chat.PlayerLine => Event.PlayerMessage(json)
-          ))
+    case lila.chat.RoundLine(line, json, watcher) =>
+      fuccess:
+        publish(List(line match
+          case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
+          case l: lila.chat.PlayerLine => Event.PlayerMessage(json)
+        ))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
       handle(fullId.playerId): pov =>
@@ -165,21 +164,10 @@ final private class RoundAsyncActor(
           }
           .inject(Nil)
 
-    case a: lila.analyse.actorApi.AnalysisProgress =>
-      import lila.tree.{ TreeBuilder, ExportOptions }
+    case lila.core.analyse.AnalysisProgress(payload) =>
       fuccess:
         socketSend:
-          RP.Out.tellRoom(
-            roomId,
-            makeMessage(
-              "analysisProgress",
-              Json.obj(
-                "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
-                "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
-                  TreeBuilder(a.game, a.analysis.some, a.initialFen, ExportOptions())
-              )
-            )
-          )
+          RP.Out.tellRoom(roomId, makeMessage("analysisProgress", payload()))
 
     // round stuff
 
@@ -368,7 +356,7 @@ final private class RoundAsyncActor(
 
     case FishnetStart =>
       proxy.withGame: g =>
-        g.playableByAi.so(player.requestFishnet(g, this))
+        fuccess(g.playableByAi.so(player.requestFishnet(g, this)))
 
     case Tick =>
       proxy.withGameOptionSync { g =>
@@ -507,6 +495,6 @@ object RoundAsyncActor:
       val player: Player,
       val drawer: Drawer,
       val forecastApi: ForecastApi,
-      val isSimulHost: IsSimulHost,
+      val simulApi: lila.core.data.CircularDep[lila.core.simul.SimulApi],
       val jsonView: JsonView
   )

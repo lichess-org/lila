@@ -3,7 +3,7 @@ package lila.challenge
 import lila.common.Bus
 
 import lila.game.{ Game, Pov }
-import lila.core.actorApi.socket.SendTo
+import lila.core.socket.SendTo
 import lila.core.i18n.LangPicker
 import lila.memo.CacheApi.*
 import lila.user.{ LightUserApi, Me, User, UserPerfsRepo, UserRepo }
@@ -156,7 +156,7 @@ final class ChallengeApi(
                     uncacheAndNotify(c)
                     Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
                     c.rematchOf.foreach: gameId =>
-                      import lila.core.actorApi.map.TellIfExists
+                      import lila.core.misc.map.TellIfExists
                       import lila.game.actorApi.NotifyRematch
                       lila.common.Bus
                         .publish(TellIfExists(gameId.value, NotifyRematch(pov.game)), "roundSocket")

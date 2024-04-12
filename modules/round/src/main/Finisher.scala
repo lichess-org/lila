@@ -1,6 +1,6 @@
 package lila.round
 
-import chess.{ Color, DecayingStats, Status }
+import chess.{ Color, ByColor, DecayingStats, Status }
 
 import lila.common.{ Bus, Uptime }
 import lila.game.actorApi.{ AbortedBy, FinishGame }
@@ -8,6 +8,7 @@ import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserApi, UserRepo }
+import lila.core.perf.UserWithPerfs
 
 final private class Finisher(
     gameRepo: GameRepo,
@@ -124,29 +125,31 @@ final private class Finisher(
       userApi
         .pairWithPerfs(game.userIdPair)
         .flatMap: users =>
-          val finish = FinishGame(game, users)
-          updateCountAndPerfs(finish).map: ratingDiffs =>
+          updateCountAndPerfs(game, users).map: ratingDiffs =>
             message.foreach { messenger(game, _) }
             gameRepo.game(game.id).foreach { newGame =>
               newGame.foreach(proxy.setFinishedGame)
-              val newFinish = finish.copy(game = newGame | game)
-              Bus.publish(newFinish, "finishGame")
+              val finish = FinishGame(newGame | game, users)
+              Bus.publish(finish, "finishGame")
               game.userIds.foreach: userId =>
-                Bus.publish(newFinish, s"userFinishGame:$userId")
+                Bus.publish(finish, s"userFinishGame:$userId")
             }
             List(lila.game.Event.EndData(game, ratingDiffs))
 
-  private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
-    (!finish.isVsSelf && !finish.game.aborted).so:
-      finish.users.tupled
-        .so { (white, black) =>
-          crosstableApi.add(finish.game).zip(perfsUpdater.save(finish.game, white, black)).dmap(_._2)
-        }
-        .zip(finish.white.so(incNbGames(finish.game)))
-        .zip(finish.black.so(incNbGames(finish.game)))
+  private def updateCountAndPerfs(
+      game: Game,
+      users: ByColor[Option[UserWithPerfs]]
+  ): Fu[Option[RatingDiffs]] =
+    val isVsSelf = users.tupled.so((w, b) => w._1.is(b._1))
+    (!isVsSelf && !game.aborted).so:
+      users.tupled
+        .so: (white, black) =>
+          crosstableApi.add(game).zip(perfsUpdater.save(game, white, black)).dmap(_._2)
+        .zip(users.white.so(incNbGames(game)))
+        .zip(users.black.so(incNbGames(game)))
         .dmap(_._1._1)
 
-  private def incNbGames(game: Game)(user: User.WithPerfs): Funit =
+  private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
     game.finished.so { user.noBot || game.nonAi }.so {
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
       val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))

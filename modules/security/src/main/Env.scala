@@ -6,7 +6,7 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.Strings
+import lila.core.data.Strings
 import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
@@ -27,6 +27,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     oAuthServer: OAuthServer,
     mongoCache: lila.memo.MongoCache.Api,
+    cookieBaker: play.api.mvc.SessionCookieBaker,
     db: lila.db.Db
 )(using Executor, play.api.Mode, lila.core.i18n.Translator)(using scheduler: Scheduler):
 
@@ -35,6 +36,8 @@ final class Env(
   private val config = appConfig.get[SecurityConfig]("security")
 
   private def hcaptchaPublicConfig = config.hcaptcha.public
+
+  val lilaCookie = wire[LilaCookie]
 
   lazy val firewall = Firewall(
     coll = db(config.collection.firewall),
@@ -57,7 +60,7 @@ final class Env(
 
   private lazy val tor: Tor = wire[Tor]
 
-  lazy val ip2proxy: Ip2Proxy =
+  lazy val ip2proxy: lila.core.security.Ip2ProxyApi =
     if config.ip2Proxy.enabled && config.ip2Proxy.url.nonEmpty then
       def mk = (url: String) => wire[Ip2ProxyServer]
       mk(config.ip2Proxy.url)
@@ -152,5 +155,9 @@ final class Env(
   lazy val csrfRequestHandler = wire[CSRFRequestHandler]
 
   lazy val cli = wire[Cli]
+
+  lazy val coreApi = new lila.core.security.SecurityApi:
+    export api.shareAnIpOrFp
+    export userLogins.getUserIdsWithSameIpAndPrint
 
 private trait Proxy2faSetting

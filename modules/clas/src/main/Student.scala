@@ -1,12 +1,13 @@
 package lila.clas
 
 import scalalib.SecureRandom
+import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.rating.Perf
-import lila.user.{ User, UserPerfs }
+import lila.core.perf.UserPerfs
+import lila.core.perf.UserWithPerfs
 
 case class Student(
-    _id: Student.Id, // userId:clasId
+    @Key("_id") id: Student.Id, // userId:clasId
     userId: UserId,
     clasId: Clas.Id,
     realName: String,
@@ -15,10 +16,6 @@ case class Student(
     created: Clas.Recorded,
     archived: Option[Clas.Recorded]
 ):
-
-  inline def id = _id
-
-  def is(user: User)     = userId == user.id
   def is(other: Student) = id == other.id
 
   def isArchived = archived.isDefined
@@ -26,14 +23,16 @@ case class Student(
 
 object Student:
 
+  given UserIdOf[Student] = _.userId
+
   opaque type Id = String
   object Id extends OpaqueString[Id]
 
-  def id(userId: UserId, clasId: Clas.Id) = Id(s"$userId:$clasId")
+  def makeId(userId: UserId, clasId: Clas.Id) = Id(s"$userId:$clasId")
 
   def make(user: User, clas: Clas, teacherId: UserId, realName: String, managed: Boolean) =
     Student(
-      _id = id(user.id, clas.id),
+      id = makeId(user.id, clas.id),
       userId = user.id,
       clasId = clas.id,
       realName = realName,
@@ -50,12 +49,12 @@ object Student:
     def withPerfs(perfs: UserPerfs) = WithUserPerfs(student, user, perfs)
   case class WithUserPerf(student: Student, user: User, perf: Perf) extends WithUserLike
   case class WithUserPerfs(student: Student, user: User, perfs: UserPerfs) extends WithUserLike:
-    def withPerfs = User.WithPerfs(user, perfs)
+    def withPerfs = UserWithPerfs(user, perfs)
 
   case class WithUserAndManagingClas(withUser: WithUserPerfs, managingClas: Option[Clas]):
     export withUser.*
 
-  case class WithPassword(student: Student, password: User.ClearPassword)
+  case class WithPassword(student: Student, password: lila.user.ClearPassword)
 
   case class ManagedInfo(createdBy: User, clas: Clas)
 
@@ -65,5 +64,5 @@ object Student:
     private val nbChars    = chars.length
     private def secureChar = chars(SecureRandom.nextInt(nbChars))
 
-    def generate = User.ClearPassword:
+    def generate = lila.user.ClearPassword:
       String(Array.fill(7)(secureChar))

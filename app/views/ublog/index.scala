@@ -9,7 +9,6 @@ import scalalib.paginator.Paginator
 import lila.i18n.LangList
 import lila.core.i18n.Language
 import lila.ublog.{ UblogPost, UblogTopic }
-import lila.user.User
 
 object index:
 
@@ -79,7 +78,7 @@ object index:
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
         st.title := "Lichess community blogs"
       ).some,
-      withHrefLangs = lila.core.LangPath(langHref(routes.Ublog.communityAll())).some
+      withHrefLangs = lila.core.app.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
       val langSelections: List[(String, String)] = ("all", "All languages") ::
         lila.i18n.LangPicker

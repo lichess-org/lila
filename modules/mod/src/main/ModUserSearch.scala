@@ -3,17 +3,16 @@ package lila.mod
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.core.EmailAddress
-import lila.user.{ User, UserApi, UserRepo }
+import lila.user.{ UserApi, UserRepo, WithPerfsAndEmails }
 
 final class ModUserSearch(userRepo: UserRepo, userApi: UserApi)(using Executor):
 
-  def apply(query: String): Fu[List[User.WithEmails]] =
+  def apply(query: String): Fu[List[WithPerfsAndEmails]] =
     EmailAddress
       .from(query)
       .map(searchEmail)
       .getOrElse(searchUsername(UserStr(query)))
-      .flatMap(userApi.withEmails)
+      .flatMap(userApi.withPerfsAndEmails)
 
   private def searchUsername(username: UserStr) = userRepo.byId(username).map(_.toList)
 

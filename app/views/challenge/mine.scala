@@ -19,7 +19,7 @@ object mine:
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr"):
-        submitButton(cls := "button button-red text", dataIcon := licon.X)(trans.site.cancel())
+        submitButton(cls := "button button-red text", dataIcon := Icon.X)(trans.site.cancel())
 
     views.html.base.layout(
       title = challengeTitle(c),
@@ -41,7 +41,7 @@ object mine:
                   div(cls := "waiting")(
                     userIdLink(destId.some, cssClass = "target".some),
                     if c.clock.isEmpty then
-                      div(cls := "correspondence-waiting text", dataIcon := licon.Checkmark):
+                      div(cls := "correspondence-waiting text", dataIcon := Icon.Checkmark):
                         "Challenge sent"
                     else spinner,
                     p(trans.site.waitingForOpponent())
@@ -71,7 +71,7 @@ object mine:
                             title    := "Copy URL",
                             cls      := "copy button",
                             dataRel  := "challenge-id",
-                            dataIcon := licon.Link
+                            dataIcon := Icon.Link
                           )
                         ),
                         p(trans.site.theFirstPersonToComeOnThisUrlWillPlayWithYou())

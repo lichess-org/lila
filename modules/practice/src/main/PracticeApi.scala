@@ -4,7 +4,6 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.study.{ ChapterPreview, Study }
-import lila.user.User
 
 final class PracticeApi(
     coll: Coll,

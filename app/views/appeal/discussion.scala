@@ -13,7 +13,6 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
-import lila.user.{ Me, User }
 
 import trans.appeal
 
@@ -93,7 +92,7 @@ object discussion:
               cls  := "button button-empty mod-zone-toggle",
               href := routes.User.mod(appeal.id),
               titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := licon.Agent
+              dataIcon := Icon.Agent
             )
           )
         )
@@ -122,7 +121,7 @@ object discussion:
         as.left
           .exists(_.markedByMe)
           .option(
-            div(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
+            div(dataIcon := Icon.CautionTriangle, cls := "marked-by-me text")(
               "You have marked this user. Appeal should be handled by another moderator"
             )
           ),
@@ -155,7 +154,7 @@ object discussion:
     if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else
       span(
-        userIdLink(User.lichessId.some),
+        userIdLink(UserId.lichess.some),
         isGranted(_.Appeals).option(
           frag(
             " (",
@@ -180,9 +179,9 @@ object discussion:
           form3.actions(
             div(
               select(cls := "appeal-presets")(
-                option(st.value := "")("Presets"),
+                st.option(st.value := "")("Presets"),
                 ps.value.map { case ModPreset(name, text, _) =>
-                  option(
+                  st.option(
                     st.value := text,
                     st.title := text
                   )(name)

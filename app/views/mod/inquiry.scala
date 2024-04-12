@@ -8,7 +8,6 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.report.{ Reason, Report }
-import lila.user.User
 
 object inquiry:
 
@@ -139,7 +138,7 @@ object inquiry:
       div(cls := "actions")(
         isGranted(_.ModMessage).option(
           div(cls := "dropper warn buttons")(
-            iconTag(licon.Envelope),
+            iconTag(Icon.Envelope),
             div:
               env.mod.presets.getPmPresetsOpt.value.map: preset =>
                 postForm(action := routes.Mod.warn(in.user.username, preset.name))(
@@ -152,7 +151,7 @@ object inquiry:
           val url = routes.Mod.engine(in.user.username, !in.user.marks.engine).url
           div(cls := "dropper engine buttons")(
             postForm(action := url, cls := "main", title := "Mark as cheat")(
-              markButton(in.user.marks.engine)(dataIcon := licon.Cogs),
+              markButton(in.user.marks.engine)(dataIcon := Icon.Cogs),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -162,7 +161,7 @@ object inquiry:
           val url = routes.Mod.booster(in.user.username, !in.user.marks.boost).url
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
-              markButton(in.user.marks.boost)(dataIcon := licon.LineGraph),
+              markButton(in.user.marks.boost)(dataIcon := Icon.LineGraph),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -176,7 +175,7 @@ object inquiry:
               title  := (if in.user.marks.troll then "Un-shadowban" else "Shadowban"),
               cls    := "main"
             )(
-              markButton(in.user.marks.troll)(dataIcon := licon.BubbleSpeech),
+              markButton(in.user.marks.troll)(dataIcon := Icon.BubbleSpeech),
               autoNextInput
             ),
             thenForms(url, markButton(false))
@@ -193,7 +192,7 @@ object inquiry:
           )
         },
         div(cls := "dropper more buttons")(
-          iconTag(licon.MoreTriangle),
+          iconTag(Icon.MoreTriangle),
           div(
             isGranted(_.SendToZulip).option {
               val url =
@@ -240,7 +239,7 @@ object inquiry:
           title  := "Dismiss this report as processed. (Hotkey: d)",
           cls    := "process"
         )(
-          submitButton(dataIcon := licon.Checkmark, cls := "fbt"),
+          submitButton(dataIcon := Icon.Checkmark, cls := "fbt"),
           autoNextInput
         ),
         postForm(
@@ -248,7 +247,7 @@ object inquiry:
           title  := "Cancel the inquiry, re-instore the report",
           cls    := "cancel"
         )(
-          submitButton(dataIcon := licon.X, cls := "fbt")(in.alreadyMarked.option(disabled))
+          submitButton(dataIcon := Icon.X, cls := "fbt")(in.alreadyMarked.option(disabled))
         )
       )
     )
@@ -309,13 +308,13 @@ object inquiry:
         }
         .flatten
         .flatMap(UserStr.read)
-        .flatMap(User.validateId)
+        .flatMap(_.validateId)
         .distinct
         .toNel
     }
 
   private val farmWithRegex =
-    ("^Boosting: farms rating points from @(" + User.historicalUsernameRegex.pattern + ")").r.unanchored
+    ("^Boosting: farms rating points from @(" + UserName.historicalRegex.pattern + ")").r.unanchored
   private val sandbagWithRegex =
     "^Sandbagging: throws games to (.+)".r.unanchored
 

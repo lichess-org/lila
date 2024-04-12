@@ -5,13 +5,13 @@ import lila.core.socket.{ protocol as P, * }
 
 final private class TeamSocket(
     socketKit: SocketKit,
-    chat: lila.chat.ChatApi,
+    chat: lila.core.chat.ChatApi,
     api: TeamApi
-)(using Executor, lila.user.FlairApi.Getter):
+)(using Executor, lila.core.user.FlairGet):
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Team)
+  subscribeChat(rooms, _.team)
 
   private lazy val handler: SocketHandler = roomHandler(
     rooms,
@@ -21,7 +21,7 @@ final private class TeamSocket(
     localTimeout = Some: (roomId, modId, suspectId) =>
       api.hasPerm(roomId.into(TeamId), modId, _.Comm) >>&
         api.hasPerm(roomId.into(TeamId), suspectId, _.Comm).not,
-    chatBusChan = _.Team
+    chatBusChan = _.team
   )
 
   private lazy val send = socketKit.send("team-out")

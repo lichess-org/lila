@@ -1,13 +1,13 @@
 package lila.streamer
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import cats.derived.*
 
 import lila.core.i18n.Language
 import lila.memo.PicfitImage
-import lila.user.User
 
 case class Streamer(
-    _id: Streamer.Id,
+    @Key("_id") id: Streamer.Id,
     listed: Streamer.Listed,
     approval: Streamer.Approval,
     picture: Option[PicfitImage.Id],
@@ -22,9 +22,6 @@ case class Streamer(
     updatedAt: Instant,
     lastStreamLang: Option[Language]
 ):
-
-  inline def id = _id
-
   def userId = id.userId
 
   def hasPicture = picture.isDefined
@@ -37,13 +34,24 @@ case class Streamer(
 
 object Streamer:
 
+  opaque type Id = String
+  object Id extends lila.core.userId.OpaqueUserId[Id]
+  opaque type Listed = Boolean
+  object Listed extends YesNo[Listed]
+  opaque type Name = String
+  object Name extends OpaqueString[Name]
+  opaque type Headline = String
+  object Headline extends OpaqueString[Headline]
+  opaque type Description = String
+  object Description extends OpaqueString[Description]
+
   given UserIdOf[Streamer] = _.id.userId
 
   val imageSize = 350
 
   def make(user: User) =
     Streamer(
-      _id = user.id.into(Id),
+      id = user.id.into(Id),
       listed = Listed(true),
       approval = Approval(
         requested = false,
@@ -66,12 +74,6 @@ object Streamer:
       lastStreamLang = none
     )
 
-  opaque type Id = String
-  object Id extends OpaqueUserId[Id]
-
-  opaque type Listed = Boolean
-  object Listed extends YesNo[Listed]
-
   case class Approval(
       requested: Boolean,   // user requests a mod to approve
       granted: Boolean,     // a mod approved
@@ -80,12 +82,6 @@ object Streamer:
       chatEnabled: Boolean, // embed chat inside lichess
       lastGrantedAt: Option[Instant]
   )
-  opaque type Name = String
-  object Name extends OpaqueString[Name]
-  opaque type Headline = String
-  object Headline extends OpaqueString[Headline]
-  opaque type Description = String
-  object Description extends OpaqueString[Description]
 
   case class Twitch(userId: String) derives Eq:
     def fullUrl = s"https://www.twitch.tv/$userId"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">مسابقات</string>
+  <string name="arena">عرصه</string>
+  <string name="arenaTournaments">میدان مسابقات</string>
   <string name="isItRated">آیا رسمی است؟</string>
   <string name="willBeNotified">هنگام شروع تورنومنت به شما اطلاع داده خواهد شد، پس در زمان انتظار بازی کردن در تب های دیگر بلامانع است.</string>
   <string name="isRated">این مسابقات رسمی است و بر درجه‌بندی‌تان اثر می‌گذارد.</string>
@@ -21,7 +22,8 @@
 
 برزرک فقط در حالتی یک امتیاز اضافه میدهد که حداقل 7 حرکت بازی کنید.</string>
   <string name="howIsTheWinnerDecided">برنده چگونه انتخاب میشود؟</string>
-  <string name="howIsTheWinnerDecidedAnswer">بازیکن(ها) با بیشترین امتیاز در پایان زمان تورنومنت به عنوان برنده اعلام خواه(ن)د شد.</string>
+  <string name="howIsTheWinnerDecidedAnswer">بازیکن(ها) با بیشترین امتیاز در پایان زمان مسابقه به عنوان برنده(برندگان) اعلام خواهند شد.
+زمانی که دو یا چند بازیکن تعداد امتیازات یکسانی داشته باشند، ملاک سنجش عملکرد مسابقه به وقت اضافه است.</string>
   <string name="howDoesPairingWork">رویارویی بازیکنان با یکدیگر چگونه انجام میشود؟</string>
   <string name="howDoesPairingWorkAnswer">در آغاز مسابقات، بازیکنان بر اساس درجه‌بندی‌شان مقابل هم قرار می‌گیرند.
 به محض پایان یک بازی، به سَرسَرا برگردید: سپس مقابل بازیکنی نزدیک به رتبه‌تان قرار می‌گیرید. این شیوه، حداقل زمان انتظار را تضمین می‌کند، با این حال، ممکن است با همه بازیکنان این مسابقات روبرو نشوید.
@@ -58,6 +60,28 @@
   <string name="averagePerformance">میانگین عملکرد</string>
   <string name="averageScore">میانگین امتیاز</string>
   <string name="myTournaments">مسابقات من</string>
+  <string name="editTournament">ویرایش مسابقه</string>
+  <string name="editTeamBattle">ویرایش نبرد تیمی</string>
   <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">مدافع</string>
   <string name="pickYourTeam">تیم خود را انتخاب کنید</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">نماینده کدام تیم در این نبرد خواهید بود؟</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">برای شرکت کردن، شما باید عضو یکی از این تیم ها شوید!</string>
+  <string name="created">ایجاد شده</string>
+  <string name="recentlyPlayed">به تازگی بازی شد</string>
+  <string name="bestResults">بهترین نتایج</string>
+  <string name="stats">آمار</string>
+  <string name="tournamentStats">آمار مسابقه</string>
+  <string name="rankAvgHelp">میانگین رتبه دهی، درصدبندی از جایگاه شما است. پایین‌تر بهتر است.
+
+به عنوان مثال، رتبه 3 در مسابقاتی با 100 بازیکن = 3٪. رتبه 10 در مسابقاتی با 1000 بازیکن = 1٪.</string>
+  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">میانه</string>
+  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">همه میانگین ها در این صفحه %s هستند.</string>
+  <string name="total">همه</string>
+  <string name="pointsAvg">میانگین امتیازات</string>
+  <string name="pointsSum">جمع امتیازات</string>
+  <string name="rankAvg">میانگین رتبه بندی</string>
+  <string name="tournamentWinners">برندگان مسابقات</string>
+  <string name="tournamentShields">مسابقات سپرها</string>
+  <string name="onlyTitled">تنها بازیکنان عنوان دار</string>
+  <string name="onlyTitledHelp">نیاز به یک عنوان رسمی برای پیوستن به مسابقه است</string>
 </resources>

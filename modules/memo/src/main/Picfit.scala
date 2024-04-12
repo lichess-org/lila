@@ -10,7 +10,7 @@ import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 case class PicfitImage(
     _id: PicfitImage.Id,

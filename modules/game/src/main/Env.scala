@@ -25,9 +25,9 @@ final class Env(
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     baseUrl: BaseUrl,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     mongoCache: lila.memo.MongoCache.Api,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     cacheApi: lila.memo.CacheApi
 )(using system: ActorSystem, scheduler: Scheduler)(using
     lila.core.i18n.Translator,
@@ -37,19 +37,19 @@ final class Env(
 ):
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
 
-  lazy val gameRepo = new GameRepo(db(config.gameColl))
+  val gameRepo = new GameRepo(db(config.gameColl))
 
-  lazy val idGenerator = wire[IdGenerator]
+  val idGenerator = wire[IdGenerator]
+
+  val divider = wire[Divider]
+
+  val cached: Cached = wire[Cached]
+
+  val uciMemo = wire[UciMemo]
 
   lazy val gifExport = new GifExport(ws, lightUserApi, baseUrl, config.gifUrl)
 
-  lazy val divider = wire[Divider]
-
-  lazy val cached: Cached = wire[Cached]
-
   lazy val paginator = wire[PaginatorBuilder]
-
-  lazy val uciMemo = wire[UciMemo]
 
   lazy val pgnDump = wire[PgnDump]
 

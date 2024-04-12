@@ -9,7 +9,6 @@ import lila.common.HTTPRequest
 import lila.i18n.LangPicker
 import lila.oauth.OAuthScope
 import lila.security.{ AppealUser, FingerPrintedUser }
-import lila.user.Me
 
 trait RequestContext(using Executor):
 
@@ -85,7 +84,7 @@ trait RequestContext(using Executor):
           FingerPrintedUser(me, true).some
         case Some(Right(d)) if !env.net.isProd =>
           d.copy(me = d.me.map:
-            _.addRole(lila.security.Permission.Beta.dbKey)
+            _.addRole(lila.core.perm.Permission.Beta.dbKey)
           ).some
         case Some(Right(d)) => d.some
         case _              => none

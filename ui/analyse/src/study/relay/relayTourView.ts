@@ -11,31 +11,29 @@ import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
-import { makeChat } from '../../view/components';
+import { makeChat, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
 import { renderStreamerMenu, renderPinnedImage } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
 import { leaderboardView } from './relayLeaderboard';
 import { gameLinksListener } from '../studyChapters';
 
-export default function (ctrl: AnalyseCtrl): VNode | undefined {
-  const study = ctrl.study,
-    relay = study?.relay;
-  if (!study || !relay?.tourShow()) return undefined;
-  const tab = relay.tab();
+export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
+  const tab = ctx.relay.tab();
   const content =
     tab == 'overview'
-      ? overview(relay, ctrl)
+      ? overview(ctx)
       : tab == 'boards'
-      ? games(relay, study, ctrl)
+      ? games(ctx)
       : tab == 'teams'
-      ? teams(relay, study, ctrl)
-      : leaderboard(relay, ctrl);
+      ? teams(ctx)
+      : leaderboard(ctx);
 
   return h('div.box.relay-tour', content);
 }
 
-export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) => {
+export const tourSide = (ctx: RelayViewContext) => {
+  const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
   return [
     h(
@@ -97,18 +95,18 @@ const startCountdown = (relay: RelayCtrl) => {
   ]);
 };
 
-const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
-  ...header(relay, ctrl),
-  relay.leaderboard && leaderboardView(relay.leaderboard),
+const leaderboard = (ctx: RelayViewContext) => [
+  ...header(ctx),
+  ctx.relay.leaderboard && leaderboardView(ctx.relay.leaderboard),
 ];
 
-const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
-  ...header(relay, ctrl),
-  relay.data.tour.markup
+const overview = (ctx: RelayViewContext) => [
+  ...header(ctx),
+  ctx.relay.data.tour.markup
     ? h('div.relay-tour__markup', {
-        hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
+        hook: innerHTML(ctx.relay.data.tour.markup, () => ctx.relay.data.tour.markup!),
       })
-    : h('div.relay-tour__markup', relay.data.tour.description),
+    : h('div.relay-tour__markup', ctx.relay.data.tour.description),
 ];
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
@@ -183,22 +181,22 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
   ]);
 };
 
-const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
-  ...header(relay, ctrl),
-  study.chapters.list.looksNew() ? undefined : multiBoardView(study.multiBoard, study),
+const games = (ctx: RelayViewContext) => [
+  ...header(ctx),
+  ctx.study.chapters.list.looksNew() ? undefined : multiBoardView(ctx.study.multiBoard, ctx.study),
 ];
 
-const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
-  ...header(relay, ctrl),
-  relay.teams && teamsView(relay.teams, study.chapters.list),
+const teams = (ctx: RelayViewContext) => [
+  ...header(ctx),
+  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list),
 ];
 
-const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
+const header = (ctx: RelayViewContext) => {
+  const { ctrl, relay, allowVideo } = ctx;
   const d = relay.data,
     study = ctrl.study!,
     group = d.group,
-    embedVideo =
-      d.videoUrls && window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
+    embedVideo = d.videoUrls && allowVideo;
 
   return [
     h('div.spacer'),
@@ -215,7 +213,7 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
         embedVideo
           ? renderVideoPlayer(relay)
           : relay.pinStreamer() && d.pinned?.image
-          ? renderPinnedImage(relay)
+          ? renderPinnedImage(ctx)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
           : study.members.isOwner()
@@ -238,6 +236,9 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
           {
             name: 'Subscribe',
             id: 'tour-subscribe',
+            title:
+              'Subscribe to be notified when each round starts. You can toggle bell or push ' +
+              'notifications for broadcasts in your account preferences.',
             cls: 'relay-tour__subscribe',
             checked: relay.data.isSubscribed,
             change: (v: boolean) => {

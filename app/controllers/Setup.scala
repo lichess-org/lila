@@ -6,11 +6,11 @@ import play.api.mvc.{ Request, Result }
 import views.*
 
 import lila.app.{ *, given }
-import lila.core.{ IpAddress, Preload }
+import lila.core.net.IpAddress
 import lila.common.HTTPRequest
 import lila.game.{ AnonCookie, Pov }
 import lila.memo.RateLimit
-import lila.rating.Perf
+
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.core.socket.Sri
@@ -54,7 +54,7 @@ final class Setup(
               processor.ai(config).flatMap { pov =>
                 negotiateApi(
                   html = redirectPov(pov),
-                  api = _ => env.api.roundApi.player(pov, Preload.none, none).map(Created(_))
+                  api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map(Created(_))
                 )
               }
           )
@@ -136,7 +136,7 @@ final class Setup(
                 AnonHookRateLimit(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
                   for
                     me <- ctx.user.soFu(env.user.api.withPerfs)
-                    given Perf = me.fold(Perf.default)(_.perfs(userConfig.perfType))
+                    given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
                     blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
                     res <- processor.hook(
                       userConfig.withinLimits,
@@ -247,7 +247,7 @@ final class Setup(
     if ctx.isAuth then redir
     else
       redir.withCookies(
-        env.lilaCookie.cookie(
+        env.security.lilaCookie.cookie(
           AnonCookie.name,
           pov.playerId.value,
           maxAge = AnonCookie.maxAge.some,

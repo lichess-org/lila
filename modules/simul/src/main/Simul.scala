@@ -7,8 +7,10 @@ import chess.{ Color, Speed }
 import scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
-import lila.user.User
+
 import lila.core.rating.Score
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestPerf
 
 case class Simul(
     @Key("_id") id: SimulId,
@@ -108,11 +110,11 @@ case class Simul(
 
   def perfTypes: List[PerfType] =
     variants.map:
-      PerfType(_, Speed(clock.config.some))
+      lila.rating.PerfType(_, Speed(clock.config.some))
 
   def mainPerfType =
     perfTypes
-      .find(pt => PerfType.variantOf(pt).standard)
+      .find(pt => lila.rating.PerfType.variantOf(pt).standard)
       .orElse(perfTypes.headOption)
       .getOrElse(PerfType.Rapid)
 
@@ -146,7 +148,7 @@ case class Simul(
 object Simul:
 
   def make(
-      host: User.WithPerfs,
+      host: UserWithPerfs,
       name: String,
       clock: SimulClock,
       variants: List[Variant],
@@ -157,7 +159,7 @@ object Simul:
       featurable: Option[Boolean],
       conditions: SimulCondition.All
   ): Simul =
-    val hostPerf = host.perfs.bestPerf(variants.map { PerfType(_, Speed(clock.config.some)) })
+    val hostPerf = host.perfs.bestPerf(variants.map { lila.rating.PerfType(_, Speed(clock.config.some)) })
     Simul(
       id = SimulId(ThreadLocalRandom.nextString(8)),
       name = name,

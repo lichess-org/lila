@@ -34,7 +34,7 @@ object bits:
         h1(
           a(
             cls      := "is4 text",
-            dataIcon := licon.Back,
+            dataIcon := Icon.Back,
             href     := s"${routes.Video.index}?${control.queryString}"
           ),
           name
@@ -56,7 +56,7 @@ object bits:
         h1(
           a(
             cls      := "is4 text",
-            dataIcon := licon.Back,
+            dataIcon := Icon.Back,
             href     := s"${routes.Video.index}"
           ),
           "Video Not Found!"
@@ -73,7 +73,7 @@ object bits:
     layout(title = s"Tags • Free Chess Videos", control = control)(
       boxTop(
         h1(
-          a(cls := "text", dataIcon := licon.Back, href := s"${routes.Video.index}?${control.queryString}")(
+          a(cls := "text", dataIcon := Icon.Back, href := s"${routes.Video.index}?${control.queryString}")(
             "All ",
             ts.size,
             " video tags"

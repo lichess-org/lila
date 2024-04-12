@@ -42,7 +42,7 @@ final class IrwinStream:
         "engine" -> req.suspect.user.marks.engine,
         "games"  -> req.suspect.user.count.rated
       ),
-      "games" -> req.games.map { case (game, analysis) =>
+      "games" -> req.games.map { (game, analysis) =>
         val moveTimes = game.clockHistory.isDefined.so(game.moveTimes.map(_.map(_.centis)))
         Json.obj(
           "id"    -> game.id,

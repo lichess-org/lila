@@ -32,8 +32,8 @@ final class TournamentApi(
     pairingSystem: arena.PairingSystem,
     callbacks: TournamentApi.Callbacks,
     socket: TournamentSocket,
-    tellRound: lila.round.TellRound,
-    roundSocket: lila.round.RoundSocket,
+    roundApi: lila.game.core.RoundApi,
+    gameProxy: lila.game.core.GameProxy,
     trophyApi: lila.user.TrophyApi,
     colorHistoryApi: ColorHistoryApi,
     verify: TournamentCondition.Verify,
@@ -41,8 +41,7 @@ final class TournamentApi(
     pause: Pause,
     waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi,
-    proxyRepo: lila.round.GameProxyRepo
+    lightUserApi: lila.user.LightUserApi
 )(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator)
     extends lila.core.tournament.TournamentApi:
 
@@ -302,7 +301,7 @@ final class TournamentApi(
                     data.team match
                       case None if prevPlayer.isDefined => proceedWithTeam(none) // re-join ongoing
                       case Some(team) if battle.teams.contains(team) =>
-                        getMyTeamIds(me).flatMap: myTeams =>
+                        getMyTeamIds(me.lightMe).flatMap: myTeams =>
                           if myTeams.has(team) then proceedWithTeam(team.some)
                           else fuccess(JoinResult.MissingTeam)
                       case _ => fuccess(JoinResult.MissingTeam)
@@ -345,13 +344,12 @@ final class TournamentApi(
   def selfPause(tourId: TourId, userId: UserId): Funit =
     withdraw(tourId, userId, isPause = true, isStalling = false)
 
-  private def stallPause(tourId: TourId, userId: UserId): Funit =
-    withdraw(tourId, userId, isPause = false, isStalling = true)
-
-  private[tournament] def sittingDetected(game: Game, player: UserId): Funit =
-    game.tournamentId.so { stallPause(_, player) }
-
-  private def withdraw(tourId: TourId, userId: UserId, isPause: Boolean, isStalling: Boolean): Funit =
+  private[tournament] def withdraw(
+      tourId: TourId,
+      userId: UserId,
+      isPause: Boolean,
+      isStalling: Boolean
+  ): Funit =
     Parallel(tourId, "withdraw")(cached.tourCache.enterable):
       case tour if tour.isCreated =>
         (playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)).andDo {
@@ -379,13 +377,13 @@ final class TournamentApi(
     }
 
   private[tournament] def berserk(gameId: GameId, userId: UserId): Funit =
-    proxyRepo.game(gameId).flatMap {
+    gameProxy.game(gameId).flatMap {
       _.filter(_.berserkable).so { game =>
         game.tournamentId.so { tourId =>
           pairingRepo.findPlaying(tourId, userId).flatMap {
             case Some(pairing) if !pairing.berserkOf(userId) =>
-              (pairing.colorOf(userId)).so { color =>
-                roundSocket.rounds.ask(gameId) { GoBerserk(color, _) }.flatMapz {
+              pairing.colorOf(userId).so { color =>
+                roundApi.ask(gameId)(GoBerserk(color, _)).flatMapz {
                   pairingRepo.setBerserk(pairing, userId)
                 }
               }
@@ -478,7 +476,7 @@ final class TournamentApi(
           tour.isStarted.so:
             pairingRepo.findPlaying(tour.id, userId).map {
               _.foreach: currentPairing =>
-                tellRound(currentPairing.gameId, AbortForce)
+                roundApi.tell(currentPairing.gameId, AbortForce)
             } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
               pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
                 uids.toList.traverse_(recomputePlayerAndSheet(tour))

@@ -3,7 +3,15 @@ import { VNode } from 'snabbdom';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import * as licon from 'common/licon';
-import { bind, bindNonPassive, onInsert, dataIcon, VNodeKids, looseH as h } from 'common/snabbdom';
+import {
+  bind,
+  bindNonPassive,
+  onInsert,
+  dataIcon,
+  VNodeKids,
+  looseH as h,
+  MaybeVNode,
+} from 'common/snabbdom';
 import { playable } from 'game';
 import { bindMobileMousedown, isMobile } from 'common/device';
 import * as materialView from 'game/view/material';
@@ -28,7 +36,6 @@ import { render as renderTreeView } from '../treeView/treeView';
 import * as gridHacks from './gridHacks';
 import { dispatchChessgroundResize } from 'common/resize';
 import serverSideUnderboard from '../serverSideUnderboard';
-
 import StudyCtrl from '../study/studyCtrl';
 import RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
@@ -38,6 +45,7 @@ export interface ViewContext {
   deps?: typeof studyDeps;
   study?: StudyCtrl;
   relay?: RelayCtrl;
+  allowVideo?: boolean;
   concealOf?: ConcealOf;
   showCevalPvs: boolean;
   menuIsOpen: boolean;
@@ -46,14 +54,17 @@ export interface ViewContext {
   playerStrips: [VNode, VNode] | undefined;
   gaugeOn: boolean;
   needsInnerCoords: boolean;
-  tourUi?: VNode;
+  hasRelayTour: boolean;
 }
+
 export interface StudyViewContext extends ViewContext {
   study: StudyCtrl;
   deps: typeof studyDeps;
 }
+
 export interface RelayViewContext extends StudyViewContext {
   relay: RelayCtrl;
+  allowVideo: boolean;
 }
 
 export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewContext {
@@ -71,12 +82,12 @@ export function viewContext(ctrl: AnalyseCtrl, deps?: typeof studyDeps): ViewCon
     playerStrips: playerBars ? undefined : renderPlayerStrips(ctrl),
     gaugeOn: ctrl.showEvalGauge(),
     needsInnerCoords: ctrl.data.pref.showCaptured || !!ctrl.showEvalGauge() || !!playerBars,
-    tourUi: deps?.relayTour(ctrl),
+    hasRelayTour: ctrl.study?.relay?.tourShow() || false,
   };
 }
 
 export function renderMain(
-  { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, tourUi }: ViewContext,
+  { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
   classes: { [key: string]: boolean },
   kids: VNodeKids,
 ): VNode {
@@ -90,7 +101,7 @@ export function renderMain(
           if (!!playerBars != document.body.classList.contains('header-margin')) {
             $('body').toggleClass('header-margin', !!playerBars);
           }
-          !tourUi && makeChat(ctrl, c => elm.appendChild(c));
+          !hasRelayTour && makeChat(ctrl, c => elm.appendChild(c));
           gridHacks.start(elm);
         },
         update(_, _2) {
@@ -107,7 +118,7 @@ export function renderMain(
         'gauge-on': gaugeOn,
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,
-        'has-relay-tour': !!tourUi,
+        'has-relay-tour': hasRelayTour,
         'is-relay': ctrl.study?.relay !== undefined,
         'analyse-hunter': ctrl.opts.hunter,
         'analyse--wiki': !!ctrl.wiki && !ctrl.study,
@@ -117,10 +128,10 @@ export function renderMain(
   );
 }
 
-export function renderTools({ ctrl, deps, concealOf }: ViewContext, firstKid?: VNode) {
+export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, embedded?: MaybeVNode) {
   return h(addChapterId(ctrl.study, 'div.analyse__tools'), [
     h('div.spacer'), // prevent grid container from sizing action menu and move list differently in wide mode
-    firstKid,
+    allowVideo && embedded,
     ...(ctrl.actionMenu()
       ? [...cevalView.renderCeval(ctrl), h('div'), actionMenu(ctrl)]
       : [

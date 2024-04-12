@@ -8,9 +8,8 @@ import play.api.{ Configuration, Mode }
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.common.config.*
-import lila.core.actorApi.Announce
-import lila.core.actorApi.lpv.*
-import lila.user.User
+import lila.socket.Announce
+import lila.core.misc.lpv.*
 
 @Module
 final class Env(
@@ -142,5 +141,5 @@ final class Env(
     lila.mon.bus.classifiers.update(lila.common.Bus.size())
     lila.mon.jvm.threads()
     // ensure the Lichess user is online
-    socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
-    userEnv.repo.setSeenAt(User.lichessId)
+    socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + UserId.lichess)
+    userEnv.repo.setSeenAt(UserId.lichess)

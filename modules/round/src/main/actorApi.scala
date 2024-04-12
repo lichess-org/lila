@@ -4,7 +4,7 @@ import chess.format.Uci
 import chess.{ Color, MoveMetrics }
 import play.api.libs.json.JsObject
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.core.socket.SocketVersion
 
 private case class HumanPlay(

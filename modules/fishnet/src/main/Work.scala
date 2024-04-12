@@ -5,7 +5,7 @@ import chess.format.{ Fen, Uci }
 import chess.variant.Variant
 import scalalib.ThreadLocalRandom
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 sealed trait Work:
   def _id: Work.Id
@@ -59,7 +59,7 @@ object Work:
   ):
 
     override def toString =
-      if system then lila.user.User.lichessId.value
+      if system then UserId.lichess.value
       else userId.value
 
   case class Clock(wtime: Int, btime: Int, inc: chess.Clock.IncrementSeconds)

@@ -2,9 +2,10 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.Json.given
 
 import lila.app.{ *, given }
-import lila.core.{ IpAddress, config }
+import lila.core.net.IpAddress
 import lila.team.{ Team as TeamModel, TeamSecurity }
 
 import Api.ApiResult
@@ -24,14 +25,13 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def all(page: Int) = Anon:
     import env.team.jsonView.given
-    import lila.common.Json.paginatorWrite
     JsonOk:
       for
         pager <- paginator.popularTeamsWithPublicLeaders(page)
         _     <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
       yield pager
 
-  def show(id: TeamId) = Open:
+  def show(id: TeamId) = OpenOrScoped(): ctx ?=>
     JsonOptionOk:
       api
         .teamEnabled(id)
@@ -43,11 +43,13 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
             _           <- env.user.lightUserApi.preloadMany(withLeaders.publicLeaders)
           yield some:
             import env.team.jsonView.given
+            import lila.common.Json.given
             Json.toJsObject(withLeaders) ++ Json
               .obj(
                 "joined"    -> joined,
                 "requested" -> requested
               )
+              .add("descriptionPrivate" -> team.descPrivate.ifTrue(joined))
 
   def users(teamId: TeamId) = AnonOrScoped(_.Team.Read): ctx ?=>
     Found(api.teamEnabled(teamId)): team =>
@@ -66,7 +68,6 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def search(text: String, page: Int) = Anon:
     import env.team.jsonView.given
-    import lila.common.Json.paginatorWrite
     JsonOk:
       if text.trim.isEmpty
       then paginator.popularTeamsWithPublicLeaders(page)

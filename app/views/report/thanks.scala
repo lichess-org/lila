@@ -33,7 +33,7 @@ fetch(this.dataset.action, {method:'post'})
               attr("data-action") := routes.Relation.block(userId),
               cls                 := "report-block button",
               st.title            := trans.site.block.txt()
-            )(span(cls := "text", dataIcon := licon.NotAllowed)("Block ", titleNameOrId(userId)))
+            )(span(cls := "text", dataIcon := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
           )
         ),
         br,

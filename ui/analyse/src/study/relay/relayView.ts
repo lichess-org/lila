@@ -1,13 +1,12 @@
 import { view as cevalView } from 'ceval';
 import { onClickAway } from 'common';
-import { looseH as h, onInsert, bind } from 'common/snabbdom';
+import { looseH as h, onInsert, bind, MaybeVNode, VNode } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
-import type * as studyDeps from '../../study/studyDeps';
-import { tourSide } from '../../study/relay/relayTourView';
+import type * as studyDeps from '../studyDeps';
+import { tourSide, renderRelayTour } from './relayTourView';
 import { renderVideoPlayer, player } from './videoPlayerView';
-import RelayCtrl from './relayCtrl';
 import {
   type RelayViewContext,
   viewContext,
@@ -17,20 +16,21 @@ import {
   renderTools,
   renderUnderboard,
 } from '../../view/components';
+import RelayCtrl from './relayCtrl';
 
 export function relayView(
   ctrl: AnalyseCtrl,
   study: studyDeps.StudyCtrl,
   relay: RelayCtrl,
   deps: typeof studyDeps,
-) {
-  const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay },
-    { wide, tinyBoard } = queryBody();
+): VNode {
+  const ctx: RelayViewContext = { ...viewContext(ctrl, deps), study, deps, relay, allowVideo: allowVideo() };
+  const { wide, tinyBoard } = queryBody();
   return renderMain(ctx, { wide: wide, 'with-video': !!relay.data.videoUrls, 'tiny-board': tinyBoard }, [
     ctrl.keyboardHelp && keyboardView(ctrl),
     deps.studyView.overboard(study),
-    ...(ctx.tourUi
-      ? [ctx.tourUi, ...tourSide(ctrl, study, relay), deps.relayManager(relay, study)]
+    ...(ctx.hasRelayTour
+      ? [renderRelayTour(ctx), ...tourSide(ctx), deps.relayManager(relay, study)]
       : renderBoardView(ctx, wide)),
   ]);
 }
@@ -73,11 +73,11 @@ function renderBoardView(ctx: RelayViewContext, wide: boolean) {
   return [
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
-    wide && renderImageOrPlayer(relay),
-    renderTools(ctx, wide ? undefined : renderImageOrPlayer(relay)),
+    wide && renderEmbedPlaceholder(ctx),
+    renderTools(ctx, wide ? undefined : renderEmbedPlaceholder(ctx)),
     renderControls(ctrl),
     renderUnderboard(ctx),
-    ...tourSide(ctrl, study, relay),
+    ...tourSide(ctx),
     deps.relayManager(relay, study),
   ];
 }
@@ -107,22 +107,14 @@ export function renderStreamerMenu(relay: RelayCtrl) {
   );
 }
 
-function renderImageOrPlayer(relay: RelayCtrl) {
-  return relay.data.videoUrls
-    ? renderVideoPlayer(relay)
-    : relay.pinStreamer() && relay.allowPinnedImageOnUniboards()
-    ? renderPinnedImage(relay)
-    : undefined;
-}
-
-export function renderPinnedImage(relay: RelayCtrl) {
+export function renderPinnedImage(ctx: RelayViewContext): MaybeVNode {
+  const { allowVideo, relay } = ctx;
   if (!relay.pinStreamer() || !relay.data.pinned?.image) return undefined;
   return h('img.link', {
     attrs: { src: relay.data.pinned.image },
     hook: bind('click', () => {
-      if (window.getComputedStyle(document.body).getPropertyValue('--allow-video') !== 'true') {
-        const url = `${window.location.origin}/streamer/${relay.data.pinned!.userId}`;
-        window.open(url, '_blank', 'noopener');
+      if (!allowVideo) {
+        window.open(`${window.location.origin}/streamer/${relay.data.pinned!.userId}`, '_blank', 'noopener');
         return;
       }
       const url = new URL(location.href);
@@ -130,4 +122,16 @@ export function renderPinnedImage(relay: RelayCtrl) {
       window.location.replace(url);
     }),
   });
+}
+
+export function allowVideo(): boolean {
+  return window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
+}
+
+function renderEmbedPlaceholder(ctx: RelayViewContext): MaybeVNode {
+  return ctx.relay.data.videoUrls
+    ? renderVideoPlayer(ctx.relay)
+    : ctx.relay.pinStreamer() && ctx.relay.allowPinnedImageOnUniboards()
+    ? renderPinnedImage(ctx)
+    : undefined;
 }

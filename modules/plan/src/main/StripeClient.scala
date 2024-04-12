@@ -7,9 +7,7 @@ import play.api.libs.ws.DefaultBodyWritables.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
 
-import lila.core.EmailAddress
 import lila.core.config.*
-import lila.user.User
 
 final private class StripeClient(ws: StandaloneWSClient, config: StripeClient.Config)(using
     Executor,

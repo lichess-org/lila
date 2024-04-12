@@ -12,14 +12,14 @@ import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
 import lila.tree.ExportOptions
 import lila.round.{ Forecast, JsonView }
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.Node.partitionTreeJsonWriter
-import lila.user.{ GameUsers, User }
+import lila.core.user.GameUsers
 import lila.core.i18n.Translate
-import lila.core.Preload
+import lila.core.data.Preload
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -35,7 +35,8 @@ final private[api] class RoundApi(
     getLightTeam: lila.core.team.LightTeam.GetterSync,
     userApi: lila.user.UserApi,
     prefApi: lila.pref.PrefApi,
-    getLightUser: lila.core.LightUser.GetterSync
+    getLightUser: lila.core.LightUser.GetterSync,
+    userLag: lila.socket.UserLagCache
 )(using Executor, lila.core.i18n.Translator):
 
   def player(
@@ -205,7 +206,7 @@ final private[api] class RoundApi(
 
   private def withOpponentSignal(pov: Pov)(json: JsObject) =
     if pov.game.speed <= chess.Speed.Bullet then
-      json.add("opponentSignal", pov.opponent.userId.flatMap(lila.socket.UserLagCache.getLagRating))
+      json.add("opponentSignal", pov.opponent.userId.flatMap(userLag.getLagRating))
     else json
 
   private def withPuzzleOpening(
@@ -246,7 +247,7 @@ final private[api] class RoundApi(
     jsonFu.flatMap { withExternalEngines(me, _) }
 
   def withExternalEngines(me: Option[User], json: JsObject): Fu[JsObject] =
-    me.so(externalEngineApi.list)
+    me.so(u => externalEngineApi.list(u.id))
       .map: engines =>
         json.add("externalEngines", engines.nonEmpty.option(engines))
 

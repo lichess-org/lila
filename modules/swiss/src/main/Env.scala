@@ -18,12 +18,12 @@ final class Env(
     userApi: lila.user.UserApi,
     onStart: lila.core.game.OnStart,
     socketKit: lila.core.socket.SocketKit,
-    chatApi: lila.chat.ChatApi,
+    chat: lila.core.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
-    historyApi: lila.history.HistoryApi,
-    gameProxyRepo: lila.round.GameProxyRepo,
-    roundSocket: lila.round.RoundSocket,
+    historyApi: lila.core.history.HistoryApi,
+    gameProxy: lila.game.core.GameProxy,
+    roundApi: lila.game.core.RoundApi,
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: BaseUrl
 )(using
@@ -33,7 +33,7 @@ final class Env(
     akka.stream.Materializer,
     lila.game.IdGenerator,
     play.api.Mode,
-    lila.user.FlairApi.Getter
+    lila.core.user.FlairGet
 ):
 
   private val mongo = new SwissMongo(

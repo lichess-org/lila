@@ -7,7 +7,7 @@ import scala.util.{ Failure, Success, Try }
 import scalalib.actor.AsyncActorSequencer
 
 import lila.core.lilaism.LilaNoStackTrace
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
 
 import Client.Skill

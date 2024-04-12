@@ -6,6 +6,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
+import lila.core.data.RichText
 
 object show:
 
@@ -48,12 +49,12 @@ object show:
             frag(
               if c.coach.listed.value then p("This page is now public.")
               else "This page is not public yet. ",
-              a(href := routes.Coach.edit, cls := "text", dataIcon := licon.Pencil)("Edit my coach profile")
+              a(href := routes.Coach.edit, cls := "text", dataIcon := Icon.Pencil)("Edit my coach profile")
             )
           else
             a(
               cls      := "text button button-empty",
-              dataIcon := licon.BubbleSpeech,
+              dataIcon := Icon.BubbleSpeech,
               href     := s"${routes.Msg.convo(c.user.username)}"
             )(sendPM()),
         ),

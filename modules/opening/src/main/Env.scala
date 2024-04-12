@@ -16,7 +16,7 @@ final class Env(
     pgnDump: PgnDump,
     cacheApi: CacheApi,
     appConfig: Configuration,
-    cookieBaker: lila.core.LilaCookie,
+    cookieBaker: lila.core.security.LilaCookie,
     ws: StandaloneWSClient
 )(using Executor, Scheduler, lila.core.i18n.Translator):
 

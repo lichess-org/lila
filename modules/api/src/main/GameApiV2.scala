@@ -18,7 +18,7 @@ import lila.game.{ Divider, Game, Pov, Query }
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
-import lila.user.{ Me, User }
+
 import lila.core.i18n.Translate
 
 final class GameApiV2(

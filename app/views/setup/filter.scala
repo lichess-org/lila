@@ -78,11 +78,11 @@ object filter:
           button(
             tpe      := "reset",
             cls      := "button button-empty button-red text reset",
-            dataIcon := licon.NotAllowed
+            dataIcon := Icon.NotAllowed
           )(
             trans.site.reset()
           ),
-          submitButton(cls := "button button-green text apply", dataIcon := licon.Checkmark)(
+          submitButton(cls := "button button-green text apply", dataIcon := Icon.Checkmark)(
             trans.site.apply()
           )
         )

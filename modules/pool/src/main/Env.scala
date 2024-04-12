@@ -11,15 +11,16 @@ final class Env(
     perfsRepo: lila.user.UserPerfsRepo,
     gameRepo: lila.game.GameRepo,
     idGenerator: lila.game.IdGenerator,
-    playbanApi: lila.playban.PlaybanApi
+    HasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
+    rageSitOf: lila.core.playban.RageSitOf
 )(using Executor, akka.actor.ActorSystem, Scheduler):
 
-  private lazy val hookThieve = wire[HookThieve]
+  private val hookThieve = wire[HookThieve]
 
-  private val onStart = (gameId: GameId) => Bus.publish(Game.OnStart(gameId), "gameStartId")
+  val onStart = (gameId: GameId) => Bus.publish(Game.OnStart(gameId), "gameStartId")
 
-  private lazy val gameStarter = wire[GameStarter]
+  private val gameStarter = wire[GameStarter]
 
-  lazy val api = wire[PoolApi]
+  val api = wire[PoolApi]
 
   export PoolList.{ all, isClockCompatible }

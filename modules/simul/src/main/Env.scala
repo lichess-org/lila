@@ -7,6 +7,7 @@ import lila.common.Bus
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 import lila.core.socket.{ GetVersion, SocketVersion }
+import lila.core.user.FlairGet
 
 @Module
 private class SimulConfig(
@@ -23,16 +24,16 @@ final class Env(
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
-    chatApi: lila.chat.ChatApi,
+    chat: lila.core.chat.ChatApi,
     lightUser: lila.core.LightUser.GetterFallback,
     onGameStart: lila.core.game.OnStart,
     cacheApi: lila.memo.CacheApi,
-    historyApi: lila.history.HistoryApi,
+    historyApi: lila.core.history.HistoryApi,
     socketKit: lila.core.socket.SocketKit,
     socketReq: lila.core.socket.SocketRequester,
-    proxyRepo: lila.round.GameProxyRepo,
+    gameProxy: lila.game.core.GameProxy,
     isOnline: lila.core.socket.IsOnline
-)(using Executor, Scheduler, play.api.Mode, lila.user.FlairApi.Getter):
+)(using Executor, Scheduler, play.api.Mode, FlairGet):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 
@@ -47,8 +48,6 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   private val simulSocket = wire[SimulSocket]
-
-  val isHosting = lila.round.IsSimulHost(u => api.currentHostIds.dmap(_ contains u))
 
   val allCreatedFeaturable = cacheApi.unit[List[Simul]]:
     _.refreshAfterWrite(3 seconds).buildAsyncFuture(_ => repo.allCreatedFeaturable)
@@ -75,13 +74,10 @@ final class Env(
       api.ejectCheater(userId)
       ()
     },
-    "simulGetHosts" -> { case lila.core.simul.GetHostIds(promise) =>
-      promise.completeWith(api.currentHostIds)
-    },
     "moveEventSimul" -> { case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>
       import lila.common.Json.given
       Bus.publish(
-        lila.core.actorApi.socket.SendTo(
+        lila.core.socket.SendTo(
           opponentUserId,
           lila.core.socket.makeMessage("simulPlayerMove", move.gameId)
         ),

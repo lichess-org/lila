@@ -16,7 +16,6 @@ import lila.common.Form.{
 import lila.db.dsl.{ *, given }
 import lila.core.team.Access
 import lila.core.captcha.CaptchaApi
-import lila.user.UserForm.historicalUsernameField
 
 final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(using Executor):
 
@@ -44,7 +43,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
     val forum                              = "forum"       -> inAccess(Access.all)
     val hideMembers                        = "hideMembers" -> boolean
 
-  def create(using lila.user.Me) = Form:
+  def create(using Me) = Form:
     mapping(
       Fields.name,
       Fields.password,
@@ -59,7 +58,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
-  def edit(team: Team)(using lila.user.Me) = Form(
+  def edit(team: Team)(using Me) = Form(
     mapping(
       Fields.password,
       Fields.intro,
@@ -111,9 +110,9 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
 
   val selectMember = Form:
     single:
-      "userId" -> historicalUsernameField
+      "userId" -> lila.common.Form.username.historicalField
 
-  def createWithCaptcha(using lila.user.Me) = create -> captcha.any
+  def createWithCaptcha(using Me) = create -> captcha.any
 
   val pmAll = Form:
     single("message" -> cleanTextWithSymbols.verifying(Constraints.minLength(3), Constraints.maxLength(9000)))
@@ -131,7 +130,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
         .transform[String](_.split(sep).take(300).toList.flatMap(UserStr.read).mkString(sep), identity)
 
   val searchDeclinedForm: Form[Option[UserStr]] = Form(
-    single("search" -> optional(historicalUsernameField))
+    single("search" -> optional(lila.common.Form.username.historicalField))
   )
 
   private def teamExists(setup: TeamSetup) =

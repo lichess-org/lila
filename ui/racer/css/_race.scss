@@ -28,6 +28,10 @@ $c-bg-position-y: 2px;
     background-position-y: 7px;
     .racer--racing & {
       animation: road-scroll 1s linear infinite;
+
+      @include if-rtl {
+        animation: road-scroll-rtl 1s linear infinite;
+      }
     }
   }
 
@@ -39,14 +43,12 @@ $c-bg-position-y: 2px;
       transform: translateX(-101px);
     }
   }
-  @include if-rtl {
-    @keyframes road-scroll {
-      from {
-        transform: translateX(0);
-      }
-      to {
-        transform: translateX(101px);
-      }
+  @keyframes road-scroll-rtl {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(101px);
     }
   }
 
@@ -110,7 +112,7 @@ $c-bg-position-y: 2px;
       font-size: $car-width;
       line-height: 0;
       text-shadow: -1px 1px 2px #000;
-      transform: translateX(0px);
+      transform: scaleX(1) translateX(0px);
       @include if-rtl {
         transform: scaleX(-1) translateX(0px);
       }

@@ -6,7 +6,10 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.tournament.BSONHandlers.given
-import lila.user.User
+
+import lila.core.userId.UserSearch
+import lila.core.chess.Rank
+import lila.core.user.WithPerf
 
 final class PlayerRepo(coll: Coll)(using Executor):
 
@@ -208,7 +211,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
 
   def join(
       tourId: TourId,
-      user: User.WithPerf,
+      user: WithPerf,
       team: Option[TeamId],
       prev: Option[Player]
   ) = prev match

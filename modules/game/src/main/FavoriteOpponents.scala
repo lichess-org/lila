@@ -1,9 +1,7 @@
 package lila.game
 
-import lila.user.{ User, UserRepo }
-
 final class FavoriteOpponents(
-    userRepo: UserRepo,
+    userApi: lila.core.user.UserApi,
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
@@ -16,7 +14,7 @@ final class FavoriteOpponents(
 
   def apply(userId: UserId): Fu[List[(User, Int)]] =
     userIdsCache.get(userId).flatMap { opponents =>
-      userRepo.enabledByIds(opponents.map(_._1)).map {
+      userApi.enabledByIds(opponents.map(_._1)).map {
         _.flatMap { user =>
           opponents.find(_._1 == user.id).map { opponent =>
             user -> opponent._2

@@ -9,7 +9,7 @@ import play.api.{ Configuration, Environment, Mode, ConfigLoader }
 import lila.core.config.*
 import lila.common.config.given
 import lila.common.autoconfig.{ *, given }
-import lila.core.{ Strings, UserIds }
+import lila.core.data.{ Strings, UserIds }
 import lila.memo.SettingStore.Strings.given
 import lila.memo.SettingStore.UserIds.given
 import lila.core.i18n.Translator
@@ -33,7 +33,6 @@ final class Env(
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type          = lila.i18n.Env
-  val lilaCookie                        = wire[lila.core.LilaCookie]
   val mongo: lila.db.Env                = wire[lila.db.Env]
   val memo: lila.memo.Env               = wire[lila.memo.Env]
   val socket: lila.socket.Env           = wire[lila.socket.Env]
@@ -185,6 +184,6 @@ given ConfigLoader[NetConfig] = ConfigLoader(config =>
       socketAlts = get[List[String]]("socket.alts"),
       crawlable = get[Boolean]("crawlable"),
       rateLimit = get[RateLimit]("ratelimit"),
-      email = get[lila.core.EmailAddress]("email")
+      email = get[EmailAddress]("email")
     )
 )

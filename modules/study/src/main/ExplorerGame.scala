@@ -10,37 +10,31 @@ import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
 
 final private class ExplorerGame(
-    importer: lila.explorer.ExplorerImporter,
+    importer: lila.game.core.ExplorerGame,
     lightUserApi: lila.user.LightUserApi,
     net: lila.core.config.NetConfig
 )(using Executor):
 
   def quote(gameId: GameId): Fu[Option[Comment]] =
-    importer(gameId).mapz { game =>
-      gameComment(game).some
-    }
+    importer(gameId).map2(gameComment)
 
   def insert(study: Study, position: Position, gameId: GameId): Fu[Option[(Chapter, UciPath)]] =
     if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
     else
-      importer(gameId).mapz { game =>
-        position.node.so { fromNode =>
+      importer(gameId).mapz: game =>
+        position.node.so: fromNode =>
           GameToRoot(game, none, withClocks = false)
-            .pipe { root =>
+            .pipe: root =>
               root.setCommentAt(
                 comment = gameComment(game),
                 path = UciPath.fromIds(root.mainline.map(_.id))
               )
-            }
-            .so { gameRoot =>
-              merge(fromNode, position.path, gameRoot).flatMap { case (newNode, path) =>
+            .so: gameRoot =>
+              merge(fromNode, position.path, gameRoot).flatMap { (newNode, path) =>
                 position.chapter.addNode(newNode, path).map(_ -> path)
               }
-            }
-        }
-      }
 
   private def compareFens(a: Fen.Full, b: Fen.Full) = a.simple == b.simple
 

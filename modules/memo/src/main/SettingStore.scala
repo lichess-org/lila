@@ -6,7 +6,7 @@ import reactivemongo.api.bson.BSONHandler
 
 import lila.db.dsl.*
 import play.api.data.*, Forms.*
-import lila.core.{ Ints, Strings, UserIds, config }
+import lila.core.data.{ Ints, Strings, UserIds }
 import scalalib.Iso
 
 final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
@@ -78,9 +78,9 @@ object SettingStore:
     given BSONHandler[Strings]  = lila.db.dsl.isoHandler(using stringsIso)
     given StringReader[Strings] = StringReader.fromIso(using stringsIso)
   object UserIds:
-    val userIdsIso = Strings.stringsIso.map[lila.core.UserIds](
-      strs => lila.core.UserIds(UserId.from(strs.value)),
-      uids => lila.core.Strings(UserId.raw(uids.value))
+    val userIdsIso = Strings.stringsIso.map[lila.core.data.UserIds](
+      strs => lila.core.data.UserIds(UserId.from(strs.value)),
+      uids => lila.core.data.Strings(UserId.raw(uids.value))
     )
     given BSONHandler[UserIds]  = lila.db.dsl.isoHandler(using userIdsIso)
     given StringReader[UserIds] = StringReader.fromIso(using userIdsIso)
