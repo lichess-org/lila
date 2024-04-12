@@ -91,7 +91,7 @@ class PgnImportTest extends lila.common.LilaTest:
     assert(x.root.mainlineNodeList(1).clock contains chess.Centis(719900))
     assert(x.root.mainlineNodeList(2).clock contains chess.Centis(718000))
 
-  test("import a broadcast pgn with missing clock)".ignore):
+  test("import a broadcast pgn with missing clock)"):
     val x = PgnImport(
       """
         1. d4 {[%clk 01:59:00]} {[%emt 00:00:58]} d5 {[%clk 01:59:50]} {[%emt
@@ -105,16 +105,16 @@ class PgnImportTest extends lila.common.LilaTest:
         e4 {[%emt 00:11:30]} a6 {[%emt 00:00:58]} 10. Be3 {[%emt 00:05:04]} b5 {[%emt
         00:00:42]} 11. Qe2 {[%emt 00:07:06]} Bb7 {[%emt 00:01:03]} 12. Rad1 {[%emt
         00:08:05]} Na5 {[%emt 00:00:48]} 13. d5 {[%clk 01:51:56]} {[%emt 00:05:37]}
-        exd5 14. e5 {[%emt 00:03:41]} Ne8 {[%emt 00:00:44]} 15. e6 {[%emt 00:26:35]} f5
-        {[%emt 00:00:48]} 16. Ne5 {[%clk 01:50:10]} {[%emt 00:00:11]} Nf6 {[%emt
-        00:38:31]} 17. Qc2 {[%emt 00:05:02]} c6 {[%emt 00:05:03]} 18. Qxf5 {[%clk
-        00:54:54]} {[%emt 00:05:49]} Qe8 19. Nf7 {[%emt 00:14:50]} *
+        exd5 {[%emt 00:05:37]} 14. e5 {[%emt 00:03:41]} Ne8 {[%emt 00:00:44]}
+        15. e6 {[%emt 00:26:35]} f5 {[%emt 00:00:48]} 16. Ne5 {[%clk 01:50:10]}
+        {[%emt 00:00:11]} Nf6 {[%emt 00:38:31]} 17. Qc2 {[%emt 00:05:02]} c6
+        {[%emt 00:05:03]} 18. Qxf5 {[%clk 00:54:54]} {[%emt 00:05:49]} Qe8 {[%emt 00:05:02]}
+        19. Nf7 {[%emt 00:14:50]} *
       """,
       Nil
     ).toOption.get
-    // assertEquals(x.root.mainlineNodeList.pp.size, 38)
-    assert(x.root.mainlineNodeList(24).clock.isDefined)
-    assert(x.root.mainlineNodeList(25).pp.clock.isDefined)
-    assert(x.root.mainlineNodeList(26).pp.clock.isDefined)
-    assert(x.root.mainlineNodeList(27).clock.isDefined)
-    assert(x.root.mainlineNodeList(28).clock.isDefined)
+    assertEquals(x.root.mainlineNodeList.size, 38)
+    x.root.mainlineNodeList
+      .drop(1) // skip the root
+      .foreach: node =>
+        assert(node.clock.isDefined)
