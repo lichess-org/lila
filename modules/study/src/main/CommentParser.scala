@@ -27,12 +27,10 @@ private[study] object CommentParser:
   )
 
   def apply(comment: ChessComment): ParsedComment =
-    parseShapes(comment.value) match
-      case (shapes, c2) =>
-        parseClock(c2) match
-          case (clock, c3) =>
-            parseEmt(c3) match
-              case (emt, c4) => ParsedComment(shapes, clock, emt, c4)
+    val (shapes, c1) = parseShapes(comment.value)
+    val (clock, c2)  = parseClock(c1)
+    val (emt, c3)    = parseEmt(c2)
+    ParsedComment(shapes, clock, emt, c3)
 
   private type CentisAndComment = (Option[Centis], String)
 
