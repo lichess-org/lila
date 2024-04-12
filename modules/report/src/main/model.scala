@@ -3,6 +3,7 @@ package lila.report
 import lila.user.{ Me, User }
 import lila.core.report.SuspectId
 import lila.core.userId.{ ModId, OpaqueUserId }
+import lila.core.user.WithPerf
 
 case class Mod(user: User) extends AnyVal:
   def id = user.id.into(ModId)
@@ -13,7 +14,7 @@ case class Suspect(user: User) extends AnyVal:
   def id                   = SuspectId(user.id)
   def set(f: User => User) = Suspect(f(user))
 
-case class Victim(user: User.WithPerf) extends AnyVal
+case class Victim(user: WithPerf) extends AnyVal
 
 case class Reporter(user: User) extends AnyVal:
   def id = user.id.into(ReporterId)
@@ -21,8 +22,8 @@ case class Reporter(user: User) extends AnyVal:
 opaque type ReporterId = String
 object ReporterId extends OpaqueUserId[ReporterId]:
   def lichess = UserId.lichess.into(ReporterId)
-  def irwin   = User.irwinId.into(ReporterId)
-  def kaladin = User.kaladinId.into(ReporterId)
+  def irwin   = lila.user.ids.irwinId.into(ReporterId)
+  def kaladin = lila.user.ids.kaladinId.into(ReporterId)
 
 opaque type Accuracy = Int
 object Accuracy extends OpaqueInt[Accuracy]

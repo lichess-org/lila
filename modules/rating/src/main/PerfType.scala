@@ -7,7 +7,7 @@ import lila.core.i18n.{ I18nKey, Translate }
 
 import lila.common.Icon
 import lila.common.Icon
-import lila.core.perf.{ PerfId, PerfKey }
+import lila.core.perf.PerfId
 
 enum PerfType(
     val id: PerfId,

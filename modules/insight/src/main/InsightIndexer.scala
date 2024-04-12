@@ -9,7 +9,6 @@ import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
-import lila.core.user.User
 
 final private class InsightIndexer(
     povToEntry: PovToEntry,

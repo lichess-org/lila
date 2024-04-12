@@ -7,7 +7,6 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDashboard, PuzzleTheme }
-import lila.user.User
 
 object dashboard:
 

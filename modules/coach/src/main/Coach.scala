@@ -19,7 +19,7 @@ case class Coach(
 
   def daysOld = daysBetween(createdAt, nowInstant)
 
-  def withUser(user: lila.user.User.WithPerfs) = Coach.WithUser(this, user)
+  def withUser(user: lila.user.UserWithPerfs) = Coach.WithUser(this, user)
 
 object Coach:
 
@@ -30,7 +30,7 @@ object Coach:
 
   val imageSize = 350
 
-  def make(user: lila.user.User.WithPerfs) =
+  def make(user: lila.user.UserWithPerfs) =
     Coach(
       id = user.id.into(Id),
       listed = Listed(false),
@@ -44,7 +44,7 @@ object Coach:
       updatedAt = nowInstant
     )
 
-  case class WithUser(coach: Coach, user: lila.user.User.WithPerfs):
+  case class WithUser(coach: Coach, user: lila.user.UserWithPerfs):
     def isListed = coach.listed.yes && user.enabled.yes && user.marks.clean
 
   opaque type Listed = Boolean

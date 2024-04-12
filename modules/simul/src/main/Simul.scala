@@ -7,8 +7,9 @@ import chess.{ Color, Speed }
 import scalalib.ThreadLocalRandom
 
 import lila.rating.PerfType
-import lila.user.User
+
 import lila.core.rating.Score
+import lila.rating.UserWithPerfs
 
 case class Simul(
     @Key("_id") id: SimulId,
@@ -146,7 +147,7 @@ case class Simul(
 object Simul:
 
   def make(
-      host: User.WithPerfs,
+      host: UserWithPerfs,
       name: String,
       clock: SimulClock,
       variants: List[Variant],

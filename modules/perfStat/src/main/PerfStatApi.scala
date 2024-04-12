@@ -3,11 +3,13 @@ package lila.perfStat
 import lila.rating.{ Perf, UserRankMap }
 import lila.core.perm.Granter
 import lila.user.{ LightUserApi, Me, RankingApi, RankingsOf, User, UserApi }
-import lila.core.perf.PerfKey
+
 import lila.rating.PerfType
+import lila.rating.PerfExt.established
+import lila.user.UserWithPerfs
 
 case class PerfStatData(
-    user: User.WithPerfs,
+    user: UserWithPerfs,
     stat: PerfStat,
     ranks: UserRankMap,
     percentile: Option[Double],

@@ -5,11 +5,11 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
+import lila.rating.UserWithPerfs
 
 object bots:
 
-  def apply(users: List[User.WithPerfs])(using PageContext) =
+  def apply(users: List[UserWithPerfs])(using PageContext) =
     val title = s"${users.size} Online bots"
     views.html.base.layout(
       title = title,
@@ -38,7 +38,7 @@ object bots:
             )
       )
 
-  private def botTable(users: List[User.WithPerfs])(using ctx: Context) = div(cls := "bots__list")(
+  private def botTable(users: List[UserWithPerfs])(using ctx: Context) = div(cls := "bots__list")(
     users.map: u =>
       div(cls := "bots__list__entry")(
         div(cls := "bots__list__entry__desc")(

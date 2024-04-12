@@ -9,7 +9,6 @@ import scalalib.paginator.Paginator
 import lila.i18n.LangList
 import lila.core.i18n.Language
 import lila.ublog.{ UblogPost, UblogTopic }
-import lila.user.User
 
 object index:
 

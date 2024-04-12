@@ -153,7 +153,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
       case Some(game) => Pov(game, me).fold(NotFound(jsonError("Not your game")).toFuccess)(f)
     }
 
-  private val botsCache = env.memo.cacheApi.unit[List[lila.user.User.WithPerfs]]:
+  private val botsCache = env.memo.cacheApi.unit[List[lila.user.UserWithPerfs]]:
     _.expireAfterWrite(10 seconds).buildAsyncFuture: _ =>
       env.user.api.visibleBotsByIds(env.bot.onlineApiUsers.get)
 

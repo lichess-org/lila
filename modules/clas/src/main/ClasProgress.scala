@@ -2,22 +2,21 @@ package lila.clas
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-
 import java.time.Duration
+import scalalib.model.Days
 
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }
 import lila.puzzle.PuzzleRound
 import lila.rating.PerfType
-import lila.user.User
-import scalalib.model.Days
+import lila.core.user.WithPerf
 
 case class ClasProgress(
     perfType: PerfType,
     days: Int,
     students: Map[UserId, StudentProgress]
 ):
-  def apply(user: User.WithPerf) =
+  def apply(user: WithPerf) =
     students.getOrElse(
       user.id,
       StudentProgress(

@@ -6,7 +6,7 @@ import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.db.dsl.{ *, given }
 import lila.rating.Perf
-import lila.user.User
+
 import lila.core.perf.PerfId
 import lila.rating.PerfType
 import lila.core.chess.Rank

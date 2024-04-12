@@ -7,7 +7,6 @@ import lila.api.PageContext
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Icon
-import lila.user.User
 
 object message:
 

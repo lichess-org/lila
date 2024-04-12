@@ -4,6 +4,7 @@ import lila.game.{ Game, GameRepo, Player, Pov, Rematches }
 import lila.user.{ GameUser, User, UserApi, UserPerfsRepo }
 
 import Challenge.TimeControl
+import lila.core.user.WithPerf
 
 final class ChallengeMaker(
     userApi: UserApi,
@@ -20,7 +21,7 @@ final class ChallengeMaker(
     collectDataFor(gameId, dest).flatMapz: data =>
       toChallenge(Pov(data.game, data.challenger), data.orig, data.dest, nextId).dmap(some)
 
-  private case class Data(game: Game, challenger: Player, orig: GameUser, dest: User.WithPerf)
+  private case class Data(game: Game, challenger: Player, orig: GameUser, dest: WithPerf)
 
   private def collectDataFor(gameId: GameId, dest: User): Future[Option[Data]] =
     gameRepo
@@ -44,7 +45,7 @@ final class ChallengeMaker(
       }
 
   // pov of the challenger
-  private def makeRematch(pov: Pov, challenger: GameUser, dest: User.WithPerf): Fu[Challenge] =
+  private def makeRematch(pov: Pov, challenger: GameUser, dest: WithPerf): Fu[Challenge] =
     for
       nextGameId <- rematches.offer(pov.ref)
       challenge  <- toChallenge(pov, challenger, dest, nextGameId)
@@ -53,7 +54,7 @@ final class ChallengeMaker(
   private def toChallenge(
       pov: Pov,
       challenger: GameUser,
-      dest: User.WithPerf,
+      dest: WithPerf,
       nextId: GameId
   ): Fu[Challenge] =
     gameRepo.initialFen(pov.game).map { initialFen =>

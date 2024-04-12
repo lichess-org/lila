@@ -9,7 +9,7 @@ import lila.rating.Perf
 import lila.rating.PerfType
 import lila.tutor.{ TutorFullReport, TutorPerfReport, TutorQueue }
 import lila.user.User as UserModel
-import lila.core.perf.PerfKey
+import lila.rating.UserWithPerfs
 
 final class Tutor(env: Env) extends LilaController(env):
 
@@ -63,7 +63,7 @@ final class Tutor(env: Env) extends LilaController(env):
       username: UserStr
   )(f: Context ?=> UserModel => TutorFullReport.Availability => Fu[Result]): EssentialAction =
     Secure(_.Beta) { ctx ?=> me ?=>
-      def proceed(user: UserModel.WithPerfs) = env.tutor.api.availability(user).flatMap(f(user.user))
+      def proceed(user: UserWithPerfs) = env.tutor.api.availability(user).flatMap(f(user.user))
       if me.is(username) then env.user.api.withPerfs(me.value).flatMap(proceed)
       else
         Found(env.user.api.withPerfs(username)): user =>

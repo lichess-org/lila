@@ -3,7 +3,7 @@ package lila.puzzle
 import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.user.User
+
 import lila.core.i18n.I18nKey
 import scalalib.actor.AsyncActorSequencers
 

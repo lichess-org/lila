@@ -145,7 +145,7 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.passwdChange.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.passwd(err))): data =>
-          env.user.authenticator.setPassword(me, UserModel.ClearPassword(data.newPasswd1)) >>
+          env.user.authenticator.setPassword(me, lila.user.ClearPassword(data.newPasswd1)) >>
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
 
@@ -231,7 +231,7 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.setupTwoFactor.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.twoFactor.setup(err))): data =>
-          env.user.repo.setupTwoFactor(me, TotpSecret(data.secret)) >>
+          env.user.repo.setupTwoFactor(me, TotpSecret.decode(data.secret)) >>
             refreshSessionId(Redirect(routes.Account.twoFactor).flashSuccess)
   }
 

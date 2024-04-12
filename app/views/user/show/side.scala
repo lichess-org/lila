@@ -7,20 +7,21 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.rating.{ PerfType as PTs }
-import lila.user.User
+import lila.rating.UserWithPerfs
+import lila.rating.GlickoExt.clueless
 
 object side:
 
   def apply(
-      u: User.WithPerfs,
+      u: UserWithPerfs,
       rankMap: lila.rating.UserRankMap,
       active: Option[PerfType]
   )(using ctx: Context) =
 
-    def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
+    def showNonEmptyPerf(perf: Perf, perfType: PerfType) =
       perf.nonEmpty.option(showPerf(perf, perfType))
 
-    def showPerf(perf: lila.rating.Perf, perfType: PerfType) =
+    def showPerf(perf: Perf, perfType: PerfType) =
       val isPuzzle = perfType == PerfType.Puzzle
       a(
         dataIcon := perfType.icon,

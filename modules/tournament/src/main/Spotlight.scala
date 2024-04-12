@@ -5,6 +5,7 @@ import lila.common.Icon
 import lila.rating.Perf
 import lila.user.{ Me, User }
 import lila.core.LightUser
+import lila.rating.UserWithPerfs
 
 case class Spotlight(
     headline: String,
@@ -22,17 +23,17 @@ object Spotlight:
       case Some(schedule) => (schedule.freq.importance, -tour.secondsToStart)
       case None           => (tour.isTeamRelated.so(Schedule.Freq.Weekly.importance), -tour.secondsToStart)
 
-  def select(tours: List[Tournament], max: Int)(using me: Option[User.WithPerfs]): List[Tournament] =
+  def select(tours: List[Tournament], max: Int)(using me: Option[UserWithPerfs]): List[Tournament] =
     me.foldUse(select(tours))(selectForMe(tours)).topN(max)
 
   private def select(tours: List[Tournament]): List[Tournament] =
     tours.filter: tour =>
       tour.spotlight.forall(manually(tour, _))
 
-  private def selectForMe(tours: List[Tournament])(using User.WithPerfs): List[Tournament] =
+  private def selectForMe(tours: List[Tournament])(using UserWithPerfs): List[Tournament] =
     tours.filter(selectForMe)
 
-  private def selectForMe(tour: Tournament)(using User.WithPerfs): Boolean =
+  private def selectForMe(tour: Tournament)(using UserWithPerfs): Boolean =
     !tour.isFinished &&
       tour.spotlight.fold(automatically(tour)) { manually(tour, _) }
 
@@ -40,7 +41,7 @@ object Spotlight:
     spotlight.homepageHours.exists: hours =>
       tour.startsAt.minusHours(hours).isBeforeNow
 
-  private def automatically(tour: Tournament)(using me: User.WithPerfs): Boolean =
+  private def automatically(tour: Tournament)(using me: UserWithPerfs): Boolean =
     tour.isTeamRelated || tour.schedule.so: sched =>
       def playedSinceWeeks(weeks: Int) = me.perfs(tour.perfType).latest.so(_.plusWeeks(weeks).isAfterNow)
       sched.freq match
@@ -51,7 +52,7 @@ object Spotlight:
         case Monthly | Shield | Marathon | Yearly => true
         case ExperimentalMarathon                 => false
 
-  private def canMaybeJoinLimited(tour: Tournament)(using me: User.WithPerfs): Boolean =
+  private def canMaybeJoinLimited(tour: Tournament)(using me: UserWithPerfs): Boolean =
     given LightUser.Me = LightUser.Me(me.user.light)
     given Perf         = me.perfs(tour.perfType)
     tour.conditions.isRatingLimited &&

@@ -6,7 +6,6 @@ import play.api.data.Forms.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final class ChatTimeout(
     coll: Coll,

@@ -5,6 +5,7 @@ import chess.{ ByColor, Game as ChessGame, Situation }
 import lila.game.{ Game, Player }
 import lila.core.socket.Sri
 import lila.user.{ GameUsers, User }
+import lila.core.user.WithPerf
 
 final private class Biter(
     userRepo: lila.user.UserRepo,
@@ -61,8 +62,8 @@ final private class Biter(
     then gameRepo.fixedColorLobbyCache.put(game.id)
 
   private def assignCreatorColor(
-      creatorUser: Option[User.WithPerf],
-      joinerUser: Option[User.WithPerf],
+      creatorUser: Option[WithPerf],
+      joinerUser: Option[WithPerf],
       color: Color
   ): Fu[chess.Color] =
     color match

@@ -4,7 +4,7 @@ import chess.variant.Variant
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.user.User
+
 import lila.core.tournament.Status
 
 final class RevolutionApi(

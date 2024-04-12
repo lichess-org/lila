@@ -238,6 +238,7 @@ final class MsgApi(
           UnwindField("contact")
         )
       .flatMap: docs =>
+        import lila.user.BSONHandlers.userHandler
         (for
           doc     <- docs
           msgs    <- doc.getAsOpt[List[Msg]]("msgs")

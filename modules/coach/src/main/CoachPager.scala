@@ -10,6 +10,7 @@ import lila.core.perm.Permission
 import lila.user.{ Flag, User, UserPerfsRepo, UserRepo }
 import lila.rating.UserPerfs
 import lila.core.user.UserMark
+import lila.user.UserWithPerfs
 
 final class CoachPager(
     userRepo: UserRepo,
@@ -56,9 +57,9 @@ final class CoachPager(
               UnwindField("_user"),
               Match(
                 $doc(
-                  s"_user.${User.BSONFields.roles}"   -> Permission.Coach.dbKey,
-                  s"_user.${User.BSONFields.enabled}" -> true,
-                  s"_user.${User.BSONFields.marks}"
+                  s"_user.${lila.user.BSONFields.roles}"   -> Permission.Coach.dbKey,
+                  s"_user.${lila.user.BSONFields.enabled}" -> true,
+                  s"_user.${lila.user.BSONFields.marks}"
                     .$nin(List(UserMark.engine, UserMark.boost, UserMark.troll))
                 ) ++ country.so { c =>
                   $doc("_user.profile.country" -> c.code)
@@ -69,12 +70,13 @@ final class CoachPager(
               PipelineOperator(perfsRepo.aggregate.lookup)
             )
           .map: docs =>
+            import lila.user.BSONHandlers.userHandler
             for
               doc   <- docs
               coach <- doc.asOpt[Coach]
               user  <- doc.getAsOpt[User]("_user")
               perfs = perfsRepo.aggregate.readFirst(doc, user)
-            yield coach.withUser(User.WithPerfs(user, perfs))
+            yield coach.withUser(UserWithPerfs(user, perfs))
 
     Paginator(
       adapter,

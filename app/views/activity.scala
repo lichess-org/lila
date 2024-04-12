@@ -5,16 +5,17 @@ import controllers.routes
 import lila.activity.activities.*
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
+
 import lila.core.forum.ForumTopicMini
 import lila.core.forum.ForumPostMini
 import lila.core.rating.Score
 import lila.core.rating.RatingProg
 import lila.core.chess.Rank
+import lila.rating.UserWithPerfs
 
 object activity:
 
-  def apply(u: User.WithPerfs, as: Iterable[lila.activity.ActivityView])(using Context) =
+  def apply(u: UserWithPerfs, as: Iterable[lila.activity.ActivityView])(using Context) =
     div(cls := "activity")(
       as.toSeq.filterNot(_.isEmpty).map { a =>
         st.section(
@@ -76,7 +77,7 @@ object activity:
       br
     )
 
-  private def renderPuzzles(u: User.WithPerfs)(p: Puzzles)(using ctx: Context) =
+  private def renderPuzzles(u: UserWithPerfs)(p: Puzzles)(using ctx: Context) =
     entryTag(
       iconTag(Icon.ArcheryTarget),
       scoreFrag(p.value),

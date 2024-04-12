@@ -54,6 +54,7 @@ final class StreamerPager(
             UnwindField("user")
           )
         .map: docs =>
+          import lila.user.BSONHandlers.userHandler
           for
             doc      <- docs
             streamer <- doc.asOpt[Streamer]
@@ -83,6 +84,7 @@ final class StreamerPager(
             UnwindField("user")
           )
         .map: docs =>
+          import lila.user.BSONHandlers.userHandler
           for
             doc      <- docs
             streamer <- doc.asOpt[Streamer]

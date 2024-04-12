@@ -43,7 +43,7 @@ object home:
         .some,
       withHrefLangs = LangPath("/").some
     ) {
-      given Option[lila.user.User.WithPerfs] = homepage.me
+      given Option[lila.user.UserWithPerfs] = homepage.me
       main(
         cls := List(
           "lobby"      -> true,

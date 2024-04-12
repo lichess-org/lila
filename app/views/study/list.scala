@@ -10,7 +10,6 @@ import lila.core.app.LangPath
 import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
-import lila.user.User
 
 object list:
 

@@ -14,6 +14,7 @@ import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.ublog.UblogPost
 import lila.user.{ LightUserApi, Me, User }
+import lila.rating.UserWithPerfs
 
 final class Preload(
     tv: lila.tv.Tv,
@@ -47,7 +48,7 @@ final class Preload(
   )(using ctx: Context): Fu[Homepage] = for
     nbNotifications <- ctx.me.so(notifyApi.unreadCount(_))
     withPerfs       <- ctx.user.soFu(perfsRepo.withPerfs)
-    given Option[User.WithPerfs] = withPerfs
+    given Option[UserWithPerfs] = withPerfs
     (
       (
         (
@@ -162,7 +163,7 @@ object Preload:
       blindGames: List[Pov],
       lastUpdates: List[lila.feed.Feed.Update],
       ublogPosts: List[UblogPost.PreviewPost],
-      me: Option[User.WithPerfs],
+      me: Option[UserWithPerfs],
       hasUnreadLichessMessage: Boolean
   )
 

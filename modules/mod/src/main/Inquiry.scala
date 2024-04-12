@@ -2,7 +2,8 @@ package lila.mod
 
 import lila.core.LightUser
 import lila.report.{ Report, ReportApi }
-import lila.user.{ Me, Note, NoteApi, User, UserApi }
+import lila.user.{ Me, Note, NoteApi, UserApi }
+import lila.rating.UserWithPerfs
 
 case class Inquiry(
     mod: LightUser,
@@ -10,7 +11,7 @@ case class Inquiry(
     moreReports: List[Report],
     notes: List[Note],
     history: List[lila.mod.Modlog],
-    user: User.WithPerfs
+    user: UserWithPerfs
 ):
   def allReports = report :: moreReports
   def alreadyMarked =

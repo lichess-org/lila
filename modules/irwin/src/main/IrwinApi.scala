@@ -69,7 +69,7 @@ final class IrwinApi(
       userRepo.getTitle(report.suspectId.value).flatMap { title =>
         if report.activation >= thresholds.get().mark && title.isEmpty then
           modApi
-            .autoMark(report.suspectId, report.note)(using User.irwinId.into(Me.Id))
+            .autoMark(report.suspectId, report.note)(using lila.user.ids.irwinId.into(MyId))
             .andDo(lila.mon.mod.irwin.mark.increment())
         else if report.activation >= thresholds.get().report then
           for

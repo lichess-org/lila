@@ -127,7 +127,7 @@ final class ClasApi(
 
   object student:
 
-    import User.ClearPassword
+    import lila.user.ClearPassword
 
     val coll = colls.student
 
@@ -150,6 +150,7 @@ final class ClasApi(
             UnwindField("user")
           )
         .map: docs =>
+          import lila.user.BSONHandlers.userHandler
           for
             doc     <- docs
             student <- doc.asOpt[Student]

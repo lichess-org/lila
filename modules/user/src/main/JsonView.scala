@@ -5,14 +5,14 @@ import play.api.libs.json.*
 import lila.common.Json.{ writeAs, given }
 import lila.core.LightUser
 import lila.rating.{ Perf, UserPerfs }
-import lila.user.User.PlayTime
-import lila.core.perf.PerfKey
-import lila.core.user.LightPerf
+
+import lila.core.user.{ Profile, PlayTime, LightPerf }
 import lila.rating.PerfType
 
 final class JsonView(isOnline: lila.core.socket.IsOnline):
 
   import JsonView.{ *, given }
+  import lila.user.Profile.*
   private given OWrites[Profile]  = Json.writes
   private given OWrites[PlayTime] = Json.writes
 
@@ -66,7 +66,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline):
 
 object JsonView:
 
-  val nameWrites: Writes[User.WithPerfs] = writeAs(_.user.username)
+  val nameWrites: Writes[UserWithPerfs] = writeAs(_.user.username)
 
   given lightPerfWrites: OWrites[LightPerf] = OWrites[LightPerf]: l =>
     Json
@@ -80,7 +80,7 @@ object JsonView:
       .add("title" -> l.user.title)
       .add("patron" -> l.user.isPatron)
 
-  val modWrites = OWrites[lila.core.user.User]: u =>
+  val modWrites = OWrites[User]: u =>
     Json.toJsObject(u.light) ++ Json
       .obj("games" -> u.count.game)
       .add("tos" -> u.marks.dirty)

@@ -7,7 +7,6 @@ import play.api.data.{ Field, Form }
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.security.HcaptchaForm
-import lila.user.User
 
 object bits:
 

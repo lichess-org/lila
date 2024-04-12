@@ -28,7 +28,7 @@ case class ForumPost(
 ) extends lila.core.forum.ForumPost:
 
   private def showAuthor: String =
-    author.map(_.trim).filter("" !=) | (if ~modIcon then UserName.anonymous.value else User.anonMod)
+    author.map(_.trim).filter("" !=) | (if ~modIcon then UserName.anonymous.value else UserName.anonMod)
 
   def showUserIdOrAuthor: String = if erased then "<erased>" else userId.fold(showAuthor)(_.value)
 

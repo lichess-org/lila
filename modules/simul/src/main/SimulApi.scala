@@ -15,9 +15,9 @@ import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam
 import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
-import lila.rating.{ Perf, PerfType }
+import lila.rating.{ Perf, PerfType, UserWithPerfs }
 import lila.core.socket.SendToFlag
-import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo, given }
+import lila.user.{ Me, UserApi, UserPerfsRepo, UserRepo, given }
 
 final class SimulApi(
     userRepo: UserRepo,
@@ -231,7 +231,7 @@ final class SimulApi(
       _.expireAfterWrite(5.minutes).buildAsyncFuture(repo.countByHost)
     export cache.get
 
-  private def makeGame(simul: Simul, host: User.WithPerfs)(
+  private def makeGame(simul: Simul, host: UserWithPerfs)(
       pairing: SimulPairing,
       number: Int
   ): Fu[(Game, chess.Color)] = for

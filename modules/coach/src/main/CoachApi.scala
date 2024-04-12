@@ -50,7 +50,7 @@ final class CoachApi(
     canCoach(user).so:
       coachColl.update.one($id(user.id), $set("user.seenAt" -> nowInstant)).void
 
-  def updateRatingFromDb(user: lila.core.user.User): Funit =
+  def updateRatingFromDb(user: User): Funit =
     canCoach(user).so:
       perfsRepo.perfsOf(user).flatMap { perfs =>
         coachColl.update.one($id(perfs.id), $set("user.rating" -> perfs.bestStandardRating)).void

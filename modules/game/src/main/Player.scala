@@ -88,7 +88,7 @@ object Player:
     aiLevel = aiLevel
   )
 
-  def make(color: Color, userPerf: (UserId, lila.core.rating.Perf)): Player = make(
+  def make(color: Color, userPerf: (UserId, Perf)): Player = make(
     color = color,
     userId = userPerf._1,
     rating = userPerf._2.intRating,

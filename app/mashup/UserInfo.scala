@@ -11,10 +11,11 @@ import lila.core.perm.Granter
 import lila.ublog.{ UblogApi, UblogPost }
 import lila.user.{ Me, User, given_MyId }
 import lila.core.data.SafeJsonStr
+import lila.rating.UserWithPerfs
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
-    user: User.WithPerfs,
+    user: UserWithPerfs,
     trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
     ratingChart: Option[SafeJsonStr],

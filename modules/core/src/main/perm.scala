@@ -1,8 +1,7 @@
 package lila.core
 package perm
 
-import lila.core.user.UserEnabled
-import lila.core.user.User
+import lila.core.user.{ User, UserEnabled }
 
 trait Grantable[U]:
   def enabled(u: U): UserEnabled

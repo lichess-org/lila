@@ -10,6 +10,7 @@ import lila.report.{ Mod, Report, Suspect }
 import lila.core.perm.Permission
 import lila.user.{ Me, User, UserRepo, given }
 import lila.core.id.ForumCategId
+import lila.rating.UserWithPerfs
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -283,7 +284,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .cursor[Modlog]()
       .list(100)
 
-  def addModlog(users: List[User.WithPerfs]): Fu[List[UserWithModlog]] =
+  def addModlog(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
     coll.tempPrimary
       .find(
         $doc(

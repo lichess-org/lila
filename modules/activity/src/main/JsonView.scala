@@ -7,7 +7,7 @@ import lila.common.Json.{ *, given }
 import lila.game.LightPov
 import lila.rating.PerfType
 import lila.core.simul.Simul
-import lila.user.User
+
 import lila.activity.activities.*
 import lila.core.tournament.leaderboard.Ratio
 import lila.core.rating.RatingProg

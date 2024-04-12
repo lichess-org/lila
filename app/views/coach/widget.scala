@@ -6,6 +6,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList
+import lila.user.Profile.flagInfo
 
 object widget:
 

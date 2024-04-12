@@ -27,6 +27,7 @@ import lila.rating.Perf
 import lila.rating.PerfType
 import lila.user.User
 import lila.core.i18n.Translate
+import lila.core.user.WithPerf
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 

@@ -3,7 +3,6 @@ package lila.user
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
-import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.*
 import lila.common.config.given
@@ -28,7 +27,7 @@ final class Env(
     isOnline: lila.core.socket.IsOnline,
     onlineIds: lila.core.socket.OnlineIds,
     assetBaseUrlInternal: AssetBaseUrlInternal
-)(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer, play.api.Mode):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 

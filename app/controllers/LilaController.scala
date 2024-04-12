@@ -327,7 +327,7 @@ abstract private[controllers] class LilaController(val env: Env)
     .soFu(env.user.perfsRepo.perfOf(_, pt))
     .flatMap: perf =>
       f(using perf | Perf.default)
-  def WithMyPerfs[A](f: Option[lila.user.User.WithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+  def WithMyPerfs[A](f: Option[lila.user.UserWithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
     .soFu(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)

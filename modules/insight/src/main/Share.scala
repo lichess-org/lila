@@ -1,7 +1,6 @@
 package lila.insight
 
 import lila.core.perm.{ Granter, Grantable }
-import lila.core.user.User
 
 final class Share(
     prefApi: lila.core.pref.PrefApi,

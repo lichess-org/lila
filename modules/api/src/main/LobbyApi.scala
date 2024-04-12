@@ -6,8 +6,7 @@ import lila.common.Json.given
 import lila.game.Pov
 import lila.lobby.{ LobbySocket, SeekApi }
 import lila.rating.{ Perf, UserPerfs }
-import lila.user.User
-import lila.core.perf.PerfKey
+import lila.rating.UserWithPerfs
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
@@ -17,7 +16,7 @@ final class LobbyApi(
     lobbySocket: LobbySocket
 )(using Executor):
 
-  def apply(using me: Option[User.WithPerfs]): Fu[(JsObject, List[Pov])] =
+  def apply(using me: Option[UserWithPerfs]): Fu[(JsObject, List[Pov])] =
     me.foldUse(seekApi.forAnon)(seekApi.forMe)
       .mon(_.lobby.segment("seeks"))
       .zip(me.so(gameProxyRepo.urgentGames).mon(_.lobby.segment("urgentGames")))

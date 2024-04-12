@@ -8,10 +8,10 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Glicko, Perf, UserPerfs }
-import lila.core.perf.PerfId
 import lila.core.user.LightPerf
-import lila.core.perf.PerfKey
+import lila.core.perf.PerfId
 import lila.rating.PerfType
+import lila.rating.GlickoExt.rankable
 
 final class RankingApi(
     coll: AsyncCollFailingSilently,
@@ -35,7 +35,7 @@ final class RankingApi(
             "perf"      -> perfType.id,
             "rating"    -> perf.intRating,
             "prog"      -> perf.progress,
-            "stable"    -> perf.rankable(lila.rating.PerfType.variantOf(perfType)),
+            "stable"    -> perf.glicko.rankable(lila.rating.PerfType.variantOf(perfType)),
             "expiresAt" -> nowInstant.plusDays(7)
           ),
           upsert = true

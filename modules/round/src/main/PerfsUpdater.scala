@@ -6,6 +6,10 @@ import lila.game.{ Game, GameRepo, RatingDiffs }
 import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, glicko2, UserPerfs }
 import lila.user.{ RankingApi, User, UserApi }
 import lila.rating.PerfType
+import lila.rating.UserWithPerfs
+import lila.rating.PerfExt.toRating
+import lila.rating.PerfExt.addOrReset
+import lila.rating.GlickoExt.average
 
 final class PerfsUpdater(
     gameRepo: GameRepo,
@@ -16,7 +20,7 @@ final class PerfsUpdater(
 )(using Executor):
 
   // returns rating diffs
-  def save(game: Game, white: User.WithPerfs, black: User.WithPerfs): Fu[Option[RatingDiffs]] =
+  def save(game: Game, white: UserWithPerfs, black: UserWithPerfs): Fu[Option[RatingDiffs]] =
     botFarming(game).flatMap {
       if _ then fuccess(none)
       else
@@ -65,7 +69,10 @@ final class PerfsUpdater(
             ).map(_.into(IntRatingDiff))
             lila.common.Bus
               .publish(
-                lila.game.actorApi.PerfsUpdate(game, ByColor(white.user -> perfsW, black.user -> perfsB)),
+                lila.game.actorApi.PerfsUpdate(
+                  game,
+                  ByColor(UserWithPerfs(white.user, perfsW), UserWithPerfs(black.user, perfsB))
+                ),
                 "perfsUpdate"
               )
             gameRepo
@@ -123,7 +130,7 @@ final class PerfsUpdater(
     try Glicko.system.updateRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
-  private def mkPerfs(ratings: Ratings, users: PairOf[User.WithPerfs], game: Game): UserPerfs =
+  private def mkPerfs(ratings: Ratings, users: PairOf[UserWithPerfs], game: Game): UserPerfs =
     val (player, opponent) = users
     val perfs              = player.perfs
     val speed              = game.speed

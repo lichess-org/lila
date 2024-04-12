@@ -7,7 +7,6 @@ import com.roundeights.hasher.Algo
 import lila.common.HTTPRequest
 import lila.core.net.Bearer
 import lila.memo.SettingStore
-import lila.core.user.User
 import lila.core.config.Secret
 
 final class OAuthServer(

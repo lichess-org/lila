@@ -74,14 +74,10 @@ final class Env(
     "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
         users
-          .traverse:
-            _.filter(_._1.enabled.yes).map: u =>
-              new lila.core.user.WithPerf:
-                val user = u._1
-                val perf = u._2(game.perfType)
-          .foreach: users =>
+          .map(_.filter(_.enabled.yes).map(_.only(game.perfType)))
+          .mapN: (whiteUser, blackUser) =>
             sandbagWatch(game)
-            assessApi.onGameReady(game, users)
+            assessApi.onGameReady(game, ByColor(whiteUser, blackUser))
         if game.status == chess.Status.Cheat then
           game.loserUserId.foreach: userId =>
             logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>

@@ -119,7 +119,7 @@ final class JsonView(
       }
       .parallel
   yield
-    import lila.rating.Glicko.given
+    import lila.rating.Glicko.glickoWrites
     Json.obj("puzzles" -> jsons).add("glicko" -> me.map(_ => perf.glicko))
 
   object bc:

@@ -3,7 +3,6 @@ package lila.oauth
 import cats.derived.*
 import lila.core.i18n.I18nKey
 import lila.core.i18n.I18nKey.{ oauthScope as trans }
-import lila.core.user.User
 
 sealed abstract class OAuthScope(val key: String, val name: I18nKey):
   override def toString = s"Scope($key)"

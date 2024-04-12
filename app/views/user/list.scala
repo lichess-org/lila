@@ -7,14 +7,15 @@ import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Icon
 import lila.rating.PerfType
-import lila.user.User
+
 import lila.core.user.LightCount
+import lila.rating.UserWithPerfs
 
 object list:
 
   def apply(
       tourneyWinners: List[lila.tournament.Winner],
-      online: List[User.WithPerfs],
+      online: List[UserWithPerfs],
       leaderboards: lila.rating.UserPerfs.Leaderboards,
       nbAllTime: List[LightCount]
   )(using ctx: PageContext) =

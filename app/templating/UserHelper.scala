@@ -10,15 +10,17 @@ import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.rating.{ Perf, UserPerfs }
 import lila.rating.PerfType
-import lila.user.User
-import lila.core.perf.PerfKey
+
 import lila.app.mashup.*
 import lila.common.Icon
+import lila.rating.UserWithPerfs
+import lila.core.user.User
+import lila.rating.GlickoExt.clueless
 
 trait UserHelper extends HasEnv:
   self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
 
-  given Conversion[User.WithPerfs, User] = _.user
+  given Conversion[UserWithPerfs, User] = _.user
 
   def ratingProgress(progress: IntRatingDiff): Option[Frag] =
     if progress > 0 then goodTag(cls := "rp")(progress).some
@@ -64,7 +66,7 @@ trait UserHelper extends HasEnv:
       perfType.trans,
       perf.nb,
       perf.provisional,
-      perf.clueless,
+      perf.glicko.clueless,
       perfType.icon
     )
 
@@ -98,7 +100,7 @@ trait UserHelper extends HasEnv:
 
   def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
     span(cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined))(
-      if modIcon then frag(moderatorIcon, User.anonMod)
+      if modIcon then frag(moderatorIcon, UserName.anonMod)
       else UserName.anonymous
     )
 
@@ -296,7 +298,7 @@ trait UserHelper extends HasEnv:
       case GameFilter.Imported => transLocalize(trans.site.nbImportedGames, nbs.imported)
       case GameFilter.Search   => trans.search.advancedSearch.txt()
 
-  def describeUser(user: User.WithPerfs)(using Translate) =
+  def describeUser(user: UserWithPerfs)(using Translate) =
     val name      = user.titleUsername
     val nbGames   = user.count.game
     val createdAt = showEnglishDate(user.createdAt)

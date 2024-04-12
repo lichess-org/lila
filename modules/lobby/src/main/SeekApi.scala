@@ -3,7 +3,7 @@ package lila.lobby
 import lila.common.config.*
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.user.User
+import lila.user.UserWithPerfs
 
 final class SeekApi(
     config: SeekApi.Config,
@@ -38,10 +38,10 @@ final class SeekApi(
 
   def forAnon = cache.get(ForAnon)
 
-  def forMe(using me: User | User.WithPerfs): Fu[List[Seek]] = for
+  def forMe(using me: User | UserWithPerfs): Fu[List[Seek]] = for
     user <- me match
-      case u: User.WithPerfs => fuccess(u)
-      case u: User           => perfsRepo.withPerfs(u)
+      case u: UserWithPerfs => fuccess(u)
+      case u: User      => perfsRepo.withPerfs(u)
     blocking <- relationApi.fetchBlocking(user.id)
     seeks    <- forUser(LobbyUser.make(user, lila.core.pool.Blocking(blocking)))
   yield seeks

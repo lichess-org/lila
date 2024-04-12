@@ -2,9 +2,9 @@ package lila.rating
 
 import alleycats.Zero
 
-export lila.core.lilaism.Lilaism.{ *, given }
+export lila.core.lilaism.Lilaism.{ Perf as _, *, given }
 export lila.common.extensions.*
-import lila.core.perf.PerfKey
+
 import lila.rating.PerfType
 
 type UserRankMap   = Map[PerfKey, Int]

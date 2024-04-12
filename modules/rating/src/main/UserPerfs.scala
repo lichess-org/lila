@@ -4,9 +4,13 @@ import chess.Speed
 
 import scalalib.HeapSort.*
 import lila.rating.{ Glicko, Perf }
-import lila.core.perf.PerfKey
+
 import lila.rating.PerfType
 import lila.core.user.LightPerf
+import lila.core.perf.Perf
+import lila.core.rating.Glicko
+import lila.rating.PerfExt.*
+import lila.rating.GlickoExt.*
 
 case class UserPerfs(
     id: UserId,
@@ -26,9 +30,9 @@ case class UserPerfs(
     classical: Perf,
     correspondence: Perf,
     puzzle: Perf,
-    storm: Perf.Storm,
-    racer: Perf.Racer,
-    streak: Perf.Streak
+    storm: lila.rating.Perf.Storm,
+    racer: lila.rating.Perf.Racer,
+    streak: lila.rating.Perf.Streak
 ):
 
   def perfs: List[(PerfType, Perf)] = List(
@@ -50,7 +54,7 @@ case class UserPerfs(
     PerfType.Puzzle         -> puzzle
   )
 
-  def typed(pt: PerfType) = Perf.Typed(apply(pt), pt)
+  def typed(pt: PerfType) = lila.rating.Perf.Typed(apply(pt), pt)
 
   def best8Perfs: List[PerfType]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 4)
   def best6Perfs: List[PerfType]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 2)
@@ -63,7 +67,7 @@ case class UserPerfs(
     .take(nb)
   def hasEstablishedRating(pt: PerfType) = apply(pt).established
 
-  def bestRatedPerf: Option[Perf.Typed] =
+  def bestRatedPerf: Option[lila.rating.Perf.Typed] =
     val ps    = perfs.filter(p => p._1 != PerfType.Puzzle && p._1 != PerfType.Standard)
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
     ps
@@ -72,15 +76,15 @@ case class UserPerfs(
           ro.fold(p.some): r =>
             Some(if p._2.intRating > r._2.intRating then p else r)
         case (ro, _) => ro
-      .map(Perf.typed)
+      .map(lila.rating.Perf.typed)
 
   private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating.value)
 
-  def bestPerfs(nb: Int): List[Perf.Typed] =
+  def bestPerfs(nb: Int): List[lila.rating.Perf.Typed] =
     val ps = lila.rating.PerfType.nonPuzzle.map: pt =>
       pt -> apply(pt)
     val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
-    ps.filter(p => p._2.nb >= minNb).topN(nb).map(Perf.typed)
+    ps.filter(p => p._2.nb >= minNb).topN(nb).map(lila.rating.Perf.typed)
 
   def bestRating: IntRating = bestRatingIn(lila.rating.PerfType.leaderboardable)
 
@@ -97,7 +101,7 @@ case class UserPerfs(
           if p.intRating > r then p.intRating else r
         }.some
       case (ro, _) => ro
-    .getOrElse(Perf.default.intRating)
+    .getOrElse(lila.rating.Perf.default.intRating)
 
   def bestPerf(types: List[PerfType]): Perf =
     types
@@ -105,7 +109,7 @@ case class UserPerfs(
       .foldLeft(none[Perf]):
         case (ro, p) if ro.forall(_.intRating < p.intRating) => p.some
         case (ro, _)                                         => ro
-      .getOrElse(Perf.default)
+      .getOrElse(lila.rating.Perf.default)
 
   def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[IntRating] =
     types
@@ -172,12 +176,12 @@ case class UserPerfs(
         val subs = List(bullet, blitz, rapid, classical, correspondence).filter(_.provisional.no)
         subs.maxByOption(_.latest.fold(0L)(_.toMillis)).flatMap(_.latest).fold(standard) { date =>
           val nb = subs.map(_.nb).sum
-          val glicko = Glicko(
+          val glicko = new Glicko(
             rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
             deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
             volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum
           )
-          Perf(
+          new Perf(
             glicko = glicko,
             nb = nb,
             recent = Nil,
@@ -205,7 +209,7 @@ object UserPerfs:
       puzzle.glicko.rating > 2500 && !standard.glicko.establishedIntRating.exists(_ > 1800)
 
   def default(id: UserId) =
-    val p = Perf.default
+    val p = lila.rating.Perf.default
     UserPerfs(
       id,
       p,
@@ -224,14 +228,14 @@ object UserPerfs:
       p,
       p,
       p,
-      Perf.Storm.default,
-      Perf.Racer.default,
-      Perf.Streak.default
+      lila.rating.Perf.Storm.default,
+      lila.rating.Perf.Racer.default,
+      lila.rating.Perf.Streak.default
     )
 
   def defaultManaged(id: UserId) =
-    val managed       = Perf.defaultManaged
-    val managedPuzzle = Perf.defaultManagedPuzzle
+    val managed       = lila.rating.Perf.defaultManaged
+    val managedPuzzle = lila.rating.Perf.defaultManagedPuzzle
     default(id).copy(
       standard = managed,
       bullet = managed,
@@ -243,7 +247,7 @@ object UserPerfs:
     )
 
   def defaultBot(id: UserId) =
-    val bot = Perf.defaultBot
+    val bot = lila.rating.Perf.defaultBot
     default(id).copy(
       standard = bot,
       bullet = bot,
@@ -281,7 +285,7 @@ object UserPerfs:
   import reactivemongo.api.bson.*
 
   def idPerfReader(pk: PerfKey) = BSONDocumentReader.option[(UserId, Perf)] { doc =>
-    import Perf.given
+    import lila.rating.Perf.given
     for
       id   <- doc.getAsOpt[UserId]("_id")
       perf <- doc.getAsOpt[Perf](pk.value)
@@ -290,10 +294,10 @@ object UserPerfs:
 
   given BSONDocumentHandler[UserPerfs] = new BSON[UserPerfs]:
 
-    import Perf.given
+    import lila.rating.Perf.given
 
     def reads(r: BSON.Reader): UserPerfs =
-      inline def perf(key: String) = r.getO[Perf](key).getOrElse(Perf.default)
+      inline def perf(key: String) = r.getO[Perf](key).getOrElse(lila.rating.Perf.default)
       UserPerfs(
         id = r.get[UserId]("_id"),
         standard = perf("standard"),
@@ -312,9 +316,9 @@ object UserPerfs:
         classical = perf("classical"),
         correspondence = perf("correspondence"),
         puzzle = perf("puzzle"),
-        storm = r.getO[Perf.Storm]("storm").getOrElse(Perf.Storm.default),
-        racer = r.getO[Perf.Racer]("racer").getOrElse(Perf.Racer.default),
-        streak = r.getO[Perf.Streak]("streak").getOrElse(Perf.Streak.default)
+        storm = r.getO[lila.rating.Perf.Storm]("storm").getOrElse(lila.rating.Perf.Storm.default),
+        racer = r.getO[lila.rating.Perf.Racer]("racer").getOrElse(lila.rating.Perf.Racer.default),
+        streak = r.getO[lila.rating.Perf.Streak]("streak").getOrElse(lila.rating.Perf.Streak.default)
       )
 
     private inline def notNew(p: Perf): Option[Perf] = p.nonEmpty.option(p)

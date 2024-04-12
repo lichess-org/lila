@@ -10,7 +10,6 @@ import lila.common.Bus
 import lila.common.config.*
 import lila.socket.Announce
 import lila.core.misc.lpv.*
-import lila.user.User
 
 @Module
 final class Env(

@@ -21,19 +21,20 @@ object data:
 
 import data.*
 
-trait Perf:
-  val glicko: Glicko
-  val nb: Int
-  export glicko.{ intRating, intDeviation, provisional }
-  def progress: IntRatingDiff
-
-trait Glicko:
-  val rating: Double
-  val deviation: Double
-  val volatility: Double
-  def provisional: RatingProvisional
+case class Glicko(
+    rating: Double,
+    deviation: Double,
+    volatility: Double
+):
+  override def toString    = f"$intRating/$intDeviation/${volatility}%.3f"
   def intRating: IntRating = IntRating(rating.toInt)
   def intDeviation         = deviation.toInt
+  def provisional          = RatingProvisional(deviation >= Glicko.provisionalDeviation)
+  def established          = provisional.no
+  def establishedIntRating = Option.when(established)(intRating)
+
+object Glicko:
+  val provisionalDeviation = 110
 
 case class RatingProg(before: IntRating, after: IntRating):
   def diff    = IntRatingDiff(after.value - before.value)

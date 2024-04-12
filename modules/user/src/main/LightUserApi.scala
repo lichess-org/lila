@@ -6,7 +6,7 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, Syncache }
 
-import User.BSONFields as F
+import BSONFields as F
 
 final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
     extends lila.core.user.LightUserApi:

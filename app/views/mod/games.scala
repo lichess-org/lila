@@ -13,7 +13,6 @@ import lila.game.Pov
 import lila.rating.PerfType
 import lila.core.chess.Rank
 import lila.tournament.LeaderboardApi.TourEntry
-import lila.user.User
 
 object games:
 

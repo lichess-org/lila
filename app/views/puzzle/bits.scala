@@ -9,7 +9,7 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
-import lila.user.User
+
 import lila.core.i18n.I18nKey
 
 object bits:

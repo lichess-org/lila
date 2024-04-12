@@ -4,12 +4,13 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
+import lila.rating.UserWithPerfs
+import lila.user.Profile.flagInfo
 
 object mini:
 
   def apply(
-      u: User.WithPerfs,
+      u: UserWithPerfs,
       playing: Option[lila.game.Pov],
       blocked: Boolean,
       followable: Boolean,

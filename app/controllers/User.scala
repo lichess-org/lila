@@ -19,7 +19,8 @@ import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog
 import lila.security.UserLogins
 import lila.user.User as UserModel
-import lila.core.perf.PerfKey
+import lila.user.WithPerfsAndEmails
+
 import lila.rating.PerfType
 import lila.core.net.IpAddress
 import lila.core.user.LightPerf
@@ -350,7 +351,7 @@ final class User(
       me: Me
   ): Fu[Result] =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
-      case UserModel.WithPerfsAndEmails(user, emails) =>
+      case WithPerfsAndEmails(user, emails) =>
         withPageContext:
           import html.user.{ mod as view }
           import lila.app.ui.ScalatagsExtensions.{ emptyFrag, given }
@@ -453,7 +454,7 @@ final class User(
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
-      case UserModel.WithPerfsAndEmails(user, emails) =>
+      case WithPerfsAndEmails(user, emails) =>
         env.user.repo.isErased(user).flatMap { erased =>
           Ok.page:
             html.user.mod.actions(

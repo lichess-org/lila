@@ -128,7 +128,7 @@ final class KaladinApi(
         if _ then sendReport
         else
           modApi
-            .autoMark(user.suspectId, pred.note)(using User.kaladinId.into(Me.Id))
+            .autoMark(user.suspectId, pred.note)(using lila.user.ids.kaladinId.into(MyId))
             .andDo(lila.mon.mod.kaladin.mark.increment())
       }
     else if pred.percent >= thresholds.get().report then sendReport
@@ -199,7 +199,7 @@ final class KaladinApi(
         }.dmap(_.isEnough)
       )
     }
-    def apply(u: User.WithPerfs): Fu[Boolean] =
+    def apply(u: lila.rating.UserWithPerfs): Fu[Boolean] =
       fuccess(u.perfs.blitz.nb + u.perfs.rapid.nb > 30) >>& cache.get(u.id)
 
   private[irwin] def autoRequest(requester: KaladinUser.Requester)(user: Suspect) =

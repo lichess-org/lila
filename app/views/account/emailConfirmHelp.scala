@@ -26,7 +26,7 @@ object emailConfirmHelp:
                 trans.site.username(),
                 help = trans.site.whatSignupUsername().some
               ) { f =>
-                form3.input(f)(pattern := lila.user.User.newUsernameRegex.regex)
+                form3.input(f)(pattern := lila.user.nameRules.newUsernameRegex.regex)
               },
               div(cls := "form-group")(
                 form3.submit(trans.site.apply())

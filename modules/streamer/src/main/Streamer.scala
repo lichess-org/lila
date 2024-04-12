@@ -5,7 +5,6 @@ import cats.derived.*
 
 import lila.core.i18n.Language
 import lila.memo.PicfitImage
-import lila.user.User
 
 case class Streamer(
     @Key("_id") id: Streamer.Id,

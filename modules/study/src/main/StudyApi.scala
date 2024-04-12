@@ -12,7 +12,6 @@ import lila.core.socket.Sri
 import lila.core.{ study as hub }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.User
 
 import actorApi.Who
 

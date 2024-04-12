@@ -7,7 +7,9 @@ import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
-import lila.user.User
+import lila.user.Plan.sinceDate
+import lila.user.Profile.*
+import lila.user.PlayTime.*
 
 object header:
 

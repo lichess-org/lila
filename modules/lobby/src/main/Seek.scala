@@ -9,8 +9,9 @@ import scalalib.model.Days
 import lila.common.Json.given
 import lila.rating.{ Perf, PerfType }
 import lila.core.rating.RatingRange
-import lila.user.User
-import lila.core.perf.PerfKey
+
+
+import lila.user.UserWithPerfs
 
 // correspondence chess, persistent
 case class Seek(
@@ -75,7 +76,7 @@ object Seek:
       daysPerTurn: Option[Days],
       mode: Mode,
       color: String,
-      user: User.WithPerfs,
+      user: UserWithPerfs,
       ratingRange: RatingRange,
       blocking: lila.core.pool.Blocking
   ): Seek = Seek(

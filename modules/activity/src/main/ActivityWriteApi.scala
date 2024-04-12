@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.user.User
+
 import lila.core.simul.Simul
 
 final class ActivityWriteApi(

@@ -102,7 +102,7 @@ final class UblogPaginator(
               local = "created.by",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $doc(User.BSONFields.enabled -> true)),
+                $doc("$match"   -> $doc(lila.user.BSONFields.enabled -> true)),
                 $doc("$project" -> $id(true))
               )
             )

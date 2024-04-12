@@ -7,6 +7,7 @@ import scala.util.chaining.*
 import lila.memo.CacheApi
 import lila.rating.Perf
 import lila.user.{ Me, User }
+import lila.rating.GlickoExt.clueless
 
 private case class PuzzleSession(
     settings: PuzzleSettings,
@@ -105,7 +106,7 @@ final class PuzzleSessionApi(pathApi: PuzzlePathApi, cacheApi: CacheApi)(using E
 
   // renew the session often for provisional players
   private def shouldFlushSession(session: PuzzleSession)(using perf: Perf) = !session.brandNew && {
-    perf.clueless || (perf.provisional.yes && perf.nb % 5 == 0)
+    perf.glicko.clueless || (perf.provisional.yes && perf.nb % 5 == 0)
   }
 
   private def createSessionFor(angle: PuzzleAngle, settings: PuzzleSettings)(using

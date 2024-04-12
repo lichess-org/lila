@@ -8,7 +8,7 @@ import scala.util.chaining.*
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.perf.PerfKey
+
 import lila.rating.PerfType
 import lila.core.id.GameAnyId
 
@@ -167,5 +167,5 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     env.user.lightUserApi.preloadMany(game.userIds)
   private[controllers] def preloadUsers(users: lila.user.GameUsers): Unit =
     env.user.lightUserApi.preloadUsers(users.all.collect:
-      case Some(lila.user.User.WithPerf(u, _)) => u
+      case Some(lila.core.user.WithPerf(u, _)) => u
     )

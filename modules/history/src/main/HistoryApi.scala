@@ -7,17 +7,18 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
 import lila.rating.{ Perf, PerfType, UserPerfs }
-import lila.core.user.{ User, UserApi }
 import scalalib.model.Days
-import lila.core.perf.PerfKey
 
-final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(
-    using Executor
-) extends lila.core.history.HistoryApi:
+final class HistoryApi(
+    withColl: AsyncCollFailingSilently,
+    userApi: lila.core.user.UserApi,
+    cacheApi: lila.memo.CacheApi
+)(using Executor)
+    extends lila.core.history.HistoryApi:
 
   import History.{ given, * }
 
-  def addPuzzle(user: lila.core.user.User, completedAt: Instant, perf: lila.core.rating.Perf): Funit =
+  def addPuzzle(user: User, completedAt: Instant, perf: lila.core.perf.Perf): Funit =
     withColl: coll =>
       val days = daysBetween(user.createdAt, completedAt)
       coll.update

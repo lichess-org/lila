@@ -4,8 +4,6 @@ import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 import scala.util.chaining.*
 
-import lila.user.User
-
 case class ForumTopic(
     @Key("_id") id: ForumTopicId,
     categId: ForumCategId,

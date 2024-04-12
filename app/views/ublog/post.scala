@@ -7,7 +7,6 @@ import play.api.mvc.Call
 import lila.app.templating.Environment.{ *, given }
 import lila.app.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
-import lila.user.User
 
 object post:
 

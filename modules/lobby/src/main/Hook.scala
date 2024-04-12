@@ -8,7 +8,7 @@ import play.api.libs.json.*
 import lila.rating.PerfType
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
-import lila.user.User
+import lila.user.UserWithPerfs
 
 // realtime chess, volatile
 case class Hook(
@@ -103,7 +103,7 @@ object Hook:
       clock: Clock.Config,
       mode: Mode,
       color: String,
-      user: Option[User.WithPerfs],
+      user: Option[UserWithPerfs],
       sid: Option[String],
       ratingRange: RatingRange,
       blocking: lila.core.pool.Blocking,

@@ -1,17 +1,110 @@
 package lila.core
 package user
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import play.api.i18n.Lang
 import _root_.chess.PlayerTitle
 
-import lila.core.rating.Perf
+import lila.core.perf.Perf
 import lila.core.rating.data.{ IntRating, IntRatingDiff }
 import lila.core.perf.PerfKey
 import lila.core.userId.*
 import lila.core.email.*
 import lila.core.id.Flair
 
-case class ChangeEmail(id: UserId, email: EmailAddress)
+case class User(
+    id: UserId,
+    username: UserName,
+    count: Count,
+    enabled: UserEnabled,
+    roles: List[String],
+    profile: Option[Profile] = None,
+    toints: Int = 0,
+    playTime: Option[PlayTime],
+    title: Option[PlayerTitle] = None,
+    createdAt: Instant,
+    seenAt: Option[Instant],
+    kid: Boolean,
+    lang: Option[String],
+    plan: Plan,
+    flair: Option[Flair] = None,
+    totpSecret: Option[TotpSecret] = None,
+    marks: UserMarks = UserMarks(Nil),
+    hasEmail: Boolean
+):
+  override def equals(other: Any) = other match
+    case u: User => id == u.id
+    case _       => false
+
+  override def hashCode: Int = id.hashCode
+
+  override def toString =
+    import lila.core.lilaism.Core.given
+    s"User $username games:${count.game}${marks.troll.so(" troll")}${marks.engine.so(" engine")}${enabled.no.so(" closed")}"
+
+  def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
+
+  def realLang: Option[Lang] = lang.flatMap(Lang.get)
+
+  def hasTitle: Boolean = title.exists(PlayerTitle.BOT != _)
+
+  def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
+
+  def profileOrDefault = profile | Profile.default
+
+  def realNameOrUsername = profileOrDefault.nonEmptyRealName | username.value
+
+  def titleUsername: String = title.fold(username.value)(t => s"$t $username")
+
+  def hasGames = count.game > 0
+
+  def countRated = count.rated
+
+  // lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
+
+  def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).toMillis).millis
+
+  def everLoggedIn = seenAt.exists(createdAt != _)
+
+  def lame = marks.boost || marks.engine
+
+  def lameOrTroll      = lame || marks.troll
+  def lameOrAlt        = lame || marks.alt
+  def lameOrTrollOrAlt = lameOrTroll || marks.alt
+
+  def canBeFeatured = hasTitle && !lameOrTroll
+
+  def canFullyLogin = enabled.yes || !lameOrTrollOrAlt
+
+  def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
+
+  def lightCount = LightCount(light, count.game)
+
+  def isPatron = plan.active
+
+  def activePlan: Option[Plan] = plan.active.option(plan)
+
+  def planMonths: Option[Int] = activePlan.map(_.months)
+
+  def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
+
+  def isBot = title.contains(PlayerTitle.BOT)
+  def noBot = !isBot
+
+  def rankable = enabled.yes && noBot && !marks.rankban
+
+  def withPerf(perf: Perf): WithPerf = WithPerf(this, perf)
+
+  def addRole(role: String) = copy(roles = role :: roles)
+
+  import lila.core.perm.Granter
+  def isSuperAdmin               = Granter.ofUser(_.SuperAdmin)(this)
+  def isAdmin                    = Granter.ofUser(_.Admin)(this)
+  def isVerified                 = Granter.ofUser(_.Verified)(this)
+  def isApiHog                   = Granter.ofUser(_.ApiHog)(this)
+  def isVerifiedOrAdmin          = isVerified || isAdmin
+  def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || Granter.ofUser(_.ApiChallengeAdmin)(this)
+end User
 
 opaque type KidMode = Boolean
 object KidMode extends YesNo[KidMode]
@@ -19,23 +112,46 @@ object KidMode extends YesNo[KidMode]
 opaque type UserEnabled = Boolean
 object UserEnabled extends YesNo[UserEnabled]
 
-trait User:
-  val id: UserId
-  val username: UserName
-  val title: Option[PlayerTitle]
-  val count: Count
-  val createdAt: Instant
-  val enabled: UserEnabled
-  val marks: UserMarks
-  val lang: Option[String]
-  val roles: List[String]
-  val flair: Option[Flair]
+case class PlayTime(total: Int, tv: Int)
 
-  def createdSinceDays(days: Int) = createdAt.isBefore(nowInstant.minusDays(days))
-  def realLang: Option[Lang]      = lang.flatMap(Lang.get)
-  def hasTitle: Boolean           = title.exists(PlayerTitle.BOT != _)
-  def isPatron: Boolean
-  def light = LightUser(id = id, name = username, title = title, flair = flair, isPatron = isPatron)
+case class Plan(months: Int, active: Boolean, since: Option[Instant])
+
+case class TotpSecret(secret: Array[Byte]) extends AnyVal:
+  override def toString = "TotpSecret(****)"
+
+case class Profile(
+    @Key("country") flag: Option[String] = None,
+    location: Option[String] = None,
+    bio: Option[String] = None,
+    firstName: Option[String] = None,
+    lastName: Option[String] = None,
+    fideRating: Option[Int] = None,
+    uscfRating: Option[Int] = None,
+    ecfRating: Option[Int] = None,
+    rcfRating: Option[Int] = None,
+    cfcRating: Option[Int] = None,
+    dsbRating: Option[Int] = None,
+    links: Option[String] = None
+):
+  def nonEmptyRealName =
+    List(ne(firstName), ne(lastName)).flatten match
+      case Nil   => none
+      case names => (names.mkString(" ")).some
+
+  def nonEmptyLocation = ne(location)
+
+  def nonEmptyBio = ne(bio)
+
+  def isEmpty = completionPercent == 0
+
+  def completionPercent: Int =
+    100 * List(flag, bio, firstName, lastName).count(_.isDefined) / 4
+
+  private def ne(str: Option[String]) = str.filter(_.nonEmpty)
+end Profile
+
+object Profile:
+  val default = Profile()
 
 object User:
   given UserIdOf[User] = _.id
@@ -45,11 +161,6 @@ object User:
 
 case class Me(user: User):
   export user.*
-
-trait WithPerf:
-  val user: User
-  val perf: Perf
-  export user.{ id, createdAt }
 
 case class Count(
     ai: Int,
@@ -63,8 +174,13 @@ case class Count(
     winH: Int // only against human opponents
 )
 
+case class WithPerf(user: User, perf: Perf):
+  export user.{ id, createdAt, hasTitle, light }
+
 case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
 case class LightCount(user: LightUser, count: Int)
+
+case class ChangeEmail(id: UserId, email: EmailAddress)
 
 trait UserApi:
   def byId[U: UserIdOf](u: U): Fu[Option[User]]

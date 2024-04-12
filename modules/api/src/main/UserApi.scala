@@ -9,6 +9,7 @@ import lila.rating.UserRankMap
 import lila.core.perm.Granter
 import lila.user.{ Me, Trophy, User }
 import lila.rating.PerfType
+import lila.rating.UserWithPerfs
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -29,7 +30,7 @@ final class UserApi(
     net: NetConfig
 )(using Executor, lila.core.i18n.Translator):
 
-  def one(u: User.WithPerfs, joinedAt: Option[Instant] = None): JsObject = {
+  def one(u: UserWithPerfs, joinedAt: Option[Instant] = None): JsObject = {
     addStreaming(jsonView.full(u.user, u.perfs.some, withProfile = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
@@ -44,14 +45,14 @@ final class UserApi(
     }
 
   def extended(
-      u: User | User.WithPerfs,
+      u: User | UserWithPerfs,
       withFollows: Boolean,
       withTrophies: Boolean,
       forWiki: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
-      case u: User           => userApi.withPerfs(u)
-      case u: User.WithPerfs => fuccess(u)
+      case u: User          => userApi.withPerfs(u)
+      case u: UserWithPerfs => fuccess(u)
     .flatMap: u =>
         if u.enabled.no
         then fuccess(jsonView.disabled(u.light))
