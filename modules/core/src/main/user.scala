@@ -184,6 +184,7 @@ case class ChangeEmail(id: UserId, email: EmailAddress)
 
 trait UserApi:
   def byId[U: UserIdOf](u: U): Fu[Option[User]]
+  def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
   def email(id: UserId): Fu[Option[EmailAddress]]
   def withEmails[U: UserIdOf](user: U): Fu[Option[WithEmails]]
   def pair(x: UserId, y: UserId): Fu[Option[(User, User)]]
@@ -242,7 +243,9 @@ object UserMarks extends TotalWrapper[UserMarks, List[UserMark]]:
     def arenaBan: Boolean                = hasMark(UserMark.arenaban)
     def alt: Boolean                     = hasMark(UserMark.alt)
 
-abstract class UserRepo(val coll: reactivemongo.api.bson.collection.BSONCollection)
+abstract class UserRepo(val coll: reactivemongo.api.bson.collection.BSONCollection):
+  given userHandler: reactivemongo.api.bson.BSONDocumentHandler[User]
+
 object BSONFields:
   val enabled = "enabled"
   val title   = "title"

@@ -106,7 +106,7 @@ final class ReportApi(
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
       (candidate.isComm && candidate.suspect.user.marks.troll)
 
-  def getMyMod(using me: Me.Id): Fu[Option[Mod]]         = userRepo.byId(me).dmap2(Mod.apply)
+  def getMyMod(using me: MyId): Fu[Option[Mod]]         = userRepo.byId(me).dmap2(Mod.apply)
   def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]         = userRepo.byId(u).dmap2(Mod.apply)
   def getSuspect[U: UserIdOf](u: U): Fu[Option[Suspect]] = userRepo.byId(u).dmap2(Suspect.apply)
 
@@ -288,7 +288,7 @@ final class ReportApi(
     maxScoreCache.invalidateUnit()
     lila.mon.mod.report.close.increment()
 
-  def autoProcess(sus: Suspect, rooms: Set[Room])(using Me.Id): Funit =
+  def autoProcess(sus: Suspect, rooms: Set[Room])(using MyId): Funit =
     val selector = $doc(
       "user" -> sus.user.id,
       "room".$in(rooms),
@@ -298,7 +298,7 @@ final class ReportApi(
       .andDo(maxScoreCache.invalidateUnit())
       .andDo(lila.mon.mod.report.close.increment())
 
-  private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: Me.Id): Funit =
+  private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: MyId): Funit =
     coll.update
       .one(
         selector,

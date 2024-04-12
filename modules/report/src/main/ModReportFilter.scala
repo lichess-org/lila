@@ -5,7 +5,7 @@ import lila.user.{ Me, given }
 final class ModReportFilter:
 
   // mutable storage, because I cba to put it in DB
-  private var modIdFilter = Map.empty[Me.Id, Option[Room]]
+  private var modIdFilter = Map.empty[MyId, Option[Room]]
 
   def get(mod: Me): Option[Room] = modIdFilter.get(mod).flatten
 

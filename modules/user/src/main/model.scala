@@ -34,5 +34,5 @@ object Me extends TotalWrapper[Me, User]:
 given Conversion[Me, MyId]           = _.id.into(MyId)
 given (using me: Me): MyId           = Me.myId(me)
 given (using me: MyId): Option[MyId] = Some(me)
-extension (me: Me.Id) inline def modId: ModId = me.into(ModId)
+extension (me: MyId) inline def modId: ModId = me.into(ModId)
 given (using me: Me): LightUser.Me = LightUser.Me(me.light)

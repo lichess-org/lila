@@ -23,6 +23,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
 
   export userRepo.{
     byId,
+    byIds,
     email,
     emailOrPrevious,
     pair,

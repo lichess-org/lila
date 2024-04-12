@@ -41,7 +41,7 @@ final class Messenger(api: ChatApi):
     (game.fromFriend || presets.contains(text))
       .so(api.playerChat.write(game.id.into(ChatId), anonColor, text, _.round))
 
-  def timeout(chatId: ChatId, suspect: UserId, reason: String, text: String)(using mod: Me.Id): Funit =
+  def timeout(chatId: ChatId, suspect: UserId, reason: String, text: String)(using mod: MyId): Funit =
     ChatTimeout
       .Reason(reason)
       .so: r =>

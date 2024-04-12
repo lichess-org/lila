@@ -205,7 +205,7 @@ final class LobbySocket(
                 ratingRange = ratingRange,
                 lame = user.lame,
                 blocking = user.blocking.map(_ ++ blocking)
-              )(using user.id.into(Me.Id))
+              )(using user.id.into(MyId))
             )
           }
       }

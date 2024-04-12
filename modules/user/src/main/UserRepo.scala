@@ -20,6 +20,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   import lila.user.{ BSONFields as F }
   import lila.user.BSONHandlers.given
+  export lila.user.BSONHandlers.userHandler
 
   def withColl[A](f: Coll => A): A = f(coll)
 
@@ -34,12 +35,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
           case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
             none // probably GDPRed user
 
-  def byIds[U: UserIdOf](
-      us: Iterable[U],
-      readPref: ReadPref = _.pri
-  ): Fu[List[User]] =
+  def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(_.noGhost)
-    ids.nonEmpty.so(coll.byIds[User, UserId](ids, readPref))
+    ids.nonEmpty.so(coll.byIds[User, UserId](ids))
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, _.sec)

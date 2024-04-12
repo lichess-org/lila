@@ -150,7 +150,7 @@ lazy val coach = module("coach",
 )
 
 lazy val streamer = module("streamer",
-  Seq(user),
+  Seq(coreI18n, memo),
   reactivemongo.bundle
 )
 

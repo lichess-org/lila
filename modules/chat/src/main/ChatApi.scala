@@ -130,7 +130,7 @@ final class ChatApi(
         scope: ChatTimeout.Scope,
         text: String,
         busChan: BusChan.Select
-    )(using mod: Me.Id): Funit =
+    )(using mod: MyId): Funit =
       coll.byId[UserChat](chatId.value).zip(userRepo.me(mod)).zip(userRepo.byId(userId)).flatMap {
         case ((Some(chat), Some(me)), Some(user))
             if isMod(using me) || (busChan(BusChan) == BusChan.study && isRelayMod(using me)) ||
