@@ -7,7 +7,7 @@ import lila.common.HTTPRequest
 import lila.core.config.NetConfig
 import lila.core.net.LichessMobileUa
 
-final class HttpFilter(net: NetConfig, parseMobileUa: RequestHeader => Option[LichessMobileUa])(using
+final class HttpFilter(env: Env, net: NetConfig, parseMobileUa: RequestHeader => Option[LichessMobileUa])(using
     val mat: Materializer
 )(using Executor)
     extends Filter
@@ -57,6 +57,6 @@ final class HttpFilter(net: NetConfig, parseMobileUa: RequestHeader => Option[Li
     else result.withHeaders(permissionsPolicyHeader)
 
   private def addEmbedderPolicyHeaders(req: RequestHeader)(result: Result) =
-    if !crossOriginPolicy.isSet(result) && crossOriginPolicy.supportsCredentiallessIFrames(req)
+    if !crossOriginPolicy.isSet(result) && crossOriginPolicy.supportsCredentiallessIFrames(req) && env.web.settings.sitewideCoepCredentiallessHeader.get()
     then result.withHeaders(crossOriginPolicy.credentialless*)
     else result
