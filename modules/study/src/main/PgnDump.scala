@@ -5,7 +5,7 @@ import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comme
 import chess.format.{ pgn as chessPgn }
 
 import lila.common.String.slugify
-import lila.tree.{ Analysis, Root, Branch, Branches, NewBranch, NewTree, NewRoot }
+import lila.tree.{ Analysis, Root, NewBranch, NewTree, NewRoot }
 import lila.tree.Node.{ Shape, Shapes }
 
 final class PgnDump(
@@ -91,9 +91,8 @@ final class PgnDump(
         .reverse
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
-    val root = chapter.root
     val tags = makeTags(study, chapter)(using flags)
-    val pgn  = rootToPgn(root, tags)(using flags)
+    val pgn  = rootToPgn(chapter.root, tags)(using flags)
     annotator.toPgnString(analysis.ifTrue(flags.comments).fold(pgn)(annotator.addEvals(pgn, _)))
 
 object PgnDump:
@@ -107,15 +106,8 @@ object PgnDump:
   )
   val fullFlags = WithFlags(true, true, true, true, true)
 
-  private type Variations = List[Branch]
-  private val noVariations: Variations = Nil
-
   def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
-    Pgn(
-      tags,
-      InitialComments(root.comments.value.map(_.text.into(Comment)) ::: shapeComment(root.shapes).toList),
-      rootToTree(root)
-    )
+    rootToPgn(NewRoot(root), tags)
 
   def rootToTree(root: Root)(using WithFlags): Option[PgnTree] =
     NewTree(root).map(treeToTree)
@@ -124,7 +116,7 @@ object PgnDump:
     Pgn(
       tags,
       InitialComments(root.comments.value.map(_.text.into(Comment)) ::: shapeComment(root.shapes).toList),
-      root.tree.map(treeToTree(_)(using flags))
+      root.tree.map(treeToTree)
     )
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
