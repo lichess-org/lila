@@ -36,7 +36,7 @@ object Environment
   def env: Env                    = envVar.get
 
   def netConfig           = env.net
-  def netBaseUrl          = env.net.baseUrl.value
+  def netBaseUrl          = env.net.baseUrl
   def contactEmailInClear = env.net.email.value
 
   given lila.core.config.NetDomain = env.net.domain

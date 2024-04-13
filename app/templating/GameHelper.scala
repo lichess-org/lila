@@ -10,11 +10,12 @@ import lila.web.ui.*
 import lila.core.LightUser
 import lila.game.{ Game, LightPlayer, Namer, Player, Pov }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translate }
+import lila.core.config.BaseUrl
 
 trait GameHelper:
   self: RouterHelper & I18nHelper & UserHelper & StringHelper & NumberHelper & ChessgroundHelper =>
 
-  def netBaseUrl: String
+  def netBaseUrl: BaseUrl
   def cdnUrl(path: String): String
 
   def povOpenGraph(pov: Pov) =

@@ -57,7 +57,7 @@ object variant:
       openGraph = openGraph
     ):
       main(cls := "page-menu")(
-        views.html.site.bits.pageMenuSubnav(
+        views.html.base.bits.pageMenuSubnav(
           lila.rating.PerfType.variants.map { pt =>
             a(
               cls      := List("text" -> true, "active" -> active.has(pt)),

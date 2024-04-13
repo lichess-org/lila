@@ -1,13 +1,14 @@
-package views.html.base
+package lila.web
+package views
 
 import play.api.mvc.Call
-
 import java.time.LocalDate
 
-import lila.app.templating.Environment.*
 import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.core.config.BaseUrl
+import lila.common.Icon
 
-object atom:
+final class atom(netBaseUrl: BaseUrl):
 
   def apply[A](
       elems: Seq[A],
@@ -34,6 +35,13 @@ object atom:
   def atomDate(date: Instant): String = isoDateTimeFormatter.print(date)
   def atomDate(date: LocalDate): String =
     java.time.format.DateTimeFormatter.ISO_DATE.withZone(utcZone).print(date)
+
+  def atomLink(url: play.api.mvc.Call) = a(
+    cls      := "atom",
+    st.title := "Atom RSS feed",
+    href     := url,
+    dataIcon := Icon.RssFeed
+  )
 
   private val termAttr   = attr("term")
   private val labelAttr  = attr("label")

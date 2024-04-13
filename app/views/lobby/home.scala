@@ -38,7 +38,7 @@ object home:
           image = assetUrl("logo/lichess-tile-wide.png").some,
           twitterImage = assetUrl("logo/lichess-tile.png").some,
           title = "The best free, adless Chess server",
-          url = netBaseUrl,
+          url = netBaseUrl.value,
           description = trans.site.siteDescription.txt()
         )
         .some,

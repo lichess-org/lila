@@ -211,7 +211,7 @@ object dgt:
       csp = defaultCsp.withAnyWs.some
     ):
       main(cls := "account page-menu dgt")(
-        views.html.site.bits.pageMenuSubnav(
+        views.html.base.bits.pageMenuSubnav(
           a(cls := path.active("index"), href := routes.DgtCtrl.index)(
             dgtBoard()
           ),

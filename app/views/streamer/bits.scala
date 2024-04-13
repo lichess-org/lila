@@ -31,7 +31,7 @@ object bits:
     )
 
   def menu(active: String, s: Option[lila.streamer.Streamer.WithContext])(using ctx: PageContext) =
-    views.html.site.bits.subnav(
+    views.html.base.bits.subnav(
       a(cls := active.active("index"), href := routes.Streamer.index())(allStreamers()),
       s.map { st =>
         frag(

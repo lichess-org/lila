@@ -17,7 +17,7 @@ object history:
       moreCss = cssTag("tournament.history")
     ) {
       main(cls := "page-menu arena-history")(
-        views.html.site.bits.pageMenuSubnav(
+        views.html.base.bits.pageMenuSubnav(
           allFreqs.map { f =>
             a(cls := freq.name.active(f.name), href := routes.Tournament.history(f.name))(
               nameOf(f)

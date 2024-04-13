@@ -21,7 +21,7 @@ object layout:
     ):
       main(cls := "video page-menu force-ltr")(
         st.aside(cls := "page-menu__menu")(
-          views.html.site.bits.subnav(
+          views.html.base.bits.subnav(
             control.tags.map: t =>
               val checked = control.filter.tags contains t.tag
               a(

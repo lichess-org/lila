@@ -12,10 +12,10 @@ object tree:
   import trans.site.closingAccountWithdrawAppeal
   import trans.contact.doNotMessageModerators
   import trans.appeal
-  import views.html.base.navTree.*
-  import views.html.base.navTree.Node.*
+  import lila.web.views.navTree.*
+  import lila.web.views.navTree.Node.*
 
-  private def cleanMenu(using PageContext): Branch =
+  private def cleanMenu(using Context): Branch =
     Branch(
       "root",
       appeal.cleanAllGood(),
@@ -60,7 +60,7 @@ object tree:
       )
     )
 
-  private def engineMenu(using PageContext): Branch =
+  private def engineMenu(using Context): Branch =
     val accept =
       "I accept that I used external assistance in my games."
     val deny =
@@ -100,7 +100,7 @@ object tree:
       content = appeal.engineMarkedInfo(a(href := routes.Cms.lonePage("fair-play"))(appeal.fairPlay())).some
     )
 
-  private def boostMenu(using PageContext): Branch =
+  private def boostMenu(using Context): Branch =
     val accept = "I accept that I manipulated my rating."
     val acceptFull =
       "I accept that I deliberately manipulated my rating by losing games on purpose, or by playing another account that was deliberately losing games. I am sorry and I would like another chance."
@@ -132,7 +132,7 @@ object tree:
       content = appeal.boosterMarkedInfo().some
     )
 
-  private def muteMenu(using PageContext): Branch =
+  private def muteMenu(using Context): Branch =
     val accept = "I accept that I have not followed the communication guidelines"
     val acceptFull =
       "I accept that I have not followed the communication guidelines. I will behave better in future, please give me another chance."
@@ -173,7 +173,7 @@ object tree:
         .some
     )
 
-  private def rankBanMenu(using PageContext): Branch =
+  private def rankBanMenu(using Context): Branch =
     val accept = "I accept that I have manipulated my account to get on the leaderboard."
     val deny =
       "I deny having manipulated my account to get on the leaderboard."
@@ -201,7 +201,7 @@ object tree:
       content = appeal.excludedFromLeaderboardsInfo().some
     )
 
-  private def arenaBanMenu(using PageContext): Branch =
+  private def arenaBanMenu(using Context): Branch =
     val noPlay  = "I have joined many arenas without playing in them"
     val noStart = "I did not move in many arenas games"
     val deny    = "I have followed fair-play and arenas rules"
@@ -236,7 +236,7 @@ object tree:
       )
     )
 
-  private def hiddenBlogMenu(using PageContext): Branch =
+  private def hiddenBlogMenu(using Context): Branch =
     val accept =
       "I accept that I have broken the blog rules"
     val deny =
@@ -266,7 +266,7 @@ object tree:
         appeal.hiddenBlogInfo(a(href := routes.Cms.lonePage("blog-etiquette"))(appeal.blogRules())).some
     )
 
-  private def prizebanMenu(using PageContext): Branch =
+  private def prizebanMenu(using Context): Branch =
     val prizebanExpired = "My ban duration has expired, as I was informed by moderators."
     val deny            = "I reject any allegation of wrongdoing that may have prompted a prizeban."
     Branch(
@@ -338,7 +338,7 @@ object tree:
       )
     )
 
-  private def altScreen(using PageContext) = div(cls := "leaf")(
+  private def altScreen(using Context) = div(cls := "leaf")(
     h2(appeal.closedByModerators()),
     div(cls := "content")(
       p("Did you create multiple accounts? If so, remember that you promised not to, on the sign up page."),
@@ -399,7 +399,7 @@ object tree:
     p("Please be honest, concise, and on point.")
   )
 
-  private def newAppeal(preset: String = "")(using PageContext) =
+  private def newAppeal(preset: String = "")(using Context) =
     discussion.renderForm(
       lila.appeal.Appeal.form.fill(preset),
       action = appealRoutes.post.url,

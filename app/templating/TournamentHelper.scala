@@ -18,7 +18,6 @@ trait TournamentHelper:
   self: DateHelper & UserHelper & StringHelper & NumberHelper =>
 
   def env: Env
-  def netBaseUrl: String
 
   def tournamentJsData(tour: Tournament, version: Int, user: Option[User]) =
 

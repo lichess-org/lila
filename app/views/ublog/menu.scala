@@ -12,7 +12,7 @@ object menu:
     val lichess            = active.left.toOption.has(UserId.lichess)
     val community = active == Right("community") || (active.left.toOption.exists(ctx.isnt) && !lichess)
     val mine      = active.left.toOption.exists(ctx.is)
-    views.html.site.bits.pageMenuSubnav(
+    views.html.base.bits.pageMenuSubnav(
       cls := "force-ltr",
       ctx.kid.no.option(
         a(

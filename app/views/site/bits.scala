@@ -20,22 +20,6 @@ object bits:
           frame.credentialless
         )(spinner)
 
-  def api = raw:
-    """<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src https://cdn.jsdelivr.net blob:; child-src blob:; connect-src https://raw.githubusercontent.com; img-src data: https://lichess.org https://lichess1.org;">
-    <title>Lichess.org API reference</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>body { margin: 0; padding: 0; }</style>
-  </head>
-  <body>
-    <redoc spec-url="https://raw.githubusercontent.com/lichess-org/api/master/doc/specs/lichess-api.yaml"></redoc>
-    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
-  </body>
-</html>"""
-
   def errorPage(using PageContext) =
     views.html.base.layout(title = "Internal server error"):
       main(cls := "page-small box box-pad")(
@@ -59,15 +43,3 @@ object bits:
           p("Nothing to see here, move along.")
         )
       )
-
-  def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
-    st.nav(cls := "subnav__inner")(mods)
-
-  def pageMenuSubnav(mods: Modifier*) = subnav(cls := "page-menu__menu", mods)
-
-  def atomLink(url: play.api.mvc.Call) = a(
-    cls      := "atom",
-    st.title := "Atom RSS feed",
-    href     := url,
-    dataIcon := Icon.RssFeed
-  )

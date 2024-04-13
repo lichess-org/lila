@@ -24,7 +24,7 @@ object bits:
     )(
       if isGranted(_.Teacher) then
         main(cls := "page-menu")(
-          views.html.site.bits.pageMenuSubnav(
+          views.html.base.bits.pageMenuSubnav(
             a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)(
               trans.clas.lichessClasses()
             ),
