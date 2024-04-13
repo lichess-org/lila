@@ -20,8 +20,7 @@ object Helpers:
     .render
 
   extension (root: Root)
-    def toNewRoot =
-      NewRoot(NewTree.fromNode(root), NewTree(root))
+    def toNewRoot = NewRoot(root)
 
     def debug = root.ppAs(rootToPgn)
 

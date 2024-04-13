@@ -295,6 +295,7 @@ case class NewRoot(metas: Metas, tree: Option[NewTree]):
 object NewRoot:
   def default(variant: Variant)                        = NewRoot(Metas.default(variant), None)
   def apply(sit: Situation.AndFullMoveNumber): NewRoot = NewRoot(Metas(sit), None)
+  def apply(root: Root): NewRoot                       = NewRoot(NewTree.fromNode(root), NewTree(root))
 
   import NewTree.*
   import lila.common.Json.given
