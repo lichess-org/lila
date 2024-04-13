@@ -16,14 +16,11 @@ private object GameToRoot:
       initialFen = initialFen | game.variant.initialFen,
       withFlags = ExportOptions(clocks = withClocks)
     )
-    endComment(game).fold(root) { comment =>
-      root.updateMainlineLast { _.setComment(comment) }
-    }
+    endComment(game).fold(root)(comment => root.updateMainlineLast(_.setComment(comment)))
 
   private def endComment(game: Game) =
-    game.finished.option {
+    game.finished.option:
       val result = Outcome.showResult(Outcome(game.winnerColor).some)
       val status = lila.game.StatusText(game)
       val text   = s"$result $status"
       Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
-    }
