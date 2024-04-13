@@ -57,6 +57,6 @@ final class HttpFilter(net: NetConfig, parseMobileUa: RequestHeader => Option[Li
     else result.withHeaders(permissionsPolicyHeader)
 
   private def addEmbedderPolicyHeaders(req: RequestHeader)(result: Result) =
-    if !embedderPolicy.isSet(result) && embedderPolicy.supportsCoepCredentialless(req)
+    if !embedderPolicy.isSet(result) && embedderPolicy.supportsCredentiallessIFrames(req)
     then result.withHeaders(embedderPolicy.credentialless*)
     else result
