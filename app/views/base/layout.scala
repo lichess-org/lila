@@ -454,9 +454,8 @@ object layout:
               submitButton(cls := "button button-red link")(trans.site.logOut())
           else
             ctx.me
-              .map { me =>
+              .map: me =>
                 frag(allNotifications, dasher(me))
-              }
               .getOrElse { (!ctx.data.error).option(anonDasher) }
         )
       )

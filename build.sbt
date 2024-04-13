@@ -261,7 +261,7 @@ lazy val activity = module("activity",
 
 lazy val lobby = module("lobby",
   Seq(game),
-  Seq(lettuce) ++ reactivemongo.bundle
+  Seq(lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val setup = module("setup",
