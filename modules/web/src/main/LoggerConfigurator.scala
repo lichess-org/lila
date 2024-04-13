@@ -1,4 +1,4 @@
-package lila.app
+package lila.web
 
 import ch.qos.logback.classic.*
 import ch.qos.logback.classic.jul.LevelChangePropagator
