@@ -72,7 +72,7 @@ final class Plan(env: Env) extends LilaController(env):
           bestIds = bestIds,
           pricing = pricing
         )
-    yield Ok(page).withHeaders(embedderPolicy.unsafe*)
+    yield Ok(page).withHeaders(crossOriginPolicy.unsafe*)
 
   private def indexStripePatron(patron: lila.plan.Patron, customer: StripeCustomer)(using
       ctx: Context,
