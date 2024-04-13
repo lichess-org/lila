@@ -6,7 +6,7 @@ import lila.common.Bus
 import lila.game.actorApi.InsertGame
 import lila.game.{ Game, GameRepo }
 import lila.core.misc.map.TellIfExists
-import lila.tree.Analysis
+import lila.tree.{ Analysis, ExportOptions, Tree }
 
 final class Analyser(
     gameRepo: GameRepo,
@@ -61,6 +61,5 @@ final class Analyser(
   ): JsObject =
     Json.obj(
       "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
-      "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
-        lila.tree.TreeBuilder(game, analysis.some, initialFen, lila.tree.ExportOptions.default)
+      "tree"     -> Tree.makeMinimalJsonString(game, analysis.some, initialFen, ExportOptions.default)
     )

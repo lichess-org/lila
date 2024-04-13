@@ -554,3 +554,23 @@ object Node:
   val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
     JsArray:
       node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
+
+object Tree:
+
+  def makeMinimalJsonString(
+      game: Game,
+      analysis: Option[Analysis],
+      initialFen: Fen.Full,
+      options: ExportOptions
+  ): JsValue =
+    Node.minimalNodeJsonWriter.writes:
+      TreeBuilder(game, analysis, initialFen, lila.tree.ExportOptions.default)
+
+  def makePartitionTreeJson(
+      game: Game,
+      analysis: Option[Analysis],
+      initialFen: Fen.Full,
+      options: ExportOptions
+  ): JsValue =
+    Node.partitionTreeJsonWriter.writes:
+      TreeBuilder(game, analysis, initialFen, options)
