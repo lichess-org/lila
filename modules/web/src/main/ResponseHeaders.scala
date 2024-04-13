@@ -78,6 +78,6 @@ trait ResponseHeaders extends HeaderNames:
     private val embedderPolicyHeader = "Cross-Origin-Embedder-Policy"
 
     private def headers(policy: "credentialless" | "require-corp" | "unsafe-none") = List(
-      openerPolicyHeader -> if policy == "unsafe-none" then policy else "same-origin",
+      openerPolicyHeader   -> (if policy == "unsafe-none" then policy else "same-origin"),
       embedderPolicyHeader -> policy
     )
