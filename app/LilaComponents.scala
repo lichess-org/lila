@@ -46,26 +46,6 @@ final class LilaComponents(
       LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
     )
 
-  lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
-
-  override lazy val httpErrorHandler =
-    lila.app.http.ErrorHandler(
-      environment = environment,
-      config = configuration,
-      router = router,
-      mainC = main,
-      lobbyC = lobby
-    )
-
-  override lazy val httpRequestHandler: HttpRequestHandler =
-    lila.app.http.HttpRequestHandler(
-      router,
-      httpErrorHandler,
-      httpConfiguration,
-      httpFilters,
-      controllerComponents
-    )
-
   given ActorSystem = actorSystem
 
   given StandaloneWSClient =
@@ -88,6 +68,26 @@ final class LilaComponents(
     val c = lila.common.Chronometer.sync(wire[lila.app.Env])
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
+
+  val httpFilters = Seq(lila.web.HttpFilter(env.net, lila.security.Mobile.LichessMobileUa.parse))
+
+  override lazy val httpErrorHandler =
+    lila.app.http.ErrorHandler(
+      environment = environment,
+      config = configuration,
+      router = router,
+      mainC = main,
+      lobbyC = lobby
+    )
+
+  override lazy val httpRequestHandler: HttpRequestHandler =
+    lila.app.http.HttpRequestHandler(
+      router,
+      httpErrorHandler,
+      httpConfiguration,
+      httpFilters,
+      controllerComponents
+    )
 
   lazy val devAssetsController =
     given FileMimeTypes = fileMimeTypes

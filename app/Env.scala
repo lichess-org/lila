@@ -155,6 +155,7 @@ given ConfigLoader[NetConfig] = ConfigLoader(config =>
       socketAlts = get[List[String]]("socket.alts"),
       crawlable = get[Boolean]("crawlable"),
       rateLimit = get[RateLimit]("ratelimit"),
-      email = get[EmailAddress]("email")
+      email = get[EmailAddress]("email"),
+      logRequests = get[Boolean]("http.log")
     )
 )

@@ -10,7 +10,7 @@ import lila.app.{ *, given }
 import lila.memo.CacheApi.*
 
 final class KeyPages(val env: Env)(using Executor)
-    extends ResponseWriter
+    extends lila.web.ResponseWriter
     with RequestContext
     with CtrlPage
     with ControllerHelpers:

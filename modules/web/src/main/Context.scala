@@ -4,14 +4,16 @@ import play.api.mvc.{ Request, RequestHeader }
 import play.api.i18n.Lang
 
 import lila.common.HTTPRequest
-import lila.core.i18n.{ Language, defaultLanguage }
+import lila.core.i18n.{ Language, Translate, defaultLanguage }
 
 trait Context:
   val req: RequestHeader
   val lang: Lang
   def isAuth: Boolean
+  def isOAuth: Boolean
   def me: Option[Me]
   def user: Option[User]
+  def translate: Translate
 
   def ip         = HTTPRequest.ipAddress(req)
   lazy val blind = req.cookies.get(lila.web.WebConfig.blindCookie.name).exists(_.value.nonEmpty)

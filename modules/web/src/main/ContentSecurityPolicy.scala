@@ -1,6 +1,6 @@
-package lila.app
+package lila.web
 
-import lila.web.Nonce
+import lila.core.config.AssetDomain
 
 case class ContentSecurityPolicy(
     defaultSrc: List[String],
@@ -13,7 +13,6 @@ case class ContentSecurityPolicy(
     fontSrc: List[String],
     baseUri: List[String]
 ):
-
   def withNonce(nonce: Nonce) = copy(scriptSrc = nonce.scriptSrc :: scriptSrc)
 
   def withLegacyCompatibility = copy(scriptSrc = "'unsafe-inline'" :: scriptSrc)
@@ -99,3 +98,17 @@ case class ContentSecurityPolicy(
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")
     }.mkString(" ")
+
+object ContentSecurityPolicy:
+
+  def basic(assetDomain: AssetDomain, connectSrcs: List[String]) = ContentSecurityPolicy(
+    defaultSrc = List("'self'", assetDomain.value),
+    connectSrc = "'self'" :: "blob:" :: "data:" :: connectSrcs,
+    styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
+    frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv"),
+    workerSrc = List("'self'", assetDomain.value, "blob:"),
+    imgSrc = List("'self'", "blob:", "data:", "*"),
+    scriptSrc = List("'self'", assetDomain.value),
+    fontSrc = List("'self'", assetDomain.value),
+    baseUri = List("'none'")
+  )

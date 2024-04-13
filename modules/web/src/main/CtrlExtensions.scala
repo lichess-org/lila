@@ -1,18 +1,28 @@
-package lila.app
-package http
+package lila.web
 
 import play.api.mvc.*
+import play.api.i18n.Lang
+import scalatags.text.Frag
 
 import lila.common.HTTPRequest
+import lila.core.i18n.Translate
+import lila.core.perf.UserWithPerfs
+import lila.core.config.BaseUrl
 
-trait CtrlExtensions extends ControllerHelpers:
+trait CtrlExtensions extends play.api.mvc.ControllerHelpers:
 
-  val env: Env
+  def baseUrl: BaseUrl
+
+  given (using ctx: Context): Lang          = ctx.lang
+  given (using ctx: Context): Translate     = ctx.translate
+  given (using ctx: Context): RequestHeader = ctx.req
+
+  given Conversion[UserWithPerfs, User] = _.user
 
   extension (req: RequestHeader)
     def ipAddress = HTTPRequest.ipAddress(req)
     def referer   = HTTPRequest.referer(req)
-    def sid       = lila.security.LilaCookie.sid(req)
+    def sid       = lila.core.security.LilaCookie.sid(req)
 
   extension (result: Result)
     def toFuccess                         = Future.successful(result)
@@ -21,7 +31,7 @@ trait CtrlExtensions extends ControllerHelpers:
     def flashFailure(msg: String): Result = result.flashing("failure" -> msg)
     def flashFailure: Result              = flashFailure("")
     def withCanonical(url: String): Result =
-      result.withHeaders(LINK -> s"<${env.net.baseUrl}${url}>; rel=\"canonical\"")
+      result.withHeaders(LINK -> s"<${baseUrl}${url}>; rel=\"canonical\"")
     def withCanonical(url: Call): Result = withCanonical(url.url)
     def enforceCrossSiteIsolation(using req: RequestHeader): Result =
       val coep =

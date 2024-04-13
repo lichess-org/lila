@@ -5,7 +5,7 @@ import controllers.routes
 import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
-import lila.app.ContentSecurityPolicy
+import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
