@@ -222,7 +222,7 @@ final class RelayRound(
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
-        else Ok(page).withHeaders(embedderPolicy.default*)
+        else Ok(page).withHeaders(embedderPolicy.unsafe*)
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)
