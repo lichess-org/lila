@@ -9,7 +9,7 @@ import lila.core.i18n.Translate
 import lila.core.perf.UserWithPerfs
 import lila.core.config.BaseUrl
 
-trait CtrlExtensions extends play.api.mvc.ControllerHelpers:
+trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders:
 
   def baseUrl: BaseUrl
 

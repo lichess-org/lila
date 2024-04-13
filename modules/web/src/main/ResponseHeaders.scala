@@ -70,7 +70,7 @@ trait ResponseHeaders extends HeaderNames:
       import HTTPRequest.*
       isChrome96Plus(req) || (isFirefox119Plus(req) && !isMobileBrowser(req))
 
-    def default        = headers("unsafe-none")
+    def unsafe         = headers("unsafe-none")
     def credentialless = headers("credentialless")
     def requireCorp    = headers("require-corp")
 
