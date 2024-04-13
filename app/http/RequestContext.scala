@@ -4,7 +4,7 @@ package http
 import play.api.i18n.Lang
 import play.api.mvc.*
 
-import lila.api.{ LoginContext, Nonce, PageData }
+import lila.api.{ LoginContext, PageData }
 import lila.common.HTTPRequest
 import lila.i18n.LangPicker
 import lila.oauth.OAuthScope
@@ -50,7 +50,7 @@ trait RequestContext(using Executor):
   private def pageDataBuilder(using ctx: Context): Fu[PageData] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then
-      val nonce = Nonce.random.some
+      val nonce = lila.web.Nonce.random.some
       ctx.me.foldUse(fuccess(PageData.anon(nonce))): me ?=>
         env.user.lightUserApi.preloadUser(me)
         val enabledId = me.enabled.yes.option(me.userId)

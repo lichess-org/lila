@@ -84,9 +84,9 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def jsModuleInit[A: Writes](name: String, value: A)(using PageContext): Frag =
     jsModuleInit(name, safeJsonValue(Json.toJson(value)))
 
-  def jsModuleInit(name: String, text: SafeJsonStr, nonce: lila.api.Nonce): Frag =
+  def jsModuleInit(name: String, text: SafeJsonStr, nonce: lila.web.Nonce): Frag =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})", nonce))
-  def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce): Frag =
+  def jsModuleInit(name: String, json: JsValue, nonce: lila.web.Nonce): Frag =
     jsModuleInit(name, safeJsonValue(json), nonce)
 
   def jsPageModule(name: String)(using PageContext) =
@@ -129,7 +129,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
       s""" nonce="$nonce""""
     s"""<script$nonce>$js</script>"""
 
-  def embedJsUnsafe(js: String, nonce: lila.api.Nonce): Frag = raw:
+  def embedJsUnsafe(js: String, nonce: lila.web.Nonce): Frag = raw:
     s"""<script nonce="$nonce">$js</script>"""
 
   private val onLoadFunction = "site.load.then"
@@ -137,5 +137,5 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def embedJsUnsafeLoadThen(js: String)(using PageContext): Frag =
     embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""")
 
-  def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =
+  def embedJsUnsafeLoadThen(js: String, nonce: lila.web.Nonce): Frag =
     embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""", nonce)

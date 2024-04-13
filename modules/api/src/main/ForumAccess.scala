@@ -9,8 +9,7 @@ import lila.core.id.ForumCategId
 
 final class ForumAccess(
     teamApi: lila.team.TeamApi,
-    teamCached: lila.team.Cached,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 )(using Executor):
 
   enum Operation:

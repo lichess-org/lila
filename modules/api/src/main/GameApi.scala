@@ -211,8 +211,4 @@ object GameApi:
       blurs: Boolean = false,
       token: Option[String] = none
   ):
-
-    def applyToken(validToken: String) =
-      copy(
-        blurs = token.has(validToken)
-      )
+    def applyToken(validToken: String) = copy(blurs = token.has(validToken))

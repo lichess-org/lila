@@ -1,10 +1,10 @@
-package lila.api
+package lila.web
 
 import play.api.libs.json.Json
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
-final private class PagerDuty(ws: StandaloneWSClient, config: ApiConfig.PagerDuty)(using Executor):
+final private class PagerDuty(ws: StandaloneWSClient, config: WebConfig.PagerDuty)(using Executor):
 
   def lilaRestart(date: Instant): Funit =
     (config.serviceId.nonEmpty && config.apiKey.value.nonEmpty).so(

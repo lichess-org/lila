@@ -331,7 +331,7 @@ object layout:
           dataTheme        := pref.currentBg,
           dataBoardTheme   := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
-          dataAnnounce     := lila.api.AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
           style            := zoomable.option(s"--zoom:$pageZoom")
         )(
           blindModeForm,

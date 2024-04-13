@@ -1,4 +1,4 @@
-package lila.api
+package lila.web
 
 import lila.core.config.BaseUrl
 

@@ -1,4 +1,4 @@
-package lila.api
+package lila.web
 
 import play.api.libs.json.{ JsArray, Json }
 

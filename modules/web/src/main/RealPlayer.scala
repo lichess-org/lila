@@ -1,4 +1,4 @@
-package lila.api
+package lila.web
 
 import chess.format.pgn.{ Pgn, Tag, Tags }
 import play.api.libs.ws.DefaultBodyReadables.*
@@ -45,17 +45,20 @@ final class RealPlayerApi(
 
 case class RealPlayers(players: Map[UserId, RealPlayer]):
 
-  def update(game: lila.game.Game, pgn: Pgn) =
+  def update(gamePlayers: chess.ByColor[Option[UserId]], pgn: Pgn) =
     pgn.copy(
       tags = pgn.tags ++ Tags:
-        game.players.flatMap: player =>
-          player.userId
-            .flatMap(players.get)
-            .so: rp =>
-              List(
-                rp.name.map { name => Tag(_.names(player.color), name.value) },
-                rp.rating.map { rating => Tag(_.elos(player.color), rating.toString) }
-              ).flatten
+        gamePlayers
+          .mapWithColor: (color, userId) =>
+            userId
+              .flatMap(players.get)
+              .so: rp =>
+                List(
+                  rp.name.map { name => Tag(_.names(color), name.value) },
+                  rp.rating.map { rating => Tag(_.elos(color), rating.toString) }
+                ).flatten
+          .toList
+          .flatten
     )
 
 case class RealPlayer(name: Option[UserName], rating: Option[IntRating])

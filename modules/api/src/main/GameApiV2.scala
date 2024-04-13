@@ -18,6 +18,7 @@ import lila.game.{ Divider, Game, Pov, Query }
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
+import lila.web.{ RealPlayerApi, RealPlayers }
 
 import lila.core.i18n.Translate
 

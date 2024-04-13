@@ -29,7 +29,7 @@ final class ErrorHandler(
       if canShowErrorPage(req) then
         given PageContext = PageContext(
           lila.api.Context(req, lila.core.i18n.defaultLang, LoginContext.anon, lila.pref.Pref.default),
-          lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req).option(lila.api.Nonce.random))
+          lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req).option(lila.web.Nonce.random))
         )
         InternalServerError(views.html.site.bits.errorPage)
       else InternalServerError("Sorry, something went wrong.")

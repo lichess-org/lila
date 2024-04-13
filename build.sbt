@@ -66,7 +66,7 @@ lazy val modules = Seq(
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor, opening, cms, fide, tree
+  ublog, tutor, opening, cms, fide, tree, web
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -472,6 +472,11 @@ lazy val socket = module("socket",
 lazy val tree = module("tree",
   Seq(common),
   Seq(chess.playJson)
+)
+
+lazy val web = module("web",
+  Seq(memo),
+  reactivemongo.bundle ++ playWs.bundle ++ tests.bundle
 )
 
 lazy val api = module("api",

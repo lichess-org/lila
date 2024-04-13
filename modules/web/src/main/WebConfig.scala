@@ -1,4 +1,4 @@
-package lila.api
+package lila.web
 
 import play.api.mvc.RequestHeader
 
@@ -6,14 +6,14 @@ import lila.core.security.LilaCookie
 import lila.core.config.*
 import lila.common.config.given
 
-final class ApiConfig(
+final class WebConfig(
     val apiToken: Secret,
     val influxEventEndpoint: String,
     val influxEventEnv: String,
-    val pagerDuty: ApiConfig.PagerDuty
+    val pagerDuty: WebConfig.PagerDuty
 )
 
-object ApiConfig:
+object WebConfig:
 
   object blindCookie:
     val name   = "mBzamRgfXgRBSnXB"
@@ -28,7 +28,7 @@ object ApiConfig:
   final class PagerDuty(val serviceId: String, val apiKey: Secret)
 
   def loadFrom(c: play.api.Configuration) =
-    ApiConfig(
+    WebConfig(
       c.get[Secret]("api.token"),
       c.get[String]("api.influx_event.endpoint"),
       c.get[String]("api.influx_event.env"),

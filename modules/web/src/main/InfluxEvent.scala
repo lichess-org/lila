@@ -1,4 +1,4 @@
-package lila.api
+package lila.web
 
 import scalalib.ThreadLocalRandom
 import play.api.libs.ws.DefaultBodyWritables.*
