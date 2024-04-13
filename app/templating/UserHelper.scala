@@ -4,7 +4,7 @@ package templating
 import chess.PlayerTitle
 import controllers.routes
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Icon
 import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }
@@ -17,10 +17,12 @@ import lila.rating.GlickoExt.clueless
 import lila.rating.UserPerfsExt.bestRatedPerf
 import lila.core.perf.KeyedPerf
 import lila.rating.UserPerfsExt.bestPerfs
+import lila.web.ui.*
 
-trait UserHelper extends HasEnv:
+trait UserHelper:
   self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
 
+  def env: Env
   given Conversion[UserWithPerfs, User] = _.user
 
   def ratingProgress(progress: IntRatingDiff): Option[Frag] =

@@ -7,6 +7,8 @@ import play.api.Configuration
 import lila.common.autoconfig.*
 import lila.common.config.given
 import lila.core.config.*
+import lila.core.perf
+import lila.core.userId
 
 private class UserConfig(
     @ConfigName("online.ttl") val onlineTtl: FiniteDuration,
@@ -46,9 +48,6 @@ final class Env(
     isBotSync
   }
 
-  lazy val botIds     = GetBotIds(() => cached.botIds.get {})
-  lazy val rankingsOf = RankingsOf(cached.rankingsOf)
-
   lazy val jsonView = wire[JsonView]
 
   lazy val noteApi = NoteApi(repo, db(CollName("note")))
@@ -59,7 +58,8 @@ final class Env(
 
   lazy val rankingApi = wire[RankingApi]
 
-  lazy val cached: Cached = wire[Cached]
+  lazy val cached: Cached                           = wire[Cached]
+  def rankingsOf: UserId => lila.rating.UserRankMap = cached.rankingsOf
 
   lazy val passwordHasher = PasswordHasher(
     secret = config.passwordBPassSecret,

@@ -7,7 +7,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp

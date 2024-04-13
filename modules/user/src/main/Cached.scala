@@ -6,7 +6,7 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.rating.{ Perf, PerfType, UserPerfs }
-import lila.core.user.{ LightCount, LightPerf }
+import lila.core.user.LightPerf
 import lila.core.perf.PerfId
 import lila.core.userId.UserSearch
 import lila.core.perf.UserWithPerfs
@@ -18,7 +18,8 @@ final class Cached(
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
-)(using Executor, Scheduler):
+)(using Executor, Scheduler)
+    extends lila.core.user.CachedApi:
 
   import BSONHandlers.given
 
@@ -58,18 +59,23 @@ final class Cached(
   ): loader =>
     _.refreshAfterWrite(75 minutes).buildAsyncFuture:
       loader: _ =>
-        userRepo.topNbGame(10).dmap(_.map(_.lightCount))
+        userRepo
+          .topNbGame(10)
+          .dmap(_.map: u =>
+            LightCount(u.light, u.count.game))
 
   private val top50OnlineCache = cacheApi.unit[List[UserWithPerfs]]:
     _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
       userApi.byIdsSortRatingNoBot(onlineUserIds(), 50)
 
-  def getTop50Online = top50OnlineCache.getUnit
+  def getTop50Online: Fu[List[UserWithPerfs]] = top50OnlineCache.getUnit
 
   def rankingsOf(userId: UserId): lila.rating.UserRankMap = rankingApi.weeklyStableRanking.of(userId)
 
-  private[user] val botIds = cacheApi.unit[Set[UserId]]:
+  private val botIds = cacheApi.unit[Set[UserId]]:
     _.refreshAfterWrite(5 minutes).buildAsyncFuture(_ => userRepo.botIds)
+
+  def getBotIds: Fu[Set[UserId]] = botIds.getUnit
 
   private def userIdsLikeFetch(text: UserSearch) =
     userRepo.userIdsLikeFilter(text, $empty, 12)

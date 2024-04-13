@@ -217,7 +217,7 @@ $disableSettingNotice $disableLink"""
   private def showGame(opponent: CorrespondenceOpponent)(using Lang) =
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
     opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:"): remainingTime =>
-      s"You have ${PeriodLocales.showDuration(remainingTime)} remaining in your game with $opponentName:"
+      s"You have ${translateDuration(remainingTime)} remaining in your game with $opponentName:"
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
     body(userLang(user)).tap: txt =>

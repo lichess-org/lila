@@ -16,8 +16,11 @@ import lila.common.Form.{
 import lila.db.dsl.{ *, given }
 import lila.core.team.Access
 import lila.core.captcha.CaptchaApi
+import lila.core.user.FlairApi
 
-final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(using Executor):
+final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
+    Executor
+):
 
   private object Fields:
     val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
@@ -51,7 +54,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
       Fields.description,
       Fields.descPrivate,
       Fields.request,
-      lila.user.FlairApi.formPair(),
+      "flair" -> flairApi.formField(),
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
@@ -68,7 +71,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
       Fields.chat,
       Fields.forum,
       Fields.hideMembers,
-      lila.user.FlairApi.formPair()
+      "flair" -> flairApi.formField()
     )(TeamEdit.apply)(unapply)
   ).fill(
     TeamEdit(

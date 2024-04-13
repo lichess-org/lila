@@ -15,7 +15,7 @@ import lila.core.perf.UserWithPerfs
 
 final class KaladinApi(
     coll: AsyncColl,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     gameRepo: GameRepo,
     cacheApi: CacheApi,
     insightApi: lila.game.core.insight.InsightApi,

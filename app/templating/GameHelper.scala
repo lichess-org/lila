@@ -5,19 +5,20 @@ import chess.{ Black, Clock, Color, Mode, Outcome, Ply, Status as S, White }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.*
 import lila.core.LightUser
 import lila.game.{ Game, LightPlayer, Namer, Player, Pov }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translate }
 
 trait GameHelper:
-  self: RouterHelper & I18nHelper & UserHelper & AiHelper & StringHelper & NumberHelper & ChessgroundHelper =>
+  self: RouterHelper & I18nHelper & UserHelper & StringHelper & NumberHelper & ChessgroundHelper =>
 
   def netBaseUrl: String
   def cdnUrl(path: String): String
 
   def povOpenGraph(pov: Pov) =
-    lila.app.ui.OpenGraph(
+    lila.web.OpenGraph(
       image = cdnUrl(routes.Export.gameThumbnail(pov.gameId, None, None).url).some,
       title = titleGame(pov.game),
       url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
@@ -282,8 +283,14 @@ trait GameHelper:
     s"$speed$variant ${c.mode.name} Chess • $players"
 
   def challengeOpenGraph(c: lila.challenge.Challenge)(using Context) =
-    lila.app.ui.OpenGraph(
+    lila.web.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",
       description = "Join the challenge or watch the game here."
     )
+
+  def aiName(level: Int)(using Translate): String =
+    trans.site.aiNameLevelAiLevel.txt("Stockfish", level)
+
+  def aiNameFrag(level: Int)(using Translate) =
+    raw(aiName(level).replace(" ", "&nbsp;"))

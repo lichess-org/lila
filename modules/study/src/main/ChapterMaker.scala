@@ -12,7 +12,7 @@ import lila.core.id.GameFullId
 
 final private class ChapterMaker(
     net: lila.core.config.NetConfig,
-    lightUser: lila.user.LightUserApi,
+    lightUser: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
     gameRepo: lila.game.GameRepo,
     pgnFetch: PgnFetch,

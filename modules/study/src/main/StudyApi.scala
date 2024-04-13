@@ -24,7 +24,7 @@ final class StudyApi(
     inviter: StudyInvite,
     explorerGameHandler: ExplorerGame,
     topicApi: StudyTopicApi,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi

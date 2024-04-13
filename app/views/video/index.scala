@@ -3,7 +3,7 @@ package views.html.video
 import controllers.routes
 
 import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 
 object index:
@@ -17,7 +17,7 @@ object index:
 
     layout(
       title = s"${tagString}Free Chess Videos",
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${tagString}free, carefully curated chess videos",
           description = s"${videos.nbResults} curated chess videos${

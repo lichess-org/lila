@@ -2,7 +2,7 @@ package views
 package html.site
 
 import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 
 object freeJs:
 

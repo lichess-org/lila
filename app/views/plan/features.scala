@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object features:
 
@@ -15,7 +15,7 @@ object features:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("feature"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = title,
           url = s"$netBaseUrl${routes.Plan.features.url}",

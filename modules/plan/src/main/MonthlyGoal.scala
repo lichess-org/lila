@@ -4,26 +4,22 @@ import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 
-final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(using
-    ec: Executor
-):
+final private class MonthlyGoalApi(getGoal: () => Usd, chargeColl: Coll)(using Executor):
 
   def get: Fu[MonthlyGoal] =
-    monthAmount.dmap { amount =>
+    monthAmount.dmap: amount =>
       MonthlyGoal(current = amount, goal = getGoal())
-    }
 
   private def monthAmount: Fu[Usd] =
     chargeColl
-      .aggregateWith() { framework =>
+      .aggregateWith(): framework =>
         import framework.*
         List(
           Match($doc("date".$gt(nowInstant.dateTime.withDayOfMonth(1).withTimeAtStartOfDay))),
           Group(BSONNull)("usd" -> SumField("usd"))
         )
-      }
       .headOption
-      .map { _.flatMap { _.getAsOpt[Usd]("usd") } | Usd(0) }
+      .map { _.flatMap(_.getAsOpt[Usd]("usd")) | Usd(0) }
 
 case class MonthlyGoal(current: Usd, goal: Usd):
 

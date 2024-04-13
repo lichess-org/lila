@@ -13,7 +13,6 @@ import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 import lila.core.socket.SocketVersion
-import lila.user.{ Me, User as UserModel }
 
 final class Challenge(
     env: Env,
@@ -72,7 +71,7 @@ final class Challenge(
             else
               Ok.pageAsync:
                 c.challengerUserId
-                  .so(env.user.api.withPerf(_, c.perfType))
+                  .so(env.user.api.byIdWithPerf(_, c.perfType))
                   .map:
                     html.challenge.theirs(c, json, _, color)
           ,
@@ -339,7 +338,7 @@ final class Challenge(
         )
     }
 
-  private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
+  private def makeOauthChallenge(config: ApiConfig, orig: lila.user.User, dest: lila.user.User) =
     import lila.challenge.Challenge.*
     val timeControl = makeTimeControl(config.clock, config.days)
     env.user.perfsRepo

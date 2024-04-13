@@ -22,7 +22,7 @@ private object PlanCheckout:
     .verifying(Constraints.max(pricing.max.amount))
     .verifying(Constraints.min(pricing.min.amount))
 
-final class PlanCheckoutForm(lightUserApi: lila.user.LightUserApi):
+final class PlanCheckoutForm(lightUserApi: lila.core.user.LightUserApi):
 
   private def make(
       currency: Currency

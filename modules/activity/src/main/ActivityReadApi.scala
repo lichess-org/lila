@@ -21,7 +21,7 @@ final class ActivityReadApi(
     tourLeaderApi: lila.core.tournament.leaderboard.Api,
     swissApi: lila.core.swiss.SwissApi,
     teamApi: lila.core.team.TeamApi,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     getTourName: lila.core.tournament.GetTourName
 )(using Executor):
 

@@ -61,7 +61,9 @@ final private class PuzzleTrustApi(colls: PuzzleColls, userApi: lila.core.user.U
     }
     .atLeast(0)
 
-  private def patronBonus(user: User) = (~user.planMonths * 5).atMost(15)
+  private def patronBonus(user: User) =
+    val planMonths: Option[Int] = user.plan.active.option(user.plan.months)
+    (~planMonths * 5).atMost(15)
 
   private def modBonus(user: User) =
     if user.roles.exists(_.contains("ROLE_PUZZLE_CURATOR")) then 100

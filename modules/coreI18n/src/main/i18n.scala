@@ -21,6 +21,12 @@ val defaultLanguage: Language = "en"
 val enLang: Lang              = Lang("en", "GB")
 val defaultLang: Lang         = enLang
 
+// ffs
+def fixJavaLanguage(lang: Lang): Language =
+  Language(lang).map(l => if l == "in" then "id" else l)
+
+type TranslateDuration = java.time.Duration => Translate ?=> String
+
 type Count = Long
 
 trait Translator:

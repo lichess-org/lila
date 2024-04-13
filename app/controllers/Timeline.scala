@@ -29,7 +29,7 @@ final class Timeline(env: Env) extends LilaController(env):
         // Must be empty if nb is not given, because old versions of the
         // mobile app that do not send nb are vulnerable to XSS in
         // timeline entries.
-        apiOutput(max = getIntAs[Max]("nb").fold(Max(0))(_.atMost(env.apiTimelineSetting.get())))
+        apiOutput(max = getIntAs[Max]("nb").fold(Max(0))(_.atMost(env.web.settings.apiTimeline.get())))
     )
   }
 

@@ -4,7 +4,7 @@ package practice
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object index:
 
@@ -15,7 +15,7 @@ object index:
       moreJs = embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
 });"""),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Practice your chess",
           description = "Learn how to master the most common chess positions",

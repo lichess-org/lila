@@ -13,6 +13,8 @@ import lila.core.userId.*
 import lila.core.email.*
 import lila.core.id.Flair
 import lila.core.rating.Glicko
+import play.api.libs.json.JsObject
+import lila.core.perf.KeyedPerf
 
 object user:
 
@@ -62,35 +64,14 @@ object user:
 
     def titleUsername: String = title.fold(username.value)(t => s"$t $username")
 
-    def hasGames = count.game > 0
-
-    def countRated = count.rated
-
-    // lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
-
-    def timeNoSee: Duration = (nowMillis - (seenAt | createdAt).toMillis).millis
-
     def everLoggedIn = seenAt.exists(createdAt != _)
 
-    def lame = marks.boost || marks.engine
-
-    def lameOrTroll      = lame || marks.troll
-    def lameOrAlt        = lame || marks.alt
-    def lameOrTrollOrAlt = lameOrTroll || marks.alt
-
-    def canBeFeatured = hasTitle && !lameOrTroll
-
-    def canFullyLogin = enabled.yes || !lameOrTrollOrAlt
+    def lame        = marks.boost || marks.engine
+    def lameOrTroll = lame || marks.troll
 
     def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
-    def lightCount = LightCount(light, count.game)
-
     def isPatron = plan.active
-
-    def activePlan: Option[Plan] = plan.active.option(plan)
-
-    def planMonths: Option[Int] = activePlan.map(_.months)
 
     def mapPlan(f: Plan => Plan) = copy(plan = f(plan))
 
@@ -120,7 +101,9 @@ object user:
 
   case class PlayTime(total: Int, tv: Int)
 
-  case class Plan(months: Int, active: Boolean, since: Option[Instant])
+  case class Plan(months: Int, active: Boolean, since: Option[Instant]):
+    def isEmpty: Boolean       = months == 0
+    def nonEmpty: Option[Plan] = Option.when(!isEmpty)(this)
 
   case class TotpSecret(secret: Array[Byte]) extends AnyVal:
     override def toString = "TotpSecret(****)"
@@ -178,12 +161,13 @@ object user:
     export user.{ id, createdAt, hasTitle, light }
 
   case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
-  case class LightCount(user: LightUser, count: Int)
 
   case class ChangeEmail(id: UserId, email: EmailAddress)
+  case class GDPRErase(user: User)
 
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]
+    def enabledById[U: UserIdOf](u: U): Fu[Option[User]]
     def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]]
     def byIdAs[U: BSONDocumentReader](id: String, proj: BSONDocument): Fu[Option[U]]
     def me[U: UserIdOf](u: U): Fu[Option[Me]]
@@ -195,23 +179,33 @@ object user:
     def withIntRatingIn(userId: UserId, perf: PerfKey): Fu[Option[(User, IntRating)]]
     def createdAtById(id: UserId): Fu[Option[Instant]]
     def isEnabled(id: UserId): Fu[Boolean]
-    def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]]
     def langOf(id: UserId): Fu[Option[String]]
     def isKid[U: UserIdOf](id: U): Fu[Boolean]
     def isTroll(id: UserId): Fu[Boolean]
     def isBot(id: UserId): Fu[Boolean]
+    def filterExists(ids: Set[UserId]): Fu[List[UserId]]
+    def filterClosedOrInactiveIds(since: Instant)(ids: Iterable[UserId]): Fu[List[UserId]]
     def filterDisabled(userIds: Iterable[UserId]): Fu[Set[UserId]]
+    def filterLame(ids: Seq[UserId]): Fu[Set[UserId]]
+    def filterKid[U: UserIdOf](ids: Seq[U]): Fu[Set[UserId]]
     def isManaged(id: UserId): Fu[Boolean]
     def countEngines(userIds: List[UserId]): Fu[Int]
     def getTitle(id: UserId): Fu[Option[PlayerTitle]]
-    def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]]
+    def withPerf(id: User, pk: PerfKey): Fu[WithPerf]
     def withPerfs(u: User): Fu[UserWithPerfs]
     def withPerfs[U: UserIdOf](id: U): Fu[Option[UserWithPerfs]]
+    def byIdWithPerf[U: UserIdOf](id: U, pk: PerfKey): Fu[Option[WithPerf]]
+    def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]]
+    def perfOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Perf]
+    def perfOf(ids: Iterable[UserId], perfKey: PerfKey): Fu[Map[UserId, Perf]]
+    def perfOptionOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Option[Perf]]
     def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs]
+    def perfsOf[U: UserIdOf](us: PairOf[U], primary: Boolean): Fu[PairOf[UserPerfs]]
     def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean]
     def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit
     def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]]
     def incColor(userId: UserId, value: Int): Unit
+    def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean]
     def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean]
     def gamePlayersAny(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers]
     def gamePlayersLoggedIn(
@@ -220,13 +214,27 @@ object user:
         useCache: Boolean = true
     ): Fu[Option[ByColor[WithPerf]]]
     def glicko(userId: UserId, perf: PerfKey): Fu[Glicko]
+    def containsDisabled(userIds: Iterable[UserId]): Fu[Boolean]
+    def containsEngine(userIds: List[UserId]): Fu[Boolean]
+    def usingPerfOf[A, U: UserIdOf](u: U, perfKey: PerfKey)(f: Perf ?=> Fu[A]): Fu[A]
+    def incToints(id: UserId, nb: Int): Funit
+    def addPuzRun(field: String, userId: UserId, score: Int): Funit
+    def setPlan(user: User, plan: Option[Plan]): Funit
+    def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]]
+    def isCreatedSince(id: UserId, since: Instant): Fu[Boolean]
 
   trait LightUserApiMinimal:
     val async: LightUser.Getter
     val sync: LightUser.GetterSync
   trait LightUserApi extends LightUserApiMinimal:
     val syncFallback: LightUser.GetterSyncFallback
+    val asyncFallback: LightUser.GetterFallback
+    def asyncMany(ids: List[UserId]): Fu[List[Option[LightUser]]]
+    def asyncManyFallback(ids: Seq[UserId]): Fu[Seq[LightUser]]
     def preloadMany(ids: Seq[UserId]): Funit
+    def preloadUser(user: User): Unit
+    def invalidate(id: UserId): Unit
+    val isBotSync: LightUser.IsBotSync
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
     def strList = current.map(_.value).toList ::: previous.map(_.value).toList
@@ -271,13 +279,15 @@ object user:
     def aggregateReadFirst[U: UserIdOf](root: BSONDocument, u: U): UserPerfs
 
   object BSONFields:
-    val enabled  = "enabled"
-    val title    = "title"
-    val roles    = "roles"
-    val marks    = "marks"
-    val username = "username"
-    val flair    = "flair"
-    val plan     = "plan"
+    val enabled   = "enabled"
+    val title     = "title"
+    val roles     = "roles"
+    val marks     = "marks"
+    val username  = "username"
+    val flair     = "flair"
+    val plan      = "plan"
+    val kid       = "kid"
+    val createdAt = "createdAt"
 
   trait Note:
     val text: String
@@ -285,6 +295,9 @@ object user:
   trait NoteApi:
     def recentByUserForMod(userId: UserId): Fu[Option[Note]]
     def write(to: UserId, text: String, modOnly: Boolean, dox: Boolean)(using MyId): Funit
+    def lichessWrite(to: User, text: String): Funit
+
+  abstract class RankingRepo(val coll: lila.core.db.AsyncCollFailingSilently)
 
   type FlairMap    = Map[UserId, Flair]
   type FlairGet    = UserId => Fu[Option[Flair]]
@@ -292,7 +305,8 @@ object user:
   trait FlairApi:
     given flairOf: FlairGet
     given flairsOf: FlairGetMap
-    def formField(anyFlair: Boolean, asAdmin: Boolean): play.api.data.Mapping[Option[Flair]]
+    val adminFlairs: Set[Flair]
+    def formField(anyFlair: Boolean = false, asAdmin: Boolean = false): play.api.data.Mapping[Option[Flair]]
 
   /* User who is currently logged in */
   opaque type Me = User
@@ -324,3 +338,21 @@ object user:
 
   type GameUser  = Option[WithPerf]
   type GameUsers = ByColor[GameUser]
+
+  object TrophyKind:
+    val marathonWinner         = "marathonWinner"
+    val marathonTopTen         = "marathonTopTen"
+    val marathonTopFifty       = "marathonTopFifty"
+    val marathonTopHundred     = "marathonTopHundred"
+    val marathonTopFivehundred = "marathonTopFivehundred"
+
+  trait TrophyApi:
+    def award(trophyUrl: String, userId: UserId, kindKey: String): Funit
+
+  trait CachedApi:
+    def getTop50Online: Fu[List[UserWithPerfs]]
+    def getBotIds: Fu[Set[UserId]]
+    def userIdsLike(text: UserSearch): Fu[List[UserId]]
+
+  trait JsonView:
+    def full(u: User, perfs: Option[UserPerfs | KeyedPerf], withProfile: Boolean): JsObject

@@ -30,7 +30,7 @@ final class Main(
         _ => BadRequest,
         (enable, redirect) =>
           Redirect(redirect).withCookies:
-            lila.api.ApiConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
+            lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
       )
 
   def handlerNotFound(using RequestHeader) =
@@ -77,12 +77,12 @@ final class Main(
   val robots = Anon:
     Ok:
       if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-      then lila.api.StaticContent.robotsTxt
+      then lila.web.StaticContent.robotsTxt
       else "User-agent: *\nDisallow: /"
 
   def manifest = Anon:
     JsonOk:
-      lila.api.StaticContent.manifest(env.net)
+      lila.web.StaticContent.manifest(env.net)
 
   def getFishnet = Open:
     pageHit

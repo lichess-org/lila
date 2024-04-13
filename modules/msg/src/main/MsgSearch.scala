@@ -12,8 +12,8 @@ import lila.core.userId.UserSearch
 
 final class MsgSearch(
     colls: MsgColls,
-    userCache: lila.user.Cached,
-    lightUserApi: lila.user.LightUserApi,
+    userCache: lila.core.user.CachedApi,
+    lightUserApi: lila.core.user.LightUserApi,
     relationApi: lila.core.relation.RelationApi
 )(using Executor, Scheduler):
 

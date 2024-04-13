@@ -38,9 +38,9 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs] =
     coll.byId[UserPerfs](u.id).dmap(_ | lila.rating.UserPerfs.default(u.id))
 
-  def perfsOf[U: UserIdOf](us: PairOf[U], readPref: ReadPref): Fu[PairOf[UserPerfs]] =
+  def perfsOf[U: UserIdOf](us: PairOf[U], primary: Boolean): Fu[PairOf[UserPerfs]] =
     val (x, y) = us
-    idsMap(List(x, y), readPref).dmap: ps =>
+    idsMap(List(x, y), if primary then _.pri else _.sec).dmap: ps =>
       ps.getOrElse(x.id, lila.rating.UserPerfs.default(x.id)) -> ps.getOrElse(
         y.id,
         lila.rating.UserPerfs.default(y.id)
@@ -49,8 +49,8 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def withPerfs(u: User): Fu[UserWithPerfs] =
     perfsOf(u).dmap(UserWithPerfs(u, _))
 
-  def withPerfs(us: PairOf[User], readPref: ReadPref): Fu[PairOf[UserWithPerfs]] =
-    perfsOf(us, readPref).dmap: (x, y) =>
+  def withPerfs(us: PairOf[User], primary: Boolean): Fu[PairOf[UserWithPerfs]] =
+    perfsOf(us, primary).dmap: (x, y) =>
       UserWithPerfs(us._1, y) -> UserWithPerfs(us._2, x)
 
   def withPerfs(us: Seq[User], readPref: ReadPref = _.sec): Fu[List[UserWithPerfs]] =
@@ -81,11 +81,7 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
         _.flatMap(_.child(perf.value))
           .flatMap(_.getAsOpt[Glicko]("gl")) | lila.rating.Glicko.default
 
-  def addStormRun  = addStormLikeRun("storm")
-  def addRacerRun  = addStormLikeRun("racer")
-  def addStreakRun = addStormLikeRun("streak")
-
-  private def addStormLikeRun(field: String)(userId: UserId, score: Int): Funit =
+  def addPuzRun(field: String, userId: UserId, score: Int): Funit =
     coll.update
       .one(
         $id(userId),

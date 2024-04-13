@@ -3,7 +3,7 @@ package views.html.simul
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 
 object home:
 
@@ -23,7 +23,7 @@ site.pubsub.on('socket.in.reload', () =>
   site.contentLoaded();
 }))"""),
       title = trans.site.simultaneousExhibitions.txt(),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = trans.site.simultaneousExhibitions.txt(),
           url = s"$netBaseUrl${routes.Simul.home}",

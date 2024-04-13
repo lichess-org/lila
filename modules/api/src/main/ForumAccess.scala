@@ -2,15 +2,13 @@ package lila.api
 
 import lila.forum.{ ForumCateg, ForumTopic }
 import lila.core.perm.Granter
-import lila.team.Team
 
 import lila.core.team.Access
 import lila.core.id.ForumCategId
 
 final class ForumAccess(
     teamApi: lila.team.TeamApi,
-    teamCached: lila.team.Cached,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 )(using Executor):
 
   enum Operation:

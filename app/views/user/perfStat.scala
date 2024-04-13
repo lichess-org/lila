@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.perfStat.{ PerfStat, PerfStatData }
 
 import lila.rating.PerfType
@@ -164,7 +164,7 @@ object perfStat:
             (count.seconds > 0).option(
               tr(cls := "full")(
                 th(timeSpentPlaying()),
-                td(colspan := "2")(showDuration(count.duration))
+                td(colspan := "2")(translateDuration(count.duration))
               )
             )
           )
@@ -324,7 +324,7 @@ object perfStat:
   private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Translate): Frag =
     div(
       div(cls := "streak")(
-        h3(title(showDuration(s.duration))),
+        h3(title(translateDuration(s.duration))),
         fromTo(s)
       )
     )

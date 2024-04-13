@@ -4,7 +4,7 @@ package html.site
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 
 object variant:
@@ -48,7 +48,7 @@ object variant:
       title: String,
       klass: String,
       active: Option[PerfType] = None,
-      openGraph: Option[lila.app.ui.OpenGraph] = None
+      openGraph: Option[lila.web.OpenGraph] = None
   )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,

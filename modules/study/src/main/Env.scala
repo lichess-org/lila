@@ -12,11 +12,11 @@ import lila.core.user.FlairGet
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
     divider: lila.game.Divider,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     explorerImporter: lila.game.core.ExplorerGame,
     notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,

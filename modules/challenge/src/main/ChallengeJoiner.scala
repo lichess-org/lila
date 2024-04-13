@@ -11,7 +11,7 @@ import lila.core.user.GameUser
 
 final private class ChallengeJoiner(
     gameRepo: lila.game.GameRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart
 )(using Executor):
 
@@ -20,7 +20,7 @@ final private class ChallengeJoiner(
       if _ then fuccess(Left("The challenge has already been accepted"))
       else
         c.challengerUserId
-          .so(userApi.withPerf(_, c.perfType))
+          .so(userApi.byIdWithPerf(_, c.perfType))
           .flatMap: origUser =>
             val game = ChallengeJoiner.createGame(c, origUser, destUser)
             gameRepo

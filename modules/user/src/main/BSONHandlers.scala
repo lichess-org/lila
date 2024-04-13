@@ -14,9 +14,7 @@ object BSONFields:
   val toints                = "toints"
   val playTime              = "time"
   val playTimeTotal         = "time.total"
-  val createdAt             = "createdAt"
   val seenAt                = "seenAt"
-  val kid                   = "kid"
   val createdWithApiVersion = "createdWithApiVersion"
   val lang                  = "lang"
   val email                 = "email"
@@ -104,7 +102,6 @@ object BSONHandlers:
       )
 
     def writes(w: BSON.Writer, o: User) =
-      import lila.user.Plan.nonEmpty
       BSONDocument(
         id         -> o.id,
         username   -> o.username,
@@ -125,8 +122,6 @@ object BSONHandlers:
         marks      -> o.marks.value.nonEmpty.option(o.marks)
       )
 
-  given BSONDocumentHandler[Contact] = Macros.handler[Contact]
-
-  private[user] given BSONDocumentHandler[lila.core.LightUser]       = Macros.handler
-  private[user] given BSONDocumentHandler[lila.core.user.LightPerf]  = Macros.handler
-  private[user] given BSONDocumentHandler[lila.core.user.LightCount] = Macros.handler
+  private[user] given BSONDocumentHandler[lila.core.LightUser]      = Macros.handler
+  private[user] given BSONDocumentHandler[lila.core.user.LightPerf] = Macros.handler
+  private[user] given BSONDocumentHandler[lila.user.LightCount]     = Macros.handler

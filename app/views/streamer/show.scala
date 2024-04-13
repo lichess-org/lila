@@ -3,7 +3,7 @@ package views.html.streamer
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.streamer.Stream.YouTube
 
@@ -24,7 +24,7 @@ object show:
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
       modules = jsModule("bits.streamer"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${s.titleName} streams chess",
           description =

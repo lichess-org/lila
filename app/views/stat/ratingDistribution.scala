@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 
 import lila.rating.PerfType
@@ -56,7 +56,7 @@ object ratingDistribution:
             myVisiblePerfs
               .flatMap(_(perfType).glicko.establishedIntRating)
               .map: rating =>
-                val (under, sum) = lila.user.Stat.percentile(data, rating)
+                val (under, sum) = lila.perfStat.percentileOf(data, rating)
                 div(
                   trans.site.nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
                   br,

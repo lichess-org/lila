@@ -12,8 +12,7 @@ final class Env(
     db: lila.db.Db,
     colls: lila.puzzle.PuzzleColls,
     cacheApi: lila.memo.CacheApi,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo
+    userApi: lila.core.user.UserApi
 )(using Executor):
 
   private lazy val dayColl = db(CollName("storm_day"))

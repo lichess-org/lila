@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import lila.core.perf.UserWithPerfs
 import lila.game.Pov
@@ -33,7 +33,7 @@ object home:
           )
       ).some,
       moreCss = cssTag("lobby"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           image = assetUrl("logo/lichess-tile-wide.png").some,
           twitterImage = assetUrl("logo/lichess-tile.png").some,

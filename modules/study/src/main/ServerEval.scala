@@ -10,13 +10,12 @@ import lila.core.fishnet.StudyChapterRequest
 import lila.core.perm.Granter
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
-import lila.user.{ User, Me, UserRepo }
 
 object ServerEval:
 
   final class Requester(
       chapterRepo: ChapterRepo,
-      userRepo: UserRepo
+      userApi: lila.core.user.UserApi
   )(using Executor):
 
     private val onceEvery = scalalib.cache.OnceEvery[StudyChapterId](5 minutes)
@@ -28,7 +27,7 @@ object ServerEval:
         .so:
           val unlimitedFu =
             fuccess(unlimited) >>|
-              fuccess(userId == UserId.lichess) >>| userRepo.me(userId).map(_.soUse(Granter.opt(_.Relay)))
+              fuccess(userId == UserId.lichess) >>| userApi.me(userId).map(_.soUse(Granter.opt(_.Relay)))
           unlimitedFu.flatMap: unlimited =>
             chapterRepo
               .startServerEval(chapter)

@@ -3,14 +3,14 @@ package views.html.video
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object layout:
 
   def apply(
       title: String,
       control: lila.video.UserControl,
-      openGraph: Option[lila.app.ui.OpenGraph] = None
+      openGraph: Option[lila.web.OpenGraph] = None
   )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,

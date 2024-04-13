@@ -3,13 +3,13 @@ package views.html.mod
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object table:
 
   private val dataSort = attr("data-sort")
 
-  def apply(users: List[lila.user.User])(using PageContext) =
+  def apply(users: List[User])(using PageContext) =
 
     val title = "All mods"
 

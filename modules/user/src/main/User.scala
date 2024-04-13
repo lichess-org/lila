@@ -53,7 +53,6 @@ object LoginCandidate:
     case MissingTotpToken          extends Result(none)
     case InvalidTotpToken          extends Result(none)
 
-case class GDPRErase(user: User) extends AnyVal
 opaque type Erased = Boolean
 object Erased extends YesNo[Erased]
 
@@ -64,25 +63,6 @@ case class ClearPassword(value: String) extends AnyVal:
 
 case class TotpToken(value: String) extends AnyVal
 case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
-
-case class Contact(
-    _id: UserId,
-    kid: Option[Boolean],
-    marks: Option[UserMarks],
-    roles: Option[List[String]],
-    createdAt: Instant
-):
-  def id                     = _id
-  def isKid                  = ~kid
-  def isTroll                = marks.exists(_.troll)
-  def isVerified             = roles.exists(_ contains "ROLE_VERIFIED")
-  def isApiHog               = roles.exists(_ contains "ROLE_API_HOG")
-  def isDaysOld(days: Int)   = createdAt.isBefore(nowInstant.minusDays(days))
-  def isHoursOld(hours: Int) = createdAt.isBefore(nowInstant.minusHours(hours))
-  def isLichess              = _id == UserId.lichess
-case class Contacts(orig: Contact, dest: Contact):
-  def hasKid  = orig.isKid || dest.isKid
-  def userIds = List(orig.id, dest.id)
 
 object PlayTime:
   extension (p: PlayTime)

@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.gathering.Condition.WithVerdicts
 import lila.core.team.LightTeam
@@ -55,7 +55,7 @@ object show:
         cssTag("swiss.show"),
         hasScheduleInput.option(cssTag("flatpickr"))
       ),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
           url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",

@@ -4,7 +4,7 @@ package user
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 import lila.rating.PerfType
 
@@ -17,7 +17,7 @@ object top:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("slist"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"Leaderboard of ${perfType.trans}",
           url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",

@@ -3,7 +3,7 @@ package views.html.plan
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object indexPayPal:
 
@@ -12,7 +12,7 @@ object indexPayPal:
   private val dataForm = attr("data-form")
 
   def apply(
-      me: lila.user.User,
+      me: User,
       patron: lila.plan.Patron,
       subscription: lila.plan.PayPalSubscription,
       gifts: List[lila.plan.Charge.Gift]

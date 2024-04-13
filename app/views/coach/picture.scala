@@ -1,7 +1,7 @@
 package views.html
 package coach
 import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.coach.Coach
 
 object picture:

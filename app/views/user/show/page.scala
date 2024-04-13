@@ -5,7 +5,7 @@ import play.api.data.Form
 
 import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Game
 
 import lila.core.data.SafeJsonStr
@@ -21,7 +21,7 @@ object page:
     val u = info.user
     views.html.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           image = assetUrl("logo/lichess-tile-wide.png").some,
           twitterImage = assetUrl("logo/lichess-tile.png").some,

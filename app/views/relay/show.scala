@@ -4,7 +4,7 @@ package relay
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.core.socket.SocketVersion
 
@@ -51,7 +51,7 @@ object show:
       ).some,
       zoomable = true,
       csp = (if crossSiteIsolation then analysisCsp else defaultCsp).withExternalAnalysisApis.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = rt.fullName,
           url = s"$netBaseUrl${rt.path}",

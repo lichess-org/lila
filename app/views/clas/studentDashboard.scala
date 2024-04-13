@@ -3,7 +3,7 @@ package views.html.clas
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
 import lila.rating.UserPerfsExt.bestAny3Perfs
@@ -95,7 +95,7 @@ object studentDashboard:
         }
     )
 
-  private def challengeTd(user: lila.user.User)(using ctx: PageContext) =
+  private def challengeTd(user: User)(using ctx: PageContext) =
     if ctx.is(user) then td
     else
       val online = isOnline(user.id)

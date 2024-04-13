@@ -14,11 +14,11 @@ import lila.rating.PerfType
 import lila.rating.GlickoExt.rankable
 
 final class RankingApi(
-    coll: AsyncCollFailingSilently,
+    c: AsyncCollFailingSilently,
     cacheApi: lila.memo.CacheApi,
-    mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.core.LightUser.Getter
-)(using Executor):
+)(using Executor)
+    extends lila.core.user.RankingRepo(c):
 
   import RankingApi.*
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
@@ -27,21 +27,21 @@ final class RankingApi(
     save(user, perfType, perfs(perfType))
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2 && lila.rating.PerfType.isLeaderboardable(perfType)).so(coll:
-      _.update
-        .one(
-          $id(makeId(user.id, perfType)),
-          $doc(
-            "perf"      -> perfType.id,
-            "rating"    -> perf.intRating,
-            "prog"      -> perf.progress,
-            "stable"    -> perf.glicko.rankable(lila.rating.PerfType.variantOf(perfType)),
-            "expiresAt" -> nowInstant.plusDays(7)
-          ),
-          upsert = true
-        )
-        .void
-    )
+    (user.rankable && perf.nb >= 2 && lila.rating.PerfType.isLeaderboardable(perfType)).so:
+      coll:
+        _.update
+          .one(
+            $id(makeId(user.id, perfType)),
+            $doc(
+              "perf"      -> perfType.id,
+              "rating"    -> perf.intRating,
+              "prog"      -> perf.progress,
+              "stable"    -> perf.glicko.rankable(lila.rating.PerfType.variantOf(perfType)),
+              "expiresAt" -> nowInstant.plusDays(7)
+            ),
+            upsert = true
+          )
+          .void
 
   def remove(userId: UserId): Funit =
     coll:
@@ -139,77 +139,6 @@ final class RankingApi(
               (rank + 1) -> b
         }
         .map(_._2.result())
-
-  object weeklyRatingDistribution:
-
-    private type NbUsers = Int
-
-    def apply(pt: PerfType) = cache.get(pt.id)
-
-    private val cache = mongoCache[PerfId, List[NbUsers]](
-      lila.rating.PerfType.leaderboardable.size,
-      "user:rating:distribution",
-      179 minutes,
-      _.toString
-    ): loader =>
-      _.refreshAfterWrite(180 minutes).buildAsyncFuture:
-        loader(compute)
-
-    // from 600 to 2800 by Stat.group
-    private def compute(perfId: PerfId): Fu[List[NbUsers]] =
-      PerfType(perfId)
-        .exists(lila.rating.PerfType.leaderboardable.contains)
-        .so(coll:
-          _.aggregateList(maxDocs = Int.MaxValue): framework =>
-            import framework.*
-            Match($doc("perf" -> perfId)) -> List(
-              Project(
-                $doc(
-                  "_id" -> false,
-                  "r" -> $doc(
-                    "$subtract" -> $arr(
-                      "$rating",
-                      $doc("$mod" -> $arr("$rating", Stat.group))
-                    )
-                  )
-                )
-              ),
-              GroupField("r")("nb" -> SumAll)
-            )
-          .map: res =>
-            val hash: Map[Int, NbUsers] = res.view
-              .flatMap: obj =>
-                for
-                  rating <- obj.int("_id")
-                  nb     <- obj.getAsOpt[NbUsers]("nb")
-                yield rating -> nb
-              .to(Map)
-            (Glicko.minRating.value to 2800 by Stat.group)
-              .map(hash.getOrElse(_, 0))
-              .toList
-        .addEffect(monitorRatingDistribution(perfId)))
-
-    /* monitors cumulated ratio of players in each rating group, for a perf
-     *
-     * rating.distribution.bullet.600 => 0.0003
-     * rating.distribution.bullet.800 => 0.0012
-     * rating.distribution.bullet.825 => 0.0057
-     * rating.distribution.bullet.850 => 0.0102
-     * ...
-     * rating.distribution.bullet.1500 => 0.5 (hopefully)
-     * ...
-     * rating.distribution.bullet.2800 => 0.9997
-     */
-    private def monitorRatingDistribution(perfId: PerfId)(nbUsersList: List[NbUsers]): Unit =
-      val total = nbUsersList.sum
-      (Stat.minRating.value to 2800 by Stat.group).toList
-        .zip(nbUsersList)
-        .foldLeft(0) { case (prev, (rating, nbUsers)) =>
-          val acc = prev + nbUsers
-          PerfType(perfId).foreach: pt =>
-            lila.mon.rating.distribution(pt.key.value, rating).update(prev.toDouble / total)
-          acc
-        }
 
 object RankingApi:
 

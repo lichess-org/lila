@@ -16,15 +16,14 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     gameProxy: lila.game.core.GameProxy,
     chatApi: lila.core.chat.ChatApi,
     roundApi: lila.game.core.RoundApi,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     onStart: lila.core.game.OnStart,
     historyApi: lila.core.history.HistoryApi,
-    trophyApi: lila.user.TrophyApi,
+    trophyApi: lila.core.user.TrophyApi,
     socketKit: lila.core.socket.SocketKit,
     settingStore: lila.memo.SettingStore.Builder
 )(using scheduler: Scheduler)(using

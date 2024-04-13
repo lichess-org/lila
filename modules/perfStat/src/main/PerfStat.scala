@@ -37,7 +37,7 @@ case class PerfStat(
 
 object PerfStat:
 
-  type Getter = (lila.user.User, PerfType) => Fu[PerfStat]
+  type Getter = (User, PerfType) => Fu[PerfStat]
 
   def makeId(userId: UserId, perfType: PerfType) = s"$userId/${perfType.id}"
 

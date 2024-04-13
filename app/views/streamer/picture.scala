@@ -1,6 +1,6 @@
 package views.html.streamer
 import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.streamer.Streamer
 
 object picture:

@@ -14,12 +14,12 @@ import lila.memo.CacheApi.*
 import lila.memo.SettingStore
 
 import lila.core.socket.SocketVersion
-import lila.user.{ LightUserApi, Me, User }
 import lila.core.i18n.Translate
 import lila.core.data.Preload
 import lila.common.Json.lightUser.writeNoId
 import lila.rating.PerfType
 import lila.core.chess.Rank
+import lila.core.user.LightUserApi
 
 final class JsonView(
     lightUserApi: LightUserApi,
@@ -31,7 +31,7 @@ final class JsonView(
     shieldApi: TournamentShieldApi,
     cacheApi: lila.memo.CacheApi,
     gameProxy: lila.game.core.GameProxy,
-    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     verify: TournamentCondition.Verify,
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
@@ -78,7 +78,7 @@ final class JsonView(
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
           case (Some(me), Some(_)) => verify.rejoin(tour.conditions)(using me).dmap(some)
           case (Some(me), None) =>
-            perfsRepo
+            userApi
               .usingPerfOf(me, tour.perfType):
                 verify(tour.conditions, tour.perfType)(using me)
               .dmap(some)

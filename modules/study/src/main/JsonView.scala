@@ -12,7 +12,7 @@ import lila.core.i18n.Translate
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
 
   import JsonView.given

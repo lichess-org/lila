@@ -7,7 +7,7 @@ import controllers.routes
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.core.app.LangPath
 import lila.game.{ Game, Pov }
@@ -20,7 +20,7 @@ object bits:
       pageModule: Option[PageModule],
       moreJs: Frag = emptyFrag,
       modules: EsmList = Nil,
-      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      openGraph: Option[lila.web.OpenGraph] = None,
       moreCss: Frag = emptyFrag,
       playing: Boolean = false,
       zenable: Boolean = false,
@@ -139,7 +139,7 @@ object bits:
       data: play.api.libs.json.JsObject,
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using Context) =
     views.html.game.side(

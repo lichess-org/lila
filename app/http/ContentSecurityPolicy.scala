@@ -1,6 +1,6 @@
 package lila.app
 
-import lila.api.Nonce
+import lila.web.Nonce
 
 case class ContentSecurityPolicy(
     defaultSrc: List[String],

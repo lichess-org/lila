@@ -12,7 +12,6 @@ import lila.db.dsl.{ *, given }
 import lila.core.{ timeline as tl }
 import lila.memo.CacheApi.*
 import lila.core.perm.Granter
-import lila.user.{ Me, User, UserApi, UserRepo, given }
 import lila.core.team.*
 import lila.core.userId.UserSearch
 
@@ -20,8 +19,7 @@ final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
-    userRepo: UserRepo,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     cached: Cached,
     notifier: Notifier,
     chatApi: lila.core.chat.ChatApi
@@ -190,7 +188,7 @@ final class TeamApi(
     then
       for
         _          <- requestRepo.remove(request.id)
-        userOption <- userRepo.byId(request.user)
+        userOption <- userApi.byId(request.user)
         _ <- userOption.so(user => doJoin(team)(using Me(user)) >> notifier.acceptRequest(team, request))
       yield ()
     else funit
@@ -222,7 +220,7 @@ final class TeamApi(
   private[team] def addMembers(team: Team, userIds: Seq[UserId]): Funit =
     userIds
       .traverse: userId =>
-        userRepo
+        userApi
           .enabledById(userId)
           .flatMapz: user =>
             memberRepo

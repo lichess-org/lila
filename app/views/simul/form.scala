@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.ConditionForm
 import lila.core.team.LightTeam
 import lila.simul.{ Simul, SimulForm }
@@ -161,7 +161,7 @@ object form:
         help = trans.site.simulDescriptionHelp().some
       )(form3.textarea(_)(rows := 10)),
       ctx.me
-        .exists(_.canBeFeatured)
+        .exists(lila.simul.canBeFeatured)
         .option(
           form3.checkbox(
             form("featured"),

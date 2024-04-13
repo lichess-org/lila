@@ -358,7 +358,7 @@ final class User(
       case WithPerfsAndEmails(user, emails) =>
         withPageContext:
           import html.user.{ mod as view }
-          import lila.app.ui.ScalatagsExtensions.{ emptyFrag, given }
+          import lila.web.ui.ScalatagsExtensions.{ emptyFrag, given }
           given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
 
           val nbOthers = getInt("nbOthers") | 100
@@ -620,7 +620,7 @@ final class User(
 
   def ratingDistribution(perfKey: PerfKeyStr, username: Option[UserStr] = None) = Open:
     Found(PerfType.read(perfKey).filter(lila.rating.PerfType.isLeaderboardable)): perfType =>
-      env.user.rankingApi
+      env.perfStat.api
         .weeklyRatingDistribution(perfType)
         .flatMap: data =>
           WithMyPerfs:

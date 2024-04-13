@@ -8,7 +8,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Pov
 
 import bits.dataPanel
@@ -28,7 +28,7 @@ object replay:
       analysisStarted: Boolean,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup],
-      userTv: Option[lila.user.User],
+      userTv: Option[User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
   )(using ctx: PageContext) =

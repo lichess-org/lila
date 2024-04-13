@@ -3,7 +3,7 @@ package views.html.coordinate
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.core.app.LangPath
 
 object show:
@@ -17,7 +17,7 @@ object show:
       ),
       pageModule = PageModule("coordinateTrainer", bits.coordinateConfig(scoreOption)).some,
       csp = defaultCsp.withPeer.withWebAssembly.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Chess board coordinates trainer",
           url = s"$netBaseUrl${routes.Coordinate.home.url}",

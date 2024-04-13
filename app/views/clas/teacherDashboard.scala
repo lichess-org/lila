@@ -4,7 +4,7 @@ import controllers.clas.routes.Clas as clasRoutes
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite, ClasProgress, Student }
 import lila.common.String.html.richText
 import lila.rating.PerfType
@@ -154,7 +154,7 @@ object teacherDashboard:
                   ),
                   td(prog.nb),
                   if progress.isPuzzle then td(dataSort := prog.winRate)(prog.winRate, "%")
-                  else td(dataSort := prog.millis)(showDuration(prog.duration)),
+                  else td(dataSort := prog.millis)(translateDuration(prog.duration)),
                   td(
                     if progress.isPuzzle then
                       a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(

@@ -2,7 +2,7 @@ package views.html
 package game
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Player, Pov }
 
 object widgets:
@@ -12,7 +12,7 @@ object widgets:
   def apply(
       games: Seq[Game],
       notes: Map[GameId, String] = Map(),
-      user: Option[lila.user.User] = None,
+      user: Option[User] = None,
       ownerLink: Boolean = false
   )(using Context): Frag =
     games.map { g =>

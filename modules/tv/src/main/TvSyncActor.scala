@@ -8,7 +8,7 @@ import lila.common.Json.given
 import lila.game.{ Game, Pov }
 
 final private[tv] class TvSyncActor(
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     onTvGame: lila.game.core.OnTvGame,
     gameProxy: lila.game.core.GameProxy,
     rematches: lila.game.Rematches

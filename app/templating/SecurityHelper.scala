@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.core.perm.{ Granter, Permission }
 import lila.core.user.User
 

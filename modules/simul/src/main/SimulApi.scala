@@ -17,14 +17,11 @@ import lila.core.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.memo.CacheApi.*
 import lila.rating.PerfType
 import lila.core.socket.SendToFlag
-import lila.user.{ UserApi, UserPerfsRepo, UserRepo }
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserWithPerfs.only
 
 final class SimulApi(
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     gameRepo: GameRepo,
     onGameStart: lila.core.game.OnStart,
     socket: SimulSocket,
@@ -63,7 +60,7 @@ final class SimulApi(
       color = setup.color,
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
-      featurable = some(~setup.featured && me.canBeFeatured),
+      featurable = some(~setup.featured && canBeFeatured(me)),
       conditions = setup.conditions
     )
     _ <- repo.create(simul)
@@ -83,7 +80,7 @@ final class SimulApi(
       color = setup.color.some,
       text = setup.text,
       estimatedStartAt = setup.estimatedStartAt,
-      featurable = some(~setup.featured && me.canBeFeatured),
+      featurable = some(~setup.featured && canBeFeatured(me)),
       conditions = setup.conditions
     )
     repo.update(simul).andDo(publish()).inject(simul)
@@ -104,7 +101,7 @@ final class SimulApi(
             .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime)
             .so: variant =>
               val perfType = PerfType(variant, chess.Speed(simul.clock.config.some))
-              perfsRepo
+              userApi
                 .withPerf(me.value, perfType)
                 .flatMap: user =>
                   given Perf = user.perf
@@ -124,7 +121,7 @@ final class SimulApi(
     WithSimul(repo.findCreated, simulId) { _.removeApplicant(user.id) }
 
   def accept(simulId: SimulId, userId: UserId, v: Boolean): Funit =
-    userRepo.byId(userId).flatMapz { user =>
+    userApi.byId(userId).flatMapz { user =>
       WithSimul(repo.findCreated, simulId) { _.accept(user.id, v) }
     }
 

@@ -5,7 +5,7 @@ import controllers.routes
 import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.forum.{ CategView, TopicView }
 
@@ -16,7 +16,7 @@ object categ:
       title = trans.site.forum.txt(),
       moreCss = cssTag("forum"),
       csp = defaultCsp.withInlineIconFont.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Lichess community forum",
           url = s"$netBaseUrl${routes.ForumCateg.index.url}",
@@ -79,7 +79,7 @@ object categ:
       moreCss = cssTag("forum"),
       modules = infiniteScrollTag,
       csp = defaultCsp.withInlineIconFont.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"Forum: ${categ.name}",
           url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",

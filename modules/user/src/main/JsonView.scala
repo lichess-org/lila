@@ -12,7 +12,7 @@ import lila.core.perf.{ KeyedPerf, UserWithPerfs }
 import lila.rating.UserPerfsExt.perfsList
 import lila.core.perf.PuzPerf
 
-final class JsonView(isOnline: lila.core.socket.IsOnline):
+final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user.JsonView:
 
   import JsonView.{ *, given }
   import lila.user.Profile.*

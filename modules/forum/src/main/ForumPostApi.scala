@@ -7,7 +7,6 @@ import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.perm.Granter as MasterGranter
-import lila.user.{ Me, User, given }
 import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
 
 final class ForumPostApi(

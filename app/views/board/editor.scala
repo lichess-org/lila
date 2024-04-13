@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.libs.json.{ JsArray, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 
 object editor:
@@ -23,7 +23,7 @@ object editor:
       ).some,
       moreCss = cssTag("editor"),
       zoomable = true,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Chess board editor",
           url = s"$netBaseUrl${routes.Editor.index.url}",

@@ -12,7 +12,7 @@ final class PgnDump(
     chapterRepo: ChapterRepo,
     analyser: lila.analyse.Analyser,
     annotator: lila.analyse.Annotator,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     net: lila.core.config.NetConfig
 )(using Executor):
 

@@ -5,7 +5,8 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
+import lila.web.ui.*
 import lila.common.Json.given
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }
@@ -13,9 +14,10 @@ import lila.core.i18n.Translate
 import lila.common.Icon
 import lila.core.user.User
 
-trait TournamentHelper extends HasEnv:
-  self: I18nHelper & DateHelper & UserHelper & StringHelper & NumberHelper =>
+trait TournamentHelper:
+  self: DateHelper & UserHelper & StringHelper & NumberHelper =>
 
+  def env: Env
   def netBaseUrl: String
 
   def tournamentJsData(tour: Tournament, version: Int, user: Option[User]) =
@@ -44,8 +46,8 @@ trait TournamentHelper extends HasEnv:
       href     := routes.Tournament.show(tourId.value).url
     )(tournamentIdToName(tourId))
 
-  def tournamentIdToName(id: TourId)(using Translate): String =
-    env.tournament.getTourName.sync(id).getOrElse("Tournament")
+  def tournamentIdToName(id: TourId)(using translate: Translate): String =
+    env.tournament.getTourName.sync(id)(using translate.lang).getOrElse("Tournament")
 
   object scheduledTournamentNameShortHtml:
     private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""

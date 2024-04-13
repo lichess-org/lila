@@ -2,14 +2,17 @@ package lila.app
 package templating
 import play.api.libs.json.{ JsValue, Json, Writes }
 
-import lila.api.Nonce
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.Nonce
+import lila.web.ui.ScalatagsTemplate.*
 import lila.core.net.AssetVersion
 import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
+import lila.web.ui.*
 
-trait AssetHelper extends HasEnv:
+trait AssetHelper:
   self: I18nHelper & SecurityHelper =>
+
+  def env: Env
 
   case class PageModule(name: String, data: JsValue | SafeJsonStr)
   case class EsmInit(key: String, init: Frag)

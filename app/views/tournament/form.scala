@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.core.team.LightTeam
 import lila.tournament.{ Tournament, TournamentForm }

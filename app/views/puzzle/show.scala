@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 
 object show:
@@ -39,7 +39,7 @@ object show:
           .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
       ).some,
       csp = analysisCsp.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           image = cdnUrl(
             routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
