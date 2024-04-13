@@ -2,7 +2,7 @@ package lila.bookmark
 
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo }
+import lila.core.game.{ Game, GameRepo }
 
 final class PaginatorBuilder(
     coll: Coll,
@@ -43,6 +43,6 @@ final class PaginatorBuilder(
             ReplaceRootField("game")
           )
         .map:
-          _.flatMap(lila.game.BSONHandlers.gameBSONHandler.readOpt)
+          _.flatMap(gameRepo.gameHandler.readOpt)
 
     private def selector = $doc("u" -> user.id)

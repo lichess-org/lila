@@ -16,7 +16,7 @@ import lila.core.socket.makeMessage
 final private class TvBroadcast(
     lightUserSync: LightUser.GetterSync,
     channel: Tv.Channel,
-    gameProxy: lila.game.core.GameProxy
+    gameProxy: lila.core.game.GameProxy
 ) extends Actor:
 
   import TvBroadcast.*

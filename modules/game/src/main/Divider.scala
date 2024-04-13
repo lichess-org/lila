@@ -6,6 +6,8 @@ import chess.format.pgn.SanStr
 import chess.variant.Variant
 import com.github.blemale.scaffeine.Cache
 
+import lila.core.game.Game
+
 final class Divider(using Executor):
 
   private val cache: Cache[GameId, Division] = lila.memo.CacheApi.scaffeineNoScheduler

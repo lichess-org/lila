@@ -4,6 +4,7 @@ package actorApi
 import chess.ByColor
 import chess.format.Fen
 import lila.core.perf.UserWithPerfs
+import lila.core.game.{ Game, Pov }
 
 case class StartGame(game: Game)
 

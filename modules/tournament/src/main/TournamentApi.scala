@@ -31,7 +31,7 @@ final class TournamentApi(
     callbacks: TournamentApi.Callbacks,
     socket: TournamentSocket,
     roundApi: lila.game.core.RoundApi,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     trophyApi: lila.core.user.TrophyApi,
     colorHistoryApi: ColorHistoryApi,
     verify: TournamentCondition.Verify,

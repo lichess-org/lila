@@ -11,7 +11,7 @@ import lila.common.Icon
 final class Tv(
     gameRepo: GameRepo,
     actor: SyncActor,
-    gameProxy: lila.game.core.GameProxy
+    gameProxy: lila.core.game.GameProxy
 )(using Executor):
 
   import Tv.*

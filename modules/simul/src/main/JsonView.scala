@@ -11,7 +11,7 @@ import lila.rating.PerfType
 final class JsonView(
     gameRepo: GameRepo,
     getLightUser: LightUser.GetterFallback,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     isOnline: lila.core.socket.IsOnline
 )(using Executor):
 

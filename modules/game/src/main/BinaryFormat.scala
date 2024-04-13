@@ -9,6 +9,7 @@ import org.lichess.compression.clock.Encoder as ClockEncoder
 import scala.util.Try
 
 import lila.db.ByteArray
+import lila.core.game.ClockHistory
 
 object BinaryFormat:
 

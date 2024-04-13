@@ -2,6 +2,8 @@ package lila.game
 
 import chess.{ Color, Status }
 
+import lila.core.game.LightPlayer
+
 case class LightGame(
     id: GameId,
     whitePlayer: LightPlayer,
@@ -30,16 +32,6 @@ object LightGame:
       F.status      -> true
     )
 
-case class LightPlayer(
-    color: Color,
-    aiLevel: Option[Int],
-    userId: Option[UserId] = None,
-    rating: Option[IntRating] = None,
-    ratingDiff: Option[IntRatingDiff] = None,
-    provisional: RatingProvisional = RatingProvisional.No,
-    berserk: Boolean = false
-)
-
 object LightPlayer:
 
   import reactivemongo.api.bson.*
@@ -59,7 +51,7 @@ object LightPlayer:
   def builderRead(doc: Bdoc): Builder = color =>
     userId =>
       import Player.BSONFields.*
-      LightPlayer(
+      new LightPlayer(
         color = color,
         aiLevel = doc.int(aiLevel),
         userId = userId,

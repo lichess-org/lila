@@ -17,7 +17,7 @@ private object SwissBoard:
 final private class SwissBoardApi(
     rankingApi: SwissRankingApi,
     lightUserApi: lila.core.user.LightUserApi,
-    gameProxy: lila.game.core.GameProxy
+    gameProxy: lila.core.game.GameProxy
 )(using Executor):
 
   private val displayBoards = 6

@@ -7,6 +7,7 @@ import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 import lila.core.LightUser
 import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
+import lila.core.game.{ Game, Player }
 
 final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiMinimal)(using Executor):
 

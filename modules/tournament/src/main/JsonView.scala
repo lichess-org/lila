@@ -30,7 +30,7 @@ final class JsonView(
     statsApi: TournamentStatsApi,
     shieldApi: TournamentShieldApi,
     cacheApi: lila.memo.CacheApi,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     userApi: lila.core.user.UserApi,
     verify: TournamentCondition.Verify,
     duelStore: DuelStore,

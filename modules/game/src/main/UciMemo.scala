@@ -3,6 +3,8 @@ package lila.game
 import chess.format.UciDump
 import com.github.blemale.scaffeine.Cache
 
+import lila.core.game.Game
+
 final class UciMemo(gameRepo: GameRepo)(using Executor):
 
   type UciVector = Vector[String]

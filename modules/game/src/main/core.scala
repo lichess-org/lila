@@ -1,14 +1,10 @@
 package lila.game
 package core
 
+import lila.core.game.Game
+
 type ExplorerGame = GameId => Fu[Option[Game]]
 type OnTvGame     = Game => Unit
-
-trait GameProxy:
-  def updateIfPresent(gameId: GameId)(f: Game => Game): Funit
-  def game(gameId: GameId): Fu[Option[Game]]
-  def upgradeIfPresent(games: List[Game]): Fu[List[Game]]
-  def flushIfPresent(gameId: GameId): Funit
 
 trait RoundJson:
   import play.api.libs.json.JsObject

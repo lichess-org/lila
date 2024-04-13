@@ -18,7 +18,7 @@ import lila.core.notify.*
 final private class PushApi(
     firebasePush: FirebasePush,
     webPush: WebPush,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     roundJson: lila.game.core.RoundJson,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.core.notify.GetNotifyAllows,

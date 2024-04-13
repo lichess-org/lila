@@ -1,5 +1,7 @@
 package lila.game
 
+import lila.core.game.Game
+
 // Wrapper around newly created games. We do not know if the id is unique, yet.
 case class NewGame(sloppy: Game) extends AnyVal:
   def withId(id: GameId): Game = sloppy.withId(id)

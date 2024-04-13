@@ -13,8 +13,9 @@ import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
 import lila.core.game.{ Game as _, Pov as _, * }
 
-final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.GameRepo:
+final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c):
 
+  export BSONHandlers.gameHandler
   import BSONHandlers.given
   import Game.{ BSONFields as F }
   import Player.given
@@ -414,7 +415,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
       else if g2.fromApi then some(24 * 7)
       else if g2.hasClock then 1.some
       else some(24 * 10)
-    val bson = (gameBSONHandler.write(g2)) ++ $doc(
+    val bson = (gameHandler.write(g2)) ++ $doc(
       F.initialFen  -> fen,
       F.checkAt     -> checkInHours.map(nowInstant.plusHours(_)),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)

@@ -10,7 +10,7 @@ import lila.game.{ Game, Pov }
 final private[tv] class TvSyncActor(
     lightUserApi: lila.core.user.LightUserApi,
     onTvGame: lila.game.core.OnTvGame,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     rematches: lila.game.Rematches
 )(using Executor, Scheduler)
     extends SyncActor:

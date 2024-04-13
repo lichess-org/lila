@@ -22,7 +22,7 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     getLightUser: lila.core.LightUser.GetterFallback,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     roundJson: lila.game.core.RoundJson,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.core.notify.GetNotifyAllows,

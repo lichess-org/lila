@@ -205,7 +205,7 @@ final class Env(
   val apiMoveStream = wire[ApiMoveStream]
 
   // core APIs
-  val gameProxy: lila.game.core.GameProxy = new:
+  val gameProxy: lila.core.game.GameProxy = new:
     export proxyRepo.{ game, updateIfPresent, flushIfPresent, upgradeIfPresent }
   val roundJson: lila.game.core.RoundJson = new:
     export mobile.offline as mobileOffline

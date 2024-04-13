@@ -3,18 +3,30 @@ package game
 
 import cats.derived.*
 import play.api.libs.json.*
-import _root_.chess.{ Color, Speed }
+import reactivemongo.api.bson.BSONDocumentHandler
+import reactivemongo.api.bson.collection.BSONCollection
+import _root_.chess.{ Color, ByColor, Speed, Ply }
 
 import lila.core.id.{ GameId, GameFullId, GamePlayerId }
 import lila.core.userId.UserId
+import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 
-case class PovRef(gameId: GameId, color: Color):
-  def unary_!           = PovRef(gameId, !color)
-  override def toString = s"$gameId/${color.name}"
+case class LightPlayer(
+    color: Color,
+    aiLevel: Option[Int],
+    userId: Option[UserId] = None,
+    rating: Option[IntRating] = None,
+    ratingDiff: Option[IntRatingDiff] = None,
+    provisional: RatingProvisional = RatingProvisional.No,
+    berserk: Boolean = false
+)
 
 case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
 object PlayerRef:
   def apply(fullId: GameFullId): PlayerRef = PlayerRef(fullId.gameId, fullId.playerId)
+
+case class SideAndStart(color: Color, startedAtPly: Ply):
+  def startColor = startedAtPly.turn
 
 enum GameRule:
   case noAbort, noRematch, noGiveTime, noClaimWin, noEarlyDraw
@@ -29,12 +41,8 @@ case class ChangeFeatured(mgs: JsObject)
 
 case class CorresAlarmEvent(userId: UserId, pov: Pov, opponent: String)
 
-trait Game:
-  val id: GameId
-
-trait Pov:
-  val game: Game
-  val color: Color
+opaque type Blurs = Long
+object Blurs extends OpaqueLong[Blurs]
 
 enum Source(val id: Int) derives Eq:
   def name = toString.toLowerCase
@@ -66,5 +74,24 @@ trait Event:
   def troll: Boolean        = false
   def moveBy: Option[Color] = None
 
-trait GameRepo:
+trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
+  def incBookmarks(id: GameId, by: Int): Funit
+
+abstract class GameRepo(val coll: BSONCollection):
+  given gameHandler: BSONDocumentHandler[Game]
+
+trait GameProxy:
+  def updateIfPresent(gameId: GameId)(f: Game => Game): Funit
+  def game(gameId: GameId): Fu[Option[Game]]
+  def upgradeIfPresent(games: List[Game]): Fu[List[Game]]
+  def flushIfPresent(gameId: GameId): Funit
+
+def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
+  val iterA   = a.iterator
+  val iterB   = b.iterator
+  val builder = Vector.newBuilder[A]
+  while iterA.hasNext && iterB.hasNext do builder += iterA.next() += iterB.next()
+  builder ++= iterA ++= iterB
+
+  builder.result()
