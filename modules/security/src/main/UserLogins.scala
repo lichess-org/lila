@@ -145,7 +145,7 @@ final class UserLoginsApi(
             UnwindField("user")
           )
         .map: docs =>
-          import lila.user.User.given
+          import lila.user.BSONHandlers.userHandler
           import FingerHash.given
           for
             doc  <- docs

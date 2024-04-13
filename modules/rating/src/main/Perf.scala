@@ -4,133 +4,100 @@ import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import lila.db.BSON
 import lila.db.dsl.given
-import lila.core.perf.PerfType
+import lila.rating.PerfType
+import lila.core.rating.Glicko
+import lila.rating.GlickoExt.*
+import lila.core.perf.Perf
+import lila.core.perf.PuzPerf
 
-case class Perf(
-    glicko: Glicko,
-    nb: Int,
-    recent: List[IntRating],
-    latest: Option[Instant]
-) extends lila.core.rating.Perf:
+object PerfExt:
 
-  export glicko.{ rankable, clueless, established }
+  extension (p: Perf)
 
-  def progress: IntRatingDiff = {
-    for
-      head <- recent.headOption
-      last <- recent.lastOption
-    yield IntRatingDiff(head.value - last.value)
-  } | IntRatingDiff(0)
+    def addRating(g: Glicko, date: Instant): Perf =
+      val capped = g.cap
+      p.copy(
+        glicko = capped,
+        nb = p.nb + 1,
+        recent = p.updateRecentWith(capped),
+        latest = date.some
+      )
 
-  def add(g: Glicko, date: Instant): Perf =
-    val capped = g.cap
-    copy(
-      glicko = capped,
-      nb = nb + 1,
-      recent = updateRecentWith(capped),
-      latest = date.some
-    )
+    def addRating(r: glicko2.Rating, date: Instant): Option[Perf] =
+      val newGlicko = Glicko(
+        rating = r.rating
+          .atMost(p.glicko.rating + lila.rating.Glicko.maxRatingDelta)
+          .atLeast(p.glicko.rating - lila.rating.Glicko.maxRatingDelta),
+        deviation = r.ratingDeviation,
+        volatility = r.volatility
+      )
+      newGlicko.sanityCheck.option(p.addRating(newGlicko, date))
 
-  def add(r: glicko2.Rating, date: Instant): Option[Perf] =
-    val newGlicko = Glicko(
-      rating = r.rating
-        .atMost(glicko.rating + Glicko.maxRatingDelta)
-        .atLeast(glicko.rating - Glicko.maxRatingDelta),
-      deviation = r.ratingDeviation,
-      volatility = r.volatility
-    )
-    newGlicko.sanityCheck.option(add(newGlicko, date))
+    def addOrReset(
+        monitor: lila.mon.CounterPath,
+        msg: => String
+    )(r: glicko2.Rating, date: Instant): Perf =
+      p.addRating(r, date) | {
+        lila.log("rating").error(s"Crazy Glicko2 $msg")
+        monitor(lila.mon).increment()
+        p.addRating(lila.rating.Glicko.default, date)
+      }
 
-  def addOrReset(
-      monitor: lila.mon.CounterPath,
-      msg: => String
-  )(r: glicko2.Rating, date: Instant): Perf =
-    add(r, date) | {
-      lila.log("rating").error(s"Crazy Glicko2 $msg")
-      monitor(lila.mon).increment()
-      add(Glicko.default, date)
-    }
+    def refund(points: Int): Perf =
+      val newGlicko = p.glicko.copy(rating = p.glicko.rating + points)
+      p.copy(
+        glicko = newGlicko,
+        recent = p.updateRecentWith(newGlicko)
+      )
 
-  def refund(points: Int): Perf =
-    val newGlicko = glicko.refund(points)
-    copy(
-      glicko = newGlicko,
-      recent = updateRecentWith(newGlicko)
-    )
+    private def updateRecentWith(glicko: Glicko) =
+      if p.nb < 10 then p.recent
+      else (glicko.intRating :: p.recent).take(Perf.recentMaxSize)
 
-  private def updateRecentWith(glicko: Glicko) =
-    if nb < 10 then recent
-    else (glicko.intRating :: recent).take(Perf.recentMaxSize)
+    def clearRecent = p.copy(recent = Nil)
 
-  def clearRecent = copy(recent = Nil)
+    def toRating =
+      glicko2.Rating(
+        math.max(lila.rating.Glicko.minRating.value, p.glicko.rating),
+        p.glicko.deviation,
+        p.glicko.volatility,
+        p.nb,
+        p.latest
+      )
 
-  def toRating =
-    glicko2.Rating(
-      math.max(Glicko.minRating.value, glicko.rating),
-      glicko.deviation,
-      glicko.volatility,
-      nb,
-      latest
-    )
+    def showRatingProvisional = p.glicko.display
+    def established           = p.glicko.established
 
-  def isEmpty  = latest.isEmpty
-  def nonEmpty = !isEmpty
+object Perf:
 
-  def showRatingProvisional = glicko.display
-
-case object Perf:
-
-  case class Typed(perf: Perf, perfType: PerfType)
-  def typed(pt: PerfType, perf: Perf) = new Typed(perf, pt)
-
-  val default = Perf(Glicko.default, 0, Nil, None)
+  val default = new Perf(lila.rating.Glicko.default, 0, Nil, None)
 
   /* Set a latest date as a hack so that these are written to the db even though there are no games */
-  val defaultManaged       = Perf(Glicko.defaultManaged, 0, Nil, nowInstant.some)
-  val defaultManagedPuzzle = Perf(Glicko.defaultManagedPuzzle, 0, Nil, nowInstant.some)
-  val defaultBot           = Perf(Glicko.defaultBot, 0, Nil, nowInstant.some)
+  val defaultManaged       = new Perf(lila.rating.Glicko.defaultManaged, 0, Nil, nowInstant.some)
+  val defaultManagedPuzzle = new Perf(lila.rating.Glicko.defaultManagedPuzzle, 0, Nil, nowInstant.some)
+  val defaultBot           = new Perf(lila.rating.Glicko.defaultBot, 0, Nil, nowInstant.some)
 
   val recentMaxSize = 12
 
-  trait PuzPerf:
-    val score: Int
-    val runs: Int
-    def nonEmpty = runs > 0
-    def option   = nonEmpty.option(this)
+  given perfHandler: BSONDocumentHandler[Perf] = new BSON[Perf]:
 
-  case class Storm(score: Int, runs: Int) extends PuzPerf
-  object Storm:
-    val default = Storm(0, 0)
-
-  case class Racer(score: Int, runs: Int) extends PuzPerf
-  object Racer:
-    val default = Racer(0, 0)
-
-  case class Streak(score: Int, runs: Int) extends PuzPerf
-  object Streak:
-    val default = Streak(0, 0)
-
-  given BSONDocumentHandler[Perf] = new BSON[Perf]:
-
-    import Glicko.given
+    import lila.rating.Glicko.glickoHandler
 
     def reads(r: BSON.Reader): Perf =
-      val p = Perf(
-        glicko = r.getO[Glicko]("gl") | Glicko.default,
+      val p = new Perf(
+        glicko = r.getO[Glicko]("gl") | lila.rating.Glicko.default,
         nb = r.intD("nb"),
         latest = r.dateO("la"),
         recent = ~r.getO[List[IntRating]]("re")
       )
-      p.copy(glicko = p.glicko.copy(deviation = Glicko.liveDeviation(p, reverse = false)))
+      p.copy(glicko = p.glicko.copy(deviation = lila.rating.Glicko.liveDeviation(p, reverse = false)))
 
     def writes(w: BSON.Writer, o: Perf) =
       BSONDocument(
-        "gl" -> o.glicko.copy(deviation = Glicko.liveDeviation(o, reverse = true)),
+        "gl" -> o.glicko.copy(deviation = lila.rating.Glicko.liveDeviation(o, reverse = true)),
         "nb" -> w.int(o.nb),
         "re" -> w.listO(o.recent),
         "la" -> o.latest.map(w.date)
       )
 
-  given BSONDocumentHandler[Storm]  = Macros.handler[Storm]
-  given BSONDocumentHandler[Racer]  = Macros.handler[Racer]
-  given BSONDocumentHandler[Streak] = Macros.handler[Streak]
+  given BSONDocumentHandler[PuzPerf] = Macros.handler[PuzPerf]

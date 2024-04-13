@@ -1,7 +1,6 @@
 package lila.insight
 
 import play.api.libs.json.*
-import lila.core.perf.PerfKey
 
 case class JsonQuestion(
     dimension: String,

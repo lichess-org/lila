@@ -7,15 +7,14 @@ import lila.common.{ Bus, Uptime }
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.core.msg.{ MsgApi, MsgPreset }
-import lila.user.{ NoteApi, UserRepo }
 import lila.core.game.Source
 import lila.core.playban.RageSit as RageSitCounter
 
 final class PlaybanApi(
     coll: Coll,
     feedback: PlaybanFeedback,
-    userRepo: UserRepo,
-    noteApi: NoteApi,
+    userApi: lila.core.user.UserApi,
+    noteApi: lila.core.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
 )(using ec: Executor, mode: play.api.Mode):
@@ -39,7 +38,7 @@ final class PlaybanApi(
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(blameableSources.contains) && game.hasClock).so {
       if game.rated then fuTrue
-      else userRepo.containsEngine(game.userIds).not
+      else userApi.containsEngine(game.userIds).not
     }
 
   private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
@@ -222,7 +221,7 @@ final class PlaybanApi(
         if outcome == Outcome.Good then fuccess(withOutcome)
         else
           for
-            createdAt <- userRepo.createdAtById(userId).orFail(s"Missing user creation date $userId")
+            createdAt <- userApi.createdAtById(userId).orFail(s"Missing user creation date $userId")
             withBan   <- legiferate(withOutcome, createdAt, source)
           yield withBan
       _ <- registerRageSit(withBan, rsUpdate)
@@ -265,7 +264,7 @@ final class PlaybanApi(
               "autoWarning"
             )
             if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then
-              userRepo
+              userApi
                 .byId(record.userId)
                 .flatMapz: user =>
                   noteApi

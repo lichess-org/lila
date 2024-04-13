@@ -4,7 +4,7 @@ package tournament
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object faq:
 
@@ -18,7 +18,7 @@ object faq:
       main(cls := "page-small box box-pad page")(
         boxTop(
           h1(
-            a(href := routes.Tournament.home, dataIcon := licon.LessThan, cls := "text"),
+            a(href := routes.Tournament.home, dataIcon := Icon.LessThan, cls := "text"),
             trans.site.tournamentFAQ()
           )
         ),

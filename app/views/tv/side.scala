@@ -3,7 +3,7 @@ package views.html.tv
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object side:
 
@@ -12,7 +12,7 @@ object side:
       champions: lila.tv.Tv.Champions,
       baseUrl: String
   ): Frag =
-    views.html.site.bits.subnav(
+    views.html.base.bits.subnav(
       lila.tv.Tv.Channel.list.map: c =>
         a(
           href := s"$baseUrl/${c.key}",
@@ -64,7 +64,7 @@ object side:
       ),
       game.tournamentId.map: tourId =>
         st.section(cls := "game__tournament-link"):
-          a(href := routes.Tournament.show(tourId), dataIcon := licon.Trophy, cls := "text"):
+          a(href := routes.Tournament.show(tourId), dataIcon := Icon.Trophy, cls := "text"):
             tournamentIdToName(tourId)
     )
 

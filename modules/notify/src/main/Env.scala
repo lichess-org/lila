@@ -40,11 +40,11 @@ final class Env(
   // api actor
   Bus.subscribeFuns(
     "notify" -> {
-      case lila.core.actorApi.notify.NotifiedBatch(userIds) => api.markAllRead(userIds)
+      case lila.core.notify.NotifiedBatch(userIds) => api.markAllRead(userIds)
       case lila.core.game.CorresAlarmEvent(userId, pov, opponent) =>
         api.notifyOne(userId, CorresAlarm(pov.game.id, opponent))
     },
-    "streamStart" -> { case lila.core.actorApi.streamer.StreamStart(userId, streamerName) =>
+    "streamStart" -> { case lila.core.misc.streamer.StreamStart(userId, streamerName) =>
       subsRepo
         .subscribersOnlineSince(userId, 7)
         .map: subs =>

@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import lila.core.LightUser
 import scalalib.paginator.Paginator
@@ -144,7 +144,7 @@ object tour:
       )
 
   def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context) =
-    views.html.site.bits.pageMenuSubnav(
+    views.html.base.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
         a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_.is(me)).option("active")):
@@ -177,7 +177,7 @@ object tour:
           heightA := size(RelayTour.thumbnail).height,
           src     := url(id, size)
         )
-    def fallback = iconTag(licon.RadioTower)(cls := "relay-image--fallback")
+    def fallback = iconTag(Icon.RadioTower)(cls := "relay-image--fallback")
     def url(id: PicfitImage.Id, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
@@ -206,7 +206,7 @@ object tour:
                 tr.crowd
                   .filter(_ > 2)
                   .map: nb =>
-                    span(cls := "relay-card__crowd text", dataIcon := licon.User)(nb.localize)
+                    span(cls := "relay-card__crowd text", dataIcon := Icon.User)(nb.localize)
               )
             else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
           ),

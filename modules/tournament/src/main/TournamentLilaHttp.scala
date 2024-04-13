@@ -17,7 +17,7 @@ final class TournamentLilaHttp(
     statsApi: TournamentStatsApi,
     jsonView: JsonView,
     pause: Pause,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     redisClient: RedisClient
 )(using akka.stream.Materializer, Scheduler, Executor):
 

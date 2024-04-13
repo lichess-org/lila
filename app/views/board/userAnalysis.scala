@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType.iconByVariant
 
 object userAnalysis:
@@ -39,7 +39,7 @@ object userAnalysis:
         )
         .some,
       csp = analysisCsp.withExternalAnalysisApis.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Chess analysis board",
           url = s"$netBaseUrl${routes.UserAnalysis.index.url}",

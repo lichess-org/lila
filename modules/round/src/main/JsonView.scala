@@ -12,9 +12,11 @@ import lila.core.LightUser
 import lila.game.JsonView.given
 import lila.game.{ Game, Player as GamePlayer, Pov }
 import lila.pref.Pref
-import lila.rating.Perf
-import lila.user.{ GameUser, GameUsers, User }
+
+import lila.core.user.{ GameUser, GameUsers }
+import lila.core.user.WithPerf
 import lila.core.net.ApiVersion
+import lila.core.perf.KeyedPerf
 
 final class JsonView(
     lightUserGet: LightUser.Getter,
@@ -41,8 +43,8 @@ final class JsonView(
     Json
       .obj("color" -> p.color.name)
       .add("user" -> user.match
-        case Some(User.WithPerf(user, perf)) =>
-          val p = withFlags.rating.option(Perf.Typed(perf, g.perfType))
+        case Some(WithPerf(user, perf)) =>
+          val p = withFlags.rating.option(KeyedPerf(g.perfKey, perf))
           userJsonView.roundPlayer(user, p).some
         case _ if p.hasUser => userJsonView.ghost.some
         case _              => none
@@ -147,8 +149,8 @@ final class JsonView(
         "name"  -> p.name
       )
       .add("user" -> user.match
-        case Some(User.WithPerf(user, perf)) =>
-          userJsonView.roundPlayer(user, withFlags.rating.option(Perf.Typed(perf, g.perfType))).some
+        case Some(WithPerf(user, perf)) =>
+          userJsonView.roundPlayer(user, withFlags.rating.option(KeyedPerf(g.perfKey, perf))).some
         case _ if p.hasUser => userJsonView.ghost.some
         case _              => none
       )

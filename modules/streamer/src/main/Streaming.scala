@@ -58,7 +58,7 @@ final private class Streaming(
 
   private def publishStreams(streamers: List[Streamer], newStreams: LiveStreams) =
     Bus.publish(
-      lila.core.actorApi.streamer
+      lila.core.misc.streamer
         .StreamersOnline(newStreams.streams.map(s => (s.streamer.userId, s.streamer.name.value))),
       "streamersOnline"
     )
@@ -71,7 +71,7 @@ final private class Streaming(
           import s.streamer.userId
           if streamStartOnceEvery(userId) then
             Bus.publish(
-              lila.core.actorApi.streamer.StreamStart(userId, s.streamer.name.value),
+              lila.core.misc.streamer.StreamStart(userId, s.streamer.name.value),
               "streamStart"
             )
         }

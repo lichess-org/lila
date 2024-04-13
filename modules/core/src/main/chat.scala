@@ -48,6 +48,7 @@ enum TimeoutScope:
   case Local, Global
 
 trait ChatApi:
+  def exists(chatId: ChatId): Fu[Boolean]
   def write(
       chatId: ChatId,
       userId: UserId,
@@ -57,6 +58,7 @@ trait ChatApi:
       persist: Boolean = true
   ): Funit
   def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit
+  def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit
   def timeout(
       chatId: ChatId,
       userId: UserId,

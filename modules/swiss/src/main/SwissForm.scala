@@ -8,7 +8,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
-import lila.user.User
 
 final class SwissForm(using mode: play.api.Mode):
 

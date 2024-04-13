@@ -33,8 +33,12 @@ object JsonView:
         lineWriter.writes(line)
 
   def userModInfo(using LightUser.GetterSync)(u: UserModInfo) =
-    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj:
-      "history" -> u.history
+    modView(u.user) ++ Json.obj("history" -> u.history)
+
+  private def modView(u: User) =
+    Json.toJsObject(u.light) ++ Json
+      .obj("games" -> u.count.game)
+      .add("tos" -> u.marks.dirty)
 
   def mobile(chat: AnyChat, writeable: Boolean = true)(using FlairGetMap, Executor): Fu[JsObject] =
     asyncLines(chat).map: lines =>

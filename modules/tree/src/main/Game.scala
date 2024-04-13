@@ -2,8 +2,7 @@ package lila.tree
 
 import chess.{ Game as ChessGame, * }
 
-trait Game:
-  val id: GameId
+trait Game extends lila.core.game.Game:
   val chess: ChessGame
   def bothClockStates: Option[Vector[Centis]]
   def drawOfferPlies: Set[Ply]

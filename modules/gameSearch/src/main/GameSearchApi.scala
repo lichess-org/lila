@@ -9,7 +9,7 @@ import lila.search.*
 final class GameSearchApi(
     client: ESClient,
     gameRepo: GameRepo,
-    userRepo: lila.user.UserRepo
+    userApi: lila.core.user.UserApi
 )(using Executor, Scheduler)
     extends SearchReadApi[Game, Query]:
 
@@ -22,7 +22,7 @@ final class GameSearchApi(
     client.count(query).dmap(_.value)
 
   def validateAccounts(query: Query, forMod: Boolean): Fu[Boolean] =
-    fuccess(forMod) >>| userRepo.containsDisabled(query.userIds).not
+    fuccess(forMod) >>| userApi.containsDisabled(query.userIds).not
 
   def store(game: Game) =
     storable(game).so:

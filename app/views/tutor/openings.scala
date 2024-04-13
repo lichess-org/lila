@@ -3,19 +3,19 @@ package views.html.tutor
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorPerfReport
 
 object openings:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using ctx: PageContext) =
+  def apply(report: TutorPerfReport, user: User)(using ctx: PageContext) =
     bits.layout(menu = perf.menu(user, report, "openings"))(
       cls := "tutor__openings box",
       boxTop(
         h1(
           a(
             href     := routes.Tutor.perf(user.username, report.perf.key),
-            dataIcon := licon.LessThan,
+            dataIcon := Icon.LessThan,
             cls      := "text"
           ),
           bits.otherUser(user),
@@ -54,7 +54,7 @@ object openings:
           }),
           a(
             cls      := "tutor__openings__color__explorer button button-no-upper text",
-            dataIcon := licon.Book,
+            dataIcon := Icon.Book,
             href     := s"${routes.UserAnalysis.index}?color=${color.name}#explorer/${user.username}"
           )("Personal explorer as ", color.name)
         )

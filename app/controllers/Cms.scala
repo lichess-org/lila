@@ -91,7 +91,7 @@ final class Cms(env: Env) extends LilaController(env):
   def variantHome = Open:
     negotiate(
       Ok.pageAsync(views.html.site.variant.home),
-      Ok(lila.api.StaticContent.variantsJson)
+      Ok(lila.web.StaticContent.variantsJson)
     )
 
   import chess.variant.Variant

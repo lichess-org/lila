@@ -41,8 +41,6 @@ object Bus:
   val named = NamedBus
   val chan  = BusChannel
 
-  case class Event(payload: Payload, channel: Channel)
-
   def publish(payload: Payload, channel: Channel): Unit = bus.publish(payload, channel)
 
   export bus.{ size, subscribe, unsubscribe }

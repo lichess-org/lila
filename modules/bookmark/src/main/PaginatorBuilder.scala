@@ -3,7 +3,6 @@ package lila.bookmark
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }
-import lila.core.user.User
 
 final class PaginatorBuilder(
     coll: Coll,

@@ -4,7 +4,7 @@ import lila.db.AggregationPipeline
 import lila.db.dsl.*
 import lila.insight.*
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 final private class TutorCustomInsight[A: TutorNumber](
     users: NonEmptyList[TutorUser],

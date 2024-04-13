@@ -7,7 +7,6 @@ import scalalib.ThreadLocalRandom
 import lila.common.Uptime
 import lila.core.config.Secret
 import lila.memo.CacheApi
-import lila.user.User
 
 final class StormSign(secret: Secret)(using Executor):
 

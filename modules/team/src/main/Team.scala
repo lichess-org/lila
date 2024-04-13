@@ -8,7 +8,7 @@ import java.security.MessageDigest
 import scala.util.chaining.*
 
 import lila.core.team.{ TeamData, LightTeam }
-import lila.user.User
+
 import lila.core.team.Access
 
 case class Team(

@@ -7,7 +7,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import UserId.lichess
 import lila.core.tournament.leaderboard.Ratio
 import lila.core.tournament.Status

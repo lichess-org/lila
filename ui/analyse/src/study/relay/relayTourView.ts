@@ -233,6 +233,9 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
           {
             name: 'Subscribe',
             id: 'tour-subscribe',
+            title:
+              'Subscribe to be notified when each round starts. You can toggle bell or push ' +
+              'notifications for broadcasts in your account preferences.',
             cls: 'relay-tour__subscribe',
             checked: relay.data.isSubscribed,
             change: (v: boolean) => {

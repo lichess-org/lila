@@ -4,7 +4,7 @@ import lila.game.Pov
 import lila.core.game.Source
 
 final private class AbortListener(
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     gameRepo: lila.game.GameRepo,
     seekApi: SeekApi,
     lobbyActor: LobbySyncActor
@@ -22,8 +22,8 @@ final private class AbortListener(
     then
       pov.game.userIds match
         case List(u1, u2) =>
-          userRepo.incColor(u1, -1)
-          userRepo.incColor(u2, 1)
+          userApi.incColor(u1, -1)
+          userApi.incColor(u2, 1)
         case _ =>
 
   private def recreateSeek(pov: Pov): Funit =
@@ -35,7 +35,7 @@ final private class AbortListener(
       }
 
   private def worthRecreating(seek: Seek): Fu[Boolean] =
-    userRepo.byId(seek.user.id).map {
+    userApi.byId(seek.user.id).map {
       _.exists: u =>
         u.enabled.yes && !u.lame
     }

@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object dev:
 
@@ -26,7 +26,7 @@ object dev:
                 case Some(v: Boolean) => div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
                 case v                => input(name := "v", value := v.map(_.toString))
               ,
-              submitButton(cls := "button button-empty", dataIcon := licon.Checkmark)
+              submitButton(cls := "button button-empty", dataIcon := Icon.Checkmark)
             )
         )
       )

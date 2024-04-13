@@ -3,7 +3,7 @@ package views.html.tournament
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey as trans
 import lila.tournament.Tournament
 
@@ -39,16 +39,16 @@ object bits:
           td(tour.durationString),
           tour.conditions.teamMember match
             case Some(t) =>
-              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := t.teamName)(visiblePlayers)
+              td(dataIcon := Icon.Group, cls := "text tour-team-icon", title := t.teamName)(visiblePlayers)
             case _ if tour.isTeamBattle =>
-              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := trans.team.teamBattle.txt()):
+              td(dataIcon := Icon.Group, cls := "text tour-team-icon", title := trans.team.teamBattle.txt()):
                 visiblePlayers
-            case None => td(dataIcon := licon.User, cls := "text")(visiblePlayers)
+            case None => td(dataIcon := Icon.User, cls := "text")(visiblePlayers)
         )
     )
 
   def userPrizeDisclaimer(ownerId: UserId) =
-    (!env.prizeTournamentMakers
+    (!env.web.settings.prizeTournamentMakers
       .get()
       .value
       .contains(ownerId))

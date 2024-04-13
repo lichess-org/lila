@@ -3,9 +3,10 @@ package views.html
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.timeline.*
-import lila.core.perf.{ PerfKey, PerfType }
+
+import lila.rating.PerfType
 
 object timeline:
 
@@ -75,24 +76,23 @@ object timeline:
             a(href := routes.Simul.show(simulId))(simulName)
           )
         case GameEnd(playerId, opponent, win, perfKey) =>
-          PerfType(perfKey).map: perf =>
-            (win match
-              case Some(true)  => trans.site.victoryVsYInZ
-              case Some(false) => trans.site.defeatVsYInZ
-              case None        => trans.site.drawVsYInZ
-            )(
-              a(
-                href     := routes.Round.player(playerId),
-                dataIcon := perf.icon,
-                cls      := "text glpt"
-              )(win match
-                case Some(true)  => trans.site.victory()
-                case Some(false) => trans.site.defeat()
-                case None        => trans.site.draw()
-              ),
-              userIdLink(opponent),
-              perf.trans
-            )
+          (win match
+            case Some(true)  => trans.site.victoryVsYInZ
+            case Some(false) => trans.site.defeatVsYInZ
+            case None        => trans.site.drawVsYInZ
+          )(
+            a(
+              href     := routes.Round.player(playerId),
+              dataIcon := PerfType(perfKey).icon,
+              cls      := "text glpt"
+            )(win match
+              case Some(true)  => trans.site.victory()
+              case Some(false) => trans.site.defeat()
+              case None        => trans.site.draw()
+            ),
+            userIdLink(opponent),
+            PerfType(perfKey).trans
+          )
         case StudyLike(userId, studyId, studyName) =>
           trans.site.xLikesY(
             userLink(userId),
@@ -104,7 +104,7 @@ object timeline:
           trans.patron.xIsPatronForNbMonths
             .plural(months, userLink(userId), months)
         case BlogPost(id, slug, title) =>
-          a(cls := "text", dataIcon := licon.InkQuill, href := routes.Ublog.historicalBlogPost(id, slug)):
+          a(cls := "text", dataIcon := Icon.InkQuill, href := routes.Ublog.historicalBlogPost(id, slug)):
             title
         case UblogPostLike(userId, postId, postTitle) =>
           trans.site.xLikesY(
@@ -113,7 +113,7 @@ object timeline:
           )
         case StreamStart(id, name) =>
           views.html.streamer.bits
-            .redirectLink(id)(cls := "text", dataIcon := licon.Mic)(trans.site.xStartedStreaming(name))
+            .redirectLink(id)(cls := "text", dataIcon := Icon.Mic)(trans.site.xStartedStreaming(name))
       ,
       " ",
       momentFromNowWithPreload(e.date)

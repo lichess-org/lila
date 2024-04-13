@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object login:
 
@@ -47,7 +47,7 @@ object login:
             form3.group(
               form("token"),
               authenticationCode(),
-              help = Some(span(dataIcon := licon.PhoneMobile)(openTwoFactorApp()))
+              help = Some(span(dataIcon := Icon.PhoneMobile)(openTwoFactorApp()))
             )(
               form3.input(_)(autocomplete := "one-time-code", pattern := "[0-9]{6}")
             ),

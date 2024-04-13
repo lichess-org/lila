@@ -5,13 +5,13 @@ import reactivemongo.api.bson.*
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.user.User
+
 import lila.core.simul.Simul
 
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
     studyApi: lila.core.study.StudyApi,
-    userRepo: lila.user.UserRepo
+    userApi: lila.core.user.UserApi
 )(using Executor):
 
   import Activity.*
@@ -106,7 +106,7 @@ final class ActivityWriteApi(
       .byId(id)
       .flatMap:
         _.filter(_.visibility == lila.core.study.Visibility.public).so: s =>
-          userRepo
+          userApi
             .isTroll(s.ownerId)
             .not
             .flatMapz:

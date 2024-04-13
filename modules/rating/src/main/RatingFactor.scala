@@ -3,7 +3,8 @@ package lila.rating
 import reactivemongo.api.bson.BSONHandler
 
 import scalalib.Iso
-import lila.core.perf.{ PerfType, PerfKey }
+
+import lila.rating.PerfType
 
 opaque type RatingFactor = Double
 object RatingFactor extends OpaqueDouble[RatingFactor]:
@@ -23,9 +24,9 @@ object RatingFactor extends OpaqueDouble[RatingFactor]:
       .flatMap {
         case Array(ptk, fs) =>
           for
-            pt <- PerfType(PerfKey(ptk))
+            pk <- PerfKey(ptk)
             f  <- fs.toDoubleOption
-          yield pt -> RatingFactor(f)
+          yield PerfType(pk) -> RatingFactor(f)
         case _ => None
       } toMap
 

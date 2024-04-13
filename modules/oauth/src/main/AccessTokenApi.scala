@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.core.net.Bearer
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.oauth.TokenRevoke
+import lila.core.misc.oauth.TokenRevoke
 
 final class AccessTokenApi(
     coll: Coll,
@@ -67,7 +67,7 @@ final class AccessTokenApi(
 
   def adminChallengeTokens(
       setup: OAuthTokenForm.AdminChallengeTokensData,
-      admin: lila.core.user.User
+      admin: User
   ): Fu[Map[UserId, AccessToken]] =
     userApi
       .enabledByIds(setup.usernames)

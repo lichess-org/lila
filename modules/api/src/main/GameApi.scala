@@ -16,7 +16,6 @@ import lila.game.BSONHandlers.given
 import lila.game.Game.BSONFields as G
 import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game }
-import lila.user.User
 
 final private[api] class GameApi(
     net: NetConfig,
@@ -212,8 +211,4 @@ object GameApi:
       blurs: Boolean = false,
       token: Option[String] = none
   ):
-
-    def applyToken(validToken: String) =
-      copy(
-        blurs = token.has(validToken)
-      )
+    def applyToken(validToken: String) = copy(blurs = token.has(validToken))

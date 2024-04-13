@@ -18,7 +18,8 @@ import lila.game.{ Divider, Game, Pov, Query }
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
-import lila.user.{ Me, User }
+import lila.web.{ RealPlayerApi, RealPlayers }
+
 import lila.core.i18n.Translate
 
 final class GameApiV2(
@@ -364,7 +365,7 @@ object GameApiV2:
       until: Option[Instant] = None,
       max: Option[Max] = None,
       rated: Option[Boolean] = None,
-      perfType: Set[lila.core.perf.PerfType],
+      perfType: Set[lila.rating.PerfType],
       analysed: Option[Boolean] = None,
       color: Option[chess.Color],
       flags: WithFlags,

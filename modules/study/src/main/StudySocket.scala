@@ -20,7 +20,7 @@ final private class StudySocket(
     jsonView: JsonView,
     socketKit: SocketKit,
     socketRequest: SocketRequester,
-    chatApi: lila.chat.ChatApi
+    chatApi: lila.core.chat.ChatApi
 )(using Executor, Scheduler, lila.core.user.FlairGet):
 
   import StudySocket.{ *, given }

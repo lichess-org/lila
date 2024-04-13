@@ -4,7 +4,7 @@ package auth
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.PasswordCheck
 import lila.core.app.LangPath
@@ -38,7 +38,7 @@ object signup:
           auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
           globalErrorNamed(form.form, PasswordCheck.errorSame),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
-          div(cls := "form-group text", dataIcon := licon.InfoCircle)(
+          div(cls := "form-group text", dataIcon := Icon.InfoCircle)(
             trans.site.computersAreNotAllowedToPlay(),
             br,
             small(

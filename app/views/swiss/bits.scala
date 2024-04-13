@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey as trans
 import lila.swiss.Swiss
 
@@ -14,7 +14,7 @@ object bits:
   def link(swissId: SwissId): Frag = link(swissId, idToName(swissId))
   def link(swissId: SwissId, name: String): Frag =
     a(
-      dataIcon := licon.Trophy,
+      dataIcon := Icon.Trophy,
       cls      := "text",
       href     := routes.Swiss.show(swissId).url
     )(name)
@@ -63,7 +63,7 @@ object bits:
             td(cls := "infos")(
               momentFromNowOnce(s.startsAt)
             ),
-            td(cls := "text", dataIcon := licon.User)(s.nbPlayers.localize)
+            td(cls := "text", dataIcon := Icon.User)(s.nbPlayers.localize)
           )
         }
       )

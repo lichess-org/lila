@@ -2,7 +2,7 @@ package lila.user
 
 import lila.core.config.Secret
 
-import User.ClearPassword as P
+import lila.user.ClearPassword as P
 
 class PasswordHasherTest extends munit.FunSuite:
 

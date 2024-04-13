@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.gathering.Condition
 import lila.simul.Simul
@@ -49,7 +49,7 @@ object show:
           div(cls := "simul__meta")(
             div(cls := "game-infos")(
               div(cls := "header")(
-                iconTag(licon.Group),
+                iconTag(Icon.Group),
                 div(
                   span(cls := "clock")(sim.clock.config.show),
                   div(cls := "setup")(
@@ -59,7 +59,7 @@ object show:
                     ((isGranted(_.ManageSimul) || userIsHost) && sim.isCreated).option(
                       frag(
                         " • ",
-                        a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(licon.Gear))
+                        a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(Icon.Gear))
                       )
                     )
                   )

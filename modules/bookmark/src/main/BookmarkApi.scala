@@ -4,7 +4,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.{ Game, GameRepo }
-import lila.core.user.User
 
 case class Bookmark(game: Game, user: User)
 

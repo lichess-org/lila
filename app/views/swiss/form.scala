@@ -5,7 +5,7 @@ import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.swiss.{ Swiss, SwissForm }
 
@@ -24,7 +24,7 @@ object form:
           postForm(cls := "form3", action := routes.Swiss.create(teamId))(
             div(cls := "form-group")(
               a(
-                dataIcon := licon.InfoCircle,
+                dataIcon := Icon.InfoCircle,
                 cls      := "text",
                 href     := routes.Cms.lonePage("event-tips")
               )(
@@ -45,7 +45,7 @@ object form:
             form3.globalError(form),
             form3.actions(
               a(href := teamRoutes.show(teamId))(trans.site.cancel()),
-              form3.submit(trans.site.createANewTournament(), icon = licon.Trophy.some)
+              form3.submit(trans.site.createANewTournament(), icon = Icon.Trophy.some)
             )
           )
         )
@@ -77,11 +77,11 @@ object form:
             form3.globalError(form),
             form3.actions(
               a(href := routes.Swiss.show(swiss.id))(trans.site.cancel()),
-              form3.submit(trans.site.save(), icon = licon.Trophy.some)
+              form3.submit(trans.site.save(), icon = Icon.Trophy.some)
             )
           ),
           postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
-            submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
+            submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
               trans.site.cancelTournament()
             )
           )

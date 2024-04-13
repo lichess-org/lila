@@ -5,9 +5,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.game.LightPov
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.core.simul.Simul
-import lila.user.User
+
 import lila.activity.activities.*
 import lila.core.tournament.leaderboard.Ratio
 import lila.core.rating.RatingProg
@@ -28,8 +28,8 @@ final class JsonView(
       JsObject:
         games.value.toList
           .sortBy((_, s) => -s.size)
-          .map: (pt, score) =>
-            pt.key.value -> Json.toJson(score)
+          .map: (pk, score) =>
+            pk.value -> Json.toJson(score)
 
     given Writes[chess.variant.Variant] = writeAs(_.key)
 

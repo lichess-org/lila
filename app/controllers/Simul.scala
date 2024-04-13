@@ -31,7 +31,7 @@ final class Simul(env: Env) extends LilaController(env):
     fetchSimuls.flatMap: (pending, created, started, finished) =>
       Ok.page(html.simul.homeInner(pending, created, started, finished))
 
-  private def fetchSimuls(using me: Option[lila.user.Me]): Fu[(List[Sim], List[Sim], List[Sim], List[Sim])] =
+  private def fetchSimuls(using me: Option[Me]): Fu[(List[Sim], List[Sim], List[Sim], List[Sim])] =
     (
       me.so(u => env.simul.repo.findPending(u.userId)),
       env.simul.allCreatedFeaturable.get {},

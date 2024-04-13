@@ -6,14 +6,14 @@ import play.api.i18n.Lang
 
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object tournaments:
 
   def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using PageContext) =
     views.html.base.layout(
       title = s"${t.name} • ${trans.site.tournaments.txt()}",
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${t.name} team tournaments",
           url = s"$netBaseUrl${teamRoutes.tournaments(t.id)}",
@@ -101,7 +101,7 @@ object tournaments:
                 )
             )
           ),
-          td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)
+          td(cls := "text", dataIcon := Icon.User)(any.nbPlayers.localize)
         )
 
   private def renderStartsAt(any: TeamInfo.AnyTour)(using Translate): Frag =

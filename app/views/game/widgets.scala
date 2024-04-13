@@ -2,7 +2,7 @@ package views.html
 package game
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.game.{ Game, Player, Pov }
 
 object widgets:
@@ -12,7 +12,7 @@ object widgets:
   def apply(
       games: Seq[Game],
       notes: Map[GameId, String] = Map(),
-      user: Option[lila.user.User] = None,
+      user: Option[User] = None,
       ownerLink: Boolean = false
   )(using Context): Frag =
     games.map { g =>
@@ -60,7 +60,7 @@ object widgets:
           ),
           div(cls := "versus")(
             gamePlayer(g.whitePlayer),
-            div(cls := "swords", dataIcon := licon.Swords),
+            div(cls := "swords", dataIcon := Icon.Swords),
             gamePlayer(g.blackPlayer)
           ),
           div(cls := "result")(
@@ -101,7 +101,7 @@ object widgets:
             div(cls := "notes")(strong("Notes: "), note)
           },
           g.metadata.analysed.option(
-            div(cls := "metadata text", dataIcon := licon.BarChart)(trans.site.computerAnalysisAvailable())
+            div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
           ),
           g.pgnImport.flatMap(_.user).map { user =>
             div(cls := "metadata")("PGN import by ", userIdLink(user.some))

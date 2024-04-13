@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningQuery.Query
 import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 
@@ -43,7 +43,7 @@ object bits:
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
         div(cls := "opening__config__summary__short")(
-          iconTag(licon.Gear)
+          iconTag(Icon.Gear)
         ),
         div(cls := "opening__config__summary__large")(
           "Speed: ",

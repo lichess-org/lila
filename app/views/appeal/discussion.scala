@@ -6,14 +6,13 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
-import lila.user.{ Me, User }
 
 import trans.appeal
 
@@ -93,7 +92,7 @@ object discussion:
               cls  := "button button-empty mod-zone-toggle",
               href := routes.User.mod(appeal.id),
               titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := licon.Agent
+              dataIcon := Icon.Agent
             )
           )
         )
@@ -122,7 +121,7 @@ object discussion:
         as.left
           .exists(_.markedByMe)
           .option(
-            div(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
+            div(dataIcon := Icon.CautionTriangle, cls := "marked-by-me text")(
               "You have marked this user. Appeal should be handled by another moderator"
             )
           ),
@@ -166,7 +165,8 @@ object discussion:
       )
 
   def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using
-      PageContext
+      Translate,
+      Option[Me]
   ) =
     postForm(st.action := action)(
       form3.globalError(form),

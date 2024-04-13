@@ -155,7 +155,7 @@ final class Signup(
                 apiVersion.some
               )
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-              val passwordHash = authenticator.passEnc(User.ClearPassword(data.password))
+              val passwordHash = authenticator.passEnc(lila.user.ClearPassword(data.password))
               userRepo
                 .create(
                   data.username,

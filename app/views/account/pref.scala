@@ -4,7 +4,7 @@ package account
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.pref.PrefCateg
 
 object pref:
@@ -17,7 +17,7 @@ object pref:
   private def setting(name: Frag, body: Frag, settingId: String) =
     st.section(a(href := "#" + settingId)(h2(id := settingId)(name)), body)
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using PageContext) =
+  def apply(u: User, form: play.api.data.Form[?], categ: lila.pref.PrefCateg)(using PageContext) =
     account.layout(
       title = s"${bits.categName(categ)} - ${u.username} - ${preferences.txt()}",
       active = categ.slug
@@ -76,7 +76,7 @@ object pref:
               showPlayerRatings(),
               frag(
                 radios(form("ratings"), booleanChoices),
-                div(cls := "help text shy", dataIcon := licon.InfoCircle)(explainShowPlayerRatings())
+                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(explainShowPlayerRatings())
               ),
               "showRatings"
             ),
@@ -128,7 +128,7 @@ object pref:
               promoteToQueenAutomatically(),
               frag(
                 radios(form("behavior.autoQueen"), translatedAutoQueenChoices),
-                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
+                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
                   explainPromoteToQueenAutomatically()
                 )
               ),
@@ -143,7 +143,7 @@ object pref:
               moveConfirmation(),
               frag(
                 bitCheckboxes(form("behavior.submitMove"), submitMoveChoices),
-                div(cls := "help text shy", dataIcon := licon.InfoCircle)(
+                div(cls := "help text shy", dataIcon := Icon.InfoCircle)(
                   "Multiple choices. ",
                   explainCanThenBeTemporarilyDisabled()
                 )
@@ -213,6 +213,6 @@ object pref:
               "shareYourInsightsData"
             )
           ),
-          p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())
+          p(cls := "saved text none", dataIcon := Icon.Checkmark)(yourPreferencesHaveBeenSaved())
         )
       )

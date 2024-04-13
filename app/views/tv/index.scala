@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 
 object index:
 
@@ -23,7 +23,7 @@ object index:
       pageModule =
         PageModule("round", Json.obj("data" -> data, "i18n" -> views.html.round.jsI18n(pov.game))).some,
       moreCss = cssTag("tv.single"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
           description =

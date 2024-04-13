@@ -1,6 +1,8 @@
 package lila.core
 package security
 
+import play.api.mvc.RequestHeader
+
 import lila.core.user.{ User, UserEnabled }
 import lila.core.net.IpAddress
 import lila.core.userId.UserId
@@ -14,6 +16,11 @@ trait LilaCookie:
   def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(using
       RequestHeader
   ): Cookie
+
+object LilaCookie:
+  val sessionId                               = "sid"
+  val noRemember                              = "noRemember"
+  def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)
 
 trait SecurityApi:
   def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean]

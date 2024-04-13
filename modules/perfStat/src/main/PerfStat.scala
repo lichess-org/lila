@@ -5,7 +5,7 @@ import java.time.Duration
 
 import scalalib.HeapSort
 import lila.game.Pov
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 case class PerfStat(
     @Key("_id") id: String, // userId/perfId
@@ -37,7 +37,7 @@ case class PerfStat(
 
 object PerfStat:
 
-  type Getter = (lila.user.User, PerfType) => Fu[PerfStat]
+  type Getter = (User, PerfType) => Fu[PerfStat]
 
   def makeId(userId: UserId, perfType: PerfType) = s"$userId/${perfType.id}"
 

@@ -3,7 +3,7 @@ package views.html.opening
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningPage
 
 object show:
@@ -15,7 +15,7 @@ object show:
       moreCss = cssTag("opening"),
       pageModule = pageModule(page.some).some,
       title = s"${trans.site.opening.txt()} • ${page.name}",
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(
@@ -33,8 +33,8 @@ object show:
         search.resultsList(Nil),
         h1(cls := "opening__title")(
           page.query.prev match
-            case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := licon.LessThan)
-            case None       => a(href := routes.Opening.index(), dataIcon := licon.LessThan)
+            case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := Icon.LessThan)
+            case None       => a(href := routes.Opening.index(), dataIcon := Icon.LessThan)
           ,
           span(cls := "opening__name")(
             page.nameParts.mapWithIndex: (part, i) =>
@@ -71,13 +71,13 @@ object show:
                 cls := "opening__actions"
               )(
                 puzzleKey.map { key =>
-                  a(cls := "button text", dataIcon := licon.ArcheryTarget, href := routes.Puzzle.show(key))(
+                  a(cls := "button text", dataIcon := Icon.ArcheryTarget, href := routes.Puzzle.show(key))(
                     "Train with puzzles"
                   )
                 },
                 a(
                   cls      := "button text",
-                  dataIcon := licon.Book,
+                  dataIcon := Icon.Book,
                   href     := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
                 )(trans.site.openingExplorer())
               ),

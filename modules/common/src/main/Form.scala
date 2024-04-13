@@ -222,6 +222,9 @@ object Form:
     import chess.variant.Variant
     formatter.stringFormatter[Variant](_.key.value, str => Variant.orDefault(Variant.LilaKey(str)))
 
+  given Formatter[PerfKey] = formatter.stringOptionFormatter[PerfKey](_.value, PerfKey(_))
+  val perfKey              = typeIn[PerfKey](PerfKey.all)
+
   extension [A](f: Formatter[A])
     def transform[B](to: A => B, from: B => A): Formatter[B] = new:
       def bind(key: String, data: Map[String, String]) = f.bind(key, data).map(to)

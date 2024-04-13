@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
 
 object bits:
@@ -26,7 +26,7 @@ object bits:
     div(cls := "details")(
       div(
         cls      := "variant",
-        dataIcon := (if c.initialFen.isDefined then licon.Feather else c.perfType.icon)
+        dataIcon := (if c.initialFen.isDefined then Icon.Feather else c.perfType.icon)
       )(
         div(
           views.html.game.bits.variantLink(c.variant, c.perfType, c.initialFen),

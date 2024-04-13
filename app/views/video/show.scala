@@ -3,7 +3,7 @@ package views.html.video
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 
 object show:
@@ -16,7 +16,7 @@ object show:
     layout(
       title = s"${video.title} • Free Chess Videos",
       control = control,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${video.title} by ${video.author}",
           description = shorten(~video.metadata.description, 152),
@@ -40,7 +40,7 @@ object show:
         h1(cls := "box__pad")(
           a(
             cls      := "is4 text",
-            dataIcon := licon.Back,
+            dataIcon := Icon.Back,
             href     := s"${routes.Video.index}?${control.queryString}"
           ),
           video.title
@@ -53,7 +53,7 @@ object show:
           video.tags.map { tag =>
             a(
               cls      := "tag",
-              dataIcon := licon.Tag,
+              dataIcon := Icon.Tag,
               href     := s"${routes.Video.index}?tags=${tag.replace(" ", "+")}"
             )(
               tag.capitalize

@@ -4,10 +4,10 @@ import lila.core.notify.*
 
 /** Notifier to inform users if they have been mentioned in a post */
 final class MentionNotifier(
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     notifyApi: NotifyApi,
     relationApi: lila.core.relation.RelationApi,
-    prefApi: lila.pref.PrefApi
+    prefApi: lila.core.pref.PrefApi
 )(using Executor):
 
   def notifyMentionedUsers(post: ForumPost, topic: ForumTopic): Funit =
@@ -34,7 +34,7 @@ final class MentionNotifier(
     */
   private def filterValidUsers(candidates: Set[UserId], mentionedBy: UserId): Fu[List[UserId]] =
     for
-      existingUsers    <- userRepo.filterExists(candidates.take(10)).map(_.take(5).toSet)
+      existingUsers    <- userApi.filterExists(candidates.take(10)).map(_.take(5).toSet)
       mentionableUsers <- prefApi.mentionableIds(existingUsers)
       users            <- mentionableUsers.toList.filterA(relationApi.fetchBlocks(_, mentionedBy).not)
     yield users

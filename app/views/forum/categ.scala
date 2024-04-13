@@ -5,7 +5,7 @@ import controllers.routes
 import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.forum.{ CategView, TopicView }
 
@@ -16,7 +16,7 @@ object categ:
       title = trans.site.forum.txt(),
       moreCss = cssTag("forum"),
       csp = defaultCsp.withInlineIconFont.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Lichess community forum",
           url = s"$netBaseUrl${routes.ForumCateg.index.url}",
@@ -26,7 +26,7 @@ object categ:
     ):
       main(cls := "forum index box")(
         boxTop(
-          h1(dataIcon := licon.BubbleConvo, cls := "text")("Lichess Forum"),
+          h1(dataIcon := Icon.BubbleConvo, cls := "text")("Lichess Forum"),
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
@@ -51,7 +51,7 @@ object categ:
       a(
         href     := routes.ForumTopic.form(categ.slug),
         cls      := "button button-empty button-green text",
-        dataIcon := licon.Pencil
+        dataIcon := Icon.Pencil
       ):
         trans.site.createANewTopic()
     )
@@ -79,7 +79,7 @@ object categ:
       moreCss = cssTag("forum"),
       moreJs = infiniteScrollTag,
       csp = defaultCsp.withInlineIconFont.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"Forum: ${categ.name}",
           url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
@@ -92,7 +92,7 @@ object categ:
           h1(
             a(
               href     := categ.team.fold(routes.ForumCateg.index)(teamRoutes.show(_)),
-              dataIcon := licon.LessThan,
+              dataIcon := Icon.LessThan,
               cls      := "text"
             ),
             categ.team.fold(frag(categ.name))(teamLink(_, true))

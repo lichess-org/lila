@@ -10,7 +10,7 @@ import lila.common.HTTPRequest
 import lila.game.{ PgnDump, Pov }
 import lila.oauth.AccessToken
 import lila.tree.ExportOptions
-import lila.core.actorApi.lpv.LpvEmbed
+import lila.core.misc.lpv.LpvEmbed
 
 final class Analyse(
     env: Env,

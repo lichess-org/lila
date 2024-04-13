@@ -2,12 +2,12 @@ package lila.tournament
 
 import chess.variant.Variant.given
 
-import lila.common.licon
+import lila.common.Icon
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
-import lila.user.User
+
 import lila.core.tournament.Status
-import lila.core.Icon
+import lila.common.Icon
 
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
@@ -107,21 +107,21 @@ object TournamentShield:
         yield tourSpeed == categSpeed)
       else of.toOption.has(tour.variant)
 
-    case Bullet        extends Category(Left(Schedule.Speed.Bullet), licon.Bullet)
-    case SuperBlitz    extends Category(Left(Schedule.Speed.SuperBlitz), licon.FlameBlitz)
-    case Blitz         extends Category(Left(Schedule.Speed.Blitz), licon.FlameBlitz)
-    case Rapid         extends Category(Left(Schedule.Speed.Rapid), licon.Rabbit)
-    case Classical     extends Category(Left(Schedule.Speed.Classical), licon.Turtle)
-    case HyperBullet   extends Category(Left(Schedule.Speed.HyperBullet), licon.Bullet)
-    case UltraBullet   extends Category(Left(Schedule.Speed.UltraBullet), licon.UltraBullet)
-    case Chess960      extends Category(Right(chess.variant.Chess960), licon.DieSix)
-    case Crazyhouse    extends Category(Right(chess.variant.Crazyhouse), licon.Crazyhouse)
-    case KingOfTheHill extends Category(Right(chess.variant.KingOfTheHill), licon.FlagKingHill)
-    case ThreeCheck    extends Category(Right(chess.variant.ThreeCheck), licon.ThreeCheckStack)
-    case Antichess     extends Category(Right(chess.variant.Antichess), licon.Antichess)
-    case Atomic        extends Category(Right(chess.variant.Atomic), licon.Atom)
-    case Horde         extends Category(Right(chess.variant.Horde), licon.Keypad)
-    case RacingKings   extends Category(Right(chess.variant.RacingKings), licon.FlagRacingKings)
+    case Bullet        extends Category(Left(Schedule.Speed.Bullet), Icon.Bullet)
+    case SuperBlitz    extends Category(Left(Schedule.Speed.SuperBlitz), Icon.FlameBlitz)
+    case Blitz         extends Category(Left(Schedule.Speed.Blitz), Icon.FlameBlitz)
+    case Rapid         extends Category(Left(Schedule.Speed.Rapid), Icon.Rabbit)
+    case Classical     extends Category(Left(Schedule.Speed.Classical), Icon.Turtle)
+    case HyperBullet   extends Category(Left(Schedule.Speed.HyperBullet), Icon.Bullet)
+    case UltraBullet   extends Category(Left(Schedule.Speed.UltraBullet), Icon.UltraBullet)
+    case Chess960      extends Category(Right(chess.variant.Chess960), Icon.DieSix)
+    case Crazyhouse    extends Category(Right(chess.variant.Crazyhouse), Icon.Crazyhouse)
+    case KingOfTheHill extends Category(Right(chess.variant.KingOfTheHill), Icon.FlagKingHill)
+    case ThreeCheck    extends Category(Right(chess.variant.ThreeCheck), Icon.ThreeCheckStack)
+    case Antichess     extends Category(Right(chess.variant.Antichess), Icon.Antichess)
+    case Atomic        extends Category(Right(chess.variant.Atomic), Icon.Atom)
+    case Horde         extends Category(Right(chess.variant.Horde), Icon.Keypad)
+    case RacingKings   extends Category(Right(chess.variant.RacingKings), Icon.FlagRacingKings)
 
   object Category:
     val list                                = values.toList
@@ -135,7 +135,7 @@ object TournamentShield:
 The winner keeps it for one month,
 then must defend it during the next $name Shield tournament!""".some,
     spotlight = Spotlight(
-      iconFont = licon.Shield.some,
+      iconFont = Icon.Shield.some,
       headline = s"Battle for the $name Shield",
       homepageHours = 6.some
     ).some

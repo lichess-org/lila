@@ -1,7 +1,5 @@
 package lila.forum
 
-import lila.user.User
-
 case class CategView(
     categ: ForumCateg,
     lastPost: Option[(ForumTopic, ForumPost, Int)],

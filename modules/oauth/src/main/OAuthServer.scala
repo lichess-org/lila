@@ -7,10 +7,10 @@ import com.roundeights.hasher.Algo
 import lila.common.HTTPRequest
 import lila.core.net.Bearer
 import lila.memo.SettingStore
-import lila.core.user.User
 import lila.core.config.Secret
 
 final class OAuthServer(
+    userApi: lila.core.user.UserApi,
     tokenApi: AccessTokenApi,
     originBlocklist: SettingStore[lila.core.data.Strings] @@ OriginBlocklist,
     mobileSecret: Secret @@ MobileSecret
@@ -18,9 +18,7 @@ final class OAuthServer(
 
   import OAuthServer.*
 
-  def auth[U: UserIdOf](req: RequestHeader, accepted: EndpointScopes)(using
-      FetchUser[U]
-  ): Fu[AccessResult[U]] =
+  def auth(req: RequestHeader, accepted: EndpointScopes): Fu[AccessResult] =
     HTTPRequest
       .bearer(req)
       .fold(fufail(MissingAuthorizationHeader)):
@@ -31,18 +29,18 @@ final class OAuthServer(
       .addEffect: res =>
         monitorAuth(res.isRight)
 
-  def auth[U: UserIdOf](
+  def auth(
       tokenId: Bearer,
       accepted: EndpointScopes,
       andLogReq: Option[RequestHeader]
-  )(using fetchUser: FetchUser[U]): Fu[AccessResult[U]] =
+  ): Fu[AccessResult] =
     getTokenFromSignedBearer(tokenId)
       .orFailWith(NoSuchToken)
       .flatMap {
         case at if !accepted.isEmpty && !accepted.compatible(at.scopes) =>
           fufail(MissingScope(at.scopes))
         case at =>
-          fetchUser(at.userId).flatMap {
+          userApi.me(at.userId).flatMap {
             case None => fufail(NoSuchUser)
             case Some(u) =>
               val blocked =
@@ -54,7 +52,7 @@ final class OAuthServer(
                   }
                 .foreach: req =>
                   logger.debug:
-                    s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.id} ${HTTPRequest.print(req).take(200)}"
+                    s"${if blocked then "block" else "auth"} ${at.clientOrigin | "-"} as ${u.username} ${HTTPRequest.print(req).take(200)}"
               if blocked then fufail(OriginBlocked)
               else fuccess(OAuthScope.Access(OAuthScope.Scoped(u, at.scopes), at.tokenId))
           }
@@ -64,23 +62,23 @@ final class OAuthServer(
         Left(e)
       }
 
-  def authBoth[U: UserIdOf](scopes: EndpointScopes, req: RequestHeader)(
+  def authBoth(scopes: EndpointScopes, req: RequestHeader)(
       token1: Bearer,
       token2: Bearer
-  )(using FetchUser[U]): Fu[Either[AuthError, (U, U)]] = for
+  ): Fu[Either[AuthError, (User, User)]] = for
     auth1 <- auth(token1, scopes, req.some)
     auth2 <- auth(token2, scopes, req.some)
   yield for
     user1 <- auth1
     user2 <- auth2
     result <-
-      if user1.me.is(user2.me)
+      if user1.user.is(user2.user)
       then Left(OneUserWithTwoTokens)
-      else Right(user1.me -> user2.me)
+      else Right(user1.user -> user2.user)
   yield result
 
   val UaUserRegex = """(?:user|as):\s?([\w\-]{3,31})""".r
-  private def checkOauthUaUser[U: UserIdOf](req: RequestHeader)(access: AccessResult[U]): AccessResult[U] =
+  private def checkOauthUaUser(req: RequestHeader)(access: AccessResult): AccessResult =
     access.flatMap: a =>
       HTTPRequest.userAgent(req).map(_.value) match
         case Some(UaUserRegex(u)) if a.me.isnt(UserStr(u)) => Left(UserAgentMismatch)
@@ -104,9 +102,8 @@ final class OAuthServer(
 
 object OAuthServer:
 
-  type FetchUser[U]    = UserId => Fu[Option[U]]
-  type AccessResult[U] = Either[AuthError, OAuthScope.Access[U]]
-  type AuthResult[U]   = Either[AuthError, OAuthScope.Scoped[U]]
+  type AccessResult = Either[AuthError, OAuthScope.Access]
+  type AuthResult   = Either[AuthError, OAuthScope.Scoped]
 
   sealed abstract class AuthError(val message: String) extends lila.core.lilaism.LilaException
   case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")

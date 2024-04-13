@@ -6,7 +6,7 @@ import play.api.{ Configuration, Mode }
 
 import lila.common.Lilakka
 import lila.core.irc.Event
-import lila.core.actorApi.plan.ChargeEvent
+import lila.core.misc.plan.ChargeEvent
 
 @Module
 final class Env(

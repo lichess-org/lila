@@ -3,7 +3,7 @@ package views.html.forum
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 
 object search:
@@ -18,7 +18,7 @@ object search:
       main(cls := "box search")(
         boxTop(
           h1(
-            a(href := routes.ForumCateg.index, dataIcon := licon.LessThan, cls := "text"),
+            a(href := routes.ForumCateg.index, dataIcon := Icon.LessThan, cls := "text"),
             title
           ),
           bits.searchForm(text)

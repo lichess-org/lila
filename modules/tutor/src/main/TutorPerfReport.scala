@@ -5,7 +5,7 @@ import chess.{ ByColor, Color }
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
 import lila.insight.*
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.tutor.TutorCompare.{ AnyComparison, Comparison }
 
 // for simplicity, all metrics should be positive: higher is better

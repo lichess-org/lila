@@ -3,7 +3,8 @@ package lila.rating
 import reactivemongo.api.bson.BSONHandler
 
 import lila.db.dsl.given
-import lila.core.perf.{ PerfType, PerfId, PerfKey }
+import lila.core.perf.PerfId
+import lila.rating.PerfType
 
 object BSONHandlers:
 
@@ -14,7 +15,4 @@ object BSONHandlers:
     )
 
   given perfTypeKeyHandler: BSONHandler[PerfType] =
-    summon[BSONHandler[PerfKey]].as[PerfType](
-      key => PerfType(key).err(s"Unknown perf type $key"),
-      _.key
-    )
+    perfKeyHandler.as[PerfType](PerfType(_), _.key)

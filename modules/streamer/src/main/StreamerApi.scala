@@ -1,14 +1,12 @@
 package lila.streamer
-import lila.common.licon
+import lila.common.Icon
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.PicfitApi
-import lila.user.{ Me, User, UserApi, UserRepo }
 
 final class StreamerApi(
     coll: Coll,
-    userRepo: UserRepo,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     cacheApi: lila.memo.CacheApi,
     picfitApi: PicfitApi,
     notifyApi: lila.core.notify.NotifyApi,
@@ -24,7 +22,7 @@ final class StreamerApi(
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer, Streamer.Id](ids)
 
   def find(username: UserStr): Fu[Option[Streamer.WithUser]] =
-    userRepo.byId(username).flatMapz(find)
+    userApi.byId(username).flatMapz(find)
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
     byId(user.id.into(Streamer.Id)).mapz: streamer =>
@@ -35,13 +33,13 @@ final class StreamerApi(
       val s = Streamer.WithUser(Streamer.make(user), user)
       coll.insert.one(s.streamer).inject(s.some)
 
-  def forSubscriber(streamerName: UserStr)(using me: Option[Me.Id]): Fu[Option[Streamer.WithContext]] =
+  def forSubscriber(streamerName: UserStr)(using me: Option[MyId]): Fu[Option[Streamer.WithContext]] =
     me.foldLeft(find(streamerName)): (streamerFu, me) =>
       streamerFu.flatMapz: s =>
         subsRepo.isSubscribed(me.id, s.streamer).map { sub => s.copy(subscribed = sub).some }
 
-  def withUsers(live: LiveStreams)(using me: Option[Me.Id]): Fu[List[Streamer.WithUserAndStream]] = for
-    users <- userRepo.byIds(live.streams.map(_.streamer.userId))
+  def withUsers(live: LiveStreams)(using me: Option[MyId]): Fu[List[Streamer.WithUserAndStream]] = for
+    users <- userApi.byIds(live.streams.map(_.streamer.userId))
     subs  <- me.so(subsRepo.filterSubscribed(_, users.map(_.id)))
   yield live.streams.flatMap: s =>
     users.find(_.is(s.streamer)).map {
@@ -99,7 +97,7 @@ final class StreamerApi(
           url = "/streamer/edit",
           title = "Listed on /streamer".some,
           text = "Your streamer page is public".some,
-          icon = licon.Mic
+          icon = Icon.Mic.value
         )
       )
     )

@@ -2,7 +2,7 @@ package views.html.team
 import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
 import lila.team.Team
 
@@ -52,7 +52,7 @@ object bits:
     tr(cls := "paginated")(
       td(cls := "subject")(
         a(
-          dataIcon := licon.Group,
+          dataIcon := Icon.Group,
           cls := List(
             "team-name text" -> true,
             "mine"           -> isMine
@@ -79,7 +79,7 @@ object bits:
 
   private[team] def layout(
       title: String,
-      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      openGraph: Option[lila.web.OpenGraph] = None,
       pageModule: Option[PageModule] = None,
       moreJs: Frag = emptyFrag,
       robots: Boolean = netConfig.crawlable

@@ -4,7 +4,7 @@ package html.puzzle
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey
 import lila.puzzle.{ PuzzleAngle, PuzzleTheme }
 
@@ -35,7 +35,7 @@ object theme:
       )
 
   private[puzzle] def info(using Context) =
-    p(cls := "puzzle-themes__db text", dataIcon := licon.Heart):
+    p(cls := "puzzle-themes__db text", dataIcon := Icon.Heart):
       trans.puzzleTheme.puzzleDownloadInformation:
         a(href := "https://database.lichess.org/")("database.lichess.org")
 

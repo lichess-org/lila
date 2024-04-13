@@ -2,7 +2,7 @@ package views.html.team
 import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 
 object declinedRequest:
@@ -43,7 +43,7 @@ object declinedRequest:
                   value       := search,
                   placeholder := trans.search.search.txt()
                 ),
-                submitButton(cls := "button", dataIcon := licon.Search)
+                submitButton(cls := "button", dataIcon := Icon.Search)
               )
             )
           ),

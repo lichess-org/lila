@@ -3,7 +3,7 @@ package views.html.tutor
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
 import lila.tutor.{ TutorOpeningFamily, TutorPerfReport }
 
@@ -13,7 +13,7 @@ object opening:
       perfReport: TutorPerfReport,
       report: TutorOpeningFamily,
       as: chess.Color,
-      user: lila.user.User,
+      user: User,
       puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
   )(using PageContext) =
     bits.layout(
@@ -33,7 +33,7 @@ object opening:
         h1(
           a(
             href     := routes.Tutor.openings(user.username, perfReport.perf.key),
-            dataIcon := licon.LessThan,
+            dataIcon := Icon.LessThan,
             cls      := "text"
           ),
           bits.otherUser(user),
@@ -65,19 +65,19 @@ object opening:
           div(cls := "mascot-says__buttons")(
             a(
               cls      := "button button-no-upper text",
-              dataIcon := licon.InfoCircle,
+              dataIcon := Icon.InfoCircle,
               href     := views.html.opening.bits.openingUrl(report.family.anyOpening)
             )("Learn about this opening"),
             a(
               cls      := "button button-no-upper text",
-              dataIcon := licon.Book,
+              dataIcon := Icon.Book,
               href := s"${routes.UserAnalysis
                   .pgn(report.family.anyOpening.pgn.value.replace(" ", "_"))}#explorer/${user.username}"
             )("Personal opening explorer"),
             puzzle.map { p =>
               a(
                 cls      := "button button-no-upper text",
-                dataIcon := licon.ArcheryTarget,
+                dataIcon := Icon.ArcheryTarget,
                 href     := routes.Puzzle.angleAndColor(p.family.key.value, as.name)
               )("Train with puzzles")
             }

@@ -3,7 +3,7 @@ package views.html
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object irwin:
 
@@ -115,7 +115,7 @@ object irwin:
                       link = false
                     ),
                     br,
-                    pov.game.isTournament.so(frag(iconTag(licon.Trophy), " ")),
+                    pov.game.isTournament.so(frag(iconTag(Icon.Trophy), " ")),
                     iconTag(pov.game.perfType.icon),
                     shortClockName(pov.game.clock.map(_.config)),
                     " ",

@@ -4,196 +4,123 @@ import chess.Speed
 
 import scalalib.HeapSort.*
 import lila.rating.{ Glicko, Perf }
-import lila.core.perf.{ PerfKey, PerfType }
+
+import lila.rating.PerfType
 import lila.core.user.LightPerf
+import lila.core.perf.Perf
+import lila.core.rating.Glicko
+import lila.rating.PerfExt.*
+import lila.rating.GlickoExt.*
+import lila.core.perf.UserPerfs
+import lila.core.perf.{ KeyedPerf, PuzPerf }
 
-case class UserPerfs(
-    id: UserId,
-    standard: Perf,
-    chess960: Perf,
-    kingOfTheHill: Perf,
-    threeCheck: Perf,
-    antichess: Perf,
-    atomic: Perf,
-    horde: Perf,
-    racingKings: Perf,
-    crazyhouse: Perf,
-    ultraBullet: Perf,
-    bullet: Perf,
-    blitz: Perf,
-    rapid: Perf,
-    classical: Perf,
-    correspondence: Perf,
-    puzzle: Perf,
-    storm: Perf.Storm,
-    racer: Perf.Racer,
-    streak: Perf.Streak
-):
+object UserPerfsExt:
 
-  def perfs: List[(PerfType, Perf)] = List(
-    PerfType.Standard       -> standard,
-    PerfType.Chess960       -> chess960,
-    PerfType.KingOfTheHill  -> kingOfTheHill,
-    PerfType.ThreeCheck     -> threeCheck,
-    PerfType.Antichess      -> antichess,
-    PerfType.Atomic         -> atomic,
-    PerfType.Horde          -> horde,
-    PerfType.RacingKings    -> racingKings,
-    PerfType.Crazyhouse     -> crazyhouse,
-    PerfType.UltraBullet    -> ultraBullet,
-    PerfType.Bullet         -> bullet,
-    PerfType.Blitz          -> blitz,
-    PerfType.Rapid          -> rapid,
-    PerfType.Classical      -> classical,
-    PerfType.Correspondence -> correspondence,
-    PerfType.Puzzle         -> puzzle
-  )
+  extension (p: UserPerfs)
 
-  def typed(pt: PerfType) = Perf.Typed(apply(pt), pt)
-
-  def best8Perfs: List[PerfType]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 4)
-  def best6Perfs: List[PerfType]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 2)
-  def best4Perfs: List[PerfType]    = UserPerfs.firstRow
-  def bestAny3Perfs: List[PerfType] = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 3)
-  def bestPerf: Option[PerfType]    = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 1).headOption
-  private def bestOf(perfTypes: List[PerfType], nb: Int) = perfTypes
-    .sortBy: pt =>
-      -(apply(pt).nb * lila.rating.PerfType.totalTimeRoughEstimation.get(pt).so(_.roundSeconds))
-    .take(nb)
-  def hasEstablishedRating(pt: PerfType) = apply(pt).established
-
-  def bestRatedPerf: Option[Perf.Typed] =
-    val ps    = perfs.filter(p => p._1 != PerfType.Puzzle && p._1 != PerfType.Standard)
-    val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
-    ps
-      .foldLeft(none[(PerfType, Perf)]):
-        case (ro, p) if p._2.nb >= minNb =>
-          ro.fold(p.some): r =>
-            Some(if p._2.intRating > r._2.intRating then p else r)
-        case (ro, _) => ro
-      .map(Perf.typed)
-
-  private given Ordering[(PerfType, Perf)] = Ordering.by[(PerfType, Perf), Int](_._2.intRating.value)
-
-  def bestPerfs(nb: Int): List[Perf.Typed] =
-    val ps = lila.rating.PerfType.nonPuzzle.map: pt =>
-      pt -> apply(pt)
-    val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
-    ps.filter(p => p._2.nb >= minNb).topN(nb).map(Perf.typed)
-
-  def bestRating: IntRating = bestRatingIn(lila.rating.PerfType.leaderboardable)
-
-  def bestStandardRating: IntRating = bestRatingIn(lila.rating.PerfType.standard)
-
-  def bestRatingIn(types: List[PerfType]): IntRating =
-    val ps = types.map(apply) match
-      case Nil => List(standard)
-      case x   => x
-    val minNb = ps.foldLeft(0)(_ + _.nb) / 10
-    ps.foldLeft(none[IntRating]):
-      case (ro, p) if p.nb >= minNb =>
-        ro.fold(p.intRating) { r =>
-          if p.intRating > r then p.intRating else r
-        }.some
-      case (ro, _) => ro
-    .getOrElse(Perf.default.intRating)
-
-  def bestPerf(types: List[PerfType]): Perf =
-    types
-      .map(apply)
-      .foldLeft(none[Perf]):
-        case (ro, p) if ro.forall(_.intRating < p.intRating) => p.some
-        case (ro, _)                                         => ro
-      .getOrElse(Perf.default)
-
-  def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[IntRating] =
-    types
-      .map(apply)
-      .foldLeft(none[IntRating]):
-        case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
-        case (ro, _)                                                  => ro
-
-  def bestProgress: IntRatingDiff = bestProgressIn(lila.rating.PerfType.leaderboardable)
-
-  def bestProgressIn(types: List[PerfType]): IntRatingDiff =
-    types.foldLeft(IntRatingDiff(0)): (max, t) =>
-      val p = apply(t).progress
-      if p > max then p else max
-
-  lazy val perfsMap: Map[PerfKey, Perf] = Map(
-    PerfKey("chess960")       -> chess960,
-    PerfKey("kingOfTheHill")  -> kingOfTheHill,
-    PerfKey("threeCheck")     -> threeCheck,
-    PerfKey("antichess")      -> antichess,
-    PerfKey("atomic")         -> atomic,
-    PerfKey("horde")          -> horde,
-    PerfKey("racingKings")    -> racingKings,
-    PerfKey("crazyhouse")     -> crazyhouse,
-    PerfKey("ultraBullet")    -> ultraBullet,
-    PerfKey("bullet")         -> bullet,
-    PerfKey("blitz")          -> blitz,
-    PerfKey("rapid")          -> rapid,
-    PerfKey("classical")      -> classical,
-    PerfKey("correspondence") -> correspondence,
-    PerfKey("puzzle")         -> puzzle
-  )
-
-  def ratingOf(pt: PerfKey): Option[IntRating] = perfsMap.get(pt).map(_.intRating)
-
-  def apply(key: PerfKey): Option[Perf] = perfsMap.get(key)
-
-  def apply(perfType: PerfType): Perf = perfType match
-    case PerfType.Standard       => standard
-    case PerfType.UltraBullet    => ultraBullet
-    case PerfType.Bullet         => bullet
-    case PerfType.Blitz          => blitz
-    case PerfType.Rapid          => rapid
-    case PerfType.Classical      => classical
-    case PerfType.Correspondence => correspondence
-    case PerfType.Chess960       => chess960
-    case PerfType.KingOfTheHill  => kingOfTheHill
-    case PerfType.ThreeCheck     => threeCheck
-    case PerfType.Antichess      => antichess
-    case PerfType.Atomic         => atomic
-    case PerfType.Horde          => horde
-    case PerfType.RacingKings    => racingKings
-    case PerfType.Crazyhouse     => crazyhouse
-    case PerfType.Puzzle         => puzzle
-
-  def inShort = perfs
-    .map: (name, perf) =>
-      s"$name:${perf.intRating}"
-    .mkString(", ")
-
-  def updateStandard =
-    copy(
-      standard =
-        val subs = List(bullet, blitz, rapid, classical, correspondence).filter(_.provisional.no)
-        subs.maxByOption(_.latest.fold(0L)(_.toMillis)).flatMap(_.latest).fold(standard) { date =>
-          val nb = subs.map(_.nb).sum
-          val glicko = Glicko(
-            rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
-            deviation = subs.map(s => s.glicko.deviation * (s.nb / nb.toDouble)).sum,
-            volatility = subs.map(s => s.glicko.volatility * (s.nb / nb.toDouble)).sum
-          )
-          Perf(
-            glicko = glicko,
-            nb = nb,
-            recent = Nil,
-            latest = date.some
-          )
-        }
+    def perfsList: List[(PerfKey, Perf)] = List(
+      PerfKey.standard       -> p.standard,
+      PerfKey.chess960       -> p.chess960,
+      PerfKey.kingOfTheHill  -> p.kingOfTheHill,
+      PerfKey.threeCheck     -> p.threeCheck,
+      PerfKey.antichess      -> p.antichess,
+      PerfKey.atomic         -> p.atomic,
+      PerfKey.horde          -> p.horde,
+      PerfKey.racingKings    -> p.racingKings,
+      PerfKey.crazyhouse     -> p.crazyhouse,
+      PerfKey.ultraBullet    -> p.ultraBullet,
+      PerfKey.bullet         -> p.bullet,
+      PerfKey.blitz          -> p.blitz,
+      PerfKey.rapid          -> p.rapid,
+      PerfKey.classical      -> p.classical,
+      PerfKey.correspondence -> p.correspondence,
+      PerfKey.puzzle         -> p.puzzle
     )
 
-  def latest: Option[Instant] =
-    perfsMap.values
-      .flatMap(_.latest)
-      .foldLeft(none[Instant]):
-        case (None, date)                           => date.some
-        case (Some(acc), date) if date.isAfter(acc) => date.some
-        case (acc, _)                               => acc
+    def keyed(pk: PerfKey) = KeyedPerf(pk, p(pk))
 
-  def dubiousPuzzle = UserPerfs.dubiousPuzzle(puzzle, standard)
+    def best8Perfs: List[PerfKey]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 4)
+    def best6Perfs: List[PerfKey]    = UserPerfs.firstRow ::: bestOf(UserPerfs.secondRow, 2)
+    def best4Perfs: List[PerfKey]    = UserPerfs.firstRow
+    def bestAny3Perfs: List[PerfKey] = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 3)
+    def bestPerf: Option[PerfKey]    = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 1).headOption
+    private def bestOf(keys: List[PerfKey], nb: Int) = keys
+      .sortBy: pk =>
+        -(p(pk).nb * lila.rating.PerfType.totalTimeRoughEstimation.get(PerfType(pk)).so(_.roundSeconds))
+      .take(nb)
+    def hasEstablishedRating(pk: PerfKey) = p(pk).established
+
+    def bestRatedPerf: Option[KeyedPerf] =
+      val ps    = perfsList.filter(p => p._1 != PerfKey.puzzle && p._1 != PerfKey.standard)
+      val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 10)
+      ps
+        .foldLeft(none[(PerfKey, Perf)]):
+          case (ro, p) if p._2.nb >= minNb =>
+            ro.fold(p.some): r =>
+              Some(if p._2.intRating > r._2.intRating then p else r)
+          case (ro, _) => ro
+        .map(KeyedPerf.apply)
+
+    def bestPerfs(nb: Int): List[KeyedPerf] =
+      val ps = lila.rating.PerfType.nonPuzzle.map: pt =>
+        pt.key -> apply(pt)
+      val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
+      ps.filter(p => p._2.nb >= minNb).topN(nb).map(KeyedPerf.apply)
+
+    def bestRating: IntRating = bestRatingIn(lila.rating.PerfType.leaderboardable)
+
+    def bestStandardRating: IntRating = bestRatingIn(lila.rating.PerfType.standard)
+
+    def bestRatingIn(types: List[PerfType]): IntRating =
+      val ps = types.map(p(_)) match
+        case Nil => List(p.standard)
+        case x   => x
+      val minNb = ps.foldLeft(0)(_ + _.nb) / 10
+      ps.foldLeft(none[IntRating]):
+        case (ro, p) if p.nb >= minNb =>
+          ro.fold(p.intRating) { r =>
+            if p.intRating > r then p.intRating else r
+          }.some
+        case (ro, _) => ro
+      .getOrElse(lila.rating.Perf.default.intRating)
+
+    def bestPerf(types: List[PerfType]): Perf =
+      types
+        .map(p(_))
+        .foldLeft(none[Perf]):
+          case (ro, p) if ro.forall(_.intRating < p.intRating) => p.some
+          case (ro, _)                                         => ro
+        .getOrElse(lila.rating.Perf.default)
+
+    def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[IntRating] =
+      types
+        .map(p(_))
+        .foldLeft(none[IntRating]):
+          case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
+          case (ro, _)                                                  => ro
+
+    def bestProgress: IntRatingDiff = bestProgressIn(lila.rating.PerfType.leaderboardable)
+
+    def bestProgressIn(types: List[PerfType]): IntRatingDiff =
+      types.foldLeft(IntRatingDiff(0)): (max, t) =>
+        val p = apply(t).progress
+        if p > max then p else max
+
+    def ratingOf(pt: PerfKey): IntRating = p(pt).intRating
+
+    def apply(perfType: PerfType): Perf = p(perfType.key)
+
+    def latest: Option[Instant] =
+      p.perfsList
+        .flatMap(_._2.latest)
+        .foldLeft(none[Instant]):
+          case (None, date)                           => date.some
+          case (Some(acc), date) if date.isAfter(acc) => date.some
+          case (acc, _)                               => acc
+
+    def dubiousPuzzle = UserPerfs.dubiousPuzzle(p.puzzle, p.standard)
+
+  private given [A]: Ordering[(A, Perf)] = Ordering.by[(A, Perf), Int](_._2.intRating.value)
 
 object UserPerfs:
 
@@ -203,9 +130,11 @@ object UserPerfs:
       puzzle.glicko.rating > 2700 && !standard.glicko.establishedIntRating.exists(_ > 1900) ||
       puzzle.glicko.rating > 2500 && !standard.glicko.establishedIntRating.exists(_ > 1800)
 
+  private val puzPerfDefault = PuzPerf(0, 0)
+
   def default(id: UserId) =
-    val p = Perf.default
-    UserPerfs(
+    val p = lila.rating.Perf.default
+    new UserPerfs(
       id,
       p,
       p,
@@ -223,14 +152,13 @@ object UserPerfs:
       p,
       p,
       p,
-      Perf.Storm.default,
-      Perf.Racer.default,
-      Perf.Streak.default
+      puzPerfDefault,
+      puzPerfDefault,
+      puzPerfDefault
     )
-
   def defaultManaged(id: UserId) =
-    val managed       = Perf.defaultManaged
-    val managedPuzzle = Perf.defaultManagedPuzzle
+    val managed       = lila.rating.Perf.defaultManaged
+    val managedPuzzle = lila.rating.Perf.defaultManagedPuzzle
     default(id).copy(
       standard = managed,
       bullet = managed,
@@ -242,7 +170,7 @@ object UserPerfs:
     )
 
   def defaultBot(id: UserId) =
-    val bot = Perf.defaultBot
+    val bot = lila.rating.Perf.defaultBot
     default(id).copy(
       standard = bot,
       bullet = bot,
@@ -280,20 +208,20 @@ object UserPerfs:
   import reactivemongo.api.bson.*
 
   def idPerfReader(pk: PerfKey) = BSONDocumentReader.option[(UserId, Perf)] { doc =>
-    import Perf.given
+    import lila.rating.Perf.given
     for
       id   <- doc.getAsOpt[UserId]("_id")
       perf <- doc.getAsOpt[Perf](pk.value)
     yield (id, perf)
   }
 
-  given BSONDocumentHandler[UserPerfs] = new BSON[UserPerfs]:
+  given userPerfsHandler: BSONDocumentHandler[UserPerfs] = new BSON[UserPerfs]:
 
-    import Perf.given
+    import lila.rating.Perf.given
 
     def reads(r: BSON.Reader): UserPerfs =
-      inline def perf(key: String) = r.getO[Perf](key).getOrElse(Perf.default)
-      UserPerfs(
+      inline def perf(key: String) = r.getO[Perf](key).getOrElse(lila.rating.Perf.default)
+      new UserPerfs(
         id = r.get[UserId]("_id"),
         standard = perf("standard"),
         chess960 = perf("chess960"),
@@ -311,9 +239,9 @@ object UserPerfs:
         classical = perf("classical"),
         correspondence = perf("correspondence"),
         puzzle = perf("puzzle"),
-        storm = r.getO[Perf.Storm]("storm").getOrElse(Perf.Storm.default),
-        racer = r.getO[Perf.Racer]("racer").getOrElse(Perf.Racer.default),
-        streak = r.getO[Perf.Streak]("streak").getOrElse(Perf.Streak.default)
+        storm = r.getD[PuzPerf]("storm", puzPerfDefault),
+        racer = r.getD[PuzPerf]("racer", puzPerfDefault),
+        streak = r.getD[PuzPerf]("streak", puzPerfDefault)
       )
 
     private inline def notNew(p: Perf): Option[Perf] = p.nonEmpty.option(p)
@@ -360,17 +288,17 @@ object UserPerfs:
 
   val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
 
-  private val firstRow: List[PerfType] =
-    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical)
-  private val secondRow: List[PerfType] = List(
-    PerfType.Correspondence,
-    PerfType.UltraBullet,
-    PerfType.Crazyhouse,
-    PerfType.Chess960,
-    PerfType.KingOfTheHill,
-    PerfType.ThreeCheck,
-    PerfType.Antichess,
-    PerfType.Atomic,
-    PerfType.Horde,
-    PerfType.RacingKings
+  private[rating] val firstRow: List[PerfKey] =
+    List(PerfKey.bullet, PerfKey.blitz, PerfKey.rapid, PerfKey.classical)
+  private[rating] val secondRow: List[PerfKey] = List(
+    PerfKey.correspondence,
+    PerfKey.ultraBullet,
+    PerfKey.crazyhouse,
+    PerfKey.chess960,
+    PerfKey.kingOfTheHill,
+    PerfKey.threeCheck,
+    PerfKey.antichess,
+    PerfKey.atomic,
+    PerfKey.horde,
+    PerfKey.racingKings
   )

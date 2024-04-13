@@ -1,7 +1,6 @@
 package lila.challenge
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final private class ChallengeRepo(colls: ChallengeColls)(using
     ec: Executor
@@ -16,7 +15,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   def byId(id: Challenge.Id) = coll.find($id(id)).one[Challenge]
 
-  def byIdFor(id: Challenge.Id, dest: lila.user.User) =
+  def byIdFor(id: Challenge.Id, dest: User) =
     coll.find($id(id) ++ $doc("destUser.id" -> dest.id)).one[Challenge]
 
   def exists(id: Challenge.Id) = coll.countSel($id(id)).dmap(0 <)

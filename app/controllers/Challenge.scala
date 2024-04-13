@@ -13,15 +13,13 @@ import lila.game.{ AnonCookie, Pov }
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 import lila.core.socket.SocketVersion
-import lila.user.{ Me, User as UserModel }
 
 final class Challenge(
     env: Env,
     apiC: Api
 ) extends LilaController(env):
 
-  def api                                 = env.challenge.api
-  private given OAuthServer.FetchUser[Me] = env.user.repo.me
+  def api = env.challenge.api
 
   def all = Auth { ctx ?=> me ?=>
     XhrOrRedirectHome:
@@ -73,7 +71,7 @@ final class Challenge(
             else
               Ok.pageAsync:
                 c.challengerUserId
-                  .so(env.user.api.withPerf(_, c.perfType))
+                  .so(env.user.api.byIdWithPerf(_, c.perfType))
                   .map:
                     html.challenge.theirs(c, json, _, color)
           ,
@@ -196,7 +194,7 @@ final class Challenge(
         api.activeByIdFor(id, me).flatMap {
           case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
           case None =>
-            import lila.core.actorApi.map.Tell
+            import lila.core.misc.map.Tell
             import lila.core.round.Abort
             import lila.core.round.AbortForce
             env.game.gameRepo
@@ -215,7 +213,7 @@ final class Challenge(
                   Bearer.from(get("opponentToken")) match
                     case Some(bearer) =>
                       val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
-                      env.oAuth.server.auth[Me](bearer, required, ctx.req.some).map {
+                      env.oAuth.server.auth(bearer, required, ctx.req.some).map {
                         case Right(access) if pov.opponent.isUser(access.me) =>
                           lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                           jsonOkResult
@@ -238,7 +236,7 @@ final class Challenge(
     val accepted = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
     (Bearer.from(get("token1")), Bearer.from(get("token2")))
       .mapN:
-        env.oAuth.server.authBoth[Me](accepted, req)
+        env.oAuth.server.authBoth(accepted, req)
       .so:
         _.flatMap:
           case Left(e) => handleScopedFail(accepted, e)
@@ -249,7 +247,7 @@ final class Challenge(
                 env.round.proxyRepo
                   .upgradeIfPresent(g)
                   .dmap(some)
-                  .dmap(_.filter(_.hasUserIds(u1.userId, u2.userId)))
+                  .dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
               .orNotFound: game =>
                 env.round.roundApi.tell(game.id, lila.core.round.StartClock)
                 jsonOkResult
@@ -340,7 +338,7 @@ final class Challenge(
         )
     }
 
-  private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
+  private def makeOauthChallenge(config: ApiConfig, orig: lila.user.User, dest: lila.user.User) =
     import lila.challenge.Challenge.*
     val timeControl = makeTimeControl(config.clock, config.days)
     env.user.perfsRepo

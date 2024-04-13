@@ -31,12 +31,12 @@ final class Env(
     getSinglePvEval: lila.tree.CloudEval.GetSinglePvEval,
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
+    userApi: lila.core.user.UserApi,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
     sink: lila.analyse.Analyser,
-    userRepo: lila.user.UserRepo,
     shutdown: akka.actor.CoordinatedShutdown
 )(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
 
@@ -71,7 +71,7 @@ final class Env(
   )
 
   private lazy val socketExists: GameId => Fu[Boolean] = id =>
-    Bus.ask[Boolean]("roundSocket")(lila.core.actorApi.map.Exists(id.value, _))
+    Bus.ask[Boolean]("roundSocket")(lila.core.misc.map.Exists(id.value, _))
 
   lazy val api: FishnetApi = wire[FishnetApi]
 
@@ -100,7 +100,7 @@ final class Env(
   def cli = new lila.common.Cli:
     def process =
       case "fishnet" :: "client" :: "create" :: name :: Nil =>
-        userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)).flatMap {
+        userApi.enabledById(UserStr(name)).map(_.exists(_.marks.clean)).flatMap {
           if _ then
             api.createClient(UserStr(name).id).map { client =>
               Bus.publish(lila.core.fishnet.NewKey(client.userId, client.key.value), "fishnet")

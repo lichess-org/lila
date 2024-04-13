@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.gathering.ConditionForm
 import lila.core.team.LightTeam
 import lila.simul.{ Simul, SimulForm }
@@ -27,7 +27,7 @@ object form:
           formContent(form, teams, none),
           form3.actions(
             a(href := routes.Simul.home)(trans.site.cancel()),
-            form3.submit(trans.site.hostANewSimul(), icon = licon.Trophy.some)
+            form3.submit(trans.site.hostANewSimul(), icon = Icon.Trophy.some)
           )
         )
       )
@@ -45,11 +45,11 @@ object form:
           formContent(form, teams, simul.some),
           form3.actions(
             a(href := routes.Simul.show(simul.id))(trans.site.cancel()),
-            form3.submit(trans.site.save(), icon = licon.Trophy.some)
+            form3.submit(trans.site.save(), icon = Icon.Trophy.some)
           )
         ),
         postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-          submitButton(dataIcon := licon.CautionCircle, cls := "text button button-red confirm")(
+          submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
             trans.site.cancelSimul()
           )
         )
@@ -161,7 +161,7 @@ object form:
         help = trans.site.simulDescriptionHelp().some
       )(form3.textarea(_)(rows := 10)),
       ctx.me
-        .exists(_.canBeFeatured)
+        .exists(lila.simul.canBeFeatured)
         .option(
           form3.checkbox(
             form("featured"),

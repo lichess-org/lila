@@ -1,6 +1,7 @@
 package lila.tutor
 
-import lila.rating.{ Glicko, Perf, glicko2 }
+import lila.rating.{ Glicko, glicko2 }
+import lila.rating.PerfExt.toRating
 
 object TutorGlicko:
 

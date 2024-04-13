@@ -16,18 +16,14 @@ import lila.db.dsl.{ *, given }
 import lila.game.{ Game, Pov }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
-import lila.rating.Perf
+
 import lila.core.round.QuietFlag
-import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo, given }
 import lila.core.swiss.{ IdName, SwissFinish }
 import lila.core.userId.UserSearch
 
 final class SwissApi(
     mongo: SwissMongo,
     cache: SwissCache,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
-    userApi: UserApi,
     socket: SwissSocket,
     director: SwissDirector,
     scoring: SwissScoring,
@@ -36,8 +32,9 @@ final class SwissApi(
     banApi: SwissBanApi,
     boardApi: SwissBoardApi,
     verify: SwissCondition.Verify,
-    chatApi: lila.chat.ChatApi,
-    lightUserApi: lila.user.LightUserApi,
+    chatApi: lila.core.chat.ChatApi,
+    userApi: lila.core.user.UserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     roundApi: lila.game.core.RoundApi
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
     extends lila.core.swiss.SwissApi:
@@ -135,7 +132,7 @@ final class SwissApi(
 
   private def recomputePlayerRatings(swiss: Swiss): Funit = for
     ranking <- rankingApi(swiss)
-    perfs   <- perfsRepo.perfOf(ranking.keys, swiss.perfType)
+    perfs   <- userApi.perfOf(ranking.keys, swiss.perfType)
     update = mongo.player.update(ordered = false)
     elements <- perfs.toSeq.traverse: (userId, perf) =>
       update.element(
@@ -170,7 +167,7 @@ final class SwissApi(
 
   def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] =
     me.foldUse(fuccess(swiss.settings.conditions.accepted)): me ?=>
-      perfsRepo
+      userApi
         .withPerf(me, swiss.perfType)
         .flatMap: user =>
           given Perf = user.perf
@@ -188,7 +185,7 @@ final class SwissApi(
           .flatMap: rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
               for
-                user <- perfsRepo.withPerf(me.value, swiss.perfType)
+                user <- userApi.withPerf(me.value, swiss.perfType)
                 given Perf = user.perf
                 verified <- verify(swiss)
                 ok = verified.accepted && swiss.isEnterable
@@ -245,7 +242,7 @@ final class SwissApi(
       .map((Swiss.PastAndNext.apply).tupled)
 
   def playerInfo(swiss: Swiss, userId: UserId): Fu[Option[SwissPlayer.ViewExt]] =
-    userRepo.byId(userId).flatMapz { user =>
+    userApi.byId(userId).flatMapz { user =>
       mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value).flatMapz { player =>
         SwissPairing
           .fields { f =>
@@ -603,7 +600,7 @@ final class SwissApi(
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
                   Bus.publish(
-                    lila.core.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag),
+                    lila.core.misc.map.TellMany(flagged.map(_.id.value), QuietFlag),
                     "roundSocket"
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
@@ -613,7 +610,9 @@ final class SwissApi(
         }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
-    chatApi.userChat.service(id.into(ChatId), text, _.swiss, isVolatile = volatile)
+    if volatile
+    then chatApi.volatile(id.into(ChatId), text, _.swiss)
+    else chatApi.system(id.into(ChatId), text, _.swiss)
 
   def withdrawAll(user: User, teamIds: List[TeamId]): Funit =
     mongo.swiss

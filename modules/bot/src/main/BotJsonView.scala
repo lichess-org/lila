@@ -8,7 +8,7 @@ import lila.game.{ Game, GameRepo, Pov }
 import lila.core.i18n.Translate
 
 final class BotJsonView(
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     gameRepo: GameRepo,
     rematches: lila.game.Rematches
 )(using Executor):

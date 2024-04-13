@@ -7,7 +7,6 @@ import scalalib.paginator.Paginator
 import lila.db.dsl.*
 import lila.db.paginator.Adapter
 import lila.tournament.BSONHandlers.given
-import lila.user.Me
 
 final class CrudApi(tournamentRepo: TournamentRepo, tourApi: TournamentApi, crudForm: CrudForm):
 

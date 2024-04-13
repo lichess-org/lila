@@ -7,7 +7,7 @@ import chess.variant.Variant
 
 import lila.gathering.Condition
 import lila.core.i18n.{ I18nKey, Translate }
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 case class Schedule(
     freq: Schedule.Freq,

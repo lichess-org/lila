@@ -6,14 +6,13 @@ import play.api.Configuration
 import lila.core.config.CollName
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     messenger: lila.core.msg.MsgApi,
     reportApi: lila.core.report.ReportApi,
     chatApi: lila.core.chat.ChatApi,
-    userRepo: lila.user.UserRepo,
-    noteApi: lila.user.NoteApi,
+    noteApi: lila.core.user.NoteApi,
+    userApi: lila.core.user.UserApi,
     lightUser: lila.core.LightUser.Getter,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi

@@ -4,11 +4,11 @@ package account
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object kid:
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?], managed: Boolean)(using PageContext) =
+  def apply(u: User, form: play.api.data.Form[?], managed: Boolean)(using PageContext) =
     account.layout(
       title = s"${u.username} - ${trans.site.kidMode.txt()}",
       active = "kid"
