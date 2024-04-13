@@ -280,7 +280,7 @@ lazy val insight = module("insight",
 )
 
 lazy val tutor = module("tutor",
-  Seq(insight, user),
+  Seq(insight),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -335,7 +335,7 @@ lazy val shutup = module("shutup",
 )
 
 lazy val challenge = module("challenge",
-  Seq(user, game, room, oauth),
+  Seq(game, room, oauth),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
@@ -395,22 +395,22 @@ lazy val mailer = module("mailer",
 )
 
 lazy val plan = module("plan",
-  Seq(user),
+  Seq(coreI18n, memo),
   tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val relation = module("relation",
-  Seq(user),
+  Seq(memo),
   reactivemongo.bundle
 )
 
 lazy val pref = module("pref",
-  Seq(memo, coreI18n),
+  Seq(coreI18n, memo),
   reactivemongo.bundle
 )
 
 lazy val msg = module("msg",
-  Seq(user),
+  Seq(coreI18n, memo),
   reactivemongo.bundle
 )
 

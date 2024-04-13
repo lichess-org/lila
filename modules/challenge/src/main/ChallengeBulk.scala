@@ -21,7 +21,7 @@ final class ChallengeBulkApi(
     colls: ChallengeColls,
     msgApi: ChallengeMsg,
     gameRepo: lila.game.GameRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart
 )(using Executor, akka.stream.Materializer, Scheduler):
 
@@ -95,8 +95,8 @@ final class ChallengeBulkApi(
     lila.rating.PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
-        userApi.gamePlayers
-          .loggedIn(game.userIds, bulk.perfType, useCache = false)
+        userApi
+          .gamePlayersLoggedIn(game.userIds, bulk.perfType, useCache = false)
           .map2: users =>
             (game.id, users)
       .mapConcat(_.toList)

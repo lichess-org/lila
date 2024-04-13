@@ -14,14 +14,13 @@ import lila.insight.{
   Question
 }
 import lila.rating.PerfType
-import lila.user.{ User, UserApi }
 import lila.core.perf.UserWithPerfs
 
 final private class TutorBuilder(
     colls: TutorColls,
     insightApi: InsightApi,
     perfStatsApi: InsightPerfStatsApi,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     fishnet: TutorFishnet
 )(using Executor):
 

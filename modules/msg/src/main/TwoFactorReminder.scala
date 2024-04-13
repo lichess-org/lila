@@ -1,9 +1,8 @@
 package lila.msg
 
 import lila.memo.MongoCache
-import lila.user.UserRepo
 
-final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, api: MsgApi)(using
+final class TwoFactorReminder(mongoCache: MongoCache.Api, userApi: lila.core.user.UserApi, api: MsgApi)(using
     Executor,
     lila.core.i18n.Translator
 ):
@@ -13,8 +12,9 @@ final class TwoFactorReminder(mongoCache: MongoCache.Api, userRepo: UserRepo, ap
   private val cache = mongoCache[UserId, Boolean](1024, "security:2fa:reminder", 10 days, _.value): loader =>
     _.expireAfterWrite(11 days).buildAsyncFuture:
       loader: userId =>
-        userRepo
-          .withoutTwoFactor(userId)
+        userApi
+          .enabledById(userId)
+          .dmap(_.filter(_.totpSecret.isEmpty))
           .flatMap:
             case Some(user) =>
               given play.api.i18n.Lang = user.realLang | lila.core.i18n.defaultLang

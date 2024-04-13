@@ -84,8 +84,7 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
 final class ChallengeBulkSetupApi(
     oauthServer: OAuthServer,
-    idGenerator: IdGenerator,
-    userRepo: lila.user.UserRepo
+    idGenerator: IdGenerator
 )(using Executor, akka.stream.Materializer):
 
   import ChallengeBulkSetup.*

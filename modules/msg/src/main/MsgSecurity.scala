@@ -7,15 +7,16 @@ import lila.core.team.IsLeaderOf
 import lila.memo.RateLimit
 import lila.core.perm.Granter
 import lila.core.shutup.TextAnalyser
-import lila.user.{ Contact, Contacts }
 
 import lila.core.report.SuspectId
 
 final private class MsgSecurity(
     colls: MsgColls,
+    contactApi: ContactApi,
     prefApi: lila.core.pref.PrefApi,
-    userRepo: lila.user.UserRepo,
-    getBotUserIds: lila.user.GetBotIds,
+    userApi: lila.core.user.UserApi,
+    userRepo: lila.core.user.UserRepo,
+    userCache: lila.core.user.CachedApi,
     relationApi: lila.core.relation.RelationApi,
     reportApi: lila.core.report.ReportApi,
     spam: lila.core.security.SpamApi,
@@ -128,10 +129,8 @@ final private class MsgSecurity(
 
     private def isDirt(user: Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
       (isNew && textAnalyser(text).dirty)
-        .so(userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)).not)
-        .dmap {
-          _.option(Dirt)
-        }
+        .so(userApi.isCreatedSince(user.id, nowInstant.minusDays(30)).not)
+        .dmap(_.option(Dirt))
 
     private def destFollowsOrig(contacts: Contacts): Fu[Boolean] =
       relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
@@ -139,16 +138,16 @@ final private class MsgSecurity(
   object may:
 
     def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
-      userRepo.contacts(orig, dest).flatMapz { post(_, isNew) }
+      contactApi.contacts(orig, dest).flatMapz { post(_, isNew) }
 
     def post(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
       fuccess(!contacts.dest.isLichess) >>& {
         fuccess(Granter.ofDbKeys(_.PublicMod, ~contacts.orig.roles)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
-            chatPanicAllowed(contacts.orig.id)(userRepo.byId) >>&
+            chatPanicAllowed(contacts.orig.id)(userApi.byId) >>&
             kidCheck(contacts, isNew) >>&
-            getBotUserIds().map { botIds => !contacts.userIds.exists(botIds.contains) }
+            userCache.getBotIds.map { botIds => !contacts.userIds.exists(botIds.contains) }
         }
       }
 

@@ -11,7 +11,7 @@ import lila.memo.CacheApi
 @Module
 final class Env(
     db: lila.db.Db,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     gameRepo: lila.game.GameRepo,
     fishnetAwaiter: AnalysisAwaiter,
     fishnetSystem: SystemAnalysisRequest,
@@ -19,7 +19,7 @@ final class Env(
     perfStatsApi: lila.insight.InsightPerfStatsApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor, Scheduler, play.api.Mode, akka.stream.Materializer):
 
   private val colls = TutorColls(db(config.CollName("tutor_report")), db(config.CollName("tutor_queue")))

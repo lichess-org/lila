@@ -66,13 +66,8 @@ object user:
 
     def everLoggedIn = seenAt.exists(createdAt != _)
 
-    def lame = marks.boost || marks.engine
-
-    def lameOrTroll      = lame || marks.troll
-    def lameOrAlt        = lame || marks.alt
-    def lameOrTrollOrAlt = lameOrTroll || marks.alt
-
-    def canFullyLogin = enabled.yes || !lameOrTrollOrAlt
+    def lame        = marks.boost || marks.engine
+    def lameOrTroll = lame || marks.troll
 
     def withMarks(f: UserMarks => UserMarks) = copy(marks = f(marks))
 
@@ -106,7 +101,9 @@ object user:
 
   case class PlayTime(total: Int, tv: Int)
 
-  case class Plan(months: Int, active: Boolean, since: Option[Instant])
+  case class Plan(months: Int, active: Boolean, since: Option[Instant]):
+    def isEmpty: Boolean       = months == 0
+    def nonEmpty: Option[Plan] = Option.when(!isEmpty)(this)
 
   case class TotpSecret(secret: Array[Byte]) extends AnyVal:
     override def toString = "TotpSecret(****)"
@@ -197,11 +194,13 @@ object user:
     def withPerf(id: User, pk: PerfKey): Fu[WithPerf]
     def withPerfs(u: User): Fu[UserWithPerfs]
     def withPerfs[U: UserIdOf](id: U): Fu[Option[UserWithPerfs]]
+    def byIdWithPerf[U: UserIdOf](id: U, pk: PerfKey): Fu[Option[WithPerf]]
     def listWithPerfs[U: UserIdOf](us: List[U]): Fu[List[UserWithPerfs]]
     def perfOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Perf]
     def perfOf(ids: Iterable[UserId], perfKey: PerfKey): Fu[Map[UserId, Perf]]
     def perfOptionOf[U: UserIdOf](u: U, perfKey: PerfKey): Fu[Option[Perf]]
     def perfsOf[U: UserIdOf](u: U): Fu[UserPerfs]
+    def perfsOf[U: UserIdOf](us: PairOf[U], primary: Boolean): Fu[PairOf[UserPerfs]]
     def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean]
     def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit
     def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]]
@@ -220,6 +219,9 @@ object user:
     def usingPerfOf[A, U: UserIdOf](u: U, perfKey: PerfKey)(f: Perf ?=> Fu[A]): Fu[A]
     def incToints(id: UserId, nb: Int): Funit
     def addPuzRun(field: String, userId: UserId, score: Int): Funit
+    def setPlan(user: User, plan: Option[Plan]): Funit
+    def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]]
+    def isCreatedSince(id: UserId, since: Instant): Fu[Boolean]
 
   trait LightUserApiMinimal:
     val async: LightUser.Getter
@@ -231,6 +233,7 @@ object user:
     def asyncManyFallback(ids: Seq[UserId]): Fu[Seq[LightUser]]
     def preloadMany(ids: Seq[UserId]): Funit
     def preloadUser(user: User): Unit
+    def invalidate(id: UserId): Unit
     val isBotSync: LightUser.IsBotSync
 
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]):
@@ -276,13 +279,15 @@ object user:
     def aggregateReadFirst[U: UserIdOf](root: BSONDocument, u: U): UserPerfs
 
   object BSONFields:
-    val enabled  = "enabled"
-    val title    = "title"
-    val roles    = "roles"
-    val marks    = "marks"
-    val username = "username"
-    val flair    = "flair"
-    val plan     = "plan"
+    val enabled   = "enabled"
+    val title     = "title"
+    val roles     = "roles"
+    val marks     = "marks"
+    val username  = "username"
+    val flair     = "flair"
+    val plan      = "plan"
+    val kid       = "kid"
+    val createdAt = "createdAt"
 
   trait Note:
     val text: String
@@ -345,6 +350,8 @@ object user:
 
   trait CachedApi:
     def getTop50Online: Fu[List[UserWithPerfs]]
+    def getBotIds: Fu[Set[UserId]]
+    def userIdsLike(text: UserSearch): Fu[List[UserId]]
 
   trait JsonView:
     def full(u: User, perfs: Option[UserPerfs | KeyedPerf], withProfile: Boolean): JsObject

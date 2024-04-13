@@ -27,21 +27,21 @@ final class RankingApi(
     save(user, perfType, perfs(perfType))
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2 && lila.rating.PerfType.isLeaderboardable(perfType)).so(coll:
-      _.update
-        .one(
-          $id(makeId(user.id, perfType)),
-          $doc(
-            "perf"      -> perfType.id,
-            "rating"    -> perf.intRating,
-            "prog"      -> perf.progress,
-            "stable"    -> perf.glicko.rankable(lila.rating.PerfType.variantOf(perfType)),
-            "expiresAt" -> nowInstant.plusDays(7)
-          ),
-          upsert = true
-        )
-        .void
-    )
+    (user.rankable && perf.nb >= 2 && lila.rating.PerfType.isLeaderboardable(perfType)).so:
+      coll:
+        _.update
+          .one(
+            $id(makeId(user.id, perfType)),
+            $doc(
+              "perf"      -> perfType.id,
+              "rating"    -> perf.intRating,
+              "prog"      -> perf.progress,
+              "stable"    -> perf.glicko.rankable(lila.rating.PerfType.variantOf(perfType)),
+              "expiresAt" -> nowInstant.plusDays(7)
+            ),
+            upsert = true
+          )
+          .void
 
   def remove(userId: UserId): Funit =
     coll:
