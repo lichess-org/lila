@@ -262,7 +262,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       Ok.page(html.team.form.create(forms.create, anyCaptcha))
   }
 
-  private val OneAtATime = lila.app.http.FutureConcurrencyLimit[UserId](
+  private val OneAtATime = lila.web.FutureConcurrencyLimit[UserId](
     key = "team.concurrency.user",
     ttl = 10.minutes,
     maxConcurrency = 1

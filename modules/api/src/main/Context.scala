@@ -11,6 +11,7 @@ import lila.pref.Pref
 
 import lila.core.user.KidMode
 import lila.user.UserExt.userLanguage
+import lila.web.Nonce
 
 /* Who is logged in, and how */
 final class LoginContext(
@@ -23,7 +24,7 @@ final class LoginContext(
   def myId: Option[MyId]               = me.map(_.myId)
   def is[U: UserIdOf](u: U): Boolean   = me.exists(_.is(u))
   def isnt[U: UserIdOf](u: U): Boolean = !is(u)
-  inline def user: Option[User]        = Me.raw(me)
+  def user: Option[User]               = Me.raw(me)
   def userId: Option[UserId]           = user.map(_.id)
   def username: Option[UserName]       = user.map(_.username)
   def isBot                            = me.exists(_.isBot)
@@ -45,21 +46,14 @@ class Context(
     val lang: Lang,
     val loginContext: LoginContext,
     val pref: Pref
-):
+) extends lila.web.Context:
   export loginContext.*
-  def ip                    = HTTPRequest.ipAddress(req)
-  lazy val blind            = req.cookies.get(ApiConfig.blindCookie.name).exists(_.value.nonEmpty)
-  def noBlind               = !blind
   lazy val mobileApiVersion = lila.security.Mobile.Api.requestVersion(req)
   def isMobileApi           = mobileApiVersion.isDefined
   def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.isKidUser)
-  def flash(name: String): Option[String] = req.flash.get(name)
-  def withLang(l: Lang)                   = new Context(req, l, loginContext, pref)
-  def canPalantir                         = kid.no && me.exists(!_.marks.troll)
-  lazy val translate                      = Translate(lila.i18n.Translator, lang)
-  lazy val acceptLanguages: Set[Language] =
-    req.acceptLanguages.view.map(Language.apply).toSet + defaultLanguage ++
-      user.flatMap(_.userLanguage).toSet
+  def withLang(l: Lang)     = new Context(req, l, loginContext, pref)
+  def canPalantir           = kid.no && me.exists(!_.marks.troll)
+  lazy val translate        = Translate(lila.i18n.Translator, lang)
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }

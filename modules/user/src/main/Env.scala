@@ -60,7 +60,6 @@ final class Env(
 
   lazy val cached: Cached                           = wire[Cached]
   def rankingsOf: UserId => lila.rating.UserRankMap = cached.rankingsOf
-  lazy val botIds                                   = GetBotIds(() => cached.botIds.get {})
 
   lazy val passwordHasher = PasswordHasher(
     secret = config.passwordBPassSecret,

@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.activity.activities.*
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 import lila.core.forum.ForumTopicMini
 import lila.core.forum.ForumPostMini

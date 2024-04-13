@@ -4,7 +4,7 @@ package coach
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.core.data.RichText
 
@@ -30,7 +30,7 @@ object show:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("coach"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = title,
           description = shorten(~(c.coach.profile.headline), 152),

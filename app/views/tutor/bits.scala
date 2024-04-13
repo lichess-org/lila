@@ -1,7 +1,7 @@
 package views.html.tutor
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorNumber
 
 object bits:
@@ -37,6 +37,6 @@ object bits:
       csp = defaultCsp.withInlineIconFont.some
     ):
       main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
-        views.html.site.bits.subnav(menu),
+        views.html.base.bits.subnav(menu),
         div(cls := "page-menu__content")(content)
       )

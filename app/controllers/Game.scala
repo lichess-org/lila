@@ -65,7 +65,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
         WithVs: vs =>
           env.security.ipTrust
             .throttle(MaxPerSecond:
-              if ctx.is(UserId.explorer) then env.apiExplorerGamesPerSecond.get()
+              if ctx.is(UserId.explorer) then env.web.settings.apiExplorerGamesPerSecond.get()
               else if ctx.is(user) then 60
               else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
               else 25
@@ -153,7 +153,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     )
 
   private[controllers] def delayMovesFromReq(using RequestHeader) =
-    !get("key").exists(env.noDelaySecretSetting.get().value.contains)
+    !get("key").exists(env.web.settings.noDelaySecret.get().value.contains)
 
   private[controllers] def gameContentType(config: GameApiV2.Config)(using RequestHeader) =
     config.format match

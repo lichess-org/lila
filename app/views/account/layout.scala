@@ -3,7 +3,7 @@ package views.html.account
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object layout:
 
@@ -23,7 +23,7 @@ object layout:
         ctx.me
           .exists(_.enabled.yes)
           .option(
-            views.html.site.bits.pageMenuSubnav(
+            views.html.base.bits.pageMenuSubnav(
               a(activeCls("editProfile"), href := routes.Account.profile)(
                 trans.site.editProfile()
               ),

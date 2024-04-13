@@ -8,18 +8,11 @@ import play.api.mvc.*
 import lila.common.HTTPRequest
 import lila.core.perm.{ Granter, Permission }
 
-trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConversions:
+trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder:
 
-  def isGranted(permission: Permission.Selector)(using Me): Boolean =
-    Granter(permission)
+  export Granter.{ apply as isGranted, opt as isGrantedOpt }
 
-  def isGrantedOpt(permission: Permission.Selector)(using Option[Me]): Boolean =
-    Granter.opt(permission)
-
-  // def isGranted(permission: Permission)(using me: Option[Me]): Boolean =
-  //   Granter.opt(permission)
-
-  def NoCurrentGame(a: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
+  def NoCurrentGame(a: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me
       .soUse(env.preloader.currentGameMyTurn)
       .flatMap:
@@ -32,7 +25,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
         s"You are already playing ${current.opponent}"
     ).as(JSON)
 
-  def NoPlaybanOrCurrent(a: => Fu[Result])(using Context, Executor): Fu[Result] =
+  def NoPlaybanOrCurrent(a: => Fu[Result])(using Context): Fu[Result] =
     NoPlayban(NoCurrentGame(a))
 
   def IfGranted(perm: Permission.Selector)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
@@ -43,7 +36,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
     if env.security.firewall.accepts(ctx.req) then a
     else keyPages.blacklisted
 
-  def NoTor(res: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
+  def NoTor(res: => Fu[Result])(using ctx: Context): Fu[Result] =
     env.security.ipTrust
       .isPubOrTor(ctx.ip)
       .flatMap:
@@ -78,14 +71,14 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def NoShadowban[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     if ctx.me.exists(_.marks.troll) then notFound else a
 
-  def NoPlayban(a: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
+  def NoPlayban(a: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.userId
       .so(env.playban.api.currentBan)
       .flatMap:
         _.fold(a): ban =>
           negotiate(keyPages.home(Results.Forbidden), playbanJsonError(ban))
 
-  def AuthOrTrustedIp(f: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
+  def AuthOrTrustedIp(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     if ctx.isAuth then f
     else
       env.security
@@ -122,7 +115,7 @@ trait CtrlFilters extends ControllerHelpers with ResponseBuilder with CtrlConver
   def NoCrawlers[A](computation: => A)(using ctx: Context, default: Zero[A]): A =
     if HTTPRequest.isCrawler(ctx.req).yes then default.zero else computation
 
-  def NotManaged(result: => Fu[Result])(using ctx: Context)(using Executor): Fu[Result] =
+  def NotManaged(result: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me.so(env.clas.api.student.isManaged(_)).flatMap {
       if _ then notFound else result
     }

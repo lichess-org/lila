@@ -2,13 +2,17 @@ package lila.app
 package templating
 import play.api.libs.json.{ JsValue, Json, Writes }
 
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.core.net.AssetVersion
 import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
+import lila.web.ui.*
+import lila.web.ContentSecurityPolicy
 
-trait AssetHelper extends HasEnv:
+trait AssetHelper:
   self: I18nHelper & SecurityHelper =>
+
+  def env: Env
 
   case class PageModule(name: String, data: JsValue | SafeJsonStr)
 
@@ -84,9 +88,9 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def jsModuleInit[A: Writes](name: String, value: A)(using PageContext): Frag =
     jsModuleInit(name, safeJsonValue(Json.toJson(value)))
 
-  def jsModuleInit(name: String, text: SafeJsonStr, nonce: lila.api.Nonce): Frag =
+  def jsModuleInit(name: String, text: SafeJsonStr, nonce: lila.web.Nonce): Frag =
     frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})", nonce))
-  def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce): Frag =
+  def jsModuleInit(name: String, json: JsValue, nonce: lila.web.Nonce): Frag =
     jsModuleInit(name, safeJsonValue(json), nonce)
 
   def jsPageModule(name: String)(using PageContext) =
@@ -105,17 +109,9 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev = (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
-    ContentSecurityPolicy(
-      defaultSrc = List("'self'", assetDomain.value),
-      connectSrc =
-        "'self'" :: "blob:" :: "data:" :: assetDomain.value :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
-      styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
-      frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv"),
-      workerSrc = List("'self'", assetDomain.value, "blob:"),
-      imgSrc = List("'self'", "blob:", "data:", "*"),
-      scriptSrc = List("'self'", assetDomain.value),
-      fontSrc = List("'self'", assetDomain.value),
-      baseUri = List("'none'")
+    ContentSecurityPolicy.basic(
+      assetDomain,
+      assetDomain.value :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev
     )
 
   def defaultCsp(using ctx: PageContext): ContentSecurityPolicy =
@@ -129,7 +125,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
       s""" nonce="$nonce""""
     s"""<script$nonce>$js</script>"""
 
-  def embedJsUnsafe(js: String, nonce: lila.api.Nonce): Frag = raw:
+  def embedJsUnsafe(js: String, nonce: lila.web.Nonce): Frag = raw:
     s"""<script nonce="$nonce">$js</script>"""
 
   private val onLoadFunction = "site.load.then"
@@ -137,5 +133,5 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def embedJsUnsafeLoadThen(js: String)(using PageContext): Frag =
     embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""")
 
-  def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =
+  def embedJsUnsafeLoadThen(js: String, nonce: lila.web.Nonce): Frag =
     embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""", nonce)

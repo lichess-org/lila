@@ -2,7 +2,7 @@ package views.html.team
 import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import scalalib.paginator.Paginator
 import lila.team.{ Team, TeamMember }
 
@@ -13,7 +13,7 @@ object members:
   def apply(t: Team, pager: Paginator[TeamMember.UserAndDate])(using PageContext) =
     bits.layout(
       title = t.name,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${t.name} • ${trans.team.teamRecentMembers.txt()}",
           url = s"$netBaseUrl${teamRoutes.show(t.id).url}",

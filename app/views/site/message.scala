@@ -5,7 +5,7 @@ import controllers.routes
 
 import lila.api.PageContext
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Icon
 
 object message:

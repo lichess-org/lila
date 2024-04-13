@@ -36,7 +36,7 @@ final class AccountClosure(
     playbanned <- playbanApi.HasCurrentPlayban(u.id)
     selfClose = me.is(u)
     modClose  = !selfClose && Granter(_.CloseAccount)
-    badApple  = u.lameOrTrollOrAlt || modClose
+    badApple  = u.lameOrTroll || u.marks.alt || modClose
     _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
     _       <- relationApi.unfollowAll(u.id)
     _       <- rankingApi.remove(u.id)

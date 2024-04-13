@@ -48,7 +48,7 @@ ThisBuild / libraryDependencySchemes ++= Seq(
 
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
-  play.json, play.server, play.netty, play.logback, compression, hasher,
+  play.json, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
   scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
@@ -66,7 +66,7 @@ lazy val modules = Seq(
   study, studySearch, fishnet, explorer, learn, plan,
   event, coach, practice, evalCache, irwin,
   activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor, opening, cms, fide, tree
+  ublog, tutor, opening, cms, fide, tree, web
 )
 
 lazy val moduleRefs = modules map projectToRef
@@ -261,7 +261,7 @@ lazy val activity = module("activity",
 
 lazy val lobby = module("lobby",
   Seq(game),
-  Seq(lettuce) ++ reactivemongo.bundle
+  Seq(lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
 lazy val setup = module("setup",
@@ -280,7 +280,7 @@ lazy val insight = module("insight",
 )
 
 lazy val tutor = module("tutor",
-  Seq(insight, user),
+  Seq(insight),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -335,7 +335,7 @@ lazy val shutup = module("shutup",
 )
 
 lazy val challenge = module("challenge",
-  Seq(user, game, room, oauth),
+  Seq(game, room, oauth),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
@@ -395,22 +395,22 @@ lazy val mailer = module("mailer",
 )
 
 lazy val plan = module("plan",
-  Seq(user),
+  Seq(coreI18n, memo),
   tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val relation = module("relation",
-  Seq(user),
+  Seq(memo),
   reactivemongo.bundle
 )
 
 lazy val pref = module("pref",
-  Seq(memo, coreI18n),
+  Seq(coreI18n, memo),
   reactivemongo.bundle
 )
 
 lazy val msg = module("msg",
-  Seq(user),
+  Seq(coreI18n, memo),
   reactivemongo.bundle
 )
 
@@ -472,6 +472,11 @@ lazy val socket = module("socket",
 lazy val tree = module("tree",
   Seq(common),
   Seq(chess.playJson)
+)
+
+lazy val web = module("web",
+  Seq(coreI18n, memo),
+  reactivemongo.bundle ++ playWs.bundle ++ tests.bundle ++ Seq(play.logback, play.server, play.netty)
 )
 
 lazy val api = module("api",

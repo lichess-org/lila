@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.i18n.LangList
 import lila.core.i18n.Language
@@ -104,7 +104,7 @@ object index:
                       cls := (languageSel == language.fold("all")(_.value)).option("current")
                     )(name)
               ),
-              views.html.site.bits.atomLink(routes.Ublog.communityAtom(language.fold("all")(_.value)))
+              views.html.base.atom.atomLink(routes.Ublog.communityAtom(language.fold("all")(_.value)))
             )
           ),
           if posts.nbResults > 0 then

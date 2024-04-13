@@ -5,7 +5,7 @@ import controllers.routes
 
 import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.user.Plan.sinceDate
 import lila.user.Profile.*
@@ -243,9 +243,9 @@ object header:
                   ),
                   u.playTime.map: playTime =>
                     frag(
-                      p(trans.site.tpTimeSpentPlaying(showDuration(playTime.totalDuration))),
+                      p(trans.site.tpTimeSpentPlaying(translateDuration(playTime.totalDuration))),
                       playTime.nonEmptyTvDuration.map { tvDuration =>
-                        p(trans.site.tpTimeSpentOnTV(showDuration(tvDuration)))
+                        p(trans.site.tpTimeSpentOnTV(translateDuration(tvDuration)))
                       }
                     ),
                   (!hideTroll).option(

@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.core.socket.SocketVersion
 
@@ -50,7 +50,7 @@ object show:
       robots = s.isPublic,
       zoomable = true,
       csp = analysisCsp.withPeer.withExternalAnalysisApis.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s.name.value,
           url = s"$netBaseUrl${routes.Study.show(s.id).url}",

@@ -34,7 +34,7 @@ object ChallengeDenied:
 
 final class ChallengeGranter(
     prefApi: lila.core.pref.PrefApi,
-    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     relationApi: lila.core.relation.RelationApi
 ):
 
@@ -60,8 +60,8 @@ final class ChallengeGranter(
         case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
         case (_, lila.core.pref.Challenge.FRIEND)              => FriendsOnly.some
         case (_, lila.core.pref.Challenge.RATING) =>
-          perfsRepo
-            .perfsOf(from.value -> dest, _.sec)
+          userApi
+            .perfsOf(from.value -> dest, primary = false)
             .map: (fromPerfs, destPerfs) =>
               if fromPerfs(perfType).provisional || destPerfs(perfType).provisional
               then RatingIsProvisional(perfType).some

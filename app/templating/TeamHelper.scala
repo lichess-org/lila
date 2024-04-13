@@ -5,12 +5,14 @@ import controllers.routes
 import controllers.team.routes.Team as teamRoutes
 import scalatags.Text.all.Tag
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.team.LightTeam
 import lila.team.Team
 
 trait TeamHelper:
-  self: HasEnv & RouterHelper & AssetHelper =>
+  self: RouterHelper & AssetHelper =>
+
+  def env: Env
 
   def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
     ctx.userId.exists { env.team.api.syncBelongsTo(teamId, _) }

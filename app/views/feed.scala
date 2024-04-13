@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.feed.Feed.Update
 
@@ -32,7 +32,7 @@ object feed:
                 dataIcon := Icon.PlusButton
               )
             ),
-            views.html.site.bits.atomLink(routes.Feed.atom)
+            views.html.base.atom.atomLink(routes.Feed.atom)
           )
         ),
         standardFlash,

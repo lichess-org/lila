@@ -8,13 +8,12 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.game.Pov
 import lila.memo.{ CacheApi, SettingStore }
-import lila.user.{ LightUserApi, User }
 
 final private class TutorQueue(
     colls: TutorColls,
     gameRepo: lila.game.GameRepo,
     cacheApi: CacheApi,
-    lightUserApi: LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     parallelism: SettingStore[Int] @@ Parallelism
 )(using Executor, Scheduler):
 

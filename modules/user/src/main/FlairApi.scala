@@ -26,7 +26,7 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
     extends lila.core.user.FlairApi:
 
   import FlairApi.*
-  export FlairApi.formField
+  export FlairApi.{ formField, adminFlairs }
 
   given flairOf: FlairGet = id => lightUserApi.async(id).dmap(_.flatMap(_.flair))
 

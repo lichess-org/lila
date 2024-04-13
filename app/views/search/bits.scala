@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.gameSearch.{ Query, Sorting }
 
 private object bits:

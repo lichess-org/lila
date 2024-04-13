@@ -72,8 +72,10 @@ final class Cached(
 
   def rankingsOf(userId: UserId): lila.rating.UserRankMap = rankingApi.weeklyStableRanking.of(userId)
 
-  private[user] val botIds = cacheApi.unit[Set[UserId]]:
+  private val botIds = cacheApi.unit[Set[UserId]]:
     _.refreshAfterWrite(5 minutes).buildAsyncFuture(_ => userRepo.botIds)
+
+  def getBotIds: Fu[Set[UserId]] = botIds.getUnit
 
   private def userIdsLikeFetch(text: UserSearch) =
     userRepo.userIdsLikeFilter(text, $empty, 12)

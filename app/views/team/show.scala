@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import scalalib.paginator.Paginator
 import lila.mod.Modlog
@@ -29,7 +29,7 @@ object show:
   )(using ctx: PageContext) =
     bits.layout(
       title = t.name,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${t.name} team",
           url = s"$netBaseUrl${teamRoutes.show(t.id).url}",

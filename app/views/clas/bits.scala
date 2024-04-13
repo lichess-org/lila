@@ -2,9 +2,9 @@ package views.html.clas
 
 import controllers.clas.routes
 
-import lila.app.ContentSecurityPolicy
+import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 
 object bits:
@@ -24,7 +24,7 @@ object bits:
     )(
       if isGranted(_.Teacher) then
         main(cls := "page-menu")(
-          views.html.site.bits.pageMenuSubnav(
+          views.html.base.bits.pageMenuSubnav(
             a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)(
               trans.clas.lichessClasses()
             ),

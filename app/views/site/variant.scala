@@ -4,7 +4,7 @@ package html.site
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 
 object variant:
@@ -48,7 +48,7 @@ object variant:
       title: String,
       klass: String,
       active: Option[PerfType] = None,
-      openGraph: Option[lila.app.ui.OpenGraph] = None
+      openGraph: Option[lila.web.OpenGraph] = None
   )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
@@ -57,7 +57,7 @@ object variant:
       openGraph = openGraph
     ):
       main(cls := "page-menu")(
-        views.html.site.bits.pageMenuSubnav(
+        views.html.base.bits.pageMenuSubnav(
           lila.rating.PerfType.variants.map { pt =>
             a(
               cls      := List("text" -> true, "active" -> active.has(pt)),
