@@ -99,7 +99,7 @@ final class Plan(env: Env) extends LilaController(env):
     Ok.pageAsync:
       env.plan.api.giftsFrom(me).map { html.plan.indexPayPal(me, patron, sub, _) }
     .map:
-      _.withHeaders(crossOriginPolicy.unsafe*)
+        _.withHeaders(crossOriginPolicy.unsafe*)
 
   private def myCurrency(using ctx: Context): Currency =
     get("currency")
