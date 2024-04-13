@@ -73,9 +73,7 @@ $('#asset-version-message').text(site.info.message);"""
             )
           )
         ),
-        st.section(cls := "box box-pad body")(views.html.cms.render(p)),
-        br,
-        st.section(cls := "box")(freeJs())
+        st.section(cls := "box box-pad body")(views.html.cms.render(p))
       )
 
   def webmasters(using PageContext) =

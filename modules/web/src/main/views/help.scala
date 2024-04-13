@@ -1,9 +1,12 @@
-package views.html.site
+package lila.web
+package views
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.*
 import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.core.i18n.Translate
+import lila.core.i18n.I18nKey as trans
+import lila.common.Icon
 
 object help:
 
