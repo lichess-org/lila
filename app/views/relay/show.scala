@@ -4,7 +4,7 @@ package relay
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.core.socket.SocketVersion
 

@@ -1,10 +1,10 @@
-package lila.app
-package templating
+package lila.web
+package ui
 
 import chess.{ Board, Color, Square }
 
-import lila.web.ScalatagsTemplate.*
-import lila.game.Pov
+import lila.web.ui.ScalatagsTemplate.*
+import lila.core.pref.Pref
 
 trait ChessgroundHelper:
 
@@ -13,17 +13,21 @@ trait ChessgroundHelper:
   private val cgBoard     = tag("cg-board")
   val cgWrapContent       = cgContainer(cgBoard)
 
-  def chessground(board: Board, orient: Color, lastMove: List[Square] = Nil, blindfold: Boolean)(using
-      ctx: Context
+  def chessground(
+      board: Board,
+      orient: Color,
+      lastMove: List[Square] = Nil,
+      blindfold: Boolean,
+      pref: Pref
   ): Frag =
     wrap {
       cgBoard {
         raw {
-          if ctx.pref.is3d then ""
+          if pref.is3d then ""
           else
             def top(p: Square)  = orient.fold(7 - p.rank.value, p.rank.value) * 12.5
             def left(p: Square) = orient.fold(p.file.value, 7 - p.file.value) * 12.5
-            val highlights = ctx.pref.highlight
+            val highlights = pref.highlight
               .so(lastMove.distinct.map { pos =>
                 s"""<square class="last-move" style="top:${top(pos)}%;left:${left(pos)}%"></square>"""
               })
@@ -32,7 +36,7 @@ trait ChessgroundHelper:
               if blindfold then ""
               else
                 board.pieces
-                  .map { case (pos, piece) =>
+                  .map { (pos, piece) =>
                     val klass = s"${piece.color.name} ${piece.role.name}"
                     s"""<piece class="$klass" style="top:${top(pos)}%;left:${left(pos)}%"></piece>"""
                   }
@@ -41,17 +45,6 @@ trait ChessgroundHelper:
         }
       }
     }
-
-  def chessground(pov: Pov)(using Context): Frag =
-    chessground(
-      board = pov.game.board,
-      orient = pov.color,
-      lastMove = pov.game.history.lastMove
-        .map(_.origDest)
-        .so: (orig, dest) =>
-          List(orig, dest),
-      blindfold = pov.player.blindfold
-    )
 
   private def wrap(content: Frag): Frag =
     cgWrap {

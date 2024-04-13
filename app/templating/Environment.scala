@@ -1,7 +1,8 @@
 package lila.app
 package templating
 
-import lila.web.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
+import lila.web.ui.*
 
 object Environment
     extends StringHelper
@@ -11,8 +12,8 @@ object Environment
     with NumberHelper
     with PaginatorHelper
     with FormHelper
-    with SetupHelper
-    with AiHelper
+    with lila.setup.SetupUi
+    with lila.pref.PrefUi
     with GameHelper
     with UserHelper
     with I18nHelper
@@ -40,6 +41,11 @@ object Environment
 
   given lila.core.config.NetDomain = env.net.domain
 
+  def jsDump     = lila.i18n.JsDump
+  def translator = lila.i18n.Translator
+  def flairApi   = env.user.flairApi
+  export lila.mailer.translateDuration
+
   lazy val siteName: String =
     if env.net.siteName == "localhost:9663" then "lichess.dev"
     else env.net.siteName
@@ -52,6 +58,20 @@ object Environment
   def explorerEndpoint       = env.explorerEndpoint
   def tablebaseEndpoint      = env.tablebaseEndpoint
   def externalEngineEndpoint = env.externalEngineEndpoint
+
+  def chessground(pov: lila.game.Pov)(using ctx: Context): Frag =
+    chessground(
+      board = pov.game.board,
+      orient = pov.color,
+      lastMove = pov.game.history.lastMove
+        .map(_.origDest)
+        .so: (orig, dest) =>
+          List(orig, dest),
+      blindfold = pov.player.blindfold,
+      pref = ctx.pref
+    )
+
+  def titleOrText(v: String)(using ctx: Context): Modifier = titleOrTextFor(ctx.blind, v)
 
   def isChatPanicEnabled = env.chat.panic.enabled
 

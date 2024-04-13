@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.game.{ Game, Pov }
 import lila.rating.PerfType
 

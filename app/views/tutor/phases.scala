@@ -3,7 +3,7 @@ package views.html.tutor
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.{ InsightPosition, Phase }
 import lila.tutor.TutorPerfReport
 

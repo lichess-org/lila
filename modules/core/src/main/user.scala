@@ -305,6 +305,7 @@ object user:
   trait FlairApi:
     given flairOf: FlairGet
     given flairsOf: FlairGetMap
+    val adminFlairs: Set[Flair]
     def formField(anyFlair: Boolean = false, asAdmin: Boolean = false): play.api.data.Mapping[Option[Flair]]
 
   /* User who is currently logged in */

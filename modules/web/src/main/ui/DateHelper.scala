@@ -1,5 +1,5 @@
-package lila.app
-package templating
+package lila.web
+package ui
 
 import play.api.i18n.Lang
 
@@ -7,12 +7,13 @@ import java.time.format.{ DateTimeFormatter, FormatStyle }
 import java.time.{ Duration, LocalDate }
 import java.util.concurrent.ConcurrentHashMap
 
-import lila.web.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
+import lila.web.ui.*
 
 trait DateHelper:
   self: I18nHelper & StringHelper & NumberHelper =>
 
-  export lila.mailer.PeriodLocales.showDuration
+  def translateDuration: lila.core.i18n.TranslateDuration
 
   private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
   private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]
@@ -57,7 +58,7 @@ trait DateHelper:
     timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant))(showDate(date))
 
   def showMinutes(minutes: Int)(using Translate): String =
-    showDuration(Duration.ofMinutes(minutes))
+    translateDuration(Duration.ofMinutes(minutes))
 
   def isoDateTime(instant: Instant): String = isoDateTimeFormatter.print(instant)
 

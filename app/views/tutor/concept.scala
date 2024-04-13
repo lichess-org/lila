@@ -1,6 +1,6 @@
 package views.html.tutor
 
-import lila.web.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.insight.{ InsightMetric, Phase }
 import lila.tutor.TutorNumber
 

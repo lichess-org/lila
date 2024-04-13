@@ -1,7 +1,7 @@
 package views.html.tv
 
 import lila.app.templating.Environment.*
-import lila.web.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 
 object embed:
 

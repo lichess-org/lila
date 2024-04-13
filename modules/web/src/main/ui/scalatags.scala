@@ -1,4 +1,5 @@
 package lila.web
+package ui
 
 import alleycats.Zero
 import chess.PlayerTitle

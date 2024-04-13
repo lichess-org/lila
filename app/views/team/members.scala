@@ -2,7 +2,7 @@ package views.html.team
 import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import scalalib.paginator.Paginator
 import lila.team.{ Team, TeamMember }
 

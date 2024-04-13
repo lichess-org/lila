@@ -1,17 +1,19 @@
-package lila.app
-package templating
+package lila.web
+package ui
 
 import play.api.data.*
 import play.api.i18n.Lang
 import scalatags.generic.TypedTag
 import scalatags.text.Builder
 
-import lila.web.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ Translate, I18nKey }
 import lila.common.Icon
 
 trait FormHelper:
   self: I18nHelper =>
+
+  def flairApi: lila.core.user.FlairApi
 
   def errMsg(form: Field)(using Translate): Seq[Tag] = errMsg(form.errors)
 
@@ -265,7 +267,7 @@ trait FormHelper:
           case d              => d
       )
 
-    private val exceptEmojis = data("except-emojis") := lila.user.FlairApi.adminFlairs.mkString(" ")
+    private val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")
     def flairPickerGroup(field: Field, current: Option[Flair], label: Frag)(view: Frag)(using Context): Tag =
       form3.group(field, trans.site.flair(), half = true): f =>
         flairPicker(f, current, label)(view)

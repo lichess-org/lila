@@ -1,9 +1,9 @@
-package lila.app
-package templating
+package lila.web
+package ui
 
 import play.api.i18n.Lang
 
-import lila.web.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.core.i18n.Translate
 
 trait StringHelper:

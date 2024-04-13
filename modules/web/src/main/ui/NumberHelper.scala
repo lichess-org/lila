@@ -1,5 +1,5 @@
-package lila.app
-package templating
+package lila.web
+package ui
 
 import play.api.i18n.Lang
 

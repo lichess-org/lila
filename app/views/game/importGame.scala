@@ -5,7 +5,7 @@ import chess.format.pgn.PgnStr
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object importGame:
 
