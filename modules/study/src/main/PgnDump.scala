@@ -5,7 +5,7 @@ import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comme
 import chess.format.{ pgn as chessPgn }
 
 import lila.common.String.slugify
-import lila.tree.{ Analysis, Root, NewBranch, NewTree, NewRoot }
+import lila.tree.{ Analysis, Root, Metas, NewBranch, NewTree, NewRoot }
 import lila.tree.Node.{ Shape, Shapes }
 
 final class PgnDump(
@@ -113,9 +113,7 @@ object PgnDump:
     rootToPgn(NewRoot(root), tags)
 
   def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
-    val comments = InitialComments:
-      root.comments.value.map(_.text.into(Comment)) ::: shapeComment(root.shapes).toList
-    rootToPgn(root, tags, comments)
+    rootToPgn(root, tags, InitialComments(root.metas.commentWithShapes))
 
   def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using flags: WithFlags): Pgn =
     Pgn(tags, comments, root.tree.map(treeToTree))
@@ -128,13 +126,15 @@ object PgnDump:
       node.ply,
       san = node.move.san,
       glyphs = if flags.comments then node.metas.glyphs else Glyphs.empty,
-      comments = flags.comments.so:
-        node.comments.value.map(_.text.into(Comment)) ::: shapeComment(node.shapes).toList
-      ,
+      comments = flags.comments.so(node.metas.commentWithShapes),
       opening = none,
       result = none,
       secondsLeft = flags.clocks.so(node.clock.map(_.roundSeconds))
     )
+
+  extension (metas: Metas)
+    def commentWithShapes: List[Comment] =
+      metas.comments.value.map(_.text.into(Comment)) ::: shapeComment(metas.shapes).toList
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
   private def shapeComment(shapes: Shapes): Option[Comment] =
