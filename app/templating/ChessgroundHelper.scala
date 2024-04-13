@@ -3,7 +3,7 @@ package templating
 
 import chess.{ Board, Color, Square }
 
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ScalatagsTemplate.*
 import lila.game.Pov
 
 trait ChessgroundHelper:

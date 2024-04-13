@@ -3,7 +3,7 @@ package templating
 
 import play.api.i18n.Lang
 
-import ui.ScalatagsTemplate.*
+import lila.web.ScalatagsTemplate.*
 import lila.core.i18n.Translate
 
 trait StringHelper:

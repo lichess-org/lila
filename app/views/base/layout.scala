@@ -7,7 +7,7 @@ import play.api.i18n.Lang
 
 import lila.app.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
@@ -39,7 +39,7 @@ object layout:
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get().so("external.")}css"),
+        href := assetUrl(s"piece-css/$ps.${env.web.settings.pieceImageExternal.get().so("external.")}css"),
         rel  := "stylesheet"
       )
   import bits.*
@@ -74,7 +74,7 @@ object layout:
     )
   )
   private def piecesPreload(using ctx: PageContext) =
-    env.pieceImageExternal
+    env.web.settings.pieceImageExternal
       .get()
       .option(raw:
         (for
@@ -248,7 +248,7 @@ object layout:
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
-      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      openGraph: Option[lila.web.OpenGraph] = None,
       zoomable: Boolean = false,
       zenable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,

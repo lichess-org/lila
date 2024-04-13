@@ -4,7 +4,7 @@ package templating
 import chess.PlayerTitle
 import controllers.routes
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ScalatagsTemplate.{ *, given }
 import lila.common.Icon
 import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }

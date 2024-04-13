@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import scalatags.generic.TypedTag
 import scalatags.text.Builder
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ Translate, I18nKey }
 import lila.common.Icon
 

@@ -1,7 +1,7 @@
 package lila.app
 package templating
 
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ScalatagsTemplate.*
 
 trait FlashHelper:
   self: I18nHelper =>

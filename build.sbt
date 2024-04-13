@@ -475,7 +475,7 @@ lazy val tree = module("tree",
 )
 
 lazy val web = module("web",
-  Seq(memo),
+  Seq(coreI18n, memo),
   reactivemongo.bundle ++ playWs.bundle ++ tests.bundle ++ Seq(play.logback, play.server, play.netty)
 )
 

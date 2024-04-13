@@ -5,7 +5,7 @@ import controllers.routes
 import controllers.team.routes.Team as teamRoutes
 import scalatags.Text.all.Tag
 
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ScalatagsTemplate.{ *, given }
 import lila.core.team.LightTeam
 import lila.team.Team
 

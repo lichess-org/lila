@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.rating.PerfType
 import lila.tournament.{ Schedule, Tournament }

@@ -1,5 +1,4 @@
-package lila.app
-package ui
+package lila.web
 
 import alleycats.Zero
 import chess.PlayerTitle
@@ -163,11 +162,5 @@ trait ScalatagsExtensions:
     val value = Builder.GenericAttrValueSource(v)
     t.setAttr("title", value)
     t.setAttr("aria-label", value)
-
-  def titleOrText(blind: Boolean, v: String): Modifier = (t: Builder) =>
-    if blind then t.addChild(StringFrag(v))
-    else t.setAttr("title", Builder.GenericAttrValueSource(v))
-
-  def titleOrText(v: String)(using ctx: Context): Modifier = titleOrText(ctx.blind, v)
 
 object ScalatagsExtensions extends ScalatagsExtensions

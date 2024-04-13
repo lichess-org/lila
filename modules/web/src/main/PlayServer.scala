@@ -27,7 +27,14 @@ object PlayServer:
       // Configure logback early - before play invokes Logger
       LoggerConfigurator.configure()
 
-      val config: ServerConfig     = readServerConfigSettings(process)
+      val config: ServerConfig = readServerConfigSettings(process)
+
+      lila.log("boot").info {
+        val java = System.getProperty("java.version")
+        val mem  = Runtime.getRuntime.maxMemory() / 1024 / 1024
+        s"lila ${config.mode} / java $java, memory: ${mem}MB"
+      }
+
       val environment: Environment = Environment(config.rootDir, process.classLoader, config.mode)
 
       val application = makeApplication(environment)
@@ -62,7 +69,7 @@ object PlayServer:
       case ServerStartException(message, cause) => process.exit(message, cause)
       case e: Throwable                         => process.exit("Oops, cannot start the server.", Some(e))
 
-  def readServerConfigSettings(process: ServerProcess): ServerConfig =
+  private def readServerConfigSettings(process: ServerProcess): ServerConfig =
     val configuration: Configuration =
       val rootDirArg    = process.args.headOption.map(new File(_))
       val rootDirConfig = rootDirArg.so(ServerConfig.rootDirConfig(_))

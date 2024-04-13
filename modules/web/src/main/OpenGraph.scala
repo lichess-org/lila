@@ -1,7 +1,7 @@
-package lila.app
-package ui
+package lila.web
 
-import lila.app.ui.ScalatagsTemplate.*
+import scalatags.text.Frag
+import scalatags.Text.all.*
 
 case class OpenGraph(
     title: String,
@@ -12,7 +12,7 @@ case class OpenGraph(
     twitterImage: Option[String] = None,
     siteName: String = "lichess.org",
     more: List[(String, String)] = Nil
-):
+) extends scalatags.Text.Aggregate:
 
   def frags: List[Frag] = og.frags ::: twitter.frags
 
@@ -41,9 +41,9 @@ case class OpenGraph(
 
   object twitter:
 
-    private def tag(name: String, value: String) =
+    private def tag(n: String, value: String) =
       meta(
-        st.name := s"twitter:$name",
+        name    := s"twitter:$n",
         content := value
       )
 
