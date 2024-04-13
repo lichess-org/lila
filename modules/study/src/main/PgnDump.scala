@@ -106,18 +106,19 @@ object PgnDump:
   )
   val fullFlags = WithFlags(true, true, true, true, true)
 
+  def rootToPgn(root: Root, tags: Tags, comments: InitialComments)(using flags: WithFlags): Pgn =
+    rootToPgn(NewRoot(root), tags, comments)
+
   def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
     rootToPgn(NewRoot(root), tags)
 
-  def rootToTree(root: Root)(using WithFlags): Option[PgnTree] =
-    NewTree(root).map(treeToTree)
-
   def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
-    Pgn(
-      tags,
-      InitialComments(root.comments.value.map(_.text.into(Comment)) ::: shapeComment(root.shapes).toList),
-      root.tree.map(treeToTree)
-    )
+    val comments = InitialComments:
+      root.comments.value.map(_.text.into(Comment)) ::: shapeComment(root.shapes).toList
+    rootToPgn(root, tags, comments)
+
+  def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using flags: WithFlags): Pgn =
+    Pgn(tags, comments, root.tree.map(treeToTree))
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
     if flags.variations then tree.map(branchToMove) else tree.mapMainline(branchToMove)
