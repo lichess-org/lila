@@ -1,6 +1,6 @@
 package lila.activity
 
-import lila.game.LightPov
+import lila.core.game.LightPov
 import lila.core.simul.Simul
 import lila.core.swiss.{ IdName as SwissIdName }
 import lila.core.ublog.UblogPost

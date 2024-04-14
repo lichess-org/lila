@@ -5,7 +5,6 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.common.{ LilaOpeningFamily, LilaStream, SimpleOpening }
 import lila.db.dsl.{ *, given }
-import lila.game.GameRepo
 import lila.core.i18n.I18nKey
 import lila.memo.{ CacheApi, MongoCache }
 
@@ -53,7 +52,7 @@ case class PuzzleOpeningCollection(
 
 final class PuzzleOpeningApi(
     colls: PuzzleColls,
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
 )(using Executor, akka.stream.Materializer):

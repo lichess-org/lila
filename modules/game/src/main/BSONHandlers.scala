@@ -26,6 +26,7 @@ import lila.db.dsl.{ *, given }
 import lila.core.game.{
   Game,
   GameRule,
+  LightGame,
   Source,
   GameDrawOffers,
   GameMetadata,

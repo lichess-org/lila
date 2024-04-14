@@ -30,7 +30,7 @@ object Score:
       draw = res.isEmpty.so(1),
       rp = rp
     )
-  def make(povs: List[lila.game.LightPov]): Score =
+  def make(povs: List[lila.core.game.LightPov]): Score =
     povs.foldLeft(summon[Zero[Score]].zero) {
       case (score, pov) if pov.game.finished =>
         score.plus(

@@ -134,7 +134,7 @@ final class Env(
           lightUserApi
             .preloadMany(game.userIds)
             .andDo:
-              val sg = lila.game.actorApi.StartGame(game)
+              val sg = lila.core.game.StartGame(game)
               Bus.publish(sg, "startGame")
               game.userIds.foreach: userId =>
                 Bus.publish(sg, s"userStartGame:$userId")

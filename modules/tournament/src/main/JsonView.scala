@@ -8,7 +8,6 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.Uptime
 import lila.core.LightUser
-import lila.game.LightPov
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
@@ -20,6 +19,7 @@ import lila.common.Json.lightUser.writeNoId
 import lila.rating.PerfType
 import lila.core.chess.Rank
 import lila.core.user.LightUserApi
+import lila.core.game.LightPov
 
 final class JsonView(
     lightUserApi: LightUserApi,

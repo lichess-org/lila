@@ -9,20 +9,12 @@ import play.api.mvc.RequestHeader
 
 import lila.chat.{ Chat, UserLine }
 import lila.common.{ Bus, HTTPRequest }
-import lila.game.actorApi.{
-  AbortedBy,
-  BoardDrawOffer,
-  BoardGone,
-  BoardTakeback,
-  BoardTakebackOffer,
-  FinishGame,
-  MoveGameEvent
-}
+import lila.game.actorApi.{ BoardDrawOffer, BoardGone, BoardTakeback, BoardTakebackOffer, MoveGameEvent }
 
 import lila.core.misc.map.Tell
 import lila.core.round.BotConnected
 import lila.core.round.QuietFlag
-import lila.core.game.WithInitialFen
+import lila.core.game.{ WithInitialFen, FinishGame, AbortedBy }
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,

@@ -313,12 +313,10 @@ object Game:
   def metadata(source: Source) = emptyMetadata.copy(source = source.some)
 
   object BSONFields:
-
-    val id                = "_id"
+    export lila.core.game.BSONFields.*
     val whitePlayer       = "p0"
     val blackPlayer       = "p1"
     val playerIds         = "is"
-    val playerUids        = "us"
     val playingUids       = "pl"
     val binaryPieces      = "ps"
     val oldPgn            = "pg"
@@ -340,8 +338,6 @@ object Game:
     val variant           = "v"
     val crazyData         = "chd"
     val bookmarks         = "bm"
-    val createdAt         = "ca"
-    val movedAt           = "ua" // ua = updatedAt (bc)
     val source            = "so"
     val pgnImport         = "pgni"
     val tournamentId      = "tid"
@@ -349,10 +345,8 @@ object Game:
     val simulId           = "sid"
     val tvAt              = "tv"
     val winnerColor       = "w"
-    val winnerId          = "wid"
     val initialFen        = "if"
     val checkAt           = "ck"
-    val perfType          = "pt" // only set on student games for aggregation
     val drawOffers        = "do"
     val rules             = "rules"
 

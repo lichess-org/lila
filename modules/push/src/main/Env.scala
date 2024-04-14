@@ -56,7 +56,7 @@ final class Env(
     "tourSoon",
     "notifyPush"
   ):
-    case lila.game.actorApi.FinishGame(game, _) =>
+    case lila.core.game.FinishGame(game, _) =>
       logUnit { pushApi.finish(game) }
     case lila.core.round.CorresMoveEvent(move, _, pushable, _, _) if pushable =>
       logUnit { pushApi.move(move) }

@@ -45,7 +45,7 @@ case class VisibleTournaments(
 case class PlayerInfoExt(
     userId: UserId,
     player: Player,
-    recentPovs: List[lila.game.LightPov]
+    recentPovs: List[lila.core.game.LightPov]
 )
 
 case class FullRanking(ranking: Map[UserId, Rank], playerIndex: Array[TourPlayerId])

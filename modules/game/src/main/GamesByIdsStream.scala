@@ -18,8 +18,8 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
         var watchedIds = initialIds
         val chans      = List("startGame", "finishGame", streamChan(streamId))
         val sub = Bus.subscribeFun(chans*) {
-          case actorApi.StartGame(game) if watchedIds(game.id) => queue.offer(game)
-          case actorApi.FinishGame(game, _) if watchedIds(game.id) =>
+          case lila.core.game.StartGame(game) if watchedIds(game.id) => queue.offer(game)
+          case lila.core.game.FinishGame(game, _) if watchedIds(game.id) =>
             queue.offer(game)
             watchedIds = watchedIds - game.id
           case WatchGames(ids) =>

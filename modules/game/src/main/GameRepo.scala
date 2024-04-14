@@ -5,7 +5,7 @@ import chess.format.pgn.{ PgnStr, SanStr }
 import chess.{ Color, Status }
 import scalalib.ThreadLocalRandom
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
-import reactivemongo.api.bson.BSONNull
+import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
 
@@ -37,26 +37,23 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
     coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.priTemp)(_.id)
 
-  object light:
+  val light: lila.core.game.GameLightRepo = new:
 
-    def game(gameId: GameId): Fu[Option[LightGame]] = coll.byId[LightGame](gameId.value, LightGame.projection)
+    import lila.game.LightGame.projection
+
+    def game(gameId: GameId): Fu[Option[LightGame]] =
+      coll.byId[LightGame](gameId.value, projection)
 
     def pov(gameId: GameId, color: Color): Fu[Option[LightPov]] =
-      game(gameId).dmap2 { (game: LightGame) =>
-        LightPov(game, game.player(color))
-      }
+      game(gameId).dmap2 { LightPov(_, color) }
 
     def pov(ref: PovRef): Fu[Option[LightPov]] = pov(ref.gameId, ref.color)
 
     def gamesFromPrimary(gameIds: Seq[GameId]): Fu[List[LightGame]] =
-      coll.byOrderedIds[LightGame, GameId](gameIds, projection = LightGame.projection.some)(_.id)
+      coll.byOrderedIds[LightGame, GameId](gameIds, projection = projection.some)(_.id)
 
     def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[LightGame]] =
-      coll.byOrderedIds[LightGame, GameId](
-        gameIds,
-        projection = LightGame.projection.some,
-        _.sec
-      )(_.id)
+      coll.byOrderedIds[LightGame, GameId](gameIds, projection = projection.some, _.sec)(_.id)
 
   def finished(gameId: GameId): Fu[Option[Game]] =
     coll.one[Game]($id(gameId) ++ Query.finished)
@@ -569,7 +566,3 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .sort(Query.sortCreated)
       .cursor[Game](ReadPref.sec)
       .list(nb)
-
-  // only for student games, for aggregation
-  def denormalizePerfType(game: Game): Unit =
-    coll.updateFieldUnchecked($id(game.id), F.perfType, game.perfType.id)

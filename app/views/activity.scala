@@ -172,7 +172,7 @@ object activity:
       )
     )
 
-  private def renderCorresMoves(nb: Int, povs: List[lila.game.LightPov])(using Context) =
+  private def renderCorresMoves(nb: Int, povs: List[lila.core.game.LightPov])(using Context) =
     entryTag(
       iconTag(Icon.PaperAirplane),
       div(
@@ -197,7 +197,7 @@ object activity:
       )
     )
 
-  private def renderCorresEnds(score: Score, povs: List[lila.game.LightPov])(using Context) =
+  private def renderCorresEnds(score: Score, povs: List[lila.core.game.LightPov])(using Context) =
     entryTag(
       iconTag(Icon.PaperAirplane),
       div(

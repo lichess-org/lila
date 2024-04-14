@@ -3,7 +3,7 @@ package lila.round
 import chess.{ Color, ByColor, DecayingStats, Status }
 
 import lila.common.{ Bus, Uptime }
-import lila.game.actorApi.{ AbortedBy, FinishGame }
+import lila.core.game.{ AbortedBy, FinishGame }
 import lila.game.{ GameRepo, RatingDiffs }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.playban.PlaybanApi

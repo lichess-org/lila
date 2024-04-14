@@ -3,7 +3,7 @@ package lila.analyse
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.game.actorApi.InsertGame
+import lila.core.game.InsertGame
 import lila.game.GameRepo
 import lila.core.misc.map.TellIfExists
 import lila.tree.{ Analysis, ExportOptions, Tree }

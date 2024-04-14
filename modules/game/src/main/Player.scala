@@ -4,7 +4,7 @@ import cats.derived.*
 import chess.{ ByColor, Color, Elo, PlayerName, Ply }
 
 import lila.core.user.WithPerf
-import lila.core.game.{ Player, Blurs }
+import lila.core.game.{ LightGame, Player, Blurs }
 import lila.game.Blurs.{ nonEmpty, given }
 
 object Player:

@@ -10,13 +10,14 @@ import scala.util.chaining.*
 
 import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
-import lila.game.{ GameRepo, LightPov }
+import lila.game.{ GameRepo }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam
 import lila.core.round.{ AbortForce, GoBerserk }
 import lila.tournament.TeamBattle.TeamInfo
 import lila.core.tournament.Status
+import lila.core.game.LightPov
 
 final class TournamentApi(
     cached: TournamentCache,

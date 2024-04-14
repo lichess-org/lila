@@ -26,15 +26,3 @@ object Pov:
     else if !a.hasMoved && b.hasMoved then true
     else if !b.hasMoved && a.hasMoved then false
     else orInf(a.remainingSeconds) < orInf(b.remainingSeconds)
-
-case class LightPov(game: LightGame, color: Color):
-  export game.{ id as gameId }
-  def player   = game.player(color)
-  def opponent = game.player(!color)
-
-object LightPov:
-
-  def apply(game: LightGame, player: LightPlayer): LightPov = LightPov(game, player.color)
-
-  def apply(game: LightGame, userId: UserId): Option[LightPov] =
-    game.playerByUserId(userId).map { apply(game, _) }

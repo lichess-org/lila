@@ -7,8 +7,7 @@ import lila.common.Bus
 import lila.common.Json.given
 import lila.db.dsl.given
 
-import actorApi.{ FinishGame, StartGame }
-import lila.core.game.{ Game, WithInitialFen }
+import lila.core.game.{ Game, WithInitialFen, FinishGame, StartGame }
 
 final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 
