@@ -215,8 +215,6 @@ end GameExt
 
 object Game:
 
-  case class OnStart(id: GameId)
-
   val syntheticId = GameId("synthetic")
 
   val maxPlaying = 200 // including correspondence

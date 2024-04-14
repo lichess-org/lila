@@ -26,6 +26,7 @@ case class RichPov(
 
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: lila.analyse.AnalysisRepo
 )(using Executor):
 
@@ -33,7 +34,7 @@ final private class PovToEntry(
     enrich(game, userId, provisional).map(_.flatMap(convert).toRight(game))
 
   private def removeWrongAnalysis(game: Game): Boolean =
-    if game.metadata.analysed && !game.analysable then
+    if game.metadata.analysed && !gameApi.analysable(game) then
       gameRepo.setUnanalysed(game.id)
       analysisRepo.remove(game.id.value)
       true

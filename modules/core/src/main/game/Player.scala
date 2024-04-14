@@ -7,6 +7,7 @@ import lila.core.userId.{ UserId, UserIdOf }
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import cats.kernel.Eq
 import lila.core.user.WithPerf
+import lila.core.perf.Perf
 
 case class Player(
     id: GamePlayerId,
@@ -79,3 +80,4 @@ object Player:
 trait NewPlayer:
   def apply(color: Color, user: Option[WithPerf]): Player
   def apply(color: Color, userId: UserId, rating: IntRating, provisional: RatingProvisional): Player
+  def apply(color: Color, userPerf: (UserId, Perf)): Player

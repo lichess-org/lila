@@ -30,6 +30,7 @@ final class Env(
     requesterApi: lila.analyse.RequesterApi,
     getSinglePvEval: lila.tree.CloudEval.GetSinglePvEval,
     gameRepo: lila.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     userApi: lila.core.user.UserApi,
     db: lila.db.Db,

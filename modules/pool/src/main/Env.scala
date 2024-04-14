@@ -2,21 +2,19 @@ package lila.pool
 
 import com.softwaremill.macwire.*
 
-import lila.common.Bus
-import lila.game.Game
-
 @Module
 final class Env(
     userApi: lila.core.user.UserApi,
-    gameRepo: lila.game.GameRepo,
-    idGenerator: lila.game.IdGenerator,
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
+    idGenerator: lila.core.game.IdGenerator,
     HasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     rageSitOf: lila.core.playban.RageSitOf
 )(using Executor, akka.actor.ActorSystem, Scheduler):
 
   private val hookThieve = wire[HookThieve]
 
-  val onStart = (gameId: GameId) => Bus.publish(Game.OnStart(gameId), "gameStartId")
+  val onStart = (gameId: GameId) => lila.common.Bus.publish(lila.core.game.GameStart(gameId), "gameStartId")
 
   private val gameStarter = wire[GameStarter]
 

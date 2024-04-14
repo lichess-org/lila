@@ -32,6 +32,8 @@ object GameRule:
 opaque type OnStart = GameId => Unit
 object OnStart extends FunctionWrapper[OnStart, GameId => Unit]
 
+case class GameStart(id: GameId)
+
 case class TvSelect(gameId: GameId, speed: Speed, channel: String, data: JsObject)
 case class ChangeFeatured(mgs: JsObject)
 

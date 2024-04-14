@@ -250,7 +250,7 @@ lazy val round = module("round",
 )
 
 lazy val pool = module("pool",
-  Seq(game),
+  Seq(coreI18n, db, rating),
   reactivemongo.bundle
 )
 

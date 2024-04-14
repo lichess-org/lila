@@ -100,9 +100,10 @@ object games:
             tbody(
               games.fold(_.map(_ -> None), _.map { case (pov, ass) => pov -> Some(ass) }).map {
                 case (pov, assessment) =>
+                  val analysable = lila.game.GameExt.analysable(pov.game)
                   tr(
-                    td(cls := pov.game.analysable.option("input"))(
-                      pov.game.analysable.option(
+                    td(cls := analysable.option("input"))(
+                      analysable.option(
                         input(
                           tpe      := "checkbox",
                           name     := s"game[]",

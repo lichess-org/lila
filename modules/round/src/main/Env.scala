@@ -115,7 +115,7 @@ final class Env(
     "accountClose" -> { case lila.core.security.CloseAccount(userId) =>
       resignAllGamesOf(userId)
     },
-    "gameStartId" -> { case Game.OnStart(gameId) =>
+    "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
       onStart(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>

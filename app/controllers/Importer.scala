@@ -52,7 +52,7 @@ final class Importer(env: Env) extends LilaController(env):
                 case Right(game) =>
                   negotiate(
                     html = ctx.me
-                      .filter(_ => data.analyse.isDefined && game.analysable)
+                      .filter(_ => data.analyse.isDefined && lila.game.GameExt.analysable(game))
                       .soUse { me ?=>
                         env.fishnet
                           .analyser(
