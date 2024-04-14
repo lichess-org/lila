@@ -177,7 +177,7 @@ object tour:
       a(href := routes.RelayTour.subscribed(), cls := menu.activeO("subscribed"))(
         trans.broadcast.subscribedBroadcasts()
       ),
-      isGranted(_.Relay).option(
+      isGranted(_.StudyAdmin).option(
         a(href := routes.RelayTour.privateRelay(), cls := menu.activeO("privateRelay"))(
           "Private Broadcasts"
         )

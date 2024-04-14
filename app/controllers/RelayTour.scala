@@ -52,7 +52,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
             html.relay.tour.subscribed(pager)
   }
 
-  def privateRelay(page: Int) = Secure(_.Relay) { _ ?=> _ ?=>
+  def privateRelay(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
     Reasonable(page, Max(20)):
       env.relay.pager
         .isPrivate(page)
