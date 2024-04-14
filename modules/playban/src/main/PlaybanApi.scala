@@ -9,11 +9,11 @@ import lila.db.dsl.{ *, given }
 import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.core.game.Source
 import lila.core.playban.RageSit as RageSitCounter
-import lila.game.GameExt.computeMoveTimes
 
 final class PlaybanApi(
     coll: Coll,
     feedback: PlaybanFeedback,
+    gameApi: lila.core.game.GameApi,
     userApi: lila.core.user.UserApi,
     noteApi: lila.core.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
@@ -91,7 +91,7 @@ final class PlaybanApi(
         .userId
         .ifTrue {
           ~(for
-            movetimes    <- game.computeMoveTimes(flaggerColor)
+            movetimes    <- gameApi.computeMoveTimes(game, flaggerColor)
             lastMovetime <- movetimes.lastOption
             limit        <- unreasonableTime
           yield lastMovetime.toSeconds >= limit)

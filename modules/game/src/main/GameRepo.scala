@@ -2,7 +2,7 @@ package lila.game
 
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
-import chess.{ Color, Status }
+import chess.{ Color, ByColor, Status }
 import scalalib.ThreadLocalRandom
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
@@ -193,7 +193,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if doc.isEmpty then $empty else $doc(mod -> doc)
 
-  def setRatingDiffs(id: GameId, diffs: RatingDiffs) =
+  def setRatingDiffs(id: GameId, diffs: ByColor[IntRatingDiff]) =
     coll.update.one(
       $id(id),
       $set(
@@ -277,7 +277,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def isAnalysed(game: Game): Fu[Boolean] = game.analysable.so:
     coll.exists($id(game.id) ++ Query.analysed(true))
 
-  def analysed(id: GameId) = coll.one[Game]($id(id) ++ Query.analysed(true))
+  def analysed(id: GameId): Fu[Option[Game]] = coll.one[Game]($id(id) ++ Query.analysed(true))
 
   def exists(id: GameId) = coll.exists($id(id))
 
@@ -396,7 +396,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit =
     val g2 =
       if g.rated && (g.userIds.distinct.size != 2 ||
-          !lila.game.Game.allowRated(g.variant, g.clock.map(_.config)))
+          !lila.core.game.allowRated(g.variant, g.clock.map(_.config)))
       then g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
@@ -555,7 +555,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
         (doc.int(F.source).flatMap(Source.apply), ~doc.getAsOpt[List[UserId]](F.playerUids))
     }
 
-  def recentAnalysableGamesByUserId(userId: UserId, nb: Int) =
+  def recentAnalysableGamesByUserId(userId: UserId, nb: Int): Fu[List[Game]] =
     coll
       .find(
         Query.finished

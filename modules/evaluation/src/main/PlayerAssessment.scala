@@ -65,7 +65,7 @@ object PlayerAssessment:
     import lila.game.GameExt.*
 
     Basics(
-      moveTimes = intAvgSd(game.computeMoveTimes(color).orZero.map(_.roundTenths)),
+      moveTimes = intAvgSd(lila.game.GameExt.computeMoveTimes(game, color).orZero.map(_.roundTenths)),
       blurs = game.playerBlurPercent(color),
       hold = holdAlerts.exists(_.suspicious),
       blurStreak = highestChunkBlursOf(pov).some.filter(0 <),

@@ -1,9 +1,8 @@
 package lila.report
 
-import lila.game.{ GameRepo }
-import lila.game.GameExt.analysable
+import lila.core.game.{ GameRepo, GameApi }
 
-final class AutoAnalysis(gameRepo: GameRepo)(using ec: Executor, scheduler: Scheduler):
+final class AutoAnalysis(gameRepo: GameRepo, gameApi: GameApi)(using ec: Executor, scheduler: Scheduler):
 
   def apply(candidate: Report.Candidate): Funit =
     if candidate.isCheat then doItNow(candidate)
@@ -35,7 +34,7 @@ final class AutoAnalysis(gameRepo: GameRepo)(using ec: Executor, scheduler: Sche
           .dmap { as ++ _ }
       .map:
         _.filter: g =>
-          g.analysable && !g.metadata.analysed
+          gameApi.analysable(g) && !g.metadata.analysed
         .distinct
           .sortBy(-_.createdAt.toSeconds)
           .take(10)

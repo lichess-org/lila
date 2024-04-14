@@ -29,12 +29,48 @@ import lila.rating.PerfType
 import lila.game.Blurs.addAtMoveIndex
 
 object GameExt:
-  extension (g: Game)
 
-    def analysable =
-      g.replayable && g.playedTurns > 4 &&
-        Game.analysableVariants(g.variant) &&
-        !Game.isOldHorde(g)
+  def computeMoveTimes(g: Game, color: Color): Option[List[Centis]] = {
+    for
+      clk <- g.clock
+      inc = clk.incrementOf(color)
+      history <- g.clockHistory
+      clocks = history(color)
+    yield Centis(0) :: {
+      val pairs = clocks.iterator.zip(clocks.iterator.drop(1))
+
+      // We need to determine if this color's last clock had inc applied.
+      // if finished and history.size == playedTurns then game was ended
+      // by a players move, such as with mate or autodraw. In this case,
+      // the last move of the game, and the only one without inc, is the
+      // last entry of the clock history for !turnColor.
+      //
+      // On the other hand, if history.size is more than playedTurns,
+      // then the game ended during a players turn by async event, and
+      // the last recorded time is in the history for turnColor.
+      val noLastInc = g.finished && (g.playedTurns >= history.size) == (color != g.turnColor)
+
+      pairs
+        .map: (first, second) =>
+          {
+            val d = first - second
+            if pairs.hasNext || !noLastInc then d + inc else d
+          }.nonNeg
+        .toList
+    }
+  }.orElse(g.binaryMoveTimes.map: binary =>
+    // TODO: make movetime.read return List after writes are disabled.
+    val base = BinaryFormat.moveTime.read(binary, g.playedTurns)
+    val mts  = if color == g.startColor then base else base.drop(1)
+    everyOther(mts.toList)
+  )
+
+  def analysable(g: Game) =
+    g.replayable && g.playedTurns > 4 &&
+      Game.analysableVariants(g.variant) &&
+      !Game.isOldHorde(g)
+
+  extension (g: Game)
 
     def withClock(c: Clock) = Progress(g, g.copy(chess = g.chess.copy(clock = Some(c))))
 
@@ -68,49 +104,9 @@ object GameExt:
     def setBlindfold(color: Color, blindfold: Boolean): Progress =
       Progress(g, g.updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
 
-    def computeMoveTimes(color: Color): Option[List[Centis]] = {
-      for
-        clk <- g.clock
-        inc = clk.incrementOf(color)
-        history <- g.clockHistory
-        clocks = history(color)
-      yield Centis(0) :: {
-        val pairs = clocks.iterator.zip(clocks.iterator.drop(1))
-
-        // We need to determine if this color's last clock had inc applied.
-        // if finished and history.size == playedTurns then game was ended
-        // by a players move, such as with mate or autodraw. In this case,
-        // the last move of the game, and the only one without inc, is the
-        // last entry of the clock history for !turnColor.
-        //
-        // On the other hand, if history.size is more than playedTurns,
-        // then the game ended during a players turn by async event, and
-        // the last recorded time is in the history for turnColor.
-        val noLastInc = g.finished && (g.playedTurns >= history.size) == (color != g.turnColor)
-
-        pairs
-          .map: (first, second) =>
-            {
-              val d = first - second
-              if pairs.hasNext || !noLastInc then d + inc else d
-            }.nonNeg
-          .toList
-      }
-    }.orElse(g.binaryMoveTimes.map: binary =>
-      // TODO: make movetime.read return List after writes are disabled.
-      val base = BinaryFormat.moveTime.read(binary, g.playedTurns)
-      val mts  = if color == g.startColor then base else base.drop(1)
-      everyOther(mts.toList)
-    )
-
-    private def everyOther[A](l: List[A]): List[A] =
-      l match
-        case a :: _ :: tail => a :: everyOther(tail)
-        case _              => l
-
     def moveTimes: Option[Vector[Centis]] = for
-      a <- g.computeMoveTimes(g.startColor)
-      b <- g.computeMoveTimes(!g.startColor)
+      a <- GameExt.computeMoveTimes(g, g.startColor)
+      b <- GameExt.computeMoveTimes(g, !g.startColor)
     yield lila.core.game.interleave(a, b)
 
     // apply a move
@@ -208,6 +204,13 @@ object GameExt:
 
     def perfType: PerfType = PerfType(g.perfKey)
 
+  end extension
+
+  private def everyOther[A](l: List[A]): List[A] =
+    l match
+      case a :: _ :: tail => a :: everyOther(tail)
+      case _              => l
+
 end GameExt
 
 object Game:
@@ -261,11 +264,6 @@ object Game:
     game.variant == chess.variant.Horde &&
       game.createdAt.isBefore(Game.hordeWhitePawnsSince)
 
-  def allowRated(variant: Variant, clock: Option[Clock.Config]) =
-    variant.standard || clock.exists: c =>
-      c.estimateTotalTime >= Centis(3000) &&
-        c.limitSeconds > 0 || c.incrementSeconds > 1
-
   val abandonedDays = Days(21)
   def abandonedDate = nowInstant.minusDays(abandonedDays.value)
 
@@ -296,7 +294,6 @@ object Game:
     val oldPgn            = "pg"
     val huffmanPgn        = "hp"
     val status            = "s"
-    val turns             = "t"
     val startedAtTurn     = "st"
     val clock             = "c"
     val positionHashes    = "ph"

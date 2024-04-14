@@ -9,7 +9,7 @@ final private[tournament] class PairingSystem(
     colorHistoryApi: ColorHistoryApi
 )(using
     ec: Executor,
-    idGenerator: lila.game.IdGenerator
+    idGenerator: lila.core.game.IdGenerator
 ):
 
   import PairingSystem.*

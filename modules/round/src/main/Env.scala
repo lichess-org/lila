@@ -207,9 +207,9 @@ final class Env(
   // core APIs
   val gameProxy: lila.core.game.GameProxy = new:
     export proxyRepo.{ game, updateIfPresent, flushIfPresent, upgradeIfPresent }
-  val roundJson: lila.game.core.RoundJson = new:
+  val roundJson: lila.core.round.RoundJson = new:
     export mobile.offline as mobileOffline
-  val roundApi: lila.game.core.RoundApi = new:
+  val roundApi: lila.core.round.RoundApi = new:
     export roundSocket.rounds.{ tell, ask }
     export roundSocket.getGames
   val onTvGame: lila.game.core.OnTvGame = recentTvGames.put

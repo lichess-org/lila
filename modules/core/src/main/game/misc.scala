@@ -5,7 +5,7 @@ import cats.derived.*
 import play.api.libs.json.*
 import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
 import reactivemongo.api.bson.collection.BSONCollection
-import _root_.chess.{ Color, ByColor, Status, Speed, Ply }
+import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis }
 import _root_.chess.format.Fen
 import _root_.chess.format.pgn.Pgn
 
@@ -13,6 +13,7 @@ import lila.core.id.{ GameId, GameFullId, GamePlayerId, TeamId }
 import lila.core.userId.UserId
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.perf.UserWithPerfs
+import lila.core.user.User
 
 val maxPlayingRealtime = Max(100)
 
@@ -83,6 +84,8 @@ trait Event:
 trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
   def incBookmarks(id: GameId, by: Int): Funit
+  def computeMoveTimes(g: Game, color: Color): Option[List[Centis]]
+  def analysable(g: Game): Boolean
 
 abstract class GameRepo(val coll: BSONCollection):
   given gameHandler: BSONDocumentHandler[Game]
@@ -98,6 +101,9 @@ abstract class GameRepo(val coll: BSONCollection):
   def withInitialFen(game: Game): Fu[WithInitialFen]
   def isAnalysed(game: Game): Fu[Boolean]
   def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit
+  def recentAnalysableGamesByUserId(userId: UserId, nb: Int): Fu[List[Game]]
+  def lastGamesBetween(u1: User, u2: User, since: Instant, nb: Int): Fu[List[Game]]
+  def analysed(id: GameId): Fu[Option[Game]]
 
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit
@@ -137,6 +143,7 @@ object BSONFields:
   val winnerId   = "wid"
   val createdAt  = "ca"
   val movedAt    = "ua" // ua = updatedAt (bc)
+  val turns      = "t"
 
 def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
   val iterA   = a.iterator

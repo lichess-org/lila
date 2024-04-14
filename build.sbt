@@ -210,7 +210,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, report, user, chat, security),
+  Seq(evaluation, report, chat, security),
   reactivemongo.bundle
 )
 
@@ -295,12 +295,12 @@ lazy val gathering = module("gathering",
 )
 
 lazy val tournament = module("tournament",
-  Seq(gathering, game, room),
+  Seq(gathering, room, memo),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle
 )
 
 lazy val swiss = module("swiss",
-  Seq(gathering, game, room),
+  Seq(gathering, room, memo),
   Seq(scalatags, lettuce) ++ reactivemongo.bundle ++ tests.bundle
 )
 
@@ -375,7 +375,7 @@ lazy val practice = module("practice",
 )
 
 lazy val playban = module("playban",
-  Seq(game),
+  Seq(memo),
   reactivemongo.bundle
 )
 
@@ -445,7 +445,7 @@ lazy val bookmark = module("bookmark",
 )
 
 lazy val report = module("report",
-  Seq(game),
+  Seq(coreI18n, memo),
   reactivemongo.bundle
 )
 

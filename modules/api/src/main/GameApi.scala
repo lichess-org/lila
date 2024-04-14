@@ -174,7 +174,7 @@ final private[api] class GameApi(
             .add("name", p.name)
             .add("provisional" -> p.provisional)
             .add("moveCentis" -> withFlags.moveTimes.so:
-              g.computeMoveTimes(p.color).map(_.map(_.centis))
+              lila.game.GameExt.computeMoveTimes(g, p.color).map(_.map(_.centis))
             )
             .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
             .add(

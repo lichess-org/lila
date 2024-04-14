@@ -1,7 +1,6 @@
 package lila.swiss
 
 import lila.core.LightUser
-import lila.game.Game
 import lila.core.chess.Rank
 
 private case class SwissBoard(

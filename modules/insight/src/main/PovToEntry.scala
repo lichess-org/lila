@@ -64,7 +64,9 @@ final private class PovToEntry(
                   analysis = an,
                   situations = situations,
                   clock = game.clock.map(_.config),
-                  movetimes = game.clock.flatMap(_ => game.computeMoveTimes(pov.color)).map(_.toVector),
+                  movetimes = game.clock
+                    .flatMap(_ => lila.game.GameExt.computeMoveTimes(game, pov.color))
+                    .map(_.toVector),
                   clockStates = game.clockHistory.map(_(pov.color)),
                   advices = an.so(_.advices.mapBy(_.info.ply))
                 )
