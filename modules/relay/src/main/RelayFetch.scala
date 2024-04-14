@@ -317,9 +317,11 @@ private object RelayFetch:
         .maximumSize(512)
         .build(compute)
 
+    private val pgnImport = lila.study
+      .StudyPgnImport(lila.game.importer.parseImport, lila.game.StatusText.apply)
+
     private def compute(pgn: PgnStr): Either[LilaInvalid, Int => RelayGame] =
-      lila.study
-        .PgnImport(pgn, Nil)
+      pgnImport(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
         .map: res =>
           index =>

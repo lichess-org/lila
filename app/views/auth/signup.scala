@@ -14,11 +14,8 @@ object signup:
   def apply(form: lila.security.HcaptchaForm[?])(using ctx: PageContext) =
     views.html.base.layout(
       title = trans.site.signUp.txt(),
-      moreJs = frag(
-        jsModuleInit("login", "signup"),
-        views.html.base.hcaptcha.script(form),
-        fingerprintTag
-      ),
+      modules = jsModuleInit("bits.login", "signup"),
+      moreJs = frag(views.html.base.hcaptcha.script(form), fingerprintTag),
       moreCss = cssTag("auth"),
       csp = defaultCsp.withHcaptcha.some,
       withHrefLangs = LangPath(routes.Auth.signup).some

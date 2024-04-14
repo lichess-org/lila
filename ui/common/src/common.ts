@@ -140,3 +140,7 @@ export function pushMap<T>(m: SparseMap<T>, key: string, val: T) {
     else if (v !== val) m.set(key, new Set([v as T, val]));
   }
 }
+
+export function hyphenToCamel(str: string) {
+  return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
+}

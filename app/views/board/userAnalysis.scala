@@ -7,7 +7,6 @@ import play.api.libs.json.{ JsObject, Json }
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType.iconByVariant
-import lila.game.GameExt.synthetic
 
 object userAnalysis:
 
@@ -25,7 +24,7 @@ object userAnalysis:
         withForecast.option(cssTag("analyse.forecast")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = analyseNvuiTag,
+      modules = analyseNvuiTag,
       pageModule = views.html.analyse.bits
         .analyseModule(
           "userAnalysis",

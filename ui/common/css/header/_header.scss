@@ -18,30 +18,27 @@ body > header {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 0 var(--site-header-sticky-padding);
+    padding: 0 var(---site-header-sticky-padding);
     transition:
       transform $transition-duration ease-in-out,
       border-color $transition-duration ease-in-out;
 
-    @if $theme == 'transp' {
+    @include if-transp {
       @include back-blur(6px);
       background: hsla(0, 0, 60%, 0.14);
-    } @else {
-      @if $theme == 'dark' {
-        &.scrolled {
-          border-color: black;
-        }
-      } @else {
-        &.scrolled {
-          border-color: hsl(0, 0%, 70%);
-        }
+    }
+
+    @include if-not-transp {
+      &.scrolled {
+        border-color: black;
       }
-      border-bottom: 1px solid mix($c-body-gradient, $c-bg-page, 50%);
-      background-image: linear-gradient(
-        to bottom,
-        $c-body-gradient,
-        mix($c-body-gradient, $c-bg-page, 50%) 60px
-      );
+      border-bottom: 1px solid $m-body-gradient_bg-page--mix-50;
+      background-image: linear-gradient(to bottom, $c-body-gradient, $m-body-gradient_bg-page--mix-50 60px);
+    }
+    @include if-light {
+      &.scrolled {
+        border-color: hsl(0, 0%, 70%);
+      }
     }
 
     .dropdown {

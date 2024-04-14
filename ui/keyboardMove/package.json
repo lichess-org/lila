@@ -4,8 +4,8 @@
   "private": true,
   "description": "lichess.org keyboard move",
   "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "module": "dist/keyboardMove.js",
+  "types": "dist/keyboardMove.d.ts",
   "keywords": [
     "chess",
     "lichess",
@@ -22,9 +22,7 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/plugins/keyboardMove.ts": "keyboardMove"
-      }
+      "src/plugins/keyboard.move.ts": "keyboard.move"
     }
   }
 }

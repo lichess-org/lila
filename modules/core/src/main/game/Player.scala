@@ -6,6 +6,8 @@ import lila.core.id.GamePlayerId
 import lila.core.userId.{ UserId, UserIdOf }
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import cats.kernel.Eq
+import lila.core.user.WithPerf
+import lila.core.perf.Perf
 
 case class Player(
     id: GamePlayerId,
@@ -74,3 +76,8 @@ case class Player(
 
 object Player:
   given Eq[Player] = Eq.by(p => (p.id, p.userId))
+
+trait NewPlayer:
+  def apply(color: Color, user: Option[WithPerf]): Player
+  def apply(color: Color, userId: UserId, rating: IntRating, provisional: RatingProvisional): Player
+  def apply(color: Color, userPerf: (UserId, Perf)): Player

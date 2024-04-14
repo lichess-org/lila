@@ -82,12 +82,14 @@ object bits:
       openGraph: Option[lila.web.OpenGraph] = None,
       pageModule: Option[PageModule] = None,
       moreJs: Frag = emptyFrag,
+      modules: EsmList = Nil,
       robots: Boolean = netConfig.crawlable
   )(body: Frag)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
-      moreJs = frag(infiniteScrollTag, moreJs),
+      modules = infiniteScrollTag ++ modules,
+      moreJs = moreJs,
       pageModule = pageModule,
       openGraph = openGraph,
       robots = robots

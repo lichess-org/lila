@@ -12,7 +12,6 @@ import lila.common.HTTPRequest
 
 import lila.tree.ExportOptions
 import lila.core.id.GameFullId
-import lila.game.GameExt.synthetic
 
 final class UserAnalysis(
     env: Env,
@@ -74,8 +73,8 @@ final class UserAnalysis(
 
   private[controllers] def makePov(from: Situation.AndFullMoveNumber): Pov =
     Pov(
-      lila.game.Game
-        .make(
+      lila.core.game
+        .newGame(
           chess = chess.Game(
             situation = from.situation,
             ply = from.ply

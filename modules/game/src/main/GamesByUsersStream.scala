@@ -44,7 +44,7 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
           Match($doc(lila.game.Game.BSONFields.playingUids.$in(userIds))),
           AddFields:
             $doc:
-              "both" -> $doc("$setIsSubset" -> $arr("$" + lila.game.Game.BSONFields.playingUids, userIds))
+              "both" -> $doc("$setIsSubset" -> $arr("$" + lila.core.game.BSONFields.playingUids, userIds))
           ,
           Match($doc("both" -> true))
         )

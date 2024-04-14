@@ -2,7 +2,7 @@ package lila.game
 
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
-import chess.{ Color, Status }
+import chess.{ Color, ByColor, Status }
 import scalalib.ThreadLocalRandom
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
@@ -16,12 +16,10 @@ import lila.game.GameExt.*
 
 final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c):
 
-  export BSONHandlers.gameHandler
+  export BSONHandlers.{ statusHandler, gameHandler }
   import BSONHandlers.given
   import lila.game.Game.{ BSONFields as F }
   import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
-
-  val fixedColorLobbyCache = scalalib.cache.ExpireSetMemo[GameId](2 hours)
 
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
@@ -82,7 +80,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 
-  def remove(id: GameId) = coll.delete.one($id(id)).void
+  def remove(id: GameId): Funit = coll.delete.one($id(id)).void
 
   def userPovsByGameIds[U: UserIdOf](
       gameIds: List[GameId],
@@ -193,7 +191,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if doc.isEmpty then $empty else $doc(mod -> doc)
 
-  def setRatingDiffs(id: GameId, diffs: RatingDiffs) =
+  def setRatingDiffs(id: GameId, diffs: ByColor[IntRatingDiff]) =
     coll.update.one(
       $id(id),
       $set(
@@ -204,7 +202,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted[U: UserIdOf](user: U): Fu[List[Pov]] =
-    coll.list[Game](Query.nowPlaying(user.id), lila.game.Game.maxPlaying + 5).dmap {
+    coll.list[Game](Query.nowPlaying(user.id), lila.core.game.maxPlaying.value + 5).dmap {
       _.flatMap { Pov(_, user) }
     }
 
@@ -271,13 +269,14 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowInstant)
 
-  def setAnalysed(id: GameId): Funit  = coll.updateField($id(id), F.analysed, true).void
-  def setUnanalysed(id: GameId): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
+  def setAnalysed(id: GameId, v: Boolean): Funit = coll.updateField($id(id), F.analysed, v).void
 
-  def isAnalysed(game: Game): Fu[Boolean] = game.analysable.so:
-    coll.exists($id(game.id) ++ Query.analysed(true))
+  def isAnalysed(game: Game): Fu[Boolean] = GameExt
+    .analysable(game)
+    .so:
+      coll.exists($id(game.id) ++ Query.analysed(true))
 
-  def analysed(id: GameId) = coll.one[Game]($id(id) ++ Query.analysed(true))
+  def analysed(id: GameId): Fu[Option[Game]] = coll.one[Game]($id(id) ++ Query.analysed(true))
 
   def exists(id: GameId) = coll.exists($id(id))
 
@@ -360,29 +359,26 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     ("p1." + PF.proposeTakebackAt) -> true
   )
 
-  def finish(
-      id: GameId,
-      winnerColor: Option[Color],
-      winnerId: Option[UserId],
-      status: Status
-  ) =
-    coll.update.one(
-      $id(id),
-      nonEmptyMod(
-        "$set",
-        $doc(
-          F.winnerId    -> winnerId,
-          F.winnerColor -> winnerColor.map(_.white),
-          F.status      -> status
+  def finish(id: GameId, winnerColor: Option[Color], winnerId: Option[UserId], status: Status): Funit =
+    coll.update
+      .one(
+        $id(id),
+        nonEmptyMod(
+          "$set",
+          $doc(
+            F.winnerId    -> winnerId,
+            F.winnerColor -> winnerColor.map(_.white),
+            F.status      -> status
+          )
+        ) ++ $doc(
+          "$unset" -> finishUnsets.++ {
+            // keep the checkAt field when game is aborted,
+            // so it gets deleted in 24h
+            (status >= Status.Mate).so($doc(F.checkAt -> true))
+          }
         )
-      ) ++ $doc(
-        "$unset" -> finishUnsets.++ {
-          // keep the checkAt field when game is aborted,
-          // so it gets deleted in 24h
-          (status >= Status.Mate).so($doc(F.checkAt -> true))
-        }
       )
-    )
+      .void
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] =
     coll
@@ -393,10 +389,10 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .skip(ThreadLocalRandom.nextInt(distribution))
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen.Full] = None): Funit =
+  def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit =
     val g2 =
       if g.rated && (g.userIds.distinct.size != 2 ||
-          !lila.game.Game.allowRated(g.variant, g.clock.map(_.config)))
+          !lila.core.game.allowRated(g.variant, g.clock.map(_.config)))
       then g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
@@ -454,10 +450,6 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def unsetPlayingUids(g: Game): Unit =
     coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids))
-
-  // used to make a compound sparse index
-  def setImportCreatedAt(g: Game) =
-    coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
 
   def initialFen(gameId: GameId): Fu[Option[Fen.Full]] =
     coll.primitiveOne[Fen.Full]($id(gameId), F.initialFen)
@@ -521,11 +513,6 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .skip(ThreadLocalRandom.nextInt(1000))
       .one[Game]
 
-  def findPgnImport(pgn: PgnStr): Fu[Option[Game]] =
-    coll.one[Game](
-      $doc(s"${F.pgnImport}.h" -> lila.game.PgnImport.hash(pgn))
-    )
-
   def getOptionPgn(id: GameId): Fu[Option[Vector[SanStr]]] = game(id).dmap2(_.sans)
 
   def lastGameBetween(u1: UserId, u2: UserId, since: Instant): Fu[Option[Game]] =
@@ -555,7 +542,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
         (doc.int(F.source).flatMap(Source.apply), ~doc.getAsOpt[List[UserId]](F.playerUids))
     }
 
-  def recentAnalysableGamesByUserId(userId: UserId, nb: Int) =
+  def recentAnalysableGamesByUserId(userId: UserId, nb: Int): Fu[List[Game]] =
     coll
       .find(
         Query.finished

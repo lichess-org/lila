@@ -1,10 +1,10 @@
 $puzzle-block-gap: $block-gap;
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+  ---main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
   @include mq-at-least-col2 {
-    --main-max-width: auto;
+    ---main-max-width: auto;
   }
 }
 
@@ -64,7 +64,7 @@ $puzzle-block-gap: $block-gap;
   }
 
   @include mq-at-least-col2 {
-    grid-template-columns: var(--col2-uniboard-width) $puzzle-block-gap $col2-uniboard-table;
+    grid-template-columns: var(---col2-uniboard-width) $puzzle-block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board   gauge tools'
@@ -87,7 +87,7 @@ $puzzle-block-gap: $block-gap;
       'side    . session .     controls'
       'side    . kb-move .     controls'
       'side    . .       .     .';
-    grid-template-columns: $col3-uniboard-side $puzzle-block-gap var(--col3-uniboard-width) $puzzle-block-gap $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $puzzle-block-gap var(---col3-uniboard-width) $puzzle-block-gap $col3-uniboard-table;
   }
 
   &__side {

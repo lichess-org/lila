@@ -10,9 +10,7 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "dgt"
-      }
+      "src/dgt.ts": "dgt"
     }
   }
 }

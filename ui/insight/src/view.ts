@@ -169,9 +169,9 @@ const containerStyle = () => ({
     // i would encrypt this if i could.  just look away
     style:
       ` width: ${availW()}px;` +
-      ` --header-height: ${interpolateBetween(mainW(), { x: 500, y: 30 }, { x: 800, y: 60 })}px;` +
-      ` --drop-menu-width: ${interpolateBetween(mainW(), { x: 320, y: 154 }, { x: 800, y: 200 })}px;` +
-      ` --chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
+      ` ---header-height: ${interpolateBetween(mainW(), { x: 500, y: 30 }, { x: 800, y: 60 })}px;` +
+      ` ---drop-menu-width: ${interpolateBetween(mainW(), { x: 320, y: 154 }, { x: 800, y: 200 })}px;` +
+      ` ---chart-height: ${Math.max(300, Math.min(600, window.innerHeight - 100))}px;`,
   },
 });
 

@@ -3,7 +3,6 @@ package lila.analyse
 import chess.{ ByColor, Color }
 
 import scalalib.Maths
-import lila.game.Game
 import lila.tree.Eval
 import lila.tree.{ Analysis, WinPercent }
 import lila.core.data.Percent

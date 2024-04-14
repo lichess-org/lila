@@ -9,7 +9,7 @@ case class InternalEndpoint(value: String) extends AnyVal with StringValue
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
-    gameImporter: lila.importer.Importer,
+    gameImporter: lila.core.game.Importer,
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor):
 
@@ -18,5 +18,3 @@ final class Env(
   }
 
   val importer = wire[ExplorerImporter]
-
-  val getGame: lila.game.core.ExplorerGame = importer.apply

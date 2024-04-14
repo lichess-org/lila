@@ -4,11 +4,11 @@
   }
 
   50% {
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: $m-secondary_bg--mix-30;
   }
 
   60% {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: $m-primary_bg--mix-30;
   }
 
   70% {
@@ -36,12 +36,12 @@
 
   &-on {
     background: $c-good;
-    color: $c-good-over;
+    color: $c-over;
     animation: none;
 
     &:hover {
       background: $c-bad !important;
-      color: $c-bad-over !important;
+      color: $c-over !important;
     }
   }
 

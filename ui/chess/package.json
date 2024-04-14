@@ -4,10 +4,10 @@
   "private": true,
   "description": "lichess.org chess utils",
   "type": "module",
-  "module": "main.js",
-  "types": "main.d.ts",
+  "module": "chess.js",
+  "types": "chess.d.ts",
   "exports": {
-    ".": "./dist/main.js",
+    ".": "./dist/chess.js",
     "./*": "./dist/*.js"
   },
   "typesVersions": {

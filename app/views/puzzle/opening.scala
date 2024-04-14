@@ -17,7 +17,7 @@ object opening:
     views.html.base.layout(
       title = trans.puzzle.puzzlesByOpenings.txt(),
       moreCss = cssTag("puzzle.page"),
-      moreJs = jsModule("puzzle.opening")
+      modules = jsModule("puzzle.opening")
     ):
       main(cls := "page-menu")(
         bits.pageMenu("openings", ctx.me),

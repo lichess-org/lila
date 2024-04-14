@@ -5,6 +5,7 @@ import play.api.Configuration
 
 import lila.core.config.*
 import lila.core.pool.IsClockCompatible
+import scalalib.cache.ExpireSetMemo
 
 @Module
 final class Env(
@@ -13,13 +14,14 @@ final class Env(
     onStart: lila.core.game.OnStart,
     relationApi: lila.core.relation.RelationApi,
     hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
-    gameCache: lila.game.Cached,
     userApi: lila.core.user.UserApi,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
+    newPlayer: lila.core.game.NewPlayer,
     poolApi: lila.core.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
     socketKit: lila.core.socket.SocketKit
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.game.IdGenerator, IsClockCompatible):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.game.IdGenerator, IsClockCompatible):
 
   private lazy val seekApiConfig = new SeekApi.Config(
     coll = db(CollName("seek")),
@@ -27,6 +29,8 @@ final class Env(
     maxPerPage = MaxPerPage(13),
     maxPerUser = Max(5)
   )
+
+  private val fixedColorLobbyCache: ExpireSetMemo[GameId] = ExpireSetMemo[GameId](2 hours)
 
   lazy val seekApi = wire[SeekApi]
 

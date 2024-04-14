@@ -1,42 +1,60 @@
 @import 'default';
 
-$theme: 'light';
-$color-scheme: 'light';
-$theme-light: true;
-$theme-dark: false;
+// this may not import anything from outside common/css/colors
 
-@mixin metal-bg {
-  background: linear-gradient(to bottom, hsl(0, 0, 96) 0%, hsl(0, 0, 93) 100%);
+@function clear($color, $weight: 17%) {
+  @return mix(#000, $color, $weight);
 }
 
-@mixin metal {
-  @include metal-bg;
-
-  text-shadow: $text-shadow;
+@function dim($color, $weight: 17%) {
+  @return mix(#fff, $color, $weight);
 }
 
-@mixin metal-hover {
-  background: linear-gradient(to bottom, hsl(0, 0, 98) 0%, hsl(0, 0, 95) 100%);
-  text-shadow: $text-shadow;
-}
+$c-bg: hsl(0, 0%, 100%); // alias for $c-bg-high
+$c-bg-page: hsl(37, 10%, 92%);
+$c-bg-low: hsl(0, 0%, 89%);
+$c-bg-zebra: hsl(37, 12%, 96.5%);
+$c-bg-zebra2: hsl(37, 12%, 92%);
+$c-body-gradient: hsl(37, 12%, 84%);
+$c-font: hsl(0, 0%, 30%);
+$c-primary: hsl(209, 77%, 46%);
+$c-brag: hsl(37, 74%, 48%);
+$c-shade: hsl(0, 0%, 84%);
+$c-inaccuracy: hsl(202, 78%, 40%);
+$c-mistake: hsl(41, 100%, 35%);
+$c-blunder: hsl(0, 68%, 50%);
+$c-good-move: hsl(130, 67%, 40%);
+$c-brilliant: hsl(129, 71%, 30%);
+$c-interesting: hsl(307, 80%, 59%);
 
-@mixin page-metal {
-  background: linear-gradient(
-    to bottom,
-    mix($c-link, hsl(0, 0%, 100%), 20%) 0%,
-    mix($c-link, hsl(0, 0%, 94%), 20%) 100%
-  );
-  text-shadow: $text-shadow;
-}
+html.light {
+  @include shared-color-defs;
 
-@mixin page-metal-hover {
-  background: linear-gradient(
-    to bottom,
-    mix($c-link, #fff, 25%) 0%,
-    mix($c-link, c-light($c-bg-page, 90%), 25%) 100%
-  );
-  text-shadow: $text-shadow;
-}
+  --c-bg-input: #{change-color($c-bg-page, $lightness: 98%)};
+  --c-bg-variation: #{$c-bg-zebra2};
+  --c-bg-popup: #{$c-bg};
+  --c-bg-header-dropdown: #{$c-bg};
+  --c-page-input: #{$c-bg-low};
+  --c-popup: #{$c-font};
+  --c-header-dropdown: #{$c-font};
 
-@mixin theme-style {
+  --c-font-dim: #{change-color($c-font, $lightness: 47%)};
+  --c-font-dimmer: #{change-color($c-font, $lightness: 70%)};
+  --c-font-clear: #{change-color($c-font, $lightness: 12%)};
+  --c-font-clearer: #{change-color($c-font, $lightness: 0%)};
+  --c-font-page: #{change-color($c-font, $lightness: 37%)};
+  --c-font-shadow: #fff;
+
+  --c-primary-dim: #{dim($c-primary)};
+  --c-link-hover: #{clear(saturate($c-primary, 100%), 35%)};
+
+  --c-chat-host-bg: rgba(125, 170, 73, 0.4);
+  --c-chat-mention-bg: rgba(161, 194, 124, 0.4);
+  --c-fancy: hsl(294, 61%, 62%);
+
+  --c-border: hsl(0, 0%, 85%);
+  --c-border-page: hsl(0, 0%, 80%);
+  --c-border-tour: #{mix(hsl(0, 0%, 80%), $c-bg-page, 50)};
+
+  @include light-mix;
 }

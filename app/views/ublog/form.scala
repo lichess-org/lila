@@ -19,7 +19,7 @@ object form:
   def create(user: User, f: Form[UblogPostData], captcha: Captcha)(using PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
-      moreJs = frag(jsModule("ublogForm"), captchaTag),
+      modules = jsModule("bits.ublogForm") ++ captchaTag,
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
     ):
       main(cls := "page-menu page-small")(
@@ -35,7 +35,7 @@ object form:
   def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
-      moreJs = jsModule("ublogForm"),
+      modules = jsModule("bits.ublogForm"),
       title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"
     ):
       main(cls := "page-menu page-small")(

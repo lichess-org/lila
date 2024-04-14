@@ -10,19 +10,16 @@
 
   .link {
     @extend %top-icon;
-
-    /* we don't want a lighter dark font in the top gradient */
-    @if $theme == 'transp' {
+    color: $c-font;
+    @include if-transp {
       @extend %page-text;
-    } @else {
-      color: $c-font;
     }
 
     font-size: 1.1rem;
     padding: 0 0.7rem;
 
     &:hover {
-      color: $c-font-clearer;
+      color: $c-font-clearer !important;
     }
 
     span::before {

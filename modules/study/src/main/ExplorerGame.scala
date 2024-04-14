@@ -5,27 +5,28 @@ import chess.format.{ Fen, UciPath }
 
 import scala.util.chaining.*
 
-import lila.game.{ Namer }
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
 
 final private class ExplorerGame(
-    importer: lila.game.core.ExplorerGame,
+    gameToRoot: GameToRoot,
+    explorer: lila.core.game.Explorer,
+    namer: lila.core.game.Namer,
     lightUserApi: lila.core.user.LightUserApi,
     net: lila.core.config.NetConfig
 )(using Executor):
 
   def quote(gameId: GameId): Fu[Option[Comment]] =
-    importer(gameId).map2(gameComment)
+    explorer(gameId).map2(gameComment)
 
   def insert(study: Study, position: Position, gameId: GameId): Fu[Option[(Chapter, UciPath)]] =
     if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
     else
-      importer(gameId).mapz: game =>
+      explorer(gameId).mapz: game =>
         position.node.so: fromNode =>
-          GameToRoot(game, none, withClocks = false)
+          gameToRoot(game, none, withClocks = false)
             .pipe: root =>
               root.setCommentAt(
                 comment = gameComment(game),
@@ -61,9 +62,9 @@ final private class ExplorerGame(
   private def gameTitle(g: Game): String =
     val pgn = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
     val white =
-      pgn.flatMap(_.tags(_.White)) | Namer.playerTextBlocking(g.whitePlayer)(using lightUserApi.sync)
+      pgn.flatMap(_.tags(_.White)) | namer.playerText(g.whitePlayer)(using lightUserApi.async)
     val black =
-      pgn.flatMap(_.tags(_.Black)) | Namer.playerTextBlocking(g.blackPlayer)(using lightUserApi.sync)
+      pgn.flatMap(_.tags(_.Black)) | namer.playerText(g.blackPlayer)(using lightUserApi.async)
     val result = chess.Outcome.showResult(chess.Outcome(g.winnerColor).some)
     val event: Option[String] =
       (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match

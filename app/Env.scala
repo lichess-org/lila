@@ -23,6 +23,8 @@ final class Env(
     SessionCookieBaker
 ):
   val net: NetConfig = config.get[NetConfig]("net")
+  val manifest       = AssetManifest(environment, net)
+
   export net.{ domain, baseUrl, assetBaseUrlInternal }
 
   given Mode                   = environment.mode
@@ -67,7 +69,6 @@ final class Env(
   val pool: lila.pool.Env               = wire[lila.pool.Env]
   val lobby: lila.lobby.Env             = wire[lila.lobby.Env]
   val setup: lila.setup.Env             = wire[lila.setup.Env]
-  val importer: lila.importer.Env       = wire[lila.importer.Env]
   val simul: lila.simul.Env             = wire[lila.simul.Env]
   val appeal: lila.appeal.Env           = wire[lila.appeal.Env]
   val timeline: lila.timeline.Env       = wire[lila.timeline.Env]
@@ -139,6 +140,7 @@ given ConfigLoader[NetConfig] = ConfigLoader(config =>
       assetBaseUrl = get[AssetBaseUrl]("asset.base_url"),
       assetBaseUrlInternal = get[AssetBaseUrlInternal]("asset.base_url_internal"),
       minifiedAssets = get[Boolean]("asset.minified"),
+      externalManifest = get[Boolean]("asset.external_manifest"),
       stageBanner = get[Boolean]("stage.banner"),
       siteName = get[String]("site.name"),
       socketDomains = get[List[String]]("socket.domains"),

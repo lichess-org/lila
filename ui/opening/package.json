@@ -12,13 +12,11 @@
     "common": "workspace:*",
     "dayjs": "^1.11.10",
     "debounce-promise": "^3.1.2",
-    "lichess-pgn-viewer": "^2.0.1"
+    "lichess-pgn-viewer": "^2.1.0"
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "opening"
-      }
+      "src/opening.ts": "opening"
     }
   }
 }

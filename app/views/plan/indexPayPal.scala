@@ -20,7 +20,8 @@ object indexPayPal:
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
-      moreJs = frag(jsModule("plan"), embedJsUnsafeLoadThen("""plan.payPalStart()"""))
+      modules = jsModule("bits.plan"),
+      moreJs = embedJsUnsafeLoadThen("""plan.payPalStart()""")
     ) {
       main(cls := "box box-pad plan")(
         boxTop(

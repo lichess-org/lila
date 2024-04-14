@@ -14,7 +14,7 @@ import lila.game.GameExt.abandoned
  * and flagged games when no one is around
  */
 final private class Titivate(
-    roundApi: lila.game.core.RoundApi,
+    roundApi: lila.core.round.RoundApi,
     gameRepo: GameRepo,
     chatApi: lila.chat.ChatApi
 )(using akka.stream.Materializer)

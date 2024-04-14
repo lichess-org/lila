@@ -13,7 +13,7 @@ export default function (): boolean {
           cache = 'rec';
         });
     }
-    cache = !!window.getComputedStyle(document.body).getPropertyValue('--col1');
+    cache = !!window.getComputedStyle(document.body).getPropertyValue('---col1');
   }
   return cache;
 }

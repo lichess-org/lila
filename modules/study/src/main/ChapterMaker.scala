@@ -5,19 +5,21 @@ import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.variant.Variant
 
-import lila.game.{ Namer }
 import lila.tree.{ Branches, Root }
 import lila.core.i18n.Translator
 import lila.core.id.GameFullId
-import lila.game.GameExt.synthetic
+import lila.core.game.Namer
 
 final private class ChapterMaker(
     net: lila.core.config.NetConfig,
     lightUser: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     pgnFetch: PgnFetch,
-    pgnDump: lila.game.PgnDump
+    pgnDump: lila.core.game.PgnDump,
+    namer: lila.core.game.Namer,
+    pgnImport: StudyPgnImport,
+    gameToRoot: GameToRoot
 )(using Executor, Translator):
 
   import ChapterMaker.*
@@ -45,7 +47,7 @@ final private class ChapterMaker(
   private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     for
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- PgnImport(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
+      parsed <- pgnImport(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
         fufail(ValidationException(e.getMessage))
       }
     yield Chapter.make(
@@ -65,7 +67,7 @@ final private class ChapterMaker(
       conceal = data.isConceal.option(parsed.root.ply)
     )
 
-  private def getChapterNameFromPgn(data: Data, parsed: PgnImport.Result): StudyChapterName =
+  private def getChapterNameFromPgn(data: Data, parsed: StudyPgnImport.Result): StudyChapterName =
     def vsFromPgnTags = for
       white <- parsed.tags(_.White)
       black <- parsed.tags(_.Black)
@@ -137,7 +139,7 @@ final private class ChapterMaker(
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <-
         if data.isDefaultName then
-          StudyChapterName.from(Namer.gameVsText(game, withRatings)(using lightUser.async))
+          StudyChapterName.from(namer.gameVsText(game, withRatings)(using lightUser.async))
         else fuccess(data.name)
       _ = notifyChat(study, game, userId)
     yield Chapter.make(
@@ -181,8 +183,8 @@ final private class ChapterMaker(
       .fold(gameRepo.initialFen(game)): fen =>
         fuccess(fen.some)
       .map: goodFen =>
-        val fromGame = GameToRoot(game, goodFen, withClocks = true)
-        pgnOpt.flatMap(PgnImport(_, Nil).toOption.map(_.root)) match
+        val fromGame = gameToRoot(game, goodFen, withClocks = true)
+        pgnOpt.flatMap(pgnImport(_, Nil).toOption.map(_.root)) match
           case Some(r) => fromGame.merge(r)
           case None    => fromGame
 

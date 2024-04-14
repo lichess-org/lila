@@ -37,8 +37,8 @@ private object ChallengeJoiner:
       destUser: GameUser
   ): Game =
     val (chessGame, state) = gameSetup(c.variant, c.timeControl, c.initialFen)
-    lila.game.Game
-      .make(
+    lila.core.game
+      .newGame(
         chess = chessGame,
         players = ByColor: color =>
           lila.game.Player.make(color, if c.finalColor == color then origUser else destUser),

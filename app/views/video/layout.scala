@@ -15,7 +15,7 @@ object layout:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("video"),
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       wrapClass = "full-screen-force",
       openGraph = openGraph
     ):

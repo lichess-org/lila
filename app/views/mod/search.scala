@@ -20,7 +20,7 @@ object search:
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
-      moreJs = jsModule("mod.search")
+      modules = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -48,7 +48,7 @@ object search:
     views.html.base.layout(
       title = "Fingerprint",
       moreCss = cssTag("mod.misc"),
-      moreJs = jsModule("mod.search")
+      modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -90,7 +90,7 @@ object search:
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
-      moreJs = jsModule("mod.search")
+      modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -124,7 +124,7 @@ object search:
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
-      moreJs = jsModule("mod.search")
+      modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -187,7 +187,7 @@ object search:
     views.html.base.layout(
       title = "Mod notes",
       moreCss = frag(cssTag("mod.misc"), cssTag("slist")),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("notes"),

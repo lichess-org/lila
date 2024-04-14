@@ -25,7 +25,7 @@ object show:
         ctx.pref.hasVoice.option(cssTag("voice")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = puzzleNvuiTag,
+      modules = puzzleNvuiTag,
       pageModule = PageModule(
         "puzzle",
         Json

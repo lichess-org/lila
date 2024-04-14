@@ -19,6 +19,7 @@ object bits:
       title: String,
       pageModule: Option[PageModule],
       moreJs: Frag = emptyFrag,
+      modules: EsmList = Nil,
       openGraph: Option[lila.web.OpenGraph] = None,
       moreCss: Frag = emptyFrag,
       playing: Boolean = false,
@@ -37,6 +38,7 @@ object bits:
         ctx.blind.option(cssTag("round.nvui")),
         moreCss
       ),
+      modules = modules,
       pageModule = pageModule,
       playing = playing,
       zenable = zenable,
@@ -51,7 +53,6 @@ object bits:
       views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
 
   def underchat(game: Game)(using ctx: Context) =
-    import lila.game.Blurs.nb
     frag(
       views.html.chat.spectatorsFrag,
       isGranted(_.ViewBlurs).option(

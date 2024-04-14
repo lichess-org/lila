@@ -165,7 +165,7 @@ export function replay(ctrl: PuzzleCtrl): MaybeVNode {
     ]),
     h('div.puzzle__side__replay__bar', {
       attrs: {
-        style: `--p:${replay.of ? Math.round((100 * i) / replay.of) : 1}%`,
+        style: `---p:${replay.of ? Math.round((100 * i) / replay.of) : 1}%`,
         'data-text': `${i} / ${replay.of}`,
       },
     }),

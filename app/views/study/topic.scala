@@ -15,7 +15,7 @@ object topic:
     views.html.base.layout(
       title = trans.study.topics.txt(),
       moreCss = frag(cssTag("study.index"), cssTag("form3"), cssTag("tagify")),
-      moreJs = jsModule("study.topic.form"),
+      modules = jsModule("analyse.study.topic.form"),
       wrapClass = "full-screen-force"
     ) {
       main(cls := "page-menu")(
@@ -47,7 +47,7 @@ object topic:
       title = topic.value,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       val active = s"topic:$topic"
       val url    = (o: String) => routes.Study.byTopic(topic.value, o)

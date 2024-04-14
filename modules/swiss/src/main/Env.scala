@@ -12,7 +12,8 @@ import lila.core.socket.{ GetVersion, SocketVersion }
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
     userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart,
     socketKit: lila.core.socket.SocketKit,
@@ -21,7 +22,7 @@ final class Env(
     lightUserApi: lila.core.user.LightUserApi,
     historyApi: lila.core.history.HistoryApi,
     gameProxy: lila.core.game.GameProxy,
-    roundApi: lila.game.core.RoundApi,
+    roundApi: lila.core.round.RoundApi,
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: BaseUrl
 )(using
@@ -29,7 +30,7 @@ final class Env(
     akka.actor.ActorSystem,
     Scheduler,
     akka.stream.Materializer,
-    lila.game.IdGenerator,
+    lila.core.game.IdGenerator,
     play.api.Mode,
     lila.core.user.FlairGet
 ):

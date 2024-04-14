@@ -4,10 +4,7 @@
   "private": true,
   "description": "lichess.org fast puzzle utils",
   "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
   "exports": {
-    ".": "./dist/main.js",
     "./*": "./dist/*.js"
   },
   "typesVersions": {

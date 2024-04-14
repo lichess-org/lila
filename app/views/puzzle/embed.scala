@@ -20,7 +20,7 @@ object embed:
         cls := "embedded"
       ),
       chessgroundTag,
-      jsModule("puzzle.embed")
+      jsTag("puzzle.embed")
     )
 
   def dailyLink(daily: DailyPuzzle.WithHtml)(using Translate) = a(

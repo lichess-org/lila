@@ -84,7 +84,7 @@
 
     .current {
       background: $c-dasher !important;
-      color: $c-dasher-over !important;
+      color: $c-over !important;
       border-inline-start: none;
     }
 
@@ -95,7 +95,7 @@
 
       &:hover {
         background: $c-link;
-        color: $c-link-over;
+        color: $c-over;
       }
     }
   }
@@ -120,7 +120,7 @@
 
       &.active {
         background: $c-dasher !important;
-        color: $c-dasher-over !important;
+        color: $c-over !important;
       }
 
       &::before {
@@ -137,7 +137,7 @@
 
       &.active::before {
         opacity: 1;
-        color: $c-dasher-over !important;
+        color: $c-over !important;
       }
     }
 
@@ -200,24 +200,39 @@
     overflow: auto;
   }
 
-  .board .zoom {
-    display: none;
-
-    @include mq-board-resizable {
-      display: block;
+  .board {
+    .selector {
+      display: flex;
+      justify-content: stretch;
+    }
+    .zoom,
+    .board-brightness,
+    .board-opacity,
+    .board-hue {
+      display: grid;
+      grid-template-columns: 45% 55%;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      label {
+        white-space: nowrap;
+      }
     }
 
-    border-top: $border;
-    padding: 1.5rem;
-  }
+    .zoom {
+      display: none;
 
-  .board .range {
-    font-size: 1.5em;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
+      @include mq-board-resizable {
+        display: grid;
+      }
+    }
 
+    .range {
+      font-size: 1.5em;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+  }
   .background #gallery {
     $thumb-w: 160px; // see bin/make-gallery
     $thumb-h: 90px;
@@ -228,7 +243,7 @@
     background-color: #000000bb;
 
     #images-viewport {
-      max-height: min(100vh - 450px, 30vh);
+      max-height: 30vh;
       overflow: hidden auto;
     }
 

@@ -1,81 +1,72 @@
 import { h, VNode } from 'snabbdom';
 import * as xhr from 'common/xhr';
-import { header, Close, elementScrollBarWidthSlowGuess } from './util';
-import { bind, Redraw } from 'common/snabbdom';
+import { header, elementScrollBarWidthSlowGuess } from './util';
+import { bind } from 'common/snabbdom';
+import { DasherCtrl, PaneCtrl } from './interfaces';
 
 type Piece = string;
-
-interface PieceDimData {
-  current: Piece;
-  list: Piece[];
-}
+type PieceDimData = { current: Piece; list: Piece[] };
 
 export interface PieceData {
   d2: PieceDimData;
   d3: PieceDimData;
 }
 
-export class PieceCtrl {
-  constructor(
-    private readonly data: PieceData,
-    readonly trans: Trans,
-    readonly dimension: () => keyof PieceData,
-    readonly redraw: Redraw,
-    readonly close: Close,
-  ) {}
-  dimensionData = () => this.data[this.dimension()];
-  set = (t: Piece) => {
-    const d = this.dimensionData();
-    d.current = t;
-    applyPiece(t, d.list, this.dimension() === 'd3');
-    const field = `pieceSet${this.dimension() === 'd3' ? '3d' : ''}`;
+export class PieceCtrl extends PaneCtrl {
+  constructor(root: DasherCtrl) {
+    super(root);
+  }
+
+  render(): VNode {
+    const maxHeight = window.innerHeight - 150; // safari vh brokenness
+    const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / 3;
+    const pieceImage = (t: Piece) =>
+      this.is3d
+        ? `images/staunton/piece/${t}/White-Knight${t == 'Staunton' ? '-Preview' : ''}.png`
+        : `piece/${t}/wN.svg`;
+
+    return h('div.sub.piece.' + this.dimension, [
+      header(this.trans.noarg('pieceSet'), () => this.close()),
+      h(
+        'div.list',
+        { attrs: { style: `max-height:${maxHeight}px;` } },
+        this.dimData.list.map((t: Piece) =>
+          h(
+            'button.no-square',
+            {
+              attrs: { title: t, type: 'button', style: `width: ${pieceSize}px; height: ${pieceSize}px` },
+              hook: bind('click', () => this.set(t)),
+              class: { active: this.dimData.current === t },
+            },
+            [h('piece', { attrs: { style: `background-image:url(${site.asset.url(pieceImage(t))})` } })],
+          ),
+        ),
+      ),
+    ]);
+  }
+
+  apply = (t: Piece = this.dimData.current) => {
+    this.dimData.current = t;
+    $('body').removeClass(this.root.data.piece.d3.list.join(' '));
+    if (this.is3d) $('body').addClass(t);
+    else {
+      const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
+      sprite.href = sprite.href.replace(/[\w-]+(\.external|)\.css/, t + '$1.css');
+      document.body.dataset.pieceSet = t;
+    }
+    site.pubsub.emit('theme.change');
+  };
+
+  private get dimData() {
+    return this.root.data.piece[this.dimension];
+  }
+
+  private set = (t: Piece) => {
+    this.apply(t);
+    const field = `pieceSet${this.is3d ? '3d' : ''}`;
     xhr
       .text(`/pref/${field}`, { body: xhr.form({ [field]: t }), method: 'post' })
       .catch(() => site.announce({ msg: 'Failed to save piece set  preference' }));
     this.redraw();
   };
-}
-
-export function view(ctrl: PieceCtrl): VNode {
-  const d = ctrl.dimensionData();
-  const maxHeight = window.innerHeight - 150; // safari vh brokenness
-  return h('div.sub.piece.' + ctrl.dimension(), [
-    header(ctrl.trans.noarg('pieceSet'), () => ctrl.close()),
-    h(
-      'div.list',
-      { attrs: { style: `max-height:${maxHeight}px;` } },
-      d.list.map(pieceView(d.current, ctrl.set, ctrl.dimension() == 'd3')),
-    ),
-  ]);
-}
-
-function pieceImage(t: Piece, is3d: boolean) {
-  if (is3d) {
-    const preview = t == 'Staunton' ? '-Preview' : '';
-    return `images/staunton/piece/${t}/White-Knight${preview}.png`;
-  }
-  return `piece/${t}/wN.svg`;
-}
-
-const pieceView = (current: Piece, set: (t: Piece) => void, is3d: boolean) => (t: Piece) => {
-  const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / 3;
-  return h(
-    'button.no-square',
-    {
-      attrs: { title: t, type: 'button', style: `width: ${pieceSize}px; height: ${pieceSize}px` },
-      hook: bind('click', () => set(t)),
-      class: { active: current === t },
-    },
-    [h('piece', { attrs: { style: `background-image:url(${site.asset.url(pieceImage(t, is3d))})` } })],
-  );
-};
-function applyPiece(t: Piece, list: Piece[], is3d: boolean) {
-  if (is3d) {
-    $('body').removeClass(list.join(' ')).addClass(t);
-  } else {
-    const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
-    sprite.href = sprite.href.replace(/[\w-]+(\.external|)\.css/, t + '$1.css');
-    document.body.dataset.pieceSet = t;
-  }
-  site.pubsub.emit('theme.change');
 }

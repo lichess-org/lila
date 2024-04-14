@@ -4,15 +4,14 @@ import chess.Ply
 import scalalib.actor.AsyncActorSequencer
 
 import lila.analyse.AnalysisRepo
-import lila.game.{ UciMemo }
 import lila.core.fishnet.SystemAnalysisRequest
-import lila.game.GameExt.analysable
 
 final class Analyser(
     repo: FishnetRepo,
     analysisRepo: AnalysisRepo,
     gameRepo: lila.core.game.GameRepo,
-    uciMemo: UciMemo,
+    gameApi: lila.core.game.GameApi,
+    uciMemo: lila.core.game.UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
 )(using Executor, Scheduler):
@@ -35,7 +34,7 @@ final class Analyser(
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
     (game.metadata.analysed.so(analysisRepo.exists(game.id.value))).flatMap {
       if _ then fuccess(Analyser.Result.AlreadyAnalysed)
-      else if !game.analysable then fuccess(Analyser.Result.NotAnalysable)
+      else if !gameApi.analysable(game) then fuccess(Analyser.Result.NotAnalysable)
       else
         limiter(
           sender,

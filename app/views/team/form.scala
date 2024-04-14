@@ -16,7 +16,7 @@ object form:
     views.html.base.layout(
       title = newTeam.txt(),
       moreCss = cssTag("team"),
-      moreJs = captchaTag
+      modules = captchaTag
     ):
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
@@ -37,7 +37,7 @@ object form:
       )
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
-    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")):
+    bits.layout(title = s"Edit Team ${t.name}", modules = jsModule("bits.team")):
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(

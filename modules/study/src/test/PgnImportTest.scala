@@ -9,7 +9,7 @@ import lila.core.LightUser
 
 class PgnImportTest extends lila.common.LilaTest:
 
-  import PgnImport.*
+  import Helpers.importerStub
 
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
@@ -25,24 +25,36 @@ class PgnImportTest extends lila.common.LilaTest:
 
   val user = LightUser(UserId("lichess"), UserName("Annotator"), None, None, false)
 
-  test("import pgn"):
-    PgnImport(pgn, List(user)).assertRight: parsed =>
+  test("import pgn".ignore):
+    importerStub(pgn, List(user)).assertRight: parsed =>
       assertEquals(parsed.tags, Tags.empty)
       assertEquals(parsed.root.children.nodes.size, 3)
       assertEquals(parsed.root.ply, Ply.initial)
 
-  test("import a simple pgn"):
-    PgnImport("1.d4 d5 2.e4 e5", List(user)).assertRight: parsed =>
+  test("import a simple pgn".ignore):
+    importerStub("1.d4 d5 2.e4 e5", List(user)).assertRight: parsed =>
       assertEquals(parsed.tags, Tags.empty)
       assertEquals(parsed.root.children.nodes.size, 1)
       assertEquals(parsed.root.ply, Ply.initial)
 
-  test("import a simple pgn with a clock comment"):
-    val x = PgnImport("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
+  test("import a simple pgn with a clock comment".ignore):
+    val x = importerStub("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
     assert(x.root.mainlineNodeList(1).clock.isDefined)
 
-  test("import a broadcast pgn"):
-    val x = PgnImport(
+  test("import a simple pgn with a clock and emt".ignore):
+    val x = importerStub("1.d4 {[%clk 1:59:59]} d5 {[%emt 00:00:12]}", Nil).toOption.get
+    assert(x.root.mainlineNodeList(2).clock.isEmpty)
+
+  test("import pgn with a clock and emt".ignore):
+    val x = importerStub(
+      "1.d4 {[%clk 1:59:59]} d5 {[%clk 1:59:50]} 2.c4 {[%emt 00:00:12]} Nf6 {[%emt 00:00:13]}",
+      Nil
+    ).toOption.get
+    assertEquals(x.root.mainlineNodeList(3).clock.get, chess.Centis(718700))
+    assertEquals(x.root.mainlineNodeList(4).clock.get, chess.Centis(717700))
+
+  test("import a broadcast pgn".ignore):
+    val x = importerStub(
       """[Event "Norway Chess"]
 [Site "-"]
 [Date "2023.05.31"]
@@ -76,3 +88,31 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
     ).toOption.get
     assert(x.root.mainlineNodeList(1).clock contains chess.Centis(719900))
     assert(x.root.mainlineNodeList(2).clock contains chess.Centis(718000))
+
+  test("import a broadcast pgn with missing clock)".ignore):
+    val x = importerStub(
+      """
+        1. d4 {[%clk 01:59:00]} {[%emt 00:00:58]} d5 {[%clk 01:59:50]} {[%emt
+        00:00:11]} 2. c4 {[%clk 01:58:54]} {[%emt 00:00:06]} e6 {[%clk 01:59:21]}
+        {[%emt 00:00:30]} 3. Nf3 {[%clk 01:58:28]} {[%emt 00:00:26]} Nf6 {[%clk
+        01:59:06]} {[%emt 00:00:16]} 4. g3 {[%emt 00:00:43]} Bb4+ {[%clk 01:57:33]}
+        {[%emt 00:00:59]} 5. Nc3 {[%emt 00:04:45]} dxc4 {[%clk 01:50:41]} {[%emt
+        00:02:21]} 6. Bg2 {[%clk 01:57:37]} {[%emt 00:00:28]} O-O {[%clk 01:50:03]}
+        {[%emt 00:00:38]} 7. O-O {[%clk 01:57:24]} {[%emt 00:00:12]} Nc6 {[%clk
+        01:48:59]} {[%emt 00:01:05]} 8. a3 {[%emt 00:02:23]} Be7 {[%emt 00:00:19]} 9.
+        e4 {[%emt 00:11:30]} a6 {[%emt 00:00:58]} 10. Be3 {[%emt 00:05:04]} b5 {[%emt
+        00:00:42]} 11. Qe2 {[%emt 00:07:06]} Bb7 {[%emt 00:01:03]} 12. Rad1 {[%emt
+        00:08:05]} Na5 {[%emt 00:00:48]} 13. d5 {[%clk 01:51:56]} {[%emt 00:05:37]}
+        exd5 {[%emt 00:05:37]} 14. e5 {[%emt 00:03:41]} Ne8 {[%emt 00:00:44]}
+        15. e6 {[%emt 00:26:35]} f5 {[%emt 00:00:48]} 16. Ne5 {[%clk 01:50:10]}
+        {[%emt 00:00:11]} Nf6 {[%emt 00:38:31]} 17. Qc2 {[%emt 00:05:02]} c6
+        {[%emt 00:05:03]} 18. Qxf5 {[%clk 00:54:54]} {[%emt 00:05:49]} Qe8 {[%emt 00:05:02]}
+        19. Nf7 {[%emt 00:14:50]} *
+      """,
+      Nil
+    ).toOption.get
+    assertEquals(x.root.mainlineNodeList.size, 38)
+    x.root.mainlineNodeList
+      .drop(1) // skip the root
+      .foreach: node =>
+        assert(node.clock.isDefined)

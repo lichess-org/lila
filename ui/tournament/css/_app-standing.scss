@@ -49,18 +49,16 @@
   }
 
   &:not(.created):not(.loading) tbody tr:hover {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: $m-primary_bg--mix-30;
     cursor: pointer;
   }
 
   tr.me td:first-child {
-    $c-me-border: mix($c-secondary, $c-bg-box, 70%);
-    @include gradient-border($c-me-border, to right, to left);
+    @include gradient-border($m-secondary_bg--mix-70, to right, to left);
   }
 
   tr.active td:last-child {
-    $c-active-border: mix($c-primary, $c-bg-box, 70%);
-    @include gradient-border($c-active-border, to left, to right);
+    @include gradient-border($m-primary_bg--mix-70, to left, to right);
   }
 
   td.rank {

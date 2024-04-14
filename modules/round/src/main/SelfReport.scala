@@ -6,13 +6,12 @@ import scalalib.ThreadLocalRandom
 import scala.util.matching.Regex
 
 import lila.core.net.{ IpAddress, IpAddressStr }
-import lila.game.Game
 import lila.memo.SettingStore
 import lila.user.UserApi
 import lila.rating.UserPerfsExt.bestRating
 
 final class SelfReport(
-    roundApi: lila.game.core.RoundApi,
+    roundApi: lila.core.round.RoundApi,
     userApi: UserApi,
     proxyRepo: GameProxyRepo,
     endGameSetting: SettingStore[Regex] @@ SelfReportEndGame,

@@ -88,9 +88,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
                 )
                 .add("gallery", gallery),
               "board" -> Json.obj(
-                "is3d" -> ctx.pref.is3d
-              ),
-              "theme" -> Json.obj(
+                "is3d" -> ctx.pref.is3d,
                 "d2" -> Json.obj(
                   "current" -> ctx.pref.currentTheme.name,
                   "list"    -> lila.pref.Theme.all.map(_.name)

@@ -7,7 +7,7 @@ import lila.db.dsl.{ *, given }
 
 import Forecast.Step
 
-final class ForecastApi(coll: Coll, roundApi: lila.game.core.RoundApi)(using Executor):
+final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Executor):
 
   private given BSONDocumentHandler[Step]     = Macros.handler
   private given BSONDocumentHandler[Forecast] = Macros.handler

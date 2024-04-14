@@ -63,7 +63,7 @@ object storm:
     views.html.base.layout(
       title = s"${user.username} Puzzle Storm",
       moreCss = frag(cssTag("storm.dashboard")),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(

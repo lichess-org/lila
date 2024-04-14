@@ -125,7 +125,7 @@ object PgnDump:
     chessPgn.Move(
       node.ply,
       san = node.move.san,
-      glyphs = if flags.comments then node.metas.glyphs else Glyphs.empty,
+      glyphs = flags.comments.so(node.metas.glyphs),
       comments = flags.comments.so(node.metas.commentWithShapes),
       opening = none,
       result = none,

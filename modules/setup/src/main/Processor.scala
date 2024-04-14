@@ -46,7 +46,7 @@ final private[setup] class Processor(
   def createSeekIfAllowed(seek: Seek, owner: UserId): Fu[Processor.HookResult] =
     gameCache.nbPlaying(owner).map { nbPlaying =>
       import Processor.HookResult.*
-      if nbPlaying >= lila.game.Game.maxPlaying
+      if lila.core.game.maxPlaying <= nbPlaying
       then Refused
       else
         Bus.publish(AddSeek(seek), "lobbyActor")

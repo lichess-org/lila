@@ -17,7 +17,7 @@ object form:
     views.html.base.layout(
       title = trans.site.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
-      moreJs = jsModule("tourForm")
+      modules = jsModule("bits.tourForm")
     ):
       val fields = TourFields(form, none)
       main(cls := "page-small")(
@@ -94,7 +94,7 @@ object form:
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      moreJs = jsModule("tourForm")
+      modules = jsModule("bits.tourForm")
     ):
       TourFields(form, tour.some)
       main(cls := "page-small")(

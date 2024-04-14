@@ -5,7 +5,8 @@ import chess.variant.*
 import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation }
 
 import lila.common.Bus
-import lila.game.{ AnonCookie, Event, GameRepo, Rematches }
+import lila.game.{ AnonCookie, Event, Rematches }
+import lila.core.game.{ IdGenerator, GameRepo }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import scalalib.cache.ExpireSetMemo
 import lila.core.user.{ GameUsers, UserApi }
@@ -18,7 +19,7 @@ final private class Rematcher(
     messenger: Messenger,
     onStart: lila.core.game.OnStart,
     rematches: Rematches
-)(using Executor, lila.game.IdGenerator, Translator):
+)(using Executor, Translator)(using idGenerator: IdGenerator):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -100,7 +101,7 @@ final private class Rematcher(
         !chess960.get(pov.gameId)
       )
       users <- userApi.gamePlayersAny(pov.game.userIdPair, pov.game.perfKey)
-      sloppy = lila.game.Game.make(
+      sloppy = lila.core.game.newGame(
         chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),
         mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
@@ -108,7 +109,8 @@ final private class Rematcher(
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
       )
-      game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy.withId(id)) }
+      game <- withId.fold(idGenerator.withUniqueId(sloppy)): id =>
+        fuccess(sloppy.withId(id))
     yield game
 
   private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.core.game.Player =

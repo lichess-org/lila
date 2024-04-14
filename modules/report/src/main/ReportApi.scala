@@ -4,7 +4,6 @@ import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.game.GameRepo
 import lila.memo.CacheApi.*
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
@@ -12,7 +11,7 @@ import lila.core.userId.ModId
 final class ReportApi(
     val coll: Coll,
     userApi: lila.core.user.UserApi,
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     autoAnalysis: AutoAnalysis,
     securityApi: lila.core.security.SecurityApi,
     playbansOf: () => lila.core.playban.BansOf,

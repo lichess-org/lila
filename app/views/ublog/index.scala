@@ -17,7 +17,7 @@ object index:
   def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
-      moreJs = posts.hasNextPage.option(infiniteScrollTag),
+      modules = posts.hasNextPage.option(infiniteScrollTag),
       title = trans.ublog.drafts.txt()
     ) {
       main(cls := "page-menu")(
@@ -72,7 +72,7 @@ object index:
   def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = posts.hasNextPage.option(infiniteScrollTag),
+      modules = posts.hasNextPage.option(infiniteScrollTag),
       title = "Community blogs",
       atomLinkTag = link(
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
@@ -158,7 +158,7 @@ object index:
   )(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = posts.hasNextPage.option(infiniteScrollTag),
+      modules = posts.hasNextPage.option(infiniteScrollTag),
       title = title
     ) {
       main(cls := "page-menu")(

@@ -12,7 +12,7 @@ object search:
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       moreCss = cssTag("forum")
     )(
       main(cls := "box search")(

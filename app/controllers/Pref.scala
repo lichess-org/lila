@@ -88,7 +88,11 @@ final class Pref(env: Env) extends LilaController(env):
               v =>
                 ctx.me
                   .so(api.setPref(_, change.update(v)))
-                  .inject(env.security.lilaCookie.session(name, v.toString)(using ctx.req))
+                  .inject(
+                    env.security.lilaCookie.session(name, v.toString)(using
+                      ctx.req
+                    )
+                  )
                   .map: cookie =>
                     Ok(()).withCookies(cookie)
             )

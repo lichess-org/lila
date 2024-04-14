@@ -1,5 +1,5 @@
 import pubsub from './pubsub';
-import { loadCssPath, loadEsm } from './assets';
+import { loadCssPath, loadEsm } from './asset';
 import { memoize, clamp } from 'common';
 
 export default function () {
@@ -17,13 +17,16 @@ export default function () {
   if ('ontouchstart' in window && window.matchMedia('(min-width: 1020px)').matches)
     $('#topnav section > a').removeAttr('href');
 
+  const blockBodyScroll = (e: Event) => {
+    // on iOS, overflow: hidden isn't sufficient
+    if (!document.getElementById('topnav')!.contains(e.target as HTMLElement)) e.preventDefault();
+  };
+
   $('#tn-tg').on('change', e => {
     const menuOpen = (e.target as HTMLInputElement).checked;
+    if (menuOpen) document.body.addEventListener('touchmove', blockBodyScroll, { passive: false });
+    else document.body.removeEventListener('touchmove', blockBodyScroll);
     document.body.classList.toggle('masked', menuOpen);
-    const header = $as<HTMLElement>('#top');
-    // transp #top's blur filter creates a stacking context. turn it off so 'bottom: 0' matches screen height
-    if (menuOpen) header.style.backdropFilter = 'unset';
-    else setTimeout(() => (header.style.backdropFilter = ''), 200); // 200ms is slide transition duration
   });
 
   $(top).on('click', '.toggle', function (this: HTMLElement) {

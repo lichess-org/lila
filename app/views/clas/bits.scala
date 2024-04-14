@@ -19,7 +19,8 @@ object bits:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("clas"),
-      moreJs = frag(jsModule("clas"), moreJs),
+      modules = jsModule("bits.clas"),
+      moreJs = moreJs,
       csp = csp
     )(
       if isGranted(_.Teacher) then

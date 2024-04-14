@@ -14,7 +14,7 @@ object teamBattle:
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      moreJs = jsModule("teamBattleForm")
+      modules = jsModule("bits.teamBattleForm")
     ):
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(

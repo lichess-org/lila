@@ -44,6 +44,9 @@ case class Pref(
     resizeHandle: Int,
     agreement: Int,
     usingAltSocket: Option[Boolean],
+    boardBrightness: Float,
+    boardOpacity: Float,
+    boardHue: Float, // in turns, 1turn = 2pi
     tags: Map[String, String] = Map.empty
 ) extends lila.core.pref.Pref:
 
@@ -57,6 +60,11 @@ case class Pref(
   val themeColorLight = "#dbd7d1"
   val themeColorDark  = "#2e2a24"
   def themeColor      = if bg == Bg.LIGHT then themeColorLight else themeColorDark
+  def themeColorClass =
+    if bg == Bg.LIGHT then "light".some
+    else if bg == Bg.TRANSPARENT then "transp".some
+    else if bg == Bg.SYSTEM then none
+    else "dark".some
 
   def realSoundSet = SoundSet(soundSet)
 
@@ -78,7 +86,8 @@ case class Pref(
       case Animation.SLOW => 120
       case _              => 70
 
-  def bgImgOrDefault = bgImg | Pref.defaultBgImg
+  def bgImgOrDefault =
+    bgImg | Pref.defaultBgImg
 
   def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 
@@ -456,6 +465,9 @@ object Pref:
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     usingAltSocket = none,
+    boardBrightness = 1f,
+    boardOpacity = 1f,
+    boardHue = 0f,
     tags = Map.empty
   )
 

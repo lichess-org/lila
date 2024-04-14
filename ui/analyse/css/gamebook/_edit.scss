@@ -36,7 +36,7 @@
     &.clickable:hover {
       cursor: pointer;
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
 
       i {
         opacity: 0.9;
@@ -53,7 +53,7 @@
 
   .todo i {
     background: $c-bad;
-    color: $c-bad-over;
+    color: $c-over;
   }
 
   .done i {

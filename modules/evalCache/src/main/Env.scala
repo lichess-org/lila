@@ -12,7 +12,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi
 )(using Executor, Scheduler, play.api.Mode):
 
-  private lazy val coll = yoloDb(CollName("eval_cache")).failingSilently()
+  private lazy val coll = yoloDb(CollName("eval_cache2")).failingSilently()
 
   lazy val api: EvalCacheApi = wire[EvalCacheApi]
 

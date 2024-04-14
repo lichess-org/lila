@@ -1,11 +1,11 @@
 import { h, VNode } from 'snabbdom';
-import { Close, elementScrollBarWidthSlowGuess, header } from './util';
+import { elementScrollBarWidthSlowGuess, header } from './util';
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
-import { bind, onInsert, Redraw } from 'common/snabbdom';
+import { bind, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { throttlePromiseDelay } from 'common/throttle';
-import { supportsSystemTheme } from 'common/theme';
+import { DasherCtrl, PaneCtrl } from './interfaces';
 
 export interface BackgroundData {
   current: string;
@@ -23,22 +23,55 @@ interface Background {
   title?: string;
 }
 
-export class BackgroundCtrl {
-  list: Background[];
-
-  constructor(
-    readonly data: BackgroundData,
-    readonly trans: Trans,
-    readonly redraw: Redraw,
-    readonly close: Close,
-  ) {
+export class BackgroundCtrl extends PaneCtrl {
+  private list: Background[];
+  constructor(root: DasherCtrl) {
+    super(root);
     this.list = [
-      { key: 'system', name: trans.noarg('deviceTheme') },
-      { key: 'light', name: trans.noarg('light') },
-      { key: 'dark', name: trans.noarg('dark') },
-      { key: 'darkBoard', name: 'Dark Board', title: 'Like Dark, but chess boards are also darker' },
+      { key: 'system', name: this.trans.noarg('deviceTheme') },
+      { key: 'light', name: this.trans.noarg('light') },
+      { key: 'dark', name: this.trans.noarg('dark') },
       { key: 'transp', name: 'Picture' },
     ];
+  }
+
+  render(): VNode {
+    const cur = this.get();
+
+    return h('div.sub.background', [
+      header(this.trans.noarg('background'), this.close),
+      h(
+        'div.selector.large',
+        this.list.map(bg => {
+          return h(
+            'button.text',
+            {
+              class: { active: cur === bg.key },
+              attrs: { 'data-icon': licon.Checkmark, title: bg.title || '', type: 'button' },
+              hook: bind('click', () => this.set(bg.key)),
+            },
+            bg.name,
+          );
+        }),
+      ),
+      cur !== 'transp' ? null : this.data.gallery ? this.galleryInput() : this.imageInput(),
+    ]);
+  }
+
+  set = throttlePromiseDelay(
+    () => 700,
+    (c: string) => {
+      this.data.current = c;
+      this.apply();
+      this.redraw();
+      return xhr
+        .text('/pref/bg', { body: xhr.form({ bg: c }), method: 'post' })
+        .then(this.reloadAllTheThings, this.announceFail);
+    },
+  );
+
+  private get data() {
+    return this.root.data.background;
   }
 
   private announceFail = (err: string) =>
@@ -48,169 +81,103 @@ export class BackgroundCtrl {
     if ($('canvas').length) site.reload();
   };
 
-  get = () => this.data.current;
-  set = throttlePromiseDelay(
-    () => 700,
-    (c: string) => {
-      this.data.current = c;
-      applyBackground(this.data, this.list);
-      this.redraw();
-      return xhr
-        .text('/pref/bg', { body: xhr.form({ bg: c }), method: 'post' })
-        .then(this.reloadAllTheThings, this.announceFail);
-    },
-  );
-  getImage = () => this.data.image;
-  setImage = (i: string) => {
+  private get = () => this.data.current;
+  private getImage = () => this.data.image;
+  private setImage = (i: string) => {
     this.data.image = i;
     xhr
       .textRaw('/pref/bgImg', { body: xhr.form({ bgImg: i }), method: 'post' })
       .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
       .then(this.reloadAllTheThings, err => err.then(this.announceFail));
-    applyBackground(this.data, this.list);
+    this.apply();
     this.redraw();
   };
-}
 
-export function view(ctrl: BackgroundCtrl): VNode {
-  const cur = ctrl.get();
+  private apply = () => {
+    const key = this.data.current;
+    document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
+    document.documentElement.className =
+      key === 'system'
+        ? window.matchMedia('(prefers-color-scheme: light)').matches
+          ? 'light'
+          : 'dark'
+        : key;
 
-  return h('div.sub.background', [
-    header(ctrl.trans.noarg('background'), ctrl.close),
-    h(
-      'div.selector.large',
-      ctrl.list.map(bg => {
-        return h(
-          'button.text',
-          {
-            class: { active: cur === bg.key },
-            attrs: { 'data-icon': licon.Checkmark, title: bg.title || '', type: 'button' },
-            hook: bind('click', () => ctrl.set(bg.key)),
-          },
-          bg.name,
-        );
-      }),
-    ),
-    cur !== 'transp' ? null : ctrl.data.gallery ? galleryInput(ctrl) : imageInput(ctrl),
-  ]);
-}
-
-function imageInput(ctrl: BackgroundCtrl) {
-  return h('div.image', [
-    h('p', ctrl.trans.noarg('backgroundImageUrl')),
-    h('input', {
-      attrs: { type: 'text', placeholder: 'https://', value: ctrl.getImage() },
-      hook: {
-        insert: vnode => {
-          $(vnode.elm as HTMLElement).on(
-            'change keyup paste',
-            debounce(function (this: HTMLInputElement) {
-              const url = (this.value as string).trim();
-              // modules/pref/src/main/PrefForm.scala
-              if (
-                (url.startsWith('https://') || url.startsWith('//')) &&
-                url.length >= 10 &&
-                url.length <= 400
-              )
-                ctrl.setImage(url);
-            }, 300),
+    if (key === 'transp') {
+      const bgData = document.getElementById('bg-data');
+      bgData
+        ? (bgData.innerHTML = 'html.transp::before{background-image:url(' + this.data.image + ');}')
+        : $('head').append(
+            '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
           );
-        },
-      },
-    }),
-  ]);
-}
+    }
+  };
 
-function applyBackground(data: BackgroundData, list: Background[]) {
-  const key = data.current;
-  const cls = key == 'transp' ? 'dark transp' : key == 'darkBoard' ? 'dark dark-board' : key;
-
-  $('body')
-    .removeClass([...list.map(b => b.key), 'dark-board'].join(' '))
-    .addClass(cls);
-
-  const prev = document.body.dataset.theme!;
-  const sheet = key == 'darkBoard' ? 'dark' : key;
-  document.body.dataset.theme = sheet;
-  if (prev === 'system') {
-    const active = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    const other = active === 'dark' ? 'light' : 'dark';
-    $('link[href*=".' + other + '."]').remove();
-    $('link[href*=".' + active + '."]').each(function (this: HTMLLinkElement) {
-      replaceStylesheet(this, active, sheet);
-    });
-  } else {
-    $('link[href*=".' + prev + '."]').each(function (this: HTMLLinkElement) {
-      if (sheet === 'system') {
-        if (supportsSystemTheme()) {
-          replaceStylesheet(this, prev, 'light', 'light');
-          replaceStylesheet(this, prev, 'dark', 'dark');
-        } else {
-          replaceStylesheet(this, prev, 'dark');
-        }
-      } else replaceStylesheet(this, prev, sheet);
-    });
-  }
-
-  if (key === 'transp') {
-    const bgData = document.getElementById('bg-data');
-    bgData
-      ? (bgData.innerHTML = 'body.transp::before{background-image:url(' + data.image + ');}')
-      : $('head').append(
-          '<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>',
-        );
-  }
-}
-
-function replaceStylesheet(old: HTMLLinkElement, oldKey: string, newKey: string, media?: 'dark' | 'light') {
-  const link = document.createElement('link') as HTMLLinkElement;
-  link.rel = 'stylesheet';
-  link.href = old.href.replace('.' + oldKey + '.', '.' + newKey + '.');
-  if (media) link.media = `(prefers-color-scheme: ${media})`;
-  link.onload = () => setTimeout(() => old.remove(), 100);
-  document.head.insertBefore(link, document.getElementById('piece-sprite'));
-}
-
-function galleryInput(ctrl: BackgroundCtrl) {
-  const urlId = (url: string) => url.replace(/[^\w]/g, '_');
-
-  function setImg(url: string) {
-    $('#images-grid .selected').removeClass('selected');
-    $(`#${urlId(url)}`).addClass('selected');
-    ctrl.setImage(url);
-  }
-
-  const gallery = ctrl.data.gallery!;
-  const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2; // $mq-x-small
-  const montageUrl = site.asset.url(gallery[`montage${cols}`], { noVersion: true });
-  // our layout is static due to the single image gallery optimization. set width here
-  // and allow for the possibility of non-overlaid scrollbars
-  const width = cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
-
-  return h('div#gallery', { attrs: { style: `width: ${width}px` } }, [
-    h(
-      'div#images-viewport',
-      h(
-        'div#images-grid',
-        { attrs: { style: `background-image: url(${montageUrl});` } },
-        gallery.images.map(img => {
-          const assetUrl = site.asset.url(img, { noVersion: true });
-          const divClass = ctrl.data.image.endsWith(assetUrl) ? '.selected' : '';
-          return h(`div#${urlId(assetUrl)}${divClass}`, { hook: bind('click', () => setImg(assetUrl)) });
-        }),
-      ),
-    ),
-    h('span#url', [
-      h('label', 'URL'),
+  private imageInput = () =>
+    h('div.image', [
+      h('p', this.trans.noarg('backgroundImageUrl')),
       h('input', {
-        attrs: { type: 'text', placeholder: 'https://', value: ctrl.data.image },
-        hook: onInsert((el: HTMLInputElement) =>
-          $(el).on(
-            'change keyup paste',
-            debounce(() => setImg(el.value.trim()), 300),
-          ),
-        ),
+        attrs: { type: 'text', placeholder: 'https://', value: this.getImage() },
+        hook: {
+          insert: vnode => {
+            $(vnode.elm as HTMLElement).on(
+              'change keyup paste',
+              debounce((el: HTMLInputElement) => {
+                const url = (el.value as string).trim();
+                if (
+                  (url.startsWith('https://') || url.startsWith('//')) &&
+                  url.length >= 10 &&
+                  url.length <= 400
+                )
+                  this.setImage(url);
+              }, 300),
+            );
+          },
+        },
       }),
-    ]),
-  ]);
+    ]);
+
+  private galleryInput = () => {
+    const urlId = (url: string) => url.replace(/[^\w]/g, '_');
+
+    const setImg = (url: string) => {
+      $('#images-grid .selected').removeClass('selected');
+      $(`#${urlId(url)}`).addClass('selected');
+      this.setImage(url);
+    };
+
+    const gallery = this.data.gallery!;
+    const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2; // $mq-x-small
+    const montageUrl = site.asset.url(gallery[`montage${cols}`], { noVersion: true });
+    // our layout is static due to the single image gallery optimization. set width here
+    // and allow for the possibility of non-overlaid scrollbars
+    const width =
+      cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
+
+    return h('div#gallery', { attrs: { style: `width: ${width}px` } }, [
+      h('div#images-viewport', [
+        h(
+          'div#images-grid',
+          { attrs: { style: `background-image: url(${montageUrl});` } },
+          gallery.images.map(img => {
+            const assetUrl = site.asset.url(img, { noVersion: true });
+            const divClass = this.data.image.endsWith(assetUrl) ? '.selected' : '';
+            return h(`div#${urlId(assetUrl)}${divClass}`, { hook: bind('click', () => setImg(assetUrl)) });
+          }),
+        ),
+      ]),
+      h('span#url', [
+        h('label', 'URL'),
+        h('input', {
+          attrs: { type: 'text', placeholder: 'https://', value: this.data.image },
+          hook: onInsert((el: HTMLInputElement) =>
+            $(el).on(
+              'change keyup paste',
+              debounce(() => setImg(el.value.trim()), 300),
+            ),
+          ),
+        }),
+      ]),
+    ]);
+  };
 }

@@ -7,13 +7,11 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "common": "workspace:*",
-    "lichess-pgn-viewer": "^2.0.1"
+    "lichess-pgn-viewer": "^2.1.0"
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "tutor"
-      }
+      "src/tutor.ts": "tutor"
     }
   }
 }

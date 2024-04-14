@@ -180,6 +180,8 @@ case class Game(
   def hasAi: Boolean = players.exists(_.isAi)
   def nonAi          = !hasAi
 
+  def synthetic = id == GameId("synthetic")
+
   def aiPov: Option[Pov] = players.collect { case x if x.isAi => x.color }.map(pov)
 
   def mapPlayers(f: Player => Player) =
@@ -397,3 +399,9 @@ case class Game(
   def secondsSinceCreation = (nowSeconds - createdAt.toSeconds).toInt
 
   override def toString = s"""Game($id)"""
+end Game
+
+def allowRated(variant: Variant, clock: Option[Clock.Config]) =
+  variant.standard || clock.exists: c =>
+    c.estimateTotalTime >= Centis(3000) &&
+      c.limitSeconds > 0 || c.incrementSeconds > 1

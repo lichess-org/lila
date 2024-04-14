@@ -11,17 +11,20 @@ import lila.core.chess.MultiPv
 
 final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.CacheApi)(using Executor):
 
-  import EvalCacheEntry.*
   import BSONHandlers.given
 
   def getEvalJson(variant: Variant, fen: Fen.Full, multiPv: MultiPv): Fu[Option[JsObject]] =
-    getEval(Id(variant, SmallFen.make(variant, fen.simple)), multiPv)
-      .map:
-        _.map { JsonView.writeEval(_, fen) }
-      .addEffect(monitorRequest(fen))
+    Id.from(variant, fen)
+      .so: id =>
+        getEval(id, multiPv)
+          .map:
+            _.map { JsonView.writeEval(_, fen) }
+          .addEffect(monitorRequest(fen))
 
   val getSinglePvEval: CloudEval.GetSinglePvEval = (variant, fen) =>
-    getEval(Id(variant, SmallFen.make(variant, fen.simple)), MultiPv(1))
+    Id.from(variant, fen)
+      .so: id =>
+        getEval(id, MultiPv(1))
 
   private def monitorRequest(fen: Fen.Full)(res: Option[Any]) =
     Fen
@@ -30,8 +33,9 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
         lila.mon.evalCache.request(ply.value, res.isDefined).increment()
 
   private[evalCache] def drop(variant: Variant, fen: Fen.Full): Funit =
-    val id = Id(variant, SmallFen.make(variant, fen.simple))
-    coll(_.delete.one($id(id)).void)
+    Id.from(variant, fen)
+      .so: id =>
+        coll(_.delete.one($id(id)).void)
 
   private def getEval(id: Id, multiPv: MultiPv): Fu[Option[CloudEval]] =
     cache.get(id).map(_.flatMap(_.makeBestMultiPvEval(multiPv)))

@@ -19,7 +19,8 @@ private class SimulConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
     userApi: lila.core.user.UserApi,
     chat: lila.core.chat.ChatApi,
     lightUser: lila.core.LightUser.GetterFallback,

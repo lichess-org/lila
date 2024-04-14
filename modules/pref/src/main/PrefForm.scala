@@ -13,6 +13,11 @@ object PrefForm:
   private def checkedNumber(choices: Seq[(Int, String)]) =
     number.verifying(containedIn(choices))
 
+  private def float(min: Float, max: Float) =
+    text
+      .verifying("Invalid float", x => x.toFloatOption.exists(x => x >= min && x <= max))
+      .transform[Float](_.toFloat, _.toString)
+
   private def bitPresent(anInt: Int, bit: Int): Boolean =
     (anInt & bit) == bit
 
@@ -36,20 +41,23 @@ object PrefForm:
       "URL must use https",
       url => url.isBlank || url.startsWith("https://") || url.startsWith("//")
     )
-    val is3d          = "is3d"          -> tolerantBoolean
-    val zen           = "zen"           -> checkedNumber(Pref.Zen.choices)
-    val voice         = "voice"         -> booleanNumber
-    val keyboardMove  = "keyboardMove"  -> booleanNumber
-    val autoQueen     = "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices)
-    val premove       = "premove"       -> booleanNumber
-    val takeback      = "takeback"      -> checkedNumber(Pref.Takeback.choices)
-    val autoThreefold = "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices)
-    val submitMove    = "submitMove"    -> bitCheckedNumber(Pref.SubmitMove.choices)
-    val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
-    val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
-    val ratings       = "ratings"       -> booleanNumber
-    val flairs        = "flairs"        -> boolean
-    val follow        = "follow"        -> booleanNumber
+    val is3d            = "is3d"            -> tolerantBoolean
+    val zen             = "zen"             -> checkedNumber(Pref.Zen.choices)
+    val voice           = "voice"           -> booleanNumber
+    val keyboardMove    = "keyboardMove"    -> booleanNumber
+    val autoQueen       = "autoQueen"       -> checkedNumber(Pref.AutoQueen.choices)
+    val premove         = "premove"         -> booleanNumber
+    val takeback        = "takeback"        -> checkedNumber(Pref.Takeback.choices)
+    val autoThreefold   = "autoThreefold"   -> checkedNumber(Pref.AutoThreefold.choices)
+    val submitMove      = "submitMove"      -> bitCheckedNumber(Pref.SubmitMove.choices)
+    val confirmResign   = "confirmResign"   -> checkedNumber(Pref.ConfirmResign.choices)
+    val moretime        = "moretime"        -> checkedNumber(Pref.Moretime.choices)
+    val ratings         = "ratings"         -> booleanNumber
+    val flairs          = "flairs"          -> boolean
+    val follow          = "follow"          -> booleanNumber
+    val boardBrightness = "boardBrightness" -> float(0, 1.5)
+    val boardOpacity    = "boardOpacity"    -> float(0, 1)
+    val boardHue        = "boardHue"        -> float(0, 1)
 
   def pref(lichobile: Boolean) = Form(
     mapping(

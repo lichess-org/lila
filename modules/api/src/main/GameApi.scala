@@ -17,7 +17,6 @@ import lila.game.Game.BSONFields as G
 import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game }
 import lila.game.GameExt.computeMoveTimes
-import lila.game.Blurs.nb
 
 final private[api] class GameApi(
     net: NetConfig,
@@ -174,7 +173,7 @@ final private[api] class GameApi(
             .add("name", p.name)
             .add("provisional" -> p.provisional)
             .add("moveCentis" -> withFlags.moveTimes.so:
-              g.computeMoveTimes(p.color).map(_.map(_.centis))
+              lila.game.GameExt.computeMoveTimes(g, p.color).map(_.map(_.centis))
             )
             .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
             .add(

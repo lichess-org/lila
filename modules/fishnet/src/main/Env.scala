@@ -26,10 +26,11 @@ private class FishnetConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    uciMemo: lila.game.UciMemo,
+    uciMemo: lila.core.game.UciMemo,
     requesterApi: lila.analyse.RequesterApi,
     getSinglePvEval: lila.tree.CloudEval.GetSinglePvEval,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     userApi: lila.core.user.UserApi,
     db: lila.db.Db,

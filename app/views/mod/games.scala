@@ -28,7 +28,7 @@ object games:
     views.html.base.layout(
       title = s"${user.username} games",
       moreCss = cssTag("mod.games"),
-      moreJs = jsModule("mod.games")
+      modules = jsModule("mod.games")
     ) {
       main(cls := "mod-games box")(
         boxTop(
@@ -100,9 +100,10 @@ object games:
             tbody(
               games.fold(_.map(_ -> None), _.map { case (pov, ass) => pov -> Some(ass) }).map {
                 case (pov, assessment) =>
+                  val analysable = lila.game.GameExt.analysable(pov.game)
                   tr(
-                    td(cls := pov.game.analysable.option("input"))(
-                      pov.game.analysable.option(
+                    td(cls := analysable.option("input"))(
+                      analysable.option(
                         input(
                           tpe      := "checkbox",
                           name     := s"game[]",

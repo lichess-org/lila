@@ -3,8 +3,8 @@ package lila.evaluation
 import chess.{ Color, Speed }
 
 import lila.analyse.{ AccuracyCP, Analysis }
-import lila.game.{ Player, Pov }
 import lila.game.GameExt.playerBlurPercent
+import lila.game.Player.HoldAlert
 
 case class PlayerAssessment(
     _id: String,
@@ -59,20 +59,20 @@ object PlayerAssessment:
     then GameAssessment.Unclear
     else assessment
 
-  def makeBasics(pov: Pov, holdAlerts: Option[Player.HoldAlert]): PlayerAssessment.Basics =
+  def makeBasics(pov: Pov, holdAlerts: Option[HoldAlert]): PlayerAssessment.Basics =
     import Statistics.*
     import pov.{ color, game }
     import lila.game.GameExt.*
 
     Basics(
-      moveTimes = intAvgSd(game.computeMoveTimes(color).orZero.map(_.roundTenths)),
+      moveTimes = intAvgSd(lila.game.GameExt.computeMoveTimes(game, color).orZero.map(_.roundTenths)),
       blurs = game.playerBlurPercent(color),
       hold = holdAlerts.exists(_.suspicious),
       blurStreak = highestChunkBlursOf(pov).some.filter(0 <),
       mtStreak = highlyConsistentMoveTimeStreaksOf(pov)
     )
 
-  def make(pov: Pov, analysis: Analysis, holdAlerts: Option[Player.HoldAlert]): PlayerAssessment =
+  def make(pov: Pov, analysis: Analysis, holdAlerts: Option[HoldAlert]): PlayerAssessment =
     import Statistics.*
     import pov.{ color, game }
 

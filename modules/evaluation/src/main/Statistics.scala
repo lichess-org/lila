@@ -38,7 +38,7 @@ object Statistics:
     yield coef
 
   def moveTimes(pov: Pov): Option[List[Centis]] =
-    pov.game.computeMoveTimes(pov.color)
+    lila.game.GameExt.computeMoveTimes(pov.game, pov.color)
 
   def cvIndicatesHighlyFlatTimes(c: Float) =
     c < 0.25
@@ -66,7 +66,7 @@ object Statistics:
 
   private val fastMove = Centis(50)
   def noFastMoves(pov: Pov): Boolean =
-    val moveTimes = ~pov.game.computeMoveTimes(pov.color)
+    val moveTimes = ~lila.game.GameExt.computeMoveTimes(pov.game, pov.color)
     moveTimes.count(fastMove > _) <= (moveTimes.size / 20) + 2
 
   def listAverage[T: Numeric](x: List[T]) = ~Maths.mean(x)

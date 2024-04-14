@@ -21,9 +21,7 @@ object BSONHandlers:
     def reads(r: Reader) =
       val brush = r.str("b")
       r.getO[Square]("p")
-        .map { pos =>
-          Shape.Circle(brush, pos)
-        }
+        .map(Shape.Circle(brush, _))
         .getOrElse(Shape.Arrow(brush, r.get[Square]("o"), r.get[Square]("d")))
     def writes(w: Writer, t: Shape) =
       t match
@@ -106,9 +104,7 @@ object BSONHandlers:
     val intReader = collectionReader[List, Int]
     tryHandler[Glyphs](
       { case arr: Barr =>
-        intReader.readTry(arr).map { ints =>
-          Glyphs.fromList(ints.flatMap(Glyph.find))
-        }
+        intReader.readTry(arr).map(ints => Glyphs.fromList(ints.flatMap(Glyph.find)))
       },
       x => BSONArray(x.toList.map(_.id).map(BSONInteger.apply))
     )

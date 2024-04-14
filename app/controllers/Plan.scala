@@ -72,7 +72,7 @@ final class Plan(env: Env) extends LilaController(env):
           bestIds = bestIds,
           pricing = pricing
         )
-    yield Ok(page)
+    yield Ok(page).withHeaders(crossOriginPolicy.unsafe*)
 
   private def indexStripePatron(patron: lila.plan.Patron, customer: StripeCustomer)(using
       ctx: Context,
@@ -84,6 +84,7 @@ final class Plan(env: Env) extends LilaController(env):
     res <- info match
       case Some(info: CustomerInfo.Monthly) =>
         Ok.page(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
+
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email.map { EmailAddress(_) }, patron.some)
       case None =>
@@ -98,6 +99,8 @@ final class Plan(env: Env) extends LilaController(env):
   ) =
     Ok.pageAsync:
       env.plan.api.giftsFrom(me).map { html.plan.indexPayPal(me, patron, sub, _) }
+    .map:
+        _.withHeaders(crossOriginPolicy.unsafe*)
 
   private def myCurrency(using ctx: Context): Currency =
     get("currency")

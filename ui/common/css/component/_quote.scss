@@ -11,7 +11,7 @@
     font-style: italic;
     font-size: 1.1rem;
 
-    @if $theme != 'transp' {
+    html:not(.transp) & {
       border: $border;
       border-width: 1px 0;
 
