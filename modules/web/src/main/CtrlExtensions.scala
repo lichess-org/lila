@@ -9,7 +9,7 @@ import lila.core.i18n.Translate
 import lila.core.perf.UserWithPerfs
 import lila.core.config.BaseUrl
 
-trait CtrlExtensions extends play.api.mvc.ControllerHelpers:
+trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders:
 
   def baseUrl: BaseUrl
 
@@ -34,7 +34,7 @@ trait CtrlExtensions extends play.api.mvc.ControllerHelpers:
       result.withHeaders(LINK -> s"<${baseUrl}${url}>; rel=\"canonical\"")
     def withCanonical(url: Call): Result = withCanonical(url.url)
     def enforceCrossSiteIsolation(using req: RequestHeader): Result =
-      result.withHeaders(embedderPolicy.forReq(req)*)
+      result.withHeaders(crossOriginPolicy.forReq(req)*)
     def noCache: Result = result.withHeaders(
       CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
       EXPIRES       -> "0"

@@ -72,7 +72,7 @@ final class Plan(env: Env) extends LilaController(env):
           bestIds = bestIds,
           pricing = pricing
         )
-    yield Ok(page).withHeaders(embedderPolicy.unsafe*)
+    yield Ok(page).withHeaders(crossOriginPolicy.unsafe*)
 
   private def indexStripePatron(patron: lila.plan.Patron, customer: StripeCustomer)(using
       ctx: Context,
@@ -91,15 +91,16 @@ final class Plan(env: Env) extends LilaController(env):
         env.user.repo.email(me).flatMap {
           renderIndex(_, patron.some)
         }
-  yield res.withHeaders(embedderPolicy.unsafe*)
+  yield res
 
   private def indexPayPalPatron(patron: lila.plan.Patron, sub: PayPalSubscription)(using
       ctx: Context,
       me: Me
   ) =
-    Ok.pageAsync {
+    Ok.pageAsync:
       env.plan.api.giftsFrom(me).map { html.plan.indexPayPal(me, patron, sub, _) }
-    }.map(_.withHeaders(embedderPolicy.unsafe*))
+    .map:
+        _.withHeaders(crossOriginPolicy.unsafe*)
 
   private def myCurrency(using ctx: Context): Currency =
     get("currency")
