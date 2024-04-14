@@ -21,6 +21,7 @@ import lila.tournament.Tournament
 import lila.web.{ RealPlayerApi, RealPlayers }
 
 import lila.core.i18n.Translate
+import lila.game.PgnDump.applyDelay
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -310,10 +311,10 @@ final class GameApiV2(
     .add("winner" -> g.winnerColor.map(_.name))
     .add("opening" -> g.opening.ifTrue(flags.opening))
     .add("moves" -> flags.moves.option {
-      flags.keepDelayIf(g.playable).applyDelay(g.sans).mkString(" ")
+      applyDelay(g.sans, flags.keepDelayIf(g.playable)).mkString(" ")
     })
     .add("clocks" -> flags.clocks.so(g.bothClockStates).map { clocks =>
-      flags.keepDelayIf(g.playable).applyDelay(clocks)
+      applyDelay(clocks, flags.keepDelayIf(g.playable))
     })
     .add("pgn" -> pgn)
     .add("daysPerTurn" -> g.daysPerTurn)

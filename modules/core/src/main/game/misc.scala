@@ -7,8 +7,9 @@ import reactivemongo.api.bson.BSONDocumentHandler
 import reactivemongo.api.bson.collection.BSONCollection
 import _root_.chess.{ Color, ByColor, Speed, Ply }
 import _root_.chess.format.Fen
+import _root_.chess.format.pgn.Pgn
 
-import lila.core.id.{ GameId, GameFullId, GamePlayerId }
+import lila.core.id.{ GameId, GameFullId, GamePlayerId, TeamId }
 import lila.core.userId.UserId
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.perf.UserWithPerfs
@@ -99,6 +100,32 @@ trait GameProxy:
   def game(gameId: GameId): Fu[Option[Game]]
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]]
   def flushIfPresent(gameId: GameId): Funit
+
+trait PgnDump:
+  def apply(
+      game: Game,
+      initialFen: Option[Fen.Full],
+      flags: PgnDump.WithFlags,
+      teams: Option[ByColor[TeamId]] = None
+  ): Fu[Pgn]
+
+object PgnDump:
+  case class WithFlags(
+      clocks: Boolean = true,
+      moves: Boolean = true,
+      tags: Boolean = true,
+      evals: Boolean = true,
+      opening: Boolean = true,
+      rating: Boolean = true,
+      literate: Boolean = false,
+      pgnInJson: Boolean = false,
+      delayMoves: Boolean = false,
+      lastFen: Boolean = false,
+      accuracy: Boolean = false,
+      division: Boolean = false
+  ):
+    def requiresAnalysis           = evals || accuracy
+    def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
 
 object BSONFields:
   val id         = "_id"
