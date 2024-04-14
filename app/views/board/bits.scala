@@ -6,7 +6,6 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.*
 
-
 object bits:
 
   private val dataState = attr("data-state")
