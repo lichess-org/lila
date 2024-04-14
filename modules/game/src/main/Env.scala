@@ -9,6 +9,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
+import lila.core.game.Game
 
 final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
@@ -71,6 +72,9 @@ final class Env(
 
   lazy val api: lila.core.game.GameApi = new:
     export gameRepo.{ incBookmarks, getSourceAndUserIds }
+
+  lazy val newPlayer: lila.core.game.NewPlayer = new:
+    export Player.make as apply
 
   scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration): () =>
     captcha.newCaptcha()

@@ -11,7 +11,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   private val coll = colls.challenge
 
-  private val maxOutgoing = lila.game.Game.maxPlayingRealtime
+  import lila.core.game.maxPlayingRealtime
 
   def byId(id: Challenge.Id) = coll.find($id(id)).one[Challenge]
 
@@ -23,8 +23,8 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   def insert(c: Challenge): Funit =
     coll.insert.one(c) >> c.challengerUser.so: challenger =>
       createdByChallengerId()(challenger.id).flatMap:
-        case challenges if challenges.sizeIs <= maxOutgoing => funit
-        case challenges => challenges.drop(maxOutgoing).map(_.id).map(remove).parallel.void
+        case challenges if challenges.sizeIs <= maxPlayingRealtime.value => funit
+        case challenges => challenges.drop(maxPlayingRealtime.value).map(_.id).map(remove).parallel.void
 
   def update(c: Challenge): Funit = coll.update.one($id(c.id), c).void
 

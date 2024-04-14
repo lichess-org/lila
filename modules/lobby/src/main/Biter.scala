@@ -9,7 +9,7 @@ import lila.core.user.WithPerf
 final private class Biter(
     userApi: lila.core.user.UserApi,
     gameRepo: lila.game.GameRepo
-)(using Executor, lila.game.IdGenerator):
+)(using Executor)(using idGenerator: lila.game.IdGenerator):
 
   def apply(hook: Hook, sri: Sri, user: Option[LobbyUser]): Fu[JoinHook] =
     if canJoin(hook, user)
@@ -26,10 +26,11 @@ final private class Biter(
       users <- userApi.gamePlayersAny(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
       (joiner, owner) = users.toPair
       ownerColor <- assignCreatorColor(owner, joiner, hook.realColor)
-      game <- makeGame(
-        hook,
-        ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner))
-      ).withUniqueId
+      game <- idGenerator.withUniqueId:
+        makeGame(
+          hook,
+          ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner))
+        )
       _ <- gameRepo.insertDenormalized(game)
     yield
       lila.mon.lobby.hook.join.increment()
@@ -43,10 +44,11 @@ final private class Biter(
         .orFail(s"No such seek users: $seek")
       (joiner, owner) = users.toPair
       ownerColor <- assignCreatorColor(owner.some, joiner.some, seek.realColor)
-      game <- makeGame(
-        seek,
-        ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner)).map(some)
-      ).withUniqueId
+      game <- idGenerator.withUniqueId:
+        makeGame(
+          seek,
+          ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner)).map(some)
+        )
       _ <- gameRepo.insertDenormalized(game)
     yield
       rememberIfFixedColor(seek.realColor, game)
@@ -67,8 +69,8 @@ final private class Biter(
       case Color.White => fuccess(chess.White)
       case Color.Black => fuccess(chess.Black)
 
-  private def makeGame(hook: Hook, users: GameUsers) = lila.game.Game
-    .make(
+  private def makeGame(hook: Hook, users: GameUsers) = lila.core.game
+    .newGame(
       chess = ChessGame(
         situation = Situation(hook.realVariant),
         clock = hook.clock.toClock.some
@@ -80,8 +82,8 @@ final private class Biter(
     )
     .start
 
-  private def makeGame(seek: Seek, users: GameUsers) = lila.game.Game
-    .make(
+  private def makeGame(seek: Seek, users: GameUsers) = lila.core.game
+    .newGame(
       chess = ChessGame(
         situation = Situation(seek.realVariant),
         clock = none

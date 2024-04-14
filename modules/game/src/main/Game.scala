@@ -216,8 +216,7 @@ object Game:
 
   val syntheticId = GameId("synthetic")
 
-  val maxPlaying         = 200 // including correspondence
-  val maxPlayingRealtime = 100
+  val maxPlaying = 200 // including correspondence
 
   val maxPlies = Ply(600) // unlimited would be a DoS target
 
@@ -286,31 +285,6 @@ object Game:
   def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
 
   def isBoardOrBotCompatible(game: Game) = isBoardCompatible(game) || isBotCompatible(game)
-
-  def make(
-      chess: ChessGame,
-      players: ByColor[Player],
-      mode: Mode,
-      source: Source,
-      pgnImport: Option[PgnImport],
-      daysPerTurn: Option[Days] = None,
-      rules: Set[GameRule] = Set.empty
-  ): NewGame =
-    val createdAt = nowInstant
-    NewGame:
-      new Game(
-        id = IdGenerator.uncheckedGame,
-        players = players,
-        chess = chess,
-        status = Status.Created,
-        daysPerTurn = daysPerTurn,
-        mode = mode,
-        metadata = metadata(source).copy(pgnImport = pgnImport, rules = rules),
-        createdAt = createdAt,
-        movedAt = createdAt
-      )
-
-  def metadata(source: Source) = emptyMetadata.copy(source = source.some)
 
   object BSONFields:
     export lila.core.game.BSONFields.*

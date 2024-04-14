@@ -55,8 +55,8 @@ case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expec
     (game, moves)
 
   def makeGame(g: chess.Game) =
-    lila.game.Game
-      .make(
+    lila.core.game
+      .newGame(
         g,
         ByColor(lila.game.Player.make(_, none)),
         mode = chess.Mode.Casual,

@@ -9,10 +9,6 @@ import java.security.MessageDigest
 import lila.db.ByteArray
 import lila.core.game.{ Source, GameRule, GameMetadata, GameDrawOffers, PgnImport }
 
-private val emptyDrawOffers = GameDrawOffers(Set.empty, Set.empty)
-private val emptyMetadata =
-  GameMetadata(None, None, None, None, None, analysed = false, emptyDrawOffers, rules = Set.empty)
-
 object PgnImport:
 
   def hash(pgn: PgnStr) = // ByteArray {

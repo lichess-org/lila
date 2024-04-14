@@ -16,7 +16,7 @@ import lila.game.GameExt.*
 
 final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c):
 
-  export BSONHandlers.gameHandler
+  export BSONHandlers.{ statusHandler, gameHandler }
   import BSONHandlers.given
   import lila.game.Game.{ BSONFields as F }
   import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
@@ -393,7 +393,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .skip(ThreadLocalRandom.nextInt(distribution))
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen.Full] = None): Funit =
+  def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit =
     val g2 =
       if g.rated && (g.userIds.distinct.size != 2 ||
           !lila.game.Game.allowRated(g.variant, g.clock.map(_.config)))

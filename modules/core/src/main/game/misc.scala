@@ -3,9 +3,9 @@ package game
 
 import cats.derived.*
 import play.api.libs.json.*
-import reactivemongo.api.bson.BSONDocumentHandler
+import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
 import reactivemongo.api.bson.collection.BSONCollection
-import _root_.chess.{ Color, ByColor, Speed, Ply }
+import _root_.chess.{ Color, ByColor, Status, Speed, Ply }
 import _root_.chess.format.Fen
 import _root_.chess.format.pgn.Pgn
 
@@ -13,6 +13,8 @@ import lila.core.id.{ GameId, GameFullId, GamePlayerId, TeamId }
 import lila.core.userId.UserId
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.perf.UserWithPerfs
+
+val maxPlayingRealtime = Max(100)
 
 case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
 object PlayerRef:
@@ -84,6 +86,7 @@ trait GameApi:
 
 abstract class GameRepo(val coll: BSONCollection):
   given gameHandler: BSONDocumentHandler[Game]
+  given statusHandler: BSONHandler[Status]
   val light: GameLightRepo
   def game(gameId: GameId): Fu[Option[Game]]
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]]
@@ -94,6 +97,7 @@ abstract class GameRepo(val coll: BSONCollection):
   def initialFen(game: Game): Fu[Option[Fen.Full]]
   def withInitialFen(game: Game): Fu[WithInitialFen]
   def isAnalysed(game: Game): Fu[Boolean]
+  def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit
 
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit

@@ -14,8 +14,8 @@ class AnnotatorTest extends munit.FunSuite:
 
   val annotator = Annotator(NetDomain("l.org"))
   def makeGame(g: chess.Game) =
-    lila.game.Game
-      .make(
+    lila.core.game
+      .newGame(
         g,
         ByColor(lila.game.Player.make(_, none)),
         mode = chess.Mode.Casual,

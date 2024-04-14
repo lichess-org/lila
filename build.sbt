@@ -305,7 +305,7 @@ lazy val swiss = module("swiss",
 )
 
 lazy val simul = module("simul",
-  Seq(gathering, game, room),
+  Seq(gathering, room, memo),
   Seq(lettuce) ++ reactivemongo.bundle
 )
 
