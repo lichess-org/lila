@@ -18,7 +18,7 @@ final class OpeningApi(
 
   import OpeningQuery.Query
 
-  private val defaultCache = cacheApi.notLoading[Query, Option[OpeningPage]](1024, "opening.defaultCache") :
+  private val defaultCache = cacheApi.notLoading[Query, Option[OpeningPage]](1024, "opening.defaultCache"):
     _.maximumSize(4096).expireAfterWrite(5 minute).buildAsync()
 
   def index(using RequestHeader): Fu[Option[OpeningPage]] =

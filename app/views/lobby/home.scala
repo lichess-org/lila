@@ -9,7 +9,6 @@ import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import lila.core.perf.UserWithPerfs
 
-
 object home:
 
   def apply(homepage: Homepage)(using ctx: PageContext): Frag =

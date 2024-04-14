@@ -6,7 +6,6 @@ import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 
-
 object gamesContent:
 
   def apply(

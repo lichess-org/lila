@@ -3,7 +3,6 @@ package views.html.lobby
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.*
 
-
 object blindLobby:
 
   def apply(games: List[Pov])(using PageContext) =

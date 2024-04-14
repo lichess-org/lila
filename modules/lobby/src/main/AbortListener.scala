@@ -1,6 +1,5 @@
 package lila.lobby
 
-
 import lila.core.game.Source
 
 final private class AbortListener(

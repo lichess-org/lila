@@ -6,7 +6,6 @@ import play.api.libs.json.{ JsObject, Json }
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 
-
 object watcher:
 
   def apply(
