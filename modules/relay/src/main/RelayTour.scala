@@ -52,9 +52,9 @@ object RelayTour:
 
   type Tier = Int
   object Tier:
-    val NORMAL = 3
-    val HIGH   = 4
-    val BEST   = 5
+    val NORMAL  = 3
+    val HIGH    = 4
+    val BEST    = 5
     val PRIVATE = 6
 
     val options = List(
@@ -68,10 +68,10 @@ object RelayTour:
       case (t, n) if t == tier.toString => n
     } | "???"
     val keys: Map[Tier, String] = Map(
-        NORMAL -> "normal", 
-        HIGH -> "high", 
-        BEST -> "best", 
-        PRIVATE -> "private"
+      NORMAL  -> "normal",
+      HIGH    -> "high",
+      BEST    -> "best",
+      PRIVATE -> "private"
     )
     type Selector = RelayTour.Tier.type => RelayTour.Tier
 

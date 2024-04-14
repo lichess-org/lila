@@ -22,7 +22,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
       "description"     -> cleanText(minLength = 3, maxLength = 400),
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
-      "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
+      "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.PRIVATE)),
       "autoLeaderboard" -> boolean,
       "teamTable"       -> boolean,
       "players" -> optional(

@@ -37,6 +37,25 @@ final class RelayPager(
     maxPerPage = maxPerPage
   )
 
+  def isPrivate(page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
+    adapter = new:
+      def nbResults: Fu[Int] = tourRepo.countPrivateRelay()
+      def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
+        tourRepo.coll
+          .aggregateList(length, _.sec): framework =>
+            import framework.*
+            Match(RelayTourRepo.selectors.privateRelay) -> {
+              List(Sort(Descending("createdAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
+                Skip(offset),
+                Limit(length)
+              )
+            }
+          .map(readToursWithRound)
+    ,
+    currentPage = page,
+    maxPerPage = maxPerPage
+  )
+
   def subscribedBy(userId: UserId, page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
       def nbResults: Fu[Int] = tourRepo.countBySubscriberId(userId)
@@ -87,10 +106,14 @@ final class RelayPager(
       )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
-    forSelector($text(query) ++ $doc("tier".$exists(true)), page)
+    forSelector($text(query) ++ $doc("tier".$exists(true) ++ RelayTourRepo.selectors.publicRelay), page)
 
   def byIds(ids: List[RelayTour.Id], page: Int): Fu[Paginator[WithLastRound]] =
-    forSelector($inIds(ids) ++ $doc("tier".$exists(true)), page, List("syncedAt"))
+    forSelector(
+      $inIds(ids) ++ $doc("tier".$exists(true) ++ RelayTourRepo.selectors.publicRelay),
+      page,
+      List("syncedAt")
+    )
 
   private def forSelector(
       selector: Bdoc,

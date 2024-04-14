@@ -107,6 +107,23 @@ object tour:
         )
       )
 
+  def privateRelay(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
+    views.html.base.layout(
+      title = "Private Broadcasts",
+      moreCss = cssTag("relay.index"),
+      moreJs = infiniteScrollTag
+    ):
+      main(cls := "relay-index page-menu")(
+        pageMenu("privateRelay"),
+        div(cls := "page-menu__content box box-pad")(
+          boxTop:
+            h1("Private Broadcasts")
+          ,
+          standardFlash,
+          renderPager(pager)
+        )
+      )
+
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using PageContext) =
     views.html.base.layout(
       title = t.name.value,
@@ -159,6 +176,11 @@ object tour:
           ),
       a(href := routes.RelayTour.subscribed(), cls := menu.activeO("subscribed"))(
         trans.broadcast.subscribedBroadcasts()
+      ),
+      isGranted(_.Relay).option(
+        a(href := routes.RelayTour.privateRelay(), cls := menu.activeO("privateRelay"))(
+          "Private Broadcasts"
+        )
       ),
       a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
