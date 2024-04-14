@@ -37,12 +37,12 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
     ctrl.keyboardHelp && keyboardView(ctrl),
     study && deps?.studyView.overboard(study),
     renderBoard(ctx),
-    ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     gaugeOn && cevalView.renderGauge(ctrl),
     !menuIsOpen && crazyView(ctrl, ctrl.topColor(), 'top'),
     gamebookPlayView || renderTools(ctx),
     !menuIsOpen && crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     !gamebookPlayView && renderControls(ctrl),
+    ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     renderUnderboard(ctx),
     trainingView(ctrl),
     ctrl.studyPractice
