@@ -8,9 +8,11 @@ import play.api.i18n.Lang
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.web.ui.*
 import lila.core.LightUser
-import lila.game.{ Game, LightPlayer, Namer, Player, Pov }
+import lila.game.{ Namer }
+import lila.core.game.{ Game, Player, LightPlayer }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translate }
 import lila.core.config.BaseUrl
+import lila.game.GameExt.drawReason
 
 trait GameHelper:
   self: RouterHelper & I18nHelper & UserHelper & StringHelper & NumberHelper & ChessgroundHelper =>
@@ -37,7 +39,7 @@ trait GameHelper:
     val p2    = playerText(game.blackPlayer, withRating = true)
     val plays = if game.finishedOrAborted then "played" else "is playing"
     val speedAndClock =
-      if game.imported then "imported"
+      if game.sourceIs(_.Import) then "imported"
       else
         game.clock.fold(chess.Speed.Correspondence.name): c =>
           s"${chess.Speed(c.config).name} (${c.config.show})"

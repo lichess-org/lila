@@ -14,6 +14,7 @@ import lila.memo.RateLimit
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.core.socket.Sri
+import lila.game.GameExt.perfType
 
 final class Setup(
     env: Env,
@@ -159,7 +160,7 @@ final class Setup(
               hookConfigWithRating = get("rr")
                 .fold(
                   hookConfig.withRatingRange(
-                    orig.fold(lila.rating.Perf.default)(_.perfs(game.perfType)).intRating.some,
+                    orig.fold(lila.rating.Perf.default)(_.perfs(game.perfKey)).intRating.some,
                     get("deltaMin"),
                     get("deltaMax")
                   )

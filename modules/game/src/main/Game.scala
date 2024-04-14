@@ -206,9 +206,7 @@ object GameExt:
       else if g.drawOffers.normalizedPlies.exists(g.ply <= _) then DrawReason.MutualAgreement.some
       else None
 
-    // #TODO compute perfkey instead
-    def perfType: PerfType = lila.rating.PerfType(g.variant, g.speed)
-    def perfKey: PerfKey   = perfType.key
+    def perfType: PerfType = PerfType(g.perfKey)
 
 end GameExt
 

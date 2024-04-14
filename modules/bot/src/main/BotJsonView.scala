@@ -6,6 +6,7 @@ import lila.common.Json.given
 import lila.game.JsonView.given
 import lila.core.game.{ Game, GameRepo, Pov, WithInitialFen }
 import lila.core.i18n.Translate
+import lila.game.GameExt.perfType
 
 final class BotJsonView(
     lightUserApi: lila.core.user.LightUserApi,
@@ -30,7 +31,7 @@ final class BotJsonView(
         "id"         -> game.id,
         "variant"    -> game.variant,
         "speed"      -> game.speed.key,
-        "perf"       -> Json.obj("name" -> lila.rating.PerfType(game.perfKey).trans),
+        "perf"       -> Json.obj("name" -> game.perfType.trans),
         "rated"      -> game.rated,
         "createdAt"  -> game.createdAt,
         "white"      -> playerJson(game.whitePov),

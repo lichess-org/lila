@@ -47,7 +47,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       val pov     = if flip then !natural else natural
       val onTv    = lila.round.OnTv.Lichess(channel.key, flip)
       env.user.api
-        .gamePlayers(game.userIdPair, game.perfType)
+        .gamePlayers(game.userIdPair, game.perfKey)
         .flatMap: users =>
           gameC.preloadUsers(users)
           negotiateApi(

@@ -16,7 +16,7 @@ object communication:
   def apply(
       mod: Me,
       u: User,
-      players: List[(lila.game.Pov, lila.chat.MixedChat)],
+      players: List[(Pov, lila.chat.MixedChat)],
       convos: List[lila.msg.ModMsgConvo],
       publicLines: List[lila.shutup.PublicLine],
       notes: List[lila.user.Note],

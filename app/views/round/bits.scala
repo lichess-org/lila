@@ -10,7 +10,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.core.app.LangPath
-
+import lila.game.GameExt.playerBlurPercent
 
 object bits:
 
@@ -51,6 +51,7 @@ object bits:
       views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
 
   def underchat(game: Game)(using ctx: Context) =
+    import lila.game.Blurs.nb
     frag(
       views.html.chat.spectatorsFrag,
       isGranted(_.ViewBlurs).option(

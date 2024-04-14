@@ -46,7 +46,7 @@ final private[api] class RoundApi(
   )(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- gameRepo.initialFen(pov.game)
-      users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType))
+      users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfKey))
       prefs      <- prefApi.get(users.map(_.map(_.user)), pov.color, ctx.pref)
       (json, simul, swiss, note, forecast, bookmarked) <-
         (

@@ -15,6 +15,7 @@ import lila.tournament.{ Tournament, Winner }
 import lila.ublog.UblogPost
 import lila.user.{ LightUserApi, Me, User }
 import lila.core.perf.UserWithPerfs
+import lila.core.game.Game
 
 final class Preload(
     tv: lila.tv.Tv,

@@ -16,6 +16,7 @@ import lila.core.playban.RageSit
 import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
 import lila.core.perm.Permission
 import lila.user.{ Me, WithPerfsAndEmails }
+import lila.game.GameExt.perfType
 
 object mod:
 

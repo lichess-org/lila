@@ -5,6 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.game.GameExt.perfType
 
 object side:
 
@@ -44,7 +45,7 @@ object side:
               div(cls := "header")(
                 div(cls := "setup")(
                   views.html.bookmark.toggle(game, bookmarked),
-                  if game.imported then
+                  if game.sourceIs(_.Import) then
                     div(
                       a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
                       separator,

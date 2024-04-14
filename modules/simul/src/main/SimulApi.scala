@@ -99,7 +99,7 @@ final class SimulApi(
         .flatMapz: simul =>
           Variant(variantKey)
             .filter(simul.variants.contains)
-            .ifTrue(simul.nbAccepted < Game.maxPlayingRealtime)
+            .ifTrue(simul.nbAccepted < lila.game.Game.maxPlayingRealtime)
             .so: variant =>
               val perfType = PerfType(variant, chess.Speed(simul.clock.config.some))
               userApi
@@ -241,7 +241,7 @@ final class SimulApi(
     users     = hostColor.fold(us, us.swap)
     clock     = simul.clock.chessClockOf(hostColor)
     perfType  = PerfType(pairing.player.variant, chess.Speed(clock.config))
-    game1 = Game.make(
+    game1 = lila.game.Game.make(
       chess = chess
         .Game(
           variantOption = Some:

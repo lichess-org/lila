@@ -7,12 +7,13 @@ import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.*
 
 import lila.rating.PerfType
+import lila.game.GameExt.perfType
 
 object bits:
 
   def gameIcon(game: Game): Icon =
     if game.fromPosition then Icon.Feather
-    else if game.imported then Icon.UploadCloud
+    else if game.sourceIs(_.Import) then Icon.UploadCloud
     else if game.variant.exotic then game.perfType.icon
     else if game.hasAi then Icon.Cogs
     else game.perfType.icon

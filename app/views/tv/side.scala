@@ -4,6 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.game.GameExt.perfType
 
 object side:
 

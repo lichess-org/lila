@@ -57,10 +57,11 @@ trait TournamentHelper:
         "Marathon"    -> icon(Icon.Globe),
         "HyperBullet" -> s"H${icon(PerfType.Bullet.icon)}",
         "SuperBlitz"  -> s"S${icon(PerfType.Blitz.icon)}"
-      ) ::: lila.rating.PerfType.leaderboardable.filterNot(lila.rating.PerfType.translated.contains).map {
-        pt =>
+      ) ::: lila.rating.PerfType.leaderboardable
+        .filterNot(lila.rating.PerfType.translated.contains)
+        .map(PerfType(_))
+        .map: pt =>
           pt.trans -> icon(pt.icon)
-      }
     def apply(name: String): Frag = raw:
       replacements.foldLeft(name):
         case (n, (from, to)) => n.replace(from, to)

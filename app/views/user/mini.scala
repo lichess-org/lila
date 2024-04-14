@@ -12,7 +12,7 @@ object mini:
 
   def apply(
       u: UserWithPerfs,
-      playing: Option[lila.game.Pov],
+      playing: Option[Pov],
       blocked: Boolean,
       followable: Boolean,
       rel: Option[lila.relation.Relation],

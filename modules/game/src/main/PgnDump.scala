@@ -9,6 +9,7 @@ import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
 import lila.core.game.{ Game, Player }
 import lila.game.Player.nameSplit
+import lila.game.GameExt.perfType
 
 final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiMinimal)(using Executor):
 
@@ -62,7 +63,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
   private def eventOf(game: Game)(using lila.core.i18n.Translate) =
-    val perf = lila.rating.PerfType(game.perfKey).nameKey
+    val perf = game.perfType.nameKey
     game.tournamentId
       .map(id => s"${game.mode} $perf tournament https://lichess.org/tournament/$id")
       .orElse(game.simulId.map(id => s"$perf simul https://lichess.org/simul/$id"))

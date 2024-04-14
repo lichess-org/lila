@@ -13,6 +13,8 @@ import lila.evaluation.PlayerAssessment
 import lila.rating.PerfType
 import lila.core.chess.Rank
 import lila.tournament.LeaderboardApi.TourEntry
+import lila.game.GameExt.analysable
+import lila.game.GameExt.perfType
 
 object games:
 

@@ -30,7 +30,7 @@ case class AiConfig(
   private def game(user: GameUser)(using IdGenerator): Fu[Game] =
     fenGame: chessGame =>
       lila.rating.PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
-      Game
+      lila.game.Game
         .make(
           chess = chessGame,
           players = ByColor: c =>

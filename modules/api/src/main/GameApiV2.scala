@@ -14,7 +14,7 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.WithFlags
-import lila.game.{ Divider, Game, Pov, Query }
+import lila.game.{ Divider, Query }
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
@@ -330,7 +330,7 @@ final class GameApiV2(
     .add("lastMove" -> flags.lastFen.option(g.lastMoveKeys))
     .add("division" -> flags.division.option(division(g, initialFen)))
 
-  private def gameLightUsers(game: Game): Future[ByColor[(lila.game.Player, Option[LightUser])]] =
+  private def gameLightUsers(game: Game): Future[ByColor[(lila.core.game.Player, Option[LightUser])]] =
     game.players.traverse(_.userId.so(getLightUser)).dmap(game.players.zip(_))
 
 object GameApiV2:
@@ -365,7 +365,7 @@ object GameApiV2:
       until: Option[Instant] = None,
       max: Option[Max] = None,
       rated: Option[Boolean] = None,
-      perfType: Set[lila.rating.PerfType],
+      perfKey: Set[PerfKey],
       analysed: Option[Boolean] = None,
       color: Option[chess.Color],
       flags: WithFlags,
@@ -378,7 +378,7 @@ object GameApiV2:
       extends Config:
     def postFilter(g: Game) =
       rated.forall(g.rated ==) && {
-        perfType.isEmpty || perfType.contains(g.perfType)
+        perfKey.isEmpty || perfKey.contains(g.perfKey)
       } && color.forall { c =>
         g.player(c).userId.has(user.id)
       } && analysed.forall(g.metadata.analysed ==)

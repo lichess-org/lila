@@ -60,7 +60,7 @@ final private class TutorQueue(
     _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
   yield povs.map { pov =>
     import chess.format.pgn.*
-    def playerTag(player: Player) =
+    def playerTag(player: lila.core.game.Player) =
       player.userId.map { uid => Tag(player.color.name, lightUserApi.syncFallback(uid).titleName) }
     val tags = Tags(pov.game.players.flatMap(playerTag))
     pov -> PgnStr(s"$tags\n\n${pov.game.chess.sans.mkString(" ")}")
