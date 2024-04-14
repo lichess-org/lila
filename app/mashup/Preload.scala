@@ -5,7 +5,7 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 
 import lila.event.Event
-import lila.game.{ Game, Pov }
+
 import lila.playban.TempBan
 import lila.simul.{ Simul, SimulIsFeaturable }
 import lila.streamer.LiveStreams

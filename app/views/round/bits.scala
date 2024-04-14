@@ -10,7 +10,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
 import lila.core.app.LangPath
-import lila.game.{ Game, Pov }
+
 
 object bits:
 

@@ -5,7 +5,7 @@ import chess.variant.*
 import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation }
 
 import lila.common.Bus
-import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches }
+import lila.game.{ AnonCookie, Event, GameRepo, Rematches }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import scalalib.cache.ExpireSetMemo
 import lila.core.user.{ GameUsers, UserApi }
@@ -99,8 +99,8 @@ final private class Rematcher(
         initialFen,
         !chess960.get(pov.gameId)
       )
-      users <- userApi.gamePlayersAny(pov.game.userIdPair, pov.game.perfType)
-      sloppy = Game.make(
+      users <- userApi.gamePlayersAny(pov.game.userIdPair, pov.game.perfKey)
+      sloppy = lila.game.Game.make(
         chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),
         mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
@@ -111,7 +111,7 @@ final private class Rematcher(
       game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy.withId(id)) }
     yield game
 
-  private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.game.Player =
+  private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.core.game.Player =
     game.opponent(color).aiLevel match
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
       case None     => lila.game.Player.make(color, users(!color))

@@ -265,7 +265,7 @@ final class JsonView(
 
   private def featuredJson(featured: FeaturedGame) =
     val game = featured.game
-    def ofPlayer(rp: RankedPlayer, p: lila.game.Player) =
+    def ofPlayer(rp: RankedPlayer, p: lila.core.game.Player) =
       val light = lightUserApi.syncFallback(rp.player.userId)
       Json.toJsObject(light) ++
         Json

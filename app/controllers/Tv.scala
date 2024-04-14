@@ -9,7 +9,7 @@ import scala.util.chaining.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.game.Pov
+
 import lila.tv.Tv.Channel
 
 final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):

@@ -6,15 +6,13 @@ import chess.format.pgn.SanStr
 import chess.variant.Variant
 import com.github.blemale.scaffeine.Cache
 
-import lila.core.game.Game
-
 final class Divider(using Executor):
 
   private val cache: Cache[GameId, Division] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(5 minutes)
     .build[GameId, Division]()
 
-  def apply(game: Game, initialFen: Option[Fen.Full]): Division =
+  def apply(game: CoreGame, initialFen: Option[Fen.Full]): Division =
     apply(game.id, game.sans, game.variant, initialFen)
 
   def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]) =

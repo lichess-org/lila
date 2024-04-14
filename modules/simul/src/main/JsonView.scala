@@ -4,7 +4,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.game.{ Game, GameRepo }
+import lila.game.{ GameRepo }
 import lila.gathering.Condition.WithVerdicts
 import lila.rating.PerfType
 

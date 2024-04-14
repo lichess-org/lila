@@ -122,7 +122,7 @@ case class Schedule(
   def similarTo(other: Schedule) =
     similarSpeed(other) && sameVariant(other) && sameFreq(other) && sameConditions(other)
 
-  def perfType = lila.rating.PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
+  def perfKey: PerfKey = PerfKey.byVariant(variant) | Schedule.Speed.toPerfKey(speed)
 
   def plan                                  = Schedule.Plan(this, None)
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
@@ -213,13 +213,12 @@ object Schedule:
       else if time < 480 then Blitz
       else if time < 1500 then Rapid
       else Classical
-    def toPerfType(speed: Speed) =
-      speed match
-        case UltraBullet                        => PerfType.UltraBullet
-        case HyperBullet | Bullet | HippoBullet => PerfType.Bullet
-        case SuperBlitz | Blitz                 => PerfType.Blitz
-        case Rapid                              => PerfType.Rapid
-        case Classical                          => PerfType.Classical
+    def toPerfKey(speed: Speed) = speed match
+      case UltraBullet                        => PerfKey.ultraBullet
+      case HyperBullet | Bullet | HippoBullet => PerfKey.bullet
+      case SuperBlitz | Blitz                 => PerfKey.blitz
+      case Rapid                              => PerfKey.rapid
+      case Classical                          => PerfKey.classical
 
   enum Season:
     case Spring, Summer, Autumn, Winter

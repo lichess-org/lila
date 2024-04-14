@@ -3,7 +3,7 @@ package lila.bot
 import chess.format.Uci
 
 import lila.common.Bus
-import lila.game.{ Game, GameRepo, Pov, Rematches }
+import lila.game.{ GameRepo, Rematches }
 import lila.core.misc.map.Tell
 import lila.core.round.*
 

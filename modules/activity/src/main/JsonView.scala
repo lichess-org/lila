@@ -62,14 +62,14 @@ final class JsonView(
         "variants" -> s.variants,
         "score"    -> s.hostScore
       )
-    given lightPlayerWrites: OWrites[lila.game.LightPlayer] = OWrites: p =>
+    given lightPlayerWrites: OWrites[lila.core.game.LightPlayer] = OWrites: p =>
       Json
         .obj()
         .add("aiLevel" -> p.aiLevel)
         .add("user" -> p.userId)
         .add("rating" -> p.rating)
 
-    given OWrites[lila.game.Player] = lightPlayerWrites.contramap(_.light)
+    given OWrites[lila.core.game.Player] = lightPlayerWrites.contramap(_.light)
 
     given OWrites[LightPov] = OWrites: p =>
       Json.obj(

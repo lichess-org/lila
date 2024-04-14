@@ -6,21 +6,12 @@ import lila.core.game.*
 
 object Pov:
 
-  def apply(game: Game): List[Pov] = game.players.mapList(apply(game, _))
+  import lila.core.game.Pov.*
 
-  def naturalOrientation(game: Game) = new Pov(game, game.naturalOrientation)
-
-  def player(game: Game) = apply(game, game.player)
-
-  def apply(game: Game, player: Player) = new Pov(game, player.color)
+  def list(game: Game): List[Pov] = game.players.mapList(lila.core.game.Pov(game, _))
 
   def apply(game: Game, playerId: GamePlayerId): Option[Pov] =
-    game.player(playerId).map { apply(game, _) }
-
-  def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
-    game.player(user).map { apply(game, _) }
-
-  def ofCurrentTurn(game: Game) = new Pov(game, game.turnColor)
+    game.player(playerId).map { lila.core.game.Pov(game, _) }
 
   private inline def orInf(inline i: Option[Int]) = i.getOrElse(Int.MaxValue)
   private def isFresher(a: Pov, b: Pov)           = a.game.movedAt.isAfter(b.game.movedAt)

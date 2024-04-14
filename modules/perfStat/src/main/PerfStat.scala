@@ -4,7 +4,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.Duration
 
 import scalalib.HeapSort
-import lila.game.Pov
+
 import lila.rating.PerfType
 
 case class PerfStat(

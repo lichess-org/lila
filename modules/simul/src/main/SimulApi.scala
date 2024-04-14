@@ -4,12 +4,13 @@ import akka.actor.*
 import chess.variant.Variant
 import chess.{ ByColor, Status }
 import play.api.libs.json.Json
+import monocle.syntax.all.*
 
 import lila.common.Json.given
 import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo }
+import lila.game.{ GameRepo }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam
@@ -258,7 +259,8 @@ final class SimulApi(
     )
     game2 = game1
       .withId(pairing.gameId)
-      .withSimulId(simul.id)
+      .focus(_.metadata.simulId)
+      .replace(simul.id.some)
       .start
     _ <- gameRepo.insertDenormalized(game2)
   yield

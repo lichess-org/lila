@@ -5,7 +5,7 @@ import chess.PlayerTitle
 
 import lila.common.Icon
 import lila.core.LightUser
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.{ GameRepo }
 import lila.common.Icon
 
 final class Tv(

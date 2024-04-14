@@ -5,10 +5,11 @@ import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, Uptime }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Pov }
+
 import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.core.game.Source
 import lila.core.playban.RageSit as RageSitCounter
+import lila.game.GameExt.computeMoveTimes
 
 final class PlaybanApi(
     coll: Coll,
@@ -90,7 +91,7 @@ final class PlaybanApi(
         .userId
         .ifTrue {
           ~(for
-            movetimes    <- game.moveTimes(flaggerColor)
+            movetimes    <- game.computeMoveTimes(flaggerColor)
             lastMovetime <- movetimes.lastOption
             limit        <- unreasonableTime
           yield lastMovetime.toSeconds >= limit)

@@ -151,9 +151,9 @@ object communication:
                     href := routes.Round.player(pov.fullId),
                     cls := List(
                       "title"        -> true,
-                      "friend_title" -> pov.game.fromFriend
+                      "friend_title" -> pov.game.sourceIs(_.Friend)
                     ),
-                    title := pov.game.fromFriend.option("Friend game")
+                    title := pov.game.sourceIs(_.Friend).option("Friend game")
                   )(
                     titleNameOrAnon(pov.opponent.userId),
                     " – ",

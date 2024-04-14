@@ -1,6 +1,6 @@
 package lila.perfStat
 
-import lila.game.{ Game, GameRepo, Pov, Query }
+import lila.game.{ GameRepo, Query }
 import lila.rating.PerfType
 
 final class PerfStatIndexer(
@@ -15,22 +15,22 @@ final class PerfStatIndexer(
     lila.log.asyncActorMonitor
   )
 
-  private[perfStat] def userPerf(user: UserId, perfType: PerfType): Fu[PerfStat] =
+  private[perfStat] def userPerf(user: UserId, perfKey: PerfKey): Fu[PerfStat] =
     workQueue:
       storage
-        .find(user, perfType)
+        .find(user, perfKey)
         .getOrElse(
           gameRepo
             .sortedCursor(
               Query.user(user.id) ++
                 Query.finished ++
                 Query.turnsGt(2) ++
-                Query.variant(lila.rating.PerfType.variantOf(perfType)),
+                Query.variant(lila.rating.PerfType.variantOf(perfKey)),
               Query.sortChronological,
               readPref = _.priTemp
             )
-            .fold(PerfStat.init(user.id, perfType)):
-              case (perfStat, game) if game.perfType == perfType =>
+            .fold(PerfStat.init(user.id, perfKey)):
+              case (perfStat, game) if game.perfKey == perfKey =>
                 Pov(game, user.id).fold(perfStat)(perfStat.agg)
               case (perfStat, _) => perfStat
             .flatMap: ps =>
@@ -48,6 +48,6 @@ final class PerfStatIndexer(
 
   private def addPov(pov: Pov, userId: UserId): Funit =
     storage
-      .find(userId, pov.game.perfType)
+      .find(userId, pov.game.perfKey)
       .flatMapz: perfStat =>
         storage.update(perfStat, perfStat.agg(pov))

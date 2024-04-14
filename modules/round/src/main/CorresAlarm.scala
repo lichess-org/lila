@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, LilaScheduler, LilaStream }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Pov }
+
 import lila.core.user.LightUserApi
 
 final private class CorresAlarm(
@@ -57,7 +57,7 @@ final private class CorresAlarm(
       .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id).map(alarm -> _))
       .mapAsyncUnordered(4):
         case (_, Some(game)) =>
-          val pov = Pov.ofCurrentTurn(game)
+          val pov = Pov(game, game.turnColor)
           deleteAlarm(game.id).zip(
             pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)).addEffect {
               if _ then () // already looking at the game

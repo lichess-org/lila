@@ -5,7 +5,7 @@ import chess.format.{ Fen, UciPath }
 
 import scala.util.chaining.*
 
-import lila.game.{ Game, Namer }
+import lila.game.{ Namer }
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
 

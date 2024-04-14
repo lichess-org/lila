@@ -87,9 +87,9 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
       "title" -> u.title
     )
 
-  private val perfPositions: Map[PerfType, Int] = {
-    import PerfType.*
-    List(Bullet, Blitz, Rapid, Classical, UltraBullet) ::: lila.rating.PerfType.variants
+  private val perfPositions: Map[PerfKey, Int] = {
+    import PerfKey.*
+    List(bullet, blitz, rapid, classical, ultraBullet) ::: lila.rating.PerfType.variants
   }.zipWithIndex.toMap
 
   private def perfJson(p: PerfType)(using Translate) =

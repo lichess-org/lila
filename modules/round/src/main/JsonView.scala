@@ -10,13 +10,14 @@ import lila.common.Json.given
 import lila.core.data.Preload
 import lila.core.LightUser
 import lila.game.JsonView.given
-import lila.game.{ Game, Player as GamePlayer, Pov }
+import lila.core.game.{ Player as GamePlayer }
 import lila.pref.Pref
 
 import lila.core.user.{ GameUser, GameUsers }
 import lila.core.user.WithPerf
 import lila.core.net.ApiVersion
 import lila.core.perf.KeyedPerf
+import lila.game.GameExt.moveTimes
 
 final class JsonView(
     lightUserGet: LightUser.Getter,
@@ -308,7 +309,9 @@ final class JsonView(
       case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
       case _                                                             => false
 
-  private def blurs(game: Game, player: lila.game.Player) =
+  private def blurs(game: Game, player: GamePlayer) =
+    import lila.game.Blurs.nonEmpty
+    import lila.game.GameExt.playerBlurPercent
     player.blurs.nonEmpty.option {
       Json.toJsObject(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))

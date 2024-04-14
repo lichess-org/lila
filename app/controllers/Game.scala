@@ -163,7 +163,7 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
           case _: GameApiV2.OneConfig => JSON
           case _                      => ndJson.contentType
 
-  private[controllers] def preloadUsers(game: lila.game.Game): Funit =
+  private[controllers] def preloadUsers(game: Game): Funit =
     env.user.lightUserApi.preloadMany(game.userIds)
   private[controllers] def preloadUsers(users: lila.core.user.GameUsers): Unit =
     env.user.lightUserApi.preloadUsers(users.all.collect:

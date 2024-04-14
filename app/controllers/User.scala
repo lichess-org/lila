@@ -15,7 +15,7 @@ import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
-import lila.game.{ Game as GameModel, Pov }
+import lila.core.game.{ Game as GameModel }
 import lila.mod.UserWithModlog
 import lila.security.UserLogins
 import lila.user.User as UserModel

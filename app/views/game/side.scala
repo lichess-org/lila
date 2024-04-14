@@ -13,7 +13,7 @@ object side:
   private val dataTime   = attr("data-time")
 
   def apply(
-      pov: lila.game.Pov,
+      pov: Pov,
       initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
@@ -28,7 +28,7 @@ object side:
     )
 
   def meta(
-      pov: lila.game.Pov,
+      pov: Pov,
       initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],

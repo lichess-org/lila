@@ -42,7 +42,7 @@ object side:
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(using Context): Frag =
+  def meta(pov: Pov)(using Context): Frag =
     import pov.*
     div(cls := "game__meta")(
       st.section(
@@ -69,7 +69,7 @@ object side:
     )
 
   def sides(
-      pov: lila.game.Pov,
+      pov: Pov,
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(using Context) =
     div(cls := "sides"):

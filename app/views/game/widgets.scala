@@ -3,7 +3,7 @@ package game
 
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
-import lila.game.{ Game, Player, Pov }
+import lila.core.game.{ Player }
 
 object widgets:
 

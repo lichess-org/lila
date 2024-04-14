@@ -7,7 +7,7 @@ import lila.core.i18n.I18nKey as trans
 
 object jsI18n:
 
-  def apply(g: lila.game.Game)(using t: Translate) =
+  def apply(g: Game)(using t: Translate) =
     given Lang = t.lang
     i18nJsObject:
       baseTranslations ++ {

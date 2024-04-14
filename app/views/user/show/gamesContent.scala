@@ -5,7 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
-import lila.game.{ Game, Pov }
+
 
 object gamesContent:
 

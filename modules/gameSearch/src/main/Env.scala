@@ -28,7 +28,7 @@ final class Env(
 
   lazy val api = wire[GameSearchApi]
 
-  lazy val paginator = PaginatorBuilder[lila.game.Game, Query](api, config.paginatorMaxPerPage)
+  lazy val paginator = PaginatorBuilder[Game, Query](api, config.paginatorMaxPerPage)
 
   lazy val forms = wire[GameSearchForm]
 

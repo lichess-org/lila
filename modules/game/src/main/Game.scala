@@ -1,5 +1,6 @@
 package lila.game
 
+import scalalib.model.Days
 import chess.Color.{ Black, White }
 import chess.MoveOrDrop.{ color, fold }
 import chess.format.pgn.SanStr
@@ -22,180 +23,198 @@ import chess.{
   Status
 }
 
-import scalalib.model.Days
 import lila.db.ByteArray
 import lila.core.game.{ Game, Player, GameRule, Source, PgnImport, ClockHistory }
-
 import lila.rating.PerfType
 import lila.game.Blurs.addAtMoveIndex
 
-extension (g: Game)
+object GameExt:
+  extension (g: Game)
 
-  def analysable =
-    g.replayable && g.playedTurns > 4 &&
-      Game.analysableVariants(g.variant) &&
-      !Game.isOldHorde(g)
+    def analysable =
+      g.replayable && g.playedTurns > 4 &&
+        Game.analysableVariants(g.variant) &&
+        !Game.isOldHorde(g)
 
-  def withClock(c: Clock) = Progress(g, g.copy(chess = g.chess.copy(clock = Some(c))))
+    def withClock(c: Clock) = Progress(g, g.copy(chess = g.chess.copy(clock = Some(c))))
 
-  def startClock: Option[Progress] =
-    g.clock.map: c =>
-      g.start.withClock(c.start)
+    def startClock: Option[Progress] =
+      g.clock.map: c =>
+        g.start.withClock(c.start)
 
-  def correspondenceGiveTime = Progress(g, g.copy(movedAt = nowInstant))
+    def correspondenceGiveTime = Progress(g, g.copy(movedAt = nowInstant))
 
-  def goBerserk(color: Color): Option[Progress] =
-    g.clock
-      .ifTrue(g.berserkable && !g.player(color).berserk)
-      .map: c =>
-        val newClock = c.goBerserk(color)
-        Progress(
-          g,
-          g.copy(
-            chess = g.chess.copy(clock = Some(newClock)),
-            loadClockHistory = _ =>
-              g.clockHistory.map: history =>
-                if history(color).isEmpty then history
-                else history.reset(color).record(color, newClock)
-          ).updatePlayer(color, _.goBerserk)
-        ) ++
-          List(
-            Event.ClockInc(color, -c.config.berserkPenalty, newClock),
-            Event.Clock(newClock), // BC
-            Event.Berserk(color)
-          )
+    def goBerserk(color: Color): Option[Progress] =
+      g.clock
+        .ifTrue(g.berserkable && !g.player(color).berserk)
+        .map: c =>
+          val newClock = c.goBerserk(color)
+          Progress(
+            g,
+            g.copy(
+              chess = g.chess.copy(clock = Some(newClock)),
+              loadClockHistory = _ =>
+                g.clockHistory.map: history =>
+                  if history(color).isEmpty then history
+                  else history.reset(color).record(color, newClock)
+            ).updatePlayer(color, _.goBerserk)
+          ) ++
+            List(
+              Event.ClockInc(color, -c.config.berserkPenalty, newClock),
+              Event.Clock(newClock), // BC
+              Event.Berserk(color)
+            )
 
-  def setBlindfold(color: Color, blindfold: Boolean): Progress =
-    Progress(g, g.updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
+    def setBlindfold(color: Color, blindfold: Boolean): Progress =
+      Progress(g, g.updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
 
-  def computeMoveTimes(color: Color): Option[List[Centis]] = {
-    for
-      clk <- g.clock
-      inc = clk.incrementOf(color)
-      history <- g.clockHistory
-      clocks = history(color)
-    yield Centis(0) :: {
-      val pairs = clocks.iterator.zip(clocks.iterator.drop(1))
+    def computeMoveTimes(color: Color): Option[List[Centis]] = {
+      for
+        clk <- g.clock
+        inc = clk.incrementOf(color)
+        history <- g.clockHistory
+        clocks = history(color)
+      yield Centis(0) :: {
+        val pairs = clocks.iterator.zip(clocks.iterator.drop(1))
 
-      // We need to determine if this color's last clock had inc applied.
-      // if finished and history.size == playedTurns then game was ended
-      // by a players move, such as with mate or autodraw. In this case,
-      // the last move of the game, and the only one without inc, is the
-      // last entry of the clock history for !turnColor.
-      //
-      // On the other hand, if history.size is more than playedTurns,
-      // then the game ended during a players turn by async event, and
-      // the last recorded time is in the history for turnColor.
-      val noLastInc = g.finished && (g.playedTurns >= history.size) == (color != g.turnColor)
+        // We need to determine if this color's last clock had inc applied.
+        // if finished and history.size == playedTurns then game was ended
+        // by a players move, such as with mate or autodraw. In this case,
+        // the last move of the game, and the only one without inc, is the
+        // last entry of the clock history for !turnColor.
+        //
+        // On the other hand, if history.size is more than playedTurns,
+        // then the game ended during a players turn by async event, and
+        // the last recorded time is in the history for turnColor.
+        val noLastInc = g.finished && (g.playedTurns >= history.size) == (color != g.turnColor)
 
-      pairs
-        .map: (first, second) =>
-          {
-            val d = first - second
-            if pairs.hasNext || !noLastInc then d + inc else d
-          }.nonNeg
-        .toList
-    }
-  }.orElse(g.binaryMoveTimes.map: binary =>
-    // TODO: make movetime.read return List after writes are disabled.
-    val base = BinaryFormat.moveTime.read(binary, g.playedTurns)
-    val mts  = if color == g.startColor then base else base.drop(1)
-    everyOther(mts.toList)
-  )
-
-  private def everyOther[A](l: List[A]): List[A] =
-    l match
-      case a :: _ :: tail => a :: everyOther(tail)
-      case _              => l
-
-  def moveTimes: Option[Vector[Centis]] = for
-    a <- g.computeMoveTimes(g.startColor)
-    b <- g.computeMoveTimes(!g.startColor)
-  yield lila.core.game.interleave(a, b)
-
-  // apply a move
-  def applyMove(
-      game: ChessGame, // new chess.Position
-      moveOrDrop: MoveOrDrop,
-      blur: Boolean = false
-  ): Progress =
-
-    def copyPlayer(player: Player) =
-      if blur && moveOrDrop.color == player.color then
-        player.copy(blurs = player.blurs.addAtMoveIndex(g.playerMoves(player.color)))
-      else player
-
-    // This must be computed eagerly
-    // because it depends on the current time
-    val newClockHistory = for
-      clk <- game.clock
-      ch  <- g.clockHistory
-    yield ch.record(g.turnColor, clk)
-
-    val updated = g.copy(
-      players = g.players.map(copyPlayer),
-      chess = game,
-      binaryMoveTimes = (!g.sourceIs(_.Import) && g.chess.clock.isEmpty).option {
-        BinaryFormat.moveTime.write {
-          g.binaryMoveTimes.so { t =>
-            BinaryFormat.moveTime.read(t, g.playedTurns)
-          } :+ Centis.ofLong(nowCentis - g.movedAt.toCentis).nonNeg
-        }.value
-      },
-      loadClockHistory = _ => newClockHistory,
-      status = game.situation.status | g.status,
-      movedAt = nowInstant
+        pairs
+          .map: (first, second) =>
+            {
+              val d = first - second
+              if pairs.hasNext || !noLastInc then d + inc else d
+            }.nonNeg
+          .toList
+      }
+    }.orElse(g.binaryMoveTimes.map: binary =>
+      // TODO: make movetime.read return List after writes are disabled.
+      val base = BinaryFormat.moveTime.read(binary, g.playedTurns)
+      val mts  = if color == g.startColor then base else base.drop(1)
+      everyOther(mts.toList)
     )
 
-    val state = Event.State(
-      turns = game.ply,
-      status = (g.status != updated.status).option(updated.status),
-      winner = game.situation.winner,
-      whiteOffersDraw = g.whitePlayer.isOfferingDraw,
-      blackOffersDraw = g.blackPlayer.isOfferingDraw
-    )
+    private def everyOther[A](l: List[A]): List[A] =
+      l match
+        case a :: _ :: tail => a :: everyOther(tail)
+        case _              => l
 
-    val clockEvent = updated.chess.clock.map(Event.Clock.apply).orElse {
-      updated.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
-    }
+    def moveTimes: Option[Vector[Centis]] = for
+      a <- g.computeMoveTimes(g.startColor)
+      b <- g.computeMoveTimes(!g.startColor)
+    yield lila.core.game.interleave(a, b)
 
-    val events = moveOrDrop.fold(
-      Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
-      Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
-    ) :: {
-      (updated.board.variant.threeCheck && game.situation.check.yes).so(List:
-        Event.CheckCount(
-          white = updated.history.checkCount.white,
-          black = updated.history.checkCount.black
-        )
+    // apply a move
+    def applyMove(
+        game: ChessGame, // new chess.Position
+        moveOrDrop: MoveOrDrop,
+        blur: Boolean = false
+    ): Progress =
+
+      def copyPlayer(player: Player) =
+        if blur && moveOrDrop.color == player.color then
+          player.copy(blurs = player.blurs.addAtMoveIndex(g.playerMoves(player.color)))
+        else player
+
+      // This must be computed eagerly
+      // because it depends on the current time
+      val newClockHistory = for
+        clk <- game.clock
+        ch  <- g.clockHistory
+      yield ch.record(g.turnColor, clk)
+
+      val updated = g.copy(
+        players = g.players.map(copyPlayer),
+        chess = game,
+        binaryMoveTimes = (!g.sourceIs(_.Import) && g.chess.clock.isEmpty).option {
+          BinaryFormat.moveTime.write {
+            g.binaryMoveTimes.so { t =>
+              BinaryFormat.moveTime.read(t, g.playedTurns)
+            } :+ Centis.ofLong(nowCentis - g.movedAt.toCentis).nonNeg
+          }
+        },
+        loadClockHistory = _ => newClockHistory,
+        status = game.situation.status | g.status,
+        movedAt = nowInstant
       )
-    }
 
-    Progress(g, updated, events)
-  end applyMove
+      val state = Event.State(
+        turns = game.ply,
+        status = (g.status != updated.status).option(updated.status),
+        winner = game.situation.winner,
+        whiteOffersDraw = g.whitePlayer.isOfferingDraw,
+        blackOffersDraw = g.blackPlayer.isOfferingDraw
+      )
 
-  def unplayed  = !g.bothPlayersHaveMoved && (g.createdAt.isBefore(Game.unplayedDate))
-  def abandoned = (g.status <= Status.Started) && (g.movedAt.isBefore(Game.abandonedDate))
-  def synthetic = g.id == Game.syntheticId
+      val clockEvent = updated.chess.clock.map(Event.Clock.apply).orElse {
+        updated.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
+      }
 
-  def playerBlurPercent(color: Color): Int =
-    if g.playedTurns > 5
-    then (Blurs.nb(g.player(color).blurs) * 100) / g.playerMoves(color)
-    else 0
+      val events = moveOrDrop.fold(
+        Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
+        Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
+      ) :: {
+        (updated.board.variant.threeCheck && game.situation.check.yes).so(List:
+          Event.CheckCount(
+            white = updated.history.checkCount.white,
+            black = updated.history.checkCount.black
+          )
+        )
+      }
 
-  def drawReason =
-    if g.variant.isInsufficientMaterial(g.board) then DrawReason.InsufficientMaterial.some
-    else if g.variant.fiftyMoves(g.history) then DrawReason.FiftyMoves.some
-    else if g.history.threefoldRepetition then DrawReason.ThreefoldRepetition.some
-    else if g.drawOffers.normalizedPlies.exists(g.ply <= _) then DrawReason.MutualAgreement.some
-    else None
+      Progress(g, updated, events)
+    end applyMove
 
-end extension
+    def finish(status: Status, winner: Option[Color]): Game =
+      g.copy(
+        status = status,
+        players = winner.fold(g.players)(c => g.players.update(c, _.finish(true))),
+        chess = g.chess.copy(clock = g.clock.map(_.stop)),
+        loadClockHistory = clk =>
+          g.clockHistory.map: history =>
+            // If not already finished, we're ending due to an event
+            // in the middle of a turn, such as resignation or draw
+            // acceptance. In these cases, record a final clock time
+            // for the active color. This ensures the end time in
+            // clockHistory always matches the final clock time on
+            // the board.
+            if !g.finished then history.record(g.turnColor, clk)
+            else history
+      )
+
+    def abandoned = (g.status <= Status.Started) && (g.movedAt.isBefore(Game.abandonedDate))
+    def synthetic = g.id == Game.syntheticId
+
+    def playerBlurPercent(color: Color): Int =
+      if g.playedTurns > 5
+      then (Blurs.nb(g.player(color).blurs) * 100) / g.playerMoves(color)
+      else 0
+
+    def drawReason =
+      if g.variant.isInsufficientMaterial(g.board) then DrawReason.InsufficientMaterial.some
+      else if g.variant.fiftyMoves(g.history) then DrawReason.FiftyMoves.some
+      else if g.history.threefoldRepetition then DrawReason.ThreefoldRepetition.some
+      else if g.drawOffers.normalizedPlies.exists(g.ply <= _) then DrawReason.MutualAgreement.some
+      else None
+
+    // #TODO compute perfkey instead
+    def perfType: PerfType = lila.rating.PerfType(g.variant, g.speed)
+    def perfKey: PerfKey   = perfType.key
+
+end GameExt
 
 object Game:
 
   case class OnStart(id: GameId)
-  case class WithInitialFen(game: Game, fen: Option[Fen.Full])
 
   val syntheticId = GameId("synthetic")
 
@@ -249,9 +268,6 @@ object Game:
     variant.standard || clock.exists: c =>
       c.estimateTotalTime >= Centis(3000) &&
         c.limitSeconds > 0 || c.incrementSeconds > 1
-
-  val unplayedHours = 24
-  def unplayedDate  = nowInstant.minusHours(unplayedHours)
 
   val abandonedDays = Days(21)
   def abandonedDate = nowInstant.minusDays(abandonedDays.value)

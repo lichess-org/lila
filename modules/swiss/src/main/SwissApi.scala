@@ -13,7 +13,7 @@ import scala.util.chaining.*
 import lila.common.Bus
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Pov }
+
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 

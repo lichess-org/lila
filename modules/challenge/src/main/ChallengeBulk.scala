@@ -8,7 +8,6 @@ import scala.util.chaining.*
 
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Player }
 import lila.core.misc.map.TellMany
 import lila.rating.PerfType
 import lila.core.round.StartClock
@@ -101,10 +100,10 @@ final class ChallengeBulkApi(
             (game.id, users)
       .mapConcat(_.toList)
       .map: (id, users) =>
-        val game = Game
+        val game = lila.game.Game
           .make(
             chess = chessGame,
-            players = users.map(some).mapWithColor(Player.make),
+            players = users.map(some).mapWithColor(lila.game.Player.make),
             mode = bulk.mode,
             source = lila.core.game.Source.Api,
             daysPerTurn = bulk.clock.toOption,

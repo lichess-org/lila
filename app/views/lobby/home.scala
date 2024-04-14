@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import lila.core.perf.UserWithPerfs
-import lila.game.Pov
+
 
 object home:
 

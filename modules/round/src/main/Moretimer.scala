@@ -6,6 +6,8 @@ import lila.core.data.Preload
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
 import lila.core.round.ClientError
+import lila.game.GameExt.correspondenceGiveTime
+import lila.game.GameExt.withClock
 
 final class Moretimer(
     messenger: Messenger,

@@ -9,7 +9,7 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.game.Pov
+
 import lila.tree.ExportOptions
 import lila.core.id.GameFullId
 

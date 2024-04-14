@@ -12,7 +12,7 @@ object userAnalysis:
 
   def apply(
       data: JsObject,
-      pov: lila.game.Pov,
+      pov: Pov,
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
   )(using ctx: PageContext) =

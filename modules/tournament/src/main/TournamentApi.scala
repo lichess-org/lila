@@ -10,7 +10,7 @@ import scala.util.chaining.*
 
 import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
-import lila.game.{ Game, GameRepo, LightPov, Pov }
+import lila.game.{ GameRepo, LightPov }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam

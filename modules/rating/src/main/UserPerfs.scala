@@ -67,11 +67,11 @@ object UserPerfsExt:
       val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
       ps.filter(p => p._2.nb >= minNb).topN(nb).map(KeyedPerf.apply)
 
-    def bestRating: IntRating = bestRatingIn(lila.rating.PerfType.leaderboardable)
+    def bestRating: IntRating = bestRatingIn(PerfType.leaderboardable)
 
-    def bestStandardRating: IntRating = bestRatingIn(lila.rating.PerfType.standard)
+    def bestStandardRating: IntRating = bestRatingIn(PerfType.standard)
 
-    def bestRatingIn(types: List[PerfType]): IntRating =
+    def bestRatingIn(types: List[PerfKey]): IntRating =
       val ps = types.map(p(_)) match
         case Nil => List(p.standard)
         case x   => x
@@ -84,7 +84,7 @@ object UserPerfsExt:
         case (ro, _) => ro
       .getOrElse(lila.rating.Perf.default.intRating)
 
-    def bestPerf(types: List[PerfType]): Perf =
+    def bestPerf(types: List[PerfKey]): Perf =
       types
         .map(p(_))
         .foldLeft(none[Perf]):
@@ -92,16 +92,16 @@ object UserPerfsExt:
           case (ro, _)                                         => ro
         .getOrElse(lila.rating.Perf.default)
 
-    def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[IntRating] =
+    def bestRatingInWithMinGames(types: List[PerfKey], nbGames: Int): Option[IntRating] =
       types
         .map(p(_))
         .foldLeft(none[IntRating]):
           case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
           case (ro, _)                                                  => ro
 
-    def bestProgress: IntRatingDiff = bestProgressIn(lila.rating.PerfType.leaderboardable)
+    def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
 
-    def bestProgressIn(types: List[PerfType]): IntRatingDiff =
+    def bestProgressIn(types: List[PerfKey]): IntRatingDiff =
       types.foldLeft(IntRatingDiff(0)): (max, t) =>
         val p = apply(t).progress
         if p > max then p else max

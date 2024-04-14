@@ -145,12 +145,7 @@ case class Game(
 
   def speed = Speed(chess.clock.map(_.config))
 
-  // lazy val perfType: PerfType = lila.rating.PerfType(variant, speed)
-  def perfKey: PerfKey = ??? // perfType.key
-  //
-  // def ratingPerfType: Option[PerfType] =
-  //   if variant.fromPosition then isTournament.option(lila.rating.PerfType(ratingVariant, speed))
-  //   else perfType.some
+  def perfKey: PerfKey = PerfKey(variant, speed)
 
   def ratingVariant: Variant =
     if isTournament && variant.fromPosition then Standard else variant
@@ -241,23 +236,6 @@ case class Game(
   def forceResignableNow = forceResignable && bothPlayersHaveMoved
   def drawable           = playable && !abortable && !swissPreventsDraw && !rulePreventsDraw
   def forceDrawable      = playable && nonAi && !abortable && !isSwiss && !hasRule(_.noClaimWin)
-
-  def finish(status: Status, winner: Option[Color]): Game =
-    copy(
-      status = status,
-      players = winner.fold(players)(c => players.update(c, _.finish(true))),
-      chess = chess.copy(clock = clock.map(_.stop)),
-      loadClockHistory = clk =>
-        clockHistory.map: history =>
-          // If not already finished, we're ending due to an event
-          // in the middle of a turn, such as resignation or draw
-          // acceptance. In these cases, record a final clock time
-          // for the active color. This ensures the end time in
-          // clockHistory always matches the final clock time on
-          // the board.
-          if !finished then history.record(turnColor, clk)
-          else history
-    )
 
   export mode.{ rated, casual }
 

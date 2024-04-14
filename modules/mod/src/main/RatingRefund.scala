@@ -1,13 +1,13 @@
 package lila.mod
 
 import lila.db.dsl.*
-import lila.game.BSONHandlers.given
-import lila.game.{ Game, GameRepo, Query }
+import lila.core.game.{ GameRepo }
 import lila.rating.PerfType
 import lila.report.Suspect
 import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
 import lila.core.user.WithPerf
 import lila.rating.PerfExt.refund
+import lila.game.Query
 
 final private class RatingRefund(
     gameRepo: GameRepo,
@@ -22,6 +22,7 @@ final private class RatingRefund(
 )(using Executor):
 
   import RatingRefund.*
+  import gameRepo.gameHandler
 
   def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus))
 
@@ -47,7 +48,7 @@ final private class RatingRefund(
               diff   <- op.ratingDiff
               if diff < 0
               rating <- op.rating
-            yield refs.add(victim, g.perfType, -diff, rating)) | refs
+            yield refs.add(victim, g.perfKey, -diff, rating)) | refs
 
         def pointsToRefund(ref: Refund, curRating: IntRating, highest: Option[IntRating]): Int = {
           (ref.diff.value - ((ref.diff.value + curRating.value - ref.topRating.value).atLeast(0)) / 2)
@@ -76,13 +77,13 @@ private object RatingRefund:
 
   val delay = 1 minute
 
-  case class Refund(victim: UserId, perf: PerfType, diff: IntRatingDiff, topRating: IntRating):
-    def is(v: UserId, p: PerfType): Boolean = v == victim && p == perf
+  case class Refund(victim: UserId, perf: PerfKey, diff: IntRatingDiff, topRating: IntRating):
+    def is(v: UserId, p: PerfKey): Boolean  = v == victim && p == perf
     def is(r: Refund): Boolean              = is(r.victim, r.perf)
     def add(d: IntRatingDiff, r: IntRating) = copy(diff = diff + d, topRating = topRating.atLeast(r))
 
   case class Refunds(all: List[Refund]):
-    def add(victim: UserId, perf: PerfType, diff: IntRatingDiff, rating: IntRating) =
+    def add(victim: UserId, perf: PerfKey, diff: IntRatingDiff, rating: IntRating) =
       copy(all = all.find(_.is(victim, perf)) match
         case None    => Refund(victim, perf, diff, rating) :: all
         case Some(r) => r.add(diff, rating) :: all.filterNot(_.is(r))

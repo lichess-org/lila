@@ -12,7 +12,7 @@ object index:
   def apply(
       channel: lila.tv.Tv.Channel,
       champions: lila.tv.Tv.Champions,
-      pov: lila.game.Pov,
+      pov: Pov,
       data: play.api.libs.json.JsObject,
       cross: Option[lila.game.Crosstable.WithMatchup],
       history: List[lila.game.Pov]

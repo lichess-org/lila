@@ -89,7 +89,7 @@ case class RankedPlayerWithColorHistory(rank: Rank, player: Player, colorHistory
   override def toString = s"$rank. ${player.userId}[${player.rating}]"
 
 case class FeaturedGame(
-    game: lila.game.Game,
+    game: Game,
     white: RankedPlayer,
     black: RankedPlayer
 )

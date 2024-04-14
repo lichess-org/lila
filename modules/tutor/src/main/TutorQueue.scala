@@ -6,7 +6,7 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.Pov
+
 import lila.memo.{ CacheApi, SettingStore }
 
 final private class TutorQueue(
@@ -60,7 +60,7 @@ final private class TutorQueue(
     _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
   yield povs.map { pov =>
     import chess.format.pgn.*
-    def playerTag(player: lila.game.Player) =
+    def playerTag(player: Player) =
       player.userId.map { uid => Tag(player.color.name, lightUserApi.syncFallback(uid).titleName) }
     val tags = Tags(pov.game.players.flatMap(playerTag))
     pov -> PgnStr(s"$tags\n\n${pov.game.chess.sans.mkString(" ")}")

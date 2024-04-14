@@ -4,11 +4,12 @@ import chess.{ Color, ByColor, DecayingStats, Status }
 
 import lila.common.{ Bus, Uptime }
 import lila.game.actorApi.{ AbortedBy, FinishGame }
-import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
+import lila.game.{ GameRepo, RatingDiffs }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserApi, UserRepo }
 import lila.core.perf.UserWithPerfs
+import lila.game.GameExt.finish
 
 final private class Finisher(
     gameRepo: GameRepo,

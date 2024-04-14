@@ -6,7 +6,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.app.*
-import lila.game.Pov
+
 import lila.core.id.GameAnyId
 import lila.core.perf.UserWithPerfs
 

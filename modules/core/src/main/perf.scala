@@ -1,11 +1,15 @@
 package lila.core
 
+import scalalib.Render
+import _root_.chess.{ variant as ChessVariant }
+import _root_.chess.variant.Variant
+import _root_.chess.Speed
+
 import lila.core.userId.UserId
 import lila.core.rating.data.IntRating
 import lila.core.rating.Glicko
 import lila.core.rating.data.IntRatingDiff
 import lila.core.userId.UserIdOf
-import scalalib.Render
 
 object perf:
 
@@ -45,10 +49,33 @@ object perf:
       crazyhouse,
       puzzle
     )
-    def apply(key: String): Option[PerfKey]    = Option.when(all.contains(key))(key)
-    def read(key: PerfKeyStr): Option[PerfKey] = apply(key.value)
+
     extension (key: PerfKey) def value: String = key
     given Render[PerfKey]                      = _.value
+
+    def apply(key: String): Option[PerfKey]            = Option.when(all.contains(key))(key)
+    def apply(variant: Variant, speed: Speed): PerfKey = byVariant(variant) | standardBySpeed(speed)
+    def read(key: PerfKeyStr): Option[PerfKey]         = apply(key.value)
+
+    def byVariant(variant: Variant): Option[PerfKey] = variant match
+      case ChessVariant.Standard      => none
+      case ChessVariant.FromPosition  => none
+      case ChessVariant.Crazyhouse    => crazyhouse.some
+      case ChessVariant.Chess960      => chess960.some
+      case ChessVariant.KingOfTheHill => kingOfTheHill.some
+      case ChessVariant.ThreeCheck    => threeCheck.some
+      case ChessVariant.Antichess     => antichess.some
+      case ChessVariant.Atomic        => atomic.some
+      case ChessVariant.Horde         => horde.some
+      case ChessVariant.RacingKings   => racingKings.some
+
+    def standardBySpeed(speed: Speed): PerfKey = speed match
+      case Speed.Bullet         => bullet
+      case Speed.Blitz          => blitz
+      case Speed.Rapid          => rapid
+      case Speed.Classical      => classical
+      case Speed.Correspondence => correspondence
+      case Speed.UltraBullet    => ultraBullet
 
   opaque type PerfKeyStr = String
   object PerfKeyStr extends OpaqueString[PerfKeyStr]

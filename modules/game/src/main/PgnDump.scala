@@ -8,6 +8,7 @@ import lila.core.LightUser
 import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
 import lila.core.game.{ Game, Player }
+import lila.game.Player.nameSplit
 
 final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiMinimal)(using Executor):
 
@@ -61,7 +62,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
   private def eventOf(game: Game)(using lila.core.i18n.Translate) =
-    val perf = game.perfType.nameKey
+    val perf = lila.rating.PerfType(game.perfKey).nameKey
     game.tournamentId
       .map(id => s"${game.mode} $perf tournament https://lichess.org/tournament/$id")
       .orElse(game.simulId.map(id => s"$perf simul https://lichess.org/simul/$id"))
@@ -85,7 +86,9 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
           List[Option[Tag]](
             Tag(
               _.Event,
-              imported.flatMap(_.tags(_.Event)) | { if game.imported then "Import" else eventOf(game) }
+              imported.flatMap(_.tags(_.Event)) | {
+                if game.sourceIs(_.Import) then "Import" else eventOf(game)
+              }
             ).some,
             Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
             Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,

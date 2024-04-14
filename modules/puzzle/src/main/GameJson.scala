@@ -6,7 +6,8 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.game.{ Game, GameRepo }
+import lila.game.{ GameRepo }
+import lila.game.GameExt.perfType
 
 final private class GameJson(
     gameRepo: GameRepo,
@@ -66,7 +67,7 @@ final private class GameJson(
 
   private def perfJson(game: Game) =
     Json.obj(
-      "key"  -> game.perfType.key,
+      "key"  -> game.perfKey,
       "name" -> game.perfType.trans
     )
 

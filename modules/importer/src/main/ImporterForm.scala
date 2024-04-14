@@ -10,6 +10,7 @@ import scala.util.chaining.*
 
 import lila.common.Form.into
 import lila.game.*
+import lila.game.GameExt.finish
 
 final class ImporterForm:
 

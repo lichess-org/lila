@@ -6,6 +6,7 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.BSONDocumentHandler
 import reactivemongo.api.bson.collection.BSONCollection
 import _root_.chess.{ Color, ByColor, Speed, Ply }
+import _root_.chess.format.Fen
 
 import lila.core.id.{ GameId, GameFullId, GamePlayerId }
 import lila.core.userId.UserId
@@ -40,6 +41,8 @@ case class TvSelect(gameId: GameId, speed: Speed, channel: String, data: JsObjec
 case class ChangeFeatured(mgs: JsObject)
 
 case class CorresAlarmEvent(userId: UserId, pov: Pov, opponent: String)
+
+case class WithInitialFen(game: Game, fen: Option[Fen.Full])
 
 opaque type Blurs = Long
 object Blurs extends OpaqueLong[Blurs]
@@ -80,6 +83,13 @@ trait GameApi:
 
 abstract class GameRepo(val coll: BSONCollection):
   given gameHandler: BSONDocumentHandler[Game]
+  def game(gameId: GameId): Fu[Option[Game]]
+  def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[Game]]
+  def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
+  def initialFen(gameId: GameId): Fu[Option[Fen.Full]]
+  def initialFen(game: Game): Fu[Option[Fen.Full]]
+  def withInitialFen(game: Game): Fu[WithInitialFen]
+  def isAnalysed(game: Game): Fu[Boolean]
 
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit

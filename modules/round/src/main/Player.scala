@@ -8,8 +8,9 @@ import java.util.concurrent.TimeUnit
 
 import lila.common.Bus
 import lila.game.actorApi.MoveGameEvent
-import lila.game.{ Game, Pov, Progress, UciMemo }
+import lila.game.{ Progress, UciMemo }
 import lila.core.round.*
+import lila.game.GameExt.applyMove
 
 final private class Player(
     finisher: Finisher,
@@ -28,7 +29,7 @@ final private class Player(
     play match
       case HumanPlay(_, uci, blur, lag, _) =>
         pov match
-          case Pov(game, _) if game.ply > Game.maxPlies =>
+          case Pov(game, _) if game.ply > lila.game.Game.maxPlies =>
             round ! TooManyPlies
             fuccess(Nil)
           case Pov(game, color) if game.playableBy(color) =>
@@ -51,7 +52,7 @@ final private class Player(
 
   private[round] def bot(uci: Uci, round: RoundAsyncActor)(pov: Pov)(using proxy: GameProxy): Fu[Events] =
     pov match
-      case Pov(game, _) if game.ply > Game.maxPlies =>
+      case Pov(game, _) if game.ply > lila.game.Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
       case Pov(game, color) if game.playableBy(color) =>
@@ -140,7 +141,7 @@ final private class Player(
         case (ncg, _) if ncg.value.clock.exists(_.outOfTime(game.turnColor, withGrace = false)) => Flagged
         case (ncg, moveOrDrop: MoveOrDrop) =>
           MoveApplied(
-            game.update(ncg.value, moveOrDrop, blur),
+            game.applyMove(ncg.value, moveOrDrop, blur),
             moveOrDrop,
             ncg.compensated
           )

@@ -6,7 +6,7 @@ import java.time.Duration
 import scalalib.model.Days
 
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo }
+import lila.game.{ GameRepo }
 import lila.puzzle.PuzzleRound
 import lila.rating.PerfType
 import lila.core.user.WithPerf
@@ -115,7 +115,7 @@ final class ClasProgressApi(
       userIds: List[UserId],
       days: Int
   ): Fu[Map[UserId, PlayStats]] =
-    import Game.{ BSONFields as F }
+    import lila.game.Game.{ BSONFields as F }
     import lila.game.Query
     gameRepo.coll
       .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
@@ -158,5 +158,5 @@ final class ClasProgressApi(
           }
         .toMap
 
-  private[clas] def onFinishGame(game: lila.game.Game): Unit =
+  private[clas] def onFinishGame(game: Game): Unit =
     if game.userIds.exists(studentCache.isStudent) then gameRepo.denormalizePerfType(game)

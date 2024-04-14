@@ -4,6 +4,7 @@ package game
 import _root_.chess.Color
 
 import lila.core.id.GameId
+import lila.core.userId.UserIdOf
 
 case class Pov(game: Game, color: Color):
 
@@ -55,6 +56,12 @@ case class Pov(game: Game, color: Color):
   def sideAndStart = SideAndStart(color, game.chess.startedAtPly)
 
   override def toString = ref.toString
+
+object Pov:
+  def naturalOrientation(game: Game): Pov    = Pov(game, game.naturalOrientation)
+  def apply(game: Game, player: Player): Pov = Pov(game, player.color)
+  def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
+    game.player(user).map { apply(game, _) }
 
 case class PovRef(gameId: GameId, color: Color):
   def unary_!           = PovRef(gameId, !color)

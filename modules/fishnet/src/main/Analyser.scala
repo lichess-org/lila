@@ -1,17 +1,17 @@
 package lila.fishnet
 
 import chess.Ply
+import scalalib.actor.AsyncActorSequencer
 
 import lila.analyse.AnalysisRepo
-
-import lila.game.{ Game, UciMemo }
-import scalalib.actor.AsyncActorSequencer
+import lila.game.{ UciMemo }
 import lila.core.fishnet.SystemAnalysisRequest
+import lila.game.GameExt.analysable
 
 final class Analyser(
     repo: FishnetRepo,
     analysisRepo: AnalysisRepo,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter

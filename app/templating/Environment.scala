@@ -59,7 +59,7 @@ object Environment
   def tablebaseEndpoint      = env.tablebaseEndpoint
   def externalEngineEndpoint = env.externalEngineEndpoint
 
-  def chessground(pov: lila.game.Pov)(using ctx: Context): Frag =
+  def chessground(pov: Pov)(using ctx: Context): Frag =
     chessground(
       board = pov.game.board,
       orient = pov.color,

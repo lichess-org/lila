@@ -1,6 +1,6 @@
 package lila.lobby
 
-import lila.game.Pov
+
 import lila.core.game.Source
 
 final private class AbortListener(

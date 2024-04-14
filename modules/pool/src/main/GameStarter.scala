@@ -2,7 +2,7 @@ package lila.pool
 
 import chess.ByColor
 
-import lila.game.{ Game, GameRepo, IdGenerator, Player }
+import lila.game.{ GameRepo, IdGenerator }
 
 import lila.core.pool.{ Pairing, Pairings }
 
@@ -63,9 +63,9 @@ final private class GameStarter(
         situation = chess.Situation(chess.variant.Standard),
         clock = pool.clock.toClock.some
       ),
-      players = ByColor(whiteUser, blackUser).mapWithColor(Player.make),
+      players = ByColor(whiteUser, blackUser).mapWithColor(lila.game.Player.make),
       mode = chess.Mode.Rated,
       status = chess.Status.Created,
       daysPerTurn = none,
-      metadata = Game.metadata(lila.core.game.Source.Pool)
+      metadata = lila.game.Game.metadata(lila.core.game.Source.Pool)
     )

@@ -26,7 +26,11 @@ final class PerfsUpdater(
     botFarming(game).flatMap {
       if _ then fuccess(none)
       else
-        game.ratingPerfType.so: mainPerf =>
+        val ratingPerf: Option[PerfKey] =
+          if game.variant.fromPosition
+          then game.isTournament.option(PerfKey(game.ratingVariant, game.speed))
+          else game.perfKey.some
+        ratingPerf.so: mainPerf =>
           (game.rated && game.finished && game.accountable && !white.lame && !black.lame).so:
             val ratingsW = mkRatings(white.perfs)
             val ratingsB = mkRatings(black.perfs)
@@ -79,9 +83,9 @@ final class PerfsUpdater(
               )
             gameRepo
               .setRatingDiffs(game.id, ratingDiffs)
-              .zip(userApi.updatePerfs(ByColor(white.perfs -> perfsW, black.perfs -> perfsB), game.perfType))
-              .zip(rankingApi.save(white.user, game.perfType, perfsW))
-              .zip(rankingApi.save(black.user, game.perfType, perfsB))
+              .zip(userApi.updatePerfs(ByColor(white.perfs -> perfsW, black.perfs -> perfsB), game.perfKey))
+              .zip(rankingApi.save(white.user, game.perfKey, perfsW))
+              .zip(rankingApi.save(black.user, game.perfKey, perfsB))
               .inject(ratingDiffs.some)
     }
 

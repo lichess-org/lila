@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.game.{ AnonCookie, Game as GameModel, Pov }
+import lila.game.{ AnonCookie }
 import lila.core.id.GamePlayerId
 
 private[controllers] trait TheftPrevention:
@@ -25,7 +25,7 @@ private[controllers] trait TheftPrevention:
 
   protected def isMyPov(pov: Pov)(using Context) = !isTheft(pov)
 
-  protected def playablePovForReq(game: GameModel)(using Context) =
+  protected def playablePovForReq(game: lila.core.game.Game)(using Context) =
     (!game.isPgnImport && game.playable).so:
       ctx.userId
         .flatMap(game.player)

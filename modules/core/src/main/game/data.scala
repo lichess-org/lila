@@ -27,6 +27,8 @@ case class GameMetadata(
 
 case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
 
+  def isEmpty = white.isEmpty && black.isEmpty
+
   def lastBy(color: Color): Option[Ply] = color.fold(white, black).maxOption(intOrdering)
 
   def add(color: Color, ply: Ply) =

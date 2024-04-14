@@ -3,7 +3,7 @@ package lila.gameSearch
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.game.{ Game, GameRepo }
+import lila.core.game.{ GameRepo }
 import lila.search.*
 
 final class GameSearchApi(
@@ -26,7 +26,7 @@ final class GameSearchApi(
 
   def store(game: Game) =
     storable(game).so:
-      gameRepo.isAnalysed(game.id).flatMap { analysed =>
+      gameRepo.isAnalysed(game).flatMap { analysed =>
         lila.common.LilaFuture
           .retry(
             () => client.store(game.id.into(Id), toDoc(game, analysed)),
@@ -36,7 +36,7 @@ final class GameSearchApi(
           )
       }
 
-  private def storable(game: Game) = game.finished || game.imported
+  private def storable(game: Game) = game.finished || game.sourceIs(_.Import)
 
   private def toDoc(game: Game, analysed: Boolean) =
     Json
@@ -49,7 +49,7 @@ final class GameSearchApi(
           .id,
         Fields.turns         -> (game.ply.value + 1) / 2,
         Fields.rated         -> game.rated,
-        Fields.perf          -> game.perfType.id,
+        Fields.perf          -> lila.rating.PerfType(game.perfKey).id,
         Fields.uids          -> game.userIds.some.filterNot(_.isEmpty),
         Fields.winner        -> game.winner.flatMap(_.userId),
         Fields.loser         -> game.loser.flatMap(_.userId),

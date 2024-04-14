@@ -7,7 +7,7 @@ import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object bookmark:
 
-  def toggle(g: lila.game.Game, bookmarked: Boolean)(using ctx: Context) =
+  def toggle(g: Game, bookmarked: Boolean)(using ctx: Context) =
     if ctx.isAuth then
       a(
         cls := List(

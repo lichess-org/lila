@@ -1,6 +1,7 @@
 package lila.report
 
-import lila.game.{ Game, GameRepo }
+import lila.game.{ GameRepo }
+import lila.game.GameExt.analysable
 
 final class AutoAnalysis(gameRepo: GameRepo)(using ec: Executor, scheduler: Scheduler):
 

@@ -8,7 +8,7 @@ import lila.app.{ *, given }
 import lila.chat.Chat
 import lila.common.Json.given
 import lila.common.HTTPRequest
-import lila.game.{ Game as GameModel, PgnDump, Pov }
+import lila.core.game.{ Game as GameModel }
 import lila.tournament.Tournament as Tour
 import lila.user.{ User as UserModel }
 import lila.core.data.Preload
@@ -178,8 +178,9 @@ final class Round(
             else
               for // web crawlers don't need the full thing
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-                pgn        <- env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
-                page       <- renderPage(html.round.watcher.crawler(pov, initialFen, pgn))
+                pgn <- env.api
+                  .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
+                page <- renderPage(html.round.watcher.crawler(pov, initialFen, pgn))
               yield Ok(page)
           ,
           api = _ =>

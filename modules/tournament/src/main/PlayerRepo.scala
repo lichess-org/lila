@@ -169,7 +169,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
           teamId <- doc.getAsOpt[TeamId]("t")
         yield (userId, teamId)
 
-  def teamVs(tourId: TourId, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
+  def teamVs(tourId: TourId, game: Game): Fu[Option[TeamBattle.TeamVs]] =
     game.twoUserIds.so: (w, b) =>
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap).map { m =>
         (m.get(w), m.get(b)).mapN: (wt, bt) =>

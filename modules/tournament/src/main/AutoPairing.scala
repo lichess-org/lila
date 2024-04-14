@@ -3,7 +3,8 @@ package lila.tournament
 import monocle.syntax.all.*
 import chess.{ Black, ByColor, Color, White }
 
-import lila.game.{ Game, GameRepo, Player as GamePlayer }
+import lila.core.game.Source
+import lila.game.{ GameRepo }
 
 final class AutoPairing(
     gameRepo: GameRepo,
@@ -15,7 +16,7 @@ final class AutoPairing(
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
     val clock                              = tour.clock.toClock
     val fen: Option[chess.format.Fen.Full] = tour.position.map(_.into(chess.format.Fen.Full))
-    val game = Game
+    val game = lila.game.Game
       .make(
         chess = chess
           .Game(
@@ -28,12 +29,12 @@ final class AutoPairing(
           .copy(clock = clock.some),
         players = ByColor(makePlayer(White, pairing.player1), makePlayer(Black, pairing.player2)),
         mode = tour.mode,
-        source = lila.core.game.Source.Arena,
+        source = Source.Arena,
         pgnImport = None
       )
       .withId(pairing.pairing.gameId)
-      .focus(_.metadata.tourId)
-      .replace(tour.id)
+      .focus(_.metadata.tournamentId)
+      .replace(tour.id.some)
       .start
     gameRepo
       .insertDenormalized(game)
@@ -51,6 +52,6 @@ final class AutoPairing(
       .inject(game)
 
   private def makePlayer(color: Color, player: Player) =
-    GamePlayer.make(color, player.userId, player.rating, player.provisional)
+    lila.game.Player.make(color, player.userId, player.rating, player.provisional)
 
   private def usernameOf(player: Player) = lightUserApi.syncFallback(player.userId).name
