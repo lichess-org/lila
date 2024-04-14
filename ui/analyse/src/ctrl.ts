@@ -51,7 +51,7 @@ import { uciToMove } from 'chessground/util';
 import Persistence from './persistence';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
-import { KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
+import { ArrowKey, KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
 
 export default class AnalyseCtrl {
@@ -986,11 +986,16 @@ export default class AnalyseCtrl {
   withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined =>
     this.chessground && this.cgVersion.js === this.cgVersion.dom ? f(this.chessground) : undefined;
 
-  userJumpPlyDelta = (plyDelta: number) => {
-    if (plyDelta === -1) control.prev(this);
-    else if (plyDelta === 1) control.next(this);
-    else if (plyDelta > 1) control.last(this);
-    else if (plyDelta < -1) control.first(this);
+  handleArrowKey = (arrowKey: ArrowKey) => {
+    if (arrowKey === 'ArrowUp') {
+      if (this.fork.prev()) this.setAutoShapes();
+      else control.first(this);
+    } else if (arrowKey === 'ArrowDown') {
+      if (this.fork.next()) this.setAutoShapes();
+      else control.last(this);
+    } else if (arrowKey === 'ArrowLeft') control.prev(this);
+    else if (arrowKey === 'ArrowRight') control.next(this);
+    this.redraw();
   };
 
   pluginMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => {

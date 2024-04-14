@@ -1,6 +1,6 @@
 import { Dests, files } from 'chessground/types';
 import { sanWriter, SanToUci, destsToUcis } from 'chess';
-import { KeyboardMoveHandler, KeyboardMove } from '../main';
+import { KeyboardMoveHandler, KeyboardMove, isArrowKey } from '../main';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -189,11 +189,8 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
   opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.which > 36 && e.which < 41) {
-      if (e.which == 37) opts.ctrl.jump(-1);
-      else if (e.which == 38) opts.ctrl.jump(-999);
-      else if (e.which == 39) opts.ctrl.jump(1);
-      else opts.ctrl.jump(999);
+    if (isArrowKey(e.key)) {
+      opts.ctrl.arrowNavigate(e.key);
       e.preventDefault();
     }
   });

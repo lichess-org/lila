@@ -25,7 +25,7 @@ const defaultCtrl = {
   vote: unexpectedErrorThrower('vote'),
   drop: unexpectedErrorThrower('drop'),
   hasSelected: () => undefined,
-  jump: () => null,
+  arrowNavigate: unexpectedErrorThrower('arrowNavigate'),
   justSelected: () => true,
   promote: unexpectedErrorThrower('promote'),
   registerHandler: () => null,

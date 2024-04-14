@@ -9,6 +9,10 @@ import KeyboardChecker from './plugins/keyboardChecker';
 
 export type KeyboardMoveHandler = (fen: cg.FEN, dests?: cg.Dests, yourMove?: boolean) => void;
 
+export const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'] as const;
+export type ArrowKey = (typeof arrowKeys)[number];
+export const isArrowKey = (v: string): v is ArrowKey => arrowKeys.includes(v as ArrowKey);
+
 export interface KeyboardMove {
   drop(key: cg.Key, piece: string): void;
   promote(orig: cg.Key, dest: cg.Key, piece: string): void;
@@ -20,7 +24,7 @@ export interface KeyboardMove {
   hasSelected(): cg.Key | undefined;
   confirmMove(): void;
   usedSan: boolean;
-  jump(delta: number): void;
+  arrowNavigate(arrowKey: ArrowKey): void;
   justSelected(): boolean;
   draw(): void;
   next(): void;
@@ -55,6 +59,7 @@ export interface RootData {
 export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
   userJumpPlyDelta?: (plyDelta: Ply) => void;
+  handleArrowKey?: (arrowKey: ArrowKey) => void;
   submitMove?: (v: boolean) => void;
   crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
   getCrazyhousePockets?: () => [CrazyPocket, CrazyPocket] | undefined;
@@ -123,9 +128,19 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     hasSelected: () => cg.state.selected,
     confirmMove: () => (root.submitMove ? root.submitMove(true) : null),
     usedSan,
-    jump(plyDelta: number) {
-      root.userJumpPlyDelta?.(plyDelta);
-      root.redraw();
+    arrowNavigate(arrowKey: ArrowKey) {
+      if (root.handleArrowKey) {
+        root.handleArrowKey?.(arrowKey);
+        return;
+      }
+
+      const arrowKeyToPlyDelta = {
+        ArrowUp: -999,
+        ArrowDown: 999,
+        ArrowLeft: -1,
+        ArrowRight: 1,
+      };
+      root.userJumpPlyDelta?.(arrowKeyToPlyDelta[arrowKey]);
     },
     justSelected: () => performance.now() - lastSelect < 500,
     draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
