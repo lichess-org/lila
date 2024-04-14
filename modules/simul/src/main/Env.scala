@@ -28,7 +28,7 @@ final class Env(
     historyApi: lila.core.history.HistoryApi,
     socketKit: lila.core.socket.SocketKit,
     socketReq: lila.core.socket.SocketRequester,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     isOnline: lila.core.socket.IsOnline
 )(using Executor, Scheduler, play.api.Mode, FlairGet):
 
@@ -63,7 +63,7 @@ final class Env(
     simulSocket.rooms.ask[SocketVersion](simulId.into(RoomId))(GetVersion.apply)
 
   Bus.subscribeFuns(
-    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>
+    "finishGame" -> { case lila.core.game.FinishGame(game, _) =>
       api.finishGame(game)
       ()
     },

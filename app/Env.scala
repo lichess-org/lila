@@ -113,27 +113,17 @@ final class Env(
   val appVersionCommit  = config.getOptional[String]("app.version.commit")
   val appVersionMessage = config.getOptional[String]("app.version.message")
 
-  lazy val preloader     = wire[mashup.Preload]
-  lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
-  lazy val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
-  lazy val userInfo      = wire[mashup.UserInfo.UserInfoApi]
-  lazy val teamInfo      = wire[mashup.TeamInfoApi]
-  lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
-  lazy val pageCache     = wire[http.PageCache]
-
-  private val tryDailyPuzzle: lila.puzzle.DailyPuzzle.Try = () =>
-    Future {
-      puzzle.daily.get
-    }.flatMap(identity)
-      .withTimeoutDefault(50.millis, none)
-      .recover { case e: Exception =>
-        lila.log("preloader").warn("daily puzzle", e)
-        none
-      }
+  val preloader     = wire[mashup.Preload]
+  val socialInfo    = wire[mashup.UserInfo.SocialApi]
+  val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
+  val userInfo      = wire[mashup.UserInfo.UserInfoApi]
+  val teamInfo      = wire[mashup.TeamInfoApi]
+  val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
+  val pageCache     = wire[http.PageCache]
 
   lila.common.Bus.subscribeFun("renderer"):
     case lila.tv.RenderFeaturedJs(game, promise) =>
-      promise.success(Html(views.html.game.mini.noCtx(lila.game.Pov.naturalOrientation(game), tv = true)))
+      promise.success(Html(views.html.game.mini.noCtx(Pov.naturalOrientation(game), tv = true)))
     case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
       promise.success(Html(views.html.puzzle.bits.daily(puzzle, fen, lastMove)))
 
@@ -158,6 +148,7 @@ given ConfigLoader[NetConfig] = ConfigLoader(config =>
       socketAlts = get[List[String]]("socket.alts"),
       crawlable = get[Boolean]("crawlable"),
       rateLimit = get[RateLimit]("ratelimit"),
-      email = get[EmailAddress]("email")
+      email = get[EmailAddress]("email"),
+      logRequests = get[Boolean]("http.log")
     )
 )

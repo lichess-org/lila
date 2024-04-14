@@ -5,12 +5,11 @@ import play.api.libs.json.Json
 
 import lila.common.Bus
 import lila.common.Json.given
-import lila.game.{ Game, Pov }
 
 final private[tv] class TvSyncActor(
     lightUserApi: lila.core.user.LightUserApi,
     onTvGame: lila.game.core.OnTvGame,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     rematches: lila.game.Rematches
 )(using Executor, Scheduler)
     extends SyncActor:
@@ -50,7 +49,7 @@ final private[tv] class TvSyncActor(
 
     case GetChampions(promise) => promise.success(Tv.Champions(channelChampions))
 
-    case lila.game.actorApi.StartGame(g) =>
+    case lila.core.game.StartGame(g) =>
       if g.hasClock then
         val candidate = Tv.Candidate(g, g.userIds.exists(lightUserApi.isBotSync))
         channelActors
@@ -63,7 +62,7 @@ final private[tv] class TvSyncActor(
 
     case Selected(channel, game) =>
       import lila.core.socket.makeMessage
-      given Ordering[lila.game.Player] = Ordering.by: p =>
+      given Ordering[lila.core.game.Player] = Ordering.by: p =>
         p.rating.fold(0)(_.value) + ~p.userId
           .flatMap(lightUserApi.sync)
           .flatMap(_.title)

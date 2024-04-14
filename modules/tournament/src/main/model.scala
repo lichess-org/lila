@@ -45,7 +45,7 @@ case class VisibleTournaments(
 case class PlayerInfoExt(
     userId: UserId,
     player: Player,
-    recentPovs: List[lila.game.LightPov]
+    recentPovs: List[lila.core.game.LightPov]
 )
 
 case class FullRanking(ranking: Map[UserId, Rank], playerIndex: Array[TourPlayerId])
@@ -89,7 +89,7 @@ case class RankedPlayerWithColorHistory(rank: Rank, player: Player, colorHistory
   override def toString = s"$rank. ${player.userId}[${player.rating}]"
 
 case class FeaturedGame(
-    game: lila.game.Game,
+    game: Game,
     white: RankedPlayer,
     black: RankedPlayer
 )

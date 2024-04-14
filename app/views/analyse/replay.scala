@@ -9,9 +9,9 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Pov
 
 import bits.dataPanel
+import lila.game.GameExt.analysable
 
 object replay:
 

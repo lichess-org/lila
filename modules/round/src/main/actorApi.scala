@@ -29,5 +29,5 @@ private case class SocketStatus(
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 private object SocketStatus:
   val default = SocketStatus(SocketVersion(0), false, false, false, false)
-private case class GameAndSocketStatus(game: lila.game.Game, socket: SocketStatus)
+private case class GameAndSocketStatus(game: Game, socket: SocketStatus)
 private case class RoomCrowd(white: Boolean, black: Boolean)

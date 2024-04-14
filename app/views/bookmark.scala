@@ -7,7 +7,7 @@ import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object bookmark:
 
-  def toggle(g: lila.game.Game, bookmarked: Boolean)(using ctx: Context) =
+  def toggle(g: Game, bookmarked: Boolean)(using ctx: Context) =
     if ctx.isAuth then
       a(
         cls := List(
@@ -19,10 +19,10 @@ object bookmark:
       )(
         iconTag(Icon.Star)(cls        := "on is3"),
         iconTag(Icon.StarOutline)(cls := "off is3"),
-        span(g.showBookmarks)
+        span((g.bookmarks > 0).option(g.bookmarks))
       )
-    else if g.hasBookmarks then
+    else if g.bookmarks > 0 then
       span(cls := "bookmark")(
-        span(dataIcon := Icon.StarOutline, cls := "is3")(g.showBookmarks)
+        span(dataIcon := Icon.StarOutline, cls := "is3")(g.bookmarks)
       )
     else emptyFrag

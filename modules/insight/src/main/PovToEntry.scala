@@ -8,7 +8,9 @@ import scala.util.chaining.*
 
 import lila.analyse.{ AccuracyCP, AccuracyPercent, Advice, Analysis, WinPercent }
 import lila.common.SimpleOpening
-import lila.game.{ Game, Pov }
+import lila.game.GameExt.analysable
+import lila.game.GameExt.computeMoveTimes
+import lila.game.Blurs.booleans
 
 case class RichPov(
     pov: Pov,
@@ -40,7 +42,7 @@ final private class PovToEntry(
   private def enrich(game: Game, userId: UserId, provisional: Boolean): Fu[Option[RichPov]] =
     if removeWrongAnalysis(game) then fuccess(none)
     else
-      lila.game.Pov(game, userId).so { pov =>
+      Pov(game, userId).so: pov =>
         gameRepo
           .initialFen(game)
           .zip(game.metadata.analysed.so(analysisRepo.byId(Analysis.Id(game.id))))
@@ -62,12 +64,11 @@ final private class PovToEntry(
                   analysis = an,
                   situations = situations,
                   clock = game.clock.map(_.config),
-                  movetimes = game.clock.flatMap(_ => game.moveTimes(pov.color)).map(_.toVector),
+                  movetimes = game.clock.flatMap(_ => game.computeMoveTimes(pov.color)).map(_.toVector),
                   clockStates = game.clockHistory.map(_(pov.color)),
                   advices = an.so(_.advices.mapBy(_.info.ply))
                 )
           }
-      }
 
   private def sanToRole(san: SanStr): Role =
     san.value.head match
@@ -187,7 +188,7 @@ final private class PovToEntry(
       id = InsightEntry.povToId(pov),
       userId = myId,
       color = pov.color,
-      perf = game.perfType,
+      perf = game.perfKey,
       opening = opening,
       myCastling = Castling.fromMoves(game.sansOf(pov.color)),
       rating = myRating,

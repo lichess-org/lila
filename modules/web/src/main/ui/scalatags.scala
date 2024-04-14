@@ -108,7 +108,6 @@ trait ScalatagsTemplate
     with ScalatagsSnippets
     with ScalatagsPrefix:
 
-  export lila.core.i18n.I18nKey as trans
   export scalatags.Text.tags2.main
   export scalatags.Text.styles.{ width as cssWidth, height as cssHeight }
 

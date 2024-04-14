@@ -5,19 +5,21 @@ import chess.format.pgn.{ PgnStr, SanStr }
 import chess.{ Color, Status }
 import scalalib.ThreadLocalRandom
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
-import reactivemongo.api.bson.BSONNull
+import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
 
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
-import lila.core.game.{ Game as _, Pov as _, * }
+import lila.core.game.*
+import lila.game.GameExt.*
 
-final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.GameRepo:
+final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c):
 
+  export BSONHandlers.gameHandler
   import BSONHandlers.given
-  import Game.{ BSONFields as F }
-  import Player.given
+  import lila.game.Game.{ BSONFields as F }
+  import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
 
   val fixedColorLobbyCache = scalalib.cache.ExpireSetMemo[GameId](2 hours)
 
@@ -35,26 +37,23 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
   def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
     coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.priTemp)(_.id)
 
-  object light:
+  val light: lila.core.game.GameLightRepo = new:
 
-    def game(gameId: GameId): Fu[Option[LightGame]] = coll.byId[LightGame](gameId.value, LightGame.projection)
+    import lila.game.LightGame.projection
+
+    def game(gameId: GameId): Fu[Option[LightGame]] =
+      coll.byId[LightGame](gameId.value, projection)
 
     def pov(gameId: GameId, color: Color): Fu[Option[LightPov]] =
-      game(gameId).dmap2 { (game: LightGame) =>
-        LightPov(game, game.player(color))
-      }
+      game(gameId).dmap2 { LightPov(_, color) }
 
     def pov(ref: PovRef): Fu[Option[LightPov]] = pov(ref.gameId, ref.color)
 
     def gamesFromPrimary(gameIds: Seq[GameId]): Fu[List[LightGame]] =
-      coll.byOrderedIds[LightGame, GameId](gameIds, projection = LightGame.projection.some)(_.id)
+      coll.byOrderedIds[LightGame, GameId](gameIds, projection = projection.some)(_.id)
 
     def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[LightGame]] =
-      coll.byOrderedIds[LightGame, GameId](
-        gameIds,
-        projection = LightGame.projection.some,
-        _.sec
-      )(_.id)
+      coll.byOrderedIds[LightGame, GameId](gameIds, projection = projection.some, _.sec)(_.id)
 
   def finished(gameId: GameId): Fu[Option[Game]] =
     coll.one[Game]($id(gameId) ++ Query.finished)
@@ -71,9 +70,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
     player(playerRef.gameId, playerRef.playerId)
 
   def pov(gameId: GameId, color: Color): Fu[Option[Pov]] =
-    game(gameId).dmap2 { (game: Game) =>
-      Pov(game, game.player(color))
-    }
+    game(gameId).dmap2 { Pov(_, color) }
 
   def pov(gameId: GameId, color: String): Fu[Option[Pov]] =
     Color.fromName(color).so(pov(gameId, _))
@@ -93,7 +90,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
       readPref: ReadPref = _.priTemp
   ): Fu[List[Pov]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPref = readPref)(_.id).dmap {
-      _.flatMap(g => Pov(g, user))
+      _.flatMap(Pov(_, user))
     }
 
   def recentPovsByUserFromSecondary(user: User, nb: Int, select: Bdoc = $empty): Fu[List[Pov]] =
@@ -170,13 +167,13 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
       .one(
         $id(pov.gameId),
         $set(
-          s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.berserk}" -> true
+          s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.berserk}" -> true
         )
       )
       .void
 
   def setBlindfold(pov: Pov, blindfold: Boolean): Funit =
-    val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.blindfold}"
+    val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.blindfold}"
     coll.update.one($id(pov.gameId), $setBoolOrUnset(field, blindfold)).void
 
   def update(progress: Progress): Funit =
@@ -200,14 +197,14 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
     coll.update.one(
       $id(id),
       $set(
-        s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.white,
-        s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> diffs.black
+        s"${F.whitePlayer}.${PF.ratingDiff}" -> diffs.white,
+        s"${F.blackPlayer}.${PF.ratingDiff}" -> diffs.black
       )
     )
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted[U: UserIdOf](user: U): Fu[List[Pov]] =
-    coll.list[Game](Query.nowPlaying(user.id), Game.maxPlaying + 5).dmap {
+    coll.list[Game](Query.nowPlaying(user.id), lila.game.Game.maxPlaying + 5).dmap {
       _.flatMap { Pov(_, user) }
     }
 
@@ -219,8 +216,8 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
           "$or" ->
             List(0, 1).map: rem =>
               $doc(
-                s"${Game.BSONFields.playingUids}.$rem" -> userId,
-                Game.BSONFields.turns                  -> $doc("$mod" -> $arr(2, rem))
+                s"${F.playingUids}.$rem" -> userId,
+                F.turns                  -> $doc("$mod" -> $arr(2, rem))
               )
         )
       )
@@ -251,9 +248,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
       .sort($sort.desc(F.createdAt))
       .cursor[Game]()
       .list(2)
-      .dmap {
-        _.sortBy(_.movedAt).lastOption.flatMap { Pov(_, user) }
-      }
+      .dmap { _.sortBy(_.movedAt).lastOption.flatMap(Pov(_, user)) }
 
   def quickLastPlayedId(userId: UserId): Fu[Option[GameId]] =
     coll
@@ -279,8 +274,8 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
   def setAnalysed(id: GameId): Funit  = coll.updateField($id(id), F.analysed, true).void
   def setUnanalysed(id: GameId): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
 
-  def isAnalysed(id: GameId): Fu[Boolean] =
-    coll.exists($id(id) ++ Query.analysed(true))
+  def isAnalysed(game: Game): Fu[Boolean] = game.analysable.so:
+    coll.exists($id(game.id) ++ Query.analysed(true))
 
   def analysed(id: GameId) = coll.one[Game]($id(id) ++ Query.analysed(true))
 
@@ -291,7 +286,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
   def incBookmarks(id: GameId, value: Int) =
     coll.update.one($id(id), $inc(F.bookmarks -> value)).void
 
-  def setHoldAlert(pov: Pov, alert: Player.HoldAlert): Funit =
+  def setHoldAlert(pov: Pov, alert: HoldAlert): Funit =
     coll
       .updateField(
         $id(pov.gameId),
@@ -309,22 +304,22 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
       holdAlertField(chess.White) -> true,
       holdAlertField(chess.Black) -> true
     )
-    private def holdAlertOf(doc: Bdoc, color: Color): Option[Player.HoldAlert] =
-      doc.child(color.fold("p0", "p1")).flatMap(_.getAsOpt[Player.HoldAlert](Player.BSONFields.holdAlert))
+    private def holdAlertOf(doc: Bdoc, color: Color): Option[HoldAlert] =
+      doc.child(color.fold("p0", "p1")).flatMap(_.getAsOpt[HoldAlert](PF.holdAlert))
 
-    def game(game: Game): Fu[Player.HoldAlert.Map] =
+    def game(game: Game): Fu[HoldAlert.Map] =
       coll
         .one[Bdoc](
           $doc(F.id -> game.id, holdAlertSelector),
           holdAlertProjection
         )
         .map {
-          _.fold(Player.HoldAlert.emptyMap) { doc =>
+          _.fold(HoldAlert.emptyMap) { doc =>
             chess.ByColor(holdAlertOf(doc, _))
           }
         }
 
-    def povs(povs: Seq[Pov]): Fu[Map[GameId, Player.HoldAlert]] =
+    def povs(povs: Seq[Pov]): Fu[Map[GameId, HoldAlert]] =
       coll
         .find(
           $doc($inIds(povs.map(_.gameId)), holdAlertSelector),
@@ -353,16 +348,16 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
       )
     )
 
-  private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${Player.BSONFields.holdAlert}"
+  private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${PF.holdAlert}"
 
   private val finishUnsets = $doc(
-    F.positionHashes                              -> true,
-    F.playingUids                                 -> true,
-    F.unmovedRooks                                -> true,
-    ("p0." + Player.BSONFields.isOfferingDraw)    -> true,
-    ("p1." + Player.BSONFields.isOfferingDraw)    -> true,
-    ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
-    ("p1." + Player.BSONFields.proposeTakebackAt) -> true
+    F.positionHashes               -> true,
+    F.playingUids                  -> true,
+    F.unmovedRooks                 -> true,
+    ("p0." + PF.isOfferingDraw)    -> true,
+    ("p1." + PF.isOfferingDraw)    -> true,
+    ("p0." + PF.proposeTakebackAt) -> true,
+    ("p1." + PF.proposeTakebackAt) -> true
   )
 
   def finish(
@@ -400,8 +395,9 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
 
   def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen.Full] = None): Funit =
     val g2 =
-      if g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))) then
-        g.copy(mode = chess.Mode.Casual)
+      if g.rated && (g.userIds.distinct.size != 2 ||
+          !lila.game.Game.allowRated(g.variant, g.clock.map(_.config)))
+      then g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
     val fen: Option[Fen.Full] = initialFen.orElse {
@@ -411,10 +407,10 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
     }
     val checkInHours =
       if g2.isPgnImport then none
-      else if g2.fromApi then some(24 * 7)
+      else if g2.sourceIs(_.Api) then some(24 * 7)
       else if g2.hasClock then 1.some
       else some(24 * 10)
-    val bson = (gameBSONHandler.write(g2)) ++ $doc(
+    val bson = (gameHandler.write(g2)) ++ $doc(
       F.initialFen  -> fen,
       F.checkAt     -> checkInHours.map(nowInstant.plusHours(_)),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
@@ -467,19 +463,19 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
     coll.primitiveOne[Fen.Full]($id(gameId), F.initialFen)
 
   def initialFen(game: Game): Fu[Option[Fen.Full]] =
-    if game.imported || !game.variant.standardInitialPosition then
+    if game.sourceIs(_.Import) || !game.variant.standardInitialPosition then
       initialFen(game.id).dmap:
         case None if game.variant == chess.variant.Chess960 => Fen.initial.some
         case fen                                            => fen
     else fuccess(none)
 
-  def gameWithInitialFen(gameId: GameId): Fu[Option[Game.WithInitialFen]] =
+  def gameWithInitialFen(gameId: GameId): Fu[Option[WithInitialFen]] =
     game(gameId).flatMapz: game =>
       initialFen(game).dmap: fen =>
-        Game.WithInitialFen(game, fen).some
+        WithInitialFen(game, fen).some
 
-  def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
-    initialFen(game).dmap { Game.WithInitialFen(game, _) }
+  def withInitialFen(game: Game): Fu[WithInitialFen] =
+    initialFen(game).dmap { WithInitialFen(game, _) }
 
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Full])]] =
     games.map { game =>
@@ -527,7 +523,7 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
 
   def findPgnImport(pgn: PgnStr): Fu[Option[Game]] =
     coll.one[Game](
-      $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
+      $doc(s"${F.pgnImport}.h" -> lila.game.PgnImport.hash(pgn))
     )
 
   def getOptionPgn(id: GameId): Fu[Option[Vector[SanStr]]] = game(id).dmap2(_.sans)
@@ -570,7 +566,3 @@ final class GameRepo(val coll: Coll)(using Executor) extends lila.core.game.Game
       .sort(Query.sortCreated)
       .cursor[Game](ReadPref.sec)
       .list(nb)
-
-  // only for student games, for aggregation
-  def denormalizePerfType(game: Game): Unit =
-    coll.updateFieldUnchecked($id(game.id), F.perfType, game.perfType.id)

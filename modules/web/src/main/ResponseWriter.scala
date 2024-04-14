@@ -1,12 +1,9 @@
-package lila.app
-package http
+package lila.web
 
 import chess.format.pgn.PgnStr
 import play.api.http.*
 import play.api.mvc.Codec
 import scalatags.Text.Frag
-
-import lila.api.*
 
 trait ResponseWriter extends ContentTypes:
 

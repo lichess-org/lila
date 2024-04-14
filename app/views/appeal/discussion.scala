@@ -165,7 +165,8 @@ object discussion:
       )
 
   def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using
-      PageContext
+      Translate,
+      Option[Me]
   ) =
     postForm(st.action := action)(
       form3.globalError(form),

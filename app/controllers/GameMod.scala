@@ -42,7 +42,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       .filter: game =>
         filter.perf.forall(game.perfKey ==)
       .take(filter.nbGames)
-      .mapConcat { lila.game.Pov(_, user).toList }
+      .mapConcat { Pov(_, user).toList }
       .toMat(Sink.seq)(Keep.right)
       .run()
       .map(_.toList)

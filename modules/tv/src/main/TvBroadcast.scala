@@ -8,7 +8,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.Bus
 import lila.core.LightUser
-import lila.game.Pov
+
 import lila.game.actorApi.MoveGameEvent
 import lila.core.game.TvSelect
 import lila.core.socket.makeMessage
@@ -16,7 +16,7 @@ import lila.core.socket.makeMessage
 final private class TvBroadcast(
     lightUserSync: LightUser.GetterSync,
     channel: Tv.Channel,
-    gameProxy: lila.game.core.GameProxy
+    gameProxy: lila.core.game.GameProxy
 ) extends Actor:
 
   import TvBroadcast.*

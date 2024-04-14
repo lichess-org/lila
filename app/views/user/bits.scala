@@ -11,7 +11,7 @@ import lila.rating.PerfType
 object bits:
 
   def communityMenu(active: String)(using Context) =
-    views.html.site.bits.pageMenuSubnav(
+    views.html.base.bits.pageMenuSubnav(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.site.leaderboard()),
       a(
         cls  := active.active("ratings"),

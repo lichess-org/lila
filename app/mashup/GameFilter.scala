@@ -7,7 +7,8 @@ import play.api.mvc.Request
 
 import scalalib.paginator.Paginator
 import lila.db.dsl.*
-import lila.game.{ Game, Query }
+import lila.game.{ Query }
+import lila.core.game.Game
 import lila.core.user.User
 
 enum GameFilter:

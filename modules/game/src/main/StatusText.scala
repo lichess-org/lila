@@ -30,7 +30,7 @@ object StatusText:
           case _                           => "Game ends by variant rule."
       case _ => ""
 
-  def apply(game: lila.game.Game): String = apply(game.status, game.winnerColor, game.variant)
+  def apply(game: CoreGame): String = apply(game.status, game.winnerColor, game.variant)
 
   private def winner(win: Option[Color]) = win.so(_.toString)
   private def loser(win: Option[Color])  = winner(win.map(!_))

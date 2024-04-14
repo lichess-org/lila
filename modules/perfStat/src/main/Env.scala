@@ -27,7 +27,7 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   lila.common.Bus.subscribeFun("finishGame"):
-    case lila.game.actorApi.FinishGame(game, _) if !game.aborted =>
+    case lila.core.game.FinishGame(game, _) if !game.aborted =>
       indexer.addGame(game).addFailureEffect { e =>
         lila.log("perfStat").error(s"index game ${game.id}", e)
       }

@@ -185,60 +185,50 @@ object PerfType:
 
   val nonPuzzle: List[PerfType] = all.filter(_ != Puzzle)
 
-  val leaderboardable: List[PerfType] = List(
-    Bullet,
-    Blitz,
-    Rapid,
-    Classical,
-    UltraBullet,
-    Crazyhouse,
-    Chess960,
-    KingOfTheHill,
-    ThreeCheck,
-    Antichess,
-    Atomic,
-    Horde,
-    RacingKings
+  val standard: List[PerfKey] =
+    List(PerfKey.bullet, PerfKey.blitz, PerfKey.rapid, PerfKey.classical, PerfKey.correspondence)
+  val standardSet: Set[PerfKey]        = standard.toSet
+  val standardWithUltra: List[PerfKey] = PerfKey.ultraBullet :: standard
+  val leaderboardable: List[PerfKey] = List(
+    PerfKey.bullet,
+    PerfKey.blitz,
+    PerfKey.rapid,
+    PerfKey.classical,
+    PerfKey.ultraBullet,
+    PerfKey.crazyhouse,
+    PerfKey.chess960,
+    PerfKey.kingOfTheHill,
+    PerfKey.threeCheck,
+    PerfKey.antichess,
+    PerfKey.atomic,
+    PerfKey.horde,
+    PerfKey.racingKings
   )
-  val isLeaderboardable: Set[PerfType] = leaderboardable.toSet
-  val variants: List[PerfType] =
-    List(Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
-  val standard: List[PerfType]          = List(Bullet, Blitz, Rapid, Classical, Correspondence)
-  val standardWithUltra: List[PerfType] = UltraBullet :: standard
+  val isLeaderboardable: Set[PerfKey] = leaderboardable.toSet
+  val variants: List[PerfKey] =
+    List(
+      PerfKey.crazyhouse,
+      PerfKey.chess960,
+      PerfKey.kingOfTheHill,
+      PerfKey.threeCheck,
+      PerfKey.antichess,
+      PerfKey.atomic,
+      PerfKey.horde,
+      PerfKey.racingKings
+    )
 
-  def variantOf(pt: PerfType): chess.variant.Variant = pt match
-    case Crazyhouse    => chess.variant.Crazyhouse
-    case Chess960      => chess.variant.Chess960
-    case KingOfTheHill => chess.variant.KingOfTheHill
-    case ThreeCheck    => chess.variant.ThreeCheck
-    case Antichess     => chess.variant.Antichess
-    case Atomic        => chess.variant.Atomic
-    case Horde         => chess.variant.Horde
-    case RacingKings   => chess.variant.RacingKings
-    case _             => chess.variant.Standard
+  def variantOf(pk: PerfKey): chess.variant.Variant = pk match
+    case PerfKey.crazyhouse    => chess.variant.Crazyhouse
+    case PerfKey.chess960      => chess.variant.Chess960
+    case PerfKey.kingOfTheHill => chess.variant.KingOfTheHill
+    case PerfKey.threeCheck    => chess.variant.ThreeCheck
+    case PerfKey.antichess     => chess.variant.Antichess
+    case PerfKey.atomic        => chess.variant.Atomic
+    case PerfKey.horde         => chess.variant.Horde
+    case PerfKey.racingKings   => chess.variant.RacingKings
+    case _                     => chess.variant.Standard
 
-  def byVariant(variant: chess.variant.Variant): Option[PerfType] = variant match
-    case chess.variant.Standard      => none
-    case chess.variant.FromPosition  => none
-    case chess.variant.Crazyhouse    => Crazyhouse.some
-    case chess.variant.Chess960      => Chess960.some
-    case chess.variant.KingOfTheHill => KingOfTheHill.some
-    case chess.variant.ThreeCheck    => ThreeCheck.some
-    case chess.variant.Antichess     => Antichess.some
-    case chess.variant.Atomic        => Atomic.some
-    case chess.variant.Horde         => Horde.some
-    case chess.variant.RacingKings   => RacingKings.some
-
-  def standardBySpeed(speed: Speed): PerfType = speed match
-    case Speed.UltraBullet    => UltraBullet
-    case Speed.Bullet         => Bullet
-    case Speed.Blitz          => Blitz
-    case Speed.Rapid          => Rapid
-    case Speed.Classical      => Classical
-    case Speed.Correspondence => Correspondence
-
-  def apply(variant: chess.variant.Variant, speed: Speed): PerfType =
-    byVariant(variant).getOrElse(standardBySpeed(speed))
+  def apply(variant: chess.variant.Variant, speed: Speed): PerfType = PerfType(PerfKey(variant, speed))
 
   lazy val totalTimeRoughEstimation: Map[PerfType, Centis] =
     nonPuzzle.view
@@ -255,6 +245,6 @@ object PerfType:
       .to(Map)
 
   def iconByVariant(variant: chess.variant.Variant): Icon =
-    byVariant(variant).fold(Icon.CrownElite)(_.icon)
+    PerfKey.byVariant(variant).fold(Icon.CrownElite)(_.icon)
 
   val translated: Set[PerfType] = Set(Bullet, Blitz, Rapid, Classical, Correspondence, Puzzle)

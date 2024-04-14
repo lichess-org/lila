@@ -48,7 +48,7 @@ final class Cached(
       loader: _ =>
         PerfType.leaderboardable
           .traverse: perf =>
-            rankingApi.topPerf(perf.id, 1)
+            rankingApi.topPerf(PerfType(perf).id, 1)
           .dmap(_.flatten)
 
   def topWeek = topWeekCache.get {}

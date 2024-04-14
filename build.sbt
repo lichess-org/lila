@@ -125,7 +125,7 @@ lazy val cms = module("cms",
 )
 
 lazy val puzzle = module("puzzle",
-  Seq(game),
+  Seq(coreI18n, tree, memo, rating),
   reactivemongo.bundle ++ tests.bundle
 )
 
@@ -285,7 +285,7 @@ lazy val tutor = module("tutor",
 )
 
 lazy val opening = module("opening",
-  Seq(game),
+  Seq(coreI18n, memo),
   tests.bundle
 )
 
@@ -440,7 +440,7 @@ lazy val clas = module("clas",
 )
 
 lazy val bookmark = module("bookmark",
-  Seq(game),
+  Seq(db),
   reactivemongo.bundle
 )
 

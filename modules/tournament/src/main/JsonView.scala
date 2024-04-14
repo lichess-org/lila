@@ -8,7 +8,6 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.Uptime
 import lila.core.LightUser
-import lila.game.LightPov
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
@@ -20,6 +19,7 @@ import lila.common.Json.lightUser.writeNoId
 import lila.rating.PerfType
 import lila.core.chess.Rank
 import lila.core.user.LightUserApi
+import lila.core.game.LightPov
 
 final class JsonView(
     lightUserApi: LightUserApi,
@@ -30,7 +30,7 @@ final class JsonView(
     statsApi: TournamentStatsApi,
     shieldApi: TournamentShieldApi,
     cacheApi: lila.memo.CacheApi,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     userApi: lila.core.user.UserApi,
     verify: TournamentCondition.Verify,
     duelStore: DuelStore,
@@ -265,7 +265,7 @@ final class JsonView(
 
   private def featuredJson(featured: FeaturedGame) =
     val game = featured.game
-    def ofPlayer(rp: RankedPlayer, p: lila.game.Player) =
+    def ofPlayer(rp: RankedPlayer, p: lila.core.game.Player) =
       val light = lightUserApi.syncFallback(rp.player.userId)
       Json.toJsObject(light) ++
         Json

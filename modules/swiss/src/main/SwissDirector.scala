@@ -1,6 +1,7 @@
 package lila.swiss
 
 import chess.ByColor
+import monocle.syntax.all.*
 
 import lila.db.dsl.{ *, given }
 import lila.game.Game
@@ -98,5 +99,6 @@ final private class SwissDirector(
         pgnImport = None
       )
       .withId(pairing.gameId)
-      .withSwissId(swiss.id)
+      .focus(_.metadata.swissId)
+      .replace(swiss.id.some)
       .start

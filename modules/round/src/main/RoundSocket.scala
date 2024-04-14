@@ -203,12 +203,12 @@ final class RoundSocket(
     case TellAll(msg)               => rounds.tellAll(msg)
     case Exists(gameId, promise)    => promise.success(rounds.exists(GameId(gameId)))
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
-    case lila.game.actorApi.StartGame(game) if game.hasClock =>
+    case lila.core.game.StartGame(game) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
           sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
-    case lila.game.actorApi.FinishGame(game, _) if game.hasClock =>
+    case lila.core.game.FinishGame(game, _) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>

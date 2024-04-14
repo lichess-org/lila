@@ -3,7 +3,7 @@ package lila.simul
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.game.{ Game, Pov }
+
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
 
@@ -31,7 +31,7 @@ final private class SimulSocket(
 
   def startSimul(simul: Simul, firstGame: Game): Unit =
     firstGame.player(simul.hostId).foreach { player =>
-      redirectPlayer(simul, Pov(firstGame, player))
+      redirectPlayer(simul, Pov(firstGame, player.color))
     }
 
   def startGame(simul: Simul, game: Game): Unit =

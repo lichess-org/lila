@@ -9,7 +9,7 @@ import lila.challenge.Challenge as ChallengeModel
 import lila.challenge.Challenge.Id as ChallengeId
 
 import lila.core.net.{ Bearer, IpAddress }
-import lila.game.{ AnonCookie, Pov }
+import lila.game.{ AnonCookie }
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 import lila.core.socket.SocketVersion
@@ -381,7 +381,7 @@ final class Challenge(
     NoBot:
       Found(env.game.gameRepo.game(gameId)): g =>
         g.opponentOf(me).flatMap(_.userId).so(env.user.repo.byId).orNotFound { opponent =>
-          env.challenge.granter.isDenied(opponent, g.perfType).flatMap {
+          env.challenge.granter.isDenied(opponent, g.perfKey).flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(d)))
             case _ =>
               api.offerRematchForGame(g, me).map {

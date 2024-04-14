@@ -9,9 +9,10 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.game.Pov
+
 import lila.tree.ExportOptions
 import lila.core.id.GameFullId
+import lila.game.GameExt.synthetic
 
 final class UserAnalysis(
     env: Env,
@@ -116,7 +117,7 @@ final class UserAnalysis(
       ctx: Context
   ): Fu[Result] = for
     initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-    users      <- env.user.api.gamePlayers.noCache(pov.game.userIdPair, pov.game.perfType)
+    users      <- env.user.api.gamePlayers.noCache(pov.game.userIdPair, pov.game.perfKey)
     owner = isMyPov(pov)
     _     = gameC.preloadUsers(users)
     analysis   <- env.analyse.analyser.get(pov.game)
@@ -184,4 +185,4 @@ final class UserAnalysis(
 
   def help = Open:
     Ok.page:
-      html.site.help.analyse(getBool("study"))
+      lila.web.views.help.analyse(getBool("study"))

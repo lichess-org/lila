@@ -69,5 +69,8 @@ final class Env(
 
   lazy val captcha = wire[CaptchaApi]
 
+  lazy val api: lila.core.game.GameApi = new:
+    export gameRepo.{ incBookmarks, getSourceAndUserIds }
+
   scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration): () =>
     captcha.newCaptcha()

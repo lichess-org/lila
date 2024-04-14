@@ -5,6 +5,7 @@ import scalalib.SecureRandom
 import play.api.mvc.*
 
 import lila.core.config.NetDomain
+import lila.core.security.LilaCookie
 
 final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) extends lila.core.security.LilaCookie:
 
@@ -68,10 +69,3 @@ final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker) extends lil
         res(sid).map {
           _.withCookies(session(LilaCookie.sessionId, sid)(using req))
         }
-
-object LilaCookie:
-
-  val sessionId  = "sid"
-  val noRemember = "noRemember"
-
-  def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)

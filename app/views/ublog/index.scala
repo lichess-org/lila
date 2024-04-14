@@ -104,7 +104,7 @@ object index:
                       cls := (languageSel == language.fold("all")(_.value)).option("current")
                     )(name)
               ),
-              views.html.site.bits.atomLink(routes.Ublog.communityAtom(language.fold("all")(_.value)))
+              views.html.base.atom.atomLink(routes.Ublog.communityAtom(language.fold("all")(_.value)))
             )
           ),
           if posts.nbResults > 0 then

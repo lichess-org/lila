@@ -9,19 +9,12 @@ import play.api.mvc.RequestHeader
 
 import lila.chat.{ Chat, UserLine }
 import lila.common.{ Bus, HTTPRequest }
-import lila.game.actorApi.{
-  AbortedBy,
-  BoardDrawOffer,
-  BoardGone,
-  BoardTakeback,
-  BoardTakebackOffer,
-  FinishGame,
-  MoveGameEvent
-}
-import lila.game.{ Game, Pov }
+import lila.game.actorApi.{ BoardDrawOffer, BoardGone, BoardTakeback, BoardTakebackOffer, MoveGameEvent }
+
 import lila.core.misc.map.Tell
 import lila.core.round.BotConnected
 import lila.core.round.QuietFlag
+import lila.core.game.{ WithInitialFen, FinishGame, AbortedBy }
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -33,7 +26,7 @@ final class GameStateStream(
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def apply(init: Game.WithInitialFen, as: chess.Color)(using
+  def apply(init: WithInitialFen, as: chess.Color)(using
       lang: Lang,
       req: RequestHeader,
       me: Me
@@ -56,7 +49,7 @@ final class GameStateStream(
     s"gameStreamFor:${pov.fullId}:${HTTPRequest.userAgent(req) | "?"}"
 
   private def mkActor(
-      init: Game.WithInitialFen,
+      init: WithInitialFen,
       as: chess.Color,
       user: User,
       queue: SourceQueueWithComplete[Option[JsObject]]
@@ -121,7 +114,7 @@ final class GameStateStream(
             Bus.publish(Tell(id.value, QuietFlag), "roundSocket")
 
     def pushState(g: Game): Funit =
-      jsonView.gameState(Game.WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer) void
+      jsonView.gameState(WithInitialFen(g, init.fen)).dmap(some).flatMap(queue.offer) void
 
     def pushChatLine(username: UserName, text: String, player: Boolean) =
       queue.offer(jsonView.chatLine(username, text, player).some)

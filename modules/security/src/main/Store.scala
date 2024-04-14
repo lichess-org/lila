@@ -71,7 +71,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
   private[security] def upsertOAuth(
       userId: UserId,
       tokenId: AccessToken.Id,
-      mobile: Option[Mobile.LichessMobileUa],
+      mobile: Option[lila.core.net.LichessMobileUa],
       req: RequestHeader
   ): Funit =
     val id = s"TOK-${tokenId.value.take(20)}"

@@ -117,7 +117,7 @@ final class RankingApi(
       _.refreshAfterWrite(15 minutes).buildAsyncFuture: _ =>
         lila.rating.PerfType.leaderboardable
           .traverse: pt =>
-            compute(pt).dmap(pt.key -> _)
+            compute(pt).dmap(pt -> _)
           .map(_.toMap)
           .chronometer
           .logIfSlow(500, logger.branch("ranking"))(_ => "slow weeklyStableRanking")

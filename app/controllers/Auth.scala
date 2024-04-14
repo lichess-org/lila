@@ -10,7 +10,7 @@ import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.user.ClearPassword
-import lila.user.{ PasswordHasher, User as UserModel }
+import lila.user.{ PasswordHasher }
 import lila.core.net.IpAddress
 import lila.core.email.{ UserStrOrEmail, UserIdOrEmail }
 

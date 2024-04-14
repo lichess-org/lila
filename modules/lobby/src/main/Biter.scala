@@ -2,7 +2,6 @@ package lila.lobby
 
 import chess.{ ByColor, Game as ChessGame, Situation }
 
-import lila.game.{ Game, Player }
 import lila.core.socket.Sri
 import lila.core.user.GameUsers
 import lila.core.user.WithPerf
@@ -68,26 +67,26 @@ final private class Biter(
       case Color.White => fuccess(chess.White)
       case Color.Black => fuccess(chess.Black)
 
-  private def makeGame(hook: Hook, users: GameUsers) = Game
+  private def makeGame(hook: Hook, users: GameUsers) = lila.game.Game
     .make(
       chess = ChessGame(
         situation = Situation(hook.realVariant),
         clock = hook.clock.toClock.some
       ),
-      players = users.mapWithColor(Player.make),
+      players = users.mapWithColor(lila.game.Player.make),
       mode = hook.realMode,
       source = lila.core.game.Source.Lobby,
       pgnImport = None
     )
     .start
 
-  private def makeGame(seek: Seek, users: GameUsers) = Game
+  private def makeGame(seek: Seek, users: GameUsers) = lila.game.Game
     .make(
       chess = ChessGame(
         situation = Situation(seek.realVariant),
         clock = none
       ),
-      players = users.mapWithColor(Player.make),
+      players = users.mapWithColor(lila.game.Player.make),
       mode = seek.realMode,
       source = lila.core.game.Source.Lobby,
       daysPerTurn = seek.daysPerTurn,

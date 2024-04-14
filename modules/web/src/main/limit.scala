@@ -1,5 +1,4 @@
-package lila.app
-package http
+package lila.web
 
 import lila.memo.ConcurrencyLimit
 

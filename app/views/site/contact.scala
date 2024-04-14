@@ -13,8 +13,8 @@ import lila.web.ui.ScalatagsTemplate.{ *, given }
 object contact:
 
   import trans.contact.*
-  import views.html.base.navTree.*
-  import views.html.base.navTree.Node.*
+  import lila.web.views.navTree.*
+  import lila.web.views.navTree.Node.*
 
   def contactEmailLinkEmpty(email: String = contactEmailInClear) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))

@@ -3,14 +3,14 @@ package lila.bookmark
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo }
+import lila.core.game.{ Game, GameApi }
 
 case class Bookmark(game: Game, user: User)
 
 final class BookmarkApi(
     coll: Coll,
-    gameRepo: GameRepo,
-    gameProxy: lila.game.core.GameProxy,
+    gameApi: GameApi,
+    gameProxy: lila.core.game.GameProxy,
     paginator: PaginatorBuilder
 )(using Executor):
 
@@ -46,8 +46,8 @@ final class BookmarkApi(
         (if e then remove(gameId, userId) else add(gameId, userId, nowInstant)).inject(!e)
       .flatMap: bookmarked =>
         val inc = if bookmarked then 1 else -1
-        gameRepo.incBookmarks(gameId, inc) >>
-          gameProxy.updateIfPresent(gameId)(_.incBookmarks(inc))
+        gameApi.incBookmarks(gameId, inc) >>
+          gameProxy.updateIfPresent(gameId)(g => g.copy(bookmarks = g.bookmarks + inc))
       .recover:
         lila.db.ignoreDuplicateKey
 

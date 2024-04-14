@@ -2,7 +2,6 @@ package lila.challenge
 
 import lila.common.Bus
 
-import lila.game.{ Game, Pov }
 import lila.core.socket.SendTo
 import lila.core.i18n.LangPicker
 import lila.memo.CacheApi.*
@@ -125,7 +124,7 @@ final class ChallengeApi(
       then fuccess(Left("The challenge has been canceled."))
       else if c.declined
       then fuccess(Left("The challenge has been declined."))
-      else if me.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config)))
+      else if me.exists(_.isBot) && !lila.game.Game.isBotCompatible(chess.Speed(c.clock.map(_.config)))
       then fuccess(Left("Game incompatible with a BOT account"))
       else if c.open.exists(!_.canJoin)
       then fuccess(Left("The challenge is not for you to accept."))

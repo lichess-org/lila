@@ -3,7 +3,6 @@ package lila.puzzle
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
-import lila.game.GameRepo
 
 import lila.tree.{ Metas, NewBranch, NewTree }
 import lila.core.i18n.{ Translate, Translator, defaultLang }
@@ -11,7 +10,7 @@ import chess.format.*
 
 final class JsonView(
     gameJson: GameJson,
-    gameRepo: GameRepo
+    gameRepo: lila.core.game.GameRepo
 )(using Executor, Translator):
 
   import JsonView.*

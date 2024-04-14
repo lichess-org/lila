@@ -4,7 +4,7 @@ import chess.Centis
 import play.api.i18n.Lang
 
 import lila.common.Bus
-import lila.game.{ Event, Game, Pov, Progress }
+import lila.game.{ Event, Progress }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.pref.{ Pref, PrefApi }
 
@@ -18,7 +18,8 @@ final private[round] class Drawer(
   private given Lang = defaultLang
 
   def autoThreefold(game: Game): Fu[Option[Pov]] = game.drawable.so:
-    Pov(game)
+    lila.game.Pov
+      .list(game)
       .map: pov =>
         if game.playerHasOfferedDrawRecently(pov.color) then fuccess(pov.some)
         else

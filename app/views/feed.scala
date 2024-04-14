@@ -35,7 +35,7 @@ object feed:
                 dataIcon := Icon.PlusButton
               )
             ),
-            views.html.site.bits.atomLink(routes.Feed.atom)
+            views.html.base.atom.atomLink(routes.Feed.atom)
           )
         ),
         standardFlash,

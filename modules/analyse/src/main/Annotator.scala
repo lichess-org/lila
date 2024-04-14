@@ -5,7 +5,7 @@ import chess.opening.*
 import chess.{ Color, Ply, Status, Tree, Variation }
 
 import lila.tree.{ Advice, Analysis }
-import lila.game.{ Game, GameDrawOffers }
+import lila.core.game.{ Game, GameDrawOffers }
 
 final class Annotator(netDomain: lila.core.config.NetDomain):
 

@@ -6,14 +6,13 @@ import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.CollName
-import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
 
 @Module
 final class Env(
     db: lila.db.Db,
-    gameRepo: GameRepo,
-    pgnDump: PgnDump,
+    gameRepo: lila.core.game.GameRepo,
+    pgnDump: lila.core.game.PgnDump,
     cacheApi: CacheApi,
     appConfig: Configuration,
     cookieBaker: lila.core.security.LilaCookie,

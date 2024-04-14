@@ -17,7 +17,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     gameRepo: lila.game.GameRepo,
     userApi: lila.core.user.UserApi,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     chatApi: lila.core.chat.ChatApi,
     roundApi: lila.game.core.RoundApi,
     lightUserApi: lila.core.user.LightUserApi,

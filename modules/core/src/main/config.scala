@@ -72,6 +72,7 @@ object config:
       socketAlts: List[String],
       crawlable: Boolean,
       rateLimit: RateLimit,
-      email: EmailAddress
+      email: EmailAddress,
+      logRequests: Boolean
   ):
     def isProd = domain == prodDomain

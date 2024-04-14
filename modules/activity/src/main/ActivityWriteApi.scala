@@ -4,8 +4,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import lila.game.Game
-
 import lila.core.simul.Simul
 
 final class ActivityWriteApi(
@@ -26,7 +24,7 @@ final class ActivityWriteApi(
       val setGames = (!game.isCorrespondence).so(
         $doc(
           ActivityFields.games -> a.games.orZero
-            .add(game.perfType, Score.make(game.wonBy(player.color), RatingProg.make(player.light)))
+            .add(game.perfKey, Score.make(game.wonBy(player.color), RatingProg.make(player.light)))
         )
       )
       val setCorres = game.isCorrespondence.so(

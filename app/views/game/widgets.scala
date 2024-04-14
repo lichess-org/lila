@@ -3,7 +3,9 @@ package game
 
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
-import lila.game.{ Game, Player, Pov }
+import lila.core.game.{ Player }
+import lila.game.GameExt.perfType
+import lila.game.Player.nameSplit
 
 object widgets:
 
@@ -27,7 +29,7 @@ object widgets:
           div(cls := "header", dataIcon := bits.gameIcon(g))(
             div(cls := "header__text")(
               strong(
-                if g.imported then
+                if g.sourceIs(_.Import) then
                   frag(
                     span("IMPORT"),
                     g.pgnImport.flatMap(_.user).map { user =>

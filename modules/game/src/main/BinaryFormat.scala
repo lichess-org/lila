@@ -9,6 +9,7 @@ import org.lichess.compression.clock.Encoder as ClockEncoder
 import scala.util.Try
 
 import lila.db.ByteArray
+import lila.core.game.ClockHistory
 
 object BinaryFormat:
 
@@ -62,7 +63,7 @@ object BinaryFormat:
 
     private val decodeMap: Map[Int, MT] = buckets.mapWithIndex((x, i) => i -> x).toMap
 
-    def write(mts: Vector[Centis]): ByteArray = ByteArray:
+    def write(mts: Vector[Centis]): Array[Byte] =
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
       mts
         .grouped(2)
@@ -73,9 +74,9 @@ object BinaryFormat:
         .map(_.toByte)
         .toArray
 
-    def read(ba: ByteArray, turns: Ply): Vector[Centis] = Centis.from({
+    def read(ba: Array[Byte], turns: Ply): Vector[Centis] = Centis.from({
       def dec(x: Int) = decodeMap.getOrElse(x, decodeMap(size - 1))
-      ba.value.map(toInt).flatMap { k =>
+      ba.map(toInt).flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
     }.view.take(turns.value).toVector)

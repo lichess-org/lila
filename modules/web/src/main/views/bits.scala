@@ -1,16 +1,22 @@
-package views.html
-package base
+package lila.web
+package views
 
 import chess.format.Fen
-import controllers.routes
 import play.api.i18n.Lang
 import play.api.mvc.Call
 
-import lila.app.templating.Environment.*
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
+import lila.core.i18n.Translate
+import lila.common.String.underscoreFen
+import lila.common.Icon
 
-object bits:
+final class bits(externalLink: (String, String) => Call):
+
+  def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
+    st.nav(cls := "subnav__inner")(mods)
+
+  def pageMenuSubnav(mods: Modifier*) = subnav(cls := "page-menu__menu", mods)
 
   def mselect(id: String, current: Frag, items: Seq[Tag]) =
     div(cls := "mselect")(
@@ -43,36 +49,36 @@ z-index: 99;
   val connectLinks =
     div(cls := "connect-links")(
       a(
-        href := routes.Main.externalLink("mastodon", "https://mastodon.online/@lichess"),
+        href := externalLink("mastodon", "https://mastodon.online/@lichess"),
         targetBlank,
         noFollow,
         relMe
       )("Mastodon"),
-      a(href := routes.Main.externalLink("twitter", "https://twitter.com/lichess"), targetBlank, noFollow)(
+      a(href := externalLink("twitter", "https://twitter.com/lichess"), targetBlank, noFollow)(
         "Twitter"
       ),
-      a(href := routes.Main.externalLink("discord", "https://discord.gg/lichess"), targetBlank, noFollow)(
+      a(href := externalLink("discord", "https://discord.gg/lichess"), targetBlank, noFollow)(
         "Discord"
       ),
       a(
-        href := routes.Main.externalLink("youtube", "https://youtube.com/c/LichessDotOrg"),
+        href := externalLink("youtube", "https://youtube.com/c/LichessDotOrg"),
         targetBlank,
         noFollow
       )("YouTube"),
       a(
-        href := routes.Main.externalLink("twitch", "https://www.twitch.tv/lichessdotorg"),
+        href := externalLink("twitch", "https://www.twitch.tv/lichessdotorg"),
         targetBlank,
         noFollow
       )("Twitch"),
       a(
-        href := routes.Main.externalLink("instagram", "https://instagram.com/lichessdotorg"),
+        href := externalLink("instagram", "https://instagram.com/lichessdotorg"),
         targetBlank,
         noFollow
       )("Instagram")
     )
 
   def fenAnalysisLink(fen: Fen.Full)(using Translate) =
-    a(href := routes.UserAnalysis.parseArg(underscoreFen(fen)))(trans.site.analysis())
+    a(href := s"/analysis/${underscoreFen(fen)}")(lila.core.i18n.I18nKey.site.analysis())
 
   def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pagination(page => s"$route?page=$page", pager, showPost)
@@ -132,3 +138,19 @@ z-index: 99;
         )(content)
     )
   )
+
+  def api = raw:
+    """<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src https://cdn.jsdelivr.net blob:; child-src blob:; connect-src https://raw.githubusercontent.com; img-src data: https://lichess.org https://lichess1.org;">
+    <title>Lichess.org API reference</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>body { margin: 0; padding: 0; }</style>
+  </head>
+  <body>
+    <redoc spec-url="https://raw.githubusercontent.com/lichess-org/api/master/doc/specs/lichess-api.yaml"></redoc>
+    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
+  </body>
+</html>"""

@@ -4,6 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.game.GameExt.perfType
 
 object side:
 
@@ -12,7 +13,7 @@ object side:
       champions: lila.tv.Tv.Champions,
       baseUrl: String
   ): Frag =
-    views.html.site.bits.subnav(
+    views.html.base.bits.subnav(
       lila.tv.Tv.Channel.list.map: c =>
         a(
           href := s"$baseUrl/${c.key}",
@@ -42,7 +43,7 @@ object side:
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(using Context): Frag =
+  def meta(pov: Pov)(using Context): Frag =
     import pov.*
     div(cls := "game__meta")(
       st.section(
@@ -69,7 +70,7 @@ object side:
     )
 
   def sides(
-      pov: lila.game.Pov,
+      pov: Pov,
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(using Context) =
     div(cls := "sides"):

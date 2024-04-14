@@ -79,7 +79,7 @@ case class HookConfig(
               ratingRange = ratingRange
             )
 
-  def updateFrom(game: lila.game.Game) =
+  def updateFrom(game: Game) =
     copy(
       variant = game.variant,
       timeMode = TimeMode.ofGame(game),

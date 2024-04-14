@@ -4,8 +4,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.game.JsonView.given
-import lila.game.{ Game, GameRepo, Pov }
+import lila.core.game.{ Game, GameRepo, Pov, WithInitialFen }
 import lila.core.i18n.Translate
+import lila.game.GameExt.perfType
 
 final class BotJsonView(
     lightUserApi: lila.core.user.LightUserApi,
@@ -15,7 +16,7 @@ final class BotJsonView(
 
   def gameFull(game: Game)(using Translate): Fu[JsObject] = gameRepo.withInitialFen(game).flatMap(gameFull)
 
-  def gameFull(wf: Game.WithInitialFen)(using Translate): Fu[JsObject] =
+  def gameFull(wf: WithInitialFen)(using Translate): Fu[JsObject] =
     gameState(wf).map { state =>
       gameImmutable(wf) ++ Json.obj(
         "type"  -> "gameFull",
@@ -23,7 +24,7 @@ final class BotJsonView(
       )
     }
 
-  def gameImmutable(wf: Game.WithInitialFen)(using Translate): JsObject =
+  def gameImmutable(wf: WithInitialFen)(using Translate): JsObject =
     import wf.*
     Json
       .obj(
@@ -41,7 +42,7 @@ final class BotJsonView(
       .add("daysPerTurn" -> game.daysPerTurn)
       .add("tournamentId" -> game.tournamentId)
 
-  def gameState(wf: Game.WithInitialFen): Fu[JsObject] =
+  def gameState(wf: WithInitialFen): Fu[JsObject] =
     import wf.*
     chess.format.UciDump(game.sans, fen, game.variant).toFuture.map { uciMoves =>
       Json

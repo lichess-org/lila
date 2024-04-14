@@ -2,7 +2,7 @@ package lila.relay
 
 import chess.format.pgn.{ Tag, TagType, Tags }
 
-import lila.study.{ MultiPgn, PgnImport }
+import lila.study.{ MultiPgn, PgnImport, PgnDump }
 import lila.tree.Root
 
 case class RelayGame(
@@ -64,8 +64,7 @@ private object RelayGame:
       gs =>
         MultiPgn:
           gs.view
-            .map: g =>
-              Pgn(g.tags, InitialComments.empty, lila.study.PgnDump.rootToTree(g.root)).render
+            .map(g => PgnDump.rootToPgn(g.root, g.tags, InitialComments.empty).render)
             .toList
       ,
       mul => RelayFetch.multiPgnToGames(mul).fold(e => throw e, identity)

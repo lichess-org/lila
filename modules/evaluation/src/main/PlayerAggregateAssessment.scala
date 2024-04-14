@@ -118,5 +118,6 @@ $gameLinks"""
 
 object PlayerAggregateAssessment:
 
-  case class WithGames(pag: PlayerAggregateAssessment, games: List[lila.game.Game]):
-    def pov(pa: PlayerAssessment) = games.find(_.id == pa.gameId).map { lila.game.Pov(_, pa.color) }
+  import lila.core.game.{ Game, Pov }
+  case class WithGames(pag: PlayerAggregateAssessment, games: List[Game]):
+    def pov(pa: PlayerAssessment) = games.find(_.id == pa.gameId).map { Pov(_, pa.color) }

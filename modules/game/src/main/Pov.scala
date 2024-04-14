@@ -1,76 +1,17 @@
 package lila.game
 
 import chess.Color
-import lila.core.game.{ Game as _, * }
 
-case class Pov(game: Game, color: Color) extends lila.core.game.Pov:
-
-  export game.{ id as gameId }
-
-  def player = game.player(color)
-
-  def playerId = player.id
-
-  def fullId = game.fullIdOf(color)
-
-  def opponent = game.player(!color)
-
-  def unary_! = Pov(game, !color)
-
-  def flip = Pov(game, !color)
-
-  def ref = PovRef(game.id, color)
-
-  def withGame(g: Game)   = copy(game = g)
-  def withColor(c: Color) = copy(color = c)
-
-  lazy val isMyTurn = game.started && game.playable && game.turnColor == color
-
-  lazy val remainingSeconds: Option[Int] =
-    game.clock
-      .map(c => c.remainingTime(color).roundSeconds)
-      .orElse:
-        game.playableCorrespondenceClock.map(_.remainingTime(color).toInt)
-
-  def millisRemaining: Int =
-    game.clock
-      .map(_.remainingTime(color).millis.toInt)
-      .orElse(game.correspondenceClock.map(_.remainingTime(color).toInt * 1000))
-      .getOrElse(Int.MaxValue)
-
-  def hasMoved = game.playerHasMoved(color)
-
-  def moves = game.playerMoves(color)
-
-  def win = game.wonBy(color)
-
-  def loss = game.lostBy(color)
-
-  def forecastable = game.forecastable && game.turnColor != color
-
-  def mightClaimWin = game.forceResignable && !isMyTurn
-
-  def sideAndStart = Game.SideAndStart(color, game.chess.startedAtPly)
-
-  override def toString = ref.toString
+import lila.core.game.*
 
 object Pov:
 
-  def apply(game: Game): List[Pov] = game.players.mapList(apply(game, _))
+  import lila.core.game.Pov.*
 
-  def naturalOrientation(game: Game) = apply(game, game.naturalOrientation)
-
-  def player(game: Game) = apply(game, game.player)
-
-  def apply(game: Game, player: Player) = new Pov(game, player.color)
+  def list(game: Game): List[Pov] = game.players.mapList(lila.core.game.Pov(game, _))
 
   def apply(game: Game, playerId: GamePlayerId): Option[Pov] =
-    game.player(playerId).map { apply(game, _) }
-
-  def apply[U: UserIdOf](game: Game, user: U): Option[Pov] =
-    game.player(user).map { apply(game, _) }
-
-  def ofCurrentTurn(game: Game) = Pov(game, game.turnColor)
+    game.player(playerId).map { lila.core.game.Pov(game, _) }
 
   private inline def orInf(inline i: Option[Int]) = i.getOrElse(Int.MaxValue)
   private def isFresher(a: Pov, b: Pov)           = a.game.movedAt.isAfter(b.game.movedAt)
@@ -85,15 +26,3 @@ object Pov:
     else if !a.hasMoved && b.hasMoved then true
     else if !b.hasMoved && a.hasMoved then false
     else orInf(a.remainingSeconds) < orInf(b.remainingSeconds)
-
-case class LightPov(game: LightGame, color: Color):
-  export game.{ id as gameId }
-  def player   = game.player(color)
-  def opponent = game.player(!color)
-
-object LightPov:
-
-  def apply(game: LightGame, player: LightPlayer): LightPov = LightPov(game, player.color)
-
-  def apply(game: LightGame, userId: UserId): Option[LightPov] =
-    game.playerByUserId(userId).map { apply(game, _) }

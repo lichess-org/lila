@@ -5,7 +5,7 @@ import chess.variant.Variant
 import chess.{ ByColor, Clock }
 
 import scalalib.model.Days
-import lila.game.{ Game, IdGenerator, Player, Pov }
+import lila.game.{ IdGenerator, Player }
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.core.user.GameUser
@@ -30,7 +30,7 @@ case class AiConfig(
   private def game(user: GameUser)(using IdGenerator): Fu[Game] =
     fenGame: chessGame =>
       lila.rating.PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
-      Game
+      lila.game.Game
         .make(
           chess = chessGame,
           players = ByColor: c =>

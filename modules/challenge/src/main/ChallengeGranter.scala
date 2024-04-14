@@ -42,7 +42,7 @@ final class ChallengeGranter(
 
   val ratingThreshold = 300
 
-  def isDenied(dest: User, perfType: PerfType)(using
+  def isDenied(dest: User, perfKey: PerfKey)(using
       Executor
   )(using me: Option[Me]): Fu[Option[ChallengeDenied]] = me
     .fold[Fu[Option[ChallengeDenied.Reason]]] {
@@ -63,19 +63,19 @@ final class ChallengeGranter(
           userApi
             .perfsOf(from.value -> dest, primary = false)
             .map: (fromPerfs, destPerfs) =>
-              if fromPerfs(perfType).provisional || destPerfs(perfType).provisional
-              then RatingIsProvisional(perfType).some
+              if fromPerfs(perfKey).provisional || destPerfs(perfKey).provisional
+              then RatingIsProvisional(perfKey).some
               else
                 val diff =
-                  math.abs(fromPerfs(perfType).intRating.value - destPerfs(perfType).intRating.value)
-                (diff > ratingThreshold).option(RatingOutsideRange(perfType))
+                  math.abs(fromPerfs(perfKey).intRating.value - destPerfs(perfKey).intRating.value)
+                (diff > ratingThreshold).option(RatingOutsideRange(perfKey))
         case (_, lila.core.pref.Challenge.REGISTERED) => none
         case _ if from == dest                        => SelfChallenge.some
         case _                                        => none
       }
     }
     .map:
-      case None if dest.isBot && perfType == PerfType.UltraBullet => BotUltraBullet.some
-      case res                                                    => res
+      case None if dest.isBot && perfKey == PerfKey.ultraBullet => BotUltraBullet.some
+      case res                                                  => res
     .map:
       _.map { ChallengeDenied(dest, _) }

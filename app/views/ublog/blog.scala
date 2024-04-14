@@ -37,7 +37,7 @@ object blog:
                   postView.newPostLink(user)
                 )
               ),
-              views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
+              views.html.base.atom.atomLink(routes.Ublog.userAtom(user.username))
             )
           ),
           standardFlash,

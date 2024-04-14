@@ -5,6 +5,7 @@ import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.common.Json.given
+import lila.game.GameExt.moveTimes
 
 final class IrwinStream:
 
@@ -42,7 +43,7 @@ final class IrwinStream:
         "engine" -> req.suspect.user.marks.engine,
         "games"  -> req.suspect.user.count.rated
       ),
-      "games" -> req.games.map { (game, analysis) =>
+      "games" -> req.games.map: (game, analysis) =>
         val moveTimes = game.clockHistory.isDefined.so(game.moveTimes.map(_.map(_.centis)))
         Json.obj(
           "id"    -> game.id,
@@ -63,5 +64,4 @@ final class IrwinStream:
             }
           }
         )
-      }
     )

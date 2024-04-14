@@ -11,7 +11,7 @@ object index:
 
   import trans.search.*
 
-  def apply(form: Form[?], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(using
+  def apply(form: Form[?], paginator: Option[Paginator[Game]] = None, nbGames: Long)(using
       ctx: PageContext
   ) =
     val commons = bits.of(form)

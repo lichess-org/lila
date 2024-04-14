@@ -42,12 +42,14 @@ object ratingDistribution:
                 views.html.base.bits.mselect(
                   "variant-stats",
                   span(perfType.trans),
-                  lila.rating.PerfType.leaderboardable.map: pt =>
-                    a(
-                      dataIcon := pt.icon,
-                      cls      := (perfType == pt).option("current"),
-                      href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
-                    )(pt.trans)
+                  lila.rating.PerfType.leaderboardable
+                    .map(PerfType(_))
+                    .map: pt =>
+                      a(
+                        dataIcon := pt.icon,
+                        cls      := (perfType == pt).option("current"),
+                        href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
+                      )(pt.trans)
                 )
               )
             )

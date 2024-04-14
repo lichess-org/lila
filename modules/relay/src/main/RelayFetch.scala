@@ -27,7 +27,7 @@ final private class RelayFetch(
     fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
-    gameProxy: lila.game.core.GameProxy
+    gameProxy: lila.core.game.GameProxy
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
   import RelayFetch.*

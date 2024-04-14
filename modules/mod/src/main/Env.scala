@@ -73,9 +73,9 @@ final class Env(
 
   Bus.subscribeFuns(
     "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
+      case lila.core.game.FinishGame(game, users) if !game.aborted =>
         users
-          .map(_.filter(_.enabled.yes).map(_.only(game.perfType)))
+          .map(_.filter(_.enabled.yes).map(_.only(game.perfKey)))
           .mapN: (whiteUser, blackUser) =>
             sandbagWatch(game)
             assessApi.onGameReady(game, ByColor(whiteUser, blackUser))

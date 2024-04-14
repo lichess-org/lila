@@ -3,7 +3,7 @@ package lila.lobby
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.game.Pov
+
 import scalalib.actor.SyncActor
 import lila.core.timeline.*
 import lila.rating.RatingRange

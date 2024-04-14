@@ -7,12 +7,13 @@ import play.api.libs.json.{ JsObject, Json }
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType.iconByVariant
+import lila.game.GameExt.synthetic
 
 object userAnalysis:
 
   def apply(
       data: JsObject,
-      pov: lila.game.Pov,
+      pov: Pov,
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
   )(using ctx: PageContext) =

@@ -11,7 +11,6 @@ import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.core.LightUser
 import lila.relation.Related
 import lila.relation.RelationStream.*
-import lila.user.User as UserModel
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRatedPerf
 

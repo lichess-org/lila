@@ -4,7 +4,7 @@ import chess.{ Black, Clock, White }
 import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaFuture }
-import lila.game.{ Game, GameRepo, UciMemo }
+import lila.game.{ GameRepo, UciMemo }
 import lila.core.misc.map.Tell
 import lila.core.round.FishnetPlay
 

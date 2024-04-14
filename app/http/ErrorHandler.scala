@@ -18,7 +18,7 @@ final class ErrorHandler(
     lobbyC: => controllers.Lobby
 )(using Executor)
     extends DefaultHttpErrorHandler(environment, config, router.some)
-    with ResponseWriter:
+    with lila.web.ResponseWriter:
 
   override def onProdServerError(req: RequestHeader, exception: UsefulException) =
     Future {

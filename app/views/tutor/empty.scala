@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Pov
+
 import lila.tutor.TutorQueue
 import lila.core.perf.UserWithPerfs
 

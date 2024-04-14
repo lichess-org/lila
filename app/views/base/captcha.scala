@@ -22,8 +22,7 @@ object captcha:
       form3.hidden(formField(form, "gameId"), captcha.gameId.value.some),
       if ctx.blind then form3.hidden(formField(form, "move"), captcha.solutions.head.some)
       else
-        val url =
-          netBaseUrl + routes.Round.watcher(captcha.gameId.value, captcha.color.name)
+        val url = s"$netBaseUrl${routes.Round.watcher(captcha.gameId.value, captcha.color.name)}"
         div(
           cls := List(
             "captcha form-group" -> true,

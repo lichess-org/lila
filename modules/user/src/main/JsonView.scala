@@ -93,15 +93,13 @@ object JsonView:
       )
       .add("prov", o.glicko.provisional)
 
-  private val standardPerfKeys: Set[PerfKey] = lila.rating.PerfType.standard.map(_.key).toSet
-
   def keyedPerfJson(p: KeyedPerf): JsObject =
     Json.obj(p.key.value -> p.perf)
 
   def perfsJson(p: UserPerfs): JsObject =
     JsObject:
       p.perfsList.collect:
-        case (key, perf) if perf.nb > 0 || standardPerfKeys(key) =>
+        case (key, perf) if perf.nb > 0 || lila.rating.PerfType.standardSet(key) =>
           key.value -> perfWrites.writes(perf)
     .add("storm", p.storm.option)
       .add("racer", p.racer.option)

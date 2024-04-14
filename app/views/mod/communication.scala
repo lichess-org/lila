@@ -16,7 +16,7 @@ object communication:
   def apply(
       mod: Me,
       u: User,
-      players: List[(lila.game.Pov, lila.chat.MixedChat)],
+      players: List[(Pov, lila.chat.MixedChat)],
       convos: List[lila.msg.ModMsgConvo],
       publicLines: List[lila.shutup.PublicLine],
       notes: List[lila.user.Note],
@@ -150,9 +150,9 @@ object communication:
                     href := routes.Round.player(pov.fullId),
                     cls := List(
                       "title"        -> true,
-                      "friend_title" -> pov.game.fromFriend
+                      "friend_title" -> pov.game.sourceIs(_.Friend)
                     ),
-                    title := pov.game.fromFriend.option("Friend game")
+                    title := pov.game.sourceIs(_.Friend).option("Friend game")
                   )(
                     titleNameOrAnon(pov.opponent.userId),
                     " – ",

@@ -123,4 +123,4 @@ final class Env(
     case req: lila.core.fishnet.StudyChapterRequest => analyser.study(req)
 
   Bus.subscribeFun("fishnetPlay"):
-    case game: lila.game.Game => player(game)
+    case game: Game => player(game)

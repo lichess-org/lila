@@ -15,10 +15,8 @@ import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
-import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog
 import lila.security.UserLogins
-import lila.user.User as UserModel
 import lila.user.WithPerfsAndEmails
 
 import lila.rating.PerfType
@@ -124,7 +122,7 @@ final class User(
               )
               _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
               _ <- env.tournament.cached.nameCache.preloadMany {
-                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
+                pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
               }
               notes <- ctx.me.so: me =>
                 env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me)
@@ -619,9 +617,9 @@ final class User(
           }.map(JsonOk)
 
   def ratingDistribution(perfKey: PerfKeyStr, username: Option[UserStr] = None) = Open:
-    Found(PerfType.read(perfKey).filter(lila.rating.PerfType.isLeaderboardable)): perfType =>
+    Found(PerfKey.read(perfKey).filter(lila.rating.PerfType.isLeaderboardable)): perfKey =>
       env.perfStat.api
-        .weeklyRatingDistribution(perfType)
+        .weeklyRatingDistribution(perfKey)
         .flatMap: data =>
           WithMyPerfs:
             username match
@@ -630,8 +628,8 @@ final class User(
                   env.user.perfsRepo
                     .withPerfs(u)
                     .flatMap: u =>
-                      Ok.page(html.stat.ratingDistribution(perfType, data, u.some))
-              case _ => Ok.page(html.stat.ratingDistribution(perfType, data, none))
+                      Ok.page(html.stat.ratingDistribution(perfKey, data, u.some))
+              case _ => Ok.page(html.stat.ratingDistribution(perfKey, data, none))
 
   def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))
