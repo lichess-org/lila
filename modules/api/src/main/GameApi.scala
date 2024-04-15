@@ -17,7 +17,6 @@ import lila.game.Game.BSONFields as G
 import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game }
 import lila.game.GameExt.computeMoveTimes
-import lila.game.Blurs.nb
 
 final private[api] class GameApi(
     net: NetConfig,

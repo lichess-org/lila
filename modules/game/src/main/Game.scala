@@ -192,7 +192,7 @@ object GameExt:
 
     def playerBlurPercent(color: Color): Int =
       if g.playedTurns > 5
-      then (Blurs.nb(g.player(color).blurs) * 100) / g.playerMoves(color)
+      then (g.player(color).blurs.nb * 100) / g.playerMoves(color)
       else 0
 
     def drawReason =

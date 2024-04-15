@@ -22,8 +22,6 @@ object Blurs:
 
   extension (bits: Blurs)
 
-    def nb = java.lang.Long.bitCount(bits.value)
-
     def addAtMoveIndex(moveIndex: Int): Blurs =
       if moveIndex < 0 || moveIndex > 63 then bits
       else apply(bits.value | (1L << moveIndex))

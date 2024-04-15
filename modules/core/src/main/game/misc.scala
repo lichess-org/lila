@@ -53,7 +53,8 @@ case class CorresAlarmEvent(userId: UserId, pov: Pov, opponent: String)
 case class WithInitialFen(game: Game, fen: Option[Fen.Full])
 
 opaque type Blurs = Long
-object Blurs extends OpaqueLong[Blurs]
+object Blurs extends OpaqueLong[Blurs]:
+  extension (bits: Blurs) def nb: Int = java.lang.Long.bitCount(bits.value)
 
 enum Source(val id: Int) derives Eq:
   def name = toString.toLowerCase
