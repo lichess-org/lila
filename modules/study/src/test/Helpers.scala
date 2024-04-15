@@ -12,9 +12,7 @@ object Helpers:
   import lila.tree.NewTree.*
 
   /* Remove these when tests are independant from lila.game.importer */
-  val parseImportStub: lila.core.game.ParseImport = (_, _) => Left(chess.ErrorStr("lila.game not available"))
-  val statusTextStub: lila.core.game.StatusText   = (_, _, _) => ""
-  val importerStub                                = StudyPgnImport(statusTextStub)
+  val importerStub                                = StudyPgnImport
   val newImporterStub                             = StudyPgnImportNew
 
   def rootToPgn(root: Root): PgnStr = PgnDump

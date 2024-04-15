@@ -16,10 +16,8 @@ final class Env(
     gamePgnDump: lila.game.PgnDump,
     divider: lila.game.Divider,
     gameRepo: lila.game.GameRepo,
-    importer: lila.core.game.Importer,
     userApi: lila.core.user.UserApi,
     explorerImporter: lila.game.core.ExplorerGame,
-    statusText: lila.core.game.StatusText,
     notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,
     federationNames: lila.core.fide.Federation.NamesOf,
@@ -56,10 +54,6 @@ final class Env(
   val chapterRepo           = ChapterRepo(studyDb(CollName("study_chapter_flat")))
   private val topicRepo     = StudyTopicRepo(studyDb(CollName("study_topic")))
   private val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
-
-  export importer.parseImport
-  val pgnImport = wire[StudyPgnImport]
-  // private val pgnImportNew = wire[StudyPgnImportNew]
 
   lazy val jsonView = wire[JsonView]
 
