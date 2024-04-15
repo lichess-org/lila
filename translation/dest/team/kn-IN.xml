@@ -50,8 +50,22 @@
   <string name="entryCodeDescriptionForLeader">(ಐಚ್ಛಿಕ) ಈ ತಂಡವನ್ನು ಸೇರಲು ಹೊಸ ಸದಸ್ಯರು ತಿಳಿದಿರಬೇಕಾದ ಪ್ರವೇಶ ಕೋಡ್.</string>
   <string name="incorrectEntryCode">ತಪ್ಪಾದ ಪ್ರವೇಶ ಕೋಡ್.</string>
   <string name="teamAlreadyExists">ಈ ತಂಡ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ.</string>
+  <string name="upcomingTournaments">ಮುಂಬರುವ ಪಂದ್ಯಾವಳಿಗಳು</string>
   <string name="completedTourns">ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದೆ</string>
   <string name="declinedRequests">ನಿರಾಕರಿಸಿದ ವಿನಂತಿಗಳು</string>
   <string name="joinLichessVariantTeam">ಸುದ್ದಿ ಮತ್ತು ಈವೆಂಟ್‌ಗಳಿಗಾಗಿ ಅಧಿಕೃತ %s ತಂಡವನ್ನು ಸೇರಿ</string>
   <string name="teamPage">ತಂಡದ ಪುಟ</string>
+  <string name="thisTeamBattleIsOver">ಈ ಪಂದ್ಯಾವಳಿ ಮುಗಿದಿದೆ ಮತ್ತು ತಂಡಗಳನ್ನು ಇನ್ನು ಮುಂದೆ ನವೀಕರಿಸಲಾಗುವುದಿಲ್ಲ.</string>
+  <string name="listTheTeamsThatWillCompete">ಈ ಯುದ್ಧದಲ್ಲಿ ಸ್ಪರ್ಧಿಸುವ ತಂಡಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡಿ.</string>
+  <string name="oneTeamPerLine">ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ತಂಡ. ಸ್ವಯಂ ಪೂರ್ಣಗೊಳಿಸುವಿಕೆಯನ್ನು ಬಳಸಿ.</string>
+  <string name="oneTeamPerLineHelp">ನೀವು ಈ ಪಟ್ಟಿಯನ್ನು ಪಂದ್ಯಾವಳಿಯಿಂದ ಇನ್ನೊಂದಕ್ಕೆ ನಕಲಿಸಬಹುದು!
+
+ಆಟಗಾರನು ಈಗಾಗಲೇ ಅದರೊಂದಿಗೆ ಪಂದ್ಯಾವಳಿಗೆ ಸೇರಿಕೊಂಡಿದ್ದರೆ ನೀವು ತಂಡವನ್ನು ತೆಗೆದುಹಾಕಲು ಸಾಧ್ಯವಿಲ್ಲ.</string>
+  <string name="numberOfLeadsPerTeam">ಪ್ರತಿ ತಂಡಕ್ಕೆ ನಾಯಕರ ಸಂಖ್ಯೆ. ಅವರ ಸ್ಕೋರ್ ಮೊತ್ತವು ತಂಡದ ಸ್ಕೋರ್ ಆಗಿದೆ.</string>
+  <string name="numberOfLeadsPerTeamHelp">ಪಂದ್ಯಾವಳಿ ಪ್ರಾರಂಭವಾದ ನಂತರ ನೀವು ನಿಜವಾಗಿಯೂ ಈ ಮೌಲ್ಯವನ್ನು ಬದಲಾಯಿಸಬಾರದು!</string>
+  <string name="innerTeam">ಒಳ ತಂಡ</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">%s ತಂಡಗಳ ಕದನ</item>
+    <item quantity="other">%s ತಂಡಗಳ ಕದನ</item>
+  </plurals>
 </resources>
