@@ -51,14 +51,13 @@ object freeJs:
           tr(List("Script File", "License", "Source Code").map(th(_)))
         ),
         tbody(
-          uiModules.map { module =>
-            val file = env.manifest.js(module).fold(s"$module.js")(_.name)
+          uiModules.map: module =>
+            val file = env.web.manifest.js(module).fold(s"$module.js")(_.name)
             tr(
               td(a(href := assetUrl(s"compiled/$file"))(file)),
               td(agpl),
               td(github(s"ui/$module/src"))
             )
-          }
         )
       )
     )

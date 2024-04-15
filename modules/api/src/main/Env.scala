@@ -60,7 +60,8 @@ final class Env(
     cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
-    realPlayerApi: lila.web.RealPlayerApi
+    realPlayerApi: lila.web.RealPlayerApi,
+    manifest: lila.web.AssetManifest
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
     ActorSystem,

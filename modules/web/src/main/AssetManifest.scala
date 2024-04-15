@@ -1,6 +1,6 @@
-package lila.app
+package lila.web
 
-import play.api.{ Environment, Mode }
+import play.api.Environment
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.json.{ JsObject, Json, JsValue, JsString }
@@ -27,7 +27,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   def lastUpdate: Instant                    = lastModified
 
   def update(filename: String = defaultFilename): Unit =
-    if environment.mode == Mode.Prod || net.externalManifest then
+    if environment.mode.isProd || net.externalManifest then
       fetchManifestJson(filename).foreach:
         case Some(manifestJson) =>
           maps = readMaps(manifestJson)

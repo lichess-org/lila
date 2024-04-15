@@ -198,7 +198,7 @@ object layout:
       jsTag("manifest"),
       cashTag,
       keys.map(jsTag),
-      env.manifest.deps(keys).map(jsTag)
+      env.web.manifest.deps(keys).map(jsTag)
     )
 
   private def modulesInit(modules: EsmList)(using ctx: PageContext) =
