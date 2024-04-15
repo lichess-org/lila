@@ -9,7 +9,7 @@ import chess.MoveOrDrop.*
 import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 
-import lila.importer.{ ImportData, Preprocessed }
+import lila.core.game.{ ImportData, ImportReady }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
 import scala.language.implicitConversions
@@ -36,19 +36,19 @@ class BsonHandlersTest extends munit.ScalaCheckSuite:
 
   test("Tree writes.reads == identity"):
     PgnFixtures.all.foreach: pgn =>
-      val x = PgnImport(pgn, Nil).toOption.get.root
+      val x = importerStub(pgn, Nil).toOption.get.root
       val y = treeBson.reads(treeBson.writes(w, x))
       assertEquals(x, y)
 
   test("NewTree writes.reads == identity"):
     PgnFixtures.all.foreach: pgn =>
-      val x = NewPgnImport(pgn, Nil).toOption.get.root
+      val x = newImporterStub(pgn, Nil).toOption.get.root
       val y = newTreeBson.reads(newTreeBson.writes(w, x))
       assertEquals(x, y)
 
   test("NewTree.reads.Tree.writes == identity"):
     PgnFixtures.all.foreach: pgn =>
-      val x       = PgnImport(pgn, Nil).toOption.get.root
+      val x       = importerStub(pgn, Nil).toOption.get.root
       val bdoc    = treeBson.writes(w, x)
       val y       = newTreeBson.reads(bdoc)
       val oldRoot = x.toNewRoot
@@ -56,7 +56,7 @@ class BsonHandlersTest extends munit.ScalaCheckSuite:
 
   test("Tree.reads.NewTree.writes == identity"):
     PgnFixtures.all.foreach: pgn =>
-      val x       = NewPgnImport(pgn, Nil).toOption.get.root
+      val x       = newImporterStub(pgn, Nil).toOption.get.root
       val bdoc    = newTreeBson.writes(w, x)
       val y       = treeBson.reads(bdoc)
       val oldRoot = y.toNewRoot

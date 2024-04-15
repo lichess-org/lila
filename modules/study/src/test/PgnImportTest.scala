@@ -9,7 +9,7 @@ import lila.core.LightUser
 
 class PgnImportTest extends lila.common.LilaTest:
 
-  import PgnImport.*
+  import Helpers.importerStub
 
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
@@ -26,23 +26,23 @@ class PgnImportTest extends lila.common.LilaTest:
   val user = LightUser(UserId("lichess"), UserName("Annotator"), None, None, false)
 
   test("import pgn"):
-    PgnImport(pgn, List(user)).assertRight: parsed =>
+    importerStub(pgn, List(user)).assertRight: parsed =>
       assertEquals(parsed.tags, Tags.empty)
       assertEquals(parsed.root.children.nodes.size, 3)
       assertEquals(parsed.root.ply, Ply.initial)
 
   test("import a simple pgn"):
-    PgnImport("1.d4 d5 2.e4 e5", List(user)).assertRight: parsed =>
+    importerStub("1.d4 d5 2.e4 e5", List(user)).assertRight: parsed =>
       assertEquals(parsed.tags, Tags.empty)
       assertEquals(parsed.root.children.nodes.size, 1)
       assertEquals(parsed.root.ply, Ply.initial)
 
   test("import a simple pgn with a clock comment"):
-    val x = PgnImport("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
+    val x = importerStub("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
     assert(x.root.mainlineNodeList(1).clock.isDefined)
 
   test("import a broadcast pgn"):
-    val x = PgnImport(
+    val x = importerStub(
       """[Event "Norway Chess"]
 [Site "-"]
 [Date "2023.05.31"]

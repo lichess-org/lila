@@ -82,7 +82,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 
-  def remove(id: GameId) = coll.delete.one($id(id)).void
+  def remove(id: GameId): Funit = coll.delete.one($id(id)).void
 
   def userPovsByGameIds[U: UserIdOf](
       gameIds: List[GameId],
@@ -361,29 +361,26 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     ("p1." + PF.proposeTakebackAt) -> true
   )
 
-  def finish(
-      id: GameId,
-      winnerColor: Option[Color],
-      winnerId: Option[UserId],
-      status: Status
-  ) =
-    coll.update.one(
-      $id(id),
-      nonEmptyMod(
-        "$set",
-        $doc(
-          F.winnerId    -> winnerId,
-          F.winnerColor -> winnerColor.map(_.white),
-          F.status      -> status
+  def finish(id: GameId, winnerColor: Option[Color], winnerId: Option[UserId], status: Status): Funit =
+    coll.update
+      .one(
+        $id(id),
+        nonEmptyMod(
+          "$set",
+          $doc(
+            F.winnerId    -> winnerId,
+            F.winnerColor -> winnerColor.map(_.white),
+            F.status      -> status
+          )
+        ) ++ $doc(
+          "$unset" -> finishUnsets.++ {
+            // keep the checkAt field when game is aborted,
+            // so it gets deleted in 24h
+            (status >= Status.Mate).so($doc(F.checkAt -> true))
+          }
         )
-      ) ++ $doc(
-        "$unset" -> finishUnsets.++ {
-          // keep the checkAt field when game is aborted,
-          // so it gets deleted in 24h
-          (status >= Status.Mate).so($doc(F.checkAt -> true))
-        }
       )
-    )
+      .void
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] =
     coll
@@ -456,10 +453,6 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   def unsetPlayingUids(g: Game): Unit =
     coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids))
 
-  // used to make a compound sparse index
-  def setImportCreatedAt(g: Game) =
-    coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
-
   def initialFen(gameId: GameId): Fu[Option[Fen.Full]] =
     coll.primitiveOne[Fen.Full]($id(gameId), F.initialFen)
 
@@ -521,11 +514,6 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom.nextInt(1000))
       .one[Game]
-
-  def findPgnImport(pgn: PgnStr): Fu[Option[Game]] =
-    coll.one[Game](
-      $doc(s"${F.pgnImport}.h" -> lila.game.PgnImport.hash(pgn))
-    )
 
   def getOptionPgn(id: GameId): Fu[Option[Vector[SanStr]]] = game(id).dmap2(_.sans)
 

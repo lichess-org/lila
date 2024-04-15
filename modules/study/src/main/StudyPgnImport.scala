@@ -6,29 +6,22 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.core.LightUser
-import lila.importer.{ ImportData, Preprocessed }
+import lila.core.game.{ ParseImport, ImportData, ImportReady }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.tree.{ Branch, Branches, Root }
 
-object PgnImport:
+/* #TODO
+ * We should not be using the game importer here, or the Game type.
+ * We're importing a Chapter, not a Game.
+ * Chapter should not depend on Game but only on scalachess.
+ */
+final class StudyPgnImport(parseImport: ParseImport, statusText: lila.core.game.StatusText):
 
-  case class Result(
-      root: Root,
-      variant: chess.variant.Variant,
-      tags: Tags,
-      end: Option[End]
-  )
-
-  case class End(
-      status: Status,
-      outcome: Outcome,
-      resultText: String,
-      statusText: String
-  )
+  import StudyPgnImport.*
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    ImportData(pgn, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, initialFen, parsedPgn) =>
+    parseImport(ImportData(pgn, analyse = none), none).map {
+      case ImportReady(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, comments) =>
@@ -51,7 +44,7 @@ object PgnImport:
                   status = status,
                   outcome = outcome,
                   resultText = chess.Outcome.showResult(outcome.some),
-                  statusText = lila.game.StatusText.apply(status, game.winnerColor, game.variant)
+                  statusText = statusText(status, game.winnerColor, game.variant)
                 )
             val commented =
               if root.mainline.lastOption.so(_.isCommented) then root
@@ -66,6 +59,22 @@ object PgnImport:
               end = end
             )
     }
+
+object StudyPgnImport:
+
+  case class Result(
+      root: Root,
+      variant: chess.variant.Variant,
+      tags: Tags,
+      end: Option[End]
+  )
+
+  case class End(
+      status: Status,
+      outcome: Outcome,
+      resultText: String,
+      statusText: String
+  )
 
   def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
     pgn.tags("annotator").map { a =>

@@ -2,14 +2,14 @@ package lila.relay
 
 import chess.format.pgn.{ Tag, TagType, Tags }
 
-import lila.study.{ MultiPgn, PgnImport, PgnDump }
+import lila.study.{ MultiPgn, StudyPgnImport, PgnDump }
 import lila.tree.Root
 
 case class RelayGame(
     tags: Tags,
     variant: chess.variant.Variant,
     root: Root,
-    ending: Option[PgnImport.End],
+    ending: Option[StudyPgnImport.End],
     index: Option[Int] = none
 ):
 

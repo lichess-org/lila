@@ -2,7 +2,6 @@ package lila.study
 
 import lila.tree.Node.partitionTreeJsonWriter
 import lila.core.LightUser
-import PgnImport.*
 import lila.tree.Root
 import chess.variant.{ Variant, Standard }
 import lila.tree.NewRoot
@@ -19,13 +18,15 @@ import play.api.libs.json.Json
 
 class JsonTest extends munit.FunSuite:
 
+  import Helpers.{ importerStub, newImporterStub }
+
   val user = LightUser(UserId("nt9"), UserName("nt9"), None, None, false)
 
   test("Json writes"):
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
-        val result   = PgnImport(pgn, List(user)).toOption.get
+        val result   = importerStub(pgn, List(user)).toOption.get
         val imported = result.root.cleanCommentIds
         val json     = writeTree(imported, result.variant)
         assertEquals(json, expected)
@@ -34,7 +35,7 @@ class JsonTest extends munit.FunSuite:
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
-        val result   = NewPgnImport(pgn, List(user)).toOption.get
+        val result   = newImporterStub(pgn, List(user)).toOption.get
         val imported = result.root.cleanup
         val json     = writeTree(imported, result.variant)
         assertEquals(Json.parse(json), Json.parse(expected))
@@ -48,7 +49,7 @@ class JsonTest extends munit.FunSuite:
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
-        val result    = PgnImport(pgn, List(user)).toOption.get
+        val result    = importerStub(pgn, List(user)).toOption.get
         val imported  = result.root.cleanCommentIds
         val afterBson = treeBson.reads(treeBson.writes(w, imported))
         val json      = writeTree(afterBson, result.variant)
@@ -58,7 +59,7 @@ class JsonTest extends munit.FunSuite:
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
-        val result    = NewPgnImport(pgn, List(user)).toOption.get
+        val result    = newImporterStub(pgn, List(user)).toOption.get
         val imported  = result.root
         val afterBson = newTreeBson.reads(newTreeBson.writes(w, imported))
         val json      = writeTree(afterBson.cleanup, result.variant)

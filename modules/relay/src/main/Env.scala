@@ -21,6 +21,7 @@ final class Env(
     chapterPreview: lila.study.ChapterPreviewApi,
     chapterRepo: lila.study.ChapterRepo,
     studyPgnDump: lila.study.PgnDump,
+    pgnImport: lila.study.StudyPgnImport,
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
     gameProxy: lila.core.game.GameProxy,

@@ -16,23 +16,23 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.core.LightUser
-import lila.importer.{ ImportData, Preprocessed }
+import lila.core.game.{ ParseImport, ImportData, ImportReady }
 import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
 
-object NewPgnImport:
+final class StudyPgnImportNew(parseImport: ParseImport):
 
   case class Result(
       root: NewRoot,
       variant: chess.variant.Variant,
       tags: Tags,
-      end: Option[PgnImport.End]
+      end: Option[StudyPgnImport.End]
   )
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    ImportData(pgn, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, initialFen, parsedPgn) =>
-        val annotator = PgnImport.findAnnotator(parsedPgn, contributors)
-        PgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
+    parseImport(ImportData(pgn, analyse = none), none).map {
+      case ImportReady(game, replay, initialFen, parsedPgn) =>
+        val annotator = StudyPgnImport.findAnnotator(parsedPgn, contributors)
+        StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, comments) =>
             val root: NewRoot =
               NewRoot(
@@ -53,8 +53,8 @@ object NewPgnImport:
                 ),
                 parsedPgn.tree.flatMap(makeTree(replay.setup, _, annotator))
               )
-            val end: Option[PgnImport.End] = (game.finished.option(game.status)).map { status =>
-              PgnImport.End(
+            val end: Option[StudyPgnImport.End] = (game.finished.option(game.status)).map { status =>
+              StudyPgnImport.End(
                 status = status,
                 outcome = Outcome(game.winnerColor),
                 resultText = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some),
@@ -64,7 +64,7 @@ object NewPgnImport:
             val commented =
               if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
               else
-                end.map(PgnImport.endComment).fold(root) { comment =>
+                end.map(StudyPgnImport.endComment).fold(root) { comment =>
                   root
                     .focus(_.tree.some)
                     .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
@@ -99,7 +99,7 @@ object NewPgnImport:
         val sanStr = moveOrDrop.toSanStr
         (
           game,
-          PgnImport.parseComments(data.metas.comments, annotator) match
+          StudyPgnImport.parseComments(data.metas.comments, annotator) match
             case (shapes, clock, comments) =>
               NewBranch(
                 id = id,

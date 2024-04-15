@@ -307,7 +307,6 @@ object Game:
     val crazyData         = "chd"
     val bookmarks         = "bm"
     val source            = "so"
-    val pgnImport         = "pgni"
     val tournamentId      = "tid"
     val swissId           = "iid"
     val simulId           = "sid"

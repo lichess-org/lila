@@ -59,7 +59,7 @@ lazy val modules = Seq(
   msg, notifyModule, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
   analyse, mod, round, pool, lobby, setup,
-  importer, gathering, tournament, simul, relation, report, pref,
+  gathering, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, feed,
   history, video, shutup, push, appeal, mailer,
   playban, insight, perfStat, irc, challenge,
@@ -269,11 +269,6 @@ lazy val setup = module("setup",
   reactivemongo.bundle
 )
 
-lazy val importer = module("importer",
-  Seq(game),
-  tests.bundle ++ reactivemongo.bundle
-)
-
 lazy val insight = module("insight",
   Seq(analyse, game),
   Seq(scalatags) ++ reactivemongo.bundle
@@ -345,12 +340,12 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(importer, analyse, game, room),
+  Seq(analyse, game, room),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 
 lazy val relay = module("relay",
-  Seq(study),
+  Seq(study, game),
   tests.bundle ++ Seq(galimatias) ++ reactivemongo.bundle
 )
 
@@ -455,7 +450,7 @@ lazy val appeal = module("appeal",
 )
 
 lazy val explorer = module("explorer",
-  Seq(importer),
+  Seq(game),
   reactivemongo.bundle
 )
 

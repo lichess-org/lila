@@ -67,7 +67,6 @@ final class Env(
   val pool: lila.pool.Env               = wire[lila.pool.Env]
   val lobby: lila.lobby.Env             = wire[lila.lobby.Env]
   val setup: lila.setup.Env             = wire[lila.setup.Env]
-  val importer: lila.importer.Env       = wire[lila.importer.Env]
   val simul: lila.simul.Env             = wire[lila.simul.Env]
   val appeal: lila.appeal.Env           = wire[lila.appeal.Env]
   val timeline: lila.timeline.Env       = wire[lila.timeline.Env]

@@ -70,6 +70,10 @@ final class Env(
 
   lazy val captcha = wire[CaptchaApi]
 
+  lazy val importer = wire[lila.game.importer.Importer]
+
+  val statusText: lila.core.game.StatusText = StatusText.apply
+
   lazy val api: lila.core.game.GameApi = new:
     export gameRepo.{ incBookmarks, getSourceAndUserIds }
     export GameExt.{ computeMoveTimes, analysable }

@@ -11,6 +11,7 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.net.IpAddress
 import lila.game.GameExt.analysable
+import lila.game.importer.ImporterForm
 
 final class Importer(env: Env) extends LilaController(env):
 
@@ -24,13 +25,13 @@ final class Importer(env: Env) extends LilaController(env):
 
   def importGame = OpenBody:
     val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
-    val data = lila.importer.ImportData(PgnStr(pgn), None)
-    Ok.page(html.game.importGame(env.importer.forms.importForm.fill(data)))
+    val data = lila.core.game.ImportData(PgnStr(pgn), None)
+    Ok.page(html.game.importGame(ImporterForm.form.fill(data)))
 
   def sendGame    = OpenOrScopedBody(parse.anyContent)()(doSendGame)
   def apiSendGame = AnonOrScopedBody(parse.anyContent)()(doSendGame)
   private def doSendGame(using ctx: BodyContext[Any]) =
-    env.importer.forms.importForm
+    ImporterForm.form
       .bindFromRequest()
       .fold(
         err =>
@@ -40,11 +41,10 @@ final class Importer(env: Env) extends LilaController(env):
           ),
         data =>
           ImportRateLimitPerIP(ctx.ip, rateLimited, cost = if ctx.isAuth then 1 else 2):
-            env.importer
-              .importer(data)
-              .flatMap { game =>
+            env.game.importer
+              .importAsGame(data)
+              .flatMap: game =>
                 ctx.me.so(env.game.cached.clearNbImportedByCache(_)).inject(Right(game))
-              }
               .recover { case _: Exception =>
                 Left("The PGN contains illegal and/or ambiguous moves.")
               }

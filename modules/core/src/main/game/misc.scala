@@ -5,9 +5,9 @@ import cats.derived.*
 import play.api.libs.json.*
 import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
 import reactivemongo.api.bson.collection.BSONCollection
-import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis }
+import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis, Replay, ErrorStr }
 import _root_.chess.format.Fen
-import _root_.chess.format.pgn.Pgn
+import _root_.chess.format.pgn.{ Pgn, PgnStr, ParsedPgn }
 
 import lila.core.id.{ GameId, GameFullId, GamePlayerId, TeamId }
 import lila.core.userId.UserId
@@ -15,6 +15,7 @@ import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.perf.UserWithPerfs
 import lila.core.user.User
 import _root_.chess.variant.Variant
+import lila.core.userId.MyId
 
 val maxPlayingRealtime = Max(100)
 
@@ -112,6 +113,8 @@ abstract class GameRepo(val coll: BSONCollection):
   def lastGamesBetween(u1: User, u2: User, since: Instant, nb: Int): Fu[List[Game]]
   def analysed(id: GameId): Fu[Option[Game]]
   def setAnalysed(id: GameId, v: Boolean): Funit
+  def finish(id: GameId, winnerColor: Option[Color], winnerId: Option[UserId], status: Status): Funit
+  def remove(id: GameId): Funit
 
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit
@@ -130,6 +133,15 @@ trait PgnDump:
       flags: PgnDump.WithFlags,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn]
+
+case class ImportData(pgn: PgnStr, analyse: Option[String])
+case class ImportReady(game: NewGame, replay: Replay, initialFen: Option[Fen.Full], parsed: ParsedPgn)
+
+type ParseImport = (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady]
+
+trait Importer:
+  val parseImport: ParseImport
+  def importAsGame(data: ImportData, forceId: Option[GameId] = none)(using Option[MyId]): Fu[Game]
 
 object PgnDump:
   case class WithFlags(
@@ -157,6 +169,7 @@ object BSONFields:
   val movedAt    = "ua" // ua = updatedAt (bc)
   val turns      = "t"
   val analysed   = "an"
+  val pgnImport  = "pgni"
 
 def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
   val iterA   = a.iterator
