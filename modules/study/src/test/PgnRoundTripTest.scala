@@ -27,8 +27,6 @@ class PgnRoundTripTest extends munit.FunSuite:
 
   val user = LightUser(UserId("lichess"), UserName("Annotator"), None, None, false)
 
-  import Helpers.{ StudyPgnImport, StudyPgnImportNew }
-
   test("roundtrip"):
     PgnFixtures.roundTrip
       .foreach: pgn =>
