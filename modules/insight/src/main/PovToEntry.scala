@@ -35,7 +35,7 @@ final private class PovToEntry(
 
   private def removeWrongAnalysis(game: Game): Boolean =
     if game.metadata.analysed && !gameApi.analysable(game) then
-      gameRepo.setUnanalysed(game.id)
+      gameRepo.setAnalysed(game.id, false)
       analysisRepo.remove(game.id.value)
       true
     else false

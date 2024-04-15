@@ -7,7 +7,7 @@ object StatusText:
 
   import Status.*
 
-  def apply(status: Status, win: Option[Color], variant: Variant): String =
+  val apply: lila.core.game.StatusText = (status, win, variant) =>
     status match
       case Aborted                  => "Game was aborted."
       case Mate                     => s"${winner(win)} wins by checkmate."

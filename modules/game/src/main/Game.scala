@@ -303,7 +303,6 @@ object Game:
     val whiteClockHistory = "cw"
     val blackClockHistory = "cb"
     val rated             = "ra"
-    val analysed          = "an"
     val variant           = "v"
     val crazyData         = "chd"
     val bookmarks         = "bm"

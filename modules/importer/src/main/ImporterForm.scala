@@ -32,6 +32,7 @@ object ImporterForm:
       ErrorStr("This PGN seems too long or too complex!").asLeft
 
 private case class TagResult(status: Status, winner: Option[Color])
+
 case class Preprocessed(
     game: NewGame,
     replay: Replay,

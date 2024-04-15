@@ -19,6 +19,12 @@ import lila.core.LightUser
 import lila.importer.{ ImportData, Preprocessed }
 import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
 
+case class Context(
+    currentGame: chess.Game,
+    currentClock: Option[Centis],
+    previousClock: Option[Centis]
+)
+
 object NewPgnImport:
 
   case class Result(
@@ -33,7 +39,9 @@ object NewPgnImport:
       case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = PgnImport.findAnnotator(parsedPgn, contributors)
         PgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
-          case (shapes, _, comments) =>
+          case (shapes, _, _, comments) =>
+            val clock = parsedPgn.tags.clockConfig.map(_.limit)
+            val setup = Context(replay.setup, clock, clock)
             val root: NewRoot =
               NewRoot(
                 Metas(
@@ -49,16 +57,16 @@ object NewPgnImport:
                   glyphs = Glyphs.empty,
                   opening = None,
                   crazyData = replay.setup.situation.board.crazyData,
-                  clock = parsedPgn.tags.clockConfig.map(_.limit)
+                  clock = clock
                 ),
-                parsedPgn.tree.flatMap(makeTree(replay.setup, _, annotator))
+                parsedPgn.tree.flatMap(makeTree(setup, _, annotator))
               )
             val end: Option[PgnImport.End] = (game.finished.option(game.status)).map { status =>
               PgnImport.End(
                 status = status,
                 outcome = Outcome(game.winnerColor),
                 resultText = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some),
-                statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
+                statusText = lila.game.StatusText.apply(status, game.winnerColor, game.variant)
               )
             }
             val commented =
@@ -78,52 +86,52 @@ object NewPgnImport:
     }
 
   private def makeTree(
-      setup: chess.Game,
+      context: Context,
       node: ParsedPgnTree,
       annotator: Option[Comment.Author]
   ): Option[PgnNode[NewBranch]] =
-    node.mapAccumlOption_(setup): (setup, data) =>
-      transform(setup, data, annotator)
+    node.mapAccumlOption_(context): (context, data) =>
+      transform(context, data, annotator)
 
   private def transform(
-      context: chess.Game,
+      context: Context,
       data: PgnNodeData,
       annotator: Option[Comment.Author]
-  ): (chess.Game, Option[NewBranch]) =
+  ): (Context, Option[NewBranch]) =
     data
-      .san(context.situation)
+      .san(context.currentGame.situation)
       .map(moveOrDrop =>
-        val game   = moveOrDrop.applyGame(context)
+        val game   = moveOrDrop.applyGame(context.currentGame)
         val uci    = moveOrDrop.toUci
         val id     = UciCharPair(uci)
         val sanStr = moveOrDrop.toSanStr
-        (
-          game,
-          PgnImport.parseComments(data.metas.comments, annotator) match
-            case (shapes, clock, comments) =>
-              NewBranch(
-                id = id,
-                move = Uci.WithSan(uci, sanStr),
-                comp = false,
-                forceVariation = false,
-                Metas(
-                  ply = game.ply,
-                  fen = Fen.write(game),
-                  check = game.situation.check,
-                  dests = None,
-                  drops = None,
-                  eval = None,
-                  shapes = shapes,
-                  comments = comments,
-                  gamebook = None,
-                  glyphs = data.metas.glyphs,
-                  opening = None,
-                  clock = clock,
-                  crazyData = game.situation.board.crazyData
-                )
-              ).some
-        )
+        val newBranch = PgnImport.parseComments(data.metas.comments, annotator) match
+          case (shapes, clock, emt, comments) =>
+            NewBranch(
+              id = id,
+              move = Uci.WithSan(uci, sanStr),
+              comp = false,
+              forceVariation = false,
+              Metas(
+                ply = game.ply,
+                fen = Fen.write(game),
+                check = game.situation.check,
+                dests = None,
+                drops = None,
+                eval = None,
+                shapes = shapes,
+                comments = comments,
+                gamebook = None,
+                glyphs = data.metas.glyphs,
+                opening = None,
+                clock = clock.orElse((context.previousClock, emt).mapN(_ - _)),
+                crazyData = game.situation.board.crazyData
+              )
+            )
+
+        (Context(game, newBranch.metas.clock, context.currentClock), newBranch.some)
       )
-      .toOption match
-      case Some(branch) => branch
-      case None         => (context, None)
+      .toOption
+      .match
+        case Some(branch) => branch
+        case None         => (context, None)
