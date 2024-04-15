@@ -25,13 +25,13 @@ class NewTreeTest extends munit.ScalaCheckSuite:
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
 
-  test("tree <-> newTree conversion".ignore):
+  test("tree <-> newTree conversion"):
     PgnFixtures.all.foreach: pgn =>
       val x       = importerStub(pgn, Nil).toOption.get
       val newRoot = x.root.toNewRoot
       assertEquals(newRoot.toRoot, x.root)
 
-  test("PgnImport works".ignore):
+  test("PgnImport works"):
     PgnFixtures.all.foreach: pgn =>
       val x = importerStub(pgn, Nil).toOption.get
       val y = newImporterStub(pgn, Nil).toOption.get
@@ -96,7 +96,7 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       // so, We have to ignore the case where the first child doesn't satisfy the predicate
       c.tree.exists(b => f(b.value.clock)) ==> (x == y)
 
-  test("current tree's bug with takeMainlineWhile".ignore):
+  test("current tree's bug with takeMainlineWhile"):
     val pgn     = "1. d4 d5 2. e4 e5"
     val newRoot = newImporterStub(pgn, Nil).toOption.get.root
     val oldRoot = newRoot.toRoot
