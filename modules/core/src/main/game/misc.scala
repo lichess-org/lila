@@ -14,6 +14,7 @@ import lila.core.userId.UserId
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.perf.UserWithPerfs
 import lila.core.user.User
+import _root_.chess.variant.Variant
 
 val maxPlayingRealtime = Max(100)
 
@@ -83,11 +84,14 @@ trait Event:
   def troll: Boolean        = false
   def moveBy: Option[Color] = None
 
+type StatusText = (Status, Option[Color], Variant) => String
 trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
   def incBookmarks(id: GameId, by: Int): Funit
   def computeMoveTimes(g: Game, color: Color): Option[List[Centis]]
   def analysable(g: Game): Boolean
+  val statusText: StatusText
+  // def apply(game: Game): String
 
 abstract class GameRepo(val coll: BSONCollection):
   given gameHandler: BSONDocumentHandler[Game]
@@ -101,17 +105,23 @@ abstract class GameRepo(val coll: BSONCollection):
   def initialFen(gameId: GameId): Fu[Option[Fen.Full]]
   def initialFen(game: Game): Fu[Option[Fen.Full]]
   def withInitialFen(game: Game): Fu[WithInitialFen]
+  def gameWithInitialFen(gameId: GameId): Fu[Option[WithInitialFen]]
   def isAnalysed(game: Game): Fu[Boolean]
   def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit
   def recentAnalysableGamesByUserId(userId: UserId, nb: Int): Fu[List[Game]]
   def lastGamesBetween(u1: User, u2: User, since: Instant, nb: Int): Fu[List[Game]]
   def analysed(id: GameId): Fu[Option[Game]]
+  def setAnalysed(id: GameId, v: Boolean): Funit
 
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit
   def game(gameId: GameId): Fu[Option[Game]]
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]]
   def flushIfPresent(gameId: GameId): Funit
+
+trait UciMemo:
+  def get(game: Game): Fu[Vector[String]]
+  def sign(game: Game): Fu[String]
 
 trait PgnDump:
   def apply(
@@ -146,6 +156,7 @@ object BSONFields:
   val createdAt  = "ca"
   val movedAt    = "ua" // ua = updatedAt (bc)
   val turns      = "t"
+  val analysed   = "an"
 
 def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
   val iterA   = a.iterator

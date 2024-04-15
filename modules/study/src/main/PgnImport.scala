@@ -51,7 +51,7 @@ object PgnImport:
                   status = status,
                   outcome = outcome,
                   resultText = chess.Outcome.showResult(outcome.some),
-                  statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
+                  statusText = lila.game.StatusText.apply(status, game.winnerColor, game.variant)
                 )
             val commented =
               if root.mainline.lastOption.so(_.isCommented) then root

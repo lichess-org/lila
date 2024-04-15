@@ -4,12 +4,11 @@ import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.core.game.InsertGame
-import lila.game.GameRepo
 import lila.core.misc.map.TellIfExists
 import lila.tree.{ Analysis, ExportOptions, Tree }
 
 final class Analyser(
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     analysisRepo: AnalysisRepo
 )(using Executor):
 
@@ -24,7 +23,7 @@ final class Analyser(
         gameRepo.game(id).flatMapz { prev =>
           val game = prev.setAnalysed
           for
-            _ <- gameRepo.setAnalysed(game.id)
+            _ <- gameRepo.setAnalysed(game.id, true)
             _ <- analysisRepo.save(analysis)
             _ <- sendAnalysisProgress(analysis, complete = true)
           yield

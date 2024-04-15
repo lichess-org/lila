@@ -4,16 +4,14 @@ import chess.Ply
 import scalalib.actor.AsyncActorSequencer
 
 import lila.analyse.AnalysisRepo
-import lila.game.{ UciMemo }
 import lila.core.fishnet.SystemAnalysisRequest
-import lila.game.GameExt.analysable
 
 final class Analyser(
     repo: FishnetRepo,
     analysisRepo: AnalysisRepo,
     gameRepo: lila.core.game.GameRepo,
     gameApi: lila.core.game.GameApi,
-    uciMemo: UciMemo,
+    uciMemo: lila.core.game.UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
 )(using Executor, Scheduler):

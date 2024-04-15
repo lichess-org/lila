@@ -271,8 +271,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowInstant)
 
-  def setAnalysed(id: GameId): Funit  = coll.updateField($id(id), F.analysed, true).void
-  def setUnanalysed(id: GameId): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
+  def setAnalysed(id: GameId, v: Boolean): Funit = coll.updateField($id(id), F.analysed, v).void
 
   def isAnalysed(game: Game): Fu[Boolean] = GameExt
     .analysable(game)

@@ -170,7 +170,7 @@ lazy val ublog = module("ublog",
 )
 
 lazy val evaluation = module("evaluation",
-  Seq(analyse),
+  Seq(analyse, game),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -240,7 +240,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(game),
+  Seq(coreI18n, tree, memo),
   tests.bundle ++ reactivemongo.bundle
 )
 
@@ -275,7 +275,7 @@ lazy val importer = module("importer",
 )
 
 lazy val insight = module("insight",
-  Seq(analyse),
+  Seq(analyse, game),
   Seq(scalatags) ++ reactivemongo.bundle
 )
 
@@ -315,7 +315,7 @@ lazy val fishnet = module("fishnet",
 )
 
 lazy val irwin = module("irwin",
-  Seq(analyse, report),
+  Seq(analyse, game, report),
   reactivemongo.bundle
 )
 
@@ -345,7 +345,7 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(importer, analyse, room),
+  Seq(importer, analyse, game, room),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 
