@@ -166,11 +166,5 @@ object JsonView:
       "ply"  -> o.ply
     )
 
-  given OWrites[chess.Division] = OWrites: o =>
-    Json
-      .obj()
-      .add("middle" -> o.middle)
-      .add("end" -> o.end)
-
   given Writes[Source]                  = writeAs(_.name)
   given Writes[lila.core.game.GameRule] = writeAs(_.toString)

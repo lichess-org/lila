@@ -8,8 +8,10 @@ import lila.core.user.WithPerf
 
 final private class Biter(
     userApi: lila.core.user.UserApi,
-    gameRepo: lila.game.GameRepo
-)(using Executor)(using idGenerator: lila.game.IdGenerator):
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
+    fixedColor: scalalib.cache.ExpireSetMemo[GameId]
+)(using Executor)(using idGenerator: lila.core.game.IdGenerator):
 
   def apply(hook: Hook, sri: Sri, user: Option[LobbyUser]): Fu[JoinHook] =
     if canJoin(hook, user)
@@ -56,7 +58,7 @@ final private class Biter(
 
   private def rememberIfFixedColor(color: Color, game: Game) =
     if color != Color.Random
-    then gameRepo.fixedColorLobbyCache.put(game.id)
+    then fixedColor.put(game.id)
 
   private def assignCreatorColor(
       creatorUser: Option[WithPerf],
@@ -75,7 +77,7 @@ final private class Biter(
         situation = Situation(hook.realVariant),
         clock = hook.clock.toClock.some
       ),
-      players = users.mapWithColor(lila.game.Player.make),
+      players = users.mapWithColor(newPlayer.apply),
       mode = hook.realMode,
       source = lila.core.game.Source.Lobby,
       pgnImport = None
@@ -88,7 +90,7 @@ final private class Biter(
         situation = Situation(seek.realVariant),
         clock = none
       ),
-      players = users.mapWithColor(lila.game.Player.make),
+      players = users.mapWithColor(newPlayer.apply),
       mode = seek.realMode,
       source = lila.core.game.Source.Lobby,
       daysPerTurn = seek.daysPerTurn,

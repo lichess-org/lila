@@ -5,9 +5,9 @@ import cats.derived.*
 import play.api.libs.json.*
 import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
 import reactivemongo.api.bson.collection.BSONCollection
-import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis, Replay, ErrorStr }
+import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis, Replay, ErrorStr, Division }
 import _root_.chess.format.Fen
-import _root_.chess.format.pgn.{ Pgn, PgnStr, ParsedPgn }
+import _root_.chess.format.pgn.{ Pgn, PgnStr, SanStr, ParsedPgn, Tags }
 
 import lila.core.id.{ GameId, GameFullId, GamePlayerId, TeamId }
 import lila.core.userId.UserId
@@ -17,6 +17,7 @@ import lila.core.user.User
 import _root_.chess.variant.Variant
 import lila.core.userId.MyId
 
+val maxPlaying         = Max(200) // including correspondence
 val maxPlayingRealtime = Max(100)
 
 case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
@@ -53,7 +54,8 @@ case class CorresAlarmEvent(userId: UserId, pov: Pov, opponent: String)
 case class WithInitialFen(game: Game, fen: Option[Fen.Full])
 
 opaque type Blurs = Long
-object Blurs extends OpaqueLong[Blurs]
+object Blurs extends OpaqueLong[Blurs]:
+  extension (bits: Blurs) def nb: Int = java.lang.Long.bitCount(bits.value)
 
 enum Source(val id: Int) derives Eq:
   def name = toString.toLowerCase
@@ -92,7 +94,8 @@ trait GameApi:
   def computeMoveTimes(g: Game, color: Color): Option[List[Centis]]
   def analysable(g: Game): Boolean
   val statusText: StatusText
-  // def apply(game: Game): String
+  def nbPlaying(userId: UserId): Fu[Int]
+  def anonCookieJson(pov: lila.core.game.Pov): Option[JsObject]
 
 abstract class GameRepo(val coll: BSONCollection):
   given gameHandler: BSONDocumentHandler[Game]
@@ -133,9 +136,27 @@ trait PgnDump:
       flags: PgnDump.WithFlags,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn]
+  def tags(
+      game: Game,
+      initialFen: Option[Fen.Full],
+      imported: Option[ParsedPgn],
+      withOpening: Boolean,
+      withRating: Boolean,
+      teams: Option[ByColor[TeamId]] = None
+  ): Fu[Tags]
+
+trait Namer:
+  def gameVsText(game: Game, withRatings: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
+  def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
 
 case class ImportData(pgn: PgnStr, analyse: Option[String])
 case class ImportReady(game: NewGame, replay: Replay, initialFen: Option[Fen.Full], parsed: ParsedPgn)
+
+trait Explorer:
+  def apply(id: GameId): Fu[Option[Game]]
+
+trait Divider:
+  def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]): Division
 
 type ParseImport = (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady]
 
@@ -162,14 +183,15 @@ object PgnDump:
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
 
 object BSONFields:
-  val id         = "_id"
-  val playerUids = "us"
-  val winnerId   = "wid"
-  val createdAt  = "ca"
-  val movedAt    = "ua" // ua = updatedAt (bc)
-  val turns      = "t"
-  val analysed   = "an"
-  val pgnImport  = "pgni"
+  val id          = "_id"
+  val playerUids  = "us"
+  val winnerId    = "wid"
+  val createdAt   = "ca"
+  val movedAt     = "ua" // ua = updatedAt (bc)
+  val turns       = "t"
+  val analysed    = "an"
+  val pgnImport   = "pgni"
+  val playingUids = "pl"
 
 def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
   val iterA   = a.iterator

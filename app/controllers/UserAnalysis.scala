@@ -12,7 +12,6 @@ import lila.common.HTTPRequest
 
 import lila.tree.ExportOptions
 import lila.core.id.GameFullId
-import lila.game.GameExt.synthetic
 
 final class UserAnalysis(
     env: Env,

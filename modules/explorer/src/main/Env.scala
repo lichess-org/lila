@@ -18,5 +18,3 @@ final class Env(
   }
 
   val importer = wire[ExplorerImporter]
-
-  val getGame: lila.game.core.ExplorerGame = importer.apply

@@ -29,7 +29,7 @@ final class Cached(
   }
 
   private val nbPlayingCache = cacheApi[UserId, Int](512, "game.nbPlaying"):
-    _.expireAfterWrite(15 seconds).buildAsyncFuture: userId =>
+    _.expireAfterWrite(10 seconds).buildAsyncFuture: userId =>
       gameRepo.coll.countSel(Query.nowPlaying(userId))
 
   private val nbImportedCache = mongoCache[UserId, Int](

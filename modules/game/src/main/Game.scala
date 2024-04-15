@@ -188,11 +188,10 @@ object GameExt:
       )
 
     def abandoned = (g.status <= Status.Started) && (g.movedAt.isBefore(Game.abandonedDate))
-    def synthetic = g.id == Game.syntheticId
 
     def playerBlurPercent(color: Color): Int =
       if g.playedTurns > 5
-      then (Blurs.nb(g.player(color).blurs) * 100) / g.playerMoves(color)
+      then (g.player(color).blurs.nb * 100) / g.playerMoves(color)
       else 0
 
     def drawReason =
@@ -216,8 +215,6 @@ end GameExt
 object Game:
 
   val syntheticId = GameId("synthetic")
-
-  val maxPlaying = 200 // including correspondence
 
   val maxPlies = Ply(600) // unlimited would be a DoS target
 
@@ -287,7 +284,6 @@ object Game:
     val whitePlayer       = "p0"
     val blackPlayer       = "p1"
     val playerIds         = "is"
-    val playingUids       = "pl"
     val binaryPieces      = "ps"
     val oldPgn            = "pg"
     val huffmanPgn        = "hp"
