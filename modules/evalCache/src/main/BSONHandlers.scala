@@ -10,8 +10,6 @@ import lila.tree.{ CloudEval, Score, Moves, Pv }
 
 private object BSONHandlers:
 
-  import EvalCacheEntry.*
-
   given BSONReader[NonEmptyList[Pv]] = new:
 
     private def scoreRead(str: String): Option[Score] =
@@ -45,7 +43,5 @@ private object BSONHandlers:
     { case v: BSONBinary => BinaryFen(v.byteArray) },
     v => BSONBinary(v.value, Subtype.GenericBinarySubtype)
   )
-  given BSONHandler[Id] = Macros.handler
-
   given BSONDocumentReader[CloudEval]      = Macros.reader
   given BSONDocumentReader[EvalCacheEntry] = Macros.reader

@@ -11,8 +11,6 @@ case class EvalCacheEntry(
     nbMoves: Int, // multipv cannot be greater than number of legal moves
     evals: List[CloudEval]
 ):
-  import EvalCacheEntry.*
-
   // finds the best eval with at least multiPv pvs,
   // and truncates its pvs to multiPv.
   // Defaults to lower multiPv if no eval has enough pvs.
@@ -23,10 +21,7 @@ case class EvalCacheEntry(
       .orElse:
         evals.sortBy(-_.multiPv.value).headOption
 
-object EvalCacheEntry:
-
-  case class Id(position: BinaryFen)
-
-  object Id:
-    def from(variant: Variant, fen: Fen.Full): Option[Id] =
-      Fen.read(variant, fen).map(sit => Id(BinaryFen.writeNormalized(sit)))
+opaque type Id = BinaryFen
+object Id extends TotalWrapper[Id, BinaryFen]:
+  def from(variant: Variant, fen: Fen.Full): Option[Id] =
+    Fen.read(variant, fen).map(sit => Id(BinaryFen.writeNormalized(sit)))

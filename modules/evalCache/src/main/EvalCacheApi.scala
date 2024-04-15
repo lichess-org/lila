@@ -11,7 +11,6 @@ import lila.core.chess.MultiPv
 
 final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.CacheApi)(using Executor):
 
-  import EvalCacheEntry.*
   import BSONHandlers.given
 
   def getEvalJson(variant: Variant, fen: Fen.Full, multiPv: MultiPv): Fu[Option[JsObject]] =
