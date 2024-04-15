@@ -135,7 +135,7 @@ object PgnImport:
             val sanStr = moveOrDrop.toSanStr
             parseComments(node.value.metas.comments, annotator) match
               case (shapes, clock, emt, comments) =>
-                val _clock = clock.orElse((context.previousClock, emt).mapN(_ - _))
+                val computedClock = clock.orElse((context.previousClock, emt).mapN(_ - _))
                 Branch(
                   id = UciCharPair(uci),
                   ply = game.ply,
@@ -145,10 +145,10 @@ object PgnImport:
                   shapes = shapes,
                   comments = comments,
                   glyphs = node.value.metas.glyphs,
-                  clock = _clock,
+                  clock = computedClock,
                   crazyData = game.situation.board.crazyData,
                   children = node.child.fold(Branches.empty)(
-                    makeBranches(Context(game, _clock, context.currentClock), _, annotator)
+                    makeBranches(Context(game, computedClock, context.currentClock), _, annotator)
                   )
                 ).some
         )
