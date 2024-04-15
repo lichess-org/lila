@@ -333,6 +333,7 @@ object layout:
             List(
               baseClass              -> true,
               "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
+              "simple-board"         -> pref.simpleBoard,
               "piece-letter"         -> pref.pieceNotationIsLetter,
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid.yes,

@@ -48,7 +48,9 @@
         } @else {
           background-image: img-url('board/#{$file-name}.thumbnail.#{$file-ext}');
         }
-        filter: hue-rotate(calc(var(---board-hue) * 360deg));
+        body:not(.simple-board) & {
+          filter: hue-rotate(calc(var(---board-hue) * 360deg));
+        }
       }
     }
   }
@@ -57,7 +59,9 @@
     @each $name in map-keys($board-themes-3d) {
       .#{$name} {
         background-image: img-url('staunton/board/#{$name}.thumbnail.png');
-        filter: hue-rotate(calc(var(---board-hue) * 360deg));
+        body:not(.simple-board) & {
+          filter: hue-rotate(calc(var(---board-hue) * 360deg));
+        }
       }
     }
   }

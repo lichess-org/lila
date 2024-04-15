@@ -44,6 +44,7 @@ case class Pref(
     resizeHandle: Int,
     agreement: Int,
     usingAltSocket: Option[Boolean],
+    simpleBoard: Boolean,
     boardBrightness: Float,
     boardOpacity: Float,
     boardHue: Float, // in turns, 1turn = 2pi
@@ -465,6 +466,7 @@ object Pref:
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     usingAltSocket = none,
+    simpleBoard = false,
     boardBrightness = 1f,
     boardOpacity = 1f,
     boardHue = 0f,

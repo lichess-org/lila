@@ -178,7 +178,7 @@ cg-auto-pieces {
   }
 }
 
-html:not(.transp) body {
+html:not(.transp) body:not(.simple-board) {
   ---bright-factor: calc(0.3 + 0.59 * min(1.2, var(---board-brightness)));
 
   &.coords-in coord {
@@ -190,7 +190,7 @@ html:not(.transp) body {
   }
 }
 
-html.transp body {
+html.transp body:not(.simple-board) {
   cg-board piece {
     opacity: calc(min(1, 0.5 + var(---board-opacity)));
     filter: unset;

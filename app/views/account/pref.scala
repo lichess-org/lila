@@ -84,6 +84,11 @@ object pref:
               showFlairs(),
               radios(form("flairs"), translatedBooleanChoices),
               "showFlairs"
+            ),
+            setting(
+              "Simple board (no color controls)",
+              radios(form("simpleBoard"), translatedBooleanChoices),
+              "simpleBoard"
             )
           ),
           categFieldset(PrefCateg.ChessClock, categ)(

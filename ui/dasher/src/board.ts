@@ -44,11 +44,7 @@ export class BoardCtrl extends PaneCtrl {
           '3D',
         ),
       ]),
-      !Number.isNaN(this.getPref('zoom')) && this.propSlider('zoom', 'Size', { min: 0, max: 100, step: 1 }),
-      document.body.dataset.theme === 'transp'
-        ? this.propSlider('board-opacity', 'Opacity', { min: 0, max: 1, step: 0.01 })
-        : this.propSlider('board-brightness', 'Brightness', { min: 0.4, max: 1.4, step: 0.01 }),
-      this.propSlider('board-hue', 'Hue', { min: 0, max: 1, step: 0.01 }, v => `+${Math.round(v * 360)}°`),
+      ...this.propSliders(),
       h(
         'div.list',
         this.data[this.dimension].list.map((t: Board) =>
@@ -68,9 +64,11 @@ export class BoardCtrl extends PaneCtrl {
   private get data() {
     return this.root.data.board;
   }
+
   private get current() {
     return this.data[this.dimension].current;
   }
+
   private set current(t: Board) {
     this.data[this.dimension].current = t;
   }
@@ -125,6 +123,20 @@ export class BoardCtrl extends PaneCtrl {
     if (!this.is3d) document.body.dataset.boardTheme = t;
     site.pubsub.emit('theme.change');
     this.root?.piece.apply();
+  };
+
+  private propSliders = () => {
+    const sliders = [];
+    if (!Number.isNaN(this.getPref('zoom')))
+      sliders.push(this.propSlider('zoom', 'Size', { min: 0, max: 100, step: 1 }));
+    if (document.body.classList.contains('simple-board')) return sliders;
+    if (document.body.dataset.theme === 'transp')
+      sliders.push(this.propSlider('board-opacity', 'Opacity', { min: 0, max: 1, step: 0.01 }));
+    else sliders.push(this.propSlider('board-brightness', 'Brightness', { min: 0.4, max: 1.4, step: 0.01 }));
+    sliders.push(
+      this.propSlider('board-hue', 'Hue', { min: 0, max: 1, step: 0.01 }, v => `+ ${Math.round(v * 360)}°`),
+    );
+    return sliders;
   };
 
   private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>

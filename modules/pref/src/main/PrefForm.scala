@@ -55,6 +55,7 @@ object PrefForm:
     val ratings         = "ratings"         -> booleanNumber
     val flairs          = "flairs"          -> boolean
     val follow          = "follow"          -> booleanNumber
+    val simpleBoard     = "simpleBoard"     -> boolean
     val boardBrightness = "boardBrightness" -> float(0, 1.5)
     val boardOpacity    = "boardOpacity"    -> float(0, 1)
     val boardHue        = "boardHue"        -> float(0, 1)
@@ -100,7 +101,8 @@ object PrefForm:
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
       fields.ratings.map2(optional),
-      fields.flairs.map2(optional)
+      fields.flairs.map2(optional),
+      fields.simpleBoard.map2(optional)
     )(PrefData.apply)(unapply)
   )
 
@@ -146,7 +148,8 @@ object PrefForm:
       studyInvite: Option[Int],
       insightShare: Int,
       ratings: Option[Int],
-      flairs: Option[Boolean]
+      flairs: Option[Boolean],
+      simpleBoard: Option[Boolean]
   ):
 
     def apply(pref: Pref) =
@@ -180,7 +183,8 @@ object PrefForm:
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
-        moveEvent = behavior.moveEvent | pref.moveEvent
+        moveEvent = behavior.moveEvent | pref.moveEvent,
+        simpleBoard = simpleBoard | pref.simpleBoard
       )
 
   object PrefData:
@@ -221,7 +225,8 @@ object PrefForm:
         studyInvite = pref.studyInvite.some,
         insightShare = pref.insightShare,
         ratings = pref.ratings.some,
-        flairs = pref.flairs.some
+        flairs = pref.flairs.some,
+        simpleBoard = pref.simpleBoard.some
       )
 
   def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))

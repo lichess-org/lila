@@ -50,7 +50,7 @@ export function main() {
   env.watch = env.rebuild || args.includes('--watch') || oneDashArgs.includes('w');
   env.prod = args.includes('--prod') || oneDashArgs.includes('p');
   env.debug = args.includes('--debug') || oneDashArgs.includes('d');
-  env.clean = args.some(x => x === '--clean-build') || oneDashArgs.includes('c');
+  env.clean = args.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
   env.install = !args.includes('--no-install') && !oneDashArgs.includes('n');
   env.rgb = args.includes('--rgb');
 

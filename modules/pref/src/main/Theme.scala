@@ -31,7 +31,7 @@ object Theme extends ThemeObject:
     new Theme("blue", "svg/blue.svg"),
     new Theme("blue2", "blue2.jpg"),
     new Theme("blue3", "blue3.jpg"),
-    new Theme("blue-haze", "blue-haze.webp"),
+    new Theme("haze", "haze.webp"),
     new Theme("canvas", "canvas2.jpg"),
     new Theme("blue-marble", "blue-marble.jpg"),
     new Theme("pool", "pool.webp"),

@@ -9,16 +9,7 @@
       $file-name: if($name-override, $name-override, $name);
       $dir-name: 'board#{if($file-ext == "svg", "/svg", "")}';
       &::before {
-        position: absolute;
-        content: '';
-        inset: 0 0 0 0;
-        background-size: cover;
         background-image: img-url('#{$dir-name}/#{$file-name}.#{$file-ext}');
-        filter: brightness(var(---board-brightness)) hue-rotate(calc(var(---board-hue) * 360deg));
-        @include if-transp {
-          opacity: var(---board-opacity);
-          filter: hue-rotate(calc(var(---board-hue) * 360deg));
-        }
       }
     }
 
@@ -32,5 +23,20 @@
         ---cg-cs: none;
       }
     }
+  }
+}
+
+.is2d cg-board::before {
+  position: absolute;
+  content: '';
+  inset: 0 0 0 0;
+  background-size: cover;
+}
+
+body:not(.simple-board) .is2d cg-board::before {
+  filter: brightness(var(---board-brightness)) hue-rotate(calc(var(---board-hue) * 360deg));
+  @include if-transp {
+    opacity: var(---board-opacity);
+    filter: hue-rotate(calc(var(---board-hue) * 360deg));
   }
 }

@@ -50,18 +50,12 @@ cg-board::before {
 .is2d cg-board::before {
   top: 0;
   height: 100%;
-  content: none;
 }
 
 @each $name, $board-theme in $board-themes-3d {
   .#{$name} .is3d .main-board {
     cg-board::before {
       background-image: img-url('staunton/board/#{$name}.png');
-      filter: brightness(var(---board-brightness)) hue-rotate(calc(var(---board-hue) * 360deg));
-      @include if-transp {
-        opacity: var(---board-opacity);
-        filter: hue-rotate(calc(var(---board-hue) * 360deg));
-      }
     }
 
     $coord-color-white: map-get($board-theme, coord-color-white);
@@ -74,6 +68,14 @@ cg-board::before {
         ---cg-cs: none;
       }
     }
+  }
+}
+
+body:not(.simple-board) .is3d .main-board cg-board::before {
+  filter: brightness(var(---board-brightness)) hue-rotate(calc(var(---board-hue) * 360deg));
+  @include if-transp {
+    opacity: var(---board-opacity);
+    filter: hue-rotate(calc(var(---board-hue) * 360deg));
   }
 }
 
