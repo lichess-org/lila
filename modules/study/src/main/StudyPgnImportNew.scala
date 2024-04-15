@@ -25,7 +25,7 @@ case class Context(
     previousClock: Option[Centis]
 )
 
-final class StudyPgnImportNew(parseImport: ParseImport):
+object StudyPgnImportNew:
 
   case class Result(
       root: NewRoot,
@@ -35,7 +35,7 @@ final class StudyPgnImportNew(parseImport: ParseImport):
   )
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    parseImport(ImportData(pgn, analyse = none), none).map {
+    lila.game.importer.parseImport(ImportData(pgn, analyse = none), none).map {
       case ImportReady(game, replay, initialFen, parsedPgn) =>
         val annotator = StudyPgnImport.findAnnotator(parsedPgn, contributors)
         StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
