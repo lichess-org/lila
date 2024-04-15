@@ -53,7 +53,11 @@ final private class TutorQueue(
   def remove(userId: UserId): Funit = colls.queue.delete.one($id(userId)).void
 
   def waitingGames(user: User): Fu[List[(Pov, PgnStr)]] = for
-    all <- gameRepo.recentPovsByUserFromSecondary(user, 60, $doc(lila.game.Game.BSONFields.turns.$gt(10)))
+    all <- gameRepo.recentPovsByUserFromSecondary(
+      user,
+      60,
+      $doc(lila.core.game.BSONFields.turns.$gt(10))
+    )
     (rated, casual) = all.partition(_.game.rated)
     many            = rated ::: casual.take(30 - rated.size)
     povs            = scalalib.ThreadLocalRandom.shuffle(many).take(30)

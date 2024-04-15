@@ -6,7 +6,6 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 
 import BSONHandlers.given
 

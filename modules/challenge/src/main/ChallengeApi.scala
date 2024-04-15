@@ -188,7 +188,7 @@ final class ChallengeApi(
     else
       c.userIds
         .map: userId =>
-          gameCache.nbPlaying(userId).dmap(lila.game.Game.maxPlaying <=)
+          gameCache.nbPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
         .parallel
         .dmap(_.exists(identity))
 

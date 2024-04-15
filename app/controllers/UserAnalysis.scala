@@ -74,8 +74,8 @@ final class UserAnalysis(
 
   private[controllers] def makePov(from: Situation.AndFullMoveNumber): Pov =
     Pov(
-      lila.game.Game
-        .make(
+      lila.core.game
+        .newGame(
           chess = chess.Game(
             situation = from.situation,
             ply = from.ply

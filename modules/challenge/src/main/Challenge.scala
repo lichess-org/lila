@@ -190,7 +190,7 @@ object Challenge:
       case "black" => ColorChoice.Black  -> chess.Black
       case _       => ColorChoice.Random -> randomColor
     val finalMode = timeControl match
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
+      case TimeControl.Clock(clock) if !lila.core.game.allowRated(variant, clock.some) => Mode.Casual
       case _                                                                           => mode
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(

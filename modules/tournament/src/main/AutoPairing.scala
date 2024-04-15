@@ -4,10 +4,10 @@ import monocle.syntax.all.*
 import chess.{ Black, ByColor, Color, White }
 
 import lila.core.game.Source
-import lila.game.{ GameRepo }
 
 final class AutoPairing(
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
     duelStore: DuelStore,
     lightUserApi: lila.core.user.LightUserApi,
     onStart: lila.core.game.OnStart
@@ -16,8 +16,8 @@ final class AutoPairing(
   def apply(tour: Tournament, pairing: Pairing.WithPlayers, ranking: Ranking): Fu[Game] =
     val clock                              = tour.clock.toClock
     val fen: Option[chess.format.Fen.Full] = tour.position.map(_.into(chess.format.Fen.Full))
-    val game = lila.game.Game
-      .make(
+    val game = lila.core.game
+      .newGame(
         chess = chess
           .Game(
             variantOption = Some {
@@ -52,6 +52,6 @@ final class AutoPairing(
       .inject(game)
 
   private def makePlayer(color: Color, player: Player) =
-    lila.game.Player.make(color, player.userId, player.rating, player.provisional)
+    newPlayer(color, player.userId, player.rating, player.provisional)
 
   private def usernameOf(player: Player) = lightUserApi.syncFallback(player.userId).name

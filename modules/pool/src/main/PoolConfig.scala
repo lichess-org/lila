@@ -10,9 +10,8 @@ case class PoolConfig(
     clock: chess.Clock.Config,
     wave: PoolConfig.Wave
 ):
-  val perfType = PerfKey(chess.Speed(clock).key.value).fold(PerfType.Classical)(PerfType.apply)
-
-  val id = PoolConfig.clockToId(clock)
+  val perfKey = PerfKey(chess.Speed(clock).key.value) | PerfKey.classical
+  val id      = PoolConfig.clockToId(clock)
 
 object PoolConfig:
 
@@ -31,5 +30,5 @@ object PoolConfig:
       "id"   -> p.id,
       "lim"  -> p.clock.limitInMinutes,
       "inc"  -> p.clock.incrementSeconds,
-      "perf" -> p.perfType.trans
+      "perf" -> PerfType(p.perfKey).trans
     )

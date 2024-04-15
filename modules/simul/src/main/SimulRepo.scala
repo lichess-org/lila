@@ -6,10 +6,11 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
+import lila.core.game.GameRepo
 
-final private[simul] class SimulRepo(val coll: Coll)(using Executor):
+final private[simul] class SimulRepo(val coll: Coll, gameRepo: GameRepo)(using Executor):
 
-  import lila.game.BSONHandlers.given
+  import gameRepo.given
   private given BSONHandler[SimulStatus] = tryHandler(
     { case BSONInteger(v) => SimulStatus(v).toTry(s"No such simul status: $v") },
     x => BSONInteger(x.id)

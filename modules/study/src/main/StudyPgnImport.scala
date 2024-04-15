@@ -6,32 +6,27 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.core.LightUser
-import lila.importer.{ ImportData, Preprocessed }
+import lila.core.game.{ ParseImport, ImportData, ImportReady }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.tree.{ Branch, Branches, Root }
 
-object PgnImport:
+/* #TODO
+ * We should not be using the game importer here, or the Game type.
+ * We're importing a Chapter, not a Game.
+ * Chapter should not depend on Game but only on scalachess.
+ */
+final class StudyPgnImport(parseImport: ParseImport, statusText: lila.core.game.StatusText):
 
-  case class Result(
-      root: Root,
-      variant: chess.variant.Variant,
-      tags: Tags,
-      end: Option[End]
-  )
-
-  case class End(
-      status: Status,
-      outcome: Outcome,
-      resultText: String,
-      statusText: String
-  )
+  import StudyPgnImport.*
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    ImportData(pgn, analyse = none).preprocess(user = none).map {
-      case Preprocessed(game, replay, initialFen, parsedPgn) =>
+    parseImport(ImportData(pgn, analyse = none), none).map {
+      case ImportReady(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
+
+        val clock = parsedPgn.tags.clockConfig.map(_.limit)
         parseComments(parsedPgn.initialPosition.comments, annotator) match
-          case (shapes, _, comments) =>
+          case (shapes, _, _, comments) =>
             val root = Root(
               ply = replay.setup.ply,
               fen = initialFen | game.variant.initialFen,
@@ -39,9 +34,10 @@ object PgnImport:
               shapes = shapes,
               comments = comments,
               glyphs = Glyphs.empty,
-              clock = parsedPgn.tags.clockConfig.map(_.limit),
+              clock = clock,
               crazyData = replay.setup.situation.board.crazyData,
-              children = parsedPgn.tree.fold(Branches.empty)(makeBranches(replay.setup, _, annotator))
+              children = parsedPgn.tree
+                .fold(Branches.empty)(makeBranches(Context(replay.setup, clock, clock), _, annotator))
             )
             val end: Option[End] = (game.finished
               .option(game.status))
@@ -51,7 +47,7 @@ object PgnImport:
                   status = status,
                   outcome = outcome,
                   resultText = chess.Outcome.showResult(outcome.some),
-                  statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
+                  statusText = statusText(status, game.winnerColor, game.variant)
                 )
             val commented =
               if root.mainline.lastOption.so(_.isCommented) then root
@@ -66,6 +62,22 @@ object PgnImport:
               end = end
             )
     }
+
+object StudyPgnImport:
+
+  case class Result(
+      root: Root,
+      variant: chess.variant.Variant,
+      tags: Tags,
+      end: Option[End]
+  )
+
+  case class End(
+      status: Status,
+      outcome: Outcome,
+      resultText: String,
+      statusText: String
+  )
 
   def findAnnotator(pgn: ParsedPgn, contributors: List[LightUser]): Option[Comment.Author] =
     pgn.tags("annotator").map { a =>
@@ -88,47 +100,51 @@ object PgnImport:
   def parseComments(
       comments: List[ChessComment],
       annotator: Option[Comment.Author]
-  ): (Shapes, Option[Centis], Comments) =
-    comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) { case ((shapes, clock, comments), txt) =>
-      CommentParser(txt) match
-        case CommentParser.ParsedComment(s, c, str) =>
-          (
-            (shapes ++ s),
-            c.orElse(clock),
-            (str.trim match
-              case "" => comments
-              case com =>
-                comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
+  ): (Shapes, Option[Centis], Option[Centis], Comments) =
+    comments.foldLeft((Shapes(Nil), none[Centis], none[Centis], Comments(Nil))) {
+      case ((shapes, clock, emt, comments), txt) =>
+        CommentParser(txt) match
+          case CommentParser.ParsedComment(s, c, e, str) =>
+            (
+              (shapes ++ s),
+              c.orElse(clock),
+              e.orElse(emt),
+              (str.trim match
+                case "" => comments
+                case com =>
+                  comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
+              )
             )
-          )
     }
 
   private def makeBranches(
-      prev: chess.Game,
+      context: Context,
       node: PgnNode[PgnNodeData],
       annotator: Option[Comment.Author]
   ): Branches =
-    val variations = node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(prev, x.toNode, annotator))
+    val variations =
+      node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(context, x.toNode, annotator))
     removeDuplicatedChildrenFirstNode(
-      Branches(makeBranch(prev, node, annotator).fold(variations)(_ +: variations))
+      Branches(makeBranch(context, node, annotator).fold(variations)(_ +: variations))
     )
 
   private def makeBranch(
-      prev: chess.Game,
+      context: Context,
       node: PgnNode[PgnNodeData],
       annotator: Option[Comment.Author]
   ): Option[Branch] =
     try
       node.value
-        .san(prev.situation)
+        .san(context.currentGame.situation)
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
-            val game   = moveOrDrop.applyGame(prev)
+            val game   = moveOrDrop.applyGame(context.currentGame)
             val uci    = moveOrDrop.toUci
             val sanStr = moveOrDrop.toSanStr
             parseComments(node.value.metas.comments, annotator) match
-              case (shapes, clock, comments) =>
+              case (shapes, clock, emt, comments) =>
+                val computedClock = clock.orElse((context.previousClock, emt).mapN(_ - _))
                 Branch(
                   id = UciCharPair(uci),
                   ply = game.ply,
@@ -138,9 +154,11 @@ object PgnImport:
                   shapes = shapes,
                   comments = comments,
                   glyphs = node.value.metas.glyphs,
-                  clock = clock,
+                  clock = computedClock,
                   crazyData = game.situation.board.crazyData,
-                  children = node.child.fold(Branches.empty)(makeBranches(game, _, annotator))
+                  children = node.child.fold(Branches.empty)(
+                    makeBranches(Context(game, computedClock, context.currentClock), _, annotator)
+                  )
                 ).some
         )
     catch

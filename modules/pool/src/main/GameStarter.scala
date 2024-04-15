@@ -2,13 +2,13 @@ package lila.pool
 
 import chess.ByColor
 
-import lila.game.{ GameRepo, IdGenerator }
-
+import lila.core.game.{ IdGenerator, GameRepo, NewPlayer, Source }
 import lila.core.pool.{ Pairing, Pairings }
 
 final private class GameStarter(
     userApi: lila.core.user.UserApi,
     gameRepo: GameRepo,
+    newPlayer: NewPlayer,
     idGenerator: IdGenerator,
     onStart: GameId => Unit
 )(using Executor, Scheduler):
@@ -25,7 +25,7 @@ final private class GameStarter(
       workQueue:
         val userIds = couples.flatMap(_.userIds)
         for
-          (perfs, ids) <- userApi.perfOf(userIds, pool.perfType).zip(idGenerator.games(couples.size))
+          (perfs, ids) <- userApi.perfOf(userIds, pool.perfKey).zip(idGenerator.games(couples.size))
           pairings     <- couples.zip(ids).map((one(pool, perfs)).tupled).parallel
         yield lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
 
@@ -63,9 +63,9 @@ final private class GameStarter(
         situation = chess.Situation(chess.variant.Standard),
         clock = pool.clock.toClock.some
       ),
-      players = ByColor(whiteUser, blackUser).mapWithColor(lila.game.Player.make),
+      players = ByColor(whiteUser, blackUser).mapWithColor((u, p) => newPlayer(u, p)),
       mode = chess.Mode.Rated,
       status = chess.Status.Created,
       daysPerTurn = none,
-      metadata = lila.game.Game.metadata(lila.core.game.Source.Pool)
+      metadata = lila.core.game.newMetadata(Source.Pool)
     )

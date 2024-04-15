@@ -32,7 +32,8 @@ import lila.core.game.{
   GameMetadata,
   PgnImport,
   LightPlayer,
-  ClockHistory
+  ClockHistory,
+  emptyDrawOffers
 }
 
 object BSONHandlers:
@@ -43,7 +44,7 @@ object BSONHandlers:
   private[game] given checkCountWriter: BSONWriter[CheckCount] with
     def writeTry(cc: CheckCount) = Success(BSONArray(cc.white, cc.black))
 
-  given BSONHandler[Status] = tryHandler[Status](
+  given statusHandler: BSONHandler[Status] = tryHandler[Status](
     { case BSONInteger(v) => Status(v).toTry(s"No such status: $v") },
     x => BSONInteger(x.id)
   )

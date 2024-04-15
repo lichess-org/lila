@@ -100,8 +100,8 @@ final class ChallengeBulkApi(
             (game.id, users)
       .mapConcat(_.toList)
       .map: (id, users) =>
-        val game = lila.game.Game
-          .make(
+        val game = lila.core.game
+          .newGame(
             chess = chessGame,
             players = users.map(some).mapWithColor(lila.game.Player.make),
             mode = bulk.mode,

@@ -2,7 +2,6 @@ package lila.round
 
 import chess.{ ByColor, Color, Speed }
 
-import lila.game.{ Game, GameRepo, RatingDiffs }
 import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, glicko2, UserPerfs }
 import lila.user.{ RankingApi, User, UserApi }
 import lila.rating.PerfType
@@ -12,7 +11,7 @@ import lila.rating.PerfExt.addOrReset
 import lila.rating.GlickoExt.average
 
 final class PerfsUpdater(
-    gameRepo: GameRepo,
+    gameRepo: lila.game.GameRepo,
     userApi: UserApi,
     rankingApi: RankingApi,
     botFarming: BotFarming,
@@ -22,7 +21,7 @@ final class PerfsUpdater(
   import PerfsUpdater.*
 
   // returns rating diffs
-  def save(game: Game, white: UserWithPerfs, black: UserWithPerfs): Fu[Option[RatingDiffs]] =
+  def save(game: Game, white: UserWithPerfs, black: UserWithPerfs): Fu[Option[ByColor[IntRatingDiff]]] =
     botFarming(game).flatMap {
       if _ then fuccess(none)
       else

@@ -223,7 +223,7 @@ object Event:
     override def watcher = w
     override def owner   = !w
 
-  case class EndData(game: Game, ratingDiff: Option[RatingDiffs]) extends Event:
+  case class EndData(game: Game, ratingDiff: Option[chess.ByColor[IntRatingDiff]]) extends Event:
     def typ = "endData"
     def data =
       Json

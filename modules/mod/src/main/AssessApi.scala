@@ -18,6 +18,7 @@ final class AssessApi(
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     gameRepo: lila.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: AnalysisRepo,
     reportApi: lila.core.report.ReportApi
 )(using Executor):
@@ -199,7 +200,7 @@ final class AssessApi(
     yield wR <= lR - 300)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
-      if !game.analysable then fuccess(none)
+      if !gameApi.analysable(game) then fuccess(none)
       else if game.speed >= chess.Speed.Blitz && players.exists(_.user.hasTitle) then
         fuccess(TitledPlayer.some)
       else if !game.source.exists(assessableSources.contains) then fuccess(none)

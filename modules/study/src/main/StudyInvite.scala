@@ -35,9 +35,7 @@ final private class StudyInvite(
     invited <-
       userApi
         .enabledById(invitedUsername)
-        .map(
-          _.filterNot(u => UserId.lichess.is(u) && !Granter(_.StudyAdmin))
-        )
+        .map(_.filterNot(u => UserId.lichess.is(u) && !Granter(_.StudyAdmin)))
         .orFail("No such invited")
     _         <- study.members.contains(invited).so(fufail[Unit]("Already a member"))
     relation  <- relationApi.fetchRelation(invited.id, byUserId)

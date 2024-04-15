@@ -35,7 +35,7 @@ final class SwissApi(
     chatApi: lila.core.chat.ChatApi,
     userApi: lila.core.user.UserApi,
     lightUserApi: lila.core.user.LightUserApi,
-    roundApi: lila.game.core.RoundApi
+    roundApi: lila.core.round.RoundApi
 )(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
     extends lila.core.swiss.SwissApi:
 

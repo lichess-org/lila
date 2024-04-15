@@ -10,7 +10,6 @@ import scala.util.chaining.*
 
 import scalalib.paginator.Paginator
 import lila.common.{ Bus, Debouncer }
-import lila.game.{ GameRepo }
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
 import lila.core.team.LightTeam
@@ -22,7 +21,7 @@ import lila.core.game.LightPov
 final class TournamentApi(
     cached: TournamentCache,
     userApi: lila.core.user.UserApi,
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
@@ -31,7 +30,7 @@ final class TournamentApi(
     pairingSystem: arena.PairingSystem,
     callbacks: TournamentApi.Callbacks,
     socket: TournamentSocket,
-    roundApi: lila.game.core.RoundApi,
+    roundApi: lila.core.round.RoundApi,
     gameProxy: lila.core.game.GameProxy,
     trophyApi: lila.core.user.TrophyApi,
     colorHistoryApi: ColorHistoryApi,

@@ -3,16 +3,22 @@ package game
 
 import cats.derived.*
 import play.api.libs.json.*
-import reactivemongo.api.bson.BSONDocumentHandler
+import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
 import reactivemongo.api.bson.collection.BSONCollection
-import _root_.chess.{ Color, ByColor, Speed, Ply }
+import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis, Replay, ErrorStr }
 import _root_.chess.format.Fen
-import _root_.chess.format.pgn.Pgn
+import _root_.chess.format.pgn.{ Pgn, PgnStr, ParsedPgn }
 
 import lila.core.id.{ GameId, GameFullId, GamePlayerId, TeamId }
 import lila.core.userId.UserId
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.perf.UserWithPerfs
+import lila.core.user.User
+import _root_.chess.variant.Variant
+import lila.core.userId.MyId
+
+val maxPlaying         = Max(200) // including correspondence
+val maxPlayingRealtime = Max(100)
 
 case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
 object PlayerRef:
@@ -28,6 +34,8 @@ object GameRule:
 
 opaque type OnStart = GameId => Unit
 object OnStart extends FunctionWrapper[OnStart, GameId => Unit]
+
+case class GameStart(id: GameId)
 
 case class TvSelect(gameId: GameId, speed: Speed, channel: String, data: JsObject)
 case class ChangeFeatured(mgs: JsObject)
@@ -46,7 +54,8 @@ case class CorresAlarmEvent(userId: UserId, pov: Pov, opponent: String)
 case class WithInitialFen(game: Game, fen: Option[Fen.Full])
 
 opaque type Blurs = Long
-object Blurs extends OpaqueLong[Blurs]
+object Blurs extends OpaqueLong[Blurs]:
+  extension (bits: Blurs) def nb: Int = java.lang.Long.bitCount(bits.value)
 
 enum Source(val id: Int) derives Eq:
   def name = toString.toLowerCase
@@ -78,12 +87,19 @@ trait Event:
   def troll: Boolean        = false
   def moveBy: Option[Color] = None
 
+type StatusText = (Status, Option[Color], Variant) => String
 trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
   def incBookmarks(id: GameId, by: Int): Funit
+  def computeMoveTimes(g: Game, color: Color): Option[List[Centis]]
+  def analysable(g: Game): Boolean
+  val statusText: StatusText
+  def nbPlaying(userId: UserId): Fu[Int]
+  def anonCookieJson(pov: lila.core.game.Pov): Option[JsObject]
 
 abstract class GameRepo(val coll: BSONCollection):
   given gameHandler: BSONDocumentHandler[Game]
+  given statusHandler: BSONHandler[Status]
   val light: GameLightRepo
   def game(gameId: GameId): Fu[Option[Game]]
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]]
@@ -93,13 +109,25 @@ abstract class GameRepo(val coll: BSONCollection):
   def initialFen(gameId: GameId): Fu[Option[Fen.Full]]
   def initialFen(game: Game): Fu[Option[Fen.Full]]
   def withInitialFen(game: Game): Fu[WithInitialFen]
+  def gameWithInitialFen(gameId: GameId): Fu[Option[WithInitialFen]]
   def isAnalysed(game: Game): Fu[Boolean]
+  def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit
+  def recentAnalysableGamesByUserId(userId: UserId, nb: Int): Fu[List[Game]]
+  def lastGamesBetween(u1: User, u2: User, since: Instant, nb: Int): Fu[List[Game]]
+  def analysed(id: GameId): Fu[Option[Game]]
+  def setAnalysed(id: GameId, v: Boolean): Funit
+  def finish(id: GameId, winnerColor: Option[Color], winnerId: Option[UserId], status: Status): Funit
+  def remove(id: GameId): Funit
 
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit
   def game(gameId: GameId): Fu[Option[Game]]
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]]
   def flushIfPresent(gameId: GameId): Funit
+
+trait UciMemo:
+  def get(game: Game): Fu[Vector[String]]
+  def sign(game: Game): Fu[String]
 
 trait PgnDump:
   def apply(
@@ -108,6 +136,15 @@ trait PgnDump:
       flags: PgnDump.WithFlags,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn]
+
+case class ImportData(pgn: PgnStr, analyse: Option[String])
+case class ImportReady(game: NewGame, replay: Replay, initialFen: Option[Fen.Full], parsed: ParsedPgn)
+
+type ParseImport = (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady]
+
+trait Importer:
+  val parseImport: ParseImport
+  def importAsGame(data: ImportData, forceId: Option[GameId] = none)(using Option[MyId]): Fu[Game]
 
 object PgnDump:
   case class WithFlags(
@@ -128,11 +165,15 @@ object PgnDump:
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
 
 object BSONFields:
-  val id         = "_id"
-  val playerUids = "us"
-  val winnerId   = "wid"
-  val createdAt  = "ca"
-  val movedAt    = "ua" // ua = updatedAt (bc)
+  val id          = "_id"
+  val playerUids  = "us"
+  val winnerId    = "wid"
+  val createdAt   = "ca"
+  val movedAt     = "ua" // ua = updatedAt (bc)
+  val turns       = "t"
+  val analysed    = "an"
+  val pgnImport   = "pgni"
+  val playingUids = "pl"
 
 def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
   val iterA   = a.iterator
