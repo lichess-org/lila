@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import scala.reflect.Selectable.reflectiveSelectable
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.core.captcha.Captcha
 import play.api.data.{ Form, Field }
@@ -22,8 +22,7 @@ object captcha:
       form3.hidden(formField(form, "gameId"), captcha.gameId.value.some),
       if ctx.blind then form3.hidden(formField(form, "move"), captcha.solutions.head.some)
       else
-        val url =
-          netBaseUrl + routes.Round.watcher(captcha.gameId.value, captcha.color.name)
+        val url = s"$netBaseUrl${routes.Round.watcher(captcha.gameId.value, captcha.color.name)}"
         div(
           cls := List(
             "captcha form-group" -> true,

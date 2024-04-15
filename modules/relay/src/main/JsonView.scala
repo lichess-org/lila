@@ -6,7 +6,6 @@ import lila.common.Json.given
 import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.study.ChapterPreview
-import lila.user.Me
 
 final class JsonView(
     baseUrl: BaseUrl,

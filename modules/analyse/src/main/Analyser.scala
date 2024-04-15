@@ -3,13 +3,12 @@ package lila.analyse
 import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.game.actorApi.InsertGame
-import lila.game.{ Game, GameRepo }
+import lila.core.game.InsertGame
 import lila.core.misc.map.TellIfExists
-import lila.tree.Analysis
+import lila.tree.{ Analysis, ExportOptions, Tree }
 
 final class Analyser(
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     analysisRepo: AnalysisRepo
 )(using Executor):
 
@@ -24,7 +23,7 @@ final class Analyser(
         gameRepo.game(id).flatMapz { prev =>
           val game = prev.setAnalysed
           for
-            _ <- gameRepo.setAnalysed(game.id)
+            _ <- gameRepo.setAnalysed(game.id, true)
             _ <- analysisRepo.save(analysis)
             _ <- sendAnalysisProgress(analysis, complete = true)
           yield
@@ -61,6 +60,5 @@ final class Analyser(
   ): JsObject =
     Json.obj(
       "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
-      "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
-        lila.tree.TreeBuilder(game, analysis.some, initialFen, lila.tree.ExportOptions.default)
+      "tree"     -> Tree.makeMinimalJsonString(game, analysis.some, initialFen, ExportOptions.default)
     )

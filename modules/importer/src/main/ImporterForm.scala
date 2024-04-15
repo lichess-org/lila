@@ -9,7 +9,9 @@ import play.api.data.Forms.*
 import scala.util.chaining.*
 
 import lila.common.Form.into
-import lila.game.*
+import lila.game.GameExt.finish
+import lila.core.game.NewGame
+import lila.core.game.Player
 
 final class ImporterForm:
 
@@ -30,6 +32,7 @@ object ImporterForm:
       ErrorStr("This PGN seems too long or too complex!").asLeft
 
 private case class TagResult(status: Status, winner: Option[Color])
+
 case class Preprocessed(
     game: NewGame,
     replay: Replay,
@@ -86,14 +89,14 @@ case class ImportData(pgn: PgnStr, analyse: Option[String]):
 
             val date = parsed.tags.anyDate
 
-            val dbGame = Game
-              .make(
+            val dbGame = lila.core.game
+              .newGame(
                 chess = game,
                 players = ByColor: c =>
-                  Player.makeImported(c, parsed.tags.names(c), parsed.tags.elos(c)),
+                  lila.game.Player.makeImported(c, parsed.tags.names(c), parsed.tags.elos(c)),
                 mode = Mode.Casual,
                 source = lila.core.game.Source.Import,
-                pgnImport = PgnImport.make(user = user, date = date, pgn = pgn).some
+                pgnImport = lila.game.PgnImport.make(user = user, date = date, pgn = pgn).some
               )
               .sloppy
               .start

@@ -24,7 +24,7 @@ final class Cached(
       .expireAfterWrite(11 seconds)
       .build(gameRepo.lastPlayedPlayingId)
 
-  lila.common.Bus.subscribeFun("startGame") { case lila.game.actorApi.StartGame(game) =>
+  lila.common.Bus.subscribeFun("startGame") { case lila.core.game.StartGame(game) =>
     game.userIds.foreach(lastPlayedPlayingIdCache.invalidate)
   }
 

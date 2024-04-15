@@ -5,11 +5,12 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import scalalib.paginator.Paginator
 import lila.i18n.LangList
-import lila.user.{ Flag, Flags }
+import lila.core.user.Flag
+import lila.user.Flags
 
 object index:
 

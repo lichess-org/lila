@@ -6,10 +6,12 @@ import reactivemongo.api.bson.*
 import scala.util.Try
 
 import lila.db.ByteArray
-import lila.db.ByteArray.byteArrayHandler
+import lila.db.ByteArray.given
 import lila.db.dsl.given
 
-import Game.BSONFields.*
+import lila.core.game.{ Game, Player }
+
+import lila.game.Game.BSONFields.*
 
 object GameDiff:
 
@@ -80,7 +82,7 @@ object GameDiff:
           (o: Option[chess.variant.Crazyhouse.Data]) => o.map(BSONHandlers.crazyhouseDataHandler.write)
         )
     d(turns, _.ply, ply => w.int(ply.value))
-    dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o.flatMap(byteArrayHandler.writeOpt))
+    dOpt(moveTimes, _.binaryMoveTimes, (o: Option[Array[Byte]]) => o.flatMap(arrayByteHandler.writeOpt))
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
     dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)
     dOpt(
@@ -93,7 +95,7 @@ object GameDiff:
     )
     dTry(drawOffers, _.drawOffers, BSONHandlers.gameDrawOffersHandler.writeTry)
     for i <- 0 to 1 do
-      import Player.BSONFields.*
+      import lila.game.Player.BSONFields.*
       val name                   = s"p$i."
       val player: Game => Player = if i == 0 then (_.whitePlayer) else (_.blackPlayer)
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)

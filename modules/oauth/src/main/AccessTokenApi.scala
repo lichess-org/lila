@@ -67,7 +67,7 @@ final class AccessTokenApi(
 
   def adminChallengeTokens(
       setup: OAuthTokenForm.AdminChallengeTokensData,
-      admin: lila.core.user.User
+      admin: User
   ): Fu[Map[UserId, AccessToken]] =
     userApi
       .enabledByIds(setup.usernames)

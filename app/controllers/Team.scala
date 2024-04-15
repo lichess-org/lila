@@ -11,7 +11,6 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.LightUser
 import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
-import lila.user.User as UserModel
 
 final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -262,7 +261,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       Ok.page(html.team.form.create(forms.create, anyCaptcha))
   }
 
-  private val OneAtATime = lila.app.http.FutureConcurrencyLimit[UserId](
+  private val OneAtATime = lila.web.FutureConcurrencyLimit[UserId](
     key = "team.concurrency.user",
     ttl = 10.minutes,
     maxConcurrency = 1

@@ -8,14 +8,12 @@ import lila.core.socket.{ GetVersion, SocketVersion }
 @Module
 final class Env(
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart,
     gameCache: lila.game.Cached,
     rematches: lila.game.Rematches,
     lightUser: lila.core.LightUser.GetterSync,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     isOnline: lila.core.socket.IsOnline,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,

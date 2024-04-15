@@ -2,7 +2,6 @@ package lila.irwin
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.rating.Perf
 import lila.report.Suspect
 import lila.core.perf.PerfId
 import lila.rating.PerfType

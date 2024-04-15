@@ -7,7 +7,6 @@ import lila.game.GameRepo
 import lila.insight.InsightPerfStats
 import lila.memo.SettingStore
 import lila.rating.PerfType
-import lila.user.User
 
 final private class TutorFishnet(
     gameRepo: GameRepo,

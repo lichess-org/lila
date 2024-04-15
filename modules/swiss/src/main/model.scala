@@ -1,6 +1,5 @@
 package lila.swiss
 
-import lila.user.User
 import lila.core.chess.Rank
 
 opaque type SwissRoundNumber = Int

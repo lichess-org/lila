@@ -14,9 +14,7 @@ final class Env(
     relationApi: lila.core.relation.RelationApi,
     hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     gameCache: lila.game.Cached,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     gameRepo: lila.game.GameRepo,
     poolApi: lila.core.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
@@ -47,4 +45,4 @@ final class Env(
   val socket = wire[LobbySocket]
 
   lila.common.Bus.subscribeFun("abortGame"):
-    case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
+    case lila.core.game.AbortedBy(pov) => abortListener(pov)

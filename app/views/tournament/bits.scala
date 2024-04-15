@@ -3,7 +3,7 @@ package views.html.tournament
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey as trans
 import lila.tournament.Tournament
 
@@ -48,7 +48,7 @@ object bits:
     )
 
   def userPrizeDisclaimer(ownerId: UserId) =
-    (!env.prizeTournamentMakers
+    (!env.web.settings.prizeTournamentMakers
       .get()
       .value
       .contains(ownerId))

@@ -6,9 +6,10 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.tournament.BSONHandlers.given
-import lila.user.User
+
 import lila.core.userId.UserSearch
 import lila.core.chess.Rank
+import lila.core.user.WithPerf
 
 final class PlayerRepo(coll: Coll)(using Executor):
 
@@ -168,7 +169,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
           teamId <- doc.getAsOpt[TeamId]("t")
         yield (userId, teamId)
 
-  def teamVs(tourId: TourId, game: lila.game.Game): Fu[Option[TeamBattle.TeamVs]] =
+  def teamVs(tourId: TourId, game: Game): Fu[Option[TeamBattle.TeamVs]] =
     game.twoUserIds.so: (w, b) =>
       teamsOfPlayers(tourId, List(w, b)).dmap(_.toMap).map { m =>
         (m.get(w), m.get(b)).mapN: (wt, bt) =>
@@ -210,7 +211,7 @@ final class PlayerRepo(coll: Coll)(using Executor):
 
   def join(
       tourId: TourId,
-      user: User.WithPerf,
+      user: WithPerf,
       team: Option[TeamId],
       prev: Option[Player]
   ) = prev match

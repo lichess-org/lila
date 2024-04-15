@@ -5,14 +5,15 @@ import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.variant.Variant
 
-import lila.game.{ Game, Namer }
+import lila.game.{ Namer }
 import lila.tree.{ Branches, Root }
 import lila.core.i18n.Translator
 import lila.core.id.GameFullId
+import lila.game.GameExt.synthetic
 
 final private class ChapterMaker(
     net: lila.core.config.NetConfig,
-    lightUser: lila.user.LightUserApi,
+    lightUser: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
     gameRepo: lila.game.GameRepo,
     pgnFetch: PgnFetch,

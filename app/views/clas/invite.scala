@@ -3,7 +3,7 @@ package views.html.clas
 import controllers.clas.routes.Clas as clasRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite }
 
 object invite:

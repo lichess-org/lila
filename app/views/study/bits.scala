@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.removeMultibyteSymbols
 import lila.study.{ Order, Study }
 

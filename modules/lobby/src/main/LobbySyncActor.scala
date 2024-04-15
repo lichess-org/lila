@@ -165,7 +165,7 @@ final private class LobbySyncActor(
       for
         w <- g.whitePlayer.userId
         b <- g.blackPlayer.userId
-        if g.fromLobby
+        if g.sourceIs(_.Lobby)
       do cache.put(makeKey(w, b))
     def exists(u1: UserId, u2: UserId) = cache.get(makeKey(u1, u2))
 

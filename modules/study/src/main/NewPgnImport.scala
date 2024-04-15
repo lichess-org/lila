@@ -66,7 +66,7 @@ object NewPgnImport:
                 status = status,
                 outcome = Outcome(game.winnerColor),
                 resultText = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some),
-                statusText = lila.game.StatusText(status, game.winnerColor, game.variant)
+                statusText = lila.game.StatusText.apply(status, game.winnerColor, game.variant)
               )
             }
             val commented =

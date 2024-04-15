@@ -115,7 +115,7 @@ final class Env(
     "accountClose" -> { case lila.core.security.CloseAccount(userId) =>
       resignAllGamesOf(userId)
     },
-    "gameStartId" -> { case Game.OnStart(gameId) =>
+    "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
       onStart(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
@@ -134,7 +134,7 @@ final class Env(
           lightUserApi
             .preloadMany(game.userIds)
             .andDo:
-              val sg = lila.game.actorApi.StartGame(game)
+              val sg = lila.core.game.StartGame(game)
               Bus.publish(sg, "startGame")
               game.userIds.foreach: userId =>
                 Bus.publish(sg, s"userStartGame:$userId")
@@ -205,11 +205,11 @@ final class Env(
   val apiMoveStream = wire[ApiMoveStream]
 
   // core APIs
-  val gameProxy: lila.game.core.GameProxy = new:
+  val gameProxy: lila.core.game.GameProxy = new:
     export proxyRepo.{ game, updateIfPresent, flushIfPresent, upgradeIfPresent }
-  val roundJson: lila.game.core.RoundJson = new:
+  val roundJson: lila.core.round.RoundJson = new:
     export mobile.offline as mobileOffline
-  val roundApi: lila.game.core.RoundApi = new:
+  val roundApi: lila.core.round.RoundApi = new:
     export roundSocket.rounds.{ tell, ask }
     export roundSocket.getGames
   val onTvGame: lila.game.core.OnTvGame = recentTvGames.put

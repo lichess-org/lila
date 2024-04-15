@@ -4,15 +4,16 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
-import lila.game.{ Game, Pov }
+import lila.web.ui.ScalatagsTemplate.*
+
 import lila.rating.PerfType
+import lila.game.GameExt.perfType
 
 object bits:
 
   def gameIcon(game: Game): Icon =
     if game.fromPosition then Icon.Feather
-    else if game.imported then Icon.UploadCloud
+    else if game.sourceIs(_.Import) then Icon.UploadCloud
     else if game.variant.exotic then game.perfType.icon
     else if game.hasAi then Icon.Cogs
     else game.perfType.icon
@@ -23,7 +24,7 @@ object bits:
       tour: Option[lila.tournament.TourAndTeamVs],
       cross: Option[lila.game.Crosstable.WithMatchup],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context) =
     div(

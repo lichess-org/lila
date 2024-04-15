@@ -9,7 +9,6 @@ import lila.common.Json.given
 import lila.core.LightUser
 import scalalib.paginator.Paginator
 import lila.game.Game
-import lila.user.User
 
 final class UserGameApi(
     bookmarkApi: lila.bookmark.BookmarkApi,

@@ -3,11 +3,12 @@ package views.html.mod
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.core.perf.UserWithPerfs
 
 object emailConfirm:
 
-  def apply(query: String, user: Option[lila.user.User.WithPerfs], email: Option[EmailAddress])(using
+  def apply(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using
       ctx: PageContext
   ) =
     views.html.base.layout(

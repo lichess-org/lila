@@ -5,7 +5,7 @@ import chess.variant.Variant.given
 import lila.common.Icon
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
-import lila.user.User
+
 import lila.core.tournament.Status
 import lila.common.Icon
 

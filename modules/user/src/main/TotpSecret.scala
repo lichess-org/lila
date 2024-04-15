@@ -2,40 +2,34 @@ package lila.user
 
 import org.apache.commons.codec.binary.Base32
 import scalalib.SecureRandom
-import reactivemongo.api.bson.*
-
 import java.nio.ByteBuffer
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
-import User.TotpToken
+import lila.core.user.TotpSecret
 
-case class TotpSecret(secret: Array[Byte]) extends AnyVal:
-  import TotpSecret.*
+object TotpSecret:
 
-  override def toString = "TotpSecret(****)"
+  extension (it: TotpSecret)
 
-  def base32: String = new Base32().encodeAsString(secret)
+    def base32: String = new Base32().encodeAsString(it.secret)
 
-  def currentTotp = totp(System.currentTimeMillis / 30000)
+    def currentTotp = it.totp(System.currentTimeMillis / 30000)
 
-  def totp(period: Long): TotpToken =
-    TotpToken {
+    def totp(period: Long): TotpToken = TotpToken:
       val msg = ByteBuffer.allocate(8).putLong(0, period).array
 
       val hmac = Mac.getInstance("HMACSHA1")
-      hmac.init(new SecretKeySpec(secret, "RAW"))
+      hmac.init(new SecretKeySpec(it.secret, "RAW"))
       val hash = hmac.doFinal(msg)
 
       val offset = hash.last & 0xf
       otpString(ByteBuffer.wrap(hash).getInt(offset) & 0x7fffffff)
-    }
 
-  def verify(token: TotpToken): Boolean =
-    val period = System.currentTimeMillis / 30000
-    skewList.exists(skew => totp(period + skew) == token)
+    def verify(token: TotpToken): Boolean =
+      val period = System.currentTimeMillis / 30000
+      skewList.exists(skew => totp(period + skew) == token)
 
-object TotpSecret:
   // clock skews in rough order of likelihood
   private val skewList = List(0, -1, 1, -2, 2, -3, 3)
 
@@ -43,11 +37,6 @@ object TotpSecret:
     val s = (otp % 1000000).toString
     "0" * (6 - s.length) + s
 
-  def apply(base32: String) = new TotpSecret(new Base32().decode(base32))
+  def decode(base32: String) = new TotpSecret(new Base32().decode(base32))
 
-  def random = TotpSecret(SecureRandom.nextBytes(20))
-
-  private[user] given BSONHandler[TotpSecret] = lila.db.dsl.quickHandler[TotpSecret](
-    { case v: BSONBinary => TotpSecret(v.byteArray) },
-    v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
-  )
+  def random = new TotpSecret(SecureRandom.nextBytes(20))

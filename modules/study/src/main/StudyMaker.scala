@@ -2,11 +2,11 @@ package lila.study
 
 import chess.format.Fen
 
-import lila.game.{ Game, Namer, Pov }
-import lila.user.User
+import lila.game.Namer
+import lila.core.game.WithInitialFen
 
 final private class StudyMaker(
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     gameRepo: lila.game.GameRepo,
     chapterMaker: ChapterMaker,
     pgnDump: lila.game.PgnDump
@@ -16,7 +16,7 @@ final private class StudyMaker(
     (data.form.gameId
       .so(gameRepo.gameWithInitialFen))
       .flatMap {
-        case Some(Game.WithInitialFen(game, initialFen)) =>
+        case Some(WithInitialFen(game, initialFen)) =>
           createFromPov(
             data,
             Pov(game, data.form.orientation.flatMap(_.resolve) | chess.White),

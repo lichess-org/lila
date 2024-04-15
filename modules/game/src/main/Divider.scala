@@ -12,7 +12,7 @@ final class Divider(using Executor):
     .expireAfterAccess(5 minutes)
     .build[GameId, Division]()
 
-  def apply(game: Game, initialFen: Option[Fen.Full]): Division =
+  def apply(game: CoreGame, initialFen: Option[Fen.Full]): Division =
     apply(game.id, game.sans, game.variant, initialFen)
 
   def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]) =

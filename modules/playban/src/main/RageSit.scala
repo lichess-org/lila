@@ -4,7 +4,6 @@ import chess.{ Color, Speed }
 import scalalib.ThreadLocalRandom
 
 import lila.core.playban.RageSit
-import lila.game.Game
 
 object RageSit:
 

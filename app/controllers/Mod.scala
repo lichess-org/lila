@@ -16,7 +16,6 @@ import lila.core.perm.Permission
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
 import lila.security.FingerHash
-import lila.user.User as UserModel
 import lila.core.net.IpAddress
 import lila.core.userId.ModId
 
@@ -287,7 +286,7 @@ final class Mod(
                       .take(15),
                     convos,
                     publicLines,
-                    notes.filter(_.from != lila.user.User.irwinId),
+                    notes.filter(_.from != UserId.irwin),
                     history,
                     logins,
                     appeals,
@@ -485,7 +484,7 @@ final class Mod(
         val username = query.lift(1)
         def tryWith(setEmail: EmailAddress, q: String): Fu[Option[Result]] =
           env.mod.search(q).map(_.filter(_.user.enabled.yes)).flatMap {
-            case List(UserModel.WithPerfsAndEmails(user, _)) =>
+            case List(lila.user.WithPerfsAndEmails(user, _)) =>
               for
                 _ <- (!user.everLoggedIn).so {
                   lila.mon.user.register.modConfirmEmail.increment()

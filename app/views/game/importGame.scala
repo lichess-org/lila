@@ -5,7 +5,7 @@ import chess.format.pgn.PgnStr
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object importGame:
 
@@ -17,7 +17,7 @@ object importGame:
       title = trans.site.importGame.txt(),
       moreCss = cssTag("importer"),
       moreJs = iifeModule("javascripts/importer.js"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Paste PGN chess game",
           url = s"$netBaseUrl${routes.Importer.importGame.url}",

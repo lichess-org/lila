@@ -97,7 +97,7 @@ object Permission:
     )
   )
 
-  def expanded(u: lila.core.user.User): Set[Permission] =
+  def expanded(u: User): Set[Permission] =
     val level0 = apply(u)
     val level1 = level0.flatMap(_.alsoGrants)
     val level2 = level1.flatMap(_.alsoGrants)

@@ -2,22 +2,21 @@ package lila.clas
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-
 import java.time.Duration
+import scalalib.model.Days
 
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo }
+import lila.core.game.{ GameRepo }
 import lila.puzzle.PuzzleRound
 import lila.rating.PerfType
-import lila.user.User
-import scalalib.model.Days
+import lila.core.user.WithPerf
 
 case class ClasProgress(
     perfType: PerfType,
     days: Int,
     students: Map[UserId, StudentProgress]
 ):
-  def apply(user: User.WithPerf) =
+  def apply(user: WithPerf) =
     students.getOrElse(
       user.id,
       StudentProgress(
@@ -116,16 +115,15 @@ final class ClasProgressApi(
       userIds: List[UserId],
       days: Int
   ): Fu[Map[UserId, PlayStats]] =
-    import Game.{ BSONFields as F }
-    import lila.game.Query
+    import lila.core.game.{ BSONFields as F }
     gameRepo.coll
       .aggregateList(maxDocs = Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
           $doc(
             F.playerUids.$in(userIds),
-            Query.createdSince(nowInstant.minusDays(days)),
-            F.perfType -> perfType.id
+            F.createdAt.$gte(nowInstant.minusDays(days)),
+            gamePerfField -> perfType.id
           )
         ) -> List(
           Project(
@@ -159,5 +157,13 @@ final class ClasProgressApi(
           }
         .toMap
 
-  private[clas] def onFinishGame(game: lila.game.Game): Unit =
-    if game.userIds.exists(studentCache.isStudent) then gameRepo.denormalizePerfType(game)
+  private val gamePerfField = "pt"
+
+  private[clas] def onFinishGame(game: Game): Unit =
+    if game.userIds.exists(studentCache.isStudent)
+    then
+      gameRepo.coll.updateFieldUnchecked(
+        $id(game.id),
+        gamePerfField,
+        lila.rating.PerfType(game.perfKey).id
+      )

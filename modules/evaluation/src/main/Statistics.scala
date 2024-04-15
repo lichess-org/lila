@@ -1,8 +1,9 @@
 package lila.evaluation
 
 import chess.{ Centis, Stats }
-
 import scalalib.Maths
+
+import lila.game.GameExt.computeMoveTimes
 
 object Statistics:
 
@@ -30,14 +31,14 @@ object Statistics:
   def moveTimeCoefVariationNoDrop(a: List[Centis]): Option[Float] =
     coefVariation(a.map(_.centis + 10))
 
-  def moveTimeCoefVariation(pov: lila.game.Pov): Option[Float] =
+  def moveTimeCoefVariation(pov: Pov): Option[Float] =
     for
       mt   <- moveTimes(pov)
       coef <- moveTimeCoefVariation(mt)
     yield coef
 
-  def moveTimes(pov: lila.game.Pov): Option[List[Centis]] =
-    pov.game.moveTimes(pov.color)
+  def moveTimes(pov: Pov): Option[List[Centis]] =
+    lila.game.GameExt.computeMoveTimes(pov.game, pov.color)
 
   def cvIndicatesHighlyFlatTimes(c: Float) =
     c < 0.25
@@ -50,7 +51,7 @@ object Statistics:
 
   private val instantaneous = Centis(0)
 
-  def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
+  def slidingMoveTimesCvs(pov: Pov): Option[Iterator[Float]] =
     moveTimes(pov).so {
       _.iterator
         .sliding(14)
@@ -60,12 +61,12 @@ object Statistics:
         .some
     }
 
-  def moderatelyConsistentMoveTimes(pov: lila.game.Pov): Boolean =
+  def moderatelyConsistentMoveTimes(pov: Pov): Boolean =
     moveTimeCoefVariation(pov).so { cvIndicatesModeratelyFlatTimes(_) }
 
   private val fastMove = Centis(50)
-  def noFastMoves(pov: lila.game.Pov): Boolean =
-    val moveTimes = ~pov.game.moveTimes(pov.color)
+  def noFastMoves(pov: Pov): Boolean =
+    val moveTimes = ~lila.game.GameExt.computeMoveTimes(pov.game, pov.color)
     moveTimes.count(fastMove > _) <= (moveTimes.size / 20) + 2
 
   def listAverage[T: Numeric](x: List[T]) = ~Maths.mean(x)

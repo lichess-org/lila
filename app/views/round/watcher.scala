@@ -4,8 +4,7 @@ package round
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Pov
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object watcher:
 
@@ -15,7 +14,7 @@ object watcher:
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
   )(using ctx: PageContext) =

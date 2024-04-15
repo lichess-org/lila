@@ -15,15 +15,16 @@ import lila.app.mashup.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
-import lila.game.{ Game as GameModel, Pov }
 import lila.mod.UserWithModlog
 import lila.security.UserLogins
-import lila.user.User as UserModel
-import lila.core.perf.PerfKey
+import lila.user.WithPerfsAndEmails
+
 import lila.rating.PerfType
 import lila.core.net.IpAddress
 import lila.core.user.LightPerf
 import lila.core.userId.UserSearch
+import lila.rating.UserPerfsExt.best8Perfs
+import lila.core.perf.PerfKeyStr
 
 final class User(
     override val env: Env,
@@ -121,7 +122,7 @@ final class User(
               )
               _ <- lightUserApi.preloadMany(pag.currentPageResults.flatMap(_.userIds))
               _ <- env.tournament.cached.nameCache.preloadMany {
-                pag.currentPageResults.flatMap(_.tournamentId).map(_ -> ctx.lang)
+                pag.currentPageResults.flatMap((_: GameModel).tournamentId).map(tid => tid -> ctx.lang)
               }
               notes <- ctx.me.so: me =>
                 env.round.noteApi.byGameIds(pag.currentPageResults.map(_.id), me)
@@ -276,15 +277,15 @@ final class User(
       JsonOk(leaderboards)
     }
 
-  def topNb(nb: Int, perfKey: PerfKey) = Open:
+  def topNb(nb: Int, perfKey: PerfKeyStr) = Open:
     Found(topNbUsers(nb, perfKey)): (users, perfType) =>
       negotiate(
         (nb == 200).so(Ok.page(html.user.top(perfType, users))),
         topNbJson(users)
       )
 
-  def topNbApi(nb: Int, perfKey: PerfKey) = Anon:
-    if nb == 1 && perfKey == PerfKey("standard") then
+  def topNbApi(nb: Int, perfKey: PerfKeyStr) = Anon:
+    if nb == 1 && perfKey == PerfKeyStr("standard") then
       env.user.cached.top10.get {}.map { leaderboards =>
         import env.user.jsonView.lightPerfIsOnlineWrites
         import lila.user.JsonView.leaderboardStandardTopOneWrites
@@ -292,11 +293,13 @@ final class User(
       }
     else Found(topNbUsers(nb, perfKey)) { users => topNbJson(users._1) }
 
-  private def topNbUsers(nb: Int, perfKey: PerfKey) =
-    PerfType(perfKey).soFu: perfType =>
-      env.user.cached.top200Perf.get(perfType.id).dmap {
-        _.take(nb.atLeast(1).atMost(200)) -> perfType
-      }
+  private def topNbUsers(nb: Int, perfKey: PerfKeyStr) =
+    PerfKey
+      .read(perfKey)
+      .soFu: perfKey =>
+        env.user.cached.top200Perf.get(PerfType(perfKey).id).dmap {
+          _.take(nb.atLeast(1).atMost(200)) -> PerfType(perfKey)
+        }
 
   private def topNbJson(users: List[LightPerf]) =
     given OWrites[LightPerf] = OWrites(env.user.jsonView.lightPerfIsOnline)
@@ -350,10 +353,10 @@ final class User(
       me: Me
   ): Fu[Result] =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
-      case UserModel.WithPerfsAndEmails(user, emails) =>
+      case WithPerfsAndEmails(user, emails) =>
         withPageContext:
           import html.user.{ mod as view }
-          import lila.app.ui.ScalatagsExtensions.{ emptyFrag, given }
+          import lila.web.ui.ScalatagsExtensions.{ emptyFrag, given }
           given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
 
           val nbOthers = getInt("nbOthers") | 100
@@ -453,7 +456,7 @@ final class User(
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
-      case UserModel.WithPerfsAndEmails(user, emails) =>
+      case WithPerfsAndEmails(user, emails) =>
         env.user.repo.isErased(user).flatMap { erased =>
           Ok.page:
             html.user.mod.actions(
@@ -550,7 +553,7 @@ final class User(
       yield Ok(page)
   }
 
-  def perfStat(username: UserStr, perfKey: PerfKey) = Open:
+  def perfStat(username: UserStr, perfKey: PerfKeyStr) = Open:
     Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiate(
         Ok.pageAsync:
@@ -613,10 +616,10 @@ final class User(
             else fuccess(Json.toJson(userIds))
           }.map(JsonOk)
 
-  def ratingDistribution(perfKey: PerfKey, username: Option[UserStr] = None) = Open:
-    Found(PerfType(perfKey).filter(lila.rating.PerfType.isLeaderboardable)): perfType =>
-      env.user.rankingApi
-        .weeklyRatingDistribution(perfType)
+  def ratingDistribution(perfKey: PerfKeyStr, username: Option[UserStr] = None) = Open:
+    Found(PerfKey.read(perfKey).filter(lila.rating.PerfType.isLeaderboardable)): perfKey =>
+      env.perfStat.api
+        .weeklyRatingDistribution(perfKey)
         .flatMap: data =>
           WithMyPerfs:
             username match
@@ -625,8 +628,8 @@ final class User(
                   env.user.perfsRepo
                     .withPerfs(u)
                     .flatMap: u =>
-                      Ok.page(html.stat.ratingDistribution(perfType, data, u.some))
-              case _ => Ok.page(html.stat.ratingDistribution(perfType, data, none))
+                      Ok.page(html.stat.ratingDistribution(perfKey, data, u.some))
+              case _ => Ok.page(html.stat.ratingDistribution(perfKey, data, none))
 
   def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))

@@ -5,9 +5,9 @@ import controllers.routes
 import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
-import lila.app.ContentSecurityPolicy
+import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
@@ -39,7 +39,7 @@ object layout:
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get().so("external.")}css"),
+        href := assetUrl(s"piece-css/$ps.${env.web.settings.pieceImageExternal.get().so("external.")}css"),
         rel  := "stylesheet"
       )
   import bits.*
@@ -74,7 +74,7 @@ object layout:
     )
   )
   private def piecesPreload(using ctx: PageContext) =
-    env.pieceImageExternal
+    env.web.settings.pieceImageExternal
       .get()
       .option(raw:
         (for
@@ -117,7 +117,7 @@ object layout:
         .txt()}</a>
 </div>"""
 
-  private def dasher(me: lila.user.User) =
+  private def dasher(me: User) =
     div(cls := "dasher")(
       a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
       div(id := "dasher_app", cls := "dropdown")
@@ -248,7 +248,7 @@ object layout:
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
-      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      openGraph: Option[lila.web.OpenGraph] = None,
       zoomable: Boolean = false,
       zenable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
@@ -331,7 +331,7 @@ object layout:
           dataTheme        := pref.currentBg,
           dataBoardTheme   := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
-          dataAnnounce     := lila.api.AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
           style            := zoomable.option(s"--zoom:$pageZoom")
         )(
           blindModeForm,
@@ -454,9 +454,8 @@ object layout:
               submitButton(cls := "button button-red link")(trans.site.logOut())
           else
             ctx.me
-              .map { me =>
+              .map: me =>
                 frag(allNotifications, dasher(me))
-              }
               .getOrElse { (!ctx.data.error).option(anonDasher) }
         )
       )

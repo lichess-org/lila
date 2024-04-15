@@ -3,13 +3,13 @@ package views.html.tutor
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.{ InsightPosition, Phase }
 import lila.tutor.TutorPerfReport
 
 object phases:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using PageContext) =
+  def apply(report: TutorPerfReport, user: User)(using PageContext) =
     bits.layout(menu = perf.menu(user, report, "phases"))(
       cls := "tutor__phases box",
       boxTop(

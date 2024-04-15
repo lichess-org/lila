@@ -10,11 +10,14 @@ import lila.common.Json.given
 import lila.core.data.Preload
 import lila.core.LightUser
 import lila.game.JsonView.given
-import lila.game.{ Game, Player as GamePlayer, Pov }
+import lila.core.game.{ Player as GamePlayer }
 import lila.pref.Pref
-import lila.rating.Perf
-import lila.user.{ GameUser, GameUsers, User }
+
+import lila.core.user.{ GameUser, GameUsers }
+import lila.core.user.WithPerf
 import lila.core.net.ApiVersion
+import lila.core.perf.KeyedPerf
+import lila.game.GameExt.moveTimes
 
 final class JsonView(
     lightUserGet: LightUser.Getter,
@@ -41,8 +44,8 @@ final class JsonView(
     Json
       .obj("color" -> p.color.name)
       .add("user" -> user.match
-        case Some(User.WithPerf(user, perf)) =>
-          val p = withFlags.rating.option(Perf.Typed(perf, g.perfType))
+        case Some(WithPerf(user, perf)) =>
+          val p = withFlags.rating.option(KeyedPerf(g.perfKey, perf))
           userJsonView.roundPlayer(user, p).some
         case _ if p.hasUser => userJsonView.ghost.some
         case _              => none
@@ -147,8 +150,8 @@ final class JsonView(
         "name"  -> p.name
       )
       .add("user" -> user.match
-        case Some(User.WithPerf(user, perf)) =>
-          userJsonView.roundPlayer(user, withFlags.rating.option(Perf.Typed(perf, g.perfType))).some
+        case Some(WithPerf(user, perf)) =>
+          userJsonView.roundPlayer(user, withFlags.rating.option(KeyedPerf(g.perfKey, perf))).some
         case _ if p.hasUser => userJsonView.ghost.some
         case _              => none
       )
@@ -306,7 +309,9 @@ final class JsonView(
       case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
       case _                                                             => false
 
-  private def blurs(game: Game, player: lila.game.Player) =
+  private def blurs(game: Game, player: GamePlayer) =
+    import lila.game.Blurs.nonEmpty
+    import lila.game.GameExt.playerBlurPercent
     player.blurs.nonEmpty.option {
       Json.toJsObject(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))

@@ -31,16 +31,16 @@ final class Env(
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
   private val config               = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
 
-  lazy val configStore = wire[ConfigStore.Builder]
+  val cacheApi = wire[CacheApi]
 
-  lazy val settingStore = wire[SettingStore.Builder]
+  val configStore = wire[ConfigStore.Builder]
 
-  lazy val cacheApi = wire[CacheApi]
+  val settingStore = wire[SettingStore.Builder]
 
-  lazy val mongoCacheApi = wire[MongoCache.Api]
+  val mongoCacheApi = wire[MongoCache.Api]
 
-  lazy val mongoRateLimitApi = wire[MongoRateLimitApi]
+  val mongoRateLimitApi = wire[MongoRateLimitApi]
 
-  lazy val picfitUrl = lila.memo.PicfitUrl(config.picfit)
+  val picfitUrl = lila.memo.PicfitUrl(config.picfit)
 
-  lazy val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)
+  val picfitApi = PicfitApi(db(config.picfit.collection), picfitUrl, ws, config.picfit)

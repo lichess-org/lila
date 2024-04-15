@@ -5,14 +5,14 @@ import play.api.i18n.Lang
 import scalalib.HeapSort
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
-import lila.game.LightPov
-import lila.user.User
+import lila.core.game.LightPov
+
 import lila.core.swiss.{ IdName as SwissIdName }
 import lila.core.chess.Rank
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     getPracticeStudies: lila.core.practice.GetStudies,
     forumPostApi: lila.core.forum.ForumPostApi,
     ublogApi: lila.core.ublog.UblogApi,
@@ -21,7 +21,7 @@ final class ActivityReadApi(
     tourLeaderApi: lila.core.tournament.leaderboard.Api,
     swissApi: lila.core.swiss.SwissApi,
     teamApi: lila.core.team.TeamApi,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     getTourName: lila.core.tournament.GetTourName
 )(using Executor):
 

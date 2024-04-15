@@ -4,8 +4,11 @@ package coach
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList
+import lila.user.Profile.flagInfo
+import lila.rating.UserPerfsExt.best6Perfs
+import lila.rating.UserPerfsExt.hasEstablishedRating
 
 object widget:
 

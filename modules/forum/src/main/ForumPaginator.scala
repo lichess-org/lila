@@ -3,7 +3,7 @@ package lila.forum
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.user.Me
+
 import lila.core.config.NetDomain
 
 final class ForumPaginator(

@@ -5,7 +5,6 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.common.Icon
 import lila.common.Icon
 import lila.core.user.UserMark
-import lila.core.user.User
 
 case class Appeal(
     @Key("_id") id: Appeal.Id,

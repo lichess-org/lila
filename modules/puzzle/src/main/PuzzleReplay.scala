@@ -6,7 +6,6 @@ import scala.util.chaining.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.user.User
 
 case class PuzzleReplay(
     days: PuzzleDashboard.Days,

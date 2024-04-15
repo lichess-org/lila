@@ -3,7 +3,6 @@ package lila.security
 import com.github.blemale.scaffeine.Cache
 
 import lila.core.config.NetDomain
-import lila.core.user.User
 
 final class PromotionApi(domain: NetDomain)(using Executor) extends lila.core.security.PromotionApi:
 

@@ -5,12 +5,11 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
-import lila.user.User
 
 object list:
 
@@ -144,7 +143,7 @@ object list:
       ctx: PageContext
   ) =
     val nonMineOrder = if order == Order.Mine then Order.Hot else order
-    views.html.site.bits.pageMenuSubnav(
+    views.html.base.bits.pageMenuSubnav(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
       ctx.isAuth.option(bits.authLinks(active, nonMineOrder)),
       a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics):

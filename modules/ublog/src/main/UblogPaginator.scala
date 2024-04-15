@@ -7,12 +7,11 @@ import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.core.i18n.Language
-import lila.user.{ Me, User }
 
 final class UblogPaginator(
     colls: UblogColls,
     relationApi: lila.core.relation.RelationApi,
-    userRepo: lila.user.UserRepo,
+    userRepo: lila.core.user.UserRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -102,7 +101,7 @@ final class UblogPaginator(
               local = "created.by",
               foreign = "_id",
               pipe = List(
-                $doc("$match"   -> $doc(User.BSONFields.enabled -> true)),
+                $doc("$match"   -> $doc(lila.core.user.BSONFields.enabled -> true)),
                 $doc("$project" -> $id(true))
               )
             )

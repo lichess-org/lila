@@ -1,7 +1,5 @@
 package lila.forum
 
-import lila.user.User
-
 case class ForumCateg(
     _id: ForumCategId, // slug
     name: String,

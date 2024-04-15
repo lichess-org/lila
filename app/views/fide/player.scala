@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.fide.{ Federation, FidePlayer }
 import lila.relay.RelayTour

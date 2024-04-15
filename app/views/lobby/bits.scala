@@ -3,7 +3,8 @@ package views.html.lobby
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.rating.PerfType
 
 object bits:
 
@@ -31,10 +32,7 @@ object bits:
                 leaderboard.map: l =>
                   tr(
                     td(lightUserLink(l.user)),
-                    lila.rating
-                      .PerfType(l.perfKey)
-                      .map: pt =>
-                        td(cls := "text", dataIcon := pt.icon)(l.rating),
+                    td(cls := "text", dataIcon := PerfType(l.perfKey).icon)(l.rating),
                     td(ratingProgress(l.progress))
                   )
         )

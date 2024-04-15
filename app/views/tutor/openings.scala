@@ -3,12 +3,12 @@ package views.html.tutor
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorPerfReport
 
 object openings:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using ctx: PageContext) =
+  def apply(report: TutorPerfReport, user: User)(using ctx: PageContext) =
     bits.layout(menu = perf.menu(user, report, "openings"))(
       cls := "tutor__openings box",
       boxTop(

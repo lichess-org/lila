@@ -4,10 +4,10 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogPost, UblogTopic }
-import lila.user.User
+
 import lila.core.captcha.Captcha
 
 object form:

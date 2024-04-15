@@ -4,14 +4,13 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.game.{ Game, GameRepo }
 import lila.gathering.Condition.WithVerdicts
 import lila.rating.PerfType
 
 final class JsonView(
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     getLightUser: LightUser.GetterFallback,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     isOnline: lila.core.socket.IsOnline
 )(using Executor):
 

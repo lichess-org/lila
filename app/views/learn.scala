@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.core.app.LangPath
 
 object index:
@@ -22,7 +22,7 @@ object index:
         )
       ).some,
       moreCss = cssTag("learn"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Learn chess by playing",
           description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",

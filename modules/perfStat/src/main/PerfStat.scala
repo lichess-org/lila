@@ -4,7 +4,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.Duration
 
 import scalalib.HeapSort
-import lila.game.Pov
+
 import lila.rating.PerfType
 
 case class PerfStat(
@@ -37,7 +37,7 @@ case class PerfStat(
 
 object PerfStat:
 
-  type Getter = (lila.user.User, PerfType) => Fu[PerfStat]
+  type Getter = (User, PerfType) => Fu[PerfStat]
 
   def makeId(userId: UserId, perfType: PerfType) = s"$userId/${perfType.id}"
 

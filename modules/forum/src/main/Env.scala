@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
 import lila.core.relation.RelationApi
-import lila.user.User
+
 import lila.core.forum.ForumPostMiniView
 
 @Module
@@ -28,7 +28,7 @@ final class Env(
     relationApi: RelationApi,
     prefApi: lila.core.pref.PrefApi,
     modLog: lila.core.mod.LogApi,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer):
@@ -62,7 +62,7 @@ final class Env(
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
     case lila.core.team.TeamCreate(t)   => categApi.makeTeam(t.id, t.name, t.userId)
-    case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
+    case lila.core.user.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
 
 private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]
 opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType

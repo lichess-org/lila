@@ -7,8 +7,9 @@ import scalalib.model.Days
 import lila.lobby.{ Color, Hook, Seek }
 import lila.rating.{ Perf }
 import lila.rating.RatingRange.withinLimits
-import lila.user.{ Me, User }
+
 import lila.core.rating.RatingRange
+import lila.core.perf.UserWithPerfs
 
 case class HookConfig(
     variant: chess.variant.Variant,
@@ -46,7 +47,7 @@ case class HookConfig(
 
   def hook(
       sri: lila.core.socket.Sri,
-      user: Option[User.WithPerfs],
+      user: Option[UserWithPerfs],
       sid: Option[String],
       blocking: lila.core.pool.Blocking
   ): Either[Hook, Option[Seek]] =
@@ -58,7 +59,7 @@ case class HookConfig(
             sri = sri,
             variant = variant,
             clock = clock,
-            mode = if lila.game.Game.allowRated(variant, clock.some) then mode else Mode.Casual,
+            mode = if lila.core.game.allowRated(variant, clock.some) then mode else Mode.Casual,
             color = color.name,
             user = user,
             blocking = blocking,
@@ -78,7 +79,7 @@ case class HookConfig(
               ratingRange = ratingRange
             )
 
-  def updateFrom(game: lila.game.Game) =
+  def updateFrom(game: Game) =
     copy(
       variant = game.variant,
       timeMode = TimeMode.ofGame(game),

@@ -4,23 +4,26 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.rating.{ PerfType as PTs }
-import lila.user.User
+import lila.core.perf.{ UserWithPerfs, PuzPerf }
+import lila.rating.GlickoExt.clueless
+import lila.rating.UserPerfsExt.dubiousPuzzle
+import lila.rating.UserWithPerfs.hasVariantRating
 
 object side:
 
   def apply(
-      u: User.WithPerfs,
+      u: UserWithPerfs,
       rankMap: lila.rating.UserRankMap,
       active: Option[PerfType]
   )(using ctx: Context) =
 
-    def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
+    def showNonEmptyPerf(perf: Perf, perfType: PerfType) =
       perf.nonEmpty.option(showPerf(perf, perfType))
 
-    def showPerf(perf: lila.rating.Perf, perfType: PerfType) =
+    def showPerf(perf: Perf, perfType: PerfType) =
       val isPuzzle = perfType == PerfType.Puzzle
       a(
         dataIcon := perfType.icon,
@@ -99,7 +102,7 @@ object side:
       )
     )
 
-  private def showStorm(storm: lila.rating.Perf.Storm, user: User)(using Translate) =
+  private def showStorm(storm: PuzPerf, user: User)(using Translate) =
     a(
       dataIcon := Icon.Storm,
       cls := List(
@@ -121,7 +124,7 @@ object side:
       iconTag(Icon.PlayTriangle)
     )
 
-  private def showRacer(racer: lila.rating.Perf.Racer)(using Translate) =
+  private def showRacer(racer: PuzPerf)(using Translate) =
     a(
       dataIcon := Icon.FlagChessboard,
       cls := List(
@@ -143,7 +146,7 @@ object side:
       iconTag(Icon.PlayTriangle)
     )
 
-  private def showStreak(streak: lila.rating.Perf.Streak)(using Translate) =
+  private def showStreak(streak: PuzPerf)(using Translate) =
     a(
       dataIcon := Icon.ArrowThruApple,
       cls := List(

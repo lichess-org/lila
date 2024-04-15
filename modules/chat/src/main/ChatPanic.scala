@@ -1,7 +1,5 @@
 package lila.chat
 
-import lila.core.user.User
-
 final class ChatPanic:
 
   private var until: Option[Instant] = none

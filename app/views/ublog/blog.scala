@@ -4,10 +4,9 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.ublog.{ UblogBlog, UblogPost }
-import lila.user.User
 
 object blog:
 
@@ -41,7 +40,7 @@ object blog:
                   postView.newPostLink(user)
                 )
               ),
-              views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
+              views.html.base.atom.atomLink(routes.Ublog.userAtom(user.username))
             )
           ),
           standardFlash,

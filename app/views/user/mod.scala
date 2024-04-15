@@ -7,7 +7,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
@@ -15,7 +15,8 @@ import lila.mod.{ ModPresets, UserWithModlog }
 import lila.core.playban.RageSit
 import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
 import lila.core.perm.Permission
-import lila.user.{ Me, User }
+import lila.user.{ Me, WithPerfsAndEmails }
+import lila.game.GameExt.perfType
 
 object mod:
 
@@ -38,7 +39,7 @@ object mod:
   def actions(
       u: User,
       emails: lila.core.user.Emails,
-      erased: User.Erased,
+      erased: lila.user.Erased,
       pmPresets: ModPresets
   )(using Context): Frag =
     mzSection("actions")(
@@ -855,7 +856,7 @@ object mod:
     )
 
   def apply(
-      users: List[User.WithPerfsAndEmails],
+      users: List[WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false,
       checkboxes: Boolean = false
@@ -875,7 +876,7 @@ object mod:
           )
         ),
         tbody(
-          users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
+          users.map { case WithPerfsAndEmails(u, emails) =>
             tr(
               if showUsernames || lila.security.Granter.canViewAltUsername(u.user)
               then
@@ -940,7 +941,7 @@ object mod:
       }
     )(reportScore(r.score), " ", strong(r.reason.name))
 
-  def userMarks(o: lila.core.user.User, playbans: Option[Int]) =
+  def userMarks(o: User, playbans: Option[Int]) =
     div(cls := "user_marks")(
       playbans.map: nb =>
         playban(nb),

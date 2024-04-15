@@ -1,5 +1,5 @@
-import RelayCtrl from './relayCtrl';
 import { looseH as h, Redraw, VNode } from 'common/snabbdom';
+import RelayCtrl from './relayCtrl';
 import { allowVideo } from './relayView';
 
 let player: VideoPlayer;
@@ -43,6 +43,7 @@ class VideoPlayer {
     this.iframe.id = 'video-player';
     this.iframe.src = relay.data.videoUrls![0];
     this.iframe.allow = 'autoplay';
+    this.iframe.setAttribute('credentialless', 'credentialless');
     this.close = document.createElement('img');
     this.close.src = site.asset.flairSrc('symbols.cancel');
     this.close.className = 'video-player-close';

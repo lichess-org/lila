@@ -6,9 +6,10 @@ import chess.ByColor
 
 import lila.core.config.*
 import lila.core.report.SuspectId
-import lila.user.{ Me, User }
+
 import lila.core.user.WithPerf
 import lila.common.Bus
+import lila.rating.UserWithPerfs.only
 
 @Module
 final class Env(
@@ -20,6 +21,7 @@ final class Env(
     tournamentApi: lila.core.tournament.TournamentApi,
     swissFeature: lila.core.swiss.SwissFeatureApi,
     gameRepo: lila.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
@@ -72,16 +74,12 @@ final class Env(
 
   Bus.subscribeFuns(
     "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
+      case lila.core.game.FinishGame(game, users) if !game.aborted =>
         users
-          .traverse:
-            _.filter(_._1.enabled.yes).map: u =>
-              new lila.core.user.WithPerf:
-                val user = u._1
-                val perf = u._2(game.perfType)
-          .foreach: users =>
+          .map(_.filter(_.enabled.yes).map(_.only(game.perfKey)))
+          .mapN: (whiteUser, blackUser) =>
             sandbagWatch(game)
-            assessApi.onGameReady(game, users)
+            assessApi.onGameReady(game, ByColor(whiteUser, blackUser))
         if game.status == chess.Status.Cheat then
           game.loserUserId.foreach: userId =>
             logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>
@@ -108,7 +106,7 @@ final class Env(
       api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using UserId.lichessAsMe)
     },
     "chatTimeout" -> { case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
-      logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id))
+      logApi.chatTimeout(user, reason, text)(using mod.into(MyId))
     },
     "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },
     "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) },

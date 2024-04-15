@@ -2,7 +2,6 @@ package lila.api
 
 import lila.common.Bus
 import lila.core.perm.Granter
-import lila.user.{ Me, User }
 
 final class AccountClosure(
     userRepo: lila.user.UserRepo,
@@ -36,8 +35,8 @@ final class AccountClosure(
   def close(u: User)(using me: Me): Funit = for
     playbanned <- playbanApi.HasCurrentPlayban(u.id)
     selfClose = me.is(u)
-    modClose  = !selfClose && Granter[Me](_.CloseAccount)
-    badApple  = u.lameOrTrollOrAlt || modClose
+    modClose  = !selfClose && Granter(_.CloseAccount)
+    badApple  = u.lameOrTroll || u.marks.alt || modClose
     _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
     _       <- relationApi.unfollowAll(u.id)
     _       <- rankingApi.remove(u.id)
@@ -70,7 +69,7 @@ final class AccountClosure(
       case Some(user) =>
         userRepo.setEraseAt(user)
         email.gdprErase(user)
-        lila.common.Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
+        lila.common.Bus.publish(lila.core.user.GDPRErase(user), "gdprErase")
         Right(s"Erasing all data about $username in 24h")
     }
 

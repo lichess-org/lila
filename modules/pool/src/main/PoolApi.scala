@@ -2,12 +2,9 @@ package lila.pool
 
 import akka.actor.*
 
-import lila.game.Game
-import lila.core.perf.PerfKey
 import lila.core.rating.RatingRange
 import lila.core.socket.{ Sri, Sris }
 import lila.core.pool.{ PoolMember, PoolConfigId, Joiner }
-import lila.user.Me
 
 final class PoolApi(
     val configs: List[PoolConfig],
@@ -31,7 +28,7 @@ final class PoolApi(
 
   val poolPerfKeys: Map[PoolConfigId, PerfKey] = configs
     .map: config =>
-      config.id -> config.perfType.key
+      config.id -> config.perfKey
     .toMap
 
   def join(poolId: PoolConfigId, joiner: Joiner): Unit =

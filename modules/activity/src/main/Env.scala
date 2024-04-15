@@ -11,7 +11,7 @@ import lila.common.Bus
 final class Env(
     db: lila.db.AsyncDb @@ lila.db.YoloDb,
     practiceStudies: lila.core.practice.GetStudies,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     forumPostApi: lila.core.forum.ForumPostApi,
     ublogApi: lila.core.ublog.UblogApi,
     simulApi: lila.core.simul.SimulApi,
@@ -21,8 +21,8 @@ final class Env(
     teamApi: lila.core.team.TeamApi,
     swissApi: lila.core.swiss.SwissApi,
     getLightTeam: lila.core.team.LightTeam.GetterSync,
-    lightUserApi: lila.user.LightUserApi,
-    userRepo: lila.user.UserRepo
+    lightUserApi: lila.core.user.LightUserApi,
+    userApi: lila.core.user.UserApi
 )(using ec: Executor, scheduler: Scheduler):
 
   private lazy val coll = db(CollName("activity2")).failingSilently()
@@ -35,7 +35,7 @@ final class Env(
 
   Bus.subscribeFuns(
     "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, _) if !game.aborted => write.game(game)
+      case lila.core.game.FinishGame(game, _) if !game.aborted => write.game(game)
     },
     "finishPuzzle" -> { case res: lila.puzzle.Puzzle.UserResult =>
       write.puzzle(res)

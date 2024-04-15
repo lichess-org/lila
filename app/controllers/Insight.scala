@@ -7,7 +7,6 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.insight.{ InsightDimension, InsightMetric }
-import lila.user.User
 import lila.core.i18n.Translate
 
 final class Insight(env: Env) extends LilaController(env):
@@ -28,7 +27,9 @@ final class Insight(env: Env) extends LilaController(env):
   def path(username: UserStr, metric: String, dimension: String, filters: String) = Open:
     Accessible(username) { doPath(_, metric, dimension, ~lila.common.String.decodeUriPath(filters)) }
 
-  private def doPath(user: User, metric: String, dimension: String, filters: String)(using Context) =
+  private def doPath(user: lila.user.User, metric: String, dimension: String, filters: String)(using
+      Context
+  ) =
     import lila.insight.InsightApi.UserStatus.*
     env.insight.api.userStatus(user).flatMap {
       case NoGame => Ok.page(html.site.message.insightNoGames(user))
@@ -54,7 +55,7 @@ final class Insight(env: Env) extends LilaController(env):
     OpenOrScopedBody(parse.json)(): ctx ?=>
       AccessibleApi(username) { processQuestion(_, ctx.body) }
 
-  private def processQuestion(user: User, body: Request[JsValue])(using Translate) =
+  private def processQuestion(user: lila.user.User, body: Request[JsValue])(using Translate) =
     body.body
       .validate[lila.insight.JsonQuestion]
       .fold(
@@ -67,7 +68,7 @@ final class Insight(env: Env) extends LilaController(env):
             .map { Ok(_) }
       )
 
-  private def Accessible(username: UserStr)(f: User => Fu[Result])(using ctx: Context) =
+  private def Accessible(username: UserStr)(f: lila.user.User => Fu[Result])(using ctx: Context) =
     Found(meOrFetch(username)): u =>
       env.insight.share
         .grant(u)(using ctx.me)
@@ -75,7 +76,7 @@ final class Insight(env: Env) extends LilaController(env):
           if _ then f(u)
           else Forbidden.page(html.insight.forbidden(u))
 
-  private def AccessibleApi(username: UserStr)(f: User => Fu[Result])(using Context) =
+  private def AccessibleApi(username: UserStr)(f: lila.user.User => Fu[Result])(using Context) =
     Found(meOrFetch(username)): u =>
       env.insight.share
         .grant(u)(using ctx.me)

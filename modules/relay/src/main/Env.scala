@@ -23,7 +23,7 @@ final class Env(
     studyPgnDump: lila.study.PgnDump,
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
-    gameProxy: lila.game.core.GameProxy,
+    gameProxy: lila.core.game.GameProxy,
     federations: lila.core.fide.Federation.FedsOf,
     guessPlayer: lila.core.fide.GuessPlayer,
     cacheApi: lila.memo.CacheApi,

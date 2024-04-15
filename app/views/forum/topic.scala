@@ -7,7 +7,7 @@ import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
 import scalalib.paginator.Paginator
 
@@ -85,7 +85,7 @@ object topic:
         jsModule("expandText")
       ),
       moreCss = cssTag("forum"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = topic.name,
           url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",

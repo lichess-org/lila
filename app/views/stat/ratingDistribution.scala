@@ -5,16 +5,17 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
-import lila.user.User
+
 import lila.rating.PerfType
+import lila.core.perf.UserWithPerfs
 
 object ratingDistribution:
 
-  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User.WithPerfs])(using
+  def apply(perfType: PerfType, data: List[Int], otherUser: Option[UserWithPerfs])(using
       ctx: PageContext,
-      me: Option[User.WithPerfs]
+      me: Option[UserWithPerfs]
   ) =
     val myVisiblePerfs = me.map(_.perfs).ifTrue(ctx.pref.showRatings)
     views.html.base.layout(
@@ -41,12 +42,14 @@ object ratingDistribution:
                 views.html.base.bits.mselect(
                   "variant-stats",
                   span(perfType.trans),
-                  lila.rating.PerfType.leaderboardable.map: pt =>
-                    a(
-                      dataIcon := pt.icon,
-                      cls      := (perfType == pt).option("current"),
-                      href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
-                    )(pt.trans)
+                  lila.rating.PerfType.leaderboardable
+                    .map(PerfType(_))
+                    .map: pt =>
+                      a(
+                        dataIcon := pt.icon,
+                        cls      := (perfType == pt).option("current"),
+                        href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
+                      )(pt.trans)
                 )
               )
             )
@@ -55,7 +58,7 @@ object ratingDistribution:
             myVisiblePerfs
               .flatMap(_(perfType).glicko.establishedIntRating)
               .map: rating =>
-                val (under, sum) = lila.user.Stat.percentile(data, rating)
+                val (under, sum) = lila.perfStat.percentileOf(data, rating)
                 div(
                   trans.site.nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
                   br,

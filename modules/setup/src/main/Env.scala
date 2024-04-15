@@ -7,7 +7,7 @@ import play.api.Configuration
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart,
     gameCache: lila.game.Cached
 )(using Executor, akka.stream.Materializer, lila.game.IdGenerator):

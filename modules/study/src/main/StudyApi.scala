@@ -12,7 +12,6 @@ import lila.core.socket.Sri
 import lila.core.{ study as hub }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.User
 
 import actorApi.Who
 
@@ -25,7 +24,7 @@ final class StudyApi(
     inviter: StudyInvite,
     explorerGameHandler: ExplorerGame,
     topicApi: StudyTopicApi,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi

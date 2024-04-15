@@ -7,7 +7,7 @@ import reactivemongo.api.bson.BSONDocument
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
-import lila.user.User
+
 import lila.core.{ study as hub }
 import lila.core.study.Visibility
 

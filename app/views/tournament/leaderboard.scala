@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 
 object leaderboard:
@@ -79,13 +79,12 @@ object leaderboard:
             freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
             freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
             marathonWinners,
-            lila.tournament.WinnersApi.variants.map { v =>
-              lila.rating.PerfType.byVariant(v).map { pt =>
-                winners.variants.get(pt.key.into(chess.variant.Variant.LilaKey)).map {
-                  freqWinners(_, pt, v.name)
+            lila.tournament.WinnersApi.variants.map: v =>
+              PerfKey.byVariant(v).map { pk =>
+                winners.variants.get(chess.variant.Variant.LilaKey(pk.value)).map {
+                  freqWinners(_, pk, v.name)
                 }
               }
-            }
           )
         )
       )

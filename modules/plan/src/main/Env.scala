@@ -26,8 +26,8 @@ final class Env(
     ws: StandaloneWSClient,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
-    lightUserApi: lila.user.LightUserApi,
-    userRepo: lila.user.UserRepo,
+    lightUserApi: lila.core.user.LightUserApi,
+    userApi: lila.core.user.UserApi,
     settingStore: lila.memo.SettingStore.Builder,
     ip2proxy: lila.core.security.Ip2ProxyApi
 )(using Executor, play.api.Mode, lila.core.i18n.Translator)(using scheduler: Scheduler):
@@ -69,7 +69,7 @@ final class Env(
 
   lazy val webhook = wire[PlanWebhook]
 
-  private lazy val expiration = new Expiration(userRepo, mongo.patron, notifier)
+  private lazy val expiration = new Expiration(userApi, mongo.patron, notifier)
 
   scheduler.scheduleWithFixedDelay(5 minutes, 5 minutes): () =>
     expiration.run
@@ -80,10 +80,10 @@ final class Env(
   def cli = new lila.common.Cli:
     def process =
       case "patron" :: "lifetime" :: user :: Nil =>
-        userRepo.byId(UserStr(user)).flatMapz(api.setLifetime).inject("ok")
+        userApi.byId(UserStr(user)).flatMapz(api.setLifetime).inject("ok")
       case "patron" :: "month" :: user :: Nil =>
-        userRepo.byId(UserStr(user)).flatMapz(api.freeMonth).inject("ok")
+        userApi.byId(UserStr(user)).flatMapz(api.freeMonth).inject("ok")
       case "patron" :: "remove" :: user :: Nil =>
-        userRepo.byId(UserStr(user)).flatMapz(api.remove).inject("ok")
+        userApi.byId(UserStr(user)).flatMapz(api.remove).inject("ok")
 
 final private class PlanMongo(val patron: Coll, val charge: Coll)

@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningQuery.Query
 import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 

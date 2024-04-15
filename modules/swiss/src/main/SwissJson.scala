@@ -10,7 +10,6 @@ import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
 import lila.quote.Quote.given
 import lila.core.socket.SocketVersion
-import lila.user.{ User, UserPerfsRepo, UserRepo }
 
 final class SwissJson(
     mongo: SwissMongo,
@@ -18,9 +17,8 @@ final class SwissJson(
     rankingApi: SwissRankingApi,
     boardApi: SwissBoardApi,
     statsApi: SwissStatsApi,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
-    lightUserApi: lila.user.LightUserApi
+    userApi: lila.core.user.UserApi,
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
 
   import SwissJson.{ *, given }
@@ -94,7 +92,7 @@ final class SwissJson(
   private def updatePlayerRating(swiss: Swiss, player: SwissPlayer, user: User): Funit =
     swiss.settings.rated.so:
       for
-        perf <- perfsRepo.perfOf(user, swiss.perfType)
+        perf <- userApi.perfOf(user, swiss.perfType)
         changed = perf.intRating != player.rating
         _ <- changed.so:
           SwissPlayer.fields: f =>
@@ -122,7 +120,7 @@ final class SwissJson(
               .foreach:
                 mongo.swiss.updateField($id(swiss.id), "winnerId", _).void
 
-            userRepo.filterLame(top3.map(_.userId)).map { lame =>
+            userApi.filterLame(top3.map(_.userId)).map { lame =>
               JsArray(
                 top3.map: player =>
                   playerJsonBase(

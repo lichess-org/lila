@@ -1,16 +1,15 @@
 package lila.bookmark
 
-import akka.actor.*
 import com.softwaremill.macwire.*
-import play.api.Configuration
 
 import lila.core.config.*
 
 @Module
 final class Env(
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo,
-    gameProxyRepo: lila.game.core.GameProxy
+    gameApi: lila.core.game.GameApi,
+    gameRepo: lila.core.game.GameRepo,
+    gameProxyRepo: lila.core.game.GameProxy
 )(using Executor):
 
   private lazy val bookmarkColl = db(CollName("bookmark"))

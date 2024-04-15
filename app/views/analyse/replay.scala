@@ -8,10 +8,10 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Pov
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 import bits.dataPanel
+import lila.game.GameExt.analysable
 
 object replay:
 
@@ -28,7 +28,7 @@ object replay:
       analysisStarted: Boolean,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup],
-      userTv: Option[lila.user.User],
+      userTv: Option[User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
   )(using ctx: PageContext) =
@@ -157,11 +157,13 @@ object replay:
             frag(
               div(cls := "analyse__underboard")(
                 div(role := "tablist", cls := "analyse__underboard__menu")(
-                  game.analysable.option(
-                    span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
-                      trans.site.computerAnalysis()
-                    )
-                  ),
+                  lila.game.GameExt
+                    .analysable(game)
+                    .option(
+                      span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
+                        trans.site.computerAnalysis()
+                      )
+                    ),
                   (!game.isPgnImport).option(
                     frag(
                       (game.ply > 1)
@@ -174,21 +176,23 @@ object replay:
                   span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
                 ),
                 div(cls := "analyse__underboard__panels")(
-                  game.analysable.option(
-                    div(cls := "computer-analysis")(
-                      if analysis.isDefined || analysisStarted then
-                        div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
-                      else
-                        postForm(
-                          cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
-                          action := routes.Analyse.requestAnalysis(gameId)
-                        ):
-                          submitButton(cls := "button text"):
-                            span(cls := "is3 text", dataIcon := Icon.BarChart)(
-                              trans.site.requestAComputerAnalysis()
-                            )
-                    )
-                  ),
+                  lila.game.GameExt
+                    .analysable(game)
+                    .option(
+                      div(cls := "computer-analysis")(
+                        if analysis.isDefined || analysisStarted then
+                          div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
+                        else
+                          postForm(
+                            cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
+                            action := routes.Analyse.requestAnalysis(gameId)
+                          ):
+                            submitButton(cls := "button text"):
+                              span(cls := "is3 text", dataIcon := Icon.BarChart)(
+                                trans.site.requestAComputerAnalysis()
+                              )
+                      )
+                    ),
                   div(cls := "move-times")(
                     (game.ply > 1)
                       .option(div(id := "movetimes-chart-container")(canvas(id := "movetimes-chart")))

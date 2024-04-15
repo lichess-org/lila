@@ -33,14 +33,7 @@ object Mobile:
 
   // Lichess Mobile/{version} as:{username|anon} sri:{sri} os:{Android|iOS}/{os-version} dev:{device info}
   // see modules/api/src/test/MobileTest.scala
-  case class LichessMobileUa(
-      version: String,
-      userId: Option[UserId],
-      sri: Sri,
-      osName: String,
-      osVersion: String,
-      device: String
-  )
+  import lila.core.net.LichessMobileUa
 
   object LichessMobileUa:
     def is(ua: UserAgent): Boolean = ua.value.startsWith("Lichess Mobile/")
@@ -51,7 +44,7 @@ object Mobile:
       ua.value match
         case Regex(version, user, sri, osName, osVersion, device) =>
           val userId = (user != "anon").option(UserStr(user).id)
-          LichessMobileUa(version, userId, Sri(sri), osName, osVersion, device).some
+          lila.core.net.LichessMobileUa(version, userId, Sri(sri), osName, osVersion, device).some
         case _ => none
 
   // LM/{version} {Android|iOS}/{os-version} {device info}

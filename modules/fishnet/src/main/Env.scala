@@ -26,17 +26,18 @@ private class FishnetConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    uciMemo: lila.game.UciMemo,
+    uciMemo: lila.core.game.UciMemo,
     requesterApi: lila.analyse.RequesterApi,
     getSinglePvEval: lila.tree.CloudEval.GetSinglePvEval,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: lila.analyse.AnalysisRepo,
+    userApi: lila.core.user.UserApi,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
     sink: lila.analyse.Analyser,
-    userRepo: lila.user.UserRepo,
     shutdown: akka.actor.CoordinatedShutdown
 )(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
 
@@ -100,7 +101,7 @@ final class Env(
   def cli = new lila.common.Cli:
     def process =
       case "fishnet" :: "client" :: "create" :: name :: Nil =>
-        userRepo.enabledById(UserStr(name)).map(_.exists(_.marks.clean)).flatMap {
+        userApi.enabledById(UserStr(name)).map(_.exists(_.marks.clean)).flatMap {
           if _ then
             api.createClient(UserStr(name).id).map { client =>
               Bus.publish(lila.core.fishnet.NewKey(client.userId, client.key.value), "fishnet")
@@ -123,4 +124,4 @@ final class Env(
     case req: lila.core.fishnet.StudyChapterRequest => analyser.study(req)
 
   Bus.subscribeFun("fishnetPlay"):
-    case game: lila.game.Game => player(game)
+    case game: Game => player(game)

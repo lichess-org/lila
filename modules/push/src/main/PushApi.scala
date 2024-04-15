@@ -7,7 +7,7 @@ import lila.core.challenge.Challenge
 import lila.common.String.shorten
 import lila.common.LilaFuture
 import lila.core.LightUser
-import lila.game.{ Game, Namer, Pov }
+import lila.game.{ Namer }
 import lila.core.misc.map.Tell
 import lila.core.misc.push.TourSoon
 import lila.core.round.{ IsOnGame, MoveEvent }
@@ -18,8 +18,8 @@ import lila.core.notify.*
 final private class PushApi(
     firebasePush: FirebasePush,
     webPush: WebPush,
-    gameProxy: lila.game.core.GameProxy,
-    roundJson: lila.game.core.RoundJson,
+    gameProxy: lila.core.game.GameProxy,
+    roundJson: lila.core.round.RoundJson,
     gameRepo: lila.game.GameRepo,
     notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi

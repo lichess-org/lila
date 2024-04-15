@@ -20,7 +20,7 @@ import chess.{
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.core.game.Event
+import lila.core.game.{ Game, Event }
 
 import JsonView.{ *, given }
 
@@ -223,7 +223,7 @@ object Event:
     override def watcher = w
     override def owner   = !w
 
-  case class EndData(game: Game, ratingDiff: Option[RatingDiffs]) extends Event:
+  case class EndData(game: Game, ratingDiff: Option[chess.ByColor[IntRatingDiff]]) extends Event:
     def typ = "endData"
     def data =
       Json
@@ -302,7 +302,7 @@ object Event:
     def typ  = "cclock"
     def data = Json.obj("white" -> white, "black" -> black)
   object CorrespondenceClock:
-    def apply(clock: lila.game.CorrespondenceClock): CorrespondenceClock =
+    def apply(clock: lila.core.game.CorrespondenceClock): CorrespondenceClock =
       CorrespondenceClock(clock.whiteTime, clock.blackTime)
 
   case class CheckCount(white: Int, black: Int) extends Event:

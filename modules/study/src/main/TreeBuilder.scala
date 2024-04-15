@@ -18,7 +18,7 @@ object TreeBuilder:
         sit.playable(false).so(sit.destinations)
     root
       .focus(_.metas)
-      .modify(x => x.copy(dests = dests.some))
+      .modify(_.copy(dests = dests.some))
 
   def apply(root: Root, variant: Variant): Root =
     val dests =

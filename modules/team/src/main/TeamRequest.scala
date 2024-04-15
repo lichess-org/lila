@@ -2,7 +2,7 @@ package lila.team
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.user.User
+import lila.core.perf.UserWithPerfs
 
 case class TeamRequest(
     @Key("_id") id: TeamRequest.ID,
@@ -29,11 +29,11 @@ object TeamRequest:
     declined = declined
   )
 
-case class RequestWithUser(request: TeamRequest, user: User.WithPerfs):
+case class RequestWithUser(request: TeamRequest, user: UserWithPerfs):
   export request.{ user as _, * }
 
 object RequestWithUser:
-  def combine(reqs: List[TeamRequest], users: List[User.WithPerfs]): List[RequestWithUser] = for
+  def combine(reqs: List[TeamRequest], users: List[UserWithPerfs]): List[RequestWithUser] = for
     req  <- reqs
     user <- users.find(_.user.id == req.user)
   yield RequestWithUser(req, user)

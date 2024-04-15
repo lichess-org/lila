@@ -4,17 +4,18 @@ package user
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Icon
 import lila.rating.PerfType
-import lila.user.User
-import lila.core.user.LightCount
+
+import lila.user.LightCount
+import lila.core.perf.UserWithPerfs
 
 object list:
 
   def apply(
       tourneyWinners: List[lila.tournament.Winner],
-      online: List[User.WithPerfs],
+      online: List[UserWithPerfs],
       leaderboards: lila.rating.UserPerfs.Leaderboards,
       nbAllTime: List[LightCount]
   )(using ctx: PageContext) =
@@ -22,7 +23,7 @@ object list:
       title = trans.site.players.txt(),
       moreCss = cssTag("user.list"),
       wrapClass = "full-screen-force",
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Chess players and leaderboards",
           url = s"$netBaseUrl${routes.User.list.url}",

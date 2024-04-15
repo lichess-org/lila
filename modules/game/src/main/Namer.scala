@@ -1,6 +1,7 @@
 package lila.game
 
 import lila.core.LightUser
+import lila.core.game.{ Game, Player }
 
 object Namer:
 

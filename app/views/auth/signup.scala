@@ -4,7 +4,7 @@ package auth
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.PasswordCheck
 import lila.core.app.LangPath

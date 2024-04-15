@@ -9,7 +9,6 @@ import scala.jdk.CollectionConverters.*
 import lila.core.net.IpAddress
 import lila.memo.CacheApi
 import lila.core.perm.Granter
-import lila.user.Me
 
 object IpRender:
 
@@ -21,7 +20,7 @@ final class IpRender(using Executor):
 
   import IpRender.*
 
-  def apply(using Me): RenderIp = if Granter[Me](_.Admin) then visible else encrypted
+  def apply(using Me): RenderIp = if Granter(_.Admin) then visible else encrypted
 
   private val visible = (ip: IpAddress) => ip.value
 

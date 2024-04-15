@@ -3,7 +3,9 @@ package views.html
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.game.GameExt.perfType
+import lila.game.GameExt.playerBlurPercent
 
 object irwin:
 

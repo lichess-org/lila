@@ -10,8 +10,6 @@ import lila.core.config.*
 import lila.common.config.given
 import lila.common.autoconfig.{ *, given }
 import lila.core.data.{ Strings, UserIds }
-import lila.memo.SettingStore.Strings.given
-import lila.memo.SettingStore.UserIds.given
 import lila.core.i18n.Translator
 
 final class Env(
@@ -102,6 +100,7 @@ final class Env(
   val opening: lila.opening.Env         = wire[lila.opening.Env]
   val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   val cms: lila.cms.Env                 = wire[lila.cms.Env]
+  val web: lila.web.Env                 = wire[lila.web.Env]
   val api: lila.api.Env                 = wire[lila.api.Env]
 
   val explorerEndpoint       = config.get[String]("explorer.endpoint")
@@ -112,55 +111,17 @@ final class Env(
   val appVersionCommit  = config.getOptional[String]("app.version.commit")
   val appVersionMessage = config.getOptional[String]("app.version.message")
 
-  val apiTimelineSetting = memo.settingStore[Int](
-    "apiTimelineEntries",
-    default = 10,
-    text = "API timeline entries to serve".some
-  )
-  val noDelaySecretSetting = memo.settingStore[Strings](
-    "noDelaySecrets",
-    default = Strings(Nil),
-    text =
-      "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
-  )
-  val prizeTournamentMakers = memo.settingStore[UserIds](
-    "prizeTournamentMakers",
-    default = UserIds(Nil),
-    text =
-      "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
-  )
-  val apiExplorerGamesPerSecond = memo.settingStore[Int](
-    "apiExplorerGamesPerSecond",
-    default = 300,
-    text = "Opening explorer games per second".some
-  )
-  val pieceImageExternal = memo.settingStore[Boolean](
-    "pieceImageExternal",
-    default = false,
-    text = "Use external piece images".some
-  )
-
-  lazy val preloader     = wire[mashup.Preload]
-  lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
-  lazy val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
-  lazy val userInfo      = wire[mashup.UserInfo.UserInfoApi]
-  lazy val teamInfo      = wire[mashup.TeamInfoApi]
-  lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
-  lazy val pageCache     = wire[http.PageCache]
-
-  private val tryDailyPuzzle: lila.puzzle.DailyPuzzle.Try = () =>
-    Future {
-      puzzle.daily.get
-    }.flatMap(identity)
-      .withTimeoutDefault(50.millis, none)
-      .recover { case e: Exception =>
-        lila.log("preloader").warn("daily puzzle", e)
-        none
-      }
+  val preloader     = wire[mashup.Preload]
+  val socialInfo    = wire[mashup.UserInfo.SocialApi]
+  val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
+  val userInfo      = wire[mashup.UserInfo.UserInfoApi]
+  val teamInfo      = wire[mashup.TeamInfoApi]
+  val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
+  val pageCache     = wire[http.PageCache]
 
   lila.common.Bus.subscribeFun("renderer"):
     case lila.tv.RenderFeaturedJs(game, promise) =>
-      promise.success(Html(views.html.game.mini.noCtx(lila.game.Pov.naturalOrientation(game), tv = true)))
+      promise.success(Html(views.html.game.mini.noCtx(Pov.naturalOrientation(game), tv = true)))
     case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
       promise.success(Html(views.html.puzzle.bits.daily(puzzle, fen, lastMove)))
 
@@ -184,6 +145,7 @@ given ConfigLoader[NetConfig] = ConfigLoader(config =>
       socketAlts = get[List[String]]("socket.alts"),
       crawlable = get[Boolean]("crawlable"),
       rateLimit = get[RateLimit]("ratelimit"),
-      email = get[EmailAddress]("email")
+      email = get[EmailAddress]("email"),
+      logRequests = get[Boolean]("http.log")
     )
 )

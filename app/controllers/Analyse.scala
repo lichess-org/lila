@@ -39,7 +39,7 @@ final class Analyse(
     else
       for
         initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-        users      <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfType)
+        users      <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfKey)
         _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
           (

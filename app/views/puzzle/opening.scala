@@ -4,7 +4,7 @@ package html.puzzle
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LilaOpeningFamily
 import lila.puzzle.PuzzleOpening.Order
 import lila.puzzle.{ PuzzleOpening, PuzzleOpeningCollection }

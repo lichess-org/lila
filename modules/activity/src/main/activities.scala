@@ -2,7 +2,6 @@ package lila.activity
 
 import alleycats.Zero
 
-import lila.rating.PerfType
 import lila.core.rating.Score
 import lila.activity.Score.plus
 import lila.core.chess.Rank
@@ -11,12 +10,12 @@ object activities:
 
   val maxSubEntries = 15
 
-  opaque type Games = Map[PerfType, Score]
-  object Games extends TotalWrapper[Games, Map[PerfType, Score]]:
+  opaque type Games = Map[PerfKey, Score]
+  object Games extends TotalWrapper[Games, Map[PerfKey, Score]]:
     extension (a: Games)
-      def add(pt: PerfType, score: Score): Games =
+      def add(pt: PerfKey, score: Score): Games =
         a.value + (pt -> a.value.get(pt).fold(score)(_.plus(score)))
-      def hasNonCorres = a.value.exists(_._1 != PerfType.Correspondence)
+      def hasNonCorres = a.value.exists(_._1 != PerfKey.correspondence)
     given Zero[Games] = Zero(Map.empty)
 
   opaque type ForumPosts = List[ForumPostId]

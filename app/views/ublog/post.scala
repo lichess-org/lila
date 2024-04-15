@@ -5,9 +5,8 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
-import lila.user.User
 
 object post:
 
@@ -28,7 +27,7 @@ object post:
         ctx.isAuth.option(jsModule("ublog"))
       ),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           `type` = "article",
           image = post.image.isDefined.option(thumbnail.url(post, _.Size.Large)),
@@ -97,7 +96,7 @@ object post:
                 dataIcon := Icon.CautionTriangle
               )
             ,
-            langName(post.language)
+            lila.i18n.LangList.nameByStr(post.language)
           ),
           div(cls := "ublog-post__topics")(
             post.topics.map: topic =>

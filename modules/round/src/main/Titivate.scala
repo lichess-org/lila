@@ -5,15 +5,16 @@ import akka.stream.scaladsl.*
 
 import lila.common.LilaStream
 import lila.db.dsl.*
-import lila.game.{ Game, GameRepo, Query }
+import lila.game.{ GameRepo, Query }
 import lila.core.round.{ Abandon, QuietFlag }
+import lila.game.GameExt.abandoned
 
 /*
  * Cleans up unfinished games
  * and flagged games when no one is around
  */
-final private[round] class Titivate(
-    roundApi: lila.game.core.RoundApi,
+final private class Titivate(
+    roundApi: lila.core.round.RoundApi,
     gameRepo: GameRepo,
     chatApi: lila.chat.ChatApi
 )(using akka.stream.Materializer)
@@ -62,12 +63,16 @@ final private[round] class Titivate(
   private val logBranch = logger.branch("titivate")
 
   private val gameRead = Flow[Bdoc].map: doc =>
-    lila.game.BSONHandlers.gameBSONHandler
+    gameRepo.gameHandler
       .readDocument(doc)
       .fold[GameOrFail](
         err => Left(GameId(~doc.string("_id")) -> err),
         Right.apply
       )
+
+  private val unplayedHours     = 24
+  private def unplayedDate      = nowInstant.minusHours(unplayedHours)
+  private def unplayed(g: Game) = !g.bothPlayersHaveMoved && (g.createdAt.isBefore(unplayedDate))
 
   private val gameFlow: Flow[GameOrFail, Unit, ?] = Flow[GameOrFail].mapAsyncUnordered(8):
 
@@ -90,7 +95,7 @@ final private[round] class Titivate(
           fuccess:
             roundApi.tell(game.id, Abandon)
 
-        case game if game.unplayed =>
+        case game if unplayed(game) =>
           lila.common.Bus.publish(lila.core.round.DeleteUnplayed(game.id), "roundUnplayed")
           chatApi.remove(game.id.into(ChatId))
           gameRepo.remove(game.id)
@@ -103,9 +108,9 @@ final private[round] class Titivate(
               gameRepo.setCheckAt(game, nowInstant.plusMinutes(minutes)).void
 
             case Some(_) =>
-              val hours = Game.unplayedHours
+              val hours = unplayedHours
               gameRepo.setCheckAt(game, nowInstant.plusHours(hours)).void
 
             case None =>
-              val days = game.daysPerTurn | Game.abandonedDays
+              val days = game.daysPerTurn | lila.game.Game.abandonedDays
               gameRepo.setCheckAt(game, nowInstant.plusDays(days.value)).void

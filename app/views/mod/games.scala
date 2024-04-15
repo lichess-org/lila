@@ -7,13 +7,14 @@ import views.html.mod.userTable.sortNoneTh
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
-import lila.game.Pov
+
 import lila.rating.PerfType
 import lila.core.chess.Rank
 import lila.tournament.LeaderboardApi.TourEntry
-import lila.user.User
+import lila.game.GameExt.analysable
+import lila.game.GameExt.perfType
 
 object games:
 
@@ -99,9 +100,10 @@ object games:
             tbody(
               games.fold(_.map(_ -> None), _.map { case (pov, ass) => pov -> Some(ass) }).map {
                 case (pov, assessment) =>
+                  val analysable = lila.game.GameExt.analysable(pov.game)
                   tr(
-                    td(cls := pov.game.analysable.option("input"))(
-                      pov.game.analysable.option(
+                    td(cls := analysable.option("input"))(
+                      analysable.option(
                         input(
                           tpe      := "checkbox",
                           name     := s"game[]",

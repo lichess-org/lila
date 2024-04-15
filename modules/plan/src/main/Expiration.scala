@@ -1,10 +1,9 @@
 package lila.plan
 
 import lila.db.dsl.{ *, given }
-import lila.user.UserRepo
 
 final private class Expiration(
-    userRepo: UserRepo,
+    userApi: lila.core.user.UserApi,
     patronColl: Coll,
     notifier: PlanNotifier
 )(using Executor):
@@ -19,8 +18,8 @@ final private class Expiration(
       }
 
   private def disableUserPlanOf(patron: Patron): Funit =
-    userRepo.byId(patron.userId).flatMapz { user =>
-      userRepo.setPlan(user, user.plan.disable).andDo(notifier.onExpire(user))
+    userApi.byId(patron.userId).flatMapz { user =>
+      userApi.setPlan(user, user.plan.disable.some).andDo(notifier.onExpire(user))
     }
 
   private def getExpired =

@@ -10,10 +10,11 @@ import lila.core.net.IpAddress
 import lila.common.HTTPRequest
 import lila.game.{ AnonCookie, Pov }
 import lila.memo.RateLimit
-import lila.rating.Perf
+
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
 import lila.core.socket.Sri
+import lila.game.GameExt.perfType
 
 final class Setup(
     env: Env,
@@ -136,7 +137,7 @@ final class Setup(
                 AnonHookRateLimit(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
                   for
                     me <- ctx.user.soFu(env.user.api.withPerfs)
-                    given Perf = me.fold(Perf.default)(_.perfs(userConfig.perfType))
+                    given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
                     blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
                     res <- processor.hook(
                       userConfig.withinLimits,
@@ -159,7 +160,7 @@ final class Setup(
               hookConfigWithRating = get("rr")
                 .fold(
                   hookConfig.withRatingRange(
-                    orig.fold(lila.rating.Perf.default)(_.perfs(game.perfType)).intRating.some,
+                    orig.fold(lila.rating.Perf.default)(_.perfs(game.perfKey)).intRating.some,
                     get("deltaMin"),
                     get("deltaMax")
                   )

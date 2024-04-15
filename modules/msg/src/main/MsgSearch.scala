@@ -6,14 +6,14 @@ import lila.common.Bus
 import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.core.misc.clas.ClasMatesAndTeachers
-import lila.user.Me
+
 import lila.core.user.KidMode
 import lila.core.userId.UserSearch
 
 final class MsgSearch(
     colls: MsgColls,
-    userCache: lila.user.Cached,
-    lightUserApi: lila.user.LightUserApi,
+    userCache: lila.core.user.CachedApi,
+    lightUserApi: lila.core.user.LightUserApi,
     relationApi: lila.core.relation.RelationApi
 )(using Executor, Scheduler):
 

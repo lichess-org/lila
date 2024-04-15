@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
@@ -26,7 +26,7 @@ object home:
         "tournament.schedule",
         Json.obj("data" -> json, "i18n" -> bits.scheduleJsI18n)
       ).some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           url = s"$netBaseUrl${routes.Tournament.home.url}",
           title = trans.site.tournamentHomeTitle.txt(),

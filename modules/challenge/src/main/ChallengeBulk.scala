@@ -8,12 +8,11 @@ import scala.util.chaining.*
 
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Player }
 import lila.core.misc.map.TellMany
 import lila.rating.PerfType
 import lila.core.round.StartClock
 import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
-import lila.user.User
+
 import lila.core.data.Template
 import scalalib.model.Days
 
@@ -21,7 +20,7 @@ final class ChallengeBulkApi(
     colls: ChallengeColls,
     msgApi: ChallengeMsg,
     gameRepo: lila.game.GameRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart
 )(using Executor, akka.stream.Materializer, Scheduler):
 
@@ -95,16 +94,16 @@ final class ChallengeBulkApi(
     lila.rating.PerfType(bulk.variant, Speed(bulk.clock.left.toOption))
     Source(bulk.games)
       .mapAsyncUnordered(8): game =>
-        userApi.gamePlayers
-          .loggedIn(game.userIds, bulk.perfType, useCache = false)
+        userApi
+          .gamePlayersLoggedIn(game.userIds, bulk.perfType, useCache = false)
           .map2: users =>
             (game.id, users)
       .mapConcat(_.toList)
       .map: (id, users) =>
-        val game = Game
-          .make(
+        val game = lila.core.game
+          .newGame(
             chess = chessGame,
-            players = users.map(some).mapWithColor(Player.make),
+            players = users.map(some).mapWithColor(lila.game.Player.make),
             mode = bulk.mode,
             source = lila.core.game.Source.Api,
             daysPerTurn = bulk.clock.toOption,

@@ -3,11 +3,11 @@ package views.html.tv
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 
 object games:
 
-  def apply(channel: lila.tv.Tv.Channel, povs: List[lila.game.Pov], champions: lila.tv.Tv.Champions)(using
+  def apply(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Champions)(using
       ctx: PageContext
   ) =
     views.html.base.layout(

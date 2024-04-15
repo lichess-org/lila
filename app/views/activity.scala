@@ -4,17 +4,19 @@ import controllers.routes
 
 import lila.activity.activities.*
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.forum.ForumTopicMini
 import lila.core.forum.ForumPostMini
 import lila.core.rating.Score
 import lila.core.rating.RatingProg
 import lila.core.chess.Rank
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.dubiousPuzzle
 
 object activity:
 
-  def apply(u: User.WithPerfs, as: Iterable[lila.activity.ActivityView])(using Context) =
+  def apply(u: UserWithPerfs, as: Iterable[lila.activity.ActivityView])(using Context) =
     div(cls := "activity")(
       as.toSeq.filterNot(_.isEmpty).map { a =>
         st.section(
@@ -76,7 +78,7 @@ object activity:
       br
     )
 
-  private def renderPuzzles(u: User.WithPerfs)(p: Puzzles)(using ctx: Context) =
+  private def renderPuzzles(u: UserWithPerfs)(p: Puzzles)(using ctx: Context) =
     entryTag(
       iconTag(Icon.ArcheryTarget),
       scoreFrag(p.value),
@@ -117,7 +119,8 @@ object activity:
     )
 
   private def renderGames(games: Games)(using Context) =
-    games.value.toSeq.sortBy(-_._2.size).map { case (pt, score) =>
+    games.value.toSeq.sortBy(-_._2.size).map { (pk, score) =>
+      val pt = lila.rating.PerfType(pk)
       entryTag(
         iconTag(pt.icon),
         scoreFrag(score),
@@ -169,7 +172,7 @@ object activity:
       )
     )
 
-  private def renderCorresMoves(nb: Int, povs: List[lila.game.LightPov])(using Context) =
+  private def renderCorresMoves(nb: Int, povs: List[lila.core.game.LightPov])(using Context) =
     entryTag(
       iconTag(Icon.PaperAirplane),
       div(
@@ -194,7 +197,7 @@ object activity:
       )
     )
 
-  private def renderCorresEnds(score: Score, povs: List[lila.game.LightPov])(using Context) =
+  private def renderCorresEnds(score: Score, povs: List[lila.core.game.LightPov])(using Context) =
     entryTag(
       iconTag(Icon.PaperAirplane),
       div(

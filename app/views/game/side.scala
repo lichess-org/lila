@@ -4,7 +4,8 @@ package game
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.game.GameExt.perfType
 
 object side:
 
@@ -13,11 +14,11 @@ object side:
   private val dataTime   = attr("data-time")
 
   def apply(
-      pov: lila.game.Pov,
+      pov: Pov,
       initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
     ctx.noBlind.option(
@@ -28,11 +29,11 @@ object side:
     )
 
   def meta(
-      pov: lila.game.Pov,
+      pov: Pov,
       initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
     ctx.noBlind.option {
@@ -44,7 +45,7 @@ object side:
               div(cls := "header")(
                 div(cls := "setup")(
                   views.html.bookmark.toggle(game, bookmarked),
-                  if game.imported then
+                  if game.sourceIs(_.Import) then
                     div(
                       a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
                       separator,

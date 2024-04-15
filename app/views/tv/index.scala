@@ -5,17 +5,17 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 
 object index:
 
   def apply(
       channel: lila.tv.Tv.Channel,
       champions: lila.tv.Tv.Champions,
-      pov: lila.game.Pov,
+      pov: Pov,
       data: play.api.libs.json.JsObject,
       cross: Option[lila.game.Crosstable.WithMatchup],
-      history: List[lila.game.Pov]
+      history: List[Pov]
   )(using PageContext) =
     views.html.round.bits.layout(
       variant = pov.game.variant,
@@ -23,7 +23,7 @@ object index:
       pageModule =
         PageModule("round", Json.obj("data" -> data, "i18n" -> views.html.round.jsI18n(pov.game))).some,
       moreCss = cssTag("tv.single"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
           description =

@@ -6,14 +6,13 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
-import lila.user.{ Me, User }
 
 import trans.appeal
 
@@ -166,7 +165,8 @@ object discussion:
       )
 
   def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using
-      PageContext
+      Translate,
+      Option[Me]
   ) =
     postForm(st.action := action)(
       form3.globalError(form),
