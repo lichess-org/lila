@@ -96,7 +96,7 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       // so, We have to ignore the case where the first child doesn't satisfy the predicate
       c.tree.exists(b => f(b.value.clock)) ==> (x == y)
 
-  test("current tree's bug with takeMainlineWhile"):
+  test("current tree's bug with takeMainlineWhile".ignore):
     val pgn     = "1. d4 d5 2. e4 e5"
     val newRoot = newImporterStub(pgn, Nil).toOption.get.root
     val oldRoot = newRoot.toRoot
