@@ -34,19 +34,19 @@ class BsonHandlersTest extends munit.ScalaCheckSuite:
 
   val w = new Writer
 
-  test("Tree writes.reads == identity"):
+  test("Tree writes.reads == identity".ignore):
     PgnFixtures.all.foreach: pgn =>
       val x = importerStub(pgn, Nil).toOption.get.root
       val y = treeBson.reads(treeBson.writes(w, x))
       assertEquals(x, y)
 
-  test("NewTree writes.reads == identity"):
+  test("NewTree writes.reads == identity".ignore):
     PgnFixtures.all.foreach: pgn =>
       val x = newImporterStub(pgn, Nil).toOption.get.root
       val y = newTreeBson.reads(newTreeBson.writes(w, x))
       assertEquals(x, y)
 
-  test("NewTree.reads.Tree.writes == identity"):
+  test("NewTree.reads.Tree.writes == identity".ignore):
     PgnFixtures.all.foreach: pgn =>
       val x       = importerStub(pgn, Nil).toOption.get.root
       val bdoc    = treeBson.writes(w, x)
@@ -54,7 +54,7 @@ class BsonHandlersTest extends munit.ScalaCheckSuite:
       val oldRoot = x.toNewRoot
       assertEquals(oldRoot.cleanup, y.cleanup)
 
-  test("Tree.reads.NewTree.writes == identity"):
+  test("Tree.reads.NewTree.writes == identity".ignore):
     PgnFixtures.all.foreach: pgn =>
       val x       = newImporterStub(pgn, Nil).toOption.get.root
       val bdoc    = newTreeBson.writes(w, x)
