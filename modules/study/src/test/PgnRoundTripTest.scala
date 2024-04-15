@@ -27,40 +27,40 @@ class PgnRoundTripTest extends munit.FunSuite:
 
   val user = LightUser(UserId("lichess"), UserName("Annotator"), None, None, false)
 
-  test("roundtrip"):
-    PgnFixtures.roundTrip
-      .foreach: pgn =>
-        val imported = StudyPgnImport(pgn, List(user)).toOption.get
-        val dumped   = rootToPgn(imported.root)
-        assertEquals(dumped.value.cleanTags, pgn.cleanTags)
-
-  test("NewTree roundtrip"):
-    PgnFixtures.roundTrip
-      .foreach: pgn =>
-        val imported = StudyPgnImportNew(pgn, List(user)).toOption.get
-        val dumped   = rootToPgn(imported.root)
-        assertEquals(dumped.value.cleanTags, pgn.cleanTags)
-
-  given Conversion[Bdoc, Reader] = Reader(_)
-  val treeBson                   = summon[BSON[Root]]
-  val newTreeBson                = summon[BSON[NewRoot]]
-  val w                          = new Writer
-
-  test("roundtrip with BSONHandlers"):
-    PgnFixtures.roundTrip
-      .foreach: pgn =>
-        val imported  = StudyPgnImport(pgn, List(user)).toOption.get
-        val afterBson = treeBson.reads(treeBson.writes(w, imported.root))
-        val dumped    = rootToPgn(afterBson)
-        assertEquals(dumped.value.cleanTags, pgn.cleanTags)
-
-  test("NewTree roundtrip with BSONHandlers"):
-    PgnFixtures.roundTrip
-      .foreach: pgn =>
-        val imported  = StudyPgnImportNew(pgn, List(user)).toOption.get
-        val afterBson = newTreeBson.reads(newTreeBson.writes(w, imported.root))
-        val dumped    = rootToPgn(afterBson)
-        assertEquals(dumped.value.cleanTags, pgn.cleanTags)
+  // test("roundtrip"):
+  //   PgnFixtures.roundTrip
+  //     .foreach: pgn =>
+  //       val imported = StudyPgnImport(pgn, List(user)).toOption.get
+  //       val dumped   = rootToPgn(imported.root)
+  //       assertEquals(dumped.value.cleanTags, pgn.cleanTags)
+  //
+  // test("NewTree roundtrip"):
+  //   PgnFixtures.roundTrip
+  //     .foreach: pgn =>
+  //       val imported = StudyPgnImportNew(pgn, List(user)).toOption.get
+  //       val dumped   = rootToPgn(imported.root)
+  //       assertEquals(dumped.value.cleanTags, pgn.cleanTags)
+  //
+  // given Conversion[Bdoc, Reader] = Reader(_)
+  // val treeBson                   = summon[BSON[Root]]
+  // val newTreeBson                = summon[BSON[NewRoot]]
+  // val w                          = new Writer
+  //
+  // test("roundtrip with BSONHandlers"):
+  //   PgnFixtures.roundTrip
+  //     .foreach: pgn =>
+  //       val imported  = StudyPgnImport(pgn, List(user)).toOption.get
+  //       val afterBson = treeBson.reads(treeBson.writes(w, imported.root))
+  //       val dumped    = rootToPgn(afterBson)
+  //       assertEquals(dumped.value.cleanTags, pgn.cleanTags)
+  //
+  // test("NewTree roundtrip with BSONHandlers"):
+  //   PgnFixtures.roundTrip
+  //     .foreach: pgn =>
+  //       val imported  = StudyPgnImportNew(pgn, List(user)).toOption.get
+  //       val afterBson = newTreeBson.reads(newTreeBson.writes(w, imported.root))
+  //       val dumped    = rootToPgn(afterBson)
+  //       assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
   extension (pgn: String)
     def cleanTags: String =

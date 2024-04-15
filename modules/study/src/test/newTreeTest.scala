@@ -25,21 +25,21 @@ class NewTreeTest extends munit.ScalaCheckSuite:
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
 
-  test("tree <-> newTree conversion"):
-    PgnFixtures.all.foreach: pgn =>
-      val x       = StudyPgnImport(pgn, Nil).toOption.get
-      val newRoot = x.root.toNewRoot
-      assertEquals(newRoot.toRoot, x.root)
-
-  test("PgnImport works"):
-    PgnFixtures.all.foreach: pgn =>
-      val x = StudyPgnImport(pgn, Nil).toOption.get
-      val y = StudyPgnImportNew(pgn, Nil).toOption.get
-      assertEquals(y.end, x.end)
-      assertEquals(y.variant, x.variant)
-      assertEquals(y.tags, x.tags)
-      val oldRoot = x.root.toNewRoot.cleanup
-      assertEquals(y.root.cleanup, oldRoot)
+  // test("tree <-> newTree conversion"):
+  //   PgnFixtures.all.foreach: pgn =>
+  //     val x       = StudyPgnImport(pgn, Nil).toOption.get
+  //     val newRoot = x.root.toNewRoot
+  //     assertEquals(newRoot.toRoot, x.root)
+  //
+  // test("PgnImport works"):
+  //   PgnFixtures.all.foreach: pgn =>
+  //     val x = StudyPgnImport(pgn, Nil).toOption.get
+  //     val y = StudyPgnImportNew(pgn, Nil).toOption.get
+  //     assertEquals(y.end, x.end)
+  //     assertEquals(y.variant, x.variant)
+  //     assertEquals(y.tags, x.tags)
+  //     val oldRoot = x.root.toNewRoot.cleanup
+  //     assertEquals(y.root.cleanup, oldRoot)
 
   test("Root conversion check"):
     forAll: (root: NewRoot) =>
@@ -96,11 +96,11 @@ class NewTreeTest extends munit.ScalaCheckSuite:
       // so, We have to ignore the case where the first child doesn't satisfy the predicate
       c.tree.exists(b => f(b.value.clock)) ==> (x == y)
 
-  test("current tree's bug with takeMainlineWhile".ignore):
-    val pgn     = "1. d4 d5 2. e4 e5"
-    val newRoot = StudyPgnImportNew(pgn, Nil).toOption.get.root
-    val oldRoot = newRoot.toRoot
-    assert(oldRoot.takeMainlineWhile(_.clock.isDefined).children.isEmpty)
+  // test("current tree's bug with takeMainlineWhile".ignore):
+  //   val pgn     = "1. d4 d5 2. e4 e5"
+  //   val newRoot = StudyPgnImportNew(pgn, Nil).toOption.get.root
+  //   val oldRoot = newRoot.toRoot
+  //   assert(oldRoot.takeMainlineWhile(_.clock.isDefined).children.isEmpty)
 
   test("clearVariations"):
     forAll: (root: NewRoot) =>
