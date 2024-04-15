@@ -27,19 +27,19 @@ class PgnRoundTripTest extends munit.FunSuite:
 
   val user = LightUser(UserId("lichess"), UserName("Annotator"), None, None, false)
 
-  import Helpers.{ importerStub, newImporterStub }
+  import Helpers.{ StudyPgnImport, StudyPgnImportNew }
 
   test("roundtrip"):
     PgnFixtures.roundTrip
       .foreach: pgn =>
-        val imported = importerStub(pgn, List(user)).toOption.get
+        val imported = StudyPgnImport(pgn, List(user)).toOption.get
         val dumped   = rootToPgn(imported.root)
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
   test("NewTree roundtrip"):
     PgnFixtures.roundTrip
       .foreach: pgn =>
-        val imported = newImporterStub(pgn, List(user)).toOption.get
+        val imported = StudyPgnImportNew(pgn, List(user)).toOption.get
         val dumped   = rootToPgn(imported.root)
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
@@ -51,7 +51,7 @@ class PgnRoundTripTest extends munit.FunSuite:
   test("roundtrip with BSONHandlers"):
     PgnFixtures.roundTrip
       .foreach: pgn =>
-        val imported  = importerStub(pgn, List(user)).toOption.get
+        val imported  = StudyPgnImport(pgn, List(user)).toOption.get
         val afterBson = treeBson.reads(treeBson.writes(w, imported.root))
         val dumped    = rootToPgn(afterBson)
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)
@@ -59,7 +59,7 @@ class PgnRoundTripTest extends munit.FunSuite:
   test("NewTree roundtrip with BSONHandlers"):
     PgnFixtures.roundTrip
       .foreach: pgn =>
-        val imported  = newImporterStub(pgn, List(user)).toOption.get
+        val imported  = StudyPgnImportNew(pgn, List(user)).toOption.get
         val afterBson = newTreeBson.reads(newTreeBson.writes(w, imported.root))
         val dumped    = rootToPgn(afterBson)
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)

@@ -11,10 +11,6 @@ import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, N
 object Helpers:
   import lila.tree.NewTree.*
 
-  /* Remove these when tests are independant from lila.game.importer */
-  val importerStub                                = StudyPgnImport
-  val newImporterStub                             = StudyPgnImportNew
-
   def rootToPgn(root: Root): PgnStr = PgnDump
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
     .render
