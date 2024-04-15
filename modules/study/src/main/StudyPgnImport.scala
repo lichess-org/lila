@@ -6,7 +6,7 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.core.LightUser
-import lila.core.game.{ ImportData, ImportReady }
+import lila.core.game.{ ParseImport, ImportData, ImportReady }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.tree.{ Branch, Branches, Root }
 
@@ -15,10 +15,12 @@ import lila.tree.{ Branch, Branches, Root }
  * We're importing a Chapter, not a Game.
  * Chapter should not depend on Game but only on scalachess.
  */
-object StudyPgnImport:
+final class StudyPgnImport(parseImport: ParseImport, statusText: lila.core.game.StatusText):
+
+  import StudyPgnImport.*
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    lila.game.importer.parseImport(ImportData(pgn, analyse = none), none).map {
+    parseImport(ImportData(pgn, analyse = none), none).map {
       case ImportReady(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
 
@@ -45,7 +47,7 @@ object StudyPgnImport:
                   status = status,
                   outcome = outcome,
                   resultText = chess.Outcome.showResult(outcome.some),
-                  statusText = lila.game.StatusText.apply(status, game.winnerColor, game.variant)
+                  statusText = statusText.apply(status, game.winnerColor, game.variant)
                 )
             val commented =
               if root.mainline.lastOption.so(_.isCommented) then root
@@ -60,6 +62,8 @@ object StudyPgnImport:
               end = end
             )
     }
+
+object StudyPgnImport:
 
   case class Result(
       root: Root,
