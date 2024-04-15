@@ -56,7 +56,7 @@ object ServerEval:
       sequencer: StudySequencer,
       socket: StudySocket,
       chapterRepo: ChapterRepo,
-      divider: lila.game.Divider
+      divider: lila.core.game.Divider
   )(using Executor):
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.id match

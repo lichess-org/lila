@@ -340,7 +340,7 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(analyse, game, room),
+  Seq(analyse, room),
   Seq(scalatags, lettuce) ++ tests.bundle ++ reactivemongo.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 

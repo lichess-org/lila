@@ -180,6 +180,8 @@ case class Game(
   def hasAi: Boolean = players.exists(_.isAi)
   def nonAi          = !hasAi
 
+  def synthetic = id == GameId("synthetic")
+
   def aiPov: Option[Pov] = players.collect { case x if x.isAi => x.color }.map(pov)
 
   def mapPlayers(f: Player => Player) =

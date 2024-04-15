@@ -8,7 +8,8 @@ final class ExplorerImporter(
     gameRepo: lila.core.game.GameRepo,
     gameImporter: lila.core.game.Importer,
     ws: play.api.libs.ws.StandaloneWSClient
-)(using Executor):
+)(using Executor)
+    extends lila.core.game.Explorer:
 
   private val masterGameEncodingFixedAt = instantOf(2016, 3, 9, 0, 0)
 

@@ -84,5 +84,7 @@ final class Env(
   lazy val newPlayer: lila.core.game.NewPlayer = new:
     export Player.make as apply
 
+  val namer: lila.core.game.Namer = Namer
+
   scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration): () =>
     captcha.newCaptcha()

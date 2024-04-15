@@ -13,12 +13,13 @@ final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     lightUserApi: lila.core.user.LightUserApi,
-    gamePgnDump: lila.game.PgnDump,
-    divider: lila.game.Divider,
-    gameRepo: lila.game.GameRepo,
+    gamePgnDump: lila.core.game.PgnDump,
+    divider: lila.core.game.Divider,
+    gameRepo: lila.core.game.GameRepo,
+    namer: lila.core.game.Namer,
     importer: lila.core.game.Importer,
     userApi: lila.core.user.UserApi,
-    explorerImporter: lila.game.core.ExplorerGame,
+    explorer: lila.core.game.Explorer,
     statusText: lila.core.game.StatusText,
     notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,
@@ -51,6 +52,8 @@ final class Env(
     socket.isPresent(studyId, userId)
 
   private lazy val socket: StudySocket = wire[StudySocket]
+
+  private val gameToRoot = wire[GameToRoot]
 
   val studyRepo             = StudyRepo(studyDb(CollName("study")))
   val chapterRepo           = ChapterRepo(studyDb(CollName("study_chapter_flat")))
