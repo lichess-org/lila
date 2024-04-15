@@ -217,8 +217,6 @@ object Game:
 
   val syntheticId = GameId("synthetic")
 
-  val maxPlaying = 200 // including correspondence
-
   val maxPlies = Ply(600) // unlimited would be a DoS target
 
   val analysableVariants: Set[Variant] = Set(
@@ -287,7 +285,6 @@ object Game:
     val whitePlayer       = "p0"
     val blackPlayer       = "p1"
     val playerIds         = "is"
-    val playingUids       = "pl"
     val binaryPieces      = "ps"
     val oldPgn            = "pg"
     val huffmanPgn        = "hp"

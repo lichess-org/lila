@@ -76,8 +76,10 @@ final class Env(
 
   lazy val api: lila.core.game.GameApi = new:
     export gameRepo.{ incBookmarks, getSourceAndUserIds }
+    export cached.nbPlaying
     export GameExt.{ computeMoveTimes, analysable }
     export StatusText.apply as statusText
+    export AnonCookie.json as anonCookieJson
 
   lazy val newPlayer: lila.core.game.NewPlayer = new:
     export Player.make as apply

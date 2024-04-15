@@ -21,8 +21,6 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
   import lila.game.Game.{ BSONFields as F }
   import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
 
-  val fixedColorLobbyCache = scalalib.cache.ExpireSetMemo[GameId](2 hours)
-
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
 
@@ -204,7 +202,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted[U: UserIdOf](user: U): Fu[List[Pov]] =
-    coll.list[Game](Query.nowPlaying(user.id), lila.game.Game.maxPlaying + 5).dmap {
+    coll.list[Game](Query.nowPlaying(user.id), lila.core.game.maxPlaying.value + 5).dmap {
       _.flatMap { Pov(_, user) }
     }
 

@@ -17,6 +17,7 @@ import lila.core.user.User
 import _root_.chess.variant.Variant
 import lila.core.userId.MyId
 
+val maxPlaying         = Max(200) // including correspondence
 val maxPlayingRealtime = Max(100)
 
 case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
@@ -93,7 +94,8 @@ trait GameApi:
   def computeMoveTimes(g: Game, color: Color): Option[List[Centis]]
   def analysable(g: Game): Boolean
   val statusText: StatusText
-  // def apply(game: Game): String
+  def nbPlaying(userId: UserId): Fu[Int]
+  def anonCookieJson(pov: lila.core.game.Pov): Option[JsObject]
 
 abstract class GameRepo(val coll: BSONCollection):
   given gameHandler: BSONDocumentHandler[Game]
@@ -163,14 +165,15 @@ object PgnDump:
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
 
 object BSONFields:
-  val id         = "_id"
-  val playerUids = "us"
-  val winnerId   = "wid"
-  val createdAt  = "ca"
-  val movedAt    = "ua" // ua = updatedAt (bc)
-  val turns      = "t"
-  val analysed   = "an"
-  val pgnImport  = "pgni"
+  val id          = "_id"
+  val playerUids  = "us"
+  val winnerId    = "wid"
+  val createdAt   = "ca"
+  val movedAt     = "ua" // ua = updatedAt (bc)
+  val turns       = "t"
+  val analysed    = "an"
+  val pgnImport   = "pgni"
+  val playingUids = "pl"
 
 def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
   val iterA   = a.iterator
