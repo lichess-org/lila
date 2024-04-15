@@ -65,3 +65,8 @@ final class Env(
       default = false,
       text = "Use external piece images".some
     )
+    val sitewideCoepCredentiallessHeader = settingStore[Boolean](
+      "sitewideCoepCredentiallessHeader",
+      default = true,
+      text = "Enable COEP:credentialless header site-wide in supported browsers (Chromium)".some
+    )
