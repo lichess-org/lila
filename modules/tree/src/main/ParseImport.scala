@@ -31,9 +31,9 @@ trait Importer:
 
 private val maxPlies = 600
 
-val parseImport: (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady2] = (data, user) =>
+val parseImport: PgnStr => Either[ErrorStr, ImportReady2] = pgn =>
   catchOverflow: () =>
-    Parser.full(data.pgn).map { parsed =>
+    Parser.full(pgn).map { parsed =>
       Reader
         .fullWithSans(parsed, _.map(_.take(maxPlies)))
         .pipe:

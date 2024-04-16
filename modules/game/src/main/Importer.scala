@@ -51,7 +51,7 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor) extends 
           yield game
 
 val parseImport: ParseImport = (data, user) =>
-  lila.tree.parseImport(data, user).map { case ImportReady2(game, result, replay, initialFen, parsed) =>
+  lila.tree.parseImport(data.pgn).map { case ImportReady2(game, result, replay, initialFen, parsed) =>
     val dbGame = lila.core.game
       .newGame(
         chess = game,
