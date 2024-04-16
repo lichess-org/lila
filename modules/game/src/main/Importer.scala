@@ -7,7 +7,7 @@ import chess.{ ByColor, Color, ErrorStr, Mode, Outcome, Replay, Status }
 import scala.util.chaining.*
 
 import lila.game.GameExt.finish
-import lila.core.game.{ Game, NewGame, Player }
+import lila.core.game.{ ImportedGame, Game, NewGame, Player }
 import lila.tree.ImportResult
 
 private val maxPlies = 600
@@ -34,10 +34,10 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor) extends 
             _ <- gameRepo.finish(game.id, game.winnerColor, None, game.status)
           yield game
 
-val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, NewGame] = (pgn, user) =>
+val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (pgn, user) =>
   lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsed) =>
     val dbGame = lila.core.game
-      .newGame(
+      .newImportedGame(
         chess = game,
         players = ByColor: c =>
           lila.game.Player.makeImported(c, parsed.tags.names(c), parsed.tags.elos(c)),
@@ -49,5 +49,5 @@ val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, NewGame] = (pgn, u
       .start
       .pipe: dbGame =>
         result.fold(dbGame)(res => dbGame.finish(res.status, res.winner))
-    NewGame(dbGame, initialFen)
+    ImportedGame(dbGame, initialFen)
   }

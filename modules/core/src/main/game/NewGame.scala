@@ -10,8 +10,22 @@ import lila.core.id.{ GameId, GamePlayerId }
 import lila.core.user.WithPerf
 import _root_.chess.format.Fen
 
+case class ImportedGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
+
+  def withId(id: GameId): Game = sloppy.withId(id)
+
+def newImportedGame(
+    chess: ChessGame,
+    players: ByColor[Player],
+    mode: Mode,
+    source: Source,
+    pgnImport: Option[PgnImport],
+    daysPerTurn: Option[Days] = None,
+    rules: Set[GameRule] = Set.empty
+): ImportedGame = ImportedGame(newSloppy(chess, players, mode, source, pgnImport, daysPerTurn, rules))
+
 // Wrapper around newly created games. We do not know if the id is unique, yet.
-case class NewGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
+case class NewGame(sloppy: Game):
   def withId(id: GameId): Game = sloppy.withId(id)
   def start: NewGame           = NewGame(sloppy.start)
 
@@ -26,20 +40,29 @@ def newGame(
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Days] = None,
     rules: Set[GameRule] = Set.empty
-): NewGame =
+): NewGame = NewGame(newSloppy(chess, players, mode, source, pgnImport, daysPerTurn, rules))
+
+private def newSloppy(
+    chess: ChessGame,
+    players: ByColor[Player],
+    mode: Mode,
+    source: Source,
+    pgnImport: Option[PgnImport],
+    daysPerTurn: Option[Days] = None,
+    rules: Set[GameRule] = Set.empty
+): Game =
   val createdAt = nowInstant
-  NewGame:
-    new Game(
-      id = IdGenerator.uncheckedGame,
-      players = players,
-      chess = chess,
-      status = Status.Created,
-      daysPerTurn = daysPerTurn,
-      mode = mode,
-      metadata = newMetadata(source).copy(pgnImport = pgnImport, rules = rules),
-      createdAt = createdAt,
-      movedAt = createdAt
-    )
+  new Game(
+    id = IdGenerator.uncheckedGame,
+    players = players,
+    chess = chess,
+    status = Status.Created,
+    daysPerTurn = daysPerTurn,
+    mode = mode,
+    metadata = newMetadata(source).copy(pgnImport = pgnImport, rules = rules),
+    createdAt = createdAt,
+    movedAt = createdAt
+  )
 
 trait IdGenerator:
   def game: Fu[GameId]
