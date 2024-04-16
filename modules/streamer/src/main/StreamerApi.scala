@@ -1,5 +1,5 @@
 package lila.streamer
-import lila.common.Icon
+import lila.ui.Icon
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.PicfitApi

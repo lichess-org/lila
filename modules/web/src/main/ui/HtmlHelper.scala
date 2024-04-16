@@ -2,9 +2,11 @@ package lila.web
 package ui
 
 import scalatags.text.Builder
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 trait HtmlHelper:
+
+  export lila.common.String.{ shorten, urlencode, addQueryParam, addQueryParams, underscoreFen }
 
   def renderCache[A](ttl: FiniteDuration)(using Executor)(toFrag: A => Frag): A => Frag =
     val cache = lila.memo.CacheApi.scaffeineNoScheduler

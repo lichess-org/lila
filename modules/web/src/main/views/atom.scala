@@ -4,9 +4,9 @@ package views
 import play.api.mvc.Call
 import java.time.LocalDate
 
-import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.BaseUrl
-import lila.common.Icon
+import lila.ui.Icon
 
 final class atom(netBaseUrl: BaseUrl):
 

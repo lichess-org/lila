@@ -4,23 +4,32 @@ package templating
 import chess.PlayerTitle
 import controllers.routes
 
-import lila.web.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Icon
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.Icon
 import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.core.perf.{ Perf, UserPerfs, UserWithPerfs }
 import lila.rating.PerfType
 import lila.app.mashup.*
-import lila.common.Icon
+import lila.ui.Icon
 import lila.core.user.User
 import lila.rating.GlickoExt.clueless
 import lila.rating.UserPerfsExt.bestRatedPerf
 import lila.core.perf.KeyedPerf
 import lila.rating.UserPerfsExt.bestPerfs
+import lila.ui.*
 import lila.web.ui.*
 
 trait UserHelper:
-  self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
+  self: AssetHelper =>
+
+  val numberHelper: NumberHelper
+  import numberHelper.*
+  val i18nHelper: I18nHelper
+  import i18nHelper.*
+  val dateHelper: DateHelper
+  val stringHelper: StringHelper
+  import stringHelper.*
 
   def env: Env
   given Conversion[UserWithPerfs, User] = _.user
@@ -300,7 +309,7 @@ trait UserHelper:
   def describeUser(user: UserWithPerfs)(using Translate) =
     val name      = user.titleUsername
     val nbGames   = user.count.game
-    val createdAt = showEnglishDate(user.createdAt)
+    val createdAt = dateHelper.showEnglishDate(user.createdAt)
     val currentRating = user.perfs.bestRatedPerf.so: p =>
       s" Current ${PerfType(p.key).trans} rating: ${p.perf.intRating}."
     s"$name played $nbGames games since $createdAt.$currentRating"

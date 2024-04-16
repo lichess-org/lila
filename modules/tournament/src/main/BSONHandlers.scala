@@ -35,6 +35,7 @@ object BSONHandlers:
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
 
+  given BSONHandler[lila.ui.Icon]              = isoHandler[lila.ui.Icon, String]
   private given BSONDocumentHandler[Spotlight] = Macros.handler
 
   given BSONDocumentHandler[TeamBattle] = Macros.handler

@@ -3,10 +3,10 @@ package lila.tv
 import scalalib.actor.SyncActor
 import chess.PlayerTitle
 
-import lila.common.Icon
+import lila.ui.Icon
 import lila.core.LightUser
 import lila.game.{ GameRepo }
-import lila.common.Icon
+import lila.ui.Icon
 
 final class Tv(
     gameRepo: GameRepo,
