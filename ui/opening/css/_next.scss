@@ -13,7 +13,7 @@
     color: $c-font;
     &:hover {
       outline: 3px solid $m-primary_bg--mix-60;
-      background: $m-primary_bg--mix-10; //mix($c-link, $c-bg-zebra, 10%);
+      background: $m-primary_bg-zebra--mix-10;
       box-shadow: 0 0 30px $m-primary_bg--mix-50;
       piece {
         opacity: 0.8;

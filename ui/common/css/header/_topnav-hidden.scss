@@ -101,7 +101,9 @@
   }
 
   #topnav {
-    @include back-blur(6px);
+    @include if-transp {
+      @include back-blur();
+    }
     display: flex;
     flex-flow: row wrap;
     position: fixed;
@@ -110,14 +112,11 @@
     @include inline-start(0);
     background: $c-bg-high;
 
-    -webkit-clip-path: inset(0 100% 0 0); // ios 12.x
-    clip-path: inset(0 100% 0 0);
-
+    transform: translateX(calc(-100% - 10px));
     @include if-rtl {
-      -webkit-clip-path: inset(0 0 0 100%);
-      clip-path: inset(0 0 0 100%);
+      transform: translateX(calc(100% + 10px));
     }
-    transition: clip-path 200ms;
+    transition: transform 200ms;
 
     padding-bottom: 1.2rem;
     overflow-y: auto;
@@ -146,6 +145,7 @@
     section {
       flex: 1 0 50%;
       margin-top: 1rem;
+      z-index: z('topnav');
 
       > a {
         font-size: 1.2em;
@@ -175,8 +175,7 @@
 
     .topnav-toggle:checked ~ & {
       z-index: z('topnav');
-      -webkit-clip-path: inset(0 0 0 0); // ios 12.x
-      clip-path: inset(0 0 0 0);
+      transform: translateX(0);
       a {
         opacity: 1;
         transition: opacity 125ms ease-in-out 125ms;

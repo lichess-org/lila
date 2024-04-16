@@ -85,8 +85,17 @@
 }
 
 @mixin back-blur($size: 6px) {
-  backdrop-filter: blur($size);
-  -webkit-backdrop-filter: blur($size);
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    backdrop-filter: blur($size);
+    -webkit-backdrop-filter: blur($size);
+  }
 }
 
 @mixin topnav-unsticky {

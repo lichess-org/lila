@@ -18,7 +18,7 @@ object layout:
       title = title,
       moreCss = frag(cssTag("account"), evenMoreCss),
       moreJs = evenMoreJs,
-      modules = modules
+      modules = jsModule("bits.account") ++ modules
     ):
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(

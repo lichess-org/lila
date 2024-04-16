@@ -2,11 +2,11 @@
 
 // this may not import anything from outside common/css/colors
 
-@function clear($color, $weight: 17%) {
+@function _clear($color, $weight: 17%) {
   @return mix(#000, $color, $weight);
 }
 
-@function dim($color, $weight: 17%) {
+@function _dim($color, $weight: 17%) {
   @return mix(#fff, $color, $weight);
 }
 
@@ -26,6 +26,8 @@ $c-blunder: hsl(0, 68%, 50%);
 $c-good-move: hsl(130, 67%, 40%);
 $c-brilliant: hsl(129, 71%, 30%);
 $c-interesting: hsl(307, 80%, 59%);
+$c-dimmer: #fff;
+$c-clearer: #000;
 
 html.light {
   @include shared-color-defs;
@@ -45,8 +47,8 @@ html.light {
   --c-font-page: #{change-color($c-font, $lightness: 37%)};
   --c-font-shadow: #fff;
 
-  --c-primary-dim: #{dim($c-primary)};
-  --c-link-hover: #{clear(saturate($c-primary, 100%), 35%)};
+  --c-primary-dim: #{_dim($c-primary)};
+  --c-link-hover: #{_clear(saturate($c-primary, 100%), 35%)};
 
   --c-chat-host-bg: rgba(125, 170, 73, 0.4);
   --c-chat-mention-bg: rgba(161, 194, 124, 0.4);
