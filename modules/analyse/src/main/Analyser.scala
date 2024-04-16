@@ -10,7 +10,8 @@ import lila.tree.{ Analysis, ExportOptions, Tree }
 final class Analyser(
     gameRepo: lila.core.game.GameRepo,
     analysisRepo: AnalysisRepo
-)(using Executor):
+)(using Executor)
+    extends lila.tree.Analyser:
 
   def get(game: Game): Fu[Option[Analysis]] =
     analysisRepo.byGame(game)

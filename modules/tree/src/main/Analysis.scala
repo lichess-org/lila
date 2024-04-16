@@ -2,6 +2,9 @@ package lila.tree
 
 import chess.{ Color, Ply }
 
+trait Analyser:
+  def byId(id: Analysis.Id): Fu[Option[Analysis]]
+
 case class Analysis(
     id: Analysis.Id,
     infos: List[Info],
