@@ -12,7 +12,7 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.net.IpAddress
 import lila.game.GameExt.analysable
-import lila.tree.ImportReady
+import lila.core.game.NewGame
 
 final class Importer(env: Env) extends LilaController(env):
   import Importer.*
@@ -104,7 +104,8 @@ object Importer:
       "pgn"     -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => checkPgn(p).isRight),
       "analyse" -> optional(nonEmptyText)
     )(ImportData.apply)(unapply)
-  private def checkPgn(pgn: PgnStr): Either[ErrorStr, ImportReady] =
+
+  private def checkPgn(pgn: PgnStr): Either[ErrorStr, NewGame] =
     lila.game.importer.parseImport(pgn, none)
 
   case class ImportData(pgn: PgnStr, analyse: Option[String])

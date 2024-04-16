@@ -13,8 +13,6 @@ case class TagResult(status: Status, winner: Option[Color]):
   // duplicated from Game.finish
   def finished = status >= Status.Mate
 
-case class ImportReady(game: NewGame, initialFen: Option[Fen.Full])
-
 case class ImportReady2(
     game: ChessGame,
     result: Option[TagResult],

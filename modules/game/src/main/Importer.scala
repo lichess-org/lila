@@ -8,7 +8,7 @@ import scala.util.chaining.*
 
 import lila.game.GameExt.finish
 import lila.core.game.{ Game, NewGame, Player }
-import lila.tree.{ ImportReady, ImportReady2 }
+import lila.tree.ImportReady2
 
 private val maxPlies = 600
 
@@ -25,7 +25,7 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor) extends 
         case None =>
           for
             g <- parseImport(pgn, me).toFuture
-            game = forceId.fold(g.game.sloppy)(g.game.withId)
+            game = forceId.fold(g.sloppy)(g.withId)
             _ <- gameRepo.insertDenormalized(game, initialFen = g.initialFen)
             _ <- game.pgnImport.flatMap(_.user).isDefined.so {
               // import date, used to make a compound sparse index with the user
@@ -34,7 +34,7 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor) extends 
             _ <- gameRepo.finish(game.id, game.winnerColor, None, game.status)
           yield game
 
-val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportReady] = (pgn, user) =>
+val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, NewGame] = (pgn, user) =>
   lila.tree.parseImport(pgn).map { case ImportReady2(game, result, replay, initialFen, parsed) =>
     val dbGame = lila.core.game
       .newGame(
@@ -49,5 +49,5 @@ val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportReady] = (pg
       .start
       .pipe: dbGame =>
         result.fold(dbGame)(res => dbGame.finish(res.status, res.winner))
-    ImportReady(NewGame(dbGame), initialFen)
+    NewGame(dbGame, initialFen)
   }

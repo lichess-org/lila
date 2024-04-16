@@ -8,9 +8,10 @@ import _root_.chess.{ Color, Mode, ByColor, Status, Game as ChessGame }
 
 import lila.core.id.{ GameId, GamePlayerId }
 import lila.core.user.WithPerf
+import _root_.chess.format.Fen
 
 // Wrapper around newly created games. We do not know if the id is unique, yet.
-case class NewGame(sloppy: Game):
+case class NewGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
   def withId(id: GameId): Game = sloppy.withId(id)
   def start: NewGame           = NewGame(sloppy.start)
 
