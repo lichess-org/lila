@@ -8,7 +8,7 @@ import lila.tree.Eval.jsonWrites
 import lila.tree.Analysis
 import lila.core.game.SideAndStart
 
-object JsonView:
+object JsonView extends lila.tree.AnalysisJson:
 
   def moves(analysis: Analysis, withGlyph: Boolean = true) =
     JsArray(analysis.infoAdvices.map { (info, adviceOption) =>

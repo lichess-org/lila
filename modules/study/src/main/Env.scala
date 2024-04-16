@@ -27,8 +27,9 @@ final class Env(
     socketKit: lila.core.socket.SocketKit,
     socketReq: lila.core.socket.SocketRequester,
     chatApi: lila.core.chat.ChatApi,
-    analyser: lila.analyse.Analyser,
-    annotator: lila.analyse.Annotator,
+    analyser: lila.tree.Analyser,
+    analysisJson: lila.tree.AnalysisJson,
+    annotator: lila.tree.Annotator,
     mongo: lila.db.Env,
     net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi
@@ -98,5 +99,4 @@ final class Env(
     }
 
   lila.common.Bus.subscribeFun("studyAnalysisProgress"):
-    case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
-      serverEvalMerger(analysis, complete)
+    case lila.tree.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)

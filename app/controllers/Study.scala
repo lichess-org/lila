@@ -233,7 +233,7 @@ final class Study(
             lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
           }.some
         )
-        .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
+        .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
     )
 
   def show(id: StudyId) = Open:

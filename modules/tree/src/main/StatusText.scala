@@ -30,5 +30,5 @@ object StatusText extends lila.core.game.StatusText:
           case _                           => "Game ends by variant rule."
       case _ => ""
 
-  private def winner(win: Option[Color]) = win.map(_.toString) | ""
+  private def winner(win: Option[Color]) = win.so(_.toString)
   private def loser(win: Option[Color])  = winner(win.map(!_))
