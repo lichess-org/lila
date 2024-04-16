@@ -1,13 +1,13 @@
-package lila.core
-package game
+package lila.tree
 
-import _root_.chess.format.Fen
-import _root_.chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Reader, Sans }
-import _root_.chess.{ ByColor, Color, ErrorStr, Mode, Outcome, Replay, Status, Situation }
-import _root_.chess.variant.*
+import chess.format.Fen
+import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Reader, Sans }
+import chess.*
+import chess.variant.*
 import scala.util.chaining.*
 
 import lila.core.userId.UserId
+import lila.core.game.{ ImportData, ImportReady2, TagResult }
 
 private val maxPlies = 600
 
@@ -57,10 +57,6 @@ val parseImport: (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady2] 
           ImportReady2(game, result, replay.copy(state = game), initialFen, parsed)
         }
     }
-
-case class TagResult(status: Status, winner: Option[Color]):
-  // duplicated from Game.finish
-  def finished = status >= Status.Mate
 
 private def isChess960StartPosition(sit: Situation) =
   import _root_.chess.*

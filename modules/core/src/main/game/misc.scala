@@ -193,6 +193,10 @@ trait Namer:
   def gameVsText(game: Game, withRatings: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
   def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
 
+case class TagResult(status: Status, winner: Option[Color]):
+  // duplicated from Game.finish
+  def finished = status >= Status.Mate
+
 case class ImportData(pgn: PgnStr, analyse: Option[String])
 case class ImportReady(game: NewGame, replay: Replay, initialFen: Option[Fen.Full], parsed: ParsedPgn)
 case class ImportReady2(

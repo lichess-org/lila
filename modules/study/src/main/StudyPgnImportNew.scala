@@ -35,7 +35,7 @@ final class StudyPgnImportNew:
   )
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    lila.core.game.parseImport(ImportData(pgn, analyse = none), none).map {
+    lila.tree.parseImport(ImportData(pgn, analyse = none), none).map {
       case ImportReady2(game, result, replay, initialFen, parsedPgn) =>
         val annotator = StudyPgnImport.findAnnotator(parsedPgn, contributors)
         StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
