@@ -25,27 +25,27 @@ class PgnImportTest extends lila.common.LilaTest:
 
   val user = LightUser(UserId("lichess"), UserName("Annotator"), None, None, false)
 
-  test("import pgn".ignore):
+  test("import pgn"):
     importerStub(pgn, List(user)).assertRight: parsed =>
       assertEquals(parsed.tags, Tags.empty)
       assertEquals(parsed.root.children.nodes.size, 3)
       assertEquals(parsed.root.ply, Ply.initial)
 
-  test("import a simple pgn".ignore):
+  test("import a simple pgn"):
     importerStub("1.d4 d5 2.e4 e5", List(user)).assertRight: parsed =>
       assertEquals(parsed.tags, Tags.empty)
       assertEquals(parsed.root.children.nodes.size, 1)
       assertEquals(parsed.root.ply, Ply.initial)
 
-  test("import a simple pgn with a clock comment".ignore):
+  test("import a simple pgn with a clock comment"):
     val x = importerStub("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
     assert(x.root.mainlineNodeList(1).clock.isDefined)
 
-  test("import a simple pgn with a clock and emt".ignore):
+  test("import a simple pgn with a clock and emt"):
     val x = importerStub("1.d4 {[%clk 1:59:59]} d5 {[%emt 00:00:12]}", Nil).toOption.get
     assert(x.root.mainlineNodeList(2).clock.isEmpty)
 
-  test("import pgn with a clock and emt".ignore):
+  test("import pgn with a clock and emt"):
     val x = importerStub(
       "1.d4 {[%clk 1:59:59]} d5 {[%clk 1:59:50]} 2.c4 {[%emt 00:00:12]} Nf6 {[%emt 00:00:13]}",
       Nil
@@ -53,7 +53,7 @@ class PgnImportTest extends lila.common.LilaTest:
     assertEquals(x.root.mainlineNodeList(3).clock.get, chess.Centis(718700))
     assertEquals(x.root.mainlineNodeList(4).clock.get, chess.Centis(717700))
 
-  test("import a broadcast pgn".ignore):
+  test("import a broadcast pgn"):
     val x = importerStub(
       """[Event "Norway Chess"]
 [Site "-"]
@@ -89,7 +89,7 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
     assert(x.root.mainlineNodeList(1).clock contains chess.Centis(719900))
     assert(x.root.mainlineNodeList(2).clock contains chess.Centis(718000))
 
-  test("import a broadcast pgn with missing clock)".ignore):
+  test("import a broadcast pgn with missing clock)"):
     val x = importerStub(
       """
         1. d4 {[%clk 01:59:00]} {[%emt 00:00:58]} d5 {[%clk 01:59:50]} {[%emt

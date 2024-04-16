@@ -25,13 +25,13 @@ class NewTreeTest extends munit.ScalaCheckSuite:
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
 
-  test("tree <-> newTree conversion".ignore):
+  test("tree <-> newTree conversion"):
     PgnFixtures.all.foreach: pgn =>
       val x       = importerStub(pgn, Nil).toOption.get
       val newRoot = x.root.toNewRoot
       assertEquals(newRoot.toRoot, x.root)
 
-  test("PgnImport works".ignore):
+  test("PgnImport works"):
     PgnFixtures.all.foreach: pgn =>
       val x = importerStub(pgn, Nil).toOption.get
       val y = newImporterStub(pgn, Nil).toOption.get
