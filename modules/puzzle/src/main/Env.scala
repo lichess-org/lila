@@ -51,6 +51,8 @@ final class Env(
 
   private val countApi = wire[PuzzleCountApi]
 
+  val opening = wire[PuzzleOpeningApi]
+
   val api: PuzzleApi = wire[PuzzleApi]
 
   val session: PuzzleSessionApi = wire[PuzzleSessionApi]
@@ -76,8 +78,6 @@ final class Env(
   val history = wire[PuzzleHistoryApi]
 
   val streak = wire[PuzzleStreakApi]
-
-  val opening = wire[PuzzleOpeningApi]
 
   private val tagger = wire[PuzzleTagger]
 
