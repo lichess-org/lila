@@ -37,7 +37,6 @@ final private class StudySocket(
 
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
     import eval.*
-    import lila.game.JsonView.given
     send(
       RP.Out.tellRoom(
         studyId,

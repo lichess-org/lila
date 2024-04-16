@@ -24,6 +24,7 @@ final class Env(
 
   lazy val externalEngine = ExternalEngineApi(db(CollName("external_engine")), cacheApi)
 
-  lila.common.Bus.subscribeFun("oauth") { case lila.core.misc.oauth.TokenRevoke(id) =>
-    externalEngine.onTokenRevoke(id)
-  }
+  val jsonView = JsonView
+
+  lila.common.Bus.subscribeFun("oauth"):
+    case lila.core.misc.oauth.TokenRevoke(id) => externalEngine.onTokenRevoke(id)

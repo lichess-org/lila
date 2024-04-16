@@ -10,7 +10,8 @@ import lila.tree.{ Analysis, ExportOptions, Tree }
 final class Analyser(
     gameRepo: lila.core.game.GameRepo,
     analysisRepo: AnalysisRepo
-)(using Executor):
+)(using Executor)
+    extends lila.tree.Analyser:
 
   def get(game: Game): Fu[Option[Analysis]] =
     analysisRepo.byGame(game)
@@ -43,7 +44,7 @@ final class Analyser(
           Bus.publish(
             TellIfExists(
               id.value,
-              lila.core.analyse.AnalysisProgress: () =>
+              lila.tree.AnalysisProgress: () =>
                 makeProgressPayload(analysis, g.game, g.fen | g.game.variant.initialFen)
             ),
             "roundSocket"
@@ -51,7 +52,7 @@ final class Analyser(
         }
       case _ =>
         fuccess:
-          Bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
+          Bus.publish(lila.tree.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
 
   private def makeProgressPayload(
       analysis: Analysis,

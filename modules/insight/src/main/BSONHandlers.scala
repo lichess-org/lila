@@ -109,7 +109,7 @@ object BSONHandlers:
         id               -> e.id,
         userId           -> e.userId,
         color            -> e.color,
-        perf             -> e.perf,
+        perf             -> PerfType(e.perf),
         opening          -> e.opening,
         openingFamily    -> e.opening.map(_.family),
         myCastling       -> e.myCastling,

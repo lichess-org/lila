@@ -7,7 +7,7 @@ import views.html.mod.userTable.sortNoneTh
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
 
 import lila.rating.PerfType

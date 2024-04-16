@@ -15,7 +15,7 @@ object Helpers:
   val parseImportStub: lila.core.game.ParseImport = (_, _) => Left(chess.ErrorStr("lila.game not available"))
   val statusTextStub: lila.core.game.StatusText   = (_, _, _) => ""
   val importerStub                                = StudyPgnImport(parseImportStub, statusTextStub)
-  val newImporterStub                             = StudyPgnImportNew(parseImportStub)
+  val newImporterStub                             = StudyPgnImportNew(parseImportStub, statusTextStub)
 
   def rootToPgn(root: Root): PgnStr = PgnDump
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))

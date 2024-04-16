@@ -3,8 +3,7 @@ package core
 
 import lila.core.game.Game
 
-type ExplorerGame = GameId => Fu[Option[Game]]
-type OnTvGame     = Game => Unit
+type OnTvGame = Game => Unit
 
 object insight:
 

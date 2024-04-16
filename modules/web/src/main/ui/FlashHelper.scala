@@ -1,10 +1,13 @@
 package lila.web
 package ui
 
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
+import lila.ui.Context
+import lila.core.i18n.{ I18nKey as trans }
 
-trait FlashHelper:
-  self: I18nHelper =>
+final class FlashHelper(i18n: lila.ui.I18nHelper):
+
+  import i18n.given
 
   def standardFlash(using Context): Option[Tag] =
     successFlash.orElse(warningFlash).orElse(failureFlash)

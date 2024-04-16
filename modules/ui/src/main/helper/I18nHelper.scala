@@ -1,17 +1,13 @@
-package lila.web
-package ui
+package lila.ui
 
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import play.api.mvc.Call
 
-import lila.web.ui.ScalatagsTemplate.*
-import lila.core.i18n.{ I18nKey, fixJavaLanguage }
+import lila.ui.ScalatagsTemplate.*
+import lila.core.i18n.{ I18nKey, fixJavaLanguage, JsDump, Translator }
 
-trait I18nHelper:
-
-  def jsDump: lila.core.i18n.JsDump
-  def translator: lila.core.i18n.Translator
+final class I18nHelper(jsDump: JsDump, translator: Translator):
 
   export lila.core.i18n.Translate
   export lila.core.i18n.I18nKey as trans

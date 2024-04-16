@@ -169,7 +169,7 @@ final private class RoundAsyncActor(
           }
           .inject(Nil)
 
-    case lila.core.analyse.AnalysisProgress(payload) =>
+    case lila.tree.AnalysisProgress(payload) =>
       fuccess:
         socketSend:
           RP.Out.tellRoom(roomId, makeMessage("analysisProgress", payload()))

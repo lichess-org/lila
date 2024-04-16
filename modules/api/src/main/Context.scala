@@ -12,6 +12,7 @@ import lila.pref.Pref
 import lila.core.user.KidMode
 import lila.user.UserExt.userLanguage
 import lila.web.Nonce
+import lila.core.net.IpAddress
 
 /* Who is logged in, and how */
 final class LoginContext(
@@ -46,9 +47,11 @@ class Context(
     val lang: Lang,
     val loginContext: LoginContext,
     val pref: Pref
-) extends lila.web.Context:
+) extends lila.ui.Context:
   export loginContext.*
+  def ip: IpAddress         = HTTPRequest.ipAddress(req)
   lazy val mobileApiVersion = lila.security.Mobile.Api.requestVersion(req)
+  lazy val blind            = req.cookies.get(lila.web.WebConfig.blindCookie.name).exists(_.value.nonEmpty)
   def isMobileApi           = mobileApiVersion.isDefined
   def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.isKidUser)
   def withLang(l: Lang)     = new Context(req, l, loginContext, pref)
