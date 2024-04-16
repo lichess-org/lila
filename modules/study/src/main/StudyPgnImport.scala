@@ -10,14 +10,7 @@ import lila.tree.ImportResult
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.tree.{ Branch, Branches, Root }
 
-/* #TODO
- * We should not be using the game importer here, or the Game type.
- * We're importing a Chapter, not a Game.
- * Chapter should not depend on Game but only on scalachess.
- */
-final class StudyPgnImport:
-
-  import StudyPgnImport.*
+object StudyPgnImport:
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
     lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn) =>
@@ -62,8 +55,6 @@ final class StudyPgnImport:
             end = end
           )
     }
-
-object StudyPgnImport:
 
   case class Result(
       root: Root,

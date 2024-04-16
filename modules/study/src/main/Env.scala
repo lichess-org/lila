@@ -59,9 +59,6 @@ final class Env(
   private val topicRepo     = StudyTopicRepo(studyDb(CollName("study_topic")))
   private val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
 
-  val pgnImport = wire[StudyPgnImport]
-  // private val pgnImportNew = wire[StudyPgnImportNew]
-
   lazy val jsonView = wire[JsonView]
 
   private lazy val pgnFetch = wire[PgnFetch]

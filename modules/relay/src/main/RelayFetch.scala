@@ -11,7 +11,7 @@ import lila.core.lilaism.LilaInvalid
 import lila.common.LilaScheduler
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
-import lila.study.MultiPgn
+import lila.study.{ MultiPgn, StudyPgnImport }
 import lila.tree.Node.Comments
 
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
@@ -317,10 +317,8 @@ private object RelayFetch:
         .maximumSize(512)
         .build(compute)
 
-    private val pgnImport = lila.study.StudyPgnImport()
-
     private def compute(pgn: PgnStr): Either[LilaInvalid, Int => RelayGame] =
-      pgnImport(pgn, Nil)
+      StudyPgnImport(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
         .map: res =>
           index =>

@@ -26,7 +26,7 @@ case class Context(
     previousClock: Option[Centis]
 )
 
-final class StudyPgnImportNew:
+object StudyPgnImportNew:
 
   case class Result(
       root: NewRoot,
