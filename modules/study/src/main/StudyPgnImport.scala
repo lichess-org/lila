@@ -15,7 +15,7 @@ import lila.tree.{ Branch, Branches, Root }
  * We're importing a Chapter, not a Game.
  * Chapter should not depend on Game but only on scalachess.
  */
-final class StudyPgnImport(statusText: lila.core.game.StatusText):
+final class StudyPgnImport:
 
   import StudyPgnImport.*
 
@@ -46,7 +46,7 @@ final class StudyPgnImport(statusText: lila.core.game.StatusText):
                 status = res.status,
                 outcome = outcome,
                 resultText = chess.Outcome.showResult(outcome.some),
-                statusText = statusText(res.status, res.winner, game.board.variant)
+                statusText = lila.core.game.StatusText.apply(res.status, res.winner, game.board.variant)
               )
 
             val commented =

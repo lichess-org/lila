@@ -12,9 +12,8 @@ object Helpers:
   import lila.tree.NewTree.*
 
   /* Remove these when tests are independant from lila.game.importer */
-  val statusTextStub: lila.core.game.StatusText = (_, _, _) => ""
-  val importerStub                              = StudyPgnImport(statusTextStub)
-  val newImporterStub                           = StudyPgnImportNew(statusTextStub)
+  val importerStub    = StudyPgnImport()
+  val newImporterStub = StudyPgnImportNew()
 
   def rootToPgn(root: Root): PgnStr = PgnDump
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))

@@ -25,7 +25,7 @@ case class Context(
     previousClock: Option[Centis]
 )
 
-final class StudyPgnImportNew(statusText: StatusText):
+final class StudyPgnImportNew:
 
   case class Result(
       root: NewRoot,
@@ -68,7 +68,7 @@ final class StudyPgnImportNew(statusText: StatusText):
                 status = res.status,
                 outcome = outcome,
                 resultText = chess.Outcome.showResult(outcome.some),
-                statusText = statusText(res.status, res.winner, game.board.variant)
+                statusText = lila.core.game.StatusText.apply(res.status, res.winner, game.board.variant)
               )
 
             val commented =
