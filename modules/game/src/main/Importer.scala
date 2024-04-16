@@ -8,7 +8,7 @@ import scala.util.chaining.*
 
 import lila.game.GameExt.finish
 import lila.core.game.{ Game, NewGame, Player }
-import lila.tree.ImportReady2
+import lila.tree.ImportResult
 
 private val maxPlies = 600
 
@@ -35,7 +35,7 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor) extends 
           yield game
 
 val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, NewGame] = (pgn, user) =>
-  lila.tree.parseImport(pgn).map { case ImportReady2(game, result, replay, initialFen, parsed) =>
+  lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsed) =>
     val dbGame = lila.core.game
       .newGame(
         chess = game,

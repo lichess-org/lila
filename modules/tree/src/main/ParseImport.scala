@@ -13,7 +13,7 @@ case class TagResult(status: Status, winner: Option[Color]):
   // duplicated from Game.finish
   def finished = status >= Status.Mate
 
-case class ImportReady2(
+case class ImportResult(
     game: ChessGame,
     result: Option[TagResult],
     replay: Replay,
@@ -21,14 +21,12 @@ case class ImportReady2(
     parsed: ParsedPgn
 )
 
-// type ParseImport = (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady]
-
 trait Importer:
   def importAsGame(data: PgnStr, forceId: Option[GameId] = none)(using Option[MyId]): Fu[Game]
 
 private val maxPlies = 600
 
-val parseImport: PgnStr => Either[ErrorStr, ImportReady2] = pgn =>
+val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
   catchOverflow: () =>
     Parser.full(pgn).map { parsed =>
       Reader
@@ -71,7 +69,7 @@ val parseImport: PgnStr => Either[ErrorStr, ImportReady2] = pgn =>
             .filter(_.status > Status.Started)
             .orElse { game.situation.status.map(TagResult(_, game.situation.winner)) }
 
-          ImportReady2(game, result, replay.copy(state = game), initialFen, parsed)
+          ImportResult(game, result, replay.copy(state = game), initialFen, parsed)
         }
     }
 

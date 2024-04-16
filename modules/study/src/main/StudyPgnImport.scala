@@ -6,7 +6,7 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.core.LightUser
-import lila.tree.ImportReady2
+import lila.tree.ImportResult
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.tree.{ Branch, Branches, Root }
 
@@ -20,7 +20,7 @@ final class StudyPgnImport:
   import StudyPgnImport.*
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    lila.tree.parseImport(pgn).map { case ImportReady2(game, result, replay, initialFen, parsedPgn) =>
+    lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn) =>
       val annotator = findAnnotator(parsedPgn, contributors)
 
       val clock = parsedPgn.tags.clockConfig.map(_.limit)

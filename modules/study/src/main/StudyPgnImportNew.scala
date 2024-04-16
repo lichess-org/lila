@@ -17,7 +17,7 @@ import chess.MoveOrDrop.*
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.core.LightUser
 import lila.core.game.StatusText
-import lila.tree.ImportReady2
+import lila.tree.ImportResult
 import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
 
 case class Context(
@@ -36,7 +36,7 @@ final class StudyPgnImportNew:
   )
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    lila.tree.parseImport(pgn).map { case ImportReady2(game, result, replay, initialFen, parsedPgn) =>
+    lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn) =>
       val annotator = StudyPgnImport.findAnnotator(parsedPgn, contributors)
       StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
         case (shapes, _, _, comments) =>
