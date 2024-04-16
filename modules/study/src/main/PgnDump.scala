@@ -11,7 +11,7 @@ import lila.tree.Node.{ Shape, Shapes }
 final class PgnDump(
     chapterRepo: ChapterRepo,
     analyser: lila.tree.Analyser,
-    annotator: lila.analyse.Annotator,
+    annotator: lila.tree.Annotator,
     lightUserApi: lila.core.user.LightUserApi,
     net: lila.core.config.NetConfig
 )(using Executor):
