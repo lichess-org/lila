@@ -18,7 +18,8 @@ final private[api] class Cli(
     video: lila.video.Env,
     puzzle: lila.puzzle.Env,
     team: lila.team.Env,
-    notify: lila.notify.Env
+    notify: lila.notify.Env,
+    manifest: lila.web.AssetManifest
 )(using Executor)
     extends lila.common.Cli:
 
@@ -32,6 +33,7 @@ final private[api] class Cli(
   def process =
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
+      manifest.update()
       import lila.core.net.AssetVersion
       val current = AssetVersion.change()
       Bus.publish(AssetVersion.Changed(current), "assetVersion")

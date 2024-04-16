@@ -2,11 +2,11 @@
 
 // this may not import anything from outside common/css/colors
 
-@function clear($color, $weight: 20%) {
+@function _clear($color, $weight: 20%) {
   @return mix(#fff, $color, $weight);
 }
 
-@function dim($color, $weight: 20%) {
+@function _dim($color, $weight: 20%) {
   @return mix(#000, $color, $weight);
 }
 
@@ -37,6 +37,8 @@ $c-good-move: hsl(130, 67%, 62%);
 $c-brilliant: hsl(129, 71%, 45%);
 $c-interesting: hsl(307, 80%, 70%);
 $c-dark: #333;
+$c-dimmer: #000;
+$c-clearer: #fff;
 
 /* shared-color-defs is the location for theme colors that share the same definition syntax.
    note that many of the assigned values may depend on variables from the including scope and
@@ -58,6 +60,8 @@ $c-dark: #333;
   --c-font: #{$c-font};
   --c-shade: #{$c-shade};
   --c-dark: #{$c-dark};
+  --c-dimmer: #{$c-dimmer};
+  --c-clearer: #{$c-clearer};
 
   --c-page-input: #{$c-bg};
   --c-page-mask: hsla(0, 0%, 0%, 0.6);
@@ -69,8 +73,8 @@ $c-dark: #333;
   --c-font-page: var(--c-font-dim);
   --c-font-shadow: #000;
 
-  --c-primary-dim: #{dim($c-primary, 15%)};
-  --c-link-hover: #{clear(saturate($c-primary, 100%), 25%)};
+  --c-primary-dim: #{_dim($c-primary, 15%)};
+  --c-link-hover: #{_clear(saturate($c-primary, 100%), 25%)};
 
   --c-chat-host-bg: rgba(78, 122, 29, 0.4);
   --c-chat-mention-bg: rgba(59, 92, 22, 0.4);
@@ -80,10 +84,10 @@ $c-dark: #333;
   --c-border-page: hsl(0, 0%, 22%);
   --c-border-tour: #{mix(hsl(0, 0%, 22%), $c-bg-page, 50)};
   --c-primary: #{$c-primary};
-  --c-primary-clear: #{clear($c-primary)};
+  --c-primary-clear: #{_clear($c-primary)};
   --c-secondary: #{$c-secondary};
-  --c-secondary-dim: #{dim($c-secondary, 20%)};
-  --c-secondary-dimmer: #{dim($c-secondary, 40%)};
+  --c-secondary-dim: #{_dim($c-secondary, 20%)};
+  --c-secondary-dimmer: #{_dim($c-secondary, 40%)};
   --c-accent: #{$c-accent};
   --c-link: #{$c-primary};
   --c-link-dim: var(--c-primary-dim);
@@ -91,9 +95,9 @@ $c-dark: #333;
   --c-over: #fff;
   --c-brag: #{$c-brag};
   --c-contours: #{mix($c-brag, $c-shade, 80%)};
-  --c-accent-dim: #{dim($c-accent)};
+  --c-accent-dim: #{_dim($c-accent)};
   --c-accent-faint: hsla(22, 100%, 42%, 0.4);
-  --c-accent-clear: #{dim($c-accent)};
+  --c-accent-clear: #{_dim($c-accent)};
 
   --c-dasher: #{$c-secondary};
   --c-clas: #{$c-clas};

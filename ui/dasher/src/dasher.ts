@@ -21,9 +21,7 @@ export default async function initModule() {
   const redraw: Redraw = () => {
     vnode = patch(
       vnode || element,
-      ctrl
-        ? h('div#dasher_app.dropdown', ctrl.render())
-        : h('div#dasher_app.dropdown', h('div.initiating', spinnerVdom())),
+      h('div#dasher_app.dropdown', ctrl?.render() ?? h('div.initiating', spinnerVdom())),
     );
   };
 

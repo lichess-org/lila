@@ -36,8 +36,7 @@ trait AssetHelper:
 
   def assetVersion = AssetVersion.current
 
-  def updateManifest() =
-    if !env.net.isProd then env.manifest.update()
+  def updateManifest() = if !env.net.isProd then env.web.manifest.update()
 
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______2"
@@ -52,7 +51,7 @@ trait AssetHelper:
   def cssTag(key: String)(using ctx: Context): Frag =
     link(
       cls  := key,
-      href := staticAssetUrl(s"css/${env.manifest.css(key).getOrElse(key)}"),
+      href := staticAssetUrl(s"css/${env.web.manifest.css(key).getOrElse(key)}"),
       rel  := "stylesheet"
     )
 
@@ -69,11 +68,13 @@ trait AssetHelper:
   private val load = "site.asset.loadEsm"
 
   def jsName(key: String): String =
-    env.manifest.js(key).fold(key)(_.name)
+    env.web.manifest.js(key).fold(key)(_.name)
   def jsTag(key: String): Frag =
     script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
   def jsDeps(keys: List[String]): Frag = frag:
-    env.manifest.deps(keys).map { dep => script(tpe := "module", src := staticAssetUrl(s"compiled/$dep")) }
+    env.web.manifest.deps(keys).map { dep =>
+      script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
+    }
   def jsModule(key: String): EsmInit =
     EsmInit(key, emptyFrag)
   def jsModuleInit(key: String)(using PageContext): EsmInit =
