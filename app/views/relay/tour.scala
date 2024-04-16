@@ -107,14 +107,14 @@ object tour:
         )
       )
 
-  def privateRelay(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
+  def allPrivate(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
     views.html.base.layout(
       title = "Private Broadcasts",
       moreCss = cssTag("relay.index"),
       moreJs = infiniteScrollTag
     ):
       main(cls := "relay-index page-menu")(
-        pageMenu("privateRelay"),
+        pageMenu("allPrivate"),
         div(cls := "page-menu__content box box-pad")(
           boxTop:
             h1("Private Broadcasts")
@@ -178,7 +178,7 @@ object tour:
         trans.broadcast.subscribedBroadcasts()
       ),
       isGranted(_.StudyAdmin).option(
-        a(href := routes.RelayTour.privateRelay(), cls := menu.activeO("privateRelay"))(
+        a(href := routes.RelayTour.allPrivate(), cls := menu.activeO("allPrivate"))(
           "Private Broadcasts"
         )
       ),

@@ -37,7 +37,7 @@ final class RelayPager(
     maxPerPage = maxPerPage
   )
 
-  def isPrivate(page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
+  def allPrivate(page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
       def nbResults: Fu[Int] = fuccess(9999)
       def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
