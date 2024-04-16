@@ -5,7 +5,7 @@ import controllers.appeal.routes.Appeal as appealRoutes
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.report.Report.Inquiry
 
@@ -41,7 +41,7 @@ object queue:
                   .contains(appeal.userId)
                   .option(
                     span(
-                      dataIcon := licon.CautionTriangle,
+                      dataIcon := Icon.CautionTriangle,
                       cls      := "marked-by-me text"
                     )("My mark")
                   ),

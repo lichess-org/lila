@@ -1,7 +1,7 @@
 package views.html.analyse
 
 import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import play.api.libs.json.{ Json, JsObject }
 
 object bits:
@@ -13,7 +13,7 @@ object bits:
       pageModule: PageModule,
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
-      openGraph: Option[lila.app.ui.OpenGraph] = None
+      openGraph: Option[lila.web.OpenGraph] = None
   )(body: Frag)(using PageContext): Frag =
     views.html.base.layout(
       title = title,

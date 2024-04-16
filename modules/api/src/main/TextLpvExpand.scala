@@ -8,7 +8,7 @@ import lila.core.config.NetDomain
 import lila.game.GameRepo
 import lila.memo.CacheApi
 import lila.core.i18n.{ Translate, Translator }
-import lila.core.actorApi.lpv.*
+import lila.core.misc.lpv.*
 
 final class TextLpvExpand(
     gameRepo: GameRepo,

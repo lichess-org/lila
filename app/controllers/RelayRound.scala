@@ -11,6 +11,7 @@ import scala.annotation.nowarn
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.core.id.RelayRoundId
 
 final class RelayRound(
     env: Env,
@@ -231,7 +232,7 @@ final class RelayRound(
     key = "broadcast.round.user"
   )
 
-  private val CreateLimitPerIP = lila.memo.RateLimit[lila.core.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.core.net.IpAddress](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.ip"

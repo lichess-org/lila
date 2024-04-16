@@ -3,7 +3,6 @@ package lila.storm
 import play.api.libs.json.*
 
 import lila.core.pref.Pref
-import lila.user.User
 
 final class StormJson(sign: StormSign):
 

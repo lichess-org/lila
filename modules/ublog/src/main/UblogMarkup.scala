@@ -1,10 +1,10 @@
 package lila.ublog
 
 import lila.common.{ Bus, Markdown, MarkdownRender, MarkdownToastUi }
-import lila.core.actorApi.lpv.AllPgnsFromText
+import lila.core.misc.lpv.AllPgnsFromText
 import lila.memo.CacheApi
 import lila.core.config
-import lila.core.actorApi.lpv.LpvEmbed
+import lila.core.misc.lpv.LpvEmbed
 
 final class UblogMarkup(
     baseUrl: config.BaseUrl,

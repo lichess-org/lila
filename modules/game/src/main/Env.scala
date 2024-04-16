@@ -9,6 +9,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
+import lila.core.game.Game
 
 final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
@@ -68,6 +69,22 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   lazy val captcha = wire[CaptchaApi]
+
+  lazy val importer = wire[lila.game.importer.Importer]
+
+  val statusText: lila.core.game.StatusText = StatusText.apply
+
+  lazy val api: lila.core.game.GameApi = new:
+    export gameRepo.{ incBookmarks, getSourceAndUserIds }
+    export cached.nbPlaying
+    export GameExt.{ computeMoveTimes, analysable }
+    export StatusText.apply as statusText
+    export AnonCookie.json as anonCookieJson
+
+  lazy val newPlayer: lila.core.game.NewPlayer = new:
+    export Player.make as apply
+
+  val namer: lila.core.game.Namer = Namer
 
   scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration): () =>
     captcha.newCaptcha()

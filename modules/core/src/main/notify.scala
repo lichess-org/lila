@@ -3,7 +3,14 @@ package notify
 
 import alleycats.Zero
 
+import lila.core.id.*
+import lila.core.study.data.StudyName
+import lila.core.chess.Win
+import lila.core.userId.*
+
 abstract class NotificationContent(val key: String)
+
+case class NotifiedBatch(userIds: Iterable[UserId])
 
 case class IrwinDone(userId: UserId)   extends NotificationContent("irwinDone")
 case class KaladinDone(userId: UserId) extends NotificationContent("kaladinDone")
@@ -22,7 +29,7 @@ case class GenericLink(
     url: String,
     title: Option[String],
     text: Option[String],
-    icon: Icon
+    icon: String
 ) extends NotificationContent("genericLink")
 case object ReportedBanned                         extends NotificationContent("reportedBanned")
 case class RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")

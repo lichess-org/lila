@@ -9,7 +9,7 @@ import lila.core.round.*
 import lila.pref.{ Pref, PrefApi }
 
 import RoundAsyncActor.TakebackSituation
-import lila.core.Preload
+import lila.core.data.Preload
 
 final private class Takebacker(
     messenger: Messenger,

@@ -11,7 +11,9 @@ import scala.util.chaining.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.core.{ ApiVersion, LangPath }
+import lila.core.net.ApiVersion
+import lila.core.app.LangPath
+import lila.core.id.PuzzleId
 import lila.puzzle.{
   Puzzle as Puz,
   PuzzleAngle,
@@ -21,10 +23,11 @@ import lila.puzzle.{
   PuzzleStreak,
   PuzzleTheme
 }
-import lila.rating.Perf
-import lila.core.perf.PerfType
-import lila.user.User
+
+import lila.rating.PerfType
+
 import lila.core.i18n.Translate
+import lila.core.user.WithPerf
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -224,7 +227,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def streakJsonAndPuzzle(using Translate) =
     given Option[Me] = none
-    given Perf       = Perf.default
+    given Perf       = lila.rating.Perf.default
     env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
       env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none).map { puzzleJson =>
         (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some
@@ -232,8 +235,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   private def setStreakResult(userId: UserId, score: Int) =
-    lila.common.Bus.publish(lila.core.actorApi.puzzle.StreakRun(userId, score), "streakRun")
-    env.user.perfsRepo.addStreakRun(userId, score)
+    lila.common.Bus.publish(lila.core.misc.puzzle.StreakRun(userId, score), "streakRun")
+    env.user.api.addPuzRun("streak", userId, score)
 
   def apiStreak = Anon:
     streakJsonAndPuzzle.orNotFound: (json, _) =>
@@ -516,9 +519,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    Ok.page(html.site.help.puzzle)
+    Ok.page(lila.web.views.help.puzzle)
 
-  private def DashboardPage(username: Option[UserStr])(f: Context ?=> User => Fu[Result]) =
+  private def DashboardPage(username: Option[UserStr])(f: Context ?=> lila.user.User => Fu[Result]) =
     Auth { ctx ?=> me ?=>
       meOrFetch(username)
         .flatMapz: user =>

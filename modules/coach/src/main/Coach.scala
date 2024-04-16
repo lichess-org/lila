@@ -1,9 +1,12 @@
 package lila.coach
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.memo.PicfitImage
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestStandardRating
 
 case class Coach(
-    _id: Coach.Id, // user ID
+    @Key("_id") id: Coach.Id, // user ID
     listed: Coach.Listed,
     available: Coach.Available,
     profile: CoachProfile,
@@ -14,27 +17,24 @@ case class Coach(
     createdAt: Instant,
     updatedAt: Instant
 ):
-
-  inline def id = _id
-
   def hasPicture = picture.isDefined
 
   def daysOld = daysBetween(createdAt, nowInstant)
 
-  def withUser(user: lila.user.User.WithPerfs) = Coach.WithUser(this, user)
+  def withUser(user: UserWithPerfs) = Coach.WithUser(this, user)
 
 object Coach:
 
   opaque type Id = String
-  object Id extends OpaqueUserId[Id]
+  object Id extends lila.core.userId.OpaqueUserId[Id]
 
   given UserIdOf[Coach] = _.id.userId
 
   val imageSize = 350
 
-  def make(user: lila.user.User.WithPerfs) =
+  def make(user: UserWithPerfs) =
     Coach(
-      _id = user.id.into(Id),
+      id = user.id.into(Id),
       listed = Listed(false),
       available = Available(true),
       profile = CoachProfile(),
@@ -46,7 +46,7 @@ object Coach:
       updatedAt = nowInstant
     )
 
-  case class WithUser(coach: Coach, user: lila.user.User.WithPerfs):
+  case class WithUser(coach: Coach, user: UserWithPerfs):
     def isListed = coach.listed.yes && user.enabled.yes && user.marks.clean
 
   opaque type Listed = Boolean

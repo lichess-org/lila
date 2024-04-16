@@ -1,7 +1,7 @@
 package lila.report
 
 import scalalib.Iso
-import lila.user.Me
+import lila.core.user.Me
 
 sealed trait Reason:
 
@@ -44,7 +44,7 @@ object Reason:
     def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
 
   def isGranted(reason: Reason)(using Me) =
-    import lila.security.Granter
+    import lila.core.perm.Granter
     reason match
       case Cheat                                               => Granter(_.MarkEngine)
       case Comm | Sexism                                       => Granter(_.Shadowban)

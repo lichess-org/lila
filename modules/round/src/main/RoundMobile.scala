@@ -5,12 +5,10 @@ import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.chat.Chat
 import lila.common.Json.given
-import lila.core.Preload
+import lila.core.data.Preload
 import lila.core.LightUser
 import lila.game.JsonView.given
-import lila.game.{ Game, GameRepo, Pov }
 import lila.pref.Pref
-import lila.user.Me
 
 object RoundMobile:
 
@@ -23,7 +21,7 @@ object RoundMobile:
 
 final class RoundMobile(
     lightUserGet: LightUser.Getter,
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     jsonView: lila.game.JsonView,
     roundJson: JsonView,
     prefApi: lila.pref.PrefApi,
@@ -116,4 +114,4 @@ final class RoundMobile(
       for
         chat  <- chatApi.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
         lines <- lila.chat.JsonView.asyncLines(chat)
-      yield Chat.Restricted(chat, lines, restricted = game.fromLobby && !isAuth).some
+      yield Chat.Restricted(chat, lines, restricted = game.sourceIs(_.Lobby) && !isAuth).some

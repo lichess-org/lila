@@ -25,7 +25,7 @@
   <string name="whiteIsVictorious">سفید برنده است</string>
   <string name="blackIsVictorious">سیاه برنده است</string>
   <string name="youPlayTheWhitePieces">شما با مهره سفید بازی میکنید</string>
-  <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی میکنید</string>
+  <string name="youPlayTheBlackPieces">شما با مهره سیاه بازی می کنید</string>
   <string name="itsYourTurn">نوبت شماست!</string>
   <string name="cheatDetected">تقلب تشخیص داده شد</string>
   <string name="kingInTheCenter">شاه روی تپه</string>

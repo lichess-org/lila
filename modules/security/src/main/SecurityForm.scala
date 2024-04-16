@@ -7,12 +7,13 @@ import play.api.mvc.RequestHeader
 
 import lila.common.Form.*
 import lila.common.{ Form as LilaForm, LameName }
-import lila.user.User.{ ClearPassword, TotpToken }
-import lila.user.{ Me, TotpSecret, User, UserRepo }
-import lila.core.EmailAddress
+import lila.user.{ ClearPassword, TotpToken, Me, TotpSecret }
+import lila.user.TotpSecret.base32
+import lila.user.TotpSecret.verify
+import lila.user.LoginCandidate
 
 final class SecurityForm(
-    userRepo: UserRepo,
+    userRepo: lila.user.UserRepo,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck,
@@ -54,19 +55,19 @@ final class SecurityForm(
         Constraints.minLength(2),
         Constraints.maxLength(20),
         Constraints.pattern(
-          regex = User.newUsernamePrefix,
+          regex = lila.user.nameRules.newUsernamePrefix,
           error = "usernamePrefixInvalid"
         ),
         Constraints.pattern(
-          regex = User.newUsernameSuffix,
+          regex = lila.user.nameRules.newUsernameSuffix,
           error = "usernameSuffixInvalid"
         ),
         Constraints.pattern(
-          regex = User.newUsernameChars,
+          regex = lila.user.nameRules.newUsernameChars,
           error = "usernameCharsInvalid"
         ),
         Constraints.pattern(
-          regex = User.newUsernameLetters,
+          regex = lila.user.nameRules.newUsernameLetters,
           error = "usernameCharsInvalid"
         )
       )
@@ -211,7 +212,7 @@ final class SecurityForm(
       )(Reopen.apply)(_ => None)
   )
 
-  private def passwordMapping(candidate: User.LoginCandidate) =
+  private def passwordMapping(candidate: LoginCandidate) =
     text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
 
 object SecurityForm:
@@ -236,7 +237,7 @@ object SecurityForm:
       fp: Option[String]
   ) extends AnySignupData:
     def fingerPrint   = FingerPrint.from(fp.filter(_.nonEmpty))
-    def clearPassword = User.ClearPassword(password)
+    def clearPassword = ClearPassword(password)
 
   case class MobileSignupData(
       username: UserName,
@@ -254,4 +255,4 @@ object SecurityForm:
   case class ChangeEmail(passwd: String, email: EmailAddress)
 
   case class TwoFactor(secret: String, passwd: String, token: String):
-    def tokenValid = TotpSecret(secret).verify(User.TotpToken(token))
+    def tokenValid = TotpSecret.decode(secret).verify(TotpToken(token))

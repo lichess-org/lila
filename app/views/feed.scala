@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.feed.Feed.Update
 
@@ -29,10 +29,10 @@ object feed:
               a(
                 href     := routes.Feed.createForm,
                 cls      := "button button-green",
-                dataIcon := licon.PlusButton
+                dataIcon := Icon.PlusButton
               )
             ),
-            views.html.site.bits.atomLink(routes.Feed.atom)
+            views.html.base.atom.atomLink(routes.Feed.atom)
           )
         ),
         standardFlash,
@@ -54,7 +54,7 @@ object feed:
                     a(
                       href     := routes.Feed.edit(update.id),
                       cls      := "button button-green button-empty button-thin text",
-                      dataIcon := licon.Pencil
+                      dataIcon := Icon.Pencil
                     ),
                     (!update.public).option(badTag(nbsp, "[Draft]")),
                     update.future.option(goodTag(nbsp, "[Future]"))

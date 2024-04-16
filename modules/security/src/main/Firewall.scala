@@ -2,7 +2,7 @@ package lila.security
 
 import play.api.mvc.RequestHeader
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
 
 final class Firewall(

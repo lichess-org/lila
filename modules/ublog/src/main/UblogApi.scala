@@ -7,12 +7,11 @@ import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.Propagate
 import lila.memo.PicfitApi
-import lila.user.{ Me, User, UserApi }
 
 final class UblogApi(
     colls: UblogColls,
     rank: UblogRank,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi

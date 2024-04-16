@@ -4,7 +4,6 @@ import chess.Status
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.core.user.User
 
 object Query:
 

@@ -1,5 +1,7 @@
 package lila.core
 
+import lila.core.net.IpAddress
+
 class IpAddressTest extends munit.FunSuite:
 
   test("iso ipv4") {

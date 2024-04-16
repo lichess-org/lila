@@ -3,7 +3,7 @@ package views.html.simul
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 object home:
 
@@ -23,14 +23,14 @@ site.pubsub.on('socket.in.reload', () =>
   site.contentLoaded();
 }))"""),
       title = trans.site.simultaneousExhibitions.txt(),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = trans.site.simultaneousExhibitions.txt(),
           url = s"$netBaseUrl${routes.Simul.home}",
           description = trans.site.aboutSimul.txt()
         )
         .some,
-      withHrefLangs = lila.core.LangPath(routes.Simul.home).some
+      withHrefLangs = lila.core.app.LangPath(routes.Simul.home).some
     ) {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(

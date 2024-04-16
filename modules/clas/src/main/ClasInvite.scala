@@ -2,8 +2,6 @@ package lila.clas
 
 import scalalib.ThreadLocalRandom
 
-import lila.user.{ Me, User }
-
 case class ClasInvite(
     _id: ClasInvite.Id, // random
     userId: UserId,

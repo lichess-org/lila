@@ -9,7 +9,6 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.report.Report.Id as ReportId
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
-import lila.user.User as UserModel
 
 final class Report(
     env: Env,

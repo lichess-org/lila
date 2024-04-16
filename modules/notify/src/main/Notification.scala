@@ -3,7 +3,6 @@ import alleycats.Zero
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.Icon
 import scalalib.paginator.Paginator
 import lila.notify.Notification.*
 import lila.core.notify.NotificationContent

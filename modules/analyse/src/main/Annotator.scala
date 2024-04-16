@@ -5,9 +5,10 @@ import chess.opening.*
 import chess.{ Color, Ply, Status, Tree, Variation }
 
 import lila.tree.{ Advice, Analysis }
-import lila.game.{ Game, GameDrawOffers }
+import lila.core.game.{ Game, GameDrawOffers, StatusText }
 
-final class Annotator(netDomain: lila.core.config.NetDomain):
+final class Annotator(statusText: StatusText, netDomain: lila.core.config.NetDomain)
+    extends lila.tree.Annotator:
 
   def apply(p: Pgn, game: Game, analysis: Option[Analysis]): Pgn =
     annotateStatus(game.winnerColor, game.status) {
@@ -38,7 +39,7 @@ final class Annotator(netDomain: lila.core.config.NetDomain):
     s"${pgn.render}\n\n\n".replaceIf("] } { [", "] [")
 
   private def annotateStatus(winner: Option[Color], status: Status)(p: Pgn) =
-    lila.game.StatusText(status, winner, chess.variant.Standard) match
+    statusText(status, winner, chess.variant.Standard) match
       case ""   => p
       case text => p.updateLastPly(_.copy(result = text.some))
 

@@ -3,14 +3,14 @@ package views.html.video
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object layout:
 
   def apply(
       title: String,
       control: lila.video.UserControl,
-      openGraph: Option[lila.app.ui.OpenGraph] = None
+      openGraph: Option[lila.web.OpenGraph] = None
   )(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = title,
@@ -21,7 +21,7 @@ object layout:
     ):
       main(cls := "video page-menu force-ltr")(
         st.aside(cls := "page-menu__menu")(
-          views.html.site.bits.subnav(
+          views.html.base.bits.subnav(
             control.tags.map: t =>
               val checked = control.filter.tags contains t.tag
               a(
@@ -40,7 +40,7 @@ object layout:
           div(cls := "under-tags")(
             if control.filter.tags.nonEmpty then
               a(cls := "button button-empty", href := routes.Video.index)("Clear search")
-            else a(dataIcon := licon.Tag, href := routes.Video.tags)("View more tags")
+            else a(dataIcon := Icon.Tag, href := routes.Video.tags)("View more tags")
           )
         ),
         div(cls := "page-menu__content box")(body)

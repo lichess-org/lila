@@ -10,11 +10,12 @@ import scala.concurrent.duration.*
 import scalalib.actor.AsyncActorSequencers
 import lila.study.MultiPgn
 
-final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.core.irc.IrcApi)(using
-    ActorSystem,
-    Executor,
-    Scheduler
-):
+final class RelayPush(
+    sync: RelaySync,
+    api: RelayApi,
+    pgnImport: lila.study.StudyPgnImport,
+    irc: lila.core.irc.IrcApi
+)(using ActorSystem, Executor, Scheduler):
 
   private val workQueue = AsyncActorSequencers[RelayRoundId](
     maxSize = Max(8),
@@ -62,7 +63,7 @@ final class RelayPush(sync: RelaySync, api: RelayApi, irc: lila.core.irc.IrcApi)
       .value
       .map: pgn =>
         validate(pgn).flatMap: tags =>
-          lila.study.PgnImport(pgn, Nil) match
+          pgnImport(pgn, Nil) match
             case Left(errStr) => Left(Failure(tags, oneline(errStr)))
             case Right(game) =>
               Right(

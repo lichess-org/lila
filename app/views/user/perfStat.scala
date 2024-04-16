@@ -4,11 +4,12 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.perfStat.{ PerfStat, PerfStatData }
-import lila.rating.Perf
-import lila.core.perf.PerfType
-import lila.user.User
+
+import lila.rating.PerfType
+import lila.core.data.SafeJsonStr
+import lila.rating.GlickoExt.clueless
 
 object perfStat:
 
@@ -116,8 +117,8 @@ object perfStat:
         progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if perf.progress > 0 then tag("green")(dataIcon := licon.ArrowUpRight)(perf.progress)
-          else if perf.progress < 0 then tag("red")(dataIcon := licon.ArrowDownRight)(-perf.progress)
+          if perf.progress > 0 then tag("green")(dataIcon := Icon.ArrowUpRight)(perf.progress)
+          else if perf.progress < 0 then tag("red")(dataIcon := Icon.ArrowDownRight)(-perf.progress)
           else "-"
         ),
         ". ",
@@ -164,7 +165,7 @@ object perfStat:
             (count.seconds > 0).option(
               tr(cls := "full")(
                 th(timeSpentPlaying()),
-                td(colspan := "2")(showDuration(count.duration))
+                td(colspan := "2")(translateDuration(count.duration))
               )
             )
           )
@@ -324,7 +325,7 @@ object perfStat:
   private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Translate): Frag =
     div(
       div(cls := "streak")(
-        h3(title(showDuration(s.duration))),
+        h3(title(translateDuration(s.duration))),
         fromTo(s)
       )
     )

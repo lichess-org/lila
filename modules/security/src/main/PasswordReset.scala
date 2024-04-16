@@ -3,7 +3,6 @@ package lila.security
 import play.api.i18n.Lang
 import scalatags.Text.all.*
 
-import lila.core.EmailAddress
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
@@ -45,9 +44,7 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[Me]] =
-    tokener.read(token).flatMapz(userRepo.me).map {
-      _.filter(_.canFullyLogin)
-    }
+    tokener.read(token).flatMapz(userRepo.me).map(_.filter(canFullyLogin))
 
   private val tokener = StringToken[UserId](
     secret = tokenerSecret,

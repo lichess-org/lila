@@ -3,7 +3,8 @@ package views.html.tv
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.game.GameExt.perfType
 
 object side:
 
@@ -12,7 +13,7 @@ object side:
       champions: lila.tv.Tv.Champions,
       baseUrl: String
   ): Frag =
-    views.html.site.bits.subnav(
+    views.html.base.bits.subnav(
       lila.tv.Tv.Channel.list.map: c =>
         a(
           href := s"$baseUrl/${c.key}",
@@ -42,7 +43,7 @@ object side:
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(using Context): Frag =
+  def meta(pov: Pov)(using Context): Frag =
     import pov.*
     div(cls := "game__meta")(
       st.section(
@@ -64,12 +65,12 @@ object side:
       ),
       game.tournamentId.map: tourId =>
         st.section(cls := "game__tournament-link"):
-          a(href := routes.Tournament.show(tourId), dataIcon := licon.Trophy, cls := "text"):
+          a(href := routes.Tournament.show(tourId), dataIcon := Icon.Trophy, cls := "text"):
             tournamentIdToName(tourId)
     )
 
   def sides(
-      pov: lila.game.Pov,
+      pov: Pov,
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(using Context) =
     div(cls := "sides"):

@@ -1,8 +1,7 @@
 package views.html.analyse
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
-import lila.game.Pov
+import lila.ui.ScalatagsTemplate.*
 
 object replayBot:
 

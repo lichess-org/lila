@@ -3,8 +3,9 @@ package controllers
 import views.*
 
 import lila.app.{ *, given }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.core.i18n.I18nKey as trans
+import lila.core.id.{ ForumCategId, ForumTopicId }
 import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
@@ -24,9 +25,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         then Redirect(routes.ForumCateg.index)
         else
           for
-            ids <- env.forumSearch(text, page, ctx.troll)
-            posts <- ids.mapFutureList: ids =>
-              env.forum.postApi.viewsFromIds(ids)
+            ids   <- env.forumSearch(text, page, ctx.troll)
+            posts <- ids.mapFutureList(env.forum.postApi.viewsFromIds)
             pager <- posts.mapFutureResults: post =>
               access.isGrantedRead(post.topic.categId).map {
                 lila.forum.PostView.WithReadPerm(post, _)

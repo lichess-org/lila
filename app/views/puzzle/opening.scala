@@ -4,7 +4,7 @@ package html.puzzle
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.common.LilaOpeningFamily
 import lila.puzzle.PuzzleOpening.Order
 import lila.puzzle.{ PuzzleOpening, PuzzleOpeningCollection }
@@ -29,9 +29,9 @@ object opening:
           mine.isEmpty.option(
             frag(
               p(cls := "help help-touchscreen")(
-                iconTag(licon.InfoCircle, trans.puzzle.useFindInPage())
+                iconTag(Icon.InfoCircle, trans.puzzle.useFindInPage())
               ),
-              p(cls := "help help-keyboard")(iconTag(licon.InfoCircle, trans.puzzle.useCtrlF()))
+              p(cls := "help help-keyboard")(iconTag(Icon.InfoCircle, trans.puzzle.useCtrlF()))
             )
           ),
           div(cls := "puzzle-themes")(

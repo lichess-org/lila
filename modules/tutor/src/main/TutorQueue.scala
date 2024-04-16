@@ -6,15 +6,14 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.Pov
+
 import lila.memo.{ CacheApi, SettingStore }
-import lila.user.{ LightUserApi, User }
 
 final private class TutorQueue(
     colls: TutorColls,
     gameRepo: lila.game.GameRepo,
     cacheApi: CacheApi,
-    lightUserApi: LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     parallelism: SettingStore[Int] @@ Parallelism
 )(using Executor, Scheduler):
 
@@ -54,14 +53,18 @@ final private class TutorQueue(
   def remove(userId: UserId): Funit = colls.queue.delete.one($id(userId)).void
 
   def waitingGames(user: User): Fu[List[(Pov, PgnStr)]] = for
-    all <- gameRepo.recentPovsByUserFromSecondary(user, 60, $doc(lila.game.Game.BSONFields.turns.$gt(10)))
+    all <- gameRepo.recentPovsByUserFromSecondary(
+      user,
+      60,
+      $doc(lila.core.game.BSONFields.turns.$gt(10))
+    )
     (rated, casual) = all.partition(_.game.rated)
     many            = rated ::: casual.take(30 - rated.size)
     povs            = scalalib.ThreadLocalRandom.shuffle(many).take(30)
     _ <- lightUserApi.preloadMany(povs.flatMap(_.game.userIds))
   yield povs.map { pov =>
     import chess.format.pgn.*
-    def playerTag(player: lila.game.Player) =
+    def playerTag(player: lila.core.game.Player) =
       player.userId.map { uid => Tag(player.color.name, lightUserApi.syncFallback(uid).titleName) }
     val tags = Tags(pov.game.players.flatMap(playerTag))
     pov -> PgnStr(s"$tags\n\n${pov.game.chess.sans.mkString(" ")}")

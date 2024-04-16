@@ -11,13 +11,12 @@ import lila.core.lilaism.LilaInvalid
 import lila.common.LilaScheduler
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
-import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import RelayFormat.CanProxy
-import lila.core.Seconds
+import scalalib.model.Seconds
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -28,7 +27,7 @@ final private class RelayFetch(
     fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
-    gameProxy: GameProxyRepo
+    gameProxy: lila.core.game.GameProxy
 )(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
   import RelayFetch.*
@@ -318,9 +317,11 @@ private object RelayFetch:
         .maximumSize(512)
         .build(compute)
 
+    private val pgnImport = lila.study
+      .StudyPgnImport(lila.game.importer.parseImport, lila.game.StatusText.apply)
+
     private def compute(pgn: PgnStr): Either[LilaInvalid, Int => RelayGame] =
-      lila.study
-        .PgnImport(pgn, Nil)
+      pgnImport(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
         .map: res =>
           index =>

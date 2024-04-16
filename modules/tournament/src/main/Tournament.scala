@@ -9,8 +9,8 @@ import scala.util.chaining.*
 
 import lila.gathering.GreatPlayer
 import lila.core.i18n.defaultLang
-import lila.core.perf.PerfType
-import lila.user.{ Me, User }
+import lila.rating.PerfType
+
 import lila.core.i18n.Translate
 import lila.core.tournament.Status
 

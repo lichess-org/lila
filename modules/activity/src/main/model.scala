@@ -9,7 +9,7 @@ object RatingProg:
     (rp1O, rp2O) match
       case (Some(rp1), Some(rp2)) => Some(rp1.copy(after = rp2.after))
       case _                      => rp2O.orElse(rp1O)
-  def make(player: lila.game.LightPlayer) =
+  def make(player: lila.core.game.LightPlayer) =
     player.rating.map: rating =>
       lila.core.rating.RatingProg(rating, rating.applyDiff(~player.ratingDiff))
 
@@ -30,7 +30,7 @@ object Score:
       draw = res.isEmpty.so(1),
       rp = rp
     )
-  def make(povs: List[lila.game.LightPov]): Score =
+  def make(povs: List[lila.core.game.LightPov]): Score =
     povs.foldLeft(summon[Zero[Score]].zero) {
       case (score, pov) if pov.game.finished =>
         score.plus(

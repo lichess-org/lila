@@ -3,7 +3,7 @@ package lila.irc
 import lila.core.LightUser
 import lila.core.LightUser.Me.given
 import lila.core.irc.*
-import lila.core.user.MyId
+import lila.core.id.*
 
 final class IrcApi(
     zulip: ZulipClient,
@@ -140,7 +140,7 @@ final class IrcApi(
     zulip(_.general, "lila")(s":info: ${markdown.linkifyUsers(msg)}")
 
   object charge:
-    import lila.core.actorApi.plan.ChargeEvent
+    import lila.core.misc.plan.ChargeEvent
     private var buffer: Vector[ChargeEvent] = Vector.empty
     private given Ordering[ChargeEvent]     = Ordering.by[ChargeEvent, Int](_.cents)
 

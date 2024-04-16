@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object dev:
 
@@ -26,7 +26,7 @@ object dev:
                 case Some(v: Boolean) => div(span(cls := "form-check-input")(form3.cmnToggle(s.id, "v", v)))
                 case v                => input(name := "v", value := v.map(_.toString))
               ,
-              submitButton(cls := "button button-empty", dataIcon := licon.Checkmark)
+              submitButton(cls := "button button-empty", dataIcon := Icon.Checkmark)
             )
         )
       )
@@ -83,6 +83,6 @@ eval-cache drop standard 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1
 disposable test msumain.edu.ph
 disposable reload msumain.edu.ph
 video sheet
-puzzle issue {id} {issue}
+puzzle issue {id} {longer-win | ambiguous | ...}
 fide player sync
 """

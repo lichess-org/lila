@@ -1,8 +1,9 @@
 package lila.security
 
 import com.github.blemale.scaffeine.Cache
+import lila.core.security.FloodSource as Source
 
-final class Flood(using Executor):
+final class Flood(using Executor) extends lila.core.security.FloodApi:
 
   import Flood.*
 
@@ -23,9 +24,6 @@ final class Flood(using Executor):
     msgs.lift(floodNumber).exists(_.date.isAfter(msg.date.minusSeconds(10)))
 
 object Flood:
-
-  opaque type Source = String
-  object Source extends OpaqueString[Source]
 
   // ui/chat/src/preset.ts
   private val passList = Set(

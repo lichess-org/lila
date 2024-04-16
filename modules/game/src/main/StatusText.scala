@@ -7,7 +7,7 @@ object StatusText:
 
   import Status.*
 
-  def apply(status: Status, win: Option[Color], variant: Variant): String =
+  val apply: lila.core.game.StatusText = (status, win, variant) =>
     status match
       case Aborted                  => "Game was aborted."
       case Mate                     => s"${winner(win)} wins by checkmate."
@@ -29,8 +29,6 @@ object StatusText:
           case chess.variant.RacingKings   => s"${winner(win)} wins the race."
           case _                           => "Game ends by variant rule."
       case _ => ""
-
-  def apply(game: lila.game.Game): String = apply(game.status, game.winnerColor, game.variant)
 
   private def winner(win: Option[Color]) = win.so(_.toString)
   private def loser(win: Option[Color])  = winner(win.map(!_))

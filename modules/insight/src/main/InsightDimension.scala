@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.insight.BSONHandlers.given
 import lila.insight.InsightEntry.BSONFields as F
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.core.i18n.Translate
 
 enum InsightDimension[A](
@@ -264,7 +264,7 @@ object InsightDimension:
   def valueByKey[X](d: InsightDimension[X], key: String): Option[X] = d match
     case Period                  => key.toIntOption.map(lila.insight.Period.apply)
     case Date                    => None
-    case Perf                    => PerfType(lila.core.perf.PerfKey(key))
+    case Perf                    => PerfKey(key).map(PerfType.apply)
     case Phase                   => key.toIntOption.flatMap(lila.insight.Phase.byId.get)
     case Result                  => key.toIntOption.flatMap(lila.insight.Result.byId.get)
     case Termination             => key.toIntOption.flatMap(lila.insight.Termination.byId.get)

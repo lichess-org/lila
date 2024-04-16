@@ -1,7 +1,5 @@
 package lila.study
 
-import lila.user.User
-
 case class StudyMember(id: UserId, role: StudyMember.Role):
 
   def canContribute = role.canWrite

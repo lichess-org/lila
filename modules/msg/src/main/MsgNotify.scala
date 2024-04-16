@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap
 import lila.common.String.shorten
 import lila.db.dsl.{ *, given }
 import lila.core.notify.*
-import lila.user.User
 
 final private class MsgNotify(
     colls: MsgColls,

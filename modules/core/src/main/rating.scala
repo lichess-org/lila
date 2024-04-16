@@ -1,19 +1,40 @@
 package lila.core
 package rating
 
-trait Perf:
-  val glicko: Glicko
-  val nb: Int
-  export glicko.{ intRating, intDeviation, provisional }
-  def progress: IntRatingDiff
+import alleycats.Zero
 
-trait Glicko:
-  val rating: Double
-  val deviation: Double
-  val volatility: Double
-  def provisional: RatingProvisional
-  def intRating    = IntRating(rating.toInt)
-  def intDeviation = deviation.toInt
+object data:
+
+  opaque type IntRating = Int
+  object IntRating extends OpaqueInt[IntRating]:
+    extension (r: IntRating) def applyDiff(diff: IntRatingDiff): IntRating = r + diff.value
+
+  opaque type IntRatingDiff = Int
+  object IntRatingDiff extends OpaqueInt[IntRatingDiff]:
+    given Zero[IntRatingDiff] = Zero(0)
+
+  opaque type Rating = Double
+  object Rating extends OpaqueDouble[Rating]
+
+  opaque type RatingProvisional = Boolean
+  object RatingProvisional extends YesNo[RatingProvisional]
+
+import data.*
+
+case class Glicko(
+    rating: Double,
+    deviation: Double,
+    volatility: Double
+):
+  override def toString    = f"$intRating/$intDeviation/${volatility}%.3f"
+  def intRating: IntRating = IntRating(rating.toInt)
+  def intDeviation         = deviation.toInt
+  def provisional          = RatingProvisional(deviation >= Glicko.provisionalDeviation)
+  def established          = provisional.no
+  def establishedIntRating = Option.when(established)(intRating)
+
+object Glicko:
+  val provisionalDeviation = 110
 
 case class RatingProg(before: IntRating, after: IntRating):
   def diff    = IntRatingDiff(after.value - before.value)

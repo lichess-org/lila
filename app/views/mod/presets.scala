@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.ModPresets
 
 object presets:
@@ -38,7 +38,7 @@ object presets:
               ).some
             )(form3.textarea(_)(rows := 20)),
             form3.action(
-              submitButton(cls := "button text", dataIcon := licon.Checkmark)("Save")
+              submitButton(cls := "button text", dataIcon := Icon.Checkmark)("Save")
             )
           )
         )

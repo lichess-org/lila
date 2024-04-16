@@ -6,9 +6,11 @@ import chess.variant.Variant
 import chess.{ Color, Speed }
 import scalalib.ThreadLocalRandom
 
-import lila.core.perf.PerfType
-import lila.user.User
+import lila.rating.PerfType
+
 import lila.core.rating.Score
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestPerf
 
 case class Simul(
     @Key("_id") id: SimulId,
@@ -146,7 +148,7 @@ case class Simul(
 object Simul:
 
   def make(
-      host: User.WithPerfs,
+      host: UserWithPerfs,
       name: String,
       clock: SimulClock,
       variants: List[Variant],

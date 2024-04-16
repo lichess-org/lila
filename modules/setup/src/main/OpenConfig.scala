@@ -4,9 +4,9 @@ import chess.Clock
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 
-import lila.core.Days
+import scalalib.model.Days
 import lila.core.game.GameRule
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 final case class OpenConfig(
     name: Option[String],

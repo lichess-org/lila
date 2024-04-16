@@ -2,7 +2,6 @@ package lila.msg
 
 import lila.core.LightUser
 import lila.core.relation.Relations
-import lila.user.User
 
 case class MsgConvo(
     contact: LightUser,

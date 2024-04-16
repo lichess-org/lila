@@ -7,11 +7,11 @@ import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-import lila.common.Form.{ stringIn, given }
+import lila.common.Form.{ stringIn, perfKey, given }
 import lila.core.config
 import lila.db.dsl.{ *, given }
-import lila.rating.Perf
-import lila.core.perf.{ PerfKey, PerfType }
+
+import lila.rating.PerfType
 
 final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 
@@ -42,7 +42,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       .filter: game =>
         filter.perf.forall(game.perfKey ==)
       .take(filter.nbGames)
-      .mapConcat { lila.game.Pov(_, user).toList }
+      .mapConcat { Pov(_, user).toList }
       .toMat(Sink.seq)(Keep.right)
       .run()
       .map(_.toList)
@@ -143,7 +143,7 @@ object GameMod:
     mapping(
       "arena"     -> optional(nonEmptyText),
       "swiss"     -> optional(nonEmptyText),
-      "perf"      -> optional(of[PerfKey]),
+      "perf"      -> optional(perfKey),
       "opponents" -> optional(nonEmptyText),
       "nbGamesOpt" -> optional(
         number(min = 1).transform(

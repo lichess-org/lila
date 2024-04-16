@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object features:
 
@@ -15,7 +15,7 @@ object features:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("feature"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = title,
           url = s"$netBaseUrl${routes.Plan.features.url}",
@@ -25,7 +25,7 @@ object features:
     ):
       main(cls := "box box-pad features")(
         table(
-          header(h1(dataIcon := licon.ScreenDesktop)("Website")),
+          header(h1(dataIcon := Icon.ScreenDesktop)("Website")),
           tbody(
             tr(check)(
               strong("Zero ads")
@@ -128,7 +128,7 @@ object features:
               strong("All features to come, forever")
             )
           ),
-          header(h1(dataIcon := licon.PhoneMobile)("Mobile")),
+          header(h1(dataIcon := Icon.PhoneMobile)("Mobile")),
           tbody(
             tr(check)(
               strong("Zero ads, no tracking")
@@ -199,11 +199,11 @@ object features:
       st.tr(th(name), th(trans.patron.freeAccount()), th(trans.patron.lichessPatron()))
     )
 
-  private val unlimited = span(dataIcon := licon.Checkmark, cls := "is is-green text unlimited")("Unlimited")
+  private val unlimited = span(dataIcon := Icon.Checkmark, cls := "is is-green text unlimited")("Unlimited")
 
-  private val check = span(dataIcon := licon.Checkmark, cls := "is is-green text check")("Yes")
+  private val check = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")("Yes")
 
-  private def custom(str: String) = span(dataIcon := licon.Checkmark, cls := "is is-green text check")(str)
+  private def custom(str: String) = span(dataIcon := Icon.Checkmark, cls := "is is-green text check")(str)
 
   private def all(content: Frag) = frag(td(content), td(content))
 

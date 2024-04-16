@@ -2,10 +2,9 @@ package lila.appeal
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.licon
-import lila.core.Icon
+import lila.ui.Icon
+import lila.ui.Icon
 import lila.core.user.UserMark
-import lila.core.user.User
 
 case class Appeal(
     @Key("_id") id: Appeal.Id,
@@ -57,7 +56,7 @@ case class Appeal(
 object Appeal:
 
   opaque type Id = String
-  object Id extends OpaqueUserId[Id]
+  object Id extends lila.core.userId.OpaqueUserId[Id]
 
   given UserIdOf[Appeal] = _.id.userId
 
@@ -96,11 +95,11 @@ object Appeal:
       def key                = filter.fold("clean")(_.key)
 
     val allWithIcon = List[(Filter, Either[Icon, String])](
-      UserMark.troll.some  -> Left(licon.BubbleSpeech),
-      UserMark.boost.some  -> Left(licon.LineGraph),
-      UserMark.engine.some -> Left(licon.Cogs),
+      UserMark.troll.some  -> Left(Icon.BubbleSpeech),
+      UserMark.boost.some  -> Left(Icon.LineGraph),
+      UserMark.engine.some -> Left(Icon.Cogs),
       UserMark.alt.some    -> Right("A"),
-      none                 -> Left(licon.User)
+      none                 -> Left(Icon.User)
     )
     val byName: Map[String, Filter] =
       UserMark.byKey.view.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))

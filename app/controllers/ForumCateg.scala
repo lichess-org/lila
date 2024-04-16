@@ -4,6 +4,7 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.core.config
+import lila.core.id.{ ForumCategId, ForumTopicId }
 import lila.forum.ForumCateg.{ diagnosticId, ublogId }
 import lila.team.Team
 

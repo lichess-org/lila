@@ -4,8 +4,9 @@ import alleycats.Zero
 
 import lila.analyse.AccuracyPercent
 import lila.insight.{ ClockPercent, InsightMetric, InsightPerfStats }
-import lila.core.perf.PerfType
-import lila.user.User
+import lila.rating.PerfType
+
+import lila.core.data.Percent
 
 case class ValueCount[V](value: V, count: Int):
   def map[B](f: V => B)      = copy(value = f(value))

@@ -2,10 +2,9 @@ package lila.oauth
 
 import reactivemongo.api.bson.*
 
-import lila.core.Bearer
+import lila.core.net.Bearer
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.oauth.TokenRevoke
-import lila.core.user.MyId
+import lila.core.misc.oauth.TokenRevoke
 
 final class AccessTokenApi(
     coll: Coll,
@@ -68,7 +67,7 @@ final class AccessTokenApi(
 
   def adminChallengeTokens(
       setup: OAuthTokenForm.AdminChallengeTokensData,
-      admin: lila.core.user.User
+      admin: User
   ): Fu[Map[UserId, AccessToken]] =
     userApi
       .enabledByIds(setup.usernames)
@@ -110,13 +109,13 @@ final class AccessTokenApi(
       .cursor[AccessToken]()
       .list(100)
 
-  def usedBoardApi(using me: MyId): Fu[List[AccessToken]] =
+  def usedBoardApi(user: UserId): Fu[List[AccessToken]] =
     coll
       .find:
         $doc(
           F.scopes -> OAuthScope.Board.Play.key,
           F.usedAt.$exists(true),
-          F.userId -> me
+          F.userId -> user
         )
       .sort($sort.desc(F.createdAt))
       .cursor[AccessToken]()

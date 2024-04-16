@@ -11,17 +11,22 @@ import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, N
 object Helpers:
   import lila.tree.NewTree.*
 
-  def rootToPgn(root: Root) = PgnDump
+  /* Remove these when tests are independant from lila.game.importer */
+  val parseImportStub: lila.core.game.ParseImport = (_, _) => Left(chess.ErrorStr("lila.game not available"))
+  val statusTextStub: lila.core.game.StatusText   = (_, _, _) => ""
+  val importerStub                                = StudyPgnImport(parseImportStub, statusTextStub)
+  val newImporterStub                             = StudyPgnImportNew(parseImportStub, statusTextStub)
+
+  def rootToPgn(root: Root): PgnStr = PgnDump
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
     .render
 
-  def rootToPgn(root: NewRoot) = PgnDump
+  def rootToPgn(root: NewRoot): PgnStr = PgnDump
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
     .render
 
   extension (root: Root)
-    def toNewRoot =
-      NewRoot(NewTree.fromNode(root), NewTree(root))
+    def toNewRoot = NewRoot(root)
 
     def debug = root.ppAs(rootToPgn)
 

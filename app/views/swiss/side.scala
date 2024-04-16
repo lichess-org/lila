@@ -4,7 +4,7 @@ package html.swiss
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
 import lila.gathering.Condition
 import lila.gathering.Condition.WithVerdicts
@@ -40,7 +40,7 @@ object side:
               (isGranted(_.ManageTournament) || (ctx.is(s.createdBy) && s.isEnterable)).option(
                 frag(
                   " ",
-                  a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(licon.Gear))
+                  a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(Icon.Gear))
                 )
               )
             ),

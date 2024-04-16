@@ -3,6 +3,10 @@ package swiss
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.core.id.SwissId
+import lila.core.chess.Rank
+import lila.core.userId.UserId
+
 case class IdName(@Key("_id") id: SwissId, name: String)
 
 trait SwissApi:

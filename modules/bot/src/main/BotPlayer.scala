@@ -3,17 +3,17 @@ package lila.bot
 import chess.format.Uci
 
 import lila.common.Bus
-import lila.game.{ Game, GameRepo, Pov, Rematches }
-import lila.core.actorApi.map.Tell
+import lila.game.{ GameRepo, Rematches }
+import lila.core.misc.map.Tell
 import lila.core.round.*
-import lila.user.Me
+
 import lila.core.shutup.PublicSource
 
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,
     gameRepo: GameRepo,
     rematches: Rematches,
-    spam: lila.security.Spam
+    spam: lila.core.security.SpamApi
 )(using Executor, Scheduler):
 
   private def clientError[A](msg: String): Fu[A] = fufail(lila.core.round.ClientError(msg))

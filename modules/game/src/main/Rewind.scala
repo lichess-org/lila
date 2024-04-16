@@ -5,12 +5,12 @@ import chess.format.{ Fen, pgn as chessPgn }
 
 object Rewind:
 
-  private def createTags(fen: Option[Fen.Full], game: Game) =
+  private def createTags(fen: Option[Fen.Full], game: CoreGame) =
     val variantTag = Some(chessPgn.Tag(_.Variant, game.variant.name))
     val fenTag     = fen.map(f => chessPgn.Tag(_.FEN, f.value))
     chessPgn.Tags(List(variantTag, fenTag).flatten)
 
-  def apply(game: Game, initialFen: Option[Fen.Full]): Either[ErrorStr, Progress] =
+  def apply(game: CoreGame, initialFen: Option[Fen.Full]): Either[ErrorStr, Progress] =
     chessPgn.Reader
       .movesWithSans(
         sans = game.sans,

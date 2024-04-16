@@ -4,10 +4,10 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
 import lila.core.config.CollName
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.core.user.WithPerf
-import lila.core.perf.PerfKey
-import lila.core.Days
+
+import scalalib.model.Days
 
 @Module
 final class Env(
@@ -25,5 +25,5 @@ final class Env(
 
   lila.common.Bus.subscribeFun("perfsUpdate"):
     case lila.game.actorApi.PerfsUpdate(game, bothPerfs) =>
-      bothPerfs.mapList: (user, perfs) =>
-        api.add(user, game, perfs)
+      bothPerfs.mapList: uwp =>
+        api.add(uwp.user, game, uwp.perfs)

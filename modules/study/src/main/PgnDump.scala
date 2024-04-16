@@ -5,14 +5,14 @@ import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comme
 import chess.format.{ pgn as chessPgn }
 
 import lila.common.String.slugify
-import lila.tree.{ Analysis, Root, Branch, Branches, NewBranch, NewTree, NewRoot }
+import lila.tree.{ Analysis, Root, Metas, NewBranch, NewTree, NewRoot }
 import lila.tree.Node.{ Shape, Shapes }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
-    analyser: lila.analyse.Analyser,
-    annotator: lila.analyse.Annotator,
-    lightUserApi: lila.user.LightUserApi,
+    analyser: lila.tree.Analyser,
+    annotator: lila.tree.Annotator,
+    lightUserApi: lila.core.user.LightUserApi,
     net: lila.core.config.NetConfig
 )(using Executor):
 
@@ -91,9 +91,8 @@ final class PgnDump(
         .reverse
 
   def ofChapter(study: Study, flags: WithFlags)(chapter: Chapter, analysis: Option[Analysis]): PgnStr =
-    val root = chapter.root
     val tags = makeTags(study, chapter)(using flags)
-    val pgn  = rootToPgn(root, tags)(using flags)
+    val pgn  = rootToPgn(chapter.root, tags)(using flags)
     annotator.toPgnString(analysis.ifTrue(flags.comments).fold(pgn)(annotator.addEvals(pgn, _)))
 
 object PgnDump:
@@ -107,25 +106,17 @@ object PgnDump:
   )
   val fullFlags = WithFlags(true, true, true, true, true)
 
-  private type Variations = List[Branch]
-  private val noVariations: Variations = Nil
+  def rootToPgn(root: Root, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
+    rootToPgn(NewRoot(root), tags, comments)
 
   def rootToPgn(root: Root, tags: Tags)(using WithFlags): Pgn =
-    Pgn(
-      tags,
-      InitialComments(root.comments.value.map(_.text.into(Comment)) ::: shapeComment(root.shapes).toList),
-      rootToTree(root)
-    )
-
-  def rootToTree(root: Root)(using WithFlags): Option[PgnTree] =
-    NewTree(root).map(treeToTree)
+    rootToPgn(NewRoot(root), tags)
 
   def rootToPgn(root: NewRoot, tags: Tags)(using flags: WithFlags): Pgn =
-    Pgn(
-      tags,
-      InitialComments(root.comments.value.map(_.text.into(Comment)) ::: shapeComment(root.shapes).toList),
-      root.tree.map(treeToTree(_)(using flags))
-    )
+    rootToPgn(root, tags, InitialComments(root.metas.commentWithShapes))
+
+  def rootToPgn(root: NewRoot, tags: Tags, comments: InitialComments)(using WithFlags): Pgn =
+    Pgn(tags, comments, root.tree.map(treeToTree))
 
   def treeToTree(tree: NewTree)(using flags: WithFlags): PgnTree =
     if flags.variations then tree.map(branchToMove) else tree.mapMainline(branchToMove)
@@ -134,14 +125,16 @@ object PgnDump:
     chessPgn.Move(
       node.ply,
       san = node.move.san,
-      glyphs = if flags.comments then node.metas.glyphs else Glyphs.empty,
-      comments = flags.comments.so:
-        node.comments.value.map(_.text.into(Comment)) ::: shapeComment(node.shapes).toList
-      ,
+      glyphs = flags.comments.so(node.metas.glyphs),
+      comments = flags.comments.so(node.metas.commentWithShapes),
       opening = none,
       result = none,
       secondsLeft = flags.clocks.so(node.clock.map(_.roundSeconds))
     )
+
+  extension (metas: Metas)
+    def commentWithShapes: List[Comment] =
+      metas.comments.value.map(_.text.into(Comment)) ::: shapeComment(metas.shapes).toList
 
   // [%csl Gb4,Yd5,Rf6][%cal Ge2e4,Ye2d4,Re2g4]
   private def shapeComment(shapes: Shapes): Option[Comment] =

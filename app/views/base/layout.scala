@@ -5,10 +5,10 @@ import controllers.routes
 import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
-import lila.app.ContentSecurityPolicy
+import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.app.LangPath
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
@@ -39,7 +39,7 @@ object layout:
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get().so("external.")}css"),
+        href := assetUrl(s"piece-css/$ps.${env.web.settings.pieceImageExternal.get().so("external.")}css"),
         rel  := "stylesheet"
       )
   import bits.*
@@ -74,7 +74,7 @@ object layout:
     )
   )
   private def piecesPreload(using ctx: PageContext) =
-    env.pieceImageExternal
+    env.web.settings.pieceImageExternal
       .get()
       .option(raw:
         (for
@@ -113,11 +113,11 @@ object layout:
     s"""
 <div id="zenzone">
   <a href="/" class="zen-home"></a>
-  <a data-icon="${licon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
+  <a data-icon="${Icon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
         .txt()}</a>
 </div>"""
 
-  private def dasher(me: lila.user.User) =
+  private def dasher(me: User) =
     div(cls := "dasher")(
       a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
       div(id := "dasher_app", cls := "dropdown")
@@ -128,7 +128,7 @@ object layout:
     frag(
       a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
       div(cls := "dasher")(
-        button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
+        button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := Icon.Gear),
         div(id     := "dasher_app", cls         := "dropdown")
       )
     )
@@ -139,18 +139,18 @@ object layout:
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}"></span>
+    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${Icon.Swords}"></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}"></span>
+    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${Icon.BellOutline}"></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
 
-  private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
+  private val clinputLink = a(cls := "link")(span(dataIcon := Icon.Search))
 
   private def clinput(using ctx: PageContext) =
     div(id := "clinput")(
@@ -166,7 +166,7 @@ object layout:
 
   private val warnNoAutoplay =
     div(id := "warn-no-autoplay")(
-      a(dataIcon := licon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
+      a(dataIcon := Icon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
     )
 
   private def current2dTheme(using ctx: PageContext) =
@@ -248,7 +248,7 @@ object layout:
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
-      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      openGraph: Option[lila.web.OpenGraph] = None,
       zoomable: Boolean = false,
       zenable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
@@ -331,7 +331,7 @@ object layout:
           dataTheme        := pref.currentBg,
           dataBoardTheme   := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
-          dataAnnounce     := lila.api.AnnounceStore.get.map(a => safeJsonValue(a.json)),
+          dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
           style            := zoomable.option(s"--zoom:$pageZoom")
         )(
           blindModeForm,
@@ -357,7 +357,7 @@ object layout:
             .option(
               div(id := "friend_box")(
                 div(cls := "friend_box_title")(
-                  trans.site.nbFriendsOnline.plural(0, iconTag(licon.UpTriangle))
+                  trans.site.nbFriendsOnline.plural(0, iconTag(Icon.UpTriangle))
                 ),
                 div(cls := "content_wrap none")(
                   div(cls := "content list")
@@ -368,7 +368,7 @@ object layout:
             a(
               id       := "network-status",
               cls      := "link text",
-              dataIcon := licon.ChasingArrows
+              dataIcon := Icon.ChasingArrows
             )
           ),
           spinnerMask,
@@ -399,7 +399,7 @@ object layout:
           title     := "Moderation",
           href      := reportRoutes.list,
           dataCount := score,
-          dataIcon  := licon.Agent
+          dataIcon  := Icon.Agent
         ).some
       else
         isGranted(_.PublicChatView).option(
@@ -407,7 +407,7 @@ object layout:
             cls      := "link",
             title    := "Moderation",
             href     := routes.Mod.publicChat,
-            dataIcon := licon.Agent
+            dataIcon := Icon.Agent
           )
         )
 
@@ -417,7 +417,7 @@ object layout:
           cls       := "link data-count link-center",
           href      := teamRoutes.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon  := licon.Group,
+          dataIcon  := Icon.Group,
           title     := trans.team.teams.txt()
         )
       )
@@ -429,7 +429,7 @@ object layout:
           a(cls := "site-title", href := langHref("/"))(
             if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
-            div(cls := "site-icon", dataIcon := licon.Logo),
+            div(cls := "site-icon", dataIcon := Icon.Logo),
             div(cls := "site-name")(siteNameFrag)
           ),
           (!ctx.isAppealUser).option(
@@ -454,9 +454,8 @@ object layout:
               submitButton(cls := "button button-red link")(trans.site.logOut())
           else
             ctx.me
-              .map { me =>
+              .map: me =>
                 frag(allNotifications, dasher(me))
-              }
               .getOrElse { (!ctx.data.error).option(anonDasher) }
         )
       )

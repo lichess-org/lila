@@ -7,6 +7,7 @@ import play.api.data.validation.Constraints
 
 import lila.common.Form.{ cleanNonEmptyText, cleanText, into, trim, given }
 import lila.common.LameName
+import lila.core.user.Profile
 
 final class UserForm:
 

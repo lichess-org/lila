@@ -1,14 +1,14 @@
 package lila.tournament
 
 import reactivemongo.api.bson.*
-
 import scalalib.Maths
-
 import scalalib.paginator.{ AdapterLike, Paginator }
+
 import lila.db.dsl.{ *, given }
-import lila.rating.Perf
-import lila.user.User
-import lila.core.perf.{ PerfId, PerfType }
+
+import lila.core.perf.PerfId
+import lila.rating.PerfType
+import lila.core.chess.Rank
 
 final class LeaderboardApi(
     repo: LeaderboardRepo,

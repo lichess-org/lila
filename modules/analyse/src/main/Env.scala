@@ -8,7 +8,8 @@ import lila.core.config.CollName
 @Module
 final class Env(
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     cacheApi: lila.memo.CacheApi,
     net: NetConfig
 )(using Executor):
@@ -19,10 +20,11 @@ final class Env(
 
   lazy val analyser = wire[Analyser]
 
-  lazy val annotator = Annotator(net.domain)
+  lazy val annotator = Annotator(gameApi.statusText, net.domain)
 
   lazy val externalEngine = ExternalEngineApi(db(CollName("external_engine")), cacheApi)
 
-  lila.common.Bus.subscribeFun("oauth") { case lila.core.actorApi.oauth.TokenRevoke(id) =>
-    externalEngine.onTokenRevoke(id)
-  }
+  val jsonView = JsonView
+
+  lila.common.Bus.subscribeFun("oauth"):
+    case lila.core.misc.oauth.TokenRevoke(id) => externalEngine.onTokenRevoke(id)

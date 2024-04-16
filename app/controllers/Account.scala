@@ -8,11 +8,10 @@ import views.html
 
 import scala.util.chaining.*
 
-import lila.api.AnnounceStore
+import lila.web.AnnounceApi
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import lila.user.{ TotpSecret, User as UserModel }
 
 final class Account(
     env: Env,
@@ -85,7 +84,7 @@ final class Account(
           .add("kid" -> ctx.kid)
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
-          .add("announce" -> AnnounceStore.get.map(_.json))
+          .add("announce" -> AnnounceApi.get.map(_.json))
       .withHeaders(CACHE_CONTROL -> "max-age=15")
   }
 
@@ -145,7 +144,7 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.passwdChange.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.passwd(err))): data =>
-          env.user.authenticator.setPassword(me, UserModel.ClearPassword(data.newPasswd1)) >>
+          env.user.authenticator.setPassword(me, lila.user.ClearPassword(data.newPasswd1)) >>
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
 
@@ -231,7 +230,7 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.setupTwoFactor.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.twoFactor.setup(err))): data =>
-          env.user.repo.setupTwoFactor(me, TotpSecret(data.secret)) >>
+          env.user.repo.setupTwoFactor(me, lila.user.TotpSecret.decode(data.secret)) >>
             refreshSessionId(Redirect(routes.Account.twoFactor).flashSuccess)
   }
 

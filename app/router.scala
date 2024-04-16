@@ -7,10 +7,10 @@ import lila.appeal.Appeal
 import lila.challenge.Challenge
 import lila.clas.{ Clas, ClasInvite }
 import lila.puzzle.PuzzleTheme
-import lila.rating.Perf
 import lila.report.Report
 import lila.core.socket.Sri
-import lila.core.perf.PerfKey
+import lila.core.id.*
+import lila.core.perf.PerfKeyStr
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
@@ -42,7 +42,7 @@ given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasI
 given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr.from(_)
-given perfKey: Conversion[String, PerfKey]                               = PerfKey(_)
+given perfKeyStr: Conversion[String, PerfKeyStr]                         = PerfKeyStr(_)
 given puzzleKey: Conversion[String, PuzzleTheme.Key]                     = PuzzleTheme.Key(_)
 given Conversion[String, Variant.LilaKey]                                = Variant.LilaKey(_)
 given variantKeyOpt: Conversion[Option[String], Option[Variant.LilaKey]] = Variant.LilaKey.from(_)

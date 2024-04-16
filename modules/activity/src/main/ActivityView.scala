@@ -1,6 +1,6 @@
 package lila.activity
 
-import lila.game.LightPov
+import lila.core.game.LightPov
 import lila.core.simul.Simul
 import lila.core.swiss.{ IdName as SwissIdName }
 import lila.core.ublog.UblogPost
@@ -8,6 +8,7 @@ import lila.activity.activities.*
 import lila.core.forum.ForumPostMini
 import lila.core.forum.ForumTopicMini
 import lila.core.rating.Score
+import lila.core.chess.Rank
 
 case class ActivityView(
     interval: TimeInterval,

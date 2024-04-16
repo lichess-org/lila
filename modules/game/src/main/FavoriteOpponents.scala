@@ -1,9 +1,7 @@
 package lila.game
 
-import lila.core.user.{ User, UserApi }
-
 final class FavoriteOpponents(
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     gameRepo: GameRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):

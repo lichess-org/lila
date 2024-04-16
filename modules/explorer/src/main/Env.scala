@@ -9,12 +9,12 @@ case class InternalEndpoint(value: String) extends AnyVal with StringValue
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
-    gameImporter: lila.importer.Importer,
+    gameImporter: lila.core.game.Importer,
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor):
 
-  private lazy val internalEndpoint = InternalEndpoint {
+  private val internalEndpoint = InternalEndpoint {
     appConfig.get[String]("explorer.internal_endpoint")
   }
 
-  lazy val importer = wire[ExplorerImporter]
+  val importer = wire[ExplorerImporter]

@@ -1,18 +1,17 @@
 package lila.pool
 
-import lila.rating.Perf
 import play.api.i18n.Lang
 import lila.core.i18n.Translator
 import lila.core.pool.PoolConfigId
-import lila.core.perf.{ PerfKey, PerfType }
+
+import lila.rating.PerfType
 
 case class PoolConfig(
     clock: chess.Clock.Config,
     wave: PoolConfig.Wave
 ):
-  val perfType = PerfType(chess.Speed(clock).key.into(PerfKey)) | PerfType.Classical
-
-  val id = PoolConfig.clockToId(clock)
+  val perfKey = PerfKey(chess.Speed(clock).key.value) | PerfKey.classical
+  val id      = PoolConfig.clockToId(clock)
 
 object PoolConfig:
 
@@ -31,5 +30,5 @@ object PoolConfig:
       "id"   -> p.id,
       "lim"  -> p.clock.limitInMinutes,
       "inc"  -> p.clock.incrementSeconds,
-      "perf" -> p.perfType.trans
+      "perf" -> PerfType(p.perfKey).trans
     )

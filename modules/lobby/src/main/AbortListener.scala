@@ -1,13 +1,13 @@
 package lila.lobby
 
-import lila.game.Pov
 import lila.core.game.Source
 
 final private class AbortListener(
-    userRepo: lila.user.UserRepo,
-    gameRepo: lila.game.GameRepo,
+    userApi: lila.core.user.UserApi,
+    gameRepo: lila.core.game.GameRepo,
     seekApi: SeekApi,
-    lobbyActor: LobbySyncActor
+    lobbyActor: LobbySyncActor,
+    fixedColor: scalalib.cache.ExpireSetMemo[GameId]
 )(using Executor):
 
   def apply(pov: Pov): Funit =
@@ -18,12 +18,12 @@ final private class AbortListener(
 
   private def cancelColorIncrement(pov: Pov): Unit =
     if pov.game.source.exists: s =>
-        s == Source.Lobby || s == Source.Pool && !gameRepo.fixedColorLobbyCache.get(pov.game.id)
+        s == Source.Lobby || s == Source.Pool && !fixedColor.get(pov.game.id)
     then
       pov.game.userIds match
         case List(u1, u2) =>
-          userRepo.incColor(u1, -1)
-          userRepo.incColor(u2, 1)
+          userApi.incColor(u1, -1)
+          userApi.incColor(u2, 1)
         case _ =>
 
   private def recreateSeek(pov: Pov): Funit =
@@ -35,7 +35,7 @@ final private class AbortListener(
       }
 
   private def worthRecreating(seek: Seek): Fu[Boolean] =
-    userRepo.byId(seek.user.id).map {
+    userApi.byId(seek.user.id).map {
       _.exists: u =>
         u.enabled.yes && !u.lame
     }

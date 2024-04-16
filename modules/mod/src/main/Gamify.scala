@@ -8,7 +8,6 @@ import java.time.{ Instant, LocalDateTime }
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.report.Room
-import lila.user.User
 
 final class Gamify(
     logRepo: ModlogRepo,
@@ -106,7 +105,7 @@ final class Gamify(
       $doc("$lt" -> to)
     }
 
-  private val hidden = List(UserId.lichess, User.irwinId)
+  private val hidden = List(UserId.lichess, UserId.irwin)
 
   private def actionLeaderboard(after: Instant, before: Option[Instant]): Fu[List[ModCount]] =
     logRepo.coll

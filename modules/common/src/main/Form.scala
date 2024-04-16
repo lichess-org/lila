@@ -206,7 +206,7 @@ object Form:
     val historicalConstraints = Seq(
       Constraints.minLength(2),
       Constraints.maxLength(30),
-      Constraints.pattern(regex = lila.core.UserName.historicalRegex)
+      Constraints.pattern(regex = UserName.historicalRegex)
     )
     val historicalField = trim(text).verifying(historicalConstraints*).into[UserStr]
 
@@ -221,6 +221,9 @@ object Form:
   given Formatter[chess.variant.Variant] =
     import chess.variant.Variant
     formatter.stringFormatter[Variant](_.key.value, str => Variant.orDefault(Variant.LilaKey(str)))
+
+  given Formatter[PerfKey] = formatter.stringOptionFormatter[PerfKey](_.value, PerfKey(_))
+  val perfKey              = typeIn[PerfKey](PerfKey.all)
 
   extension [A](f: Formatter[A])
     def transform[B](to: A => B, from: B => A): Formatter[B] = new:

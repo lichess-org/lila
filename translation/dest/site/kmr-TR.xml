@@ -93,7 +93,9 @@
     <item quantity="one">Mat dibe di %s vîv-hemleyê de</item>
     <item quantity="other">%s mat dibe di nîv-hemleyan de</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' bi giloverkirinê, li ser esasa hejmara nîv-hemleyên heya girtin an hemleya pîyonê ya piştî</string>
   <string name="noGameFound">Ti lîstik nehat dîtin</string>
+  <string name="maxDepthReached">Gihîşte kûrîya maksîmum!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkî bixwazî ji menuya tercîhan zêdetir lîstikan bînî?</string>
   <string name="openings">Destpêk</string>
   <string name="openingExplorer">Kaşifê destpêkê</string>

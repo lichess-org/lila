@@ -7,19 +7,19 @@ import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.api.Context.given
 import lila.common.Json.given
 import lila.common.HTTPRequest
-import lila.game.{ Game, Pov }
+
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
-import lila.tree.ExportOptions
+import lila.tree.{ ExportOptions, Tree }
 import lila.round.{ Forecast, JsonView }
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
 import lila.tree.Node.partitionTreeJsonWriter
-import lila.user.{ GameUsers, User }
+import lila.core.user.GameUsers
 import lila.core.i18n.Translate
-import lila.core.Preload
+import lila.core.data.Preload
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -46,7 +46,7 @@ final private[api] class RoundApi(
   )(using ctx: Context): Fu[JsObject] = {
     for
       initialFen <- gameRepo.initialFen(pov.game)
-      users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType))
+      users      <- users.orLoad(userApi.gamePlayers(pov.game.userIdPair, pov.game.perfKey))
       prefs      <- prefApi.get(users.map(_.map(_.user)), pov.color, ctx.pref)
       (json, simul, swiss, note, forecast, bookmarked) <-
         (
@@ -181,9 +181,13 @@ final private[api] class RoundApi(
       initialFen: Option[Fen.Full],
       withFlags: ExportOptions
   )(obj: JsObject) =
-    obj + ("treeParts" -> partitionTreeJsonWriter.writes(
-      lila.tree.TreeBuilder(pov.game, analysis, initialFen | pov.game.variant.initialFen, withFlags)
-    ))
+    obj + ("treeParts" ->
+      Tree.makePartitionTreeJson(
+        pov.game,
+        analysis,
+        initialFen | pov.game.variant.initialFen,
+        withFlags
+      ))
 
   private def withSteps(pov: Pov, initialFen: Option[Fen.Full])(obj: JsObject) =
     obj + ("steps" -> lila.round.StepBuilder(

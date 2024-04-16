@@ -6,7 +6,7 @@ import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 final private class InsightStorage(val coll: AsyncColl)(using Executor):
 

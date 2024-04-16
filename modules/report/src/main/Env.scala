@@ -12,12 +12,11 @@ final class Env(
     domain: NetDomain,
     db: lila.db.Db,
     isOnline: lila.core.socket.IsOnline,
-    userRepo: lila.user.UserRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     lightUserAsync: lila.core.LightUser.Getter,
-    gameRepo: lila.game.GameRepo,
-    securityApi: lila.security.SecurityApi,
-    userLoginsApi: lila.security.UserLoginsApi,
+    gameApi: lila.core.game.GameApi,
+    gameRepo: lila.core.game.GameRepo,
+    securityApi: lila.core.security.SecurityApi,
     playbansOf: => lila.core.playban.BansOf,
     ircApi: lila.core.irc.IrcApi,
     captcha: lila.core.captcha.CaptchaApi,
@@ -53,4 +52,4 @@ final class Env(
     api.inquiries.expire
 
   lila.common.Bus.subscribeFun("playban"):
-    case lila.core.playban.Playban(userId, mins) => api.maybeAutoPlaybanReport(userId, mins)
+    case lila.core.playban.Playban(userId, mins, _) => api.maybeAutoPlaybanReport(userId, mins)

@@ -1,5 +1,7 @@
 package lila.core
 
+import lila.core.email.EmailAddress
+
 object config:
 
   opaque type Every = FiniteDuration
@@ -69,6 +71,7 @@ object config:
       socketAlts: List[String],
       crawlable: Boolean,
       rateLimit: RateLimit,
-      email: EmailAddress
+      email: EmailAddress,
+      logRequests: Boolean
   ):
     def isProd = domain == prodDomain

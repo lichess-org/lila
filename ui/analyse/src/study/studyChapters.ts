@@ -142,8 +142,9 @@ export const gameLinksListener = (setChapter: (id: ChapterId | number) => boolea
     e => {
       let target = e.target as HTMLLinkElement;
       while (target && target.tagName !== 'A') target = target.parentNode as HTMLLinkElement;
-      const id = target?.dataset['board'] || target?.href?.slice(-8);
-      if (id && setChapter(id)) e.preventDefault();
+      const href = target?.href;
+      const id = target?.dataset['board'] || href?.match(/^[^?#]*/)?.[0].slice(-8);
+      if (id && setChapter(id) && !href?.match(/[?&]embed=/)) e.preventDefault();
     },
     { passive: false },
   );

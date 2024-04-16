@@ -5,10 +5,11 @@ import chess.variant.*
 import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation }
 
 import lila.common.Bus
-import lila.game.{ AnonCookie, Event, Game, GameRepo, Pov, Rematches }
+import lila.game.{ AnonCookie, Event, Rematches }
+import lila.core.game.{ IdGenerator, GameRepo }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import scalalib.cache.ExpireSetMemo
-import lila.user.{ GameUsers, UserApi }
+import lila.core.user.{ GameUsers, UserApi }
 
 import ChessColor.White
 
@@ -18,7 +19,7 @@ final private class Rematcher(
     messenger: Messenger,
     onStart: lila.core.game.OnStart,
     rematches: Rematches
-)(using Executor, lila.game.IdGenerator, Translator):
+)(using Executor, Translator)(using idGenerator: IdGenerator):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -99,8 +100,8 @@ final private class Rematcher(
         initialFen,
         !chess960.get(pov.gameId)
       )
-      users <- userApi.gamePlayers(pov.game.userIdPair, pov.game.perfType)
-      sloppy = Game.make(
+      users <- userApi.gamePlayersAny(pov.game.userIdPair, pov.game.perfKey)
+      sloppy = lila.core.game.newGame(
         chess = newGame,
         players = ByColor(returnPlayer(pov.game, _, users)),
         mode = if users.exists(_.exists(_.user.lame)) then chess.Mode.Casual else pov.game.mode,
@@ -108,10 +109,11 @@ final private class Rematcher(
         daysPerTurn = pov.game.daysPerTurn,
         pgnImport = None
       )
-      game <- withId.fold(sloppy.withUniqueId) { id => fuccess(sloppy.withId(id)) }
+      game <- withId.fold(idGenerator.withUniqueId(sloppy)): id =>
+        fuccess(sloppy.withId(id))
     yield game
 
-  private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.game.Player =
+  private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.core.game.Player =
     game.opponent(color).aiLevel match
       case Some(ai) => lila.game.Player.makeAnon(color, ai.some)
       case None     => lila.game.Player.make(color, users(!color))

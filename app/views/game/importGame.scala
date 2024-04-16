@@ -5,7 +5,8 @@ import chess.format.pgn.PgnStr
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.game.ImportData
 
 object importGame:
 
@@ -17,7 +18,7 @@ object importGame:
       title = trans.site.importGame.txt(),
       moreCss = cssTag("importer"),
       moreJs = iifeModule("javascripts/importer.js"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Paste PGN chess game",
           url = s"$netBaseUrl${routes.Importer.importGame.url}",
@@ -30,16 +31,15 @@ object importGame:
         p(cls := "explanation")(
           trans.site.importGameExplanation(),
           br,
-          a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault()):
+          a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Study.allDefault()):
             trans.site.importGameCaveat()
         ),
         standardFlash,
         postForm(cls := "form3 import", action := routes.Importer.sendGame)(
           form3.group(form("pgn"), trans.site.pasteThePgnStringHere())(form3.textarea(_)()),
           form("pgn").value.flatMap { pgn =>
-            lila.importer
-              .ImportData(PgnStr(pgn), none)
-              .preprocess(none)
+            lila.game.importer
+              .parseImport(ImportData(PgnStr(pgn), none), ctx.userId)
               .fold(
                 err => frag(pre(cls := "error")(err), br, br).some,
                 _ => none
@@ -53,9 +53,9 @@ object importGame:
             help = Some(analyseHelp),
             disabled = ctx.isAnon
           ),
-          a(cls := "text", dataIcon := licon.InfoCircle, href := routes.Study.allDefault(1)):
+          a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Study.allDefault(1)):
             trans.site.importGameDataPrivacyWarning()
           ,
-          form3.action(form3.submit(trans.site.importGame(), licon.UploadCloud.some))
+          form3.action(form3.submit(trans.site.importGame(), Icon.UploadCloud.some))
         )
       )

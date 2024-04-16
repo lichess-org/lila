@@ -3,13 +3,14 @@ package lila.gameSearch
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.game.{ Game, GameRepo }
+import lila.core.game.{ GameRepo }
 import lila.search.*
+import lila.game.GameExt.perfType
 
 final class GameSearchApi(
     client: ESClient,
     gameRepo: GameRepo,
-    userRepo: lila.user.UserRepo
+    userApi: lila.core.user.UserApi
 )(using Executor, Scheduler)
     extends SearchReadApi[Game, Query]:
 
@@ -22,11 +23,11 @@ final class GameSearchApi(
     client.count(query).dmap(_.value)
 
   def validateAccounts(query: Query, forMod: Boolean): Fu[Boolean] =
-    fuccess(forMod) >>| userRepo.containsDisabled(query.userIds).not
+    fuccess(forMod) >>| userApi.containsDisabled(query.userIds).not
 
   def store(game: Game) =
     storable(game).so:
-      gameRepo.isAnalysed(game.id).flatMap { analysed =>
+      gameRepo.isAnalysed(game).flatMap { analysed =>
         lila.common.LilaFuture
           .retry(
             () => client.store(game.id.into(Id), toDoc(game, analysed)),
@@ -36,7 +37,7 @@ final class GameSearchApi(
           )
       }
 
-  private def storable(game: Game) = game.finished || game.imported
+  private def storable(game: Game) = game.finished || game.sourceIs(_.Import)
 
   private def toDoc(game: Game, analysed: Boolean) =
     Json

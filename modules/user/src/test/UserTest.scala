@@ -6,11 +6,14 @@ class UserTest extends munit.FunSuite:
   given Conversion[String, UserId]  = UserId(_)
 
   def canSignup(str: String) =
-    User.newUsernamePrefix.pattern.matcher(str).matches && User.newUsernameSuffix.pattern
+    import lila.user.nameRules.*
+    newUsernamePrefix.pattern
+      .matcher(str)
+      .matches && newUsernameSuffix.pattern
       .matcher(str)
       .matches &&
-      User.newUsernameChars.pattern.matcher(str).matches &&
-      User.newUsernameLetters.pattern.matcher(str).matches
+    newUsernameChars.pattern.matcher(str).matches &&
+    newUsernameLetters.pattern.matcher(str).matches
 
   import UserStr.couldBeUsername
 

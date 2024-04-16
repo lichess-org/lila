@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.{ TeamBattle, Tournament }
 
 object teamBattle:
@@ -117,7 +117,7 @@ object teamBattle:
               tr(
                 td(index + 1),
                 td(
-                  (index < tour.teamBattle.so(_.nbLeaders)).option(iconTag(licon.Crown)),
+                  (index < tour.teamBattle.so(_.nbLeaders)).option(iconTag(Icon.Crown)),
                   userIdLink(player.userId.some)
                 ),
                 td(player.score),

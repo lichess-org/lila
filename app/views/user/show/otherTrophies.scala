@@ -3,7 +3,7 @@ package views.html.user.show
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.user.{ Trophy, TrophyKind }
 
 object otherTrophies:
@@ -66,7 +66,7 @@ object otherTrophies:
           href := routes.Coach.show(info.user.username),
           cls  := "trophy award icon3d coach",
           ariaTitle(trans.coach.lichessCoach.txt())
-        )(licon.GraduateCap)
+        )(Icon.GraduateCap)
       ),
       (info.isStreamer && ctx.kid.no).option {
         val streaming = isStreaming(info.user.id)
@@ -76,7 +76,7 @@ object otherTrophies:
             "streaming"                    -> streaming
           ),
           ariaTitle(if streaming then "Live now!" else "Lichess Streamer")
-        )(licon.Mic)
+        )(Icon.Mic)
       }
     )
 

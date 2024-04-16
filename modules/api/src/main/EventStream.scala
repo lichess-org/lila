@@ -7,8 +7,8 @@ import play.api.libs.json.*
 import lila.challenge.Challenge
 import lila.common.Bus
 import lila.common.Json.given
-import lila.game.actorApi.{ FinishGame, StartGame }
-import lila.game.{ Game, Pov, Rematches }
+import lila.core.game.{ FinishGame, StartGame }
+import lila.game.{ Rematches }
 import lila.user.{ LightUserApi, Me, User, UserRepo }
 import play.api.i18n.Lang
 
@@ -136,8 +136,8 @@ final class EventStream(
           gameJsonView
             .ownerPreview(pov)(using lightUserApi.sync)
             .add("source" -> game.source.map(_.name)) ++ compatJson(
-            bot = me.isBot && Game.isBotCompatible(game),
-            board = Game.isBoardCompatible(game)
+            bot = me.isBot && lila.game.Game.isBotCompatible(game),
+            board = lila.game.Game.isBoardCompatible(game)
           ) ++ Json.obj(
             "id" -> game.id // API BC
           )

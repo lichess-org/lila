@@ -7,13 +7,13 @@ import chess.{ Color, Mode, Speed }
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.Days
-import lila.game.Game
+import scalalib.model.Days
 import lila.core.i18n.I18nKey
 import lila.core.{ challenge as hub }
 import lila.core.game.GameRule
-import lila.core.perf.PerfType
-import lila.user.{ GameUser, Me, User }
+import lila.rating.PerfType
+import lila.core.user.WithPerf
+import lila.core.user.GameUser
 
 case class Challenge(
     @Key("_id") id: Challenge.Id,
@@ -66,7 +66,7 @@ case class Challenge(
       challenger =
         u.map(toRegistered).orElse(secret.map(Challenger.Anonymous.apply)).getOrElse(Challenger.Open)
     )
-  def setDestUser(u: User.WithPerf) = copy(destUser = toRegistered(u).some)
+  def setDestUser(u: WithPerf) = copy(destUser = toRegistered(u).some)
 
   def speed = speedOf(timeControl)
 
@@ -159,7 +159,7 @@ object Challenge:
   private val idSize   = 8
   private def randomId = Id(ThreadLocalRandom.nextString(idSize))
 
-  def toRegistered(u: User.WithPerf): Challenger.Registered =
+  def toRegistered(u: WithPerf): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perf.intRating, u.perf.provisional))
 
   def randomColor = chess.Color.fromWhite(ThreadLocalRandom.nextBoolean())
@@ -190,7 +190,7 @@ object Challenge:
       case "black" => ColorChoice.Black  -> chess.Black
       case _       => ColorChoice.Random -> randomColor
     val finalMode = timeControl match
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
+      case TimeControl.Clock(clock) if !lila.core.game.allowRated(variant, clock.some) => Mode.Casual
       case _                                                                           => mode
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(

@@ -3,12 +3,12 @@ package lila.api
 import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import scalalib.Json.given
 
 import lila.common.Json.given
 import lila.core.LightUser
 import scalalib.paginator.Paginator
 import lila.game.Game
-import lila.user.User
 
 final class UserGameApi(
     bookmarkApi: lila.bookmark.BookmarkApi,

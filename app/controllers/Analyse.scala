@@ -10,7 +10,7 @@ import lila.common.HTTPRequest
 import lila.game.{ PgnDump, Pov }
 import lila.oauth.AccessToken
 import lila.tree.ExportOptions
-import lila.core.actorApi.lpv.LpvEmbed
+import lila.core.misc.lpv.LpvEmbed
 
 final class Analyse(
     env: Env,
@@ -39,7 +39,7 @@ final class Analyse(
     else
       for
         initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-        users      <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfType)
+        users      <- env.user.api.gamePlayers(pov.game.players.map(_.userId), pov.game.perfKey)
         _ = gameC.preloadUsers(users)
         res <- RedirectAtFen(pov, initialFen):
           (

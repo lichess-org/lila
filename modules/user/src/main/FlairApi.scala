@@ -17,7 +17,7 @@ object FlairApi:
         .verifying(exists)
         .verifying(f => anyFlair || !adminFlairs(f) || asAdmin)
 
-  def formPair(anyFlair: Boolean = false, asAdmin: Boolean = false)(using by: Me) =
+  def formPair(anyFlair: Boolean = false, asAdmin: Boolean = false) =
     "flair" -> formField(anyFlair, asAdmin)
 
   val adminFlairs: Set[Flair] = Set(Flair("activity.lichess"))
@@ -26,7 +26,7 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
     extends lila.core.user.FlairApi:
 
   import FlairApi.*
-  export FlairApi.formField
+  export FlairApi.{ formField, adminFlairs }
 
   given flairOf: FlairGet = id => lightUserApi.async(id).dmap(_.flatMap(_.flair))
 
@@ -51,4 +51,4 @@ final class FlairApi(lightUserApi: LightUserApi)(using Executor)(using scheduler
   scheduler.scheduleOnce(11 seconds)(refresh())
 
   lila.common.Bus.subscribeFun("assetVersion"):
-    case lila.core.AssetVersion.Changed(_) => refresh()
+    case lila.core.net.AssetVersion.Changed(_) => refresh()

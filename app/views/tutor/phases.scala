@@ -3,20 +3,21 @@ package views.html.tutor
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.{ InsightPosition, Phase }
 import lila.tutor.TutorPerfReport
+import lila.tutor.ui.*
 
 object phases:
 
-  def apply(report: TutorPerfReport, user: lila.user.User)(using PageContext) =
+  def apply(report: TutorPerfReport, user: User)(using PageContext) =
     bits.layout(menu = perf.menu(user, report, "phases"))(
       cls := "tutor__phases box",
       boxTop(
         h1(
           a(
             href     := routes.Tutor.perf(user.username, report.perf.key),
-            dataIcon := licon.LessThan,
+            dataIcon := Icon.LessThan,
             cls      := "text"
           ),
           bits.otherUser(user),
@@ -24,9 +25,7 @@ object phases:
           " phases"
         )
       ),
-      bits.mascotSays(
-        ul(report.phaseHighlights(3).map(compare.show))
-      ),
+      bits.mascotSays(ul(report.phaseHighlights(3).map(compare.show))),
       div(cls := "tutor-cards tutor-cards--triple")(
         report.phases.map: phase =>
           st.section(cls := "tutor-card tutor__phases__phase")(
@@ -41,12 +40,12 @@ object phases:
               div(cls := "tutor__phases__phase__buttons")(
                 a(
                   cls      := "button button-no-upper text",
-                  dataIcon := licon.ArcheryTarget,
+                  dataIcon := Icon.ArcheryTarget,
                   href     := routes.Puzzle.show(phase.phase.name)
                 )("Train with ", phase.phase.name, " puzzles"),
                 a(
                   cls      := "button button-no-upper text",
-                  dataIcon := licon.AnalogTv,
+                  dataIcon := Icon.AnalogTv,
                   href     := s"${routes.Video.index}?tags=${phase.phase.name}"
                 )("Watch ", phase.phase.name, " videos")
               ),

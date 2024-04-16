@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 
 object show:
@@ -14,7 +14,7 @@ object show:
       data: JsObject,
       pref: JsObject,
       settings: lila.puzzle.PuzzleSettings,
-      langPath: Option[lila.core.LangPath] = None
+      langPath: Option[lila.core.app.LangPath] = None
   )(using ctx: PageContext) =
     val isStreak = data.value.contains("streak")
     views.html.base.layout(
@@ -39,7 +39,7 @@ object show:
           .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
       ).some,
       csp = analysisCsp.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           image = cdnUrl(
             routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url

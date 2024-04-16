@@ -3,8 +3,9 @@ package lila.report
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.user.User
 import lila.core.report.SuspectId
+import lila.core.userId.ModId
+import lila.core.perf.UserWithPerfs
 
 case class Report(
     @Key("_id") id: Report.Id, // also the url slug
@@ -116,7 +117,7 @@ object Report:
 
   case class Inquiry(mod: UserId, seenAt: Instant)
 
-  case class WithSuspect(report: Report, suspect: User.WithPerfs, isOnline: Boolean):
+  case class WithSuspect(report: Report, suspect: UserWithPerfs, isOnline: Boolean):
     def urgency: Int =
       report.score.value.toInt +
         (isOnline.so(1000)) +

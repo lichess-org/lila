@@ -5,7 +5,7 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
 import lila.core.config.CollName
 import lila.db.dsl.{ *, given }
-import lila.user.User
+
 import lila.core.tournament.Status
 
 final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Executor):
@@ -327,7 +327,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .list(500)
 
   private[tournament] def sortedCursor(
-      owner: lila.user.User,
+      owner: User,
       status: List[Status],
       batchSize: Int,
       readPref: ReadPref = _.priTemp

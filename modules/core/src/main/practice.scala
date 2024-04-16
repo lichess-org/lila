@@ -1,6 +1,10 @@
 package lila.core
 package practice
 
+import lila.core.id.{ StudyId, StudyChapterId }
+import lila.core.study.data.StudyName
+import lila.core.userId.UserId
+
 case class OnComplete(userId: UserId, studyId: StudyId, chapterId: StudyChapterId)
 
 trait Study:

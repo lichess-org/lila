@@ -7,11 +7,12 @@ import scala.util.{ Success, Try }
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.rating.Glicko
+import lila.core.rating.Glicko
 
 object BsonHandlers:
 
   import Puzzle.BSONFields.*
+  import lila.rating.Glicko.glickoHandler
 
   private[puzzle] given puzzleReader: BSONDocumentReader[Puzzle] with
     def readDocument(r: BSONDocument) = for

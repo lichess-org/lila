@@ -8,17 +8,18 @@ import lila.core.config.NetDomain
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.PublicSource
 import lila.memo.CacheApi.*
-import lila.security.{ Flood, Granter }
-import lila.user.{ Me, User, UserRepo, given }
+import lila.core.perm.Granter
+import lila.core.security.{ FloodSource, FloodApi, SpamApi }
 import lila.core.chat.{ OnTimeout, OnReinstate }
 import lila.core.user.{ FlairGet, FlairGetMap }
 
 final class ChatApi(
     coll: Coll,
-    userRepo: UserRepo,
+    userApi: lila.core.user.UserApi,
+    userRepo: lila.core.user.UserRepo,
     chatTimeout: ChatTimeout,
-    flood: Flood,
-    spam: lila.security.Spam,
+    flood: FloodApi,
+    spam: SpamApi,
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi,
     netDomain: NetDomain
@@ -26,7 +27,7 @@ final class ChatApi(
     extends lila.core.chat.ChatApi:
 
   import Chat.given
-  export userChat.{ write, volatile, timeout }
+  export userChat.{ write, volatile, timeout, system }
 
   def exists(id: ChatId) = coll.exists($id(id))
 
@@ -104,7 +105,7 @@ final class ChatApi(
 
     private object isChatFresh:
       private val cache = cacheApi[PublicSource, Boolean](256, "chat.fresh"):
-        _.expireAfterWrite(2.minutes).buildAsyncFuture: source =>
+        _.expireAfterWrite(3.minutes).buildAsyncFuture: source =>
           Bus.ask("chatFreshness") { IsChatFresh(source, _) }
       def apply(source: Option[PublicSource]) =
         source.fold(fuccess(true))(cache.get)
@@ -122,9 +123,6 @@ final class ChatApi(
       val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
       publishLine(chatId, line, busChan)
 
-    def service(chatId: ChatId, text: String, busChan: BusChan.Select, isVolatile: Boolean): Unit =
-      (if isVolatile then volatile else system) (chatId, text, busChan)
-
     def timeout(
         chatId: ChatId,
         userId: UserId,
@@ -132,16 +130,16 @@ final class ChatApi(
         scope: ChatTimeout.Scope,
         text: String,
         busChan: BusChan.Select
-    )(using mod: Me.Id): Funit =
-      coll.byId[UserChat](chatId.value).zip(userRepo.me(mod)).zip(userRepo.byId(userId)).flatMap {
+    )(using mod: MyId): Funit =
+      coll.byId[UserChat](chatId.value).zip(userApi.me(mod)).zip(userApi.byId(userId)).flatMap {
         case ((Some(chat), Some(me)), Some(user))
-            if isMod(me) || (busChan(BusChan) == BusChan.study && isRelayMod(me)) ||
+            if isMod(using me) || (busChan(BusChan) == BusChan.study && isRelayMod(using me)) ||
               scope == ChatTimeout.Scope.Local =>
-          doTimeout(chat, me, user, reason, scope, text, busChan)
+          doTimeout(chat, user, reason, scope, text, busChan)(using me)
         case _ => funit
       }
 
-    def publicTimeout(data: ChatTimeout.TimeoutFormData)(using Me): Funit =
+    def publicTimeout(data: ChatTimeout.TimeoutFormData)(using MyId): Funit =
       ChatTimeout
         .Reason(data.reason)
         .so: reason =>
@@ -159,20 +157,19 @@ final class ChatApi(
           )
 
     def userModInfo(username: UserStr): Fu[Option[UserModInfo]] =
-      userRepo
+      userApi
         .byId(username)
         .flatMapz: user =>
           chatTimeout.history(user, 20).dmap { UserModInfo(user, _).some }
 
     private def doTimeout(
         c: UserChat,
-        mod: Me,
         user: User,
         reason: ChatTimeout.Reason,
         scope: ChatTimeout.Scope,
         text: String,
         busChan: BusChan.Select
-    ): Funit =
+    )(using mod: Me): Funit =
       chatTimeout
         .add(c, mod, user, reason, scope)
         .flatMap: isNew =>
@@ -197,7 +194,7 @@ final class ChatApi(
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
             line.foreach: l =>
               publishLine(chat.id, l, busChan)
-            if isMod(mod) || isRelayMod(mod) then
+            if isMod || isRelayMod then
               lila.common.Bus.publish(
                 lila.core.mod.ChatTimeout(
                   mod = mod.userId,
@@ -209,7 +206,7 @@ final class ChatApi(
               )
               if isNew then
                 lila.common.Bus
-                  .publish(lila.core.actorApi.security.DeletePublicChats(user.id), "deletePublicChats")
+                  .publish(lila.core.security.DeletePublicChats(user.id), "deletePublicChats")
             else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
           }
 
@@ -225,34 +222,52 @@ final class ChatApi(
         }
         .inject(change)
 
-    private def isMod(me: Me)      = Granter(_.ChatTimeout)(using me)
-    private def isRelayMod(me: Me) = Granter(_.BroadcastTimeout)(using me)
+    private def isMod(using Me)      = Granter(_.ChatTimeout)
+    private def isRelayMod(using Me) = Granter(_.BroadcastTimeout)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) =
       list.foreach: r =>
         Bus.publish(OnReinstate(r.chat, r.user), BusChan.global.chan)
 
     private[ChatApi] def makeLine(chatId: ChatId, userId: UserId, t1: String): Fu[Option[UserLine]] =
-      userRepo.speaker(userId).zip(chatTimeout.isActive(chatId, userId)).dmap {
-        case (Some(user), false) if user.enabled =>
-          Writer.preprocessUserInput(t1, user.username.some).flatMap { t2 =>
-            val allow =
-              if user.isBot then !lila.common.String.hasLinks(t2)
-              else flood.allowMessage(userId.into(Flood.Source), t2)
-            allow.option(
-              UserLine(
-                user.username,
-                user.title,
-                patron = user.isPatron,
-                flair = user.flair.isDefined,
-                t2,
-                troll = user.isTroll,
-                deleted = false
+      Speaker
+        .get(userId)
+        .zip(chatTimeout.isActive(chatId, userId))
+        .dmap {
+          case (Some(user), false) if user.enabled =>
+            Writer.preprocessUserInput(t1, user.username.some).flatMap { t2 =>
+              val allow =
+                if user.isBot then !lila.common.String.hasLinks(t2)
+                else flood.allowMessage(userId.into(FloodSource), t2)
+              allow.option(
+                UserLine(
+                  user.username,
+                  user.title,
+                  patron = user.isPatron,
+                  flair = user.flair.isDefined,
+                  t2,
+                  troll = user.isTroll,
+                  deleted = false
+                )
               )
-            )
-          }
-        case _ => none
-      }
+            }
+          case _ => none
+        }
+
+  private object Speaker:
+    def get(userId: UserId): Fu[Option[Speaker]] = userApi.byIdAs[Speaker](userId.value, Speaker.projection)
+    import lila.core.user.{ BSONFields as F }
+    val projection = lila.db.dsl.$doc(
+      F.username -> true,
+      F.title    -> true,
+      F.plan     -> true,
+      F.flair    -> true,
+      F.enabled  -> true,
+      F.marks    -> true
+    )
+    import reactivemongo.api.bson.*
+    import userRepo.given
+    given BSONDocumentHandler[Speaker] = Macros.handler[Speaker]
 
   object playerChat:
 
@@ -282,7 +297,7 @@ final class ChatApi(
       Writer
         .preprocessUserInput(t1, none)
         .flatMap: t2 =>
-          flood.allowMessage(Flood.Source(s"$chatId/${color.letter}"), t2).option(PlayerLine(color, t2))
+          flood.allowMessage(FloodSource(s"$chatId/${color.letter}"), t2).option(PlayerLine(color, t2))
 
   private def publish(chatId: ChatId, msg: Any, busChan: BusChan.Select): Unit =
     Bus.publish(msg, busChan(BusChan).chan)

@@ -2,8 +2,7 @@ package views.html
 package userTournament
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
-import lila.user.User
+import lila.ui.ScalatagsTemplate.*
 
 object chart:
 

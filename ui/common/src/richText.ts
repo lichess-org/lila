@@ -37,7 +37,7 @@ export const innerHTML = <A>(a: A, toHtml: (a: A) => string): Hooks => ({
 
 export function linkReplace(href: string, body?: string, cls?: string) {
   if (href.includes('&quot;')) return href;
-  return `<a class="user-link ulpt" target="_blank" rel="noopener nofollow noreferrer" href="${
+  return `<a target="_blank" rel="noopener nofollow noreferrer" href="${
     href.startsWith('/') || href.includes('://') ? href : '//' + href
   }"${cls ? ` class="${cls}"` : ''}>${body ? body : href}</a>`;
 }

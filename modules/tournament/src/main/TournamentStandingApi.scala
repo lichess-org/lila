@@ -4,6 +4,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.memo.CacheApi.*
+import lila.core.chess.Rank
 
 /*
  * Getting a standing page of a tournament can be very expensive
@@ -15,11 +16,8 @@ final class TournamentStandingApi(
     playerRepo: PlayerRepo,
     cached: TournamentCache,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi
-)(using
-    ec: Executor,
-    mat: akka.stream.Materializer
-):
+    lightUserApi: lila.core.user.LightUserApi
+)(using Executor, akka.stream.Materializer):
 
   private val perPage = 10
 

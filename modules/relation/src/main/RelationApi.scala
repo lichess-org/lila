@@ -13,10 +13,11 @@ import lila.relation.BSONHandlers.given
 import lila.core.relation.{ Relation, Relations }
 import lila.core.relation.Relation.{ Follow, Block }
 import lila.core.user.UserApi
+import lila.core.userId.UserSearch
 
 final class RelationApi(
     repo: RelationRepo,
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     cacheApi: lila.memo.CacheApi,
     userApi: UserApi,
     config: RelationConfig
@@ -157,7 +158,7 @@ final class RelationApi(
         yield
           Bus.publish(lila.core.relation.Block(u1, u2), "relation")
           Bus.publish(
-            lila.core.actorApi.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1)),
+            lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("blockedBy", u1)),
             "socketUsers"
           )
           lila.mon.relation.block.increment()
@@ -180,7 +181,7 @@ final class RelationApi(
         repo.unblock(u1, u2).andDo {
           Bus.publish(lila.core.relation.UnBlock(u1, u2), "relation")
           Bus.publish(
-            lila.core.actorApi.socket.SendTo(u2, lila.core.socket.makeMessage("unblockedBy", u1)),
+            lila.core.socket.SendTo(u2, lila.core.socket.makeMessage("unblockedBy", u1)),
             "socketUsers"
           )
           lila.mon.relation.unblock.increment()
