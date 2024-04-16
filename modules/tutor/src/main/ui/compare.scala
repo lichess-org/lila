@@ -1,15 +1,15 @@
-package views.html.tutor
+package lila.tutor
+package ui
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.*
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.common.LilaOpeningFamily
 import lila.insight.{ InsightDimension, Phase }
 import lila.rating.PerfType
-import lila.tutor.{ Grade, TutorCompare, TutorMetric }
+import lila.core.i18n.Translate
 
-private object compare:
+object compare:
 
   def show(comp: TutorCompare.AnyComparison)(using Translate) = showWithPerf(comp, none)
 

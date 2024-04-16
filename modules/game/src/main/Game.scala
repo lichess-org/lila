@@ -188,7 +188,6 @@ object GameExt:
       )
 
     def abandoned = (g.status <= Status.Started) && (g.movedAt.isBefore(Game.abandonedDate))
-    def synthetic = g.id == Game.syntheticId
 
     def playerBlurPercent(color: Color): Int =
       if g.playedTurns > 5

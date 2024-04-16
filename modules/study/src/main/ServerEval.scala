@@ -4,12 +4,12 @@ import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 
-import lila.analyse.{ Advice, Analysis, Info }
 import lila.db.dsl.bsonWriteOpt
 import lila.core.fishnet.StudyChapterRequest
 import lila.core.perm.Granter
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
+import lila.tree.{ Advice, Analysis, Info }
 
 object ServerEval:
 
@@ -56,7 +56,8 @@ object ServerEval:
       sequencer: StudySequencer,
       socket: StudySocket,
       chapterRepo: ChapterRepo,
-      divider: lila.game.Divider
+      divider: lila.core.game.Divider,
+      analysisJson: lila.tree.AnalysisJson
   )(using Executor):
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.id match
@@ -170,7 +171,7 @@ object ServerEval:
               ServerEval.Progress(
                 chapterId = chapter.id,
                 tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
-                analysis = toJson(chapter, analysis),
+                analysis = analysisJson.bothPlayers(chapter.root.ply, analysis),
                 division = divisionOf(chapter)
               )
             )
@@ -184,6 +185,3 @@ object ServerEval:
       )
 
   case class Progress(chapterId: StudyChapterId, tree: Root, analysis: JsObject, division: chess.Division)
-
-  def toJson(chapter: Chapter, analysis: Analysis) =
-    lila.analyse.JsonView.bothPlayers(chapter.root.ply, analysis)

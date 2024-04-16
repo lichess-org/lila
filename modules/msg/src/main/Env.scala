@@ -30,13 +30,13 @@ final class Env(
 
   private val colls = wire[MsgColls]
 
+  private val contactApi = ContactApi(userRepo.coll)
+
   val json = wire[MsgJson]
 
   private val notifier = wire[MsgNotify]
 
   private val security = wire[MsgSecurity]
-
-  private val contactApi = ContactApi(userRepo.coll)
 
   val api: MsgApi = wire[MsgApi]
 

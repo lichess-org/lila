@@ -1,5 +1,4 @@
-package lila.web
-package ui
+package lila.ui
 
 import alleycats.Zero
 import chess.PlayerTitle
@@ -8,7 +7,7 @@ import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
 
-import lila.common.Icon
+import lila.ui.Icon
 
 // collection of lila attrs
 trait ScalatagsAttrs:

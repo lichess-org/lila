@@ -5,9 +5,9 @@ import cats.derived.*
 import play.api.libs.json.*
 import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
 import reactivemongo.api.bson.collection.BSONCollection
-import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis, Replay, ErrorStr }
+import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis, Replay, ErrorStr, Division }
 import _root_.chess.format.Fen
-import _root_.chess.format.pgn.{ Pgn, PgnStr, ParsedPgn }
+import _root_.chess.format.pgn.{ Pgn, PgnStr, SanStr, ParsedPgn, Tags }
 
 import lila.core.id.{ GameId, GameFullId, GamePlayerId, TeamId }
 import lila.core.userId.UserId
@@ -136,9 +136,27 @@ trait PgnDump:
       flags: PgnDump.WithFlags,
       teams: Option[ByColor[TeamId]] = None
   ): Fu[Pgn]
+  def tags(
+      game: Game,
+      initialFen: Option[Fen.Full],
+      imported: Option[ParsedPgn],
+      withOpening: Boolean,
+      withRating: Boolean,
+      teams: Option[ByColor[TeamId]] = None
+  ): Fu[Tags]
+
+trait Namer:
+  def gameVsText(game: Game, withRatings: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
+  def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
 
 case class ImportData(pgn: PgnStr, analyse: Option[String])
 case class ImportReady(game: NewGame, replay: Replay, initialFen: Option[Fen.Full], parsed: ParsedPgn)
+
+trait Explorer:
+  def apply(id: GameId): Fu[Option[Game]]
+
+trait Divider:
+  def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]): Division
 
 type ParseImport = (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady]
 

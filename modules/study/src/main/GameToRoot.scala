@@ -3,11 +3,10 @@ package lila.study
 import chess.Outcome
 import chess.format.Fen
 
-import lila.game.Game
 import lila.tree.Node.Comment
 import lila.tree.{ ExportOptions, TreeBuilder, Root }
 
-private object GameToRoot:
+private final class GameToRoot(statusText: lila.core.game.StatusText):
 
   def apply(game: Game, initialFen: Option[Fen.Full], withClocks: Boolean): Root =
     val root = TreeBuilder(
@@ -21,6 +20,6 @@ private object GameToRoot:
   private def endComment(game: Game) =
     game.finished.option:
       val result = Outcome.showResult(Outcome(game.winnerColor).some)
-      val status = lila.game.StatusText(game)
+      val status = statusText(game.status, game.winnerColor, game.variant)
       val text   = s"$result $status"
       Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)

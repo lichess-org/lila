@@ -10,8 +10,8 @@ import lila.tree.Node.{ Shape, Shapes }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
-    analyser: lila.analyse.Analyser,
-    annotator: lila.analyse.Annotator,
+    analyser: lila.tree.Analyser,
+    annotator: lila.tree.Annotator,
     lightUserApi: lila.core.user.LightUserApi,
     net: lila.core.config.NetConfig
 )(using Executor):
@@ -125,7 +125,7 @@ object PgnDump:
     chessPgn.Move(
       node.ply,
       san = node.move.san,
-      glyphs = if flags.comments then node.metas.glyphs else Glyphs.empty,
+      glyphs = flags.comments.so(node.metas.glyphs),
       comments = flags.comments.so(node.metas.commentWithShapes),
       opening = none,
       result = none,

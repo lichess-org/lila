@@ -1,15 +1,15 @@
-package lila.web
-package ui
+package lila.ui
 
 import play.api.i18n.Lang
 
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.Translate
+import lila.core.slug.{ apply as slugify }
 
-trait StringHelper:
-  self: I18nHelper & NumberHelper =>
+final class StringHelper(i18n: I18nHelper, number: NumberHelper):
 
-  export lila.common.String.{ slugify, shorten, urlencode, addQueryParam, addQueryParams, underscoreFen }
+  import i18n.*
+  import number.*
 
   def pluralize(s: String, n: Int) = s"$n $s${if n != 1 then "s" else ""}"
 

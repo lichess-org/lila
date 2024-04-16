@@ -22,12 +22,15 @@ comment_preamble = """/*
 """
 
 scala_preamble = comment_preamble + """
-package lila.common
+package lila.ui
 
 opaque type Icon = String
 object Icon:
   def apply(char: String): Icon            = char
   extension (icon: Icon) def value: String = icon
+  given scalalib.Iso.StringIso[Icon]       = scalalib.Iso.string(apply, value)
+  import play.api.libs.json.{ Writes, JsString }
+  given iconWrites: Writes[Icon] = icon => JsString(Icon.value(icon))
 """
 
 def main():
@@ -44,7 +47,7 @@ def main():
     gen_sources(codes)
 
     print('Generated:\n  public/font/lichess.woff\n  public/font/lichess.woff2\n  public/font/lichess.ttf')
-    print('  modules/common/src/main/Icon.scala\n  ui/common/src/licon.ts')
+    print('  modules/ui/src/main/Icon.scala\n  ui/common/src/licon.ts')
     print('  ui/common/css/abstract/_licon.scss\n')
 
     args = parser.parse_args()
@@ -92,7 +95,7 @@ def gen_sources(codes):
     with_type = lambda name: f'{name}: Icon'
     longest = len(max(codes.keys(), key=len)) + 6
 
-    with open('../../modules/common/src/main/Icon.scala', 'w') as scala, \
+    with open('../../modules/ui/src/main/Icon.scala', 'w') as scala, \
          open('../../ui/common/src/licon.ts', 'w') as ts, \
          open('../../ui/common/css/abstract/_licon.scss', 'w') as scss:
         scala.write(scala_preamble)

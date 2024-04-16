@@ -16,7 +16,7 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.core.LightUser
-import lila.core.game.{ ParseImport, ImportData, ImportReady }
+import lila.core.game.{ ParseImport, ImportData, ImportReady, StatusText }
 import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
 
 case class Context(
@@ -25,7 +25,7 @@ case class Context(
     previousClock: Option[Centis]
 )
 
-final class StudyPgnImportNew(parseImport: ParseImport):
+final class StudyPgnImportNew(parseImport: ParseImport, statusText: StatusText):
 
   case class Result(
       root: NewRoot,
@@ -66,7 +66,7 @@ final class StudyPgnImportNew(parseImport: ParseImport):
                 status = status,
                 outcome = Outcome(game.winnerColor),
                 resultText = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some),
-                statusText = lila.game.StatusText.apply(status, game.winnerColor, game.variant)
+                statusText = statusText.apply(status, game.winnerColor, game.variant)
               )
             }
             val commented =
