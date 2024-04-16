@@ -54,19 +54,34 @@ libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalal
   scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
 ) ++ tests.bundle
 
+// influences the compilation order
+// matches https://github.com/ornicar/lila-dep-graphs
 lazy val modules = Seq(
-  core, common, i18n, db, rating, user, security, socket,
-  msg, notifyModule, game, bookmark, search,
-  gameSearch, timeline, forum, forumSearch, team, teamSearch,
-  analyse, mod, round, pool, lobby, setup,
-  gathering, tournament, simul, relation, report, pref,
-  evaluation, chat, puzzle, tv, coordinate, feed,
-  history, video, shutup, push, appeal, mailer,
-  playban, insight, perfStat, irc, challenge,
-  study, studySearch, fishnet, explorer, learn, plan,
-  event, coach, practice, evalCache, irwin,
-  activity, relay, streamer, bot, clas, swiss, storm, racer,
-  ublog, tutor, opening, cms, fide, tree, web
+  // level 1
+  core, coreI18n,
+  // level 2
+  common,
+  // level 3
+  db, room, tree, search,
+  // level 4
+  memo, rating,
+  // level 5
+  game, gathering, study, user, puzzle, analyse,
+  report, pref, chat, playban, lobby, mailer, oauth,
+  // level 6
+  security, insight, evaluation, storm,
+  // level 7
+  // everything else is free from deps; do the big ones first
+  tournament, relay, plan, round,
+  swiss, insight, fishnet, tutor, mod, challenge, web,
+  team, forum, streamer, simul, activity, msg, ublog,
+  notifyModule, clas, perfStat, opening, timeline,
+  setup, video, fide, push,
+  // and then the smaller ones
+  pool, lobby, relation, tv, coordinate, feed, history,
+  shutup, appeal, irc, explorer, learn, event, coach,
+  practice, evalCache, irwin, bot, racer, cms, i18n,
+  socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch,
 )
 
 lazy val moduleRefs = modules map projectToRef
