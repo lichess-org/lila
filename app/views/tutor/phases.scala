@@ -6,6 +6,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.insight.{ InsightPosition, Phase }
 import lila.tutor.TutorPerfReport
+import lila.tutor.ui.*
 
 object phases:
 
@@ -24,9 +25,7 @@ object phases:
           " phases"
         )
       ),
-      bits.mascotSays(
-        ul(report.phaseHighlights(3).map(compare.show))
-      ),
+      bits.mascotSays(ul(report.phaseHighlights(3).map(compare.show))),
       div(cls := "tutor-cards tutor-cards--triple")(
         report.phases.map: phase =>
           st.section(cls := "tutor-card tutor__phases__phase")(

@@ -7,8 +7,7 @@ import java.text.NumberFormat
 import java.util.concurrent.ConcurrentHashMap
 import lila.core.i18n.Translate
 
-trait NumberHelper:
-  self: I18nHelper =>
+object NumberHelper:
 
   private val formatters = new ConcurrentHashMap[String, NumberFormat]
 

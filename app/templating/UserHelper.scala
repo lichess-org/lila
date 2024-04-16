@@ -20,7 +20,9 @@ import lila.rating.UserPerfsExt.bestPerfs
 import lila.web.ui.*
 
 trait UserHelper:
-  self: I18nHelper & StringHelper & NumberHelper & DateHelper & AssetHelper =>
+  self: I18nHelper & StringHelper & DateHelper & AssetHelper =>
+
+  import NumberHelper.*
 
   def env: Env
   given Conversion[UserWithPerfs, User] = _.user

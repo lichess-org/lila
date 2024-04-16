@@ -9,7 +9,6 @@ object Environment
     with RouterHelper
     with AssetHelper
     with DateHelper
-    with NumberHelper
     with PaginatorHelper
     with FormHelper
     with lila.setup.SetupUi
@@ -23,6 +22,8 @@ object Environment
     with FlashHelper
     with ChessgroundHelper
     with HtmlHelper:
+
+  export NumberHelper.*
 
   export lila.core.lilaism.Lilaism.{ *, given }
   export lila.common.extensions.*

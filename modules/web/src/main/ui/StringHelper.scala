@@ -7,7 +7,9 @@ import lila.web.ui.ScalatagsTemplate.*
 import lila.core.i18n.Translate
 
 trait StringHelper:
-  self: I18nHelper & NumberHelper =>
+  self: I18nHelper =>
+
+  import NumberHelper.*
 
   export lila.common.String.{ slugify, shorten, urlencode, addQueryParam, addQueryParams, underscoreFen }
 

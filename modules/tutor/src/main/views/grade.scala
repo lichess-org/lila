@@ -1,12 +1,13 @@
-package views.html.tutor
+package lila.tutor
+package ui
 
 import play.api.i18n.Lang
 import scalatags.Text
 
-import lila.app.templating.Environment.*
 import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.NumberHelper.*
 import lila.insight.InsightPosition
-import lila.tutor.{ TutorBothValueOptions, TutorBothValuesAvailable, TutorNumber }
+import lila.core.i18n.Translate
 
 object grade:
 
@@ -47,7 +48,7 @@ object grade:
           (!metric.mine.reliableEnough).option(
             frag(
               " (",
-              em(cls := "text", dataIcon := Icon.CautionTriangle)("small sample!"),
+              em(cls := "text", dataIcon := lila.common.Icon.CautionTriangle)("small sample!"),
               ")"
             )
           )

@@ -15,7 +15,7 @@ import lila.core.config.BaseUrl
 import lila.game.GameExt.drawReason
 
 trait GameHelper:
-  self: RouterHelper & I18nHelper & UserHelper & StringHelper & NumberHelper & ChessgroundHelper =>
+  self: RouterHelper & I18nHelper & UserHelper & StringHelper & ChessgroundHelper =>
 
   def netBaseUrl: BaseUrl
   def cdnUrl(path: String): String

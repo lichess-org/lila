@@ -15,7 +15,7 @@ import lila.common.Icon
 import lila.core.user.User
 
 trait TournamentHelper:
-  self: DateHelper & UserHelper & StringHelper & NumberHelper =>
+  self: DateHelper & UserHelper & StringHelper =>
 
   def env: Env
 

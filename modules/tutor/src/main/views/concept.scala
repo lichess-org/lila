@@ -1,8 +1,8 @@
-package views.html.tutor
+package lila.tutor
+package ui
 
 import lila.web.ui.ScalatagsTemplate.*
 import lila.insight.{ InsightMetric, Phase }
-import lila.tutor.TutorNumber
 
 sealed class TutorConcept(val name: String, val description: String, val unit: TutorUnit)
 

@@ -5,6 +5,7 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.{ TutorFullReport, TutorPerfReport }
+import lila.tutor.ui.*
 
 object home:
 
