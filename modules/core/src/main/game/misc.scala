@@ -5,7 +5,18 @@ import cats.derived.*
 import play.api.libs.json.*
 import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
 import reactivemongo.api.bson.collection.BSONCollection
-import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis, Replay, ErrorStr, Division }
+import _root_.chess.{
+  Color,
+  ByColor,
+  Status,
+  Speed,
+  Ply,
+  Centis,
+  Replay,
+  ErrorStr,
+  Division,
+  Game as ChessGame
+}
 import _root_.chess.format.Fen
 import _root_.chess.format.pgn.{ Pgn, PgnStr, SanStr, ParsedPgn, Tags }
 
@@ -151,6 +162,13 @@ trait Namer:
 
 case class ImportData(pgn: PgnStr, analyse: Option[String])
 case class ImportReady(game: NewGame, replay: Replay, initialFen: Option[Fen.Full], parsed: ParsedPgn)
+case class ImportReady2(
+    game: ChessGame,
+    result: Option[TagResult],
+    replay: Replay,
+    initialFen: Option[Fen.Full],
+    parsed: ParsedPgn
+)
 
 trait Explorer:
   def apply(id: GameId): Fu[Option[Game]]

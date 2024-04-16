@@ -16,7 +16,7 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.core.LightUser
-import lila.core.game.{ ParseImport, ImportData, ImportReady, StatusText }
+import lila.core.game.{ ParseImport, ImportData, ImportReady2, StatusText }
 import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
 
 case class Context(
@@ -25,7 +25,7 @@ case class Context(
     previousClock: Option[Centis]
 )
 
-final class StudyPgnImportNew(parseImport: ParseImport, statusText: StatusText):
+final class StudyPgnImportNew(statusText: StatusText):
 
   case class Result(
       root: NewRoot,
@@ -35,8 +35,8 @@ final class StudyPgnImportNew(parseImport: ParseImport, statusText: StatusText):
   )
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    parseImport(ImportData(pgn, analyse = none), none).map {
-      case ImportReady(game, replay, initialFen, parsedPgn) =>
+    lila.core.game.parseImport(ImportData(pgn, analyse = none), none).map {
+      case ImportReady2(game, result, replay, initialFen, parsedPgn) =>
         val annotator = StudyPgnImport.findAnnotator(parsedPgn, contributors)
         StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
           case (shapes, _, _, comments) =>
@@ -46,7 +46,7 @@ final class StudyPgnImportNew(parseImport: ParseImport, statusText: StatusText):
               NewRoot(
                 Metas(
                   ply = replay.setup.ply,
-                  fen = initialFen | game.variant.initialFen,
+                  fen = initialFen | game.board.variant.initialFen,
                   check = replay.setup.situation.check,
                   dests = None,
                   drops = None,
@@ -61,14 +61,16 @@ final class StudyPgnImportNew(parseImport: ParseImport, statusText: StatusText):
                 ),
                 parsedPgn.tree.flatMap(makeTree(setup, _, annotator))
               )
-            val end: Option[StudyPgnImport.End] = (game.finished.option(game.status)).map { status =>
+
+            val end = result.map: res =>
+              val outcome = Outcome(res.winner)
               StudyPgnImport.End(
-                status = status,
-                outcome = Outcome(game.winnerColor),
-                resultText = chess.Outcome.showResult(chess.Outcome(game.winnerColor).some),
-                statusText = statusText.apply(status, game.winnerColor, game.variant)
+                status = res.status,
+                outcome = outcome,
+                resultText = chess.Outcome.showResult(outcome.some),
+                statusText = statusText(res.status, res.winner, game.board.variant)
               )
-            }
+
             val commented =
               if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
               else
@@ -79,7 +81,7 @@ final class StudyPgnImportNew(parseImport: ParseImport, statusText: StatusText):
                 }
             Result(
               root = commented,
-              variant = game.variant,
+              variant = game.board.variant,
               tags = PgnTags(parsedPgn.tags),
               end = end
             )

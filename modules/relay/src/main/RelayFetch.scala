@@ -318,7 +318,7 @@ private object RelayFetch:
         .build(compute)
 
     private val pgnImport = lila.study
-      .StudyPgnImport(lila.game.importer.parseImport, lila.game.StatusText.apply)
+      .StudyPgnImport(lila.game.StatusText.apply)
 
     private def compute(pgn: PgnStr): Either[LilaInvalid, Int => RelayGame] =
       pgnImport(pgn, Nil)

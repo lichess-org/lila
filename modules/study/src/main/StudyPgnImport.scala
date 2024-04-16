@@ -6,7 +6,7 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.core.LightUser
-import lila.core.game.{ ParseImport, ImportData, ImportReady }
+import lila.core.game.{ ParseImport, ImportData, ImportReady2 }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.tree.{ Branch, Branches, Root }
 
@@ -15,13 +15,13 @@ import lila.tree.{ Branch, Branches, Root }
  * We're importing a Chapter, not a Game.
  * Chapter should not depend on Game but only on scalachess.
  */
-final class StudyPgnImport(parseImport: ParseImport, statusText: lila.core.game.StatusText):
+final class StudyPgnImport(statusText: lila.core.game.StatusText):
 
   import StudyPgnImport.*
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    parseImport(ImportData(pgn, analyse = none), none).map {
-      case ImportReady(game, replay, initialFen, parsedPgn) =>
+    lila.core.game.parseImport(ImportData(pgn, analyse = none), none).map {
+      case ImportReady2(game, result, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
 
         val clock = parsedPgn.tags.clockConfig.map(_.limit)
@@ -29,35 +29,36 @@ final class StudyPgnImport(parseImport: ParseImport, statusText: lila.core.game.
           case (shapes, _, _, comments) =>
             val root = Root(
               ply = replay.setup.ply,
-              fen = initialFen | game.variant.initialFen,
+              fen = initialFen | game.board.variant.initialFen,
               check = replay.setup.situation.check,
               shapes = shapes,
               comments = comments,
               glyphs = Glyphs.empty,
               clock = clock,
-              crazyData = replay.setup.situation.board.crazyData,
+              crazyData = replay.setup.board.crazyData,
               children = parsedPgn.tree
                 .fold(Branches.empty)(makeBranches(Context(replay.setup, clock, clock), _, annotator))
             )
-            val end: Option[End] = (game.finished
-              .option(game.status))
-              .map: status =>
-                val outcome = Outcome(game.winnerColor)
-                End(
-                  status = status,
-                  outcome = outcome,
-                  resultText = chess.Outcome.showResult(outcome.some),
-                  statusText = statusText(status, game.winnerColor, game.variant)
-                )
+
+            val end = result.map: res =>
+              val outcome = Outcome(res.winner)
+              End(
+                status = res.status,
+                outcome = outcome,
+                resultText = chess.Outcome.showResult(outcome.some),
+                statusText = statusText(res.status, res.winner, game.board.variant)
+              )
+
             val commented =
               if root.mainline.lastOption.so(_.isCommented) then root
               else
                 end.map(endComment).fold(root) { comment =>
                   root.updateMainlineLast { _.setComment(comment) }
                 }
+
             Result(
               root = commented,
-              variant = game.variant,
+              variant = game.board.variant,
               tags = PgnTags(parsedPgn.tags),
               end = end
             )
