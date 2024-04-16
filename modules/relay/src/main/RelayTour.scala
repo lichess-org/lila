@@ -52,10 +52,10 @@ object RelayTour:
 
   type Tier = Int
   object Tier:
+    val PRIVATE = -1
     val NORMAL  = 3
     val HIGH    = 4
     val BEST    = 5
-    val PRIVATE = 6
 
     val options = List(
       ""               -> "Non official",
