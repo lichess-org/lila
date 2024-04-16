@@ -28,13 +28,14 @@ object Theme extends ThemeObject:
     new Theme("wood4", "wood4.jpg"),
     new Theme("maple", "maple.jpg"),
     new Theme("maple2", "maple2.jpg"),
+    new Theme("horsey", "horsey.jpg"),
+    new Theme("leather", "leather.jpg"),
     new Theme("blue", "svg/blue.svg"),
     new Theme("blue2", "blue2.jpg"),
     new Theme("blue3", "blue3.jpg"),
-    new Theme("haze", "haze.webp"),
     new Theme("canvas", "canvas2.jpg"),
     new Theme("blue-marble", "blue-marble.jpg"),
-    new Theme("pool", "pool.webp"),
+    new Theme("ic", "svg/ic.svg"),
     new Theme("green", "svg/green.svg"),
     new Theme("marble", "marble.jpg"),
     new Theme("green-plastic", "green-plastic.png"),
@@ -46,11 +47,10 @@ object Theme extends ThemeObject:
     new Theme("purple-diag", "purple-diag.png"),
     new Theme("pink", "pink-pyramid.png"),
     new Theme("venus", "venus.webp"),
-    new Theme("horsey", "horsey.jpg"),
-    new Theme("parchment", "parchment.webp"),
-    new Theme("old-world", "old-world.webp"),
-    new Theme("leather", "leather.jpg"),
-    new Theme("ic", "svg/ic.svg")
+    new Theme("pigskin", "pigskin.webp"),
+    new Theme("pool", "pool.webp"),
+    new Theme("haze", "haze.webp"),
+    new Theme("old-world", "old-world.webp")
   )
 
   val default = allByName.get("brown").err("Can't find default theme D:")
