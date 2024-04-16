@@ -24,7 +24,7 @@ final class ExplorerImporter(
           game <- pgn.so: pgn =>
             gameImporter
               .importAsGame(
-                lila.tree.ImportData(pgn, none),
+                pgn,
                 id.some
               )(using UserId.lichessAsMe.some)
               .map(some)

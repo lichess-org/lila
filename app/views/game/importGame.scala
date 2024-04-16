@@ -6,7 +6,6 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.tree.ImportData
 
 object importGame:
 
@@ -39,7 +38,7 @@ object importGame:
           form3.group(form("pgn"), trans.site.pasteThePgnStringHere())(form3.textarea(_)()),
           form("pgn").value.flatMap { pgn =>
             lila.game.importer
-              .parseImport(ImportData(PgnStr(pgn), none), ctx.userId)
+              .parseImport(PgnStr(pgn), ctx.userId)
               .fold(
                 err => frag(pre(cls := "error")(err), br, br).some,
                 _ => none

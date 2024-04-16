@@ -13,8 +13,8 @@ case class TagResult(status: Status, winner: Option[Color]):
   // duplicated from Game.finish
   def finished = status >= Status.Mate
 
-case class ImportData(pgn: PgnStr, analyse: Option[String])
-case class ImportReady(game: NewGame, replay: Replay, initialFen: Option[Fen.Full], parsed: ParsedPgn)
+case class ImportReady(game: NewGame, initialFen: Option[Fen.Full])
+
 case class ImportReady2(
     game: ChessGame,
     result: Option[TagResult],
@@ -23,11 +23,10 @@ case class ImportReady2(
     parsed: ParsedPgn
 )
 
-type ParseImport = (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady]
+// type ParseImport = (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady]
 
 trait Importer:
-  val parseImport: ParseImport
-  def importAsGame(data: ImportData, forceId: Option[GameId] = none)(using Option[MyId]): Fu[Game]
+  def importAsGame(data: PgnStr, forceId: Option[GameId] = none)(using Option[MyId]): Fu[Game]
 
 private val maxPlies = 600
 

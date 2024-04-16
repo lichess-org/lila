@@ -5,7 +5,7 @@ import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Com
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
 
-import lila.tree.{ ImportData, ImportReady }
+import lila.tree.{ ImportReady }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
 import cats.syntax.all.*

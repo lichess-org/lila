@@ -9,7 +9,7 @@ import chess.MoveOrDrop.*
 import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 
-import lila.tree.{ ImportData, ImportReady }
+import lila.tree.ImportReady
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
 import lila.study.BSONHandlers.given
