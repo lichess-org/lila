@@ -49,9 +49,9 @@ final class Env(
 
   private val trustApi = wire[PuzzleTrustApi]
 
-  private val countApi = wire[PuzzleCountApi]
-
   val opening = wire[PuzzleOpeningApi]
+
+  private val countApi = wire[PuzzleCountApi]
 
   val api: PuzzleApi = wire[PuzzleApi]
 
