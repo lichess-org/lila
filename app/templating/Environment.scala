@@ -1,33 +1,27 @@
 package lila.app
 package templating
 
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.web.ui.*
+import play.api.mvc.Call
+import com.softwaremill.macwire.*
 
 object Environment
-    extends StringHelper
-    with RouterHelper
+    extends RouterHelper
     with AssetHelper
-    with DateHelper
-    with PaginatorHelper
-    with FormHelper
+    with lila.ui.PaginatorHelper
     with lila.setup.SetupUi
     with lila.pref.PrefUi
     with GameHelper
     with UserHelper
-    with I18nHelper
     with SecurityHelper
     with TeamHelper
-    with TournamentHelper
-    with FlashHelper
     with ChessgroundHelper
     with HtmlHelper:
 
-  export NumberHelper.*
-
   export lila.core.lilaism.Lilaism.{ *, given }
   export lila.common.extensions.*
-  export lila.common.Icon
+  export lila.ui.Icon
   export lila.web.Nonce
   export lila.api.Context.{ *, given }
   export lila.api.PageData
@@ -42,9 +36,6 @@ object Environment
 
   given lila.core.config.NetDomain = env.net.domain
 
-  def jsDump     = lila.i18n.JsDump
-  def translator = lila.i18n.Translator
-  def flairApi   = env.user.flairApi
   export lila.mailer.translateDuration
 
   lazy val siteName: String =
@@ -71,6 +62,33 @@ object Environment
       blindfold = pov.player.blindfold,
       pref = ctx.pref
     )
+
+  // helper dependencies
+
+  val numberHelper = lila.ui.NumberHelper
+  export numberHelper.*
+
+  val i18nHelper = lila.ui.I18nHelper(lila.i18n.JsDump, lila.i18n.Translator)
+  export i18nHelper.{ given, * }
+
+  val stringHelper = wire[lila.ui.StringHelper]
+  export stringHelper.*
+
+  val dateHelper = wire[lila.ui.DateHelper]
+  export dateHelper.*
+
+  val flashHelper = wire[lila.web.ui.FlashHelper]
+  export flashHelper.*
+
+  def flairApi        = env.user.flairApi
+  lazy val formHelper = wire[lila.web.ui.FormHelper]
+  export formHelper.*
+
+  def routeTournamentShow: String => Call = controllers.routes.Tournament.show
+  def getTourName                         = env.tournament.getTourName
+  def defaultTranslate                    = lila.i18n.Translator.toDefault
+  lazy val tourHelper                     = wire[lila.tournament.ui.TournamentHelper]
+  export tourHelper.*
 
   def titleOrText(v: String)(using ctx: Context): Modifier = titleOrTextFor(ctx.blind, v)
 

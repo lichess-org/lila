@@ -3,10 +3,10 @@ package views
 
 import play.api.i18n.Lang
 
-import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Translate
 import lila.core.i18n.I18nKey as trans
-import lila.common.Icon
+import lila.ui.Icon
 
 object help:
 

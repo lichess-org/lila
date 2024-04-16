@@ -3,7 +3,7 @@ package ui
 
 import chess.{ Board, Color, Square }
 
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.core.pref.Pref
 
 trait ChessgroundHelper:

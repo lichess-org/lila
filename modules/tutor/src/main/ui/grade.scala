@@ -4,8 +4,8 @@ package ui
 import play.api.i18n.Lang
 import scalatags.Text
 
-import lila.web.ui.ScalatagsTemplate.{ *, given }
-import lila.web.ui.NumberHelper.*
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.NumberHelper.*
 import lila.insight.InsightPosition
 import lila.core.i18n.Translate
 
@@ -48,7 +48,7 @@ object grade:
           (!metric.mine.reliableEnough).option(
             frag(
               " (",
-              em(cls := "text", dataIcon := lila.common.Icon.CautionTriangle)("small sample!"),
+              em(cls := "text", dataIcon := lila.ui.Icon.CautionTriangle)("small sample!"),
               ")"
             )
           )

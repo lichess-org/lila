@@ -2,7 +2,7 @@ package lila.app
 package templating
 import play.api.libs.json.{ JsValue, Json, Writes }
 
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.core.net.AssetVersion
 import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
@@ -10,8 +10,9 @@ import lila.web.ui.*
 import lila.web.ContentSecurityPolicy
 
 trait AssetHelper:
-  self: I18nHelper & SecurityHelper =>
+  self: SecurityHelper =>
 
+  val i18nHelper: lila.ui.I18nHelper
   def env: Env
 
   case class PageModule(name: String, data: JsValue | SafeJsonStr)
@@ -37,7 +38,7 @@ trait AssetHelper:
 
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
-  def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+  def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
   def cssTag(name: String)(using ctx: Context): Frag =
     cssTagWithTheme(name, ctx.pref.currentBg)

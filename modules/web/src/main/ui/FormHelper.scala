@@ -6,21 +6,22 @@ import play.api.i18n.Lang
 import scalatags.generic.TypedTag
 import scalatags.text.Builder
 
-import lila.web.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.{ Translate, I18nKey }
-import lila.common.Icon
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.Context
+import lila.core.i18n.Translate
+import lila.core.i18n.I18nKey as trans
+import lila.ui.Icon
 
-trait FormHelper:
-  self: I18nHelper =>
+final class FormHelper(i18n: lila.ui.I18nHelper, flairApi: lila.core.user.FlairApi):
 
-  def flairApi: lila.core.user.FlairApi
+  import i18n.{ transKey, given }
 
   def errMsg(form: Field)(using Translate): Seq[Tag] = errMsg(form.errors)
 
   def errMsg(form: Form[?])(using Translate): Seq[Tag] = errMsg(form.errors)
 
   def errMsg(error: FormError)(using Translate): Tag =
-    p(cls := "error")(transKey(I18nKey(error.message), error.args))
+    p(cls := "error")(transKey(trans(error.message), error.args))
 
   def errMsg(errors: Seq[FormError])(using Translate): Seq[Tag] =
     errors.map(errMsg)
@@ -75,7 +76,7 @@ trait FormHelper:
     private def errors(errs: Seq[FormError])(using Translate): Frag = errs.distinct.map(error)
     private def errors(field: Field)(using Translate): Frag         = errors(field.errors)
     private def error(err: FormError)(using Translate): Frag =
-      p(cls := "error")(transKey(I18nKey(err.message), err.args))
+      p(cls := "error")(transKey(trans(err.message), err.args))
 
     private def validationModifiers(field: Field): Seq[Modifier] =
       field.constraints.collect:

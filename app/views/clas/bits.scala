@@ -4,7 +4,7 @@ import controllers.clas.routes
 
 import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 
 object bits:
