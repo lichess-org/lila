@@ -11,7 +11,7 @@ import lila.web.ui.ScalatagsTemplate.*
 import lila.web.ui.*
 
 trait DateHelper:
-  self: I18nHelper & StringHelper & NumberHelper =>
+  self: I18nHelper & StringHelper =>
 
   def translateDuration: lila.core.i18n.TranslateDuration
 

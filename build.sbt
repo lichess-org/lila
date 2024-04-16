@@ -290,7 +290,7 @@ lazy val insight = module("insight",
 )
 
 lazy val tutor = module("tutor",
-  Seq(insight),
+  Seq(insight, web),
   tests.bundle ++ reactivemongo.bundle
 )
 
