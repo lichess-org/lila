@@ -1,10 +1,10 @@
-package lila.web
+package lila.ui
 
 import play.api.mvc.{ Request, RequestHeader }
 import play.api.i18n.Lang
 
-import lila.common.HTTPRequest
 import lila.core.i18n.{ Language, Translate, defaultLanguage }
+import lila.core.net.IpAddress
 
 trait Context:
   val req: RequestHeader
@@ -15,9 +15,9 @@ trait Context:
   def user: Option[User]
   def translate: Translate
 
-  def ip         = HTTPRequest.ipAddress(req)
-  lazy val blind = req.cookies.get(lila.web.WebConfig.blindCookie.name).exists(_.value.nonEmpty)
-  def noBlind    = !blind
+  def ip: IpAddress
+  def blind: Boolean
+  def noBlind                             = !blind
   def flash(name: String): Option[String] = req.flash.get(name)
   lazy val acceptLanguages: Set[Language] =
     req.acceptLanguages.view.map(Language.apply).toSet + defaultLanguage ++

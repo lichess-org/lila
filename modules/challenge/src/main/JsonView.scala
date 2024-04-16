@@ -4,8 +4,8 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.Icon
-import lila.common.Icon
+import lila.ui.Icon
+import lila.ui.Icon.iconWrites
 import lila.game.JsonView.given
 import lila.core.i18n.I18nKey as trans
 import lila.core.socket.{ SocketVersion, userLag }

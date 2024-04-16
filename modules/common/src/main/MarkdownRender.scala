@@ -204,7 +204,12 @@ object MarkdownRender:
     private val pgnRegexes = makePgnRegexes(expander.domain)
 
     private def renderLink(node: Link, context: NodeRendererContext, html: HtmlWriter): Unit =
-      renderLinkNode(node, context, html)
+      renderLinkWithBase(
+        node,
+        context,
+        html,
+        context.resolveLink(LinkType.LINK, node.getUrl().unescape(), null, null)
+      )
 
     private def renderAutoLink(node: AutoLink, context: NodeRendererContext, html: HtmlWriter): Unit =
       renderLinkNode(node, context, html)
@@ -272,7 +277,6 @@ object MarkdownRender:
             .withAttr(link)
             .tag("a")
             .withAttr()
-            .attr("data-icon", Icon.Padlock.toString)
             .attr("class", "private-study")
             .attr("title", "Private")
             .attr("aria-label", "Private")

@@ -11,6 +11,7 @@ import lila.core.LightUser
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
+import lila.ui.Icon.iconWrites
 
 import lila.core.socket.SocketVersion
 import lila.core.i18n.Translate

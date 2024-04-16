@@ -1,8 +1,9 @@
 package lila.web
 package views
 
-import lila.web.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Icon
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.Context
+import lila.ui.Icon
 
 object navTree:
 
