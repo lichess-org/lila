@@ -39,7 +39,7 @@ final class RelayPager(
 
   def isPrivate(page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
-      def nbResults: Fu[Int] = tourRepo.countPrivateRelay()
+      def nbResults: Fu[Int] = fuccess(9999)
       def slice(offset: Int, length: Int): Fu[List[WithLastRound]] =
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
