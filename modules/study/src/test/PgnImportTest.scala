@@ -86,8 +86,8 @@ Ng6 {[%clk 1:17:22]} 14. Qf2 {[%clk 1:32:39]} Be6 {[%clk 1:16:24]} 15. Ne2 {[%cl
 Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       Nil
     ).toOption.get
-    assert(x.root.mainlineNodeList(1).clock contains chess.Centis(719900))
-    assert(x.root.mainlineNodeList(2).clock contains chess.Centis(718000))
+    assert(x.root.mainlineNodeList(1).clock.contains(chess.Centis(719900)))
+    assert(x.root.mainlineNodeList(2).clock.contains(chess.Centis(718000)))
 
   test("import a broadcast pgn with missing clock)"):
     val x = importerStub(
