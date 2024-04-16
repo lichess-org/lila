@@ -4,7 +4,7 @@ import chess.{ Centis, ErrorStr, Node as PgnNode }
 import chess.format.pgn.{ PgnStr, Tags }
 
 import lila.core.LightUser
-import lila.core.game.{ ImportData, ImportReady }
+import lila.tree.{ ImportData, ImportReady }
 import lila.tree.{ Root, Branch, Branches }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 

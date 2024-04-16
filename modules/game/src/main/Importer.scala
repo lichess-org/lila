@@ -7,7 +7,8 @@ import chess.{ ByColor, Color, ErrorStr, Mode, Outcome, Replay, Status }
 import scala.util.chaining.*
 
 import lila.game.GameExt.finish
-import lila.core.game.{ Game, NewGame, Player, ImportData, ParseImport, ImportReady, ImportReady2 }
+import lila.core.game.{ Game, NewGame, Player }
+import lila.tree.{ ImportData, ParseImport, ImportReady, ImportReady2 }
 
 private val maxPlies = 600
 
@@ -25,7 +26,7 @@ object ImporterForm:
   private def checkPgn(pgn: PgnStr): Either[ErrorStr, ImportReady] =
     parseImport(ImportData(pgn, none), none)
 
-final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor) extends lila.core.game.Importer:
+final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor) extends lila.tree.Importer:
 
   export lila.game.importer.parseImport
 

@@ -6,7 +6,7 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.core.LightUser
-import lila.core.game.{ ParseImport, ImportData, ImportReady2 }
+import lila.tree.{ ParseImport, ImportData, ImportReady2 }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.tree.{ Branch, Branches, Root }
 

@@ -6,7 +6,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.web.ui.ScalatagsTemplate.{ *, given }
-import lila.core.game.ImportData
+import lila.tree.ImportData
 
 object importGame:
 

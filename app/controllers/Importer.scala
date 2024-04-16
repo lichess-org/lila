@@ -25,7 +25,7 @@ final class Importer(env: Env) extends LilaController(env):
 
   def importGame = OpenBody:
     val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
-    val data = lila.core.game.ImportData(PgnStr(pgn), None)
+    val data = lila.tree.ImportData(PgnStr(pgn), None)
     Ok.page(html.game.importGame(ImporterForm.form.fill(data)))
 
   def sendGame    = OpenOrScopedBody(parse.anyContent)()(doSendGame)

@@ -1,6 +1,6 @@
 package lila.study
 
-import StudyArbitraries.{ *, given }
+import scala.language.implicitConversions
 import chess.CoreArbitraries.given
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import monocle.syntax.all.*
@@ -9,16 +9,14 @@ import chess.MoveOrDrop.*
 import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 
-import lila.core.game.{ ImportData, ImportReady }
+import lila.tree.{ ImportData, ImportReady }
 import lila.tree.Node.{ Comment, Comments, Shapes }
-
-import scala.language.implicitConversions
-
 import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
-import BSONHandlers.given
+import lila.study.BSONHandlers.given
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
+import lila.study.StudyArbitraries.{ *, given }
 
 // in lila.study to have access to PgnImport
 class BsonHandlersTest extends munit.ScalaCheckSuite:

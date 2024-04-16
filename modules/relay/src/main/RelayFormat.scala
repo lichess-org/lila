@@ -147,7 +147,7 @@ final private class RelayFormatApi(
       .value
       .headOption
       .so: pgn =>
-        val data = lila.core.game.ImportData(pgn, none)
+        val data = lila.tree.ImportData(pgn, none)
         lila.game.importer.parseImport(data, none).isRight
 
   private def looksLikePgn(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url).map(looksLikePgn)
