@@ -76,7 +76,7 @@ final class Env(
     export gameRepo.{ incBookmarks, getSourceAndUserIds }
     export cached.nbPlaying
     export GameExt.{ computeMoveTimes, analysable }
-    export lila.core.game.StatusText.apply as statusText
+    export lila.tree.StatusText as statusText
     export AnonCookie.json as anonCookieJson
 
   lazy val newPlayer: lila.core.game.NewPlayer = new:

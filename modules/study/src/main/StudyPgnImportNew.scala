@@ -68,7 +68,7 @@ final class StudyPgnImportNew:
                 status = res.status,
                 outcome = outcome,
                 resultText = chess.Outcome.showResult(outcome.some),
-                statusText = lila.core.game.StatusText.apply(res.status, res.winner, game.board.variant)
+                statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
               )
 
             val commented =

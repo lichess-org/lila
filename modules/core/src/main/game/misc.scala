@@ -100,38 +100,6 @@ trait Event:
 
 type StatusText = (Status, Option[Color], Variant) => String
 
-object StatusText:
-
-  import Status.*
-
-  val apply: lila.core.game.StatusText = (status, win, variant) =>
-    status match
-      case Aborted                  => "Game was aborted."
-      case Mate                     => s"${winner(win)} wins by checkmate."
-      case Resign                   => s"${loser(win)} resigns."
-      case UnknownFinish            => s"${winner(win)} wins."
-      case Stalemate                => "Draw by stalemate."
-      case Timeout if win.isDefined => s"${loser(win)} left the game."
-      case Timeout | Draw           => "The game is a draw."
-      case Outoftime =>
-        win match
-          case Some(value) => s"${value} wins on time."
-          case None        => "Draw by time and insufficient material."
-      case NoStart => s"${winner(win)} wins by forfeit."
-      case Cheat   => "Cheat detected."
-      case VariantEnd =>
-        variant match
-          case _root_.chess.variant.KingOfTheHill => s"${winner(win)} brings the king to the center."
-          case _root_.chess.variant.ThreeCheck    => s"${winner(win)} gives the third check."
-          case _root_.chess.variant.RacingKings   => s"${winner(win)} wins the race."
-          case _                                  => "Game ends by variant rule."
-      case _ => ""
-
-  def apply(game: Game): String = apply(game.status, game.winnerColor, game.variant)
-
-  private def winner(win: Option[Color]) = win.map(_.toString) | ""
-  private def loser(win: Option[Color])  = winner(win.map(!_))
-
 trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
   def incBookmarks(id: GameId, by: Int): Funit
