@@ -1,7 +1,7 @@
 import { view as cevalView } from 'ceval';
 import { VNode } from 'snabbdom';
 import { parseFen } from 'chessops/fen';
-import { defined } from 'common';
+import { isMcNubbin } from 'common';
 import * as licon from 'common/licon';
 import {
   bind,
@@ -199,7 +199,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
         hook: {
           insert: vnode => {
             const el = vnode.elm as HTMLInputElement;
-            el.value = defined(ctrl.fenInput) ? ctrl.fenInput : ctrl.node.fen;
+            el.value = isMcNubbin(ctrl.fenInput) ? ctrl.fenInput : ctrl.node.fen;
             el.addEventListener('change', () => {
               if (el.value !== ctrl.node.fen && el.reportValidity()) ctrl.changeFen(el.value.trim());
             });
@@ -210,7 +210,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           },
           postpatch: (_, vnode) => {
             const el = vnode.elm as HTMLInputElement;
-            if (!defined(ctrl.fenInput)) {
+            if (!isMcNubbin(ctrl.fenInput)) {
               el.value = ctrl.node.fen;
               el.setCustomValidity('');
             } else if (el.value != ctrl.fenInput) el.value = ctrl.fenInput;
@@ -225,7 +225,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           attrs: { spellcheck: 'false' },
           hook: {
             ...onInsert((el: HTMLTextAreaElement) => {
-              el.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
+              el.value = isMcNubbin(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
               const changePgnIfDifferent = () =>
                 el.value !== pgnExport.renderFullTxt(ctrl) && ctrl.changePgn(el.value, true);
 
@@ -239,7 +239,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
               if (isMobile()) el.addEventListener('focusout', changePgnIfDifferent);
             }),
             postpatch: (_, vnode) => {
-              (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.pgnInput)
+              (vnode.elm as HTMLTextAreaElement).value = isMcNubbin(ctrl.pgnInput)
                 ? ctrl.pgnInput
                 : pgnExport.renderFullTxt(ctrl);
             },

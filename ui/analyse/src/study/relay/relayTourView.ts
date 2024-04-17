@@ -6,7 +6,7 @@ import { VNode } from 'snabbdom';
 import { innerHTML } from 'common/richText';
 import { RelayGroup, RelayRound } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
-import { defined } from 'common';
+import { isMcNubbin } from 'common';
 import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
@@ -81,7 +81,7 @@ export const tourSide = (ctx: RelayViewContext) => {
 
 const startCountdown = (relay: RelayCtrl) => {
   const round = relay.currentRound(),
-    startsAt = defined(round.startsAt) && new Date(round.startsAt),
+    startsAt = isMcNubbin(round.startsAt) && new Date(round.startsAt),
     date = startsAt && h('time', site.dateFormat()(startsAt));
   return h('div.relay-tour__side__empty', { attrs: dataIcon(licon.RadioTower) }, [
     h('strong', round.name),
@@ -227,7 +227,7 @@ const header = (ctx: RelayViewContext) => {
 };
 
 const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
-  defined(relay.data.isSubscribed)
+  isMcNubbin(relay.data.isSubscribed)
     ? [
         toggle(
           {

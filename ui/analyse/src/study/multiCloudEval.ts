@@ -1,4 +1,4 @@
-import { Prop, defined } from 'common';
+import { Prop, isMcNubbin } from 'common';
 import { EvalHitMulti } from '../interfaces';
 import { storedBooleanPropWithEffect } from 'common/storage';
 import { povChances } from 'ceval/src/winningChances';
@@ -104,6 +104,6 @@ export const renderEvalToggle = (ctrl: MultiCloudEval): VNode =>
   });
 
 export const renderScore = (s: EvalScore) =>
-  s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';
+  s.mate ? '#' + s.mate : isMcNubbin(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';
 
 export const renderScoreAtDepth = (cev: CloudEval) => `${renderScore(cev)} at depth ${cev.depth}`;

@@ -1,5 +1,5 @@
 import { parseFen } from 'chessops/fen';
-import { defined, prop, Prop, toggle } from 'common';
+import { isMcNubbin, prop, Prop, toggle } from 'common';
 import * as licon from 'common/licon';
 import { bind, bindSubmit, onInsert, looseH as h } from 'common/snabbdom';
 import { storedProp } from 'common/storage';
@@ -119,7 +119,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
   const currentChapter = study.data.chapter;
   const mode = currentChapter.practice
     ? 'practice'
-    : defined(currentChapter.conceal)
+    : isMcNubbin(currentChapter.conceal)
     ? 'conceal'
     : currentChapter.gamebook
     ? 'gamebook'

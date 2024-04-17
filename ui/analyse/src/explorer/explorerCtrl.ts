@@ -1,4 +1,4 @@
-import { Prop, prop, defined } from 'common';
+import { Prop, prop, isMcNubbin } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import { defer } from 'common/defer';
 import { fenColor } from 'common/miniBoard';
@@ -208,7 +208,7 @@ export default class ExplorerCtrl {
       this.setNode();
     }
   };
-  isIndexing = () => !!this.lastStream && !defined(this.lastStream.sync);
+  isIndexing = () => !!this.lastStream && !isMcNubbin(this.lastStream.sync);
   fetchMasterOpening = async (fen: FEN): Promise<OpeningData> => {
     const deferred = defer<OpeningData>();
     await xhr.opening(

@@ -1,4 +1,4 @@
-import { defined } from 'common';
+import { isMcNubbin } from 'common';
 import Cropper from 'cropperjs';
 
 export interface CropOpts {
@@ -10,7 +10,7 @@ export interface CropOpts {
 }
 
 export async function initModule(o?: CropOpts) {
-  if (!defined(o)) return;
+  if (!isMcNubbin(o)) return;
   const opts: CropOpts = { ...o };
 
   const url =

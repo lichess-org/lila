@@ -2,7 +2,7 @@ import * as winningChances from '../winningChances';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
 import { bind, LooseVNodes, looseH as h } from 'common/snabbdom';
-import { defined, notNull } from 'common';
+import { isMcNubbin, notNull } from 'common';
 import { ParentCtrl, NodeEvals, CevalState } from '../types';
 import { VNode } from 'snabbdom';
 import { Position } from 'chessops/chess';
@@ -144,7 +144,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   } else ev = gaugeLast;
   return h(
     'div.eval-gauge',
-    { class: { empty: !defined(bestEv), reverse: ctrl.getOrientation() === 'black' } },
+    { class: { empty: !isMcNubbin(bestEv), reverse: ctrl.getOrientation() === 'black' } },
     [h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }), ...gaugeTicks],
   );
 }
@@ -170,7 +170,7 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
   }
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
-  } else if (bestEv && defined(bestEv.mate)) {
+  } else if (bestEv && isMcNubbin(bestEv.mate)) {
     pearl = '#' + bestEv.mate;
     percent = 100;
   } else {
@@ -395,7 +395,7 @@ function renderPv(threat: boolean, multiPv: number, pv?: Tree.PvData, pos?: Posi
       data.attrs = { 'data-uci': pv.moves[0] };
     }
     if (multiPv > 1) {
-      children.push(h('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
+      children.push(h('strong', isMcNubbin(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
     }
     if (pos) {
       children.push(...renderPvMoves(pos.clone(), pv.moves.slice(0, MAX_NUM_MOVES)));

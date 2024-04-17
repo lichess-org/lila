@@ -280,6 +280,7 @@ def deploy_script(profile, session, run, url):
         lifat_dir = f"{assets_dir}/lifat"
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
+            f"if [ -L {assets_dir} ]; then mv -f {assets_dir} {assets_dir}-{timestamp}; fi",
             "echo \\# Preparing lifat ...",
             f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R lichess:lichess {lifat_dir}; fi)",
             "echo \\# Copying assets ...",

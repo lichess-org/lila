@@ -1,7 +1,7 @@
 import { StudyCtrl } from '../studyDeps';
 import RelayCtrl from './relayCtrl';
 import { userTitle } from 'common/userLink';
-import { defined, scrollToInnerSelector } from 'common';
+import { isMcNubbin, scrollToInnerSelector } from 'common';
 import { renderClock, verticalEvalGauge } from '../multiBoard';
 import { ChapterPreview } from '../interfaces';
 import { gameLinkAttrs } from '../studyChapters';
@@ -15,7 +15,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   return h(
     'div.relay-games',
     {
-      class: { 'relay-games__eval': defined(cloudEval) },
+      class: { 'relay-games__eval': isMcNubbin(cloudEval) },
       hook: {
         postpatch(old, vnode) {
           const currentId = study.data.chapter.id;

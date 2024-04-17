@@ -48,7 +48,7 @@ import {
   NvuiPlugin,
   RoundTour,
 } from './interfaces';
-import { defined, Toggle, toggle } from 'common';
+import { isMcNubbin, Toggle, toggle } from 'common';
 import { Redraw } from 'common/snabbdom';
 
 interface GoneBerserk {
@@ -764,7 +764,7 @@ export default class RoundController implements MoveRootCtrl {
   opponentGone = (): number | boolean => {
     const d = this.data;
     return (
-      defined(d.opponent.isGone) &&
+      isMcNubbin(d.opponent.isGone) &&
       d.opponent.isGone !== false &&
       !game.isPlayerTurn(d) &&
       game.resignable(d) &&

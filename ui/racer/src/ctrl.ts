@@ -12,7 +12,7 @@ import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
-import { defined, prop, Prop } from 'common';
+import { isMcNubbin, prop, Prop } from 'common';
 import {
   RacerOpts,
   RacerData,
@@ -60,7 +60,7 @@ export default class RacerCtrl implements PuzCtrl {
       moves: 0,
       errors: 0,
       current: new CurrentPuzzle(0, this.data.puzzles[0]),
-      clock: new Clock(config, defined(opts.data.startsIn) ? Math.max(0, -opts.data.startsIn) : undefined),
+      clock: new Clock(config, isMcNubbin(opts.data.startsIn) ? Math.max(0, -opts.data.startsIn) : undefined),
       history: [],
       combo: new Combo(config),
       modifier: {
@@ -68,7 +68,7 @@ export default class RacerCtrl implements PuzCtrl {
       },
     };
     this.vm = {
-      alreadyStarted: defined(opts.data.startsIn) && opts.data.startsIn <= 0,
+      alreadyStarted: isMcNubbin(opts.data.startsIn) && opts.data.startsIn <= 0,
     };
     this.countdown = new Countdown(
       this.run.clock,

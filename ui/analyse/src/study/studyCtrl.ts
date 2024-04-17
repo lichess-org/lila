@@ -1,6 +1,6 @@
 import { Config as CgConfig } from 'chessground/config';
 import { DrawShape } from 'chessground/draw';
-import { prop, defined } from 'common';
+import { prop, isMcNubbin } from 'common';
 import throttle, { throttlePromiseDelay } from 'common/throttle';
 import debounce from 'common/debounce';
 import AnalyseCtrl from '../ctrl';
@@ -243,7 +243,7 @@ export default class StudyCtrl {
     this.practice = practiceData && new StudyPractice(ctrl, data, practiceData);
 
     if (this.vm.mode.sticky && !this.isGamebookPlay()) this.ctrl.userJump(this.data.position.path);
-    else if (this.data.chapter.relayPath && !defined(this.ctrl.requestInitialPly))
+    else if (this.data.chapter.relayPath && !isMcNubbin(this.ctrl.requestInitialPly))
       this.ctrl.userJump(this.data.chapter.relayPath);
 
     this.configureAnalysis();

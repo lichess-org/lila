@@ -1,5 +1,5 @@
 import { VNode, Classes } from 'snabbdom';
-import { defined } from 'common';
+import { isMcNubbin } from 'common';
 import throttle from 'common/throttle';
 import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
@@ -121,7 +121,10 @@ function renderMove(ctx: Ctx, node: Tree.Node): LooseVNodes {
   const ev = node.eval || node.ceval;
   return [
     node.san,
-    ev && (defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : defined(ev.mate) && renderEval('#' + ev.mate)),
+    ev &&
+      (isMcNubbin(ev.cp)
+        ? renderEval(normalizeEval(ev.cp))
+        : isMcNubbin(ev.mate) && renderEval('#' + ev.mate)),
     puzzleGlyph(ctx, node),
   ];
 }
@@ -170,7 +173,7 @@ export function render(ctrl: PuzzleCtrl): VNode {
           const el = vnode.elm as HTMLElement;
           if (ctrl.path !== treePath.root) autoScroll(ctrl, el);
           el.addEventListener('mousedown', (e: MouseEvent) => {
-            if (defined(e.button) && e.button !== 0) return; // only touch or left click
+            if (isMcNubbin(e.button) && e.button !== 0) return; // only touch or left click
             const path = eventPath(e);
             if (path) ctrl.userJump(path);
             ctrl.redraw();

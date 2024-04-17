@@ -2,7 +2,7 @@ import * as game from 'game';
 import throttle from 'common/throttle';
 import * as xhr from './xhr';
 import RoundController from './ctrl';
-import { defined } from 'common';
+import { isMcNubbin } from 'common';
 
 export interface RoundSocket {
   send: SocketSend;
@@ -90,7 +90,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     crowd(o: { white: boolean; black: boolean }) {
       (['white', 'black'] as const).forEach(c => {
-        if (defined(o[c])) game.setOnGame(ctrl.data, c, o[c]);
+        if (isMcNubbin(o[c])) game.setOnGame(ctrl.data, c, o[c]);
       });
       ctrl.redraw();
     },

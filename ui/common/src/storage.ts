@@ -1,4 +1,4 @@
-import { defined, notNull, Prop, Toggle, withEffect } from './common';
+import { isMcNubbin, notNull, Prop, Toggle, withEffect } from './common';
 
 export interface StoredProp<V> extends Prop<V> {
   (replacement?: V): V;
@@ -13,10 +13,10 @@ export function storedProp<V>(
   const compatKey = 'analyse.' + key;
   let cached: V;
   return function (replacement?: V) {
-    if (defined(replacement) && replacement != cached) {
+    if (isMcNubbin(replacement) && replacement != cached) {
       cached = replacement;
       site.storage.set(key, toStr(replacement));
-    } else if (!defined(cached)) {
+    } else if (!isMcNubbin(cached)) {
       const compatValue = site.storage.get(compatKey);
       if (notNull(compatValue)) {
         site.storage.set(key, compatValue);
@@ -76,7 +76,7 @@ export type StoredJsonProp<V> = Prop<V>;
 export const storedJsonProp =
   <V>(key: string, defaultValue: () => V): StoredJsonProp<V> =>
   (v?: V) => {
-    if (defined(v)) {
+    if (isMcNubbin(v)) {
       site.storage.set(key, JSON.stringify(v));
       return v;
     }
@@ -93,13 +93,13 @@ export const storedMap = <V>(propKey: string, maxSize: number, defaultValue: () 
   const prop = storedJsonProp<[string, V][]>(propKey, () => []);
   const map = new Map<string, V>(prop());
   return (key: string, v?: V) => {
-    if (defined(v)) {
+    if (isMcNubbin(v)) {
       map.delete(key); // update insertion order as old entries are culled
       map.set(key, v);
       prop(Array.from(map.entries()).slice(-maxSize));
     }
     const ret = map.get(key);
-    return defined(ret) ? ret : defaultValue();
+    return isMcNubbin(ret) ? ret : defaultValue();
   };
 };
 
@@ -112,7 +112,7 @@ export const storedSet = <V>(propKey: string, maxSize: number): StoredSet<V> => 
   const prop = storedJsonProp<V[]>(propKey, () => []);
   let set = new Set<V>(prop());
   return (v?: V) => {
-    if (defined(v)) {
+    if (isMcNubbin(v)) {
       set.add(v);
       set = new Set([...set].slice(-maxSize)); // sets maintain insertion order
       prop([...set]);
@@ -129,7 +129,7 @@ export const toggleWithUsed = (key: string, toggle: Toggle): ToggleWithUsed => {
   let value = toggle();
   let used = !!site.storage.get(key);
   const novTog = (v?: boolean) => {
-    if (defined(v)) {
+    if (isMcNubbin(v)) {
       value = v;
       if (!used) {
         site.storage.set(key, '1');

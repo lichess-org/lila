@@ -1,6 +1,6 @@
 import { winningChances } from 'ceval';
 import { FEN } from 'chessground/types';
-import { defined } from 'common';
+import { isMcNubbin } from 'common';
 
 const hasCompChild = (node: Tree.Node): boolean => !!node.children.find(c => !!c.comp);
 
@@ -48,7 +48,7 @@ export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) 
 const threefoldFen = (fen: FEN) => fen.split(' ').slice(0, 4).join(' ');
 
 export function detectThreefold(nodeList: Tree.Node[], node: Tree.Node): void {
-  if (defined(node.threefold)) return;
+  if (isMcNubbin(node.threefold)) return;
   const currentFen = threefoldFen(node.fen);
   let nbSimilarPositions = 0,
     i;
