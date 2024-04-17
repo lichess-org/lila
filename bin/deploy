@@ -306,6 +306,7 @@ def deploy_script(profile, session, run, url):
             "echo \\# Preparing lifat ...",
             f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R lichess:lichess {lifat_dir}; fi)",
             "echo \\# Copying assets ...",
+            f"mkdir -p {assets_dir}/compiled",
             f"if [ -f {assets_dir}/compiled/manifest.prod.json ]; then mv {assets_dir}/compiled/manifest.prod.json {assets_dir}/compiled/manifest-{timestamp}.prod.json; fi",
             f"mv {artifact_unzipped}/d/public/compiled/manifest.prod.json {assets_dir}/compiled/manifest.prod.json",
             f"rsync -a {artifact_unzipped}/d/public/ {assets_dir}/",
