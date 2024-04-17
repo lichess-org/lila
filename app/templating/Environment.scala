@@ -32,6 +32,7 @@ object Environment
   def netConfig           = env.net
   def netBaseUrl          = env.net.baseUrl
   def contactEmailInClear = env.net.email.value
+  def picfitUrl           = env.memo.picfitUrl
 
   given lila.core.config.NetDomain = env.net.domain
 
