@@ -24,7 +24,7 @@ import chess.{
 }
 
 import lila.db.ByteArray
-import lila.core.game.{ Game, Player, GameRule, Source, PgnImport, ClockHistory }
+import lila.core.game.{ Pov, Game, Player, GameRule, Source, PgnImport, ClockHistory }
 import lila.rating.PerfType
 import lila.game.Blurs.addAtMoveIndex
 
@@ -72,13 +72,23 @@ object GameExt:
 
   extension (g: Game)
 
+    def playerById(playerId: GamePlayerId): Option[Player] = g.players.find(_.id == playerId)
+    def playerIdPov(playerId: GamePlayerId): Option[Pov]   = playerById(playerId).map(p => Pov(g, p.color))
+
     def withClock(c: Clock) = Progress(g, g.copy(chess = g.chess.copy(clock = Some(c))))
 
     def startClock: Option[Progress] =
       g.clock.map: c =>
         g.start.withClock(c.start)
 
-    def correspondenceGiveTime = Progress(g, g.copy(movedAt = nowInstant))
+    def playerCanOfferDraw(color: Color) =
+      g.started && g.playable &&
+        g.ply >= 2 &&
+        !g.player(color).isOfferingDraw &&
+        !g.opponent(color).isAi &&
+        !g.playerHasOfferedDrawRecently(color) &&
+        !g.swissPreventsDraw &&
+        !g.rulePreventsDraw
 
     def goBerserk(color: Color): Option[Progress] =
       g.clock
@@ -93,7 +103,7 @@ object GameExt:
                 g.clockHistory.map: history =>
                   if history(color).isEmpty then history
                   else history.reset(color).record(color, newClock)
-            ).updatePlayer(color, _.goBerserk)
+            ).updatePlayer(color, _.copy(berserk = true))
           ) ++
             List(
               Event.ClockInc(color, -c.config.berserkPenalty, newClock),
@@ -173,7 +183,8 @@ object GameExt:
     def finish(status: Status, winner: Option[Color]): Game =
       g.copy(
         status = status,
-        players = winner.fold(g.players)(c => g.players.update(c, _.finish(true))),
+        players = winner.fold(g.players): c =>
+          g.players.update(c, _.copy(isWinner = true.some)),
         chess = g.chess.copy(clock = g.clock.map(_.stop)),
         loadClockHistory = clk =>
           g.clockHistory.map: history =>

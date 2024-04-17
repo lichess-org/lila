@@ -8,12 +8,11 @@ import chess.{ ErrorStr, Game, Replay, Square }
 import scala.concurrent.duration.*
 
 import scalalib.actor.AsyncActorSequencers
-import lila.study.MultiPgn
+import lila.study.{ MultiPgn, StudyPgnImport }
 
 final class RelayPush(
     sync: RelaySync,
     api: RelayApi,
-    pgnImport: lila.study.StudyPgnImport,
     irc: lila.core.irc.IrcApi
 )(using ActorSystem, Executor, Scheduler):
 
@@ -63,7 +62,7 @@ final class RelayPush(
       .value
       .map: pgn =>
         validate(pgn).flatMap: tags =>
-          pgnImport(pgn, Nil) match
+          StudyPgnImport(pgn, Nil) match
             case Left(errStr) => Left(Failure(tags, oneline(errStr)))
             case Right(game) =>
               Right(

@@ -21,7 +21,7 @@ object TreeBuilder:
       withFlags: ExportOptions
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
-    val drawOfferPlies                     = game.drawOfferPlies
+    val drawOfferPlies                     = game.drawOffers.normalizedPlies
     chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
       case (init, games, error) =>
         error.foreach(logChessError(game.id))

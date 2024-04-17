@@ -7,9 +7,9 @@ import lila.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.core.round.*
 import lila.pref.{ Pref, PrefApi }
-
-import RoundAsyncActor.TakebackSituation
 import lila.core.data.Preload
+import lila.round.RoundAsyncActor.TakebackSituation
+import lila.round.RoundGame.playableByAi
 
 final private class Takebacker(
     messenger: Messenger,
@@ -24,6 +24,13 @@ final private class Takebacker(
       situation: TakebackSituation
   )(pov: Pov, confirm: Boolean)(using proxy: GameProxy): Fu[(Events, TakebackSituation)] =
     if confirm then yes(situation)(pov) else no(situation)(pov)
+
+  private def canProposeTakeback(pov: Pov) =
+    import pov.game.{ pov as _, * }
+    started && playable && !isTournament && !isSimul &&
+    bothPlayersHaveMoved &&
+    !player(pov.color).isProposingTakeback &&
+    !opponent(pov.color).isProposingTakeback
 
   def yes(
       situation: TakebackSituation
@@ -41,16 +48,15 @@ final private class Takebacker(
           single(game).andDo(publishTakeback(pov)).dmap(_ -> situation)
         case Pov(game, _) if pov.opponent.isAi =>
           double(game).andDo(publishTakeback(pov)).dmap(_ -> situation)
-        case Pov(game, color) if (game.playerCanProposeTakeback(color)) && situation.offerable =>
+        case pov if canProposeTakeback(pov) && situation.offerable =>
           {
-            messenger.volatile(game, trans.site.takebackPropositionSent.txt())
-            val progress = Progress(game).map { g =>
-              g.updatePlayer(color, _.proposeTakeback(g.ply))
-            }
+            messenger.volatile(pov.game, trans.site.takebackPropositionSent.txt())
+            val progress = Progress(pov.game).map: g =>
+              g.updatePlayer(pov.color, _.copy(proposeTakebackAt = g.ply))
             proxy
               .save(progress)
               .andDo(publishTakebackOffer(progress.game))
-              .inject(List(Event.TakebackOffers(color.white, color.black)))
+              .inject(List(Event.TakebackOffers(pov.color.white, pov.color.black)))
           }.dmap(_ -> situation)
         case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
 
