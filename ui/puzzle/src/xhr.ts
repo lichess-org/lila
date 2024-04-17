@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import PuzzleStreak from './streak';
 import { throttlePromiseDelay } from 'common/throttle';
-import { isMcNubbin } from 'common';
+import { defined } from 'common';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 import { StoredProp } from 'common/storage';
 
@@ -34,7 +34,7 @@ export const vote = (puzzleId: string, vote: boolean): Promise<void> =>
 export const voteTheme = (puzzleId: string, theme: ThemeKey, vote: boolean | undefined): Promise<void> =>
   xhr.json(`/training/${puzzleId}/vote/${theme}`, {
     method: 'POST',
-    body: isMcNubbin(vote) ? xhr.form({ vote }) : undefined,
+    body: defined(vote) ? xhr.form({ vote }) : undefined,
   });
 
 export const setZen = throttlePromiseDelay(

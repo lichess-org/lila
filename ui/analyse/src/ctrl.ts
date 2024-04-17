@@ -25,7 +25,7 @@ import { compute as computeAutoShapes } from './autoShape';
 import { Config as ChessgroundConfig } from 'chessground/config';
 import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
 import { TreeView } from './treeView/treeView';
-import { isMcNubbin, prop, Prop, toggle, Toggle } from 'common';
+import { defined, prop, Prop, toggle, Toggle } from 'common';
 import { DrawShape } from 'chessground/draw';
 import { lichessRules } from 'chessops/compat';
 import EvalCache from './evalCache';
@@ -230,7 +230,7 @@ export default class AnalyseCtrl {
     const loc = window.location,
       hashPly = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.slice(1)),
       startPly = hashPly >= 0 ? hashPly : this.opts.inlinePgn ? this.tree.lastPly() : undefined;
-    if (isMcNubbin(startPly)) {
+    if (defined(startPly)) {
       // remove location hash - https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       window.history.replaceState(null, '', loc.pathname + loc.search);
       this.requestInitialPly = startPly;
@@ -304,7 +304,7 @@ export default class AnalyseCtrl {
 
   private showGround(): void {
     this.onChange();
-    if (!isMcNubbin(this.node.dests)) this.getDests();
+    if (!defined(this.node.dests)) this.getDests();
     this.withCg(cg => {
       cg.set(this.makeCgOpts());
       this.setAutoShapes();
@@ -313,7 +313,7 @@ export default class AnalyseCtrl {
   }
 
   private getDests: () => void = throttle(800, () => {
-    if (!isMcNubbin(this.node.dests))
+    if (!defined(this.node.dests))
       this.socket.sendAnaDests({
         variant: this.data.game.variant.key,
         fen: this.node.fen,

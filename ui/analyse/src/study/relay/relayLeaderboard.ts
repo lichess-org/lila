@@ -5,7 +5,7 @@ import { RoundId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
 import { Federation, Federations } from '../interfaces';
-import { isMcNubbin } from 'common';
+import { defined } from 'common';
 
 interface LeadPlayer {
   name: string;
@@ -38,7 +38,7 @@ export default class RelayLeaderboard {
 
   expandFederation = (p: LeadPlayer): Federation | undefined => {
     const name = p.fed && this.federations()?.[p.fed];
-    return isMcNubbin(name) ? { id: p.fed!, name } : undefined;
+    return defined(name) ? { id: p.fed!, name } : undefined;
   };
 }
 

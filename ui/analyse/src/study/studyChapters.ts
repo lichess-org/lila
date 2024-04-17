@@ -1,4 +1,4 @@
-import { isMcNubbin, prop, Prop, scrollToInnerSelector } from 'common';
+import { defined, prop, Prop, scrollToInnerSelector } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
@@ -75,8 +75,8 @@ export default class StudyChaptersCtrl {
         players: c.players ? this.convertPlayersFromServer(c.players) : undefined,
         orientation: c.orientation || 'white',
         variant: c.variant || 'standard',
-        playing: isMcNubbin(c.lastMove) && c.status === '*',
-        lastMoveAt: isMcNubbin(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
+        playing: defined(c.lastMove) && c.status === '*',
+        lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),
     );
   private convertPlayersFromServer = (players: PairOf<ChapterPreviewPlayerFromServer>) => {

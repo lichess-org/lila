@@ -1,4 +1,4 @@
-import { isMcNubbin, prop } from 'common';
+import { defined, prop } from 'common';
 import throttle from 'common/throttle';
 import { EvalHit, EvalGetData, EvalPutData } from './interfaces';
 import { AnalyseSocketSend } from './socket';
@@ -54,13 +54,13 @@ function toCeval(e: Tree.ServerEval): Tree.ClientEval {
       const to: Tree.PvData = {
         moves: from.moves.split(' '), // moves come from the server as a single string
       };
-      if (isMcNubbin(from.cp)) to.cp = from.cp;
+      if (defined(from.cp)) to.cp = from.cp;
       else to.mate = from.mate;
       return to;
     }),
     cloud: true,
   };
-  if (isMcNubbin(res.pvs[0].cp)) res.cp = res.pvs[0].cp;
+  if (defined(res.pvs[0].cp)) res.cp = res.pvs[0].cp;
   else res.mate = res.pvs[0].mate;
   res.cloud = true;
   return res;

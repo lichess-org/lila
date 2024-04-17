@@ -6,7 +6,7 @@ import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import { ChapterId, ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { CloudEval, MultiCloudEval, renderEvalToggle, renderScoreAtDepth } from './multiCloudEval';
-import { Toggle, isMcNubbin, notNull, toggle } from 'common';
+import { Toggle, defined, notNull, toggle } from 'common';
 import { Color } from 'chessops';
 import { StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
 import { playerFed } from './playerBars';
@@ -206,7 +206,7 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
   const turnColor = fenColor(chapter.fen);
   const timeleft = computeTimeLeft(chapter, color);
   const ticking = turnColor == color && otbClockIsRunning(chapter.fen);
-  return isMcNubbin(timeleft)
+  return defined(timeleft)
     ? h(
         'span.mini-game__clock.mini-game__clock',
         { class: { 'clock--run': ticking } },
@@ -218,7 +218,7 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
 const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
   const clock = preview.players?.[color]?.clock;
   if (notNull(clock)) {
-    if (isMcNubbin(preview.lastMoveAt) && fenColor(preview.fen) == color) {
+    if (defined(preview.lastMoveAt) && fenColor(preview.fen) == color) {
       const spent = (Date.now() - preview.lastMoveAt) / 1000;
       return Math.max(0, clock / 100 - spent);
     } else {

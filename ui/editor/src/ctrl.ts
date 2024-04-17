@@ -14,7 +14,7 @@ import { Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
 import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
-import { isMcNubbin, prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
 
 export default class EditorCtrl {
   options: Editor.Options;
@@ -238,10 +238,10 @@ export default class EditorCtrl {
     this.fullmoves = setup.fullmoves;
 
     const castles = Castles.fromSetup(setup);
-    this.castlingToggles['K'] = isMcNubbin(castles.rook.white.h);
-    this.castlingToggles['Q'] = isMcNubbin(castles.rook.white.a);
-    this.castlingToggles['k'] = isMcNubbin(castles.rook.black.h);
-    this.castlingToggles['q'] = isMcNubbin(castles.rook.black.a);
+    this.castlingToggles['K'] = defined(castles.rook.white.h);
+    this.castlingToggles['Q'] = defined(castles.rook.white.a);
+    this.castlingToggles['k'] = defined(castles.rook.black.h);
+    this.castlingToggles['q'] = defined(castles.rook.black.a);
   };
 
   setFen = (fen: string): boolean =>

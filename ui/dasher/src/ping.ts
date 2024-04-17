@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { Redraw } from 'common/snabbdom';
-import { isMcNubbin } from 'common';
+import { defined } from 'common';
 
 export class PingCtrl {
   ping: number | undefined;
@@ -43,7 +43,7 @@ function signalBars(ctrl: PingCtrl) {
 
 const showMillis = (name: string, m?: number) => [
   h('em', name),
-  h('strong', isMcNubbin(m) ? m : '?'),
+  h('strong', defined(m) ? m : '?'),
   h('em', 'ms'),
 ];
 

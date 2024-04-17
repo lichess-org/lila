@@ -16,7 +16,7 @@ import { CevalCtrl } from 'ceval';
 import { makeVoiceMove, VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, KeyboardMove, KeyboardMoveRootCtrl } from 'keyboardMove';
 import { Deferred, defer } from 'common/defer';
-import { isMcNubbin, prop, Prop, propWithEffect, Toggle, toggle } from 'common';
+import { defined, prop, Prop, propWithEffect, Toggle, toggle } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
@@ -300,7 +300,7 @@ export default class PuzzleCtrl implements ParentCtrl {
         id: scalachessCharPair(move),
         uci: makeUci(move),
         san,
-        check: isMcNubbin(check) ? makeSquare(check) : undefined,
+        check: defined(check) ? makeSquare(check) : undefined,
         children: [],
       },
       path,

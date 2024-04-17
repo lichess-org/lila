@@ -5,7 +5,7 @@ import { enrichText, innerHTML } from 'common/richText';
 import { authorText as commentAuthorText } from '../study/studyComments';
 import { bindMobileTapHold } from 'common/device';
 import { h, Hooks, VNode } from 'snabbdom';
-import { isEmpty, isMcNubbin } from 'common';
+import { isEmpty, defined } from 'common';
 import { MaybeVNodes } from 'common/snabbdom';
 import { path as treePath } from 'tree';
 import { playable } from 'game';
@@ -30,7 +30,7 @@ export function mainHook(ctrl: AnalyseCtrl): Hooks {
       bindMobileTapHold(el, ctxMenuCallback, ctrl.redraw);
 
       el.addEventListener('mousedown', (e: MouseEvent) => {
-        if (isMcNubbin(e.button) && e.button !== 0) return; // only touch or left click
+        if (defined(e.button) && e.button !== 0) return; // only touch or left click
         const path = eventPath(e);
         if (path) ctrl.userJump(path);
         ctrl.redraw();

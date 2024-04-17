@@ -1,6 +1,6 @@
 import * as treePath from './path';
 import * as ops from './ops';
-import { isMcNubbin } from 'common';
+import { defined } from 'common';
 
 export { treePath as path, ops };
 
@@ -115,7 +115,7 @@ export function build(root: Tree.Node): TreeWrapper {
       existing = nodeAtPathOrNull(newPath);
     if (existing) {
       (['dests', 'drops', 'clock'] as Array<keyof Tree.Node>).forEach(key => {
-        if (isMcNubbin(node[key]) && !isMcNubbin(existing[key])) existing[key] = node[key] as never;
+        if (defined(node[key]) && !defined(existing[key])) existing[key] = node[key] as never;
       });
       return newPath;
     }

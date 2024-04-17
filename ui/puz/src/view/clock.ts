@@ -1,4 +1,4 @@
-import { isMcNubbin } from 'common';
+import { defined } from 'common';
 import { getNow } from '../util';
 import { h, VNode } from 'snabbdom';
 import { Run, TimeMod } from '../interfaces';
@@ -46,5 +46,5 @@ const formatMs = (millis: number): string => {
 
 function computeModifierDiff(now: number, mod?: TimeMod) {
   const millisSince: number | undefined = mod && (now - mod.at < 1000 ? now - mod.at : undefined);
-  return isMcNubbin(millisSince) ? mod!.seconds * 1000 * (1 - millisSince / 1000) : 0;
+  return defined(millisSince) ? mod!.seconds * 1000 * (1 - millisSince / 1000) : 0;
 }

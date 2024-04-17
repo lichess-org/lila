@@ -1,4 +1,4 @@
-import { isMcNubbin } from 'common';
+import { defined } from 'common';
 import { onInsert } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
@@ -57,22 +57,22 @@ export function make(ctrl: AnalyseCtrl): ForkCtrl {
       return hovering ?? selected;
     },
     highlight(it) {
-      if (!displayed() || !isMcNubbin(it)) {
+      if (!displayed() || !defined(it)) {
         ctrl.explorer.setHovering(ctrl.node.fen, null);
         return;
       }
 
       const nodeUci = ctrl.node.children[it]?.uci;
-      const uci = isMcNubbin(nodeUci) ? nodeUci : null;
+      const uci = defined(nodeUci) ? nodeUci : null;
 
       ctrl.explorer.setHovering(ctrl.node.fen, uci);
     },
     proceed(it) {
       if (displayed()) {
-        it = isMcNubbin(it) ? it : hovering ? hovering : selected;
+        it = defined(it) ? it : hovering ? hovering : selected;
 
         const childNode = ctrl.node.children[it];
-        if (isMcNubbin(childNode)) {
+        if (defined(childNode)) {
           ctrl.userJumpIfCan(ctrl.path + childNode.id);
           return true;
         }

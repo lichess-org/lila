@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { isMcNubbin, prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import * as xhr from 'common/xhr';
 import AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
@@ -290,8 +290,8 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
 
 function evalInfo(bestEv: EvalScore | undefined): string {
   if (bestEv) {
-    if (isMcNubbin(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
-    else if (isMcNubbin(bestEv.mate))
+    if (defined(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
+    else if (defined(bestEv.mate))
       return `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`;
   }
   return '';

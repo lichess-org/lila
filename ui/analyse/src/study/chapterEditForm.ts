@@ -3,7 +3,7 @@ import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option, emptyRedButton } from '../view/util';
 import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, ChapterPreview } from './interfaces';
-import { isMcNubbin, prop } from 'common';
+import { defined, prop } from 'common';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
@@ -105,7 +105,7 @@ const isLoaded = (data: ChapterPreview | StudyChapterConfig): data is StudyChapt
 function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode[] {
   const mode = data.practice
       ? 'practice'
-      : isMcNubbin(data.conceal)
+      : defined(data.conceal)
       ? 'conceal'
       : data.gamebook
       ? 'gamebook'

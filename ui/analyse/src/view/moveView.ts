@@ -1,6 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { fixCrazySan } from 'chess';
-import { isMcNubbin } from 'common';
+import { defined } from 'common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
 import { plyToTurn } from '../util';
 
@@ -27,8 +27,8 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
   if (node.glyphs && ctx.showGlyphs) node.glyphs.forEach(g => nodes.push(renderGlyph(g)));
   if (node.shapes?.length) nodes.push(h('shapes'));
   if (ev && ctx.showEval) {
-    if (isMcNubbin(ev.cp)) nodes.push(renderEval(normalizeEval(ev.cp)));
-    else if (isMcNubbin(ev.mate)) nodes.push(renderEval('#' + ev.mate));
+    if (defined(ev.cp)) nodes.push(renderEval(normalizeEval(ev.cp)));
+    else if (defined(ev.mate)) nodes.push(renderEval('#' + ev.mate));
   }
   return nodes;
 }

@@ -4,7 +4,7 @@ import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
-import { isMcNubbin, prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
 import { altCastles } from 'chess';
 import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
@@ -145,7 +145,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       return root.redraw();
     }
-    if (tablebaseGuaranteed(variant, node.fen) && !isMcNubbin(node.tbhit)) return;
+    if (tablebaseGuaranteed(variant, node.fen) && !defined(node.tbhit)) return;
     root.ensureCevalRunning();
     if (isMyTurn()) {
       const h = hinting();
@@ -185,7 +185,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
           checkCeval();
         },
         () => {
-          if (!isMcNubbin(root.node.tbhit)) root.node.tbhit = null;
+          if (!defined(root.node.tbhit)) root.node.tbhit = null;
           checkCeval();
         },
       );
