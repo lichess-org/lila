@@ -33,7 +33,7 @@ object bits:
                 resultSegments(next.result)
               ,
               span(cls := "opening__next__board"):
-                views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
+                chessgroundMini(next.fen.board, lastMove = next.uci.some)(span)
             )
           )
       )

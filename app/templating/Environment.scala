@@ -16,14 +16,13 @@ object Environment
     with UserHelper
     with SecurityHelper
     with TeamHelper
-    with ChessgroundHelper
     with HtmlHelper:
 
   export lila.core.lilaism.Lilaism.{ *, given }
   export lila.common.extensions.*
   export lila.ui.Icon
   export lila.web.Nonce
-  export lila.api.Context.{ *, given }
+  export lila.api.Context.{ ctxToTranslate as _, *, given }
   export lila.api.PageData
 
   private var envVar: Option[Env] = None
@@ -89,6 +88,8 @@ object Environment
   def defaultTranslate                    = lila.i18n.Translator.toDefault
   lazy val tourHelper                     = wire[lila.tournament.ui.TournamentHelper]
   export tourHelper.*
+
+  export ChessgroundHelper.*
 
   def titleOrText(v: String)(using ctx: Context): Modifier = titleOrTextFor(ctx.blind, v)
 

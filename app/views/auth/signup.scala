@@ -16,7 +16,7 @@ object signup:
       title = trans.site.signUp.txt(),
       moreJs = frag(
         jsModuleInit("login", "signup"),
-        views.html.base.hcaptcha.script(form),
+        lila.web.views.hcaptcha.script(form),
         fingerprintTag
       ),
       moreCss = cssTag("auth"),
@@ -53,7 +53,7 @@ object signup:
             )
           ),
           agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
-          views.html.base.hcaptcha.tag(form),
+          lila.web.views.hcaptcha.tag(form),
           button(cls := "submit button text big")(trans.site.signUp())
         )
       )
