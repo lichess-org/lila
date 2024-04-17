@@ -17,6 +17,8 @@ final class DateHelper(
   import i18n.*
   import string.*
 
+  private val datetimeAttr = attr("datetime")
+
   private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
   private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]
 
