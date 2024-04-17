@@ -51,6 +51,7 @@ trait RequestContext(using Executor):
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then
       val nonce = lila.web.Nonce.random.some
+      if !env.net.isProd then env.web.manifest.update()
       ctx.me.foldUse(fuccess(PageData.anon(nonce))): me ?=>
         env.user.lightUserApi.preloadUser(me)
         val enabledId = me.enabled.yes.option(me.userId)

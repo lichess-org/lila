@@ -8,7 +8,6 @@ import com.softwaremill.macwire.*
 
 object Environment
     extends RouterHelper
-    with AssetHelper
     with lila.ui.PaginatorHelper
     with lila.setup.SetupUi
     with lila.pref.PrefUi
@@ -22,6 +21,7 @@ object Environment
   export lila.common.extensions.*
   export lila.ui.Icon
   export lila.web.Nonce
+  export lila.web.ui.{ PageModule, EsmList }
   export lila.api.Context.{ ctxToTranslate as _, *, given }
   export lila.api.PageData
 
@@ -34,7 +34,8 @@ object Environment
   def contactEmailInClear = env.net.email.value
   def picfitUrl           = env.memo.picfitUrl
 
-  given lila.core.config.NetDomain = env.net.domain
+  given lila.core.config.NetDomain              = env.net.domain
+  given (using ctx: PageContext): Option[Nonce] = ctx.nonce
 
   export lila.mailer.translateDuration
 
@@ -89,6 +90,16 @@ object Environment
   def defaultTranslate                    = lila.i18n.Translator.toDefault
   lazy val tourHelper                     = wire[lila.tournament.ui.TournamentHelper]
   export tourHelper.*
+
+  lazy val assetHelper = AssetHelper(
+    i18nHelper = i18nHelper,
+    net = netConfig,
+    manifest = env.web.manifest,
+    explorerEndpoint = env.explorerEndpoint,
+    tablebaseEndpoint = env.tablebaseEndpoint,
+    externalEngineEndpoint = env.externalEngineEndpoint
+  )
+  export assetHelper.{ *, given }
 
   export ChessgroundHelper.*
 
