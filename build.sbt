@@ -195,7 +195,7 @@ lazy val perfStat = module("perfStat",
 )
 
 lazy val history = module("history",
-  Seq(game),
+  Seq(rating, memo),
   Seq()
 )
 
@@ -240,7 +240,7 @@ lazy val game = module("game",
 )
 
 lazy val gameSearch = module("gameSearch",
-  Seq(game, search),
+  Seq(coreI18n, search),
   Seq()
 )
 

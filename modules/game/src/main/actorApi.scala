@@ -31,5 +31,3 @@ object BoardGone:
   def makeChan(gameId: GameId) = s"boardGone:$gameId"
 
 case class NotifyRematch(newGame: Game)
-
-case class PerfsUpdate(game: Game, perfs: ByColor[UserWithPerfs])
