@@ -7,6 +7,7 @@ import lila.core.net.AssetVersion
 import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
 import lila.web.ui.*
+import lila.web.Nonce
 import lila.web.ContentSecurityPolicy
 
 trait AssetHelper:
