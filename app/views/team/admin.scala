@@ -21,7 +21,7 @@ object admin:
     views.html.base.layout(
       title = s"${t.name} • ${teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      moreJs = jsModule("team.admin")
+      modules = jsModule("mod.team.admin")
     ):
       val dataLabel = attrData("label")
       main(cls := "page-menu")(
@@ -83,7 +83,7 @@ object admin:
     views.html.base.layout(
       title = s"${t.name} • ${kickSomeone.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      moreJs = jsModule("team.admin")
+      modules = jsModule("mod.team.admin")
     ):
       main(cls := "page-menu page-small")(
         bits.menu(none),

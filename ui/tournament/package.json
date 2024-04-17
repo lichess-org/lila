@@ -12,16 +12,19 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
+    "@types/dragscroll": "0.0.0",
     "chat": "workspace:*",
     "common": "workspace:*",
+    "date-fns": "2.29.3",
+    "dragscroll": "^0.0.8",
     "game": "workspace:*",
     "snabbdom": "3.5.1"
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "tournament"
-      }
+      "src/tournament.ts": "tournament",
+      "src/tournament.calendar.ts": "tournament.calendar",
+      "src/tournament.schedule.ts": "tournament.schedule"
     }
   }
 }

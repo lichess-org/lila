@@ -27,7 +27,7 @@ object tour:
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       withHrefLangs = LangPath(routes.RelayTour.index()).some
     ):
       def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
@@ -61,7 +61,7 @@ object tour:
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     )(main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body)))
 
   def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =

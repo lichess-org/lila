@@ -2,7 +2,7 @@ import m from './mithrilFix';
 import { LevelCtrl } from './level';
 import * as scoring from './score';
 import { Level, Stage } from './stage/list';
-import { LearnProgress } from './main';
+import { LearnProgress } from './learn';
 
 const star = m('i[data-icon=]');
 

@@ -70,9 +70,9 @@ cg-board::before {
 
     @if $coord-color-white and $coord-color-black {
       coords {
-        --cg-ccw: #{$coord-color-white};
-        --cg-ccb: #{$coord-color-black};
-        --cg-cs: none;
+        ---cg-ccw: #{$coord-color-white};
+        ---cg-ccb: #{$coord-color-black};
+        ---cg-cs: none;
       }
     }
   }

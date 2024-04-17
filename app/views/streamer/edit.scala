@@ -18,7 +18,7 @@ object edit:
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
-      moreJs = jsModule("streamer"),
+      modules = jsModule("bits.streamer"),
       moreCss = cssTag("streamer.form")
     ) {
       main(cls := "page-menu")(

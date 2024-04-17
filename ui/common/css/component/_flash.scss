@@ -3,7 +3,7 @@
   margin: 1em 0 2em 0;
   padding: 1em 2em;
   background: $c-good;
-  color: $c-good-over;
+  color: $c-over;
 
   &::before {
     @extend %data-icon;
@@ -15,14 +15,14 @@
 
   &__content {
     a {
-      color: $c-good-over;
+      color: $c-over;
       unicode-bidi: plaintext;
     }
   }
 
   &-warning {
     background: $c-warn;
-    color: $c-warn-over;
+    color: $c-over;
 
     &::before {
       content: $licon-InfoCircle;
@@ -31,7 +31,7 @@
 
   &-failure {
     background: $c-bad;
-    color: $c-bad-over;
+    color: $c-over;
 
     &::before {
       content: $licon-CautionCircle;

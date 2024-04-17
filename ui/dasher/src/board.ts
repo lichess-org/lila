@@ -17,7 +17,7 @@ export class BoardCtrl {
     readonly close: Close,
   ) {}
 
-  readZoom = () => parseInt(window.getComputedStyle(document.body).getPropertyValue('--zoom'));
+  readZoom = () => parseInt(window.getComputedStyle(document.body).getPropertyValue('---zoom'));
 
   saveZoom = debounce(
     () =>
@@ -36,7 +36,7 @@ export class BoardCtrl {
   };
 
   setZoom = (v: number) => {
-    document.body.style.setProperty('--zoom', v.toString());
+    document.body.style.setProperty('---zoom', v.toString());
     window.dispatchEvent(new Event('resize'));
     this.redraw();
     this.saveZoom();

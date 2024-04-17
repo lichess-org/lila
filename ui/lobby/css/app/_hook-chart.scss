@@ -6,12 +6,12 @@
   overflow: hidden;
 
   .label {
+    @extend %page-text-shadow;
     color: $c-font-dim;
     font-size: 0.7em;
     position: absolute;
     @include inline-start(3px);
     bottom: 1px;
-    text-shadow: $text-shadow;
     font-weight: bold;
   }
 

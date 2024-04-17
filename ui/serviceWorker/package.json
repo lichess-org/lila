@@ -10,9 +10,7 @@
   },
   "lichess": {
     "modules": {
-      "iife": {
-        "src/main.ts": "serviceWorker"
-      }
+      "src/serviceWorker.ts": "serviceWorker"
     }
   }
 }

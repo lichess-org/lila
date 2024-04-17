@@ -22,7 +22,7 @@ Options:
 
 Examples:
   ./build -c                 # clean build artifacts, exit without building
-  ./build -d                 # build client sssets with site.debug = true
+  ./build -d                 # build client assets with site.debug = true
   ./build -wn                # build, watch for changes, no pnpm install
   ./build -r                 # build, watch, and rebuild on package.json change
   ./build -rd                # build, watch, rebuild on package.json change, site.debug = true

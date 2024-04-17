@@ -85,6 +85,7 @@ interface Site {
   socket: any;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
+  manifest: { css: Record<string, string>; js: Record<string, string> };
 }
 
 interface LichessLog {

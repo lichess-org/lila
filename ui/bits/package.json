@@ -1,0 +1,85 @@
+{
+  "name": "bits",
+  "version": "2.0.0",
+  "private": true,
+  "description": "assorted modules",
+  "author": "T-Bone Duplexus",
+  "license": "AGPL-3.0-or-later",
+  "exports": {
+    "./*": "./dist/load/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/load/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "@fnando/sparkline": "^0.3.10",
+    "@toast-ui/editor": "3.1.7",
+    "@textcomplete/core": "^0.1.13",
+    "@textcomplete/textarea": "^0.1.13",
+    "@types/debounce-promise": "^3.1.6",
+    "@types/fnando__sparkline": "^0.3.7",
+    "@types/yaireo__tagify": "4.17.5",
+    "@types/zxcvbn": "^4.4.4",
+    "@yaireo/tagify": "4.17.9",
+    "chat": "workspace:*",
+    "chess": "workspace:*",
+    "common": "workspace:*",
+    "cropperjs": "^1.6.1",
+    "debounce-promise": "^3.1.2",
+    "emoji-mart": "^5.5.2",
+    "flatpickr": "^4.6.13",
+    "lichess-pgn-viewer": "^2.1.0",
+    "prop-types": "^15.8.1",
+    "tablesort": "^5.3.0",
+    "zxcvbn": "^4.4.2"
+  },
+  "sideEffects": false,
+  "lichess": {
+    "modules": {
+      "src/bits.account.ts": "bits.account",
+      "src/bits.appeal.ts": "bits.appeal",
+      "src/bits.captcha.ts": "bits.captcha",
+      "src/bits.challengePage.ts": "bits.challengePage",
+      "src/bits.checkout.ts": "bits.checkout",
+      "src/bits.clas.ts": "bits.clas",
+      "src/bits.cms.ts": "bits.cms",
+      "src/bits.coachForm.ts": "bits.coach.form",
+      "src/bits.contact.ts": "bits.contact",
+      "src/bits.cropDialog.ts": "bits.cropDialog",
+      "src/bits.dailyFeed.ts": "bits.dailyFeed",
+      "src/bits.diagnosticDialog.ts": "bits.diagnosticDialog",
+      "src/bits.eventCountdown.ts": "bits.eventCountdown",
+      "src/bits.expandText.ts": "bits.expandText",
+      "src/bits.flairPicker.ts": "bits.flairPicker",
+      "src/bits.flatpickr.ts": "bits.flatpickr",
+      "src/bits.forum.ts": "bits.forum",
+      "src/bits.gameSearch.ts": "bits.gameSearch",
+      "src/bits.infiniteScroll.ts": "bits.infiniteScroll",
+      "src/bits.login.ts": "bits.login",
+      "src/bits.lpv.ts": "bits.lpv",
+      "src/bits.passwordComplexity.ts": "bits.passwordComplexity",
+      "src/bits.plan.ts": "bits.plan",
+      "src/bits.publicChats.ts": "bits.publicChats",
+      "src/bits.relayForm.ts": "bits.relayForm",
+      "src/bits.soundMove.ts": "bits.soundMove",
+      "src/bits.streamer.ts": "bits.streamer",
+      "src/bits.team.ts": "bits.team",
+      "src/bits.teamBattleForm.ts": "bits.teamBattleForm",
+      "src/bits.tourForm.ts": "bits.tourForm",
+      "src/bits.tvGames.ts": "bits.tvGames",
+      "src/bits.ublog.ts": "bits.ublog",
+      "src/bits.ublogForm.ts": "bits.ublogForm",
+      "src/bits.user.ts": "bits.user",
+      "src/bits.userComplete.ts": "bits.userComplete",
+      "src/bits.userGamesDownload.ts": "bits.userGamesDownload"
+    },
+    "sync": {
+      "node_modules/cropperjs/dist/cropper.min.css": "public/npm",
+      "../../node_modules/chessground/dist/chessground.min.js": "public/npm"
+    }
+  }
+}

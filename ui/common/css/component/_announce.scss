@@ -6,7 +6,7 @@
   @include inline-start(0);
   font-size: 1.4em;
   background: $c-primary;
-  color: $c-primary-over;
+  color: $c-over;
   padding: 0.7rem 1rem;
   z-index: z('tour-reminder');
   width: 100%;
@@ -17,7 +17,7 @@
   }
 
   a {
-    color: $c-primary-over;
+    color: $c-over;
   }
 
   time {

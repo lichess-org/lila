@@ -1,8 +1,8 @@
 #main-wrap {
-  --main-max-width: auto;
+  ---main-max-width: auto;
 
   @include mq-is-col1 {
-    --main-max-width: calc(
+    ---main-max-width: calc(
       100vh - #{$site-header-outer-height} - #{$col1-player-clock-height * 2} - #{$col1-moves-height}
     );
   }
@@ -46,7 +46,7 @@
   }
 
   @include mq-at-least-col3 {
-    grid-template-columns: $col3-uniboard-side var(--col3-uniboard-width) $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side var(---col3-uniboard-width) $col3-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas: 'side  app   app' 'uchat under .';
 

@@ -37,7 +37,7 @@ object cms:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("cms"),
-      moreJs = jsModule("cms")
+      modules = jsModule("cms")
     ):
       main(cls := "page-menu")(mod.menu("cms"), div(cls := "page-menu__content cms box")(body))
 

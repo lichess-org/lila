@@ -8,7 +8,7 @@
   .title {
     display: flex;
     background: $c-primary;
-    color: $c-primary-over;
+    color: $c-over;
 
     h2,
     h3 {
@@ -106,7 +106,7 @@
 
     &.completed {
       background: $c-good;
-      color: $c-good-over;
+      color: $c-over;
     }
 
     &.completed button {
@@ -115,7 +115,7 @@
 
     &.failed {
       background: $c-bad;
-      color: $c-bad-over;
+      color: $c-over;
     }
 
     &.failed button {
@@ -176,13 +176,13 @@
     }
 
     a.done {
-      color: $c-good-over;
+      color: $c-over;
       background: $c-good;
     }
 
     a.active {
       opacity: 1;
-      color: $c-primary-over;
+      color: $c-over;
       background: $c-primary;
     }
   }

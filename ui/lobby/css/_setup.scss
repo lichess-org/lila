@@ -78,8 +78,8 @@ $c-slider: $c-setup;
   }
 
   .failure {
-    background: mix($c-bg-box, $c-bad, 80%);
-    box-shadow: 0 0 13px 6px mix($c-bg-box, $c-bad, 80%);
+    background: $m-bad_bg--mix-20;
+    box-shadow: 0 0 13px 6px $m-bad_bg--mix-20;
     border-radius: 0.5em;
   }
 

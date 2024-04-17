@@ -345,7 +345,7 @@ object contact:
       title = trans.contact.contact.txt(),
       active = "contact",
       moreCss = cssTag("contact"),
-      moreJs = jsModule("contact"),
+      modules = jsModule("bits.contact"),
       contentCls = "page box box-pad"
     )(
       frag(

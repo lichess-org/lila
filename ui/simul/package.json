@@ -18,9 +18,7 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "simul"
-      }
+      "src/simul.ts": "simul"
     }
   }
 }

@@ -24,7 +24,7 @@ object userAnalysis:
         withForecast.option(cssTag("analyse.forecast")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = analyseNvuiTag,
+      modules = analyseNvuiTag,
       pageModule = views.html.analyse.bits
         .analyseModule(
           "userAnalysis",

@@ -21,7 +21,7 @@ object home:
       title = trans.site.tournaments.txt(),
       moreCss = cssTag("tournament.home"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       pageModule = PageModule(
         "tournament.schedule",
         Json.obj("data" -> json, "i18n" -> bits.scheduleJsI18n)

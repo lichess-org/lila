@@ -122,7 +122,7 @@ object replay:
         (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = analyseNvuiTag,
+      modules = analyseNvuiTag,
       pageModule = bits.analyseModule(
         "replay",
         Json
