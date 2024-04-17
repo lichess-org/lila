@@ -109,7 +109,7 @@ final class RelayPager(
       )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
-    forSelector($text(query) ++ $doc("tier".$exists(true) ++ selectors.publicTour), page)
+    forSelector($text(query) ++ selectors.officialPublic, page)
 
   def byIds(ids: List[RelayTour.Id], page: Int): Fu[Paginator[WithLastRound]] =
     forSelector(
