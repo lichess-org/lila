@@ -13,7 +13,7 @@ import lila.team.Team
 trait TeamHelper:
   self: RouterHelper =>
 
-  def assets: AssetHelper
+  def assetHelper: AssetHelper
   def env: Env
 
   def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
@@ -38,7 +38,7 @@ trait TeamHelper:
   def teamFlair(team: LightTeam): Option[Tag] = team.flair.map(teamFlair)
 
   def teamFlair(flair: Flair): Tag =
-    img(cls := "uflair", src := assets.flairSrc(flair))
+    img(cls := "uflair", src := assetHelper.flairSrc(flair))
 
   def teamForumUrl(id: TeamId) = routes.ForumCateg.show("team-" + id)
 
