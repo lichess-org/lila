@@ -19,7 +19,7 @@ final class Ublog(env: Env) extends LilaController(env):
   import scalalib.paginator.Paginator.given
 
   def index(username: UserStr, page: Int) = Open:
-    NotForKids:
+    NotForKidsUnlessOfficial(username):
       FoundPage(meOrFetch(username)): user =>
         env.ublog.api
           .getUserBlog(user)
@@ -39,7 +39,7 @@ final class Ublog(env: Env) extends LilaController(env):
   }
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open:
-    NotForKids:
+    NotForKidsUnlessOfficial(username):
       WithBlogOf(username): (user, blog) =>
         env.ublog.api.findByIdAndBlog(id, blog.id).flatMap {
           _.filter(canViewPost(user, blog)).so: post =>
@@ -330,6 +330,9 @@ final class Ublog(env: Env) extends LilaController(env):
       Redirect(routes.Ublog.post("lichess", post.slug, post.id), MOVED_PERMANENTLY)
 
   private def isBlogVisible(user: UserModel, blog: UblogBlog) = user.enabled.yes && blog.visible
+
+  def NotForKidsUnlessOfficial(username: UserStr)(f: => Fu[Result])(using Context): Fu[Result] =
+    if username.is(UserId.lichess) then f else NotForKids(f)
 
   private def canViewBlogOf(user: UserModel, blog: UblogBlog)(using ctx: Context) =
     ctx.is(user) || isGrantedOpt(_.ModerateBlog) || isBlogVisible(user, blog)
