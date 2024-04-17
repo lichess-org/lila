@@ -68,11 +68,10 @@ def curl_cli(command, *, url="https://lichess.org/run/cli"):
     return f"curl --fail -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @.lila-cli"
 
 
-def asset_profile(ssh, *, 
-                  deploy_dir="/home/lichess-deploy", 
-                  post=curl_cli("change asset version"), 
-                  stage=False
-):
+def asset_profile(ssh, *,
+                  deploy_dir="/home/lichess-deploy",
+                  post=curl_cli("change asset version"),
+                  stage=False):
     return {
         "ssh": ssh,
         "deploy_dir": deploy_dir,
@@ -84,10 +83,9 @@ def asset_profile(ssh, *,
         "stage": stage,
     }
 
-
-def server_profile(ssh, *, 
-                   deploy_dir="/home/lichess-deploy", 
-                   post="systemctl restart lichess", 
+def server_profile(ssh, *,
+                   deploy_dir="/home/lichess-deploy",
+                   post="systemctl restart lichess",
                    stage=False):
     return {
         "ssh": ssh,
@@ -99,7 +97,6 @@ def server_profile(ssh, *,
         "post": post,
         "stage": stage,
     }
-
 
 PROFILES = {
     "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
