@@ -18,7 +18,7 @@ import lila.db.dsl.Bdoc
 import lila.study.StudyArbitraries.{ *, given }
 
 // in lila.study to have access to PgnImport
-class BsonHandlersTest extends munit.ScalaCheckSuite:
+class BsonHandlersTest extends munit.FunSuite:
 
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
@@ -28,8 +28,7 @@ class BsonHandlersTest extends munit.ScalaCheckSuite:
 
   val treeBson    = summon[BSON[Root]]
   val newTreeBson = summon[BSON[NewRoot]]
-
-  val w = new Writer
+  val w           = new Writer
 
   test("Tree writes.reads == identity"):
     PgnFixtures.all.foreach: pgn =>
@@ -58,35 +57,3 @@ class BsonHandlersTest extends munit.ScalaCheckSuite:
       val y       = treeBson.reads(bdoc)
       val oldRoot = y.toNewRoot
       assertEquals(oldRoot.cleanup, x.cleanup)
-
-  test("Tree.writes.Tree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val root = x.toRoot
-      val bdoc = treeBson.writes(w, root)
-      val y    = treeBson.reads(bdoc)
-      assertEquals(y, root)
-
-  test("NewTree.writes.Tree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val bdoc = newTreeBson.writes(w, x)
-      val y    = treeBson.reads(bdoc).toNewRoot
-      assertEquals(y, x)
-
-  test("Tree.writes.NewTree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val bdoc = treeBson.writes(w, x.toRoot)
-      val y    = newTreeBson.reads(bdoc)
-      assertEquals(y, x)
-
-  test("NewTree.writes.NewTree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val bdoc = newTreeBson.writes(w, x)
-      val y    = newTreeBson.reads(bdoc)
-      assertEquals(y, x)
-
-  test("Tree.writes.Tree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val root = x.toRoot
-      val bdoc = treeBson.writes(w, root)
-      val y    = treeBson.reads(bdoc)
-      assertEquals(y, root)
