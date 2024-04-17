@@ -253,8 +253,6 @@ case class Game(
 
   def isBeingPlayed = !isPgnImport && !finishedOrAborted
 
-  def justCreated = createdAt.isAfter(nowInstant.minusSeconds(1))
-
   def forecastable = started && playable && isCorrespondence && !hasAi
 
   def userIds: List[UserId] = players.flatMap(_.userId)
@@ -279,8 +277,6 @@ case class Game(
 
   def pov(c: Color)      = Pov(this, c)
   def povs: ByColor[Pov] = ByColor(pov)
-
-  def secondsSinceCreation = (nowSeconds - createdAt.toSeconds).toInt
 
   override def toString = s"""Game($id)"""
 end Game
