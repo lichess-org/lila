@@ -4,7 +4,7 @@ package account
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.pref.PrefCateg
 
 object bits:

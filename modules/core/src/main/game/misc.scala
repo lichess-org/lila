@@ -5,7 +5,18 @@ import cats.derived.*
 import play.api.libs.json.*
 import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
 import reactivemongo.api.bson.collection.BSONCollection
-import _root_.chess.{ Color, ByColor, Status, Speed, Ply, Centis, Replay, ErrorStr, Division }
+import _root_.chess.{
+  Color,
+  ByColor,
+  Status,
+  Speed,
+  Ply,
+  Centis,
+  Replay,
+  ErrorStr,
+  Division,
+  Game as ChessGame
+}
 import _root_.chess.format.Fen
 import _root_.chess.format.pgn.{ Pgn, PgnStr, SanStr, ParsedPgn, Tags }
 
@@ -87,13 +98,11 @@ trait Event:
   def troll: Boolean        = false
   def moveBy: Option[Color] = None
 
-type StatusText = (Status, Option[Color], Variant) => String
 trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
   def incBookmarks(id: GameId, by: Int): Funit
   def computeMoveTimes(g: Game, color: Color): Option[List[Centis]]
   def analysable(g: Game): Boolean
-  val statusText: StatusText
   def nbPlaying(userId: UserId): Fu[Int]
   def anonCookieJson(pov: lila.core.game.Pov): Option[JsObject]
 
@@ -149,20 +158,11 @@ trait Namer:
   def gameVsText(game: Game, withRatings: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
   def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
 
-case class ImportData(pgn: PgnStr, analyse: Option[String])
-case class ImportReady(game: NewGame, replay: Replay, initialFen: Option[Fen.Full], parsed: ParsedPgn)
-
 trait Explorer:
   def apply(id: GameId): Fu[Option[Game]]
 
 trait Divider:
   def apply(id: GameId, sans: => Vector[SanStr], variant: Variant, initialFen: Option[Fen.Full]): Division
-
-type ParseImport = (ImportData, Option[UserId]) => Either[ErrorStr, ImportReady]
-
-trait Importer:
-  val parseImport: ParseImport
-  def importAsGame(data: ImportData, forceId: Option[GameId] = none)(using Option[MyId]): Fu[Game]
 
 object PgnDump:
   case class WithFlags(

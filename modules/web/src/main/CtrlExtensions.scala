@@ -8,6 +8,7 @@ import lila.common.HTTPRequest
 import lila.core.i18n.Translate
 import lila.core.perf.UserWithPerfs
 import lila.core.config.BaseUrl
+import lila.ui.Context
 
 trait CtrlExtensions extends play.api.mvc.ControllerHelpers with ResponseHeaders:
 

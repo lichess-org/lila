@@ -5,7 +5,7 @@ import chess.{ Black, Clock, Color, Mode, Outcome, Ply, Status as S, White }
 import controllers.routes
 import play.api.i18n.Lang
 
-import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.web.ui.*
 import lila.core.LightUser
 import lila.game.{ Namer }
@@ -15,7 +15,12 @@ import lila.core.config.BaseUrl
 import lila.game.GameExt.drawReason
 
 trait GameHelper:
-  self: RouterHelper & I18nHelper & UserHelper & StringHelper & ChessgroundHelper =>
+  self: RouterHelper & UserHelper & ChessgroundHelper =>
+
+  val i18nHelper: lila.ui.I18nHelper
+  import i18nHelper.given
+  val stringHelper: lila.ui.StringHelper
+  import stringHelper.*
 
   def netBaseUrl: BaseUrl
   def cdnUrl(path: String): String
@@ -113,7 +118,7 @@ trait GameHelper:
   def gameVsText(game: Game, withRatings: Boolean = false): String =
     Namer.gameVsTextBlocking(game, withRatings)(using lightUser)
 
-  val berserkIconSpan = iconTag(lila.common.Icon.Berserk)
+  val berserkIconSpan = iconTag(lila.ui.Icon.Berserk)
 
   def playerLink(
       player: Player,

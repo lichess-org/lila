@@ -27,7 +27,9 @@ export async function startMonitor(mods: string[]) {
     if (reinitTimeout) return;
     stopTsc();
     clearTimeout(tscTimeout);
-    tscTimeout = setTimeout(() => reinitTimeout ?? tsc(), 2000);
+    tscTimeout = setTimeout(() => {
+      if (!reinitTimeout) tsc();
+    }, 2000);
   };
   const packageChange = async () => {
     if (env.rebuild) {

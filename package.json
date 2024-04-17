@@ -19,9 +19,8 @@
   "homepage": "https://lichess.org",
   "engines": {
     "node": ">=18",
-    "pnpm": "^9.0.1"
+    "pnpm": "^8.7.0"
   },
-  "packageManager": "pnpm@9.0.1+sha256.46d50ee2afecb42b185ebbd662dc7bdd52ef5be56bf035bb615cab81a75345df",
   "lint-staged": {
     "*.{js,ts,md,json,scss}": "prettier --write"
   },
@@ -50,6 +49,6 @@
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
     "multilog": "pnpm serverlog & ui/build -r",
-    "minilog": "pnpm journal | grep -E -v fishnet & ui/build -cdr"
+    "muxlog": "tmux new-session -d -s muxlog 'pnpm journal | grep -E -v fishnet & ui/build -cdr & wait; exec bash' \\; attach-session -t muxlog"
   }
 }

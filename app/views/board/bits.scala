@@ -4,7 +4,7 @@ import chess.format.{ BoardFen, Fen, Uci }
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 object bits:
 

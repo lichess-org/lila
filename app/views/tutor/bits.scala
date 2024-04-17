@@ -1,7 +1,7 @@
 package views.html.tutor
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.tutor.TutorNumber
 
 object bits:

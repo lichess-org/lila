@@ -6,64 +6,54 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.core.LightUser
-import lila.core.game.{ ParseImport, ImportData, ImportReady }
 import lila.tree.Node.{ Comment, Comments, Shapes }
-import lila.tree.{ Branch, Branches, Root }
-
-/* #TODO
- * We should not be using the game importer here, or the Game type.
- * We're importing a Chapter, not a Game.
- * Chapter should not depend on Game but only on scalachess.
- */
-final class StudyPgnImport(parseImport: ParseImport, statusText: lila.core.game.StatusText):
-
-  import StudyPgnImport.*
-
-  def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
-    parseImport(ImportData(pgn, analyse = none), none).map {
-      case ImportReady(game, replay, initialFen, parsedPgn) =>
-        val annotator = findAnnotator(parsedPgn, contributors)
-
-        val clock = parsedPgn.tags.clockConfig.map(_.limit)
-        parseComments(parsedPgn.initialPosition.comments, annotator) match
-          case (shapes, _, _, comments) =>
-            val root = Root(
-              ply = replay.setup.ply,
-              fen = initialFen | game.variant.initialFen,
-              check = replay.setup.situation.check,
-              shapes = shapes,
-              comments = comments,
-              glyphs = Glyphs.empty,
-              clock = clock,
-              crazyData = replay.setup.situation.board.crazyData,
-              children = parsedPgn.tree
-                .fold(Branches.empty)(makeBranches(Context(replay.setup, clock, clock), _, annotator))
-            )
-            val end: Option[End] = (game.finished
-              .option(game.status))
-              .map: status =>
-                val outcome = Outcome(game.winnerColor)
-                End(
-                  status = status,
-                  outcome = outcome,
-                  resultText = chess.Outcome.showResult(outcome.some),
-                  statusText = statusText(status, game.winnerColor, game.variant)
-                )
-            val commented =
-              if root.mainline.lastOption.so(_.isCommented) then root
-              else
-                end.map(endComment).fold(root) { comment =>
-                  root.updateMainlineLast { _.setComment(comment) }
-                }
-            Result(
-              root = commented,
-              variant = game.variant,
-              tags = PgnTags(parsedPgn.tags),
-              end = end
-            )
-    }
+import lila.tree.{ Branch, Branches, ImportResult, Root }
 
 object StudyPgnImport:
+
+  def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
+    lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsedPgn) =>
+      val annotator = findAnnotator(parsedPgn, contributors)
+
+      val clock = parsedPgn.tags.clockConfig.map(_.limit)
+      parseComments(parsedPgn.initialPosition.comments, annotator) match
+        case (shapes, _, _, comments) =>
+          val root = Root(
+            ply = replay.setup.ply,
+            fen = initialFen | game.board.variant.initialFen,
+            check = replay.setup.situation.check,
+            shapes = shapes,
+            comments = comments,
+            glyphs = Glyphs.empty,
+            clock = clock,
+            crazyData = replay.setup.board.crazyData,
+            children = parsedPgn.tree
+              .fold(Branches.empty)(makeBranches(Context(replay.setup, clock, clock), _, annotator))
+          )
+
+          val end = result.map: res =>
+            val outcome = Outcome(res.winner)
+            End(
+              status = res.status,
+              outcome = outcome,
+              resultText = chess.Outcome.showResult(outcome.some),
+              statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
+            )
+
+          val commented =
+            if root.mainline.lastOption.so(_.isCommented) then root
+            else
+              end.map(endComment).fold(root) { comment =>
+                root.updateMainlineLast { _.setComment(comment) }
+              }
+
+          Result(
+            root = commented,
+            variant = game.board.variant,
+            tags = PgnTags(parsedPgn.tags),
+            end = end
+          )
+    }
 
   case class Result(
       root: Root,
