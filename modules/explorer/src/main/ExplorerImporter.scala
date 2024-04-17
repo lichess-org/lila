@@ -6,7 +6,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 final class ExplorerImporter(
     endpoint: InternalEndpoint,
     gameRepo: lila.core.game.GameRepo,
-    gameImporter: lila.core.game.Importer,
+    gameImporter: lila.game.importer.Importer,
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor)
     extends lila.core.game.Explorer:
@@ -24,7 +24,7 @@ final class ExplorerImporter(
           game <- pgn.so: pgn =>
             gameImporter
               .importAsGame(
-                lila.core.game.ImportData(pgn, none),
+                pgn,
                 id.some
               )(using UserId.lichessAsMe.some)
               .map(some)

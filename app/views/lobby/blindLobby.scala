@@ -1,7 +1,7 @@
 package views.html.lobby
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 object blindLobby:
 

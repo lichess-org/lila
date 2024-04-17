@@ -47,6 +47,10 @@ body > header {
       z-index: z('site-header');
     }
 
+    &:hover {
+      z-index: z('site-header');
+    }
+
     .dropdown {
       opacity: 1;
       visibility: visible;

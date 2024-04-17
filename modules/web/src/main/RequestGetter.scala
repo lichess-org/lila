@@ -4,6 +4,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.Form.trueish
 import lila.common.HTTPRequest
+import lila.ui.Context
 
 trait RequestGetter:
 

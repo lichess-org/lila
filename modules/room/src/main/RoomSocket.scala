@@ -68,7 +68,7 @@ object RoomSocket:
           .TimeoutReason(reason)
           .foreach: r =>
             localTimeout
-              .so { _(roomId, modId, suspect) }
+              .so(_(roomId, modId, suspect))
               .foreach: local =>
                 val scope = if local then TimeoutScope.Local else TimeoutScope.Global
                 chat.timeout(

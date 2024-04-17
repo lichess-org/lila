@@ -5,8 +5,7 @@ import chess.variant
 import chess.{ Centis, Speed }
 import lila.core.i18n.{ I18nKey, Translate }
 
-import lila.common.Icon
-import lila.common.Icon
+import lila.ui.Icon
 import lila.core.perf.{ PerfId, PerfKeyStr }
 
 enum PerfType(

@@ -3,7 +3,7 @@ package views.html.simul
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 object home:
 

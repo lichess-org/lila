@@ -1,5 +1,4 @@
-package lila.web
-package ui
+package lila.ui
 
 import play.api.i18n.Lang
 
@@ -7,7 +6,12 @@ import java.text.NumberFormat
 import java.util.concurrent.ConcurrentHashMap
 import lila.core.i18n.Translate
 
-object NumberHelper:
+trait NumberHelper:
+  def showMillis(millis: Int)(using Translate): String
+  extension (e: Int) def localize(using Translate): String
+  extension (e: Long) def localize(using Translate): String
+
+object NumberHelper extends NumberHelper:
 
   private val formatters = new ConcurrentHashMap[String, NumberFormat]
 

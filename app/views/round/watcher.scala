@@ -4,7 +4,8 @@ package round
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.round.RoundGame.secondsSinceCreation
 
 object watcher:
 

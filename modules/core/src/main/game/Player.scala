@@ -26,14 +26,9 @@ case class Player(
     name: Option[PlayerName] = None
 ):
 
-  def playerUser =
+  def playerUser: Option[PlayerUser] =
     userId.flatMap: uid =>
       rating.map { PlayerUser(uid, _, ratingDiff) }
-
-  // TODO: almost same as playerUser
-  def userInfos: Option[UserInfo] =
-    (userId, rating).mapN: (id, ra) =>
-      UserInfo(id, ra, provisional)
 
   def isAi = aiLevel.isDefined
 

@@ -5,7 +5,7 @@ import controllers.appeal.routes.Appeal as appealRoutes
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
 import lila.report.Report.Inquiry
 

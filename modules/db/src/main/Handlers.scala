@@ -10,7 +10,6 @@ import lila.common.Iso.{ *, given }
 import lila.core.email.NormalizedEmailAddress
 import lila.core.net.IpAddress
 import lila.core.data.Percent
-import lila.common.Icon
 
 trait Handlers:
 
@@ -164,8 +163,6 @@ trait Handlers:
   )
 
   given BSONHandler[chess.Mode] = BSONBooleanHandler.as[chess.Mode](chess.Mode.apply, _.rated)
-
-  given BSONHandler[Icon] = BSONStringHandler.as[Icon](Icon(_), _.value)
 
   given perfKeyHandler: BSONHandler[PerfKey] =
     BSONStringHandler.as[PerfKey](key => PerfKey(key).err(s"Unknown perf key $key"), _.value)
