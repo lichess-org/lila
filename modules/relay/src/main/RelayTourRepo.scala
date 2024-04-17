@@ -58,5 +58,5 @@ private object RelayTourRepo:
     val inactive                = $doc("active" -> false)
     def ownerId(u: UserId)      = $doc("ownerId" -> u)
     def subscriberId(u: UserId) = $doc("subscribers" -> u)
-    val officialActive          = official ++ active ++ publicTour
-    val officialInactive        = official ++ inactive ++ publicTour
+    val officialActive          = officialPublic ++ active
+    val officialInactive        = officialPublic ++ inactive
