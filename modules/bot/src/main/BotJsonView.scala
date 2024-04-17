@@ -7,6 +7,7 @@ import lila.game.JsonView.given
 import lila.core.game.{ Game, GameRepo, Pov, WithInitialFen }
 import lila.core.i18n.Translate
 import lila.game.GameExt.perfType
+import chess.Color
 
 final class BotJsonView(
     lightUserApi: lila.core.user.LightUserApi,
@@ -34,8 +35,8 @@ final class BotJsonView(
         "perf"       -> Json.obj("name" -> game.perfType.trans),
         "rated"      -> game.rated,
         "createdAt"  -> game.createdAt,
-        "white"      -> playerJson(game.whitePov),
-        "black"      -> playerJson(game.blackPov),
+        "white"      -> playerJson(game.pov(Color.white)),
+        "black"      -> playerJson(game.pov(Color.black)),
         "initialFen" -> fen.fold("startpos")(_.value)
       )
       .add("clock" -> game.clock.map(_.config))
@@ -49,8 +50,8 @@ final class BotJsonView(
         .obj(
           "type"   -> "gameState",
           "moves"  -> uciMoves.mkString(" "),
-          "wtime"  -> game.whitePov.millisRemaining,
-          "btime"  -> game.blackPov.millisRemaining,
+          "wtime"  -> game.pov(Color.white).millisRemaining,
+          "btime"  -> game.pov(Color.white).millisRemaining,
           "winc"   -> (game.clock.so(_.config.increment.millis): Long),
           "binc"   -> (game.clock.so(_.config.increment.millis): Long),
           "status" -> game.status.name

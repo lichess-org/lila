@@ -11,6 +11,7 @@ import lila.common.HTTPRequest
 import lila.tournament.Tournament as Tour
 import lila.core.data.Preload
 import lila.core.id.{ GameFullId, GameAnyId }
+import lila.round.RoundGame.*
 
 final class Round(
     env: Env,

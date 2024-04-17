@@ -12,7 +12,7 @@ import _root_.chess.format.Fen
 
 case class ImportedGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
 
-  def withId(id: GameId): Game = sloppy.withId(id)
+  def withId(id: GameId): Game = sloppy.copy(id = id)
 
 def newImportedGame(
     chess: ChessGame,
@@ -26,11 +26,8 @@ def newImportedGame(
 
 // Wrapper around newly created games. We do not know if the id is unique, yet.
 case class NewGame(sloppy: Game):
-  def withId(id: GameId): Game = sloppy.withId(id)
+  def withId(id: GameId): Game = sloppy.copy(id = id)
   def start: NewGame           = NewGame(sloppy.start)
-
-  // Forward methods as needed, but do not expose the unchecked id.
-  export sloppy.{ variant, finished, winnerColor, outcome, status, history }
 
 def newGame(
     chess: ChessGame,

@@ -3,7 +3,6 @@ package lila.round
 import chess.format.Fen
 import chess.{ ByColor, Clock, Color, Speed }
 import play.api.libs.json.*
-
 import scala.math
 
 import lila.common.Json.given
@@ -12,12 +11,12 @@ import lila.core.LightUser
 import lila.game.JsonView.given
 import lila.core.game.{ Player as GamePlayer }
 import lila.pref.Pref
-
 import lila.core.user.{ GameUser, GameUsers }
 import lila.core.user.WithPerf
 import lila.core.net.ApiVersion
 import lila.core.perf.KeyedPerf
 import lila.game.GameExt.moveTimes
+import lila.round.RoundGame.*
 
 final class JsonView(
     lightUserGet: LightUser.Getter,
@@ -336,5 +335,8 @@ final class JsonView(
   private def animationMillis(pov: Pov, pref: Pref) =
     pref.animationMillis * {
       if pov.game.finished then 1
-      else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+      else math.max(0, math.min(1.2, ((estimateTotalTime(pov.game) - 60) / 60) * 0.2))
     }
+
+  private def estimateTotalTime(g: Game) =
+    g.clock.map(_.estimateTotalSeconds).orElse(g.correspondenceClock.map(_.estimateTotalTime)).getOrElse(1200)

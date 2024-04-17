@@ -9,6 +9,8 @@ import lila.core.data.Preload
 import lila.core.LightUser
 import lila.game.JsonView.given
 import lila.pref.Pref
+import lila.round.RoundGame.*
+import lila.game.GameExt.playerById
 
 object RoundMobile:
 
@@ -51,7 +53,7 @@ final class RoundMobile(
   private def forUseCase(game: Game, id: GameAnyId, use: UseCase): Fu[JsObject] =
     for
       initialFen <- gameRepo.initialFen(game)
-      myPlayer = id.playerId.flatMap(game.player(_))
+      myPlayer = id.playerId.flatMap(game.playerById)
       users        <- game.userIdPair.traverse(_.so(lightUserGet))
       prefs        <- prefApi.byId(game.userIdPair)
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))

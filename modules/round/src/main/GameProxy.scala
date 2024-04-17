@@ -5,6 +5,7 @@ import scala.util.Success
 import chess.Color
 
 import lila.game.{ GameRepo, Progress }
+import lila.game.GameExt.*
 
 // NOT thread safe
 final private class GameProxy(
@@ -47,7 +48,7 @@ final private class GameProxy(
     withGame(g => f(Pov(g, color)))
 
   def withPov[A](playerId: GamePlayerId)(f: Option[Pov] => Fu[A]): Fu[A] =
-    withGame(g => f(lila.game.Pov(g, playerId)))
+    withGame(g => f(g.playerIdPov(playerId)))
 
   def withGame[A](f: Game => Fu[A]): Fu[A] =
     cache.value match
