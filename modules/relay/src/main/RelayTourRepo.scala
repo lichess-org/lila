@@ -51,8 +51,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
 private object RelayTourRepo:
   object selectors:
     val official                = $doc("tier".$exists(true))
-    val publicRelay             = $doc("tier".$ne(6))
-    val privateRelay            = $doc("tier" -> 6)
+    val publicRelay             = $doc("tier".$ne(RelayTour.Tier.PRIVATE))
+    val privateRelay            = $doc("tier" -> RelayTour.Tier.PRIVATE)
     val active                  = $doc("active" -> true)
     val inactive                = $doc("active" -> false)
     def ownerId(u: UserId)      = $doc("ownerId" -> u)
