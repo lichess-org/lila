@@ -18,6 +18,7 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   private var lastModified: Instant = java.time.Instant.MIN
   private var maps: AssetMaps       = AssetMaps(Map.empty, Map.empty)
   private val filename              = s"manifest.${if net.minifiedAssets then "prod" else "dev"}.json"
+  private val logger                = lila.log("assetManifest")
 
   def js(key: String): Option[SplitAsset]    = maps.js.get(key)
   def css(key: String): Option[String]       = maps.css.get(key)
@@ -38,8 +39,8 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
           maps = readMaps(Json.parse(Files.newInputStream(pathname)))
           lastModified = current
       catch
-        case _: Throwable =>
-          lila.log("assetManifest").warn(s"Error reading $pathname")
+        case e: Throwable =>
+          logger.error(s"Error reading $pathname", e)
 
   update()
 
@@ -94,9 +95,9 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       .map:
         case res if res.status == 200 => res.body[JsValue].some
         case res =>
-          lila.log("assetManifest").error(s"${res.status} fetching $resource")
+          logger.error(s"${res.status} fetching $resource")
           none
       .recoverWith:
         case e: Exception =>
-          lila.log("assetManifest").error(s"fetching $resource", e)
+          logger.error(s"fetching $resource", e)
           fuccess(none)
