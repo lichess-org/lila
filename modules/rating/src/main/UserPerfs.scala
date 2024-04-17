@@ -62,7 +62,7 @@ object UserPerfsExt:
         .map(KeyedPerf.apply)
 
     def bestPerfs(nb: Int): List[KeyedPerf] =
-      val ps = lila.rating.PerfType.nonPuzzle.map: pt =>
+      val ps = PerfType.nonPuzzle.map: pt =>
         pt.key -> apply(pt)
       val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
       ps.filter(p => p._2.nb >= minNb).topN(nb).map(KeyedPerf.apply)

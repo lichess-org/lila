@@ -11,11 +11,11 @@ import lila.core.app.LangPath
 
 object signup:
 
-  def apply(form: lila.security.HcaptchaForm[?])(using ctx: PageContext) =
+  def apply(form: lila.core.security.HcaptchaForm[?])(using ctx: PageContext) =
     views.html.base.layout(
       title = trans.site.signUp.txt(),
       modules = jsModuleInit("bits.login", "signup"),
-      moreJs = frag(views.html.base.hcaptcha.script(form), fingerprintTag),
+      moreJs = frag(lila.web.views.hcaptcha.script(form), fingerprintTag),
       moreCss = cssTag("auth"),
       csp = defaultCsp.withHcaptcha.some,
       withHrefLangs = LangPath(routes.Auth.signup).some
@@ -50,7 +50,7 @@ object signup:
             )
           ),
           agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
-          views.html.base.hcaptcha.tag(form),
+          lila.web.views.hcaptcha.tag(form),
           button(cls := "submit button text big")(trans.site.signUp())
         )
       )

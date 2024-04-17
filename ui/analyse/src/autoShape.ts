@@ -148,7 +148,7 @@ function hiliteVariations(ctrl: AnalyseCtrl, autoShapes: DrawShape[]) {
     if (existing) {
       if (i === ctrl.fork.selected()) {
         existing.brush = brush;
-        existing.modifiers ??= {};
+        if (!existing.modifiers) existing.modifiers = {};
         existing.modifiers.hilite = true;
       }
     } else if (!userShape) {

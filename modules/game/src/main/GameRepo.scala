@@ -60,9 +60,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     game(gameId).dmap2 { _.player(color) }
 
   def player(gameId: GameId, playerId: GamePlayerId): Fu[Option[Player]] =
-    game(gameId).dmap { gameOption =>
-      gameOption.flatMap { _.player(playerId) }
-    }
+    game(gameId).dmap: gameOption =>
+      gameOption.flatMap(_.playerById(playerId))
 
   def player(playerRef: PlayerRef): Fu[Option[Player]] =
     player(playerRef.gameId, playerRef.playerId)
@@ -152,11 +151,19 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       selector: Bdoc,
       sort: Bdoc,
       batchSize: Int = 0,
-      hint: Option[Bdoc] = none,
-      readPref: ReadPref = _.priTemp
+      hint: Option[Bdoc] = none
   ): AkkaStreamCursor[Game] =
     val query = coll.find(selector).sort(sort).batchSize(batchSize)
-    hint.map(coll.hint).foldLeft(query)(_ hint _).cursor[Game](readPref)
+    hint.map(coll.hint).foldLeft(query)(_ hint _).cursor[Game](ReadPref.priTemp)
+
+  def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game] =
+    sortedCursor(
+      Query.user(user.id) ++
+        Query.finished ++
+        Query.turnsGt(2) ++
+        Query.variant(lila.rating.PerfType.variantOf(pk)),
+      Query.sortChronological
+    )
 
   def byIdsCursor(ids: Iterable[GameId]): Cursor[Game] = coll.find($inIds(ids)).cursor[Game]()
 
@@ -206,20 +213,18 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       _.flatMap { Pov(_, user) }
     }
 
-  def countWhereUserTurn(userId: UserId): Fu[Int] =
-    coll
-      .countSel(
-        // important, hits the index!
-        Query.nowPlaying(userId) ++ $doc(
-          "$or" ->
-            List(0, 1).map: rem =>
-              $doc(
-                s"${F.playingUids}.$rem" -> userId,
-                F.turns                  -> $doc("$mod" -> $arr(2, rem))
-              )
-        )
+  def countWhereUserTurn(userId: UserId): Fu[Int] = coll
+    .countSel(
+      // important, hits the index!
+      Query.nowPlaying(userId) ++ $doc(
+        "$or" ->
+          List(0, 1).map: rem =>
+            $doc(
+              s"${F.playingUids}.$rem" -> userId,
+              F.turns                  -> $doc("$mod" -> $arr(2, rem))
+            )
       )
-      .dmap(_.toInt)
+    )
 
   def playingRealtimeNoAi(user: User): Fu[List[GameId]] =
     coll.distinctEasy[GameId, List](

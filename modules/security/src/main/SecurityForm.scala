@@ -46,11 +46,11 @@ final class SecurityForm(
       .bindFromRequest()
       .fold(_ => funit, emailValidator.preloadDns)
 
-  object signup:
+  object signup extends lila.core.security.SignupForm:
 
-    val emailField = fullyValidEmail(using none)
+    val emailField: Mapping[EmailAddress] = fullyValidEmail(using none)
 
-    val username = LilaForm.cleanNonEmptyText
+    val username: Mapping[UserName] = LilaForm.cleanNonEmptyText
       .verifying(
         Constraints.minLength(2),
         Constraints.maxLength(20),

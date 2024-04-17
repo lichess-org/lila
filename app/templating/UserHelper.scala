@@ -21,7 +21,6 @@ import lila.ui.*
 import lila.web.ui.*
 
 trait UserHelper:
-  self: AssetHelper =>
 
   val numberHelper: NumberHelper
   import numberHelper.*
@@ -30,6 +29,7 @@ trait UserHelper:
   val dateHelper: DateHelper
   val stringHelper: StringHelper
   import stringHelper.*
+  def assetHelper: AssetHelper
 
   def env: Env
   given Conversion[UserWithPerfs, User] = _.user
@@ -259,7 +259,7 @@ trait UserHelper:
 
   def userFlair(user: User): Option[Tag] = user.flair.map(userFlair)
 
-  def userFlair(flair: Flair): Tag = img(cls := "uflair", src := flairSrc(flair))
+  def userFlair(flair: Flair): Tag = img(cls := "uflair", src := assetHelper.flairSrc(flair))
 
   private def renderRating(perf: Perf): Frag =
     frag(" (", perf.intRating, perf.provisional.yes.option("?"), ")")

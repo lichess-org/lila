@@ -21,7 +21,6 @@ trait ScalatagsAttrs:
   val dataRel                = attr("data-rel")
   val dataTitle              = attr("data-title")
   val novalidate             = attr("novalidate").empty
-  val datetimeAttr           = attr("datetime")
   val dataBotAttr            = attr("data-bot").empty
   val dataUser               = attr("data-user")
   val deferAttr              = attr("defer").empty
@@ -67,19 +66,17 @@ trait ScalatagsSnippets:
 
   def rawHtml(html: Html) = raw(html.value)
 
-  def userTitleTag(t: PlayerTitle) =
-    span(
-      cls := "utitle",
-      (t == PlayerTitle.BOT).option(dataBotAttr),
-      title := PlayerTitle.titleName(t)
-    )(t)
+  def userTitleTag(t: PlayerTitle) = span(
+    cls := "utitle",
+    (t == PlayerTitle.BOT).option(dataBotAttr),
+    title := PlayerTitle.titleName(t)
+  )(t)
 
-  val utcLink =
-    a(
-      href := "https://time.is/UTC",
-      targetBlank,
-      title := "Coordinated Universal Time"
-    )("UTC")
+  val utcLink = a(
+    href := "https://time.is/UTC",
+    targetBlank,
+    title := "Coordinated Universal Time"
+  )("UTC")
 
 // basic imports from scalatags
 trait ScalatagsBundle extends Attrs with scalatags.text.Tags
@@ -87,14 +84,13 @@ trait ScalatagsBundle extends Attrs with scalatags.text.Tags
 // short prefix
 trait ScalatagsPrefix:
   object st extends Cap with Attrs with scalatags.text.Tags:
-    val group     = tag("group")
-    val headTitle = tag("title")
-    val nav       = tag("nav")
-    val section   = tag("section")
-    val article   = tag("article")
-    val aside     = tag("aside")
-    val rating    = tag("rating")
-
+    val group       = tag("group")
+    val headTitle   = tag("title")
+    val nav         = tag("nav")
+    val section     = tag("section")
+    val article     = tag("article")
+    val aside       = tag("aside")
+    val rating      = tag("rating")
     val frameborder = attr("frameborder")
 
 // what to import in a scalatags template
@@ -117,6 +113,8 @@ object ScalatagsTemplate extends ScalatagsTemplate
 
 // generic extensions
 trait ScalatagsExtensions:
+
+  export Context.ctxMe
 
   given Render[Icon] = _.value
 

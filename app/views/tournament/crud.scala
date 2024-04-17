@@ -134,7 +134,7 @@ object crud:
             )
           ),
           tbody(cls := "infinite-scroll")(
-            tours.currentPageResults.map { tour =>
+            tours.currentPageResults.map: tour =>
               tr(cls := "paginated")(
                 td(
                   a(href := routes.TournamentCrud.edit(tour.id))(
@@ -148,8 +148,7 @@ object crud:
                 td(tour.minutes, "m"),
                 td(showInstant(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
                 td(a(href := routes.Tournament.show(tour.id), dataIcon := Icon.Eye, title := "View on site"))
-              )
-            },
+              ),
             pagerNextTable(tours, routes.TournamentCrud.index(_).url)
           )
         )

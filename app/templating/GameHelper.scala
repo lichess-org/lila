@@ -15,7 +15,7 @@ import lila.core.config.BaseUrl
 import lila.game.GameExt.drawReason
 
 trait GameHelper:
-  self: RouterHelper & UserHelper & ChessgroundHelper =>
+  self: RouterHelper & UserHelper =>
 
   val i18nHelper: lila.ui.I18nHelper
   import i18nHelper.given
@@ -130,7 +130,7 @@ trait GameHelper:
       withBerserk: Boolean = false,
       mod: Boolean = false,
       link: Boolean = true
-  )(using ctx: Context): Frag =
+  )(using ctx: lila.ui.Context): Frag =
     val statusIcon = (withBerserk && player.berserk).option(berserkIconSpan)
     player.userId.flatMap(lightUser) match
       case None =>

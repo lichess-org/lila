@@ -12,6 +12,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 import bits.dataPanel
 import lila.game.GameExt.analysable
+import lila.round.RoundGame.secondsSinceCreation
 
 object replay:
 

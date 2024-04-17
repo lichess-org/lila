@@ -30,7 +30,7 @@ object search:
         a(cls := "opening__search__result", href := bits.queryUrl(r.query))(
           span(cls := "opening__search__result__title")(splitName(r.opening)),
           span(cls := "opening__search__result__board")(
-            views.html.board.bits.mini(r.opening.fen.board, lastMove = r.opening.lastUci)(span)
+            chessgroundMini(r.opening.fen.board, lastMove = r.opening.lastUci)(span)
           )
         )
       }

@@ -46,5 +46,5 @@ final class StringHelper(i18n: I18nHelper, number: NumberHelper):
           frag(first :: rest.map { frag(separator, _) }).render
 
   extension (e: String)
-    def active(other: String, one: String = "active")  = if e == other then one else ""
-    def activeO(other: String, one: String = "active") = (e == other).option(one)
+    def active(other: String)  = if e == other then "active" else ""
+    def activeO(other: String) = Option.when(e == other)("active")

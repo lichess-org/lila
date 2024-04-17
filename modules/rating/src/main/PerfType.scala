@@ -178,10 +178,6 @@ object PerfType:
 
   def read(key: PerfKeyStr): Option[PerfType] = PerfKey.read(key).map(apply)
 
-  val default = Standard
-
-  def id2key(id: PerfId): Option[PerfKey] = byId.get(id).map(_.key)
-
   val nonPuzzle: List[PerfType] = all.filter(_ != Puzzle)
 
   val standard: List[PerfKey] =

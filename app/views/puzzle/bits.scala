@@ -15,7 +15,7 @@ import lila.core.i18n.I18nKey
 object bits:
 
   def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
-    views.html.board.bits.mini(fen, p.color, lastMove.some)(span)
+    chessgroundMini(fen, p.color, lastMove.some)(span)
 
   def jsI18n(streak: Boolean)(using Translate) =
     if streak then i18nJsObject(streakI18nKeys)

@@ -52,20 +52,27 @@ object RelayTour:
 
   type Tier = Int
   object Tier:
-    val NORMAL = 3
-    val HIGH   = 4
-    val BEST   = 5
+    val PRIVATE = -1
+    val NORMAL  = 3
+    val HIGH    = 4
+    val BEST    = 5
 
     val options = List(
-      ""              -> "Non official",
-      NORMAL.toString -> "Official: normal tier",
-      HIGH.toString   -> "Official: high tier",
-      BEST.toString   -> "Official: best tier"
+      ""               -> "Non official",
+      NORMAL.toString  -> "Official: normal tier",
+      HIGH.toString    -> "Official: high tier",
+      BEST.toString    -> "Official: best tier",
+      PRIVATE.toString -> "Official: Private"
     )
     def name(tier: Tier) = options.collectFirst {
       case (t, n) if t == tier.toString => n
     } | "???"
-    val keys: Map[Tier, String] = Map(NORMAL -> "normal", HIGH -> "high", BEST -> "best")
+    val keys: Map[Tier, String] = Map(
+      NORMAL  -> "normal",
+      HIGH    -> "high",
+      BEST    -> "best",
+      PRIVATE -> "private"
+    )
     type Selector = RelayTour.Tier.type => RelayTour.Tier
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):

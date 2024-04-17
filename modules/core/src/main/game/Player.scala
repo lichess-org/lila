@@ -25,35 +25,11 @@ case class Player(
     blindfold: Boolean = false,
     name: Option[PlayerName] = None
 ):
-
-  def playerUser =
-    userId.flatMap: uid =>
-      rating.map { PlayerUser(uid, _, ratingDiff) }
-
-  // TODO: almost same as playerUser
-  def userInfos: Option[UserInfo] =
-    (userId, rating).mapN: (id, ra) =>
-      UserInfo(id, ra, provisional)
-
   def isAi = aiLevel.isDefined
-
-  def isHuman = !isAi
 
   def hasUser = userId.isDefined
 
   def isUser[U: UserIdOf](u: U) = userId.has(u.id)
-
-  def wins = isWinner | false
-
-  def goBerserk = copy(berserk = true)
-
-  def finish(winner: Boolean) = copy(isWinner = winner.option(true))
-
-  def offerDraw = copy(isOfferingDraw = true)
-
-  def removeDrawOffer = copy(isOfferingDraw = false)
-
-  def proposeTakeback(ply: Ply) = copy(proposeTakebackAt = ply)
 
   def removeTakebackProposition = copy(proposeTakebackAt = Ply.initial)
 
@@ -81,3 +57,4 @@ trait NewPlayer:
   def apply(color: Color, user: Option[WithPerf]): Player
   def apply(color: Color, userId: UserId, rating: IntRating, provisional: RatingProvisional): Player
   def apply(color: Color, userPerf: (UserId, Perf)): Player
+  def anon(color: Color, aiLevel: Option[Int] = None): Player

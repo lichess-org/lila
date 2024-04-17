@@ -31,5 +31,5 @@ final class Irwin(env: Env) extends LilaController(env):
   def kaladin = Secure(_.MarkEngine) { ctx ?=> _ ?=>
     Ok.pageAsync:
       env.irwin.kaladinApi.dashboard.map:
-        views.html.kaladin.dashboard
+        views.html.irwin.kaladinDashboard
   }

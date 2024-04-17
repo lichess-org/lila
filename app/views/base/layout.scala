@@ -277,7 +277,6 @@ object layout:
       withHrefLangs: Option[LangPath] = None
   )(body: Frag)(using ctx: PageContext): Frag =
     import ctx.pref
-    updateManifest()
     frag(
       doctype,
       htmlTag(
@@ -347,8 +346,9 @@ object layout:
             )
           },
           dataDev,
-          dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req)).option(vapidPublicKey),
-          dataUser  := ctx.userId,
+          dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
+            .option(env.push.vapidPublicKey),
+          dataUser     := ctx.userId,
           dataSoundSet := pref.currentSoundSet.toString,
           dataSocketDomains,
           pref.isUsingAltSocket.option(dataSocketAlts),
@@ -530,7 +530,7 @@ object layout:
         _ =>
           val qty  = lila.i18n.JsQuantity(t.lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
-          "window.site??={};" +
+          "if (!window.site) window.site={};" +
             """window.site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
             s"window.site.quantity=$qty;" +
             s"window.site.siteI18n=$i18n;"

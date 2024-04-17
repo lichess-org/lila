@@ -98,10 +98,10 @@ object show:
               div(cls := "list")(
                 profile.youtubeUrls.map { url =>
                   iframe(
-                    widthA              := "256",
-                    heightA             := "192",
-                    src                 := url.value,
-                    attr("frameborder") := "0",
+                    widthA         := "256",
+                    heightA        := "192",
+                    src            := url.value,
+                    st.frameborder := "0",
                     frame.credentialless,
                     frame.allowfullscreen
                   )

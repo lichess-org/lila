@@ -69,7 +69,13 @@ final class LilaComponents(
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
 
-  val httpFilters = Seq(lila.web.HttpFilter(env.web, env.net, lila.security.Mobile.LichessMobileUa.parse))
+  val httpFilters = Seq(
+    lila.web.HttpFilter(
+      env.net,
+      env.web.settings.sitewideCoepCredentiallessHeader.get,
+      lila.security.Mobile.LichessMobileUa.parse
+    )
+  )
 
   override lazy val httpErrorHandler =
     lila.app.http.ErrorHandler(
