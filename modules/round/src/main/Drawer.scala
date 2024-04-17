@@ -65,18 +65,16 @@ final private[round] class Drawer(
         proxy
           .save {
             messenger.system(g, trans.site.drawOfferCanceled.txt())
-            Progress(g).map { g =>
-              g.updatePlayer(color, _.removeDrawOffer)
-            }
+            Progress(g).map: g =>
+              g.updatePlayer(color, _.copy(isOfferingDraw = false))
           }
           .inject(List(Event.DrawOffer(by = none)))
       case Pov(g, color) if pov.opponent.isOfferingDraw =>
         proxy
           .save {
             messenger.system(g, color.fold(trans.site.whiteDeclinesDraw, trans.site.blackDeclinesDraw).txt())
-            Progress(g).map { g =>
-              g.updatePlayer(!color, _.removeDrawOffer)
-            }
+            Progress(g).map: g =>
+              g.updatePlayer(!color, _.copy(isOfferingDraw = false))
           }
           .inject(List(Event.DrawOffer(by = none)))
       case _ => fuccess(List(Event.ReloadOwner))

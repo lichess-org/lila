@@ -103,7 +103,7 @@ object GameExt:
                 g.clockHistory.map: history =>
                   if history(color).isEmpty then history
                   else history.reset(color).record(color, newClock)
-            ).updatePlayer(color, _.goBerserk)
+            ).updatePlayer(color, _.copy(berserk = true))
           ) ++
             List(
               Event.ClockInc(color, -c.config.berserkPenalty, newClock),
@@ -183,7 +183,8 @@ object GameExt:
     def finish(status: Status, winner: Option[Color]): Game =
       g.copy(
         status = status,
-        players = winner.fold(g.players)(c => g.players.update(c, _.finish(true))),
+        players = winner.fold(g.players): c =>
+          g.players.update(c, _.copy(isWinner = true.some)),
         chess = g.chess.copy(clock = g.clock.map(_.stop)),
         loadClockHistory = clk =>
           g.clockHistory.map: history =>
