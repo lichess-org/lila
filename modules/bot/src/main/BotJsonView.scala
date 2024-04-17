@@ -7,6 +7,7 @@ import lila.game.JsonView.given
 import lila.core.game.{ Game, GameRepo, Pov, WithInitialFen }
 import lila.core.i18n.Translate
 import lila.game.GameExt.perfType
+import chess.Color
 
 final class BotJsonView(
     lightUserApi: lila.core.user.LightUserApi,
@@ -34,8 +35,8 @@ final class BotJsonView(
         "perf"       -> Json.obj("name" -> game.perfType.trans),
         "rated"      -> game.rated,
         "createdAt"  -> game.createdAt,
-        "white"      -> playerJson(game.whitePov),
-        "black"      -> playerJson(game.blackPov),
+        "white"      -> playerJson(game.pov(Color.white)),
+        "black"      -> playerJson(game.pov(Color.black)),
         "initialFen" -> fen.fold("startpos")(_.value)
       )
       .add("clock" -> game.clock.map(_.config))
@@ -49,8 +50,8 @@ final class BotJsonView(
         .obj(
           "type"   -> "gameState",
           "moves"  -> uciMoves.mkString(" "),
-          "wtime"  -> game.whitePov.millisRemaining,
-          "btime"  -> game.blackPov.millisRemaining,
+          "wtime"  -> millisRemaining(game, Color.white),
+          "btime"  -> millisRemaining(game, Color.black),
           "winc"   -> (game.clock.so(_.config.increment.millis): Long),
           "binc"   -> (game.clock.so(_.config.increment.millis): Long),
           "status" -> game.status.name
@@ -62,6 +63,12 @@ final class BotJsonView(
         .add("winner" -> game.winnerColor)
         .add("rematch" -> rematches.getAcceptedId(game.id))
     }
+
+  private def millisRemaining(game: Game, color: Color): Int =
+    game.clock
+      .map(_.remainingTime(color).millis.toInt)
+      .orElse(game.correspondenceClock.map(_.remainingTime(color).toInt * 1000))
+      .getOrElse(Int.MaxValue)
 
   def chatLine(username: UserName, text: String, player: Boolean) =
     Json.obj(

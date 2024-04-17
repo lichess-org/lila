@@ -9,7 +9,6 @@ import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
 
 final private class ExplorerGame(
-    gameToRoot: GameToRoot,
     explorer: lila.core.game.Explorer,
     namer: lila.core.game.Namer,
     lightUserApi: lila.core.user.LightUserApi,
@@ -26,7 +25,7 @@ final private class ExplorerGame(
     else
       explorer(gameId).mapz: game =>
         position.node.so: fromNode =>
-          gameToRoot(game, none, withClocks = false)
+          GameToRoot(game, none, withClocks = false)
             .pipe: root =>
               root.setCommentAt(
                 comment = gameComment(game),

@@ -85,7 +85,7 @@ final class PerfStatApi(
     // from 600 to 2800 by Stat.group
     private def compute(perfId: PerfId): Fu[List[NbUsers]] =
       PerfType(perfId)
-        .exists(lila.rating.PerfType.leaderboardable.contains)
+        .exists(lila.rating.PerfType.isLeaderboardable(_))
         .so:
           import lila.db.dsl.{ *, given }
           rankingRepo

@@ -6,7 +6,6 @@ import lila.core.data.Preload
 import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
 import lila.core.round.ClientError
-import lila.game.GameExt.correspondenceGiveTime
 import lila.game.GameExt.withClock
 
 final class Moretimer(
@@ -28,12 +27,14 @@ final class Moretimer(
           else
             pov.game.hasCorrespondenceClock.option:
               messenger.volatile(pov.game, s"${!pov.color} gets more time")
-              val p = pov.game.correspondenceGiveTime
+              val p = correspondenceGiveTime(pov.game)
               p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
 
   def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]]): Fu[Boolean] =
     (game.canTakebackOrAddTime && game.playable && !game.metadata.hasRule(_.noGiveTime))
       .so(isAllowedByPrefs(game, prefs))
+
+  private def correspondenceGiveTime(g: Game) = Progress(g, g.copy(movedAt = nowInstant))
 
   private[round] def give(game: Game, colors: List[Color], unchecked: FiniteDuration): Progress =
     game.clock.fold(Progress(game)): clock =>

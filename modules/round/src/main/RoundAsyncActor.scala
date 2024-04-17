@@ -3,7 +3,6 @@ package lila.round
 import alleycats.Zero
 import chess.{ Black, Centis, Color, White }
 import play.api.libs.json.*
-
 import scala.util.chaining.*
 
 import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
@@ -12,11 +11,8 @@ import lila.core.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
 import lila.core.user.FlairGet
-import lila.game.GameExt.goBerserk
-import lila.game.GameExt.setBlindfold
-import lila.game.GameExt.abandoned
-import lila.game.GameExt.withClock
-import lila.game.GameExt.startClock
+import lila.game.GameExt.*
+import lila.round.RoundGame.*
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,

@@ -302,7 +302,7 @@ object Event:
     def typ  = "cclock"
     def data = Json.obj("white" -> white, "black" -> black)
   object CorrespondenceClock:
-    def apply(clock: lila.core.game.CorrespondenceClock): CorrespondenceClock =
+    def apply(clock: chess.CorrespondenceClock): CorrespondenceClock =
       CorrespondenceClock(clock.whiteTime, clock.blackTime)
 
   case class CheckCount(white: Int, black: Int) extends Event:

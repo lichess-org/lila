@@ -23,12 +23,13 @@ export async function startMonitor(mods: string[]) {
   if (!env.watch) return;
   const typePkgs = await globArray('*/package.json', { cwd: env.typesDir, abs: true });
   const typings = await globArray('*/*.d.ts', { cwd: env.typesDir, abs: true });
-
   const tscChange = (t: any) => {
     if (reinitTimeout) return;
     stopTsc();
     clearTimeout(tscTimeout);
-    tscTimeout = setTimeout(() => reinitTimeout ?? tsc(), 2000);
+    tscTimeout = setTimeout(() => {
+      if (!reinitTimeout) tsc();
+    }, 2000);
   };
   const packageChange = async () => {
     if (env.rebuild) {
