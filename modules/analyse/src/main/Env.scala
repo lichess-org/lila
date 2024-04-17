@@ -20,7 +20,7 @@ final class Env(
 
   lazy val analyser = wire[Analyser]
 
-  lazy val annotator = Annotator(gameApi.statusText, net.domain)
+  lazy val annotator = Annotator(net.domain)
 
   lazy val externalEngine = ExternalEngineApi(db(CollName("external_engine")), cacheApi)
 

@@ -13,8 +13,7 @@ class AnnotatorTest extends munit.FunSuite:
 
   given Executor = scala.concurrent.ExecutionContextOpportunistic
 
-  val statusText: lila.core.game.StatusText = (_, _, _) => ""
-  val annotator                             = Annotator(statusText, NetDomain("l.org"))
+  val annotator = Annotator(NetDomain("l.org"))
   def makeGame(g: chess.Game) =
     lila.core.game
       .newGame(

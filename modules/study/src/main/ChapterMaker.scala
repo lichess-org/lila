@@ -18,7 +18,6 @@ final private class ChapterMaker(
     pgnFetch: PgnFetch,
     pgnDump: lila.core.game.PgnDump,
     namer: lila.core.game.Namer,
-    pgnImport: StudyPgnImport,
     gameToRoot: GameToRoot
 )(using Executor, Translator):
 
@@ -47,7 +46,7 @@ final private class ChapterMaker(
   private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     for
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- pgnImport(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
+      parsed <- StudyPgnImport(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
         fufail(ValidationException(e.getMessage))
       }
     yield Chapter.make(
@@ -184,7 +183,7 @@ final private class ChapterMaker(
         fuccess(fen.some)
       .map: goodFen =>
         val fromGame = gameToRoot(game, goodFen, withClocks = true)
-        pgnOpt.flatMap(pgnImport(_, Nil).toOption.map(_.root)) match
+        pgnOpt.flatMap(StudyPgnImport(_, Nil).toOption.map(_.root)) match
           case Some(r) => fromGame.merge(r)
           case None    => fromGame
 

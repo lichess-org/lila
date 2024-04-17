@@ -1,6 +1,6 @@
 package lila.study
 
-import StudyArbitraries.{ *, given }
+import scala.language.implicitConversions
 import chess.CoreArbitraries.given
 import org.scalacheck.Prop.{ forAll, propBoolean }
 import monocle.syntax.all.*
@@ -9,19 +9,16 @@ import chess.MoveOrDrop.*
 import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 
-import lila.core.game.{ ImportData, ImportReady }
 import lila.tree.Node.{ Comment, Comments, Shapes }
-
-import scala.language.implicitConversions
-
 import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
-import BSONHandlers.given
+import lila.study.BSONHandlers.given
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.Bdoc
+import lila.study.StudyArbitraries.{ *, given }
 
 // in lila.study to have access to PgnImport
-class BsonHandlersTest extends munit.ScalaCheckSuite:
+class BsonHandlersTest extends munit.FunSuite:
 
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
@@ -31,65 +28,32 @@ class BsonHandlersTest extends munit.ScalaCheckSuite:
 
   val treeBson    = summon[BSON[Root]]
   val newTreeBson = summon[BSON[NewRoot]]
+  val w           = new Writer
 
-  val w = new Writer
-
-  test("Tree writes.reads == identity".ignore):
+  test("Tree writes.reads == identity"):
     PgnFixtures.all.foreach: pgn =>
-      val x = importerStub(pgn, Nil).toOption.get.root
+      val x = StudyPgnImport(pgn, Nil).toOption.get.root
       val y = treeBson.reads(treeBson.writes(w, x))
       assertEquals(x, y)
 
-  test("NewTree writes.reads == identity".ignore):
+  test("NewTree writes.reads == identity"):
     PgnFixtures.all.foreach: pgn =>
-      val x = newImporterStub(pgn, Nil).toOption.get.root
+      val x = StudyPgnImportNew(pgn, Nil).toOption.get.root
       val y = newTreeBson.reads(newTreeBson.writes(w, x))
       assertEquals(x, y)
 
-  test("NewTree.reads.Tree.writes == identity".ignore):
+  test("NewTree.reads.Tree.writes == identity"):
     PgnFixtures.all.foreach: pgn =>
-      val x       = importerStub(pgn, Nil).toOption.get.root
+      val x       = StudyPgnImport(pgn, Nil).toOption.get.root
       val bdoc    = treeBson.writes(w, x)
       val y       = newTreeBson.reads(bdoc)
       val oldRoot = x.toNewRoot
       assertEquals(oldRoot.cleanup, y.cleanup)
 
-  test("Tree.reads.NewTree.writes == identity".ignore):
+  test("Tree.reads.NewTree.writes == identity"):
     PgnFixtures.all.foreach: pgn =>
-      val x       = newImporterStub(pgn, Nil).toOption.get.root
+      val x       = StudyPgnImportNew(pgn, Nil).toOption.get.root
       val bdoc    = newTreeBson.writes(w, x)
       val y       = treeBson.reads(bdoc)
       val oldRoot = y.toNewRoot
       assertEquals(oldRoot.cleanup, x.cleanup)
-
-  test("Tree.writes.Tree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val root = x.toRoot
-      val bdoc = treeBson.writes(w, root)
-      val y    = treeBson.reads(bdoc)
-      assertEquals(y, root)
-
-  test("NewTree.writes.Tree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val bdoc = newTreeBson.writes(w, x)
-      val y    = treeBson.reads(bdoc).toNewRoot
-      assertEquals(y, x)
-
-  test("Tree.writes.NewTree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val bdoc = treeBson.writes(w, x.toRoot)
-      val y    = newTreeBson.reads(bdoc)
-      assertEquals(y, x)
-
-  test("NewTree.writes.NewTree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val bdoc = newTreeBson.writes(w, x)
-      val y    = newTreeBson.reads(bdoc)
-      assertEquals(y, x)
-
-  test("Tree.writes.Tree.reads == identity"):
-    forAll: (x: NewRoot) =>
-      val root = x.toRoot
-      val bdoc = treeBson.writes(w, root)
-      val y    = treeBson.reads(bdoc)
-      assertEquals(y, root)
