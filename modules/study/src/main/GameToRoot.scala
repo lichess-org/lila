@@ -6,7 +6,7 @@ import chess.format.Fen
 import lila.tree.Node.Comment
 import lila.tree.{ ExportOptions, TreeBuilder, Root }
 
-private final class GameToRoot:
+object GameToRoot:
 
   def apply(game: Game, initialFen: Option[Fen.Full], withClocks: Boolean): Root =
     val root = TreeBuilder(
