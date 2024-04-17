@@ -81,8 +81,8 @@ final class RelayApi(
     }
 
   object countOwnedByUser:
-    private val cache = cacheApi[UserId, Int](32_768, "relay.nb.owned"):
-      _.expireAfterWrite(5.minutes).buildAsyncFuture(tourRepo.countByOwner)
+    private val cache = cacheApi[UserId, Int](16_384, "relay.nb.owned"):
+      _.expireAfterWrite(5.minutes).buildAsyncFuture(tourRepo.countByOwner(_, false))
     export cache.get
 
   def isOfficial(id: StudyId): Fu[Boolean] =

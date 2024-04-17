@@ -3,7 +3,7 @@ package lila.relay
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanText, formatter, into }
+import lila.common.Form.{ cleanText, formatter, into, numberIn }
 import lila.core.perm.Granter
 
 import lila.core.i18n.I18nKey.streamer
@@ -22,7 +22,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
       "description"     -> cleanText(minLength = 3, maxLength = 400),
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
-      "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
+      "tier"            -> optional(numberIn(RelayTour.Tier.keys.keySet)),
       "autoLeaderboard" -> boolean,
       "teamTable"       -> boolean,
       "players" -> optional(
