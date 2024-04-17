@@ -17,8 +17,7 @@ final private class ChapterMaker(
     gameRepo: lila.core.game.GameRepo,
     pgnFetch: PgnFetch,
     pgnDump: lila.core.game.PgnDump,
-    namer: lila.core.game.Namer,
-    gameToRoot: GameToRoot
+    namer: lila.core.game.Namer
 )(using Executor, Translator):
 
   import ChapterMaker.*
@@ -182,7 +181,7 @@ final private class ChapterMaker(
       .fold(gameRepo.initialFen(game)): fen =>
         fuccess(fen.some)
       .map: goodFen =>
-        val fromGame = gameToRoot(game, goodFen, withClocks = true)
+        val fromGame = GameToRoot(game, goodFen, withClocks = true)
         pgnOpt.flatMap(StudyPgnImport(_, Nil).toOption.map(_.root)) match
           case Some(r) => fromGame.merge(r)
           case None    => fromGame
