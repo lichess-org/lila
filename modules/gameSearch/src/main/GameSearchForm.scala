@@ -3,7 +3,6 @@ package lila.gameSearch
 import chess.Mode
 import play.api.data.*
 import play.api.data.Forms.*
-
 import java.time.LocalDate
 
 import lila.common.Form.*
@@ -23,7 +22,7 @@ final private[gameSearch] class GameSearchForm:
         "black"  -> optional(username.historicalField)
       )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
-      "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id.value))),
+      "perf"        -> optional(numberIn((PerfKey.all - PerfKey.puzzle).map(_.id.value))),
       "source"      -> optional(numberIn(Query.sources)),
       "mode"        -> optional(numberIn(Query.modes)),
       "turnsMin"    -> optional(numberIn(Query.turns)),

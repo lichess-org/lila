@@ -6,6 +6,9 @@ import play.api.mvc.RequestHeader
 import lila.core.user.{ User, UserEnabled }
 import lila.core.net.IpAddress
 import lila.core.userId.UserId
+import play.api.data.{ Form, Mapping }
+import lila.core.email.EmailAddress
+import lila.core.userId.UserName
 
 case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)
@@ -25,6 +28,20 @@ object LilaCookie:
 trait SecurityApi:
   def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean]
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]]
+
+case class HcaptchaPublicConfig(key: String, enabled: Boolean)
+case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Boolean):
+  def enabled                 = config.enabled && !skip
+  def apply(key: String)      = form(key)
+  def withForm[B](f: Form[B]) = copy(form = f)
+  def fill(data: A)           = copy(form = form.fill(data))
+
+trait Hcaptcha:
+  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
+
+trait SignupForm:
+  val emailField: Mapping[EmailAddress]
+  val username: Mapping[UserName]
 
 opaque type FloodSource = String
 object FloodSource extends OpaqueString[FloodSource]

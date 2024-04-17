@@ -2,16 +2,26 @@ package lila.web
 package ui
 
 import chess.{ Board, Color, Square }
+import chess.format.{ Fen, Uci }
 
 import lila.ui.ScalatagsTemplate.*
 import lila.core.pref.Pref
 
-trait ChessgroundHelper:
+object ChessgroundHelper:
 
   private val cgWrap      = div(cls := "cg-wrap")
   private val cgContainer = tag("cg-container")
   private val cgBoard     = tag("cg-board")
+  private val dataState   = attr("data-state")
   val cgWrapContent       = cgContainer(cgBoard)
+
+  def chessgroundMini(fen: Fen.Board, color: Color = chess.White, lastMove: Option[Uci] = None)(
+      tag: Tag
+  ): Tag =
+    tag(
+      cls       := "mini-board mini-board--init cg-wrap is2d",
+      dataState := s"${fen.value},${color.name},${lastMove.so(_.uci)}"
+    )(cgWrapContent)
 
   def chessground(
       board: Board,

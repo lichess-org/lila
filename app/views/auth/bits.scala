@@ -6,7 +6,7 @@ import play.api.data.{ Field, Form }
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.security.HcaptchaForm
+import lila.core.security.HcaptchaForm
 
 object bits:
 
@@ -38,7 +38,7 @@ object bits:
     views.html.base.layout(
       title = trans.site.passwordReset.txt(),
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.hcaptcha.script(form),
+      moreJs = lila.web.views.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
     ):
       main(cls := "auth auth-signup box box-pad")(
@@ -52,7 +52,7 @@ object bits:
           form3.group(form("email"), trans.site.email())(
             form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
           ),
-          views.html.base.hcaptcha.tag(form),
+          lila.web.views.hcaptcha.tag(form),
           form3.action(form3.submit(trans.site.emailMeALink()))
         )
       )
@@ -106,7 +106,7 @@ object bits:
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.hcaptcha.script(form),
+      moreJs = lila.web.views.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
     ):
       main(cls := "auth auth-signup box box-pad")(
@@ -121,7 +121,7 @@ object bits:
           form3.group(form("email"), trans.site.email())(
             form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
           ),
-          views.html.base.hcaptcha.tag(form),
+          lila.web.views.hcaptcha.tag(form),
           form3.action(form3.submit(trans.site.emailMeALink()))
         )
       )

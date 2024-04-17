@@ -51,8 +51,9 @@ final class RankingApi(
     s"$userId:${perfType.id}"
 
   private[user] def topPerf(perfId: PerfId, nb: Int): Fu[List[LightPerf]] =
-    lila.rating.PerfType
-      .id2key(perfId)
+    lila.rating
+      .PerfType(perfId)
+      .map(_.key)
       .filter(k => lila.rating.PerfType.isLeaderboardable(PerfType(k)))
       .so: perfKey =>
         coll:

@@ -15,7 +15,7 @@ import lila.core.config.BaseUrl
 import lila.game.GameExt.drawReason
 
 trait GameHelper:
-  self: RouterHelper & UserHelper & ChessgroundHelper =>
+  self: RouterHelper & UserHelper =>
 
   val i18nHelper: lila.ui.I18nHelper
   import i18nHelper.given

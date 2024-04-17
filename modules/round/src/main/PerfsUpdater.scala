@@ -75,7 +75,7 @@ final class PerfsUpdater(
               ).map(_.into(IntRatingDiff))
               lila.common.Bus
                 .publish(
-                  lila.game.actorApi.PerfsUpdate(
+                  lila.core.game.PerfsUpdate(
                     game,
                     ByColor(UserWithPerfs(white.user, perfsW), UserWithPerfs(black.user, perfsB))
                   ),
