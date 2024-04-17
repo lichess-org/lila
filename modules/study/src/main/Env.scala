@@ -52,8 +52,6 @@ final class Env(
 
   private lazy val socket: StudySocket = wire[StudySocket]
 
-  private val gameToRoot = wire[GameToRoot]
-
   val studyRepo             = StudyRepo(studyDb(CollName("study")))
   val chapterRepo           = ChapterRepo(studyDb(CollName("study_chapter_flat")))
   private val topicRepo     = StudyTopicRepo(studyDb(CollName("study_topic")))

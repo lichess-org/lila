@@ -17,7 +17,7 @@ private class GameSearchConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi,
     makeClient: Index => ESClient
 )(using Executor, Scheduler, lila.core.i18n.Translator):

@@ -41,7 +41,7 @@ object inquiry:
         r.bestAtoms(10).map { atom =>
           div(cls := "atom")(
             h3(
-              reportScore(atom.score),
+              views.html.user.mod.reportScore(atom.score),
               userIdLink(atom.by.userId.some, withOnline = false),
               " for ",
               strong(r.reason.name),

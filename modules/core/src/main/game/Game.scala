@@ -164,7 +164,7 @@ case class Game(
 
   def offerDraw(color: Color) = copy(
     metadata = metadata.copy(drawOffers = drawOffers.add(color, ply))
-  ).updatePlayer(color, _.offerDraw)
+  ).updatePlayer(color, _.copy(isOfferingDraw = true))
 
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
@@ -197,7 +197,7 @@ case class Game(
 
   def sourceIs(f: Source.type => Source): Boolean = source contains f(Source)
 
-  def winner: Option[Player] = players.find(_.wins)
+  def winner: Option[Player] = players.find(_.isWinner | false)
 
   def loser: Option[Player] = winner.map(opponent)
 
@@ -280,8 +280,3 @@ case class Game(
 
   override def toString = s"""Game($id)"""
 end Game
-
-def allowRated(variant: Variant, clock: Option[Clock.Config]) =
-  variant.standard || clock.exists: c =>
-    c.estimateTotalTime >= Centis(3000) &&
-      c.limitSeconds > 0 || c.incrementSeconds > 1

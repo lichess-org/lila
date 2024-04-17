@@ -4,17 +4,32 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.game.GameExt.perfType
-import lila.game.GameExt.playerBlurPercent
+import lila.game.GameExt.{ perfType, playerBlurPercent }
 
 object irwin:
 
-  private def percentClass(percent: Int) =
-    percent match
-      case p if p < 30 => "green"
-      case p if p < 60 => "yellow"
-      case p if p < 80 => "orange"
-      case _           => "red"
+  val ui = lila.irwin.IrwinUi(i18nHelper, dateHelper)(
+    routeRoundWatcher = routes.Round.watcher,
+    playerBlurPercent = pov => pov.game.playerBlurPercent(pov.color),
+    userLink = (userId, params) => _ ?=> userIdLink(userId.some, params = params),
+    povLink = pov =>
+      _ ?=>
+        a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
+          playerLink(
+            pov.opponent,
+            withRating = true,
+            withDiff = true,
+            withOnline = false,
+            link = false
+          ),
+          br,
+          pov.game.isTournament.so(frag(iconTag(Icon.Trophy), " ")),
+          iconTag(pov.game.perfType.icon),
+          shortClockName(pov.game.clock.map(_.config)),
+          " ",
+          momentFromNowServer(pov.game.createdAt)
+        )
+  )
 
   def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(using PageContext) =
     views.html.base.layout(
@@ -23,121 +38,15 @@ object irwin:
     ):
       main(cls := "page-menu")(
         mod.menu("irwin"),
-        div(cls := "irwin page-menu__content box")(
-          boxTop(
-            h1(
-              "Irwin status: ",
-              if dashboard.seenRecently then span(cls := "up")("Operational")
-              else
-                span(cls := "down")(
-                  dashboard.lastSeenAt
-                    .map { seenAt =>
-                      frag("Last seen ", momentFromNow(seenAt))
-                    }
-                    .getOrElse {
-                      frag("Unknown")
-                    }
-                )
-            ),
-            div(cls := "box__top__actions")(
-              a(
-                href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
-                cls  := "button button-empty"
-              )("Monitoring")
-            )
-          ),
-          table(cls := "slist slist-pad")(
-            thead(
-              tr(
-                th("Recent report"),
-                th("Completed"),
-                th("Owner"),
-                th("Activation")
-              )
-            ),
-            tbody(
-              dashboard.recent.map { rep =>
-                tr(cls := "report")(
-                  td(userIdLink(rep.suspectId.value.some, params = "?mod")),
-                  td(cls := "little completed")(momentFromNow(rep.date)),
-                  td(rep.owner),
-                  td(cls := s"little activation ${percentClass(rep.activation)}")(
-                    strong(rep.activation, "%"),
-                    " over ",
-                    rep.games.size,
-                    " games"
-                  )
-                )
-              }
-            )
-          )
-        )
+        ui.dashboard(dashboard)
       )
 
-  def report(report: lila.irwin.IrwinReport.WithPovs)(using Context): Frag =
-    div(cls := "mz-section mz-section--irwin", dataRel := "irwin")(
-      header(
-        a(cls := "title", href := routes.Irwin.dashboard)(
-          img(src := assetUrl("images/icons/brain.blue.svg")),
-          " Irwin AI",
-          br,
-          "Hunter"
-        ),
-        div(cls := "infos")(
-          p("Updated ", momentFromNowServer(report.report.date))
-        ),
-        div(cls := "assess text")(
-          strong(cls := percentClass(report.report.activation))(report.report.activation, "%"),
-          " Overall assessment"
-        )
-      ),
-      table(cls := "slist")(
-        tbody(
-          report.withPovs.sortBy(-_.report.activation).map {
-            case lila.irwin.IrwinReport.GameReport.WithPov(gameReport, pov) =>
-              tr(cls := "text")(
-                td(cls := "moves")(
-                  a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
-                    gameReport.moves.map { move =>
-                      span(
-                        cls      := percentClass(move.activation),
-                        st.title := move.toString,
-                        style    := s"height:${move.activation}%"
-                      )
-                    }
-                  )
-                ),
-                td(
-                  a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
-                    playerLink(
-                      pov.opponent,
-                      withRating = true,
-                      withDiff = true,
-                      withOnline = false,
-                      link = false
-                    ),
-                    br,
-                    pov.game.isTournament.so(frag(iconTag(Icon.Trophy), " ")),
-                    iconTag(pov.game.perfType.icon),
-                    shortClockName(pov.game.clock.map(_.config)),
-                    " ",
-                    momentFromNowServer(pov.game.createdAt)
-                  )
-                ),
-                td(
-                  strong(cls := percentClass(gameReport.activation))(gameReport.activation, "%"),
-                  " ",
-                  em("assessment")
-                ),
-                td {
-                  val blurs = pov.game.playerBlurPercent(pov.color)
-                  frag(strong(cls := percentClass(blurs))(blurs, "%"), " ", em("blurs"))
-                }
-                // td(
-                //   pov.player.holdAlert.exists(_.suspicious) option strong(cls := percentClass(50))("Bot?")
-                // )
-              )
-          }
-        )
+  def kaladinDashboard(dashboard: lila.irwin.KaladinUser.Dashboard)(using PageContext) =
+    views.html.base.layout(
+      title = "Kaladin dashboard",
+      moreCss = cssTag("mod.misc")
+    ):
+      main(cls := "page-menu")(
+        mod.menu("kaladin"),
+        irwin.ui.kaladin.dashboard(dashboard)
       )
-    )

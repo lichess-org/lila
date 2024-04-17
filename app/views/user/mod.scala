@@ -919,6 +919,11 @@ object mod:
       )
     )
 
+  def reportScore(score: lila.report.Report.Score): Frag =
+    span(cls := s"score ${score.color}")(score.value.toInt)
+
+  def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(lila.security.Granter.canCloseAlt)
+
   private def parts(ps: Option[String]*) = ps.flatten.distinct.mkString(" ")
 
   private def altMarks(alts: UserLogins.Alts) =

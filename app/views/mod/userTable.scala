@@ -7,6 +7,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.perm.Granter
 import lila.user.WithPerfsAndEmails
+import views.html.user.mod.canCloseAlt
 
 object userTable:
 

@@ -102,7 +102,7 @@ object SetupForm:
         "Invalid time control",
         hook =>
           allowFastGames || hook.makeClock.exists(
-            lila.game.Game.isBoardCompatible
+            lila.core.game.isBoardCompatible
           ) || hook.makeDaysPerTurn.isDefined
       )
 

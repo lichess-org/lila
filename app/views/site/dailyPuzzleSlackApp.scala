@@ -2,7 +2,7 @@ package views.html.site
 
 import controllers.routes
 
-import lila.app.templating.Environment.*
+import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 object dailyPuzzleSlackApp:

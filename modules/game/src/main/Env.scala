@@ -80,6 +80,7 @@ final class Env(
 
   lazy val newPlayer: lila.core.game.NewPlayer = new:
     export Player.make as apply
+    export Player.makeAnon as anon
 
   val namer: lila.core.game.Namer = Namer
 

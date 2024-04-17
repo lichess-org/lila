@@ -212,9 +212,10 @@ export const mic = new (class implements Voice.Microphone {
     const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
     const audioAsync = this.initAudio();
 
-    this.vosk ??= await site.asset.loadEsm<VoskModule>('voice.vosk', {
-      url: { version: VOSK_TS_VERSION },
-    });
+    if (!this.vosk)
+      this.vosk = await site.asset.loadEsm<VoskModule>('voice.vosk', {
+        url: { version: VOSK_TS_VERSION },
+      });
 
     await downloadAsync;
     await this.vosk.initModel(modelUrl, this.lang);

@@ -45,7 +45,7 @@ object ofPlayer:
                     div(cls := "puzzle-of-player__pager infinite-scroll")(
                       pager.currentPageResults.map { puzzle =>
                         div(cls := "puzzle-of-player__puzzle")(
-                          views.html.board.bits.mini(
+                          chessgroundMini(
                             fen = puzzle.fenAfterInitialMove.board,
                             color = puzzle.color,
                             lastMove = puzzle.line.head.some

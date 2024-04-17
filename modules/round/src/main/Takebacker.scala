@@ -52,7 +52,7 @@ final private class Takebacker(
           {
             messenger.volatile(pov.game, trans.site.takebackPropositionSent.txt())
             val progress = Progress(pov.game).map: g =>
-              g.updatePlayer(pov.color, _.proposeTakeback(g.ply))
+              g.updatePlayer(pov.color, _.copy(proposeTakebackAt = g.ply))
             proxy
               .save(progress)
               .andDo(publishTakebackOffer(progress.game))

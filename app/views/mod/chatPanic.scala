@@ -2,7 +2,7 @@ package views.html.mod
 
 import controllers.routes
 
-import lila.app.templating.Environment.*
+import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 
 object chatPanic:
@@ -25,13 +25,12 @@ object chatPanic:
           p(
             "Current state: ",
             state
-              .map { s =>
+              .map: s =>
                 frag(
                   goodTag(cls := "text", dataIcon := Icon.Checkmark)(strong("ENABLED")),
                   ". Expires ",
                   momentFromNow(s)
                 )
-              }
               .getOrElse(badTag(cls := "text", dataIcon := Icon.X)(strong("DISABLED")))
           ),
           div(cls := "forms")(

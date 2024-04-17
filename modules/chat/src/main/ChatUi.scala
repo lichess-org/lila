@@ -1,12 +1,15 @@
-package views.html
+package lila.chat
 
-import play.api.libs.json.Json
+import play.api.libs.json.*
 
-import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
-import lila.common.Json.given
+import lila.common.Json.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.Context
+import lila.core.perm.Granter
 
-object chat:
+final class ChatUi(i18nHelper: lila.ui.I18nHelper):
+
+  import i18nHelper.{ trans, given }
 
   val frag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(
@@ -15,18 +18,24 @@ object chat:
     div(cls := "mchat__content")
   )
 
+  val spectatorsFrag = div(
+    cls           := "chat__members none",
+    aria.live     := "off",
+    aria.relevant := "additions removals text"
+  )
+
   def restrictedJson(
-      chat: lila.chat.Chat.Restricted,
-      lines: lila.chat.JsonChatLines,
+      chat: Chat.Restricted,
+      lines: JsonChatLines,
       name: String,
       timeout: Boolean,
       public: Boolean, // game players chat is not public
-      resourceId: lila.chat.Chat.ResourceId,
+      resourceId: Chat.ResourceId,
       withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       localMod: Boolean = false,
       palantir: Boolean = false
-  )(using Context) =
+  )(using Context): JsObject =
     json(
       chat.chat,
       lines,
@@ -42,12 +51,12 @@ object chat:
     )
 
   def json(
-      chat: lila.chat.AnyChat,
-      lines: lila.chat.JsonChatLines,
+      chat: AnyChat,
+      lines: JsonChatLines,
       name: String,
       timeout: Boolean,
       public: Boolean, // game players chat is not public
-      resourceId: lila.chat.Chat.ResourceId,
+      resourceId: Chat.ResourceId,
       withNoteAge: Option[Int] = None,
       writeable: Boolean = true,
       restricted: Boolean = false,
@@ -55,7 +64,7 @@ object chat:
       broadcastMod: Boolean = false,
       palantir: Boolean = false,
       hostIds: List[UserId] = Nil
-  )(using ctx: Context) =
+  )(using ctx: Context): JsObject =
     Json
       .obj(
         "data" -> Json
@@ -70,14 +79,14 @@ object chat:
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)
           .add("palantir" -> (palantir && ctx.isAuth)),
-        "i18n"      -> i18n(withNote = withNoteAge.isDefined),
+        "i18n"      -> chatI18nObject(withNote = withNoteAge.isDefined),
         "writeable" -> writeable,
         "public"    -> public,
         "permissions" -> Json
           .obj("local" -> (public && localMod))
           .add("broadcast" -> (public && broadcastMod))
-          .add("timeout" -> (public && isGranted(_.ChatTimeout)))
-          .add("shadowban" -> (public && isGranted(_.Shadowban)))
+          .add("timeout" -> (public && Granter.opt(_.ChatTimeout)))
+          .add("shadowban" -> (public && Granter.opt(_.Shadowban)))
       )
       .add("kobold" -> ctx.troll)
       .add("blind" -> ctx.blind)
@@ -85,23 +94,16 @@ object chat:
       .add("noteId" -> (withNoteAge.isDefined && ctx.noBlind).option(chat.id.value.take(8)))
       .add("noteAge" -> withNoteAge)
       .add(
-        "timeoutReasons" -> (!localMod && (isGranted(_.ChatTimeout) || isGranted(_.BroadcastTimeout)))
-          .option(lila.chat.JsonView.timeoutReasons)
+        "timeoutReasons" -> (!localMod && (Granter.opt(_.ChatTimeout) || Granter.opt(_.BroadcastTimeout)))
+          .option(JsonView.timeoutReasons)
       )
 
-  def i18n(withNote: Boolean)(using Context) =
-    i18nOptionJsObject(
+  private def chatI18nObject(withNote: Boolean)(using Context) =
+    i18nHelper.i18nOptionJsObject(
       trans.site.talkInChat.some,
       trans.site.toggleTheChat.some,
       trans.site.loginToChat.some,
       trans.site.youHaveBeenTimedOut.some,
-      withNote.option(trans.site.notes),
-      withNote.option(trans.site.typePrivateNotesHere)
-    )
-
-  val spectatorsFrag =
-    div(
-      cls           := "chat__members none",
-      aria.live     := "off",
-      aria.relevant := "additions removals text"
+      Option.when(withNote)(trans.site.notes),
+      Option.when(withNote)(trans.site.typePrivateNotesHere)
     )
