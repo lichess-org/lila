@@ -15,27 +15,30 @@ final class RelayPager(
 ):
 
   import BSONHandlers.given
+  import RelayTourRepo.selectors
 
   private val maxPerPage = MaxPerPage(20)
 
-  def byOwner(owner: UserId, page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
-    adapter = new:
-      def nbResults: Fu[Int] = tourRepo.countByOwner(owner)
-      def slice(offset: Int, length: Int): Fu[List[RelayTour | WithLastRound]] =
-        tourRepo.coll
-          .aggregateList(length, _.sec): framework =>
-            import framework.*
-            Match(RelayTourRepo.selectors.ownerId(owner.id)) -> {
-              List(Sort(Descending("createdAt"))) ::: aggregateRound(framework) ::: List(
-                Skip(offset),
-                Limit(length)
-              )
-            }
-          .map(readTours)
-    ,
-    currentPage = page,
-    maxPerPage = maxPerPage
-  )
+  def byOwner(owner: UserId, page: Int)(using me: Option[MyId]): Fu[Paginator[RelayTour | WithLastRound]] =
+    val isMe = me.exists(_.is(owner))
+    Paginator(
+      adapter = new:
+        def nbResults: Fu[Int] = tourRepo.countByOwner(owner, publicOnly = !isMe)
+        def slice(offset: Int, length: Int): Fu[List[RelayTour | WithLastRound]] =
+          tourRepo.coll
+            .aggregateList(length, _.sec): framework =>
+              import framework.*
+              Match(selectors.ownerId(owner.id) ++ (!isMe).so(selectors.publicTour)) -> {
+                List(Sort(Descending("createdAt"))) ::: aggregateRound(framework) ::: List(
+                  Skip(offset),
+                  Limit(length)
+                )
+              }
+            .map(readTours)
+      ,
+      currentPage = page,
+      maxPerPage = maxPerPage
+    )
 
   def allPrivate(page: Int): Fu[Paginator[RelayTour | WithLastRound]] = Paginator(
     adapter = new:
@@ -44,7 +47,7 @@ final class RelayPager(
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
-            Match(RelayTourRepo.selectors.privateRelay) -> {
+            Match(selectors.privateTour) -> {
               List(Sort(Descending("createdAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
                 Skip(offset),
                 Limit(length)
@@ -63,7 +66,7 @@ final class RelayPager(
         tourRepo.coll
           .aggregateList(length, _.sec): framework =>
             import framework.*
-            Match(RelayTourRepo.selectors.subscriberId(userId)) -> {
+            Match(selectors.subscriberId(userId)) -> {
               List(Sort(Descending("createdAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
                 Skip(offset),
                 Limit(length)
@@ -81,7 +84,7 @@ final class RelayPager(
       tourRepo.coll
         .aggregateList(length, _.sec): framework =>
           import framework.*
-          Match(RelayTourRepo.selectors.officialInactive) -> {
+          Match(selectors.officialInactive) -> {
             List(Sort(Descending("syncedAt"))) ::: aggregateRoundAndUnwind(framework) ::: List(
               Skip(offset),
               Limit(length)
@@ -106,11 +109,11 @@ final class RelayPager(
       )
 
   def search(query: String, page: Int): Fu[Paginator[WithLastRound]] =
-    forSelector($text(query) ++ $doc("tier".$exists(true) ++ RelayTourRepo.selectors.publicRelay), page)
+    forSelector($text(query) ++ $doc("tier".$exists(true) ++ selectors.publicTour), page)
 
   def byIds(ids: List[RelayTour.Id], page: Int): Fu[Paginator[WithLastRound]] =
     forSelector(
-      $inIds(ids) ++ $doc("tier".$exists(true) ++ RelayTourRepo.selectors.publicRelay),
+      $inIds(ids) ++ $doc("tier".$exists(true) ++ selectors.publicTour),
       page,
       List("syncedAt")
     )
