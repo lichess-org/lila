@@ -5,7 +5,6 @@ import monocle.syntax.all.*
 import scalalib.actor.SyncActor
 
 import lila.core.LightUser
-import lila.game.Game
 
 final private[tv] class ChannelSyncActor(
     channel: Tv.Channel,

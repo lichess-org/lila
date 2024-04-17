@@ -160,7 +160,7 @@ lazy val video = module("video",
 )
 
 lazy val coach = module("coach",
-  Seq(game),
+  Seq(memo, rating),
   Seq()
 )
 
@@ -190,7 +190,7 @@ lazy val evaluation = module("evaluation",
 )
 
 lazy val perfStat = module("perfStat",
-  Seq(game),
+  Seq(memo, rating),
   Seq()
 )
 
@@ -243,7 +243,7 @@ lazy val gameSearch = module("gameSearch",
   Seq(coreI18n, search),
   Seq()
 )
-
+ // good dep to game
 lazy val tv = module("tv",
   Seq(game),
   Seq(hasher)
@@ -280,7 +280,7 @@ lazy val lobby = module("lobby",
 )
 
 lazy val setup = module("setup",
-  Seq(lobby, game),
+  Seq(lobby),
   Seq()
 )
 
@@ -390,8 +390,8 @@ lazy val playban = module("playban",
 )
 
 lazy val push = module("push",
-  Seq(game),
-  Seq(googleOAuth)
+  Seq(db),
+  playWs.bundle ++ Seq(googleOAuth)
 )
 
 lazy val irc = module("irc",

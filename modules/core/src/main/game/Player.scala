@@ -57,3 +57,4 @@ trait NewPlayer:
   def apply(color: Color, user: Option[WithPerf]): Player
   def apply(color: Color, userId: UserId, rating: IntRating, provisional: RatingProvisional): Player
   def apply(color: Color, userPerf: (UserId, Perf)): Player
+  def anon(color: Color, aiLevel: Option[Int] = None): Player

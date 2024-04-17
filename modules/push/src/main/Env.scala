@@ -24,7 +24,8 @@ final class Env(
     getLightUser: lila.core.LightUser.GetterFallback,
     gameProxy: lila.core.game.GameProxy,
     roundJson: lila.core.round.RoundJson,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
+    namer: lila.core.game.Namer,
     notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler):

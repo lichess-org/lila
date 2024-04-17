@@ -3,10 +3,12 @@ package game
 
 import cats.derived.*
 import play.api.libs.json.*
-import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler }
+import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler, BSONDocument }
 import reactivemongo.api.bson.collection.BSONCollection
+import reactivemongo.akkastream.AkkaStreamCursor
 import _root_.chess.{
   Color,
+  Clock,
   ByColor,
   Status,
   Speed,
@@ -27,6 +29,7 @@ import lila.core.perf.UserWithPerfs
 import lila.core.user.User
 import _root_.chess.variant.Variant
 import lila.core.userId.MyId
+import lila.core.perf.PerfKey
 
 val maxPlaying         = Max(200) // including correspondence
 val maxPlayingRealtime = Max(100)
@@ -128,6 +131,8 @@ abstract class GameRepo(val coll: BSONCollection):
   def setAnalysed(id: GameId, v: Boolean): Funit
   def finish(id: GameId, winnerColor: Option[Color], winnerId: Option[UserId], status: Status): Funit
   def remove(id: GameId): Funit
+  def countWhereUserTurn(userId: UserId): Fu[Int]
+  def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game]
 
 trait GameProxy:
   def updateIfPresent(gameId: GameId)(f: Game => Game): Funit
@@ -193,6 +198,13 @@ object BSONFields:
   val analysed    = "an"
   val pgnImport   = "pgni"
   val playingUids = "pl"
+
+def allowRated(variant: Variant, clock: Option[Clock.Config]) =
+  variant.standard || clock.exists: c =>
+    c.estimateTotalTime >= Centis(3000) &&
+      c.limitSeconds > 0 || c.incrementSeconds > 1
+
+def isBoardCompatible(clock: Clock.Config): Boolean = Speed(clock) >= Speed.Rapid
 
 def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
   val iterA   = a.iterator

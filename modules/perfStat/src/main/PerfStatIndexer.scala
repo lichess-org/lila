@@ -1,10 +1,9 @@
 package lila.perfStat
 
-import lila.game.{ GameRepo, Query }
 import lila.rating.PerfType
 
 final class PerfStatIndexer(
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     storage: PerfStatStorage
 )(using Executor, Scheduler):
 
@@ -21,14 +20,7 @@ final class PerfStatIndexer(
         .find(user, perfKey)
         .getOrElse(
           gameRepo
-            .sortedCursor(
-              Query.user(user.id) ++
-                Query.finished ++
-                Query.turnsGt(2) ++
-                Query.variant(lila.rating.PerfType.variantOf(perfKey)),
-              Query.sortChronological,
-              readPref = _.priTemp
-            )
+            .sortedCursor(user.id, perfKey)
             .fold(PerfStat.init(user.id, perfKey)):
               case (perfStat, game) if game.perfKey == perfKey =>
                 Pov(game, user.id).fold(perfStat)(perfStat.agg)

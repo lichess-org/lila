@@ -280,8 +280,3 @@ case class Game(
 
   override def toString = s"""Game($id)"""
 end Game
-
-def allowRated(variant: Variant, clock: Option[Clock.Config]) =
-  variant.standard || clock.exists: c =>
-    c.estimateTotalTime >= Centis(3000) &&
-      c.limitSeconds > 0 || c.incrementSeconds > 1
