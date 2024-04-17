@@ -5,7 +5,6 @@ import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Com
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
 
-import lila.core.game.{ ImportData, ImportReady }
 import lila.tree.Node.{ Comment, Comments, Shapes }
 
 import cats.syntax.all.*
@@ -25,16 +24,16 @@ class NewTreeTest extends munit.ScalaCheckSuite:
   given Conversion[String, PgnStr] = PgnStr(_)
   given Conversion[PgnStr, String] = _.value
 
-  test("tree <-> newTree conversion".ignore):
+  test("tree <-> newTree conversion"):
     PgnFixtures.all.foreach: pgn =>
-      val x       = importerStub(pgn, Nil).toOption.get
+      val x       = StudyPgnImport(pgn, Nil).toOption.get
       val newRoot = x.root.toNewRoot
       assertEquals(newRoot.toRoot, x.root)
 
-  test("PgnImport works".ignore):
+  test("PgnImport works"):
     PgnFixtures.all.foreach: pgn =>
-      val x = importerStub(pgn, Nil).toOption.get
-      val y = newImporterStub(pgn, Nil).toOption.get
+      val x = StudyPgnImport(pgn, Nil).toOption.get
+      val y = StudyPgnImportNew(pgn, Nil).toOption.get
       assertEquals(y.end, x.end)
       assertEquals(y.variant, x.variant)
       assertEquals(y.tags, x.tags)
@@ -98,7 +97,7 @@ class NewTreeTest extends munit.ScalaCheckSuite:
 
   test("current tree's bug with takeMainlineWhile".ignore):
     val pgn     = "1. d4 d5 2. e4 e5"
-    val newRoot = newImporterStub(pgn, Nil).toOption.get.root
+    val newRoot = StudyPgnImportNew(pgn, Nil).toOption.get.root
     val oldRoot = newRoot.toRoot
     assert(oldRoot.takeMainlineWhile(_.clock.isDefined).children.isEmpty)
 

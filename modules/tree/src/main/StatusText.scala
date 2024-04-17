@@ -1,13 +1,13 @@
-package lila.game
+package lila.tree
 
-import chess.variant.Variant
 import chess.{ Color, Status }
+import chess.variant.Variant
 
 object StatusText:
 
   import Status.*
 
-  val apply: lila.core.game.StatusText = (status, win, variant) =>
+  def apply(status: Status, win: Option[Color], variant: Variant): String =
     status match
       case Aborted                  => "Game was aborted."
       case Mate                     => s"${winner(win)} wins by checkmate."

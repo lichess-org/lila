@@ -31,17 +31,15 @@ import lila.core.id.GamePlayerId
 final class AnnotatorTest extends munit.FunSuite:
 
   test("annotated games with fishnet input"):
-    TestFixtures.testCases.foreach { tc =>
+    TestFixtures.testCases.foreach: tc =>
       val (output, expected) = tc.test
       assertEquals(output, expected)
-    }
 
 case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expected: PgnStr):
 
-  given Executor                            = scala.concurrent.ExecutionContextOpportunistic
-  val statusText: lila.core.game.StatusText = (_, _, _) => ""
-  val annotator                             = Annotator(statusText, NetDomain("l.org"))
-  val analysisBuilder                       = AnalysisBuilder(FishnetEvalCache.mock)
+  given Executor      = scala.concurrent.ExecutionContextOpportunistic
+  val annotator       = Annotator(NetDomain("l.org"))
+  val analysisBuilder = AnalysisBuilder(FishnetEvalCache.mock)
 
   lazy val parsedPgn = Parser.full(pgn).toOption.get
   lazy val dumped    = parsedPgn.toPgn
