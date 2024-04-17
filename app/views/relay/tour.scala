@@ -11,6 +11,7 @@ import scalalib.paginator.Paginator
 import lila.memo.PicfitImage
 import lila.relay.RelayTour.WithLastRound
 import lila.relay.{ RelayRound, RelayTour }
+import scalatags.Text.TypedTag
 
 object tour:
 
@@ -56,73 +57,41 @@ object tour:
         )
       )
 
-  def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =
+  private def listLayout(title: String, menu: Tag)(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
       moreJs = infiniteScrollTag
-    ):
-      main(cls := "relay-index page-menu")(
-        pageMenu("index"),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop(
-            h1(liveBroadcasts()),
-            searchForm(query)
-          ),
-          renderPager(asRelayPager(pager), query)(cls := "relay-cards--search")
-        )
-      )
+    )(main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body)))
+
+  def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =
+    listLayout(liveBroadcasts.txt(), pageMenu("index"))(
+      boxTop(
+        h1(liveBroadcasts()),
+        searchForm(query)
+      ),
+      renderPager(asRelayPager(pager), query)(cls := "relay-cards--search")
+    )
 
   def byOwner(pager: Paginator[RelayTour | WithLastRound], owner: LightUser)(using PageContext) =
-    views.html.base.layout(
-      title = liveBroadcasts.txt(),
-      moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
-    ):
-      main(cls := "relay-index page-menu")(
-        pageMenu("by", owner.some),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop:
-            h1(lightUserLink(owner), " ", liveBroadcasts())
-          ,
-          standardFlash,
-          renderPager(pager, owner = owner.some)
-        )
-      )
+    listLayout(liveBroadcasts.txt(), pageMenu("by", owner.some))(
+      boxTop(h1(lightUserLink(owner), " ", liveBroadcasts())),
+      standardFlash,
+      renderPager(pager, owner = owner.some)
+    )
 
   def subscribed(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
-    views.html.base.layout(
-      title = subscribedBroadcasts.txt(),
-      moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
-    ):
-      main(cls := "relay-index page-menu")(
-        pageMenu("subscribed"),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop:
-            h1(subscribedBroadcasts())
-          ,
-          standardFlash,
-          renderPager(pager)
-        )
-      )
+    listLayout(subscribedBroadcasts.txt(), pageMenu("subscribed"))(
+      boxTop(h1(subscribedBroadcasts())),
+      standardFlash,
+      renderPager(pager)
+    )
 
   def allPrivate(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
-    views.html.base.layout(
-      title = "Private Broadcasts",
-      moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
-    ):
-      main(cls := "relay-index page-menu")(
-        pageMenu("allPrivate"),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop:
-            h1("Private Broadcasts")
-          ,
-          standardFlash,
-          renderPager(pager)
-        )
-      )
+    listLayout("Private Broadcasts", pageMenu("allPrivate"))(
+      boxTop(h1("Private Broadcasts")),
+      renderPager(pager)
+    )
 
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using PageContext) =
     views.html.base.layout(
@@ -160,7 +129,7 @@ object tour:
         )
       )
 
-  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context) =
+  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context): Tag =
     views.html.base.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
