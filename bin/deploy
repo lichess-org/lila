@@ -57,13 +57,9 @@ SERVER_FILES = [
     ".sbtopts.default",
 ]
 
-ASSETS_BUILD_URL = (
-    "https://api.github.com/repos/lichess-org/lila/actions/workflows/assets.yml/runs?per_page=100"
-)
+ASSETS_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/assets.yml/runs?per_page=100"
 
-SERVER_BUILD_URL = (
-    "https://api.github.com/repos/lichess-org/lila/actions/workflows/server.yml/runs?per_page=100"
-)
+SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workflows/server.yml/runs?per_page=100"
 
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
@@ -72,8 +68,10 @@ def curl_cli(command, *, url="https://lichess.org/run/cli"):
     return f"curl --fail -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @.lila-cli"
 
 
-def asset_profile(
-    ssh, *, deploy_dir="/home/lichess-deploy", post=curl_cli("change asset version"), stage=False
+def asset_profile(ssh, *, 
+                  deploy_dir="/home/lichess-deploy", 
+                  post=curl_cli("change asset version"), 
+                  stage=False
 ):
     return {
         "ssh": ssh,
@@ -87,9 +85,10 @@ def asset_profile(
     }
 
 
-def server_profile(
-    ssh, *, deploy_dir="/home/lichess-deploy", post="systemctl restart lichess", stage=False
-):
+def server_profile(ssh, *, 
+                   deploy_dir="/home/lichess-deploy", 
+                   post="systemctl restart lichess", 
+                   stage=False):
     return {
         "ssh": ssh,
         "deploy_dir": deploy_dir,
@@ -103,14 +102,8 @@ def server_profile(
 
 
 PROFILES = {
-    "khiaw-assets": asset_profile(
-        "root@khiaw.lichess.ovh",
-        post=curl_cli("change asset version", url="https://lichess.dev/run/cli"),
-        stage=True,
-    ),
-    "khiaw-server": server_profile(
-        "root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", stage=True
-    ),
+    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
+    "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
     "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
 }
@@ -200,10 +193,7 @@ def find_workflow_run(repo, session, workflow_url, wanted_commits, *, stage):
             pending = False
 
             for run in db.values():
-                if (
-                    run["head_commit"]["id"] not in wanted_commits
-                    or run["_workflow_url"] != workflow_url
-                ):
+                if run["head_commit"]["id"] not in wanted_commits or run["_workflow_url"] != workflow_url:
                     continue
 
                 if run["event"] == "pull_request" and not stage:
@@ -256,17 +246,7 @@ def artifact_url(session, run, name):
 def tmux(ssh, script, *, dry_run=False):
     command = f"/bin/sh -e -c {shlex.quote(';'.join(script))};/bin/bash"
     outer_command = f"/bin/sh -c {shlex.quote(command)}"
-    shell_command = [
-        "mosh",
-        ssh,
-        "--",
-        "tmux",
-        "new-session",
-        "-A",
-        "-s",
-        "ci-deploy",
-        outer_command,
-    ]
+    shell_command = ["mosh", ssh, "--", "tmux", "new-session", "-A", "-s", "ci-deploy", outer_command]
     if dry_run:
         print(shlex.join(shell_command))
         return 0
@@ -316,7 +296,7 @@ def deploy_script(profile, session, run, url):
         commands += [
             f'echo "{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}";ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}'
             for symlink in profile["symlinks"]
-        ] + [ f"chmod -f +x {deploy_dir}/bin/lila || true" ]
+        ] + [f"chmod -f +x {deploy_dir}/bin/lila || true"]
 
     return commands + [
         f"chown -R lichess:lichess {deploy_dir}",
@@ -343,9 +323,7 @@ def deploy(profile, repo, commit, github_api_token, dry_run):
     wanted_commits = set(find_commits(commit, profile["files"], wanted_hash))
     print(f"Found {len(wanted_commits)} matching commits.")
 
-    run = find_workflow_run(
-        repo, session, profile["workflow_url"], wanted_commits, stage=profile["stage"]
-    )
+    run = find_workflow_run(repo, session, profile["workflow_url"], wanted_commits, stage=profile["stage"])
     url = artifact_url(session, run, profile["artifact_name"])
 
     print(f"Deploying {url} to {profile['ssh']}...")
@@ -373,14 +351,10 @@ def main():
     try:
         github_api_token = os.environ["GITHUB_API_TOKEN"]
     except KeyError:
-        raise ConfigError(
-            textwrap.dedent(
-                """\
+        raise ConfigError(textwrap.dedent("""\
             Need environment variable GITHUB_API_TOKEN.
             * Create token on https://github.com/settings/tokens/new
-            * Required scope: public_repo"""
-            )
-        )
+            * Required scope: public_repo"""))
 
     # Repository and wanted commit.
     repo = git.Repo(search_parent_directories=True)
