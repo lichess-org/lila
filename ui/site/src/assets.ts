@@ -1,5 +1,4 @@
 import * as xhr from 'common/xhr';
-import { supportsSystemTheme } from 'common/theme';
 import { memoize } from 'common';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
@@ -16,38 +15,30 @@ export const url = (path: string, opts: AssetUrlOpts = {}) => {
 // bump flairs version if a flair is changed only (not added or removed)
 export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { version: '_____2' });
 
-const loadedCss = new Map<string, Promise<void>>();
-export const loadCss = (href: string, media?: 'dark' | 'light'): Promise<void> => {
-  if (!loadedCss.has(href)) {
+const loadedCss = new Set<string>();
+export const loadCss = (href: string): Promise<void> =>
+  new Promise(resolve => {
+    if (loadedCss.has(href)) return resolve();
     const el = document.createElement('link');
     el.rel = 'stylesheet';
-    el.href = url(site.debug ? `${href}?_=${Date.now()}` : href);
-    if (media) el.media = `(prefers-color-scheme: ${media})`;
-    loadedCss.set(
-      href,
-      new Promise<void>(resolve => {
-        el.onload = () => resolve();
-      }),
-    );
+    el.href = url(href, { noVersion: true });
+    el.onload = () => {
+      loadedCss.add(href);
+      resolve();
+    };
     document.head.append(el);
-  }
-  return loadedCss.get(href)!;
-};
+  });
 
 export const loadCssPath = async (key: string): Promise<void> => {
-  const theme = document.body.dataset.theme!;
-  const load = (theme: string, media?: 'dark' | 'light') =>
-    loadCss(`css/${key}.${theme}.${document.body.dataset.dev ? 'dev' : 'min'}.css`, media);
-  if (theme === 'system') {
-    if (supportsSystemTheme()) {
-      await Promise.all([load('dark', 'dark'), load('light', 'light')]);
-    } else {
-      await load('dark');
-    }
-  } else await load(theme);
+  const hash = site.manifest.css[key];
+  await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`);
 };
 
-export const jsModule = (name: string) => `compiled/${name}${document.body.dataset.dev ? '' : '.min'}.js`;
+export const jsModule = (name: string) => {
+  if (name.endsWith('.js')) name = name.slice(0, -3);
+  const hash = site.manifest.js[name];
+  return `compiled/${name}${hash ? `.${hash}` : ''}.js`;
+};
 
 const scriptCache = new Map<string, Promise<void>>();
 
@@ -60,12 +51,13 @@ export async function loadEsm<T, ModuleOpts = any>(
   name: string,
   opts?: { init?: ModuleOpts; url?: AssetUrlOpts },
 ): Promise<T> {
-  const module = await import(url(jsModule(name), opts?.url));
+  const urlOpts = opts?.url?.version ? opts?.url : { ...opts?.url, noVersion: true };
+  const module = await import(url(jsModule(name), urlOpts));
   return module.initModule ? module.initModule(opts?.init) : module.default(opts?.init);
 }
 
 export const loadPageEsm = async (name: string) => {
-  const modulePromise = import(url(jsModule(name)));
+  const modulePromise = import(url(jsModule(name), { noVersion: true }));
   const dataScript = document.getElementById('page-init-data');
   const opts = dataScript && JSON.parse(dataScript.innerHTML);
   dataScript?.remove();
@@ -75,7 +67,7 @@ export const loadPageEsm = async (name: string) => {
 
 export const userComplete = async (opts: UserCompleteOpts): Promise<UserComplete> => {
   const [userComplete] = await Promise.all([
-    loadEsm('userComplete', { init: opts }),
+    loadEsm('bits.userComplete', { init: opts }),
     loadCssPath('complete'),
   ]);
   return userComplete as UserComplete;

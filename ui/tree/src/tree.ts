@@ -2,6 +2,8 @@ import * as treePath from './path';
 import * as ops from './ops';
 import { defined } from 'common';
 
+export { treePath as path, ops };
+
 export type MaybeNode = Tree.Node | undefined;
 
 export interface TreeWrapper {

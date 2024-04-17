@@ -49,7 +49,7 @@
     font-size: 0.9rem;
     line-height: 1.9em;
     padding: 0;
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: $m-secondary_bg--mix-30;
     .ddloader {
       padding-inline-start: 7px;
     }
@@ -58,7 +58,7 @@
       direction: ltr;
       padding: 0 7px;
       color: $c-font-clear;
-      background: mix($c-secondary, $c-bg-box, 40%);
+      background: $m-secondary_bg--mix-40;
       strong {
         margin-inline-end: 0.5ch;
       }
@@ -76,7 +76,7 @@
       color: $c-font-dim;
       &:hover {
         color: $c-font-clear;
-        background: mix($c-secondary, $c-bg-box, 50%);
+        background: $m-secondary_bg--mix-50;
       }
     }
   }
@@ -97,7 +97,7 @@
     }
 
     &:hover {
-      background: mix($c-secondary, $c-bg-box, 20%);
+      background: $m-secondary_bg--mix-20;
     }
   }
 
@@ -112,7 +112,7 @@
       @extend %roboto;
       font-size: 0.8rem;
       line-height: 1.8em;
-      background: mix($c-secondary, $c-bg-box, 40%);
+      background: $m-secondary_bg--mix-40;
       padding-inline-start: 7px;
     }
     td:first-child {
@@ -135,7 +135,7 @@
 
     tbody tr.sum {
       /* sum row */
-      background: mix($c-primary, $c-bg-box, 25%);
+      background: $m-primary_bg--mix-25;
       font-weight: bold;
 
       @include mq-at-least-col2 {
@@ -157,7 +157,7 @@
     overflow: hidden;
     vertical-align: middle;
     background-clip: padding-box;
-    border: 0 solid fade-out($c-font, 0.83);
+    border: 0 solid $m-font--fade-83;
     border-width: 1px 0;
     height: 16px;
     line-height: 14px;
@@ -166,26 +166,40 @@
   }
 
   .white {
-    background: if($theme-light, #fff, #ccc);
-    box-shadow: 0 -5px 7px rgba(0, 0, 0, if($theme-light, 0.1, 0.25)) inset;
+    background: #ccc;
+    box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.25) inset;
+    @include if-light {
+      background: #fff;
+      box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.1) inset;
+    }
 
-    @if $theme-dark {
+    @include if-not-light {
       color: #222;
     }
   }
 
   .draws,
   .black {
-    color: if($theme-light, #fff, #ddd);
-    box-shadow: 0 5px 7px rgba(255, 255, 255, if($theme-light, 0.2, 0.1)) inset;
+    color: #ddd;
+    box-shadow: 0 5px 7px rgba(255, 255, 255, 0.1) inset;
+    @include if-light {
+      color: #fff;
+      box-shadow: 0 5px 7px rgba(255, 255, 255, 0.2) inset;
+    }
   }
 
   .draws {
-    background: if($theme-light, #a0a0a0, #666);
+    background: #666;
+    @include if-light {
+      background: #a0a0a0;
+    }
   }
 
   .black {
-    background: if($theme-light, #555, #333);
+    background: #333;
+    @include if-light {
+      background: #555;
+    }
     color: #ddd;
   }
 
@@ -247,7 +261,7 @@
 
     .game_title {
       text-align: center;
-      color: $c-secondary-over;
+      color: $c-over;
       margin: 3px 0 1px 0;
     }
 

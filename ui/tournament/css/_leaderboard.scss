@@ -86,7 +86,7 @@ $user-list-width: 35ch;
   font-size: 1.1em;
 
   .shield-trophy {
-    @include inline-start(calc(var(--box-padding) - 10px));
+    @include inline-start(calc(var(---box-padding) - 10px));
     transform: scale(0.7);
   }
 
@@ -95,7 +95,7 @@ $user-list-width: 35ch;
 
     position: relative;
     height: 60px;
-    padding: 0 var(--box-padding) 0 calc(var(--box-padding) + 70px);
+    padding: 0 var(---box-padding) 0 calc(var(---box-padding) + 70px);
 
     &:nth-child(odd) {
       background: $c-bg-zebra;

@@ -20,9 +20,9 @@ object show:
     views.html.base.layout(
       title = s.name.value,
       moreCss = cssTag("analyse.study"),
-      moreJs = analyseNvuiTag,
+      modules = analyseNvuiTag,
       pageModule = PageModule(
-        "analysisBoard.study",
+        "analyse.study",
         Json.obj(
           "study" -> data.study
             .add("admin", isGranted(_.StudyAdmin))

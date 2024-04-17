@@ -28,11 +28,11 @@
       }
 
       &.host {
-        background-color: rgba($c-secondary-dim, 0.4);
+        background-color: $c-chat-host-bg;
       }
 
       &.mentioned {
-        background-color: rgba($c-secondary-dimmer, 0.4);
+        background-color: $c-chat-mention-bg;
       }
     }
 
@@ -106,7 +106,7 @@
 
     &.as-mod {
       li:hover {
-        background: mix($c-accent, $c-bg-box, 10%);
+        background: $m-accent_bg--mix-10;
       }
     }
   }

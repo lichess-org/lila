@@ -84,6 +84,7 @@ final class Plan(env: Env) extends LilaController(env):
     res <- info match
       case Some(info: CustomerInfo.Monthly) =>
         Ok.page(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
+
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email.map { EmailAddress(_) }, patron.some)
       case None =>

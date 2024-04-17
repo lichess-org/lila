@@ -73,6 +73,7 @@ object net:
     def change() =
       stored = random
       current
+
     private def random = AssetVersion(SecureRandom.nextString(6))
     case class Changed(version: AssetVersion)
 

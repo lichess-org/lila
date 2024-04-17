@@ -13,16 +13,19 @@ import lila.tournament.crud.CrudForm
 object crud:
   given prefix: tournament.FormPrefix = tournament.FormPrefix.make("setup")
 
-  private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
+  private def layout(
+      title: String,
+      modules: EsmList = Nil,
+      evenMoreJs: Frag = emptyFrag,
+      css: String = "mod.misc"
+  )(
       body: Frag
   )(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
-      moreJs = frag(
-        jsModule("flatpickr"),
-        evenMoreJs
-      )
+      modules = jsModule("bits.flatpick") ++ modules,
+      moreJs = evenMoreJs
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("tour"),
@@ -110,7 +113,7 @@ object crud:
   def index(tours: Paginator[Tournament])(using PageContext) =
     layout(
       title = "Tournament manager",
-      evenMoreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       div(cls := "crud page-menu__content box")(
         boxTop(

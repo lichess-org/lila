@@ -15,9 +15,10 @@ object embed:
           layout.bits.viewport,
           layout.bits.metaCsp(basicCsp.withNonce(ctx.nonce).withInlineIconFont),
           st.headTitle(title),
+          layout.bits.systemThemeEmbedScript,
           layout.bits.pieceSprite(ctx.pieceSet),
-          cssTagWithTheme(cssModule, ctx.bg),
-          (ctx.bg == "system").option(embedJsUnsafe(systemThemePolyfillJs, ctx.nonce))
+          cssTag("theme-light"), // includes both light & dark colors
+          cssTag(cssModule)
         ),
         st.body(cls := s"${ctx.bg} highlight ${ctx.boardClass}")(
           layout.dataSoundSet := SoundSet.silent.key,

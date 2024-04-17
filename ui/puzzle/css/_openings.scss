@@ -10,7 +10,7 @@
 
   &__list {
     display: grid;
-    margin: 0 0 3em var(--box-padding);
+    margin: 0 0 3em var(---box-padding);
     grid-template-columns: repeat(auto-fill, minmax(40ch, 1fr));
 
     @media (max-width: at-most($xx-small)) {
@@ -25,14 +25,14 @@
     padding: 0.5em 0.7em 0.5em 1.5em;
 
     &:hover {
-      background: mix($c-bg-box, $c-link, 90%);
+      background: $m-primary_bg--mix-10;
     }
 
     &.opening-mine {
       color: $c-brag;
       font-weight: bold;
       &:hover {
-        background: mix($c-bg-box, $c-brag, 80%);
+        background: $m-brag_bg--mix-20;
       }
     }
 

@@ -34,17 +34,14 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "analysisBoard",
-        "src/plugins/studyMain.ts": "analysisBoard.study",
-        "src/plugins/nvui.ts": "analysisBoard.nvui",
-        "src/plugins/studyTopicForm.ts": "study.topic.form",
-        "src/plugins/studyTour.ts": "study.tour"
-      }
+      "src/analyse.ts": "analyse",
+      "src/plugins/analyse.study.ts": "analyse.study",
+      "src/plugins/analyse.nvui.ts": "analyse.nvui",
+      "src/plugins/analyse.study.topic.form.ts": "analyse.study.topic.form",
+      "src/plugins/analyse.study.tour.ts": "analyse.study.tour"
     },
-    "copy": {
-      "src": "node_modules/@yaireo/tagify/dist/tagify.min.js",
-      "dest": "../../public/npm/tagify"
+    "sync": {
+      "node_modules/@yaireo/tagify/dist/tagify.min.js": "public/npm/tagify"
     }
   }
 }

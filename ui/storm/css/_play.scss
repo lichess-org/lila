@@ -7,7 +7,7 @@
     grid-template-areas: 'board' 'side';
 
     @include mq-at-least-col2 {
-      grid-template-columns: var(--col2-uniboard-width) $col2-uniboard-table;
+      grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
       grid-template-rows: fit-content(0);
       grid-template-areas: 'board   side';
     }

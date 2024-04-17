@@ -36,7 +36,7 @@
   }
 
   .categ > h2:hover {
-    background: fade-out($c-primary, 0.8);
+    background: $m-primary--fade-80;
   }
 
   .categ.active {
@@ -51,7 +51,7 @@
   .categ.active > h2 {
     cursor: default;
     background: $c-primary;
-    color: $c-primary-over;
+    color: $c-over;
   }
 
   .categ:not(.active) .categ_stages {
@@ -81,7 +81,7 @@
     }
 
     &.active {
-      background: fade-out($c-primary, 0.8);
+      background: $m-primary--fade-80;
     }
 
     &.active img {
@@ -89,7 +89,7 @@
     }
 
     &.done:hover {
-      background: fade-out($c-good, 0.8);
+      background: $m-secondary--fade-80;
     }
 
     &.done img {
@@ -97,7 +97,7 @@
     }
 
     &.future:hover {
-      background: fade-out($c-primary, 0.8);
+      background: $m-primary--fade-80;
     }
 
     &.future img {

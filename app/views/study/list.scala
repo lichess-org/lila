@@ -100,7 +100,7 @@ object list:
       title = text,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       main(cls := "page-menu")(
         menu("search", Order.default),
@@ -182,7 +182,7 @@ object list:
       title = title,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       withHrefLangs = withHrefLangs
     ):
       main(cls := "page-menu")(

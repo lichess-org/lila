@@ -60,44 +60,42 @@ $c-mselect: $c-primary;
         transform: translateY(-50%) scale(1, 1);
       }
 
-      .mselect__item {
+      > * {
         opacity: 1;
         transition: opacity 125ms ease-in-out 125ms;
       }
     }
-  }
-  &__item {
-    white-space: nowrap;
-    display: block;
-    padding: 0.3em 1em;
+    &__item {
+      white-space: nowrap;
+      display: block;
+      padding: 0.3em 1em;
 
-    @include transition;
+      @include transition;
 
-    color: $c-mselect;
+      color: $c-mselect;
 
-    &.current {
-      background: $c-bg-zebra;
+      &.current {
+        background: $c-bg-zebra;
 
-      @extend %flex-between-nowrap;
+        @extend %flex-between-nowrap;
 
-      &::after {
-        @extend %data-icon;
+        &::after {
+          @extend %data-icon;
 
-        content: $licon-Checkmark;
-        flex: 1 1 100%;
-        text-align: right;
+          content: $licon-Checkmark;
+          flex: 1 1 100%;
+          text-align: right;
+        }
       }
-    }
+      &:hover {
+        background: $c-mselect;
+        color: $c-over;
+      }
+      &::before {
+        margin-inline-end: 0.4em;
+      }
 
-    &:hover {
-      background: $c-mselect;
-      color: #fff;
+      opacity: 0;
     }
-
-    &::before {
-      margin-inline-end: 0.4em;
-    }
-
-    opacity: 0;
   }
 }

@@ -15,7 +15,7 @@ object form:
     views.html.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
-      moreJs = jsModule("tourForm")
+      modules = jsModule("bits.tourForm")
     ) {
       val fields = new SwissFields(form, none)
       main(cls := "page-small")(
@@ -56,7 +56,7 @@ object form:
     views.html.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
-      moreJs = jsModule("tourForm")
+      modules = jsModule("bits.tourForm")
     ) {
       val fields = new SwissFields(form, swiss.some)
       main(cls := "page-small")(

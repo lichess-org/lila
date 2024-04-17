@@ -2,20 +2,22 @@ package lila.web
 
 import play.api.libs.ws.StandaloneWSClient
 import com.softwaremill.macwire.*
-import lila.core.config.BaseUrl
-import play.api.Configuration
 
 @Module
 final class Env(
-    appConfig: Configuration,
+    appConfig: play.api.Configuration,
+    environment: play.api.Environment,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
-    baseUrl: BaseUrl
+    net: lila.core.config.NetConfig
 )(using mode: play.api.Mode, scheduler: Scheduler)(using Executor):
 
   val config = WebConfig.loadFrom(appConfig)
   export config.{ pagerDuty as pagerDutyConfig }
+  export net.baseUrl
+
+  val manifest = wire[AssetManifest]
 
   val realPlayers = wire[RealPlayerApi]
 

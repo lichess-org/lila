@@ -18,10 +18,7 @@ object index:
     import commons.*
     views.html.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),
-      moreJs = frag(
-        jsModule("gameSearch"),
-        infiniteScrollTag
-      ),
+      modules = jsModule("bits.gameSearch") ++ infiniteScrollTag,
       moreCss = cssTag("search")
     ) {
       main(cls := "box page-small search")(

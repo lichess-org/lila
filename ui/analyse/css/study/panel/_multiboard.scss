@@ -62,14 +62,14 @@
       overflow: hidden;
 
       &.active {
-        background: mix($c-primary, $c-bg-box, 20%);
+        background: $m-primary_bg--mix-20;
         color: $c-font-clear;
-        border-color: mix($c-primary, $c-bg-box, 40%);
+        border-color: $m-primary_bg--mix-40;
       }
       &:hover {
-        background: mix($c-primary, $c-bg-box, 12%);
+        background: $m-primary_bg--mix-12;
         color: $c-font-clear;
-        border-color: mix($c-primary, $c-bg-box, 50%);
+        border-color: $m-primary_bg--mix-50;
       }
     }
     cg-board {
@@ -85,7 +85,7 @@
 .mini-game {
   $white: #a0a0a0;
   $black: #606060;
-  @if $theme-light {
+  @include if-light {
     $white: #fff;
     $black: #888;
   }
@@ -137,7 +137,7 @@
         width: 100%;
         top: 2.5px;
         opacity: 1;
-        border-bottom: 5px solid fade-out($c-accent, 0.5);
+        border-bottom: 5px solid $m-accent--fade-50;
         height: 50%;
       }
     }

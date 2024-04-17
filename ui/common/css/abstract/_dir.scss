@@ -1,11 +1,11 @@
 @mixin if-rtl {
-  html.dir-rtl & {
+  html[dir='rtl'] & {
     @content;
   }
 }
 
 @mixin if-ltr {
-  html.dir-ltr & {
+  html:not([dir='rtl']) & {
     @content;
   }
 }
@@ -56,7 +56,7 @@
   }
 }
 
-html.dir-rtl .force-ltr {
+html[dir='rtl'] .force-ltr {
   direction: ltr;
   text-align: left;
 }

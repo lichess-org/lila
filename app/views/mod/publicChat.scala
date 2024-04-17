@@ -15,7 +15,7 @@ object publicChat:
     views.html.base.layout(
       title = "Public Chats",
       moreCss = cssTag("mod.publicChats"),
-      moreJs = jsModule("publicChats")
+      modules = jsModule("mod.publicChats")
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("public-chat"),

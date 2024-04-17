@@ -829,7 +829,7 @@ export default class RoundController implements MoveRootCtrl {
     const up = { fen: this.stepAt(this.ply).fen, canMove: this.canMove(), cg };
     if (!this.isPlaying()) return;
     if (this.data.pref.keyboardMove) {
-      this.keyboardMove ??= makeKeyboardMove(this);
+      if (!this.keyboardMove) this.keyboardMove = makeKeyboardMove(this);
       this.keyboardMove.update(up);
     }
     if (this.data.pref.voiceMove) {

@@ -26,12 +26,10 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "puzzle",
-        "src/dashboard.ts": "puzzle.dashboard",
-        "src/opening.ts": "puzzle.opening",
-        "src/plugins/nvui.ts": "puzzle.nvui"
-      }
+      "src/puzzle.ts": "puzzle",
+      "src/puzzle.dashboard.ts": "puzzle.dashboard",
+      "src/puzzle.opening.ts": "puzzle.opening",
+      "src/plugins/puzzle.nvui.ts": "puzzle.nvui"
     }
   }
 }

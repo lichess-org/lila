@@ -16,7 +16,7 @@ object embed:
       cssModule = "lpv.embed"
     )(
       div(cls := "is2d")(div(pgn)),
-      jsModule("lpv.embed"),
+      jsTag("site.lpv.embed"),
       lpvJs(orientation, getPgn)
     )
 

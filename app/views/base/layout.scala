@@ -16,9 +16,9 @@ object layout:
 
   object bits:
     val doctype = raw("<!DOCTYPE html>")
-    def htmlTag(using lang: Lang) =
+    def htmlTag(using lang: Lang, ctx: Context) =
       val isRTL = lila.i18n.LangList.isRTL(lang)
-      html(st.lang := lang.code, dir := isRTL.option("rtl"), cls := (if isRTL then "dir-rtl" else "dir-ltr"))
+      html(st.lang := lang.code, dir := isRTL.option("rtl"))
     val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
     val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw:
@@ -28,13 +28,20 @@ object layout:
     def metaCsp(csp: Option[ContentSecurityPolicy])(using ctx: PageContext): Frag =
       metaCsp(csp.getOrElse(defaultCsp))
     def metaThemeColor(using ctx: PageContext): Frag =
-      if ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM then
-        raw:
-          s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
-            s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
-      else
-        raw:
+      raw:
+        s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
+          s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">""" +
           s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
+    def systemThemeScript(using ctx: PageContext) =
+      (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).option(
+        embedJsUnsafe(
+          "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
+            "document.documentElement.classList.add('light');"
+        )
+      )
+    def systemThemeEmbedScript(using ctx: EmbedContext) =
+      "<script>if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
+        "document.documentElement.classList.add('light');</script>"
     def pieceSprite(using ctx: PageContext): Frag = pieceSprite(ctx.pref.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
@@ -180,16 +187,22 @@ object layout:
       style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  private def loadScripts(moreJs: Frag)(using ctx: PageContext) =
+  // consolidate script packaging here to dedup chunk dependencies
+  private def modulesPreload(modules: EsmList)(using ctx: PageContext) =
+    val keys: List[String] = "site" :: {
+      ctx.data.inquiry.isDefined.option("mod.inquiry")
+        :: (!netConfig.isProd).option("site.devMode")
+        :: modules.map(_.map(_.key))
+    }.flatten // in head
     frag(
-      ctx.needsFp.option(fingerprintTag),
-      ctx.nonce.map(inlineJs.apply),
-      frag(cashTag, jsModule("site")),
-      moreJs,
-      ctx.data.inquiry.isDefined.option(jsModule("mod.inquiry")),
-      (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM).option(embedJsUnsafe(systemThemePolyfillJs)),
-      (!netConfig.isProd).option(jsModule("devMode"))
+      jsTag("manifest"),
+      cashTag,
+      keys.map(jsTag),
+      env.web.manifest.deps(keys).map(jsTag)
     )
+
+  private def modulesInit(modules: EsmList)(using ctx: PageContext) =
+    modules.flatMap(_.map(_.init)) // in body
 
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
@@ -245,6 +258,7 @@ object layout:
       fullTitle: Option[String] = None,
       robots: Boolean = netConfig.crawlable,
       moreCss: Frag = emptyFrag,
+      modules: EsmList = Nil,
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
@@ -257,9 +271,12 @@ object layout:
       withHrefLangs: Option[LangPath] = None
   )(body: Frag)(using ctx: PageContext): Frag =
     import ctx.pref
+    updateManifest()
     frag(
       doctype,
       htmlTag(
+        (ctx.data.inquiry.isEmpty && ctx.impersonatedBy.isEmpty && !ctx.blind)
+          .option(cls := ctx.pref.themeColorClass),
         topComment,
         head(
           charset,
@@ -271,11 +288,12 @@ object layout:
             if netConfig.isProd then prodTitle
             else s"${ctx.me.so(_.username + " ")} $prodTitle"
           ,
+          cssTag("theme-all"),
           cssTag("site"),
           pref.is3d.option(cssTag("board-3d")),
-          ctx.data.inquiry.isDefined.option(cssTagNoTheme("mod.inquiry")),
-          ctx.impersonatedBy.isDefined.option(cssTagNoTheme("mod.impersonate")),
-          ctx.blind.option(cssTagNoTheme("blind")),
+          ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
+          ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
+          ctx.blind.option(cssTag("blind")),
           moreCss,
           pieceSprite,
           meta(
@@ -290,7 +308,7 @@ object layout:
           atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
             raw:
-              s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
+              s"""<style id="bg-data">html.transp::before{background-image:url("${escapeHtmlRaw(img)
                   .replace("&amp;", "&")}");}</style>"""
           },
           fontPreload,
@@ -298,7 +316,9 @@ object layout:
           piecesPreload,
           manifests,
           jsLicense,
-          withHrefLangs.map(hrefLangs)
+          withHrefLangs.map(hrefLangs),
+          modulesPreload(modules ++ pageModule.so(module => jsPageModule(module.name))),
+          systemThemeScript
         ),
         st.body(
           cls := {
@@ -332,7 +352,7 @@ object layout:
           dataBoardTheme   := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
           dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
-          style            := zoomable.option(s"--zoom:$pageZoom")
+          style            := zoomable.option(s"---zoom:$pageZoom")
         )(
           blindModeForm,
           ctx.data.inquiry.map { views.html.mod.inquiry(_) },
@@ -372,9 +392,12 @@ object layout:
             )
           ),
           spinnerMask,
-          loadScripts(moreJs),
-          pageModule.map: mod =>
-            frag(jsonScript(mod.data), jsPageModule(mod.name))
+          div(id := "inline-scripts")(
+            frag(ctx.needsFp.option(fingerprintTag), ctx.nonce.map(inlineJs.apply)),
+            modulesInit(modules ++ pageModule.so(module => jsPageModule(module.name))),
+            moreJs,
+            pageModule.map { mod => frag(jsonScript(mod.data)) }
+          )
         )
       )
     )
@@ -500,6 +523,9 @@ object layout:
         _ =>
           val qty  = lila.i18n.JsQuantity(t.lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
-          s"""site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
+          "if (!window.site) window.site={};" +
+            """window.site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
+            s"window.site.quantity=$qty;" +
+            s"window.site.siteI18n=$i18n;"
       )
   end inlineJs

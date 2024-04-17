@@ -1,9 +1,9 @@
 #main-wrap {
-  --main-max-width: auto;
+  ---main-max-width: auto;
 }
 
 .board-editor {
-  $board-width: calc((100vh - 4vmin) * var(--board-scale) * 0.8 - #{$site-header-outer-height});
+  $board-width: calc((100vh - 4vmin) * var(---board-scale) * 0.8 - #{$site-header-outer-height});
 
   display: grid;
   grid-template-columns: minmax(0, $board-width);

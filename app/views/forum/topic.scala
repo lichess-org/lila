@@ -17,10 +17,7 @@ object topic:
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
-      moreJs = frag(
-        jsModule("forum"),
-        captchaTag
-      )
+      modules = jsModule("bits.forum") ++ captchaTag
     ):
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         boxTop(
@@ -79,11 +76,8 @@ object topic:
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
-      moreJs = frag(
-        jsModule("forum"),
-        formWithCaptcha.isDefined.option(captchaTag),
-        jsModule("expandText")
-      ),
+      modules = jsModule("bits.forum") ++ jsModule("bits.expandText") ++
+        formWithCaptcha.isDefined.so(captchaTag),
       moreCss = cssTag("forum"),
       openGraph = lila.web
         .OpenGraph(
@@ -213,10 +207,7 @@ object topic:
     views.html.base.layout(
       title = "Diagnostic report",
       moreCss = cssTag("forum"),
-      moreJs = frag(
-        jsModule("forum"),
-        captchaTag
-      )
+      modules = jsModule("bits.forum") ++ captchaTag
     ):
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         boxTop(h1(dataIcon := Icon.BubbleConvo, cls := "text")("Diagnostics")),

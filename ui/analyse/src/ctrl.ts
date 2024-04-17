@@ -142,7 +142,7 @@ export default class AnalyseCtrl {
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
     if (site.blindMode)
-      site.asset.loadEsm<NvuiPlugin>('analysisBoard.nvui', { init: this }).then(nvui => (this.nvui = nvui));
+      site.asset.loadEsm<NvuiPlugin>('analyse.nvui', { init: this }).then(nvui => (this.nvui = nvui));
 
     this.instanciateEvalCache();
 

@@ -28,7 +28,7 @@ object games:
     views.html.base.layout(
       title = s"${user.username} games",
       moreCss = cssTag("mod.games"),
-      moreJs = jsModule("mod.games")
+      modules = jsModule("mod.games")
     ) {
       main(cls := "mod-games box")(
         boxTop(

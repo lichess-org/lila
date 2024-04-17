@@ -23,7 +23,7 @@ object show:
     views.html.base.layout(
       title = s"${s.titleName} streams chess",
       moreCss = cssTag("streamer.show"),
-      moreJs = jsModule("streamer"),
+      modules = jsModule("bits.streamer"),
       openGraph = lila.web
         .OpenGraph(
           title = s"${s.titleName} streams chess",

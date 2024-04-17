@@ -22,10 +22,7 @@ object post:
   )(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = frag(
-        jsModule("expandText"),
-        ctx.isAuth.option(jsModule("ublog"))
-      ),
+      modules = jsModule("bits.expandText") ++ ctx.isAuth.so(jsModule("bits.ublog")),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
       openGraph = lila.web
         .OpenGraph(
