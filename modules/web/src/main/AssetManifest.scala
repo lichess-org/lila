@@ -42,8 +42,6 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         case e: Throwable =>
           logger.error(s"Error reading $pathname", e)
 
-  update()
-
   private val keyRe = """^(?!common\.)(\S+)\.([A-Z0-9]{8})\.(?:js|css)""".r
   private def keyOf(fullName: String): String =
     fullName match
@@ -101,3 +99,5 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
         case e: Exception =>
           logger.error(s"fetching $resource", e)
           fuccess(none)
+
+  update()

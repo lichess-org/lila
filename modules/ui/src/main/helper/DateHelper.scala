@@ -17,6 +17,8 @@ final class DateHelper(
   import i18n.*
   import string.*
 
+  private val datetimeAttr = attr("datetime")
+
   private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
   private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]
 
@@ -66,10 +68,15 @@ final class DateHelper(
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
+  def momentFromNow(instant: Instant): Tag = momentFromNow(instant, false, false)
+
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
     if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then
       absClientInstantEmpty(instant)(nbsp)
     else timeTag(cls := s"timeago${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
+
+  def momentFromNowWithPreload(instant: Instant): Frag =
+    momentFromNowWithPreload(instant, false, false)
 
   def momentFromNowWithPreload(
       instant: Instant,

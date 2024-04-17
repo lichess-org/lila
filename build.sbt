@@ -205,7 +205,7 @@ lazy val search = module("search",
 )
 
 lazy val chat = module("chat",
-  Seq(memo, coreI18n),
+  Seq(memo, ui),
   Seq()
 )
 
