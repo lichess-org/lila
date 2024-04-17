@@ -6,7 +6,7 @@ import play.api.libs.ws.DefaultBodyReadables.*
 final class ExplorerImporter(
     endpoint: InternalEndpoint,
     gameRepo: lila.core.game.GameRepo,
-    gameImporter: lila.tree.Importer,
+    gameImporter: lila.game.importer.Importer,
     ws: play.api.libs.ws.StandaloneWSClient
 )(using Executor)
     extends lila.core.game.Explorer:

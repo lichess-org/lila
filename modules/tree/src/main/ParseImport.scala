@@ -7,7 +7,6 @@ import chess.variant.*
 import scala.util.chaining.*
 
 import lila.core.userId.UserId
-import lila.core.game.{ Game, NewGame }
 
 case class TagResult(status: Status, winner: Option[Color]):
   // duplicated from Game.finish
@@ -20,9 +19,6 @@ case class ImportResult(
     initialFen: Option[Fen.Full],
     parsed: ParsedPgn
 )
-
-trait Importer:
-  def importAsGame(data: PgnStr, forceId: Option[GameId] = none)(using Option[MyId]): Fu[Game]
 
 private val maxPlies = 600
 

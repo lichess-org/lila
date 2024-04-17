@@ -7,12 +7,12 @@ import chess.{ ByColor, Color, ErrorStr, Mode, Outcome, Replay, Status }
 import scala.util.chaining.*
 
 import lila.game.GameExt.finish
-import lila.core.game.{ ImportedGame, Game, NewGame, Player }
+import lila.core.game.{ ImportedGame, Game, Player }
 import lila.tree.ImportResult
 
 private val maxPlies = 600
 
-final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor) extends lila.tree.Importer:
+final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor):
 
   def importAsGame(pgn: PgnStr, forceId: Option[GameId] = none)(using me: Option[MyId]): Fu[Game] =
     import lila.db.dsl.{ *, given }
