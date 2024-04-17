@@ -1,6 +1,8 @@
 package lila.relay
 
-final private class RelayNotifier(notifyApi: lila.notify.NotifyApi, tourRepo: RelayTourRepo)(using Executor):
+import lila.core.notify.*
+
+final private class RelayNotifier(notifyApi: NotifyApi, tourRepo: RelayTourRepo)(using Executor):
 
   def roundBegin(rt: RelayRound.WithTour): Funit =
     tourRepo
@@ -14,7 +16,7 @@ final private class RelayNotifier(notifyApi: lila.notify.NotifyApi, tourRepo: Re
               subscribers.nonEmpty.so:
                 notifyApi.notifyMany(
                   subscribers,
-                  lila.notify.BroadcastRound(
+                  BroadcastRound(
                     rt.path,
                     rt.tour.name.value,
                     s"${rt.round.name} has begun"

@@ -20,8 +20,8 @@
 
     position: absolute;
     top: 0;
-    #{$end-direction}: 0;
-    background: mix($c-accent, $c-bg-box, 10%);
+    @include inline-end(0);
+    background: $m-accent_bg--mix-10;
     padding: 0.5em 0.8em;
     display: none;
     z-index: 1;
@@ -32,7 +32,7 @@
   }
 
   .contrib a {
-    margin-#{$start-direction}: 8px;
+    margin-inline-start: 8px;
   }
 
   .embed {

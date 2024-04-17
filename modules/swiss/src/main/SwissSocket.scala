@@ -1,16 +1,15 @@
 package lila.swiss
 
-import lila.hub.LateMultiThrottler
-import lila.hub.actorApi.team.IsLeaderWithCommPerm
+import lila.common.LateMultiThrottler
+import lila.core.team.IsLeaderWithCommPerm
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.makeMessage
+import lila.core.socket.{ protocol as P, * }
 
 final private class SwissSocket(
-    remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi,
+    socketKit: SocketKit,
+    chat: lila.core.chat.ChatApi,
     teamOf: SwissId => Fu[Option[TeamId]]
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.user.FlairApi.Getter):
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.user.FlairGet):
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = none, logger = logger)
 
@@ -25,9 +24,9 @@ final private class SwissSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Swiss)
+  subscribeChat(rooms, _.swiss)
 
-  private lazy val handler: Handler =
+  private lazy val handler: SocketHandler =
     roomHandler(
       rooms,
       chat,
@@ -36,13 +35,11 @@ final private class SwissSocket(
       localTimeout = Some: (roomId, modId, _) =>
         teamOf(SwissId(roomId.value)).flatMapz: teamId =>
           lila.common.Bus.ask[Boolean]("teamIsLeader") { IsLeaderWithCommPerm(teamId, modId, _) },
-      chatBusChan = _.Swiss
+      chatBusChan = _.swiss
     )
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("swiss-out").apply
+  private lazy val send = socketKit.send("swiss-out")
 
-  remoteSocketApi
-    .subscribe("swiss-in", RP.In.reader)(
-      handler.orElse(remoteSocketApi.baseHandler)
-    )
+  socketKit
+    .subscribe("swiss-in", RP.In.reader)(handler.orElse(socketKit.baseHandler))
     .andDo(send(P.Out.boot))

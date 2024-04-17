@@ -2,26 +2,24 @@ package lila.game
 
 import chess.format.Fen
 import chess.format.pgn.{ PgnStr, SanStr }
-import chess.{ Color, Status }
-import ornicar.scalalib.ThreadLocalRandom
+import chess.{ Color, ByColor, Status }
+import scalalib.ThreadLocalRandom
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
-import reactivemongo.api.bson.BSONNull
+import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
 
-import lila.common.config
-import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
-import lila.user.User
+import lila.core.game.*
+import lila.game.GameExt.*
 
-final class GameRepo(val coll: Coll)(using Executor):
+final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c):
 
+  export BSONHandlers.{ statusHandler, gameHandler }
   import BSONHandlers.given
-  import Game.{ BSONFields as F }
-  import Player.given
-
-  val fixedColorLobbyCache = lila.memo.ExpireSetMemo[GameId](2 hours)
+  import lila.game.Game.{ BSONFields as F }
+  import lila.game.Player.{ BSONFields as PF, HoldAlert, given }
 
   def game(gameId: GameId): Fu[Option[Game]]              = coll.byId[Game](gameId)
   def gameFromSecondary(gameId: GameId): Fu[Option[Game]] = coll.secondaryPreferred.byId[Game](gameId)
@@ -37,26 +35,23 @@ final class GameRepo(val coll: Coll)(using Executor):
   def gameOptionsFromSecondary(gameIds: Seq[GameId]): Fu[List[Option[Game]]] =
     coll.optionsByOrderedIds[Game, GameId](gameIds, none, _.priTemp)(_.id)
 
-  object light:
+  val light: lila.core.game.GameLightRepo = new:
 
-    def game(gameId: GameId): Fu[Option[LightGame]] = coll.byId[LightGame](gameId.value, LightGame.projection)
+    import lila.game.LightGame.projection
+
+    def game(gameId: GameId): Fu[Option[LightGame]] =
+      coll.byId[LightGame](gameId.value, projection)
 
     def pov(gameId: GameId, color: Color): Fu[Option[LightPov]] =
-      game(gameId).dmap2 { (game: LightGame) =>
-        LightPov(game, game.player(color))
-      }
+      game(gameId).dmap2 { LightPov(_, color) }
 
     def pov(ref: PovRef): Fu[Option[LightPov]] = pov(ref.gameId, ref.color)
 
     def gamesFromPrimary(gameIds: Seq[GameId]): Fu[List[LightGame]] =
-      coll.byOrderedIds[LightGame, GameId](gameIds, projection = LightGame.projection.some)(_.id)
+      coll.byOrderedIds[LightGame, GameId](gameIds, projection = projection.some)(_.id)
 
     def gamesFromSecondary(gameIds: Seq[GameId]): Fu[List[LightGame]] =
-      coll.byOrderedIds[LightGame, GameId](
-        gameIds,
-        projection = LightGame.projection.some,
-        _.sec
-      )(_.id)
+      coll.byOrderedIds[LightGame, GameId](gameIds, projection = projection.some, _.sec)(_.id)
 
   def finished(gameId: GameId): Fu[Option[Game]] =
     coll.one[Game]($id(gameId) ++ Query.finished)
@@ -73,9 +68,7 @@ final class GameRepo(val coll: Coll)(using Executor):
     player(playerRef.gameId, playerRef.playerId)
 
   def pov(gameId: GameId, color: Color): Fu[Option[Pov]] =
-    game(gameId).dmap2 { (game: Game) =>
-      Pov(game, game.player(color))
-    }
+    game(gameId).dmap2 { Pov(_, color) }
 
   def pov(gameId: GameId, color: String): Fu[Option[Pov]] =
     Color.fromName(color).so(pov(gameId, _))
@@ -87,15 +80,15 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   def pov(ref: PovRef): Fu[Option[Pov]] = pov(ref.gameId, ref.color)
 
-  def remove(id: GameId) = coll.delete.one($id(id)).void
+  def remove(id: GameId): Funit = coll.delete.one($id(id)).void
 
-  def userPovsByGameIds(
+  def userPovsByGameIds[U: UserIdOf](
       gameIds: List[GameId],
-      user: User,
+      user: U,
       readPref: ReadPref = _.priTemp
   ): Fu[List[Pov]] =
     coll.byOrderedIds[Game, GameId](gameIds, readPref = readPref)(_.id).dmap {
-      _.flatMap(g => Pov(g, user))
+      _.flatMap(Pov(_, user))
     }
 
   def recentPovsByUserFromSecondary(user: User, nb: Int, select: Bdoc = $empty): Fu[List[Pov]] =
@@ -137,7 +130,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       .cursor[Game](ReadPref.sec)
       .list(nb)
 
-  def unanalysedGames(gameIds: Seq[GameId], max: config.Max = config.Max(100)): Fu[List[Game]] =
+  def unanalysedGames(gameIds: Seq[GameId], max: Max = Max(100)): Fu[List[Game]] =
     coll
       .find($inIds(gameIds) ++ Query.analysed(false) ++ Query.turns(30 to 160))
       .cursor[Game](ReadPref.priTemp)
@@ -172,13 +165,13 @@ final class GameRepo(val coll: Coll)(using Executor):
       .one(
         $id(pov.gameId),
         $set(
-          s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.berserk}" -> true
+          s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.berserk}" -> true
         )
       )
       .void
 
   def setBlindfold(pov: Pov, blindfold: Boolean): Funit =
-    val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.blindfold}"
+    val field = s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${PF.blindfold}"
     coll.update.one($id(pov.gameId), $setBoolOrUnset(field, blindfold)).void
 
   def update(progress: Progress): Funit =
@@ -198,18 +191,18 @@ final class GameRepo(val coll: Coll)(using Executor):
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if doc.isEmpty then $empty else $doc(mod -> doc)
 
-  def setRatingDiffs(id: GameId, diffs: RatingDiffs) =
+  def setRatingDiffs(id: GameId, diffs: ByColor[IntRatingDiff]) =
     coll.update.one(
       $id(id),
       $set(
-        s"${F.whitePlayer}.${Player.BSONFields.ratingDiff}" -> diffs.white,
-        s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> diffs.black
+        s"${F.whitePlayer}.${PF.ratingDiff}" -> diffs.white,
+        s"${F.blackPlayer}.${PF.ratingDiff}" -> diffs.black
       )
     )
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted[U: UserIdOf](user: U): Fu[List[Pov]] =
-    coll.list[Game](Query.nowPlaying(user.id), Game.maxPlaying + 5).dmap {
+    coll.list[Game](Query.nowPlaying(user.id), lila.core.game.maxPlaying.value + 5).dmap {
       _.flatMap { Pov(_, user) }
     }
 
@@ -221,8 +214,8 @@ final class GameRepo(val coll: Coll)(using Executor):
           "$or" ->
             List(0, 1).map: rem =>
               $doc(
-                s"${Game.BSONFields.playingUids}.$rem" -> userId,
-                Game.BSONFields.turns                  -> $doc("$mod" -> $arr(2, rem))
+                s"${F.playingUids}.$rem" -> userId,
+                F.turns                  -> $doc("$mod" -> $arr(2, rem))
               )
         )
       )
@@ -253,9 +246,7 @@ final class GameRepo(val coll: Coll)(using Executor):
       .sort($sort.desc(F.createdAt))
       .cursor[Game]()
       .list(2)
-      .dmap {
-        _.sortBy(_.movedAt).lastOption.flatMap { Pov(_, user) }
-      }
+      .dmap { _.sortBy(_.movedAt).lastOption.flatMap(Pov(_, user)) }
 
   def quickLastPlayedId(userId: UserId): Fu[Option[GameId]] =
     coll
@@ -278,13 +269,14 @@ final class GameRepo(val coll: Coll)(using Executor):
 
   def setTv(id: GameId) = coll.updateFieldUnchecked($id(id), F.tvAt, nowInstant)
 
-  def setAnalysed(id: GameId): Funit  = coll.updateField($id(id), F.analysed, true).void
-  def setUnanalysed(id: GameId): Unit = coll.updateFieldUnchecked($id(id), F.analysed, false)
+  def setAnalysed(id: GameId, v: Boolean): Funit = coll.updateField($id(id), F.analysed, v).void
 
-  def isAnalysed(id: GameId): Fu[Boolean] =
-    coll.exists($id(id) ++ Query.analysed(true))
+  def isAnalysed(game: Game): Fu[Boolean] = GameExt
+    .analysable(game)
+    .so:
+      coll.exists($id(game.id) ++ Query.analysed(true))
 
-  def analysed(id: GameId) = coll.one[Game]($id(id) ++ Query.analysed(true))
+  def analysed(id: GameId): Fu[Option[Game]] = coll.one[Game]($id(id) ++ Query.analysed(true))
 
   def exists(id: GameId) = coll.exists($id(id))
 
@@ -293,7 +285,7 @@ final class GameRepo(val coll: Coll)(using Executor):
   def incBookmarks(id: GameId, value: Int) =
     coll.update.one($id(id), $inc(F.bookmarks -> value)).void
 
-  def setHoldAlert(pov: Pov, alert: Player.HoldAlert): Funit =
+  def setHoldAlert(pov: Pov, alert: HoldAlert): Funit =
     coll
       .updateField(
         $id(pov.gameId),
@@ -311,22 +303,22 @@ final class GameRepo(val coll: Coll)(using Executor):
       holdAlertField(chess.White) -> true,
       holdAlertField(chess.Black) -> true
     )
-    private def holdAlertOf(doc: Bdoc, color: Color): Option[Player.HoldAlert] =
-      doc.child(color.fold("p0", "p1")).flatMap(_.getAsOpt[Player.HoldAlert](Player.BSONFields.holdAlert))
+    private def holdAlertOf(doc: Bdoc, color: Color): Option[HoldAlert] =
+      doc.child(color.fold("p0", "p1")).flatMap(_.getAsOpt[HoldAlert](PF.holdAlert))
 
-    def game(game: Game): Fu[Player.HoldAlert.Map] =
+    def game(game: Game): Fu[HoldAlert.Map] =
       coll
         .one[Bdoc](
           $doc(F.id -> game.id, holdAlertSelector),
           holdAlertProjection
         )
         .map {
-          _.fold(Player.HoldAlert.emptyMap) { doc =>
+          _.fold(HoldAlert.emptyMap) { doc =>
             chess.ByColor(holdAlertOf(doc, _))
           }
         }
 
-    def povs(povs: Seq[Pov]): Fu[Map[GameId, Player.HoldAlert]] =
+    def povs(povs: Seq[Pov]): Fu[Map[GameId, HoldAlert]] =
       coll
         .find(
           $doc($inIds(povs.map(_.gameId)), holdAlertSelector),
@@ -355,41 +347,38 @@ final class GameRepo(val coll: Coll)(using Executor):
       )
     )
 
-  private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${Player.BSONFields.holdAlert}"
+  private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${PF.holdAlert}"
 
   private val finishUnsets = $doc(
-    F.positionHashes                              -> true,
-    F.playingUids                                 -> true,
-    F.unmovedRooks                                -> true,
-    ("p0." + Player.BSONFields.isOfferingDraw)    -> true,
-    ("p1." + Player.BSONFields.isOfferingDraw)    -> true,
-    ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
-    ("p1." + Player.BSONFields.proposeTakebackAt) -> true
+    F.positionHashes               -> true,
+    F.playingUids                  -> true,
+    F.unmovedRooks                 -> true,
+    ("p0." + PF.isOfferingDraw)    -> true,
+    ("p1." + PF.isOfferingDraw)    -> true,
+    ("p0." + PF.proposeTakebackAt) -> true,
+    ("p1." + PF.proposeTakebackAt) -> true
   )
 
-  def finish(
-      id: GameId,
-      winnerColor: Option[Color],
-      winnerId: Option[UserId],
-      status: Status
-  ) =
-    coll.update.one(
-      $id(id),
-      nonEmptyMod(
-        "$set",
-        $doc(
-          F.winnerId    -> winnerId,
-          F.winnerColor -> winnerColor.map(_.white),
-          F.status      -> status
+  def finish(id: GameId, winnerColor: Option[Color], winnerId: Option[UserId], status: Status): Funit =
+    coll.update
+      .one(
+        $id(id),
+        nonEmptyMod(
+          "$set",
+          $doc(
+            F.winnerId    -> winnerId,
+            F.winnerColor -> winnerColor.map(_.white),
+            F.status      -> status
+          )
+        ) ++ $doc(
+          "$unset" -> finishUnsets.++ {
+            // keep the checkAt field when game is aborted,
+            // so it gets deleted in 24h
+            (status >= Status.Mate).so($doc(F.checkAt -> true))
+          }
         )
-      ) ++ $doc(
-        "$unset" -> finishUnsets.++ {
-          // keep the checkAt field when game is aborted,
-          // so it gets deleted in 24h
-          (status >= Status.Mate).so($doc(F.checkAt -> true))
-        }
       )
-    )
+      .void
 
   def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] =
     coll
@@ -400,23 +389,24 @@ final class GameRepo(val coll: Coll)(using Executor):
       .skip(ThreadLocalRandom.nextInt(distribution))
       .one[Game]
 
-  def insertDenormalized(g: Game, initialFen: Option[chess.format.Fen.Epd] = None): Funit =
+  def insertDenormalized(g: Game, initialFen: Option[Fen.Full] = None): Funit =
     val g2 =
-      if g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))) then
-        g.copy(mode = chess.Mode.Casual)
+      if g.rated && (g.userIds.distinct.size != 2 ||
+          !lila.core.game.allowRated(g.variant, g.clock.map(_.config)))
+      then g.copy(mode = chess.Mode.Casual)
       else g
     val userIds = g2.userIds.distinct
-    val fen: Option[Fen.Epd] = initialFen.orElse {
+    val fen: Option[Fen.Full] = initialFen.orElse {
       (g2.variant.fromPosition || g2.variant.chess960)
         .option(Fen.write(g2.chess))
         .filterNot(_.isInitial)
     }
     val checkInHours =
       if g2.isPgnImport then none
-      else if g2.fromApi then some(24 * 7)
+      else if g2.sourceIs(_.Api) then some(24 * 7)
       else if g2.hasClock then 1.some
       else some(24 * 10)
-    val bson = (gameBSONHandler.write(g2)) ++ $doc(
+    val bson = (gameHandler.write(g2)) ++ $doc(
       F.initialFen  -> fen,
       F.checkAt     -> checkInHours.map(nowInstant.plusHours(_)),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
@@ -461,29 +451,25 @@ final class GameRepo(val coll: Coll)(using Executor):
   def unsetPlayingUids(g: Game): Unit =
     coll.update(ordered = false, WriteConcern.Unacknowledged).one($id(g.id), $unset(F.playingUids))
 
-  // used to make a compound sparse index
-  def setImportCreatedAt(g: Game) =
-    coll.updateField($id(g.id), "pgni.ca", g.createdAt).void
+  def initialFen(gameId: GameId): Fu[Option[Fen.Full]] =
+    coll.primitiveOne[Fen.Full]($id(gameId), F.initialFen)
 
-  def initialFen(gameId: GameId): Fu[Option[Fen.Epd]] =
-    coll.primitiveOne[Fen.Epd]($id(gameId), F.initialFen)
-
-  def initialFen(game: Game): Fu[Option[Fen.Epd]] =
-    if game.imported || !game.variant.standardInitialPosition then
+  def initialFen(game: Game): Fu[Option[Fen.Full]] =
+    if game.sourceIs(_.Import) || !game.variant.standardInitialPosition then
       initialFen(game.id).dmap:
         case None if game.variant == chess.variant.Chess960 => Fen.initial.some
         case fen                                            => fen
     else fuccess(none)
 
-  def gameWithInitialFen(gameId: GameId): Fu[Option[Game.WithInitialFen]] =
+  def gameWithInitialFen(gameId: GameId): Fu[Option[WithInitialFen]] =
     game(gameId).flatMapz: game =>
       initialFen(game).dmap: fen =>
-        Game.WithInitialFen(game, fen).some
+        WithInitialFen(game, fen).some
 
-  def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
-    initialFen(game).dmap { Game.WithInitialFen(game, _) }
+  def withInitialFen(game: Game): Fu[WithInitialFen] =
+    initialFen(game).dmap { WithInitialFen(game, _) }
 
-  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Epd])]] =
+  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[Fen.Full])]] =
     games.map { game =>
       initialFen(game).dmap { game -> _ }
     }.parallel
@@ -527,11 +513,6 @@ final class GameRepo(val coll: Coll)(using Executor):
       .skip(ThreadLocalRandom.nextInt(1000))
       .one[Game]
 
-  def findPgnImport(pgn: PgnStr): Fu[Option[Game]] =
-    coll.one[Game](
-      $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
-    )
-
   def getOptionPgn(id: GameId): Fu[Option[Vector[SanStr]]] = game(id).dmap2(_.sans)
 
   def lastGameBetween(u1: UserId, u2: UserId, since: Instant): Fu[Option[Game]] =
@@ -561,7 +542,7 @@ final class GameRepo(val coll: Coll)(using Executor):
         (doc.int(F.source).flatMap(Source.apply), ~doc.getAsOpt[List[UserId]](F.playerUids))
     }
 
-  def recentAnalysableGamesByUserId(userId: UserId, nb: Int) =
+  def recentAnalysableGamesByUserId(userId: UserId, nb: Int): Fu[List[Game]] =
     coll
       .find(
         Query.finished
@@ -572,7 +553,3 @@ final class GameRepo(val coll: Coll)(using Executor):
       .sort(Query.sortCreated)
       .cursor[Game](ReadPref.sec)
       .list(nb)
-
-  // only for student games, for aggregation
-  def denormalizePerfType(game: Game): Unit =
-    coll.updateFieldUnchecked($id(game.id), F.perfType, game.perfType.id)

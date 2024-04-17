@@ -5,18 +5,18 @@ import controllers.routes
 import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 import lila.forum.{ CategView, TopicView }
 
 object categ:
 
   def index(categs: List[CategView])(using PageContext) =
     views.html.base.layout(
-      title = trans.forum.txt(),
+      title = trans.site.forum.txt(),
       moreCss = cssTag("forum"),
       csp = defaultCsp.withInlineIconFont.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Lichess community forum",
           url = s"$netBaseUrl${routes.ForumCateg.index.url}",
@@ -26,7 +26,7 @@ object categ:
     ):
       main(cls := "forum index box")(
         boxTop(
-          h1(dataIcon := licon.BubbleConvo, cls := "text")("Lichess Forum"),
+          h1(dataIcon := Icon.BubbleConvo, cls := "text")("Lichess Forum"),
           bits.searchForm()
         ),
         showCategs(categs.filterNot(_.categ.isTeam)),
@@ -51,9 +51,9 @@ object categ:
       a(
         href     := routes.ForumTopic.form(categ.slug),
         cls      := "button button-empty button-green text",
-        dataIcon := licon.Pencil
+        dataIcon := Icon.Pencil
       ):
-        trans.createANewTopic()
+        trans.site.createANewTopic()
     )
 
     def showTopic(sticky: Boolean)(topic: TopicView) =
@@ -69,7 +69,7 @@ object categ:
                 momentFromNow(post.createdAt)
               ),
               br,
-              trans.by(bits.authorLink(post))
+              trans.site.by(bits.authorLink(post))
             )
         )
       )
@@ -77,9 +77,9 @@ object categ:
     views.html.base.layout(
       title = categ.name,
       moreCss = cssTag("forum"),
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       csp = defaultCsp.withInlineIconFont.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"Forum: ${categ.name}",
           url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
@@ -92,7 +92,7 @@ object categ:
           h1(
             a(
               href     := categ.team.fold(routes.ForumCateg.index)(teamRoutes.show(_)),
-              dataIcon := licon.LessThan,
+              dataIcon := Icon.LessThan,
               cls      := "text"
             ),
             categ.team.fold(frag(categ.name))(teamLink(_, true))
@@ -104,8 +104,8 @@ object categ:
           thead(
             tr(
               th,
-              th(cls := "right")(trans.replies()),
-              th(trans.lastPost())
+              th(cls := "right")(trans.site.replies()),
+              th(trans.site.lastPost())
             )
           ),
           tbody(cls := "infinite-scroll")(
@@ -121,9 +121,9 @@ object categ:
       thead(
         tr(
           th,
-          th(cls := "right")(trans.topics()),
-          th(cls := "right")(trans.posts()),
-          th(trans.lastPost())
+          th(cls := "right")(trans.site.topics()),
+          th(cls := "right")(trans.site.posts()),
+          th(trans.site.lastPost())
         )
       ),
       tbody:
@@ -139,6 +139,6 @@ object categ:
               td(cls := "subject")(h2(a(href := categUrl)(view.name)), p(view.desc)),
               td(cls := "right")((if canBrowse then view.nbTopics else 1).localize),
               td(cls := "right")((if canBrowse then view.nbPosts else topic.nbPosts).localize),
-              td(a(href := postUrl)(momentFromNow(post.createdAt)), br, trans.by(bits.authorLink(post)))
+              td(a(href := postUrl)(momentFromNow(post.createdAt)), br, trans.site.by(bits.authorLink(post)))
             )
     )

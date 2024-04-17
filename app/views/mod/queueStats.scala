@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.ModActivity.Period
 import lila.mod.ModQueueStats.*
 
@@ -14,7 +14,7 @@ object queueStats:
     views.html.base.layout(
       title = "Queues stats",
       moreCss = cssTag("mod.activity"),
-      moreJs = jsModuleInit("mod.activity", Json.obj("op" -> "queues", "data" -> p.json))
+      pageModule = PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json)).some
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("queues"),

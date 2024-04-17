@@ -1,6 +1,6 @@
-@import '../../common/css/vendor/chessground/themes';
+@import '../../common/css/theme/board/boards';
 
-#dasher_app .theme {
+#dasher_app .board {
   .list {
     @extend %flex-wrap;
 
@@ -8,8 +8,8 @@
   }
 
   .list button {
-    flex: 0 0 50%;
-    height: 44px;
+    flex: 0 0 33%;
+    height: 40px;
 
     @extend %flex-center;
     @extend %button-none;
@@ -23,13 +23,6 @@
     height: 32px;
   }
 
-  &.d3 .list span {
-    width: 66px;
-    height: 30px;
-
-    @include transition(transform);
-  }
-
   .list button:hover {
     filter: brightness(1.05);
   }
@@ -39,7 +32,7 @@
   }
 
   .list button.active {
-    background-color: $c-shade;
+    background-color: $c-good;
   }
 
   &.d2 {
@@ -55,6 +48,9 @@
         } @else {
           background-image: img-url('board/#{$file-name}.thumbnail.#{$file-ext}');
         }
+        body:not(.simple-board) & {
+          filter: hue-rotate(calc(var(---board-hue) * 360deg));
+        }
       }
     }
   }
@@ -63,6 +59,9 @@
     @each $name in map-keys($board-themes-3d) {
       .#{$name} {
         background-image: img-url('staunton/board/#{$name}.thumbnail.png');
+        body:not(.simple-board) & {
+          filter: hue-rotate(calc(var(---board-hue) * 360deg));
+        }
       }
     }
   }

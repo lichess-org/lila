@@ -5,11 +5,9 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.common.LilaStream
-import lila.common.config.Max
+
 import lila.db.dsl.{ *, given }
-import lila.game.BSONHandlers.gameBSONHandler
-import lila.game.{ Game, GameRepo, Query }
-import lila.user.User
+import lila.game.{ GameRepo, Query }
 
 final private class InsightIndexer(
     povToEntry: PovToEntry,
@@ -17,8 +15,14 @@ final private class InsightIndexer(
     storage: InsightStorage
 )(using Executor, Scheduler, akka.stream.Materializer):
 
-  private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 1 minute, name = "insightIndexer")
+  import gameRepo.gameHandler
+
+  private val workQueue = scalalib.actor.AsyncActorSequencer(
+    maxSize = Max(256),
+    timeout = 1 minute,
+    name = "insightIndexer",
+    lila.log.asyncActorMonitor
+  )
 
   def all(user: User): Funit =
     workQueue {
@@ -76,13 +80,13 @@ final private class InsightIndexer(
       .flatMap { nbs =>
         var nbByPerf = nbs
         def toEntry(game: Game): Fu[Option[InsightEntry]] =
-          val nb = nbByPerf.getOrElse(game.perfType, 0) + 1
-          nbByPerf = nbByPerf.updated(game.perfType, nb)
+          val nb = nbByPerf.getOrElse(game.perfKey, 0) + 1
+          nbByPerf = nbByPerf.updated(game.perfKey, nb)
           povToEntry(game, user.id, provisional = nb < 10)
             .addFailureEffect: e =>
               logger.warn(e.getMessage, e)
             .map(_.toOption)
-        val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt.$gte(from))
+        val query = gameQuery(user) ++ $doc(lila.game.Game.BSONFields.createdAt.$gte(from))
         gameRepo
           .sortedCursor(query, Query.sortChronological)
           .documentSource(maxGames)

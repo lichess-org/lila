@@ -1,5 +1,5 @@
 .tutor {
-  @include breakpoint($mq-subnav-side) {
+  @include mq-subnav-side {
     .subnav {
       width: 22ch;
       .subnav__subitem {
@@ -13,7 +13,7 @@
   }
 
   &__pad {
-    padding: 0 var(--box-padding) $box-padding-vert var(--box-padding);
+    padding: 0 var(---box-padding) $box-padding-vert var(---box-padding);
   }
 
   &__concept {

@@ -1,13 +1,14 @@
 package lila.game
 
-import lila.common.config.MaxPerPage
-import lila.common.paginator.*
+import scalalib.paginator.*
+
 import lila.db.dsl.*
 import lila.db.paginator.*
+import lila.core.game.Game
 
 final class PaginatorBuilder(gameRepo: GameRepo)(using Executor):
 
-  import BSONHandlers.gameBSONHandler
+  import BSONHandlers.gameHandler
 
   def recentlyCreated(selector: Bdoc, nb: Option[Int] = None) =
     apply(selector, Query.sortCreated, nb)

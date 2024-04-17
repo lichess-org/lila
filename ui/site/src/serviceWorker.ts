@@ -1,4 +1,4 @@
-import { url as assetUrl, jsModule } from './assets';
+import { url as assetUrl, jsModule } from './asset';
 import { storage } from './storage';
 
 export default async function () {

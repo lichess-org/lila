@@ -28,7 +28,7 @@
   }
 
   &:hover {
-    background: mix($c-link, $c-bg-box, 15%);
+    background: $m-primary_bg--mix-15;
   }
 
   img {

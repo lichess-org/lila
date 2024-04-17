@@ -4,8 +4,7 @@ package round
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
-import lila.game.Pov
+import lila.web.ui.ScalatagsTemplate.*
 
 object player:
 
@@ -27,7 +26,7 @@ object player:
           chat.restrictedJson(
             c,
             c.lines,
-            name = trans.chatRoom.txt(),
+            name = trans.site.chatRoom.txt(),
             timeout = false,
             withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
             public = false,
@@ -38,30 +37,28 @@ object player:
           chat.json(
             c.chat,
             c.lines,
-            name = trans.chatRoom.txt(),
+            name = trans.site.chatRoom.txt(),
             timeout = c.timeout,
             public = true,
             resourceId = res
           )
 
+    val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
     bits.layout(
       variant = pov.game.variant,
-      title = s"${trans.play
-          .txt()} ${if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)}",
-      moreJs = frag(
-        roundNvuiTag,
-        jsModuleInit(
-          "round",
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> jsI18n(pov.game),
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson
-            )
-            .add("noab" -> ctx.me.exists(_.marks.engine))
-        )
-      ),
+      title = s"${trans.site.play.txt()} $opponentNameOrZen",
+      modules = roundNvuiTag,
+      pageModule = PageModule(
+        "round",
+        Json
+          .obj(
+            "data"   -> data,
+            "i18n"   -> jsI18n(pov.game),
+            "userId" -> ctx.userId,
+            "chat"   -> chatJson
+          )
+          .add("noab" -> ctx.me.exists(_.marks.engine))
+      ).some,
       openGraph = povOpenGraph(pov).some,
       playing = pov.game.playable,
       zenable = true

@@ -7,13 +7,14 @@ import views.html.mod.userTable.sortNoneTh
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
-import lila.game.Pov
+
 import lila.rating.PerfType
-import lila.swiss.Swiss
+import lila.core.chess.Rank
 import lila.tournament.LeaderboardApi.TourEntry
-import lila.user.User
+import lila.game.GameExt.analysable
+import lila.game.GameExt.perfType
 
 object games:
 
@@ -22,12 +23,12 @@ object games:
       filterForm: Form[GameMod.Filter],
       games: Either[List[Pov], List[(Pov, Either[PlayerAssessment, PlayerAssessment.Basics])]],
       arenas: Seq[TourEntry],
-      swisses: Seq[(Swiss.IdName, Rank)]
+      swisses: Seq[(lila.core.swiss.IdName, Rank)]
   )(using PageContext) =
     views.html.base.layout(
       title = s"${user.username} games",
       moreCss = cssTag("mod.games"),
-      moreJs = jsModule("mod.games")
+      modules = jsModule("mod.games")
     ) {
       main(cls := "mod-games box")(
         boxTop(
@@ -38,7 +39,7 @@ object games:
               form3.input(filterForm("nbGamesOpt"))(placeholder := "Nb games"),
               form3.select(
                 filterForm("perf"),
-                PerfType.nonPuzzle.map: p =>
+                lila.rating.PerfType.nonPuzzle.map: p =>
                   p.key -> p.trans,
                 "Variant".some
               ),
@@ -87,7 +88,7 @@ object games:
                 ),
                 thSortNumber("Opponent"),
                 thSortNumber("Speed"),
-                th(iconTag(licon.Trophy)),
+                th(iconTag(Icon.Trophy)),
                 thSortNumber("Moves"),
                 thSortNumber("Result"),
                 thSortNumber("ACPL", br, "(Avg ± SD)"),
@@ -99,9 +100,10 @@ object games:
             tbody(
               games.fold(_.map(_ -> None), _.map { case (pov, ass) => pov -> Some(ass) }).map {
                 case (pov, assessment) =>
+                  val analysable = lila.game.GameExt.analysable(pov.game)
                   tr(
-                    td(cls := pov.game.analysable.option("input"))(
-                      pov.game.analysable.option(
+                    td(cls := analysable.option("input"))(
+                      analysable.option(
                         input(
                           tpe      := "checkbox",
                           name     := s"game[]",
@@ -123,14 +125,14 @@ object games:
                     td(dataSort := pov.game.tournamentId.so(_.value))(
                       pov.game.tournamentId.map { tourId =>
                         a(
-                          dataIcon := licon.Trophy,
+                          dataIcon := Icon.Trophy,
                           href     := routes.Tournament.show(tourId).url,
                           title    := tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId.map { swissId =>
                         a(
-                          dataIcon := licon.Trophy,
+                          dataIcon := Icon.Trophy,
                           href     := routes.Swiss.show(swissId).url,
                           title    := s"Swiss #${swissId}"
                         )

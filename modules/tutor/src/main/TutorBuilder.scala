@@ -2,7 +2,6 @@ package lila.tutor
 
 import chess.Color
 
-import lila.common.config
 import lila.db.dsl.{ *, given }
 import lila.insight.{
   Answer as InsightAnswer,
@@ -15,13 +14,14 @@ import lila.insight.{
   Question
 }
 import lila.rating.PerfType
-import lila.user.{ User, UserApi }
+import lila.core.perf.UserWithPerfs
+import lila.core.perf.PerfKey
 
 final private class TutorBuilder(
     colls: TutorColls,
     insightApi: InsightApi,
     perfStatsApi: InsightPerfStatsApi,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     fishnet: TutorFishnet
 )(using Executor):
 
@@ -49,9 +49,9 @@ final private class TutorBuilder(
     }
   yield report
 
-  private def produce(user: User.WithPerfs): Fu[TutorFullReport] = for
+  private def produce(user: UserWithPerfs): Fu[TutorFullReport] = for
     _ <- insightApi.indexAll(user).monSuccess(_.tutor.buildSegment("insight-index"))
-    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
+    perfStats <- perfStatsApi(user, eligiblePerfKeysOf(user).map(PerfType(_)), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor.buildSegment("perf-stats"))
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
     tutorUsers = perfStats
@@ -62,8 +62,8 @@ final private class TutorBuilder(
     perfs <- (tutorUsers.toNel.so(TutorPerfReport.compute)).monSuccess(_.tutor.buildSegment("perf-reports"))
   yield TutorFullReport(user.id, nowInstant, perfs)
 
-  private[tutor] def eligiblePerfTypesOf(user: User.WithPerfs) =
-    PerfType.standardWithUltra.filter: pt =>
+  private[tutor] def eligiblePerfKeysOf(user: UserWithPerfs): List[PerfKey] =
+    lila.rating.PerfType.standardWithUltra.filter: pt =>
       user.perfs(pt).latest.exists(_.isAfter(nowInstant.minusMonths(12)))
 
   private def hasFreshReport(user: User): Fu[Boolean] = colls.report.exists:
@@ -108,7 +108,7 @@ private object TutorBuilder:
   type Count = Int
   type Pair  = ValueCount[Value]
 
-  val peerNbGames = config.Max(5_000)
+  val peerNbGames = Max(5_000)
 
   def answerMine[Dim](question: Question[Dim], user: TutorUser)(using
       insightApi: InsightApi,
@@ -118,7 +118,7 @@ private object TutorBuilder:
     .monSuccess(_.tutor.askMine(question.monKey, user.perfType.key.value))
     .map(AnswerMine.apply)
 
-  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: config.Max = peerNbGames)(using
+  def answerPeer[Dim](question: Question[Dim], user: TutorUser, nbGames: Max = peerNbGames)(using
       insightApi: InsightApi,
       ec: Executor
   ): Fu[AnswerPeer[Dim]] = insightApi
@@ -126,7 +126,7 @@ private object TutorBuilder:
     .monSuccess(_.tutor.askPeer(question.monKey, user.perfType.key.value))
     .map(AnswerPeer.apply)
 
-  def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: config.Max = peerNbGames)(using
+  def answerBoth[Dim](question: Question[Dim], user: TutorUser, nbPeerGames: Max = peerNbGames)(using
       InsightApi,
       Executor
   ): Fu[Answers[Dim]] = for

@@ -6,13 +6,15 @@ import play.api.mvc.{ Request, Result }
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, IpAddress, Preload }
+import lila.core.net.IpAddress
+import lila.common.HTTPRequest
 import lila.game.{ AnonCookie, Pov }
 import lila.memo.RateLimit
-import lila.rating.Perf
+
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
-import lila.socket.Socket.Sri
+import lila.core.socket.Sri
+import lila.game.GameExt.perfType
 
 final class Setup(
     env: Env,
@@ -53,7 +55,7 @@ final class Setup(
               processor.ai(config).flatMap { pov =>
                 negotiateApi(
                   html = redirectPov(pov),
-                  api = _ => env.api.roundApi.player(pov, Preload.none, none).map(Created(_))
+                  api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map(Created(_))
                 )
               }
           )
@@ -87,7 +89,7 @@ final class Setup(
                         case _ if HTTPRequest.isLichobile(ctx.req) => Challenger.Open.some
                         case _                                     => none
                       .so: challenger =>
-                        val timeControl = TimeControl.make(config.makeClock, config.makeDaysPerTurn)
+                        val timeControl = makeTimeControl(config.makeClock, config.makeDaysPerTurn)
                         val challenge = lila.challenge.Challenge.make(
                           variant = config.variant,
                           initialFen = config.fen,
@@ -135,13 +137,13 @@ final class Setup(
                 AnonHookRateLimit(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
                   for
                     me <- ctx.user.soFu(env.user.api.withPerfs)
-                    given Perf = me.fold(Perf.default)(_.perfs(userConfig.perfType))
+                    given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
                     blocking <- ctx.userId.so(env.relation.api.fetchBlocking)
                     res <- processor.hook(
                       userConfig.withinLimits,
                       sri,
                       req.sid,
-                      lila.pool.Blocking(blocking)
+                      lila.core.pool.Blocking(blocking)
                     )(using me)
                   yield hookResponse(res)
           )
@@ -158,13 +160,13 @@ final class Setup(
               hookConfigWithRating = get("rr")
                 .fold(
                   hookConfig.withRatingRange(
-                    orig.fold(lila.rating.Perf.default)(_.perfs(game.perfType)).intRating.some,
+                    orig.fold(lila.rating.Perf.default)(_.perfs(game.perfKey)).intRating.some,
                     get("deltaMin"),
                     get("deltaMax")
                   )
                 )(hookConfig.withRatingRange)
                 .updateFrom(game)
-              allBlocking = lila.pool.Blocking(blocking ++ game.userIds)
+              allBlocking = lila.core.pool.Blocking(blocking ++ game.userIds)
               hookResult <- processor.hook(hookConfigWithRating, sri, ctx.req.sid, allBlocking)(using orig)
             yield hookResponse(hookResult)
 
@@ -198,7 +200,7 @@ final class Setup(
                   blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
                   uniqId = author.fold(_.value, u => s"sri:${u.id}")
                   res <- config.fixColor
-                    .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.pool.Blocking(blocking))
+                    .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
                     .match
                       case Left(hook) =>
                         PostRateLimit(req.ipAddress, rateLimited):
@@ -223,7 +225,7 @@ final class Setup(
     Ok.page(html.setup.filter(forms.filter))
 
   def validateFen = Open:
-    (get("fen").map(Fen.Epd.clean): Option[Fen.Epd]).flatMap(ValidFen(getBool("strict"))) match
+    (get("fen").map(Fen.Full.clean): Option[Fen.Full]).flatMap(ValidFen(getBool("strict"))) match
       case None    => BadRequest
       case Some(v) => Ok.page(html.board.bits.miniSpan(v.fen.board, v.color))
 
@@ -246,7 +248,7 @@ final class Setup(
     if ctx.isAuth then redir
     else
       redir.withCookies(
-        env.lilaCookie.cookie(
+        env.security.lilaCookie.cookie(
           AnonCookie.name,
           pov.playerId.value,
           maxAge = AnonCookie.maxAge.some,

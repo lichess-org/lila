@@ -40,6 +40,13 @@
   <string name="forbiddenPairings">Pareamentos proibidos</string>
   <string name="forbiddenPairingsHelp">Nomes de usuários de jogadores que não devem jogar juntos (irmãos, por exemplo). Dois nomes por linha, separados por espaço.</string>
   <string name="manualPairings">Pareamentos manuais na próxima rodada</string>
+  <string name="manualPairingsHelp">Especificar todos os pares da próxima rodada manualmente. Um par por linha. Exemplo:
+PlayerA PlayerB
+PlayerC PlayerD
+Para dar uma bye (1 ponto) para um jogador ao invés de um emparelhar, adicione uma linha assim:
+PlayerE 1
+Jogadores ausentes serão considerados ausentes e obterão zero pontos.
+Deixe este campo vazio para que o lichess crie pares automaticamente.</string>
   <string name="mustHavePlayedTheirLastSwissGame">Deve ter jogado sua última partida no torneio suíço</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">Só permita entrar jogadores que tiverem jogado sua última partida de torneio suíço. Se eles não compareceram a um torneio suíço recente, não poderão participar do seu. Isso resulta em uma experiência suíça melhor para os jogadores que realmente comparecem.</string>
   <string name="newSwiss">Novo torneio suíço</string>

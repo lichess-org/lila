@@ -2,8 +2,8 @@
   border: none;
 
   .player {
-    padding-#{$start-direction}: 0px;
-    padding-#{$end-direction}: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
 
     .user-link {
       @extend %flex-center-nowrap;
@@ -13,9 +13,9 @@
       @extend %nowrap-ellipsis;
 
       display: inline-block;
-      padding-#{$end-direction}: 5px;
+      padding-inline-end: 5px;
       max-width: 140px;
-      @include breakpoint($mq-x-large) {
+      @media (min-width: at-least($x-large)) {
         max-width: 200px;
       }
     }
@@ -33,7 +33,7 @@
   tr.long .user-link .rating {
     display: block;
     direction: ltr;
-    padding-#{$start-direction}: 0px;
+    padding-inline-start: 0px;
   }
 
   tr {
@@ -49,32 +49,16 @@
   }
 
   &:not(.created):not(.loading) tbody tr:hover {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: $m-primary_bg--mix-30;
     cursor: pointer;
   }
 
   tr.me td:first-child {
-    $c-me-border: mix($c-secondary, $c-bg-box, 70%);
-
-    background: linear-gradient(
-      to $end-direction,
-      $c-me-border 0px,
-      $c-me-border 5px,
-      rgba(0, 0, 0, 0) 5px,
-      rgba(0, 0, 0, 0) 100%
-    );
+    @include gradient-border($m-secondary_bg--mix-70, to right, to left);
   }
 
   tr.active td:last-child {
-    $c-active-border: mix($c-primary, $c-bg-box, 70%);
-
-    background: linear-gradient(
-      to $start-direction,
-      $c-active-border 0px,
-      $c-active-border 5px,
-      rgba(0, 0, 0, 0) 5px,
-      rgba(0, 0, 0, 0) 100%
-    );
+    @include gradient-border($m-primary_bg--mix-70, to left, to right);
   }
 
   td.rank {
@@ -90,8 +74,8 @@
 
   .sheet {
     text-align: right;
-    padding-#{$end-direction}: 0;
-    padding-#{$start-direction}: 0;
+    padding-inline-end: 0;
+    padding-inline-start: 0;
     letter-spacing: 0.1em;
 
     & > * {
@@ -128,6 +112,6 @@
   .total {
     text-align: right;
     font-weight: bold;
-    padding-#{$end-direction}: $block-gap;
+    padding-inline-end: $block-gap;
   }
 }

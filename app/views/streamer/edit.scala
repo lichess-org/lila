@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 
 object edit:
@@ -18,7 +18,7 @@ object edit:
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
-      moreJs = jsModule("streamer"),
+      modules = jsModule("bits.streamer"),
       moreCss = cssTag("streamer.form")
     ) {
       main(cls := "page-menu")(
@@ -30,7 +30,7 @@ object edit:
                 picture.thumbnail(s.streamer, s.user)(attr("draggable") := "true", cls := "drop-target"),
                 span(
                   label("Drag image above or"),
-                  form3.file.selectImage
+                  form3.file.selectImage()
                 )
               ),
               div(cls := "overview")(
@@ -45,7 +45,7 @@ object edit:
               (ctx.is(s.user) && s.streamer.listed.value).option(
                 div(
                   cls      := s"status is${granted.so("-green")}",
-                  dataIcon := (if granted then licon.Checkmark else licon.InfoCircle)
+                  dataIcon := (if granted then Icon.Checkmark else Icon.InfoCircle)
                 )(
                   if granted then
                     frag(
@@ -88,7 +88,7 @@ object edit:
                 ),
               modData.map { case ((log, notes), same) =>
                 div(cls := "mod_log status")(
-                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
+                  strong(cls := "text", dataIcon := Icon.CautionTriangle)(
                     "Moderation history",
                     log.isEmpty.option(": nothing to show.")
                   ),
@@ -107,7 +107,7 @@ object edit:
                     )
                   ),
                   br,
-                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
+                  strong(cls := "text", dataIcon := Icon.CautionTriangle)(
                     "Moderator notes",
                     notes.isEmpty.option(": nothing to show.")
                   ),
@@ -123,7 +123,7 @@ object edit:
                     )
                   ),
                   br,
-                  strong(cls := "text", dataIcon := licon.CautionTriangle)(
+                  strong(cls := "text", dataIcon := Icon.CautionTriangle)(
                     "Streamers with same Twitch or YouTube",
                     same.isEmpty.option(": nothing to show.")
                   ),
@@ -192,12 +192,12 @@ object edit:
                           name  := "approval.quick",
                           value := "approve"
                         ),
-                      form3.submit("Decline and next", icon = licon.X.some)(
+                      form3.submit("Decline and next", icon = Icon.X.some)(
                         cls   := "button-red",
                         name  := "approval.quick",
                         value := "decline"
                       ),
-                      form3.submit(trans.apply())
+                      form3.submit(trans.site.apply())
                     )
                   )
                 ),
@@ -237,8 +237,8 @@ object edit:
                 )(form3.input(_)),
                 form3.group(form("description"), longDescription())(form3.textarea(_)(rows := 10)),
                 form3.actions(
-                  a(href := routes.Streamer.show(s.user.username))(trans.cancel()),
-                  form3.submit(trans.apply())
+                  a(href := routes.Streamer.show(s.user.username))(trans.site.cancel()),
+                  form3.submit(trans.site.apply())
                 )
               )
             )

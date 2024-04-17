@@ -9,8 +9,7 @@ import play.api.data.Forms.*
 import play.api.data.validation.Constraint
 
 import lila.common.Form.{ *, given }
-import lila.hub.LightTeam
-import lila.user.Me
+import lila.core.team.LightTeam
 
 object SimulForm:
 
@@ -119,7 +118,7 @@ object SimulForm:
       clockExtra: LimitMinutes,
       clockExtraPerPlayer: LimitSeconds,
       variants: List[Variant.Id],
-      position: Option[Fen.Epd],
+      position: Option[Fen.Full],
       color: String,
       text: String,
       estimatedStartAt: Option[Instant] = None,

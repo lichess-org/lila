@@ -1,17 +1,17 @@
 #friend_box {
   display: none;
 
-  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
+  @include mq-topnav-visible-and-tall {
     display: block;
   }
 
   position: fixed;
   bottom: 0;
-  #{$end-direction}: 0;
+  @include inline-end(0);
   z-index: z('friend-box');
   background: $c-bg-popup;
   border: $border;
-  border-#{$end-direction}: 0;
+  border-inline-end: 0;
   border-bottom: 0;
   border-top-left-radius: $box-radius-size;
   font-size: 0.9rem;
@@ -44,7 +44,7 @@
       display: flex;
 
       &:hover {
-        background: mix($c-secondary, $c-bg-popup, 10%);
+        background: $m-secondary_bg-popup--mix-10;
       }
     }
 

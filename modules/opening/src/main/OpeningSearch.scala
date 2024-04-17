@@ -6,18 +6,18 @@ import chess.opening.{ Opening, OpeningDb }
 import java.text.Normalizer
 
 import lila.common.Chronometer
-import lila.common.Heapsort.topN
+import scalalib.HeapSort.topN
 import lila.memo.CacheApi
 
 case class OpeningSearchResult(opening: Opening):
   def pgn   = OpeningSearch.removePgnMoveNumbers(opening.pgn)
   def query = OpeningQuery.Query(opening.key.value, pgn.some)
 
-final class OpeningSearch(cacheApi: CacheApi):
+final class OpeningSearch(cacheApi: CacheApi)(using Executor):
 
   val max = 32
 
-  private val cache = cacheApi.scaffeine
+  private val cache = CacheApi.scaffeine
     .maximumSize(1024)
     .build[String, List[OpeningSearchResult]](doSearch)
 

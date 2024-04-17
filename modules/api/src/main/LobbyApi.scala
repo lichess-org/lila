@@ -3,10 +3,10 @@ package lila.api
 import play.api.libs.json.{ JsObject, Json, Writes }
 
 import lila.common.Json.given
-import lila.game.Pov
+
 import lila.lobby.{ LobbySocket, SeekApi }
-import lila.rating.Perf
-import lila.user.{ User, UserPerfs }
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
+import lila.rating.UserPerfsExt.perfsList
 
 final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
@@ -16,7 +16,7 @@ final class LobbyApi(
     lobbySocket: LobbySocket
 )(using Executor):
 
-  def apply(using me: Option[User.WithPerfs]): Fu[(JsObject, List[Pov])] =
+  def apply(using me: Option[UserWithPerfs]): Fu[(JsObject, List[Pov])] =
     me.foldUse(seekApi.forAnon)(seekApi.forMe)
       .mon(_.lobby.segment("seeks"))
       .zip(me.so(gameProxyRepo.urgentGames).mon(_.lobby.segment("urgentGames")))
@@ -48,10 +48,10 @@ final class LobbyApi(
 
   private def ratingMap(perfs: UserPerfs): JsObject =
     Writes
-      .keyMapWrites[Perf.Key, JsObject, Map]
+      .keyMapWrites[PerfKey, JsObject, Map]
       .writes(
-        perfs.perfsMap.view.mapValues { perf =>
-          Json
+        perfs.perfsList.view.map { (pk, perf) =>
+          pk -> Json
             .obj("rating" -> perf.intRating.value)
             .add("prov" -> perf.glicko.provisional)
         }.toMap

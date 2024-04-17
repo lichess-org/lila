@@ -16,3 +16,10 @@
 .mini-game .cg-wrap {
   @extend %square;
 }
+
+cg-board {
+  @extend %box-radius;
+}
+.gauge-on .main-board cg-board {
+  @extend %box-radius-left;
+}

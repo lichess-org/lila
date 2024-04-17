@@ -3,12 +3,12 @@ package lila.puzzle
 import chess.Ply
 import chess.format.{ Fen, Uci }
 
-import lila.rating.Glicko
+import lila.core.rating.Glicko
 
 case class Puzzle(
     id: PuzzleId,
     gameId: GameId,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     line: NonEmptyList[Uci.Move],
     glicko: Glicko,
     plays: Int,
@@ -18,12 +18,16 @@ case class Puzzle(
   // ply after "initial move" when we start solving
   def initialPly: Ply = Fen.readPly(fen) | Ply.initial
 
-  def situationAfterInitialMove: Option[chess.Situation] = for
-    sit1 <- Fen.read(fen)
-    sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
-  yield sit2
+  lazy val situationAfterInitialMove: Option[chess.Situation] =
+    for
+      sit1 <- Fen.read(fen)
+      sit2 <- sit1.move(line.head).toOption.map(_.situationAfter)
+    yield sit2
 
-  lazy val fenAfterInitialMove: Fen.Epd =
+  lazy val initialGame: chess.Game =
+    chess.Game(none, fenAfterInitialMove.some).withTurns(initialPly + 1)
+
+  lazy val fenAfterInitialMove: Fen.Full =
     situationAfterInitialMove.map(Fen.write).err(s"Can't apply puzzle $id first move")
 
   def color = !fen.colorOrWhite

@@ -2,8 +2,7 @@ package views.html
 package userTournament
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
-import lila.user.User
+import lila.web.ui.ScalatagsTemplate.*
 
 object chart:
 
@@ -20,7 +19,7 @@ object chart:
           thead(
             tr(
               th,
-              th(trans.tournaments()),
+              th(trans.site.tournaments()),
               th(trans.arena.pointsAvg()),
               th(trans.arena.pointsSum()),
               th(trans.arena.rankAvg())

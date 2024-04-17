@@ -3,10 +3,8 @@ package views.html.user.show
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
-import lila.game.{ Game, Pov }
-import lila.user.User
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 
 object gamesContent:
 
@@ -44,7 +42,7 @@ object gamesContent:
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
             )
-          else div(cls := "search__status")(strong(trans.noGameFound.txt()))
+          else div(cls := "search__status")(strong(trans.site.noGameFound.txt()))
         else
           div(
             cls := List(

@@ -2,10 +2,13 @@ package lila.mod
 
 import chess.PlayerTitle
 
-import lila.common.{ Bus, EmailAddress }
-import lila.report.{ ModId, Room, Suspect, SuspectId }
-import lila.security.{ Granter, Permission }
-import lila.user.{ LightUserApi, Me, User, UserRepo }
+import lila.common.Bus
+import lila.report.{ Room, Suspect }
+import lila.core.perm.{ Granter, Permission }
+import lila.user.{ LightUserApi, UserRepo }
+import lila.core.report.SuspectId
+import lila.core.user.UserMarks
+import lila.core.user.UserMark
 
 final class ModApi(
     userRepo: UserRepo,
@@ -15,29 +18,35 @@ final class ModApi(
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
     refunder: RatingRefund
-)(using Executor):
+)(using Executor)
+    extends lila.core.mod.ModApi:
 
-  def setAlt(prev: Suspect, v: Boolean)(using me: Me.Id): Funit =
+  extension (a: UserMarks)
+    def set(sel: UserMark.type => UserMark, v: Boolean) = UserMarks:
+      if v then sel(UserMark) :: a.value
+      else a.value.filter(sel(UserMark) !=)
+
+  def setAlt(prev: Suspect, v: Boolean)(using me: MyId): Funit =
     for
       _ <- userRepo.setAlt(prev.user.id, v)
-      sus = prev.set(_.withMarks(_.set(_.Alt, v)))
+      sus = prev.set(_.withMarks(_.set(_.alt, v)))
       _ <- logApi.alt(sus, v)
     yield if v then notifier.reporters(me.modId, sus)
 
-  def setEngine(prev: Suspect, v: Boolean)(using me: Me.Id): Funit =
+  def setEngine(prev: Suspect, v: Boolean)(using me: MyId): Funit =
     (prev.user.marks.engine != v).so {
       for
         _ <- userRepo.setEngine(prev.user.id, v)
-        sus = prev.set(_.withMarks(_.set(_.Engine, v)))
+        sus = prev.set(_.withMarks(_.set(_.engine, v)))
         _ <- logApi.engine(sus, v)
       yield
-        Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
+        Bus.publish(lila.core.mod.MarkCheater(sus.user.id, v), "adjustCheater")
         if v then
           notifier.reporters(me.modId, sus)
           refunder.schedule(sus)
     }
 
-  def autoMark(suspectId: SuspectId, note: String)(using Me.Id): Funit =
+  def autoMark(suspectId: SuspectId, note: String)(using MyId): Funit =
     for
       sus       <- reportApi.getSuspect(suspectId.value).orFail(s"No such suspect $suspectId")
       unengined <- logApi.wasUnengined(sus)
@@ -55,35 +64,35 @@ final class ModApi(
     else
       for
         _ <- userRepo.setBoost(prev.user.id, v)
-        sus = prev.set(_.withMarks(_.set(_.Boost, v)))
+        sus = prev.set(_.withMarks(_.set(_.boost, v)))
         _ <- logApi.booster(sus, v)
       yield
         if v then
-          Bus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), "adjustBooster")
+          Bus.publish(lila.core.mod.MarkBooster(sus.user.id), "adjustBooster")
           notifier.reporters(me.modId, sus)
         sus
 
-  def setTroll(prev: Suspect, value: Boolean)(using me: Me.Id): Fu[Suspect] =
+  def setTroll(prev: Suspect, value: Boolean)(using me: MyId): Fu[Suspect] =
     val changed = value != prev.user.marks.troll
-    val sus     = prev.set(_.withMarks(_.set(_.Troll, value)))
+    val sus     = prev.set(_.withMarks(_.set(_.troll, value)))
     changed
       .so:
         userRepo.updateTroll(sus.user).void.andDo {
           logApi.troll(sus)
-          Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
+          Bus.publish(lila.core.mod.Shadowban(sus.user.id, value), "shadowban")
         }
       .andDo:
         if value then notifier.reporters(me.modId, sus)
       .inject(sus)
 
   def autoTroll(sus: Suspect, note: String): Funit =
-    given Me.Id = User.lichessIdAsMe
+    given MyId = UserId.lichessAsMe
     setTroll(sus, true) >>
       noteApi.lichessWrite(sus.user, note)
       >> reportApi.autoProcess(sus, Set(Room.Comm))
 
   def garbageCollect(userId: UserId): Funit =
-    given Me.Id = User.lichessIdAsMe
+    given MyId = UserId.lichessAsMe
     for
       sus <- reportApi.getSuspect(userId).orFail(s"No such suspect $userId")
       _   <- setAlt(sus, v = true)
@@ -129,46 +138,45 @@ final class ModApi(
 
   def setPermissions(username: UserStr, permissions: Set[Permission])(using Me): Funit =
     withUser(username): user =>
-      val finalPermissions = Permission(user.roles).filter { p =>
+      val finalPermissions = Permission(user).filter { p =>
         // only remove permissions the mod can actually grant
-        permissions.contains(p) || !Granter.canGrant(p)
+        permissions.contains(p) || !lila.security.Granter.canGrant(p)
       } ++
         // only add permissions the mod can actually grant
-        permissions.filter(Granter.canGrant)
+        permissions.filter(lila.security.Granter.canGrant)
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >>
         logApi.setPermissions(
           user.id,
-          Permission.diff(Permission(user.roles), finalPermissions)
+          lila.security.Permission.diff(Permission(user), finalPermissions)
         )
 
-  def setReportban(sus: Suspect, v: Boolean)(using Me.Id): Funit =
+  def setReportban(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.reportban != v).so {
       userRepo.setReportban(sus.user.id, v) >> logApi.reportban(sus, v)
     }
 
-  def setRankban(sus: Suspect, v: Boolean)(using Me.Id): Funit =
+  def setRankban(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.rankban != v).so {
-      if v then Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
+      if v then Bus.publish(lila.core.mod.KickFromRankings(sus.user.id), "kickFromRankings")
       userRepo.setRankban(sus.user.id, v) >> logApi.rankban(sus, v)
     }
 
-  def setArenaBan(sus: Suspect, v: Boolean)(using Me.Id): Funit =
+  def setArenaBan(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.arenaBan != v).so {
       userRepo.setArenaBan(sus.user.id, v) >> logApi.arenaBan(sus, v)
     }
 
-  def setPrizeban(sus: Suspect, v: Boolean)(using Me.Id): Funit =
+  def setPrizeban(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.prizeban != v).so {
       userRepo.setPrizeban(sus.user.id, v) >> logApi.prizeban(sus, v)
     }
 
   def allMods =
+    def timeNoSee(u: User): Duration = (nowMillis - (u.seenAt | u.createdAt).toMillis).millis
     userRepo
       .userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList)
       .flatMap(userRepo.enabledByIds)
-      .dmap {
-        _.sortBy(_.timeNoSee)
-      }
+      .map(_.sortBy(timeNoSee))
 
   private def withUser[A](username: UserStr)(op: User => Fu[A]): Fu[A] =
     userRepo.byId(username).orFail(s"[mod] missing user $username").flatMap(op)

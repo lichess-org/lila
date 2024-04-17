@@ -3,16 +3,16 @@ package views.html.ublog
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object menu:
 
   def apply(active: Either[UserId, String])(using ctx: Context) =
     def isRight(s: String) = active.fold(_ => false, _ == s)
-    val lichess            = active.left.toOption.has(lila.user.User.lichessId)
+    val lichess            = active.left.toOption.has(UserId.lichess)
     val community = active == Right("community") || (active.left.toOption.exists(ctx.isnt) && !lichess)
     val mine      = active.left.toOption.exists(ctx.is)
-    views.html.site.bits.pageMenuSubnav(
+    views.html.base.bits.pageMenuSubnav(
       cls := "force-ltr",
       ctx.kid.no.option(
         a(

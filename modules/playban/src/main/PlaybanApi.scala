@@ -5,18 +5,27 @@ import reactivemongo.api.bson.*
 
 import lila.common.{ Bus, Uptime }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Pov, Source }
-import lila.msg.{ MsgApi, MsgPreset }
-import lila.user.{ NoteApi, UserRepo }
+
+import lila.core.msg.{ MsgApi, MsgPreset }
+import lila.core.game.Source
+import lila.core.playban.RageSit as RageSitCounter
 
 final class PlaybanApi(
     coll: Coll,
     feedback: PlaybanFeedback,
-    userRepo: UserRepo,
-    noteApi: NoteApi,
+    gameApi: lila.core.game.GameApi,
+    userApi: lila.core.user.UserApi,
+    noteApi: lila.core.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     messenger: MsgApi
 )(using ec: Executor, mode: play.api.Mode):
+
+  private val sittingAutoPreset = lila.core.msg.MsgPreset(
+    name = "Warning: leaving games / stalling on time",
+    text =
+      """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
+  This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
+  )
 
   private given BSONHandler[Outcome] = tryHandler(
     { case BSONInteger(v) => Outcome(v).toTry(s"No such playban outcome: $v") },
@@ -30,7 +39,7 @@ final class PlaybanApi(
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(blameableSources.contains) && game.hasClock).so {
       if game.rated then fuTrue
-      else userRepo.containsEngine(game.userIds).not
+      else userApi.containsEngine(game.userIds).not
     }
 
   private def IfBlameable[A: alleycats.Zero](game: Game)(f: => Fu[A]): Fu[A] =
@@ -82,7 +91,7 @@ final class PlaybanApi(
         .userId
         .ifTrue {
           ~(for
-            movetimes    <- game.moveTimes(flaggerColor)
+            movetimes    <- gameApi.computeMoveTimes(game, flaggerColor)
             lastMovetime <- movetimes.lastOption
             limit        <- unreasonableTime
           yield lastMovetime.toSeconds >= limit)
@@ -97,9 +106,11 @@ final class PlaybanApi(
     }
 
   private def propagateSitting(game: Game, userId: UserId): Funit =
-    rageSitCache.get(userId).map { rageSit =>
-      if rageSit.isBad then Bus.publish(SittingDetected(game, userId), "playban")
-    }
+    game.tournamentId.so: tourId =>
+      rageSitCache.get(userId).map { rageSit =>
+        if rageSit.isBad
+        then Bus.publish(lila.core.playban.SittingDetected(tourId, userId), "playban")
+      }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
     IfBlameable(game) {
@@ -134,7 +145,7 @@ final class PlaybanApi(
     }
 
   // memorize users without any ban to save DB reads
-  private val cleanUserIds = lila.memo.ExpireSetMemo[UserId](30 minutes)
+  private val cleanUserIds = scalalib.cache.ExpireSetMemo[UserId](30 minutes)
 
   def currentBan[U: UserIdOf](user: U): Fu[Option[TempBan]] =
     (!cleanUserIds.get(user.id)).so:
@@ -149,20 +160,21 @@ final class PlaybanApi(
         .addEffect: ban =>
           if ban.isEmpty then cleanUserIds.put(user.id)
 
-  def hasCurrentBan[U: UserIdOf](u: U): Fu[Boolean] = currentBan(u).map(_.isDefined)
+  val HasCurrentPlayban: lila.core.playban.HasCurrentPlayban = userId => currentBan(userId).map(_.isDefined)
 
-  def bans(userIds: List[UserId]): Fu[Map[UserId, Int]] = coll
-    .aggregateList(Int.MaxValue, _.pri): framework =>
-      import framework.*
-      Match($inIds(userIds) ++ $doc("b".$exists(true))) -> List(
-        Project($doc("bans" -> $doc("$size" -> "$b")))
-      )
-    .map:
-      _.flatMap: obj =>
-        obj.getAsOpt[UserId]("_id").flatMap { id =>
-          obj.getAsOpt[Int]("bans").map { id -> _ }
-        }
-      .toMap
+  val bansOf: lila.core.playban.BansOf = userIds =>
+    coll
+      .aggregateList(Int.MaxValue, _.pri): framework =>
+        import framework.*
+        Match($inIds(userIds) ++ $doc("b".$exists(true))) -> List(
+          Project($doc("bans" -> $doc("$size" -> "$b")))
+        )
+      .map:
+        _.flatMap: obj =>
+          obj.getAsOpt[UserId]("_id").flatMap { id =>
+            obj.getAsOpt[Int]("bans").map { id -> _ }
+          }
+        .toMap
 
   def bans(userId: UserId): Fu[Int] = coll
     .aggregateOne(_.sec): framework =>
@@ -172,12 +184,14 @@ final class PlaybanApi(
       )
     .map { ~_.flatMap { _.getAsOpt[Int]("bans") } }
 
-  def getRageSit(userId: UserId) = rageSitCache.get(userId)
+  val rageSitOf: lila.core.playban.RageSitOf = userId => rageSitCache.get(userId)
 
-  private val rageSitCache = cacheApi[UserId, RageSit](32768, "playban.ragesit") {
+  private val rageSitCache = cacheApi[UserId, RageSitCounter](32_768, "playban.ragesit") {
     _.expireAfterAccess(10 minutes)
       .buildAsyncFuture { userId =>
-        coll.primitiveOne[RageSit]($doc("_id" -> userId, "c".$exists(true)), "c").map(_ | RageSit.empty)
+        coll
+          .primitiveOne[RageSitCounter]($doc("_id" -> userId, "c".$exists(true)), "c")
+          .map(_ | RageSit.empty)
       }
   }
 
@@ -208,7 +222,7 @@ final class PlaybanApi(
         if outcome == Outcome.Good then fuccess(withOutcome)
         else
           for
-            createdAt <- userRepo.createdAtById(userId).orFail(s"Missing user creation date $userId")
+            createdAt <- userApi.createdAtById(userId).orFail(s"Missing user creation date $userId")
             withBan   <- legiferate(withOutcome, createdAt, source)
           yield withBan
       _ <- registerRageSit(withBan, rsUpdate)
@@ -223,8 +237,7 @@ final class PlaybanApi(
         lila.mon.playban.ban.count.increment()
         lila.mon.playban.ban.mins.record(ban.mins)
         Bus.publish(
-          lila.hub.actorApi.playban
-            .Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena)),
+          lila.core.playban.Playban(record.userId, ban.mins, inTournament = source.has(Source.Arena)),
           "playban"
         )
         coll
@@ -246,17 +259,17 @@ final class PlaybanApi(
       case RageSit.Update.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
         (delta < 0 && record.rageSit.isVeryBad).so:
-          messenger.postPreset(record.userId, MsgPreset.sittingAuto).void.andDo {
+          messenger.postPreset(record.userId, sittingAutoPreset).void.andDo {
             Bus.publish(
-              lila.hub.actorApi.mod.AutoWarning(record.userId, MsgPreset.sittingAuto.name),
+              lila.core.mod.AutoWarning(record.userId, sittingAutoPreset.name),
               "autoWarning"
             )
             if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then
-              userRepo
+              userApi
                 .byId(record.userId)
                 .flatMapz: user =>
                   noteApi
                     .lichessWrite(user, "Closed for ragesit recidive")
-                    .andDo(Bus.publish(lila.hub.actorApi.playban.RageSitClose(user.id), "rageSitClose"))
+                    .andDo(Bus.publish(lila.core.playban.RageSitClose(user.id), "rageSitClose"))
           }
       case _ => funit

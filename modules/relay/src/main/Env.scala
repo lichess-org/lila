@@ -7,7 +7,7 @@ import play.api.libs.ws.StandaloneWSClient
 
 import scala.util.matching.Regex
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
 
@@ -16,23 +16,28 @@ final class Env(
     ws: StandaloneWSClient,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
-    fidePlayerApi: lila.fide.FidePlayerApi,
     studyApi: lila.study.StudyApi,
     studyRepo: lila.study.StudyRepo,
     chapterPreview: lila.study.ChapterPreviewApi,
     chapterRepo: lila.study.ChapterRepo,
     studyPgnDump: lila.study.PgnDump,
+    pgnImport: lila.study.StudyPgnImport,
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
-    gameProxy: lila.round.GameProxyRepo,
+    gameProxy: lila.core.game.GameProxy,
+    federations: lila.core.fide.Federation.FedsOf,
+    guessPlayer: lila.core.fide.GuessPlayer,
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
-    irc: lila.irc.IrcApi,
+    irc: lila.core.irc.IrcApi,
     baseUrl: BaseUrl,
-    notifyApi: lila.notify.NotifyApi,
+    notifyApi: lila.core.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
-    picfitUrl: lila.memo.PicfitUrl
-)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode)(using scheduler: Scheduler):
+    picfitUrl: lila.memo.PicfitUrl,
+    langList: lila.core.i18n.LangList
+)(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator)(using
+    scheduler: Scheduler
+):
 
   lazy val roundForm = wire[RelayRoundForm]
 
@@ -108,7 +113,7 @@ final class Env(
     api.autoStart >> api.autoFinishNotSyncing
 
   lila.common.Bus.subscribeFuns(
-    "study" -> { case lila.hub.actorApi.study.RemoveStudy(studyId) =>
+    "study" -> { case lila.core.study.RemoveStudy(studyId) =>
       api.onStudyRemove(studyId)
     },
     "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>

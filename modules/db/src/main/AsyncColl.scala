@@ -4,7 +4,7 @@ import alleycats.Zero
 
 import scala.util.{ Failure, Success }
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 import lila.db.dsl.*
 
 final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using Executor):
@@ -20,12 +20,10 @@ final class AsyncColl(val name: CollName, resolve: () => Fu[Coll])(using Executo
 
 /* For data we don't really care about,
  * this DB coll with fallback to default when any operation fails. */
-final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(using
-    Executor,
-    Scheduler
-):
+final class AsyncCollFailingSilently(coll: AsyncColl, timeout: FiniteDuration)(using Executor, Scheduler)
+    extends lila.core.db.AsyncCollFailingSilently:
 
-  def apply[A](f: Coll => Fu[A])(using default: Zero[A]) =
+  def apply[A](f: Coll => Fu[A])(using default: Zero[A]): Fu[A] =
     coll.get
       .withTimeout(timeout, coll.name.value)
       .transformWith:

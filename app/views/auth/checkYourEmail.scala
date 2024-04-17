@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object checkYourEmail:
 
@@ -19,11 +19,11 @@ object checkYourEmail:
       main(
         cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
       )(
-        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.checkYourEmail())),
-        p(trans.weHaveSentYouAnEmailClickTheLink()),
+        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
+        p(trans.site.weHaveSentYouAnEmailClickTheLink()),
         h2("Not receiving it?"),
         ol(
-          li(h3(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())),
+          li(h3(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())),
           userEmail.map(_.email).map { email =>
             li(
               h3("Make sure your email address is correct:"),

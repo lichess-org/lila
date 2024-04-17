@@ -2,19 +2,18 @@ package lila.bot
 
 import com.softwaremill.macwire.*
 
-import lila.socket.IsOnline
+import lila.core.socket.IsOnline
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     chatApi: lila.chat.ChatApi,
     gameRepo: lila.game.GameRepo,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     rematches: lila.game.Rematches,
-    isOfferingRematch: lila.round.IsOfferingRematch,
-    spam: lila.security.Spam,
+    isOfferingRematch: lila.core.round.IsOfferingRematch,
+    spam: lila.core.security.SpamApi,
     isOnline: IsOnline
-)(using Executor, akka.actor.ActorSystem, Scheduler, play.api.Mode):
+)(using Executor, akka.actor.ActorSystem, Scheduler, play.api.Mode, lila.core.i18n.Translator):
 
   lazy val jsonView = wire[BotJsonView]
 

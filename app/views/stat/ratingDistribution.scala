@@ -5,23 +5,24 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
+
 import lila.rating.PerfType
-import lila.user.{ User, UserPerfs }
+import lila.core.perf.UserWithPerfs
 
 object ratingDistribution:
 
-  def apply(perfType: PerfType, data: List[Int], otherUser: Option[User.WithPerfs])(using
+  def apply(perfType: PerfType, data: List[Int], otherUser: Option[UserWithPerfs])(using
       ctx: PageContext,
-      me: Option[User.WithPerfs]
+      me: Option[UserWithPerfs]
   ) =
     val myVisiblePerfs = me.map(_.perfs).ifTrue(ctx.pref.showRatings)
     views.html.base.layout(
-      title = trans.weeklyPerfTypeRatingDistribution.txt(perfType.trans),
+      title = trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans),
       moreCss = cssTag("user.rating.stats"),
       wrapClass = "full-screen-force",
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "chart.ratingDistribution",
         Json.obj(
           "freq"        -> data,
@@ -30,24 +31,25 @@ object ratingDistribution:
           "otherPlayer" -> otherUser.map(_.username),
           "i18n"        -> i18nJsObject(i18nKeys)
         )
-      )
+      ).some
     ) {
       main(cls := "page-menu")(
         user.bits.communityMenu("ratings"),
         div(cls := "rating-stats page-menu__content box box-pad")(
           boxTop(
             h1(
-              trans.weeklyPerfTypeRatingDistribution(
+              trans.site.weeklyPerfTypeRatingDistribution(
                 views.html.base.bits.mselect(
                   "variant-stats",
                   span(perfType.trans),
-                  PerfType.leaderboardable.map { pt =>
-                    a(
-                      dataIcon := pt.icon,
-                      cls      := (perfType == pt).option("current"),
-                      href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
-                    )(pt.trans)
-                  }
+                  lila.rating.PerfType.leaderboardable
+                    .map(PerfType(_))
+                    .map: pt =>
+                      a(
+                        dataIcon := pt.icon,
+                        cls      := (perfType == pt).option("current"),
+                        href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
+                      )(pt.trans)
                 )
               )
             )
@@ -55,38 +57,34 @@ object ratingDistribution:
           div(cls := "desc", dataIcon := perfType.icon)(
             myVisiblePerfs
               .flatMap(_(perfType).glicko.establishedIntRating)
-              .map { rating =>
-                val (under, sum) = lila.user.Stat.percentile(data, rating)
+              .map: rating =>
+                val (under, sum) = lila.perfStat.percentileOf(data, rating)
                 div(
-                  trans
-                    .nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
+                  trans.site.nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
                   br,
-                  trans.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
+                  trans.site.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
                   br,
-                  trans.youAreBetterThanPercentOfPerfTypePlayers(
+                  trans.site.youAreBetterThanPercentOfPerfTypePlayers(
                     strong((under * 100.0 / sum).round, "%"),
                     perfType.trans
                   )
                 )
-
-              }
-              .getOrElse(
+              .getOrElse:
                 div(
-                  trans.nbPerfTypePlayersThisWeek
+                  trans.site.nbPerfTypePlayersThisWeek
                     .plural(data.sum, strong(data.sum.localize), perfType.trans),
                   ctx.pref.showRatings.option(
                     frag(
                       br,
-                      trans.youDoNotHaveAnEstablishedPerfTypeRating(perfType.trans)
+                      trans.site.youDoNotHaveAnEstablishedPerfTypeRating(perfType.trans)
                     )
                   )
                 )
-              )
           ),
           div(id := "rating_distribution")(
             canvas(
               id := "rating_distribution_chart",
-              ariaTitle(trans.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
+              ariaTitle(trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
             )(spinner)
           )
         )
@@ -94,8 +92,8 @@ object ratingDistribution:
     }
 
   private val i18nKeys = List(
-    trans.players,
-    trans.yourRating,
-    trans.cumulative,
-    trans.glicko2Rating
+    trans.site.players,
+    trans.site.yourRating,
+    trans.site.cumulative,
+    trans.site.glicko2Rating
   )

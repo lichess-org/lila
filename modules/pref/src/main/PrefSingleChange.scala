@@ -53,7 +53,13 @@ object PrefSingleChange:
     changing(_.ratings): v =>
       _.copy(ratings = v),
     changing(_.follow): v =>
-      _.copy(follow = v == 1)
+      _.copy(follow = v == 1),
+    changing(_.boardBrightness): v =>
+      _.copy(boardBrightness = v),
+    changing(_.boardOpacity): v =>
+      _.copy(boardOpacity = v),
+    changing(_.boardHue): v =>
+      _.copy(boardHue = v)
   ).map: change =>
     change.field -> change
   .toMap

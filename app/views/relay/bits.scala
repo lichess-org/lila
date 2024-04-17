@@ -4,12 +4,12 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.relay.RelayTour
 
 object bits:
 
-  def broadcastH1 = h1(dataIcon := licon.RadioTower, cls := "text")
+  def broadcastH1 = h1(dataIcon := Icon.RadioTower, cls := "text")
 
   def spotlight(trs: List[RelayTour.ActiveWithSomeRounds])(using ctx: Context): List[Tag] =
     trs
@@ -17,30 +17,30 @@ object bits:
         _.tour.spotlight.map(_.language).exists(ctx.acceptLanguages)
       .map(spotlight)
 
-  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using Lang): Tag =
+  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using Translate): Tag =
     a(
       href := tr.path,
       cls  := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
     )(
-      i(cls := "img", dataIcon := licon.RadioTower),
+      i(cls := "img", dataIcon := Icon.RadioTower),
       span(cls := "content")(
         span(cls := "name")(tr.tour.spotlight.flatMap(_.title) | tr.tour.name.value),
         span(cls := "more")(
           tr.display.caption.fold(tr.display.name.value)(_.value),
           " • ",
           if tr.display.hasStarted
-          then trans.eventInProgress()
+          then trans.site.eventInProgress()
           else tr.display.startsAt.map(momentFromNow(_)) | "Soon"
         )
       )
     )
 
-  def howToUse(using Lang) =
-    a(dataIcon := licon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
+  def howToUse(using Translate) =
+    a(dataIcon := Icon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
       trans.broadcast.howToUseLichessBroadcasts()
     )
 
-  def jsI18n(using Lang) =
+  def jsI18n(using Translate) =
     views.html.study.jsI18n() ++
       i18nJsObject(i18nKeys)
 

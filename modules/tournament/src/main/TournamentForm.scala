@@ -8,8 +8,7 @@ import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
 import lila.gathering.GatheringClock
-import lila.hub.LightTeam
-import lila.user.Me
+import lila.core.team.LightTeam
 
 final class TournamentForm:
 
@@ -52,7 +51,7 @@ final class TournamentForm:
       waitMinutes = none,
       startDate = tour.startsAt.some,
       variant = tour.variant.id.toString.some,
-      position = tour.position.map(_.into(Fen.Epd)),
+      position = tour.position.map(_.into(Fen.Full)),
       mode = none,
       rated = tour.mode.rated.some,
       password = tour.password,
@@ -84,7 +83,7 @@ final class TournamentForm:
       "clockTime"      -> numberInDouble(timeChoices),
       "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes" -> {
-        if lila.security.Granter(_.ManageTournament) then number
+        if lila.core.perm.Granter(_.ManageTournament) then number
         else numberIn(minuteChoicesKeepingCustom(prev))
       },
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
@@ -149,7 +148,7 @@ private[tournament] case class TournamentSetup(
     waitMinutes: Option[Int],
     startDate: Option[Instant],
     variant: Option[String],
-    position: Option[Fen.Epd],
+    position: Option[Fen.Full],
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
@@ -178,7 +177,7 @@ private[tournament] case class TournamentSetup(
 
   def validRatedVariant =
     realMode == Mode.Casual ||
-      lila.game.Game.allowRated(realVariant, clockConfig.some)
+      lila.core.game.allowRated(realVariant, clockConfig.some)
 
   def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
   def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 150

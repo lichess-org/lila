@@ -2,27 +2,24 @@ package lila.user
 
 import reactivemongo.api.bson.*
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, Syncache }
 
-import User.BSONFields as F
+import BSONFields as F
 
-trait ILightUserApi:
-  def async: LightUser.Getter
-  def sync: LightUser.GetterSync
-
-final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) extends ILightUserApi:
+final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor)
+    extends lila.core.user.LightUserApi:
 
   val async = LightUser.Getter: id =>
-    if User.isGhost(id) then fuccess(LightUser.ghost.some) else cache.async(id)
+    if id.isGhost then fuccess(LightUser.ghost.some) else cache.async(id)
   val asyncFallback = LightUser.GetterFallback: id =>
-    if User.isGhost(id) then fuccess(LightUser.ghost)
+    if id.isGhost then fuccess(LightUser.ghost)
     else cache.async(id).dmap(_ | LightUser.fallback(id.into(UserName)))
   val sync = LightUser.GetterSync: id =>
-    if User.isGhost(id) then LightUser.ghost.some else cache.sync(id)
+    if id.isGhost then LightUser.ghost.some else cache.sync(id)
   val syncFallback = LightUser.GetterSyncFallback: id =>
-    if User.isGhost(id) then LightUser.ghost else cache.sync(id) | LightUser.fallback(id.into(UserName))
+    if id.isGhost then LightUser.ghost else cache.sync(id) | LightUser.fallback(id.into(UserName))
 
   export cache.{ asyncMany, invalidate, preloadOne, preloadMany }
 
@@ -34,14 +31,14 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
 
   val isBotSync: LightUser.IsBotSync = LightUser.IsBotSync(id => sync(id).exists(_.isBot))
 
-  def preloadUser(user: User)        = cache.set(user.id, user.light.some)
-  def preloadUsers(users: Seq[User]) = users.foreach(preloadUser)
+  def preloadUser(user: User): Unit        = cache.set(user.id, user.light.some)
+  def preloadUsers(users: Seq[User]): Unit = users.foreach(preloadUser)
 
   private val cache: Syncache[UserId, Option[LightUser]] = cacheApi.sync[UserId, Option[LightUser]](
     name = "user.light",
     initialCapacity = 1024 * 1024,
     compute = id =>
-      if User.isGhost(id) then fuccess(LightUser.ghost.some)
+      if id.isGhost then fuccess(LightUser.ghost.some)
       else
         repo.coll
           .find($id(id), projection)
@@ -75,9 +72,3 @@ final class LightUserApi(repo: UserRepo, cacheApi: CacheApi)(using Executor) ext
       s"${F.plan}.active" -> true,
       F.flair             -> true
     ).some
-
-object LightUserApi:
-
-  def mock: ILightUserApi = new:
-    def sync  = LightUser.GetterSync(id => LightUser.fallback(id.into(UserName)).some)
-    def async = LightUser.Getter(id => fuccess(sync(id)))

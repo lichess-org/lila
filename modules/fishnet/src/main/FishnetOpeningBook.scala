@@ -3,13 +3,12 @@ package lila.fishnet
 import chess.format.{ Fen, Uci }
 import chess.{ Color, Speed }
 import com.softwaremill.tagging.*
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.Json.given
-import lila.game.Game
 import lila.memo.SettingStore
 
 final private class FishnetOpeningBook(
@@ -20,7 +19,7 @@ final private class FishnetOpeningBook(
 
   import FishnetOpeningBook.{ *, given }
 
-  private val outOfBook = lila.memo.ExpireSetMemo[GameId](10 minutes)
+  private val outOfBook = scalalib.cache.ExpireSetMemo[GameId](10 minutes)
 
   def apply(game: Game, level: Int): Fu[Option[Uci]] =
     (game.ply < depth.get() && !outOfBook.get(game.id)).so:

@@ -4,12 +4,12 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 
 object leaderboard:
 
-  private def freqWinner(w: lila.tournament.Winner, freq: String)(using Lang) =
+  private def freqWinner(w: lila.tournament.Winner, freq: String)(using Translate) =
     li(
       userIdLink(w.userId.some),
       a(title := w.tourName, href := routes.Tournament.show(w.tourId))(freq)
@@ -18,23 +18,19 @@ object leaderboard:
   private val section = st.section(cls := "tournament-leaderboards__item")
 
   private def freqWinners(fws: lila.tournament.FreqWinners, perfType: PerfType, name: String)(using
-      lang: Lang
+      Translate
   ) =
     section(
       h2(cls := "text", dataIcon := perfType.icon)(name),
       ul(
-        fws.yearly.map { w =>
-          freqWinner(w, "Yearly")
-        },
-        fws.monthly.map { w =>
-          freqWinner(w, "Monthly")
-        },
-        fws.weekly.map { w =>
-          freqWinner(w, "Weekly")
-        },
-        fws.daily.map { w =>
+        fws.yearly.map: w =>
+          freqWinner(w, "Yearly"),
+        fws.monthly.map: w =>
+          freqWinner(w, "Monthly"),
+        fws.weekly.map: w =>
+          freqWinner(w, "Weekly"),
+        fws.daily.map: w =>
           freqWinner(w, "Daily")
-        }
       )
     )
 
@@ -46,7 +42,7 @@ object leaderboard:
     ) {
       def eliteWinners =
         section(
-          h2(cls := "text", dataIcon := licon.CrownElite)("Elite Arena"),
+          h2(cls := "text", dataIcon := Icon.CrownElite)("Elite Arena"),
           ul(
             winners.elite.map { w =>
               li(
@@ -59,7 +55,7 @@ object leaderboard:
 
       def marathonWinners =
         section(
-          h2(cls := "text", dataIcon := licon.Globe)("Marathon"),
+          h2(cls := "text", dataIcon := Icon.Globe)("Marathon"),
           ul(
             winners.marathon.map { w =>
               li(
@@ -83,13 +79,12 @@ object leaderboard:
             freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
             freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
             marathonWinners,
-            lila.tournament.WinnersApi.variants.map { v =>
-              PerfType.byVariant(v).map { pt =>
-                winners.variants.get(pt.key.into(chess.variant.Variant.LilaKey)).map {
-                  freqWinners(_, pt, v.name)
+            lila.tournament.WinnersApi.variants.map: v =>
+              PerfKey.byVariant(v).map { pk =>
+                winners.variants.get(chess.variant.Variant.LilaKey(pk.value)).map {
+                  freqWinners(_, pk, v.name)
                 }
               }
-            }
           )
         )
       )

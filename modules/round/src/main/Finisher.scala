@@ -1,16 +1,17 @@
 package lila.round
 
-import chess.{ Color, DecayingStats, Status }
+import chess.{ Color, ByColor, DecayingStats, Status }
 
 import lila.common.{ Bus, Uptime }
-import lila.game.actorApi.{ AbortedBy, FinishGame }
-import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
-import lila.i18n.{ I18nKeys as trans, defaultLang }
+import lila.core.game.{ AbortedBy, FinishGame }
+import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserApi, UserRepo }
+import lila.core.perf.UserWithPerfs
+import lila.game.GameExt.finish
 
 final private class Finisher(
-    gameRepo: GameRepo,
+    gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
     userApi: UserApi,
     messenger: Messenger,
@@ -18,9 +19,9 @@ final private class Finisher(
     playban: PlaybanApi,
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
-    getSocketStatus: Game => Fu[actorApi.SocketStatus],
+    getSocketStatus: Game => Fu[SocketStatus],
     recentTvGames: RecentTvGames
-)(using Executor):
+)(using Executor, Translator):
 
   private given play.api.i18n.Lang = defaultLang
 
@@ -44,7 +45,7 @@ final private class Finisher(
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     else if game.player(!game.player.color).isOfferingDraw then
-      apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some)
+      apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some)
     else
       val winner = Some(!game.player.color).ifFalse(game.situation.opponentHasInsufficientMaterial)
       apply(game, _.Outoftime, winner).andDo:
@@ -55,7 +56,7 @@ final private class Finisher(
     game.playerWhoDidNotMove.so: culprit =>
       lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
-      if game.isMandatory || game.metadata.hasRule(_.NoAbort) then
+      if game.isMandatory || game.metadata.hasRule(_.noAbort) then
         apply(game, _.NoStart, Some(!culprit.color))
       else apply(game, _.Aborted, None, Messenger.SystemMessage.Persistent("Game aborted by server").some)
 
@@ -124,29 +125,31 @@ final private class Finisher(
       userApi
         .pairWithPerfs(game.userIdPair)
         .flatMap: users =>
-          val finish = FinishGame(game, users)
-          updateCountAndPerfs(finish).map: ratingDiffs =>
+          updateCountAndPerfs(game, users).map: ratingDiffs =>
             message.foreach { messenger(game, _) }
             gameRepo.game(game.id).foreach { newGame =>
               newGame.foreach(proxy.setFinishedGame)
-              val newFinish = finish.copy(game = newGame | game)
-              Bus.publish(newFinish, "finishGame")
+              val finish = FinishGame(newGame | game, users)
+              Bus.publish(finish, "finishGame")
               game.userIds.foreach: userId =>
-                Bus.publish(newFinish, s"userFinishGame:$userId")
+                Bus.publish(finish, s"userFinishGame:$userId")
             }
             List(lila.game.Event.EndData(game, ratingDiffs))
 
-  private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
-    (!finish.isVsSelf && !finish.game.aborted).so:
-      finish.users.tupled
-        .so { (white, black) =>
-          crosstableApi.add(finish.game).zip(perfsUpdater.save(finish.game, white, black)).dmap(_._2)
-        }
-        .zip(finish.white.so(incNbGames(finish.game)))
-        .zip(finish.black.so(incNbGames(finish.game)))
+  private def updateCountAndPerfs(
+      game: Game,
+      users: ByColor[Option[UserWithPerfs]]
+  ): Fu[Option[ByColor[IntRatingDiff]]] =
+    val isVsSelf = users.tupled.so((w, b) => w._1.is(b._1))
+    (!isVsSelf && !game.aborted).so:
+      users.tupled
+        .so: (white, black) =>
+          crosstableApi.add(game).zip(perfsUpdater.save(game, white, black)).dmap(_._2)
+        .zip(users.white.so(incNbGames(game)))
+        .zip(users.black.so(incNbGames(game)))
         .dmap(_._1._1)
 
-  private def incNbGames(game: Game)(user: User.WithPerfs): Funit =
+  private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
     game.finished.so { user.noBot || game.nonAi }.so {
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
       val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))

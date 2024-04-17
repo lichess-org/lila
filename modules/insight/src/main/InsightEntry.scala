@@ -3,14 +3,14 @@ package lila.insight
 import chess.Color
 
 import lila.common.SimpleOpening
-import lila.game.Pov
+
 import lila.rating.PerfType
 
 case class InsightEntry(
     id: String, // gameId + w/b
     userId: UserId,
     color: Color,
-    perf: PerfType,
+    perf: PerfKey,
     opening: Option[SimpleOpening],
     myCastling: Castling,
     rating: Option[IntRating],         // stable rating only

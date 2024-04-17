@@ -11,7 +11,9 @@ import scala.util.chaining.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.common.{ ApiVersion, LangPath }
+import lila.core.net.ApiVersion
+import lila.core.app.LangPath
+import lila.core.id.PuzzleId
 import lila.puzzle.{
   Puzzle as Puz,
   PuzzleAngle,
@@ -21,8 +23,11 @@ import lila.puzzle.{
   PuzzleStreak,
   PuzzleTheme
 }
-import lila.rating.{ Perf, PerfType }
-import lila.user.User
+
+import lila.rating.PerfType
+
+import lila.core.i18n.Translate
+import lila.core.user.WithPerf
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -117,7 +122,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def ofPlayer(name: Option[UserStr], page: Int) = Open:
-    val userId = name.flatMap(lila.user.User.validateId)
+    val userId = name.flatMap(_.validateId)
     for
       user    <- userId.so(env.user.repo.enabledById).orElse(fuccess(ctx.me.map(_.value)))
       puzzles <- user.soFu(env.puzzle.api.puzzle.of(_, page))
@@ -220,9 +225,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       views.html.puzzle.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
     .map(_.noCache.enforceCrossSiteIsolation)
 
-  private def streakJsonAndPuzzle(using Lang) =
+  private def streakJsonAndPuzzle(using Translate) =
     given Option[Me] = none
-    given Perf       = Perf.default
+    given Perf       = lila.rating.Perf.default
     env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
       env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none).map { puzzleJson =>
         (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some
@@ -230,8 +235,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   private def setStreakResult(userId: UserId, score: Int) =
-    lila.common.Bus.publish(lila.hub.actorApi.puzzle.StreakRun(userId, score), "streakRun")
-    env.user.perfsRepo.addStreakRun(userId, score)
+    lila.common.Bus.publish(lila.core.misc.puzzle.StreakRun(userId, score), "streakRun")
+    env.user.api.addPuzRun("streak", userId, score)
 
   def apiStreak = Anon:
     streakJsonAndPuzzle.orNotFound: (json, _) =>
@@ -281,7 +286,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
                 .so(env.puzzle.session.setDifficulty)
                 .inject(
                   Redirect(routes.Puzzle.show(theme))
-                    .withCookies(env.lilaCookie.session(cookieDifficulty, diff))
+                    .withCookies(env.security.lilaCookie.session(cookieDifficulty, diff))
                 )
         )
   }
@@ -367,8 +372,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
     val config = lila.puzzle.PuzzleActivity.Config(
       user = me,
-      max = getInt("max").map(_.atLeast(1)),
-      before = getTimestamp("before")
+      max = getIntAs[Max]("max").map(_.atLeast(1)),
+      before = getTimestamp("before"),
+      since = getTimestamp("since")
     )
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(env.puzzle.activity.stream(config))(jsToNdJson)
   }
@@ -513,9 +519,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    Ok.page(html.site.help.puzzle)
+    Ok.page(lila.web.views.help.puzzle)
 
-  private def DashboardPage(username: Option[UserStr])(f: Context ?=> User => Fu[Result]) =
+  private def DashboardPage(username: Option[UserStr])(f: Context ?=> lila.user.User => Fu[Result]) =
     Auth { ctx ?=> me ?=>
       meOrFetch(username)
         .flatMapz: user =>
@@ -528,4 +534,4 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   def WithPuzzlePerf[A](f: Perf ?=> Fu[A])(using Option[Me]): Fu[A] =
-    WithMyPerf(lila.rating.PerfType.Puzzle)(f)
+    WithMyPerf(PerfType.Puzzle)(f)

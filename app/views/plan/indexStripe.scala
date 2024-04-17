@@ -3,7 +3,7 @@ package views.html.plan
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.plan.CurrencyApi.zeroDecimalCurrencies
 
 object indexStripe:
@@ -13,7 +13,7 @@ object indexStripe:
   private val dataForm = attr("data-form")
 
   def apply(
-      me: lila.user.User,
+      me: User,
       patron: lila.plan.Patron,
       info: lila.plan.CustomerInfo.Monthly,
       stripePublicKey: String,
@@ -23,9 +23,9 @@ object indexStripe:
     views.html.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
+      modules = jsModule("bits.plan"),
       moreJs = frag(
         index.stripeScript,
-        jsModule("plan"),
         embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")""")
       ),
       csp = defaultCsp.withStripe.some
@@ -90,13 +90,13 @@ object indexStripe:
                           .so(info.subscription.item.price.money.amount.toString)
                       }
                     ),
-                    submitButton(cls := "button")(trans.apply()),
-                    a(dataForm := "switch")(trans.cancel())
+                    submitButton(cls := "button")(trans.site.apply()),
+                    a(dataForm := "switch")(trans.site.cancel())
                   ),
                   postForm(cls := "cancel", action := routes.Plan.cancel)(
                     p(stopPaymentsPayPal()),
                     submitButton(cls := "button button-red")(noLongerSupport()),
-                    a(dataForm := "cancel")(trans.cancel())
+                    a(dataForm := "cancel")(trans.site.cancel())
                   )
                 )
               }

@@ -2,8 +2,10 @@ package lila.opening
 
 import play.api.mvc.RequestHeader
 
-import lila.game.{ GameRepo, PgnDump }
+import lila.core.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
+import lila.core.i18n.{ Translator, Translate }
+import lila.core.net.Crawler
 
 final class OpeningApi(
     wikiApi: OpeningWikiApi,
@@ -12,15 +14,14 @@ final class OpeningApi(
     pgnDump: PgnDump,
     explorer: OpeningExplorer,
     configStore: OpeningConfigStore
-)(using Executor):
+)(using Executor, Translator):
 
   import OpeningQuery.Query
 
-  private val defaultCache = cacheApi.notLoading[Query, Option[OpeningPage]](1024, "opening.defaultCache") {
+  private val defaultCache = cacheApi.notLoading[Query, Option[OpeningPage]](1024, "opening.defaultCache"):
     _.maximumSize(4096).expireAfterWrite(5 minute).buildAsync()
-  }
 
-  def index(using req: RequestHeader): Fu[Option[OpeningPage]] =
+  def index(using RequestHeader): Fu[Option[OpeningPage]] =
     lookup(Query("", none), withWikiRevisions = false, crawler = Crawler.No)
 
   def lookup(q: Query, withWikiRevisions: Boolean, crawler: Crawler)(using
@@ -45,6 +46,7 @@ final class OpeningApi(
       withWikiRevisions: Boolean,
       crawler: Crawler
   ): Fu[Option[OpeningPage]] =
+    given Translate = summon[Translator].toDefault
     for
       wiki <- query.closestOpening.soFu(wikiApi(_, withWikiRevisions))
       useExplorer = crawler.no || wiki.exists(_.hasMarkup)

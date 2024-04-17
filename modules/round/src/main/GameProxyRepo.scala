@@ -1,6 +1,6 @@
 package lila.round
 
-import lila.game.{ Game, PlayerRef, Pov }
+import lila.core.game.PlayerRef
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
@@ -50,7 +50,7 @@ final class GameProxyRepo(
         _.traverse: pov =>
           gameIfPresent(pov.gameId).dmap { _.fold(pov)(pov.withGame) }
         .map: povs =>
-          try povs.sortWith(Pov.priority)
+          try povs.sortWith(lila.game.Pov.priority)
           catch
             case e: IllegalArgumentException =>
               lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)

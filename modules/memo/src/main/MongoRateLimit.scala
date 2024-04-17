@@ -25,7 +25,7 @@ final class MongoRateLimit[K](
   private def makeDbKey(k: K) = s"ratelimit:$name:${keyToString(k)}"
 
   def getSpent(k: K)(using Executor): Fu[Entry] =
-    coll.one[Entry]($id(makeDbKey(k))) map {
+    coll.one[Entry]($id(makeDbKey(k))).map {
       case Some(v) => v
       case _       => Entry(k.toString(), 0, makeClearAt)
     }
@@ -36,7 +36,7 @@ final class MongoRateLimit[K](
     if cost < 1 then op
     else
       val dbKey = makeDbKey(k)
-      coll.one[Entry]($id(dbKey)) flatMap {
+      coll.one[Entry]($id(dbKey)).flatMap {
         case None =>
           coll.insert.one(Entry(dbKey, cost, makeClearAt)) >> op
         case Some(Entry(_, spent, clearAt)) if spent < credits =>

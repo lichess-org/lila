@@ -18,7 +18,7 @@
     &:hover,
     &.active {
       color: $c-font-clear;
-      background: mix($c-link, $c-bg-box, 10%);
+      background: $m-primary_bg--mix-10;
     }
   }
 
@@ -42,7 +42,7 @@
 
     &:hover {
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
       opacity: 1;
     }
   }
@@ -59,7 +59,7 @@
     align-self: center;
     justify-content: center;
     font-size: 0.7em;
-    color: $c-red;
-    margin-#{$end-direction}: 0.7rem;
+    color: $c-bad;
+    margin-inline-end: 0.7rem;
   }
 }

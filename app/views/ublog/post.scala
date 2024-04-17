@@ -5,9 +5,8 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
-import lila.user.User
 
 object post:
 
@@ -23,12 +22,9 @@ object post:
   )(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = frag(
-        jsModule("expandText"),
-        ctx.isAuth.option(jsModule("ublog"))
-      ),
+      modules = jsModule("bits.expandText") ++ ctx.isAuth.so(jsModule("bits.ublog")),
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           `type` = "article",
           image = post.image.isDefined.option(thumbnail.url(post, _.Size.Large)),
@@ -61,7 +57,7 @@ object post:
               href     := routes.Ublog.index(user.username),
               dataHref := routes.User.show(user.username)
             )(userLinkContent(user)),
-            iconTag(licon.InfoCircle)(
+            iconTag(Icon.InfoCircle)(
               cls      := "ublog-post__meta__disclaimer",
               st.title := "Opinions expressed by Lichess contributors are their own."
             ),
@@ -84,7 +80,7 @@ object post:
             else if !post.live then badTag(trans.ublog.thisIsADraft())
             else
               a(
-                titleOrText(trans.reportXToModerators.txt(user.username)),
+                titleOrText(trans.site.reportXToModerators.txt(user.username)),
                 cls := "button button-empty ublog-post__meta__report",
                 href := addQueryParams(
                   reportRoutes.form.url,
@@ -94,10 +90,10 @@ object post:
                     "reason"   -> "comm"
                   )
                 ),
-                dataIcon := licon.CautionTriangle
+                dataIcon := Icon.CautionTriangle
               )
             ,
-            langName(post.language)
+            lila.i18n.LangList.nameByStr(post.language)
           ),
           div(cls := "ublog-post__topics")(
             post.topics.map: topic =>
@@ -108,7 +104,7 @@ object post:
           post.isLichess.option(
             div(cls := "ublog-post__lichess")(
               views.html.base.bits.connectLinks,
-              p(a(href := routes.Plan.index)(trans.lichessPatronInfo()))
+              p(a(href := routes.Plan.index)(trans.site.lichessPatronInfo()))
             )
           ),
           div(cls := "ublog-post__footer")(
@@ -116,7 +112,7 @@ object post:
               a(
                 href     := routes.Ublog.discuss(post.id),
                 cls      := "button text ublog-post__discuss",
-                dataIcon := licon.BubbleConvo
+                dataIcon := Icon.BubbleConvo
               )(trans.ublog.discussThisBlogPostInTheForum())
             ),
             (ctx.isAuth && ctx.isnt(user)).option(
@@ -134,8 +130,8 @@ object post:
   private def editButton(post: UblogPost)(using PageContext) = a(
     href     := editUrlOfPost(post),
     cls      := "button button-empty text",
-    dataIcon := licon.Pencil
-  )(trans.edit())
+    dataIcon := Icon.Pencil
+  )(trans.site.edit())
 
   private def likeButton(post: UblogPost, liked: Boolean, showText: Boolean)(using PageContext) =
     val text = if liked then trans.study.unlike.txt() else trans.study.like.txt()
@@ -168,8 +164,8 @@ object post:
       )
     ):
       List(
-        ("yes", trans.unfollowX, routes.Relation.unfollow, licon.Checkmark),
-        ("no", trans.followX, routes.Relation.follow, licon.ThumbsUp)
+        ("yes", trans.site.unfollowX, routes.Relation.unfollow, Icon.Checkmark),
+        ("no", trans.site.followX, routes.Relation.follow, Icon.ThumbsUp)
       ).map: (role, text, route, icon) =>
         button(
           cls      := s"ublog-post__follow__$role button button-big",
@@ -219,7 +215,7 @@ object post:
     a(
       href     := routes.Ublog.form(user.username),
       cls      := "button button-green",
-      dataIcon := licon.PlusButton,
+      dataIcon := Icon.PlusButton,
       title    := trans.ublog.newPost.txt()
     )
 
@@ -267,7 +263,7 @@ object post:
               "User tier:",
               st.select(name := "tier", cls := "form-control")(UblogRank.Tier.verboseOptions.map:
                 (value, name) =>
-                  option(st.value := value.toString, (blog.tier == value).option(selected))(name)
+                  st.option(st.value := value.toString, (blog.tier == value).option(selected))(name)
               )
             ),
             span(

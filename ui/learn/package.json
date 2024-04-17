@@ -3,8 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chess performance statistics",
-  "type": "module",
-  "module": "src/main.js",
   "keywords": [
     "chess",
     "lichess",
@@ -13,17 +11,16 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/chess.js": "=0.10.1",
+    "@types/chess.js": "0.10.1",
     "chess.js": "github:ornicar/chess.js#learn",
-    "chessground": "=4.4.2",
+    "chessground": "4.4.2",
     "common": "workspace:*",
-    "mithril": "github:ornicar/mithril.js#lila-1"
+    "mithril": "github:ornicar/mithril.js#lila-1",
+    "zerofish": "github:schlawg/zerofish#master"
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "learn"
-      }
+      "src/learn.ts": "learn"
     }
   }
 }

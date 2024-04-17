@@ -2,12 +2,10 @@ package views.html
 package account
 
 import controllers.routes
-import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.pref.PrefCateg
-import lila.user.User
 
 object bits:
 
@@ -18,11 +16,11 @@ object bits:
         div(cls := "personal-data__header")(
           p("Here is all personal information Lichess has about ", userLink(u)),
           a(cls := "button", href := s"${routes.Account.data}?user=${u.id}&text=1", downloadAttr):
-            trans.download()
+            trans.site.download()
         )
       )
 
-  def categName(categ: PrefCateg)(using Lang): String = categ match
+  def categName(categ: PrefCateg)(using Translate): String = categ match
     case PrefCateg.Display      => trans.preferences.display.txt()
     case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()
     case PrefCateg.GameBehavior => trans.preferences.gameBehavior.txt()

@@ -1,7 +1,7 @@
 .puzzle__feedback.after {
   flex-flow: row nowrap;
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     flex-flow: column;
   }
 
@@ -11,17 +11,17 @@
     justify-content: center;
     font-size: 1.3em;
     background: $c-primary;
-    color: $c-primary-over;
+    color: $c-over;
     text-transform: uppercase;
     padding: 2em;
 
     &:hover {
-      background: lighten($c-primary, 10%);
+      background: $m-primary--lighten-10;
     }
 
     i::before {
       font-size: 2.5em;
-      margin-#{$end-direction}: 10px;
+      margin-inline-end: 10px;
     }
   }
 
@@ -60,7 +60,7 @@
       }
     }
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       display: flex;
     }
   }
@@ -78,11 +78,11 @@
       display: inline;
 
       &:last-child {
-        margin-#{$start-direction}: 1ch;
+        margin-inline-start: 1ch;
       }
     }
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       display: block;
       margin: 0 1em;
     }
@@ -130,7 +130,7 @@
     &:hover,
     &.active {
       background: $c-good;
-      color: $c-good-over;
+      color: $c-over;
     }
 
     &.vote-down:hover,

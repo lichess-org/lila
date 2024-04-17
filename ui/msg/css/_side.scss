@@ -4,11 +4,11 @@
 
     flex: 0 0 50ch;
 
-    @include breakpoint($mq-not-medium) {
+    @media (max-width: at-most($medium)) {
       flex: 0 0 40ch;
     }
 
-    @include breakpoint($mq-not-small) {
+    @media (max-width: at-most($small)) {
       flex: 1 0 100%;
       display: none;
 
@@ -20,7 +20,7 @@
     background: $c-bg-zebra;
     overflow: hidden;
     user-select: none;
-    border-#{$end-direction}: $border;
+    border-inline-end: $border;
 
     ::-webkit-scrollbar,
     ::-webkit-scrollbar-corner {
@@ -56,12 +56,12 @@
       cursor: pointer;
 
       &:hover {
-        background: mix($c-msg, $c-bg-box, 15%);
+        background: $m-secondary_bg--mix-15;
       }
 
       &:active,
       &.active {
-        background: mix($c-msg, $c-bg-box, 30%);
+        background: $m-secondary_bg--mix-30;
       }
 
       .user-link {
@@ -117,7 +117,7 @@
 
       &__new {
         color: $c-primary;
-        margin-#{$start-direction}: 0.3em;
+        margin-inline-start: 0.3em;
       }
     }
   }

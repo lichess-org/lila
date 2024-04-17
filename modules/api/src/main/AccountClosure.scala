@@ -1,8 +1,7 @@
 package lila.api
 
 import lila.common.Bus
-import lila.security.Granter
-import lila.user.{ Me, User }
+import lila.core.perm.Granter
 
 final class AccountClosure(
     userRepo: lila.user.UserRepo,
@@ -27,17 +26,17 @@ final class AccountClosure(
 )(using Executor):
 
   Bus.subscribeFuns(
-    "garbageCollect" -> { case lila.hub.actorApi.security.GarbageCollect(userId) =>
+    "garbageCollect" -> { case lila.core.security.GarbageCollect(userId) =>
       (modApi.garbageCollect(userId) >> lichessClose(userId))
     },
-    "rageSitClose" -> { case lila.hub.actorApi.playban.RageSitClose(userId) => lichessClose(userId) }
+    "rageSitClose" -> { case lila.core.playban.RageSitClose(userId) => lichessClose(userId) }
   )
 
   def close(u: User)(using me: Me): Funit = for
-    playbanned <- playbanApi.hasCurrentBan(u)
+    playbanned <- playbanApi.HasCurrentPlayban(u.id)
     selfClose = me.is(u)
     modClose  = !selfClose && Granter(_.CloseAccount)
-    badApple  = u.lameOrTrollOrAlt || modClose
+    badApple  = u.lameOrTroll || u.marks.alt || modClose
     _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
     _       <- relationApi.unfollowAll(u.id)
     _       <- rankingApi.remove(u.id)
@@ -59,7 +58,7 @@ final class AccountClosure(
     _ <- u.marks.troll.so(relationApi.fetchFollowing(u.id).flatMap {
       activityWrite.unfollowAll(u, _)
     })
-  yield Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
+  yield Bus.publish(lila.core.security.CloseAccount(u.id), "accountClose")
 
   private def lichessClose(userId: UserId) =
     userRepo.lichessAnd(userId).flatMapz { (lichess, user) => close(user)(using Me(lichess)) }
@@ -70,7 +69,7 @@ final class AccountClosure(
       case Some(user) =>
         userRepo.setEraseAt(user)
         email.gdprErase(user)
-        lila.common.Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
+        lila.common.Bus.publish(lila.core.user.GDPRErase(user), "gdprErase")
         Right(s"Erasing all data about $username in 24h")
     }
 

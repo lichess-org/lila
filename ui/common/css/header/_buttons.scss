@@ -6,22 +6,20 @@
 
 .site-buttons {
   @extend %flex-center-nowrap;
+  position: relative;
 
   .link {
     @extend %top-icon;
-
-    /* we don't want a lighter dark font in the top gradient */
-    @if $theme == 'transp' {
+    color: $c-font;
+    @include if-transp {
       @extend %page-text;
-    } @else {
-      color: $c-font;
     }
 
     font-size: 1.1rem;
     padding: 0 0.7rem;
 
     &:hover {
-      color: $c-font-clearer;
+      color: $c-font-clearer !important;
     }
 
     span::before {
@@ -50,8 +48,8 @@
 
     display: none;
     position: absolute;
-    #{$end-direction}: 0;
-    top: var(--dropdown-top);
+    @include inline-end(0);
+    top: $site-header-height;
     background: $c-bg-header-dropdown;
     z-index: z('dropdown');
 
@@ -73,15 +71,9 @@
   }
 
   .signin {
-    margin: 0 1rem;
-
-    @if $theme == 'transp' {
-      &.button-empty {
-        @extend %metal;
-
-        color: $c-font-clear;
-      }
-    }
+    @extend %flex-center-nowrap;
+    text-transform: uppercase;
+    padding: 0 0.7rem;
   }
 
   .link-center {
@@ -114,14 +106,26 @@
     }
 
     a:hover {
-      color: c-clearer($c-bad, 20%);
+      color: $m-bad_clearer--mix-80;
     }
+  }
+
+  .dasher {
+    @extend %flex-center-nowrap;
   }
 }
 
 #user_tag {
-  padding-#{$end-direction}: 1rem;
+  @extend %flex-center-nowrap;
   white-space: nowrap;
+  gap: 0.5rem;
+
+  &::after {
+    @extend %data-icon;
+    color: $m-font_dimmer--mix-85;
+    content: $licon-AccountCircle;
+    font-size: 2rem;
+  }
 }
 
 #notify-app .initiating {

@@ -12,9 +12,10 @@ import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse, WSAuthScheme
 import java.util.Currency
 
 import lila.common.Json.given
-import lila.common.config
+import lila.core.config.*
+import lila.common.autoconfig.*
+import lila.common.config.given
 import lila.memo.CacheApi
-import lila.user.User
 
 final private class PayPalClient(
     ws: StandaloneWSClient,
@@ -232,9 +233,8 @@ final private class PayPalClient(
     }
   }
 
-  @annotation.nowarn
   private def debugInput(data: Seq[(String, Matchable)]) =
-    fixInput(data).map { case (k, v) => s"$k=$v" }.mkString(" ")
+    fixInput(data).map { (k, v) => s"$k=$v" }.mkString(" ")
 
 object PayPalClient:
 
@@ -247,11 +247,10 @@ object PayPalClient:
   case class CantParseException(json: JsValue, err: JsError)
       extends PayPalException(s"[payPal] Can't parse $json --- ${err.errors}")
 
-  import lila.common.autoconfig.*
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
-      @ConfigName("keys.secret") secretKey: config.Secret
+      @ConfigName("keys.secret") secretKey: Secret
   )
   private[plan] given ConfigLoader[Config] = AutoConfig.loader
 

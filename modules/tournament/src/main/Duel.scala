@@ -3,8 +3,7 @@ package lila.tournament
 import java.util.concurrent.ConcurrentHashMap
 import scala.collection.immutable.TreeSet
 
-import lila.game.Game
-import lila.user.User
+import lila.core.chess.Rank
 
 case class Duel(
     gameId: GameId,
@@ -44,7 +43,7 @@ final private class DuelStore:
 
   def bestRated(tourId: TourId, nb: Int): List[Duel] =
     get(tourId).so {
-      lila.common.Heapsort.topNToList(_, nb)(using ratingOrdering)
+      scalalib.HeapSort.topNToList(_, nb)(using ratingOrdering)
     }
 
   def find(tour: Tournament, user: User): Option[GameId] =

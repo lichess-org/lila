@@ -2,20 +2,24 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.Json.given
 import views.*
 
 import scala.util.chaining.*
 
 import lila.analyse.Analysis
 import lila.app.{ *, given }
-import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.{ Bus, HTTPRequest, IpAddress, LpvEmbed }
-import lila.socket.Socket
+import scalalib.paginator.Paginator
+import lila.common.{ Bus, HTTPRequest }
+import lila.core.socket.Sri
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Order, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
+import lila.core.misc.lpv.LpvEmbed
+import lila.core.net.IpAddress
+import lila.core.id.RelayRoundId
 
 final class Study(
     env: Env,
@@ -24,7 +28,7 @@ final class Study(
     apiC: => Api
 ) extends LilaController(env):
 
-  private given lila.user.FlairApi = env.user.flairApi
+  import env.user.flairApi.given
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
@@ -152,9 +156,8 @@ final class Study(
     )
 
   private def apiStudies(pager: Paginator[StudyModel.WithChaptersAndLiked]) =
-    given Writes[StudyModel.WithChaptersAndLiked] = Writes[StudyModel.WithChaptersAndLiked]:
-      env.study.jsonView.pagerData
-    Ok(Json.obj("paginator" -> PaginatorJson(pager)))
+    given Writes[StudyModel.WithChaptersAndLiked] = Writes(env.study.jsonView.pagerData)
+    Ok(Json.obj("paginator" -> pager))
 
   private def orRelayRedirect(id: StudyId, chapterId: Option[StudyChapterId] = None)(
       f: => Fu[Result]
@@ -178,7 +181,7 @@ final class Study(
               for
                 chat      <- NoCrawlers(chatOf(sc.study))
                 sVersion  <- NoCrawlers(env.study.version(sc.study.id))
-                streamers <- NoCrawlers(streamersOf(sc.study.id))
+                streamers <- NoCrawlers(streamerCache.get(sc.study.id))
                 page      <- renderPage(html.study.show(sc.study, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
@@ -203,7 +206,8 @@ final class Study(
     for
       (study, chapter, previews) <-
         env.study.api.maybeResetAndGetChapterPreviews(sc.study, sc.chapter)
-      _ <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
+      _        <- env.user.lightUserApi.preloadMany(study.members.ids.toList)
+      fedNames <- env.study.preview.federations.get(sc.study.id)
       pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
       analysis <- chapter.serverEval
         .exists(_.done)
@@ -220,7 +224,7 @@ final class Study(
           division = division
         )
       )
-      studyJson <- env.study.jsonView(study, previews, chapter, withMembers = !study.isRelay)
+      studyJson <- env.study.jsonView(study, previews, chapter, fedNames.some, withMembers = !study.isRelay)
     yield WithChapter(study, chapter) -> JsData(
       study = studyJson,
       analysis = baseData
@@ -229,7 +233,7 @@ final class Study(
             lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
           }.some
         )
-        .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
+        .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
     )
 
   def show(id: StudyId) = Open:
@@ -309,7 +313,7 @@ final class Study(
 
   def apiChapterDelete(id: StudyId, chapterId: StudyChapterId) = ScopedBody(_.Study.Write) { _ ?=> me ?=>
     Found(env.study.api.byIdAndOwnerOrAdmin(id, me)): study =>
-      env.study.api.deleteChapter(id, chapterId)(Who(me.userId, Socket.Sri("api"))).inject(NoContent)
+      env.study.api.deleteChapter(id, chapterId)(Who(me.userId, Sri("api"))).inject(NoContent)
   }
 
   def clearChat(id: StudyId) = Auth { _ ?=> me ?=>
@@ -327,7 +331,7 @@ final class Study(
     key = "study.import-pgn.user"
   )
 
-  private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Socket.Sri)(
+  private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Sri)(
       f: List[Chapter] => Result
   )(using ctx: Context, me: Me): Future[Result] =
     val chapterDatas = data.toChapterDatas
@@ -347,7 +351,7 @@ final class Study(
         .bindFromRequest()
         .fold(
           doubleJsonFormError,
-          data => doImportPgn(id, data, Socket.Sri(sri))(_ => NoContent)
+          data => doImportPgn(id, data, Sri(sri))(_ => NoContent)
         )
   }
 
@@ -357,7 +361,7 @@ final class Study(
       .fold(
         jsonFormError,
         data =>
-          doImportPgn(id, data, Socket.Sri("api")): chapters =>
+          doImportPgn(id, data, Sri("api")): chapters =>
             import lila.study.ChapterPreview.json.write
             JsonOk(Json.obj("chapters" -> write(chapters.map(_.preview))(using Map.empty)))
       )
@@ -529,7 +533,7 @@ final class Study(
                 .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
                 .as("image/gif")
             }
-            .recover { case lila.base.LilaInvalid(msg) =>
+            .recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(msg)
             }
         }(privateUnauthorizedFu(study), privateForbiddenFu(study))
@@ -610,12 +614,11 @@ final class Study(
                         .map:
                           _.option(stream.streamer.userId)
                     .dmap(_.flatten)
-  export streamerCache.{ get as streamersOf }
 
   def glyphs(lang: String) = Anon:
     play.api.i18n.Lang
       .get(lang)
       .so: lang =>
         JsonOk:
-          lila.study.JsonView.glyphs(lang)
+          lila.study.JsonView.glyphs(using env.translator.to(lang))
         .withHeaders(CACHE_CONTROL -> "max-age=3600")

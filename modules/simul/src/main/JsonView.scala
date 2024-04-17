@@ -3,21 +3,20 @@ package lila.simul
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
-import lila.game.{ Game, GameRepo }
+import lila.core.LightUser
 import lila.gathering.Condition.WithVerdicts
 import lila.rating.PerfType
 
 final class JsonView(
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     getLightUser: LightUser.GetterFallback,
-    proxyRepo: lila.round.GameProxyRepo,
-    isOnline: lila.socket.IsOnline
+    gameProxy: lila.core.game.GameProxy,
+    isOnline: lila.core.socket.IsOnline
 )(using Executor):
 
   private def fetchGames(simul: Simul): Fu[List[Game]] =
     if simul.isFinished then gameRepo.gamesFromSecondary(simul.gameIds)
-    else simul.gameIds.map(proxyRepo.game).parallel.dmap(_.flatten)
+    else simul.gameIds.traverse(gameProxy.game).dmap(_.flatten)
 
   def apply(simul: Simul, verdicts: WithVerdicts): Fu[JsObject] = for
     games      <- fetchGames(simul)
@@ -91,7 +90,7 @@ final class JsonView(
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) =
     Json.obj(
       "key"  -> v.key,
-      "icon" -> PerfType(v, speed).icon.toString,
+      "icon" -> lila.rating.PerfType(v, speed).icon.toString,
       "name" -> v.name
     )
 

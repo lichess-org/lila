@@ -5,24 +5,27 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 import lila.tournament.Tournament
 import lila.tournament.crud.CrudForm
 
 object crud:
   given prefix: tournament.FormPrefix = tournament.FormPrefix.make("setup")
 
-  private def layout(title: String, evenMoreJs: Frag = emptyFrag, css: String = "mod.misc")(
+  private def layout(
+      title: String,
+      modules: EsmList = Nil,
+      evenMoreJs: Frag = emptyFrag,
+      css: String = "mod.misc"
+  )(
       body: Frag
   )(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
-      moreJs = frag(
-        jsModule("flatpickr"),
-        evenMoreJs
-      )
+      modules = jsModule("bits.flatpick") ++ modules,
+      moreJs = evenMoreJs
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("tour"),
@@ -41,7 +44,7 @@ object crud:
           spotlightAndTeamBattle(form, none),
           errMsg(form("setup")),
           tournament.form.setupCreate(form, Nil),
-          form3.action(form3.submit(trans.apply()))
+          form3.action(form3.submit(trans.site.apply()))
         )
       )
     }
@@ -62,14 +65,14 @@ object crud:
             cls    := "box__top__actions",
             action := routes.TournamentCrud.cloneT(tour.id),
             method := "get"
-          )(form3.submit("Clone", licon.Trophy.some)(cls := "button-green button-empty"))
+          )(form3.submit("Clone", Icon.Trophy.some)(cls := "button-green button-empty"))
         ),
         standardFlash,
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
           spotlightAndTeamBattle(form, tour.some),
           errMsg(form("setup")),
           tournament.form.setupEdit(tour, form, Nil),
-          form3.action(form3.submit(trans.apply()))
+          form3.action(form3.submit(trans.site.apply()))
         )
       )
     }
@@ -110,13 +113,13 @@ object crud:
   def index(tours: Paginator[Tournament])(using PageContext) =
     layout(
       title = "Tournament manager",
-      evenMoreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       div(cls := "crud page-menu__content box")(
         boxTop(
           h1("Tournament manager"),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := licon.PlusButton)
+            a(cls := "button button-green", href := routes.TournamentCrud.form, dataIcon := Icon.PlusButton)
           )
         ),
         table(cls := "slist slist-pad")(
@@ -144,7 +147,7 @@ object crud:
                 td(tour.clock.toString),
                 td(tour.minutes, "m"),
                 td(showInstant(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
-                td(a(href := routes.Tournament.show(tour.id), dataIcon := licon.Eye, title := "View on site"))
+                td(a(href := routes.Tournament.show(tour.id), dataIcon := Icon.Eye, title := "View on site"))
               )
             },
             pagerNextTable(tours, routes.TournamentCrud.index(_).url)

@@ -1,10 +1,10 @@
 package lila.security
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.mvc.RequestHeader
 
-import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }
-import lila.user.User
+import lila.common.{ Bus, HTTPRequest }
+import lila.core.net.IpAddress
 
 // codename UGC
 final class GarbageCollector(
@@ -19,7 +19,7 @@ final class GarbageCollector(
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
-  private val justOnce = lila.memo.OnceEvery[UserId](10 minutes)
+  private val justOnce = scalalib.cache.OnceEvery[UserId](10 minutes)
 
   private case class ApplyData(
       user: User,
@@ -44,11 +44,11 @@ final class GarbageCollector(
             retries = 5,
             logger = none
           )
-          .recoverDefault >> apply(applyData)
+          .recoverDefault(e => logger.info(e.getMessage, e)) >> apply(applyData)
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
     userLogins.userHasPrint(data.user).flatMap {
-      case false => fufail("No print available yet")
+      case false => fufail(s"never got a print for ${data.user.username}")
       case _     => funit
     }
 
@@ -92,7 +92,7 @@ final class GarbageCollector(
     (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.enabled.no))
       .option(others)
 
-  private def isBadAccount(user: User) = user.lameOrTrollOrAlt
+  private def isBadAccount(u: User) = u.lameOrTroll || u.marks.alt
 
   private def collect(user: User, email: EmailAddress, msg: => String, quickly: Boolean): Funit =
     justOnce(user.id).so:
@@ -115,6 +115,6 @@ final class GarbageCollector(
 
   private def doCollect(user: UserId): Unit =
     Bus.publish(
-      lila.hub.actorApi.security.GarbageCollect(user),
+      lila.core.security.GarbageCollect(user),
       "garbageCollect"
     )

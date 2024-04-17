@@ -4,12 +4,11 @@ package http
 import play.api.i18n.Lang
 import play.api.mvc.*
 
-import lila.api.{ LoginContext, Nonce, PageData }
+import lila.api.{ LoginContext, PageData }
 import lila.common.HTTPRequest
-import lila.i18n.I18nLangPicker
+import lila.i18n.LangPicker
 import lila.oauth.OAuthScope
 import lila.security.{ AppealUser, FingerPrintedUser }
-import lila.user.Me
 
 trait RequestContext(using Executor):
 
@@ -44,14 +43,14 @@ trait RequestContext(using Executor):
         BodyContext(req, lang, userCtx, _)
 
   private def getAndSaveLang(req: RequestHeader, me: Option[Me]): Lang =
-    val lang = I18nLangPicker(req, me.flatMap(_.lang))
+    val lang = LangPicker(req, me.flatMap(_.lang))
     me.filter(_.lang.forall(_ != lang.code)).foreach { env.user.repo.setLang(_, lang) }
     lang
 
   private def pageDataBuilder(using ctx: Context): Fu[PageData] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then
-      val nonce = Nonce.random.some
+      val nonce = lila.web.Nonce.random.some
       ctx.me.foldUse(fuccess(PageData.anon(nonce))): me ?=>
         env.user.lightUserApi.preloadUser(me)
         val enabledId = me.enabled.yes.option(me.userId)
@@ -85,7 +84,7 @@ trait RequestContext(using Executor):
           FingerPrintedUser(me, true).some
         case Some(Right(d)) if !env.net.isProd =>
           d.copy(me = d.me.map:
-            _.addRole(lila.security.Permission.Beta.dbKey)
+            _.addRole(lila.core.perm.Permission.Beta.dbKey)
           ).some
         case Some(Right(d)) => d.some
         case _              => none

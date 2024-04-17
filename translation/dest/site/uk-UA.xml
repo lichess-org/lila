@@ -68,7 +68,7 @@
   <string name="goDeeper">Ще глибше</string>
   <string name="showThreat">Показати загрозу</string>
   <string name="inLocalBrowser">у браузері</string>
-  <string name="toggleLocalEvaluation">Включити аналіз на комп\'ютері</string>
+  <string name="toggleLocalEvaluation">Включити локальний аналіз</string>
   <string name="promoteVariation">Підвищити пріоритет варіанта</string>
   <string name="makeMainLine">Зробити варіант основним</string>
   <string name="deleteFromHere">Видалити з цього місця</string>
@@ -460,8 +460,7 @@
   <string name="continueFromHere">Продовжити звідси</string>
   <string name="toStudy">Дослідження</string>
   <string name="importGame">Імпортувати гру</string>
-  <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері,
-комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
+  <string name="importGameExplanation">Вставте PGN гри щоб отримати повтор в браузері, комп\'ютерний аналіз, ігровий чат та посилання, яким можна поділитися.</string>
   <string name="importGameCaveat">Варіації будуть видалені. Для збереження імпортуйте PGN через дослідження.</string>
   <string name="importGameDataPrivacyWarning">Цей PGN може бути у вільному доступі. Для імпорту гри в приватному режимі використовуйте студії.</string>
   <plurals name="nbImportedGames">
@@ -549,7 +548,7 @@
   <string name="resume">Відновити</string>
   <string name="youArePlaying">Ви граєте!</string>
   <string name="winRate">Відсоток перемог</string>
-  <string name="berserkRate">Ігор як берсерк</string>
+  <string name="berserkRate">Ігор з берсерком</string>
   <string name="performance">Ефективність</string>
   <string name="tournamentComplete">Турнір завершено</string>
   <string name="movesPlayed">Ходів зіграно</string>
@@ -576,9 +575,9 @@
   <string name="editProfile">Редагувати профіль</string>
   <string name="firstName">Ім\'я</string>
   <string name="lastName">Прізвище</string>
-  <string name="setFlair">Оберіть свій емодзі</string>
-  <string name="flair">Аватар</string>
-  <string name="youCanHideFlair">Це налаштування вимикає аватари всіх користувачів сайту.</string>
+  <string name="setFlair">Оберіть свій символ</string>
+  <string name="flair">Символ</string>
+  <string name="youCanHideFlair">Це налаштування вимикає символи всіх користувачів сайту.</string>
   <string name="biography">Біографія</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Країна чи область</string>
   <string name="thankYou">Дякуємо!</string>
@@ -845,7 +844,7 @@
   <string name="fullFeatured">Повнофункціональний</string>
   <string name="phoneAndTablet">Для смартфонів та планшетів</string>
   <string name="bulletBlitzClassical">Куля, бліц, класичні шахи</string>
-  <string name="correspondenceChess">Заочна</string>
+  <string name="correspondenceChess">Заочні</string>
   <string name="onlineAndOfflinePlay">Гра онлайн та оффлайн</string>
   <string name="viewTheSolution">Дивитись рішення</string>
   <string name="followAndChallengeFriends">Спостерігайте і кидайте виклик друзям</string>
@@ -869,7 +868,7 @@
   <string name="dark">Темний</string>
   <string name="transparent">Прозорий</string>
   <string name="deviceTheme">Тема пристрою</string>
-  <string name="backgroundImageUrl">URL фонового зображення:</string>
+  <string name="backgroundImageUrl">Посилання фонового зображення:</string>
   <string name="boardGeometry">Вигляд шахівниці</string>
   <string name="boardTheme">Оформлення шахівниці</string>
   <string name="boardSize">Розмір дошки</string>
@@ -1037,7 +1036,7 @@
   <string name="simulDescription">Опис сеансу</string>
   <string name="simulDescriptionHelp">Чи хочете ви щось повідомити учасникам?</string>
   <string name="markdownAvailable">%s доступний для більш детального форматування.</string>
-  <string name="embedsAvailable">Вставте URL-адресу гри чи розділ дослідження, щоб вставити його.</string>
+  <string name="embedsAvailable">Вставте посилання на гру чи розділ дослідження, щоб вставити його.</string>
   <string name="inYourLocalTimezone">У вашому місцевому часовому поясі</string>
   <string name="tournChat">Турнірний чат</string>
   <string name="noChat">Без чату</string>
@@ -1065,12 +1064,13 @@
   <string name="youCantStartNewGame">Ви не можете розпочати нову гру поки не закінчите активну гру.</string>
   <string name="since">Від</string>
   <string name="until">До</string>
-  <string name="lichessDbExplanation">Рейтингові партії усiх гравців Lichess</string>
+  <string name="lichessDbExplanation">Рейтингові партії всіх гравців Lichess</string>
   <string name="switchSides">Змінити сторону</string>
   <string name="closingAccountWithdrawAppeal">Закриття облікового запису призведе до скасування вашої апеляції</string>
   <string name="ourEventTips">Наші поради щодо організації подій</string>
   <string name="instructions">Інструкція</string>
   <string name="showMeEverything">Показати все</string>
-  <string name="lichessPatronInfo">Lichess - це благодійне і абсолютно безкоштовне програмне забезпечення з відкритим кодом. Усі витрати на обслуговування, розробка та вміст фінансуються виключно за рахунок пожертвувань користувачів.</string>
+  <string name="lichessPatronInfo">Lichess — це благодійне й абсолютно безкоштовне програмне забезпечення з відкритим кодом.
+Усі витрати на обслуговування, розробку й контент фінансуються виключно пожертвуваннями користувачів.</string>
   <string name="nothingToSeeHere">Поки тут нічого немає.</string>
 </resources>

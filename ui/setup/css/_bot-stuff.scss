@@ -1,10 +1,10 @@
 dialog .local-setup {
   width: 96vw;
 
-  @include breakpoint($mq-x-small) {
+  @media (min-width: at-least($x-small)) {
     width: 80vw;
   }
-  @include breakpoint($mq-large) {
+  @media (min-width: at-least($large)) {
     width: 60vw;
   }
 

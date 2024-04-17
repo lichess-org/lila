@@ -1,13 +1,16 @@
 package lila.game
 
 import chess.Color
-import ornicar.scalalib.{ SecureRandom, ThreadLocalRandom }
+import scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.db.dsl.{ *, given }
+import lila.core.id.GameId
+import lila.core.game.{ Game, NewGame }
 
-final class IdGenerator(gameRepo: GameRepo)(using Executor):
+final class IdGenerator(gameRepo: GameRepo)(using Executor) extends lila.core.game.IdGenerator:
 
   import IdGenerator.*
+  import lila.core.game.IdGenerator.*
 
   def game: Fu[GameId] =
     val id = uncheckedGame
@@ -26,12 +29,13 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor):
         games(collisions.size).dmap { _ ++ (ids.diff(collisions)) }
       }
 
+  def withUniqueId(sloppy: NewGame): Fu[Game] =
+    game.map(sloppy.withId)
+
 object IdGenerator:
 
   private val whiteSuffixChars = ('0' to '4') ++ ('A' to 'Z') mkString
   private val blackSuffixChars = ('5' to '9') ++ ('a' to 'z') mkString
-
-  def uncheckedGame = GameId(ThreadLocalRandom.nextString(GameId.size))
 
   def player(color: Color): GamePlayerId =
     // Trick to avoid collisions between player ids in the same game.

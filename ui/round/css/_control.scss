@@ -43,7 +43,7 @@
 
     p {
       flex: 3 1;
-      margin-#{$end-direction}: 7px;
+      margin-inline-end: 7px;
     }
 
     .button {
@@ -54,7 +54,7 @@
   @keyframes flash-once {
     from {
       background: $c-accent;
-      color: $c-accent-over;
+      color: $c-over;
     }
 
     to {
@@ -98,7 +98,7 @@
       background: $c-bad;
     }
 
-    @include breakpoint($mq-col1) {
+    @include mq-is-col1 {
       a {
         line-height: 1.6em;
         flex: 0 0 2.5rem;
@@ -152,7 +152,7 @@
       height: 40px;
     }
 
-    @include breakpoint($mq-col1) {
+    @include mq-is-col1 {
       margin-top: $block-gap;
     }
   }
@@ -161,9 +161,9 @@
   .board-menu-toggle {
     display: none;
 
-    @include breakpoint($mq-col1) {
+    @include mq-is-col1 {
       display: block;
-      margin-#{$start-direction}: 2em;
+      margin-inline-start: 2em;
     }
   }
 
@@ -178,7 +178,7 @@
     }
 
     &.me {
-      background: mix($c-primary, $c-bg-box, 80%);
+      background: $m-primary_bg--mix-80;
     }
 
     @keyframes rubber-band {
@@ -231,8 +231,8 @@
         content: '';
         position: absolute;
         top: 0;
-        #{$start-direction}: 0;
-        #{$end-direction}: 0;
+        left: 0;
+        right: 0;
         bottom: 0;
         pointer-events: none;
         background: $c-primary;
@@ -247,7 +247,7 @@
     }
 
     &.fbt:not(.disabled):hover {
-      background: mix($c-link, $c-bg-box, 70%);
+      background: $m-primary_bg--mix-70;
       color: #fff;
       animation: none;
     }
@@ -258,25 +258,25 @@
       justify-content: center;
       position: absolute;
       top: 0;
-      #{$end-direction}: -25px;
+      @include inline-end(-25px);
       width: 25px;
       height: 6rem;
       border: 0;
       opacity: 0.7;
-      background: mix($c-bad, $c-bg-box, 50%);
+      background: $m-bad_bg--mix-50;
 
       @include transition;
 
       display: none;
 
-      @include breakpoint($mq-col2) {
+      @include mq-at-least-col2 {
         display: block;
       }
 
       &:hover {
         background: $c-bad;
-        color: $c-bad-over;
-        #{$end-direction}: -36px;
+        color: $c-over;
+        @include inline-end(-36px);
         width: 35px;
       }
     }

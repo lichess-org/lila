@@ -8,9 +8,7 @@ import play.api.libs.json.*
 import lila.common.Bus
 import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.{ Sri, makeMessage }
-import lila.socket.{ AnaAny, AnaDests, AnaDrop, AnaMove }
+import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
@@ -20,25 +18,25 @@ import actorApi.Who
 final private class StudySocket(
     api: StudyApi,
     jsonView: JsonView,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    chatApi: lila.chat.ChatApi
-)(using Executor, Scheduler, lila.user.FlairApi.Getter):
+    socketKit: SocketKit,
+    socketRequest: SocketRequester,
+    chatApi: lila.core.chat.ChatApi
+)(using Executor, Scheduler, lila.core.user.FlairGet):
 
   import StudySocket.{ *, given }
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Study)
+  subscribeChat(rooms, _.study)
 
   def isPresent(studyId: StudyId, userId: UserId): Fu[Boolean] =
-    lila.socket.SocketRequest[Boolean](
+    socketRequest[Boolean](
       id => send(Protocol.Out.getIsPresent(id, studyId, userId)),
       _ == "true"
     )
 
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
     import eval.*
-    import lila.game.JsonView.given
     send(
       RP.Out.tellRoom(
         studyId,
@@ -54,7 +52,7 @@ final private class StudySocket(
       )
     )
 
-  private lazy val studyHandler: Handler =
+  private lazy val studyHandler: SocketHandler =
     case RP.In.ChatSay(roomId, userId, msg) => api.talk(userId, roomId, msg)
     case RP.In.TellRoomSri(studyId, P.In.TellSri(sri, user, tpe, o)) =>
       import Protocol.In.{ *, given }
@@ -245,7 +243,7 @@ final private class StudySocket(
 
         case t => logger.warn(s"Unhandled study socket message: $t")
 
-  private lazy val rHandler: Handler = roomHandler(
+  private lazy val rHandler: SocketHandler = roomHandler(
     rooms,
     chatApi,
     logger,
@@ -254,7 +252,7 @@ final private class StudySocket(
       api.isContributor(roomId, modId) >>& api.isMember(roomId, suspectId).not >>&
         Bus.ask("isOfficialRelay") { actorApi.IsOfficialRelay(roomId, _) }.not
     },
-    chatBusChan = _.Study
+    chatBusChan = _.study
   )
 
   private def moveOrDrop(studyId: StudyId, m: AnaAny, opts: MoveOpts)(who: Who) =
@@ -265,12 +263,10 @@ final private class StudySocket(
           .foreach: chapterId =>
             api.addNode(studyId, Position.Ref(chapterId, m.path), branch, opts)(who)
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply
+  private lazy val send = socketKit.send("study-out")
 
-  remoteSocketApi
-    .subscribe("study-in", RP.In.reader)(
-      studyHandler.orElse(rHandler).orElse(remoteSocketApi.baseHandler)
-    )
+  socketKit
+    .subscribe("study-in", RP.In.reader)(studyHandler.orElse(rHandler).orElse(socketKit.baseHandler))
     .andDo(send(P.Out.boot))
 
   // send API
@@ -298,7 +294,7 @@ final private class StudySocket(
       "addNode",
       Json
         .obj(
-          "n" -> minimalNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
+          "n" -> minimalNodeJsonWriter.writes(node),
           "p" -> pos,
           "d" -> dests.dests,
           "s" -> sticky

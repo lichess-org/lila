@@ -1,39 +1,39 @@
 package lila.tv
 
+import scalalib.actor.SyncActor
 import chess.PlayerTitle
 
-import lila.common.{ LightUser, licon }
-import lila.game.{ Game, GameRepo, Pov }
-import lila.hub.SyncActor
+import lila.common.Icon
+import lila.core.LightUser
+import lila.game.{ GameRepo }
+import lila.common.Icon
 
 final class Tv(
     gameRepo: GameRepo,
     actor: SyncActor,
-    gameProxyRepo: lila.round.GameProxyRepo
+    gameProxy: lila.core.game.GameProxy
 )(using Executor):
 
   import Tv.*
   import ChannelSyncActor.*
 
-  import gameProxyRepo.game as roundProxyGame
-
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(roundProxyGame)
+    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(gameProxy.game)
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     actor
       .ask[Option[GameId]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
-      .flatMapz(roundProxyGame)
+      .flatMapz(gameProxy.game)
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
     actor.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)).flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for
-          game <- gameId.so(roundProxyGame)
+          game <- gameId.so(gameProxy.game)
           games <-
             historyIds
               .map: id =>
-                roundProxyGame(id).orElse(gameRepo.game(id))
+                gameProxy.game(id).orElse(gameRepo.game(id))
               .parallel
               .dmap(_.flatten)
           history = games.map(Pov.naturalOrientation)
@@ -42,7 +42,7 @@ final class Tv(
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
     getGameIds(channel, max).flatMap {
-      _.map(roundProxyGame).parallel.map(_.flatten)
+      _.map(gameProxy.game).parallel.map(_.flatten)
     }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =
@@ -61,13 +61,13 @@ object Tv:
 
   case class Champion(user: LightUser, rating: IntRating, gameId: GameId, color: chess.Color)
   case class Champions(channels: Map[Channel, Champion]):
-    def get = channels.get
+    export channels.get
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
 
   enum Channel(
       val name: String,
-      val icon: licon.Icon,
+      val icon: Icon,
       val secondsSinceLastMove: Int,
       filters: Seq[Candidate => Boolean]
   ):
@@ -77,7 +77,7 @@ object Tv:
     case Best
         extends Channel(
           name = "Top Rated",
-          icon = licon.CrownElite,
+          icon = Icon.CrownElite,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(rated(2150), standard, noBot)
         )
@@ -175,14 +175,14 @@ object Tv:
     case Bot
         extends Channel(
           name = "Bot",
-          icon = licon.Cogs,
+          icon = Icon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(standard, hasBot)
         )
     case Computer
         extends Channel(
           name = "Computer",
-          icon = licon.Cogs,
+          icon = Icon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(computerFromInitialPosition)
         )

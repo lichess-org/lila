@@ -1,14 +1,14 @@
 package lila.api
 
 import lila.forum.{ ForumCateg, ForumTopic }
-import lila.security.Granter
-import lila.team.Team
-import lila.user.Me
+import lila.core.perm.Granter
+
+import lila.core.team.Access
+import lila.core.id.ForumCategId
 
 final class ForumAccess(
     teamApi: lila.team.TeamApi,
-    teamCached: lila.team.Cached,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi
 )(using Executor):
 
   enum Operation:
@@ -18,15 +18,15 @@ final class ForumAccess(
     ForumCateg
       .toTeamId(categId)
       .fold(fuTrue): teamId =>
-        teamCached.forumAccess.get(teamId).flatMap {
-          case Team.Access.NONE     => fuFalse
-          case Team.Access.EVERYONE =>
+        teamApi.forumAccessOf(teamId).flatMap {
+          case Access.None     => fuFalse
+          case Access.Everyone =>
             // when the team forum is open to everyone, you still need to belong to the team in order to post
             op match
               case Operation.Read  => fuTrue
               case Operation.Write => me.so(teamApi.belongsTo(teamId, _))
-          case Team.Access.MEMBERS => me.so(teamApi.belongsTo(teamId, _))
-          case Team.Access.LEADERS => me.so(teamApi.isLeader(teamId, _))
+          case Access.Members => me.so(teamApi.belongsTo(teamId, _))
+          case Access.Leaders => me.so(teamApi.isLeader(teamId, _))
         }
 
   def isGrantedRead(categId: ForumCategId)(using me: Option[Me]): Fu[Boolean] =

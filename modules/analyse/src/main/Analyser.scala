@@ -1,14 +1,17 @@
 package lila.analyse
 
+import play.api.libs.json.*
+
 import lila.common.Bus
-import lila.game.actorApi.InsertGame
-import lila.game.{ Game, GameRepo }
-import lila.hub.actorApi.map.TellIfExists
+import lila.core.game.InsertGame
+import lila.core.misc.map.TellIfExists
+import lila.tree.{ Analysis, ExportOptions, Tree }
 
 final class Analyser(
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     analysisRepo: AnalysisRepo
-)(using Executor):
+)(using Executor)
+    extends lila.tree.Analyser:
 
   def get(game: Game): Fu[Option[Analysis]] =
     analysisRepo.byGame(game)
@@ -21,7 +24,7 @@ final class Analyser(
         gameRepo.game(id).flatMapz { prev =>
           val game = prev.setAnalysed
           for
-            _ <- gameRepo.setAnalysed(game.id)
+            _ <- gameRepo.setAnalysed(game.id, true)
             _ <- analysisRepo.save(analysis)
             _ <- sendAnalysisProgress(analysis, complete = true)
           yield
@@ -41,16 +44,22 @@ final class Analyser(
           Bus.publish(
             TellIfExists(
               id.value,
-              actorApi.AnalysisProgress(
-                analysis = analysis,
-                game = g.game,
-                variant = g.game.variant,
-                initialFen = g.fen | g.game.variant.initialFen
-              )
+              lila.tree.AnalysisProgress: () =>
+                makeProgressPayload(analysis, g.game, g.fen | g.game.variant.initialFen)
             ),
             "roundSocket"
           )
         }
       case _ =>
         fuccess:
-          Bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
+          Bus.publish(lila.tree.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
+
+  private def makeProgressPayload(
+      analysis: Analysis,
+      game: Game,
+      initialFen: chess.format.Fen.Full
+  ): JsObject =
+    Json.obj(
+      "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
+      "tree"     -> Tree.makeMinimalJsonString(game, analysis.some, initialFen, ExportOptions.default)
+    )

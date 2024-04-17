@@ -25,7 +25,7 @@
 
   &__counters {
     @extend %flex-between, %page-text;
-    margin-top: $block-gap / 2;
+    margin-top: 1rem;
     display: none;
 
     a {
@@ -36,6 +36,12 @@
       &:hover {
         color: $c-link;
       }
+    }
+  }
+
+  .lobby__tournaments-simuls .timeago {
+    @media (max-width: at-most($x-small)) {
+      display: none;
     }
   }
 }

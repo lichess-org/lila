@@ -1,4 +1,15 @@
-import { RoundData, Step } from './interfaces';
+import { RoundData, Step, RoundOpts, NvuiPlugin } from './interfaces';
+import { attributesModule, classModule, init } from 'snabbdom';
+import boot from './boot';
+import menuHover from 'common/menuHover';
+import RoundController from './ctrl';
+import { main as view } from './view/main';
+
+const patch = init([classModule, attributesModule]);
+
+export function initModule(opts: RoundOpts) {
+  boot(opts, app);
+}
 
 export const firstPly = (d: RoundData): number => d.steps[0].ply;
 
@@ -20,3 +31,26 @@ export const massage = (d: RoundData): void => {
 
   if (d.expiration) d.expiration.movedAt = Date.now() - d.expiration.idleMillis;
 };
+
+function app(opts: RoundOpts, nvui?: NvuiPlugin) {
+  const ctrl = new RoundController(opts, redraw, nvui);
+
+  const blueprint = view(ctrl);
+  opts.element.innerHTML = '';
+  let vnode = patch(opts.element, blueprint);
+
+  function redraw() {
+    vnode = patch(vnode, view(ctrl));
+  }
+
+  window.addEventListener('resize', redraw); // col1 / col2+ transition
+
+  if (ctrl.isPlaying()) menuHover();
+
+  site.sound.preloadBoardSounds();
+
+  return {
+    socketReceive: ctrl.socket.receive,
+    moveOn: ctrl.moveOn,
+  };
+}

@@ -6,13 +6,11 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "chessops": "^0.14.0"
+    "chessops": "^0.14.1"
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "dgt"
-      }
+      "src/dgt.ts": "dgt"
     }
   }
 }

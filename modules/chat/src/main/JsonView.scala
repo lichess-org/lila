@@ -3,8 +3,8 @@ package lila.chat
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
-import lila.user.FlairApi
+import lila.core.LightUser
+import lila.core.user.{ FlairGet, FlairGetMap, FlairMap }
 
 object JsonView:
 
@@ -12,33 +12,35 @@ object JsonView:
 
   lazy val timeoutReasons = Json.toJson(ChatTimeout.Reason.all)
 
-  def asyncLines(chat: AnyChat)(using flairs: FlairApi)(using Executor): Fu[JsonChatLines] =
-    flairs
-      .flairsOf(chat.flairUserIds)
-      .map: flairs =>
-        syncLines(chat)(using flairs)
+  def asyncLines(chat: AnyChat)(using flairsOf: FlairGetMap)(using Executor): Fu[JsonChatLines] =
+    flairsOf(chat.flairUserIds).map: flairs =>
+      syncLines(chat)(using flairs)
 
-  def syncLines(chat: AnyChat)(using FlairApi.FlairMap): JsonChatLines = JsonChatLines:
+  def syncLines(chat: AnyChat)(using FlairMap): JsonChatLines = JsonChatLines:
     chat match
       case c: MixedChat => JsArray(c.lines.map(lineWriter.writes))
       case c: UserChat  => JsArray(c.lines.map(userLineWriter.writes))
 
-  def apply(line: Line)(using getFlair: FlairApi.Getter)(using Executor): Fu[JsObject] =
+  private[chat] def apply(line: Line)(using getFlair: FlairGet)(using Executor): Fu[JsObject] =
     line.userIdMaybe
       .ifTrue(line.flair)
       .so(getFlair)
       .map: flair =>
-        given FlairApi.FlairMap = ~(for
+        given FlairMap = ~(for
           userId <- line.userIdMaybe
           flair  <- flair
         yield Map(userId -> flair))
         lineWriter.writes(line)
 
   def userModInfo(using LightUser.GetterSync)(u: UserModInfo) =
-    lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj:
-      "history" -> u.history
+    modView(u.user) ++ Json.obj("history" -> u.history)
 
-  def mobile(chat: AnyChat, writeable: Boolean = true)(using FlairApi, Executor): Fu[JsObject] =
+  private def modView(u: User) =
+    Json.toJsObject(u.light) ++ Json
+      .obj("games" -> u.count.game)
+      .add("tos" -> u.marks.dirty)
+
+  def mobile(chat: AnyChat, writeable: Boolean = true)(using FlairGetMap, Executor): Fu[JsObject] =
     asyncLines(chat).map: lines =>
       Json.obj(
         "lines"     -> lines,
@@ -63,11 +65,11 @@ object JsonView:
           "date"   -> e.createdAt
         )
 
-    private[chat] def lineWriter(using FlairApi.FlairMap): OWrites[Line] = OWrites:
+    private[chat] def lineWriter(using FlairMap): OWrites[Line] = OWrites:
       case l: UserLine   => userLineWriter.writes(l)
       case l: PlayerLine => playerLineWriter.writes(l)
 
-    def userLineWriter(using getFlair: FlairApi.FlairMap): OWrites[UserLine] = OWrites: l =>
+    def userLineWriter(using getFlair: FlairMap): OWrites[UserLine] = OWrites: l =>
       Json
         .obj(
           "u" -> l.username,

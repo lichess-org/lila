@@ -3,11 +3,11 @@
 
   margin: $block-gap 0 0 0;
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     margin: 0 0 0 $block-gap;
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     margin: $block-gap 0 0 0;
   }
 
@@ -25,12 +25,12 @@
     padding: 0.5em 0.7em;
     white-space: nowrap;
     line-height: 1.9em;
-    border-top: 1px solid mix($c-bg-page, $c-border-page, 50%);
+    border-top: 1px solid $c-border-tour;
 
     @include transition;
 
     &:hover {
-      background: mix($c-link, $c-bg-page, 20%);
+      background: $m-primary_bg-page--mix-20;
     }
   }
 

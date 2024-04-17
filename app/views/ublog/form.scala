@@ -4,11 +4,11 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.Captcha
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.UblogForm.UblogPostData
 import lila.ublog.{ UblogPost, UblogTopic }
-import lila.user.User
+
+import lila.core.captcha.Captcha
 
 object form:
 
@@ -19,7 +19,7 @@ object form:
   def create(user: User, f: Form[UblogPostData], captcha: Captcha)(using PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
-      moreJs = frag(jsModule("ublogForm"), captchaTag),
+      modules = jsModule("bits.ublogForm") ++ captchaTag,
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
     ):
       main(cls := "page-menu page-small")(
@@ -35,7 +35,7 @@ object form:
   def edit(post: UblogPost, f: Form[UblogPostData])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = moreCss,
-      moreJs = jsModule("ublogForm"),
+      modules = jsModule("bits.ublogForm"),
       title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"
     ):
       main(cls := "page-menu page-small")(
@@ -47,7 +47,7 @@ object form:
               if ctx.is(post.created.by) then trans.ublog.editYourBlogPost()
               else s"Edit ${usernameOrId(post.created.by)}'s post"
             ),
-            a(href := postView.urlOfPost(post), dataIcon := licon.Eye, cls := "text", targetBlank)("Preview")
+            a(href := postView.urlOfPost(post), dataIcon := Icon.Eye, cls := "text", targetBlank)("Preview")
           ),
           image(post),
           inner(f, Right(post), none),
@@ -59,7 +59,7 @@ object form:
               submitButton(
                 cls   := "button button-red button-empty confirm",
                 title := trans.ublog.deleteBlog.txt()
-              )(trans.delete())
+              )(trans.site.delete())
         )
       )
 
@@ -89,7 +89,7 @@ object form:
             ),
             p(trans.ublog.useImagesYouMadeYourself()),
             p(strong(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))),
-            form3.file.selectImage
+            form3.file.selectImage()
           )
         else
           postForm(
@@ -126,7 +126,7 @@ object form:
         form("markdown"),
         trans.ublog.postBody(),
         help = frag(
-          trans.embedsAvailable(),
+          trans.site.embedsAvailable(),
           br,
           tips
         ).some
@@ -146,7 +146,7 @@ object form:
               form3.group(form("topics"), frag(trans.ublog.selectPostTopics()), half = true)(
                 form3.textarea(_)(dataRel := UblogTopic.all.mkString(","))
               ),
-              form3.group(form("language"), trans.language(), half = true):
+              form3.group(form("language"), trans.site.language(), half = true):
                 form3.select(_, lila.i18n.LangForm.popularLanguages.choices)
             ),
             form3.split(
@@ -173,9 +173,9 @@ object form:
           href := post
             .fold(user => routes.Ublog.index(user.username), views.html.ublog.post.urlOfPost)
         )(
-          trans.cancel()
+          trans.site.cancel()
         ),
-        form3.submit((if post.isRight then trans.apply else trans.ublog.saveDraft) ())
+        form3.submit((if post.isRight then trans.site.apply else trans.ublog.saveDraft) ())
       )
     )
 
@@ -184,7 +184,7 @@ object form:
     p(trans.ublog.inappropriateContentAccountClosed()),
     p(
       a(
-        dataIcon := licon.InfoCircle,
+        dataIcon := Icon.InfoCircle,
         href     := routes.Cms.lonePage("blog-etiquette"),
         cls      := "text",
         targetBlank
@@ -194,7 +194,7 @@ object form:
   )
 
   def tips(using PageContext) = a(
-    dataIcon := licon.InfoCircle,
+    dataIcon := Icon.InfoCircle,
     href     := routes.Cms.lonePage("blog-tips"),
     cls      := "text",
     targetBlank

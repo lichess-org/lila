@@ -8,10 +8,14 @@ import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-import lila.common.config.MaxPerSecond
-import lila.common.{ HTTPRequest, IpAddress, LightUser }
+
+import lila.common.HTTPRequest
+import lila.core.LightUser
+import lila.core.net.IpAddress
+import lila.core.chess.MultiPv
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
+import lila.core.perf.PerfKeyStr
 
 final class Api(
     env: Env,
@@ -28,7 +32,7 @@ final class Api(
       "olds"    -> Json.arr()
     )
 
-  private given lila.hub.LightTeam.Api = env.team.lightTeamApi
+  private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
   val status = Anon:
     val appVersion  = get("v")
@@ -36,7 +40,7 @@ final class Api(
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
 
   def index = Anon:
-    Ok(views.html.site.bits.api)
+    Ok(views.html.base.bits.api)
 
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
     userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):
@@ -78,7 +82,7 @@ final class Api(
     env.user.lightUserApi.asyncMany(ids).dmap(_.flatten).flatMap { users =>
       val streamingIds = env.streamer.liveStreamApi.userIds
       def toJson(u: LightUser) =
-        LightUser
+        lila.common.Json.lightUser
           .write(u)
           .add("online" -> env.socket.isOnline(u.id))
           .add("playing" -> env.round.playing(u.id))
@@ -202,11 +206,11 @@ final class Api(
     }
 
   def tournamentsByOwner(name: UserStr, status: List[Int]) = Anon:
-    Found(meOrFetch(name).map(_.filterNot(_.is(lila.user.User.lichessId)))): user =>
+    Found(meOrFetch(name).map(_.filterNot(_.is(UserId.lichess)))): user =>
       val nb = getInt("nb") | Int.MaxValue
       jsonDownload:
         env.tournament.api
-          .byOwnerStream(user, status.flatMap(lila.tournament.Status.apply), MaxPerSecond(20), nb)
+          .byOwnerStream(user, status.flatMap(lila.core.tournament.Status.byId.get), MaxPerSecond(20), nb)
           .mapAsync(1)(env.tournament.apiJsonView.fullJson)
 
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
@@ -243,7 +247,7 @@ final class Api(
 
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val max = ctx.me.fold(300): u =>
-      if u.is(lila.user.User.lichess4545Id) then 900 else 500
+      if u.is(UserId.lichess4545) then 900 else 500
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)): ids =>
       GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         ndJson.addKeepAlive:
@@ -268,7 +272,7 @@ final class Api(
 
   private def gamesByIdsMax(using ctx: Context) =
     ctx.me.fold(500): u =>
-      if u == lila.user.User.challengermodeId then 10_000 else 1000
+      if u == UserId.challengermode then 10_000 else 1000
 
   private def withIdsFromReqBody[Id](
       req: Request[String],
@@ -288,7 +292,7 @@ final class Api(
           JsonOptionOk:
             env.evalCache.api.getEvalJson(
               Variant.orDefault(getAs[Variant.LilaKey]("variant")),
-              chess.format.Fen.Epd.clean(fen),
+              chess.format.Fen.Full.clean(fen),
               getIntAs[MultiPv]("multiPv") | MultiPv(1)
             )
 
@@ -339,7 +343,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: lila.rating.Perf.Key) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: PerfKeyStr) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:

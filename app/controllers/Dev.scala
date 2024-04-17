@@ -23,14 +23,14 @@ final class Dev(env: Env) extends LilaController(env):
     env.round.selfReportMarkUser,
     env.streamer.homepageMaxSetting,
     env.streamer.alwaysFeaturedSetting,
-    env.rating.ratingFactorsSetting,
+    env.round.ratingFactorsSetting,
     env.plan.donationGoalSetting,
-    env.apiTimelineSetting,
-    env.apiExplorerGamesPerSecond,
+    env.web.settings.apiTimeline,
+    env.web.settings.apiExplorerGamesPerSecond,
     env.fishnet.openingBookDepth,
-    env.noDelaySecretSetting,
-    env.prizeTournamentMakers,
-    env.pieceImageExternal,
+    env.web.settings.noDelaySecret,
+    env.web.settings.prizeTournamentMakers,
+    env.web.settings.pieceImageExternal,
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,
@@ -78,12 +78,13 @@ final class Dev(env: Env) extends LilaController(env):
       )
   }
 
-  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> me ?=>
-    lila.security.Granter(_.Cli).so {
+  def command = ScopedBody(parse.tolerantText)(Seq(_.Preference.Write)) { ctx ?=> _ ?=>
+    isGranted(_.Cli).so {
       runCommand(ctx.body.body).map { Ok(_) }
     }
   }
 
   private def runCommand(command: String)(using Me): Fu[String] =
+    if command == "change asset version" || command == "change assets version" then env.web.manifest.update()
     env.mod.logApi.cli(command) >>
       env.api.cli(command.split(" ").toList)

@@ -4,7 +4,7 @@ import chess.opening.Opening
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningConfig, OpeningPage }
 
 object index:
@@ -14,9 +14,9 @@ object index:
   def apply(page: OpeningPage, wikiMissing: List[Opening])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(page.some),
-      title = trans.opening.txt(),
-      openGraph = lila.app.ui
+      pageModule = pageModule(page.some).some,
+      title = trans.site.opening.txt(),
+      openGraph = lila.web
         .OpenGraph(
           `type` = "article",
           image = cdnUrl(

@@ -4,31 +4,26 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.core.config.*
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: lila.analyse.AnalysisRepo,
-    prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi,
+    prefApi: lila.core.pref.PrefApi,
+    relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
-)(using
-    ec: Executor,
-    scheduler: Scheduler,
-    mat: akka.stream.Materializer
-):
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   lazy val db = mongo
     .asyncDb(
       "insight",
       appConfig.get[String]("insight.mongodb.uri")
     )
-    .taggedWith[InsightDb]
+    .taggedWith[lila.game.core.insight.InsightDb]
 
   lazy val share = wire[Share]
 
@@ -49,5 +44,3 @@ final class Env(
   lila.common.Bus.subscribeFun("analysisReady") { case lila.analyse.actorApi.AnalysisReady(game, _) =>
     api.updateGame(game)
   }
-
-trait InsightDb

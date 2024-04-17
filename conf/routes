@@ -263,7 +263,7 @@ GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId)
 POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId)
-POST  /upload/image/broadcast/$id<\w{8}>      controllers.RelayTour.image(id)
+POST  /upload/image/broadcast/$id<\w{8}>      controllers.RelayTour.image(id, tag: Option[String] ?= None)
 POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(tourId)
 POST  /broadcast/$tourId<\w{8}>/subscribe     controllers.RelayTour.subscribe(tourId, set: Boolean)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId)
@@ -547,6 +547,7 @@ POST  /mod/:username/title             controllers.Mod.setTitle(username)
 POST  /mod/:username/inquiry           controllers.Mod.spontaneousInquiry(username)
 GET   /mod/:username/communication     controllers.Mod.communicationPublic(username)
 GET   /mod/:username/communication/private controllers.Mod.communicationPrivate(username)
+POST   /mod/:username/communication/full-comms-export controllers.Mod.fullCommsExport(username)
 POST  /mod/:username/rankban/:v        controllers.Mod.rankban(username, v: Boolean)
 POST  /mod/:username/arenaban/:v       controllers.Mod.arenaBan(username, v: Boolean)
 POST  /mod/:username/prizeban/:v       controllers.Mod.prizeban(username, v: Boolean)
@@ -821,7 +822,6 @@ POST  /cms/:id/edit                   controllers.Cms.update(id)
 POST  /cms/:id/delete                 controllers.Cms.delete(id)
 
 # Misc
-GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id)
 GET   /developers                      controllers.Main.webmasters
 GET   /mobile                          controllers.Main.mobile
 GET   /app-store                       controllers.Main.redirectToAppStore
@@ -832,14 +832,19 @@ GET   /costs                           controllers.Main.costs
 GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
-GET   /temporarily-disabled            controllers.Main.temporarilyDisabled(path = "")
-GET   /temporarily-disabled/*path      controllers.Main.temporarilyDisabled(path)
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
+
+# Technical
+GET   /run/captcha/$id<\w{8}>          controllers.Main.captchaCheck(id)
+GET   /run/temporarily-disabled        controllers.Main.temporarilyDisabled(path = "")
+GET   /run/temporarily-disabled/*path  controllers.Main.temporarilyDisabled(path)
+GET   /run/external-link/:tag/*url     controllers.Main.externalLink(tag, url)
+POST  /run/toggle-blind-mode           controllers.Main.toggleBlindMode
+POST  /run/cli                         controllers.Dev.command
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli
 POST  /dev/cli                         controllers.Dev.cliPost
-POST  /cli                             controllers.Dev.command
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
 
@@ -872,9 +877,6 @@ GET   /dgt                             controllers.DgtCtrl.index
 GET   /dgt/play                        controllers.DgtCtrl.play
 GET   /dgt/config                      controllers.DgtCtrl.config
 POST  /dgt/config/token                controllers.DgtCtrl.generateToken
-
-# Accessibility
-POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
 
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id)
 

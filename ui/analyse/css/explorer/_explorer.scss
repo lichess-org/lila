@@ -49,18 +49,18 @@
     font-size: 0.9rem;
     line-height: 1.9em;
     padding: 0;
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: $m-secondary_bg--mix-30;
     .ddloader {
-      padding-#{$start-direction}: 7px;
+      padding-inline-start: 7px;
     }
     .active {
       @extend %flex-center-nowrap;
       direction: ltr;
       padding: 0 7px;
       color: $c-font-clear;
-      background: mix($c-secondary, $c-bg-box, 40%);
+      background: $m-secondary_bg--mix-40;
       strong {
-        margin-#{$end-direction}: 0.5ch;
+        margin-inline-end: 0.5ch;
       }
       &.player {
         cursor: pointer;
@@ -72,11 +72,11 @@
     button {
       display: inline-block;
       padding: 0 0.5ch;
-      margin-#{$start-direction}: 1px;
+      margin-inline-start: 1px;
       color: $c-font-dim;
       &:hover {
         color: $c-font-clear;
-        background: mix($c-secondary, $c-bg-box, 50%);
+        background: $m-secondary_bg--mix-50;
       }
     }
   }
@@ -97,13 +97,13 @@
     }
 
     &:hover {
-      background: mix($c-secondary, $c-bg-box, 20%);
+      background: $m-secondary_bg--mix-20;
     }
   }
 
   td {
     cursor: pointer;
-    padding-#{$start-direction}: 7px;
+    padding-inline-start: 7px;
   }
 
   .moves {
@@ -112,14 +112,14 @@
       @extend %roboto;
       font-size: 0.8rem;
       line-height: 1.8em;
-      background: mix($c-secondary, $c-bg-box, 40%);
-      padding-#{$start-direction}: 7px;
+      background: $m-secondary_bg--mix-40;
+      padding-inline-start: 7px;
     }
     td:first-child {
       @extend %san;
 
       line-height: 30px;
-      padding-#{$start-direction}: 7px;
+      padding-inline-start: 7px;
     }
 
     td:nth-child(2),
@@ -130,16 +130,16 @@
 
     td:last-child {
       width: 100%;
-      padding-#{$end-direction}: 7px;
+      padding-inline-end: 7px;
     }
 
     tbody tr.sum {
       /* sum row */
-      background: mix($c-primary, $c-bg-box, 25%);
+      background: $m-primary_bg--mix-25;
       font-weight: bold;
 
-      @include breakpoint($mq-col2) {
-        @include breakpoint($mq-x-short) {
+      @include mq-at-least-col2 {
+        @media (min-width: at-least($x-short)) {
           position: sticky;
           bottom: 0;
         }
@@ -157,7 +157,7 @@
     overflow: hidden;
     vertical-align: middle;
     background-clip: padding-box;
-    border: 0 solid fade-out($c-font, 0.83);
+    border: 0 solid $m-font--fade-83;
     border-width: 1px 0;
     height: 16px;
     line-height: 14px;
@@ -166,41 +166,67 @@
   }
 
   .white {
-    background: if($theme-light, #fff, #ccc);
-    box-shadow: 0 -5px 7px rgba(0, 0, 0, if($theme-light, 0.1, 0.25)) inset;
+    background: #ccc;
+    box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.25) inset;
+    @include if-light {
+      background: #fff;
+      box-shadow: 0 -5px 7px rgba(0, 0, 0, 0.1) inset;
+    }
 
-    @if $theme-dark {
+    @include if-not-light {
       color: #222;
     }
   }
 
   .draws,
   .black {
-    color: if($theme-light, #fff, #ddd);
-    box-shadow: 0 5px 7px rgba(255, 255, 255, if($theme-light, 0.2, 0.1)) inset;
+    color: #ddd;
+    box-shadow: 0 5px 7px rgba(255, 255, 255, 0.1) inset;
+    @include if-light {
+      color: #fff;
+      box-shadow: 0 5px 7px rgba(255, 255, 255, 0.2) inset;
+    }
   }
 
   .draws {
-    background: if($theme-light, #a0a0a0, #666);
+    background: #666;
+    @include if-light {
+      background: #a0a0a0;
+    }
   }
 
   .black {
-    background: if($theme-light, #555, #333);
+    background: #333;
+    @include if-light {
+      background: #555;
+    }
     color: #ddd;
   }
 
   .bar span:first-child {
-    @extend %box-radius-#{$start-direction};
+    @extend %box-radius-left;
+    border-left-width: 1px;
 
-    border-#{$start-direction}-width: 1px;
+    @include if-rtl {
+      @extend %box-radius-right;
+      border-left-width: initial;
+      border-right-width: 1px;
+    }
   }
 
   .bar span:last-child {
-    @extend %box-radius-#{$end-direction};
+    @extend %box-radius-right;
+    border-right-width: 1px;
 
-    border-#{$end-direction}-width: 1px;
+    @include if-rtl {
+      @extend %box-radius-left;
+      border-right-width: initial;
+      border-left-width: 1px;
+    }
   }
+}
 
+.explorer-box {
   .games {
     width: 100%;
 
@@ -235,7 +261,7 @@
 
     .game_title {
       text-align: center;
-      color: $c-secondary-over;
+      color: $c-over;
       margin: 3px 0 1px 0;
     }
 
@@ -263,17 +289,17 @@
 
       font-size: 14px;
       line-height: 30px;
-      padding-#{$start-direction}: 7px;
+      padding-inline-start: 7px;
     }
 
     td:last-child {
-      padding-#{$end-direction}: 7px;
+      padding-inline-end: 7px;
       text-align: right;
     }
 
     result {
       padding: 3px 5px;
-      margin-#{$start-direction}: 5px;
+      margin-inline-start: 5px;
       border-radius: 3px;
       font-size: 0.9em;
     }
@@ -282,7 +308,7 @@
   .toconf {
     position: absolute;
     top: 0;
-    #{$end-direction}: 0;
+    @include inline-end(0);
     cursor: pointer;
     display: block;
     font-size: 1.2em;

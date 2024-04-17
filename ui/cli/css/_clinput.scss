@@ -11,7 +11,7 @@
     border: 0;
     width: 0;
 
-    @include breakpoint($mq-x-large) {
+    @media (min-width: at-least($x-large)) {
       @include transition(width);
     }
 
@@ -26,19 +26,19 @@
 }
 
 body.clinput #top {
-  @include breakpoint($mq-not-x-large) {
+  @media (max-width: at-most($x-large)) {
     #topnav {
       display: none;
     }
   }
 
-  @include breakpoint($mq-not-x-small) {
+  @media (max-width: at-most($x-small)) {
     .site-title {
       display: none;
     }
   }
 
-  @include breakpoint($mq-not-xx-small) {
+  @media (max-width: at-most($xx-small)) {
     .site-buttons > *:not(#clinput) {
       display: none;
     }

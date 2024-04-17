@@ -1,11 +1,9 @@
 package lila.storm
 
-import lila.common.config.MaxPerPage
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.common.{ Bus, LichessDay }
 import lila.db.dsl.*
 import lila.db.paginator.Adapter
-import lila.user.{ User, UserPerfsRepo }
 
 // stores data of the best run of the day
 // plus the number of runs
@@ -46,8 +44,8 @@ object StormDay:
 
   def empty(id: Id) = StormDay(id, 0, 0, 0, 0, 0, IntRating(0), 0)
 
-final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsRepo, sign: StormSign)(using
-    Executor
+final class StormDayApi(coll: Coll, highApi: StormHighApi, userApi: lila.core.user.UserApi, sign: StormSign)(
+    using Executor
 ):
 
   import StormDay.*
@@ -61,7 +59,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsR
     lila.mon.storm.run.score(user.isDefined).record(data.score)
     user.so: u =>
       if mobile || sign.check(u, ~data.signed) then
-        Bus.publish(lila.hub.actorApi.puzzle.StormRun(u.id, data.score), "stormRun")
+        Bus.publish(lila.core.misc.puzzle.StormRun(u.id, data.score), "stormRun")
         highApi.get(u.id).flatMap { prevHigh =>
           val todayId = Id.today(u.id)
           coll
@@ -72,7 +70,7 @@ final class StormDayApi(coll: Coll, highApi: StormHighApi, perfsRepo: UserPerfsR
               coll.update.one($id(day._id), day, upsert = true)
             .flatMap: _ =>
               val high = highApi.update(u.id, prevHigh, data.score)
-              perfsRepo.addStormRun(u.id, data.score).inject(high)
+              userApi.addPuzRun("storm", u.id, data.score).inject(high)
         }
       else
         if data.time > 40 then

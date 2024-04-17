@@ -5,9 +5,11 @@ import play.api.data.Form
 
 import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Game
-import lila.user.User
+
+import lila.core.data.SafeJsonStr
+import lila.rating.UserWithPerfs.titleUsernameWithBestRating
 
 object page:
 
@@ -19,7 +21,7 @@ object page:
     val u = info.user
     views.html.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           image = assetUrl("logo/lichess-tile-wide.png").some,
           twitterImage = assetUrl("logo/lichess-tile.png").some,
@@ -28,7 +30,8 @@ object page:
           description = describeUser(u)
         )
         .some,
-      moreJs = moreJs(info),
+      pageModule = pageModule(info),
+      modules = esModules(info),
       moreCss = frag(
         cssTag("user.show"),
         isGranted(_.UserModView).option(cssTag("mod.user"))
@@ -45,7 +48,7 @@ object page:
 
   def games(
       info: UserInfo,
-      games: lila.common.paginator.Paginator[Game],
+      games: scalalib.paginator.Paginator[Game],
       filters: lila.app.mashup.GameFilterMenu,
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
@@ -56,7 +59,8 @@ object page:
     val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
     views.html.base.layout(
       title = s"${u.username} $filterName$pageName",
-      moreJs = moreJs(info, filters.current.name == "search"),
+      pageModule = pageModule(info),
+      modules = esModules(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
         (filters.current.name == "search").option(cssTag("user.show.search")),
@@ -73,19 +77,16 @@ object page:
       )
     }
 
-  private def moreJs(info: UserInfo, withSearch: Boolean = false)(using PageContext) =
+  private def esModules(info: UserInfo, withSearch: Boolean = false)(using PageContext): EsmList =
     import play.api.libs.json.Json
-    frag(
-      infiniteScrollTag,
-      jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
-      info.ratingChart.map: rc =>
-        jsModuleInit(
-          "chart.ratingHistory",
-          s"{data:$rc}"
-        ),
-      withSearch.option(jsModule("gameSearch")),
-      isGranted(_.UserModView).option(jsModule("mod.user"))
-    )
+    infiniteScrollTag
+      ++ jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(i18nKeys)))
+      ++ withSearch.so(jsModule("bits.gameSearch"))
+      ++ isGranted(_.UserModView).so(jsModule("mod.user"))
+
+  private def pageModule(info: UserInfo)(using PageContext) =
+    info.ratingChart.map: rc =>
+      PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
   def disabled(u: User)(using PageContext) =
     views.html.base.layout(title = u.username, robots = false):
@@ -95,10 +96,10 @@ object page:
       )
 
   private val i18nKeys = List(
-    trans.youAreLeavingLichess,
-    trans.neverTypeYourPassword,
-    trans.cancel,
-    trans.proceedToX
+    trans.site.youAreLeavingLichess,
+    trans.site.neverTypeYourPassword,
+    trans.site.cancel,
+    trans.site.proceedToX
   )
 
   private val dataUsername = attr("data-username")

@@ -5,7 +5,6 @@ import reactivemongo.akkastream.cursorProducer
 
 import lila.common.LilaStream
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningApi)(using
     ec: Executor,
@@ -60,7 +59,7 @@ final private class PuzzleTagger(colls: PuzzleColls, openingApi: PuzzleOpeningAp
       .round {
         _.update
           .one(
-            $id(PuzzleRound.Id(User.lichessId, puzzle.id).toString),
+            $id(PuzzleRound.Id(UserId.lichess, puzzle.id).toString),
             $addToSet(PuzzleRound.BSONFields.themes -> PuzzleRound.Theme(PuzzleTheme.checkFirst.key, true))
           )
       }

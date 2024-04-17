@@ -8,27 +8,27 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Pov
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 import bits.dataPanel
+import lila.game.GameExt.analysable
 
 object replay:
 
-  private[analyse] def titleOf(pov: Pov)(using Lang) =
+  private[analyse] def titleOf(pov: Pov)(using Translate) =
     s"${playerText(pov.game.whitePlayer)} vs ${playerText(pov.game.blackPlayer)}: ${pov.game.opening
-        .fold(trans.analysis.txt())(_.opening.name)}"
+        .fold(trans.site.analysis.txt())(_.opening.name)}"
 
   def apply(
       pov: Pov,
       data: play.api.libs.json.JsObject,
-      initialFen: Option[chess.format.Fen.Epd],
+      initialFen: Option[chess.format.Fen.Full],
       pgn: PgnStr,
       analysis: Option[lila.analyse.Analysis],
       analysisStarted: Boolean,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup],
-      userTv: Option[lila.user.User],
+      userTv: Option[User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
   )(using ctx: PageContext) =
@@ -39,7 +39,7 @@ object replay:
       views.html.chat.json(
         c.chat,
         c.lines,
-        name = trans.spectatorRoom.txt(),
+        name = trans.site.spectatorRoom.txt(),
         timeout = c.timeout,
         withNoteAge = ctx.isAuth.option(game.secondsSinceCreation),
         public = true,
@@ -48,15 +48,15 @@ object replay:
       )
     val imageLinks = frag(
       a(
-        dataIcon := licon.NodeBranching,
+        dataIcon := Icon.NodeBranching,
         cls      := "text game-gif",
         targetBlank,
         href := cdnUrl(
           routes.Export.gif(pov.gameId, pov.color.name, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
         )
-      )(trans.gameAsGIF()),
+      )(trans.site.gameAsGIF()),
       a(
-        dataIcon := licon.NodeBranching,
+        dataIcon := Icon.NodeBranching,
         cls      := "text position-gif",
         targetBlank,
         href := cdnUrl(
@@ -71,10 +71,10 @@ object replay:
             )
             .url
         )
-      )(trans.screenshotCurrentPosition())
+      )(trans.site.screenshotCurrentPosition())
     )
     val shareLinks = frag(
-      a(dataIcon := licon.Expand, cls := "text embed-howto")(trans.embedInYourWebsite()),
+      a(dataIcon := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
       div(
         input(
           id         := "game-url",
@@ -87,30 +87,30 @@ object replay:
           title    := "Copy URL",
           cls      := "copy button",
           dataRel  := "game-url",
-          dataIcon := licon.Link
+          dataIcon := Icon.Link
         )
       )
     )
     val pgnLinks = frag(
       a(
-        dataIcon := licon.Download,
+        dataIcon := Icon.Download,
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?literate=1",
         downloadAttr
-      )(trans.downloadAnnotated()),
+      )(trans.site.downloadAnnotated()),
       a(
-        dataIcon := licon.Download,
+        dataIcon := Icon.Download,
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
         downloadAttr
-      )(trans.downloadRaw()),
+      )(trans.site.downloadRaw()),
       game.isPgnImport.option(
         a(
-          dataIcon := licon.Download,
+          dataIcon := Icon.Download,
           cls      := "text",
           href     := s"${routes.Game.exportOne(game.id)}?imported=1",
           downloadAttr
-        )(trans.downloadImported())
+        )(trans.site.downloadImported())
       )
     )
 
@@ -121,20 +121,18 @@ object replay:
         (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = frag(
-        analyseNvuiTag,
-        analyseInit(
-          "replay",
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> jsI18n(),
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson
-            )
-            .add("hunter" -> isGranted(_.ViewBlurs)) ++
-            views.html.board.bits.explorerAndCevalConfig
-        )
+      modules = analyseNvuiTag,
+      pageModule = bits.analyseModule(
+        "replay",
+        Json
+          .obj(
+            "data"   -> data,
+            "i18n"   -> jsI18n(),
+            "userId" -> ctx.userId,
+            "chat"   -> chatJson
+          )
+          .add("hunter" -> isGranted(_.ViewBlurs)) ++
+          views.html.board.bits.explorerAndCevalConfig
       ),
       openGraph = povOpenGraph(pov).some
     ):
@@ -159,36 +157,42 @@ object replay:
             frag(
               div(cls := "analyse__underboard")(
                 div(role := "tablist", cls := "analyse__underboard__menu")(
-                  game.analysable.option(
-                    span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
-                      trans.computerAnalysis()
-                    )
-                  ),
+                  lila.game.GameExt
+                    .analysable(game)
+                    .option(
+                      span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
+                        trans.site.computerAnalysis()
+                      )
+                    ),
                   (!game.isPgnImport).option(
                     frag(
                       (game.ply > 1)
-                        .option(span(role := "tab", dataPanel := "move-times")(trans.moveTimes())),
-                      cross.isDefined.option(span(role := "tab", dataPanel := "ctable")(trans.crosstable()))
+                        .option(span(role := "tab", dataPanel := "move-times")(trans.site.moveTimes())),
+                      cross.isDefined.option(
+                        span(role := "tab", dataPanel := "ctable")(trans.site.crosstable())
+                      )
                     )
                   ),
                   span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
                 ),
                 div(cls := "analyse__underboard__panels")(
-                  game.analysable.option(
-                    div(cls := "computer-analysis")(
-                      if analysis.isDefined || analysisStarted then
-                        div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
-                      else
-                        postForm(
-                          cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
-                          action := routes.Analyse.requestAnalysis(gameId)
-                        ):
-                          submitButton(cls := "button text"):
-                            span(cls := "is3 text", dataIcon := licon.BarChart)(
-                              trans.requestAComputerAnalysis()
-                            )
-                    )
-                  ),
+                  lila.game.GameExt
+                    .analysable(game)
+                    .option(
+                      div(cls := "computer-analysis")(
+                        if analysis.isDefined || analysisStarted then
+                          div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
+                        else
+                          postForm(
+                            cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
+                            action := routes.Analyse.requestAnalysis(gameId)
+                          ):
+                            submitButton(cls := "button text"):
+                              span(cls := "is3 text", dataIcon := Icon.BarChart)(
+                                trans.site.requestAComputerAnalysis()
+                              )
+                      )
+                    ),
                   div(cls := "move-times")(
                     (game.ply > 1)
                       .option(div(id := "movetimes-chart-container")(canvas(id := "movetimes-chart")))

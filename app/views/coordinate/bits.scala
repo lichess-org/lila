@@ -3,7 +3,7 @@ package views.html.coordinate
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 
 object bits:
 
@@ -42,10 +42,10 @@ object bits:
     trans.coordinates.showPieces,
     trans.storm.score,
     trans.study.back,
-    trans.time,
-    trans.asWhite,
-    trans.asBlack,
-    trans.randomColor,
-    trans.youPlayTheWhitePieces,
-    trans.youPlayTheBlackPieces
+    trans.site.time,
+    trans.site.asWhite,
+    trans.site.asBlack,
+    trans.site.randomColor,
+    trans.site.youPlayTheWhitePieces,
+    trans.site.youPlayTheBlackPieces
   )

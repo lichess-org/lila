@@ -46,7 +46,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     ...advices.map(a => error(ctrl, d.analysis![color][a.kind], color, a)),
     h('div.advice-summary__acpl', [
       h('strong', sideData.acpl),
-      h('span', ctrl.trans.noarg('averageCentipawnLoss')),
+      h('span', ` ${ctrl.trans.noarg('averageCentipawnLoss')}`),
     ]),
     h('div.advice-summary__accuracy', [
       h('strong', [sideData.accuracy, '%']),

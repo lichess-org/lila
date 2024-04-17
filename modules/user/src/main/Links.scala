@@ -40,11 +40,11 @@ object Link:
     case Mastodon
         extends Site(
           "Mastodon",
-          "mstdn.social fosstodon.org gensokyo.social ravenation.club mastodon.art mastodon.lol mastodon.green mas.to mindly.social mastodon.world masthead.social techhub.social"
+          "mastodon.social mastodon.online mstdn.social masto.ai fosstodon.org gensokyo.social ravenation.club mastodon.art mastodon.green mas.to mindly.social mastodon.world techhub.social im-in.space mastodon.cloud"
             .split(' ')
             .toList
         )
-    case Twitter               extends Site("Twitter", List("twitter.com"))
+    case Twitter               extends Site("Twitter/X", List("twitter.com", "x.com"))
     case Facebook              extends Site("Facebook", List("facebook.com"))
     case Instagram             extends Site("Instagram", List("instagram.com"))
     case YouTube               extends Site("YouTube", List("youtube.com"))
@@ -52,7 +52,6 @@ object Link:
     case GitHub                extends Site("GitHub", List("github.com"))
     case VKontakte             extends Site("VKontakte", List("vk.com"))
     case ChessCom              extends Site("Chess.com", List("chess.com"))
-    case Chess24               extends Site("Chess24", List("chess24.com"))
     case ChessMonitor          extends Site("ChessMonitor", List("chessmonitor.com"))
     case ChessTempo            extends Site("ChessTempo", List("chesstempo.com"))
     case Other(domain: String) extends Site(domain, List(domain))
@@ -68,7 +67,6 @@ object Link:
       GitHub,
       VKontakte,
       ChessCom,
-      Chess24,
       ChessMonitor,
       ChessTempo
     )

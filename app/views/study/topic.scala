@@ -4,8 +4,8 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
 
@@ -15,7 +15,7 @@ object topic:
     views.html.base.layout(
       title = trans.study.topics.txt(),
       moreCss = frag(cssTag("study.index"), cssTag("form3"), cssTag("tagify")),
-      moreJs = jsModule("study.topic.form"),
+      modules = jsModule("analyse.study.topic.form"),
       wrapClass = "full-screen-force"
     ) {
       main(cls := "page-menu")(
@@ -27,7 +27,7 @@ object topic:
               h2(trans.study.myTopics()),
               postForm(cls := "form3", action := routes.Study.topics)(
                 form3.textarea(form("topics"))(rows := 10, attrData("max") := StudyTopics.userMax),
-                form3.submit(trans.save())
+                form3.submit(trans.site.save())
               )
             )
           },
@@ -47,7 +47,7 @@ object topic:
       title = topic.value,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       val active = s"topic:$topic"
       val url    = (o: String) => routes.Study.byTopic(topic.value, o)

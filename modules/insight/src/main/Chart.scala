@@ -1,10 +1,10 @@
 package lila.insight
 
-import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.LightUser
+import lila.core.LightUser
+import lila.core.i18n.Translate
 
 case class Chart(
     question: JsonQuestion,
@@ -38,7 +38,7 @@ object Chart:
 
   def fromAnswer[X](
       getLightUser: LightUser.Getter
-  )(answer: Answer[X])(using Lang, Executor): Fu[Chart] =
+  )(answer: Answer[X])(using Translate, Executor): Fu[Chart] =
 
     import answer.*, question.*
 
@@ -104,8 +104,8 @@ object Chart:
           case Insight.Stacked(points) => series.sortLike(points.map(_._1.value), _.name)
       }
 
-    def gameUserJson(player: lila.game.Player): Fu[JsObject] =
-      (player.userId.so(getLightUser)).map { lu =>
+    def gameUserJson(player: lila.core.game.Player): Fu[JsObject] =
+      player.userId.so(getLightUser).map { lu =>
         Json
           .obj("rating" -> player.rating)
           .add("name", lu.map(_.name))

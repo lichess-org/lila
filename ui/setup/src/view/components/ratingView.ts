@@ -15,7 +15,7 @@ export const ratingView = (ctrl: SetupCtrl): MaybeVNode => {
     const perfIconAttrs = { attrs: { 'data-icon': perfOrSpeed.icon } };
     return h(
       'div.ratings',
-      ctrl.root.opts.hideRatings
+      !ctrl.root.opts.showRatings
         ? [h('i', perfIconAttrs), perfOrSpeed.name]
         : [
             ...ctrl.root.trans.vdom(

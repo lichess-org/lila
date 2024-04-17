@@ -7,14 +7,14 @@ import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.fide.Federation
+import lila.core.fide.Federation
 
 case class ChapterPreview(
     id: StudyChapterId,
     name: StudyChapterName,
     players: Option[ChapterPreview.Players],
     orientation: Color,
-    fen: Fen.Epd,
+    fen: Fen.Full,
     lastMove: Option[Uci],
     lastMoveAt: Option[Instant],
     /* None = No Result PGN tag, the chapter may not be a game
@@ -29,7 +29,8 @@ case class ChapterPreview(
 
 final class ChapterPreviewApi(
     chapterRepo: ChapterRepo,
-    fidePlayerApi: lila.fide.FidePlayerApi,
+    federationsOf: Federation.FedsOf,
+    federationNamesOf: Federation.NamesOf,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
@@ -45,7 +46,7 @@ final class ChapterPreviewApi(
         _.expireAfterWrite(cacheDuration).buildAsyncFuture: studyId =>
           for
             chapters    <- listAll(studyId)
-            federations <- fidePlayerApi.federationsOf(chapters.flatMap(_.fideIds))
+            federations <- federationsOf(chapters.flatMap(_.fideIds))
           yield ChapterPreview.json.write(chapters)(using federations)
 
     def apply(studyId: StudyId): Fu[AsJsons] = cache.get(studyId)
@@ -66,6 +67,15 @@ final class ChapterPreviewApi(
         .sort(chapterRepo.$sortOrder)
         .cursor[ChapterPreview]()
         .listAll()
+
+  object federations:
+    private val cache = cacheApi[StudyId, JsObject](256, "study.chapterPreview.federations"):
+      _.expireAfterWrite(1 minute).buildAsyncFuture: studyId =>
+        for
+          chapters <- dataList(studyId)
+          fedNames <- federationNamesOf(chapters.flatMap(_.fideIds))
+        yield JsObject(fedNames.map((id, name) => id.value -> JsString(name)))
+    export cache.get
 
   def invalidate(studyId: StudyId): Unit =
     jsonList.cache.synchronous().invalidate(studyId)
@@ -150,7 +160,7 @@ object ChapterPreview:
         name = name,
         players = tags.flatMap(ChapterPreview.players(lastPos.so(_.clocks))),
         orientation = orientation,
-        fen = lastPos.map(_.fen).orElse(doc.getAsOpt[Fen.Epd]("rootFen")).getOrElse(Fen.initial),
+        fen = lastPos.map(_.fen).orElse(doc.getAsOpt[Fen.Full]("rootFen")).getOrElse(Fen.initial),
         lastMove = lastPos.flatMap(_.uci),
         lastMoveAt = lastMoveAt,
         result = tags.flatMap(_(_.Result)).map(Outcome.fromResult)

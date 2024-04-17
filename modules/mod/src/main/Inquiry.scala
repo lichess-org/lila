@@ -1,8 +1,9 @@
 package lila.mod
 
-import lila.common.LightUser
+import lila.core.LightUser
 import lila.report.{ Report, ReportApi }
-import lila.user.{ Me, Note, NoteApi, User, UserApi }
+import lila.user.{ Me, Note, NoteApi, UserApi }
+import lila.core.perf.UserWithPerfs
 
 case class Inquiry(
     mod: LightUser,
@@ -10,7 +11,7 @@ case class Inquiry(
     moreReports: List[Report],
     notes: List[Note],
     history: List[lila.mod.Modlog],
-    user: User.WithPerfs
+    user: UserWithPerfs
 ):
   def allReports = report :: moreReports
   def alreadyMarked =
@@ -26,7 +27,7 @@ final class InquiryApi(
 ):
 
   def forMod(using mod: Me)(using Executor): Fu[Option[Inquiry]] =
-    lila.security.Granter(_.SeeReport).so {
+    lila.core.perm.Granter(_.SeeReport).so {
       reportApi.inquiries
         .ofModId(mod)
         .flatMapz: report =>

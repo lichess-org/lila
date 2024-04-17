@@ -4,7 +4,6 @@ import chess.{ ByColor, Color }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.Me
 
 final class CoordinateApi(scoreColl: Coll)(using Executor):
 
@@ -13,7 +12,7 @@ final class CoordinateApi(scoreColl: Coll)(using Executor):
   def getScore(userId: UserId): Fu[Score] =
     scoreColl.byId[Score](userId).dmap(_ | Score(userId))
 
-  def addScore(mode: CoordMode, color: Color, hits: Int)(using me: Me.Id): Funit =
+  def addScore(mode: CoordMode, color: Color, hits: Int)(using me: MyId): Funit =
     scoreColl.update
       .one(
         $id(me),

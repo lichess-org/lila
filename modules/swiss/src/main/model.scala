@@ -1,6 +1,6 @@
 package lila.swiss
 
-import lila.user.User
+import lila.core.chess.Rank
 
 opaque type SwissRoundNumber = Int
 object SwissRoundNumber extends OpaqueInt[SwissRoundNumber]
@@ -22,5 +22,3 @@ case class FeaturedSwisses(
     started: List[Swiss]
 ):
   def teamIds: Set[TeamId] = (created ::: started).view.map(_.teamId).toSet
-
-case class SwissFinish(id: SwissId, ranking: Ranking)

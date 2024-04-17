@@ -4,9 +4,10 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.{ LangPath, LightUser }
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.core.app.LangPath
+import lila.core.LightUser
+import scalalib.paginator.Paginator
 import lila.memo.PicfitImage
 import lila.relay.RelayTour.WithLastRound
 import lila.relay.{ RelayRound, RelayTour }
@@ -25,7 +26,7 @@ object tour:
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       withHrefLangs = LangPath(routes.RelayTour.index()).some
     ):
       def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
@@ -59,7 +60,7 @@ object tour:
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       main(cls := "relay-index page-menu")(
         pageMenu("index"),
@@ -76,7 +77,7 @@ object tour:
     views.html.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       main(cls := "relay-index page-menu")(
         pageMenu("by", owner.some),
@@ -93,7 +94,7 @@ object tour:
     views.html.base.layout(
       title = subscribedBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       main(cls := "relay-index page-menu")(
         pageMenu("subscribed"),
@@ -143,7 +144,7 @@ object tour:
       )
 
   def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context) =
-    views.html.site.bits.pageMenuSubnav(
+    views.html.base.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
         a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_.is(me)).option("active")):
@@ -160,7 +161,7 @@ object tour:
         trans.broadcast.subscribedBroadcasts()
       ),
       a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
-      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.tournamentCalendar()),
+      a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts()),
       div(cls := "sep"),
       a(cls := menu.active("players"), href := routes.Fide.index(1))("FIDE players"),
@@ -168,14 +169,15 @@ object tour:
     )
 
   object thumbnail:
-    def apply(t: RelayTour, size: RelayTour.thumbnail.SizeSelector) =
-      t.image.fold(fallback): id =>
+    def apply(image: Option[PicfitImage.Id], size: RelayTour.thumbnail.SizeSelector) =
+      image.fold(fallback): id =>
         img(
           cls     := "relay-image",
           widthA  := size(RelayTour.thumbnail).width,
-          heightA := size(RelayTour.thumbnail).height
-        )(src := url(id, size))
-    def fallback = iconTag(licon.RadioTower)(cls := "relay-image--fallback")
+          heightA := size(RelayTour.thumbnail).height,
+          src     := url(id, size)
+        )
+    def fallback = iconTag(Icon.RadioTower)(cls := "relay-image--fallback")
     def url(id: PicfitImage.Id, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
@@ -204,7 +206,7 @@ object tour:
                 tr.crowd
                   .filter(_ > 2)
                   .map: nb =>
-                    span(cls := "relay-card__crowd text", dataIcon := licon.User)(nb.localize)
+                    span(cls := "relay-card__crowd text", dataIcon := Icon.User)(nb.localize)
               )
             else tr.display.startedAt.orElse(tr.display.startsAt).map(momentFromNow(_))
           ),

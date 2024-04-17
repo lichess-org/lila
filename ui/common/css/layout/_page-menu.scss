@@ -4,7 +4,7 @@
   display: grid;
   grid-template-areas: 'menu' 'content';
 
-  @include breakpoint($mq-subnav-side) {
+  @include mq-subnav-side {
     grid-template-columns: max-content auto;
     grid-template-rows: min-content;
     grid-template-areas: 'menu content';
@@ -12,7 +12,6 @@
 
   &.page-small {
     max-width: 1000px;
-    margin: inherit;
   }
 
   &__menu {

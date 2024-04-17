@@ -4,10 +4,9 @@ import cats.derived.*
 import chess.Clock.{ IncrementSeconds, LimitSeconds }
 import chess.format.Fen
 import chess.variant.Variant
-import play.api.i18n.Lang
 
 import lila.gathering.Condition
-import lila.i18n.I18nKeys
+import lila.core.i18n.{ I18nKey, Translate }
 import lila.rating.PerfType
 
 case class Schedule(
@@ -19,10 +18,10 @@ case class Schedule(
     conditions: TournamentCondition.All = TournamentCondition.All.empty
 ):
 
-  def name(full: Boolean = true)(using Lang): String =
+  def name(full: Boolean = true)(using Translate): String =
     import Schedule.Freq.*
     import Schedule.Speed.*
-    import lila.i18n.I18nKeys.tourname.*
+    import lila.core.i18n.I18nKey.tourname.*
     if variant.standard && position.isEmpty then
       (conditions.minRating, conditions.maxRating) match
         case (None, None) =>
@@ -123,7 +122,7 @@ case class Schedule(
   def similarTo(other: Schedule) =
     similarSpeed(other) && sameVariant(other) && sameFreq(other) && sameConditions(other)
 
-  def perfType = PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
+  def perfKey: PerfKey = PerfKey.byVariant(variant) | Schedule.Speed.toPerfKey(speed)
 
   def plan                                  = Schedule.Plan(this, None)
   def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
@@ -143,7 +142,7 @@ object Schedule:
 
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]):
 
-    def build: Tournament =
+    def build(using Translate): Tournament =
       val t = Tournament.scheduleAs(addCondition(schedule), durationFor(schedule))
       buildFunc.fold(t) { _(t) }
 
@@ -180,11 +179,11 @@ object Schedule:
   enum Speed(val id: Int):
     val name = Speed.this.toString
     val key  = lila.common.String.lcfirst(name)
-    def trans(using Lang): String = this match
-      case Speed.Bullet    => I18nKeys.bullet.txt()
-      case Speed.Blitz     => I18nKeys.blitz.txt()
-      case Speed.Rapid     => I18nKeys.rapid.txt()
-      case Speed.Classical => I18nKeys.classical.txt()
+    def trans(using Translate): String = this match
+      case Speed.Bullet    => I18nKey.site.bullet.txt()
+      case Speed.Blitz     => I18nKey.site.blitz.txt()
+      case Speed.Rapid     => I18nKey.site.rapid.txt()
+      case Speed.Classical => I18nKey.site.classical.txt()
       case _               => name
     case UltraBullet extends Speed(5)
     case HyperBullet extends Speed(10)
@@ -214,13 +213,12 @@ object Schedule:
       else if time < 480 then Blitz
       else if time < 1500 then Rapid
       else Classical
-    def toPerfType(speed: Speed) =
-      speed match
-        case UltraBullet                        => PerfType.UltraBullet
-        case HyperBullet | Bullet | HippoBullet => PerfType.Bullet
-        case SuperBlitz | Blitz                 => PerfType.Blitz
-        case Rapid                              => PerfType.Rapid
-        case Classical                          => PerfType.Classical
+    def toPerfKey(speed: Speed) = speed match
+      case UltraBullet                        => PerfKey.ultraBullet
+      case HyperBullet | Bullet | HippoBullet => PerfKey.bullet
+      case SuperBlitz | Blitz                 => PerfKey.blitz
+      case Rapid                              => PerfKey.rapid
+      case Classical                          => PerfKey.classical
 
   enum Season:
     case Spring, Summer, Autumn, Winter

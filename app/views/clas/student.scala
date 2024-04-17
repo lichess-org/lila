@@ -6,7 +6,7 @@ import play.api.data.Form
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
 
@@ -83,7 +83,7 @@ object student:
   private def top(clas: Clas, s: Student.WithUserLike)(using Context) =
     div(cls := "student-show__top")(
       boxTop(
-        h1(dataIcon := licon.User)(
+        h1(dataIcon := Icon.User)(
           span(
             strong(s.user.username),
             em(s.student.realName)
@@ -103,15 +103,15 @@ object student:
           a(
             href := routes.Msg.convo(s.user.username),
             cls  := "button button-empty"
-          )(trans.message()),
+          )(trans.site.message()),
           a(
             href := clasRoutes.studentEdit(clas.id.value, s.user.username),
             cls  := "button button-empty"
-          )(trans.edit()),
+          )(trans.site.edit()),
           a(
             href := routes.User.show(s.user.username),
             cls  := "button button-empty"
-          )(trans.profile()),
+          )(trans.site.profile()),
           a(
             href := routes.Puzzle.dashboard(7, "home", s.user.username.value.some),
             cls  := "button button-empty"
@@ -210,7 +210,7 @@ object student:
                 form3.input(_)(created.isDefined.option(autofocus))
               ),
               realNameField(create, "create-realName"),
-              form3.submit(trans.signUp(), icon = none)
+              form3.submit(trans.site.signUp(), icon = none)
             )
           ),
           div(cls := "student-add__or")(trans.clas.orSeparator()),
@@ -251,7 +251,7 @@ object student:
                 tr(
                   th(trans.clas.realName()),
                   th(trans.clas.lichessUsername()),
-                  th(trans.password())
+                  th(trans.site.password())
                 )
               ),
               tbody(
@@ -280,14 +280,14 @@ object student:
             )(
               form3.textarea(_)(autofocus, rows := 20)
             ),
-            form3.submit(trans.apply(), icon = none)
+            form3.submit(trans.site.apply(), icon = none)
           )
         )
       )
     )
 
-  private def maxStudentsWarning(using Lang) =
-    p(dataIcon := licon.InfoCircle, cls := "text")(
+  private def maxStudentsWarning(using Translate) =
+    p(dataIcon := Icon.InfoCircle, cls := "text")(
       trans.clas.maxStudentsNote(
         lila.clas.Clas.maxStudents,
         a(href := clasRoutes.form)(trans.clas.createMoreClasses())
@@ -303,12 +303,12 @@ object student:
         postForm(cls := "form3", action := clasRoutes.studentUpdate(clas.id.value, s.user.username))(
           form3.globalError(form),
           realNameField(form),
-          form3.group(form("notes"), trans.notes(), help = trans.clas.onlyVisibleToTeachers().some)(
+          form3.group(form("notes"), trans.site.notes(), help = trans.clas.onlyVisibleToTeachers().some)(
             form3.textarea(_)(autofocus, rows := 15)
           ),
           form3.actions(
-            a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.cancel()),
-            form3.submit(trans.apply())
+            a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.site.cancel()),
+            form3.submit(trans.site.apply())
           )
         ),
         hr,
@@ -348,12 +348,12 @@ object student:
           form3.globalError(form),
           form3.group(
             form("email"),
-            trans.email(),
+            trans.site.email(),
             help = trans.clas.realUniqueEmail().some
           )(form3.input(_, typ = "email")(autofocus, required)),
           form3.actions(
-            a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.cancel()),
-            form3.submit(trans.apply())
+            a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.site.cancel()),
+            form3.submit(trans.site.apply())
           )
         )
       )
@@ -371,8 +371,8 @@ object student:
         ),
         postForm(cls := "form3", action := clasRoutes.studentClosePost(clas.id.value, s.user.username))(
           form3.actions(
-            a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.cancel()),
-            form3.submit(trans.clas.closeTheAccount(), icon = licon.CautionCircle.some)(
+            a(href := clasRoutes.studentShow(clas.id.value, s.user.username))(trans.site.cancel()),
+            form3.submit(trans.clas.closeTheAccount(), icon = Icon.CautionCircle.some)(
               cls := "button-red confirm"
             )
           )

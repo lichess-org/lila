@@ -20,7 +20,7 @@
 
     justify-content: center;
     width: 2.4em;
-    margin-#{$end-direction}: 0.1em;
+    margin-inline-end: 0.1em;
     transition: 2.5s;
   }
 
@@ -98,7 +98,7 @@
 
   m-config,
   .editing {
-    background: mix($c-accent, $c-bg-box, 10%) !important;
+    background: $m-accent_bg--mix-10 !important;
   }
 
   m-config {
@@ -115,7 +115,7 @@
     }
 
     .switch {
-      margin-#{$end-direction}: 0.5em;
+      margin-inline-end: 0.5em;
     }
   }
 }

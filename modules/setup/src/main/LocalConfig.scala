@@ -1,13 +1,13 @@
 package lila.setup
 
-import chess.format.Fen
+import chess.format.FullFen
 import chess.{ Clock, ByColor }
 import chess.variant.Variant
 
-import lila.common.Days
-import lila.game.{ Game, IdGenerator, Player, Pov, Source }
+import scalalib.model.Days
+import lila.game.{ Game, IdGenerator, Player, Pov }
 import lila.lobby.Color
-import lila.user.{ User, GameUser }
+//import lila.user.{ User, GameUser }
 import lila.rating.PerfType
 
 case class LocalConfig(
@@ -17,7 +17,7 @@ case class LocalConfig(
     increment: Clock.IncrementSeconds,
     days: Days,
     color: Color,
-    fen: Option[Fen.Epd] = None,
+    fen: Option[FullFen] = None,
     priv: Boolean = true
 ) extends Config
     with Positional:
@@ -59,16 +59,16 @@ object LocalConfig extends BaseConfig:
       i: Clock.IncrementSeconds,
       d: Days,
       c: String,
-      fen: Option[Fen.Epd],
+      fen: Option[FullFen],
       priv: Boolean
   ) =
     new LocalConfig(
       opponent = o,
-      timeMode = TimeMode(tm) err s"Invalid time mode $tm",
+      timeMode = TimeMode(tm).err(s"Invalid time mode $tm"),
       time = t,
       increment = i,
       days = d,
-      color = Color(c) err "Invalid color " + c,
+      color = Color(c).err("Invalid color " + c),
       fen = fen,
       priv = priv
     )
@@ -91,13 +91,13 @@ object LocalConfig extends BaseConfig:
     def reads(r: BSON.Reader): LocalConfig =
       LocalConfig(
         opponent = r.get("o"),
-        timeMode = TimeMode.orDefault(r int "tm"),
-        time = r double "t",
-        increment = r get "i",
+        timeMode = TimeMode.orDefault(r.int("tm")),
+        time = r.double("t"),
+        increment = r.get("i"),
         days = r.get("d"),
         color = Color.White,
-        fen = r.getO[Fen.Epd]("f").filter(_.value.nonEmpty),
-        priv = r bool "p"
+        fen = r.getO[FullFen]("f").filter(_.value.nonEmpty),
+        priv = r.bool("p")
       )
 
     def writes(w: BSON.Writer, o: LocalConfig) =

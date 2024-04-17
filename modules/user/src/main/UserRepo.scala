@@ -1,18 +1,25 @@
 package lila.user
 
 import chess.PlayerTitle
-import ornicar.scalalib.ThreadLocalRandom
-import reactivemongo.akkastream.cursorProducer
+import scalalib.ThreadLocalRandom
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.common.{ ApiVersion, EmailAddress, LightUser, NormalizedEmailAddress }
+import lila.core.net.ApiVersion
+import lila.core.email.NormalizedEmailAddress
+import lila.core.LightUser
+import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
+import lila.core.userId.UserSearch
+import lila.core.user.Profile
+import lila.core.user.PlayTime
+import lila.core.user.TotpSecret
+import lila.core.user.Plan
 
-final class UserRepo(val coll: Coll)(using Executor):
+final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
-  import User.{ BSONFields as F, given }
-  import UserMark.given
+  import lila.user.{ BSONFields as F }
+  export lila.user.BSONHandlers.given
 
   def withColl[A](f: Coll => A): A = f(coll)
 
@@ -20,43 +27,37 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.find(enabledNoBotSelect ++ notLame).sort($sort.desc("count.game")).cursor[User]().list(nb)
 
   def byId[U: UserIdOf](u: U): Fu[Option[User]] =
-    User
-      .noGhost(u.id)
-      .so(
-        coll
-          .byId[User](u)
-          .recover:
-            case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
-              none // probably GDPRed user
-      )
+    u.id.noGhost.so:
+      coll
+        .byId[User](u)
+        .recover:
+          case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
+            none // probably GDPRed user
 
-  def byIds[U: UserIdOf](
-      us: Iterable[U],
-      readPref: ReadPref = _.pri
-  ): Fu[List[User]] =
-    val ids = us.map(_.id).filter(User.noGhost)
-    ids.nonEmpty.so(coll.byIds[User, UserId](ids, readPref))
+  def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
+    val ids = us.map(_.id).filter(_.noGhost)
+    ids.nonEmpty.so(coll.byIds[User, UserId](ids))
 
   def byIdsSecondary(ids: Iterable[UserId]): Fu[List[User]] =
     coll.byIds[User, UserId](ids, _.sec)
 
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
-    User.noGhost(u.id).so(coll.one[User](enabledSelect ++ $id(u)))
+    u.id.noGhost.so(coll.one[User](enabledSelect ++ $id(u)))
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
-    val ids = us.map(_.id).filter(User.noGhost)
+    val ids = us.map(_.id).filter(_.noGhost)
     coll.list[User](enabledSelect ++ $inIds(ids), _.priTemp)
 
   def byIdOrGhost(id: UserId): Fu[Option[Either[LightUser.Ghost, User]]] =
-    if User.isGhost(id)
+    if id.isGhost
     then fuccess(Left(LightUser.ghost).some)
     else
       coll.byId[User](id).map2(Right.apply).recover { case _: exceptions.BSONValueNotFoundException =>
         Left(LightUser.ghost).some
       }
 
-  def me[U: UserIdOf](u: U): Fu[Option[Me]] =
-    enabledById(u).dmap(Me.from(_))
+  def me(id: UserId): Fu[Option[Me]]        = enabledById(id).dmap(Me.from(_))
+  def me[U: UserIdOf](u: U): Fu[Option[Me]] = me(u.id)
 
   def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
   def byPrevEmail(
@@ -85,7 +86,7 @@ final class UserRepo(val coll: Coll)(using Executor):
       yield xx -> yy
     }
 
-  def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(User.lichessId, id)
+  def lichessAnd(id: UserId): Future[Option[(User, User)]] = pair(UserId.lichess, id)
 
   def byOrderedIds(ids: Seq[UserId], readPref: ReadPref): Fu[List[User]] =
     coll.byOrderedIds[User, UserId](ids, readPref = readPref)(_.id)
@@ -97,20 +98,10 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.optionsByOrderedIds[User, UserId](userIds, readPref = _.sec)(_.id)
 
   def isEnabled(id: UserId): Fu[Boolean] =
-    User.noGhost(id).so(coll.exists(enabledSelect ++ $id(id)))
+    id.noGhost.so(coll.exists(enabledSelect ++ $id(id)))
 
   def disabledById(id: UserId): Fu[Option[User]] =
-    User.noGhost(id).so(coll.one[User](disabledSelect ++ $id(id)))
-
-  def enabledTitledCursor(proj: Option[Bdoc]) =
-    coll
-      .find(
-        enabledSelect ++ $doc(
-          F.title -> $doc("$exists" -> true, "$nin" -> List(PlayerTitle.LM, PlayerTitle.BOT))
-        ),
-        proj
-      )
-      .cursor[Bdoc](ReadPref.priTemp)
+    id.noGhost.so(coll.one[User](disabledSelect ++ $id(id)))
 
   def usernameById(id: UserId): Fu[Option[UserName]] =
     coll.primitiveOne[UserName]($id(id), F.username)
@@ -118,7 +109,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def usernamesByIds(ids: List[UserId]) =
     coll.distinctEasy[UserName, List](F.username, $inIds(ids), _.sec)
 
-  def createdAtById(id: UserId) =
+  def createdAtById(id: UserId): Fu[Option[Instant]] =
     coll.primitiveOne[Instant]($id(id), F.createdAt)
 
   def orderByGameCount(u1: UserId, u2: UserId): Fu[Option[(UserId, UserId)]] =
@@ -161,10 +152,6 @@ final class UserRepo(val coll: Coll)(using Executor):
         $inc(F.colorIt -> value)
       )
 
-  def lichess = byId(User.lichessId)
-  def irwin   = byId(User.irwinId)
-  def kaladin = byId(User.kaladinId)
-
   def setProfile(id: UserId, profile: Profile): Funit =
     coll.updateField($id(id), F.profile, profile).void
 
@@ -187,19 +174,19 @@ final class UserRepo(val coll: Coll)(using Executor):
   def removeTitle(id: UserId): Funit =
     coll.unsetField($id(id), F.title).void
 
-  def getPlayTime(id: UserId): Fu[Option[User.PlayTime]] =
-    coll.primitiveOne[User.PlayTime]($id(id), F.playTime)
+  def getPlayTime(id: UserId): Fu[Option[PlayTime]] =
+    coll.primitiveOne[PlayTime]($id(id), F.playTime)
 
   val enabledSelect  = $doc(F.enabled -> true)
   val disabledSelect = $doc(F.enabled -> false)
   def markSelect(mark: UserMark)(v: Boolean): Bdoc =
     if v then $doc(F.marks -> mark.key)
     else F.marks.$ne(mark.key)
-  def engineSelect = markSelect(UserMark.Engine)
-  def trollSelect  = markSelect(UserMark.Troll)
-  val lame         = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key)))
-  val lameOrTroll  = $doc(F.marks.$in(List(UserMark.Engine.key, UserMark.Boost.key, UserMark.Troll.key)))
-  val notLame      = $doc(F.marks.$nin(List(UserMark.Engine.key, UserMark.Boost.key)))
+  def engineSelect       = markSelect(UserMark.engine)
+  def trollSelect        = markSelect(UserMark.troll)
+  val lame               = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost)))
+  val lameOrTroll        = $doc(F.marks.$in(List(UserMark.engine, UserMark.boost, UserMark.troll)))
+  val notLame            = $doc(F.marks.$nin(List(UserMark.engine, UserMark.boost)))
   val enabledNoBotSelect = enabledSelect ++ $doc(F.title.$ne(PlayerTitle.BOT))
   val patronSelect       = $doc(s"${F.plan}.active" -> true)
 
@@ -236,8 +223,8 @@ final class UserRepo(val coll: Coll)(using Executor):
 
     coll.update.one($id(id), $inc($doc(incs*)))
 
-  def incToints(id: UserId, nb: Int) = coll.update.one($id(id), $inc("toints" -> nb))
-  def removeAllToints                = coll.update.one($empty, $unset("toints"), multi = true)
+  def incToints(id: UserId, nb: Int): Funit = coll.update.one($id(id), $inc("toints" -> nb)).void
+  def removeAllToints                       = coll.update.one($empty, $unset("toints"), multi = true)
 
   def create(
       name: UserName,
@@ -277,14 +264,14 @@ final class UserRepo(val coll: Coll)(using Executor):
   private def setMark(mark: UserMark)(id: UserId, v: Boolean): Funit =
     coll.update.one($id(id), $addOrPull(F.marks, mark, v)).void
 
-  def setEngine    = setMark(UserMark.Engine)
-  def setBoost     = setMark(UserMark.Boost)
-  def setTroll     = setMark(UserMark.Troll)
-  def setReportban = setMark(UserMark.Reportban)
-  def setRankban   = setMark(UserMark.Rankban)
-  def setArenaBan  = setMark(UserMark.ArenaBan)
-  def setPrizeban  = setMark(UserMark.PrizeBan)
-  def setAlt       = setMark(UserMark.Alt)
+  def setEngine    = setMark(UserMark.engine)
+  def setBoost     = setMark(UserMark.boost)
+  def setTroll     = setMark(UserMark.troll)
+  def setReportban = setMark(UserMark.reportban)
+  def setRankban   = setMark(UserMark.rankban)
+  def setArenaBan  = setMark(UserMark.arenaban)
+  def setPrizeban  = setMark(UserMark.prizeban)
+  def setAlt       = setMark(UserMark.alt)
 
   def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), F.kid, v).void
 
@@ -312,11 +299,7 @@ final class UserRepo(val coll: Coll)(using Executor):
     coll.updateField($id(id), F.roles, roles).void
 
   def getRoles[U: UserIdOf](u: U): Fu[List[String]] =
-    coll.primitiveOne[List[String]]($id(u), User.BSONFields.roles).dmap(_.orZero)
-
-  def withoutTwoFactor(id: UserId) = coll.one[User]($id(id) ++ $doc(F.totpSecret.$exists(false)))
-
-  def withoutEmail(id: UserId) = coll.one[User]($id(id) ++ $doc(F.email.$exists(false)))
+    coll.primitiveOne[List[String]]($id(u), BSONFields.roles).dmap(_.orZero)
 
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
 
@@ -366,7 +349,7 @@ final class UserRepo(val coll: Coll)(using Executor):
         else $set(F.email -> normalized, F.verbatimEmail -> email) ++ $unset(F.prevEmail)
       )
       .map: _ =>
-        lila.common.Bus.publish(lila.hub.actorApi.user.ChangeEmail(id, email), "email")
+        lila.common.Bus.publish(lila.core.user.ChangeEmail(id, email), "email")
 
   private[user] def anyEmail(doc: Bdoc): Option[EmailAddress] =
     doc.getAsOpt[EmailAddress](F.verbatimEmail).orElse(doc.getAsOpt[EmailAddress](F.email))
@@ -438,10 +421,8 @@ final class UserRepo(val coll: Coll)(using Executor):
 
   def hasTitle(id: UserId): Fu[Boolean] = getTitle(id).dmap(_.exists(PlayerTitle.BOT != _))
 
-  def setPlan(user: User, plan: Plan): Funit =
-    import Plan.given
-    coll.updateField($id(user.id), User.BSONFields.plan, plan).void
-  def unsetPlan(user: User): Funit = coll.unsetField($id(user.id), User.BSONFields.plan).void
+  def setPlan(user: User, plan: Option[Plan]): Funit =
+    coll.updateOrUnsetField($id(user.id), BSONFields.plan, plan).void
 
   def setSeenAt(id: UserId): Unit =
     coll.updateFieldUnchecked($id(id), F.seenAt, nowInstant)
@@ -452,11 +433,7 @@ final class UserRepo(val coll: Coll)(using Executor):
   def langOf(id: UserId): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
 
   def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](
-      F.id,
-      $inIds(userIds) ++ enabledSelect ++ patronSelect,
-      _.sec
-    )
+    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect ++ patronSelect, _.sec)
 
   def filterEnabled(userIds: Seq[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect, _.sec)
@@ -493,30 +470,10 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setFlair(user: User, flair: Option[Flair]): Funit =
     coll.updateOrUnsetField($id(user.id), F.flair, flair).void
 
-  private val speakerProjection = $doc(
-    F.username -> true,
-    F.title    -> true,
-    F.plan     -> true,
-    F.flair    -> true,
-    F.enabled  -> true,
-    F.marks    -> true
-  )
+  def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
+    coll.one[A]($id(id), proj)
 
-  def speaker(id: UserId): Fu[Option[User.Speaker]] =
-    coll.one[User.Speaker]($id(id), speakerProjection)
-
-  def contacts(orig: UserId, dest: UserId): Fu[Option[User.Contacts]] =
-    coll
-      .byOrderedIds[User.Contact, UserId](
-        List(orig, dest),
-        $doc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true).some
-      )(_._id)
-      .map {
-        case List(o, d) => User.Contacts(o, d).some
-        case _          => none
-      }
-
-  def isErased(user: User): Fu[User.Erased] = User.Erased.from:
+  def isErased(user: User): Fu[Erased] = Erased.from:
     user.enabled.no.so:
       coll.exists($id(user.id) ++ $doc(F.erasedAt.$exists(true)))
 
@@ -530,6 +487,8 @@ final class UserRepo(val coll: Coll)(using Executor):
   def setEraseAt(user: User) =
     coll.updateField($id(user.id), F.eraseAt, nowInstant.plusDays(1)).void
 
+  private val defaultCount = lila.core.user.Count(0, 0, 0, 0, 0, 0, 0, 0, 0)
+
   private def newUser(
       name: UserName,
       passwordHash: HashedPassword,
@@ -539,7 +498,6 @@ final class UserRepo(val coll: Coll)(using Executor):
       mustConfirmEmail: Boolean,
       lang: Option[String]
   ) =
-    import Count.given
     import Authenticator.given
 
     val normalizedEmail = email.normalize
@@ -550,12 +508,12 @@ final class UserRepo(val coll: Coll)(using Executor):
       F.email                 -> normalizedEmail,
       F.mustConfirmEmail      -> mustConfirmEmail.option(now),
       F.bpass                 -> passwordHash,
-      F.count                 -> Count.default,
+      F.count                 -> defaultCount,
       F.enabled               -> true,
       F.createdAt             -> now,
       F.createdWithApiVersion -> mobileApiVersion,
       F.seenAt                -> now,
-      F.playTime              -> User.PlayTime(0, 0),
+      F.playTime              -> PlayTime(0, 0),
       F.lang                  -> lang
     ) ++ {
       (email.value != normalizedEmail.value).so($doc(F.verbatimEmail -> email))

@@ -153,6 +153,7 @@ export default class StudyCtrl {
       this.send,
       () => this.setTab('chapters'),
       chapterId => xhr.chapterConfig(data.id, chapterId),
+      () => this.data.federations,
       this.ctrl,
     );
     this.multiCloudEval = new MultiCloudEval(this.redraw, this.chapters.list, this.send);
@@ -166,6 +167,7 @@ export default class StudyCtrl {
         this.members,
         this.chapters.list,
         this.multiCloudEval,
+        () => this.data.federations,
         id => this.setChapter(id),
       );
     this.multiBoard = new MultiBoardCtrl(
@@ -259,7 +261,7 @@ export default class StudyCtrl {
 
   startTour = async () => {
     const [tour] = await Promise.all([
-      site.asset.loadEsm<StudyTour>('study.tour'),
+      site.asset.loadEsm<StudyTour>('analyse.study.tour'),
       site.asset.loadCssPath('shepherd'),
     ]);
 
@@ -445,13 +447,19 @@ export default class StudyCtrl {
 
   likeToggler = debounce(() => this.send('like', { liked: this.data.liked }), 1000);
 
-  setChapter = (id: string, force?: boolean) => {
+  setChapter = (idOrNumber: ChapterId | number, force?: boolean): boolean => {
+    const prev = this.chapters.list.get(idOrNumber);
+    const id = prev?.id;
+    if (!id) {
+      console.warn(`Chapter ${idOrNumber} not found`);
+      return false;
+    }
     const alreadySet = id === this.vm.chapterId && !force;
     if (this.relay?.tourShow()) {
       this.relay.tourShow(false);
       if (alreadySet) this.redraw();
     }
-    if (alreadySet) return;
+    if (alreadySet) return true;
     if (!this.vm.mode.sticky || !this.makeChange('setChapter', id)) {
       this.vm.mode.sticky = false;
       if (!this.vm.behind) this.vm.behind = 1;
@@ -463,6 +471,7 @@ export default class StudyCtrl {
     this.vm.justSetChapterId = id;
     this.redraw();
     window.scrollTo(0, 0);
+    return true;
   };
 
   private deltaChapter = (delta: number): ChapterPreview | undefined => {

@@ -4,6 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.forum.ForumTopic
+import lila.core.id.{ ForumCategId, ForumTopicId }
 
 private[controllers] trait ForumController:
   self: LilaController =>
@@ -14,7 +15,6 @@ private[controllers] trait ForumController:
   protected def postApi   = env.forum.postApi
   protected def forms     = env.forum.forms
   protected def access    = env.api.forumAccess
-  protected def teamCache = env.team.cached
 
   protected def CategGrantWrite[A <: Result](
       categId: ForumCategId,

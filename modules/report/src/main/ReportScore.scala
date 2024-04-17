@@ -1,11 +1,9 @@
 package lila.report
 
-import lila.game.GameRepo
-
 final private class ReportScore(
     getAccuracy: Report.Candidate => Fu[Option[Accuracy]],
-    gameRepo: GameRepo,
-    domain: lila.common.config.NetDomain
+    gameRepo: lila.core.game.GameRepo,
+    domain: lila.core.config.NetDomain
 )(using Executor):
 
   def apply(candidate: Report.Candidate): Fu[Report.Candidate.Scored] =

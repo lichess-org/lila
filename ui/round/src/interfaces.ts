@@ -6,6 +6,7 @@ import RoundController from './ctrl';
 import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
+import { EnhanceOpts } from 'common/richText';
 
 export { type CorresClockData } from './corresClock/corresClockCtrl';
 
@@ -95,7 +96,7 @@ export interface RoundOpts {
 
 export interface ChatOpts {
   preset: 'start' | 'end' | undefined;
-  parseMoves?: boolean;
+  enhance?: EnhanceOpts;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;
   noteId?: string;
@@ -189,3 +190,7 @@ export interface MoveMetadata {
 }
 
 export type Position = 'top' | 'bottom';
+
+export interface RoundTour {
+  corresRematchOffline: () => void;
+}

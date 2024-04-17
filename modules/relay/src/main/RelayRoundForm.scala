@@ -8,9 +8,10 @@ import scala.util.Try
 import scala.util.chaining.*
 
 import lila.common.Form.{ cleanText, into }
-import lila.common.Seconds
-import lila.security.Granter
-import lila.user.{ Me, User }
+import scalalib.model.Seconds
+import lila.core.perm.Granter
+
+import lila.relay.RelayRound.Sync
 
 final class RelayRoundForm(using mode: play.api.Mode):
 
@@ -19,7 +20,7 @@ final class RelayRoundForm(using mode: play.api.Mode):
 
   val roundMapping =
     mapping(
-      "name"    -> cleanText(minLength = 3, maxLength = 80).into[RelayRoundName],
+      "name"    -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
       "syncUrl" -> optional {
         cleanText(minLength = 8, maxLength = 600)
@@ -44,7 +45,7 @@ final class RelayRoundForm(using mode: play.api.Mode):
       )
   }.fill(
     Data(
-      name = RelayRoundName(s"Round ${trs.rounds.size + 1}"),
+      name = RelayRound.Name(s"Round ${trs.rounds.size + 1}"),
       caption = none,
       syncUrlRound = Some(trs.rounds.size + 1)
     )
@@ -101,7 +102,7 @@ object RelayRoundForm:
   )
 
   case class Data(
-      name: RelayRoundName,
+      name: RelayRound.Name,
       caption: Option[RelayRound.Caption],
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,
@@ -127,7 +128,7 @@ object RelayRoundForm:
         finished = ~finished
       )
 
-    private def makeSync(user: User) =
+    private def makeSync(user: User): Sync =
       RelayRound.Sync(
         upstream = syncUrl
           .flatMap(cleanUrl)
@@ -139,7 +140,7 @@ object RelayRoundForm:
           }),
         until = none,
         nextAt = none,
-        period = period.ifTrue(Granter.of(_.StudyAdmin)(user)),
+        period = period.ifTrue(Granter.ofUser(_.StudyAdmin)(user)),
         delay = delay,
         log = SyncLog.empty
       )

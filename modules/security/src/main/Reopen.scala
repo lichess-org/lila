@@ -3,9 +3,8 @@ package lila.security
 import play.api.i18n.Lang
 import scalatags.Text.all.*
 
-import lila.common.EmailAddress
-import lila.common.config.*
-import lila.i18n.I18nKeys.emails as trans
+import lila.core.config.*
+import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
 import lila.user.{ User, UserRepo }
 
@@ -14,7 +13,7 @@ final class Reopen(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using Executor):
+)(using Executor, lila.core.i18n.Translator):
 
   import Mailer.html.*
 

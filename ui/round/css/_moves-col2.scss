@@ -1,5 +1,5 @@
 /* context: #{$rmoves-tag} */
-@include breakpoint($mq-col2) {
+@include mq-at-least-col2 {
   background: $c-bg-box;
 
   .fbt,
@@ -39,7 +39,7 @@
   #{$move-tag} {
     /* Edge 18: flex: 0 0 calc(100% * 5 / 12); causes wrap */
     flex: 0 0 41.666%;
-    padding-#{$start-direction}: 0.7em;
+    padding-inline-start: 0.7em;
     cursor: pointer;
 
     &:hover {
@@ -49,7 +49,7 @@
 
     &.#{$active-class} {
       font-weight: bold;
-      background: mix($c-primary, $c-bg-box, 20%);
+      background: $m-primary_bg--mix-20;
       color: $c-font-clear;
     }
   }
@@ -62,7 +62,7 @@
     &::before {
       color: $c-font-dim;
       font-size: 3em;
-      margin-#{$end-direction}: 12px;
+      margin-inline-end: 12px;
     }
   }
 

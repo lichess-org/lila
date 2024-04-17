@@ -58,10 +58,10 @@
   }
 
   .rp {
-    margin-#{$end-direction}: 0.2em;
+    margin-inline-end: 0.2em;
   }
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     padding: 0.5em 0.5em 0.5em 0.3em;
     line-height: inherit;
 
@@ -69,7 +69,7 @@
       flex: 1 1 auto;
     }
   }
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     &-top {
       align-self: flex-end;
     }

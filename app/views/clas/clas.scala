@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.ClasForm.ClasData
 import lila.clas.{ Clas, Student }
 
@@ -49,7 +49,7 @@ object clas:
           href     := clasRoutes.form,
           cls      := "new button button-empty",
           title    := trans.clas.newClass.txt(),
-          dataIcon := licon.PlusButton
+          dataIcon := Icon.PlusButton
         )
       ),
       if current.isEmpty then frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
@@ -78,7 +78,7 @@ object clas:
       classes.map { clas =>
         div(
           cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
-          dataIcon := licon.Group
+          dataIcon := Icon.Group
         )(
           a(cls := "overlay", href := clasRoutes.show(clas.id.value)),
           div(
@@ -89,7 +89,7 @@ object clas:
       }
     )
 
-  def teachers(clas: Clas)(using Lang) =
+  def teachers(clas: Clas)(using Translate) =
     div(cls := "clas-teachers")(
       trans.clas.teachersX(
         fragList(clas.teachers.toList.map(t => userIdLink(t.some)))
@@ -108,8 +108,8 @@ object clas:
         innerForm(form.form, none),
         views.html.base.hcaptcha.tag(form),
         form3.actions(
-          a(href := clasRoutes.index)(trans.cancel()),
-          form3.submit(trans.apply())
+          a(href := clasRoutes.index)(trans.site.cancel()),
+          form3.submit(trans.site.apply())
         )
       )
     )
@@ -120,8 +120,8 @@ object clas:
         postForm(cls := "form3", action := clasRoutes.update(c.id.value))(
           innerForm(form, c.some),
           form3.actions(
-            a(href := clasRoutes.show(c.id.value))(trans.cancel()),
-            form3.submit(trans.apply())
+            a(href := clasRoutes.show(c.id.value))(trans.site.cancel()),
+            form3.submit(trans.site.apply())
           )
         ),
         hr,
@@ -150,11 +150,11 @@ object clas:
           form3.globalError(form),
           form3.group(
             form("text"),
-            frag(trans.message())
+            frag(trans.site.message())
           )(form3.textarea(_)(rows := 3)),
           form3.actions(
-            a(href := clasRoutes.wall(c.id.value))(trans.cancel()),
-            form3.submit(trans.send())
+            a(href := clasRoutes.wall(c.id.value))(trans.site.cancel()),
+            form3.submit(trans.site.send())
           )
         )
       )

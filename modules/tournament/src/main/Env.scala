@@ -6,8 +6,8 @@ import com.softwaremill.tagging.*
 import io.lettuce.core.{ RedisClient, RedisURI }
 import play.api.Configuration
 
-import lila.common.config.*
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.core.config.*
+import lila.core.socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -15,26 +15,26 @@ final class Env(
     db: lila.db.Db,
     mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
-    gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    proxyRepo: lila.round.GameProxyRepo,
-    chatApi: lila.chat.ChatApi,
-    tellRound: lila.round.TellRound,
-    roundSocket: lila.round.RoundSocket,
-    lightUserApi: lila.user.LightUserApi,
-    onStart: lila.round.OnStart,
-    historyApi: lila.history.HistoryApi,
-    trophyApi: lila.user.TrophyApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
+    userApi: lila.core.user.UserApi,
+    gameProxy: lila.core.game.GameProxy,
+    chatApi: lila.core.chat.ChatApi,
+    roundApi: lila.core.round.RoundApi,
+    lightUserApi: lila.core.user.LightUserApi,
+    onStart: lila.core.game.OnStart,
+    historyApi: lila.core.history.HistoryApi,
+    trophyApi: lila.core.user.TrophyApi,
+    socketKit: lila.core.socket.SocketKit,
     settingStore: lila.memo.SettingStore.Builder
 )(using scheduler: Scheduler)(using
     Executor,
     ActorSystem,
     akka.stream.Materializer,
-    lila.game.IdGenerator,
+    lila.core.game.IdGenerator,
     play.api.Mode,
-    lila.user.FlairApi.Getter
+    lila.core.user.FlairGet,
+    lila.core.i18n.Translator
 ):
 
   lazy val forms = wire[TournamentForm]

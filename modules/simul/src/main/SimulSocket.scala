@@ -3,17 +3,17 @@ package lila.simul
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.game.{ Game, Pov }
+
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.RemoteSocket.{ Protocol as P, * }
-import lila.socket.Socket.makeMessage
+import lila.core.socket.{ protocol as P, * }
 
 final private class SimulSocket(
     repo: SimulRepo,
     jsonView: JsonView,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi
-)(using Executor, lila.user.FlairApi.Getter):
+    socketKit: SocketKit,
+    socketRequest: SocketRequester,
+    chat: lila.core.chat.ChatApi
+)(using Executor, lila.core.user.FlairGet):
 
   def hostIsOn(simulId: SimulId, gameId: GameId): Unit =
     rooms.tell(simulId.into(RoomId), NotifyVersion("hostGame", gameId.value))
@@ -31,7 +31,7 @@ final private class SimulSocket(
 
   def startSimul(simul: Simul, firstGame: Game): Unit =
     firstGame.player(simul.hostId).foreach { player =>
-      redirectPlayer(simul, Pov(firstGame, player))
+      redirectPlayer(simul, Pov(firstGame, player.color))
     }
 
   def startGame(simul: Simul, game: Game): Unit =
@@ -41,9 +41,9 @@ final private class SimulSocket(
         redirectPlayer(simul, Pov(game, !opponent.color))
 
   def filterPresent(simul: Simul, userIds: Set[UserId]): Fu[Seq[UserId]] =
-    lila.socket.SocketRequest[Seq[UserId]](
+    socketRequest[Seq[UserId]](
       id => send(SimulSocket.Protocol.Out.filterPresent(id, simul.id, userIds)),
-      userIds => UserId.from(lila.socket.RemoteSocket.Protocol.In.commas(userIds).toSeq)
+      userIds => UserId.from(P.In.commas(userIds).toSeq)
     )
 
   private def redirectPlayer(simul: Simul, pov: Pov): Unit =
@@ -52,30 +52,27 @@ final private class SimulSocket(
 
   lazy val rooms = makeRoomMap(send)
 
-  subscribeChat(rooms, _.Simul)
+  subscribeChat(rooms, _.simul)
 
-  private lazy val handler: Handler =
+  private lazy val handler: SocketHandler =
     roomHandler(
       rooms,
       chat,
       logger,
       roomId => _.Simul(roomId.into(SimulId)).some,
-      chatBusChan = _.Simul,
+      chatBusChan = _.simul,
       localTimeout = Some: (roomId, modId, _) =>
         repo.hostId(roomId.into(SimulId)).map(_.has(modId))
     )
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("simul-out").apply
+  private lazy val send = socketKit.send("simul-out")
 
-  remoteSocketApi
-    .subscribe("simul-in", RP.In.reader)(
-      handler.orElse(remoteSocketApi.baseHandler)
-    )
+  socketKit
+    .subscribe("simul-in", RP.In.reader)(handler.orElse(socketKit.baseHandler))
     .andDo(send(P.Out.boot))
 
 private object SimulSocket:
   object Protocol:
     object Out:
-      import lila.socket.RemoteSocket.Protocol.Out.commas
       def filterPresent(reqId: Int, simulId: SimulId, userIds: Set[UserId]) =
-        s"room/filter-present $reqId $simulId ${commas(userIds)}"
+        s"room/filter-present $reqId $simulId ${P.Out.commas(userIds)}"

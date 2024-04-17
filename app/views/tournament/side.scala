@@ -4,7 +4,7 @@ package html.tournament
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.markdownLinksOrRichText
 import lila.tournament.{ TeamBattle, Tournament }
 
@@ -31,18 +31,18 @@ object side:
                 tour.perfType,
                 shortName = true
               ),
-              tour.position.isDefined.so(s"$separator${trans.thematic.txt()}"),
+              tour.position.isDefined.so(s"$separator${trans.site.thematic.txt()}"),
               separator,
               tour.durationString
             ),
-            if tour.mode.rated then trans.ratedTournament() else trans.casualTournament(),
+            if tour.mode.rated then trans.site.ratedTournament() else trans.site.casualTournament(),
             separator,
             trans.arena.arena(),
             (isGranted(_.ManageTournament) || (ctx.is(tour.createdBy) && tour.isEnterable)).option(
               frag(
                 " ",
                 a(href := routes.Tournament.edit(tour.id), title := trans.arena.editTournament.txt())(
-                  iconTag(licon.Gear)
+                  iconTag(Icon.Gear)
                 )
               )
             )
@@ -52,7 +52,7 @@ object side:
         variantTeamLinks
           .get(tour.variant.key)
           .filter { (team, _) =>
-            tour.createdBy.is(lila.user.User.lichessId) || tour.conditions.teamMember
+            tour.createdBy.is(UserId.lichess) || tour.conditions.teamMember
               .exists(_.teamId == team.id)
           }
           .map { (team, link) =>
@@ -64,14 +64,14 @@ object side:
         tour.description.map: d =>
           st.section(cls := "description")(
             shieldOwner.map: owner =>
-              p(cls := "defender", dataIcon := licon.Shield)(trans.arena.defender(), userIdLink(owner.some)),
+              p(cls := "defender", dataIcon := Icon.Shield)(trans.arena.defender(), userIdLink(owner.some)),
             markdownLinksOrRichText(d)
           ),
         tour.looksLikePrize.option(bits.userPrizeDisclaimer(tour.createdBy)),
         views.html.gathering.verdicts(verdicts, tour.perfType, tour.isEnterable),
-        tour.noBerserk.option(div(cls := "text", dataIcon := licon.Berserk)(trans.arena.noBerserkAllowed())),
-        tour.noStreak.option(div(cls := "text", dataIcon := licon.Fire)(trans.arena.noArenaStreaks())),
-        (!tour.isScheduled).option(frag(small(trans.by(userIdLink(tour.createdBy.some))), br)),
+        tour.noBerserk.option(div(cls := "text", dataIcon := Icon.Berserk)(trans.arena.noBerserkAllowed())),
+        tour.noStreak.option(div(cls := "text", dataIcon := Icon.Fire)(trans.arena.noArenaStreaks())),
+        (!tour.isScheduled).option(frag(small(trans.site.by(userIdLink(tour.createdBy.some))), br)),
         (!tour.isStarted || (tour.isScheduled && tour.position.isDefined)).option(
           absClientInstant(
             tour.startsAt
@@ -83,9 +83,9 @@ object side:
           }
           .orElse(tour.position.map { fen =>
             p(
-              trans.customPosition(),
+              trans.site.customPosition(),
               separator,
-              views.html.base.bits.fenAnalysisLink(fen.into(chess.format.Fen.Epd))
+              views.html.base.bits.fenAnalysisLink(fen.into(chess.format.Fen.Full))
             )
           })
       ),
@@ -94,7 +94,7 @@ object side:
     )
 
   private def teamBattle(tour: Tournament)(battle: TeamBattle)(using ctx: Context) =
-    st.section(cls := "team-battle", dataIcon := licon.Group):
+    st.section(cls := "team-battle", dataIcon := Icon.Group):
       div(
         p(trans.team.battleOfNbTeams.pluralSameTxt(battle.teams.size)),
         trans.team.nbLeadersPerTeam.pluralSameTxt(battle.nbLeaders),
@@ -102,7 +102,7 @@ object side:
           frag(
             " ",
             a(href := routes.Tournament.teamBattleEdit(tour.id), title := trans.arena.editTeamBattle.txt()):
-              iconTag(licon.Gear)
+              iconTag(Icon.Gear)
           )
         )
       )

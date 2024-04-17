@@ -1,7 +1,6 @@
 package lila.msg
 
-import lila.common.LightUser
-import lila.user.{ Me, User }
+import lila.core.LightUser
 
 case class MsgThread(
     id: MsgThread.Id,
@@ -23,7 +22,7 @@ case class MsgThread(
 
   def isPriority =
     !lastMsg.read && {
-      user1 == User.lichessId || user2 == User.lichessId
+      user1 == UserId.lichess || user2 == UserId.lichess
     }
 
 object MsgThread:

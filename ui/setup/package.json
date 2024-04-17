@@ -13,9 +13,7 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "setup"
-      }
+      "src/setup.ts": "setup"
     }
   }
 }

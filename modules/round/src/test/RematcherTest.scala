@@ -20,7 +20,7 @@ class RematcherTest extends munit.FunSuite:
     assertNotEquals(x.situation, originalSituation)
 
   test("FromPosition with custom Fen"):
-    val originalFen       = Fen.Epd("rqbnknrb/pppppppp/8/8/8/8/PPPPPPPP/RQBNKNRB w Qq - 0 1")
+    val originalFen       = Fen.Full("rqbnknrb/pppppppp/8/8/8/8/PPPPPPPP/RQBNKNRB w Qq - 0 1")
     val originalSituation = Fen.read(FromPosition, originalFen)
     val x                 = returnChessGame(FromPosition, none, originalFen.some, false)
     assertEquals(x.situation.some, originalSituation)

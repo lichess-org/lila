@@ -1,7 +1,6 @@
 package lila.swiss
 
 import akka.stream.scaladsl.*
-import alleycats.Zero
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
@@ -11,22 +10,20 @@ import java.security.MessageDigest
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 import scala.util.chaining.*
 
-import lila.common.config.{ Max, MaxPerSecond }
-import lila.common.{ Bus, LightUser }
+import lila.common.Bus
+import lila.core.LightUser
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Pov }
+
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
-import lila.rating.Perf
-import lila.round.actorApi.round.QuietFlag
-import lila.user.{ Me, User, UserApi, UserPerfsRepo, UserRepo }
+
+import lila.core.round.QuietFlag
+import lila.core.swiss.{ IdName, SwissFinish }
+import lila.core.userId.UserSearch
 
 final class SwissApi(
     mongo: SwissMongo,
     cache: SwissCache,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
-    userApi: UserApi,
     socket: SwissSocket,
     director: SwissDirector,
     scoring: SwissScoring,
@@ -35,16 +32,19 @@ final class SwissApi(
     banApi: SwissBanApi,
     boardApi: SwissBoardApi,
     verify: SwissCondition.Verify,
-    chatApi: lila.chat.ChatApi,
-    lightUserApi: lila.user.LightUserApi,
-    roundSocket: lila.round.RoundSocket
-)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer):
+    chatApi: lila.core.chat.ChatApi,
+    userApi: lila.core.user.UserApi,
+    lightUserApi: lila.core.user.LightUserApi,
+    roundApi: lila.core.round.RoundApi
+)(using scheduler: Scheduler)(using Executor, akka.stream.Materializer)
+    extends lila.core.swiss.SwissApi:
 
-  private val sequencer = lila.hub.AsyncActorSequencers[SwissId](
+  private val sequencer = scalalib.actor.AsyncActorSequencers[SwissId](
     maxSize = Max(1024), // queue many game finished events
     expiration = 20 minutes,
     timeout = 10 seconds,
-    name = "swiss.api"
+    name = "swiss.api",
+    lila.log.asyncActorMonitor
   )
 
   import BsonHandlers.{ *, given }
@@ -53,7 +53,7 @@ final class SwissApi(
 
   def create(data: SwissForm.SwissData, teamId: TeamId)(using me: Me): Fu[Swiss] =
     val swiss = Swiss(
-      _id = Swiss.makeId,
+      id = Swiss.makeId,
       name = data.name | GreatPlayer.randomName,
       clock = data.clock,
       variant = data.realVariant,
@@ -132,7 +132,7 @@ final class SwissApi(
 
   private def recomputePlayerRatings(swiss: Swiss): Funit = for
     ranking <- rankingApi(swiss)
-    perfs   <- perfsRepo.perfOf(ranking.keys, swiss.perfType)
+    perfs   <- userApi.perfOf(ranking.keys, swiss.perfType)
     update = mongo.player.update(ordered = false)
     elements <- perfs.toSeq.traverse: (userId, perf) =>
       update.element(
@@ -167,8 +167,8 @@ final class SwissApi(
 
   def verdicts(swiss: Swiss)(using me: Option[Me]): Fu[WithVerdicts] =
     me.foldUse(fuccess(swiss.settings.conditions.accepted)): me ?=>
-      perfsRepo
-        .withPerf(me.value, swiss.perfType)
+      userApi
+        .withPerf(me, swiss.perfType)
         .flatMap: user =>
           given Perf = user.perf
           verify(swiss)
@@ -185,7 +185,7 @@ final class SwissApi(
           .flatMap: rejoin =>
             fuccess(rejoin.n == 1) >>| { // if the match failed (not the update!), try a join
               for
-                user <- perfsRepo.withPerf(me.value, swiss.perfType)
+                user <- userApi.withPerf(me.value, swiss.perfType)
                 given Perf = user.perf
                 verified <- verify(swiss)
                 ok = verified.accepted && swiss.isEnterable
@@ -242,7 +242,7 @@ final class SwissApi(
       .map((Swiss.PastAndNext.apply).tupled)
 
   def playerInfo(swiss: Swiss, userId: UserId): Fu[Option[SwissPlayer.ViewExt]] =
-    userRepo.byId(userId).flatMapz { user =>
+    userApi.byId(userId).flatMapz { user =>
       mongo.player.byId[SwissPlayer](SwissPlayer.makeId(swiss.id, user.id).value).flatMapz { player =>
         SwissPairing
           .fields { f =>
@@ -340,7 +340,7 @@ final class SwissApi(
 
   private[swiss] def kickLame(userId: UserId) =
     Bus
-      .ask[List[TeamId]]("teamJoinedBy")(lila.hub.actorApi.team.TeamIdsJoinedBy(userId, _))
+      .ask[List[TeamId]]("teamJoinedBy")(lila.core.team.TeamIdsJoinedBy(userId, _))
       .flatMap { joinedPlayableSwissIds(userId, _) }
       .flatMap { kickFromSwissIds(userId, _, forfeit = true) }
 
@@ -587,7 +587,7 @@ final class SwissApi(
       .flatMap:
         _.traverse_ { (swissId, gameIds) =>
           Sequencing[List[Game]](swissId)(cache.swissCache.byId) { _ =>
-            roundSocket
+            roundApi
               .getGames(gameIds)
               .map: pairs =>
                 val games               = pairs.collect { case (_, Some(g)) => g }
@@ -600,7 +600,7 @@ final class SwissApi(
                 lila.mon.swiss.games("missing").record(missingIds.size)
                 if flagged.nonEmpty then
                   Bus.publish(
-                    lila.hub.actorApi.map.TellMany(flagged.map(_.id.value), QuietFlag),
+                    lila.core.misc.map.TellMany(flagged.map(_.id.value), QuietFlag),
                     "roundSocket"
                   )
                 if missingIds.nonEmpty then mongo.pairing.delete.one($inIds(missingIds))
@@ -610,7 +610,9 @@ final class SwissApi(
         }
 
   private def systemChat(id: SwissId, text: String, volatile: Boolean = false): Unit =
-    chatApi.userChat.service(id.into(ChatId), text, _.Swiss, isVolatile = volatile)
+    if volatile
+    then chatApi.volatile(id.into(ChatId), text, _.swiss)
+    else chatApi.system(id.into(ChatId), text, _.swiss)
 
   def withdrawAll(user: User, teamIds: List[TeamId]): Funit =
     mongo.swiss
@@ -671,10 +673,10 @@ final class SwissApi(
 
   private val idNameProjection = $doc("name" -> true)
 
-  def idNames(ids: List[SwissId]): Fu[List[Swiss.IdName]] =
-    mongo.swiss.find($inIds(ids), idNameProjection.some).cursor[Swiss.IdName]().listAll()
+  def idNames(ids: List[SwissId]): Fu[List[IdName]] =
+    mongo.swiss.find($inIds(ids), idNameProjection.some).cursor[IdName]().listAll()
 
-  private def Sequencing[A <: Matchable: Zero](
+  private def Sequencing[A <: Matchable: alleycats.Zero](
       id: SwissId
   )(fetch: SwissId => Fu[Option[Swiss]])(run: Swiss => Fu[A]): Fu[A] =
     sequencer(id):

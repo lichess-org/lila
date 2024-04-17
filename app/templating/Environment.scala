@@ -1,18 +1,18 @@
 package lila.app
 package templating
 
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
+import lila.web.ui.*
 
 object Environment
     extends StringHelper
     with RouterHelper
     with AssetHelper
     with DateHelper
-    with NumberHelper
     with PaginatorHelper
     with FormHelper
-    with SetupHelper
-    with AiHelper
+    with lila.setup.SetupUi
+    with lila.pref.PrefUi
     with GameHelper
     with UserHelper
     with I18nHelper
@@ -23,22 +23,29 @@ object Environment
     with ChessgroundHelper
     with HtmlHelper:
 
-  export lila.Lila.{ id as _, *, given }
+  export NumberHelper.*
+
+  export lila.core.lilaism.Lilaism.{ *, given }
+  export lila.common.extensions.*
+  export lila.common.Icon
+  export lila.web.Nonce
   export lila.api.Context.{ *, given }
-  export lila.api.{ PageData, Nonce }
-  export lila.user.Me
-  export lila.common.licon
+  export lila.api.PageData
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = envVar = Some(e)
   def env: Env                    = envVar.get
 
-  type FormWithCaptcha = (play.api.data.Form[?], lila.common.Captcha)
+  def netConfig           = env.net
+  def netBaseUrl          = env.net.baseUrl
+  def contactEmailInClear = env.net.email.value
 
-  def netConfig                      = env.net
-  def netBaseUrl                     = env.net.baseUrl.value
-  def contactEmailInClear            = env.net.email.value
-  given lila.common.config.NetDomain = env.net.domain
+  given lila.core.config.NetDomain = env.net.domain
+
+  def jsDump     = lila.i18n.JsDump
+  def translator = lila.i18n.Translator
+  def flairApi   = env.user.flairApi
+  export lila.mailer.translateDuration
 
   lazy val siteName: String =
     if env.net.siteName == "localhost:9663" then "lichess.dev"
@@ -52,6 +59,20 @@ object Environment
   def explorerEndpoint       = env.explorerEndpoint
   def tablebaseEndpoint      = env.tablebaseEndpoint
   def externalEngineEndpoint = env.externalEngineEndpoint
+
+  def chessground(pov: Pov)(using ctx: Context): Frag =
+    chessground(
+      board = pov.game.board,
+      orient = pov.color,
+      lastMove = pov.game.history.lastMove
+        .map(_.origDest)
+        .so: (orig, dest) =>
+          List(orig, dest),
+      blindfold = pov.player.blindfold,
+      pref = ctx.pref
+    )
+
+  def titleOrText(v: String)(using ctx: Context): Modifier = titleOrTextFor(ctx.blind, v)
 
   def isChatPanicEnabled = env.chat.panic.enabled
 

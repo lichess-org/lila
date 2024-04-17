@@ -5,18 +5,18 @@ import akka.stream.scaladsl.*
 import chess.format.Fen
 import play.api.libs.json.*
 
-import lila.Lila.{ GameId, none }
 import lila.common.Json.given
-import lila.common.{ Bus, LightUser }
-import lila.game.Pov
+import lila.common.Bus
+import lila.core.LightUser
+
 import lila.game.actorApi.MoveGameEvent
-import lila.round.actorApi.TvSelect
-import lila.socket.Socket
+import lila.core.game.TvSelect
+import lila.core.socket.makeMessage
 
 final private class TvBroadcast(
     lightUserSync: LightUser.GetterSync,
     channel: Tv.Channel,
-    gameProxyRepo: lila.round.GameProxyRepo
+    gameProxy: lila.core.game.GameProxy
 ) extends Actor:
 
   import TvBroadcast.*
@@ -44,16 +44,17 @@ final private class TvBroadcast(
           queue.watchCompletion().addEffectAnyway {
             self ! Remove(client)
           }
-          featured.ifFalse(compat).foreach { f =>
-            client.queue.offer(Socket.makeMessage("featured", f.dataWithFen))
-          }
+          featured
+            .ifFalse(compat)
+            .foreach: f =>
+              client.queue.offer(makeMessage("featured", f.dataWithFen))
         }
 
     case Add(client)    => clients = clients + client
     case Remove(client) => clients = clients - client
 
     case TvSelect(gameId, speed, chanKey, data) if chanKey == channel.key =>
-      gameProxyRepo.game(gameId).map2 { game =>
+      gameProxy.game(gameId).map2 { game =>
         unsubscribeFromFeaturedId()
         Bus.subscribe(self, MoveGameEvent.makeChan(gameId))
         val pov = Pov.naturalOrientation(game)
@@ -66,7 +67,7 @@ final private class TvBroadcast(
               val user = p.userId.flatMap(lightUserSync)
               Json
                 .obj("color" -> p.color.name)
-                .add("user" -> user.map(LightUser.write))
+                .add("user" -> user)
                 .add("ai" -> p.aiLevel)
                 .add("rating" -> p.rating)
                 .add("seconds" -> game.clock.map(_.remainingTime(pov.color).roundSeconds))
@@ -81,7 +82,7 @@ final private class TvBroadcast(
       }
 
     case MoveGameEvent(game, fen, move) =>
-      val msg = Socket.makeMessage(
+      val msg = makeMessage(
         "fen",
         Json
           .obj(
@@ -106,9 +107,9 @@ object TvBroadcast:
   type SourceType = Source[JsValue, ?]
   type Queue      = SourceQueueWithComplete[JsValue]
 
-  case class Featured(id: GameId, data: JsObject, fen: Fen.Epd):
+  case class Featured(id: GameId, data: JsObject, fen: Fen.Full):
     def dataWithFen = data ++ Json.obj("fen" -> fen)
-    def socketMsg   = Socket.makeMessage("featured", dataWithFen)
+    def socketMsg   = makeMessage("featured", dataWithFen)
 
   case class Connect(fromLichess: Boolean)
   case class Client(queue: Queue, fromLichess: Boolean)

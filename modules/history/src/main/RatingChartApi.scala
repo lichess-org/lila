@@ -3,50 +3,48 @@ package lila.history
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import play.api.i18n.Lang
+
 import lila.rating.PerfType
-import lila.user.{ User, UserRepo }
+import lila.core.data.SafeJsonStr
 
 final class RatingChartApi(
     historyApi: HistoryApi,
-    userRepo: UserRepo,
+    userApi: lila.core.user.UserApi,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor, lila.core.i18n.Translator):
 
-  def apply(user: User): Fu[Option[String]] =
-    cache.get(user.id).dmap { chart =>
-      chart.nonEmpty.option(chart)
-    }
+  def apply[U: UserIdOf](user: U): Fu[Option[SafeJsonStr]] = cache.get(user.id)
 
-  def singlePerf(user: User, perfType: PerfType): Fu[JsArray] =
+  def singlePerf(user: User, perfKey: PerfKey): Fu[JsArray] =
     historyApi
-      .ratingsMap(user, perfType)
-      .map {
-        ratingsMapToJson(user.createdAt, _)
-      }
+      .ratingsMap(user, perfKey)
+      .map(ratingsMapToJson(user.createdAt, _))
       .map(JsArray.apply)
 
-  private val cache = cacheApi[UserId, String](4096, "history.rating"):
+  private val cache = cacheApi[UserId, Option[SafeJsonStr]](4096, "history.rating"):
     _.expireAfterWrite(10 minutes)
       .maximumSize(4096)
-      .buildAsyncFuture: userId =>
-        build(userId).dmap(~_)
+      .buildAsyncFuture(build)
 
   private def ratingsMapToJson(createdAt: Instant, ratingsMap: RatingsMap) =
     ratingsMap.map: (days, rating) =>
       val date = createdAt.plusDays(days).date
       Json.arr(date.getYear, date.getMonthValue - 1, date.getDayOfMonth, rating)
 
-  private def build(userId: UserId): Fu[Option[String]] =
-    userRepo.createdAtById(userId).flatMapz { createdAt =>
-      historyApi.get(userId).map2 { (history: History) =>
-        lila.common.String.html.safeJsonValue:
-          Json.toJson:
-            RatingChartApi.perfTypes.map: pt =>
-              Json.obj(
-                "name"   -> pt.trans(using lila.i18n.defaultLang),
-                "points" -> ratingsMapToJson(createdAt, history(pt))
-              )
-      }
+  private def build(userId: UserId): Fu[Option[SafeJsonStr]] =
+    given Lang = lila.core.i18n.defaultLang
+    userApi.createdAtById(userId).flatMapz { createdAt =>
+      historyApi
+        .get(userId)
+        .map2: history =>
+          RatingChartApi.perfTypes.map: pt =>
+            Json.obj(
+              "name"   -> pt.trans,
+              "points" -> ratingsMapToJson(createdAt, history(pt))
+            )
+        .map2(Json.toJson)
+        .map2(lila.common.String.html.safeJsonValue)
     }
 
 object RatingChartApi:

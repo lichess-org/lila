@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.web.ui.ScalatagsTemplate.*
 import lila.tournament.Tournament
 
 object show:
@@ -20,7 +20,7 @@ object show:
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${tour.name()} #${tour.id}",
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "tournament",
         Json.obj(
           "data"   -> data,
@@ -30,7 +30,7 @@ object show:
             chat.json(
               c.chat,
               c.lines,
-              name = trans.chatRoom.txt(),
+              name = trans.site.chatRoom.txt(),
               timeout = c.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
@@ -39,12 +39,12 @@ object show:
             ),
           "showRatings" -> ctx.pref.showRatings
         )
-      ),
+      ).some,
       moreCss = cssTag:
         if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"
       ,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
           url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",

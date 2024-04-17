@@ -25,7 +25,6 @@ export const init = (ctrl: RoundController) =>
     })
     .bind('f', ctrl.flipNow)
     .bind('z', () => site.pubsub.emit('zen'))
-    .bind('B', () => ctrl.blindfold(!ctrl.blindfold()))
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
       ctrl.redraw();

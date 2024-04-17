@@ -6,14 +6,14 @@
     @extend %box-radius, %flex-center-nowrap;
 
     background: $c-accent;
-    color: $c-primary-over;
+    color: $c-over;
     padding: 1em;
     margin-bottom: 2em;
     text-align: left;
 
     &::before {
       font-size: 3.6em;
-      margin-#{$end-direction}: 1rem;
+      margin-inline-end: 1rem;
     }
   }
 

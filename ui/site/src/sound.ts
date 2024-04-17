@@ -1,5 +1,5 @@
 import pubsub from './pubsub';
-import { url as assetUrl } from './assets';
+import { url as assetUrl } from './asset';
 import { storage } from './storage';
 import { isIOS } from 'common/device';
 import throttle from 'common/throttle';
@@ -77,7 +77,7 @@ export default new (class implements SoundI {
       }
     }
     if (o?.filter === 'game' || this.theme !== 'music') return;
-    this.music ??= await site.asset.loadEsm<SoundMove>('soundMove');
+    this.music ??= await site.asset.loadEsm<SoundMove>('site.soundMove');
     this.music(o);
   }
 

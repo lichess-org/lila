@@ -10,8 +10,8 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.common.config.{ Max, MaxPerSecond }
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.core.id.RelayRoundId
 
 final class RelayRound(
     env: Env,
@@ -99,8 +99,10 @@ final class RelayRound(
         html = WithRoundAndTour(ts, rs, id): rt =>
           val sc = env.study.preview
             .firstId(rt.round.studyId)
-            .flatMapz:
-              env.study.api.byIdWithChapterOrFallback(rt.round.studyId, _)
+            .flatMap:
+              // there might be no chapter after a round reset, let a new one be created
+              case None              => env.study.api.byIdWithChapter(rt.round.studyId)
+              case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
           sc.orNotFound { doShow(rt, _, embed) }
         ,
         json = doApiShow(id)
@@ -198,8 +200,9 @@ final class RelayRound(
         group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
-        streamer <- embed.so(env.streamer.api.find)
-        stream   <- streamer.soFu(env.streamer.liveStreamApi.of)
+        pinnedStreamer <- rt.tour.pinnedStreamer.so(env.streamer.api.find)
+        streamer       <- embed.so(env.streamer.api.find)
+        stream         <- streamer.soFu(env.streamer.liveStreamApi.of)
         videoUrls          = stream.flatMap(_.stream).map(_.urls(netDomain))
         crossSiteIsolation = videoUrls.isEmpty
         data = env.relay.jsonView.makeData(
@@ -209,15 +212,17 @@ final class RelayRound(
           group,
           ctx.userId.exists(sc.study.canContribute),
           isSubscribed,
-          videoUrls.map(_.toPair)
+          videoUrls.map(_.toPair),
+          pinnedStreamer.map(s => (s.user.id, s.streamer.name.value, rt.tour.pinnedStreamerImage))
         )
-        chat      <- NoCrawlers(studyC.chatOf(sc.study))
-        sVersion  <- NoCrawlers(env.study.version(sc.study.id))
-        streamers <- NoCrawlers(studyC.streamersOf(sc.study.id))
+        chat     <- NoCrawlers(studyC.chatOf(sc.study))
+        sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
-          html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, streamers, crossSiteIsolation)
+          html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
-      yield if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation else Ok(page)
+      yield
+        if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
+        else Ok(page).withHeaders(crossOriginPolicy.unsafe*)
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)
@@ -229,7 +234,7 @@ final class RelayRound(
     key = "broadcast.round.user"
   )
 
-  private val CreateLimitPerIP = lila.memo.RateLimit[lila.common.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.core.net.IpAddress](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.ip"

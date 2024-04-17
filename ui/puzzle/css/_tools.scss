@@ -49,8 +49,8 @@
 
   flex: 1 0 9rem;
 
-  @include breakpoint($mq-col2) {
-    @include breakpoint($mq-tall) {
+  @include mq-at-least-col2 {
+    @media (min-height: at-least($tall)) {
       flex: 1 0 17rem;
     }
   }
@@ -70,7 +70,7 @@
   .no-square {
     flex: 0 0 64px;
     height: 64px;
-    margin-#{$end-direction}: 10px;
+    margin-inline-end: 10px;
   }
 
   .is3d & div.no-square {
@@ -130,19 +130,19 @@
 
   position: relative;
   height: $col3-uniboard-controls;
-  margin-top: #{-$block-gap};
+  margin-top: #{-$puzzle-block-gap};
 
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     height: $col1-uniboard-controls;
   }
 
-  // height: calc(#{$puzzle-history-height} + #{$block-gap});
+  // height: calc(#{$puzzle-history-height} + #{$puzzle-block-gap});
   .jumps {
     position: relative;
     flex: 1 1 auto;
   }
   .board-menu {
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       bottom: $col3-uniboard-controls;
       border-radius: $box-radius-size $box-radius-size 0 0;
       border-bottom: 2px solid $c-secondary;

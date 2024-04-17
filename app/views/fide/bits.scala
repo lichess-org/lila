@@ -1,7 +1,7 @@
 package views.html.fide
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
-import lila.fide.FideTC
+import lila.web.ui.ScalatagsTemplate.*
+import lila.core.fide.FideTC
 
 private object bits:
 
@@ -9,12 +9,16 @@ private object bits:
     views.html.base.layout(
       moreCss = cssTag("fide"),
       title = title,
-      moreJs = frag(infiniteScrollTag)
+      modules = infiniteScrollTag
     ):
       main(cls := "page-menu")(
         views.html.relay.tour.pageMenu(active),
         div(cls := "page-menu__content box")(modifiers)
       )
 
-  val tcTrans: List[(FideTC, lila.i18n.I18nKey)] =
-    List(FideTC.standard -> trans.classical, FideTC.rapid -> trans.rapid, FideTC.blitz -> trans.blitz)
+  val tcTrans: List[(FideTC, lila.core.i18n.I18nKey)] =
+    List(
+      FideTC.standard -> trans.site.classical,
+      FideTC.rapid    -> trans.site.rapid,
+      FideTC.blitz    -> trans.site.blitz
+    )

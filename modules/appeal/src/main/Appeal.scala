@@ -2,8 +2,9 @@ package lila.appeal
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.licon
-import lila.user.{ User, UserMark }
+import lila.common.Icon
+import lila.common.Icon
+import lila.core.user.UserMark
 
 case class Appeal(
     @Key("_id") id: Appeal.Id,
@@ -23,12 +24,8 @@ case class Appeal(
 
   def isAbout(userId: UserId) = id.is(userId)
 
-  def post(text: String, by: User) =
-    val msg = AppealMsg(
-      by = by.id,
-      text = text,
-      at = nowInstant
-    )
+  def post(text: String, by: UserId) =
+    val msg = AppealMsg(by, text, nowInstant)
     copy(
       msgs = msgs :+ msg,
       updatedAt = nowInstant,
@@ -59,7 +56,7 @@ case class Appeal(
 object Appeal:
 
   opaque type Id = String
-  object Id extends OpaqueUserId[Id]
+  object Id extends lila.core.userId.OpaqueUserId[Id]
 
   given UserIdOf[Appeal] = _.id.userId
 
@@ -97,12 +94,12 @@ object Appeal:
       def is(mark: UserMark) = filter.contains(mark)
       def key                = filter.fold("clean")(_.key)
 
-    val allWithIcon = List[(Filter, Either[licon.Icon, String])](
-      UserMark.Troll.some  -> Left(licon.BubbleSpeech),
-      UserMark.Boost.some  -> Left(licon.LineGraph),
-      UserMark.Engine.some -> Left(licon.Cogs),
-      UserMark.Alt.some    -> Right("A"),
-      none                 -> Left(licon.User)
+    val allWithIcon = List[(Filter, Either[Icon, String])](
+      UserMark.troll.some  -> Left(Icon.BubbleSpeech),
+      UserMark.boost.some  -> Left(Icon.LineGraph),
+      UserMark.engine.some -> Left(Icon.Cogs),
+      UserMark.alt.some    -> Right("A"),
+      none                 -> Left(Icon.User)
     )
     val byName: Map[String, Filter] =
       UserMark.byKey.view.mapValues(userMark => Filter(userMark.some)).toMap + ("clean" -> Filter(none))

@@ -64,7 +64,7 @@
   <string name="engineFailed">Fehler beim Laden der Engine</string>
   <string name="cloudAnalysis">Cloud-Analyse</string>
   <string name="goDeeper">Tiefe erhöhen</string>
-  <string name="showThreat">Drohungen anzeigen</string>
+  <string name="showThreat">Bedrohungen anzeigen</string>
   <string name="inLocalBrowser">im lokalen Browser</string>
   <string name="toggleLocalEvaluation">Lokale Auswertung an-/ausschalten</string>
   <string name="promoteVariation">Variante aufwerten</string>
@@ -406,7 +406,7 @@
   <string name="importGame">Partie importieren</string>
   <string name="importGameExplanation">Wenn du ein PGN einfügst, hast du Zugriff auf eine Spielwiederholung, eine Computeranalyse, einen Spielchat und eine teilbare URL.</string>
   <string name="importGameCaveat">Varianten werden gelöscht. Importiere die PGN mittels einer Studie, um sie zu behalten.</string>
-  <string name="importGameDataPrivacyWarning">Dieses PGN ist öffentlich zugänglich. Nutze eine Studie, um eine Partie nur für dich zu importieren.</string>
+  <string name="importGameDataPrivacyWarning">Diese PGN ist öffentlich zugänglich. Nutze eine Studie, um eine Partie nur für dich zu importieren.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s importierte Partie</item>
     <item quantity="other">%s importierte Partien</item>
@@ -518,7 +518,7 @@
   <string name="socialMediaLinks">Social-Media-Links</string>
   <string name="oneUrlPerLine">Eine URL pro Zeile.</string>
   <string name="inlineNotation">Inline-Notation</string>
-  <string name="makeAStudy">Lege eine Studie an um Züge langfristig zu speichern oder zu teilen.</string>
+  <string name="makeAStudy">Zur Sicherheit und zum Teilen, überlege, ob du eine Studie anlegen möchtest.</string>
   <string name="clearSavedMoves">Züge löschen</string>
   <string name="previouslyOnLichessTV">Zuletzt auf Lichess TV</string>
   <string name="onlinePlayers">Spieler online</string>

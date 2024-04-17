@@ -4,7 +4,7 @@ import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ Clock, Game as ChessGame, Situation, Speed }
 
-import lila.common.Days
+import scalalib.model.Days
 import lila.game.Game
 import lila.lobby.Color
 import lila.rating.PerfType
@@ -58,12 +58,12 @@ private[setup] trait Config:
 
   def makeSpeed: Speed = chess.Speed(makeClock)
 
-  def perfType: PerfType = PerfType(variant, makeSpeed)
+  def perfType: PerfType = lila.rating.PerfType(variant, makeSpeed)
 
 trait Positional:
   self: Config =>
 
-  def fen: Option[Fen.Epd]
+  def fen: Option[Fen.Full]
 
   def strictFen: Boolean
 

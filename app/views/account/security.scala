@@ -5,21 +5,21 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object security:
 
   def apply(
-      u: lila.user.User,
+      u: User,
       sessions: List[lila.security.LocatedSession],
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
   )(using PageContext) =
-    account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security"):
+    account.layout(title = s"${u.username} - ${trans.site.security.txt()}", active = "security"):
       div(cls := "security")(
         div(cls := "box")(
-          h1(cls := "box__top")(trans.security()),
+          h1(cls := "box__top")(trans.site.security()),
           standardFlash.map(div(cls := "box__pad")(_)),
           div(cls := "box__pad")(
             p(
@@ -34,7 +34,7 @@ object security:
                 "You can also ",
                 postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
                   submitButton(cls := "button button-empty button-red confirm")(
-                    trans.revokeAllSessions()
+                    trans.site.revokeAllSessions()
                   )
                 ),
                 "."
@@ -50,14 +50,14 @@ object security:
       curSessionId: Option[String],
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(using Lang) =
+  )(using Translate) =
     st.table(cls := "slist slist-pad")(
       sessions.map { s =>
         tr(
           td(cls := "icon")(
             span(
               cls := curSessionId.map { cur => s"is-${if cur == s.session.id then "gold" else "green"}" },
-              dataIcon := (if s.session.isMobile then licon.PhoneMobile else licon.ScreenDesktop)
+              dataIcon := (if s.session.isMobile then Icon.PhoneMobile else Icon.ScreenDesktop)
             )
           ),
           td(cls := "info")(
@@ -76,7 +76,11 @@ object security:
             td(
               (s.session.id != cur).option(
                 postForm(action := routes.Account.signout(s.session.id))(
-                  submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := licon.X)
+                  submitButton(
+                    cls      := "button button-red",
+                    title    := trans.site.logOut.txt(),
+                    dataIcon := Icon.X
+                  )
                 )
               )
             )
@@ -85,7 +89,7 @@ object security:
       },
       clients.map { client =>
         tr(
-          td(cls := "icon")(span(cls := "is-green", dataIcon := licon.ThreeCheckStack)),
+          td(cls := "icon")(span(cls := "is-green", dataIcon := Icon.ThreeCheckStack)),
           td(cls := "info")(
             strong(client.origin),
             p(cls := "ua")(
@@ -106,14 +110,14 @@ object security:
           td(
             postForm(action := routes.OAuth.revokeClient)(
               input(tpe        := "hidden", name             := "origin", value    := client.origin),
-              submitButton(cls := "button button-red", title := "Revoke", dataIcon := licon.X)
+              submitButton(cls := "button button-red", title := "Revoke", dataIcon := Icon.X)
             )
           )
         )
       },
       (personalAccessTokens > 0).option(
         tr(
-          td(cls := "icon")(span(cls := "is-green", dataIcon := licon.Tools)),
+          td(cls := "icon")(span(cls := "is-green", dataIcon := Icon.Tools)),
           td(cls := "info")(
             strong("Personal access tokens"),
             " can be used to access your account. Revoke any that you do not recognize."
@@ -123,7 +127,7 @@ object security:
               href     := routes.OAuthToken.index,
               cls      := "button",
               title    := trans.oauthScope.apiAccessTokens.txt(),
-              dataIcon := licon.Gear
+              dataIcon := Icon.Gear
             )
           )
         )

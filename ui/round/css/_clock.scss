@@ -4,14 +4,14 @@
   justify-content: flex-end;
   user-select: none;
 
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     /* that weird shit is required so the clock goes above the player since they share the same grid cell */
     justify-self: flex-end;
     z-index: 1;
   }
 
   /* overflow: hidden; is not possible because of clock bars and shadows */
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     justify-content: space-between;
 
     &-bottom {
@@ -24,7 +24,7 @@
     align-self: center;
     line-height: $col1-player-clock-height;
 
-    @include breakpoint($mq-col1-uniboard) {
+    @include mq-is-col1 {
       &__text {
         background: $c-bg-box;
         padding: 0 $block-gap;
@@ -33,7 +33,7 @@
       }
     }
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       height: 2.2em;
       line-height: 2.2em;
     }
@@ -47,7 +47,7 @@
     }
   }
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     .bar {
       display: block;
       position: absolute;
@@ -91,17 +91,17 @@
       font-size: 2.3em;
     }
 
-    @include breakpoint($mq-col1) {
+    @include mq-is-col1 {
       border-radius: 0;
       box-shadow: none;
     }
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       align-items: flex-end;
       line-height: 1.2em;
     }
 
-    @include breakpoint($mq-xx-small $mq-tall) {
+    @media (min-width: at-least($xx-small)) and (min-height: at-least($tall)) {
       font-size: 3.6em;
       letter-spacing: 0.12em;
 
@@ -123,13 +123,13 @@
   &-correspondence .time {
     font-size: 1.6em;
     letter-spacing: inherit;
-    direction: $direction;
+    direction: unset;
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       line-height: 1.5em;
     }
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       font-size: 1.9em;
     }
   }
@@ -142,7 +142,7 @@
   huns {
     font-size: 80%;
 
-    @include breakpoint($mq-col1) {
+    @include mq-is-col1 {
       display: none;
 
       /* since clock is right-aligned, huns shift it left on every move */
@@ -159,17 +159,17 @@
   }
 
   &.running .time {
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: $m-secondary_bg--mix-30;
     color: $c-font-clearer;
   }
 
   &.emerg .time,
   &.outoftime .time {
-    background-color: mix($c-bad, $c-bg-box, 25%);
+    background-color: $m-bad_bg--mix-25;
   }
 
   &.emerg.running .time {
-    background-color: mix($c-bad, $c-bg-box, 50%);
+    background-color: $m-bad_bg--mix-50;
     color: $c-font-clearer;
   }
 
@@ -190,7 +190,7 @@
 
     display: none;
 
-    @include breakpoint(420px) {
+    @media (min-width: at-least(420px)) {
       order: -1;
       display: flex;
       flex: 0 1 auto;
@@ -198,7 +198,7 @@
       padding: 0 0.3em;
     }
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       order: inherit;
     }
   }

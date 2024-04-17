@@ -4,10 +4,9 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 import lila.ublog.{ UblogBlog, UblogPost }
-import lila.user.User
 
 object blog:
 
@@ -17,10 +16,7 @@ object blog:
     val title = trans.ublog.xBlog.txt(user.username)
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = frag(
-        posts.hasNextPage.option(infiniteScrollTag),
-        ctx.isAuth.option(jsModule("ublog"))
-      ),
+      modules = posts.hasNextPage.option(infiniteScrollTag) ++ ctx.isAuth.so(jsModule("bits.ublog")),
       title = title,
       atomLinkTag = link(
         href     := routes.Ublog.userAtom(user.username),
@@ -41,7 +37,7 @@ object blog:
                   postView.newPostLink(user)
                 )
               ),
-              views.html.site.bits.atomLink(routes.Ublog.userAtom(user.username))
+              views.html.base.atom.atomLink(routes.Ublog.userAtom(user.username))
             )
           ),
           standardFlash,
@@ -64,7 +60,7 @@ object blog:
   private def tierForm(blog: UblogBlog) = postForm(action := routes.Ublog.setTier(blog.id.full)) {
     val form = lila.ublog.UblogForm.tier.fill(blog.tier)
     frag(
-      span(dataIcon := licon.Agent, cls := "text")("Set to:"),
+      span(dataIcon := Icon.Agent, cls := "text")("Set to:"),
       form3.select(form("tier"), lila.ublog.UblogRank.Tier.options)
     )
   }

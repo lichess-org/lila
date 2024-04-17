@@ -40,8 +40,6 @@ object PracticeProgress:
   opaque type NbMoves = Int
   object NbMoves extends OpaqueInt[NbMoves]
 
-  case class OnComplete(userId: UserId, studyId: StudyId, chapterId: StudyChapterId)
-
   type ChapterNbMoves = Map[StudyChapterId, NbMoves]
 
   def empty(id: UserId) =

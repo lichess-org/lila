@@ -7,13 +7,14 @@ import scala.util.Success
 
 import lila.common.LichessDay
 import lila.db.dsl.{ *, given }
+import lila.core.id.PuzzleId
 
 object StormBsonHandlers:
 
   given puzzleReader: BSONDocumentReader[StormPuzzle] with
     def readDocument(r: BSONDocument) = for
       id      <- r.getAsTry[PuzzleId]("_id")
-      fen     <- r.getAsTry[Fen.Epd]("fen")
+      fen     <- r.getAsTry[Fen.Full]("fen")
       lineStr <- r.getAsTry[String]("line")
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
       rating  <- r.getAsTry[IntRating]("rating")

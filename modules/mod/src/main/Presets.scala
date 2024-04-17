@@ -4,10 +4,9 @@ import play.api.data.Form
 import play.api.data.Forms.*
 import reactivemongo.api.bson.BSONHandler
 
-import lila.common.Iso
+import scalalib.Iso
 import lila.memo.SettingStore.{ Formable, StringReader }
-import lila.security.{ Granter, Permission }
-import lila.user.Me
+import lila.core.perm.{ Granter, Permission }
 
 final class ModPresetsApi(settingStore: lila.memo.SettingStore.Builder):
 
@@ -84,7 +83,7 @@ object ModPresets:
           }
 
     private def toPermisssions(s: String): Set[Permission] =
-      Permission(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList) match
+      Permission.ofDbKeys(s.split(",").map(key => s"ROLE_${key.trim.toUpperCase}").toList) match
         case set if set.nonEmpty => set
         case _                   => Set(Permission.Admin)
 

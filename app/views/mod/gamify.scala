@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period
 
 object gamify:
@@ -71,7 +71,7 @@ object gamify:
         div(id := "mod-gamify", cls := "page-menu__content box")(
           boxTop(
             h1(
-              a(href := routes.Mod.gamify, dataIcon := licon.LessThan),
+              a(href := routes.Mod.gamify, dataIcon := Icon.LessThan),
               title
             )
           ),
@@ -102,7 +102,7 @@ object gamify:
     }
 
   def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(using
-      lang: Lang
+      Translate
   ) =
     div(cls := "champ")(
       st.img(src := assetUrl(s"images/mod/$img.png")),

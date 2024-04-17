@@ -26,10 +26,10 @@
   }
 
   &::before {
-    #{$start-direction}: 30px;
+    @include inline-start(30px);
   }
 
   &::after {
-    #{$end-direction}: 30px;
+    @include inline-end(30px);
   }
 }

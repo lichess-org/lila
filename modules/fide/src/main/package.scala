@@ -1,10 +1,6 @@
 package lila.fide
 
-export lila.Lila.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
 
 private val logger = lila.log("player")
-
-type PlayerToken = String
-
-enum FideTC:
-  case standard, rapid, blitz

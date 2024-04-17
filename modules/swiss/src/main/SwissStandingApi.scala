@@ -13,14 +13,14 @@ import lila.db.dsl.{ *, given }
 final class SwissStandingApi(
     mongo: SwissMongo,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
 
   import BsonHandlers.given
 
   private val perPage = 10
 
-  private val pageCache = cacheApi.scaffeine
+  private val pageCache = lila.memo.CacheApi.scaffeine
     .expireAfterWrite(60 minutes)
     .build[(SwissId, Int), JsObject]()
 

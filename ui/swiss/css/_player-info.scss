@@ -12,12 +12,12 @@
   .close {
     position: absolute;
     top: 4px;
-    #{$end-direction}: 5px;
+    @include inline-end(5px);
     opacity: 0.6;
 
     @include transition;
 
-    color: $c-red;
+    color: $c-bad;
 
     &:hover {
       opacity: 1;
@@ -43,7 +43,7 @@
 
     td {
       font-weight: bold;
-      padding-#{$start-direction}: 10px;
+      padding-inline-start: 10px;
       text-align: right;
       line-height: 1.8em;
 
@@ -66,7 +66,7 @@
       }
 
       &:hover {
-        background: mix($c-link, $c-bg-box, 10%);
+        background: $m-primary_bg--mix-10;
       }
     }
 
@@ -78,7 +78,7 @@
     th {
       @extend %roboto;
 
-      padding-#{$start-direction}: 7px;
+      padding-inline-start: 7px;
     }
   }
 
@@ -96,7 +96,7 @@
       }
 
       &:hover {
-        background: mix($c-link, $c-bg-box, 10%);
+        background: $m-primary_bg--mix-10;
       }
     }
 
@@ -106,7 +106,7 @@
     }
 
     th {
-      border-#{$start-direction}: 3px solid transparent;
+      border-inline-start: 3px solid transparent;
 
       @include transition;
     }

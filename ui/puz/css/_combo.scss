@@ -38,7 +38,7 @@
     display: flex;
     flex-flow: column;
     flex: 1 1 100%;
-    margin-#{$start-direction}: 1em;
+    margin-inline-start: 1em;
   }
 
   &__bar {
@@ -58,7 +58,7 @@
 
       position: absolute;
       bottom: 0;
-      #{$start-direction}: 0;
+      @include inline-start(0);
       height: 100%;
     }
 
@@ -116,9 +116,12 @@
     $c-level: $c-primary;
 
     direction: ltr;
-    transform: skewX(-45deg * $transform-direction);
+    transform: skewX(-45deg);
+    @include if-rtl {
+      transform: skewX(45deg);
+    }
     flex: 21% 0 0;
-    margin-#{$end-direction}: 4%;
+    margin-inline-end: 4%;
     font-size: 0.9em;
     height: 1.5em;
     line-height: 1.5em;
@@ -129,7 +132,10 @@
     font-weight: bold;
 
     span {
-      transform: skewX(45deg * $transform-direction);
+      transform: skewX(45deg);
+      @include if-rtl {
+        transform: skewX(-45deg);
+      }
       display: block;
     }
 
@@ -148,7 +154,7 @@
 
     &.active {
       animation: level-fade-in 1s ease-out;
-      background: mix($c-level, black, 80%);
+      background: $m-primary_black--mix-80;
       border: 1px solid $c-level;
       box-shadow: 0 0 10px $c-level;
       color: white;
@@ -158,11 +164,11 @@
       }
 
       &:nth-child(3) {
-        background: mix($c-level, white, 60%);
+        background: $m-primary_white--mix-60;
       }
 
       &:nth-child(4) {
-        background: mix($c-level, white, 40%);
+        background: $m-primary_white--mix-40;
       }
     }
   }

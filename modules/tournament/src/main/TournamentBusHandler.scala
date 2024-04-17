@@ -1,7 +1,5 @@
 package lila.tournament
 
-import lila.game.actorApi.FinishGame
-
 final private class TournamentBusHandler(
     api: TournamentApi,
     leaderboard: LeaderboardApi,
@@ -15,13 +13,13 @@ final private class TournamentBusHandler(
     "adjustCheater",
     "adjustBooster",
     "playban",
-    "teamLeave",
+    "team",
     "berserk"
   ):
 
-    case FinishGame(game, _) => api.finishGame(game)
+    case lila.core.game.FinishGame(game, _) => api.finishGame(game)
 
-    case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
+    case lila.core.mod.MarkCheater(userId, true) =>
       ejectFromEnterable(userId) >>
         leaderboard
           .getAndDeleteRecent(userId, nowInstant.minusDays(30))
@@ -34,11 +32,12 @@ final private class TournamentBusHandler(
         winnersApi.clearAfterMarking(userId)
       ()
 
-    case lila.hub.actorApi.mod.MarkBooster(userId)           => ejectFromEnterable(userId)
-    case lila.hub.actorApi.round.Berserk(gameId, userId)     => api.berserk(gameId, userId)
-    case lila.hub.actorApi.playban.Playban(userId, _, true)  => api.pausePlaybanned(userId)
-    case lila.hub.actorApi.team.KickFromTeam(teamId, userId) => api.kickFromTeam(teamId, userId)
-    case lila.playban.SittingDetected(game, player)          => api.sittingDetected(game, player)
+    case lila.core.mod.MarkBooster(userId)              => ejectFromEnterable(userId)
+    case lila.core.round.Berserk(gameId, userId)        => api.berserk(gameId, userId)
+    case lila.core.playban.Playban(userId, _, true)     => api.pausePlaybanned(userId)
+    case lila.core.team.KickFromTeam(teamId, _, userId) => api.kickFromTeam(teamId, userId)
+    case lila.core.playban.SittingDetected(tourId, userId) =>
+      api.withdraw(tourId, userId, isPause = false, isStalling = true)
 
   private def ejectFromEnterable(userId: UserId) =
     tournamentRepo.withdrawableIds(userId, reason = "ejectFromEnterable").flatMap {

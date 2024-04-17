@@ -19,7 +19,7 @@
       overflow: hidden;
 
       &:last-child {
-        margin-#{$start-direction}: 20px;
+        margin-inline-start: 20px;
       }
     }
 
@@ -29,7 +29,7 @@
       overflow: hidden;
       margin-bottom: 3px;
       text-transform: none;
-      background: mix($c-link, #000, 70%);
+      background: $m-primary_black--mix-70;
     }
   }
 }

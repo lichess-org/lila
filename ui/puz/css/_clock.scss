@@ -9,7 +9,7 @@
     transition: color 0.3s;
     margin: 2vh 0;
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       margin: 0 0 -0.2em 0;
     }
   }
@@ -31,7 +31,7 @@
     font-family: 'storm';
     font-size: 3.5em;
     color: $c-good;
-    margin-#{$start-direction}: 0.3ch;
+    margin-inline-start: 0.3ch;
     animation: mod-fade-out 1.1s ease-out;
   }
 

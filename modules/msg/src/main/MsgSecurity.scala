@@ -2,22 +2,26 @@ package lila.msg
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.clas.{ AreKidsInSameClass, IsTeacherOf }
-import lila.hub.actorApi.report.AutoFlag
-import lila.hub.actorApi.team.IsLeaderOf
+import lila.core.misc.clas.{ AreKidsInSameClass, IsTeacherOf }
+import lila.core.team.IsLeaderOf
 import lila.memo.RateLimit
-import lila.security.Granter
-import lila.shutup.Analyser
-import lila.user.User
+import lila.core.perm.Granter
+import lila.core.shutup.TextAnalyser
+
+import lila.core.report.SuspectId
 
 final private class MsgSecurity(
     colls: MsgColls,
-    prefApi: lila.pref.PrefApi,
-    userRepo: lila.user.UserRepo,
-    getBotUserIds: lila.user.GetBotIds,
-    relationApi: lila.relation.RelationApi,
-    spam: lila.security.Spam,
-    chatPanic: lila.chat.ChatPanic
+    contactApi: ContactApi,
+    prefApi: lila.core.pref.PrefApi,
+    userApi: lila.core.user.UserApi,
+    userRepo: lila.core.user.UserRepo,
+    userCache: lila.core.user.CachedApi,
+    relationApi: lila.core.relation.RelationApi,
+    reportApi: lila.core.report.ReportApi,
+    spam: lila.core.security.SpamApi,
+    chatPanicAllowed: lila.core.chat.panic.IsAllowed,
+    textAnalyser: TextAnalyser
 )(using Executor, Scheduler):
 
   import MsgSecurity.*
@@ -26,7 +30,7 @@ final private class MsgSecurity(
     val normal   = 25
     val verified = 5
     val hog      = 1
-    def apply(u: User.Contact): Int =
+    def apply(u: Contact): Int =
       if u.isApiHog then hog
       else if u.isVerified then verified
       else if u.isDaysOld(30) then normal
@@ -47,12 +51,12 @@ final private class MsgSecurity(
     key = "msg_reply.user"
   )
 
-  private val dirtSpamDedup = lila.memo.OnceEvery.hashCode[String](1 minute)
+  private val dirtSpamDedup = scalalib.cache.OnceEvery.hashCode[String](1 minute)
 
   object can:
 
     def post(
-        contacts: User.Contacts,
+        contacts: Contacts,
         rawText: String,
         isNew: Boolean,
         unlimited: Boolean = false
@@ -84,21 +88,26 @@ final private class MsgSecurity(
             case Dirt =>
               if dirtSpamDedup(text) then
                 val resource = s"msg/${contacts.orig.id}/${contacts.dest.id}"
-                Bus.publish(AutoFlag(contacts.orig.id, resource, text, Analyser.isCritical(text)), "autoFlag")
+                reportApi.autoCommFlag(
+                  SuspectId(contacts.orig.id),
+                  resource,
+                  text,
+                  textAnalyser.isCritical(text)
+                )
             case Spam =>
               if dirtSpamDedup(text) && !contacts.orig.isTroll
               then logger.warn(s"PM spam from ${contacts.orig.id} to ${contacts.dest.id}: $text")
             case _ =>
 
     private def isLimited(
-        contacts: User.Contacts,
+        contacts: Contacts,
         isNew: Boolean,
         unlimited: Boolean,
         text: String
     ): Fu[Option[Verdict]] =
       def limitWith(limiter: RateLimit[UserId]) =
         val cost = limitCost(contacts.orig) * {
-          if !contacts.orig.isVerified && Analyser.containsLink(text) then 2 else 1
+          if !contacts.orig.isVerified && textAnalyser.containsLink(text) then 2 else 1
         }
         limiter(contacts.orig.id, Limit.some, cost)(none)
       if unlimited then fuccess(none)
@@ -115,52 +124,50 @@ final private class MsgSecurity(
     private def isSpam(text: String): Fu[Option[Verdict]] =
       spam.detect(text).so(fuccess(Spam.some))
 
-    private def isTroll(contacts: User.Contacts): Fu[Option[Verdict]] =
+    private def isTroll(contacts: Contacts): Fu[Option[Verdict]] =
       contacts.orig.isTroll.so(fuccess(Troll.some))
 
-    private def isDirt(user: User.Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
-      (isNew && Analyser(text).dirty)
-        .so(userRepo.isCreatedSince(user.id, nowInstant.minusDays(30)).not)
-        .dmap {
-          _.option(Dirt)
-        }
+    private def isDirt(user: Contact, text: String, isNew: Boolean): Fu[Option[Verdict]] =
+      (isNew && textAnalyser(text).dirty)
+        .so(userApi.isCreatedSince(user.id, nowInstant.minusDays(30)).not)
+        .dmap(_.option(Dirt))
 
-    private def destFollowsOrig(contacts: User.Contacts): Fu[Boolean] =
+    private def destFollowsOrig(contacts: Contacts): Fu[Boolean] =
       relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
 
   object may:
 
     def post(orig: UserId, dest: UserId, isNew: Boolean): Fu[Boolean] =
-      userRepo.contacts(orig, dest).flatMapz { post(_, isNew) }
+      contactApi.contacts(orig, dest).flatMapz { post(_, isNew) }
 
-    def post(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
+    def post(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
       fuccess(!contacts.dest.isLichess) >>& {
-        fuccess(Granter.byRoles(_.PublicMod)(~contacts.orig.roles)) >>| {
+        fuccess(Granter.ofDbKeys(_.PublicMod, ~contacts.orig.roles)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
-            chatPanic.allowed(contacts.orig.id, userRepo.byId) >>&
+            chatPanicAllowed(contacts.orig.id)(userApi.byId) >>&
             kidCheck(contacts, isNew) >>&
-            getBotUserIds().map { botIds => !contacts.userIds.exists(botIds.contains) }
+            userCache.getBotIds.map { botIds => !contacts.userIds.exists(botIds.contains) }
         }
       }
 
-    private def create(contacts: User.Contacts): Fu[Boolean] =
-      prefApi.get(contacts.dest.id, _.message).flatMap {
-        case lila.pref.Pref.Message.NEVER  => fuccess(false)
-        case lila.pref.Pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
-        case lila.pref.Pref.Message.ALWAYS => fuccess(true)
+    private def create(contacts: Contacts): Fu[Boolean] =
+      prefApi.getMessage(contacts.dest.id).flatMap {
+        case lila.core.pref.Message.NEVER  => fuccess(false)
+        case lila.core.pref.Message.FRIEND => relationApi.fetchFollows(contacts.dest.id, contacts.orig.id)
+        case lila.core.pref.Message.ALWAYS => fuccess(true)
       }
 
     // Even if the dest prefs disallow it,
     // you can still reply if they recently messaged you,
     // unless they deleted the thread.
-    private def reply(contacts: User.Contacts): Fu[Boolean] =
+    private def reply(contacts: Contacts): Fu[Boolean] =
       colls.thread.exists(
         $id(MsgThread.id(contacts.orig.id, contacts.dest.id)) ++
           $doc("del".$ne(contacts.dest.id))
       )
 
-    private def kidCheck(contacts: User.Contacts, isNew: Boolean): Fu[Boolean] =
+    private def kidCheck(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
       import contacts.*
       if !isNew || !hasKid then fuTrue
       else
@@ -170,13 +177,13 @@ final private class MsgSecurity(
           case (true, false) => isTeacherOf(dest.id, orig.id)
           case _             => fuFalse
 
-  private def isTeacherOf(contacts: User.Contacts): Fu[Boolean] =
+  private def isTeacherOf(contacts: Contacts): Fu[Boolean] =
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
   private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
     Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
 
-  private def isLeaderOf(contacts: User.Contacts) =
+  private def isLeaderOf(contacts: Contacts) =
     Bus.ask[Boolean]("teamIsLeaderOf") { IsLeaderOf(contacts.orig.id, contacts.dest.id, _) }
 
 private object MsgSecurity:

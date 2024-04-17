@@ -2,7 +2,7 @@ package views.html.team
 import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
 import lila.team.Team
 
@@ -40,7 +40,8 @@ object bits:
 
   private[team] object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
-    private val cache = lila.memo.CacheApi.scaffeineNoScheduler
+    private val cache = lila.memo.CacheApi
+      .scaffeineNoScheduler(using env.executor)
       .expireAfterAccess(10 minutes)
       .maximumSize(1024)
       .build[Markdown, Html]()
@@ -51,7 +52,7 @@ object bits:
     tr(cls := "paginated")(
       td(cls := "subject")(
         a(
-          dataIcon := licon.Group,
+          dataIcon := Icon.Group,
           cls := List(
             "team-name text" -> true,
             "mine"           -> isMine
@@ -78,14 +79,18 @@ object bits:
 
   private[team] def layout(
       title: String,
-      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      openGraph: Option[lila.web.OpenGraph] = None,
+      pageModule: Option[PageModule] = None,
       moreJs: Frag = emptyFrag,
+      modules: EsmList = Nil,
       robots: Boolean = netConfig.crawlable
   )(body: Frag)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),
-      moreJs = frag(infiniteScrollTag, moreJs),
+      modules = infiniteScrollTag ++ modules,
+      moreJs = moreJs,
+      pageModule = pageModule,
       openGraph = openGraph,
       robots = robots
     )(body)

@@ -3,18 +3,20 @@ package lila.api
 import chess.format.Fen
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
+import scalalib.Json.given
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.common.Json.given
 import lila.common.config.*
-import lila.common.paginator.{ Paginator, PaginatorJson }
+import lila.core.config.*
+import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.game.BSONHandlers.given
 import lila.game.Game.BSONFields as G
 import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game }
-import lila.user.User
+import lila.game.GameExt.computeMoveTimes
 
 final private[api] class GameApi(
     net: NetConfig,
@@ -72,7 +74,7 @@ final private[api] class GameApi(
       maxPerPage = nb
     ).flatMap { pag =>
       gamesJson(withFlags.copy(fens = false))(pag.currentPageResults).map { games =>
-        PaginatorJson(pag.withCurrentPageResults(games))
+        Json.toJsObject(pag.withCurrentPageResults(games))
       }
     }
 
@@ -114,7 +116,7 @@ final private[api] class GameApi(
       maxPerPage = nb
     ).flatMap { pag =>
       gamesJson(withFlags.copy(fens = false))(pag.currentPageResults).map { games =>
-        PaginatorJson(pag.withCurrentPageResults(games))
+        Json.toJsObject(pag.withCurrentPageResults(games))
       }
     }
 
@@ -137,7 +139,7 @@ final private[api] class GameApi(
   private def gameToJson(
       g: Game,
       analysisOption: Option[Analysis],
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       withFlags: WithFlags
   ) =
     Json
@@ -171,7 +173,7 @@ final private[api] class GameApi(
             .add("name", p.name)
             .add("provisional" -> p.provisional)
             .add("moveCentis" -> withFlags.moveTimes.so:
-              g.moveTimes(p.color).map(_.map(_.centis))
+              lila.game.GameExt.computeMoveTimes(g, p.color).map(_.map(_.centis))
             )
             .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
             .add(
@@ -210,8 +212,4 @@ object GameApi:
       blurs: Boolean = false,
       token: Option[String] = none
   ):
-
-    def applyToken(validToken: String) =
-      copy(
-        blurs = token.has(validToken)
-      )
+    def applyToken(validToken: String) = copy(blurs = token.has(validToken))

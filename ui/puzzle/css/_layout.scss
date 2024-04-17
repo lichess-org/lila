@@ -1,12 +1,14 @@
-#main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+$puzzle-block-gap: $block-gap;
 
-  @include breakpoint($mq-col2) {
-    --main-max-width: auto;
+#main-wrap {
+  ---main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+
+  @include mq-at-least-col2 {
+    ---main-max-width: auto;
   }
 }
 
-@include breakpoint(max-height 1050px) {
+@media (max-height: at-most(1050px)) {
   body {
     overflow-y: scroll;
     margin-bottom: 0;
@@ -54,15 +56,15 @@
     grid-area: kb-move;
   }
 
-  grid-template-areas: 'board' 'controls' 'tools' 'session' 'kb-move' 'side';
-  grid-row-gap: $block-gap;
+  grid-template-areas: 'board' 'controls' 'tools' 'session' 'side' 'kb-move';
+  grid-row-gap: $puzzle-block-gap;
 
   &__moves {
     display: none;
   }
 
-  @include breakpoint($mq-col2) {
-    grid-template-columns: var(--col2-uniboard-width) var(--gauge-gap) $col2-uniboard-table;
+  @include mq-at-least-col2 {
+    grid-template-columns: var(---col2-uniboard-width) $puzzle-block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board   gauge tools'
@@ -75,29 +77,29 @@
     }
   }
 
-  @include breakpoint($mq-col2-uniboard-squeeze) {
-    grid-template-columns: $col2-uniboard-squeeze-width var(--gauge-gap) $col2-uniboard-squeeze-table;
+  @include mq-is-col2-squeeze {
+    grid-template-columns: $col2-uniboard-squeeze-width $puzzle-block-gap $col2-uniboard-squeeze-table;
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     grid-template-areas:
       'side    . board   gauge tools'
       'side    . session .     controls'
       'side    . kb-move .     controls'
       'side    . .       .     .';
-    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-width) var(--gauge-gap) $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $puzzle-block-gap var(---col3-uniboard-width) $puzzle-block-gap $col3-uniboard-table;
   }
 
   &__side {
     display: grid;
-    grid-gap: $block-gap;
+    grid-gap: $puzzle-block-gap;
     grid-template-areas: 'user' 'theme' 'metas' 'config';
 
     .puzzle-replay & {
       grid-template-areas: 'replay' 'user' 'theme' 'metas' 'config';
     }
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 'metas user' 'metas theme' 'config theme' '. theme';
       grid-template-rows: min-content min-content min-content;
@@ -107,7 +109,7 @@
       }
     }
 
-    @include breakpoint($mq-x-large) {
+    @media (min-width: at-least($x-large)) {
       grid-template-columns: 1fr;
       grid-template-areas: 'metas' 'user' 'theme' 'config';
       grid-template-rows: min-content min-content min-content;

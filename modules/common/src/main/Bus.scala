@@ -4,14 +4,44 @@ import akka.actor.{ ActorRef, Scheduler }
 
 import scala.jdk.CollectionConverters.*
 
+trait Tellable extends Any:
+  def !(msg: Matchable): Unit
+object Tellable:
+  case class Actor(ref: akka.actor.ActorRef) extends Tellable:
+    def !(msg: Matchable) = ref ! msg
+  case class SyncActor(ref: scalalib.actor.SyncActor) extends Tellable:
+    def !(msg: Matchable) = ref ! msg
+  def apply(f: PartialFunction[Matchable, Unit]) = new Tellable:
+    def !(msg: Matchable) = f.applyOrElse(msg, _ => ())
+
+object NamedBus:
+  object fishnet:
+    import lila.core.fishnet.*
+    def analyseGame(gameId: GameId): Unit                   = Bus.publish(GameRequest(gameId), "fishnet")
+    def analyseStudyChapter(req: StudyChapterRequest): Unit = Bus.publish(req, "fishnet")
+  object timeline:
+    import lila.core.timeline.*
+    def apply(propagate: Propagate): Unit = Bus.publish(propagate, "timeline")
+
+final class BusChannel(channel: Bus.Channel):
+  def apply(msg: Bus.Payload): Unit                       = Bus.publish(msg, channel)
+  def subscribe(subscriber: Bus.SubscriberFunction): Unit = Bus.subscribeFun(channel)(subscriber)
+
+object BusChannel:
+  val forumPost = BusChannel("forumPost")
+
 object Bus:
 
   type Channel    = String
   type Subscriber = Tellable
+  type Payload    = Matchable
 
-  case class Event(payload: Matchable, channel: Channel)
+  type SubscriberFunction = PartialFunction[Payload, Unit]
 
-  def publish(payload: Matchable, channel: Channel): Unit = bus.publish(payload, channel)
+  val named = NamedBus
+  val chan  = BusChannel
+
+  def publish(payload: Payload, channel: Channel): Unit = bus.publish(payload, channel)
 
   export bus.{ size, subscribe, unsubscribe }
 
@@ -20,13 +50,16 @@ object Bus:
   def subscribe(subscriber: Tellable, to: Channel*)   = to.foreach { bus.subscribe(subscriber, _) }
   def subscribe(ref: ActorRef, to: Channel*)          = to.foreach { bus.subscribe(Tellable.Actor(ref), _) }
   def subscribe(ref: ActorRef, to: Iterable[Channel]) = to.foreach { bus.subscribe(Tellable.Actor(ref), _) }
+  def subscribe(ref: scalalib.actor.SyncActor, to: Channel*) = to.foreach {
+    bus.subscribe(Tellable.SyncActor(ref), _)
+  }
 
-  def subscribeFun(to: Channel*)(f: PartialFunction[Matchable, Unit]): Tellable =
+  def subscribeFun(to: Channel*)(f: SubscriberFunction): Tellable =
     val t = Tellable(f)
     subscribe(t, to*)
     t
 
-  def subscribeFuns(subscriptions: (Channel, PartialFunction[Matchable, Unit])*): Unit =
+  def subscribeFuns(subscriptions: (Channel, SubscriberFunction)*): Unit =
     subscriptions.foreach: (channel, subscriber) =>
       subscribeFun(channel)(subscriber)
 
@@ -50,7 +83,7 @@ object Bus:
       .withTimeout(timeout, s"Bus.ask $channel $msg")
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
 
-  private val bus = EventBus[Matchable, Channel, Tellable](
+  private val bus = EventBus[Payload, Channel, Tellable](
     initialCapacity = 4096,
     publish = (tellable, event) => tellable ! event
   )

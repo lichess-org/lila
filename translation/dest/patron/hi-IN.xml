@@ -80,4 +80,5 @@
   <string name="nowOneMonth">अब आप एक महीने के लिए Lichess संरक्षक हैं!</string>
   <string name="downgradeNextMonth">एक महीने बाद, आपसे फिर से शुल्क नहीं लिया जाएगा, और आपका लाइचेस खाता सामान्य खाते में डाउनग्रेड हो जाएगा।</string>
   <string name="changeCurrency">मुद्रा बदलें</string>
+  <string name="paymentDetails">भुगतान विवरण</string>
 </resources>

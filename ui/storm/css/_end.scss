@@ -23,7 +23,7 @@
   grid-column-gap: $block-gap;
   grid-template-areas: 'high' 'score' 'play' 'stats' 'history';
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     grid-template-areas:
       'high high'
       'score stats'
@@ -36,12 +36,12 @@
 
     padding: 1.5em 1.5em;
     background: $c-brag;
-    color: $c-brag-over;
+    color: $c-over;
 
     &__content {
       @extend %flex-between;
 
-      @include breakpoint($mq-col2) {
+      @include mq-at-least-col2 {
         &::before,
         &::after {
           content: ' ';
@@ -70,7 +70,7 @@
   &__stats {
     @extend %flex-center;
 
-    padding: 2vh var(--box-padding);
+    padding: 2vh var(---box-padding);
     align-items: stretch;
 
     table {
@@ -94,10 +94,10 @@
     justify-content: center;
     align-items: center;
     background: $c-good;
-    color: $c-good-over;
+    color: $c-over;
     padding: 1em 0;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       padding: 1em 3em;
     }
 
@@ -107,7 +107,7 @@
       text-align: center;
       font-size: 11em;
 
-      @include breakpoint($mq-xx-small) {
+      @media (min-width: at-least($xx-small)) {
         font-size: 14em;
       }
     }

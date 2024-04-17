@@ -7,7 +7,7 @@ $c-tabs-active: $c-accent !default;
   align-items: flex-end;
   user-select: none;
 
-  @include breakpoint($mq-not-xx-small) {
+  @media (max-width: at-most($xx-small)) {
     font-size: 0.9em;
   }
 
@@ -28,7 +28,7 @@ $c-tabs-active: $c-accent !default;
     min-width: 15%;
     letter-spacing: -0.5px;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       letter-spacing: inherit;
     }
 
@@ -51,6 +51,6 @@ $c-tabs-active: $c-accent !default;
   }
 
   .unread {
-    margin-#{$start-direction}: 0.3em;
+    margin-inline-start: 0.3em;
   }
 }

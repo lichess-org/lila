@@ -3,7 +3,7 @@ package views.html.tournament
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.TournamentShield
 
 object shields:
@@ -52,7 +52,7 @@ object shields:
         div(cls := "page-menu__content box")(
           boxTop(
             h1(
-              a(href := routes.Tournament.shields, dataIcon := licon.LessThan, cls := "text"),
+              a(href := routes.Tournament.shields, dataIcon := Icon.LessThan, cls := "text"),
               frag(categ.name, " • ", trans.arena.tournamentShields())
             )
           ),

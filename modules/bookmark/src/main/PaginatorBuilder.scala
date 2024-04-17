@@ -1,9 +1,8 @@
 package lila.bookmark
 
-import lila.common.paginator.*
+import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo }
-import lila.user.User
+import lila.core.game.{ Game, GameRepo }
 
 final class PaginatorBuilder(
     coll: Coll,
@@ -14,7 +13,7 @@ final class PaginatorBuilder(
     Paginator(
       new UserAdapter(user),
       currentPage = page,
-      maxPerPage = lila.common.config.MaxPerPage(12)
+      maxPerPage = MaxPerPage(12)
     )
 
   final class UserAdapter(user: User) extends AdapterLike[Game]:
@@ -44,6 +43,6 @@ final class PaginatorBuilder(
             ReplaceRootField("game")
           )
         .map:
-          _.flatMap(lila.game.BSONHandlers.gameBSONHandler.readOpt)
+          _.flatMap(gameRepo.gameHandler.readOpt)
 
     private def selector = $doc("u" -> user.id)

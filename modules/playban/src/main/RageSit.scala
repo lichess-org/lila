@@ -1,29 +1,21 @@
 package lila.playban
 
 import chess.{ Color, Speed }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
-import scala.math.{ log10, sqrt }
+import lila.core.playban.RageSit
 
-import lila.game.Game
+object RageSit:
 
-opaque type RageSit = Int
-object RageSit extends OpaqueInt[RageSit]:
+  object extensions:
+    extension (a: RageSit)
+      inline def counter: Int = a.value
+      def isBad               = a.value <= -40
+      def isVeryBad           = a.value <= -80
+      def isTerrible          = a.value <= -160
+      def isLethal            = a.value <= -200
 
-  extension (a: RageSit)
-    inline def counter: Int = a.value
-    def isBad               = a.value <= -40
-    def isVeryBad           = a.value <= -80
-    def isTerrible          = a.value <= -160
-    def isLethal            = a.value <= -200
-
-    def goneWeight: Float =
-      if !isBad then 1f
-      else (1 - 0.7 * sqrt(log10(-(a.counter / 10) - 3))).toFloat.max(0.1f)
-
-    def counterView = a.counter / 10
-
-  val empty = RageSit(0)
+  val empty = lila.core.playban.RageSit(0)
 
   enum Update:
     case Noop
@@ -54,5 +46,3 @@ object RageSit extends OpaqueInt[RageSit]:
       case Speed.Blitz           => 1
       case _                     => 2
   }
-
-case class SittingDetected(game: Game, userId: UserId)

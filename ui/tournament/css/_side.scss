@@ -5,7 +5,7 @@
     flex: 1 1 7em;
     margin-top: $block-gap;
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       min-height: inherit;
     }
   }
@@ -15,7 +15,7 @@
   @extend %box-neat-force;
 
   background: $c-bg-box;
-  padding: #{$block-gap * 0.6} $block-gap;
+  padding: 1.5rem $block-gap;
 
   section {
     margin-bottom: $block-gap;
@@ -26,7 +26,7 @@
 
     &::before {
       font-size: 3rem;
-      margin-#{$end-direction}: 4%;
+      margin-inline-end: 4%;
     }
 
     p {
@@ -96,7 +96,7 @@
   overflow: visible;
 
   /* fixes invisible spectators on firefox, col2 */
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     margin: 0 $block-gap;
   }
 }

@@ -1,9 +1,7 @@
 package lila.insight
 
-import lila.common.Heapsort.botN
-import lila.common.config
-import lila.game.{ Game, GameRepo, Pov }
-import lila.user.User
+import scalalib.HeapSort.botN
+import lila.game.{ GameRepo }
 
 final class InsightApi(
     storage: InsightStorage,
@@ -11,7 +9,8 @@ final class InsightApi(
     gameRepo: GameRepo,
     indexer: InsightIndexer,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor)
+    extends lila.game.core.insight.InsightApi:
 
   import InsightApi.*
 
@@ -43,12 +42,11 @@ final class InsightApi(
       }
       .monSuccess(_.insight.user)
 
-  def askPeers[X](question: Question[X], rating: MeanRating, nbGames: config.Max): Fu[Answer[X]] =
+  def askPeers[X](question: Question[X], rating: MeanRating, nbGames: Max): Fu[Answer[X]] =
     pipeline
       .aggregate(question, Right(Question.Peers(rating)), withPovs = false, nbGames = nbGames)
-      .map { aggDocs =>
+      .map: aggDocs =>
         Answer(question, AggregationClusters(question, aggDocs), Nil)
-      }
       .monSuccess(_.insight.peers)
 
   def userStatus(user: User): Fu[UserStatus] =
@@ -66,7 +64,7 @@ final class InsightApi(
     indexer.all(user).monSuccess(_.insight.index).andDo(userCache.put(user.id, computeUser(user.id)))
 
   def updateGame(g: Game) =
-    Pov(g).traverse_ { pov =>
+    lila.game.Pov.list(g).traverse_ { pov =>
       pov.player.userId.so: userId =>
         storage.find(InsightEntry.povToId(pov)).flatMapz {
           indexer.update(g, userId, _)

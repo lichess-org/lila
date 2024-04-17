@@ -22,7 +22,7 @@ private object PlanCheckout:
     .verifying(Constraints.max(pricing.max.amount))
     .verifying(Constraints.min(pricing.min.amount))
 
-final class PlanCheckoutForm(lightUserApi: lila.user.LightUserApi):
+final class PlanCheckoutForm(lightUserApi: lila.core.user.LightUserApi):
 
   private def make(
       currency: Currency
@@ -39,7 +39,7 @@ final class PlanCheckoutForm(lightUserApi: lila.user.LightUserApi):
       "email"  -> optional(email),
       "amount" -> PlanCheckout.amountField(pricing),
       "freq"   -> nonEmptyText,
-      "gift" -> optional(lila.user.UserForm.historicalUsernameField)
+      "gift" -> optional(lila.common.Form.username.historicalField)
         .verifying("Unknown receiver", n => n.forall { blockingFetchUser(_).isDefined })
         .verifying(
           "Receiver is already a Patron",

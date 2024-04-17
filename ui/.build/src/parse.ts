@@ -18,8 +18,6 @@ export const parseModules = async (): Promise<[Map<string, LichessModule>, Map<s
       if (modules.has(dep)) deplist.push(dep);
     }
     moduleDeps.set(mod.name, deplist);
-    // for package.jsons with multiple esm bundles, subsequent bundles depend on the first
-    mod.bundles?.esm?.slice(1).forEach(r => moduleDeps.set(r.output, [mod.name, ...deplist]));
   }
   return [modules, moduleDeps];
 };
@@ -47,35 +45,17 @@ async function parseModule(moduleDir: string): Promise<LichessModule> {
   parseScripts(mod, 'scripts' in pkg ? pkg.scripts : {});
 
   if ('lichess' in pkg && 'modules' in pkg.lichess) {
-    for (const moduleType in pkg.lichess.modules) {
-      if (moduleType !== 'esm' && moduleType !== 'iife') {
-        env.log(
-          c.warn('WARNING') +
-            ` - Unsupported module type '${c.cyan(moduleType)}' in '${c.cyan(mod.name + '/package.json')}'`,
-        );
-        continue;
-      }
-      mod.bundles ??= {};
-      mod.bundles[moduleType] = Object.entries(pkg.lichess.modules[moduleType]).map(x => ({
-        input: x[0],
-        output: x[1] as string,
-      }));
-    }
+    mod.bundles = Object.entries(pkg.lichess.modules).map(x => ({
+      input: x[0],
+      output: x[1] as string,
+    }));
   }
-  if ('lichess' in pkg && 'copy' in pkg.lichess) {
-    const copy: any[] = Array.isArray(pkg.lichess.copy) ? pkg.lichess.copy : [pkg.lichess.copy];
-    const flattener = new Map<string, Set<string>>();
-    for (const s of copy) {
-      if (!Array.isArray(s.src)) s.src = [s.src];
-      for (const src of s.src) {
-        const srcDest = flattener.get(src) ?? new Set<string>();
-        srcDest.add(s.dest);
-        flattener.set(src, srcDest);
-      }
-    }
-    mod.copy = [];
-    for (const [src, dests] of flattener.entries())
-      for (const dest of dests) mod.copy.push({ src, dest, mod });
+  if ('lichess' in pkg && 'sync' in pkg.lichess) {
+    mod.sync = Object.entries(pkg.lichess.sync).map(x => ({
+      src: x[0],
+      dest: x[1] as string,
+      mod,
+    }));
   }
   return mod;
 }

@@ -4,8 +4,7 @@ package round
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Pov
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object watcher:
 
@@ -15,7 +14,7 @@ object watcher:
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
   )(using ctx: PageContext) =
@@ -24,7 +23,7 @@ object watcher:
       chat.json(
         c.chat,
         c.lines,
-        name = trans.spectatorRoom.txt(),
+        name = trans.site.spectatorRoom.txt(),
         timeout = c.timeout,
         withNoteAge = ctx.isAuth.option(pov.game.secondsSinceCreation),
         public = true,
@@ -35,17 +34,15 @@ object watcher:
     bits.layout(
       variant = pov.game.variant,
       title = s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator",
-      moreJs = frag(
-        roundNvuiTag,
-        jsModuleInit(
-          "round",
-          Json.obj(
-            "data" -> data,
-            "i18n" -> jsI18n(pov.game),
-            "chat" -> chatJson
-          )
+      modules = roundNvuiTag,
+      pageModule = PageModule(
+        "round",
+        Json.obj(
+          "data" -> data,
+          "i18n" -> jsI18n(pov.game),
+          "chat" -> chatJson
         )
-      ),
+      ).some,
       openGraph = povOpenGraph(pov).some,
       zenable = true
     ):
@@ -59,13 +56,14 @@ object watcher:
         div(cls := "round__underchat")(bits.underchat(pov.game))
       )
 
-  def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Epd], pgn: chess.format.pgn.Pgn)(using
+  def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Full], pgn: chess.format.pgn.Pgn)(using
       ctx: PageContext
   ) =
     bits.layout(
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
-      openGraph = povOpenGraph(pov).some
+      openGraph = povOpenGraph(pov).some,
+      pageModule = none
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(

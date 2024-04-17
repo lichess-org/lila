@@ -1,6 +1,7 @@
 package lila.api
 
 import lila.common.Bus
+import lila.web.AnnounceApi
 
 final private[api] class Cli(
     security: lila.security.Env,
@@ -17,7 +18,8 @@ final private[api] class Cli(
     video: lila.video.Env,
     puzzle: lila.puzzle.Env,
     team: lila.team.Env,
-    notify: lila.notify.Env
+    notify: lila.notify.Env,
+    manifest: lila.web.AssetManifest
 )(using Executor)
     extends lila.common.Cli:
 
@@ -31,24 +33,15 @@ final private[api] class Cli(
   def process =
     case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
-      import lila.common.AssetVersion
-      AssetVersion.change()
+      manifest.update()
+      import lila.core.net.AssetVersion
+      val current = AssetVersion.change()
+      Bus.publish(AssetVersion.Changed(current), "assetVersion")
       fuccess(s"Changed to ${AssetVersion.current}")
-    case "announce" :: "cancel" :: Nil =>
-      AnnounceStore.set(none)
-      Bus.publish(AnnounceStore.cancel, "announce")
-      fuccess("Removed announce")
-    case "announce" :: msgWords =>
-      AnnounceStore.set(msgWords.mkString(" ")) match
-        case Some(announce) =>
-          Bus.publish(announce, "announce")
-          fuccess(announce.json.toString)
-        case None =>
-          fuccess:
-            "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
+    case "announce" :: words => lila.web.AnnounceApi.cli(words)
     case "threads" :: Nil =>
       fuccess:
-        val threads = ornicar.scalalib.Jvm.threadGroups()
+        val threads = scalalib.Jvm.threadGroups()
         s"${threads.map(_.total).sum} threads\n\n${threads.mkString("\n")}"
 
   private def run(args: List[String]): Fu[String] = {

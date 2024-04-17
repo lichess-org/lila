@@ -6,7 +6,7 @@
     color: $c-font-page;
     max-width: 350px;
     margin-top: 9em;
-    margin-#{$end-direction}: $block-gap;
+    margin-inline-end: $block-gap;
 
     img {
       @extend %box-radius;
@@ -22,7 +22,7 @@
 
     display: none;
 
-    @include breakpoint($mq-large) {
+    @media (min-width: at-least($large)) {
       display: block;
     }
   }
@@ -38,13 +38,13 @@
       display: none;
     }
 
-    @include breakpoint($mq-x-small) {
+    @media (min-width: at-least($x-small)) {
       .host {
         display: table-cell;
       }
     }
 
-    @include breakpoint($mq-small) {
+    @media (min-width: at-least($small)) {
       .players {
         display: table-cell;
       }

@@ -3,13 +3,13 @@ package lila.lobby
 import lila.common.config.*
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.user.User
+import lila.core.perf.UserWithPerfs
 
 final class SeekApi(
+    userApi: lila.core.user.UserApi,
     config: SeekApi.Config,
     biter: Biter,
-    relationApi: lila.relation.RelationApi,
-    perfsRepo: lila.user.UserPerfsRepo,
+    relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi
 )(using Executor):
   import config.*
@@ -38,12 +38,12 @@ final class SeekApi(
 
   def forAnon = cache.get(ForAnon)
 
-  def forMe(using me: User | User.WithPerfs): Fu[List[Seek]] = for
+  def forMe(using me: User | UserWithPerfs): Fu[List[Seek]] = for
     user <- me match
-      case u: User.WithPerfs => fuccess(u)
-      case u: User           => perfsRepo.withPerfs(u)
+      case u: UserWithPerfs => fuccess(u)
+      case u: User          => userApi.withPerfs(u)
     blocking <- relationApi.fetchBlocking(user.id)
-    seeks    <- forUser(LobbyUser.make(user, lila.pool.Blocking(blocking)))
+    seeks    <- forUser(LobbyUser.make(user, lila.core.pool.Blocking(blocking)))
   yield seeks
 
   def forUser(user: LobbyUser): Fu[List[Seek]] =
@@ -106,7 +106,7 @@ final class SeekApi(
       .void
       .andDo(cacheClear())
 
-  def removeByUser(user: lila.user.User) =
+  def removeByUser(user: User) =
     coll.delete.one($doc("user.id" -> user.id)).void.andDo(cacheClear())
 
 private object SeekApi:

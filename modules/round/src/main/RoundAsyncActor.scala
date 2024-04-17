@@ -6,22 +6,26 @@ import play.api.libs.json.*
 
 import scala.util.chaining.*
 
-import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
-import lila.hub.AsyncActor
-import lila.hub.actorApi.round.{ Abort, BotPlay, FishnetPlay, FishnetStart, IsOnGame, Rematch, Resign }
+import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
+import scalalib.actor.AsyncActor
+import lila.core.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.socket.{ GetVersion, Socket, SocketSend, SocketVersion, UserLagCache }
-
-import actorApi.*
-import round.*
+import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
+import lila.core.user.FlairGet
+import lila.game.GameExt.goBerserk
+import lila.game.GameExt.setBlindfold
+import lila.game.GameExt.abandoned
+import lila.game.GameExt.withClock
+import lila.game.GameExt.startClock
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
     gameId: GameId,
     socketSend: SocketSend,
+    putUserLag: userLag.Put,
     private var version: SocketVersion
-)(using Executor, lila.user.FlairApi.Getter)(using proxy: GameProxy)
-    extends AsyncActor:
+)(using Executor, FlairGet)(using proxy: GameProxy)
+    extends AsyncActor(RoundAsyncActor.monitor):
 
   import RoundSocket.Protocol
   import RoundAsyncActor.*
@@ -54,7 +58,7 @@ final private class RoundAsyncActor(
     def setBye(): Unit =
       bye = true
 
-    private def isHostingSimul: Fu[Boolean] = mightBeSimul.so(userId).so(isSimulHost.apply)
+    private def isHostingSimul: Fu[Boolean] = mightBeSimul.so(userId).so(simulApi.resolve().isSimulHost)
 
     private def timeoutMillis: Long = {
       val base = {
@@ -139,16 +143,14 @@ final private class RoundAsyncActor(
       fuccess:
         promise.success:
           (userId.is(whitePlayer.userId) && whitePlayer.isOnline) ||
-            (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
+          (userId.is(blackPlayer.userId) && blackPlayer.isOnline)
 
-    case lila.chat.RoundLine(line, watcher) =>
-      lila.chat
-        .JsonView(line)
-        .map: json =>
-          publish(List(line match
-            case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
-            case l: lila.chat.PlayerLine => Event.PlayerMessage(json)
-          ))
+    case lila.chat.RoundLine(line, json, watcher) =>
+      fuccess:
+        publish(List(line match
+          case l: lila.chat.UserLine   => Event.UserMessage(json, l.troll, watcher)
+          case l: lila.chat.PlayerLine => Event.PlayerMessage(json)
+        ))
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) =>
       handle(fullId.playerId): pov =>
@@ -167,20 +169,10 @@ final private class RoundAsyncActor(
           }
           .inject(Nil)
 
-    case a: lila.analyse.actorApi.AnalysisProgress =>
+    case lila.tree.AnalysisProgress(payload) =>
       fuccess:
         socketSend:
-          RP.Out.tellRoom(
-            roomId,
-            Socket.makeMessage(
-              "analysisProgress",
-              Json.obj(
-                "analysis" -> lila.analyse.JsonView.bothPlayers(a.game.startedAtPly, a.analysis),
-                "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes:
-                  TreeBuilder(a.game, a.analysis.some, a.initialFen, JsonView.WithFlags())
-              )
-            )
-          )
+          RP.Out.tellRoom(roomId, makeMessage("analysisProgress", payload()))
 
     // round stuff
 
@@ -234,9 +226,8 @@ final private class RoundAsyncActor(
       handle(color): pov =>
         val berserked = pov.game.goBerserk(color)
         berserked
-          .so { progress =>
+          .so: progress =>
             (proxy.save(progress) >> gameRepo.goBerserk(pov)).inject(progress.events)
-          }
           .andDo(promise.success(berserked.isDefined))
 
     case Blindfold(playerId, value) =>
@@ -292,7 +283,7 @@ final private class RoundAsyncActor(
     case DrawClaim(playerId)  => handle(playerId)(drawer.claim)
     case Cheat(color) =>
       handle: game =>
-        (game.playable && !game.imported).so:
+        (game.playable && !game.sourceIs(_.Import)).so:
           finisher.other(game, _.Cheat, Some(!color))
     case TooManyPlies => handle(drawer.force(_))
 
@@ -369,7 +360,7 @@ final private class RoundAsyncActor(
 
     case FishnetStart =>
       proxy.withGame: g =>
-        g.playableByAi.so(player.requestFishnet(g, this))
+        fuccess(g.playableByAi.so(player.requestFishnet(g, this)))
 
     case Tick =>
       proxy.withGameOptionSync { g =>
@@ -408,7 +399,7 @@ final private class RoundAsyncActor(
         user  <- pov.player.userId
         clock <- pov.game.clock
         lag   <- clock.lag(pov.color).lagMean
-      do UserLagCache.put(user, lag)
+      do putUserLag(user, lag)
 
   private def notifyGone(color: Color, gone: Boolean): Funit =
     proxy.withPov(color): pov =>
@@ -423,7 +414,7 @@ final private class RoundAsyncActor(
         publishBoardBotGone(pov, millis.some)
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
-    if Game.isBoardOrBotCompatible(pov.game) then
+    if lila.game.Game.isBoardOrBotCompatible(pov.game) then
       lila.common.Bus.publish(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone.makeChan(gameId)
@@ -453,7 +444,7 @@ final private class RoundAsyncActor(
   private def publish[A](events: Events): Unit =
     if events.nonEmpty then
       events.foreach: e =>
-        version = version.incVersion
+        version = version.map(_ + 1)
         socketSend:
           Protocol.Out.tellVersion(roomId, version, e)
       if events.exists:
@@ -483,6 +474,8 @@ object RoundAsyncActor:
   case object WsBoot
   case class LilaStop(promise: Promise[Unit])
 
+  private val monitor = AsyncActor.Monitor(msg => lila.log("asyncActor").warn(s"unhandled msg: $msg"))
+
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[Instant]):
 
     def decline = TakebackSituation(nbDeclined + 1, nowInstant.some)
@@ -506,6 +499,6 @@ object RoundAsyncActor:
       val player: Player,
       val drawer: Drawer,
       val forecastApi: ForecastApi,
-      val isSimulHost: IsSimulHost,
+      val simulApi: lila.core.data.CircularDep[lila.core.simul.SimulApi],
       val jsonView: JsonView
   )

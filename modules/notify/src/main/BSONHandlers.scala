@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
+import lila.core.notify.*
 
 private object BSONHandlers:
   private given BSONDocumentHandler[StreamStart]                       = Macros.handler

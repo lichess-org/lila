@@ -5,10 +5,10 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 import lila.gathering.Condition.WithVerdicts
-import lila.hub.LightTeam
+import lila.core.team.LightTeam
 import lila.swiss.{ Swiss, SwissPairing, SwissRoundNumber }
 
 object show:
@@ -28,36 +28,34 @@ object show:
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
     views.html.base.layout(
       title = fullName(s, team),
-      moreJs = frag(
-        hasScheduleInput.option(jsModule("flatpickr")),
-        jsModuleInit(
-          "swiss",
-          Json
-            .obj(
-              "data"   -> data,
-              "i18n"   -> bits.jsI18n,
-              "userId" -> ctx.userId,
-              "chat" -> chatOption.map: c =>
-                chat.json(
-                  c.chat,
-                  c.lines,
-                  name = trans.chatRoom.txt(),
-                  timeout = c.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
-                  localMod = isLocalMod,
-                  writeable = !c.locked
-                ),
-              "showRatings" -> ctx.pref.showRatings
-            )
-            .add("schedule" -> hasScheduleInput)
-        )
-      ),
+      modules = hasScheduleInput.so(jsModule("bits.flatpickr")),
+      pageModule = PageModule(
+        "swiss",
+        Json
+          .obj(
+            "data"   -> data,
+            "i18n"   -> bits.jsI18n,
+            "userId" -> ctx.userId,
+            "chat" -> chatOption.map: c =>
+              chat.json(
+                c.chat,
+                c.lines,
+                name = trans.site.chatRoom.txt(),
+                timeout = c.timeout,
+                public = true,
+                resourceId = lila.chat.Chat.ResourceId(s"swiss/${c.chat.id}"),
+                localMod = isLocalMod,
+                writeable = !c.locked
+              ),
+            "showRatings" -> ctx.pref.showRatings
+          )
+          .add("schedule" -> hasScheduleInput)
+      ).some,
       moreCss = frag(
         cssTag("swiss.show"),
         hasScheduleInput.option(cssTag("flatpickr"))
       ),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
           url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",

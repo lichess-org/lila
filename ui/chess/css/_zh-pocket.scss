@@ -7,7 +7,7 @@
   margin: auto;
   justify-content: center;
 
-  @include breakpoint($mq-col2-uniboard) {
+  @include mq-at-least-col2 {
     width: 100%;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3) inset;
   }
@@ -33,7 +33,7 @@
 
       content: attr(data-nb);
       bottom: 0;
-      #{$end-direction}: 0;
+      @include inline-end(0);
       position: absolute;
       line-height: 0.9em;
       padding: 3px 0.3em;

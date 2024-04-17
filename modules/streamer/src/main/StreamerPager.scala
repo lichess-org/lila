@@ -2,16 +2,14 @@ package lila.streamer
 
 import reactivemongo.api.*
 
-import lila.common.paginator.{ AdapterLike, Paginator }
+import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
-import lila.user.{ Me, User, UserPerfsRepo, UserRepo }
 
 final class StreamerPager(
     coll: Coll,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
-    maxPerPage: lila.common.config.MaxPerPage,
-    subsRepo: lila.relation.SubscriptionRepo
+    userRepo: lila.core.user.UserRepo,
+    maxPerPage: MaxPerPage,
+    subsRepo: lila.core.relation.SubscriptionRepo
 )(using Executor):
 
   import BsonHandlers.given
@@ -20,7 +18,7 @@ final class StreamerPager(
       page: Int,
       live: LiveStreams,
       requests: Boolean
-  )(using Option[Me.Id]): Fu[Paginator[Streamer.WithContext]] = Paginator(
+  )(using Option[MyId]): Fu[Paginator[Streamer.WithContext]] = Paginator(
     currentPage = page,
     maxPerPage = maxPerPage,
     adapter = if requests then approval else notLive(live)
@@ -32,7 +30,7 @@ final class StreamerPager(
     "_id"
   )
 
-  private def notLive(live: LiveStreams)(using me: Option[Me.Id]): AdapterLike[Streamer.WithContext] = new:
+  private def notLive(live: LiveStreams)(using me: Option[MyId]): AdapterLike[Streamer.WithContext] = new:
 
     def nbResults: Fu[Int] = fuccess(1000)
 
@@ -54,6 +52,7 @@ final class StreamerPager(
             UnwindField("user")
           )
         .map: docs =>
+          import userRepo.userHandler
           for
             doc      <- docs
             streamer <- doc.asOpt[Streamer]
@@ -83,6 +82,7 @@ final class StreamerPager(
             UnwindField("user")
           )
         .map: docs =>
+          import userRepo.userHandler
           for
             doc      <- docs
             streamer <- doc.asOpt[Streamer]

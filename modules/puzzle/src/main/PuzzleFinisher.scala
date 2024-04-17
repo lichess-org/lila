@@ -3,27 +3,34 @@ package lila.puzzle
 import chess.Mode
 
 import scala.util.chaining.*
+import scalalib.actor.AsyncActorSequencers
 
 import lila.common.Bus
-import lila.common.config.Max
 import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
-import lila.rating.{ Glicko, Perf, PerfType, glicko2 }
-import lila.user.{ Me, UserPerfsRepo, UserRepo }
+import lila.rating.glicko2
+import lila.rating.PerfType
+import lila.core.rating.Glicko
+import lila.core.perf.Perf
+import lila.rating.GlickoExt.sanityCheck
+import lila.rating.PerfExt.*
+import lila.rating.GlickoExt.cap
+import lila.rating.GlickoExt.average
+import lila.rating.GlickoExt.clueless
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
-    historyApi: lila.history.HistoryApi,
+    userApi: lila.core.user.UserApi,
+    historyApi: lila.core.history.HistoryApi,
     colls: PuzzleColls
-)(using ec: Executor, scheduler: Scheduler):
+)(using Executor)(using scheduler: Scheduler):
 
-  private val sequencer = lila.hub.AsyncActorSequencers[PuzzleId](
+  private val sequencer = AsyncActorSequencers[PuzzleId](
     maxSize = Max(64),
     expiration = 5 minutes,
     timeout = 5 seconds,
-    name = "puzzle.finish"
+    name = "puzzle.finish",
+    lila.log.asyncActorMonitor
   )
 
   def batch(
@@ -79,14 +86,14 @@ final private[puzzle] class PuzzleFinisher(
                 case None =>
                   val userRating = perf.toRating
                   val puzzleRating = glicko2.Rating(
-                    puzzle.glicko.rating.atLeast(Glicko.minRating.value),
+                    puzzle.glicko.rating.atLeast(lila.rating.Glicko.minRating.value),
                     puzzle.glicko.deviation,
                     puzzle.glicko.volatility,
                     puzzle.plays,
                     none
                   )
                   updateRatings(userRating, puzzleRating, win)
-                  perfsRepo
+                  userApi
                     .dubiousPuzzle(me.userId, perf)
                     .map: dubiousPuzzleRating =>
                       val newPuzzleGlicko = (!dubiousPuzzleRating).so(
@@ -96,8 +103,8 @@ final private[puzzle] class PuzzleFinisher(
                             win,
                             puzzle.glicko -> Glicko(
                               rating = puzzleRating.rating
-                                .atMost(puzzle.glicko.rating + Glicko.maxRatingDelta)
-                                .atLeast(puzzle.glicko.rating - Glicko.maxRatingDelta),
+                                .atMost(puzzle.glicko.rating + lila.rating.Glicko.maxRatingDelta)
+                                .atLeast(puzzle.glicko.rating - lila.rating.Glicko.maxRatingDelta),
                               deviation = puzzleRating.ratingDeviation,
                               volatility = puzzleRating.volatility
                             ).cap,
@@ -120,6 +127,7 @@ final private[puzzle] class PuzzleFinisher(
                           p.copy(glicko = ponder.player(angle, win, perf.glicko -> p.glicko, puzzle.glicko))
                       (round, newPuzzleGlicko, userPerf)
               .flatMap: (round, newPuzzleGlicko, userPerf) =>
+                import lila.rating.Glicko.glickoHandler
                 api.round
                   .upsert(round, angle)
                   .zip(colls.puzzle {
@@ -133,7 +141,7 @@ final private[puzzle] class PuzzleFinisher(
                       .void
                   })
                   .zip((userPerf != perf).so {
-                    perfsRepo
+                    userApi
                       .setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent)
                       .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf)) void
                   })
@@ -199,7 +207,7 @@ final private[puzzle] class PuzzleFinisher(
       if player.clueless then glicko._1
       else glicko._1.average(glicko._2, weightOf(angle, win))
 
-  private val VOLATILITY = Glicko.default.volatility
+  private val VOLATILITY = lila.rating.Glicko.default.volatility
   private val TAU        = 0.75d
   private val calculator = glicko2.RatingCalculator(VOLATILITY, TAU)
 

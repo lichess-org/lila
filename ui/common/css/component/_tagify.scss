@@ -8,7 +8,7 @@
   // SCSS "default" allows overriding variables BEFORE they are set in the below lines of code
   $self: &;
   $tags-border-color: $c-border !default;
-  $tags-hover-border-color: c-clearer($c-border) !default;
+  $tags-hover-border-color: $m-dimmer_clearer--mix-63 !default;
   $tags-focus-border-color: $c-primary !default;
 
   $tagMargin: 5px !default;
@@ -20,18 +20,18 @@
   $tag-text-color: $c-font-clearer !default;
   $tag-text-color--edit: $c-font-clearer !default;
   $tag-bg: $c-bg-zebra2 !default;
-  $tag-hover: mix($c-primary, $c-bg-zebra2, 20%) !default;
-  $tag-remove: mix($c-bad, $c-bg-zebra2, 60%) !default;
+  $tag-hover: $m-primary_bg-zebra2--mix-20 !default;
+  $tag-remove: $m-bad_bg-zebra2--mix-60 !default;
   $tag-remove-btn-color: $tag-text-color !default;
   $tag-remove-btn-bg: none !default;
   $tag-remove-btn-bg--hover: $c-bad !default;
   $tag-invalid-color: $tag-remove !default;
-  $tag-invalid-bg: mix($c-bad, $c-bg-zebra2, 20%) !default;
+  $tag-invalid-bg: $m-bad_bg-zebra2--mix-20 !default;
   $tag-inset-shadow-size: 1.5em !default;
   $tag-hide-transition: 0.3s !default;
 
-  $placeholder-color: rgba($tag-text-color, 0.4) !default;
-  $placeholder-color-focus: rgba($tag-text-color, 0.25) !default;
+  $placeholder-color: $m-font--fade-50 !default;
+  $placeholder-color-focus: $m-font--fade-70 !default;
   $input-color: inherit !default;
   $tagify-dd-bg-color: white !default;
   $tagify-dd-color-primary: $c-primary !default;
@@ -48,7 +48,7 @@
   --tag-inset-shadow-size: #{$tag-inset-shadow-size};
   --tag-invalid-color: #{$tag-invalid-color};
   --tag-invalid-bg: #{$tag-invalid-bg};
-  --tag-remove-bg: #{rgba($tag-remove, 0.3)};
+  --tag-remove-bg: #{$m-bad_bg-zebra2--mix-30};
   --tag-remove-btn-color: #{$tag-remove-btn-color};
   --tag-remove-btn-bg: #{$tag-remove-btn-bg};
   --tag-remove-btn-bg--hover: #{$tag-remove-btn-bg--hover};
@@ -196,7 +196,7 @@
 
       &:empty {
         &::after {
-          margin-#{$start-direction}: 0;
+          @include inline-start(0);
         }
       }
     }
@@ -207,7 +207,7 @@
   + input,
   + textarea {
     position: absolute !important;
-    #{$start-direction}: -9999em !important;
+    left: -9999em !important;
     transform: scale(0) !important;
   }
 
@@ -263,16 +263,15 @@
         content: '';
         position: absolute;
         border-radius: inherit;
-        #{$start-direction}: 0;
+        left: 0;
+        right: 0;
         top: 0;
-        #{$end-direction}: 0;
         bottom: 0;
         z-index: -1;
         pointer-events: none;
         transition: 120ms ease;
         animation: tags--bump 0.3s ease-out 1;
 
-        box-shadow: 0 0 0 $tag-inset-shadow-size $tag-bg inset;
         box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-bg, $tag-bg) inset;
       }
     }
@@ -282,11 +281,10 @@
         &::before {
           $size: -$tagMargin / 2;
           $size: -2px;
-
           top: $size;
-          #{$end-direction}: $size;
+          left: $size;
           bottom: $size;
-          #{$start-direction}: $size;
+          right: $size;
           box-shadow: 0 0 0 $tag-inset-shadow-size $tag-hover inset;
           box-shadow: 0 0 0 var(--tag-inset-shadow-size, $tag-inset-shadow-size) var(--tag-hover, $tag-hover)
             inset;
@@ -316,10 +314,10 @@
 
     &--hide {
       width: 0 !important;
-      padding-#{$start-direction}: 0;
-      padding-#{$end-direction}: 0;
-      margin-#{$start-direction}: 0;
-      margin-#{$end-direction}: 0;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 0;
+      margin-right: 0;
       opacity: 0;
       transform: scale(0);
       transition: $tag-hide-transition;
@@ -414,8 +412,8 @@
 
       width: $size;
       height: $size;
-      margin-#{$end-direction}: $size / 3;
-      margin-#{$start-direction}: auto;
+      margin-inline-end: $size / 3;
+      margin-inline-start: auto;
 
       overflow: hidden;
       transition: 0.2s ease-out;
@@ -626,7 +624,7 @@
       opacity: 0.5;
       position: absolute;
       top: 50%;
-      #{$end-direction}: 0;
+      @include inline-end(0);
       bottom: 0;
       font: $size monospace;
       line-height: $size / 2;
@@ -645,7 +643,7 @@
     #{$self}__tag {
       position: absolute;
       top: 0;
-      #{$end-direction}: 1.8em;
+      @include inline-end(1.8em);
       bottom: 0;
 
       div {

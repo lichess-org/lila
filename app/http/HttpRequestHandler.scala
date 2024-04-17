@@ -12,7 +12,7 @@ final class HttpRequestHandler(
     filters: Seq[EssentialFilter],
     controllerComponents: ControllerComponents
 ) extends DefaultHttpRequestHandler(() => router, errorHandler, configuration, filters)
-    with ResponseHeaders:
+    with lila.web.ResponseHeaders:
 
   override def routeRequest(request: RequestHeader): Option[Handler] =
     if request.method == "OPTIONS"

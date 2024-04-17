@@ -31,7 +31,7 @@ export default class RelayTeams {
   constructor(
     private readonly roundId: RoundId,
     readonly multiCloudEval: MultiCloudEval,
-    readonly setChapter: (id: ChapterId) => void,
+    readonly setChapter: (id: ChapterId | number) => boolean,
     readonly roundPath: () => string,
     private readonly redraw: Redraw,
   ) {}
@@ -104,7 +104,7 @@ const renderTeams = (
 
 const playerView = (p: ChapterPreviewPlayer) =>
   h('span.relay-tour__team-match__game__player', [
-    h('span.mini-game__user', [p.fed && playerFed(p.fed), h('span.name', [userTitle(p), p.name])]),
+    h('span.mini-game__user', [playerFed(p.fed), h('span.name', [userTitle(p), p.name])]),
     p.rating && h('rating', `${p.rating}`),
   ]);
 

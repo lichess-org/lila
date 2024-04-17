@@ -69,7 +69,7 @@
     <item quantity="other">Usporiadanie a odohranie %s simultánok</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Zúčastnil sa v %s simultánke</item>
+    <item quantity="one">Zúčastnenie sa v %s simultánke</item>
     <item quantity="few">Zúčastnil sa v %s simultánkach</item>
     <item quantity="many">Zúčastnil sa v %s simultánkach</item>
     <item quantity="other">Zúčastnil sa v %s simultánkach</item>
@@ -101,9 +101,9 @@
   <string name="rankedInSwissTournament">Umiestnený ako #%1$s v %2$s</string>
   <string name="signedUp">Registrácia na lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Pripojený k %s tímu</item>
-    <item quantity="few">Pripojený k %s tímom</item>
-    <item quantity="many">Pripojený k %s tímom</item>
-    <item quantity="other">Pripojený k %s tímom</item>
+    <item quantity="one">Vstup do %s družstva</item>
+    <item quantity="few">Vstup do %s družstiev</item>
+    <item quantity="many">Vstup do %s družstiev</item>
+    <item quantity="other">Vstup do %s družstiev</item>
   </plurals>
 </resources>

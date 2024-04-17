@@ -4,7 +4,7 @@
     white-space: nowrap;
   }
 
-  @include breakpoint($mq-subnav-top) {
+  @include mq-subnav-top {
     display: flex;
     flex-direction: row;
     overflow: hidden;
@@ -54,7 +54,7 @@
     }
   }
 
-  @include breakpoint($mq-subnav-side) {
+  @include mq-subnav-side {
     margin-top: 5px;
     z-index: z('subnav-side');
 
@@ -68,12 +68,12 @@
 
       &::after {
         content: '';
-        background: fade-out($c-accent, 0.4);
+        background: $m-accent--fade-40;
         width: 3px;
         position: absolute;
         height: 98%;
         top: 1%;
-        #{$end-direction}: -1px;
+        @include inline-end(-1px);
 
         @include transition(all, 0.25s);
 

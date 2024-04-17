@@ -8,14 +8,13 @@ import lila.tv.Tv.Channel
 @Module
 final class Env(
     gameRepo: lila.game.GameRepo,
-    renderer: lila.hub.actors.Renderer,
-    lightUserApi: lila.user.LightUserApi,
-    lightUserSync: lila.common.LightUser.GetterSync,
-    gameProxyRepo: lila.round.GameProxyRepo,
+    lightUserApi: lila.core.user.LightUserApi,
+    lightUserSync: lila.core.LightUser.GetterSync,
+    gameProxy: lila.core.game.GameProxy,
     system: ActorSystem,
-    recentTvGames: lila.round.RecentTvGames,
+    onTvGame: lila.game.core.OnTvGame,
     rematches: lila.game.Rematches
-)(using Executor):
+)(using Executor, Scheduler):
 
   private val tvSyncActor = wire[TvSyncActor]
 

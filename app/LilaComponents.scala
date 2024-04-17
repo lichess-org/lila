@@ -24,15 +24,12 @@ final class LilaComponents(
     executionContext
   )
 
-  // https://www.scala-lang.org/api/2.13.4/Executor%24.html#global:Executor
-  given executor: Executor = lila.Lila.defaultExecutor
+  given executor: Executor = scala.concurrent.ExecutionContextOpportunistic
 
   lila.log("boot").info {
-    val java             = System.getProperty("java.version")
-    val mem              = Runtime.getRuntime.maxMemory() / 1024 / 1024
     val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
     val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila ${environment.mode} $appVersionCommit $appVersionDate / java $java, memory: ${mem}MB"
+    s"lila version: $appVersionCommit $appVersionDate"
   }
 
   import _root_.controllers.*
@@ -47,26 +44,6 @@ final class LilaComponents(
       DefaultCookieHeaderEncoding(httpConfiguration.cookies),
       cookieBaker,
       LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
-    )
-
-  lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
-
-  override lazy val httpErrorHandler =
-    lila.app.http.ErrorHandler(
-      environment = environment,
-      config = configuration,
-      router = router,
-      mainC = main,
-      lobbyC = lobby
-    )
-
-  override lazy val httpRequestHandler: HttpRequestHandler =
-    lila.app.http.HttpRequestHandler(
-      router,
-      httpErrorHandler,
-      httpConfiguration,
-      httpFilters,
-      controllerComponents
     )
 
   given ActorSystem = actorSystem
@@ -86,13 +63,35 @@ final class LilaComponents(
         ).modifyUnderlying(_.setIoThreadsCount(8)).build()
     )
 
-  // dev assets
-  given FileMimeTypes          = fileMimeTypes
-  lazy val devAssetsController = wire[ExternalAssets]
+  val env: lila.app.Env =
+    lila.log("boot").info(s"Start loading lila modules")
+    val c = lila.common.Chronometer.sync(wire[lila.app.Env])
+    lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
+    c.result
 
-  lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
-  lazy val env: lila.app.Env      = boot.env
+  val httpFilters = Seq(lila.web.HttpFilter(env.web, env.net, lila.security.Mobile.LichessMobileUa.parse))
 
+  override lazy val httpErrorHandler =
+    lila.app.http.ErrorHandler(
+      environment = environment,
+      config = configuration,
+      router = router,
+      mainC = main,
+      lobbyC = lobby
+    )
+
+  override lazy val httpRequestHandler: HttpRequestHandler =
+    lila.app.http.HttpRequestHandler(
+      router,
+      httpErrorHandler,
+      httpConfiguration,
+      httpFilters,
+      controllerComponents
+    )
+
+  lazy val devAssetsController =
+    given FileMimeTypes = fileMimeTypes
+    wire[ExternalAssets]
   lazy val account: Account               = wire[Account]
   lazy val analyse: Analyse               = wire[Analyse]
   lazy val api: Api                       = wire[Api]
@@ -170,6 +169,9 @@ final class LilaComponents(
   private val clasRouter: _root_.router.clas.Routes     = wire[_root_.router.clas.Routes]
   private val teamRouter: _root_.router.team.Routes     = wire[_root_.router.team.Routes]
   val router: Router                                    = wire[_root_.router.router.Routes]
+
+  lila.common.Uptime.startedAt
+  templating.Environment.setEnv(env)
 
   if configuration.get[Boolean]("kamon.enabled") then
     lila.log("boot").info("Kamon is enabled")

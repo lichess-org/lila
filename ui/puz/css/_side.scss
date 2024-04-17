@@ -1,5 +1,3 @@
-$mq-col2: $mq-col2-uniboard;
-
 .puz-side {
   @extend %box-neat;
 
@@ -10,7 +8,7 @@ $mq-col2: $mq-col2-uniboard;
   margin: 0;
   padding: 2vh 2vw;
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     padding: 3vh 2vw;
 
     .zenable.zen & {
@@ -29,7 +27,7 @@ $mq-col2: $mq-col2-uniboard;
       height: 5rem;
       background-image: img-url('icons/tornado.svg');
       background-repeat: no-repeat;
-      margin-#{$end-direction}: 1.5rem;
+      margin-inline-end: 1.5rem;
     }
   }
 
@@ -57,7 +55,7 @@ $mq-col2: $mq-col2-uniboard;
     color: $c-brag;
     margin: auto;
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       margin: 0;
     }
 
@@ -68,7 +66,7 @@ $mq-col2: $mq-col2-uniboard;
         font-size: 2em;
         font-weight: normal;
 
-        @include breakpoint($mq-col2) {
+        @include mq-at-least-col2 {
           font-size: 2.2em;
         }
       }
@@ -78,7 +76,7 @@ $mq-col2: $mq-col2-uniboard;
 
         letter-spacing: 0.1em;
 
-        @include breakpoint($mq-col2) {
+        @include mq-at-least-col2 {
           font-size: 1.5em;
           letter-spacing: 0.2em;
         }
@@ -94,7 +92,7 @@ $mq-col2: $mq-col2-uniboard;
       font-family: 'storm';
       font-size: 5.5rem;
       color: $c-brag;
-      margin-#{$end-direction}: 1rem;
+      margin-inline-end: 1rem;
       transition: text-shadow 0.1s;
     }
 

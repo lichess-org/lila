@@ -1,8 +1,6 @@
 package lila.clas
 
-import ornicar.scalalib.ThreadLocalRandom
-
-import lila.user.{ Me, User }
+import scalalib.ThreadLocalRandom
 
 case class ClasInvite(
     _id: ClasInvite.Id, // random

@@ -5,28 +5,28 @@ import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType.iconByVariant
 
 object userAnalysis:
 
   def apply(
       data: JsObject,
-      pov: lila.game.Pov,
+      pov: Pov,
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
   )(using ctx: PageContext) =
     views.html.base.layout(
-      title = trans.analysis.txt(),
+      title = trans.site.analysis.txt(),
       moreCss = frag(
         cssTag("analyse.free"),
         (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
         withForecast.option(cssTag("analyse.forecast")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = frag(
-        analyseNvuiTag,
-        analyseInit(
+      modules = analyseNvuiTag,
+      pageModule = views.html.analyse.bits
+        .analyseModule(
           "userAnalysis",
           Json
             .obj(
@@ -37,9 +37,9 @@ object userAnalysis:
             .add("inlinePgn", inlinePgn) ++
             views.html.board.bits.explorerAndCevalConfig
         )
-      ),
+        .some,
       csp = analysisCsp.withExternalAnalysisApis.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Chess analysis board",
           url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
@@ -47,7 +47,7 @@ object userAnalysis:
         )
         .some,
       zoomable = true
-    ) {
+    ):
       main(
         cls := List(
           "analyse"       -> true,
@@ -74,4 +74,3 @@ object userAnalysis:
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
       )
-    }

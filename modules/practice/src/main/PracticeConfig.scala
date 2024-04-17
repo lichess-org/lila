@@ -3,6 +3,7 @@ package lila.practice
 import play.api.ConfigLoader
 
 import lila.common.autoconfig.{ *, given }
+import lila.core.study.data.StudyName
 
 final class PracticeConfig(val sections: List[PracticeConfigSection]):
 
@@ -26,6 +27,6 @@ final class PracticeConfigSection(
 final class PracticeConfigStudy(
     val id: String, // study ID
     val hide: Option[Boolean] = None,
-    val name: String,
+    val name: StudyName,
     val desc: String
 )

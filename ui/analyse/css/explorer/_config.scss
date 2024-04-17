@@ -1,12 +1,11 @@
 .explorer__config {
-  section,
-  .toggle {
-    margin: 0.4em $block-gap 0 $block-gap;
+  section {
+    margin: 0.4em $analyse-block-gap 0 $analyse-block-gap;
   }
 
   section.save {
     text-align: center;
-    padding: 15px 0 10px 0;
+    padding: 1em 0 0.7em 0;
   }
 
   label {
@@ -48,7 +47,7 @@
       &[aria-pressed='true'],
       &.active {
         background: $c-secondary;
-        color: $c-secondary-over;
+        color: $c-over;
         text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);
         font-weight: bold;
       }
@@ -65,16 +64,16 @@
     .player-name {
       border-radius: $box-radius-size !important;
       font-weight: bold;
-      padding-#{$end-direction}: 1em;
-      padding-#{$start-direction}: 1em;
+      padding-left: 1em;
+      padding-right: 1em;
       text-transform: none;
-      margin-#{$end-direction}: 0.5em;
+      margin-inline-end: 0.5em;
       &.active:hover {
-        background: mix($c-secondary, white, 80);
+        background: $m-secondary_white--mix-80;
       }
     }
     .color {
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
     }
   }
 
@@ -93,7 +92,7 @@
       background: none;
       padding: 0.1em 0.5em;
       &:invalid {
-        background: mix($c-error, $c-bg-box, 30%);
+        background: $m-bad_bg--mix-30;
       }
     }
   }
@@ -125,11 +124,11 @@
       .remove {
         @extend %button-none;
         $remove-button-diameter: 1.75em;
-        margin-#{$start-direction}: -$remove-button-diameter;
+        margin-inline-start: -$remove-button-diameter;
         width: $remove-button-diameter;
         height: $remove-button-diameter;
         top: -1.5em;
-        #{$end-direction}: -0.65em;
+        @include inline-end(-0.65em);
         background-color: $c-bg-popup;
         position: relative;
         border-radius: 50%;

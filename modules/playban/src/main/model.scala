@@ -3,12 +3,13 @@ package lila.playban
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.core.playban.RageSit as RageSitCounter
 
 case class UserRecord(
     _id: UserId,
     o: Option[Vector[Outcome]],
     b: Option[Vector[TempBan]],
-    c: Option[RageSit]
+    c: Option[RageSitCounter]
 ):
 
   inline def userId                    = _id

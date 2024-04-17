@@ -18,11 +18,6 @@ export function sanIrreversible(variant: VariantKey, san: string): boolean {
   return variant === 'threeCheck' && san.includes('+');
 }
 
-export function constrain(n: number, constraints: { min?: number; max?: number }): number {
-  const min = constraints.min ?? n;
-  const max = constraints.max ?? n;
-  return Math.max(min, Math.min(max, n));
-}
 export const fewerCores = memoize<boolean>(() => isMobile() || navigator.userAgent.includes('CrOS'));
 
 export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => {

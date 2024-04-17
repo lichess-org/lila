@@ -1,6 +1,6 @@
 package lila.security
 
-import lila.common.config.Secret
+import lila.core.config.Secret
 import lila.user.{ User, UserRepo }
 
 final class LoginToken(secret: Secret, userRepo: UserRepo)(using Executor):

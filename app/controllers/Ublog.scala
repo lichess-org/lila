@@ -6,17 +6,17 @@ import play.api.mvc.Result
 import views.*
 
 import lila.app.{ *, given }
-import lila.common.config
-import lila.i18n.{ I18nLangPicker, LangList, Language }
+import lila.core.config
+import lila.core.i18n.Language
+import lila.i18n.{ LangPicker, LangList }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
-import lila.user.User as UserModel
 
 final class Ublog(env: Env) extends LilaController(env):
 
   import views.html.ublog.post.{ editUrlOfPost, urlOfPost }
   import views.html.ublog.blog.urlOfBlog
-  import lila.common.paginator.Paginator.given
+  import scalalib.paginator.Paginator.given
 
   def index(username: UserStr, page: Int) = Open:
     NotForKids:
@@ -111,9 +111,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def form(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.create): (user, blog) =>
-        Ok.pageAsync:
-          env.ublog.form.anyCaptcha.map:
-            html.ublog.form.create(user, env.ublog.form.create, _)
+        Ok.page(html.ublog.form.create(user, env.ublog.form.create, anyCaptcha))
   }
 
   def create(username: UserStr) = AuthBody { ctx ?=> me ?=>
@@ -122,11 +120,7 @@ final class Ublog(env: Env) extends LilaController(env):
         env.ublog.form.create
           .bindFromRequest()
           .fold(
-            err =>
-              BadRequest.pageAsync:
-                env.ublog.form.anyCaptcha.map:
-                  html.ublog.form.create(user, err, _)
-            ,
+            err => BadRequest.page(html.ublog.form.create(user, err, anyCaptcha)),
             data =>
               CreateLimitPerUser(me, rateLimited, cost = if me.isVerified then 1 else 3):
                 env.ublog.api
@@ -226,7 +220,7 @@ final class Ublog(env: Env) extends LilaController(env):
         )
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
     key = "ublog.image.ip"
   )(
     ("fast", 10, 2.minutes),
@@ -254,14 +248,14 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def friends(page: Int) = Auth { _ ?=> me ?=>
     NotForKids:
-      Reasonable(page, config.Max(100)):
+      Reasonable(page, Max(100)):
         Ok.pageAsync:
           env.ublog.paginator.liveByFollowed(me, page).map(html.ublog.index.friends)
   }
 
   def communityLang(langStr: String, page: Int = 1) = Open:
-    import I18nLangPicker.ByHref
-    I18nLangPicker.byHref(langStr, ctx.req) match
+    import LangPicker.ByHref
+    LangPicker.byHref(langStr, ctx.req) match
       case ByHref.NotFound      => Redirect(routes.Ublog.communityAll(page))
       case ByHref.Redir(code)   => Redirect(routes.Ublog.communityLang(code, page))
       case ByHref.Refused(lang) => communityIndex(lang.some, page)
@@ -274,7 +268,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   private def communityIndex(l: Option[Lang], page: Int)(using ctx: Context) =
     NotForKids:
-      Reasonable(page, config.Max(100)):
+      Reasonable(page, Max(100)):
         pageHit
         Ok.pageAsync:
           val language = l.map(Language.apply)
@@ -292,7 +286,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
-      Reasonable(page, config.Max(100)):
+      Reasonable(page, Max(100)):
         Ok.pageAsync:
           env.ublog.paginator
             .liveByLiked(page)
@@ -308,7 +302,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def topic(str: String, page: Int, byDate: Boolean) = Open:
     NotForKids:
-      Reasonable(page, config.Max(100)):
+      Reasonable(page, Max(100)):
         lila.ublog.UblogTopic
           .fromUrl(str)
           .so: top =>

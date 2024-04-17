@@ -4,13 +4,13 @@
   padding: 0.5em 1.5em;
   user-select: none;
 
-  @include breakpoint($mq-small) {
+  @media (min-width: at-least($small)) {
     position: absolute;
     right: 0;
     min-width: 100%;
     z-index: z(mz-menu);
   }
-  @include breakpoint($mq-not-small) {
+  @media (max-width: at-most($small)) {
     position: fixed;
     top: 50% !important;
     left: 50%;
@@ -23,7 +23,7 @@
   > div {
     @extend %flex-column;
     gap: 2em;
-    text-align: $start-direction;
+    text-align: start;
   }
 
   section {
@@ -47,7 +47,7 @@
     }
 
     .switch + label {
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
     }
   }
 }

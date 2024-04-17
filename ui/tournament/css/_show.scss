@@ -1,6 +1,8 @@
-$mq-col1: $mq-col1-uniboard;
-$mq-col2: $mq-small;
-$mq-col3: $mq-col3-uniboard;
+@mixin mq-at-least-col2 {
+  @media (min-width: at-least($small)) {
+    @content;
+  }
+}
 
 @import 'layout';
 @import 'side';
@@ -29,10 +31,10 @@ $mq-col3: $mq-col3-uniboard;
 }
 
 .tour__faq {
-  padding: 4em var(--box-padding);
+  padding: 4em var(---box-padding);
   display: none;
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     display: block;
   }
 

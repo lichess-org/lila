@@ -3,25 +3,24 @@ package lila.gameSearch
 import chess.Mode
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.i18n.Lang
 
 import java.time.LocalDate
 
 import lila.common.Form.*
 import lila.search.Range
-import lila.user.UserForm.historicalUsernameField
+import lila.core.i18n.Translate
 
 final private[gameSearch] class GameSearchForm:
 
-  def search(using lang: Lang) = Form(
+  def search(using Translate) = Form(
     mapping(
       "players" -> mapping(
-        "a"      -> optional(historicalUsernameField),
-        "b"      -> optional(historicalUsernameField),
-        "winner" -> optional(historicalUsernameField),
-        "loser"  -> optional(historicalUsernameField),
-        "white"  -> optional(historicalUsernameField),
-        "black"  -> optional(historicalUsernameField)
+        "a"      -> optional(username.historicalField),
+        "b"      -> optional(username.historicalField),
+        "winner" -> optional(username.historicalField),
+        "loser"  -> optional(username.historicalField),
+        "white"  -> optional(username.historicalField),
+        "black"  -> optional(username.historicalField)
       )(SearchPlayer.apply)(unapply),
       "winnerColor" -> optional(numberIn(Query.winnerColors)),
       "perf"        -> optional(numberIn(lila.rating.PerfType.nonPuzzle.map(_.id.value))),
@@ -90,7 +89,9 @@ private[gameSearch] case class SearchData(
       winner = players.cleanWinner,
       loser = players.cleanLoser,
       winnerColor = winnerColor,
-      perf = perf,
+      perf =
+        if perf.exists(_ == 5) then List(1, 2, 3, 4, 6)
+        else perf.toList, // 1,2,3,4,6 are the perf types for standard games
       source = source,
       rated = mode.flatMap(Mode.apply).map(_.rated),
       turns = Range(turnsMin, turnsMax),

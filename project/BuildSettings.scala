@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.4.0"
+  val globalScalaVersion = "3.4.1"
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
@@ -22,12 +22,11 @@ object BuildSettings {
     )
 
   lazy val defaultLibs: Seq[ModuleID] =
-    akka.bundle ++ macwire.bundle ++ Seq(
+    akka.bundle ++ macwire.bundle ++ scalalib.bundle ++ Seq(
       cats,
       alleycats,
       play.api,
-      chess,
-      scalalib,
+      chess.core,
       kittens
     )
 
@@ -55,9 +54,8 @@ object BuildSettings {
     "-feature",
     "-language:postfixOps",
     "-language:implicitConversions",
-    "-release:21",
+    "-release:21"
     // "-Wunused:all",
-    "-Wconf:msg=qualifier will be deprecated:s"
   )
 
   val srcMain = Seq(

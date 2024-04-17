@@ -9,7 +9,6 @@ import { LobbyOpts, LobbyData, Tab, Mode, Sort, Hook, Seek, Pool, PoolMember, Lo
 import { ParentCtrl, SetupConstraints, GameType, GameSetup, SetupCtrl } from 'setup';
 import LobbySocket from './socket';
 import Filter from './filter';
-import disableDarkBoard from './disableDarkBoard';
 
 export default class LobbyController implements ParentCtrl {
   data: LobbyData;
@@ -88,7 +87,7 @@ export default class LobbyController implements ParentCtrl {
         this.data.hooks = [];
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
-      disableDarkBoard();
+      //disableDarkBoard();
     });
     window.addEventListener('beforeunload', () => this.leavePool());
   }

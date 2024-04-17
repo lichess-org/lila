@@ -1,4 +1,4 @@
-import { isChrome } from 'common/device';
+/*import { isChrome } from 'common/device';
 import { load as loadDasher } from 'dasher';
 
 export default function disableDarkBoard() {
@@ -20,3 +20,4 @@ export default function disableDarkBoard() {
     },
   });
 }
+*/

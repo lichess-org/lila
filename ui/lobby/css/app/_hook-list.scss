@@ -13,11 +13,11 @@
     }
 
     &.cancel td {
-      background: fade-out($c-secondary, 0.6);
+      background: $m-secondary--fade-60;
     }
 
     &.join:hover td {
-      background: fade-out($c-accent, 0.5);
+      background: $m-accent--fade-50;
       color: #fff;
     }
 
@@ -51,7 +51,7 @@
 
     &.sort .is:before {
       opacity: 0.7;
-      margin-#{$end-direction}: 3px;
+      margin-inline-end: 3px;
       content: $licon-DownTriangle;
     }
 
@@ -59,7 +59,7 @@
       width: 110px;
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       padding: 1em 0.4em;
 
       &:nth-child(3) {
@@ -76,7 +76,7 @@
     padding: 0.5em 0.7em;
     border-bottom: $border;
     cursor: pointer;
-    background: fade-out($c-bg-box, 0.5);
+    background: $m-bg--fade-50;
 
     &:first-child {
       width: 16px;
@@ -88,7 +88,7 @@
     }
 
     &:last-child ::before {
-      margin-#{$end-direction}: 8px;
+      margin-inline-end: 8px;
       line-height: 0.9;
       font-size: 1.6em;
     }
@@ -97,11 +97,11 @@
       opacity: 0.6;
     }
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       padding: 0.5em 0.4em;
 
       &:first-child {
-        padding-#{$start-direction}: 0.7em;
+        padding-inline-start: 0.7em;
       }
 
       // player name

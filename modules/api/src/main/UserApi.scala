@@ -4,10 +4,12 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.common.config.*
-import lila.rating.{ PerfType, UserRankMap }
-import lila.security.Granter
-import lila.user.{ Me, Trophy, User }
+import lila.core.config.*
+import lila.rating.UserRankMap
+import lila.core.perm.Granter
+import lila.user.Trophy
+import lila.rating.PerfType
+import lila.core.perf.UserWithPerfs
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -26,9 +28,9 @@ final class UserApi(
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
     net: NetConfig
-)(using Executor):
+)(using Executor, lila.core.i18n.Translator):
 
-  def one(u: User.WithPerfs, joinedAt: Option[Instant] = None): JsObject = {
+  def one(u: UserWithPerfs, joinedAt: Option[Instant] = None): JsObject = {
     addStreaming(jsonView.full(u.user, u.perfs.some, withProfile = true), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
@@ -43,14 +45,14 @@ final class UserApi(
     }
 
   def extended(
-      u: User | User.WithPerfs,
+      u: User | UserWithPerfs,
       withFollows: Boolean,
       withTrophies: Boolean,
       forWiki: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
-      case u: User           => userApi.withPerfs(u)
-      case u: User.WithPerfs => fuccess(u)
+      case u: User          => userApi.withPerfs(u)
+      case u: UserWithPerfs => fuccess(u)
     .flatMap: u =>
         if u.enabled.no
         then fuccess(jsonView.disabled(u.light))
@@ -129,8 +131,8 @@ final class UserApi(
                   as.isDefined.so:
                     Json.obj(
                       "followable" -> followable,
-                      "following"  -> relation.has(true),
-                      "blocking"   -> relation.has(false),
+                      "following"  -> relation.exists(_.isFollow),
+                      "blocking"   -> relation.exists(!_.isFollow),
                       "followsYou" -> isFollowed
                     )
               }.noNull
@@ -140,21 +142,25 @@ final class UserApi(
       case (trophies, shields, revols) =>
         val roleTrophies = trophyApi.roleBasedTrophies(
           u,
-          Granter.of(_.PublicMod)(u),
-          Granter.of(_.Developer)(u),
-          Granter.of(_.Verified)(u),
-          Granter.of(_.ContentTeam)(u)
+          Granter.ofUser(_.PublicMod)(u),
+          Granter.ofUser(_.Developer)(u),
+          Granter.ofUser(_.Verified)(u),
+          Granter.ofUser(_.ContentTeam)(u)
         )
         UserApi.TrophiesAndAwards(userCache.rankingsOf(u.id), trophies ::: roleTrophies, shields, revols)
 
   private def trophiesJson(all: UserApi.TrophiesAndAwards)(using Lang): JsArray =
     JsArray {
-      all.ranks.toList.sortBy(_._2).collect {
-        case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
-        case (perf, rank) if rank <= 10  => perfTopTrophy(perf, 10, "Top 10")
-        case (perf, rank) if rank <= 50  => perfTopTrophy(perf, 50, "Top 50")
-        case (perf, rank) if rank <= 100 => perfTopTrophy(perf, 10, "Top 100")
-      } ::: all.trophies.map { t =>
+      all.ranks.toList
+        .sortBy(_._2)
+        .map: (perf, rank) =>
+          PerfType(perf) -> rank
+        .collect {
+          case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
+          case (perf, rank) if rank <= 10  => perfTopTrophy(perf, 10, "Top 10")
+          case (perf, rank) if rank <= 50  => perfTopTrophy(perf, 50, "Top 50")
+          case (perf, rank) if rank <= 100 => perfTopTrophy(perf, 10, "Top 100")
+        } ::: all.trophies.map { t =>
         Json
           .obj(
             "type" -> t.kind._id,
@@ -179,7 +185,7 @@ final class UserApi(
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
 
   private def wikiGroups(u: User): List[String] =
-    val perms          = lila.security.Permission.expanded(u.roles).map(_.name).toList
+    val perms          = lila.security.Permission.expanded(u).map(_.name).toList
     val wikiAdminGroup = "Administrators"
     if perms.contains("Admin") then wikiAdminGroup :: perms else perms
 

@@ -7,7 +7,7 @@ cg-resize {
 
   display: none;
 
-  @include breakpoint($mq-board-resizable) {
+  @include mq-board-resizable {
     display: block;
     position: absolute;
     right: #{13px - $resize-width};
@@ -38,12 +38,12 @@ cg-resize {
 
     &:hover {
       border-radius: 50%;
-      background: fade-out($c-accent, 0.5);
+      background: $m-accent--fade-50;
     }
 
     .resizing & {
       border-radius: 50%;
-      background: fade-out($c-secondary, 0.5);
+      background: $m-secondary--fade-50;
     }
   }
 }

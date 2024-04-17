@@ -8,7 +8,7 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.hub.actorApi.captcha.ValidCaptcha
+import lila.core.id.GameFullId
 
 import Forms.*
 
@@ -30,7 +30,7 @@ final class Main(
         _ => BadRequest,
         (enable, redirect) =>
           Redirect(redirect).withCookies:
-            lila.api.ApiConfig.blindCookie.make(env.lilaCookie)(enable != "0")
+            lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
       )
 
   def handlerNotFound(using RequestHeader) =
@@ -38,8 +38,7 @@ final class Main(
       keyPages.notFound(using _)
 
   def captchaCheck(id: GameId) = Open:
-    import makeTimeout.long
-    (env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution"))).map { case valid: Boolean =>
+    env.game.captcha.validate(id, ~get("solution")).map { valid =>
       Ok(if valid then 1 else 0)
     }
 
@@ -78,12 +77,12 @@ final class Main(
   val robots = Anon:
     Ok:
       if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-      then lila.api.StaticContent.robotsTxt
+      then lila.web.StaticContent.robotsTxt
       else "User-agent: *\nDisallow: /"
 
   def manifest = Anon:
     JsonOk:
-      lila.api.StaticContent.manifest(env.net)
+      lila.web.StaticContent.manifest(env.net)
 
   def getFishnet = Open:
     pageHit
@@ -112,11 +111,11 @@ final class Main(
     NotImplemented.page(html.site.message.temporarilyDisabled)
 
   def keyboardMoveHelp = Open:
-    Ok.page(html.site.help.keyboardMove)
+    Ok.page(lila.web.views.help.keyboardMove)
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move" => Ok.page(html.site.help.voiceMove)
+      case "move" => Ok.page(lila.web.views.help.voiceMove)
       case _      => NotFound(s"Unknown voice module: $module")
 
   def movedPermanently(to: String) = Anon:
@@ -127,7 +126,7 @@ final class Main(
     if ctx.isAuth then Redirect(routes.Lobby.home)
     else
       Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies:
-        env.lilaCookie.withSession(remember = true): s =>
+        env.security.lilaCookie.withSession(remember = true): s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
   def legacyQaQuestion(id: Int, slug: String) = Open:
@@ -155,7 +154,13 @@ final class Main(
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
-  lila.memo.RateLimit.composite[lila.common.IpAddress](
+  private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
+  def externalLink(tag: String, url: String) = Anon:
+    if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
+    then lila.mon.link.external(tag, ctx.isAuth).increment()
+    Redirect(url)
+
+  lila.memo.RateLimit.composite[lila.core.net.IpAddress](
     key = "image.upload.ip"
   )(
     ("fast", 10, 2.minutes),

@@ -14,8 +14,8 @@ import play.api.libs.ws.{
 
 import scala.util.matching.Regex
 
-import lila.base.LilaInvalid
-import lila.common.config.{ Credentials, HostPort, Max }
+import lila.core.lilaism.{ LilaInvalid, LilaException }
+import lila.core.config.{ Credentials, HostPort }
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
 import lila.study.MultiPgn
@@ -31,9 +31,8 @@ final private class RelayFormatApi(
   import RelayFormat.*
   import RelayRound.Sync.UpstreamUrl
 
-  private val cache = cacheApi[(UpstreamUrl.WithRound, CanProxy), RelayFormat](32, "relay.format"):
-    _.refreshAfterWrite(10 minutes)
-      .expireAfterAccess(20 minutes)
+  private val cache = cacheApi[(UpstreamUrl.WithRound, CanProxy), RelayFormat](64, "relay.format"):
+    _.expireAfterWrite(5 minutes)
       .buildAsyncFuture: (url, proxy) =>
         guessFormat(url)(using proxy)
 
@@ -77,10 +76,17 @@ final private class RelayFormatApi(
           val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
           val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
           looksLikeJson(jsonUrl(1).url)
+            .recover:
+              case NotFound(_) => false
             .map(_.option(jsonUrl))
-            .orElse(looksLikePgn(pgnUrl(1).url).map(_.option(pgnUrl)))
+            .orElse:
+              looksLikePgn(pgnUrl(1).url)
+                .recover:
+                  case NotFound(_) => false
+                .map(_.option(pgnUrl))
             .dmap2:
               ManyFiles(index, _)
+            .dmap(_.orElse(ManyFilesLater(index).some))
 
     guessLcc(originalUrl)
       .orElse(guessSingleFile(originalUrl))
@@ -113,6 +119,7 @@ final private class RelayFormatApi(
       .get()
       .flatMap: res =>
         if res.status == 200 then fuccess(res)
+        else if res.status == 404 then fufail(NotFound(url.toString))
         else fufail(s"[${res.status}] $url")
       .monSuccess(_.relay.httpGet(url.host.toString, proxy))
 
@@ -140,7 +147,8 @@ final private class RelayFormatApi(
       .value
       .headOption
       .so: pgn =>
-        lila.study.PgnImport(pgn, Nil).isRight
+        val data = lila.core.game.ImportData(pgn, none)
+        lila.game.importer.parseImport(data, none).isRight
 
   private def looksLikePgn(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url).map(looksLikePgn)
 
@@ -159,20 +167,27 @@ private object RelayFormat:
   enum DocFormat:
     case Json, Pgn
 
-  case class Doc(url: URL, format: DocFormat)
+  case class RemoteDoc(url: URL, format: DocFormat)
 
-  def jsonDoc(url: URL) = Doc(url, DocFormat.Json)
-  def pgnDoc(url: URL)  = Doc(url, DocFormat.Pgn)
+  def jsonDoc(url: URL) = RemoteDoc(url, DocFormat.Json)
+  def pgnDoc(url: URL)  = RemoteDoc(url, DocFormat.Pgn)
 
-  case class SingleFile(doc: Doc) extends RelayFormat
+  case class SingleFile(doc: RemoteDoc) extends RelayFormat
 
-  type GameNumberToDoc = Int => Doc
+  type GameNumberToDoc = Int => RemoteDoc
 
   case class ManyFiles(jsonIndex: URL, game: GameNumberToDoc) extends RelayFormat:
     override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
+
+  // there will be game files with names like "game-1.json" or "game-1.pgn"
+  // but not at the moment. The index is still useful.
+  case class ManyFilesLater(jsonIndex: URL) extends RelayFormat:
+    override def toString = s"ManyfilesLater($jsonIndex)"
 
   def addPart(url: URL, part: String)             = url.withPath(s"${url.path}/$part")
   def replaceLastPart(url: URL, withPart: String) = url.withPath(s"${url.path}/../$withPart")
 
   val mostCommonSingleFileName = "games.pgn"
   val mostCommonIndexNames     = List("round.json", "index.json")
+
+  case class NotFound(message: String) extends LilaException

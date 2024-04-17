@@ -10,9 +10,10 @@ import play.api.mvc.Result
 import scala.util.chaining.*
 
 import lila.app.*
-import lila.common.IpAddress
-import lila.game.Pov
+import lila.core.net.IpAddress
+
 import lila.pref.{ PieceSet, Theme }
+import lila.core.id.PuzzleId
 
 final class Export(env: Env) extends LilaController(env):
 
@@ -76,7 +77,7 @@ final class Export(env: Env) extends LilaController(env):
       theme: Option[String],
       piece: Option[String]
   ) =
-    exportImageOf(fuccess(Fen.read(Variant.orDefault(variant), Fen.Epd.clean(fen)))) { situation =>
+    exportImageOf(fuccess(Fen.read(Variant.orDefault(variant), Fen.Full.clean(fen)))) { situation =>
       env.game.gifExport
         .thumbnail(
           situation = situation,

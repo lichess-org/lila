@@ -7,8 +7,8 @@
 
   section:not(:last-child) {
     border-bottom: $border;
-    margin-bottom: #{$block-gap * 2 / 3};
-    padding-bottom: #{$block-gap * 2 / 3};
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
   }
 
   &__infos {
@@ -19,7 +19,7 @@
     /* for bookmark */
     &::before {
       font-size: 3rem;
-      margin-#{$end-direction}: 4%;
+      margin-inline-end: 4%;
     }
 
     p {
@@ -45,13 +45,13 @@
 
     abbr {
       text-decoration: none;
-      color: mix($c-font, $c-link, 50%);
+      color: $m-primary_font--mix-50;
     }
   }
 
   .bookmark {
     position: absolute;
-    #{$end-direction}: 0;
+    @include inline-end(0);
     z-index: z('game-bookmark');
     color: $c-font-dim;
 

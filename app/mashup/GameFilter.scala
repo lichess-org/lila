@@ -5,10 +5,11 @@ import play.api.data.FormBinding
 import play.api.i18n.Lang
 import play.api.mvc.Request
 
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.db.dsl.*
-import lila.game.{ Game, Query }
-import lila.user.User
+import lila.game.{ Query }
+import lila.core.game.Game
+import lila.core.user.User
 
 enum GameFilter:
   val name = lila.common.String.lcfirst(toString)

@@ -5,7 +5,7 @@ import controllers.routes
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.oauth.AccessToken
 
 object dgt:
@@ -55,16 +55,16 @@ object dgt:
       ),
       p(
         whenReadySetupBoard(
-          a(href := routes.DgtCtrl.play)(trans.play())
+          a(href := routes.DgtCtrl.play)(trans.site.play())
         )
       )
     )
 
   def play(token: AccessToken)(using PageContext) =
-    layout("play", s"'${token.plain.value}'".some)(
+    layout("play", s"${token.plain.value}".some)(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
-        h2(iconTag(licon.InfoCircle, ifMoveNotDetected())),
+        h2(iconTag(Icon.InfoCircle, ifMoveNotDetected())),
         p(checkYouHaveMadeOpponentsMove()),
         p(
           asALastResort(
@@ -81,7 +81,7 @@ object dgt:
         st.section(
           h2(lichessConnectivity()),
           if token.isDefined then
-            p(cls := "text", dataIcon := licon.Checkmark)(
+            p(cls := "text", dataIcon := Icon.Checkmark)(
               validDgtOauthToken(),
               br,
               br,
@@ -123,7 +123,7 @@ object dgt:
             st.label(cls := "form-label")(enableSpeechSynthesis()),
             radios(
               "dgt-speech-synthesis",
-              List((false, trans.no.txt()), (true, trans.yes.txt()))
+              List((false, trans.site.no.txt()), (true, trans.site.yes.txt()))
             )
           ),
           "dgt-speech-voice".pipe { name =>
@@ -138,7 +138,7 @@ object dgt:
             st.label(cls := "form-label")(announceAllMoves()),
             radios(
               "dgt-speech-announce-all-moves",
-              List((false, trans.no.txt()), (true, trans.yes.txt()))
+              List((false, trans.site.no.txt()), (true, trans.site.yes.txt()))
             ),
             st.small(cls := "form-help")(
               selectAnnouncePreference()
@@ -176,14 +176,14 @@ object dgt:
             st.label(cls := "form-label")(verboseLogging()),
             radios(
               "dgt-verbose",
-              List((false, trans.no.txt()), (true, trans.yes.txt()))
+              List((false, trans.site.no.txt()), (true, trans.site.yes.txt()))
             ),
             st.small(cls := "form-help")(
               toSeeConsoleMessage()
             )
           )
         ),
-        form3.submit(trans.save())
+        form3.submit(trans.site.save())
       )
     )
 
@@ -206,17 +206,17 @@ object dgt:
   private def layout(path: String, token: Option[String] = None)(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("dgt"),
-      moreJs = token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)),
+      modules = token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)),
       title = playWithDgtBoard.txt(),
       csp = defaultCsp.withAnyWs.some
     ):
       main(cls := "account page-menu dgt")(
-        views.html.site.bits.pageMenuSubnav(
+        views.html.base.bits.pageMenuSubnav(
           a(cls := path.active("index"), href := routes.DgtCtrl.index)(
             dgtBoard()
           ),
           a(cls := path.active("play"), href := routes.DgtCtrl.play)(
-            trans.play()
+            trans.site.play()
           ),
           a(cls := path.active("config"), href := routes.DgtCtrl.config)(
             configure()

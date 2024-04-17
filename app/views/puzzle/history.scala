@@ -4,11 +4,10 @@ package html.puzzle
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 import lila.puzzle.PuzzleHistory.{ PuzzleSession, SessionRound }
 import lila.puzzle.PuzzleTheme
-import lila.user.User
 
 object history:
 
@@ -19,7 +18,7 @@ object history:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     )(
       main(cls := "page-menu")(
         bits.pageMenu("history", user.some),

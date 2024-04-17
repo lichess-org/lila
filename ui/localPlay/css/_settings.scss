@@ -24,7 +24,7 @@
     }
 
     .switch + label {
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
     }
 
     input[type='range'] {
@@ -39,7 +39,7 @@
     select {
       flex: 1 4 auto;
       min-width: 0;
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
       padding: 4px;
       overflow: hidden;
       text-overflow: ellipsis;

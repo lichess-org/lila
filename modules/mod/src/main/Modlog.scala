@@ -1,7 +1,6 @@
 package lila.mod
 
-import lila.report.{ ModId, Suspect }
-import lila.user.Me
+import lila.report.Suspect
 
 case class Modlog(
     mod: ModId,
@@ -11,8 +10,7 @@ case class Modlog(
     date: Instant = nowInstant,
     index: Option[String] = None
 ):
-
-  def isLichess = mod.is(lila.user.User.lichessId)
+  def isLichess = mod.is(UserId.lichess)
 
   def notable      = action != Modlog.terminateTournament
   def notableZulip = notable && !isLichess
@@ -52,6 +50,7 @@ case class Modlog(
     case Modlog.chatTimeout         => "chat timeout"
     case Modlog.troll               => "shadowban"
     case Modlog.untroll             => "un-shadowban"
+    case Modlog.fullCommsExport     => "exported all comms"
     case Modlog.permissions         => "set permissions"
     case Modlog.kickFromRankings    => "kick from rankings"
     case Modlog.reportban           => "reportban"
@@ -87,13 +86,13 @@ case class Modlog(
 
 object Modlog:
 
-  def apply(user: Option[UserId], action: String, details: Option[String])(using me: Me.Id): Modlog =
+  def apply(user: Option[UserId], action: String, details: Option[String])(using me: MyId): Modlog =
     Modlog(me.modId, user, action, details)
 
-  def apply(user: Option[UserId], action: String)(using me: Me.Id): Modlog =
+  def apply(user: Option[UserId], action: String)(using me: MyId): Modlog =
     Modlog(me.modId, user, action, none)
 
-  def make(sus: Suspect, action: String, details: Option[String] = None)(using me: Me.Id): Modlog =
+  def make(sus: Suspect, action: String, details: Option[String] = None)(using me: MyId): Modlog =
     Modlog(
       mod = me.modId,
       user = sus.user.id.some,
@@ -111,6 +110,7 @@ object Modlog:
   val unbooster           = "unbooster"
   val troll               = "troll"
   val untroll             = "untroll"
+  val fullCommsExport     = "fullCommsExport"
   val permissions         = "permissions"
   val disableTwoFactor    = "disableTwoFactor"
   val closeAccount        = "closeAccount"

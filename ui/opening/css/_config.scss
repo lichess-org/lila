@@ -1,5 +1,10 @@
 $c-opcfg: $c-accent;
-$op-details-large: $mq-small;
+
+@mixin mq-details-large {
+  @media (min-width: at-least($small)) {
+    @content;
+  }
+}
 
 .opening__config {
   @extend %box-neat;
@@ -7,16 +12,16 @@ $op-details-large: $mq-small;
   &[open] {
     flex: 1 0 auto;
   }
-  @include breakpoint($op-col-one) {
+  @include mq-col-one {
     display: none;
   }
-  @include breakpoint($op-details-large) {
+  @include mq-details-large {
     flex: 1 0 auto;
   }
   background: $c-bg-zebra;
   &:hover {
-    outline: 3px solid mix($c-opcfg, $c-bg-box, 60%);
-    background: mix($c-opcfg, $c-bg-zebra, 10%);
+    outline: 3px solid $m-accent_bg--mix-60;
+    background: $m-accent_bg-zebra--mix-10;
   }
   &__summary {
     padding: 1em 2em;
@@ -24,20 +29,20 @@ $op-details-large: $mq-small;
     user-select: none;
     &__speed,
     &__rating {
-      color: $c-opcfg;
+      color: $c-accent;
     }
     &__large {
       display: none;
       .opening__config[open] & {
         display: inline-block;
       }
-      @include breakpoint($op-details-large) {
+      @include mq-details-large {
         display: inline-block;
       }
     }
     &__short {
       display: inline-block;
-      @include breakpoint($op-details-large) {
+      @include mq-details-large {
         display: none;
       }
       .opening__config[open] & {
@@ -61,7 +66,7 @@ $op-details-large: $mq-small;
       display: flex;
       justify-content: stretch;
       button {
-        color: $c-opcfg !important;
+        color: $c-accent !important;
         flex: 0 0 100%;
       }
     }

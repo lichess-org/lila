@@ -8,14 +8,12 @@ import play.api.{ Configuration, Mode }
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
 import lila.common.config.*
-import lila.hub.actorApi.Announce
-import lila.hub.actorApi.lpv.*
-import lila.user.User
+import lila.core.misc.lpv.*
 
 @Module
 final class Env(
     appConfig: Configuration,
-    net: NetConfig,
+    net: lila.core.config.NetConfig,
     securityEnv: lila.security.Env,
     mailerEnv: lila.mailer.Env,
     teamSearchEnv: lila.teamSearch.Env,
@@ -61,17 +59,16 @@ final class Env(
     picfitUrl: lila.memo.PicfitUrl,
     cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
-    ws: StandaloneWSClient
-)(using
-    ec: Executor,
-    val mode: Mode,
-    system: ActorSystem,
-    scheduler: Scheduler,
-    materializer: akka.stream.Materializer
+    webConfig: lila.web.WebConfig,
+    realPlayerApi: lila.web.RealPlayerApi,
+    manifest: lila.web.AssetManifest
+)(using val mode: Mode, scheduler: Scheduler)(using
+    Executor,
+    ActorSystem,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator
 ):
 
-  val config = ApiConfig.loadFrom(appConfig)
-  export config.{ apiToken, pagerDuty as pagerDutyConfig }
   export net.{ baseUrl, domain }
 
   lazy val pgnDump: PgnDump = wire[PgnDump]
@@ -80,9 +77,8 @@ final class Env(
 
   lazy val userApi = wire[UserApi]
 
+  export webConfig.apiToken
   lazy val gameApi = wire[GameApi]
-
-  lazy val realPlayers = wire[RealPlayerApi]
 
   lazy val gameApiV2 = wire[GameApiV2]
 
@@ -96,25 +92,14 @@ final class Env(
 
   lazy val personalDataExport = wire[PersonalDataExport]
 
-  lazy val referrerRedirect = wire[ReferrerRedirect]
-
   lazy val accountClosure = wire[AccountClosure]
 
   lazy val forumAccess = wire[ForumAccess]
 
   lazy val cli = wire[Cli]
 
-  private lazy val influxEvent = new InfluxEvent(
-    ws = ws,
-    endpoint = config.influxEventEndpoint,
-    env = config.influxEventEnv
-  )
-  if mode.isProd then scheduler.scheduleOnce(5 seconds)(influxEvent.start())
-
   private lazy val linkCheck = wire[LinkCheck]
   lazy val chatFreshness     = wire[ChatFreshness]
-
-  private lazy val pagerDuty = wire[PagerDuty]
 
   import lila.cms.CmsPage
   def cmsRender(key: CmsPage.Key)(using ctx: Context): Fu[Option[CmsPage.Render]] =
@@ -128,9 +113,6 @@ final class Env(
     "chatFreshness" -> { case IsChatFresh(source, promise) =>
       promise.completeWith(chatFreshness.of(source))
     },
-    "announce" -> {
-      case Announce(msg, date, _) if msg.contains("will restart") => pagerDuty.lilaRestart(date)
-    },
     "lpv" -> {
       case AllPgnsFromText(text, p)       => p.completeWith(textLpvExpand.allPgnsFromText(text))
       case LpvLinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
@@ -143,5 +125,5 @@ final class Env(
     lila.mon.bus.classifiers.update(lila.common.Bus.size())
     lila.mon.jvm.threads()
     // ensure the Lichess user is online
-    socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + User.lichessId)
-    userEnv.repo.setSeenAt(User.lichessId)
+    socketEnv.remoteSocket.onlineUserIds.getAndUpdate(_ + UserId.lichess)
+    userEnv.repo.setSeenAt(UserId.lichess)

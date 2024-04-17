@@ -7,10 +7,11 @@ import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-import lila.common.Form.{ stringIn, given }
-import lila.common.config
+import lila.common.Form.{ stringIn, perfKey, given }
+import lila.core.config
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Perf, PerfType }
+
+import lila.rating.PerfType
 
 final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 
@@ -41,7 +42,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       .filter: game =>
         filter.perf.forall(game.perfKey ==)
       .take(filter.nbGames)
-      .mapConcat { lila.game.Pov(_, user).toList }
+      .mapConcat { Pov(_, user).toList }
       .toMat(Sink.seq)(Keep.right)
       .run()
       .map(_.toList)
@@ -81,14 +82,14 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       }
       .inject(NoContent)
 
-  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Option[Me]) =
+  private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Context) =
     Ok.chunked {
       env.api.gameApiV2.exportByIds(
         GameApiV2.ByIdsConfig(
           ids = gameIds,
           format = GameApiV2.Format.PGN,
           flags = lila.game.PgnDump.WithFlags(),
-          perSecond = config.MaxPerSecond(100),
+          perSecond = MaxPerSecond(100),
           playerFile = none
         )
       )
@@ -100,7 +101,7 @@ object GameMod:
   case class Filter(
       arena: Option[String],
       swiss: Option[String],
-      perf: Option[Perf.Key],
+      perf: Option[PerfKey],
       opponents: Option[String],
       nbGamesOpt: Option[Int]
   ):
@@ -111,7 +112,7 @@ object GameMod:
           .replace(",", " ")
           .split(' ')
           .map(_.trim)
-      .flatMap(lila.user.User.validateId)
+      .flatMap(_.validateId)
       .toList
       .distinct
 
@@ -142,7 +143,7 @@ object GameMod:
     mapping(
       "arena"     -> optional(nonEmptyText),
       "swiss"     -> optional(nonEmptyText),
-      "perf"      -> optional(of[Perf.Key]),
+      "perf"      -> optional(perfKey),
       "opponents" -> optional(nonEmptyText),
       "nbGamesOpt" -> optional(
         number(min = 1).transform(

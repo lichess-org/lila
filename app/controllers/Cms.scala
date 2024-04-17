@@ -91,13 +91,13 @@ final class Cms(env: Env) extends LilaController(env):
   def variantHome = Open:
     negotiate(
       Ok.pageAsync(views.html.site.variant.home),
-      Ok(lila.api.StaticContent.variantsJson)
+      Ok(lila.web.StaticContent.variantsJson)
     )
 
   import chess.variant.Variant
   def variant(key: Variant.LilaKey) = Open:
     (for
-      variant  <- Variant(key)
-      perfType <- lila.rating.PerfType.byVariant(variant)
+      variant <- Variant(key)
+      perfKey <- PerfKey.byVariant(variant)
     yield FoundPage(env.api.cmsRenderKey(s"variant-${variant.key}")): p =>
-      views.html.site.variant.show(p, variant, perfType)) | notFound
+      views.html.site.variant.show(p, variant, perfKey)) | notFound

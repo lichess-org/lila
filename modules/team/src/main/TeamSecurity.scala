@@ -4,8 +4,7 @@ package team
 import cats.derived.*
 
 import lila.memo.CacheApi.*
-import lila.security.Granter
-import lila.user.{ Me, User, UserRepo }
+import lila.core.perm.Granter
 
 object TeamSecurity:
   enum Permission(val name: String, val desc: String) derives Eq:
@@ -28,7 +27,7 @@ object TeamSecurity:
 
   case class NewPermissions(user: UserId, perms: Set[Permission])
 
-final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached: Cached)(using
+final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.UserApi, cached: Cached)(using
     Executor
 ):
 
@@ -59,14 +58,14 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
 
     def addLeader(t: Team.WithLeaders)(using Me): Form[UserStr] = Form:
       single:
-        "name" -> lila.user.UserForm.historicalUsernameField
+        "name" -> lila.common.Form.username.historicalField
           .verifying(
             s"No more than ${Team.maxLeaders} leaders, please",
             _ => t.leaders.sizeIs < Team.maxLeaders
           )
           .verifying(
             "You can't make Lichess a leader",
-            n => Granter(_.ManageTeam) || n.isnt(User.lichessId)
+            n => Granter(_.ManageTeam) || n.isnt(UserId.lichess)
           )
           .verifying(
             "This user is already a team leader",
@@ -78,7 +77,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
           )
 
     private val permissionsForm = mapping(
-      "name" -> lila.user.UserForm.historicalUsernameField,
+      "name" -> lila.common.Form.username.historicalField,
       "perms" -> seq(nonEmptyText)
         .transform[Set[Permission]](
           _.flatMap(Permission.byKey.get).toSet,
@@ -91,8 +90,8 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
         .verifying(
           "You can't make Lichess a leader",
           Granter(_.ManageTeam) ||
-            !_.exists(_.name.is(User.lichessId)) ||
-            t.leaders.exists(_.is(User.lichessId))
+            !_.exists(_.name.is(UserId.lichess)) ||
+            t.leaders.exists(_.is(UserId.lichess))
         )
         .verifying(
           "There must be at least one leader able to manage permissions",
@@ -119,7 +118,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userRepo: UserRepo, cached:
         .verifying(
           "Kid accounts cannot manage permissions",
           d =>
-            userRepo
+            userApi
               .filterKid(d.filter(_.perms(Permission.Admin)).map(_.name))
               .await(1.second, "team leader kids")
               .isEmpty

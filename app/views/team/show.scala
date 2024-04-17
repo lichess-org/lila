@@ -6,12 +6,12 @@ import play.api.libs.json.Json
 
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.Json.given
-import lila.common.paginator.Paginator
+import scalalib.paginator.Paginator
 import lila.mod.Modlog
-import lila.socket.SocketVersion
-import lila.socket.SocketVersion.given
+import lila.core.socket.SocketVersion
+import lila.core.socket.SocketVersion.given
 import lila.team.Team
 
 object show:
@@ -20,7 +20,7 @@ object show:
 
   def apply(
       t: Team.WithLeaders,
-      members: Paginator[lila.common.LightUser],
+      members: Paginator[lila.core.LightUser],
       info: TeamInfo,
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: Option[SocketVersion],
@@ -29,14 +29,14 @@ object show:
   )(using ctx: PageContext) =
     bits.layout(
       title = t.name,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"${t.name} team",
           url = s"$netBaseUrl${teamRoutes.show(t.id).url}",
           description = t.intro.so { shorten(_, 152) }
         )
         .some,
-      moreJs = jsModuleInit(
+      pageModule = PageModule(
         "team",
         Json
           .obj("id" -> t.id)
@@ -45,13 +45,13 @@ object show:
             views.html.chat.json(
               chat.chat,
               chat.lines,
-              name = if t.isChatFor(_.LEADERS) then leadersChat.txt() else trans.chatRoom.txt(),
+              name = if t.isChatFor(_.Leaders) then leadersChat.txt() else trans.site.chatRoom.txt(),
               timeout = chat.timeout,
               public = true,
               resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
               localMod = info.havePerm(_.Comm)
             ))
-      ),
+      ).some,
       robots = t.team.enabled
     ):
       val canManage     = asMod && isGranted(_.ManageTeam)
@@ -62,7 +62,7 @@ object show:
           data("socket-version") := v
       )(
         boxTop(
-          h1(cls := "text", dataIcon := licon.Group)(t.name, teamFlair(t.team)),
+          h1(cls := "text", dataIcon := Icon.Group)(t.name, teamFlair(t.team)),
           div:
             if t.disabled then span(cls := "staff")("CLOSED")
             else
@@ -84,7 +84,7 @@ object show:
                 ),
                 info.ledByMe.option(
                   a(
-                    dataIcon := licon.InfoCircle,
+                    dataIcon := Icon.InfoCircle,
                     href     := routes.Cms.lonePage("team-etiquette"),
                     cls      := "text"
                   )("Team Etiquette")
@@ -109,7 +109,7 @@ object show:
                     frag(
                       strong(beingReviewed()),
                       postForm(action := teamRoutes.quit(t.id)):
-                        submitButton(cls := "button button-red button-empty confirm")(trans.cancel())
+                        submitButton(cls := "button button-red button-empty confirm")(trans.site.cancel())
                     )
                   else (ctx.isAuth && !asMod).option(joinButton(t.team))
                 )
@@ -135,7 +135,7 @@ object show:
                   a(
                     href     := routes.Tournament.teamBattleForm(t.id),
                     cls      := "button button-empty text",
-                    dataIcon := licon.Trophy
+                    dataIcon := Icon.Trophy
                   ):
                     span(
                       strong(teamBattle()),
@@ -145,7 +145,7 @@ object show:
                   a(
                     href     := s"${routes.Tournament.form}?team=${t.id}",
                     cls      := "button button-empty text",
-                    dataIcon := licon.Trophy
+                    dataIcon := Icon.Trophy
                   ):
                     span(
                       strong(teamTournament()),
@@ -155,7 +155,7 @@ object show:
                   a(
                     href     := s"${routes.Swiss.form(t.id)}",
                     cls      := "button button-empty text",
-                    dataIcon := licon.Trophy
+                    dataIcon := Icon.Trophy
                   ):
                     span(
                       strong(trans.swiss.swissTournaments()),
@@ -168,7 +168,7 @@ object show:
                   a(
                     href     := teamRoutes.pmAll(t.id),
                     cls      := "button button-empty text",
-                    dataIcon := licon.Envelope
+                    dataIcon := Icon.Envelope
                   ):
                     span(
                       strong(messageAllMembers()),
@@ -180,7 +180,7 @@ object show:
                 a(
                   href     := teamRoutes.edit(t.id),
                   cls      := "button button-empty text",
-                  dataIcon := licon.Gear
+                  dataIcon := Icon.Gear
                 )(
                   trans.settings.settings()
                 )
@@ -189,21 +189,21 @@ object show:
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.leaders(t.id),
-                  dataIcon := licon.Group
+                  dataIcon := Icon.Group
                 )(teamLeaders())
               ),
               ((t.enabled && info.havePerm(_.Kick)) || canManage).option(
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.kick(t.id),
-                  dataIcon := licon.InternalArrow
+                  dataIcon := Icon.InternalArrow
                 )(kickSomeone())
               ),
               ((t.enabled && info.havePerm(_.Request)) || canManage).option(
                 a(
                   cls      := "button button-empty text",
                   href     := teamRoutes.declinedRequests(t.id),
-                  dataIcon := licon.Cancel
+                  dataIcon := Icon.Cancel
                 )(
                   declinedRequests()
                 )
@@ -254,7 +254,7 @@ object show:
               (t.enabled && info.simuls.nonEmpty).option(
                 frag(
                   st.section(cls := "team-show__tour team-events team-simuls")(
-                    h2(trans.simultaneousExhibitions()),
+                    h2(trans.site.simultaneousExhibitions()),
                     views.html.simul.bits.allCreated(info.simuls)
                   )
                 )
@@ -262,7 +262,7 @@ object show:
               (t.enabled && info.tours.nonEmpty).option(
                 frag(
                   st.section(cls := "team-show__tour team-events team-tournaments")(
-                    h2(a(href := teamRoutes.tournaments(t.id))(trans.tournaments())),
+                    h2(a(href := teamRoutes.tournaments(t.id))(trans.site.tournaments())),
                     table(cls := "slist")(
                       tournaments.renderList(
                         info.tours.next ::: info.tours.past.take(5 - info.tours.next.size)
@@ -273,21 +273,21 @@ object show:
               ),
               info.forum.map { forumPosts =>
                 st.section(cls := "team-show__forum")(
-                  h2(a(href := teamForumUrl(t.id))(trans.forum())),
+                  h2(a(href := teamForumUrl(t.id))(trans.site.forum())),
                   forumPosts.take(10).map { post =>
-                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.postId))(
+                    a(cls := "team-show__forum__post", href := routes.ForumPost.redirect(post.post.id))(
                       div(cls := "meta")(
-                        strong(post.topicName),
+                        strong(post.topic.name),
                         em(
-                          post.userId.map(titleNameOrId),
+                          post.post.userId.map(titleNameOrId),
                           " • ",
-                          momentFromNow(post.createdAt)
+                          momentFromNow(post.post.createdAt)
                         )
                       ),
-                      p(shorten(post.text, 200))
+                      p(shorten(post.post.text, 200))
                     )
                   },
-                  a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
+                  a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.site.forum(), " »")
                 )
               }
             )

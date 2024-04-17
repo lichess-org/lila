@@ -4,9 +4,8 @@ package userTournament
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
-import lila.user.User
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 
 object bits:
 
@@ -15,7 +14,7 @@ object bits:
       u,
       title = s"${u.username} best tournaments",
       path = "best",
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       views.html.userTournament.list(u, "best", pager, "BEST")
 
@@ -24,20 +23,20 @@ object bits:
       u,
       title = s"${u.username} recent tournaments",
       path = "recent",
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
 
-  def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(
+  def layout(u: User, title: String, path: String, modules: EsmList = Nil)(
       body: Frag
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("user-tournament"),
-      moreJs = moreJs
+      modules = modules
     ):
       main(cls := "page-menu")(
-        views.html.site.bits.pageMenuSubnav(
+        views.html.base.bits.pageMenuSubnav(
           a(cls := path.active("created"), href := routes.UserTournament.path(u.username, "created"))(
             trans.arena.created()
           ),

@@ -4,20 +4,19 @@ import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 
 import lila.db.dsl.{ *, given }
-import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicText }
-import lila.hub.actorApi.timeline.Propagate
+import lila.core.shutup.{ ShutupApi, PublicSource }
+import lila.core.timeline.Propagate
 import lila.memo.PicfitApi
-import lila.user.{ Me, User, UserApi }
 
 final class UblogApi(
     colls: UblogColls,
     rank: UblogRank,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
-    timeline: lila.hub.actors.Timeline,
-    shutup: lila.hub.actors.Shutup,
-    irc: lila.irc.IrcApi
-)(using Executor):
+    shutupApi: ShutupApi,
+    irc: lila.core.irc.IrcApi
+)(using Executor)
+    extends lila.core.ublog.UblogApi:
 
   import UblogBsonHandlers.{ *, given }
 
@@ -47,10 +46,12 @@ final class UblogApi(
       .andDo:
         lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
         if blog.visible then
-          timeline ! Propagate(
-            lila.hub.actorApi.timeline.UblogPost(user.id, post.id, post.slug, post.title)
-          ).toFollowersOf(user.id)
-          shutup ! RecordPublicText(user.id, post.allText, PublicSource.Ublog(post.id))
+          lila.common.Bus.named.timeline(
+            Propagate(
+              lila.core.timeline.UblogPost(user.id, post.id, post.slug, post.title)
+            ).toFollowersOf(user.id)
+          )
+          shutupApi.publicText(user.id, post.allText, PublicSource.Ublog(post.id))
           if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
@@ -150,7 +151,7 @@ final class UblogApi(
   private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
     (post.markdown.value.sizeIs > 1000).so(
       irc.ublogPost(
-        user,
+        user.light,
         id = post.id,
         slug = post.slug,
         title = post.title,

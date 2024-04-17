@@ -21,29 +21,29 @@
       @extend %flex-center;
       > div {
         flex: 13% 0 0;
-        margin-#{$end-direction}: 1.28%;
+        margin-inline-end: 1.28%;
         height: 1.5em;
         line-height: 1.5em;
         border: $border;
         background: $c-bg-low;
         &.lit {
-          background: mix($c-good, $c-bg-box, 80%);
+          background: $m-secondary_bg--mix-80;
         }
       }
       &--1,
       &--2 {
         > div.lit {
-          background: mix($c-bad, $c-bg-box, 80%);
+          background: $m-bad_bg--mix-80;
         }
       }
       &--3 {
         > div.lit {
-          background: mix($c-brag, $c-bg-box, 80%);
+          background: $m-brag_bg--mix-80;
         }
       }
       &--4 {
         > div.lit {
-          background: desaturate(mix($c-good, $c-bg-box, 80%), 10%);
+          background: $c-tutor-bg;
         }
       }
     }

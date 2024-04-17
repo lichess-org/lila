@@ -9,7 +9,7 @@
   <string name="promoteC8ToQueen">Tốt c8 phong cấp thành hậu</string>
   <string name="dropARookAtB4">Đặt xe ở b4 (chỉ có ở biến thể Crazyhouse)</string>
   <string name="offerOrAcceptDraw">Đề nghị hoà hoặc chấp nhận hoà</string>
-  <string name="readOutClocks">Thông báo thời gian</string>
+  <string name="readOutClocks">Đọc thời gian</string>
   <string name="readOutOpponentName">Đọc tên đối thủ</string>
   <string name="otherCommands">Lệnh khác</string>
   <string name="tips">Mẹo</string>

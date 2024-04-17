@@ -18,7 +18,7 @@ final class ErrorHandler(
     lobbyC: => controllers.Lobby
 )(using Executor)
     extends DefaultHttpErrorHandler(environment, config, router.some)
-    with ResponseWriter:
+    with lila.web.ResponseWriter:
 
   override def onProdServerError(req: RequestHeader, exception: UsefulException) =
     Future {
@@ -28,8 +28,8 @@ final class ErrorHandler(
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
         given PageContext = PageContext(
-          lila.api.Context(req, lila.i18n.defaultLang, LoginContext.anon, lila.pref.Pref.default),
-          lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req).option(lila.api.Nonce.random))
+          lila.api.Context(req, lila.core.i18n.defaultLang, LoginContext.anon, lila.pref.Pref.default),
+          lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req).option(lila.web.Nonce.random))
         )
         InternalServerError(views.html.site.bits.errorPage)
       else InternalServerError("Sorry, something went wrong.")

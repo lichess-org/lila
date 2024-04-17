@@ -3,25 +3,25 @@ package lila.lobby
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.core.config.*
+import lila.core.pool.IsClockCompatible
+import scalalib.cache.ExpireSetMemo
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    onStart: lila.round.OnStart,
-    relationApi: lila.relation.RelationApi,
-    playbanApi: lila.playban.PlaybanApi,
-    gameCache: lila.game.Cached,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
-    gameRepo: lila.game.GameRepo,
-    poolApi: lila.pool.PoolApi,
+    onStart: lila.core.game.OnStart,
+    relationApi: lila.core.relation.RelationApi,
+    hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
+    userApi: lila.core.user.UserApi,
+    gameRepo: lila.core.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
+    newPlayer: lila.core.game.NewPlayer,
+    poolApi: lila.core.pool.PoolApi,
     cacheApi: lila.memo.CacheApi,
-    remoteSocketApi: lila.socket.RemoteSocket
-)(using Executor, akka.actor.ActorSystem, Scheduler, lila.game.IdGenerator):
+    socketKit: lila.core.socket.SocketKit
+)(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.game.IdGenerator, IsClockCompatible):
 
   private lazy val seekApiConfig = new SeekApi.Config(
     coll = db(CollName("seek")),
@@ -29,6 +29,8 @@ final class Env(
     maxPerPage = MaxPerPage(13),
     maxPerUser = Max(5)
   )
+
+  private val fixedColorLobbyCache: ExpireSetMemo[GameId] = ExpireSetMemo[GameId](2 hours)
 
   lazy val seekApi = wire[SeekApi]
 
@@ -47,4 +49,4 @@ final class Env(
   val socket = wire[LobbySocket]
 
   lila.common.Bus.subscribeFun("abortGame"):
-    case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
+    case lila.core.game.AbortedBy(pov) => abortListener(pov)

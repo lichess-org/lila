@@ -4,7 +4,7 @@
 
     margin: 1em 0 0.5em 0;
 
-    @include breakpoint($mq-col1) {
+    @include mq-is-col1 {
       margin: 1em $block-gap 0.5em $block-gap;
     }
   }
@@ -36,7 +36,7 @@
     }
 
     .switch {
-      margin-#{$start-direction}: 10px;
+      margin-inline-start: 10px;
     }
   }
 

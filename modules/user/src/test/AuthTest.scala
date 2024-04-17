@@ -1,16 +1,16 @@
 package lila.user
 
 import java.util.Base64
-import scala.concurrent.ExecutionContext.Implicits.global
 
-import lila.common.config.Secret
+import lila.core.config.Secret
 
 import Authenticator.AuthData
-import User.ClearPassword as P
+import lila.user.ClearPassword as P
 
 class AuthTest extends munit.FunSuite:
 
   given Conversion[String, UserId] = UserId(_)
+  given Executor                   = scala.concurrent.ExecutionContextOpportunistic
 
   val secret = Secret(Array.fill(32)(1.toByte).toBase64)
   final def getAuth(passHasher: PasswordHasher) =

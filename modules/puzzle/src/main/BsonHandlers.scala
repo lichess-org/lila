@@ -7,17 +7,18 @@ import scala.util.{ Success, Try }
 
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.rating.Glicko
+import lila.core.rating.Glicko
 
 object BsonHandlers:
 
   import Puzzle.BSONFields.*
+  import lila.rating.Glicko.glickoHandler
 
   private[puzzle] given puzzleReader: BSONDocumentReader[Puzzle] with
     def readDocument(r: BSONDocument) = for
       id      <- r.getAsTry[PuzzleId](id)
       gameId  <- r.getAsTry[GameId](gameId)
-      fen     <- r.getAsTry[Fen.Epd](fen)
+      fen     <- r.getAsTry[Fen.Full](fen)
       lineStr <- r.getAsTry[String](line)
       line    <- lineStr.split(' ').toList.flatMap(Uci.Move.apply).toNel.toTry("Empty move list?!")
       glicko  <- r.getAsTry[Glicko](glicko)

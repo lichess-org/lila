@@ -6,6 +6,7 @@ import views.html
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.opening.OpeningQuery.queryFromUrl
+import lila.core.net.Crawler
 
 final class Opening(env: Env) extends LilaController(env):
 
@@ -66,7 +67,7 @@ final class Opening(env: Env) extends LilaController(env):
           .bindFromRequest()
           .fold(
             _ => redirect,
-            text => env.opening.wiki.write(op, text, me.value).inject(redirect)
+            text => env.opening.wiki.write(op, text, me.userId).inject(redirect)
           )
   }
 

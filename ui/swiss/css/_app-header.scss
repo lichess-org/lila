@@ -3,7 +3,7 @@
 
   position: relative;
   min-height: 7em;
-  padding: 0 #{$block-gap * 1.5};
+  padding: 0 2rem;
 
   h1 {
     font-size: 2.2rem;
@@ -13,7 +13,7 @@
 
     a {
       /* GM wikipedia */
-      color: mix($c-link, $c-font, 35%);
+      color: $m-primary_font--mix-35;
 
       &:hover {
         color: $c-link;
@@ -30,7 +30,7 @@
   }
 
   .img {
-    margin-#{$end-direction}: 1rem;
+    margin-inline-end: 1rem;
   }
 
   i::before {
@@ -67,7 +67,7 @@
       flex: 1 1 100%;
       text-align: right;
       font-size: 2.8em;
-      margin-#{$end-direction}: 0.5em;
+      margin-inline-end: 0.5em;
     }
   }
 
@@ -80,7 +80,7 @@
 
     color: $c-brag;
     font-size: 1.7em;
-    margin-#{$start-direction}: 0.2em;
+    margin-inline-start: 0.2em;
   }
 
   .shy {

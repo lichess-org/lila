@@ -7,10 +7,12 @@ import play.api.ConfigLoader
 
 import scala.util.Try
 
-import lila.common.IpAddress
+import lila.core.net.IpAddress
 import lila.common.autoconfig.*
+import lila.core.config.ConfigName
+import lila.core.security.IsProxy
 
-final class GeoIP(config: GeoIP.Config):
+final class GeoIP(config: GeoIP.Config)(using Executor):
 
   val reader: Option[DatabaseReader] =
     try config.file.nonEmpty.option(new DatabaseReader.Builder(new java.io.File(config.file)).build)

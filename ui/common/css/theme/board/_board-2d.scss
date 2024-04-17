@@ -1,0 +1,42 @@
+@import 'boards';
+
+@each $name, $board-theme in $board-themes-2d {
+  .#{$name} .is2d,
+  [data-board-theme='#{$name}'] .is2d {
+    cg-board {
+      $file-ext: map-get($board-theme, file-ext);
+      $name-override: map-get($board-theme, name-override);
+      $file-name: if($name-override, $name-override, $name);
+      $dir-name: 'board#{if($file-ext == "svg", "/svg", "")}';
+      &::before {
+        background-image: img-url('#{$dir-name}/#{$file-name}.#{$file-ext}');
+      }
+    }
+
+    $coord-color-white: map-get($board-theme, coord-color-white);
+    $coord-color-black: map-get($board-theme, coord-color-black);
+
+    @if $coord-color-white and $coord-color-black {
+      coords {
+        ---cg-ccw: #{$coord-color-white};
+        ---cg-ccb: #{$coord-color-black};
+        ---cg-cs: none;
+      }
+    }
+  }
+}
+
+.is2d cg-board::before {
+  position: absolute;
+  content: '';
+  inset: 0 0 0 0;
+  background-size: cover;
+}
+
+body:not(.simple-board) .is2d cg-board::before {
+  filter: brightness(var(---board-brightness)) hue-rotate(calc(var(---board-hue) * 360deg));
+  @include if-transp {
+    opacity: var(---board-opacity);
+    filter: hue-rotate(calc(var(---board-hue) * 360deg));
+  }
+}

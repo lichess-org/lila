@@ -1,7 +1,7 @@
 .dialog-content {
   min-width: 80vw;
 
-  @include breakpoint($mq-x-small) {
+  @media (min-width: at-least($x-small)) {
     min-width: 500px;
   }
 
@@ -28,7 +28,7 @@
         vertical-align: top;
       }
 
-      margin-#{$start-direction}: 1rem;
+      margin-inline-start: 1rem;
       opacity: 0.5;
       cursor: pointer;
 

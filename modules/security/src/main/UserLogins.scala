@@ -2,9 +2,12 @@ package lila.security
 
 import reactivemongo.api.bson.*
 
-import lila.common.{ EmailAddress, IpAddress }
+import lila.core.net.IpAddress
 import lila.db.dsl.{ *, given }
 import lila.user.{ User, UserRepo }
+import lila.core.security.IsProxy
+import lila.core.security.Ip2ProxyApi
+import lila.core.net.UserAgent
 
 case class UserLogins(
     ips: List[UserLogins.IPData],
@@ -12,7 +15,6 @@ case class UserLogins(
     uas: List[Dated[UserAgent]],
     otherUsers: List[UserLogins.OtherUser[User]]
 ):
-
   import UserLogins.OtherUser
 
   def rawIps = ips.map(_.ip.value)
@@ -35,7 +37,7 @@ final class UserLoginsApi(
     store: Store,
     userRepo: UserRepo,
     geoIP: GeoIP,
-    ip2proxy: Ip2Proxy,
+    ip2proxy: Ip2ProxyApi,
     printBan: PrintBan
 )(using Executor):
 
@@ -143,7 +145,7 @@ final class UserLoginsApi(
             UnwindField("user")
           )
         .map: docs =>
-          import lila.user.User.given
+          import lila.user.BSONHandlers.userHandler
           import FingerHash.given
           for
             doc  <- docs

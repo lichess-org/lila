@@ -4,13 +4,15 @@ import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.challenge.Challenge
 
 object bits:
 
-  def js(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using PageContext) =
-    jsModuleInit(
+  def jsModule(c: Challenge, json: JsObject, owner: Boolean, color: Option[chess.Color] = None)(using
+      PageContext
+  ) =
+    PageModule(
       "challengePage",
       Json.obj(
         "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
@@ -24,7 +26,7 @@ object bits:
     div(cls := "details")(
       div(
         cls      := "variant",
-        dataIcon := (if c.initialFen.isDefined then licon.Feather else c.perfType.icon)
+        dataIcon := (if c.initialFen.isDefined then Icon.Feather else c.perfType.icon)
       )(
         div(
           views.html.game.bits.variantLink(c.variant, c.perfType, c.initialFen),
@@ -32,8 +34,8 @@ object bits:
           span(cls := "clock"):
             c.daysPerTurn
               .fold(shortClockName(c.clock.map(_.config))): days =>
-                if days.value == 1 then trans.oneDay()
-                else trans.nbDays.pluralSame(days.value)
+                if days.value == 1 then trans.site.oneDay()
+                else trans.site.nbDays.pluralSame(days.value)
         )
       ),
       div(cls := "mode")(

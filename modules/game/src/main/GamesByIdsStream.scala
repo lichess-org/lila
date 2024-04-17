@@ -6,13 +6,11 @@ import play.api.libs.json.*
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 
-import actorApi.{ FinishGame, StartGame }
-
 final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 
   def apply(streamId: String, initialIds: Set[GameId], maxGames: Int): Source[JsValue, ?] =
     val startStream = Source
-      .queue[Game](
+      .queue[CoreGame](
         bufferSize = maxGames,
         akka.stream.OverflowStrategy.dropHead
       )
@@ -20,8 +18,8 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
         var watchedIds = initialIds
         val chans      = List("startGame", "finishGame", streamChan(streamId))
         val sub = Bus.subscribeFun(chans*) {
-          case StartGame(game) if watchedIds(game.id) => queue.offer(game)
-          case FinishGame(game, _) if watchedIds(game.id) =>
+          case lila.core.game.StartGame(game) if watchedIds(game.id) => queue.offer(game)
+          case lila.core.game.FinishGame(game, _) if watchedIds(game.id) =>
             queue.offer(game)
             watchedIds = watchedIds - game.id
           case WatchGames(ids) =>
@@ -46,5 +44,5 @@ final class GamesByIdsStream(gameRepo: lila.game.GameRepo)(using akka.stream.Mat
   private def streamChan(streamId: String) = s"gamesByIdsStream:$streamId"
 
   private def gameSource(ids: Set[GameId]) =
-    if ids.isEmpty then Source.empty[Game]
+    if ids.isEmpty then Source.empty[CoreGame]
     else gameRepo.cursor($inIds(ids)).documentSource().throttle(50, 1.second)

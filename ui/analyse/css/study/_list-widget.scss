@@ -1,10 +1,8 @@
-$c-study: $c-primary;
-
 .studies {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax($viewport-min-width, 1fr));
 
-  @include breakpoint($mq-medium) {
+  @media (min-width: at-least($medium)) {
     grid-template-columns: repeat(auto-fill, minmax(45ch, 1fr));
   }
 
@@ -34,7 +32,7 @@ $c-study: $c-primary;
     .members {
       flex: 0 0 40%;
       max-width: 40%;
-      margin-#{$start-direction}: 2%;
+      margin-inline-start: 2%;
     }
 
     li {
@@ -57,7 +55,7 @@ $c-study: $c-primary;
 
         font-size: 1.5em;
         font-weight: normal;
-        color: $c-study;
+        color: $c-primary;
         display: block;
         margin: 0;
         unicode-bidi: plaintext;
@@ -74,12 +72,12 @@ $c-study: $c-primary;
       }
 
       &::before {
-        color: mix($c-link, $c-bg-box, 80%);
+        color: $m-primary_bg--mix-80;
         font-size: 4em;
-        margin-#{$end-direction}: 0.2em;
+        margin-inline-end: 0.2em;
 
         @include transition;
-        @include breakpoint($mq-not-xx-small) {
+        @media (max-width: at-most($xx-small)) {
           display: none;
         }
       }
@@ -90,10 +88,10 @@ $c-study: $c-primary;
     }
 
     &:hover {
-      background: mix($c-study, $c-bg-box, 10%);
+      background: $m-primary_bg--mix-10;
 
       .top::before {
-        color: mix($c-link, $c-bg-box, 100%);
+        color: $c-link;
       }
     }
   }

@@ -9,7 +9,7 @@ import lila.common.Form.{ cleanNonEmptyText, cleanText, into }
 import lila.security.{ Hcaptcha, HcaptchaForm }
 
 final class ClasForm(
-    lightUserAsync: lila.common.LightUser.Getter,
+    lightUserAsync: lila.core.LightUser.Getter,
     securityForms: lila.security.SecurityForm,
     nameGenerator: NameGenerator,
     hcaptcha: Hcaptcha
@@ -63,7 +63,7 @@ final class ClasForm(
 
     def invite(c: Clas) = Form:
       mapping(
-        "username" -> lila.user.UserForm.historicalUsernameField
+        "userId" -> lila.common.Form.username.historicalField
           .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
           .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
         "realName" -> cleanNonEmptyText

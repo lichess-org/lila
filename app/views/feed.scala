@@ -5,19 +5,22 @@ import play.api.data.Form
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 import lila.feed.Feed.Update
 
 object feed:
 
   private def layout(title: String, edit: Boolean = false)(using PageContext) =
-    views.html.site.page.layout(
-      title = title,
-      active = "news",
-      moreCss = cssTag("dailyFeed"),
-      moreJs = frag(infiniteScrollTag, edit.option(jsModule("flatpickr")), edit.option(jsModule("dailyFeed")))
-    )
+    views.html.site.page
+      .layout(
+        title = title,
+        active = "news",
+        moreCss = cssTag("dailyFeed"),
+        modules = infiniteScrollTag
+          ++ edit.so(jsModule("bits.flatpickr"))
+          ++ edit.so(jsModule("bits.dailyFeed"))
+      )
 
   def index(ups: Paginator[Update])(using PageContext) =
     layout("Updates"):
@@ -29,10 +32,10 @@ object feed:
               a(
                 href     := routes.Feed.createForm,
                 cls      := "button button-green",
-                dataIcon := licon.PlusButton
+                dataIcon := Icon.PlusButton
               )
             ),
-            views.html.site.bits.atomLink(routes.Feed.atom)
+            views.html.base.atom.atomLink(routes.Feed.atom)
           )
         ),
         standardFlash,
@@ -54,7 +57,7 @@ object feed:
                     a(
                       href     := routes.Feed.edit(update.id),
                       cls      := "button button-green button-empty button-thin text",
-                      dataIcon := licon.Pencil
+                      dataIcon := Icon.Pencil
                     ),
                     (!update.public).option(badTag(nbsp, "[Draft]")),
                     update.future.option(goodTag(nbsp, "[Future]"))
@@ -67,7 +70,7 @@ object feed:
       pagerNext(ups, np => routes.Feed.index(np).url)
     )
 
-  val lobbyUpdates = renderCache[List[Update]](1 minute): ups =>
+  val lobbyUpdates = renderCache[List[Update]](1 minute)(using env.executor): ups =>
     div(cls := "daily-feed__updates")(
       ups.map: update =>
         div(cls := "daily-feed__update")(
@@ -152,7 +155,7 @@ object feed:
       cls := customClass.getOrElse(s"daily-feed__update__marker ${flair.nonEmpty.so(" nobg")}")
     )
 
-  def atom(ups: List[Update])(using Lang) =
+  def atom(ups: List[Update])(using Translate) =
     import views.html.base.atom.atomDate
     views.html.base.atom(
       elems = ups,

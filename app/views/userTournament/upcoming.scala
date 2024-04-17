@@ -2,9 +2,8 @@ package views.html
 package userTournament
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
-import lila.user.User
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 
 object upcoming:
 
@@ -14,7 +13,7 @@ object upcoming:
       title = s"${u.username} upcoming tournaments",
       path = "upcoming"
     ):
-      if pager.nbResults == 0 then div(cls := "box-pad")(trans.nothingToSeeHere())
+      if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
       else
         div(cls := "tournament-list")(
           table(cls := "slist")(
@@ -24,7 +23,7 @@ object upcoming:
                 th(colspan := 2)(
                   h1(frag(userLink(u, withOnline = true)), " • ", trans.team.upcomingTournaments())
                 ),
-                th(trans.players())
+                th(trans.site.players())
               )
             ),
             tbody:
@@ -33,7 +32,7 @@ object upcoming:
                   td(cls := "icon")(iconTag(tournamentIcon(t))),
                   views.html.tournament.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
-                  td(cls := "text", dataIcon := licon.User)(t.nbPlayers.localize)
+                  td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
                 )
           )
         )

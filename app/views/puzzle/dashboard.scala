@@ -5,9 +5,8 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDashboard, PuzzleTheme }
-import lila.user.User
 
 object dashboard:
 
@@ -25,27 +24,24 @@ object dashboard:
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
-      moreJs = dashOpt.so { dash =>
-        val mostPlayed = dash.mostPlayed.sortBy { case (key, _) => PuzzleTheme(key).name.txt() }
-        jsModuleInit(
-          "puzzle.dashboard",
+      pageModule = PageModule(
+        "puzzle.dashboard",
+        dashOpt.so: dash =>
+          val mostPlayed = dash.mostPlayed.sortBy { (key, _) => PuzzleTheme(key).name.txt() }
           Json.obj(
             "radar" -> Json.obj(
-              "labels" -> mostPlayed.map { case (key, _) =>
-                PuzzleTheme(key).name.txt()
-              },
+              "labels" -> mostPlayed.map: (key, _) =>
+                PuzzleTheme(key).name.txt(),
               "datasets" -> Json.arr(
                 Json.obj(
                   "label" -> "Performance",
-                  "data" -> mostPlayed.map { case (_, results) =>
+                  "data" -> mostPlayed.map: (_, results) =>
                     results.performance
-                  }
                 )
               )
             )
           )
-        )
-      }
+      ).some
     ) { dash =>
       (dash.mostPlayed.size > 2).option(
         div(cls := s"${baseClass}__global")(
@@ -90,14 +86,14 @@ object dashboard:
       title: String,
       subtitle: String,
       dashOpt: Option[PuzzleDashboard],
-      moreJs: Frag = emptyFrag
+      pageModule: Option[PageModule] = None
   )(
       body: PuzzleDashboard => Option[Frag]
   )(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
-      moreJs = moreJs
+      pageModule = pageModule
     )(
       main(cls := "page-menu")(
         bits.pageMenu(path, user.some),
@@ -109,12 +105,12 @@ object dashboard:
             ),
             views.html.base.bits.mselect(
               s"${baseClass}__day-select box__top__actions",
-              span(trans.nbDays.pluralSame(days)),
+              span(trans.site.nbDays.pluralSame(days)),
               PuzzleDashboard.dayChoices.map { d =>
                 a(
                   cls  := (d == days).option("current"),
                   href := routes.Puzzle.dashboard(d, path, user.username.some)
-                )(trans.nbDays.pluralSame(d))
+                )(trans.site.nbDays.pluralSame(d))
               }
             )
           ),
@@ -151,12 +147,12 @@ object dashboard:
       ctx.pref.showRatings.option(
         div(cls := s"$metricClass $metricClass--perf")(
           strong(results.performance, results.unclear.so("?")),
-          span(trans.performance())
+          span(trans.site.performance())
         )
       ),
       div(
         cls   := s"$metricClass $metricClass--win",
-        style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
+        style := s"---first:${results.firstWinPercent}%;---win:${results.winPercent}%"
       )(
         trans.puzzle.percentSolved(strong(s"${results.winPercent}%"))
       ),
@@ -169,6 +165,6 @@ object dashboard:
             trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
           )
         ),
-        iconTag(if results.canReplay then licon.PlayTriangle else licon.Checkmark)
+        iconTag(if results.canReplay then Icon.PlayTriangle else Icon.Checkmark)
       )
     )

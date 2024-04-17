@@ -3,7 +3,7 @@ package lila.relay
 import chess.{ Elo, FideId, Outcome, PlayerName, PlayerTitle }
 
 import lila.db.dsl.{ *, given }
-import lila.fide.{ Federation, FidePlayerApi }
+import lila.core.fide.Federation
 import lila.memo.CacheApi
 import lila.study.ChapterRepo
 
@@ -34,7 +34,7 @@ final class RelayLeaderboardApi(
     tourRepo: RelayTourRepo,
     roundRepo: RelayRoundRepo,
     chapterRepo: ChapterRepo,
-    playerApi: FidePlayerApi,
+    federationsOf: Federation.FedsOf,
     cacheApi: CacheApi
 )(using Executor, Scheduler):
 
@@ -48,11 +48,11 @@ final class RelayLeaderboardApi(
     cache.get(tour.id)
 
   private val invalidateDebouncer =
-    lila.common.Debouncer[RelayTour.Id](10 seconds, 64)(id => cache.put(id, computeJson(id)))
+    lila.common.Debouncer[RelayTour.Id](3 seconds, 32)(id => cache.put(id, computeJson(id)))
 
   def invalidate(id: RelayTour.Id) = invalidateDebouncer.push(id)
 
-  private val cache = cacheApi[RelayTour.Id, JsonStr](256, "relay.leaderboard"):
+  private val cache = cacheApi[RelayTour.Id, JsonStr](32, "relay.leaderboard"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(computeJson)
 
   private def computeJson(id: RelayTour.Id): Fu[JsonStr] =
@@ -85,10 +85,11 @@ final class RelayLeaderboardApi(
                 prevFideId.orElse(game.fideIds(color))
               )
             )
-    federations <- playerApi.federationsOf(players.values.flatMap(_._5).toList)
+    federations <- federationsOf(players.values.flatMap(_._5).toList)
   yield RelayLeaderboard:
     players.toList
-      .sortBy(-_._2._1)
+      .sortBy: (_, player) =>
+        (-player._1, -player._3.so(_.value))
       .map:
         case (name, (score, played, rating, title, fideId)) =>
           val fed = fideId.flatMap(federations.get)

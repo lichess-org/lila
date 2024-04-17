@@ -7,7 +7,7 @@
     "@types/lichess": "workspace:*",
     "ceval": "workspace:*",
     "chess": "workspace:*",
-    "chessops": "^0.14.0",
+    "chessops": "^0.14.1",
     "common": "workspace:*",
     "game": "workspace:*",
     "libot": "workspace:*",
@@ -16,9 +16,7 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "localPlay"
-      }
+      "src/localPlay.ts": "localPlay"
     }
   }
 }

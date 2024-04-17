@@ -5,7 +5,7 @@ import chess.format.pgn.PgnStr
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
 object embed:
@@ -16,7 +16,7 @@ object embed:
       cssModule = "lpv.embed"
     )(
       div(cls := "is2d")(div(pgn)),
-      jsModule("lpv.embed"),
+      jsTag("site.lpv.embed"),
       lpvJs(orientation, getPgn)
     )
 
@@ -41,10 +41,10 @@ object embed:
     .add("orientation", orientation.map(_.name))
 
   val lpvI18n = List(
-    trans.flipBoard,
-    trans.analysis,
-    trans.practiceWithComputer,
-    trans.download
+    trans.site.flipBoard,
+    trans.site.analysis,
+    trans.site.practiceWithComputer,
+    trans.site.download
   )
 
   def notFound(using EmbedContext) =

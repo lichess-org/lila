@@ -6,8 +6,8 @@
     grid-column-gap: $block-gap;
     grid-template-areas: 'board' 'side';
 
-    @include breakpoint($mq-col2) {
-      grid-template-columns: var(--col2-uniboard-width) $col2-uniboard-table;
+    @include mq-at-least-col2 {
+      grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
       grid-template-rows: fit-content(0);
       grid-template-areas: 'board   side';
     }
@@ -27,12 +27,12 @@
 
   &__pov {
     color: $c-brag;
-    margin-#{$start-direction}: 5vw;
+    margin-inline-start: 5vw;
 
-    @include breakpoint($mq-col2) {
+    @include mq-at-least-col2 {
       position: absolute;
       bottom: -3em;
-      margin-#{$start-direction}: 0;
+      margin-inline-start: 0;
     }
   }
 }

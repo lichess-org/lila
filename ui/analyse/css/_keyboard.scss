@@ -1,6 +1,6 @@
 .keyboard-help {
   td.mouse li {
-    margin-#{$start-direction}: 1em;
     list-style: disc inside;
+    margin-inline-start: 1em;
   }
 }

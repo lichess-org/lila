@@ -1,15 +1,29 @@
-$mq-col2: $mq-xx-small;
-$mq-col3: $mq-small;
-$mq-col4: $mq-x-large;
+@mixin mq-at-least-col2 {
+  @media (min-width: at-least($xx-small)) {
+    @content;
+  }
+}
+
+@mixin mq-at-least-col3 {
+  @media (min-width: at-least($small)) {
+    @content;
+  }
+}
+
+@mixin mq-at-least-col4 {
+  @media (min-width: at-least($x-large)) {
+    @content;
+  }
+}
 
 @mixin lobby-app-size {
   min-height: 300px;
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     min-height: 400px;
   }
 
-  @include breakpoint($mq-col3) {
+  @include mq-at-least-col3 {
     height: 600px;
     max-height: calc(100vh - #{$site-header-outer-height} - #{$block-gap});
   }

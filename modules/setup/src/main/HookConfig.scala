@@ -3,10 +3,13 @@ package lila.setup
 import chess.variant.Variant
 import chess.{ Clock, Mode }
 
-import lila.common.Days
+import scalalib.model.Days
 import lila.lobby.{ Color, Hook, Seek }
-import lila.rating.{ Perf, RatingRange }
-import lila.user.{ Me, User }
+import lila.rating.{ Perf }
+import lila.rating.RatingRange.withinLimits
+
+import lila.core.rating.RatingRange
+import lila.core.perf.UserWithPerfs
 
 case class HookConfig(
     variant: chess.variant.Variant,
@@ -43,10 +46,10 @@ case class HookConfig(
       case _                      => this
 
   def hook(
-      sri: lila.socket.Socket.Sri,
-      user: Option[User.WithPerfs],
+      sri: lila.core.socket.Sri,
+      user: Option[UserWithPerfs],
       sid: Option[String],
-      blocking: lila.pool.Blocking
+      blocking: lila.core.pool.Blocking
   ): Either[Hook, Option[Seek]] =
     timeMode match
       case TimeMode.RealTime =>
@@ -56,7 +59,7 @@ case class HookConfig(
             sri = sri,
             variant = variant,
             clock = clock,
-            mode = if lila.game.Game.allowRated(variant, clock.some) then mode else Mode.Casual,
+            mode = if lila.core.game.allowRated(variant, clock.some) then mode else Mode.Casual,
             color = color.name,
             user = user,
             blocking = blocking,
@@ -76,7 +79,7 @@ case class HookConfig(
               ratingRange = ratingRange
             )
 
-  def updateFrom(game: lila.game.Game) =
+  def updateFrom(game: Game) =
     copy(
       variant = game.variant,
       timeMode = TimeMode.ofGame(game),
@@ -86,9 +89,10 @@ case class HookConfig(
       mode = game.mode
     )
 
-  def withRatingRange(ratingRange: String) = copy(ratingRange = RatingRange.orDefault(ratingRange))
+  def withRatingRange(ratingRange: String) =
+    copy(ratingRange = RatingRange.orDefault(ratingRange))
   def withRatingRange(rating: Option[IntRating], deltaMin: Option[String], deltaMax: Option[String]) =
-    copy(ratingRange = RatingRange.orDefault(rating, deltaMin, deltaMax))
+    copy(ratingRange = lila.rating.RatingRange.orDefault(rating, deltaMin, deltaMax))
 
 object HookConfig extends BaseHumanConfig:
 
@@ -141,7 +145,7 @@ object HookConfig extends BaseHumanConfig:
         days = r.get("d"),
         mode = Mode.orDefault(r.int("m")),
         color = Color.Random,
-        ratingRange = r.strO("e").flatMap(RatingRange.apply).getOrElse(RatingRange.default)
+        ratingRange = r.strO("e").flatMap(RatingRange.parse).getOrElse(RatingRange.default)
       )
 
     def writes(w: BSON.Writer, o: HookConfig) =

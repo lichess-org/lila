@@ -1,6 +1,7 @@
 package lila.tournament
 
 import play.api.i18n.Lang
+import lila.core.chess.Rank
 
 final class LeaderboardRepo(val coll: lila.db.dsl.Coll)
 
@@ -31,7 +32,6 @@ case class VisibleTournaments(
     started: List[Tournament],
     finished: List[Tournament]
 ):
-
   def unfinished = created ::: started
 
   def all = started ::: created ::: finished
@@ -45,7 +45,7 @@ case class VisibleTournaments(
 case class PlayerInfoExt(
     userId: UserId,
     player: Player,
-    recentPovs: List[lila.game.LightPov]
+    recentPovs: List[lila.core.game.LightPov]
 )
 
 case class FullRanking(ranking: Map[UserId, Rank], playerIndex: Array[TourPlayerId])
@@ -54,7 +54,7 @@ case class GameRanks(whiteRank: Rank, blackRank: Rank)
 
 case class RankedPairing(pairing: Pairing, rank1: Rank, rank2: Rank):
 
-  def bestRank = rank1.atLeast(rank2)
+  def bestRank: Rank = rank1.atLeast(rank2)
 
   def bestColor = chess.Color.fromWhite(rank1 < rank2)
 
@@ -89,12 +89,13 @@ case class RankedPlayerWithColorHistory(rank: Rank, player: Player, colorHistory
   override def toString = s"$rank. ${player.userId}[${player.rating}]"
 
 case class FeaturedGame(
-    game: lila.game.Game,
+    game: Game,
     white: RankedPlayer,
     black: RankedPlayer
 )
 
-final class GetTourName(cache: lila.memo.Syncache[(TourId, Lang), Option[String]]):
+final class GetTourName(cache: lila.memo.Syncache[(TourId, Lang), Option[String]])
+    extends lila.core.tournament.GetTourName:
   def sync(id: TourId)(using lang: Lang)               = cache.sync(id -> lang)
   def async(id: TourId)(using lang: Lang)              = cache.async(id -> lang)
   def preload(ids: Iterable[TourId])(using lang: Lang) = cache.preloadMany(ids.map(_ -> lang).toSeq)

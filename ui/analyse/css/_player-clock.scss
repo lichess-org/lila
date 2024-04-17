@@ -4,11 +4,12 @@ $clock-height: 20px;
 
 .analyse__player_strip {
   position: absolute;
-  #{$end-direction}: 0;
+  @include inline-end(0);
   display: flex;
 
   &.top {
     top: #{-$clock-height};
+    z-index: z('above-site-header');
 
     .is3d & {
       top: #{-$clock-height - 35px};
@@ -16,25 +17,25 @@ $clock-height: 20px;
   }
 
   &.bottom {
-    top: var(--cg-height, 100%);
+    top: var(--cg-height, 100%); // TODO add hyphen once chessground is updated
     z-index: 1; // over the board coords
 
     .is3d & {
-      top: calc(var(--cg-height, 100%) + 15px);
+      top: calc(var(--cg-height, 100%) + 15px); // TODO add hyphen once chessground is updated
     }
   }
 
   /* Where to put them in col1 layout? It moves the entire board and controls down for little benefit */
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     display: none;
   }
 }
 
 .analyse__clock {
-  @extend %metal, %box-shadow;
+  @extend %metal;
 
   padding: 0 0.5em;
-  margin-#{$start-direction}: 12px;
+  margin-inline-start: 12px;
   height: $clock-height;
   font-weight: bold;
   text-align: center;
@@ -52,7 +53,7 @@ $clock-height: 20px;
   }
 
   &.active {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: $m-primary_bg--mix-30;
   }
 
   tenths {
@@ -61,14 +62,14 @@ $clock-height: 20px;
 }
 
 .material {
-  padding-#{$end-direction}: 1px;
+  padding-inline-end: 1px;
 
   mpiece {
     width: 20px;
     height: 20px;
 
     &.pawn {
-      margin-#{$start-direction}: -10px;
+      margin-inline-start: -10px;
     }
   }
   score {

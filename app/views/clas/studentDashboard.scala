@@ -3,10 +3,11 @@ package views.html.clas
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
-import lila.user.User
+import lila.rating.UserPerfsExt.bestAny3Perfs
+import lila.rating.UserPerfsExt.bestRating
 
 object studentDashboard:
 
@@ -19,7 +20,7 @@ object studentDashboard:
     bits.layout(c.name, Left(c.withStudents(Nil)))(
       cls := "clas-show dashboard dashboard-student",
       div(cls := "clas-show__top")(
-        h1(dataIcon := licon.Group, cls := "text")(c.name),
+        h1(dataIcon := Icon.Group, cls := "text")(c.name),
         c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc)))
       ),
       c.archived.map { archived =>
@@ -50,7 +51,7 @@ object studentDashboard:
               ),
               td(
                 user.seenAt.map: seen =>
-                  trans.lastSeenActive(momentFromNow(seen))
+                  trans.site.lastSeenActive(momentFromNow(seen))
               ),
               challengeTd(user)
             )
@@ -64,9 +65,9 @@ object studentDashboard:
       thead:
         tr(
           th(dataSortDefault)(trans.clas.nbStudents(students.size)),
-          thSortNumber(trans.rating()),
-          thSortNumber(trans.games()),
-          thSortNumber(trans.puzzles()),
+          thSortNumber(trans.site.rating()),
+          thSortNumber(trans.site.games()),
+          thSortNumber(trans.site.puzzles()),
           th
         )
       ,
@@ -94,15 +95,15 @@ object studentDashboard:
         }
     )
 
-  private def challengeTd(user: lila.user.User)(using ctx: PageContext) =
+  private def challengeTd(user: User)(using ctx: PageContext) =
     if ctx.is(user) then td
     else
       val online = isOnline(user.id)
       td(
         a(
-          dataIcon := licon.Swords,
+          dataIcon := Icon.Swords,
           cls      := List("button button-empty text" -> true, "disabled" -> !online),
           title    := trans.challenge.challengeToPlay.txt(),
           href     := online.option(s"${routes.Lobby.home}?user=${user.username}#friend")
-        )(trans.play())
+        )(trans.site.play())
       )

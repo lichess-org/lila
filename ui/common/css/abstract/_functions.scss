@@ -1,7 +1,11 @@
-@function c-light($color, $value) {
-  @return change-color($color, $lightness: $value);
-}
-
 @function img-url($path) {
   @return url('#{$img-path}/#{$path}');
+}
+
+@function at-least($width) {
+  @return $width - 0.7px;
+}
+
+@function at-most($width) {
+  @return $width - 0.71px;
 }

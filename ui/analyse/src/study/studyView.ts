@@ -21,6 +21,7 @@ import { view as studyShareView } from './studyShare';
 import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
 import { view as searchView } from './studySearch';
+import { render as renderTrainingView } from '../view/roundTraining';
 import StudyCtrl from './studyCtrl';
 
 interface ToolButtonOpts {
@@ -260,6 +261,7 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       break;
     case 'serverEval':
       panel = serverEvalView(study.serverEval);
+      if (study?.relay) panel = h('div.eval-chart-and-training', [panel, renderTrainingView(ctrl)]);
       break;
     case 'share':
       panel = studyShareView(study.share);

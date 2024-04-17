@@ -1,21 +1,20 @@
 package lila.chat
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 import play.api.data.Form
 import play.api.data.Forms.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final class ChatTimeout(
     coll: Coll,
     duration: FiniteDuration
 )(using Executor):
 
-  import ChatTimeout.*
+  import ChatTimeout.{ *, given }
 
-  private val global = new lila.memo.ExpireSetMemo[UserId](duration)
+  private val global = new scalalib.cache.ExpireSetMemo[UserId](duration)
 
   def add(chat: UserChat, mod: User, user: User, reason: Reason, scope: Scope): Fu[Boolean] =
     isActive(chat.id, user.id).flatMap {
@@ -62,15 +61,7 @@ final class ChatTimeout(
 
 object ChatTimeout:
 
-  enum Reason(val key: String, val name: String):
-    lazy val shortName = name.split(';').lift(0) | name
-    case PublicShaming extends Reason("shaming", "public shaming; please use lichess.org/report")
-    case Insult extends Reason("insult", "disrespecting other players; see lichess.org/page/chat-etiquette")
-    case Spam   extends Reason("spam", "spamming the chat; see lichess.org/page/chat-etiquette")
-    case Other  extends Reason("other", "inappropriate behavior; see lichess.org/page/chat-etiquette")
-  object Reason:
-    val all                = values.toList
-    def apply(key: String) = all.find(_.key == key)
+  export lila.core.chat.{ TimeoutReason as Reason, TimeoutScope as Scope }
 
   given BSONHandler[Reason] = tryHandler(
     { case BSONString(value) => Reason(value).toTry(s"Invalid reason $value") },
@@ -83,15 +74,12 @@ object ChatTimeout:
   case class UserEntry(mod: UserId, reason: Reason, createdAt: Instant)
   given BSONDocumentReader[UserEntry] = Macros.reader
 
-  enum Scope:
-    case Local, Global
-
   import lila.common.Form.given
   val form = Form(
     mapping(
       "roomId" -> of[RoomId],
       "chan"   -> lila.common.Form.stringIn(Set("tournament", "swiss", "team", "study")),
-      "userId" -> lila.user.UserForm.historicalUsernameField,
+      "userId" -> lila.common.Form.username.historicalField,
       "reason" -> nonEmptyText,
       "text"   -> nonEmptyText
     )(TimeoutFormData.apply)(unapply)

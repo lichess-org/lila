@@ -1,13 +1,27 @@
 package lila.app
 package templating
-import play.api.libs.json.{ JsValue, Json }
+import play.api.libs.json.{ JsValue, Json, Writes }
 
-import lila.app.ui.ScalatagsTemplate.*
-import lila.common.AssetVersion
+import lila.web.Nonce
+import lila.web.ui.ScalatagsTemplate.*
+import lila.core.net.AssetVersion
+import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
+import lila.web.ui.*
+import lila.web.ContentSecurityPolicy
 
-trait AssetHelper extends HasEnv:
+trait AssetHelper:
   self: I18nHelper & SecurityHelper =>
+
+  def env: Env
+
+  case class PageModule(name: String, data: JsValue | SafeJsonStr)
+  case class EsmInit(key: String, init: Frag)
+  type EsmList = List[Option[EsmInit]]
+  given Conversion[EsmInit, EsmList] with
+    def apply(esmInit: EsmInit): EsmList = List(Some(esmInit))
+  given Conversion[Option[EsmInit], EsmList] with
+    def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
 
   private lazy val netDomain      = env.net.domain
   private lazy val assetDomain    = env.net.assetDomain
@@ -22,6 +36,8 @@ trait AssetHelper extends HasEnv:
 
   def assetVersion = AssetVersion.current
 
+  def updateManifest() = if !env.net.isProd then env.web.manifest.update()
+
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______2"
 
@@ -32,60 +48,53 @@ trait AssetHelper extends HasEnv:
 
   def flairSrc(flair: Flair) = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
 
-  def cssTag(name: String)(using ctx: Context): Frag =
-    cssTagWithDirAndTheme(name, isRTL, ctx.pref.currentBg)
+  def cssTag(key: String)(using ctx: Context): Frag =
+    link(
+      cls  := key,
+      href := staticAssetUrl(s"css/${env.web.manifest.css(key).getOrElse(key)}"),
+      rel  := "stylesheet"
+    )
 
-  def cssTagWithDirAndTheme(name: String, isRTL: Boolean, theme: String): Frag =
-    if theme == "system" then
-      frag(
-        cssTagWithDirAndSimpleTheme(name, isRTL, "light")(media := "(prefers-color-scheme: light)"),
-        cssTagWithDirAndSimpleTheme(name, isRTL, "dark")(media  := "(prefers-color-scheme: dark)")
-      )
-    else cssTagWithDirAndSimpleTheme(name, isRTL, theme)
-
-  private def cssTagWithDirAndSimpleTheme(name: String, isRTL: Boolean, theme: String): Tag =
-    cssAt:
-      s"css/$name.${if isRTL then "rtl" else "ltr"}.$theme.${if minifiedAssets then "min" else "dev"}.css"
-
-  def cssTagNoTheme(name: String): Frag =
-    cssAt(s"css/$name.${if minifiedAssets then "min" else "dev"}.css")
-
-  private def cssAt(path: String): Tag =
-    link(href := assetUrl(path), rel := "stylesheet")
-
-  val systemThemePolyfillJs = """
-if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
-    document.querySelectorAll('[media="(prefers-color-scheme: dark)"]').forEach(e=>e.media='')
-"""
+  def jsonScript(json: JsValue | SafeJsonStr, id: String = "page-init-data") =
+    script(tpe := "application/json", st.id := id):
+      raw:
+        json match
+          case json: JsValue => safeJsonValue(json).value
+          case json          => json.toString
 
   // load iife scripts in <head> and defer
   def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
-  private val loadEsmFunction = "site.asset.loadEsm"
+  private val load = "site.asset.loadEsm"
 
-  // jsModule is esm, no defer needed
-  def jsModule(name: String): Frag =
-    script(tpe := "module", src := assetUrl(s"compiled/$name${minifiedAssets.so(".min")}.js"))
-  def jsModuleInit(name: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name')"))
-  def jsModuleInit(name: String, text: String)(using PageContext) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})"))
-  def jsModuleInit(name: String, json: JsValue)(using PageContext): Frag =
-    jsModuleInit(name, safeJsonValue(json))
-  def jsModuleInit(name: String, text: String, nonce: lila.api.Nonce) =
-    frag(jsModule(name), embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:$text})", nonce))
-  def jsModuleInit(name: String, json: JsValue, nonce: lila.api.Nonce) = frag(
-    jsModule(name),
-    embedJsUnsafeLoadThen(s"$loadEsmFunction('$name',{init:${safeJsonValue(json)}})", nonce)
-  )
-  def analyseInit(mode: String, json: JsValue)(using ctx: PageContext) =
-    jsModuleInit("analysisBoard", Json.obj("mode" -> mode, "cfg" -> json))
+  def jsName(key: String): String =
+    env.web.manifest.js(key).fold(key)(_.name)
+  def jsTag(key: String): Frag =
+    script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
+  def jsDeps(keys: List[String]): Frag = frag:
+    env.web.manifest.deps(keys).map { dep =>
+      script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
+    }
+  def jsModule(key: String): EsmInit =
+    EsmInit(key, emptyFrag)
+  def jsModuleInit(key: String)(using PageContext): EsmInit =
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}')"))
+  def jsModuleInit(key: String, json: SafeJsonStr)(using PageContext): EsmInit =
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}',{init:$json})"))
+  def jsModuleInit[A: Writes](key: String, value: A)(using PageContext): EsmInit =
+    jsModuleInit(key, safeJsonValue(Json.toJson(value)))
+  def jsModuleInit(key: String, text: SafeJsonStr, nonce: Nonce): EsmInit =
+    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}',{init:$text})", nonce))
+  def jsModuleInit(key: String, json: JsValue, nonce: Nonce): EsmInit =
+    jsModuleInit(key, safeJsonValue(json), nonce)
+  def jsPageModule(key: String)(using PageContext): EsmInit =
+    EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${jsName(key)}')"))
 
-  def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analysisBoard.nvui"))
+  def analyseNvuiTag(using ctx: PageContext) = ctx.blind.option(jsModule("analyse.nvui"))
   def puzzleNvuiTag(using ctx: PageContext)  = ctx.blind.option(jsModule("puzzle.nvui"))
   def roundNvuiTag(using ctx: PageContext)   = ctx.blind.option(jsModule("round.nvui"))
-  def infiniteScrollTag(using PageContext)   = jsModuleInit("infiniteScroll", "'.infinite-scroll'")
-  def captchaTag                             = jsModule("captcha")
+  def infiniteScrollTag(using PageContext)   = jsModuleInit("bits.infiniteScroll")
+  def captchaTag                             = jsModule("bits.captcha")
   def cashTag                                = iifeModule("javascripts/vendor/cash.min.js")
   def fingerprintTag                         = iifeModule("javascripts/fipr.js")
   def chessgroundTag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
@@ -94,17 +103,9 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }
     // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev = (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
-    ContentSecurityPolicy(
-      defaultSrc = List("'self'", assetDomain.value),
-      connectSrc =
-        "'self'" :: "blob:" :: "data:" :: assetDomain.value :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev,
-      styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
-      frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv"),
-      workerSrc = List("'self'", assetDomain.value, "blob:"),
-      imgSrc = List("'self'", "blob:", "data:", "*"),
-      scriptSrc = List("'self'", assetDomain.value),
-      fontSrc = List("'self'", assetDomain.value),
-      baseUri = List("'none'")
+    ContentSecurityPolicy.basic(
+      assetDomain,
+      assetDomain.value :: sockets ::: env.explorerEndpoint :: env.tablebaseEndpoint :: localDev
     )
 
   def defaultCsp(using ctx: PageContext): ContentSecurityPolicy =
@@ -118,7 +119,7 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
       s""" nonce="$nonce""""
     s"""<script$nonce>$js</script>"""
 
-  def embedJsUnsafe(js: String, nonce: lila.api.Nonce): Frag = raw:
+  def embedJsUnsafe(js: String, nonce: Nonce): Frag = raw:
     s"""<script nonce="$nonce">$js</script>"""
 
   private val onLoadFunction = "site.load.then"
@@ -126,5 +127,5 @@ if (window.matchMedia('(prefers-color-scheme: dark)').media === 'not all')
   def embedJsUnsafeLoadThen(js: String)(using PageContext): Frag =
     embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""")
 
-  def embedJsUnsafeLoadThen(js: String, nonce: lila.api.Nonce): Frag =
+  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
     embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""", nonce)

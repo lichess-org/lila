@@ -6,6 +6,12 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
+export const clamp = (value: number, bounds: { min: number; max: number }): number =>
+  Math.max(bounds.min, Math.min(value, bounds.max));
+
+export const constrain = (value: number, constraints: { min?: number; max?: number }): number =>
+  clamp(value, { min: constraints.min ?? value, max: constraints.max ?? value });
+
 export function as<T>(v: T, f: () => void): () => T {
   return () => {
     f();
@@ -133,4 +139,8 @@ export function pushMap<T>(m: SparseMap<T>, key: string, val: T) {
     if (v instanceof Set) v.add(val);
     else if (v !== val) m.set(key, new Set([v as T, val]));
   }
+}
+
+export function hyphenToCamel(str: string) {
+  return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
 }

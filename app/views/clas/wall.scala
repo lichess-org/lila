@@ -4,7 +4,7 @@ import controllers.clas.routes.Clas as clasRoutes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 
 object wall:
@@ -13,14 +13,14 @@ object wall:
     teacherDashboard.layout(c, students.filter(_.student.isActive), "wall")(
       div(cls := "clas-wall__actions")(
         a(
-          dataIcon := licon.Pencil,
+          dataIcon := Icon.Pencil,
           href     := clasRoutes.wallEdit(c.id.value),
           cls      := "button button-clas text"
         )(
           trans.clas.editNews()
         ),
         a(
-          dataIcon := licon.Envelope,
+          dataIcon := Icon.Envelope,
           href     := clasRoutes.notifyStudents(c.id.value),
           cls      := "button button-clas text"
         )(
@@ -49,8 +49,8 @@ object wall:
             trans.clas.classNews()
           )(form3.textarea(_)(rows := 20)),
           form3.actions(
-            a(href := clasRoutes.wall(c.id.value))(trans.cancel()),
-            form3.submit(trans.apply())
+            a(href := clasRoutes.wall(c.id.value))(trans.site.cancel()),
+            form3.submit(trans.site.apply())
           )
         )
       )

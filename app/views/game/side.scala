@@ -4,7 +4,8 @@ package game
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.game.GameExt.perfType
 
 object side:
 
@@ -13,11 +14,11 @@ object side:
   private val dataTime   = attr("data-time")
 
   def apply(
-      pov: lila.game.Pov,
-      initialFen: Option[chess.format.Fen.Epd],
+      pov: Pov,
+      initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
     ctx.noBlind.option(
@@ -28,11 +29,11 @@ object side:
     )
 
   def meta(
-      pov: lila.game.Pov,
-      initialFen: Option[chess.format.Fen.Epd],
+      pov: Pov,
+      initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
     ctx.noBlind.option {
@@ -44,9 +45,9 @@ object side:
               div(cls := "header")(
                 div(cls := "setup")(
                   views.html.bookmark.toggle(game, bookmarked),
-                  if game.imported then
+                  if game.sourceIs(_.Import) then
                     div(
-                      a(href := routes.Importer.importGame, title := trans.importGame.txt())("IMPORT"),
+                      a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
                       separator,
                       bits.variantLink(game.variant, game.perfType, initialFen = initialFen, shortName = true)
                     )
@@ -54,7 +55,7 @@ object side:
                     frag(
                       widgets.showClock(game),
                       separator,
-                      (if game.rated then trans.rated else trans.casual).txt(),
+                      (if game.rated then trans.site.rated else trans.site.casual).txt(),
                       separator,
                       bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )
@@ -65,14 +66,14 @@ object side:
                 .flatMap(_.user)
                 .map: importedBy =>
                   small(
-                    trans.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
+                    trans.site.importedByX(userIdLink(importedBy.some, None, withOnline = false)),
                     ctx
                       .is(importedBy)
                       .option(form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
                         submitButton(
                           cls   := "button-link confirm",
-                          title := trans.deleteThisImportedGame.txt()
-                        )(trans.delete.txt())
+                          title := trans.site.deleteThisImportedGame.txt()
+                        )(trans.site.delete.txt())
                       )
                   )
             )
@@ -95,7 +96,7 @@ object side:
             game.winner.map: winner =>
               frag(
                 separator,
-                winner.color.fold(trans.whiteIsVictorious, trans.blackIsVictorious)()
+                winner.color.fold(trans.site.whiteIsVictorious, trans.site.blackIsVictorious)()
               )
           )
         ),
@@ -105,16 +106,16 @@ object side:
             .map: number =>
               val url = routes.UserAnalysis
                 .parseArg(s"chess960/${underscoreFen(initialFen | chess.format.Fen.initial)}")
-              st.section(trans.chess960StartPosition(a(href := url)(number)))
+              st.section(trans.site.chess960StartPosition(a(href := url)(number)))
         ),
         userTv.map: u =>
           st.section(cls := "game__tv"):
-            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := licon.AnalogTv)(u.titleUsername)
+            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := Icon.AnalogTv)(u.titleUsername)
         ,
         tour
           .map: t =>
             st.section(cls := "game__tournament")(
-              a(cls := "text", dataIcon := licon.Trophy, href := routes.Tournament.show(t.tour.id)):
+              a(cls := "text", dataIcon := Icon.Trophy, href := routes.Tournament.show(t.tour.id)):
                 t.tour.name()
               ,
               div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)

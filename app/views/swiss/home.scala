@@ -5,7 +5,7 @@ import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
 
 object home:
@@ -14,7 +14,7 @@ object home:
     views.html.base.layout(
       title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home"),
-      withHrefLangs = lila.common.LangPath(routes.Swiss.home).some
+      withHrefLangs = lila.core.app.LangPath(routes.Swiss.home).some
     ):
       main(cls := "page-small box box-pad page swiss-home")(
         h1(cls := "box__top")(trans.swiss.swissTournaments()),
@@ -22,13 +22,13 @@ object home:
         renderList(trans.swiss.startingSoon.txt())(featured.created),
         div(cls := "swiss-home__infos")(
           div(cls := "wiki")(
-            iconTag(licon.InfoCircle),
+            iconTag(Icon.InfoCircle),
             p:
               trans.swiss.swissDescription:
                 a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
           ),
           div(cls := "team")(
-            iconTag(licon.Group),
+            iconTag(Icon.Group),
             p:
               trans.swiss.teamOnly:
                 a(href := teamRoutes.home())(trans.swiss.joinOrCreateTeam.txt())
@@ -49,7 +49,7 @@ object home:
             td(cls := "header")(
               a(href := routes.Swiss.show(s.id))(
                 span(cls := "name")(s.name),
-                trans.by(span(cls := "team")(team.name, teamFlair(team)))
+                trans.site.by(span(cls := "team")(team.name, teamFlair(team)))
               )
             ),
             td(cls := "infos")(
@@ -63,18 +63,18 @@ object home:
                 " • ",
                 if s.variant.exotic then s.variant.name else s.perfType.trans,
                 " • ",
-                (if s.settings.rated then trans.ratedTournament else trans.casualTournament) ()
+                (if s.settings.rated then trans.site.ratedTournament else trans.site.casualTournament) ()
               )
             ),
             td(
               momentFromNow(s.startsAt),
               br,
-              span(cls := "players text", dataIcon := licon.User)(s.nbPlayers.localize)
+              span(cls := "players text", dataIcon := Icon.User)(s.nbPlayers.localize)
             )
           )
     )
 
-  private def comparison(using Lang) = table(cls := "comparison slist")(
+  private def comparison(using Translate) = table(cls := "comparison slist")(
     thead(
       tr(
         th(trans.swiss.comparison()),
@@ -110,28 +110,28 @@ object home:
       ),
       tr(
         th(trans.swiss.lateJoin()),
-        td(trans.yes()),
+        td(trans.site.yes()),
         td(trans.swiss.lateJoinUntil())
       ),
       tr(
         th(trans.swiss.pause()),
-        td(trans.yes()),
+        td(trans.site.yes()),
         td(trans.swiss.pauseSwiss())
       ),
       tr(
         th(trans.swiss.streaksAndBerserk()),
-        td(trans.yes()),
-        td(trans.no())
+        td(trans.site.yes()),
+        td(trans.site.no())
       ),
       tr(
         th(trans.swiss.similarToOTB()),
-        td(trans.no()),
-        td(trans.yes())
+        td(trans.site.no()),
+        td(trans.site.yes())
       ),
       tr(
         th(trans.swiss.unlimitedAndFree()),
-        td(trans.yes()),
-        td(trans.yes())
+        td(trans.site.yes()),
+        td(trans.site.yes())
       )
     )
   )
@@ -142,7 +142,7 @@ object home:
       p(strong(title), content)
     )
 
-  private def faq(using Lang) = frag(
+  private def faq(using Translate) = frag(
     faqEntry(
       trans.swiss.swissVsArenaQ(),
       trans.swiss.swissVsArenaA()

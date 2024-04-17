@@ -5,18 +5,22 @@ import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.variant.Variant
 
-import lila.chat.ChatApi
-import lila.game.{ Game, Namer }
 import lila.tree.{ Branches, Root }
+import lila.core.i18n.Translator
+import lila.core.id.GameFullId
+import lila.core.game.Namer
 
 final private class ChapterMaker(
-    net: lila.common.config.NetConfig,
-    lightUser: lila.user.LightUserApi,
-    chatApi: ChatApi,
-    gameRepo: lila.game.GameRepo,
+    net: lila.core.config.NetConfig,
+    lightUser: lila.core.user.LightUserApi,
+    chatApi: lila.core.chat.ChatApi,
+    gameRepo: lila.core.game.GameRepo,
     pgnFetch: PgnFetch,
-    pgnDump: lila.game.PgnDump
-)(using Executor):
+    pgnDump: lila.core.game.PgnDump,
+    namer: lila.core.game.Namer,
+    pgnImport: StudyPgnImport,
+    gameToRoot: GameToRoot
+)(using Executor, Translator):
 
   import ChapterMaker.*
 
@@ -43,7 +47,7 @@ final private class ChapterMaker(
   private def fromPgn(study: Study, pgn: PgnStr, data: Data, order: Int, userId: UserId): Fu[Chapter] =
     for
       contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-      parsed <- PgnImport(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
+      parsed <- pgnImport(pgn, contributors.flatten).toFuture.recoverWith { case e: Exception =>
         fufail(ValidationException(e.getMessage))
       }
     yield Chapter.make(
@@ -63,7 +67,7 @@ final private class ChapterMaker(
       conceal = data.isConceal.option(parsed.root.ply)
     )
 
-  private def getChapterNameFromPgn(data: Data, parsed: PgnImport.Result): StudyChapterName =
+  private def getChapterNameFromPgn(data: Data, parsed: StudyPgnImport.Result): StudyChapterName =
     def vsFromPgnTags = for
       white <- parsed.tags(_.White)
       black <- parsed.tags(_.Black)
@@ -127,14 +131,15 @@ final private class ChapterMaker(
       order: Int,
       userId: UserId,
       withRatings: Boolean,
-      initialFen: Option[Fen.Epd] = None
+      initialFen: Option[Fen.Full] = None
   ): Fu[Chapter] =
+    given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
       root <- makeRoot(game, data.pgn, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
       name <-
         if data.isDefaultName then
-          StudyChapterName.from(Namer.gameVsText(game, withRatings)(using lightUser.async))
+          StudyChapterName.from(namer.gameVsText(game, withRatings)(using lightUser.async))
         else fuccess(data.name)
       _ = notifyChat(study, game, userId)
     yield Chapter.make(
@@ -159,12 +164,12 @@ final private class ChapterMaker(
   def notifyChat(study: Study, game: Game, userId: UserId) =
     if study.isPublic then
       List(game.hasUserId(userId).option(game.id.value), s"${game.id}/w".some).flatten.foreach { chatId =>
-        chatApi.userChat.write(
+        chatApi.write(
           chatId = ChatId(chatId),
           userId = userId,
           text = s"I'm studying this game on ${net.domain}/study/${study.id}",
           publicSource = none,
-          _.Round,
+          _.round,
           persist = false
         )
       }
@@ -172,18 +177,16 @@ final private class ChapterMaker(
   private[study] def makeRoot(
       game: Game,
       pgnOpt: Option[PgnStr],
-      initialFen: Option[Fen.Epd]
+      initialFen: Option[Fen.Full]
   ): Fu[Root] =
     initialFen
-      .fold(gameRepo.initialFen(game)) { fen =>
+      .fold(gameRepo.initialFen(game)): fen =>
         fuccess(fen.some)
-      }
-      .map { goodFen =>
-        val fromGame = GameToRoot(game, goodFen, withClocks = true)
-        pgnOpt.flatMap(PgnImport(_, Nil).toOption.map(_.root)) match
+      .map: goodFen =>
+        val fromGame = gameToRoot(game, goodFen, withClocks = true)
+        pgnOpt.flatMap(pgnImport(_, Nil).toOption.map(_.root)) match
           case Some(r) => fromGame.merge(r)
           case None    => fromGame
-      }
 
   private val UrlRegex = {
     val escapedDomain = net.domain.value.replace(".", "\\.")
@@ -200,7 +203,7 @@ final private class ChapterMaker(
 
 private[study] object ChapterMaker:
 
-  case class ValidationException(message: String) extends lila.base.LilaException
+  case class ValidationException(message: String) extends lila.core.lilaism.LilaException
 
   enum Mode:
     def key = toString.toLowerCase
@@ -225,7 +228,7 @@ private[study] object ChapterMaker:
       name: StudyChapterName,
       game: Option[String] = None,
       variant: Option[Variant] = None,
-      fen: Option[Fen.Epd] = None,
+      fen: Option[Fen.Full] = None,
       pgn: Option[PgnStr] = None,
       orientation: Orientation = Orientation.Auto,
       mode: ChapterMaker.Mode = ChapterMaker.Mode.Normal,

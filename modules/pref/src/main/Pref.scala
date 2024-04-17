@@ -1,9 +1,9 @@
 package lila.pref
 
-import lila.user.User
+import reactivemongo.api.bson.Macros.Annotations.Key
 
 case class Pref(
-    _id: UserId,
+    @Key("_id") id: UserId,
     bg: Int,
     bgImg: Option[String],
     is3d: Boolean,
@@ -44,12 +44,14 @@ case class Pref(
     resizeHandle: Int,
     agreement: Int,
     usingAltSocket: Option[Boolean],
+    simpleBoard: Boolean,
+    boardBrightness: Float,
+    boardOpacity: Float,
+    boardHue: Float, // in turns, 1turn = 2pi
     tags: Map[String, String] = Map.empty
-):
+) extends lila.core.pref.Pref:
 
   import Pref.*
-
-  inline def id = _id
 
   def realTheme      = Theme(theme)
   def realPieceSet   = PieceSet.get(pieceSet)
@@ -59,6 +61,11 @@ case class Pref(
   val themeColorLight = "#dbd7d1"
   val themeColorDark  = "#2e2a24"
   def themeColor      = if bg == Bg.LIGHT then themeColorLight else themeColorDark
+  def themeColorClass =
+    if bg == Bg.LIGHT then "light".some
+    else if bg == Bg.TRANSPARENT then "transp".some
+    else if bg == Bg.SYSTEM then none
+    else "dark".some
 
   def realSoundSet = SoundSet(soundSet)
 
@@ -80,7 +87,8 @@ case class Pref(
       case Animation.SLOW => 120
       case _              => 70
 
-  def bgImgOrDefault = bgImg | Pref.defaultBgImg
+  def bgImgOrDefault =
+    bgImg | Pref.defaultBgImg
 
   def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 
@@ -217,9 +225,7 @@ object Pref:
   object ConfirmResign extends BooleanPref
 
   object InsightShare:
-    val NOBODY    = 0
-    val FRIENDS   = 1
-    val EVERYBODY = 2
+    import lila.core.pref.InsightShare.*
 
     val choices = Seq(
       NOBODY    -> "With nobody",
@@ -345,11 +351,7 @@ object Pref:
     )
 
   object Challenge:
-    val NEVER      = 1
-    val RATING     = 2
-    val FRIEND     = 3
-    val REGISTERED = 4
-    val ALWAYS     = 5
+    import lila.core.pref.Challenge.*
 
     val ratingThreshold = 300
 
@@ -362,9 +364,7 @@ object Pref:
     )
 
   object Message:
-    val NEVER  = 1
-    val FRIEND = 2
-    val ALWAYS = 3
+    import lila.core.pref.Message.*
 
     val choices = Seq(
       NEVER  -> "Only existing conversations",
@@ -373,9 +373,7 @@ object Pref:
     )
 
   object StudyInvite:
-    val NEVER  = 1
-    val FRIEND = 2
-    val ALWAYS = 3
+    import lila.core.pref.StudyInvite.*
 
     val choices = Seq(
       NEVER  -> "Never",
@@ -415,10 +413,10 @@ object Pref:
   val darkByDefaultSince   = instantOf(2021, 11, 7, 8, 0)
   val systemByDefaultSince = instantOf(2022, 12, 23, 8, 0)
 
-  def create(id: UserId) = default.copy(_id = id)
+  def create(id: UserId) = default.copy(id = id)
 
   def create(user: User) = default.copy(
-    _id = user.id,
+    id = user.id,
     bg =
       if user.createdAt.isAfter(systemByDefaultSince) then Bg.SYSTEM
       else if user.createdAt.isAfter(darkByDefaultSince) then Bg.DARK
@@ -427,7 +425,7 @@ object Pref:
   )
 
   lazy val default = Pref(
-    _id = UserId(""),
+    id = UserId(""),
     bg = Bg.DARK,
     bgImg = none,
     is3d = false,
@@ -451,12 +449,12 @@ object Pref:
     coords = Coords.INSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
-    challenge = Challenge.REGISTERED,
-    message = Message.ALWAYS,
-    studyInvite = StudyInvite.ALWAYS,
+    challenge = lila.core.pref.Challenge.REGISTERED,
+    message = lila.core.pref.Message.ALWAYS,
+    studyInvite = lila.core.pref.StudyInvite.ALWAYS,
     submitMove = SubmitMove.CORRESPONDENCE,
     confirmResign = ConfirmResign.YES,
-    insightShare = InsightShare.FRIENDS,
+    insightShare = lila.core.pref.InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     voice = None,
     zen = Zen.NO,
@@ -468,6 +466,10 @@ object Pref:
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     usingAltSocket = none,
+    simpleBoard = false,
+    boardBrightness = 1f,
+    boardOpacity = 1f,
+    boardHue = 0f,
     tags = Map.empty
   )
 

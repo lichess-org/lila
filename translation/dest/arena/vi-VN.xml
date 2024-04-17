@@ -4,9 +4,9 @@
   <string name="arenaTournaments">Các giải đấu Đấu trường</string>
   <string name="isItRated">Có tính xếp hạng?</string>
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm chơi trong tab khác trong lúc chờ.</string>
-  <string name="isRated">Giải đấu này có xếp hạng và sẽ ảnh hưởng đến Elo của bạn.</string>
-  <string name="isNotRated">Giải đấu này *không* xếp hạng và sẽ *không* ảnh hưởng đến Elo của bạn.</string>
-  <string name="someRated">Một số giải đấu có xếp hạng và sẽ ảnh hưởng đến Elo của bạn.</string>
+  <string name="isRated">Giải đấu này có xếp hạng và sẽ ảnh hưởng đến hệ số của bạn.</string>
+  <string name="isNotRated">Giải đấu này *không* xếp hạng và sẽ *không* ảnh hưởng đến hệ số của bạn.</string>
+  <string name="someRated">Một số giải đấu có xếp hạng và sẽ ảnh hưởng đến hệ số của bạn.</string>
   <string name="howAreScoresCalculated">Điểm được tính thế nào?</string>
   <string name="howAreScoresCalculatedAnswer">Điểm cơ sở cho một ván thắng là 2 điểm, hòa: 1 điểm, thua: 0 điểm.
 Nếu bạn thắng hai ván liên tiếp bạn sẽ bắt đầu có chuỗi nhân đôi điểm, thể hiện bằng hình ngọn lửa.
@@ -27,7 +27,7 @@ Berserk chỉ thêm điểm nếu bạn chơi ít nhất 7 nước trong một v
 
 Nếu hai kỳ thủ bằng điểm nhau, kết quả sẽ quyết định qua điểm số phụ.</string>
   <string name="howDoesPairingWork">Cặp đấu được chọn ra sao?</string>
-  <string name="howDoesPairingWorkAnswer">Lúc bắt đầu giải đấu, các kỳ thủ sẽ được xếp cặp dựa theo Elo của họ. Ngay khi bạn kết thúc một ván và trở lại phòng chờ: bạn sẽ được xếp cặp với kỳ thủ có thứ hạng gần bạn. Điều này giúp giảm thiểu thời gian chờ, tuy nhiên bạn có thể không được đấu với mọi kỳ thủ khác trong giải đấu.
+  <string name="howDoesPairingWorkAnswer">Lúc bắt đầu giải đấu, các kỳ thủ sẽ được xếp cặp dựa theo hệ số của họ. Ngay khi bạn kết thúc một ván và trở lại phòng chờ: bạn sẽ được xếp cặp với kỳ thủ có thứ hạng gần bạn. Điều này giúp giảm thiểu thời gian chờ, tuy nhiên bạn có thể không được đấu với mọi kỳ thủ khác trong giải đấu.
 Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và giành nhiều điểm hơn.</string>
   <string name="howDoesItEnd">Giải kết thúc ra sao?</string>
   <string name="howDoesItEndAnswer">Giải đấu có đồng hồ đếm ngược. Khi hết giờ, thứ hạng trong giải đấu sẽ giữ nguyên và người thắng cuộc sẽ được công bố. Các ván đang chơi phải được hoàn thành, nhưng chúng không được tính cho giải đấu nữa.</string>

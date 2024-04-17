@@ -6,7 +6,7 @@ import { tsc, stopTsc } from './tsc';
 import { sass, stopSass } from './sass';
 import { esbuild, stopEsbuild } from './esbuild';
 import { copies, stopCopies } from './copies';
-import { startTickling, stopTickling } from './tickler';
+import { startMonitor, stopMonitor } from './monitor';
 import { clean } from './clean';
 import { LichessModule, env, errorMark, colors as c } from './main';
 
@@ -30,16 +30,21 @@ export async function build(mods: string[]) {
 
   if (mods.length) env.log(`Building ${c.grey(buildModules.map(x => x.name).join(', '))}`);
 
-  await Promise.allSettled([fs.promises.mkdir(env.jsDir), fs.promises.mkdir(env.cssDir)]);
+  await Promise.allSettled([
+    fs.promises.mkdir(env.jsDir),
+    fs.promises.mkdir(env.cssDir),
+    fs.promises.mkdir(env.themeGenDir),
+    fs.promises.mkdir(env.cssTempDir),
+  ]);
   sass();
   await tsc();
   await copies();
   await esbuild();
-  startTickling(mods);
+  startMonitor(mods);
 }
 
 export async function stop() {
-  stopTickling();
+  stopMonitor();
   stopSass();
   stopTsc();
   stopCopies();

@@ -13,7 +13,7 @@
   }
 
   &:hover {
-    background: mix($c-link, $c-bg-box, 20%);
+    background: $m-primary_bg--mix-20;
   }
 
   &__overlay {
@@ -22,9 +22,9 @@
 
   &__board {
     flex: 0 0 16rem;
-    margin-#{$end-direction}: 1em;
+    margin-inline-end: 1em;
 
-    @include breakpoint($mq-not-small) {
+    @media (max-width: at-most($small)) {
       display: none;
     }
   }
@@ -50,7 +50,7 @@
     &::before {
       font-size: 3em;
       opacity: 0.7;
-      margin-#{$end-direction}: 0.7rem;
+      margin-inline-end: 0.7rem;
     }
 
     &__text {

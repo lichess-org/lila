@@ -7,29 +7,28 @@ import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
 
-import lila.base.LilaInvalid
-import lila.common.config.Max
-import lila.common.{ LilaScheduler, Seconds }
+import lila.core.lilaism.LilaInvalid
+import lila.common.LilaScheduler
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
-import lila.round.GameProxyRepo
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 
 import RelayRound.Sync.{ UpstreamIds, UpstreamUrl }
 import RelayFormat.CanProxy
+import scalalib.model.Seconds
 
 final private class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
-    irc: lila.irc.IrcApi,
+    irc: lila.core.irc.IrcApi,
     formatApi: RelayFormatApi,
     delayer: RelayDelay,
     fidePlayers: RelayFidePlayerApi,
     gameRepo: GameRepo,
     pgnDump: PgnDump,
-    gameProxy: GameProxyRepo
-)(using Executor, Scheduler)(using mode: play.api.Mode):
+    gameProxy: lila.core.game.GameProxy
+)(using Executor, Scheduler, lila.core.i18n.Translator)(using mode: play.api.Mode):
 
   import RelayFetch.*
 
@@ -173,7 +172,8 @@ final private class RelayFetch(
           .flatMap(gameRepo.withInitialFens)
           .flatMap { games =>
             if games.size == ids.size then
-              val pgnFlags = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
+              val pgnFlags             = gameIdsUpstreamPgnFlags.copy(delayMoves = !rt.tour.official)
+              given play.api.i18n.Lang = lila.core.i18n.defaultLang
               games
                 .traverse: (game, fen) =>
                   pgnDump(game, fen, pgnFlags).dmap(_.render)
@@ -210,9 +210,8 @@ final private class RelayFetch(
                     case RelayFormat.DocFormat.Pgn => httpGetPgn(gameDoc.url)
                     case RelayFormat.DocFormat.Json =>
                       httpGetJson[GameJson](gameDoc.url)
-                        .recover { case _: Exception =>
-                          GameJson(moves = Nil, result = none)
-                        }
+                        .recover:
+                          case _: Exception => GameJson(moves = Nil, result = none)
                         .map { _.toPgn(pairing.tags) }
                   .recover: _ =>
                     PgnStr(s"${pairing.tags}\n\n${pairing.result}")
@@ -220,6 +219,12 @@ final private class RelayFetch(
               .parallel
               .map: results =>
                 MultiPgn(results.sortBy(_._1).map(_._2))
+        case RelayFormat.ManyFilesLater(indexUrl) =>
+          httpGetJson[RoundJson](indexUrl).map: round =>
+            MultiPgn:
+              round.pairings.map: pairing =>
+                PgnStr(s"${pairing.tags}\n\n${pairing.result}")
+
       }
       .flatMap { multiPgnToGames(_).toFuture }
 
@@ -306,14 +311,17 @@ private object RelayFetch:
         .map(_._1)
 
     private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, Int => RelayGame]] =
-      CacheApi.scaffeineNoScheduler
+      CacheApi
+        .scaffeineNoScheduler(using scala.concurrent.ExecutionContextOpportunistic)
         .expireAfterAccess(2 minutes)
         .maximumSize(512)
         .build(compute)
 
+    private val pgnImport = lila.study
+      .StudyPgnImport(lila.game.importer.parseImport, lila.game.StatusText.apply)
+
     private def compute(pgn: PgnStr): Either[LilaInvalid, Int => RelayGame] =
-      lila.study
-        .PgnImport(pgn, Nil)
+      pgnImport(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
         .map: res =>
           index =>

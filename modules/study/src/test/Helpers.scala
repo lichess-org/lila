@@ -1,48 +1,62 @@
 package lila.study
 
-import chess.format.UciPath
-import chess.format.pgn.Tags
-import chess.{ Node as PgnNode, Tree }
 import monocle.syntax.all.*
+import chess.{ Centis, ErrorStr, Node as PgnNode, Tree, Variation }
+import chess.format.UciPath
+import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
+import lila.tree.Node.{ Comment, Comments, Shapes }
 
-import lila.tree.Node.{ Comment, Comments }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, NewTree, Node, Root }
+import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
 
 object Helpers:
   import lila.tree.NewTree.*
 
-  def rootToPgn(root: Root) = PgnDump
+  /* Remove these when tests are independant from lila.game.importer */
+  val parseImportStub: lila.core.game.ParseImport = (_, _) => Left(chess.ErrorStr("lila.game not available"))
+  val statusTextStub: lila.core.game.StatusText   = (_, _, _) => ""
+  val importerStub                                = StudyPgnImport(parseImportStub, statusTextStub)
+  val newImporterStub                             = StudyPgnImportNew(parseImportStub, statusTextStub)
+
+  def rootToPgn(root: Root): PgnStr = PgnDump
     .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
     .render
 
-  object NewRootC:
-    def fromRoot(root: Root) =
-      NewRoot(NewTree.fromNode(root), NewTree(root))
+  def rootToPgn(root: NewRoot): PgnStr = PgnDump
+    .rootToPgn(root, Tags.empty)(using PgnDump.WithFlags(true, true, true, true, false))
+    .render
+
+  extension (root: Root)
+    def toNewRoot = NewRoot(root)
+
+    def debug = root.ppAs(rootToPgn)
 
   extension (newBranch: NewBranch)
     def toBranch(children: Option[NewTree]): Branch = Branch(
       newBranch.id,
-      newBranch.metas.ply,
+      newBranch.ply,
       newBranch.move,
-      newBranch.metas.fen,
-      newBranch.metas.check,
-      newBranch.metas.dests,
-      newBranch.metas.drops,
-      newBranch.metas.eval,
-      newBranch.metas.shapes,
-      newBranch.metas.comments,
-      newBranch.metas.gamebook,
-      newBranch.metas.glyphs,
+      newBranch.fen,
+      newBranch.check,
+      newBranch.dests,
+      newBranch.drops,
+      newBranch.eval,
+      newBranch.shapes,
+      newBranch.comments,
+      newBranch.gamebook,
+      newBranch.glyphs,
       children.fold(Branches.empty)(_.toBranches),
-      newBranch.metas.opening,
+      newBranch.opening,
       newBranch.comp,
-      newBranch.metas.clock,
-      newBranch.metas.crazyData,
+      newBranch.clock,
+      newBranch.crazyData,
       newBranch.forceVariation
     )
 
   extension (newTree: NewTree)
+    // We lost variations here
+    // newTree.toBranch == newTree.withoutVariations.toBranch
     def toBranch: Branch = newTree.value.toBranch(newTree.child)
+
     def toBranches: Branches =
       val variations = newTree.variations.map(_.toNode.toBranch)
       Branches(newTree.value.toBranch(newTree.child) :: variations)
@@ -50,21 +64,23 @@ object Helpers:
   extension (newRoot: NewRoot)
     def toRoot =
       Root(
-        newRoot.metas.ply,
-        newRoot.metas.fen,
-        newRoot.metas.check,
-        newRoot.metas.dests,
-        newRoot.metas.drops,
-        newRoot.metas.eval,
-        newRoot.metas.shapes,
-        newRoot.metas.comments,
-        newRoot.metas.gamebook,
-        newRoot.metas.glyphs,
+        newRoot.ply,
+        newRoot.fen,
+        newRoot.check,
+        newRoot.dests,
+        newRoot.drops,
+        newRoot.eval,
+        newRoot.shapes,
+        newRoot.comments,
+        newRoot.gamebook,
+        newRoot.glyphs,
         newRoot.tree.fold(Branches.empty)(_.toBranches),
-        newRoot.metas.opening,
-        newRoot.metas.clock,
-        newRoot.metas.crazyData
+        newRoot.opening,
+        newRoot.clock,
+        newRoot.crazyData
       )
+
+    def debug = newRoot.ppAs(rootToPgn)
 
   extension (comments: Comments)
     def cleanup: Comments =
@@ -73,9 +89,10 @@ object Helpers:
   extension (node: NewBranch)
     def cleanup: NewBranch =
       node
+        .focus(_.metas.clock)
+        .set(none)
         .focus(_.metas.comments)
         .modify(_.cleanup)
-        .copy(path = UciPath.root)
 
   extension (root: NewRoot)
     def cleanup: NewRoot =

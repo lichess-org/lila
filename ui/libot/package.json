@@ -3,27 +3,19 @@
   "private": true,
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
-  "types": "dist/main.d.ts",
-  "typings": "dist/main.d.ts",
+  "types": "dist/libot.d.ts",
+  "typings": "dist/libot.d.ts",
   "dependencies": {
     "chessops": "^0.14.0",
     "zerofish": "^0.0.18"
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "libot"
-      }
+      "src/libot.ts": "libot"
     },
-    "copy": [
-      {
-        "src": "node_modules/zerofish/dist/zerofishEngine.*",
-        "dest": "../../public/npm"
-      },
-      {
-        "src": "defs/bots.json",
-        "dest": "../../public"
-      }
-    ]
+    "sync": {
+      "node_modules/zerofish/dist/zerofishEngine.*": "public/npm",
+      "defs/bots.json": "public"
+    }
   }
 }

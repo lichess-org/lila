@@ -7,14 +7,17 @@ import play.api.libs.json.*
 import scala.math
 
 import lila.common.Json.given
-import lila.common.{ ApiVersion, LightUser, Preload }
+import lila.core.data.Preload
+import lila.core.LightUser
 import lila.game.JsonView.given
-import lila.game.{ Game, Player as GamePlayer, Pov }
+import lila.core.game.{ Player as GamePlayer }
 import lila.pref.Pref
-import lila.rating.Perf
-import lila.user.{ GameUser, GameUsers, User }
 
-import actorApi.SocketStatus
+import lila.core.user.{ GameUser, GameUsers }
+import lila.core.user.WithPerf
+import lila.core.net.ApiVersion
+import lila.core.perf.KeyedPerf
+import lila.game.GameExt.moveTimes
 
 final class JsonView(
     lightUserGet: LightUser.Getter,
@@ -24,10 +27,10 @@ final class JsonView(
     takebacker: Takebacker,
     moretimer: Moretimer,
     divider: lila.game.Divider,
-    isOfferingRematch: IsOfferingRematch
+    isOfferingRematch: lila.core.round.IsOfferingRematch
 )(using Executor):
 
-  import JsonView.*
+  import lila.tree.ExportOptions
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck).option(game.history.checkCount(color))
@@ -36,13 +39,13 @@ final class JsonView(
       g: Game,
       p: GamePlayer,
       user: GameUser,
-      withFlags: WithFlags
+      withFlags: ExportOptions
   ): JsObject =
     Json
       .obj("color" -> p.color.name)
       .add("user" -> user.match
-        case Some(User.WithPerf(user, perf)) =>
-          val p = withFlags.rating.option(Perf.Typed(perf, g.perfType))
+        case Some(WithPerf(user, perf)) =>
+          val p = withFlags.rating.option(KeyedPerf(g.perfKey, perf))
           userJsonView.roundPlayer(user, p).some
         case _ if p.hasUser => userJsonView.ghost.some
         case _              => none
@@ -50,7 +53,7 @@ final class JsonView(
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
       .add("provisional" -> (p.provisional.yes && withFlags.rating))
-      .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
+      .add("offeringRematch" -> isOfferingRematch(Pov(g, p).ref))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
@@ -62,8 +65,8 @@ final class JsonView(
       pov: Pov,
       prefs: ByColor[Pref],
       users: GameUsers,
-      initialFen: Option[Fen.Epd],
-      flags: WithFlags
+      initialFen: Option[Fen.Full],
+      flags: ExportOptions
   ): Fu[JsObject] = for
     takebackable <- takebacker.isAllowedIn(pov.game, Preload(prefs))
     moretimeable <- moretimer.isAllowedIn(pov.game, Preload(prefs))
@@ -139,7 +142,7 @@ final class JsonView(
       g: Game,
       p: GamePlayer,
       user: GameUser,
-      withFlags: WithFlags
+      withFlags: ExportOptions
   ): JsObject =
     Json
       .obj(
@@ -147,8 +150,8 @@ final class JsonView(
         "name"  -> p.name
       )
       .add("user" -> user.match
-        case Some(User.WithPerf(user, perf)) =>
-          userJsonView.roundPlayer(user, withFlags.rating.option(Perf.Typed(perf, g.perfType))).some
+        case Some(WithPerf(user, perf)) =>
+          userJsonView.roundPlayer(user, withFlags.rating.option(KeyedPerf(g.perfKey, perf))).some
         case _ if p.hasUser => userJsonView.ghost.some
         case _              => none
       )
@@ -166,8 +169,8 @@ final class JsonView(
       pref: Option[Pref],
       me: Option[UserId],
       tv: Option[OnTv],
-      initialFen: Option[Fen.Epd] = None,
-      flags: WithFlags
+      initialFen: Option[Fen.Full] = None,
+      flags: ExportOptions
   ) =
     getSocketStatus(pov.game).map: socket =>
       import pov.*
@@ -222,11 +225,10 @@ final class JsonView(
           Json.obj("id" -> userId)
         })
 
-  def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Epd]) =
+  def replayJson(pov: Pov, pref: Pref, initialFen: Option[Fen.Full]) =
     pov.game.whitePlayer.userId.so(lightUserGet).zip(pov.game.blackPlayer.userId.so(lightUserGet)).map {
       case (white, black) =>
         import pov.*
-        import LightUser.lightUserWrites
         Json
           .obj(
             "game" -> {
@@ -251,7 +253,7 @@ final class JsonView(
   def userAnalysisJson(
       pov: Pov,
       pref: Pref,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       orientation: chess.Color,
       owner: Boolean,
       division: Option[chess.Division] = None
@@ -307,14 +309,17 @@ final class JsonView(
       case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
       case _                                                             => false
 
-  private def blurs(game: Game, player: lila.game.Player) =
+  private def blurs(game: Game, player: GamePlayer) =
+    import lila.game.Blurs.nonEmpty
+    import lila.game.GameExt.playerBlurPercent
     player.blurs.nonEmpty.option {
       Json.toJsObject(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
 
+  private val moretimeJson = ("moretime" -> JsNumber(lila.core.round.Moretime.defaultDuration.toSeconds))
   private[round] def clockJson(clock: Clock): JsObject =
-    Json.toJsObject(clock) + ("moretime" -> JsNumber(actorApi.round.Moretime.defaultDuration.toSeconds))
+    Json.toJsObject(clock) + moretimeJson
 
   private def possibleMoves(pov: Pov): Option[JsValue] =
     pov.game
@@ -333,17 +338,3 @@ final class JsonView(
       if pov.game.finished then 1
       else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
     }
-
-object JsonView:
-
-  case class WithFlags(
-      opening: Boolean = false,
-      movetimes: Boolean = false,
-      division: Boolean = false,
-      clocks: Boolean = false,
-      blurs: Boolean = false,
-      rating: Boolean = true,
-      puzzles: Boolean = false,
-      nvui: Boolean = false,
-      lichobileCompat: Boolean = false
-  )

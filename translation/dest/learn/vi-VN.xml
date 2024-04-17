@@ -165,8 +165,8 @@ di chuyển quân tốt.</string>
 nếu tốt của bạn ở hàng thứ 5.</string>
   <string name="takeAllThePawnsEnPassant">Bắt tất các các quân tốt bằng bắt tốt qua đường!</string>
   <string name="enPassantComplete">Xin chúc mừng! Bây giờ bạn có thể bắt tốt qua đường.</string>
-  <string name="stalemate">Hòa pat</string>
-  <string name="theGameIsADraw">Ván cờ hòa do bí nước</string>
+  <string name="stalemate">Thủ hòa</string>
+  <string name="theGameIsADraw">Ván cờ hòa do bí nước hay hết nước đi hợp lệ</string>
   <string name="stalemateIntro">Khi người chơi không bị chiếu và không có nước đi nào hợp lệ, nó được tính là hòa pat. Ván cờ kết thúc hòa: không ai thắng, không ai thua.</string>
   <string name="stalemateGoal">Để bên đen hòa pat:
 - Bên đen không thể di chuyển bất cứ đâu
@@ -213,8 +213,8 @@ trong 2 nước!</string>
   <string name="learnCommonChessPositions">Học về các thế cờ cơ bản</string>
   <string name="puzzles">Câu đố</string>
   <string name="exerciseYourTacticalSkills">Luyện tập các kỹ năng chiến thuật của bạn</string>
-  <string name="videos">Các video</string>
-  <string name="watchInstructiveChessVideos">Xem các video hướng dẫn chơi cờ</string>
+  <string name="videos">Các thước phim</string>
+  <string name="watchInstructiveChessVideos">Xem các thước phim hướng dẫn chơi cờ</string>
   <string name="playPeople">Đấu với người</string>
   <string name="opponentsFromAroundTheWorld">Các đối thủ từ khắp nơi trên thế giới</string>
   <string name="playMachine">Đấu với máy</string>

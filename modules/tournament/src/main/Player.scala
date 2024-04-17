@@ -1,9 +1,9 @@
 package lila.tournament
 
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
-import lila.common.LightUser
-import lila.user.User
+import lila.core.LightUser
+import lila.core.user.WithPerf
 
 private[tournament] case class Player(
     _id: TourPlayerId, // random
@@ -41,7 +41,7 @@ private[tournament] object Player:
 
   private[tournament] def make(
       tourId: TourId,
-      user: User.WithPerf,
+      user: WithPerf,
       team: Option[TeamId]
   ): Player = Player(
     _id = TourPlayerId(ThreadLocalRandom.nextString(8)),

@@ -3,7 +3,7 @@ package views.html.clas
 import controllers.clas.routes.Clas as clasRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, ClasInvite }
 
 object invite:
@@ -32,13 +32,13 @@ object invite:
               form3.actions(
                 if !invite.accepted.has(false) then
                   form3.submit(
-                    trans.decline(),
+                    trans.site.decline(),
                     nameValue = ("v" -> false.toString).some,
-                    icon = licon.X.some
+                    icon = Icon.X.some
                   )(cls := "button-red button-fat")
                 else p,
                 form3.submit(
-                  trans.accept(),
+                  trans.site.accept(),
                   nameValue = ("v" -> true.toString).some
                 )(cls := "button-green button-fat")
               )

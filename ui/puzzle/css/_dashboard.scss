@@ -9,7 +9,7 @@
     // i {
     //   flex: 0 0 auto;
     //   font-size: 4.5em;
-    //   margin-#{$end-direction}: .5em;
+    //   margin-inline-end: .5em;
     // }
 
     h1 {
@@ -25,10 +25,10 @@
 
     .mselect {
       display: inline-block;
-      margin-#{$start-direction}: 1ch;
+      margin-inline-start: 1ch;
       font-size: 2em;
 
-      &__list > * {
+      &__item {
         font-size: 1.3rem;
         padding: 0.3em 1em 0.3em 0.7em;
       }
@@ -48,7 +48,7 @@
     display: flex;
     gap: 1em;
 
-    @include breakpoint($mq-not-x-small) {
+    @media (max-width: at-most($x-small)) {
       flex-direction: column;
       font-size: 0.7em;
     }
@@ -83,30 +83,43 @@
 
     background: $c-bg-zebra2;
 
-    $c-darken: #333;
-
     &--win {
-      $c-first: mix($c-good, $c-darken, 85%);
-      $c-fix: mix($c-good, $c-darken, 50%);
-      $c-fail: mix($c-bad, $c-darken, 80%);
+      $c-first: $m-secondary_dark--mix-85;
+      $c-fix: $m-secondary_dark--mix-50;
+      $c-fail: $m-bad_dark--mix-80;
+
+      color: $c-over;
 
       background:
         #{$glow-gradient},
         linear-gradient(
-          to $end-direction,
+          to right,
           $c-first 0%,
-          $c-first var(--first),
-          $c-fix var(--first),
-          $c-fix var(--win),
-          $c-fail var(--win),
+          $c-first var(---first),
+          $c-fix var(---first),
+          $c-fix var(---win),
+          $c-fail var(---win),
           $c-fail 100%
         );
-      color: $c-good-over;
+
+      @include if-rtl {
+        background:
+          #{$glow-gradient},
+          linear-gradient(
+            to left,
+            $c-first 0%,
+            $c-first var(---first),
+            $c-fix var(---first),
+            $c-fix var(---win),
+            $c-fail var(---win),
+            $c-fail 100%
+          );
+      }
     }
 
     &--perf {
-      background: #{$glow-gradient} mix($c-brag, $c-darken, 85%);
-      color: $c-good-over;
+      background: #{$glow-gradient} $m-brag_dark--mix-85;
+      color: $c-over;
     }
 
     &--fix {
@@ -116,17 +129,17 @@
         justify-content: space-evenly;
       }
 
-      color: $c-good-over;
+      color: $c-over;
       opacity: 0.7;
 
       &[href] {
         opacity: 1;
         cursor: pointer;
-        background: #{$glow-gradient} mix($c-primary, $c-darken, 80%);
+        background: #{$glow-gradient} $m-primary_dark--mix-80;
 
         &:hover {
           background: #{$glow-gradient} $c-primary;
-          color: $c-good-over;
+          color: $c-over;
         }
       }
 
@@ -137,7 +150,7 @@
 
         i {
           opacity: 1;
-          color: mix($c-primary, $c-bg-box, 70%);
+          color: $m-primary_bg--mix-70;
           position: absolute;
           font-size: 5.5em !important;
           margin-bottom: 0.2em;
@@ -153,11 +166,11 @@
       i {
         font-size: 4em;
         opacity: 0.8;
-        color: $c-good-over;
+        color: $c-over;
       }
     }
 
-    @if $theme-light {
+    @include if-light {
       &--played span {
         color: $c-font-dim !important;
       }
@@ -199,7 +212,7 @@
 
     &__meta {
       flex: 1 1 40%;
-      margin-#{$end-direction}: 3vw;
+      margin-inline-end: 3vw;
     }
 
     &__name {
@@ -219,7 +232,7 @@
     .puzzle-dashboard__metric--fix {
       i {
         font-size: 1.6em;
-        margin-#{$start-direction}: 0.3em;
+        margin-inline-start: 0.3em;
       }
     }
   }

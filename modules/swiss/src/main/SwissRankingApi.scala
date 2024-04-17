@@ -4,6 +4,8 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
+import lila.core.swiss.Ranking
+import lila.core.chess.Rank
 
 final private class SwissRankingApi(
     mongo: SwissMongo,
@@ -21,7 +23,7 @@ final private class SwissRankingApi(
       }.toMap
     )
 
-  private val scoreCache = cacheApi.scaffeine
+  private val scoreCache = CacheApi.scaffeine
     .expireAfterWrite(60 minutes)
     .build[SwissId, Ranking]()
 

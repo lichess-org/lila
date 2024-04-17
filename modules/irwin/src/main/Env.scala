@@ -4,32 +4,27 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
 
-import lila.common.config.*
+import lila.core.config.*
 import lila.db.AsyncColl
 import lila.db.dsl.Coll
 import lila.report.Suspect
-import lila.tournament.TournamentApi
 
 final class Env(
     appConfig: Configuration,
-    tournamentApi: TournamentApi,
-    modApi: lila.mod.ModApi,
+    tournamentApi: lila.core.tournament.TournamentApi,
+    modApi: lila.core.mod.ModApi,
     reportApi: lila.report.ReportApi,
-    notifyApi: lila.notify.NotifyApi,
-    userCache: lila.user.Cached,
+    notifyApi: lila.core.notify.NotifyApi,
+    userCache: lila.core.user.CachedApi,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: lila.memo.CacheApi,
-    insightApi: lila.insight.InsightApi,
+    insightApi: lila.game.core.insight.InsightApi,
     db: lila.db.Db,
-    insightDb: lila.db.AsyncDb @@ lila.insight.InsightDb
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+    insightDb: lila.db.AsyncDb @@ lila.game.core.insight.InsightDb
+)(using Executor)(using scheduler: Scheduler):
 
   lazy val irwinStream = wire[IrwinStream]
 
@@ -49,10 +44,10 @@ final class Env(
         suspects <-
           leaders.toList
             .traverse: (tour, top) =>
-              userRepo.byIds(
-                top.value.zipWithIndex
+              userApi.byIds(
+                top.view.zipWithIndex
                   .filter(_._2 <= tour.nbPlayers * 2 / 100)
-                  .map(_._1.userId)
+                  .map(_._1)
                   .take(20)
               )
             .map(_.flatten.map(Suspect.apply))

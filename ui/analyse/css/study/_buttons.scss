@@ -20,10 +20,10 @@ $c-study-button: $c-accent;
 
   .behind {
     background: $c-bad;
-    color: $c-bad-over;
+    color: $c-over;
     padding: 0 5px;
     border-radius: 9px;
-    margin-#{$end-direction}: 4px;
+    margin-inline-end: 4px;
   }
 
   .mode {
@@ -37,7 +37,7 @@ $c-study-button: $c-accent;
       font-size: 1.4em;
       content: $licon-X;
       color: $c-bad;
-      margin-#{$end-direction}: 0.2rem;
+      margin-inline-end: 0.2rem;
     }
 
     &.on i::before {

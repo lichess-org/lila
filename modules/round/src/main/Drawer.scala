@@ -4,21 +4,22 @@ import chess.Centis
 import play.api.i18n.Lang
 
 import lila.common.Bus
-import lila.game.{ Event, Game, Pov, Progress }
-import lila.i18n.{ I18nKeys as trans, defaultLang }
+import lila.game.{ Event, Progress }
+import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.pref.{ Pref, PrefApi }
 
 final private[round] class Drawer(
     messenger: Messenger,
     finisher: Finisher,
     prefApi: PrefApi,
-    isBotSync: lila.common.LightUser.IsBotSync
-)(using Executor):
+    isBotSync: lila.core.LightUser.IsBotSync
+)(using Executor, Translator):
 
   private given Lang = defaultLang
 
   def autoThreefold(game: Game): Fu[Option[Pov]] = game.drawable.so:
-    Pov(game)
+    lila.game.Pov
+      .list(game)
       .map: pov =>
         if game.playerHasOfferedDrawRecently(pov.color) then fuccess(pov.some)
         else
@@ -46,11 +47,11 @@ final private[round] class Drawer(
           pov.game,
           _.Draw,
           None,
-          Messenger.SystemMessage.Persistent(trans.drawOfferAccepted.txt()).some
+          Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some
         )
       case Pov(g, color) if g.playerCanOfferDraw(color) =>
         val progress = Progress(g).map { _.offerDraw(color) }
-        messenger.system(g, color.fold(trans.whiteOffersDraw, trans.blackOffersDraw).txt())
+        messenger.system(g, color.fold(trans.site.whiteOffersDraw, trans.site.blackOffersDraw).txt())
         proxy
           .save(progress)
           .andDo(publishDrawOffer(progress.game))
@@ -62,7 +63,7 @@ final private[round] class Drawer(
       case Pov(g, color) if pov.player.isOfferingDraw =>
         proxy
           .save {
-            messenger.system(g, trans.drawOfferCanceled.txt())
+            messenger.system(g, trans.site.drawOfferCanceled.txt())
             Progress(g).map { g =>
               g.updatePlayer(color, _.removeDrawOffer)
             }
@@ -71,7 +72,7 @@ final private[round] class Drawer(
       case Pov(g, color) if pov.opponent.isOfferingDraw =>
         proxy
           .save {
-            messenger.system(g, color.fold(trans.whiteDeclinesDraw, trans.blackDeclinesDraw).txt())
+            messenger.system(g, color.fold(trans.site.whiteDeclinesDraw, trans.site.blackDeclinesDraw).txt())
             Progress(g).map { g =>
               g.updatePlayer(!color, _.removeDrawOffer)
             }
@@ -88,7 +89,7 @@ final private[round] class Drawer(
   private def publishDrawOffer(game: Game): Unit = if game.nonAi then
     if game.isCorrespondence then
       Bus.publish(
-        lila.hub.actorApi.round.CorresDrawOfferEvent(game.id),
+        lila.core.round.CorresDrawOfferEvent(game.id),
         "offerEventCorres"
       )
     if lila.game.Game.isBoardOrBotCompatible(game) then

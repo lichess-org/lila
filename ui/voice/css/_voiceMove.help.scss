@@ -21,14 +21,16 @@
   }
 
   .commands {
-    width: 100%;
+    td:first-child {
+      padding-inline-start: 2em;
+    }
     display: flex;
     flex-direction: row;
     @media (max-width: 600px) {
       flex-direction: column;
     }
     td:first-child {
-      padding-#{$start-direction}: 2em;
+      padding-inline-start: 2em;
     }
   }
 

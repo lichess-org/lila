@@ -1,6 +1,8 @@
 package lila.puzzle
 
-export lila.Lila.{ *, given }
+export lila.core.lilaism.Lilaism.{ *, given }
+export lila.common.extensions.*
+export lila.core.id.PuzzleId
 
 private val logger = lila.log("puzzle")
 

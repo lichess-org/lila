@@ -5,27 +5,11 @@ import controllers.report.routes.Report as reportRoutes
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.ForumPost
+import lila.core.forum.ForumPostMini
 
 object post:
-
-  def recent(posts: List[lila.forum.MiniForumPost])(using PageContext) =
-    ol(
-      posts.map: p =>
-        li(
-          a(
-            dataIcon := p.isTeam.option(licon.Group),
-            cls      := "post_link text",
-            href     := routes.ForumPost.redirect(p.postId),
-            title    := p.topicName
-          )(shorten(p.topicName, 30)),
-          " ",
-          userIdLink(p.userId, withOnline = false),
-          " ",
-          span(cls := "extract")(shorten(p.text, 70))
-        )
-    )
 
   def show(
       categ: lila.forum.ForumCateg,
@@ -56,7 +40,7 @@ object post:
                     momentFromNow(post.createdAt)
               ),
               (!post.erased && ctx.me.soUse(post.shouldShowEditForm)).option(
-                button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := licon.Pencil)(
+                button(cls := "mod edit button button-empty text", tpe := "button", dataIcon := Icon.Pencil)(
                   "Edit"
                 )
               ),
@@ -67,7 +51,7 @@ object post:
                   postForm(action := routes.ForumPost.delete(post.id))(
                     submitButton(
                       cls      := "mod delete button button-empty confirm",
-                      dataIcon := licon.Trash,
+                      dataIcon := Icon.Trash,
                       title    := "Delete"
                     )
                   ).some
@@ -77,7 +61,7 @@ object post:
                       a(
                         cls      := "mod delete button button-empty",
                         href     := routes.ForumPost.delete(post.id),
-                        dataIcon := licon.Trash,
+                        dataIcon := Icon.Trash,
                         title    := "Delete"
                       )
                     else
@@ -86,13 +70,13 @@ object post:
                         frag(
                           nbsp,
                           a(
-                            titleOrText(trans.reportXToModerators.txt(userId)),
+                            titleOrText(trans.site.reportXToModerators.txt(userId)),
                             cls := "mod report button button-empty",
                             href := addQueryParams(
                               reportRoutes.form.url,
                               Map("username" -> userId, "postUrl" -> postUrl, "reason" -> "comm")
                             ),
-                            dataIcon := licon.CautionTriangle
+                            dataIcon := Icon.CautionTriangle
                           )
                         )
                   ).some
@@ -140,9 +124,9 @@ object post:
                   href  := routes.ForumPost.redirect(post.id),
                   style := "margin-left:20px"
                 ):
-                  trans.cancel()
+                  trans.site.cancel()
                 ,
-                submitButton(cls := "button")(trans.apply())
+                submitButton(cls := "button")(trans.site.apply())
               )
             )
           )

@@ -7,16 +7,18 @@ import lila.bookmark.BookmarkApi
 import lila.forum.ForumPostApi
 import lila.game.Crosstable
 import lila.relation.RelationApi
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.ublog.{ UblogApi, UblogPost }
-import lila.user.{ Me, User }
+import lila.core.data.SafeJsonStr
+import lila.core.perf.UserWithPerfs
+import lila.core.user.User
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
-    user: User.WithPerfs,
+    user: UserWithPerfs,
     trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
-    ratingChart: Option[String],
+    ratingChart: Option[SafeJsonStr],
     nbForumPosts: Int,
     ublog: Option[UblogPost.BlogPreview],
     nbStudies: Int,
@@ -100,7 +102,6 @@ object UserInfo:
       relayApi: lila.relay.RelayApi,
       ratingChartApi: lila.history.RatingChartApi,
       userApi: lila.api.UserApi,
-      isHostingSimul: lila.round.IsSimulHost,
       streamerApi: lila.streamer.StreamerApi,
       teamApi: lila.team.TeamApi,
       teamCache: lila.team.Cached,
@@ -111,9 +112,9 @@ object UserInfo:
       (
         perfsRepo.withPerfs(user),
         userApi.getTrophiesAndAwards(user).mon(_.user.segment("trophies")),
-        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user.segment("simul"))),
+        (nbs.playing > 0).so(simulApi.isSimulHost(user.id).mon(_.user.segment("simul"))),
         ((ctx.noBlind && ctx.pref.showRatings).so(ratingChartApi(user))).mon(_.user.segment("ratingChart")),
-        (!user.is(User.lichessId) && !user.isBot).so {
+        (!user.is(UserId.lichess) && !user.isBot).so {
           postApi.nbByUser(user.id).mon(_.user.segment("nbForumPosts"))
         },
         withUblog.so(ublogApi.userBlogPreviewFor(user, 3)),
@@ -123,7 +124,7 @@ object UserInfo:
         teamApi.joinedTeamIdsOfUserAsSeenBy(user).mon(_.user.segment("teamIds")),
         streamerApi.isActualStreamer(user).mon(_.user.segment("streamer")),
         coachApi.isListedCoach(user).mon(_.user.segment("coach")),
-        (user.count.rated >= 10).so(insightShare.grant(user))
+        (user.count.rated >= 10).so(insightShare.grant(user)(using ctx.me))
       ).mapN(UserInfo(nbs, _, _, _, _, _, _, _, _, _, _, _, _, _))
 
     def preloadTeams(info: UserInfo) = teamCache.lightCache.preloadMany(info.teamIds)

@@ -16,7 +16,7 @@ body {
 }
 
 #main-wrap {
-  --main-max-width: 1400px;
+  ---main-max-width: 1400px;
 }
 
 %lobby__side__more {
@@ -84,13 +84,7 @@ body {
   color: $c-font-dim;
   display: block;
   text-align: right;
-  margin-#{$end-direction}: 1ch;
-}
-
-.lobby__tv cg-container,
-.lobby__puzzle cg-container {
-  @extend %box-radius;
-  overflow: hidden;
+  margin-inline-end: 1ch;
 }
 
 .now-playing {

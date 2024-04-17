@@ -8,7 +8,7 @@
   <string name="sendApplication" comment="sendApplication&#10;&#10;%s is the lichess email address">Gửi email cho chúng tôi tại %s và chúng tôi sẽ xem xét đơn ứng tuyển của bạn.</string>
   <string name="location">Địa điểm</string>
   <string name="languages">Ngôn ngữ</string>
-  <string name="rating">Hệ số Elo</string>
+  <string name="rating">Hệ số</string>
   <string name="hourlyRate">Mức giá theo giờ</string>
   <string name="availability">Sẵn sàng</string>
   <string name="accepting">Đang nhận học viên</string>
@@ -23,5 +23,5 @@
   <string name="bestSkills">Những kỹ năng tốt nhất</string>
   <string name="teachingMethod">Phương pháp giảng dạy</string>
   <string name="publicStudies">Nghiên cứu công khai</string>
-  <string name="youtubeVideos">Các video trên YouTube</string>
+  <string name="youtubeVideos">Các thước phim trên YouTube</string>
 </resources>

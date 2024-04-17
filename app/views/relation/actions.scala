@@ -3,15 +3,16 @@ package views.html.relation
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.core.relation.Relation
 
 object actions:
 
   private val dataHoverText = data("hover-text")
 
   def apply(
-      user: lila.common.LightUser,
-      relation: Option[lila.relation.Relation],
+      user: lila.core.LightUser,
+      relation: Option[Relation],
       followable: Boolean,
       blocked: Boolean,
       signup: Boolean = false
@@ -22,7 +23,7 @@ object actions:
           titleOrText(trans.challenge.challengeToPlay.txt()),
           href     := s"${routes.Lobby.home}?user=${user.name}#friend",
           cls      := "btn-rack__btn",
-          dataIcon := licon.Swords
+          dataIcon := Icon.Swords
         )
       ),
       ctx.userId
@@ -32,10 +33,10 @@ object actions:
               frag(
                 (!blocked && !user.isBot).option(
                   a(
-                    titleOrText(trans.composeMessage.txt()),
+                    titleOrText(trans.site.composeMessage.txt()),
                     href     := routes.Msg.convo(user.name),
                     cls      := "btn-rack__btn",
-                    dataIcon := licon.BubbleSpeech
+                    dataIcon := Icon.BubbleSpeech
                   )
                 ),
                 (!blocked && !user.isPatron).option(
@@ -43,7 +44,7 @@ object actions:
                     titleOrText(trans.patron.giftPatronWingsShort.txt()),
                     href     := s"${routes.Plan.list}?dest=gift&giftUsername=${user.name}",
                     cls      := "btn-rack__btn",
-                    dataIcon := licon.Wings
+                    dataIcon := Icon.Wings
                   )
                 ),
                 relation match
@@ -53,40 +54,40 @@ object actions:
                         a(
                           cls  := "btn-rack__btn relation-button",
                           href := routes.Relation.follow(user.name),
-                          titleOrText(trans.follow.txt()),
-                          dataIcon := licon.ThumbsUp
+                          titleOrText(trans.site.follow.txt()),
+                          dataIcon := Icon.ThumbsUp
                         )
                       ),
                       a(
                         cls  := "btn-rack__btn relation-button",
                         href := routes.Relation.block(user.name),
-                        titleOrText(trans.block.txt()),
-                        dataIcon := licon.NotAllowed
+                        titleOrText(trans.site.block.txt()),
+                        dataIcon := Icon.NotAllowed
                       )
                     )
-                  case Some(true) =>
+                  case Some(Relation.Follow) =>
                     a(
-                      dataIcon := licon.ThumbsUp,
+                      dataIcon := Icon.ThumbsUp,
                       cls      := "btn-rack__btn relation-button text hover-text",
                       href     := routes.Relation.unfollow(user.name),
-                      titleOrText(trans.following.txt()),
-                      dataHoverText := trans.unfollow.txt()
+                      titleOrText(trans.site.following.txt()),
+                      dataHoverText := trans.site.unfollow.txt()
                     )
-                  case Some(false) =>
+                  case Some(Relation.Block) =>
                     a(
-                      dataIcon := licon.NotAllowed,
+                      dataIcon := Icon.NotAllowed,
                       cls      := "btn-rack__btn relation-button text hover-text",
                       href     := routes.Relation.unblock(user.name),
-                      titleOrText(trans.blocked.txt()),
-                      dataHoverText := trans.unblock.txt()
+                      titleOrText(trans.site.blocked.txt()),
+                      dataHoverText := trans.site.unblock.txt()
                     )
               )
             )
         .getOrElse:
           signup.option(
             frag(
-              trans.youNeedAnAccountToDoThat(),
-              a(href := routes.Auth.login, cls := "signup")(trans.signUp())
+              trans.site.youNeedAnAccountToDoThat(),
+              a(href := routes.Auth.login, cls := "signup")(trans.site.signUp())
             )
           )
     )

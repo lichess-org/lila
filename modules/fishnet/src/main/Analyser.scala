@@ -1,29 +1,40 @@
 package lila.fishnet
 
 import chess.Ply
+import scalalib.actor.AsyncActorSequencer
 
 import lila.analyse.AnalysisRepo
-import lila.common.config.Max
-import lila.game.{ Game, UciMemo }
+import lila.core.fishnet.SystemAnalysisRequest
 
 final class Analyser(
     repo: FishnetRepo,
     analysisRepo: AnalysisRepo,
-    gameRepo: lila.game.GameRepo,
-    uciMemo: UciMemo,
+    gameRepo: lila.core.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
+    uciMemo: lila.core.game.UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
 )(using Executor, Scheduler):
 
   val maxPlies = 300
 
-  private val workQueue =
-    lila.hub.AsyncActorSequencer(maxSize = Max(256), timeout = 5 seconds, "fishnetAnalyser")
+  private val workQueue = AsyncActorSequencer(
+    maxSize = Max(256),
+    timeout = 5 seconds,
+    "fishnetAnalyser",
+    lila.log.asyncActorMonitor
+  )
+
+  val systemRequest: SystemAnalysisRequest = gameId =>
+    gameRepo.game(gameId).orFail(s"No game $gameId").flatMap {
+      apply(_, systemSender, ignoreConcurrentCheck = true).void
+    }
+  private val systemSender = Work.Sender(UserId.lichess, none, mod = false, system = true)
 
   def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
     (game.metadata.analysed.so(analysisRepo.exists(game.id.value))).flatMap {
       if _ then fuccess(Analyser.Result.AlreadyAnalysed)
-      else if !game.analysable then fuccess(Analyser.Result.NotAnalysable)
+      else if !gameApi.analysable(game) then fuccess(Analyser.Result.NotAnalysable)
       else
         limiter(
           sender,
@@ -61,7 +72,7 @@ final class Analyser(
       _.fold[Fu[Analyser.Result]](fuccess(Analyser.Result.NoGame))(apply(_, sender))
     }
 
-  def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
+  def study(req: lila.core.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
     analysisRepo.exists(req.chapterId.value).flatMap {
       if _ then fuccess(Analyser.Result.NoChapter)
       else

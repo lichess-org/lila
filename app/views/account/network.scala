@@ -4,7 +4,7 @@ package account
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object network:
 
@@ -38,7 +38,7 @@ object network:
         br,
         br,
         cfRouting.nonEmpty.option(
-          p(cls := "saved text", dataIcon := licon.Checkmark)(
+          p(cls := "saved text", dataIcon := Icon.Checkmark)(
             trans.preferences.yourPreferencesHaveBeenSaved()
           )
         )

@@ -1,8 +1,10 @@
 import pubsub from './pubsub';
-import { loadCssPath, loadEsm } from './assets';
-import { memoize } from 'common';
+import { loadCssPath, loadEsm } from './asset';
+import { memoize, clamp } from 'common';
 
 export default function () {
+  const top = document.getElementById('top')!;
+
   const initiatingHtml = `<div class="initiating">${site.spinnerHtml}</div>`,
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
@@ -11,15 +13,23 @@ export default function () {
     };
 
   // On touchscreens, clicking the top menu element expands it. There's no top link.
-  // Only for $mq-topnav-hidden in ui/common/css/abstract/_media-queries.scss
-  if ('ontouchstart' in window && !window.matchMedia('(max-width: 979px)').matches)
-    $('#topnav > section > a').removeAttr('href');
+  // Only for mq-topnav-visible in ui/common/css/abstract/_media-queries.scss
+  if ('ontouchstart' in window && window.matchMedia('(min-width: 1020px)').matches)
+    $('#topnav section > a').removeAttr('href');
 
-  $('#tn-tg').on('change', e =>
-    document.body.classList.toggle('masked', (e.target as HTMLInputElement).checked),
-  );
+  const blockBodyScroll = (e: Event) => {
+    // on iOS, overflow: hidden isn't sufficient
+    if (!document.getElementById('topnav')!.contains(e.target as HTMLElement)) e.preventDefault();
+  };
 
-  $('#top').on('click', '.toggle', function (this: HTMLElement) {
+  $('#tn-tg').on('change', e => {
+    const menuOpen = (e.target as HTMLInputElement).checked;
+    if (menuOpen) document.body.addEventListener('touchmove', blockBodyScroll, { passive: false });
+    else document.body.removeEventListener('touchmove', blockBodyScroll);
+    document.body.classList.toggle('masked', menuOpen);
+  });
+
+  $(top).on('click', '.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
     setTimeout(() => {
@@ -166,7 +176,32 @@ export default function () {
       .bind('/', () => {
         $input.val('/');
         $input[0]!.focus();
+        top.classList.remove('hide');
       })
-      .bind('s', () => $input[0]!.focus());
+      .bind('s', () => {
+        $input[0]!.focus();
+        top.classList.remove('hide');
+      });
+  }
+
+  {
+    // stick top bar
+    let lastY = window.scrollY;
+    if (lastY > 0) top.classList.add('scrolled');
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        const y = window.scrollY;
+        top.classList.toggle('scrolled', y > 0);
+        if (y > lastY + 10) top.classList.add('hide');
+        else if (y <= clamp(lastY - 20, { min: 0, max: document.body.scrollHeight - window.innerHeight }))
+          top.classList.remove('hide');
+        else return;
+
+        lastY = Math.max(0, y);
+      },
+      { passive: true },
+    );
   }
 }

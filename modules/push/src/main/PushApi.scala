@@ -3,23 +3,26 @@ package lila.push
 import akka.actor.*
 import play.api.libs.json.*
 
-import lila.challenge.Challenge
+import lila.core.challenge.Challenge
 import lila.common.String.shorten
-import lila.common.{ LazyFu, LightUser, LilaFuture }
-import lila.game.{ Game, Namer, Pov }
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.push.TourSoon
-import lila.hub.actorApi.round.{ IsOnGame, MoveEvent }
-import lila.notify.*
+import lila.common.LilaFuture
+import lila.core.LightUser
+import lila.game.{ Namer }
+import lila.core.misc.map.Tell
+import lila.core.misc.push.TourSoon
+import lila.core.round.{ IsOnGame, MoveEvent }
+import lila.core.data.LazyFu
+import lila.core.study.data.StudyName
+import lila.core.notify.*
 
 final private class PushApi(
     firebasePush: FirebasePush,
     webPush: WebPush,
-    proxyRepo: lila.round.GameProxyRepo,
-    roundMobile: lila.round.RoundMobile,
+    gameProxy: lila.core.game.GameProxy,
+    roundJson: lila.core.round.RoundJson,
     gameRepo: lila.game.GameRepo,
-    notifyAllows: lila.notify.GetNotifyAllows,
-    postApi: lila.forum.ForumPostApi
+    notifyAllows: lila.core.notify.GetNotifyAllows,
+    postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
 
   import PushApi.*
@@ -69,14 +72,14 @@ final private class PushApi(
               firebaseMod = offlineRoundNotif
             )
           for
-            _ <- IfAway(pov)(maybePushNotif(userId, _.finish, NotificationPref.GameEvent, data))
+            _ <- IfAway(pov)(maybePushNotif(userId, _.finish, PrefEvent.gameEvent, data))
             _ <- alwaysPushFirebaseData(userId, _.finish, data)
           yield ()
       }
 
   def move(move: MoveEvent): Funit =
     LilaFuture.delay(2 seconds):
-      proxyRepo
+      gameProxy
         .game(move.gameId)
         .flatMap:
           _.filter(_.playable).so: game =>
@@ -85,7 +88,7 @@ final private class PushApi(
                 pov.player.userId.so: userId =>
                   val data = LazyFu: () =>
                     for
-                      _ <- proxyRepo.flushIfPresent(
+                      _ <- gameProxy.flushIfPresent(
                         game.id
                       ) // ensure game is updated before we count user games
                       nbMyTurn <- gameRepo.countWhereUserTurn(userId)
@@ -103,14 +106,14 @@ final private class PushApi(
                     )
                   for
                     _ <- pov.isMyTurn.so:
-                      IfAway(pov)(maybePushNotif(userId, _.move, NotificationPref.GameEvent, data))
+                      IfAway(pov)(maybePushNotif(userId, _.move, PrefEvent.gameEvent, data))
                     _ <- alwaysPushFirebaseData(userId, _.move, data)
                   yield ()
               }
 
   def takebackOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
-      proxyRepo
+      gameProxy
         .game(gameId)
         .flatMap:
           _.filter(_.playable).so: game =>
@@ -133,13 +136,13 @@ final private class PushApi(
                       mobileCompatible = true,
                       firebaseMod = offlineRoundNotif
                     )
-                  IfAway(pov)(maybePushNotif(userId, _.takeback, NotificationPref.GameEvent, data)) >>
+                  IfAway(pov)(maybePushNotif(userId, _.takeback, PrefEvent.gameEvent, data)) >>
                     alwaysPushFirebaseData(userId, _.takeback, data)
               }
 
   def drawOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
-      proxyRepo
+      gameProxy
         .game(gameId)
         .flatMap:
           _.filter(_.playable).so: game =>
@@ -162,7 +165,7 @@ final private class PushApi(
                       firebaseMod = offlineRoundNotif,
                       mobileCompatible = true
                     )
-                  IfAway(pov)(maybePushNotif(userId, _.draw, NotificationPref.GameEvent, data)) >>
+                  IfAway(pov)(maybePushNotif(userId, _.draw, PrefEvent.gameEvent, data)) >>
                     alwaysPushFirebaseData(userId, _.draw, data)
               }
 
@@ -181,12 +184,12 @@ final private class PushApi(
           mobileCompatible = true,
           firebaseMod = offlineRoundNotif
         )
-      maybePushNotif(userId, _.corresAlarm, NotificationPref.GameEvent, data) >>
+      maybePushNotif(userId, _.corresAlarm, PrefEvent.gameEvent, data) >>
         alwaysPushFirebaseData(userId, _.corresAlarm, data)
 
   private def corresGamePayload(pov: Pov, typ: String, userId: UserId): Fu[Data.Payload] =
-    roundMobile
-      .offline(pov.game, pov.fullId.anyId)
+    roundJson
+      .mobileOffline(pov.game, pov.fullId.anyId)
       .map: round =>
         payload(userId)(
           "type"   -> typ,
@@ -237,13 +240,13 @@ final private class PushApi(
   def challengeCreate(c: Challenge): Funit =
     c.destUser.so: dest =>
       c.challengerUser
-        .ifFalse(c.hasClock)
+        .ifTrue(c.clock.isEmpty)
         .so: challenger =>
           lightUser(challenger.id).flatMap: lightChallenger =>
             maybePushNotif(
               dest.id,
               _.challenge.create,
-              NotificationPref.Challenge,
+              PrefEvent.challenge,
               LazyFu.sync:
                 Data(
                   title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
@@ -260,7 +263,7 @@ final private class PushApi(
 
   def challengeAccept(c: Challenge, joinerId: Option[UserId]): Funit =
     c.challengerUser
-      .ifTrue(c.finalColor.white && !c.hasClock)
+      .ifTrue(c.finalColor.white && c.clock.isEmpty)
       .so: challenger =>
         joinerId
           .so(lightUser.optional)
@@ -268,7 +271,7 @@ final private class PushApi(
             maybePushNotif(
               challenger.id,
               _.challenge.accept,
-              NotificationPref.Challenge,
+              PrefEvent.challenge,
               LazyFu.sync:
                 Data(
                   title = s"${lightJoiner.fold("A player")(_.titleName)} accepts your challenge!",
@@ -288,7 +291,7 @@ final private class PushApi(
       maybePushNotif(
         userId,
         _.tourSoon,
-        NotificationPref.TournamentSoon,
+        PrefEvent.tournamentSoon,
         LazyFu.sync:
           Data(
             title = tour.tourName,
@@ -387,7 +390,7 @@ final private class PushApi(
   private def maybePushNotif(
       userId: UserId,
       monitor: MonitorType,
-      event: NotificationPref.Event,
+      event: PrefEvent,
       data: LazyFu[Data]
   ): Funit =
     notifyAllows(userId, event).flatMap: allows =>
@@ -406,7 +409,7 @@ final private class PushApi(
       monitor(lila.mon.push.send)("firebaseData", res.isSuccess, 1)
 
   private def describeChallenge(c: Challenge) =
-    import lila.challenge.Challenge.TimeControl.*
+    import lila.core.challenge.Challenge.TimeControl.*
     List(
       if c.mode.rated then "Rated" else "Casual",
       c.timeControl match

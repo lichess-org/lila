@@ -2,15 +2,16 @@ import { VNode } from 'snabbdom';
 import { Prop } from 'common';
 
 import type { Palantir } from 'palantir';
+import { EnhanceOpts } from 'common/richText';
 
 export interface ChatOpts {
-  el: Element;
+  el: HTMLElement;
   data: ChatData;
   writeable: boolean;
   kobold: boolean;
   blind: boolean;
   timeout: boolean;
-  parseMoves: boolean;
+  enhance?: EnhanceOpts;
   public: boolean;
   permissions: Permissions;
   timeoutReasons?: ModerationReason[];

@@ -1,11 +1,12 @@
-import RelayCtrl from './relayCtrl';
 import { looseH as h, Redraw, VNode } from 'common/snabbdom';
+import RelayCtrl from './relayCtrl';
+import { allowVideo } from './relayView';
 
 let player: VideoPlayer;
 
 export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
   if (!relay.data.videoUrls) return undefined;
-  player ??= new VideoPlayer(relay.data.videoUrls[0]);
+  player ??= new VideoPlayer(relay);
   return h('div#video-player-placeholder', {
     hook: {
       insert: (vnode: VNode) => player.cover(vnode.elm as HTMLElement),
@@ -15,14 +16,15 @@ export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
 }
 
 export function onWindowResize(redraw: Redraw) {
-  let cols = 0;
+  let showingVideo = false;
   window.addEventListener(
     'resize',
     () => {
-      player?.cover(document.getElementById('video-player-placeholder') ?? undefined);
-      const newCols = Number(window.getComputedStyle(document.body).getPropertyValue('--cols'));
-      if (newCols === cols) return;
-      cols = newCols;
+      const allow = allowVideo();
+      const placeholder = document.getElementById('video-player-placeholder') ?? undefined;
+      player?.cover(allow ? placeholder : undefined);
+      if (showingVideo === allow && !!placeholder) return;
+      showingVideo = allow && !!placeholder;
       redraw();
     },
     { passive: true },
@@ -31,35 +33,42 @@ export function onWindowResize(redraw: Redraw) {
 
 class VideoPlayer {
   private iframe: HTMLIFrameElement;
+  private close: HTMLImageElement;
+
   animationFrameId: number;
 
-  constructor(embedSrc: string) {
+  constructor(readonly relay: RelayCtrl) {
     this.iframe = document.createElement('iframe');
 
     this.iframe.id = 'video-player';
-    this.iframe.src = embedSrc;
+    this.iframe.src = relay.data.videoUrls![0];
+    this.iframe.setAttribute('credentialless', ''); // a feeble mewling ignored by all
     this.iframe.allow = 'autoplay';
+    this.iframe.setAttribute('credentialless', 'credentialless');
+    this.close = document.createElement('img');
+    this.close.src = site.asset.flairSrc('symbols.cancel');
+    this.close.className = 'video-player-close';
+    this.close.addEventListener('click', this.relay.hidePinnedImageAndRemember, true);
   }
 
   cover(el?: HTMLElement) {
     cancelAnimationFrame(this.animationFrameId);
     if (!el) {
-      if (document.body.contains(this.iframe)) document.body.removeChild(this.iframe);
-      return;
+      if (!document.body.contains(this.iframe)) return;
+      document.body.removeChild(this.iframe);
+      document.body.removeChild(this.close);
     }
-    const placement = {
-      left: el.offsetLeft,
-      top: el.offsetTop,
-      width: el.offsetWidth,
-      height: el.offsetHeight,
-    };
     this.animationFrameId = requestAnimationFrame(() => {
       this.iframe.style.display = 'block';
-      this.iframe.style.left = `${placement.left}px`;
-      this.iframe.style.top = `${placement.top}px`;
-      this.iframe.style.width = `${placement.width}px`;
-      this.iframe.style.height = `${placement.height}px`;
-      if (!document.body.contains(this.iframe)) document.body.appendChild(this.iframe);
+      this.iframe.style.left = `${el!.offsetLeft}px`;
+      this.iframe.style.top = `${el!.offsetTop}px`;
+      this.iframe.style.width = `${el!.offsetWidth}px`;
+      this.iframe.style.height = `${el!.offsetHeight}px`;
+      this.close.style.left = `${el!.offsetLeft + el!.offsetWidth - 16}px`;
+      this.close.style.top = `${el!.offsetTop - 4}px`;
+      if (document.body.contains(this.iframe)) return;
+      document.body.appendChild(this.iframe);
+      document.body.appendChild(this.close);
     });
   }
 }

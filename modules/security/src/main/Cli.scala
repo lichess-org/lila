@@ -1,6 +1,6 @@
 package lila.security
 
-import lila.common.{ Domain, EmailAddress }
+import lila.core.net.Domain
 import lila.user.{ User, UserRepo }
 
 final private[security] class Cli(

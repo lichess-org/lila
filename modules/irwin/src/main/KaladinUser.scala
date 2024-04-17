@@ -1,20 +1,21 @@
 package lila.irwin
 
-import lila.rating.{ Perf, PerfType }
-import lila.report.{ Suspect, SuspectId }
+import reactivemongo.api.bson.Macros.Annotations.Key
+
+import lila.report.Suspect
+import lila.core.perf.PerfId
+import lila.rating.PerfType
+import lila.core.report.SuspectId
 
 case class KaladinUser(
-    _id: UserId,
+    @Key("_id") id: UserId,
     priority: Int,
     queuedAt: Instant,
     queuedBy: KaladinUser.Requester,
     startedAt: Option[Instant] = None,
     response: Option[KaladinUser.Response] = None
 ):
-
-  inline def id = _id
-
-  def suspectId = SuspectId(_id)
+  def suspectId = SuspectId(id)
 
   def recentlyQueued = queuedAt.isAfter(nowInstant.minusWeeks(1))
 
@@ -37,7 +38,7 @@ case class KaladinUser(
 object KaladinUser:
 
   def make(suspect: Suspect, by: Requester) = KaladinUser(
-    _id = suspect.id.value,
+    id = suspect.id.value,
     priority = by.priority,
     queuedAt = nowInstant,
     queuedBy = by
@@ -59,10 +60,10 @@ object KaladinUser:
   // the higher the more likely the user is cheating
   case class Pred(activation: Float, insights: List[String], tc: Int):
     def percent = (activation * 100).toInt
-    def perf    = PerfType(Perf.Id(tc))
+    def perf    = PerfType(PerfId(tc))
 
     def note: String = {
-      s"Kaladin activation: $percent in ${perf.fold("?")(_.trans(using lila.i18n.defaultLang))}, because:" :: insights
+      s"Kaladin activation: $percent in ${perf.fold("?")(_.key)}, because:" :: insights
     }.mkString(", ")
 
   case class Dashboard(recent: List[KaladinUser]):

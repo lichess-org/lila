@@ -16,11 +16,6 @@ object Form:
 
   type Options[A] = Iterable[(A, String)]
 
-  type FormLike = {
-    def apply(key: String): Field
-    def errors: Seq[FormError]
-  }
-
   def options(it: Iterable[Int], pattern: String): Options[Int] =
     it.map: d =>
       d -> (pluralize(pattern, d).format(d))
@@ -182,12 +177,12 @@ object Form:
       }
 
   object fen:
-    val mapping = trim(of[String]).into[Fen.Epd]
+    val mapping = trim(of[String]).into[Fen.Full]
     def playable(strict: Boolean) = mapping
       .verifying("Invalid position", fen => Fen.read(fen).exists(_.playable(strict)))
-      .transform[Fen.Epd](if strict then truncateMoveNumber else identity, identity)
+      .transform[Fen.Full](if strict then truncateMoveNumber else identity, identity)
     val playableStrict = playable(strict = true)
-    def truncateMoveNumber(fen: Fen.Epd) =
+    def truncateMoveNumber(fen: Fen.Full) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
         if g.fullMoveNumber >= 150 then
           Fen.write(g.copy(fullMoveNumber = g.fullMoveNumber.map(_ % 100))) // keep the start ply low
@@ -207,6 +202,14 @@ object Form:
       def unbind(key: String, url: URL) = stringFormat.unbind(key, url.toString)
     val field = of[URL]
 
+  object username:
+    val historicalConstraints = Seq(
+      Constraints.minLength(2),
+      Constraints.maxLength(30),
+      Constraints.pattern(regex = UserName.historicalRegex)
+    )
+    val historicalField = trim(text).verifying(historicalConstraints*).into[UserStr]
+
   given autoFormat[A, T](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],
@@ -218,6 +221,9 @@ object Form:
   given Formatter[chess.variant.Variant] =
     import chess.variant.Variant
     formatter.stringFormatter[Variant](_.key.value, str => Variant.orDefault(Variant.LilaKey(str)))
+
+  given Formatter[PerfKey] = formatter.stringOptionFormatter[PerfKey](_.value, PerfKey(_))
+  val perfKey              = typeIn[PerfKey](PerfKey.all)
 
   extension [A](f: Formatter[A])
     def transform[B](to: A => B, from: B => A): Formatter[B] = new:

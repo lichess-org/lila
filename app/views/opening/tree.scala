@@ -3,7 +3,7 @@ package views.html.opening
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningConfig, OpeningTree }
 
 object tree:
@@ -13,8 +13,8 @@ object tree:
   def apply(root: OpeningTree, config: OpeningConfig)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("opening"),
-      moreJs = moreJs(none),
-      title = trans.opening.txt()
+      pageModule = pageModule(none).some,
+      title = trans.site.opening.txt()
     ) {
       main(cls := "page box box-pad opening opening--tree")(
         index.searchAndConfig(config, "", "tree"),

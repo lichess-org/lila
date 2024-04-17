@@ -3,7 +3,7 @@
 
   margin: 1em 0 0 -1em;
 
-  @include breakpoint($mq-xx-small) {
+  @media (min-width: at-least($xx-small)) {
     flex-wrap: nowrap;
   }
 
@@ -11,7 +11,7 @@
     @extend %box-radius;
 
     border: 1px solid $c-error;
-    background: mix($c-error, $c-bg-high, 10%);
+    background: $m-bad_bg--mix-10;
   }
 
   .challenge {

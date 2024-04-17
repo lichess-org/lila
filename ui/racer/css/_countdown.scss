@@ -31,11 +31,11 @@
           opacity: 1;
         }
         &.red {
-          background: $c-red;
+          background: $c-bad;
           &.active {
             box-shadow:
-              0 0 2em $c-red,
-              0 0 4em $c-red;
+              0 0 2em $c-bad,
+              0 0 4em $c-bad;
           }
         }
         &.orange {

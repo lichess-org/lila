@@ -3,17 +3,17 @@
 $player-height: 1.6rem;
 
 .analyse.has-players {
-  cg-board {
+  .main-board cg-board {
     border-radius: 0;
   }
 
-  @include breakpoint($mq-col2) {
+  @include mq-at-least-col2 {
     .analyse__underboard {
-      margin-top: calc(#{$player-height / 2} + #{$block-gap / 2});
+      margin-top: calc(#{$player-height / 2} + #{$analyse-block-gap} / 2);
     }
   }
 
-  @include breakpoint($mq-col1) {
+  @include mq-is-col1 {
     .analyse__controls {
       margin-top: $player-height;
     }
@@ -24,9 +24,9 @@ $player-height: 1.6rem;
   @extend %flex-between-nowrap, %metal, %box-shadow;
 
   position: absolute;
-  #{$end-direction}: 0;
+  @include inline-end(0);
   font-weight: bold;
-  width: var(--cg-width, 100%);
+  width: var(--cg-width, 100%); // TODO add hyphen once chessground is updated
   height: $player-height;
   white-space: nowrap;
 
@@ -38,14 +38,14 @@ $player-height: 1.6rem;
     .is3d & {
       @extend %box-radius;
 
-      top: calc(#{-$player-height} - var(--cg-width) / 20);
+      top: calc(#{-$player-height} - var(--cg-width) / 20); // TODO add hyphen once chessground is updated
     }
   }
 
   &-bot {
     @extend %box-radius-bottom;
 
-    top: var(--cg-height, 100%);
+    top: var(--cg-height, 100%); // TODO add hyphen once chessground is updated
   }
 
   .left {
@@ -56,9 +56,9 @@ $player-height: 1.6rem;
 
   .result {
     flex: 0 0 auto;
-    margin-#{$start-direction}: 0.8em;
-    padding-#{$end-direction}: 0.8em;
-    border-#{$end-direction}: $border;
+    margin-inline-start: 0.8em;
+    padding-inline-end: 0.8em;
+    border-inline-end: $border;
   }
 
   .analyse__clock {
@@ -78,13 +78,13 @@ $player-height: 1.6rem;
 
   &.ticking .analyse__clock {
     background: $c-secondary;
-    color: $c-secondary-over;
+    color: $c-over;
     text-shadow: none;
   }
 
   .info {
     @extend %flex-center-nowrap;
-    margin-#{$start-direction}: 10px;
+    margin-inline-start: 10px;
     overflow: hidden;
 
     .team,
@@ -103,24 +103,24 @@ $player-height: 1.6rem;
   }
 
   .name {
-    margin-#{$start-direction}: 0.5ch;
+    margin-inline-start: 0.5ch;
     flex: 3;
   }
   .team {
     @extend %roboto;
-    margin-#{$end-direction}: 1ch;
+    margin-inline-end: 1ch;
     padding: 0 1ch;
     flex: 2;
     color: $c-font-dim;
   }
   .mini-game__flag {
     height: 1em;
-    margin-#{$end-direction}: 1ch;
+    margin-inline-end: 1ch;
     margin-top: unset;
   }
 
   .elo {
-    margin-#{$start-direction}: 0.5em;
+    margin-inline-start: 0.5em;
     font-weight: normal;
   }
 }
@@ -133,7 +133,7 @@ $player-height: 1.6rem;
     height: 20px;
 
     &.pawn {
-      margin-#{$start-direction}: -10px;
+      margin-inline-start: -10px;
     }
   }
 

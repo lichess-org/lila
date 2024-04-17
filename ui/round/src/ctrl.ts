@@ -49,6 +49,7 @@ import {
   MoveMetadata,
   Position,
   NvuiPlugin,
+  RoundTour,
 } from './interfaces';
 import { defined, Toggle, toggle } from 'common';
 import { Redraw } from 'common/snabbdom';
@@ -295,7 +296,7 @@ export default class RoundController implements MoveRootCtrl {
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
     //this.updateZero(s.fen);
-    this.auxUpdate(s.fen);
+    this.pluginUpdate(s.fen);
     site.pubsub.emit('ply', ply);
     return true;
   };
@@ -352,10 +353,9 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
   };
 
-  auxMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
+  pluginMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
     if (!role) {
       this.chessground.move(orig, dest);
-      // TODO look into possibility of making cg.Api.move function update player turn itself.
       this.chessground.state.movable.dests = undefined;
       this.chessground.state.turnColor = opposite(this.chessground.state.turnColor);
 
@@ -364,7 +364,7 @@ export default class RoundController implements MoveRootCtrl {
     this.sendMove(orig, dest, role, { premove: false });
   };
 
-  auxUpdate = (fen: string) => {
+  pluginUpdate = (fen: string) => {
     this.voiceMove?.update({ fen, canMove: this.canMove() });
     this.keyboardMove?.update({ fen, canMove: this.canMove() });
   };
@@ -519,7 +519,7 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     //this.updateZero(step.fen); //, playedColor != d.player.color);
-    this.auxUpdate(step.fen);
+    this.pluginUpdate(step.fen);
     site.sound.move({ ...o, filter: 'music' });
     site.sound.saySan(step.san);
     return true; // prevents default socket pubsub
@@ -556,7 +556,7 @@ export default class RoundController implements MoveRootCtrl {
     this.onChange();
     this.setLoading(false);
     //this.updateZero(d.steps[d.steps.length - 1].fen); //, true);
-    this.auxUpdate(d.steps[d.steps.length - 1].fen);
+    this.pluginUpdate(d.steps[d.steps.length - 1].fen);
   };
 
   endWithData = (o: ApiEnd): void => {
@@ -613,27 +613,15 @@ export default class RoundController implements MoveRootCtrl {
   challengeRematch = async () => {
     await xhr.challengeRematch(this.data.game.id);
     site.pubsub.emit('challenge-app.open');
-    if (site.once('rematch-challenge'))
-      setTimeout(() => {
-        site.asset.hopscotch(function () {
-          window.hopscotch
-            .configure({
-              i18n: { doneBtn: 'OK, got it' },
-            })
-            .startTour({
-              id: 'rematch-challenge',
-              showPrevButton: true,
-              steps: [
-                {
-                  title: 'Challenged to a rematch',
-                  content: 'Your opponent is offline, but they can accept this challenge later!',
-                  target: '#challenge-app',
-                  placement: 'bottom',
-                },
-              ],
-            });
-        });
+    if (site.once('rematch-challenge')) {
+      setTimeout(async () => {
+        const [tour] = await Promise.all([
+          site.asset.loadEsm<RoundTour>('round.tour'),
+          site.asset.loadCssPath('shepherd'),
+        ]);
+        tour.corresRematchOffline();
       }, 1000);
+    }
   };
 
   private makeCorrespondenceClock = (): void => {

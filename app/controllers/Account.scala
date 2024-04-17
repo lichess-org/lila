@@ -8,11 +8,10 @@ import views.html
 
 import scala.util.chaining.*
 
-import lila.api.AnnounceStore
+import lila.web.AnnounceApi
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import lila.user.{ TotpSecret, User as UserModel }
 
 final class Account(
     env: Env,
@@ -85,7 +84,7 @@ final class Account(
           .add("kid" -> ctx.kid)
           .add("troll" -> me.marks.troll)
           .add("playban" -> playban)
-          .add("announce" -> AnnounceStore.get.map(_.json))
+          .add("announce" -> AnnounceApi.get.map(_.json))
       .withHeaders(CACHE_CONTROL -> "max-age=15")
   }
 
@@ -130,7 +129,7 @@ final class Account(
         .get(me)
         .map: prefs =>
           Ok:
-            lila.common.LightUser.write(me.light) ++ Json.obj(
+            lila.common.Json.lightUser.write(me.light) ++ Json.obj(
               "coach" -> isGranted(_.Coach),
               "prefs" -> lila.pref.JsonView.write(prefs, lichobileCompat = false)
             )
@@ -145,7 +144,7 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.passwdChange.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.passwd(err))): data =>
-          env.user.authenticator.setPassword(me, UserModel.ClearPassword(data.newPasswd1)) >>
+          env.user.authenticator.setPassword(me, lila.user.ClearPassword(data.newPasswd1)) >>
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
 
@@ -154,7 +153,7 @@ final class Account(
       env.push.webSubscriptionApi.unsubscribeByUser(me) >>
       env.push.unregisterDevices(me) >>
       env.security.api.saveAuthentication(me, ctx.mobileApiVersion)).map { sessionId =>
-      result.withCookies(env.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
+      result.withCookies(env.security.lilaCookie.session(env.security.api.sessionIdKey, sessionId))
     }
 
   private def emailForm(using me: Me) =
@@ -184,7 +183,7 @@ final class Account(
             env.security.emailChange
               .send(me, newUserEmail.email)
               .inject(Redirect(routes.Account.email).flashSuccess:
-                lila.i18n.I18nKeys.checkYourEmail.txt()
+                lila.core.i18n.I18nKey.site.checkYourEmail.txt()
               )
   }
 
@@ -231,7 +230,7 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.setupTwoFactor.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.twoFactor.setup(err))): data =>
-          env.user.repo.setupTwoFactor(me, TotpSecret(data.secret)) >>
+          env.user.repo.setupTwoFactor(me, lila.user.TotpSecret.decode(data.secret)) >>
             refreshSessionId(Redirect(routes.Account.twoFactor).flashSuccess)
   }
 
@@ -263,7 +262,7 @@ final class Account(
             env.api.accountClosure
               .close(me.value)
               .inject:
-                Redirect(routes.User.show(me.username)).withCookies(env.lilaCookie.newSession)
+                Redirect(routes.User.show(me.username)).withCookies(env.security.lilaCookie.newSession)
   }
 
   def kid = Auth { _ ?=> me ?=>
@@ -307,8 +306,8 @@ final class Account(
     for
       _                    <- env.security.api.dedup(me, req)
       sessions             <- env.security.api.locatedOpenSessions(me, 50)
-      clients              <- env.oAuth.tokenApi.listClients(me, 50)
-      personalAccessTokens <- env.oAuth.tokenApi.countPersonal(me)
+      clients              <- env.oAuth.tokenApi.listClients(50)
+      personalAccessTokens <- env.oAuth.tokenApi.countPersonal
       currentSessionId = ~env.security.api.reqSessionId(req)
       page <- renderPage:
         html.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
@@ -350,13 +349,11 @@ final class Account(
                       lila.mon.user.auth.reopenRequest(code).increment()
                       renderReopen(none, msg.some).map { BadRequest(_) }
                     case Right(user) =>
-                      auth.MagicLinkRateLimit(user, data.email, ctx.req, rateLimited):
+                      env.security.magicLink.rateLimit[Result](user, data.email, ctx.req, rateLimited):
                         lila.mon.user.auth.reopenRequest("success").increment()
                         env.security.reopen
                           .send(user, data.email)
-                          .inject(Redirect:
-                            routes.Account.reopenSent
-                          )
+                          .inject(Redirect(routes.Account.reopenSent))
                   }
             )
       else renderReopen(none, none).map { BadRequest(_) }

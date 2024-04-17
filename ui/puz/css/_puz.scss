@@ -5,10 +5,10 @@
 @import 'history';
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - 9rem);
+  ---main-max-width: calc(100vh - #{$site-header-outer-height} - 9rem);
 
-  @include breakpoint($mq-col2) {
-    --main-max-width: auto;
+  @include mq-at-least-col2 {
+    ---main-max-width: auto;
   }
 
   user-select: none;
@@ -29,7 +29,7 @@
 }
 
 .puz-board {
-  @include breakpoint($mq-col2-uniboard-squeeze) {
+  @include mq-is-col2-squeeze {
     width: 40vw;
   }
 }

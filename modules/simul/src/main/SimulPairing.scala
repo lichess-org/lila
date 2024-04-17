@@ -1,6 +1,6 @@
 package lila.simul
 
-import lila.game.IdGenerator
+import lila.core.game.IdGenerator
 
 final case class SimulPairing(
     player: SimulPlayer,

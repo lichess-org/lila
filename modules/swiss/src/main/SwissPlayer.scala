@@ -1,7 +1,7 @@
 package lila.swiss
 
-import lila.common.LightUser
-import lila.user.User
+import lila.core.LightUser
+import lila.core.user.WithPerf
 
 case class SwissPlayer(
     id: SwissPlayer.Id, // swissId:userId
@@ -36,7 +36,7 @@ object SwissPlayer:
 
   def makeId(swissId: SwissId, userId: UserId) = Id(s"$swissId:$userId")
 
-  private[swiss] def make(swissId: SwissId, user: User.WithPerf): SwissPlayer =
+  private[swiss] def make(swissId: SwissId, user: WithPerf): SwissPlayer =
     SwissPlayer(
       id = makeId(swissId, user.id),
       swissId = swissId,
@@ -63,13 +63,13 @@ object SwissPlayer:
   sealed private[swiss] trait Viewish:
     val player: SwissPlayer
     val rank: Int
-    val user: lila.common.LightUser
+    val user: lila.core.LightUser
     val sheet: SwissSheet
 
   private[swiss] case class View(
       player: SwissPlayer,
       rank: Int,
-      user: lila.common.LightUser,
+      user: lila.core.LightUser,
       pairings: Map[SwissRoundNumber, SwissPairing],
       sheet: SwissSheet
   ) extends Viewish
@@ -77,7 +77,7 @@ object SwissPlayer:
   private[swiss] case class ViewExt(
       player: SwissPlayer,
       rank: Int,
-      user: lila.common.LightUser,
+      user: lila.core.LightUser,
       pairings: Map[SwissRoundNumber, SwissPairing.View],
       sheet: SwissSheet
   ) extends Viewish

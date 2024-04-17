@@ -11,7 +11,7 @@
         @extend %flex-column;
         gap: 1em;
         a {
-          text-align: $start-direction;
+          text-align: start;
         }
       }
     }

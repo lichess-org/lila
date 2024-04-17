@@ -4,34 +4,45 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.config.*
-import lila.socket.{ GetVersion, SocketVersion }
+import lila.core.config.*
+import lila.core.socket.{ GetVersion, SocketVersion }
+import lila.core.user.FlairGet
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
-    lightUserApi: lila.user.LightUserApi,
-    gamePgnDump: lila.game.PgnDump,
-    divider: lila.game.Divider,
-    gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    explorerImporter: lila.explorer.ExplorerImporter,
-    notifyApi: lila.notify.NotifyApi,
-    fidePlayerApi: lila.fide.FidePlayerApi,
-    prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    timeline: lila.hub.actors.Timeline,
-    fishnet: lila.hub.actors.Fishnet,
-    chatApi: lila.chat.ChatApi,
-    analyser: lila.analyse.Analyser,
-    annotator: lila.analyse.Annotator,
+    lightUserApi: lila.core.user.LightUserApi,
+    gamePgnDump: lila.core.game.PgnDump,
+    divider: lila.core.game.Divider,
+    gameRepo: lila.core.game.GameRepo,
+    namer: lila.core.game.Namer,
+    importer: lila.core.game.Importer,
+    userApi: lila.core.user.UserApi,
+    explorer: lila.core.game.Explorer,
+    statusText: lila.core.game.StatusText,
+    notifyApi: lila.core.notify.NotifyApi,
+    federations: lila.core.fide.Federation.FedsOf,
+    federationNames: lila.core.fide.Federation.NamesOf,
+    prefApi: lila.core.pref.PrefApi,
+    relationApi: lila.core.relation.RelationApi,
+    socketKit: lila.core.socket.SocketKit,
+    socketReq: lila.core.socket.SocketRequester,
+    chatApi: lila.core.chat.ChatApi,
+    analyser: lila.tree.Analyser,
+    analysisJson: lila.tree.AnalysisJson,
+    annotator: lila.tree.Annotator,
     mongo: lila.db.Env,
-    net: lila.common.config.NetConfig,
+    net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi
-)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode, lila.user.FlairApi.Getter):
+)(using
+    FlairGet,
+    Executor,
+    Scheduler,
+    akka.stream.Materializer,
+    play.api.Mode,
+    lila.core.i18n.Translator
+):
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
 
@@ -41,12 +52,18 @@ final class Env(
   def isConnected(studyId: StudyId, userId: UserId): Fu[Boolean] =
     socket.isPresent(studyId, userId)
 
-  private val socket: StudySocket = wire[StudySocket]
+  private lazy val socket: StudySocket = wire[StudySocket]
 
-  lazy val studyRepo             = StudyRepo(studyDb(CollName("study")))
-  lazy val chapterRepo           = ChapterRepo(studyDb(CollName("study_chapter_flat")))
-  private lazy val topicRepo     = StudyTopicRepo(studyDb(CollName("study_topic")))
-  private lazy val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
+  private val gameToRoot = wire[GameToRoot]
+
+  val studyRepo             = StudyRepo(studyDb(CollName("study")))
+  val chapterRepo           = ChapterRepo(studyDb(CollName("study_chapter_flat")))
+  private val topicRepo     = StudyTopicRepo(studyDb(CollName("study_topic")))
+  private val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
+
+  export importer.parseImport
+  val pgnImport = wire[StudyPgnImport]
+  // private val pgnImportNew = wire[StudyPgnImportNew]
 
   lazy val jsonView = wire[JsonView]
 
@@ -85,5 +102,4 @@ final class Env(
     }
 
   lila.common.Bus.subscribeFun("studyAnalysisProgress"):
-    case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
-      serverEvalMerger(analysis, complete)
+    case lila.tree.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)

@@ -7,7 +7,7 @@
   .fbt {
     padding: 0.6em 0.8em;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       padding: 0.6em 1em;
     }
 
@@ -38,7 +38,7 @@
 
   .highlight {
     position: absolute;
-    #{$end-direction}: 5px;
+    @include inline-end(5px);
     top: -3px;
     padding: 8px 20px;
     border-radius: 8px;
@@ -66,7 +66,7 @@
     margin: 0;
     width: 1.5em;
     height: 1.5em;
-    margin-#{$end-direction}: 0.7em;
+    margin-inline-end: 0.7em;
   }
 
   .pager {
@@ -81,7 +81,7 @@
 
     input {
       border: none;
-      background: fade-out($c-secondary, 0.8);
+      background: $m-secondary--fade-80;
     }
 
     .search,

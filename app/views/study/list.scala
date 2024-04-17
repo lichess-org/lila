@@ -5,12 +5,11 @@ import controllers.routes
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.LangPath
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.core.app.LangPath
+import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
-import lila.user.User
 
 object list:
 
@@ -101,7 +100,7 @@ object list:
       title = text,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       main(cls := "page-menu")(
         menu("search", Order.default),
@@ -129,7 +128,7 @@ object list:
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using PageContext) =
     if pager.currentPageResults.isEmpty then
       div(cls := "nostudies")(
-        iconTag(licon.StudyBoard),
+        iconTag(Icon.StudyBoard),
         p(trans.study.noneYet())
       )
     else
@@ -144,7 +143,7 @@ object list:
       ctx: PageContext
   ) =
     val nonMineOrder = if order == Order.Mine then Order.Hot else order
-    views.html.site.bits.pageMenuSubnav(
+    views.html.base.bits.pageMenuSubnav(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
       ctx.isAuth.option(bits.authLinks(active, nonMineOrder)),
       a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics):
@@ -157,7 +156,7 @@ object list:
       a(cls := active.active("staffPicks"), href := routes.Study.staffPicks)("Staff picks"),
       a(
         cls      := "text",
-        dataIcon := licon.InfoCircle,
+        dataIcon := Icon.InfoCircle,
         href     := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way"
       ):
         trans.study.whatAreStudies()
@@ -166,7 +165,7 @@ object list:
   private[study] def searchForm(placeholder: String, value: String) =
     form(cls := "search", action := routes.Study.search(), method := "get")(
       input(name       := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
-      submitButton(cls := "button", dataIcon  := licon.Search)
+      submitButton(cls := "button", dataIcon  := Icon.Search)
     )
 
   private def layout(
@@ -183,7 +182,7 @@ object list:
       title = title,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       withHrefLangs = withHrefLangs
     ):
       main(cls := "page-menu")(

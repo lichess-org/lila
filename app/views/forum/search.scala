@@ -3,8 +3,8 @@ package views.html.forum
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.paginator.Paginator
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+import scalalib.paginator.Paginator
 
 object search:
 
@@ -12,22 +12,22 @@ object search:
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
     views.html.base.layout(
       title = title,
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       moreCss = cssTag("forum")
     )(
       main(cls := "box search")(
         boxTop(
           h1(
-            a(href := routes.ForumCateg.index, dataIcon := licon.LessThan, cls := "text"),
+            a(href := routes.ForumCateg.index, dataIcon := Icon.LessThan, cls := "text"),
             title
           ),
           bits.searchForm(text)
         ),
-        strong(cls := "nb-results box__pad")(trans.nbForumPosts.pluralSame(pager.nbResults)),
+        strong(cls := "nb-results box__pad")(trans.site.nbForumPosts.pluralSame(pager.nbResults)),
         table(cls := "slist slist-pad search__results")(
           (pager.nbResults > 0).option(
             tbody(cls := "infinite-scroll")(
-              pager.currentPageResults.map { viewWithRead =>
+              pager.currentPageResults.map: viewWithRead =>
                 val view = viewWithRead.view
                 val info =
                   td(cls := "info")(
@@ -50,13 +50,9 @@ object search:
                       ),
                       info
                     )
-                  else
-                    frag(
-                      td("[You can't access this team forum post]"),
-                      info
-                    )
+                  else td(colspan := "2")("[You can't access this team forum post]")
                 )
-              },
+              ,
               pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
             )
           )

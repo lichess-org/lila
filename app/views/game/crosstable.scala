@@ -3,7 +3,7 @@ package views.html.game
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Crosstable
 
 object crosstable:
@@ -35,7 +35,7 @@ object crosstable:
             a(href := s"""${routes.Round.watcher(r.gameId, "white")}?pov=${u.id}""", cls := linkClass)(text)
       ,
       matchup.map: m =>
-        div(cls := "crosstable__matchup force-ltr", title := trans.currentMatchScore.txt()):
+        div(cls := "crosstable__matchup force-ltr", title := trans.site.currentMatchScore.txt()):
           ct.users.toList.map: u =>
             span(cls := m.users.winnerId.map(w => if w == u.id then "win" else "loss"))(
               m.users.showScore(u.id)
@@ -45,7 +45,7 @@ object crosstable:
         ct.users.toList.map: u =>
           userIdLink(u.id.some, withOnline = false)
       ,
-      div(cls := "crosstable__score force-ltr", title := trans.lifetimeScore.txt()):
+      div(cls := "crosstable__score force-ltr", title := trans.site.lifetimeScore.txt()):
         ct.users.toList.map: u =>
           span(cls := ct.users.winnerId.map(w => if w == u.id then "win" else "loss"))(ct.showScore(u.id))
     )

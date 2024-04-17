@@ -4,23 +4,21 @@ import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 
-import lila.analyse.{ Advice, Analysis, Info }
 import lila.db.dsl.bsonWriteOpt
-import lila.hub.actorApi.fishnet.StudyChapterRequest
-import lila.security.Granter
+import lila.core.fishnet.StudyChapterRequest
+import lila.core.perm.Granter
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
-import lila.user.{ User, UserRepo }
+import lila.tree.{ Advice, Analysis, Info }
 
 object ServerEval:
 
   final class Requester(
-      fishnet: lila.hub.actors.Fishnet,
       chapterRepo: ChapterRepo,
-      userRepo: UserRepo
+      userApi: lila.core.user.UserApi
   )(using Executor):
 
-    private val onceEvery = lila.memo.OnceEvery[StudyChapterId](5 minutes)
+    private val onceEvery = scalalib.cache.OnceEvery[StudyChapterId](5 minutes)
 
     def apply(study: Study, chapter: Chapter, userId: UserId, unlimited: Boolean = false): Funit =
       chapter.serverEval
@@ -29,34 +27,37 @@ object ServerEval:
         .so:
           val unlimitedFu =
             fuccess(unlimited) >>|
-              fuccess(userId == User.lichessId) >>| userRepo.me(userId).map(_.soUse(Granter.opt(_.Relay)))
+              fuccess(userId == UserId.lichess) >>| userApi.me(userId).map(_.soUse(Granter.opt(_.Relay)))
           unlimitedFu.flatMap: unlimited =>
             chapterRepo
               .startServerEval(chapter)
               .andDo:
-                fishnet ! StudyChapterRequest(
-                  studyId = study.id,
-                  chapterId = chapter.id,
-                  initialFen = chapter.root.fen.some,
-                  variant = chapter.setup.variant,
-                  moves = chess.format
-                    .UciDump(
-                      moves = chapter.root.mainline.map(_.move.san),
-                      initialFen = chapter.root.fen.some,
-                      variant = chapter.setup.variant,
-                      force960Notation = true
-                    )
-                    .toOption
-                    .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
-                  userId = userId,
-                  unlimited = unlimited
+                lila.common.Bus.named.fishnet.analyseStudyChapter(
+                  StudyChapterRequest(
+                    studyId = study.id,
+                    chapterId = chapter.id,
+                    initialFen = chapter.root.fen.some,
+                    variant = chapter.setup.variant,
+                    moves = chess.format
+                      .UciDump(
+                        moves = chapter.root.mainline.map(_.move.san),
+                        initialFen = chapter.root.fen.some,
+                        variant = chapter.setup.variant,
+                        force960Notation = true
+                      )
+                      .toOption
+                      .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
+                    userId = userId,
+                    unlimited = unlimited
+                  )
                 )
 
   final class Merger(
       sequencer: StudySequencer,
       socket: StudySocket,
       chapterRepo: ChapterRepo,
-      divider: lila.game.Divider
+      divider: lila.core.game.Divider,
+      analysisJson: lila.tree.AnalysisJson
   )(using Executor):
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.id match
@@ -108,7 +109,7 @@ object ServerEval:
                   F.score -> info.eval.score
                     .ifTrue:
                       node.eval.isEmpty ||
-                        advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
+                      advOpt.isDefined && node.comments.findBy(Comment.Author.Lichess).isEmpty
                     .flatMap(bsonWriteOpt),
                   F.comments -> advOpt
                     .map: adv =>
@@ -170,7 +171,7 @@ object ServerEval:
               ServerEval.Progress(
                 chapterId = chapter.id,
                 tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
-                analysis = toJson(chapter, analysis),
+                analysis = analysisJson.bothPlayers(chapter.root.ply, analysis),
                 division = divisionOf(chapter)
               )
             )
@@ -184,6 +185,3 @@ object ServerEval:
       )
 
   case class Progress(chapterId: StudyChapterId, tree: Root, analysis: JsObject, division: chess.Division)
-
-  def toJson(chapter: Chapter, analysis: Analysis) =
-    lila.analyse.JsonView.bothPlayers(chapter.root.ply, analysis)

@@ -3,15 +3,15 @@ package views.html.study
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.i18n.I18nKeys as trans
+import lila.core.i18n.I18nKey as trans
 
 object jsI18n:
 
-  def apply()(using Lang) =
+  def apply()(using Translate) =
     views.html.board.userAnalysisI18n(withAdvantageChart = true) ++
       i18nJsObject(i18nKeys ++ gamebookPlayKeys)
 
-  def embed(chapter: lila.study.Chapter)(using Lang) =
+  def embed(chapter: lila.study.Chapter)(using Translate) =
     views.html.board.userAnalysisI18n() ++ chapter.isGamebook.so {
       i18nJsObject(gamebookPlayKeys)
     }
@@ -19,14 +19,14 @@ object jsI18n:
   val i18nKeys =
     import trans.study.*
     List(
-      trans.name,
-      trans.white,
-      trans.black,
-      trans.variant,
-      trans.clearBoard,
-      trans.startPosition,
-      trans.cancel,
-      trans.chat,
+      trans.site.name,
+      trans.site.white,
+      trans.site.black,
+      trans.site.variant,
+      trans.site.clearBoard,
+      trans.site.startPosition,
+      trans.site.cancel,
+      trans.site.chat,
       addNewChapter,
       importFromChapterX,
       addMembers,
@@ -144,7 +144,7 @@ object jsI18n:
       back,
       playAgain,
       nextChapter,
-      trans.retry,
+      trans.site.retry,
       whatWouldYouPlay,
       youCompletedThisLesson
     )

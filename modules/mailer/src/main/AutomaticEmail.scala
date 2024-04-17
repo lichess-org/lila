@@ -5,22 +5,19 @@ import scalatags.Text.all.*
 
 import scala.util.chaining.*
 
-import lila.base.LilaException
-import lila.common.EmailAddress
-import lila.common.config.BaseUrl
-import lila.hub.actorApi.mailer.CorrespondenceOpponent
-import lila.hub.actorApi.msg.SystemMsg
-import lila.i18n.I18nKeys.emails as trans
-import lila.i18n.PeriodLocales.showDuration
-import lila.user.{ User, UserApi, UserRepo }
+import lila.core.lilaism.LilaException
+import lila.core.config.BaseUrl
+import lila.core.misc.mailer.CorrespondenceOpponent
+import lila.core.msg.SystemMsg
+import lila.core.i18n.Translator
+import lila.core.i18n.I18nKey.emails as trans
 
 final class AutomaticEmail(
-    userRepo: UserRepo,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     mailer: Mailer,
     baseUrl: BaseUrl,
-    lightUser: lila.user.LightUserApi
-)(using Executor):
+    lightUser: lila.core.user.LightUserApi
+)(using Executor, Translator):
 
   import Mailer.html.*
 
@@ -46,13 +43,13 @@ The Lichess team"""
   def welcomePM(user: User): Funit = fuccess:
     alsoSendAsPrivateMessage(user): lang =>
       given Lang = lang
-      import lila.i18n.I18nKeys.*
-      s"""${onboarding.welcome.txt()}\n${lichessPatronInfo.txt()}"""
+      import lila.core.i18n.I18nKey
+      s"""${I18nKey.onboarding.welcome.txt()}\n${I18nKey.site.lichessPatronInfo.txt()}"""
 
   def onTitleSet(username: UserStr): Funit = {
     for
-      user        <- userRepo.byId(username).orFail(s"No such user $username")
-      emailOption <- userRepo.email(user.id)
+      user        <- userApi.byId(username).orFail(s"No such user $username")
+      emailOption <- userApi.email(user.id)
       title       <- fuccess(user.title).orFail("User doesn't have a title!")
       body = alsoSendAsPrivateMessage(user): _ =>
         s"""Hello,
@@ -126,7 +123,7 @@ Following your request, the Lichess account "${user.username}" will be fully era
 
 $regards
 """
-    userRepo.emailOrPrevious(user.id).flatMapz { email =>
+    userApi.emailOrPrevious(user.id).flatMapz { email =>
       given Lang = userLang(user)
       mailer.send(
         Mailer.Message(
@@ -139,7 +136,7 @@ $regards
     }
 
   def onPatronNew(userId: UserId): Funit =
-    userRepo.byId(userId).map {
+    userApi.byId(userId).map {
       _.foreach: user =>
         alsoSendAsPrivateMessage(user)(
           body = _ => s"""Thank you for supporting Lichess!
@@ -151,7 +148,7 @@ As a small token of our thanks, your account now has the awesome Patron wings!""
     }
 
   def onPatronStop(userId: UserId): Funit =
-    userRepo.byId(userId).map {
+    userApi.byId(userId).map {
       _.foreach: user =>
         alsoSendAsPrivateMessage(user)(
           body = _ => s"""End of Lichess Patron subscription
@@ -164,7 +161,7 @@ To make a new donation, head to $baseUrl/patron"""
     }
 
   def onPatronGift(from: UserId, to: UserId, lifetime: Boolean): Funit =
-    userRepo.pair(from, to).map {
+    userApi.pair(from, to).map {
       _.foreach: (from, to) =>
         val wings =
           if lifetime then "lifetime Patron wings"
@@ -185,7 +182,7 @@ To make a new donation, head to $baseUrl/patron"""
         userWithEmail.emails.current
           .filterNot(_.isNoReply)
           .so: email =>
-            given Lang = userLang(userWithEmail.user.user)
+            given Lang = userLang(userWithEmail.user)
             val hello =
               "Hello and thank you for playing correspondence chess on Lichess!"
             val disableSettingNotice =
@@ -220,7 +217,7 @@ $disableSettingNotice $disableLink"""
   private def showGame(opponent: CorrespondenceOpponent)(using Lang) =
     val opponentName = opponent.opponentId.fold("Anonymous")(lightUser.syncFallback(_).name)
     opponent.remainingTime.fold(s"It's your turn in your game with $opponentName:"): remainingTime =>
-      s"You have ${showDuration(remainingTime)} remaining in your game with $opponentName:"
+      s"You have ${translateDuration(remainingTime)} remaining in your game with $opponentName:"
 
   private def alsoSendAsPrivateMessage(user: User)(body: Lang => String): String =
     body(userLang(user)).tap: txt =>
@@ -228,7 +225,7 @@ $disableSettingNotice $disableLink"""
 
   private def sendAsPrivateMessageAndEmail(user: User)(subject: Lang => String, body: Lang => String): Funit =
     alsoSendAsPrivateMessage(user)(body).pipe: body =>
-      userRepo
+      userApi
         .email(user.id)
         .flatMapz: email =>
           given lang: Lang = userLang(user)
@@ -244,9 +241,9 @@ $disableSettingNotice $disableLink"""
   private def sendAsPrivateMessageAndEmail[U: UserIdOf](
       to: U
   )(subject: Lang => String, body: Lang => String): Funit =
-    userRepo
+    userApi
       .byId(to)
       .flatMapz: user =>
         sendAsPrivateMessageAndEmail(user)(subject, body)
 
-  private def userLang(user: User): Lang = user.realLang | lila.i18n.defaultLang
+  private def userLang(user: User): Lang = user.realLang | lila.core.i18n.defaultLang

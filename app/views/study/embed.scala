@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object embed:
 
@@ -17,7 +17,7 @@ object embed:
       cssModule = "lpv.embed"
     )(
       div(cls := "is2d")(div(pgn)),
-      jsModule("lpv.embed"),
+      jsTag("site.lpv.embed"),
       lpvJs:
         lpvConfig(orientation = none, getPgn = canGetPgn) ++ Json
           .obj()

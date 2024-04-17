@@ -13,7 +13,7 @@
       }
 
       &:hover {
-        background: mix($c-link, $c-bg-box, 10%);
+        background: $m-primary_bg--mix-10;
       }
     }
 
@@ -23,7 +23,7 @@
     }
 
     th {
-      border-#{$start-direction}: 3px solid transparent;
+      border-inline-start: 3px solid transparent;
 
       @include transition;
     }

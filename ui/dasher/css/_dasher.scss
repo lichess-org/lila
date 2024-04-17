@@ -5,6 +5,10 @@
 #dasher_app {
   @extend %box-radius-left;
 
+  #top.scrolled & {
+    border-radius: 0 0 0 $box-radius-size;
+  }
+
   width: 225px;
 
   .spinner {
@@ -19,7 +23,7 @@
 
     signal {
       position: absolute;
-      #{$end-direction}: 1rem;
+      @include inline-end(1rem);
       top: 1rem;
       font-size: 1.7rem;
     }
@@ -75,13 +79,13 @@
     }
 
     .accepted {
-      border-#{$start-direction}: 4px solid $c-dasher;
+      border-inline-start: 4px solid $c-dasher;
     }
 
     .current {
       background: $c-dasher !important;
-      color: $c-dasher-over !important;
-      border-#{$start-direction}: none;
+      color: $c-over !important;
+      border-inline-start: none;
     }
 
     .help {
@@ -91,7 +95,7 @@
 
       &:hover {
         background: $c-link;
-        color: $c-link-over;
+        color: $c-over;
       }
     }
   }
@@ -116,7 +120,7 @@
 
       &.active {
         background: $c-dasher !important;
-        color: $c-dasher-over !important;
+        color: $c-over !important;
       }
 
       &::before {
@@ -133,7 +137,7 @@
 
       &.active::before {
         opacity: 1;
-        color: $c-dasher-over !important;
+        color: $c-over !important;
       }
     }
 
@@ -192,42 +196,61 @@
     }
   }
 
-  .board .zoom {
-    display: none;
+  .piece .list {
+    overflow: auto;
+  }
 
-    @include breakpoint($mq-board-resizable) {
-      display: block;
+  .board {
+    .selector {
+      display: flex;
+      justify-content: stretch;
+    }
+    .zoom,
+    .board-brightness,
+    .board-opacity,
+    .board-hue {
+      display: grid;
+      grid-template-columns: 45% 55%;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      label {
+        white-space: nowrap;
+      }
     }
 
-    border-top: $border;
-    padding: 1.5rem;
-  }
+    .zoom {
+      display: none;
 
-  .board .range {
-    font-size: 1.5em;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
+      @include mq-board-resizable {
+        display: grid;
+      }
+    }
 
+    .range {
+      font-size: 1.5em;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+  }
   .background #gallery {
     $thumb-w: 160px; // see bin/make-gallery
     $thumb-h: 90px;
 
     position: absolute;
     top: 100%;
-    #{$end-direction}: 0;
+    @include inline-end(0);
     background-color: #000000bb;
 
     #images-viewport {
-      max-height: ($thumb-h + 2px) * 4;
+      max-height: 30vh;
       overflow: hidden auto;
     }
 
     #images-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      @include breakpoint($mq-x-small) {
+      @media (min-width: at-least($x-small)) {
         grid-template-columns: repeat(4, 1fr);
       }
       background-attachment: scroll;

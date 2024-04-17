@@ -6,11 +6,13 @@ import reactivemongo.api.bson.{ BSONDocumentHandler, BSONDocumentReader, BSONNul
 
 import scala.concurrent.blocking
 
-import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
+import lila.common.HTTPRequest
+import lila.core.net.{ ApiVersion, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.AccessToken
-import lila.socket.Socket.Sri
-import lila.user.User
+import lila.core.socket.Sri
+
+import lila.core.net.UserAgent
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
@@ -49,7 +51,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       apiVersion: Option[ApiVersion],
       up: Boolean,
       fp: Option[FingerPrint],
-      proxy: IsProxy
+      proxy: lila.core.security.IsProxy
   ): Funit =
     coll.insert
       .one:
@@ -69,7 +71,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
   private[security] def upsertOAuth(
       userId: UserId,
       tokenId: AccessToken.Id,
-      mobile: Option[Mobile.LichessMobileUa],
+      mobile: Option[lila.core.net.LichessMobileUa],
       req: RequestHeader
   ): Funit =
     val id = s"TOK-${tokenId.value.take(20)}"

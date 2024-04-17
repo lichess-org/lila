@@ -11,65 +11,72 @@ import StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
 import * as xhr from 'common/xhr';
 import { teamsView } from './relayTeams';
-import { makeChat } from '../../view/components';
+import { makeChat, type RelayViewContext } from '../../view/components';
 import { gamesList } from './relayGames';
-import { renderStreamerMenu } from './relayView';
+import { renderStreamerMenu, renderPinnedImage } from './relayView';
 import { renderVideoPlayer } from './videoPlayerView';
 import { leaderboardView } from './relayLeaderboard';
+import { gameLinksListener } from '../studyChapters';
 
-export default function (ctrl: AnalyseCtrl): VNode | undefined {
-  const study = ctrl.study,
-    relay = study?.relay;
-  if (!study || !relay?.tourShow()) return undefined;
-  const tab = relay.tab();
+export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
+  const tab = ctx.relay.tab();
   const content =
     tab == 'overview'
-      ? overview(relay, ctrl)
+      ? overview(ctx)
       : tab == 'boards'
-      ? games(relay, study, ctrl)
+      ? games(ctx)
       : tab == 'teams'
-      ? teams(relay, study, ctrl)
-      : leaderboard(relay, ctrl);
+      ? teams(ctx)
+      : leaderboard(ctx);
 
   return h('div.box.relay-tour', content);
 }
 
-export const tourSide = (ctrl: AnalyseCtrl, study: StudyCtrl, relay: RelayCtrl) => {
+export const tourSide = (ctx: RelayViewContext) => {
+  const { ctrl, study, relay } = ctx;
   const empty = study.chapters.list.looksNew();
-  return h('aside.relay-tour__side', [
-    ...(empty
-      ? [startCountdown(relay)]
-      : [
-          h('div.relay-tour__side__header', [
-            h(
-              'button.relay-tour__side__name',
-              { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
-              study.data.name,
-            ),
-            h('button.streamer-show.data-count', {
-              attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
-              class: {
-                disabled: !relay.streams.length,
-                active: relay.showStreamerMenu(),
-                streaming: relay.isStreamer(),
-              },
-              hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
-            }),
-            h('button.relay-tour__side__search', {
-              attrs: { 'data-icon': licon.Search, title: 'Search' },
-              hook: bind('click', study.search.open.toggle),
-            }),
+  return h(
+    'aside.relay-tour__side',
+    {
+      hook: {
+        insert: gameLinksListener(study.setChapter),
+      },
+    },
+    [
+      ...(empty
+        ? [startCountdown(relay)]
+        : [
+            h('div.relay-tour__side__header', [
+              h(
+                'button.relay-tour__side__name',
+                { hook: bind('mousedown', relay.tourShow.toggle, relay.redraw) },
+                study.data.name,
+              ),
+              h('button.streamer-show.data-count', {
+                attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
+                class: {
+                  disabled: !relay.streams.length,
+                  active: relay.showStreamerMenu(),
+                  streaming: relay.isStreamer(),
+                },
+                hook: bind('click', relay.showStreamerMenu.toggle, relay.redraw),
+              }),
+              h('button.relay-tour__side__search', {
+                attrs: { 'data-icon': licon.Search, title: 'Search' },
+                hook: bind('click', study.search.open.toggle),
+              }),
+            ]),
           ]),
-        ]),
-    relay.showStreamerMenu() && renderStreamerMenu(relay),
-    !empty && gamesList(study, relay),
-    h('div.chat__members', {
-      hook: onInsert(el => {
-        makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
-        site.watchers(el);
+      relay.showStreamerMenu() && renderStreamerMenu(relay),
+      !empty && gamesList(study, relay),
+      h('div.chat__members', {
+        hook: onInsert(el => {
+          makeChat(ctrl, chat => el.parentNode!.insertBefore(chat, el));
+          site.watchers(el);
+        }),
       }),
-    }),
-  ]);
+    ],
+  );
 };
 
 const startCountdown = (relay: RelayCtrl) => {
@@ -86,18 +93,18 @@ const startCountdown = (relay: RelayCtrl) => {
   ]);
 };
 
-const leaderboard = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
-  ...header(relay, ctrl),
-  relay.leaderboard && leaderboardView(relay.leaderboard),
+const leaderboard = (ctx: RelayViewContext) => [
+  ...header(ctx),
+  ctx.relay.leaderboard && leaderboardView(ctx.relay.leaderboard),
 ];
 
-const overview = (relay: RelayCtrl, ctrl: AnalyseCtrl) => [
-  ...header(relay, ctrl),
-  relay.data.tour.markup
+const overview = (ctx: RelayViewContext) => [
+  ...header(ctx),
+  ctx.relay.data.tour.markup
     ? h('div.relay-tour__markup', {
-        hook: innerHTML(relay.data.tour.markup, () => relay.data.tour.markup!),
+        hook: innerHTML(ctx.relay.data.tour.markup, () => ctx.relay.data.tour.markup!),
       })
-    : h('div.relay-tour__markup', relay.data.tour.description),
+    : h('div.relay-tour__markup', ctx.relay.data.tour.description),
 ];
 
 const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
@@ -115,7 +122,7 @@ const groupSelect = (relay: RelayCtrl, group: RelayGroup) => {
             'nav.mselect__list',
             group.tours.map(tour =>
               h(
-                `a${tour.id == relay.data.tour.id ? '.current' : ''}`,
+                `a.mselect__item${tour.id == relay.data.tour.id ? '.current' : ''}`,
                 { attrs: { href: `/broadcast/-/${tour.id}` } },
                 tour.name,
               ),
@@ -142,22 +149,29 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
       ? [
           h('label.fullscreen-mask', clickHook),
           h(
-            'table.mselect__list',
-            {
-              hook: bind('click', (e: MouseEvent) => {
-                const target = e.target as HTMLElement;
-                if (target.tagName != 'A') site.redirect($(target).parents('tr').find('a').attr('href')!);
-              }),
-            },
-            relay.data.rounds.map(round =>
-              h(`tr${round.id == study.data.id ? '.current-round' : ''}`, [
-                h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
-                h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
-                h(
-                  'td.status',
-                  roundStateIcon(round, false) || (round.startsAt ? site.timeago(round.startsAt) : undefined),
+            'div.relay-tour__round-select__list.mselect__list',
+            h(
+              'table',
+              h(
+                'tbody',
+                {
+                  hook: bind('click', (e: MouseEvent) => {
+                    const target = e.target as HTMLElement;
+                    if (target.tagName != 'A') site.redirect($(target).parents('tr').find('a').attr('href')!);
+                  }),
+                },
+                relay.data.rounds.map(round =>
+                  h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
+                    h('td.name', h('a', { attrs: { href: relay.roundPath(round) } }, round.name)),
+                    h('td.time', round.startsAt ? site.dateFormat()(new Date(round.startsAt)) : '-'),
+                    h(
+                      'td.status',
+                      roundStateIcon(round, false) ||
+                        (round.startsAt ? site.timeago(round.startsAt) : undefined),
+                    ),
+                  ]),
                 ),
-              ]),
+              ),
             ),
           ),
         ]
@@ -165,22 +179,23 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
   ]);
 };
 
-const games = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
-  ...header(relay, ctrl),
-  study.chapters.list.looksNew() ? undefined : multiBoardView(study.multiBoard, study),
+const games = (ctx: RelayViewContext) => [
+  ...header(ctx),
+  ctx.study.chapters.list.looksNew() ? undefined : multiBoardView(ctx.study.multiBoard, ctx.study),
 ];
 
-const teams = (relay: RelayCtrl, study: StudyCtrl, ctrl: AnalyseCtrl) => [
-  ...header(relay, ctrl),
-  relay.teams && teamsView(relay.teams, study.chapters.list),
+const teams = (ctx: RelayViewContext) => [
+  ...header(ctx),
+  ctx.relay.teams && teamsView(ctx.relay.teams, ctx.study.chapters.list),
 ];
 
-const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
+const header = (ctx: RelayViewContext) => {
+  const { ctrl, relay, allowVideo } = ctx;
   const d = relay.data,
     study = ctrl.study!,
-    group = relay.data.group,
-    allowVideo =
-      d.videoUrls && window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
+    group = d.group,
+    embedVideo = d.videoUrls && allowVideo;
+
   return [
     h('div.relay-tour__header', [
       h('div.relay-tour__header__content', [
@@ -191,15 +206,17 @@ const header = (relay: RelayCtrl, ctrl: AnalyseCtrl) => {
         ]),
       ]),
       h(
-        `div.relay-tour__header__image${allowVideo ? '.video' : ''}`,
-        allowVideo
+        `div.relay-tour__header__image${embedVideo ? '.video' : ''}`,
+        embedVideo
           ? renderVideoPlayer(relay)
+          : relay.pinStreamer() && d.pinned?.image
+          ? renderPinnedImage(ctx)
           : d.tour.image
           ? h('img', { attrs: { src: d.tour.image } })
           : study.members.isOwner()
           ? h(
               'a.button.relay-tour__header__image-upload',
-              { attrs: { href: `/broadcast/${relay.data.tour.id}/edit` } },
+              { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
               'Upload tournament image',
             )
           : undefined,
@@ -216,6 +233,9 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
           {
             name: 'Subscribe',
             id: 'tour-subscribe',
+            title:
+              'Subscribe to be notified when each round starts. You can toggle bell or push ' +
+              'notifications for broadcasts in your account preferences.',
             cls: 'relay-tour__subscribe',
             checked: relay.data.isSubscribed,
             change: (v: boolean) => {

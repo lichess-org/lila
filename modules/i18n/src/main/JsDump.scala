@@ -2,8 +2,9 @@ package lila.i18n
 
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsObject, JsString }
+import lila.core.i18n.{ I18nKey, Translate }
 
-object JsDump:
+object JsDump extends lila.core.i18n.JsDump:
 
   private val quantitySuffix: I18nQuantity => String =
     case I18nQuantity.Zero  => ":zero"
@@ -31,7 +32,7 @@ object JsDump:
             list.map: (quantity, msg) =>
               s"$k${quantitySuffix(quantity)}" -> JsString(msg)
 
-  def keysToObject(keys: Seq[I18nKey], lang: Lang): JsObject =
+  def keysToObject(keys: Seq[I18nKey])(using t: Translate): JsObject =
     JsObject:
       keys.flatMap: k =>
-        Registry.translation(lang, k).fold[JsTrans](Nil) { translatedJs(k, _) }
+        Registry.translation(t.lang, k).fold[JsTrans](Nil) { translatedJs(k, _) }

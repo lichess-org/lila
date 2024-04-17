@@ -3,24 +3,23 @@ package lila.tutor
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.common.config
+import lila.core.config
 import lila.db.dsl.Coll
-import lila.fishnet.{ Analyser, FishnetAwaiter }
+import lila.core.fishnet.{ AnalysisAwaiter, SystemAnalysisRequest }
 import lila.memo.CacheApi
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     db: lila.db.Db,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     gameRepo: lila.game.GameRepo,
-    fishnetAnalyser: Analyser,
-    fishnetAwaiter: FishnetAwaiter,
+    fishnetAwaiter: AnalysisAwaiter,
+    fishnetSystem: SystemAnalysisRequest,
     insightApi: lila.insight.InsightApi,
     perfStatsApi: lila.insight.InsightPerfStatsApi,
     settingStore: lila.memo.SettingStore.Builder,
     cacheApi: CacheApi,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor, Scheduler, play.api.Mode, akka.stream.Materializer):
 
   private val colls = TutorColls(db(config.CollName("tutor_report")), db(config.CollName("tutor_queue")))

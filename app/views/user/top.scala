@@ -4,19 +4,20 @@ package user
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
+import lila.web.ui.ScalatagsTemplate.{ *, given }
+
+import lila.rating.PerfType
 
 object top:
 
-  def apply(perfType: lila.rating.PerfType, users: List[User.LightPerf])(using ctx: PageContext) =
+  def apply(perfType: PerfType, users: List[lila.core.user.LightPerf])(using ctx: PageContext) =
 
     val title = s"${perfType.trans} top 200"
 
     views.html.base.layout(
       title = title,
       moreCss = cssTag("slist"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s"Leaderboard of ${perfType.trans}",
           url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
@@ -25,7 +26,7 @@ object top:
         .some
     ):
       main(cls := "page-small box")(
-        boxTop(h1(a(href := routes.User.list, dataIcon := licon.LessThan), title)),
+        boxTop(h1(a(href := routes.User.list, dataIcon := Icon.LessThan), title)),
         table(cls := "slist slist-pad")(
           tbody(
             users.mapWithIndex: (u, i) =>

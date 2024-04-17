@@ -3,7 +3,7 @@ package views.html.simul
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 
 object homeInner:
 
@@ -14,15 +14,15 @@ object homeInner:
       finisheds: List[lila.simul.Simul]
   )(using ctx: PageContext) =
     div(cls := "box")(
-      h1(cls := "box__top")(trans.simultaneousExhibitions()),
+      h1(cls := "box__top")(trans.site.simultaneousExhibitions()),
       table(cls := "slist slist-pad")(
         pendings.nonEmpty.option(
           frag(
             thead(
               tr(
-                th(trans.yourPendingSimuls()),
-                th(cls := "host")(trans.host()),
-                th(cls := "players")(trans.players())
+                th(trans.site.yourPendingSimuls()),
+                th(cls := "host")(trans.site.host()),
+                th(cls := "players")(trans.site.players())
               )
             ),
             tbody(
@@ -30,7 +30,7 @@ object homeInner:
                 tr(cls := "scheduled")(
                   simTd(sim),
                   simHost(sim),
-                  td(cls := "players text", dataIcon := licon.User)(sim.applicants.size)
+                  td(cls := "players text", dataIcon := Icon.User)(sim.applicants.size)
                 )
               }
             )
@@ -38,9 +38,9 @@ object homeInner:
         ),
         thead(
           tr(
-            th(trans.createdSimuls()),
-            th(cls := "host")(trans.host()),
-            th(cls := "players")(trans.players())
+            th(trans.site.createdSimuls()),
+            th(cls := "host")(trans.site.host()),
+            th(cls := "players")(trans.site.players())
           )
         ),
         tbody(
@@ -48,15 +48,17 @@ object homeInner:
             tr(cls := "scheduled")(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := licon.User)(sim.applicants.size)
+              td(cls := "players text", dataIcon := Icon.User)(sim.applicants.size)
             )
           },
           tr(cls := "create")(
             td(colspan := "4")(
               if ctx.isAuth then
-                a(href := routes.Simul.form, cls := "action button text")(trans.hostANewSimul())
+                a(href := routes.Simul.form, cls := "action button text")(trans.site.hostANewSimul())
               else
-                a(href := routes.Auth.signup, cls := "action button text")(trans.signUpToHostOrJoinASimul())
+                a(href := routes.Auth.signup, cls := "action button text")(
+                  trans.site.signUpToHostOrJoinASimul()
+                )
             )
           )
         ),
@@ -64,25 +66,25 @@ object homeInner:
           frag(
             thead(
               tr(
-                th(trans.eventInProgress()),
-                th(cls := "host")(trans.host()),
-                th(cls := "players")(trans.players())
+                th(trans.site.eventInProgress()),
+                th(cls := "host")(trans.site.host()),
+                th(cls := "players")(trans.site.players())
               )
             ),
             starteds.map { sim =>
               tr(
                 simTd(sim),
                 simHost(sim),
-                td(cls := "players text", dataIcon := licon.User)(sim.pairings.size)
+                td(cls := "players text", dataIcon := Icon.User)(sim.pairings.size)
               )
             }
           )
         ),
         thead(
           tr(
-            th(trans.finished()),
-            th(cls := "host")(trans.host()),
-            th(cls := "players")(trans.players())
+            th(trans.site.finished()),
+            th(cls := "host")(trans.site.host()),
+            th(cls := "players")(trans.site.players())
           )
         ),
         tbody(
@@ -90,7 +92,7 @@ object homeInner:
             tr(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := licon.User)(sim.pairings.size)
+              td(cls := "players text", dataIcon := Icon.User)(sim.pairings.size)
             )
           }
         )

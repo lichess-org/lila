@@ -6,13 +6,12 @@ import chess.{ ByColor, Mode, Situation }
 
 import scala.util.chaining.*
 
-import lila.game.{ Game, Player, Pov, Source }
-import lila.user.GameUser
+import lila.core.user.GameUser
 
 final private class ChallengeJoiner(
     gameRepo: lila.game.GameRepo,
-    userApi: lila.user.UserApi,
-    onStart: lila.round.OnStart
+    userApi: lila.core.user.UserApi,
+    onStart: lila.core.game.OnStart
 )(using Executor):
 
   def apply(c: Challenge, destUser: GameUser): Fu[Either[String, Pov]] =
@@ -20,7 +19,7 @@ final private class ChallengeJoiner(
       if _ then fuccess(Left("The challenge has already been accepted"))
       else
         c.challengerUserId
-          .so(userApi.withPerf(_, c.perfType))
+          .so(userApi.byIdWithPerf(_, c.perfType))
           .flatMap: origUser =>
             val game = ChallengeJoiner.createGame(c, origUser, destUser)
             gameRepo
@@ -38,13 +37,13 @@ private object ChallengeJoiner:
       destUser: GameUser
   ): Game =
     val (chessGame, state) = gameSetup(c.variant, c.timeControl, c.initialFen)
-    Game
-      .make(
+    lila.core.game
+      .newGame(
         chess = chessGame,
         players = ByColor: color =>
-          Player.make(color, if c.finalColor == color then origUser else destUser),
+          lila.game.Player.make(color, if c.finalColor == color then origUser else destUser),
         mode = if chessGame.board.variant.fromPosition then Mode.Casual else c.mode,
-        source = Source.Friend,
+        source = lila.core.game.Source.Friend,
         daysPerTurn = c.daysPerTurn,
         pgnImport = None,
         rules = c.rules
@@ -56,7 +55,7 @@ private object ChallengeJoiner:
   def gameSetup(
       variant: Variant,
       tc: Challenge.TimeControl,
-      initialFen: Option[Fen.Epd]
+      initialFen: Option[Fen.Full]
   ): (chess.Game, Option[Situation.AndFullMoveNumber]) =
 
     def makeChess(variant: Variant): chess.Game =

@@ -3,19 +3,19 @@ package views.html.mod
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.chat.{ ChatTimeout, UserChat }
 
 object publicChat:
 
   def apply(
-      tourChats: List[(lila.tournament.Tournament, UserChat)],
-      swissChats: List[(lila.swiss.Swiss, UserChat)]
+      tourChats: List[(lila.core.tournament.Tournament, UserChat)],
+      swissChats: List[(lila.core.swiss.IdName, UserChat)]
   )(using PageContext) =
     views.html.base.layout(
       title = "Public Chats",
       moreCss = cssTag("mod.publicChats"),
-      moreJs = jsModule("publicChats")
+      modules = jsModule("mod.publicChats")
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("public-chat"),
@@ -67,10 +67,10 @@ object publicChat:
             )
     )
 
-  private def swissTitle(swiss: lila.swiss.Swiss) =
+  private def swissTitle(swiss: lila.core.swiss.IdName) =
     a(cls := "title", href := routes.Swiss.show(swiss.id))(swiss.name)
 
-  private def tournamentTitle(tournament: lila.tournament.Tournament) =
+  private def tournamentTitle(tournament: lila.core.tournament.Tournament) =
     div(cls := "title-time")(
       a(cls := "title", href := routes.Tournament.show(tournament.id))(tournament.name),
       span(cls := s"tournament-status ${tournament.status.name.toLowerCase}")(tournament.status.name)

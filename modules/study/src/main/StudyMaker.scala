@@ -2,21 +2,21 @@ package lila.study
 
 import chess.format.Fen
 
-import lila.game.{ Game, Namer, Pov }
-import lila.user.User
+import lila.core.game.WithInitialFen
 
 final private class StudyMaker(
-    lightUserApi: lila.user.LightUserApi,
-    gameRepo: lila.game.GameRepo,
+    lightUserApi: lila.core.user.LightUserApi,
+    gameRepo: lila.core.game.GameRepo,
+    namer: lila.core.game.Namer,
     chapterMaker: ChapterMaker,
-    pgnDump: lila.game.PgnDump
-)(using Executor):
+    pgnDump: lila.core.game.PgnDump
+)(using Executor, lila.core.i18n.Translator):
 
   def apply(data: StudyMaker.ImportGame, user: User, withRatings: Boolean): Fu[Study.WithChapter] =
     (data.form.gameId
       .so(gameRepo.gameWithInitialFen))
       .flatMap {
-        case Some(Game.WithInitialFen(game, initialFen)) =>
+        case Some(WithInitialFen(game, initialFen)) =>
           createFromPov(
             data,
             Pov(game, data.form.orientation.flatMap(_.resolve) | chess.White),
@@ -56,14 +56,15 @@ final private class StudyMaker(
   private def createFromPov(
       data: StudyMaker.ImportGame,
       pov: Pov,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       user: User,
       withRatings: Boolean
   ): Fu[Study.WithChapter] = {
+    given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
       root <- chapterMaker.makeRoot(pov.game, data.form.pgnStr, initialFen)
       tags <- pgnDump.tags(pov.game, initialFen, none, withOpening = true, withRatings)
-      name <- StudyChapterName.from(Namer.gameVsText(pov.game, withRatings)(using lightUserApi.async))
+      name <- StudyChapterName.from(namer.gameVsText(pov.game, withRatings)(using lightUserApi.async))
       study = Study.make(user, Study.From.Game(pov.gameId), data.id, StudyName("Game study").some)
       chapter = Chapter.make(
         studyId = study.id,

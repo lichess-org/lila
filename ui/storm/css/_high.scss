@@ -3,7 +3,7 @@
     display: flex;
     flex-flow: row wrap;
 
-    @include breakpoint($mq-xx-small) {
+    @media (min-width: at-least($xx-small)) {
       flex-flow: row nowrap;
     }
   }
@@ -14,16 +14,16 @@
     align-items: center;
     justify-content: center;
     flex: 1 1 auto;
-    margin-#{$end-direction}: 4%;
+    margin-inline-end: 4%;
     background: $c-bg-box;
     padding: 3em 1em 1.5em 1em;
 
-    @include breakpoint($mq-not-xx-small) {
+    @media (max-width: at-most($xx-small)) {
       flex: 48% 0;
       margin-bottom: 1vh;
 
       &:nth-child(2) {
-        margin-#{$end-direction}: 0;
+        margin-inline-end: 0;
       }
     }
 
@@ -32,7 +32,7 @@
       font-weight: normal;
       font-size: 3em;
 
-      @include breakpoint($mq-xx-small) {
+      @media (min-width: at-least($xx-small)) {
         font-size: 5em;
       }
     }
@@ -40,13 +40,13 @@
     .highlight-alltime & {
       &:first-child {
         background: linear-gradient(145deg, rgba(255, 255, 255, 0.3) 0%, transparent 45%) $c-brag;
-        color: $c-brag-over;
+        color: $c-over;
 
         strong {
           font-size: 4em;
           line-height: 0.8em;
 
-          @include breakpoint($mq-xx-small) {
+          @media (min-width: at-least($xx-small)) {
             font-size: 9em;
           }
         }
@@ -54,7 +54,7 @@
     }
 
     &:last-child {
-      margin-#{$end-direction}: 0;
+      margin-inline-end: 0;
     }
   }
 }

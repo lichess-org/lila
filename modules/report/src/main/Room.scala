@@ -2,8 +2,7 @@ package lila.report
 
 import cats.derived.*
 
-import lila.common.Iso
-import lila.user.Me
+import scalalib.Iso
 
 enum Room derives Eq:
 
@@ -36,7 +35,7 @@ object Room:
     def highest = ~value.values.maxOption
 
   def isGranted(room: Room)(using Me) =
-    import lila.security.Granter
+    import lila.core.perm.Granter
     room match
       case Cheat  => Granter(_.MarkEngine)
       case Boost  => Granter(_.MarkBooster)

@@ -3,26 +3,25 @@ package lila.playban
 import com.softwaremill.macwire.*
 import play.api.Configuration
 
-import lila.common.config.CollName
+import lila.core.config.CollName
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
-    messenger: lila.msg.MsgApi,
-    reporter: lila.hub.actors.Report,
-    chatApi: lila.chat.ChatApi,
-    userRepo: lila.user.UserRepo,
-    noteApi: lila.user.NoteApi,
-    lightUser: lila.common.LightUser.Getter,
+    messenger: lila.core.msg.MsgApi,
+    reportApi: lila.core.report.ReportApi,
+    chatApi: lila.core.chat.ChatApi,
+    gameApi: lila.core.game.GameApi,
+    noteApi: lila.core.user.NoteApi,
+    userApi: lila.core.user.UserApi,
+    lightUser: lila.core.LightUser.Getter,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi
 )(using Executor, play.api.Mode):
 
-  private lazy val playbanColl = db(
-    CollName(appConfig.get[String]("playban.collection.playban"))
-  )
+  private val playbanColl = db(CollName(appConfig.get[String]("playban.collection.playban")))
 
-  private lazy val feedback = wire[PlaybanFeedback]
+  private val feedback = wire[PlaybanFeedback]
 
-  lazy val api = wire[PlaybanApi]
+  val api = wire[PlaybanApi]
+  export api.{ bansOf, HasCurrentPlayban, rageSitOf }

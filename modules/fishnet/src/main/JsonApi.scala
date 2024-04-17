@@ -5,7 +5,8 @@ import chess.variant.Variant
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
-import lila.common.{ IpAddress, Maths }
+import lila.core.net.IpAddress
+import lila.core.chess.Depth
 import lila.fishnet.Work as W
 import lila.tree.Eval.{ Cp, Mate }
 
@@ -51,7 +52,7 @@ object JsonApi:
       import Evaluation.*
       def evaluations = analysis.collect { case EvalOrSkip.Evaluated(e) => e }
 
-      def medianNodes = Maths.median:
+      def medianNodes = scalalib.Maths.median:
         evaluations
           .withFilter(e => !(e.mateFound || e.deadDraw))
           .flatMap(_.nodes)
@@ -92,7 +93,7 @@ object JsonApi:
 
   case class Game(
       game_id: String,
-      position: Fen.Epd,
+      position: Fen.Full,
       variant: Variant,
       moves: String
   )

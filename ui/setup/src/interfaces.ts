@@ -57,5 +57,5 @@ export interface ParentCtrl {
   redraw: () => void;
   acquire?: (candidate: GameSetup) => boolean;
   trans: Trans;
-  opts: { hideRatings: boolean };
+  opts: { showRatings: boolean };
 }

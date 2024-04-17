@@ -1,23 +1,18 @@
 package lila.fishnet
 
 import chess.{ Black, Clock, White }
-import ornicar.scalalib.ThreadLocalRandom
+import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaFuture }
-import lila.game.{ Game, GameRepo, UciMemo }
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.FishnetPlay
+import lila.core.misc.map.Tell
+import lila.core.round.FishnetPlay
 
 final class FishnetPlayer(
     redis: FishnetRedis,
     openingBook: FishnetOpeningBook,
-    gameRepo: GameRepo,
-    uciMemo: UciMemo,
-    config: FishnetConfig
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+    gameRepo: lila.core.game.GameRepo,
+    uciMemo: lila.core.game.UciMemo
+)(using Executor, Scheduler):
 
   def apply(game: Game): Funit =
     if game.finished then funit
@@ -38,12 +33,10 @@ final class FishnetPlayer(
           logger.info(e.getMessage)
         }
 
-  lazy val maxPlies = config.pp.movePlies.pp
-
   private val delayFactor  = 0.011f
   private val defaultClock = Clock(Clock.LimitSeconds(300), Clock.IncrementSeconds(0))
 
-  private def delayFor(g: Game): Option[FiniteDuration] = config.moveDelay.fold {
+  private def delayFor(g: Game): Option[FiniteDuration] =
     if !g.bothPlayersHaveMoved then 2.seconds.some
     else
       for
@@ -59,11 +52,10 @@ final class FishnetPlayer(
         randomized = millis + millis * (ThreadLocalRandom.nextDouble() - 0.5)
         divided    = randomized / (if g.ply > 9 then 1 else 2)
       yield divided.toInt.millis
-  }(_.some)
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if game.situation.playable(true) then
-      if game.ply <= maxPlies then
+      if game.ply <= lila.core.fishnet.maxPlies then
         gameRepo.initialFen(game).zip(uciMemo.get(game)).map { case (initialFen, moves) =>
           Work.Move(
             _id = Work.makeId,

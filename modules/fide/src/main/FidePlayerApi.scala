@@ -4,6 +4,7 @@ import chess.{ ByColor, FideId, PlayerName, PlayerTitle }
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
+import lila.core.fide.Federation
 
 final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Executor):
 
@@ -25,6 +26,12 @@ final class FidePlayerApi(repo: FideRepo, cacheApi: lila.memo.CacheApi)(using Ex
           .collect:
             case (k, Some(v)) => k -> v
           .toMap
+
+  def federationNamesOf(ids: List[FideId]): Fu[Map[Federation.Id, Federation.Name]] =
+    idToPlayerCache
+      .getAll(ids)
+      .map: players =>
+        lila.fide.Federation.namesByIds(players.values.flatMap(_.flatMap(_.fed)))
 
   private val idToPlayerCache = cacheApi[FideId, Option[FidePlayer]](1024, "player.fidePlayer.byId"):
     _.expireAfterWrite(3.minutes).buildAsyncFuture(repo.player.fetch)

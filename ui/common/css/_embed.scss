@@ -1,7 +1,5 @@
 /* Common imports for all embedded widgets */
 
-@import '../../node_modules/breakpoint-sass/stylesheets/breakpoint';
-
 @import 'abstract/all';
 @import 'base/elements';
 @import 'base/fonts';
@@ -10,4 +8,4 @@
 
 @include theme-style;
 
-@import 'vendor/chessground/chessground';
+@import 'theme/board/chessground';

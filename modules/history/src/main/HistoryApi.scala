@@ -6,24 +6,29 @@ import reactivemongo.api.bson.*
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.game.Game
-import lila.rating.{ Perf, PerfType }
-import lila.user.{ User, UserApi, UserPerfs }
+import lila.rating.{ PerfType }
+import scalalib.model.Days
+import lila.core.perf.UserPerfs
 
-final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cacheApi: lila.memo.CacheApi)(
-    using Executor
-):
+final class HistoryApi(
+    withColl: AsyncCollFailingSilently,
+    userApi: lila.core.user.UserApi,
+    cacheApi: lila.memo.CacheApi
+)(using Executor)
+    extends lila.core.history.HistoryApi:
 
   import History.{ given, * }
 
-  def addPuzzle(user: User, completedAt: Instant, perf: Perf): Funit = withColl: coll =>
-    val days = daysBetween(user.createdAt, completedAt)
-    coll.update
-      .one(
-        $id(user.id),
-        $set(s"puzzle.$days" -> perf.intRating),
-        upsert = true
-      )
-      .void
+  def addPuzzle(user: User, completedAt: Instant, perf: lila.core.perf.Perf): Funit =
+    withColl: coll =>
+      val days = daysBetween(user.createdAt, completedAt)
+      coll.update
+        .one(
+          $id(user.id),
+          $set(s"puzzle.$days" -> perf.intRating),
+          upsert = true
+        )
+        .void
 
   def add(user: User, game: Game, perfs: UserPerfs): Funit = withColl: coll =>
     val isStd = game.ratingVariant.standard
@@ -56,40 +61,40 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
       .void
 
   // used for rating refunds
-  def setPerfRating(user: User, perf: PerfType, rating: IntRating): Funit = withColl: coll =>
+  def setPerfRating(user: User, perf: PerfKey, rating: IntRating): Funit = withColl: coll =>
     val days = daysBetween(user.createdAt, nowInstant)
     coll.update
       .one(
         $id(user.id),
-        $set(s"${perf.key}.$days" -> $int(rating))
+        $set(s"$perf.$days" -> $int(rating))
       )
       .void
 
   private def daysBetween(from: Instant, to: Instant): Int =
-    ornicar.scalalib.time.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay)
+    scalalib.time.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay)
 
   def get(userId: UserId): Fu[Option[History]] = withColl(_.one[History]($id(userId)))
 
-  def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
-    withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.key.value).dmap(~_))
+  def ratingsMap[U: UserIdOf](user: U, perf: PerfKey): Fu[RatingsMap] =
+    withColl(_.primitiveOne[RatingsMap]($id(user.id), perf.value).dmap(~_))
 
   def progresses(
-      users: List[User.WithPerf],
-      perfType: PerfType,
-      days: Int
-  ): Fu[List[(IntRating, IntRating)]] =
+      users: List[lila.core.user.WithPerf],
+      perfKey: PerfKey,
+      days: Days
+  ): Fu[List[PairOf[IntRating]]] =
     withColl:
       _.optionsByOrderedIds[Bdoc, UserId](
         users.map(_.id),
-        $doc(perfType.key.value -> true).some
+        $doc(perfKey.value -> true).some
       )(_.getAsTry[UserId]("_id").get).map { hists =>
         import History.ratingsReader
         users.zip(hists).map { (user, doc) =>
           val current      = user.perf.intRating
-          val previousDate = daysBetween(user.createdAt, nowInstant.minusDays(days))
+          val previousDate = daysBetween(user.createdAt, nowInstant.minusDays(days.value))
           val previous =
             doc
-              .flatMap(_.child(perfType.key.value))
+              .flatMap(_.child(perfKey.value))
               .flatMap(ratingsReader.readOpt)
               .fold(current): hist =>
                 hist.foldLeft(hist.headOption.fold(current)(_._2)):
@@ -99,25 +104,23 @@ final class HistoryApi(withColl: AsyncCollFailingSilently, userApi: UserApi, cac
         }
       }
 
-  object lastWeekTopRating:
+  def lastWeekTopRating(user: UserId, perf: PerfKey): Fu[IntRating] = lastWeekTopRatingCache.get(user -> perf)
 
-    def apply(user: User, perf: PerfType): Fu[IntRating] = cache.get(user.id -> perf)
-
-    private val cache = cacheApi[(UserId, PerfType), IntRating](1024, "lastWeekTopRating"):
-      _.expireAfterAccess(20 minutes).buildAsyncFuture: (userId, perf) =>
-        userApi.withPerfs(userId).orFail(s"No such user: $userId").flatMap { user =>
-          val currentRating = user.perfs(perf).intRating
-          val firstDay      = daysBetween(user.createdAt, nowInstant.minusWeeks(1))
-          val days          = firstDay to (firstDay + 6) toList
+  private val lastWeekTopRatingCache = cacheApi[(UserId, PerfKey), IntRating](1024, "lastWeekTopRating"):
+    _.expireAfterAccess(20 minutes).buildAsyncFuture: (userId, perf) =>
+      userApi.withIntRatingIn(userId, perf).orFail(s"No such user: $userId").flatMap {
+        (user, currentRating) =>
+          val firstDay = daysBetween(user.createdAt, nowInstant.minusWeeks(1))
+          val days     = firstDay to (firstDay + 6) toList
           val project = $doc:
             ("_id" -> BSONBoolean(false)) :: days.map: d =>
-              s"${perf.key}.$d" -> BSONBoolean(true)
+              s"$perf.$d" -> BSONBoolean(true)
           withColl(_.find($id(user.id), project.some).one[Bdoc].map {
             _.flatMap:
-              _.child(perf.key.value).map {
+              _.child(perf.value).map {
                 _.elements.foldLeft(currentRating):
                   case (max, BSONElement(_, BSONInteger(v))) if max < v => IntRating(v)
                   case (max, _)                                         => max
               }
           }).dmap(_ | currentRating)
-        }
+      }

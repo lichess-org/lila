@@ -9,7 +9,6 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.report.Report.Id as ReportId
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
-import lila.user.User as UserModel
 
 final class Report(
     env: Env,
@@ -140,7 +139,7 @@ final class Report(
 
   def form = Auth { _ ?=> _ ?=>
     getUserStr("username").so(env.user.repo.byId).flatMap { user =>
-      if user.map(_.id).has(UserModel.lichessId) then Redirect(controllers.routes.Main.contact)
+      if user.exists(_.is(UserId.lichess)) then Redirect(controllers.routes.Main.contact)
       else
         Ok.pageAsync:
           val form = env.report.forms.create

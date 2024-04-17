@@ -4,9 +4,8 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost }
-import lila.user.User
 
 object atom:
 
@@ -16,7 +15,7 @@ object atom:
   def user(
       user: User,
       posts: Seq[UblogPost.PreviewPost]
-  )(using Lang) =
+  )(using Translate) =
     views.html.base.atom(
       elems = posts,
       htmlCall = routes.Ublog.index(user.username),

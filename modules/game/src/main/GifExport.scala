@@ -1,5 +1,6 @@
 package lila.game
 
+import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.format.{ Fen, Uci }
@@ -7,20 +8,20 @@ import chess.{ Centis, Color, Game as ChessGame, Replay, Situation }
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
-
-import scala.util.chaining.*
+import scalalib.Maths
 
 import lila.common.Json.given
-import lila.common.Maths
-import lila.common.config.BaseUrl
+import lila.core.config.BaseUrl
+import lila.core.game.{ Game, Pov }
+import lila.game.GameExt.*
 
 object GifExport:
-  case class UpstreamStatus(code: Int) extends lila.base.LilaException:
+  case class UpstreamStatus(code: Int) extends lila.core.lilaism.LilaException:
     val message = s"gif service status: $code"
 
 final class GifExport(
     ws: StandaloneWSClient,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     baseUrl: BaseUrl,
     url: String
 )(using Executor):
@@ -29,7 +30,7 @@ final class GifExport(
 
   def fromPov(
       pov: Pov,
-      initialFen: Option[Fen.Epd],
+      initialFen: Option[Fen.Full],
       theme: String,
       piece: String
   ): Fu[Source[ByteString, ?]] =
@@ -119,7 +120,7 @@ final class GifExport(
         }
       case None => moveTimes.map(_.atMost(targetMaxTime))
 
-  private def frames(game: Game, initialFen: Option[Fen.Epd]) =
+  private def frames(game: Game, initialFen: Option[Fen.Full]) =
     Replay.gameMoveWhileValid(
       game.sans,
       initialFen | game.variant.initialFen,

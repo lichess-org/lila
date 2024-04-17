@@ -2,24 +2,22 @@ package lila.pool
 
 import com.softwaremill.macwire.*
 
-import lila.common.Bus
-import lila.game.Game
-
 @Module
 final class Env(
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    gameRepo: lila.game.GameRepo,
-    idGenerator: lila.game.IdGenerator,
-    playbanApi: lila.playban.PlaybanApi
+    userApi: lila.core.user.UserApi,
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
+    idGenerator: lila.core.game.IdGenerator,
+    HasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
+    rageSitOf: lila.core.playban.RageSitOf
 )(using Executor, akka.actor.ActorSystem, Scheduler):
 
-  private lazy val hookThieve = wire[HookThieve]
+  private val hookThieve = wire[HookThieve]
 
-  private val onStart = (gameId: GameId) => Bus.publish(Game.OnStart(gameId), "gameStartId")
+  val onStart = (gameId: GameId) => lila.common.Bus.publish(lila.core.game.GameStart(gameId), "gameStartId")
 
-  private lazy val gameStarter = wire[GameStarter]
+  private val gameStarter = wire[GameStarter]
 
-  lazy val api = wire[PoolApi]
+  val api = wire[PoolApi]
 
-  def poolConfigs = PoolList.all
+  export PoolList.{ all, isClockCompatible }

@@ -4,7 +4,6 @@ import reactivemongo.api.bson.*
 
 import lila.common.config
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final private class AggregationPipeline(store: InsightStorage)(using
     ec: Executor
@@ -12,7 +11,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
   import InsightStorage.*
   import BSONHandlers.given
 
-  val maxGames = config.Max(10_000)
+  val maxGames = Max(10_000)
 
   def gameMatcher(filters: List[Filter[?]]) = combineDocs(filters.collect {
     case f if f.dimension.isInGame => f.matcher
@@ -22,7 +21,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
       question: Question[X],
       target: Either[User, Question.Peers],
       withPovs: Boolean,
-      nbGames: config.Max = maxGames
+      nbGames: Max = maxGames
   ): Fu[List[Bdoc]] =
     store.coll:
       _.aggregateList(maxDocs = Int.MaxValue, allowDiskUse = true): framework =>
@@ -262,7 +261,7 @@ final private class AggregationPipeline(store: InsightStorage)(using
                 $doc(F.provisional.$ne(true))
               }
         ) -> {
-          sortDate ::: limitGames :: (metric.match {
+          sortDate ::: limitGames :: (metric.match
             case M.MeanCpl =>
               List(
                 projectForMove,
@@ -408,9 +407,9 @@ final private class AggregationPipeline(store: InsightStorage)(using
                   GroupFunction("$avg", $divide("$" + F.moves("v"), TimeVariance.intFactor))
                 ) :::
                 List(includeSomeGameIds)
-          } ::: dimension.match
-            case D.OpeningVariation | D.OpeningFamily => List(sortNb, limit(12))
-            case _                                    => Nil
+            ::: dimension.match
+              case D.OpeningVariation | D.OpeningFamily => List(sortNb, limit(12))
+              case _                                    => Nil
           ).flatten
         }
         pipeline

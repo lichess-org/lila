@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningQuery.Query
 import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 
@@ -43,7 +43,7 @@ object bits:
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
         div(cls := "opening__config__summary__short")(
-          iconTag(licon.Gear)
+          iconTag(Icon.Gear)
         ),
         div(cls := "opening__config__summary__large")(
           "Speed: ",
@@ -61,21 +61,18 @@ object bits:
         checkboxes(form("speeds"), speedChoices, config.speeds.map(_.id)),
         checkboxes(form("ratings"), ratingChoices, config.ratings),
         div(cls := "opening__config__form__submit")(
-          form3.submit(trans.apply())(cls := "button-empty")
+          form3.submit(trans.site.apply())(cls := "button-empty")
         )
       )
     )
 
-  def moreJs(page: Option[OpeningPage])(using PageContext) =
-    page match
-      case Some(p) =>
+  def pageModule(page: Option[OpeningPage])(using PageContext) =
+    PageModule(
+      "opening",
+      page.so: p =>
         import lila.common.Json.given
-        jsModuleInit(
-          "opening",
-          Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
-        )
-      case None =>
-        jsModule("opening")
+        Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
+    )
 
   def splitName(op: Opening) =
     NameSection.sectionsOf(op.name) match

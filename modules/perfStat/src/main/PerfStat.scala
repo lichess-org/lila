@@ -1,13 +1,14 @@
 package lila.perfStat
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.Duration
 
-import lila.common.Heapsort
-import lila.game.Pov
+import scalalib.HeapSort
+
 import lila.rating.PerfType
 
 case class PerfStat(
-    _id: String, // userId/perfId
+    @Key("_id") id: String, // userId/perfId
     userId: UserId,
     perfType: PerfType,
     highest: Option[RatingAt],
@@ -18,9 +19,6 @@ case class PerfStat(
     resultStreak: ResultStreak,
     playStreak: PlayStreak
 ):
-
-  inline def id = _id
-
   def agg(pov: Pov) =
     if !pov.game.finished then this
     else
@@ -39,13 +37,13 @@ case class PerfStat(
 
 object PerfStat:
 
-  type Getter = (lila.user.User, PerfType) => Fu[PerfStat]
+  type Getter = (User, PerfType) => Fu[PerfStat]
 
   def makeId(userId: UserId, perfType: PerfType) = s"$userId/${perfType.id}"
 
   def init(userId: UserId, perfType: PerfType) =
     PerfStat(
-      _id = makeId(userId, perfType),
+      id = makeId(userId, perfType),
       userId = userId,
       perfType = perfType,
       highest = none,
@@ -188,7 +186,7 @@ case class Results(results: List[Result]):
       if pov.game.rated
       if pov.game.bothPlayersHaveMoved
     yield Results(
-      Heapsort.topN(
+      HeapSort.topN(
         Result(
           opInt,
           opId,
