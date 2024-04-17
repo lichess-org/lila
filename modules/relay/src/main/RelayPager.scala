@@ -113,7 +113,7 @@ final class RelayPager(
 
   def byIds(ids: List[RelayTour.Id], page: Int): Fu[Paginator[WithLastRound]] =
     forSelector(
-      $inIds(ids) ++ $doc("tier".$exists(true) ++ selectors.publicTour),
+      $inIds(ids) ++ selectors.officialPublic,
       page,
       List("syncedAt")
     )

@@ -53,6 +53,7 @@ private object RelayTourRepo:
     val official                = $doc("tier".$exists(true))
     val publicTour              = $doc("tier".$ne(RelayTour.Tier.PRIVATE))
     val privateTour             = $doc("tier" -> RelayTour.Tier.PRIVATE)
+    val officialPublic          = $doc("tier".$gte(RelayTour.Tier.NORMAL))
     val active                  = $doc("active" -> true)
     val inactive                = $doc("active" -> false)
     def ownerId(u: UserId)      = $doc("ownerId" -> u)
