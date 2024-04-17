@@ -445,7 +445,7 @@ lazy val teamSearch = module("teamSearch",
 )
 
 lazy val clas = module("clas",
-  Seq(security, puzzle),
+  Seq(user, puzzle),
   Seq(bloomFilter)
 )
 

@@ -95,7 +95,7 @@ object clas:
         fragList(clas.teachers.toList.map(t => userIdLink(t.some)))
       )
     )
-  def create(form: lila.security.HcaptchaForm[ClasData])(using PageContext) =
+  def create(form: lila.core.security.HcaptchaForm[ClasData])(using PageContext) =
     bits.layout(
       trans.clas.newClass.txt(),
       Right("newClass"),

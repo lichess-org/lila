@@ -3,7 +3,7 @@ package base
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.*
-import lila.security.HcaptchaForm
+import lila.core.security.HcaptchaForm
 
 object hcaptcha:
 

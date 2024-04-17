@@ -11,7 +11,7 @@ import lila.core.app.LangPath
 
 object signup:
 
-  def apply(form: lila.security.HcaptchaForm[?])(using ctx: PageContext) =
+  def apply(form: lila.core.security.HcaptchaForm[?])(using ctx: PageContext) =
     views.html.base.layout(
       title = trans.site.signUp.txt(),
       moreJs = frag(

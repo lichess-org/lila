@@ -8,7 +8,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 
 object reopen:
 
-  def form(form: lila.security.HcaptchaForm[?], error: Option[String] = None)(using
+  def form(form: lila.core.security.HcaptchaForm[?], error: Option[String] = None)(using
       ctx: PageContext
   ) =
     views.html.base.layout(

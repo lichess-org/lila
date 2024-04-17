@@ -14,10 +14,10 @@ final class Env(
     puzzleColls: lila.puzzle.PuzzleColls,
     msgApi: lila.core.msg.MsgApi,
     lightUserAsync: lila.core.LightUser.Getter,
-    securityForms: lila.security.SecurityForm,
+    signupForm: lila.core.security.SignupForm,
     authenticator: lila.user.Authenticator,
     cacheApi: lila.memo.CacheApi,
-    hcaptcha: lila.security.Hcaptcha,
+    hcaptcha: lila.core.security.Hcaptcha,
     baseUrl: BaseUrl
 )(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator):
 
