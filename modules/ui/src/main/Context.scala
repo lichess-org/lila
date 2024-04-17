@@ -5,6 +5,7 @@ import play.api.i18n.Lang
 
 import lila.core.i18n.{ Language, Translate, defaultLanguage }
 import lila.core.net.IpAddress
+import lila.core.pref.Pref
 
 trait Context:
   val req: RequestHeader
@@ -16,6 +17,7 @@ trait Context:
   def userId: Option[UserId]
   def translate: Translate
 
+  def pref: Pref
   def ip: IpAddress
   def blind: Boolean
   def troll: Boolean
@@ -26,4 +28,4 @@ trait Context:
       user.flatMap(_.realLang.map(Language.apply)).toSet
 
 object Context:
-  given (using ctx: Context): Option[Me] = ctx.me
+  given ctxMe(using ctx: Context): Option[Me] = ctx.me

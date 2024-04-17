@@ -4,13 +4,10 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.I18nHelper
 import lila.ui.Context
-import lila.ui.Context.given // #TODO in ScalatagsTemplate
 import lila.core.perm.Granter
-import lila.core.i18n.JsDump
 
-final class ChatUi(i18nHelper: I18nHelper):
+final class ChatUi(i18nHelper: lila.ui.I18nHelper):
 
   import i18nHelper.{ trans, given }
 
@@ -21,12 +18,11 @@ final class ChatUi(i18nHelper: I18nHelper):
     div(cls := "mchat__content")
   )
 
-  val spectatorsFrag =
-    div(
-      cls           := "chat__members none",
-      aria.live     := "off",
-      aria.relevant := "additions removals text"
-    )
+  val spectatorsFrag = div(
+    cls           := "chat__members none",
+    aria.live     := "off",
+    aria.relevant := "additions removals text"
+  )
 
   def restrictedJson(
       chat: Chat.Restricted,
