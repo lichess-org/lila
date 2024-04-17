@@ -1,6 +1,6 @@
 package lila.analyse
-import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnStr, Tag, Tags }
-import chess.{ ByColor, Ply }
+import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tag, Tags }
+import chess.{ ByColor, Ply, Node }
 
 import lila.core.config.{ BaseUrl, NetDomain }
 import lila.core.game.PgnDump
@@ -73,12 +73,23 @@ class AnnotatorTest extends munit.FunSuite:
       withAnnotator(emptyPgn)
     )
 
-  // #TODO move to game where PgnDump lives
-  // test("opening comment"):
-  //   val dumper = pgnDump(BaseUrl("l.org/"), LightUserApi.mock)
-  //   val dumped =
-  //     dumper(makeGame(playedGame), None, PgnDump.WithFlags(tags = false)).await(1.second, "test dump")
-  //   assertEquals(
-  //     annotator(dumped, makeGame(playedGame), none).copy(tags = Tags.empty).render,
-  //     PgnStr("""1. a3 { A00 Anderssen's Opening } g6 2. g4""")
-  //   )
+  test("opening comment"):
+    val dumped = Pgn(
+      Tags.empty,
+      InitialComments.empty,
+      Node(
+        Move(Ply(1), SanStr("a3")),
+        Node(
+          Move(Ply(2), SanStr("g6")),
+          Node(
+            Move(Ply(3), SanStr("g4")),
+            None
+          ).some
+        ).some
+      ).some
+    )
+
+    assertEquals(
+      annotator(dumped, makeGame(playedGame), none).copy(tags = Tags.empty).render,
+      PgnStr("""1. a3 { A00 Anderssen's Opening } g6 2. g4""")
+    )
