@@ -62,9 +62,6 @@ SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workfl
 
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
-LIFAT_DIR = "/home/lichess-deploy/public/lifat"
-
-
 def curl_cli(command, *, url="https://lichess.org/run/cli"):
     return f"curl --fail -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @.lila-cli"
 
@@ -79,6 +76,7 @@ def asset_profile(ssh, *,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
+        "symlinks": [],
         "post": post,
         "stage": stage,
     }
@@ -102,7 +100,7 @@ PROFILES = {
     "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
     "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
-    "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
+    "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess/public"),
 }
 
 
@@ -250,13 +248,13 @@ def tmux(ssh, script, *, dry_run=False):
     else:
         return subprocess.call(shell_command, stdout=sys.stdout, stdin=sys.stdin)
 
-# A
 def deploy_script(profile, session, run, url):
     ua_header = f"User-Agent: {session.headers['User-Agent']}"
     deploy_dir = profile["deploy_dir"]
     artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
     artifact_zip = f"{artifact_unzipped}.zip"
     deploy_prompt = f"read -n 1 -p {shlex.quote('PRESS ENTER TO RUN: ' + profile['post'])}"
+    lifat_dir = f"{deploy_dir}/lifat"
 
     return [
         "echo \\# Downloading ...",
@@ -271,12 +269,16 @@ def deploy_script(profile, session, run, url):
         f"cat {artifact_unzipped}/d/commit.txt",
         "echo",
         "echo \\# Preparing lifat ...",
-        f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
+        f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R lichess:lichess {lifat_dir}; fi)",
         "echo",
         f"echo \\# chown -R lichess:lichess {artifact_unzipped}",
         f"chown -R lichess:lichess {artifact_unzipped}",
         "echo",
         "echo \\# Installing ...",
+    ] + [
+        f"echo \"{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}\";ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}"
+        for symlink in profile["symlinks"]
+    ] + [
         f"timestamp=$(date +%Y-%m-%d-at-%H-%M-%S)",
         f"if [ -f {deploy_dir}/compiled/manifest.prod.json ]; then mv {deploy_dir}/compiled/manifest.prod.json {deploy_dir}/compiled/manifest.prod-$timestamp.json; fi",
         f"mv {artifact_unzipped}/d/compiled/manifest.prod.json {deploy_dir}/compiled/manifest.prod.json",
@@ -290,89 +292,6 @@ def deploy_script(profile, session, run, url):
         f"echo \\# Done.",
         # Added removal of exploded archive
         f"rm -rf {artifact_unzipped}",
-    ]
-# B
-def deploy_script(profile, session, run, url):
-    ua_header = f"User-Agent: {session.headers['User-Agent']}"
-    deploy_dir = profile["deploy_dir"]
-    artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
-    artifact_zip = f"{artifact_unzipped}.zip"
-    deploy_prompt = f"read -n 1 -p {shlex.quote('PRESS ENTER TO RUN: ' + profile['post'])}"
-    timestamp = time.strftime("%Y%m%d%H%M%S")  # Get current time as a readable timestamp
-
-    commands = [
-        "echo \\# Downloading ...",
-        f"mkdir -p {ARTIFACT_DIR}",
-        f"mkdir -p {deploy_dir}/logs",
-        f"[ -f {artifact_zip} ] || wget --header={shlex.quote(ua_header)} --no-clobber -O {artifact_zip} {shlex.quote(url)}",
-        "echo",
-        "echo \\# Unpacking ...",
-        f"unzip -q -o {artifact_zip} -d {artifact_unzipped}",
-        f"mkdir -p {artifact_unzipped}/d",
-        f"tar -xf {artifact_unzipped}/*.tar.zst -C {artifact_unzipped}/d",
-        f"cat {artifact_unzipped}/d/commit.txt",
-        "echo",
-        "echo \\# Preparing lifat ...",
-        f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
-        "echo",
-        f"echo \\# chown -R lichess:lichess {artifact_unzipped}",
-        f"chown -R lichess:lichess {artifact_unzipped}",
-        "echo",
-        "echo \\# Installing ...",
-        # Handling manifest renaming and replacing
-        f"if [ -f {deploy_dir}/compiled/manifest.prod.json ]; then mv {deploy_dir}/compiled/manifest.prod.json {deploy_dir}/compiled/manifest.prod-{timestamp}.json; fi",
-        f"mv {artifact_unzipped}/d/manifest.prod.json {deploy_dir}/compiled/manifest.prod.json",
-        # Using rsync to copy files with checksum and minimizing nginx hiccup
-        f"rsync -a --checksum {artifact_unzipped}/d/ {deploy_dir}/",
-        # Clean up exploded archive
-        f"rm -rf {artifact_unzipped}",
-        f"chown -R lichess:lichess {deploy_dir}",
-        f"chmod -f +x {deploy_dir}/bin/lila || true",
-        f"echo \"SSH: {profile['ssh']}\"",
-        f"echo {shlex.quote('Running: ' + profile['post'])}" if profile["stage"] else f"/bin/bash -c {shlex.quote(deploy_prompt)}",
-        profile["post"],
-        "echo",
-        f"echo \\# Done.",
-    ]
-    return commands
-# original
-def deploy_script(profile, session, run, url):
-    ua_header = f"User-Agent: {session.headers['User-Agent']}"
-    deploy_dir = profile["deploy_dir"]
-    artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
-    artifact_zip = f"{artifact_unzipped}.zip"
-    deploy_prompt = f"read -n 1 -p {shlex.quote('PRESS ENTER TO RUN: ' + profile['post'])}"
-
-    return [
-        "echo \\# Downloading ...",
-        f"mkdir -p {ARTIFACT_DIR}",
-        f"mkdir -p {deploy_dir}/logs",
-        f"[ -f {artifact_zip} ] || wget --header={shlex.quote(ua_header)} --no-clobber -O {artifact_zip} {shlex.quote(url)}",
-        "echo",
-        "echo \\# Unpacking ...",
-        f"unzip -q -o {artifact_zip} -d {artifact_unzipped}",
-        f"mkdir -p {artifact_unzipped}/d",
-        f"tar -xf {artifact_unzipped}/*.tar.zst -C {artifact_unzipped}/d",
-        f"cat {artifact_unzipped}/d/commit.txt",
-        "echo",
-        "echo \\# Preparing lifat ...",
-        f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
-        "echo",
-        f"echo \\# chown -R lichess:lichess {artifact_unzipped}",
-        f"chown -R lichess:lichess {artifact_unzipped}",
-        "echo",
-        "echo \\# Installing ...",
-    ] + [
-        f"echo \"{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}\";ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}"
-        for symlink in profile["symlinks"]
-    ] + [
-        f"chown -R lichess:lichess {deploy_dir}",
-        f"chmod -f +x {deploy_dir}/bin/lila || true",
-        f"echo \"SSH: {profile['ssh']}\"",
-        f"echo {shlex.quote('Running: ' + profile['post'])}" if profile["stage"] else f"/bin/bash -c {shlex.quote(deploy_prompt)}",
-        profile["post"],
-        "echo",
-        f"echo \\# Done.",
     ]
 
 
