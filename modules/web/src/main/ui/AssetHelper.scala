@@ -1,5 +1,6 @@
-package lila.app
-package templating
+package lila.web
+package ui
+
 import play.api.libs.json.{ JsValue, Json, Writes }
 
 import lila.ui.ScalatagsTemplate.*
@@ -8,23 +9,15 @@ import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
 import lila.web.ui.*
 import lila.web.ContentSecurityPolicy
+import lila.core.config.NetConfig
 
-trait AssetHelper:
-  self: SecurityHelper =>
+case class PageModule(name: String, data: JsValue | SafeJsonStr)
 
-  val i18nHelper: lila.ui.I18nHelper
-  def env: Env
+final class AssetHelper(i18nHelper: lila.ui.I18nHelper, net: NetConfig):
 
-  case class PageModule(name: String, data: JsValue | SafeJsonStr)
-
-  private lazy val netDomain      = env.net.domain
-  private lazy val assetDomain    = env.net.assetDomain
-  private lazy val assetBaseUrl   = env.net.assetBaseUrl
-  private lazy val socketDomains  = env.net.socketDomains ::: env.net.socketAlts
-  private lazy val minifiedAssets = env.net.minifiedAssets
-  lazy val vapidPublicKey         = env.push.vapidPublicKey
-
-  lazy val picfitUrl = env.memo.picfitUrl
+  import net.{ domain as netDomain, assetDomain, assetBaseUrl, minifiedAssets }
+  private lazy val socketDomains = env.net.socketDomains ::: env.net.socketAlts
+  // lazy val vapidPublicKey         = env.push.vapidPublicKey
 
   lazy val sameAssetDomain = netDomain == assetDomain
 
