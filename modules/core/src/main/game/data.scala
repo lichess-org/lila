@@ -8,7 +8,6 @@ import lila.core.userId.UserId
 import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 
 case class PlayerUser(id: UserId, rating: IntRating, ratingDiff: Option[IntRatingDiff])
-case class UserInfo(id: UserId, rating: IntRating, provisional: RatingProvisional)
 
 case class GameMetadata(
     source: Option[Source],
