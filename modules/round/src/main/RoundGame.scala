@@ -25,6 +25,10 @@ object RoundGame:
 
     def isSwitchable = g.nonAi && (g.isCorrespondence || g.isSimul)
 
+    def secondsSinceCreation = (nowSeconds - g.createdAt.toSeconds).toInt
+
+    def justCreated = g.secondsSinceCreation < 2
+
     def timeForFirstMove: Centis =
       Centis.ofSeconds:
         import chess.Speed.*

@@ -114,6 +114,6 @@ final class RoundMobile(
   private def getPlayerChat(game: Game, isAuth: Boolean): Fu[Option[Chat.Restricted]] =
     game.hasChat.so:
       for
-        chat  <- chatApi.playerChat.findIf(game.id.into(ChatId), !game.justCreated)
+        chat  <- chatApi.playerChat.findIf(game.id.into(ChatId), game.secondsSinceCreation > 1)
         lines <- lila.chat.JsonView.asyncLines(chat)
       yield Chat.Restricted(chat, lines, restricted = game.sourceIs(_.Lobby) && !isAuth).some

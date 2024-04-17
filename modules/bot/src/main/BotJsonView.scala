@@ -50,8 +50,8 @@ final class BotJsonView(
         .obj(
           "type"   -> "gameState",
           "moves"  -> uciMoves.mkString(" "),
-          "wtime"  -> game.pov(Color.white).millisRemaining,
-          "btime"  -> game.pov(Color.white).millisRemaining,
+          "wtime"  -> millisRemaining(game, Color.white),
+          "btime"  -> millisRemaining(game, Color.black),
           "winc"   -> (game.clock.so(_.config.increment.millis): Long),
           "binc"   -> (game.clock.so(_.config.increment.millis): Long),
           "status" -> game.status.name
@@ -63,6 +63,12 @@ final class BotJsonView(
         .add("winner" -> game.winnerColor)
         .add("rematch" -> rematches.getAcceptedId(game.id))
     }
+
+  private def millisRemaining(game: Game, color: Color): Int =
+    game.clock
+      .map(_.remainingTime(color).millis.toInt)
+      .orElse(game.correspondenceClock.map(_.remainingTime(color).toInt * 1000))
+      .getOrElse(Int.MaxValue)
 
   def chatLine(username: UserName, text: String, player: Boolean) =
     Json.obj(
