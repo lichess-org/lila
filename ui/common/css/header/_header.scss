@@ -16,6 +16,7 @@ body > header {
   @include mq-sticky-header {
     max-width: unset;
     position: fixed;
+    z-index: z('above-link-overlay');
     top: 0;
     width: 100%;
     padding: 0 var(--site-header-sticky-padding);
@@ -27,12 +28,11 @@ body > header {
       @include back-blur(6px);
       background: hsla(0, 0, 60%, 0.14);
     } @else {
-      @if $theme == 'dark' {
-        &.scrolled {
+      &.scrolled {
+        z-index: z('site-header');
+        @if $theme == 'dark' {
           border-color: black;
-        }
-      } @else {
-        &.scrolled {
+        } @else {
           border-color: hsl(0, 0%, 70%);
         }
       }
@@ -42,6 +42,10 @@ body > header {
         $c-body-gradient,
         mix($c-body-gradient, $c-bg-page, 50%) 60px
       );
+    }
+
+    &:hover {
+      z-index: z('site-header');
     }
 
     .dropdown {
