@@ -110,5 +110,5 @@ final class DateHelper(
     else if years == 0 then s"${pluralize("month", months)}$preposition"
     else s"${pluralize("year", years)}$preposition"
 
-  def timeRemaining(instant: Instant, once: Boolean = false): Tag =
-    timeTag(cls := s"timeago remaining${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
+  def timeRemaining(instant: Instant): Tag =
+    timeTag(cls := s"timeago remaining", datetimeAttr := isoDateTime(instant))(nbsp)
