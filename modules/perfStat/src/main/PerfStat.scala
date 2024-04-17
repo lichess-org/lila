@@ -7,6 +7,8 @@ import scalalib.HeapSort
 
 import lila.rating.PerfType
 
+extension (p: Pov) def loss = p.game.winner.map(_.color != p.color)
+
 case class PerfStat(
     @Key("_id") id: String, // userId/perfId
     userId: UserId,

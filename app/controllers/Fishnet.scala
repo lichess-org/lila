@@ -3,6 +3,7 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 
+import monocle.syntax.all.*
 import scala.util.{ Failure, Success }
 
 import lila.app.*
@@ -35,7 +36,8 @@ final class Fishnet(env: Env) extends LilaController(env):
         .postAnalysis(Work.Id(workId), client, data)
         .flatMap:
           case PostAnalysisResult.Complete(analysis) =>
-            env.round.proxyRepo.updateIfPresent(GameId(analysis.id.value))(_.setAnalysed)
+            env.round.proxyRepo.updateIfPresent(GameId(analysis.id.value)): g =>
+              g.focus(_.metadata.analysed).replace(true)
             onComplete
           case _: PostAnalysisResult.Partial    => fuccess(Left(NoContent))
           case PostAnalysisResult.UnusedPartial => fuccess(Left(NoContent))

@@ -11,6 +11,7 @@ import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Progress, UciMemo }
 import lila.core.round.*
 import lila.game.GameExt.applyMove
+import lila.round.RoundGame.*
 
 final private class Player(
     finisher: Finisher,

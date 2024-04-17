@@ -10,9 +10,6 @@ object Pov:
 
   def list(game: Game): List[Pov] = game.players.mapList(lila.core.game.Pov(game, _))
 
-  def apply(game: Game, playerId: GamePlayerId): Option[Pov] =
-    game.player(playerId).map { lila.core.game.Pov(game, _) }
-
   private inline def orInf(inline i: Option[Int]) = i.getOrElse(Int.MaxValue)
   private def isFresher(a: Pov, b: Pov)           = a.game.movedAt.isAfter(b.game.movedAt)
 

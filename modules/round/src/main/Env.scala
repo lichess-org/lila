@@ -16,6 +16,7 @@ import lila.memo.SettingStore
 import lila.rating.RatingFactor
 import lila.rating.PerfType
 import lila.core.user.{ FlairGet, FlairGetMap }
+import lila.round.RoundGame.*
 
 @Module
 private class RoundConfig(

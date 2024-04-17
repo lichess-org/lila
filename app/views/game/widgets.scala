@@ -129,17 +129,19 @@ object widgets:
 
   private def gamePlayer(player: Player)(using ctx: Context) =
     div(cls := s"player ${player.color.name}"):
-      player.playerUser
-        .map: playerUser =>
+      player.userId
+        .flatMap: uid =>
+          player.rating.map { (uid, _) }
+        .map: (userId, rating) =>
           frag(
-            userIdLink(playerUser.id.some, withOnline = false),
+            userIdLink(userId.some, withOnline = false),
             br,
             player.berserk.option(berserkIconSpan),
             ctx.pref.showRatings.option(
               frag(
-                playerUser.rating,
+                rating,
                 player.provisional.yes.option("?"),
-                playerUser.ratingDiff.map: d =>
+                player.ratingDiff.map: d =>
                   frag(" ", showRatingDiff(d))
               )
             )
