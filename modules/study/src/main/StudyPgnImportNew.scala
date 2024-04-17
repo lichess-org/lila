@@ -14,11 +14,9 @@ import chess.format.pgn.{
 }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.MoveOrDrop.*
-import lila.tree.Node.{ Comment, Comments, Shapes }
 import lila.core.LightUser
-import lila.core.game.StatusText
-import lila.tree.ImportResult
-import lila.tree.{ NewRoot, NewTree, NewBranch, Metas }
+import lila.tree.Node.{ Comment, Comments, Shapes }
+import lila.tree.{ ImportResult, NewRoot, NewTree, NewBranch, Metas }
 
 case class Context(
     currentGame: chess.Game,

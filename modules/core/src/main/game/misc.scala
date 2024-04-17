@@ -98,14 +98,11 @@ trait Event:
   def troll: Boolean        = false
   def moveBy: Option[Color] = None
 
-type StatusText = (Status, Option[Color], Variant) => String
-
 trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
   def incBookmarks(id: GameId, by: Int): Funit
   def computeMoveTimes(g: Game, color: Color): Option[List[Centis]]
   def analysable(g: Game): Boolean
-  val statusText: StatusText
   def nbPlaying(userId: UserId): Fu[Int]
   def anonCookieJson(pov: lila.core.game.Pov): Option[JsObject]
 

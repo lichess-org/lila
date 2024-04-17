@@ -6,9 +6,8 @@ import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, Status }
 
 import lila.core.LightUser
-import lila.tree.ImportResult
 import lila.tree.Node.{ Comment, Comments, Shapes }
-import lila.tree.{ Branch, Branches, Root }
+import lila.tree.{ Branch, Branches, ImportResult, Root }
 
 object StudyPgnImport:
 
