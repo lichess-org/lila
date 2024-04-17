@@ -60,9 +60,8 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
     game(gameId).dmap2 { _.player(color) }
 
   def player(gameId: GameId, playerId: GamePlayerId): Fu[Option[Player]] =
-    game(gameId).dmap { gameOption =>
-      gameOption.flatMap { _.player(playerId) }
-    }
+    game(gameId).dmap: gameOption =>
+      gameOption.flatMap(_.playerById(playerId))
 
   def player(playerRef: PlayerRef): Fu[Option[Player]] =
     player(playerRef.gameId, playerRef.playerId)

@@ -8,6 +8,7 @@ import lila.db.dsl.*
 import lila.game.{ GameRepo, Query }
 import lila.core.round.{ Abandon, QuietFlag }
 import lila.game.GameExt.abandoned
+import lila.game.Query.bothRatingsGreaterThan
 
 /*
  * Cleans up unfinished games
@@ -84,7 +85,7 @@ final private class Titivate(
     case Right(game) =>
       game match
 
-        case game if game.finished || game.isPgnImport || game.playedThenAborted =>
+        case game if game.finished || game.isPgnImport || (game.aborted && game.bothPlayersHaveMoved) =>
           gameRepo.unsetCheckAt(game.id)
 
         case game if game.outoftime(withGrace = true) =>

@@ -1,9 +1,8 @@
-package lila.web
-package ui
+package lila.ui
 
 import scalalib.paginator.Paginator
 
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 trait PaginatorHelper:
 

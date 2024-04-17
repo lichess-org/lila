@@ -39,9 +39,16 @@ final private class Rematcher(
   def apply(pov: Pov, confirm: Boolean): Fu[Events] =
     if confirm then yes(pov) else no(pov)
 
+  private def couldRematch(g: Game): Boolean =
+    g.finishedOrAborted &&
+      g.nonMandatory &&
+      !g.hasRule(_.noRematch) &&
+      !g.boosted &&
+      !(g.hasAi && g.variant == FromPosition && g.clock.exists(_.config.limitSeconds < 60))
+
   def yes(pov: Pov): Fu[Events] =
     pov match
-      case Pov(game, color) if game.playerCouldRematch =>
+      case Pov(game, color) if couldRematch(game) =>
         if isOffering(!pov.ref) || game.opponent(color).isAi
         then rematches.getAcceptedId(game.id).fold(rematchJoin(pov))(rematchExists(pov))
         else if !declined.get(pov.flip.fullId) && rateLimit.zero(pov.fullId)(true)

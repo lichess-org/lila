@@ -1,17 +1,15 @@
-package lila.web
-package ui
+package lila.ui
 
 import play.api.i18n.Lang
 
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.Translate
+import lila.core.slug.{ apply as slugify }
 
-trait StringHelper:
-  self: I18nHelper =>
+final class StringHelper(i18n: I18nHelper, number: NumberHelper):
 
-  import NumberHelper.*
-
-  export lila.common.String.{ slugify, shorten, urlencode, addQueryParam, addQueryParams, underscoreFen }
+  import i18n.*
+  import number.*
 
   def pluralize(s: String, n: Int) = s"$n $s${if n != 1 then "s" else ""}"
 
@@ -48,5 +46,5 @@ trait StringHelper:
           frag(first :: rest.map { frag(separator, _) }).render
 
   extension (e: String)
-    def active(other: String, one: String = "active")  = if e == other then one else ""
-    def activeO(other: String, one: String = "active") = (e == other).option(one)
+    def active(other: String)  = if e == other then "active" else ""
+    def activeO(other: String) = Option.when(e == other)("active")

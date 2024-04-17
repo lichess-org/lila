@@ -5,6 +5,7 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.game.{ AnonCookie }
 import lila.core.id.GamePlayerId
+import lila.game.GameExt.playerById
 
 private[controllers] trait TheftPrevention:
   self: LilaController =>
@@ -33,7 +34,7 @@ private[controllers] trait TheftPrevention:
           ctx.req.cookies
             .get(AnonCookie.name)
             .map(c => GamePlayerId(c.value))
-            .flatMap(game.player)
+            .flatMap(game.playerById)
             .filterNot(_.hasUser)
         .filterNot(_.isAi)
         .map { Pov(game, _) }

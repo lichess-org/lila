@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ *, given }
-import lila.web.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.app.LangPath
 import lila.core.perf.UserWithPerfs
 

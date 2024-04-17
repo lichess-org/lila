@@ -3,7 +3,7 @@ package ui
 
 import play.api.i18n.Lang
 
-import lila.web.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.common.LilaOpeningFamily
 import lila.insight.{ InsightDimension, Phase }
 import lila.rating.PerfType
