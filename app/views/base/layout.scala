@@ -35,12 +35,12 @@ object layout:
     def systemThemeScript(using ctx: PageContext) =
       (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).option(
         embedJsUnsafe(
-          "if (window.matchMedia('(prefers-color-scheme: light)').matches) " +
+          "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
             "document.documentElement.classList.add('light');"
         )
       )
     def systemThemeEmbedScript(using ctx: EmbedContext) =
-      "<script>if (window.matchMedia('(prefers-color-scheme: light)').matches) " +
+      "<script>if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
         "document.documentElement.classList.add('light');</script>"
     def pieceSprite(using ctx: PageContext): Frag = pieceSprite(ctx.pref.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
@@ -523,7 +523,7 @@ object layout:
         _ =>
           val qty  = lila.i18n.JsQuantity(t.lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
-          "window.site??={};" +
+          "if (!window.site) window.site={};" +
             """window.site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
             s"window.site.quantity=$qty;" +
             s"window.site.siteI18n=$i18n;"

@@ -177,7 +177,7 @@ export function boot() {
           ),
       );
     });
-    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+    window.matchMedia('(prefers-color-scheme: light)')?.addEventListener('change', e => {
       if (document.body.dataset.theme === 'system')
         document.documentElement.className = e.matches ? 'light' : 'dark';
     });

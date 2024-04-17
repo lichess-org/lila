@@ -54,8 +54,8 @@ async function write() {
     .replace(/'/g, '&#39;')
     .replace(/"/g, '&quot;');
   const clientJs: string[] = [
-    'window.site??={};',
-    'window.site.info??={};',
+    'if (!window.site) window.site={};',
+    'if (!window.site.info) window.site.info={};',
     `window.site.info.date='${new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00'}';`,
     `window.site.info.commit='${cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim()}';`,
     `window.site.info.message='${commitMessage}';`,
