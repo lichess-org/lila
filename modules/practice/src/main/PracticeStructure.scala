@@ -47,7 +47,7 @@ case class PracticeStudy(
     desc: String,
     chapters: List[Chapter.IdName]
 ) extends lila.core.practice.Study:
-  val slug       = scalalib.String.slug(name.value)
+  val slug       = scalalib.StringOps.slug(name.value)
   def chapterIds = chapters.map(_.id)
 
 object PracticeStructure:

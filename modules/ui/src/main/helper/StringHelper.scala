@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 
 import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.Translate
-import scalalib.String.slug.{ apply as slugify }
+import scalalib.StringOps.slug.{ apply as slugify }
 
 final class StringHelper(i18n: I18nHelper, number: NumberHelper):
 

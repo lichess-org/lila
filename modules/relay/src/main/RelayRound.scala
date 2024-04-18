@@ -26,7 +26,7 @@ case class RelayRound(
   inline def studyId = id.into(StudyId)
 
   lazy val slug =
-    val s = scalalib.String.slug(name.value)
+    val s = scalalib.StringOps.slug(name.value)
     if s.isEmpty then "-" else s
 
   def finish =

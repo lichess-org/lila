@@ -13,7 +13,7 @@ import lila.core.data.SafeJsonStr
 object String:
 
   export RawHtml.hasLinks
-  export scalalib.String.*
+  export scalalib.StringOps.*
 
   def lcfirst(str: String) = s"${str(0).toLower}${str.drop(1)}"
 

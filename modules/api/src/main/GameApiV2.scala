@@ -87,7 +87,7 @@ final class GameApiV2(
       "lichess_tournament_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(tour.startsAt),
         tour.id,
-        scalalib.String.slug(tour.name),
+        scalalib.StringOps.slug(tour.name),
         format
       ),
       "_"
@@ -101,7 +101,7 @@ final class GameApiV2(
       "lichess_swiss_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(swiss.startsAt),
         swiss.id,
-        scalalib.String.slug(swiss.name),
+        scalalib.StringOps.slug(swiss.name),
         format
       ),
       "_"
