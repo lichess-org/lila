@@ -17,11 +17,11 @@ $clock-height: 20px;
   }
 
   &.bottom {
-    top: var(--cg-height, 100%); // TODO add hyphen once chessground is updated
+    top: var(---cg-height, 100%);
     z-index: 1; // over the board coords
 
     .is3d & {
-      top: calc(var(--cg-height, 100%) + 15px); // TODO add hyphen once chessground is updated
+      top: calc(var(---cg-height, 100%) + 15px);
     }
   }
 
