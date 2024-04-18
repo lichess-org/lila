@@ -8,7 +8,6 @@ import lila.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.rating.PerfType
 import lila.core.i18n.Translate
-
 import lila.core.user.User
 
 final class TournamentHelper(
@@ -43,7 +42,7 @@ final class TournamentHelper(
     getTourName.sync(id)(using translate.lang).getOrElse("Tournament")
 
   object scheduledTournamentNameShortHtml:
-    private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""
+    private def icon(c: lila.ui.Icon) = s"""<span data-icon="$c"></span>"""
     private val replacements =
       given lila.core.i18n.Translate = defaultTranslate
       List(
@@ -60,7 +59,7 @@ final class TournamentHelper(
       replacements.foldLeft(name):
         case (n, (from, to)) => n.replace(from, to)
 
-  def tournamentIcon(tour: Tournament): Icon =
+  def tournamentIcon(tour: Tournament): lila.ui.Icon =
     tour.schedule.map(_.freq) match
       case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => Icon.Globe
       case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.icon

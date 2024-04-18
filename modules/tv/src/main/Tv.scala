@@ -4,7 +4,8 @@ import scalalib.actor.SyncActor
 import chess.PlayerTitle
 
 import lila.core.LightUser
-import lila.game.{ GameRepo }
+import lila.game.GameRepo
+import lila.ui.Icon
 
 final class Tv(
     gameRepo: GameRepo,
