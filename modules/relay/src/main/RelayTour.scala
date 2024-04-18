@@ -25,7 +25,7 @@ case class RelayTour(
     pinnedStreamerImage: Option[PicfitImage.Id] = None
 ):
   lazy val slug =
-    val s = lila.common.String.slugify(name.value)
+    val s = scalalib.String.slug(name.value)
     if s.isEmpty then "-" else s
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)

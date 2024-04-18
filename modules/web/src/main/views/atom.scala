@@ -1,7 +1,6 @@
 package lila.web
 package views
 
-import play.api.mvc.Call
 import java.time.LocalDate
 
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -36,7 +35,7 @@ final class atom(netBaseUrl: BaseUrl):
   def atomDate(date: LocalDate): String =
     java.time.format.DateTimeFormatter.ISO_DATE.withZone(utcZone).print(date)
 
-  def atomLink(url: play.api.mvc.Call) = a(
+  def atomLink(url: Call) = a(
     cls      := "atom",
     st.title := "Atom RSS feed",
     href     := url,

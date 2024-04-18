@@ -190,7 +190,7 @@ lazy val evaluation = module("evaluation",
 )
 
 lazy val perfStat = module("perfStat",
-  Seq(memo, rating),
+  Seq(ui, memo, rating),
   Seq()
 )
 

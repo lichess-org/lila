@@ -4,7 +4,7 @@ import akka.stream.scaladsl.*
 import chess.format.pgn.{ Glyphs, InitialComments, Pgn, Tag, Tags, PgnStr, Comment, PgnTree }
 import chess.format.{ pgn as chessPgn }
 
-import lila.common.String.slugify
+import scalalib.String.slug
 import lila.tree.{ Analysis, Root, Metas, NewBranch, NewTree, NewRoot }
 import lila.tree.Node.{ Shape, Shapes }
 
@@ -42,14 +42,14 @@ final class PgnDump(
   def filename(study: Study): String =
     val date = dateFormatter.print(study.createdAt)
     fileR.replaceAllIn(
-      s"lichess_study_${slugify(study.name.value)}_by_${ownerName(study)}_$date",
+      s"lichess_study_${slug(study.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
 
   def filename(study: Study, chapter: Chapter): String =
     val date = dateFormatter.print(chapter.createdAt)
     fileR.replaceAllIn(
-      s"lichess_study_${slugify(study.name.value)}_${slugify(chapter.name.value)}_by_${ownerName(study)}_$date",
+      s"lichess_study_${slug(study.name.value)}_${slug(chapter.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
 

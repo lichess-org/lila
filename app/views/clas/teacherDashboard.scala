@@ -154,7 +154,7 @@ object teacherDashboard:
                   ),
                   td(prog.nb),
                   if progress.isPuzzle then td(dataSort := prog.winRate)(prog.winRate, "%")
-                  else td(dataSort := prog.millis)(translateDuration(prog.duration)),
+                  else td(dataSort := prog.millis)(lila.core.i18n.translateDuration(prog.duration)),
                   td(
                     if progress.isPuzzle then
                       a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(

@@ -3,7 +3,6 @@ package study
 
 import controllers.routes
 import play.api.i18n.Lang
-import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }

@@ -26,7 +26,7 @@ case class Study(
 
   import Study.*
 
-  val slug = lila.common.String.slugify(name.value)
+  val slug = scalalib.String.slug(name.value)
 
   def owner = members.get(ownerId)
 

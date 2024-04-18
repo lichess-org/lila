@@ -52,11 +52,6 @@ class StringTest extends munit.FunSuite:
     assertEquals(String.normalize("½"), "½")
   }
 
-  test("slugify be safe >> html") {
-    assert(!String.slugify("hello \" world").contains("\""))
-    assert(!String.slugify("<<<").contains("<"))
-  }
-
   test("richText handle nl") {
     val url = "http://imgur.com/gallery/pMtTE"
     assertEquals(

@@ -3,7 +3,6 @@ package ui
 
 import play.api.i18n.Lang
 import play.api.libs.json.Json
-import play.api.mvc.Call
 
 import lila.ui.ScalatagsTemplate.*
 import lila.common.Json.given

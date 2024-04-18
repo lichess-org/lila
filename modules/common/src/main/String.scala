@@ -13,21 +13,9 @@ import lila.core.data.SafeJsonStr
 object String:
 
   export RawHtml.hasLinks
-
-  export lila.core.slug.{ apply as slugify }
+  export scalalib.String.*
 
   def lcfirst(str: String) = s"${str(0).toLower}${str.drop(1)}"
-
-  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "UTF-8")
-
-  def addQueryParam(url: String, key: String, value: String): String = addQueryParams(url, Map(key -> value))
-  def addQueryParams(url: String, params: Map[String, String]): String =
-    if params.isEmpty then url
-    else
-      val queryString = params // we could encode the key, and we should, but is it really necessary?
-        .map { (key, value) => s"$key=${urlencode(value)}" }
-        .mkString("&")
-      s"$url${if url.contains("?") then "&" else "?"}$queryString"
 
   def removeChars(str: String, isRemoveable: Int => Boolean): String =
     if str.chars.anyMatch(isRemoveable(_)) then str.filterNot(isRemoveable(_)) else str
@@ -99,13 +87,6 @@ object String:
     try play.utils.UriEncoding.decodePath(input, "UTF-8").some
     catch case _: play.utils.InvalidUriEncodingException => None
 
-  private val onelineR                           = """\s+""".r
-  def shorten(text: String, length: Int): String = shorten(text, length, "…")
-  def shorten(text: String, length: Int, sep: String): String =
-    val oneline = onelineR.replaceAllIn(text, " ")
-    if oneline.lengthIs > length + sep.length then oneline.take(length) ++ sep
-    else oneline
-
   def isShouting(text: String) =
     text.lengthIs >= 5 && {
       import java.lang.Character.*
@@ -174,8 +155,6 @@ object String:
             .map: (k, v) =>
               s"${safeJsonString(k)}:${safeJsonValue(v)}"
             .mkString("{", ",", "}")
-
-  def underscoreFen(fen: chess.format.Fen.Full) = fen.value.replace(" ", "_")
 
   object charset:
     import akka.util.ByteString

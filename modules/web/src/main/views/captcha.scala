@@ -9,7 +9,7 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.core.captcha.Captcha
 import play.api.data.{ Form, Field }
-import play.api.mvc.Call
+
 import lila.ui.Context
 import lila.core.i18n.{ I18nKey as trans }
 import lila.core.config.BaseUrl
@@ -35,16 +35,16 @@ final class captcha(form3: Form3, i18nHelper: I18nHelper, netBaseUrl: BaseUrl)(
       form3.hidden(formField(form, "gameId"), captcha.gameId.value.some),
       if ctx.blind then form3.hidden(formField(form, "move"), captcha.solutions.head.some)
       else
-        val url = s"$netBaseUrl${routeRoundWatcher(captcha.gameId.value, captcha.color.name)}"
+        val url = s"$netBaseUrl${routeRoundWatcher(captcha.gameId, captcha.color.name)}"
         div(
           cls := List(
             "captcha form-group" -> true,
             "is-invalid"         -> formErrors(form).exists(_.messages.has(lila.core.captcha.failMessage))
           ),
-          dataCheckUrl := routeCaptchaCheck(captcha.gameId.value)
+          dataCheckUrl := routeCaptchaCheck(captcha.gameId)
         )(
           div(cls := "challenge")(
-            ui.ChessgroundHelper.chessgroundMini(captcha.fen, captcha.color) {
+            ui.ChessHelper.chessgroundMini(captcha.fen, captcha.color) {
               div(
                 dataMoves    := safeJsonValue(Json.toJson(captcha.moves)),
                 dataPlayable := 1
