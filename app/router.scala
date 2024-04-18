@@ -51,7 +51,6 @@ given uciOpt: Conversion[Option[String], Option[chess.format.Uci]]       = _.fla
 // Used when constructing URLs from routes
 // TODO actually use the types in the routes
 object ReverseRouterConversions:
-  given Conversion[GameId, String]                                         = _.value
   given Conversion[GameFullId, String]                                     = _.value
   given Conversion[GameAnyId, String]                                      = _.value
   given Conversion[StudyId, String]                                        = _.value
@@ -63,8 +62,6 @@ object ReverseRouterConversions:
   given Conversion[TeamId, String]                                         = _.value
   given Conversion[RelayRoundId, String]                                   = _.value
   given Conversion[UblogPostId, String]                                    = _.value
-  given Conversion[UserId, String]                                         = _.value
-  given Conversion[UserName, String]                                       = _.value
   given Conversion[chess.opening.OpeningKey, String]                       = _.value
   given Conversion[chess.format.Uci, String]                               = _.uci
   given Conversion[Variant.LilaKey, String]                                = _.value

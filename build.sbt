@@ -190,7 +190,7 @@ lazy val evaluation = module("evaluation",
 )
 
 lazy val perfStat = module("perfStat",
-  Seq(memo, rating),
+  Seq(ui, memo, rating),
   Seq()
 )
 
@@ -455,7 +455,7 @@ lazy val bookmark = module("bookmark",
 )
 
 lazy val report = module("report",
-  Seq(coreI18n, memo),
+  Seq(ui, memo),
   Seq()
 )
 

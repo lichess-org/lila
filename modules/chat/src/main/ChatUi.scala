@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import lila.common.Json.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.Context
-import lila.core.perm.Granter
 
 final class ChatUi(i18nHelper: lila.ui.I18nHelper):
 

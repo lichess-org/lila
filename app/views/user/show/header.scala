@@ -179,7 +179,7 @@ object header:
           val hideTroll = u.marks.troll && ctx.isnt(u)
           div(id := "us_profile")(
             if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
-              views.html.user.perfStat.ratingHistoryContainer
+              views.html.user.perfStat.ui.ratingHistoryContainer
             else (ctx.is(u) && u.count.game < 10).option(newPlayer(u)),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
@@ -206,9 +206,8 @@ object header:
                   )
                 ),
                 div(cls := "stats")(
-                  profile.officialRating.map { r =>
-                    div(r.name.toUpperCase, " rating: ", strong(r.rating))
-                  },
+                  profile.officialRating.map: r =>
+                    div(r.name.toUpperCase, " rating: ", strong(r.rating)),
                   profile.nonEmptyLocation.ifTrue(ctx.kid.no && !hideTroll).map { l =>
                     span(cls := "location")(l)
                   },
@@ -219,9 +218,8 @@ object header:
                       c.name
                     ),
                   p(cls := "thin")(trans.site.memberSince(), " ", showDate(u.createdAt)),
-                  u.seenAt.map { seen =>
-                    p(cls := "thin")(trans.site.lastSeenActive(momentFromNow(seen)))
-                  },
+                  u.seenAt.map: seen =>
+                    p(cls := "thin")(trans.site.lastSeenActive(momentFromNow(seen))),
                   ctx
                     .is(u)
                     .option(
@@ -243,10 +241,13 @@ object header:
                   ),
                   u.playTime.map: playTime =>
                     frag(
-                      p(trans.site.tpTimeSpentPlaying(translateDuration(playTime.totalDuration))),
-                      playTime.nonEmptyTvDuration.map { tvDuration =>
-                        p(trans.site.tpTimeSpentOnTV(translateDuration(tvDuration)))
-                      }
+                      p(
+                        trans.site.tpTimeSpentPlaying(
+                          lila.core.i18n.translateDuration(playTime.totalDuration)
+                        )
+                      ),
+                      playTime.nonEmptyTvDuration.map: tvDuration =>
+                        p(trans.site.tpTimeSpentOnTV(lila.core.i18n.translateDuration(tvDuration)))
                     ),
                   (!hideTroll).option(
                     div(cls := "social_links col2")(

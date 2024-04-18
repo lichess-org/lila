@@ -919,9 +919,6 @@ object mod:
       )
     )
 
-  def reportScore(score: lila.report.Report.Score): Frag =
-    span(cls := s"score ${score.color}")(score.value.toInt)
-
   def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(lila.security.Granter.canCloseAlt)
 
   private def parts(ps: Option[String]*) = ps.flatten.distinct.mkString(" ")
@@ -944,7 +941,7 @@ object mod:
         if r.open then "open"
         else s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showInstant(done.at)}")}"
       }
-    )(reportScore(r.score), " ", strong(r.reason.name))
+    )(lila.report.ui.reportScore(r.score), " ", strong(r.reason.name))
 
   def userMarks(o: User, playbans: Option[Int]) =
     div(cls := "user_marks")(

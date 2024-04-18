@@ -15,6 +15,7 @@ trait Simul:
   def hostScore: Score
   def playerScore(userId: UserId): Option[Score]
   def playerIds: List[UserId]
+  def fullName: String
 
 trait SimulApi:
   def byIds(ids: List[SimulId]): Fu[List[Simul]]

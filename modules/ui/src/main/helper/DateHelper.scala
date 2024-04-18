@@ -7,15 +7,10 @@ import java.time.{ Duration, LocalDate }
 import java.util.concurrent.ConcurrentHashMap
 
 import lila.ui.ScalatagsTemplate.*
+import lila.core.i18n.{ I18nKey, Translate }
 
-final class DateHelper(
-    i18n: I18nHelper,
-    string: StringHelper,
-    translateDuration: lila.core.i18n.TranslateDuration
-):
-
-  import i18n.*
-  import string.*
+final class DateHelper(stringHelper: StringHelper):
+  import stringHelper.*
 
   private val datetimeAttr = attr("datetime")
 
@@ -62,7 +57,7 @@ final class DateHelper(
     timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant))(showDate(date))
 
   def showMinutes(minutes: Int)(using Translate): String =
-    translateDuration(Duration.ofMinutes(minutes))
+    lila.core.i18n.translateDuration(Duration.ofMinutes(minutes))
 
   def isoDateTime(instant: Instant): String = isoDateTimeFormatter.print(instant)
 
@@ -99,7 +94,8 @@ final class DateHelper(
   def momentFromNowServer(instant: Instant)(using Translate): Frag =
     timeTag(title := f"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
-  def momentFromNowServerText(instant: Instant, inFuture: Boolean = false): String =
+  def momentFromNowServerText(instant: Instant): String =
+    val inFuture          = false
     val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
     val seconds           = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt.atLeast(0)
     val minutes           = seconds / 60

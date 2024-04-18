@@ -1,12 +1,11 @@
-package lila.web
-package views
+package lila.ui
 
 import play.api.data.*
 
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.ui.I18nHelper
-import lila.ui.Icon
+
 import lila.core.user.FlairApi
 import lila.ui.Context
 
