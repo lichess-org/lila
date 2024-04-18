@@ -8,7 +8,6 @@ import lila.ui.{ Context, FormHelper, I18nHelper }
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.core.team.LightTeam
-import lila.core.perm.Granter
 
 opaque type FormPrefix = Option[String]
 object FormPrefix extends TotalWrapper[FormPrefix, Option[String]]:

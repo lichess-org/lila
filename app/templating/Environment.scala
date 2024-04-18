@@ -99,7 +99,9 @@ object Environment
   export assetHelper.{ *, given }
 
   export ChessHelper.*
-  export lila.ui.HtmlHelper.*
+
+  val htmlHelper = lila.ui.HtmlHelper(lila.common.String.html)
+  export htmlHelper.*
 
   def titleOrText(v: String)(using ctx: Context): Modifier = titleOrTextFor(ctx.blind, v)
 

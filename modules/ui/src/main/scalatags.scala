@@ -115,6 +115,7 @@ trait ScalatagsExtensions:
 
   export Context.ctxMe
   export ReverseRouterConversions.given
+  export lila.core.perm.Granter
   val Icon = lila.ui.Icon
 
   given Render[Icon] = _.value

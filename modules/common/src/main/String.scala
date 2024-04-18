@@ -37,7 +37,7 @@ object String:
   val atUsernameRegex    = RawHtml.atUsernameRegex
   val forumPostPathRegex = """(?:(?<= )|^)\b([\w-]+/[\w-]+)\b(?:(?= )|$)""".r
 
-  object html:
+  object html extends lila.core.html.HtmlOps:
 
     inline def raw(inline html: Html) = scalatags.Text.all.raw(html.value)
 

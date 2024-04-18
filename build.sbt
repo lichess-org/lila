@@ -455,7 +455,7 @@ lazy val bookmark = module("bookmark",
 )
 
 lazy val report = module("report",
-  Seq(coreI18n, memo),
+  Seq(ui, memo),
   Seq()
 )
 
