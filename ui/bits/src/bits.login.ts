@@ -78,6 +78,20 @@ function loginStart() {
           }
         });
     });
+    //Function toggle visibility of password//
+    function passwordShowHide() {
+      $('#form3-password').each(function (this: HTMLElement) {
+        const $input = $(this);
+        const $button = $('<button class="show-hide-password" title="Show/hide password">hi</button>').insertAfter($input);
+        $button.on('click', function (e: Event) {
+          e.preventDefault();
+          const type = $input.attr('type') === 'password' ? 'text' : 'password';
+          $input.attr('type', type);
+          $button.toggleClass('show', type === 'text');
+        });
+      });
+    }
+
   })();
 }
 
@@ -109,4 +123,17 @@ function signupStart() {
   });
 
   site.asset.loadEsm('bits.passwordComplexity', { init: 'form3-password' });
+//Function toggle visibility of password//
+  function passwordShowHide() {
+    $('#form3-password').each(function (this: HTMLElement) {
+      const $input = $(this);
+      const $button = $('<button class="show-hide-password" title="Show/hide password">hi</button>').insertAfter($input);
+      $button.on('click', function (e: Event) {
+        e.preventDefault();
+        const type = $input.attr('type') === 'password' ? 'text' : 'password';
+        $input.attr('type', type);
+        $button.toggleClass('show', type === 'text');
+      });
+    });
+  }
 }
