@@ -3,7 +3,6 @@ package views.html.opening
 import chess.opening.{ Opening, OpeningKey }
 import controllers.routes
 import play.api.libs.json.Json
-import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }

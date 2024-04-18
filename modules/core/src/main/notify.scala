@@ -29,7 +29,7 @@ case class GenericLink(
     url: String,
     title: Option[String],
     text: Option[String],
-    icon: String
+    icon: String // should be lila.ui.Icon
 ) extends NotificationContent("genericLink")
 case object ReportedBanned                         extends NotificationContent("reportedBanned")
 case class RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")

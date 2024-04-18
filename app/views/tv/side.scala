@@ -47,7 +47,7 @@ object side:
     import pov.*
     div(cls := "game__meta")(
       st.section(
-        div(cls := "game__meta__infos", dataIcon := views.html.game.bits.gameIcon(game))(
+        div(cls := "game__meta__infos", dataIcon := views.html.game.ui.gameIcon(game))(
           div(cls := "header")(
             div(cls := "setup")(
               views.html.game.widgets.showClock(game),

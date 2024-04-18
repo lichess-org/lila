@@ -9,14 +9,10 @@ import lila.ui.ScalatagsTemplate.*
 import lila.rating.PerfType
 import lila.game.GameExt.perfType
 
-object bits:
+lazy val ui         = lila.game.ui.GameUi(i18nHelper, dateHelper)(routeRoundWatcher = routes.Round.watcher)
+lazy val crosstable = ui.crosstable(userId => _ ?=> userIdLink(userId.some, withOnline = false))
 
-  def gameIcon(game: Game): Icon =
-    if game.fromPosition then Icon.Feather
-    else if game.sourceIs(_.Import) then Icon.UploadCloud
-    else if game.variant.exotic then game.perfType.icon
-    else if game.hasAi then Icon.Cogs
-    else game.perfType.icon
+object bits:
 
   def sides(
       pov: Pov,

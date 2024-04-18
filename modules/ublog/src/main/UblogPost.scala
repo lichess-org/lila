@@ -43,7 +43,7 @@ object UblogPost:
   export lila.core.ublog.UblogPost.*
 
   def slug(title: String) =
-    val s = lila.common.String.slugify(title)
+    val s = scalalib.StringOps.slug(title)
     if s.isEmpty then "-" else s
 
   opaque type Likes = Int

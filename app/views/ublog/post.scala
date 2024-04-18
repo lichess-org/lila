@@ -2,7 +2,6 @@ package views.html.ublog
 
 import controllers.report.routes.Report as reportRoutes
 import controllers.routes
-import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }

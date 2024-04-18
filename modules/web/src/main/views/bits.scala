@@ -3,13 +3,11 @@ package views
 
 import chess.format.Fen
 import play.api.i18n.Lang
-import play.api.mvc.Call
 
 import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.core.i18n.Translate
-import lila.common.String.underscoreFen
-import lila.ui.Icon
+import lila.web.ui.ChessHelper.underscoreFen
 
 final class bits(externalLink: (String, String) => Call):
 

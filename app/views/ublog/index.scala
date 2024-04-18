@@ -1,7 +1,6 @@
 package views.html.ublog
 
 import controllers.routes
-import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -78,7 +77,7 @@ object index:
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
         st.title := "Lichess community blogs"
       ).some,
-      withHrefLangs = lila.core.app.LangPath(langHref(routes.Ublog.communityAll())).some
+      withHrefLangs = lila.web.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
       val langSelections: List[(String, String)] = ("all", "All languages") ::
         lila.i18n.LangPicker

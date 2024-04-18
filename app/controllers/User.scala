@@ -478,7 +478,7 @@ final class User(
             if getBool("inquiry") then
               Ok.pageAsync:
                 env.user.noteApi.byUserForMod(user.id).map {
-                  views.html.mod.inquiry.noteZone(user, _)
+                  views.html.mod.inquiry.ui.noteZone(user, _)
                 }
             else
               Ok.pageAsync:

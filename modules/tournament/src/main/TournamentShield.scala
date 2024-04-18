@@ -5,9 +5,7 @@ import chess.variant.Variant.given
 import lila.ui.Icon
 import lila.db.dsl.*
 import lila.memo.CacheApi.*
-
 import lila.core.tournament.Status
-import lila.ui.Icon
 
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,

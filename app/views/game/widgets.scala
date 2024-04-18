@@ -26,7 +26,7 @@ object widgets:
           views.html.board.bits.mini(Pov(g, firstPlayer))(span)
         ),
         div(cls := "game-row__infos")(
-          div(cls := "header", dataIcon := bits.gameIcon(g))(
+          div(cls := "header", dataIcon := ui.gameIcon(g))(
             div(cls := "header__text")(
               strong(
                 if g.sourceIs(_.Import) then
