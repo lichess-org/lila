@@ -4,7 +4,6 @@ package ui
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.Context
 import lila.core.game.Game
-import lila.ui.Icon
 import lila.game.GameExt.*
 
 final class GameUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelper)(
@@ -12,7 +11,7 @@ final class GameUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelpe
 ):
   import i18nHelper.{ *, given }
 
-  def gameIcon(game: Game): Icon =
+  def gameIcon(game: Game): lila.ui.Icon =
     if game.fromPosition then Icon.Feather
     else if game.sourceIs(_.Import) then Icon.UploadCloud
     else if game.variant.exotic then game.perfType.icon

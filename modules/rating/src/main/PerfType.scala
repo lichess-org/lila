@@ -4,9 +4,8 @@ import cats.derived.*
 import chess.variant
 import chess.{ Centis, Speed }
 import lila.core.i18n.{ I18nKey, Translate }
-
-import lila.ui.Icon
 import lila.core.perf.{ PerfId, PerfKeyStr }
+import lila.ui.Icon
 
 enum PerfType(
     val id: PerfId,

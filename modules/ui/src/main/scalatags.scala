@@ -7,8 +7,6 @@ import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
 
-import lila.ui.Icon
-
 // collection of lila attrs
 trait ScalatagsAttrs:
   val dataTag                = attr("data-tag")

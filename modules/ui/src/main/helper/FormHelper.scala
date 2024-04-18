@@ -9,7 +9,6 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.Context
 import lila.core.i18n.Translate
 import lila.core.i18n.I18nKey as trans
-import lila.ui.Icon
 
 final class FormHelper(i18n: lila.ui.I18nHelper, flairApi: lila.core.user.FlairApi):
 

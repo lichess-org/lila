@@ -13,7 +13,7 @@ import play.api.data.{ Form, Field }
 import lila.ui.Context
 import lila.core.i18n.{ I18nKey as trans }
 import lila.core.config.BaseUrl
-import lila.ui.Icon
+
 import lila.ui.{ Form3, I18nHelper }
 
 final class captcha(form3: Form3, i18nHelper: I18nHelper, netBaseUrl: BaseUrl)(

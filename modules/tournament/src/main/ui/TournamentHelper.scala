@@ -8,7 +8,7 @@ import lila.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.rating.PerfType
 import lila.core.i18n.Translate
-import lila.ui.Icon
+
 import lila.core.user.User
 
 final class TournamentHelper(

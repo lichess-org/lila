@@ -8,7 +8,6 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.core.i18n.Translate
 import lila.web.ui.ChessHelper.underscoreFen
-import lila.ui.Icon
 
 final class bits(externalLink: (String, String) => Call):
 

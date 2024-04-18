@@ -5,7 +5,6 @@ import java.time.LocalDate
 
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.BaseUrl
-import lila.ui.Icon
 
 final class atom(netBaseUrl: BaseUrl):
 
