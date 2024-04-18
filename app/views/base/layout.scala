@@ -331,7 +331,6 @@ object layout:
               s"${pref.currentBg} ${current2dTheme.cssClass} ${pref.currentTheme3d.cssClass} ${pref.currentPieceSet3d.toString} coords-${pref.coordsClass}"
             List(
               baseClass              -> true,
-              "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
               "simple-board"         -> pref.simpleBoard,
               "piece-letter"         -> pref.pieceNotationIsLetter,
               "blind-mode"           -> ctx.blind,
