@@ -1,5 +1,4 @@
-package lila.web
-package ui
+package lila.ui
 
 import play.api.data.*
 import play.api.i18n.Lang
@@ -64,4 +63,4 @@ final class FormHelper(i18n: lila.ui.I18nHelper, flairApi: lila.core.user.FlairA
       )
     }.toList
 
-  val form3 = lila.web.views.Form3(i18n, flairApi)
+  val form3 = Form3(i18n, flairApi)

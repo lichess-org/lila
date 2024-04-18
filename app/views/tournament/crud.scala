@@ -9,9 +9,10 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.tournament.Tournament
 import lila.tournament.crud.CrudForm
+import lila.tournament.ui.{ FormPrefix, TourFields }
 
 object crud:
-  given prefix: tournament.FormPrefix = tournament.FormPrefix.make("setup")
+  given prefix: FormPrefix = FormPrefix.make("setup")
 
   private def layout(
       title: String,
@@ -43,7 +44,7 @@ object crud:
         postForm(cls := "form3", action := routes.TournamentCrud.create)(
           spotlightAndTeamBattle(form, none),
           errMsg(form("setup")),
-          tournament.form.setupCreate(form, Nil),
+          tournament.form.ui.setupCreate(form, Nil),
           form3.action(form3.submit(trans.site.apply()))
         )
       )
@@ -71,7 +72,7 @@ object crud:
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
           spotlightAndTeamBattle(form, tour.some),
           errMsg(form("setup")),
-          tournament.form.setupEdit(tour, form, Nil),
+          tournament.form.ui.setupEdit(tour, form, Nil),
           form3.action(form3.submit(trans.site.apply()))
         )
       )

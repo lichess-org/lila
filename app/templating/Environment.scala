@@ -79,7 +79,7 @@ object Environment
   export flashHelper.*
 
   def flairApi        = env.user.flairApi
-  lazy val formHelper = wire[lila.web.ui.FormHelper]
+  lazy val formHelper = wire[lila.ui.FormHelper]
   export formHelper.*
 
   def routeTournamentShow: String => Call = controllers.routes.Tournament.show

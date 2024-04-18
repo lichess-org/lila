@@ -1,5 +1,4 @@
-package lila.web
-package views
+package lila.ui
 
 import play.api.data.*
 
