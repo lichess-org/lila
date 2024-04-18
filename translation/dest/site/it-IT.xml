@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Per invitare qualcuno a giocare, dagli questo URL</string>
   <string name="gameOver">Partita terminata</string>
   <string name="waitingForOpponent">In attesa dell\'avversario</string>
-  <string name="orLetYourOpponentScanQrCode">O fai scansionare questo codice QR al tuo avversario</string>
+  <string name="orLetYourOpponentScanQrCode">Oppure lascia che il tuo avversario scansioni questo codice QR</string>
   <string name="waiting">In attesa</string>
   <string name="yourTurn">Tocca a te</string>
   <string name="aiNameLevelAiLevel">%1$s livello %2$s</string>
@@ -51,7 +51,7 @@
   <string name="whiteLeftTheGame">Il Bianco ha lasciato la partita</string>
   <string name="blackLeftTheGame">Il Nero ha lasciato la partita</string>
   <string name="whiteDidntMove">Il bianco non si è mosso</string>
-  <string name="blackDidntMove">Il bianco non si è mosso</string>
+  <string name="blackDidntMove">Il nero non si è mosso</string>
   <string name="requestAComputerAnalysis">Chiedi un\'analisi del computer</string>
   <string name="computerAnalysis">Analisi del computer</string>
   <string name="computerAnalysisAvailable">Analisi del computer disponibile</string>
@@ -99,7 +99,7 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prova a includere più partite dal menu Preferenze.</string>
   <string name="openings">Aperture</string>
   <string name="openingExplorer">Esplora aperture</string>
-  <string name="openingEndgameExplorer">Explorer di aperture/chiusure</string>
+  <string name="openingEndgameExplorer">Esploratore aperture/chiusure</string>
   <string name="xOpeningExplorer">Explorer delle aperture %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">Gioca la prima apertura/mossa in chiusura dell\'explorer</string>
   <string name="winPreventedBy50MoveRule">Vittoria non possibile a causa della \"regola delle 50 mosse\"</string>
