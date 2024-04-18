@@ -19,42 +19,38 @@ object crud:
       modules: EsmList = Nil,
       evenMoreJs: Frag = emptyFrag,
       css: String = "mod.misc"
-  )(
-      body: Frag
-  )(using PageContext) =
+  )(body: Frag)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
       modules = jsModule("bits.flatpick") ++ modules,
       moreJs = evenMoreJs
-    ) {
+    ):
       main(cls := "page-menu")(
         views.html.mod.menu("tour"),
         body
       )
-    }
 
   def create(form: Form[?])(using PageContext) =
     layout(
       title = "New tournament",
       css = "mod.form"
-    ) {
+    ):
       div(cls := "crud page-menu__content box box-pad")(
         h1(cls := "box__top")("New tournament"),
         postForm(cls := "form3", action := routes.TournamentCrud.create)(
-          spotlightAndTeamBattle(form, none),
+          tournament.form.ui.spotlightAndTeamBattle(form, none),
           errMsg(form("setup")),
           tournament.form.ui.setupCreate(form, Nil),
           form3.action(form3.submit(trans.site.apply()))
         )
       )
-    }
 
   def edit(tour: Tournament, form: Form[?])(using PageContext) =
     layout(
       title = tour.name(),
       css = "mod.form"
-    ) {
+    ):
       div(cls := "crud edit page-menu__content box box-pad")(
         boxTop(
           h1(
@@ -70,52 +66,18 @@ object crud:
         ),
         standardFlash,
         postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
-          spotlightAndTeamBattle(form, tour.some),
+          tournament.form.ui.spotlightAndTeamBattle(form, tour.some),
           errMsg(form("setup")),
           tournament.form.ui.setupEdit(tour, form, Nil),
           form3.action(form3.submit(trans.site.apply()))
         )
       )
-    }
-
-  private def spotlightAndTeamBattle(form: Form[?], tour: Option[Tournament])(using PageContext) =
-    frag(
-      form3.split(
-        form3.group(
-          form("homepageHours"),
-          raw(s"Hours on homepage (0 to ${CrudForm.maxHomepageHours})"),
-          half = true,
-          help = raw("Ask on zulip first").some
-        )(form3.input(_, typ = "number")),
-        form3.group(form("image"), raw("Custom icon"), half = true)(form3.select(_, CrudForm.imageChoices))
-      ),
-      form3.split(
-        form3.group(
-          form("headline"),
-          raw("Homepage headline"),
-          help = raw("Keep it VERY short, so it fits on homepage").some,
-          half = true
-        )(form3.input(_)),
-        form3.group(
-          form("id"),
-          raw("Tournament ID (in the URL)"),
-          help =
-            raw("An 8-letter unique tournament ID, can't be changed after the tournament is created.").some,
-          half = true
-        )(f => form3.input(f)(tour.isDefined.option(readonly := true)))
-      ),
-      form3.checkbox(
-        form("teamBattle"),
-        raw("Team battle"),
-        half = true
-      )
-    )
 
   def index(tours: Paginator[Tournament])(using PageContext) =
     layout(
       title = "Tournament manager",
       modules = infiniteScrollTag
-    ) {
+    ):
       div(cls := "crud page-menu__content box")(
         boxTop(
           h1("Tournament manager"),
@@ -154,4 +116,3 @@ object crud:
           )
         )
       )
-    }

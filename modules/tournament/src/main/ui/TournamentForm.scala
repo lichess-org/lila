@@ -146,6 +146,41 @@ final class TournamentForm(
       )
     )
 
+  def spotlightAndTeamBattle(form: Form[?], tour: Option[Tournament])(using Context) =
+    frag(
+      form3.split(
+        form3.group(
+          form("homepageHours"),
+          raw(s"Hours on homepage (0 to ${crud.CrudForm.maxHomepageHours})"),
+          half = true,
+          help = raw("Ask on zulip first").some
+        )(form3.input(_, typ = "number")),
+        form3.group(form("image"), raw("Custom icon"), half = true)(
+          form3.select(_, crud.CrudForm.imageChoices)
+        )
+      ),
+      form3.split(
+        form3.group(
+          form("headline"),
+          raw("Homepage headline"),
+          help = raw("Keep it VERY short, so it fits on homepage").some,
+          half = true
+        )(form3.input(_)),
+        form3.group(
+          form("id"),
+          raw("Tournament ID (in the URL)"),
+          help =
+            raw("An 8-letter unique tournament ID, can't be changed after the tournament is created.").some,
+          half = true
+        )(f => form3.input(f)(tour.isDefined.option(readonly := true)))
+      ),
+      form3.checkbox(
+        form("teamBattle"),
+        raw("Team battle"),
+        half = true
+      )
+    )
+
 final class TourFields(tourForm: TournamentForm)(form: Form[?], tour: Option[Tournament])(using
     Context,
     FormPrefix
