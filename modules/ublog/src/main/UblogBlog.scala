@@ -1,7 +1,8 @@
 package lila.ublog
 
-import lila.security.Granter
-import lila.user.{ Me, User }
+import lila.core.perm.Granter
+
+import lila.core.perf.UserWithPerfs
 
 case class UblogBlog(
     _id: UblogBlog.Id,
@@ -27,15 +28,16 @@ object UblogBlog:
       case Array("user", id) => User(UserId(id)).some
       case _                 => none
 
-  def make(user: User.WithPerfs) = UblogBlog(
+  def make(user: UserWithPerfs) = UblogBlog(
     _id = Id.User(user.id),
     tier = UblogRank.Tier.default(user),
     modTier = none
   )
 
   class Allows(creator: UserId):
-    def moderate(using Option[Me]): Boolean   = Granter.opt(_.ModerateBlog)
-    def edit(using me: Option[Me]): Boolean   = me.exists(creator.is(_)) || moderate
-    def create(using me: Option[Me]): Boolean = edit || (creator == UserId.lichess && Granter.opt(_.Pages))
+    def moderate(using Option[Me]): Boolean = Granter.opt(_.ModerateBlog)
+    def edit(using me: Option[Me]): Boolean = me.exists(creator.is(_)) || moderate
+    def create(using me: Option[Me]): Boolean =
+      edit || (creator.is(UserId.lichess) && Granter.opt(_.Pages))
     def draft(using me: Option[Me]): Boolean =
-      create || (Granter.opt(_.LichessTeam) && creator == UserId.lichess)
+      create || (Granter.opt(_.LichessTeam) && creator.is(UserId.lichess))

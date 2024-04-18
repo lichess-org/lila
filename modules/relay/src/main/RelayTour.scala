@@ -4,7 +4,6 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
 import lila.memo.{ PicfitImage, PicfitUrl }
-import lila.user.User
 
 case class RelayTour(
     @Key("_id") id: RelayTour.Id,
@@ -26,7 +25,7 @@ case class RelayTour(
     pinnedStreamerImage: Option[PicfitImage.Id] = None
 ):
   lazy val slug =
-    val s = lila.common.String.slugify(name.value)
+    val s = scalalib.StringOps.slug(name.value)
     if s.isEmpty then "-" else s
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
@@ -34,7 +33,7 @@ case class RelayTour(
   def official = tier.isDefined
 
   def giveOfficialToBroadcasterIf(cond: Boolean) =
-    if cond && official then copy(ownerId = User.broadcasterId) else this
+    if cond && official then copy(ownerId = UserId.broadcaster) else this
 
   def path: String = s"/broadcast/$slug/$id"
 
@@ -53,20 +52,27 @@ object RelayTour:
 
   type Tier = Int
   object Tier:
-    val NORMAL = 3
-    val HIGH   = 4
-    val BEST   = 5
+    val PRIVATE = -1
+    val NORMAL  = 3
+    val HIGH    = 4
+    val BEST    = 5
 
     val options = List(
-      ""              -> "Non official",
-      NORMAL.toString -> "Official: normal tier",
-      HIGH.toString   -> "Official: high tier",
-      BEST.toString   -> "Official: best tier"
+      ""               -> "Non official",
+      NORMAL.toString  -> "Official: normal tier",
+      HIGH.toString    -> "Official: high tier",
+      BEST.toString    -> "Official: best tier",
+      PRIVATE.toString -> "Official: Private"
     )
     def name(tier: Tier) = options.collectFirst {
       case (t, n) if t == tier.toString => n
     } | "???"
-    val keys: Map[Tier, String] = Map(NORMAL -> "normal", HIGH -> "high", BEST -> "best")
+    val keys: Map[Tier, String] = Map(
+      NORMAL  -> "normal",
+      HIGH    -> "high",
+      BEST    -> "best",
+      PRIVATE -> "private"
+    )
     type Selector = RelayTour.Tier.type => RelayTour.Tier
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):

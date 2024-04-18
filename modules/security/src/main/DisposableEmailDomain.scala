@@ -3,7 +3,7 @@ package lila.security
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.Domain
+import lila.core.net.Domain
 
 final class DisposableEmailDomain(
     ws: StandaloneWSClient,

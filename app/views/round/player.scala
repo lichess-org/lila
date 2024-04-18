@@ -3,9 +3,10 @@ package round
 
 import play.api.libs.json.Json
 
+import lila.common.Json.given
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
-import lila.game.Pov
+import lila.ui.ScalatagsTemplate.*
+import lila.round.RoundGame.secondsSinceCreation
 
 object player:
 
@@ -48,7 +49,7 @@ object player:
     bits.layout(
       variant = pov.game.variant,
       title = s"${trans.site.play.txt()} $opponentNameOrZen",
-      moreJs = frag(roundNvuiTag),
+      modules = roundNvuiTag,
       pageModule = PageModule(
         "round",
         Json

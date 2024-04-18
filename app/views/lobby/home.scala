@@ -5,9 +5,9 @@ import play.api.libs.json.Json
 
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
-import lila.game.Pov
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.web.LangPath
+import lila.core.perf.UserWithPerfs
 
 object home:
 
@@ -32,18 +32,18 @@ object home:
           )
       ).some,
       moreCss = cssTag("lobby"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           image = assetUrl("logo/lichess-tile-wide.png").some,
           twitterImage = assetUrl("logo/lichess-tile.png").some,
           title = "The best free, adless Chess server",
-          url = netBaseUrl,
+          url = netBaseUrl.value,
           description = trans.site.siteDescription.txt()
         )
         .some,
       withHrefLangs = LangPath("/").some
     ) {
-      given Option[lila.user.User.WithPerfs] = homepage.me
+      given Option[UserWithPerfs] = homepage.me
       main(
         cls := List(
           "lobby"      -> true,
@@ -145,7 +145,7 @@ object home:
             )
           ),
           a(href := "https://shop.spreadshirt.com/lichess-org")(
-            iconTag(licon.Tshirt),
+            iconTag(Icon.Tshirt),
             span(cls := "lobby__support__text")(
               strong("Swag Store"),
               span(trans.site.playChessInStyle())

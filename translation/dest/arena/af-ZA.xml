@@ -60,4 +60,6 @@ Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry
   <string name="noArenaStreaks">Geen Arena reekse</string>
   <string name="averagePerformance">Gemiddelde prestasie</string>
   <string name="averageScore">Gemiddelde telling</string>
+  <string name="pickYourTeam">Kies jou span</string>
+  <string name="total">Totaal</string>
 </resources>

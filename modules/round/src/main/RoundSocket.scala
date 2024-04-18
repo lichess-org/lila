@@ -11,13 +11,13 @@ import lila.common.Json.given
 import lila.common.{ Bus, Lilakka }
 import lila.game.{ Event, Game, Pov }
 import scalalib.actor.AsyncActorConcMap
-import lila.core.actorApi.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
+import lila.core.misc.map.{ Exists, Tell, TellAll, TellIfExists, TellMany }
 import lila.core.game.TvSelect
 import lila.core.round.*
-import lila.core.actorApi.socket.remote.TellSriIn
+import lila.core.socket.remote.TellSriIn
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.core.user.FlairGet
 
 final class RoundSocket(
@@ -81,8 +81,8 @@ final class RoundSocket(
     rounds.getIfPresent(gameId).so(_.flushGame())
 
   val rounds = AsyncActorConcMap[GameId, RoundAsyncActor](
-    mkAsyncActor =
-      id => makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo.game(id).recoverDefault(none)),
+    mkAsyncActor = id =>
+      makeRoundActor(id, SocketVersion(0), roundDependencies.gameRepo.game(id).recoverDefault(none[Game])),
     initialCapacity = 65_536
   )
 
@@ -203,12 +203,12 @@ final class RoundSocket(
     case TellAll(msg)               => rounds.tellAll(msg)
     case Exists(gameId, promise)    => promise.success(rounds.exists(GameId(gameId)))
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
-    case lila.game.actorApi.StartGame(game) if game.hasClock =>
+    case lila.core.game.StartGame(game) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
           sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
-    case lila.game.actorApi.FinishGame(game, _) if game.hasClock =>
+    case lila.core.game.FinishGame(game, _) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>

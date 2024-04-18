@@ -1,5 +1,7 @@
 package lila.video
 
+import lila.core.net.Crawler
+
 case class TagNb(_id: Tag, nb: Int):
 
   def tag = _id

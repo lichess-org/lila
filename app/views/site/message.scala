@@ -5,9 +5,7 @@ import controllers.routes
 
 import lila.api.PageContext
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.common.licon
-import lila.user.User
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object message:
 
@@ -22,7 +20,7 @@ object message:
         boxTop(
           h1(dataIcon := icon.ifTrue(back.isEmpty), cls := List("text" -> (icon.isDefined && back.isEmpty)))(
             back.map { url =>
-              a(href := url, dataIcon := licon.LessThan, cls := "text")
+              a(href := url, dataIcon := Icon.LessThan, cls := "text")
             },
             title
           )

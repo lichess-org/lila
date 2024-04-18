@@ -13,14 +13,15 @@ import lila.insight.{
   InsightPerfStatsApi,
   Question
 }
-import lila.core.perf.PerfType
-import lila.user.{ User, UserApi }
+import lila.rating.PerfType
+import lila.core.perf.UserWithPerfs
+import lila.core.perf.PerfKey
 
 final private class TutorBuilder(
     colls: TutorColls,
     insightApi: InsightApi,
     perfStatsApi: InsightPerfStatsApi,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     fishnet: TutorFishnet
 )(using Executor):
 
@@ -48,9 +49,9 @@ final private class TutorBuilder(
     }
   yield report
 
-  private def produce(user: User.WithPerfs): Fu[TutorFullReport] = for
+  private def produce(user: UserWithPerfs): Fu[TutorFullReport] = for
     _ <- insightApi.indexAll(user).monSuccess(_.tutor.buildSegment("insight-index"))
-    perfStats <- perfStatsApi(user, eligiblePerfTypesOf(user), fishnet.maxGamesToConsider)
+    perfStats <- perfStatsApi(user, eligiblePerfKeysOf(user).map(PerfType(_)), fishnet.maxGamesToConsider)
       .monSuccess(_.tutor.buildSegment("perf-stats"))
     peerMatches <- findPeerMatches(perfStats.view.mapValues(_.stats.rating).toMap)
     tutorUsers = perfStats
@@ -61,7 +62,7 @@ final private class TutorBuilder(
     perfs <- (tutorUsers.toNel.so(TutorPerfReport.compute)).monSuccess(_.tutor.buildSegment("perf-reports"))
   yield TutorFullReport(user.id, nowInstant, perfs)
 
-  private[tutor] def eligiblePerfTypesOf(user: User.WithPerfs) =
+  private[tutor] def eligiblePerfKeysOf(user: UserWithPerfs): List[PerfKey] =
     lila.rating.PerfType.standardWithUltra.filter: pt =>
       user.perfs(pt).latest.exists(_.isAfter(nowInstant.minusMonths(12)))
 

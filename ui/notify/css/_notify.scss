@@ -50,7 +50,7 @@
 
     &:not(.disabled):hover {
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
     }
 
     &.prev {
@@ -62,7 +62,7 @@
     display: block;
     padding: 0.5em 1em;
     background: $c-brag;
-    color: $c-brag-over;
+    color: $c-over;
   }
 
   .content {
@@ -102,16 +102,15 @@
   }
 
   &.new {
-    background: mix($c-new, $c-bg-header-dropdown, 27%);
+    background: $m-secondary_bg-popup--mix-27;
 
     i {
-      color: $c-new;
+      color: $c-secondary;
       opacity: 0.7;
     }
 
     &:hover {
-      background: mix($c-new, $c-bg-header-dropdown, 36%);
-
+      background: $m-secondary_bg-popup--mix-36;
       i {
         opacity: 1;
       }

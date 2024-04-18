@@ -7,25 +7,22 @@ import java.time.Period
 import scala.util.Try
 import scala.util.chaining.*
 
-import lila.chat.ChatApi
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.core.{ timeline as tl }
 import lila.memo.CacheApi.*
-import lila.security.Granter
-import lila.user.{ Me, User, UserApi, UserRepo, given }
-import lila.core.user.MyId
+import lila.core.perm.Granter
 import lila.core.team.*
+import lila.core.userId.UserSearch
 
 final class TeamApi(
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
-    userRepo: UserRepo,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     cached: Cached,
     notifier: Notifier,
-    chatApi: ChatApi
+    chatApi: lila.core.chat.ChatApi
 )(using Executor)
     extends lila.core.team.TeamApi:
 
@@ -191,7 +188,7 @@ final class TeamApi(
     then
       for
         _          <- requestRepo.remove(request.id)
-        userOption <- userRepo.byId(request.user)
+        userOption <- userApi.byId(request.user)
         _ <- userOption.so(user => doJoin(team)(using Me(user)) >> notifier.acceptRequest(team, request))
       yield ()
     else funit
@@ -223,11 +220,11 @@ final class TeamApi(
   private[team] def addMembers(team: Team, userIds: Seq[UserId]): Funit =
     userIds
       .traverse: userId =>
-        userRepo
+        userApi
           .enabledById(userId)
           .flatMapz: user =>
             memberRepo
-              .add(team.id, Me(user))
+              .add(team.id, user.id)
               .map: _ =>
                 cached.invalidateTeamIds(user.id)
                 1
@@ -373,7 +370,7 @@ final class TeamApi(
       memberRepo.hasAnyPerm(team, leader)
 
   def isGranted(team: TeamId, user: User, perm: TeamSecurity.Permission.Selector) =
-    fuccess(Granter.of(_.ManageTeam)(user)) >>|
+    fuccess(Granter.ofUser(_.ManageTeam)(user)) >>|
       hasPerm(team, user.id, perm)
 
   def hasPerm(team: TeamId, userId: UserId, perm: TeamSecurity.Permission.Selector) =

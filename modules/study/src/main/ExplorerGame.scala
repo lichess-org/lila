@@ -5,42 +5,36 @@ import chess.format.{ Fen, UciPath }
 
 import scala.util.chaining.*
 
-import lila.game.{ Game, Namer }
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
 
 final private class ExplorerGame(
-    importer: lila.explorer.ExplorerImporter,
-    lightUserApi: lila.user.LightUserApi,
+    explorer: lila.core.game.Explorer,
+    namer: lila.core.game.Namer,
+    lightUserApi: lila.core.user.LightUserApi,
     net: lila.core.config.NetConfig
 )(using Executor):
 
   def quote(gameId: GameId): Fu[Option[Comment]] =
-    importer(gameId).mapz { game =>
-      gameComment(game).some
-    }
+    explorer(gameId).map2(gameComment)
 
   def insert(study: Study, position: Position, gameId: GameId): Fu[Option[(Chapter, UciPath)]] =
     if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
     else
-      importer(gameId).mapz { game =>
-        position.node.so { fromNode =>
+      explorer(gameId).mapz: game =>
+        position.node.so: fromNode =>
           GameToRoot(game, none, withClocks = false)
-            .pipe { root =>
+            .pipe: root =>
               root.setCommentAt(
                 comment = gameComment(game),
                 path = UciPath.fromIds(root.mainline.map(_.id))
               )
-            }
-            .so { gameRoot =>
-              merge(fromNode, position.path, gameRoot).flatMap { case (newNode, path) =>
+            .so: gameRoot =>
+              merge(fromNode, position.path, gameRoot).flatMap { (newNode, path) =>
                 position.chapter.addNode(newNode, path).map(_ -> path)
               }
-            }
-        }
-      }
 
   private def compareFens(a: Fen.Full, b: Fen.Full) = a.simple == b.simple
 
@@ -67,9 +61,9 @@ final private class ExplorerGame(
   private def gameTitle(g: Game): String =
     val pgn = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
     val white =
-      pgn.flatMap(_.tags(_.White)) | Namer.playerTextBlocking(g.whitePlayer)(using lightUserApi.sync)
+      pgn.flatMap(_.tags(_.White)) | namer.playerText(g.whitePlayer)(using lightUserApi.async)
     val black =
-      pgn.flatMap(_.tags(_.Black)) | Namer.playerTextBlocking(g.blackPlayer)(using lightUserApi.sync)
+      pgn.flatMap(_.tags(_.Black)) | namer.playerText(g.blackPlayer)(using lightUserApi.async)
     val result = chess.Outcome.showResult(chess.Outcome(g.winnerColor).some)
     val event: Option[String] =
       (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match

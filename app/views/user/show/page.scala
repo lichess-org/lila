@@ -5,9 +5,11 @@ import play.api.data.Form
 
 import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Game
-import lila.user.User
+
+import lila.core.data.SafeJsonStr
+import lila.rating.UserWithPerfs.titleUsernameWithBestRating
 
 object page:
 
@@ -19,7 +21,7 @@ object page:
     val u = info.user
     views.html.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           image = assetUrl("logo/lichess-tile-wide.png").some,
           twitterImage = assetUrl("logo/lichess-tile.png").some,
@@ -29,7 +31,7 @@ object page:
         )
         .some,
       pageModule = pageModule(info),
-      moreJs = moreJs(info),
+      modules = esModules(info),
       moreCss = frag(
         cssTag("user.show"),
         isGranted(_.UserModView).option(cssTag("mod.user"))
@@ -58,7 +60,7 @@ object page:
     views.html.base.layout(
       title = s"${u.username} $filterName$pageName",
       pageModule = pageModule(info),
-      moreJs = moreJs(info, filters.current.name == "search"),
+      modules = esModules(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
         (filters.current.name == "search").option(cssTag("user.show.search")),
@@ -75,14 +77,12 @@ object page:
       )
     }
 
-  private def moreJs(info: UserInfo, withSearch: Boolean = false)(using PageContext) =
+  private def esModules(info: UserInfo, withSearch: Boolean = false)(using PageContext): EsmList =
     import play.api.libs.json.Json
-    frag(
-      infiniteScrollTag,
-      jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
-      withSearch.option(jsModule("gameSearch")),
-      isGranted(_.UserModView).option(jsModule("mod.user"))
-    )
+    infiniteScrollTag
+      ++ jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(i18nKeys)))
+      ++ withSearch.so(jsModule("bits.gameSearch"))
+      ++ isGranted(_.UserModView).so(jsModule("mod.user"))
 
   private def pageModule(info: UserInfo)(using PageContext) =
     info.ratingChart.map: rc =>

@@ -1,10 +1,16 @@
 package lila.core
 package round
 
-import chess.format.Uci
-import chess.Color
-import chess.format.Fen
+import _root_.chess.{ Color, Move }
+import _root_.chess.format.{ Uci, Fen }
 import play.api.libs.json.{ JsArray, JsObject }
+import play.api.libs.json.JsObject
+
+import lila.core.net.IpAddress
+import lila.core.id.{ GameId, GamePlayerId, SimulId, TourId }
+import lila.core.userId.UserId
+import lila.core.game.Game
+import lila.core.id.GameAnyId
 
 case class Abort(playerId: GamePlayerId)
 case class Berserk(gameId: GameId, userId: UserId)
@@ -33,7 +39,7 @@ case class CorresTakebackOfferEvent(gameId: GameId)
 case class CorresDrawOfferEvent(gameId: GameId)
 case class BoardDrawEvent(gameId: GameId)
 case class SimulMoveEvent(move: MoveEvent, simulId: SimulId, opponentUserId: UserId)
-case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
+case class IsOnGame(color: Color, promise: Promise[Boolean])
 case class TourStandingOld(data: JsArray)
 case class TourStanding(tourId: TourId, data: JsArray)
 case class FishnetPlay(uci: Uci, sign: String)
@@ -54,7 +60,7 @@ object Moretime:
 case class Moretime(playerId: GamePlayerId, seconds: FiniteDuration = Moretime.defaultDuration)
 case class ClientFlag(color: Color, fromPlayerId: Option[GamePlayerId])
 case object Abandon
-case class ForecastPlay(lastMove: chess.Move)
+case class ForecastPlay(lastMove: Move)
 case class Cheat(color: Color)
 case class HoldAlert(playerId: GamePlayerId, mean: Int, sd: Int, ip: IpAddress)
 case class GoBerserk(color: Color, promise: Promise[Boolean])
@@ -70,3 +76,11 @@ case class ClientError(message: String)  extends BenignError
 case class FishnetError(message: String) extends BenignError
 case class GameIsFinishedError(id: GameId) extends BenignError:
   val message = s"game $id is finished"
+
+trait RoundJson:
+  def mobileOffline(game: Game, id: GameAnyId): Fu[JsObject]
+
+trait RoundApi:
+  def tell(gameId: GameId, msg: Matchable): Unit
+  def ask[A](gameId: GameId)(makeMsg: Promise[A] => Matchable): Fu[A]
+  def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]]

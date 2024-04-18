@@ -9,8 +9,9 @@ import scala.util.chaining.*
 
 import lila.common.Bus
 import lila.common.Json.given
-import lila.game.actorApi.{ FinishGame, MoveGameEvent }
+import lila.core.game.FinishGame
 import lila.game.{ Game, GameRepo }
+import lila.game.actorApi.MoveGameEvent
 
 final class ApiMoveStream(
     gameRepo: GameRepo,

@@ -5,21 +5,22 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.IpAddress
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.net.IpAddress
 import lila.common.String.html.richText
 import scalalib.paginator.Paginator
 import lila.mod.IpRender.RenderIp
 import lila.security.{ FingerHash, IpTrust }
-import lila.user.{ Me, User }
+
+import lila.user.WithPerfsAndEmails
 
 object search:
 
-  def apply(form: Form[?], users: List[User.WithPerfsAndEmails])(using PageContext, Me) =
+  def apply(form: Form[?], users: List[WithPerfsAndEmails])(using PageContext, Me) =
     views.html.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
-      moreJs = jsModule("mod.search")
+      modules = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -40,14 +41,14 @@ object search:
 
   def print(
       fh: FingerHash,
-      users: List[User.WithPerfsAndEmails],
+      users: List[WithPerfsAndEmails],
       uas: List[String],
       blocked: Boolean
   )(using PageContext, Me) =
     views.html.base.layout(
       title = "Fingerprint",
       moreCss = cssTag("mod.misc"),
-      moreJs = jsModule("mod.search")
+      modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -81,7 +82,7 @@ object search:
 
   def ip(
       address: IpAddress,
-      users: List[lila.user.User.WithPerfsAndEmails],
+      users: List[lila.user.WithPerfsAndEmails],
       uas: List[String],
       data: IpTrust.IpData,
       blocked: Boolean
@@ -89,7 +90,7 @@ object search:
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
-      moreJs = jsModule("mod.search")
+      modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -119,11 +120,11 @@ object search:
         )
       )
 
-  def clas(c: lila.clas.Clas, users: List[User.WithPerfsAndEmails])(using PageContext, Me) =
+  def clas(c: lila.clas.Clas, users: List[WithPerfsAndEmails])(using PageContext, Me) =
     views.html.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
-      moreJs = jsModule("mod.search")
+      modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -186,7 +187,7 @@ object search:
     views.html.base.layout(
       title = "Mod notes",
       moreCss = frag(cssTag("mod.misc"), cssTag("slist")),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("notes"),

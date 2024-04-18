@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object twoFactor:
 
@@ -74,7 +74,7 @@ object twoFactor:
       div(cls := "twofactor box box-pad")(
         boxTop(
           h1(
-            i(cls := "is-green text", dataIcon := licon.Checkmark),
+            i(cls := "is-green text", dataIcon := Icon.Checkmark),
             twoFactorEnabled()
           )
         ),

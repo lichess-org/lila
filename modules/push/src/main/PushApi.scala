@@ -7,20 +7,20 @@ import lila.core.challenge.Challenge
 import lila.common.String.shorten
 import lila.common.LilaFuture
 import lila.core.LightUser
-import lila.game.{ Game, Namer, Pov }
-import lila.core.actorApi.map.Tell
-import lila.core.actorApi.push.TourSoon
+import lila.core.misc.map.Tell
+import lila.core.misc.push.TourSoon
 import lila.core.round.{ IsOnGame, MoveEvent }
-import lila.core.notify.*
-import lila.core.LazyFu
+import lila.core.data.LazyFu
+import lila.core.study.data.StudyName
 import lila.core.notify.*
 
 final private class PushApi(
     firebasePush: FirebasePush,
     webPush: WebPush,
-    proxyRepo: lila.round.GameProxyRepo,
-    roundMobile: lila.round.RoundMobile,
-    gameRepo: lila.game.GameRepo,
+    gameProxy: lila.core.game.GameProxy,
+    roundJson: lila.core.round.RoundJson,
+    gameRepo: lila.core.game.GameRepo,
+    namer: lila.core.game.Namer,
     notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
@@ -79,7 +79,7 @@ final private class PushApi(
 
   def move(move: MoveEvent): Funit =
     LilaFuture.delay(2 seconds):
-      proxyRepo
+      gameProxy
         .game(move.gameId)
         .flatMap:
           _.filter(_.playable).so: game =>
@@ -88,7 +88,7 @@ final private class PushApi(
                 pov.player.userId.so: userId =>
                   val data = LazyFu: () =>
                     for
-                      _ <- proxyRepo.flushIfPresent(
+                      _ <- gameProxy.flushIfPresent(
                         game.id
                       ) // ensure game is updated before we count user games
                       nbMyTurn <- gameRepo.countWhereUserTurn(userId)
@@ -113,7 +113,7 @@ final private class PushApi(
 
   def takebackOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
-      proxyRepo
+      gameProxy
         .game(gameId)
         .flatMap:
           _.filter(_.playable).so: game =>
@@ -142,7 +142,7 @@ final private class PushApi(
 
   def drawOffer(gameId: GameId): Funit =
     LilaFuture.delay(1 seconds):
-      proxyRepo
+      gameProxy
         .game(gameId)
         .flatMap:
           _.filter(_.playable).so: game =>
@@ -188,8 +188,8 @@ final private class PushApi(
         alwaysPushFirebaseData(userId, _.corresAlarm, data)
 
   private def corresGamePayload(pov: Pov, typ: String, userId: UserId): Fu[Data.Payload] =
-    roundMobile
-      .offline(pov.game, pov.fullId.anyId)
+    roundJson
+      .mobileOffline(pov.game, pov.fullId.anyId)
       .map: round =>
         payload(userId)(
           "type"   -> typ,
@@ -430,7 +430,7 @@ final private class PushApi(
         else f
 
   private def asyncOpponentName(pov: Pov): Fu[String] =
-    Namer.playerText(pov.opponent)(using lightUser.optional)
+    namer.playerText(pov.opponent)(using lightUser.optional)
 
 private object PushApi:
 

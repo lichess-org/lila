@@ -4,7 +4,9 @@ package game
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ChessHelper.underscoreFen
+import lila.game.GameExt.perfType
 
 object side:
 
@@ -13,11 +15,11 @@ object side:
   private val dataTime   = attr("data-time")
 
   def apply(
-      pov: lila.game.Pov,
+      pov: Pov,
       initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
     ctx.noBlind.option(
@@ -28,23 +30,23 @@ object side:
     )
 
   def meta(
-      pov: lila.game.Pov,
+      pov: Pov,
       initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
     ctx.noBlind.option {
       import pov.*
       div(cls := "game__meta")(
         st.section(
-          div(cls := "game__meta__infos", dataIcon := bits.gameIcon(game))(
+          div(cls := "game__meta__infos", dataIcon := ui.gameIcon(game))(
             div(
               div(cls := "header")(
                 div(cls := "setup")(
                   views.html.bookmark.toggle(game, bookmarked),
-                  if game.imported then
+                  if game.sourceIs(_.Import) then
                     div(
                       a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
                       separator,
@@ -109,12 +111,12 @@ object side:
         ),
         userTv.map: u =>
           st.section(cls := "game__tv"):
-            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := licon.AnalogTv)(u.titleUsername)
+            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := Icon.AnalogTv)(u.titleUsername)
         ,
         tour
           .map: t =>
             st.section(cls := "game__tournament")(
-              a(cls := "text", dataIcon := licon.Trophy, href := routes.Tournament.show(t.tour.id)):
+              a(cls := "text", dataIcon := Icon.Trophy, href := routes.Tournament.show(t.tour.id)):
                 t.tour.name()
               ,
               div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)

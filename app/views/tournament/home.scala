@@ -4,8 +4,8 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.web.LangPath
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament
 
@@ -21,12 +21,12 @@ object home:
       title = trans.site.tournaments.txt(),
       moreCss = cssTag("tournament.home"),
       wrapClass = "full-screen-force",
-      moreJs = infiniteScrollTag,
+      modules = infiniteScrollTag,
       pageModule = PageModule(
         "tournament.schedule",
         Json.obj("data" -> json, "i18n" -> bits.scheduleJsI18n)
       ).some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           url = s"$netBaseUrl${routes.Tournament.home.url}",
           title = trans.site.tournamentHomeTitle.txt(),
@@ -80,7 +80,7 @@ object home:
                 a(
                   href     := routes.Tournament.form,
                   cls      := "button button-green text",
-                  dataIcon := licon.PlusButton
+                  dataIcon := Icon.PlusButton
                 )(trans.site.createANewTournament())
               )
             )

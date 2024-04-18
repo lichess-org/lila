@@ -10,6 +10,7 @@ import lila.game.Game
 import lila.game.PgnDump.WithFlags
 import lila.team.GameTeams
 import lila.core.i18n.Translate
+import lila.web.RealPlayers
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,
@@ -43,7 +44,7 @@ final class PgnDump(
         if flags.literate then annotator(evaled, game, analysis)
         else evaled
       .map: pgn =>
-        realPlayers.fold(pgn)(_.update(game, pgn))
+        realPlayers.fold(pgn)(_.update(game.userIdPair, pgn))
 
   def formatter(flags: WithFlags)(using
       Translate

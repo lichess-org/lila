@@ -4,6 +4,7 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.forum.ForumTopic
+import lila.core.id.{ ForumCategId, ForumTopicId }
 
 private[controllers] trait ForumController:
   self: LilaController =>

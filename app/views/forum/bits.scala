@@ -4,9 +4,8 @@ package forum
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.ForumPost
-import lila.security.Granter
 
 object bits:
 
@@ -25,7 +24,7 @@ object bits:
   def authorLink(post: ForumPost, cssClass: Option[String] = None, withOnline: Boolean = true)(using
       PageContext
   ): Frag =
-    if !Granter.opt(_.ModerateForum) && post.erased
+    if !isGranted(_.ModerateForum) && post.erased
     then span(cls := "author")("<erased>")
     else
       userIdLink(

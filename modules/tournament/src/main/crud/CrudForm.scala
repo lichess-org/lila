@@ -6,7 +6,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.*
-import lila.user.Me
 
 final class CrudForm(repo: TournamentRepo, forms: TournamentForm):
 

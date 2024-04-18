@@ -8,10 +8,10 @@ import lila.app.{ *, given }
 import lila.chat.Chat
 import lila.common.Json.given
 import lila.common.HTTPRequest
-import lila.game.{ Game as GameModel, PgnDump, Pov }
 import lila.tournament.Tournament as Tour
-import lila.user.{ User as UserModel }
-import lila.core.Preload
+import lila.core.data.Preload
+import lila.core.id.{ GameFullId, GameAnyId }
+import lila.round.RoundGame.*
 
 final class Round(
     env: Env,
@@ -30,7 +30,7 @@ final class Round(
     pov.game.playableByAi.so(env.fishnet.player(pov.game))
     for
       tour  <- env.tournament.api.gameView.player(pov)
-      users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfType)
+      users <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
       _ = gameC.preloadUsers(users)
       res <- negotiateApi(
         html =
@@ -153,7 +153,7 @@ final class Round(
             if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
             else if HTTPRequest.isHuman(ctx.req) then
               for
-                users      <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfType)
+                users      <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
                 tour       <- env.tournament.api.gameView.watcher(pov.game)
                 simul      <- pov.game.simulId.so(env.simul.repo.find)
                 chat       <- getWatcherChat(pov.game)
@@ -177,13 +177,14 @@ final class Round(
             else
               for // web crawlers don't need the full thing
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-                pgn        <- env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
-                page       <- renderPage(html.round.watcher.crawler(pov, initialFen, pgn))
+                pgn <- env.api
+                  .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
+                page <- renderPage(html.round.watcher.crawler(pov, initialFen, pgn))
               yield Ok(page)
           ,
           api = _ =>
             for
-              users    <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfType)
+              users    <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
               tour     <- env.tournament.api.gameView.watcher(pov.game)
               data     <- env.api.roundApi.watcher(pov, users, tour, tv = none)
               analysis <- env.analyse.analyser.get(pov.game)
@@ -242,7 +243,7 @@ final class Round(
             yield Chat
               .GameOrEvent:
                 Left:
-                  Chat.Restricted(chat, lines, restricted = game.fromLobby && ctx.isAnon)
+                  Chat.Restricted(chat, lines, restricted = game.sourceIs(_.Lobby) && ctx.isAnon)
               .some
 
   def sides(gameId: GameId, color: String) = Open:
@@ -312,10 +313,10 @@ final class Round(
             .isAllowedIn(pov.game, Preload.none)
             .map:
               if _ then
-                env.round.tellRound(pov.gameId, Moretime(pov.playerId, seconds.seconds))
+                env.round.roundApi.tell(pov.gameId, Moretime(pov.playerId, seconds.seconds))
                 jsonOkResult
               else BadRequest(jsonError("This game doesn't allow giving time"))
   }
 
   def help = Open:
-    Ok.page(html.site.help.round)
+    Ok.page(lila.web.views.help.round)

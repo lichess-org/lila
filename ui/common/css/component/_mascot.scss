@@ -9,7 +9,7 @@
   .mascot {
     width: 160px;
     height: 160px;
-    margin: -4em var(--box-padding) 1vh 1vw;
+    margin: -4em var(---box-padding) 1vh 1vw;
     @media (max-width: at-most($x-small)) {
       display: none;
       margin: 0;
@@ -17,7 +17,7 @@
   }
 
   &__content {
-    padding: 3vh var(--box-padding);
+    padding: 3vh var(---box-padding);
     .mascot__intro {
       font-size: 1.3em;
     }

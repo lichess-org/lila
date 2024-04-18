@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
+import scalalib.Json.given
 import views.*
 
 import lila.app.{ *, given }
@@ -10,8 +11,8 @@ import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.core.LightUser
 import lila.relation.Related
 import lila.relation.RelationStream.*
-import lila.user.User as UserModel
-import lila.user.User.WithPerfs
+import lila.core.perf.UserWithPerfs
+import lila.rating.UserPerfsExt.bestRatedPerf
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -111,16 +112,15 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         .map(env.api.userApi.one(_, None))
   }
 
-  private def jsonRelatedPaginator(pag: Paginator[Related[WithPerfs]]) =
+  private def jsonRelatedPaginator(pag: Paginator[Related[UserWithPerfs]]) =
     import lila.common.Json.{ *, given }
-    given Writes[WithPerfs] = writeAs(_.user.light)
+    given Writes[UserWithPerfs] = writeAs(_.user.light)
     import lila.relation.JsonView.given
-    import lila.common.Json.paginatorWrite
     Json.obj("paginator" -> pag.mapResults: r =>
       Json.toJsObject(r) ++ Json
         .obj:
           "perfs" -> r.user.perfs.bestRatedPerf.map:
-            lila.user.JsonView.perfTypedJson
+            lila.user.JsonView.keyedPerfJson
         .add("online" -> env.socket.isOnline(r.user.id)))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
@@ -138,7 +138,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
       maxPerPage = MaxPerPage(30)
     )
 
-  private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related[WithPerfs]]] = for
+  private def followship(userIds: Seq[UserId])(using ctx: Context): Fu[List[Related[UserWithPerfs]]] = for
     users       <- env.user.api.listWithPerfs(userIds.toList)
     followables <- ctx.isAuth.so(env.pref.api.followableIds(users.map(_.id)))
     rels <- users.traverse: u =>

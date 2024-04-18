@@ -4,18 +4,15 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
-import lila.game.{ Game, Pov }
-import lila.core.perf.PerfType
+import lila.ui.ScalatagsTemplate.*
+
+import lila.rating.PerfType
+import lila.game.GameExt.perfType
+
+lazy val ui         = lila.game.ui.GameUi(i18nHelper, dateHelper)(routeRoundWatcher = routes.Round.watcher)
+lazy val crosstable = ui.crosstable(userId => _ ?=> userIdLink(userId.some, withOnline = false))
 
 object bits:
-
-  def gameIcon(game: Game): Icon =
-    if game.fromPosition then licon.Feather
-    else if game.imported then licon.UploadCloud
-    else if game.variant.exotic then game.perfType.icon
-    else if game.hasAi then licon.Cogs
-    else game.perfType.icon
 
   def sides(
       pov: Pov,
@@ -23,7 +20,7 @@ object bits:
       tour: Option[lila.tournament.TourAndTeamVs],
       cross: Option[lila.game.Crosstable.WithMatchup],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context) =
     div(

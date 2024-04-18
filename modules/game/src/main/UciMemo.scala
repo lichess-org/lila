@@ -3,7 +3,9 @@ package lila.game
 import chess.format.UciDump
 import com.github.blemale.scaffeine.Cache
 
-final class UciMemo(gameRepo: GameRepo)(using Executor):
+import lila.core.game.Game
+
+final class UciMemo(gameRepo: GameRepo)(using Executor) extends lila.core.game.UciMemo:
 
   type UciVector = Vector[String]
 
@@ -23,7 +25,8 @@ final class UciMemo(gameRepo: GameRepo)(using Executor):
   def set(game: Game, uciMoves: Seq[String]) =
     cache.put(game.id, uciMoves.toVector)
 
-  def get(game: Game, max: Int = hardLimit): Fu[UciVector] =
+  def get(game: Game): Fu[UciVector] = get(game, hardLimit)
+  def get(game: Game, max: Int): Fu[UciVector] =
     cache
       .getIfPresent(game.id)
       .filter(_.size.atMost(max) == game.sans.size.atMost(max))

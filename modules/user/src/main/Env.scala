@@ -3,11 +3,12 @@ package lila.user
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.Configuration
-import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.*
 import lila.common.config.given
 import lila.core.config.*
+import lila.core.perf
+import lila.core.userId
 
 private class UserConfig(
     @ConfigName("online.ttl") val onlineTtl: FiniteDuration,
@@ -28,7 +29,7 @@ final class Env(
     isOnline: lila.core.socket.IsOnline,
     onlineIds: lila.core.socket.OnlineIds,
     assetBaseUrlInternal: AssetBaseUrlInternal
-)(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer, play.api.Mode):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
@@ -47,9 +48,6 @@ final class Env(
     isBotSync
   }
 
-  lazy val botIds     = GetBotIds(() => cached.botIds.get {})
-  lazy val rankingsOf = RankingsOf(cached.rankingsOf)
-
   lazy val jsonView = wire[JsonView]
 
   lazy val noteApi = NoteApi(repo, db(CollName("note")))
@@ -60,7 +58,8 @@ final class Env(
 
   lazy val rankingApi = wire[RankingApi]
 
-  lazy val cached: Cached = wire[Cached]
+  lazy val cached: Cached                           = wire[Cached]
+  def rankingsOf: UserId => lila.rating.UserRankMap = cached.rankingsOf
 
   lazy val passwordHasher = PasswordHasher(
     secret = config.passwordBPassSecret,
@@ -73,8 +72,9 @@ final class Env(
   lazy val forms = wire[UserForm]
 
   val flairApi = wire[FlairApi]
-
   export flairApi.{ flairOf, flairsOf }
+
+  val flagApi: lila.core.user.FlagApi = Flags
 
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>

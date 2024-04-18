@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.tournament.{ TeamBattle, Tournament }
 
 object teamBattle:
@@ -14,7 +14,7 @@ object teamBattle:
     views.html.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      moreJs = jsModule("teamBattleForm")
+      modules = jsModule("bits.teamBattleForm")
     ):
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
@@ -117,7 +117,7 @@ object teamBattle:
               tr(
                 td(index + 1),
                 td(
-                  (index < tour.teamBattle.so(_.nbLeaders)).option(iconTag(licon.Crown)),
+                  (index < tour.teamBattle.so(_.nbLeaders)).option(iconTag(Icon.Crown)),
                   userIdLink(player.userId.some)
                 ),
                 td(player.score),

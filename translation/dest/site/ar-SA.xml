@@ -336,6 +336,7 @@
   <string name="abortGame">إلغاء اللعبة</string>
   <string name="gameAborted">اللعبة ألغيت</string>
   <string name="standard">عادي</string>
+  <string name="customPosition">موضع مخصص</string>
   <string name="unlimited">غير محدود</string>
   <string name="mode">مقيمة أو غير مقيمة</string>
   <string name="casual">غير مقيّمة</string>
@@ -1154,4 +1155,5 @@
   <string name="showMeEverything">اظهر لي كل شيء</string>
   <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
 كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
+  <string name="nothingToSeeHere">لا يوجد شيء يمكن رؤيته هنا في الوقت الحالي.</string>
 </resources>

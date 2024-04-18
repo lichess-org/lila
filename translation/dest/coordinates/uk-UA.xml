@@ -5,7 +5,7 @@
   <string name="averageScoreAsWhiteX">Середній результат за білих: %s</string>
   <string name="averageScoreAsBlackX">Середній результат за чорних: %s</string>
   <string name="knowingTheChessBoard">Знання координат шахівниці - дуже важлива шахова навичка:</string>
-  <string name="mostChessCourses">У більшосты шахових задач активно використовуються шахова нотація.</string>
+  <string name="mostChessCourses">У більшості шахових задач активно використовуються шахова нотація.</string>
   <string name="talkToYourChessFriends">Це спрощує розмову з друзями-шахістами, бо Ви обидва розумієте «мову шахів».</string>
   <string name="youCanAnalyseAGameMoreEffectively">Ви можете більш ефективно аналізувати ігри, якщо вам не потрібно шукати координати.</string>
   <string name="aCoordinateAppears">Координата з\'являється на дошці, ви повинні натиснути на відповідний квадрат.</string>

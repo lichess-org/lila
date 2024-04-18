@@ -38,7 +38,7 @@ const layoutHacks = () => {
   cancelAnimationFrame(animationFrameId); // avoid more than one call per frame
   animationFrameId = requestAnimationFrame(() => {
     $('main.lobby').each(function (this: HTMLElement) {
-      const newCols = Number(window.getComputedStyle(this).getPropertyValue('--cols'));
+      const newCols = Number(window.getComputedStyle(this).getPropertyValue('---cols'));
       if (newCols != cols) {
         cols = newCols;
         if (cols > 2) $('.lobby .lobby__timeline').appendTo('.lobby__side');

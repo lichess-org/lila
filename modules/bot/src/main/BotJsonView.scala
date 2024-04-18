@@ -4,18 +4,20 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.game.JsonView.given
-import lila.game.{ Game, GameRepo, Pov }
+import lila.core.game.{ Game, GameRepo, Pov, WithInitialFen }
 import lila.core.i18n.Translate
+import lila.game.GameExt.perfType
+import chess.Color
 
 final class BotJsonView(
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     gameRepo: GameRepo,
     rematches: lila.game.Rematches
 )(using Executor):
 
   def gameFull(game: Game)(using Translate): Fu[JsObject] = gameRepo.withInitialFen(game).flatMap(gameFull)
 
-  def gameFull(wf: Game.WithInitialFen)(using Translate): Fu[JsObject] =
+  def gameFull(wf: WithInitialFen)(using Translate): Fu[JsObject] =
     gameState(wf).map { state =>
       gameImmutable(wf) ++ Json.obj(
         "type"  -> "gameFull",
@@ -23,7 +25,7 @@ final class BotJsonView(
       )
     }
 
-  def gameImmutable(wf: Game.WithInitialFen)(using Translate): JsObject =
+  def gameImmutable(wf: WithInitialFen)(using Translate): JsObject =
     import wf.*
     Json
       .obj(
@@ -33,23 +35,23 @@ final class BotJsonView(
         "perf"       -> Json.obj("name" -> game.perfType.trans),
         "rated"      -> game.rated,
         "createdAt"  -> game.createdAt,
-        "white"      -> playerJson(game.whitePov),
-        "black"      -> playerJson(game.blackPov),
+        "white"      -> playerJson(game.pov(Color.white)),
+        "black"      -> playerJson(game.pov(Color.black)),
         "initialFen" -> fen.fold("startpos")(_.value)
       )
       .add("clock" -> game.clock.map(_.config))
       .add("daysPerTurn" -> game.daysPerTurn)
       .add("tournamentId" -> game.tournamentId)
 
-  def gameState(wf: Game.WithInitialFen): Fu[JsObject] =
+  def gameState(wf: WithInitialFen): Fu[JsObject] =
     import wf.*
     chess.format.UciDump(game.sans, fen, game.variant).toFuture.map { uciMoves =>
       Json
         .obj(
           "type"   -> "gameState",
           "moves"  -> uciMoves.mkString(" "),
-          "wtime"  -> game.whitePov.millisRemaining,
-          "btime"  -> game.blackPov.millisRemaining,
+          "wtime"  -> millisRemaining(game, Color.white),
+          "btime"  -> millisRemaining(game, Color.black),
           "winc"   -> (game.clock.so(_.config.increment.millis): Long),
           "binc"   -> (game.clock.so(_.config.increment.millis): Long),
           "status" -> game.status.name
@@ -61,6 +63,12 @@ final class BotJsonView(
         .add("winner" -> game.winnerColor)
         .add("rematch" -> rematches.getAcceptedId(game.id))
     }
+
+  private def millisRemaining(game: Game, color: Color): Int =
+    game.clock
+      .map(_.remainingTime(color).millis.toInt)
+      .orElse(game.correspondenceClock.map(_.remainingTime(color).toInt * 1000))
+      .getOrElse(Int.MaxValue)
 
   def chatLine(username: UserName, text: String, player: Boolean) =
     Json.obj(

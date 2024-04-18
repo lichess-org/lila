@@ -4,7 +4,6 @@ import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.user.User
 
 case class PuzzleDashboard(
     global: PuzzleDashboard.Results,

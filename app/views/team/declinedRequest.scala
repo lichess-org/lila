@@ -2,7 +2,7 @@ package views.html.team
 import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 
 object declinedRequest:
@@ -17,7 +17,7 @@ object declinedRequest:
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("team")),
-      moreJs = jsModule("team.admin")
+      modules = jsModule("mod.team.admin")
     ) {
       val pager = views.html.base.bits
         .paginationByQuery(teamRoutes.declinedRequests(team.id, 1), requests, showPost = true)
@@ -43,7 +43,7 @@ object declinedRequest:
                   value       := search,
                   placeholder := trans.search.search.txt()
                 ),
-                submitButton(cls := "button", dataIcon := licon.Search)
+                submitButton(cls := "button", dataIcon := Icon.Search)
               )
             )
           ),

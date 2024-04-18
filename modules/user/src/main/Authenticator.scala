@@ -1,11 +1,10 @@
 package lila.user
 
 import com.roundeights.hasher.Implicits.*
-import reactivemongo.api.bson.*
 
-import lila.core.NormalizedEmailAddress
 import lila.db.dsl.{ *, given }
-import lila.user.User.{ BSONFields as F, ClearPassword, PasswordAndToken }
+import lila.user.{ BSONFields as F }
+import lila.core.email.NormalizedEmailAddress
 
 final class Authenticator(
     passHasher: PasswordHasher,
@@ -31,13 +30,13 @@ final class Authenticator(
   ): Fu[Option[User]] =
     loginCandidateByEmail(email).map { _.flatMap { _.option(passwordAndToken) } }
 
-  def loginCandidate(using me: Me): Fu[User.LoginCandidate] =
-    loginCandidateById(me.userId).dmap { _ | User.LoginCandidate(me, _ => false, false) }
+  def loginCandidate(using me: Me): Fu[LoginCandidate] =
+    loginCandidateById(me.userId).dmap { _ | LoginCandidate(me, _ => false, false) }
 
-  def loginCandidateById(id: UserId): Fu[Option[User.LoginCandidate]] =
+  def loginCandidateById(id: UserId): Fu[Option[LoginCandidate]] =
     loginCandidate($id(id))
 
-  def loginCandidateByEmail(email: NormalizedEmailAddress): Fu[Option[User.LoginCandidate]] =
+  def loginCandidateByEmail(email: NormalizedEmailAddress): Fu[Option[LoginCandidate]] =
     loginCandidate($doc(F.email -> email))
 
   def setPassword(id: UserId, p: ClearPassword): Funit =
@@ -54,10 +53,11 @@ final class Authenticator(
       setPassword(id = auth._id, p).andDo(lila.mon.user.auth.bcFullMigrate.increment())
     res
 
-  private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] = {
+  private def loginCandidate(select: Bdoc): Fu[Option[LoginCandidate]] = {
+    import BSONHandlers.given
     userRepo.coll.one[AuthData](select, authProjection).zip(userRepo.coll.one[User](select)).map {
       case (Some(authData), Some(user)) =>
-        User.LoginCandidate(user, authWithBenefits(authData), authData.isBlanked).some
+        LoginCandidate(user, authWithBenefits(authData), authData.isBlanked).some
       case _ => none
     }
   }.recover {
@@ -82,10 +82,3 @@ object Authenticator:
     F.salt   -> true,
     F.sha512 -> true
   )
-
-  private[user] given BSONHandler[HashedPassword] = quickHandler[HashedPassword](
-    { case v: BSONBinary => HashedPassword(v.byteArray) },
-    v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
-  )
-
-  given BSONDocumentHandler[AuthData] = Macros.handler[AuthData]

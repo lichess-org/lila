@@ -9,12 +9,14 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.libs.json.Json
 
-import lila.core.{ Bearer, Days, Template }
+import lila.core.data.Template
+import lila.core.net.Bearer
 import lila.game.IdGenerator
 import lila.core.game.GameRule
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
-import lila.core.perf.PerfType
-import lila.user.{ User, Me }
+import lila.rating.PerfType
+
+import scalalib.model.Days
 
 final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
@@ -82,8 +84,7 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
 final class ChallengeBulkSetupApi(
     oauthServer: OAuthServer,
-    idGenerator: IdGenerator,
-    userRepo: lila.user.UserRepo
+    idGenerator: IdGenerator
 )(using Executor, akka.stream.Materializer):
 
   import ChallengeBulkSetup.*
@@ -97,13 +98,12 @@ final class ChallengeBulkSetupApi(
   )
 
   def apply(data: BulkFormData, me: User): Fu[Result] =
-    given OAuthServer.FetchUser[Me] = userRepo.me
     Source(extractTokenPairs(data.tokens))
       .mapConcat: (whiteToken, blackToken) =>
         List(whiteToken, blackToken) // flatten now, re-pair later!
       .mapAsync(8): token =>
         oauthServer
-          .auth[Me](token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
+          .auth(token, OAuthScope.select(_.Challenge.Write).into(EndpointScopes), none)
           .map {
             _.left.map { BadToken(token, _) }
           }
@@ -249,7 +249,7 @@ object ChallengeBulkSetup:
       .add("rules" -> nonEmptyRules)
       .add("fen" -> fen)
 
-  private[challenge] def extractTokenPairs(str: String): List[(Bearer, Bearer)] =
+  private[challenge] def extractTokenPairs(str: String): List[PairOf[Bearer]] =
     str
       .split(',')
       .view

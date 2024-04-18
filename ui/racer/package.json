@@ -20,9 +20,7 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "racer"
-      }
+      "src/racer.ts": "racer"
     }
   }
 }

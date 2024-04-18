@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.core.socket.SocketVersion
 
@@ -20,9 +20,9 @@ object show:
     views.html.base.layout(
       title = s.name.value,
       moreCss = cssTag("analyse.study"),
-      moreJs = analyseNvuiTag,
+      modules = analyseNvuiTag,
       pageModule = PageModule(
-        "analysisBoard.study",
+        "analyse.study",
         Json.obj(
           "study" -> data.study
             .add("admin", isGranted(_.StudyAdmin))
@@ -50,7 +50,7 @@ object show:
       robots = s.isPublic,
       zoomable = true,
       csp = analysisCsp.withPeer.withExternalAnalysisApis.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = s.name.value,
           url = s"$netBaseUrl${routes.Study.show(s.id).url}",

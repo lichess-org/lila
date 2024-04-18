@@ -30,7 +30,7 @@ export default function resizeHandle(
     const mousemoveEvent = start.type === 'touchstart' ? 'touchmove' : 'mousemove',
       mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup',
       startPos = eventPosition(start)!,
-      initialZoom = parseInt(window.getComputedStyle(document.body).getPropertyValue('--zoom'));
+      initialZoom = parseInt(window.getComputedStyle(document.body).getPropertyValue('---zoom'));
     let zoom = initialZoom;
 
     const saveZoom = debounce(() => xhr.text(`/pref/zoom?v=${zoom}`, { method: 'post' }), 700);
@@ -41,7 +41,7 @@ export default function resizeHandle(
 
       zoom = Math.round(Math.min(100, Math.max(0, initialZoom + delta / 10)));
 
-      document.body.style.setProperty('--zoom', zoom.toString());
+      document.body.style.setProperty('---zoom', zoom.toString());
       window.dispatchEvent(new Event('resize'));
 
       saveZoom();

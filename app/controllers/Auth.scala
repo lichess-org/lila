@@ -6,13 +6,13 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.core.EmailAddress
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
-import lila.user.User.ClearPassword
-import lila.user.{ PasswordHasher, User as UserModel }
-import lila.core.IpAddress
+import lila.user.ClearPassword
+import lila.user.{ PasswordHasher }
+import lila.core.net.IpAddress
+import lila.core.email.{ UserStrOrEmail, UserIdOrEmail }
 
 final class Auth(
     env: Env,
@@ -32,7 +32,7 @@ final class Auth(
     )
 
   private def getReferrerOption(using ctx: Context): Option[String] =
-    get("referrer").flatMap(env.api.referrerRedirect.valid).orElse(ctx.req.session.get(api.AccessUri))
+    get("referrer").flatMap(env.web.referrerRedirect.valid).orElse(ctx.req.session.get(api.AccessUri))
 
   private def getReferrer(using Context): String = getReferrerOption | routes.Lobby.home.url
 
@@ -79,12 +79,12 @@ final class Auth(
   def loginLang = LangPage(routes.Auth.login)(serveLogin)
 
   private def serveLogin(using ctx: Context) = NoBot:
-    val referrer = get("referrer").flatMap(env.api.referrerRedirect.valid)
+    val referrer = get("referrer").flatMap(env.web.referrerRedirect.valid)
     val switch   = get("switch")
     referrer.ifTrue(ctx.isAuth).ifTrue(switch.isEmpty) match
       case Some(url) => Redirect(url) // redirect immediately if already logged in
       case None =>
-        val prefillUsername = lila.core.UserStrOrEmail(~switch.filter(_ != "1"))
+        val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
         val form            = api.loginFormFilled(prefillUsername)
         Ok.page(html.auth.login(form, referrer)).map(_.withCanonical(routes.Auth.login))
 
@@ -94,7 +94,7 @@ final class Auth(
     NoCrawlers:
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
-        val referrer                = get("referrer").filterNot(env.api.referrerRedirect.sillyLoginReferrers)
+        val referrer                = get("referrer").filterNot(env.web.referrerRedirect.sillyLoginReferrers)
         api.loginForm
           .bindFromRequest()
           .fold(
@@ -215,7 +215,7 @@ final class Auth(
     env.pref.api.saveNewUserPrefs(user, ctx.req)
 
   private def garbageCollect(user: UserModel)(email: EmailAddress)(using ctx: Context) =
-    env.security.garbageCollector.delay(user, email, ctx.req, quickly = lila.api.AnnounceStore.get.isDefined)
+    env.security.garbageCollector.delay(user, email, ctx.req, quickly = lila.web.AnnounceApi.get.isDefined)
 
   def checkYourEmail = Open:
     RedirectToProfileIfLoggedIn:

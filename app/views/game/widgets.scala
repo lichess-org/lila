@@ -2,8 +2,10 @@ package views.html
 package game
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.{ Game, Player, Pov }
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.game.{ Player }
+import lila.game.GameExt.perfType
+import lila.game.Player.nameSplit
 
 object widgets:
 
@@ -12,7 +14,7 @@ object widgets:
   def apply(
       games: Seq[Game],
       notes: Map[GameId, String] = Map(),
-      user: Option[lila.user.User] = None,
+      user: Option[User] = None,
       ownerLink: Boolean = false
   )(using Context): Frag =
     games.map { g =>
@@ -24,10 +26,10 @@ object widgets:
           views.html.board.bits.mini(Pov(g, firstPlayer))(span)
         ),
         div(cls := "game-row__infos")(
-          div(cls := "header", dataIcon := bits.gameIcon(g))(
+          div(cls := "header", dataIcon := ui.gameIcon(g))(
             div(cls := "header__text")(
               strong(
-                if g.imported then
+                if g.sourceIs(_.Import) then
                   frag(
                     span("IMPORT"),
                     g.pgnImport.flatMap(_.user).map { user =>
@@ -60,7 +62,7 @@ object widgets:
           ),
           div(cls := "versus")(
             gamePlayer(g.whitePlayer),
-            div(cls := "swords", dataIcon := licon.Swords),
+            div(cls := "swords", dataIcon := Icon.Swords),
             gamePlayer(g.blackPlayer)
           ),
           div(cls := "result")(
@@ -101,7 +103,7 @@ object widgets:
             div(cls := "notes")(strong("Notes: "), note)
           },
           g.metadata.analysed.option(
-            div(cls := "metadata text", dataIcon := licon.BarChart)(trans.site.computerAnalysisAvailable())
+            div(cls := "metadata text", dataIcon := Icon.BarChart)(trans.site.computerAnalysisAvailable())
           ),
           g.pgnImport.flatMap(_.user).map { user =>
             div(cls := "metadata")("PGN import by ", userIdLink(user.some))
@@ -127,17 +129,19 @@ object widgets:
 
   private def gamePlayer(player: Player)(using ctx: Context) =
     div(cls := s"player ${player.color.name}"):
-      player.playerUser
-        .map: playerUser =>
+      player.userId
+        .flatMap: uid =>
+          player.rating.map { (uid, _) }
+        .map: (userId, rating) =>
           frag(
-            userIdLink(playerUser.id.some, withOnline = false),
+            userIdLink(userId.some, withOnline = false),
             br,
             player.berserk.option(berserkIconSpan),
             ctx.pref.showRatings.option(
               frag(
-                playerUser.rating,
+                rating,
                 player.provisional.yes.option("?"),
-                playerUser.ratingDiff.map: d =>
+                player.ratingDiff.map: d =>
                   frag(" ", showRatingDiff(d))
               )
             )

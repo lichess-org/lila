@@ -3,10 +3,9 @@ package views.html.opening
 import chess.opening.{ Opening, OpeningKey }
 import controllers.routes
 import play.api.libs.json.Json
-import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.OpeningQuery.Query
 import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 
@@ -33,7 +32,7 @@ object bits:
                 resultSegments(next.result)
               ,
               span(cls := "opening__next__board"):
-                views.html.board.bits.mini(next.fen.board, lastMove = next.uci.some)(span)
+                chessgroundMini(next.fen.board, lastMove = next.uci.some)(span)
             )
           )
       )
@@ -43,7 +42,7 @@ object bits:
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
         div(cls := "opening__config__summary__short")(
-          iconTag(licon.Gear)
+          iconTag(Icon.Gear)
         ),
         div(cls := "opening__config__summary__large")(
           "Speed: ",

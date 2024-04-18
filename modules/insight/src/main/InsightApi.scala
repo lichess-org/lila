@@ -1,8 +1,7 @@
 package lila.insight
 
 import scalalib.HeapSort.botN
-import lila.game.{ Game, GameRepo, Pov }
-import lila.user.User
+import lila.game.{ GameRepo }
 
 final class InsightApi(
     storage: InsightStorage,
@@ -10,7 +9,8 @@ final class InsightApi(
     gameRepo: GameRepo,
     indexer: InsightIndexer,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor)
+    extends lila.game.core.insight.InsightApi:
 
   import InsightApi.*
 
@@ -64,7 +64,7 @@ final class InsightApi(
     indexer.all(user).monSuccess(_.insight.index).andDo(userCache.put(user.id, computeUser(user.id)))
 
   def updateGame(g: Game) =
-    Pov(g).traverse_ { pov =>
+    lila.game.Pov.list(g).traverse_ { pov =>
       pov.player.userId.so: userId =>
         storage.find(InsightEntry.povToId(pov)).flatMapz {
           indexer.update(g, userId, _)

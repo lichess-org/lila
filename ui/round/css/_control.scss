@@ -54,7 +54,7 @@
   @keyframes flash-once {
     from {
       background: $c-accent;
-      color: $c-accent-over;
+      color: $c-over;
     }
 
     to {
@@ -178,7 +178,7 @@
     }
 
     &.me {
-      background: mix($c-primary, $c-bg-box, 80%);
+      background: $m-primary_bg--mix-80;
     }
 
     @keyframes rubber-band {
@@ -247,7 +247,7 @@
     }
 
     &.fbt:not(.disabled):hover {
-      background: mix($c-link, $c-bg-box, 70%);
+      background: $m-primary_bg--mix-70;
       color: #fff;
       animation: none;
     }
@@ -263,7 +263,7 @@
       height: 6rem;
       border: 0;
       opacity: 0.7;
-      background: mix($c-bad, $c-bg-box, 50%);
+      background: $m-bad_bg--mix-50;
 
       @include transition;
 
@@ -275,7 +275,7 @@
 
       &:hover {
         background: $c-bad;
-        color: $c-bad-over;
+        color: $c-over;
         @include inline-end(-36px);
         width: 35px;
       }

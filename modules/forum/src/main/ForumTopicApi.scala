@@ -10,8 +10,7 @@ import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.forum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
-import lila.security.Granter as MasterGranter
-import lila.user.{ Me, User, given }
+import lila.core.perm.Granter as MasterGranter
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,
@@ -21,8 +20,8 @@ final private class ForumTopicApi(
     paginator: ForumPaginator,
     modLog: lila.core.mod.LogApi,
     config: ForumConfig,
-    spam: lila.security.Spam,
-    promotion: lila.security.PromotionApi,
+    spam: lila.core.security.SpamApi,
+    promotion: lila.core.security.PromotionApi,
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
@@ -112,7 +111,7 @@ final private class ForumTopicApi(
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
           yield
-            promotion.save(post.text)
+            promotion.save(me, post.text)
             val text = s"${topic.name} ${post.text}"
             if post.isTeam then shutupApi.teamForumMessage(me, text)
             else shutupApi.publicText(me, text, PublicSource.Forum(post.id))
@@ -124,7 +123,7 @@ final private class ForumTopicApi(
               )
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(CreatePost(post.mini), "forumPost")
+            Bus.chan.forumPost(CreatePost(post.mini))
             topic
       }
     }
@@ -160,7 +159,7 @@ final private class ForumTopicApi(
     _ <- postRepo.coll.insert.one(post)
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
     _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
-  yield Bus.publish(CreatePost(post.mini), "forumPost")
+  yield Bus.chan.forumPost(CreatePost(post.mini))
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ).flatMap { topics =>
@@ -177,7 +176,7 @@ final private class ForumTopicApi(
       }
     }
 
-  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using me: Me): Funit =
+  def toggleSticky(categ: ForumCateg, topic: ForumTopic)(using Me): Funit =
     topicRepo.sticky(topic.id, !topic.isSticky) >> {
       MasterGranter(_.ModerateForum).so(modLog.toggleStickyTopic(categ.id, topic.slug, !topic.isSticky))
     }

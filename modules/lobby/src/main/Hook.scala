@@ -5,10 +5,10 @@ import chess.{ Clock, Mode, Speed }
 import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
 
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
-import lila.user.User
+import lila.core.perf.UserWithPerfs
 
 // realtime chess, volatile
 case class Hook(
@@ -103,7 +103,7 @@ object Hook:
       clock: Clock.Config,
       mode: Mode,
       color: String,
-      user: Option[User.WithPerfs],
+      user: Option[UserWithPerfs],
       sid: Option[String],
       ratingRange: RatingRange,
       blocking: lila.core.pool.Blocking,

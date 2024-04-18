@@ -7,7 +7,7 @@
 
   &__list {
     display: grid;
-    margin-inline-start: var(--box-padding);
+    margin-inline-start: var(---box-padding);
     grid-template-columns: repeat(auto-fill, minmax(50ch, 1fr));
 
     @media (max-width: at-most($xx-small)) {
@@ -32,7 +32,7 @@
     }
 
     &:hover {
-      background: mix($c-bg-box, $c-link, 90%);
+      background: $m-primary_bg--mix-10;
 
       img {
         opacity: 1;
@@ -73,7 +73,7 @@
       @extend %box-neat;
 
       font-size: 1.2em;
-      background: mix($c-bg-box, $c-good, 80%);
+      background: $m-secondary_bg--mix-20;
       color: $c-good;
       margin: 2em 4em;
 
@@ -86,11 +86,11 @@
       }
 
       &:hover {
-        background: mix($c-bg-box, $c-good, 74%);
+        background: $m-secondary_bg--mix-25;
       }
 
       @media (max-width: at-most($small)) {
-        margin: 2em var(--box-padding) 2em 0;
+        margin: 2em var(---box-padding) 2em 0;
       }
     }
   }

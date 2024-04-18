@@ -1,5 +1,6 @@
 package lila.game
 
+import scalalib.model.Days
 import chess.Color.{ Black, White }
 import chess.MoveOrDrop.{ color, fold }
 import chess.format.pgn.SanStr
@@ -22,96 +23,18 @@ import chess.{
   Status
 }
 
-import lila.core.Days
 import lila.db.ByteArray
-import lila.core.user.User
-import lila.core.game.{ GameRule, Source }
-import lila.core.perf.{ PerfKey, PerfType }
+import lila.core.game.{ Pov, Game, Player, GameRule, Source, PgnImport, ClockHistory }
+import lila.rating.PerfType
+import lila.game.Blurs.addAtMoveIndex
 
-case class Game(
-    override val id: GameId,
-    players: ByColor[Player],
-    override val chess: ChessGame,
-    loadClockHistory: Clock => Option[ClockHistory] = _ => Game.someEmptyClockHistory,
-    status: Status,
-    daysPerTurn: Option[Days],
-    binaryMoveTimes: Option[ByteArray] = None,
-    mode: Mode = Mode.default,
-    bookmarks: Int = 0,
-    createdAt: Instant = nowInstant,
-    movedAt: Instant = nowInstant,
-    metadata: Metadata
-) extends lila.tree.Game
-    with lila.core.game.Game:
+object GameExt:
 
-  export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
-  export players.{ white as whitePlayer, black as blackPlayer, apply as player }
-
-  lazy val clockHistory = chess.clock.flatMap(loadClockHistory)
-
-  def drawOfferPlies                                   = drawOffers.normalizedPlies
-  def player(playerId: GamePlayerId): Option[Player]   = players.find(_.id == playerId)
-  def player[U: UserIdOf](user: U): Option[Player]     = players.find(_.isUser(user))
-  def opponentOf[U: UserIdOf](user: U): Option[Player] = player(user).map(opponent)
-
-  def player: Player = players(turnColor)
-
-  def hasUserIds(userId1: UserId, userId2: UserId) =
-    hasUserId(userId1) && hasUserId(userId2)
-
-  def hasUserId(userId: UserId) = players.exists(_.userId.has(userId))
-
-  def userIdPair: ByColor[Option[UserId]] = players.map(_.userId)
-
-  def opponent(p: Player): Player = opponent(p.color)
-  def opponent(c: Color): Player  = player(!c)
-
-  lazy val naturalOrientation =
-    if variant.racingKings then White else Color.fromWhite(players.reduce(_.before(_)))
-
-  def turnOf(p: Player): Boolean = p == player
-  def turnOf(c: Color): Boolean  = c == turnColor
-  def turnOf(u: User): Boolean   = player(u).so(turnOf)
-
-  def playedTurns = ply - startedAtPly
-
-  def flagged = (status == Status.Outoftime).option(turnColor)
-
-  def fullIdOf(player: Player): Option[GameFullId] =
-    players.contains(player).option(GameFullId(s"$id${player.id}"))
-
-  def fullIdOf(color: Color) = GameFullId(s"$id${player(color).id}")
-
-  def fullIds: ByColor[GameFullId] = ByColor(fullIdOf)
-
-  export tournamentId.{ isDefined as isTournament }
-  export simulId.{ isDefined as isSimul }
-  export swissId.{ isDefined as isSwiss }
-  def isMandatory          = isTournament || isSimul || isSwiss
-  def nonMandatory         = !isMandatory
-  def canTakebackOrAddTime = !isMandatory
-
-  def hasChat = !isTournament && !isSimul && !isSwiss && nonAi
-
-  // we can't rely on the clock,
-  // because if moretime was given,
-  // elapsed time is no longer representing the game duration
-  def durationSeconds: Option[Int] =
-    val seconds = movedAt.toSeconds - createdAt.toSeconds
-    (seconds < 60 * 60 * 12).option( // no way it lasted more than 12 hours, come on.
-      seconds.toInt
-    )
-
-  private def everyOther[A](l: List[A]): List[A] =
-    l match
-      case a :: _ :: tail => a :: everyOther(tail)
-      case _              => l
-
-  def moveTimes(color: Color): Option[List[Centis]] = {
+  def computeMoveTimes(g: Game, color: Color): Option[List[Centis]] = {
     for
-      clk <- clock
+      clk <- g.clock
       inc = clk.incrementOf(color)
-      history <- clockHistory
+      history <- g.clockHistory
       clocks = history(color)
     yield Centis(0) :: {
       val pairs = clocks.iterator.zip(clocks.iterator.drop(1))
@@ -125,7 +48,7 @@ case class Game(
       // On the other hand, if history.size is more than playedTurns,
       // then the game ended during a players turn by async event, and
       // the last recorded time is in the history for turnColor.
-      val noLastInc = finished && (playedTurns >= history.size) == (color != turnColor)
+      val noLastInc = g.finished && (g.playedTurns >= history.size) == (color != g.turnColor)
 
       pairs
         .map: (first, second) =>
@@ -135,473 +58,174 @@ case class Game(
           }.nonNeg
         .toList
     }
-  }.orElse(binaryMoveTimes.map: binary =>
+  }.orElse(g.binaryMoveTimes.map: binary =>
     // TODO: make movetime.read return List after writes are disabled.
-    val base = BinaryFormat.moveTime.read(binary, playedTurns)
-    val mts  = if color == startColor then base else base.drop(1)
+    val base = BinaryFormat.moveTime.read(binary, g.playedTurns)
+    val mts  = if color == g.startColor then base else base.drop(1)
     everyOther(mts.toList)
   )
 
-  def moveTimes: Option[Vector[Centis]] = for
-    a <- moveTimes(startColor)
-    b <- moveTimes(!startColor)
-  yield interleave(a, b)
+  def analysable(g: Game) =
+    g.replayable && g.playedTurns > 4 &&
+      Game.analysableVariants(g.variant) &&
+      !Game.isOldHorde(g)
 
-  def bothClockStates: Option[Vector[Centis]] = clockHistory.map(_.bothClockStates(startColor))
+  extension (g: Game)
 
-  def sansOf(color: Color): Vector[SanStr] =
-    val pivot = if color == startColor then 0 else 1
-    sans.zipWithIndex.collect:
-      case (e, i) if (i % 2) == pivot => e
+    def playerById(playerId: GamePlayerId): Option[Player] = g.players.find(_.id == playerId)
+    def playerIdPov(playerId: GamePlayerId): Option[Pov]   = playerById(playerId).map(p => Pov(g, p.color))
 
-  // apply a move
-  def update(
-      game: ChessGame, // new chess.Position
-      moveOrDrop: MoveOrDrop,
-      blur: Boolean = false
-  ): Progress =
+    def withClock(c: Clock) = Progress(g, g.copy(chess = g.chess.copy(clock = Some(c))))
 
-    def copyPlayer(player: Player) =
-      if blur && moveOrDrop.color == player.color then
-        player.copy(blurs = player.blurs.add(playerMoves(player.color)))
-      else player
+    def startClock: Option[Progress] =
+      g.clock.map: c =>
+        g.start.withClock(c.start)
 
-    // This must be computed eagerly
-    // because it depends on the current time
-    val newClockHistory = for
-      clk <- game.clock
-      ch  <- clockHistory
-    yield ch.record(turnColor, clk)
+    def playerCanOfferDraw(color: Color) =
+      g.started && g.playable &&
+        g.ply >= 2 &&
+        !g.player(color).isOfferingDraw &&
+        !g.opponent(color).isAi &&
+        !g.playerHasOfferedDrawRecently(color) &&
+        !g.swissPreventsDraw &&
+        !g.rulePreventsDraw
 
-    val updated = copy(
-      players = players.map(copyPlayer),
-      chess = game,
-      binaryMoveTimes = (!isPgnImport && chess.clock.isEmpty).option {
-        BinaryFormat.moveTime.write {
-          binaryMoveTimes.so { t =>
-            BinaryFormat.moveTime.read(t, playedTurns)
-          } :+ Centis.ofLong(nowCentis - movedAt.toCentis).nonNeg
-        }
-      },
-      loadClockHistory = _ => newClockHistory,
-      status = game.situation.status | status,
-      movedAt = nowInstant
-    )
+    def goBerserk(color: Color): Option[Progress] =
+      g.clock
+        .ifTrue(g.berserkable && !g.player(color).berserk)
+        .map: c =>
+          val newClock = c.goBerserk(color)
+          Progress(
+            g,
+            g.copy(
+              chess = g.chess.copy(clock = Some(newClock)),
+              loadClockHistory = _ =>
+                g.clockHistory.map: history =>
+                  if history(color).isEmpty then history
+                  else history.reset(color).record(color, newClock)
+            ).updatePlayer(color, _.copy(berserk = true))
+          ) ++
+            List(
+              Event.ClockInc(color, -c.config.berserkPenalty, newClock),
+              Event.Clock(newClock), // BC
+              Event.Berserk(color)
+            )
 
-    val state = Event.State(
-      turns = game.ply,
-      status = (status != updated.status).option(updated.status),
-      winner = game.situation.winner,
-      whiteOffersDraw = whitePlayer.isOfferingDraw,
-      blackOffersDraw = blackPlayer.isOfferingDraw
-    )
+    def setBlindfold(color: Color, blindfold: Boolean): Progress =
+      Progress(g, g.updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
 
-    val clockEvent = updated.chess.clock.map(Event.Clock.apply).orElse {
-      updated.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
-    }
+    def moveTimes: Option[Vector[Centis]] = for
+      a <- GameExt.computeMoveTimes(g, g.startColor)
+      b <- GameExt.computeMoveTimes(g, !g.startColor)
+    yield lila.core.game.interleave(a, b)
 
-    val events = moveOrDrop.fold(
-      Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
-      Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
-    ) :: {
-      (updated.board.variant.threeCheck && game.situation.check.yes).so(List:
-        Event.CheckCount(
-          white = updated.history.checkCount.white,
-          black = updated.history.checkCount.black
-        )
-      )
-    }
+    // apply a move
+    def applyMove(
+        game: ChessGame, // new chess.Position
+        moveOrDrop: MoveOrDrop,
+        blur: Boolean = false
+    ): Progress =
 
-    Progress(this, updated, events)
-  end update
+      def copyPlayer(player: Player) =
+        if blur && moveOrDrop.color == player.color then
+          player.copy(blurs = player.blurs.addAtMoveIndex(g.playerMoves(player.color)))
+        else player
 
-  def lastMoveKeys: Option[String] =
-    history.lastMove.map:
-      case Uci.Drop(_, target) => s"${target.key}${target.key}"
-      case m: Uci.Move         => m.keys
+      // This must be computed eagerly
+      // because it depends on the current time
+      val newClockHistory = for
+        clk <- game.clock
+        ch  <- g.clockHistory
+      yield ch.record(g.turnColor, clk)
 
-  def updatePlayer(color: Color, f: Player => Player) =
-    copy(players = players.update(color, f))
-
-  def updatePlayers(f: Player => Player) =
-    copy(players = players.map(f))
-
-  def start =
-    if started then this
-    else
-      copy(
-        status = Status.Started,
-        mode = Mode(mode.rated && userIds.distinct.size == 2)
+      val updated = g.copy(
+        players = g.players.map(copyPlayer),
+        chess = game,
+        binaryMoveTimes = (!g.sourceIs(_.Import) && g.chess.clock.isEmpty).option {
+          BinaryFormat.moveTime.write {
+            g.binaryMoveTimes.so { t =>
+              BinaryFormat.moveTime.read(t, g.playedTurns)
+            } :+ Centis.ofLong(nowCentis - g.movedAt.toCentis).nonNeg
+          }
+        },
+        loadClockHistory = _ => newClockHistory,
+        status = game.situation.status | g.status,
+        movedAt = nowInstant
       )
 
-  def startClock =
-    clock.map: c =>
-      start.withClock(c.start)
-
-  def correspondenceClock: Option[CorrespondenceClock] =
-    daysPerTurn.map: days =>
-      val increment   = days.value * 24 * 60 * 60
-      val secondsLeft = (movedAt.toSeconds + increment - nowSeconds).toInt.max(0)
-      CorrespondenceClock(
-        increment = increment,
-        whiteTime = turnColor.fold(secondsLeft, increment).toFloat,
-        blackTime = turnColor.fold(increment, secondsLeft).toFloat
+      val state = Event.State(
+        turns = game.ply,
+        status = (g.status != updated.status).option(updated.status),
+        winner = game.situation.winner,
+        whiteOffersDraw = g.whitePlayer.isOfferingDraw,
+        blackOffersDraw = g.blackPlayer.isOfferingDraw
       )
 
-  def playableCorrespondenceClock: Option[CorrespondenceClock] =
-    playable.so(correspondenceClock)
-
-  def speed = Speed(chess.clock.map(_.config))
-
-  lazy val perfType: PerfType = lila.rating.PerfType(variant, speed)
-  def perfKey: PerfKey        = perfType.key
-
-  def ratingVariant: Variant =
-    if isTournament && variant.fromPosition then Standard else variant
-
-  def ratingPerfType: Option[PerfType] =
-    if variant.fromPosition then isTournament.option(lila.rating.PerfType(ratingVariant, speed))
-    else perfType.some
-
-  def started = status >= Status.Started
-
-  def notStarted = !started
-
-  def aborted = status == Status.Aborted
-
-  def playedThenAborted = aborted && bothPlayersHaveMoved
-
-  def abort = copy(status = Status.Aborted)
-
-  def playable = status < Status.Aborted && !imported
-
-  def playableEvenImported = status < Status.Aborted
-
-  def playableBy(p: Player): Boolean = playable && turnOf(p)
-  def playableBy(c: Color): Boolean  = playable && turnOf(c)
-
-  def playableByAi: Boolean = playable && player.isAi
-
-  def mobilePushable = isCorrespondence && playable && nonAi
-
-  def alarmable = hasCorrespondenceClock && playable && nonAi
-
-  def continuable = status != Status.Mate && status != Status.Stalemate
-
-  def aiLevel: Option[Int] = players.find(_.aiLevel)
-
-  def hasAi: Boolean = players.exists(_.isAi)
-  def nonAi          = !hasAi
-
-  def aiPov: Option[Pov] = players.collect { case x if x.isAi => x.color }.map(pov)
-
-  def mapPlayers(f: Player => Player) =
-    copy(players = players.map(f))
-
-  def playerCanOfferDraw(color: Color) =
-    started && playable &&
-      ply >= 2 &&
-      !player(color).isOfferingDraw &&
-      !opponent(color).isAi &&
-      !playerHasOfferedDrawRecently(color) &&
-      !swissPreventsDraw &&
-      !rulePreventsDraw
-
-  def swissPreventsDraw = isSwiss && playedTurns < 60
-  def rulePreventsDraw  = hasRule(_.noEarlyDraw) && playedTurns < 60
-
-  def playerHasOfferedDrawRecently(color: Color) =
-    drawOffers.lastBy(color).exists(_ >= ply - 20)
-
-  def offerDraw(color: Color) = copy(
-    metadata = metadata.copy(drawOffers = drawOffers.add(color, ply))
-  ).updatePlayer(color, _.offerDraw)
-
-  def playerCouldRematch =
-    finishedOrAborted &&
-      nonMandatory &&
-      !hasRule(_.noRematch) &&
-      !boosted &&
-      !(hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60))
-
-  def playerCanProposeTakeback(color: Color) =
-    started && playable && !isTournament && !isSimul &&
-      bothPlayersHaveMoved &&
-      !player(color).isProposingTakeback &&
-      !opponent(color).isProposingTakeback
-
-  def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
-
-  def moretimeable(color: Color) =
-    playable && canTakebackOrAddTime && !hasRule(_.noGiveTime) && {
-      clock.so(_.moretimeable(color)) || correspondenceClock.so(_.moretimeable(color))
-    }
-
-  def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
-  def abortableByUser = abortable && !hasRule(_.noAbort)
-
-  def berserkable =
-    isTournament && clock.so(_.config.berserkable) && status == Status.Started && playedTurns < 2
-
-  def goBerserk(color: Color): Option[Progress] =
-    clock
-      .ifTrue(berserkable && !player(color).berserk)
-      .map: c =>
-        val newClock = c.goBerserk(color)
-        Progress(
-          this,
-          copy(
-            chess = chess.copy(clock = Some(newClock)),
-            loadClockHistory = _ =>
-              clockHistory.map: history =>
-                if history(color).isEmpty then history
-                else history.reset(color).record(color, newClock)
-          ).updatePlayer(color, _.goBerserk)
-        ) ++
-          List(
-            Event.ClockInc(color, -c.config.berserkPenalty, newClock),
-            Event.Clock(newClock), // BC
-            Event.Berserk(color)
-          )
-
-  def setBlindfold(color: Color, blindfold: Boolean): Progress =
-    Progress(this, updatePlayer(color, _.copy(blindfold = blindfold)), Nil)
-
-  def resignable      = playable && !abortable
-  def forceResignable = resignable && nonAi && !fromFriend && hasClock && !isSwiss && !hasRule(_.noClaimWin)
-  def forceResignableNow = forceResignable && bothPlayersHaveMoved
-  def drawable           = playable && !abortable && !swissPreventsDraw && !rulePreventsDraw
-  def forceDrawable      = playable && nonAi && !abortable && !isSwiss && !hasRule(_.noClaimWin)
-
-  def finish(status: Status, winner: Option[Color]): Game =
-    copy(
-      status = status,
-      players = winner.fold(players)(c => players.update(c, _.finish(true))),
-      chess = chess.copy(clock = clock.map(_.stop)),
-      loadClockHistory = clk =>
-        clockHistory.map: history =>
-          // If not already finished, we're ending due to an event
-          // in the middle of a turn, such as resignation or draw
-          // acceptance. In these cases, record a final clock time
-          // for the active color. This ensures the end time in
-          // clockHistory always matches the final clock time on
-          // the board.
-          if !finished then history.record(turnColor, clk)
-          else history
-    )
-
-  export mode.{ rated, casual }
-
-  def finished = status >= Status.Mate
-
-  def finishedOrAborted = finished || aborted
-
-  def accountable = playedTurns >= 2 || isTournament
-
-  def replayable = isPgnImport || finished || (aborted && bothPlayersHaveMoved)
-
-  def analysable =
-    replayable && playedTurns > 4 &&
-      Game.analysableVariants(variant) &&
-      !Game.isOldHorde(this)
-
-  def fromPosition = variant.fromPosition || source.has(Source.Position)
-
-  def imported   = source contains Source.Import
-  def fromPool   = source contains Source.Pool
-  def fromLobby  = source contains Source.Lobby
-  def fromFriend = source contains Source.Friend
-  def fromApi    = source contains Source.Api
-
-  def winner = players.find(_.wins)
-
-  def loser = winner.map(opponent)
-
-  def winnerColor: Option[Color] = winner.map(_.color)
-
-  def outcome: Option[Outcome] = finished.option(Outcome(winnerColor))
-
-  def winnerUserId: Option[UserId] = winner.flatMap(_.userId)
-
-  def loserUserId: Option[UserId] = loser.flatMap(_.userId)
-
-  def wonBy(c: Color): Option[Boolean] = winner.map(_.color == c)
-
-  def lostBy(c: Color): Option[Boolean] = winner.map(_.color != c)
-
-  def drawn = finished && winner.isEmpty
-
-  def outoftime(withGrace: Boolean): Boolean =
-    if isCorrespondence then outoftimeCorrespondence else outoftimeClock(withGrace)
-
-  private def outoftimeClock(withGrace: Boolean): Boolean =
-    clock.so: c =>
-      started && playable && {
-        c.outOfTime(turnColor, withGrace) || {
-          !c.isRunning && c.players.exists(_.elapsed.centis > 0)
-        }
+      val clockEvent = updated.chess.clock.map(Event.Clock.apply).orElse {
+        updated.playableCorrespondenceClock.map(Event.CorrespondenceClock.apply)
       }
 
-  private def outoftimeCorrespondence: Boolean =
-    playableCorrespondenceClock.exists(_.outoftime(turnColor))
+      val events = moveOrDrop.fold(
+        Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
+        Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
+      ) :: {
+        (updated.board.variant.threeCheck && game.situation.check.yes).so(List:
+          Event.CheckCount(
+            white = updated.history.checkCount.white,
+            black = updated.history.checkCount.black
+          )
+        )
+      }
 
-  def isCorrespondence  = speed == Speed.Correspondence
-  def isSpeed(s: Speed) = speed == s
+      Progress(g, updated, events)
+    end applyMove
 
-  def isSwitchable = nonAi && (isCorrespondence || isSimul)
+    def finish(status: Status, winner: Option[Color]): Game =
+      g.copy(
+        status = status,
+        players = winner.fold(g.players): c =>
+          g.players.update(c, _.copy(isWinner = true.some)),
+        chess = g.chess.copy(clock = g.clock.map(_.stop)),
+        loadClockHistory = clk =>
+          g.clockHistory.map: history =>
+            // If not already finished, we're ending due to an event
+            // in the middle of a turn, such as resignation or draw
+            // acceptance. In these cases, record a final clock time
+            // for the active color. This ensures the end time in
+            // clockHistory always matches the final clock time on
+            // the board.
+            if !g.finished then history.record(g.turnColor, clk)
+            else history
+      )
 
-  def hasClock = clock.isDefined
+    def abandoned = (g.status <= Status.Started) && (g.movedAt.isBefore(Game.abandonedDate))
 
-  def hasCorrespondenceClock = daysPerTurn.isDefined
+    def playerBlurPercent(color: Color): Int =
+      if g.playedTurns > 5
+      then (g.player(color).blurs.nb * 100) / g.playerMoves(color)
+      else 0
 
-  def isUnlimited = !hasClock && !hasCorrespondenceClock
+    def drawReason =
+      if g.variant.isInsufficientMaterial(g.board) then DrawReason.InsufficientMaterial.some
+      else if g.variant.fiftyMoves(g.history) then DrawReason.FiftyMoves.some
+      else if g.history.threefoldRepetition then DrawReason.ThreefoldRepetition.some
+      else if g.drawOffers.normalizedPlies.exists(g.ply <= _) then DrawReason.MutualAgreement.some
+      else None
 
-  def isClockRunning = clock.exists(_.isRunning)
+    def perfType: PerfType = PerfType(g.perfKey)
 
-  def withClock(c: Clock) = Progress(this, copy(chess = chess.copy(clock = Some(c))))
+  end extension
 
-  def correspondenceGiveTime = Progress(this, copy(movedAt = nowInstant))
+  private def everyOther[A](l: List[A]): List[A] =
+    l match
+      case a :: _ :: tail => a :: everyOther(tail)
+      case _              => l
 
-  def estimateClockTotalTime = clock.map(_.estimateTotalSeconds)
-
-  def estimateTotalTime =
-    estimateClockTotalTime.orElse(correspondenceClock.map(_.estimateTotalTime)).getOrElse(1200)
-
-  def timeForFirstMove: Centis =
-    Centis.ofSeconds:
-      import Speed.*
-      val base =
-        if isTournament then
-          speed match
-            case UltraBullet => 11
-            case Bullet      => 16
-            case Blitz       => 21
-            case Rapid       => 25
-            case _           => 30
-        else
-          speed match
-            case UltraBullet => 15
-            case Bullet      => 20
-            case Blitz       => 25
-            case Rapid       => 30
-            case _           => 35
-      if variant.chess960 then base * 5 / 4
-      else base
-
-  def expirable =
-    !bothPlayersHaveMoved &&
-      source.exists(Source.expirable.contains) &&
-      playable &&
-      nonAi &&
-      clock.exists(!_.isRunning)
-
-  def timeBeforeExpiration: Option[Centis] = expirable.option:
-    Centis.ofMillis(movedAt.toMillis - nowMillis + timeForFirstMove.millis).nonNeg
-
-  def playerWhoDidNotMove: Option[Player] = {
-    if playedTurns == Ply.initial then player(startColor).some
-    else if playedTurns == Ply.initial.next then player(!startColor).some
-    else none
-  }.filterNot { player => winnerColor contains player.color }
-
-  def onePlayerHasMoved    = playedTurns > 0
-  def bothPlayersHaveMoved = playedTurns > 1
-
-  def startColor = startedAtPly.turn
-
-  def playerMoves(color: Color): Int =
-    if color == startColor
-    then (playedTurns.value + 1) / 2
-    else playedTurns.value / 2
-
-  def playerHasMoved(color: Color) = playerMoves(color) > 0
-
-  def playerBlurPercent(color: Color): Int =
-    if playedTurns > 5
-    then (player(color).blurs.nb * 100) / playerMoves(color)
-    else 0
-
-  def isBeingPlayed = !isPgnImport && !finishedOrAborted
-
-  def olderThan(seconds: Int) = movedAt.isBefore(nowInstant.minusSeconds(seconds))
-
-  def justCreated = createdAt.isAfter(nowInstant.minusSeconds(1))
-
-  def unplayed = !bothPlayersHaveMoved && (createdAt.isBefore(Game.unplayedDate))
-
-  def abandoned = (status <= Status.Started) && (movedAt.isBefore(Game.abandonedDate))
-
-  def forecastable = started && playable && isCorrespondence && !hasAi
-
-  def hasBookmarks = bookmarks > 0
-
-  def showBookmarks = hasBookmarks.so(bookmarks.toString)
-
-  def incBookmarks(value: Int) = copy(bookmarks = bookmarks + value)
-
-  def userIds: List[UserId] = players.flatMap(_.userId)
-
-  def twoUserIds: Option[(UserId, UserId)] = for
-    w <- whitePlayer.userId
-    b <- blackPlayer.userId
-    if w != b
-  yield w -> b
-
-  def userRatings = players.flatMap(_.rating)
-
-  def averageUsersRating = userRatings match
-    case a :: b :: Nil => Some((a + b).value / 2)
-    case a :: Nil      => Some((a + 1500).value / 2)
-    case _             => None
-
-  def withTournamentId(id: TourId) = copy(metadata = metadata.copy(tournamentId = id.some))
-  def withSwissId(id: SwissId)     = copy(metadata = metadata.copy(swissId = id.some))
-  def withSimulId(id: SimulId)     = copy(metadata = metadata.copy(simulId = id.some))
-
-  def withId(newId: GameId) = copy(id = newId)
-
-  def isPgnImport = pgnImport.isDefined
-
-  def resetTurns = copy(chess = chess.copy(ply = Ply.initial, startedAtPly = Ply.initial))
-
-  lazy val opening: Option[Opening.AtPly] =
-    (!fromPosition && Variant.list.openingSensibleVariants(variant)).so(OpeningDb.search(sans))
-
-  def synthetic = id == Game.syntheticId
-
-  def pov(c: Color)                                    = Pov(this, c)
-  def playerIdPov(playerId: GamePlayerId): Option[Pov] = player(playerId).map { Pov(this, _) }
-  def whitePov                                         = pov(White)
-  def blackPov                                         = pov(Black)
-  def playerPov(p: Player)                             = pov(p.color)
-  def loserPov                                         = loser.map(playerPov)
-  def povs: ByColor[Pov]                               = ByColor(pov)
-
-  def setAnalysed = copy(metadata = metadata.copy(analysed = true))
-
-  def secondsSinceCreation = (nowSeconds - createdAt.toSeconds).toInt
-
-  def drawReason =
-    if variant.isInsufficientMaterial(board) then DrawReason.InsufficientMaterial.some
-    else if variant.fiftyMoves(history) then DrawReason.FiftyMoves.some
-    else if history.threefoldRepetition then DrawReason.ThreefoldRepetition.some
-    else if drawOffers.normalizedPlies.exists(ply <= _) then DrawReason.MutualAgreement.some
-    else None
-
-  override def toString = s"""Game($id)"""
+end GameExt
 
 object Game:
 
-  case class OnStart(id: GameId)
-  case class WithInitialFen(game: Game, fen: Option[Fen.Full])
-
-  case class SideAndStart(color: Color, startedAtPly: Ply):
-    def startColor = startedAtPly.turn
-
   val syntheticId = GameId("synthetic")
-
-  val maxPlaying         = 200 // including correspondence
-  val maxPlayingRealtime = 100
 
   val maxPlies = Ply(600) // unlimited would be a DoS target
 
@@ -619,14 +243,6 @@ object Game:
   )
 
   val unanalysableVariants: Set[Variant] = Variant.list.all.toSet -- analysableVariants
-
-  val variantsWhereWhiteIsBetter: Set[Variant] = Set(
-    chess.variant.ThreeCheck,
-    chess.variant.Atomic,
-    chess.variant.Horde,
-    chess.variant.RacingKings,
-    chess.variant.Antichess
-  )
 
   val blindModeVariants: Set[Variant] = Set(
     chess.variant.Standard,
@@ -646,76 +262,32 @@ object Game:
     game.variant == chess.variant.Horde &&
       game.createdAt.isBefore(Game.hordeWhitePawnsSince)
 
-  def allowRated(variant: Variant, clock: Option[Clock.Config]) =
-    variant.standard || clock.exists: c =>
-      c.estimateTotalTime >= Centis(3000) &&
-        c.limitSeconds > 0 || c.incrementSeconds > 1
-
-  val unplayedHours = 24
-  def unplayedDate  = nowInstant.minusHours(unplayedHours)
-
   val abandonedDays = Days(21)
   def abandonedDate = nowInstant.minusDays(abandonedDays.value)
 
   def isBoardCompatible(game: Game): Boolean =
     game.clock.forall: c =>
-      isBoardCompatible(c.config) || {
-        (game.hasAi || game.fromFriend) && chess.Speed(c.config) >= Speed.Blitz
+      lila.core.game.isBoardCompatible(c.config) || {
+        (game.hasAi || game.sourceIs(_.Friend)) && chess.Speed(c.config) >= Speed.Blitz
       }
 
-  def isBoardCompatible(clock: Clock.Config): Boolean =
-    chess.Speed(clock) >= Speed.Rapid
-
   def isBotCompatible(game: Game): Boolean = {
-    game.hasAi || game.fromFriend || game.fromApi
+    game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api)
   } && isBotCompatible(game.speed)
 
   def isBotCompatible(speed: Speed): Boolean = speed >= Speed.Bullet
 
   def isBoardOrBotCompatible(game: Game) = isBoardCompatible(game) || isBotCompatible(game)
 
-  private[game] val emptyCheckCount = CheckCount(0, 0)
-
-  private[game] val someEmptyClockHistory = Some(ClockHistory())
-
-  def make(
-      chess: ChessGame,
-      players: ByColor[Player],
-      mode: Mode,
-      source: Source,
-      pgnImport: Option[PgnImport],
-      daysPerTurn: Option[Days] = None,
-      rules: Set[GameRule] = Set.empty
-  ): NewGame =
-    val createdAt = nowInstant
-    NewGame:
-      Game(
-        id = IdGenerator.uncheckedGame,
-        players = players,
-        chess = chess,
-        status = Status.Created,
-        daysPerTurn = daysPerTurn,
-        mode = mode,
-        metadata = metadata(source).copy(pgnImport = pgnImport, rules = rules),
-        createdAt = createdAt,
-        movedAt = createdAt
-      )
-
-  def metadata(source: Source) = Metadata.empty.copy(source = source.some)
-
   object BSONFields:
-
-    val id                = "_id"
+    export lila.core.game.BSONFields.*
     val whitePlayer       = "p0"
     val blackPlayer       = "p1"
     val playerIds         = "is"
-    val playerUids        = "us"
-    val playingUids       = "pl"
     val binaryPieces      = "ps"
     val oldPgn            = "pg"
     val huffmanPgn        = "hp"
     val status            = "s"
-    val turns             = "t"
     val startedAtTurn     = "st"
     val clock             = "c"
     val positionHashes    = "ph"
@@ -727,23 +299,17 @@ object Game:
     val whiteClockHistory = "cw"
     val blackClockHistory = "cb"
     val rated             = "ra"
-    val analysed          = "an"
     val variant           = "v"
     val crazyData         = "chd"
     val bookmarks         = "bm"
-    val createdAt         = "ca"
-    val movedAt           = "ua" // ua = updatedAt (bc)
     val source            = "so"
-    val pgnImport         = "pgni"
     val tournamentId      = "tid"
     val swissId           = "iid"
     val simulId           = "sid"
     val tvAt              = "tv"
     val winnerColor       = "w"
-    val winnerId          = "wid"
     val initialFen        = "if"
     val checkAt           = "ck"
-    val perfType          = "pt" // only set on student games for aggregation
     val drawOffers        = "do"
     val rules             = "rules"
 
@@ -764,40 +330,7 @@ object CastleLastMove:
     clmt => byteArrayHandler.writeTry { BinaryFormat.castleLastMove.write(clmt) } get
   )
 
-case class ClockHistory(
-    white: Vector[Centis] = Vector.empty,
-    black: Vector[Centis] = Vector.empty
-):
-
-  def update(color: Color, f: Vector[Centis] => Vector[Centis]): ClockHistory =
-    color.fold(copy(white = f(white)), copy(black = f(black)))
-
-  def record(color: Color, clock: Clock): ClockHistory =
-    update(color, _ :+ clock.remainingTime(color))
-
-  def reset(color: Color) = update(color, _ => Vector.empty)
-
-  def apply(color: Color): Vector[Centis] = color.fold(white, black)
-
-  def last(color: Color) = apply(color).lastOption
-
-  def size = white.size + black.size
-
-  // first state is of the color that moved first.
-  def bothClockStates(firstMoveBy: Color): Vector[Centis] =
-    interleave(
-      firstMoveBy.fold(white, black),
-      firstMoveBy.fold(black, white)
-    )
-
 enum DrawReason:
   case MutualAgreement, FiftyMoves, ThreefoldRepetition, InsufficientMaterial
 
-private def interleave[A](a: Seq[A], b: Seq[A]): Vector[A] =
-  val iterA   = a.iterator
-  val iterB   = b.iterator
-  val builder = Vector.newBuilder[A]
-  while iterA.hasNext && iterB.hasNext do builder += iterA.next() += iterB.next()
-  builder ++= iterA ++= iterB
-
-  builder.result()
+private val someEmptyClockHistory = Some(ClockHistory())

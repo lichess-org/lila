@@ -2,9 +2,10 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+import scalalib.Json.given
 
 import lila.app.{ *, given }
-import lila.core.{ IpAddress, config }
+import lila.core.net.IpAddress
 import lila.team.{ Team as TeamModel, TeamSecurity }
 
 import Api.ApiResult
@@ -24,7 +25,6 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def all(page: Int) = Anon:
     import env.team.jsonView.given
-    import lila.common.Json.paginatorWrite
     JsonOk:
       for
         pager <- paginator.popularTeamsWithPublicLeaders(page)
@@ -68,7 +68,6 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def search(text: String, page: Int) = Anon:
     import env.team.jsonView.given
-    import lila.common.Json.paginatorWrite
     JsonOk:
       if text.trim.isEmpty
       then paginator.popularTeamsWithPublicLeaders(page)

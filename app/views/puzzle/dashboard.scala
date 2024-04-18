@@ -5,9 +5,8 @@ import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDashboard, PuzzleTheme }
-import lila.user.User
 
 object dashboard:
 
@@ -153,7 +152,7 @@ object dashboard:
       ),
       div(
         cls   := s"$metricClass $metricClass--win",
-        style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
+        style := s"---first:${results.firstWinPercent}%;---win:${results.winPercent}%"
       )(
         trans.puzzle.percentSolved(strong(s"${results.winPercent}%"))
       ),
@@ -166,6 +165,6 @@ object dashboard:
             trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
           )
         ),
-        iconTag(if results.canReplay then licon.PlayTriangle else licon.Checkmark)
+        iconTag(if results.canReplay then Icon.PlayTriangle else Icon.Checkmark)
       )
     )

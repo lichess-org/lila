@@ -5,14 +5,14 @@ import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType.iconByVariant
 
 object userAnalysis:
 
   def apply(
       data: JsObject,
-      pov: lila.game.Pov,
+      pov: Pov,
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
   )(using ctx: PageContext) =
@@ -24,7 +24,7 @@ object userAnalysis:
         withForecast.option(cssTag("analyse.forecast")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = analyseNvuiTag,
+      modules = analyseNvuiTag,
       pageModule = views.html.analyse.bits
         .analyseModule(
           "userAnalysis",
@@ -39,7 +39,7 @@ object userAnalysis:
         )
         .some,
       csp = analysisCsp.withExternalAnalysisApis.some,
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = "Chess analysis board",
           url = s"$netBaseUrl${routes.UserAnalysis.index.url}",

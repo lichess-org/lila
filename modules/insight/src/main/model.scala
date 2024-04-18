@@ -5,6 +5,7 @@ import chess.{ Centis, Clock, Ply, Role }
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
+import lila.core.data.Percent
 
 case class InsightUser(
     count: Int, // nb insight entries

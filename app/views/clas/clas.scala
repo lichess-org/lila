@@ -5,7 +5,7 @@ import play.api.data.Form
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.ClasForm.ClasData
 import lila.clas.{ Clas, Student }
 
@@ -49,7 +49,7 @@ object clas:
           href     := clasRoutes.form,
           cls      := "new button button-empty",
           title    := trans.clas.newClass.txt(),
-          dataIcon := licon.PlusButton
+          dataIcon := Icon.PlusButton
         )
       ),
       if current.isEmpty then frag(hr, p(cls := "box__pad classes__empty")(trans.clas.noClassesYet()))
@@ -78,7 +78,7 @@ object clas:
       classes.map { clas =>
         div(
           cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
-          dataIcon := licon.Group
+          dataIcon := Icon.Group
         )(
           a(cls := "overlay", href := clasRoutes.show(clas.id.value)),
           div(
@@ -95,18 +95,18 @@ object clas:
         fragList(clas.teachers.toList.map(t => userIdLink(t.some)))
       )
     )
-  def create(form: lila.security.HcaptchaForm[ClasData])(using PageContext) =
+  def create(form: lila.core.security.HcaptchaForm[ClasData])(using PageContext) =
     bits.layout(
       trans.clas.newClass.txt(),
       Right("newClass"),
-      moreJs = views.html.base.hcaptcha.script(form),
+      moreJs = lila.web.views.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
     )(
       cls := "box-pad",
       h1(cls := "box__top")(trans.clas.newClass()),
       postForm(cls := "form3", action := clasRoutes.create)(
         innerForm(form.form, none),
-        views.html.base.hcaptcha.tag(form),
+        lila.web.views.hcaptcha.tag(form),
         form3.actions(
           a(href := clasRoutes.index)(trans.site.cancel()),
           form3.submit(trans.site.apply())

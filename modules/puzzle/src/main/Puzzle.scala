@@ -3,7 +3,7 @@ package lila.puzzle
 import chess.Ply
 import chess.format.{ Fen, Uci }
 
-import lila.rating.Glicko
+import lila.core.rating.Glicko
 
 case class Puzzle(
     id: PuzzleId,

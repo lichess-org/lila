@@ -4,8 +4,8 @@ package round
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Pov
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.round.RoundGame.secondsSinceCreation
 
 object watcher:
 
@@ -15,7 +15,7 @@ object watcher:
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
   )(using ctx: PageContext) =
@@ -35,7 +35,7 @@ object watcher:
     bits.layout(
       variant = pov.game.variant,
       title = s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator",
-      moreJs = frag(roundNvuiTag),
+      modules = roundNvuiTag,
       pageModule = PageModule(
         "round",
         Json.obj(

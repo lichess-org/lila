@@ -4,7 +4,7 @@ package account
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object passwd:
 
@@ -12,7 +12,7 @@ object passwd:
     account.layout(
       title = trans.site.changePassword.txt(),
       active = "password",
-      evenMoreJs = jsModuleInit("passwordComplexity")
+      modules = jsModuleInit("bits.passwordComplexity")
     ):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.changePassword()),

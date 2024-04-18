@@ -3,7 +3,7 @@ package views.html.mod
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.chat.{ ChatTimeout, UserChat }
 
 object publicChat:
@@ -15,7 +15,7 @@ object publicChat:
     views.html.base.layout(
       title = "Public Chats",
       moreCss = cssTag("mod.publicChats"),
-      moreJs = jsModule("publicChats")
+      modules = jsModule("mod.publicChats")
     ):
       main(cls := "page-menu")(
         views.html.mod.menu("public-chat"),

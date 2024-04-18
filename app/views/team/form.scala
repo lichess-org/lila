@@ -3,7 +3,7 @@ import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.team.{ Team, TeamMember }
 import lila.core.team.Access
 import lila.core.captcha.Captcha
@@ -16,7 +16,7 @@ object form:
     views.html.base.layout(
       title = newTeam.txt(),
       moreCss = cssTag("team"),
-      moreJs = captchaTag
+      modules = captchaTag
     ):
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
@@ -37,7 +37,7 @@ object form:
       )
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
-    bits.layout(title = s"Edit Team ${t.name}", moreJs = jsModule("team")):
+    bits.layout(title = s"Edit Team ${t.name}", modules = jsModule("bits.team")):
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
@@ -60,7 +60,7 @@ object form:
             postForm(cls := "inline", action := teamRoutes.disable(t.id))(
               explainInput,
               submitButton(
-                dataIcon := licon.CautionCircle,
+                dataIcon := Icon.CautionCircle,
                 cls      := "submit button text explain button-empty button-red",
                 st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
               )(closeTeam())
@@ -70,7 +70,7 @@ object form:
             postForm(cls := "inline", action := teamRoutes.close(t.id))(
               explainInput,
               submitButton(
-                dataIcon := licon.Trash,
+                dataIcon := Icon.Trash,
                 cls      := "text button button-empty button-red explain",
                 st.title := "Deletes the team and its memberships. Cannot be reverted!"
               )(trans.site.delete())

@@ -7,15 +7,15 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
-import lila.user.User
+
 import lila.core.i18n.I18nKey
 
 object bits:
 
   def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
-    views.html.board.bits.mini(fen, p.color, lastMove.some)(span)
+    chessgroundMini(fen, p.color, lastMove.some)(span)
 
   def jsI18n(streak: Boolean)(using Translate) =
     if streak then i18nJsObject(streakI18nKeys)
@@ -32,7 +32,7 @@ object bits:
 
   def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: PageContext) =
     val u = user.filterNot(ctx.is).map(_.username)
-    views.html.site.bits.pageMenuSubnav(
+    views.html.base.bits.pageMenuSubnav(
       a(href := routes.Puzzle.home)(
         trans.site.puzzles()
       ),

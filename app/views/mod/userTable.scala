@@ -4,9 +4,9 @@ import controllers.routes
 
 import lila.api.Context
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.security.Granter
-import lila.user.User
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.user.WithPerfsAndEmails
+import views.html.user.mod.canCloseAlt
 
 object userTable:
 
@@ -36,7 +36,7 @@ object userTable:
   )
 
   def apply(
-      users: List[User.WithPerfsAndEmails],
+      users: List[WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false
   )(using Context, Me) =
@@ -55,9 +55,9 @@ object userTable:
           )
         ),
         tbody:
-          users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
+          users.map { case lila.user.WithPerfsAndEmails(u, emails) =>
             tr(
-              if showUsernames || Granter.canViewAltUsername(u.user)
+              if showUsernames || lila.security.Granter.canViewAltUsername(u.user)
               then
                 td(dataSort := u.id)(
                   userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),

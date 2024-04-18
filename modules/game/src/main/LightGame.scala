@@ -2,20 +2,7 @@ package lila.game
 
 import chess.{ Color, Status }
 
-case class LightGame(
-    id: GameId,
-    whitePlayer: LightPlayer,
-    blackPlayer: LightPlayer,
-    status: Status,
-    win: Option[Color]
-):
-  def playable                                            = status < Status.Aborted
-  def player(color: Color): LightPlayer                   = color.fold(whitePlayer, blackPlayer)
-  def players                                             = List(whitePlayer, blackPlayer)
-  def playerByUserId(userId: UserId): Option[LightPlayer] = players.find(_.userId contains userId)
-  def finished                                            = status >= Status.Mate
-  def winner: Option[LightPlayer]                         = win.map(_.fold(whitePlayer, blackPlayer))
-  def winnerUserId: Option[UserId]                        = winner.flatMap(_.userId)
+import lila.core.game.{ LightGame, LightPlayer }
 
 object LightGame:
 
@@ -29,16 +16,6 @@ object LightGame:
       F.winnerColor -> true,
       F.status      -> true
     )
-
-case class LightPlayer(
-    color: Color,
-    aiLevel: Option[Int],
-    userId: Option[UserId] = None,
-    rating: Option[IntRating] = None,
-    ratingDiff: Option[IntRatingDiff] = None,
-    provisional: RatingProvisional = RatingProvisional.No,
-    berserk: Boolean = false
-)
 
 object LightPlayer:
 
@@ -59,7 +36,7 @@ object LightPlayer:
   def builderRead(doc: Bdoc): Builder = color =>
     userId =>
       import Player.BSONFields.*
-      LightPlayer(
+      new LightPlayer(
         color = color,
         aiLevel = doc.int(aiLevel),
         userId = userId,

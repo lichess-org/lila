@@ -1,6 +1,5 @@
 package lila.lobby
 
-import lila.game.Game
 import lila.core.socket.{ Sri, Sris }
 
 private case class SaveSeek(msg: AddSeek)

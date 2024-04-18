@@ -3,7 +3,7 @@ package views.html.site
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.cms.CmsPage
 
 object page:
@@ -73,9 +73,7 @@ $('#asset-version-message').text(site.info.message);"""
             )
           )
         ),
-        st.section(cls := "box box-pad body")(views.html.cms.render(p)),
-        br,
-        st.section(cls := "box")(freeJs())
+        st.section(cls := "box box-pad body")(views.html.cms.render(p))
       )
 
   def webmasters(using PageContext) =
@@ -120,7 +118,7 @@ $('#asset-version-message').text(site.info.message);"""
                   st.title := "Copy code",
                   cls      := "copy button",
                   dataRel  := "tv-embed-src",
-                  dataIcon := licon.Link
+                  dataIcon := Icon.Link
                 )
               ),
               parameters,
@@ -139,7 +137,7 @@ $('#asset-version-message').text(site.info.message);"""
                   st.title := "Copy code",
                   cls      := "copy button",
                   dataRel  := "tv-channel-embed-src",
-                  dataIcon := licon.Link
+                  dataIcon := Icon.Link
                 )
               )
             )
@@ -165,7 +163,7 @@ $('#asset-version-message').text(site.info.message);"""
                   st.title := "Copy code",
                   cls      := "copy button",
                   dataRel  := "puzzle-embed-src",
-                  dataIcon := licon.Link
+                  dataIcon := Icon.Link
                 )
               ),
               parameters,
@@ -225,18 +223,20 @@ $('#asset-version-message').text(site.info.message);"""
       active: String,
       contentCls: String = "",
       moreCss: Frag = emptyFrag,
-      moreJs: Frag = emptyFrag
+      moreJs: Frag = emptyFrag,
+      modules: EsmList = Nil
   )(body: Frag)(using PageContext) =
     views.html.base.layout(
       title = title,
       moreCss = moreCss,
+      modules = modules,
       moreJs = moreJs
     ):
       val sep                  = div(cls := "sep")
-      val external             = frag(" ", i(dataIcon := licon.ExternalArrow))
+      val external             = frag(" ", i(dataIcon := Icon.ExternalArrow))
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
-        views.html.site.bits.pageMenuSubnav(
+        views.html.base.bits.pageMenuSubnav(
           a(activeCls("about"), href := "/about")(trans.site.aboutX("lichess.org")),
           a(activeCls("news"), href := routes.Feed.index(1))("Lichess updates"),
           a(activeCls("faq"), href := routes.Main.faq)(trans.faq.faqAbbreviation()),

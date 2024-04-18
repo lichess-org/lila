@@ -3,13 +3,13 @@ package views.html.mod
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object table:
 
   private val dataSort = attr("data-sort")
 
-  def apply(users: List[lila.user.User])(using PageContext) =
+  def apply(users: List[User])(using PageContext) =
 
     val title = "All mods"
 
@@ -32,7 +32,7 @@ object table:
                   td(userLink(user)),
                   td(
                     a(href := routes.Mod.permissions(user.username))(
-                      lila.security.Permission(user.roles).map(_.name).mkString(", ")
+                      lila.core.perm.Permission(user).map(_.name).mkString(", ")
                     )
                   ),
                   td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce))

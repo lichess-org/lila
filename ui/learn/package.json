@@ -3,8 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chess performance statistics",
-  "type": "module",
-  "module": "src/main.js",
   "keywords": [
     "chess",
     "lichess",
@@ -21,9 +19,7 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/main.ts": "learn"
-      }
+      "src/learn.ts": "learn"
     }
   }
 }

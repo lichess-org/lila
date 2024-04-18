@@ -5,18 +5,15 @@ import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.{ Glyph, Tags }
 
-import lila.chat.ChatApi
 import lila.common.Bus
 import lila.core.timeline.{ Propagate, StudyLike }
-import lila.security.Granter
+import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.{ study as hub }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
-import lila.user.User
 
 import actorApi.Who
-import lila.core.user.MyId
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -27,8 +24,8 @@ final class StudyApi(
     inviter: StudyInvite,
     explorerGameHandler: ExplorerGame,
     topicApi: StudyTopicApi,
-    lightUserApi: lila.user.LightUserApi,
-    chatApi: ChatApi,
+    lightUserApi: lila.core.user.LightUserApi,
+    chatApi: lila.core.chat.ChatApi,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi
 )(using Executor, akka.stream.Materializer)
@@ -48,7 +45,7 @@ final class StudyApi(
 
   def byIdAndOwnerOrAdmin(id: StudyId, owner: User) =
     byId(id).map:
-      _.filter(_.isOwner(owner.id) || Granter.of(_.StudyAdmin)(owner))
+      _.filter(_.isOwner(owner.id) || Granter.ofUser(_.StudyAdmin)(owner))
 
   def isOwnerOrAdmin(id: StudyId, owner: User) = byIdAndOwnerOrAdmin(id, owner).map(_.isDefined)
 
@@ -154,7 +151,7 @@ final class StudyApi(
 
   def cloneWithChat(me: User, prev: Study, update: Study => Study = identity): Fu[Option[Study]] = for
     study <- justCloneNoChecks(me, prev, update)
-    _ <- chatApi.userChat.system(study.id.into(ChatId), s"Cloned from lichess.org/study/${prev.id}", _.study)
+    _     <- chatApi.system(study.id.into(ChatId), s"Cloned from lichess.org/study/${prev.id}", _.study)
   yield study.some
 
   def justCloneNoChecks(
@@ -206,7 +203,7 @@ final class StudyApi(
     byId(studyId).foreach:
       _.foreach: study =>
         (study.canChat(userId)).so {
-          chatApi.userChat.write(
+          chatApi.write(
             study.id.into(ChatId),
             userId = userId,
             text = text,

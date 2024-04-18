@@ -4,7 +4,7 @@ package account
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object profile:
 
@@ -14,7 +14,7 @@ object profile:
     trans.site.oneUrlPerLine()
   )
 
-  def apply(u: lila.user.User, form: play.api.data.Form[?])(using ctx: PageContext) =
+  def apply(u: User, form: play.api.data.Form[?])(using ctx: PageContext) =
     account.layout(
       title = s"${u.username} - ${trans.site.editProfile.txt()}",
       active = "editProfile"
@@ -42,7 +42,7 @@ object profile:
                 a(
                   href     := s"${routes.Pref.form("display")}#showFlairs",
                   cls      := "text",
-                  dataIcon := licon.InfoCircle
+                  dataIcon := Icon.InfoCircle
                 ):
                   trans.site.youCanHideFlair()
           ),

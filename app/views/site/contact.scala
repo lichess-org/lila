@@ -8,13 +8,13 @@ import controllers.routes
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object contact:
 
   import trans.contact.*
-  import views.html.base.navTree.*
-  import views.html.base.navTree.Node.*
+  import lila.web.views.navTree.*
+  import lila.web.views.navTree.Node.*
 
   def contactEmailLinkEmpty(email: String = contactEmailInClear) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
@@ -141,7 +141,7 @@ object contact:
             ),
             p(
               youCanAlsoReachReportPage(
-                button(cls := "thin button button-empty", dataIcon := licon.CautionTriangle)
+                button(cls := "thin button button-empty", dataIcon := Icon.CautionTriangle)
               )
             ),
             p(
@@ -345,7 +345,7 @@ object contact:
       title = trans.contact.contact.txt(),
       active = "contact",
       moreCss = cssTag("contact"),
-      moreJs = jsModule("contact"),
+      modules = jsModule("bits.contact"),
       contentCls = "page box box-pad"
     )(
       frag(

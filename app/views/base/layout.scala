@@ -5,10 +5,10 @@ import controllers.routes
 import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
-import lila.app.ContentSecurityPolicy
+import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.web.LangPath
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
@@ -16,9 +16,9 @@ object layout:
 
   object bits:
     val doctype = raw("<!DOCTYPE html>")
-    def htmlTag(using lang: Lang) =
+    def htmlTag(using lang: Lang, ctx: Context) =
       val isRTL = lila.i18n.LangList.isRTL(lang)
-      html(st.lang := lang.code, dir := isRTL.option("rtl"), cls := (if isRTL then "dir-rtl" else "dir-ltr"))
+      html(st.lang := lang.code, dir := isRTL.option("rtl"))
     val topComment = raw("""<!-- Lichess is open source! See https://lichess.org/source -->""")
     val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw:
@@ -28,18 +28,25 @@ object layout:
     def metaCsp(csp: Option[ContentSecurityPolicy])(using ctx: PageContext): Frag =
       metaCsp(csp.getOrElse(defaultCsp))
     def metaThemeColor(using ctx: PageContext): Frag =
-      if ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM then
-        raw:
-          s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
-            s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">"""
-      else
-        raw:
+      raw:
+        s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
+          s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">""" +
           s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
+    def systemThemeScript(using ctx: PageContext) =
+      (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).option(
+        embedJsUnsafe(
+          "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
+            "document.documentElement.classList.add('light');"
+        )
+      )
+    def systemThemeEmbedScript(using ctx: EmbedContext) =
+      "<script>if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
+        "document.documentElement.classList.add('light');</script>"
     def pieceSprite(using ctx: PageContext): Frag = pieceSprite(ctx.pref.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(
         id   := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.${env.pieceImageExternal.get().so("external.")}css"),
+        href := assetUrl(s"piece-css/$ps.${env.web.settings.pieceImageExternal.get().so("external.")}css"),
         rel  := "stylesheet"
       )
   import bits.*
@@ -74,7 +81,7 @@ object layout:
     )
   )
   private def piecesPreload(using ctx: PageContext) =
-    env.pieceImageExternal
+    env.web.settings.pieceImageExternal
       .get()
       .option(raw:
         (for
@@ -113,11 +120,11 @@ object layout:
     s"""
 <div id="zenzone">
   <a href="/" class="zen-home"></a>
-  <a data-icon="${licon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
+  <a data-icon="${Icon.Checkmark}" id="zentog" class="text fbt active">${trans.preferences.zenMode
         .txt()}</a>
 </div>"""
 
-  private def dasher(me: lila.user.User) =
+  private def dasher(me: User) =
     div(cls := "dasher")(
       a(id := "user_tag", cls := "toggle link", href := routes.Auth.logoutGet)(me.username),
       div(id := "dasher_app", cls := "dropdown")
@@ -128,7 +135,7 @@ object layout:
     frag(
       a(href := s"${routes.Auth.login.url}?referrer=${ctx.req.path}", cls := "signin")(trans.site.signIn()),
       div(cls := "dasher")(
-        button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := licon.Gear),
+        button(cls := "toggle anon link", title := prefs, aria.label := prefs, dataIcon := Icon.Gear),
         div(id     := "dasher_app", cls         := "dropdown")
       )
     )
@@ -139,18 +146,18 @@ object layout:
     spaceless:
       s"""<div>
   <button id="challenge-toggle" class="toggle link">
-    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${licon.Swords}"></span>
+    <span title="$challengeTitle" role="status" aria-label="$challengeTitle" class="data-count" data-count="${ctx.nbChallenges}" data-icon="${Icon.Swords}"></span>
   </button>
   <div id="challenge-app" class="dropdown"></div>
 </div>
 <div>
   <button id="notify-toggle" class="toggle link">
-    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${licon.BellOutline}"></span>
+    <span title="$notifTitle" role="status" aria-label="$notifTitle" class="data-count" data-count="${ctx.nbNotifications}" data-icon="${Icon.BellOutline}"></span>
   </button>
   <div id="notify-app" class="dropdown"></div>
 </div>"""
 
-  private val clinputLink = a(cls := "link")(span(dataIcon := licon.Search))
+  private val clinputLink = a(cls := "link")(span(dataIcon := Icon.Search))
 
   private def clinput(using ctx: PageContext) =
     div(id := "clinput")(
@@ -166,7 +173,7 @@ object layout:
 
   private val warnNoAutoplay =
     div(id := "warn-no-autoplay")(
-      a(dataIcon := licon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
+      a(dataIcon := Icon.Mute, target := "_blank", href := s"${routes.Main.faq}#autoplay")
     )
 
   private def current2dTheme(using ctx: PageContext) =
@@ -180,16 +187,22 @@ object layout:
       style := "display:inline;width:34px;height:34px;vertical-align:top;margin-right:5px;vertical-align:text-top"
     )
 
-  private def loadScripts(moreJs: Frag)(using ctx: PageContext) =
+  // consolidate script packaging here to dedup chunk dependencies
+  private def modulesPreload(modules: EsmList)(using ctx: PageContext) =
+    val keys: List[String] = "site" :: {
+      ctx.data.inquiry.isDefined.option("mod.inquiry")
+        :: (!netConfig.isProd).option("site.devMode")
+        :: modules.map(_.map(_.key))
+    }.flatten // in head
     frag(
-      ctx.needsFp.option(fingerprintTag),
-      ctx.nonce.map(inlineJs.apply),
-      frag(cashTag, jsModule("site")),
-      moreJs,
-      ctx.data.inquiry.isDefined.option(jsModule("mod.inquiry")),
-      (ctx.pref.bg == lila.pref.Pref.Bg.SYSTEM).option(embedJsUnsafe(systemThemePolyfillJs)),
-      (!netConfig.isProd).option(jsModule("devMode"))
+      jsTag("manifest"),
+      cashTag,
+      keys.map(jsTag),
+      env.web.manifest.deps(keys).map(jsTag)
     )
+
+  private def modulesInit(modules: EsmList)(using ctx: PageContext) =
+    modules.flatMap(_.map(_.init)) // in body
 
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
@@ -245,10 +258,11 @@ object layout:
       fullTitle: Option[String] = None,
       robots: Boolean = netConfig.crawlable,
       moreCss: Frag = emptyFrag,
+      modules: EsmList = Nil,
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
-      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      openGraph: Option[lila.web.OpenGraph] = None,
       zoomable: Boolean = false,
       zenable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
@@ -260,6 +274,8 @@ object layout:
     frag(
       doctype,
       htmlTag(
+        (ctx.data.inquiry.isEmpty && ctx.impersonatedBy.isEmpty && !ctx.blind)
+          .option(cls := ctx.pref.themeColorClass),
         topComment,
         head(
           charset,
@@ -271,11 +287,12 @@ object layout:
             if netConfig.isProd then prodTitle
             else s"${ctx.me.so(_.username + " ")} $prodTitle"
           ,
+          cssTag("theme-all"),
           cssTag("site"),
           pref.is3d.option(cssTag("board-3d")),
-          ctx.data.inquiry.isDefined.option(cssTagNoTheme("mod.inquiry")),
-          ctx.impersonatedBy.isDefined.option(cssTagNoTheme("mod.impersonate")),
-          ctx.blind.option(cssTagNoTheme("blind")),
+          ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
+          ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
+          ctx.blind.option(cssTag("blind")),
           moreCss,
           pieceSprite,
           meta(
@@ -290,7 +307,7 @@ object layout:
           atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
             raw:
-              s"""<style id="bg-data">body.transp::before{background-image:url("${escapeHtmlRaw(img)
+              s"""<style id="bg-data">html.transp::before{background-image:url("${escapeHtmlRaw(img)
                   .replace("&amp;", "&")}");}</style>"""
           },
           fontPreload,
@@ -298,7 +315,9 @@ object layout:
           piecesPreload,
           manifests,
           jsLicense,
-          withHrefLangs.map(hrefLangs)
+          withHrefLangs.map(hrefLangs),
+          modulesPreload(modules ++ pageModule.so(module => jsPageModule(module.name))),
+          systemThemeScript
         ),
         st.body(
           cls := {
@@ -320,8 +339,9 @@ object layout:
             )
           },
           dataDev,
-          dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req)).option(vapidPublicKey),
-          dataUser  := ctx.userId,
+          dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
+            .option(env.push.vapidPublicKey),
+          dataUser     := ctx.userId,
           dataSoundSet := pref.currentSoundSet.toString,
           dataSocketDomains,
           pref.isUsingAltSocket.option(dataSocketAlts),
@@ -331,8 +351,8 @@ object layout:
           dataTheme        := pref.currentBg,
           dataBoardTheme   := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
-          dataAnnounce     := lila.api.AnnounceStore.get.map(a => safeJsonValue(a.json)),
-          style            := zoomable.option(s"--zoom:$pageZoom")
+          dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
+          style            := zoomable.option(s"---zoom:$pageZoom")
         )(
           blindModeForm,
           ctx.data.inquiry.map { views.html.mod.inquiry(_) },
@@ -357,7 +377,7 @@ object layout:
             .option(
               div(id := "friend_box")(
                 div(cls := "friend_box_title")(
-                  trans.site.nbFriendsOnline.plural(0, iconTag(licon.UpTriangle))
+                  trans.site.nbFriendsOnline.plural(0, iconTag(Icon.UpTriangle))
                 ),
                 div(cls := "content_wrap none")(
                   div(cls := "content list")
@@ -368,13 +388,16 @@ object layout:
             a(
               id       := "network-status",
               cls      := "link text",
-              dataIcon := licon.ChasingArrows
+              dataIcon := Icon.ChasingArrows
             )
           ),
           spinnerMask,
-          loadScripts(moreJs),
-          pageModule.map: mod =>
-            frag(jsonScript(mod.data), jsPageModule(mod.name))
+          div(id := "inline-scripts")(
+            frag(ctx.needsFp.option(fingerprintTag), ctx.nonce.map(inlineJs.apply)),
+            modulesInit(modules ++ pageModule.so(module => jsPageModule(module.name))),
+            moreJs,
+            pageModule.map { mod => frag(jsonScript(mod.data)) }
+          )
         )
       )
     )
@@ -399,7 +422,7 @@ object layout:
           title     := "Moderation",
           href      := reportRoutes.list,
           dataCount := score,
-          dataIcon  := licon.Agent
+          dataIcon  := Icon.Agent
         ).some
       else
         isGranted(_.PublicChatView).option(
@@ -407,7 +430,7 @@ object layout:
             cls      := "link",
             title    := "Moderation",
             href     := routes.Mod.publicChat,
-            dataIcon := licon.Agent
+            dataIcon := Icon.Agent
           )
         )
 
@@ -417,7 +440,7 @@ object layout:
           cls       := "link data-count link-center",
           href      := teamRoutes.requests,
           dataCount := ctx.teamNbRequests,
-          dataIcon  := licon.Group,
+          dataIcon  := Icon.Group,
           title     := trans.team.teams.txt()
         )
       )
@@ -429,7 +452,7 @@ object layout:
           a(cls := "site-title", href := langHref("/"))(
             if ctx.kid.yes then span(title := trans.site.kidMode.txt(), cls := "kiddo")(":)")
             else ctx.isBot.option(botImage),
-            div(cls := "site-icon", dataIcon := licon.Logo),
+            div(cls := "site-icon", dataIcon := Icon.Logo),
             div(cls := "site-name")(siteNameFrag)
           ),
           (!ctx.isAppealUser).option(
@@ -454,9 +477,8 @@ object layout:
               submitButton(cls := "button button-red link")(trans.site.logOut())
           else
             ctx.me
-              .map { me =>
+              .map: me =>
                 frag(allNotifications, dasher(me))
-              }
               .getOrElse { (!ctx.data.error).option(anonDasher) }
         )
       )
@@ -501,6 +523,9 @@ object layout:
         _ =>
           val qty  = lila.i18n.JsQuantity(t.lang)
           val i18n = safeJsonValue(i18nJsObject(i18nKeys))
-          s"""site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),quantity:$qty,siteI18n:$i18n}"""
+          "if (!window.site) window.site={};" +
+            """window.site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
+            s"window.site.quantity=$qty;" +
+            s"window.site.siteI18n=$i18n;"
       )
   end inlineJs

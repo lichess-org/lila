@@ -36,7 +36,7 @@
 
     padding: 1.5em 1.5em;
     background: $c-brag;
-    color: $c-brag-over;
+    color: $c-over;
 
     &__content {
       @extend %flex-between;
@@ -70,7 +70,7 @@
   &__stats {
     @extend %flex-center;
 
-    padding: 2vh var(--box-padding);
+    padding: 2vh var(---box-padding);
     align-items: stretch;
 
     table {
@@ -94,7 +94,7 @@
     justify-content: center;
     align-items: center;
     background: $c-good;
-    color: $c-good-over;
+    color: $c-over;
     padding: 1em 0;
 
     @media (min-width: at-least($xx-small)) {

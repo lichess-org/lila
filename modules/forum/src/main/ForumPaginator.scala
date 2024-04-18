@@ -3,7 +3,7 @@ package lila.forum
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.user.Me
+
 import lila.core.config.NetDomain
 
 final class ForumPaginator(
@@ -24,10 +24,10 @@ final class ForumPaginator(
         selector = postRepo.forUser(me).selectTopic(topic.id),
         projection = none,
         sort = postRepo.sortQuery
-      ),
+      ).mapFutureList(textExpand.manyPosts),
       currentPage = page,
       maxPerPage = config.postMaxPerPage
-    ).flatMap(_.mapFutureList(textExpand.manyPosts))
+    )
 
   def categTopics(
       categ: ForumCateg,

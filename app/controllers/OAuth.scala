@@ -10,7 +10,7 @@ import views.*
 
 import lila.app.*
 import lila.common.Json.given
-import lila.core.{ Bearer, IpAddress }
+import lila.core.net.{ Bearer, IpAddress }
 import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
 
 import Api.ApiResult

@@ -7,7 +7,7 @@ import lila.common.Bus
 import lila.common.Json.given
 import lila.db.dsl.given
 
-import actorApi.{ FinishGame, StartGame }
+import lila.core.game.{ Game, WithInitialFen, FinishGame, StartGame }
 
 final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 
@@ -41,10 +41,10 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
       .aggregateWith[Game](readPreference = ReadPref.sec): framework =>
         import framework.*
         List(
-          Match($doc(Game.BSONFields.playingUids.$in(userIds))),
+          Match($doc(lila.game.Game.BSONFields.playingUids.$in(userIds))),
           AddFields:
             $doc:
-              "both" -> $doc("$setIsSubset" -> $arr("$" + Game.BSONFields.playingUids, userIds))
+              "both" -> $doc("$setIsSubset" -> $arr("$" + lila.core.game.BSONFields.playingUids, userIds))
           ,
           Match($doc("both" -> true))
         )
@@ -53,8 +53,8 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.M
 
 private object GameStream:
 
-  val gameWithInitialFenWriter: OWrites[Game.WithInitialFen] = OWrites:
-    case Game.WithInitialFen(g, initialFen) =>
+  val gameWithInitialFenWriter: OWrites[WithInitialFen] = OWrites:
+    case WithInitialFen(g, initialFen) =>
       Json
         .obj(
           "id"         -> g.id,

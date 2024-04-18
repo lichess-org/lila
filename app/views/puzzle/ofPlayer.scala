@@ -4,10 +4,9 @@ package html.puzzle
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.puzzle.Puzzle
-import lila.user.User
 
 object ofPlayer:
 
@@ -15,7 +14,7 @@ object ofPlayer:
     views.html.base.layout(
       title = user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
       moreCss = cssTag("puzzle.page"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     )(
       main(cls := "page-menu")(
         bits.pageMenu("player", user),
@@ -46,7 +45,7 @@ object ofPlayer:
                     div(cls := "puzzle-of-player__pager infinite-scroll")(
                       pager.currentPageResults.map { puzzle =>
                         div(cls := "puzzle-of-player__puzzle")(
-                          views.html.board.bits.mini(
+                          chessgroundMini(
                             fen = puzzle.fenAfterInitialMove.board,
                             color = puzzle.color,
                             lastMove = puzzle.line.head.some

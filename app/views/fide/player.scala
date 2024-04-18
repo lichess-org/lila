@@ -1,10 +1,9 @@
 package views.html.fide
 
 import controllers.routes
-import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.fide.{ Federation, FidePlayer }
 import lila.relay.RelayTour
@@ -33,7 +32,7 @@ object player:
         autocomplete   := "off",
         spellcheck     := "false"
       ),
-      submitButton(cls := "button", dataIcon := licon.Search)
+      submitButton(cls := "button", dataIcon := Icon.Search)
     )
 
   def playerList(
@@ -46,7 +45,7 @@ object player:
       thead:
         tr(
           th(title),
-          withFlag.option(th(iconTag(licon.FlagOutline))),
+          withFlag.option(th(iconTag(Icon.FlagOutline))),
           th("Classic"),
           th("Rapid"),
           th("Blitz"),

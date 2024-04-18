@@ -50,8 +50,25 @@ Ludantoj, kiuj ne ŝatas ricevi viajn mesaĝojn povus forlasi la teamon.</string
   <string name="entryCodeDescriptionForLeader">(Nedevige) Enirkodo, kiun novaj membroj devas scii por aliĝu al ĉi tiu teamo.</string>
   <string name="incorrectEntryCode">Malĝusta enirkodo.</string>
   <string name="teamAlreadyExists">Ĉi tiu teamo jam ekzistas.</string>
+  <string name="upcomingTournaments">Venontaj turniroj</string>
   <string name="completedTourns">Kompletigitaj turniroj</string>
   <string name="declinedRequests">Malakceptitaj aliĝpetoj</string>
   <string name="joinLichessVariantTeam">Aliĝu al la oficiala %s teamo por novaĵoj kaj eventoj</string>
   <string name="teamPage">Teama paĝo</string>
+  <string name="thisTeamBattleIsOver">Ĉi tiu turniro finiĝis, kaj la teamoj ne plu povas esti ĝisdatigita.</string>
+  <string name="oneTeamPerLine">Po unu teamo en lino. Uzi la aŭtokompleton.</string>
+  <string name="oneTeamPerLineHelp">Vi povas kopii-alglui ĉi tiun liston el turniro al alia!
+
+Vi ne povas forigi teamon se ludanto jam aliĝis al la turniro kun ĝi.</string>
+  <string name="numberOfLeadsPerTeam">Nombro da gvidantoj je teamo. La sumo de ties poentaroj estas la poentaro de la teamo.</string>
+  <string name="numberOfLeadsPerTeamHelp">Vi verŝajne ne povus ŝanĝi ĉi tiun valoron post la komenco de la turniro!</string>
+  <string name="innerTeam">Ena teamo</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Batalo de %s teamoj</item>
+    <item quantity="other">Battle de %s teamoj</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Unu gvidanto je teamo</item>
+    <item quantity="other">%s gvidantoj je teamo</item>
+  </plurals>
 </resources>

@@ -5,7 +5,7 @@ import controllers.routes
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.oauth.AccessToken
 
 object dgt:
@@ -64,7 +64,7 @@ object dgt:
     layout("play", s"${token.plain.value}".some)(
       div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
       div(cls := "dgt__play__help")(
-        h2(iconTag(licon.InfoCircle, ifMoveNotDetected())),
+        h2(iconTag(Icon.InfoCircle, ifMoveNotDetected())),
         p(checkYouHaveMadeOpponentsMove()),
         p(
           asALastResort(
@@ -81,7 +81,7 @@ object dgt:
         st.section(
           h2(lichessConnectivity()),
           if token.isDefined then
-            p(cls := "text", dataIcon := licon.Checkmark)(
+            p(cls := "text", dataIcon := Icon.Checkmark)(
               validDgtOauthToken(),
               br,
               br,
@@ -206,12 +206,12 @@ object dgt:
   private def layout(path: String, token: Option[String] = None)(body: Modifier*)(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("dgt"),
-      moreJs = token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)),
+      modules = token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)),
       title = playWithDgtBoard.txt(),
       csp = defaultCsp.withAnyWs.some
     ):
       main(cls := "account page-menu dgt")(
-        views.html.site.bits.pageMenuSubnav(
+        views.html.base.bits.pageMenuSubnav(
           a(cls := path.active("index"), href := routes.DgtCtrl.index)(
             dgtBoard()
           ),

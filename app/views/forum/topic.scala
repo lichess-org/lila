@@ -7,7 +7,7 @@ import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
 import scalalib.paginator.Paginator
 
@@ -17,20 +17,17 @@ object topic:
     views.html.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
-      moreJs = frag(
-        jsModule("forum"),
-        captchaTag
-      )
+      modules = jsModule("bits.forum") ++ captchaTag
     ):
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         boxTop(
           h1(
-            a(href := routes.ForumCateg.show(categ.slug), dataIcon := licon.LessThan, cls := "text"),
+            a(href := routes.ForumCateg.show(categ.slug), dataIcon := Icon.LessThan, cls := "text"),
             categ.name
           )
         ),
         st.section(cls := "warning")(
-          h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.site.important()),
+          h2(dataIcon := Icon.CautionTriangle, cls := "text")(trans.site.important()),
           p:
             trans.site.yourQuestionMayHaveBeenAnswered:
               strong(a(href := routes.Main.faq)(trans.site.inTheFAQ()))
@@ -59,7 +56,7 @@ object topic:
               form3.submit(
                 frag("Create as a mod"),
                 nameValue = (form("post")("modIcon").name, "true").some,
-                icon = licon.Agent.some
+                icon = Icon.Agent.some
               )
             ),
             form3.submit(trans.site.createTheTopic())
@@ -79,13 +76,10 @@ object topic:
   )(using ctx: PageContext) =
     views.html.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
-      moreJs = frag(
-        jsModule("forum"),
-        formWithCaptcha.isDefined.option(captchaTag),
-        jsModule("expandText")
-      ),
+      modules = jsModule("bits.forum") ++ jsModule("bits.expandText") ++
+        formWithCaptcha.isDefined.so(captchaTag),
       moreCss = cssTag("forum"),
-      openGraph = lila.app.ui
+      openGraph = lila.web
         .OpenGraph(
           title = topic.name,
           url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
@@ -107,7 +101,7 @@ object topic:
         .paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
       main(cls := "forum forum-topic page-small box box-pad")(
         boxTop(
-          h1(a(href := backUrl, dataIcon := licon.LessThan, cls := "text"), headerText),
+          h1(a(href := backUrl, dataIcon := Icon.LessThan, cls := "text"), headerText),
           isDiagnostic.option(
             postForm(action := routes.ForumTopic.clearDiagnostic(topic.slug))(
               button(cls := "button button-red")("erase diagnostics")
@@ -149,10 +143,10 @@ object topic:
                 cls    := s"unsub ${if uns then "on" else "off"}",
                 action := routes.Timeline.unsub(s"forum:${topic.id}")
               )(
-                button(cls := "button button-empty text on", dataIcon := licon.Eye, bits.dataUnsub := "off"):
+                button(cls := "button button-empty text on", dataIcon := Icon.Eye, bits.dataUnsub := "off"):
                   trans.site.subscribe()
                 ,
-                button(cls := "button button-empty text off", dataIcon := licon.Eye, bits.dataUnsub := "on"):
+                button(cls := "button button-empty text off", dataIcon := Icon.Eye, bits.dataUnsub := "on"):
                   trans.site.unsubscribe()
               ),
             (canModCateg || (topic.isUblog && ctx.me.exists(topic.isAuthor))).option(
@@ -182,7 +176,7 @@ object topic:
               form("text"),
               trans.site.message(),
               help = a(
-                dataIcon := licon.InfoCircle,
+                dataIcon := Icon.InfoCircle,
                 cls      := "text",
                 href     := routes.Cms.lonePage("forum-etiquette")
               )(
@@ -199,7 +193,7 @@ object topic:
                 form3.submit(
                   frag(s"Reply as a mod ${(!isGranted(_.PublicMod)).so("(anonymously)")}"),
                   nameValue = (form("modIcon").name, "true").some,
-                  icon = licon.Agent.some
+                  icon = Icon.Agent.some
                 )
               ),
               form3.submit(trans.site.reply())
@@ -213,15 +207,12 @@ object topic:
     views.html.base.layout(
       title = "Diagnostic report",
       moreCss = cssTag("forum"),
-      moreJs = frag(
-        jsModule("forum"),
-        captchaTag
-      )
+      modules = jsModule("bits.forum") ++ captchaTag
     ):
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
-        boxTop(h1(dataIcon := licon.BubbleConvo, cls := "text")("Diagnostics")),
+        boxTop(h1(dataIcon := Icon.BubbleConvo, cls := "text")("Diagnostics")),
         st.section(cls := "warning")(
-          h2(dataIcon := licon.CautionTriangle, cls := "text")(trans.site.important()),
+          h2(dataIcon := Icon.CautionTriangle, cls := "text")(trans.site.important()),
           p("Unsolicited reports will be ignored."),
           p("Only you and the Lichess moderators can see this forum.")
         ),

@@ -5,7 +5,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object login:
 
@@ -14,9 +14,9 @@ object login:
   def apply(form: Form[?], referrer: Option[String])(using PageContext) =
     views.html.base.layout(
       title = trans.site.signIn.txt(),
-      moreJs = jsModuleInit("login", "login"),
+      modules = jsModuleInit("bits.login", "login"),
       moreCss = cssTag("auth"),
-      withHrefLangs = lila.core.LangPath(routes.Auth.login).some
+      withHrefLangs = lila.web.LangPath(routes.Auth.login).some
     ) {
       def addReferrer(url: String): String = referrer.fold(url) {
         addQueryParam(url, "referrer", _)
@@ -47,7 +47,7 @@ object login:
             form3.group(
               form("token"),
               authenticationCode(),
-              help = Some(span(dataIcon := licon.PhoneMobile)(openTwoFactorApp()))
+              help = Some(span(dataIcon := Icon.PhoneMobile)(openTwoFactorApp()))
             )(
               form3.input(_)(autocomplete := "one-time-code", pattern := "[0-9]{6}")
             ),

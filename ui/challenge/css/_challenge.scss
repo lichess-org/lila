@@ -16,7 +16,7 @@
 
     @media (hover: hover) {
       &:hover {
-        background: mix($c-bg-box, $c-primary, 70%);
+        background: $m-primary_bg--mix-30;
         padding-bottom: 0;
         outline: 1px solid $c-primary;
 
@@ -80,7 +80,7 @@
       .owner:hover .view {
         display: block;
         background: $c-primary;
-        color: $c-primary-over;
+        color: $c-over;
 
         &::before {
           vertical-align: middle;
@@ -99,7 +99,7 @@
 
     button:hover {
       background: $c-good;
-      color: $c-good-over;
+      color: $c-over;
     }
 
     button.decline:hover {

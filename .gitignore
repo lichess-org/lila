@@ -7,6 +7,7 @@
 project/.bloop/
 conf/application.conf
 conf/version.conf
+conf/manifest.*
 
 logs
 project/metals.sbt
@@ -21,6 +22,7 @@ data/
 dist/
 node_modules/
 local/
+gen/
 ui/common/**/*.js
 ui/common/**/*.d.ts
 ui/chess/**/*.js

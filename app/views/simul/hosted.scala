@@ -4,9 +4,8 @@ package simul
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
-import lila.user.User
 
 object hosted:
 
@@ -14,7 +13,7 @@ object hosted:
     views.html.base.layout(
       title = s"${user.username} hosted simuls",
       moreCss = cssTag("user-simul"),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ) {
       main(cls := "page-small box simul-list")(
         if pager.nbResults == 0 then

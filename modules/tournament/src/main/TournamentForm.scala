@@ -9,7 +9,6 @@ import play.api.data.Forms.*
 import lila.common.Form.{ *, given }
 import lila.gathering.GatheringClock
 import lila.core.team.LightTeam
-import lila.user.Me
 
 final class TournamentForm:
 
@@ -84,7 +83,7 @@ final class TournamentForm:
       "clockTime"      -> numberInDouble(timeChoices),
       "clockIncrement" -> numberIn(incrementChoices).into[IncrementSeconds],
       "minutes" -> {
-        if lila.security.Granter(_.ManageTournament) then number
+        if lila.core.perm.Granter(_.ManageTournament) then number
         else numberIn(minuteChoicesKeepingCustom(prev))
       },
       "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
@@ -178,7 +177,7 @@ private[tournament] case class TournamentSetup(
 
   def validRatedVariant =
     realMode == Mode.Casual ||
-      lila.game.Game.allowRated(realVariant, clockConfig.some)
+      lila.core.game.allowRated(realVariant, clockConfig.some)
 
   def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
   def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 150

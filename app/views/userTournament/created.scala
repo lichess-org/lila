@@ -4,9 +4,8 @@ package userTournament
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
-import lila.user.User
 
 object created:
 
@@ -17,7 +16,7 @@ object created:
       u = u,
       title = s"${u.username} created tournaments",
       path = path,
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     ):
       if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
       else
@@ -40,7 +39,7 @@ object created:
                   td(cls := "winner")(
                     t.winnerId.isDefined.option(userIdLink(t.winnerId, withOnline = false))
                   ),
-                  td(cls := "text", dataIcon := licon.User)(t.nbPlayers.localize)
+                  td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
                 )
               },
               pagerNextTable(pager, np => routes.UserTournament.path(u.username, path, np).url)

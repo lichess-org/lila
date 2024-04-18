@@ -19,11 +19,12 @@ private case class ChatConfig(
 final class Env(
     appConfig: Configuration,
     netDomain: NetDomain,
-    userRepo: lila.user.UserRepo,
-    flairApi: lila.user.FlairApi,
+    userApi: lila.core.user.UserApi,
+    userRepo: lila.core.user.UserRepo,
+    flairApi: lila.core.user.FlairApi,
     db: lila.db.Db,
-    flood: lila.security.Flood,
-    spam: lila.security.Spam,
+    flood: lila.core.security.FloodApi,
+    spam: lila.core.security.SpamApi,
     shutupApi: lila.core.shutup.ShutupApi,
     cacheApi: lila.memo.CacheApi
 )(using Executor, FlairGet, FlairGetMap)(using scheduler: Scheduler):

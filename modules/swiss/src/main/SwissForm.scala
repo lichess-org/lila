@@ -8,7 +8,6 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{ *, given }
-import lila.user.User
 
 final class SwissForm(using mode: play.api.Mode):
 
@@ -187,7 +186,7 @@ object SwissForm:
     def isRated = rated | true
     def validRatedVariant =
       !isRated ||
-        lila.game.Game.allowRated(realVariant, clock.some)
+        lila.core.game.allowRated(realVariant, clock.some)
 
   def autoInterval(clock: ClockConfig) = {
     import Speed.*

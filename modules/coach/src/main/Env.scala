@@ -9,8 +9,10 @@ import lila.core.config.*
 @Module
 final class Env(
     appConfig: Configuration,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
+    perfsRepo: lila.core.user.PerfsRepo,
+    userRepo: lila.core.user.UserRepo,
+    userApi: lila.core.user.UserApi,
+    flagApi: lila.core.user.FlagApi,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db,
     picfitApi: lila.memo.PicfitApi
@@ -23,6 +25,6 @@ final class Env(
   lazy val pager = wire[CoachPager]
 
   lila.common.Bus.subscribeFun("finishGame"):
-    case lila.game.actorApi.FinishGame(game, users) if game.rated =>
-      if lila.rating.PerfType.standard.has(game.perfType)
+    case lila.core.game.FinishGame(game, users) if game.rated =>
+      if lila.rating.PerfType.standardSet(game.perfKey)
       then users.foreach(u => u.foreach(u => api.updateRatingFromDb(u._1)))

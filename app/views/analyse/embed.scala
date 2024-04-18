@@ -5,7 +5,7 @@ import chess.format.pgn.PgnStr
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
 object embed:
@@ -16,7 +16,7 @@ object embed:
       cssModule = "lpv.embed"
     )(
       div(cls := "is2d")(div(pgn)),
-      jsModule("lpv.embed"),
+      jsTag("site.lpv.embed"),
       lpvJs(orientation, getPgn)
     )
 

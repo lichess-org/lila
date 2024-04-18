@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.common.{ Markdown, MarkdownRender }
 import lila.event.{ Event, EventForm }
 
@@ -31,7 +31,7 @@ object event:
             }
           ),
           st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
-            form3.submit("Clone", licon.Mic.some)(cls := "button-green button-empty")
+            form3.submit("Clone", Icon.Mic.some)(cls := "button-green button-empty")
           )
         ),
         standardFlash,
@@ -40,15 +40,15 @@ object event:
 
   def iconOf(e: Event) =
     e.icon match
-      case None                                     => i(cls := "img", dataIcon := licon.Mic)
-      case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := licon.RadioTower)
+      case None                                     => i(cls := "img", dataIcon := Icon.Mic)
+      case Some(c) if c == EventForm.icon.broadcast => i(cls := "img", dataIcon := Icon.RadioTower)
       case Some(c)                                  => img(cls := "img", src := assetUrl(s"images/$c"))
 
   def show(e: Event)(using PageContext) =
     views.html.base.layout(
       title = e.title,
       moreCss = cssTag("event"),
-      moreJs = jsModule("eventCountdown")
+      modules = jsModule("bits.eventCountdown")
     ):
       main(cls := "page-small event box box-pad")(
         boxTop(
@@ -86,7 +86,7 @@ object event:
         boxTop(
           h1(title),
           div(cls := "box__top__actions")(
-            a(cls := "button button-green", href := routes.Event.form, dataIcon := licon.PlusButton)
+            a(cls := "button button-green", href := routes.Event.form, dataIcon := Icon.PlusButton)
           )
         ),
         table(cls := "slist slist-pad")(
@@ -115,7 +115,7 @@ object event:
                   showInstant(e.finishesAt),
                   momentFromNow(e.finishesAt)
                 ),
-                td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := licon.Eye))
+                td(a(cls := "text", href := routes.Event.show(e.id), dataIcon := Icon.Eye))
               )
         )
       )
@@ -205,7 +205,7 @@ object event:
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
-      moreJs = jsModule("flatpickr")
+      modules = jsModule("bits.flatpickr")
     ):
       main(cls := "page-menu")(
         mod.menu("event"),

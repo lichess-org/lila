@@ -5,11 +5,10 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.web.LangPath
 import scalalib.paginator.Paginator
 import lila.storm.{ StormDay, StormHigh }
-import lila.user.User
 
 object storm:
 
@@ -64,7 +63,7 @@ object storm:
     views.html.base.layout(
       title = s"${user.username} Puzzle Storm",
       moreCss = frag(cssTag("storm.dashboard")),
-      moreJs = infiniteScrollTag
+      modules = infiniteScrollTag
     )(
       main(cls := "storm-dashboard page-small")(
         div(cls := "storm-dashboard__high box box-pad")(

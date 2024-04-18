@@ -3,7 +3,7 @@ package views.html.streamer
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 
 object index:
@@ -62,12 +62,12 @@ object index:
     views.html.base.layout(
       title = title,
       moreCss = cssTag("streamer.list"),
-      moreJs = frag(infiniteScrollTag, jsModule("streamer"))
+      modules = infiniteScrollTag ++ jsModule("bits.streamer")
     ) {
       main(cls := "page-menu")(
         bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
-          boxTop(h1(dataIcon := licon.Mic, cls := "text")(title)),
+          boxTop(h1(dataIcon := Icon.Mic, cls := "text")(title)),
           (!requests).option(
             div(cls := "list force-ltr live")(
               live.map: s =>

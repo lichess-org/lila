@@ -6,19 +6,20 @@ import reactivemongo.akkastream.cursorProducer
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
 import lila.core.relation.Relations
-import lila.user.{ Me, User, UserRepo }
 import lila.core.msg.PostResult
 
 final class MsgApi(
     colls: MsgColls,
-    userRepo: UserRepo,
-    lightUserApi: lila.user.LightUserApi,
+    contactApi: ContactApi,
+    userApi: lila.core.user.UserApi,
+    userRepo: lila.core.user.UserRepo,
+    lightUserApi: lila.core.user.LightUserApi,
     relationApi: lila.core.relation.RelationApi,
     json: MsgJson,
     notifier: MsgNotify,
     security: MsgSecurity,
     shutupApi: lila.core.shutup.ShutupApi,
-    spam: lila.security.Spam
+    spam: lila.core.security.SpamApi
 )(using Executor, akka.stream.Materializer)
     extends lila.core.msg.MsgApi:
 
@@ -106,7 +107,7 @@ final class MsgApi(
     Msg.make(text, orig, date).fold[Fu[PostResult]](fuccess(PostResult.Invalid)) { msgPre =>
       val threadId = MsgThread.id(orig, dest)
       for
-        contacts <- userRepo.contacts(orig, dest).orFail(s"Missing convo contact user $orig->$dest")
+        contacts <- contactApi.contacts(orig, dest).orFail(s"Missing convo contact user $orig->$dest")
         isNew    <- colls.thread.exists($id(threadId)).not
         verdict <-
           if ignoreSecurity then fuccess(MsgSecurity.Ok)
@@ -153,7 +154,7 @@ final class MsgApi(
               _ <- threadWrite
             yield
               import MsgSecurity.*
-              import lila.core.actorApi.socket.SendTo
+              import lila.core.socket.SendTo
               import lila.core.socket.makeMessage
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
@@ -200,7 +201,7 @@ final class MsgApi(
       .run()
 
   def cliMultiPost(orig: UserStr, dests: Seq[UserId], text: String): Fu[String] =
-    userRepo.me(orig).flatMap {
+    userApi.me(orig).flatMap {
       case None     => fuccess(s"Unknown sender $orig")
       case Some(me) => multiPost(Source(dests), text)(using me).inject("done")
     }
@@ -238,6 +239,7 @@ final class MsgApi(
           UnwindField("contact")
         )
       .flatMap: docs =>
+        import userRepo.userHandler
         (for
           doc     <- docs
           msgs    <- doc.getAsOpt[List[Msg]]("msgs")

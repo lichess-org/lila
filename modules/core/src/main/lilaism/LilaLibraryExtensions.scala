@@ -8,13 +8,19 @@ import java.util.Base64
 import java.util.concurrent.TimeUnit
 import scala.concurrent.{ ExecutionContext as EC }
 import scala.util.Try
-import scala.util.matching.Regex
 import scalalib.future.FutureAfter
 
-trait LilaLibraryExtensions extends LilaTypes:
+trait LilaLibraryExtensions extends CoreExports:
 
   export scalalib.future.extensions.*
   export scalalib.future.given_Zero_Future
+
+  def fuccess[A](a: A): Fu[A]        = Future.successful(a)
+  def fufail[X](t: Throwable): Fu[X] = Future.failed(t)
+  def fufail[X](s: String): Fu[X]    = fufail(LilaException(s))
+  val funit                          = Future.unit
+  val fuTrue                         = fuccess(true)
+  val fuFalse                        = fuccess(false)
 
   /* library-agnostic way to run a future after a delay */
   given (using sched: Scheduler, ec: Executor): FutureAfter =

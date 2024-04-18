@@ -5,9 +5,8 @@ import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.security.HcaptchaForm
-import lila.user.User
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.core.security.HcaptchaForm
 
 object bits:
 
@@ -39,13 +38,13 @@ object bits:
     views.html.base.layout(
       title = trans.site.passwordReset.txt(),
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.hcaptcha.script(form),
+      moreJs = lila.web.views.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
     ):
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
-            fail.option(span(cls := "is-red", dataIcon := licon.X)),
+            fail.option(span(cls := "is-red", dataIcon := Icon.X)),
             trans.site.passwordReset()
           )
         ),
@@ -53,7 +52,7 @@ object bits:
           form3.group(form("email"), trans.site.email())(
             form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
           ),
-          views.html.base.hcaptcha.tag(form),
+          lila.web.views.hcaptcha.tag(form),
           form3.action(form3.submit(trans.site.emailMeALink()))
         )
       )
@@ -63,7 +62,7 @@ object bits:
       title = trans.site.passwordReset.txt()
     ):
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.site.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
         p(trans.site.weHaveSentYouAnEmailTo(email)),
         p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )
@@ -74,13 +73,13 @@ object bits:
     views.html.base.layout(
       title = s"${me.username} - ${trans.site.changePassword.txt()}",
       moreCss = cssTag("form3"),
-      moreJs = jsModuleInit("passwordComplexity")
+      modules = jsModuleInit("bits.passwordComplexity")
     ):
       main(cls := "page-small box box-pad")(
         boxTop(
           (ok match
-            case Some(true)  => h1(cls := "is-green text", dataIcon := licon.Checkmark)
-            case Some(false) => h1(cls := "is-red text", dataIcon := licon.X)
+            case Some(true)  => h1(cls := "is-green text", dataIcon := Icon.Checkmark)
+            case Some(false) => h1(cls := "is-red text", dataIcon := Icon.X)
             case _           => h1
           )(
             userLink(me, withOnline = false),
@@ -107,13 +106,13 @@ object bits:
     views.html.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.hcaptcha.script(form),
+      moreJs = lila.web.views.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
     ):
       main(cls := "auth auth-signup box box-pad")(
         boxTop(
           h1(
-            fail.option(span(cls := "is-red", dataIcon := licon.X)),
+            fail.option(span(cls := "is-red", dataIcon := Icon.X)),
             "Log in by email"
           )
         ),
@@ -122,7 +121,7 @@ object bits:
           form3.group(form("email"), trans.site.email())(
             form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
           ),
-          views.html.base.hcaptcha.tag(form),
+          lila.web.views.hcaptcha.tag(form),
           form3.action(form3.submit(trans.site.emailMeALink()))
         )
       )
@@ -132,7 +131,7 @@ object bits:
       title = "Log in by email"
     ):
       main(cls := "page-small box box-pad")(
-        boxTop(h1(cls := "is-green text", dataIcon := licon.Checkmark)(trans.site.checkYourEmail())),
+        boxTop(h1(cls := "is-green text", dataIcon := Icon.Checkmark)(trans.site.checkYourEmail())),
         p("We've sent you an email with a link."),
         p(trans.site.ifYouDoNotSeeTheEmailCheckOtherPlaces())
       )

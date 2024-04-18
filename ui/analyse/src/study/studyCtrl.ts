@@ -261,7 +261,7 @@ export default class StudyCtrl {
 
   startTour = async () => {
     const [tour] = await Promise.all([
-      site.asset.loadEsm<StudyTour>('study.tour'),
+      site.asset.loadEsm<StudyTour>('analyse.study.tour'),
       site.asset.loadCssPath('shepherd'),
     ]);
 

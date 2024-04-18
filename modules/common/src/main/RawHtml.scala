@@ -10,7 +10,7 @@ import scala.annotation.{ switch, tailrec }
 import scalalib.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
 import lila.common.{ Html, config }
 import lila.core.config.NetDomain
-import lila.core.actorApi.lpv.LinkRender
+import lila.core.misc.lpv.LinkRender
 
 object RawHtml:
 

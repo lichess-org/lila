@@ -16,6 +16,8 @@ object Json:
 
   given Writes[lila.core.relation.Relation] = writeAs(_.isFollow)
 
+  given Writes[PerfKey] = pk => JsString(PerfKey.value(pk))
+
   given Reads[LilaOpeningFamily] = Reads[LilaOpeningFamily]: f =>
     f.get[String]("key")
       .flatMap(LilaOpeningFamily.find)

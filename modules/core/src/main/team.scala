@@ -4,6 +4,10 @@ package team
 import reactivemongo.api.bson.Macros.Annotations.Key
 import reactivemongo.api.bson.BSONDocument
 
+import lila.core.data.Markdown
+import lila.core.userId.*
+import lila.core.id.{ TeamId, Flair }
+
 trait TeamApi:
   def filterHideForum(ids: Iterable[TeamId]): Fu[Set[TeamId]]
   def forumAccessOf(teamId: TeamId): Fu[Access]
@@ -48,13 +52,13 @@ case class TeamData(
     userId: UserId
 )
 case class TeamCreate(team: TeamData)
-case class TeamUpdate(team: TeamData)(using val me: user.MyId)
+case class TeamUpdate(team: TeamData)(using val me: MyId)
 case class TeamDelete(id: TeamId)
 case class TeamDisable(id: TeamId)
 case class JoinTeam(id: TeamId, userId: UserId)
 case class IsLeader(id: TeamId, userId: UserId, promise: Promise[Boolean])
 case class IsLeaderOf(leaderId: UserId, memberId: UserId, promise: Promise[Boolean])
 case class IsLeaderWithCommPerm(id: TeamId, userId: UserId, promise: Promise[Boolean])
-case class KickFromTeam(teamId: TeamId, teamName: String, userId: UserId)(using val me: user.MyId)
+case class KickFromTeam(teamId: TeamId, teamName: String, userId: UserId)(using val me: MyId)
 case class LeaveTeam(teamId: TeamId, userId: UserId)
 case class TeamIdsJoinedBy(userId: UserId, promise: Promise[List[TeamId]])

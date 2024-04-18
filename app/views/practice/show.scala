@@ -4,7 +4,7 @@ package practice
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 object show:
 
@@ -15,9 +15,9 @@ object show:
     views.html.base.layout(
       title = us.practiceStudy.name.value,
       moreCss = cssTag("analyse.practice"),
-      moreJs = analyseNvuiTag,
+      modules = List(analyseNvuiTag),
       pageModule = PageModule(
-        "analysisBoard.study",
+        "analyse.study",
         Json.obj(
           "practice" -> data.practice,
           "study"    -> data.study,

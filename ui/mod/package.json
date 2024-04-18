@@ -17,14 +17,12 @@
   },
   "lichess": {
     "modules": {
-      "esm": {
-        "src/activity.ts": "mod.activity",
-        "src/user.ts": "mod.user",
-        "src/inquiry.ts": "mod.inquiry",
-        "src/games.ts": "mod.games",
-        "src/search.ts": "mod.search",
-        "src/teamAdmin.ts": "team.admin"
-      }
+      "src/mod.activity.ts": "mod.activity",
+      "src/mod.user.ts": "mod.user",
+      "src/mod.inquiry.ts": "mod.inquiry",
+      "src/mod.games.ts": "mod.games",
+      "src/mod.search.ts": "mod.search",
+      "src/mod.teamAdmin.ts": "mod.team.admin"
     }
   }
 }

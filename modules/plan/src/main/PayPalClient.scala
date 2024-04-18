@@ -16,7 +16,6 @@ import lila.core.config.*
 import lila.common.autoconfig.*
 import lila.common.config.given
 import lila.memo.CacheApi
-import lila.user.User
 
 final private class PayPalClient(
     ws: StandaloneWSClient,
@@ -234,9 +233,8 @@ final private class PayPalClient(
     }
   }
 
-  @annotation.nowarn
   private def debugInput(data: Seq[(String, Matchable)]) =
-    fixInput(data).map { case (k, v) => s"$k=$v" }.mkString(" ")
+    fixInput(data).map { (k, v) => s"$k=$v" }.mkString(" ")
 
 object PayPalClient:
 

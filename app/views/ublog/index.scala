@@ -1,15 +1,13 @@
 package views.html.ublog
 
 import controllers.routes
-import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.i18n.LangList
 import lila.core.i18n.Language
 import lila.ublog.{ UblogPost, UblogTopic }
-import lila.user.User
 
 object index:
 
@@ -18,7 +16,7 @@ object index:
   def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using PageContext) =
     views.html.base.layout(
       moreCss = frag(cssTag("ublog")),
-      moreJs = posts.hasNextPage.option(infiniteScrollTag),
+      modules = posts.hasNextPage.option(infiniteScrollTag),
       title = trans.ublog.drafts.txt()
     ) {
       main(cls := "page-menu")(
@@ -73,13 +71,13 @@ object index:
   def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = posts.hasNextPage.option(infiniteScrollTag),
+      modules = posts.hasNextPage.option(infiniteScrollTag),
       title = "Community blogs",
       atomLinkTag = link(
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
         st.title := "Lichess community blogs"
       ).some,
-      withHrefLangs = lila.core.LangPath(langHref(routes.Ublog.communityAll())).some
+      withHrefLangs = lila.web.LangPath(langHref(routes.Ublog.communityAll())).some
     ) {
       val langSelections: List[(String, String)] = ("all", "All languages") ::
         lila.i18n.LangPicker
@@ -105,7 +103,7 @@ object index:
                       cls := (languageSel == language.fold("all")(_.value)).option("current")
                     )(name)
               ),
-              views.html.site.bits.atomLink(routes.Ublog.communityAtom(language.fold("all")(_.value)))
+              views.html.base.atom.atomLink(routes.Ublog.communityAtom(language.fold("all")(_.value)))
             )
           ),
           if posts.nbResults > 0 then
@@ -159,7 +157,7 @@ object index:
   )(using PageContext) =
     views.html.base.layout(
       moreCss = cssTag("ublog"),
-      moreJs = posts.hasNextPage.option(infiniteScrollTag),
+      modules = posts.hasNextPage.option(infiniteScrollTag),
       title = title
     ) {
       main(cls := "page-menu")(

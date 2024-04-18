@@ -2,8 +2,6 @@ package lila.chat
 
 import reactivemongo.api.bson.BSONDocumentHandler
 
-import lila.user.{ Me, User }
-
 sealed trait AnyChat:
   def id: ChatId
   def lines: List[Line]

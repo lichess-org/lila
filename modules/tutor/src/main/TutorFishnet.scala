@@ -6,8 +6,7 @@ import lila.core.fishnet.{ SystemAnalysisRequest, AnalysisAwaiter }
 import lila.game.GameRepo
 import lila.insight.InsightPerfStats
 import lila.memo.SettingStore
-import lila.core.perf.PerfType
-import lila.user.User
+import lila.rating.PerfType
 
 final private class TutorFishnet(
     gameRepo: GameRepo,

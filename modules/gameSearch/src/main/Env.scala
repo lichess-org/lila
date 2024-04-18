@@ -4,7 +4,7 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.game.actorApi.{ FinishGame, InsertGame }
+import lila.core.game.{ FinishGame, InsertGame }
 import lila.search.*
 import lila.core.config.ConfigName
 
@@ -17,8 +17,8 @@ private class GameSearchConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
+    gameRepo: lila.core.game.GameRepo,
+    userApi: lila.core.user.UserApi,
     makeClient: Index => ESClient
 )(using Executor, Scheduler, lila.core.i18n.Translator):
 
@@ -28,7 +28,7 @@ final class Env(
 
   lazy val api = wire[GameSearchApi]
 
-  lazy val paginator = PaginatorBuilder[lila.game.Game, Query](api, config.paginatorMaxPerPage)
+  lazy val paginator = PaginatorBuilder[Game, Query](api, config.paginatorMaxPerPage)
 
   lazy val forms = wire[GameSearchForm]
 

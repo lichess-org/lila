@@ -3,16 +3,16 @@ package views.html.user
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.user.User
-import lila.core.perf.PerfType
+import lila.ui.ScalatagsTemplate.{ *, given }
+
+import lila.rating.PerfType
 
 object download:
-  def apply(user: lila.user.User)(using ctx: PageContext): Frag =
+  def apply(user: User)(using ctx: PageContext): Frag =
     views.html.base.layout(
       title = s"${user.username} • ${trans.site.exportGames.txt()}",
       moreCss = cssTag("search"),
-      moreJs = jsModule("userGamesDownload")
+      modules = jsModule("bits.userGamesDownload")
     ) {
       main(cls := "box page-small search")(
         boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),

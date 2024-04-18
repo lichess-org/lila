@@ -1,4 +1,4 @@
-import { LearnOpts } from '../main';
+import { LearnOpts } from '../learn';
 import runCtrl from './runCtrl';
 import runView from './runView';
 

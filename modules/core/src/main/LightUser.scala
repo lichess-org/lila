@@ -1,14 +1,17 @@
 package lila.core
 
-import chess.PlayerTitle
+import _root_.chess.PlayerTitle
 import play.api.libs.json.*
-import lila.core.user.MyId
+
+import lila.core.userId.*
+import lila.core.id.Flair
+import scala.concurrent.ExecutionContext
 
 case class LightUser(
     id: UserId,
     name: UserName,
     title: Option[PlayerTitle],
-    flair: Option[lila.core.Flair],
+    flair: Option[Flair],
     isPatron: Boolean
 ):
   def titleName: String = title.fold(name.value)(_.value + " " + name)
@@ -32,10 +35,11 @@ object LightUser:
 
   opaque type Me = LightUser
   object Me extends TotalWrapper[Me, LightUser]:
-    extension (me: Me) def userId: UserId = me.id
-    given UserIdOf[Me]                    = _.id
-    given Conversion[Me, LightUser]       = identity
-    given (using me: Me): MyId            = me.id.into(MyId)
+    extension (me: Me) def userId: UserId   = me.id
+    given UserIdOf[Me]                      = _.id
+    given Conversion[Me, LightUser]         = identity
+    given (using me: Me): MyId              = me.id.into(MyId)
+    given (using me: lila.core.user.Me): Me = me.lightMe
 
   private type GetterType          = UserId => Fu[Option[LightUser]]
   opaque type Getter <: GetterType = GetterType
@@ -44,7 +48,8 @@ object LightUser:
   private type GetterFallbackType                  = UserId => Fu[LightUser]
   opaque type GetterFallback <: GetterFallbackType = GetterFallbackType
   object GetterFallback extends TotalWrapper[GetterFallback, GetterFallbackType]:
-    extension (e: GetterFallback) def optional = Getter(id => e(id).dmap(some))
+    extension (e: GetterFallback)
+      def optional = Getter(id => e(id).map(Some(_))(using ExecutionContext.parasitic))
 
   private type GetterSyncType              = UserId => Option[LightUser]
   opaque type GetterSync <: GetterSyncType = GetterSyncType

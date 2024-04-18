@@ -13,11 +13,10 @@ import lila.common.autoconfig.*
 import lila.common.config.given
 import lila.core.config.*
 import lila.common.HTTPRequest
-import lila.core.IpAddress
+import lila.core.net.IpAddress
+import lila.core.security.{ HcaptchaForm, HcaptchaPublicConfig }
 
-trait Hcaptcha:
-
-  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
+trait Hcaptcha extends lila.core.security.Hcaptcha:
 
   def verify(response: String)(using req: RequestHeader): Fu[Hcaptcha.Result]
 
@@ -65,9 +64,7 @@ final class HcaptchaReal(
   private case class GoodResponse(success: Boolean, hostname: String)
   private given Reads[GoodResponse] = Json.reads[GoodResponse]
 
-  private case class BadResponse(
-      `error-codes`: List[String]
-  ):
+  private case class BadResponse(`error-codes`: List[String]):
     def missingInput      = `error-codes` contains "missing-input-response"
     override def toString = `error-codes`.mkString(",")
   private given Reads[BadResponse] = Json.reads[BadResponse]

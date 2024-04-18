@@ -3,7 +3,7 @@ package views.html.account
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object layout:
 
@@ -11,19 +11,21 @@ object layout:
       title: String,
       active: String,
       evenMoreCss: Frag = emptyFrag,
-      evenMoreJs: Frag = emptyFrag
+      evenMoreJs: Frag = emptyFrag,
+      modules: EsmList = Nil
   )(body: Frag)(using ctx: PageContext): Frag =
     views.html.base.layout(
       title = title,
       moreCss = frag(cssTag("account"), evenMoreCss),
-      moreJs = frag(jsModule("account"), evenMoreJs)
+      moreJs = evenMoreJs,
+      modules = jsModule("bits.account") ++ modules
     ):
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(
         ctx.me
           .exists(_.enabled.yes)
           .option(
-            views.html.site.bits.pageMenuSubnav(
+            views.html.base.bits.pageMenuSubnav(
               a(activeCls("editProfile"), href := routes.Account.profile)(
                 trans.site.editProfile()
               ),

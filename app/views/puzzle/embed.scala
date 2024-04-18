@@ -4,7 +4,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.*
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.puzzle.DailyPuzzle
 
 object embed:
@@ -20,7 +20,7 @@ object embed:
         cls := "embedded"
       ),
       chessgroundTag,
-      jsModule("puzzle.embed")
+      jsTag("puzzle.embed")
     )
 
   def dailyLink(daily: DailyPuzzle.WithHtml)(using Translate) = a(

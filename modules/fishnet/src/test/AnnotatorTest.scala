@@ -25,14 +25,15 @@ import lila.core.config.NetDomain
 
 import JsonApi.*
 import readers.given
+import lila.core.game.Player
+import lila.core.id.GamePlayerId
 
 final class AnnotatorTest extends munit.FunSuite:
 
   test("annotated games with fishnet input"):
-    TestFixtures.testCases.foreach { tc =>
+    TestFixtures.testCases.foreach: tc =>
       val (output, expected) = tc.test
       assertEquals(output, expected)
-    }
 
 case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expected: PgnStr):
 
@@ -55,10 +56,10 @@ case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expec
     (game, moves)
 
   def makeGame(g: chess.Game) =
-    lila.game.Game
-      .make(
+    lila.core.game
+      .newGame(
         g,
-        ByColor(lila.game.Player.make(_, none)),
+        ByColor(Player(GamePlayerId("abcd"), _, none)),
         mode = chess.Mode.Casual,
         source = lila.core.game.Source.Api,
         pgnImport = none

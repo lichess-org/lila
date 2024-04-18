@@ -1,8 +1,9 @@
 package lila.game
 
 import lila.core.LightUser
+import lila.core.game.{ Game, Player }
 
-object Namer:
+object Namer extends lila.core.game.Namer:
 
   def playerTextBlocking(player: Player, withRating: Boolean = false)(using
       lightUser: LightUser.GetterSync

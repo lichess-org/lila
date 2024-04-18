@@ -1,12 +1,13 @@
 package lila.analyse
-import chess.format.pgn.{ InitialComments, Parser, Pgn, PgnStr, Tag, Tags }
-import chess.{ ByColor, Ply }
+import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tag, Tags }
+import chess.{ ByColor, Ply, Node }
 
 import lila.core.config.{ BaseUrl, NetDomain }
-import lila.game.PgnDump
+import lila.core.game.PgnDump
 import lila.tree.Eval
 import lila.core.user.LightUserApiMinimal
 import lila.core.LightUser
+import lila.core.id.GamePlayerId
 
 class AnnotatorTest extends munit.FunSuite:
 
@@ -14,10 +15,10 @@ class AnnotatorTest extends munit.FunSuite:
 
   val annotator = Annotator(NetDomain("l.org"))
   def makeGame(g: chess.Game) =
-    lila.game.Game
-      .make(
+    lila.core.game
+      .newGame(
         g,
-        ByColor(lila.game.Player.make(_, none)),
+        ByColor(lila.core.game.Player(GamePlayerId("abcd"), _, aiLevel = none)),
         mode = chess.Mode.Casual,
         source = lila.core.game.Source.Api,
         pgnImport = none
@@ -59,9 +60,6 @@ class AnnotatorTest extends munit.FunSuite:
       val async = LightUser.Getter(id => fuccess(sync(id)))
 
   given Lang = defaultLang
-  val dumper = PgnDump(BaseUrl("l.org/"), LightUserApi.mock)
-  val dumped =
-    dumper(makeGame(playedGame), None, PgnDump.WithFlags(tags = false)).await(1.second, "test dump")
 
   test("empty game"):
     assertEquals(
@@ -76,6 +74,21 @@ class AnnotatorTest extends munit.FunSuite:
     )
 
   test("opening comment"):
+    val dumped = Pgn(
+      Tags.empty,
+      InitialComments.empty,
+      Node(
+        Move(Ply(1), SanStr("a3")),
+        Node(
+          Move(Ply(2), SanStr("g6")),
+          Node(
+            Move(Ply(3), SanStr("g4")),
+            None
+          ).some
+        ).some
+      ).some
+    )
+
     assertEquals(
       annotator(dumped, makeGame(playedGame), none).copy(tags = Tags.empty).render,
       PgnStr("""1. a3 { A00 Anderssen's Opening } g6 2. g4""")

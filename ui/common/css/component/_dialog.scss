@@ -19,7 +19,7 @@ dialog {
   }
 
   > div.scrollable {
-    max-height: calc(var(--viewport-height) - 16px);
+    max-height: calc(var(---viewport-height) - 16px);
     overflow-x: clip;
     overflow-y: auto;
   }
@@ -68,7 +68,7 @@ dialog {
       border-radius: 50%;
       border: none;
       &:hover {
-        box-shadow: $box-shadow;
+        @include box-shadow;
         background: $c-bad;
         color: #fff;
       }

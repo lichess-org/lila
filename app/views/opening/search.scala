@@ -3,7 +3,7 @@ package views.html.opening
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.opening.{ OpeningConfig, OpeningSearchResult }
 
 object search:
@@ -21,7 +21,7 @@ object search:
         autocomplete   := "off",
         spellcheck     := "false"
       ),
-      submitButton(cls := "button", dataIcon := licon.Search)
+      submitButton(cls := "button", dataIcon := Icon.Search)
     )
 
   def resultsList(results: List[OpeningSearchResult]) =
@@ -30,7 +30,7 @@ object search:
         a(cls := "opening__search__result", href := bits.queryUrl(r.query))(
           span(cls := "opening__search__result__title")(splitName(r.opening)),
           span(cls := "opening__search__result__board")(
-            views.html.board.bits.mini(r.opening.fen.board, lastMove = r.opening.lastUci)(span)
+            chessgroundMini(r.opening.fen.board, lastMove = r.opening.lastUci)(span)
           )
         )
       }

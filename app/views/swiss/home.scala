@@ -5,7 +5,7 @@ import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.swiss.{ FeaturedSwisses, Swiss }
 
 object home:
@@ -14,7 +14,7 @@ object home:
     views.html.base.layout(
       title = trans.swiss.swissTournaments.txt(),
       moreCss = cssTag("swiss.home"),
-      withHrefLangs = lila.core.LangPath(routes.Swiss.home).some
+      withHrefLangs = lila.web.LangPath(routes.Swiss.home).some
     ):
       main(cls := "page-small box box-pad page swiss-home")(
         h1(cls := "box__top")(trans.swiss.swissTournaments()),
@@ -22,13 +22,13 @@ object home:
         renderList(trans.swiss.startingSoon.txt())(featured.created),
         div(cls := "swiss-home__infos")(
           div(cls := "wiki")(
-            iconTag(licon.InfoCircle),
+            iconTag(Icon.InfoCircle),
             p:
               trans.swiss.swissDescription:
                 a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
           ),
           div(cls := "team")(
-            iconTag(licon.Group),
+            iconTag(Icon.Group),
             p:
               trans.swiss.teamOnly:
                 a(href := teamRoutes.home())(trans.swiss.joinOrCreateTeam.txt())
@@ -69,7 +69,7 @@ object home:
             td(
               momentFromNow(s.startsAt),
               br,
-              span(cls := "players text", dataIcon := licon.User)(s.nbPlayers.localize)
+              span(cls := "players text", dataIcon := Icon.User)(s.nbPlayers.localize)
             )
           )
     )

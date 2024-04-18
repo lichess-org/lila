@@ -2,7 +2,7 @@ package views.html
 package appeal
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.*
 
 object bits:
 
@@ -14,8 +14,5 @@ object bits:
         cssTag("appeal"),
         isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
-      moreJs = frag(
-        jsModule("appeal"),
-        isGranted(_.UserModView).option(jsModule("mod.user"))
-      )
+      modules = jsModule("mod.appeal") ++ isGranted(_.UserModView).so(jsModule("mod.user"))
     )(body)

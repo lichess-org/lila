@@ -8,11 +8,11 @@ import lila.tv.Tv.Channel
 @Module
 final class Env(
     gameRepo: lila.game.GameRepo,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     lightUserSync: lila.core.LightUser.GetterSync,
-    gameProxyRepo: lila.round.GameProxyRepo,
+    gameProxy: lila.core.game.GameProxy,
     system: ActorSystem,
-    recentTvGames: lila.round.RecentTvGames,
+    onTvGame: lila.game.core.OnTvGame,
     rematches: lila.game.Rematches
 )(using Executor, Scheduler):
 

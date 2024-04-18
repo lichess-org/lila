@@ -3,7 +3,7 @@ package views.html.streamer
 import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object header:
 
@@ -64,7 +64,7 @@ object header:
           ),
           (s.streamer.youTube.isDefined && s.stream.isEmpty && (isMe || isMod)).option(
             form(
-              action := routes.Streamer.checkOnline(s.streamer._id.value).url,
+              action := routes.Streamer.checkOnline(s.streamer.id.value).url,
               method := "post"
             )(input(cls := "button online-check", tpe := "submit", value := "force online check"))
           )

@@ -8,10 +8,11 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Pov
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 import bits.dataPanel
+import lila.game.GameExt.analysable
+import lila.round.RoundGame.secondsSinceCreation
 
 object replay:
 
@@ -28,7 +29,7 @@ object replay:
       analysisStarted: Boolean,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup],
-      userTv: Option[lila.user.User],
+      userTv: Option[User],
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
   )(using ctx: PageContext) =
@@ -48,7 +49,7 @@ object replay:
       )
     val imageLinks = frag(
       a(
-        dataIcon := licon.NodeBranching,
+        dataIcon := Icon.NodeBranching,
         cls      := "text game-gif",
         targetBlank,
         href := cdnUrl(
@@ -56,7 +57,7 @@ object replay:
         )
       )(trans.site.gameAsGIF()),
       a(
-        dataIcon := licon.NodeBranching,
+        dataIcon := Icon.NodeBranching,
         cls      := "text position-gif",
         targetBlank,
         href := cdnUrl(
@@ -74,7 +75,7 @@ object replay:
       )(trans.site.screenshotCurrentPosition())
     )
     val shareLinks = frag(
-      a(dataIcon := licon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
+      a(dataIcon := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
       div(
         input(
           id         := "game-url",
@@ -87,26 +88,26 @@ object replay:
           title    := "Copy URL",
           cls      := "copy button",
           dataRel  := "game-url",
-          dataIcon := licon.Link
+          dataIcon := Icon.Link
         )
       )
     )
     val pgnLinks = frag(
       a(
-        dataIcon := licon.Download,
+        dataIcon := Icon.Download,
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?literate=1",
         downloadAttr
       )(trans.site.downloadAnnotated()),
       a(
-        dataIcon := licon.Download,
+        dataIcon := Icon.Download,
         cls      := "text",
         href     := s"${routes.Game.exportOne(game.id)}?evals=0&clocks=0",
         downloadAttr
       )(trans.site.downloadRaw()),
       game.isPgnImport.option(
         a(
-          dataIcon := licon.Download,
+          dataIcon := Icon.Download,
           cls      := "text",
           href     := s"${routes.Game.exportOne(game.id)}?imported=1",
           downloadAttr
@@ -121,7 +122,7 @@ object replay:
         (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = analyseNvuiTag,
+      modules = analyseNvuiTag,
       pageModule = bits.analyseModule(
         "replay",
         Json
@@ -157,11 +158,13 @@ object replay:
             frag(
               div(cls := "analyse__underboard")(
                 div(role := "tablist", cls := "analyse__underboard__menu")(
-                  game.analysable.option(
-                    span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
-                      trans.site.computerAnalysis()
-                    )
-                  ),
+                  lila.game.GameExt
+                    .analysable(game)
+                    .option(
+                      span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
+                        trans.site.computerAnalysis()
+                      )
+                    ),
                   (!game.isPgnImport).option(
                     frag(
                       (game.ply > 1)
@@ -174,21 +177,23 @@ object replay:
                   span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
                 ),
                 div(cls := "analyse__underboard__panels")(
-                  game.analysable.option(
-                    div(cls := "computer-analysis")(
-                      if analysis.isDefined || analysisStarted then
-                        div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
-                      else
-                        postForm(
-                          cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
-                          action := routes.Analyse.requestAnalysis(gameId)
-                        ):
-                          submitButton(cls := "button text"):
-                            span(cls := "is3 text", dataIcon := licon.BarChart)(
-                              trans.site.requestAComputerAnalysis()
-                            )
-                    )
-                  ),
+                  lila.game.GameExt
+                    .analysable(game)
+                    .option(
+                      div(cls := "computer-analysis")(
+                        if analysis.isDefined || analysisStarted then
+                          div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
+                        else
+                          postForm(
+                            cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
+                            action := routes.Analyse.requestAnalysis(gameId)
+                          ):
+                            submitButton(cls := "button text"):
+                              span(cls := "is3 text", dataIcon := Icon.BarChart)(
+                                trans.site.requestAComputerAnalysis()
+                              )
+                      )
+                    ),
                   div(cls := "move-times")(
                     (game.ply > 1)
                       .option(div(id := "movetimes-chart-container")(canvas(id := "movetimes-chart")))

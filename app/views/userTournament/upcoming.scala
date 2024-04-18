@@ -2,9 +2,8 @@ package views.html
 package userTournament
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
-import lila.user.User
 
 object upcoming:
 
@@ -33,7 +32,7 @@ object upcoming:
                   td(cls := "icon")(iconTag(tournamentIcon(t))),
                   views.html.tournament.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
-                  td(cls := "text", dataIcon := licon.User)(t.nbPlayers.localize)
+                  td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
                 )
           )
         )

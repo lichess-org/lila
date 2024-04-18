@@ -1,4 +1,4 @@
-$c-slider: mix($c-secondary, $c-bg-box, 90%) !default;
+$c-slider: $m-secondary_bg--mix-90 !default;
 $slider-width: 12px;
 
 .ui-slider {
@@ -19,7 +19,7 @@ $slider-width: 12px;
 .ui-widget-content {
   @extend %box-radius;
 
-  background: c-dimmer($c-slider, 70%);
+  background: $m-secondary_dimmer--mix-25;
 }
 
 .ui-slider-handle {
@@ -35,7 +35,7 @@ $slider-width: 12px;
   &:hover,
   &:active,
   &:focus {
-    box-shadow: 0 0 0 9px fade-out($c-slider, 0.85);
+    box-shadow: 0 0 0 9px $m-secondary--fade-85;
     outline: 0;
   }
 }

@@ -3,6 +3,8 @@ package lila.rating
 import chess.{ Black, Color, White }
 
 import glicko2.*
+import lila.rating.Perf.default
+import lila.rating.PerfExt.*
 
 class RatingCalculatorTest extends lila.common.LilaTest:
 
@@ -22,8 +24,8 @@ class RatingCalculatorTest extends lila.common.LilaTest:
     Glicko.system.updateRatings(results, true)
 
   test("default deviation: white wins") {
-    val wr = Perf.default.toRating
-    val br = Perf.default.toRating
+    val wr = default.toRating
+    val br = default.toRating
     updateRatings(wr, br, White.some)
     assertCloseTo(wr.rating, 1741d, 1d)
     assertCloseTo(br.rating, 1258d, 1d)
@@ -33,8 +35,8 @@ class RatingCalculatorTest extends lila.common.LilaTest:
     assertCloseTo(br.volatility, 0.0899983, 0.0000001d)
   }
   test("default deviation: black wins") {
-    val wr = Perf.default.toRating
-    val br = Perf.default.toRating
+    val wr = default.toRating
+    val br = default.toRating
     updateRatings(wr, br, Black.some)
     assertCloseTo(wr.rating, 1258d, 1d)
     assertCloseTo(br.rating, 1741d, 1d)
@@ -44,8 +46,8 @@ class RatingCalculatorTest extends lila.common.LilaTest:
     assertCloseTo(br.volatility, 0.0899983, 0.0000001d)
   }
   test("default deviation: draw") {
-    val wr = Perf.default.toRating
-    val br = Perf.default.toRating
+    val wr = default.toRating
+    val br = default.toRating
     updateRatings(wr, br, None)
     assertCloseTo(wr.rating, 1500d, 1d)
     assertCloseTo(br.rating, 1500d, 1d)

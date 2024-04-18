@@ -3,60 +3,55 @@ package lila.rating
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
 
 import lila.db.BSON
+import lila.core.rating.Glicko
+import lila.core.perf.Perf
+import lila.rating.PerfExt.*
 
-case class Glicko(
-    rating: Double,
-    deviation: Double,
-    volatility: Double
-) extends lila.core.rating.Glicko:
+object GlickoExt:
 
-  def intervalMin = (rating - deviation * 2).toInt
-  def intervalMax = (rating + deviation * 2).toInt
-  def interval    = intervalMin -> intervalMax
+  extension (g: Glicko)
 
-  def rankable(variant: chess.variant.Variant) =
-    deviation <= {
-      if variant.standard then Glicko.standardRankableDeviation
-      else Glicko.variantRankableDeviation
-    }
-  def provisional          = RatingProvisional(deviation >= Glicko.provisionalDeviation)
-  def established          = provisional.no
-  def establishedIntRating = established.option(intRating)
+    def intervalMin = (g.rating - g.deviation * 2).toInt
+    def intervalMax = (g.rating + g.deviation * 2).toInt
+    def interval    = g.intervalMin -> g.intervalMax
 
-  def clueless = deviation >= Glicko.cluelessDeviation
+    def rankable(variant: chess.variant.Variant) =
+      g.deviation <= {
+        if variant.standard then Glicko.standardRankableDeviation
+        else Glicko.variantRankableDeviation
+      }
 
-  def refund(points: Int) = copy(rating = rating + points)
+    def clueless = g.deviation >= Glicko.cluelessDeviation
 
-  def sanityCheck =
-    rating > 0 &&
-      rating < 4000 &&
-      deviation > 0 &&
-      deviation < 1000 &&
-      volatility > 0 &&
-      volatility < (Glicko.maxVolatility * 2)
+    def sanityCheck: Boolean =
+      g.rating > 0 &&
+        g.rating < 4000 &&
+        g.deviation > 0 &&
+        g.deviation < 1000 &&
+        g.volatility > 0 &&
+        g.volatility < (Glicko.maxVolatility * 2)
 
-  def cap =
-    copy(
-      rating = rating.atLeast(Glicko.minRating.value),
-      deviation = deviation.atLeast(Glicko.minDeviation).atMost(Glicko.maxDeviation),
-      volatility = volatility.atMost(Glicko.maxVolatility)
-    )
-
-  def average(other: Glicko, weight: Float = 0.5f) =
-    if weight >= 1 then other
-    else if weight <= 0 then this
-    else
-      Glicko(
-        rating = rating * (1 - weight) + other.rating * weight,
-        deviation = deviation * (1 - weight) + other.deviation * weight,
-        volatility = volatility * (1 - weight) + other.volatility * weight
+    def cap: Glicko =
+      g.copy(
+        rating = g.rating.atLeast(Glicko.minRating.value),
+        deviation = g.deviation.atLeast(Glicko.minDeviation).atMost(Glicko.maxDeviation),
+        volatility = g.volatility.atMost(Glicko.maxVolatility)
       )
 
-  def display = s"$intRating${provisional.yes.so("?")}"
+    def average(other: Glicko, weight: Float = 0.5f): Glicko =
+      if weight >= 1 then other
+      else if weight <= 0 then g
+      else
+        new Glicko(
+          rating = g.rating * (1 - weight) + other.rating * weight,
+          deviation = g.deviation * (1 - weight) + other.deviation * weight,
+          volatility = g.volatility * (1 - weight) + other.volatility * weight
+        )
 
-  override def toString = f"$intRating/$intDeviation/${volatility}%.3f"
+    def display = s"${g.intRating}${g.provisional.yes.so("?")}"
 
-case object Glicko:
+object Glicko:
+  export lila.core.rating.Glicko.*
 
   val minRating = IntRating(400)
   val maxRating = IntRating(4000)
@@ -64,7 +59,6 @@ case object Glicko:
   val minDeviation              = 45
   val variantRankableDeviation  = 65
   val standardRankableDeviation = 75
-  val provisionalDeviation      = 110
   val cluelessDeviation         = 230
   val maxDeviation              = 500d
 
@@ -75,14 +69,14 @@ case object Glicko:
   // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
   val ratingPeriodsPerDay = 0.21436d
 
-  val default = Glicko(1500d, maxDeviation, defaultVolatility)
+  val default = new Glicko(1500d, maxDeviation, defaultVolatility)
 
   // managed is for students invited to a class
-  val defaultManaged       = Glicko(800d, 400d, defaultVolatility)
-  val defaultManagedPuzzle = Glicko(800d, 400d, defaultVolatility)
+  val defaultManaged       = new Glicko(800d, 400d, defaultVolatility)
+  val defaultManagedPuzzle = new Glicko(800d, 400d, defaultVolatility)
 
   // bot accounts (usually a stockfish instance)
-  val defaultBot = Glicko(2000d, maxDeviation, defaultVolatility)
+  val defaultBot = new Glicko(2000d, maxDeviation, defaultVolatility)
 
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700
@@ -94,24 +88,20 @@ case object Glicko:
     system.previewDeviation(p.toRating, nowInstant, reverse)
   }.atLeast(minDeviation).atMost(maxDeviation)
 
-  given BSONDocumentHandler[Glicko] = new BSON[Glicko]:
-
-    def reads(r: BSON.Reader): Glicko =
-      Glicko(
-        rating = r.double("r"),
-        deviation = r.double("d"),
-        volatility = r.double("v")
-      )
-
-    def writes(w: BSON.Writer, o: Glicko) =
-      BSONDocument(
-        "r" -> w.double(o.rating),
-        "d" -> w.double(o.deviation),
-        "v" -> w.double(o.volatility)
-      )
+  given glickoHandler: BSONDocumentHandler[Glicko] = new BSON[Glicko]:
+    def reads(r: BSON.Reader): Glicko = new Glicko(
+      rating = r.double("r"),
+      deviation = r.double("d"),
+      volatility = r.double("v")
+    )
+    def writes(w: BSON.Writer, o: Glicko) = BSONDocument(
+      "r" -> w.double(o.rating),
+      "d" -> w.double(o.deviation),
+      "v" -> w.double(o.volatility)
+    )
 
   import play.api.libs.json.{ OWrites, Json }
-  given OWrites[Glicko] =
+  given glickoWrites: OWrites[Glicko] =
     import scalalib.Maths.roundDownAt
     OWrites: p =>
       Json

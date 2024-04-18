@@ -2,18 +2,15 @@ package lila.challenge
 
 import lila.common.Bus
 
-import lila.game.{ Game, Pov }
-import lila.core.actorApi.socket.SendTo
+import lila.core.socket.SendTo
 import lila.core.i18n.LangPicker
 import lila.memo.CacheApi.*
-import lila.user.{ LightUserApi, Me, User, UserPerfsRepo, UserRepo }
 
 final class ChallengeApi(
     repo: ChallengeRepo,
     challengeMaker: ChallengeMaker,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
-    lightUserApi: LightUserApi,
+    userApi: lila.core.user.UserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     joiner: ChallengeJoiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
@@ -122,12 +119,12 @@ final class ChallengeApi(
       requestedColor: Option[chess.Color] = None
   )(using me: Option[Me]): Fu[Either[String, Option[Pov]]] =
     acceptQueue:
-      def withPerf = me.map(_.value).soFu(perfsRepo.withPerf(_, c.perfType))
+      def withPerf = me.map(_.value).soFu(userApi.withPerf(_, c.perfType))
       if c.canceled
       then fuccess(Left("The challenge has been canceled."))
       else if c.declined
       then fuccess(Left("The challenge has been declined."))
-      else if me.exists(_.isBot) && !Game.isBotCompatible(chess.Speed(c.clock.map(_.config)))
+      else if me.exists(_.isBot) && !lila.game.Game.isBotCompatible(chess.Speed(c.clock.map(_.config)))
       then fuccess(Left("Game incompatible with a BOT account"))
       else if c.open.exists(!_.canJoin)
       then fuccess(Left("The challenge is not for you to accept."))
@@ -156,7 +153,7 @@ final class ChallengeApi(
                     uncacheAndNotify(c)
                     Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
                     c.rematchOf.foreach: gameId =>
-                      import lila.core.actorApi.map.TellIfExists
+                      import lila.core.misc.map.TellIfExists
                       import lila.game.actorApi.NotifyRematch
                       lila.common.Bus
                         .publish(TellIfExists(gameId.value, NotifyRematch(pov.game)), "roundSocket")
@@ -173,7 +170,7 @@ final class ChallengeApi(
     }
 
   def setDestUser(c: Challenge, u: User): Funit = for
-    user <- perfsRepo.withPerf(u, c.perfType)
+    user <- userApi.withPerf(u, c.perfType)
     challenge = c.setDestUser(user)
     _ <- repo.update(challenge)
   yield
@@ -191,7 +188,7 @@ final class ChallengeApi(
     else
       c.userIds
         .map: userId =>
-          gameCache.nbPlaying(userId).dmap(lila.game.Game.maxPlaying <=)
+          gameCache.nbPlaying(userId).dmap(lila.core.game.maxPlaying <= _)
         .parallel
         .dmap(_.exists(identity))
 
@@ -218,7 +215,7 @@ final class ChallengeApi(
     def apply(userId: UserId): Unit = throttler(userId, 3.seconds):
       for
         all  <- allFor(userId)
-        lang <- userRepo.langOf(userId).map(langPicker.byStrOrDefault)
+        lang <- userApi.langOf(userId).map(langPicker.byStrOrDefault)
         _    <- lightUserApi.preloadMany(all.all.flatMap(_.userIds))
       yield
         given play.api.i18n.Lang = lang

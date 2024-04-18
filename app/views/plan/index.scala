@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import java.util.Currency
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 
 object index:
@@ -18,7 +18,7 @@ object index:
   private val namespaceAttr = attr("data-namespace")
 
   def apply(
-      email: Option[lila.core.EmailAddress],
+      email: Option[EmailAddress],
       stripePublicKey: String,
       payPalPublicKey: String,
       patron: Option[lila.plan.Patron],
@@ -45,13 +45,13 @@ object index:
               namespaceAttr := "paypalSubscription"
             )
           ),
-          jsModule("checkout"),
           embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", ${safeJsonValue(
               lila.plan.PlanPricingApi.pricingWrites.writes(pricing)
             )})""")
         )
       ),
-      openGraph = lila.app.ui
+      modules = jsModule("bits.checkout"),
+      openGraph = lila.web
         .OpenGraph(
           title = becomePatron.txt(),
           url = s"$netBaseUrl${routes.Plan.index.url}",

@@ -7,15 +7,16 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
-import lila.core.EmailAddress
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
 import lila.core.playban.RageSit
-import lila.security.{ Dated, Granter, Permission, UserAgentParser, UserClient, UserLogins }
-import lila.user.{ Me, User }
+import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
+import lila.core.perm.Permission
+import lila.user.{ Me, WithPerfsAndEmails }
+import lila.game.GameExt.perfType
 
 object mod:
 
@@ -38,7 +39,7 @@ object mod:
   def actions(
       u: User,
       emails: lila.core.user.Emails,
-      erased: User.Erased,
+      erased: lila.user.Erased,
       pmPresets: ModPresets
   )(using Context): Frag =
     mzSection("actions")(
@@ -230,7 +231,7 @@ object mod:
               name        := "email",
               placeholder := "Email address"
             ),
-            submitButton(cls := "button", dataIcon := licon.Checkmark)
+            submitButton(cls := "button", dataIcon := Icon.Checkmark)
           ),
           emails.previous.map { email =>
             s"Previously $email"
@@ -257,18 +258,21 @@ object mod:
       (!allowed).option(disabled)
     )("GDPR erasure")
 
+  private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
+    isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
+
   def prefs(u: User)(pref: lila.pref.Pref)(using Context) =
     frag(
-      canViewRoles(u).option(
+      canViewRolesOf(u).option(
         mzSection("roles")(
           (if isGranted(_.ChangePermission) then a(href := routes.Mod.permissions(u.username)) else span) (
             strong(cls := "text inline", dataIcon := " ")("Permissions: "),
-            if u.roles.isEmpty then "Add some" else Permission(u.roles).map(_.name).mkString(", ")
+            if u.roles.isEmpty then "Add some" else Permission(u).map(_.name).mkString(", ")
           )
         )
       ),
       mzSection("preferences")(
-        strong(cls := "text inline", dataIcon := licon.Gear)("Notable preferences"),
+        strong(cls := "text inline", dataIcon := Icon.Gear)("Notable preferences"),
         ul(
           pref.hasKeyboardMove.option(li("keyboard moves")),
           pref.botCompatible.option(
@@ -276,7 +280,7 @@ object mod:
               strong(
                 a(
                   cls      := "text",
-                  dataIcon := licon.CautionCircle,
+                  dataIcon := Icon.CautionCircle,
                   href := lila.common.String.base64
                     .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
                 )("BOT-COMPATIBLE SETTINGS")
@@ -360,7 +364,7 @@ object mod:
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Translate) =
     mzSection("mod_log")(
       div(cls := "mod_log mod_log--history")(
-        strong(cls := "text", dataIcon := licon.CautionTriangle)(
+        strong(cls := "text", dataIcon := Icon.CautionTriangle)(
           "Moderation history",
           history.isEmpty.option(": nothing to show")
         ),
@@ -390,7 +394,7 @@ object mod:
         frag(
           div(cls := "mod_log mod_log--appeal")(
             st.a(href := appealRoutes.Appeal.show(a.id)):
-              strong(cls := "text", dataIcon := licon.CautionTriangle)("Appeal status: ", a.status.toString)
+              strong(cls := "text", dataIcon := Icon.CautionTriangle)("Appeal status: ", a.status.toString)
             ,
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
@@ -404,7 +408,7 @@ object mod:
   def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Translate): Frag =
     mzSection("reports")(
       div(cls := "mz_reports mz_reports--out")(
-        strong(cls := "text", dataIcon := licon.CautionTriangle)(
+        strong(cls := "text", dataIcon := Icon.CautionTriangle)(
           s"Reports sent by ${u.username}",
           reports.by.isEmpty.option(": nothing to show.")
         ),
@@ -422,7 +426,7 @@ object mod:
           }
       ),
       div(cls := "mz_reports mz_reports--in")(
-        strong(cls := "text", dataIcon := licon.CautionTriangle)(
+        strong(cls := "text", dataIcon := Icon.CautionTriangle)(
           s"Reports concerning ${u.username}",
           reports.about.isEmpty.option(": nothing to show.")
         ),
@@ -451,7 +455,7 @@ object mod:
   ): Frag =
     mzSection("assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
-        p(cls := "text", dataIcon := licon.CautionCircle)(
+        p(cls := "text", dataIcon := Icon.CautionCircle)(
           "ACPL in games with blurs is ",
           strong(blursYes._1),
           " [",
@@ -472,7 +476,7 @@ object mod:
         )
       },
       pag.pag.sfAvgLowVar.map { lowVar =>
-        p(cls := "text", dataIcon := licon.CautionCircle)(
+        p(cls := "text", dataIcon := Icon.CautionCircle)(
           "ACPL in games with consistent move times is ",
           strong(lowVar._1),
           " [",
@@ -493,7 +497,7 @@ object mod:
         )
       },
       pag.pag.sfAvgHold.map { holdYes =>
-        p(cls := "text", dataIcon := licon.CautionCircle)(
+        p(cls := "text", dataIcon := Icon.CautionCircle)(
           "ACPL in games with bot signature ",
           strong(holdYes._1),
           " [",
@@ -544,29 +548,29 @@ object mod:
                     .pov(result)
                     .map: p =>
                       a(href := routes.Round.watcher(p.gameId, p.color.name))(
-                        p.game.isTournament.option(iconTag(licon.Trophy)),
+                        p.game.isTournament.option(iconTag(Icon.Trophy)),
                         iconTag(p.game.perfType.icon)(cls := "text"),
                         shortClockName(p.game.clock.map(_.config))
                       )
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := licon.DiscBig),
+                  span(cls := s"sig sig_${Display.stockfishSig(result)}", dataIcon := Icon.DiscBig),
                   s" ${result.analysis}"
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := licon.DiscBig),
+                  span(cls := s"sig sig_${Display.moveTimeSig(result)}", dataIcon := Icon.DiscBig),
                   s" ${result.basics.moveTimes / 10}",
                   result.basics.mtStreak.so(frag(br, "streak"))
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := licon.DiscBig),
+                  span(cls := s"sig sig_${Display.blurSig(result)}", dataIcon := Icon.DiscBig),
                   s" ${result.basics.blurs}%",
                   result.basics.blurStreak.filter(8.<=).map { s =>
                     frag(br, s"streak $s/12")
                   }
                 ),
                 td(
-                  span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := licon.DiscBig),
+                  span(cls := s"sig sig_${Display.holdSig(result)}", dataIcon := Icon.DiscBig),
                   if result.basics.hold then "Yes" else "No"
                 ),
                 td(
@@ -588,15 +592,15 @@ object mod:
 
   private val dataValue       = attr("data-value")
   private val dataTags        = attr("data-tags")
-  private val playban         = iconTag(licon.Clock)
+  private val playban         = iconTag(Icon.Clock)
   private val alt: Frag       = i("A")
-  private val shadowban: Frag = iconTag(licon.BubbleSpeech)
-  private val boosting: Frag  = iconTag(licon.LineGraph)
-  private val engine: Frag    = iconTag(licon.Cogs)
-  private val closed: Frag    = iconTag(licon.NotAllowed)
-  private val clean: Frag     = iconTag(licon.User)
-  private val reportban       = iconTag(licon.CautionTriangle)
-  private val notesText       = iconTag(licon.Pencil)
+  private val shadowban: Frag = iconTag(Icon.BubbleSpeech)
+  private val boosting: Frag  = iconTag(Icon.LineGraph)
+  private val engine: Frag    = iconTag(Icon.Cogs)
+  private val closed: Frag    = iconTag(Icon.NotAllowed)
+  private val clean: Frag     = iconTag(Icon.User)
+  private val reportban       = iconTag(Icon.CautionTriangle)
+  private val notesText       = iconTag(Icon.Pencil)
   private def markTd(nb: Int, content: => Frag, date: Option[Instant] = None)(using ctx: Context) =
     if nb > 0 then td(cls := "i", dataSort := nb, title := date.map(showInstant))(content)
     else td
@@ -623,15 +627,15 @@ object mod:
             isGranted(_.Admin).option(th("Email")),
             thSortNumber(dataSortDefault)("Same"),
             th("Games"),
-            thSortNumber(playban)(cls                 := "i", title := "Playban"),
-            thSortNumber(alt)(cls                     := "i", title := "Alt"),
-            thSortNumber(shadowban)(cls               := "i", title := "Shadowban"),
-            thSortNumber(boosting)(cls                := "i", title := "Boosting"),
-            thSortNumber(engine)(cls                  := "i", title := "Engine"),
-            thSortNumber(closed)(cls                  := "i", title := "Closed"),
-            thSortNumber(reportban)(cls               := "i", title := "Reportban"),
-            thSortNumber(notesText)(cls               := "i", title := "Notes"),
-            thSortNumber(iconTag(licon.InkQuill))(cls := "i", title := "Appeals"),
+            thSortNumber(playban)(cls                := "i", title := "Playban"),
+            thSortNumber(alt)(cls                    := "i", title := "Alt"),
+            thSortNumber(shadowban)(cls              := "i", title := "Shadowban"),
+            thSortNumber(boosting)(cls               := "i", title := "Boosting"),
+            thSortNumber(engine)(cls                 := "i", title := "Engine"),
+            thSortNumber(closed)(cls                 := "i", title := "Closed"),
+            thSortNumber(reportban)(cls              := "i", title := "Reportban"),
+            thSortNumber(notesText)(cls              := "i", title := "Notes"),
+            thSortNumber(iconTag(Icon.InkQuill))(cls := "i", title := "Appeals"),
             thSortNumber("Created"),
             thSortNumber("Active"),
             userTable.selectAltAll
@@ -650,7 +654,7 @@ object mod:
               ).flatten.mkString(" "),
               cls := o.is(u).option("same")
             )(
-              if o.is(u) || Granter.canViewAltUsername(o)
+              if o.is(u) || lila.security.Granter.canViewAltUsername(o)
               then td(dataSort := o.id)(userLink(o, withPerfRating = o.perfs.some, params = "?mod"))
               else td,
               isGranted(_.Admin).option(td(emailValueOf(othersWithEmail)(o))),
@@ -694,7 +698,7 @@ object mod:
                         "text"         -> true,
                         "appeal-muted" -> appeal.isMuted
                       ),
-                      dataIcon := licon.InkQuill,
+                      dataIcon := Icon.InkQuill,
                       title := s"${pluralize("appeal message", appeal.msgs.size)}${appeal.isMuted.so(" [MUTED]")}"
                     )(appeal.msgs.size)
                   )
@@ -852,7 +856,7 @@ object mod:
     )
 
   def apply(
-      users: List[User.WithPerfsAndEmails],
+      users: List[WithPerfsAndEmails],
       showUsernames: Boolean = false,
       eraseButton: Boolean = false,
       checkboxes: Boolean = false
@@ -872,9 +876,9 @@ object mod:
           )
         ),
         tbody(
-          users.map { case lila.user.User.WithPerfsAndEmails(u, emails) =>
+          users.map { case WithPerfsAndEmails(u, emails) =>
             tr(
-              if showUsernames || Granter.canViewAltUsername(u.user)
+              if showUsernames || lila.security.Granter.canViewAltUsername(u.user)
               then
                 td(
                   userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
@@ -915,6 +919,8 @@ object mod:
       )
     )
 
+  def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(lila.security.Granter.canCloseAlt)
+
   private def parts(ps: Option[String]*) = ps.flatten.distinct.mkString(" ")
 
   private def altMarks(alts: UserLogins.Alts) =
@@ -935,9 +941,9 @@ object mod:
         if r.open then "open"
         else s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showInstant(done.at)}")}"
       }
-    )(reportScore(r.score), " ", strong(r.reason.name))
+    )(lila.report.ui.reportScore(r.score), " ", strong(r.reason.name))
 
-  def userMarks(o: lila.core.user.User, playbans: Option[Int]) =
+  def userMarks(o: User, playbans: Option[Int]) =
     div(cls := "user_marks")(
       playbans.map: nb =>
         playban(nb),

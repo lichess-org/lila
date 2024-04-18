@@ -2,8 +2,6 @@ package lila.chat
 
 import chess.{ Color, PlayerTitle }
 
-import lila.user.User
-
 case class UserLine(
     username: UserName,
     title: Option[PlayerTitle],
