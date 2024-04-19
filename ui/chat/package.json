@@ -12,8 +12,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "dist/chat.js": "chat"
-    }
+    "bundles": "src/chat.ts"
   }
 }

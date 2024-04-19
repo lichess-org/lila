@@ -1,6 +1,6 @@
 import * as path from 'node:path';
 import * as es from 'esbuild';
-import { preModule, buildModules } from './build';
+import { preModule } from './build';
 import { env, errorMark, colors as c } from './main';
 import { js as jsManifest } from './manifest';
 
@@ -18,13 +18,13 @@ export async function esbuild(): Promise<void> {
   if (!env.esbuild) return;
 
   const entryPoints = [];
-  for (const mod of buildModules) {
+  for (const mod of env.building) {
     preModule(mod);
-    for (const r of mod.bundles ?? []) {
-      entryPoints.push(path.join(mod.root, r.input));
+    for (const bundle of mod.bundles ?? []) {
+      entryPoints.push(path.join(mod.root, bundle));
     }
   }
-
+  entryPoints.sort();
   const ctx = await es.context({
     entryPoints,
     bundle: true,

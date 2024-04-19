@@ -20,10 +20,10 @@
     "vosk-browser": "^0.0.8"
   },
   "lichess": {
-    "modules": {
-      "src/vosk.ts": "voice.vosk",
-      "src/move/voice.move.ts": "voice.move"
-    },
+    "bundles": [
+      "src/voice.vosk.ts",
+      "src/move/voice.move.ts"
+    ],
     "sync": {
       "grammar/**": "public/compiled/grammar"
     }

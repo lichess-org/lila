@@ -19,8 +19,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "src/lobby.ts": "lobby"
-    }
+    "bundles": "src/lobby.ts"
   }
 }

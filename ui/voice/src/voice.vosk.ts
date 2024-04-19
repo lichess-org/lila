@@ -1,10 +1,9 @@
 import { KaldiRecognizer, createModel, Model } from 'vosk-browser';
 import { ServerMessageResult, ServerMessagePartialResult } from 'vosk-browser/dist/interfaces';
-import { Selector, Selectable } from 'common/selector';
 import { RecognizerOpts, VoskModule } from './interfaces';
 
-// IMPORTANT: When changing this file, you must also change VOSK_VERSION in ./main.ts
-// we don't want everyone to redownload this 5MB WASM just because the server restarts
+// IMPORTANT: We can't have code splitting here and I don't want a separate esbuild pass.
+// Do not import code, just paste it in if needed.
 
 const LOG_LEVEL = -1; // -1 errors only. 0 includes warnings, 3 is just insane
 
@@ -91,5 +90,65 @@ class KaldiRec implements Selectable {
   close() {
     this.deselect();
     this.kaldi.remove();
+  }
+}
+
+export interface Selectable<C = any> {
+  select?: (ctx?: C) => void;
+  deselect?: (ctx?: C) => void;
+  close?: (ctx?: C) => void;
+}
+
+export class Selector<T extends Selectable, C = any> {
+  group = new Map<string, T>();
+  context?: C;
+  key: string | false = false;
+
+  set ctx(ctx: any) {
+    if (this.context === ctx) return;
+    this.selected?.deselect?.(this.context);
+    this.context = ctx;
+    this.selected?.select?.(this.context);
+  }
+
+  get selected(): T | undefined {
+    return this.key ? this.group.get(this.key) : undefined;
+  }
+
+  select(key: string | false) {
+    if (this.key) {
+      if (this.key === key) return;
+      this.selected?.deselect?.(this.context);
+    }
+    this.key = key;
+    this.selected?.select?.(this.context);
+  }
+
+  get(key: string): T | undefined {
+    return this.group.get(key);
+  }
+
+  set(key: string, val: T) {
+    const reselect = this.key === key;
+    this.close(key);
+    this.group.set(key, val);
+    if (reselect) this.select(key);
+  }
+
+  close(key?: string) {
+    if (key === undefined) {
+      for (const k of this.group.keys()) this.close(k);
+      return;
+    }
+    if (key === this.key) {
+      this.group.get(key)?.deselect?.(this.context);
+      this.key = false;
+    }
+    this.group.get(key)?.close?.(this.context);
+  }
+
+  delete(key?: string) {
+    this.close(key);
+    key ? this.group.delete(key) : this.group.clear();
   }
 }

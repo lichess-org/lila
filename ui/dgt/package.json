@@ -9,8 +9,6 @@
     "chessops": "^0.14.1"
   },
   "lichess": {
-    "modules": {
-      "src/dgt.ts": "dgt"
-    }
+    "bundles": "src/dgt.ts"
   }
 }

@@ -1,8 +1,7 @@
 import * as fs from 'node:fs';
 import * as cps from 'node:child_process';
 import * as path from 'node:path';
-import { buildModules } from './build';
-import { env, colors as c, errorMark, lines } from './main';
+import { env, colors as c, errorMark, warnMark, lines } from './main';
 
 let tscPs: cps.ChildProcessWithoutNullStreams | undefined;
 
@@ -13,16 +12,33 @@ export function stopTsc() {
 }
 
 export async function tsc(): Promise<void> {
-  return new Promise(resolve => {
+  return new Promise(async resolve => {
     if (!env.tsc) return resolve();
 
     const cfgPath = path.join(env.buildDir, 'dist', 'build.tsconfig.json');
     const cfg: any = { files: [] };
-    cfg.references = buildModules
+    cfg.references = env.building
       .filter(x => x.hasTsconfig)
+      .sort((a, b) => a.name.localeCompare(b.name))
       .map(x => ({ path: path.join(x.root, 'tsconfig.json') }));
-    fs.writeFileSync(cfgPath, JSON.stringify(cfg));
 
+    // verify that tsconfig references are correct
+    for (const tsconfig of cfg.references) {
+      if (!tsconfig?.path) continue;
+      if (!fs.existsSync(tsconfig.path)) env.exit(`${errorMark} - Missing: '${c.cyan(tsconfig.path)}'`);
+      const ref = JSON.parse(await fs.promises.readFile(tsconfig.path, 'utf8'));
+      const module = path.basename(path.dirname(tsconfig.path));
+      for (const dep of env.deps.get(module) ?? []) {
+        if (!ref.references?.some((x: any) => x.path.endsWith(path.join(dep, 'tsconfig.json'))))
+          env.warn(
+            `${warnMark} - Module '${c.grey(module)}' depends on '${c.grey(
+              dep,
+            )}' but no reference in '${c.cyan(tsconfig.path.slice(env.uiDir.length + 1))}'`,
+          );
+      }
+    }
+
+    await fs.promises.writeFile(cfgPath, JSON.stringify(cfg));
     tscPs = cps.spawn('.build/node_modules/.bin/tsc', [
       '-b',
       cfgPath,
@@ -32,7 +48,6 @@ export async function tsc(): Promise<void> {
     env.log(`Compiling typescript`, { ctx: 'tsc' });
 
     tscPs.stdout?.on('data', (buf: Buffer) => {
-      // no way to magically get build events...
       const txts = lines(buf.toString('utf8'));
       for (const txt of txts) {
         if (txt.includes('Found 0 errors')) {
@@ -61,8 +76,8 @@ function tscLog(text: string): void {
 }
 
 const fixTscError = (text: string) =>
+  // format location for vscode embedded terminal ctrl click
   text
     .replace(/^[./]*/, `${errorMark} - '\x1b[36m`)
     .replace(/\.ts\((\d+),(\d+)\):/, ".ts:$1:$2\x1b[0m' -")
     .replace(/error (TS\d{4})/, '$1');
-// format location for vscode embedded terminal ctrl click

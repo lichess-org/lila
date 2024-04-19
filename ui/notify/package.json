@@ -10,8 +10,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "src/notify.ts": "notify"
-    }
+    "bundles": "src/notify.ts"
   }
 }

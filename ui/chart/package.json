@@ -20,12 +20,12 @@
     "nouislider": "^15.7.1"
   },
   "lichess": {
-    "modules": {
-      "src/chart.ratingDistribution.ts": "chart.ratingDistribution",
-      "src/chart.ratingHistory.ts": "chart.ratingHistory",
-      "src/chart.game.ts": "chart.game",
-      "src/chart.resizePolyfill.ts": "chart.resizePolyfill",
-      "src/chart.lag.ts": "chart.lag"
-    }
+    "bundles": [
+      "src/chart.ratingDistribution.ts",
+      "src/chart.ratingHistory.ts",
+      "src/chart.game.ts",
+      "src/chart.resizePolyfill.ts",
+      "src/chart.lag.ts"
+    ]
   }
 }

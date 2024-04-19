@@ -10,8 +10,6 @@
     "lichess-pgn-viewer": "^2.1.0"
   },
   "lichess": {
-    "modules": {
-      "src/tutor.ts": "tutor"
-    }
+    "bundles": "src/tutor.ts"
   }
 }

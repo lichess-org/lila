@@ -26,6 +26,7 @@ const args = [
 
 const longArgs = args.map(x => x[0]);
 const shortArgs = args.map(x => x[1] && x[1][1]).filter(x => x);
+type Builder = 'sass' | 'tsc' | 'esbuild';
 
 export function main() {
   const args = ps.argv.slice(2);
@@ -76,7 +77,7 @@ export interface LichessModule {
   pre: string[][]; // pre-bundle build steps from package.json scripts
   post: string[][]; // post-bundle build steps from package.json scripts
   hasTsconfig?: boolean; // fileExists('tsconfig.json')
-  bundles?: LichessBundle[];
+  bundles?: string[];
   sync?: Sync[]; // pre-bundle filesystem copies from package json
 }
 
@@ -85,11 +86,6 @@ export interface Sync {
   src: string;
   dest: string;
   mod: LichessModule;
-}
-
-export interface LichessBundle {
-  input: string; // abs path to source
-  output: string; // abs path to bundle destination
 }
 
 export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());
@@ -116,6 +112,11 @@ export const colors = {
 
 class Env {
   rootDir = path.resolve(__dirname, '../../..'); // absolute path to lila project root
+
+  deps: Map<string, string[]>;
+  modules: Map<string, LichessModule>;
+  building: LichessModule[];
+
   watch = false;
   rebuild = false;
   clean = false;
@@ -124,7 +125,7 @@ class Env {
   rgb = false;
   install = true;
   copies = true;
-  exitCode = new Map<'sass' | 'tsc' | 'esbuild', number | false>();
+  exitCode = new Map<Builder, number | false>();
   startTime: number | undefined = Date.now();
   logTime = true;
   logContext = true;
@@ -144,6 +145,11 @@ class Env {
   }
   get esbuild(): boolean {
     return this.exitCode.get('esbuild') !== false;
+  }
+  get manifestOk(): boolean {
+    return ['tsc', 'esbuild', 'sass'].every(
+      (x: Builder) => this.exitCode.get(x) === 0 || this.exitCode.get(x) === false,
+    );
   }
   get uiDir(): string {
     return path.join(this.rootDir, 'ui');
@@ -212,7 +218,7 @@ class Env {
       ),
     );
   }
-  done(code: number, ctx: 'sass' | 'tsc' | 'esbuild'): void {
+  done(code: number, ctx: Builder): void {
     this.exitCode.set(ctx, code);
     const err = [...this.exitCode.values()].find(x => x);
     const allDone = this.exitCode.size === 3;
@@ -265,6 +271,7 @@ function stripColorEscapes(text: string) {
 }
 
 export const errorMark = colors.red('✘ ') + colors.error('[ERROR]');
+export const warnMark = colors.yellow('⚠ ') + colors.warn('[WARNING]');
 
 function prettyTime() {
   const now = new Date();
