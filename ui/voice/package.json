@@ -21,7 +21,7 @@
   },
   "lichess": {
     "bundles": [
-      "src/vosk.ts",
+      "src/voice.vosk.ts",
       "src/move/voice.move.ts"
     ],
     "sync": {
