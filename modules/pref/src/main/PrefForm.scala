@@ -58,9 +58,9 @@ object PrefForm:
     val follow        = "follow"        -> booleanNumber
     object board:
       val simple     = "simpleBoard"     -> boolean // inconsistent naming
-      val brightness = "boardBrightness" -> float(0, 1.5)
-      val opacity    = "boardOpacity"    -> float(0, 1)
-      val hue        = "boardHue"        -> float(0, 1)
+      val brightness = "boardBrightness" -> number(0, 150)
+      val opacity    = "boardOpacity"    -> number(0, 100)
+      val hue        = "boardHue"        -> number(0, 100)
 
   def pref(lichobile: Boolean) = Form(
     mapping(

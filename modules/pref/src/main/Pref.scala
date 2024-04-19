@@ -129,10 +129,10 @@ object Pref:
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
 
   case class BoardPref(
-      simple: Boolean = false,
-      brightness: Float = 1f,
-      opacity: Float = 1f,
-      hue: Float = 0f // in turns, 1turn = 2pi
+      simple: Boolean,
+      brightness: Int,
+      opacity: Int,
+      hue: Int // in turns, 1turn = 2pi
   )
 
   trait BooleanPref:
@@ -470,7 +470,7 @@ object Pref:
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     usingAltSocket = none,
-    board = BoardPref(),
+    board = BoardPref(simple = false, brightness = 100, opacity = 100, hue = 0),
     tags = Map.empty
   )
 

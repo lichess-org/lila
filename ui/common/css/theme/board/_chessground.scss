@@ -192,7 +192,7 @@ html:not(.transp) body:not(.simple-board) {
 
 html.transp body:not(.simple-board) {
   cg-board piece {
-    opacity: calc(min(1, 0.5 + var(---board-opacity)));
+    opacity: calc(min(1, 0.5 + var(---board-opacity) / 100));
     filter: unset;
   }
 }

@@ -131,10 +131,10 @@ export class BoardCtrl extends PaneCtrl {
       sliders.push(this.propSlider('zoom', 'Size', { min: 0, max: 100, step: 1 }));
     if (document.body.classList.contains('simple-board')) return sliders;
     if (document.body.dataset.theme === 'transp')
-      sliders.push(this.propSlider('board-opacity', 'Opacity', { min: 0, max: 1, step: 0.01 }));
-    else sliders.push(this.propSlider('board-brightness', 'Brightness', { min: 0.4, max: 1.4, step: 0.01 }));
+      sliders.push(this.propSlider('board-opacity', 'Opacity', { min: 0, max: 100, step: 1 }));
+    else sliders.push(this.propSlider('board-brightness', 'Brightness', { min: 20, max: 140, step: 1 }));
     sliders.push(
-      this.propSlider('board-hue', 'Hue', { min: 0, max: 1, step: 0.01 }, v => `+ ${Math.round(v * 360)}°`),
+      this.propSlider('board-hue', 'Hue', { min: 0, max: 100, step: 1 }, v => `+ ${Math.round(v * 3.6)}°`),
     );
     return sliders;
   };
