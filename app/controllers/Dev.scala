@@ -85,6 +85,5 @@ final class Dev(env: Env) extends LilaController(env):
   }
 
   private def runCommand(command: String)(using Me): Fu[String] =
-    if command == "change asset version" || command == "change assets version" then env.web.manifest.update()
     env.mod.logApi.cli(command) >>
       env.api.cli(command.split(" ").toList)
