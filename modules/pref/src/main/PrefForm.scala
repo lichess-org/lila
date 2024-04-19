@@ -2,6 +2,7 @@ package lila.pref
 
 import play.api.data.*
 import play.api.data.Forms.*
+import monocle.syntax.all.*
 
 import lila.common.Form.{ numberIn, stringIn, tolerantBoolean }
 
@@ -184,7 +185,7 @@ object PrefForm:
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
         moveEvent = behavior.moveEvent | pref.moveEvent,
-        simpleBoard = simpleBoard | pref.simpleBoard
+        board = pref.board.focus(_.simple).modify(simpleBoard | _)
       )
 
   object PrefData:
@@ -226,7 +227,7 @@ object PrefForm:
         insightShare = pref.insightShare,
         ratings = pref.ratings.some,
         flairs = pref.flairs.some,
-        simpleBoard = pref.simpleBoard.some
+        simpleBoard = pref.board.simple.some
       )
 
   def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))

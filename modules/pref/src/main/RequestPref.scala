@@ -1,5 +1,6 @@
 package lila.pref
 
+import monocle.syntax.all.*
 import play.api.mvc.RequestHeader
 
 object RequestPref:
@@ -11,7 +12,8 @@ object RequestPref:
       .flatMap(Pref.Bg.fromString.get)
       .fold(pref): bg =>
         pref.copy(bg = bg)
-    if queryPref.bg == Pref.Bg.DARKBOARD then queryPref.copy(bg = Pref.Bg.DARK, boardBrightness = 0.6f)
+    if queryPref.bg == Pref.Bg.DARKBOARD then
+      queryPref.copy(bg = Pref.Bg.DARK).focus(_.board.brightness).replace(0.6f)
     else queryPref // we can remove this darkboard hack with a db migration script
 
   def fromRequest(req: RequestHeader): Pref =
@@ -28,10 +30,10 @@ object RequestPref:
         soundSet = paramOrSession("soundSet") | default.soundSet,
         bgImg = paramOrSession("bgImg"),
         is3d = paramOrSession("is3d").has("true"),
-        boardOpacity = paramOrSession("boardOpacity").flatMap(_.toFloatOption) | default.boardOpacity,
-        boardBrightness =
-          paramOrSession("boardBrightness").flatMap(_.toFloatOption) | default.boardBrightness,
-        boardHue = paramOrSession("boardHue").flatMap(_.toFloatOption) | default.boardHue
+        board = default.board.copy(
+          opacity = paramOrSession("boardOpacity").flatMap(_.toFloatOption) | default.board.opacity,
+          brightness = paramOrSession("boardBrightness").flatMap(_.toFloatOption) | default.board.brightness
+        )
       )
 
   private def queryParam(queryString: Map[String, Seq[String]], name: String): Option[String] =

@@ -44,10 +44,7 @@ case class Pref(
     resizeHandle: Int,
     agreement: Int,
     usingAltSocket: Option[Boolean],
-    simpleBoard: Boolean,
-    boardBrightness: Float,
-    boardOpacity: Float,
-    boardHue: Float, // in turns, 1turn = 2pi
+    board: Pref.BoardPref,
     tags: Map[String, String] = Map.empty
 ) extends lila.core.pref.Pref:
 
@@ -130,6 +127,13 @@ case class Pref(
 object Pref:
 
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
+
+  case class BoardPref(
+      simple: Boolean = false,
+      brightness: Float = 1f,
+      opacity: Float = 1f,
+      hue: Float = 0f // in turns, 1turn = 2pi
+  )
 
   trait BooleanPref:
     val NO      = 0
@@ -466,10 +470,7 @@ object Pref:
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     usingAltSocket = none,
-    simpleBoard = false,
-    boardBrightness = 1f,
-    boardOpacity = 1f,
-    boardHue = 0f,
+    board = BoardPref(),
     tags = Map.empty
   )
 
