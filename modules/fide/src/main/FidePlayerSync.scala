@@ -139,7 +139,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         title  = string(84, 89).flatMap(PlayerTitle.get)
         wTitle = string(89, 105).flatMap(PlayerTitle.get)
         year   = number(152, 156).filter(_ > 1000)
-        flags  = string(158, 159)
+        flags  = string(158, 160)
       yield FidePlayer(
         id = FideId(id),
         name = PlayerName(name),
@@ -150,7 +150,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         rapid = number(126, 132),
         blitz = number(139, 145),
         year = year,
-        inactive = flags.contains("i").option(true),
+        inactive = flags.isDefined.some,
         fetchedAt = nowInstant
       )
 
