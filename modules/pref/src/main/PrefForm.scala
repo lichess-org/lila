@@ -14,11 +14,6 @@ object PrefForm:
   private def checkedNumber(choices: Seq[(Int, String)]) =
     number.verifying(containedIn(choices))
 
-  private def float(min: Float, max: Float) =
-    text
-      .verifying("Invalid float", x => x.toFloatOption.exists(x => x >= min && x <= max))
-      .transform[Float](_.toFloat, _.toString)
-
   private def bitPresent(anInt: Int, bit: Int): Boolean =
     (anInt & bit) == bit
 
