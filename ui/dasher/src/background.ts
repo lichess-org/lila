@@ -147,10 +147,8 @@ export class BackgroundCtrl extends PaneCtrl {
     };
 
     const gallery = this.data.gallery!;
-    const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2; // $mq-x-small
+    const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2;
     const montageUrl = site.asset.url(gallery[`montage${cols}`], { noVersion: true });
-    // our layout is static due to the single image gallery optimization. set width here
-    // and allow for the possibility of non-overlaid scrollbars
     const width =
       cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 

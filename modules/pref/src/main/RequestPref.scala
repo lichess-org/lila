@@ -7,10 +7,12 @@ object RequestPref:
   import Pref.default
 
   def queryParamOverride(req: RequestHeader)(pref: Pref): Pref =
-    queryParam(req.queryString, "bg")
+    val queryPref = queryParam(req.queryString, "bg")
       .flatMap(Pref.Bg.fromString.get)
       .fold(pref): bg =>
         pref.copy(bg = bg)
+    if queryPref.bg == Pref.Bg.DARKBOARD then queryPref.copy(bg = Pref.Bg.DARK, boardBrightness = 0.6f)
+    else queryPref // we can remove this darkboard hack with a db migration script
 
   def fromRequest(req: RequestHeader): Pref =
     val qs = req.queryString
