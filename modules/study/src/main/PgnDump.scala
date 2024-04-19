@@ -57,7 +57,8 @@ final class PgnDump(
     s"${net.baseUrl}/study/$studyId/$chapterId"
 
   private def annotatorTag(study: Study) =
-    Tag(_.Annotator, s"${net.baseUrl}/@/${ownerName(study)}")
+    val path = if study.isRelay then s"broadcast/-/-/${study.id}" else s"@/${ownerName(study)}"
+    Tag(_.Annotator, s"${net.baseUrl}/$path")
 
   private def makeTags(study: Study, chapter: Chapter)(using flags: WithFlags): Tags =
     Tags:
