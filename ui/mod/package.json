@@ -16,13 +16,13 @@
     "tablesort": "^5.3.0"
   },
   "lichess": {
-    "modules": {
-      "src/mod.activity.ts": "mod.activity",
-      "src/mod.user.ts": "mod.user",
-      "src/mod.inquiry.ts": "mod.inquiry",
-      "src/mod.games.ts": "mod.games",
-      "src/mod.search.ts": "mod.search",
-      "src/mod.teamAdmin.ts": "mod.team.admin"
-    }
+    "bundles": [
+      "src/mod.activity.ts",
+      "src/mod.user.ts",
+      "src/mod.inquiry.ts",
+      "src/mod.games.ts",
+      "src/mod.search.ts",
+      "src/mod.teamAdmin.ts"
+    ]
   }
 }

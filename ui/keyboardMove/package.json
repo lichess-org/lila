@@ -21,8 +21,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "src/plugins/keyboard.move.ts": "keyboard.move"
-    }
+    "bundles": "src/plugins/keyboard.move.ts"
   }
 }

@@ -2,9 +2,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { globArray } from './parse';
 import { Sync, env, errorMark, colors as c } from './main';
-import { buildModules } from './build';
 
-const globRe = /[*?!{}[\]()]|\*\*|\[[^[\]]*\]/;
 const syncWatch: fs.FSWatcher[] = [];
 let watchTimeout: NodeJS.Timeout | undefined;
 
@@ -25,7 +23,7 @@ export async function copies() {
     updated.clear();
     watchTimeout = undefined;
   };
-  for (const mod of buildModules) {
+  for (const mod of env.building) {
     if (!mod?.sync) continue;
     for (const cp of mod.sync) {
       for (const src of await globSync(cp)) {
@@ -50,7 +48,7 @@ async function globSync(cp: Sync): Promise<Set<string>> {
   const watchDirs = new Set<string>();
   const dest = path.join(env.rootDir, cp.dest) + path.sep;
 
-  const globIndex = cp.src.search(globRe);
+  const globIndex = cp.src.search(/[*?!{}[\]()]|\*\*|\[[^[\]]*\]/);
   const globRoot =
     globIndex > 0 && cp.src[globIndex - 1] === path.sep
       ? cp.src.slice(0, globIndex - 1)

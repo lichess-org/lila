@@ -12,8 +12,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "src/dasher.ts": "dasher"
-    }
+    "bundles": "src/dasher.ts"
   }
 }

@@ -15,8 +15,6 @@
     "lichess-pgn-viewer": "^2.1.0"
   },
   "lichess": {
-    "modules": {
-      "src/opening.ts": "opening"
-    }
+    "bundles": "src/opening.ts"
   }
 }

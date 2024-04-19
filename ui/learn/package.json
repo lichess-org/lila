@@ -18,8 +18,6 @@
     "mithril": "github:ornicar/mithril.js#lila-1"
   },
   "lichess": {
-    "modules": {
-      "src/learn.ts": "learn"
-    }
+    "bundles": "src/learn.ts"
   }
 }

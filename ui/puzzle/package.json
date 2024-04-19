@@ -25,11 +25,11 @@
     "voice": "workspace:*"
   },
   "lichess": {
-    "modules": {
-      "src/puzzle.ts": "puzzle",
-      "src/puzzle.dashboard.ts": "puzzle.dashboard",
-      "src/puzzle.opening.ts": "puzzle.opening",
-      "src/plugins/puzzle.nvui.ts": "puzzle.nvui"
-    }
+    "bundles": [
+      "src/puzzle.ts",
+      "src/puzzle.dashboard.ts",
+      "src/puzzle.opening.ts",
+      "src/plugins/puzzle.nvui.ts"
+    ]
   }
 }
