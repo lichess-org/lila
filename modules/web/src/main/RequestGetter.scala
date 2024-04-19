@@ -25,9 +25,6 @@ trait RequestGetter:
   protected def getInt(name: String)(using req: RequestHeader) =
     req.queryString.get(name).flatMap(_.headOption).flatMap(_.toIntOption)
 
-  protected def getFloat(name: String)(using req: RequestHeader) =
-    req.queryString.get(name).flatMap(_.headOption).flatMap(_.toFloatOption)
-
   protected def getIntAs[A](name: String)(using
       req: RequestHeader,
       sr: SameRuntime[Int, A]

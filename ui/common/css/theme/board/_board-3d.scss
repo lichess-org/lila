@@ -72,10 +72,10 @@ cg-board::before {
 }
 
 body:not(.simple-board) .is3d .main-board cg-board::before {
-  filter: brightness(var(---board-brightness)) hue-rotate(calc(var(---board-hue) * 360deg));
+  filter: brightness(calc(var(---board-brightness) / 100)) hue-rotate(calc(var(---board-hue) * 3.6deg));
   @include if-transp {
-    opacity: var(---board-opacity);
-    filter: hue-rotate(calc(var(---board-hue) * 360deg));
+    opacity: calc(var(---board-opacity) / 100);
+    filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
   }
 }
 

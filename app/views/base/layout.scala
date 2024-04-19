@@ -227,9 +227,9 @@ object layout:
   } | 80
 
   private def boardStyle(zoomable: Boolean)(using ctx: Context) =
-    s"---board-opacity:${ctx.pref.boardOpacity};" +
-      s"---board-brightness:${ctx.pref.boardBrightness};" +
-      s"---board-hue:${ctx.pref.boardHue};" +
+    s"---board-opacity:${ctx.pref.board.opacity};" +
+      s"---board-brightness:${ctx.pref.board.brightness};" +
+      s"---board-hue:${ctx.pref.board.hue};" +
       ~zoomable.option(s"---zoom:$pageZoom;")
 
   private val spinnerMask = raw:
@@ -331,7 +331,7 @@ object layout:
               s"${pref.currentBg} ${current2dTheme.cssClass} ${pref.currentTheme3d.cssClass} ${pref.currentPieceSet3d.toString} coords-${pref.coordsClass}"
             List(
               baseClass              -> true,
-              "simple-board"         -> pref.simpleBoard,
+              "simple-board"         -> pref.board.simple,
               "piece-letter"         -> pref.pieceNotationIsLetter,
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid.yes,

@@ -50,7 +50,7 @@ final class AssetHelper(
 
   def cssTag(key: String)(using ctx: Context): Frag =
     link(
-      cls  := key,
+      cls  := s"css-$key",
       href := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"),
       rel  := "stylesheet"
     )
