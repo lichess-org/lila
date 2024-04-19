@@ -22,7 +22,7 @@ export const loadCss = (href: string, key?: string): Promise<void> =>
     else if (document.querySelector(`head > link[href="${href}"]`)) return resolve();
 
     const el = document.createElement('link');
-    if (key) el.className = key;
+    if (key) el.className = `css-${key}`;
     el.rel = 'stylesheet';
     el.href = href;
     el.onload = () => resolve();
@@ -35,7 +35,7 @@ export const loadCssPath = async (key: string): Promise<void> => {
 };
 
 export const removeCssPath = (key: string) => {
-  $(`head > link.${key}`).remove();
+  $(`head > link.css-${key}`).remove();
 };
 
 export const jsModule = (name: string) => {
