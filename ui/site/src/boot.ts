@@ -1,5 +1,6 @@
 import * as licon from 'common/licon';
 import * as miniBoard from 'common/miniBoard';
+import { prefersLight } from 'common/theme';
 import * as miniGame from './miniGame';
 import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
@@ -176,6 +177,10 @@ export function boot() {
               ),
           ),
       );
+    });
+    prefersLight().addEventListener('change', e => {
+      if (document.body.dataset.theme === 'system')
+        document.documentElement.className = e.matches ? 'light' : 'dark';
     });
   }, 800);
 }
