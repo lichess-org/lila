@@ -96,12 +96,7 @@ export class BackgroundCtrl extends PaneCtrl {
   private apply = () => {
     const key = this.data.current;
     document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
-    document.documentElement.className =
-      key === 'system'
-        ? window.matchMedia('(prefers-color-scheme: light)').matches
-          ? 'light'
-          : 'dark'
-        : key;
+    document.documentElement.className = key === 'system' ? (prefersLight().matches ? 'light' : 'dark') : key;
 
     if (key === 'transp') {
       const bgData = document.getElementById('bg-data');
