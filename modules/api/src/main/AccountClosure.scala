@@ -44,7 +44,7 @@ final class AccountClosure(
     _       <- challengeApi.removeByUserId(u.id)
     _       <- tournamentApi.withdrawAll(u)
     _       <- swissApi.withdrawAll(u, teamIds)
-    _       <- planApi.cancel(u).recoverDefault
+    _       <- planApi.cancelIfAny(u).recoverDefault
     _       <- seekApi.removeByUser(u)
     _       <- securityStore.closeAllSessionsOf(u.id)
     _       <- pushEnv.webSubscriptionApi.unsubscribeByUser(u)
