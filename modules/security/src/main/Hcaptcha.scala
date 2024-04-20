@@ -49,7 +49,7 @@ final class HcaptchaSkip(config: HcaptchaPublicConfig) extends Hcaptcha:
   def form[A](form: Form[A])(using RequestHeader): Fu[HcaptchaForm[A]] = fuccess:
     HcaptchaForm(form, config, skip = true)
 
-  def verify(response: String)(using RequestHeader) = fuccess(Hcaptcha.Result.Valid)
+  def verify(response: String)(using RequestHeader) = fuccess(Hcaptcha.Result.Disabled)
 
 final class HcaptchaReal(
     ipTrust: IpTrust,
