@@ -332,7 +332,7 @@ object layout:
             val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
             List(
               baseClass              -> true,
-              "simple-board"         -> pref.board.simple,
+              "simple-board"         -> pref.simpleBoard,
               "piece-letter"         -> pref.pieceNotationIsLetter,
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid.yes,

@@ -113,6 +113,9 @@ case class Pref(
       highlight &&
       coords == Coords.OUTSIDE
 
+  def simpleBoard =
+    board.hue == 0 && board.brightness == 100 && (board.opacity == 100 || bg != Bg.TRANSPARENT)
+
   def currentTheme      = Theme(theme)
   def currentTheme3d    = Theme3d(theme3d)
   def currentPieceSet   = PieceSet.get(pieceSet)
@@ -129,7 +132,6 @@ object Pref:
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
 
   case class BoardPref(
-      simple: Boolean,
       brightness: Int,
       opacity: Int,
       hue: Int // in turns, 1turn = 2pi
@@ -470,7 +472,7 @@ object Pref:
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     usingAltSocket = none,
-    board = BoardPref(simple = false, brightness = 100, opacity = 100, hue = 0),
+    board = BoardPref(brightness = 100, opacity = 100, hue = 0),
     tags = Map.empty
   )
 
