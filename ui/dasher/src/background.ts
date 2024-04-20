@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { elementScrollBarWidthSlowGuess, header } from './util';
 import debounce from 'common/debounce';
+import { prefersLight } from 'common/theme';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
