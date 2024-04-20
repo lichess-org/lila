@@ -40,6 +40,20 @@
     }
   }
 
+  .category {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    button.reset {
+      @extend %button-none;
+      padding: 0.5rem;
+      &:hover {
+        color: $c-primary;
+      }
+    }
+  }
   .head {
     @extend %button-none;
 

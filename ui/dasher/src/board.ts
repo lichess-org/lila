@@ -17,13 +17,23 @@ export interface BoardData {
 }
 
 export class BoardCtrl extends PaneCtrl {
+  sliderKey = Date.now(); // changing the value attribute doesn't always flush to DOM.
+
   constructor(root: DasherCtrl) {
     super(root);
   }
 
   render = () =>
     h(`div.sub.board.${this.dimension}`, [
-      header('Board', this.close),
+      header(
+        'Board',
+        this.close,
+        !this.checkSimple() &&
+          h('button.text.reset', {
+            attrs: { 'data-icon': licon.Back, type: 'button', title: 'Reset colors to default' },
+            hook: bind('click', this.reset),
+          }),
+      ),
       h('div.selector.large', [
         h(
           'button.text',
@@ -51,7 +61,7 @@ export class BoardCtrl extends PaneCtrl {
           h(
             'button',
             {
-              hook: bind('click', () => this.set(t)),
+              hook: bind('click', () => this.setBoard(t)),
               attrs: { title: t, type: 'button' },
               class: { active: this.current === t },
             },
@@ -73,7 +83,7 @@ export class BoardCtrl extends PaneCtrl {
     this.data[this.dimension].current = t;
   }
 
-  private set = (t: Board) => {
+  private setBoard = (t: Board) => {
     this.apply(t);
     const field = `theme${this.is3d ? '3d' : ''}`;
     xhr
@@ -82,12 +92,31 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private getPref = (prop: string) =>
-    parseFloat(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
+  private reset = async () => {
+    this.setVar('board-opacity', 100);
+    this.setVar('board-brightness', 100);
+    this.setVar('board-hue', 0);
+    document.body.classList.add('simple-board');
+    await Promise.all([
+      this.postPref('board-opacity'),
+      this.postPref('board-brightness'),
+      this.postPref('board-hue'),
+    ]);
+    this.sliderKey = Date.now();
+    this.root.redraw();
+  };
+
+  private getVar = (prop: string) =>
+    parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
+
+  private setVar = (prop: string, v: number) => {
+    document.body.style.setProperty(`---${prop}`, v.toString());
+    if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
+  };
 
   private postPref = debounce((prop: string) => {
     const body = new FormData();
-    body.set(hyphenToCamel(prop), this.getPref(prop).toString());
+    body.set(hyphenToCamel(prop), this.getVar(prop).toString());
     xhr
       .text(`/pref/${hyphenToCamel(prop)}`, { body, method: 'post' })
       .catch(() => site.announce({ msg: `Failed to save ${prop}` }));
@@ -108,13 +137,6 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private setPref = (prop: string, v: number) => {
-    document.body.style.setProperty(`---${prop}`, v.toString());
-    if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
-    this.redraw();
-    this.postPref(prop);
-  };
-
   private apply = (t: Board = this.current) => {
     this.current = t;
     document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
@@ -122,9 +144,19 @@ export class BoardCtrl extends PaneCtrl {
     this.root?.piece.apply();
   };
 
+  private checkSimple = () => {
+    const simple =
+      this.getVar('board-brightness') === 100 &&
+      this.getVar('board-hue') === 0 &&
+      this.getVar('board-opacity') === 100;
+    if (simple) document.body.classList.add('simple-board');
+    else document.body.classList.remove('simple-board');
+    return simple;
+  };
+
   private propSliders = () => {
     const sliders = [];
-    if (!Number.isNaN(this.getPref('zoom')))
+    if (!Number.isNaN(this.getVar('zoom')))
       sliders.push(this.propSlider('zoom', 'Size', { min: 0, max: 100, step: 1 }));
     if (document.body.dataset.theme === 'transp')
       sliders.push(this.propSlider('board-opacity', 'Opacity', { min: 0, max: 100, step: 1 }));
@@ -135,22 +167,28 @@ export class BoardCtrl extends PaneCtrl {
     return sliders;
   };
 
-  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
-    h(
+  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) => {
+    return h(
       `div.${prop}`,
-      { attrs: { title: title ? title(this.getPref(prop)) : `${Math.round(this.getPref(prop))}%` } },
+      { attrs: { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` } },
       [
         h('label', label),
         h('input.range', {
-          attrs: { ...range, type: 'range', value: this.getPref(prop) },
+          key: this.sliderKey + prop,
+          attrs: { ...range, type: 'range', value: this.getVar(prop) },
 
           hook: {
             insert: (vnode: VNode) => {
               const input = vnode.elm as HTMLInputElement;
-              $(input).on('input', () => this.setPref(prop, parseFloat(input.value)));
+              $(input).on('input', () => {
+                this.setVar(prop, parseInt(input.value));
+                this.redraw();
+                this.postPref(prop);
+              });
             },
           },
         }),
       ],
     );
+  };
 }
