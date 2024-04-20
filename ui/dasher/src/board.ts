@@ -30,7 +30,7 @@ export class BoardCtrl extends PaneCtrl {
           {
             class: { active: !this.is3d },
             attrs: { 'data-icon': licon.Checkmark, type: 'button' },
-            hook: bind('click', () => this.setIs3d(false)),
+            hook: bind('click', () => this.set3d(false)),
           },
           '2D',
         ),
@@ -39,7 +39,7 @@ export class BoardCtrl extends PaneCtrl {
           {
             class: { active: this.is3d },
             attrs: { 'data-icon': licon.Checkmark, type: 'button' },
-            hook: bind('click', () => this.setIs3d(true)),
+            hook: bind('click', () => this.set3d(true)),
           },
           '3D',
         ),
@@ -93,14 +93,14 @@ export class BoardCtrl extends PaneCtrl {
       .catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
-  private setIs3d = async (v: boolean) => {
+  private set3d = async (v: boolean) => {
     this.data.is3d = v;
     xhr
       .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })
       .catch(() => site.announce({ msg: 'Failed to save preference' }));
-    if (v) await site.asset.loadCssPath('board-3d');
-    else site.asset.removeCssPath('board-3d'); // chalk it up to common/css/theme/board/*.css
 
+    if (v) await site.asset.loadCssPath('board-3d');
+    else site.asset.removeCssPath('board-3d');
     $('#main-wrap')
       .removeClass(v ? 'is2d' : 'is3d')
       .addClass(v ? 'is3d' : 'is2d');
@@ -117,10 +117,7 @@ export class BoardCtrl extends PaneCtrl {
 
   private apply = (t: Board = this.current) => {
     this.current = t;
-    $('body')
-      .removeClass([...this.data.d2.list, ...this.data.d3.list].join(' '))
-      .addClass(t);
-    if (!this.is3d) document.body.dataset.boardTheme = t;
+    document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
     site.pubsub.emit('theme.change');
     this.root?.piece.apply();
   };
@@ -142,7 +139,7 @@ export class BoardCtrl extends PaneCtrl {
   private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
     h(
       `div.${prop}`,
-      { attrs: { title: title ? title(this.getPref(prop)) : `${Math.round(this.getPref(prop) * 100)}%` } },
+      { attrs: { title: title ? title(this.getPref(prop)) : `${Math.round(this.getPref(prop))}%` } },
       [
         h('label', label),
         h('input.range', {

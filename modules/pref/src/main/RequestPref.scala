@@ -32,7 +32,8 @@ object RequestPref:
         is3d = paramOrSession("is3d").has("true"),
         board = default.board.copy(
           opacity = paramOrSession("boardOpacity").flatMap(_.toIntOption) | default.board.opacity,
-          brightness = paramOrSession("boardBrightness").flatMap(_.toIntOption) | default.board.brightness
+          brightness = paramOrSession("boardBrightness").flatMap(_.toIntOption) | default.board.brightness,
+          hue = paramOrSession("boardHue").flatMap(_.toIntOption) | default.board.hue
         )
       )
 

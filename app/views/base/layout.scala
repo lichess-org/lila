@@ -253,8 +253,10 @@ object layout:
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
   val dataDirection             = attr("data-direction")
-  val dataBoardTheme            = attr("data-board-theme")
+  val dataBoard                 = attr("data-board")
   val dataPieceSet              = attr("data-piece-set")
+  val dataBoard3d               = attr("data-board3d")
+  val dataPieceSet3d            = attr("data-piece-set3d")
   val dataAssetUrl              = attr("data-asset-url")      := netConfig.assetBaseUrl.value
   val dataAssetVersion          = attr("data-asset-version")
   val dataDev                   = attr("data-dev")            := (!netConfig.minifiedAssets).option("true")
@@ -327,8 +329,7 @@ object layout:
         ),
         st.body(
           cls := {
-            val baseClass =
-              s"${pref.currentBg} ${current2dTheme.cssClass} ${pref.currentTheme3d.cssClass} ${pref.currentPieceSet3d.toString} coords-${pref.coordsClass}"
+            val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
             List(
               baseClass              -> true,
               "simple-board"         -> pref.board.simple,
@@ -355,8 +356,10 @@ object layout:
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme        := pref.currentBg,
-          dataBoardTheme   := pref.currentTheme.name,
+          dataBoard        := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
+          dataBoard3d      := pref.currentTheme3d.name,
+          dataPieceSet3d   := pref.currentPieceSet3d.name,
           dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
           style            := boardStyle(zoomable)
         )(

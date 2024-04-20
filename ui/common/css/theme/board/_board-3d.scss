@@ -53,7 +53,7 @@ cg-board::before {
 }
 
 @each $name, $board-theme in $board-themes-3d {
-  .#{$name} .is3d .main-board {
+  body[data-board3d='#{$name}'] .is3d .main-board {
     cg-board::before {
       background-image: img-url('staunton/board/#{$name}.png');
     }
@@ -96,7 +96,7 @@ $piece-files: (
 @each $name, $flips in $piece-files {
   @each $color in 'White', 'Black' {
     @each $type in 'Pawn', 'Bishop', 'Knight', 'Rook', 'Queen', 'King' {
-      .#{$name} .main-board .#{to-lower-case($type)}.#{to-lower-case($color)} {
+      body[data-piece-set3d='#{$name}'] .main-board .#{to-lower-case($type)}.#{to-lower-case($color)} {
         background-image: img-url('staunton/piece/#{$name}/#{$color}-#{$type}.png');
       }
     }
@@ -104,7 +104,10 @@ $piece-files: (
   @if $flips {
     @each $color, $orientation in ('White': 'black', 'Black': 'white') {
       @each $type in 'Bishop', 'Knight' {
-        .#{$name} .main-board .orientation-#{$orientation} .#{to-lower-case($type)}.#{to-lower-case($color)} {
+        body[data-piece-set3d='#{$name}']
+          .main-board
+          .orientation-#{$orientation}
+          .#{to-lower-case($type)}.#{to-lower-case($color)} {
           background-image: img-url('staunton/piece/#{$name}/#{$color}-#{$type}-Flipped.png');
         }
       }

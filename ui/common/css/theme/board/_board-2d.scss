@@ -1,8 +1,7 @@
 @import 'boards';
 
 @each $name, $board-theme in $board-themes-2d {
-  .#{$name} .is2d,
-  [data-board-theme='#{$name}'] .is2d {
+  body[data-board='#{$name}'] .is2d {
     cg-board {
       $file-ext: map-get($board-theme, file-ext);
       $name-override: map-get($board-theme, name-override);
