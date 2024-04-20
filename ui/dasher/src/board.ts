@@ -92,17 +92,15 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private reset = async () => {
+  private reset = () => {
     this.setVar('board-opacity', 100);
     this.setVar('board-brightness', 100);
     this.setVar('board-hue', 0);
-    document.body.classList.add('simple-board');
-    await Promise.all([
-      this.postPref('board-opacity'),
-      this.postPref('board-brightness'),
-      this.postPref('board-hue'),
-    ]);
+    this.postPref('board-opacity');
+    this.postPref('board-brightness');
+    this.postPref('board-hue');
     this.sliderKey = Date.now();
+    document.body.classList.add('simple-board');
     this.root.redraw();
   };
 
