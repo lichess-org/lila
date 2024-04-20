@@ -45,10 +45,11 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem;
+    border-bottom: $border;
 
     button.reset {
       @extend %button-none;
-      padding: 0.5rem;
       &:hover {
         color: $c-primary;
       }
@@ -58,8 +59,6 @@
     @extend %button-none;
 
     display: block;
-    padding: 1rem;
-    border-bottom: $border;
     width: 100%;
     text-align: start;
   }

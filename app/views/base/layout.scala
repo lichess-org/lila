@@ -191,7 +191,6 @@ object layout:
   private def modulesPreload(modules: EsmList)(using ctx: PageContext) =
     val keys: List[String] = "site" :: {
       ctx.data.inquiry.isDefined.option("mod.inquiry")
-        :: (!netConfig.isProd).option("site.devMode")
         :: modules.map(_.map(_.key))
     }.flatten // in head
     frag(

@@ -26,16 +26,13 @@
 }
 
 .is2d cg-board::before {
-  position: absolute;
-  content: '';
-  inset: 0 0 0 0;
-  background-size: cover;
+  top: 0;
+  height: 100%;
 }
 
-body:not(.simple-board) .is2d cg-board::before {
-  filter: brightness(calc(var(---board-brightness) / 100)) hue-rotate(calc(var(---board-hue) * 3.6deg));
-  @include if-transp {
-    opacity: calc(var(---board-opacity) / 100);
-    filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
-  }
+.is2d piece {
+  left: 0;
+  top: 0;
+  width: 12.5%;
+  height: 12.5%;
 }
