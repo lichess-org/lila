@@ -147,8 +147,7 @@ export class BoardCtrl extends PaneCtrl {
       this.getVar('board-brightness') === 100 &&
       this.getVar('board-hue') === 0 &&
       this.getVar('board-opacity') === 100;
-    if (simple) document.body.classList.add('simple-board');
-    else document.body.classList.remove('simple-board');
+    document.body.classList.toggle('simple-board', simple);
     return simple;
   };
 
