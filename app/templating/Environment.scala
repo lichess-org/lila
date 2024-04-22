@@ -49,18 +49,6 @@ object Environment
   def tablebaseEndpoint      = env.tablebaseEndpoint
   def externalEngineEndpoint = env.externalEngineEndpoint
 
-  def chessground(pov: Pov)(using ctx: Context): Frag =
-    chessground(
-      board = pov.game.board,
-      orient = pov.color,
-      lastMove = pov.game.history.lastMove
-        .map(_.origDest)
-        .so: (orig, dest) =>
-          List(orig, dest),
-      blindfold = pov.player.blindfold,
-      pref = ctx.pref
-    )
-
   // helper dependencies
 
   val numberHelper = lila.ui.NumberHelper

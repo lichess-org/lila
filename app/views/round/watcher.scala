@@ -75,5 +75,5 @@ object watcher:
             div(cls := "pgn")(pgn.render)
           )
         ),
-        div(cls := "round__board main-board")(chessground(pov))
+        div(cls := "round__board main-board")(bits.povChessground(pov))
       )
