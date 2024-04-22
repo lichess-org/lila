@@ -15,6 +15,10 @@ body {
   overflow-y: scroll;
 }
 
+* {
+  outline: 1px solid red;
+}
+
 #main-wrap {
   ---main-max-width: 1400px;
 }
