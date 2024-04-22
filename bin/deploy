@@ -280,6 +280,8 @@ def deploy_script(profile, session, run, url):
         lifat_dir = f"{assets_dir}/lifat"
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
+            f"echo \\# Backing up previous assets from {assets_dir} to {assets_dir}-{timestamp}...",
+            f"if [ -L {assets_dir} ]; then echo 'Backup: {assets_dir} -> {assets_dir}-{timestamp}'; fi",
             f"if [ -L {assets_dir} ]; then mv -f {assets_dir} {assets_dir}-{timestamp}; fi",
             "echo \\# Preparing lifat ...",
             f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R lichess:lichess {lifat_dir}; fi)",
