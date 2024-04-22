@@ -3,7 +3,7 @@ import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
 import { propWithEffect, Prop } from 'common';
-import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
+import { MoveRootCtrl, MoveUpdate } from 'game';
 import { load as loadKeyboardMove } from './plugins/keyboard.move';
 import KeyboardChecker from './plugins/keyboardChecker';
 

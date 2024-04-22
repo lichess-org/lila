@@ -21,7 +21,6 @@ target
 data/
 dist/
 node_modules/
-local/
 gen/
 ui/common/**/*.js
 ui/common/**/*.d.ts

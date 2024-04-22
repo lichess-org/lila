@@ -1,67 +1,40 @@
-import * as game from 'game';
 import throttle from 'common/throttle';
-import * as xhr from './xhr';
-import RoundController from './ctrl';
-import { defined } from 'common';
+import { VsBotCtrl } from './vsBotCtrl';
+import { ApiMove } from 'game';
+import { RoundSocket } from 'round';
 
-export interface RoundSocket {
-  send: SocketSend;
-  handlers: SocketHandlers;
-  moreTime(): void;
-  outoftime(): void;
-  berserk(): void;
-  sendLoading(typ: string, data?: any): void;
-  receive(typ: string, data: any): boolean;
-  reload(o?: Incoming, isRetry?: boolean): void;
-}
-
-interface Incoming {
-  t: string;
-  d: any;
-}
-
-type Callback = (...args: any[]) => void;
-
-function backoff(delay: number, factor: number, callback: Callback): Callback {
-  let timer: number | undefined;
-  let lastExec = 0;
-
-  return function (this: any, ...args: any[]): void {
-    const self: any = this;
-    const elapsed = performance.now() - lastExec;
-
-    const exec = () => {
-      timer = undefined;
-      lastExec = performance.now();
-      delay *= factor;
-      callback.apply(self, args);
-    };
-
-    if (timer) clearTimeout(timer);
-
-    if (elapsed > delay) exec();
-    else timer = setTimeout(exec, delay - elapsed);
+export function makeVsBotSocket(/*send: SocketSend, */ ctrl: VsBotCtrl): RoundSocket {
+  const handlers: SocketHandlers = {
+    move: (m: ApiMove) => {
+      ctrl.round?.apiMove?.(m);
+      console.log('apiMove', m);
+    },
+  };
+  const send = (t: string, d?: any) => {
+    if (t === 'move') {
+      console.log('movin on up', t, d);
+      ctrl.userMove(d.u);
+    } else if (handlers[t]) handlers[t]?.(d);
+    else console.log('no handler for', t, d);
+  };
+  return {
+    send,
+    handlers,
+    moreTime: throttle(300, () => send('moretime')),
+    outoftime: () => {}, //backoff(500, 1.1, () => send('flag', ctrl.data.game.player)),
+    berserk: () => {},
+    sendLoading(typ: string, data?: any) {
+      send(typ, data);
+    },
+    receive: (typ: string, data: any) => {
+      if (handlers[typ]) handlers[typ]?.(data);
+      else console.log('no handler for', typ, data);
+      return true;
+    },
+    reload: site.reload,
   };
 }
-
-export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
-  site.socket.sign(ctrl.sign);
-
-  const reload = (o?: Incoming, isRetry?: boolean) => {
-    // avoid reload if possible!
-    if (o && o.t) {
-      ctrl.setLoading(false);
-      handlers[o.t]!(o.d);
-    } else
-      xhr.reload(ctrl).then(data => {
-        if (site.socket.getVersion() > data.player.version) {
-          // race condition! try to reload again
-          if (isRetry) site.reload();
-          // give up and reload the page
-          else reload(o, true);
-        } else ctrl.reload(data);
-      }, site.reload);
-  };
+/*
 
   const handlers: SocketHandlers = {
     takebackOffers(o: { white?: boolean; black?: boolean }) {
@@ -150,34 +123,4 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
           `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,
       });
     },
-  };
-
-  site.pubsub.on('ab.rep', n => send('rep', { n }));
-
-  return {
-    send: (typ: string, data?: any, opts?: any, noRetry?: boolean) => {
-      //console.log('socket send', typ, JSON.stringify(data, undefined, 2));
-      if (opts) console.log('send opts', JSON.stringify(opts, undefined, 2));
-      if (noRetry !== undefined) console.log('send noRetry', noRetry);
-      send(typ, data, opts, noRetry);
-    },
-    handlers,
-    moreTime: throttle(300, () => send('moretime')),
-    outoftime: backoff(500, 1.1, () => send('flag', ctrl.data.game.player)),
-    berserk: throttle(200, () => send('berserk', null, { ackable: true })),
-    sendLoading(typ: string, data?: any) {
-      ctrl.setLoading(true);
-      send(typ, data);
-    },
-    receive(typ: string, data: any): boolean {
-      //console.log('socket receive', typ, JSON.stringify(data, undefined, 2));
-      const handler = handlers[typ];
-      if (handler) {
-        handler(data);
-        return true;
-      }
-      return false;
-    },
-    reload,
-  };
-}
+*/

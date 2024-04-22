@@ -1,4 +1,4 @@
-package views.html.localPlay
+package views.html.local
 
 import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
@@ -17,7 +17,7 @@ object vsBot:
     views.html.base.layout(
       title = "Play vs Bots",
       modules = jsModuleInit(
-        "localPlay",
+        "local.vsBot",
         Json.obj(
           "mode" -> "vsBot",
           "pref" -> lila.pref.JsonView.write(ctx.pref, false),
@@ -36,7 +36,7 @@ object vsBot:
         .OpenGraph(
           title = "Play vs Bots",
           description = "Play vs Bots",
-          url = s"$netBaseUrl${controllers.routes.LocalPlay.vsBot}"
+          url = s"$netBaseUrl${controllers.routes.Local.vsBot}"
         )
         .some,
       zoomable = true

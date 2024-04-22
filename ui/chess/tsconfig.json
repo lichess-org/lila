@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig_module.base.json",
-  "include": ["src"],
+  "include": ["src", "../game/src/moveRootCtrl.ts"],
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "src",

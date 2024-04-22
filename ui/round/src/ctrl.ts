@@ -5,6 +5,7 @@ import * as round from './round';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
+import { MoveRootCtrl, ApiMove } from 'game';
 import * as ground from './ground';
 import * as licon from 'common/licon';
 import notify from 'common/notification';
@@ -23,7 +24,6 @@ import * as atomic from './atomic';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { MoveRootCtrl } from 'chess/moveRootCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, VoiceMove } from 'voice';
 import * as renderUser from './view/user';
@@ -41,7 +41,6 @@ import { endGameView } from './view/main';
 import {
   RoundOpts,
   RoundData,
-  ApiMove,
   ApiEnd,
   SocketMove,
   SocketDrop,
@@ -115,8 +114,7 @@ export default class RoundController implements MoveRootCtrl {
       this.firstSeconds = false;
       this.redraw();
     }, 3000);
-    if (!opts.local) site.socket.sign(this.sign);
-    this.socket = makeSocket(opts.socketSend, this);
+    this.socket = opts.local ?? makeSocket(opts.socketSend!, this);
     this.blindfoldStorage = site.storage.boolean(`blindfold.${this.data.player.user?.id ?? 'anon'}`);
 
     if (d.clock)
@@ -611,7 +609,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   challengeRematch = async () => {
-    await xhr.challengeRematch(this.data.game.id);
+    if (this.data.game.id !== 'synthetic') await xhr.challengeRematch(this.data.game.id);
     site.pubsub.emit('challenge-app.open');
     if (site.once('rematch-challenge')) {
       setTimeout(async () => {

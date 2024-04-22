@@ -204,3 +204,67 @@ export interface MaterialDiff {
   white: MaterialDiffSide;
   black: MaterialDiffSide;
 }
+
+export interface CrazyData {
+  pockets: [CrazyPocket, CrazyPocket];
+}
+
+export interface CrazyPocket {
+  [role: string]: number;
+}
+
+export interface ApiMove {
+  dests: string | { [key: string]: string };
+  ply: number;
+  fen: string;
+  san: string;
+  uci: string;
+  clock?: {
+    white: number; // seconds
+    black: number; // seconds
+    lag?: number; // centis
+  };
+  status: Status;
+  winner?: Color;
+  check: boolean;
+  threefold: boolean;
+  wDraw: boolean;
+  bDraw: boolean;
+  crazyhouse?: CrazyData;
+  role?: cg.Role;
+  drops?: string;
+  promotion?: {
+    key: cg.Key;
+    pieceClass: cg.Role;
+  };
+  castle?: {
+    king: [cg.Key, cg.Key];
+    rook: [cg.Key, cg.Key];
+    color: Color;
+  };
+  isMove?: true;
+  isDrop?: true;
+}
+
+export interface MoveRootCtrl {
+  pluginMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => void;
+  apiMove?: (move: ApiMove) => void;
+  redraw: () => void;
+  flipNow: () => void;
+  offerDraw?: (v: boolean, immediately?: boolean) => void;
+  takebackYes?: () => void;
+  resign?: (v: boolean, immediately?: boolean) => void;
+  rematch?: (accept?: boolean) => boolean;
+  nextPuzzle?: () => void;
+  vote?: (v: boolean) => void;
+  solve?: () => void;
+  blindfold?: (v?: boolean) => boolean;
+  speakClock?: () => void;
+  goBerserk?: () => void;
+}
+
+export interface MoveUpdate {
+  fen: string;
+  canMove: boolean;
+  cg?: CgApi;
+}

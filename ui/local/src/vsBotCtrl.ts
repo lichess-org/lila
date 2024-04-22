@@ -1,23 +1,28 @@
 import { LocalPlayOpts } from './interfaces';
 import { type LibotCtrl } from 'libot';
+import { makeVsBotSocket } from './vsBotSocket';
 //import { makeRound } from './data';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
+import { MoveRootCtrl } from 'game';
+import { RoundSocket } from 'round';
 import { Chess } from 'chessops';
 import * as Chops from 'chessops';
 
-export class Ctrl {
+export class VsBotCtrl {
   libot: LibotCtrl;
   chess = Chess.default();
-  tellRound: SocketSend;
+  socket: RoundSocket;
   fiftyMovePly = 0;
   loaded: Promise<void>;
   threefoldFens: Map<string, number> = new Map();
+  round: MoveRootCtrl;
 
   constructor(
     readonly opts: LocalPlayOpts,
     readonly redraw: () => void,
   ) {
+    this.socket = makeVsBotSocket(this);
     this.loaded = site.asset.loadEsm<LibotCtrl>('libot').then(libot => {
       this.libot = libot;
       this.libot.setBot('babyhoward');
@@ -66,7 +71,7 @@ export class Ctrl {
     const { end, result, reason } = this.checkGameOver();
     if (end) this.doGameOver(result!, reason!);
 
-    this.tellRound('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
+    //this.tellRound('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
   }
 
   userMove(uci: Uci) {

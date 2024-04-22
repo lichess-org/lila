@@ -10,15 +10,15 @@ import lila.user.User
 import play.api.i18n.Lang
 import lila.rating.{ Perf, PerfType }
 
-final class LocalPlay(env: Env) extends LilaController(env):
+final class Local(env: Env) extends LilaController(env):
 
   def vsBot = Open:
     NoBot:
-      Ok.page(views.html.localPlay.vsBot.index).map(_.enforceCrossSiteIsolation)
+      Ok.page(views.html.local.vsBot.index).map(_.enforceCrossSiteIsolation)
 
   def botVsBot = Open:
     NoBot:
-      Ok.page(views.html.localPlay.botVsBot.index).map(_.enforceCrossSiteIsolation)
+      Ok.page(views.html.local.botVsBot.index).map(_.enforceCrossSiteIsolation)
 
   def setup = Open:
     NoBot:

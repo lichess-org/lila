@@ -1,5 +1,5 @@
 {
-  "name": "local-play",
+  "name": "local",
   "private": true,
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
@@ -15,6 +15,9 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "bundles": "src/localPlay.ts"
+    "bundles": [
+      "src/local.vsBot.ts",
+      "src/scaffold/local.botVsBot.ts"
+    ]
   }
 }

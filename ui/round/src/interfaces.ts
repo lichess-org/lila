@@ -1,13 +1,16 @@
 import { VNode } from 'snabbdom';
 import { GameData, Status } from 'game';
-import { ClockData, Seconds, Centis } from './clock/clockCtrl';
+import { ClockData, Centis } from './clock/clockCtrl';
 import { CorresClockData } from './corresClock/corresClockCtrl';
 import RoundController from './ctrl';
+import { CrazyData } from 'game';
 import { ChatCtrl, ChatPlugin } from 'chat';
 import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
 import { EnhanceOpts } from 'common/richText';
+import { RoundSocket } from './socket';
 
+export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
 
 export interface Untyped {
@@ -73,25 +76,17 @@ export interface Tv {
   flip: boolean;
 }
 
-interface CrazyData {
-  pockets: [CrazyPocket, CrazyPocket];
-}
-
-interface CrazyPocket {
-  [role: string]: number;
-}
-
 export interface RoundOpts {
   data: RoundData;
   userId?: string;
   noab?: boolean;
-  socketSend: SocketSend;
+  socketSend?: SocketSend;
   onChange(d: RoundData): void;
   element: HTMLElement;
   crosstableEl: HTMLElement;
   i18n: I18nDict;
   chat?: ChatOpts;
-  local?: boolean;
+  local?: RoundSocket;
 }
 
 export interface ChatOpts {
@@ -112,35 +107,6 @@ export interface Step {
   uci: Uci;
   check?: boolean;
   crazy?: StepCrazy;
-}
-
-export interface ApiMove extends Step {
-  dests: EncodedDests;
-  clock?: {
-    white: Seconds;
-    black: Seconds;
-    lag?: Centis;
-  };
-  status: Status;
-  winner?: Color;
-  check: boolean;
-  threefold: boolean;
-  wDraw: boolean;
-  bDraw: boolean;
-  crazyhouse?: CrazyData;
-  role?: cg.Role;
-  drops?: string;
-  promotion?: {
-    key: cg.Key;
-    pieceClass: cg.Role;
-  };
-  castle?: {
-    king: [cg.Key, cg.Key];
-    rook: [cg.Key, cg.Key];
-    color: Color;
-  };
-  isMove?: true;
-  isDrop?: true;
 }
 
 export interface ApiEnd {

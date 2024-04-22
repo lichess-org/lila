@@ -8,7 +8,7 @@ import { RoundData } from 'round';
 
 export const fakeData: RoundData = {
   game: {
-    id: 'x7hgwoir',
+    id: 'synthetic',
     variant: { key: 'standard', name: 'Standard', short: 'Std' },
     speed: 'classical',
     perf: 'classical',

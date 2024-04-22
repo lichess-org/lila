@@ -446,7 +446,7 @@ importers:
         specifier: 3.5.1
         version: 3.5.1
 
-  ui/localPlay:
+  ui/local:
     dependencies:
       '@types/lichess':
         specifier: workspace:*
@@ -811,6 +811,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      game:
+        specifier: workspace:*
+        version: link:../game
       snabbdom:
         specifier: 3.5.1
         version: 3.5.1
