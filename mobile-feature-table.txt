@@ -1,0 +1,13 @@
+feature                                 lichobile   mobile
+Android & iOS                           yes         yes
+All features for free, no ads           yes         yes
+Online Play                             yes         yes
+Offline Play                            yes         no
+Correspondence Chess                    yes         yes
+Puzzles                                 yes         yes
+Puzzles Themes, Streak & Storm          no          yes
+Tournaments                             yes         no
+Game Analysis with Stockfish            SF11        SF16
+Native UI                               no          yes
+Translated to 80 languages              yes         yes
+Brand new app!                          no          yes
