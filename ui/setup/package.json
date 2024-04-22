@@ -12,8 +12,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "src/setup.ts": "setup"
-    }
+    "bundles": "src/setup.ts"
   }
 }

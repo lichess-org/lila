@@ -10,9 +10,7 @@
     "zerofish": "^0.0.18"
   },
   "lichess": {
-    "modules": {
-      "src/libot.ts": "libot"
-    },
+    "bundles": "src/libot.ts",
     "sync": {
       "node_modules/zerofish/dist/zerofishEngine.*": "public/npm",
       "defs/bots.json": "public"

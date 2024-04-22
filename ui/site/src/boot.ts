@@ -1,5 +1,6 @@
 import * as licon from 'common/licon';
 import * as miniBoard from 'common/miniBoard';
+import { prefersLight } from 'common/theme';
 import * as miniGame from './miniGame';
 import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
@@ -177,27 +178,9 @@ export function boot() {
           ),
       );
     });
-    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+    prefersLight().addEventListener('change', e => {
       if (document.body.dataset.theme === 'system')
         document.documentElement.className = e.matches ? 'light' : 'dark';
     });
-    darkBoardFixup();
   }, 800);
-}
-
-async function darkBoardFixup() {
-  if (document.body.classList.contains('dark-board')) {
-    document.body.classList.remove('dark-board');
-    document.body.classList.add('dark');
-    document.body.dataset.theme = 'dark';
-    document.documentElement.className = 'dark';
-    document.body.style.setProperty(`---board-brightness`, '0.6');
-    const [bg, brightness] = [new FormData(), new FormData()];
-    bg.set('bg', 'dark');
-    brightness.set('boardBrightness', '0.6');
-    await Promise.all([
-      xhr.text('/pref/bg', { body: bg, method: 'post' }),
-      xhr.text('/pref/boardBrightness', { body: brightness, method: 'post' }),
-    ]);
-  }
 }

@@ -19,7 +19,6 @@ object UserPerfsExt:
   extension (p: UserPerfs)
 
     def perfsList: List[(PerfKey, Perf)] = List(
-      PerfKey.standard       -> p.standard,
       PerfKey.chess960       -> p.chess960,
       PerfKey.kingOfTheHill  -> p.kingOfTheHill,
       PerfKey.threeCheck     -> p.threeCheck,

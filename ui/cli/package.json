@@ -10,8 +10,6 @@
     "dasher": "workspace:*"
   },
   "lichess": {
-    "modules": {
-      "src/cli.ts": "cli"
-    }
+    "bundles": "src/cli.ts"
   }
 }

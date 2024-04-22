@@ -1,7 +1,5 @@
 package lila.irwin
 
-import play.api.mvc.Call
-
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Translate
 import lila.ui.Context
@@ -16,12 +14,11 @@ final class IrwinUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelp
   import i18nHelper.{ *, given }
   import dateHelper.*
 
-  def percentClass(percent: Int) =
-    percent match
-      case p if p < 30 => "green"
-      case p if p < 60 => "yellow"
-      case p if p < 80 => "orange"
-      case _           => "red"
+  def percentClass(p: Int) =
+    if p < 30 then "green"
+    else if p < 60 then "yellow"
+    else if p < 80 then "orange"
+    else "red"
 
   def report(report: IrwinReport.WithPovs)(using Context): Frag =
     div(cls := "mz-section mz-section--irwin", dataRel := "irwin")(
@@ -41,7 +38,7 @@ final class IrwinUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelp
             case IrwinReport.GameReport.WithPov(gameReport, pov) =>
               tr(cls := "text")(
                 td(cls := "moves")(
-                  a(href := routeRoundWatcher(pov.gameId.value, pov.color.name))(
+                  a(href := routeRoundWatcher(pov.gameId, pov.color.name))(
                     gameReport.moves.map: move =>
                       span(
                         cls      := percentClass(move.activation),

@@ -6,7 +6,6 @@ import controllers.routes
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.ForumPost
-import lila.core.perm.Granter
 
 object bits:
 

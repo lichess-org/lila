@@ -7,10 +7,28 @@ cg-board {
   left: 0;
   user-select: none;
   line-height: 0;
-  background-size: cover;
 
   .manipulable & {
     cursor: pointer;
+  }
+}
+
+cg-board::before {
+  content: '';
+  left: 0;
+  width: 100%;
+  background-size: cover;
+  position: absolute;
+  border-radius: inherit;
+  box-shadow: inherit;
+
+  body:not(.simple-board) & {
+    filter: brightness(calc(var(---board-brightness) / 100)) hue-rotate(calc(var(---board-hue) * 3.6deg));
+
+    @include if-transp {
+      opacity: calc(var(---board-opacity) / 100);
+      filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
+    }
   }
 }
 
@@ -40,9 +58,9 @@ square {
     background: radial-gradient(transparent 0%, transparent 79%, rgba(20, 30, 85, 0.2) 80%);
   }
 
-  body.green &.last-move,
-  body.green-plastic &.last-move,
-  body.marble &.last-move {
+  body[data-board='green'] .is2d &.last-move,
+  body[data-board='green-plastic'] .is2d &.last-move,
+  body[data-board='marble'] .is2d &.last-move {
     background-color: rgba(0, 155, 199, 0.41);
   }
 
@@ -50,7 +68,7 @@ square {
     will-change: transform;
     background-color: rgba(155, 199, 0, 0.41);
 
-    body.horsey &:not(.move-dest) {
+    body[data-board='horsey'] .is2d &:not(.move-dest) {
       background: url(../images/board/horsey.last-move.png);
       background-size: cover;
     }
@@ -69,7 +87,7 @@ square {
   &.selected {
     background-color: rgba(20, 85, 30, 0.5);
 
-    body.horsey & {
+    body[data-board='horsey'] .is2d & {
       background: url(../images/board/horsey.selected.png);
       background-size: cover;
     }
@@ -78,7 +96,7 @@ square {
   &.current-premove {
     background-color: rgba(20, 30, 85, 0.5) !important;
 
-    body.horsey & {
+    body[data-board='horsey'] .is2d & {
       background: url(../images/board/horsey.current-premove.png);
       background-size: cover;
     }
@@ -87,7 +105,7 @@ square {
   &.move-dest:hover {
     background: rgba(20, 85, 30, 0.3);
 
-    body.horsey & {
+    body[data-board='horsey'] .is2d & {
       background: url(../images/board/horsey.move-dest.png);
       background-size: cover;
     }
@@ -179,7 +197,7 @@ cg-auto-pieces {
 }
 
 html:not(.transp) body:not(.simple-board) {
-  ---bright-factor: calc(0.3 + 0.59 * min(1.2, var(---board-brightness)));
+  ---bright-factor: calc(0.3 + 0.0059 * min(120, var(---board-brightness)));
 
   &.coords-in coord {
     filter: brightness(var(---bright-factor));
@@ -192,7 +210,7 @@ html:not(.transp) body:not(.simple-board) {
 
 html.transp body:not(.simple-board) {
   cg-board piece {
-    opacity: calc(min(1, 0.5 + var(---board-opacity)));
+    opacity: calc(min(1, 0.5 + var(---board-opacity) / 100));
     filter: unset;
   }
 }

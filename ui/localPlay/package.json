@@ -15,8 +15,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "src/localPlay.ts": "localPlay"
-    }
+    "bundles": "src/localPlay.ts"
   }
 }

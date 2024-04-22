@@ -33,7 +33,7 @@ object index:
         .some,
       zenable = true,
       robots = true,
-      withHrefLangs = lila.core.app.LangPath(routes.Tv.index).some
+      withHrefLangs = lila.web.LangPath(routes.Tv.index).some
     )(
       main(cls := "round tv-single")(
         st.aside(cls := "round__side")(

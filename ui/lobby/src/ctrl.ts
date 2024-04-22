@@ -87,7 +87,6 @@ export default class LobbyController implements ParentCtrl {
         this.data.hooks = [];
         this.socket.realTimeIn();
       } else if (this.tab === 'pools' && this.poolMember) this.poolIn();
-      //disableDarkBoard();
     });
     window.addEventListener('beforeunload', () => this.leavePool());
   }

@@ -29,6 +29,10 @@ cat << "BANNER"
                                                    |___/
 BANNER
 
+if ! command -v java; then
+    echo "Cannot find Java, is it installed?"
+    exit 1
+fi
 version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo Java "$version"
 

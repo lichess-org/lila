@@ -1,5 +1,6 @@
 package lila.pref
 
+import monocle.syntax.all.*
 import play.api.data.*
 import play.api.data.Forms.*
 
@@ -54,12 +55,12 @@ object PrefSingleChange:
       _.copy(ratings = v),
     changing(_.follow): v =>
       _.copy(follow = v == 1),
-    changing(_.boardBrightness): v =>
-      _.copy(boardBrightness = v),
-    changing(_.boardOpacity): v =>
-      _.copy(boardOpacity = v),
-    changing(_.boardHue): v =>
-      _.copy(boardHue = v)
+    changing(_.board.brightness): v =>
+      _.focus(_.board.brightness).replace(v),
+    changing(_.board.opacity): v =>
+      _.focus(_.board.opacity).replace(v),
+    changing(_.board.hue): v =>
+      _.focus(_.board.hue).replace(v),
   ).map: change =>
     change.field -> change
   .toMap

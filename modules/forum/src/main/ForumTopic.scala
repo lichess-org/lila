@@ -2,7 +2,6 @@ package lila.forum
 
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
-import scala.util.chaining.*
 
 case class ForumTopic(
     @Key("_id") id: ForumTopicId,
@@ -64,10 +63,9 @@ case class ForumTopic(
 object ForumTopic:
 
   def nameToId(name: String) =
-    (lila.common.String.slugify(name)).pipe { slug =>
-      // if most chars are not latin, go for random slug
-      if slug.lengthIs > (name.lengthIs / 2) then slug else ThreadLocalRandom.nextString(8)
-    }
+    val slug = scalalib.StringOps.slug(name)
+    // if most chars are not latin, go for random slug
+    if slug.lengthIs > (name.lengthIs / 2) then slug else ThreadLocalRandom.nextString(8)
 
   val idSize = 8
 

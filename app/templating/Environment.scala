@@ -3,7 +3,7 @@ package templating
 
 import lila.ui.ScalatagsTemplate.*
 import lila.web.ui.*
-import play.api.mvc.Call
+
 import com.softwaremill.macwire.*
 
 object Environment
@@ -14,8 +14,7 @@ object Environment
     with GameHelper
     with UserHelper
     with SecurityHelper
-    with TeamHelper
-    with HtmlHelper:
+    with TeamHelper:
 
   export lila.core.lilaism.Lilaism.{ *, given }
   export lila.common.extensions.*
@@ -36,8 +35,6 @@ object Environment
 
   given lila.core.config.NetDomain              = env.net.domain
   given (using ctx: PageContext): Option[Nonce] = ctx.nonce
-
-  export lila.mailer.translateDuration
 
   lazy val siteName: String =
     if env.net.siteName == "localhost:9663" then "lichess.dev"
@@ -82,7 +79,7 @@ object Environment
   export flashHelper.*
 
   def flairApi        = env.user.flairApi
-  lazy val formHelper = wire[lila.web.ui.FormHelper]
+  lazy val formHelper = wire[lila.ui.FormHelper]
   export formHelper.*
 
   def routeTournamentShow: String => Call = controllers.routes.Tournament.show
@@ -101,7 +98,10 @@ object Environment
   )
   export assetHelper.{ *, given }
 
-  export ChessgroundHelper.*
+  export ChessHelper.*
+
+  val htmlHelper = lila.ui.HtmlHelper(lila.common.String.html)
+  export htmlHelper.*
 
   def titleOrText(v: String)(using ctx: Context): Modifier = titleOrTextFor(ctx.blind, v)
 

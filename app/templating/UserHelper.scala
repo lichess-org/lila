@@ -5,13 +5,13 @@ import chess.PlayerTitle
 import controllers.routes
 
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.Icon
+
 import lila.core.LightUser
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.core.perf.{ Perf, UserPerfs, UserWithPerfs }
 import lila.rating.PerfType
 import lila.app.mashup.*
-import lila.ui.Icon
+
 import lila.core.user.User
 import lila.rating.GlickoExt.clueless
 import lila.rating.UserPerfsExt.bestRatedPerf

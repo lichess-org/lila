@@ -40,14 +40,18 @@ final class PlanApi(
     }
 
   def cancel(user: User): Funit =
-    def onCancel =
-      isLifetime(user).flatMap { lifetime =>
-        (!lifetime).so(setDbUserPlan(user.mapPlan(_.disable)))
-      } >>
-        mongo.patron.update
-          .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
-          .map: _ =>
-            logger.info(s"Canceled subscription of ${user.username}")
+    cancelIfAny(user).flatMap:
+      if _ then funit else fufail(s"Can't cancel non-existent customer ${user.id}")
+
+  def cancelIfAny(user: User): Fu[Boolean] =
+    def onCancel = for
+      lifetime <- isLifetime(user)
+      _        <- (!lifetime).so(setDbUserPlan(user.mapPlan(_.disable)))
+      _ <- mongo.patron.update
+        .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
+        .map: _ =>
+          logger.info(s"Canceled subscription of ${user.username}")
+    yield true
     stripe.userCustomer(user).flatMap {
       case Some(customer) =>
         customer.firstSubscription match
@@ -56,7 +60,7 @@ final class PlanApi(
             stripeClient.cancelSubscription(sub) >> onCancel
       case None =>
         payPal.userSubscription(user).flatMap {
-          case None      => fufail(s"Can't cancel non-existent customer ${user.id}")
+          case None      => fuccess(false)
           case Some(sub) => payPalClient.cancelSubscription(sub) >> onCancel
         }
     }

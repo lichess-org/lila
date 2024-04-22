@@ -1,50 +1,68 @@
-// mutually exclusive group selector with state change hooks
+// mutually exclusive group selector with state change hooks for resource management
 
-export interface Selectable<C = any> {
-  select?: (ctx?: C) => void;
-  deselect?: (ctx?: C) => void;
-  close?: (ctx?: C) => void;
+export interface Selectable {
+  select?: (ctx?: any) => void;
+  deselect?: (ctx?: any) => void;
+  close?: (ctx?: any) => void;
+  name?: string;
 }
 
-export class Selector<T extends Selectable, C = any> {
-  group = new Map<string, T>();
-  context?: C;
-  key: string | false = false;
+export class Selector<K extends string = string, V extends Selectable & Record<string, any> = any, C = any> {
+  group: Map<K, V>;
+  context: C | Selector<K, V>;
+  key: K | false = false;
+  name?: string;
 
-  set ctx(ctx: any) {
-    if (this.context === ctx) return;
-    this.selected?.deselect?.(this.context);
-    this.context = ctx;
-    this.selected?.select?.(this.context);
+  constructor(opts?: { group?: Map<K, V>; context?: C; defaultKey?: K; name?: string }) {
+    this.group = opts?.group ? opts.group : new Map();
+    this.context = opts?.context ?? this;
+    this.key = opts?.defaultKey ?? false;
+    this.name = opts?.name;
   }
 
-  get selected(): T | undefined {
+  set ctx(ctx: C) {
+    if (this.context === ctx) return;
+    this.value?.deselect?.(this.context);
+    this.context = ctx;
+    this.value?.select?.(this.context);
+  }
+
+  get value(): V | undefined {
     return this.key ? this.group.get(this.key) : undefined;
   }
 
-  select(key: string | false) {
+  set(key: K | false) {
     if (this.key) {
       if (this.key === key) return;
-      this.selected?.deselect?.(this.context);
+      this.value?.deselect?.(this.context);
     }
     this.key = key;
-    this.selected?.select?.(this.context);
+    this.value?.select?.(this.context);
   }
 
-  get(key: string): T | undefined {
+  get(key: K): V | undefined {
     return this.group.get(key);
   }
 
-  set(key: string, val: T) {
+  add(key: K, val: V) {
     const reselect = this.key === key;
-    this.close(key);
+    this.release(key);
     this.group.set(key, val);
-    if (reselect) this.select(key);
+    if (reselect) this.set(key);
   }
 
-  close(key?: string) {
+  keyOf(val: V): K | false {
+    for (const [k, v] of this.group) if (v === val) return k;
+    return false;
+  }
+
+  has(key: string) {
+    return this.group.has(key as K);
+  }
+
+  release(key?: K) {
     if (key === undefined) {
-      for (const k of this.group.keys()) this.close(k);
+      for (const k of this.group.keys()) this.release(k);
       return;
     }
     if (key === this.key) {
@@ -54,8 +72,31 @@ export class Selector<T extends Selectable, C = any> {
     this.group.get(key)?.close?.(this.context);
   }
 
-  delete(key?: string) {
-    this.close(key);
+  remove(key?: K) {
+    this.release(key);
     key ? this.group.delete(key) : this.group.clear();
+  }
+}
+
+const user = document.body.dataset.user || 'anon';
+
+export class StoredSelector<K extends string = string, V extends Selectable = any, C = any> extends Selector<
+  K,
+  V,
+  C
+> {
+  constructor(
+    readonly storageKey: string,
+    opts?: { group?: Map<K, V>; context?: C; defaultKey?: K; name?: string },
+  ) {
+    super(opts);
+    this.key = (site.storage.get(`${this.storageKey}:${user}`) ||
+      (opts?.defaultKey ?? false)) as typeof this.key;
+  }
+
+  set(key: K | false) {
+    super.set(key);
+    if (key === false) site.storage.remove(`${this.storageKey}:${user}`);
+    else site.storage.set(`${this.storageKey}:${user}`, String(this.key));
   }
 }

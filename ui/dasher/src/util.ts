@@ -1,14 +1,16 @@
-import { h } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind } from 'common/snabbdom';
+import { bind, looseH as h, VNodeKids } from 'common/snabbdom';
 import { memoize } from 'common';
 
-export const header = (name: string, close: () => void) =>
-  h(
-    'button.head.text',
-    { attrs: { 'data-icon': licon.LessThan, type: 'button' }, hook: bind('click', close) },
-    name,
-  );
+export const header = (name: string, close: () => void, kidz?: VNodeKids) =>
+  h('div.category', [
+    h(
+      'button.head.text',
+      { attrs: { 'data-icon': licon.LessThan, type: 'button' }, hook: bind('click', close) },
+      name,
+    ),
+    kidz,
+  ]);
 
 export const elementScrollBarWidthSlowGuess = memoize<number>(() => {
   const ruler = document.createElement('div');

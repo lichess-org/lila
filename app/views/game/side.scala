@@ -5,6 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.web.ui.ChessHelper.underscoreFen
 import lila.game.GameExt.perfType
 
 object side:
@@ -40,7 +41,7 @@ object side:
       import pov.*
       div(cls := "game__meta")(
         st.section(
-          div(cls := "game__meta__infos", dataIcon := bits.gameIcon(game))(
+          div(cls := "game__meta__infos", dataIcon := ui.gameIcon(game))(
             div(
               div(cls := "header")(
                 div(cls := "setup")(

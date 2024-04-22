@@ -19,8 +19,6 @@
     "zerofish": "github:schlawg/zerofish#master"
   },
   "lichess": {
-    "modules": {
-      "src/learn.ts": "learn"
-    }
+    "bundles": "src/learn.ts"
   }
 }

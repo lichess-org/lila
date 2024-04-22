@@ -21,6 +21,9 @@
     display: block;
     width: 64px;
     height: 32px;
+    body:not(.simple-board) & {
+      filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
+    }
   }
 
   .list button:hover {
@@ -48,9 +51,6 @@
         } @else {
           background-image: img-url('board/#{$file-name}.thumbnail.#{$file-ext}');
         }
-        body:not(.simple-board) & {
-          filter: hue-rotate(calc(var(---board-hue) * 360deg));
-        }
       }
     }
   }
@@ -59,9 +59,6 @@
     @each $name in map-keys($board-themes-3d) {
       .#{$name} {
         background-image: img-url('staunton/board/#{$name}.thumbnail.png');
-        body:not(.simple-board) & {
-          filter: hue-rotate(calc(var(---board-hue) * 360deg));
-        }
       }
     }
   }

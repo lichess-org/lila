@@ -32,9 +32,7 @@ export function stopSass() {
 export async function sass(): Promise<void> {
   if (!env.sass) return;
 
-  const sources = [
-    ...new Set((await globArray('./*/css/**/[^_]*.scss', { abs: false })).filter(x => !x.includes('/gen/'))),
-  ];
+  const sources = await allSources();
   builder = new BuildTimer();
   await Promise.allSettled([parseThemeColorDefs(), ...sources.map(src => parseScss(src))]);
   await buildColorMixes().then(buildColorWrap);
@@ -49,6 +47,12 @@ export async function sass(): Promise<void> {
   }
   compile(sources, false);
   if (!sources.length) env.done(0, 'sass');
+}
+
+export async function allSources() {
+  return [
+    ...new Set((await globArray('./*/css/**/[^_]*.scss', { abs: false })).filter(x => !x.includes('/gen/'))),
+  ];
 }
 
 // recursively parse scss file and its imports to build dependency and color maps

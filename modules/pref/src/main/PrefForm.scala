@@ -2,6 +2,7 @@ package lila.pref
 
 import play.api.data.*
 import play.api.data.Forms.*
+import monocle.syntax.all.*
 
 import lila.common.Form.{ numberIn, stringIn, tolerantBoolean }
 
@@ -12,11 +13,6 @@ object PrefForm:
 
   private def checkedNumber(choices: Seq[(Int, String)]) =
     number.verifying(containedIn(choices))
-
-  private def float(min: Float, max: Float) =
-    text
-      .verifying("Invalid float", x => x.toFloatOption.exists(x => x >= min && x <= max))
-      .transform[Float](_.toFloat, _.toString)
 
   private def bitPresent(anInt: Int, bit: Int): Boolean =
     (anInt & bit) == bit
@@ -41,24 +37,24 @@ object PrefForm:
       "URL must use https",
       url => url.isBlank || url.startsWith("https://") || url.startsWith("//")
     )
-    val is3d            = "is3d"            -> tolerantBoolean
-    val zen             = "zen"             -> checkedNumber(Pref.Zen.choices)
-    val voice           = "voice"           -> booleanNumber
-    val keyboardMove    = "keyboardMove"    -> booleanNumber
-    val autoQueen       = "autoQueen"       -> checkedNumber(Pref.AutoQueen.choices)
-    val premove         = "premove"         -> booleanNumber
-    val takeback        = "takeback"        -> checkedNumber(Pref.Takeback.choices)
-    val autoThreefold   = "autoThreefold"   -> checkedNumber(Pref.AutoThreefold.choices)
-    val submitMove      = "submitMove"      -> bitCheckedNumber(Pref.SubmitMove.choices)
-    val confirmResign   = "confirmResign"   -> checkedNumber(Pref.ConfirmResign.choices)
-    val moretime        = "moretime"        -> checkedNumber(Pref.Moretime.choices)
-    val ratings         = "ratings"         -> booleanNumber
-    val flairs          = "flairs"          -> boolean
-    val follow          = "follow"          -> booleanNumber
-    val simpleBoard     = "simpleBoard"     -> boolean
-    val boardBrightness = "boardBrightness" -> float(0, 1.5)
-    val boardOpacity    = "boardOpacity"    -> float(0, 1)
-    val boardHue        = "boardHue"        -> float(0, 1)
+    val is3d          = "is3d"          -> tolerantBoolean
+    val zen           = "zen"           -> checkedNumber(Pref.Zen.choices)
+    val voice         = "voice"         -> booleanNumber
+    val keyboardMove  = "keyboardMove"  -> booleanNumber
+    val autoQueen     = "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices)
+    val premove       = "premove"       -> booleanNumber
+    val takeback      = "takeback"      -> checkedNumber(Pref.Takeback.choices)
+    val autoThreefold = "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices)
+    val submitMove    = "submitMove"    -> bitCheckedNumber(Pref.SubmitMove.choices)
+    val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
+    val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
+    val ratings       = "ratings"       -> booleanNumber
+    val flairs        = "flairs"        -> boolean
+    val follow        = "follow"        -> booleanNumber
+    object board:
+      val brightness = "boardBrightness" -> number(0, 150)
+      val opacity    = "boardOpacity"    -> number(0, 100)
+      val hue        = "boardHue"        -> number(0, 100)
 
   def pref(lichobile: Boolean) = Form(
     mapping(
@@ -101,8 +97,7 @@ object PrefForm:
       "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
       "insightShare" -> numberIn(Set(0, 1, 2)),
       fields.ratings.map2(optional),
-      fields.flairs.map2(optional),
-      fields.simpleBoard.map2(optional)
+      fields.flairs.map2(optional)
     )(PrefData.apply)(unapply)
   )
 
@@ -148,8 +143,7 @@ object PrefForm:
       studyInvite: Option[Int],
       insightShare: Int,
       ratings: Option[Int],
-      flairs: Option[Boolean],
-      simpleBoard: Option[Boolean]
+      flairs: Option[Boolean]
   ):
 
     def apply(pref: Pref) =
@@ -183,8 +177,7 @@ object PrefForm:
         resizeHandle = display.resizeHandle | pref.resizeHandle,
         rookCastle = behavior.rookCastle | pref.rookCastle,
         pieceNotation = display.pieceNotation | pref.pieceNotation,
-        moveEvent = behavior.moveEvent | pref.moveEvent,
-        simpleBoard = simpleBoard | pref.simpleBoard
+        moveEvent = behavior.moveEvent | pref.moveEvent
       )
 
   object PrefData:
@@ -225,8 +218,7 @@ object PrefForm:
         studyInvite = pref.studyInvite.some,
         insightShare = pref.insightShare,
         ratings = pref.ratings.some,
-        flairs = pref.flairs.some,
-        simpleBoard = pref.simpleBoard.some
+        flairs = pref.flairs.some
       )
 
   def prefOf(p: Pref): Form[PrefData] = pref(lichobile = false).fill(PrefData(p))

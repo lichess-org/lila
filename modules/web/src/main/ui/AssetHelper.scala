@@ -50,13 +50,13 @@ final class AssetHelper(
 
   def cssTag(key: String)(using ctx: Context): Frag =
     link(
-      cls  := key,
+      cls  := s"css-$key",
       href := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"),
       rel  := "stylesheet"
     )
 
-  def jsonScript(json: JsValue | SafeJsonStr, id: String = "page-init-data") =
-    script(tpe := "application/json", st.id := id):
+  def jsonScript(json: JsValue | SafeJsonStr) =
+    script(tpe := "application/json", st.id := "page-init-data"):
       raw:
         json match
           case json: JsValue => safeJsonValue(json).value

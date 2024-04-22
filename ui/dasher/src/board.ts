@@ -17,20 +17,30 @@ export interface BoardData {
 }
 
 export class BoardCtrl extends PaneCtrl {
+  sliderKey = Date.now(); // changing the value attribute doesn't always flush to DOM.
+
   constructor(root: DasherCtrl) {
     super(root);
   }
 
   render = () =>
     h(`div.sub.board.${this.dimension}`, [
-      header('Board', this.close),
+      header(
+        'Board',
+        this.close,
+        !this.isDefault() &&
+          h('button.text.reset', {
+            attrs: { 'data-icon': licon.Back, type: 'button', title: 'Reset colors to default' },
+            hook: bind('click', this.reset),
+          }),
+      ),
       h('div.selector.large', [
         h(
           'button.text',
           {
             class: { active: !this.is3d },
             attrs: { 'data-icon': licon.Checkmark, type: 'button' },
-            hook: bind('click', () => this.setIs3d(false)),
+            hook: bind('click', () => this.set3d(false)),
           },
           '2D',
         ),
@@ -39,7 +49,7 @@ export class BoardCtrl extends PaneCtrl {
           {
             class: { active: this.is3d },
             attrs: { 'data-icon': licon.Checkmark, type: 'button' },
-            hook: bind('click', () => this.setIs3d(true)),
+            hook: bind('click', () => this.set3d(true)),
           },
           '3D',
         ),
@@ -51,7 +61,7 @@ export class BoardCtrl extends PaneCtrl {
           h(
             'button',
             {
-              hook: bind('click', () => this.set(t)),
+              hook: bind('click', () => this.setBoard(t)),
               attrs: { title: t, type: 'button' },
               class: { active: this.current === t },
             },
@@ -73,7 +83,7 @@ export class BoardCtrl extends PaneCtrl {
     this.data[this.dimension].current = t;
   }
 
-  private set = (t: Board) => {
+  private setBoard = (t: Board) => {
     this.apply(t);
     const field = `theme${this.is3d ? '3d' : ''}`;
     xhr
@@ -82,25 +92,43 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private getPref = (prop: string) =>
-    parseFloat(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
+  private reset = () => {
+    this.setVar('board-opacity', 100);
+    this.setVar('board-brightness', 100);
+    this.setVar('board-hue', 0);
+    this.postPref('board-opacity');
+    this.postPref('board-brightness');
+    this.postPref('board-hue');
+    this.sliderKey = Date.now();
+    document.body.classList.add('simple-board');
+    this.root.redraw();
+  };
+
+  private getVar = (prop: string) =>
+    parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
+
+  private setVar = (prop: string, v: number) => {
+    document.body.style.setProperty(`---${prop}`, v.toString());
+    document.body.classList.toggle('simple-board', this.isDefault());
+    if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
+  };
 
   private postPref = debounce((prop: string) => {
     const body = new FormData();
-    body.set(hyphenToCamel(prop), this.getPref(prop).toString());
+    body.set(hyphenToCamel(prop), this.getVar(prop).toString());
     xhr
       .text(`/pref/${hyphenToCamel(prop)}`, { body, method: 'post' })
       .catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
-  private setIs3d = async (v: boolean) => {
+  private set3d = async (v: boolean) => {
     this.data.is3d = v;
     xhr
       .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })
       .catch(() => site.announce({ msg: 'Failed to save preference' }));
-    if (v) await site.asset.loadCssPath('board-3d');
-    else site.asset.removeCssPath('board-3d'); // chalk it up to common/css/theme/board/*.css
 
+    if (v) await site.asset.loadCssPath('board-3d');
+    else site.asset.removeCssPath('board-3d');
     $('#main-wrap')
       .removeClass(v ? 'is2d' : 'is3d')
       .addClass(v ? 'is3d' : 'is2d');
@@ -108,53 +136,53 @@ export class BoardCtrl extends PaneCtrl {
     this.redraw();
   };
 
-  private setPref = (prop: string, v: number) => {
-    document.body.style.setProperty(`---${prop}`, v.toString());
-    if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
-    this.redraw();
-    this.postPref(prop);
-  };
-
   private apply = (t: Board = this.current) => {
     this.current = t;
-    $('body')
-      .removeClass([...this.data.d2.list, ...this.data.d3.list].join(' '))
-      .addClass(t);
-    if (!this.is3d) document.body.dataset.boardTheme = t;
+    document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
     site.pubsub.emit('theme.change');
     this.root?.piece.apply();
   };
 
+  private isDefault = () =>
+    this.getVar('board-brightness') === 100 &&
+    this.getVar('board-hue') === 0 &&
+    this.getVar('board-opacity') === 100;
+
   private propSliders = () => {
     const sliders = [];
-    if (!Number.isNaN(this.getPref('zoom')))
+    if (!Number.isNaN(this.getVar('zoom')))
       sliders.push(this.propSlider('zoom', 'Size', { min: 0, max: 100, step: 1 }));
-    if (document.body.classList.contains('simple-board')) return sliders;
     if (document.body.dataset.theme === 'transp')
-      sliders.push(this.propSlider('board-opacity', 'Opacity', { min: 0, max: 1, step: 0.01 }));
-    else sliders.push(this.propSlider('board-brightness', 'Brightness', { min: 0.4, max: 1.4, step: 0.01 }));
+      sliders.push(this.propSlider('board-opacity', 'Opacity', { min: 0, max: 100, step: 1 }));
+    else sliders.push(this.propSlider('board-brightness', 'Brightness', { min: 20, max: 140, step: 1 }));
     sliders.push(
-      this.propSlider('board-hue', 'Hue', { min: 0, max: 1, step: 0.01 }, v => `+ ${Math.round(v * 360)}°`),
+      this.propSlider('board-hue', 'Hue', { min: 0, max: 100, step: 1 }, v => `+ ${Math.round(v * 3.6)}°`),
     );
     return sliders;
   };
 
-  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
-    h(
+  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) => {
+    return h(
       `div.${prop}`,
-      { attrs: { title: title ? title(this.getPref(prop)) : `${Math.round(this.getPref(prop) * 100)}%` } },
+      { attrs: { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` } },
       [
         h('label', label),
         h('input.range', {
-          attrs: { ...range, type: 'range', value: this.getPref(prop) },
+          key: this.sliderKey + prop,
+          attrs: { ...range, type: 'range', value: this.getVar(prop) },
 
           hook: {
             insert: (vnode: VNode) => {
               const input = vnode.elm as HTMLInputElement;
-              $(input).on('input', () => this.setPref(prop, parseFloat(input.value)));
+              $(input).on('input', () => {
+                this.setVar(prop, parseInt(input.value));
+                this.redraw();
+                this.postPref(prop);
+              });
             },
           },
         }),
       ],
     );
+  };
 }

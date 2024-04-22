@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import { elementScrollBarWidthSlowGuess, header } from './util';
 import debounce from 'common/debounce';
+import { prefersLight } from 'common/theme';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
@@ -96,12 +97,7 @@ export class BackgroundCtrl extends PaneCtrl {
   private apply = () => {
     const key = this.data.current;
     document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
-    document.documentElement.className =
-      key === 'system'
-        ? window.matchMedia('(prefers-color-scheme: light)').matches
-          ? 'light'
-          : 'dark'
-        : key;
+    document.documentElement.className = key === 'system' ? (prefersLight().matches ? 'light' : 'dark') : key;
 
     if (key === 'transp') {
       const bgData = document.getElementById('bg-data');
@@ -147,10 +143,8 @@ export class BackgroundCtrl extends PaneCtrl {
     };
 
     const gallery = this.data.gallery!;
-    const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2; // $mq-x-small
+    const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2;
     const montageUrl = site.asset.url(gallery[`montage${cols}`], { noVersion: true });
-    // our layout is static due to the single image gallery optimization. set width here
-    // and allow for the possibility of non-overlaid scrollbars
     const width =
       cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 

@@ -3,7 +3,6 @@ package lila.appeal
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.ui.Icon
-import lila.ui.Icon
 import lila.core.user.UserMark
 
 case class Appeal(

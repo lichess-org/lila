@@ -2,11 +2,10 @@ package views.html
 package study
 
 import controllers.routes
-import play.api.mvc.Call
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.app.LangPath
+import lila.web.LangPath
 import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }

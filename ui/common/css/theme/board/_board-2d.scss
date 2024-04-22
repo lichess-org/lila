@@ -1,8 +1,7 @@
 @import 'boards';
 
 @each $name, $board-theme in $board-themes-2d {
-  .#{$name} .is2d,
-  [data-board-theme='#{$name}'] .is2d {
+  body[data-board='#{$name}'] .is2d {
     cg-board {
       $file-ext: map-get($board-theme, file-ext);
       $name-override: map-get($board-theme, name-override);
@@ -27,16 +26,13 @@
 }
 
 .is2d cg-board::before {
-  position: absolute;
-  content: '';
-  inset: 0 0 0 0;
-  background-size: cover;
+  top: 0;
+  height: 100%;
 }
 
-body:not(.simple-board) .is2d cg-board::before {
-  filter: brightness(var(---board-brightness)) hue-rotate(calc(var(---board-hue) * 360deg));
-  @include if-transp {
-    opacity: var(---board-opacity);
-    filter: hue-rotate(calc(var(---board-hue) * 360deg));
-  }
+.is2d piece {
+  left: 0;
+  top: 0;
+  width: 12.5%;
+  height: 12.5%;
 }
