@@ -2,7 +2,6 @@ package lila.ui
 
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
-import play.api.mvc.Call
 
 import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.{ I18nKey, fixJavaLanguage, JsDump, Translator }

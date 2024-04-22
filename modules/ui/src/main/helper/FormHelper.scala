@@ -1,5 +1,4 @@
-package lila.web
-package ui
+package lila.ui
 
 import play.api.data.*
 import play.api.i18n.Lang
@@ -10,7 +9,6 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.Context
 import lila.core.i18n.Translate
 import lila.core.i18n.I18nKey as trans
-import lila.ui.Icon
 
 final class FormHelper(i18n: lila.ui.I18nHelper, flairApi: lila.core.user.FlairApi):
 
@@ -64,4 +62,4 @@ final class FormHelper(i18n: lila.ui.I18nHelper, flairApi: lila.core.user.FlairA
       )
     }.toList
 
-  val form3 = lila.web.views.Form3(i18n, flairApi)
+  val form3 = Form3(i18n, flairApi)

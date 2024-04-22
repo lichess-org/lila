@@ -109,12 +109,11 @@ object mine:
                       )
                     )
                 },
-              c.notableInitialFen.map { fen =>
+              c.notableInitialFen.map: fen =>
                 frag(
                   br,
                   div(cls := "board-preview", chessgroundMini(fen.board, c.finalColor)(div))
-                )
-              },
+                ),
               (!c.isOpen).option(cancelForm)
             )
           case Status.Declined =>

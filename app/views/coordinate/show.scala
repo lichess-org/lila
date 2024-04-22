@@ -4,7 +4,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.*
-import lila.core.app.LangPath
+import lila.web.LangPath
 
 object show:
 

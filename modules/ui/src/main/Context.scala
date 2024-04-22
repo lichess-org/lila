@@ -16,11 +16,13 @@ trait Context:
   def user: Option[User]
   def userId: Option[UserId]
   def translate: Translate
-
   def pref: Pref
   def ip: IpAddress
   def blind: Boolean
   def troll: Boolean
+
+  def is[U: UserIdOf](u: U): Boolean      = me.exists(_.is(u))
+  def isnt[U: UserIdOf](u: U): Boolean    = !is(u)
   def noBlind                             = !blind
   def flash(name: String): Option[String] = req.flash.get(name)
   lazy val acceptLanguages: Set[Language] =

@@ -17,9 +17,11 @@ trait Challenge:
   val finalColor: Color
   val destUser: Option[Challenger.Registered]
   val challenger: Challenger
+  def destUserId = destUser.map(_.id)
   def challengerUser = challenger match
     case u: Challenger.Registered => u.some
     case _                        => none
+  def challengerIsAnon = challenger.isInstanceOf[Challenger.Anonymous]
   def clock = timeControl match
     case c: Challenge.TimeControl.Clock => c.some
     case _                              => none

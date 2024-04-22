@@ -7,8 +7,6 @@ import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
 
-import lila.ui.Icon
-
 // collection of lila attrs
 trait ScalatagsAttrs:
   val dataTag                = attr("data-tag")
@@ -105,9 +103,10 @@ trait ScalatagsTemplate
 
   export scalatags.Text.tags2.main
   export scalatags.Text.styles.{ width as cssWidth, height as cssHeight }
+  export play.api.mvc.Call
 
   /* Convert play URLs to scalatags attributes with toString */
-  given GenericAttr[play.api.mvc.Call] = GenericAttr[play.api.mvc.Call]
+  given GenericAttr[Call] = GenericAttr[Call]
 
 object ScalatagsTemplate extends ScalatagsTemplate
 
@@ -115,6 +114,9 @@ object ScalatagsTemplate extends ScalatagsTemplate
 trait ScalatagsExtensions:
 
   export Context.ctxMe
+  export ReverseRouterConversions.given
+  export lila.core.perm.Granter
+  val Icon = lila.ui.Icon
 
   given Render[Icon] = _.value
 
@@ -152,8 +154,7 @@ trait ScalatagsExtensions:
     t.setAttr("target", Builder.GenericAttrValueSource("_blank"))
 
   val noFollow = rel := "nofollow"
-
-  val relMe = rel := "me"
+  val relMe    = rel := "me"
 
   def ariaTitle(v: String): Modifier = (t: Builder) =>
     val value = Builder.GenericAttrValueSource(v)

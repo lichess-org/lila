@@ -21,10 +21,10 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "src/tournament.ts": "tournament",
-      "src/tournament.calendar.ts": "tournament.calendar",
-      "src/tournament.schedule.ts": "tournament.schedule"
-    }
+    "bundles": [
+      "src/tournament.ts",
+      "src/tournament.calendar.ts",
+      "src/tournament.schedule.ts"
+    ]
   }
 }

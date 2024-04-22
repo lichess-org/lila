@@ -15,13 +15,13 @@
     "tablesort": "^5.3.0"
   },
   "lichess": {
-    "modules": {
-      "src/site.ts": "site",
-      "src/site.tvEmbed.ts": "site.tvEmbed",
-      "src/site.puzzleEmbed.ts": "site.puzzle.embed",
-      "src/site.lpvEmbed.ts": "site.lpv.embed",
-      "src/site.devMode.ts": "site.devMode"
-    },
+    "bundles": [
+      "src/site.ts",
+      "src/site.tvEmbed.ts",
+      "src/site.puzzleEmbed.ts",
+      "src/site.lpvEmbed.ts",
+      "src/site.devMode.ts"
+    ],
     "sync": {
       "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "public/npm"
     }

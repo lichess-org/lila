@@ -5,7 +5,7 @@ import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.Icon
+
 import lila.rating.PerfType
 
 import lila.user.LightCount

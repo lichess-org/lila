@@ -9,8 +9,6 @@
     "types-serviceworker": "^0.0.1"
   },
   "lichess": {
-    "modules": {
-      "src/serviceWorker.ts": "serviceWorker"
-    }
+    "bundles": "src/serviceWorker.ts"
   }
 }

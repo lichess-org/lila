@@ -2,7 +2,7 @@ package controllers
 
 import chess.format.Fen
 import play.api.libs.json.Json
-import play.api.mvc.{ Request, Result }
+import play.api.mvc.{ Request, Result, EssentialAction }
 import views.*
 
 import lila.app.{ *, given }
@@ -176,50 +176,60 @@ final class Setup(
     ttl = 10.minutes,
     maxConcurrency = 1
   )
-  def boardApiHook = AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile): ctx ?=>
-    NoBot:
-      val reqSri = getAs[Sri]("sri")
-      val author: Either[Result, Either[Sri, lila.user.User]] = ctx.me match
-        case Some(u) => Right(Right(u))
-        case None =>
-          reqSri match
-            case Some(sri) => Right(Left(sri))
-            case None      => Left(BadRequest(jsonError("Authentication required")))
-      author match
-        case Left(err) => err.toFuccess
-        case Right(author) =>
-          forms
-            .boardApiHook:
-              ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
-            .bindFromRequest()
-            .fold(
-              doubleJsonFormError,
-              config =>
-                for
-                  me       <- ctx.me.so(env.user.api.withPerfs)
-                  blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
-                  uniqId = author.fold(_.value, u => s"sri:${u.id}")
-                  res <- config.fixColor
-                    .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
-                    .match
-                      case Left(hook) =>
-                        PostRateLimit(req.ipAddress, rateLimited):
-                          BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
-                            env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                          )(jsOptToNdJson).toFuccess
-                      case Right(Some(seek)) =>
-                        author match
-                          case Left(_) =>
-                            BadRequest(jsonError("Anonymous users cannot create seeks")).toFuccess
-                          case Right(me) =>
-                            env.setup.processor.createSeekIfAllowed(seek, me.id).map {
-                              case HookResult.Refused =>
-                                BadRequest(Json.obj("error" -> "Already playing too many games"))
-                              case HookResult.Created(id) => Ok(Json.obj("id" -> id))
-                            }
-                      case Right(None) => notFoundJson().toFuccess
-                yield res
-            )
+
+  def boardApiHook = WithBoardApiHookAuthor { (author, reqSri) => ctx ?=>
+    forms
+      .boardApiHook:
+        ctx.isMobileOauth || (ctx.isAnon && HTTPRequest.isLichessMobile(ctx.req))
+      .bindFromRequest()
+      .fold(
+        doubleJsonFormError,
+        config =>
+          for
+            me       <- ctx.me.so(env.user.api.withPerfs)
+            blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
+            uniqId = author.fold(_.value, u => s"sri:${u.id}")
+            res <- config.fixColor
+              .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
+              .match
+                case Left(hook) =>
+                  PostRateLimit(req.ipAddress, rateLimited):
+                    BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
+                      env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                    )(jsOptToNdJson).toFuccess
+                case Right(Some(seek)) =>
+                  author match
+                    case Left(_) =>
+                      BadRequest(jsonError("Anonymous users cannot create seeks")).toFuccess
+                    case Right(me) =>
+                      env.setup.processor.createSeekIfAllowed(seek, me.id).map {
+                        case HookResult.Refused =>
+                          BadRequest(Json.obj("error" -> "Already playing too many games"))
+                        case HookResult.Created(id) => Ok(Json.obj("id" -> id))
+                      }
+                case Right(None) => notFoundJson().toFuccess
+          yield res
+      )
+  }
+
+  def boardApiHookCancel = WithBoardApiHookAuthor { (_, reqSri) => _ ?=>
+    reqSri.so: sri =>
+      env.lobby.boardApiHookStream.cancel(sri)
+      NoContent
+  }
+
+  private def WithBoardApiHookAuthor(
+      f: (Either[Sri, lila.user.User], Option[Sri]) => BodyContext[?] ?=> Fu[Result]
+  ): EssentialAction =
+    AnonOrScopedBody(parse.anyContent)(_.Board.Play, _.Web.Mobile): ctx ?=>
+      NoBot:
+        val reqSri = getAs[Sri]("sri")
+        ctx.me match
+          case Some(u) => f(Right(u), reqSri)
+          case None =>
+            reqSri match
+              case Some(sri) => f(Left(sri), reqSri)
+              case None      => BadRequest(jsonError("Authentication required"))
 
   def filterForm = Open:
     Ok.page(html.setup.filter(forms.filter))

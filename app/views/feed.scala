@@ -70,6 +70,12 @@ object feed:
       pagerNext(ups, np => routes.Feed.index(np).url)
     )
 
+  private def renderCache[A](ttl: FiniteDuration)(using Executor)(toFrag: A => Frag): A => Frag =
+    val cache = lila.memo.CacheApi.scaffeineNoScheduler
+      .expireAfterWrite(1 minute)
+      .build[A, String]()
+    from => raw(cache.get(from, from => toFrag(from).render))
+
   val lobbyUpdates = renderCache[List[Update]](1 minute)(using env.executor): ups =>
     div(cls := "daily-feed__updates")(
       ups.map: update =>
