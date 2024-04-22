@@ -41,14 +41,20 @@ final class PgnDump(
 
   def filename(study: Study): String =
     val date = dateFormatter.print(study.createdAt)
-    fileR.replaceAllIn(
+    if study.isRelay then fileR.replaceAllIn(
+      s"lichess_broadcast_${slug(study.name.value)}_$date",
+      ""
+    ) else fileR.replaceAllIn(
       s"lichess_study_${slug(study.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
 
   def filename(study: Study, chapter: Chapter): String =
     val date = dateFormatter.print(chapter.createdAt)
-    fileR.replaceAllIn(
+    if study.isRelay then fileR.replaceAllIn(
+      s"lichess_broadcast_${slug(study.name.value)}_${slug(chapter.name.value)}_$date",
+      ""
+    ) else fileR.replaceAllIn(
       s"lichess_study_${slug(study.name.value)}_${slug(chapter.name.value)}_by_${ownerName(study)}_$date",
       ""
     )
@@ -65,7 +71,7 @@ final class PgnDump(
       val opening = chapter.opening
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
-        Tag(_.Site, chapterUrl(study.id, chapter.id)),
+        if study.isRelay then Tag(_.Site, chapterUrl(study.id, chapter.id)),
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
