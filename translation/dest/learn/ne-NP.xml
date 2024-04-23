@@ -1,123 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">बुद्धिचाल सिक्नुहोस्</string>
-  <string name="byPlaying">खेलेर!</string>
+  <string name="learnChess">चेस सिक्नुहोस्</string>
+  <string name="byPlaying">खेलेर </string>
   <string name="menu">सुची</string>
-  <string name="progressX">प्रगति %s</string>
-  <string name="resetMyProgress">फेरी शुरुबाट गरौ</string>
-  <string name="youWillLoseAllYourProgress">तपाइको सबै प्रगति हराउने छ!</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">खेलौ</string>
-  <string name="chessPieces">बुद्धिचाल को गोटीहरु</string>
+  <string name="progressX">प्रगति :  %s</string>
+  <string name="resetMyProgress">फेरी शुरुबाट थल्नुहोस् । </string>
+  <string name="youWillLoseAllYourProgress">तपाइको सबै प्रगति हट्ने छ</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">खेल्नुहोस्</string>
+  <string name="chessPieces">बुद्धिचाल को गट्टीहरू</string>
   <string name="theRook">हात्ती</string>
-  <string name="itMovesInStraightLines">यो सिधा रेखा मा चल्छ।</string>
+  <string name="itMovesInStraightLines">यो सिधा हिँड्छ ।</string>
   <string name="rookIntro">हात्ती एउटा शक्तिशाली गोटी हो| तपाई यसलाई कमाण्ड गर्न तयार हुनुहुन्छ?</string>
-  <string name="rookGoal">हात्तीमा थिच्नुहोस् अनि त्यसलाई 
-तारासम्म ल्याउनुहोस्!</string>
+  <string name="rookGoal">हात्तीमा थिच्नुहोस् अनि त्यसलाई , र 
+त्यसलाई तारा भएको ठाऊँ सम्म ल्याउनुहोस्!</string>
   <string name="grabAllTheStars">सबै तारा कब्जा गर्नुहोस्!</string>
   <string name="theFewerMoves">तपाइले जति थोरै चाल प्रयोग गर्नुहुन्छ,
 त्यति धेरै अंक प्राप्त गर्नुहुन्छ!</string>
-  <string name="useTwoRooks">दुइवटा हात्ती प्रयोग गरि
-गति बढाउनुहोस्!</string>
+  <string name="useTwoRooks">दुइवटा हात्ती प्रयोग गरेर
+खेलको चाँडो बनाउनुहोस् । </string>
   <string name="rookComplete">बधाई छ! तपाइले हाती लाई चलाउन सिक्नु भयो|</string>
-  <string name="theBishop">उठ</string>
-  <string name="itMovesDiagonally">उठ तेर्सो चल्छ</string>
-  <string name="bishopIntro">अब हामि उठ चलाउन सिक्ने छौ!</string>
+  <string name="theBishop">उँट (कर्नेल)</string>
+  <string name="itMovesDiagonally">उठ छड्के चल्छ</string>
+  <string name="bishopIntro">अब हामि उँट चलाउन सिक्ने छौ!</string>
   <string name="youNeedBothBishops">एउटा हलुका कोठामा चल्ने उठ,
 एउटा गाढा कोठामा चल्ने उठ।
 तपाइलाई दुवै चाहिन्छ!</string>
   <string name="bishopComplete">बधाई छ! तपाइले उठ चलाउन सिक्नु भयो।</string>
   <string name="theQueen">मन्त्री</string>
-  <string name="queenCombinesRookAndBishop">मन्त्री = हात्ती + उठ</string>
+  <string name="queenCombinesRookAndBishop">मन्त्री (रानी)= हात्ती + उँट </string>
   <string name="queenIntro">सबैभन्दा शक्तिशाली चेस गोटी, मन्त्री!</string>
-  <string name="queenComplete">बधाई छ! अब मन्त्रीको तपाई संग कुनै गोपनियता छैन।</string>
+  <string name="queenComplete">बधाई छ ! महारानी ले तपाईँ सङ्ग सबै  कुरा भनिसकिन्, अब कुनै गोपनियता बाँकी छैन ।</string>
   <string name="theKing">राजा</string>
-  <string name="theMostImportantPiece">सबैभन्दा महत्वपूर्ण गोटी</string>
-  <string name="kingIntro">तपाई राजा हुनुहुन्छ, यदि तपाई युद्धमा लड्नु भयो भने, खेलमा हार हुन्छ|</string>
-  <string name="theKingIsSlow">राजा सुस्त गतिको हुन्छ।</string>
-  <string name="lastOne">अन्तमा एउटा!</string>
-  <string name="kingComplete">अब तपाई कमाण्डरलाई कमाण्ड गर्न सक्नुहुन्छ|</string>
+  <string name="theMostImportantPiece">यता गणतन्त्र आको छैन, राजा सबै भन्दा शक्तिमान्  छ ।</string>
+  <string name="kingIntro">युद्धमा राजा लडे भने खेल खत्तम, हारिन्छ । </string>
+  <string name="theKingIsSlow">राजा अल्छी छन्, खासै हिड्दैन। </string>
+  <string name="lastOne">अन्तिममा एउटा!</string>
+  <string name="kingComplete">कमाण्डर साप , अब तपाईँ कमाण्ड गर्नु सक्नुहुन्छ । </string>
   <string name="theKnight">घोडा</string>
-  <string name="itMovesInAnLShape">घोडा एल आकार मा चल्छ</string>
-  <string name="knightIntro">तपाइलाई एउटा चुनौती छ| घोडा एकदम... कपटी हुन्छ|</string>
-  <string name="knightsHaveAFancyWay">घोडाको यताउति उफ्रिने
-सानदार तरिका छ!</string>
-  <string name="knightsCanJumpOverObstacles">घोडा बाधा माथि पनि उफ्रिन सक्छ|
-सबै तारा लाई बिलिन गर्नुहोस्|</string>
-  <string name="knightComplete">बधाई छ, तपाइले घोडा चढ्न सिक्नु भयो!</string>
-  <string name="thePawn">प्युसा</string>
-  <string name="itMovesForwardOnly">यो अघाडी मात्र चल्छ|</string>
-  <string name="pawnIntro">प्युसा हरु कम्जोर हुन्छन्, तर तिनीहरु भित्र ठुलो क्षमता हुन्छ|</string>
-  <string name="pawnsMoveOneSquareOnly">प्युसा हरु एक कोठा अघि मात्र चल्छन्|
-तर बोर्ड को अर्को तर्फ पुग्दा, तिनीहरु बलियो गोटी बन्छन्|</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">प्राय: मन्त्री बनाउनु सर्वोत्तम हुन्छ|
-तर कहिले कही घोडा पनि उपुक्त हुन सक्छ|</string>
-  <string name="pawnsMoveForward">प्युसा हरु सिधा अघाडी चल्छन्,
-तर तेर्सो खान्छन्!</string>
+  <string name="itMovesInAnLShape">घोडा L आकार मा चल्छ</string>
+  <string name="knightIntro">तपाईँलाई एउटा चुनौती है त । घोडा नि, लास्टै पेचिलो गट्टी हो ।</string>
+  <string name="knightsHaveAFancyWay">यो घोडाहरू को यत्र तत्र सर्वत्र उफ्रने 
+चुलबुले तरिका हुन्छ ।</string>
+  <string name="knightsCanJumpOverObstacles">घोडा बाधाहरू माथी बाट बुरुक्क ऊफ्रन्छ,
+ऊफ्रेर ताराहरू लाई छु-मन्तर पार्नुहोस्</string>
+  <string name="knightComplete">ल बधाई छ !! तपाइले घोडा चढ्न सिक्नु भयो ।</string>
+  <string name="thePawn">पिउसो</string>
+  <string name="itMovesForwardOnly">यो सधैँ अगाडी बढ्छ ।</string>
+  <string name="pawnIntro">पिउसोहरू कमजोर हुन्छन् तर क्षमताले भरपुर हुन्छन् । </string>
+  <string name="pawnsMoveOneSquareOnly">पिउसो एक पटकमा एक पाईला अघी सर्छ । 
+तर बोर्डको पल्लो छेउमा पुगे पछी, बलियो भएर फर्कीन्छ !</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">पिउसोलाई बढुवा गर्दा जे बनाउन नि मिल्छ । 
+प्राय मन्त्री बनाउन नै ठिक हुन्छ तर बेला बेला 
+घोडा बनाउँदा काम लाग्छ।</string>
+  <string name="pawnsMoveForward">पिउसो सिधा अघाडी हीँड्छ तर 
+गट्टी खाने बेलामा छड्के खान्छ । </string>
   <string name="captureThenPromote">खानुस्, र अर्को गोटीमा परिवर्तन हुनुस्</string>
-  <string name="useAllThePawns">सबै प्युसा प्रयोग गर्नुस्!
-बोर्डको अन्त सम्म पुग्न जरुरि छैन|</string>
-  <string name="aPawnOnTheSecondRank">दोश्रो रयांक मा रहेको प्युसा एकै पटक दुइ कोठा अघाडी बढ्न सक्छ|</string>
+  <string name="useAllThePawns">सबै पिउसा प्रयोग गर्नुहोस् ।
+बढुवा गरिरहनु पर्दैन ।</string>
+  <string name="aPawnOnTheSecondRank">सुरूमा हिडंदा (दोस्रो स्थानका) पिउसा एकै पटक दुई पाईला सर्न सक्छन।</string>
   <string name="grabAllTheStarsNoNeedToPromote">सबै तारा कब्जा गर्नु होस् ! अन्तिम रयांक मा पुग्न जरुरि छैन|</string>
-  <string name="pawnComplete">बधाई छ, प्युसको तपाई संग कुनै गोपनियता छैन|</string>
-  <string name="pawnPromotion">प्युसा बढुवा</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">तपाइको प्युसा बोर्ड को अन्तमा पुगेको छ!</string>
+  <string name="pawnComplete">बधाई छ, पिउसाहरूले तपाई संग केही लुकाएका छैनन् । </string>
+  <string name="pawnPromotion">पिउसो बढुवा</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">तपाइको पिउसो बोर्डको अन्तिममा पुगेको छ!</string>
   <string name="itNowPromotesToAStrongerPiece">यो अब बलियो गोटीमा बढुवा हुन्छ|</string>
   <string name="selectThePieceYouWant">तपाइलाई मन पर्ने गोटी छान्नुहोस्!</string>
   <string name="fundamentals">आधारभुत</string>
   <string name="capture">खानु</string>
   <string name="takeTheEnemyPieces">विपक्षीको गोटी खानु</string>
-  <string name="captureIntro">विपक्षीको असुरक्षित गोटी चिन्नुहोस्!</string>
-  <string name="takeTheBlackPieces">कालो गोटीहरु खानुहोस्</string>
-  <string name="takeTheBlackPiecesAndDontLoseYours">कालो गोटीहरु खानुहोस्!
-तर आफ्नो गोटी नगुमाउनुहोस्|</string>
-  <string name="captureComplete">बधाई छ! तपाइलाई चेस को गोटी लिएर कसरी लड्ने भन्ने थाह भयो!</string>
-  <string name="protection">बचाव</string>
-  <string name="keepYourPiecesSafe">आफ्नो गोटी सुरक्षित राख्नुहोस्</string>
-  <string name="protectionIntro">विपक्षीले आक्रमण गरिरहेको आफ्नो गोटी पहिचान गर्नुहोस्, अनि बचाव गर्नुहोस्!</string>
-  <string name="protectionComplete">बधाई छ! तपाइले नगुमाएको गोटी तपाइले जितेको गोटी हो!</string>
-  <string name="escape">तपाई माथि आक्रमण भैरहेको छ!
-खतरा बाट बच्नुहोस्!</string>
-  <string name="noEscape">भाग्ने ठाउ छैन,
-तर तपाइले बचाव गर्न सक्नुहुन्छ!</string>
-  <string name="dontLetThemTakeAnyUndefendedPiece">उनीहरुलाई कुनै असुरक्षित गोटी 
-खान नदिनुहोस्!</string>
-  <string name="combat">युद्ध</string>
-  <string name="captureAndDefendPieces">कब्जा र गोटी  को रक्षा</string>
-  <string name="combatIntro">एउटा असल योद्धा हमला र बचाव गर्न जान्दछ!</string>
-  <string name="combatComplete">बधाई छ! तपाइलाई चेस को गोटी लिएर कसरी लड्ने भन्ने थाह भयो!</string>
+  <string name="captureIntro">विपक्षीको असुरक्षित गट्टी चिन्नुहोस् र खानुहोस्!</string>
+  <string name="takeTheBlackPieces">काला गट्टीहरू खानुहोस्</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">काला गट्टी खानुहोस्!
+र आफ्ना नगुमाउनुहोस् ।</string>
+  <string name="captureComplete">बधाई छ! तपाइले चेसका गट्टी लिएर कसरी युद्ध लड्ने थहा पाउनु भयो ।</string>
+  <string name="protection">संरक्षण</string>
+  <string name="keepYourPiecesSafe">आफ्ना गट्टी सुरक्षित राख्नुहोस्</string>
+  <string name="protectionIntro">विपक्षीले आक्रमण गरिरहेको आफ्ना गट्टी चिन्नुहोस्, अनि जोगाउनुहोस् ।</string>
+  <string name="protectionComplete">बधाई छ ! एउटा गट्टी जोगाउनु भनेको एउटा गट्टी जिते सरह हो ।</string>
+  <string name="escape">आक्रमण !!! तपाईँ माथी हमला भैरहेको छ 
+खतरा बाट निस्कनुहोस् ।</string>
+  <string name="noEscape">भागेर जाने ठाँउ छैन,
+तर तपाईँ जोगिन सक्नुहुन्छ ।</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">आफ्नो कुनै असुरक्षित गट्टी
+उनिहरूलाई खान नदिनुहोस् । </string>
+  <string name="combat">लडाईँ</string>
+  <string name="captureAndDefendPieces">गट्टी खानुहोस् र जोगाउनु होस् पनि</string>
+  <string name="combatIntro">एउटा असल योद्धालाई आक्रमण गर्न पनि आउँछ र जोगिन पनि!</string>
+  <string name="combatComplete">बधाई छ! तपाइलाई चेस को गट्टी लिएर कसरी लड्ने भन्ने थाह भयो!</string>
   <string name="checkInOne">एक चालमा चेक दिनुहोस्</string>
-  <string name="attackTheOpponentsKing">विपक्षी को राजा माथी हमला गर्नुहोस्</string>
-  <string name="checkInOneIntro">आफ्नो प्रतिद्वन्दी लाइ चेक गर्न उनीहरुको राजा माथी  हमला गर्नुहोस्। उनीहरुलाई यसको बचाव गर्ने पर्ने हुन्छ!</string>
-  <string name="checkInOneGoal">बिपक्षी राजा माथी
-एक चाल मा निशाना लगाउनुहोस्!</string>
-  <string name="checkInOneComplete">बधाई छ! तपाइले बिपक्षी राजालाई चेक दिएर प्रतिरोध गर्न बाध्य गर्नु भयो!</string>
-  <string name="outOfCheck">चेक बाट बाहिर</string>
-  <string name="defendYourKing">आफ्नो राजा को रक्षा गर्नुहोस्</string>
-  <string name="outOfCheckIntro">तपाइलाई चेक लागिरहेको छ! या त भाग्नु पर्छ, या त छेक्नु पर्छ|</string>
+  <string name="attackTheOpponentsKing">विपक्षी को राजा माथी आक्रमण गर्नुहोस् </string>
+  <string name="checkInOneIntro">आफ्नो विपक्षीलाई चेक दिन उसको राजा माथी हमला गर्नुहोस्। उनिहरूले यसबाट जोगिनै पर्ने हुन्छ!</string>
+  <string name="checkInOneGoal">एक चालमा विपक्षीको राजालाई
+निशाना बनउनुहोस् !</string>
+  <string name="checkInOneComplete">बधाई छ! तपाइले बिपक्षी राजालाई चेक दिएर आत्मरक्षा गर्न बाध्य पार्नु भयो!</string>
+  <string name="outOfCheck">चेक बाट निस्किन</string>
+  <string name="defendYourKing">आफ्नो राजा जोगाउनुहोस्</string>
+  <string name="outOfCheckIntro">तपाईँ चेकमा हुनुहुन्छ ! कि भाग्नुस् कि त छेक्नुस् ।.</string>
   <string name="escapeWithTheKing">राजा भगाउनुहोस्!</string>
-  <string name="theKingCannotEscapeButBlock">राजा भाग्न सक्दैन,
-तर तपाई हमला लाई छेक्न सक्नुहुन्छ!</string>
-  <string name="youCanGetOutOfCheckByTaking">तपाइलाई आक्आरमण गरेको गोटी खाएर 
-तपाई चेक बाट बाहिर निस्पकन सक्नु हुन्छ|</string>
-  <string name="thisKnightIsCheckingThroughYourDefenses">घोडा ले तपाइलाई चेक दिईरहेको छ!</string>
-  <string name="escapeOrBlock">राजा भगाउनुहोस् अथवा छेक्नुहोस्!</string>
-  <string name="outOfCheckComplete">बधाई छ! तपाइको राजा कहिले पनि खान सकिदैन, सुनिश्चित गर्नुस् कि तपाई कुनै पनि चेक बाट बचाउ गर्न सक्नुहुन्छ!</string>
-  <string name="mateInOne">एक चाल मा माथ</string>
-  <string name="defeatTheOpponentsKing">विपक्षी राजा लाइ पराजित गर्नुस्</string>
-  <string name="mateInOneIntro">तपाइको प्रतिद्वन्दी ले चेक को प्रतिरोध गर्न असफल भए मा खेल खत्तम हुन्छ|</string>
-  <string name="attackYourOpponentsKing">प्रतिद्वन्दी को राजा लाई बचाउ गर्न नमिल्ने गरे आक्रमण गर्नुहोस्|</string>
-  <string name="mateInOneComplete">बधाई छ! चेस खेल जित्ने यसरि नै हो|</string>
-  <string name="intermediate">माध्यमिक</string>
+  <string name="theKingCannotEscapeButBlock">राजको भाग्ने ठाउँ छैन, 
+तर तपाईँ हमला लाई छेक्न सक्नुहुन्छ!</string>
+  <string name="youCanGetOutOfCheckByTaking">चेकबाट निस्किन तपाईँले 
+आक्रमण गर्ने गट्टी खान सक्नुहुन्छ ।</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">तपाईँको रक्षासंयन्त्रको विचबाट
+घोडाले राजालाई धम्काइरहेको छ।</string>
+  <string name="escapeOrBlock">कि त राजा लिएर भाग्नुहोस् म 
+कि त हमलालाई छेक्नुहोस् ।</string>
+  <string name="outOfCheckComplete">बधाई छ! तपाईको राजालाई कसैले खान सक्दैन, मात्र यति सुनिश्चित गर्नुहोस् लो तपाई चेक सँग जोगिन सक्नुहुन्छ ।</string>
+  <string name="mateInOne">एक मा मेट</string>
+  <string name="defeatTheOpponentsKing">विपक्षी राजा लाइ मात दिनुहोस् ।</string>
+  <string name="mateInOneIntro">जब तपाईँको विपक्षी चेक बाट जोगिन सक्दैन, तब तपाई जित्नु हुन्छ ।</string>
+  <string name="attackYourOpponentsKing">विपक्षिको राजा जोगिन नसक्ने गरि हमाला गर्नुहोस् ।</string>
+  <string name="mateInOneComplete">बधाई छ! चेसका खेलहरू यसरी जितिन्छन् । </string>
+  <string name="intermediate">मध्यम तह</string>
   <string name="boardSetup">बोर्ड मिलाउने तरिका</string>
-  <string name="howTheGameStarts">खेल कसरि शुरु हुन्छ</string>
-  <string name="boardSetupIntro">दुइ सेनाहरु आमने सामने युद्धको लागि तयार रहन्छन्|</string>
+  <string name="howTheGameStarts">खेल कसरि सुरु हुन्छ</string>
+  <string name="boardSetupIntro">दुई सेनाहरू, आमने सामने, युद्धको लागी तयार </string>
   <string name="thisIsTheInitialPosition">यो शुरुको पोजिशन हो,
 हरेक खेल यसबाट शुरु हुन्छ|
 कुनै चाल चाली अघाडी बढ्नुहोस्|</string>
-  <string name="firstPlaceTheRooks">पहिला हात्ती राख्नुहोस्|
-हात्ती कुनामा जान्छन्|</string>
+  <string name="firstPlaceTheRooks">पहिला हात्तीहरू लाई राख्नुहोस्|
+हात्तीहरू कुनामा बस्छन्|</string>
   <string name="thenPlaceTheKnights">त्यसपछि घोडा राख्नुहोस्!
-घोडा हात्तिको नजिक हुन्छ|</string>
+घोडा हात्तिको छेउमा बस्छ |</string>
   <string name="placeTheBishops">उठ राख्नुहोस्!
 उनीहरु घोडाको नजिक हुन्छन्|</string>
   <string name="placeTheQueen">मन्त्री राख्नुहोस्!
@@ -184,6 +187,11 @@
   <string name="queenOverBishop">सबै भन्दा बढी मान
 भएको गोटी खानुहोस्
 मन्त्री &gt; उठ</string>
+  <string name="pieceValueExchange">सबै भन्दा बढि मुल्यको गट्टी खानुहोस् ।
+बढी मुल्यको गट्टी सङ्ग कम मुल्य को गट्टी नसाट्नुहोस् ।
+घाटाको व्यपारले डुबिन्छ ।</string>
+  <string name="pieceValueLegal">सबै भन्दा बढि मुल्यको गट्टी खानुहोस् । 
+तपाई को चाल नियाम सङ्गत भएको निश्चित गर्नुहोस् ।</string>
   <string name="takeThePieceWithTheHighestValue">सबै भन्दा बढी मान भएको गोटी खानुहोस्!</string>
   <string name="pieceValueComplete">बधाई छ! तपाइलाई गोटीको मान थाह भयो!
 मन्त्री = ९
