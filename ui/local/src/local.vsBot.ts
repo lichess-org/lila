@@ -11,15 +11,8 @@ const patch = init([classModule, attributesModule]);
 
 export async function initModule(opts: LocalPlayOpts) {
   const ctrl = new VsBotCtrl(opts, () => {});
-  const moves: string[] = [];
-  for (const from in ctrl.dests) {
-    moves.push(from + ctrl.dests[from]);
-  }
-  const [round, _] = await Promise.all([
-    site.asset.loadEsm<MoveRootCtrl>('round', { init: ctrl.roundOpts }),
-    ctrl.loaded,
-  ]);
-  ctrl.round = round;
+  await ctrl.loaded;
+  ctrl.round = await site.asset.loadEsm<MoveRootCtrl>('round', { init: ctrl.roundOpts });
   const blueprint = view(ctrl);
   const element = document.querySelector('#bot-view') as HTMLElement;
   element.innerHTML = '';

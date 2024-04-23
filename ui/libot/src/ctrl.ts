@@ -4,6 +4,7 @@ import { Libot, Libots } from './interfaces';
 export interface Ctrl {
   zf: Zerofish;
   bots: { [id: string]: Libot };
+  bot: () => Libot;
   setBot(name: string): Promise<void>;
   sort(): Libot[];
   move(fen: string): Promise<string>;
@@ -15,6 +16,7 @@ export async function makeCtrl(libots: Libots, zf: Zerofish): Promise<Ctrl> {
   return {
     zf,
     sort: libots.sort,
+    bot: () => bot,
     bots: libots.bots,
     async setBot(id: string) {
       bot = libots.bots[id];

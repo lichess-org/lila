@@ -82,8 +82,8 @@ export interface RoundOpts {
   noab?: boolean;
   socketSend?: SocketSend;
   onChange(d: RoundData): void;
-  element: HTMLElement;
-  crosstableEl: HTMLElement;
+  element?: HTMLElement;
+  crosstableEl?: HTMLElement;
   i18n: I18nDict;
   chat?: ChatOpts;
   local?: RoundSocket;

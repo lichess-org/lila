@@ -136,7 +136,7 @@ export interface CorrespondenceClock {
   black: number;
 }
 
-export type Source = 'import' | 'lobby' | 'pool' | 'friend';
+export type Source = 'import' | 'lobby' | 'pool' | 'friend' | 'local';
 
 export interface PlayerUser {
   id: string;

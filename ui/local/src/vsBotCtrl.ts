@@ -5,7 +5,7 @@ import { makeVsBotSocket } from './vsBotSocket';
 import { makeFen /*, parseFen*/ } from 'chessops/fen';
 import { makeSanAndPlay } from 'chessops/san';
 import { MoveRootCtrl } from 'game';
-import { RoundSocket } from 'round';
+import { RoundSocket, RoundOpts, RoundData } from 'round';
 import { Chess } from 'chessops';
 import * as Chops from 'chessops';
 
@@ -17,16 +17,25 @@ export class VsBotCtrl {
   loaded: Promise<void>;
   threefoldFens: Map<string, number> = new Map();
   round: MoveRootCtrl;
+  i18n: { [key: string]: string };
+  white: RoundData['player'];
+  black: RoundData['player'];
 
   constructor(
     readonly opts: LocalPlayOpts,
     readonly redraw: () => void,
   ) {
     this.socket = makeVsBotSocket(this);
+    this.i18n = opts.i18n;
     this.loaded = site.asset.loadEsm<LibotCtrl>('libot').then(libot => {
       this.libot = libot;
       this.libot.setBot('babyhoward');
+      this.black = {
+        ...this.player('black', this.libot.bot().name),
+        image: this.libot.bot().imageUrl,
+      };
     });
+    this.white = this.player('white', 'Anonymous');
   }
 
   reset(/*fen: string*/) {
@@ -70,7 +79,7 @@ export class VsBotCtrl {
     this.threefold('update');
     const { end, result, reason } = this.checkGameOver();
     if (end) this.doGameOver(result!, reason!);
-
+    this.socket.receive('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
     //this.tellRound('move', { uci, san, fen: this.fen, ply: this.ply, dests: this.dests });
   }
 
@@ -80,7 +89,7 @@ export class VsBotCtrl {
   }
 
   async botMove() {
-    console.log('bot move');
+    console.log('bot move', this.libot, this.fen);
     const uci = await this.libot!.move(this.fen);
     console.log('got bot move', uci);
     this.move(uci);
@@ -127,5 +136,57 @@ export class VsBotCtrl {
 
   get ply() {
     return 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
+  }
+
+  player(color: Color, name: string): RoundData['player'] {
+    return {
+      color,
+      user: {
+        id: name.toLowerCase().replace(' ', ''),
+        username: name,
+        online: true,
+        perfs: {},
+      },
+      id: '',
+      isGone: false,
+      name,
+      onGame: true,
+      version: 0,
+    };
+  }
+
+  get game(): RoundData['game'] {
+    return {
+      id: 'synthetic',
+      variant: { key: 'standard', name: 'Standard', short: 'Std' },
+      speed: 'classical',
+      perf: 'classical',
+      rated: false,
+      fen: this.fen,
+      turns: this.ply,
+      source: 'local',
+      status: { id: 20, name: 'started' },
+      player: 'white',
+    };
+  }
+
+  get roundOpts(): RoundOpts {
+    return {
+      data: {
+        game: this.game,
+        player: this.white,
+        opponent: this.black,
+        pref: this.opts.pref,
+        steps: [
+          { ply: 0, san: '', uci: '', fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' },
+        ],
+        takebackable: true,
+        moretimeable: true,
+        possibleMoves: this.dests,
+      },
+      i18n: this.opts.i18n,
+      local: this.socket,
+      onChange: (d: RoundData) => console.error(d),
+    };
   }
 }
