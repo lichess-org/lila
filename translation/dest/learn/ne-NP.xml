@@ -10,15 +10,15 @@
   <string name="chessPieces">बुद्धिचाल को गट्टीहरू</string>
   <string name="theRook">हात्ती</string>
   <string name="itMovesInStraightLines">यो सिधा हिँड्छ ।</string>
-  <string name="rookIntro">हात्ती एउटा शक्तिशाली गोटी हो| तपाई यसलाई कमाण्ड गर्न तयार हुनुहुन्छ?</string>
+  <string name="rookIntro">हात्ती एउटा शक्तिशाली गट्टी हो । के तपाई यसलाई चाल्न  तयार हुनुहुन्छ?</string>
   <string name="rookGoal">हात्तीमा थिच्नुहोस् अनि त्यसलाई , र 
 त्यसलाई तारा भएको ठाऊँ सम्म ल्याउनुहोस्!</string>
-  <string name="grabAllTheStars">सबै तारा कब्जा गर्नुहोस्!</string>
-  <string name="theFewerMoves">तपाइले जति थोरै चाल प्रयोग गर्नुहुन्छ,
-त्यति धेरै अंक प्राप्त गर्नुहुन्छ!</string>
+  <string name="grabAllTheStars">सबै तारा कब्जामा लिनुहोस् !</string>
+  <string name="theFewerMoves">तपाइले जति थोरै गट्टी चाल्नुभयो,
+त्यति धेरै अंक प्राप्त गर्नुहुनेछ ।</string>
   <string name="useTwoRooks">दुइवटा हात्ती प्रयोग गरेर
-खेलको चाँडो बनाउनुहोस् । </string>
-  <string name="rookComplete">बधाई छ! तपाइले हाती लाई चलाउन सिक्नु भयो|</string>
+खेलको गति बनाउनुहोस् । </string>
+  <string name="rookComplete">बधाई छ! तपाइले हाती चाल्न सिक्नु भयो । </string>
   <string name="theBishop">उँट (कर्नेल)</string>
   <string name="itMovesDiagonally">उठ छड्के चल्छ</string>
   <string name="bishopIntro">अब हामि उँट चलाउन सिक्ने छौ!</string>
@@ -114,127 +114,128 @@
   <string name="boardSetup">बोर्ड मिलाउने तरिका</string>
   <string name="howTheGameStarts">खेल कसरि सुरु हुन्छ</string>
   <string name="boardSetupIntro">दुई सेनाहरू, आमने सामने, युद्धको लागी तयार </string>
-  <string name="thisIsTheInitialPosition">यो शुरुको पोजिशन हो,
-हरेक खेल यसबाट शुरु हुन्छ|
-कुनै चाल चाली अघाडी बढ्नुहोस्|</string>
+  <string name="thisIsTheInitialPosition">यो सुरुको स्थिती हो,
+हरेक खेल यहीँ सुरु हुन्छ ।
+कुनै चाल चाली अघाडी बढ्नुहोस् ।</string>
   <string name="firstPlaceTheRooks">पहिला हात्तीहरू लाई राख्नुहोस्|
 हात्तीहरू कुनामा बस्छन्|</string>
   <string name="thenPlaceTheKnights">त्यसपछि घोडा राख्नुहोस्!
 घोडा हात्तिको छेउमा बस्छ |</string>
-  <string name="placeTheBishops">उठ राख्नुहोस्!
-उनीहरु घोडाको नजिक हुन्छन्|</string>
-  <string name="placeTheQueen">मन्त्री राख्नुहोस्!
-मन्त्री जुन रंग को छ, त्यहि रंगको कोठा मा जान्छ|</string>
-  <string name="placeTheKing">राजा राख्नुहोस्|
-राजा मन्त्री नजिक हुन्छ|</string>
-  <string name="pawnsFormTheFrontLine">प्युसहरु अरु गोटी को अघाडी हुन्छन्|
-कुनै चाल चाली अघि बढ्नुहोस्|</string>
+  <string name="placeTheBishops">अब उँट राख्नुहोस् , यसलाई कर्नेल नि भन्छन् 
+उनीहरु घोडाको छेउमा बस्छन् ।</string>
+  <string name="placeTheQueen">अब रानी राख्नुहोस्
+जुन रङ्गको गट्टी, बिचको त्याही रङ्गको कोठमा रानी.</string>
+  <string name="placeTheKing">अब राजा राख्नुहोस् 
+रानिको छेउमा सङ्गै को कोठामा राजा</string>
+  <string name="pawnsFormTheFrontLine">पिउसो हरू बलिका बोका जसरी 
+फ्रन्टलाईनमा राखिन्छन्
+कुै चाल चाल्नुहोस् ।</string>
   <string name="boardSetupComplete">बधाई छ! तपाइले चेस बोर्ड मिलाउन सिक्नु भयो|</string>
   <string name="castling">क्यस्लिंग</string>
   <string name="theSpecialKingMove">राजाको बिशेष चाल</string>
-  <string name="castlingIntro">तपाइको राजा लाई सुरक्षित बनाउनुहोस्, हात्ती लाई आक्रमणको लागि परिचालन गर्नुहोस्|</string>
+  <string name="castlingIntro">तपाइको राजा लाई सुरक्षित बनाउनुहोस्, हात्ती लाई आक्रमणको लागि परिचालन गर्नुहोस् !</string>
   <string name="castleKingSide">तपाइको राजा लाई दुइ कोठा सार्नुहोस्
-राजातार्फी क्यस्लिंग को लागि!</string>
+राजाको साईडमा क्यासल गर्न (किल्ला सर्न)!</string>
   <string name="castleQueenSide">तपाइको राजा लाई दुइ कोठा सार्नुहोस्
-मन्त्रीतर्फी क्यस्लिंग को लागि!</string>
-  <string name="theKnightIsInTheWay">बिचमा घोडा छ!
-त्यसलाई सार्नुहोस्, अनि राजातार्फी क्यस्लिंग गर्नुहोस्|</string>
-  <string name="castleKingSideMovePiecesFirst">राजा तर्फी क्यस्लिंग!
-पहिला गोटीहरु निकाल्नु पर्छ|</string>
-  <string name="castleQueenSideMovePiecesFirst">मन्त्रीतर्फी क्यस्लिंग!
-तपाइले पहिला गोटी निकाल्नुपर्छ|</string>
-  <string name="youCannotCastleIfMoved">यदि तपाइको राजा सरिसकेकोभए
-अथवा हात्ती सरिसकेको भए
-क्यस्लिंग गर्न पाइदैन|</string>
-  <string name="youCannotCastleIfAttacked">यदि राजाको बाटोमा आक्रमण भएको छ भने
-क्यस्लिंग गर्न मिल्दैन|
-पहिला चेक छेक्नुहोस, अनि क्यासल गर्नुहोस्!</string>
-  <string name="findAWayToCastleKingSide">राजातर्फी क्यासल गर्ने 
-तरिका पत्ता लागौनुहोस्!</string>
-  <string name="findAWayToCastleQueenSide">मन्त्रीतर्फी क्यासल गर्ने 
-तरिका पत्ता लागौनुहोस्!</string>
-  <string name="castlingComplete">बधाई छ, तपाइले खेलमा प्राय: सधै क्यासल गर्नु पर्ने हुन्छ|</string>
-  <string name="enPassant">अँ प्यासौं</string>
-  <string name="theSpecialPawnMove">प्युसको बिशेष चाल</string>
-  <string name="enPassantIntro">जब बिपक्षी प्युसा दुइ कोठा अघाडी बढ्छ, तब तपाइले त्यसलाई एक कोठा मात्र चलेको जसरि खान सक्नुहुन्छ|</string>
-  <string name="blackJustMovedThePawnByTwoSquares">कलोले भखर प्युसा दुइ कोठा
-अघाडी बढायो!
-त्यसलाई अँ प्यासों खाइदिनुस्</string>
-  <string name="enPassantOnlyWorksImmediately">अँ प्यासों बिपक्षी ले
-प्युसा चल्ने बित्त्तिकैको
-अर्को चालमा मात्र काम गर्छ</string>
-  <string name="enPassantOnlyWorksOnFifthRank">तपाइको प्युसो पाचौ रयांक मा छ भने
-मात्र अँ प्यासों काम गर्छ|</string>
+मन्त्रीको साइडमा क्यासल गर्न (किल्ला सार्न)।</string>
+  <string name="theKnightIsInTheWay">ला!!! बिचमा त घोडा पो छ त!
+त्यसलाई सार्नुहोस्, अनि राजा तिर क्यासल गर्नुहोस् ।</string>
+  <string name="castleKingSideMovePiecesFirst">राजा तिर क्यासल गर्नुहोस् !
+सुरुमा गट्टीहरू निकाल्नु पर्छ ।.</string>
+  <string name="castleQueenSideMovePiecesFirst">मन्त्री तिर क्यासल गर्नुहोस् !
+सुरुमा गट्टीहरू निकाल्नु पर्छ ।.</string>
+  <string name="youCannotCastleIfMoved">यदी सुरुमै राजा वा हात्ती चलिसकेको भए
+क्यासल गर्न पाइँदैन । </string>
+  <string name="youCannotCastleIfAttacked">राजाको क्यासल गर्ने बाटोको बिचमा
+हमला भईरहेको छ भने, सुरुमा चेक छेक्नुस् अनि क्यासल गर्नुहोस् ।</string>
+  <string name="findAWayToCastleKingSide">राजा तिर क्यासल गर्नकालागी
+तरिका पत्ता लागाउनुहोस्!</string>
+  <string name="findAWayToCastleQueenSide">मन्त्रीतर्फी क्यासल गर्नका लागी
+तरिका पत्ता लगाउनुहोस्!</string>
+  <string name="castlingComplete">बधाई छ, तपाइले खेलमा प्राय: सधै क्यासल गर्नु पर्छ । 
+शव्द याद गर्नुहोस् प्राय ।</string>
+  <string name="enPassant">अँ पशं</string>
+  <string name="theSpecialPawnMove">पिउसोको विशेष चाल।
+फ्रेन्चमा अँ पशं (en passant) भनेको \"बाटोमा\" हो</string>
+  <string name="enPassantIntro">जब विपक्षीको दुइ कोठा अघाडी बढ्छ, तब तपाइले त्यसलाई एक कोठा मात्र चलेको जसरि खान सक्नुहुन्छ|</string>
+  <string name="blackJustMovedThePawnByTwoSquares">कालो ले भर्खरै पिउसोलाई दुई पाईला चाल्यो!
+आँ पशं चालेर खानुहोस् त ।</string>
+  <string name="enPassantOnlyWorksImmediately">अँ पशं बिपक्षी ले पिउसो चाले पछि
+लगत्तै को पहिलो चाल मा मात्र काम गर्छ ।</string>
+  <string name="enPassantOnlyWorksOnFifthRank">अँ पशं तब मात्र काम गर्छ 
+जब तपाईँको पिउसो पाँचौ स्थान मा छ 
+(विपक्षी को पिउसो पहिलो चाल चल्दै छ)</string>
   <string name="takeAllThePawnsEnPassant">सबै प्युसलाई अँ प्यासों खानुहोस्!</string>
-  <string name="enPassantComplete">बधाई छ! तपाइ अब अँ प्यासों खान सक्ने हुनुभयो|</string>
+  <string name="enPassantComplete">बधाई छ! तपाइ अब अँ पशं चालेर खान सक्ने हुनुभयो|</string>
   <string name="stalemate">चालमाथ</string>
   <string name="theGameIsADraw">खेल बराबर भयो</string>
-  <string name="stalemateIntro">यदी खेलाडी लाई चेक लागेको छैन र कुनै चाल पनि छैन भने चालमाथ हुन्छ| खेल बराबर हुन्छ, कसैले जित्दैन, कसैले हार्दैन|</string>
-  <string name="stalemateGoal">कालो लाइ चालमाथ दिन:
--कालोको कुनै गोटी कतै चल्न मिल्दैन
--अहिले कुनै चेक लागेको छैन</string>
-  <string name="stalemateComplete">बधाई छ! माथ हुनुभन्दा चालमाथ हुनु राम्रो!</string>
-  <string name="advanced">उन्नत</string>
-  <string name="pieceValue">गोटीको मान</string>
-  <string name="evaluatePieceStrength">गोटीको शक्ति मापन गर्नुहोस्</string>
-  <string name="pieceValueIntro">बढी चल गोटीहरु को मान बढी हुन्छ!
-मन्त्री = ९
+  <string name="stalemateIntro">यदी कुनै खेलाडि चेकमा छैन तर उ सङ्ग कुनै नियम सङ्गत चाल छैन भने, स्टेलमेट हुन्छ । खेल बराबरी मा टुङ्गिन्छ, न कसैले हार्छ न कसैले जित्छ ।</string>
+  <string name="stalemateGoal">कालो लाई स्टेलमेटमा पार्न :
+- कालो कतै चल्न सक्दैन 
+ - कालो माथी चेक छेन </string>
+  <string name="stalemateComplete">बधाई छ! चेकमेट खानु भन्दा स्टेलमेट खाको राम्रो</string>
+  <string name="advanced">अघि बढेको</string>
+  <string name="pieceValue">गट्टीको मुल्य</string>
+  <string name="evaluatePieceStrength">गट्टीको शक्ति मुल्याङ्कन गर्नु होस् ।</string>
+  <string name="pieceValueIntro">धेरै चल्ने गोटीहरु को मुल्य पनि धेरै हुन्छ!
+मन्त्री(रानी) = ९
 हात्ती = ५
-उठ = ३
+उँट(कर्नेल)= ३
 घोडा = ३
-प्युसा = १
-राजा अमुल्य हुन्छ! राजा गुम्यो भने खेल नै गुम्छ|</string>
-  <string name="queenOverBishop">सबै भन्दा बढी मान
-भएको गोटी खानुहोस्
-मन्त्री &gt; उठ</string>
+पिउसो = १
+
+राजा अमुल्य हुन्छ! राजा खत्तम त खेल खत्तम ।</string>
+  <string name="queenOverBishop">सबै भन्दा बढी मुल्य भएको
+गट्टी खानुहोस्!
+मन्त्री &gt; उँट</string>
   <string name="pieceValueExchange">सबै भन्दा बढि मुल्यको गट्टी खानुहोस् ।
 बढी मुल्यको गट्टी सङ्ग कम मुल्य को गट्टी नसाट्नुहोस् ।
 घाटाको व्यपारले डुबिन्छ ।</string>
   <string name="pieceValueLegal">सबै भन्दा बढि मुल्यको गट्टी खानुहोस् । 
-तपाई को चाल नियाम सङ्गत भएको निश्चित गर्नुहोस् ।</string>
-  <string name="takeThePieceWithTheHighestValue">सबै भन्दा बढी मान भएको गोटी खानुहोस्!</string>
-  <string name="pieceValueComplete">बधाई छ! तपाइलाई गोटीको मान थाह भयो!
-मन्त्री = ९
+तपाईको चाल नियाम सङ्गत भएको निश्चित गर्नुहोस् ।</string>
+  <string name="takeThePieceWithTheHighestValue">सबै भन्दा बढी मुल्य भएको गट्टी खानुहोस्!</string>
+  <string name="pieceValueComplete">बधाई छ! तपाइलाई गोटीको मुल्य थाह भयो!
+मन्त्री(रानी) = ९
 हात्ती = ५
-उठ = ३
+उँट = ३
 घोडा = ३
-प्युसा = १</string>
+पिउसो= १</string>
   <string name="checkInTwo">दुइ चालमा चेक दिनुहोस्</string>
   <string name="twoMovesToGiveCheck">चेक दिन दुइ चाल छ</string>
-  <string name="checkInTwoIntro">दुइ चाल मा विपक्षी राजा लाई चेक दिने समिश्रण पत्ता लगाउनुहोस्!</string>
-  <string name="checkInTwoGoal">बिपक्षी राजा लाइ 
-दुइ चाल मा तर्साउनुहोस्!</string>
-  <string name="checkInTwoComplete">बधाई छ! तपाइले बिपक्षी राजालाई चेक दिएर प्रतिरोध गर्न बाध्य गर्नु भयो!</string>
+  <string name="checkInTwoIntro">दुइ चाल मा विपक्षी राजा लाई चेक दिने समिकरण पत्ता लगाउनुहोस्!</string>
+  <string name="checkInTwoGoal">विपक्षी राजा लाइ 
+दुइ चाल मा थर्काउनुहोस्!</string>
+  <string name="checkInTwoComplete">बधाई छ! तपाइले विपक्षी राजालाई चेक दिएर रक्षामा उत्रन गर्न बाध्य पार्भनुयो!</string>
   <string name="whatNext">अब के?</string>
   <string name="youKnowHowToPlayChess">तपाइलाई चेस कसरी खेल्ने थाह भयो, बधाई छ! के तपाई अझ राम्रो खेलाडी बन्न चाहनु हुन्छ?</string>
   <string name="register">दर्ता गर्नुहोस्</string>
-  <string name="getAFreeLichessAccount">सित्तैमा लीचेस खाता पाउनुहोस्</string>
+  <string name="getAFreeLichessAccount">सित्तैमा लीचेस खाता बनाउनुहोस्</string>
   <string name="practice">अभ्यास</string>
   <string name="learnCommonChessPositions">साधारण चेस पोजिशनहरु सिक्नुहोस्</string>
-  <string name="puzzles">प्रशिक्षण</string>
-  <string name="exerciseYourTacticalSkills">तपाइको रणनीतिक दक्ष्यता जाच गर्नुहोस्</string>
-  <string name="videos">श्रव्यदृश्य</string>
-  <string name="watchInstructiveChessVideos">चेसको सैक्षिक श्रव्यदृश्य हेर्नुहोस्</string>
-  <string name="playPeople">व्यक्तिहरुसंग खेल्नुहोस्</string>
-  <string name="opponentsFromAroundTheWorld">संसार भरिका प्रतिद्वन्दीहरु</string>
-  <string name="playMachine">मेशिन संग खेल्नुहोस्</string>
-  <string name="testYourSkillsWithTheComputer">कम्प्युटर संग आफ्नो दक्षता को जाच गर्नुहोस्</string>
-  <string name="letsGo">शुरु गरौ!</string>
+  <string name="puzzles">पजलहरू</string>
+  <string name="exerciseYourTacticalSkills">आफ्नो कार्यनैतिक दक्षताको अभ्यास गर्नुहोस् ।</string>
+  <string name="videos">भिडियोहरू</string>
+  <string name="watchInstructiveChessVideos">शिक्षाप्रद चेस-भिडियोहरू हेर्नुहोस् </string>
+  <string name="playPeople">मानिस सङ्ग खेल्नुहोस्</string>
+  <string name="opponentsFromAroundTheWorld">संसारभरका विपक्षी विरूद्ध</string>
+  <string name="playMachine">इन्जिन विरुद्ध खेल्नुहोस।</string>
+  <string name="testYourSkillsWithTheComputer">कम्प्युटर सँग आफ्नो दक्षताको जाँच गर्नुहोस्</string>
+  <string name="letsGo">ला थालौँ !!</string>
   <string name="stageX">तह %s</string>
-  <string name="awesome">गज्जब!</string>
+  <string name="awesome">ल गज्जब!</string>
   <string name="excellent">अति उत्तम!</string>
-  <string name="greatJob">धेरै राम्रो काम!</string>
+  <string name="greatJob">धेरै राम्रो, यो हो नि त तरिका!</string>
   <string name="perfect">केहि गल्ति छैन!</string>
-  <string name="outstanding">शानदार!</string>
-  <string name="wayToGo">यसरि नै हो खेल्ने!</string>
+  <string name="outstanding">बब्बाल!!</string>
+  <string name="wayToGo">यो हो नि त तरिका</string>
   <string name="yesYesYes">हो हो हो!</string>
   <string name="youreGoodAtThis">तपाइ यसमा अत्ति नै राम्रो हुनुहुन्छ!</string>
-  <string name="nailedIt">किल्ला नै ठोक्दिनुभायो त!</string>
-  <string name="rightOn">सहि छ!</string>
-  <string name="stageXComplete">तह %s सक्कियो</string>
+  <string name="nailedIt">काँटी हानियो नि त, ठ्यक्क।</string>
+  <string name="rightOn">ठ्यक्क, निशानामा!</string>
+  <string name="stageXComplete">तह %s समाप्त भयो</string>
   <string name="next">अर्को</string>
-  <string name="nextX">अर्को%s</string>
-  <string name="backToMenu">मेनु मा फिर्ता</string>
+  <string name="nextX">अर्को: %s</string>
+  <string name="backToMenu">मेनु मा फर्कनुहोस्</string>
   <string name="puzzleFailed">गलत जवाफ!</string>
   <string name="retry">पुन: प्रयास गर्नुहोस्</string>
 </resources>
