@@ -41,23 +41,29 @@ final class PgnDump(
 
   def filename(study: Study): String =
     val date = dateFormatter.print(study.createdAt)
-    if study.isRelay then fileR.replaceAllIn(
-      s"lichess_broadcast_${slug(study.name.value)}_$date",
-      ""
-    ) else fileR.replaceAllIn(
-      s"lichess_study_${slug(study.name.value)}_by_${ownerName(study)}_$date",
-      ""
-    )
+    if study.isRelay then
+      fileR.replaceAllIn(
+        s"lichess_broadcast_${slug(study.name.value)}_$date",
+        ""
+      )
+    else
+      fileR.replaceAllIn(
+        s"lichess_study_${slug(study.name.value)}_by_${ownerName(study)}_$date",
+        ""
+      )
 
   def filename(study: Study, chapter: Chapter): String =
     val date = dateFormatter.print(chapter.createdAt)
-    if study.isRelay then fileR.replaceAllIn(
-      s"lichess_broadcast_${slug(study.name.value)}_${slug(chapter.name.value)}_$date",
-      ""
-    ) else fileR.replaceAllIn(
-      s"lichess_study_${slug(study.name.value)}_${slug(chapter.name.value)}_by_${ownerName(study)}_$date",
-      ""
-    )
+    if study.isRelay then
+      fileR.replaceAllIn(
+        s"lichess_broadcast_${slug(study.name.value)}_${slug(chapter.name.value)}_$date",
+        ""
+      )
+    else
+      fileR.replaceAllIn(
+        s"lichess_study_${slug(study.name.value)}_${slug(chapter.name.value)}_by_${ownerName(study)}_$date",
+        ""
+      )
 
   private def chapterUrl(studyId: StudyId, chapterId: StudyChapterId) =
     s"${net.baseUrl}/study/$studyId/$chapterId"
