@@ -28,7 +28,7 @@ export class BoardCtrl extends PaneCtrl {
       header(
         'Board',
         this.close,
-        !this.checkSimple() &&
+        !this.isDefault() &&
           h('button.text.reset', {
             attrs: { 'data-icon': licon.Back, type: 'button', title: 'Reset colors to default' },
             hook: bind('click', this.reset),
@@ -109,6 +109,7 @@ export class BoardCtrl extends PaneCtrl {
 
   private setVar = (prop: string, v: number) => {
     document.body.style.setProperty(`---${prop}`, v.toString());
+    document.body.classList.toggle('simple-board', this.isDefault());
     if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
   };
 
@@ -142,15 +143,10 @@ export class BoardCtrl extends PaneCtrl {
     this.root?.piece.apply();
   };
 
-  private checkSimple = () => {
-    const simple =
-      this.getVar('board-brightness') === 100 &&
-      this.getVar('board-hue') === 0 &&
-      this.getVar('board-opacity') === 100;
-    if (simple) document.body.classList.add('simple-board');
-    else document.body.classList.remove('simple-board');
-    return simple;
-  };
+  private isDefault = () =>
+    this.getVar('board-brightness') === 100 &&
+    this.getVar('board-hue') === 0 &&
+    this.getVar('board-opacity') === 100;
 
   private propSliders = () => {
     const sliders = [];
