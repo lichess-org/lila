@@ -23,8 +23,8 @@
   <string name="createAGame">खेल सिर्जना गर्नुहोस्</string>
   <string name="whiteIsVictorious">सेतोले जीत्यो</string>
   <string name="blackIsVictorious">कालो विजयी भयो</string>
-  <string name="youPlayTheWhitePieces">तपाईं सेतो खेल्नुहुनेछ ।</string>
-  <string name="youPlayTheBlackPieces">तपाईं कालो खेल्नुहुनेछ</string>
+  <string name="youPlayTheWhitePieces">तपाईं सेतोगट्टी खेल्नुहुनेछ ।</string>
+  <string name="youPlayTheBlackPieces">तपाईं कालोगट्टी खेल्नुहुनेछ</string>
   <string name="itsYourTurn">तपाईंको पालो!</string>
   <string name="cheatDetected">बेइमानी पत्ता पर्यो</string>
   <string name="kingInTheCenter">राजा बिचमा</string>
@@ -75,14 +75,14 @@
   <string name="insufficientMaterial">अपर्याप्त सामग्री</string>
   <string name="pawnMove">प्युसाको चाल</string>
   <string name="capture">खाने चाल</string>
-  <string name="close">बन्द</string>
+  <string name="close">बन्द गर्नुहोस्</string>
   <string name="winning">जीत्ने</string>
   <string name="losing">हार्ने</string>
   <string name="drawn">बराबर</string>
   <string name="unknown">अज्ञात</string>
   <string name="database">डाटाबेस</string>
   <string name="whiteDrawBlack">सेतो / बराबर / कालो</string>
-  <string name="averageRatingX">औसत रेटिंग: %s</string>
+  <string name="averageRatingX">औसत रेटिङ्ग: %s</string>
   <string name="recentGames">पछिल्ला खेलहरु</string>
   <string name="topGames">शीर्ष खेलहरू</string>
   <string name="masterDbExplanation">%2$s देखि %3$s सम्म बोर्डमा खेलिएका %1$s भन्दा बढी फिडे रेटिङ भएका खेलाडीहरु बीचका खेलहरु</string>
@@ -91,18 +91,17 @@
     <item quantity="other">%s अर्धचालहरुमा माथ</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' rounding को साथ, अर्को गोटी खानु वा पिउसो चाल्नु अगाष‍डिका \'आधा चाल\' हरूमा आधारित ।</string>
-  <string name="noGameFound">कुनैपनि खेल भेट्टिएनन्</string>
+  <string name="noGameFound">कुनैपनि खेल भेट्टिएन </string>
   <string name="maxDepthReached">अधिकतम गहिरई पुग्यो । </string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">चयनको सुचिबाट अरु खेलहरु पनि छान्ने कि?</string>
-  <string name="openings">सुरुवाति चालहरू</string>
+  <string name="openings">प्रारम्भिक चालहरू</string>
   <string name="openingExplorer">प्रारम्भिक चाल अन्वेषक</string>
-  <string name="openingEndgameExplorer">सुरुवाति चाल र अन्तिमखेल (एण्डग्याम) अन्वेशक</string>
   <string name="xOpeningExplorer">%s प्रारम्भिक चाल अन्वेषक</string>
-  <string name="playFirstOpeningEndgameExplorerMove">पहिलो सुरूवाति चाल् / एण्डग्याम अन्वेशक चाल चाल्नुहोस् ।</string>
+  <string name="playFirstOpeningEndgameExplorerMove">पहिलो प्रारम्भिक चाल् / एण्डग्याम अन्वेशक चाल चाल्नुहोस् ।</string>
   <string name="winPreventedBy50MoveRule">५० चालको नियमबाट जीत रोकियो</string>
   <string name="lossSavedBy50MoveRule">५० चालको नियमबाट हार बच्यो</string>
   <string name="winOr50MovesByPriorMistake">जित वा गल्तिहरूको कारण ५० चाल</string>
-  <string name="allSet">तयारी पूरा!</string>
+  <string name="allSet">सबै सक्कियो !!</string>
   <string name="importPgn">PGN आयात</string>
   <string name="delete">मेटाउनुहोस्</string>
   <string name="deleteThisImportedGame">के यो आयातित खेल मेटाउन सकिन्छ?</string>
@@ -289,7 +288,7 @@
     <item quantity="other">%s सेकेण्ड दिनु</item>
   </plurals>
   <string name="thisAccountViolatedTos">यस खाताले Lichess Terms of Service को उल्लङ्घन गरेको छ</string>
-  <string name="openingExplorerAndTablebase">शुरुका चाल अन्वेषक &amp; टेबलबेस</string>
+  <string name="openingExplorerAndTablebase">प्रारम्भिक चाल अन्वेषक &amp; टेबलबेस</string>
   <string name="takeback">चाल फिर्ता</string>
   <string name="proposeATakeback">चाल फिर्ता लिने प्रस्ताव गरौं</string>
   <string name="takebackPropositionSent">चाल फिर्ताको प्रस्ताव पठाइयो</string>
@@ -330,7 +329,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">तपाइको %s रेटिङ अस्थायी छ</string>
   <string name="yourPerfRatingIsTooHigh">तपाइको %1$s रेटिङ (%2$s) बढि भयो</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">तपाइको हप्ताको अधिकतम् %1$s रेटिङ (%2$s) बढि भयो</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">तपाइको अधिकतम् साप्ताहिक %1$s रेटिङ (%2$s) धेरै भएकोले प्रतियोगीतामा जोडिन असमर्थ हुनुहुन्छ ।</string>
   <string name="yourPerfRatingIsTooLow">तपाइको %1$s रेटिङ (%2$s) कम भयो</string>
   <string name="ratedMoreThanInPerf">%2$s मा रेटिङ ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s मा रेटिङ ≤ %1$s</string>
@@ -436,7 +435,7 @@
   <string name="averageOpponent">औसत प्रतिद्वन्दी</string>
   <string name="boardEditor">बोर्ड सम्पादक</string>
   <string name="setTheBoard">बोर्ड सेट गरौं</string>
-  <string name="popularOpenings">लोकप्रिय सुरुवाती चालहरु</string>
+  <string name="popularOpenings">प्रचलित प्रारम्भिक चालहरु</string>
   <string name="startPosition">शुरुवाती अवस्था</string>
   <string name="clearBoard">बोर्ड खालि गरौं</string>
   <string name="loadPosition">पोजिसन लोड गरौं</string>
@@ -522,13 +521,13 @@
   <string name="xCompetesInY">%1$s %2$s मा भाग लिनुहुन्छ</string>
   <string name="victory">विजय</string>
   <string name="defeat">हार</string>
-  <string name="victoryVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
-  <string name="defeatVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
+  <string name="victoryVsYInZ">%1$s र %2$s को बिच खेल  -  विधा : %3$s </string>
+  <string name="defeatVsYInZ">%1$s र %2$s को बिच खेल  -  विधा : %3$s </string>
   <string name="drawVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
   <string name="timeline">समयरेखा</string>
   <string name="starting">शुरू हुंदैछ:</string>
   <string name="allInformationIsPublicAndOptional">सबै जानकारी सार्वजनिक र वैकल्पिक छन्।</string>
-  <string name="biographyDescription">आफ्नो बारे मा बताउनुहोस्, तपाइलाई बुद्धिचाल मा के राम्रो लाग्छ, तपाइलाई मनपर्ने शुरुवाती चाल तथा खेलाडीहरु...</string>
+  <string name="biographyDescription">आफ्नो बारे बताउनुहोस्, तपाइलाई चेसमा के राम्रो लाग्छ, तपाइलाई मनपर्ने प्रारम्भिक चाल तथा खेलाडीहरु, आदि</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">अधिकतम %s अक्षर|</item>
     <item quantity="other">अधिकतम %s अक्षर|</item>
@@ -617,7 +616,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">तपाइको %1$s रेटिंग %2$s छ।</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तपाइ %2$s खेलाडीहरु मध्य %1$s भन्दा बढि राम्रो हुनुहुन्छ।</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेलाडीहरुभन्दा बढि राम्रो।</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%3$s विधामा %1$s , %2$s  खेलाडीहरुभन्दा माथी हुनुहु्छ ।</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">तपाइको स्थापित %s रेटिङ छैन।</string>
   <string name="yourRating">तपाइको रेटिङ</string>
   <string name="cumulative">संचयी</string>
@@ -654,7 +653,7 @@
   <string name="zeroAdvertisement">शुन्य विज्ञापन</string>
   <string name="fullFeatured">सम्पुर्ण विशेषता सहित</string>
   <string name="phoneAndTablet">फोन र ट्याबलेट</string>
-  <string name="bulletBlitzClassical">बुलेट, ब्लिज, क्लासिकल</string>
+  <string name="bulletBlitzClassical">तोप, बिजुली, शास्त्रिय</string>
   <string name="correspondenceChess">पत्रचारिक खेलहरु</string>
   <string name="onlineAndOfflinePlay">अनलाइन र अफलाइन खेल</string>
   <string name="viewTheSolution">समाधान हेरौं</string>
@@ -680,7 +679,7 @@
   <string name="boardGeometry">बोर्ड ज्यामिति</string>
   <string name="boardTheme">बोर्ड थिम</string>
   <string name="boardSize">बोर्ड आकार</string>
-  <string name="pieceSet">गोटी सेट</string>
+  <string name="pieceSet">चेस सेट</string>
   <string name="embedInYourWebsite">तपाइको वेबसाइटमा इम्बेड गर्नुहोस्</string>
   <string name="usernameAlreadyUsed">यो युजर नेम प्रयोगमा छ, कृपया पुनः प्रयास गर्नुहोस्।</string>
   <string name="usernamePrefixInvalid">युजर नेम अक्षरबाट शुरू हुनु पर्दछ।</string>
@@ -737,7 +736,7 @@
     <item quantity="one">%s सेकेण्ड</item>
     <item quantity="other">%s सेकेण्ड</item>
   </plurals>
-  <string name="opening">शुरुका चालहरु</string>
+  <string name="opening">प्रारम्भिक चालहरु</string>
   <string name="middlegame">बीचको खेल</string>
   <string name="endgame">खेलको समाप्ति</string>
   <string name="conditionalPremoves">ससर्त प्रिमुभहरु</string>
@@ -763,22 +762,22 @@
   <string name="wishYouGreatGames">तपाइलाई lichess.org मा राम्रो खेल्न शुभकामना छ।</string>
   <string name="thankYouForReading">पढ्नुभएको मा धन्यवाद</string>
   <string name="lifetimeScore">आजिवन अंक</string>
-  <string name="currentMatchScore">हालका खेलहरुकोको अंक</string>
+  <string name="currentMatchScore">हालका खेलहरुकोको स्कोर</string>
   <string name="agreementAssistance">म आफ्नो खेलको क्रममा कहिल्यै पनि कुनै पनि बाहिरी सहायता (कम्प्युटर, डाटाबेस, वा अर्को व्यक्तिसँग) नलिन सहमत छु।</string>
   <string name="agreementNice">म सबै खेलाडीसँग राम्रो व्यवहार गर्न सहमत छु।</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">म स्विकार्छु कि म (%s मा उल्लिखित कारणहरूले गर्दा बाहेक) एक भन्दा बढी खाता बनाउँने छैन । </string>
   <string name="agreementPolicy">म लीचेसका सबै नीति पालना गर्न सहमत छु।</string>
   <string name="searchOrStartNewDiscussion">नयाँ छलफल शुरू गर्नुहोस्।</string>
   <string name="edit">परिमार्जन</string>
-  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">बुलेट</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">बिजुली</string>
-  <string name="rapid">रापिड</string>
-  <string name="classical">क्लासिकल</string>
-  <string name="ultraBulletDesc">अत्यन्तै छिटो खेल: ३० सेकेन्ड भन्दा कम</string>
-  <string name="bulletDesc">धेरै छिटो खेल: ३ मिनेट भन्दा कम</string>
-  <string name="blitzDesc">३ देखि ८ मिनेटका ब्लिज खेलहरू</string>
-  <string name="rapidDesc">८ देखि २५ मिनटका रापिड खेलहरू</string>
-  <string name="classicalDesc">२५ मिनेटभन्दा बढिका क्लासिकल खेलहरू</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">तोप</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ब्लिट्ज</string>
+  <string name="rapid">छिटो खेल</string>
+  <string name="classical">शास्त्रिय ।</string>
+  <string name="ultraBulletDesc">अल्ट्राबुलेट: ३० सेकेन्ड भन्दा कम</string>
+  <string name="bulletDesc">तोप: ३ मिनेट भन्दा कम</string>
+  <string name="blitzDesc">ब्लिट्ज : ३ देखि ८ मिनेटका  खेलहरू</string>
+  <string name="rapidDesc">छिटो खेल: ८ देखि २५ मिनटका खेलहरू</string>
+  <string name="classicalDesc">शास्त्रिय : २५ मिनेटभन्दा बढिका  खेलहरू</string>
   <string name="correspondenceDesc">पत्रचारिक खेलहरू: हरेक चालको एक वा सो भन्दा बढि दिनहरू</string>
   <string name="puzzleDesc">चेस कार्यनीति प्रशिक्षण</string>
   <string name="important">महत्वपुर्ण</string>
@@ -793,5 +792,9 @@
   <string name="thisTopicIsArchived">यो विषय सङ्गृहीत छ र यसलाई जवाफ दिन सकिँदैन।</string>
   <string name="joinTheTeamXToPost">यो फोरम म पोस्ट गर्न %1$s मा जोडिनुहोस् ।</string>
   <string name="teamNamedX">%1$s टोली</string>
+  <string name="refundXpointsTimeControlY">%2$s विधामा %1$s रेटिङ् अङ्क फिर्ता । </string>
   <string name="timeAlmostUp">समय सक्किन लाग्यो!</string>
+  <string name="closedAccountChangedMind">यदि तापाईँले आफ्नो खाता बन्द गर्नु भयो तर त्यस पछि तपाईको मन फेरीयो भने तपाईँलाई आफ्नो खाता फिर्ता पाउन एक अन्तिम मौका दिइनेछ ।</string>
+  <string name="until">सम्म</string>
+  <string name="lichessDbExplanation">लिचेसमा खेलिएका रेटेड खेलहरू</string>
 </resources>
