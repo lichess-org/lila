@@ -19,6 +19,7 @@
   <string name="white">सेतो</string>
   <string name="black">कालो</string>
   <string name="asWhite">सेतो बाट ।</string>
+  <string name="asBlack">कालो बाट । </string>
   <string name="randomColor">जुन भए पनि ।</string>
   <string name="createAGame">खेल सिर्जना गर्नुहोस्</string>
   <string name="whiteIsVictorious">सेतोले जीत्यो</string>
@@ -59,6 +60,8 @@
   <string name="depthX">गहिराइ %s</string>
   <string name="usingServerAnalysis">सर्भरको विश्लेषण प्रयोग गरिदैं छ</string>
   <string name="loadingEngine">इन्जिन लोड हुदैछ ...</string>
+  <string name="calculatingMoves">चालहरूको हिसाब गर्दै...</string>
+  <string name="engineFailed">इन्जीन लोड गर्दा त्रुटी भयो </string>
   <string name="cloudAnalysis">क्लाउड विश्लेषण</string>
   <string name="goDeeper">गहिराइ बढाउनुहोस्</string>
   <string name="showThreat">खतरा देखाउनुहोस्</string>
@@ -96,11 +99,14 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">चयनको सुचिबाट अरु खेलहरु पनि छान्ने कि?</string>
   <string name="openings">प्रारम्भिक चालहरू</string>
   <string name="openingExplorer">प्रारम्भिक चाल अन्वेषक</string>
+  <string name="openingEndgameExplorer">प्रारम्भिक चालहरू/ अन्तिमखेल अन्वेशक</string>
   <string name="xOpeningExplorer">%s प्रारम्भिक चाल अन्वेषक</string>
   <string name="playFirstOpeningEndgameExplorerMove">पहिलो प्रारम्भिक चाल् / एण्डग्याम अन्वेशक चाल चाल्नुहोस् ।</string>
   <string name="winPreventedBy50MoveRule">५० चालको नियमबाट जीत रोकियो</string>
   <string name="lossSavedBy50MoveRule">५० चालको नियमबाट हार बच्यो</string>
   <string name="winOr50MovesByPriorMistake">जित वा गल्तिहरूको कारण ५० चाल</string>
+  <string name="lossOr50MovesByPriorMistake">हार वा गलतिको कारण ५० चाल </string>
+  <string name="unknownDueToRounding">हार-जीत तब मात्र सुनिश्चित छ जब पछिल्को गट्टी खाए पछि वा पिउसोको चाल पछि सिफारिस गरिएको टेबलबेस लाईन पछ्याईन्छ</string>
   <string name="allSet">सबै सक्कियो !!</string>
   <string name="importPgn">PGN आयात</string>
   <string name="delete">मेटाउनुहोस्</string>
@@ -122,6 +128,10 @@
   <string name="blunder">ठुलो भुल</string>
   <string name="mistake">सानो भुल</string>
   <string name="inaccuracy">धेरै सानो भुल</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s  ब्लण्डर</item>
+    <item quantity="other">%s  ब्लण्डरहरू</item>
+  </plurals>
   <string name="moveTimes">चालका लागी समय</string>
   <string name="flipBoard">बोर्ड फर्काउनुहोस्</string>
   <string name="threefoldRepetition">चाल तेहेर्याइएको ।</string>
@@ -146,6 +156,7 @@
   <string name="viewInFullSize">पुर्ण आकार हेर्नुहोस्</string>
   <string name="logOut">साइन आउट गर्नुहोस्</string>
   <string name="signIn">साईन इन गर्नुहोस्</string>
+  <string name="rememberMe">मलाई लग्ड-इन राख्नु </string>
   <string name="youNeedAnAccountToDoThat">त्यसको लागि तपाईलाई खाता आवश्यक पर्दछ</string>
   <string name="signUp">दर्ता गर्नुहोस्</string>
   <string name="computersAreNotAllowedToPlay">कम्प्युटर र कम्प्युटरको सहायता लिएका खेलाडीहरुलाई खेल्न निषेधित गरिएको छ। कृपया खेल्दा बुद्धिचाल इन्जिन, डाटाबेस, वा अरु खेलाडीको सहयोग नलिनुहोला। धेरै खाताहरु खोल्न पनि निरुत्साहित गरिन्छ र अत्ति नै धेरै खोलेको खण्डमा तपाईमाथि प्रतिबन्ध लाग्नेछ।</string>
@@ -197,12 +208,18 @@
   <string name="error.weakPassword">यो पासवर्ड धेरै प्रचलीत र अनुमान गर्न साह्रै सहज छ ।  </string>
   <string name="error.namePassword">कृपया, आफ्नो प्रयोगकर्ता-नामलाई पासवर्डको रूपमा प्रयोग नगर्नुहोस् ।</string>
   <string name="blankedPassword">तपाईँले यहि पासवर्ड अर्को साईटमा प्रयोग गर्नु भएको थियो, र त्यो साईट कमप्रमाइज भएको छ। तपाईको आफ्नै lichess खाताको सुरक्षाका लागी हामी तपाईलाई पासवर्ड बदल्न अनुरोध गर्दछौँ । बुझ्नु भएकोम धन्यवाद।</string>
+  <string name="youAreLeavingLichess">तपाईँ लिचेस छाड्दै हुनुहुन्छ । </string>
   <string name="neverTypeYourPassword">आफ्नो लिचेस पासवर्ड अरू साइटमा नहाल्नुहोला ।</string>
   <string name="proceedToX">%s मा जानुहोस् ।</string>
   <string name="passwordSuggestion">अरुले राख् भनेको पासवर्ड नराख्नुहोला । उनिहरूले तपाईँको खाता चोर्नका लागी त्यो पास्वर्ड प्रयोग गर्ने छन्। </string>
   <string name="emailSuggestion">अरुले राख् भनेको इमेल नराख्नुहोला । उनिहरूले तपाईँको खाता चोर्नका लागी त्यो पास्वर्ड प्रयोग गर्ने छन्। </string>
   <string name="emailConfirmHelp">इमेल कन्फर्मेसनका लागी सहयोग </string>
   <string name="emailConfirmNotReceived">साइन अप गरे पछि इमेल पाउनुभएन ?</string>
+  <string name="whatSignupUsername">तपाईले साइन-अप गर्ने कुन प्रयोगकर्ता नाम प्रयोग गर्नु भएको थियो ?</string>
+  <string name="usernameNotFound">%s: यो नाम भएको कुनै पनि प्रयोग कर्ता फेला पर्न सकेन।</string>
+  <string name="usernameCanBeUsedForNewAccount">यो प्रयोगकर्ता-नाम प्रयोग गरेर नयाँ खाता खोल्न सक्नुहुन्छ ।</string>
+  <string name="emailSent">हामिले %sमा एउटा इमेल पठाएका छौँ ।</string>
+  <string name="emailCanTakeSomeTime">इमेल आउन केहि समय लाग्न सक्छ।</string>
   <string name="rank">स्थान</string>
   <string name="rankX">स्थान: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
