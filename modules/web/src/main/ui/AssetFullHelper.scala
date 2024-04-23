@@ -17,7 +17,8 @@ case class EsmInit(key: String, init: Frag)
 type Optionce = Option[Nonce]
 type EsmList  = List[Option[EsmInit]]
 
-final class AssetHelper(
+final class AssetFullHelper(
+    assetHelper: lila.ui.AssetHelper,
     i18nHelper: lila.ui.I18nHelper,
     net: NetConfig,
     manifest: AssetManifest,
@@ -25,7 +26,8 @@ final class AssetHelper(
     tablebaseEndpoint: String,
     externalEngineEndpoint: String
 ):
-  import net.{ domain as netDomain, assetDomain, assetBaseUrl, minifiedAssets }
+  import assetHelper.*
+  import net.{ domain as netDomain, assetDomain, minifiedAssets, assetBaseUrl }
   private lazy val socketDomains = net.socketDomains ::: net.socketAlts
   // lazy val vapidPublicKey         = env.push.vapidPublicKey
 
@@ -38,15 +40,7 @@ final class AssetHelper(
 
   def assetVersion = AssetVersion.current
 
-  // bump flairs version if a flair is changed only (not added or removed)
-  val flairVersion = "______2"
-
-  def assetUrl(path: String): String       = s"$assetBaseUrl/assets/_$assetVersion/$path"
-  def staticAssetUrl(path: String): String = s"$assetBaseUrl/assets/$path"
-
-  def cdnUrl(path: String) = s"$assetBaseUrl$path"
-
-  def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+  def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
 
   def cssTag(key: String)(using ctx: Context): Frag =
     link(href := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"), rel := "stylesheet")

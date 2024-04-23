@@ -50,7 +50,7 @@ object bits:
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
     cross.map: c =>
-      views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
+      views.html.game.ui.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
 
   def underchat(game: Game)(using ctx: Context) =
     frag(
@@ -120,7 +120,7 @@ object bits:
               span(cls := "meta")(
                 playerUsername(
                   pov.opponent.light,
-                  pov.opponent.userId.flatMap(lightUser),
+                  pov.opponent.userId.flatMap(lightUserSync),
                   withRating = false,
                   withTitle = true
                 ),

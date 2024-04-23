@@ -21,8 +21,6 @@ object GlickoExt:
         else Glicko.variantRankableDeviation
       }
 
-    def clueless = g.deviation >= Glicko.cluelessDeviation
-
     def sanityCheck: Boolean =
       g.rating > 0 &&
         g.rating < 4000 &&
@@ -59,7 +57,6 @@ object Glicko:
   val minDeviation              = 45
   val variantRankableDeviation  = 65
   val standardRankableDeviation = 75
-  val cluelessDeviation         = 230
   val maxDeviation              = 500d
 
   // past this, it might not stabilize ever again

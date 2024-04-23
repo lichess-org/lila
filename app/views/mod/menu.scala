@@ -39,7 +39,7 @@ object menu:
       isGranted(_.Shadowban).option(
         a(cls := active.active("panic"), href := routes.Mod.chatPanic)(
           "Chat Panic: ",
-          strong(if isChatPanicEnabled then "ON" else "OFF")
+          strong(if env.chat.panic.enabled then "ON" else "OFF")
         )
       ),
       isGranted(_.Admin).option(a(cls := active.active("mods"), href := routes.Mod.table)("Mods")),

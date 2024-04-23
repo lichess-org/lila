@@ -19,6 +19,12 @@ object UserPerfsExt:
   extension (p: UserPerfs)
 
     def perfsList: List[(PerfKey, Perf)] = List(
+      PerfKey.ultraBullet    -> p.ultraBullet,
+      PerfKey.bullet         -> p.bullet,
+      PerfKey.blitz          -> p.blitz,
+      PerfKey.rapid          -> p.rapid,
+      PerfKey.classical      -> p.classical,
+      PerfKey.correspondence -> p.correspondence,
       PerfKey.chess960       -> p.chess960,
       PerfKey.kingOfTheHill  -> p.kingOfTheHill,
       PerfKey.threeCheck     -> p.threeCheck,
@@ -27,12 +33,6 @@ object UserPerfsExt:
       PerfKey.horde          -> p.horde,
       PerfKey.racingKings    -> p.racingKings,
       PerfKey.crazyhouse     -> p.crazyhouse,
-      PerfKey.ultraBullet    -> p.ultraBullet,
-      PerfKey.bullet         -> p.bullet,
-      PerfKey.blitz          -> p.blitz,
-      PerfKey.rapid          -> p.rapid,
-      PerfKey.classical      -> p.classical,
-      PerfKey.correspondence -> p.correspondence,
       PerfKey.puzzle         -> p.puzzle
     )
 

@@ -9,8 +9,8 @@ import lila.ui.ScalatagsTemplate.*
 import lila.rating.PerfType
 import lila.game.GameExt.perfType
 
-lazy val ui         = lila.game.ui.GameUi(i18nHelper, dateHelper)(routeRoundWatcher = routes.Round.watcher)
-lazy val crosstable = ui.crosstable(userId => _ ?=> userIdLink(userId.some, withOnline = false))
+lazy val ui =
+  lila.game.ui.GameUi(i18nHelper, dateHelper, userHelper)(routeRoundWatcher = routes.Round.watcher)
 
 object bits:
 
@@ -26,7 +26,7 @@ object bits:
     div(
       side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
       cross.map: c =>
-        div(cls := "crosstable")(crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
+        div(cls := "crosstable")(ui.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))
     )
 
   def variantLink(

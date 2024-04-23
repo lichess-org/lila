@@ -11,12 +11,11 @@ final class ModInquiryUi(
     formHelper: FormHelper,
     dateHelper: DateHelper,
     i18nHelper: I18nHelper,
-    htmlHelper: HtmlHelper
-)(
-    userLink: UserId => Translate ?=> Frag,
-    routeUserWriteNote: String => Call
-):
+    htmlHelper: HtmlHelper,
+    userHelper: UserHelper
+)(routeUserWriteNote: String => Call):
   import formHelper.*
+  import userHelper.userIdLink
   import i18nHelper.given
 
   def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
@@ -31,7 +30,7 @@ final class ModInquiryUi(
         div(cls := "atom")(
           h3(
             lila.report.ui.reportScore(atom.score),
-            userLink(atom.by.userId),
+            userIdLink(atom.by.userId.some, withOnline = false),
             " for ",
             strong(r.reason.name),
             " ",
@@ -71,7 +70,12 @@ final class ModInquiryUi(
       notes.map: note =>
         (!note.dox || Granter.opt(_.Admin)).option(
           div(cls := "doc note")(
-            h3("by ", userLink(note.from), ", ", dateHelper.momentFromNow(note.date)),
+            h3(
+              "by ",
+              userIdLink(note.from.some, withOnline = false),
+              ", ",
+              dateHelper.momentFromNow(note.date)
+            ),
             p(htmlHelper.richText(note.text, nl2br = true, expandImg = false))
           )
         )
@@ -96,7 +100,7 @@ final class ModInquiryUi(
             ul(
               history.map: e =>
                 li(
-                  userLink(e.mod.userId),
+                  userIdLink(e.mod.userId.some, withOnline = false),
                   " ",
                   b(e.showAction),
                   " ",

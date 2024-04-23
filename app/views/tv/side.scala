@@ -75,4 +75,4 @@ object side:
   )(using Context) =
     div(cls := "sides"):
       cross.map:
-        views.html.game.crosstable(_, pov.gameId.some)
+        views.html.game.ui.crosstable(_, pov.gameId.some)

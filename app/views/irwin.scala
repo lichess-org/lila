@@ -8,10 +8,9 @@ import lila.game.GameExt.{ perfType, playerBlurPercent }
 
 object irwin:
 
-  val ui = lila.irwin.IrwinUi(i18nHelper, dateHelper)(
+  val ui = lila.irwin.IrwinUi(i18nHelper, dateHelper, userHelper)(
     routeRoundWatcher = routes.Round.watcher,
     playerBlurPercent = pov => pov.game.playerBlurPercent(pov.color),
-    userLink = (userId, params) => _ ?=> userIdLink(userId.some, params = params),
     povLink = pov =>
       _ ?=>
         a(href := routes.Round.watcher(pov.gameId, pov.color.name))(

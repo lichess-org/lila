@@ -6,14 +6,13 @@ import controllers.team.routes.Team as teamRoutes
 import scalatags.Text.all.Tag
 
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.web.ui.AssetHelper
 import lila.core.team.LightTeam
 import lila.team.Team
 
 trait TeamHelper:
   self: RouterHelper =>
 
-  def assetHelper: AssetHelper
+  def assetBasicHelper: lila.ui.AssetHelper
   def env: Env
 
   def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
@@ -38,7 +37,7 @@ trait TeamHelper:
   def teamFlair(team: LightTeam): Option[Tag] = team.flair.map(teamFlair)
 
   def teamFlair(flair: Flair): Tag =
-    img(cls := "uflair", src := assetHelper.flairSrc(flair))
+    img(cls := "uflair", src := assetBasicHelper.flairSrc(flair))
 
   def teamForumUrl(id: TeamId) = routes.ForumCateg.show("team-" + id)
 
