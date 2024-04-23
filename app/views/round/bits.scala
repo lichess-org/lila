@@ -120,7 +120,7 @@ object bits:
               span(cls := "meta")(
                 playerUsername(
                   pov.opponent.light,
-                  pov.opponent.userId.flatMap(lightUser),
+                  pov.opponent.userId.flatMap(lightUserSync),
                   withRating = false,
                   withTitle = true
                 ),

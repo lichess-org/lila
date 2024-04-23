@@ -8,6 +8,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
 import lila.report.ui.reportScore
+import lila.rating.UserPerfsExt.bestPerfs
 
 object list:
 
@@ -37,7 +38,7 @@ object list:
                   br,
                   userLink(sus.user, params = "?mod"),
                   br,
-                  p(cls := "perfs")(showBestPerfs(sus.perfs, 2)),
+                  p(cls := "perfs")(sus.perfs.bestPerfs(2).map(showPerfRating)),
                   views.html.user.mod.userMarks(sus.user, none)
                 ),
                 td(cls := "atoms")(

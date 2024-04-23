@@ -3,7 +3,7 @@ package views.html.user.show
 import controllers.routes
 import play.api.data.Form
 
-import lila.app.mashup.UserInfo
+import lila.app.mashup.{ UserInfo, GameFilter }
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.game.Game
@@ -94,6 +94,35 @@ object page:
         h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())
       )
+
+  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): Frag =
+    if filter == GameFilter.Search then frag(iconTag(Icon.Search), br, trans.search.advancedSearch())
+    else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
+
+  private def transLocalize(key: lila.core.i18n.I18nKey, number: Int)(using Translate) =
+    key.pluralSameTxt(number)
+
+  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): String =
+    filter match
+      case GameFilter.All      => transLocalize(trans.site.nbGames, u.count.game)
+      case GameFilter.Me       => nbs.withMe.so { transLocalize(trans.site.nbGamesWithYou, _) }
+      case GameFilter.Rated    => transLocalize(trans.site.nbRated, u.count.rated)
+      case GameFilter.Win      => transLocalize(trans.site.nbWins, u.count.win)
+      case GameFilter.Loss     => transLocalize(trans.site.nbLosses, u.count.loss)
+      case GameFilter.Draw     => transLocalize(trans.site.nbDraws, u.count.draw)
+      case GameFilter.Playing  => transLocalize(trans.site.nbPlaying, nbs.playing)
+      case GameFilter.Bookmark => transLocalize(trans.site.nbBookmarks, nbs.bookmark)
+      case GameFilter.Imported => transLocalize(trans.site.nbImportedGames, nbs.imported)
+      case GameFilter.Search   => trans.search.advancedSearch.txt()
+
+  private def describeUser(user: lila.core.perf.UserWithPerfs)(using Translate) =
+    import lila.rating.UserPerfsExt.bestRatedPerf
+    val name      = user.titleUsername
+    val nbGames   = user.count.game
+    val createdAt = dateHelper.showEnglishDate(user.createdAt)
+    val currentRating = user.perfs.bestRatedPerf.so: p =>
+      s" Current ${toNameKey(p.key).txt()} rating: ${p.perf.intRating}."
+    s"$name played $nbGames games since $createdAt.$currentRating"
 
   private val i18nKeys = List(
     trans.site.youAreLeavingLichess,

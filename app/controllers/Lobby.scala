@@ -29,10 +29,9 @@ final class Lobby(env: Env) extends LilaController(env):
 
   private def serveHtmlHome(using ctx: Context) =
     env
-      .pageCache { () =>
+      .pageCache: () =>
         keyPages.homeHtml.map: html =>
           Ok(html).withCanonical("").noCache
-      }
       .map(env.security.lilaCookie.ensure(ctx.req))
 
   def homeLang(lang: String) =

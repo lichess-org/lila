@@ -9,7 +9,6 @@ import lila.perfStat.{ PerfStat, PerfStatData }
 
 import lila.rating.PerfType
 import lila.core.data.SafeJsonStr
-import lila.rating.GlickoExt.clueless
 
 object perfStat:
 

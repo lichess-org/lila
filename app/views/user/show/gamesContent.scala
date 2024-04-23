@@ -22,7 +22,7 @@ object gamesContent:
           a(
             cls  := s"nm-item to-${f.name}${(filters.current == f).so(" active")}",
             href := routes.User.games(u.username, f.name)
-          )(userGameFilterTitle(u, nbs, f))
+          )(page.userGameFilterTitle(u, nbs, f))
       ),
       nbs.crosstable
         .ifTrue(filters.current.name == "me")

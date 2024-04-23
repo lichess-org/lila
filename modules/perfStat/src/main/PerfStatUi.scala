@@ -3,7 +3,6 @@ package lila.perfStat
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.Context
 import lila.rating.PerfType
-import lila.rating.GlickoExt.clueless
 import lila.core.perm.Granter
 import lila.core.i18n.{ I18nKey as trans, Translate }
 
