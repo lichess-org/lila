@@ -225,7 +225,7 @@ object replay:
                   ),
                   cross.map: c =>
                     div(cls := "ctable"):
-                      views.html.game.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+                      views.html.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
                 )
               )
             )

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss">ಸ್ವಿಸ್</string>
   <string name="swissTournaments">ಸ್ವಿಸ್ ಪಂದ್ಯಾವಳಿಗಳು</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">ಸುತ್ತನ್ನು ವೀಕ್ಷಿಸಿ</item>
@@ -38,6 +39,16 @@
   <string name="roundInterval">ಸುತ್ತುಗಳ ನಡುವಿನ ಮಧ್ಯಂತರ</string>
   <string name="forbiddenPairings">ನಿಷೇಧಿತ ಜೋಡಿಗಳು</string>
   <string name="forbiddenPairingsHelp">ಒಟ್ಟಿಗೆ ಆಡದ ಆಟಗಾರರ ಬಳಕೆದಾರ ಹೆಸರುಗಳು (ಉದಾಹರಣೆಗೆ ಒಡಹುಟ್ಟಿದವರು). ಪ್ರತಿ ಸಾಲಿಗೆ ಎರಡು ಬಳಕೆದಾರಹೆಸರುಗಳು, ಸ್ಪೇಸ್‌ನಿಂದ ಬೇರ್ಪಡಿಸಲಾಗಿದೆ.</string>
+  <string name="manualPairings">ಮುಂದಿನ ಸುತ್ತಿನಲ್ಲಿ ಹಸ್ತಚಾಲಿತ ಜೋಡಣೆಗಳು</string>
+  <string name="manualPairingsHelp">ಮುಂದಿನ ಸುತ್ತಿನ ಎಲ್ಲಾ ಜೋಡಿಗಳನ್ನು ಹಸ್ತಚಾಲಿತವಾಗಿ ನಿರ್ದಿಷ್ಟಪಡಿಸಿ. ಪ್ರತಿ ಸಾಲಿಗೆ ಒಬ್ಬ ಆಟಗಾರ ಜೋಡಿ. ಉದಾಹರಣೆ:
+ಪ್ಲೇಯರ್ ಎ ಪ್ಲೇಯರ್ ಬಿ
+ಪ್ಲೇಯರ್ ಸಿ ಪ್ಲೇಯರ್ ಡಿ
+ಜೋಡಿಯ ಬದಲಿಗೆ ಆಟಗಾರನಿಗೆ ಬೈ (1 ಪಾಯಿಂಟ್) ನೀಡಲು, ಈ ರೀತಿಯ ಸಾಲನ್ನು ಸೇರಿಸಿ:
+ಪ್ಲೇಯರ್ ಇ 1
+ಕಾಣೆಯಾದ ಆಟಗಾರರನ್ನು ಗೈರುಹಾಜರಾಗಿ ಪರಿಗಣಿಸಲಾಗುತ್ತದೆ ಮತ್ತು ಶೂನ್ಯ ಅಂಕಗಳನ್ನು ಪಡೆಯಲಾಗುತ್ತದೆ.
+ಲಿಚೆಸ್ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಜೋಡಿಗಳನ್ನು ರಚಿಸಲು ಅನುಮತಿಸಲು ಈ ಕ್ಷೇತ್ರವನ್ನು ಖಾಲಿ ಬಿಡಿ.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">ಅವರ ಕೊನೆಯ ಸ್ವಿಸ್ ಆಟವನ್ನು ಆಡಿರಬೇಕು</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">ಆಟಗಾರರು ತಮ್ಮ ಕೊನೆಯ ಸ್ವಿಸ್ ಆಟವನ್ನು ಆಡಿದ್ದರೆ ಮಾತ್ರ ಸೇರಲು ಅವಕಾಶ ಮಾಡಿಕೊಡಿ. ಅವರು ಇತ್ತೀಚಿನ ಸ್ವಿಸ್ ಈವೆಂಟ್‌ನಲ್ಲಿ ಕಾಣಿಸಿಕೊಳ್ಳಲು ವಿಫಲರಾದರೆ, ಅವರು ನಿಮ್ಮದನ್ನು ನಮೂದಿಸಲು ಸಾಧ್ಯವಾಗುವುದಿಲ್ಲ. ಇದು ಉತ್ತಮ ಸ್ವಿಸ್ ಅನುಭವವನ್ನು ನೀಡುತ್ತದೆ ವಾಸ್ತವವಾಗಿ ಕಾಣಿಸಿಕೊಳ್ಳುವ ಆಟಗಾರರು.</string>
   <string name="newSwiss">ಹೊಸ ಸ್ವಿಸ್ ಪಂದ್ಯಾವಳಿ</string>
   <string name="swissVsArenaQ">ಅರೆನಾಗಳ ಬದಲಿಗೆ ಸ್ವಿಸ್ ಪಂದ್ಯಾವಳಿಗಳನ್ನು ಯಾವಾಗ ಬಳಸಬೇಕು?</string>
   <string name="swissVsArenaA">ಸ್ವಿಸ್ ಪಂದ್ಯಾವಳಿಯಲ್ಲಿ, ಎಲ್ಲಾ ಭಾಗವಹಿಸುವವರು ಒಂದೇ ಸಂಖ್ಯೆಯ ಆಟಗಳನ್ನು ಆಡುತ್ತಾರೆ ಮತ್ತು ಒಬ್ಬರನ್ನೊಬ್ಬರು ಒಮ್ಮೆ ಮಾತ್ರ ಆಡಬಹುದು.
@@ -114,4 +125,7 @@
   <string name="predefinedUsers">ಪೂರ್ವ-ನಿರ್ಧರಿತ ಬಳಕೆದಾರರನ್ನು ಸೇರಲು ಮಾತ್ರ ಅನುಮತಿಸಿ</string>
   <string name="forbiddedUsers">ಈ ಪಟ್ಟಿಯು ಖಾಲಿಯಾಗಿದ್ದರೆ, ಈ ಪಟ್ಟಿಯಿಂದ ಗೈರುಹಾಜರಾಗಿರುವ ಬಳಕೆದಾರರು ಸೇರುವುದನ್ನು ನಿಷೇಧಿಸಲಾಗುತ್ತದೆ. ಪ್ರತಿ ಸಾಲಿಗೆ ಒಂದು ಬಳಕೆದಾರ ಹೆಸರು.</string>
   <string name="playYourGames">ನಿಮ್ಮ ಆಟಗಳನ್ನು ಆಡಿ</string>
+  <string name="byes">ಬೈಸ್</string>
+  <string name="absences">ಗೈರುಹಾಜರಿ</string>
+  <string name="tieBreak">ಟೈ ಬ್ರೇಕ್</string>
 </resources>

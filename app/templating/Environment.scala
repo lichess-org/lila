@@ -5,14 +5,13 @@ import lila.ui.ScalatagsTemplate.*
 import lila.web.ui.*
 
 import com.softwaremill.macwire.*
+import lila.core.perf.UserWithPerfs
 
 object Environment
     extends RouterHelper
     with lila.ui.PaginatorHelper
     with lila.setup.SetupUi
     with lila.pref.PrefUi
-    with GameHelper
-    with UserHelper
     with SecurityHelper
     with TeamHelper:
 
@@ -49,18 +48,6 @@ object Environment
   def tablebaseEndpoint      = env.tablebaseEndpoint
   def externalEngineEndpoint = env.externalEngineEndpoint
 
-  def chessground(pov: Pov)(using ctx: Context): Frag =
-    chessground(
-      board = pov.game.board,
-      orient = pov.color,
-      lastMove = pov.game.history.lastMove
-        .map(_.origDest)
-        .so: (orig, dest) =>
-          List(orig, dest),
-      blindfold = pov.player.blindfold,
-      pref = ctx.pref
-    )
-
   // helper dependencies
 
   val numberHelper = lila.ui.NumberHelper
@@ -88,7 +75,18 @@ object Environment
   lazy val tourHelper                     = wire[lila.tournament.ui.TournamentHelper]
   export tourHelper.*
 
-  lazy val assetHelper = AssetHelper(
+  lazy val assetBaseUrl     = netConfig.assetBaseUrl
+  lazy val assetBasicHelper = wire[lila.ui.AssetHelper]
+  export assetBasicHelper.*
+
+  export lila.rating.ratingApi
+  def isOnline        = env.socket.isOnline
+  def lightUserSync   = env.user.lightUserSync
+  lazy val userHelper = wire[lila.ui.UserHelper]
+  export userHelper.*
+
+  lazy val assetHelper = AssetFullHelper(
+    assetHelper = assetBasicHelper,
     i18nHelper = i18nHelper,
     net = netConfig,
     manifest = env.web.manifest,
@@ -98,17 +96,16 @@ object Environment
   )
   export assetHelper.{ *, given }
 
+  lazy val gameHelper = wire[GameHelper]
+  export gameHelper.*
+
   export ChessHelper.*
 
   val htmlHelper = lila.ui.HtmlHelper(lila.common.String.html)
   export htmlHelper.*
 
+  given Conversion[UserWithPerfs, User] = _.user
+  def lightUserFallback                 = env.user.lightUserSyncFallback
+  def isStreaming(userId: UserId)       = env.streamer.liveStreamApi.isStreaming(userId)
+
   def titleOrText(v: String)(using ctx: Context): Modifier = titleOrTextFor(ctx.blind, v)
-
-  def isChatPanicEnabled = env.chat.panic.enabled
-
-  def blockingReportScores: (Int, Int, Int) = (
-    env.report.api.maxScores.dmap(_.highest).awaitOrElse(50.millis, "nbReports", 0),
-    env.report.scoreThresholdsSetting.get().mid,
-    env.report.scoreThresholdsSetting.get().high
-  )

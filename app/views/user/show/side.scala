@@ -8,7 +8,6 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.rating.{ PerfType as PTs }
 import lila.core.perf.{ UserWithPerfs, PuzPerf }
-import lila.rating.GlickoExt.clueless
 import lila.rating.UserPerfsExt.dubiousPuzzle
 import lila.rating.UserWithPerfs.hasVariantRating
 

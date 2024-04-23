@@ -420,12 +420,13 @@ object layout:
 
     private def reports(using PageContext) =
       if isGranted(_.SeeReport) then
-        val (score, mid, high) = blockingReportScores
+        val threshold = env.report.scoreThresholdsSetting.get()
+        val score     = env.report.api.maxScores.dmap(_.highest).awaitOrElse(50.millis, "nbReports", 0)
         a(
           cls := List(
             "link data-count report-score link-center" -> true,
-            "report-score--high"                       -> (score > high),
-            "report-score--low"                        -> (score <= mid)
+            "report-score--high"                       -> (score > threshold.high),
+            "report-score--low"                        -> (score <= threshold.mid)
           ),
           title     := "Moderation",
           href      := reportRoutes.list,

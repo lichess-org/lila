@@ -39,13 +39,9 @@ case class Challenge(
   import Challenge.*
 
   def challengerUserId = challengerUser.map(_.id)
-  def challengerIsAnon = challenger match
-    case _: Challenger.Anonymous => true
-    case _                       => false
   def challengerIsOpen = challenger match
     case Challenger.Open => true
     case _               => false
-  def destUserId = destUser.map(_.id)
 
   def userIds = List(challengerUserId, destUserId).flatten
 

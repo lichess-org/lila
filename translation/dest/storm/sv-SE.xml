@@ -2,7 +2,7 @@
 <resources>
   <string name="moveToStart">Flytta för att starta</string>
   <string name="youPlayTheWhitePiecesInAllPuzzles">Du spelar de vita pjäserna i alla pussel</string>
-  <string name="youPlayTheBlackPiecesInAllPuzzles">Du spelar de vita pjäserna i alla pussel</string>
+  <string name="youPlayTheBlackPiecesInAllPuzzles">Du spelar de svarta pjäserna i alla pussel</string>
   <string name="puzzlesSolved">schackproblem lösta</string>
   <string name="newDailyHighscore">Nytt dagligt rekord!</string>
   <string name="newWeeklyHighscore">Nytt vecko-rekord!</string>

@@ -54,7 +54,7 @@ final class ChallengeApi(
       .insertIfMissing(c)
       .andDo:
         uncacheAndNotify(c)
-        Bus.publish(Event.Create(c), "challenge")
+        Bus.publish(lila.core.challenge.Event.Create(c), "challenge")
 
   def isOpenBy(id: Id, maker: User) = openCreatedBy.getIfPresent(id).contains(maker.id)
 
@@ -151,7 +151,7 @@ final class ChallengeApi(
                   .accept(c)
                   .inject:
                     uncacheAndNotify(c)
-                    Bus.publish(Event.Accept(c, me.map(_.id)), "challenge")
+                    Bus.publish(lila.core.challenge.Event.Accept(c, me.map(_.id)), "challenge")
                     c.rematchOf.foreach: gameId =>
                       import lila.core.misc.map.TellIfExists
                       import lila.game.actorApi.NotifyRematch
@@ -175,7 +175,7 @@ final class ChallengeApi(
     _ <- repo.update(challenge)
   yield
     uncacheAndNotify(challenge)
-    Bus.publish(Event.Create(challenge), "challenge")
+    Bus.publish(lila.core.challenge.Event.Create(challenge), "challenge")
 
   def removeByUserId(userId: UserId): Funit =
     repo.allWithUserId(userId).flatMap(_.traverse_(remove)).void

@@ -19,9 +19,9 @@ final class ChallengeKeepAliveStream(api: ChallengeApi)(using
           def completeWith(msg: String) =
             queue.offer(Json.obj("done" -> msg)).andDo(queue.complete())
           val sub = Bus.subscribeFun("challenge"):
-            case Event.Accept(c, _) if c.id == challenge.id => completeWith("accepted")
-            case Event.Cancel(c) if c.id == challenge.id    => completeWith("canceled")
-            case Event.Decline(c) if c.id == challenge.id   => completeWith("declined")
+            case lila.core.challenge.Event.Accept(c, _) if c.id == challenge.id => completeWith("accepted")
+            case Event.Cancel(c) if c.id == challenge.id                        => completeWith("canceled")
+            case Event.Decline(c) if c.id == challenge.id                       => completeWith("declined")
 
           queue
             .watchCompletion()

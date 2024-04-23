@@ -50,7 +50,7 @@ object bits:
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
     cross.map: c =>
-      views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
+      views.html.game.ui.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
 
   def underchat(game: Game)(using ctx: Context) =
     frag(
@@ -120,7 +120,7 @@ object bits:
               span(cls := "meta")(
                 playerUsername(
                   pov.opponent.light,
-                  pov.opponent.userId.flatMap(lightUser),
+                  pov.opponent.userId.flatMap(lightUserSync),
                   withRating = false,
                   withTitle = true
                 ),
@@ -151,8 +151,20 @@ object bits:
       bookmarked = bookmarked
     )
 
+  private[round] def povChessground(pov: Pov)(using ctx: Context): Frag =
+    chessground(
+      board = pov.game.board,
+      orient = pov.color,
+      lastMove = pov.game.history.lastMove
+        .map(_.origDest)
+        .so: (orig, dest) =>
+          List(orig, dest),
+      blindfold = pov.player.blindfold,
+      pref = ctx.pref
+    )
+
   def roundAppPreload(pov: Pov)(using Context) =
     div(cls := "round__app")(
-      div(cls := "round__app__board main-board")(chessground(pov)),
+      div(cls := "round__app__board main-board")(povChessground(pov)),
       div(cls := "col1-rmoves-preload")
     )

@@ -6,6 +6,7 @@ import controllers.routes
 import play.api.i18n.Lang
 
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.{ I18nHelper, StringHelper, AssetHelper, UserHelper }
 import lila.web.ui.*
 import lila.core.LightUser
 import lila.game.{ Namer }
@@ -14,16 +15,19 @@ import lila.core.i18n.{ I18nKey as trans, defaultLang, Translate }
 import lila.core.config.BaseUrl
 import lila.game.GameExt.drawReason
 
-trait GameHelper:
-  self: RouterHelper & UserHelper =>
+final class GameHelper(
+    i18nHelper: I18nHelper,
+    stringHelper: StringHelper,
+    assetHelper: AssetHelper,
+    userHelper: UserHelper,
+    netBaseUrl: BaseUrl,
+    lightUser: lila.core.LightUser.GetterSync
+) extends RouterHelper:
 
-  val i18nHelper: lila.ui.I18nHelper
   import i18nHelper.given
-  val stringHelper: lila.ui.StringHelper
   import stringHelper.*
-
-  def netBaseUrl: BaseUrl
-  def cdnUrl(path: String): String
+  import userHelper.*
+  import assetHelper.cdnUrl
 
   def povOpenGraph(pov: Pov) =
     lila.web.OpenGraph(

@@ -222,7 +222,7 @@ object search:
     }
 
   private def teacherLink(userId: UserId)(using PageContext) =
-    lightUser(userId).map: user =>
+    lightUserSync(userId).map: user =>
       a(
         href     := clasRoutes.teacher(user.name),
         cls      := userClass(user.id, none, withOnline = true),

@@ -541,7 +541,7 @@ object mod:
                     pag
                       .pov(result)
                       .fold[Frag](result.gameId): p =>
-                        playerUsername(p.opponent.light, p.opponent.userId.flatMap(lightUser))
+                        playerUsername(p.opponent.light, p.opponent.userId.flatMap(lightUserSync))
                 ),
                 td(
                   pag
