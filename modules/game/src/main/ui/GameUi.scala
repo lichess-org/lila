@@ -6,7 +6,11 @@ import lila.ui.Context
 import lila.core.game.Game
 import lila.game.GameExt.*
 
-final class GameUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelper)(
+final class GameUi(
+    i18nHelper: lila.ui.I18nHelper,
+    dateHelper: lila.ui.DateHelper,
+    userHelper: lila.ui.UserHelper
+)(
     routeRoundWatcher: (String, String) => Call
 ):
   import i18nHelper.{ *, given }
@@ -18,7 +22,7 @@ final class GameUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelpe
     else if game.hasAi then Icon.Cogs
     else game.perfType.icon
 
-  final class crosstable(userLink: UserId => Translate ?=> Frag):
+  object crosstable:
 
     def apply(ct: Crosstable.WithMatchup, currentId: Option[GameId])(using Context): Frag =
       apply(ct.crosstable, ct.matchup, currentId)
@@ -57,7 +61,7 @@ final class GameUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelpe
         ,
         div(cls := "crosstable__users"):
           ct.users.toList.map: u =>
-            userLink(u.id)
+            userHelper.userIdLink(u.id.some, withOnline = false)
         ,
         div(cls := "crosstable__score force-ltr", title := trans.site.lifetimeScore.txt()):
           ct.users.toList.map: u =>

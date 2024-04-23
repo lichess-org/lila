@@ -6,9 +6,12 @@ import lila.rating.PerfType
 import lila.core.perm.Granter
 import lila.core.i18n.{ I18nKey as trans, Translate }
 
-final class PerfStatUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelper)(
+final class PerfStatUi(
+    i18nHelper: lila.ui.I18nHelper,
+    dateHelper: lila.ui.DateHelper,
+    userHelper: lila.ui.UserHelper
+)(
     routeRoundWatcher: (String, String) => Call,
-    userLink: UserId => Translate ?=> Frag,
     percentileText: (User, PerfType, Double) => Context ?=> Frag
 ):
   import lila.ui.NumberHelper.*
@@ -229,7 +232,7 @@ final class PerfStatUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateH
         tbody:
           results.results.map: r =>
             tr(
-              td(userLink(r.opId), " (", r.opRating, ")"),
+              td(userHelper.userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td:
                 a(cls := "glpt", href := s"${routeRoundWatcher(r.gameId, "white")}?pov=${user.username}"):
                   absClientInstant(r.at)

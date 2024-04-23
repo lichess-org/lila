@@ -5,9 +5,12 @@ import lila.core.i18n.Translate
 import lila.ui.Context
 import lila.core.game.Pov
 
-final class IrwinUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelper)(
+final class IrwinUi(
+    i18nHelper: lila.ui.I18nHelper,
+    dateHelper: lila.ui.DateHelper,
+    userHelper: lila.ui.UserHelper
+)(
     povLink: Pov => Context ?=> Frag,
-    userLink: (UserId, String) => Translate ?=> Frag,
     playerBlurPercent: Pov => Int,
     routeRoundWatcher: (String, String) => Call
 ):
@@ -99,7 +102,7 @@ final class IrwinUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelp
         tbody(
           dashboard.recent.map: rep =>
             tr(cls := "report")(
-              td(userLink(rep.suspectId.value, "")),
+              td(userHelper.userIdLink(rep.suspectId.value.some)),
               td(cls := "little completed")(momentFromNow(rep.date)),
               td(rep.owner),
               td(cls := s"little activation ${percentClass(rep.activation)}")(
@@ -180,13 +183,13 @@ final class IrwinUi(i18nHelper: lila.ui.I18nHelper, dateHelper: lila.ui.DateHelp
           tbody(
             dashboard.recent.map { entry =>
               tr(cls := "report")(
-                td(userLink(entry.id, "?mod")),
+                td(userHelper.userIdLink(entry.id.some, params = "?mod")),
                 td(cls := "little")(momentFromNow(entry.queuedAt)),
                 td(cls := "little")(entry.startedAt.map { momentFromNow(_) }),
                 td(cls := "little completed")(entry.response.map(_.at).map { momentFromNow(_) }),
                 td(
                   entry.queuedBy match
-                    case KaladinUser.Requester.Mod(id) => userLink(id, "")
+                    case KaladinUser.Requester.Mod(id) => userHelper.userIdLink(id.some)
                     case requester                     => em(requester.name)
                 ),
                 entry.response.fold(td): res =>

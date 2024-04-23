@@ -27,7 +27,7 @@ object gamesContent:
       nbs.crosstable
         .ifTrue(filters.current.name == "me")
         .map:
-          views.html.game.crosstable(_, none)
+          views.html.game.ui.crosstable(_, none)
       ,
       div(cls := "search__result")(
         if filterName == "search" then

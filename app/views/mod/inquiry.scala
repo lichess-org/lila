@@ -11,8 +11,7 @@ import lila.report.{ Reason, Report }
 
 object inquiry:
 
-  lazy val ui = lila.mod.ui.ModInquiryUi(formHelper, dateHelper, i18nHelper, htmlHelper)(
-    userLink = userId => _ ?=> userIdLink(userId.some, withOnline = false),
+  lazy val ui = lila.mod.ui.ModInquiryUi(formHelper, dateHelper, i18nHelper, htmlHelper, userHelper)(
     routeUserWriteNote = routes.User.writeNote
   )
 

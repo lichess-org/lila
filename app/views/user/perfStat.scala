@@ -12,9 +12,8 @@ import lila.core.data.SafeJsonStr
 
 object perfStat:
 
-  lazy val ui = lila.perfStat.PerfStatUi(i18nHelper, dateHelper)(
+  lazy val ui = lila.perfStat.PerfStatUi(i18nHelper, dateHelper, userHelper)(
     routes.Round.watcher,
-    userId => userIdLink(userId.some, withOnline = false),
     percentileText = (u, perfType, percentile) =>
       ctx ?=>
         if ctx.is(u) then
