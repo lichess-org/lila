@@ -1,6 +1,5 @@
 package views.html.mod
 
-import controllers.{ GameMod, routes }
 import play.api.data.Form
 import views.html.mod.userTable.sortNoneTh
 
@@ -13,8 +12,8 @@ import lila.evaluation.PlayerAssessment
 import lila.rating.PerfType
 import lila.core.chess.Rank
 import lila.tournament.LeaderboardApi.TourEntry
-import lila.game.GameExt.analysable
-import lila.game.GameExt.perfType
+import lila.game.GameExt.*
+import lila.mod.GameMod
 
 object games:
 

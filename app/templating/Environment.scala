@@ -69,7 +69,7 @@ object Environment
   lazy val formHelper = wire[lila.ui.FormHelper]
   export formHelper.*
 
-  def routeTournamentShow: String => Call = controllers.routes.Tournament.show
+  def routeTournamentShow: String => Call = routes.Tournament.show
   def getTourName                         = env.tournament.getTourName
   def defaultTranslate                    = lila.i18n.Translator.toDefault
   lazy val tourHelper                     = wire[lila.tournament.ui.TournamentHelper]

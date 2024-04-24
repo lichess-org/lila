@@ -1,7 +1,5 @@
 package views.html.coordinate
 
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.*
 import lila.web.LangPath

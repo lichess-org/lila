@@ -1,8 +1,5 @@
 package views.html.ublog
 
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
@@ -82,7 +79,7 @@ object post:
                 titleOrText(trans.site.reportXToModerators.txt(user.username)),
                 cls := "button button-empty ublog-post__meta__report",
                 href := addQueryParams(
-                  reportRoutes.form.url,
+                  routes.Report.form.url,
                   Map(
                     "username" -> user.username,
                     "postUrl"  -> s"$netBaseUrl${urlOfPost(post)}",

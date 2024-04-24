@@ -176,7 +176,7 @@ final class Mod(
 
   def inquiryToZulip = Secure(_.SendToZulip) { _ ?=> me ?=>
     env.report.api.inquiries.ofModId(me.id).flatMap {
-      case None => Redirect(report.routes.Report.list)
+      case None => Redirect(routes.Report.list)
       case Some(report) =>
         Found(env.user.repo.byId(report.user)): user =>
           import lila.report.Room
@@ -333,14 +333,14 @@ final class Mod(
             env.user.lightUserApi
               .asyncFallback(ongoing.mod)
               .map: mod =>
-                Redirect(appeal.routes.Appeal.show(user.username))
+                Redirect(routes.Appeal.show(user.username))
                   .flashFailure(s"Currently processed by ${mod.name}")
           case _ =>
             val f =
               if isAppeal then env.report.api.inquiries.appeal
               else env.report.api.inquiries.spontaneous
             f(Suspect(user)).inject {
-              if isAppeal then Redirect(s"${appeal.routes.Appeal.show(user.username)}#appeal-actions")
+              if isAppeal then Redirect(s"${routes.Appeal.show(user.username)}#appeal-actions")
               else redirect(user.username, mod = true)
             }
         }

@@ -1,9 +1,6 @@
 package views.html
 package forum
 
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
@@ -34,7 +31,7 @@ object topic:
           ,
           p:
             trans.site.toReportSomeoneForCheatingOrBadBehavior:
-              strong(a(href := reportRoutes.form)(trans.site.useTheReportForm()))
+              strong(a(href := routes.Report.form)(trans.site.useTheReportForm()))
           ,
           p:
             trans.site.toRequestSupport:
@@ -131,7 +128,7 @@ object topic:
               .map: teamId =>
                 p:
                   trans.site.joinTheTeamXToPost:
-                    a(href := teamRoutes.show(teamId))(trans.site.teamNamedX(teamLink(teamId, true)))
+                    a(href := routes.Team.show(teamId))(trans.site.teamNamedX(teamLink(teamId, true)))
               .orElse:
                 if ctx.me.exists(_.isBot) then p("Bots cannot post in the forum.").some
                 else if replyBlocked then p(trans.ublog.youBlockedByBlogAuthor()).some

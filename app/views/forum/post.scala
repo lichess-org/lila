@@ -1,9 +1,6 @@
 package views
 package html.forum
 
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.forum.ForumPost
@@ -73,7 +70,7 @@ object post:
                             titleOrText(trans.site.reportXToModerators.txt(userId)),
                             cls := "mod report button button-empty",
                             href := addQueryParams(
-                              reportRoutes.form.url,
+                              routes.Report.form.url,
                               Map("username" -> userId, "postUrl" -> postUrl, "reason" -> "comm")
                             ),
                             dataIcon := Icon.CautionTriangle

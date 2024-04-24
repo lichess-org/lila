@@ -1,5 +1,4 @@
 package views.html.team
-import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -20,13 +19,13 @@ object declinedRequest:
       modules = jsModule("mod.team.admin")
     ) {
       val pager = views.html.base.bits
-        .paginationByQuery(teamRoutes.declinedRequests(team.id, 1), requests, showPost = true)
+        .paginationByQuery(routes.Team.declinedRequests(team.id, 1), requests, showPost = true)
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           boxTop(
             h1(
-              a(href := teamRoutes.show(team.id))(
+              a(href := routes.Team.show(team.id))(
                 team.name
               ),
               " • ",
@@ -35,7 +34,7 @@ object declinedRequest:
             st.form(
               cls    := "search team-declined-request",
               method := "GET",
-              action := teamRoutes.declinedRequests(team.id, 1)
+              action := routes.Team.declinedRequests(team.id, 1)
             )(
               div(
                 input(
@@ -58,12 +57,12 @@ object declinedRequest:
                   td(cls := "process")(
                     postForm(
                       cls    := "process-request",
-                      action := teamRoutes.requestProcess(request.id)
+                      action := routes.Team.requestProcess(request.id)
                     )(
                       input(
                         tpe   := "hidden",
                         name  := "url",
-                        value := teamRoutes.declinedRequests(team.id, requests.currentPage)
+                        value := routes.Team.declinedRequests(team.id, requests.currentPage)
                       ),
                       button(name := "process", cls := "button button-green", value := "accept")(
                         trans.site.accept()

@@ -1,5 +1,4 @@
 package views.html.team
-import controllers.team.routes.Team as teamRoutes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -14,25 +13,25 @@ object bits:
     val tab = ~currentTab
     st.nav(cls := "page-menu__menu subnav")(
       (ctx.teamNbRequests > 0).option(
-        a(cls := tab.active("requests"), href := teamRoutes.requests)(
+        a(cls := tab.active("requests"), href := routes.Team.requests)(
           xJoinRequests.pluralSame(ctx.teamNbRequests)
         )
       ),
       ctx.isAuth.option(
-        a(cls := tab.active("mine"), href := teamRoutes.mine)(
+        a(cls := tab.active("mine"), href := routes.Team.mine)(
           myTeams()
         )
       ),
       ctx.isAuth.option(
-        a(cls := tab.active("leader"), href := teamRoutes.leader)(
+        a(cls := tab.active("leader"), href := routes.Team.leader)(
           leaderTeams()
         )
       ),
-      a(cls := tab.active("all"), href := teamRoutes.all())(
+      a(cls := tab.active("all"), href := routes.Team.all())(
         allTeams()
       ),
       ctx.isAuth.option(
-        a(cls := tab.active("form"), href := teamRoutes.form)(
+        a(cls := tab.active("form"), href := routes.Team.form)(
           newTeam()
         )
       )
@@ -57,7 +56,7 @@ object bits:
             "team-name text" -> true,
             "mine"           -> isMine
           ),
-          href := teamRoutes.show(t.id)
+          href := routes.Team.show(t.id)
         )(
           t.name,
           t.flair.map(teamFlair),
@@ -68,7 +67,7 @@ object bits:
       td(cls := "info")(
         p(nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
         isMine.option(
-          form(action := teamRoutes.quit(t.id), method := "post")(
+          form(action := routes.Team.quit(t.id), method := "post")(
             submitButton(cls := "button button-empty button-red button-thin confirm team__quit")(
               quitTeam.txt()
             )

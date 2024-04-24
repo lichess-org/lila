@@ -1,8 +1,5 @@
 package views.html.user.show
 
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
-
 import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -163,7 +160,7 @@ object header:
             a(
               titleOrText(trans.site.reportXToModerators.txt(u.username)),
               cls      := "btn-rack__btn",
-              href     := s"${reportRoutes.form}?username=${u.username}",
+              href     := s"${routes.Report.form}?username=${u.username}",
               dataIcon := Icon.CautionTriangle
             )
           )

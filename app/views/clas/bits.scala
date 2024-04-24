@@ -1,7 +1,5 @@
 package views.html.clas
 
-import controllers.clas.routes
-
 import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }

@@ -1,7 +1,7 @@
 package views.html.board
 
 import chess.variant.{ Crazyhouse, FromPosition, Variant }
-import controllers.routes
+
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }

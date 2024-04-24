@@ -85,7 +85,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
         .ip2proxy(ctx.ip)
         .flatMap: ip =>
           if ip.in(_.empty, _.vpn) then f
-          else Redirect(controllers.routes.Auth.login)
+          else Redirect(routes.Auth.login)
 
   private val csrfForbiddenResult = Forbidden("Cross origin request forbidden")
 
@@ -97,7 +97,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
 
   def XhrOrRedirectHome(res: => Fu[Result])(using ctx: Context): Fu[Result] =
     if HTTPRequest.isXhr(ctx.req) then res
-    else Redirect(controllers.routes.Lobby.home)
+    else Redirect(routes.Lobby.home)
 
   def Reasonable(
       page: Int,

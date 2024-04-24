@@ -1,7 +1,7 @@
 package views.html.study
 
 import chess.format.pgn.PgnStr
-import controllers.routes
+
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }

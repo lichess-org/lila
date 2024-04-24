@@ -1,7 +1,5 @@
 package views.html.report
 
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
@@ -25,7 +23,7 @@ object form:
         h1(cls := "box__top")(trans.site.reportAUser()),
         postForm(
           cls    := "form3",
-          action := s"${reportRoutes.create}${reqUser.so(u => "?username=" + u.username)}"
+          action := s"${routes.Report.create}${reqUser.so(u => "?username=" + u.username)}"
         )(
           div(cls := "form-group")(
             p(

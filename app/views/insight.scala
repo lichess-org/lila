@@ -1,6 +1,5 @@
 package views.html
 
-import controllers.routes
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 

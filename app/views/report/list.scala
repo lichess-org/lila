@@ -1,9 +1,5 @@
 package views.html.report
 
-import controllers.appeal.routes.Appeal as appealRoutes
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.report.Report.WithSuspect
@@ -65,13 +61,13 @@ object list:
                   r.inquiry match
                     case None =>
                       if r.done.isDefined then
-                        postForm(action := reportRoutes.inquiry(r.id), cls := "reopen")(
+                        postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
                           submitButton(dataIcon := Icon.PlayTriangle, cls := "text button button-metal")(
                             "Reopen"
                           )
                         )
                       else
-                        postForm(action := reportRoutes.inquiry(r.id), cls := "inquiry")(
+                        postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
                           submitButton(dataIcon := Icon.PlayTriangle, cls := "button button-metal")
                         )
                     case Some(inquiry) =>
@@ -103,7 +99,7 @@ object list:
             i(cls := "icon"),
             span(cls := "tabs")(
               a(
-                href := reportRoutes.listWithFilter("all"),
+                href := routes.Report.listWithFilter("all"),
                 cls  := List("active" -> (filter == "all"))
               )(
                 "All",
@@ -114,7 +110,7 @@ object list:
                   .filter(lila.report.Room.isGranted)
                   .map { room =>
                     a(
-                      href := reportRoutes.listWithFilter(room.key),
+                      href := routes.Report.listWithFilter(room.key),
                       cls := List(
                         "active"            -> (filter == room.key),
                         s"room-${room.key}" -> true
@@ -128,7 +124,7 @@ object list:
               }: List[Frag],
               (appeals > 0 && isGranted(_.Appeals)).option(
                 a(
-                  href := appealRoutes.queue(),
+                  href := routes.Appeal.queue(),
                   cls := List(
                     "new"    -> true,
                     "active" -> (filter == "appeal")

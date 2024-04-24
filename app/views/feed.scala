@@ -1,6 +1,5 @@
 package views.html
 
-import controllers.routes
 import play.api.data.Form
 import play.api.i18n.Lang
 

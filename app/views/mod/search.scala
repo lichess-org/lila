@@ -1,7 +1,5 @@
 package views.html.mod
 
-import controllers.clas.routes.Clas as clasRoutes
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
@@ -131,7 +129,7 @@ object search:
         views.html.mod.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           boxTop(
-            h1("Class ", a(href := clasRoutes.show(c.id.value))(c.name)),
+            h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
             p("Teachers: ", c.teachers.toList.map(id => teacherLink(id)))
           ),
           br,
@@ -167,7 +165,7 @@ object search:
               tbody(
                 classes.map(c =>
                   tr(
-                    td(a(href := clasRoutes.show(c.id.value))(s"${c.id}")),
+                    td(a(href := routes.Clas.show(c.id.value))(s"${c.id}")),
                     td(c.name),
                     td(momentFromNow(c.created.at)),
                     c.archived match
@@ -225,7 +223,7 @@ object search:
   private def teacherLink(userId: UserId)(using PageContext) =
     lightUserSync(userId).map: user =>
       a(
-        href     := clasRoutes.teacher(user.name),
+        href     := routes.Clas.teacher(user.name),
         cls      := userClass(user.id, none, withOnline = true),
         dataHref := routes.User.show(user.name)
       )(

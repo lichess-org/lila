@@ -1,7 +1,5 @@
 package views.html.tournament
 
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey as trans

@@ -2,7 +2,6 @@ package views.html
 package round
 
 import chess.variant.{ Crazyhouse, Variant }
-import controllers.routes
 
 import scala.util.chaining.*
 

@@ -1,9 +1,5 @@
 package views.html.mod
 
-import controllers.appeal.routes.Appeal as appealRoutes
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
@@ -80,7 +76,7 @@ object inquiry:
             "Comms"
           )
         ),
-        in.report.isAppeal.option(a(href := appealRoutes.show(in.user.id))("View", br, "Appeal"))
+        in.report.isAppeal.option(a(href := routes.Appeal.show(in.user.id))("View", br, "Appeal"))
       ),
       div(cls := "actions")(
         isGranted(_.ModMessage).option(
@@ -143,7 +139,7 @@ object inquiry:
           div(
             isGranted(_.SendToZulip).option {
               val url =
-                if in.report.isAppeal then appealRoutes.sendToZulip(in.user.username)
+                if in.report.isAppeal then routes.Appeal.sendToZulip(in.user.username)
                 else routes.Mod.inquiryToZulip
               postForm(action := url)(
                 submitButton(cls := "fbt")("Send to Zulip")
@@ -159,7 +155,7 @@ object inquiry:
                 submitButton(cls := "fbt")("Create name-close vote")
               )
             },
-            postForm(action := reportRoutes.xfiles(in.report.id))(
+            postForm(action := routes.Report.xfiles(in.report.id))(
               submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))(
                 "Move to X-Files"
               ),
@@ -181,7 +177,7 @@ object inquiry:
           )
         ),
         postForm(
-          action := reportRoutes.process(in.report.id),
+          action := routes.Report.process(in.report.id),
           title  := "Dismiss this report as processed. (Hotkey: d)",
           cls    := "process"
         )(
@@ -189,7 +185,7 @@ object inquiry:
           ui.autoNextInput
         ),
         postForm(
-          action := reportRoutes.inquiry(in.report.id),
+          action := routes.Report.inquiry(in.report.id),
           title  := "Cancel the inquiry, re-instore the report",
           cls    := "cancel"
         )(
@@ -199,5 +195,5 @@ object inquiry:
     )
 
   private def snoozeUrl(report: Report, duration: String): String =
-    if report.isAppeal then appealRoutes.snooze(report.user, duration).url
-    else reportRoutes.snooze(report.id, duration).url
+    if report.isAppeal then routes.Appeal.snooze(report.user, duration).url
+    else routes.Report.snooze(report.id, duration).url

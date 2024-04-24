@@ -2,7 +2,7 @@ package views
 package html.puzzle
 
 import chess.format.{ BoardFen, Uci }
-import controllers.routes
+
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 

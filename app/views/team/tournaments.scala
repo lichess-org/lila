@@ -1,7 +1,5 @@
 package views.html.team
 
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
 import lila.app.mashup.TeamInfo
@@ -16,7 +14,7 @@ object tournaments:
       openGraph = lila.web
         .OpenGraph(
           title = s"${t.name} team tournaments",
-          url = s"$netBaseUrl${teamRoutes.tournaments(t.id)}",
+          url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
           description = shorten(t.description.value, 152)
         )
         .some,

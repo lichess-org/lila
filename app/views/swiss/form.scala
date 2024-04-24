@@ -1,7 +1,5 @@
 package views.html.swiss
 
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
@@ -44,7 +42,7 @@ object form:
             ),
             form3.globalError(form),
             form3.actions(
-              a(href := teamRoutes.show(teamId))(trans.site.cancel()),
+              a(href := routes.Team.show(teamId))(trans.site.cancel()),
               form3.submit(trans.site.createANewTournament(), icon = Icon.Trophy.some)
             )
           )

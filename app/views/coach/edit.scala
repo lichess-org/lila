@@ -1,6 +1,5 @@
 package views.html.coach
 
-import controllers.routes
 import play.api.data.Form
 import play.api.libs.json.Json
 

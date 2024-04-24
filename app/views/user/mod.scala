@@ -1,9 +1,5 @@
 package views.html.user
 
-import controllers.appeal.routes as appealRoutes
-import controllers.clas.routes.Clas as clasRoutes
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
@@ -339,7 +335,7 @@ object mod:
       "Created by ",
       userLink(managed.createdBy),
       " for class ",
-      a(href := clasRoutes.show(managed.clas.id.value))(managed.clas.name)
+      a(href := routes.Clas.show(managed.clas.id.value))(managed.clas.name)
     )
 
   def boardTokens(tokens: List[lila.oauth.AccessToken])(using Context): Frag =
@@ -359,7 +355,9 @@ object mod:
   def teacher(u: User)(nb: Int)(using Context): Frag =
     if nb == 0 then emptyFrag
     else
-      mzSection("teacher")(strong(cls := "inline")(a(href := clasRoutes.teacher(u.username))(nb, " Classes")))
+      mzSection("teacher")(
+        strong(cls := "inline")(a(href := routes.Clas.teacher(u.username))(nb, " Classes"))
+      )
 
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Translate) =
     mzSection("mod_log")(
@@ -393,12 +391,12 @@ object mod:
       appeal.map: a =>
         frag(
           div(cls := "mod_log mod_log--appeal")(
-            st.a(href := appealRoutes.Appeal.show(a.id)):
+            st.a(href := routes.Appeal.show(a.id)):
               strong(cls := "text", dataIcon := Icon.CautionTriangle)("Appeal status: ", a.status.toString)
             ,
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
-            (a.msgs.size > 1).option(st.a(href := appealRoutes.Appeal.show(a.id)):
+            (a.msgs.size > 1).option(st.a(href := routes.Appeal.show(a.id)):
               frag("and ", pluralize("more message", a.msgs.size - 1))
             )
           )
@@ -414,7 +412,7 @@ object mod:
         ),
         reports.by.map: r =>
           r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
-            postForm(action := reportRoutes.inquiry(r.id))(
+            postForm(action := routes.Report.inquiry(r.id))(
               reportSubmitButton(r),
               " ",
               userIdLink(r.user.some),
@@ -431,7 +429,7 @@ object mod:
           reports.about.isEmpty.option(": nothing to show.")
         ),
         reports.about.map: r =>
-          postForm(action := reportRoutes.inquiry(r.id))(
+          postForm(action := routes.Report.inquiry(r.id))(
             reportSubmitButton(r),
             div(cls := "atoms")(
               r.bestAtoms(3).map { atom =>
@@ -693,7 +691,7 @@ object mod:
                 case Some(appeal) =>
                   td(dataSort := 1)(
                     a(
-                      href := isGranted(_.Appeals).option(appealRoutes.Appeal.show(o.username).url),
+                      href := isGranted(_.Appeals).option(routes.Appeal.show(o.username).url),
                       cls := List(
                         "text"         -> true,
                         "appeal-muted" -> appeal.isMuted
@@ -714,7 +712,7 @@ object mod:
 
   private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails[UserWithModlog])(u: User) =
     emails.emails.get(u.id).map(_.value).map {
-      case EmailAddress.clasIdRegex(id) => a(href := clasRoutes.show(id))(s"Class #$id")
+      case EmailAddress.clasIdRegex(id) => a(href := routes.Clas.show(id))(s"Class #$id")
       case email                        => frag(email)
     }
 

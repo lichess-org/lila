@@ -1,7 +1,6 @@
 package views.html.opening
 
 import chess.opening.Opening
-import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }

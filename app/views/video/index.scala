@@ -1,7 +1,5 @@
 package views.html.video
 
-import controllers.routes
-
 import lila.app.templating.Environment.*
 import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator

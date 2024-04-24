@@ -1,8 +1,5 @@
 package views.html.base
 
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
 import lila.web.ContentSecurityPolicy
@@ -421,7 +418,7 @@ object layout:
             "report-score--low"                        -> (score <= threshold.mid)
           ),
           title     := "Moderation",
-          href      := reportRoutes.list,
+          href      := routes.Report.list,
           dataCount := score,
           dataIcon  := Icon.Agent
         ).some
@@ -439,7 +436,7 @@ object layout:
       (ctx.teamNbRequests > 0).option(
         a(
           cls       := "link data-count link-center",
-          href      := teamRoutes.requests,
+          href      := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
           dataIcon  := Icon.Group,
           title     := trans.team.teams.txt()

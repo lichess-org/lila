@@ -1,6 +1,5 @@
 package views.html.user.show
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.mashup.{ UserInfo, GameFilter }

@@ -1,9 +1,6 @@
 package views.html
 package forum
 
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
@@ -91,7 +88,7 @@ object categ:
         boxTop(
           h1(
             a(
-              href     := categ.team.fold(routes.ForumCateg.index)(teamRoutes.show(_)),
+              href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
               dataIcon := Icon.LessThan,
               cls      := "text"
             ),

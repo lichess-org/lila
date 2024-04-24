@@ -1,7 +1,7 @@
 package views.html.game
 
 import chess.format.Fen
-import controllers.routes
+
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }

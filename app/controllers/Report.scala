@@ -57,15 +57,15 @@ final class Report(
             next.fold(
               Redirect:
                 if prev.exists(_.isAppeal)
-                then appeal.routes.Appeal.queue()
-                else report.routes.Report.list
+                then routes.Appeal.queue()
+                else routes.Report.list
             )(onInquiryStart)
           )
   }
 
   private def onInquiryStart(inquiry: ReportModel): Result =
-    if inquiry.isRecentComm then Redirect(controllers.routes.Mod.communicationPrivate(inquiry.user))
-    else if inquiry.isComm then Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
+    if inquiry.isRecentComm then Redirect(routes.Mod.communicationPrivate(inquiry.user))
+    else if inquiry.isComm then Redirect(routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
   protected[controllers] def onModAction(goTo: Suspect)(using ctx: BodyContext[?], me: Me): Fu[Result] =
@@ -92,7 +92,7 @@ final class Report(
       case Some(url) => process().inject(Redirect(url))
       case _ =>
         def redirectToList = Redirect(routes.Report.listWithFilter(inquiry.room.key))
-        if inquiry.isAppeal then process() >> Redirect(appeal.routes.Appeal.queue())
+        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.queue())
         else if dataOpt.flatMap(_.get("next")).exists(_.headOption contains "1") then
           process() >> {
             if inquiry.isSpontaneous
@@ -139,7 +139,7 @@ final class Report(
 
   def form = Auth { _ ?=> _ ?=>
     getUserStr("username").so(env.user.repo.byId).flatMap { user =>
-      if user.exists(_.is(UserId.lichess)) then Redirect(controllers.routes.Main.contact)
+      if user.exists(_.is(UserId.lichess)) then Redirect(routes.Main.contact)
       else
         Ok.pageAsync:
           val form = env.report.forms.create

@@ -1,7 +1,5 @@
 package views.html.clas
 
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }

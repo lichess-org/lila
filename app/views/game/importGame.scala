@@ -2,7 +2,6 @@ package views.html
 package game
 
 import chess.format.pgn.PgnStr
-import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }

@@ -1,6 +1,5 @@
 package views.html.simul
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }

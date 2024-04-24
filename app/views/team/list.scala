@@ -1,7 +1,5 @@
 package views.html.team
 
-import controllers.team.routes.Team as teamRoutes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
@@ -15,7 +13,7 @@ object list:
     list(
       name = s"""${trans.search.search.txt()} "$text"""",
       teams = teams,
-      nextPageUrl = n => teamRoutes.search(text, n).url,
+      nextPageUrl = n => routes.Team.search(text, n).url,
       search = text
     )
 
@@ -23,7 +21,7 @@ object list:
     list(
       name = trans.team.teams.txt(),
       teams = teams,
-      nextPageUrl = n => teamRoutes.all(n).url
+      nextPageUrl = n => routes.Team.all(n).url
     )
 
   def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) =
@@ -80,7 +78,7 @@ object list:
           boxTop(
             h1(name),
             div(cls := "box__top__actions")(
-              st.form(cls := "search", action := teamRoutes.search())(
+              st.form(cls := "search", action := routes.Team.search())(
                 input(st.name := "text", value := search, placeholder := trans.search.search.txt())
               )
             )

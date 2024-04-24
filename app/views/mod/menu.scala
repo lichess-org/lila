@@ -1,8 +1,5 @@
 package views.html.mod
 
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -10,7 +7,7 @@ object menu:
 
   def apply(active: String)(using PageContext) =
     views.html.base.bits.pageMenuSubnav(
-      isGranted(_.SeeReport).option(a(cls := active.active("report"), href := reportRoutes.list)("Reports")),
+      isGranted(_.SeeReport).option(a(cls := active.active("report"), href := routes.Report.list)("Reports")),
       isGranted(_.PublicChatView)
         .option(a(cls := active.active("public-chat"), href := routes.Mod.publicChat)("Public Chats")),
       isGranted(_.GamifyView)

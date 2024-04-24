@@ -1,9 +1,5 @@
 package views.html.base
 
-import controllers.clas.routes.Clas as clasRoutes
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -63,7 +59,7 @@ object topnav:
           ),
           a(href := langHref(routes.Study.allDefault()))(trans.site.studyMenu()),
           ctx.kid.no.option(a(href := langHref(routes.Coach.all(1)))(trans.site.coaches())),
-          canSeeClasMenu.option(a(href := clasRoutes.index)(trans.clas.lichessClasses()))
+          canSeeClasMenu.option(a(href := routes.Clas.index)(trans.clas.lichessClasses()))
         )
       ),
       st.section:
@@ -84,7 +80,7 @@ object topnav:
         div(role := "group")(
           a(href := routes.User.list)(trans.site.players()),
           ctx.me.map(me => a(href := routes.Relation.following(me.username))(trans.site.friends())),
-          a(href := teamRoutes.home())(trans.team.teams()),
+          a(href := routes.Team.home())(trans.team.teams()),
           ctx.kid.no.option(a(href := routes.ForumCateg.index)(trans.site.forum())),
           ctx.kid.no.option(a(href := langHref(routes.Ublog.communityAll()))(trans.site.blog())),
           (ctx.kid.no && ctx.me.exists(_.isPatron))

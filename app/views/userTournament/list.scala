@@ -1,7 +1,6 @@
 package views.html
 package userTournament
 
-import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }

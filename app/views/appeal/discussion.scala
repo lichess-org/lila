@@ -1,8 +1,6 @@
 package views.html
 package appeal
 
-import controllers.appeal.routes.Appeal as appealRoutes
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
@@ -51,7 +49,7 @@ object discussion:
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(Inquiry(mod, _)) if ctx.userId.has(mod) =>
-              postForm(action := appealRoutes.mute(modData.suspect.user.username))(
+              postForm(action := routes.Appeal.mute(modData.suspect.user.username))(
                 if appeal.isMuted then
                   submitButton("Un-mute")(
                     title := "Be notified about user replies again",
@@ -66,7 +64,7 @@ object discussion:
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
           ,
           postForm(
-            action := appealRoutes.sendToZulip(modData.suspect.user.id),
+            action := routes.Appeal.sendToZulip(modData.suspect.user.id),
             cls    := "appeal__actions__slack"
           )(
             submitButton(cls := "button button-thin")("Send to Zulip")
@@ -132,8 +130,8 @@ object discussion:
               renderForm(
                 textForm,
                 action =
-                  if as.isLeft then appealRoutes.reply(appeal.id).url
-                  else appealRoutes.post.url,
+                  if as.isLeft then routes.Appeal.reply(appeal.id).url
+                  else routes.Appeal.post.url,
                 isNew = false,
                 presets = as.left.toOption.map(_.presets)
               )

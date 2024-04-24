@@ -1,8 +1,6 @@
 package views.html
 package coach
 
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.i18n.LangList

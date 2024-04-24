@@ -191,7 +191,7 @@ final class UserHelper(
 
   def userUrl(username: UserName, params: String = ""): Option[String] =
     Option.when(username.id.noGhost):
-      s"${controllers.routes.User.show(username)}$params"
+      s"${routes.User.show(username)}$params"
 
   def userClass(
       userId: UserId,

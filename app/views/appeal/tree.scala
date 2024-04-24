@@ -1,9 +1,6 @@
 package views.html
 package appeal
 
-import controllers.appeal.routes.Appeal as appealRoutes
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 
@@ -402,7 +399,7 @@ object tree:
   private def newAppeal(preset: String = "")(using Context) =
     discussion.renderForm(
       lila.appeal.Appeal.form.fill(preset),
-      action = appealRoutes.post.url,
+      action = routes.Appeal.post.url,
       isNew = true,
       presets = none
     )

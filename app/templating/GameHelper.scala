@@ -2,7 +2,6 @@ package lila.app
 package templating
 
 import chess.{ Black, Clock, Color, Mode, Outcome, Ply, Status as S, White }
-import controllers.routes
 import play.api.i18n.Lang
 
 import lila.ui.ScalatagsTemplate.{ *, given }

@@ -1,7 +1,6 @@
 package views.html
 package tournament
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.common.Json.given

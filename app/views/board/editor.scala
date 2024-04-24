@@ -1,7 +1,7 @@
 package views.html.board
 
 import chess.format.Fen
-import controllers.routes
+
 import play.api.libs.json.{ JsArray, Json }
 
 import lila.app.templating.Environment.{ *, given }

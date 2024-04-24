@@ -1,8 +1,6 @@
 package views.html
 package game
 
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.web.ui.ChessHelper.underscoreFen

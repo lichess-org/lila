@@ -3,7 +3,7 @@ package views.html.analyse
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 import chess.variant.Crazyhouse
-import controllers.routes
+
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 

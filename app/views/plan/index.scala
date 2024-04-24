@@ -1,6 +1,5 @@
 package views.html.plan
 
-import controllers.routes
 import play.api.i18n.Lang
 
 import java.util.Currency

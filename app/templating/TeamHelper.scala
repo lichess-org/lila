@@ -1,8 +1,6 @@
 package lila.app
 package templating
 
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
 import scalatags.Text.all.Tag
 
 import lila.ui.ScalatagsTemplate.{ *, given }
@@ -26,7 +24,7 @@ trait TeamHelper:
 
   def teamLink(team: LightTeam, withIcon: Boolean): Tag =
     a(
-      href     := teamRoutes.show(team.id),
+      href     := routes.Team.show(team.id),
       dataIcon := withIcon.option(lila.ui.Icon.Group),
       cls      := withIcon.option("text")
     )(team.name, teamFlair(team))

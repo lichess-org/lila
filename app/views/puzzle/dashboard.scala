@@ -1,7 +1,6 @@
 package views
 package html.puzzle
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }

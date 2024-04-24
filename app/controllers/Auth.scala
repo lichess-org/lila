@@ -55,7 +55,7 @@ final class Auth(
       .saveAuthentication(u.id)
       .flatMap { sessionId =>
         authenticateCookie(sessionId, remember = false):
-          redirect(appeal.routes.Appeal.landing.url)
+          redirect(routes.Appeal.landing.url)
       }
       .recoverWith(authRecovery)
 

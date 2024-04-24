@@ -1,6 +1,5 @@
 package views.html.auth
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }

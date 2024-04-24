@@ -1,8 +1,6 @@
 package views.html
 package account
 
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.*
 import lila.pref.PrefCateg

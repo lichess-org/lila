@@ -1,7 +1,5 @@
 package views.html.team
 
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
 import play.api.data.{ Field, Form }
 import play.api.i18n.Lang
 
@@ -31,7 +29,7 @@ object admin:
           standardFlash.map(div(cls := "box__pad")(_)),
           postForm(
             cls    := "team-add-leader box__pad complete-parent",
-            action := teamRoutes.addLeader(t.id)
+            action := routes.Team.addLeader(t.id)
           )(
             errMsg(addLeaderForm),
             div(cls := "team-add-leader__input")(
@@ -39,7 +37,7 @@ object admin:
               form3.submit("Add")
             )
           ),
-          postForm(cls := "team-permissions form3", action := teamRoutes.permissions(t.id))(
+          postForm(cls := "team-permissions form3", action := routes.Team.permissions(t.id))(
             globalError(permsForm).map(_(cls := "box__pad text", dataIcon := Icon.CautionTriangle)),
             table(cls := "slist slist-pad slist-resp")(
               thead:
@@ -72,7 +70,7 @@ object admin:
             ),
             p(cls := "form-help box__pad")("To remove a leader, remove all permissions."),
             form3.actions(cls := "box__pad")(
-              a(href := teamRoutes.show(t.id))(trans.site.cancel()),
+              a(href := routes.Team.show(t.id))(trans.site.cancel()),
               form3.submit(trans.site.save())
             )
           )
@@ -90,10 +88,10 @@ object admin:
         div(cls := "page-menu__content")(
           div(cls := "box box-pad")(
             adminTop(t, kickSomeone()),
-            postForm(action := teamRoutes.kick(t.id))(
+            postForm(action := routes.Team.kick(t.id))(
               form3.group(form("members"), frag(whoToKick()))(teamMembersAutoComplete(t)),
               form3.actions(
-                a(href := teamRoutes.show(t.id))(trans.site.cancel()),
+                a(href := routes.Team.show(t.id))(trans.site.cancel()),
                 form3.submit(lila.core.i18n.I18nKey.study.kick())
               )
             )
@@ -101,7 +99,7 @@ object admin:
           br,
           div(cls := "box box-pad")(
             adminTop(t, "User blocklist"),
-            postForm(action := teamRoutes.blocklist(t.id))(
+            postForm(action := routes.Team.blocklist(t.id))(
               form3
                 .group(
                   blocklistForm("names"),
@@ -110,7 +108,7 @@ object admin:
                   form3.textarea(_)(rows := 4)
                 ),
               form3.actions(
-                a(href := teamRoutes.show(t.id))(trans.site.cancel()),
+                a(href := routes.Team.show(t.id))(trans.site.cancel()),
                 form3.submit(trans.site.save())
               )
             )
@@ -162,7 +160,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
               br
             )
           ),
-          postForm(cls := "form3", action := teamRoutes.pmAllSubmit(t.id))(
+          postForm(cls := "form3", action := routes.Team.pmAllSubmit(t.id))(
             form3.group(
               form("message"),
               trans.site.message(),
@@ -189,7 +187,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
                     "."
                   ),
                   form3.actions(
-                    a(href := teamRoutes.show(t.slug))(trans.site.cancel()),
+                    a(href := routes.Team.show(t.slug))(trans.site.cancel()),
                     (remaining > 0).option(form3.submit(trans.site.send()))
                   )
                 )
@@ -199,4 +197,4 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
 
   private def adminTop(t: Team, title: Frag)(using Translate) =
     boxTop:
-      h1(a(href := teamRoutes.show(t.slug))(t.name), " • ", title)
+      h1(a(href := routes.Team.show(t.slug))(t.name), " • ", title)

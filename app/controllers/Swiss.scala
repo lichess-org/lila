@@ -1,5 +1,4 @@
 package controllers
-import controllers.team.routes.Team as teamRoutes
 import play.api.mvc.*
 import views.*
 
@@ -126,7 +125,7 @@ final class Swiss(
           .fold(
             err => BadRequest.page(html.swiss.form.create(err, teamId)),
             data =>
-              tourC.rateLimitCreation(isPrivate = true, Redirect(teamRoutes.show(teamId))):
+              tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
                 env.swiss.api
                   .create(data, teamId)
                   .map: swiss =>
@@ -230,7 +229,7 @@ final class Swiss(
 
   def terminate(id: SwissId) = Auth { _ ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      env.swiss.api.kill(swiss).inject(Redirect(teamRoutes.show(swiss.teamId)))
+      env.swiss.api.kill(swiss).inject(Redirect(routes.Team.show(swiss.teamId)))
   }
 
   def standing(id: SwissId, page: Int) = Anon:

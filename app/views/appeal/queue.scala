@@ -1,9 +1,6 @@
 package views.html
 package appeal
 
-import controllers.appeal.routes.Appeal as appealRoutes
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.appeal.Appeal
@@ -55,7 +52,7 @@ object queue:
                   p(shorten(msg.text, 200))
                 )),
               td(
-                a(href := appealRoutes.show(appeal.id), cls := "button button-empty")("View"),
+                a(href := routes.Appeal.show(appeal.id), cls := "button button-empty")("View"),
                 inquiries.get(appeal.userId).map { i =>
                   frag(userIdLink(i.mod.some), nbsp, "is handling this")
                 }
@@ -71,7 +68,7 @@ object queue:
       Filter.allWithIcon.map: (filter, icon) =>
         a(
           cls := List("btn-rack__btn" -> true, "active" -> current.has(filter)),
-          href := appealRoutes.queue(
+          href := routes.Appeal.queue(
             current.fold(filter.some)(_.toggle(filter)).fold("reset")(_.key).some
           ),
           dataIcon := icon.left.toOption

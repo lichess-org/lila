@@ -1,6 +1,5 @@
 package views.html.lobby
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.mashup.Preload.Homepage

@@ -1,7 +1,5 @@
 package views.html.tv
 
-import controllers.routes
-
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.game.GameExt.perfType
