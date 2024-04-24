@@ -1,70 +1,68 @@
-package views.html.user
+package lila.user
+package ui
 
-import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.*
 
-import lila.rating.PerfType
+final class userGamesDownload(userHelper: UserHelper, i18nHelper: I18nHelper, formHelper: FormHelper):
 
-object download:
-  def apply(user: User)(using ctx: PageContext): Frag =
-    views.html.base.layout(
-      title = s"${user.username} • ${trans.site.exportGames.txt()}",
-      moreCss = cssTag("search"),
-      modules = jsModule("bits.userGamesDownload")
-    ) {
-      main(cls := "box page-small search")(
-        boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),
-        form(
-          id  := "dl-form",
-          cls := "box__pad search__form"
-        )(
-          table(
-            color,
-            date,
-            opponent,
-            mode,
-            analysis,
-            perfToggles,
-            includeToggles,
-            amount,
-            tr(cls := "output")(
-              th(label(`for` := "dl-api-url")("API URL")),
-              td(
-                input(
-                  id  := "dl-api-url",
-                  cls := "copyable autoselect",
-                  tpe := "text",
-                  readonly,
-                  spellcheck            := "false",
-                  attr("data-api-path") := routes.Game.apiExportByUser(user.username)
-                )
-              )
-            ),
-            tr(
-              td(cls := "action", colspan := "2")(
-                a(
-                  id   := "dl-button",
-                  cls  := "button",
-                  href := routes.Game.exportByUser(user.username),
-                  downloadAttr
-                )(trans.site.download())
+  import userHelper.*
+  import i18nHelper.{ *, given }
+  import formHelper.*
+
+  def apply(user: User)(using ctx: Context): Frag =
+    main(cls := "box page-small search")(
+      boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),
+      form(
+        id  := "dl-form",
+        cls := "box__pad search__form"
+      )(
+        table(
+          color,
+          date,
+          opponent,
+          mode,
+          analysis,
+          perfToggles,
+          includeToggles,
+          amount,
+          tr(cls := "output")(
+            th(label(`for` := "dl-api-url")("API URL")),
+            td(
+              input(
+                id  := "dl-api-url",
+                cls := "copyable autoselect",
+                tpe := "text",
+                readonly,
+                spellcheck            := "false",
+                attr("data-api-path") := routes.Game.apiExportByUser(user.username)
               )
             )
           ),
-          br,
-          br,
-          ctx
-            .is(user)
-            .option(
-              p(style := "text-align: right")(
-                a(href := routes.Game.apiExportByUserImportedGames())(
-                  "Or download imported games as PGN"
-                )
+          tr(
+            td(cls := "action", colspan := "2")(
+              a(
+                id   := "dl-button",
+                cls  := "button",
+                href := routes.Game.exportByUser(user.username),
+                downloadAttr
+              )(trans.site.download())
+            )
+          )
+        ),
+        br,
+        br,
+        ctx
+          .is(user)
+          .option(
+            p(style := "text-align: right")(
+              a(href := routes.Game.apiExportByUserImportedGames())(
+                "Or download imported games as PGN"
               )
             )
-        )
+          )
       )
-    }
+    )
 
   private def color(using Context): Frag = tr(
     th(label(`for` := "dl-color")(trans.search.color())),
@@ -128,24 +126,23 @@ object download:
   )
 
   private def perfToggles(using Context): Frag =
-    val perfTypes = lila.rating.PerfType.nonPuzzle
     tr(
       th(cls := "top")(label(`for` := "dl-perfs")(trans.site.variants())),
       td(
         div(id := "dl-perfs", cls := "toggle-columns")(
-          perfTypes.map(perfToggle)
+          lila.rating.PerfType.nonPuzzle.map(_.key).map(perfToggle)
         )
       )
     )
 
-  private def perfToggle(perfType: PerfType)(using Context): Frag = div(
+  private def perfToggle(pk: PerfKey)(using Context): Frag = div(
     form3.cmnToggle(
-      s"dl-perf-${perfType.key}",
+      s"dl-perf-${pk}",
       "",
       true,
-      value = perfType.key
+      value = pk
     ),
-    label(`for` := s"dl-perf-${perfType.key}")(perfType.trans)
+    label(`for` := s"dl-perf-${pk}")(pk.perfTrans)
   )
 
   private def includeToggles(using Context): Frag = tr(
