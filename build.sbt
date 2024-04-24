@@ -225,7 +225,7 @@ lazy val event = module("event",
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, report, chat, security),
+  Seq(evaluation, report, chat, user),
   Seq()
 )
 

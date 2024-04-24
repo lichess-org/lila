@@ -43,6 +43,17 @@ trait SignupForm:
   val emailField: Mapping[EmailAddress]
   val username: Mapping[UserName]
 
+opaque type FingerHash = String
+object FingerHash extends OpaqueString[FingerHash]
+
+case class UserSignup(
+    user: User,
+    email: EmailAddress,
+    req: RequestHeader,
+    fingerPrint: Option[FingerHash],
+    suspIp: Boolean
+)
+
 opaque type FloodSource = String
 object FloodSource extends OpaqueString[FloodSource]
 trait FloodApi:

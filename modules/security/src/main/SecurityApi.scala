@@ -17,7 +17,7 @@ import lila.user.LoginCandidate.Result
 import lila.user.{ ClearPassword, LoginCandidate }
 import lila.user.{ Me, User, UserRepo }
 import lila.core.email.UserStrOrEmail
-import lila.core.security.{ IsProxy, Ip2ProxyApi }
+import lila.core.security.{ IsProxy, Ip2ProxyApi, FingerHash }
 
 final class SecurityApi(
     userRepo: UserRepo,

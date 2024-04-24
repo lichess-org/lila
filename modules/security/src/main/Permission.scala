@@ -105,7 +105,3 @@ object Permission:
 
   def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
     (!perms(perm)).so(perms.find(_.grants(perm)))
-
-  def diff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
-    orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)
-  }.toMap

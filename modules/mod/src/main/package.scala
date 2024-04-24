@@ -4,6 +4,7 @@ export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 export lila.core.userId.ModId
 import lila.core.perf.UserWithPerfs
+import lila.core.perm.{ Granter, Permission }
 
 private val logger = lila.log("mod")
 
@@ -19,3 +20,17 @@ case class UserWithModlog(user: UserWithPerfs, log: List[Modlog.UserEntry]):
 
 object UserWithModlog:
   given UserIdOf[UserWithModlog] = _.user.id
+
+def canGrant(permission: Permission)(using me: Me): Boolean =
+  Granter(_.SuperAdmin) || {
+    Granter(_.ChangePermission) && Permission.nonModPermissions(permission)
+  } || {
+    Granter(_.Admin) && {
+      Granter(permission) || Set[Permission](
+        Permission.MonitoredCheatMod,
+        Permission.MonitoredBoostMod,
+        Permission.MonitoredCommMod,
+        Permission.PublicMod
+      )(permission)
+    }
+  }

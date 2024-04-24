@@ -15,7 +15,7 @@ import lila.common.HTTPRequest
 import lila.core.perm.Permission
 import lila.mod.ModUserSearch
 import lila.report.{ Mod as AsMod, Suspect }
-import lila.security.FingerHash
+import lila.core.security.FingerHash
 import lila.core.net.IpAddress
 import lila.core.userId.ModId
 

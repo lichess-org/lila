@@ -11,8 +11,8 @@ import lila.core.net.{ ApiVersion, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.AccessToken
 import lila.core.socket.Sri
-
 import lila.core.net.UserAgent
+import lila.core.security.FingerHash
 
 final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
 
@@ -63,7 +63,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
           "date"  -> nowInstant,
           "up"    -> up,
           "api"   -> apiVersion, // lichobile
-          "fp"    -> fp.flatMap(FingerHash.from),
+          "fp"    -> fp.flatMap(lila.security.FingerHash.from),
           "proxy" -> proxy
         )
       .void
@@ -114,7 +114,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
           "date" -> nowInstant,
           "up"   -> up,
           "api"  -> apiVersion,
-          "fp"   -> fp.flatMap(FingerHash.from).map(_.value).orElse(sri.map(_.value)),
+          "fp"   -> fp.flatMap(lila.security.FingerHash.from).map(_.value).orElse(sri.map(_.value)),
           "sri"  -> sri
         )
       .void
@@ -169,7 +169,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       .cursor[UserSession](ReadPref.priTemp)
 
   def setFingerPrint(id: String, fp: FingerPrint): Fu[FingerHash] =
-    FingerHash.from(fp) match
+    lila.security.FingerHash.from(fp) match
       case None => fufail(s"Can't hash $id's fingerprint $fp")
       case Some(hash) =>
         coll
@@ -255,7 +255,7 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi)(using Executor):
       $doc("ip" -> ip, "date" -> $gt(nowInstant.minusMinutes(since.toMinutes.toInt)))
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
-    FingerHash.from(fp).so { hash =>
+    lila.security.FingerHash.from(fp).so { hash =>
       coll.secondaryPreferred.exists:
         $doc("fp" -> hash, "date" -> $gt(nowInstant.minusDays(7)))
     }
