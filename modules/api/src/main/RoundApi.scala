@@ -176,11 +176,6 @@ final private[api] class RoundApi(
       }
     }
 
-  private val logChessError = (id: GameId) =>
-    val logger = lila.log("round")
-    (err: chess.ErrorStr) =>
-      logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}")
-
   private def withTree(
       pov: Pov,
       analysis: Option[Analysis],
@@ -193,7 +188,7 @@ final private[api] class RoundApi(
         analysis,
         initialFen | pov.game.variant.initialFen,
         withFlags,
-        logChessError
+        logChessError = lila.log("api.round").warn
       ))
 
   private def withSteps(pov: Pov, initialFen: Option[Fen.Full])(obj: JsObject) =
