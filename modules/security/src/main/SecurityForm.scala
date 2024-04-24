@@ -7,14 +7,14 @@ import play.api.mvc.RequestHeader
 
 import lila.common.Form.*
 import lila.common.{ Form as LilaForm, LameName }
-import lila.user.{ ClearPassword, TotpToken, Me, TotpSecret }
-import lila.user.TotpSecret.base32
-import lila.user.TotpSecret.verify
-import lila.user.LoginCandidate
+import lila.user.TotpSecret
+import lila.user.TotpSecret.{ base32, verify }
+import lila.core.security.ClearPassword
+import lila.user.TotpToken
 
 final class SecurityForm(
     userRepo: lila.user.UserRepo,
-    authenticator: lila.user.Authenticator,
+    authenticator: Authenticator,
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck,
     hcaptcha: Hcaptcha

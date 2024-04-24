@@ -5,6 +5,7 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.perf.UserPerfs
 import lila.core.perf.UserWithPerfs
+import lila.core.security.ClearPassword
 
 case class Student(
     @Key("_id") id: Student.Id, // userId:clasId
@@ -54,7 +55,7 @@ object Student:
   case class WithUserAndManagingClas(withUser: WithUserPerfs, managingClas: Option[Clas]):
     export withUser.*
 
-  case class WithPassword(student: Student, password: lila.user.ClearPassword)
+  case class WithPassword(student: Student, password: ClearPassword)
 
   case class ManagedInfo(createdBy: User, clas: Clas)
 
@@ -64,5 +65,5 @@ object Student:
     private val nbChars    = chars.length
     private def secureChar = chars(SecureRandom.nextInt(nbChars))
 
-    def generate = lila.user.ClearPassword:
+    def generate = ClearPassword:
       String(Array.fill(7)(secureChar))

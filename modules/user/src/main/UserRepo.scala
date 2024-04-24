@@ -1,5 +1,6 @@
 package lila.user
 
+import com.roundeights.hasher.Implicits.*
 import chess.PlayerTitle
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.*
@@ -8,13 +9,10 @@ import reactivemongo.api.bson.*
 import lila.core.net.ApiVersion
 import lila.core.email.NormalizedEmailAddress
 import lila.core.LightUser
-import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
 import lila.core.userId.UserSearch
-import lila.core.user.Profile
-import lila.core.user.PlayTime
-import lila.core.user.TotpSecret
-import lila.core.user.Plan
+import lila.core.user.{ Profile, PlayTime, TotpSecret, Plan, UserMark }
+import lila.core.security.HashedPassword
 
 final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
@@ -333,11 +331,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       )
       .void
 
-  import Authenticator.*
   def getPasswordHash(id: UserId): Fu[Option[String]] =
-    coll.byId[AuthData](id, authProjection).map {
-      _.map { _.hashToken }
-    }
+    coll.byId[AuthData](id, AuthData.projection).map2(_.bpass.bytes.sha512.hex)
 
   def setEmail(id: UserId, email: EmailAddress): Funit =
     val normalized = email.normalize
@@ -498,8 +493,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       mustConfirmEmail: Boolean,
       lang: Option[String]
   ) =
-    import Authenticator.given
-
     val normalizedEmail = email.normalize
     val now             = nowInstant
     $doc(

@@ -9,10 +9,9 @@ import lila.common.HTTPRequest
 import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
-import lila.user.ClearPassword
-import lila.user.{ PasswordHasher }
 import lila.core.net.IpAddress
 import lila.core.email.{ UserStrOrEmail, UserIdOrEmail }
+import lila.core.security.ClearPassword
 
 final class Auth(
     env: Env,
@@ -372,7 +371,7 @@ final class Auth(
         } { data =>
           HasherRateLimit:
             for
-              _         <- env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1))
+              _         <- env.security.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1))
               confirmed <- env.user.repo.setEmailConfirmed(user.id)
               _ <- confirmed.so:
                 welcome(user, _, sendWelcomeEmail = false)
@@ -500,7 +499,7 @@ final class Auth(
       val ip          = req.ipAddress
       val multipleIps = lastAttemptIp.asMap().put(id, ip).fold(false)(_ != ip)
       passwordCost(req).flatMap: cost =>
-        env.user.passwordHasher.rateLimit[Result](
+        env.security.passwordHasher.rateLimit[Result](
           rateLimited,
           enforce = env.net.rateLimit,
           ipCost = cost.toInt + EmailAddress.isValid(id.value).so(2),
@@ -509,7 +508,7 @@ final class Auth(
 
   private[controllers] def HasherRateLimit(run: => Fu[Result])(using me: Me, ctx: Context): Fu[Result] =
     passwordCost(req).flatMap: cost =>
-      env.user.passwordHasher.rateLimit[Result](
+      env.security.passwordHasher.rateLimit[Result](
         rateLimited,
         enforce = env.net.rateLimit,
         ipCost = cost.toInt

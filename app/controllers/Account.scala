@@ -144,7 +144,7 @@ final class Account(
     auth.HasherRateLimit:
       env.security.forms.passwdChange.flatMap: form =>
         FormFuResult(form)(err => renderPage(html.account.passwd(err))): data =>
-          env.user.authenticator.setPassword(me, lila.user.ClearPassword(data.newPasswd1)) >>
+          env.security.authenticator.setPassword(me, lila.core.security.ClearPassword(data.newPasswd1)) >>
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
 

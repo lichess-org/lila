@@ -3,7 +3,7 @@ package lila.security
 import play.api.Mode
 import play.api.data.validation.{ Constraint, Invalid, Valid, ValidationError }
 
-import lila.user.ClearPassword
+import lila.core.security.ClearPassword
 
 object PasswordCheck:
 

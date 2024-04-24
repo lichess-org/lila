@@ -12,6 +12,7 @@ import lila.clas.Clas.Id as ClasId
 import lila.clas.ClasForm.ClasData
 import lila.clas.ClasInvite
 import lila.core.perf.PerfKeyStr
+import lila.core.security.ClearPassword
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -281,7 +282,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             case Array(userId, password) =>
               env.clas.api.student
                 .get(clas, UserId(userId))
-                .map2(lila.clas.Student.WithPassword(_, lila.user.ClearPassword(password)))
+                .map2(lila.clas.Student.WithPassword(_, ClearPassword(password)))
             case _ => fuccess(none)
           }
           nbStudents <- env.clas.api.student.count(clas.id)
@@ -326,7 +327,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             .map: (u, p) =>
               env.clas.api.student
                 .get(clas, u)
-                .map2(lila.clas.Student.WithPassword(_, lila.user.ClearPassword(p)))
+                .map2(lila.clas.Student.WithPassword(_, ClearPassword(p)))
             .parallel
             .map(_.flatten)
         }

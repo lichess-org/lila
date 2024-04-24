@@ -1,4 +1,4 @@
-package lila.user
+package lila.security
 
 import com.roundeights.hasher.Implicits.*
 import scalalib.SecureRandom
@@ -10,6 +10,7 @@ import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 
 import lila.core.config.Secret
 import lila.core.email.UserIdOrEmail
+import lila.core.security.{ ClearPassword, HashedPassword }
 
 /** Encryption for bcrypt hashes.
   *
@@ -36,12 +37,7 @@ final private class Aes(secret: Secret):
 
 private object Aes:
   type InitVector = IvParameterSpec
-
   def iv(bytes: Array[Byte]): InitVector = new IvParameterSpec(bytes)
-
-case class HashedPassword(bytes: Array[Byte]) extends AnyVal:
-  def parse     = (bytes.lengthIs == 39).option(bytes.splitAt(16))
-  def isBlanked = bytes.isEmpty
 
 final class PasswordHasher(
     secret: Secret,
@@ -59,9 +55,11 @@ final class PasswordHasher(
     HashedPassword(salt ++ aes.encrypt(Aes.iv(salt), bHash(salt, p)))
 
   def check(bytes: HashedPassword, p: ClearPassword): Boolean =
-    bytes.parse.so: (salt, encHash) =>
+    parse(bytes).so: (salt, encHash) =>
       val hash = aes.decrypt(Aes.iv(salt), encHash)
       MessageDigest.isEqual(hash, bHash(salt, p))
+
+  private def parse(h: HashedPassword) = Option.when(h.bytes.lengthIs == 39)(h.bytes.splitAt(16))
 
   import lila.core.net.IpAddress
   import lila.memo.RateLimit
