@@ -37,25 +37,21 @@ export class ZfBot implements Libot {
       depth: this.ctx.searchDepth?.(p) ?? 12,
       pvs: this.ctx.searchWidth(p),
     });
-    let before = performance.now();
     const [zero, fish] = await Promise.all([zeroMove, fishMove]);
-    //const cp = score(fish[0]);
-    console.log('zf', performance.now() - before);
-    before = performance.now();
+    console.log('zf', zero, scores(fish, zero));
     const biasCp = biasScore(fish, { move: zero, bias: ctx.zeroCpDefault(p), depth: ctx.scoreDepth?.(p) });
-    console.log('cp', score(fish[0]), 'biasCp', biasCp, performance.now() - before);
-    before = performance.now();
+    console.log('cp', score(fish[0]), 'biasCp', biasCp);
     const threshold = ctx.cpThreshold(p);
     const filtered = filter(fish, biasCp, threshold);
     if (!chance(ctx.aggression(p))) {
       const mv = filtered[Math.floor(Math.random() * filtered.length)]?.moves[0] ?? zero;
-      console.log('returning ', mv, filtered);
+      console.log('returning ', mv, 'from', filtered);
     }
     const aggression = byDestruction(fish, fen);
     aggression.sort((a, b) => b[0] - a[0]);
     const zeroIndex = aggression.findIndex(([_, pv]) => pv.moves[0] === zero);
     const zeroDestruction = zeroIndex >= 0 ? aggression[zeroIndex]?.[0] : -0.1;
-    console.log(zeroDestruction, aggression, performance.now() - before);
+    console.log(zeroDestruction, aggression);
     return aggression[0]?.[1]?.moves[0] ?? zero;
   }
 }
@@ -63,13 +59,13 @@ export class ZfBot implements Libot {
 const defaultCfg: ZfBotConfig = {
   // if no opening book moves are selected, these parameters govern how a zerobot chooses a move
   zeroChance: constant(0), // [0 computed, 1 always lc0]
-  zeroCpDefault: constant(-1),
+  zeroCpDefault: constant(-20),
   // first, if chance(zeroChance) then the lc0 move is chosen and we are done
   cpThreshold: constant(50), // a limiter for the number of centipawns we can lose vs fish[0][max]
   searchDepth: constant(8), // how deep to go
-  scoreDepth: constant(99), // prefer scores at this depth
+  scoreDepth: constant(1), // prefer scores at this depth
   searchWidth: constant(16), // multiPV
-  aggression: constant(0.1), // [0 passive, 1 aggressive]
+  aggression: constant(1), // [0 passive, 1 aggressive]
 };
 
 function constant(x: number) {

@@ -29,7 +29,7 @@ export class VsBotCtrl {
     this.i18n = opts.i18n;
     this.loaded = site.asset.loadEsm<LibotCtrl>('libot').then(libot => {
       this.libot = libot;
-      this.libot.setBot('babyhoward');
+      this.libot.setBot('listress');
       this.black = {
         ...this.player('black', this.libot.bot().name),
         image: this.libot.bot().imageUrl,
@@ -186,7 +186,7 @@ export class VsBotCtrl {
       },
       i18n: this.opts.i18n,
       local: this.socket,
-      onChange: (d: RoundData) => console.error(d),
+      onChange: (d: RoundData) => {}, //console.log(d),
     };
   }
 }

@@ -31,12 +31,12 @@ export default async function initModule() {
   ctrl = new DasherCtrl(data, redraw);
   redraw();
 
-  new MutationObserver(_ => site.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'))).observe(
-    toggle,
-    {
-      attributes: true,
-    },
-  );
+  new MutationObserver(e => {
+    site.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'));
+    console.trace('got one', e);
+  }).observe(toggle, {
+    attributes: true,
+  });
 
   return ctrl;
 }

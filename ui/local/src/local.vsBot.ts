@@ -4,8 +4,6 @@ import { MoveRootCtrl } from 'game';
 import { VsBotCtrl } from './vsBotCtrl';
 import view from './view';
 import { LocalPlayOpts } from './interfaces';
-import { makeVsBotSocket } from './vsBotSocket';
-import { fakeData as data } from './data';
 
 const patch = init([classModule, attributesModule]);
 
