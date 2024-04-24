@@ -13,7 +13,7 @@ final class ModInquiryUi(
     i18nHelper: I18nHelper,
     htmlHelper: HtmlHelper,
     userHelper: UserHelper
-)(routeUserWriteNote: String => Call):
+):
   import formHelper.*
   import userHelper.userIdLink
   import i18nHelper.given
@@ -52,7 +52,7 @@ final class ModInquiryUi(
       "Notes"
     ),
     div(
-      postForm(cls := "note", action := s"${routeUserWriteNote(u.username)}?inquiry=1")(
+      postForm(cls := "note", action := s"${routes.User.writeNote(u.username)}?inquiry=1")(
         form3.textarea(lila.user.UserForm.note("text"))(
           placeholder := "Write a mod note"
         ),

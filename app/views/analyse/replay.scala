@@ -135,7 +135,7 @@ object replay:
           .add("hunter" -> isGranted(_.ViewBlurs)) ++
           views.html.board.bits.explorerAndCevalConfig
       ),
-      openGraph = povOpenGraph(pov).some
+      openGraph = views.html.round.bits.povOpenGraph(pov).some
     ):
       frag(
         main(cls := "analyse")(

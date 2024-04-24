@@ -96,7 +96,8 @@ object Environment
   )
   export assetHelper.{ *, given }
 
-  lazy val gameHelper = wire[GameHelper]
+  def namer           = env.game.namer
+  lazy val gameHelper = wire[lila.ui.GameHelper]
   export gameHelper.*
 
   export ChessHelper.*

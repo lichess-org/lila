@@ -20,8 +20,8 @@ object mine:
         submitButton(cls := "button button-red text", dataIcon := Icon.X)(trans.site.cancel())
 
     views.html.base.layout(
-      title = challengeTitle(c),
-      openGraph = challengeOpenGraph(c).some,
+      title = bits.challengeTitle(c),
+      openGraph = bits.challengeOpenGraph(c).some,
       pageModule = bits.jsModule(c, json, owner = true).some,
       moreCss = cssTag("challenge.page")
     ):

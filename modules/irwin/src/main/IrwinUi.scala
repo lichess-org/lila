@@ -11,8 +11,7 @@ final class IrwinUi(
     userHelper: lila.ui.UserHelper
 )(
     povLink: Pov => Context ?=> Frag,
-    playerBlurPercent: Pov => Int,
-    routeRoundWatcher: (String, String) => Call
+    playerBlurPercent: Pov => Int
 ):
   import i18nHelper.{ *, given }
   import dateHelper.*
@@ -41,7 +40,7 @@ final class IrwinUi(
             case IrwinReport.GameReport.WithPov(gameReport, pov) =>
               tr(cls := "text")(
                 td(cls := "moves")(
-                  a(href := routeRoundWatcher(pov.gameId, pov.color.name))(
+                  a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
                     gameReport.moves.map: move =>
                       span(
                         cls      := percentClass(move.activation),

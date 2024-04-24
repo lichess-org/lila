@@ -44,7 +44,7 @@ object watcher:
           "chat" -> chatJson
         )
       ).some,
-      openGraph = povOpenGraph(pov).some,
+      openGraph = bits.povOpenGraph(pov).some,
       zenable = true
     ):
       main(cls := "round")(
@@ -63,7 +63,7 @@ object watcher:
     bits.layout(
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
-      openGraph = povOpenGraph(pov).some,
+      openGraph = bits.povOpenGraph(pov).some,
       pageModule = none
     ):
       main(cls := "round")(
@@ -71,7 +71,7 @@ object watcher:
           game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
           div(cls := "for-crawler")(
             h1(titleGame(pov.game)),
-            p(describePov(pov)),
+            p(bits.describePov(pov)),
             div(cls := "pgn")(pgn.render)
           )
         ),

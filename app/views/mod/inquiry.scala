@@ -7,9 +7,7 @@ import lila.report.{ Reason, Report }
 
 object inquiry:
 
-  lazy val ui = lila.mod.ui.ModInquiryUi(formHelper, dateHelper, i18nHelper, htmlHelper, userHelper)(
-    routeUserWriteNote = routes.User.writeNote
-  )
+  lazy val ui = lila.mod.ui.ModInquiryUi(formHelper, dateHelper, i18nHelper, htmlHelper, userHelper)
 
   // simul game study relay tournament
   private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)""".r

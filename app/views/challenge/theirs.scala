@@ -16,8 +16,8 @@ object theirs:
       color: Option[chess.Color]
   )(using ctx: PageContext) =
     views.html.base.layout(
-      title = challengeTitle(c),
-      openGraph = challengeOpenGraph(c).some,
+      title = bits.challengeTitle(c),
+      openGraph = bits.challengeOpenGraph(c).some,
       pageModule = bits.jsModule(c, json, owner = false, color).some,
       moreCss = cssTag("challenge.page")
     ):

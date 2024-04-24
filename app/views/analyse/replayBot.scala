@@ -15,7 +15,7 @@ object replayBot:
     views.html.base.layout(
       title = replay.titleOf(pov),
       moreCss = cssTag("analyse.round"),
-      openGraph = povOpenGraph(pov).some,
+      openGraph = views.html.round.bits.povOpenGraph(pov).some,
       csp = bits.csp,
       robots = false
     ):

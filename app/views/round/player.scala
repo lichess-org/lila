@@ -61,7 +61,7 @@ object player:
           )
           .add("noab" -> ctx.me.exists(_.marks.engine))
       ).some,
-      openGraph = povOpenGraph(pov).some,
+      openGraph = bits.povOpenGraph(pov).some,
       playing = pov.game.playable,
       zenable = true
     ):

@@ -69,7 +69,7 @@ object widgets:
             if g.isBeingPlayed then trans.site.playingRightNow()
             else if g.finishedOrAborted then
               span(cls := g.winner.flatMap(w => fromPlayer.map(p => if p == w then "win" else "loss")))(
-                gameEndStatus(g),
+                bits.gameEndStatus(g),
                 g.winner.map { winner =>
                   frag(
                     " • ",

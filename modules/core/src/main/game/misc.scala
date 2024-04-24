@@ -163,6 +163,12 @@ trait PgnDump:
 trait Namer:
   def gameVsText(game: Game, withRatings: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
   def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
+  def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(using
+      lightUser: LightUser.GetterSync
+  ): String
+  def playerTextBlocking(player: Player, withRating: Boolean = false)(using
+      lightUser: LightUser.GetterSync
+  ): String
 
 trait Explorer:
   def apply(id: GameId): Fu[Option[Game]]
