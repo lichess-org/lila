@@ -29,17 +29,17 @@ ivyLoggingLevel     := UpdateLogging.DownloadOnly
 Compile / mainClass := Some("lila.app.Lila")
 // Adds the Play application directory to the command line args passed to Play
 bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n"
-// by default, compile any routes files in the root named "routes" or "*.routes"
+Compile / RoutesKeys.generateReverseRouter := false
 Compile / RoutesKeys.routes / sources ++= {
   val dirs = (Compile / unmanagedResourceDirectories).value
   (dirs * "routes").get ++ (dirs * "*.routes").get
 }
-target                      := baseDirectory.value / "target"
-Compile / sourceDirectory   := baseDirectory.value / "app"
-Test / sourceDirectory      := baseDirectory.value / "test"
-Compile / scalaSource       := baseDirectory.value / "app"
-Test / scalaSource          := baseDirectory.value / "test"
-Universal / sourceDirectory := baseDirectory.value / "dist"
+Compile / RoutesKeys.generateReverseRouter := false
+Compile / RoutesKeys.generateForwardRouter := true
+target                                     := baseDirectory.value / "target"
+Compile / sourceDirectory                  := baseDirectory.value / "app"
+Compile / scalaSource                      := baseDirectory.value / "app"
+Universal / sourceDirectory                := baseDirectory.value / "dist"
 
 // cats-parse v1.0.0 is the same as v0.3.1, so this is safe
 ThisBuild / libraryDependencySchemes ++= Seq(
@@ -60,19 +60,19 @@ lazy val modules = Seq(
   // level 1
   core, coreI18n,
   // level 2
-  common, tree,
+  ui, common, tree,
   // level 3
-  db, room, ui, search,
+  db, room, search,
   // level 4
   memo, rating,
   // level 5
   game, gathering, study, user, puzzle, analyse,
   report, pref, chat, playban, lobby, mailer, oauth,
   // level 6
-  security, insight, evaluation, storm,
+  insight, evaluation, storm,
   // level 7
   // everything else is free from deps; do the big ones first
-  tournament, relay, plan, round,
+  security, tournament, relay, plan, round,
   swiss, insight, fishnet, tutor, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
@@ -488,6 +488,12 @@ lazy val tree = module("tree",
 lazy val ui = module("ui",
   Seq(core, coreI18n),
   Seq()
+).enablePlugins(RoutesCompiler).settings(
+  Compile / RoutesKeys.generateForwardRouter := false,
+  Compile / RoutesKeys.routes / sources ++= {
+    val dirs = baseDirectory.value / ".." / ".." / "conf"
+    (dirs * "routes").get ++ (dirs * "*.routes").get
+  }
 )
 
 lazy val web = module("web",
