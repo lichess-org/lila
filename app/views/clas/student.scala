@@ -10,6 +10,8 @@ import lila.common.String.html.richText
 
 object student:
 
+  lazy val ui = lila.clas.ui.ClasStudentUi(kitchenSink, bits.ui)
+
   def show(
       clas: Clas,
       students: List[Student],
@@ -18,110 +20,7 @@ object student:
   )(using ctx: PageContext) =
     bits.layout(s.user.username, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show",
-      top(clas, s.withUser),
-      div(cls := "box__pad")(
-        standardFlash,
-        ctx.flash("password").map { password =>
-          flashMessageWith(cls := "student-show__password")(
-            div(
-              p(trans.clas.makeSureToCopy()),
-              pre(trans.clas.passwordX(password))
-            )
-          )
-        },
-        s.student.archived.map { archived =>
-          div(cls := "student-show__archived archived")(
-            bits.showArchived(archived),
-            div(cls := "student-show__archived__actions")(
-              postForm(action := routes.Clas.studentArchive(clas.id.value, s.user.username, v = false)):
-                form3.submit(trans.clas.inviteTheStudentBack(), icon = none)(cls := "confirm button-empty")
-              ,
-              postForm(action := routes.Clas.studentClosePost(clas.id.value, s.user.username)):
-                form3.submit(trans.clas.removeStudent(), icon = none)(
-                  cls   := "confirm button-red button-empty",
-                  title := "Fully erase the student from the class archives."
-                )
-            )
-          )
-        },
-        s.student.notes.nonEmpty.option(div(cls := "student-show__notes")(richText(s.student.notes))),
-        s.student.managed
-          .option(
-            div(cls := "student-show__managed")(
-              p(trans.clas.thisStudentAccountIsManaged()),
-              div(cls := "student-show__managed__actions")(
-                postForm(action := routes.Clas.studentResetPassword(clas.id.value, s.user.username))(
-                  form3.submit(trans.clas.resetPassword(), icon = none)(
-                    s.student.isArchived.option(disabled),
-                    cls   := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
-                    title := trans.clas.generateANewPassword.txt()
-                  )
-                ),
-                a(
-                  href  := routes.Clas.studentRelease(clas.id.value, s.user.username),
-                  cls   := "button button-empty",
-                  title := trans.clas.upgradeFromManaged.txt()
-                )(trans.clas.release())
-              )
-            )
-          )
-          .orElse(s.managingClas.map { managingClas =>
-            div(cls := "student-show__managed")(
-              p(trans.clas.thisStudentAccountIsManaged()),
-              a(href := routes.Clas.studentShow(managingClas.id.value, s.user.username))(
-                "Class: ",
-                managingClas.name
-              )
-            )
-          }),
-        views.html.activity(s.withPerfs, activities)
-      )
-    )
-
-  private def top(clas: Clas, s: Student.WithUserLike)(using Context) =
-    div(cls := "student-show__top")(
-      boxTop(
-        h1(dataIcon := Icon.User)(
-          span(
-            strong(s.user.username),
-            em(s.student.realName)
-          )
-        )
-      ),
-      div(cls := "student-show__top__meta")(
-        p(
-          trans.clas.invitedToXByY(
-            a(href := routes.Clas.show(clas.id.value))(clas.name),
-            userIdLink(s.student.created.by.some, withOnline = false)
-          ),
-          " ",
-          momentFromNowOnce(s.student.created.at)
-        ),
-        div(
-          a(
-            href := routes.Msg.convo(s.user.username),
-            cls  := "button button-empty"
-          )(trans.site.message()),
-          a(
-            href := routes.Clas.studentEdit(clas.id.value, s.user.username),
-            cls  := "button button-empty"
-          )(trans.site.edit()),
-          a(
-            href := routes.User.show(s.user.username),
-            cls  := "button button-empty"
-          )(trans.site.profile()),
-          a(
-            href := routes.Puzzle.dashboard(7, "home", s.user.username.value.some),
-            cls  := "button button-empty"
-          )(trans.puzzle.puzzleDashboard()),
-          isGranted(_.Beta).option(
-            a(
-              href := routes.Tutor.user(s.user.username.value),
-              cls  := "button button-empty"
-            )("Tutor")
-          )
-        )
-      )
+      ui.show(clas, students, s, views.html.activity(s.withPerfs, activities))
     )
 
   private def realNameField(form: Form[?], fieldName: String = "realName")(using Context) =
@@ -295,7 +194,7 @@ object student:
   def edit(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using PageContext) =
     bits.layout(s.user.username, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit",
-      top(clas, s),
+      ui.top(clas, s),
       div(cls := "box__pad")(
         standardFlash,
         postForm(cls := "form3", action := routes.Clas.studentUpdate(clas.id.value, s.user.username))(
@@ -334,7 +233,7 @@ object student:
   def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using PageContext) =
     bits.layout(s.user.username, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit",
-      top(clas, s),
+      ui.top(clas, s),
       div(cls := "box__pad")(
         h2(trans.clas.releaseTheAccount()),
         p(
@@ -360,7 +259,7 @@ object student:
   def close(clas: Clas, students: List[Student], s: Student.WithUser)(using PageContext) =
     bits.layout(s.user.username, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit",
-      top(clas, s),
+      ui.top(clas, s),
       div(cls := "box__pad")(
         h2(trans.clas.closeTheAccount()),
         p(strong(badTag(trans.clas.closeDesc1()))),

@@ -7,6 +7,8 @@ import lila.clas.{ Clas, Student }
 
 object bits:
 
+  lazy val ui = lila.clas.ui.ClasUi(kitchenSink)
+
   def layout(
       title: String,
       active: Either[Clas.WithStudents, String],
@@ -49,11 +51,4 @@ object bits:
           div(cls := "page-menu__content box")(body)
         )
       else main(cls := "page-small box")(body)
-    )
-
-  def showArchived(archived: Clas.Recorded)(using PageContext) =
-    div(
-      trans.clas.removedByX(userIdLink(archived.by.some)),
-      " ",
-      momentFromNowOnce(archived.at)
     )

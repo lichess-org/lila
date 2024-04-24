@@ -63,7 +63,7 @@ object Environment
   val dateHelper = wire[lila.ui.DateHelper]
   export dateHelper.*
 
-  val flashHelper = wire[lila.web.ui.FlashHelper]
+  val flashHelper = wire[lila.ui.FlashHelper]
   export flashHelper.*
 
   def flairApi        = env.user.flairApi
