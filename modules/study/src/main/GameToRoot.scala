@@ -13,7 +13,8 @@ object GameToRoot:
       game = game,
       analysis = none,
       initialFen = initialFen | game.variant.initialFen,
-      withFlags = ExportOptions(clocks = withClocks)
+      withFlags = ExportOptions(clocks = withClocks),
+      logChessError = lila.log("study").warn
     )
     endComment(game).fold(root)(comment => root.updateMainlineLast(_.setComment(comment)))
 

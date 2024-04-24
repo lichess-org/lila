@@ -60,9 +60,9 @@ lazy val modules = Seq(
   // level 1
   core, coreI18n,
   // level 2
-  common,
+  common, tree,
   // level 3
-  db, room, tree, ui, search,
+  db, room, ui, search,
   // level 4
   memo, rating,
   // level 5
@@ -480,7 +480,7 @@ lazy val socket = module("socket",
 )
 
 lazy val tree = module("tree",
-  Seq(common),
+  Seq(core),
   Seq(chess.playJson)
 )
 
