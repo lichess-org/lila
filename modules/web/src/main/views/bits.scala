@@ -9,7 +9,7 @@ import scalalib.paginator.Paginator
 import lila.core.i18n.Translate
 import lila.web.ui.ChessHelper.underscoreFen
 
-final class bits(externalLink: (String, String) => Call):
+final class bits():
 
   def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
     st.nav(cls := "subnav__inner")(mods)
@@ -47,29 +47,29 @@ z-index: 99;
   val connectLinks =
     div(cls := "connect-links")(
       a(
-        href := externalLink("mastodon", "https://mastodon.online/@lichess"),
+        href := routes.Main.externalLink("mastodon", "https://mastodon.online/@lichess"),
         targetBlank,
         noFollow,
         relMe
       )("Mastodon"),
-      a(href := externalLink("twitter", "https://twitter.com/lichess"), targetBlank, noFollow)(
+      a(href := routes.Main.externalLink("twitter", "https://twitter.com/lichess"), targetBlank, noFollow)(
         "Twitter"
       ),
-      a(href := externalLink("discord", "https://discord.gg/lichess"), targetBlank, noFollow)(
+      a(href := routes.Main.externalLink("discord", "https://discord.gg/lichess"), targetBlank, noFollow)(
         "Discord"
       ),
       a(
-        href := externalLink("youtube", "https://youtube.com/c/LichessDotOrg"),
+        href := routes.Main.externalLink("youtube", "https://youtube.com/c/LichessDotOrg"),
         targetBlank,
         noFollow
       )("YouTube"),
       a(
-        href := externalLink("twitch", "https://www.twitch.tv/lichessdotorg"),
+        href := routes.Main.externalLink("twitch", "https://www.twitch.tv/lichessdotorg"),
         targetBlank,
         noFollow
       )("Twitch"),
       a(
-        href := externalLink("instagram", "https://instagram.com/lichessdotorg"),
+        href := routes.Main.externalLink("instagram", "https://instagram.com/lichessdotorg"),
         targetBlank,
         noFollow
       )("Instagram")

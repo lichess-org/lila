@@ -8,13 +8,30 @@ import lila.core.game.Pov
 final class IrwinUi(
     i18nHelper: lila.ui.I18nHelper,
     dateHelper: lila.ui.DateHelper,
-    userHelper: lila.ui.UserHelper
-)(
-    povLink: Pov => Context ?=> Frag,
-    playerBlurPercent: Pov => Int
-):
+    userHelper: lila.ui.UserHelper,
+    gameHelper: lila.ui.GameHelper
+)(playerBlurPercent: Pov => Int):
+
   import i18nHelper.{ *, given }
   import dateHelper.*
+  import gameHelper.*
+
+  private def povLink(pov: Pov)(using Context) =
+    a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
+      playerLink(
+        pov.opponent,
+        withRating = true,
+        withDiff = true,
+        withOnline = false,
+        link = false
+      ),
+      br,
+      pov.game.isTournament.so(frag(iconTag(Icon.Trophy), " ")),
+      iconTag(pov.game.perfKey.perfIcon),
+      shortClockName(pov.game.clock.map(_.config)),
+      " ",
+      momentFromNowServer(pov.game.createdAt)
+    )
 
   def percentClass(p: Int) =
     if p < 30 then "green"
@@ -49,9 +66,7 @@ final class IrwinUi(
                       )
                   )
                 ),
-                td(
-                  povLink(pov)
-                ),
+                td(povLink(pov)),
                 td(
                   strong(cls := percentClass(gameReport.activation))(gameReport.activation, "%"),
                   " ",

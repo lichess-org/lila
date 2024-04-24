@@ -10,16 +10,12 @@ import lila.common.String.html.safeJsonValue
 import lila.core.captcha.Captcha
 import play.api.data.{ Form, Field }
 
-import lila.ui.Context
 import lila.core.i18n.{ I18nKey as trans }
 import lila.core.config.BaseUrl
 
 import lila.ui.{ Form3, I18nHelper }
 
-final class captcha(form3: Form3, i18nHelper: I18nHelper, netBaseUrl: BaseUrl)(
-    routeRoundWatcher: (String, String) => Call,
-    routeCaptchaCheck: String => Call
-):
+final class captcha(form3: Form3, i18nHelper: I18nHelper, netBaseUrl: BaseUrl):
 
   import i18nHelper.given
 
@@ -30,18 +26,18 @@ final class captcha(form3: Form3, i18nHelper: I18nHelper, netBaseUrl: BaseUrl)(
   def apply(
       form: Form[?] | Field,
       captcha: Captcha
-  )(using ctx: Context) =
+  )(using ctx: lila.ui.Context) =
     frag(
       form3.hidden(formField(form, "gameId"), captcha.gameId.value.some),
       if ctx.blind then form3.hidden(formField(form, "move"), captcha.solutions.head.some)
       else
-        val url = s"$netBaseUrl${routeRoundWatcher(captcha.gameId, captcha.color.name)}"
+        val url = s"$netBaseUrl${routes.Round.watcher(captcha.gameId, captcha.color.name)}"
         div(
           cls := List(
             "captcha form-group" -> true,
             "is-invalid"         -> formErrors(form).exists(_.messages.has(lila.core.captcha.failMessage))
           ),
-          dataCheckUrl := routeCaptchaCheck(captcha.gameId)
+          dataCheckUrl := routes.Main.captchaCheck(captcha.gameId)
         )(
           div(cls := "challenge")(
             ui.ChessHelper.chessgroundMini(captcha.fen, captcha.color) {

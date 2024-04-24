@@ -6,25 +6,8 @@ import lila.game.GameExt.{ perfType, playerBlurPercent }
 
 object irwin:
 
-  val ui = lila.irwin.IrwinUi(i18nHelper, dateHelper, userHelper)(
-    playerBlurPercent = pov => pov.game.playerBlurPercent(pov.color),
-    povLink = pov =>
-      _ ?=>
-        a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
-          playerLink(
-            pov.opponent,
-            withRating = true,
-            withDiff = true,
-            withOnline = false,
-            link = false
-          ),
-          br,
-          pov.game.isTournament.so(frag(iconTag(Icon.Trophy), " ")),
-          iconTag(pov.game.perfType.icon),
-          shortClockName(pov.game.clock.map(_.config)),
-          " ",
-          momentFromNowServer(pov.game.createdAt)
-        )
+  val ui = lila.irwin.IrwinUi(i18nHelper, dateHelper, userHelper, gameHelper)(
+    playerBlurPercent = pov => pov.game.playerBlurPercent(pov.color)
   )
 
   def dashboard(dashboard: lila.irwin.IrwinReport.Dashboard)(using PageContext) =

@@ -11,7 +11,6 @@ final class PerfStatUi(
     dateHelper: lila.ui.DateHelper,
     userHelper: lila.ui.UserHelper
 )(
-    routeRoundWatcher: (String, String) => Call,
     percentileText: (User, PerfType, Double) => Context ?=> Frag
 ):
   import lila.ui.NumberHelper.*
@@ -169,7 +168,7 @@ final class PerfStatUi(
     case Some(r) =>
       div(
         h2(title(strong(tag(color)(r.int, pctStr.map(st.title := _))))),
-        a(cls := "glpt", href := routeRoundWatcher(r.gameId, "white"))(absClientInstant(r.at))
+        a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientInstant(r.at))
       )
     case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
 
@@ -187,10 +186,10 @@ final class PerfStatUi(
     s.from match
       case Some(from) =>
         fromXToY(
-          a(cls := "glpt", href := routeRoundWatcher(from.gameId, "white"))(absClientInstant(from.at)),
+          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientInstant(from.at)),
           s.to match
             case Some(to) =>
-              a(cls := "glpt", href := routeRoundWatcher(to.gameId, "white"))(absClientInstant(to.at))
+              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientInstant(to.at))
             case None => now()
         )
       case None => nbsp
@@ -234,7 +233,7 @@ final class PerfStatUi(
             tr(
               td(userHelper.userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td:
-                a(cls := "glpt", href := s"${routeRoundWatcher(r.gameId, "white")}?pov=${user.username}"):
+                a(cls := "glpt", href := s"${routes.Round.watcher(r.gameId, "white")}?pov=${user.username}"):
                   absClientInstant(r.at)
             )
       )

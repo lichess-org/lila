@@ -10,8 +10,6 @@ final class GameUi(
     i18nHelper: lila.ui.I18nHelper,
     dateHelper: lila.ui.DateHelper,
     userHelper: lila.ui.UserHelper
-)(
-    routeRoundWatcher: (String, String) => Call
 ):
   import i18nHelper.{ *, given }
 
@@ -48,7 +46,7 @@ final class GameUi(
                 case Some(w) if w == u.id => "glpt win"  -> "1"
                 case None                 => "glpt"      -> "½"
                 case _                    => "glpt loss" -> "0"
-              a(href := s"""${routeRoundWatcher(r.gameId, "white")}?pov=${u.id}""", cls := linkClass)(
+              a(href := s"""${routes.Round.watcher(r.gameId, "white")}?pov=${u.id}""", cls := linkClass)(
                 text
               )
         ,

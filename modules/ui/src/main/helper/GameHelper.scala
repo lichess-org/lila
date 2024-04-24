@@ -16,13 +16,17 @@ final class GameHelper(
     userHelper: UserHelper,
     netBaseUrl: BaseUrl,
     namer: Namer,
+    ratingApi: lila.ui.RatingApi,
     lightUserSync: LightUser.GetterSync
 ):
-
   import i18nHelper.given
   import stringHelper.*
   import userHelper.*
   import assetHelper.cdnUrl
+
+  extension (pk: PerfKey)
+    def perfIcon = ratingApi.toIcon(pk)
+    def perfName = ratingApi.toNameKey(pk)
 
   def titleGame(g: Game) =
     val speed   = chess.Speed(g.clock.map(_.config)).name
