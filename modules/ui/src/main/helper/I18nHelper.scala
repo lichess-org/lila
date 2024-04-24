@@ -9,8 +9,9 @@ import lila.core.i18n.{ I18nKey, fixJavaLanguage, JsDump, Translator }
 final class I18nHelper(jsDump: JsDump, translator: Translator, ratingApi: lila.ui.RatingApi):
 
   extension (pk: PerfKey)
-    def perfIcon = ratingApi.toIcon(pk)
-    def perfName = ratingApi.toNameKey(pk)
+    def perfIcon: Icon                                = ratingApi.toIcon(pk)
+    def perfName: I18nKey                             = ratingApi.toNameKey(pk)
+    def perfTrans(using translate: Translate): String = perfName.txt()
 
   export lila.core.i18n.Translate
   export lila.core.i18n.I18nKey as trans

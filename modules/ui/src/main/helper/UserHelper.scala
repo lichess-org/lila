@@ -21,7 +21,6 @@ final class UserHelper(
 ):
   import i18nHelper.*
   import numberHelper.*
-  export ratingApi.*
 
   def usernameOrId(userId: UserId): String  = lightUser(userId).fold(userId.value)(_.name.value)
   def titleNameOrId(userId: UserId): String = lightUser(userId).fold(userId.value)(_.titleName)
@@ -41,7 +40,7 @@ final class UserHelper(
   // UserPerfs selects the best perf
   def userRating(user: User, perf: Perf | UserPerfs): Frag = perf match
     case p: Perf      => renderRating(p)
-    case p: UserPerfs => bestRated(p).map(_.perf).so(renderRating)
+    case p: UserPerfs => ratingApi.bestRated(p).map(_.perf).so(renderRating)
 
   def anonUserSpan(cssClass: Option[String] = None, modIcon: Boolean = false) =
     span(cls := List("offline" -> true, "user-link" -> true, ~cssClass -> cssClass.isDefined))(
@@ -233,17 +232,18 @@ final class UserHelper(
     import p.perf.*
     showPerfRating(
       intRating,
-      toNameKey(p.key).txt(),
+      p.key.perfTrans,
       nb,
       provisional,
       glicko.clueless,
-      toIcon(p.key)
+      p.key.perfIcon
     )
 
   def showPerfRating(perfs: UserPerfs, perfKey: PerfKey)(using Translate): Frag =
     showPerfRating(perfs.keyed(perfKey))
 
-  def showBestPerf(perfs: UserPerfs)(using Translate): Option[Frag] = bestRated(perfs).map(showPerfRating)
+  def showBestPerf(perfs: UserPerfs)(using Translate): Option[Frag] =
+    ratingApi.bestRated(perfs).map(showPerfRating)
 
   def showRatingDiff(diff: IntRatingDiff): Frag = diff.value match
     case 0          => span("±0")

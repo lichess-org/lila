@@ -120,7 +120,7 @@ object page:
     val nbGames   = user.count.game
     val createdAt = dateHelper.showEnglishDate(user.createdAt)
     val currentRating = user.perfs.bestRatedPerf.so: p =>
-      s" Current ${toNameKey(p.key).txt()} rating: ${p.perf.intRating}."
+      s" Current ${p.key.perfTrans} rating: ${p.perf.intRating}."
     s"$name played $nbGames games since $createdAt.$currentRating"
 
   private val i18nKeys = List(

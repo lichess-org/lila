@@ -53,7 +53,8 @@ object Environment
   val numberHelper = lila.ui.NumberHelper
   export numberHelper.*
 
-  val i18nHelper = lila.ui.I18nHelper(lila.i18n.JsDump, lila.i18n.Translator, lila.rating.ratingApi)
+  export lila.rating.ratingApi
+  val i18nHelper = lila.ui.I18nHelper(lila.i18n.JsDump, lila.i18n.Translator, ratingApi)
   export i18nHelper.{ given, * }
 
   val stringHelper = wire[lila.ui.StringHelper]

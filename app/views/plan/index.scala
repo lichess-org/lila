@@ -299,7 +299,7 @@ object index:
             a(href := "https://causes.benevity.org/causes/250-5789375887401_bf01")("Benevity")
           ),
           br,
-          lila.web.views.contact.contactEmailLinkEmpty()(bankTransfers()),
+          lila.web.views.contact.contactEmailLinkEmpty(contactEmailInClear)(bankTransfers()),
           ".",
           br,
           strong(onlyDonationFromAbove())
