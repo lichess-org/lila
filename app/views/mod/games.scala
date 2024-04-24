@@ -1,19 +1,17 @@
 package views.html.mod
 
 import play.api.data.Form
-import views.html.mod.userTable.sortNoneTh
-
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.evaluation.PlayerAssessment
-
 import lila.rating.PerfType
 import lila.core.chess.Rank
 import lila.tournament.LeaderboardApi.TourEntry
 import lila.game.GameExt.*
 import lila.mod.GameMod
+import lila.mod.ui.ModUserTableUi.sortNoneTh
 
 object games:
 

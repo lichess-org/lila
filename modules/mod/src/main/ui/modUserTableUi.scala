@@ -1,19 +1,20 @@
-package views.html.mod
+package lila.mod
+package ui
 
-import lila.api.Context
-import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.*
 import lila.user.WithPerfsAndEmails
-import views.html.user.mod.canCloseAlt
 
-object userTable:
+object ModUserTableUi:
 
   val sortNoneTh = th(attr("data-sort-method") := "none")
   val dataSort   = attr("data-sort")
   val email      = tag("email")
   val mark       = tag("marked")
 
-  def selectAltAll(using Context) = canCloseAlt.option(
+  def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(canCloseAlt)
+
+  def selectAltAll(using Context) = canCloseAlt.option:
     sortNoneTh(
       select(style := "width: 2em")(
         st.option(value := "")(""),
@@ -22,7 +23,6 @@ object userTable:
         st.option(value := "alt")("Alt selected")
       )
     )
-  )
 
   def userCheckboxTd(isAlt: Boolean)(using Context) = canCloseAlt.option(td:
     input(
@@ -32,6 +32,10 @@ object userTable:
       disabled := isAlt.option(true)
     )
   )
+
+final class ModUserTableUi(helpers: KitchenSink, modUi: ModUi):
+  import helpers.{ *, given }
+  import ModUserTableUi.*
 
   def apply(
       users: List[WithPerfsAndEmails],
@@ -49,17 +53,17 @@ object userTable:
             th("Created"),
             th("Active"),
             eraseButton.option(th),
-            userTable.selectAltAll
+            selectAltAll
           )
         ),
         tbody:
           users.map { case lila.user.WithPerfsAndEmails(u, emails) =>
             tr(
-              if showUsernames || lila.security.Granter.canViewAltUsername(u.user)
+              if showUsernames || canViewAltUsername(u.user)
               then
                 td(dataSort := u.id)(
-                  userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
-                  isGranted(_.Admin).option(email(emails.strList.mkString(", ")))
+                  helpers.userHelper.userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
+                  Granter.opt(_.Admin).option(email(emails.strList.mkString(", ")))
                 )
               else td,
               td(dataSort := u.count.game)(u.count.game.localize),
@@ -75,10 +79,10 @@ object userTable:
               eraseButton.option(
                 td(
                   postForm(action := routes.Mod.gdprErase(u.username)):
-                    views.html.user.mod.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
+                    modUi.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
                 )
               ),
-              userTable.userCheckboxTd(u.marks.alt)
+              userCheckboxTd(u.marks.alt)
             )
           }
       )

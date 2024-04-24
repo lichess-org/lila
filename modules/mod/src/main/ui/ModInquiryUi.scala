@@ -4,7 +4,6 @@ package ui
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
 import lila.report.{ Report, Reason }
-import lila.core.i18n.Translate
 import lila.core.config.NetDomain
 
 final class ModInquiryUi(
@@ -16,7 +15,7 @@ final class ModInquiryUi(
 ):
   import formHelper.*
   import userHelper.userIdLink
-  import i18nHelper.given
+  import i18nHelper.{ *, given }
 
   def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
 

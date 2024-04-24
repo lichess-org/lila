@@ -34,3 +34,12 @@ def canGrant(permission: Permission)(using me: Me): Boolean =
       )(permission)
     }
   }
+
+def canCloseAlt(using Me) = Granter(_.CloseAccount) && Granter(_.ViewPrintNoIP)
+
+def canViewAltUsername(user: User)(using Option[Me]): Boolean =
+  Granter.opt(_.Admin) || {
+    (Granter.opt(_.CheatHunter) && user.marks.engine) ||
+    (Granter.opt(_.BoostHunter) && user.marks.boost) ||
+    (Granter.opt(_.Shusher) && user.marks.troll)
+  }

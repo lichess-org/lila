@@ -31,7 +31,7 @@ object perfStat:
       moreCss = cssTag("perf-stat")
     ):
       main(cls := s"page-menu")(
-        st.aside(cls := "page-menu__menu")(show.side(user, ranks, perfType.some)),
+        st.aside(cls := "page-menu__menu")(show.page.side(user, ranks, perfType.key.some)),
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
           boxTop(
             div(cls := "box__top__title")(

@@ -7,5 +7,7 @@ export lila.core.lilaism.Lilaism.{ *, given }
 
 trait RatingApi:
   val toNameKey: PerfKey => I18nKey
+  val toDescKey: PerfKey => I18nKey
   val toIcon: PerfKey => Icon
   val bestRated: UserPerfs => Option[KeyedPerf]
+  val dubiousPuzzle: UserPerfs => Boolean

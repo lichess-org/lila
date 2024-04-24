@@ -11,7 +11,7 @@ import views.*
 import scala.language.existentials
 import scala.util.chaining.*
 
-import lila.app.mashup.{ GameFilter, GameFilterMenu }
+import lila.game.{ GameFilter, GameFilterMenu }
 import lila.app.{ *, given }
 import scalalib.paginator.Paginator
 import lila.common.HTTPRequest
@@ -112,7 +112,7 @@ final class User(
           negotiate(
             html = for
               nbs <- env.userNbGames(u, withCrosstable = true)
-              filters = GameFilterMenu(u, nbs, filter, ctx.isAuth)
+              filters = lila.app.mashup.GameFilterMenu(u, nbs, filter, ctx.isAuth)
               pag <- env.gamePaginator(
                 user = u,
                 nbs = nbs.some,
@@ -133,7 +133,7 @@ final class User(
                     _      <- env.team.cached.lightCache.preloadMany(info.teamIds)
                     social <- env.socialInfo(u)
                     searchForm = (filters.current == GameFilter.Search).option(
-                      GameFilterMenu.searchForm(userGameSearch, filters.current)
+                      lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
                     )
                     page <- renderPage:
                       html.user.show.page.games(info, pag, filters, searchForm, social, notes)
@@ -242,7 +242,7 @@ final class User(
         pagFromDb <- env.gamePaginator(
           user = u,
           nbs = none,
-          filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
+          filter = lila.app.mashup.GameFilterMenu.currentOf(GameFilter.all, filterName),
           me = ctx.me,
           page = page
         )

@@ -163,7 +163,7 @@ object search:
                 )
               ),
               tbody(
-                classes.map(c =>
+                classes.map: c =>
                   tr(
                     td(a(href := routes.Clas.show(c.id.value))(s"${c.id}")),
                     td(c.name),
@@ -175,7 +175,6 @@ object search:
                     ,
                     td(c.teachers.toList.map(id => teacherLink(id)))
                   )
-                )
               )
             )
           )

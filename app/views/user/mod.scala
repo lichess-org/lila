@@ -8,6 +8,7 @@ import lila.appeal.Appeal
 import lila.evaluation.Display
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPresets, UserWithModlog }
+import lila.mod.ui.ModUserTableUi
 import lila.core.playban.RageSit
 import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
 import lila.core.perm.Permission
@@ -70,7 +71,7 @@ object mod:
         }
       ),
       div(cls := "btn-rack")(
-        canCloseAlt.option {
+        ModUserTableUi.canCloseAlt.option {
           postForm(
             action := routes.Mod.alt(u.username, !u.marks.alt),
             title  := "Preemptively close unauthorized alt.",
@@ -240,19 +241,7 @@ object mod:
     postForm(
       action := routes.Mod.gdprErase(u.username),
       cls    := "gdpr-erasure"
-    )(gdprEraseButton(u)(cls := "btn-rack__btn confirm"))
-
-  def gdprEraseButton(u: User)(using Context) =
-    val allowed = u.marks.clean || isGranted(_.Admin)
-    submitButton(
-      cls := (!allowed).option("disabled"),
-      title := {
-        if allowed
-        then "Definitely erase everything about this user"
-        else "This user has some history, only admins can erase"
-      },
-      (!allowed).option(disabled)
-    )("GDPR erasure")
+    )(views.html.mod.ui.gdprEraseButton(u)(cls := "btn-rack__btn confirm"))
 
   private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
     isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
@@ -636,7 +625,7 @@ object mod:
             thSortNumber(iconTag(Icon.InkQuill))(cls := "i", title := "Appeals"),
             thSortNumber("Created"),
             thSortNumber("Active"),
-            userTable.selectAltAll
+            ModUserTableUi.selectAltAll
           )
         ),
         tbody(
@@ -703,7 +692,7 @@ object mod:
               ,
               td(dataSort := o.createdAt.toMillis)(momentFromNowServer(o.createdAt)),
               td(dataSort := o.seenAt.map(_.toMillis.toString))(o.seenAt.map(momentFromNowServer)),
-              userTable.userCheckboxTd(o.marks.alt)
+              ModUserTableUi.userCheckboxTd(o.marks.alt)
             )
           }
         )
@@ -870,7 +859,7 @@ object mod:
             th("Created"),
             th("Active"),
             eraseButton.option(th),
-            checkboxes.option(userTable.selectAltAll)
+            checkboxes.option(ModUserTableUi.selectAltAll)
           )
         ),
         tbody(
@@ -880,28 +869,28 @@ object mod:
               then
                 td(
                   userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
-                  isGranted(_.Admin).option(userTable.email(emails.strList.mkString(", ")))
+                  isGranted(_.Admin).option(ModUserTableUi.email(emails.strList.mkString(", ")))
                 )
               else td,
               td(u.count.game.localize),
               td(
-                u.marks.alt.option(userTable.mark("ALT")),
-                u.marks.engine.option(userTable.mark("ENGINE")),
-                u.marks.boost.option(userTable.mark("BOOSTER")),
-                u.marks.troll.option(userTable.mark("SHADOWBAN"))
+                u.marks.alt.option(ModUserTableUi.mark("ALT")),
+                u.marks.engine.option(ModUserTableUi.mark("ENGINE")),
+                u.marks.boost.option(ModUserTableUi.mark("BOOSTER")),
+                u.marks.troll.option(ModUserTableUi.mark("SHADOWBAN"))
               ),
-              td(u.enabled.no.option(userTable.mark("CLOSED"))),
+              td(u.enabled.no.option(ModUserTableUi.mark("CLOSED"))),
               td(momentFromNow(u.createdAt)),
               td(u.seenAt.map(momentFromNow(_))),
               eraseButton.option(
                 td(
                   postForm(action := routes.Mod.gdprErase(u.username)):
-                    views.html.user.mod.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
+                    views.html.mod.ui.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
                 )
               ),
-              if checkboxes then userTable.userCheckboxTd(u.marks.alt)
+              if checkboxes then ModUserTableUi.userCheckboxTd(u.marks.alt)
               else
-                canCloseAlt.option(
+                ModUserTableUi.canCloseAlt.option:
                   td(
                     (!u.marks.alt).option(
                       button(
@@ -910,14 +899,11 @@ object mod:
                       )("ALT")
                     )
                   )
-                )
             )
           }
         )
       )
     )
-
-  def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(lila.security.Granter.canCloseAlt)
 
   private def parts(ps: Option[String]*) = ps.flatten.distinct.mkString(" ")
 

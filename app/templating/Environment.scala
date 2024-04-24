@@ -55,7 +55,7 @@ object Environment
 
   export lila.rating.ratingApi
   val i18nHelper = lila.ui.I18nHelper(lila.i18n.JsDump, lila.i18n.Translator, ratingApi)
-  export i18nHelper.{ given, * }
+  export i18nHelper.{ ratingApi as _, given, * }
 
   val stringHelper = wire[lila.ui.StringHelper]
   export stringHelper.*
@@ -83,7 +83,7 @@ object Environment
   def isOnline        = env.socket.isOnline
   def lightUserSync   = env.user.lightUserSync
   lazy val userHelper = wire[lila.ui.UserHelper]
-  export userHelper.*
+  export userHelper.{ *, given }
 
   lazy val assetHelper = AssetFullHelper(
     assetHelper = assetBasicHelper,
@@ -105,8 +105,9 @@ object Environment
   val htmlHelper = lila.ui.HtmlHelper(lila.common.String.html)
   export htmlHelper.*
 
-  given Conversion[UserWithPerfs, User] = _.user
-  def lightUserFallback                 = env.user.lightUserSyncFallback
-  def isStreaming(userId: UserId)       = env.streamer.liveStreamApi.isStreaming(userId)
+  lazy val kitchenSink = wire[lila.ui.KitchenSink]
+
+  def lightUserFallback           = env.user.lightUserSyncFallback
+  def isStreaming(userId: UserId) = env.streamer.liveStreamApi.isStreaming(userId)
 
   def titleOrText(v: String)(using ctx: Context): Modifier = titleOrTextFor(ctx.blind, v)

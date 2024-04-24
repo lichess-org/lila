@@ -22,6 +22,8 @@ final class UserHelper(
   import i18nHelper.*
   import numberHelper.*
 
+  given Conversion[UserWithPerfs, User] = _.user
+
   def usernameOrId(userId: UserId): String  = lightUser(userId).fold(userId.value)(_.name.value)
   def titleNameOrId(userId: UserId): String = lightUser(userId).fold(userId.value)(_.titleName)
   def titleNameOrAnon(userId: Option[UserId]): String =
@@ -113,7 +115,6 @@ final class UserHelper(
 
   def userLink(
       user: User,
-      cssClass: Option[String] = None,
       withOnline: Boolean = true,
       withPowerTip: Boolean = true,
       withTitle: Boolean = true,
@@ -122,7 +123,7 @@ final class UserHelper(
       params: String = ""
   )(using Translate): Tag =
     a(
-      cls  := userClass(user.id, cssClass, withOnline, withPowerTip),
+      cls  := userClass(user.id, none, withOnline, withPowerTip),
       href := userUrl(user.username, params)
     )(userLinkContent(user, withOnline, withTitle, withPerfRating, name))
 

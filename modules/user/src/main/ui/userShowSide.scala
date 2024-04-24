@@ -1,42 +1,42 @@
-package views.html.user.show
+package lila.user
+package ui
 
-import play.api.i18n.Lang
-
-import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.rating.PerfType
-import lila.rating.{ PerfType as PTs }
-import lila.core.perf.{ UserWithPerfs, PuzPerf }
-import lila.rating.UserPerfsExt.dubiousPuzzle
+import lila.ui.*
+import lila.core.perf.PuzPerf
 import lila.rating.UserWithPerfs.hasVariantRating
 
-object side:
+final class userShowSide(userHelper: UserHelper, i18nHelper: I18nHelper, numberHelper: NumberHelper):
+
+  import i18nHelper.{ *, given }
+  import userHelper.{ *, given }
+  import numberHelper.*
 
   def apply(
-      u: UserWithPerfs,
+      u: lila.core.perf.UserWithPerfs,
       rankMap: lila.rating.UserRankMap,
-      active: Option[PerfType]
+      active: Option[PerfKey]
   )(using ctx: Context) =
 
-    def showNonEmptyPerf(perf: Perf, perfType: PerfType) =
-      perf.nonEmpty.option(showPerf(perf, perfType))
+    def showNonEmptyPerf(perf: Perf, pk: PerfKey) =
+      perf.nonEmpty.option(showPerf(perf, pk))
 
-    def showPerf(perf: Perf, perfType: PerfType) =
-      val isPuzzle = perfType == PerfType.Puzzle
+    def showPerf(perf: Perf, pk: PerfKey) =
+      val isPuzzle = pk == PerfKey.puzzle
       a(
-        dataIcon := perfType.icon,
-        title    := perfType.desc,
+        dataIcon := pk.perfIcon,
+        title    := pk.perfDesc.txt(),
         cls := List(
           "empty"  -> perf.isEmpty,
-          "active" -> active.has(perfType)
+          "active" -> active.contains(pk)
         ),
         href := ctx.pref.showRatings.so:
           if isPuzzle then routes.Puzzle.dashboard(30, "home", u.username.some).url
-          else routes.User.perfStat(u.username, perfType.key).url
+          else routes.User.perfStat(u.username, pk).url
         ,
         span(
-          h3(perfType.trans),
-          if isPuzzle && u.perfs.dubiousPuzzle && ctx.isnt(u) && ctx.pref.showRatings then
+          h3(pk.perfTrans),
+          if isPuzzle && ratingApi.dubiousPuzzle(u.perfs) && ctx.isnt(u) && ctx.pref.showRatings then
             st.rating(strong("?"))
           else
             st.rating(
@@ -55,12 +55,12 @@ object side:
                 )
               ),
               span(
-                if perfType.key.value == "puzzle" then trans.site.nbPuzzles.plural(perf.nb, perf.nb.localize)
+                if pk == PerfKey.puzzle then trans.site.nbPuzzles.plural(perf.nb, perf.nb.localize)
                 else trans.site.nbGames.plural(perf.nb, perf.nb.localize)
               )
             )
           ,
-          rankMap.get(perfType).ifTrue(ctx.pref.showRatings).map { rank =>
+          rankMap.get(pk).ifTrue(ctx.pref.showRatings).map { rank =>
             span(cls := "rank", title := trans.site.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(
               trans.site.rankX(rank.localize)
             )
@@ -70,27 +70,27 @@ object side:
       )
 
     div(cls := "side sub-ratings")(
-      (!u.lame || ctx.is(u) || isGranted(_.UserModView)).option(
+      (!u.lame || ctx.is(u) || Granter.opt(_.UserModView)).option(
         frag(
-          showNonEmptyPerf(u.perfs.ultraBullet, PTs.UltraBullet),
-          showPerf(u.perfs.bullet, PTs.Bullet),
-          showPerf(u.perfs.blitz, PTs.Blitz),
-          showPerf(u.perfs.rapid, PTs.Rapid),
-          showPerf(u.perfs.classical, PTs.Classical),
-          showPerf(u.perfs.correspondence, PTs.Correspondence),
+          showNonEmptyPerf(u.perfs.ultraBullet, PerfKey.ultraBullet),
+          showPerf(u.perfs.bullet, PerfKey.bullet),
+          showPerf(u.perfs.blitz, PerfKey.blitz),
+          showPerf(u.perfs.rapid, PerfKey.rapid),
+          showPerf(u.perfs.classical, PerfKey.classical),
+          showPerf(u.perfs.correspondence, PerfKey.correspondence),
           u.hasVariantRating.option(hr),
-          showNonEmptyPerf(u.perfs.crazyhouse, PTs.Crazyhouse),
-          showNonEmptyPerf(u.perfs.chess960, PTs.Chess960),
-          showNonEmptyPerf(u.perfs.kingOfTheHill, PTs.KingOfTheHill),
-          showNonEmptyPerf(u.perfs.threeCheck, PTs.ThreeCheck),
-          showNonEmptyPerf(u.perfs.antichess, PTs.Antichess),
-          showNonEmptyPerf(u.perfs.atomic, PTs.Atomic),
-          showNonEmptyPerf(u.perfs.horde, PTs.Horde),
-          showNonEmptyPerf(u.perfs.racingKings, PTs.RacingKings),
+          showNonEmptyPerf(u.perfs.crazyhouse, PerfKey.crazyhouse),
+          showNonEmptyPerf(u.perfs.chess960, PerfKey.chess960),
+          showNonEmptyPerf(u.perfs.kingOfTheHill, PerfKey.kingOfTheHill),
+          showNonEmptyPerf(u.perfs.threeCheck, PerfKey.threeCheck),
+          showNonEmptyPerf(u.perfs.antichess, PerfKey.antichess),
+          showNonEmptyPerf(u.perfs.atomic, PerfKey.atomic),
+          showNonEmptyPerf(u.perfs.horde, PerfKey.horde),
+          showNonEmptyPerf(u.perfs.racingKings, PerfKey.racingKings),
           u.noBot.option(
             frag(
               hr,
-              showPerf(u.perfs.puzzle, PTs.Puzzle),
+              showPerf(u.perfs.puzzle, PerfKey.puzzle),
               showStorm(u.perfs.storm, u),
               showRacer(u.perfs.racer),
               showStreak(u.perfs.streak)

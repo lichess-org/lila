@@ -10,7 +10,7 @@ object gamesContent:
       u: User,
       nbs: lila.app.mashup.UserInfo.NbGames,
       pager: Paginator[Game],
-      filters: lila.app.mashup.GameFilterMenu,
+      filters: lila.game.GameFilterMenu,
       filterName: String,
       notes: Map[GameId, String]
   )(using ctx: Context) =

@@ -309,7 +309,7 @@ object show:
   private def renderLog(entries: List[Modlog])(using PageContext) = div(cls := "team-show__log")(
     h2("Mod log"),
     ul(
-      entries.map { e =>
+      entries.map: e =>
         li(
           userIdLink(e.mod.userId.some),
           " ",
@@ -317,6 +317,5 @@ object show:
           ": ",
           Modlog.explain(e)
         )
-      }
     )
   )
