@@ -170,7 +170,7 @@ final class Setup(
               hookResult <- processor.hook(hookConfigWithRating, sri, ctx.req.sid, allBlocking)(using orig)
             yield hookResponse(hookResult)
 
-  private val BoardApiHookConcurrencyLimitPerUserOrSri = lila.memo.ConcurrencyLimit[Either[Sri, UserId]](
+  private val BoardApiHookConcurrencyLimitPerUserOrSri = lila.web.ConcurrencyLimit[Either[Sri, UserId]](
     name = "Board API hook Stream API concurrency per user",
     key = "boardApiHook.concurrency.limit.user",
     ttl = 10.minutes,
