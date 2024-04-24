@@ -100,11 +100,11 @@ final class Main(
 
   def contact = Open:
     pageHit
-    Ok.page(html.site.contact())
+    Ok.page(html.site.page.contact)
 
   def faq = Open:
     pageHit
-    Ok.page(html.site.faq())
+    Ok.page(html.site.page.faq)
 
   def temporarilyDisabled(path: String) = Open:
     pageHit

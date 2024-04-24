@@ -11,24 +11,7 @@ import lila.core.data.SafeJsonStr
 
 object perfStat:
 
-  lazy val ui = lila.perfStat.PerfStatUi(i18nHelper, dateHelper, userHelper)(
-    routes.Round.watcher,
-    percentileText = (u, perfType, percentile) =>
-      ctx ?=>
-        if ctx.is(u) then
-          trans.site.youAreBetterThanPercentOfPerfTypePlayers(
-            a(href := routes.User.ratingDistribution(perfType.key))(strong(percentile, "%")),
-            a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
-          )
-        else
-          trans.site.userIsBetterThanPercentOfPerfTypePlayers(
-            a(href := routes.User.show(u.username))(u.username),
-            a(href := routes.User.ratingDistribution(perfType.key, u.username.some))(
-              strong(percentile, "%")
-            ),
-            a(href := routes.User.topNb(200, perfType.key))(perfType.trans)
-          )
-  )
+  lazy val ui = lila.perfStat.PerfStatUi(i18nHelper, dateHelper, userHelper)
 
   import trans.perfStat.*
 

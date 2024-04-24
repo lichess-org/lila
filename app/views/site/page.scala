@@ -30,6 +30,27 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
     div(cls := "body")(views.html.cms.render(p))
   )
 
+  def faq(using PageContext) =
+    layout(
+      title = "Frequently Asked Questions",
+      active = "faq",
+      moreCss = cssTag("faq")
+    ):
+      lila.web.views.faq(i18nHelper, assetHelper)(
+        standardRankableDeviation = lila.rating.Glicko.standardRankableDeviation,
+        variantRankableDeviation = lila.rating.Glicko.variantRankableDeviation
+      )
+
+  def contact(using PageContext) =
+    layout(
+      title = trans.contact.contact.txt(),
+      active = "contact",
+      moreCss = cssTag("contact"),
+      modules = jsModule("bits.contact"),
+      contentCls = "page box box-pad"
+    ):
+      lila.web.views.contact(netConfig.email)
+
   def source(p: CmsPage.Render)(using PageContext) =
     layout(
       title = p.title,

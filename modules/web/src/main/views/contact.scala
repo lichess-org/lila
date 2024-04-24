@@ -1,10 +1,11 @@
-package views.html
-package site
+package lila.web
+package views
 
 import scala.util.chaining.*
 
-import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.*
+import lila.core.i18n.{ Translate, I18nKey as trans }
 
 object contact:
 
@@ -12,12 +13,18 @@ object contact:
   import lila.web.views.navTree.*
   import lila.web.views.navTree.Node.*
 
-  def contactEmailLinkEmpty(email: String = contactEmailInClear) =
+  def contactEmailLinkEmpty(email: String) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
-  def contactEmailLink(email: String = contactEmailInClear)(using PageContext) =
+  def contactEmailLink(email: String)(using Translate) =
     contactEmailLinkEmpty(email)(trans.site.clickToRevealEmailAddress())
 
-  private def reopenLeaf(prefix: String)(using PageContext) =
+  def apply(contactEmail: EmailAddress)(using Translate): Frag =
+    frag(
+      h1(cls := "box__top")(contactLichess()),
+      div(cls := "nav-tree")(renderNode(menu(contactEmail), none))
+    )
+
+  private def reopenLeaf(prefix: String)(using Translate) =
     Leaf(
       s"$prefix-reopen",
       wantReopen(),
@@ -27,7 +34,7 @@ object contact:
       )
     )
 
-  private def howToReportBugs(using PageContext): Frag =
+  private def howToReportBugs(using Translate): Frag =
     frag(
       ul(
         li(
@@ -46,7 +53,7 @@ object contact:
       p(howToReportBug())
     )
 
-  private def menu(using PageContext): Branch =
+  def menu(contactEmail: EmailAddress)(using Translate): Branch =
     Branch(
       "root",
       whatCanWeHelpYouWith(),
@@ -230,7 +237,7 @@ object contact:
         ),
         frag(
           p(doNotMessageModerators()),
-          p(sendAppealTo(a(href := routes.Appeal.home)(netConfig.domain, routes.Appeal.home.url))),
+          p(sendAppealTo(a(href := routes.Appeal.home)(routes.Appeal.home.url))),
           p(
             falsePositives(),
             br,
@@ -307,7 +314,7 @@ object contact:
                 ),
                 p(
                   "Then send us an email at ",
-                  contactEmailLink(),
+                  contactEmailLink(contactEmail.value),
                   " to request the definitive erasure of all data linked to the account."
                 )
               )
@@ -325,7 +332,7 @@ object contact:
               "contact-other",
               noneOfTheAbove(),
               frag(
-                p(sendEmailAt(contactEmailLink())),
+                p(sendEmailAt(contactEmailLink(contactEmail.value))),
                 p(explainYourRequest())
               )
             )
@@ -335,17 +342,3 @@ object contact:
     )
 
   val dmcaUrl = "/dmca"
-
-  def apply()(using PageContext) =
-    page.layout(
-      title = trans.contact.contact.txt(),
-      active = "contact",
-      moreCss = cssTag("contact"),
-      modules = jsModule("bits.contact"),
-      contentCls = "page box box-pad"
-    )(
-      frag(
-        h1(cls := "box__top")(contactLichess()),
-        div(cls := "nav-tree")(renderNode(menu, none))
-      )
-    )

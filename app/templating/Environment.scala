@@ -53,7 +53,7 @@ object Environment
   val numberHelper = lila.ui.NumberHelper
   export numberHelper.*
 
-  val i18nHelper = lila.ui.I18nHelper(lila.i18n.JsDump, lila.i18n.Translator)
+  val i18nHelper = lila.ui.I18nHelper(lila.i18n.JsDump, lila.i18n.Translator, lila.rating.ratingApi)
   export i18nHelper.{ given, * }
 
   val stringHelper = wire[lila.ui.StringHelper]
@@ -79,7 +79,6 @@ object Environment
   lazy val assetBasicHelper = wire[lila.ui.AssetHelper]
   export assetBasicHelper.*
 
-  export lila.rating.ratingApi
   def isOnline        = env.socket.isOnline
   def lightUserSync   = env.user.lightUserSync
   lazy val userHelper = wire[lila.ui.UserHelper]

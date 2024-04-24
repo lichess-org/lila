@@ -10,13 +10,26 @@ final class PerfStatUi(
     i18nHelper: lila.ui.I18nHelper,
     dateHelper: lila.ui.DateHelper,
     userHelper: lila.ui.UserHelper
-)(
-    percentileText: (User, PerfType, Double) => Context ?=> Frag
 ):
   import lila.ui.NumberHelper.*
-  import i18nHelper.given
+  import i18nHelper.{ *, given }
   import dateHelper.*
   import trans.perfStat.*
+
+  private def percentileText(u: User, pk: PerfKey, percentile: Double)(using ctx: Context): Frag =
+    if ctx.is(u) then
+      trans.site.youAreBetterThanPercentOfPerfTypePlayers(
+        a(href := routes.User.ratingDistribution(pk))(strong(percentile, "%")),
+        a(href := routes.User.topNb(200, pk))(pk.perfName.txt())
+      )
+    else
+      trans.site.userIsBetterThanPercentOfPerfTypePlayers(
+        a(href := routes.User.show(u.username))(u.username),
+        a(href := routes.User.ratingDistribution(pk, u.username.some))(
+          strong(percentile, "%")
+        ),
+        a(href := routes.User.topNb(200, pk))(pk.perfName.txt())
+      )
 
   def ratingHistoryContainer = div(cls := "rating-history-container")(
     div(cls := "rating-history-container")(
