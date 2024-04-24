@@ -55,6 +55,12 @@ final class Analyser(
         fuccess:
           Bus.publish(lila.tree.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
 
+  private val logChessError = (id: GameId) =>
+    val logger = lila.log("analyser")
+    (err: chess.ErrorStr) =>
+      logger.warn:
+        s"analyser.TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}"
+
   private def makeProgressPayload(
       analysis: Analysis,
       game: Game,
@@ -62,5 +68,11 @@ final class Analyser(
   ): JsObject =
     Json.obj(
       "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
-      "tree"     -> Tree.makeMinimalJsonString(game, analysis.some, initialFen, ExportOptions.default)
+      "tree" -> Tree.makeMinimalJsonString(
+        game,
+        analysis.some,
+        initialFen,
+        ExportOptions.default,
+        logChessError
+      )
     )
