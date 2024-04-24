@@ -36,7 +36,7 @@ given Conversion[String, Sri]                                            = Sri(_
 given Conversion[Int, chess.FideId]                                      = chess.FideId(_)
 given challengeId: Conversion[String, Challenge.Id]                      = Challenge.Id(_)
 given appealId: Conversion[String, Appeal.Id]                            = Appeal.Id(_)
-given reportId: Conversion[String, Report.Id]                            = Report.Id(_)
+given reportId: Conversion[String, ReportId]                            = ReportId(_)
 given clasId: Conversion[String, Clas.Id]                                = Clas.Id(_)
 given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasInvite.Id(_)
 given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
@@ -72,7 +72,6 @@ object ReverseRouterConversions:
   given Conversion[chess.FideId, Int]                                      = _.value
   given challengeIdConv: Conversion[Challenge.Id, String]                  = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                        = _.value
-  given reportIdConv: Conversion[Report.Id, String]                        = _.value
   given postIdConv: Conversion[ForumPostId, String]                        = _.value
   given clasIdConv: Conversion[Clas.Id, String]                            = _.value
   given clasInviteIdConv: Conversion[ClasInvite.Id, String]                = _.value

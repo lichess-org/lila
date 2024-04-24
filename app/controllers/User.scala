@@ -355,7 +355,7 @@ final class User(
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
       case WithPerfsAndEmails(user, emails) =>
         withPageContext:
-          import html.user.{ mod as view }
+          import html.mod.{ user as ui }
           import lila.ui.ScalatagsExtensions.{ emptyFrag, given }
           given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
 
@@ -364,42 +364,41 @@ final class User(
           val modLog = for
             history <- env.mod.logApi.userHistory(user.id)
             appeal  <- isGranted(_.Appeals).so(env.appeal.api.byId(user))
-          yield view.modLog(history, appeal)
+          yield html.user.mod.modLog(history, appeal)
 
           val plan =
             isGranted(_.Admin).so(
               env.plan.api
                 .recentChargesOf(user)
-                .map(view.plan(user))
+                .map(html.user.mod.plan(user))
                 .dmap(_ | emptyFrag)
             ): Fu[Frag]
 
-          val student = env.clas.api.student.findManaged(user).map2(view.student).dmap(~_)
+          val student = env.clas.api.student.findManaged(user).map2(html.user.mod.student).dmap(~_)
 
           val reportLog = isGranted(_.SeeReport).so(
             env.report.api
               .byAndAbout(user, 20)
               .flatMap: rs =>
                 lightUserApi.preloadMany(rs.userIds).inject(rs)
-              .map(view.reportLog(user))
+              .map(ui.reportLog(user))
           )
 
-          val prefs = isGranted(_.CheatHunter).so(env.pref.api.get(user).map(view.prefs(user)))
+          val prefs = isGranted(_.CheatHunter).so:
+            env.pref.api
+              .get(user)
+              .map: prefs =>
+                ui.prefs(user, prefs.hasKeyboardMove, prefs.botCompatible)
 
           val rageSit = isGranted(_.CheatHunter).so(
             env.playban.api
               .rageSitOf(user.id)
               .zip(env.playban.api.bans(user.id))
-              .map(view.showRageSitAndPlaybans)
+              .map(ui.showRageSitAndPlaybans)
           )
 
           val actions = env.user.repo.isErased(user).map { erased =>
-            html.user.mod.actions(
-              user,
-              emails,
-              erased,
-              env.mod.presets.getPmPresets
-            )
+            ui.actions(user, emails, erased, env.mod.presets.getPmPresets)
           }
 
           val userLoginsFu = env.security.userLogins(user, nbOthers)
@@ -420,20 +419,19 @@ final class User(
             isGranted(_.MarkEngine).so(env.irwin.irwinApi.reports.withPovs(user).mapz(html.irwin.ui.report))
           val assess = isGranted(_.MarkEngine)
             .so(env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id))
-            .flatMapz { as =>
+            .flatMapz: as =>
               lightUserApi
                 .preloadMany(as.games.flatMap(_.userIds))
-                .inject(html.user.mod.assessments(user, as))
-            }
+                .inject(ui.assessments(user, as))
 
           val boardTokens = env.oAuth.tokenApi.usedBoardApi(user.id).map(html.user.mod.boardTokens)
 
-          val teacher = env.clas.api.clas.countOf(user).map(html.user.mod.teacher(user))
+          val teacher = env.clas.api.clas.countOf(user).map(ui.teacher(user))
 
           given EventSource.EventDataExtractor[Frag] = EventSource.EventDataExtractor[Frag](_.render)
           Ok.chunked:
             Source
-              .single(html.user.mod.menu)
+              .single(ui.menu)
               .merge(modZoneSegment(actions, "actions", user))
               .merge(modZoneSegment(modLog, "modLog", user))
               .merge(modZoneSegment(plan, "plan", user))
@@ -459,7 +457,7 @@ final class User(
       case WithPerfsAndEmails(user, emails) =>
         env.user.repo.isErased(user).flatMap { erased =>
           Ok.page:
-            html.user.mod.actions(
+            html.mod.user.actions(
               user,
               emails,
               erased,

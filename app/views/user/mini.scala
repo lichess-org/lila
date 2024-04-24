@@ -90,7 +90,8 @@ object mini:
             " ",
             momentFromNowOnce(u.createdAt)
           ),
-          (u.lameOrTroll || u.enabled.no).option(span(cls := "upt__mod__marks")(mod.userMarks(u.user, None)))
+          (u.lameOrTroll || u.enabled.no)
+            .option(span(cls := "upt__mod__marks")(views.html.mod.user.userMarks(u.user, None)))
         )
       ),
       playing.map(views.html.game.mini(_))

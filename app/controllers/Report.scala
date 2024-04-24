@@ -7,14 +7,10 @@ import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.report.Report.Id as ReportId
+import lila.core.id.ReportId
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
 
-final class Report(
-    env: Env,
-    userC: => User,
-    modC: => Mod
-) extends LilaController(env):
+final class Report(env: Env, userC: => User, modC: => Mod) extends LilaController(env):
 
   import env.report.api
 

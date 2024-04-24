@@ -12,7 +12,7 @@ object ModUserTableUi:
   val email      = tag("email")
   val mark       = tag("marked")
 
-  def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(canCloseAlt)
+  def canCloseAlt(using me: Option[Me]): Boolean = me.soUse(lila.mod.canCloseAlt)
 
   def selectAltAll(using Context) = canCloseAlt.option:
     sortNoneTh(
