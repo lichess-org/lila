@@ -1,8 +1,8 @@
 package lila.web
 package views
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.Context
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
 object navTree:
 

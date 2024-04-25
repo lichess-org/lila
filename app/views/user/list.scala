@@ -78,7 +78,7 @@ object list:
             li(
               userIdLink(w.userId.some),
               a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
-                scheduledTournamentNameShortHtml(w.tourName)
+                views.html.tournament.ui.scheduledTournamentNameShortHtml(w.tourName)
             )
       )
     )

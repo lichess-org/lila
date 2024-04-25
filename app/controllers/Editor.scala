@@ -51,4 +51,4 @@ final class Editor(env: Env) extends LilaController(env):
     if fen == Fen.initial && variant.standard then routes.Editor.index.url
     else
       val params = variant.exotic.so(s"?variant=${variant.key}")
-      routes.Editor.load(lila.web.ui.ChessHelper.underscoreFen(fen)).url + params
+      routes.Editor.load(lila.ui.ChessHelper.underscoreFen(fen)).url + params

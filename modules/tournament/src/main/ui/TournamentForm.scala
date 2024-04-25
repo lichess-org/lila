@@ -3,8 +3,8 @@ package ui
 
 import play.api.data.*
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.{ Context, FormHelper, I18nHelper }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ Translate, I18nKey as trans }
 import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.core.team.LightTeam
@@ -19,13 +19,10 @@ extension (f: Form[?])
     prefixOpt.fold(name)(prefix => s"$prefix.$name")
   )
 
-final class TournamentForm(
-    val formHelper: FormHelper,
-    val i18nHelper: I18nHelper,
+final class TournamentForm(val helpers: Helpers)(
     val translatedVariantChoicesWithVariants: Translate ?=> List[(String, String, Option[String])]
 ):
-  import formHelper.*
-  import i18nHelper.given
+  import helpers.{ *, given }
 
   def tourFields(form: Form[?], tour: Option[Tournament])(using Context, FormPrefix) =
     TourFields(this)(form, tour)
@@ -185,8 +182,7 @@ final class TourFields(tourForm: TournamentForm)(form: Form[?], tour: Option[Tou
     FormPrefix
 ):
   import tourForm.*
-  import i18nHelper.given
-  import formHelper.*
+  import tourForm.helpers.{ given, * }
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form.prefix("teamBattleByTeam").value.nonEmpty
 

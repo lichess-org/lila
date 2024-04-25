@@ -5,6 +5,8 @@ import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey as trans
 import lila.tournament.Tournament
 
+lazy val ui = lila.tournament.ui.TournamentUi(env.tournament.getTourName, lila.i18n.Translator.toDefault)
+
 object bits:
 
   def notFound()(using PageContext) =
@@ -27,7 +29,7 @@ object bits:
         val visiblePlayers = (tour.nbPlayers >= 10).option(tour.nbPlayers)
         tr(
           td(cls := "name")(
-            a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id)):
+            a(cls := "text", dataIcon := ui.tournamentIcon(tour), href := routes.Tournament.show(tour.id)):
               tour.name(full = false)
           ),
           td(

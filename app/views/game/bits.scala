@@ -8,7 +8,7 @@ import lila.ui.ScalatagsTemplate.*
 import lila.rating.PerfType
 import lila.game.GameExt.perfType
 
-lazy val ui = lila.game.ui.GameUi(i18nHelper, dateHelper, userHelper)
+lazy val ui = lila.game.ui.GameUi(helpers)
 
 object bits:
 

@@ -10,7 +10,7 @@ import lila.common.String.html.richText
 
 object student:
 
-  lazy val ui = lila.clas.ui.ClasStudentUi(kitchenSink, bits.ui)
+  lazy val ui = lila.clas.ui.ClasStudentUi(helpers, views.html.clas.ui)
 
   def show(
       clas: Clas,

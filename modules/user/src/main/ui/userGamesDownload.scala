@@ -1,14 +1,11 @@
 package lila.user
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-final class userGamesDownload(userHelper: UserHelper, i18nHelper: I18nHelper, formHelper: FormHelper):
-
-  import userHelper.*
-  import i18nHelper.{ *, given }
-  import formHelper.*
+final class userGamesDownload(helpers: Helpers):
+  import helpers.{ *, given }
 
   def apply(user: User)(using ctx: Context): Frag =
     main(cls := "box page-small search")(

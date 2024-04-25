@@ -5,7 +5,6 @@ import play.api.i18n.Lang
 import scalatags.Text
 
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.NumberHelper.*
 import lila.insight.InsightPosition
 import lila.core.i18n.Translate
 
@@ -42,7 +41,7 @@ object grade:
             " (peers)"
           ),
           " over ",
-          metric.mine.count.localize,
+          lila.ui.NumberHelper.formatter.format(metric.mine.count),
           " ",
           position.short,
           (!metric.mine.reliableEnough).option(

@@ -50,7 +50,7 @@ object widgets:
               g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
               g.tournamentId
                 .map { tourId =>
-                  frag(separator, tournamentLink(tourId))
+                  frag(separator, views.html.tournament.ui.tournamentLink(tourId))
                 }
                 .orElse(g.simulId.map { simulId =>
                   frag(separator, views.html.simul.bits.link(simulId))

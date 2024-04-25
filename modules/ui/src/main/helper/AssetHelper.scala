@@ -3,7 +3,9 @@ package lila.ui
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.AssetBaseUrl
 
-final class AssetHelper(assetBaseUrl: AssetBaseUrl):
+trait AssetHelper:
+
+  def assetBaseUrl: AssetBaseUrl
 
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______2"

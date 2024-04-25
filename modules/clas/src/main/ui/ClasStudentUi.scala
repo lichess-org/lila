@@ -1,11 +1,11 @@
 package lila.clas
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
 
-final class ClasStudentUi(helpers: KitchenSink, clasUi: ClasUi)(using NetDomain):
+final class ClasStudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
   import helpers.{ *, given }
 
   def show(clas: Clas, students: List[Student], s: Student.WithUserAndManagingClas, activities: Frag)(using
@@ -87,7 +87,7 @@ final class ClasStudentUi(helpers: KitchenSink, clasUi: ClasUi)(using NetDomain)
         p(
           trans.clas.invitedToXByY(
             a(href := routes.Clas.show(clas.id.value))(clas.name),
-            userHelper.userIdLink(s.student.created.by.some, withOnline = false)
+            userIdLink(s.student.created.by.some, withOnline = false)
           ),
           " ",
           momentFromNowOnce(s.student.created.at)

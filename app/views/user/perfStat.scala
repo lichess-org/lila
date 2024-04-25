@@ -11,7 +11,7 @@ import lila.core.data.SafeJsonStr
 
 object perfStat:
 
-  lazy val ui = lila.perfStat.PerfStatUi(i18nHelper, dateHelper, userHelper)
+  lazy val ui = lila.perfStat.PerfStatUi(helpers)
 
   import trans.perfStat.*
 

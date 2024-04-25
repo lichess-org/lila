@@ -2,22 +2,16 @@ package lila.web
 package views
 
 import play.api.libs.json.Json
-
+import play.api.data.{ Form, Field }
 import scala.reflect.Selectable.reflectiveSelectable
 
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.core.captcha.Captcha
-import play.api.data.{ Form, Field }
 
-import lila.core.i18n.{ I18nKey as trans }
-import lila.core.config.BaseUrl
-
-import lila.ui.{ Form3, I18nHelper }
-
-final class captcha(form3: Form3, i18nHelper: I18nHelper, netBaseUrl: BaseUrl):
-
-  import i18nHelper.given
+final class captcha(helpers: Helpers):
+  import helpers.{ *, given }
 
   private val dataCheckUrl = attr("data-check-url")
   private val dataMoves    = attr("data-moves")
@@ -26,7 +20,7 @@ final class captcha(form3: Form3, i18nHelper: I18nHelper, netBaseUrl: BaseUrl):
   def apply(
       form: Form[?] | Field,
       captcha: Captcha
-  )(using ctx: lila.ui.Context) =
+  )(using ctx: Context) =
     frag(
       form3.hidden(formField(form, "gameId"), captcha.gameId.value.some),
       if ctx.blind then form3.hidden(formField(form, "move"), captcha.solutions.head.some)
@@ -40,7 +34,7 @@ final class captcha(form3: Form3, i18nHelper: I18nHelper, netBaseUrl: BaseUrl):
           dataCheckUrl := routes.Main.captchaCheck(captcha.gameId)
         )(
           div(cls := "challenge")(
-            ui.ChessHelper.chessgroundMini(captcha.fen, captcha.color) {
+            chessgroundMini(captcha.fen, captcha.color) {
               div(
                 dataMoves    := safeJsonValue(Json.toJson(captcha.moves)),
                 dataPlayable := 1

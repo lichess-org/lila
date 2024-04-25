@@ -9,7 +9,7 @@ import lila.rating.PerfType
 
 object bits:
 
-  lazy val ui = lila.user.ui.UserUiBits()(assetUrl)
+  lazy val ui = lila.user.ui.UserUiBits(assetUrl)
   export ui.*
 
   def communityMenu(active: String)(using Context) =

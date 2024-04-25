@@ -1,11 +1,9 @@
 package lila.app
 package templating
 
-import lila.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.*
 import lila.web.ui.*
-
-import com.softwaremill.macwire.*
-import lila.core.perf.UserWithPerfs
 
 object Environment
     extends RouterHelper
@@ -13,10 +11,13 @@ object Environment
     with lila.setup.SetupUi
     with lila.pref.PrefUi
     with SecurityHelper
-    with TeamHelper:
+    with TeamHelper
+    with Helpers
+    with AssetFullHelper:
 
   export lila.core.lilaism.Lilaism.{ *, given }
   export lila.common.extensions.*
+  export lila.common.String.html.richText
   export lila.ui.Icon
   export lila.web.Nonce
   export lila.web.ui.{ PageModule, EsmList }
@@ -28,7 +29,6 @@ object Environment
   def env: Env                    = envVar.get
 
   def netConfig           = env.net
-  def netBaseUrl          = env.net.baseUrl
   def contactEmailInClear = env.net.email.value
   def picfitUrl           = env.memo.picfitUrl
 
@@ -48,64 +48,20 @@ object Environment
   def tablebaseEndpoint      = env.tablebaseEndpoint
   def externalEngineEndpoint = env.externalEngineEndpoint
 
-  // helper dependencies
+  // helpers dependencies
+  lazy val assetBaseUrl       = netConfig.assetBaseUrl
+  lazy val netBaseUrl         = netConfig.baseUrl
+  protected val ratingApi     = lila.rating.ratingApi
+  protected lazy val flairApi = env.user.flairApi
+  lazy val isOnline           = env.socket.isOnline
+  lazy val lightUserSync      = env.user.lightUserSync
+  def manifest                = env.web.manifest
+  protected val jsDump        = lila.i18n.JsDump
+  protected val translator    = lila.i18n.Translator
+  protected val namer         = lila.game.Namer
 
-  val numberHelper = lila.ui.NumberHelper
-  export numberHelper.*
-
-  export lila.rating.ratingApi
-  val i18nHelper = lila.ui.I18nHelper(lila.i18n.JsDump, lila.i18n.Translator, ratingApi)
-  export i18nHelper.{ ratingApi as _, given, * }
-
-  val stringHelper = wire[lila.ui.StringHelper]
-  export stringHelper.*
-
-  val dateHelper = wire[lila.ui.DateHelper]
-  export dateHelper.*
-
-  val flashHelper = wire[lila.ui.FlashHelper]
-  export flashHelper.*
-
-  def flairApi        = env.user.flairApi
-  lazy val formHelper = wire[lila.ui.FormHelper]
-  export formHelper.*
-
-  def routeTournamentShow: String => Call = routes.Tournament.show
-  def getTourName                         = env.tournament.getTourName
-  def defaultTranslate                    = lila.i18n.Translator.toDefault
-  lazy val tourHelper                     = wire[lila.tournament.ui.TournamentHelper]
-  export tourHelper.*
-
-  lazy val assetBaseUrl     = netConfig.assetBaseUrl
-  lazy val assetBasicHelper = wire[lila.ui.AssetHelper]
-  export assetBasicHelper.*
-
-  def isOnline        = env.socket.isOnline
-  def lightUserSync   = env.user.lightUserSync
-  lazy val userHelper = wire[lila.ui.UserHelper]
-  export userHelper.{ *, given }
-
-  lazy val assetHelper = AssetFullHelper(
-    assetHelper = assetBasicHelper,
-    i18nHelper = i18nHelper,
-    net = netConfig,
-    manifest = env.web.manifest,
-    explorerEndpoint = env.explorerEndpoint,
-    tablebaseEndpoint = env.tablebaseEndpoint,
-    externalEngineEndpoint = env.externalEngineEndpoint
-  )
-  export assetHelper.{ *, given }
-
-  def namer           = env.game.namer
-  lazy val gameHelper = wire[lila.ui.GameHelper]
-  export gameHelper.*
-
-  export ChessHelper.*
-
-  val htmlHelper = lila.ui.HtmlHelper(lila.common.String.html)
-  export htmlHelper.*
-
-  lazy val kitchenSink = wire[lila.ui.KitchenSink]
+  def helpers: Helpers             = this
+  def assetHelper: AssetFullHelper = this
 
   def lightUserFallback           = env.user.lightUserSyncFallback
   def isStreaming(userId: UserId) = env.streamer.liveStreamApi.isStreaming(userId)

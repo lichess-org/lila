@@ -1,21 +1,13 @@
 package lila.mod
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.report.{ Report, Reason }
 import lila.core.config.NetDomain
 
-final class ModInquiryUi(
-    formHelper: FormHelper,
-    dateHelper: DateHelper,
-    i18nHelper: I18nHelper,
-    htmlHelper: HtmlHelper,
-    userHelper: UserHelper
-):
-  import formHelper.*
-  import userHelper.userIdLink
-  import i18nHelper.{ *, given }
+final class ModInquiryUi(helpers: Helpers):
+  import helpers.{ *, given }
 
   def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
 
@@ -33,7 +25,7 @@ final class ModInquiryUi(
             " for ",
             strong(r.reason.name),
             " ",
-            dateHelper.momentFromNow(atom.at)
+            momentFromNow(atom.at)
           ),
           p(renderAtomText(atom.simplifiedText, r.isComm))
         )
@@ -73,9 +65,9 @@ final class ModInquiryUi(
               "by ",
               userIdLink(note.from.some, withOnline = false),
               ", ",
-              dateHelper.momentFromNow(note.date)
+              momentFromNow(note.date)
             ),
-            p(htmlHelper.richText(note.text, nl2br = true, expandImg = false))
+            p(richText(note.text))
           )
         )
     )
@@ -105,7 +97,7 @@ final class ModInquiryUi(
                   " ",
                   e.details,
                   " ",
-                  dateHelper.momentFromNow(e.date)
+                  momentFromNow(e.date)
                 )
             )
           )

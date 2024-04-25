@@ -4,9 +4,7 @@ package ui
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Translate
 
-final class UserUiBits()(
-    assetUrl: String => String
-):
+final class UserUiBits(assetUrl: String => String):
   def signalBars(v: Int) = raw:
     val bars = (1 to 4)
       .map: b =>

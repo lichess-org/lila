@@ -1,11 +1,11 @@
 package lila.mod
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.report.{ Report, Reason }
 
-final class ModUi(helpers: KitchenSink):
+final class ModUi(helpers: Helpers):
   import helpers.{ *, given }
 
   def gdprEraseButton(u: User)(using Context) =

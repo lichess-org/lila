@@ -4,10 +4,11 @@ package views
 import chess.format.Fen
 import play.api.i18n.Lang
 
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
 import lila.core.i18n.Translate
-import lila.web.ui.ChessHelper.underscoreFen
+import lila.ui.ChessHelper.underscoreFen
 
 final class bits():
 

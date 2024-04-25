@@ -1,48 +1,34 @@
 package lila.tournament
 package ui
 
-import play.api.i18n.Lang
-import play.api.libs.json.Json
-
-import lila.ui.ScalatagsTemplate.*
-import lila.common.Json.given
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.core.i18n.Translate
-import lila.core.user.User
 
-final class TournamentHelper(
-    routeTournamentShow: String => Call,
+final class TournamentUi(
     getTourName: GetTourName,
     defaultTranslate: Translate
 ):
-  def tournamentJsData(tour: Tournament, version: Int, user: Option[User]) =
-    val data = Json.obj(
-      "tournament" -> Json.obj("id" -> tour.id),
-      "version"    -> version
-    )
-    Json.stringify:
-      user.fold(data): u =>
-        data ++ Json.obj("username" -> u.username)
-
   def tournamentLink(tour: Tournament)(using Translate): Frag =
     a(
       dataIcon := Icon.Trophy.value,
       cls      := (if tour.isScheduled then "text is-gold" else "text"),
-      href     := routeTournamentShow(tour.id.value).url
+      href     := routes.Tournament.show(tour.id.value).url
     )(tour.name())
 
   def tournamentLink(tourId: TourId)(using Translate): Frag =
     a(
       dataIcon := Icon.Trophy.value,
       cls      := "text",
-      href     := routeTournamentShow(tourId.value).url
+      href     := routes.Tournament.show(tourId.value).url
     )(tournamentIdToName(tourId))
 
   def tournamentIdToName(id: TourId)(using translate: Translate): String =
     getTourName.sync(id)(using translate.lang).getOrElse("Tournament")
 
   object scheduledTournamentNameShortHtml:
-    private def icon(c: lila.ui.Icon) = s"""<span data-icon="$c"></span>"""
+    private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""
     private val replacements =
       given lila.core.i18n.Translate = defaultTranslate
       List(
@@ -59,7 +45,7 @@ final class TournamentHelper(
       replacements.foldLeft(name):
         case (n, (from, to)) => n.replace(from, to)
 
-  def tournamentIcon(tour: Tournament): lila.ui.Icon =
+  def tournamentIcon(tour: Tournament): Icon =
     tour.schedule.map(_.freq) match
       case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => Icon.Globe
       case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.icon

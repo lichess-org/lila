@@ -8,9 +8,8 @@ import lila.core.team.LightTeam
 import lila.team.Team
 
 trait TeamHelper:
-  self: RouterHelper =>
+  self: RouterHelper & lila.ui.AssetHelper =>
 
-  def assetBasicHelper: lila.ui.AssetHelper
   def env: Env
 
   def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
@@ -35,7 +34,7 @@ trait TeamHelper:
   def teamFlair(team: LightTeam): Option[Tag] = team.flair.map(teamFlair)
 
   def teamFlair(flair: Flair): Tag =
-    img(cls := "uflair", src := assetBasicHelper.flairSrc(flair))
+    img(cls := "uflair", src := flairSrc(flair))
 
   def teamForumUrl(id: TeamId) = routes.ForumCateg.show("team-" + id)
 

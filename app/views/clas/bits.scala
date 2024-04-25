@@ -5,9 +5,9 @@ import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 
-object bits:
+lazy val ui = lila.clas.ui.ClasUi(helpers)
 
-  lazy val ui = lila.clas.ui.ClasUi(kitchenSink)
+object bits:
 
   def layout(
       title: String,

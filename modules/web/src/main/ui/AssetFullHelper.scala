@@ -3,7 +3,6 @@ package ui
 import play.api.libs.json.{ JsValue, Json, Writes }
 
 import lila.ui.ScalatagsTemplate.*
-import lila.core.net.AssetVersion
 import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
 import lila.web.ui.*
@@ -17,18 +16,15 @@ case class EsmInit(key: String, init: Frag)
 type Optionce = Option[Nonce]
 type EsmList  = List[Option[EsmInit]]
 
-final class AssetFullHelper(
-    assetHelper: lila.ui.AssetHelper,
-    i18nHelper: lila.ui.I18nHelper,
-    net: NetConfig,
-    manifest: AssetManifest,
-    explorerEndpoint: String,
-    tablebaseEndpoint: String,
-    externalEngineEndpoint: String
-):
-  import assetHelper.*
-  import net.{ domain as netDomain, assetDomain, minifiedAssets, assetBaseUrl }
-  private lazy val socketDomains = net.socketDomains ::: net.socketAlts
+trait AssetFullHelper:
+  self: lila.ui.AssetHelper & lila.ui.I18nHelper =>
+  def netConfig: NetConfig
+  def manifest: AssetManifest
+  def explorerEndpoint: String
+  def tablebaseEndpoint: String
+  def externalEngineEndpoint: String
+
+  private lazy val socketDomains = netConfig.socketDomains ::: netConfig.socketAlts
   // lazy val vapidPublicKey         = env.push.vapidPublicKey
 
   given Conversion[EsmInit, EsmList] with
@@ -36,9 +32,9 @@ final class AssetFullHelper(
   given Conversion[Option[EsmInit], EsmList] with
     def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
 
-  lazy val sameAssetDomain = netDomain == assetDomain
+  lazy val sameAssetDomain = netConfig.domain == netConfig.assetDomain
 
-  def assetVersion = AssetVersion.current
+  def assetVersion = lila.core.net.AssetVersion.current
 
   def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
 
@@ -94,8 +90,8 @@ final class AssetFullHelper(
     // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev = (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
     ContentSecurityPolicy.basic(
-      assetDomain,
-      assetDomain.value :: sockets ::: explorerEndpoint :: tablebaseEndpoint :: localDev
+      netConfig.assetDomain,
+      netConfig.assetDomain.value :: sockets ::: explorerEndpoint :: tablebaseEndpoint :: localDev
     )
 
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =

@@ -1,8 +1,8 @@
 package lila.mod
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.user.WithPerfsAndEmails
 
 object ModUserTableUi:
@@ -33,7 +33,7 @@ object ModUserTableUi:
     )
   )
 
-final class ModUserTableUi(helpers: KitchenSink, modUi: ModUi):
+final class ModUserTableUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }
   import ModUserTableUi.*
 
@@ -62,7 +62,7 @@ final class ModUserTableUi(helpers: KitchenSink, modUi: ModUi):
               if showUsernames || canViewAltUsername(u.user)
               then
                 td(dataSort := u.id)(
-                  helpers.userHelper.userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
+                  userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
                   Granter.opt(_.Admin).option(email(emails.strList.mkString(", ")))
                 )
               else td,

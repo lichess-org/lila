@@ -3,7 +3,6 @@ package game
 
 import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.web.ui.ChessHelper.underscoreFen
 import lila.game.GameExt.perfType
 
 object side:
@@ -121,7 +120,7 @@ object side:
             )
           .orElse:
             game.tournamentId.map: tourId =>
-              st.section(cls := "game__tournament-link")(tournamentLink(tourId))
+              st.section(cls := "game__tournament-link")(views.html.tournament.ui.tournamentLink(tourId))
           .orElse:
             game.swissId.map: swissId =>
               st.section(cls := "game__tournament-link"):
