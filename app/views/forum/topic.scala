@@ -2,6 +2,7 @@ package views.html
 package forum
 
 import play.api.data.Form
+import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -204,18 +205,23 @@ object topic:
     views.html.base.layout(
       title = "Diagnostic report",
       moreCss = cssTag("forum"),
-      modules = jsModule("bits.forum") ++ captchaTag
+      modules = jsModule("bits.forum")
+        ++ jsModuleInit("bits.autoform", Json.obj("selector" -> ".post-text-area", "ops" -> "focus begin"))
+        ++ captchaTag
     ):
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         boxTop(h1(dataIcon := Icon.BubbleConvo, cls := "text")("Diagnostics")),
         st.section(cls := "warning")(
           h2(dataIcon := Icon.CautionTriangle, cls := "text")(trans.site.important()),
-          p("Unsolicited reports will be ignored."),
+          p("Describe your issue above the report. Unsolicited diagnostics will be ignored."),
           p("Only you and the Lichess moderators can see this forum.")
         ),
         postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
           form3.group(form("post")("text"), trans.site.message())(
-            form3.textarea(_, klass = "post-text-area")(rows := 10)(text)
+            form3.textarea(_, klass = "post-text-area")(rows := 10, autofocus := "")(
+              "\n\n\n" +
+                text
+            )
           ),
           form3.hidden("name", me.username.value),
           views.html.base.captcha(form("post"), captcha),
