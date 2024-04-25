@@ -382,5 +382,5 @@ final class Account(
           apiC.GlobalConcurrencyLimitUser(me)(env.api.personalDataExport(user)): source =>
             Ok.chunked(source.map(_ + "\n"))
               .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
-        else Ok.page(html.account.bits.data(user))
+        else Ok.page(html.account.data(user))
   }

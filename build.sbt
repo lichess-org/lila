@@ -415,7 +415,7 @@ lazy val relation = module("relation",
 )
 
 lazy val pref = module("pref",
-  Seq(coreI18n, memo),
+  Seq(coreI18n, memo, ui),
   Seq()
 )
 

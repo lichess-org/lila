@@ -51,7 +51,7 @@ object bits:
           form3.group(form("email"), trans.site.email())(
             form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
           ),
-          lila.web.views.hcaptcha.tag(form),
+          lila.ui.bits.hcaptcha(form),
           form3.action(form3.submit(trans.site.emailMeALink()))
         )
       )
@@ -120,7 +120,7 @@ object bits:
           form3.group(form("email"), trans.site.email())(
             form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
           ),
-          lila.web.views.hcaptcha.tag(form),
+          lila.ui.bits.hcaptcha(form),
           form3.action(form3.submit(trans.site.emailMeALink()))
         )
       )

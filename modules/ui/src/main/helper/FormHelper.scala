@@ -12,6 +12,8 @@ trait FormHelper:
 
   protected def flairApi: lila.core.user.FlairApi
 
+  lazy val form3 = Form3(this, flairApi)
+
   def errMsg(form: Field)(using Translate): Seq[Tag] = errMsg(form.errors)
 
   def errMsg(form: Form[?])(using Translate): Seq[Tag] = errMsg(form.errors)
@@ -60,4 +62,13 @@ trait FormHelper:
       )
     }.toList
 
-  lazy val form3 = Form3(this, flairApi)
+  def translatedBooleanIntChoices(using Translate) =
+    List(
+      0 -> trans.site.no.txt(),
+      1 -> trans.site.yes.txt()
+    )
+  def translatedBooleanChoices(using Translate) =
+    List(
+      false -> trans.site.no.txt(),
+      true  -> trans.site.yes.txt()
+    )

@@ -48,7 +48,7 @@ object signup:
             )
           ),
           agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
-          lila.web.views.hcaptcha.tag(form),
+          lila.ui.bits.hcaptcha(form),
           button(cls := "submit button text big")(trans.site.signUp())
         )
       )

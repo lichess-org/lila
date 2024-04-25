@@ -79,18 +79,6 @@ trait SetupUi:
       ("white", trans.site.white.txt(), none)
     )
 
-  def translatedBooleanIntChoices(using Translate) =
-    List(
-      0 -> trans.site.no.txt(),
-      1 -> trans.site.yes.txt()
-    )
-
-  def translatedBooleanChoices(using Translate) =
-    List(
-      false -> trans.site.no.txt(),
-      true  -> trans.site.yes.txt()
-    )
-
   def translatedModeChoices(using Translate) =
     List(
       (Mode.Casual.id.toString, trans.site.casual.txt(), none),

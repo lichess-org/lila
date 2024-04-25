@@ -1,11 +1,13 @@
-package views.html
-package account
+package lila.security
+package ui
 
-import play.api.i18n.Lang
+import play.api.data.Form
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-object security:
+final class AccountSecurity(helpers: Helpers):
+  import helpers.{ *, given }
 
   def apply(
       u: User,
@@ -13,37 +15,36 @@ object security:
       curSessionId: String,
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
-  )(using PageContext) =
-    account.layout(title = s"${u.username} - ${trans.site.security.txt()}", active = "security"):
-      div(cls := "security")(
-        div(cls := "box")(
-          h1(cls := "box__top")(trans.site.security()),
-          standardFlash.map(div(cls := "box__pad")(_)),
-          div(cls := "box__pad")(
-            p(
-              "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
-              a(href := routes.Account.email)("check your recovery email address"),
-              " and ",
-              a(href := routes.Account.passwd)("change your password"),
-              "."
-            ),
-            (sessions.sizeIs > 1).option(
-              div(
-                "You can also ",
-                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                  submitButton(cls := "button button-empty button-red confirm")(
-                    trans.site.revokeAllSessions()
-                  )
-                ),
-                "."
-              )
-            )
+  )(using Context) =
+    div(cls := "security")(
+      div(cls := "box")(
+        h1(cls := "box__top")(trans.site.security()),
+        standardFlash.map(div(cls := "box__pad")(_)),
+        div(cls := "box__pad")(
+          p(
+            "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
+            a(href := routes.Account.email)("check your recovery email address"),
+            " and ",
+            a(href := routes.Account.passwd)("change your password"),
+            "."
           ),
-          table(sessions, curSessionId.some, clients, personalAccessTokens)
-        )
+          (sessions.sizeIs > 1).option(
+            div(
+              "You can also ",
+              postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
+                submitButton(cls := "button button-empty button-red confirm")(
+                  trans.site.revokeAllSessions()
+                )
+              ),
+              "."
+            )
+          )
+        ),
+        table(sessions, curSessionId.some, clients, personalAccessTokens)
       )
+    )
 
-  def table(
+  private def table(
       sessions: List[lila.security.LocatedSession],
       curSessionId: Option[String],
       clients: List[lila.oauth.AccessTokenApi.Client],

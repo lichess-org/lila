@@ -8,7 +8,7 @@ object Environment
     extends ScalatagsTemplate
     with RouterHelper
     with lila.setup.SetupUi
-    with lila.pref.PrefUi
+    with lila.pref.PrefHelper
     with SecurityHelper
     with TeamHelper
     with Helpers
@@ -56,10 +56,12 @@ object Environment
   protected lazy val lightTeamSync = env.team.lightTeamSync
   protected lazy val syncBelongsTo = env.team.api.syncBelongsTo
 
-  def helpers: Helpers             = this
-  def assetHelper: AssetFullHelper = this
+  def helpers: Helpers                 = this
+  def assetHelper: AssetFullHelper     = this
+  def prefHelper: lila.pref.PrefHelper = this
 
   lazy val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
+  def flagApi     = lila.user.Flags
 
   def lightUserFallback           = env.user.lightUserSyncFallback
   def isStreaming(userId: UserId) = env.streamer.liveStreamApi.isStreaming(userId)

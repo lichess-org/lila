@@ -3,7 +3,7 @@ package pref
 
 import lila.core.i18n.{ Translate, I18nKey as trans }
 
-trait PrefUi:
+trait PrefHelper:
 
   def translatedAnimationChoices(using Translate) =
     List(

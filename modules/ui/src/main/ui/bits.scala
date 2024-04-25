@@ -3,6 +3,7 @@ package lila.ui
 import ScalatagsTemplate.{ *, given }
 import chess.format.Fen
 import lila.core.i18n.Translate
+import lila.core.security.HcaptchaForm
 
 object bits:
 
@@ -28,3 +29,8 @@ object bits:
 
   def fenAnalysisLink(fen: Fen.Full)(using Translate) =
     a(href := s"/analysis/${ChessHelper.underscoreFen(fen)}")(lila.core.i18n.I18nKey.site.analysis())
+
+  private val dataSitekey = attr("data-sitekey")
+
+  def hcaptcha(form: HcaptchaForm[?]) =
+    div(cls := "h-captcha form-group", dataSitekey := form.config.key)
