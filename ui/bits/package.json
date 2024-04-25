@@ -42,6 +42,7 @@
     "bundles": [
       "src/bits.account.ts",
       "src/bits.appeal.ts",
+      "src/bits.autoform.ts",
       "src/bits.captcha.ts",
       "src/bits.challengePage.ts",
       "src/bits.checkout.ts",
