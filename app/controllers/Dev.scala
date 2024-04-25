@@ -35,7 +35,8 @@ final class Dev(env: Env) extends LilaController(env):
     env.tutor.parallelismSetting,
     env.relay.proxyDomainRegex,
     env.relay.proxyHostPort,
-    env.relay.proxyCredentials
+    env.relay.proxyCredentials,
+    env.web.settings.sitewideCoepCredentiallessHeader
   )
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>
