@@ -7,8 +7,6 @@ import lila.app.templating.Environment.{ *, given }
 
 object features:
 
-  val engineFullName = "Stockfish 16.1"
-
   def apply()(using PageContext) =
     views.html.base.layout(
       title = title,
@@ -48,7 +46,7 @@ object features:
             ),
             tr(custom(s"${lila.fishnet.FishnetLimiter.maxPerDay} per day"))(
               "Deep ",
-              engineFullName,
+              lila.ui.bits.engineFullName,
               " server analysis"
             ),
             tr(unlimited)(

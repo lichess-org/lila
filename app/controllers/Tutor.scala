@@ -27,7 +27,7 @@ final class Tutor(env: Env) extends LilaController(env):
 
   def openings(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) {
     _ ?=> user => _ => perf =>
-      Ok.page(views.html.tutor.openings(perf, user))
+      Ok.page(views.html.tutor.opening.openings(perf, user))
   }
 
   def opening(username: UserStr, perf: PerfKeyStr, colName: String, opName: String) =
@@ -40,20 +40,20 @@ final class Tutor(env: Env) extends LilaController(env):
             .flatMap(perf.openings(color).find)
             .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
               env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
-                Ok.page(views.html.tutor.opening(perf, family, color, user, puzzle))
+                Ok.page(views.html.tutor.opening.opening(perf, family, color, user, puzzle))
               }
     }
 
   def skills(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.html.tutor.skills(perf, user))
+    Ok.page(views.html.tutor.perf.skills(perf, user))
   }
 
   def phases(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.html.tutor.phases(perf, user))
+    Ok.page(views.html.tutor.perf.phases(perf, user))
   }
 
   def time(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) { _ ?=> user => _ => perf =>
-    Ok.page(views.html.tutor.time(perf, user))
+    Ok.page(views.html.tutor.perf.time(perf, user))
   }
 
   def refresh(username: UserStr) = TutorPageAvailability(username) { _ ?=> user => availability =>

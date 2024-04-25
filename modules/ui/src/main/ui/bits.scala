@@ -6,6 +6,8 @@ import lila.core.i18n.Translate
 
 object bits:
 
+  val engineFullName = "Stockfish 16.1"
+
   def subnav(mods: Modifier*) = st.aside(cls := "subnav"):
     st.nav(cls := "subnav__inner")(mods)
 

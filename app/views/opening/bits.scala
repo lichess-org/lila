@@ -89,8 +89,8 @@ object bits:
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.so(_.value.replace(" ", "_")))
-  def openingUrl(o: Opening)  = keyUrl(o.key)
-  def keyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
+  def openingUrl(o: Opening)         = openingKeyUrl(o.key)
+  def openingKeyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 

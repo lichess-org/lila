@@ -46,7 +46,7 @@ object wiki:
               page.query.openingAndExtraMoves._1.map { canonical =>
                 p(
                   br,
-                  a(href := bits.keyUrl(canonical.key))(
+                  a(href := bits.openingKeyUrl(canonical.key))(
                     "This is an unnamed variation. Go to the canonical opening page."
                   )
                 )
