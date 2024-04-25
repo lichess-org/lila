@@ -330,7 +330,7 @@ lazy val irwin = module("irwin",
 )
 
 lazy val oauth = module("oauth",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq()
 )
 
@@ -345,7 +345,7 @@ lazy val shutup = module("shutup",
 )
 
 lazy val challenge = module("challenge",
-  Seq(game, room, oauth, ui),
+  Seq(game, room, oauth),
   Seq(lettuce) ++ tests.bundle
 )
 
