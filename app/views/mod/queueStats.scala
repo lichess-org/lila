@@ -29,7 +29,7 @@ object queueStats:
       )
 
   private def periodSelector(p: Result) =
-    views.html.base.bits.mselect(
+    lila.ui.bits.mselect(
       s"mod-activity__period-select box__top__actions",
       span(p.period.key),
       Period.values.toList.map: per =>

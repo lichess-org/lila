@@ -7,7 +7,6 @@ import lila.web.ui.*
 object Environment
     extends ScalatagsTemplate
     with RouterHelper
-    with lila.ui.PaginatorHelper
     with lila.setup.SetupUi
     with lila.pref.PrefUi
     with SecurityHelper
@@ -51,12 +50,13 @@ object Environment
   def manifest                = env.web.manifest
   protected val jsDump        = lila.i18n.JsDump
   protected val translator    = lila.i18n.Translator
+  val langList                = lila.i18n.LangList
   protected val namer         = lila.game.Namer
 
   def helpers: Helpers             = this
   def assetHelper: AssetFullHelper = this
 
+  lazy val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
+
   def lightUserFallback           = env.user.lightUserSyncFallback
   def isStreaming(userId: UserId) = env.streamer.liveStreamApi.isStreaming(userId)
-
-  def titleOrText(v: String)(using ctx: Context): Modifier = titleOrTextFor(ctx.blind, v)

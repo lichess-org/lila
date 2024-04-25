@@ -12,3 +12,4 @@ trait Helpers
     with GameHelper
     with FlashHelper
     with ChessHelper
+    with PaginatorHelper

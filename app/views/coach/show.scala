@@ -70,7 +70,7 @@ object show:
             st.section(cls := "coach-show__posts")(
               h2(cls := "coach-show__title")(trans.ublog.latestBlogPosts()),
               div(cls := "ublog-post-cards ")(
-                posts.map { views.html.ublog.post.card(_) }
+                posts.map { views.html.ublog.postUi.card(_) }
               )
             )
           ),

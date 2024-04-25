@@ -34,7 +34,7 @@ object feed:
                 dataIcon := Icon.PlusButton
               )
             ),
-            views.html.base.atom.atomLink(routes.Feed.atom)
+            atomUi.atomLink(routes.Feed.atom)
           )
         ),
         standardFlash,
@@ -161,8 +161,8 @@ object feed:
     )
 
   def atom(ups: List[Update])(using Translate) =
-    import views.html.base.atom.atomDate
-    views.html.base.atom(
+    import atomUi.atomDate
+    atomUi.feed(
       elems = ups,
       htmlCall = routes.Feed.index(1),
       atomCall = routes.Feed.atom,

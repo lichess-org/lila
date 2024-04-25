@@ -56,7 +56,7 @@ object variant:
       openGraph = openGraph
     ):
       main(cls := "page-menu")(
-        views.html.base.bits.pageMenuSubnav(
+        lila.ui.bits.pageMenuSubnav(
           lila.rating.PerfType.variants.map { pk =>
             val pt = lila.rating.PerfType(pk)
             a(

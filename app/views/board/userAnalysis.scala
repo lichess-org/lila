@@ -56,7 +56,7 @@ object userAnalysis:
       )(
         pov.game.synthetic.option(
           st.aside(cls := "analyse__side")(
-            views.html.base.bits.mselect(
+            lila.ui.bits.mselect(
               "analyse-variant",
               span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
               Variant.list.all.filter(FromPosition != _).map { v =>

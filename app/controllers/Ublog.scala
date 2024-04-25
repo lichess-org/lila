@@ -14,8 +14,8 @@ import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 
 final class Ublog(env: Env) extends LilaController(env):
 
-  import views.html.ublog.post.{ editUrlOfPost, urlOfPost }
-  import views.html.ublog.blog.urlOfBlog
+  import views.html.ublog.postUi.{ editUrlOfPost, urlOfPost }
+  import views.html.ublog.ui.urlOfBlog
   import scalalib.paginator.Paginator.given
 
   def index(username: UserStr, page: Int) = Open:
@@ -282,7 +282,7 @@ final class Ublog(env: Env) extends LilaController(env):
     env.ublog.paginator
       .liveByCommunity(l.map(Language.apply), page = 1)
       .map: posts =>
-        Ok(html.ublog.atom.community(language, posts.currentPageResults)).as(XML)
+        Ok(html.ublog.ui.atom.community(language, posts.currentPageResults)).as(XML)
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
@@ -323,7 +323,7 @@ final class Ublog(env: Env) extends LilaController(env):
               (isBlogVisible(user, blog)
                 .so(env.ublog.paginator.byUser(user, true, 1)))
                 .map: posts =>
-                  Ok(html.ublog.atom.user(user, posts.currentPageResults)).as(XML)
+                  Ok(html.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
 
   def historicalBlogPost(id: String, slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>

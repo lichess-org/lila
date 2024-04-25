@@ -37,6 +37,6 @@ object bits:
       csp = defaultCsp.withInlineIconFont.some
     ):
       main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
-        views.html.base.bits.subnav(menu),
+        lila.ui.bits.subnav(menu),
         div(cls := "page-menu__content")(content)
       )

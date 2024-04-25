@@ -15,7 +15,7 @@ object bits:
       if active == "all" then Order.withoutSelector
       else if active.startsWith("topic") then Order.list
       else Order.withoutMine
-    views.html.base.bits.mselect(
+    lila.ui.bits.mselect(
       "orders",
       span(order.name()),
       orders.map: o =>

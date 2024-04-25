@@ -1,15 +1,13 @@
-package lila.web
-package views
+package lila.ui
 
 import java.time.LocalDate
 
-import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.config.BaseUrl
 
-final class atom(netBaseUrl: BaseUrl):
+final class AtomUi(netBaseUrl: BaseUrl):
 
-  def apply[A](
+  def feed[A](
       elems: Seq[A],
       htmlCall: Call,
       atomCall: Call,

@@ -32,7 +32,7 @@ object bits:
 
   def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: PageContext) =
     val u = user.filterNot(ctx.is).map(_.username)
-    views.html.base.bits.pageMenuSubnav(
+    lila.ui.bits.pageMenuSubnav(
       a(href := routes.Puzzle.home)(
         trans.site.puzzles()
       ),

@@ -38,7 +38,7 @@ object ratingDistribution:
           boxTop(
             h1(
               trans.site.weeklyPerfTypeRatingDistribution(
-                views.html.base.bits.mselect(
+                lila.ui.bits.mselect(
                   "variant-stats",
                   span(perfType.trans),
                   lila.rating.PerfType.leaderboardable

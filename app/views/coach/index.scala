@@ -47,7 +47,7 @@ object index:
           boxTop(
             h1(lichessCoaches()),
             div(cls := "box__top__actions")(
-              views.html.base.bits.mselect(
+              lila.ui.bits.mselect(
                 "coach-lang",
                 lang.fold("All languages")(LangList.name),
                 langSelections.map: (code, name) =>
@@ -56,7 +56,7 @@ object index:
                     cls  := (code == lang.fold("all")(_.code)).option("current")
                   )(name)
               ),
-              views.html.base.bits.mselect(
+              lila.ui.bits.mselect(
                 "coach-country",
                 country.fold("All countries")(Flags.name),
                 countries.value.map: (code, name) =>
@@ -65,7 +65,7 @@ object index:
                     cls  := (code == country.fold("all")(_.code)).option("current")
                   )(name)
               ),
-              views.html.base.bits.mselect(
+              lila.ui.bits.mselect(
                 "coach-sort",
                 order.name,
                 lila.coach.CoachPager.Order.list.map: o =>

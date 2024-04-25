@@ -127,7 +127,7 @@ object tour:
       )
 
   def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context): Tag =
-    views.html.base.bits.pageMenuSubnav(
+    lila.ui.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
         a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_.is(me)).option("active")):

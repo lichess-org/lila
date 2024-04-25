@@ -47,6 +47,7 @@ trait LangList:
   val all: Map[Lang, String]
   def allLanguages: List[Language]
   def popularLanguages: List[Language]
+  def nameByLanguage(l: Language): String
 
   trait LangForm:
     def choices: List[(Language, String)]

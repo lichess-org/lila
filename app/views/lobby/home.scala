@@ -128,8 +128,8 @@ object home:
             .filter(_.isLichess || ctx.kid.no)
             .take(3)
             .map:
-              views.html.ublog.post
-                .card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
+              views.html.ublog.postUi
+                .card(_, showAuthor = views.html.ublog.postUi.ShowAt.bottom, showIntro = false)
         ,
         ctx.noBot.option(bits.underboards(tours, simuls, leaderboard, tournamentWinners)),
         div(cls := "lobby__feed"):

@@ -22,7 +22,7 @@ object layout:
         ctx.me
           .exists(_.enabled.yes)
           .option(
-            views.html.base.bits.pageMenuSubnav(
+            lila.ui.bits.pageMenuSubnav(
               a(activeCls("editProfile"), href := routes.Account.profile)(
                 trans.site.editProfile()
               ),

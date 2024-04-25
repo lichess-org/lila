@@ -102,7 +102,7 @@ object dashboard:
               title,
               strong(subtitle)
             ),
-            views.html.base.bits.mselect(
+            lila.ui.bits.mselect(
               s"${baseClass}__day-select box__top__actions",
               span(trans.site.nbDays.pluralSame(days)),
               PuzzleDashboard.dayChoices.map { d =>

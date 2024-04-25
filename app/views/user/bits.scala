@@ -12,7 +12,7 @@ object bits:
   export ui.*
 
   def communityMenu(active: String)(using Context) =
-    views.html.base.bits.pageMenuSubnav(
+    lila.ui.bits.pageMenuSubnav(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.site.leaderboard()),
       a(
         cls  := active.active("ratings"),

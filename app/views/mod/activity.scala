@@ -32,7 +32,7 @@ object activity:
     }
 
   private def whoSelector(p: Result) =
-    views.html.base.bits
+    lila.ui.bits
       .mselect(
         s"mod-activity__who-select box__top__actions",
         span(if p.who == Who.Team then "Team" else "My"),
@@ -49,7 +49,7 @@ object activity:
       )
 
   private def periodSelector(p: Result) =
-    views.html.base.bits
+    lila.ui.bits
       .mselect(
         s"mod-activity__period-select box__top__actions",
         span(p.period.key),
