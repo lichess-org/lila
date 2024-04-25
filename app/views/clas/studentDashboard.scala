@@ -23,7 +23,7 @@ object studentDashboard:
       ),
       c.archived.map { archived =>
         div(cls := "box__pad")(
-          div(cls := "clas-show__archived archived")(bits.showArchived(archived))
+          div(cls := "clas-show__archived archived")(ui.showArchived(archived))
         )
       },
       table(cls := "slist slist-pad teachers")(

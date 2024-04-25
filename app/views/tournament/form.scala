@@ -12,7 +12,7 @@ import lila.tournament.ui.*
 object form:
   given prefix: FormPrefix = FormPrefix.empty
 
-  val ui = TournamentForm(formHelper, i18nHelper, translatedVariantChoicesWithVariants)
+  val ui = TournamentForm(helpers)(translatedVariantChoicesWithVariants)
 
   def create(form: Form[?], leaderTeams: List[LightTeam])(using PageContext) =
     views.html.base.layout(

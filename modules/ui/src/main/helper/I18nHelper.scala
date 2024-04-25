@@ -6,7 +6,11 @@ import play.api.libs.json.JsObject
 import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.{ I18nKey, fixJavaLanguage, JsDump, Translator }
 
-final class I18nHelper(jsDump: JsDump, translator: Translator, val ratingApi: lila.ui.RatingApi):
+trait I18nHelper:
+
+  protected val jsDump: JsDump
+  protected val translator: Translator
+  protected val ratingApi: lila.ui.RatingApi
 
   extension (pk: PerfKey)
     def perfIcon: Icon                                = ratingApi.toIcon(pk)

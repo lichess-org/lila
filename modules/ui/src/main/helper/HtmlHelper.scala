@@ -1,7 +1,9 @@
 package lila.ui
 
 import scalatags.text.Builder
+
 import lila.ui.ScalatagsTemplate.*
+import lila.core.config.NetDomain
 
 object HtmlHelper:
 
@@ -12,8 +14,9 @@ object HtmlHelper:
     if blind then t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
 
-final class HtmlHelper(htmlOps: lila.core.html.HtmlOps):
+trait HtmlHelper:
+
+  def richText(rawText: String, nl2br: Boolean = true, expandImg: Boolean = true)(using NetDomain): Frag
 
   export HtmlHelper.*
   export scalalib.StringOps.{ shorten, urlencode, addQueryParam, addQueryParams }
-  export htmlOps.*

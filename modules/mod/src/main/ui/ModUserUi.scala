@@ -1,18 +1,16 @@
 package lila.mod
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.user.WithPerfsAndEmails
 import lila.core.perm.Permission
 import lila.core.playban.RageSit
 import lila.core.LightUser
 import lila.evaluation.Display
 
-final class ModUserUi(helpers: KitchenSink, modUi: ModUi, lightUserSync: LightUser.GetterSync):
+final class ModUserUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }
-  import userHelper.userIdLink
-  import gameHelper.{ playerUsername, shortClockName }
 
   val dataValue       = attr("data-value")
   val dataTags        = attr("data-tags")
@@ -544,7 +542,7 @@ final class ModUserUi(helpers: KitchenSink, modUi: ModUi, lightUserSync: LightUs
               if showUsernames || canViewAltUsername(u.user)
               then
                 td(
-                  userHelper.userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
+                  userLink(u.user, withPerfRating = u.perfs.some, params = "?mod"),
                   Granter.opt(_.Admin).option(ModUserTableUi.email(emails.strList.mkString(", ")))
                 )
               else td,

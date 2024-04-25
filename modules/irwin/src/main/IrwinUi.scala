@@ -1,20 +1,11 @@
 package lila.irwin
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.Translate
-import lila.ui.Context
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.game.Pov
 
-final class IrwinUi(
-    i18nHelper: lila.ui.I18nHelper,
-    dateHelper: lila.ui.DateHelper,
-    userHelper: lila.ui.UserHelper,
-    gameHelper: lila.ui.GameHelper
-)(playerBlurPercent: Pov => Int):
-
-  import i18nHelper.{ *, given }
-  import dateHelper.*
-  import gameHelper.*
+final class IrwinUi(helpers: Helpers)(playerBlurPercent: Pov => Int):
+  import helpers.{ *, given }
 
   private def povLink(pov: Pov)(using Context) =
     a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
@@ -116,7 +107,7 @@ final class IrwinUi(
         tbody(
           dashboard.recent.map: rep =>
             tr(cls := "report")(
-              td(userHelper.userIdLink(rep.suspectId.value.some)),
+              td(userIdLink(rep.suspectId.value.some)),
               td(cls := "little completed")(momentFromNow(rep.date)),
               td(rep.owner),
               td(cls := s"little activation ${percentClass(rep.activation)}")(
@@ -139,7 +130,7 @@ final class IrwinUi(
             a(href := "/kaladin")("Kaladin")
           ),
           div(cls := "infos")(
-            p("Updated ", dateHelper.momentFromNowServer(response.at))
+            p("Updated ", momentFromNowServer(response.at))
           ),
           response.pred.map: pred =>
             div(cls := "assess text")(
@@ -197,13 +188,13 @@ final class IrwinUi(
           tbody(
             dashboard.recent.map { entry =>
               tr(cls := "report")(
-                td(userHelper.userIdLink(entry.id.some, params = "?mod")),
+                td(userIdLink(entry.id.some, params = "?mod")),
                 td(cls := "little")(momentFromNow(entry.queuedAt)),
                 td(cls := "little")(entry.startedAt.map { momentFromNow(_) }),
                 td(cls := "little completed")(entry.response.map(_.at).map { momentFromNow(_) }),
                 td(
                   entry.queuedBy match
-                    case KaladinUser.Requester.Mod(id) => userHelper.userIdLink(id.some)
+                    case KaladinUser.Requester.Mod(id) => userIdLink(id.some)
                     case requester                     => em(requester.name)
                 ),
                 entry.response.fold(td): res =>

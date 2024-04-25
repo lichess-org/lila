@@ -310,7 +310,9 @@ object activity:
                 strong(t.rank),
                 t.rankRatio.percent,
                 t.nbGames,
-                a(href := routes.Tournament.show(t.tourId))(tournamentIdToName(t.tourId))
+                a(href := routes.Tournament.show(t.tourId))(
+                  views.html.tournament.ui.tournamentIdToName(t.tourId)
+                )
               ),
               br
             )

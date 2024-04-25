@@ -1,16 +1,13 @@
 package lila.user
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.perf.PuzPerf
 import lila.rating.UserWithPerfs.hasVariantRating
 
-final class userShowSide(userHelper: UserHelper, i18nHelper: I18nHelper, numberHelper: NumberHelper):
-
-  import i18nHelper.{ *, given }
-  import userHelper.{ *, given }
-  import numberHelper.*
+final class userShowSide(helpers: Helpers):
+  import helpers.{ *, given }
 
   def apply(
       u: lila.core.perf.UserWithPerfs,
@@ -36,8 +33,8 @@ final class userShowSide(userHelper: UserHelper, i18nHelper: I18nHelper, numberH
         ,
         span(
           h3(pk.perfTrans),
-          if isPuzzle && ratingApi.dubiousPuzzle(u.perfs) && ctx.isnt(u) && ctx.pref.showRatings then
-            st.rating(strong("?"))
+          if isPuzzle && lila.rating.ratingApi.dubiousPuzzle(u.perfs) && ctx.isnt(u) && ctx.pref.showRatings
+          then st.rating(strong("?"))
           else
             st.rating(
               ctx.pref.showRatings.option(

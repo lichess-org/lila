@@ -146,7 +146,7 @@ $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '
                 ul:
                   tours.map: t =>
                     li(
-                      tournamentLink(t),
+                      views.html.tournament.ui.tournamentLink(t),
                       " ",
                       momentFromNow(t.startsAt),
                       " ",

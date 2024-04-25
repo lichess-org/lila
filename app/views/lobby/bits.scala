@@ -50,7 +50,7 @@ object bits:
                     td(userIdLink(w.userId.some)),
                     td:
                       a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
-                        scheduledTournamentNameShortHtml(w.tourName)
+                        views.html.tournament.ui.scheduledTournamentNameShortHtml(w.tourName)
                   )
       ),
       div(cls := "lobby__tournaments-simuls")(

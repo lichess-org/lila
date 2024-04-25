@@ -64,7 +64,7 @@ object side:
       game.tournamentId.map: tourId =>
         st.section(cls := "game__tournament-link"):
           a(href := routes.Tournament.show(tourId), dataIcon := Icon.Trophy, cls := "text"):
-            tournamentIdToName(tourId)
+            views.html.tournament.ui.tournamentIdToName(tourId)
     )
 
   def sides(

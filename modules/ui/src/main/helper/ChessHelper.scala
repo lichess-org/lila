@@ -1,21 +1,25 @@
-package lila.web
-package ui
+package lila.ui
 
 import chess.{ Board, Color, Square }
 import chess.format.{ Fen, Uci }
 
-import lila.ui.ScalatagsTemplate.*
+import lila.ui.*
+import ScalatagsTemplate.*
 import lila.core.pref.Pref
 
 object ChessHelper:
+
+  def underscoreFen(fen: chess.format.Fen.Full) = fen.value.replace(" ", "_")
+
+trait ChessHelper:
+
+  export ChessHelper.*
 
   private val cgWrap      = div(cls := "cg-wrap")
   private val cgContainer = tag("cg-container")
   private val cgBoard     = tag("cg-board")
   private val dataState   = attr("data-state")
   val cgWrapContent       = cgContainer(cgBoard)
-
-  def underscoreFen(fen: chess.format.Fen.Full) = fen.value.replace(" ", "_")
 
   def chessgroundMini(fen: Fen.Board, color: Color = chess.White, lastMove: Option[Uci] = None)(
       tag: Tag

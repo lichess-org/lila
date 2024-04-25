@@ -124,7 +124,7 @@ object games:
                         a(
                           dataIcon := Icon.Trophy,
                           href     := routes.Tournament.show(tourId).url,
-                          title    := tournamentIdToName(tourId)
+                          title    := views.html.tournament.ui.tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId.map { swissId =>

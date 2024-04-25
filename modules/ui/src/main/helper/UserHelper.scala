@@ -11,23 +11,19 @@ import lila.core.perf.UserPerfs
 import lila.core.LightUser
 import lila.core.socket.IsOnline
 
-final class UserHelper(
-    i18nHelper: I18nHelper,
-    numberHelper: NumberHelper,
-    assetHelper: AssetHelper,
-    ratingApi: RatingApi,
-    isOnline: IsOnline,
-    lightUser: LightUser.GetterSync
-):
-  import i18nHelper.*
-  import numberHelper.*
+trait UserHelper:
+  self: I18nHelper & NumberHelper & AssetHelper =>
+
+  protected val ratingApi: RatingApi
+  lazy val isOnline: IsOnline
+  lazy val lightUserSync: LightUser.GetterSync
 
   given Conversion[UserWithPerfs, User] = _.user
 
-  def usernameOrId(userId: UserId): String  = lightUser(userId).fold(userId.value)(_.name.value)
-  def titleNameOrId(userId: UserId): String = lightUser(userId).fold(userId.value)(_.titleName)
+  def usernameOrId(userId: UserId): String  = lightUserSync(userId).fold(userId.value)(_.name.value)
+  def titleNameOrId(userId: UserId): String = lightUserSync(userId).fold(userId.value)(_.titleName)
   def titleNameOrAnon(userId: Option[UserId]): String =
-    userId.flatMap(lightUser).fold(UserName.anonymous.value)(_.titleName)
+    userId.flatMap(lightUserSync).fold(UserName.anonymous.value)(_.titleName)
 
   def titleTag(title: Option[PlayerTitle]): Option[Frag] =
     title.map: t =>
@@ -35,7 +31,7 @@ final class UserHelper(
   def titleTag(lu: LightUser): Frag = titleTag(lu.title)
 
   def userFlair(user: User): Option[Tag] = user.flair.map(userFlair)
-  def userFlair(flair: Flair): Tag       = img(cls := "uflair", src := assetHelper.flairSrc(flair))
+  def userFlair(flair: Flair): Tag       = img(cls := "uflair", src := flairSrc(flair))
 
   def renderRating(perf: Perf): Frag = frag(" (", perf.intRating, perf.provisional.yes.option("?"), ")")
 
@@ -60,7 +56,7 @@ final class UserHelper(
       modIcon: Boolean = false
   )(using Translate): Tag =
     userIdOption
-      .flatMap(u => lightUser(u.id))
+      .flatMap(u => lightUserSync(u.id))
       .fold[Tag](anonUserSpan(cssClass, modIcon)): user =>
         userIdNameLink(
           userId = user.id,
@@ -178,7 +174,7 @@ final class UserHelper(
     )
 
   def userIdSpanMini(userId: UserId, withOnline: Boolean = false)(using Translate): Tag =
-    val user = lightUser(userId)
+    val user = lightUserSync(userId)
     val name = user.fold(userId.into(UserName))(_.name)
     span(
       cls      := userClass(userId, none, withOnline),

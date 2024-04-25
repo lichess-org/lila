@@ -3,7 +3,8 @@ package views
 
 import java.time.LocalDate
 
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.config.BaseUrl
 
 final class atom(netBaseUrl: BaseUrl):

@@ -36,7 +36,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       active = "faq",
       moreCss = cssTag("faq")
     ):
-      lila.web.views.faq(i18nHelper, assetHelper)(
+      lila.web.views.faq(helpers, assetHelper)(
         standardRankableDeviation = lila.rating.Glicko.standardRankableDeviation,
         variantRankableDeviation = lila.rating.Glicko.variantRankableDeviation
       )

@@ -6,7 +6,7 @@ import lila.game.GameExt.{ perfType, playerBlurPercent }
 
 object irwin:
 
-  val ui = lila.irwin.IrwinUi(i18nHelper, dateHelper, userHelper, gameHelper)(
+  val ui = lila.irwin.IrwinUi(helpers)(
     playerBlurPercent = pov => pov.game.playerBlurPercent(pov.color)
   )
 

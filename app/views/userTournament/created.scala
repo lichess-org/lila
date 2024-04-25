@@ -31,7 +31,7 @@ object created:
             tbody(cls := "infinite-scroll")(
               pager.currentPageResults.map { t =>
                 tr(cls := "paginated")(
-                  td(cls := "icon")(iconTag(tournamentIcon(t))),
+                  td(cls := "icon")(iconTag(views.html.tournament.ui.tournamentIcon(t))),
                   views.html.tournament.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
                   td(cls := "winner")(

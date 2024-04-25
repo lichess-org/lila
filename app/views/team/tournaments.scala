@@ -52,7 +52,9 @@ object tournaments:
             "soon"      -> any.isNowOrSoon
           )
         )(
-          td(cls := "icon")(iconTag(any.value.fold(tournamentIcon, _.perfType.icon))),
+          td(cls := "icon")(
+            iconTag(any.value.fold(views.html.tournament.ui.tournamentIcon, _.perfType.icon))
+          ),
           td(cls := "header")(
             any.value.fold(
               t =>

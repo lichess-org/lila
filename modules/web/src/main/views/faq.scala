@@ -17,13 +17,12 @@ object faq:
       div(cls := "answer")(answer)
     )
 
-  def apply(i18nHelper: I18nHelper, assetHelper: ui.AssetFullHelper)(
+  def apply(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       standardRankableDeviation: Int,
       variantRankableDeviation: Int
   )(using Context) =
 
-    import i18nHelper.{ given, * }
-    import assetHelper.*
+    import helpers.{ given, * }
     import trans.faq.*
 
     div(cls := "faq box box-pad")(
@@ -349,7 +348,12 @@ object faq:
       question(
         "browser-notifications",
         enableDisableNotificationPopUps.txt(),
-        p(img(src := assetUrl("images/connection-info.png"), alt := viewSiteInformationPopUp.txt())),
+        p(
+          img(
+            src := assetHelper.assetUrl("images/connection-info.png"),
+            alt := viewSiteInformationPopUp.txt()
+          )
+        ),
         p(
           lichessCanOptionnalySendPopUps()
         )

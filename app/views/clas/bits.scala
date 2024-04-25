@@ -5,6 +5,8 @@ import lila.app.templating.Environment.{ *, given }
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.clas.{ Clas, Student }
 
+lazy val ui = lila.clas.ui.ClasUi(helpers)
+
 object bits:
 
   def layout(
@@ -49,11 +51,4 @@ object bits:
           div(cls := "page-menu__content box")(body)
         )
       else main(cls := "page-small box")(body)
-    )
-
-  def showArchived(archived: Clas.Recorded)(using PageContext) =
-    div(
-      trans.clas.removedByX(userIdLink(archived.by.some)),
-      " ",
-      momentFromNowOnce(archived.at)
     )

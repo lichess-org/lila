@@ -3,24 +3,15 @@ package lila.ui
 import chess.{ Clock, Color, Mode, Outcome, Ply }
 
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.{ Context, I18nHelper, StringHelper, AssetHelper, UserHelper }
 import lila.core.LightUser
 import lila.core.game.{ Namer, Game, Player, LightPlayer }
-import lila.core.i18n.{ I18nKey as trans, defaultLang, Translate }
 import lila.core.config.BaseUrl
 
-final class GameHelper(
-    i18nHelper: I18nHelper,
-    stringHelper: StringHelper,
-    assetHelper: AssetHelper,
-    userHelper: UserHelper,
-    netBaseUrl: BaseUrl,
-    namer: Namer,
-    lightUserSync: LightUser.GetterSync
-):
-  import i18nHelper.given
-  import stringHelper.*
-  import userHelper.*
+trait GameHelper:
+  self: I18nHelper & StringHelper & AssetHelper & UserHelper =>
+
+  protected val namer: Namer
+  def netBaseUrl: BaseUrl
 
   def titleGame(g: Game) =
     val speed   = chess.Speed(g.clock.map(_.config)).name
