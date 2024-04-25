@@ -34,6 +34,10 @@ trait AssetFullHelper:
 
   lazy val sameAssetDomain = netConfig.domain == netConfig.assetDomain
 
+  lazy val siteName: String =
+    if netConfig.siteName == "localhost:9663" then "lichess.dev"
+    else netConfig.siteName
+
   def assetVersion = lila.core.net.AssetVersion.current
 
   def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"

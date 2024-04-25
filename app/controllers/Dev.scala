@@ -30,7 +30,6 @@ final class Dev(env: Env) extends LilaController(env):
     env.fishnet.openingBookDepth,
     env.web.settings.noDelaySecret,
     env.web.settings.prizeTournamentMakers,
-    env.web.settings.pieceImageExternal,
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,

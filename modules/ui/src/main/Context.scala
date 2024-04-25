@@ -6,6 +6,7 @@ import play.api.i18n.Lang
 import lila.core.i18n.{ Language, Translate, defaultLanguage }
 import lila.core.net.IpAddress
 import lila.core.pref.Pref
+import lila.core.user.KidMode
 
 trait Context:
   val req: RequestHeader
@@ -20,11 +21,14 @@ trait Context:
   def ip: IpAddress
   def blind: Boolean
   def troll: Boolean
+  def isBot: Boolean
+  def kid: KidMode
 
   def is[U: UserIdOf](u: U): Boolean      = me.exists(_.is(u))
   def isnt[U: UserIdOf](u: U): Boolean    = !is(u)
   def noBlind                             = !blind
   def flash(name: String): Option[String] = req.flash.get(name)
+  inline def noBot                        = !isBot
   lazy val acceptLanguages: Set[Language] =
     req.acceptLanguages.view.map(Language.apply).toSet + defaultLanguage ++
       user.flatMap(_.realLang.map(Language.apply)).toSet

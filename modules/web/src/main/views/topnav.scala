@@ -1,16 +1,17 @@
-package views.html.base
+package lila.web
+package views
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-object topnav:
+final class topnav(helpers: Helpers):
+  import helpers.{ *, given }
 
   private def linkTitle(url: String, name: Frag)(using ctx: Context) =
     if ctx.blind then h3(name) else a(href := url)(name)
 
-  private def canSeeClasMenu(using ctx: PageContext) =
-    ctx.hasClas || ctx.me.exists(u => u.hasTitle || u.roles.contains("ROLE_COACH"))
-
-  def apply()(using ctx: PageContext) =
+  def apply(hasClas: Boolean, hasDgt: Boolean)(using ctx: Context) =
+    val canSeeClasMenu = hasClas || ctx.me.exists(u => u.hasTitle || u.roles.contains("ROLE_COACH"))
     st.nav(id := "topnav", cls := "hover")(
       st.section(
         linkTitle(
@@ -23,17 +24,16 @@ object topnav:
         div(role := "group")(
           if ctx.noBot then a(href := s"${langHref("/")}?any#hook")(trans.site.createAGame())
           else a(href := "/?any#friend")(trans.site.playWithAFriend()),
-          ctx.noBot.option(
+          Option.when(ctx.noBot):
             frag(
               a(href := langHref(routes.Tournament.home))(trans.arena.arenaTournaments()),
               a(href := langHref(routes.Swiss.home))(trans.swiss.swissTournaments()),
               a(href := langHref(routes.Simul.home))(trans.site.simultaneousExhibitions()),
-              ctx.pref.hasDgt.option(a(href := routes.DgtCtrl.index)(trans.dgt.dgtBoard()))
+              hasDgt.option(a(href := routes.DgtCtrl.index)(trans.dgt.dgtBoard()))
             )
-          )
         )
       ),
-      ctx.noBot.option:
+      Option.when(ctx.noBot):
         val puzzleUrl = langHref(routes.Puzzle.home.url)
         st.section(
           linkTitle(puzzleUrl, trans.site.puzzles()),
@@ -49,13 +49,13 @@ object topnav:
       st.section(
         linkTitle(routes.Learn.index.url, trans.site.learnMenu()),
         div(role := "group")(
-          ctx.noBot.option(
+          Option.when(ctx.noBot):
             frag(
               a(href := langHref(routes.Learn.index))(trans.site.chessBasics()),
               a(href := routes.Practice.index)(trans.site.practice()),
               a(href := langHref(routes.Coordinate.home))(trans.coordinates.coordinates())
             )
-          ),
+          ,
           a(href := langHref(routes.Study.allDefault()))(trans.site.studyMenu()),
           ctx.kid.no.option(a(href := langHref(routes.Coach.all(1)))(trans.site.coaches())),
           canSeeClasMenu.option(a(href := routes.Clas.index)(trans.clas.lichessClasses()))

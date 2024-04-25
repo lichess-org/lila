@@ -35,13 +35,6 @@ object Environment
   given lila.core.config.NetDomain              = env.net.domain
   given (using ctx: PageContext): Option[Nonce] = ctx.nonce
 
-  lazy val siteName: String =
-    if env.net.siteName == "localhost:9663" then "lichess.dev"
-    else env.net.siteName
-  lazy val siteNameFrag: Frag =
-    if siteName == "lichess.org" then frag("lichess", span(".org"))
-    else frag(siteName)
-
   def apiVersion = lila.security.Mobile.Api.currentVersion
 
   def explorerEndpoint       = env.explorerEndpoint

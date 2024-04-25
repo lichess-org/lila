@@ -85,7 +85,7 @@ case class Pref(
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
 
-  def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
+  def pieceNotationIsLetter: Boolean = pieceNotation == PieceNotation.LETTER
 
   def isZen     = zen == Zen.YES
   def isZenAuto = zen == Zen.GAME_AUTO

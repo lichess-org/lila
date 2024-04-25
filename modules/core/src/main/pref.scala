@@ -18,6 +18,7 @@ trait Pref:
   def showRatings: Boolean
   def animationMillis: Int
   def animationMillisForSpeedPuzzles: Int
+  def pieceNotationIsLetter: Boolean
 
 trait PrefApi:
   def followable(userId: UserId): Fu[Boolean]
