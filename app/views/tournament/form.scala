@@ -42,7 +42,7 @@ object form:
             )
           )
         ),
-        div(cls := "box box-pad tour__faq")(tournament.faq())
+        div(cls := "box box-pad tour__faq")(tournament.faq)
       )
 
   def edit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using PageContext) =

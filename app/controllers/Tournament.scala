@@ -43,7 +43,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     yield response
 
   def help = Open:
-    Ok.page(html.tournament.faq.page)
+    Ok.page(html.tournament.faq)
 
   def leaderboard = Open:
     for
