@@ -16,7 +16,7 @@ object activity:
         PageModule("mod.activity", Json.obj("op" -> "activity", "data" -> lila.mod.ModActivity.json(p))).some
     ) {
       main(cls := "page-menu")(
-        views.html.mod.menu("activity"),
+        views.html.mod.ui.menu("activity"),
         div(cls := "page-menu__content index box mod-activity")(
           boxTop(
             h1(

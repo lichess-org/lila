@@ -19,7 +19,7 @@ this.setSelectionRange(this.value.length, this.value.length);
 });""")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.menu("email"),
+        views.html.mod.ui.menu("email"),
         div(cls := "mod-confirm page-menu__content box box-pad")(
           h1(cls := "box__top")("Confirm a user email"),
           p(

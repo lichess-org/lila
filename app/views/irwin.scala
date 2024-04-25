@@ -16,7 +16,7 @@ object irwin:
       moreCss = cssTag("mod.misc")
     ):
       main(cls := "page-menu")(
-        mod.menu("irwin"),
+        mod.ui.menu("irwin"),
         ui.dashboard(dashboard)
       )
 
@@ -26,6 +26,6 @@ object irwin:
       moreCss = cssTag("mod.misc")
     ):
       main(cls := "page-menu")(
-        mod.menu("kaladin"),
+        mod.ui.menu("kaladin"),
         irwin.ui.kaladin.dashboard(dashboard)
       )

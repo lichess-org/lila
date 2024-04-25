@@ -207,6 +207,6 @@ object event:
       modules = jsModule("bits.flatpickr")
     ):
       main(cls := "page-menu")(
-        mod.menu("event"),
+        mod.ui.menu("event"),
         body
       )

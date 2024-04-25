@@ -16,7 +16,7 @@ object queueStats:
       pageModule = PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json)).some
     ):
       main(cls := "page-menu")(
-        views.html.mod.menu("queues"),
+        views.html.mod.ui.menu("queues"),
         div(cls := "page-menu__content index box mod-queues")(
           boxTop(
             h1(

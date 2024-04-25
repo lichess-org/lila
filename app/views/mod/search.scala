@@ -22,7 +22,7 @@ object search:
       modules = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.menu("search"),
+        views.html.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           h1(cls := "box__top")("Search users"),
           st.form(cls := "search box__pad", action := routes.Mod.search, method := "GET")(
@@ -50,7 +50,7 @@ object search:
       modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
-        views.html.mod.menu("search"),
+        views.html.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("Fingerprint: ", fh.value),
@@ -92,7 +92,7 @@ object search:
       modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
-        views.html.mod.menu("search"),
+        views.html.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("IP address: ", renderIp(address)),
@@ -126,7 +126,7 @@ object search:
       modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
-        views.html.mod.menu("search"),
+        views.html.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
@@ -144,7 +144,7 @@ object search:
       moreCss = cssTag("mod.misc")
     ):
       main(cls := "page-menu")(
-        views.html.mod.menu("search"),
+        views.html.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("Classes from", userIdLink(teacherId.some))
@@ -188,7 +188,7 @@ object search:
       modules = infiniteScrollTag
     ) {
       main(cls := "page-menu")(
-        views.html.mod.menu("notes"),
+        views.html.mod.ui.menu("notes"),
         div(cls := "page-menu__content box")(
           boxTop(
             h1("Mod notes"),

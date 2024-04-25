@@ -12,7 +12,7 @@ object config:
       moreCss = cssTag("mod.misc")
     )(
       main(cls := "page-menu")(
-        views.html.mod.menu("practice"),
+        views.html.mod.ui.menu("practice"),
         div(cls := "practice_config page-menu__content box box-pad")(
           h1(cls := "box__top")("Practice config"),
           div(cls := "both")(

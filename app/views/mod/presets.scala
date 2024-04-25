@@ -14,7 +14,7 @@ object presets:
       moreCss = frag(cssTag("mod.misc"), cssTag("form3"))
     )(
       main(cls := "page-menu")(
-        views.html.mod.menu("presets"),
+        views.html.mod.ui.menu("presets"),
         div(cls := "page-menu__content box box-pad mod-presets")(
           boxTop(
             h1(

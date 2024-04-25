@@ -26,7 +26,7 @@ object crud:
       moreJs = evenMoreJs
     ):
       main(cls := "page-menu")(
-        views.html.mod.menu("tour"),
+        views.html.mod.ui.menu("tour"),
         body
       )
 
