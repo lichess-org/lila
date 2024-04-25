@@ -1,5 +1,5 @@
-import * as xhr from 'common/xhr';
 import { currentTheme } from 'common/theme';
+import * as xhr from 'common/xhr';
 
 type LinkType = 'youtube' | 'twitter';
 
@@ -82,17 +82,6 @@ site.load.then(() => {
     );
     if (!twitterLoaded) {
       twitterLoaded = true;
-
-      // polyfill document.createElement so that iframes created by twitter get the `credentialless` attribute
-      const originalCreateElement = document.createElement;
-      document.createElement = function () {
-        const element = originalCreateElement.apply(this, arguments as any);
-        if (element instanceof HTMLIFrameElement) {
-          (element as any).credentialless = true;
-        }
-        return element;
-      };
-
       xhr.script('https://platform.twitter.com/widgets.js');
     }
   }

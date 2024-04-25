@@ -4,6 +4,7 @@ import * as miniGame from './miniGame';
 import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
 import announce from './announce';
+import { patchCreateDocumentToEnsureAllIFramesAreCredentialless } from './credentiallessIframes';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import pubsub from './pubsub';
@@ -21,6 +22,8 @@ export function boot() {
   $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
+
+  patchCreateDocumentToEnsureAllIFramesAreCredentialless();
 
   requestAnimationFrame(() => {
     miniBoard.initAll();
