@@ -58,9 +58,6 @@ z-index: 99;
       )("Instagram")
     )
 
-  def fenAnalysisLink(fen: Fen.Full)(using Translate) =
-    a(href := s"/analysis/${underscoreFen(fen)}")(lila.core.i18n.I18nKey.site.analysis())
-
   def paginationByQuery(route: Call, pager: Paginator[?], showPost: Boolean): Option[Frag] =
     pagination(page => s"$route?page=$page", pager, showPost)
 

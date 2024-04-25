@@ -1,13 +1,22 @@
-package views.html
+package lila.gathering
+package ui
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
+import lila.core.data.UserIds
 
-import lila.gathering.Condition
-import lila.rating.PerfType
+final class GatheringUi(helpers: Helpers)(prizeTournamentMakers: () => UserIds):
+  import helpers.{ *, given }
 
-object gathering:
+  def userPrizeDisclaimer(ownerId: UserId): Option[Frag] =
+    (!prizeTournamentMakers().value.contains(ownerId)).option:
+      div(cls := "tour__prize")(
+        "This tournament is not organized by Lichess.",
+        br,
+        "If it has prizes, Lichess is not responsible for paying them."
+      )
 
-  def verdicts(vs: Condition.WithVerdicts, pt: PerfType, relevant: Boolean = true)(using
+  def verdicts(vs: Condition.WithVerdicts, pk: PerfKey, relevant: Boolean = true)(using
       ctx: Context
   ): Option[Tag] =
     vs.nonEmpty.option(
@@ -41,7 +50,7 @@ object gathering:
                         absClientInstant(until),
                         "."
                       )
-                    case _ => condition.name(pt)
+                    case _ => condition.name(pk)
         )
       )
     )

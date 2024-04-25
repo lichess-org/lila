@@ -92,7 +92,7 @@ object show:
                   frag(
                     br,
                     "Custom position • ",
-                    views.html.base.bits.fenAnalysisLink(fen)
+                    lila.ui.bits.fenAnalysisLink(fen)
                   )
                 })
             ),

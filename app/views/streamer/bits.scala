@@ -78,9 +78,8 @@ object bits:
     }
 
   def contextual(streamers: List[UserId])(using Translate): Option[Tag] =
-    streamers.nonEmpty.option(div(cls := "context-streamers"):
-      streamers.map(contextual)
-    )
+    streamers.nonEmpty.option:
+      div(cls := "context-streamers")(streamers.map(contextual))
 
   def contextual(userId: UserId)(using Translate): Tag =
     redirectLink(userId)(cls := "context-streamer text", dataIcon := Icon.Mic):

@@ -36,7 +36,7 @@ object widgets:
                       frag(" ", trans.site.by(userIdLink(user.some, None, withOnline = false)))
                     },
                     separator,
-                    bits.variantLink(g.variant, g.perfType)
+                    variantLink(g.variant, g.perfType)
                   )
                 else
                   frag(

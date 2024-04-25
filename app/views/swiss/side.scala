@@ -25,7 +25,7 @@ object side:
             p(
               s.clock.show,
               separator,
-              views.html.game.bits.variantLink(s.variant, s.perfType, shortName = true),
+              variantLink(s.variant, s.perfType, shortName = true),
               separator,
               if s.settings.rated then trans.site.ratedTournament() else trans.site.casualTournament()
             ),
@@ -47,7 +47,7 @@ object side:
         ),
         s.settings.description.map: d =>
           st.section(cls := "description")(markdownLinksOrRichText(d)),
-        s.looksLikePrize.option(views.html.tournament.bits.userPrizeDisclaimer(s.createdBy)),
+        s.looksLikePrize.option(views.html.gathering.userPrizeDisclaimer(s.createdBy)),
         s.settings.position
           .flatMap(p => lila.tournament.Thematic.byFen(p.opening))
           .map { pos =>
@@ -57,7 +57,7 @@ object side:
             div(
               trans.site.customPosition(),
               " • ",
-              views.html.base.bits.fenAnalysisLink(fen)
+              lila.ui.bits.fenAnalysisLink(fen)
             )),
         teamLink(s.teamId),
         views.html.gathering.verdicts(verdicts, s.perfType, s.isEnterable) | br,

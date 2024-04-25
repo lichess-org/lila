@@ -5,10 +5,22 @@ import play.api.libs.json.Json
 
 import lila.common.Json.given
 import lila.app.templating.Environment.{ *, given }
-
 import lila.tournament.Tournament
 
+def faq(using PageContext) =
+  views.html.base.layout(
+    title = trans.site.tournamentFAQ.txt(),
+    moreCss = cssTag("page")
+  )(show.ui.faq.page)
+
 object show:
+
+  lazy val ui = lila.tournament.ui.TournamentShow(helpers, views.html.gathering)(
+    variantTeamLinks = lila.team.Team.variants.view
+      .mapValues: team =>
+        (team, teamLink(team, true))
+      .toMap
+  )
 
   def apply(
       tour: Tournament,
@@ -57,14 +69,10 @@ object show:
         .some,
       csp = defaultCsp.withLilaHttp.some
     ):
-      main(cls := s"tour${tour.schedule.so { sched =>
-          s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
-        }}")(
-        st.aside(cls := "tour__side"):
-          tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)
-        ,
-        div(cls := "tour__main")(div(cls := "box")),
-        tour.isCreated.option(div(cls := "tour__faq"):
-          faq(tour.mode.rated.some, tour.isPrivate.option(tour.id))
-        )
+      ui.show(
+        tour,
+        verdicts,
+        shieldOwner,
+        chat = chatOption.isDefined.option(views.html.chat.frag),
+        streamers = views.html.streamer.bits.contextual(streamers)
       )

@@ -179,3 +179,36 @@ trait GameHelper:
 
   def aiNameFrag(level: Int)(using Translate) =
     raw(aiName(level).replace(" ", "&nbsp;"))
+
+  def variantLink(
+      variant: chess.variant.Variant,
+      pk: PerfKey,
+      initialFen: Option[chess.format.Fen.Full] = None,
+      shortName: Boolean = false
+  )(using Translate): Frag =
+
+    def link(href: String, title: String, name: String) = a(
+      cls     := "variant-link",
+      st.href := href,
+      targetBlank,
+      st.title := title
+    )(name)
+
+    if variant.exotic then
+      link(
+        href = variant match
+          case chess.variant.FromPosition =>
+            s"""${routes.Editor.index}?fen=${initialFen.so(_.value.replace(' ', '_'))}"""
+          case v => routes.Cms.variant(v.key).url
+        ,
+        title = variant.title,
+        name = (if shortName && variant == chess.variant.KingOfTheHill then variant.shortName
+                else variant.name).toUpperCase
+      )
+    else if pk == PerfKey.correspondence then
+      link(
+        href = s"${routes.Main.faq}#correspondence",
+        title = PerfKey.correspondence.perfDesc.txt(),
+        name = PerfKey.correspondence.perfTrans
+      )
+    else span(title := pk.perfDesc.txt())(pk.perfTrans)

@@ -47,7 +47,7 @@ object side:
                     div(
                       a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
                       separator,
-                      bits.variantLink(game.variant, game.perfType, initialFen = initialFen, shortName = true)
+                      variantLink(game.variant, game.perfType, initialFen = initialFen, shortName = true)
                     )
                   else
                     frag(
@@ -55,7 +55,7 @@ object side:
                       separator,
                       (if game.rated then trans.site.rated else trans.site.casual).txt(),
                       separator,
-                      bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
+                      variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )
                 ),
                 game.pgnImport.flatMap(_.date).fold(momentFromNowWithPreload(game.createdAt))(frag(_))

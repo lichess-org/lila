@@ -1,6 +1,8 @@
 package lila.ui
 
 import ScalatagsTemplate.{ *, given }
+import chess.format.Fen
+import lila.core.i18n.Translate
 
 object bits:
 
@@ -21,3 +23,6 @@ object bits:
       label(`for` := s"mselect-$id", cls := "fullscreen-mask"),
       st.nav(cls := "mselect__list")(items.map(_(cls := "mselect__item")))
     )
+
+  def fenAnalysisLink(fen: Fen.Full)(using Translate) =
+    a(href := s"/analysis/${ChessHelper.underscoreFen(fen)}")(lila.core.i18n.I18nKey.site.analysis())

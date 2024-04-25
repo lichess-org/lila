@@ -47,19 +47,6 @@ object bits:
         )
     )
 
-  def userPrizeDisclaimer(ownerId: UserId) =
-    (!env.web.settings.prizeTournamentMakers
-      .get()
-      .value
-      .contains(ownerId))
-      .option(
-        div(cls := "tour__prize")(
-          "This tournament is not organized by Lichess.",
-          br,
-          "If it has prizes, Lichess is not responsible for paying them."
-        )
-      )
-
   def scheduleJsI18n(using Context) = i18nJsObject(schedulei18nKeys)
 
   def jsI18n(tour: Tournament)(using Context) = i18nJsObject(
