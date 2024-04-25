@@ -27,7 +27,7 @@ final class Swiss(
       teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
       swiss   <- env.swiss.feature.get(teamIds)
       _       <- env.team.lightTeamApi.preload(swiss.teamIds)
-      page    <- renderPage(html.swiss.home(swiss))
+      page    <- renderPage(html.swiss.homepage(swiss))
     yield Ok(page)
 
   def show(id: SwissId) = Open:

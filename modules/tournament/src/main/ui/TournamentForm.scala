@@ -5,7 +5,7 @@ import play.api.data.*
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
-import lila.core.i18n.{ Translate, I18nKey as trans }
+import lila.core.i18n.Translate
 import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.core.team.LightTeam
 

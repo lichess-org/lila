@@ -1,13 +1,13 @@
-package views.html.swiss
+package lila.swiss
+package ui
 
-import play.api.i18n.Lang
+import play.api.data.Form
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-import lila.core.i18n.I18nKey as trans
-import lila.swiss.Swiss
-
-object bits:
+final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
+  import helpers.{ *, given }
 
   def link(swiss: Swiss): Frag     = link(swiss.id, swiss.name)
   def link(swissId: SwissId): Frag = link(swissId, idToName(swissId))
@@ -18,23 +18,19 @@ object bits:
       href     := routes.Swiss.show(swissId).url
     )(name)
 
-  def idToName(id: SwissId): String = env.swiss.getName.sync(id).getOrElse("Tournament")
+  def idToName(id: SwissId): String = getName.sync(id).getOrElse("Tournament")
 
-  def notFound()(using PageContext) =
-    views.html.base.layout(
-      title = trans.site.tournamentNotFound.txt()
-    ) {
-      main(cls := "page-small box box-pad")(
-        h1(cls := "box__top")(trans.site.tournamentNotFound()),
-        p(trans.site.tournamentDoesNotExist()),
-        p(trans.site.tournamentMayHaveBeenCanceled()),
-        br,
-        br,
-        a(href := routes.Swiss.home)(trans.site.returnToTournamentsHomepage())
-      )
-    }
+  def notFound(using Context) =
+    main(cls := "page-small box box-pad")(
+      h1(cls := "box__top")(trans.site.tournamentNotFound()),
+      p(trans.site.tournamentDoesNotExist()),
+      p(trans.site.tournamentMayHaveBeenCanceled()),
+      br,
+      br,
+      a(href := routes.Swiss.home)(trans.site.returnToTournamentsHomepage())
+    )
 
-  def forTeam(swisses: List[Swiss])(using PageContext) =
+  def forTeam(swisses: List[Swiss])(using Context) =
     table(cls := "slist")(
       tbody(
         swisses.map { s =>
@@ -77,7 +73,7 @@ object bits:
           trans.swiss.xSecondsBetweenRounds.pluralSame(s.settings.intervalSeconds)
         else trans.swiss.xMinutesBetweenRounds.pluralSame(s.settings.intervalSeconds / 60)
 
-  def homepageSpotlight(s: Swiss)(using PageContext) =
+  def homepageSpotlight(s: Swiss)(using Context) =
     a(href := routes.Swiss.show(s.id), cls := "tour-spotlight little")(
       iconTag(s.perfType.icon)(cls := "img icon"),
       span(cls := "content")(
@@ -90,7 +86,7 @@ object bits:
       )
     )
 
-  def jsI18n(using PageContext) = i18nJsObject(i18nKeys)
+  def jsI18n(using Context) = i18nJsObject(i18nKeys)
 
   private val i18nKeys = List(
     trans.site.join,

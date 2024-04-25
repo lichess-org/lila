@@ -76,7 +76,7 @@ object form:
               views.html.setup.filter.renderCheckboxes(
                 form,
                 "variants",
-                translatedVariantChoicesWithVariants,
+                translatedVariantChoicesWithVariantsById,
                 checks = form.value
                   .map(_.variants.map(_.toString))
                   .getOrElse(simul.so(_.variants.map(_.id.toString)))

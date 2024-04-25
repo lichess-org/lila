@@ -31,8 +31,9 @@ object Environment
   def contactEmailInClear = env.net.email.value
   def picfitUrl           = env.memo.picfitUrl
 
-  given lila.core.config.NetDomain              = env.net.domain
-  given (using ctx: PageContext): Option[Nonce] = ctx.nonce
+  given lila.core.config.NetDomain                           = env.net.domain
+  given (using ctx: PageContext): Option[Nonce]              = ctx.nonce
+  given Conversion[lila.team.Team, lila.core.team.LightTeam] = _.light
 
   def apiVersion = lila.security.Mobile.Api.currentVersion
 
@@ -41,17 +42,19 @@ object Environment
   def externalEngineEndpoint = env.externalEngineEndpoint
 
   // helpers dependencies
-  lazy val assetBaseUrl       = netConfig.assetBaseUrl
-  lazy val netBaseUrl         = netConfig.baseUrl
-  protected val ratingApi     = lila.rating.ratingApi
-  protected lazy val flairApi = env.user.flairApi
-  lazy val isOnline           = env.socket.isOnline
-  lazy val lightUserSync      = env.user.lightUserSync
-  def manifest                = env.web.manifest
-  protected val jsDump        = lila.i18n.JsDump
-  protected val translator    = lila.i18n.Translator
-  val langList                = lila.i18n.LangList
-  protected val namer         = lila.game.Namer
+  lazy val assetBaseUrl            = netConfig.assetBaseUrl
+  lazy val netBaseUrl              = netConfig.baseUrl
+  protected val ratingApi          = lila.rating.ratingApi
+  protected lazy val flairApi      = env.user.flairApi
+  lazy val isOnline                = env.socket.isOnline
+  lazy val lightUserSync           = env.user.lightUserSync
+  def manifest                     = env.web.manifest
+  protected val jsDump             = lila.i18n.JsDump
+  protected val translator         = lila.i18n.Translator
+  val langList                     = lila.i18n.LangList
+  protected val namer              = lila.game.Namer
+  protected lazy val lightTeamSync = env.team.lightTeamSync
+  protected lazy val syncBelongsTo = env.team.api.syncBelongsTo
 
   def helpers: Helpers             = this
   def assetHelper: AssetFullHelper = this

@@ -1,22 +1,19 @@
-package lila.app
-package templating
-
-import scalatags.Text.all.Tag
+package lila.ui
 
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.team.LightTeam
-import lila.team.Team
 
 trait TeamHelper:
-  self: RouterHelper & lila.ui.AssetHelper =>
+  self: AssetHelper =>
 
-  def env: Env
+  protected def lightTeamSync: TeamId => Option[LightTeam]
+  protected def syncBelongsTo: (TeamId, UserId) => Boolean
 
   def isMyTeamSync(teamId: TeamId)(using ctx: Context): Boolean =
-    ctx.userId.exists { env.team.api.syncBelongsTo(teamId, _) }
+    ctx.userId.exists { syncBelongsTo(teamId, _) }
 
   def teamIdToLight(id: TeamId): LightTeam =
-    env.team.lightTeamSync(id).getOrElse(LightTeam(id, id.value, none))
+    lightTeamSync(id).getOrElse(LightTeam(id, id.value, none))
 
   def teamLink(id: TeamId, withIcon: Boolean = true): Tag =
     teamLink(teamIdToLight(id), withIcon)
@@ -28,18 +25,9 @@ trait TeamHelper:
       cls      := withIcon.option("text")
     )(team.name, teamFlair(team))
 
-  def teamLink(team: Team, withIcon: Boolean): Tag = teamLink(team.light, withIcon)
-
-  def teamFlair(team: Team): Option[Tag]      = team.flair.map(teamFlair)
   def teamFlair(team: LightTeam): Option[Tag] = team.flair.map(teamFlair)
 
   def teamFlair(flair: Flair): Tag =
     img(cls := "uflair", src := flairSrc(flair))
 
   def teamForumUrl(id: TeamId) = routes.ForumCateg.show("team-" + id)
-
-  lazy val variantTeamLinks: Map[chess.variant.Variant.LilaKey, (LightTeam, Frag)] =
-    lila.team.Team.variants.view
-      .mapValues: team =>
-        (team, teamLink(team, true))
-      .toMap

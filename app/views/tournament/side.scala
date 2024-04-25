@@ -2,13 +2,19 @@ package views
 package html.tournament
 
 import lila.app.templating.Environment.{ *, given }
-
 import lila.common.String.html.markdownLinksOrRichText
 import lila.tournament.{ TeamBattle, Tournament }
+import lila.core.team.LightTeam
 
 object side:
 
   private val separator = " • "
+
+  private lazy val variantTeamLinks: Map[chess.variant.Variant.LilaKey, (LightTeam, Frag)] =
+    lila.team.Team.variants.view
+      .mapValues: team =>
+        (team, teamLink(team, true))
+      .toMap
 
   def apply(
       tour: Tournament,

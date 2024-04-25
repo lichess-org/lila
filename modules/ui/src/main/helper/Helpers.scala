@@ -13,3 +13,4 @@ trait Helpers
     with FlashHelper
     with ChessHelper
     with PaginatorHelper
+    with TeamHelper

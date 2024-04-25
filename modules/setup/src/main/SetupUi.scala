@@ -124,7 +124,7 @@ trait SetupUi:
       (encode(chess.variant.Standard), trans.site.standard.txt(), chess.variant.Standard.title.some)
     )
 
-  def translatedVariantChoicesWithVariants(using Translate): List[SelectChoice] =
+  def translatedVariantChoicesWithVariantsById(using Translate): List[SelectChoice] =
     translatedVariantChoicesWithVariants(encodeId)
 
   def translatedVariantChoicesWithVariants(
@@ -159,7 +159,7 @@ trait SetupUi:
       variantTupleId(chess.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(using Translate) =
-    translatedVariantChoicesWithVariants :+
+    translatedVariantChoicesWithVariantsById :+
       variantTupleId(chess.variant.FromPosition)
 
   def translatedSpeedChoices(using Translate) =

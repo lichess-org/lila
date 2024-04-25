@@ -1,40 +1,36 @@
-package views.html.swiss
+package lila.swiss
+package ui
 
-import play.api.i18n.Lang
+import play.api.data.Form
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-import lila.swiss.{ FeaturedSwisses, Swiss }
+final class SwissHomeUi(helpers: Helpers):
+  import helpers.{ *, given }
 
-object home:
-
-  def apply(featured: FeaturedSwisses)(using PageContext) =
-    views.html.base.layout(
-      title = trans.swiss.swissTournaments.txt(),
-      moreCss = cssTag("swiss.home"),
-      withHrefLangs = lila.web.LangPath(routes.Swiss.home).some
-    ):
-      main(cls := "page-small box box-pad page swiss-home")(
-        h1(cls := "box__top")(trans.swiss.swissTournaments()),
-        renderList(trans.swiss.nowPlaying.txt())(featured.started),
-        renderList(trans.swiss.startingSoon.txt())(featured.created),
-        div(cls := "swiss-home__infos")(
-          div(cls := "wiki")(
-            iconTag(Icon.InfoCircle),
-            p:
-              trans.swiss.swissDescription:
-                a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
-          ),
-          div(cls := "team")(
-            iconTag(Icon.Group),
-            p:
-              trans.swiss.teamOnly:
-                a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
-          ),
-          comparison,
-          div(id := "faq")(faq)
-        )
+  def page(featured: FeaturedSwisses)(using Context) =
+    main(cls := "page-small box box-pad page swiss-home")(
+      h1(cls := "box__top")(trans.swiss.swissTournaments()),
+      renderList(trans.swiss.nowPlaying.txt())(featured.started),
+      renderList(trans.swiss.startingSoon.txt())(featured.created),
+      div(cls := "swiss-home__infos")(
+        div(cls := "wiki")(
+          iconTag(Icon.InfoCircle),
+          p:
+            trans.swiss.swissDescription:
+              a(href := "https://en.wikipedia.org/wiki/Swiss-system_tournament")("(wiki)")
+        ),
+        div(cls := "team")(
+          iconTag(Icon.Group),
+          p:
+            trans.swiss.teamOnly:
+              a(href := routes.Team.home())(trans.swiss.joinOrCreateTeam.txt())
+        ),
+        comparison,
+        div(id := "faq")(faq)
       )
+    )
 
   private def renderList(name: String)(swisses: List[Swiss])(using Context) =
     table(cls := "slist swisses")(
