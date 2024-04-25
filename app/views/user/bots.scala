@@ -2,7 +2,7 @@ package views.html
 package user
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestAny3Perfs
 

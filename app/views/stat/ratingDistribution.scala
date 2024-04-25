@@ -4,7 +4,7 @@ package stat
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.Json.given
 
 import lila.rating.PerfType

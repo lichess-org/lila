@@ -1,7 +1,6 @@
 package views.html.simul
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
 
 object home:
 

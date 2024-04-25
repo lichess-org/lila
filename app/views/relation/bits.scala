@@ -1,7 +1,7 @@
 package views.html.relation
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.game.FavoriteOpponents
 import lila.relation.Related

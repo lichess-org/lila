@@ -1,7 +1,7 @@
 package views.html.lobby
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.rating.PerfType
 
 object bits:

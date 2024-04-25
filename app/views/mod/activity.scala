@@ -3,7 +3,7 @@ package views.html.mod
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.mod.ModActivity.*
 
 object activity:

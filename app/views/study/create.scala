@@ -1,7 +1,7 @@
 package views.html.study
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.study.Study
 import lila.core.study.IdName
 

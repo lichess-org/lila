@@ -1,8 +1,8 @@
 package views.html.video
 
-import lila.app.templating.Environment.*
-import lila.ui.ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
+
+import lila.app.templating.Environment.{ *, given }
 
 object index:
 

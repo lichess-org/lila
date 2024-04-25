@@ -1,7 +1,7 @@
 package views.html.mod
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.perm.Permission
 import lila.mod.canGrant
 import lila.security.Permission.findGranterPackage

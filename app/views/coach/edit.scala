@@ -4,7 +4,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.html.safeJsonValue
 import lila.i18n.LangList
 

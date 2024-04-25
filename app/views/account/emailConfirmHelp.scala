@@ -4,7 +4,7 @@ package account
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.security.EmailConfirm.Help.Status
 
 object emailConfirmHelp:

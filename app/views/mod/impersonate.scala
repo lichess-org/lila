@@ -2,8 +2,7 @@ package views.html.mod
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.*
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.app.templating.Environment.{ *, given }
 
 object impersonate:
 

@@ -4,7 +4,7 @@ import play.api.data.{ Field, Form }
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.team.{ Team, TeamSecurity }
 
 object admin:

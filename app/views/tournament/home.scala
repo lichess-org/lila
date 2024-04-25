@@ -3,7 +3,7 @@ package views.html.tournament
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.web.LangPath
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament

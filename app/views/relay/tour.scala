@@ -1,7 +1,7 @@
 package views.html.relay
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.web.LangPath
 import lila.core.LightUser
 import scalalib.paginator.Paginator

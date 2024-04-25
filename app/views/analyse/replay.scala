@@ -8,7 +8,6 @@ import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 import bits.dataPanel
 import lila.game.GameExt.analysable

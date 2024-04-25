@@ -3,7 +3,6 @@ package views.html.tournament
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
 
 object calendar:
 

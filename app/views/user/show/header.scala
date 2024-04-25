@@ -2,7 +2,7 @@ package views.html.user.show
 
 import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.html.richText
 import lila.user.Plan.sinceDate
 import lila.user.Profile.*

@@ -3,7 +3,7 @@ package views.html.puzzle
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.common.Json.given
 
 object show:

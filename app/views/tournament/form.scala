@@ -4,7 +4,7 @@ package tournament
 import play.api.data.{ Field, Form }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.team.LightTeam
 import lila.tournament.Tournament
 import lila.tournament.ui.*

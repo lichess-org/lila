@@ -2,7 +2,7 @@ package views.html
 package account
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.pref.PrefCateg
 
 object bits:

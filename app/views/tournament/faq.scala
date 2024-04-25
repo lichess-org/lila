@@ -2,7 +2,6 @@ package views.html
 package tournament
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object faq:
 

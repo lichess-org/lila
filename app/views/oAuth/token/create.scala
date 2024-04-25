@@ -3,7 +3,7 @@ package views.html.oAuth.token
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.i18n.I18nKey.oauthScope as ot
 
 object create:

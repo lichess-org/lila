@@ -2,7 +2,7 @@ package views.html
 package study
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.web.LangPath
 import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked

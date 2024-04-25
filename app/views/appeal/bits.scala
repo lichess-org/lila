@@ -2,7 +2,6 @@ package views.html
 package appeal
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
 
 object bits:
 

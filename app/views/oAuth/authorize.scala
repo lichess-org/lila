@@ -2,7 +2,7 @@ package views.html
 package oAuth
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.LightUser
 import lila.oauth.{ AuthorizationRequest, OAuthScope }
 

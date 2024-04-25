@@ -1,7 +1,7 @@
 package views.html.team
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.{ Markdown, MarkdownRender }
 import lila.team.Team
 

@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 
 import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.web.LangPath
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw

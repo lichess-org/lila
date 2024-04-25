@@ -2,7 +2,7 @@ package views
 package html.forum
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.forum.ForumPost
 import lila.core.forum.ForumPostMini
 

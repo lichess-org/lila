@@ -1,7 +1,7 @@
 package views.html.analyse
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import play.api.libs.json.{ Json, JsObject }
 
 object bits:

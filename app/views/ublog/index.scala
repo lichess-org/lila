@@ -1,7 +1,7 @@
 package views.html.ublog
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.i18n.LangList
 import lila.core.i18n.Language

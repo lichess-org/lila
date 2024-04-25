@@ -2,7 +2,7 @@ package views.html
 package simul
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 
 object hosted:

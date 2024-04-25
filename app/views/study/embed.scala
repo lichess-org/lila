@@ -5,7 +5,6 @@ import chess.format.pgn.PgnStr
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object embed:
 

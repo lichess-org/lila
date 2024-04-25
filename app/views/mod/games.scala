@@ -4,7 +4,7 @@ import play.api.data.Form
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.evaluation.PlayerAssessment
 import lila.rating.PerfType
 import lila.core.chess.Rank

@@ -1,7 +1,7 @@
 package views.html.clas
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
 import lila.rating.UserPerfsExt.bestAny3Perfs

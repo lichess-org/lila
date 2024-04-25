@@ -2,7 +2,7 @@ package views
 package html.puzzle
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.i18n.I18nKey
 import lila.puzzle.{ PuzzleAngle, PuzzleTheme }
 

@@ -3,7 +3,6 @@ package views.html.auth
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object checkYourEmail:
 

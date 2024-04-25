@@ -1,7 +1,7 @@
 package views.html.report
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.report.Report.WithSuspect
 import lila.report.ui.reportScore
 import lila.rating.UserPerfsExt.bestPerfs

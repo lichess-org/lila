@@ -2,7 +2,7 @@ package views.html
 package forum
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.forum.{ CategView, TopicView }
 

@@ -1,7 +1,7 @@
 package views.html.team
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import scalalib.paginator.Paginator
 import lila.team.{ Team, TeamMember }
 

@@ -1,7 +1,7 @@
 package views.html.tournament
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.tournament.Schedule.Freq
 import lila.tournament.Tournament

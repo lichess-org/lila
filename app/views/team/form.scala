@@ -3,7 +3,7 @@ package views.html.team
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.team.{ Team, TeamMember }
 import lila.core.team.Access
 import lila.core.captcha.Captcha

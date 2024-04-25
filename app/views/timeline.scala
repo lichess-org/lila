@@ -1,7 +1,7 @@
 package views.html
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.timeline.*
 
 import lila.rating.PerfType

@@ -1,7 +1,7 @@
 package views.html.opening
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.opening.OpeningPage
 
 object show:

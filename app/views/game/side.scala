@@ -2,7 +2,7 @@ package views.html
 package game
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.game.GameExt.perfType
 
 object side:

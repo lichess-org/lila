@@ -1,7 +1,7 @@
 package views.html.ublog
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 
 object post:

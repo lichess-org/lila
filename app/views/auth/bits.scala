@@ -4,7 +4,7 @@ package auth
 import play.api.data.{ Field, Form }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.security.HcaptchaForm
 
 object bits:

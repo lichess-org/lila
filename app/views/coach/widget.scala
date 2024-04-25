@@ -2,7 +2,7 @@ package views.html
 package coach
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.i18n.LangList
 import lila.user.Profile.flagInfo
 import lila.rating.UserPerfsExt.best6Perfs

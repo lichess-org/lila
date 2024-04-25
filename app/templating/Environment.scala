@@ -1,12 +1,12 @@
 package lila.app
 package templating
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
 import lila.web.ui.*
 
 object Environment
-    extends RouterHelper
+    extends ScalatagsTemplate
+    with RouterHelper
     with lila.ui.PaginatorHelper
     with lila.setup.SetupUi
     with lila.pref.PrefUi

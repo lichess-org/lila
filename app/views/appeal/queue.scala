@@ -2,7 +2,7 @@ package views.html
 package appeal
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.appeal.Appeal
 import lila.report.Report.Inquiry
 

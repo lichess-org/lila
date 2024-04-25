@@ -2,7 +2,7 @@ package views.html
 package game
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.game.{ Player }
 import lila.game.GameExt.perfType
 import lila.game.Player.nameSplit

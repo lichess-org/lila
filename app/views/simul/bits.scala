@@ -3,7 +3,6 @@ package views.html.simul
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 

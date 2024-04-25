@@ -1,7 +1,7 @@
 package views.html.site
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.cms.CmsPage
 
 object page:

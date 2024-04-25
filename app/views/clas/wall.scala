@@ -3,7 +3,7 @@ package views.html.clas
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.clas.{ Clas, Student }
 
 object wall:

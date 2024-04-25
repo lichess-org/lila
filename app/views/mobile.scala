@@ -1,7 +1,7 @@
 package views.html
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.web.LangPath
 
 object mobile:

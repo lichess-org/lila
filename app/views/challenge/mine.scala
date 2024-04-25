@@ -1,7 +1,7 @@
 package views.html.challenge
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.challenge.Challenge.Status
 import lila.core.LightUser
 

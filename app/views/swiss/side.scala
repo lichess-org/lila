@@ -2,7 +2,7 @@ package views
 package html.swiss
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.html.markdownLinksOrRichText
 import lila.gathering.Condition
 import lila.gathering.Condition.WithVerdicts

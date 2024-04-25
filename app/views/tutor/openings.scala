@@ -1,7 +1,7 @@
 package views.html.tutor
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.tutor.TutorPerfReport
 import lila.tutor.ui.*
 

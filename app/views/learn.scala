@@ -3,7 +3,7 @@ package views.html.learn
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.web.LangPath
 
 object index:

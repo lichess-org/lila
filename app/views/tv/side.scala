@@ -1,7 +1,7 @@
 package views.html.tv
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.game.GameExt.perfType
 
 object side:

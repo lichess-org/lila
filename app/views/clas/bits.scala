@@ -2,7 +2,7 @@ package views.html.clas
 
 import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.clas.{ Clas, Student }
 
 lazy val ui = lila.clas.ui.ClasUi(helpers)

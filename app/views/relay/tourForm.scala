@@ -3,7 +3,7 @@ package views.html.relay
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.relay.RelayTour
 import lila.relay.RelayTourForm.Data
 

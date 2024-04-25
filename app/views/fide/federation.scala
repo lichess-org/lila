@@ -1,7 +1,7 @@
 package views.html.fide
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.fide.{ Federation, FidePlayer }
 

@@ -1,7 +1,7 @@
 package views.html.plan
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.plan.CurrencyApi.zeroDecimalCurrencies
 
 object indexStripe:

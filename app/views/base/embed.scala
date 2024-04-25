@@ -1,7 +1,7 @@
 package views.html.base
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.pref.SoundSet
 
 object embed:

@@ -1,7 +1,6 @@
 package views.html
 package appeal
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.app.templating.Environment.{ *, given }
 
 lazy val tree = lila.appeal.ui.AppealTreeUi(helpers)(preset =>

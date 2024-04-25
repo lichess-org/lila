@@ -4,7 +4,7 @@ package study
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.removeMultibyteSymbols
 import lila.study.{ Order, Study }
 

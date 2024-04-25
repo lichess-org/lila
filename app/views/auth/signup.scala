@@ -2,7 +2,7 @@ package views.html
 package auth
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.HTTPRequest
 import lila.security.PasswordCheck
 import lila.web.LangPath

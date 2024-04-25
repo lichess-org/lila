@@ -1,6 +1,6 @@
 package views.html.fide
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.core.fide.FideTC
 
 private object bits:

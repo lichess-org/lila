@@ -3,7 +3,7 @@ package views.html.user
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.perfStat.{ PerfStat, PerfStatData }
 
 import lila.rating.PerfType

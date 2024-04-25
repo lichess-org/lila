@@ -2,11 +2,10 @@ package views.html
 
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import scalalib.paginator.Paginator
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.web.LangPath
-import scalalib.paginator.Paginator
 import lila.storm.{ StormDay, StormHigh }
 
 object storm:

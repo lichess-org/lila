@@ -4,7 +4,6 @@ import play.api.i18n.Lang
 
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object tournaments:
 

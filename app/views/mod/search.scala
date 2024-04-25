@@ -3,7 +3,7 @@ package views.html.mod
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.net.IpAddress
 import lila.core.security.FingerHash
 import lila.common.String.html.richText

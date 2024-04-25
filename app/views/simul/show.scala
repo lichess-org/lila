@@ -3,7 +3,7 @@ package views.html.simul
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.Json.given
 import lila.gathering.Condition
 import lila.simul.Simul

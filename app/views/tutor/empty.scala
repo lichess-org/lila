@@ -5,7 +5,6 @@ import chess.format.pgn.PgnStr
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 import lila.tutor.TutorQueue
 import lila.core.perf.UserWithPerfs

@@ -3,7 +3,7 @@ package views.html.opening
 import chess.opening.Opening
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.opening.{ OpeningConfig, OpeningPage }
 
 object index:

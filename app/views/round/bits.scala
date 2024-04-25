@@ -6,7 +6,7 @@ import chess.variant.{ Crazyhouse, Variant }
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.Json.given
 import lila.web.LangPath
 import lila.game.GameExt.playerBlurPercent

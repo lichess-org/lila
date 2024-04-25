@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import java.util.Currency
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.html.safeJsonValue
 
 object index:

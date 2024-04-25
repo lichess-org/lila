@@ -3,7 +3,7 @@ package views.html.study
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.common.Json.given
 import lila.core.socket.SocketVersion
 

@@ -1,7 +1,6 @@
 package views.html.video
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object layout:
 

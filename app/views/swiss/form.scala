@@ -3,7 +3,7 @@ package views.html.swiss
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.swiss.{ Swiss, SwissForm }
 
