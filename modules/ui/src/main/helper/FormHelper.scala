@@ -60,4 +60,4 @@ trait FormHelper:
       )
     }.toList
 
-  val form3 = Form3(this, flairApi)
+  lazy val form3 = Form3(this, flairApi)

@@ -10,8 +10,8 @@ import lila.core.i18n.{ Translate, I18nKey as trans }
 object contact:
 
   import trans.contact.*
-  import lila.web.views.navTree.*
-  import lila.web.views.navTree.Node.*
+  import lila.ui.navTree.*
+  import lila.ui.navTree.Node.*
 
   def contactEmailLinkEmpty(email: String) =
     a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))

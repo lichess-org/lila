@@ -12,8 +12,6 @@ import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
 
-import trans.appeal
-
 object discussion:
 
   case class ModData(
@@ -21,7 +19,7 @@ object discussion:
       suspect: Suspect,
       presets: ModPresets,
       logins: lila.security.UserLogins.TableData[UserWithModlog],
-      appeals: List[lila.appeal.Appeal],
+      appeals: List[Appeal],
       renderIp: RenderIp,
       inquiry: Option[Inquiry],
       markedByMe: Boolean
@@ -141,12 +139,12 @@ object discussion:
 
   private def renderMark(suspect: User)(using ctx: PageContext) =
     val query = isGranted(_.Appeals).so(ctx.req.queryString.toMap)
-    if suspect.enabled.no || query.contains("alt") then appeal.closedByModerators()
-    else if suspect.marks.engine || query.contains("engine") then appeal.engineMarked()
-    else if suspect.marks.boost || query.contains("boost") then appeal.boosterMarked()
-    else if suspect.marks.troll || query.contains("shadowban") then appeal.accountMuted()
-    else if suspect.marks.rankban || query.contains("rankban") then appeal.excludedFromLeaderboards()
-    else appeal.cleanAllGood()
+    if suspect.enabled.no || query.contains("alt") then trans.appeal.closedByModerators()
+    else if suspect.marks.engine || query.contains("engine") then trans.appeal.engineMarked()
+    else if suspect.marks.boost || query.contains("boost") then trans.appeal.boosterMarked()
+    else if suspect.marks.troll || query.contains("shadowban") then trans.appeal.accountMuted()
+    else if suspect.marks.rankban || query.contains("rankban") then trans.appeal.excludedFromLeaderboards()
+    else trans.appeal.cleanAllGood()
 
   private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using PageContext) =
     if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
