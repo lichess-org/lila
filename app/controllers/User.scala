@@ -280,7 +280,7 @@ final class User(
   def topNb(nb: Int, perfKey: PerfKeyStr) = Open:
     Found(topNbUsers(nb, perfKey)): (users, perfType) =>
       negotiate(
-        (nb == 200).so(Ok.page(html.user.top(perfType, users))),
+        (nb == 200).so(Ok.page(html.user.list.top(perfType, users))),
         topNbJson(users)
       )
 

@@ -4,7 +4,7 @@ package ui
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
-final class userGamesDownload(helpers: Helpers):
+final class UserGamesDownload(helpers: Helpers):
   import helpers.{ *, given }
 
   def apply(user: User)(using ctx: Context): Frag =

@@ -1,4 +1,5 @@
-package views.html.user.show
+package views.html.user
+package show
 
 import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
@@ -177,7 +178,7 @@ object header:
           div(id := "us_profile")(
             if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
               views.html.user.perfStat.ui.ratingHistoryContainer
-            else (ctx.is(u) && u.count.game < 10).option(newPlayer(u)),
+            else (ctx.is(u) && u.count.game < 10).option(ui.newPlayer(u)),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
                 ctx

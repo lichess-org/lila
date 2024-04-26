@@ -9,6 +9,33 @@ final class PerfStatUi(helpers: Helpers):
   import helpers.{ *, given }
   import trans.perfStat as tps
 
+  def page(data: PerfStatData, ratingChart: Boolean, side: Frag, perfTrophies: Frag)(using Context) =
+    import data.{ user, stat }
+    import stat.perfType
+    main(cls := s"page-menu")(
+      st.aside(cls := "page-menu__menu")(side),
+      div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
+        boxTop(
+          div(cls := "box__top__title")(
+            perfTrophies,
+            h1(
+              a(href := routes.User.show(user.username))(user.username),
+              span(tps.perfStats(perfType.trans))
+            )
+          ),
+          div(cls := "box__top__actions")(
+            a(
+              cls      := "button button-empty text",
+              dataIcon := perfType.icon,
+              href     := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
+            )(tps.viewTheGames())
+          )
+        ),
+        ratingChart.option(ratingHistoryContainer),
+        content(data)
+      )
+    )
+
   private def percentileText(u: User, pk: PerfKey, percentile: Double)(using ctx: Context): Frag =
     if ctx.is(u) then
       trans.site.youAreBetterThanPercentOfPerfTypePlayers(

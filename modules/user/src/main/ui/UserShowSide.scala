@@ -6,7 +6,7 @@ import ScalatagsTemplate.{ *, given }
 import lila.core.perf.PuzPerf
 import lila.rating.UserWithPerfs.hasVariantRating
 
-final class userShowSide(helpers: Helpers):
+final class UserShowSide(helpers: Helpers):
   import helpers.{ *, given }
 
   def apply(

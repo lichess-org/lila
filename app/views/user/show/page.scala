@@ -1,4 +1,5 @@
-package views.html.user.show
+package views.html.user
+package show
 
 import play.api.data.Form
 
@@ -10,10 +11,11 @@ import lila.game.{ Game, GameFilter }
 import lila.core.data.SafeJsonStr
 import lila.rating.UserWithPerfs.titleUsernameWithBestRating
 
+lazy val ui = lila.user.ui.UserShow(helpers, bits)
+
 object page:
 
-  lazy val ui   = lila.user.ui.userShow(helpers)
-  lazy val side = lila.user.ui.userShowSide(helpers)
+  lazy val side = lila.user.ui.UserShowSide(helpers)
 
   def activity(
       activities: Vector[lila.activity.ActivityView],
