@@ -6,7 +6,6 @@ import play.api.libs.json.Json
 import lila.app.templating.Environment.{ *, given }
 import lila.mod.ui.*
 import lila.mod.ModActivity
-import routes.Mod.emailConfirm
 import lila.core.perf.UserWithPerfs
 
 lazy val ui = ModUi(helpers)(() => env.chat.panic.enabled)
