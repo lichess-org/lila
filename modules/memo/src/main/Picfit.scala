@@ -1,19 +1,21 @@
 package lila.memo
 
+import reactivemongo.api.bson.Macros.Annotations.Key
+import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import akka.stream.scaladsl.{ FileIO, Source }
 import akka.util.ByteString
 import com.github.blemale.scaffeine.LoadingCache
 import play.api.libs.ws.StandaloneWSClient
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.mvc.MultipartFormData
-import reactivemongo.api.bson.{ BSONDocumentHandler, Macros }
 import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.core.net.IpAddress
+import lila.core.id.ImageId
 
 case class PicfitImage(
-    _id: PicfitImage.Id,
+    @Key("_id") id: ImageId,
     user: UserId,
     // reverse reference like blog:id, streamer:id, coach:id, ...
     // unique: a new image will delete the previous ones with same rel
@@ -21,13 +23,9 @@ case class PicfitImage(
     name: String,
     size: Int, // in bytes
     createdAt: Instant
-):
-  inline def id = _id
+)
 
 object PicfitImage:
-
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
 
   given BSONDocumentHandler[PicfitImage] = Macros.handler
 
@@ -56,7 +54,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
           case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
-              _id = PicfitImage.Id(s"$userId:$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
+              id = ImageId(s"$userId:$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
               user = userId,
               rel = rel,
               name = part.filename,
@@ -67,7 +65,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
               deleteByRel(image.rel) >>
               coll.insert.one(image).inject(image)
 
-  def deleteByIdsAndUser(ids: Seq[Id], user: UserId): Funit =
+  def deleteByIdsAndUser(ids: Seq[ImageId], user: UserId): Funit =
     ids.nonEmpty.so(ids.traverse_ { id =>
       coll
         .findAndRemove($id(id) ++ $doc("user" -> user))
@@ -136,13 +134,13 @@ object PicfitApi:
       val contentType = s"multipart/form-data; boundary=$boundary"
       BodyWritable(b => SourceBody(Multipart.transform(b, boundary)), contentType)
 
-  def findInMarkdown(md: Markdown): Set[PicfitImage.Id] =
+  def findInMarkdown(md: Markdown): Set[ImageId] =
     // path=some_username:ublogBody:mdTLUTfzboGg:wVo9Pqru.jpg
     val regex = """(?i)&path=([a-z0-9_-]{2,30}:[a-z]+:\w{12}:\w{8}\.\w{3,4})&""".r
     regex
       .findAllMatchIn(md.value)
       .map(_.group(1))
-      .map(PicfitImage.Id(_))
+      .map(ImageId(_))
       .toSet
 
 final class PicfitUrl(config: PicfitConfig)(using Executor):
@@ -150,7 +148,7 @@ final class PicfitUrl(config: PicfitConfig)(using Executor):
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
   def resize(
-      id: PicfitImage.Id,
+      id: ImageId,
       size: Either[Int, Int] // either the width or the height! the other one will be preserved
   ) = display(id, "resize")(
     width = ~size.left.toOption,
@@ -161,12 +159,12 @@ final class PicfitUrl(config: PicfitConfig)(using Executor):
   // crops it to the specified width and height and returns the transformed image.
   // Preserves the aspect ratio
   def thumbnail(
-      id: PicfitImage.Id,
+      id: ImageId,
       width: Int,
       height: Int
   ) = display(id, "thumbnail")(width, height)
 
-  private def display(id: PicfitImage.Id, operation: String)(
+  private def display(id: ImageId, operation: String)(
       width: Int,
       height: Int
   ) =

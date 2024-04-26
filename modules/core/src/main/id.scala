@@ -85,3 +85,6 @@ object id:
 
   opaque type ReportId = String
   object ReportId extends OpaqueString[ReportId]
+
+  opaque type ImageId = String
+  object ImageId extends OpaqueString[ImageId]

@@ -4,13 +4,13 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import cats.derived.*
 
 import lila.core.i18n.Language
-import lila.memo.PicfitImage
+import lila.core.id.ImageId
 
 case class Streamer(
     @Key("_id") id: Streamer.Id,
     listed: Streamer.Listed,
     approval: Streamer.Approval,
-    picture: Option[PicfitImage.Id],
+    picture: Option[ImageId],
     name: Streamer.Name,
     headline: Option[Streamer.Headline],
     description: Option[Streamer.Description],

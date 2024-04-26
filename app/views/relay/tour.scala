@@ -5,7 +5,6 @@ import lila.app.templating.Environment.{ *, given }
 import lila.web.LangPath
 import lila.core.LightUser
 import scalalib.paginator.Paginator
-import lila.memo.PicfitImage
 import lila.relay.RelayTour.WithLastRound
 import lila.relay.{ RelayRound, RelayTour }
 import scalatags.Text.TypedTag
@@ -157,7 +156,7 @@ object tour:
     )
 
   object thumbnail:
-    def apply(image: Option[PicfitImage.Id], size: RelayTour.thumbnail.SizeSelector) =
+    def apply(image: Option[ImageId], size: RelayTour.thumbnail.SizeSelector) =
       image.fold(fallback): id =>
         img(
           cls     := "relay-image",
@@ -166,7 +165,7 @@ object tour:
           src     := url(id, size)
         )
     def fallback = iconTag(Icon.RadioTower)(cls := "relay-image--fallback")
-    def url(id: PicfitImage.Id, size: RelayTour.thumbnail.SizeSelector) =
+    def url(id: ImageId, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
   private object card:

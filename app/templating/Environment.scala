@@ -15,6 +15,7 @@ object Environment
     with AssetFullHelper:
 
   export lila.core.lilaism.Lilaism.{ *, given }
+  export lila.core.id.ImageId
   export lila.common.extensions.*
   export lila.common.String.html.richText
   export lila.ui.Icon

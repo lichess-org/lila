@@ -19,6 +19,7 @@ trait Pref:
   def animationMillis: Int
   def animationMillisForSpeedPuzzles: Int
   def pieceNotationIsLetter: Boolean
+  def currentBg: String
 
 trait PrefApi:
   def followable(userId: UserId): Fu[Boolean]
