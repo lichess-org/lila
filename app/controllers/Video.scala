@@ -1,7 +1,5 @@
 package controllers
 
-import views.*
-
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.video.{ Filter, UserControl, View }
@@ -31,12 +29,12 @@ final class Video(env: Env) extends LilaController(env):
         control.query match
           case Some(query) =>
             api.video.search(ctx.me, query, getInt("page") | 1).map {
-              html.video.search(_, control)
+              views.video.search(_, control)
             }
           case None =>
             api.video.byTags(ctx.me, control.filter.tags, getInt("page") | 1).zip(api.video.count.apply).map {
               (videos, count) =>
-                html.video.index(videos, count, control)
+                views.video.index(videos, count, control)
             }
 
   def show(id: String) = Open:
@@ -44,7 +42,7 @@ final class Video(env: Env) extends LilaController(env):
       api.video
         .find(id)
         .flatMap:
-          case None => NotFound.page(html.video.bits.notFound(control))
+          case None => NotFound.page(views.video.notFound(control))
           case Some(video) =>
             api.video
               .similar(ctx.me, video, 9)
@@ -52,19 +50,19 @@ final class Video(env: Env) extends LilaController(env):
                 api.view.add(View.make(videoId = video.id, userId = userId))
               })
               .flatMap { (similar, _) =>
-                Ok.page(html.video.show(video, similar, control))
+                Ok.page(views.video.show(video, similar, control))
               }
 
   def author(author: String) = Open:
     WithUserControl: control =>
       Ok.pageAsync:
         api.video.byAuthor(ctx.me, author, getInt("page") | 1).map {
-          html.video.bits.author(author, _, control)
+          views.video.author(author, _, control)
         }
 
   def tags = Open:
     WithUserControl: control =>
       Ok.pageAsync:
         api.tag.allPopular.map {
-          html.video.bits.tags(_, control)
+          views.video.tags(_, control)
         }

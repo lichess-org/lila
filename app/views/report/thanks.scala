@@ -1,9 +1,6 @@
-package views.html.report
-
-import controllers.routes
+package views.report
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object thanks:
 
@@ -20,7 +17,7 @@ fetch(this.dataset.action, {method:'post'})
 });
 """)
 
-    views.html.base.layout(title = title, moreJs = moreJs) {
+    views.base.layout(title = title, moreJs = moreJs) {
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(title),
         p("The moderators will review it very soon, and take appropriate action."),

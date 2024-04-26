@@ -102,6 +102,8 @@ trait Event:
   def troll: Boolean        = false
   def moveBy: Option[Color] = None
 
+val anonCookieName = "rk2"
+
 trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
   def incBookmarks(id: GameId, by: Int): Funit
@@ -163,6 +165,12 @@ trait PgnDump:
 trait Namer:
   def gameVsText(game: Game, withRatings: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
   def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
+  def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(using
+      lightUser: LightUser.GetterSync
+  ): String
+  def playerTextBlocking(player: Player, withRating: Boolean = false)(using
+      lightUser: LightUser.GetterSync
+  ): String
 
 trait Explorer:
   def apply(id: GameId): Fu[Option[Game]]

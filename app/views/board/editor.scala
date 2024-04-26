@@ -1,11 +1,11 @@
-package views.html.board
+package views.board
 
 import chess.format.Fen
-import controllers.routes
+
 import play.api.libs.json.{ JsArray, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.common.Json.given
 
 object editor:
@@ -15,7 +15,7 @@ object editor:
       positionsJson: JsArray,
       endgamePositionsJson: JsArray
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.boardEditor.txt(),
       pageModule = PageModule(
         "editor",

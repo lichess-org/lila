@@ -1,9 +1,6 @@
-package views.html.simul
-
-import controllers.routes
+package views.simul
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object homeInner:
 

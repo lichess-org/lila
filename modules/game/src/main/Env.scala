@@ -77,6 +77,7 @@ final class Env(
     export cached.nbPlaying
     export GameExt.{ computeMoveTimes, analysable }
     export AnonCookie.json as anonCookieJson
+    export AnonCookie.name as anonCookieName
 
   lazy val newPlayer: lila.core.game.NewPlayer = new:
     export Player.make as apply

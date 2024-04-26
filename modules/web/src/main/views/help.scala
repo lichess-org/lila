@@ -3,9 +3,9 @@ package views
 
 import play.api.i18n.Lang
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.Translate
-import lila.core.i18n.I18nKey as trans
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
+import lila.core.i18n.{ Translate, I18nKey as trans }
 
 object help:
 

@@ -1,16 +1,13 @@
-package views.html
-package simul
-
-import controllers.routes
+package views.simul
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 
 object hosted:
 
   def apply(user: User, pager: Paginator[lila.simul.Simul])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${user.username} hosted simuls",
       moreCss = cssTag("user-simul"),
       modules = infiniteScrollTag

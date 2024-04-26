@@ -1,15 +1,13 @@
-package views.html.clas
-
-import controllers.clas.routes.Clas as clasRoutes
+package views.clas
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.clas.{ Clas, ClasInvite }
 
 object invite:
 
   def show(c: Clas, invite: ClasInvite)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("clas"),
       title = c.name
     ):
@@ -28,7 +26,7 @@ object invite:
         invite.accepted
           .forall(false.==)
           .option(
-            postForm(cls := "form3", action := clasRoutes.invitationAccept(invite._id.value))(
+            postForm(cls := "form3", action := routes.Clas.invitationAccept(invite._id.value))(
               form3.actions(
                 if !invite.accepted.has(false) then
                   form3.submit(

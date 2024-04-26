@@ -6,6 +6,7 @@ import lila.common.Json.given
 import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
 import lila.study.ChapterPreview
+import lila.core.id.ImageId
 
 final class JsonView(
     baseUrl: BaseUrl,
@@ -95,7 +96,7 @@ final class JsonView(
       canContribute: Boolean,
       isSubscribed: Option[Boolean],
       videoUrls: Option[PairOf[String]],
-      pinned: Option[(UserId, String, Option[lila.memo.PicfitImage.Id])]
+      pinned: Option[(UserId, String, Option[ImageId])]
   ) =
     JsonView.JsData(
       relay = apply(trs)

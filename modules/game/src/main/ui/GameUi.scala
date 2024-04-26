@@ -1,21 +1,15 @@
 package lila.game
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.Context
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.game.Game
 import lila.game.GameExt.*
 
-final class GameUi(
-    i18nHelper: lila.ui.I18nHelper,
-    dateHelper: lila.ui.DateHelper,
-    userHelper: lila.ui.UserHelper
-)(
-    routeRoundWatcher: (String, String) => Call
-):
-  import i18nHelper.{ *, given }
+final class GameUi(helpers: Helpers):
+  import helpers.{ *, given }
 
-  def gameIcon(game: Game): lila.ui.Icon =
+  def gameIcon(game: Game): Icon =
     if game.fromPosition then Icon.Feather
     else if game.sourceIs(_.Import) then Icon.UploadCloud
     else if game.variant.exotic then game.perfType.icon
@@ -48,7 +42,7 @@ final class GameUi(
                 case Some(w) if w == u.id => "glpt win"  -> "1"
                 case None                 => "glpt"      -> "½"
                 case _                    => "glpt loss" -> "0"
-              a(href := s"""${routeRoundWatcher(r.gameId, "white")}?pov=${u.id}""", cls := linkClass)(
+              a(href := s"""${routes.Round.watcher(r.gameId, "white")}?pov=${u.id}""", cls := linkClass)(
                 text
               )
         ,
@@ -61,7 +55,7 @@ final class GameUi(
         ,
         div(cls := "crosstable__users"):
           ct.users.toList.map: u =>
-            userHelper.userIdLink(u.id.some, withOnline = false)
+            userIdLink(u.id.some, withOnline = false)
         ,
         div(cls := "crosstable__score force-ltr", title := trans.site.lifetimeScore.txt()):
           ct.users.toList.map: u =>

@@ -1,7 +1,7 @@
-package views.html
+package views
 
-import com.softwaremill.macwire.*
+import lila.app.templating.Environment.*
 
-export lila.app.templating.Environment.*
+lazy val chat = lila.chat.ChatUi(helpers)
 
-lazy val chat = wire[lila.chat.ChatUi]
+lazy val gathering = lila.gathering.ui.GatheringUi(helpers)(env.web.settings.prizeTournamentMakers.get)

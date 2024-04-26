@@ -1,16 +1,14 @@
-package views.html.puzzle
+package views.puzzle
 
-import controllers.routes
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.*
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.app.templating.Environment.{ *, given }
 import lila.puzzle.DailyPuzzle
 
 object embed:
 
   def apply(daily: DailyPuzzle.WithHtml)(using config: EmbedContext) =
-    views.html.base.embed(
+    views.base.embed(
       title = "lichess.org chess puzzle",
       cssModule = "tv.embed"
     )(

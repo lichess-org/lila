@@ -1,10 +1,9 @@
-package views.html.relay
+package views.relay
 
-import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.relay.RelayTour
 
 object bits:
@@ -41,7 +40,7 @@ object bits:
     )
 
   def jsI18n(using Translate) =
-    views.html.study.jsI18n() ++
+    views.study.jsI18n() ++
       i18nJsObject(i18nKeys)
 
   val i18nKeys =

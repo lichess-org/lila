@@ -1,10 +1,7 @@
-package views.html
-package auth
-
-import controllers.routes
+package views.auth
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.HTTPRequest
 import lila.security.PasswordCheck
 import lila.web.LangPath
@@ -12,7 +9,7 @@ import lila.web.LangPath
 object signup:
 
   def apply(form: lila.core.security.HcaptchaForm[?])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.signUp.txt(),
       modules = jsModuleInit("bits.login", "signup"),
       moreJs = frag(lila.web.views.hcaptcha.script(form), fingerprintTag),
@@ -32,7 +29,7 @@ object signup:
             (url, ref) => addQueryParam(url, "referrer", ref)
           }
         )(
-          auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
+          bits.formFields(form("username"), form("password"), form("email").some, register = true),
           globalErrorNamed(form.form, PasswordCheck.errorSame),
           input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
           div(cls := "form-group text", dataIcon := Icon.InfoCircle)(
@@ -50,7 +47,7 @@ object signup:
             )
           ),
           agreement(form("agreement"), form.form.errors.exists(_.key.startsWith("agreement."))),
-          lila.web.views.hcaptcha.tag(form),
+          lila.ui.bits.hcaptcha(form),
           button(cls := "submit button text big")(trans.site.signUp())
         )
       )

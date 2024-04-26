@@ -1,11 +1,11 @@
-package views.html.opening
+package views.opening
 
 import chess.opening.{ Opening, OpeningKey }
-import controllers.routes
+
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.opening.OpeningQuery.Query
 import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
 
@@ -89,8 +89,8 @@ object bits:
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
   def queryUrl(q: Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.so(_.value.replace(" ", "_")))
-  def openingUrl(o: Opening)  = keyUrl(o.key)
-  def keyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
+  def openingUrl(o: Opening)         = openingKeyUrl(o.key)
+  def openingKeyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
 
   val lpvPreload = div(cls := "lpv__board")(div(cls := "cg-wrap")(cgWrapContent))
 

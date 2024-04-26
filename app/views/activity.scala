@@ -1,10 +1,7 @@
-package views.html
-
-import controllers.routes
+package views
 
 import lila.activity.activities.*
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 import lila.core.forum.ForumTopicMini
 import lila.core.forum.ForumPostMini
@@ -312,7 +309,9 @@ object activity:
                 strong(t.rank),
                 t.rankRatio.percent,
                 t.nbGames,
-                a(href := routes.Tournament.show(t.tourId))(tournamentIdToName(t.tourId))
+                a(href := routes.Tournament.show(t.tourId))(
+                  views.tournament.ui.tournamentIdToName(t.tourId)
+                )
               ),
               br
             )

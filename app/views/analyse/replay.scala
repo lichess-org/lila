@@ -1,14 +1,13 @@
-package views.html.analyse
+package views.analyse
 
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 import chess.variant.Crazyhouse
-import controllers.routes
+
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 import bits.dataPanel
 import lila.game.GameExt.analysable
@@ -37,7 +36,7 @@ object replay:
     import pov.*
 
     val chatJson = chatOption.map: c =>
-      views.html.chat.json(
+      views.chat.json(
         c.chat,
         c.lines,
         name = trans.site.spectatorRoom.txt(),
@@ -133,14 +132,14 @@ object replay:
             "chat"   -> chatJson
           )
           .add("hunter" -> isGranted(_.ViewBlurs)) ++
-          views.html.board.bits.explorerAndCevalConfig
+          views.board.bits.explorerAndCevalConfig
       ),
-      openGraph = povOpenGraph(pov).some
+      openGraph = views.round.bits.povOpenGraph(pov).some
     ):
       frag(
         main(cls := "analyse")(
           st.aside(cls := "analyse__side")(
-            views.html.game
+            views.game
               .side(
                 pov,
                 initialFen,
@@ -150,7 +149,7 @@ object replay:
                 bookmarked = bookmarked
               )
           ),
-          chatOption.map(_ => views.html.chat.frag),
+          chatOption.map(_ => views.chat.frag),
           div(cls := "analyse__board main-board")(chessgroundBoard),
           div(cls := "analyse__tools")(div(cls := "ceval")),
           div(cls := "analyse__controls"),
@@ -225,7 +224,7 @@ object replay:
                   ),
                   cross.map: c =>
                     div(cls := "ctable"):
-                      views.html.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+                      views.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
                 )
               )
             )

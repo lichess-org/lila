@@ -1,4 +1,4 @@
-package views.html.board
+package views.board
 
 import lila.app.templating.Environment.{ *, given }
 import lila.core.i18n.I18nKey

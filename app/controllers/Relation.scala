@@ -3,10 +3,8 @@ package controllers
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
 import scalalib.Json.given
-import views.*
 
 import lila.app.{ *, given }
-
 import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.core.LightUser
 import lila.relation.Related
@@ -26,8 +24,8 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     res <- negotiate(
       Ok.page:
         if mini
-        then html.relation.mini(user.id, blocked = blocked, followable = followable, relation)
-        else html.relation.actions(user, relation, blocked = blocked, followable = followable)
+        then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
+        else views.relation.actions(user, relation, blocked = blocked, followable = followable)
       ,
       Ok:
         Json.obj(
@@ -91,7 +89,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         RelatedPager(api.followingPaginatorAdapter(user.id), page).flatMap: pag =>
           negotiate(
             if ctx.is(user) || isGrantedOpt(_.CloseAccount)
-            then Ok.page(html.relation.bits.friends(user, pag))
+            then Ok.page(views.relation.bits.friends(user, pag))
             else Found(ctx.me)(me => Redirect(routes.Relation.following(me.username))),
             Ok(jsonRelatedPaginator(pag))
           )
@@ -127,7 +125,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     Reasonable(page, Max(20)):
       Ok.pageAsync:
         RelatedPager(api.blockingPaginatorAdapter(me), page).map {
-          html.relation.bits.blocks(me, _)
+          views.relation.bits.blocks(me, _)
         }
   }
 

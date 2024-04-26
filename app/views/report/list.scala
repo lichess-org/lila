@@ -1,11 +1,7 @@
-package views.html.report
-
-import controllers.appeal.routes.Appeal as appealRoutes
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
+package views.report
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.report.Report.WithSuspect
 import lila.report.ui.reportScore
 import lila.rating.UserPerfsExt.bestPerfs
@@ -39,7 +35,7 @@ object list:
                   userLink(sus.user, params = "?mod"),
                   br,
                   p(cls := "perfs")(sus.perfs.bestPerfs(2).map(showPerfRating)),
-                  views.html.user.mod.userMarks(sus.user, none)
+                  views.mod.user.userMarks(sus.user, none)
                 ),
                 td(cls := "atoms")(
                   r.bestAtoms(3).map { atom =>
@@ -65,13 +61,13 @@ object list:
                   r.inquiry match
                     case None =>
                       if r.done.isDefined then
-                        postForm(action := reportRoutes.inquiry(r.id), cls := "reopen")(
+                        postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
                           submitButton(dataIcon := Icon.PlayTriangle, cls := "text button button-metal")(
                             "Reopen"
                           )
                         )
                       else
-                        postForm(action := reportRoutes.inquiry(r.id), cls := "inquiry")(
+                        postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
                           submitButton(dataIcon := Icon.PlayTriangle, cls := "button button-metal")
                         )
                     case Some(inquiry) =>
@@ -92,18 +88,18 @@ object list:
   def layout(filter: String, scores: lila.report.Room.Scores, streamers: Int, appeals: Int)(
       body: Frag
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Reports",
       moreCss = cssTag("mod.report")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.menu("report"),
+        views.mod.ui.menu("report"),
         div(id := "report_list", cls := "page-menu__content box")(
           div(cls := "header")(
             i(cls := "icon"),
             span(cls := "tabs")(
               a(
-                href := reportRoutes.listWithFilter("all"),
+                href := routes.Report.listWithFilter("all"),
                 cls  := List("active" -> (filter == "all"))
               )(
                 "All",
@@ -114,7 +110,7 @@ object list:
                   .filter(lila.report.Room.isGranted)
                   .map { room =>
                     a(
-                      href := reportRoutes.listWithFilter(room.key),
+                      href := routes.Report.listWithFilter(room.key),
                       cls := List(
                         "active"            -> (filter == room.key),
                         s"room-${room.key}" -> true
@@ -128,7 +124,7 @@ object list:
               }: List[Frag],
               (appeals > 0 && isGranted(_.Appeals)).option(
                 a(
-                  href := appealRoutes.queue(),
+                  href := routes.Appeal.queue(),
                   cls := List(
                     "new"    -> true,
                     "active" -> (filter == "appeal")

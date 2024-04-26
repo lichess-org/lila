@@ -1,10 +1,9 @@
-package views.html.learn
+package views.learn
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.web.LangPath
 
 object index:
@@ -12,7 +11,7 @@ object index:
   import trans.learn.{ play as _, * }
 
   def apply(data: Option[play.api.libs.json.JsValue])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${learnChess.txt()} - ${byPlaying.txt()}",
       pageModule = PageModule(
         "learn",

@@ -4,7 +4,6 @@ import chess.format.pgn.{ PgnStr, Tag }
 import play.api.data.Form
 import play.api.libs.json.{ Json, OWrites }
 import play.api.mvc.*
-import views.*
 
 import scala.annotation.nowarn
 
@@ -23,7 +22,7 @@ final class RelayRound(
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         Ok.page:
-          html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
+          views.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
   }
 
   def create(tourId: TourModel.Id) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -40,7 +39,7 @@ final class RelayRound(
           .fold(
             err =>
               negotiate(
-                BadRequest.page(html.relay.roundForm.create(err, tour)),
+                BadRequest.page(views.relay.roundForm.create(err, tour)),
                 jsonFormError(err)
               ),
             setup =>
@@ -57,7 +56,7 @@ final class RelayRound(
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
     FoundPage(env.relay.api.byIdAndContributor(id)): rt =>
-      html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
+      views.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -81,7 +80,7 @@ final class RelayRound(
         _.fold(
           (old, err) =>
             negotiate(
-              BadRequest.page(html.relay.roundForm.edit(old, err)),
+              BadRequest.page(views.relay.roundForm.edit(old, err)),
               jsonFormError(err)
             ),
           rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt, withTour = true)))
@@ -218,7 +217,7 @@ final class RelayRound(
         chat     <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
-          html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
+          views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation

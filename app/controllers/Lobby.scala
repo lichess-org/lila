@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
 
 import lila.app.*
 import lila.common.Json.given
@@ -51,6 +50,6 @@ final class Lobby(env: Env) extends LilaController(env):
     Ok.pageAsync:
       env.timeline.entryApi
         .userEntries(me)
-        .map(html.timeline.entries)
+        .map(views.timeline.entries)
     .map(_.withHeaders(CACHE_CONTROL -> s"max-age=20"))
   }

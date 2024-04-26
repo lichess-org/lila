@@ -1,15 +1,13 @@
-package views.html.coordinate
-
-import controllers.routes
+package views.coordinate
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.web.LangPath
 
 object show:
 
   def apply(scoreOption: Option[lila.coordinate.Score])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
       moreCss = frag(
         cssTag("coordinateTrainer"),

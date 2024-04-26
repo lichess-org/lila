@@ -1,9 +1,7 @@
-package views.html.clas
-
-import controllers.routes
+package views.clas
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.clas.{ Clas, Student }
 import lila.common.String.html.richText
 import lila.rating.UserPerfsExt.bestAny3Perfs
@@ -25,7 +23,7 @@ object studentDashboard:
       ),
       c.archived.map { archived =>
         div(cls := "box__pad")(
-          div(cls := "clas-show__archived archived")(bits.showArchived(archived))
+          div(cls := "clas-show__archived archived")(ui.showArchived(archived))
         )
       },
       table(cls := "slist slist-pad teachers")(

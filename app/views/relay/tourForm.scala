@@ -1,10 +1,9 @@
-package views.html.relay
+package views.relay
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.relay.RelayTour
 import lila.relay.RelayTourForm.Data
 
@@ -57,7 +56,7 @@ object tourForm:
 
   private def image(t: RelayTour)(using ctx: PageContext) =
     div(cls := "relay-image-edit", data("post-url") := routes.RelayTour.image(t.id))(
-      views.html.relay.tour.thumbnail(t.image, _.Size.Small)(
+      views.relay.tour.thumbnail(t.image, _.Size.Small)(
         cls               := List("drop-target" -> true, "user-image" -> t.image.isDefined),
         attr("draggable") := "true"
       ),
@@ -73,7 +72,7 @@ object tourForm:
     )
 
   private def layout(title: String, menu: Option[String])(body: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
       modules = jsModule("bits.relayForm")
@@ -216,7 +215,7 @@ Team Dogs ; Scooby Doo"""),
                 )("delete image")
               )
             ),
-            views.html.relay.tour.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
+            views.relay.tour.thumbnail(t.tour.pinnedStreamerImage, _.Size.Small16x9)(
               cls := List(
                 "streamer-drop-target" -> true,
                 "user-image"           -> t.tour.pinnedStreamerImage.isDefined

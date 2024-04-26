@@ -1,18 +1,56 @@
-package views.html
-package round
+package views.round
 
 import chess.variant.{ Crazyhouse, Variant }
-import controllers.routes
 
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.Json.given
 import lila.web.LangPath
 import lila.game.GameExt.playerBlurPercent
 
 object bits:
+
+  def povOpenGraph(pov: Pov) =
+    lila.web.OpenGraph(
+      image = cdnUrl(routes.Export.gameThumbnail(pov.gameId, None, None).url).some,
+      title = titleGame(pov.game),
+      url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
+      description = describePov(pov)
+    )
+
+  // #TODO RoundUi
+  def describePov(pov: Pov) =
+    import pov.*
+    val p1    = playerText(game.whitePlayer, withRating = true)
+    val p2    = playerText(game.blackPlayer, withRating = true)
+    val plays = if game.finishedOrAborted then "played" else "is playing"
+    val speedAndClock =
+      if game.sourceIs(_.Import) then "imported"
+      else
+        game.clock.fold(chess.Speed.Correspondence.name): c =>
+          s"${chess.Speed(c.config).name} (${c.config.show})"
+
+    val mode = game.mode.name
+    val variant =
+      if game.variant == chess.variant.FromPosition
+      then "position setup chess"
+      else if game.variant.exotic
+      then game.variant.name
+      else "chess"
+    import chess.Status.*
+    val result = (game.winner, game.loser, game.status) match
+      case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
+      case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
+      case (_, Some(l), Outoftime)                          => s"${playerText(l)} ran out of time"
+      case (Some(w), _, UnknownFinish | VariantEnd)         => s"${playerText(w)} won"
+      case (_, _, Draw | Stalemate | UnknownFinish)         => "Game is a draw"
+      case (_, _, Aborted)                                  => "Game has been aborted"
+      case _ if game.finished                               => "Game ended"
+      case _                                                => "Game is still ongoing"
+    val moves = (game.ply.value - game.startedAtPly.value + 1) / 2
+    s"$p1 $plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!"
 
   def layout(
       variant: Variant,
@@ -27,7 +65,7 @@ object bits:
       robots: Boolean = false,
       withHrefLangs: Option[LangPath] = None
   )(body: Frag)(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       openGraph = openGraph,
       moreJs = moreJs,
@@ -50,11 +88,11 @@ object bits:
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
     cross.map: c =>
-      views.html.game.ui.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
+      views.game.ui.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
 
   def underchat(game: Game)(using ctx: Context) =
     frag(
-      views.html.chat.spectatorsFrag,
+      views.chat.spectatorsFrag,
       isGranted(_.ViewBlurs).option(
         div(cls := "round__mod")(
           game.players.all
@@ -115,8 +153,8 @@ object bits:
             a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
               span(
                 cls := s"mini-game mini-game--init ${pov.game.variant.key} is2d",
-                views.html.game.mini.renderState(pov)
-              )(views.html.game.mini.cgWrap),
+                views.game.mini.renderState(pov)
+              )(views.game.mini.cgWrap),
               span(cls := "meta")(
                 playerUsername(
                   pov.opponent.light,
@@ -142,7 +180,7 @@ object bits:
       userTv: Option[User] = None,
       bookmarked: Boolean
   )(using Context) =
-    views.html.game.side(
+    views.game.side(
       pov,
       (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Full],
       tour,

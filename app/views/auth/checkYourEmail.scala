@@ -1,10 +1,8 @@
-package views.html.auth
+package views.auth
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object checkYourEmail:
 
@@ -12,7 +10,7 @@ object checkYourEmail:
       userEmail: Option[lila.security.EmailConfirm.UserEmail],
       form: Option[Form[?]] = None
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Check your email",
       moreCss = cssTag("email-confirm")
     ) {

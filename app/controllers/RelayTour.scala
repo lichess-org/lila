@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.core.net.IpAddress
@@ -22,14 +21,14 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
             .search(query, page)
             .flatMap: pager =>
               Ok.pageAsync:
-                html.relay.tour.search(pager, query)
+                views.relay.tour.search(pager, query)
         case None =>
           for
             active   <- (page == 1).so(env.relay.listing.active.get({}))
             upcoming <- (page == 1).so(env.relay.listing.upcoming.get({}))
             past     <- env.relay.pager.inactive(page)
             render <- renderAsync:
-              html.relay.tour.index(active, upcoming, past)
+              views.relay.tour.index(active, upcoming, past)
           yield Ok(render)
 
   def calendar = page("broadcast-calendar", "calendar")
@@ -41,7 +40,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         env.relay.pager
           .byOwner(owner.id, page)
           .map:
-            html.relay.tour.byOwner(_, owner)
+            views.relay.tour.byOwner(_, owner)
 
   def subscribed(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
@@ -49,7 +48,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         .subscribedBy(me.userId, page)
         .flatMap: pager =>
           Ok.pageAsync:
-            html.relay.tour.subscribed(pager)
+            views.relay.tour.subscribed(pager)
   }
 
   def allPrivate(page: Int) = Secure(_.StudyAdmin) { _ ?=> _ ?=>
@@ -58,17 +57,17 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         .allPrivate(page)
         .flatMap: pager =>
           Ok.pageAsync:
-            html.relay.tour.allPrivate(pager)
+            views.relay.tour.allPrivate(pager)
   }
 
   private def page(key: String, menu: String) = Open:
     pageHit
     FoundPage(env.api.cmsRender(lila.cms.CmsPage.Key(key))): p =>
-      html.relay.tour.page(p, menu)
+      views.relay.tour.page(p, menu)
 
   def form = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
-      Ok.page(html.relay.tourForm.create(env.relay.tourForm.create))
+      Ok.page(views.relay.tourForm.create(env.relay.tourForm.create))
   }
 
   def create = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -79,7 +78,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         .fold(
           err =>
             negotiate(
-              BadRequest.page(html.relay.tourForm.create(err)),
+              BadRequest.page(views.relay.tourForm.create(err)),
               jsonFormError(err)
             ),
           setup =>
@@ -96,7 +95,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def edit(id: TourModel.Id) = Auth { ctx ?=> _ ?=>
     WithTourCanUpdate(id): tg =>
       Ok.page:
-        html.relay.tourForm.edit(tg, env.relay.tourForm.edit(tg))
+        views.relay.tourForm.edit(tg, env.relay.tourForm.edit(tg))
   }
 
   def update(id: TourModel.Id) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -107,7 +106,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         .fold(
           err =>
             negotiate(
-              BadRequest.page(html.relay.tourForm.edit(tg, err)),
+              BadRequest.page(views.relay.tourForm.edit(tg, err)),
               jsonFormError(err)
             ),
           setup =>
@@ -174,7 +173,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
                   for
                     owner <- env.user.lightUser(tour.ownerId)
                     markup = tour.markup.map(env.relay.markup(tour))
-                    page <- Ok.page(html.relay.tour.showEmpty(tour, owner, markup))
+                    page <- Ok.page(views.relay.tour.showEmpty(tour, owner, markup))
                   yield page
           case Some(round) => Redirect(round.withTour(tour).path)
 

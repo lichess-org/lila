@@ -1,9 +1,7 @@
-package views.html.opening
-
-import controllers.routes
+package views.opening
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.opening.{ OpeningConfig, OpeningTree }
 
 object tree:
@@ -11,7 +9,7 @@ object tree:
   import bits.*
 
   def apply(root: OpeningTree, config: OpeningConfig)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(none).some,
       title = trans.site.opening.txt()

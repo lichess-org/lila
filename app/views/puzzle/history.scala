@@ -1,10 +1,7 @@
-package views
-package html.puzzle
-
-import controllers.routes
+package views.puzzle
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.puzzle.PuzzleHistory.{ PuzzleSession, SessionRound }
 import lila.puzzle.PuzzleTheme
@@ -15,7 +12,7 @@ object history:
     val title =
       if ctx.is(user) then trans.puzzle.history.txt()
       else s"${user.username} ${trans.puzzle.history.txt()}"
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
       modules = infiniteScrollTag

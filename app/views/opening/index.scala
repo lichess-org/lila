@@ -1,10 +1,9 @@
-package views.html.opening
+package views.opening
 
 import chess.opening.Opening
-import controllers.routes
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.opening.{ OpeningConfig, OpeningPage }
 
 object index:
@@ -12,7 +11,7 @@ object index:
   import bits.*
 
   def apply(page: OpeningPage, wikiMissing: List[Opening])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(page.some).some,
       title = trans.site.opening.txt(),

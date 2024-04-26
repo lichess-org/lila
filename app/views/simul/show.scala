@@ -1,10 +1,9 @@
-package views.html.simul
+package views.simul
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.Json.given
 import lila.gathering.Condition
 import lila.simul.Simul
@@ -20,7 +19,7 @@ object show:
       verdicts: Condition.WithVerdicts
   )(using ctx: PageContext) =
     val userIsHost = ctx.userId.has(sim.hostId)
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
       pageModule = PageModule(
@@ -31,7 +30,7 @@ object show:
           "socketVersion" -> socketVersion,
           "userId"        -> ctx.userId,
           "chat" -> chatOption.map: c =>
-            views.html.chat.json(
+            views.chat.json(
               c.chat,
               c.lines,
               name = trans.site.chatRoom.txt(),
@@ -93,18 +92,18 @@ object show:
                   frag(
                     br,
                     "Custom position • ",
-                    views.html.base.bits.fenAnalysisLink(fen)
+                    lila.ui.bits.fenAnalysisLink(fen)
                   )
                 })
             ),
-            views.html.gathering.verdicts(verdicts, sim.mainPerfType, relevant = !userIsHost) | br,
+            views.gathering.verdicts(verdicts, sim.mainPerfType, relevant = !userIsHost) | br,
             trans.site.by(userIdLink(sim.hostId.some)),
             sim.estimatedStartAt.map: d =>
               frag(br, absClientInstant(d))
           ),
           stream.map: s =>
-            views.html.streamer.bits.contextual(s.streamer.userId),
-          chatOption.isDefined.option(views.html.chat.frag)
+            views.streamer.bits.contextual(s.streamer.userId),
+          chatOption.isDefined.option(views.chat.frag)
         ),
         div(cls := "simul__main box")(spinner)
       )

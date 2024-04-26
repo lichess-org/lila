@@ -1,16 +1,13 @@
-package views.html.tv
-
-import controllers.routes
+package views.tv
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
 
 object games:
 
   def apply(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Champions)(using
       ctx: PageContext
   ) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${channel.name} • ${trans.site.currentGames.txt()}",
       moreCss = cssTag("tv.games"),
       modules = jsModule("bits.tvGames")
@@ -23,7 +20,7 @@ object games:
           side.channels(channel, champions, "/games")
         ),
         div(cls := "page-menu__content now-playing")(
-          povs.map { views.html.game.mini(_) }
+          povs.map { views.game.mini(_) }
         )
       )
     }

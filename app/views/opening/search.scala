@@ -1,9 +1,7 @@
-package views.html.opening
-
-import controllers.routes
+package views.opening
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.opening.{ OpeningConfig, OpeningSearchResult }
 
 object search:
@@ -37,7 +35,7 @@ object search:
     )
 
   def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(none).some,
       title = s"${trans.site.opening.txt()} • $q",

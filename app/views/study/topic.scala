@@ -1,10 +1,9 @@
-package views.html.study
+package views.study
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
@@ -12,14 +11,14 @@ import lila.study.{ Order, StudyTopic, StudyTopics }
 object topic:
 
   def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.study.topics.txt(),
       moreCss = frag(cssTag("study.index"), cssTag("form3"), cssTag("tagify")),
       modules = jsModule("analyse.study.topic.form"),
       wrapClass = "full-screen-force"
     ) {
       main(cls := "page-menu")(
-        views.html.study.list.menu("topic", Order.Mine, mine.so(_.value)),
+        views.study.list.menu("topic", Order.Mine, mine.so(_.value)),
         main(cls := "page-menu__content study-topics box box-pad")(
           h1(cls := "box__top")(trans.study.topics()),
           myForm.map { form =>
@@ -43,7 +42,7 @@ object topic:
       order: Order,
       myTopics: Option[StudyTopics]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = topic.value,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
@@ -52,7 +51,7 @@ object topic:
       val active = s"topic:$topic"
       val url    = (o: String) => routes.Study.byTopic(topic.value, o)
       main(cls := "page-menu")(
-        views.html.study.list.menu(active, order, myTopics.so(_.value)),
+        views.study.list.menu(active, order, myTopics.so(_.value)),
         main(cls := "page-menu__content study-index box")(
           boxTop(
             h1(topic.value),
@@ -64,7 +63,7 @@ object topic:
               topicsList(ts, Order.Mine)
             )
           },
-          views.html.study.list.paginate(pag, url(order.key))
+          views.study.list.paginate(pag, url(order.key))
         )
       )
     }

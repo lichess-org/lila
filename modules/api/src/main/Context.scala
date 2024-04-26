@@ -27,7 +27,6 @@ final class LoginContext(
   def userId: Option[UserId]     = user.map(_.id)
   def username: Option[UserName] = user.map(_.username)
   def isBot                      = me.exists(_.isBot)
-  def noBot                      = !isBot
   def troll                      = user.exists(_.marks.troll)
   def isKidUser                  = user.exists(_.kid)
   def isAppealUser               = me.exists(_.enabled.no)
@@ -94,7 +93,7 @@ object PageData:
   def anon(nonce: Option[Nonce])  = PageData(0, 0, UnreadCount(0), false, none, nonce)
   def error(nonce: Option[Nonce]) = anon(nonce).copy(error = true)
 
-final class PageContext(val ctx: Context, val data: PageData):
+final class PageContext(val ctx: Context, val data: PageData) extends lila.ui.PageContext:
   export ctx.*
   export data.*
 

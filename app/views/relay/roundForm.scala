@@ -1,10 +1,9 @@
-package views.html.relay
+package views.relay
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.relay.RelayRound.Sync.UpstreamUrl.LccRegex
 import lila.relay.RelayRoundForm.Data
 import lila.relay.{ RelayRound, RelayTour }
@@ -48,7 +47,7 @@ object roundForm:
     )
 
   private def layout(title: String)(body: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
       modules = jsModule("bits.flatpickr")

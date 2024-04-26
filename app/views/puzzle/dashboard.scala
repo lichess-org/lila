@@ -1,11 +1,9 @@
-package views
-package html.puzzle
+package views.puzzle
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.puzzle.{ PuzzleDashboard, PuzzleTheme }
 
 object dashboard:
@@ -90,7 +88,7 @@ object dashboard:
   )(
       body: PuzzleDashboard => Option[Frag]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
       pageModule = pageModule
@@ -103,7 +101,7 @@ object dashboard:
               title,
               strong(subtitle)
             ),
-            views.html.base.bits.mselect(
+            lila.ui.bits.mselect(
               s"${baseClass}__day-select box__top__actions",
               span(trans.site.nbDays.pluralSame(days)),
               PuzzleDashboard.dayChoices.map { d =>

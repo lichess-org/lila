@@ -1,18 +1,18 @@
-package views.html.fide
+package views.fide
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.core.fide.FideTC
 
 private object bits:
 
   def layout(title: String, active: String)(modifiers: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("fide"),
       title = title,
       modules = infiniteScrollTag
     ):
       main(cls := "page-menu")(
-        views.html.relay.tour.pageMenu(active),
+        views.relay.tour.pageMenu(active),
         div(cls := "page-menu__content box")(modifiers)
       )
 

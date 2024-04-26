@@ -1,10 +1,7 @@
-package views.html
-package coach
-
-import controllers.routes
+package views.coach
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.html.richText
 import lila.core.data.RichText
 
@@ -27,7 +24,7 @@ object show:
     val profile   = c.coach.profile
     val coachName = s"${c.user.title.so(t => s"$t ")}${c.user.realNameOrUsername}"
     val title     = xCoachesStudents.txt(coachName)
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("coach"),
       openGraph = lila.web
@@ -72,7 +69,7 @@ object show:
             st.section(cls := "coach-show__posts")(
               h2(cls := "coach-show__title")(trans.ublog.latestBlogPosts()),
               div(cls := "ublog-post-cards ")(
-                posts.map { views.html.ublog.post.card(_) }
+                posts.map { views.ublog.postUi.card(_) }
               )
             )
           ),
@@ -81,7 +78,7 @@ object show:
               h2(cls := "coach-show__title")(publicStudies()),
               div(cls := "studies")(
                 studies.map { s =>
-                  st.article(cls := "study")(study.bits.widget(s, h3))
+                  st.article(cls := "study")(views.study.bits.widget(s, h3))
                 }
               )
             )

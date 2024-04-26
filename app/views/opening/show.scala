@@ -1,9 +1,7 @@
-package views.html.opening
-
-import controllers.routes
+package views.opening
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.opening.OpeningPage
 
 object show:
@@ -11,7 +9,7 @@ object show:
   import bits.*
 
   def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(page.some).some,
       title = s"${trans.site.opening.txt()} • ${page.name}",
@@ -46,7 +44,7 @@ object show:
                     frag(
                       if i == 0 then emptyFrag else if i == 1 then ": " else ", ",
                       key.fold(span(cls := className)(name)) { k =>
-                        a(href := keyUrl(k))(cls := className)(name)
+                        a(href := openingKeyUrl(k))(cls := className)(name)
                       }
                     )
               ),
@@ -93,7 +91,7 @@ object show:
           )
         ),
         div(cls := "opening__panels")(
-          views.html.base.bits.ariaTabList("opening", "next")(
+          views.base.bits.ariaTabList("opening", "next")(
             (
               "next",
               "Popular continuations",

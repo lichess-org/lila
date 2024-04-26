@@ -1,18 +1,17 @@
-package views.html.study
+package views.study
 
 import chess.format.pgn.PgnStr
-import controllers.routes
+
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object embed:
 
   def apply(s: lila.study.Study, chapter: lila.study.Chapter, pgn: PgnStr)(using ctx: EmbedContext) =
-    import views.html.analyse.embed.*
+    import views.analyse.embed.*
     val canGetPgn = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
-    views.html.base.embed(
+    views.base.embed(
       title = s"${s.name} ${chapter.name}",
       cssModule = "lpv.embed"
     )(
@@ -28,7 +27,7 @@ object embed:
     )
 
   def notFound(using EmbedContext) =
-    views.html.base.embed(
+    views.base.embed(
       title = s"404 - ${trans.study.studyNotFound.txt()}",
       cssModule = "lpv.embed"
     ):

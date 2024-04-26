@@ -1,18 +1,17 @@
-package views.html.clas
+package views.clas
 
-import controllers.clas.routes.Clas as clasRoutes
 import play.api.data.Form
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.clas.ClasForm.ClasData
 import lila.clas.{ Clas, Student }
 
 object clas:
 
   def home(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = frag(
         cssTag("page"),
         cssTag("clas")
@@ -32,7 +31,7 @@ object clas:
           )
         ),
         div(cls := "clas-home__onboard")(
-          postForm(action := clasRoutes.becomeTeacher)(
+          postForm(action := routes.Clas.becomeTeacher)(
             submitButton(cls := "button button-fat")(trans.clas.applyToBeLichessTeacher())
           )
         )
@@ -46,7 +45,7 @@ object clas:
       div(cls := "box__top")(
         h1(cls := "box__top")(trans.clas.lichessClasses()),
         a(
-          href     := clasRoutes.form,
+          href     := routes.Clas.form,
           cls      := "new button button-empty",
           title    := trans.clas.newClass.txt(),
           dataIcon := Icon.PlusButton
@@ -56,7 +55,7 @@ object clas:
       else renderClasses(current),
       (closed || others.nonEmpty).option(
         div(cls := "clas-index__others")(
-          a(href := s"${clasRoutes.index}?closed=${!closed}")(
+          a(href := s"${routes.Clas.index}?closed=${!closed}")(
             others.size.localize,
             " ",
             if closed then "active" else "archived",
@@ -80,7 +79,7 @@ object clas:
           cls      := List("clas-widget" -> true, "clas-widget-archived" -> clas.isArchived),
           dataIcon := Icon.Group
         )(
-          a(cls := "overlay", href := clasRoutes.show(clas.id.value)),
+          a(cls := "overlay", href := routes.Clas.show(clas.id.value)),
           div(
             h3(clas.name),
             p(clas.desc)
@@ -104,11 +103,11 @@ object clas:
     )(
       cls := "box-pad",
       h1(cls := "box__top")(trans.clas.newClass()),
-      postForm(cls := "form3", action := clasRoutes.create)(
+      postForm(cls := "form3", action := routes.Clas.create)(
         innerForm(form.form, none),
-        lila.web.views.hcaptcha.tag(form),
+        lila.ui.bits.hcaptcha(form),
         form3.actions(
-          a(href := clasRoutes.index)(trans.site.cancel()),
+          a(href := routes.Clas.index)(trans.site.cancel()),
           form3.submit(trans.site.apply())
         )
       )
@@ -117,17 +116,17 @@ object clas:
   def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasData])(using PageContext) =
     teacherDashboard.layout(c, students, "edit")(
       div(cls := "box-pad")(
-        postForm(cls := "form3", action := clasRoutes.update(c.id.value))(
+        postForm(cls := "form3", action := routes.Clas.update(c.id.value))(
           innerForm(form, c.some),
           form3.actions(
-            a(href := clasRoutes.show(c.id.value))(trans.site.cancel()),
+            a(href := routes.Clas.show(c.id.value))(trans.site.cancel()),
             form3.submit(trans.site.apply())
           )
         ),
         hr,
         c.isActive.option(
           postForm(
-            action := clasRoutes.archive(c.id.value, v = true),
+            action := routes.Clas.archive(c.id.value, v = true),
             cls    := "clas-edit__archive"
           )(
             form3.submit(trans.clas.closeClass(), icon = none)(
@@ -146,14 +145,14 @@ object clas:
           br,
           trans.clas.aLinkToTheClassWillBeAdded()
         ),
-        postForm(cls := "form3", action := clasRoutes.notifyPost(c.id.value))(
+        postForm(cls := "form3", action := routes.Clas.notifyPost(c.id.value))(
           form3.globalError(form),
           form3.group(
             form("text"),
             frag(trans.site.message())
           )(form3.textarea(_)(rows := 3)),
           form3.actions(
-            a(href := clasRoutes.wall(c.id.value))(trans.site.cancel()),
+            a(href := routes.Clas.wall(c.id.value))(trans.site.cancel()),
             form3.submit(trans.site.send())
           )
         )
