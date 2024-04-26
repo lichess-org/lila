@@ -59,4 +59,3 @@ object ReverseRouterConversions:
   given localDateConv: Conversion[java.time.LocalDate, String] = _.toString
   given cmsPageIdConv: Conversion[lila.cms.CmsPage.Id, String] = _.value
   given Conversion[lila.cms.CmsPage.Key, String]               = _.value
-  given Conversion[chess.FideId, Int]                          = _.value
