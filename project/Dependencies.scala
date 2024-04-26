@@ -70,7 +70,7 @@ object Dependencies {
     val version = "2.5.9"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
-    val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.4"
+    val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"
     def bundle  = Seq(macros, util, tagging)
   }
 
