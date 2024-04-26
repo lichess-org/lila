@@ -1,4 +1,4 @@
-package views.html.board
+package views.board
 
 import chess.format.Fen
 
@@ -15,7 +15,7 @@ object editor:
       positionsJson: JsArray,
       endgamePositionsJson: JsArray
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.boardEditor.txt(),
       pageModule = PageModule(
         "editor",

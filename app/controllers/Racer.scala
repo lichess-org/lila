@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.Json
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.racer.{ RacerPlayer, RacerRace }
@@ -13,7 +12,7 @@ final class Racer(env: Env) extends LilaController(env):
   def homeLang = LangPage(routes.Racer.home)(serveHome)
 
   private def serveHome(using Context) = NoBot:
-    Ok.page(html.racer.home)
+    Ok.page(views.racer.home)
 
   def create = WithPlayerId { _ ?=> playerId =>
     AuthOrTrustedIp:
@@ -41,7 +40,7 @@ final class Racer(env: Env) extends LilaController(env):
       case Some(r) =>
         val race   = r.isLobby.so(env.racer.api.join(r.id, playerId)) | r
         val player = race.player(playerId) | env.racer.api.makePlayer(playerId)
-        Ok.page(html.racer.show(env.racer.json.data(race, player, ctx.pref))).map(_.noCache)
+        Ok.page(views.racer.show(env.racer.json.data(race, player, ctx.pref))).map(_.noCache)
   }
 
   def rematch(id: String) = WithPlayerId { _ ?=> playerId =>

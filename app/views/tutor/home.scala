@@ -1,4 +1,4 @@
-package views.html.tutor
+package views.tutor
 
 import play.api.i18n.Lang
 import chess.format.pgn.PgnStr

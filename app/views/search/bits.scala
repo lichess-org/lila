@@ -1,4 +1,4 @@
-package views.html.search
+package views.search
 
 import play.api.data.Form
 import play.api.i18n.Lang

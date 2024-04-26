@@ -1,4 +1,4 @@
-package views.html.tournament
+package views.tournament
 
 import play.api.data.Form
 
@@ -13,10 +13,10 @@ lazy val ui = lila.tournament.ui.TournamentUi(helpers)(
 )
 
 def notFound(using PageContext) =
-  views.html.base.layout(title = trans.site.tournamentNotFound.txt())(ui.notFound)
+  views.base.layout(title = trans.site.tournamentNotFound.txt())(ui.notFound)
 
 def faq(using PageContext) =
-  views.html.base.layout(
+  views.base.layout(
     title = trans.site.tournamentFAQ.txt(),
     moreCss = cssTag("page")
   )(show.ui.faq.page)
@@ -26,14 +26,14 @@ object teamBattle:
   private lazy val ui = lila.tournament.ui.TeamBattleUi(helpers)
 
   def edit(tour: Tournament, form: Form[?])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
       modules = jsModule("bits.teamBattleForm")
     )(ui.edit(tour, form))
 
   def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.show.team-battle")
     )(ui.standing(tour, standing))
@@ -41,7 +41,7 @@ object teamBattle:
   def teamInfo(tour: Tournament, team: LightTeam, info: TeamBattle.TeamInfo)(using
       ctx: PageContext
   ) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${tour.name()} • ${team.name}",
       moreCss = cssTag("tournament.show.team-battle")
     )(ui.teamInfo(tour, team, info))

@@ -1,4 +1,4 @@
-package views.html.simul
+package views.simul
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -10,7 +10,7 @@ object home:
       starteds: List[lila.simul.Simul],
       finisheds: List[lila.simul.Simul]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("simul.list"),
       moreJs = embedJsUnsafeLoadThen(s"""
 site.StrongSocket.defaultParams.flag = 'simul';

@@ -1,4 +1,4 @@
-package views.html.plan
+package views.plan
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -13,7 +13,7 @@ object thanks:
   )(using
       ctx: PageContext
   ) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("page"),
       title = thankYou.txt()
     ) {

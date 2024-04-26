@@ -1,4 +1,4 @@
-package views.html.mod
+package views.mod
 
 import play.api.data.Form
 import scala.util.chaining.*
@@ -22,7 +22,7 @@ object games:
       arenas: Seq[TourEntry],
       swisses: Seq[(lila.core.swiss.IdName, Rank)]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${user.username} games",
       moreCss = cssTag("mod.games"),
       modules = jsModule("mod.games")
@@ -124,7 +124,7 @@ object games:
                         a(
                           dataIcon := Icon.Trophy,
                           href     := routes.Tournament.show(tourId).url,
-                          title    := views.html.tournament.ui.tournamentIdToName(tourId)
+                          title    := views.tournament.ui.tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId.map { swissId =>

@@ -1,5 +1,4 @@
-package views.html
-package appeal
+package views.appeal
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -19,7 +18,7 @@ object queue:
       streamers: Int,
       nbAppeals: Int
   )(using PageContext) =
-    views.html.report.list.layout("appeal", scores, streamers, nbAppeals)(
+    views.report.list.layout("appeal", scores, streamers, nbAppeals)(
       table(cls := "slist slist-pad see appeal-queue")(
         thead(
           tr(
@@ -42,7 +41,7 @@ object queue:
                       cls      := "marked-by-me text"
                     )("My mark")
                   ),
-                views.html.mod.user.userMarks(user, None)
+                views.mod.user.userMarks(user, None)
               ),
               td(appeal.msgs.lastOption.map: msg =>
                 frag(

@@ -1,5 +1,4 @@
-package views.html
-package coach
+package views.coach
 
 import play.api.i18n.Lang
 
@@ -23,7 +22,7 @@ object index:
       countries: lila.coach.CountrySelection,
       country: Option[Flag]
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = lichessCoaches.txt(),
       moreCss = cssTag("coach"),
       modules = infiniteScrollTag,

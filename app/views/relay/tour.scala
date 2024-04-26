@@ -1,4 +1,4 @@
-package views.html.relay
+package views.relay
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -20,7 +20,7 @@ object tour:
       upcoming: List[WithLastRound],
       past: Paginator[WithLastRound]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
       modules = infiniteScrollTag,
@@ -54,7 +54,7 @@ object tour:
       )
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
       modules = infiniteScrollTag
@@ -90,7 +90,7 @@ object tour:
     )
 
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = t.name.value,
       moreCss = cssTag("page")
     ):
@@ -111,7 +111,7 @@ object tour:
       )
 
   def page(p: lila.cms.CmsPage.Render, active: String)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = p.title,
       moreCss = cssTag("page")
     ):
@@ -121,7 +121,7 @@ object tour:
           boxTop:
             bits.broadcastH1(p.title)
           ,
-          div(cls := "body")(views.html.cms.render(p))
+          div(cls := "body")(views.cms.render(p))
         )
       )
 

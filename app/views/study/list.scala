@@ -1,5 +1,4 @@
-package views.html
-package study
+package views.study
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -93,7 +92,7 @@ object list:
     )
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = text,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
@@ -112,14 +111,14 @@ object list:
     }
 
   def staffPicks(p: lila.cms.CmsPage.Render)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = p.title,
       moreCss = frag(cssTag("study.index"), cssTag("page"))
     ):
       main(cls := "page-menu")(
         menu("staffPicks", Order.Mine, Nil),
         main(cls := "page-menu__content box box-pad page"):
-          views.html.site.page.pageContent(p)
+          views.site.page.pageContent(p)
       )
 
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using PageContext) =
@@ -175,7 +174,7 @@ object list:
       topics: Option[StudyTopics] = None,
       withHrefLangs: Option[LangPath] = None
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
@@ -192,7 +191,7 @@ object list:
           ),
           topics.map: ts =>
             div(cls := "box__pad"):
-              views.html.study.topic.topicsList(ts, Order.Mine)
+              views.study.topic.topicsList(ts, Order.Mine)
           ,
           paginate(pag, url(order.key))
         )

@@ -1,5 +1,4 @@
-package views.html
-package forum
+package views.forum
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -9,7 +8,7 @@ import lila.forum.{ CategView, TopicView }
 object categ:
 
   def index(categs: List[CategView])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.forum.txt(),
       moreCss = cssTag("forum"),
       csp = defaultCsp.withInlineIconFont.some,
@@ -71,7 +70,7 @@ object categ:
         )
       )
 
-    views.html.base.layout(
+    views.base.layout(
       title = categ.name,
       moreCss = cssTag("forum"),
       modules = infiniteScrollTag,

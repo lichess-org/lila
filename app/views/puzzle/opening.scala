@@ -1,5 +1,4 @@
-package views
-package html.puzzle
+package views.puzzle
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -12,7 +11,7 @@ object opening:
   def all(openings: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine], order: Order)(using
       ctx: PageContext
   ) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.puzzle.puzzlesByOpenings.txt(),
       moreCss = cssTag("puzzle.page"),
       modules = jsModule("puzzle.opening")

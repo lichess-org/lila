@@ -1,5 +1,4 @@
-package views.html
-package game
+package views.game
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -22,7 +21,7 @@ object side:
     ctx.noBlind.option(
       frag(
         meta(pov, initialFen, tour, simul, userTv, bookmarked),
-        pov.game.userIds.filter(isStreaming).map(views.html.streamer.bits.contextual)
+        pov.game.userIds.filter(isStreaming).map(views.streamer.bits.contextual)
       )
     )
 
@@ -42,7 +41,7 @@ object side:
             div(
               div(cls := "header")(
                 div(cls := "setup")(
-                  views.html.bookmark.toggle(game, bookmarked),
+                  views.bookmark.toggle(game, bookmarked),
                   if game.sourceIs(_.Import) then
                     div(
                       a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
@@ -120,11 +119,11 @@ object side:
             )
           .orElse:
             game.tournamentId.map: tourId =>
-              st.section(cls := "game__tournament-link")(views.html.tournament.ui.tournamentLink(tourId))
+              st.section(cls := "game__tournament-link")(views.tournament.ui.tournamentLink(tourId))
           .orElse:
             game.swissId.map: swissId =>
               st.section(cls := "game__tournament-link"):
-                views.html.swiss.bits.link(SwissId(swissId))
+                views.swiss.bits.link(SwissId(swissId))
           .orElse:
             simul.map: sim =>
               st.section(cls := "game__simul-link"):

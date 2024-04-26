@@ -1,4 +1,4 @@
-package views.html.site
+package views.site
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -7,7 +7,7 @@ import lila.cms.CmsPage
 object page:
 
   def lone(p: CmsPage.Render)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("page"),
       title = p.title,
       moreJs = (p.key == CmsPage.Key("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
@@ -27,7 +27,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
 
   def pageContent(p: CmsPage.Render)(using Context) = frag(
     h1(cls := "box__top")(p.title),
-    div(cls := "body")(views.html.cms.render(p))
+    div(cls := "body")(views.cms.render(p))
   )
 
   private lazy val ui = lila.web.views.SitePages(helpers)
@@ -94,7 +94,7 @@ $('#asset-version-message').text(site.info.message);"""
             )
           )
         ),
-        st.section(cls := "box box-pad body")(views.html.cms.render(p))
+        st.section(cls := "box box-pad body")(views.cms.render(p))
       )
 
   def webmasters(using PageContext) =
@@ -119,7 +119,7 @@ $('#asset-version-message').text(site.info.message);"""
       moreJs: Frag = emptyFrag,
       modules: EsmList = Nil
   )(body: Frag)(using PageContext) =
-    views.html.base.layout(title = title, moreCss = moreCss, modules = modules, moreJs = moreJs):
+    views.base.layout(title = title, moreCss = moreCss, modules = modules, moreJs = moreJs):
       main(cls := "page-menu")(
         ui.menu(active),
         div(cls := s"page-menu__content $contentCls")(body)

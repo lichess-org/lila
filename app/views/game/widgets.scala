@@ -1,5 +1,4 @@
-package views.html
-package game
+package views.game
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -23,7 +22,7 @@ object widgets:
       st.article(cls := "game-row paginated")(
         a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
         div(cls := "game-row__board")(
-          views.html.board.bits.mini(Pov(g, firstPlayer))(span)
+          views.board.bits.mini(Pov(g, firstPlayer))(span)
         ),
         div(cls := "game-row__infos")(
           div(cls := "header", dataIcon := ui.gameIcon(g))(
@@ -50,13 +49,13 @@ object widgets:
               g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
               g.tournamentId
                 .map { tourId =>
-                  frag(separator, views.html.tournament.ui.tournamentLink(tourId))
+                  frag(separator, views.tournament.ui.tournamentLink(tourId))
                 }
                 .orElse(g.simulId.map { simulId =>
-                  frag(separator, views.html.simul.bits.link(simulId))
+                  frag(separator, views.simul.bits.link(simulId))
                 })
                 .orElse(g.swissId.map { swissId =>
-                  frag(separator, views.html.swiss.bits.link(SwissId(swissId)))
+                  frag(separator, views.swiss.bits.link(SwissId(swissId)))
                 })
             )
           ),

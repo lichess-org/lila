@@ -1,11 +1,11 @@
-package views.html.site
+package views.site
 
 import lila.app.templating.Environment.{ *, given }
 
 object bits:
 
   def getFishnet()(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "fishnet API key request",
       csp = defaultCsp.withGoogleForm.some
     ):
@@ -18,7 +18,7 @@ object bits:
         )(spinner)
 
   def errorPage(using PageContext) =
-    views.html.base.layout(title = "Internal server error"):
+    views.base.layout(title = "Internal server error"):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")("Something went wrong on this page"),
         p(
@@ -29,7 +29,7 @@ object bits:
       )
 
   def ghost(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("ghost"),
       title = "Deleted user"
     ):

@@ -1,5 +1,4 @@
-package views.html
-package user
+package views.user
 
 import lila.app.templating.Environment.{ *, given }
 import lila.rating.PerfType
@@ -18,7 +17,7 @@ object list:
       leaderboards: lila.rating.UserPerfs.Leaderboards,
       nbAllTime: List[LightCount]
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.players.txt(),
       moreCss = cssTag("user.list"),
       wrapClass = "full-screen-force",
@@ -40,13 +39,13 @@ object list:
           li(
             userIdLink(w.userId.some),
             a(title := w.tourName, href := routes.Tournament.show(w.tourId)):
-              views.html.tournament.ui.scheduledTournamentNameShortHtml(w.tourName)
+              views.tournament.ui.scheduledTournamentNameShortHtml(w.tourName)
           )
     )
 
   def top(perfType: PerfType, users: List[lila.core.user.LightPerf])(using ctx: PageContext) =
     val title = s"${perfType.trans} top 200"
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("slist"),
       openGraph = lila.web
@@ -60,7 +59,7 @@ object list:
 
   def bots(users: List[UserWithPerfs])(using PageContext) =
     val title = s"${users.size} Online bots"
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = frag(cssTag("slist"), cssTag("bot.list")),
       wrapClass = "full-screen-force"

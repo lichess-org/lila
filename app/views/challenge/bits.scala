@@ -1,4 +1,4 @@
-package views.html.challenge
+package views.challenge
 
 import play.api.libs.json.{ JsObject, Json }
 

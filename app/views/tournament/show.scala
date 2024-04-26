@@ -1,5 +1,4 @@
-package views.html
-package tournament
+package views.tournament
 
 import play.api.libs.json.Json
 
@@ -9,7 +8,7 @@ import lila.tournament.Tournament
 
 object show:
 
-  lazy val ui = lila.tournament.ui.TournamentShow(helpers, views.html.gathering)(
+  lazy val ui = lila.tournament.ui.TournamentShow(helpers, views.gathering)(
     variantTeamLinks = lila.team.Team.variants.view
       .mapValues: team =>
         (team, teamLink(team, true))
@@ -24,16 +23,16 @@ object show:
       streamers: List[UserId],
       shieldOwner: Option[UserId]
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${tour.name()} #${tour.id}",
       pageModule = PageModule(
         "tournament",
         Json.obj(
           "data"   -> data,
-          "i18n"   -> views.html.tournament.ui.jsI18n(tour),
+          "i18n"   -> views.tournament.ui.jsI18n(tour),
           "userId" -> ctx.userId,
           "chat" -> chatOption.map: c =>
-            chat.json(
+            views.chat.json(
               c.chat,
               c.lines,
               name = trans.site.chatRoom.txt(),
@@ -67,6 +66,6 @@ object show:
         tour,
         verdicts,
         shieldOwner,
-        chat = chatOption.isDefined.option(views.html.chat.frag),
-        streamers = views.html.streamer.bits.contextual(streamers)
+        chat = chatOption.isDefined.option(views.chat.frag),
+        streamers = views.streamer.bits.contextual(streamers)
       )

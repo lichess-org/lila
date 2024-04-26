@@ -1,4 +1,4 @@
-package views.html.plan
+package views.plan
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -14,7 +14,7 @@ object indexPayPal:
       subscription: lila.plan.PayPalSubscription,
       gifts: List[lila.plan.Charge.Gift]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
       modules = jsModule("bits.plan"),

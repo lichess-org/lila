@@ -1,5 +1,4 @@
-package views.html
-package userTournament
+package views.userTournament
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -14,7 +13,7 @@ object bits:
       path = "best",
       modules = infiniteScrollTag
     ):
-      views.html.userTournament.list(u, "best", pager, "BEST")
+      views.userTournament.list(u, "best", pager, "BEST")
 
   def recent(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(using PageContext) =
     layout(
@@ -23,12 +22,12 @@ object bits:
       path = "recent",
       modules = infiniteScrollTag
     ):
-      views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
+      views.userTournament.list(u, "recent", pager, pager.nbResults.toString)
 
   def layout(u: User, title: String, path: String, modules: EsmList = Nil)(
       body: Frag
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("user-tournament"),
       modules = modules

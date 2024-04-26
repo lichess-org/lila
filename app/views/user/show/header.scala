@@ -1,4 +1,4 @@
-package views.html.user
+package views.user
 package show
 
 import lila.app.mashup.UserInfo
@@ -41,7 +41,7 @@ object header:
             "packed"   -> (info.trophies.countTrophiesAndPerfCups > 7)
           )
         )(
-          views.html.user.bits.perfTrophies(u, info.ranks),
+          views.user.bits.perfTrophies(u, info.ranks),
           otherTrophies(info),
           u.plan.active.option(
             a(
@@ -138,7 +138,7 @@ object header:
           ctx
             .isnt(u)
             .option(
-              views.html.relation.actions(
+              views.relation.actions(
                 u.light,
                 relation = social.relation,
                 followable = social.followable,
@@ -171,13 +171,13 @@ object header:
       isGranted(_.UserModView).option(div(cls := "mod-zone mod-zone-full none")),
       standardFlash,
       angle match
-        case UserInfo.Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
+        case UserInfo.Angle.Games(Some(searchForm)) => views.search.user(u, searchForm)
         case _ =>
           val profile   = u.profileOrDefault
           val hideTroll = u.marks.troll && ctx.isnt(u)
           div(id := "us_profile")(
             if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
-              views.html.user.perfStat.ui.ratingHistoryContainer
+              views.user.perfStat.ui.ratingHistoryContainer
             else (ctx.is(u) && u.count.game < 10).option(ui.newPlayer(u)),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
@@ -275,7 +275,7 @@ object header:
       ,
       (ctx.kid.no && info.ublog.so(_.latests).nonEmpty).option(
         div(cls := "user-show__blog ublog-post-cards")(
-          info.ublog.so(_.latests).map { views.html.ublog.postUi.card(_) }
+          info.ublog.so(_.latests).map { views.ublog.postUi.card(_) }
         )
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(

@@ -1,5 +1,4 @@
-package views.html
-package round
+package views.round
 
 import play.api.libs.json.Json
 
@@ -25,7 +24,7 @@ object player:
       .map(_.either)
       .map:
         case Left(c) =>
-          chat.restrictedJson(
+          views.chat.restrictedJson(
             c,
             c.lines,
             name = trans.site.chatRoom.txt(),
@@ -36,7 +35,7 @@ object player:
             palantir = ctx.canPalantir
           )
         case Right((c, res)) =>
-          chat.json(
+          views.chat.json(
             c.chat,
             c.lines,
             name = trans.site.chatRoom.txt(),
@@ -68,7 +67,7 @@ object player:
       main(cls := "round")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
-          chatOption.map(_ => chat.frag)
+          chatOption.map(_ => views.chat.frag)
         ),
         bits.roundAppPreload(pov),
         div(cls := "round__underboard")(

@@ -1,5 +1,4 @@
-package views.html
-package forum
+package views.forum
 
 import lila.app.templating.Environment.{ *, given }
 

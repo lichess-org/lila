@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.data.*
-import views.*
 
 import lila.app.*
 
@@ -41,7 +40,7 @@ final class Dev(env: Env) extends LilaController(env):
 
   def settings = Secure(_.Settings) { _ ?=> _ ?=>
     Ok.page:
-      html.dev.settings(settingsList)
+      views.dev.settings(settingsList)
   }
 
   def settingsPost(id: String) = SecureBody(_.Settings) { _ ?=> me ?=>
@@ -49,7 +48,7 @@ final class Dev(env: Env) extends LilaController(env):
       setting.form
         .bindFromRequest()
         .fold(
-          _ => BadRequest.page(html.dev.settings(settingsList)),
+          _ => BadRequest.page(views.dev.settings(settingsList)),
           v =>
             lila
               .log("setting")
@@ -63,18 +62,18 @@ final class Dev(env: Env) extends LilaController(env):
 
   def cli = Secure(_.Cli) { _ ?=> _ ?=>
     Ok.page:
-      html.dev.cli(commandForm, none)
+      views.dev.cli(commandForm, none)
   }
 
   def cliPost = SecureBody(_.Cli) { _ ?=> me ?=>
     commandForm
       .bindFromRequest()
       .fold(
-        err => BadRequest.page(html.dev.cli(err, "Invalid command".some)),
+        err => BadRequest.page(views.dev.cli(err, "Invalid command".some)),
         command =>
           Ok.pageAsync:
             runCommand(command).map: res =>
-              html.dev.cli(commandForm.fill(command), s"$command\n\n$res".some)
+              views.dev.cli(commandForm.fill(command), s"$command\n\n$res".some)
       )
   }
 

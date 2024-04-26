@@ -1,5 +1,4 @@
-package views.html
-package appeal
+package views.appeal
 
 import play.api.data.Form
 
@@ -98,7 +97,7 @@ object discussion:
         given RenderIp = m.renderIp
         frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(
+          views.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(
             cls := "mod-zone communication__logins"
           )
         )

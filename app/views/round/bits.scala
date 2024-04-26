@@ -1,5 +1,4 @@
-package views.html
-package round
+package views.round
 
 import chess.variant.{ Crazyhouse, Variant }
 
@@ -66,7 +65,7 @@ object bits:
       robots: Boolean = false,
       withHrefLangs: Option[LangPath] = None
   )(body: Frag)(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       openGraph = openGraph,
       moreJs = moreJs,
@@ -89,11 +88,11 @@ object bits:
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
     cross.map: c =>
-      views.html.game.ui.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
+      views.game.ui.crosstable(ctx.userId.fold(c)(c.fromPov), game.id.some)
 
   def underchat(game: Game)(using ctx: Context) =
     frag(
-      views.html.chat.spectatorsFrag,
+      views.chat.spectatorsFrag,
       isGranted(_.ViewBlurs).option(
         div(cls := "round__mod")(
           game.players.all
@@ -154,8 +153,8 @@ object bits:
             a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
               span(
                 cls := s"mini-game mini-game--init ${pov.game.variant.key} is2d",
-                views.html.game.mini.renderState(pov)
-              )(views.html.game.mini.cgWrap),
+                views.game.mini.renderState(pov)
+              )(views.game.mini.cgWrap),
               span(cls := "meta")(
                 playerUsername(
                   pov.opponent.light,
@@ -181,7 +180,7 @@ object bits:
       userTv: Option[User] = None,
       bookmarked: Boolean
   )(using Context) =
-    views.html.game.side(
+    views.game.side(
       pov,
       (data \ "game" \ "initialFen").asOpt[chess.format.Fen.Full],
       tour,

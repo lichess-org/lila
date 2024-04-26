@@ -1,4 +1,4 @@
-package views.html.puzzle
+package views.puzzle
 
 import play.api.libs.json.{ JsObject, Json }
 
@@ -16,7 +16,7 @@ object show:
       langPath: Option[lila.web.LangPath] = None
   )(using ctx: PageContext) =
     val isStreak = data.value.contains("streak")
-    views.html.base.layout(
+    views.base.layout(
       title = if isStreak then "Puzzle Streak" else trans.site.puzzles.txt(),
       moreCss = frag(
         cssTag("puzzle"),

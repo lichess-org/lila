@@ -1,4 +1,4 @@
-package views.html.user
+package views.user
 package show
 
 import lila.app.templating.Environment.{ *, given }
@@ -70,7 +70,7 @@ object otherTrophies:
       ),
       (info.isStreamer && ctx.kid.no).option {
         val streaming = isStreaming(info.user.id)
-        views.html.streamer.bits.redirectLink(info.user.username, streaming.some)(
+        views.streamer.bits.redirectLink(info.user.username, streaming.some)(
           cls := List(
             "trophy award icon3d streamer" -> true,
             "streaming"                    -> streaming

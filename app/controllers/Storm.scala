@@ -12,7 +12,7 @@ final class Storm(env: Env) extends LilaController(env):
 
   private def serveHome(using ctx: Context) = NoBot:
     dataAndHighScore(ctx.pref.some).flatMap: (data, high) =>
-      Ok.page(views.html.storm.home(data, high)).map(_.noCache)
+      Ok.page(views.storm.home(data, high)).map(_.noCache)
 
   private def dataAndHighScore(pref: Option[lila.pref.Pref])(using me: Option[Me]) = for
     puzzles <- env.storm.selector.apply
@@ -46,7 +46,7 @@ final class Storm(env: Env) extends LilaController(env):
   private def renderDashboardOf(user: lila.user.User, page: Int)(using Context): Fu[Result] = for
     history <- env.storm.dayApi.history(user.id, page)
     high    <- env.storm.highApi.get(user.id)
-    page    <- renderPage(views.html.storm.dashboard(user, history, high))
+    page    <- renderPage(views.storm.dashboard(user, history, high))
   yield Ok(page)
 
   def apiDashboardOf(username: UserStr, days: Int) = Open:

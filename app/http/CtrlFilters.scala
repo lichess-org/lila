@@ -40,17 +40,17 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
     env.security.ipTrust
       .isPubOrTor(ctx.ip)
       .flatMap:
-        if _ then Unauthorized.page(views.html.auth.bits.tor())
+        if _ then Unauthorized.page(views.auth.bits.tor())
         else res
 
   def NoEngine[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     if ctx.me.exists(_.marks.engine)
-    then Forbidden.page(views.html.site.message.noEngine)
+    then Forbidden.page(views.site.message.noEngine)
     else a
 
   def NoBooster[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =
     if ctx.me.exists(_.marks.boost)
-    then Forbidden.page(views.html.site.message.noBooster)
+    then Forbidden.page(views.site.message.noBooster)
     else a
 
   def NoLame[A <: Result](a: => Fu[A])(using Context): Fu[Result] =

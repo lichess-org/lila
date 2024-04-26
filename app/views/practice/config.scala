@@ -1,4 +1,4 @@
-package views.html.practice
+package views.practice
 
 import play.api.data.Form
 
@@ -7,12 +7,12 @@ import lila.app.templating.Environment.{ *, given }
 object config:
 
   def apply(structure: lila.practice.PracticeStructure, form: Form[?])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Practice structure",
       moreCss = cssTag("mod.misc")
     )(
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("practice"),
+        views.mod.ui.menu("practice"),
         div(cls := "practice_config page-menu__content box box-pad")(
           h1(cls := "box__top")("Practice config"),
           div(cls := "both")(

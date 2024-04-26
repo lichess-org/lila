@@ -1,4 +1,4 @@
-package views.html.report
+package views.report
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -35,7 +35,7 @@ object list:
                   userLink(sus.user, params = "?mod"),
                   br,
                   p(cls := "perfs")(sus.perfs.bestPerfs(2).map(showPerfRating)),
-                  views.html.mod.user.userMarks(sus.user, none)
+                  views.mod.user.userMarks(sus.user, none)
                 ),
                 td(cls := "atoms")(
                   r.bestAtoms(3).map { atom =>
@@ -88,12 +88,12 @@ object list:
   def layout(filter: String, scores: lila.report.Room.Scores, streamers: Int, appeals: Int)(
       body: Frag
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Reports",
       moreCss = cssTag("mod.report")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("report"),
+        views.mod.ui.menu("report"),
         div(id := "report_list", cls := "page-menu__content box")(
           div(cls := "header")(
             i(cls := "icon"),

@@ -3,7 +3,6 @@ package report
 
 import play.api.data.*
 import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -18,7 +17,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
 
   def list = Secure(_.SeeReport) { _ ?=> me ?=>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
-    then Forbidden.page(html.site.message.streamingMod)
+    then Forbidden.page(views.site.message.streamingMod)
     else renderList(env.report.modFilters.get(me).fold("all")(_.key))
   }
 
@@ -38,7 +37,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
         env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) >>
           Ok.page:
             val filteredReports = reports.filter(r => lila.report.Reason.isGranted(r.report.reason))
-            html.report.list(filteredReports, room, scores, streamers, appeals)
+            views.report.list(filteredReports, room, scores, streamers, appeals)
     }
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>
@@ -148,7 +147,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
                   text = s"$pid\n\n"
                 )
             case _ => form
-          html.report.form(filledForm, user)
+          views.report.form(filledForm, user)
     }
   }
 
@@ -159,7 +158,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
         err =>
           for
             user <- getUserStr("username").so(env.user.repo.byId)
-            page <- renderPage(html.report.form(err, user))
+            page <- renderPage(views.report.form(err, user))
           yield BadRequest(page),
         data =>
           if me.is(data.user.id) then BadRequest("You cannot report yourself")
@@ -190,6 +189,6 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       .fold(Redirect("/").toFuccess): reported =>
         Ok.pageAsync:
           env.relation.api.fetchBlocks(me, reported.id).map {
-            html.report.thanks(reported.id, _)
+            views.report.thanks(reported.id, _)
           }
   }

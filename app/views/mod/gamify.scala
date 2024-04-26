@@ -1,4 +1,4 @@
-package views.html.mod
+package views.mod
 
 import play.api.i18n.Lang
 
@@ -21,12 +21,12 @@ object gamify:
         th("Report points")
       )
 
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("mod.gamify")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("gamify"),
+        views.mod.ui.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content index box")(
           h1(cls := "box__top")(title),
           div(cls := "champs")(
@@ -61,12 +61,12 @@ object gamify:
       ctx: PageContext
   ) =
     val title = s"Moderators of the ${period.name}"
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("mod.gamify")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("gamify"),
+        views.mod.ui.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content box")(
           boxTop(
             h1(

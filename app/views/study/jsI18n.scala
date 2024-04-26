@@ -1,4 +1,4 @@
-package views.html.study
+package views.study
 
 import play.api.i18n.Lang
 
@@ -8,11 +8,11 @@ import lila.core.i18n.I18nKey as trans
 object jsI18n:
 
   def apply()(using Translate) =
-    views.html.board.userAnalysisI18n(withAdvantageChart = true) ++
+    views.board.userAnalysisI18n(withAdvantageChart = true) ++
       i18nJsObject(i18nKeys ++ gamebookPlayKeys)
 
   def embed(chapter: lila.study.Chapter)(using Translate) =
-    views.html.board.userAnalysisI18n() ++ chapter.isGamebook.so {
+    views.board.userAnalysisI18n() ++ chapter.isGamebook.so {
       i18nJsObject(gamebookPlayKeys)
     }
 

@@ -1,11 +1,11 @@
-package views.html.study
+package views.study
 
 import lila.app.templating.Environment.{ *, given }
 
 object clone:
 
   def apply(s: lila.study.Study)(using PageContext) =
-    views.html.site.message(
+    views.site.message(
       title = s"Clone ${s.name}",
       icon = Icon.StudyBoard.some
     ) {

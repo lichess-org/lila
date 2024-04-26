@@ -1,4 +1,4 @@
-package views.html.plan
+package views.plan
 
 import play.api.i18n.Lang
 
@@ -26,7 +26,7 @@ object index:
       pricing: lila.plan.PlanPricing
   )(using ctx: PageContext) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
-    views.html.base.layout(
+    views.base.layout(
       title = becomePatron.txt(),
       moreCss = cssTag("plan"),
       moreJs = ctx.isAuth.option(

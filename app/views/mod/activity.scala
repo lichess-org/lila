@@ -1,4 +1,4 @@
-package views.html.mod
+package views.mod
 
 import play.api.libs.json.Json
 
@@ -9,14 +9,14 @@ import lila.mod.ModActivity.*
 object activity:
 
   def apply(p: Result)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Moderation activity",
       moreCss = cssTag("mod.activity"),
       pageModule =
         PageModule("mod.activity", Json.obj("op" -> "activity", "data" -> lila.mod.ModActivity.json(p))).some
     ) {
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("activity"),
+        views.mod.ui.menu("activity"),
         div(cls := "page-menu__content index box mod-activity")(
           boxTop(
             h1(

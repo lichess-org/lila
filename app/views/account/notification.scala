@@ -1,5 +1,4 @@
-package views.html
-package account
+package views.account
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -8,7 +7,7 @@ object notification:
   import trans.preferences.*
 
   def apply(form: play.api.data.Form[?])(using PageContext) =
-    account.layout(
+    layout(
       title = s"${trans.preferences.notifications.txt()} - ${preferences.txt()}",
       active = "notification"
     ):

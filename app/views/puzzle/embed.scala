@@ -1,4 +1,4 @@
-package views.html.puzzle
+package views.puzzle
 
 import play.api.i18n.Lang
 
@@ -8,7 +8,7 @@ import lila.puzzle.DailyPuzzle
 object embed:
 
   def apply(daily: DailyPuzzle.WithHtml)(using config: EmbedContext) =
-    views.html.base.embed(
+    views.base.embed(
       title = "lichess.org chess puzzle",
       cssModule = "tv.embed"
     )(

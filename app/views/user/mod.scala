@@ -1,4 +1,4 @@
-package views.html.user
+package views.user
 
 import play.api.i18n.Lang
 
@@ -17,9 +17,9 @@ import lila.core.i18n.Translate
 
 object mod:
 
-  import views.html.mod.userTable
-  import views.html.mod.user.*
-  import views.html.mod.{ user as ui }
+  import views.mod.userTable
+  import views.mod.user.*
+  import views.mod.{ user as ui }
 
   def modLog(history: List[lila.mod.Modlog], appeal: Option[lila.appeal.Appeal])(using Translate) =
     mzSection("mod_log")(

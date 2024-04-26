@@ -1,5 +1,4 @@
-package views.html
-package stat
+package views.stat
 
 import play.api.libs.json.Json
 
@@ -17,7 +16,7 @@ object ratingDistribution:
       me: Option[UserWithPerfs]
   ) =
     val myVisiblePerfs = me.map(_.perfs).ifTrue(ctx.pref.showRatings)
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans),
       moreCss = cssTag("user.rating.stats"),
       wrapClass = "full-screen-force",
@@ -33,7 +32,7 @@ object ratingDistribution:
       ).some
     ) {
       main(cls := "page-menu")(
-        user.bits.communityMenu("ratings"),
+        views.user.bits.communityMenu("ratings"),
         div(cls := "rating-stats page-menu__content box box-pad")(
           boxTop(
             h1(

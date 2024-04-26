@@ -1,4 +1,4 @@
-package views.html.forum
+package views.forum
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -8,7 +8,7 @@ object search:
 
   def apply(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using PageContext) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       modules = infiniteScrollTag,
       moreCss = cssTag("forum")

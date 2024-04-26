@@ -1,4 +1,4 @@
-package views.html.user
+package views.user
 package show
 
 import play.api.data.Form
@@ -23,7 +23,7 @@ object page:
       social: UserInfo.Social
   )(using PageContext) =
     val u = info.user
-    views.html.base.layout(
+    views.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
       openGraph = lila.web
         .OpenGraph(
@@ -45,8 +45,8 @@ object page:
       main(cls := "page-menu", ui.dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
-          views.html.user.show.header(u, info, UserInfo.Angle.Activity, social),
-          div(cls := "angle-content")(views.html.activity(u, activities))
+          views.user.show.header(u, info, UserInfo.Angle.Activity, social),
+          div(cls := "angle-content")(views.activity(u, activities))
         )
       )
 
@@ -61,7 +61,7 @@ object page:
     val u          = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
     val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
-    views.html.base.layout(
+    views.base.layout(
       title = s"${u.username} $filterName$pageName",
       pageModule = pageModule(info),
       modules = esModules(info, filters.current.name == "search"),
@@ -75,7 +75,7 @@ object page:
       main(cls := "page-menu", ui.dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
-          views.html.user.show.header(u, info, UserInfo.Angle.Games(searchForm), social),
+          views.user.show.header(u, info, UserInfo.Angle.Games(searchForm), social),
           div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name, notes))
         )
       )
@@ -92,7 +92,7 @@ object page:
       PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
   def disabled(u: User)(using PageContext) =
-    views.html.base.layout(title = u.username, robots = false):
+    views.base.layout(title = u.username, robots = false):
       main(cls := "box box-pad")(
         h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())

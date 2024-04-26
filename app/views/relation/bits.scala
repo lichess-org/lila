@@ -1,4 +1,4 @@
-package views.html.relation
+package views.relation
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -54,14 +54,14 @@ object bits:
                   }
                 ,
                 td:
-                  views.html.relation
+                  views.relation
                     .actions(r.user.light, r.relation, followable = r.followable, blocked = false)
               )
           else tr(td(trans.site.none()))
     )
 
   def layout(title: String)(content: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("relation"),
       modules = infiniteScrollTag

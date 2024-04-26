@@ -4,7 +4,6 @@ import chess.ErrorStr
 import chess.format.pgn.PgnStr
 import play.api.libs.json.Json
 import play.api.mvc.*
-import views.*
 
 import scala.util.{ Either, Left, Right }
 
@@ -28,7 +27,7 @@ final class Importer(env: Env) extends LilaController(env):
   def importGame = OpenBody:
     val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
     val data = ImportData(PgnStr(pgn), None)
-    Ok.page(html.game.importGame(importForm.fill(data)))
+    Ok.page(views.game.importGame(importForm.fill(data)))
 
   def sendGame    = OpenOrScopedBody(parse.anyContent)()(doSendGame)
   def apiSendGame = AnonOrScopedBody(parse.anyContent)()(doSendGame)
@@ -38,7 +37,7 @@ final class Importer(env: Env) extends LilaController(env):
       .fold(
         err =>
           negotiate(
-            BadRequest.page(html.game.importGame(err)),
+            BadRequest.page(views.game.importGame(err)),
             jsonFormError(err)
           ),
         data =>

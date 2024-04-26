@@ -1,4 +1,4 @@
-package views.html.team
+package views.team
 
 import play.api.i18n.Lang
 
@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ *, given }
 object tournaments:
 
   def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${t.name} • ${trans.site.tournaments.txt()}",
       openGraph = lila.web
         .OpenGraph(
@@ -52,7 +52,7 @@ object tournaments:
           )
         )(
           td(cls := "icon")(
-            iconTag(any.value.fold(views.html.tournament.ui.tournamentIcon, _.perfType.icon))
+            iconTag(any.value.fold(views.tournament.ui.tournamentIcon, _.perfType.icon))
           ),
           td(cls := "header")(
             any.value.fold(

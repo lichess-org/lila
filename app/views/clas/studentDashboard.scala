@@ -1,4 +1,4 @@
-package views.html.clas
+package views.clas
 
 import lila.app.templating.Environment.{ *, given }
 

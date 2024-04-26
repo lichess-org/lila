@@ -1,4 +1,4 @@
-package views.html.mod
+package views.mod
 
 import play.api.libs.json.Json
 
@@ -10,13 +10,13 @@ import lila.mod.ModQueueStats.*
 object queueStats:
 
   def apply(p: Result)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Queues stats",
       moreCss = cssTag("mod.activity"),
       pageModule = PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json)).some
     ):
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("queues"),
+        views.mod.ui.menu("queues"),
         div(cls := "page-menu__content index box mod-queues")(
           boxTop(
             h1(

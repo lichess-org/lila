@@ -1,5 +1,4 @@
-package views
-package html.puzzle
+package views.puzzle
 
 import play.api.libs.json.Json
 
@@ -89,7 +88,7 @@ object dashboard:
   )(
       body: PuzzleDashboard => Option[Frag]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
       pageModule = pageModule

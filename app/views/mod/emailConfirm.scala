@@ -1,4 +1,4 @@
-package views.html.mod
+package views.mod
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -9,7 +9,7 @@ object emailConfirm:
   def apply(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using
       ctx: PageContext
   ) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Email confirmation",
       moreCss = cssTag("mod.misc"),
       moreJs = embedJsUnsafeLoadThen("""$('.mod-confirm form input').on('paste', function() {
@@ -19,7 +19,7 @@ this.setSelectionRange(this.value.length, this.value.length);
 });""")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("email"),
+        views.mod.ui.menu("email"),
         div(cls := "mod-confirm page-menu__content box box-pad")(
           h1(cls := "box__top")("Confirm a user email"),
           p(

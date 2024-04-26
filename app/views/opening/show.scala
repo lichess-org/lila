@@ -1,4 +1,4 @@
-package views.html.opening
+package views.opening
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -9,7 +9,7 @@ object show:
   import bits.*
 
   def apply(page: OpeningPage, puzzleKey: Option[String])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(page.some).some,
       title = s"${trans.site.opening.txt()} • ${page.name}",
@@ -91,7 +91,7 @@ object show:
           )
         ),
         div(cls := "opening__panels")(
-          views.html.base.bits.ariaTabList("opening", "next")(
+          views.base.bits.ariaTabList("opening", "next")(
             (
               "next",
               "Popular continuations",

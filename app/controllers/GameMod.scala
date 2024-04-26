@@ -22,7 +22,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
           if isGranted(_.UserEvaluate)
           then env.mod.assessApi.makeAndGetFullOrBasicsFor(povs).map(Right.apply)
           else fuccess(Left(povs))
-        page <- renderPage(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
+        page <- renderPage(views.mod.games(user, form, games, arenas.currentPageResults, swisses))
       yield Ok(page)
   }
 

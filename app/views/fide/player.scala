@@ -1,4 +1,4 @@
-package views.html.fide
+package views.fide
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -98,7 +98,7 @@ object player:
       (tours.nbResults > 0).option(
         div(cls := "fide-player__tours")(
           h2("Recent tournaments"),
-          views.html.relay.tour.renderPager(views.html.relay.tour.asRelayPager(tours)): page =>
+          views.relay.tour.renderPager(views.relay.tour.asRelayPager(tours)): page =>
             routes.Fide.show(player.id, player.slug, page)
         )
       )

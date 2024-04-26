@@ -1,4 +1,4 @@
-package views.html.analyse
+package views.analyse
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -11,16 +11,16 @@ object replayBot:
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = replay.titleOf(pov),
       moreCss = cssTag("analyse.round"),
-      openGraph = views.html.round.bits.povOpenGraph(pov).some,
+      openGraph = views.round.bits.povOpenGraph(pov).some,
       csp = bits.csp,
       robots = false
     ):
       main(cls := "analyse")(
         st.aside(cls := "analyse__side")(
-          views.html.game.side(pov, initialFen, none, simul = simul, bookmarked = false)
+          views.game.side(pov, initialFen, none, simul = simul, bookmarked = false)
         ),
         div(cls := "analyse__board main-board")(chessgroundBoard),
         div(cls := "analyse__tools")(div(cls := "ceval")),
@@ -36,7 +36,7 @@ object replayBot:
             ),
             cross.map: c =>
               div(cls := "ctable active")(
-                views.html.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+                views.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
               )
           )
         )

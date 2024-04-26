@@ -1,4 +1,4 @@
-package views.html.team
+package views.team
 
 import play.api.libs.json.Json
 
@@ -41,7 +41,7 @@ object show:
           .obj("id" -> t.id)
           .add("socketVersion" -> socketVersion)
           .add("chat" -> chatOption.map: chat =>
-            views.html.chat.json(
+            views.chat.json(
               chat.chat,
               chat.lines,
               name = if t.isChatFor(_.Leaders) then leadersChat.txt() else trans.site.chatRoom.txt(),
@@ -92,8 +92,8 @@ object show:
             ),
             (t.enabled && chatOption.isDefined).option(
               frag(
-                views.html.chat.frag,
-                views.html.chat.spectatorsFrag
+                views.chat.frag,
+                views.chat.spectatorsFrag
               )
             ),
             bits.actions(t.team, info.member, info.myRequest, info.subscribed, asMod),
@@ -124,7 +124,7 @@ object show:
                 frag(
                   st.section(cls := "team-show__tour team-events team-simuls")(
                     h2(trans.site.simultaneousExhibitions()),
-                    views.html.simul.bits.allCreated(info.simuls)
+                    views.simul.bits.allCreated(info.simuls)
                   )
                 )
               ),

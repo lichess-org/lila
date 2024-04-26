@@ -1,4 +1,4 @@
-package views.html.game
+package views.game
 
 import chess.format.Fen
 

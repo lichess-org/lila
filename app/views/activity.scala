@@ -1,4 +1,4 @@
-package views.html
+package views
 
 import lila.activity.activities.*
 import lila.app.templating.Environment.{ *, given }
@@ -310,7 +310,7 @@ object activity:
                 t.rankRatio.percent,
                 t.nbGames,
                 a(href := routes.Tournament.show(t.tourId))(
-                  views.html.tournament.ui.tournamentIdToName(t.tourId)
+                  views.tournament.ui.tournamentIdToName(t.tourId)
                 )
               ),
               br

@@ -1,5 +1,4 @@
-package views
-package html.puzzle
+package views.puzzle
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -13,7 +12,7 @@ object history:
     val title =
       if ctx.is(user) then trans.puzzle.history.txt()
       else s"${user.username} ${trans.puzzle.history.txt()}"
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
       modules = infiniteScrollTag

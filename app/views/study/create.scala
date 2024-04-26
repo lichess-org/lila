@@ -1,4 +1,4 @@
-package views.html.study
+package views.study
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -20,7 +20,7 @@ object create:
       contrib: List[(IdName, Int)],
       backUrl: Option[String]
   )(using PageContext) =
-    views.html.site.message(
+    views.site.message(
       title = trans.site.toStudy.txt(),
       icon = Some(Icon.StudyBoard),
       back = backUrl,

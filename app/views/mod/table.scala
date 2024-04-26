@@ -1,4 +1,4 @@
-package views.html.mod
+package views.mod
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -10,9 +10,9 @@ object table:
 
     val title = "All mods"
 
-    views.html.base.layout(title = title, moreCss = cssTag("mod.misc")):
+    views.base.layout(title = title, moreCss = cssTag("mod.misc")):
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("mods"),
+        views.mod.ui.menu("mods"),
         div(id := "mod_table", cls := "page-menu__content box")(
           h1(cls := "box__top")(title),
           st.table(cls := "slist slist-pad sortable")(

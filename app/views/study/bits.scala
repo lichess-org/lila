@@ -1,5 +1,4 @@
-package views.html
-package study
+package views.study
 
 import play.api.i18n.Lang
 
@@ -91,4 +90,4 @@ object bits:
     )
 
   def streamers(streamers: List[UserId])(using Translate) =
-    views.html.streamer.bits.contextual(streamers).map(_(cls := "none"))
+    views.streamer.bits.contextual(streamers).map(_(cls := "none"))

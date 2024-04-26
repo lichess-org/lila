@@ -1,4 +1,4 @@
-package views.html.tournament
+package views.tournament
 
 import play.api.libs.json.Json
 import scalalib.paginator.Paginator
@@ -18,7 +18,7 @@ def home(
     winners: lila.tournament.AllWinners,
     json: play.api.libs.json.JsObject
 )(using ctx: PageContext) =
-  views.html.base.layout(
+  views.base.layout(
     title = trans.site.tournaments.txt(),
     moreCss = cssTag("tournament.home"),
     wrapClass = "full-screen-force",
@@ -38,14 +38,14 @@ def home(
   )(listUi.home(scheduled, finished, winners))
 
 def history(freq: Freq, pager: Paginator[Tournament])(using PageContext) =
-  views.html.base.layout(
+  views.base.layout(
     title = "Tournament history",
     modules = infiniteScrollTag,
     moreCss = cssTag("tournament.history")
   )(listUi.history(freq, pager))
 
 def calendar(json: play.api.libs.json.JsObject)(using PageContext) =
-  views.html.base.layout(
+  views.base.layout(
     title = "Tournament calendar",
     pageModule = PageModule("tournament.calendar", Json.obj("data" -> json)).some,
     moreCss = cssTag("tournament.calendar")
@@ -56,25 +56,25 @@ def calendar(json: play.api.libs.json.JsObject)(using PageContext) =
     )
 
 def leaderboard(winners: lila.tournament.AllWinners)(using PageContext) =
-  views.html.base.layout(
+  views.base.layout(
     title = "Tournament leaderboard",
     moreCss = cssTag("tournament.leaderboard"),
     wrapClass = "full-screen-force"
-  )(listUi.leaderboard(winners, views.html.user.bits.communityMenu("tournament")))
+  )(listUi.leaderboard(winners, views.user.bits.communityMenu("tournament")))
 
 object shields:
   import lila.tournament.TournamentShield
-  private def menu(using Translate) = views.html.user.bits.communityMenu("shield")
+  private def menu(using Translate) = views.user.bits.communityMenu("shield")
 
   def apply(history: TournamentShield.History)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Tournament shields",
       moreCss = cssTag("tournament.leaderboard"),
       wrapClass = "full-screen-force"
     )(listUi.shields(history, menu))
 
   def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Tournament shields",
       moreCss = frag(cssTag("tournament.leaderboard"), cssTag("slist"))
     )(listUi.shields.byCateg(categ, awards, menu))

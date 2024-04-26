@@ -1,4 +1,4 @@
-package views.html.opening
+package views.opening
 
 import chess.opening.Opening
 

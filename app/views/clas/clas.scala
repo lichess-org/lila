@@ -1,4 +1,4 @@
-package views.html.clas
+package views.clas
 
 import play.api.data.Form
 import play.api.i18n.Lang
@@ -11,7 +11,7 @@ import lila.clas.{ Clas, Student }
 object clas:
 
   def home(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = frag(
         cssTag("page"),
         cssTag("clas")

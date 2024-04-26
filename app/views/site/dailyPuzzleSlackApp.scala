@@ -1,11 +1,11 @@
-package views.html.site
+package views.site
 
 import lila.app.templating.Environment.{ *, given }
 
 object dailyPuzzleSlackApp:
 
   def apply()(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Daily Chess Puzzle by Lichess (Slack App)",
       moreCss = cssTag("page")
     ):

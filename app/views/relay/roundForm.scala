@@ -1,4 +1,4 @@
-package views.html.relay
+package views.relay
 
 import play.api.data.Form
 
@@ -47,7 +47,7 @@ object roundForm:
     )
 
   private def layout(title: String)(body: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
       modules = jsModule("bits.flatpickr")

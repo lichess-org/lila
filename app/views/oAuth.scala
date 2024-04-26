@@ -1,4 +1,4 @@
-package views.html.oAuth
+package views.oAuth
 
 import play.api.data.Form
 
@@ -10,11 +10,11 @@ object token:
   private lazy val ui = lila.oauth.ui.TokenUi(helpers)
 
   def create(form: Form[lila.oauth.OAuthTokenForm.Data], me: User)(using PageContext) =
-    views.html.account.layout(title = trans.oauthScope.newAccessToken.txt(), active = "oauth.token"):
+    views.account.layout(title = trans.oauthScope.newAccessToken.txt(), active = "oauth.token"):
       ui.create(form, me)
 
   def index(tokens: List[lila.oauth.AccessToken])(using PageContext) =
-    views.html.account.layout(title = trans.oauthScope.personalAccessTokens.txt(), active = "oauth.token"):
+    views.account.layout(title = trans.oauthScope.personalAccessTokens.txt(), active = "oauth.token"):
       ui.index(tokens)
 
 object authorize:
@@ -22,7 +22,7 @@ object authorize:
   private lazy val ui = lila.oauth.ui.AuthorizeUi(helpers)(assetUrl, lightUserFallback)
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Authorization",
       moreCss = cssTag("oauth"),
       moreJs = embedJsUnsafe(ui.moreJs(prompt)),

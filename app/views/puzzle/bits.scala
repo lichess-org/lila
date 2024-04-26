@@ -1,5 +1,4 @@
-package views
-package html.puzzle
+package views.puzzle
 
 import chess.format.{ BoardFen, Uci }
 
@@ -92,7 +91,7 @@ object bits:
     trans.site.asBlack,
     trans.site.randomColor,
     trans.site.flipBoard
-  ) ::: views.html.board.userAnalysisI18n.cevalTranslations.toList
+  ) ::: views.board.userAnalysisI18n.cevalTranslations.toList
 
   private val trainingI18nKeys: List[I18nKey] = baseI18nKeys ::: List[I18nKey](
     trans.puzzle.example,

@@ -1,5 +1,4 @@
-package views.html
-package forum
+package views.forum
 
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -12,7 +11,7 @@ import scalalib.paginator.Paginator
 object topic:
 
   def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
       modules = jsModule("bits.forum") ++ captchaTag
@@ -47,7 +46,7 @@ object topic:
           form3.group(form("post")("text"), trans.site.message())(
             form3.textarea(_, klass = "post-text-area")(rows := 10)
           ),
-          views.html.base.captcha(form("post"), captcha),
+          views.base.captcha(form("post"), captcha),
           form3.actions(
             a(href := routes.ForumCateg.show(categ.slug))(trans.site.cancel()),
             isGranted(_.PublicMod).option(
@@ -72,7 +71,7 @@ object topic:
       formText: Option[String] = None,
       replyBlocked: Boolean = false
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
       modules = jsModule("bits.forum") ++ jsModule("bits.expandText") ++
         formWithCaptcha.isDefined.so(captchaTag),
@@ -183,7 +182,7 @@ object topic:
               form3.textarea(f, klass = "post-text-area")(rows := 10, bits.dataTopic := topic.id)(
                 formText
               ),
-            views.html.base.captcha(form, captcha),
+            views.base.captcha(form, captcha),
             form3.actions(
               a(href := routes.ForumCateg.show(categ.slug))(trans.site.cancel()),
               (isGranted(_.PublicMod) || isGranted(_.SeeReport)).option(
@@ -201,7 +200,7 @@ object topic:
   def makeDiagnostic(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha, text: String)(using
       PageContext
   )(using me: Me) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Diagnostic report",
       moreCss = cssTag("forum"),
       modules = jsModule("bits.forum")
@@ -223,7 +222,7 @@ object topic:
             )
           ),
           form3.hidden("name", me.username.value),
-          views.html.base.captcha(form("post"), captcha),
+          views.base.captcha(form("post"), captcha),
           form3.actions(form3.submit("submit"))
         )
       )

@@ -1,5 +1,4 @@
-package views
-package html.plan
+package views.plan
 
 import play.api.i18n.Lang
 
@@ -8,7 +7,7 @@ import lila.app.templating.Environment.{ *, given }
 object features:
 
   def apply()(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("feature"),
       openGraph = lila.web

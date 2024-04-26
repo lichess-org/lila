@@ -1,5 +1,4 @@
-package views
-package html.puzzle
+package views.puzzle
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -9,7 +8,7 @@ import lila.puzzle.{ PuzzleAngle, PuzzleTheme }
 object theme:
 
   def list(all: PuzzleAngle.All)(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.puzzle.puzzleThemes.txt(),
       moreCss = cssTag("puzzle.page"),
       withHrefLangs = lila.web.LangPath(routes.Puzzle.themes).some

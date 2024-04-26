@@ -1,4 +1,4 @@
-package views.html.simul
+package views.simul
 
 import play.api.libs.json.Json
 
@@ -19,7 +19,7 @@ object show:
       verdicts: Condition.WithVerdicts
   )(using ctx: PageContext) =
     val userIsHost = ctx.userId.has(sim.hostId)
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
       pageModule = PageModule(
@@ -30,7 +30,7 @@ object show:
           "socketVersion" -> socketVersion,
           "userId"        -> ctx.userId,
           "chat" -> chatOption.map: c =>
-            views.html.chat.json(
+            views.chat.json(
               c.chat,
               c.lines,
               name = trans.site.chatRoom.txt(),
@@ -96,14 +96,14 @@ object show:
                   )
                 })
             ),
-            views.html.gathering.verdicts(verdicts, sim.mainPerfType, relevant = !userIsHost) | br,
+            views.gathering.verdicts(verdicts, sim.mainPerfType, relevant = !userIsHost) | br,
             trans.site.by(userIdLink(sim.hostId.some)),
             sim.estimatedStartAt.map: d =>
               frag(br, absClientInstant(d))
           ),
           stream.map: s =>
-            views.html.streamer.bits.contextual(s.streamer.userId),
-          chatOption.isDefined.option(views.html.chat.frag)
+            views.streamer.bits.contextual(s.streamer.userId),
+          chatOption.isDefined.option(views.chat.frag)
         ),
         div(cls := "simul__main box")(spinner)
       )

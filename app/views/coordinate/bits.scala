@@ -1,4 +1,4 @@
-package views.html.coordinate
+package views.coordinate
 
 import play.api.libs.json.Json
 

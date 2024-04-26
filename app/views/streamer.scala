@@ -1,4 +1,4 @@
-package views.html.streamer
+package views.streamer
 
 import scalalib.paginator.Paginator
 
@@ -18,7 +18,7 @@ def show(
     perfs: UserPerfs,
     activities: Vector[lila.activity.ActivityView]
 )(using ctx: PageContext) =
-  views.html.base.layout(
+  views.base.layout(
     title = s"${s.titleName} streams chess",
     moreCss = cssTag("streamer.show"),
     modules = jsModule("bits.streamer"),
@@ -37,7 +37,7 @@ def show(
     ui.show(
       s,
       perfRatings = perfs.best6Perfs.map { showPerfRating(perfs, _) },
-      activities = views.html.activity(UserWithPerfs(s.user, perfs), activities)
+      activities = views.activity(UserWithPerfs(s.user, perfs), activities)
     )
 
 def index(
@@ -46,14 +46,14 @@ def index(
     requests: Boolean
 )(using ctx: PageContext) =
   val title = if requests then "Streamer approval requests" else trans.streamer.lichessStreamers.txt()
-  views.html.base.layout(
+  views.base.layout(
     title = title,
     moreCss = cssTag("streamer.list"),
     modules = infiniteScrollTag ++ jsModule("bits.streamer")
   )(ui.index(live, pager, requests, title))
 
 def create(using PageContext) =
-  views.html.site.message(
+  views.site.message(
     title = trans.streamer.becomeStreamer.txt(),
     icon = Some(Icon.Mic),
     moreCss = cssTag("streamer.form").some
@@ -72,7 +72,7 @@ object edit:
       form: play.api.data.Form[?],
       modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[Streamer])]
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
       modules = jsModule("bits.streamer"),
       moreCss = cssTag("streamer.form")

@@ -1,4 +1,4 @@
-package views.html.setup
+package views.setup
 
 import play.api.data.Form
 

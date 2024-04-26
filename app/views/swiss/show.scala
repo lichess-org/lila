@@ -1,5 +1,4 @@
-package views.html
-package swiss
+package views.swiss
 
 import play.api.libs.json.Json
 
@@ -25,7 +24,7 @@ object show:
   )(using ctx: PageContext): Frag =
     val isDirector       = ctx.is(s.createdBy)
     val hasScheduleInput = isDirector && s.settings.manualRounds && s.isNotFinished
-    views.html.base.layout(
+    views.base.layout(
       title = fullName(s, team),
       modules = hasScheduleInput.so(jsModule("bits.flatpickr")),
       pageModule = PageModule(
@@ -36,7 +35,7 @@ object show:
             "i18n"   -> bits.jsI18n,
             "userId" -> ctx.userId,
             "chat" -> chatOption.map: c =>
-              chat.json(
+              views.chat.json(
                 c.chat,
                 c.lines,
                 name = trans.site.chatRoom.txt(),
@@ -68,7 +67,7 @@ object show:
     )(
       main(cls := "swiss")(
         st.aside(cls := "swiss__side")(
-          swiss.side(s, verdicts, streamers, chatOption.isDefined)
+          views.swiss.side(s, verdicts, streamers, chatOption.isDefined)
         ),
         div(cls := "swiss__main")(div(cls := "box"))
       )
@@ -77,7 +76,7 @@ object show:
   def round(s: Swiss, r: SwissRoundNumber, team: LightTeam, pairings: Paginator[SwissPairing])(using
       PageContext
   ) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${fullName(s, team)} • Round $r/${s.round}",
       moreCss = cssTag("swiss.show")
     ):

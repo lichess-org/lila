@@ -1,4 +1,4 @@
-package views.html.clas
+package views.clas
 
 import play.api.data.Form
 import play.api.i18n.Lang
@@ -10,7 +10,7 @@ import lila.common.String.html.richText
 
 object student:
 
-  lazy val ui = lila.clas.ui.ClasStudentUi(helpers, views.html.clas.ui)
+  lazy val ui = lila.clas.ui.ClasStudentUi(helpers, views.clas.ui)
 
   def show(
       clas: Clas,
@@ -20,7 +20,7 @@ object student:
   )(using ctx: PageContext) =
     bits.layout(s.user.username, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show",
-      ui.show(clas, students, s, views.html.activity(s.withPerfs, activities))
+      ui.show(clas, students, s, views.activity(s.withPerfs, activities))
     )
 
   private def realNameField(form: Form[?], fieldName: String = "realName")(using Context) =

@@ -1,4 +1,4 @@
-package views.html.challenge
+package views.challenge
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -19,7 +19,7 @@ object mine:
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr"):
         submitButton(cls := "button button-red text", dataIcon := Icon.X)(trans.site.cancel())
 
-    views.html.base.layout(
+    views.base.layout(
       title = bits.challengeTitle(c),
       openGraph = bits.challengeOpenGraph(c).some,
       pageModule = bits.jsModule(c, json, owner = true).some,

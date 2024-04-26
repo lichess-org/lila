@@ -1,4 +1,4 @@
-package views.html.plan
+package views.plan
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -18,7 +18,7 @@ object indexStripe:
       pricing: lila.plan.PlanPricing,
       gifts: List[lila.plan.Charge.Gift]
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = thankYou.txt(),
       moreCss = cssTag("plan"),
       modules = jsModule("bits.plan"),

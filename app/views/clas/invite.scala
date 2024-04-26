@@ -1,4 +1,4 @@
-package views.html.clas
+package views.clas
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -7,7 +7,7 @@ import lila.clas.{ Clas, ClasInvite }
 object invite:
 
   def show(c: Clas, invite: ClasInvite)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("clas"),
       title = c.name
     ):

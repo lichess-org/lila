@@ -1,5 +1,4 @@
-package views.html
-package auth
+package views.auth
 
 import play.api.data.{ Field, Form }
 
@@ -34,7 +33,7 @@ object bits:
     )
 
   def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.passwordReset.txt(),
       moreCss = cssTag("auth"),
       moreJs = lila.web.views.hcaptcha.script(form),
@@ -57,7 +56,7 @@ object bits:
       )
 
   def passwordResetSent(email: String)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.passwordReset.txt()
     ):
       main(cls := "page-small box box-pad")(
@@ -69,7 +68,7 @@ object bits:
   def passwordResetConfirm(token: String, form: Form[?], ok: Option[Boolean] = None)(using PageContext)(using
       me: Me
   ) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${me.username} - ${trans.site.changePassword.txt()}",
       moreCss = cssTag("form3"),
       modules = jsModuleInit("bits.passwordComplexity")
@@ -102,7 +101,7 @@ object bits:
       )
 
   def magicLink(form: HcaptchaForm[?], fail: Boolean)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
       moreJs = lila.web.views.hcaptcha.script(form),
@@ -126,7 +125,7 @@ object bits:
       )
 
   def magicLinkSent(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Log in by email"
     ):
       main(cls := "page-small box box-pad")(
@@ -136,7 +135,7 @@ object bits:
       )
 
   def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"Log in as ${user.username}",
       moreCss = cssTag("form3")
     ):
@@ -184,7 +183,7 @@ body { margin-top: 45px; }
     )
 
   def tor()(using PageContext) =
-    views.html.base.layout(title = "Tor exit node"):
+    views.base.layout(title = "Tor exit node"):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "text", dataIcon := "2")("Ooops")),
         p("Sorry, you can't signup to Lichess through Tor!"),
@@ -192,7 +191,7 @@ body { margin-top: 45px; }
       )
 
   def logout()(using PageContext) =
-    views.html.base.layout(title = trans.site.logOut.txt()):
+    views.base.layout(title = trans.site.logOut.txt()):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(trans.site.logOut()),
         form(action := routes.Auth.logout, method := "post")(

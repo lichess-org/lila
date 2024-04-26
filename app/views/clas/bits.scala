@@ -1,4 +1,4 @@
-package views.html.clas
+package views.clas
 
 import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
@@ -16,7 +16,7 @@ object bits:
       moreJs: Option[Frag] = none,
       csp: Option[ContentSecurityPolicy] = none
   )(body: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("clas"),
       modules = jsModule("bits.clas"),

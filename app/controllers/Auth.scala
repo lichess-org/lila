@@ -2,7 +2,6 @@ package controllers
 import play.api.data.{ Form, FormError }
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -85,7 +84,7 @@ final class Auth(
       case None =>
         val prefillUsername = UserStrOrEmail(~switch.filter(_ != "1"))
         val form            = api.loginFormFilled(prefillUsername)
-        Ok.page(html.auth.login(form, referrer)).map(_.withCanonical(routes.Auth.login))
+        Ok.page(views.auth.login(form, referrer)).map(_.withCanonical(routes.Auth.login))
 
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
 
@@ -99,7 +98,7 @@ final class Auth(
           .fold(
             err =>
               negotiate(
-                Unauthorized.page(html.auth.login(err, referrer)),
+                Unauthorized.page(views.auth.login(err, referrer)),
                 Unauthorized(doubleJsonFormErrorBody(err))
               ),
             (login, pass) =>
@@ -118,7 +117,7 @@ final class Auth(
                         negotiate(
                           err.errors match
                             case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
-                            case _ => Unauthorized.page(html.auth.login(err, referrer))
+                            case _ => Unauthorized.page(views.auth.login(err, referrer))
                           ,
                           Unauthorized(doubleJsonFormErrorBody(err))
                         )
@@ -155,7 +154,7 @@ final class Auth(
   // mobile app BC logout with GET
   def logoutGet = Auth { ctx ?=> _ ?=>
     negotiate(
-      html = Ok.page(html.auth.bits.logout()),
+      html = Ok.page(views.auth.bits.logout()),
       json =
         ctx.req.session.get(api.sessionIdKey).foreach(env.security.store.delete)
         jsonOkResult.withCookies(env.security.lilaCookie.newSession)
@@ -166,7 +165,7 @@ final class Auth(
   def signupLang = LangPage(routes.Auth.signup)(serveSignup)
   private def serveSignup(using Context) = NoTor:
     forms.signup.website.flatMap: form =>
-      Ok.page(html.auth.signup(form))
+      Ok.page(views.auth.signup(form))
 
   private def authLog(user: UserName, email: Option[EmailAddress], msg: String) =
     lila.log("auth").info(s"$user ${email.fold("-")(_.value)} $msg")
@@ -181,10 +180,10 @@ final class Auth(
               case Signup.Result.RateLimited => rateLimited
               case Signup.Result.MissingCaptcha =>
                 forms.signup.website.flatMap: form =>
-                  BadRequest.page(html.auth.signup(form))
+                  BadRequest.page(views.auth.signup(form))
               case Signup.Result.Bad(err) =>
                 forms.signup.website.flatMap: baseForm =>
-                  BadRequest.page(html.auth.signup(baseForm.withForm(err)))
+                  BadRequest.page(views.auth.signup(baseForm.withForm(err)))
               case Signup.Result.ConfirmEmail(user, email) =>
                 Redirect(routes.Auth.checkYourEmail).withCookies(
                   lila.security.EmailConfirm.cookie
@@ -233,7 +232,7 @@ final class Auth(
         .fixEmail(userEmail.email)
         .bindFromRequest()
         .fold(
-          err => BadRequest.page(html.auth.checkYourEmail(userEmail.some, err.some)),
+          err => BadRequest.page(views.auth.checkYourEmail(userEmail.some, err.some)),
           email =>
             env.user.repo
               .byId(userEmail.username)
@@ -308,7 +307,7 @@ final class Auth(
   private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Boolean)(using ctx: Context) =
     renderAsync:
       env.security.forms.passwordReset.map: baseForm =>
-        html.auth.bits.passwordReset(form.foldLeft(baseForm)(_.withForm(_)), fail)
+        views.auth.bits.passwordReset(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
   def passwordReset = Open:
     renderPasswordReset(none, fail = false).map { Ok(_) }
@@ -343,7 +342,7 @@ final class Auth(
           else renderPasswordReset(none, fail = true).map { BadRequest(_) }
 
   def passwordResetSent(email: String) = Open:
-    Ok.page(html.auth.bits.passwordResetSent(email))
+    Ok.page(views.auth.bits.passwordResetSent(email))
 
   def passwordResetConfirm(token: String) = Open:
     env.security.passwordReset.confirm(token).flatMap {
@@ -355,7 +354,7 @@ final class Auth(
         authLog(me.username, none, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
         Ok.page:
-          html.auth.bits.passwordResetConfirm(token, forms.passwdResetForMe, none)
+          views.auth.bits.passwordResetConfirm(token, forms.passwdResetForMe, none)
     }
 
   def passwordResetConfirmApply(token: String) = OpenBody:
@@ -367,7 +366,7 @@ final class Auth(
         given Me = me
         val user = me.value
         FormFuResult(forms.passwdResetForMe) { err =>
-          renderPage(html.auth.bits.passwordResetConfirm(token, err, false.some))
+          renderPage(views.auth.bits.passwordResetConfirm(token, err, false.some))
         } { data =>
           HasherRateLimit:
             for
@@ -389,7 +388,7 @@ final class Auth(
   private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using Context) =
     renderAsync:
       env.security.forms.magicLink.map: baseForm =>
-        html.auth.bits.magicLink(form.foldLeft(baseForm)(_.withForm(_)), fail)
+        views.auth.bits.magicLink(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
   def magicLink = Open:
     Firewall:
@@ -424,7 +423,7 @@ final class Auth(
       }
 
   def magicLinkSent = Open:
-    Ok.page(html.auth.bits.magicLinkSent)
+    Ok.page(views.auth.bits.magicLinkSent)
 
   private lazy val magicLinkLoginRateLimitPerToken = RateLimit[String](
     credits = 3,
@@ -469,7 +468,7 @@ final class Auth(
         consumingToken(token): user =>
           Ok.pageAsync:
             env.security.loginToken.generate(user).map {
-              html.auth.bits.tokenLoginConfirmation(user, _, get("referrer"))
+              views.auth.bits.tokenLoginConfirmation(user, _, get("referrer"))
             }
 
   def loginWithTokenPost(token: String, referrer: Option[String]) =
@@ -485,7 +484,7 @@ final class Auth(
       case None =>
         BadRequest.page:
           import scalatags.Text.all.stringFrag
-          html.site.message("This token has expired.")(stringFrag("Please go back and try again."))
+          views.site.message("This token has expired.")(stringFrag("Please go back and try again."))
       case Some(user) => f(user)
     }
 

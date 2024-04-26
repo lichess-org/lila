@@ -1,4 +1,4 @@
-package views.html.ublog
+package views.ublog
 
 import scalalib.paginator.Paginator
 
@@ -15,7 +15,7 @@ def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelecto
 
 lazy val postUi = lila.ublog.ui.UblogPostUi(helpers)(
   ublogRank = env.ublog.rank,
-  connectLinks = views.html.base.bits.connectLinks,
+  connectLinks = views.base.bits.connectLinks,
   thumbnailUrl = thumbnailUrl
 )
 
@@ -31,7 +31,7 @@ def post(
     followable: Boolean,
     followed: Boolean
 )(using ctx: PageContext) =
-  views.html.base.layout(
+  views.base.layout(
     moreCss = cssTag("ublog"),
     modules = jsModule("bits.expandText") ++ ctx.isAuth.so(jsModule("bits.ublog")),
     title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
@@ -54,7 +54,7 @@ def post(
 
 def blog(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
   val title = trans.ublog.xBlog.txt(user.username)
-  views.html.base.layout(
+  views.base.layout(
     moreCss = cssTag("ublog"),
     modules = posts.hasNextPage.option(infiniteScrollTag) ++ ctx.isAuth.so(jsModule("bits.ublog")),
     title = title,
@@ -71,21 +71,21 @@ object form:
   lazy val formUi = lila.ublog.ui.UblogFormUi(helpers, ui, postUi)(
     renderCaptcha = (form, captcha) =>
       _ ?=>
-        captcha.fold(views.html.base.captcha.hiddenEmpty(form)): c =>
-          views.html.base.captcha(form, c)
+        captcha.fold(views.base.captcha.hiddenEmpty(form)): c =>
+          views.base.captcha(form, c)
   )
 
   private def moreCss(using PageContext) = frag(cssTag("ublog.form"), cssTag("tagify"))
 
   def create(user: User, f: Form[UblogForm.UblogPostData], captcha: Captcha)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = moreCss,
       modules = jsModule("bits.ublogForm") ++ captchaTag,
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
     )(formUi.create(user, f, captcha))
 
   def edit(post: UblogPost, f: Form[UblogForm.UblogPostData])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = moreCss,
       modules = jsModule("bits.ublogForm"),
       title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"
@@ -94,7 +94,7 @@ object form:
 object index:
 
   def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = frag(cssTag("ublog")),
       modules = posts.hasNextPage.option(infiniteScrollTag),
       title = trans.ublog.drafts.txt()
@@ -127,7 +127,7 @@ object index:
     )
 
   def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("ublog"),
       modules = posts.hasNextPage.option(infiniteScrollTag),
       title = "Community blogs",
@@ -145,7 +145,7 @@ object index:
       ui.community(language, posts, langSelections)
 
   def topics(tops: List[UblogTopic.WithPosts])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("ublog"),
       title = "All blog topics"
     )(ui.topics(tops))
@@ -158,7 +158,7 @@ object index:
       onEmpty: => Frag,
       byDate: Option[Boolean] = None
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("ublog"),
       modules = posts.hasNextPage.option(infiniteScrollTag),
       title = title

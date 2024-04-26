@@ -1,5 +1,4 @@
-package views
-package html.puzzle
+package views.puzzle
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -9,7 +8,7 @@ import lila.puzzle.Puzzle
 object ofPlayer:
 
   def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
       moreCss = cssTag("puzzle.page"),
       modules = infiniteScrollTag

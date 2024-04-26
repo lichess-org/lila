@@ -1,4 +1,4 @@
-package views.html.video
+package views.video
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -11,7 +11,7 @@ private def layout(
     control: lila.video.UserControl,
     openGraph: Option[lila.web.OpenGraph] = None
 )(body: Modifier*)(using PageContext) =
-  views.html.base.layout(
+  views.base.layout(
     title = title,
     moreCss = cssTag("video"),
     modules = infiniteScrollTag,

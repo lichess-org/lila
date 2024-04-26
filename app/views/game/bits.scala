@@ -1,4 +1,4 @@
-package views.html.game
+package views.game
 
 import play.api.i18n.Lang
 

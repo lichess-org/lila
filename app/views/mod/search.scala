@@ -1,4 +1,4 @@
-package views.html.mod
+package views.mod
 
 import play.api.data.Form
 
@@ -16,13 +16,13 @@ import lila.user.WithPerfsAndEmails
 object search:
 
   def apply(form: Form[?], users: List[WithPerfsAndEmails])(using PageContext, Me) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
       modules = jsModule("mod.search")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("search"),
+        views.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           h1(cls := "box__top")("Search users"),
           st.form(cls := "search box__pad", action := routes.Mod.search, method := "GET")(
@@ -44,13 +44,13 @@ object search:
       uas: List[String],
       blocked: Boolean
   )(using PageContext, Me) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Fingerprint",
       moreCss = cssTag("mod.misc"),
       modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("search"),
+        views.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("Fingerprint: ", fh.value),
@@ -86,13 +86,13 @@ object search:
       data: IpTrust.IpData,
       blocked: Boolean
   )(using ctx: PageContext, renderIp: RenderIp, mod: Me) =
-    views.html.base.layout(
+    views.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
       modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("search"),
+        views.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("IP address: ", renderIp(address)),
@@ -120,13 +120,13 @@ object search:
       )
 
   def clas(c: lila.clas.Clas, users: List[WithPerfsAndEmails])(using PageContext, Me) =
-    views.html.base.layout(
+    views.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
       modules = jsModule("mod.search")
     ):
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("search"),
+        views.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
@@ -139,12 +139,12 @@ object search:
       )
 
   def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Classes",
       moreCss = cssTag("mod.misc")
     ):
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("search"),
+        views.mod.ui.menu("search"),
         div(cls := "mod-search page-menu__content box")(
           boxTop(
             h1("Classes from", userIdLink(teacherId.some))
@@ -182,13 +182,13 @@ object search:
       )
 
   def notes(query: String, pager: Paginator[lila.user.Note])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Mod notes",
       moreCss = frag(cssTag("mod.misc"), cssTag("slist")),
       modules = infiniteScrollTag
     ) {
       main(cls := "page-menu")(
-        views.html.mod.ui.menu("notes"),
+        views.mod.ui.menu("notes"),
         div(cls := "page-menu__content box")(
           boxTop(
             h1("Mod notes"),

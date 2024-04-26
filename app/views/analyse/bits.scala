@@ -1,4 +1,4 @@
-package views.html.analyse
+package views.analyse
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -16,7 +16,7 @@ object bits:
       modules: EsmList = Nil,
       openGraph: Option[lila.web.OpenGraph] = None
   )(body: Frag)(using PageContext): Frag =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = moreCss,
       moreJs = moreJs,

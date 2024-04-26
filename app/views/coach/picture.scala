@@ -1,5 +1,4 @@
-package views.html
-package coach
+package views.coach
 import lila.app.templating.Environment.*
 
 import lila.coach.Coach

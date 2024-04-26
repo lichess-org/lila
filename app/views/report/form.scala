@@ -1,4 +1,4 @@
-package views.html.report
+package views.report
 
 import play.api.data.Form
 
@@ -9,7 +9,7 @@ import lila.report.ReportUi.translatedReasonChoices
 object form:
 
   def apply(form: Form[?], reqUser: Option[User] = None)(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.reportAUser.txt(),
       moreCss = cssTag("form3"),
       moreJs = embedJsUnsafeLoadThen(

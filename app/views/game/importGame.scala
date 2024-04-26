@@ -1,5 +1,4 @@
-package views.html
-package game
+package views.game
 
 import chess.format.pgn.PgnStr
 
@@ -11,7 +10,7 @@ object importGame:
     ctx.isAnon.option(a(cls := "blue", href := routes.Auth.signup)(trans.site.youNeedAnAccountToDoThat()))
 
   def apply(form: play.api.data.Form[?])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.importGame.txt(),
       moreCss = cssTag("importer"),
       moreJs = iifeModule("javascripts/importer.js"),

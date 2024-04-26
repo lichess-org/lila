@@ -1,5 +1,4 @@
-package views.html
-package tournament
+package views.tournament
 
 import play.api.data.{ Field, Form }
 import scalalib.paginator.Paginator
@@ -13,14 +12,14 @@ object form:
   lazy val ui = TournamentForm(helpers, show.ui)(translatedVariantChoicesWithVariantsById)
 
   def create(form: Form[?], leaderTeams: List[LightTeam])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
       modules = jsModule("bits.tourForm")
     )(ui.create(form, leaderTeams))
 
   def edit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
       modules = jsModule("bits.tourForm")
@@ -35,13 +34,13 @@ object crud:
       evenMoreJs: Frag = emptyFrag,
       css: String = "mod.misc"
   )(body: Frag)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag(css),
       modules = jsModule("bits.flatpick") ++ modules,
       moreJs = evenMoreJs
     ):
-      main(cls := "page-menu")(views.html.mod.ui.menu("tour"), body)
+      main(cls := "page-menu")(views.mod.ui.menu("tour"), body)
 
   def create(form: Form[?])(using PageContext) =
     layout(
@@ -51,15 +50,15 @@ object crud:
       div(cls := "crud page-menu__content box box-pad")(
         h1(cls := "box__top")("New tournament"),
         postForm(cls := "form3", action := routes.TournamentCrud.create)(
-          tournament.form.ui.spotlightAndTeamBattle(form, none),
+          views.tournament.form.ui.spotlightAndTeamBattle(form, none),
           errMsg(form("setup")),
-          tournament.form.ui.setupCreate(form, Nil),
+          views.tournament.form.ui.setupCreate(form, Nil),
           form3.action(form3.submit(trans.site.apply()))
         )
       )
 
-  def edit(tour: Tournament, form: Form[?])(using PageContext) =
-    layout(title = tour.name(), css = "mod.form")(tournament.form.ui.crudEdit(tour, form))
+  def edit(tour: Tournament, f: Form[?])(using PageContext) =
+    layout(title = tour.name(), css = "mod.form")(form.ui.crudEdit(tour, f))
 
   def index(tours: Paginator[Tournament])(using PageContext) =
-    layout(title = "Tournament manager", modules = infiniteScrollTag)(tournament.form.ui.crudIndex(tours))
+    layout(title = "Tournament manager", modules = infiniteScrollTag)(form.ui.crudIndex(tours))

@@ -1,4 +1,4 @@
-package views.html.base
+package views.base
 
 import play.api.i18n.Lang
 
@@ -155,13 +155,13 @@ object layout:
           style            := zoomable.option(s"---zoom:$pageZoom")
         )(
           blindModeForm,
-          ctx.data.inquiry.map { views.html.mod.inquiry(_) },
-          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.html.mod.impersonate(_) },
-          netConfig.stageBanner.option(views.html.base.bits.stage),
+          ctx.data.inquiry.map { views.mod.inquiry(_) },
+          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.impersonate(_) },
+          netConfig.stageBanner.option(views.base.bits.stage),
           lila.security.EmailConfirm.cookie
             .get(ctx.req)
             .ifTrue(ctx.isAnon)
-            .map(views.html.auth.bits.checkYourEmailBanner(_)),
+            .map(views.auth.bits.checkYourEmailBanner(_)),
           zenable.option(zenZone),
           ui.siteHeader(
             zenable = zenable,

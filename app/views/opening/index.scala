@@ -1,4 +1,4 @@
-package views.html.opening
+package views.opening
 
 import chess.opening.Opening
 
@@ -11,7 +11,7 @@ object index:
   import bits.*
 
   def apply(page: OpeningPage, wikiMissing: List[Opening])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(page.some).some,
       title = trans.site.opening.txt(),

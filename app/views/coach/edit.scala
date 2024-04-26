@@ -1,4 +1,4 @@
-package views.html.coach
+package views.coach
 
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -28,7 +28,7 @@ object edit:
   def apply(c: lila.coach.Coach.WithUser, form: Form[?])(using
       ctx: PageContext
   ) =
-    views.html.account.layout(
+    views.account.layout(
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
       modules = jsModule("bits.coach.form"),

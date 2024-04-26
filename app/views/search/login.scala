@@ -1,11 +1,11 @@
-package views.html.search
+package views.search
 
 import lila.app.templating.Environment.{ *, given }
 
 object login:
 
   def apply(nbGames: Long)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.search.searchInXGames.txt(nbGames.localize, nbGames),
       moreCss = cssTag("search")
     ):

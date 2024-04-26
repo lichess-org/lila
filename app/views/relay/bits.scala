@@ -1,4 +1,4 @@
-package views.html.relay
+package views.relay
 
 import play.api.i18n.Lang
 
@@ -40,7 +40,7 @@ object bits:
     )
 
   def jsI18n(using Translate) =
-    views.html.study.jsI18n() ++
+    views.study.jsI18n() ++
       i18nJsObject(i18nKeys)
 
   val i18nKeys =

@@ -1,4 +1,4 @@
-package views.html.team
+package views.team
 
 import play.api.data.Form
 import scalalib.paginator.Paginator
@@ -18,7 +18,7 @@ private def layout(
     modules: EsmList = Nil,
     robots: Boolean = netConfig.crawlable
 )(body: Frag)(using PageContext) =
-  views.html.base.layout(
+  views.base.layout(
     title = title,
     moreCss = cssTag("team"),
     modules = infiniteScrollTag ++ modules,
@@ -41,9 +41,9 @@ def members(t: Team, pager: Paginator[lila.team.TeamMember.UserAndDate])(using P
   )(bits.membersPage(t, pager))
 
 object form:
-  private lazy val formUi = lila.team.ui.FormUi(helpers, bits)(views.html.base.captcha.apply)
+  private lazy val formUi = lila.team.ui.FormUi(helpers, bits)(views.base.captcha.apply)
   def create(form: Form[?], captcha: Captcha)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.team.newTeam.txt(),
       moreCss = cssTag("team"),
       modules = captchaTag
@@ -56,7 +56,7 @@ object request:
   lazy val ui = lila.team.ui.RequestUi(helpers, bits)
 
   def requestForm(t: lila.team.Team, form: Form[?])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${trans.team.joinTeam.txt()} ${t.name}",
       moreCss = cssTag("team")
     )(ui.requestForm(t, form))
@@ -71,7 +71,7 @@ object request:
       search: Option[UserStr]
   )(using PageContext) =
     val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = frag(cssTag("team")),
       modules = jsModule("mod.team.admin")
@@ -85,14 +85,14 @@ object admin:
       addLeaderForm: Form[UserStr],
       permsForm: Form[Seq[lila.team.TeamSecurity.LeaderData]]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${t.name} • ${trans.team.teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
       modules = jsModule("mod.team.admin")
     )(adminUi.leaders(t, addLeaderForm, permsForm))
 
   def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${t.name} • ${trans.team.kickSomeone.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
       modules = jsModule("mod.team.admin")
@@ -105,7 +105,7 @@ object admin:
       unsubs: Int,
       limiter: (Int, Instant)
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${t.name} • ${trans.team.messageAllMembers.txt()}",
       moreCss = cssTag("team"),
       moreJs = embedJsUnsafeLoadThen(adminUi.pmAllJs)
@@ -117,7 +117,7 @@ object admin:
             ul:
               tours.map: t =>
                 li(
-                  views.html.tournament.ui.tournamentLink(t),
+                  views.tournament.ui.tournamentLink(t),
                   " ",
                   momentFromNow(t.startsAt),
                   " ",

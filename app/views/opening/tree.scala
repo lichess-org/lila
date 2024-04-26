@@ -1,4 +1,4 @@
-package views.html.opening
+package views.opening
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -9,7 +9,7 @@ object tree:
   import bits.*
 
   def apply(root: OpeningTree, config: OpeningConfig)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("opening"),
       pageModule = pageModule(none).some,
       title = trans.site.opening.txt()

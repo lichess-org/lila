@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.libs.json.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -18,12 +17,12 @@ final class Timeline(env: Env) extends LilaController(env):
           for
             entries <- env.timeline.entryApi.userEntries(me)
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
-          yield html.timeline.entries(entries)
+          yield views.timeline.entries(entries)
         else
           for
             entries <- env.timeline.entryApi.moreUserEntries(me, Max(30), since = getTimestamp("since"))
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
-          yield html.timeline.more(entries)
+          yield views.timeline.more(entries)
       ,
       json =
         // Must be empty if nb is not given, because old versions of the

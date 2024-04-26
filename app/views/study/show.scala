@@ -1,4 +1,4 @@
-package views.html.study
+package views.study
 
 import play.api.libs.json.Json
 
@@ -16,7 +16,7 @@ object show:
       socketVersion: SocketVersion,
       streamers: List[UserId]
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s.name.value,
       moreCss = cssTag("analyse.study"),
       modules = analyseNvuiTag,
@@ -31,7 +31,7 @@ object show:
           "tagTypes" -> lila.study.PgnTags.typesToString,
           "userId"   -> ctx.userId,
           "chat" -> chatOption.map: c =>
-            views.html.chat.json(
+            views.chat.json(
               c.chat,
               c.lines,
               name = trans.site.chatRoom.txt(),
@@ -44,7 +44,7 @@ object show:
             ),
           "socketUrl"     -> socketUrl(s.id),
           "socketVersion" -> socketVersion
-        ) ++ views.html.board.bits.explorerAndCevalConfig
+        ) ++ views.board.bits.explorerAndCevalConfig
       ).some,
       robots = s.isPublic,
       zoomable = true,

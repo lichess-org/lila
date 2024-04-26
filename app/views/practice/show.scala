@@ -1,5 +1,4 @@
-package views.html
-package practice
+package views.practice
 
 import play.api.libs.json.Json
 
@@ -11,7 +10,7 @@ object show:
       us: lila.practice.UserStudy,
       data: lila.practice.JsonView.JsData
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = us.practiceStudy.name.value,
       moreCss = cssTag("analyse.practice"),
       modules = List(analyseNvuiTag),
@@ -21,8 +20,8 @@ object show:
           "practice" -> data.practice,
           "study"    -> data.study,
           "data"     -> data.analysis,
-          "i18n"     -> (board.userAnalysisI18n() ++ i18nJsObject(study.jsI18n.gamebookPlayKeys))
-        ) ++ views.html.board.bits.explorerAndCevalConfig
+          "i18n"     -> (views.board.userAnalysisI18n() ++ i18nJsObject(views.study.jsI18n.gamebookPlayKeys))
+        ) ++ views.board.bits.explorerAndCevalConfig
       ).some,
       csp = analysisCsp.some,
       zoomable = true

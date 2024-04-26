@@ -1,4 +1,4 @@
-package views.html.user
+package views.user
 
 import lila.app.templating.Environment.{ *, given }
 import lila.perfStat.{ PerfStat, PerfStatData }
@@ -10,7 +10,7 @@ object download:
   private lazy val ui = lila.user.ui.UserGamesDownload(helpers)
 
   def apply(user: User)(using ctx: PageContext): Frag =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${user.username} • ${trans.site.exportGames.txt()}",
       moreCss = cssTag("search"),
       modules = jsModule("bits.userGamesDownload")
@@ -23,7 +23,7 @@ object perfStat:
   def apply(data: PerfStatData, ratingChart: Option[SafeJsonStr])(using PageContext) =
     import data.*
     import stat.perfType
-    views.html.base.layout(
+    views.base.layout(
       title = s"${user.username} - ${trans.perfStat.perfStats.txt(perfType.trans)}",
       robots = false,
       modules = jsModule("bits.user") ++

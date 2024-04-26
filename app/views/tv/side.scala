@@ -1,4 +1,4 @@
-package views.html.tv
+package views.tv
 
 import lila.app.templating.Environment.{ *, given }
 
@@ -45,10 +45,10 @@ object side:
     import pov.*
     div(cls := "game__meta")(
       st.section(
-        div(cls := "game__meta__infos", dataIcon := views.html.game.ui.gameIcon(game))(
+        div(cls := "game__meta__infos", dataIcon := views.game.ui.gameIcon(game))(
           div(cls := "header")(
             div(cls := "setup")(
-              views.html.game.widgets.showClock(game),
+              views.game.widgets.showClock(game),
               separator,
               (if game.rated then trans.site.rated else trans.site.casual).txt(),
               separator,
@@ -64,7 +64,7 @@ object side:
       game.tournamentId.map: tourId =>
         st.section(cls := "game__tournament-link"):
           a(href := routes.Tournament.show(tourId), dataIcon := Icon.Trophy, cls := "text"):
-            views.html.tournament.ui.tournamentIdToName(tourId)
+            views.tournament.ui.tournamentIdToName(tourId)
     )
 
   def sides(
@@ -73,4 +73,4 @@ object side:
   )(using Context) =
     div(cls := "sides"):
       cross.map:
-        views.html.game.ui.crosstable(_, pov.gameId.some)
+        views.game.ui.crosstable(_, pov.gameId.some)
