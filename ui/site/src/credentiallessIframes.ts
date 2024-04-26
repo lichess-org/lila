@@ -1,6 +1,6 @@
 // Ensure all iframes created by 3rd-party scripts like Twitter or hcaptcha get the `credentialless` attribute.
 export const patchCreateDocumentToEnsureAllIFramesAreCredentialless = () => {
-  if (!window.crossOriginIsolated) return;
+  if (!(window.crossOriginIsolated && 'credentialless' in window)) return;
 
   const originalCreateElement = document.createElement;
   document.createElement = function () {
