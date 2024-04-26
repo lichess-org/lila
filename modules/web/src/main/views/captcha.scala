@@ -17,10 +17,7 @@ final class captcha(helpers: Helpers):
   private val dataMoves    = attr("data-moves")
   private val dataPlayable = attr("data-playable")
 
-  def apply(
-      form: Form[?] | Field,
-      captcha: Captcha
-  )(using ctx: Context) =
+  def apply(form: Form[?] | Field, captcha: Captcha)(using ctx: Context) =
     frag(
       form3.hidden(formField(form, "gameId"), captcha.gameId.value.some),
       if ctx.blind then form3.hidden(formField(form, "move"), captcha.solutions.head.some)

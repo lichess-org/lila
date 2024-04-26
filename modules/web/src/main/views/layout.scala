@@ -13,7 +13,9 @@ import lila.web.ui.EsmList
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     jsQuantity: Lang => String,
     isRTL: Lang => Boolean,
-    popularAlternateLanguages: List[Language]
+    popularAlternateLanguages: List[Language],
+    reportScoreThreshold: () => ScoreThresholds,
+    reportScore: () => Int
 ):
   import helpers.{ *, given }
   import assetHelper.*
@@ -238,17 +240,19 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 <label for="tn-tg" class="fullscreen-mask"></label>
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>"""
 
-    private def reports(threshold: ScoreThresholds, reportScore: Int)(using Context) =
+    private def reports(using Context) =
       if Granter.opt(_.SeeReport) then
+        val threshold = reportScoreThreshold()
+        val maxScore  = reportScore()
         a(
           cls := List(
-            "link data-count report-score link-center" -> true,
-            "report-score--high"                       -> (reportScore > threshold.high),
-            "report-score--low"                        -> (reportScore <= threshold.mid)
+            "link data-count report-maxScore link-center" -> true,
+            "report-maxScore--high"                       -> (maxScore > threshold.high),
+            "report-maxScore--low"                        -> (maxScore <= threshold.mid)
           ),
           title     := "Moderation",
           href      := routes.Report.list,
-          dataCount := reportScore,
+          dataCount := maxScore,
           dataIcon  := Icon.Agent
         ).some
       else
@@ -280,14 +284,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     def apply(
         zenable: Boolean,
         isAppealUser: Boolean,
-        teamNbRequests: Int,
-        reportScoreThreshold: ScoreThresholds,
-        reportScore: Int,
         challenges: Int,
         notifications: Int,
         error: Boolean,
         topnav: Frag
-    )(using ctx: Context) =
+    )(using ctx: PageContext) =
       header(id := "top")(
         div(cls := "site-title-nav")(
           (!isAppealUser).option(topnavToggle),
@@ -312,8 +313,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         div(cls := "site-buttons")(
           warnNoAutoplay,
           (!isAppealUser).option(clinput),
-          reports(reportScoreThreshold, reportScore),
-          teamRequests(teamNbRequests),
+          reports,
+          teamRequests(ctx.teamNbRequests),
           if isAppealUser then
             postForm(action := routes.Auth.logout):
               submitButton(cls := "button button-red link")(trans.site.logOut())

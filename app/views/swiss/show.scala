@@ -81,8 +81,7 @@ object show:
       title = s"${fullName(s, team)} • Round $r/${s.round}",
       moreCss = cssTag("swiss.show")
     ):
-      val pager = views.html.base.bits
-        .pagination(p => routes.Swiss.round(s.id, p).url, r.value, s.round.value, showPost = true)
+      val pager = pagination(p => routes.Swiss.round(s.id, p).url, r.value, s.round.value, showPost = true)
       main(cls := "box swiss__round")(
         boxTop(
           h1(

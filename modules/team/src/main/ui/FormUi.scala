@@ -1,72 +1,71 @@
-package views.html.team
+package lila.team
+package ui
 
-import play.api.data.Form
+import play.api.data.{ Form, Field }
+import scalalib.paginator.Paginator
 
-import lila.app.templating.Environment.{ *, given }
-
-import lila.team.{ Team, TeamMember }
-import lila.core.team.Access
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
+import lila.core.team.Access
 
-object form:
-
-  import trans.team.*
+final class FormUi(helpers: Helpers, bits: TeamUi)(
+    renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag
+):
+  import helpers.{ *, given }
+  import trans.{ team as trt }
 
   def create(form: Form[?], captcha: Captcha)(using PageContext) =
-    views.html.base.layout(
-      title = newTeam.txt(),
-      moreCss = cssTag("team"),
-      modules = captchaTag
-    ):
-      main(cls := "page-menu page-small")(
-        bits.menu("form".some),
-        div(cls := "page-menu__content box box-pad")(
-          h1(cls := "box__top")(newTeam()),
-          postForm(cls := "form3", action := routes.Team.create)(
-            form3.globalError(form),
-            form3.group(form("name"), trans.site.name())(form3.input(_)),
-            entryFields(form, none),
-            textFields(form),
-            views.html.base.captcha(form, captcha),
-            form3.actions(
-              a(href := routes.Team.home(1))(trans.site.cancel()),
-              form3.submit(newTeam())
-            )
+    main(cls := "page-menu page-small")(
+      bits.menu("form".some),
+      div(cls := "page-menu__content box box-pad")(
+        h1(cls := "box__top")(trt.newTeam()),
+        postForm(cls := "form3", action := routes.Team.create)(
+          form3.globalError(form),
+          form3.group(form("name"), trans.site.name())(form3.input(_)),
+          entryFields(form, none),
+          textFields(form),
+          renderCaptcha(form, captcha),
+          form3.actions(
+            a(href := routes.Team.home(1))(trans.site.cancel()),
+            form3.submit(trt.newTeam())
           )
         )
       )
+    )
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
-    bits.layout(title = s"Edit Team ${t.name}", modules = jsModule("bits.team")):
-      main(cls := "page-menu page-small team-edit")(
-        bits.menu(none),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
-          standardFlash,
-          t.enabled.option(
-            postForm(cls := "form3", action := routes.Team.update(t.id))(
-              flairField(form, t),
-              entryFields(form, t.some),
-              textFields(form),
-              accessFields(form),
-              form3.actions(
-                a(href := routes.Team.show(t.id))(trans.site.cancel()),
-                form3.submit(trans.site.apply())
-              )
+    main(cls := "page-menu page-small team-edit")(
+      bits.menu(none),
+      div(cls := "page-menu__content box box-pad")(
+        boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
+        standardFlash,
+        t.enabled.option(
+          postForm(cls := "form3", action := routes.Team.update(t.id))(
+            flairField(form, t),
+            entryFields(form, t.some),
+            textFields(form),
+            accessFields(form),
+            form3.actions(
+              a(href := routes.Team.show(t.id))(trans.site.cancel()),
+              form3.submit(trans.site.apply())
             )
-          ),
-          hr,
-          (t.enabled && (member.exists(_.hasPerm(_.Admin)) || isGranted(_.ManageTeam))).option(
-            postForm(cls := "inline", action := routes.Team.disable(t.id))(
-              explainInput,
-              submitButton(
-                dataIcon := Icon.CautionCircle,
-                cls      := "submit button text explain button-empty button-red",
-                st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
-              )(closeTeam())
-            )
-          ),
-          isGranted(_.ManageTeam).option(
+          )
+        ),
+        hr,
+        (t.enabled && (member.exists(_.hasPerm(_.Admin)) || Granter.opt(_.ManageTeam))).option(
+          postForm(cls := "inline", action := routes.Team.disable(t.id))(
+            explainInput,
+            submitButton(
+              dataIcon := Icon.CautionCircle,
+              cls      := "submit button text explain button-empty button-red",
+              st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
+            )(trt.closeTeam())
+          )
+        ),
+        Granter
+          .opt(_.ManageTeam)
+          .option(
             postForm(cls := "inline", action := routes.Team.close(t.id))(
               explainInput,
               submitButton(
@@ -76,23 +75,23 @@ object form:
               )(trans.site.delete())
             )
           ),
-          (t.disabled && isGranted(_.ManageTeam)).option(
-            postForm(cls := "inline", action := routes.Team.disable(t.id))(
-              explainInput,
-              submitButton(
-                cls      := "button button-empty explain",
-                st.title := "Re-enables the team and restores memberships"
-              )("Re-enable")
-            )
+        (t.disabled && Granter.opt(_.ManageTeam)).option(
+          postForm(cls := "inline", action := routes.Team.disable(t.id))(
+            explainInput,
+            submitButton(
+              cls      := "button button-empty explain",
+              st.title := "Re-enables the team and restores memberships"
+            )("Re-enable")
           )
         )
       )
+    )
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
   private def flairField(form: Form[?], team: Team)(using Context) =
     form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value), label = trans.site.setFlair()):
-      span(cls := "flair-container".some)(team.name, teamFlair(team))
+      span(cls := "flair-container".some)(team.name, teamFlair(team.light))
 
   private def textFields(form: Form[?])(using Context) = frag(
     form3.group(

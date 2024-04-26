@@ -35,3 +35,6 @@ trait Context:
 
 object Context:
   given ctxMe(using ctx: Context): Option[Me] = ctx.me
+
+trait PageContext extends Context:
+  def teamNbRequests: Int

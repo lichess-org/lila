@@ -435,7 +435,7 @@ lazy val forumSearch = module("forumSearch",
 )
 
 lazy val team = module("team",
-  Seq(memo, room),
+  Seq(memo, room, ui),
   Seq()
 )
 

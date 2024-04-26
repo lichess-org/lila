@@ -93,7 +93,7 @@ object PageData:
   def anon(nonce: Option[Nonce])  = PageData(0, 0, UnreadCount(0), false, none, nonce)
   def error(nonce: Option[Nonce]) = anon(nonce).copy(error = true)
 
-final class PageContext(val ctx: Context, val data: PageData):
+final class PageContext(val ctx: Context, val data: PageData) extends lila.ui.PageContext:
   export ctx.*
   export data.*
 

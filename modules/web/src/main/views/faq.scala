@@ -21,7 +21,6 @@ object faq:
       standardRankableDeviation: Int,
       variantRankableDeviation: Int
   )(using Context) =
-
     import helpers.{ given, * }
     import trans.faq.*
 

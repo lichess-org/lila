@@ -25,7 +25,7 @@ object list:
     )
 
   def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) =
-    bits.layout(title = myTeams.txt()) {
+    layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
@@ -44,7 +44,7 @@ object list:
     }
 
   def ledByMe(teams: List[Team])(using PageContext) =
-    bits.layout(title = myTeams.txt()):
+    layout(title = myTeams.txt()):
       main(cls := "team-list page-menu")(
         bits.menu("leader".some),
         div(cls := "page-menu__content box")(
@@ -71,7 +71,7 @@ object list:
       nextPageUrl: Int => String,
       search: String = ""
   )(using PageContext) =
-    bits.layout(title = "%s - page %d".format(name, teams.currentPage)) {
+    layout(title = "%s - page %d".format(name, teams.currentPage)) {
       main(cls := "team-list page-menu")(
         bits.menu("all".some),
         div(cls := "page-menu__content box")(

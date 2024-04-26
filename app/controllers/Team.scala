@@ -395,7 +395,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           userQuery =>
             Ok.pageAsync:
               paginator.declinedRequests(team, page, userQuery).map {
-                html.team.declinedRequest.all(team, _, userQuery)
+                html.team.request.declined(team, _, userQuery)
               }
         )
   }
