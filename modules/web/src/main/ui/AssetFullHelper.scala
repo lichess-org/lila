@@ -9,12 +9,9 @@ import lila.web.ui.*
 import lila.web.Nonce
 import lila.web.ContentSecurityPolicy
 import lila.core.config.NetConfig
-import lila.ui.Context
+import lila.ui.{ EsmInit, EsmList, Context }
 
-case class PageModule(name: String, data: JsValue | SafeJsonStr)
-case class EsmInit(key: String, init: Frag)
 type Optionce = Option[Nonce]
-type EsmList  = List[Option[EsmInit]]
 
 trait AssetFullHelper:
   self: lila.ui.AssetHelper & lila.ui.I18nHelper =>

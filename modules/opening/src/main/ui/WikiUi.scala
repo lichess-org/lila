@@ -1,15 +1,16 @@
-package views.opening
+package lila.opening
+package ui
 
 import chess.opening.Opening
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-import lila.opening.{ OpeningPage, OpeningWiki }
+final class WikiUi(helpers: Helpers, bits: OpeningBits):
+  import helpers.{ *, given }
 
-object wiki:
-
-  def apply(page: OpeningPage)(using PageContext) =
-    div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> isGranted(_.OpeningWiki)))(
+  def apply(page: OpeningPage)(using Context) =
+    div(cls := List("opening__wiki" -> true, "opening__wiki--editor" -> Granter.opt(_.OpeningWiki)))(
       div(cls := "opening__wiki__markup")(
         page.wiki
           .flatMap(_.markupForMove(page.query.sans.lastOption.so(_.value)))
@@ -19,7 +20,7 @@ object wiki:
             )
           )(rawHtml)
       ),
-      (page.query.openingAndExtraMoves._1.isDefined && isGranted(_.OpeningWiki)).option {
+      (page.query.openingAndExtraMoves._1.isDefined && Granter.opt(_.OpeningWiki)).option {
         details(cls := "opening__wiki__editor")(
           summary(cls := "opening__wiki__editor__summary")("Edit the description", priorityTag(page)),
           page.query.exactOpening match
@@ -54,16 +55,6 @@ object wiki:
         )
       }
     )
-
-  def showMissing(ops: List[Opening]) = div(cls := "opening__wiki__missing")(
-    h2("Openings to explain"),
-    p("Sorted by popularity"),
-    ul(
-      ops.map { op =>
-        li(a(href := bits.openingUrl(op))(op.name), " ", op.pgn)
-      }
-    )
-  )
 
   private val priorityTexts = Vector("Highest", "High", "Average", "Low", "Lowest")
   def priorityTag(page: OpeningPage) =

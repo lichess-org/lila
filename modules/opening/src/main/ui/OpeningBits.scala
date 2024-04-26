@@ -1,17 +1,24 @@
-package views.opening
-
-import chess.opening.{ Opening, OpeningKey }
+package lila.opening
+package ui
 
 import play.api.libs.json.Json
+import chess.opening.{ Opening, OpeningKey }
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-import lila.opening.OpeningQuery.Query
-import lila.opening.{ NameSection, OpeningConfig, OpeningPage, OpeningQuery, ResultCounts }
-
-object bits:
+final class OpeningBits(helpers: Helpers):
+  import helpers.{ *, given }
 
   def beta = span(cls := "opening__beta")("BETA")
+
+  def pageModule(page: Option[OpeningPage])(using PageContext) =
+    PageModule(
+      "opening",
+      page.so: p =>
+        import lila.common.Json.given
+        Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
+    )
 
   def whatsNext(page: OpeningPage): Option[Tag] =
     page.explored.map: explored =>
@@ -37,7 +44,7 @@ object bits:
           )
       )
 
-  def configForm(config: OpeningConfig, thenTo: String)(using PageContext) =
+  def configForm(config: OpeningConfig, thenTo: String)(using Context) =
     import OpeningConfig.*
     details(cls := "opening__config")(
       summary(cls := "opening__config__summary")(
@@ -65,14 +72,6 @@ object bits:
       )
     )
 
-  def pageModule(page: Option[OpeningPage])(using PageContext) =
-    PageModule(
-      "opening",
-      page.so: p =>
-        import lila.common.Json.given
-        Json.obj("history" -> p.explored.so[List[Float]](_.history), "sans" -> p.query.sans)
-    )
-
   def splitName(op: Opening) =
     NameSection.sectionsOf(op.name) match
       case NonEmptyList(family, variations) =>
@@ -87,7 +86,7 @@ object bits:
         )
 
   def queryUrl(q: OpeningQuery): Call = queryUrl(q.query)
-  def queryUrl(q: Query): Call =
+  def queryUrl(q: OpeningQuery.Query): Call =
     routes.Opening.byKeyAndMoves(q.key, q.moves.so(_.value.replace(" ", "_")))
   def openingUrl(o: Opening)         = openingKeyUrl(o.key)
   def openingKeyUrl(key: OpeningKey) = routes.Opening.byKeyAndMoves(key, "")
@@ -115,6 +114,15 @@ object bits:
       style := s"height:${percentNumber(visualPercent)}%",
       title := s"$text $help"
     )(visible.option(text))
+
+  def showMissing(ops: List[Opening]) = div(cls := "opening__wiki__missing")(
+    h2("Openings to explain"),
+    p("Sorted by popularity"),
+    ul(
+      ops.map: op =>
+        li(a(href := openingUrl(op))(op.name), " ", op.pgn)
+    )
+  )
 
   private def exaggerateResults(result: ResultCounts) =
     import result.*

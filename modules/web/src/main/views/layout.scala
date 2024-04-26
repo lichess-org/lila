@@ -8,7 +8,6 @@ import ScalatagsTemplate.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.core.i18n.Language
 import lila.core.report.ScoreThresholds
-import lila.web.ui.EsmList
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     jsQuantity: Lang => String,

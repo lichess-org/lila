@@ -295,7 +295,7 @@ lazy val tutor = module("tutor",
 )
 
 lazy val opening = module("opening",
-  Seq(coreI18n, memo),
+  Seq(coreI18n, memo, ui),
   tests.bundle
 )
 
