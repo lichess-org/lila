@@ -240,12 +240,14 @@ object header:
                         a(href := link.url, targetBlank, noFollow, relMe)(link.site.name)
                     )
                   ),
-                  div(cls := "teams col2")(
-                    info.teamIds.nonEmpty.option(strong(trans.team.teams())),
-                    info.teamIds
-                      .sorted(stringOrdering)
-                      .map: t =>
-                        teamLink(t, withIcon = false)
+                  (ctx.is(u) || !u.kid).option(
+                    div(cls := "teams col2")(
+                      info.teamIds.nonEmpty.option(strong(trans.team.teams())),
+                      info.teamIds
+                        .sorted(stringOrdering)
+                        .map: t =>
+                          teamLink(t, withIcon = false)
+                    )
                   )
                 )
               ),
