@@ -30,7 +30,7 @@ object upcoming:
               pager.currentPageResults.map: t =>
                 tr(
                   td(cls := "icon")(iconTag(views.html.tournament.ui.tournamentIcon(t))),
-                  views.html.tournament.finishedList.header(t),
+                  views.html.tournament.ui.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
                   td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
                 )

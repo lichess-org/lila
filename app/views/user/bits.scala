@@ -11,7 +11,7 @@ object bits:
   lazy val ui = lila.user.ui.UserUiBits(assetUrl)
   export ui.*
 
-  def communityMenu(active: String)(using Context) =
+  def communityMenu(active: String)(using Translate) =
     lila.ui.bits.pageMenuSubnav(
       a(cls := active.active("leaderboard"), href := routes.User.list)(trans.site.leaderboard()),
       a(
@@ -31,7 +31,7 @@ object bits:
       )
     )
 
-  def miniClosed(u: User)(using Context) =
+  def miniClosed(u: User)(using Translate) =
     frag(
       div(cls := "title")(userLink(u, withPowerTip = false)),
       div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed())

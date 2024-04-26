@@ -7,12 +7,6 @@ import lila.common.Json.given
 import lila.app.templating.Environment.{ *, given }
 import lila.tournament.Tournament
 
-def faq(using PageContext) =
-  views.html.base.layout(
-    title = trans.site.tournamentFAQ.txt(),
-    moreCss = cssTag("page")
-  )(show.ui.faq.page)
-
 object show:
 
   lazy val ui = lila.tournament.ui.TournamentShow(helpers, views.html.gathering)(
@@ -36,7 +30,7 @@ object show:
         "tournament",
         Json.obj(
           "data"   -> data,
-          "i18n"   -> bits.jsI18n(tour),
+          "i18n"   -> views.html.tournament.ui.jsI18n(tour),
           "userId" -> ctx.userId,
           "chat" -> chatOption.map: c =>
             chat.json(

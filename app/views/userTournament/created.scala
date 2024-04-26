@@ -32,7 +32,7 @@ object created:
               pager.currentPageResults.map { t =>
                 tr(cls := "paginated")(
                   td(cls := "icon")(iconTag(views.html.tournament.ui.tournamentIcon(t))),
-                  views.html.tournament.finishedList.header(t),
+                  views.html.tournament.ui.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
                   td(cls := "winner")(
                     t.winnerId.isDefined.option(userIdLink(t.winnerId, withOnline = false))

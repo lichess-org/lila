@@ -60,7 +60,7 @@ object bits:
             span(cls := "more")(trans.site.more(), " »")
           ),
           div(cls := "lobby__box__content"):
-            views.html.tournament.bits.enterable(tours)
+            views.html.tournament.ui.enterable(tours)
         ),
         simuls.nonEmpty.option(
           div(cls := "lobby__simuls lobby__box")(

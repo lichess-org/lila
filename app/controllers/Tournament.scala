@@ -22,7 +22,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   import env.user.flairApi.given
   private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
-  private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
+  private def tournamentNotFound(using Context) = NotFound.page(html.tournament.ui.notFound())
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Tournament.home)(serveHome)
