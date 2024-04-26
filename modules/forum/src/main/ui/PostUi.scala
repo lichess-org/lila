@@ -1,21 +1,23 @@
-package views.forum
+package lila.forum
+package ui
 
-import lila.app.templating.Environment.{ *, given }
+import scalalib.paginator.Paginator
 
-import lila.forum.ForumPost
-import lila.core.forum.ForumPostMini
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-object post:
+final class PostUi(helpers: Helpers, bits: ForumBits):
+  import helpers.{ *, given }
 
   def show(
-      categ: lila.forum.ForumCateg,
-      topic: lila.forum.ForumTopic,
-      postWithFrag: lila.forum.ForumPost.WithFrag,
+      categ: ForumCateg,
+      topic: ForumTopic,
+      postWithFrag: ForumPost.WithFrag,
       url: String,
       canReply: Boolean,
       canModCateg: Boolean,
       canReact: Boolean
-  )(using ctx: PageContext) = postWithFrag match
+  )(using ctx: Context) = postWithFrag match
     case ForumPost.WithFrag(post, body, hide) =>
       st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
         div(cls := "forum-post__metas")(
@@ -128,7 +130,7 @@ object post:
           )
       )
 
-  def reactions(post: ForumPost, canReact: Boolean)(using ctx: PageContext) =
+  def reactions(post: ForumPost, canReact: Boolean)(using ctx: Context) =
     val mine             = ctx.me.so { ForumPost.Reaction.of(~post.reactions, _) }
     val canActuallyReact = canReact && ctx.me.exists(me => !me.isBot && !post.isBy(me))
     div(cls := List("reactions" -> true, "reactions-auth" -> canActuallyReact))(
@@ -151,7 +153,52 @@ object post:
             else r.key
           }
         )(
-          img(src := assetUrl(s"images/emoji/$r.png"), alt := r.key),
+          img(src := bits.assetUrl(s"images/emoji/$r.png"), alt := r.key),
           (size > 0).option(size)
         )
+    )
+
+  def search(text: String, pager: Paginator[PostView.WithReadPerm], title: String)(using Context) =
+    main(cls := "box search")(
+      boxTop(
+        h1(
+          a(href := routes.ForumCateg.index, dataIcon := Icon.LessThan, cls := "text"),
+          title
+        ),
+        bits.searchForm(text)
+      ),
+      strong(cls := "nb-results box__pad")(trans.site.nbForumPosts.pluralSame(pager.nbResults)),
+      table(cls := "slist slist-pad search__results")(
+        (pager.nbResults > 0).option(
+          tbody(cls := "infinite-scroll")(
+            pager.currentPageResults.map: viewWithRead =>
+              val view = viewWithRead.view
+              val info =
+                td(cls := "info")(
+                  momentFromNow(view.post.createdAt),
+                  br,
+                  bits.authorLink(view.post)
+                )
+              tr(cls := "paginated")(
+                if viewWithRead.canRead then
+                  frag(
+                    td(
+                      a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
+                        view.categ.name,
+                        " - ",
+                        view.topic.name,
+                        "#",
+                        view.post.number
+                      ),
+                      p(shorten(view.post.text, 200))
+                    ),
+                    info
+                  )
+                else td(colspan := "2")("[You can't access this team forum post]")
+              )
+            ,
+            pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
+          )
+        )
+      )
     )

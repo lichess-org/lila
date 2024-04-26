@@ -1,12 +1,13 @@
-package views.forum
+package lila.forum
+package ui
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-import lila.forum.ForumPost
+final class ForumBits(helpers: Helpers)(val assetUrl: String => String):
+  import helpers.{ *, given }
 
-object bits:
-
-  def searchForm(search: String = "")(using PageContext) =
+  def searchForm(search: String = "")(using Context) =
     div(cls := "box__top__actions")(
       form(cls := "search", action := routes.ForumPost.search())(
         input(
@@ -19,9 +20,9 @@ object bits:
     )
 
   def authorLink(post: ForumPost, cssClass: Option[String] = None, withOnline: Boolean = true)(using
-      PageContext
+      Context
   ): Frag =
-    if !isGranted(_.ModerateForum) && post.erased
+    if !Granter.opt(_.ModerateForum) && post.erased
     then span(cls := "author")("<erased>")
     else
       userIdLink(
@@ -31,5 +32,5 @@ object bits:
         modIcon = ~post.modIcon
       )
 
-  private[forum] val dataTopic = attr("data-topic")
-  private[forum] val dataUnsub = attr("data-unsub")
+  val dataTopic = attr("data-topic")
+  val dataUnsub = attr("data-unsub")

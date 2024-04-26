@@ -29,3 +29,6 @@ object ReverseRouterConversions:
   given Conversion[chess.format.Uci, String]                               = _.uci
   given Conversion[Variant.LilaKey, String]                                = _.value
   given variantKeyOpt: Conversion[Option[Variant.LilaKey], Option[String]] = Variant.LilaKey.raw(_)
+  given postIdConv: Conversion[ForumPostId, String]                        = _.value
+  given Conversion[ForumCategId, String]                                   = _.value
+  given Conversion[ForumTopicId, String]                                   = _.value

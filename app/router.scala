@@ -53,14 +53,11 @@ given uciOpt: Conversion[Option[String], Option[chess.format.Uci]]       = _.fla
 object ReverseRouterConversions:
   given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
   given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
-  given postIdConv: Conversion[ForumPostId, String]                  = _.value
   given clasIdConv: Conversion[Clas.Id, String]                      = _.value
   given clasInviteIdConv: Conversion[ClasInvite.Id, String]          = _.value
   given relayTourIdConv: Conversion[lila.relay.RelayTour.Id, String] = _.value
   given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]           = _.value
   given localDateConv: Conversion[java.time.LocalDate, String]       = _.toString
-  given Conversion[ForumCategId, String]                             = _.value
-  given Conversion[ForumTopicId, String]                             = _.value
   given cmsPageIdConv: Conversion[lila.cms.CmsPage.Id, String]       = _.value
   given Conversion[lila.cms.CmsPage.Key, String]                     = _.value
   given Conversion[chess.FideId, Int]                                = _.value
