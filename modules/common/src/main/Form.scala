@@ -88,6 +88,28 @@ object Form:
   def cleanNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     cleanText(minLength, maxLength).verifying(Constraints.nonEmpty)
 
+  def cleanTextWithSymbols(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    (minLength, maxLength) match
+      case (min, Int.MaxValue) => cleanTextWithSymbols.verifying(Constraints.minLength(min))
+      case (0, max)            => cleanTextWithSymbols.verifying(Constraints.maxLength(max))
+      case (min, max) =>
+        cleanTextWithSymbols.verifying(Constraints.minLength(min), Constraints.maxLength(max))
+
+  def cleanNoSymbolsText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    cleanTextWithSymbols(minLength, maxLength).verifying(mustNotContainSymbols())
+
+  def cleanNoSymbolsAndNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    cleanNoSymbolsText(minLength, maxLength).verifying(Constraints.nonEmpty)
+
+  object mustNotContainSymbols:
+
+    private val regex =
+      raw"[\p{So}\p{block=Emoticons}\p{block=Miscellaneous Symbols and Pictographs}\p{block=Supplemental Symbols and Pictographs}]".r
+    def apply() = Constraint[String] { (t: String) =>
+      if regex.find(t) then V.Invalid(V.ValidationError("Must not contain emojis or other symbols"))
+      else V.Valid
+    }
+
   val slugConstraint: V.Constraint[String] =
     Constraints.pattern(
       regex = """[\w-]+""".r,
