@@ -480,7 +480,7 @@ final class User(
             else
               Ok.pageAsync:
                 env.socialInfo.fetchNotes(user).map {
-                  views.user.show.header.noteZone(user, _)
+                  views.user.noteUi.zone(user, _)
                 }
       )
   }

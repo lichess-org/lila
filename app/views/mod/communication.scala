@@ -6,7 +6,6 @@ import lila.common.String.html.richText
 import lila.core.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
-import lila.relation.Follow
 import lila.shutup.Analyser
 
 object communication:

@@ -21,7 +21,7 @@ final class Round(
     swissC: => Swiss,
     userC: => User
 ) extends LilaController(env)
-    with TheftPrevention:
+    with lila.web.TheftPrevention:
 
   import env.user.flairApi.given
 

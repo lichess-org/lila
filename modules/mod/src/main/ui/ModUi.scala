@@ -7,11 +7,21 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.report.{ Report, Reason }
 import lila.core.perm.Permission
+import lila.mod.ModActivity.{ Period, Who }
+import lila.core.perf.UserWithPerfs
 
 final class ModUi(helpers: Helpers)(
     isChatPanic: () => Boolean
 ):
   import helpers.{ *, given }
+
+  def impersonate(user: User)(using Translate) =
+    div(id := "impersonate")(
+      div(cls := "meat")("You are impersonating ", userLink(user, withOnline = false)),
+      div(cls := "actions")(
+        postForm(action := routes.Mod.impersonate("-"))(submitButton(cls := "button button-empty")("Quit"))
+      )
+    )
 
   def gdprEraseButton(u: User)(using Context) =
     val allowed = u.marks.clean || Granter.opt(_.Admin)
@@ -171,6 +181,115 @@ final class ModUi(helpers: Helpers)(
             submitButton(cls := "button text", dataIcon := Icon.Checkmark)("Save")
           )
         )
+      )
+    )
+
+  val emailConfirmJs = """$('.mod-confirm form input').on('paste', function() {
+setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
+}).each(function() {
+this.setSelectionRange(this.value.length, this.value.length);
+});"""
+
+  def emailConfirm(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress], menu: Frag)(using
+      ctx: Context
+  ) =
+    main(cls := "page-menu")(
+      menu,
+      div(cls := "mod-confirm page-menu__content box box-pad")(
+        h1(cls := "box__top")("Confirm a user email"),
+        p(
+          "If you provide an email, it will confirm the corresponding account, if any.",
+          br,
+          "If you provide an email and a username, it will set the email to that user, ",
+          "but only if the user has not yet confirmed their email."
+        ),
+        st.form(cls := "search", action := routes.Mod.emailConfirm, method := "GET")(
+          input(name := "q", placeholder := "<email> <username (optional)>", value := query, autofocus)
+        ),
+        user.map: u =>
+          table(cls := "slist")(
+            thead:
+              tr(
+                th("User"),
+                th("Email"),
+                th("Games"),
+                th("Marks"),
+                th("Created"),
+                th("Active"),
+                th("Confirmed")
+              )
+            ,
+            tbody:
+              tr(
+                td(userLink(u.user, withPerfRating = u.perfs.some, params = "?mod")),
+                td(email.fold("-")(_.value)),
+                td(u.count.game.localize),
+                td(
+                  u.marks.engine.option("ENGINE"),
+                  u.marks.boost.option("BOOSTER"),
+                  u.marks.troll.option("SHADOWBAN"),
+                  u.enabled.no.option("CLOSED")
+                ),
+                td(momentFromNow(u.createdAt)),
+                td(u.seenAt.map(momentFromNow(_))),
+                td(style := "font-size:2em")(
+                  if !u.everLoggedIn then iconTag(Icon.Checkmark)(cls := "is-green")
+                  else iconTag(Icon.X)(cls                            := "is-red")
+                )
+              )
+          )
+      )
+    )
+
+  def queueStats(p: ModQueueStats.Result, menu: Frag)(using Context) =
+    val periodSelector = lila.ui.bits.mselect(
+      s"mod-activity__period-select box__top__actions",
+      span(p.period.key),
+      Period.values.toList.map: per =>
+        a(
+          cls  := (p.period == per).option("current"),
+          href := routes.Mod.queues(per.key)
+        )(per.toString)
+    )
+    main(cls := "page-menu")(
+      menu,
+      div(cls := "page-menu__content index box mod-queues")(
+        boxTop(h1(" Queues this ", periodSelector)),
+        div(cls := "chart-grid")
+      )
+    )
+
+  def activity(p: ModActivity.Result, menu: Frag)(using Context) =
+    val whoSelector = lila.ui.bits.mselect(
+      s"mod-activity__who-select box__top__actions",
+      span(if p.who == Who.Team then "Team" else "My"),
+      List(
+        a(
+          cls  := (p.who == Who.Team).option("current"),
+          href := routes.Mod.activityOf("team", p.period.key)
+        )("Team"),
+        a(
+          cls  := (p.who != Who.Team).option("current"),
+          href := routes.Mod.activityOf("me", p.period.key)
+        )("My")
+      )
+    )
+    val periodSelector = lila.ui.bits.mselect(
+      s"mod-activity__period-select box__top__actions",
+      span(p.period.key),
+      Period.values.toList.map { per =>
+        a(
+          cls  := (p.period == per).option("current"),
+          href := routes.Mod.activityOf(p.who.key, per.key)
+        )(per.toString)
+      }
+    )
+    main(cls := "page-menu")(
+      menu,
+      div(cls := "page-menu__content index box mod-activity")(
+        boxTop(h1(whoSelector, " activity this ", periodSelector)),
+        div(cls := "chart chart-reports"),
+        div(cls := "chart chart-actions")
       )
     )
 

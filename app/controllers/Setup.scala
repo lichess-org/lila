@@ -20,7 +20,7 @@ final class Setup(
     challengeC: => Challenge,
     apiC: => Api
 ) extends LilaController(env)
-    with TheftPrevention:
+    with lila.web.TheftPrevention:
 
   private def forms     = env.setup.forms
   private def processor = env.setup.processor

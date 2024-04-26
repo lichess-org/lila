@@ -156,7 +156,7 @@ object layout:
         )(
           blindModeForm,
           ctx.data.inquiry.map { views.mod.inquiry(_) },
-          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.impersonate(_) },
+          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
           netConfig.stageBanner.option(views.base.bits.stage),
           lila.security.EmailConfirm.cookie
             .get(ctx.req)

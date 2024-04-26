@@ -16,7 +16,7 @@ final class UserAnalysis(
     env: Env,
     gameC: => Game
 ) extends LilaController(env)
-    with TheftPrevention:
+    with lila.web.TheftPrevention:
 
   def index = load("", Standard)
 

@@ -9,6 +9,19 @@ import lila.core.user.Flag
 final class UserShow(helpers: Helpers, bits: UserBits):
   import helpers.{ *, given }
 
+  def userDom(u: User)(using ctx: Context) =
+    span(
+      cls      := userClass(u.id, none, withOnline = !u.isPatron, withPowerTip = false),
+      dataHref := userUrl(u.username)
+    )(
+      (!u.isPatron).so(lineIcon(u)),
+      titleTag(u.title),
+      u.username,
+      userFlair(u).map: flair =>
+        if ctx.isAuth then a(href := routes.Account.profile, title := trans.site.setFlair.txt())(flair)
+        else flair
+    )
+
   def mini(
       u: UserWithPerfs,
       playing: Option[Frag],
