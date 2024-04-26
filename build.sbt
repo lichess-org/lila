@@ -155,7 +155,7 @@ lazy val racer = module("racer",
 )
 
 lazy val video = module("video",
-  Seq(memo),
+  Seq(memo, ui),
   macwire.bundle
 )
 
