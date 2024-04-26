@@ -74,5 +74,5 @@ def notFound(control: lila.video.UserControl)(using PageContext) =
 def tags(ts: List[lila.video.TagNb], control: lila.video.UserControl)(using PageContext) =
   layout(s"Tags $titleSuffix", control)(ui.tags(ts, control))
 
-  def search(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using PageContext) =
-    layout(s"${control.query.getOrElse("Search")} $titleSuffix", control)(ui.search(videos, control))
+def search(videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using PageContext) =
+  layout(s"${control.query.getOrElse("Search")} $titleSuffix", control)(ui.search(videos, control))

@@ -44,7 +44,7 @@ final class Video(env: Env) extends LilaController(env):
       api.video
         .find(id)
         .flatMap:
-          case None => NotFound.page(html.video.bits.notFound(control))
+          case None => NotFound.page(html.video.notFound(control))
           case Some(video) =>
             api.video
               .similar(ctx.me, video, 9)
@@ -59,12 +59,12 @@ final class Video(env: Env) extends LilaController(env):
     WithUserControl: control =>
       Ok.pageAsync:
         api.video.byAuthor(ctx.me, author, getInt("page") | 1).map {
-          html.video.bits.author(author, _, control)
+          html.video.author(author, _, control)
         }
 
   def tags = Open:
     WithUserControl: control =>
       Ok.pageAsync:
         api.tag.allPopular.map {
-          html.video.bits.tags(_, control)
+          html.video.tags(_, control)
         }
