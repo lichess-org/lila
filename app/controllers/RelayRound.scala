@@ -10,7 +10,7 @@ import scala.annotation.nowarn
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
-import lila.core.id.RelayRoundId
+import lila.core.id.{ RelayRoundId, RelayTourId }
 
 final class RelayRound(
     env: Env,
@@ -18,14 +18,14 @@ final class RelayRound(
     apiC: => Api
 ) extends LilaController(env):
 
-  def form(tourId: TourModel.Id) = Auth { ctx ?=> _ ?=>
+  def form(tourId: RelayTourId) = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         Ok.page:
           views.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
   }
 
-  def create(tourId: TourModel.Id) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+  def create(tourId: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         val tour = trs.tour
@@ -178,7 +178,7 @@ final class RelayRound(
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
   )(using Context): Fu[Result] =
-    Found(env.relay.api.tourById(TourModel.Id(id)))(f)
+    Found(env.relay.api.tourById(RelayTourId(id)))(f)
 
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]

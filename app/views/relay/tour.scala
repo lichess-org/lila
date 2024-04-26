@@ -8,6 +8,9 @@ import scalalib.paginator.Paginator
 import lila.relay.RelayTour.WithLastRound
 import lila.relay.{ RelayRound, RelayTour }
 import scalatags.Text.TypedTag
+import scalatags.text.Builder
+
+lazy val bits = lila.relay.ui.RelayBits(helpers)(views.study.jsI18n.apply)
 
 object tour:
 
@@ -156,7 +159,7 @@ object tour:
     )
 
   object thumbnail:
-    def apply(image: Option[ImageId], size: RelayTour.thumbnail.SizeSelector) =
+    def apply(image: Option[ImageId], size: RelayTour.thumbnail.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(
           cls     := "relay-image",

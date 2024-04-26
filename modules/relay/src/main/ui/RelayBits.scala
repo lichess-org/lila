@@ -1,12 +1,15 @@
-package views.relay
+package lila.relay
+package ui
 
-import play.api.i18n.Lang
+import play.api.libs.json.JsObject
+import play.api.data.Form
+import scalalib.paginator.Paginator
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-import lila.relay.RelayTour
-
-object bits:
+final class RelayBits(helpers: Helpers)(studyJsI18n: () => helpers.Translate ?=> JsObject):
+  import helpers.{ *, given }
 
   def broadcastH1 = h1(dataIcon := Icon.RadioTower, cls := "text")
 
@@ -40,9 +43,15 @@ object bits:
     )
 
   def jsI18n(using Translate) =
-    views.study.jsI18n() ++
-      i18nJsObject(i18nKeys)
+    studyJsI18n() ++ i18nJsObject(i18nKeys)
 
   val i18nKeys =
-    import trans.broadcast.*
-    List(addRound, broadcastUrl, currentRoundUrl, currentGameUrl, downloadAllRounds, editRoundStudy)
+    import trans.broadcast as trb
+    List(
+      trb.addRound,
+      trb.broadcastUrl,
+      trb.currentRoundUrl,
+      trb.currentGameUrl,
+      trb.downloadAllRounds,
+      trb.editRoundStudy
+    )

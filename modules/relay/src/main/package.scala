@@ -2,7 +2,7 @@ package lila.relay
 
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
-export lila.core.id.RelayRoundId
+export lila.core.id.{ RelayRoundId, RelayTourId }
 
 private val logger = lila.log("relay")
 private type RelayGames = Vector[RelayGame]

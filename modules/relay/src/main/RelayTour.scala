@@ -7,7 +7,7 @@ import lila.memo.PicfitUrl
 import lila.core.id.ImageId
 
 case class RelayTour(
-    @Key("_id") id: RelayTour.Id,
+    @Key("_id") id: RelayTourId,
     name: RelayTour.Name,
     description: String,
     markup: Option[Markdown] = None,
@@ -44,9 +44,6 @@ case class RelayTour(
 object RelayTour:
 
   val maxRelays = 64
-
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
 
   opaque type Name = String
   object Name extends OpaqueString[Name]
@@ -95,7 +92,7 @@ object RelayTour:
     def link    = round
     def display = round
 
-  case class IdName(@Key("_id") id: Id, name: Name)
+  case class IdName(@Key("_id") id: RelayTourId, name: Name)
 
   case class WithGroup(tour: RelayTour, group: Option[RelayGroup])
   case class WithGroupTours(tour: RelayTour, group: Option[RelayGroup.WithTours])
@@ -112,4 +109,4 @@ object RelayTour:
       picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
 
   import scalalib.ThreadLocalRandom
-  def makeId = Id(ThreadLocalRandom.nextString(8))
+  def makeId = RelayTourId(ThreadLocalRandom.nextString(8))

@@ -9,7 +9,7 @@ import lila.study.Study
 case class RelayRound(
     /* Same as the Study id it refers to */
     @Key("_id") id: RelayRoundId,
-    tourId: RelayTour.Id,
+    tourId: RelayTourId,
     name: RelayRound.Name,
     caption: Option[RelayRound.Caption],
     sync: RelayRound.Sync,
