@@ -10,13 +10,11 @@ import lila.core.i18n.{ Translate, I18nKey as trans }
 object contact:
 
   import trans.contact.*
-  import lila.ui.navTree.*
-  import lila.ui.navTree.Node.*
+  import navTree.*
+  import navTree.Node.*
 
-  def contactEmailLinkEmpty(email: String) =
-    a(cls := "contact-email-obfuscated", attr("data-email") := lila.common.String.base64.encode(email))
   def contactEmailLink(email: String)(using Translate) =
-    contactEmailLinkEmpty(email)(trans.site.clickToRevealEmailAddress())
+    bits.contactEmailLinkEmpty(email)(trans.site.clickToRevealEmailAddress())
 
   def apply(contactEmail: EmailAddress)(using Translate): Frag =
     frag(

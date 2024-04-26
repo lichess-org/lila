@@ -34,3 +34,6 @@ object bits:
 
   def hcaptcha(form: HcaptchaForm[?]) =
     div(cls := "h-captcha form-group", dataSitekey := form.config.key)
+
+  def contactEmailLinkEmpty(email: String) =
+    a(cls := "contact-email-obfuscated", attr("data-email") := scalalib.StringOps.base64.encode(email))

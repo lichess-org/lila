@@ -405,7 +405,7 @@ lazy val mailer = module("mailer",
 )
 
 lazy val plan = module("plan",
-  Seq(coreI18n, memo),
+  Seq(coreI18n, memo, ui),
   tests.bundle
 )
 
