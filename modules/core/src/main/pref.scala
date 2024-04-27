@@ -14,6 +14,7 @@ trait Pref:
   val moveEvent: Int
   val highlight: Boolean
   val is3d: Boolean
+  val resizeHandle: Int
 
   def showRatings: Boolean
   def animationMillis: Int

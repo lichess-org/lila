@@ -170,7 +170,7 @@ lazy val streamer = module("streamer",
 )
 
 lazy val coordinate = module("coordinate",
-  Seq(db),
+  Seq(db, ui),
   macwire.bundle
 )
 
