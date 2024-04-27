@@ -99,10 +99,10 @@ object embed:
     val canGetPgn = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
     views.base.embed(
       title = s"${s.name} ${chapter.name}",
-      cssModule = "lpv.embed"
+      cssModule = "lpv.embed",
+      modules = jsModule("site.lpv.embed")
     )(
       div(cls := "is2d")(div(pgn)),
-      jsTag("site.lpv.embed"),
       lpvJs:
         lpvConfig(orientation = none, getPgn = canGetPgn) ++ Json
           .obj()
