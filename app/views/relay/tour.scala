@@ -10,7 +10,7 @@ import lila.relay.{ RelayRound, RelayTour }
 import scalatags.Text.TypedTag
 import scalatags.text.Builder
 
-lazy val bits = lila.relay.ui.RelayBits(helpers)(views.study.jsI18n.apply)
+lazy val bits = lila.relay.ui.RelayBits(helpers)(views.study.jsI18n)
 
 object tour:
 

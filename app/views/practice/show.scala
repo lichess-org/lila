@@ -20,7 +20,7 @@ object show:
           "practice" -> data.practice,
           "study"    -> data.study,
           "data"     -> data.analysis,
-          "i18n"     -> (views.board.userAnalysisI18n() ++ i18nJsObject(views.study.jsI18n.gamebookPlayKeys))
+          "i18n"     -> (views.board.userAnalysisI18n() ++ i18nJsObject(views.study.bits.gamebookPlayKeys))
         ) ++ views.board.bits.explorerAndCevalConfig
       ).some,
       csp = analysisCsp.some,

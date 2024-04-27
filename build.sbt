@@ -355,7 +355,7 @@ lazy val fide = module("fide",
 )
 
 lazy val study = module("study",
-  Seq(coreI18n, tree, memo, room),
+  Seq(coreI18n, tree, memo, room, ui),
   Seq(lettuce) ++ tests.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 

@@ -44,7 +44,7 @@ object show:
                   broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout),
                   hostIds = rt.study.members.ids.toList
                 ),
-            "socketUrl"     -> views.study.show.socketUrl(rt.study.id),
+            "socketUrl"     -> views.study.socketUrl(rt.study.id),
             "socketVersion" -> socketVersion
           ) ++ views.board.bits.explorerAndCevalConfig
       ).some,
