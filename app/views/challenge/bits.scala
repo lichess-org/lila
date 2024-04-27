@@ -33,7 +33,7 @@ object bits:
       PageContext
   ) =
     PageModule(
-      "challengePage",
+      "bits.challengePage",
       Json.obj(
         "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
         "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
