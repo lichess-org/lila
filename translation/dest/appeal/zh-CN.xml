@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">您的帐户没有被标记或限制。您很好！</string>
+  <string name="engineMarked">您的帐号因在对局内使用外部辅助而被标记。</string>
+  <string name="arenaBanned">您的帐户被禁止加入竞技场。</string>
+  <string name="prizeBanned">您的帐户禁止参加包含真实奖品的锦标赛。</string>
+  <string name="boosterMarked">您的账户因刷分而被标记。</string>
+</resources>
