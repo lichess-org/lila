@@ -36,7 +36,7 @@ object show:
         )
         .some,
       pageModule = PageModule(
-        "team",
+        "bits.team",
         Json
           .obj("id" -> t.id)
           .add("socketVersion" -> socketVersion)
