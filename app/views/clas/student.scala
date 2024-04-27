@@ -48,7 +48,7 @@ object student:
       ),
       (nbStudents > (lila.clas.Clas.maxStudents / 2)).option(maxStudentsWarning),
       created.map { case Student.WithPassword(student, password) =>
-        flashMessageWith(cls := "student-add__created")(
+        flashMessageWith(cls := "flash flash-quiet student-add__created")(
           strong(
             trans.clas.lichessProfileXCreatedForY(
               userIdLink(student.userId.some, withOnline = false),
