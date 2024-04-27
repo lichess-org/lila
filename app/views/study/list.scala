@@ -1,10 +1,7 @@
-package views.html
-package study
-
-import controllers.routes
+package views.study
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.web.LangPath
 import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
@@ -95,7 +92,7 @@ object list:
     )
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = text,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
@@ -114,14 +111,14 @@ object list:
     }
 
   def staffPicks(p: lila.cms.CmsPage.Render)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = p.title,
       moreCss = frag(cssTag("study.index"), cssTag("page"))
     ):
       main(cls := "page-menu")(
         menu("staffPicks", Order.Mine, Nil),
         main(cls := "page-menu__content box box-pad page"):
-          views.html.site.page.pageContent(p)
+          views.site.page.pageContent(p)
       )
 
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using PageContext) =
@@ -142,7 +139,7 @@ object list:
       ctx: PageContext
   ) =
     val nonMineOrder = if order == Order.Mine then Order.Hot else order
-    views.html.base.bits.pageMenuSubnav(
+    lila.ui.bits.pageMenuSubnav(
       a(cls := active.active("all"), href := routes.Study.all(nonMineOrder.key))(trans.study.allStudies()),
       ctx.isAuth.option(bits.authLinks(active, nonMineOrder)),
       a(cls := List("active" -> active.startsWith("topic")), href := routes.Study.topics):
@@ -177,7 +174,7 @@ object list:
       topics: Option[StudyTopics] = None,
       withHrefLangs: Option[LangPath] = None
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
@@ -194,7 +191,7 @@ object list:
           ),
           topics.map: ts =>
             div(cls := "box__pad"):
-              views.html.study.topic.topicsList(ts, Order.Mine)
+              views.study.topic.topicsList(ts, Order.Mine)
           ,
           paginate(pag, url(order.key))
         )

@@ -375,6 +375,7 @@ You are playing chess.</string>
   <string name="blackCheckmatesInOneMove">කළුට එක ඇදීමකින් චෙක්මේට් කිරීමට</string>
   <string name="retry">නැවත උත්සාහ කරන්න</string>
   <string name="reconnecting">නැවත සම්බන්ධ වෙමින්</string>
+  <string name="noNetwork">Offline</string>
   <string name="favoriteOpponents">කැමති ප්රතිවාදීන්</string>
   <string name="follow">අනුගමනය කරන්න</string>
   <string name="following">අනුගමනය කෙරේ</string>
@@ -450,6 +451,7 @@ You are playing chess.</string>
   <string name="chess960StartPosition">Chess960 ආරම්භක ස්ථානය%s</string>
   <string name="startPosition">ආරම්භක ස්ථානය</string>
   <string name="clearBoard">පුවරුව පැහැදිලි කරන්න​</string>
+  <string name="loadPosition">position එක පටවන්න​</string>
   <string name="isPrivate">පෞද්ගලික</string>
   <string name="reportXToModerators">පරිපාලකයින්ට %s වාර්තා කරන්න</string>
   <string name="profileCompletion">පැතිකඩ සම්පූර්ණ කිරීම%s</string>
@@ -459,6 +461,9 @@ You are playing chess.</string>
   <string name="editProfile">පැතිකඩ සංස්කරණය කරන්න</string>
   <string name="firstName">මුල් නම</string>
   <string name="lastName">වාසගම</string>
+  <string name="setFlair">ඔබේ ෆ්ලෙයාර්ය​ සකසන්න</string>
+  <string name="flair">ෆ්ලෙයාරය</string>
+  <string name="youCanHideFlair">සම්පූර්ණ වෙබ් අඩවිය හරහා සියලුම පරිශීලක ෆ්ලෙයාර සැඟවීමට සැකසීමක් ඇත.</string>
   <string name="biography">චරිතාපදානය</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">රට හෝ ප්‍රදේශය​</string>
   <string name="thankYou">ඔබට ස්තුතියි!</string>
@@ -479,6 +484,7 @@ You are playing chess.</string>
   <string name="automaticallyProceedToNextGameAfterMoving">ඇදීමෙන් පසු ස්වයංක්‍රීයව ඊළඟ ක්‍රීඩාවට යන්න​</string>
   <string name="autoSwitch">ස්වයංක්‍රීයව මාරු වෙන්න​</string>
   <string name="puzzles">ප්‍රහේලිකා</string>
+  <string name="onlineBots">ඔන්ලයින් බොට්ස්</string>
   <string name="name">නම</string>
   <string name="description">විස්තරය</string>
   <string name="descPrivate">​පෞද්ගලික විස්තරය</string>
@@ -507,7 +513,30 @@ You are playing chess.</string>
   <string name="other">වෙනත්</string>
   <string name="reportDescriptionHelp">ක්‍රීඩා(ව​) වෙත සබැඳිය අලවා මෙම පරිශීලකයාගේ හැසිරීමේ ඇති වරද කුමක්දැයි පැහැදිලි කරන්න. \"ඔවුන් වංචා කරනවා\" පමණක් නොකියන්න, නමුත් ඔබ මෙම නිගමනයට පැමිණියේ කෙසේදැයි අපට කියන්න. ඔබේ වාර්තාව ඉංග්‍රීසියෙන් ලියා ඇත්නම් වේගයෙන් සකසනු ලැබේ.</string>
   <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>
+  <string name="by">%s විසින්</string>
+  <string name="importedByX">%s විසින් ආනයනය කරන ලදී</string>
+  <string name="thisTopicIsNowClosed">මෙම මාතෘකාව දැන් වසා ඇත.</string>
   <string name="blog">බ්ලොග්</string>
+  <string name="notes">සටහන්</string>
+  <string name="typePrivateNotesHere">පුද්ගලික සටහන් මෙහි ටයිප් කරන්න</string>
+  <string name="writeAPrivateNoteAboutThisUser">මෙම පරිශීලකයා ගැන පුද්ගලික සටහනක් ලියන්න</string>
+  <string name="noNoteYet">තවමත් සටහනක් නැත</string>
+  <string name="invalidUsernameOrPassword">වලංගු නොවන පරිශීලක නාමයක් හෝ මුරපදයක්</string>
+  <string name="incorrectPassword">Incorrect password</string>
+  <string name="invalidAuthenticationCode">වලංගු නොවන සත්‍යාපන කේතය</string>
+  <string name="emailMeALink">මට සබැඳියක් ඊමේල් කරන්න</string>
+  <string name="currentPassword">වත්මන් මුර පදය</string>
+  <string name="newPassword">නව මුරපදය</string>
+  <string name="newPasswordAgain">නව මුරපදය (නැවත)</string>
+  <string name="newPasswordsDontMatch">නව මුරපද නොගැලපේ</string>
+  <string name="newPasswordStrength">Password strength</string>
+  <string name="clockInitialTime">ඔරලෝසු ආරම්භක වේලාව</string>
+  <string name="clockIncrement">ඔරලෝසු වැඩිවීම</string>
+  <string name="privacy">පෞද්ගලිකත්වය</string>
+  <string name="privacyPolicy">පෞද්ගලිකත්ව ප්‍රතිපත්තිය​</string>
+  <string name="letOtherPlayersFollowYou">අනෙක් ක්‍රීඩකයින්ට ඔබව follow කිරීමට ඉඩ දෙන්න</string>
+  <string name="letOtherPlayersChallengeYou">අනෙක් ක්‍රීඩකයින්ට ඔබට අභියෝග කිරීමට ඉඩ දෙන්න</string>
+  <string name="letOtherPlayersInviteYouToStudy">ඔබට ඉගෙනීමට ආරාධනා කිරීමට අනෙකුත් ක්‍රීඩකයින්ට ඉඩ දෙන්න</string>
   <string name="sound">ශබ්දය</string>
   <string name="none">කිසිවක් නැත</string>
   <string name="fast">ඉක්මනින්</string>
@@ -527,6 +556,16 @@ You are playing chess.</string>
   <string name="timeline">කාලරාමුව</string>
   <string name="starting">ආරම්භ කිරීම:</string>
   <string name="allInformationIsPublicAndOptional">සියලුම තොරතුරු පොදු සහ විකල්ප වේ.</string>
+  <string name="biographyDescription">ඔබ ගැන, ඔබේ රුචිකත්වයන්, ඔබ චෙස් ක්‍රීඩාවට කැමති දේ, ඔබේ ප්‍රියතම opening එක​ , ක්‍රීඩකයින්, ...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">උපරිම: අනුලකුණු %s.</item>
+    <item quantity="other">උපරිම: අනුලකුණු %s.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s අවහිර</item>
+    <item quantity="other">%s වාරණ</item>
+  </plurals>
+  <string name="listBlockedPlayers">ඔබ අවහිර කර ඇති ක්‍රීඩකයින් ලැයිස්තුගත කරන්න</string>
   <string name="human">මිනිසා</string>
   <string name="computer">පරිගණකය​</string>
   <string name="side">පැත්ත</string>
@@ -556,6 +595,9 @@ You are playing chess.</string>
   <string name="castling">කාසල් කිරීම​</string>
   <string name="whiteCastlingKingside">සුදු O-O</string>
   <string name="blackCastlingKingside">කළු O-O</string>
+  <string name="tpTimeSpentPlaying">ක්‍රීඩා කළ කාලය: %s</string>
+  <string name="watchGames">ක්‍රීඩා නරඹන්න</string>
+  <string name="tpTimeSpentOnTV">රූපවාහිනියේ දර්ශනය වූ කාලය: %s</string>
   <string name="watch">නරඹන්න</string>
   <string name="videoLibrary">වීඩියෝ පුස්තකාලය</string>
   <string name="streamersMenu">ප්‍රවාහකයන්</string>
@@ -563,9 +605,22 @@ You are playing chess.</string>
   <string name="webmasters">වෙබ්මාස්ටර්වරුන්</string>
   <string name="about">පිළිබඳව</string>
   <string name="aboutX">%s පිළිබඳව</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s යනු නොමිලේ (%2$s), නිදහස්, දැන්වීම් රහිත, විවෘත මූලාශ්‍ර චෙස් සේවාදායකයකි.</string>
   <string name="really">සිරාවටම</string>
+  <string name="contribute">දායක වන්න</string>
+  <string name="termsOfService">සේවා කොන්දේසි</string>
+  <string name="sourceCode">ප්‍රභව කේතය​</string>
+  <string name="simultaneousExhibitions">Simultaneous exhibitions</string>
   <string name="host">සත්කාරක</string>
   <string name="hostColorX">සත්කාරකයාගේ වර්ණය​:%s</string>
+  <string name="yourPendingSimuls">ඔබගේ Pending වන simul</string>
+  <string name="createdSimuls">අලුතින් නිර්මාණය කරන ලද simul</string>
+  <string name="hostANewSimul">නව simul එකක් සත්කාරක කරන්න</string>
+  <string name="signUpToHostOrJoinASimul">සත්කාරක වීමට හෝ simul එකකට සම්බන්ධ වීමට ලියාපදිංචි වන්න</string>
+  <string name="noSimulFound">Simul එක හමු නොවීය</string>
+  <string name="noSimulExplanation">මෙම simul එක නොපවතී.</string>
+  <string name="returnToSimulHomepage">Simul මුල් පිටුව වෙත ආපසු යන්න</string>
+  <string name="aboutSimul">Simuls වල​ ක්‍රීඩකයන් කිහිප දෙනෙකුට එකවර මුහුණ දෙන තනි ක්‍රීඩකයෙකු ඇතුළත් වේ.</string>
   <string name="aboutSimulImage">ප්‍රතිවාදීන් 50 දෙනෙකුගෙන්, ෆිෂර් තරඟ 47ක් ජයග්‍රහණය කළේය, 2ක් ජය පරාජයෙන් තොරව සහ 1ක් පරාජය විය.</string>
   <string name="aboutSimulRealLife">සංකල්පය සැබෑ ලෝකයේ සිදුවීම් වලින් උපුටා ගන්නා ලදී. සැබෑ ජීවිතයේ දී, මෙයට සිමියුල් ධාරකය එක් ඇදීමක් කිරීම සඳහා මේසයෙන් මේසයට ගමන් කිරීම ඇතුළත් වේ.</string>
   <string name="aboutSimulRules">සිමියුලය ආරම්භ වන විට, සෑම ක්‍රීඩකයෙක්ම සත්කාරකයා සමඟ ක්‍රීඩාවක් ආරම්භ කරයි. සියලුම ක්‍රීඩා සම්පූර්ණ වූ විට සිමියුලය අවසන් වේ.</string>
@@ -577,4 +632,5 @@ You are playing chess.</string>
   <string name="simulAddExtraTime">ඔබට සිමියුලය සමඟ සාර්ථකව කටයුතු කිරීමට උපකාර කිරීම සඳහා ඔබේ ඔරලෝසුවට අමතර ආරම්භක වේලාවක් එක් කළ හැක.</string>
   <string name="simulHostExtraTime">අතිරේක ආරම්භක ඔරලෝසු කාලය සත්කාරකත්වය</string>
   <string name="simulAddExtraTimePerPlayer">සිමියුලයට සම්බන්ධ වන එක් එක් ක්‍රීඩකයා සඳහා ඔබේ ඔරලෝසුවට ආරම්භක වේලාව එක් කරන්න.</string>
+  <string name="simulHostExtraTimePerPlayer">සත්කාරකයාට​ බැගින් ලැබෙන​ එක් ක්‍රීඩකයෙකුට අමතර ඔරලෝසු කාලය</string>
 </resources>

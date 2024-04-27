@@ -1,16 +1,16 @@
-package views.html.relay
-
-import controllers.routes
+package views.relay
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.web.LangPath
 import lila.core.LightUser
 import scalalib.paginator.Paginator
-import lila.memo.PicfitImage
 import lila.relay.RelayTour.WithLastRound
 import lila.relay.{ RelayRound, RelayTour }
 import scalatags.Text.TypedTag
+import scalatags.text.Builder
+
+lazy val bits = lila.relay.ui.RelayBits(helpers)(views.study.jsI18n.apply)
 
 object tour:
 
@@ -23,7 +23,7 @@ object tour:
       upcoming: List[WithLastRound],
       past: Paginator[WithLastRound]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
       modules = infiniteScrollTag,
@@ -57,7 +57,7 @@ object tour:
       )
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
       modules = infiniteScrollTag
@@ -93,7 +93,7 @@ object tour:
     )
 
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = t.name.value,
       moreCss = cssTag("page")
     ):
@@ -114,7 +114,7 @@ object tour:
       )
 
   def page(p: lila.cms.CmsPage.Render, active: String)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = p.title,
       moreCss = cssTag("page")
     ):
@@ -124,12 +124,12 @@ object tour:
           boxTop:
             bits.broadcastH1(p.title)
           ,
-          div(cls := "body")(views.html.cms.render(p))
+          div(cls := "body")(views.cms.render(p))
         )
       )
 
   def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context): Tag =
-    views.html.base.bits.pageMenuSubnav(
+    lila.ui.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
         a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_.is(me)).option("active")):
@@ -159,7 +159,7 @@ object tour:
     )
 
   object thumbnail:
-    def apply(image: Option[PicfitImage.Id], size: RelayTour.thumbnail.SizeSelector) =
+    def apply(image: Option[ImageId], size: RelayTour.thumbnail.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(
           cls     := "relay-image",
@@ -168,7 +168,7 @@ object tour:
           src     := url(id, size)
         )
     def fallback = iconTag(Icon.RadioTower)(cls := "relay-image--fallback")
-    def url(id: PicfitImage.Id, size: RelayTour.thumbnail.SizeSelector) =
+    def url(id: ImageId, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
   private object card:

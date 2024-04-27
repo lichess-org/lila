@@ -2,12 +2,10 @@ package controllers
 
 import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
-import views.html
 
 import lila.app.{ *, given }
 import lila.challenge.Challenge as ChallengeModel
 import lila.challenge.Challenge.Id as ChallengeId
-
 import lila.core.net.{ Bearer, IpAddress }
 import lila.game.{ AnonCookie }
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
@@ -66,14 +64,14 @@ final class Challenge(
                 .flatMap(env.user.lightUserApi.asyncManyFallback)
                 .flatMap: friends =>
                   error match
-                    case Some(e) => BadRequest.page(html.challenge.mine(c, json, friends, e.some, color))
-                    case None    => Ok.page(html.challenge.mine(c, json, friends, none, color))
+                    case Some(e) => BadRequest.page(views.challenge.mine(c, json, friends, e.some, color))
+                    case None    => Ok.page(views.challenge.mine(c, json, friends, none, color))
             else
               Ok.pageAsync:
                 c.challengerUserId
                   .so(env.user.api.byIdWithPerf(_, c.perfType))
                   .map:
-                    html.challenge.theirs(c, json, _, color)
+                    views.challenge.theirs(c, json, _, color)
           ,
           json = Ok(json)
         ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))

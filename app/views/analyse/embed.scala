@@ -1,17 +1,17 @@
-package views.html.analyse
+package views.analyse
 
 import chess.Color
 import chess.format.pgn.PgnStr
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.html.safeJsonValue
 
 object embed:
 
   def lpv(pgn: PgnStr, orientation: Option[Color], getPgn: Boolean)(using EmbedContext) =
-    views.html.base.embed(
+    views.base.embed(
       title = "Lichess PGN viewer",
       cssModule = "lpv.embed"
     )(
@@ -48,7 +48,7 @@ object embed:
   )
 
   def notFound(using EmbedContext) =
-    views.html.base.embed(
+    views.base.embed(
       title = "404 - Game not found",
       cssModule = "lpv.embed"
     ):

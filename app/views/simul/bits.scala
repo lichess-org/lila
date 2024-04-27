@@ -1,10 +1,8 @@
-package views.html.simul
+package views.simul
 
-import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object bits:
 
@@ -14,7 +12,7 @@ object bits:
   def jsI18n()(using Translate) = i18nJsObject(baseTranslations)
 
   def notFound()(using PageContext) =
-    views.html.base.layout(title = trans.site.noSimulFound.txt()):
+    views.base.layout(title = trans.site.noSimulFound.txt()):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(trans.site.noSimulFound()),
         p(trans.site.noSimulExplanation()),

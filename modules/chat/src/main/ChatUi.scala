@@ -3,12 +3,11 @@ package lila.chat
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.Context
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-final class ChatUi(i18nHelper: lila.ui.I18nHelper):
-
-  import i18nHelper.{ trans, given }
+final class ChatUi(helpers: Helpers):
+  import helpers.{ *, given }
 
   val frag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(
@@ -98,7 +97,7 @@ final class ChatUi(i18nHelper: lila.ui.I18nHelper):
       )
 
   private def chatI18nObject(withNote: Boolean)(using Context) =
-    i18nHelper.i18nOptionJsObject(
+    i18nOptionJsObject(
       trans.site.talkInChat.some,
       trans.site.toggleTheChat.some,
       trans.site.loginToChat.some,

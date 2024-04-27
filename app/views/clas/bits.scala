@@ -1,11 +1,11 @@
-package views.html.clas
-
-import controllers.clas.routes
+package views.clas
 
 import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.clas.{ Clas, Student }
+
+lazy val ui = lila.clas.ui.ClasUi(helpers)
 
 object bits:
 
@@ -16,7 +16,7 @@ object bits:
       moreJs: Option[Frag] = none,
       csp: Option[ContentSecurityPolicy] = none
   )(body: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("clas"),
       modules = jsModule("bits.clas"),
@@ -25,7 +25,7 @@ object bits:
     )(
       if isGranted(_.Teacher) then
         main(cls := "page-menu")(
-          views.html.base.bits.pageMenuSubnav(
+          lila.ui.bits.pageMenuSubnav(
             a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)(
               trans.clas.lichessClasses()
             ),
@@ -51,11 +51,4 @@ object bits:
           div(cls := "page-menu__content box")(body)
         )
       else main(cls := "page-small box")(body)
-    )
-
-  def showArchived(archived: Clas.Recorded)(using PageContext) =
-    div(
-      trans.clas.removedByX(userIdLink(archived.by.some)),
-      " ",
-      momentFromNowOnce(archived.at)
     )

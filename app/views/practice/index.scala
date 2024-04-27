@@ -1,15 +1,11 @@
-package views.html
-package practice
-
-import controllers.routes
+package views.practice
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object index:
 
   def apply(data: lila.practice.UserPractice)(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Practice chess positions",
       moreCss = cssTag("practice.index"),
       moreJs = embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {

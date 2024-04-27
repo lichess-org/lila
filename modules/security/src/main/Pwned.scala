@@ -9,7 +9,7 @@ import play.api.libs.ws.StandaloneWSClient
 // https://github.com/lichess-org/lila-pwned
 final class Pwned(ws: StandaloneWSClient, url: String)(using Executor):
 
-  def apply(pass: lila.user.ClearPassword): Fu[Boolean] =
+  def apply(pass: lila.core.security.ClearPassword): Fu[Boolean] =
     url.nonEmpty.so(
       ws.url(url)
         .addQueryStringParameters("sha1" -> pass.value.sha1)

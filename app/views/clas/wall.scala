@@ -1,10 +1,9 @@
-package views.html.clas
+package views.clas
 
-import controllers.clas.routes.Clas as clasRoutes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.clas.{ Clas, Student }
 
 object wall:
@@ -14,14 +13,14 @@ object wall:
       div(cls := "clas-wall__actions")(
         a(
           dataIcon := Icon.Pencil,
-          href     := clasRoutes.wallEdit(c.id.value),
+          href     := routes.Clas.wallEdit(c.id.value),
           cls      := "button button-clas text"
         )(
           trans.clas.editNews()
         ),
         a(
           dataIcon := Icon.Envelope,
-          href     := clasRoutes.notifyStudents(c.id.value),
+          href     := routes.Clas.notifyStudents(c.id.value),
           cls      := "button button-clas text"
         )(
           trans.clas.notifyAllStudents()
@@ -42,14 +41,14 @@ object wall:
             li(markdownAvailable)
           )
         ),
-        postForm(cls := "form3", action := clasRoutes.wallUpdate(c.id.value))(
+        postForm(cls := "form3", action := routes.Clas.wallUpdate(c.id.value))(
           form3.globalError(form),
           form3.group(
             form("wall"),
             trans.clas.classNews()
           )(form3.textarea(_)(rows := 20)),
           form3.actions(
-            a(href := clasRoutes.wall(c.id.value))(trans.site.cancel()),
+            a(href := routes.Clas.wall(c.id.value))(trans.site.cancel()),
             form3.submit(trans.site.apply())
           )
         )

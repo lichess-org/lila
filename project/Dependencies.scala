@@ -26,7 +26,7 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.2.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.109.Final").classifier(s"$os-$arch")
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M12" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-RC1" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
@@ -70,7 +70,7 @@ object Dependencies {
     val version = "2.5.9"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
-    val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.4"
+    val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"
     def bundle  = Seq(macros, util, tagging)
   }
 

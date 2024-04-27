@@ -1,16 +1,16 @@
 package lila.coach
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import lila.memo.PicfitImage
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestStandardRating
+import lila.core.id.ImageId
 
 case class Coach(
     @Key("_id") id: Coach.Id, // user ID
     listed: Coach.Listed,
     available: Coach.Available,
     profile: CoachProfile,
-    picture: Option[PicfitImage.Id],
+    picture: Option[ImageId],
     nbReviews: Int,
     user: Coach.User,
     languages: List[String],

@@ -1,9 +1,7 @@
-package views.html.challenge
-
-import controllers.routes
+package views.challenge
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.challenge.Challenge.Status
 import lila.core.LightUser
 
@@ -21,9 +19,9 @@ object mine:
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr"):
         submitButton(cls := "button button-red text", dataIcon := Icon.X)(trans.site.cancel())
 
-    views.html.base.layout(
-      title = challengeTitle(c),
-      openGraph = challengeOpenGraph(c).some,
+    views.base.layout(
+      title = bits.challengeTitle(c),
+      openGraph = bits.challengeOpenGraph(c).some,
       pageModule = bits.jsModule(c, json, owner = true).some,
       moreCss = cssTag("challenge.page")
     ):

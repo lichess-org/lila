@@ -11,6 +11,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
 import chess.Color
 import play.api.libs.json.*
+import scalalib.json.Json.{ *, given }
 import chess.json.Json.given
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
@@ -298,7 +299,6 @@ object NewRoot:
   def apply(root: Root): NewRoot                       = NewRoot(NewTree.fromNode(root), NewTree(root))
 
   import NewTree.*
-  import lila.common.Json.given
   import Eval.jsonWrites
   import Node.given
 

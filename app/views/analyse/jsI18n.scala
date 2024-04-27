@@ -1,7 +1,7 @@
-package views.html.analyse
+package views.analyse
 
 import play.api.i18n.Lang
-import views.html.board.userAnalysisI18n as board
+import views.board.userAnalysisI18n as board
 
 import lila.app.templating.Environment.*
 import lila.core.i18n.I18nKey as trans

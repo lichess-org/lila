@@ -62,11 +62,6 @@ final class Env(
       default = 300,
       text = "Opening explorer games per second".some
     )
-    val pieceImageExternal = settingStore[Boolean](
-      "pieceImageExternal",
-      default = false,
-      text = "Use external piece images".some
-    )
     val sitewideCoepCredentiallessHeader = settingStore[Boolean](
       "sitewideCoepCredentiallessHeader",
       default = true,

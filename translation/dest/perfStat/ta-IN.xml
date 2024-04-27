@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="viewTheGames">ஆட்டங்களைக் காண்</string>
+  <string name="totalGames">மொத்த ஆட்டங்கள்</string>
+  <string name="ratedGames">மதிப்பிடப்பட்ட ஆட்டங்கள்</string>
+  <string name="victories">வெற்றிகள்</string>
+  <string name="defeats">தோல்விகள்</string>
+  <string name="disconnections">இணைப்பு துண்டிக்கப்பட்டவை</string>
   <string name="highestRating">மிக உயர்ந்த தரமதிப்பு: %s</string>
+  <string name="lowestRating">குறைந்தபட்ச மதிப்பீடு %s</string>
+  <string name="winningStreak">தொடர் வெற்றிகளின் எண்ணிக்கை</string>
+  <string name="losingStreak">தொடர் தோல்விகளின் எண்ணிக்கை</string>
+  <string name="gamesInARow">ஒரே வரிசையாக ஆடிய ஆட்டங்களின் எண்ணிக்கை</string>
+  <string name="now">தற்போது</string>
 </resources>

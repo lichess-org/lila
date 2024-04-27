@@ -1,10 +1,6 @@
-package views.html
-package base
-
-import controllers.routes
+package views.base
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object notFound:
 

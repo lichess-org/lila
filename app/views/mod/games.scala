@@ -1,20 +1,17 @@
-package views.html.mod
+package views.mod
 
-import controllers.{ GameMod, routes }
 import play.api.data.Form
-import views.html.mod.userTable.sortNoneTh
-
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.evaluation.PlayerAssessment
 
+import lila.evaluation.PlayerAssessment
 import lila.rating.PerfType
 import lila.core.chess.Rank
 import lila.tournament.LeaderboardApi.TourEntry
-import lila.game.GameExt.analysable
-import lila.game.GameExt.perfType
+import lila.game.GameExt.*
+import lila.mod.GameMod
+import lila.mod.ui.ModUserTableUi.sortNoneTh
 
 object games:
 
@@ -25,7 +22,7 @@ object games:
       arenas: Seq[TourEntry],
       swisses: Seq[(lila.core.swiss.IdName, Rank)]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${user.username} games",
       moreCss = cssTag("mod.games"),
       modules = jsModule("mod.games")
@@ -127,7 +124,7 @@ object games:
                         a(
                           dataIcon := Icon.Trophy,
                           href     := routes.Tournament.show(tourId).url,
-                          title    := tournamentIdToName(tourId)
+                          title    := views.tournament.ui.tournamentIdToName(tourId)
                         )
                       },
                       pov.game.swissId.map { swissId =>

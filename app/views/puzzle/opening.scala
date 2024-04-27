@@ -1,10 +1,7 @@
-package views
-package html.puzzle
-
-import controllers.routes
+package views.puzzle
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.LilaOpeningFamily
 import lila.puzzle.PuzzleOpening.Order
 import lila.puzzle.{ PuzzleOpening, PuzzleOpeningCollection }
@@ -14,7 +11,7 @@ object opening:
   def all(openings: PuzzleOpeningCollection, mine: Option[PuzzleOpening.Mine], order: Order)(using
       ctx: PageContext
   ) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.puzzle.puzzlesByOpenings.txt(),
       moreCss = cssTag("puzzle.page"),
       modules = jsModule("puzzle.opening")
@@ -84,7 +81,7 @@ object opening:
   )(href := routes.Puzzle.show(family.key.value))(family.name)
 
   def orderSelect(order: Order)(using Context) =
-    views.html.base.bits.mselect(
+    lila.ui.bits.mselect(
       "orders",
       span(order.name()),
       Order.list.map: o =>

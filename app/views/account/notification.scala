@@ -1,17 +1,13 @@
-package views.html
-package account
-
-import controllers.routes
+package views.account
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object notification:
   import bits.*
   import trans.preferences.*
 
   def apply(form: play.api.data.Form[?])(using PageContext) =
-    account.layout(
+    layout(
       title = s"${trans.preferences.notifications.txt()} - ${preferences.txt()}",
       active = "notification"
     ):

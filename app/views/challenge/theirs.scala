@@ -1,9 +1,7 @@
-package views.html.challenge
-
-import controllers.routes
+package views.challenge
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
 import lila.core.user.WithPerf
@@ -17,9 +15,9 @@ object theirs:
       user: Option[WithPerf],
       color: Option[chess.Color]
   )(using ctx: PageContext) =
-    views.html.base.layout(
-      title = challengeTitle(c),
-      openGraph = challengeOpenGraph(c).some,
+    views.base.layout(
+      title = bits.challengeTitle(c),
+      openGraph = bits.challengeOpenGraph(c).some,
       pageModule = bits.jsModule(c, json, owner = false, color).some,
       moreCss = cssTag("challenge.page")
     ):

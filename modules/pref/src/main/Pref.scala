@@ -85,7 +85,7 @@ case class Pref(
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
 
-  def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
+  def pieceNotationIsLetter: Boolean = pieceNotation == PieceNotation.LETTER
 
   def isZen     = zen == Zen.YES
   def isZenAuto = zen == Zen.GAME_AUTO
@@ -116,7 +116,7 @@ case class Pref(
   def currentPieceSet   = PieceSet.get(pieceSet)
   def currentPieceSet3d = PieceSet3d.get(pieceSet3d)
   def currentSoundSet   = SoundSet(soundSet)
-  def currentBg =
+  def currentBg: String =
     if bg == Pref.Bg.TRANSPARENT then "transp"
     else if bg == Pref.Bg.LIGHT then "light"
     else if bg == Pref.Bg.SYSTEM then "system"

@@ -1,10 +1,9 @@
-package views.html
-package round
+package views.round
 
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.round.RoundGame.secondsSinceCreation
 
 object watcher:
@@ -21,7 +20,7 @@ object watcher:
   )(using ctx: PageContext) =
 
     val chatJson = chatOption.map: c =>
-      chat.json(
+      views.chat.json(
         c.chat,
         c.lines,
         name = trans.site.spectatorRoom.txt(),
@@ -44,13 +43,13 @@ object watcher:
           "chat" -> chatJson
         )
       ).some,
-      openGraph = povOpenGraph(pov).some,
+      openGraph = bits.povOpenGraph(pov).some,
       zenable = true
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour, simul, userTv, bookmarked),
-          chatOption.map(_ => chat.frag)
+          chatOption.map(_ => views.chat.frag)
         ),
         bits.roundAppPreload(pov),
         div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
@@ -63,15 +62,15 @@ object watcher:
     bits.layout(
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
-      openGraph = povOpenGraph(pov).some,
+      openGraph = bits.povOpenGraph(pov).some,
       pageModule = none
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(
-          game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
+          views.game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
           div(cls := "for-crawler")(
             h1(titleGame(pov.game)),
-            p(describePov(pov)),
+            p(bits.describePov(pov)),
             div(cls := "pgn")(pgn.render)
           )
         ),

@@ -1,9 +1,6 @@
-package views.html.simul
-
-import controllers.routes
+package views.simul
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
 
 object home:
 
@@ -13,7 +10,7 @@ object home:
       starteds: List[lila.simul.Simul],
       finisheds: List[lila.simul.Simul]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       moreCss = cssTag("simul.list"),
       moreJs = embedJsUnsafeLoadThen(s"""
 site.StrongSocket.defaultParams.flag = 'simul';

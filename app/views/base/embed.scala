@@ -1,32 +1,32 @@
-package views.html.base
+package views.base
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
 import lila.pref.SoundSet
 
 object embed:
 
   def apply(title: String, cssModule: String)(body: Modifier*)(using ctx: EmbedContext) =
     frag(
-      layout.bits.doctype,
-      layout.bits.htmlTag(using ctx.lang)(
+      layout.ui.doctype,
+      layout.ui.htmlTag(using ctx.lang)(
         head(
-          layout.bits.charset,
-          layout.bits.viewport,
-          layout.bits.metaCsp(basicCsp.withNonce(ctx.nonce).withInlineIconFont),
+          layout.ui.charset,
+          layout.ui.viewport,
+          layout.ui.metaCsp(basicCsp.withNonce(ctx.nonce).withInlineIconFont),
           st.headTitle(title),
-          layout.bits.systemThemeEmbedScript,
-          layout.bits.pieceSprite(ctx.pieceSet),
+          layout.ui.systemThemeEmbedScript,
+          layout.ui.pieceSprite(ctx.pieceSet.name),
           cssTag("theme-light"), // includes both light & dark colors
           cssTag(cssModule)
         ),
         st.body(cls := s"${ctx.bg} highlight ${ctx.boardClass}")(
-          layout.dataSoundSet := SoundSet.silent.key,
-          layout.dataAssetUrl,
-          layout.dataAssetVersion := assetVersion.value,
-          layout.dataTheme        := ctx.bg,
-          layout.dataPieceSet     := ctx.pieceSet.name,
-          layout.dataDev,
+          layout.ui.dataSoundSet := SoundSet.silent.key,
+          layout.ui.dataAssetUrl,
+          layout.ui.dataAssetVersion := assetVersion.value,
+          layout.ui.dataTheme        := ctx.bg,
+          layout.ui.dataPieceSet     := ctx.pieceSet.name,
+          layout.ui.dataDev,
           body
         )
       )

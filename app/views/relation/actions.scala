@@ -1,9 +1,7 @@
-package views.html.relation
-
-import controllers.routes
+package views.relation
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.relation.Relation
 
 object actions:

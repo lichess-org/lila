@@ -171,7 +171,7 @@ object perf:
       case "racingKings"    => racingKings
       case "crazyhouse"     => crazyhouse
       case "puzzle"         => puzzle
-      // impossible because PerfKey can't be instanciated with arbitrary values
+      // impossible because PerfKey can't be instantiated with arbitrary values
       case key => sys.error(s"Unknown perf key: $key")
 
     def keyed(key: PerfKey): KeyedPerf = KeyedPerf(key, apply(key))

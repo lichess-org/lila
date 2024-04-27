@@ -1,9 +1,7 @@
-package views.html.team
-
-import controllers.team.routes.Team as teamRoutes
+package views.team
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.team.Team
 
@@ -15,7 +13,7 @@ object list:
     list(
       name = s"""${trans.search.search.txt()} "$text"""",
       teams = teams,
-      nextPageUrl = n => teamRoutes.search(text, n).url,
+      nextPageUrl = n => routes.Team.search(text, n).url,
       search = text
     )
 
@@ -23,11 +21,11 @@ object list:
     list(
       name = trans.team.teams.txt(),
       teams = teams,
-      nextPageUrl = n => teamRoutes.all(n).url
+      nextPageUrl = n => routes.Team.all(n).url
     )
 
   def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) =
-    bits.layout(title = myTeams.txt()) {
+    layout(title = myTeams.txt()) {
       main(cls := "team-list page-menu")(
         bits.menu("mine".some),
         div(cls := "page-menu__content box")(
@@ -46,7 +44,7 @@ object list:
     }
 
   def ledByMe(teams: List[Team])(using PageContext) =
-    bits.layout(title = myTeams.txt()):
+    layout(title = myTeams.txt()):
       main(cls := "team-list page-menu")(
         bits.menu("leader".some),
         div(cls := "page-menu__content box")(
@@ -73,14 +71,14 @@ object list:
       nextPageUrl: Int => String,
       search: String = ""
   )(using PageContext) =
-    bits.layout(title = "%s - page %d".format(name, teams.currentPage)) {
+    layout(title = "%s - page %d".format(name, teams.currentPage)) {
       main(cls := "team-list page-menu")(
         bits.menu("all".some),
         div(cls := "page-menu__content box")(
           boxTop(
             h1(name),
             div(cls := "box__top__actions")(
-              st.form(cls := "search", action := teamRoutes.search())(
+              st.form(cls := "search", action := routes.Team.search())(
                 input(st.name := "text", value := search, placeholder := trans.search.search.txt())
               )
             )

@@ -1,12 +1,12 @@
-package views.html.user.show
-
-import controllers.routes
+package views.user
+package show
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.user.{ Trophy, TrophyKind }
 
 object otherTrophies:
+
+  import bits.awards.*
 
   def apply(info: lila.app.mashup.UserInfo)(using ctx: Context) =
     frag(
@@ -70,7 +70,7 @@ object otherTrophies:
       ),
       (info.isStreamer && ctx.kid.no).option {
         val streaming = isStreaming(info.user.id)
-        views.html.streamer.bits.redirectLink(info.user.username, streaming.some)(
+        views.streamer.bits.redirectLink(info.user.username, streaming.some)(
           cls := List(
             "trophy award icon3d streamer" -> true,
             "streaming"                    -> streaming
@@ -79,25 +79,3 @@ object otherTrophies:
         )(Icon.Mic)
       }
     )
-
-  private def awardCls(t: Trophy) = cls := s"trophy award ${t.kind._id} ${~t.kind.klass}"
-
-  private def zugMiracleTrophy(t: Trophy) = frag(
-    styleTag("""
-.trophy.zugMiracle {
-  display: flex;
-  align-items: flex-end;
-  height: 40px;
-  margin: 0 8px!important;
-  transition: 2s;
-}
-.trophy.zugMiracle img { height: 60px; }
-@keyframes psyche { 100% { filter: hue-rotate(360deg); } }
-.trophy.zugMiracle:hover {
-  transform: translateY(-9px);
-  animation: psyche 0.3s ease-in-out infinite alternate;
-}"""),
-    a(awardCls(t), href := t.anyUrl, ariaTitle(t.kind.name))(
-      img(src := assetUrl("images/trophy/zug-trophy.png"))
-    )
-  )

@@ -1,18 +1,15 @@
-package views.html
-package auth
+package views.auth
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object login:
 
   import trans.tfa.*
 
   def apply(form: Form[?], referrer: Option[String])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.signIn.txt(),
       modules = jsModuleInit("bits.login", "login"),
       moreCss = cssTag("auth"),
@@ -36,7 +33,7 @@ object login:
                 )
               )
             else form3.globalError(form),
-            auth.bits.formFields(form("username"), form("password"), none, register = false),
+            bits.formFields(form("username"), form("password"), none, register = false),
             form3.submit(trans.site.signIn(), icon = none),
             label(cls := "login-remember")(
               input(name := "remember", value := "true", tpe := "checkbox", checked),

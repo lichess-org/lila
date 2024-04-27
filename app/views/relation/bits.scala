@@ -1,9 +1,7 @@
-package views.html.relation
-
-import controllers.routes
+package views.relation
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.game.FavoriteOpponents
 import lila.relation.Related
@@ -56,14 +54,14 @@ object bits:
                   }
                 ,
                 td:
-                  views.html.relation
+                  views.relation
                     .actions(r.user.light, r.relation, followable = r.followable, blocked = false)
               )
           else tr(td(trans.site.none()))
     )
 
   def layout(title: String)(content: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("relation"),
       modules = infiniteScrollTag

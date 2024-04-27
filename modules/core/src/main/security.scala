@@ -43,6 +43,26 @@ trait SignupForm:
   val emailField: Mapping[EmailAddress]
   val username: Mapping[UserName]
 
+opaque type FingerHash = String
+object FingerHash extends OpaqueString[FingerHash]
+
+case class UserSignup(
+    user: User,
+    email: EmailAddress,
+    req: RequestHeader,
+    fingerPrint: Option[FingerHash],
+    suspIp: Boolean
+)
+
+case class ClearPassword(value: String) extends AnyVal:
+  override def toString = "ClearPassword(****)"
+
+case class HashedPassword(bytes: Array[Byte])
+
+trait Authenticator:
+  def passEnc(p: ClearPassword): HashedPassword
+  def setPassword(id: UserId, p: ClearPassword): Funit
+
 opaque type FloodSource = String
 object FloodSource extends OpaqueString[FloodSource]
 trait FloodApi:

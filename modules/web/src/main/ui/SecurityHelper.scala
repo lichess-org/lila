@@ -1,7 +1,6 @@
 package lila.web
 package ui
 
-import lila.ui.ScalatagsTemplate.*
 import lila.core.perm.{ Granter, Permission }
 import lila.core.user.User
 

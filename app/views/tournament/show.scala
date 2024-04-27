@@ -1,15 +1,19 @@
-package views.html
-package tournament
+package views.tournament
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.common.Json.given
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
 import lila.tournament.Tournament
 
 object show:
+
+  lazy val ui = lila.tournament.ui.TournamentShow(helpers, views.gathering)(
+    variantTeamLinks = lila.team.Team.variants.view
+      .mapValues: team =>
+        (team, teamLink(team, true))
+      .toMap
+  )
 
   def apply(
       tour: Tournament,
@@ -19,16 +23,16 @@ object show:
       streamers: List[UserId],
       shieldOwner: Option[UserId]
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${tour.name()} #${tour.id}",
       pageModule = PageModule(
         "tournament",
         Json.obj(
           "data"   -> data,
-          "i18n"   -> bits.jsI18n(tour),
+          "i18n"   -> views.tournament.ui.jsI18n(tour),
           "userId" -> ctx.userId,
           "chat" -> chatOption.map: c =>
-            chat.json(
+            views.chat.json(
               c.chat,
               c.lines,
               name = trans.site.chatRoom.txt(),
@@ -58,14 +62,10 @@ object show:
         .some,
       csp = defaultCsp.withLilaHttp.some
     ):
-      main(cls := s"tour${tour.schedule.so { sched =>
-          s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
-        }}")(
-        st.aside(cls := "tour__side"):
-          tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)
-        ,
-        div(cls := "tour__main")(div(cls := "box")),
-        tour.isCreated.option(div(cls := "tour__faq"):
-          faq(tour.mode.rated.some, tour.isPrivate.option(tour.id))
-        )
+      ui.show(
+        tour,
+        verdicts,
+        shieldOwner,
+        chat = chatOption.isDefined.option(views.chat.frag),
+        streamers = views.streamer.bits.contextual(streamers)
       )

@@ -1,13 +1,11 @@
-package views.html
-package appeal
+package views.appeal
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
 
 object bits:
 
   def layout(title: String)(body: Frag)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = frag(
         cssTag("form3"),

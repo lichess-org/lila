@@ -79,18 +79,6 @@ trait SetupUi:
       ("white", trans.site.white.txt(), none)
     )
 
-  def translatedBooleanIntChoices(using Translate) =
-    List(
-      0 -> trans.site.no.txt(),
-      1 -> trans.site.yes.txt()
-    )
-
-  def translatedBooleanChoices(using Translate) =
-    List(
-      false -> trans.site.no.txt(),
-      true  -> trans.site.yes.txt()
-    )
-
   def translatedModeChoices(using Translate) =
     List(
       (Mode.Casual.id.toString, trans.site.casual.txt(), none),
@@ -124,7 +112,7 @@ trait SetupUi:
       (encode(chess.variant.Standard), trans.site.standard.txt(), chess.variant.Standard.title.some)
     )
 
-  def translatedVariantChoicesWithVariants(using Translate): List[SelectChoice] =
+  def translatedVariantChoicesWithVariantsById(using Translate): List[SelectChoice] =
     translatedVariantChoicesWithVariants(encodeId)
 
   def translatedVariantChoicesWithVariants(
@@ -159,7 +147,7 @@ trait SetupUi:
       variantTupleId(chess.variant.FromPosition)
 
   def translatedVariantChoicesWithVariantsAndFen(using Translate) =
-    translatedVariantChoicesWithVariants :+
+    translatedVariantChoicesWithVariantsById :+
       variantTupleId(chess.variant.FromPosition)
 
   def translatedSpeedChoices(using Translate) =

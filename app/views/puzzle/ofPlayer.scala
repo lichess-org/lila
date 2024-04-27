@@ -1,17 +1,14 @@
-package views
-package html.puzzle
-
-import controllers.routes
+package views.puzzle
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 import lila.puzzle.Puzzle
 
 object ofPlayer:
 
   def apply(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
       moreCss = cssTag("puzzle.page"),
       modules = infiniteScrollTag

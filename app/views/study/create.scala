@@ -1,9 +1,7 @@
-package views.html.study
-
-import controllers.routes
+package views.study
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.study.Study
 import lila.core.study.IdName
 
@@ -22,7 +20,7 @@ object create:
       contrib: List[(IdName, Int)],
       backUrl: Option[String]
   )(using PageContext) =
-    views.html.site.message(
+    views.site.message(
       title = trans.site.toStudy.txt(),
       icon = Some(Icon.StudyBoard),
       back = backUrl,

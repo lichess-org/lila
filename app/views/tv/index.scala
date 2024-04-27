@@ -1,11 +1,8 @@
-package views.html
-package tv
+package views.tv
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
 
 object index:
 
@@ -17,11 +14,10 @@ object index:
       cross: Option[lila.game.Crosstable.WithMatchup],
       history: List[Pov]
   )(using PageContext) =
-    views.html.round.bits.layout(
+    views.round.bits.layout(
       variant = pov.game.variant,
       title = s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
-      pageModule =
-        PageModule("round", Json.obj("data" -> data, "i18n" -> views.html.round.jsI18n(pov.game))).some,
+      pageModule = PageModule("round", Json.obj("data" -> data, "i18n" -> views.round.jsI18n(pov.game))).some,
       moreCss = cssTag("tv.single"),
       openGraph = lila.web
         .OpenGraph(
@@ -40,13 +36,13 @@ object index:
           side.meta(pov),
           side.channels(channel, champions, "/tv")
         ),
-        views.html.round.bits.roundAppPreload(pov),
+        views.round.bits.roundAppPreload(pov),
         div(cls := "round__underboard")(
-          views.html.round.bits.crosstable(cross, pov.game),
+          views.round.bits.crosstable(cross, pov.game),
           div(cls := "tv-history")(
             h2(trans.site.previouslyOnLichessTV()),
             div(cls := "now-playing")(
-              history.map { views.html.game.mini(_) }
+              history.map { views.game.mini(_) }
             )
           )
         )

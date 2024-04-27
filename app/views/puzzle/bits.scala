@@ -1,13 +1,12 @@
-package views
-package html.puzzle
+package views.puzzle
 
 import chess.format.{ BoardFen, Uci }
-import controllers.routes
+
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 
 import lila.core.i18n.I18nKey
@@ -32,7 +31,7 @@ object bits:
 
   def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: PageContext) =
     val u = user.filterNot(ctx.is).map(_.username)
-    views.html.base.bits.pageMenuSubnav(
+    lila.ui.bits.pageMenuSubnav(
       a(href := routes.Puzzle.home)(
         trans.site.puzzles()
       ),
@@ -92,7 +91,7 @@ object bits:
     trans.site.asBlack,
     trans.site.randomColor,
     trans.site.flipBoard
-  ) ::: views.html.board.userAnalysisI18n.cevalTranslations.toList
+  ) ::: views.board.userAnalysisI18n.cevalTranslations.toList
 
   private val trainingI18nKeys: List[I18nKey] = baseI18nKeys ::: List[I18nKey](
     trans.puzzle.example,

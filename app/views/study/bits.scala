@@ -1,11 +1,9 @@
-package views.html
-package study
+package views.study
 
-import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.removeMultibyteSymbols
 import lila.study.{ Order, Study }
 
@@ -16,7 +14,7 @@ object bits:
       if active == "all" then Order.withoutSelector
       else if active.startsWith("topic") then Order.list
       else Order.withoutMine
-    views.html.base.bits.mselect(
+    lila.ui.bits.mselect(
       "orders",
       span(order.name()),
       orders.map: o =>
@@ -92,4 +90,4 @@ object bits:
     )
 
   def streamers(streamers: List[UserId])(using Translate) =
-    views.html.streamer.bits.contextual(streamers).map(_(cls := "none"))
+    views.streamer.bits.contextual(streamers).map(_(cls := "none"))

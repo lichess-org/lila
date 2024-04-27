@@ -171,7 +171,7 @@ object PerfType:
   val byId                            = all.mapBy(_.id)
 
   def apply(key: PerfKey): PerfType =
-    byKey.getOrElse(key, sys.error(s"Impossible: $key couldn't have been instanciated"))
+    byKey.getOrElse(key, sys.error(s"Impossible: $key couldn't have been instantiated"))
 
   def apply(id: PerfId): Option[PerfType] = byId.get(id)
 

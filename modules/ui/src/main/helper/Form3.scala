@@ -3,15 +3,12 @@ package lila.ui
 import play.api.data.*
 
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.{ Translate, I18nKey as trans }
-import lila.ui.I18nHelper
-
 import lila.core.user.FlairApi
-import lila.ui.Context
+import lila.core.i18n.{ I18nKey as trans, Translate }
 
-final class Form3(i18nHelper: I18nHelper, flairApi: FlairApi):
+final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
 
-  import i18nHelper.given
+  import formHelper.{ transKey, given }
 
   private val idPrefix = "form3"
 
@@ -23,7 +20,7 @@ final class Form3(i18nHelper: I18nHelper, flairApi: FlairApi):
   private def errors(errs: Seq[FormError])(using Translate): Frag = errs.distinct.map(error)
   private def errors(field: Field)(using Translate): Frag         = errors(field.errors)
   private def error(err: FormError)(using Translate): Frag =
-    p(cls := "error")(i18nHelper.transKey(trans(err.message), err.args))
+    p(cls := "error")(transKey(trans(err.message), err.args))
 
   private def validationModifiers(field: Field): Seq[Modifier] =
     field.constraints.collect:
@@ -216,7 +213,7 @@ final class Form3(i18nHelper: I18nHelper, flairApi: FlairApi):
         case d              => d
     )
 
-  private val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")
+  private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")
   def flairPickerGroup(field: Field, current: Option[Flair], label: Frag)(view: Frag)(using Context): Tag =
     group(field, trans.site.flair(), half = true): f =>
       flairPicker(f, current, label)(view)

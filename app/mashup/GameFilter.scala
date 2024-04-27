@@ -7,26 +7,13 @@ import play.api.mvc.Request
 
 import scalalib.paginator.Paginator
 import lila.db.dsl.*
-import lila.game.{ Query }
+import lila.game.{ Query, GameFilter, GameFilterMenu }
 import lila.core.game.Game
 import lila.core.user.User
-
-enum GameFilter:
-  val name = lila.common.String.lcfirst(toString)
-  case All, Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search
-
-case class GameFilterMenu(
-    all: NonEmptyList[GameFilter],
-    current: GameFilter
-):
-  def list = all.toList
 
 object GameFilterMenu:
 
   import GameFilter.*
-
-  val all: NonEmptyList[GameFilter] =
-    NonEmptyList.of(All, Me, Rated, Win, Loss, Draw, Playing, Bookmark, Imported, Search)
 
   def apply(user: User, nbs: UserInfo.NbGames, currentName: String, isAuth: Boolean): GameFilterMenu =
 
@@ -47,7 +34,7 @@ object GameFilterMenu:
 
     val current = currentOf(filters, currentName)
 
-    GameFilterMenu(filters, current)
+    lila.game.GameFilterMenu(filters, current)
 
   def currentOf(filters: NonEmptyList[GameFilter], name: String) =
     filters.find(_.name == name) | filters.head

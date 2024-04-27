@@ -1,11 +1,8 @@
-package views.html
-package account
+package views.account
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 
 object twoFactor:
 
@@ -15,7 +12,7 @@ object twoFactor:
     """<div style="width: 276px; height: 276px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>"""
 
   def setup(form: Form[?])(using PageContext)(using me: Me) =
-    account.layout(
+    layout(
       title = s"${me.username} - ${twoFactorAuth.txt()}",
       active = "twofactor",
       evenMoreJs = frag(
@@ -67,7 +64,7 @@ object twoFactor:
       )
 
   def disable(form: Form[?])(using PageContext)(using me: Me) =
-    account.layout(
+    layout(
       title = s"${me.username} - ${twoFactorAuth.txt()}",
       active = "twofactor"
     ):
