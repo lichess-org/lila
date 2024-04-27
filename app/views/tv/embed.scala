@@ -1,6 +1,6 @@
 package views.tv
 
-import lila.app.templating.Environment.*
+import lila.app.templating.Environment.{ *, given }
 
 object embed:
 
@@ -10,13 +10,13 @@ object embed:
     val dataStreamUrl = channelKey.fold(defaultDataStreamUrl)(key => s"/tv/${key}/feed?bc=1")
     views.base.embed(
       title = "lichess.org chess TV",
-      cssModule = "tv.embed"
+      cssModule = "tv.embed",
+      modules = jsModule("site.tvEmbed")
     )(
       attr("data-stream-url") := dataStreamUrl,
       div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
         views.game.mini.noCtx(pov, tv = true, channelKey)(targetBlank)
       ),
       cashTag,
-      chessgroundTag,
-      jsTag("site.tvEmbed")
+      chessgroundTag
     )
