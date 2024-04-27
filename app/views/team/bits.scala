@@ -74,7 +74,7 @@ object request:
     views.base.layout(
       title = title,
       moreCss = frag(cssTag("team")),
-      modules = jsModule("mod.team.admin")
+      modules = jsModule("mod.teamAdmin")
     )(ui.declined(team, requests, search, title))
 
 object admin:
@@ -88,14 +88,14 @@ object admin:
     views.base.layout(
       title = s"${t.name} • ${trans.team.teamLeaders.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      modules = jsModule("mod.team.admin")
+      modules = jsModule("mod.teamAdmin")
     )(adminUi.leaders(t, addLeaderForm, permsForm))
 
   def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using PageContext) =
     views.base.layout(
       title = s"${t.name} • ${trans.team.kickSomeone.txt()}",
       moreCss = frag(cssTag("team"), cssTag("tagify")),
-      modules = jsModule("mod.team.admin")
+      modules = jsModule("mod.teamAdmin")
     )(adminUi.kick(t, form, blocklistForm))
 
   def pmAll(
