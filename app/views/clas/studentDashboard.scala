@@ -15,7 +15,7 @@ object studentDashboard:
       teachers: List[User],
       students: List[Student.WithUserPerfs]
   )(using PageContext) =
-    bits.layout(c.name, Left(c.withStudents(Nil)))(
+    layout(c.name, Left(c.withStudents(Nil)))(
       cls := "clas-show dashboard dashboard-student",
       div(cls := "clas-show__top")(
         h1(dataIcon := Icon.Group, cls := "text")(c.name),

@@ -40,7 +40,7 @@ object clas:
   def teacherIndex(classes: List[Clas], closed: Boolean)(using PageContext) =
     val (active, archived) = classes.partition(_.isActive)
     val (current, others)  = if closed then (archived, active) else (active, archived)
-    bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
+    layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       div(cls := "box__top")(
         h1(cls := "box__top")(trans.clas.lichessClasses()),
@@ -66,7 +66,7 @@ object clas:
     )
 
   def studentIndex(classes: List[Clas])(using PageContext) =
-    bits.layout(trans.clas.lichessClasses.txt(), Right("classes"))(
+    layout(trans.clas.lichessClasses.txt(), Right("classes"))(
       cls := "clas-index",
       boxTop(h1(trans.clas.lichessClasses())),
       renderClasses(classes)
@@ -95,7 +95,7 @@ object clas:
       )
     )
   def create(form: lila.core.security.HcaptchaForm[ClasData])(using PageContext) =
-    bits.layout(
+    layout(
       trans.clas.newClass.txt(),
       Right("newClass"),
       moreJs = lila.web.views.hcaptcha.script(form),

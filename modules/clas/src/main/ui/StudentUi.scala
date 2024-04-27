@@ -5,7 +5,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
 
-final class ClasStudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
+final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
   import helpers.{ *, given }
 
   def show(clas: Clas, students: List[Student], s: Student.WithUserAndManagingClas, activities: Frag)(using
@@ -22,7 +22,7 @@ final class ClasStudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
           )
         )
       },
-      s.student.archived.map { archived =>
+      s.student.archived.map: archived =>
         div(cls := "student-show__archived archived")(
           clasUi.showArchived(archived),
           div(cls := "student-show__archived__actions")(
@@ -35,8 +35,7 @@ final class ClasStudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
                 title := "Fully erase the student from the class archives."
               )
           )
-        )
-      },
+        ),
       s.student.notes.nonEmpty.option:
         div(cls := "student-show__notes")(richText(s.student.notes, nl2br = true, expandImg = false))
       ,

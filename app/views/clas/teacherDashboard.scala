@@ -17,7 +17,7 @@ object teacherDashboard:
       students: List[Student.WithUserLike],
       active: String
   )(modifiers: Modifier*)(using PageContext) =
-    bits.layout(c.name, Left(c.withStudents(students.map(_.student))))(
+    views.clas.layout(c.name, Left(c.withStudents(students.map(_.student))))(
       cls := s"clas-show dashboard dashboard-teacher dashboard-teacher-$active",
       div(cls := "clas-show__top")(
         h1(dataIcon := Icon.Group, cls := "text")(c.name),
