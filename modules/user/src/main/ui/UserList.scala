@@ -116,7 +116,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
                   href := "https://lichess.org/blog/WvDNticAAMu_mHKP/welcome-lichess-bots"
                 )("About Lichess Bots")
               ),
-              botTable(featured, bestPerfs)
+              botTable(all, bestPerfs)
             )
           )
     )
