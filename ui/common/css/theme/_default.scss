@@ -56,6 +56,7 @@ $c-clearer: #fff;
   --c-bg-header-dropdown: #{$c-bg-popup};
   --c-bg-input: #{change-color($c-bg-page, $lightness: 13%)};
   --c-bg-variation: #{hsl($site-hue, 5%, 15%)};
+  --c-header-dropdown: #{$c-font};
   --c-body-gradient: #{$c-body-gradient};
   --c-font: #{$c-font};
   --c-shade: #{$c-shade};
