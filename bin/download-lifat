@@ -9,6 +9,8 @@ lifat_dir="${LIFAT_DIR:-lifat}"
 mkdir -p "$lifat_dir"
 lifat_commit_dir=$(realpath "$lifat_dir")/lifat-$commit
 
+echo "pwd=$(pwd) lifat_dir=$lifat_dir lifat_commit_dir=$lifat_commit_dir"
+
 mkdir -p "$lifat_dir"
 
 if [ ! -d "$lifat_commit_dir" ]; then
