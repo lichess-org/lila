@@ -47,6 +47,25 @@ final class ClasUi(helpers: lila.ui.Helpers):
       }
     )
 
+  def clasForm(form: Form[ClasForm.ClasData], clas: Option[Clas])(using ctx: Context) =
+    frag(
+      form3.globalError(form),
+      form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),
+      form3.group(
+        form("desc"),
+        frag(trans.clas.classDescription()),
+        help = trans.clas.visibleByBothStudentsAndTeachers().some
+      )(form3.textarea(_)(rows := 5)),
+      clas match
+        case None => form3.hidden(form("teachers"), UserId.raw(ctx.userId))
+        case Some(_) =>
+          form3.group(
+            form("teachers"),
+            trans.clas.teachersOfTheClass(),
+            help = trans.clas.addLichessUsernames().some
+          )(form3.textarea(_)(rows := 4))
+    )
+
   object wall:
 
     def show(c: Clas, html: Html)(using Context) =

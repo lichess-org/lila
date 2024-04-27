@@ -89,7 +89,7 @@ object side:
         ),
         game.finishedOrAborted.option(
           st.section(cls := "status")(
-            bits.gameEndStatus(game),
+            ui.gameEndStatus(game),
             game.winner.map: winner =>
               frag(
                 separator,

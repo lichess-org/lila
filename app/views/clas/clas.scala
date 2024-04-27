@@ -97,7 +97,7 @@ def create(form: lila.core.security.HcaptchaForm[ClasData])(using PageContext) =
     cls := "box-pad",
     h1(cls := "box__top")(trans.clas.newClass()),
     postForm(cls := "form3", action := routes.Clas.create)(
-      innerForm(form.form, none),
+      ui.clasForm(form.form, none),
       lila.ui.bits.hcaptcha(form),
       form3.actions(
         a(href := routes.Clas.index)(trans.site.cancel()),
@@ -110,7 +110,7 @@ def edit(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[ClasDat
   teacherDashboard.layout(c, students, "edit")(
     div(cls := "box-pad")(
       postForm(cls := "form3", action := routes.Clas.update(c.id.value))(
-        innerForm(form, c.some),
+        ui.clasForm(form, c.some),
         form3.actions(
           a(href := routes.Clas.show(c.id.value))(trans.site.cancel()),
           form3.submit(trans.site.apply())
@@ -150,23 +150,4 @@ def notify(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(u
         )
       )
     )
-  )
-
-private def innerForm(form: Form[ClasData], clas: Option[Clas])(using ctx: Context) =
-  frag(
-    form3.globalError(form),
-    form3.group(form("name"), trans.clas.className())(form3.input(_)(autofocus)),
-    form3.group(
-      form("desc"),
-      frag(trans.clas.classDescription()),
-      help = trans.clas.visibleByBothStudentsAndTeachers().some
-    )(form3.textarea(_)(rows := 5)),
-    clas match
-      case None => form3.hidden(form("teachers"), UserId.raw(ctx.userId))
-      case Some(_) =>
-        form3.group(
-          form("teachers"),
-          trans.clas.teachersOfTheClass(),
-          help = trans.clas.addLichessUsernames().some
-        )(form3.textarea(_)(rows := 4))
   )
