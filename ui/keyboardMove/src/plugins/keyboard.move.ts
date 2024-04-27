@@ -24,7 +24,7 @@ interface Opts {
 }
 
 export function load(opts: Opts): Promise<KeyboardMoveHandler> {
-  return site.asset.loadEsm('keyboardMove', { init: opts });
+  return site.asset.loadEsm('keyboard.move', { init: opts });
 }
 
 export function initModule(opts: Opts) {
