@@ -213,3 +213,48 @@ final class StudentFormUi(helpers: Helpers, studentUi: StudentUi):
         )
       )
     )
+
+  def release(clas: Clas, students: List[Student], s: Student.WithUser, form: Form[?])(using Context) =
+    frag(
+      studentUi.top(clas, s),
+      div(cls := "box__pad")(
+        h2(trans.clas.releaseTheAccount()),
+        p(
+          trans.clas.releaseDesc1(),
+          br,
+          trans.clas.releaseDesc2()
+        ),
+        postForm(cls := "form3", action := routes.Clas.studentReleasePost(clas.id.value, s.user.username))(
+          form3.globalError(form),
+          form3.group(
+            form("email"),
+            trans.site.email(),
+            help = trans.clas.realUniqueEmail().some
+          )(form3.input(_, typ = "email")(autofocus, required)),
+          form3.actions(
+            a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.site.cancel()),
+            form3.submit(trans.site.apply())
+          )
+        )
+      )
+    )
+
+  def close(clas: Clas, students: List[Student], s: Student.WithUser)(using Context) =
+    frag(
+      studentUi.top(clas, s),
+      div(cls := "box__pad")(
+        h2(trans.clas.closeTheAccount()),
+        p(strong(badTag(trans.clas.closeDesc1()))),
+        p(
+          a(href := routes.Clas.studentRelease(clas.id.value, s.user.username))(trans.clas.closeDesc2())
+        ),
+        postForm(cls := "form3", action := routes.Clas.studentClosePost(clas.id.value, s.user.username))(
+          form3.actions(
+            a(href := routes.Clas.studentShow(clas.id.value, s.user.username))(trans.site.cancel()),
+            form3.submit(trans.clas.closeTheAccount(), icon = Icon.CautionCircle.some)(
+              cls := "button-red confirm"
+            )
+          )
+        )
+      )
+    )

@@ -119,3 +119,37 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
         )
       )
     )
+
+  def invite(c: Clas, invite: ClasInvite)(using Context) =
+    main(cls := "page-small box box-pad page clas-invitation")(
+      h1(cls := "box__top")(c.name),
+      p(c.desc),
+      br,
+      br,
+      p(trans.clas.youHaveBeenInvitedByX(userIdLink(invite.created.by.some))),
+      br,
+      br,
+      invite.accepted.map {
+        if _ then flashMessage("success")(trans.clas.youAcceptedThisInvitation())
+        else flashMessage("warning")(trans.clas.youDeclinedThisInvitation())
+      },
+      invite.accepted
+        .forall(false.==)
+        .option(
+          postForm(cls := "form3", action := routes.Clas.invitationAccept(invite._id.value))(
+            form3.actions(
+              if !invite.accepted.has(false) then
+                form3.submit(
+                  trans.site.decline(),
+                  nameValue = ("v" -> false.toString).some,
+                  icon = Icon.X.some
+                )(cls := "button-red button-fat")
+              else p,
+              form3.submit(
+                trans.site.accept(),
+                nameValue = ("v" -> true.toString).some
+              )(cls := "button-green button-fat")
+            )
+          )
+        )
+    )

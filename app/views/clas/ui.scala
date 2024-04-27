@@ -5,9 +5,23 @@ import play.api.data.Form
 import lila.web.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
 import lila.clas.{ Clas, Student }
+import lila.rating.UserPerfsExt.{ bestRating, bestAny3Perfs }
 
-lazy val ui     = lila.clas.ui.ClasUi(helpers)
-lazy val dashUi = lila.clas.ui.DashboardUi(helpers)
+lazy val ui = lila.clas.ui.ClasUi(helpers)
+private lazy val dashUi = lila.clas.ui.DashboardUi(helpers, ui)(perfs =>
+  _ ?=>
+    td(dataSort := perfs.bestRating, cls := "rating")(
+      perfs.bestAny3Perfs.map(showPerfRating(perfs, _))
+    )
+)
+
+def studentDashboard(c: Clas, wall: Html, teachers: List[User], students: List[Student.WithUserPerfs])(using
+    PageContext
+) =
+  layout(c.name, Left(c.withStudents(Nil)))(
+    cls := "clas-show dashboard dashboard-student",
+    dashUi.student(c, wall, teachers, students)
+  )
 
 object wall:
 

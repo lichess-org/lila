@@ -33,6 +33,7 @@ case class Glicko(
   def established          = provisional.no
   def establishedIntRating = Option.when(established)(intRating)
   def clueless             = deviation >= Glicko.cluelessDeviation
+  def display              = s"$intRating${if provisional.yes then "?" else ""}"
 
 object Glicko:
   val provisionalDeviation = 110

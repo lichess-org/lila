@@ -5,7 +5,6 @@ import lila.app.templating.Environment.{ *, given }
 import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
 import lila.core.user.WithPerf
-import lila.rating.GlickoExt.display
 
 object theirs:
 

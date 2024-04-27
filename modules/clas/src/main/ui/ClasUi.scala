@@ -17,6 +17,11 @@ final class ClasUi(helpers: lila.ui.Helpers):
       momentFromNowOnce(archived.at)
     )
 
+  def teachers(clas: Clas)(using Translate) =
+    div(cls := "clas-teachers")(
+      trans.clas.teachersX(fragList(clas.teachers.toList.map(t => userIdLink(t.some))))
+    )
+
   def teacherMenu(active: Either[Clas.WithStudents, String], student: Option[Student])(using Context) =
     lila.ui.bits.pageMenuSubnav(
       a(cls := active.toOption.map(_.active("classes")), href := routes.Clas.index)(
