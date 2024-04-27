@@ -48,15 +48,15 @@ object embed:
   def apply(daily: DailyPuzzle.WithHtml)(using config: EmbedContext) =
     views.base.embed(
       title = "lichess.org chess puzzle",
-      cssModule = "tv.embed"
+      cssModule = "tv.embed",
+      modules = jsModule("site.puzzleEmbed")
     )(
       dailyLink(daily)(using config.translate)(
         targetBlank,
         id  := "daily-puzzle",
         cls := "embedded"
       ),
-      chessgroundTag,
-      jsTag("puzzle.embed")
+      chessgroundTag
     )
 
   def dailyLink(daily: DailyPuzzle.WithHtml)(using Translate) = a(
