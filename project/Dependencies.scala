@@ -34,7 +34,7 @@ object Dependencies {
   val kittens     = "org.typelevel"              %% "kittens"       % "3.3.0"
 
   val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0"    % Test
-  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0-M12" % Test
+  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0-RC1" % Test
 
   object tests {
     val bundle = Seq(munit)
