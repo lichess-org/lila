@@ -29,7 +29,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
     metaCsp(csp.getOrElse(defaultCsp))
-  def systemThemeEmbedScript =
+  def systemThemeEmbedScript = raw:
     "<script>if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
       "document.documentElement.classList.add('light');</script>"
   def pieceSprite(name: String): Frag =
