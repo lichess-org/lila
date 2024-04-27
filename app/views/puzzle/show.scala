@@ -60,13 +60,4 @@ object show:
       zoomable = true,
       zenable = true,
       withHrefLangs = langPath
-    ) {
-      main(cls := "puzzle")(
-        st.aside(cls := "puzzle__side")(
-          div(cls := "puzzle__side__metas")
-        ),
-        div(cls := "puzzle__board main-board")(chessgroundBoard),
-        div(cls := "puzzle__tools"),
-        div(cls := "puzzle__controls")
-      )
-    }
+    )(bits.show.preload)

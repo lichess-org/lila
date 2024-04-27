@@ -1,17 +1,15 @@
-package views.puzzle
+package lila.puzzle
+package ui
 
+import play.api.libs.json.Json
 import chess.format.{ BoardFen, Uci }
 
-import play.api.i18n.Lang
-import play.api.libs.json.Json
-
-import lila.app.templating.Environment.{ *, given }
-
-import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
-
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey
 
-object bits:
+final class PuzzleBits(helpers: Helpers)(cevalTranslations: Seq[I18nKey]):
+  import helpers.{ *, given }
 
   def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
     chessgroundMini(fen, p.color, lastMove.some)(span)
@@ -29,7 +27,7 @@ object bits:
         "static"  -> static.mkString(" ")
       )
 
-  def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: PageContext) =
+  def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: Context) =
     val u = user.filterNot(ctx.is).map(_.username)
     lila.ui.bits.pageMenuSubnav(
       a(href := routes.Puzzle.home)(
@@ -61,6 +59,88 @@ object bits:
       )
     )
 
+  object show:
+    lazy val preload =
+      main(cls := "puzzle")(
+        st.aside(cls := "puzzle__side")(
+          div(cls := "puzzle__side__metas")
+        ),
+        div(cls := "puzzle__board main-board")(chessgroundBoard),
+        div(cls := "puzzle__tools"),
+        div(cls := "puzzle__controls")
+      )
+
+  object dashboard:
+    val baseClass   = "puzzle-dashboard"
+    val metricClass = s"${baseClass}__metric"
+    val themeClass  = s"${baseClass}__theme"
+
+    def pageModule(dashOpt: Option[PuzzleDashboard])(using Translate) =
+      PageModule(
+        "puzzle.dashboard",
+        dashOpt.so: dash =>
+          val mostPlayed = dash.mostPlayed.sortBy { (key, _) => PuzzleTheme(key).name.txt() }
+          Json.obj(
+            "radar" -> Json.obj(
+              "labels" -> mostPlayed.map: (key, _) =>
+                PuzzleTheme(key).name.txt(),
+              "datasets" -> Json.arr(
+                Json.obj(
+                  "label" -> "Performance",
+                  "data" -> mostPlayed.map: (_, results) =>
+                    results.performance
+                )
+              )
+            )
+          )
+      ).some
+
+    def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(using
+        ctx: Context
+    ) =
+      themes.map: (key, results) =>
+        div(cls := themeClass)(
+          div(cls := s"${themeClass}__meta")(
+            h3(cls := s"${themeClass}__name")(
+              a(href := routes.Puzzle.show(key.value))(PuzzleTheme(key).name())
+            ),
+            p(cls := s"${themeClass}__description")(PuzzleTheme(key).description())
+          ),
+          metricsOf(days, key, results)
+        )
+
+    def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(using
+        ctx: Context
+    ) =
+      div(cls := s"${baseClass}__metrics")(
+        div(cls := s"$metricClass $metricClass--played")(
+          trans.puzzle.nbPlayed.plural(results.nb, strong(results.nb.localize))
+        ),
+        ctx.pref.showRatings.option(
+          div(cls := s"$metricClass $metricClass--perf")(
+            strong(results.performance, results.unclear.so("?")),
+            span(trans.site.performance())
+          )
+        ),
+        div(
+          cls   := s"$metricClass $metricClass--win",
+          style := s"---first:${results.firstWinPercent}%;---win:${results.winPercent}%"
+        )(
+          trans.puzzle.percentSolved(strong(s"${results.winPercent}%"))
+        ),
+        a(
+          cls  := s"$metricClass $metricClass--fix",
+          href := results.canReplay.option(routes.Puzzle.replay(days, theme.value).url)
+        )(
+          results.canReplay.option(
+            span(cls := s"$metricClass--fix__text")(
+              trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
+            )
+          ),
+          iconTag(if results.canReplay then Icon.PlayTriangle else Icon.Checkmark)
+        )
+      )
+
   private val themeI18nKeys: List[I18nKey] =
     PuzzleTheme.visible.map(_.name) ::: PuzzleTheme.visible.map(_.description)
 
@@ -91,7 +171,7 @@ object bits:
     trans.site.asBlack,
     trans.site.randomColor,
     trans.site.flipBoard
-  ) ::: views.board.userAnalysisI18n.cevalTranslations.toList
+  ) ::: cevalTranslations.toList
 
   private val trainingI18nKeys: List[I18nKey] = baseI18nKeys ::: List[I18nKey](
     trans.puzzle.example,
