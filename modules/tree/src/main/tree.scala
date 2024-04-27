@@ -529,10 +529,8 @@ object Node:
           .add("comp", comp)
           .add(
             "children",
-            if alwaysChildren || children.nonEmpty then
-              Some:
-                nodeListJsonWriter(true).writes(children.nodes)
-            else None
+            Option.when(alwaysChildren || children.nonEmpty):
+              nodeListJsonWriter.writes(children.nodes)
           )
           .add("forceVariation", forceVariation)
       catch

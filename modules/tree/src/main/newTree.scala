@@ -327,14 +327,14 @@ object NewRoot:
       .add("clock", clock)
       .add("crazy", crazyData)
 
-  given branchWriter: OWrites[NewBranch] = OWrites: nb =>
+  given branchWriter: OWrites[NewBranch] = OWrites: branch =>
     metasWriter
-      .writes(nb.metas)
-      .add("id", nb.id.toString.some)
-      .add("uci", nb.move.uci.uci.some)
-      .add("san", nb.move.san.some)
-      .add("comp", nb.comp)
-      .add("forceVariation", nb.forceVariation)
+      .writes(branch.metas)
+      .add("id", branch.id.toString.some)
+      .add("uci", branch.move.uci.uci.some)
+      .add("san", branch.move.san.some)
+      .add("comp", branch.comp)
+      .add("forceVariation", branch.forceVariation)
 
   def makeTreeWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
     wa.writes(tree.value)
