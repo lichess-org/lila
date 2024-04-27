@@ -82,8 +82,6 @@ final class Env(
 
   lazy val gameApiV2 = wire[GameApiV2]
 
-  lazy val userGameApi = wire[UserGameApi]
-
   lazy val roundApi = wire[RoundApi]
 
   lazy val lobbyApi = wire[LobbyApi]

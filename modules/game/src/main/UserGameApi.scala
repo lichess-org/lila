@@ -1,34 +1,30 @@
-package lila.api
+package lila.game
 
-import chess.format.Fen
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import scalalib.Json.given
-
-import lila.common.Json.given
-import lila.core.LightUser
 import scalalib.paginator.Paginator
-import lila.game.Game
+
+import lila.core.game.Game
+import lila.common.Json.given
+import lila.game.JsonView.given
+import lila.ui.Context
 
 final class UserGameApi(
-    bookmarkApi: lila.bookmark.BookmarkApi,
-    lightUser: lila.user.LightUserApi,
-    getTournamentName: lila.tournament.GetTourName
+    lightUser: lila.core.user.LightUserApi,
+    getTournamentName: lila.core.tournament.GetTourName
 )(using Executor):
-
-  import lila.game.JsonView.given
 
   def jsPaginator(pag: Paginator[Game])(using ctx: Context): Fu[JsObject] =
     for
-      bookmarkedIds <- bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me)
-      _             <- lightUser.preloadMany(pag.currentPageResults.flatMap(_.userIds))
+      _ <- lightUser.preloadMany(pag.currentPageResults.flatMap(_.userIds))
       _ <- getTournamentName.preload(pag.currentPageResults.flatMap(_.tournamentId))(using ctx.lang)
     yield
       given Writes[Game] = Writes: g =>
-        write(g, bookmarkedIds(g.id), ctx.me)(using ctx.lang)
+        write(g, ctx.me)(using ctx.lang)
       Json.obj("paginator" -> pag)
 
-  private def write(g: Game, bookmarked: Boolean, as: Option[User])(using lang: Lang) =
+  private def write(g: Game, as: Option[User])(using Lang) =
     Json
       .obj(
         "id"        -> g.id,
@@ -51,11 +47,10 @@ final class UserGameApi(
             .add("aiLevel" -> p.aiLevel)
             .add("rating" -> p.rating)
             .add("ratingDiff" -> p.ratingDiff)),
-        "fen"       -> Fen.writeBoard(g.board),
+        "fen"       -> chess.format.Fen.writeBoard(g.board),
         "winner"    -> g.winnerColor.map(_.name),
         "bookmarks" -> g.bookmarks
       )
-      .add("bookmarked" -> bookmarked)
       .add("analysed" -> g.metadata.analysed)
       .add("opening" -> g.opening)
       .add("lastMove" -> g.lastMoveKeys)
