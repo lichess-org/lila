@@ -160,6 +160,9 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       manifest.deps(keys).map(jsTag)
     )
 
+  private def jsTag(key: String): Frag =
+    script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
+
   def modulesInit(modules: EsmList)(using Context) =
     modules.flatMap(_.map(_.init)) // in body
 

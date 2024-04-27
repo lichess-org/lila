@@ -56,8 +56,6 @@ trait AssetFullHelper:
 
   def jsName(key: String): String =
     manifest.js(key).fold(key)(_.name)
-  def jsTag(key: String): Frag =
-    script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
   def jsDeps(keys: List[String]): Frag = frag:
     manifest.deps(keys).map { dep =>
       script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
