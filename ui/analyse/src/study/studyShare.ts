@@ -41,7 +41,7 @@ export class StudyShare {
 
   studyId = this.data.id;
 
-  variantKey = this.data.chapter.setup.variant.key as VariantKey;
+  variantKey = this.data.chapter.setup.variant.key;
 
   chapter = this.currentChapter;
   isPrivate = () => this.data.visibility === 'private';

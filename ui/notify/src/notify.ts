@@ -10,7 +10,7 @@ export function initModule(opts: NotifyOpts) {
     vnode = patch(vnode, view(ctrl));
   }
   function update(data: NotifyData | BumpUnread) {
-    'pager' in data ? ctrl.update(data as NotifyData) : ctrl.bumpUnread();
+    'pager' in data ? ctrl.update(data) : ctrl.bumpUnread();
   }
 
   const ctrl = makeCtrl(opts, redraw);

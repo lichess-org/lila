@@ -1,4 +1,3 @@
-import type Tagify from '@yaireo/tagify';
 import { prop } from 'common';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
@@ -75,12 +74,12 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
 function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: string) {
   site.asset.loadCssPath('tagify');
   site.asset.loadIife('npm/tagify/tagify.min.js').then(() => {
-    const tagi = (tagify = new (window.Tagify as typeof Tagify)(elm, { pattern: /.{2,}/, maxTags: 30 }));
+    const tagi = (tagify = new window.Tagify(elm, { pattern: /.{2,}/, maxTags: 30 }));
     let abortCtrl: AbortController | undefined; // for aborting the call
     tagi.on('input', e => {
       const term = (e.detail as Tagify.TagData).value.trim();
       if (term.length < 2) return;
-      tagi.settings.whitelist!.length = 0; // reset the whitelist
+      tagi.settings.whitelist.length = 0; // reset the whitelist
       abortCtrl && abortCtrl.abort();
       abortCtrl = new AbortController();
       // show loading animation and hide the suggestions dropdown
@@ -88,7 +87,7 @@ function setupTagify(elm: HTMLInputElement | HTMLTextAreaElement, userId?: strin
       xhr
         .json(xhr.url('/study/topic/autocomplete', { term, user: userId }), { signal: abortCtrl.signal })
         .then(list => {
-          tagi.settings.whitelist!.splice(0, list.length, ...list); // update whitelist Array in-place
+          tagi.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
           tagi.loading(false).dropdown.show.call(tagi, term); // render the suggestions dropdown
         });
     });

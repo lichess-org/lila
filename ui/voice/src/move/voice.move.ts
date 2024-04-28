@@ -363,7 +363,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
       cg.redrawAll();
       return true;
     }
-    const role = cs.promo(uci) as cs.Role;
+    const role = cs.promo(uci);
     cg.cancelMove();
     if (role) promote(cg, dest(uci), role);
     root.auxMove(src(uci), dest(uci), role);
@@ -630,10 +630,10 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     const res: [string, string][] = [];
     for (const [xval, uci] of [...moves, ...squares]) {
       const toVal = typeof uci === 'string' ? uci : '[...]';
-      res.push(...(valsWords(xval).map(p => [p, toVal]) as [string, string][]));
+      res.push(...valsWords(xval).map<[string, string]>(p => [p, toVal]));
     }
     for (const e of byTags(['command', 'choice'])) {
-      res.push(...(valsWords(e.val!).map(p => [p, e.val!]) as [string, string][]));
+      res.push(...valsWords(e.val!).map<[string, string]>(p => [p, e.val!]));
     }
     return [...new Map(res)]; // vals expansion can create duplicates
   }
