@@ -6,13 +6,13 @@ import lila.cms.CmsPage
 
 object page:
 
-  def lone(p: CmsPage.Render)(using PageContext) =
+  def lone(p: CmsPage.Render)(using ctx: PageContext) =
     views.base.layout(
       moreCss = cssTag("page"),
       title = p.title,
       moreJs = (p.key == CmsPage.Key("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
-})"""))
+})""")(ctx.nonce))
     ):
       main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
@@ -53,17 +53,16 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
     ):
       lila.web.views.contact(netConfig.email)
 
-  def source(p: CmsPage.Render)(using PageContext) =
+  def source(p: CmsPage.Render)(using ctx: PageContext) =
     layout(
       title = p.title,
       active = "source",
       moreCss = cssTag("source"),
       contentCls = "page force-ltr",
-      moreJs = embedJsUnsafeLoadThen:
-        """$('#asset-version-date').text(site.info.date);
+      moreJs = embedJsUnsafeLoadThen("""$('#asset-version-date').text(site.info.date);
 $('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit).find('pre').text(site.info.commit.substr(0, 7));
 $('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master').find('pre').text('...');
-$('#asset-version-message').text(site.info.message);"""
+$('#asset-version-message').text(site.info.message);""")(ctx.nonce)
     ):
       val commit = env.appVersionCommit | "???"
       frag(

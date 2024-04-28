@@ -6,32 +6,29 @@ opaque type LangPath = String
 object LangPath extends OpaqueString[LangPath]:
   def apply(call: play.api.mvc.Call): LangPath = LangPath(call.url)
 
-opaque type Nonce = String
-object Nonce extends OpaqueString[Nonce]:
-  def random: Nonce = Nonce(scalalib.SecureRandom.nextString(24))
-
 case class Layout(
     fullTitle: Option[String],
     robots: Boolean,
     moreCss: Frag,
     modules: EsmList,
-    moreJs: Frag,
+    moreJs: WithNonce[Frag],
     pageModule: Option[PageModule],
     playing: Boolean,
     openGraph: Option[OpenGraph],
     zoomable: Boolean,
     zenable: Boolean,
-    csp: Option[ContentSecurityPolicy],
+    csp: Option[Update[ContentSecurityPolicy]],
     wrapClass: String,
     atomLinkTag: Option[Tag],
     withHrefLangs: Option[LangPath]
 ):
-  def apply(esm: EsmInit): Layout   = copy(modules = modules :+ esm.some)
-  def apply(og: OpenGraph): Layout  = copy(openGraph = og.some)
-  def apply(pm: PageModule): Layout = copy(pageModule = pm.some)
-  def robots(b: Boolean): Layout    = copy(robots = b)
-  def css(f: Frag): Layout          = copy(moreCss = frag(moreCss, f))
-  def js(f: Frag): Layout           = copy(moreJs = frag(moreJs, f))
+  def apply(esm: EsmInit): Layout                    = copy(modules = modules :+ esm.some)
+  def apply(og: OpenGraph): Layout                   = copy(openGraph = og.some)
+  def apply(pm: PageModule): Layout                  = copy(pageModule = pm.some)
+  def robots(b: Boolean): Layout                     = copy(robots = b)
+  def css(f: Frag): Layout                           = copy(moreCss = moreCss |+| f)
+  def js(f: WithNonce[Frag]): Layout                 = copy(moreJs = moreJs |+| f)
+  def csp(up: Update[ContentSecurityPolicy]): Layout = copy(csp = csp.fold(up)(up.compose).some)
 
 object Layout:
   type Build = Layout => Layout

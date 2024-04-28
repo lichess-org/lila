@@ -9,7 +9,7 @@ object home:
       opens: List[lila.simul.Simul],
       starteds: List[lila.simul.Simul],
       finisheds: List[lila.simul.Simul]
-  )(using PageContext) =
+  )(using ctx: PageContext) =
     views.base.layout(
       moreCss = cssTag("simul.list"),
       moreJs = embedJsUnsafeLoadThen(s"""
@@ -18,7 +18,7 @@ site.pubsub.on('socket.in.reload', () =>
   fetch('${routes.Simul.homeReload}').then(r => r.text()).then(html => {
   $$('.simul-list__content').html(html);
   site.contentLoaded();
-}))"""),
+}))""")(ctx.nonce),
       title = trans.site.simultaneousExhibitions.txt(),
       openGraph = OpenGraph(
         title = trans.site.simultaneousExhibitions.txt(),

@@ -17,5 +17,5 @@ trait RatingApi:
   val dubiousPuzzle: UserPerfs => Boolean
 
 case class PageModule(name: String, data: JsValue | SafeJsonStr)
-case class EsmInit(key: String, init: Frag)
+case class EsmInit(key: String, init: WithNonce[Frag])
 type EsmList = List[Option[EsmInit]]

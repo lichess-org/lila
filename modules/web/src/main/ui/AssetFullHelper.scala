@@ -7,11 +7,7 @@ import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
 import lila.web.ui.*
 import lila.core.config.NetConfig
-import lila.ui.{ Nonce, ContentSecurityPolicy, EsmInit, EsmList, Context }
-
-type Optionce = Option[Nonce]
-
-type WithNonce[A] = Optionce ?=> A // #TODO use this
+import lila.ui.{ Nonce, Optionce, WithNonce, ContentSecurityPolicy, EsmInit, EsmList, Context }
 
 trait AssetFullHelper:
   self: lila.ui.AssetHelper & lila.ui.I18nHelper =>
@@ -61,18 +57,14 @@ trait AssetFullHelper:
       script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
     }
   def jsModule(key: String): EsmInit =
-    EsmInit(key, emptyFrag)
+    EsmInit(key, _ => emptyFrag)
   def jsModuleInit(key: String)(using Optionce): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}')"))
   def jsModuleInit(key: String, json: SafeJsonStr)(using Optionce): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}',{init:$json})"))
   def jsModuleInit[A: Writes](key: String, value: A)(using Optionce): EsmInit =
     jsModuleInit(key, safeJsonValue(Json.toJson(value)))
-  def jsModuleInit(key: String, text: SafeJsonStr, nonce: Nonce): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}',{init:$text})", nonce))
-  def jsModuleInit(key: String, json: JsValue, nonce: Nonce): EsmInit =
-    jsModuleInit(key, safeJsonValue(json), nonce)
-  def jsPageModule(key: String)(using Optionce): EsmInit =
+  def jsPageModule(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${jsName(key)}')"))
 
   def analyseNvuiTag(using ctx: Context)(using Optionce) = ctx.blind.option(jsModule("analyse.nvui"))
@@ -98,18 +90,3 @@ trait AssetFullHelper:
 
   def analysisCsp(using Optionce, Context): ContentSecurityPolicy =
     defaultCsp.withWebAssembly.withExternalEngine(externalEngineEndpoint)
-
-  def embedJsUnsafe(js: String)(using nonce: Optionce): Frag = raw:
-    val nonceAttr = nonce.so(n => s""" nonce="$n"""")
-    s"""<script$nonceAttr>$js</script>"""
-
-  def embedJsUnsafe(js: String, nonce: Nonce): Frag = raw:
-    s"""<script nonce="$nonce">$js</script>"""
-
-  private val onLoadFunction = "site.load.then"
-
-  def embedJsUnsafeLoadThen(js: String)(using Optionce): Frag =
-    embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""")
-
-  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
-    embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""", nonce)

@@ -23,14 +23,12 @@ object embed:
   def lpvJs(orientation: Option[Color], getPgn: Boolean)(using config: EmbedContext): Frag = lpvJs:
     lpvConfig(orientation, getPgn)
 
-  def lpvJs(lpvConfig: JsObject)(using ctx: EmbedContext): Frag = embedJsUnsafe(
-    s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
+  def lpvJs(lpvConfig: JsObject)(using ctx: EmbedContext): Frag =
+    embedJsUnsafe(s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
         lpvConfig ++ Json.obj(
           "i18n" -> i18nJsObject(lpvI18n)
         )
-      )})})""",
-    ctx.nonce
-  )
+      )})})""")(ctx.nonce.some)
 
   def lpvConfig(orientation: Option[Color], getPgn: Boolean)(using config: EmbedContext) = Json
     .obj(

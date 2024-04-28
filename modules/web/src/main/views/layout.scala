@@ -163,8 +163,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   private def jsTag(key: String): Frag =
     script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
 
-  def modulesInit(modules: EsmList)(using Context) =
-    modules.flatMap(_.map(_.init)) // in body
+  def modulesInit(modules: EsmList)(using ctx: PageContext) =
+    modules.flatMap(_.map(_.init(ctx.nonce))) // in body
 
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
@@ -329,7 +329,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       )
 
   object inlineJs:
-    def apply(nonce: Nonce)(using Translate) = embedJsUnsafe(jsCode, nonce)
+    def apply(nonce: Nonce)(using Translate): Frag = embedJsUnsafe(jsCode)(nonce.some)
 
     private val i18nKeys = List(
       trans.site.pause,

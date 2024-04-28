@@ -19,13 +19,13 @@ def page(title: String, config: Layout.Build)(body: Frag)(using ctx: PageContext
     robots = built.robots,
     moreCss = built.moreCss,
     modules = built.modules,
-    moreJs = built.moreJs,
+    moreJs = built.moreJs(ctx.nonce),
     pageModule = built.pageModule,
     playing = built.playing,
     openGraph = built.openGraph,
     zoomable = built.zoomable,
     zenable = built.zenable,
-    csp = built.csp,
+    csp = built.csp.map(_(defaultCsp)),
     wrapClass = built.wrapClass,
     atomLinkTag = built.atomLinkTag,
     withHrefLangs = built.withHrefLangs
@@ -55,7 +55,7 @@ object layout:
       embedJsUnsafe(
         "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
           "document.documentElement.classList.add('light');"
-      )
+      )(ctx.nonce)
     )
 
   private def boardPreload(using ctx: Context) = frag(

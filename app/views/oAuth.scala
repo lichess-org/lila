@@ -17,14 +17,4 @@ object token:
     views.account.layout(title = trans.oauthScope.personalAccessTokens.txt(), active = "oauth.token"):
       ui.index(tokens)
 
-object authorize:
-
-  private lazy val ui = lila.oauth.ui.AuthorizeUi(helpers)(assetUrl, lightUserFallback)
-
-  def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using PageContext) =
-    views.base.layout(
-      title = "Authorization",
-      moreCss = cssTag("oauth"),
-      moreJs = embedJsUnsafe(ui.moreJs(prompt)),
-      csp = defaultCsp.withLegacyCompatibility.some
-    )(ui(prompt, me, authorizeUrl))
+lazy val authorize = lila.oauth.ui.AuthorizeUi(helpers)(assetUrl, lightUserFallback)

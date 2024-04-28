@@ -10,7 +10,7 @@ object index:
       moreCss = cssTag("practice.index"),
       moreJs = embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
-});"""),
+});""")(ctx.nonce),
       openGraph = OpenGraph(
         title = "Practice your chess",
         description = "Learn how to master the most common chess positions",

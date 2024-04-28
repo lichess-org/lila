@@ -42,7 +42,7 @@ var currentError = "This is already your current email.";
 email.setCustomValidity(currentError);
 email.addEventListener("input", function() {
 email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
-      });"""),
+      });""")(ctx.nonce),
                 submitButton(cls := "button")("Change it"),
                 form.map: f =>
                   errMsg(f("email"))

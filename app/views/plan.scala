@@ -37,7 +37,7 @@ def index(
             ui.namespaceAttr := "paypalSubscription"
           )
         ),
-        embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", $pricingJson)""")
+        embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", $pricingJson)""")(ctx.nonce)
       )
     ),
     modules = jsModule("bits.checkout"),
@@ -54,12 +54,12 @@ def indexPayPal(
     patron: lila.plan.Patron,
     subscription: lila.plan.PayPalSubscription,
     gifts: List[lila.plan.Charge.Gift]
-)(using PageContext) =
+)(using ctx: PageContext) =
   views.base.layout(
     title = trans.patron.thankYou.txt(),
     moreCss = cssTag("plan"),
     modules = jsModule("bits.plan"),
-    moreJs = embedJsUnsafeLoadThen("""plan.payPalStart()""")
+    moreJs = embedJsUnsafeLoadThen("""plan.payPalStart()""")(ctx.nonce)
   )(ui.indexPayPal(me, patron, subscription, gifts))
 
 def indexStripe(
@@ -76,7 +76,7 @@ def indexStripe(
     modules = jsModule("bits.plan"),
     moreJs = frag(
       ui.stripeScript,
-      embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")""")
+      embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")""")(ctx.nonce)
     ),
     csp = defaultCsp.withStripe.some
   )(ui.indexStripe(me, patron, info, pricing, gifts))

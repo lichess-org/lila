@@ -195,7 +195,7 @@ this.setSelectionRange(this.value.length, this.value.length);
   def emailConfirm(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using
       ctx: Context
   ) =
-    Page("Email confirmation", _.cssTag("mod.misc")):
+    Page("Email confirmation", _.cssTag("mod.misc").js(embedJsUnsafeLoadThen(emailConfirmJs))):
       main(cls := "page-menu")(
         menu("email"),
         div(cls := "mod-confirm page-menu__content box box-pad")(

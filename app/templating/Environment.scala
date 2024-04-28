@@ -60,7 +60,7 @@ object Environment
     robots = netConfig.crawlable,
     moreCss = emptyFrag,
     modules = Nil,
-    moreJs = emptyFrag,
+    moreJs = _ => emptyFrag,
     pageModule = None,
     playing = false,
     openGraph = None,

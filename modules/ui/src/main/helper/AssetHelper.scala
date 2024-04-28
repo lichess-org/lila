@@ -13,6 +13,19 @@ trait AssetHelper:
     def cssTag(keys: String*): Layout =
       keys.foldLeft(l)((l, key) => l.css(AssetHelper.this.cssTag(key)))
 
+  def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
+    raw:
+      val nonceAttr = nonce.so(n => s""" nonce="$n"""")
+      s"""<script$nonceAttr>$js</script>"""
+
+  private val onLoadFunction = "site.load.then"
+
+  def embedJsUnsafeLoadThen(js: String): WithNonce[Frag] =
+    embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""")
+
+  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
+    embedJsUnsafeLoadThen(js)(nonce.some)
+
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______2"
 

@@ -12,4 +12,4 @@ def permissions(u: User)(using PageContext, Me) =
   ui.permissions(u, lila.security.Permission.categorized)
 
 def emailConfirm(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using PageContext) =
-  ui.emailConfirm(query, user, email)(_.js(embedJsUnsafeLoadThen(ui.emailConfirmJs)))
+  ui.emailConfirm(query, user, email)
