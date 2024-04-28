@@ -18,7 +18,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       .build[A, String]()
     from => raw(cache.get(from, from => toFrag(from).render))
 
-  private def page(title: String, edit: Boolean = false)(using Context): Frag => Page =
+  private def page(title: String, edit: Boolean = false)(body: Frag)(using Context): Page =
     Page(
       title,
       _.cssTag("dailyFeed")(
@@ -26,7 +26,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
           :: edit.option(EsmInit("bits.flatpickr"))
           :: edit.option(EsmInit("bits.dailyFeed"))
       )
-    )
+    )(wrap("news")(body))
 
   def index(ups: Paginator[Feed.Update])(using Context) =
     page("Updates"):
