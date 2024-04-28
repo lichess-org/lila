@@ -12,6 +12,7 @@ trait AssetHelper:
 
   def manifest: AssetManifest
   def assetBaseUrl: AssetBaseUrl
+  def assetUrl(path: String): String
   def cssTag(key: String): Frag
   def infiniteScrollEsmInit: EsmInit
   def captchaEsmInit: EsmInit

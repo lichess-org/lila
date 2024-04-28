@@ -7,7 +7,6 @@ import lila.tournament.{ Tournament, TeamBattle }
 import lila.core.team.LightTeam
 
 lazy val ui = lila.tournament.ui.TournamentUi(helpers)(
-  assetUrl,
   env.tournament.getTourName,
   lila.i18n.Translator.toDefault
 )

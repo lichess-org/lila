@@ -16,7 +16,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ manifest as _, safeJsonValue as _, * }
+  import assetHelper.{ defaultCsp, netConfig, cashTag, jsName, siteName }
 
   val doctype                                 = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang, ctx: Context) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -28,7 +28,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
     metaCsp(csp.getOrElse(defaultCsp))
-  def systemThemeEmbedScript = raw:
+  val systemThemeEmbedScript = raw:
     "<script>if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
       "document.documentElement.classList.add('light');</script>"
   def pieceSprite(name: String): Frag =

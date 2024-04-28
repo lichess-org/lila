@@ -10,7 +10,7 @@ import lila.common.LilaOpeningFamily
 import lila.core.i18n.I18nKey
 import scalalib.paginator.Paginator
 
-final class PuzzleUi(helpers: Helpers, bits: PuzzleBits)(assetUrl: String => String):
+final class PuzzleUi(helpers: Helpers, bits: PuzzleBits):
   import helpers.{ *, given }
 
   object theme:

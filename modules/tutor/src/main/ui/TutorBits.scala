@@ -5,7 +5,6 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class TutorBits(helpers: Helpers)(
-    assetUrl: String => String,
     val openingUrl: chess.opening.Opening => Call
 ):
   import helpers.{ *, given }

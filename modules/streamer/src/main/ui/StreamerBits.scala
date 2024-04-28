@@ -7,7 +7,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.id.ImageId
 
-final class StreamerBits(helpers: Helpers)(assetUrl: String => String, thumbnailUrl: ImageId => String):
+final class StreamerBits(helpers: Helpers)(thumbnailUrl: ImageId => String):
   import helpers.{ *, given }
   import trans.{ streamer as trs }
 

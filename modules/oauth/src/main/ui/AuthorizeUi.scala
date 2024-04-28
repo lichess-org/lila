@@ -5,7 +5,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.LightUser
 
-final class AuthorizeUi(helpers: Helpers)(assetUrl: String => String, lightUserFallback: UserId => LightUser):
+final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser):
   import helpers.{ *, given }
 
   private val ringsImage = img(

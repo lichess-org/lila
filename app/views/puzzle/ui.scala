@@ -6,7 +6,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.puzzle.{ Puzzle, PuzzleOpening, DailyPuzzle }
 
 lazy val bits = lila.puzzle.ui.PuzzleBits(helpers)(views.board.userAnalysisI18n.cevalTranslations)
-lazy val ui   = lila.puzzle.ui.PuzzleUi(helpers, bits)(assetUrl)
+lazy val ui   = lila.puzzle.ui.PuzzleUi(helpers, bits)
 
 def openings(
     openings: lila.puzzle.PuzzleOpeningCollection,

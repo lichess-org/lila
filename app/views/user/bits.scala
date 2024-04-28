@@ -5,7 +5,7 @@ import lila.rating.UserPerfsExt.best8Perfs
 import lila.core.perf.UserWithPerfs
 import lila.user.Profile.flagInfo
 
-lazy val bits   = lila.user.ui.UserBits(helpers)(assetUrl)
+lazy val bits   = lila.user.ui.UserBits(helpers)
 lazy val noteUi = lila.user.ui.NoteUi(helpers)
 
 def mini(

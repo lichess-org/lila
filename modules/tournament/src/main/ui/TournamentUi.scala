@@ -7,7 +7,6 @@ import lila.rating.PerfType
 import lila.core.i18n.Translate
 
 final class TournamentUi(helpers: Helpers)(
-    val assetUrl: String => String,
     getTourName: GetTourName,
     defaultTranslate: Translate
 ):

@@ -17,4 +17,4 @@ object token:
     views.account.layout(title = trans.oauthScope.personalAccessTokens.txt(), active = "oauth.token"):
       ui.index(tokens)
 
-lazy val authorize = lila.oauth.ui.AuthorizeUi(helpers)(assetUrl, lightUserFallback)
+lazy val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)

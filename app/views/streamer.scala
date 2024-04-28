@@ -8,7 +8,6 @@ import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.UserPerfsExt.best6Perfs
 
 lazy val bits = lila.streamer.ui.StreamerBits(helpers)(
-  assetUrl,
   picfitUrl.thumbnail(_, Streamer.imageSize, Streamer.imageSize)
 )
 private lazy val ui = lila.streamer.ui.StreamerUi(helpers, bits)

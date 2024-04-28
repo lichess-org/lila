@@ -7,7 +7,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.fide.FideTC
 
-final class FideUi(helpers: Helpers)(assetUrl: String => String):
+final class FideUi(helpers: Helpers):
   import helpers.{ *, given }
 
   val tcTrans: List[(FideTC, lila.core.i18n.I18nKey)] =

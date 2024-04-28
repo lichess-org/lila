@@ -7,7 +7,7 @@ import lila.core.fide.FideTC
 import lila.fide.{ Federation, FidePlayer }
 import lila.relay.RelayTour
 
-private lazy val ui = lila.fide.ui.FideUi(helpers)(assetUrl)
+private lazy val ui = lila.fide.ui.FideUi(helpers)
 
 private def layout(title: String, active: String)(modifiers: Modifier*)(using PageContext) =
   views.base.layout(
