@@ -14,7 +14,7 @@ import lila.team.Team
 
 object show:
 
-  import trans.team.*
+  import trans.{ team as trt }
 
   def apply(
       t: Team.WithLeaders,
@@ -45,7 +45,7 @@ object show:
                 views.chat.json(
                   chat.chat,
                   chat.lines,
-                  name = if t.isChatFor(_.Leaders) then leadersChat.txt() else trans.site.chatRoom.txt(),
+                  name = if t.isChatFor(_.Leaders) then trt.leadersChat.txt() else trans.site.chatRoom.txt(),
                   timeout = chat.timeout,
                   public = true,
                   resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
@@ -67,7 +67,7 @@ object show:
               if t.disabled then span(cls := "staff")("CLOSED")
               else
                 canSeeMembers.option(a(href := routes.Team.members(t.slug)):
-                  nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
+                  trt.nbMembers.plural(t.nbMembers, strong(t.nbMembers.localize))
                 )
           ),
           div(cls := "team-show__content")(
@@ -76,7 +76,7 @@ object show:
                 st.section(cls := "team-show__meta")(
                   t.publicLeaders.nonEmpty.option(
                     p(
-                      teamLeaders.pluralSame(t.publicLeaders.size),
+                      trt.teamLeaders.pluralSame(t.publicLeaders.size),
                       ": ",
                       t.publicLeaders.map: l =>
                         userIdLink(l.some)
@@ -116,7 +116,7 @@ object show:
               ),
               (t.enabled && info.hasRequests).option(
                 div(cls := "team-show__requests")(
-                  h2(xJoinRequests.pluralSame(info.requests.size)),
+                  h2(trt.xJoinRequests.pluralSame(info.requests.size)),
                   request.ui.list(info.requests, t.team.some)
                 )
               ),

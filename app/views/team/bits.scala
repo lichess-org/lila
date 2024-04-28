@@ -10,7 +10,7 @@ import lila.team.Team
 
 private lazy val bits = lila.team.ui.TeamUi(helpers)(using env.executor)
 
-private lazy val layoutConfig: Layout.Build = _.copy(moreCss = cssTag("team"))
+private lazy val layoutConfig: Layout.Build = _.cssTag("team")
 
 private def teamPage(p: lila.ui.Page)(using PageContext) =
   p.contramap(layoutConfig)(_(infiniteScrollTag))

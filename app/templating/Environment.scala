@@ -58,9 +58,9 @@ object Environment
   lazy val layoutDefault = Layout(
     fullTitle = None,
     robots = netConfig.crawlable,
-    moreCss = emptyFrag,
+    css = emptyFrag,
     modules = Nil,
-    moreJs = _ => emptyFrag,
+    js = _ => emptyFrag,
     pageModule = None,
     playing = false,
     openGraph = None,
