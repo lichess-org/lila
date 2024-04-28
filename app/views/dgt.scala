@@ -78,7 +78,7 @@ def config(token: Option[lila.oauth.AccessToken])(using PageContext) =
         h2(lichessConnectivity()),
         if token.isDefined then
           p(cls := "text", dataIcon := Icon.Checkmark)(
-            validDgtOauthToken(),
+            validDgtOauthToken()
           )
         else
           frag(
