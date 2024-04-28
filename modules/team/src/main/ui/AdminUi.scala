@@ -16,7 +16,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
       addLeaderForm: Form[UserStr],
       permsForm: Form[Seq[TeamSecurity.LeaderData]]
   )(using PageContext) = bits.teamPage:
-    Page(s"${t.name} • ${trans.team.teamLeaders.txt()}", _(EsmInit("mod.teamAdmin")).css(cssTag("tagify"))):
+    Page(s"${t.name} • ${trans.team.teamLeaders.txt()}", _(EsmInit("mod.teamAdmin")).cssTag("tagify")):
       val dataLabel = attrData("label")
       main(cls := "page-menu")(
         bits.menu(none),
@@ -74,7 +74,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
       )
 
   def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using PageContext) = bits.teamPage:
-    Page(s"${t.name} • ${trans.team.kickSomeone.txt()}", _(EsmInit("mod.teamAdmin")).css(cssTag("tagify"))):
+    Page(s"${t.name} • ${trans.team.kickSomeone.txt()}", _(EsmInit("mod.teamAdmin")).cssTag("tagify")):
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content")(

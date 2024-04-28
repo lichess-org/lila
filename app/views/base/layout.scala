@@ -9,27 +9,24 @@ import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
 def page(p: lila.ui.Page)(using ctx: PageContext): Frag =
-  page(p.title, p.layout)(p.body)
-
-def page(title: String, config: Layout.Build)(body: Frag)(using ctx: PageContext): Frag =
-  val built = config(layoutDefault)
+  val l = p.layout(layoutDefault)
   layout(
-    title = title,
-    fullTitle = built.fullTitle,
-    robots = built.robots,
-    moreCss = built.cssFrag,
-    modules = built.modules,
-    moreJs = built.jsFrag(ctx.nonce),
-    pageModule = built.pageModule,
-    playing = built.playing,
-    openGraph = built.openGraph,
-    zoomable = built.zoomable,
-    zenable = built.zenable,
-    csp = built.csp.map(_(defaultCsp)),
-    wrapClass = built.wrapClass,
-    atomLinkTag = built.atomLinkTag,
-    withHrefLangs = built.withHrefLangs
-  )(body)
+    title = p.title,
+    fullTitle = l.fullTitle,
+    robots = l.robots,
+    moreCss = l.cssFrag,
+    modules = l.modules,
+    moreJs = l.jsFrag(ctx.nonce),
+    pageModule = l.pageModule,
+    playing = l.playing,
+    openGraph = l.openGraph,
+    zoomable = l.zoomable,
+    zenable = l.zenable,
+    csp = l.csp.map(_(defaultCsp)),
+    wrapClass = l.wrapClass,
+    atomLinkTag = l.atomLinkTag,
+    withHrefLangs = l.withHrefLangs
+  )(p.body)
 
 object layout:
 

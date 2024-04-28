@@ -23,6 +23,7 @@ case class Layout(
     withHrefLangs: Option[LangPath]
 ):
   def apply(esm: EsmInit): Layout                    = copy(modules = modules :+ esm.some)
+  def apply(esm: EsmList): Layout                    = copy(modules = modules ::: esm)
   def apply(og: OpenGraph): Layout                   = copy(openGraph = og.some)
   def apply(pm: PageModule): Layout                  = copy(pageModule = pm.some)
   def robots(b: Boolean): Layout                     = copy(robots = b)

@@ -9,21 +9,31 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }
 
   def index(categs: List[CategView])(using Context) =
-    main(cls := "forum index box")(
-      boxTop(
-        h1(dataIcon := Icon.BubbleConvo, cls := "text")("Lichess Forum"),
-        bits.searchForm()
-      ),
-      showCategs(categs.filterNot(_.categ.isTeam)),
-      categs
-        .exists(_.categ.isTeam)
-        .option(
-          frag(
-            boxTop(h1("Your Team Boards")),
-            showCategs(categs.filter(_.categ.isTeam))
-          )
+    Page(
+      trans.site.forum.txt(),
+      _.cssTag("forum").csp(_.withInlineIconFont)(
+        OpenGraph(
+          title = "Lichess community forum",
+          url = s"$netBaseUrl${routes.ForumCateg.index.url}",
+          description = "Chess discussions and feedback about Lichess development"
         )
-    )
+      )
+    ):
+      main(cls := "forum index box")(
+        boxTop(
+          h1(dataIcon := Icon.BubbleConvo, cls := "text")("Lichess Forum"),
+          bits.searchForm()
+        ),
+        showCategs(categs.filterNot(_.categ.isTeam)),
+        categs
+          .exists(_.categ.isTeam)
+          .option(
+            frag(
+              boxTop(h1("Your Team Boards")),
+              showCategs(categs.filter(_.categ.isTeam))
+            )
+          )
+      )
 
   def show(
       categ: lila.forum.ForumCateg,
@@ -59,34 +69,44 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
         )
       )
 
-    main(cls := "forum forum-categ box")(
-      boxTop(
-        h1(
-          a(
-            href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-            dataIcon := Icon.LessThan,
-            cls      := "text"
-          ),
-          categ.team.fold(frag(categ.name))(teamLink(_, true))
-        ),
-        div(cls := "box__top__actions"):
-          newTopicButton
-      ),
-      table(cls := "topics slist slist-pad")(
-        thead(
-          tr(
-            th,
-            th(cls := "right")(trans.site.replies()),
-            th(trans.site.lastPost())
-          )
-        ),
-        tbody(cls := "infinite-scroll")(
-          stickyPosts.map(showTopic(sticky = true)),
-          topics.currentPageResults.map(showTopic(sticky = false)),
-          pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n).url)
+    Page(
+      categ.name,
+      _.cssTag("forum").csp(_.withInlineIconFont)(infiniteScrollEsmInit)(
+        OpenGraph(
+          title = s"Forum: ${categ.name}",
+          url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
+          description = categ.desc
         )
       )
-    )
+    ):
+      main(cls := "forum forum-categ box")(
+        boxTop(
+          h1(
+            a(
+              href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+              dataIcon := Icon.LessThan,
+              cls      := "text"
+            ),
+            categ.team.fold(frag(categ.name))(teamLink(_, true))
+          ),
+          div(cls := "box__top__actions"):
+            newTopicButton
+        ),
+        table(cls := "topics slist slist-pad")(
+          thead(
+            tr(
+              th,
+              th(cls := "right")(trans.site.replies()),
+              th(trans.site.lastPost())
+            )
+          ),
+          tbody(cls := "infinite-scroll")(
+            stickyPosts.map(showTopic(sticky = true)),
+            topics.currentPageResults.map(showTopic(sticky = false)),
+            pagerNextTable(topics, n => routes.ForumCateg.show(categ.slug, n).url)
+          )
+        )
+      )
 
   private def showCategs(categs: List[CategView])(using Context) =
     table(cls := "categs slist slist-pad")(

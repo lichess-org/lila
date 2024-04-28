@@ -4,7 +4,6 @@ import play.api.libs.json.{ JsValue, Json, Writes }
 
 import lila.ui.ScalatagsTemplate.*
 import lila.core.data.SafeJsonStr
-import lila.common.String.html.safeJsonValue
 import lila.web.ui.*
 import lila.core.config.NetConfig
 import lila.ui.{ Nonce, Optionce, WithNonce, ContentSecurityPolicy, EsmList, Context }
@@ -17,13 +16,12 @@ trait AssetFullHelper:
   def tablebaseEndpoint: String
   def externalEngineEndpoint: String
 
+  export lila.common.String.html.safeJsonValue
+
+  def jsName(key: String): String = manifest.js(key).fold(key)(_.name)
+
   private lazy val socketDomains = netConfig.socketDomains ::: netConfig.socketAlts
   // lazy val vapidPublicKey         = env.push.vapidPublicKey
-
-  given Conversion[EsmInit, EsmList] with
-    def apply(esmInit: EsmInit): EsmList = List(Some(esmInit))
-  given Conversion[Option[EsmInit], EsmList] with
-    def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
 
   lazy val sameAssetDomain = netConfig.domain == netConfig.assetDomain
 
@@ -48,22 +46,10 @@ trait AssetFullHelper:
   // load iife scripts in <head> and defer
   def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
-  private val load = "site.asset.loadEsm"
-
-  def jsName(key: String): String =
-    manifest.js(key).fold(key)(_.name)
   def jsDeps(keys: List[String]): Frag = frag:
     manifest.deps(keys).map { dep =>
       script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
     }
-  def jsModuleInit(key: String): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}')"))
-  def jsModuleInit(key: String, json: SafeJsonStr): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}',{init:$json})"))
-  def jsModuleInit[A: Writes](key: String, value: A): EsmInit =
-    jsModuleInit(key, safeJsonValue(Json.toJson(value)))
-  def jsPageModule(key: String): EsmInit =
-    EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${jsName(key)}')"))
 
   def analyseNvuiTag(using ctx: Context)  = ctx.blind.option(EsmInit("analyse.nvui"))
   def puzzleNvuiTag(using ctx: Context)   = ctx.blind.option(EsmInit("puzzle.nvui"))

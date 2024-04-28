@@ -5,7 +5,6 @@ import play.api.i18n.Lang
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 import lila.core.i18n.Language
 import lila.core.report.ScoreThresholds
 
@@ -17,7 +16,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.*
+  import assetHelper.{ manifest as _, safeJsonValue as _, * }
 
   val doctype                                 = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang, ctx: Context) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -157,7 +156,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       jsTag("manifest"),
       cashTag,
       keys.map(jsTag),
-      manifest.deps(keys).map(jsTag)
+      assetHelper.manifest.deps(keys).map(jsTag)
     )
 
   private def jsTag(key: String): Frag =

@@ -12,6 +12,7 @@ lazy val bits = lila.streamer.ui.StreamerBits(helpers)(
   picfitUrl.thumbnail(_, Streamer.imageSize, Streamer.imageSize)
 )
 private lazy val ui = lila.streamer.ui.StreamerUi(helpers, bits)
+export ui.index
 
 def show(s: Streamer.WithUserAndStream, perfs: UserPerfs, activities: Vector[lila.activity.ActivityView])(
     using Context
@@ -21,18 +22,6 @@ def show(s: Streamer.WithUserAndStream, perfs: UserPerfs, activities: Vector[lil
     perfRatings = perfs.best6Perfs.map { showPerfRating(perfs, _) },
     activities = views.activity(UserWithPerfs(s.user, perfs), activities)
   )
-
-def index(
-    live: List[Streamer.WithUserAndStream],
-    pager: Paginator[Streamer.WithContext],
-    requests: Boolean
-)(using ctx: PageContext) =
-  val title = if requests then "Streamer approval requests" else trans.streamer.lichessStreamers.txt()
-  views.base.layout(
-    title = title,
-    moreCss = cssTag("streamer.list"),
-    modules = infiniteScrollEsmInit ++ EsmInit("bits.streamer")
-  )(ui.index(live, pager, requests, title))
 
 def create(using PageContext) =
   views.site.message(
@@ -45,24 +34,15 @@ object edit:
 
   private lazy val ui = lila.streamer.ui.StreamerEdit(helpers, bits)
 
-  import trans.streamer.*
-
-  type ModData = Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[Streamer])]
-
   def apply(
       s: Streamer.WithUserAndStream,
       form: play.api.data.Form[?],
       modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[Streamer])]
   )(using ctx: PageContext) =
-    views.base.layout(
-      title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
-      modules = EsmInit("bits.streamer"),
-      moreCss = cssTag("streamer.form")
-    ):
-      val modZone = modData.map:
-        case ((log, notes), streamers) =>
-          div(cls := "mod_log status")(modLog(log), br, modNotes(notes)) -> streamers
-      ui(s, form, modZone)
+    val modZone = modData.map:
+      case ((log, notes), streamers) =>
+        div(cls := "mod_log status")(modLog(log), br, modNotes(notes)) -> streamers
+    ui(s, form, modZone)
 
   private def modLog(log: List[lila.mod.Modlog])(using Context) = frag(
     strong(cls := "text", dataIcon := Icon.CautionTriangle)(

@@ -28,8 +28,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
   def index(
       live: List[Streamer.WithUserAndStream],
       pager: Paginator[Streamer.WithContext],
-      requests: Boolean,
-      title: String
+      requests: Boolean
   )(using ctx: Context) =
 
     def widget(s: Streamer.WithContext, stream: Option[Stream]) =
@@ -71,39 +70,41 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
         )
       )
 
-    main(cls := "page-menu")(
-      bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
-      div(cls := "page-menu__content box streamer-list")(
-        boxTop(h1(dataIcon := Icon.Mic, cls := "text")(title)),
-        (!requests).option(
-          div(cls := "list force-ltr live")(
-            live.map: s =>
-              st.article(cls := "streamer")(widget(s, s.stream))
-          )
-        ),
-        div(cls := "list force-ltr infinite-scroll")(
-          (live.size % 2 == 1).option(div(cls := "none")),
-          pager.currentPageResults.map: s =>
-            st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none)),
-          pagerNext(
-            pager,
-            np =>
-              addQueryParams(
-                routes.Streamer.index().url,
-                Map(
-                  "page"     -> np.toString,
-                  "requests" -> (if requests then 1 else 0).toString
+    val title = if requests then "Streamer approval requests" else trans.streamer.lichessStreamers.txt()
+    Page(title, _.cssTag("streamer.list")(infiniteScrollEsmInit)(EsmInit("bits.streamer"))):
+      main(cls := "page-menu")(
+        bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
+        div(cls := "page-menu__content box streamer-list")(
+          boxTop(h1(dataIcon := Icon.Mic, cls := "text")(title)),
+          (!requests).option(
+            div(cls := "list force-ltr live")(
+              live.map: s =>
+                st.article(cls := "streamer")(widget(s, s.stream))
+            )
+          ),
+          div(cls := "list force-ltr infinite-scroll")(
+            (live.size % 2 == 1).option(div(cls := "none")),
+            pager.currentPageResults.map: s =>
+              st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none)),
+            pagerNext(
+              pager,
+              np =>
+                addQueryParams(
+                  routes.Streamer.index().url,
+                  Map(
+                    "page"     -> np.toString,
+                    "requests" -> (if requests then 1 else 0).toString
+                  )
                 )
-              )
+            )
           )
         )
       )
-    )
 
   def show(s: Streamer.WithUserAndStream, perfRatings: Frag, activities: Frag)(using ctx: Context) =
     Page(
       s"${s.titleName} streams chess",
-      _.csp(csp).css(cssTag("streamer.show"))(EsmInit("bits.streamer"))(
+      _.csp(csp).cssTag("streamer.show")(EsmInit("bits.streamer"))(
         OpenGraph(
           title = s"${s.titleName} streams chess",
           description =
