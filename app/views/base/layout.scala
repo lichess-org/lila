@@ -8,6 +8,29 @@ import lila.app.templating.Environment.{ *, given }
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
+def page(p: lila.ui.Page)(using ctx: PageContext): Frag =
+  page(p.title, p.layout)(p.body)
+
+def page(title: String, config: Layout.Build)(body: Frag)(using ctx: PageContext): Frag =
+  val built = config(layoutDefault)
+  layout(
+    title = title,
+    fullTitle = built.fullTitle,
+    robots = built.robots,
+    moreCss = built.moreCss,
+    modules = built.modules,
+    moreJs = built.moreJs,
+    pageModule = built.pageModule,
+    playing = built.playing,
+    openGraph = built.openGraph,
+    zoomable = built.zoomable,
+    zenable = built.zenable,
+    csp = built.csp,
+    wrapClass = built.wrapClass,
+    atomLinkTag = built.atomLinkTag,
+    withHrefLangs = built.withHrefLangs
+  )(body)
+
 object layout:
 
   lazy val ui = lila.web.views.layout(helpers, assetHelper)(
@@ -49,26 +72,6 @@ object layout:
   private def current2dTheme(using ctx: Context) =
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
     else ctx.pref.currentTheme
-
-  def from(config: Layout.Build)(body: Frag)(using ctx: PageContext): Frag =
-    val built = config(layoutDefault)
-    apply(
-      title = built.title,
-      fullTitle = built.fullTitle,
-      robots = built.robots,
-      moreCss = built.moreCss,
-      modules = built.modules,
-      moreJs = built.moreJs,
-      pageModule = built.pageModule,
-      playing = built.playing,
-      openGraph = built.openGraph,
-      zoomable = built.zoomable,
-      zenable = built.zenable,
-      csp = built.csp,
-      wrapClass = built.wrapClass,
-      atomLinkTag = built.atomLinkTag,
-      withHrefLangs = built.withHrefLangs
-    )(body)
 
   def apply(
       title: String,

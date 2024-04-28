@@ -15,7 +15,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   import helpers.{ *, given }
   import trans.{ team as trt }
 
-  def create(form: Form[?], captcha: Captcha)(using PageContext) =
+  def create(form: Form[?], captcha: Captcha)(using PageContext) = Page(trans.team.newTeam.txt()):
     main(cls := "page-menu page-small")(
       bits.menu("form".some),
       div(cls := "page-menu__content box box-pad")(
@@ -35,57 +35,58 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
     )
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
-    main(cls := "page-menu page-small team-edit")(
-      bits.menu(none),
-      div(cls := "page-menu__content box box-pad")(
-        boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
-        standardFlash,
-        t.enabled.option(
-          postForm(cls := "form3", action := routes.Team.update(t.id))(
-            flairField(form, t),
-            entryFields(form, t.some),
-            textFields(form),
-            accessFields(form),
-            form3.actions(
-              a(href := routes.Team.show(t.id))(trans.site.cancel()),
-              form3.submit(trans.site.apply())
-            )
-          )
-        ),
-        hr,
-        (t.enabled && (member.exists(_.hasPerm(_.Admin)) || Granter.opt(_.ManageTeam))).option(
-          postForm(cls := "inline", action := routes.Team.disable(t.id))(
-            explainInput,
-            submitButton(
-              dataIcon := Icon.CautionCircle,
-              cls      := "submit button text explain button-empty button-red",
-              st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
-            )(trt.closeTeam())
-          )
-        ),
-        Granter
-          .opt(_.ManageTeam)
-          .option(
-            postForm(cls := "inline", action := routes.Team.close(t.id))(
-              explainInput,
-              submitButton(
-                dataIcon := Icon.Trash,
-                cls      := "text button button-empty button-red explain",
-                st.title := "Deletes the team and its memberships. Cannot be reverted!"
-              )(trans.site.delete())
+    Page(s"Edit Team ${t.name}"):
+      main(cls := "page-menu page-small team-edit")(
+        bits.menu(none),
+        div(cls := "page-menu__content box box-pad")(
+          boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
+          standardFlash,
+          t.enabled.option(
+            postForm(cls := "form3", action := routes.Team.update(t.id))(
+              flairField(form, t),
+              entryFields(form, t.some),
+              textFields(form),
+              accessFields(form),
+              form3.actions(
+                a(href := routes.Team.show(t.id))(trans.site.cancel()),
+                form3.submit(trans.site.apply())
+              )
             )
           ),
-        (t.disabled && Granter.opt(_.ManageTeam)).option(
-          postForm(cls := "inline", action := routes.Team.disable(t.id))(
-            explainInput,
-            submitButton(
-              cls      := "button button-empty explain",
-              st.title := "Re-enables the team and restores memberships"
-            )("Re-enable")
+          hr,
+          (t.enabled && (member.exists(_.hasPerm(_.Admin)) || Granter.opt(_.ManageTeam))).option(
+            postForm(cls := "inline", action := routes.Team.disable(t.id))(
+              explainInput,
+              submitButton(
+                dataIcon := Icon.CautionCircle,
+                cls      := "submit button text explain button-empty button-red",
+                st.title := trans.team.closeTeamDescription.txt() // can actually be reverted
+              )(trt.closeTeam())
+            )
+          ),
+          Granter
+            .opt(_.ManageTeam)
+            .option(
+              postForm(cls := "inline", action := routes.Team.close(t.id))(
+                explainInput,
+                submitButton(
+                  dataIcon := Icon.Trash,
+                  cls      := "text button button-empty button-red explain",
+                  st.title := "Deletes the team and its memberships. Cannot be reverted!"
+                )(trans.site.delete())
+              )
+            ),
+          (t.disabled && Granter.opt(_.ManageTeam)).option(
+            postForm(cls := "inline", action := routes.Team.disable(t.id))(
+              explainInput,
+              submitButton(
+                cls      := "button button-empty explain",
+                st.title := "Re-enables the team and restores memberships"
+              )("Re-enable")
+            )
           )
         )
       )
-    )
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 

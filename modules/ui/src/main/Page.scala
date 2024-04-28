@@ -12,7 +12,6 @@ object Nonce extends OpaqueString[Nonce]:
   def random: Nonce                  = Nonce(scalalib.SecureRandom.nextString(24))
 
 case class Layout(
-    title: String,
     fullTitle: Option[String],
     robots: Boolean,
     moreCss: Frag,
@@ -28,12 +27,17 @@ case class Layout(
     atomLinkTag: Option[Tag],
     withHrefLangs: Option[LangPath]
 ):
-  def title(t: String): Layout      = copy(title = t)
   def apply(esm: EsmInit): Layout   = copy(modules = modules :+ esm.some)
   def apply(og: OpenGraph): Layout  = copy(openGraph = og.some)
   def apply(pm: PageModule): Layout = copy(pageModule = pm.some)
   def robots(b: Boolean): Layout    = copy(robots = b)
+  def css(f: Frag): Layout          = copy(moreCss = frag(moreCss, f))
+  def js(f: Frag): Layout           = copy(moreJs = frag(moreJs, f))
 
 object Layout:
   type Build = Layout => Layout
   val default: Build = identity
+
+case class Page(title: String, layout: Layout.Build = identity)(val body: Frag):
+  def apply(build: Layout.Build): Page     = copy(layout = build.compose(layout))(body)
+  def contramap(build: Layout.Build): Page = copy(layout = layout.compose(build))(body)

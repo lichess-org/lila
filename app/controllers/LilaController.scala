@@ -36,6 +36,9 @@ abstract private[controllers] class LilaController(val env: Env)
   given lila.core.i18n.Translator                    = env.translator
   given reqBody(using r: BodyContext[?]): Request[?] = r.body
 
+  given (using PageContext): Conversion[lila.ui.Page, Frag]     = views.base.page(_)
+  given (using PageContext): Conversion[lila.ui.Page, Fu[Frag]] = page => fuccess(views.base.page(page))
+
   given netDomain: lila.core.config.NetDomain = env.net.domain
 
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`

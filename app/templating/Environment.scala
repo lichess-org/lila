@@ -18,7 +18,7 @@ object Environment
   export lila.core.id.ImageId
   export lila.common.extensions.*
   export lila.common.String.html.richText
-  export lila.ui.{ Layout, Nonce, OpenGraph, PageModule, EsmList, Icon }
+  export lila.ui.{ Layout, Page, Nonce, OpenGraph, PageModule, EsmList, Icon }
   export lila.api.Context.{ ctxToTranslate as _, *, given }
   export lila.api.PageData
 
@@ -56,7 +56,6 @@ object Environment
   protected lazy val syncBelongsTo = env.team.api.syncBelongsTo
 
   lazy val layoutDefault = Layout(
-    title = "Lichess",
     fullTitle = None,
     robots = netConfig.crawlable,
     moreCss = emptyFrag,

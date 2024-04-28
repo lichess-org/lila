@@ -11,6 +11,8 @@ import lila.ui.{ Nonce, ContentSecurityPolicy, EsmInit, EsmList, Context }
 
 type Optionce = Option[Nonce]
 
+type WithNonce[A] = Optionce ?=> A // #TODO use this
+
 trait AssetFullHelper:
   self: lila.ui.AssetHelper & lila.ui.I18nHelper =>
   def netConfig: NetConfig

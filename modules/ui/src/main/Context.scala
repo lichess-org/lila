@@ -7,6 +7,7 @@ import lila.core.i18n.{ Language, Translate, defaultLanguage }
 import lila.core.net.IpAddress
 import lila.core.pref.Pref
 import lila.core.user.KidMode
+import lila.core.notify.UnreadCount
 
 trait Context:
   val req: RequestHeader
@@ -37,4 +38,14 @@ object Context:
   given ctxMe(using ctx: Context): Option[Me] = ctx.me
 
 trait PageContext extends Context:
+  val me: Option[Me]
+  val needsFp: Boolean
+  val impersonatedBy: Option[User]
+  // val oauth: Option[TokenScopes]
   def teamNbRequests: Int
+  def nbChallenges: Int
+  def nbNotifications: UnreadCount
+  def hasClas: Boolean
+  def hasInquiry: Boolean
+  def nonce: Option[Nonce]
+  def error: Boolean
