@@ -6,6 +6,7 @@ import play.api.i18n.Lang
 import play.api.libs.json.{ JsSuccess, Json, Reads }
 
 import lila.common.Form.given
+import lila.core.data.RichText
 
 object CoachProfileForm:
 

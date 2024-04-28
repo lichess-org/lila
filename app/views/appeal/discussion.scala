@@ -1,21 +1,15 @@
-package views.html
-package appeal
+package views.appeal
 
-import controllers.appeal.routes.Appeal as appealRoutes
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.appeal.Appeal
 import lila.common.String.html.richText
 import lila.mod.IpRender.RenderIp
 import lila.mod.{ ModPreset, ModPresets, UserWithModlog }
 import lila.report.Report.Inquiry
 import lila.report.Suspect
-import lila.user.{ Me, User }
-
-import trans.appeal
 
 object discussion:
 
@@ -24,7 +18,7 @@ object discussion:
       suspect: Suspect,
       presets: ModPresets,
       logins: lila.security.UserLogins.TableData[UserWithModlog],
-      appeals: List[lila.appeal.Appeal],
+      appeals: List[Appeal],
       renderIp: RenderIp,
       inquiry: Option[Inquiry],
       markedByMe: Boolean
@@ -52,7 +46,7 @@ object discussion:
                 submitButton(cls := "button")("Handle this appeal")
               )
             case Some(Inquiry(mod, _)) if ctx.userId.has(mod) =>
-              postForm(action := appealRoutes.mute(modData.suspect.user.username))(
+              postForm(action := routes.Appeal.mute(modData.suspect.user.username))(
                 if appeal.isMuted then
                   submitButton("Un-mute")(
                     title := "Be notified about user replies again",
@@ -67,7 +61,7 @@ object discussion:
             case Some(Inquiry(mod, _)) => frag(userIdLink(mod.some), nbsp, "is handling this.")
           ,
           postForm(
-            action := appealRoutes.sendToZulip(modData.suspect.user.id),
+            action := routes.Appeal.sendToZulip(modData.suspect.user.id),
             cls    := "appeal__actions__slack"
           )(
             submitButton(cls := "button button-thin")("Send to Zulip")
@@ -93,7 +87,7 @@ object discussion:
               cls  := "button button-empty mod-zone-toggle",
               href := routes.User.mod(appeal.id),
               titleOrText("Mod zone (Hotkey: m)"),
-              dataIcon := licon.Agent
+              dataIcon := Icon.Agent
             )
           )
         )
@@ -103,7 +97,7 @@ object discussion:
         given RenderIp = m.renderIp
         frag(
           div(cls := "mod-zone mod-zone-full none"),
-          views.html.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(
+          views.user.mod.otherUsers(m.mod, m.suspect.user, m.logins, m.appeals)(
             cls := "mod-zone communication__logins"
           )
         )
@@ -122,7 +116,7 @@ object discussion:
         as.left
           .exists(_.markedByMe)
           .option(
-            div(dataIcon := licon.CautionTriangle, cls := "marked-by-me text")(
+            div(dataIcon := Icon.CautionTriangle, cls := "marked-by-me text")(
               "You have marked this user. Appeal should be handled by another moderator"
             )
           ),
@@ -133,8 +127,8 @@ object discussion:
               renderForm(
                 textForm,
                 action =
-                  if as.isLeft then appealRoutes.reply(appeal.id).url
-                  else appealRoutes.post.url,
+                  if as.isLeft then routes.Appeal.reply(appeal.id).url
+                  else routes.Appeal.post.url,
                 isNew = false,
                 presets = as.left.toOption.map(_.presets)
               )
@@ -144,12 +138,12 @@ object discussion:
 
   private def renderMark(suspect: User)(using ctx: PageContext) =
     val query = isGranted(_.Appeals).so(ctx.req.queryString.toMap)
-    if suspect.enabled.no || query.contains("alt") then appeal.closedByModerators()
-    else if suspect.marks.engine || query.contains("engine") then appeal.engineMarked()
-    else if suspect.marks.boost || query.contains("boost") then appeal.boosterMarked()
-    else if suspect.marks.troll || query.contains("shadowban") then appeal.accountMuted()
-    else if suspect.marks.rankban || query.contains("rankban") then appeal.excludedFromLeaderboards()
-    else appeal.cleanAllGood()
+    if suspect.enabled.no || query.contains("alt") then trans.appeal.closedByModerators()
+    else if suspect.marks.engine || query.contains("engine") then trans.appeal.engineMarked()
+    else if suspect.marks.boost || query.contains("boost") then trans.appeal.boosterMarked()
+    else if suspect.marks.troll || query.contains("shadowban") then trans.appeal.accountMuted()
+    else if suspect.marks.rankban || query.contains("rankban") then trans.appeal.excludedFromLeaderboards()
+    else trans.appeal.cleanAllGood()
 
   private def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using PageContext) =
     if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
@@ -166,7 +160,8 @@ object discussion:
       )
 
   def renderForm(form: Form[?], action: String, isNew: Boolean, presets: Option[ModPresets])(using
-      PageContext
+      Translate,
+      Option[Me]
   ) =
     postForm(st.action := action)(
       form3.globalError(form),

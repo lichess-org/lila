@@ -10,26 +10,37 @@ import lila.app.{ *, given }
 import lila.common.{ HTTPRequest, config }
 import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
-import lila.security.Permission
+import lila.core.perm.Permission
+import lila.core.perf.UserWithPerfs
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
-    with http.RequestGetter
+    with lila.web.RequestGetter
+    with lila.web.ResponseBuilder(using env.executor)
     with http.ResponseBuilder(using env.executor)
-    with http.ResponseHeaders
-    with http.ResponseWriter
-    with http.CtrlExtensions
-    with http.CtrlConversions
-    with http.CtrlFilters
+    with lila.web.ResponseHeaders
+    with lila.web.ResponseWriter
+    with lila.web.CtrlExtensions
+    with http.CtrlFilters(using env.executor)
     with http.CtrlPage(using env.executor)
     with http.RequestContext(using env.executor)
-    with http.CtrlErrors:
+    with lila.web.CtrlErrors:
 
-  def controllerComponents        = env.controllerComponents
-  given Executor                  = env.executor
-  given Scheduler                 = env.scheduler
-  given FormBinding               = parse.formBinding(parse.DefaultMaxTextLength)
-  given lila.core.i18n.Translator = env.translator
+  export lila.ui.ReverseRouterConversions.given
+  export _root_.router.ReverseRouterConversions.given
+
+  def controllerComponents                           = env.controllerComponents
+  given Executor                                     = env.executor
+  given Scheduler                                    = env.scheduler
+  given FormBinding                                  = parse.formBinding(parse.DefaultMaxTextLength)
+  given lila.core.i18n.Translator                    = env.translator
+  given reqBody(using r: BodyContext[?]): Request[?] = r.body
+
+  given (using codec: Codec, pc: PageContext): Writeable[lila.ui.Page] =
+    Writeable(page => codec.encode(views.base.page(page).render))
+
+  given (using PageContext): Conversion[lila.ui.Page, Frag]     = views.base.page(_)
+  given (using PageContext): Conversion[lila.ui.Page, Fu[Frag]] = page => fuccess(views.base.page(page))
 
   given netDomain: lila.core.config.NetDomain = env.net.domain
 
@@ -321,12 +332,11 @@ abstract private[controllers] class LilaController(val env: Env)
         case ByHref.Found(lang) =>
           f(using ctx.withLang(lang))
 
-  import lila.rating.Perf
-  def WithMyPerf[A](pt: lila.core.perf.PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+  def WithMyPerf[A](pt: lila.rating.PerfType)(f: Perf ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
     .soFu(env.user.perfsRepo.perfOf(_, pt))
     .flatMap: perf =>
-      f(using perf | Perf.default)
-  def WithMyPerfs[A](f: Option[lila.user.User.WithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
+      f(using perf | lila.rating.Perf.default)
+  def WithMyPerfs[A](f: Option[UserWithPerfs] ?=> Fu[A])(using me: Option[Me]): Fu[A] = me
     .soFu(me => env.user.api.withPerfs(me.value))
     .flatMap:
       f(using _)

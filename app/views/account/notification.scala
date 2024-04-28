@@ -1,17 +1,13 @@
-package views.html
-package account
-
-import controllers.routes
+package views.account
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object notification:
   import bits.*
   import trans.preferences.*
 
   def apply(form: play.api.data.Form[?])(using PageContext) =
-    account.layout(
+    layout(
       title = s"${trans.preferences.notifications.txt()} - ${preferences.txt()}",
       active = "notification"
     ):
@@ -23,8 +19,8 @@ object notification:
               thead(
                 tr(
                   th,
-                  th(notifyBell(), iconTag(licon.BellOutline)),
-                  th(notifyPush(), iconTag(licon.PhoneMobile))
+                  th(notifyBell(), iconTag(Icon.BellOutline)),
+                  th(notifyPush(), iconTag(Icon.PhoneMobile))
                 )
               ),
               tbody(
@@ -53,7 +49,7 @@ object notification:
               radios(form("notification.playBellSound"), translatedBooleanIntChoices)
             )
           ),
-          p(cls := "saved text none", dataIcon := licon.Checkmark)(yourPreferencesHaveBeenSaved())
+          p(cls := "saved text none", dataIcon := Icon.Checkmark)(yourPreferencesHaveBeenSaved())
         )
       )
 
@@ -66,14 +62,14 @@ object notification:
         td(
           if !hiddenFields(s"$filterName.$allow") then
             div(cls := "toggle", form3.cmnToggle(name, name, checked))
-          else if !checked then div(iconTag(licon.X))
+          else if !checked then div(iconTag(Icon.X))
           else
             div(
               cls := "always-on",
               form3.hidden(name, "true"),
               filterName match
-                case "challenge"      => iconTag(licon.Swords)
-                case "privateMessage" => iconTag(licon.BellOutline)
+                case "challenge"      => iconTag(Icon.Swords)
+                case "privateMessage" => iconTag(Icon.BellOutline)
                 case _                => emptyFrag
             )
         )

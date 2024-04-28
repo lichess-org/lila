@@ -48,7 +48,7 @@
       @include transition;
 
       &:hover {
-        color: $c-primary-over;
+        color: $c-over;
         background: $c-primary;
       }
     }

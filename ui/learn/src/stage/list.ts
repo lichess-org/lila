@@ -127,7 +127,7 @@ stages.forEach(function (s) {
 
 const stagesById: { [K in number]: Stage } = {};
 stages.forEach(function (s) {
-  stagesById[s.id!] = s;
+  stagesById[s.id] = s;
 });
 
 export const list = stages;

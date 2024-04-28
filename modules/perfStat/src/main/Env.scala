@@ -7,12 +7,13 @@ import lila.core.config.*
 
 @Module
 final class Env(
+    mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.core.LightUser.GetterSync,
-    lightUserApi: lila.user.LightUserApi,
-    gameRepo: lila.game.GameRepo,
-    userApi: lila.user.UserApi,
-    rankingsOf: lila.user.RankingsOf,
-    rankingApi: lila.user.RankingApi,
+    lightUserApi: lila.core.user.LightUserApi,
+    gameRepo: lila.core.game.GameRepo,
+    userApi: lila.core.user.UserApi,
+    rankingRepo: lila.core.user.RankingRepo,
+    rankingsOf: UserId => lila.rating.UserRankMap,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using Executor, Scheduler):
 
@@ -26,7 +27,7 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   lila.common.Bus.subscribeFun("finishGame"):
-    case lila.game.actorApi.FinishGame(game, _) if !game.aborted =>
+    case lila.core.game.FinishGame(game, _) if !game.aborted =>
       indexer.addGame(game).addFailureEffect { e =>
         lila.log("perfStat").error(s"index game ${game.id}", e)
       }

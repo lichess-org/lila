@@ -7,24 +7,22 @@ import lila.core.config.Secret
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.user.{ Me, User, UserRepo }
-import lila.core.EmailAddress
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 final class PlanApi(
     stripeClient: StripeClient,
     payPalClient: PayPalClient,
     mongo: PlanMongo,
     notifier: PlanNotifier,
-    userRepo: UserRepo,
-    lightUserApi: lila.user.LightUserApi,
+    userApi: lila.core.user.UserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     payPalIpnKey: Secret,
     monthlyGoalApi: MonthlyGoalApi,
     currencyApi: CurrencyApi,
     pricingApi: PlanPricingApi,
-    ip2proxy: lila.security.Ip2Proxy
+    ip2proxy: lila.core.security.Ip2ProxyApi
 )(using Executor):
 
   import BsonHandlers.given
@@ -42,14 +40,18 @@ final class PlanApi(
     }
 
   def cancel(user: User): Funit =
-    def onCancel =
-      isLifetime(user).flatMap { lifetime =>
-        (!lifetime).so(setDbUserPlan(user.mapPlan(_.disable)))
-      } >>
-        mongo.patron.update
-          .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
-          .map: _ =>
-            logger.info(s"Canceled subscription of ${user.username}")
+    cancelIfAny(user).flatMap:
+      if _ then funit else fufail(s"Can't cancel non-existent customer ${user.id}")
+
+  def cancelIfAny(user: User): Fu[Boolean] =
+    def onCancel = for
+      lifetime <- isLifetime(user)
+      _        <- (!lifetime).so(setDbUserPlan(user.mapPlan(_.disable)))
+      _ <- mongo.patron.update
+        .one($id(user.id), $unset("stripe", "payPal", "payPalCheckout", "expiresAt"))
+        .map: _ =>
+          logger.info(s"Canceled subscription of ${user.username}")
+    yield true
     stripe.userCustomer(user).flatMap {
       case Some(customer) =>
         customer.firstSubscription match
@@ -58,7 +60,7 @@ final class PlanApi(
             stripeClient.cancelSubscription(sub) >> onCancel
       case None =>
         payPal.userSubscription(user).flatMap {
-          case None      => fufail(s"Can't cancel non-existent customer ${user.id}")
+          case None      => fuccess(false)
           case Some(sub) => payPalClient.cancelSubscription(sub) >> onCancel
         }
     }
@@ -69,7 +71,7 @@ final class PlanApi(
 
     def onCharge(stripeCharge: StripeCharge): Funit = for
       patronOption <- customerIdPatron(stripeCharge.customer)
-      giftTo       <- stripeCharge.giftTo.so(userRepo.byId)
+      giftTo       <- stripeCharge.giftTo.so(userApi.byId)
       money = stripeCharge.amount.toMoney(stripeCharge.currency)
       usd   <- currencyApi.toUsd(money)
       proxy <- stripeCharge.ip.soFu(ip2proxy(_))
@@ -89,7 +91,7 @@ final class PlanApi(
           funit
         case Some(prevPatron) =>
           logger.info(s"Charged proxy:${proxy.flatMap(_.name)} $charge $prevPatron")
-          userRepo.byId(prevPatron.userId).orFail(s"Missing user for $prevPatron").flatMap { user =>
+          userApi.byId(prevPatron.userId).orFail(s"Missing user for $prevPatron").flatMap { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
               case None =>
@@ -112,7 +114,7 @@ final class PlanApi(
         if patron.isLifetime then funit
         else
           for
-            user <- userRepo.byId(patron.userId).orFail(s"Missing user for $patron")
+            user <- userApi.byId(patron.userId).orFail(s"Missing user for $patron")
             _    <- setDbUserPlan(user.mapPlan(_.disable))
             _    <- mongo.patron.update.one($id(user.id), patron.removeStripe)
           yield
@@ -223,7 +225,7 @@ final class PlanApi(
       pricing    <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
       usd        <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
       isLifetime <- pricingApi.isLifetime(money)
-      giftTo     <- ipn.giftTo.so(userRepo.byId)
+      giftTo     <- ipn.giftTo.so(userApi.byId)
       _ <-
         if key != payPalIpnKey.value then
           logger.error(s"Invalid PayPal IPN key $key from $ip ${ipn.userId} $money")
@@ -248,7 +250,7 @@ final class PlanApi(
             usd = usd
           )
           (addCharge(charge, ipn.country) >>
-            (ipn.userId.so(userRepo.byId))).flatMapz { user =>
+            (ipn.userId.so(userApi.byId))).flatMapz { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
               case None =>
@@ -292,7 +294,7 @@ final class PlanApi(
     def userSubscription(user: User): Fu[Option[PayPalSubscription]] =
       userSubscriptionId(user).flatMapz(payPalClient.getSubscription)
 
-    def createOrder(checkout: PlanCheckout, user: User, giftTo: Option[lila.user.User]) =
+    def createOrder(checkout: PlanCheckout, user: User, giftTo: Option[User]) =
       for
         isLifetime <- pricingApi.isLifetime(checkout.money)
         order      <- payPalClient.createOrder(CreatePayPalOrder(checkout, user, giftTo, isLifetime))
@@ -307,7 +309,7 @@ final class PlanApi(
       pricing    <- pricingApi.pricingFor(money.currency).orFail(s"Invalid paypal currency $money")
       usd        <- currencyApi.toUsd(money).orFail(s"Invalid paypal currency $money")
       isLifetime <- pricingApi.isLifetime(money)
-      giftTo     <- order.giftTo.so(userRepo.byId)
+      giftTo     <- order.giftTo.so(userApi.byId)
       _ <-
         if !pricing.valid(money) then
           logger.info(s"Ignoring invalid paypal amount from $ip ${order.userId} $money ${orderId}")
@@ -321,7 +323,7 @@ final class PlanApi(
             usd = usd
           )
           (addCharge(charge, order.country) >>
-            (order.userId.so(userRepo.byId))).flatMapz { user =>
+            (order.userId.so(userApi.byId))).flatMapz { user =>
             giftTo match
               case Some(to) => gift(user, to, money)
               case None =>
@@ -379,13 +381,13 @@ final class PlanApi(
     yield ()
 
     def subscriptionUser(id: PayPalSubscriptionId): Fu[Option[User]] =
-      subscriptionIdPatron(id).flatMap { _.map(_.id).so(userRepo.byId) }
+      subscriptionIdPatron(id).flatMap { _.map(_.id).so(userApi.byId) }
 
     // only used for automatically renewing subscription charges
     def onCaptureCompleted(capture: PayPalCapture) =
       capture.subscriptionId.map { subId =>
         for
-          user <- userRepo.byId(capture.userId).orFail(s"Missing user for paypal capture $capture")
+          user <- userApi.byId(capture.userId).orFail(s"Missing user for paypal capture $capture")
           // look for previous charge
           previous <- mongo.charge
             // hit the userId index
@@ -495,21 +497,20 @@ final class PlanApi(
     }
 
   def setLifetime(user: User): Funit =
-    if user.plan.isEmpty then Bus.publish(lila.core.actorApi.plan.MonthInc(user.id, 0), "plan")
-    (userRepo.setPlan(
-      user,
-      user.plan.enable
-    ) >> mongo.patron.update
-      .one(
-        $id(user.id),
-        $set(
-          "lastLevelUp" -> nowInstant,
-          "lifetime"    -> true,
-          "free"        -> Patron.Free(nowInstant, by = none)
-        ),
-        upsert = true
-      )
-      .void).andDo(lightUserApi.invalidate(user.id))
+    if user.plan.isEmpty then Bus.publish(lila.core.misc.plan.MonthInc(user.id, 0), "plan")
+    for
+      _ <- userApi.setPlan(user, user.plan.enable.some)
+      _ <- mongo.patron.update
+        .one(
+          $id(user.id),
+          $set(
+            "lastLevelUp" -> nowInstant,
+            "lifetime"    -> true,
+            "free"        -> Patron.Free(nowInstant, by = none)
+          ),
+          upsert = true
+        )
+    yield lightUserApi.invalidate(user.id)
 
   def freeMonth(user: User): Funit =
     mongo.patron.update
@@ -556,7 +557,7 @@ final class PlanApi(
       .one[Patron]
 
   def remove(user: User): Funit = for
-    _ <- userRepo.unsetPlan(user)
+    _ <- userApi.setPlan(user, none)
     _ <- mongo.patron.unsetField($id(user.id), "lifetime")
   yield lightUserApi.invalidate(user.id)
 
@@ -596,7 +597,7 @@ final class PlanApi(
       .map(_.flatMap(_.toGift))
 
   private[plan] def onEmailChange(userId: UserId, email: EmailAddress): Funit =
-    userRepo.enabledById(userId).flatMapz { user =>
+    userApi.enabledById(userId).flatMapz { user =>
       stripe.userCustomer(user).flatMap {
         _.filterNot(_.email.has(email.value)).so {
           stripeClient.setCustomerEmail(_, email)
@@ -629,7 +630,7 @@ final class PlanApi(
 
   private def filterUserIds(ids: List[UserId]): Fu[List[UserId]] =
     val dedup = ids.distinct
-    userRepo.filterByEnabledPatrons(dedup).map { enableds =>
+    userApi.filterByEnabledPatrons(dedup).map { enableds =>
       dedup.filter(enableds.contains)
     }
 
@@ -658,7 +659,7 @@ final class PlanApi(
       monthlyGoalApi.get
         .map: m =>
           Bus.publish(
-            lila.core.actorApi.plan.ChargeEvent(
+            lila.core.misc.plan.ChargeEvent(
               username = charge.userId.map(lightUserApi.syncFallback).fold(UserName("Anonymous"))(_.name),
               cents = charge.usd.cents,
               percent = m.percent,
@@ -675,7 +676,7 @@ final class PlanApi(
         .void
 
   private def setDbUserPlan(user: User): Funit =
-    userRepo.setPlan(user, user.plan).andDo(lightUserApi.invalidate(user.id))
+    userApi.setPlan(user, user.plan.some).andDo(lightUserApi.invalidate(user.id))
 
   def userPatron(user: User): Fu[Option[Patron]] = mongo.patron.one[Patron]($id(user.id))
 

@@ -1,9 +1,8 @@
-package views.html.tv
-
-import controllers.routes
+package views.tv
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
+import lila.game.GameExt.perfType
 
 object side:
 
@@ -12,7 +11,7 @@ object side:
       champions: lila.tv.Tv.Champions,
       baseUrl: String
   ): Frag =
-    views.html.site.bits.subnav(
+    lila.ui.bits.subnav(
       lila.tv.Tv.Channel.list.map: c =>
         a(
           href := s"$baseUrl/${c.key}",
@@ -42,18 +41,18 @@ object side:
 
   private val separator = " • "
 
-  def meta(pov: lila.game.Pov)(using Context): Frag =
+  def meta(pov: Pov)(using Context): Frag =
     import pov.*
     div(cls := "game__meta")(
       st.section(
-        div(cls := "game__meta__infos", dataIcon := views.html.game.bits.gameIcon(game))(
+        div(cls := "game__meta__infos", dataIcon := views.game.ui.gameIcon(game))(
           div(cls := "header")(
             div(cls := "setup")(
-              views.html.game.widgets.showClock(game),
+              views.game.widgets.showClock(game),
               separator,
               (if game.rated then trans.site.rated else trans.site.casual).txt(),
               separator,
-              views.html.game.bits.variantLink(game.variant, game.perfType, shortName = true)
+              variantLink(game.variant, game.perfType, shortName = true)
             )
           )
         ),
@@ -64,14 +63,14 @@ object side:
       ),
       game.tournamentId.map: tourId =>
         st.section(cls := "game__tournament-link"):
-          a(href := routes.Tournament.show(tourId), dataIcon := licon.Trophy, cls := "text"):
-            tournamentIdToName(tourId)
+          a(href := routes.Tournament.show(tourId), dataIcon := Icon.Trophy, cls := "text"):
+            views.tournament.ui.tournamentIdToName(tourId)
     )
 
   def sides(
-      pov: lila.game.Pov,
+      pov: Pov,
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(using Context) =
     div(cls := "sides"):
       cross.map:
-        views.html.game.crosstable(_, pov.gameId.some)
+        views.game.ui.crosstable(_, pov.gameId.some)

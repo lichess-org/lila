@@ -18,4 +18,6 @@ final class Env(
 
   private val coll = db(CollName("shutup"))
 
+  val analyser = Analyser
+
   val api = wire[ShutupApi]

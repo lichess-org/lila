@@ -6,8 +6,7 @@ import lila.common.Bus
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
-import lila.security.Granter as MasterGranter
-import lila.user.{ Me, User, given }
+import lila.core.perm.Granter as MasterGranter
 import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
 
 final class ForumPostApi(
@@ -17,8 +16,8 @@ final class ForumPostApi(
     mentionNotifier: MentionNotifier,
     modLog: lila.core.mod.LogApi,
     config: ForumConfig,
-    spam: lila.security.Spam,
-    promotion: lila.security.PromotionApi,
+    spam: lila.core.security.SpamApi,
+    promotion: lila.core.security.PromotionApi,
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage
 )(using Executor)(using scheduler: Scheduler)
@@ -53,7 +52,7 @@ final class ForumPostApi(
             _ <- topicRepo.coll.update.one($id(topic.id), topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
           yield
-            promotion.save(post.text)
+            promotion.save(me, post.text)
             if post.isTeam
             then shutupApi.teamForumMessage(me, post.text)
             else shutupApi.publicText(me, post.text, PublicSource.Forum(post.id))
@@ -68,7 +67,7 @@ final class ForumPostApi(
                 .timeline(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds))
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(CreatePost(post.mini), "forumPost")
+            Bus.chan.forumPost(CreatePost(post.mini))
             post
       }
     }
@@ -86,7 +85,7 @@ final class ForumPostApi(
             for
               _ <- postRepo.coll.update.one($id(post.id), newPost)
               _ <- newPost.isAnonModPost.so(logAnonPost(newPost, edit = true))
-            yield promotion.save(newPost.text)
+            yield promotion.save(me, newPost.text)
           save.inject(newPost)
       }
 
@@ -222,13 +221,13 @@ final class ForumPostApi(
       .one($id(post.id), post.erase)
       .void
       .andDo:
-        Bus.publish(ErasePost(post.id), "forumPost")
+        Bus.chan.forumPost(ErasePost(post.id))
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
       .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
       .map: ids =>
-        Bus.publish(ErasePosts(ids), "forumPost")
+        Bus.chan.forumPost(ErasePosts(ids))
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId).flatMapz { post =>

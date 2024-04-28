@@ -1,27 +1,25 @@
-package views.html.practice
+package views.practice
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object config:
 
   def apply(structure: lila.practice.PracticeStructure, form: Form[?])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Practice structure",
       moreCss = cssTag("mod.misc")
     )(
       main(cls := "page-menu")(
-        views.html.mod.menu("practice"),
+        views.mod.ui.menu("practice"),
         div(cls := "practice_config page-menu__content box box-pad")(
           h1(cls := "box__top")("Practice config"),
           div(cls := "both")(
             postForm(action := routes.Practice.configSave)(
               textarea(cls := "practice_text", name := "text")(form("text").value),
               errMsg(form("text")),
-              submitButton(cls := "button button-fat text", dataIcon := licon.Checkmark)("Save")
+              submitButton(cls := "button button-fat text", dataIcon := Icon.Checkmark)("Save")
             ),
             div(cls := "preview")(
               ol(

@@ -2,7 +2,7 @@ package lila.swiss
 
 import lila.common.{ Bus, LilaScheduler }
 import lila.db.dsl.{ *, given }
-import lila.core.actorApi.push.TourSoon
+import lila.core.misc.push.TourSoon
 
 final private class SwissNotify(mongo: SwissMongo)(using Executor, Scheduler):
   import BsonHandlers.given

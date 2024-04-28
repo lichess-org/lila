@@ -12,7 +12,7 @@ import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
-import { defined, prop, Prop } from 'common';
+import { defined, prop } from 'common';
 import {
   RacerOpts,
   RacerData,
@@ -42,7 +42,7 @@ export default class RacerCtrl implements PuzCtrl {
   boost: Boost = new Boost();
   skipAvailable = true;
   knowsSkip = storedBooleanProp('racer.skip', false);
-  ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
+  ground = prop<CgApi | false>(false);
   flipped = false;
   redrawInterval: Timeout;
 

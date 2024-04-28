@@ -4,7 +4,7 @@ import * as util from '../util';
 import * as scoring from '../score';
 import * as stages from '../stage/list';
 import { MapCtrl } from './mapMain';
-import { StageProgress } from '../main';
+import { StageProgress } from '../learn';
 
 function makeStars(nb: number) {
   const stars = [];

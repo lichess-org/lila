@@ -2,25 +2,13 @@ package lila.user
 
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
-import play.api.Configuration
-import play.api.libs.ws.StandaloneWSClient
 
-import lila.common.autoconfig.*
-import lila.common.config.given
 import lila.core.config.*
-
-private class UserConfig(
-    @ConfigName("online.ttl") val onlineTtl: FiniteDuration,
-    @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
-)
-
-object A:
-  object B:
-    val foo = "bar"
+import lila.core.perf
+import lila.core.userId
 
 @Module
 final class Env(
-    appConfig: Configuration,
     db: lila.db.Db,
     yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     mongoCache: lila.memo.MongoCache.Api,
@@ -28,9 +16,7 @@ final class Env(
     isOnline: lila.core.socket.IsOnline,
     onlineIds: lila.core.socket.OnlineIds,
     assetBaseUrlInternal: AssetBaseUrlInternal
-)(using Executor, Scheduler, StandaloneWSClient, akka.stream.Materializer, play.api.Mode):
-
-  private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   val perfsRepo = UserPerfsRepo(db(CollName("user_perf")))
   val repo      = UserRepo(db(CollName("user4")))
@@ -47,9 +33,6 @@ final class Env(
     isBotSync
   }
 
-  lazy val botIds     = GetBotIds(() => cached.botIds.get {})
-  lazy val rankingsOf = RankingsOf(cached.rankingsOf)
-
   lazy val jsonView = wire[JsonView]
 
   lazy val noteApi = NoteApi(repo, db(CollName("note")))
@@ -60,21 +43,15 @@ final class Env(
 
   lazy val rankingApi = wire[RankingApi]
 
-  lazy val cached: Cached = wire[Cached]
-
-  lazy val passwordHasher = PasswordHasher(
-    secret = config.passwordBPassSecret,
-    logRounds = 10,
-    hashTimer = lila.common.Chronometer.syncMon(_.user.auth.hashTime)
-  )
-
-  lazy val authenticator = wire[Authenticator]
+  lazy val cached: Cached                           = wire[Cached]
+  def rankingsOf: UserId => lila.rating.UserRankMap = cached.rankingsOf
 
   lazy val forms = wire[UserForm]
 
   val flairApi = wire[FlairApi]
-
   export flairApi.{ flairOf, flairsOf }
+
+  val flagApi: lila.core.user.FlagApi = Flags
 
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> { case lila.core.mod.MarkCheater(userId, true) =>

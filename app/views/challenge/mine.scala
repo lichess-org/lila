@@ -1,9 +1,7 @@
-package views.html.challenge
-
-import controllers.routes
+package views.challenge
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.challenge.Challenge.Status
 import lila.core.LightUser
 
@@ -19,11 +17,11 @@ object mine:
 
     val cancelForm =
       postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr"):
-        submitButton(cls := "button button-red text", dataIcon := licon.X)(trans.site.cancel())
+        submitButton(cls := "button button-red text", dataIcon := Icon.X)(trans.site.cancel())
 
-    views.html.base.layout(
-      title = challengeTitle(c),
-      openGraph = challengeOpenGraph(c).some,
+    views.base.layout(
+      title = bits.challengeTitle(c),
+      openGraph = bits.challengeOpenGraph(c).some,
       pageModule = bits.jsModule(c, json, owner = true).some,
       moreCss = cssTag("challenge.page")
     ):
@@ -41,7 +39,7 @@ object mine:
                   div(cls := "waiting")(
                     userIdLink(destId.some, cssClass = "target".some),
                     if c.clock.isEmpty then
-                      div(cls := "correspondence-waiting text", dataIcon := licon.Checkmark):
+                      div(cls := "correspondence-waiting text", dataIcon := Icon.Checkmark):
                         "Challenge sent"
                     else spinner,
                     p(trans.site.waitingForOpponent())
@@ -71,7 +69,7 @@ object mine:
                             title    := "Copy URL",
                             cls      := "copy button",
                             dataRel  := "challenge-id",
-                            dataIcon := licon.Link
+                            dataIcon := Icon.Link
                           )
                         ),
                         p(trans.site.theFirstPersonToComeOnThisUrlWillPlayWithYou())
@@ -109,12 +107,11 @@ object mine:
                       )
                     )
                 },
-              c.notableInitialFen.map { fen =>
+              c.notableInitialFen.map: fen =>
                 frag(
                   br,
-                  div(cls := "board-preview", views.html.board.bits.mini(fen.board, c.finalColor)(div))
-                )
-              },
+                  div(cls := "board-preview", chessgroundMini(fen.board, c.finalColor)(div))
+                ),
               (!c.isOpen).option(cancelForm)
             )
           case Status.Declined =>

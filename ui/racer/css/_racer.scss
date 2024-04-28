@@ -14,7 +14,7 @@
   grid-template-areas: 'board' 'race' 'side' 'history';
 
   @include mq-at-least-col2 {
-    grid-template-columns: var(--col2-uniboard-width) $col2-uniboard-table;
+    grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
     grid-template-rows: auto fit-content(0);
     grid-template-areas:
       'board  side'

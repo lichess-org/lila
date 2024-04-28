@@ -2,18 +2,15 @@ package controllers
 
 import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
-import views.html
 
 import lila.app.{ *, given }
 import lila.challenge.Challenge as ChallengeModel
 import lila.challenge.Challenge.Id as ChallengeId
-
-import lila.core.{ Bearer, IpAddress, Preload }
-import lila.game.{ AnonCookie, Pov }
-import lila.oauth.{ EndpointScopes, OAuthScope }
+import lila.core.net.{ Bearer, IpAddress }
+import lila.game.{ AnonCookie }
+import lila.oauth.{ EndpointScopes, OAuthScope, OAuthServer }
 import lila.setup.ApiConfig
 import lila.core.socket.SocketVersion
-import lila.user.User as UserModel
 
 final class Challenge(
     env: Env,
@@ -67,14 +64,14 @@ final class Challenge(
                 .flatMap(env.user.lightUserApi.asyncManyFallback)
                 .flatMap: friends =>
                   error match
-                    case Some(e) => BadRequest.page(html.challenge.mine(c, json, friends, e.some, color))
-                    case None    => Ok.page(html.challenge.mine(c, json, friends, none, color))
+                    case Some(e) => BadRequest.page(views.challenge.mine(c, json, friends, e.some, color))
+                    case None    => Ok.page(views.challenge.mine(c, json, friends, none, color))
             else
               Ok.pageAsync:
                 c.challengerUserId
-                  .so(env.user.api.withPerf(_, c.perfType))
+                  .so(env.user.api.byIdWithPerf(_, c.perfType))
                   .map:
-                    html.challenge.theirs(c, json, _, color)
+                    views.challenge.theirs(c, json, _, color)
           ,
           json = Ok(json)
         ).flatMap(withChallengeAnonCookie(mine && c.challengerIsAnon, c, owner = true))
@@ -101,7 +98,7 @@ final class Challenge(
             case Right(Some(pov)) =>
               negotiateApi(
                 html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("white")(_.name))),
-                api = _ => env.api.roundApi.player(pov, Preload.none, none).map { Ok(_) }
+                api = _ => env.api.roundApi.player(pov, lila.core.data.Preload.none, none).map { Ok(_) }
               ).flatMap(withChallengeAnonCookie(ctx.isAnon, c, owner = false))
             case invalid =>
               negotiate(
@@ -195,7 +192,7 @@ final class Challenge(
         api.activeByIdFor(id, me).flatMap {
           case Some(c) => api.decline(c, ChallengeModel.DeclineReason.default).inject(jsonOkResult)
           case None =>
-            import lila.core.actorApi.map.Tell
+            import lila.core.misc.map.Tell
             import lila.core.round.Abort
             import lila.core.round.AbortForce
             env.game.gameRepo
@@ -215,7 +212,7 @@ final class Challenge(
                     case Some(bearer) =>
                       val required = OAuthScope.select(_.Challenge.Write).into(EndpointScopes)
                       env.oAuth.server.auth(bearer, required, ctx.req.some).map {
-                        case Right(access) if pov.opponent.isUser(access.user) =>
+                        case Right(access) if pov.opponent.isUser(access.me) =>
                           lila.common.Bus.publish(Tell(id.value, AbortForce), "roundSocket")
                           jsonOkResult
                         case Right(_)  => BadRequest(jsonError("Not the opponent token"))
@@ -244,13 +241,14 @@ final class Challenge(
           case Right((u1, u2)) =>
             env.game.gameRepo
               .game(id)
-              .flatMapz { g =>
-                env.round.proxyRepo.upgradeIfPresent(g).dmap(some).dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
-              }
-              .orNotFound { game =>
-                env.round.tellRound(game.id, lila.core.round.StartClock)
+              .flatMapz: g =>
+                env.round.proxyRepo
+                  .upgradeIfPresent(g)
+                  .dmap(some)
+                  .dmap(_.filter(_.hasUserIds(u1.id, u2.id)))
+              .orNotFound: game =>
+                env.round.roundApi.tell(game.id, lila.core.round.StartClock)
                 jsonOkResult
-              }
 
   private val ChallengeIpRateLimit = lila.memo.RateLimit[IpAddress](
     500,
@@ -338,7 +336,7 @@ final class Challenge(
         )
     }
 
-  private def makeOauthChallenge(config: ApiConfig, orig: UserModel, dest: UserModel) =
+  private def makeOauthChallenge(config: ApiConfig, orig: lila.user.User, dest: lila.user.User) =
     import lila.challenge.Challenge.*
     val timeControl = makeTimeControl(config.clock, config.days)
     env.user.perfsRepo
@@ -381,7 +379,7 @@ final class Challenge(
     NoBot:
       Found(env.game.gameRepo.game(gameId)): g =>
         g.opponentOf(me).flatMap(_.userId).so(env.user.repo.byId).orNotFound { opponent =>
-          env.challenge.granter.isDenied(opponent, g.perfType).flatMap {
+          env.challenge.granter.isDenied(opponent, g.perfKey).flatMap {
             case Some(d) => BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(d)))
             case _ =>
               api.offerRematchForGame(g, me).map {

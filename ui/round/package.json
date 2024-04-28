@@ -24,12 +24,10 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/main.ts": "round",
-        "src/plugins/nvui.ts": "round.nvui",
-        "src/plugins/tour.ts": "round.tour"
-      }
-    }
+    "bundles": [
+      "src/round.ts",
+      "src/plugins/round.nvui.ts",
+      "src/plugins/round.tour.ts"
+    ]
   }
 }

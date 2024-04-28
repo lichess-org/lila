@@ -1,12 +1,8 @@
-package views.html.user.show
-
-import controllers.routes
+package views.user.show
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
-import lila.game.{ Game, Pov }
-import lila.user.User
 
 object gamesContent:
 
@@ -14,7 +10,7 @@ object gamesContent:
       u: User,
       nbs: lila.app.mashup.UserInfo.NbGames,
       pager: Paginator[Game],
-      filters: lila.app.mashup.GameFilterMenu,
+      filters: lila.game.GameFilterMenu,
       filterName: String,
       notes: Map[GameId, String]
   )(using ctx: Context) =
@@ -24,12 +20,12 @@ object gamesContent:
           a(
             cls  := s"nm-item to-${f.name}${(filters.current == f).so(" active")}",
             href := routes.User.games(u.username, f.name)
-          )(userGameFilterTitle(u, nbs, f))
+          )(page.userGameFilterTitle(u, nbs, f))
       ),
       nbs.crosstable
         .ifTrue(filters.current.name == "me")
         .map:
-          views.html.game.crosstable(_, none)
+          views.game.ui.crosstable(_, none)
       ,
       div(cls := "search__result")(
         if filterName == "search" then
@@ -39,7 +35,7 @@ object gamesContent:
                 strong(trans.search.gamesFound.plural(pager.nbResults, pager.nbResults.localize))
               ),
               div(cls := "search__rows infinite-scroll")(
-                views.html.game
+                views.game
                   .widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx.is(u)),
                 pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)
               )
@@ -56,9 +52,9 @@ object gamesContent:
               pager.currentPageResults
                 .flatMap { Pov(_, u) }
                 .map: pov =>
-                  views.html.game.mini(pov)(cls := "paginated")
+                  views.game.mini(pov)(cls := "paginated")
             else
-              views.html.game
+              views.game
                 .widgets(pager.currentPageResults, notes, user = u.some, ownerLink = ctx.is(u))
             ,
             pagerNext(pager, np => routes.User.games(u.username, filterName, np).url)

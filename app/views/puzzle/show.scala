@@ -1,10 +1,9 @@
-package views.html.puzzle
+package views.puzzle
 
-import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
+
 import lila.common.Json.given
 
 object show:
@@ -14,10 +13,10 @@ object show:
       data: JsObject,
       pref: JsObject,
       settings: lila.puzzle.PuzzleSettings,
-      langPath: Option[lila.core.LangPath] = None
+      langPath: Option[lila.ui.LangPath] = None
   )(using ctx: PageContext) =
     val isStreak = data.value.contains("streak")
-    views.html.base.layout(
+    views.base.layout(
       title = if isStreak then "Puzzle Streak" else trans.site.puzzles.txt(),
       moreCss = frag(
         cssTag("puzzle"),
@@ -25,7 +24,7 @@ object show:
         ctx.pref.hasVoice.option(cssTag("voice")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = puzzleNvuiTag,
+      modules = puzzleNvuiTag,
       pageModule = PageModule(
         "puzzle",
         Json
@@ -39,35 +38,24 @@ object show:
           .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
       ).some,
       csp = analysisCsp.some,
-      openGraph = lila.app.ui
-        .OpenGraph(
-          image = cdnUrl(
-            routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
-          ).some,
-          title =
-            if isStreak then "Puzzle Streak"
-            else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
-          description =
-            if isStreak then trans.puzzle.streakDescription.txt()
-            else
-              val findMove = puzzle.color.fold(
-                trans.puzzle.findTheBestMoveForWhite,
-                trans.puzzle.findTheBestMoveForBlack
-              )
-              s"Lichess tactic trainer: ${findMove.txt()}. Played by ${puzzle.plays} players."
-        )
-        .some,
+      openGraph = OpenGraph(
+        image = cdnUrl(
+          routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
+        ).some,
+        title =
+          if isStreak then "Puzzle Streak"
+          else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
+        url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+        description =
+          if isStreak then trans.puzzle.streakDescription.txt()
+          else
+            val findMove = puzzle.color.fold(
+              trans.puzzle.findTheBestMoveForWhite,
+              trans.puzzle.findTheBestMoveForBlack
+            )
+            s"Lichess tactic trainer: ${findMove.txt()}. Played by ${puzzle.plays} players."
+      ).some,
       zoomable = true,
       zenable = true,
       withHrefLangs = langPath
-    ) {
-      main(cls := "puzzle")(
-        st.aside(cls := "puzzle__side")(
-          div(cls := "puzzle__side__metas")
-        ),
-        div(cls := "puzzle__board main-board")(chessgroundBoard),
-        div(cls := "puzzle__tools"),
-        div(cls := "puzzle__controls")
-      )
-    }
+    )(bits.show.preload)

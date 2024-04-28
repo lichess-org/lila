@@ -19,10 +19,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/main.ts": "racer"
-      }
-    }
+    "bundles": "src/racer.ts"
   }
 }

@@ -5,7 +5,7 @@
 }
 
 .tour-spotlight {
-  @extend %flex-center-nowrap, %nowrap-hidden, %page-metal;
+  @extend %flex-center-nowrap, %page-text-shadow, %nowrap-hidden, %page-metal;
 
   flex: 0 0 auto;
   padding: 0.3em;
@@ -13,7 +13,6 @@
 
   @include transition;
 
-  text-shadow: $text-shadow;
   color: $c-font;
 
   &.invert,
@@ -38,13 +37,13 @@
     color: #fff;
     font-size: 42px;
 
-    @if $theme-light {
+    @include if-light {
       text-shadow: 1px 1px 2px $c-link;
     }
   }
 
   img.img.icon {
-    @if $theme-light {
+    @include if-light {
       filter: drop-shadow(1px 1px 1px $c-link);
     }
   }

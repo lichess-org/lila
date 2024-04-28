@@ -2,7 +2,6 @@ package lila.security
 
 import scalatags.Text.all.*
 
-import lila.core.EmailAddress
 import lila.core.config.*
 import lila.core.i18n.I18nKey.emails as trans
 import lila.mailer.Mailer
@@ -42,9 +41,7 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener.read(token).flatMapz(userRepo.enabledById).map {
-      _.filter(_.canFullyLogin)
-    }
+    tokener.read(token).flatMapz(userRepo.enabledById).map(_.filter(canFullyLogin))
 
   private val tokener = LoginToken.makeTokener(tokenerSecret, 10 minutes)
 
@@ -53,7 +50,7 @@ ${trans.common_orPaste.txt()}"""),
     import play.api.mvc.RequestHeader
     import lila.memo.RateLimit
     import lila.common.HTTPRequest
-    import lila.core.IpAddress
+    import lila.core.net.IpAddress
 
     private lazy val rateLimitPerIP = RateLimit[IpAddress](
       credits = 5,

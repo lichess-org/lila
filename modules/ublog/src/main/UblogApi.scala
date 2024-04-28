@@ -7,12 +7,11 @@ import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.Propagate
 import lila.memo.PicfitApi
-import lila.user.{ Me, User, UserApi }
 
 final class UblogApi(
     colls: UblogColls,
     rank: UblogRank,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     picfitApi: PicfitApi,
     shutupApi: ShutupApi,
     irc: lila.core.irc.IrcApi
@@ -50,7 +49,7 @@ final class UblogApi(
           lila.common.Bus.named.timeline(
             Propagate(
               lila.core.timeline.UblogPost(user.id, post.id, post.slug, post.title)
-            ).toFollowersOf(user.id)
+            ).toFollowersOf(post.created.by)
           )
           shutupApi.publicText(user.id, post.allText, PublicSource.Ublog(post.id))
           if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)

@@ -18,8 +18,3 @@ private val lichessCodes: Map[String, Lang] = Map(
   "kb" -> Lang("kab", "DZ"),
   "tc" -> Lang("zh", "CN")
 )
-
-// ffs
-def fixJavaLanguage(lang: Lang): Language =
-  Language(lang).map: l =>
-    if l == "in" then "id" else l

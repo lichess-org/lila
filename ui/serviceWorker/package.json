@@ -9,10 +9,6 @@
     "types-serviceworker": "^0.0.1"
   },
   "lichess": {
-    "modules": {
-      "iife": {
-        "src/main.ts": "serviceWorker"
-      }
-    }
+    "bundles": "src/serviceWorker.ts"
   }
 }

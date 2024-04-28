@@ -4,10 +4,10 @@ import akka.pattern.ask
 import play.api.data.*
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
+import lila.core.id.GameFullId
 
 import Forms.*
 
@@ -29,7 +29,7 @@ final class Main(
         _ => BadRequest,
         (enable, redirect) =>
           Redirect(redirect).withCookies:
-            lila.api.ApiConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
+            lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
       )
 
   def handlerNotFound(using RequestHeader) =
@@ -42,10 +42,10 @@ final class Main(
     }
 
   def webmasters = Open:
-    Ok.page(html.site.page.webmasters)
+    Ok.page(views.site.page.webmasters)
 
   def lag = Open:
-    Ok.page(html.site.lag())
+    Ok.page(views.site.lag())
 
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
@@ -59,10 +59,10 @@ final class Main(
 
   private def serveMobile(using Context) =
     pageHit
-    FoundPage(env.api.cmsRenderKey("mobile-apk"))(html.mobile.apply)
+    FoundPage(env.api.cmsRenderKey("mobile-apk"))(views.mobile.apply)
 
   def dailyPuzzleSlackApp = Open:
-    Ok.page(html.site.dailyPuzzleSlackApp())
+    Ok.page(views.site.dailyPuzzleSlackApp())
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -76,16 +76,16 @@ final class Main(
   val robots = Anon:
     Ok:
       if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-      then lila.api.StaticContent.robotsTxt
+      then lila.web.StaticContent.robotsTxt
       else "User-agent: *\nDisallow: /"
 
   def manifest = Anon:
     JsonOk:
-      lila.api.StaticContent.manifest(env.net)
+      lila.web.StaticContent.manifest(env.net)
 
   def getFishnet = Open:
     pageHit
-    Ok.page(html.site.bits.getFishnet())
+    Ok.page(views.site.bits.getFishnet())
 
   def costs = Anon:
     pageHit
@@ -99,22 +99,22 @@ final class Main(
 
   def contact = Open:
     pageHit
-    Ok.page(html.site.contact())
+    Ok.page(views.site.page.contact)
 
   def faq = Open:
     pageHit
-    Ok.page(html.site.faq())
+    Ok.page(views.site.page.faq)
 
   def temporarilyDisabled(path: String) = Open:
     pageHit
-    NotImplemented.page(html.site.message.temporarilyDisabled)
+    NotImplemented.page(views.site.message.temporarilyDisabled)
 
   def keyboardMoveHelp = Open:
-    Ok.page(html.site.help.keyboardMove)
+    Ok.page(lila.web.views.help.keyboardMove)
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move" => Ok.page(html.site.help.voiceMove)
+      case "move" => Ok.page(lila.web.views.help.voiceMove)
       case _      => NotFound(s"Unknown voice module: $module")
 
   def movedPermanently(to: String) = Anon:
@@ -159,7 +159,7 @@ final class Main(
     then lila.mon.link.external(tag, ctx.isAuth).increment()
     Redirect(url)
 
-  lila.memo.RateLimit.composite[lila.core.IpAddress](
+  lila.memo.RateLimit.composite[lila.core.net.IpAddress](
     key = "image.upload.ip"
   )(
     ("fast", 10, 2.minutes),

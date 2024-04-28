@@ -3,7 +3,6 @@ package controllers
 import chess.format.Fen
 import chess.variant.Variant
 import play.api.libs.json.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
@@ -35,10 +34,10 @@ final class Editor(env: Env) extends LilaController(env):
       .filter(_.nonEmpty)
       .map(Fen.Full.clean)
     Ok.page:
-      html.board.editor(fen, positionsJson, endgamePositionsJson)
+      views.board.editor(fen, positionsJson, endgamePositionsJson)
 
   def data = Open:
-    JsonOk(html.board.editor.jsData())
+    JsonOk(views.board.editor.jsData())
 
   def game(id: GameId) = Open:
     Found(env.game.gameRepo.game(id)): game =>
@@ -51,4 +50,4 @@ final class Editor(env: Env) extends LilaController(env):
     if fen == Fen.initial && variant.standard then routes.Editor.index.url
     else
       val params = variant.exotic.so(s"?variant=${variant.key}")
-      routes.Editor.load(lila.common.String.underscoreFen(fen)).url + params
+      routes.Editor.load(lila.ui.ChessHelper.underscoreFen(fen)).url + params

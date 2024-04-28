@@ -1,15 +1,13 @@
-package views.html
-package coach
+package views.coach
 
-import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.LangPath
+
 import scalalib.paginator.Paginator
 import lila.i18n.LangList
-import lila.user.{ Flag, Flags }
+import lila.core.user.Flag
+import lila.user.Flags
 
 object index:
 
@@ -23,11 +21,11 @@ object index:
       countries: lila.coach.CountrySelection,
       country: Option[Flag]
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = lichessCoaches.txt(),
       moreCss = cssTag("coach"),
-      moreJs = infiniteScrollTag,
-      withHrefLangs = LangPath(routes.Coach.all(1)).some
+      modules = infiniteScrollEsmInit,
+      withHrefLangs = lila.ui.LangPath(routes.Coach.all(1)).some
     ):
       val langSelections = ("all", "All languages") :: lila.i18n.LangPicker
         .sortFor(LangList.popularNoRegion.filter(l => langCodes(l.code)), ctx.req)
@@ -47,7 +45,7 @@ object index:
           boxTop(
             h1(lichessCoaches()),
             div(cls := "box__top__actions")(
-              views.html.base.bits.mselect(
+              lila.ui.bits.mselect(
                 "coach-lang",
                 lang.fold("All languages")(LangList.name),
                 langSelections.map: (code, name) =>
@@ -56,7 +54,7 @@ object index:
                     cls  := (code == lang.fold("all")(_.code)).option("current")
                   )(name)
               ),
-              views.html.base.bits.mselect(
+              lila.ui.bits.mselect(
                 "coach-country",
                 country.fold("All countries")(Flags.name),
                 countries.value.map: (code, name) =>
@@ -65,7 +63,7 @@ object index:
                     cls  := (code == country.fold("all")(_.code)).option("current")
                   )(name)
               ),
-              views.html.base.bits.mselect(
+              lila.ui.bits.mselect(
                 "coach-sort",
                 order.name,
                 lila.coach.CoachPager.Order.list.map: o =>

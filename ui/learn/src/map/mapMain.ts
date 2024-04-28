@@ -2,7 +2,7 @@ import mapView from './mapView';
 import * as stages from '../stage/list';
 import * as scoring from '../score';
 import * as timeouts from '../timeouts';
-import { LearnOpts, LearnProgress } from '../main';
+import { LearnOpts, LearnProgress } from '../learn';
 
 export interface MapCtrl {
   opts: LearnOpts;

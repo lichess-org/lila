@@ -1,11 +1,8 @@
-package views
-package html.site
-
-import controllers.routes
+package views.site
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.perf.PerfType
+
+import lila.rating.PerfType
 
 object variant:
 
@@ -15,13 +12,13 @@ object variant:
       perfType: PerfType
   )(using PageContext) =
     layout(
-      active = perfType.some,
+      active = perfType.key.some,
       title = s"${variant.name} • ${variant.title}",
       klass = "box-pad page variant"
     )(
       boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.name)),
       h2(cls := "headline")(variant.title),
-      div(cls := "body expand-text")(views.html.cms.render(p))
+      div(cls := "body expand-text")(views.cms.render(p))
     )
 
   def home(using PageContext) =
@@ -34,9 +31,10 @@ object variant:
         "Chess variants introduce variations of or new mechanics in regular Chess that gives it a unique, compelling, or sophisticated gameplay. Are you ready to think outside the box?"
       ),
       div(cls := "variants")(
-        lila.rating.PerfType.variants.map: pt =>
-          val variant = lila.rating.PerfType.variantOf(pt)
-          a(cls := "variant text box__pad", href := routes.Cms.variant(pt.key), dataIcon := pt.icon):
+        lila.rating.PerfType.variants.map: pk =>
+          val variant = lila.rating.PerfType.variantOf(pk)
+          val pt      = lila.rating.PerfType(pk)
+          a(cls := "variant text box__pad", href := routes.Cms.variant(pk), dataIcon := pt.icon):
             span(
               h2(variant.name),
               h3(cls := "headline")(variant.title)
@@ -47,21 +45,22 @@ object variant:
   private def layout(
       title: String,
       klass: String,
-      active: Option[PerfType] = None,
-      openGraph: Option[lila.app.ui.OpenGraph] = None
+      active: Option[PerfKey] = None,
+      openGraph: Option[OpenGraph] = None
   )(body: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("variant"),
-      moreJs = jsModule("expandText"),
+      modules = EsmInit("bits.expandText"),
       openGraph = openGraph
     ):
       main(cls := "page-menu")(
-        views.html.site.bits.pageMenuSubnav(
-          lila.rating.PerfType.variants.map { pt =>
+        lila.ui.bits.pageMenuSubnav(
+          lila.rating.PerfType.variants.map { pk =>
+            val pt = lila.rating.PerfType(pk)
             a(
-              cls      := List("text" -> true, "active" -> active.has(pt)),
-              href     := routes.Cms.variant(pt.key),
+              cls      := List("text" -> true, "active" -> active.contains(pk)),
+              href     := routes.Cms.variant(pk),
               dataIcon := pt.icon
             )(pt.trans)
           }

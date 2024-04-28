@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">සාදරයෙන් පිළිගනිමු!</string>
+  <string name="welcomeToLichess">Lichess.org වෙත සාදරයෙන් පිළිගනිමු!</string>
+  <string name="thisIsYourProfilePage">මෙය ඔබගේ Profile පිටුවයි.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">දරුවෙකු මෙම ගිණුම භාවිතා කරයිද? ඔබට %s සබල කිරීමට අවශ්‍ය විය හැක.</string>
+  <string name="whatNowSuggestions">දැන් මොකක්ද? මෙන්න යෝජනා කිහිපයක්:</string>
+  <string name="learnChessRules">චෙස් නීති ඉගෙන ගන්න</string>
+  <string name="improveWithChessTacticsPuzzles">චෙස් උපක්‍රම Puzzle සමඟින් වැඩි දියුණු වෙන්න.</string>
+  <string name="playTheArtificialIntelligence">කෘතිම බුද්ධිය සෙල්ලම් කරන්න.</string>
+  <string name="playOpponentsFromAroundTheWorld">ලොව පුරා සිටින විරුද්ධවාදීන් සෙල්ලම් කරන්න.</string>
+  <string name="followYourFriendsOnLichess">Lichess හි ඔබේ මිතුරන් follow කරන්න.</string>
+  <string name="playInTournaments">තරඟාවලි වල ක්‍රීඩා කරන්න.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">%1$s සහ %2$s වෙතින් ඉගෙන ගන්න.</string>
+  <string name="configureLichess">Lichess ඔබේ අභිමතය පරිදි වින්‍යාස කරන්න.</string>
+  <string name="exploreTheSiteAndHaveFun">වෙබ් අඩවිය ගවේෂණය කර විනෝද වන්න :)</string>
+</resources>

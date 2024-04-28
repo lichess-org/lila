@@ -1,10 +1,9 @@
 package lila.challenge
 
 import lila.core.i18n.I18nKey.challenge as trans
-import lila.pref.Pref
-import lila.core.perf.PerfType
-import lila.relation.{ Block, Follow }
-import lila.user.{ Me, User }
+import lila.rating.PerfType
+import lila.core.relation.Relation.{ Block, Follow }
+
 import lila.core.i18n.Translate
 
 case class ChallengeDenied(dest: User, reason: ChallengeDenied.Reason)
@@ -34,49 +33,49 @@ object ChallengeDenied:
       case Reason.SelfChallenge  => "You cannot challenge yourself."
 
 final class ChallengeGranter(
-    prefApi: lila.pref.PrefApi,
-    perfsRepo: lila.user.UserPerfsRepo,
-    relationApi: lila.relation.RelationApi
+    prefApi: lila.core.pref.PrefApi,
+    userApi: lila.core.user.UserApi,
+    relationApi: lila.core.relation.RelationApi
 ):
 
   import ChallengeDenied.Reason.*
 
   val ratingThreshold = 300
 
-  def isDenied(dest: User, perfType: PerfType)(using
+  def isDenied(dest: User, perfKey: PerfKey)(using
       Executor
   )(using me: Option[Me]): Fu[Option[ChallengeDenied]] = me
     .fold[Fu[Option[ChallengeDenied.Reason]]] {
-      prefApi.get(dest).map(_.challenge).map {
-        case Pref.Challenge.ALWAYS => none
-        case _                     => YouAreAnon.some
+      prefApi.getChallenge(dest.id).map {
+        case lila.core.pref.Challenge.ALWAYS => none
+        case _                               => YouAreAnon.some
       }
     } { from =>
       type Res = Option[ChallengeDenied.Reason]
       given Conversion[Res, Fu[Res]] = fuccess
-      relationApi.fetchRelation(dest, from).zip(prefApi.get(dest).map(_.challenge)).flatMap {
+      relationApi.fetchRelation(dest.id, from.userId).zip(prefApi.getChallenge(dest.id)).flatMap {
         case (Some(Block), _)                                  => YouAreBlocked.some
-        case (_, Pref.Challenge.NEVER)                         => TheyDontAcceptChallenges.some
+        case (_, lila.core.pref.Challenge.NEVER)               => TheyDontAcceptChallenges.some
         case (Some(Follow), _)                                 => none // always accept from followed
         case (_, _) if from.marks.engine && !dest.marks.engine => YouAreBlocked.some
-        case (_, Pref.Challenge.FRIEND)                        => FriendsOnly.some
-        case (_, Pref.Challenge.RATING) =>
-          perfsRepo
-            .perfsOf(from.value -> dest, _.sec)
+        case (_, lila.core.pref.Challenge.FRIEND)              => FriendsOnly.some
+        case (_, lila.core.pref.Challenge.RATING) =>
+          userApi
+            .perfsOf(from.value -> dest, primary = false)
             .map: (fromPerfs, destPerfs) =>
-              if fromPerfs(perfType).provisional || destPerfs(perfType).provisional
-              then RatingIsProvisional(perfType).some
+              if fromPerfs(perfKey).provisional || destPerfs(perfKey).provisional
+              then RatingIsProvisional(perfKey).some
               else
                 val diff =
-                  math.abs(fromPerfs(perfType).intRating.value - destPerfs(perfType).intRating.value)
-                (diff > ratingThreshold).option(RatingOutsideRange(perfType))
-        case (_, Pref.Challenge.REGISTERED) => none
-        case _ if from == dest              => SelfChallenge.some
-        case _                              => none
+                  math.abs(fromPerfs(perfKey).intRating.value - destPerfs(perfKey).intRating.value)
+                (diff > ratingThreshold).option(RatingOutsideRange(perfKey))
+        case (_, lila.core.pref.Challenge.REGISTERED) => none
+        case _ if from == dest                        => SelfChallenge.some
+        case _                                        => none
       }
     }
     .map:
-      case None if dest.isBot && perfType == PerfType.UltraBullet => BotUltraBullet.some
-      case res                                                    => res
+      case None if dest.isBot && perfKey == PerfKey.ultraBullet => BotUltraBullet.some
+      case res                                                  => res
     .map:
       _.map { ChallengeDenied(dest, _) }

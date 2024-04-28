@@ -1,6 +1,7 @@
 import { Attrs, h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import DasherCtrl, { Mode } from './dasher';
+import { Mode } from './interfaces';
+import { DasherCtrl } from './ctrl';
 import { view as pingView } from './ping';
 import { bind } from 'common/snabbdom';
 

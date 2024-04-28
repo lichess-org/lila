@@ -1,7 +1,5 @@
 package lila.insight
 
-import lila.game.Pov
-
 case class Answer[X](
     question: Question[X],
     clusters: List[Cluster[X]],

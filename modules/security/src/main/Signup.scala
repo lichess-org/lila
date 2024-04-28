@@ -7,11 +7,11 @@ import play.api.mvc.{ Request, RequestHeader }
 import scala.util.chaining.*
 
 import lila.core.config.NetConfig
-import lila.core.EmailAddress
 import lila.common.{ HTTPRequest }
-import lila.core.{ ApiVersion, IpAddress }
+import lila.core.net.{ ApiVersion, IpAddress }
 import lila.memo.RateLimit
-import lila.user.{ PasswordHasher, User }
+import lila.core.email.UserIdOrEmail
+import lila.core.security.ClearPassword
 
 final class Signup(
     store: Store,
@@ -21,7 +21,7 @@ final class Signup(
     emailConfirm: EmailConfirm,
     hcaptcha: Hcaptcha,
     passwordHasher: PasswordHasher,
-    authenticator: lila.user.Authenticator,
+    authenticator: Authenticator,
     userRepo: lila.user.UserRepo,
     disposableEmailAttempt: DisposableEmailAttempt,
     netConfig: NetConfig
@@ -155,7 +155,7 @@ final class Signup(
                 apiVersion.some
               )
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-              val passwordHash = authenticator.passEnc(User.ClearPassword(data.password))
+              val passwordHash = authenticator.passEnc(ClearPassword(data.password))
               userRepo
                 .create(
                   data.username,

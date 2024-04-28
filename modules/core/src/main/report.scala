@@ -1,9 +1,13 @@
 package lila.core
 package report
 
+import lila.core.userId.UserId
+
 case class SuspectId(value: UserId) extends AnyVal
 
 case class CheatReportCreated(userId: UserId)
+
+case class ScoreThresholds(mid: Int, high: Int)
 
 trait ReportApi:
   def autoCommFlag(suspectId: SuspectId, resource: String, text: String, critical: Boolean = false): Funit

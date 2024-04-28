@@ -3,7 +3,6 @@ package lila.tournament
 import akka.actor.*
 
 import lila.common.Json.given
-import lila.game.Game
 import lila.common.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
@@ -12,7 +11,7 @@ final private class TournamentSocket(
     repo: TournamentRepo,
     waitingUsers: WaitingUsersApi,
     socketKit: SocketKit,
-    chat: lila.chat.ChatApi
+    chat: lila.core.chat.ChatApi
 )(using Executor, ActorSystem, Scheduler, lila.core.user.FlairGet, lila.core.i18n.Translator):
 
   private val reloadThrottler = LateMultiThrottler(executionTimeout = 1.seconds.some, logger = logger)

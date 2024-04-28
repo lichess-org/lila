@@ -6,7 +6,6 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.user.Me
 
 @Module
 private class TimelineConfig(
@@ -19,7 +18,7 @@ private class TimelineConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     teamApi: lila.core.team.TeamApi

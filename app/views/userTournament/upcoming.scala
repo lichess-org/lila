@@ -1,10 +1,8 @@
-package views.html
-package userTournament
+package views.userTournament
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
-import lila.user.User
 
 object upcoming:
 
@@ -30,10 +28,10 @@ object upcoming:
             tbody:
               pager.currentPageResults.map: t =>
                 tr(
-                  td(cls := "icon")(iconTag(tournamentIcon(t))),
-                  views.html.tournament.finishedList.header(t),
+                  td(cls := "icon")(iconTag(views.tournament.ui.tournamentIcon(t))),
+                  views.tournament.ui.finishedList.header(t),
                   td(momentFromNow(t.startsAt)),
-                  td(cls := "text", dataIcon := licon.User)(t.nbPlayers.localize)
+                  td(cls := "text", dataIcon := Icon.User)(t.nbPlayers.localize)
                 )
           )
         )

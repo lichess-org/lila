@@ -1,27 +1,23 @@
-package views.html.search
+package views.search
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import scalalib.paginator.Paginator
 
 object index:
 
   import trans.search.*
 
-  def apply(form: Form[?], paginator: Option[Paginator[lila.game.Game]] = None, nbGames: Long)(using
+  def apply(form: Form[?], paginator: Option[Paginator[Game]] = None, nbGames: Long)(using
       ctx: PageContext
   ) =
     val commons = bits.of(form)
     import commons.*
-    views.html.base.layout(
+    views.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),
-      moreJs = frag(
-        jsModule("gameSearch"),
-        infiniteScrollTag
-      ),
+      modules = EsmInit("bits.gameSearch") ++ infiniteScrollEsmInit,
       moreCss = cssTag("search")
     ) {
       main(cls := "box page-small search")(
@@ -82,7 +78,7 @@ object index:
                   permalink
                 ),
                 div(cls := "search__rows infinite-scroll")(
-                  views.html.game.widgets(pager.currentPageResults),
+                  views.game.widgets(pager.currentPageResults),
                   pagerNext(pager, np => routes.Search.index(np).url)
                 )
               )

@@ -6,7 +6,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.core.LightUser
-import lila.core.game.Source
+import lila.core.game.{ Game, Pov, Player, Source, Blurs }
 
 final class JsonView(rematches: Rematches):
 
@@ -128,6 +128,7 @@ object JsonView:
     Json.toJsObject(ct).add("matchup" -> matchup)
 
   given OWrites[Blurs] = OWrites: blurs =>
+    import lila.game.Blurs.binaryString
     Json.obj(
       "nb"   -> blurs.nb,
       "bits" -> blurs.binaryString
@@ -149,27 +150,6 @@ object JsonView:
       "black"     -> c.remainingTime(Color.Black).toSeconds,
       "emerg"     -> c.config.emergSeconds
     )
-
-  given OWrites[CorrespondenceClock] = OWrites: c =>
-    Json.obj(
-      "daysPerTurn" -> c.daysPerTurn,
-      "increment"   -> c.increment,
-      "white"       -> c.whiteTime,
-      "black"       -> c.blackTime
-    )
-
-  given OWrites[chess.opening.Opening.AtPly] = OWrites: o =>
-    Json.obj(
-      "eco"  -> o.opening.eco,
-      "name" -> o.opening.name,
-      "ply"  -> o.ply
-    )
-
-  given OWrites[chess.Division] = OWrites: o =>
-    Json
-      .obj()
-      .add("middle" -> o.middle)
-      .add("end" -> o.end)
 
   given Writes[Source]                  = writeAs(_.name)
   given Writes[lila.core.game.GameRule] = writeAs(_.toString)

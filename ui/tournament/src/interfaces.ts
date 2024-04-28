@@ -246,3 +246,37 @@ export interface Pagination {
   nbResults: number;
   nbPages: number;
 }
+
+export interface Tournament {
+  id: string;
+  fullName: string;
+  bounds: {
+    start: Date;
+    end: Date;
+  };
+  schedule: {
+    freq: string;
+    speed: string;
+  };
+  perf: {
+    key: Exclude<Perf, 'fromPosition'>;
+    position: number;
+    name: string;
+  };
+  hasMaxRating: boolean;
+  variant: Variant;
+  startsAt: number;
+  finishesAt: number;
+  status: number;
+  position: number;
+  rated: boolean;
+  minutes: number;
+  createdBy: string;
+  clock: Clock;
+  nbPlayers: number;
+}
+
+export interface Clock {
+  limit: number;
+  increment: number;
+}

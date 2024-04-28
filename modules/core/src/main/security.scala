@@ -1,9 +1,100 @@
 package lila.core
 package security
 
-import play.api.mvc.*
+import play.api.mvc.RequestHeader
+
+import lila.core.user.{ User, UserEnabled }
+import lila.core.net.IpAddress
+import lila.core.userId.UserId
+import play.api.data.{ Form, Mapping }
+import lila.core.email.EmailAddress
+import lila.core.userId.UserName
+
+case class GarbageCollect(userId: UserId)
+case class CloseAccount(userId: UserId)
+case class DeletePublicChats(userId: UserId)
 
 trait LilaCookie:
+  import play.api.mvc.*
   def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(using
       RequestHeader
   ): Cookie
+
+object LilaCookie:
+  val sessionId                               = "sid"
+  val noRemember                              = "noRemember"
+  def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)
+
+trait SecurityApi:
+  def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean]
+  def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]]
+
+case class HcaptchaPublicConfig(key: String, enabled: Boolean)
+case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Boolean):
+  def enabled                 = config.enabled && !skip
+  def apply(key: String)      = form(key)
+  def withForm[B](f: Form[B]) = copy(form = f)
+  def fill(data: A)           = copy(form = form.fill(data))
+
+trait Hcaptcha:
+  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
+
+trait SignupForm:
+  val emailField: Mapping[EmailAddress]
+  val username: Mapping[UserName]
+
+opaque type FingerHash = String
+object FingerHash extends OpaqueString[FingerHash]
+
+case class UserSignup(
+    user: User,
+    email: EmailAddress,
+    req: RequestHeader,
+    fingerPrint: Option[FingerHash],
+    suspIp: Boolean
+)
+
+case class ClearPassword(value: String) extends AnyVal:
+  override def toString = "ClearPassword(****)"
+
+case class HashedPassword(bytes: Array[Byte])
+
+trait Authenticator:
+  def passEnc(p: ClearPassword): HashedPassword
+  def setPassword(id: UserId, p: ClearPassword): Funit
+
+opaque type FloodSource = String
+object FloodSource extends OpaqueString[FloodSource]
+trait FloodApi:
+  def allowMessage(source: FloodSource, text: String): Boolean
+
+trait SpamApi:
+  def detect(text: String): Boolean
+  def replace(text: String): String
+
+trait PromotionApi:
+  def test(author: User, text: String, prevText: Option[String]): Boolean
+  def save(author: UserId, text: String): Unit
+
+opaque type IsProxy = String
+object IsProxy extends OpaqueString[IsProxy]:
+  extension (a: IsProxy)
+    def is                                  = a.value.nonEmpty
+    def in(any: (IsProxy.type => IsProxy)*) = any.exists(f => f(IsProxy) == a)
+    def name                                = a.value.nonEmpty.option(a.value)
+  def unapply(a: IsProxy): Option[String] = a.name
+  // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/
+  val vpn         = IsProxy("VPN") // paid VPNs (safe for users)
+  val privacy     = IsProxy("CPN") // consumer privacy network (akin vpn)
+  val tor         = IsProxy("TOR") // tor exit node
+  val server      = IsProxy("DCH") // servers
+  val enterprise  = IsProxy("EPN") // enterprise private network
+  val public      = IsProxy("PUB") // public proxies (unsafe for users)
+  val web         = IsProxy("WEB") // web proxies (garbage)
+  val search      = IsProxy("SES") // search engine crawlers
+  val residential = IsProxy("RES") // residential proxies (suspect)
+  val empty       = IsProxy("")
+
+trait Ip2ProxyApi:
+  def apply(ip: IpAddress): Fu[IsProxy]
+  def keepProxies(ips: Seq[IpAddress]): Fu[Map[IpAddress, String]]

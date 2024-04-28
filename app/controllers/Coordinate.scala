@@ -15,7 +15,7 @@ final class Coordinate(env: Env) extends LilaController(env):
         env.coordinate.api.getScore(userId).map(_.some)
       }
       .flatMap { score =>
-        Ok.page(views.html.coordinate.show(score))
+        Ok.page(views.coordinate.show(score))
       }
 
   def score = AuthBody { ctx ?=> me ?=>

@@ -3,9 +3,9 @@ package lila.simul
 import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
 import lila.core.team.LightTeam
-import lila.rating.Perf
-import lila.user.Me
-import lila.core.perf.PerfType
+
+import lila.core.LightUser.Me
+import lila.rating.PerfType
 
 object SimulCondition:
 
@@ -15,20 +15,12 @@ object SimulCondition:
       teamMember: Option[TeamMember]
   ) extends ConditionList(List(maxRating, minRating, teamMember)):
 
-    def withVerdicts(pt: PerfType)(using
-        Me,
-        Perf,
-        GetMyTeamIds,
-        GetMaxRating,
-        Executor
-    ): Fu[WithVerdicts] =
+    def withVerdicts(pt: PerfType)(using Me, Perf, GetMyTeamIds, GetMaxRating, Executor): Fu[WithVerdicts] =
       list
-        .map {
+        .traverse:
           case c: MaxRating  => c(pt).map(c.withVerdict)
           case c: TeamMember => c.apply.map(c.withVerdict)
           case c: FlatCond   => fuccess(c.withVerdict(c(pt)))
-        }
-        .parallel
         .dmap(WithVerdicts.apply)
 
   object All:

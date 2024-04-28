@@ -7,7 +7,7 @@ import lila.core.socket.{ protocol as P, * }
 
 final private class SwissSocket(
     socketKit: SocketKit,
-    chat: lila.chat.ChatApi,
+    chat: lila.core.chat.ChatApi,
     teamOf: SwissId => Fu[Option[TeamId]]
 )(using Executor, akka.actor.ActorSystem, Scheduler, lila.core.user.FlairGet):
 

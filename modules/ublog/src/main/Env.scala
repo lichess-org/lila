@@ -10,8 +10,8 @@ import lila.db.dsl.Coll
 @Module
 final class Env(
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo,
-    userApi: lila.user.UserApi,
+    userRepo: lila.core.user.UserRepo,
+    userApi: lila.core.user.UserApi,
     picfitApi: lila.memo.PicfitApi,
     ircApi: lila.core.irc.IrcApi,
     relationApi: lila.core.relation.RelationApi,

@@ -2,8 +2,8 @@
 
 // import lila.game.Game
 // import lila.analyse.Analysis
-// import lila.user.User
-// import lila.game.Pov
+//
+//
 // import lila.game.ClockHistory
 // import chess.Clock
 // import chess.Division

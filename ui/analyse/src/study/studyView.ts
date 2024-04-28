@@ -197,7 +197,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
             attrs: dataIcon(licon.BubbleSpeech),
             hook: bind('click', () => {
               ctrl.vm.toolTab('comments');
-              ctrl.commentForm.start(ctrl.currentChapter()!.id, path, node);
+              ctrl.commentForm.start(ctrl.currentChapter().id, path, node);
             }),
           },
           ctrl.trans.noarg('commentThisMove'),

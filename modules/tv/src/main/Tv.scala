@@ -3,39 +3,36 @@ package lila.tv
 import scalalib.actor.SyncActor
 import chess.PlayerTitle
 
-import lila.common.licon
 import lila.core.LightUser
-import lila.game.{ Game, GameRepo, Pov }
-import lila.core.Icon
+import lila.game.GameRepo
+import lila.ui.Icon
 
 final class Tv(
     gameRepo: GameRepo,
     actor: SyncActor,
-    gameProxyRepo: lila.round.GameProxyRepo
+    gameProxy: lila.core.game.GameProxy
 )(using Executor):
 
   import Tv.*
   import ChannelSyncActor.*
 
-  import gameProxyRepo.game as roundProxyGame
-
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(roundProxyGame)
+    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(gameProxy.game)
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     actor
       .ask[Option[GameId]](TvSyncActor.GetReplacementGameId(channel, oldId, exclude, _))
-      .flatMapz(roundProxyGame)
+      .flatMapz(gameProxy.game)
 
   def getGameAndHistory(channel: Tv.Channel): Fu[Option[(Game, List[Pov])]] =
     actor.ask[GameIdAndHistory](TvSyncActor.GetGameIdAndHistory(channel, _)).flatMap {
       case GameIdAndHistory(gameId, historyIds) =>
         for
-          game <- gameId.so(roundProxyGame)
+          game <- gameId.so(gameProxy.game)
           games <-
             historyIds
               .map: id =>
-                roundProxyGame(id).orElse(gameRepo.game(id))
+                gameProxy.game(id).orElse(gameRepo.game(id))
               .parallel
               .dmap(_.flatten)
           history = games.map(Pov.naturalOrientation)
@@ -44,7 +41,7 @@ final class Tv(
 
   def getGames(channel: Tv.Channel, max: Int): Fu[List[Game]] =
     getGameIds(channel, max).flatMap {
-      _.map(roundProxyGame).parallel.map(_.flatten)
+      _.map(gameProxy.game).parallel.map(_.flatten)
     }
 
   def getGameIds(channel: Tv.Channel, max: Int): Fu[List[GameId]] =
@@ -59,11 +56,11 @@ final class Tv(
 
 object Tv:
   import chess.{ variant as V, Speed as S }
-  import lila.core.perf.{ PerfType as P }
+  import lila.rating.{ PerfType as P }
 
   case class Champion(user: LightUser, rating: IntRating, gameId: GameId, color: chess.Color)
   case class Champions(channels: Map[Channel, Champion]):
-    def get = channels.get
+    export channels.get
 
   private[tv] case class Candidate(game: Game, hasBot: Boolean)
 
@@ -79,7 +76,7 @@ object Tv:
     case Best
         extends Channel(
           name = "Top Rated",
-          icon = licon.CrownElite,
+          icon = Icon.CrownElite,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(rated(2150), standard, noBot)
         )
@@ -177,14 +174,14 @@ object Tv:
     case Bot
         extends Channel(
           name = "Bot",
-          icon = licon.Cogs,
+          icon = Icon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(standard, hasBot)
         )
     case Computer
         extends Channel(
           name = "Computer",
-          icon = licon.Cogs,
+          icon = Icon.Cogs,
           secondsSinceLastMove = freshBlitz,
           filters = Seq(computerFromInitialPosition)
         )
@@ -202,11 +199,11 @@ object Tv:
   private def hasBot(c: Candidate)                      = c.hasBot
   private def noBot(c: Candidate)                       = !c.hasBot
 
-  private def fresh(seconds: Int, game: Game): Boolean = {
-    game.isBeingPlayed && !game.olderThan(seconds)
-  } || {
-    game.finished && !game.olderThan(7)
-  } // rematch time
+  private def olderThan(g: Game, seconds: Int) = g.movedAt.isBefore(nowInstant.minusSeconds(seconds))
+  private def fresh(seconds: Int, game: Game): Boolean =
+    (game.isBeingPlayed && !olderThan(game, seconds)) ||
+      (game.finished && !olderThan(game, 7)) // rematch time
+
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 
   private[tv] val titleScores: Map[PlayerTitle, Int] = Map(

@@ -27,11 +27,9 @@ final class LilaComponents(
   given executor: Executor = scala.concurrent.ExecutionContextOpportunistic
 
   lila.log("boot").info {
-    val java             = System.getProperty("java.version")
-    val mem              = Runtime.getRuntime.maxMemory() / 1024 / 1024
     val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
     val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila ${environment.mode} $appVersionCommit $appVersionDate / java $java, memory: ${mem}MB"
+    s"lila version: $appVersionCommit $appVersionDate"
   }
 
   import _root_.controllers.*
@@ -46,26 +44,6 @@ final class LilaComponents(
       DefaultCookieHeaderEncoding(httpConfiguration.cookies),
       cookieBaker,
       LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
-    )
-
-  lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
-
-  override lazy val httpErrorHandler =
-    lila.app.http.ErrorHandler(
-      environment = environment,
-      config = configuration,
-      router = router,
-      mainC = main,
-      lobbyC = lobby
-    )
-
-  override lazy val httpRequestHandler: HttpRequestHandler =
-    lila.app.http.HttpRequestHandler(
-      router,
-      httpErrorHandler,
-      httpConfiguration,
-      httpFilters,
-      controllerComponents
     )
 
   given ActorSystem = actorSystem
@@ -90,6 +68,32 @@ final class LilaComponents(
     val c = lila.common.Chronometer.sync(wire[lila.app.Env])
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
+
+  val httpFilters = Seq(
+    lila.web.HttpFilter(
+      env.net,
+      env.web.settings.sitewideCoepCredentiallessHeader.get,
+      lila.security.Mobile.LichessMobileUa.parse
+    )
+  )
+
+  override lazy val httpErrorHandler =
+    lila.app.http.ErrorHandler(
+      environment = environment,
+      config = configuration,
+      router = router,
+      mainC = main,
+      lobbyC = lobby
+    )
+
+  override lazy val httpRequestHandler: HttpRequestHandler =
+    lila.app.http.HttpRequestHandler(
+      router,
+      httpErrorHandler,
+      httpConfiguration,
+      httpFilters,
+      controllerComponents
+    )
 
   lazy val devAssetsController =
     given FileMimeTypes = fileMimeTypes

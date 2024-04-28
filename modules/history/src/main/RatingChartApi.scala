@@ -4,12 +4,12 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import play.api.i18n.Lang
-import lila.core.user.{ User, UserApi }
-import lila.core.perf.{ PerfKey, PerfType }
+
+import lila.core.data.SafeJsonStr
 
 final class RatingChartApi(
     historyApi: HistoryApi,
-    userApi: UserApi,
+    userApi: lila.core.user.UserApi,
     cacheApi: lila.memo.CacheApi
 )(using Executor, lila.core.i18n.Translator):
 
@@ -48,7 +48,7 @@ final class RatingChartApi(
 
 object RatingChartApi:
 
-  import lila.core.perf.PerfType.*
+  import lila.rating.PerfType.*
   private val perfTypes = List(
     Bullet,
     Blitz,

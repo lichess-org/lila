@@ -12,7 +12,7 @@ import lila.core.i18n.Translate
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
 
   import JsonView.given
@@ -23,7 +23,7 @@ final class JsonView(
       chapter: Chapter,
       fedNames: Option[JsObject],
       withMembers: Boolean
-  )(using me: Option[lila.user.Me]) =
+  )(using me: Option[Me]) =
 
     def allowed(selection: Settings => Settings.UserSelection): Boolean =
       Settings.UserSelection.allows(selection(study.settings), study, me.map(_.userId))

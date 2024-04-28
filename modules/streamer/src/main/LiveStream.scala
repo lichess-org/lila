@@ -24,7 +24,7 @@ case class LiveStreams(streams: List[Stream]):
         case (selected, _) => selected
       .toList
 
-  def withTitles(lightUser: lila.user.LightUserApi) =
+  def withTitles(lightUser: lila.core.user.LightUserApi) =
     LiveStreams.WithTitles(
       this,
       streams.view

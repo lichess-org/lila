@@ -3,7 +3,7 @@ package http
 import play.api.mvc.*
 import scalatags.Text.Frag
 
-trait CtrlPage(using Executor) extends RequestContext with ControllerHelpers with ResponseWriter:
+trait CtrlPage(using Executor) extends RequestContext with ControllerHelpers with lila.web.ResponseWriter:
 
   def renderPage(render: PageContext ?=> Frag)(using Context): Fu[Frag] =
     pageContext.map(render(using _))

@@ -10,10 +10,9 @@ import scala.util.chaining.*
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, PicfitApi }
 import lila.relay.RelayRound.WithTour
-import lila.security.Granter
+import lila.core.perm.Granter
+import lila.core.study.data.StudyName
 import lila.study.{ Settings, Study, StudyApi, StudyId, StudyMaker, StudyRepo, StudyTopic }
-import lila.user.{ Me, User, given }
-import lila.core.user.MyId
 
 final class RelayApi(
     roundRepo: RelayRoundRepo,
@@ -67,23 +66,23 @@ final class RelayApi(
   def byTourOrdered(tour: RelayTour): Fu[List[WithTour]] =
     roundRepo.byTourOrdered(tour).dmap(_.map(_.withTour(tour)))
 
-  def roundIdsById(tourId: RelayTour.Id): Fu[List[StudyId]] =
+  def roundIdsById(tourId: RelayTourId): Fu[List[StudyId]] =
     roundRepo.idsByTourId(tourId)
 
-  def kickBroadcast(userId: UserId, tourId: RelayTour.Id, who: MyId): Funit =
+  def kickBroadcast(userId: UserId, tourId: RelayTourId, who: MyId): Funit =
     roundIdsById(tourId).flatMap:
       _.traverse_(studyApi.kick(_, userId, who))
 
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour).dmap(tour.withRounds)
 
-  def denormalizeTourActive(tourId: RelayTour.Id): Funit =
+  def denormalizeTourActive(tourId: RelayTourId): Funit =
     roundRepo.coll.exists(RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)).flatMap {
       tourRepo.setActive(tourId, _)
     }
 
   object countOwnedByUser:
-    private val cache = cacheApi[UserId, Int](32_768, "relay.nb.owned"):
-      _.expireAfterWrite(5.minutes).buildAsyncFuture(tourRepo.countByOwner)
+    private val cache = cacheApi[UserId, Int](16_384, "relay.nb.owned"):
+      _.expireAfterWrite(5.minutes).buildAsyncFuture(tourRepo.countByOwner(_, false))
     export cache.get
 
   def isOfficial(id: StudyId): Fu[Boolean] =
@@ -97,10 +96,10 @@ final class RelayApi(
         )
       .map(_.exists(_.contains("tier")))
 
-  def tourById(id: RelayTour.Id) = tourRepo.coll.byId[RelayTour](id)
+  def tourById(id: RelayTourId) = tourRepo.coll.byId[RelayTour](id)
 
   object withTours:
-    private val cache = cacheApi[RelayTour.Id, Option[RelayGroup.WithTours]](256, "relay.groupWithTours"):
+    private val cache = cacheApi[RelayTourId, Option[RelayGroup.WithTours]](256, "relay.groupWithTours"):
       _.expireAfterWrite(1.minute).buildAsyncFuture: id =>
         for
           group <- groupRepo.byTour(id)
@@ -109,7 +108,7 @@ final class RelayApi(
     export cache.get
     def addTo(tour: RelayTour): Fu[RelayTour.WithGroupTours] =
       get(tour.id).map(RelayTour.WithGroupTours(tour, _))
-    def invalidate(id: RelayTour.Id) = cache.underlying.synchronous.invalidate(id)
+    def invalidate(id: RelayTourId) = cache.underlying.synchronous.invalidate(id)
 
   private def toSyncSelect = $doc(
     "sync.until".$exists(true),
@@ -417,7 +416,7 @@ final class RelayApi(
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi.members(id.into(StudyId)).map {
       _.map(_.contributorIds).withFilter(_.nonEmpty).foreach { userIds =>
-        import lila.core.actorApi.socket.SendTos
+        import lila.core.socket.SendTos
         import lila.common.Json.given
         import lila.core.socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))

@@ -1,7 +1,5 @@
 package lila.oauth
 
-import lila.user.User
-
 object AuthorizationRequest:
   import Protocol.*
 
@@ -72,7 +70,7 @@ object AuthorizationRequest:
     lazy val isDanger = scopes.intersects(OAuthScope.dangerList) && !trusted && !looksLikeLichessMobile
 
     def authorize(
-        user: User,
+        user: UserId,
         legacy: (ClientId, RedirectUri) => Fu[Option[LegacyClientApi.HashedClientSecret]]
     ): Fu[Either[Error, Authorized]] =
       codeChallengeMethod
@@ -92,14 +90,7 @@ object AuthorizationRequest:
             challenge <- challenge
             scopes    <- validScopes
             _         <- responseType.toRight(Error.ResponseTypeRequired).flatMap(ResponseType.from)
-          yield Authorized(
-            clientId,
-            redirectUri,
-            state,
-            user.id,
-            scopes,
-            challenge
-          )
+          yield Authorized(clientId, redirectUri, state, user, scopes, challenge)
 
   case class Authorized(
       clientId: ClientId,
@@ -111,8 +102,8 @@ object AuthorizationRequest:
   ):
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
 
-  def logPrompt(prompt: Prompt, me: Option[User])(using req: play.api.mvc.RequestHeader) =
+  def logPrompt(prompt: Prompt, me: Option[UserId])(using req: play.api.mvc.RequestHeader) =
     if prompt.mimicsLichessMobile
     then
       val reqInfo = lila.common.HTTPRequest.print(req)
-      logger.warn(s"OAuth prompt looks like lichess mobile: ${me.fold("anon")(_.username)} $reqInfo")
+      logger.warn(s"OAuth prompt looks like lichess mobile: ${me.fold("anon")(_.value)} $reqInfo")

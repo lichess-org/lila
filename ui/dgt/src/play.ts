@@ -239,7 +239,7 @@ export default function (token: string) {
     while (true) {
       const { value, done } = await reader.read();
       if (done) break;
-      if (verbose && value!.length > 1)
+      if (verbose && value.length > 1)
         console.log('connectToEventStream - Chunk received', decoder.decode(value));
       //Update connection status
       eventSteamStatus = { connected: true, lastEvent: time.getTime() };
@@ -337,12 +337,12 @@ export default function (token: string) {
       const { value, done } = await reader.read();
       if (done) break;
       //Log raw data received
-      if (verbose && value!.length > 1)
+      if (verbose && value.length > 1)
         console.log('connectToGameStream - board game stream received:', decoder.decode(value));
       //Update connection status
       gameConnectionMap.set(gameId, { connected: true, lastEvent: time.getTime() });
       //Response may contain several JSON objects on the same chunk separated by \n . This may create an empty element at the end.
-      const jsonArray = decoder.decode(value)!.split('\n');
+      const jsonArray = decoder.decode(value).split('\n');
       for (let i = 0; i < jsonArray.length; i++) {
         //Skip empty elements that may have happened with the .split('\n')
         if (jsonArray[i].length > 2) {

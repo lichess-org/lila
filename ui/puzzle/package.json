@@ -25,13 +25,11 @@
     "voice": "workspace:*"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/main.ts": "puzzle",
-        "src/dashboard.ts": "puzzle.dashboard",
-        "src/opening.ts": "puzzle.opening",
-        "src/plugins/nvui.ts": "puzzle.nvui"
-      }
-    }
+    "bundles": [
+      "src/puzzle.ts",
+      "src/puzzle.dashboard.ts",
+      "src/puzzle.opening.ts",
+      "src/plugins/puzzle.nvui.ts"
+    ]
   }
 }

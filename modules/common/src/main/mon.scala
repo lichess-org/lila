@@ -4,8 +4,7 @@ import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
 import kamon.metric.{ Counter, Timer }
 import kamon.tag.TagSet
 
-import lila.core.ApiVersion
-import lila.core.Domain
+import lila.core.net.*
 
 object mon:
 
@@ -325,8 +324,8 @@ object mon:
     object dnsApi:
       val mx = future("security.dnsApi.mx.time")
     object verifyMailApi:
-      def fetch(success: Boolean, block: Boolean) =
-        timer("verifyMail.fetch").withTags(tags("success" -> successTag(success), "block" -> block))
+      def fetch(success: Boolean, ok: Boolean) =
+        timer("verifyMail.fetch").withTags(tags("success" -> successTag(success), "ok" -> ok))
     def usersAlikeTime(field: String)  = timer("security.usersAlike.time").withTag("field", field)
     def usersAlikeFound(field: String) = histogram("security.usersAlike.found").withTag("field", field)
     object hCaptcha:

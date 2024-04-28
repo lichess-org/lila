@@ -6,12 +6,12 @@ final class DgtCtrl(env: Env) extends LilaController(env):
 
   def index = Auth { _ ?=> _ ?=>
     Ok.page:
-      views.html.dgt.index
+      views.dgt.index
   }
 
   def config = Auth { _ ?=> me ?=>
     Ok.pageAsync:
-      findToken.map(views.html.dgt.config)
+      findToken.map(views.dgt.config)
   }
 
   def generateToken = Auth { _ ?=> me ?=>
@@ -23,7 +23,6 @@ final class DgtCtrl(env: Env) extends LilaController(env):
               description = "DGT board automatic token",
               scopes = dgtScopes.value.map(_.key)
             ),
-            me,
             isStudent = false
           ) >>
             env.pref.api.saveTag(me, _.dgt, true)
@@ -36,7 +35,7 @@ final class DgtCtrl(env: Env) extends LilaController(env):
       case None => Redirect(routes.DgtCtrl.config)
       case Some(t) =>
         if !ctx.pref.hasDgt then env.pref.api.saveTag(me, _.dgt, true)
-        Ok.page(views.html.dgt.play(t))
+        Ok.page(views.dgt.play(t))
   }
 
   private val dgtScopes = lila.oauth.OAuthScope.select(
@@ -47,5 +46,5 @@ final class DgtCtrl(env: Env) extends LilaController(env):
     _.Board.Play
   )
 
-  private def findToken(using me: Me) =
-    env.oAuth.tokenApi.findCompatiblePersonal(me, dgtScopes)
+  private def findToken(using Me) =
+    env.oAuth.tokenApi.findCompatiblePersonal(dgtScopes)

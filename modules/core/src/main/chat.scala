@@ -3,7 +3,8 @@ package chat
 
 import play.api.libs.json.JsObject
 import lila.core.shutup.PublicSource
-import lila.core.user.MyId
+import lila.core.id.ChatId
+import lila.core.userId.*
 
 case class ChatLine(chatId: ChatId, line: Line, json: JsObject)
 case class OnTimeout(chatId: ChatId, userId: UserId)
@@ -47,6 +48,7 @@ enum TimeoutScope:
   case Local, Global
 
 trait ChatApi:
+  def exists(chatId: ChatId): Fu[Boolean]
   def write(
       chatId: ChatId,
       userId: UserId,
@@ -56,6 +58,7 @@ trait ChatApi:
       persist: Boolean = true
   ): Funit
   def volatile(chatId: ChatId, text: String, busChan: BusChan.Select): Unit
+  def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit
   def timeout(
       chatId: ChatId,
       userId: UserId,

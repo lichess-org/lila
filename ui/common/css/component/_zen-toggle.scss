@@ -14,7 +14,7 @@
     height: 4em;
     padding: 1em 1em;
     background: center no-repeat url('../logo/lichess-white.svg');
-    @if $theme-light {
+    @include if-light {
       background-image: url('../logo/lichess.svg');
     }
     background-size: 2em;

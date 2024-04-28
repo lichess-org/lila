@@ -257,6 +257,7 @@ GET   /broadcast/calendar                     controllers.RelayTour.calendar
 GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user, page: Int ?= 1)
 GET   /broadcast/subscribed                   controllers.RelayTour.subscribed(page: Int ?= 1)
+GET   /broadcast/all-private                  controllers.RelayTour.allPrivate(page: Int ?= 1)
 GET   /broadcast/:ts/$id<\w{8}>               controllers.RelayTour.show(ts, id)
 GET   /api/broadcast/$id<\w{8}>               controllers.RelayTour.apiShow(id)
 GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId)
@@ -742,6 +743,7 @@ GET   /player/bots                     controllers.PlayApi.botOnline
 GET   /api/board/game/stream/:id        controllers.PlayApi.boardGameStream(id)
 POST  /api/board/game/:id/move/:uci     controllers.PlayApi.boardMove(id, uci, offeringDraw: Option[Boolean] ?= None)
 POST  /api/board/seek                   controllers.Setup.boardApiHook
+DELETE /api/board/seek                  controllers.Setup.boardApiHookCancel
 POST  /api/board/*cmd                   controllers.PlayApi.boardCommandPost(cmd)
 GET   /api/board/*cmd                   controllers.PlayApi.boardCommandGet(cmd)
 

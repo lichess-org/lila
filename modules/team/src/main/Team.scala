@@ -8,7 +8,7 @@ import java.security.MessageDigest
 import scala.util.chaining.*
 
 import lila.core.team.{ TeamData, LightTeam }
-import lila.user.User
+
 import lila.core.team.Access
 
 case class Team(
@@ -130,7 +130,7 @@ object Team:
   )
 
   def nameToId(name: String) =
-    val slug = lila.common.String.slugify(name)
+    val slug = scalalib.StringOps.slug(name)
     // if most chars are not latin, go for random slug
     if slug.lengthIs > (name.length / 2) then TeamId(slug) else randomId()
 

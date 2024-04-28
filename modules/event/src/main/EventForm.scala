@@ -5,7 +5,6 @@ import play.api.data.Forms.*
 
 import lila.common.Form.{ PrettyDateTime, into, stringIn }
 import lila.core.i18n.{ Language, LangList }
-import lila.core.user.MyId
 
 final class EventForm(langList: LangList):
 

@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">मित्र संग खेल्ने</string>
-  <string name="playWithTheMachine">कम्प्युटर संग खेल्ने</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">यो URL दिएर कसैलाई खेल्न निम्तो दिन सकिन्छ</string>
-  <string name="gameOver">खेल समाप्त</string>
+  <string name="playWithAFriend">साथी सङ्ग खेल्नुहोस् ।</string>
+  <string name="playWithTheMachine">कम्प्युटर सँग खेल्नुहोस् ।</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">कसैलाई खैलको लागी निम्तो दिनु परेमा यो लिङ्क (URL) दिनुहोला । </string>
+  <string name="gameOver">खेल सक्कियो ।</string>
   <string name="waitingForOpponent">प्रतिद्वन्दी को प्रतिक्षा गर्दै</string>
+  <string name="orLetYourOpponentScanQrCode">वा विपक्षिलाई यो क्यू-आर स्क्यान गर्न दिनुहोस् ।</string>
   <string name="waiting">प्रतिक्षा गर्दै</string>
   <string name="yourTurn">तपाइको पालो</string>
   <string name="aiNameLevelAiLevel">%1$s तह %2$s</string>
   <string name="level">तह</string>
   <string name="strength">तागत</string>
   <string name="toggleTheChat">बार्तालाप खोल्ने/बन्द गर्ने</string>
-  <string name="chat">बार्तालाप</string>
+  <string name="chat">कुराकानी</string>
   <string name="resign">छाेड्नुहाेस्</string>
   <string name="checkmate">माथ</string>
   <string name="stalemate">चालमाथ</string>
   <string name="white">सेतो</string>
   <string name="black">कालो</string>
-  <string name="randomColor">गोलाप्रथाद्वारा पक्ष निर्धारण</string>
-  <string name="createAGame">खेल श्रीजना गर्नुहोस्</string>
-  <string name="whiteIsVictorious">सेतो विजयी भयो</string>
+  <string name="asWhite">सेतो बाट ।</string>
+  <string name="asBlack">कालो बाट । </string>
+  <string name="randomColor">जुन भए पनि ।</string>
+  <string name="createAGame">खेल सिर्जना गर्नुहोस्</string>
+  <string name="whiteIsVictorious">सेतोले जीत्यो</string>
   <string name="blackIsVictorious">कालो विजयी भयो</string>
-  <string name="youPlayTheWhitePieces">तपाईं सेतो खेल्नुहुनेछ</string>
-  <string name="youPlayTheBlackPieces">तपाईं कालो खेल्नुहुनेछ</string>
+  <string name="youPlayTheWhitePieces">तपाईं सेतोगट्टी खेल्नुहुनेछ ।</string>
+  <string name="youPlayTheBlackPieces">तपाईं कालोगट्टी खेल्नुहुनेछ</string>
   <string name="itsYourTurn">तपाईंको पालो!</string>
   <string name="cheatDetected">बेइमानी पत्ता पर्यो</string>
   <string name="kingInTheCenter">राजा बिचमा</string>
-  <string name="threeChecks">तिनवटा चेकहरु</string>
-  <string name="raceFinished">दौड सकियो</string>
-  <string name="variantEnding">परिमार्जनको अन्त्य</string>
+  <string name="threeChecks">तिन चेक</string>
+  <string name="raceFinished">रेस सकियो</string>
+  <string name="variantEnding">भेरिएन्ट समाप्त</string>
   <string name="newOpponent">नयाँ प्रतिद्वन्द्वी</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">तपाईंको प्रतिद्वन्द्वी तपाइसँग अर्को खेल खेल्न चहान्छन्।</string>
   <string name="joinTheGame">खेलमा सहभागी हुनुहोस्।</string>
@@ -47,6 +50,8 @@
   <string name="blackResigned">कालोले खेल त्याग गर्यो</string>
   <string name="whiteLeftTheGame">सेतोले खेल छोड्यो</string>
   <string name="blackLeftTheGame">कालोले खेल छोड्यो</string>
+  <string name="whiteDidntMove">सेतोले चल चालेन</string>
+  <string name="blackDidntMove">कालोले चाल चालेन</string>
   <string name="requestAComputerAnalysis">कम्प्युटर विश्लेषण आग्रह गर्नुहोस्</string>
   <string name="computerAnalysis">कम्प्युटर विश्लेषण</string>
   <string name="computerAnalysisAvailable">कम्प्युटर विश्लेषण उपलब्ध छ</string>
@@ -55,6 +60,8 @@
   <string name="depthX">गहिराइ %s</string>
   <string name="usingServerAnalysis">सर्भरको विश्लेषण प्रयोग गरिदैं छ</string>
   <string name="loadingEngine">इन्जिन लोड हुदैछ ...</string>
+  <string name="calculatingMoves">चालहरूको हिसाब गर्दै...</string>
+  <string name="engineFailed">इन्जीन लोड गर्दा त्रुटी भयो </string>
   <string name="cloudAnalysis">क्लाउड विश्लेषण</string>
   <string name="goDeeper">गहिराइ बढाउनुहोस्</string>
   <string name="showThreat">खतरा देखाउनुहोस्</string>
@@ -64,34 +71,43 @@
   <string name="makeMainLine">मुख्य लाइन बनाउनुहोस्</string>
   <string name="deleteFromHere">यहाँबाट मेट्नुहोस्</string>
   <string name="forceVariation">हांगा बनाउनुहोस्</string>
+  <string name="copyVariationPgn">विचलनहरूको PGN सार्नुहोस् </string>
   <string name="move">चाल</string>
   <string name="variantLoss">परिमार्जन मा हार्</string>
   <string name="variantWin">परिमार्जन मा जीत</string>
   <string name="insufficientMaterial">अपर्याप्त सामग्री</string>
   <string name="pawnMove">प्युसाको चाल</string>
   <string name="capture">खाने चाल</string>
-  <string name="close">बन्द</string>
+  <string name="close">बन्द गर्नुहोस्</string>
   <string name="winning">जीत्ने</string>
   <string name="losing">हार्ने</string>
   <string name="drawn">बराबर</string>
   <string name="unknown">अज्ञात</string>
   <string name="database">डाटाबेस</string>
-  <string name="whiteDrawBlack">सेतो / बराबरी / कालो</string>
-  <string name="averageRatingX">औसत रेटिंग: %s</string>
-  <string name="recentGames">पछिल्लो खेलहरु</string>
+  <string name="whiteDrawBlack">सेतो / बराबर / कालो</string>
+  <string name="averageRatingX">औसत रेटिङ्ग: %s</string>
+  <string name="recentGames">पछिल्ला खेलहरु</string>
   <string name="topGames">शीर्ष खेलहरू</string>
-  <string name="masterDbExplanation">%2$s देखि %3$s सम्म बोर्डमै खेलिएका %1$s+ फिडे रेटिङ भएका खेलाडीहरु बीचको बिस लाख खेलहरु</string>
+  <string name="masterDbExplanation">%2$s देखि %3$s सम्म बोर्डमा खेलिएका %1$s भन्दा बढी फिडे रेटिङ भएका खेलाडीहरु बीचका खेलहरु</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s अर्धचालमा माथ</item>
     <item quantity="other">%s अर्धचालहरुमा माथ</item>
   </plurals>
-  <string name="noGameFound">कुनैपनि खेल भेट्टिएनन्</string>
+  <string name="dtzWithRounding">DTZ50\'\' rounding को साथ, अर्को गोटी खानु वा पिउसो चाल्नु अगाष‍डिका \'आधा चाल\' हरूमा आधारित ।</string>
+  <string name="noGameFound">कुनैपनि खेल भेट्टिएन </string>
+  <string name="maxDepthReached">अधिकतम गहिरई पुग्यो । </string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">चयनको सुचिबाट अरु खेलहरु पनि छान्ने कि?</string>
+  <string name="openings">प्रारम्भिक चालहरू</string>
   <string name="openingExplorer">प्रारम्भिक चाल अन्वेषक</string>
+  <string name="openingEndgameExplorer">प्रारम्भिक चालहरू/ अन्तिमखेल अन्वेशक</string>
   <string name="xOpeningExplorer">%s प्रारम्भिक चाल अन्वेषक</string>
+  <string name="playFirstOpeningEndgameExplorerMove">पहिलो प्रारम्भिक चाल् / एण्डग्याम अन्वेशक चाल चाल्नुहोस् ।</string>
   <string name="winPreventedBy50MoveRule">५० चालको नियमबाट जीत रोकियो</string>
   <string name="lossSavedBy50MoveRule">५० चालको नियमबाट हार बच्यो</string>
-  <string name="allSet">तयारी पूरा!</string>
+  <string name="winOr50MovesByPriorMistake">जित वा गल्तिहरूको कारण ५० चाल</string>
+  <string name="lossOr50MovesByPriorMistake">हार वा गलतिको कारण ५० चाल </string>
+  <string name="unknownDueToRounding">हार-जीत तब मात्र सुनिश्चित छ जब पछिल्को गट्टी खाए पछि वा पिउसोको चाल पछि सिफारिस गरिएको टेबलबेस लाईन पछ्याईन्छ</string>
+  <string name="allSet">सबै सक्कियो !!</string>
   <string name="importPgn">PGN आयात</string>
   <string name="delete">मेटाउनुहोस्</string>
   <string name="deleteThisImportedGame">के यो आयातित खेल मेटाउन सकिन्छ?</string>
@@ -101,25 +117,33 @@
   <string name="openStudy">पाठ खोलौ</string>
   <string name="enable">सक्षम पार्नुहोस्</string>
   <string name="bestMoveArrow">उत्कृष्ट चालको तीर</string>
+  <string name="showVariationArrows">भिन्नताहरूको सुचक तिर देखाउनु</string>
   <string name="evaluationGauge">मुल्यांकन गेज</string>
   <string name="multipleLines">थप लाइनहरु</string>
   <string name="cpus">CPU संख्या</string>
   <string name="memory">स्मृति</string>
   <string name="infiniteAnalysis">अनन्त विश्लेषण</string>
   <string name="removesTheDepthLimit">गहिराइको हद हटाएर कम्प्युटर तातो राख्छ</string>
+  <string name="engineManager">इन्जीन व्यवस्थापक</string>
   <string name="blunder">ठुलो भुल</string>
   <string name="mistake">सानो भुल</string>
   <string name="inaccuracy">धेरै सानो भुल</string>
-  <string name="moveTimes">हरेक चालको समय</string>
+  <plurals name="nbBlunders">
+    <item quantity="one">%s  ब्लण्डर</item>
+    <item quantity="other">%s  ब्लण्डरहरू</item>
+  </plurals>
+  <string name="moveTimes">चालका लागी समय</string>
   <string name="flipBoard">बोर्ड फर्काउनुहोस्</string>
-  <string name="threefoldRepetition">तेस्रो दोहोर्याई</string>
-  <string name="claimADraw">बराबरीको दावी गर्नुहोस्</string>
-  <string name="offerDraw">बराबरीको प्रस्ताव राख्नुहोस्</string>
+  <string name="threefoldRepetition">चाल तेहेर्याइएको ।</string>
+  <string name="claimADraw">बराबर भएको दावी गर्नुहोस्</string>
+  <string name="offerDraw">बराबरका लागी प्रस्ताव गर्नुहोस् ।</string>
   <string name="draw">बराबरी</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s खेलाडी</item>
     <item quantity="other">%s खेलाडीहरू</item>
   </plurals>
+  <string name="drawByMutualAgreement">आपसी सहमाति बराबरी गर्नुहोस् । </string>
+  <string name="fiftyMovesWithoutProgress">कुनै प्रगती बिना ५० चाल</string>
   <string name="currentGames">हालका खेलहरु</string>
   <plurals name="nbGames">
     <item quantity="one">%s खेल</item>
@@ -132,6 +156,7 @@
   <string name="viewInFullSize">पुर्ण आकार हेर्नुहोस्</string>
   <string name="logOut">साइन आउट गर्नुहोस्</string>
   <string name="signIn">साईन इन गर्नुहोस्</string>
+  <string name="rememberMe">मलाई लग्ड-इन राख्नु </string>
   <string name="youNeedAnAccountToDoThat">त्यसको लागि तपाईलाई खाता आवश्यक पर्दछ</string>
   <string name="signUp">दर्ता गर्नुहोस्</string>
   <string name="computersAreNotAllowedToPlay">कम्प्युटर र कम्प्युटरको सहायता लिएका खेलाडीहरुलाई खेल्न निषेधित गरिएको छ। कृपया खेल्दा बुद्धिचाल इन्जिन, डाटाबेस, वा अरु खेलाडीको सहयोग नलिनुहोला। धेरै खाताहरु खोल्न पनि निरुत्साहित गरिन्छ र अत्ति नै धेरै खोलेको खण्डमा तपाईमाथि प्रतिबन्ध लाग्नेछ।</string>
@@ -160,6 +185,10 @@
     <item quantity="one">%s घण्टा</item>
     <item quantity="other">%s घण्टा</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s मिनेट</item>
+    <item quantity="other">%s मिनेट</item>
+  </plurals>
   <string name="time">समय</string>
   <string name="rating">रेटिङ</string>
   <string name="ratingStats">रेटिङ तथ्याङ्क</string>
@@ -168,12 +197,29 @@
   <string name="changeUsername">युजर नेम परिवर्तन गर्नुहोस्</string>
   <string name="changeUsernameNotSame">अक्षरलाई सानो ठुलो मात्र पार्न सकिनेछ। जस्तै: \"johndoe\" बाट \"JohnDoe\"</string>
   <string name="changeUsernameDescription">तपाइको \"युजर नेम\" परिवर्तन गर्नुहोस्। यो एकपटक मात्र गर्न सक्नुहुनेछ र अक्षरलाई सानो ठुलो मात्र पार्न सकिनेछ।</string>
+  <string name="signupUsernameHint">क्रिपया प्रयोगकर्ता नाम राख्दा पारिवारीक शब्द चयन गर्नुहोला। यसलाई पछि बदल्न मिल्ने छैन र अनुपयुक्त नाम भएका खाताहरू बन्द गरिने छन्।</string>
+  <string name="signupEmailHint">यसलाई हामी पासवर्ड रिसेट गर्न मात्र प्रयोग गर्ने छौँ ।</string>
   <string name="password">पासवर्ड</string>
   <string name="changePassword">पासवर्ड बदल्नुहोस्</string>
   <string name="changeEmail">इमेल बदल्नुहोस्</string>
   <string name="email">इमेल</string>
   <string name="passwordReset">पासवर्ड फेरि राख्नुहोस्</string>
   <string name="forgotPassword">पासवर्ड बिर्सनुभयो?</string>
+  <string name="error.weakPassword">यो पासवर्ड धेरै प्रचलीत र अनुमान गर्न साह्रै सहज छ ।  </string>
+  <string name="error.namePassword">कृपया, आफ्नो प्रयोगकर्ता-नामलाई पासवर्डको रूपमा प्रयोग नगर्नुहोस् ।</string>
+  <string name="blankedPassword">तपाईँले यहि पासवर्ड अर्को साईटमा प्रयोग गर्नु भएको थियो, र त्यो साईट कमप्रमाइज भएको छ। तपाईको आफ्नै lichess खाताको सुरक्षाका लागी हामी तपाईलाई पासवर्ड बदल्न अनुरोध गर्दछौँ । बुझ्नु भएकोम धन्यवाद।</string>
+  <string name="youAreLeavingLichess">तपाईँ लिचेस छाड्दै हुनुहुन्छ । </string>
+  <string name="neverTypeYourPassword">आफ्नो लिचेस पासवर्ड अरू साइटमा नहाल्नुहोला ।</string>
+  <string name="proceedToX">%s मा जानुहोस् ।</string>
+  <string name="passwordSuggestion">अरुले राख् भनेको पासवर्ड नराख्नुहोला । उनिहरूले तपाईँको खाता चोर्नका लागी त्यो पास्वर्ड प्रयोग गर्ने छन्। </string>
+  <string name="emailSuggestion">अरुले राख् भनेको इमेल नराख्नुहोला । उनिहरूले तपाईँको खाता चोर्नका लागी त्यो पास्वर्ड प्रयोग गर्ने छन्। </string>
+  <string name="emailConfirmHelp">इमेल कन्फर्मेसनका लागी सहयोग </string>
+  <string name="emailConfirmNotReceived">साइन अप गरे पछि इमेल पाउनुभएन ?</string>
+  <string name="whatSignupUsername">तपाईले साइन-अप गर्ने कुन प्रयोगकर्ता नाम प्रयोग गर्नु भएको थियो ?</string>
+  <string name="usernameNotFound">%s: यो नाम भएको कुनै पनि प्रयोग कर्ता फेला पर्न सकेन।</string>
+  <string name="usernameCanBeUsedForNewAccount">यो प्रयोगकर्ता-नाम प्रयोग गरेर नयाँ खाता खोल्न सक्नुहुन्छ ।</string>
+  <string name="emailSent">हामिले %sमा एउटा इमेल पठाएका छौँ ।</string>
+  <string name="emailCanTakeSomeTime">इमेल आउन केहि समय लाग्न सक्छ।</string>
   <string name="rank">स्थान</string>
   <string name="rankX">स्थान: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -259,7 +305,7 @@
     <item quantity="other">%s सेकेण्ड दिनु</item>
   </plurals>
   <string name="thisAccountViolatedTos">यस खाताले Lichess Terms of Service को उल्लङ्घन गरेको छ</string>
-  <string name="openingExplorerAndTablebase">शुरुका चाल अन्वेषक &amp; टेबलबेस</string>
+  <string name="openingExplorerAndTablebase">प्रारम्भिक चाल अन्वेषक &amp; टेबलबेस</string>
   <string name="takeback">चाल फिर्ता</string>
   <string name="proposeATakeback">चाल फिर्ता लिने प्रस्ताव गरौं</string>
   <string name="takebackPropositionSent">चाल फिर्ताको प्रस्ताव पठाइयो</string>
@@ -300,7 +346,7 @@
   </plurals>
   <string name="yourPerfRatingIsProvisional">तपाइको %s रेटिङ अस्थायी छ</string>
   <string name="yourPerfRatingIsTooHigh">तपाइको %1$s रेटिङ (%2$s) बढि भयो</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">तपाइको हप्ताको अधिकतम् %1$s रेटिङ (%2$s) बढि भयो</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">तपाइको अधिकतम् साप्ताहिक %1$s रेटिङ (%2$s) धेरै भएकोले प्रतियोगीतामा जोडिन असमर्थ हुनुहुन्छ ।</string>
   <string name="yourPerfRatingIsTooLow">तपाइको %1$s रेटिङ (%2$s) कम भयो</string>
   <string name="ratedMoreThanInPerf">%2$s मा रेटिङ ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s मा रेटिङ ≤ %1$s</string>
@@ -406,7 +452,7 @@
   <string name="averageOpponent">औसत प्रतिद्वन्दी</string>
   <string name="boardEditor">बोर्ड सम्पादक</string>
   <string name="setTheBoard">बोर्ड सेट गरौं</string>
-  <string name="popularOpenings">लोकप्रिय सुरुवाती चालहरु</string>
+  <string name="popularOpenings">प्रचलित प्रारम्भिक चालहरु</string>
   <string name="startPosition">शुरुवाती अवस्था</string>
   <string name="clearBoard">बोर्ड खालि गरौं</string>
   <string name="loadPosition">पोजिसन लोड गरौं</string>
@@ -492,13 +538,13 @@
   <string name="xCompetesInY">%1$s %2$s मा भाग लिनुहुन्छ</string>
   <string name="victory">विजय</string>
   <string name="defeat">हार</string>
-  <string name="victoryVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
-  <string name="defeatVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
+  <string name="victoryVsYInZ">%1$s र %2$s को बिच खेल  -  विधा : %3$s </string>
+  <string name="defeatVsYInZ">%1$s र %2$s को बिच खेल  -  विधा : %3$s </string>
   <string name="drawVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
   <string name="timeline">समयरेखा</string>
   <string name="starting">शुरू हुंदैछ:</string>
   <string name="allInformationIsPublicAndOptional">सबै जानकारी सार्वजनिक र वैकल्पिक छन्।</string>
-  <string name="biographyDescription">आफ्नो बारे मा बताउनुहोस्, तपाइलाई बुद्धिचाल मा के राम्रो लाग्छ, तपाइलाई मनपर्ने शुरुवाती चाल तथा खेलाडीहरु...</string>
+  <string name="biographyDescription">आफ्नो बारे बताउनुहोस्, तपाइलाई चेसमा के राम्रो लाग्छ, तपाइलाई मनपर्ने प्रारम्भिक चाल तथा खेलाडीहरु, आदि</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">अधिकतम %s अक्षर|</item>
     <item quantity="other">अधिकतम %s अक्षर|</item>
@@ -587,7 +633,7 @@
   </plurals>
   <string name="yourPerfTypeRatingIsRating">तपाइको %1$s रेटिंग %2$s छ।</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तपाइ %2$s खेलाडीहरु मध्य %1$s भन्दा बढि राम्रो हुनुहुन्छ।</string>
-  <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s %2$s %3$s खेलाडीहरुभन्दा बढि राम्रो।</string>
+  <string name="userIsBetterThanPercentOfPerfTypePlayers">%3$s विधामा %1$s , %2$s  खेलाडीहरुभन्दा माथी हुनुहु्छ ।</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">तपाइको स्थापित %s रेटिङ छैन।</string>
   <string name="yourRating">तपाइको रेटिङ</string>
   <string name="cumulative">संचयी</string>
@@ -624,7 +670,7 @@
   <string name="zeroAdvertisement">शुन्य विज्ञापन</string>
   <string name="fullFeatured">सम्पुर्ण विशेषता सहित</string>
   <string name="phoneAndTablet">फोन र ट्याबलेट</string>
-  <string name="bulletBlitzClassical">बुलेट, ब्लिज, क्लासिकल</string>
+  <string name="bulletBlitzClassical">तोप, बिजुली, शास्त्रिय</string>
   <string name="correspondenceChess">पत्रचारिक खेलहरु</string>
   <string name="onlineAndOfflinePlay">अनलाइन र अफलाइन खेल</string>
   <string name="viewTheSolution">समाधान हेरौं</string>
@@ -650,7 +696,7 @@
   <string name="boardGeometry">बोर्ड ज्यामिति</string>
   <string name="boardTheme">बोर्ड थिम</string>
   <string name="boardSize">बोर्ड आकार</string>
-  <string name="pieceSet">गोटी सेट</string>
+  <string name="pieceSet">चेस सेट</string>
   <string name="embedInYourWebsite">तपाइको वेबसाइटमा इम्बेड गर्नुहोस्</string>
   <string name="usernameAlreadyUsed">यो युजर नेम प्रयोगमा छ, कृपया पुनः प्रयास गर्नुहोस्।</string>
   <string name="usernamePrefixInvalid">युजर नेम अक्षरबाट शुरू हुनु पर्दछ।</string>
@@ -707,7 +753,7 @@
     <item quantity="one">%s सेकेण्ड</item>
     <item quantity="other">%s सेकेण्ड</item>
   </plurals>
-  <string name="opening">शुरुका चालहरु</string>
+  <string name="opening">प्रारम्भिक चालहरु</string>
   <string name="middlegame">बीचको खेल</string>
   <string name="endgame">खेलको समाप्ति</string>
   <string name="conditionalPremoves">ससर्त प्रिमुभहरु</string>
@@ -733,19 +779,22 @@
   <string name="wishYouGreatGames">तपाइलाई lichess.org मा राम्रो खेल्न शुभकामना छ।</string>
   <string name="thankYouForReading">पढ्नुभएको मा धन्यवाद</string>
   <string name="lifetimeScore">आजिवन अंक</string>
-  <string name="currentMatchScore">हालका खेलहरुकोको अंक</string>
+  <string name="currentMatchScore">हालका खेलहरुकोको स्कोर</string>
   <string name="agreementAssistance">म आफ्नो खेलको क्रममा कहिल्यै पनि कुनै पनि बाहिरी सहायता (कम्प्युटर, डाटाबेस, वा अर्को व्यक्तिसँग) नलिन सहमत छु।</string>
   <string name="agreementNice">म सबै खेलाडीसँग राम्रो व्यवहार गर्न सहमत छु।</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">म स्विकार्छु कि म (%s मा उल्लिखित कारणहरूले गर्दा बाहेक) एक भन्दा बढी खाता बनाउँने छैन । </string>
   <string name="agreementPolicy">म लीचेसका सबै नीति पालना गर्न सहमत छु।</string>
   <string name="searchOrStartNewDiscussion">नयाँ छलफल शुरू गर्नुहोस्।</string>
   <string name="edit">परिमार्जन</string>
-  <string name="rapid">रापिड</string>
-  <string name="classical">क्लासिकल</string>
-  <string name="ultraBulletDesc">अत्यन्तै छिटो खेल: ३० सेकेन्ड भन्दा कम</string>
-  <string name="bulletDesc">धेरै छिटो खेल: ३ मिनेट भन्दा कम</string>
-  <string name="blitzDesc">३ देखि ८ मिनेटका ब्लिज खेलहरू</string>
-  <string name="rapidDesc">८ देखि २५ मिनटका रापिड खेलहरू</string>
-  <string name="classicalDesc">२५ मिनेटभन्दा बढिका क्लासिकल खेलहरू</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">तोप</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ब्लिट्ज</string>
+  <string name="rapid">छिटो खेल</string>
+  <string name="classical">शास्त्रिय ।</string>
+  <string name="ultraBulletDesc">अल्ट्राबुलेट: ३० सेकेन्ड भन्दा कम</string>
+  <string name="bulletDesc">तोप: ३ मिनेट भन्दा कम</string>
+  <string name="blitzDesc">ब्लिट्ज : ३ देखि ८ मिनेटका  खेलहरू</string>
+  <string name="rapidDesc">छिटो खेल: ८ देखि २५ मिनटका खेलहरू</string>
+  <string name="classicalDesc">शास्त्रिय : २५ मिनेटभन्दा बढिका  खेलहरू</string>
   <string name="correspondenceDesc">पत्रचारिक खेलहरू: हरेक चालको एक वा सो भन्दा बढि दिनहरू</string>
   <string name="puzzleDesc">चेस कार्यनीति प्रशिक्षण</string>
   <string name="important">महत्वपुर्ण</string>
@@ -755,7 +804,14 @@
   <string name="useTheReportForm">रिपोर्ट फारम प्रयोग गर्नुहोस्</string>
   <string name="toRequestSupport">मद्दतका लागि अनुरोध गर्न, %1$s</string>
   <string name="tryTheContactPage">सम्पर्क पेजबाट प्रयास गर्नुहोस्</string>
+  <string name="makeSureToRead">%1$s पढन नबिर्सनुहोस् ।</string>
+  <string name="theForumEtiquette">फोरम आचारसंहिता</string>
   <string name="thisTopicIsArchived">यो विषय सङ्गृहीत छ र यसलाई जवाफ दिन सकिँदैन।</string>
+  <string name="joinTheTeamXToPost">यो फोरम म पोस्ट गर्न %1$s मा जोडिनुहोस् ।</string>
   <string name="teamNamedX">%1$s टोली</string>
+  <string name="refundXpointsTimeControlY">%2$s विधामा %1$s रेटिङ् अङ्क फिर्ता । </string>
   <string name="timeAlmostUp">समय सक्किन लाग्यो!</string>
+  <string name="closedAccountChangedMind">यदि तापाईँले आफ्नो खाता बन्द गर्नु भयो तर त्यस पछि तपाईको मन फेरीयो भने तपाईँलाई आफ्नो खाता फिर्ता पाउन एक अन्तिम मौका दिइनेछ ।</string>
+  <string name="until">सम्म</string>
+  <string name="lichessDbExplanation">लिचेसमा खेलिएका रेटेड खेलहरू</string>
 </resources>

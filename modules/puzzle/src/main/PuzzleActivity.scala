@@ -7,7 +7,6 @@ import reactivemongo.akkastream.cursorProducer
 import lila.common.Json.given
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final class PuzzleActivity(
     colls: PuzzleColls

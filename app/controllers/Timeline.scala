@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.libs.json.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -18,18 +17,18 @@ final class Timeline(env: Env) extends LilaController(env):
           for
             entries <- env.timeline.entryApi.userEntries(me)
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
-          yield html.timeline.entries(entries)
+          yield views.timeline.entries(entries)
         else
           for
             entries <- env.timeline.entryApi.moreUserEntries(me, Max(30), since = getTimestamp("since"))
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
-          yield html.timeline.more(entries)
+          yield views.timeline.more(entries)
       ,
       json =
         // Must be empty if nb is not given, because old versions of the
         // mobile app that do not send nb are vulnerable to XSS in
         // timeline entries.
-        apiOutput(max = getIntAs[Max]("nb").fold(Max(0))(_.atMost(env.apiTimelineSetting.get())))
+        apiOutput(max = getIntAs[Max]("nb").fold(Max(0))(_.atMost(env.web.settings.apiTimeline.get())))
     )
   }
 

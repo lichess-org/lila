@@ -1,10 +1,10 @@
 package lila.tv
 
-import chess.Color
+import chess.{ Ply, Color }
+import monocle.syntax.all.*
+import scalalib.actor.SyncActor
 
 import lila.core.LightUser
-import lila.game.Game
-import scalalib.actor.SyncActor
 
 final private[tv] class ChannelSyncActor(
     channel: Tv.Channel,
@@ -62,9 +62,8 @@ final private[tv] class ChannelSyncActor(
             case _             => elect(bestOf(candidates))
           }
           manyIds = candidates
-            .sortBy { g =>
+            .sortBy: g =>
               -(~g.averageUsersRating)
-            }
             .take(50)
             .map(_.id)
         }
@@ -76,7 +75,10 @@ final private[tv] class ChannelSyncActor(
   private def wayBetter(game: Game, candidates: List[Game]) =
     bestOf(candidates).filter { isWayBetter(game, _) }
 
-  private def isWayBetter(g1: Game, g2: Game) = score(g2.resetTurns) > (score(g1.resetTurns) * 1.17)
+  private def resetTurns(g: Game): Game =
+    g.focus(_.chess).modify(c => c.copy(ply = Ply.initial, startedAtPly = Ply.initial))
+
+  private def isWayBetter(g1: Game, g2: Game) = score(resetTurns(g2)) > (score(resetTurns(g1)) * 1.17)
 
   private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id).so(proxyGame)
 

@@ -3,10 +3,11 @@ package lila.tournament
 import akka.stream.scaladsl.*
 import io.lettuce.core.RedisClient
 import play.api.libs.json.*
+import scalalib.cache.{ ExpireSetMemo, FrequencyThreshold }
 
 import lila.common.Json.given
 import lila.common.{ LilaScheduler, LilaStream }
-import scalalib.cache.{ ExpireSetMemo, FrequencyThreshold }
+import lila.core.chess.Rank
 
 final class TournamentLilaHttp(
     tournamentRepo: TournamentRepo,
@@ -16,7 +17,7 @@ final class TournamentLilaHttp(
     statsApi: TournamentStatsApi,
     jsonView: JsonView,
     pause: Pause,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     redisClient: RedisClient
 )(using akka.stream.Materializer, Scheduler, Executor):
 

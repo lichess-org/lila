@@ -1,25 +1,20 @@
-package views.html.team
+package views.team
 
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
 import lila.app.mashup.TeamInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object tournaments:
 
   def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${t.name} • ${trans.site.tournaments.txt()}",
-      openGraph = lila.app.ui
-        .OpenGraph(
-          title = s"${t.name} team tournaments",
-          url = s"$netBaseUrl${teamRoutes.tournaments(t.id)}",
-          description = shorten(t.description.value, 152)
-        )
-        .some,
+      openGraph = OpenGraph(
+        title = s"${t.name} team tournaments",
+        url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
+        description = shorten(t.description.value, 152)
+      ).some,
       moreCss = cssTag("team"),
       wrapClass = "full-screen-force"
     ):
@@ -54,7 +49,9 @@ object tournaments:
             "soon"      -> any.isNowOrSoon
           )
         )(
-          td(cls := "icon")(iconTag(any.value.fold(tournamentIcon, _.perfType.icon))),
+          td(cls := "icon")(
+            iconTag(any.value.fold(views.tournament.ui.tournamentIcon, _.perfType.icon))
+          ),
           td(cls := "header")(
             any.value.fold(
               t =>
@@ -101,7 +98,7 @@ object tournaments:
                 )
             )
           ),
-          td(cls := "text", dataIcon := licon.User)(any.nbPlayers.localize)
+          td(cls := "text", dataIcon := Icon.User)(any.nbPlayers.localize)
         )
 
   private def renderStartsAt(any: TeamInfo.AnyTour)(using Translate): Frag =

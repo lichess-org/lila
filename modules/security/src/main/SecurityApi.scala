@@ -10,24 +10,23 @@ import reactivemongo.api.bson.*
 
 import lila.common.Form.into
 import lila.common.HTTPRequest
-import lila.core.{ ApiVersion, IpAddress }
+import lila.core.net.{ ApiVersion, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
-import lila.user.User.LoginCandidate.Result
-import lila.user.User.{ ClearPassword, LoginCandidate }
-import lila.user.{ Me, User, UserRepo }
-import lila.core.{ EmailAddress, UserStrOrEmail }
+import lila.security.LoginCandidate.Result
+import lila.core.email.UserStrOrEmail
+import lila.core.security.{ IsProxy, Ip2ProxyApi, FingerHash, ClearPassword }
 
 final class SecurityApi(
-    userRepo: UserRepo,
+    userRepo: lila.user.UserRepo,
     store: Store,
     firewall: Firewall,
     cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
-    authenticator: lila.user.Authenticator,
+    authenticator: Authenticator,
     oAuthServer: OAuthServer,
-    ip2proxy: Ip2Proxy,
-    proxy2faSetting: lila.memo.SettingStore[lila.core.Strings] @@ Proxy2faSetting
+    ip2proxy: Ip2ProxyApi,
+    proxy2faSetting: lila.memo.SettingStore[lila.core.data.Strings] @@ Proxy2faSetting
 )(using ec: Executor, mode: play.api.Mode):
 
   val AccessUri = "access_uri"
@@ -81,7 +80,7 @@ final class SecurityApi(
       .from(str.value)
       .match
         case Some(email) => authenticator.loginCandidateByEmail(email.normalize)
-        case None        => User.validateId(str.into(UserStr)).so(authenticator.loginCandidateById)
+        case None        => str.into(UserStr).validateId.so(authenticator.loginCandidateById)
       .map(_.filter(_.user.isnt(UserId.lichess)))
       .flatMap:
         _.so: candidate =>
@@ -98,7 +97,7 @@ final class SecurityApi(
   ): LoginCandidate.Result =
     import LoginCandidate.Result.*
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
-      val result = c(User.PasswordAndToken(password, token.map(User.TotpToken.apply)))
+      val result = c(PasswordAndToken(password, token.map(lila.user.TotpToken.apply)))
       if result == BlankedPassword then
         lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
         BlankedPassword
@@ -158,9 +157,9 @@ final class SecurityApi(
     def apply(access: OAuthScope.Access, req: RequestHeader): Unit =
       if access.scoped.scopes.intersects(OAuthScope.relevantToMods) && sometimes(access.tokenId) then
         val mobile = Mobile.LichessMobileUa.parse(req)
-        store.upsertOAuth(access.user.id, access.tokenId, mobile, req)
+        store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
 
-  private lazy val nonModRoles: Set[String] = Permission.nonModPermissions.map(_.dbKey)
+  private lazy val nonModRoles: Set[String] = lila.core.perm.Permission.nonModPermissions.map(_.dbKey)
 
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
     if scoped.scopes.has(_.Web.Mod) then scoped

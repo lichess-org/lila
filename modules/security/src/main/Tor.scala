@@ -3,7 +3,7 @@ package lila.security
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 
 final private class Tor(ws: StandaloneWSClient, config: SecurityConfig.Tor)(using Executor)(using
     scheduler: Scheduler

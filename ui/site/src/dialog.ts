@@ -118,7 +118,7 @@ class DialogWrapper implements Dialog {
     const cancelOnInterval = () => Date.now() - justThen > 200 && this.close('cancel');
 
     this.observer.observe(document.body, { childList: true, subtree: true });
-    view.parentElement?.style.setProperty('--viewport-height', `${window.innerHeight}px`);
+    view.parentElement?.style.setProperty('---viewport-height', `${window.innerHeight}px`);
     view.addEventListener('click', e => e.stopPropagation());
 
     dialog.addEventListener('cancel', () => !this.returnValue && (this.returnValue = 'cancel'));
@@ -220,7 +220,7 @@ function onModalKeydown(e: KeyboardEvent) {
 
 function onResize() {
   // ios safari vh behavior workaround
-  $('dialog > div.scrollable').css('--viewport-height', `${window.innerHeight}px`);
+  $('dialog > div.scrollable').css('---viewport-height', `${window.innerHeight}px`);
 }
 
 const focusQuery = ['button', 'input', 'select', 'textarea']

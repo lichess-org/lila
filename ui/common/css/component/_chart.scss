@@ -22,7 +22,10 @@
     border: $border;
 
     &.active {
-      background-color: if($theme-light, #dbebfc, #262421);
+      background-color: #262421;
+      @include if-light {
+        background-color: #dbebfc;
+      }
       color: $c-font;
       text-shadow: none !important;
     }

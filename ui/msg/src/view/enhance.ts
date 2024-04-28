@@ -116,7 +116,7 @@ const expandGame = async (exp: Expandable) => {
   const $lpv = $('<div>');
   $(exp.element).parent().parent().addClass('has-embed');
   $(exp.element).replaceWith($('<div>').prepend($lpv));
-  await site.asset.loadEsm('lpv', {
+  await site.asset.loadEsm('bits.lpv', {
     init: { el: $lpv[0] as HTMLElement, url: exp.link.src, lpvOpts: exp.link.opts },
   });
   scroller.auto();

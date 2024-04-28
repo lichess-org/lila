@@ -7,10 +7,10 @@ import lila.appeal.Appeal
 import lila.challenge.Challenge
 import lila.clas.{ Clas, ClasInvite }
 import lila.puzzle.PuzzleTheme
-import lila.rating.Perf
 import lila.report.Report
 import lila.core.socket.Sri
-import lila.core.perf.PerfKey
+import lila.core.id.*
+import lila.core.perf.PerfKeyStr
 
 // These are only meant for the play router,
 // so that controllers can take richer types than routes allow
@@ -36,13 +36,13 @@ given Conversion[String, Sri]                                            = Sri(_
 given Conversion[Int, chess.FideId]                                      = chess.FideId(_)
 given challengeId: Conversion[String, Challenge.Id]                      = Challenge.Id(_)
 given appealId: Conversion[String, Appeal.Id]                            = Appeal.Id(_)
-given reportId: Conversion[String, Report.Id]                            = Report.Id(_)
+given reportId: Conversion[String, ReportId]                             = ReportId(_)
 given clasId: Conversion[String, Clas.Id]                                = Clas.Id(_)
 given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasInvite.Id(_)
-given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
+given relayTourInviteId: Conversion[String, lila.relay.RelayTourId]      = lila.relay.RelayTourId(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr.from(_)
-given perfKey: Conversion[String, PerfKey]                               = PerfKey(_)
+given perfKeyStr: Conversion[String, PerfKeyStr]                         = PerfKeyStr(_)
 given puzzleKey: Conversion[String, PuzzleTheme.Key]                     = PuzzleTheme.Key(_)
 given Conversion[String, Variant.LilaKey]                                = Variant.LilaKey(_)
 given variantKeyOpt: Conversion[Option[String], Option[Variant.LilaKey]] = Variant.LilaKey.from(_)
@@ -51,41 +51,10 @@ given uciOpt: Conversion[Option[String], Option[chess.format.Uci]]       = _.fla
 // Used when constructing URLs from routes
 // TODO actually use the types in the routes
 object ReverseRouterConversions:
-  given Conversion[GameId, String]                                         = _.value
-  given Conversion[GameFullId, String]                                     = _.value
-  given Conversion[GameAnyId, String]                                      = _.value
-  given Conversion[StudyId, String]                                        = _.value
-  given Conversion[StudyChapterId, String]                                 = _.value
-  given Conversion[PuzzleId, String]                                       = _.value
-  given Conversion[SimulId, String]                                        = _.value
-  given Conversion[SwissId, String]                                        = _.value
-  given Conversion[TourId, String]                                         = _.value
-  given Conversion[TeamId, String]                                         = _.value
-  given Conversion[RelayRoundId, String]                                   = _.value
-  given Conversion[UblogPostId, String]                                    = _.value
-  given Conversion[UserId, String]                                         = _.value
-  given Conversion[UserName, String]                                       = _.value
-  given Conversion[chess.opening.OpeningKey, String]                       = _.value
-  given Conversion[chess.format.Uci, String]                               = _.uci
-  given Conversion[Variant.LilaKey, String]                                = _.value
-  given variantKeyOpt: Conversion[Option[Variant.LilaKey], Option[String]] = Variant.LilaKey.raw(_)
-  given Conversion[Option[UserName], Option[String]]                       = UserName.raw(_)
-  // where a UserStr is accepted, we can pass a UserName or UserId
-  given Conversion[UserName, UserStr]                                = _.into(UserStr)
-  given Conversion[UserId, UserStr]                                  = _.into(UserStr)
-  given Conversion[ForumCategId, String]                             = _.value
-  given Conversion[ForumTopicId, String]                             = _.value
-  given Conversion[lila.cms.CmsPage.Id, String]                      = _.value
-  given Conversion[lila.cms.CmsPage.Key, String]                     = _.value
-  given Conversion[lila.core.i18n.Language, String]                  = _.value
-  given Conversion[chess.FideId, Int]                                = _.value
-  given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
-  given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
-  given reportIdConv: Conversion[Report.Id, String]                  = _.value
-  given postIdConv: Conversion[ForumPostId, String]                  = _.value
-  given clasIdConv: Conversion[Clas.Id, String]                      = _.value
-  given clasInviteIdConv: Conversion[ClasInvite.Id, String]          = _.value
-  given relayTourIdConv: Conversion[lila.relay.RelayTour.Id, String] = _.value
-  given perfKeyConv: Conversion[PerfKey, String]                     = _.value
-  given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]           = _.value
-  given localDateConv: Conversion[java.time.LocalDate, String]       = _.toString
+  given challengeIdConv: Conversion[Challenge.Id, String]      = _.value
+  given appealIdConv: Conversion[Appeal.Id, String]            = _.value
+  given clasIdConv: Conversion[Clas.Id, String]                = _.value
+  given clasInviteIdConv: Conversion[ClasInvite.Id, String]    = _.value
+  given localDateConv: Conversion[java.time.LocalDate, String] = _.toString
+  given cmsPageIdConv: Conversion[lila.cms.CmsPage.Id, String] = _.value
+  given Conversion[lila.cms.CmsPage.Key, String]               = _.value

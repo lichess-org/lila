@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.coach.{ Coach as CoachModel, CoachPager, CoachProfileForm }
@@ -27,7 +26,7 @@ final class Coach(env: Env) extends LilaController(env):
       langCodes <- env.coach.api.allLanguages
       countries <- env.coach.api.countrySelection
       pager     <- env.coach.pager(lang, order, country, page)
-      page      <- renderPage(html.coach.index(pager, lang, order, langCodes, countries, country))
+      page      <- renderPage(views.coach.index(pager, lang, order, langCodes, countries, country))
     yield Ok(page)
 
   def show(username: UserStr) = Open:
@@ -37,7 +36,7 @@ final class Coach(env: Env) extends LilaController(env):
           stu     <- env.study.api.publicByIds(c.coach.profile.studyIds)
           studies <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
           posts   <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
-          page    <- renderPage(html.coach.show(c, studies, posts))
+          page    <- renderPage(views.coach.show(c, studies, posts))
           _ = lila.mon.coach.pageView.profile(c.coach.id.value).increment()
         yield Ok(page)
 
@@ -47,7 +46,7 @@ final class Coach(env: Env) extends LilaController(env):
 
   def edit = Secure(_.Coach) { ctx ?=> me ?=>
     FoundPage(api.findOrInit): c =>
-      env.msg.twoFactorReminder(me).inject(html.coach.edit(c, CoachProfileForm.edit(c.coach)))
+      env.msg.twoFactorReminder(me).inject(views.coach.edit(c, CoachProfileForm.edit(c.coach)))
     .map(_.noCache)
   }
 

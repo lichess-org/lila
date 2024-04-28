@@ -7,7 +7,6 @@ import lila.db.AsyncColl
 import lila.storm.{ StormJson, StormSelector, StormSign }
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     selector: StormSelector,
     socketKit: lila.core.socket.SocketKit,
@@ -15,8 +14,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     stormJson: StormJson,
     stormSign: StormSign,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     lightUserGetter: LightUser.GetterSyncFallback,
     db: lila.db.Db
 )(using Executor, Scheduler, play.api.Mode):

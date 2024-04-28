@@ -8,7 +8,7 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.Bus
 import lila.core.LightUser
-import lila.game.Pov
+
 import lila.game.actorApi.MoveGameEvent
 import lila.core.game.TvSelect
 import lila.core.socket.makeMessage
@@ -16,7 +16,7 @@ import lila.core.socket.makeMessage
 final private class TvBroadcast(
     lightUserSync: LightUser.GetterSync,
     channel: Tv.Channel,
-    gameProxyRepo: lila.round.GameProxyRepo
+    gameProxy: lila.core.game.GameProxy
 ) extends Actor:
 
   import TvBroadcast.*
@@ -54,7 +54,7 @@ final private class TvBroadcast(
     case Remove(client) => clients = clients - client
 
     case TvSelect(gameId, speed, chanKey, data) if chanKey == channel.key =>
-      gameProxyRepo.game(gameId).map2 { game =>
+      gameProxy.game(gameId).map2 { game =>
         unsubscribeFromFeaturedId()
         Bus.subscribe(self, MoveGameEvent.makeChan(gameId))
         val pov = Pov.naturalOrientation(game)

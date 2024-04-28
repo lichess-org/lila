@@ -4,11 +4,10 @@ import chess.format.Uci
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, Pov }
 
 import Forecast.Step
 
-final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
+final class ForecastApi(coll: Coll, roundApi: lila.core.round.RoundApi)(using Executor):
 
   private given BSONDocumentHandler[Step]     = Macros.handler
   private given BSONDocumentHandler[Forecast] = Macros.handler
@@ -43,7 +42,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
       Uci.Move(uciMove).fold[Funit](fufail(lila.core.round.ClientError(s"Invalid move $uciMove on $pov"))) {
         uci =>
           val promise = Promise[Unit]()
-          tellRound(
+          roundApi.tell(
             pov.gameId,
             HumanPlay(
               playerId = pov.playerId,
@@ -73,14 +72,15 @@ final class ForecastApi(coll: Coll, tellRound: TellRound)(using Executor):
 
   def nextMove(g: Game, last: chess.Move): Fu[Option[Uci.Move]] =
     g.forecastable.so:
-      loadForPlay(Pov.player(g)).flatMap:
+      val pov = Pov(g, g.turnColor)
+      loadForPlay(pov).flatMap:
         case None => fuccess(none)
         case Some(fc) =>
           fc(g, last) match
             case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
               coll.update.one($id(fc._id), newFc).inject(uciMove.some)
-            case Some((_, uciMove)) => clearPov(Pov.player(g)).inject(uciMove.some)
-            case _                  => clearPov(Pov.player(g)).inject(none)
+            case Some((_, uciMove)) => clearPov(pov).inject(uciMove.some)
+            case _                  => clearPov(pov).inject(none)
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 
