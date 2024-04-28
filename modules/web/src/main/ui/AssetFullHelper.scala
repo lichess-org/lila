@@ -39,7 +39,7 @@ trait AssetFullHelper:
 
   def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
 
-  def cssTag(key: String)(using ctx: Context): Frag =
+  def cssTag(key: String): Frag =
     link(href := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"), rel := "stylesheet")
 
   def jsonScript(json: JsValue | SafeJsonStr) =
