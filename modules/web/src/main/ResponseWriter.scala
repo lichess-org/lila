@@ -33,8 +33,9 @@ trait ResponseWriter extends ContentTypes:
   given intRuntimeWriteable[A](using codec: Codec, sr: IntRuntime[A]): Writeable[A] =
     Writeable(a => codec.encode(sr(a).toString))
 
-  given (using codec: Codec): ContentTypeOf[Frag] = ContentTypeOf(Some(ContentTypes.HTML))
-  given (using codec: Codec): Writeable[Frag]     = Writeable(frag => codec.encode(frag.render))
+  given (using codec: Codec): ContentTypeOf[lila.ui.Page] = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): ContentTypeOf[Frag]         = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): Writeable[Frag]             = Writeable(frag => codec.encode(frag.render))
 
   val csvContentType = "text/csv"
 
