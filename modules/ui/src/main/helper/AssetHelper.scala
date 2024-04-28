@@ -7,6 +7,12 @@ trait AssetHelper:
 
   def assetBaseUrl: AssetBaseUrl
 
+  def cssTag(key: String): Frag
+
+  extension (l: Layout)
+    def cssTag(keys: String*): Layout =
+      keys.foldLeft(l)((l, key) => l.css(AssetHelper.this.cssTag(key)))
+
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______2"
 

@@ -226,7 +226,7 @@ final class Mod(
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
     Ok.pageAsync:
-      env.mod.logApi.recentBy(me).map(views.mod.log(_))
+      env.mod.logApi.recentBy(me).map(views.mod.ui.myLogs(_))
   }
 
   private def communications(username: UserStr, priv: Boolean) =
@@ -365,12 +365,12 @@ final class Mod(
 
   def activityOf(who: String, period: String) = Secure(_.GamifyView) { ctx ?=> me ?=>
     Ok.pageAsync:
-      env.mod.activity(who, period)(me.user).map(views.mod.activity(_))
+      env.mod.activity(who, period)(me.user).map(views.mod.ui.activity(_))
   }
 
   def queues(period: String) = Secure(_.GamifyView) { ctx ?=> _ ?=>
     Ok.pageAsync:
-      env.mod.queueStats(period).map(views.mod.queueStats(_))
+      env.mod.queueStats(period).map(views.mod.ui.queueStats(_))
   }
 
   def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
@@ -506,7 +506,7 @@ final class Mod(
   }
 
   def chatPanic = Secure(_.Shadowban) { ctx ?=> _ ?=>
-    Ok.page(views.mod.chatPanic(env.chat.panic.get))
+    Ok.page(views.mod.ui.chatPanic(env.chat.panic.get))
   }
 
   def chatPanicPost = OAuthMod(_.Shadowban) { ctx ?=> me ?=>
@@ -520,7 +520,7 @@ final class Mod(
     env.mod.presets
       .get(group)
       .fold(notFound): setting =>
-        Ok.page(views.mod.presets(group, setting.form))
+        Ok.page(views.mod.ui.presets(group, setting.form))
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>
@@ -528,7 +528,7 @@ final class Mod(
       setting.form
         .bindFromRequest()
         .fold(
-          err => BadRequest.page(views.mod.presets(group, err)),
+          err => BadRequest.page(views.mod.ui.presets(group, err)),
           v => setting.setString(v.toString).inject(Redirect(routes.Mod.presets(group)).flashSuccess)
         )
   }
