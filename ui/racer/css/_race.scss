@@ -88,7 +88,7 @@ $c-bg-position-y: 2px;
       color: $c-brag;
     }
     .racer__race__track--boost.racer__race__track--first & {
-      color: mix(saturate($c-brag, 50%), #fff, 70%);
+      color: $c-racer-boost;
     }
   }
 

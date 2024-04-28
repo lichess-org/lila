@@ -1,11 +1,10 @@
-package views.html.coach
+package views.coach
 
-import controllers.routes
 import play.api.data.Form
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.html.safeJsonValue
 import lila.i18n.LangList
 
@@ -29,10 +28,10 @@ object edit:
   def apply(c: lila.coach.Coach.WithUser, form: Form[?])(using
       ctx: PageContext
   ) =
-    views.html.account.layout(
+    views.account.layout(
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
-      evenMoreJs = jsModule("coach.form"),
+      modules = EsmInit("bits.coach.form"),
       active = "coach"
     ):
       div(cls := "coach-edit box")(

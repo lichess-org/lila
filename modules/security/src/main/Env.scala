@@ -11,17 +11,14 @@ import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
 import lila.oauth.OAuthServer
-import lila.user.{ Authenticator, UserRepo }
 
 @Module
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
     net: lila.core.config.NetConfig,
-    userRepo: UserRepo,
-    authenticator: Authenticator,
+    userRepo: lila.user.UserRepo,
     mailer: lila.mailer.Mailer,
-    hasher: lila.user.PasswordHasher,
     noteApi: lila.user.NoteApi,
     cacheApi: lila.memo.CacheApi,
     settingStore: lila.memo.SettingStore.Builder,
@@ -46,11 +43,20 @@ final class Env(
 
   lazy val flood = new Flood
 
+  lazy val passwordHasher = PasswordHasher(
+    secret = config.passwordBPassSecret,
+    logRounds = 10,
+    hashTimer = lila.common.Chronometer.syncMon(_.user.auth.hashTime)
+  )
+
+  lazy val authenticator = wire[Authenticator]
+
   lazy val hcaptcha: Hcaptcha =
     if config.hcaptcha.enabled then wire[HcaptchaReal]
     else wire[HcaptchaSkip]
 
-  lazy val forms = wire[SecurityForm]
+  lazy val forms                                = wire[SecurityForm]
+  def signupForm: lila.core.security.SignupForm = forms.signup
 
   lazy val geoIP: GeoIP = wire[GeoIP]
 

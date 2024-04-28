@@ -32,7 +32,7 @@
     cursor: pointer;
     &:hover {
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
     }
 
     @include padding-direction(0.7em, 0.1em, 0.7em, 0.6em);
@@ -68,7 +68,7 @@
       @include transition;
 
       background: $c-bad;
-      color: $c-bad-over;
+      color: $c-over;
       border-radius: 50%;
       z-index: 1;
 

@@ -1,6 +1,6 @@
-package views.html.base
+package views.base
 
 import lila.app.templating.Environment.{ *, given }
 
-val bits = lila.web.views.bits(controllers.routes.Main.externalLink)
-val atom = lila.web.views.atom(netBaseUrl)
+val bits         = lila.web.views.bits()
+lazy val captcha = lila.web.views.captcha(helpers)

@@ -1,13 +1,12 @@
 package lila.ui
 
+import cats.Monoid
 import alleycats.Zero
 import chess.PlayerTitle
 import scalalib.Render
 import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
-
-import lila.ui.Icon
 
 // collection of lila attrs
 trait ScalatagsAttrs:
@@ -21,7 +20,6 @@ trait ScalatagsAttrs:
   val dataRel                = attr("data-rel")
   val dataTitle              = attr("data-title")
   val novalidate             = attr("novalidate").empty
-  val datetimeAttr           = attr("datetime")
   val dataBotAttr            = attr("data-bot").empty
   val dataUser               = attr("data-user")
   val deferAttr              = attr("defer").empty
@@ -67,19 +65,17 @@ trait ScalatagsSnippets:
 
   def rawHtml(html: Html) = raw(html.value)
 
-  def userTitleTag(t: PlayerTitle) =
-    span(
-      cls := "utitle",
-      (t == PlayerTitle.BOT).option(dataBotAttr),
-      title := PlayerTitle.titleName(t)
-    )(t)
+  def userTitleTag(t: PlayerTitle) = span(
+    cls := "utitle",
+    (t == PlayerTitle.BOT).option(dataBotAttr),
+    title := PlayerTitle.titleName(t)
+  )(t)
 
-  val utcLink =
-    a(
-      href := "https://time.is/UTC",
-      targetBlank,
-      title := "Coordinated Universal Time"
-    )("UTC")
+  val utcLink = a(
+    href := "https://time.is/UTC",
+    targetBlank,
+    title := "Coordinated Universal Time"
+  )("UTC")
 
 // basic imports from scalatags
 trait ScalatagsBundle extends Attrs with scalatags.text.Tags
@@ -87,14 +83,13 @@ trait ScalatagsBundle extends Attrs with scalatags.text.Tags
 // short prefix
 trait ScalatagsPrefix:
   object st extends Cap with Attrs with scalatags.text.Tags:
-    val group     = tag("group")
-    val headTitle = tag("title")
-    val nav       = tag("nav")
-    val section   = tag("section")
-    val article   = tag("article")
-    val aside     = tag("aside")
-    val rating    = tag("rating")
-
+    val group       = tag("group")
+    val headTitle   = tag("title")
+    val nav         = tag("nav")
+    val section     = tag("section")
+    val article     = tag("article")
+    val aside       = tag("aside")
+    val rating      = tag("rating")
     val frameborder = attr("frameborder")
 
 // what to import in a scalatags template
@@ -109,14 +104,19 @@ trait ScalatagsTemplate
 
   export scalatags.Text.tags2.main
   export scalatags.Text.styles.{ width as cssWidth, height as cssHeight }
+  export play.api.mvc.Call
 
   /* Convert play URLs to scalatags attributes with toString */
-  given GenericAttr[play.api.mvc.Call] = GenericAttr[play.api.mvc.Call]
+  given GenericAttr[Call] = GenericAttr[Call]
 
 object ScalatagsTemplate extends ScalatagsTemplate
 
 // generic extensions
 trait ScalatagsExtensions:
+
+  export Context.ctxMe
+  export ReverseRouterConversions.given
+  export lila.core.perm.Granter
 
   given Render[Icon] = _.value
 
@@ -145,6 +145,10 @@ trait ScalatagsExtensions:
   val emptyFrag: Frag = RawFrag("")
   given Zero[Frag]    = Zero(emptyFrag)
 
+  given Monoid[Frag] with
+    def empty: Frag                     = emptyFrag
+    def combine(x: Frag, y: Frag): Frag = frag(x, y)
+
   val targetBlank: Modifier = (t: Builder) =>
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted
     // links, because there can be a small performance advantage and lila does
@@ -154,8 +158,7 @@ trait ScalatagsExtensions:
     t.setAttr("target", Builder.GenericAttrValueSource("_blank"))
 
   val noFollow = rel := "nofollow"
-
-  val relMe = rel := "me"
+  val relMe    = rel := "me"
 
   def ariaTitle(v: String): Modifier = (t: Builder) =>
     val value = Builder.GenericAttrValueSource(v)

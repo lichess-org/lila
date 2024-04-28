@@ -20,6 +20,7 @@ import lila.tree.Node.partitionTreeJsonWriter
 import lila.core.user.GameUsers
 import lila.core.i18n.Translate
 import lila.core.data.Preload
+import lila.round.RoundGame.*
 
 final private[api] class RoundApi(
     jsonView: JsonView,
@@ -186,7 +187,8 @@ final private[api] class RoundApi(
         pov.game,
         analysis,
         initialFen | pov.game.variant.initialFen,
-        withFlags
+        withFlags,
+        logChessError = lila.log("api.round").warn
       ))
 
   private def withSteps(pov: Pov, initialFen: Option[Fen.Full])(obj: JsObject) =

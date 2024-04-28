@@ -1,8 +1,7 @@
-package views.html
-package game
+package views.game
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.game.{ Player }
 import lila.game.GameExt.perfType
 import lila.game.Player.nameSplit
@@ -23,10 +22,10 @@ object widgets:
       st.article(cls := "game-row paginated")(
         a(cls := "game-row__overlay", href := gameLink(g, firstPlayer.color, ownerLink)),
         div(cls := "game-row__board")(
-          views.html.board.bits.mini(Pov(g, firstPlayer))(span)
+          views.board.bits.mini(Pov(g, firstPlayer))(span)
         ),
         div(cls := "game-row__infos")(
-          div(cls := "header", dataIcon := bits.gameIcon(g))(
+          div(cls := "header", dataIcon := ui.gameIcon(g))(
             div(cls := "header__text")(
               strong(
                 if g.sourceIs(_.Import) then
@@ -36,7 +35,7 @@ object widgets:
                       frag(" ", trans.site.by(userIdLink(user.some, None, withOnline = false)))
                     },
                     separator,
-                    bits.variantLink(g.variant, g.perfType)
+                    variantLink(g.variant, g.perfType)
                   )
                 else
                   frag(
@@ -50,13 +49,13 @@ object widgets:
               g.pgnImport.flatMap(_.date).fold[Frag](momentFromNowWithPreload(g.createdAt))(frag(_)),
               g.tournamentId
                 .map { tourId =>
-                  frag(separator, tournamentLink(tourId))
+                  frag(separator, views.tournament.ui.tournamentLink(tourId))
                 }
                 .orElse(g.simulId.map { simulId =>
-                  frag(separator, views.html.simul.bits.link(simulId))
+                  frag(separator, views.simul.bits.link(simulId))
                 })
                 .orElse(g.swissId.map { swissId =>
-                  frag(separator, views.html.swiss.bits.link(SwissId(swissId)))
+                  frag(separator, views.swiss.bits.link(SwissId(swissId)))
                 })
             )
           ),
@@ -69,7 +68,7 @@ object widgets:
             if g.isBeingPlayed then trans.site.playingRightNow()
             else if g.finishedOrAborted then
               span(cls := g.winner.flatMap(w => fromPlayer.map(p => if p == w then "win" else "loss")))(
-                gameEndStatus(g),
+                ui.gameEndStatus(g),
                 g.winner.map { winner =>
                   frag(
                     " • ",
@@ -129,17 +128,19 @@ object widgets:
 
   private def gamePlayer(player: Player)(using ctx: Context) =
     div(cls := s"player ${player.color.name}"):
-      player.playerUser
-        .map: playerUser =>
+      player.userId
+        .flatMap: uid =>
+          player.rating.map { (uid, _) }
+        .map: (userId, rating) =>
           frag(
-            userIdLink(playerUser.id.some, withOnline = false),
+            userIdLink(userId.some, withOnline = false),
             br,
             player.berserk.option(berserkIconSpan),
             ctx.pref.showRatings.option(
               frag(
-                playerUser.rating,
+                rating,
                 player.provisional.yes.option("?"),
-                playerUser.ratingDiff.map: d =>
+                player.ratingDiff.map: d =>
                   frag(" ", showRatingDiff(d))
               )
             )

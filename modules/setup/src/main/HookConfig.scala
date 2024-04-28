@@ -29,7 +29,7 @@ case class HookConfig(
   def fixColor = copy(
     color =
       if mode == Mode.Rated &&
-        lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
+        variantsWhereWhiteIsBetter(variant) &&
         color != Color.Random
       then Color.Random
       else color

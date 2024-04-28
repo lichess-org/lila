@@ -5,8 +5,6 @@ import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import lila.game.Game
-import lila.rating.{ PerfType }
 import scalalib.model.Days
 import lila.core.perf.UserPerfs
 

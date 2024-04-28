@@ -16,7 +16,6 @@ import lila.rating.GlickoExt.sanityCheck
 import lila.rating.PerfExt.*
 import lila.rating.GlickoExt.cap
 import lila.rating.GlickoExt.average
-import lila.rating.GlickoExt.clueless
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,

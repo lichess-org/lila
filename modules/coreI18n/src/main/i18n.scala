@@ -25,8 +25,6 @@ val defaultLang: Lang         = enLang
 def fixJavaLanguage(lang: Lang): Language =
   Language(lang).map(l => if l == "in" then "id" else l)
 
-type TranslateDuration = java.time.Duration => Translate ?=> String
-
 type Count = Long
 
 trait Translator:
@@ -49,6 +47,7 @@ trait LangList:
   val all: Map[Lang, String]
   def allLanguages: List[Language]
   def popularLanguages: List[Language]
+  def nameByLanguage(l: Language): String
 
   trait LangForm:
     def choices: List[(Language, String)]
@@ -63,3 +62,13 @@ trait LangPicker:
 
 trait JsDump:
   def keysToObject(keys: Seq[I18nKey])(using Translate): play.api.libs.json.JsObject
+
+def translateDuration(duration: java.time.Duration)(using Translate): String =
+  List(
+    (I18nKey.site.nbDays, true, duration.toDays),
+    (I18nKey.site.nbHours, true, duration.toHours      % 24),
+    (I18nKey.site.nbMinutes, false, duration.toMinutes % 60)
+  )
+    .dropWhile { (_, dropZero, nb) => dropZero && nb == 0 }
+    .map { (key, _, nb) => key.pluralSameTxt(nb) }
+    .mkString(" ")

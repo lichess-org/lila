@@ -1,9 +1,7 @@
-package views.html
-
-import controllers.routes
+package views
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.core.timeline.*
 
 import lila.rating.PerfType
@@ -16,7 +14,7 @@ object timeline:
         div(cls := "entry")(timeline.entry(entry))
 
   def more(entries: Vector[lila.timeline.Entry])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.timeline.txt(),
       moreCss = cssTag("slist")
     ):
@@ -112,7 +110,7 @@ object timeline:
             a(href := routes.Ublog.redirect(postId))(postTitle)
           )
         case StreamStart(id, name) =>
-          views.html.streamer.bits
+          views.streamer.bits
             .redirectLink(id)(cls := "text", dataIcon := Icon.Mic)(trans.site.xStartedStreaming(name))
       ,
       " ",

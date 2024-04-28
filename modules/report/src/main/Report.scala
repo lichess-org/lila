@@ -6,10 +6,11 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
 import lila.core.perf.UserWithPerfs
+import lila.core.id.ReportId
 
 case class Report(
-    @Key("_id") id: Report.Id, // also the url slug
-    user: UserId,              // the reportee
+    @Key("_id") id: ReportId, // also the url slug
+    user: UserId,             // the reportee
     reason: Reason,
     room: Room,
     atoms: NonEmptyList[Report.Atom], // most recent first
@@ -52,9 +53,8 @@ case class Report(
   def bestAtom: Atom   = bestAtoms(1).headOption | recentAtom
   def bestAtoms(nb: Int): List[Atom] =
     atoms.toList
-      .sortBy { a =>
+      .sortBy: a =>
         (-a.score.value, -a.at.toSeconds)
-      }
       .take(nb)
   def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty.option(atoms.head)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
@@ -83,9 +83,6 @@ case class Report(
     (isCheat && sus.marks.engine) || (isBoost && sus.marks.boost) || (isComm && sus.marks.troll)
 
 object Report:
-
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
 
   opaque type Score = Double
   object Score extends OpaqueDouble[Score]:
@@ -158,7 +155,7 @@ object Report:
     import c.*
     existing.fold(
       Report(
-        id = Id(ThreadLocalRandom.nextString(8)),
+        id = ReportId(ThreadLocalRandom.nextString(8)),
         user = candidate.suspect.user.id,
         reason = candidate.reason,
         room = Room(candidate.reason),
@@ -170,4 +167,4 @@ object Report:
       )
     )(_.add(c.atom))
 
-  private[report] case class SnoozeKey(snoozerId: UserId, reportId: Id)
+  private[report] case class SnoozeKey(snoozerId: UserId, reportId: ReportId)

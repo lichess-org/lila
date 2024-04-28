@@ -57,6 +57,11 @@ case class Pref(
   val themeColorLight = "#dbd7d1"
   val themeColorDark  = "#2e2a24"
   def themeColor      = if bg == Bg.LIGHT then themeColorLight else themeColorDark
+  def themeColorClass =
+    if bg == Bg.LIGHT then "light".some
+    else if bg == Bg.TRANSPARENT then "transp".some
+    else if bg == Bg.SYSTEM then none
+    else "dark".some
 
   def realSoundSet = SoundSet(soundSet)
 
@@ -80,7 +85,7 @@ case class Pref(
 
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
 
-  def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
+  def pieceNotationIsLetter: Boolean = pieceNotation == PieceNotation.LETTER
 
   def isZen     = zen == Zen.YES
   def isZenAuto = zen == Zen.GAME_AUTO
@@ -111,7 +116,7 @@ case class Pref(
   def currentPieceSet   = PieceSet.get(pieceSet)
   def currentPieceSet3d = PieceSet3d.get(pieceSet3d)
   def currentSoundSet   = SoundSet(soundSet)
-  def currentBg =
+  def currentBg: String =
     if bg == Pref.Bg.TRANSPARENT then "transp"
     else if bg == Pref.Bg.LIGHT then "light"
     else if bg == Pref.Bg.SYSTEM then "system"

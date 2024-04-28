@@ -5,6 +5,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.{ Bus, HTTPRequest }
 import lila.core.net.IpAddress
+import lila.core.security.UserSignup
 
 // codename UGC
 final class GarbageCollector(
@@ -12,10 +13,7 @@ final class GarbageCollector(
     ipTrust: IpTrust,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using ec: Executor, scheduler: Scheduler):
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
@@ -62,7 +60,7 @@ final class GarbageCollector(
             val printOpt = spy.prints.headOption
             logger.debug(s"apply ${data.user.username} print=$printOpt")
             Bus.publish(
-              lila.security.UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
+              UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
               "userSignup"
             )
             printOpt.filter(_.banned).map(_.fp.value) match

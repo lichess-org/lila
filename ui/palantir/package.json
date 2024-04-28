@@ -4,8 +4,8 @@
   "private": true,
   "description": "lichess.org webrtc media calls",
   "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "module": "dist/palantir.js",
+  "types": "dist/palantir.d.ts",
   "keywords": [
     "chess",
     "lichess",
@@ -19,10 +19,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/main.ts": "palantir"
-      }
-    }
+    "bundles": "src/palantir.ts"
   }
 }

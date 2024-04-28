@@ -6,6 +6,7 @@
   },
   "isolatedModules": true,
   "references": [
+    { "path": "../board/tsconfig.json" },
     { "path": "../ceval/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },

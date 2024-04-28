@@ -31,7 +31,7 @@
 }
 
 .tour__faq {
-  padding: 4em var(--box-padding);
+  padding: 4em var(---box-padding);
   display: none;
 
   @include mq-at-least-col2 {

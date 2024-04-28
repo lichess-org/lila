@@ -1,31 +1,29 @@
-package views.html.report
+package views.report
 
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.report.ReportUi.translatedReasonChoices
 
 object form:
 
   def apply(form: Form[?], reqUser: Option[User] = None)(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.reportAUser.txt(),
       moreCss = cssTag("form3"),
       moreJs = embedJsUnsafeLoadThen(
         """$('#form3-reason').on('change', function() {
             $('.report-reason').addClass('none').filter('.report-reason-' + this.value).removeClass('none');
           })"""
-      )
+      )(ctx.nonce)
     ):
       val defaultReason = form("reason").value.orElse(translatedReasonChoices.headOption.map(_._1))
       main(cls := "page-small box box-pad report")(
         h1(cls := "box__top")(trans.site.reportAUser()),
         postForm(
           cls    := "form3",
-          action := s"${reportRoutes.create}${reqUser.so(u => "?username=" + u.username)}"
+          action := s"${routes.Report.create}${reqUser.so(u => "?username=" + u.username)}"
         )(
           div(cls := "form-group")(
             p(
@@ -41,7 +39,7 @@ object form:
               .option(
                 p(
                   "Here for DMCA or Intellectual Property Take Down Notice? ",
-                  a(href := views.html.site.contact.dmcaUrl)("Complete this form instead"),
+                  a(href := lila.web.views.contact.dmcaUrl)("Complete this form instead"),
                   "."
                 )
               )

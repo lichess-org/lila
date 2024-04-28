@@ -1,10 +1,11 @@
-package views.html
-package round
+package views.round
 
 import play.api.libs.json.Json
 
+import lila.common.Json.given
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
+
+import lila.round.RoundGame.secondsSinceCreation
 
 object player:
 
@@ -23,7 +24,7 @@ object player:
       .map(_.either)
       .map:
         case Left(c) =>
-          chat.restrictedJson(
+          views.chat.restrictedJson(
             c,
             c.lines,
             name = trans.site.chatRoom.txt(),
@@ -34,7 +35,7 @@ object player:
             palantir = ctx.canPalantir
           )
         case Right((c, res)) =>
-          chat.json(
+          views.chat.json(
             c.chat,
             c.lines,
             name = trans.site.chatRoom.txt(),
@@ -47,7 +48,7 @@ object player:
     bits.layout(
       variant = pov.game.variant,
       title = s"${trans.site.play.txt()} $opponentNameOrZen",
-      moreJs = frag(roundNvuiTag),
+      modules = roundNvuiTag,
       pageModule = PageModule(
         "round",
         Json
@@ -59,14 +60,14 @@ object player:
           )
           .add("noab" -> ctx.me.exists(_.marks.engine))
       ).some,
-      openGraph = povOpenGraph(pov).some,
+      openGraph = bits.povOpenGraph(pov).some,
       playing = pov.game.playable,
       zenable = true
     ):
       main(cls := "round")(
         st.aside(cls := "round__side")(
           bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
-          chatOption.map(_ => chat.frag)
+          chatOption.map(_ => views.chat.frag)
         ),
         bits.roundAppPreload(pov),
         div(cls := "round__underboard")(

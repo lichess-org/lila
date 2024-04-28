@@ -14,10 +14,13 @@ trait Pref:
   val moveEvent: Int
   val highlight: Boolean
   val is3d: Boolean
+  val resizeHandle: Int
 
   def showRatings: Boolean
   def animationMillis: Int
   def animationMillisForSpeedPuzzles: Int
+  def pieceNotationIsLetter: Boolean
+  def currentBg: String
 
 trait PrefApi:
   def followable(userId: UserId): Fu[Boolean]

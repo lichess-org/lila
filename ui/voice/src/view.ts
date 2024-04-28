@@ -3,7 +3,7 @@ import { onInsert, bind, looseH as h } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { onClickAway } from 'common';
 import { Entry, VoiceCtrl } from './interfaces';
-import { supportedLangs } from './main';
+import { supportedLangs } from './voice';
 
 export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string) {
   return h(`div#voice-bar${cls ? '.' + cls : ''}`, [

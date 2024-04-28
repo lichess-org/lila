@@ -3,9 +3,9 @@ package lila.ublog
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
-import lila.memo.{ PicfitImage, PicfitUrl }
-
 import lila.core.data.OpaqueInstant
+import lila.memo.PicfitUrl
+import lila.core.id.ImageId
 
 case class UblogPost(
     @Key("_id") id: UblogPostId,
@@ -36,14 +36,14 @@ case class UblogPost(
   def allows                    = UblogBlog.Allows(created.by)
   def canView(using Option[Me]) = live || allows.draft
 
-case class UblogImage(id: PicfitImage.Id, alt: Option[String] = None, credit: Option[String] = None)
+case class UblogImage(id: ImageId, alt: Option[String] = None, credit: Option[String] = None)
 
 object UblogPost:
 
   export lila.core.ublog.UblogPost.*
 
   def slug(title: String) =
-    val s = lila.common.String.slugify(title)
+    val s = scalalib.StringOps.slug(title)
     if s.isEmpty then "-" else s
 
   opaque type Likes = Int
@@ -86,5 +86,5 @@ object UblogPost:
       case Small extends Size(400)
     type SizeSelector = thumbnail.type => Size
 
-    def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =
+    def apply(picfitUrl: PicfitUrl, image: ImageId, size: SizeSelector): String =
       picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)

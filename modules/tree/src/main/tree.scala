@@ -10,8 +10,11 @@ import chess.bitboard.Bitboard
 import chess.variant.{ Variant, Crazyhouse }
 import play.api.libs.json.*
 import scalalib.ThreadLocalRandom
+import scalalib.StringOps.softCleanUp
 
-import lila.common.Json.given
+import scalalib.json.Json.{ *, given }
+import chess.json.Json.given
+
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
 //opaque type not working due to cyclic ref try again later
@@ -428,8 +431,7 @@ object Node:
         case _                        => this == other
 
     def sanitize(text: String) = Text:
-      lila.common.String
-        .softCleanUp(text)
+      softCleanUp(text)
         .take(4000)
         .replaceAll("""\r\n""", "\n") // these 3 lines dedup white spaces and new lines
         .replaceAll("""(?m)(^ *| +(?= |$))""", "")
@@ -495,10 +497,9 @@ object Node:
 
   val minimalNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = false)
 
-  def nodeListJsonWriter(alwaysChildren: Boolean): Writes[List[Node]] =
+  private val nodeListJsonWriter: Writes[List[Node]] =
     Writes: list =>
-      val writer = if alwaysChildren then defaultNodeJsonWriter else minimalNodeJsonWriter
-      JsArray(list.map(writer.writes))
+      JsArray(list.map(defaultNodeJsonWriter.writes))
 
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] =
     Writes: node =>
@@ -527,10 +528,8 @@ object Node:
           .add("comp", comp)
           .add(
             "children",
-            if alwaysChildren || children.nonEmpty then
-              Some:
-                nodeListJsonWriter(true).writes(children.nodes)
-            else None
+            Option.when(alwaysChildren || children.nonEmpty):
+              nodeListJsonWriter.writes(children.nodes)
           )
           .add("forceVariation", forceVariation)
       catch
@@ -556,21 +555,22 @@ object Node:
       node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
 
 object Tree:
-
   def makeMinimalJsonString(
       game: Game,
       analysis: Option[Analysis],
       initialFen: Fen.Full,
-      options: ExportOptions
+      options: ExportOptions,
+      logChessError: TreeBuilder.LogChessError
   ): JsValue =
     Node.minimalNodeJsonWriter.writes:
-      TreeBuilder(game, analysis, initialFen, lila.tree.ExportOptions.default)
+      TreeBuilder(game, analysis, initialFen, lila.tree.ExportOptions.default, logChessError)
 
   def makePartitionTreeJson(
       game: Game,
       analysis: Option[Analysis],
       initialFen: Fen.Full,
-      options: ExportOptions
+      options: ExportOptions,
+      logChessError: TreeBuilder.LogChessError
   ): JsValue =
     Node.partitionTreeJsonWriter.writes:
-      TreeBuilder(game, analysis, initialFen, options)
+      TreeBuilder(game, analysis, initialFen, options, logChessError)

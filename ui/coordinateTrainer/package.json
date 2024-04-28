@@ -19,10 +19,6 @@
     "voice": "workspace:*"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/main.ts": "coordinateTrainer"
-      }
-    }
+    "bundles": "src/coordinateTrainer.ts"
   }
 }

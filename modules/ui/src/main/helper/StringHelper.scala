@@ -4,12 +4,10 @@ import play.api.i18n.Lang
 
 import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.Translate
-import lila.core.slug.{ apply as slugify }
+import scalalib.StringOps.slug.{ apply as slugify }
 
-final class StringHelper(i18n: I18nHelper, number: NumberHelper):
-
-  import i18n.*
-  import number.*
+trait StringHelper:
+  self: I18nHelper & NumberHelper =>
 
   def pluralize(s: String, n: Int) = s"$n $s${if n != 1 then "s" else ""}"
 
@@ -46,5 +44,5 @@ final class StringHelper(i18n: I18nHelper, number: NumberHelper):
           frag(first :: rest.map { frag(separator, _) }).render
 
   extension (e: String)
-    def active(other: String, one: String = "active")  = if e == other then one else ""
-    def activeO(other: String, one: String = "active") = (e == other).option(one)
+    def active(other: String)  = if e == other then "active" else ""
+    def activeO(other: String) = Option.when(e == other)("active")

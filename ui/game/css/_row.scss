@@ -13,7 +13,7 @@
   }
 
   &:hover {
-    background: mix($c-link, $c-bg-box, 20%);
+    background: $m-primary_bg--mix-20;
   }
 
   &__overlay {

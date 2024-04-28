@@ -7,6 +7,7 @@ import lila.common.Bus
 import lila.game.{ Event, Progress }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.pref.{ Pref, PrefApi }
+import lila.game.GameExt.playerCanOfferDraw
 
 final private[round] class Drawer(
     messenger: Messenger,
@@ -64,18 +65,16 @@ final private[round] class Drawer(
         proxy
           .save {
             messenger.system(g, trans.site.drawOfferCanceled.txt())
-            Progress(g).map { g =>
-              g.updatePlayer(color, _.removeDrawOffer)
-            }
+            Progress(g).map: g =>
+              g.updatePlayer(color, _.copy(isOfferingDraw = false))
           }
           .inject(List(Event.DrawOffer(by = none)))
       case Pov(g, color) if pov.opponent.isOfferingDraw =>
         proxy
           .save {
             messenger.system(g, color.fold(trans.site.whiteDeclinesDraw, trans.site.blackDeclinesDraw).txt())
-            Progress(g).map { g =>
-              g.updatePlayer(!color, _.removeDrawOffer)
-            }
+            Progress(g).map: g =>
+              g.updatePlayer(!color, _.copy(isOfferingDraw = false))
           }
           .inject(List(Event.DrawOffer(by = none)))
       case _ => fuccess(List(Event.ReloadOwner))

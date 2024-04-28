@@ -3,7 +3,6 @@ package controllers
 import chess.format.Fen
 import play.api.libs.json.JsArray
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -76,7 +75,7 @@ final class Analyse(
               )
               .flatMap: data =>
                 Ok.page(
-                  html.analyse.replay(
+                  views.analyse.replay(
                     pov,
                     data,
                     initialFen,
@@ -102,11 +101,11 @@ final class Analyse(
         case Some(LpvEmbed.PublicPgn(pgn)) =>
           render:
             case AcceptsPgn() => Ok(pgn)
-            case _            => Ok(html.analyse.embed.lpv(pgn, chess.Color.fromName(color), getPgn = true))
+            case _            => Ok(views.analyse.embed.lpv(pgn, chess.Color.fromName(color), getPgn = true))
         case _ =>
           render:
             case AcceptsPgn() => NotFound("*")
-            case _            => NotFound(html.analyse.embed.notFound)
+            case _            => NotFound(views.analyse.embed.notFound)
       }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Full])(or: => Fu[Result])(using
@@ -131,7 +130,7 @@ final class Analyse(
     crosstable <- env.game.crosstableApi.withMatchup(pov.game)
     pgn        <- env.api.pgnDump(pov.game, initialFen, analysis, PgnDump.WithFlags(clocks = false))
     page <- renderPage:
-      html.analyse.replayBot(
+      views.analyse.replayBot(
         pov,
         initialFen,
         env.analyse.annotator(pgn, pov.game, analysis).toString,

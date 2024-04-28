@@ -1,4 +1,4 @@
-package views.html.round
+package views.round
 
 import play.api.i18n.Lang
 

@@ -48,17 +48,17 @@ final class RelayLeaderboardApi(
     cache.get(tour.id)
 
   private val invalidateDebouncer =
-    lila.common.Debouncer[RelayTour.Id](3 seconds, 32)(id => cache.put(id, computeJson(id)))
+    lila.common.Debouncer[RelayTourId](3 seconds, 32)(id => cache.put(id, computeJson(id)))
 
-  def invalidate(id: RelayTour.Id) = invalidateDebouncer.push(id)
+  def invalidate(id: RelayTourId) = invalidateDebouncer.push(id)
 
-  private val cache = cacheApi[RelayTour.Id, JsonStr](32, "relay.leaderboard"):
+  private val cache = cacheApi[RelayTourId, JsonStr](32, "relay.leaderboard"):
     _.expireAfterWrite(10 minutes).buildAsyncFuture(computeJson)
 
-  private def computeJson(id: RelayTour.Id): Fu[JsonStr] =
+  private def computeJson(id: RelayTourId): Fu[JsonStr] =
     compute(id).map(lead => JsonStr(Json.stringify(Json.toJson(lead))))
 
-  private def compute(id: RelayTour.Id): Fu[RelayLeaderboard] = for
+  private def compute(id: RelayTourId): Fu[RelayLeaderboard] = for
     tour     <- tourRepo.coll.byId[RelayTour](id).orFail(s"No such relay tour $id")
     roundIds <- roundRepo.idsByTourOrdered(tour)
     tags     <- chapterRepo.tagsByStudyIds(roundIds.map(_.into(StudyId)))

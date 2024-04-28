@@ -81,7 +81,7 @@
 
     input {
       border: none;
-      background: fade-out($c-secondary, 0.8);
+      background: $m-secondary--fade-80;
     }
 
     .search,

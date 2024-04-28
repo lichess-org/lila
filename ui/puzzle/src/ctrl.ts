@@ -153,7 +153,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       else this.voiceMove = makeVoiceMove(makeRoot(), up);
     }
     if (this.opts.pref.keyboardMove) {
-      this.keyboardMove ??= makeKeyboardMove(makeRoot());
+      if (!this.keyboardMove) this.keyboardMove = makeKeyboardMove(makeRoot());
       this.keyboardMove.update(up);
     }
     requestAnimationFrame(() => this.redraw());
@@ -458,7 +458,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       emit: (ev, work) => {
         this.tree.updateAt(work.path, node => {
           if (work.threatMode) {
-            const threat = ev as Tree.LocalEval;
+            const threat = ev;
             if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
           if (work.path === this.path) {

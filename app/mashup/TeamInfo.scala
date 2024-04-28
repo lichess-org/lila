@@ -19,12 +19,10 @@ case class TeamInfo(
     tours: TeamInfo.PastAndNext,
     simuls: Seq[Simul]
 ):
-
   export withLeaders.{ team, leaders, publicLeaders }
 
-  def mine                                             = member.isDefined
-  def ledByMe                                          = member.exists(_.perms.nonEmpty)
-  def havePerm(perm: TeamSecurity.Permission.Selector) = member.exists(_.hasPerm(perm))
+  def mine    = member.isDefined
+  def ledByMe = member.exists(_.perms.nonEmpty)
 
   def hasRequests = requests.nonEmpty
 

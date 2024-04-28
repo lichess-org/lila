@@ -11,7 +11,7 @@ signal > i {
   margin-inline-start: 1px;
   display: inline-block;
   height: 40%;
-  background-color: c-dimmer($c-good);
+  background-color: $m-secondary_dimmer--mix-82;
 }
 
 signal > i:nth-child(2) {

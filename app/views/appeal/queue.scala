@@ -1,11 +1,7 @@
-package views.html
-package appeal
-
-import controllers.appeal.routes.Appeal as appealRoutes
-import controllers.routes
+package views.appeal
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.appeal.Appeal
 import lila.report.Report.Inquiry
 
@@ -22,7 +18,7 @@ object queue:
       streamers: Int,
       nbAppeals: Int
   )(using PageContext) =
-    views.html.report.list.layout("appeal", scores, streamers, nbAppeals)(
+    views.report.list.layout("appeal", scores, streamers, nbAppeals)(
       table(cls := "slist slist-pad see appeal-queue")(
         thead(
           tr(
@@ -45,7 +41,7 @@ object queue:
                       cls      := "marked-by-me text"
                     )("My mark")
                   ),
-                views.html.user.mod.userMarks(user, None)
+                views.mod.user.userMarks(user, None)
               ),
               td(appeal.msgs.lastOption.map: msg =>
                 frag(
@@ -55,7 +51,7 @@ object queue:
                   p(shorten(msg.text, 200))
                 )),
               td(
-                a(href := appealRoutes.show(appeal.id), cls := "button button-empty")("View"),
+                a(href := routes.Appeal.show(appeal.id), cls := "button button-empty")("View"),
                 inquiries.get(appeal.userId).map { i =>
                   frag(userIdLink(i.mod.some), nbsp, "is handling this")
                 }
@@ -71,7 +67,7 @@ object queue:
       Filter.allWithIcon.map: (filter, icon) =>
         a(
           cls := List("btn-rack__btn" -> true, "active" -> current.has(filter)),
-          href := appealRoutes.queue(
+          href := routes.Appeal.queue(
             current.fold(filter.some)(_.toggle(filter)).fold("reset")(_.key).some
           ),
           dataIcon := icon.left.toOption

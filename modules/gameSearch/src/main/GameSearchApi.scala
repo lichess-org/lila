@@ -3,13 +3,11 @@ package lila.gameSearch
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.core.game.{ GameRepo }
 import lila.search.*
-import lila.game.GameExt.perfType
 
 final class GameSearchApi(
     client: ESClient,
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi
 )(using Executor, Scheduler)
     extends SearchReadApi[Game, Query]:
@@ -50,7 +48,7 @@ final class GameSearchApi(
           .id,
         Fields.turns         -> (game.ply.value + 1) / 2,
         Fields.rated         -> game.rated,
-        Fields.perf          -> game.perfType.id,
+        Fields.perf          -> game.perfKey.id,
         Fields.uids          -> game.userIds.some.filterNot(_.isEmpty),
         Fields.winner        -> game.winner.flatMap(_.userId),
         Fields.loser         -> game.loser.flatMap(_.userId),

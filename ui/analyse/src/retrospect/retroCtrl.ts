@@ -104,7 +104,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
         const cur = current()!;
         const ucis: Uci[] = [];
-        res!.moves.forEach(m => {
+        res.moves.forEach(m => {
           if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
         });
         if (ucis.includes(fault.node.uci!)) {

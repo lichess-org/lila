@@ -4,15 +4,14 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
 import lila.core.config.CollName
-import lila.rating.PerfType
 import lila.core.user.WithPerf
 
 import scalalib.model.Days
 
 @Module
 final class Env(
-    mongoCache: lila.memo.MongoCache.Api,
     userApi: lila.core.user.UserApi,
+    mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using Executor, Scheduler, lila.core.i18n.Translator):
@@ -24,6 +23,6 @@ final class Env(
   lazy val ratingChartApi = wire[RatingChartApi]
 
   lila.common.Bus.subscribeFun("perfsUpdate"):
-    case lila.game.actorApi.PerfsUpdate(game, bothPerfs) =>
+    case lila.core.game.PerfsUpdate(game, bothPerfs) =>
       bothPerfs.mapList: uwp =>
         api.add(uwp.user, game, uwp.perfs)

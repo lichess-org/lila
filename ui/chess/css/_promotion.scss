@@ -1,10 +1,10 @@
 #promotion-choice {
-  background: fade-out($c-bg-page, 0.3);
+  background: $m-bg--fade-30;
   z-index: z('cg__promotion');
 
   position: absolute;
-  width: var(--cg-width, 100%);
-  height: var(--cg-height, 100%);
+  width: var(---cg-width, 100%);
+  height: var(---cg-height, 100%);
   @include inline-end(0);
 
   square {

@@ -62,4 +62,24 @@ Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</strin
   <string name="joinLichessVariantTeam">Připojte se k oficiálnímu týmu %s pro novinky a události</string>
   <string name="teamPage">Týmová stránka</string>
   <string name="thisTeamBattleIsOver">Tento turnaj skončil a týmy již nemohou být aktualizovány.</string>
+  <string name="listTheTeamsThatWillCompete">Uveďte týmy, které se zúčastní této bitvy.</string>
+  <string name="oneTeamPerLine">Jeden tým na řádek. Použijte automatické dokončování.</string>
+  <string name="oneTeamPerLineHelp">Tento seznam můžete zkopírovat a vložit z jednoho turnaje do druhého!
+
+Nemůžete odstranit tým, pokud se s ním hráč již do turnaje zapojil.</string>
+  <string name="numberOfLeadsPerTeam">Počet vedoucích na tým. Součet jejich dosažených výsledků je výsledkem týmu.</string>
+  <string name="numberOfLeadsPerTeamHelp">Tuto hodnotu byste po zahájení turnaje neměli měnit!</string>
+  <string name="innerTeam">Vnitřní tým</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Bitva %s týmu</item>
+    <item quantity="few">Bitva %s týmů</item>
+    <item quantity="many">Bitva %s týmů</item>
+    <item quantity="other">Bitva %s týmů</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Jeden vedoucí na tým</item>
+    <item quantity="few">%s vedoucí na tým</item>
+    <item quantity="many">%s vedoucích na tým</item>
+    <item quantity="other">%s vedoucí na tým</item>
+  </plurals>
 </resources>

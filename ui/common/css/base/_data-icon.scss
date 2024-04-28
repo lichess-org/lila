@@ -21,7 +21,7 @@
   color: $c-brag;
 }
 
-html.dir-rtl {
+html[dir='rtl'] {
   [data-icon='#{$licon-Wings}'],
   [data-icon='#{$licon-PlayTriangle}'],
   [data-icon='#{$licon-GreaterThan}'],

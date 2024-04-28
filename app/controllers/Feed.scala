@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 
@@ -13,11 +12,11 @@ final class Feed(env: Env) extends LilaController(env):
     Reasonable(page):
       for
         updates      <- env.feed.paginator.recent(isGrantedOpt(_.Feed), page)
-        renderedPage <- renderPage(html.feed.index(updates))
+        renderedPage <- renderPage(views.feed.index(updates))
       yield Ok(renderedPage)
 
   def createForm = Secure(_.Feed) { _ ?=> _ ?=>
-    Ok.pageAsync(html.feed.create(api.form(none)))
+    Ok.pageAsync(views.feed.create(api.form(none)))
   }
 
   def create = SecureBody(_.Feed) { _ ?=> _ ?=>
@@ -25,7 +24,7 @@ final class Feed(env: Env) extends LilaController(env):
       .form(none)
       .bindFromRequest()
       .fold(
-        err => BadRequest.pageAsync(html.feed.create(err)),
+        err => BadRequest.pageAsync(views.feed.create(err)),
         data =>
           val up = data.toUpdate(none)
           api.set(up).inject(Redirect(routes.Feed.edit(up.id)).flashSuccess)
@@ -34,7 +33,7 @@ final class Feed(env: Env) extends LilaController(env):
 
   def edit(id: String) = Secure(_.Feed) { _ ?=> _ ?=>
     Found(api.get(id)): up =>
-      Ok.pageAsync(html.feed.edit(api.form(up.some), up))
+      Ok.pageAsync(views.feed.edit(api.form(up.some), up))
   }
 
   def update(id: String) = SecureBody(_.Feed) { _ ?=> _ ?=>
@@ -43,7 +42,7 @@ final class Feed(env: Env) extends LilaController(env):
         .form(from.some)
         .bindFromRequest()
         .fold(
-          err => BadRequest.pageAsync(html.feed.edit(err, from)),
+          err => BadRequest.pageAsync(views.feed.edit(err, from)),
           data =>
             api.set(data.toUpdate(from.id.some)).inject(Redirect(routes.Feed.edit(from.id)).flashSuccess)
         )
@@ -56,4 +55,4 @@ final class Feed(env: Env) extends LilaController(env):
 
   def atom = Anon:
     api.recentPublished.map: ups =>
-      Ok(html.feed.atom(ups)).as(XML)
+      Ok(views.feed.atom(ups)).as(XML)

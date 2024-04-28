@@ -1,18 +1,15 @@
-package views.html.learn
+package views.learn
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.*
-import lila.core.app.LangPath
 
 object index:
 
   import trans.learn.{ play as _, * }
 
   def apply(data: Option[play.api.libs.json.JsValue])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${learnChess.txt()} - ${byPlaying.txt()}",
       pageModule = PageModule(
         "learn",
@@ -22,15 +19,13 @@ object index:
         )
       ).some,
       moreCss = cssTag("learn"),
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Learn chess by playing",
-          description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
-          url = s"$netBaseUrl${routes.Learn.index}"
-        )
-        .some,
+      openGraph = OpenGraph(
+        title = "Learn chess by playing",
+        description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
+        url = s"$netBaseUrl${routes.Learn.index}"
+      ).some,
       zoomable = true,
-      withHrefLangs = LangPath(routes.Learn.index).some
+      withHrefLangs = lila.ui.LangPath(routes.Learn.index).some
     ) {
       main(id := "learn-app")
     }

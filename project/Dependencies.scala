@@ -26,22 +26,22 @@ object Dependencies {
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.2.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.109.Final").classifier(s"$os-$arch")
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M11" % Test
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-RC1" % Test
   val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
-  val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
+  val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
   val kittens     = "org.typelevel"              %% "kittens"       % "3.3.0"
 
-  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.17.0"    % Test
-  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0-M11" % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0"    % Test
+  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0-RC1" % Test
 
   object tests {
     val bundle = Seq(munit)
   }
 
   object chess {
-    val version  = "16.0.4"
+    val version  = "16.0.5"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -49,7 +49,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.1.5"
+    val version  = "11.1.7"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version
@@ -70,7 +70,7 @@ object Dependencies {
     val version = "2.5.9"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
-    val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.4"
+    val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"
     def bundle  = Seq(macros, util, tagging)
   }
 

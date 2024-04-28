@@ -1,16 +1,15 @@
-package views.html.relay
-
-import controllers.routes
-import play.api.mvc.Call
+package views.relay
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.app.LangPath
+
 import lila.core.LightUser
 import scalalib.paginator.Paginator
-import lila.memo.PicfitImage
 import lila.relay.RelayTour.WithLastRound
 import lila.relay.{ RelayRound, RelayTour }
+import scalatags.Text.TypedTag
+import scalatags.text.Builder
+
+lazy val bits = lila.relay.ui.RelayBits(helpers)(views.study.jsI18n)
 
 object tour:
 
@@ -23,11 +22,11 @@ object tour:
       upcoming: List[WithLastRound],
       past: Paginator[WithLastRound]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag,
-      withHrefLangs = LangPath(routes.RelayTour.index()).some
+      modules = infiniteScrollEsmInit,
+      withHrefLangs = lila.ui.LangPath(routes.RelayTour.index()).some
     ):
       def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
         val selected = active.filter(_.tour.tierIs(selector))
@@ -56,59 +55,44 @@ object tour:
         )
       )
 
-  def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =
-    views.html.base.layout(
+  private def listLayout(title: String, menu: Tag)(body: Modifier*)(using PageContext) =
+    views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
-    ):
-      main(cls := "relay-index page-menu")(
-        pageMenu("index"),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop(
-            h1(liveBroadcasts()),
-            searchForm(query)
-          ),
-          renderPager(asRelayPager(pager), query)(cls := "relay-cards--search")
-        )
-      )
+      modules = infiniteScrollEsmInit
+    )(main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body)))
+
+  def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =
+    listLayout(liveBroadcasts.txt(), pageMenu("index"))(
+      boxTop(
+        h1(liveBroadcasts()),
+        searchForm(query)
+      ),
+      renderPager(asRelayPager(pager), query)(cls := "relay-cards--search")
+    )
 
   def byOwner(pager: Paginator[RelayTour | WithLastRound], owner: LightUser)(using PageContext) =
-    views.html.base.layout(
-      title = liveBroadcasts.txt(),
-      moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
-    ):
-      main(cls := "relay-index page-menu")(
-        pageMenu("by", owner.some),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop:
-            h1(lightUserLink(owner), " ", liveBroadcasts())
-          ,
-          standardFlash,
-          renderPager(pager, owner = owner.some)
-        )
-      )
+    listLayout(liveBroadcasts.txt(), pageMenu("by", owner.some))(
+      boxTop(h1(lightUserLink(owner), " ", liveBroadcasts())),
+      standardFlash,
+      renderPager(pager, owner = owner.some)
+    )
 
   def subscribed(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
-    views.html.base.layout(
-      title = subscribedBroadcasts.txt(),
-      moreCss = cssTag("relay.index"),
-      moreJs = infiniteScrollTag
-    ):
-      main(cls := "relay-index page-menu")(
-        pageMenu("subscribed"),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop:
-            h1(subscribedBroadcasts())
-          ,
-          standardFlash,
-          renderPager(pager)
-        )
-      )
+    listLayout(subscribedBroadcasts.txt(), pageMenu("subscribed"))(
+      boxTop(h1(subscribedBroadcasts())),
+      standardFlash,
+      renderPager(pager)
+    )
+
+  def allPrivate(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
+    listLayout("Private Broadcasts", pageMenu("allPrivate"))(
+      boxTop(h1("Private Broadcasts")),
+      renderPager(pager)
+    )
 
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = t.name.value,
       moreCss = cssTag("page")
     ):
@@ -129,7 +113,7 @@ object tour:
       )
 
   def page(p: lila.cms.CmsPage.Render, active: String)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = p.title,
       moreCss = cssTag("page")
     ):
@@ -139,12 +123,12 @@ object tour:
           boxTop:
             bits.broadcastH1(p.title)
           ,
-          div(cls := "body")(views.html.cms.render(p))
+          div(cls := "body")(views.cms.render(p))
         )
       )
 
-  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context) =
-    views.html.base.bits.pageMenuSubnav(
+  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: lila.ui.Context): Tag =
+    lila.ui.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
         a(href := routes.RelayTour.by(me.username, 1), cls := by.exists(_.is(me)).option("active")):
@@ -160,6 +144,11 @@ object tour:
       a(href := routes.RelayTour.subscribed(), cls := menu.activeO("subscribed"))(
         trans.broadcast.subscribedBroadcasts()
       ),
+      isGranted(_.StudyAdmin).option(
+        a(href := routes.RelayTour.allPrivate(), cls := menu.activeO("allPrivate"))(
+          "Private Broadcasts"
+        )
+      ),
       a(href := routes.RelayTour.form, cls := menu.activeO("new"))(trans.broadcast.newBroadcast()),
       a(href := routes.RelayTour.calendar, cls := menu.activeO("calendar"))(trans.site.tournamentCalendar()),
       a(href := routes.RelayTour.help, cls := menu.activeO("help"))(trans.broadcast.aboutBroadcasts()),
@@ -169,7 +158,7 @@ object tour:
     )
 
   object thumbnail:
-    def apply(image: Option[PicfitImage.Id], size: RelayTour.thumbnail.SizeSelector) =
+    def apply(image: Option[ImageId], size: RelayTour.thumbnail.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(
           cls     := "relay-image",
@@ -178,7 +167,7 @@ object tour:
           src     := url(id, size)
         )
     def fallback = iconTag(Icon.RadioTower)(cls := "relay-image--fallback")
-    def url(id: PicfitImage.Id, size: RelayTour.thumbnail.SizeSelector) =
+    def url(id: ImageId, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
   private object card:

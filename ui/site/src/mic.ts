@@ -1,7 +1,7 @@
 import { objectStorage } from 'common/objectStorage';
 import { Selector, Selectable } from 'common/selector';
 import { storedStringProp } from 'common/storage';
-import { VoskModule, VOSK_TS_VERSION } from 'voice';
+import { VoskModule } from 'voice';
 
 type Audio = { vosk?: AudioNode; source?: AudioNode; ctx?: AudioContext };
 
@@ -212,9 +212,7 @@ export const mic = new (class implements Voice.Microphone {
     const downloadAsync = this.downloadModel(`/vosk/${modelUrl.replace(/[\W]/g, '_')}`);
     const audioAsync = this.initAudio();
 
-    this.vosk ??= await site.asset.loadEsm<VoskModule>('voice.vosk', {
-      url: { version: VOSK_TS_VERSION },
-    });
+    this.vosk ??= await site.asset.loadEsm<VoskModule>('voice.vosk');
 
     await downloadAsync;
     await this.vosk.initModel(modelUrl, this.lang);

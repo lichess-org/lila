@@ -7,14 +7,14 @@ import play.api.mvc.RequestHeader
 
 import lila.common.Form.*
 import lila.common.{ Form as LilaForm, LameName }
-import lila.user.{ ClearPassword, TotpToken, Me, TotpSecret }
-import lila.user.TotpSecret.base32
-import lila.user.TotpSecret.verify
-import lila.user.LoginCandidate
+import lila.user.TotpSecret
+import lila.user.TotpSecret.{ base32, verify }
+import lila.core.security.ClearPassword
+import lila.user.TotpToken
 
 final class SecurityForm(
     userRepo: lila.user.UserRepo,
-    authenticator: lila.user.Authenticator,
+    authenticator: Authenticator,
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck,
     hcaptcha: Hcaptcha
@@ -46,11 +46,11 @@ final class SecurityForm(
       .bindFromRequest()
       .fold(_ => funit, emailValidator.preloadDns)
 
-  object signup:
+  object signup extends lila.core.security.SignupForm:
 
-    val emailField = fullyValidEmail(using none)
+    val emailField: Mapping[EmailAddress] = fullyValidEmail(using none)
 
-    val username = LilaForm.cleanNonEmptyText
+    val username: Mapping[UserName] = LilaForm.cleanNonEmptyText
       .verifying(
         Constraints.minLength(2),
         Constraints.maxLength(20),

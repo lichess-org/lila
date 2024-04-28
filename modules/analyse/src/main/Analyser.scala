@@ -1,6 +1,7 @@
 package lila.analyse
 
 import play.api.libs.json.*
+import monocle.syntax.all.*
 
 import lila.common.Bus
 import lila.core.game.InsertGame
@@ -22,7 +23,7 @@ final class Analyser(
     analysis.id match
       case Analysis.Id.Game(id) =>
         gameRepo.game(id).flatMapz { prev =>
-          val game = prev.setAnalysed
+          val game = prev.focus(_.metadata.analysed).set(true)
           for
             _ <- gameRepo.setAnalysed(game.id, true)
             _ <- analysisRepo.save(analysis)
@@ -61,5 +62,11 @@ final class Analyser(
   ): JsObject =
     Json.obj(
       "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
-      "tree"     -> Tree.makeMinimalJsonString(game, analysis.some, initialFen, ExportOptions.default)
+      "tree" -> Tree.makeMinimalJsonString(
+        game,
+        analysis.some,
+        initialFen,
+        ExportOptions.default,
+        logChessError = lila.log("analyser").warn
+      )
     )

@@ -1,11 +1,11 @@
-package views.html.board
+package views.board
 
 import chess.variant.{ Crazyhouse, FromPosition, Variant }
-import controllers.routes
+
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.rating.PerfType.iconByVariant
 
 object userAnalysis:
@@ -16,7 +16,7 @@ object userAnalysis:
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
   )(using ctx: PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.analysis.txt(),
       moreCss = frag(
         cssTag("analyse.free"),
@@ -24,8 +24,8 @@ object userAnalysis:
         withForecast.option(cssTag("analyse.forecast")),
         ctx.blind.option(cssTag("round.nvui"))
       ),
-      moreJs = analyseNvuiTag,
-      pageModule = views.html.analyse.bits
+      modules = analyseNvuiTag,
+      pageModule = views.analyse.bits
         .analyseModule(
           "userAnalysis",
           Json
@@ -35,17 +35,15 @@ object userAnalysis:
               "wiki" -> pov.game.variant.standard
             )
             .add("inlinePgn", inlinePgn) ++
-            views.html.board.bits.explorerAndCevalConfig
+            views.board.bits.explorerAndCevalConfig
         )
         .some,
       csp = analysisCsp.withExternalAnalysisApis.some,
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Chess analysis board",
-          url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
-          description = "Analyse chess positions and variations on an interactive chess board"
-        )
-        .some,
+      openGraph = OpenGraph(
+        title = "Chess analysis board",
+        url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
+        description = "Analyse chess positions and variations on an interactive chess board"
+      ).some,
       zoomable = true
     ):
       main(
@@ -56,7 +54,7 @@ object userAnalysis:
       )(
         pov.game.synthetic.option(
           st.aside(cls := "analyse__side")(
-            views.html.base.bits.mselect(
+            lila.ui.bits.mselect(
               "analyse-variant",
               span(cls := "text", dataIcon := iconByVariant(pov.game.variant))(pov.game.variant.name),
               Variant.list.all.filter(FromPosition != _).map { v =>

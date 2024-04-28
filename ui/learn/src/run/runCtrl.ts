@@ -4,7 +4,7 @@ import makeLevel, { LevelCtrl } from '../level';
 import { ctrl as makeProgress, Progress } from '../progress';
 import * as sound from '../sound';
 import * as timeouts from '../timeouts';
-import { LearnOpts } from '../main';
+import { LearnOpts } from '../learn';
 
 export interface Ctrl {
   opts: LearnOpts;

@@ -1,6 +1,7 @@
 package lila.round
 
 import lila.core.game.PlayerRef
+import lila.game.GameExt.*
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
@@ -20,7 +21,7 @@ final class GameProxyRepo(
   def pov(fullId: GameFullId): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
-    game(playerRef.gameId).dmap { _.flatMap { _.playerIdPov(playerRef.playerId) } }
+    game(playerRef.gameId).dmap { _.flatMap(_.playerIdPov(playerRef.playerId)) }
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = roundSocket.gameIfPresent(gameId)
 

@@ -10,25 +10,20 @@
     "chat": "workspace:*",
     "chess": "workspace:*",
     "common": "workspace:*",
-    "lichess-pgn-viewer": "2.0.1",
+    "lichess-pgn-viewer": "^2.1.0",
     "voice": "workspace:*",
     "tablesort": "^5.3.0"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/main.ts": "site",
-        "src/tvEmbed.ts": "tvEmbed",
-        "src/puzzleEmbed.ts": "puzzle.embed",
-        "src/lpvEmbed.ts": "lpv.embed",
-        "src/devMode.ts": "devMode"
-      }
-    },
-    "copy": [
-      {
-        "src": "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js",
-        "dest": "../../public/npm"
-      }
-    ]
+    "bundles": [
+      "src/site.ts",
+      "src/site.tvEmbed.ts",
+      "src/site.puzzleEmbed.ts",
+      "src/site.lpvEmbed.ts",
+      "src/site.devMode.ts"
+    ],
+    "sync": {
+      "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "public/npm"
+    }
   }
 }

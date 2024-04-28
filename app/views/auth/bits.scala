@@ -1,12 +1,10 @@
-package views.html
-package auth
+package views.auth
 
-import controllers.routes
 import play.api.data.{ Field, Form }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.security.HcaptchaForm
+
+import lila.core.security.HcaptchaForm
 
 object bits:
 
@@ -35,10 +33,10 @@ object bits:
     )
 
   def passwordReset(form: HcaptchaForm[?], fail: Boolean)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.passwordReset.txt(),
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.hcaptcha.script(form),
+      moreJs = lila.web.views.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
     ):
       main(cls := "auth auth-signup box box-pad")(
@@ -52,13 +50,13 @@ object bits:
           form3.group(form("email"), trans.site.email())(
             form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
           ),
-          views.html.base.hcaptcha.tag(form),
+          lila.ui.bits.hcaptcha(form),
           form3.action(form3.submit(trans.site.emailMeALink()))
         )
       )
 
   def passwordResetSent(email: String)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.passwordReset.txt()
     ):
       main(cls := "page-small box box-pad")(
@@ -70,10 +68,10 @@ object bits:
   def passwordResetConfirm(token: String, form: Form[?], ok: Option[Boolean] = None)(using PageContext)(using
       me: Me
   ) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"${me.username} - ${trans.site.changePassword.txt()}",
       moreCss = cssTag("form3"),
-      moreJs = jsModuleInit("passwordComplexity")
+      modules = jsModuleInit("bits.passwordComplexity")
     ):
       main(cls := "page-small box box-pad")(
         boxTop(
@@ -103,10 +101,10 @@ object bits:
       )
 
   def magicLink(form: HcaptchaForm[?], fail: Boolean)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
-      moreJs = views.html.base.hcaptcha.script(form),
+      moreJs = lila.web.views.hcaptcha.script(form),
       csp = defaultCsp.withHcaptcha.some
     ):
       main(cls := "auth auth-signup box box-pad")(
@@ -121,13 +119,13 @@ object bits:
           form3.group(form("email"), trans.site.email())(
             form3.input(_, typ = "email")(autofocus, required, autocomplete := "email")
           ),
-          views.html.base.hcaptcha.tag(form),
+          lila.ui.bits.hcaptcha(form),
           form3.action(form3.submit(trans.site.emailMeALink()))
         )
       )
 
   def magicLinkSent(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Log in by email"
     ):
       main(cls := "page-small box box-pad")(
@@ -137,7 +135,7 @@ object bits:
       )
 
   def tokenLoginConfirmation(user: User, token: String, referrer: Option[String])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = s"Log in as ${user.username}",
       moreCss = cssTag("form3")
     ):
@@ -185,7 +183,7 @@ body { margin-top: 45px; }
     )
 
   def tor()(using PageContext) =
-    views.html.base.layout(title = "Tor exit node"):
+    views.base.layout(title = "Tor exit node"):
       main(cls := "page-small box box-pad")(
         boxTop(h1(cls := "text", dataIcon := "2")("Ooops")),
         p("Sorry, you can't signup to Lichess through Tor!"),
@@ -193,7 +191,7 @@ body { margin-top: 45px; }
       )
 
   def logout()(using PageContext) =
-    views.html.base.layout(title = trans.site.logOut.txt()):
+    views.base.layout(title = trans.site.logOut.txt()):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(trans.site.logOut()),
         form(action := routes.Auth.logout, method := "post")(

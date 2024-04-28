@@ -7,15 +7,12 @@ import java.time.{ Duration, LocalDate }
 import java.util.concurrent.ConcurrentHashMap
 
 import lila.ui.ScalatagsTemplate.*
+import lila.core.i18n.{ I18nKey, Translate }
 
-final class DateHelper(
-    i18n: I18nHelper,
-    string: StringHelper,
-    translateDuration: lila.core.i18n.TranslateDuration
-):
+trait DateHelper:
+  self: StringHelper =>
 
-  import i18n.*
-  import string.*
+  private val datetimeAttr = attr("datetime")
 
   private val dateTimeFormatters = new ConcurrentHashMap[String, DateTimeFormatter]
   private val dateFormatters     = new ConcurrentHashMap[String, DateTimeFormatter]
@@ -60,16 +57,21 @@ final class DateHelper(
     timeTag(datetimeAttr := isoDateTime(date.atStartOfDay.instant))(showDate(date))
 
   def showMinutes(minutes: Int)(using Translate): String =
-    translateDuration(Duration.ofMinutes(minutes))
+    lila.core.i18n.translateDuration(Duration.ofMinutes(minutes))
 
   def isoDateTime(instant: Instant): String = isoDateTimeFormatter.print(instant)
 
   private val oneDayMillis = 1000 * 60 * 60 * 24
 
+  def momentFromNow(instant: Instant): Tag = momentFromNow(instant, false, false)
+
   def momentFromNow(instant: Instant, alwaysRelative: Boolean = false, once: Boolean = false): Tag =
     if !alwaysRelative && (instant.toMillis - nowMillis) > oneDayMillis then
       absClientInstantEmpty(instant)(nbsp)
     else timeTag(cls := s"timeago${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
+
+  def momentFromNowWithPreload(instant: Instant): Frag =
+    momentFromNowWithPreload(instant, false, false)
 
   def momentFromNowWithPreload(
       instant: Instant,
@@ -92,7 +94,8 @@ final class DateHelper(
   def momentFromNowServer(instant: Instant)(using Translate): Frag =
     timeTag(title := f"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
-  def momentFromNowServerText(instant: Instant, inFuture: Boolean = false): String =
+  def momentFromNowServerText(instant: Instant): String =
+    val inFuture          = false
     val (dateSec, nowSec) = (instant.toMillis / 1000, nowSeconds)
     val seconds           = (if inFuture then dateSec - nowSec else nowSec - dateSec).toInt.atLeast(0)
     val minutes           = seconds / 60
@@ -110,5 +113,5 @@ final class DateHelper(
     else if years == 0 then s"${pluralize("month", months)}$preposition"
     else s"${pluralize("year", years)}$preposition"
 
-  def timeRemaining(instant: Instant, once: Boolean = false): Tag =
-    timeTag(cls := s"timeago remaining${once.so(" once")}", datetimeAttr := isoDateTime(instant))(nbsp)
+  def timeRemaining(instant: Instant): Tag =
+    timeTag(cls := s"timeago remaining", datetimeAttr := isoDateTime(instant))(nbsp)

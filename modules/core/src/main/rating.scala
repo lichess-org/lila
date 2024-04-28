@@ -32,9 +32,12 @@ case class Glicko(
   def provisional          = RatingProvisional(deviation >= Glicko.provisionalDeviation)
   def established          = provisional.no
   def establishedIntRating = Option.when(established)(intRating)
+  def clueless             = deviation >= Glicko.cluelessDeviation
+  def display              = s"$intRating${if provisional.yes then "?" else ""}"
 
 object Glicko:
   val provisionalDeviation = 110
+  val cluelessDeviation    = 230
 
 case class RatingProg(before: IntRating, after: IntRating):
   def diff    = IntRatingDiff(after.value - before.value)

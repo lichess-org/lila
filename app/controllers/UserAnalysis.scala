@@ -5,7 +5,6 @@ import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ ByColor, FullMoveNumber, Situation, White }
 import play.api.libs.json.Json
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -17,7 +16,7 @@ final class UserAnalysis(
     env: Env,
     gameC: => Game
 ) extends LilaController(env)
-    with TheftPrevention:
+    with lila.web.TheftPrevention:
 
   def index = load("", Standard)
 
@@ -49,7 +48,7 @@ final class UserAnalysis(
         owner = false,
         me = ctx.me
       )
-      page <- renderPage(html.board.userAnalysis(data, pov))
+      page <- renderPage(views.board.userAnalysis(data, pov))
     yield Ok(page)
       .withCanonical(routes.UserAnalysis.index)
       .enforceCrossSiteIsolation
@@ -61,7 +60,7 @@ final class UserAnalysis(
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me)
         .map { data =>
-          html.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)
+          views.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)
         }
     .map(_.enforceCrossSiteIsolation)
 
@@ -105,7 +104,7 @@ final class UserAnalysis(
                     .userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = owner, me = ctx.me)
                 withForecast = owner && !pov.game.synthetic && pov.game.playable
                 page <- renderPage:
-                  html.board.userAnalysis(data, pov, withForecast = withForecast)
+                  views.board.userAnalysis(data, pov, withForecast = withForecast)
               yield Ok(page).noCache
           ,
           api = _ => mobileAnalysis(pov)

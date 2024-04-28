@@ -8,7 +8,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.setChessground(site.makeChessground(vnode.elm as HTMLElement, makeConfig(ctrl))),
-      destroy: () => ctrl.ground()!.destroy(),
+      destroy: () => ctrl.ground().destroy(),
     },
   });
 }

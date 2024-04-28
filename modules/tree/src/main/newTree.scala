@@ -11,6 +11,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.bitboard.Bitboard
 import chess.Color
 import play.api.libs.json.*
+import scalalib.json.Json.{ *, given }
 import chess.json.Json.given
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
@@ -171,10 +172,8 @@ object NewTree:
     )
 
   given defaultNodeJsonWriter: Writes[NewTree] =
-    NewRoot.makeNodeWriter(alwaysChildren = true)(NewRoot.branchWriter)
+    NewRoot.makeNodeWriter(NewRoot.branchWriter)
 
-  // def minimalNodeJsonWriter: Writes[NewTree]   = makeNodeJsonWriter(alwaysChildren = false)
-  // Optional for the first node with the given id
   // def filterById(id: UciCharPair) = ChessNode.filterOptional[NewBranch](_.id == id)
   // def fromNodeToBranch(node: Node): NewBranch = ???
 
@@ -298,7 +297,6 @@ object NewRoot:
   def apply(root: Root): NewRoot                       = NewRoot(NewTree.fromNode(root), NewTree(root))
 
   import NewTree.*
-  import lila.common.Json.given
   import Eval.jsonWrites
   import Node.given
 
@@ -327,37 +325,37 @@ object NewRoot:
       .add("clock", clock)
       .add("crazy", crazyData)
 
-  given branchWriter: OWrites[NewBranch] = OWrites: nb =>
+  given branchWriter: OWrites[NewBranch] = OWrites: branch =>
     metasWriter
-      .writes(nb.metas)
-      .add("id", nb.id.toString.some)
-      .add("uci", nb.move.uci.uci.some)
-      .add("san", nb.move.san.some)
-      .add("comp", nb.comp)
-      .add("forceVariation", nb.forceVariation)
+      .writes(branch.metas)
+      .add("id", branch.id.toString.some)
+      .add("uci", branch.move.uci.uci.some)
+      .add("san", branch.move.san.some)
+      .add("comp", branch.comp)
+      .add("forceVariation", branch.forceVariation)
 
   def makeTreeWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[Tree[A]] = Writes: tree =>
     wa.writes(tree.value)
       .add(
         "children",
         Option.when(alwaysChildren || tree.childAndChildVariations.nonEmpty):
-          nodeListJsonWriter(true)(wa).writes(tree.childAndChildVariations)
+          nodeListJsonWriter(wa).writes(tree.childAndChildVariations)
       )
 
-  def makeNodeWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[ChessNode[A]] =
-    makeTreeWriter(alwaysChildren)(wa).contramap(identity)
+  def makeNodeWriter[A](wa: OWrites[A]): Writes[ChessNode[A]] =
+    makeTreeWriter(true)(wa).contramap(identity)
 
   def makeMainlineWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[ChessNode[A]] = Writes: tree =>
     wa.writes(tree.value)
       .add(
         "children",
         Option.when(alwaysChildren || tree.childVariations.nonEmpty):
-          nodeListJsonWriter(true)(wa).writes(tree.childVariations)
+          nodeListJsonWriter(wa).writes(tree.childVariations)
       )
 
-  def nodeListJsonWriter[A](alwaysChildren: Boolean)(wa: OWrites[A]): Writes[List[Tree[A]]] =
+  def nodeListJsonWriter[A](wa: OWrites[A]): Writes[List[Tree[A]]] =
     Writes: list =>
-      val writer = makeTreeWriter(alwaysChildren)(wa)
+      val writer = makeTreeWriter(true)(wa)
       JsArray(list.map(writer.writes))
 
   def makeRootJsonWriter(alwaysChildren: Boolean): Writes[NewRoot] =
@@ -372,7 +370,7 @@ object NewRoot:
         .add(
           "children",
           (alwaysChildren || root.tree.map(_.childAndVariations).exists(_.nonEmpty)).option:
-            root.tree.map(_.childAndVariations).map(nodeListJsonWriter(true)(branchWriter).writes)
+            root.tree.map(_.childAndVariations).map(nodeListJsonWriter(branchWriter).writes)
         )
 
   val partitionTreeJsonWriter: Writes[NewRoot] = Writes: root =>

@@ -60,7 +60,8 @@ final class Env(
     cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
-    realPlayerApi: lila.web.RealPlayerApi
+    realPlayerApi: lila.web.RealPlayerApi,
+    manifest: lila.web.AssetManifest
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
     ActorSystem,
@@ -81,8 +82,6 @@ final class Env(
 
   lazy val gameApiV2 = wire[GameApiV2]
 
-  lazy val userGameApi = wire[UserGameApi]
-
   lazy val roundApi = wire[RoundApi]
 
   lazy val lobbyApi = wire[LobbyApi]
@@ -92,8 +91,6 @@ final class Env(
   lazy val personalDataExport = wire[PersonalDataExport]
 
   lazy val accountClosure = wire[AccountClosure]
-
-  lazy val forumAccess = wire[ForumAccess]
 
   lazy val cli = wire[Cli]
 

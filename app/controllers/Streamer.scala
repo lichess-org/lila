@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
@@ -21,7 +20,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           liveStreams <- env.streamer.liveStreamApi.all
           live        <- api.withUsers(liveStreams)
           pager       <- env.streamer.pager.get(page, liveStreams, requests)
-          page        <- renderPage(html.streamer.index(live, pager, requests))
+          page        <- renderPage(views.streamer.index(live, pager, requests))
         yield Ok(page)
 
   def featured = Anon: ctx ?=>
@@ -59,7 +58,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           sws      <- env.streamer.liveStreamApi.of(s)
           activity <- env.activity.read.recentAndPreload(sws.user)
           perfs    <- env.user.perfsRepo.perfsOf(sws.user)
-          page     <- renderPage(html.streamer.show(sws, perfs, activity))
+          page     <- renderPage(views.streamer.show(sws, perfs, activity))
         yield Ok(page)
 
   def redirect(username: UserStr) = Open:
@@ -91,7 +90,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         _      <- env.msg.twoFactorReminder(s.user.id)
         sws    <- env.streamer.liveStreamApi.of(s)
         forMod <- modData(s.streamer)
-        page   <- renderPage(html.streamer.edit(sws, StreamerForm.userForm(sws.streamer), forMod))
+        page   <- renderPage(views.streamer.edit(sws, StreamerForm.userForm(sws.streamer), forMod))
       yield Ok(page).noCache
   }
 
@@ -104,7 +103,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
           .fold(
             error =>
               modData(s.streamer).flatMap: forMod =>
-                BadRequest.page(html.streamer.edit(sws, error, forMod)),
+                BadRequest.page(views.streamer.edit(sws, error, forMod)),
             data =>
               api.update(sws.streamer, data, isGranted(_.Streamers)).flatMap { change =>
                 if change.decline then logApi.streamerDecline(s.user.id)
@@ -188,11 +187,11 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     ctx.me.foldUse(notFound): me ?=>
       if StreamerModel.canApply(me) || isGranted(_.Streamers) then
         api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.userId).flatMap {
-          _.fold(Ok.page(html.streamer.bits.create))(f)
+          _.fold(Ok.page(views.streamer.bits.create))(f)
         }
       else
         Ok.page:
-          html.site.message("Too soon"):
+          views.site.message("Too soon"):
             scalatags.Text.all.raw("You are not yet allowed to create a streamer profile.")
 
   private def WithVisibleStreamer(s: StreamerModel.WithContext)(f: Fu[Result])(using ctx: Context) =

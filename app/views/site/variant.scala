@@ -1,10 +1,7 @@
-package views
-package html.site
-
-import controllers.routes
+package views.site
 
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+
 import lila.rating.PerfType
 
 object variant:
@@ -21,7 +18,7 @@ object variant:
     )(
       boxTop(h1(cls := "text", dataIcon := perfType.icon)(variant.name)),
       h2(cls := "headline")(variant.title),
-      div(cls := "body expand-text")(views.html.cms.render(p))
+      div(cls := "body expand-text")(views.cms.render(p))
     )
 
   def home(using PageContext) =
@@ -49,16 +46,16 @@ object variant:
       title: String,
       klass: String,
       active: Option[PerfKey] = None,
-      openGraph: Option[lila.web.OpenGraph] = None
+      openGraph: Option[OpenGraph] = None
   )(body: Modifier*)(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("variant"),
-      moreJs = jsModule("expandText"),
+      modules = EsmInit("bits.expandText"),
       openGraph = openGraph
     ):
       main(cls := "page-menu")(
-        views.html.base.bits.pageMenuSubnav(
+        lila.ui.bits.pageMenuSubnav(
           lila.rating.PerfType.variants.map { pk =>
             val pt = lila.rating.PerfType(pk)
             a(

@@ -29,7 +29,8 @@ final class Env(
     userApi: lila.core.user.UserApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.core.user.LightUserApi,
-    cacheApi: lila.memo.CacheApi
+    cacheApi: lila.memo.CacheApi,
+    getTourName: => lila.core.tournament.GetTourName
 )(using system: ActorSystem, scheduler: Scheduler)(using
     lila.core.i18n.Translator,
     Executor,
@@ -72,17 +73,18 @@ final class Env(
 
   lazy val importer = wire[lila.game.importer.Importer]
 
-  val statusText: lila.core.game.StatusText = StatusText.apply
+  lazy val userGameApi = UserGameApi(lightUserApi, getTourName)
 
   lazy val api: lila.core.game.GameApi = new:
     export gameRepo.{ incBookmarks, getSourceAndUserIds }
     export cached.nbPlaying
     export GameExt.{ computeMoveTimes, analysable }
-    export StatusText.apply as statusText
     export AnonCookie.json as anonCookieJson
+    export AnonCookie.name as anonCookieName
 
   lazy val newPlayer: lila.core.game.NewPlayer = new:
     export Player.make as apply
+    export Player.makeAnon as anon
 
   val namer: lila.core.game.Namer = Namer
 

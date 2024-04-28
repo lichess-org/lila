@@ -6,12 +6,12 @@ final class DgtCtrl(env: Env) extends LilaController(env):
 
   def index = Auth { _ ?=> _ ?=>
     Ok.page:
-      views.html.dgt.index
+      views.dgt.index
   }
 
   def config = Auth { _ ?=> me ?=>
     Ok.pageAsync:
-      findToken.map(views.html.dgt.config)
+      findToken.map(views.dgt.config)
   }
 
   def menuShortcut = Auth { ctx ?=> me ?=>
@@ -46,7 +46,7 @@ final class DgtCtrl(env: Env) extends LilaController(env):
     findToken.flatMap:
       case None => Redirect(routes.DgtCtrl.config)
       case Some(t) =>
-        Ok.page(views.html.dgt.play(t))
+        Ok.page(views.dgt.play(t))
   }
 
   private val dgtScopes = lila.oauth.OAuthScope.select(

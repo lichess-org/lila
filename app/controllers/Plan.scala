@@ -2,8 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
-
 import java.util.Currency
 
 import lila.app.{ *, given }
@@ -63,7 +61,7 @@ final class Plan(env: Env) extends LilaController(env):
       _         <- env.user.lightUserApi.preloadMany(recentIds ::: bestIds)
       pricing   <- env.plan.priceApi.pricingOrDefault(myCurrency)
       page <- renderPage:
-        html.plan.index(
+        views.plan.index(
           stripePublicKey = env.plan.stripePublicKey,
           payPalPublicKey = env.plan.payPalPublicKey,
           email = email,
@@ -83,7 +81,8 @@ final class Plan(env: Env) extends LilaController(env):
     gifts   <- env.plan.api.giftsFrom(me)
     res <- info match
       case Some(info: CustomerInfo.Monthly) =>
-        Ok.page(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
+        Ok.page(views.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
+
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email.map { EmailAddress(_) }, patron.some)
       case None =>
@@ -97,7 +96,7 @@ final class Plan(env: Env) extends LilaController(env):
       me: Me
   ) =
     Ok.pageAsync:
-      env.plan.api.giftsFrom(me).map { html.plan.indexPayPal(me, patron, sub, _) }
+      env.plan.api.giftsFrom(me).map { views.plan.indexPayPal(me, patron, sub, _) }
     .map:
         _.withHeaders(crossOriginPolicy.unsafe*)
 
@@ -113,7 +112,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   def features = Open:
     pageHit
-    Ok.page(html.plan.features())
+    Ok.page(views.plan.features)
 
   def switch = AuthBody { ctx ?=> me ?=>
     env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
@@ -139,7 +138,7 @@ final class Plan(env: Env) extends LilaController(env):
         patron   <- ctx.me.so { env.plan.api.userPatron(_) }
         customer <- patron.so(env.plan.api.stripe.patronCustomer)
         gift     <- ctx.me.so { env.plan.api.recentGiftFrom(_) }
-        page     <- renderPage(html.plan.thanks(patron, customer, gift))
+        page     <- renderPage(views.plan.thanks(patron, customer, gift))
       yield Ok(page)
 
   def webhook = AnonBodyOf(parse.json): body =>

@@ -1,12 +1,7 @@
-package views
-package html.site
-
-import controllers.routes
+package views.site
 
 import lila.api.PageContext
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.Icon
 
 object message:
 
@@ -16,7 +11,7 @@ object message:
       icon: Option[Icon] = None,
       moreCss: Option[Frag] = None
   )(message: Modifier*)(using PageContext) =
-    views.html.base.layout(title = title, moreCss = ~moreCss):
+    views.base.layout(title = title, moreCss = ~moreCss):
       main(cls := "box box-pad")(
         boxTop(
           h1(dataIcon := icon.ifTrue(back.isEmpty), cls := List("text" -> (icon.isDefined && back.isEmpty)))(

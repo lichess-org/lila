@@ -35,7 +35,7 @@
       background-image: url(../piece/mono/K.svg);
     }
 
-    @if $theme == 'transp' {
+    @include if-transp {
       filter: brightness(1.3) drop-shadow(0 1px 1px #000);
     }
   }

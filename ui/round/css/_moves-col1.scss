@@ -24,13 +24,11 @@
     white-space: nowrap;
     overflow-x: scroll;
     color: $c-font-page;
+    box-shadow: 0 4px 12px #000 inset;
 
-    @if $theme-light {
-      box-shadow: 0 4px 4px c-light($c-bg-page, 78%) inset;
-    } @else {
-      box-shadow: 0 4px 12px #000 inset;
+    @include if-light {
+      box-shadow: 0 4px 4px #aaa inset;
     }
-
     &::-webkit-scrollbar {
       height: 0px;
     }
@@ -59,10 +57,9 @@
 
     &.#{$active-class},
     &:hover {
-      @if $theme-light {
-        background: hsl($c-site-hue, 20%, 85%);
-      } @else {
-        background: $c-bg-zebra;
+      background: $c-bg-zebra;
+      @include if-light {
+        background: hsl($site-hue, 20%, 85%);
       }
     }
 

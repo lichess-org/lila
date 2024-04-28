@@ -127,7 +127,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
         ? {
             uci: best,
             san: root.position(prev).unwrap(
-              pos => makeSan(pos, parseUci(best!)!),
+              pos => makeSan(pos, parseUci(best)!),
               _ => '--',
             ),
           }

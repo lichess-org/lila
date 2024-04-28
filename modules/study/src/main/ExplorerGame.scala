@@ -9,7 +9,6 @@ import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
 
 final private class ExplorerGame(
-    gameToRoot: GameToRoot,
     explorer: lila.core.game.Explorer,
     namer: lila.core.game.Namer,
     lightUserApi: lila.core.user.LightUserApi,
@@ -26,7 +25,7 @@ final private class ExplorerGame(
     else
       explorer(gameId).mapz: game =>
         position.node.so: fromNode =>
-          gameToRoot(game, none, withClocks = false)
+          GameToRoot(game, none, withClocks = false)
             .pipe: root =>
               root.setCommentAt(
                 comment = gameComment(game),
@@ -62,9 +61,9 @@ final private class ExplorerGame(
   private def gameTitle(g: Game): String =
     val pgn = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
     val white =
-      pgn.flatMap(_.tags(_.White)) | namer.playerText(g.whitePlayer)(using lightUserApi.async)
+      pgn.flatMap(_.tags(_.White)) | namer.playerTextBlocking(g.whitePlayer)(using lightUserApi.sync)
     val black =
-      pgn.flatMap(_.tags(_.Black)) | namer.playerText(g.blackPlayer)(using lightUserApi.async)
+      pgn.flatMap(_.tags(_.Black)) | namer.playerTextBlocking(g.blackPlayer)(using lightUserApi.sync)
     val result = chess.Outcome.showResult(chess.Outcome(g.winnerColor).some)
     val event: Option[String] =
       (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match

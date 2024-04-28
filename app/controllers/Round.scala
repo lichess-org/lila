@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.chat.Chat
@@ -11,6 +10,7 @@ import lila.common.HTTPRequest
 import lila.tournament.Tournament as Tour
 import lila.core.data.Preload
 import lila.core.id.{ GameFullId, GameAnyId }
+import lila.round.RoundGame.*
 
 final class Round(
     env: Env,
@@ -21,7 +21,7 @@ final class Round(
     swissC: => Swiss,
     userC: => User
 ) extends LilaController(env)
-    with TheftPrevention:
+    with lila.web.TheftPrevention:
 
   import env.user.flairApi.given
 
@@ -48,7 +48,7 @@ final class Round(
                   ).tupled
                 _ = simul.foreach(env.simul.api.onPlayerConnection(pov.game, ctx.me))
                 page <- renderPage(
-                  html.round.player(
+                  views.round.player(
                     pov,
                     data,
                     tour = tour,
@@ -162,7 +162,7 @@ final class Round(
                   lila.round.OnTv.User(u.id)
                 data <- env.api.roundApi.watcher(pov, users, tour, tv)
                 page <- renderPage:
-                  html.round.watcher(
+                  views.round.watcher(
                     pov,
                     data,
                     tour.map(_.tourAndTeamVs),
@@ -178,7 +178,7 @@ final class Round(
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
                 pgn <- env.api
                   .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
-                page <- renderPage(html.round.watcher.crawler(pov, initialFen, pgn))
+                page <- renderPage(views.round.watcher.crawler(pov, initialFen, pgn))
               yield Ok(page)
           ,
           api = _ =>
@@ -254,7 +254,7 @@ final class Round(
         env.game.crosstableApi.withMatchup(pov.game),
         env.bookmark.api.exists(pov.game, ctx.me)
       ).flatMapN: (tour, simul, initialFen, crosstable, bookmarked) =>
-        html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
+        views.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
     import play.api.data.Forms.*
@@ -296,11 +296,11 @@ final class Round(
         .fromName(color)
         .so(env.round.proxyRepo.povIfPresent(gameId, _))
         .orElse(env.game.gameRepo.pov(gameId, color))
-    )(html.game.mini(_))
+    )(views.game.mini(_))
 
   def miniFullId(fullId: GameFullId) = Open:
     FoundPage(env.round.proxyRepo.povIfPresent(fullId).orElse(env.game.gameRepo.pov(fullId))):
-      html.game.mini(_)
+      views.game.mini(_)
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.core.round.Moretime

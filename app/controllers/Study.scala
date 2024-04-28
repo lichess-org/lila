@@ -3,7 +3,6 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 import scalalib.Json.given
-import views.*
 
 import scala.util.chaining.*
 
@@ -37,7 +36,7 @@ final class Study(
           .all(Order.default, page)
           .flatMap: pag =>
             preloadMembers(pag) >> negotiate(
-              Ok.page(html.study.list.all(pag, Order.default)),
+              Ok.page(views.study.list.all(pag, Order.default)),
               apiStudies(pag)
             )
       else
@@ -45,7 +44,7 @@ final class Study(
           .studySearch(ctx.me)(text, page)
           .flatMap: pag =>
             negotiate(
-              Ok.page(html.study.list.search(pag, text)),
+              Ok.page(views.study.list.search(pag, text)),
               apiStudies(pag)
             )
 
@@ -66,7 +65,7 @@ final class Study(
             .all(order, page)
             .flatMap: pag =>
               preloadMembers(pag) >> negotiate(
-                Ok.page(html.study.list.all(pag, order)),
+                Ok.page(views.study.list.all(pag, order)),
                 apiStudies(pag)
               )
 
@@ -78,7 +77,7 @@ final class Study(
         .byOwner(owner, order, page)
         .flatMap: pag =>
           preloadMembers(pag) >> negotiate(
-            Ok.page(html.study.list.byOwner(pag, order, owner)),
+            Ok.page(views.study.list.byOwner(pag, order, owner)),
             apiStudies(pag)
           )
 
@@ -88,7 +87,7 @@ final class Study(
       .flatMap: pag =>
         preloadMembers(pag) >> negotiate(
           env.study.topicApi.userTopics(me).flatMap { topics =>
-            Ok.page(html.study.list.mine(pag, order, topics))
+            Ok.page(views.study.list.mine(pag, order, topics))
           },
           apiStudies(pag)
         )
@@ -99,7 +98,7 @@ final class Study(
       .minePublic(order, page)
       .flatMap: pag =>
         preloadMembers(pag) >> negotiate(
-          Ok.page(html.study.list.minePublic(pag, order)),
+          Ok.page(views.study.list.minePublic(pag, order)),
           apiStudies(pag)
         )
   }
@@ -109,7 +108,7 @@ final class Study(
       .minePrivate(order, page)
       .flatMap: pag =>
         preloadMembers(pag) >> negotiate(
-          Ok.page(html.study.list.minePrivate(pag, order)),
+          Ok.page(views.study.list.minePrivate(pag, order)),
           apiStudies(pag)
         )
   }
@@ -123,7 +122,7 @@ final class Study(
             env.study.topicApi
               .userTopics(me)
               .map:
-                html.study.list.mineMember(pag, order, _)
+                views.study.list.mineMember(pag, order, _)
           ,
           apiStudies(pag)
         )
@@ -134,7 +133,7 @@ final class Study(
       .mineLikes(order, page)
       .flatMap: pag =>
         preloadMembers(pag) >> negotiate(
-          Ok.page(html.study.list.mineLikes(pag, order)),
+          Ok.page(views.study.list.mineLikes(pag, order)),
           apiStudies(pag)
         )
   }
@@ -145,7 +144,7 @@ final class Study(
         .byTopic(topic, order, page)
         .zip(ctx.userId.soFu(env.study.topicApi.userTopics))
         .flatMap: (pag, topics) =>
-          preloadMembers(pag) >> Ok.page(html.study.topic.show(topic, pag, order, topics))
+          preloadMembers(pag) >> Ok.page(views.study.topic.show(topic, pag, order, topics))
 
   private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
     env.user.lightUserApi.preloadMany(
@@ -182,7 +181,7 @@ final class Study(
                 chat      <- NoCrawlers(chatOf(sc.study))
                 sVersion  <- NoCrawlers(env.study.version(sc.study.id))
                 streamers <- NoCrawlers(streamerCache.get(sc.study.id))
-                page      <- renderPage(html.study.show(sc.study, data, chat, sVersion, streamers))
+                page      <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
                 .enforceCrossSiteIsolation,
@@ -284,7 +283,7 @@ final class Study(
                   .orElse(
                     data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
                   )
-                Ok.page(html.study.create(data, owner, contrib, back))
+                Ok.page(views.study.create(data, owner, contrib, back))
           yield res
       )
   }
@@ -381,20 +380,20 @@ final class Study(
         if chapterId.value == "autochap"
         then env.study.api.byIdWithChapter(studyId)
         else env.study.api.byIdWithChapterOrFallback(studyId, chapterId)
-      def notFound = NotFound(html.study.embed.notFound)
+      def notFound = NotFound(views.study.embed.notFound)
       studyFu
         .flatMap:
           _.fold(notFound.toFuccess): sc =>
             env.api.textLpvExpand
               .getChapterPgn(sc.chapter.id)
               .map:
-                case Some(LpvEmbed.PublicPgn(pgn)) => Ok(html.study.embed(sc.study, sc.chapter, pgn))
+                case Some(LpvEmbed.PublicPgn(pgn)) => Ok(views.study.embed(sc.study, sc.chapter, pgn))
                 case _                             => notFound
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>
     Found(env.study.api.byId(id)): study =>
       CanView(study, study.settings.cloneable.some) {
-        Ok.page(html.study.clone(study))
+        Ok.page(views.study.clone(study))
       }(privateUnauthorizedFu(study), privateForbiddenFu(study))
   }
 
@@ -549,7 +548,7 @@ final class Study(
     env.study.topicApi.popular(50).zip(ctx.userId.soFu(env.study.topicApi.userTopics)).flatMap {
       (popular, mine) =>
         val form = mine.map(StudyForm.topicsForm)
-        Ok.page(html.study.topic.index(popular, mine, form))
+        Ok.page(views.study.topic.index(popular, mine, form))
     }
 
   def setTopics = AuthBody { ctx ?=> me ?=>
@@ -564,19 +563,19 @@ final class Study(
   def staffPicks = Open:
     pageHit
     FoundPage(env.api.cmsRenderKey("studies-staff-picks")):
-      html.study.list.staffPicks
+      views.study.list.staffPicks
 
   def privateUnauthorizedText = Unauthorized("This study is now private")
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(using Context) = negotiate(
-    Unauthorized.page(html.site.message.privateStudy(study)),
+    Unauthorized.page(views.site.message.privateStudy(study)),
     privateUnauthorizedJson
   )
 
   def privateForbiddenText = Forbidden("This study is now private")
   def privateForbiddenJson = forbiddenJson("This study is now private")
   def privateForbiddenFu(study: StudyModel)(using Context) = negotiate(
-    Forbidden.page(html.site.message.privateStudy(study)),
+    Forbidden.page(views.site.message.privateStudy(study)),
     privateForbiddenJson
   )
 

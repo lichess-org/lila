@@ -14,6 +14,7 @@ import _root_.chess.{
   Centis,
   CheckCount,
   Clock,
+  CorrespondenceClock,
   Color,
   Game as ChessGame,
   Mode,
@@ -51,12 +52,11 @@ case class Game(
 
   lazy val clockHistory = chess.clock.flatMap(loadClockHistory)
 
-  def drawOfferPlies                                   = drawOffers.normalizedPlies
-  def player(playerId: GamePlayerId): Option[Player]   = players.find(_.id == playerId)
   def player[U: UserIdOf](user: U): Option[Player]     = players.find(_.isUser(user))
   def opponentOf[U: UserIdOf](user: U): Option[Player] = player(user).map(opponent)
 
-  def player: Player = players(turnColor)
+  def player: Player                                     = players(turnColor)
+  def playerById(playerId: GamePlayerId): Option[Player] = players.find(_.id == playerId)
 
   def hasUserIds(userId1: UserId, userId2: UserId) =
     hasUserId(userId1) && hasUserId(userId2)
@@ -93,8 +93,6 @@ case class Game(
   def nonMandatory         = !isMandatory
   def canTakebackOrAddTime = !isMandatory
 
-  def hasChat = !isTournament && !isSimul && !isSwiss && nonAi
-
   // we can't rely on the clock,
   // because if moretime was given,
   // elapsed time is no longer representing the game duration
@@ -113,14 +111,11 @@ case class Game(
 
   def lastMoveKeys: Option[String] =
     history.lastMove.map:
-      case Uci.Drop(_, target) => s"${target.key}${target.key}"
-      case m: Uci.Move         => m.keys
+      case d: Uci.Drop => d.square.key * 2
+      case m: Uci.Move => m.keys
 
   def updatePlayer(color: Color, f: Player => Player) =
     copy(players = players.update(color, f))
-
-  def updatePlayers(f: Player => Player) =
-    copy(players = players.map(f))
 
   def start =
     if started then this
@@ -131,14 +126,7 @@ case class Game(
       )
 
   def correspondenceClock: Option[CorrespondenceClock] =
-    daysPerTurn.map: days =>
-      val increment   = days.value * 24 * 60 * 60
-      val secondsLeft = (movedAt.toSeconds + increment - nowSeconds).toInt.max(0)
-      CorrespondenceClock(
-        increment = increment,
-        whiteTime = turnColor.fold(secondsLeft, increment).toFloat,
-        blackTime = turnColor.fold(increment, secondsLeft).toFloat
-      )
+    daysPerTurn.map(d => CorrespondenceClock(d.value, turnColor, movedAt))
 
   def playableCorrespondenceClock: Option[CorrespondenceClock] =
     if playable then correspondenceClock else none
@@ -152,28 +140,11 @@ case class Game(
 
   def started = status >= Status.Started
 
-  def notStarted = !started
-
   def aborted = status == Status.Aborted
-
-  def playedThenAborted = aborted && bothPlayersHaveMoved
 
   def abort = copy(status = Status.Aborted)
 
   def playable = status < Status.Aborted && !sourceIs(_.Import)
-
-  def playableEvenImported = status < Status.Aborted
-
-  def playableBy(p: Player): Boolean = playable && turnOf(p)
-  def playableBy(c: Color): Boolean  = playable && turnOf(c)
-
-  def playableByAi: Boolean = playable && player.isAi
-
-  def mobilePushable = isCorrespondence && playable && nonAi
-
-  def alarmable = hasCorrespondenceClock && playable && nonAi
-
-  def continuable = status != Status.Mate && status != Status.Stalemate
 
   def aiLevel: Option[Int] = players.find(_.aiLevel)
 
@@ -182,19 +153,9 @@ case class Game(
 
   def synthetic = id == GameId("synthetic")
 
-  def aiPov: Option[Pov] = players.collect { case x if x.isAi => x.color }.map(pov)
+  def aiPov: Option[Pov] = players.findColor(_.isAi).map(pov)
 
-  def mapPlayers(f: Player => Player) =
-    copy(players = players.map(f))
-
-  def playerCanOfferDraw(color: Color) =
-    started && playable &&
-      ply >= 2 &&
-      !player(color).isOfferingDraw &&
-      !opponent(color).isAi &&
-      !playerHasOfferedDrawRecently(color) &&
-      !swissPreventsDraw &&
-      !rulePreventsDraw
+  def mapPlayers(f: Player => Player) = copy(players = players.map(f))
 
   def swissPreventsDraw = isSwiss && playedTurns < 60
   def rulePreventsDraw  = hasRule(_.noEarlyDraw) && playedTurns < 60
@@ -204,20 +165,7 @@ case class Game(
 
   def offerDraw(color: Color) = copy(
     metadata = metadata.copy(drawOffers = drawOffers.add(color, ply))
-  ).updatePlayer(color, _.offerDraw)
-
-  def playerCouldRematch =
-    finishedOrAborted &&
-      nonMandatory &&
-      !hasRule(_.noRematch) &&
-      !boosted &&
-      !(hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60))
-
-  def playerCanProposeTakeback(color: Color) =
-    started && playable && !isTournament && !isSimul &&
-      bothPlayersHaveMoved &&
-      !player(color).isProposingTakeback &&
-      !opponent(color).isProposingTakeback
+  ).updatePlayer(color, _.copy(isOfferingDraw = true))
 
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
@@ -237,7 +185,6 @@ case class Game(
     resignable && nonAi && !sourceIs(_.Friend) && hasClock && !isSwiss && !hasRule(_.noClaimWin)
   def forceResignableNow = forceResignable && bothPlayersHaveMoved
   def drawable           = playable && !abortable && !swissPreventsDraw && !rulePreventsDraw
-  def forceDrawable      = playable && nonAi && !abortable && !isSwiss && !hasRule(_.noClaimWin)
 
   export mode.{ rated, casual }
 
@@ -245,29 +192,23 @@ case class Game(
 
   def finishedOrAborted = finished || aborted
 
-  def accountable = playedTurns >= 2 || isTournament
-
   def replayable = isPgnImport || finished || (aborted && bothPlayersHaveMoved)
 
   def fromPosition = variant.fromPosition || source.has(Source.Position)
 
   def sourceIs(f: Source.type => Source): Boolean = source contains f(Source)
 
-  def winner = players.find(_.wins)
+  def winner: Option[Player] = players.find(_.isWinner | false)
 
-  def loser = winner.map(opponent)
+  def loser: Option[Player] = winner.map(opponent)
 
   def winnerColor: Option[Color] = winner.map(_.color)
-
-  def outcome: Option[Outcome] = finished.option(Outcome(winnerColor))
 
   def winnerUserId: Option[UserId] = winner.flatMap(_.userId)
 
   def loserUserId: Option[UserId] = loser.flatMap(_.userId)
 
   def wonBy(c: Color): Option[Boolean] = winner.map(_.color == c)
-
-  def lostBy(c: Color): Option[Boolean] = winner.map(_.color != c)
 
   def drawn = finished && winner.isEmpty
 
@@ -288,59 +229,18 @@ case class Game(
   def isCorrespondence  = speed == Speed.Correspondence
   def isSpeed(s: Speed) = speed == s
 
-  def isSwitchable = nonAi && (isCorrespondence || isSimul)
-
   def hasClock = clock.isDefined
 
   def hasCorrespondenceClock = daysPerTurn.isDefined
 
   def isUnlimited = !hasClock && !hasCorrespondenceClock
 
-  def isClockRunning = clock.exists(_.isRunning)
-
-  def estimateClockTotalTime = clock.map(_.estimateTotalSeconds)
-
-  def estimateTotalTime =
-    estimateClockTotalTime.orElse(correspondenceClock.map(_.estimateTotalTime)).getOrElse(1200)
-
-  def timeForFirstMove: Centis =
-    Centis.ofSeconds:
-      import Speed.*
-      val base =
-        if isTournament then
-          speed match
-            case UltraBullet => 11
-            case Bullet      => 16
-            case Blitz       => 21
-            case Rapid       => 25
-            case _           => 30
-        else
-          speed match
-            case UltraBullet => 15
-            case Bullet      => 20
-            case Blitz       => 25
-            case Rapid       => 30
-            case _           => 35
-      if variant.chess960 then base * 5 / 4
-      else base
-
-  def expirable =
-    !bothPlayersHaveMoved &&
-      source.exists(Source.expirable.contains) &&
-      playable &&
-      nonAi &&
-      clock.exists(!_.isRunning)
-
-  def timeBeforeExpiration: Option[Centis] = expirable.option:
-    Centis.ofMillis(movedAt.toMillis - nowMillis + timeForFirstMove.millis).nonNeg
-
   def playerWhoDidNotMove: Option[Player] = {
     if playedTurns == Ply.initial then player(startColor).some
     else if playedTurns == Ply.initial.next then player(!startColor).some
     else none
-  }.filterNot { player => winnerColor contains player.color }
+  }.filterNot(winner.contains)
 
-  def onePlayerHasMoved    = playedTurns > 0
   def bothPlayersHaveMoved = playedTurns > 1
 
   def startColor = startedAtPly.turn
@@ -354,10 +254,6 @@ case class Game(
 
   def isBeingPlayed = !isPgnImport && !finishedOrAborted
 
-  def olderThan(seconds: Int) = movedAt.isBefore(nowInstant.minusSeconds(seconds))
-
-  def justCreated = createdAt.isAfter(nowInstant.minusSeconds(1))
-
   def forecastable = started && playable && isCorrespondence && !hasAi
 
   def userIds: List[UserId] = players.flatMap(_.userId)
@@ -368,40 +264,20 @@ case class Game(
     if w != b
   yield w -> b
 
-  def userRatings = players.flatMap(_.rating)
-
-  def averageUsersRating = userRatings match
+  def averageUsersRating = players.flatMap(_.rating) match
     case a :: b :: Nil => Some((a + b).value / 2)
     case a :: Nil      => Some((a + 1500).value / 2)
     case _             => None
 
-  def withId(newId: GameId) = copy(id = newId)
-
   def isPgnImport = pgnImport.isDefined
-
-  def resetTurns = copy(chess = chess.copy(ply = Ply.initial, startedAtPly = Ply.initial))
 
   lazy val opening: Option[Opening.AtPly] =
     if !fromPosition && Variant.list.openingSensibleVariants(variant)
     then OpeningDb.search(sans)
     else none
 
-  def pov(c: Color)                                    = Pov(this, c)
-  def playerIdPov(playerId: GamePlayerId): Option[Pov] = player(playerId).map(p => pov(p.color))
-  def whitePov                                         = pov(White)
-  def blackPov                                         = pov(Black)
-  def playerPov(p: Player)                             = pov(p.color)
-  def loserPov                                         = loser.map(playerPov)
-  def povs: ByColor[Pov]                               = ByColor(pov)
-
-  def setAnalysed = copy(metadata = metadata.copy(analysed = true))
-
-  def secondsSinceCreation = (nowSeconds - createdAt.toSeconds).toInt
+  def pov(c: Color)      = Pov(this, c)
+  def povs: ByColor[Pov] = ByColor(pov)
 
   override def toString = s"""Game($id)"""
 end Game
-
-def allowRated(variant: Variant, clock: Option[Clock.Config]) =
-  variant.standard || clock.exists: c =>
-    c.estimateTotalTime >= Centis(3000) &&
-      c.limitSeconds > 0 || c.incrementSeconds > 1

@@ -3,10 +3,11 @@ package lila.relay
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
-import lila.memo.{ PicfitImage, PicfitUrl }
+import lila.memo.PicfitUrl
+import lila.core.id.ImageId
 
 case class RelayTour(
-    @Key("_id") id: RelayTour.Id,
+    @Key("_id") id: RelayTourId,
     name: RelayTour.Name,
     description: String,
     markup: Option[Markdown] = None,
@@ -20,12 +21,12 @@ case class RelayTour(
     teamTable: Boolean = false,
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,
-    image: Option[PicfitImage.Id] = None,
+    image: Option[ImageId] = None,
     pinnedStreamer: Option[UserStr] = None,
-    pinnedStreamerImage: Option[PicfitImage.Id] = None
+    pinnedStreamerImage: Option[ImageId] = None
 ):
   lazy val slug =
-    val s = lila.common.String.slugify(name.value)
+    val s = scalalib.StringOps.slug(name.value)
     if s.isEmpty then "-" else s
 
   def withRounds(rounds: List[RelayRound]) = RelayTour.WithRounds(this, rounds)
@@ -44,28 +45,32 @@ object RelayTour:
 
   val maxRelays = 64
 
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
-
   opaque type Name = String
   object Name extends OpaqueString[Name]
 
   type Tier = Int
   object Tier:
-    val NORMAL = 3
-    val HIGH   = 4
-    val BEST   = 5
+    val PRIVATE = -1
+    val NORMAL  = 3
+    val HIGH    = 4
+    val BEST    = 5
 
     val options = List(
-      ""              -> "Non official",
-      NORMAL.toString -> "Official: normal tier",
-      HIGH.toString   -> "Official: high tier",
-      BEST.toString   -> "Official: best tier"
+      ""               -> "Non official",
+      NORMAL.toString  -> "Official: normal tier",
+      HIGH.toString    -> "Official: high tier",
+      BEST.toString    -> "Official: best tier",
+      PRIVATE.toString -> "Official: Private"
     )
     def name(tier: Tier) = options.collectFirst {
       case (t, n) if t == tier.toString => n
     } | "???"
-    val keys: Map[Tier, String] = Map(NORMAL -> "normal", HIGH -> "high", BEST -> "best")
+    val keys: Map[Tier, String] = Map(
+      NORMAL  -> "normal",
+      HIGH    -> "high",
+      BEST    -> "best",
+      PRIVATE -> "private"
+    )
     type Selector = RelayTour.Tier.type => RelayTour.Tier
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
@@ -87,7 +92,7 @@ object RelayTour:
     def link    = round
     def display = round
 
-  case class IdName(@Key("_id") id: Id, name: Name)
+  case class IdName(@Key("_id") id: RelayTourId, name: Name)
 
   case class WithGroup(tour: RelayTour, group: Option[RelayGroup])
   case class WithGroupTours(tour: RelayTour, group: Option[RelayGroup.WithTours])
@@ -100,8 +105,8 @@ object RelayTour:
       case Small16x9 extends Size(400, 16.0f / 9)
     type SizeSelector = thumbnail.type => Size
 
-    def apply(picfitUrl: PicfitUrl, image: PicfitImage.Id, size: SizeSelector) =
+    def apply(picfitUrl: PicfitUrl, image: ImageId, size: SizeSelector) =
       picfitUrl.thumbnail(image, size(thumbnail).width, size(thumbnail).height)
 
   import scalalib.ThreadLocalRandom
-  def makeId = Id(ThreadLocalRandom.nextString(8))
+  def makeId = RelayTourId(ThreadLocalRandom.nextString(8))

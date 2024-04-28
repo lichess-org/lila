@@ -5,11 +5,11 @@ import chess.variant.{ FromPosition, Variant }
 import chess.{ ByColor, Clock }
 
 import scalalib.model.Days
-import lila.game.{ IdGenerator, Player }
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.core.user.GameUser
-import lila.core.game.Source
+import lila.core.game.{ IdGenerator, Source }
+import lila.core.game.NewPlayer
 
 final case class ApiAiConfig(
     variant: Variant,
@@ -31,7 +31,7 @@ final case class ApiAiConfig(
     else if daysO.isDefined then TimeMode.Correspondence
     else TimeMode.Unlimited
 
-  private def game(user: GameUser)(using idGenerator: IdGenerator): Fu[Game] =
+  private def game(user: GameUser)(using idGenerator: IdGenerator, newPlayer: NewPlayer): Fu[Game] =
     fenGame: chessGame =>
       lila.rating.PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
       idGenerator.withUniqueId:
@@ -40,8 +40,8 @@ final case class ApiAiConfig(
             chess = chessGame,
             players = ByColor: c =>
               if creatorColor == c
-              then Player.make(c, user)
-              else Player.makeAnon(c, level.some),
+              then newPlayer(c, user)
+              else newPlayer.anon(c, level.some),
             mode = chess.Mode.Casual,
             source = if chessGame.board.variant.fromPosition then Source.Position else Source.Ai,
             daysPerTurn = makeDaysPerTurn,
@@ -49,7 +49,7 @@ final case class ApiAiConfig(
           )
     .dmap(_.start)
 
-  def pov(user: GameUser)(using IdGenerator) = game(user).dmap { Pov(_, creatorColor) }
+  def pov(user: GameUser)(using IdGenerator, NewPlayer) = game(user).dmap { Pov(_, creatorColor) }
 
   def autoVariant =
     if variant.standard && fen.exists(!_.isInitial)

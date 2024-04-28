@@ -6,9 +6,8 @@ import _root_.chess.variant.Variant
 import _root_.chess.Speed
 
 import lila.core.userId.UserId
-import lila.core.rating.data.IntRating
+import lila.core.rating.data.{ IntRating, IntRatingDiff }
 import lila.core.rating.Glicko
-import lila.core.rating.data.IntRatingDiff
 import lila.core.userId.UserIdOf
 
 object perf:
@@ -49,13 +48,36 @@ object perf:
       crazyhouse,
       puzzle
     )
+    def keyIdMap: Map[PerfKey, PerfId] = Map(
+      ultraBullet    -> 0,
+      bullet         -> 1,
+      blitz          -> 2,
+      rapid          -> 6,
+      classical      -> 3,
+      correspondence -> 4,
+      standard       -> 5,
+      chess960       -> 11,
+      kingOfTheHill  -> 12,
+      antichess      -> 13,
+      atomic         -> 14,
+      threeCheck     -> 15,
+      horde          -> 16,
+      racingKings    -> 17,
+      crazyhouse     -> 18,
+      puzzle         -> 20
+    )
 
-    extension (key: PerfKey) def value: String = key
-    given Render[PerfKey]                      = _.value
+    extension (key: PerfKey)
+      def value: String = key
+      def id: PerfId    = keyIdMap(key)
+
+    given Render[PerfKey] = _.value
 
     def apply(key: String): Option[PerfKey]            = Option.when(all.contains(key))(key)
     def apply(variant: Variant, speed: Speed): PerfKey = byVariant(variant) | standardBySpeed(speed)
     def read(key: PerfKeyStr): Option[PerfKey]         = apply(key.value)
+
+    def keyToId(key: PerfKey): PerfId = keyIdMap(key)
 
     def byVariant(variant: Variant): Option[PerfKey] = variant match
       case ChessVariant.Standard      => none
@@ -149,7 +171,7 @@ object perf:
       case "racingKings"    => racingKings
       case "crazyhouse"     => crazyhouse
       case "puzzle"         => puzzle
-      // impossible because PerfKey can't be instanciated with arbitrary values
+      // impossible because PerfKey can't be instantiated with arbitrary values
       case key => sys.error(s"Unknown perf key: $key")
 
     def keyed(key: PerfKey): KeyedPerf = KeyedPerf(key, apply(key))

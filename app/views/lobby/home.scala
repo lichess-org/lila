@@ -1,19 +1,17 @@
-package views.html.lobby
+package views.lobby
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.app.LangPath
+
 import lila.core.perf.UserWithPerfs
 
 object home:
 
   def apply(homepage: Homepage)(using ctx: PageContext): Frag =
     import homepage.*
-    views.html.base.layout(
+    views.base.layout(
       title = "",
       fullTitle = s"$siteName • ${trans.site.freeOnlineChess.txt()}".some,
       pageModule = PageModule(
@@ -32,16 +30,14 @@ object home:
           )
       ).some,
       moreCss = cssTag("lobby"),
-      openGraph = lila.web
-        .OpenGraph(
-          image = assetUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = assetUrl("logo/lichess-tile.png").some,
-          title = "The best free, adless Chess server",
-          url = netBaseUrl.value,
-          description = trans.site.siteDescription.txt()
-        )
-        .some,
-      withHrefLangs = LangPath("/").some
+      openGraph = OpenGraph(
+        image = assetUrl("logo/lichess-tile-wide.png").some,
+        twitterImage = assetUrl("logo/lichess-tile.png").some,
+        title = "The best free, adless Chess server",
+        url = netBaseUrl.value,
+        description = trans.site.siteDescription.txt()
+      ).some,
+      withHrefLangs = lila.ui.LangPath("/").some
     ) {
       given Option[UserWithPerfs] = homepage.me
       main(
@@ -70,7 +66,7 @@ object home:
           ctx.blind.option(h2("Highlights")),
           ctx.kid.no.option(
             st.section(cls := "lobby__streams")(
-              views.html.streamer.bits.liveStreams(streams),
+              views.streamer.bits.liveStreams(streams),
               streams.live.streams.nonEmpty.option(
                 a(href := routes.Streamer.index(), cls := "more")(
                   trans.site.streamersMenu(),
@@ -81,7 +77,7 @@ object home:
           ),
           div(cls := "lobby__spotlights")(
             events.map(bits.spotlight),
-            views.html.relay.bits.spotlight(relays),
+            views.relay.bits.spotlight(relays),
             ctx.noBot.option {
               val nbManual = events.size + relays.size
               val simulBBB = simuls.find(isFeaturable(_) && nbManual < 4)
@@ -89,17 +85,17 @@ object home:
               val tourBBBs = if nbForced > 3 then 0 else if nbForced == 3 then 1 else 3 - nbForced
               frag(
                 lila.tournament.Spotlight.select(tours, tourBBBs).map {
-                  views.html.tournament.homepageSpotlight(_)
+                  views.tournament.homepageSpotlight(_)
                 },
-                swiss.ifTrue(nbForced < 3).map(views.html.swiss.bits.homepageSpotlight),
-                simulBBB.map(views.html.simul.bits.homepageSpotlight)
+                swiss.ifTrue(nbForced < 3).map(views.swiss.bits.homepageSpotlight),
+                simulBBB.map(views.simul.bits.homepageSpotlight)
               )
             }
           ),
           if ctx.isAuth then
             div(cls := "lobby__timeline")(
               ctx.blind.option(h2("Timeline")),
-              views.html.timeline.entries(userTimeline),
+              views.timeline.entries(userTimeline),
               userTimeline.nonEmpty.option(
                 a(cls := "more", href := routes.Timeline.home)(
                   trans.site.more(),
@@ -120,21 +116,21 @@ object home:
         ),
         featured.map: g =>
           div(cls := "lobby__tv"):
-            views.html.game.mini(Pov.naturalOrientation(g), tv = true)
+            views.game.mini(Pov.naturalOrientation(g), tv = true)
         ,
         puzzle.map: p =>
-          views.html.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
+          views.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
         div(cls := "lobby__blog ublog-post-cards"):
           ublogPosts
             .filter(_.isLichess || ctx.kid.no)
             .take(3)
             .map:
-              views.html.ublog.post
-                .card(_, showAuthor = views.html.ublog.post.ShowAt.bottom, showIntro = false)
+              views.ublog.postUi
+                .card(_, showAuthor = views.ublog.postUi.ShowAt.bottom, showIntro = false)
         ,
         ctx.noBot.option(bits.underboards(tours, simuls, leaderboard, tournamentWinners)),
         div(cls := "lobby__feed"):
-          views.html.feed.lobbyUpdates(lastUpdates)
+          views.feed.lobbyUpdates(lastUpdates)
         ,
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
@@ -162,7 +158,7 @@ object home:
           a(href := "/privacy")(trans.site.privacy()),
           a(href := "/source")(trans.site.sourceCode()),
           a(href := "/ads")("Ads"),
-          views.html.base.bits.connectLinks
+          views.base.bits.connectLinks
         )
       )
     }

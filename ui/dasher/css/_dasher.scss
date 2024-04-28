@@ -84,7 +84,7 @@
 
     .current {
       background: $c-dasher !important;
-      color: $c-dasher-over !important;
+      color: $c-over !important;
       border-inline-start: none;
     }
 
@@ -95,7 +95,7 @@
 
       &:hover {
         background: $c-link;
-        color: $c-link-over;
+        color: $c-over;
       }
     }
   }
@@ -120,7 +120,7 @@
 
       &.active {
         background: $c-dasher !important;
-        color: $c-dasher-over !important;
+        color: $c-over !important;
       }
 
       &::before {
@@ -137,7 +137,7 @@
 
       &.active::before {
         opacity: 1;
-        color: $c-dasher-over !important;
+        color: $c-over !important;
       }
     }
 
@@ -228,7 +228,7 @@
     background-color: #000000bb;
 
     #images-viewport {
-      max-height: min(100vh - 450px, 30vh);
+      max-height: 30vh;
       overflow: hidden auto;
     }
 

@@ -15,7 +15,7 @@ object UblogPost:
   case class Create(post: UblogPost) extends AnyVal
 
   case class LightPost(id: UblogPostId, title: String):
-    def slug = lila.core.slug(title)
+    def slug = scalalib.StringOps.slug(title)
 
 trait UblogApi:
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]]

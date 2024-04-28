@@ -2,9 +2,9 @@
 
 // formatting is also done in view.ts. if your changes aren't behaving as expected - check there!
 #insight {
-  --chart-height: 550px;
-  --header-height: 60px;
-  --drop-menu-width: 200px;
+  ---chart-height: 550px;
+  ---header-height: 60px;
+  ---drop-menu-width: 200px;
 
   > div {
     display: flex;
@@ -34,7 +34,7 @@
 
     &::after {
       content: '';
-      background: fade-out($c-accent, 0.4);
+      background: $m-accent--fade-40;
       height: 2px;
       position: absolute;
       width: 96%;
@@ -72,7 +72,7 @@
 
       top: 0;
       @include inline-start(0);
-      height: var(--chart-height);
+      height: var(---chart-height);
       opacity: 0.7;
 
       svg {
@@ -97,7 +97,7 @@
   }
 
   .chart {
-    height: var(--chart-height);
+    height: var(---chart-height);
   }
 
   .loading .chart {
@@ -127,18 +127,18 @@
     @extend %flex-between;
     padding: 0 1vw;
     flex-wrap: nowrap;
-    height: var(--header-height);
+    height: var(---header-height);
     background: #333;
     color: #ddd;
     h2 {
       font-size: vmax;
-      line-height: var(--header-height);
+      line-height: var(---header-height);
     }
 
     h2::before {
       font-size: vmax;
       vertical-align: top;
-      line-height: var(--header-height);
+      line-height: var(---header-height);
       margin: 0 10px;
     }
 
@@ -160,7 +160,7 @@
   }
 
   .axis-form {
-    height: var(--header-height);
+    height: var(---header-height);
     display: flex;
     flex-flow: row nowrap;
     flex: auto;
@@ -176,7 +176,7 @@
   }
 
   .axis-form .ms-choice {
-    padding: calc(var(--header-height) / 2) 10px;
+    padding: calc(var(---header-height) / 2) 10px;
     @media (max-width: at-most($xx-small)) {
       padding-left: 2px;
       padding-right: 2px;
@@ -187,17 +187,17 @@
   }
 
   .axis-form .ms-choice span {
-    line-height: var(--header-height);
+    line-height: var(---header-height);
     text-align: center;
   }
 
   .axis-form .ms-choice div {
-    top: calc(var(--header-height) / 2 - 12px);
+    top: calc(var(---header-height) / 2 - 12px);
   }
 
   .axis-form .ms-drop {
     color: $c-font;
-    width: var(--drop-menu-width);
+    width: var(---drop-menu-width);
 
     ul > li label input {
       display: none;
@@ -205,7 +205,7 @@
 
     ul > li.selected label {
       background: $c-accent;
-      color: $c-accent-over;
+      color: $c-over;
     }
   }
 
@@ -240,7 +240,7 @@
     }
 
     a:hover {
-      background: mix($c-accent, $c-bg-box, 20%);
+      background: $m-accent_bg--mix-20;
     }
 
     a:hover::before {
@@ -278,7 +278,7 @@
 
   .ms-drop {
     font-size: 0.9em;
-    max-height: calc(99vh - $site-header-height - var(--header-height));
+    max-height: calc(99vh - $site-header-height - var(---header-height));
     overflow-y: auto;
 
     ul {
@@ -296,7 +296,7 @@
     }
 
     ul > li label:not(.optgroup):hover {
-      background: mix($c-accent, $c-bg-box, 20%);
+      background: $m-accent_bg--mix-20;
     }
 
     ul > li label.optgroup {
@@ -398,7 +398,7 @@
       }
 
       &:hover {
-        background: mix($c-link, $c-bg-box, 20%);
+        background: $m-accent_bg--mix-20;
       }
     }
 

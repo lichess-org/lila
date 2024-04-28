@@ -3,6 +3,7 @@ package lila.user
 import reactivemongo.api.bson.*
 
 import lila.core.user.{ UserEnabled, Profile, Plan, TotpSecret, PlayTime, UserMarks, Count }
+import lila.core.security.HashedPassword
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 
@@ -73,7 +74,7 @@ object BSONHandlers:
     v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
   )
 
-  given BSONDocumentHandler[Authenticator.AuthData] = Macros.handler[Authenticator.AuthData]
+  given BSONDocumentHandler[AuthData] = Macros.handler[AuthData]
 
   given userHandler: BSONDocumentHandler[User] = new BSON[User]:
 

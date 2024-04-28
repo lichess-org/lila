@@ -21,8 +21,6 @@ object GlickoExt:
         else Glicko.variantRankableDeviation
       }
 
-    def clueless = g.deviation >= Glicko.cluelessDeviation
-
     def sanityCheck: Boolean =
       g.rating > 0 &&
         g.rating < 4000 &&
@@ -48,8 +46,6 @@ object GlickoExt:
           volatility = g.volatility * (1 - weight) + other.volatility * weight
         )
 
-    def display = s"${g.intRating}${g.provisional.yes.so("?")}"
-
 object Glicko:
   export lila.core.rating.Glicko.*
 
@@ -59,7 +55,6 @@ object Glicko:
   val minDeviation              = 45
   val variantRankableDeviation  = 65
   val standardRankableDeviation = 75
-  val cluelessDeviation         = 230
   val maxDeviation              = 500d
 
   // past this, it might not stabilize ever again
