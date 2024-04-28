@@ -155,7 +155,7 @@ final class Mod(
         title =>
           for
             _ <- modApi.setTitle(username, title)
-            _ <- env.mailer.automaticEmail.onTitleSet(username)
+            _ <- title.isDefined.so(env.mailer.automaticEmail.onTitleSet(username))
           yield
             env.user.lightUserApi.invalidate(username.id)
             redirect(username, mod = false)
