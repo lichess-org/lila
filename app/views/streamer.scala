@@ -21,7 +21,7 @@ def show(
   views.base.layout(
     title = s"${s.titleName} streams chess",
     moreCss = cssTag("streamer.show"),
-    modules = jsModule("bits.streamer"),
+    modules = EsmInit("bits.streamer"),
     openGraph = OpenGraph(
       title = s"${s.titleName} streams chess",
       description =
@@ -47,7 +47,7 @@ def index(
   views.base.layout(
     title = title,
     moreCss = cssTag("streamer.list"),
-    modules = infiniteScrollTag ++ jsModule("bits.streamer")
+    modules = infiniteScrollEsmInit ++ EsmInit("bits.streamer")
   )(ui.index(live, pager, requests, title))
 
 def create(using PageContext) =
@@ -72,7 +72,7 @@ object edit:
   )(using ctx: PageContext) =
     views.base.layout(
       title = s"${s.user.titleUsername} ${lichessStreamer.txt()}",
-      modules = jsModule("bits.streamer"),
+      modules = EsmInit("bits.streamer"),
       moreCss = cssTag("streamer.form")
     ):
       val modZone = modData.map:

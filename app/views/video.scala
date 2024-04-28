@@ -14,7 +14,7 @@ private def layout(
   views.base.layout(
     title = title,
     moreCss = cssTag("video"),
-    modules = infiniteScrollTag,
+    modules = infiniteScrollEsmInit,
     wrapClass = "full-screen-force",
     openGraph = openGraph
   ):

@@ -14,9 +14,9 @@ private def layout(title: String, edit: Boolean = false)(using PageContext) =
       title = title,
       active = "news",
       moreCss = cssTag("dailyFeed"),
-      modules = infiniteScrollTag
-        ++ edit.so(jsModule("bits.flatpickr"))
-        ++ edit.so(jsModule("bits.dailyFeed"))
+      modules = infiniteScrollEsmInit
+        ++ edit.so(EsmInit("bits.flatpickr"))
+        ++ edit.so(EsmInit("bits.dailyFeed"))
     )
 
 def index(ups: Paginator[Update])(using PageContext) =

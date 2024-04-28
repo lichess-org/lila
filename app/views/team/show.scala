@@ -26,7 +26,7 @@ object show:
       log: List[Modlog] = Nil
   )(using ctx: PageContext) =
     def havePerm(perm: lila.team.TeamSecurity.Permission.Selector) = info.member.exists(_.hasPerm(perm))
-    teamPage:
+    bits.teamPage:
       Page(
         t.name,
         _(

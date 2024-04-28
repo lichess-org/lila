@@ -29,7 +29,7 @@ object teamBattle:
     views.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      modules = jsModule("bits.teamBattleForm")
+      modules = EsmInit("bits.teamBattleForm")
     )(ui.edit(tour, form))
 
   def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(using PageContext) =

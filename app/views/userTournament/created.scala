@@ -13,7 +13,7 @@ object created:
       u = u,
       title = s"${u.username} created tournaments",
       path = path,
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     ):
       if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
       else

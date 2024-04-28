@@ -98,7 +98,7 @@ object embed:
     views.base.embed(
       title = s"${s.name} ${chapter.name}",
       cssModule = "lpv.embed",
-      modules = jsModule("site.lpvEmbed")
+      modules = EsmInit("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
       lpvJs:

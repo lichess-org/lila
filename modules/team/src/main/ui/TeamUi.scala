@@ -12,6 +12,9 @@ final class TeamUi(helpers: Helpers)(using Executor):
   import helpers.{ *, given }
   import trans.{ team as trt }
 
+  private val layoutConfig: Layout.Build = _.cssTag("team")(infiniteScrollEsmInit)
+  def teamPage(p: Page)                  = p.contramap(layoutConfig)
+
   object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
@@ -69,35 +72,36 @@ final class TeamUi(helpers: Helpers)(using Executor):
       )
     )
 
-  def membersPage(t: Team, pager: Paginator[TeamMember.UserAndDate])(using Context) = Page(
-    t.name,
-    _(
-      OpenGraph(
-        title = s"${t.name} • ${trt.teamRecentMembers.txt()}",
-        url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-        description = t.intro.so(shorten(_, 152))
+  def membersPage(t: Team, pager: Paginator[TeamMember.UserAndDate])(using Context) = teamPage:
+    Page(
+      t.name,
+      _(
+        OpenGraph(
+          title = s"${t.name} • ${trt.teamRecentMembers.txt()}",
+          url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+          description = t.intro.so(shorten(_, 152))
+        )
       )
-    )
-  ):
-    main(cls := "page-small box")(
-      boxTop(
-        h1(
-          teamLink(t.light, true),
-          " • ",
-          trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)
-        )
-      ),
-      table(cls := "team-members slist slist-pad"):
-        tbody(cls := "infinite-scroll")(
-          pager.currentPageResults.map { case TeamMember.UserAndDate(u, date) =>
-            tr(cls := "paginated")(
-              td(lightUserLink(u)),
-              td(momentFromNowOnce(date))
-            )
-          },
-          pagerNextTable(pager, np => routes.Team.members(t.slug, np).url)
-        )
-    )
+    ):
+      main(cls := "page-small box")(
+        boxTop(
+          h1(
+            teamLink(t.light, true),
+            " • ",
+            trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)
+          )
+        ),
+        table(cls := "team-members slist slist-pad"):
+          tbody(cls := "infinite-scroll")(
+            pager.currentPageResults.map { case TeamMember.UserAndDate(u, date) =>
+              tr(cls := "paginated")(
+                td(lightUserLink(u)),
+                td(momentFromNowOnce(date))
+              )
+            },
+            pagerNextTable(pager, np => routes.Team.members(t.slug, np).url)
+          )
+      )
 
   object list:
 
@@ -116,7 +120,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
         nextPageUrl = n => routes.Team.all(n).url
       )
 
-    def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) =
+    def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) = teamPage:
       Page(trt.myTeams.txt()):
         main(cls := "team-list page-menu")(
           menu("mine".some),
@@ -134,7 +138,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
           )
         )
 
-    def ledByMe(teams: List[Team])(using PageContext) =
+    def ledByMe(teams: List[Team])(using PageContext) = teamPage:
       Page(trt.myTeams.txt()):
         main(cls := "team-list page-menu")(
           menu("leader".some),
@@ -153,7 +157,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
         teams: Paginator[Team.WithMyLeadership],
         nextPageUrl: Int => String,
         search: String = ""
-    )(using PageContext) =
+    )(using PageContext) = teamPage:
       Page(s"$name - page ${teams.currentPage}"):
         main(cls := "team-list page-menu")(
           menu("all".some),

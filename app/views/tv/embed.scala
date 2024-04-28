@@ -11,7 +11,7 @@ object embed:
     views.base.embed(
       title = "lichess.org chess TV",
       cssModule = "tv.embed",
-      modules = jsModule("site.tvEmbed")
+      modules = EsmInit("site.tvEmbed")
     )(
       attr("data-stream-url") := dataStreamUrl,
       div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(

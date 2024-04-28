@@ -13,7 +13,7 @@ private def layout(title: String, active: String)(modifiers: Modifier*)(using Pa
   views.base.layout(
     moreCss = cssTag("fide"),
     title = title,
-    modules = infiniteScrollTag
+    modules = infiniteScrollEsmInit
   ):
     main(cls := "page-menu")(
       views.relay.tour.pageMenu(active),

@@ -35,7 +35,7 @@ object categ:
     views.base.layout(
       title = categ.name,
       moreCss = cssTag("forum"),
-      modules = infiniteScrollTag,
+      modules = infiniteScrollEsmInit,
       csp = defaultCsp.withInlineIconFont.some,
       openGraph = OpenGraph(
         title = s"Forum: ${categ.name}",
@@ -55,7 +55,7 @@ object topic:
     views.base.layout(
       title = "New forum topic",
       moreCss = cssTag("forum"),
-      modules = jsModule("bits.forum") ++ captchaTag
+      modules = EsmInit("bits.forum") ++ captchaEsmInit
     )(ui.form(categ, form, captcha))
 
   def show(
@@ -70,8 +70,8 @@ object topic:
   )(using ctx: PageContext) =
     views.base.layout(
       title = s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
-      modules = jsModule("bits.forum") ++ jsModule("bits.expandText") ++
-        formWithCaptcha.isDefined.so(captchaTag),
+      modules = EsmInit("bits.forum") ++ EsmInit("bits.expandText") ++
+        formWithCaptcha.isDefined.so(captchaEsmInit),
       moreCss = cssTag("forum"),
       openGraph = OpenGraph(
         title = topic.name,
@@ -87,15 +87,15 @@ object topic:
     views.base.layout(
       title = "Diagnostic report",
       moreCss = cssTag("forum"),
-      modules = jsModule("bits.forum")
+      modules = EsmInit("bits.forum")
         ++ jsModuleInit("bits.autoform", Json.obj("selector" -> ".post-text-area", "ops" -> "focus begin"))
-        ++ captchaTag
+        ++ captchaEsmInit
     )(ui.makeDiagnostic(categ, form, captcha, text))
 
 def search(text: String, pager: Paginator[lila.forum.PostView.WithReadPerm])(using PageContext) =
   val title = s"""${trans.search.search.txt()} "${text.trim}""""
   views.base.layout(
     title = title,
-    modules = infiniteScrollTag,
+    modules = infiniteScrollEsmInit,
     moreCss = cssTag("forum")
   )(post.search(text, pager, title))

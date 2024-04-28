@@ -13,7 +13,7 @@ object publicChat:
     views.base.layout(
       title = "Public Chats",
       moreCss = cssTag("mod.publicChats"),
-      modules = jsModule("mod.publicChats")
+      modules = EsmInit("mod.publicChats")
     ):
       main(cls := "page-menu")(
         views.mod.ui.menu("public-chat"),

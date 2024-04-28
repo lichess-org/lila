@@ -25,7 +25,7 @@ object tour:
     views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      modules = infiniteScrollTag,
+      modules = infiniteScrollEsmInit,
       withHrefLangs = lila.ui.LangPath(routes.RelayTour.index()).some
     ):
       def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
@@ -59,7 +59,7 @@ object tour:
     views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     )(main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body)))
 
   def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =

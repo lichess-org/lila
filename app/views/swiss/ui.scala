@@ -27,12 +27,12 @@ object form:
     views.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
-      modules = jsModule("bits.tourForm")
+      modules = EsmInit("bits.tourForm")
     )(formUi.create(form, teamId))
 
   def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using PageContext) =
     views.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
-      modules = jsModule("bits.tourForm")
+      modules = EsmInit("bits.tourForm")
     )(formUi.edit(swiss, form))

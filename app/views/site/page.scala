@@ -48,7 +48,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       title = trans.contact.contact.txt(),
       active = "contact",
       moreCss = cssTag("contact"),
-      modules = jsModule("bits.contact"),
+      modules = EsmInit("bits.contact"),
       contentCls = "page box box-pad"
     ):
       lila.web.views.contact(netConfig.email)

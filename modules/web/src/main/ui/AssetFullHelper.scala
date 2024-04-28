@@ -7,7 +7,7 @@ import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
 import lila.web.ui.*
 import lila.core.config.NetConfig
-import lila.ui.{ Nonce, Optionce, WithNonce, ContentSecurityPolicy, EsmInit, EsmList, Context }
+import lila.ui.{ Nonce, Optionce, WithNonce, ContentSecurityPolicy, EsmList, Context }
 
 trait AssetFullHelper:
   self: lila.ui.AssetHelper & lila.ui.I18nHelper =>
@@ -56,25 +56,23 @@ trait AssetFullHelper:
     manifest.deps(keys).map { dep =>
       script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
     }
-  def jsModule(key: String): EsmInit =
-    EsmInit(key, _ => emptyFrag)
-  def jsModuleInit(key: String)(using Optionce): EsmInit =
+  def jsModuleInit(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}')"))
-  def jsModuleInit(key: String, json: SafeJsonStr)(using Optionce): EsmInit =
+  def jsModuleInit(key: String, json: SafeJsonStr): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"$load('${jsName(key)}',{init:$json})"))
-  def jsModuleInit[A: Writes](key: String, value: A)(using Optionce): EsmInit =
+  def jsModuleInit[A: Writes](key: String, value: A): EsmInit =
     jsModuleInit(key, safeJsonValue(Json.toJson(value)))
   def jsPageModule(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${jsName(key)}')"))
 
-  def analyseNvuiTag(using ctx: Context)(using Optionce) = ctx.blind.option(jsModule("analyse.nvui"))
-  def puzzleNvuiTag(using ctx: Context)(using Optionce)  = ctx.blind.option(jsModule("puzzle.nvui"))
-  def roundNvuiTag(using ctx: Context)(using Optionce)   = ctx.blind.option(jsModule("round.nvui"))
-  def infiniteScrollTag(using Optionce): EsmInit         = jsModuleInit("bits.infiniteScroll")
-  def captchaTag: EsmInit                                = jsModule("bits.captcha")
-  def cashTag: Frag                                      = iifeModule("javascripts/vendor/cash.min.js")
-  def fingerprintTag: Frag                               = iifeModule("javascripts/fipr.js")
-  def chessgroundTag: Frag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
+  def analyseNvuiTag(using ctx: Context) = ctx.blind.option(EsmInit("analyse.nvui"))
+  def puzzleNvuiTag(using ctx: Context)  = ctx.blind.option(EsmInit("puzzle.nvui"))
+  def roundNvuiTag(using ctx: Context)   = ctx.blind.option(EsmInit("round.nvui"))
+  val infiniteScrollEsmInit: EsmInit     = jsModuleInit("bits.infiniteScroll")
+  val captchaEsmInit: EsmInit            = EsmInit("bits.captcha")
+  val cashTag: Frag                      = iifeModule("javascripts/vendor/cash.min.js")
+  val fingerprintTag: Frag               = iifeModule("javascripts/fipr.js")
+  val chessgroundTag: Frag               = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }

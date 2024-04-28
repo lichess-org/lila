@@ -25,7 +25,7 @@ object roundForm:
     views.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
-      modules = jsModule("bits.flatpickr")
+      modules = EsmInit("bits.flatpickr")
     )(main(cls := "page-small box box-pad")(body))
 
 object tourForm:
@@ -49,7 +49,7 @@ object tourForm:
     views.base.layout(
       title = title,
       moreCss = cssTag("relay.form"),
-      modules = jsModule("bits.relayForm")
+      modules = EsmInit("bits.relayForm")
     )(menu match
       case Some(active) =>
         main(cls := "page page-menu")(

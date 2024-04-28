@@ -46,7 +46,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           if _ then
             Ok.pageAsync:
               paginator.teamMembersWithDate(team, page).map {
-                views.team.members(team, _)
+                views.team.membersPage(team, _)
               }
           else authorizationFailed
 

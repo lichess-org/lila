@@ -9,9 +9,9 @@ object LangPath extends OpaqueString[LangPath]:
 case class Layout(
     fullTitle: Option[String],
     robots: Boolean,
-    css: Frag,
+    cssFrag: Frag,
     modules: EsmList,
-    js: WithNonce[Frag],
+    jsFrag: WithNonce[Frag],
     pageModule: Option[PageModule],
     playing: Boolean,
     openGraph: Option[OpenGraph],
@@ -26,8 +26,8 @@ case class Layout(
   def apply(og: OpenGraph): Layout                   = copy(openGraph = og.some)
   def apply(pm: PageModule): Layout                  = copy(pageModule = pm.some)
   def robots(b: Boolean): Layout                     = copy(robots = b)
-  def css(f: Frag): Layout                           = copy(css = css |+| f)
-  def js(f: WithNonce[Frag]): Layout                 = copy(js = js |+| f)
+  def css(f: Frag): Layout                           = copy(cssFrag = cssFrag |+| f)
+  def js(f: WithNonce[Frag]): Layout                 = copy(jsFrag = jsFrag |+| f)
   def csp(up: Update[ContentSecurityPolicy]): Layout = copy(csp = csp.fold(up)(up.compose).some)
 
 object Layout:

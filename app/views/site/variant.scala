@@ -51,7 +51,7 @@ object variant:
     views.base.layout(
       title = title,
       moreCss = cssTag("variant"),
-      modules = jsModule("bits.expandText"),
+      modules = EsmInit("bits.expandText"),
       openGraph = openGraph
     ):
       main(cls := "page-menu")(

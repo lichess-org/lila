@@ -59,7 +59,7 @@ def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(using c
   views.base.layout(
     title = s"${user.username} Puzzle Storm",
     moreCss = frag(cssTag("storm.dashboard")),
-    modules = infiniteScrollTag
+    modules = infiniteScrollEsmInit
   )(
     main(cls := "storm-dashboard page-small")(
       div(cls := "storm-dashboard__high box box-pad")(

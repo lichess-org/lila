@@ -64,7 +64,7 @@ object bits:
     views.base.layout(
       title = title,
       moreCss = cssTag("relation"),
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     ):
       main(cls := "box page-small")(content)
 

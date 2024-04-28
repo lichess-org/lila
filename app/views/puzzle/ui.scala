@@ -16,7 +16,7 @@ def openings(
   views.base.layout(
     title = trans.puzzle.puzzlesByOpenings.txt(),
     moreCss = cssTag("puzzle.page"),
-    modules = jsModule("puzzle.opening")
+    modules = EsmInit("puzzle.opening")
   )(ui.opening.all(openings, mine, order))
 
 def themes(all: lila.puzzle.PuzzleAngle.All)(using PageContext) =
@@ -30,7 +30,7 @@ def ofPlayer(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle
   views.base.layout(
     title = user.fold(trans.puzzle.lookupOfPlayer.txt())(u => trans.puzzle.fromXGames.txt(u.username)),
     moreCss = cssTag("puzzle.page"),
-    modules = infiniteScrollTag
+    modules = infiniteScrollEsmInit
   )(ui.ofPlayer(query, user, puzzles))
 
 def history(user: User, pager: Paginator[lila.puzzle.PuzzleHistory.PuzzleSession])(using ctx: PageContext) =
@@ -40,7 +40,7 @@ def history(user: User, pager: Paginator[lila.puzzle.PuzzleHistory.PuzzleSession
   views.base.layout(
     title = title,
     moreCss = cssTag("puzzle.dashboard"),
-    modules = infiniteScrollTag
+    modules = infiniteScrollEsmInit
   )(ui.history(user, pager))
 
 object embed:
@@ -49,7 +49,7 @@ object embed:
     views.base.embed(
       title = "lichess.org chess puzzle",
       cssModule = "tv.embed",
-      modules = jsModule("site.puzzleEmbed")
+      modules = EsmInit("site.puzzleEmbed")
     )(
       dailyLink(daily)(using config.translate)(
         targetBlank,

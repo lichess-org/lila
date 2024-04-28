@@ -22,7 +22,7 @@ def home(
     title = trans.site.tournaments.txt(),
     moreCss = cssTag("tournament.home"),
     wrapClass = "full-screen-force",
-    modules = infiniteScrollTag,
+    modules = infiniteScrollEsmInit,
     pageModule = PageModule(
       "tournament.schedule",
       Json.obj("data" -> json, "i18n" -> ui.scheduleJsI18n)
@@ -38,7 +38,7 @@ def home(
 def history(freq: Freq, pager: Paginator[Tournament])(using PageContext) =
   views.base.layout(
     title = "Tournament history",
-    modules = infiniteScrollTag,
+    modules = infiniteScrollEsmInit,
     moreCss = cssTag("tournament.history")
   )(listUi.history(freq, pager))
 

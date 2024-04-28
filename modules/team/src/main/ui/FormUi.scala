@@ -15,27 +15,28 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   import helpers.{ *, given }
   import trans.{ team as trt }
 
-  def create(form: Form[?], captcha: Captcha)(using PageContext) = Page(trans.team.newTeam.txt()):
-    main(cls := "page-menu page-small")(
-      bits.menu("form".some),
-      div(cls := "page-menu__content box box-pad")(
-        h1(cls := "box__top")(trt.newTeam()),
-        postForm(cls := "form3", action := routes.Team.create)(
-          form3.globalError(form),
-          form3.group(form("name"), trans.site.name())(form3.input(_)),
-          entryFields(form, none),
-          textFields(form),
-          renderCaptcha(form, captcha),
-          form3.actions(
-            a(href := routes.Team.home(1))(trans.site.cancel()),
-            form3.submit(trt.newTeam())
+  def create(form: Form[?], captcha: Captcha)(using PageContext) = bits.teamPage:
+    Page(trans.team.newTeam.txt(), _(captchaEsmInit)):
+      main(cls := "page-menu page-small")(
+        bits.menu("form".some),
+        div(cls := "page-menu__content box box-pad")(
+          h1(cls := "box__top")(trt.newTeam()),
+          postForm(cls := "form3", action := routes.Team.create)(
+            form3.globalError(form),
+            form3.group(form("name"), trans.site.name())(form3.input(_)),
+            entryFields(form, none),
+            textFields(form),
+            renderCaptcha(form, captcha),
+            form3.actions(
+              a(href := routes.Team.home(1))(trans.site.cancel()),
+              form3.submit(trt.newTeam())
+            )
           )
         )
       )
-    )
 
-  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
-    Page(s"Edit Team ${t.name}"):
+  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) = bits.teamPage:
+    Page(s"Edit Team ${t.name}", _(EsmInit("bits.team"))):
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(

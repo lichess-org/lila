@@ -11,7 +11,7 @@ object bits:
       u,
       title = s"${u.username} best tournaments",
       path = "best",
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     ):
       views.userTournament.list(u, "best", pager, "BEST")
 
@@ -20,7 +20,7 @@ object bits:
       u,
       title = s"${u.username} recent tournaments",
       path = "recent",
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     ):
       views.userTournament.list(u, "recent", pager, pager.nbResults.toString)
 

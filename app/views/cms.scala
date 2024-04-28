@@ -34,7 +34,7 @@ private def layout(title: String)(body: Modifier*)(using PageContext) =
   views.base.layout(
     title = title,
     moreCss = cssTag("cms"),
-    modules = jsModule("cms")
+    modules = EsmInit("cms")
   ):
     main(cls := "page-menu")(views.mod.ui.menu("cms"), div(cls := "page-menu__content cms box")(body))
 

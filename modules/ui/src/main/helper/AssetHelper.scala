@@ -5,9 +5,14 @@ import lila.core.config.AssetBaseUrl
 
 trait AssetHelper:
 
+  export lila.ui.EsmInit
+
   def assetBaseUrl: AssetBaseUrl
 
   def cssTag(key: String): Frag
+
+  val infiniteScrollEsmInit: EsmInit
+  val captchaEsmInit: EsmInit
 
   extension (l: Layout)
     def cssTag(keys: String*): Layout =

@@ -43,7 +43,7 @@ private def layout(
   views.base.layout(
     title = title,
     moreCss = cssTag("clas"),
-    modules = jsModule("bits.clas"),
+    modules = EsmInit("bits.clas"),
     moreJs = moreJs,
     csp = csp
   )(

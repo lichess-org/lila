@@ -40,7 +40,7 @@ def index(
         embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", $pricingJson)""")(ctx.nonce)
       )
     ),
-    modules = jsModule("bits.checkout"),
+    modules = EsmInit("bits.checkout"),
     openGraph = OpenGraph(
       title = trans.patron.becomePatron.txt(),
       url = s"$netBaseUrl${routes.Plan.index.url}",
@@ -58,7 +58,7 @@ def indexPayPal(
   views.base.layout(
     title = trans.patron.thankYou.txt(),
     moreCss = cssTag("plan"),
-    modules = jsModule("bits.plan"),
+    modules = EsmInit("bits.plan"),
     moreJs = embedJsUnsafeLoadThen("""plan.payPalStart()""")(ctx.nonce)
   )(ui.indexPayPal(me, patron, subscription, gifts))
 
@@ -73,7 +73,7 @@ def indexStripe(
   views.base.layout(
     title = trans.patron.thankYou.txt(),
     moreCss = cssTag("plan"),
-    modules = jsModule("bits.plan"),
+    modules = EsmInit("bits.plan"),
     moreJs = frag(
       ui.stripeScript,
       embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")""")(ctx.nonce)

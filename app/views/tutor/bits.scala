@@ -11,7 +11,7 @@ private[tutor] def layout(
 )(content: Modifier*)(using PageContext) =
   views.base.layout(
     moreCss = cssTag("tutor"),
-    modules = jsModule("tutor"),
+    modules = EsmInit("tutor"),
     title = title,
     csp = defaultCsp.withInlineIconFont.some
   ):

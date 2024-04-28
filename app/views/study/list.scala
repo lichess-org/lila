@@ -101,7 +101,7 @@ object list:
       title = text,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     )(ui.search(pag, text))
 
   def staffPicks(p: lila.cms.CmsPage.Render)(using PageContext) =
@@ -126,7 +126,7 @@ object list:
       title = title,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      modules = infiniteScrollTag,
+      modules = infiniteScrollEsmInit,
       withHrefLangs = withHrefLangs
     ):
       main(cls := "page-menu")(
@@ -149,7 +149,7 @@ object topic:
     views.base.layout(
       title = trans.study.topics.txt(),
       moreCss = frag(cssTag("study.index"), cssTag("form3"), cssTag("tagify")),
-      modules = jsModule("analyse.study.topic.form"),
+      modules = EsmInit("analyse.study.topic.form"),
       wrapClass = "full-screen-force"
     )(list.ui.topic.index(popular, mine, myForm))
 
@@ -163,5 +163,5 @@ object topic:
       title = topic.value,
       moreCss = cssTag("study.index"),
       wrapClass = "full-screen-force",
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     )(list.ui.topic.show(topic, pag, order, myTopics))

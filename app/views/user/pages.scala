@@ -13,7 +13,7 @@ object download:
     views.base.layout(
       title = s"${user.username} • ${trans.site.exportGames.txt()}",
       moreCss = cssTag("search"),
-      modules = jsModule("bits.userGamesDownload")
+      modules = EsmInit("bits.userGamesDownload")
     )(ui(user))
 
 object perfStat:
@@ -26,7 +26,7 @@ object perfStat:
     views.base.layout(
       title = s"${user.username} - ${trans.perfStat.perfStats.txt(perfType.trans)}",
       robots = false,
-      modules = jsModule("bits.user") ++
+      modules = EsmInit("bits.user") ++
         ratingChart.map { rc =>
           jsModuleInit(
             "chart.ratingHistory",
