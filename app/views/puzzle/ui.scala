@@ -23,7 +23,7 @@ def themes(all: lila.puzzle.PuzzleAngle.All)(using PageContext) =
   views.base.layout(
     title = trans.puzzle.puzzleThemes.txt(),
     moreCss = cssTag("puzzle.page"),
-    withHrefLangs = lila.web.LangPath(routes.Puzzle.themes).some
+    withHrefLangs =lila.ui.LangPath(routes.Puzzle.themes).some
   )(ui.theme.list(all))
 
 def ofPlayer(query: String, user: Option[User], puzzles: Option[Paginator[Puzzle]])(using PageContext) =

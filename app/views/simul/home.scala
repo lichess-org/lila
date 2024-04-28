@@ -20,14 +20,12 @@ site.pubsub.on('socket.in.reload', () =>
   site.contentLoaded();
 }))"""),
       title = trans.site.simultaneousExhibitions.txt(),
-      openGraph = lila.web
-        .OpenGraph(
-          title = trans.site.simultaneousExhibitions.txt(),
-          url = s"$netBaseUrl${routes.Simul.home}",
-          description = trans.site.aboutSimul.txt()
-        )
-        .some,
-      withHrefLangs = lila.web.LangPath(routes.Simul.home).some
+      openGraph = OpenGraph(
+        title = trans.site.simultaneousExhibitions.txt(),
+        url = s"$netBaseUrl${routes.Simul.home}",
+        description = trans.site.aboutSimul.txt()
+      ).some,
+      withHrefLangs = lila.ui.LangPath(routes.Simul.home).some
     ) {
       main(cls := "page-menu simul-list")(
         st.aside(cls := "page-menu__menu simul-list__help")(

@@ -53,17 +53,15 @@ object show:
         cssTag("swiss.show"),
         hasScheduleInput.option(cssTag("flatpickr"))
       ),
-      openGraph = lila.web
-        .OpenGraph(
-          title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
-          url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",
-          description =
-            s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} Swiss tournament " +
-              s"organized by ${team.name}. " +
-              s.winnerId.fold("Winner is not yet decided."): winnerId =>
-                s"${titleNameOrId(winnerId)} takes the prize home!"
-        )
-        .some
+      openGraph = OpenGraph(
+        title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
+        url = s"$netBaseUrl${routes.Swiss.show(s.id).url}",
+        description =
+          s"${s.nbPlayers} players compete in the ${showEnglishDate(s.startsAt)} ${s.name} Swiss tournament " +
+            s"organized by ${team.name}. " +
+            s.winnerId.fold("Winner is not yet decided."): winnerId =>
+              s"${titleNameOrId(winnerId)} takes the prize home!"
+      ).some
     )(
       main(cls := "swiss")(
         st.aside(cls := "swiss__side")(

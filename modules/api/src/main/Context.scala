@@ -11,7 +11,7 @@ import lila.pref.Pref
 
 import lila.core.user.KidMode
 import lila.user.UserExt.userLanguage
-import lila.web.Nonce
+import lila.ui.Nonce
 import lila.core.net.IpAddress
 
 /* Who is logged in, and how */

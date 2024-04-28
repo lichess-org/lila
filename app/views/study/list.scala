@@ -3,7 +3,7 @@ package views.study
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.LangPath
+
 import scalalib.paginator.Paginator
 import lila.study.Study.WithChaptersAndLiked
 import lila.study.{ Order, StudyTopic, StudyTopics }
@@ -22,7 +22,7 @@ object list:
       pag = pag,
       searchFilter = "",
       url = o => routes.Study.all(o),
-      withHrefLangs = LangPath(routes.Study.allDefault()).some
+      withHrefLangs = lila.ui.LangPath(routes.Study.allDefault()).some
     )
 
   def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(using PageContext) =
@@ -120,7 +120,7 @@ object list:
       url: String => Call,
       searchFilter: String,
       topics: Option[StudyTopics] = None,
-      withHrefLangs: Option[LangPath] = None
+      withHrefLangs: Option[lila.ui.LangPath] = None
   )(using PageContext): Frag =
     views.base.layout(
       title = title,

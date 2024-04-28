@@ -27,31 +27,31 @@ object show:
   )(using ctx: PageContext) =
     def havePerm(perm: lila.team.TeamSecurity.Permission.Selector) = info.member.exists(_.hasPerm(perm))
     layout(
-      title = t.name,
-      openGraph = lila.web
-        .OpenGraph(
+      _.copy(
+        title = t.name,
+        openGraph = OpenGraph(
           title = s"${t.name} team",
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
           description = t.intro.so { shorten(_, 152) }
-        )
-        .some,
-      pageModule = PageModule(
-        "bits.team",
-        Json
-          .obj("id" -> t.id)
-          .add("socketVersion" -> socketVersion)
-          .add("chat" -> chatOption.map: chat =>
-            views.chat.json(
-              chat.chat,
-              chat.lines,
-              name = if t.isChatFor(_.Leaders) then leadersChat.txt() else trans.site.chatRoom.txt(),
-              timeout = chat.timeout,
-              public = true,
-              resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
-              localMod = havePerm(_.Comm)
-            ))
-      ).some,
-      robots = t.team.enabled
+        ).some,
+        pageModule = PageModule(
+          "bits.team",
+          Json
+            .obj("id" -> t.id)
+            .add("socketVersion" -> socketVersion)
+            .add("chat" -> chatOption.map: chat =>
+              views.chat.json(
+                chat.chat,
+                chat.lines,
+                name = if t.isChatFor(_.Leaders) then leadersChat.txt() else trans.site.chatRoom.txt(),
+                timeout = chat.timeout,
+                public = true,
+                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
+                localMod = havePerm(_.Comm)
+              ))
+        ).some,
+        robots = t.team.enabled
+      )
     ):
       val canManage     = asMod && isGranted(_.ManageTeam)
       val canSeeMembers = canManage || (t.enabled && (t.publicMembers || info.mine))

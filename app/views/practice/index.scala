@@ -11,13 +11,11 @@ object index:
       moreJs = embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
 });"""),
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Practice your chess",
-          description = "Learn how to master the most common chess positions",
-          url = s"$netBaseUrl${routes.Practice.index}"
-        )
-        .some
+      openGraph = OpenGraph(
+        title = "Practice your chess",
+        description = "Learn how to master the most common chess positions",
+        url = s"$netBaseUrl${routes.Practice.index}"
+      ).some
     ) {
       main(cls := "page-menu force-ltr")(
         st.aside(cls := "page-menu__menu practice-side")(

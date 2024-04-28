@@ -4,7 +4,6 @@ import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
 import scalalib.paginator.Paginator
 import lila.i18n.LangList
 import lila.core.user.Flag
@@ -26,7 +25,7 @@ object index:
       title = lichessCoaches.txt(),
       moreCss = cssTag("coach"),
       modules = infiniteScrollTag,
-      withHrefLangs = LangPath(routes.Coach.all(1)).some
+      withHrefLangs = lila.ui.LangPath(routes.Coach.all(1)).some
     ):
       val langSelections = ("all", "All languages") :: lila.i18n.LangPicker
         .sortFor(LangList.popularNoRegion.filter(l => langCodes(l.code)), ctx.req)

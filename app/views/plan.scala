@@ -41,13 +41,11 @@ def index(
       )
     ),
     modules = jsModule("bits.checkout"),
-    openGraph = lila.web
-      .OpenGraph(
-        title = trans.patron.becomePatron.txt(),
-        url = s"$netBaseUrl${routes.Plan.index.url}",
-        description = trans.patron.freeChess.txt()
-      )
-      .some,
+    openGraph = OpenGraph(
+      title = trans.patron.becomePatron.txt(),
+      url = s"$netBaseUrl${routes.Plan.index.url}",
+      description = trans.patron.freeChess.txt()
+    ).some,
     csp = defaultCsp.withStripe.withPayPal.some
   )(ui.index(email, patron, recentIds, bestIds, pricing))
 
@@ -88,13 +86,11 @@ def features(using PageContext) =
   views.base.layout(
     title = title,
     moreCss = cssTag("feature"),
-    openGraph = lila.web
-      .OpenGraph(
-        title = title,
-        url = s"$netBaseUrl${routes.Plan.features.url}",
-        description = "All of Lichess features are free for all and forever. We do it for the chess!"
-      )
-      .some
+    openGraph = OpenGraph(
+      title = title,
+      url = s"$netBaseUrl${routes.Plan.features.url}",
+      description = "All of Lichess features are free for all and forever. We do it for the chess!"
+    ).some
   )(pagesUi.features)
 
 def thanks(

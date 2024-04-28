@@ -6,10 +6,8 @@ import lila.ui.ScalatagsTemplate.*
 import lila.core.data.SafeJsonStr
 import lila.common.String.html.safeJsonValue
 import lila.web.ui.*
-import lila.web.Nonce
-import lila.web.ContentSecurityPolicy
 import lila.core.config.NetConfig
-import lila.ui.{ EsmInit, EsmList, Context }
+import lila.ui.{ Nonce, ContentSecurityPolicy, EsmInit, EsmList, Context }
 
 type Optionce = Option[Nonce]
 
@@ -78,11 +76,11 @@ trait AssetFullHelper:
   def analyseNvuiTag(using ctx: Context)(using Optionce) = ctx.blind.option(jsModule("analyse.nvui"))
   def puzzleNvuiTag(using ctx: Context)(using Optionce)  = ctx.blind.option(jsModule("puzzle.nvui"))
   def roundNvuiTag(using ctx: Context)(using Optionce)   = ctx.blind.option(jsModule("round.nvui"))
-  def infiniteScrollTag(using Optionce)                  = jsModuleInit("bits.infiniteScroll")
-  def captchaTag                                         = jsModule("bits.captcha")
-  def cashTag                                            = iifeModule("javascripts/vendor/cash.min.js")
-  def fingerprintTag                                     = iifeModule("javascripts/fipr.js")
-  def chessgroundTag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
+  def infiniteScrollTag(using Optionce): EsmInit         = jsModuleInit("bits.infiniteScroll")
+  def captchaTag: EsmInit                                = jsModule("bits.captcha")
+  def cashTag: Frag                                      = iifeModule("javascripts/vendor/cash.min.js")
+  def fingerprintTag: Frag                               = iifeModule("javascripts/fipr.js")
+  def chessgroundTag: Frag = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }

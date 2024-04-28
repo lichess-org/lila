@@ -2,7 +2,6 @@ package views.relay
 
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
 import lila.core.LightUser
 import scalalib.paginator.Paginator
 import lila.relay.RelayTour.WithLastRound
@@ -27,7 +26,7 @@ object tour:
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
       modules = infiniteScrollTag,
-      withHrefLangs = LangPath(routes.RelayTour.index()).some
+      withHrefLangs = lila.ui.LangPath(routes.RelayTour.index()).some
     ):
       def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
         val selected = active.filter(_.tour.tierIs(selector))

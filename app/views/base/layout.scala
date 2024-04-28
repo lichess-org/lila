@@ -2,10 +2,9 @@ package views.base
 
 import play.api.i18n.Lang
 
-import lila.web.ContentSecurityPolicy
+import lila.ui.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
@@ -51,6 +50,27 @@ object layout:
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
     else ctx.pref.currentTheme
 
+  def apply(config: Layout.Build)(body: Frag)(using ctx: PageContext): Frag =
+    val built = config(layoutDefault)
+    import built.*
+    apply(
+      title = title,
+      fullTitle = fullTitle,
+      robots = robots,
+      moreCss = moreCss,
+      modules = modules,
+      moreJs = moreJs,
+      pageModule = pageModule,
+      playing = playing,
+      openGraph = openGraph,
+      zoomable = zoomable,
+      zenable = zenable,
+      csp = csp,
+      wrapClass = wrapClass,
+      atomLinkTag = atomLinkTag,
+      withHrefLangs = withHrefLangs
+    )(body)
+
   def apply(
       title: String,
       fullTitle: Option[String] = None,
@@ -60,13 +80,13 @@ object layout:
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
-      openGraph: Option[lila.web.OpenGraph] = None,
+      openGraph: Option[OpenGraph] = None,
       zoomable: Boolean = false,
       zenable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
       atomLinkTag: Option[Tag] = None,
-      withHrefLangs: Option[LangPath] = None
+      withHrefLangs: Option[lila.ui.LangPath] = None
   )(body: Frag)(using ctx: PageContext): Frag =
     import ctx.pref
     frag(

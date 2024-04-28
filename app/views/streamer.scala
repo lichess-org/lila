@@ -22,16 +22,14 @@ def show(
     title = s"${s.titleName} streams chess",
     moreCss = cssTag("streamer.show"),
     modules = jsModule("bits.streamer"),
-    openGraph = lila.web
-      .OpenGraph(
-        title = s"${s.titleName} streams chess",
-        description =
-          shorten(~(s.streamer.headline.map(_.value).orElse(s.streamer.description.map(_.value))), 152),
-        url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
-        `type` = "video",
-        image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer))
-      )
-      .some,
+    openGraph = OpenGraph(
+      title = s"${s.titleName} streams chess",
+      description =
+        shorten(~(s.streamer.headline.map(_.value).orElse(s.streamer.description.map(_.value))), 152),
+      url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
+      `type` = "video",
+      image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer))
+    ).some,
     csp = defaultCsp.finalizeWithTwitch.some
   ):
     ui.show(

@@ -10,34 +10,21 @@ import lila.team.Team
 
 private lazy val bits = lila.team.ui.TeamUi(helpers)(using env.executor)
 
-private def layout(
-    title: String,
-    openGraph: Option[lila.web.OpenGraph] = None,
-    pageModule: Option[PageModule] = None,
-    moreJs: Frag = emptyFrag,
-    modules: EsmList = Nil,
-    robots: Boolean = netConfig.crawlable
-)(body: Frag)(using PageContext) =
-  views.base.layout(
-    title = title,
-    moreCss = cssTag("team"),
-    modules = infiniteScrollTag ++ modules,
-    moreJs = moreJs,
-    pageModule = pageModule,
-    openGraph = openGraph,
-    robots = robots
-  )(body)
+private lazy val layoutConfig = layoutDefault.copy(moreCss = cssTag("team"))
+
+private def layout(config: Layout.Build)(body: Frag)(using PageContext) =
+  views.base.layout(_ => config(layoutConfig).add(infiniteScrollTag))(body)
 
 def members(t: Team, pager: Paginator[lila.team.TeamMember.UserAndDate])(using PageContext) =
   layout(
-    title = t.name,
-    openGraph = lila.web
-      .OpenGraph(
+    _.copy(
+      title = t.name,
+      openGraph = OpenGraph(
         title = s"${t.name} • ${trans.team.teamRecentMembers.txt()}",
         url = s"$netBaseUrl${routes.Team.show(t.id).url}",
         description = t.intro.so { shorten(_, 152) }
-      )
-      .some
+      ).some
+    )
   )(bits.membersPage(t, pager))
 
 object form:

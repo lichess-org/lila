@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import scalalib.paginator.Paginator
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.LangPath
+
 import lila.storm.{ StormDay, StormHigh }
 
 def home(data: JsObject, high: Option[StormHigh])(using PageContext) =
@@ -15,7 +15,7 @@ def home(data: JsObject, high: Option[StormHigh])(using PageContext) =
     title = "Puzzle Storm",
     zoomable = true,
     zenable = true,
-    withHrefLangs = LangPath(routes.Storm.home).some
+    withHrefLangs =lila.ui.LangPath(routes.Storm.home).some
   ) {
     main(
       div(cls := "storm storm-app storm--play")(

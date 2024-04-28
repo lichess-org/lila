@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
 import lila.core.perf.UserWithPerfs
 
 object home:
@@ -31,16 +30,14 @@ object home:
           )
       ).some,
       moreCss = cssTag("lobby"),
-      openGraph = lila.web
-        .OpenGraph(
-          image = assetUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = assetUrl("logo/lichess-tile.png").some,
-          title = "The best free, adless Chess server",
-          url = netBaseUrl.value,
-          description = trans.site.siteDescription.txt()
-        )
-        .some,
-      withHrefLangs = LangPath("/").some
+      openGraph = OpenGraph(
+        image = assetUrl("logo/lichess-tile-wide.png").some,
+        twitterImage = assetUrl("logo/lichess-tile.png").some,
+        title = "The best free, adless Chess server",
+        url = netBaseUrl.value,
+        description = trans.site.siteDescription.txt()
+      ).some,
+      withHrefLangs =lila.ui.LangPath("/").some
     ) {
       given Option[UserWithPerfs] = homepage.me
       main(

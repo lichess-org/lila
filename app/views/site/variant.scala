@@ -46,7 +46,7 @@ object variant:
       title: String,
       klass: String,
       active: Option[PerfKey] = None,
-      openGraph: Option[lila.web.OpenGraph] = None
+      openGraph: Option[OpenGraph] = None
   )(body: Modifier*)(using PageContext) =
     views.base.layout(
       title = title,

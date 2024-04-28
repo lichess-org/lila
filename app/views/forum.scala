@@ -19,13 +19,11 @@ object categ:
       title = trans.site.forum.txt(),
       moreCss = cssTag("forum"),
       csp = defaultCsp.withInlineIconFont.some,
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Lichess community forum",
-          url = s"$netBaseUrl${routes.ForumCateg.index.url}",
-          description = "Chess discussions and feedback about Lichess development"
-        )
-        .some
+      openGraph = OpenGraph(
+        title = "Lichess community forum",
+        url = s"$netBaseUrl${routes.ForumCateg.index.url}",
+        description = "Chess discussions and feedback about Lichess development"
+      ).some
     )(ui.index(categs))
 
   def show(
@@ -39,13 +37,11 @@ object categ:
       moreCss = cssTag("forum"),
       modules = infiniteScrollTag,
       csp = defaultCsp.withInlineIconFont.some,
-      openGraph = lila.web
-        .OpenGraph(
-          title = s"Forum: ${categ.name}",
-          url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
-          description = categ.desc
-        )
-        .some
+      openGraph = OpenGraph(
+        title = s"Forum: ${categ.name}",
+        url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
+        description = categ.desc
+      ).some
     )(ui.show(categ, topics, canWrite, stickyPosts))
 
 object topic:
@@ -77,13 +73,11 @@ object topic:
       modules = jsModule("bits.forum") ++ jsModule("bits.expandText") ++
         formWithCaptcha.isDefined.so(captchaTag),
       moreCss = cssTag("forum"),
-      openGraph = lila.web
-        .OpenGraph(
-          title = topic.name,
-          url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
-          description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
-        )
-        .some,
+      openGraph = OpenGraph(
+        title = topic.name,
+        url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
+        description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
+      ).some,
       csp = defaultCsp.withInlineIconFont.withTwitter.some
     )(ui.show(categ, topic, posts, formWithCaptcha, unsub, canModCateg, formText, replyBlocked))
 

@@ -13,7 +13,7 @@ def homepage(featured: lila.swiss.FeaturedSwisses)(using PageContext) =
   views.base.layout(
     title = trans.swiss.swissTournaments.txt(),
     moreCss = cssTag("swiss.home"),
-    withHrefLangs = lila.web.LangPath(routes.Swiss.home).some
+    withHrefLangs =lila.ui.LangPath(routes.Swiss.home).some
   )(home.page(featured))
 
 def notFound()(using PageContext) =

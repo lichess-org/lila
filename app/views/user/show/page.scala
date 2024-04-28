@@ -25,15 +25,13 @@ object page:
     val u = info.user
     views.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
-      openGraph = lila.web
-        .OpenGraph(
-          image = assetUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = assetUrl("logo/lichess-tile.png").some,
-          title = u.titleUsernameWithBestRating,
-          url = s"$netBaseUrl${routes.User.show(u.username).url}",
-          description = ui.describeUser(u)
-        )
-        .some,
+      openGraph = OpenGraph(
+        image = assetUrl("logo/lichess-tile-wide.png").some,
+        twitterImage = assetUrl("logo/lichess-tile.png").some,
+        title = u.titleUsernameWithBestRating,
+        url = s"$netBaseUrl${routes.User.show(u.username).url}",
+        description = ui.describeUser(u)
+      ).some,
       pageModule = pageModule(info),
       modules = esModules(info),
       moreCss = frag(

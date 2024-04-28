@@ -7,13 +7,13 @@ import scala.util.chaining.*
 import lila.app.templating.Environment.{ *, given }
 
 import lila.common.Json.given
-import lila.web.LangPath
+
 import lila.game.GameExt.playerBlurPercent
 
 object bits:
 
   def povOpenGraph(pov: Pov) =
-    lila.web.OpenGraph(
+    OpenGraph(
       image = cdnUrl(routes.Export.gameThumbnail(pov.gameId, None, None).url).some,
       title = titleGame(pov.game),
       url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
@@ -58,12 +58,12 @@ object bits:
       pageModule: Option[PageModule],
       moreJs: Frag = emptyFrag,
       modules: EsmList = Nil,
-      openGraph: Option[lila.web.OpenGraph] = None,
+      openGraph: Option[OpenGraph] = None,
       moreCss: Frag = emptyFrag,
       playing: Boolean = false,
       zenable: Boolean = false,
       robots: Boolean = false,
-      withHrefLangs: Option[LangPath] = None
+      withHrefLangs: Option[lila.ui.LangPath] = None
   )(body: Frag)(using ctx: PageContext) =
     views.base.layout(
       title = title,

@@ -18,8 +18,7 @@ object Environment
   export lila.core.id.ImageId
   export lila.common.extensions.*
   export lila.common.String.html.richText
-  export lila.ui.{ PageModule, EsmList, Icon }
-  export lila.web.Nonce
+  export lila.ui.{ Layout, Nonce, OpenGraph, PageModule, EsmList, Icon }
   export lila.api.Context.{ ctxToTranslate as _, *, given }
   export lila.api.PageData
 
@@ -55,6 +54,24 @@ object Environment
   protected val namer              = lila.game.Namer
   protected lazy val lightTeamSync = env.team.lightTeamSync
   protected lazy val syncBelongsTo = env.team.api.syncBelongsTo
+
+  lazy val layoutDefault = Layout(
+    title = "Lichess",
+    fullTitle = None,
+    robots = netConfig.crawlable,
+    moreCss = emptyFrag,
+    modules = Nil,
+    moreJs = emptyFrag,
+    pageModule = None,
+    playing = false,
+    openGraph = None,
+    zoomable = false,
+    zenable = false,
+    csp = None,
+    wrapClass = "",
+    atomLinkTag = None,
+    withHrefLangs = None
+  )
 
   def helpers: Helpers                 = this
   def assetHelper: AssetFullHelper     = this

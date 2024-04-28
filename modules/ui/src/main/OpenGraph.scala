@@ -1,4 +1,4 @@
-package lila.web
+package lila.ui
 
 import scalatags.text.Frag
 import scalatags.Text.all.*

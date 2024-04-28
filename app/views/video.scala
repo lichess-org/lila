@@ -9,7 +9,7 @@ private lazy val ui = lila.video.ui.VideoUi(helpers)
 private def layout(
     title: String,
     control: lila.video.UserControl,
-    openGraph: Option[lila.web.OpenGraph] = None
+    openGraph: Option[OpenGraph] = None
 )(body: Modifier*)(using PageContext) =
   views.base.layout(
     title = title,
@@ -31,16 +31,14 @@ def index(videos: Paginator[lila.video.VideoView], count: Long, control: lila.vi
   val tagString = control.filter.tags.some.filter(_.nonEmpty).so(_.mkString(" + ") + " • ")
   layout(
     title = s"${tagString}Free Chess Videos",
-    openGraph = lila.web
-      .OpenGraph(
-        title = s"${tagString}free, carefully curated chess videos",
-        description = s"${videos.nbResults} curated chess videos${
-            if tagString.nonEmpty then " matching the tags " + tagString
-            else " • "
-          }free for all",
-        url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
-      )
-      .some,
+    openGraph = OpenGraph(
+      title = s"${tagString}free, carefully curated chess videos",
+      description = s"${videos.nbResults} curated chess videos${
+          if tagString.nonEmpty then " matching the tags " + tagString
+          else " • "
+        }free for all",
+      url = s"$netBaseUrl${routes.Video.index}?${control.queryString}"
+    ).some,
     control = control
   )(ui.index(videos, count, control))
 
@@ -52,15 +50,13 @@ def show(
   layout(
     title = s"${video.title} • Free Chess Videos",
     control = control,
-    openGraph = lila.web
-      .OpenGraph(
-        title = s"${video.title} by ${video.author}",
-        description = shorten(~video.metadata.description, 152),
-        url = s"$netBaseUrl${routes.Video.show(video.id)}",
-        `type` = "video",
-        more = video.tags.map("video:tag" -> _)
-      )
-      .some
+    openGraph = OpenGraph(
+      title = s"${video.title} by ${video.author}",
+      description = shorten(~video.metadata.description, 152),
+      url = s"$netBaseUrl${routes.Video.show(video.id)}",
+      `type` = "video",
+      more = video.tags.map("video:tag" -> _)
+    ).some
   )(ui.show(video, similar, control))
 
 def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(using

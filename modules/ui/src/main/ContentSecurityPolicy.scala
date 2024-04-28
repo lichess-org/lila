@@ -1,4 +1,4 @@
-package lila.web
+package lila.ui
 
 import lila.core.config.AssetDomain
 

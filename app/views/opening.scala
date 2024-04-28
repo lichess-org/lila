@@ -14,17 +14,15 @@ def index(page: OpeningPage, wikiMissing: List[Opening])(using ctx: PageContext)
     moreCss = cssTag("opening"),
     pageModule = bits.pageModule(page.some).some,
     title = trans.site.opening.txt(),
-    openGraph = lila.web
-      .OpenGraph(
-        `type` = "article",
-        image = cdnUrl(
-          s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, none, none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
-        ).some,
-        title = "Chess openings",
-        url = s"$netBaseUrl${routes.Opening.index()}",
-        description = "Explore the chess openings"
-      )
-      .some,
+    openGraph = OpenGraph(
+      `type` = "article",
+      image = cdnUrl(
+        s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, none, none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+      ).some,
+      title = "Chess openings",
+      url = s"$netBaseUrl${routes.Opening.index()}",
+      description = "Explore the chess openings"
+    ).some,
     csp = defaultCsp.withInlineIconFont.some
   )(ui.index(page, wikiMissing))
 
@@ -33,17 +31,15 @@ def show(page: OpeningPage, puzzleKey: Option[String])(using ctx: PageContext) =
     moreCss = cssTag("opening"),
     pageModule = bits.pageModule(page.some).some,
     title = s"${trans.site.opening.txt()} • ${page.name}",
-    openGraph = lila.web
-      .OpenGraph(
-        `type` = "article",
-        image = cdnUrl(
-          s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
-        ).some,
-        title = page.name,
-        url = s"$netBaseUrl${bits.queryUrl(page.query)}",
-        description = page.query.pgnString.value
-      )
-      .some,
+    openGraph = OpenGraph(
+      `type` = "article",
+      image = cdnUrl(
+        s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+      ).some,
+      title = page.name,
+      url = s"$netBaseUrl${bits.queryUrl(page.query)}",
+      description = page.query.pgnString.value
+    ).some,
     csp = defaultCsp.withInlineIconFont.withExternalAnalysisApis.some
   )(ui.show(page, puzzleKey))
 

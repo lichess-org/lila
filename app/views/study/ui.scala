@@ -77,13 +77,11 @@ def show(
     robots = s.isPublic,
     zoomable = true,
     csp = analysisCsp.withPeer.withExternalAnalysisApis.some,
-    openGraph = lila.web
-      .OpenGraph(
-        title = s.name.value,
-        url = s"$netBaseUrl${routes.Study.show(s.id).url}",
-        description = s"A chess study by ${titleNameOrId(s.ownerId)}"
-      )
-      .some
+    openGraph = OpenGraph(
+      title = s.name.value,
+      url = s"$netBaseUrl${routes.Study.show(s.id).url}",
+      description = s"A chess study by ${titleNameOrId(s.ownerId)}"
+    ).some
   ):
     frag(
       main(cls := "analyse"),

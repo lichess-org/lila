@@ -50,13 +50,11 @@ object show:
       ).some,
       zoomable = true,
       csp = (if crossSiteIsolation then analysisCsp else defaultCsp).withExternalAnalysisApis.some,
-      openGraph = lila.web
-        .OpenGraph(
-          title = rt.fullName,
-          url = s"$netBaseUrl${rt.path}",
-          description = shorten(rt.tour.description, 152)
-        )
-        .some
+      openGraph = OpenGraph(
+        title = rt.fullName,
+        url = s"$netBaseUrl${rt.path}",
+        description = shorten(rt.tour.description, 152)
+      ).some
     ):
       main(cls := "analyse is-relay has-relay-tour")(
         div(cls := "box relay-tour")(

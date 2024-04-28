@@ -14,13 +14,11 @@ object importGame:
       title = trans.site.importGame.txt(),
       moreCss = cssTag("importer"),
       moreJs = iifeModule("javascripts/importer.js"),
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Paste PGN chess game",
-          url = s"$netBaseUrl${routes.Importer.importGame.url}",
-          description = trans.site.importGameExplanation.txt()
-        )
-        .some
+      openGraph = OpenGraph(
+        title = "Paste PGN chess game",
+        url = s"$netBaseUrl${routes.Importer.importGame.url}",
+        description = trans.site.importGameExplanation.txt()
+      ).some
     ):
       main(cls := "importer page-small box box-pad")(
         h1(cls := "box__top")(trans.site.importGame()),

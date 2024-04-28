@@ -23,7 +23,7 @@ object bits:
     s"$speed$variant ${c.mode.name} Chess • $players"
 
   def challengeOpenGraph(c: Challenge)(using Context) =
-    lila.web.OpenGraph(
+    OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",
       description = "Join the challenge or watch the game here."

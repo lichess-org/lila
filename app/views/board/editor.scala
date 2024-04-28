@@ -23,13 +23,11 @@ object editor:
       ).some,
       moreCss = cssTag("editor"),
       zoomable = true,
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Chess board editor",
-          url = s"$netBaseUrl${routes.Editor.index.url}",
-          description = "Load opening positions or create your own chess position on a chess board editor"
-        )
-        .some
+      openGraph = OpenGraph(
+        title = "Chess board editor",
+        url = s"$netBaseUrl${routes.Editor.index.url}",
+        description = "Load opening positions or create your own chess position on a chess board editor"
+      ).some
     ):
       main(id := "board-editor")(
         div(cls := "board-editor")(

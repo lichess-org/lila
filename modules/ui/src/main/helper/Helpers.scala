@@ -14,3 +14,4 @@ trait Helpers
     with ChessHelper
     with PaginatorHelper
     with TeamHelper
+    with LayoutHelper

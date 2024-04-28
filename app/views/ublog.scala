@@ -35,15 +35,13 @@ def post(
     moreCss = cssTag("ublog"),
     modules = jsModule("bits.expandText") ++ ctx.isAuth.so(jsModule("bits.ublog")),
     title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
-    openGraph = lila.web
-      .OpenGraph(
-        `type` = "article",
-        image = post.image.isDefined.option(thumbnailUrl(post, _.Size.Large)),
-        title = post.title,
-        url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
-        description = post.intro
-      )
-      .some,
+    openGraph = OpenGraph(
+      `type` = "article",
+      image = post.image.isDefined.option(thumbnailUrl(post, _.Size.Large)),
+      title = post.title,
+      url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
+      description = post.intro
+    ).some,
     atomLinkTag = link(
       href     := routes.Ublog.userAtom(user.username),
       st.title := trans.ublog.xBlog.txt(user.username)
@@ -135,7 +133,7 @@ object index:
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
         st.title := "Lichess community blogs"
       ).some,
-      withHrefLangs = lila.web.LangPath(langHref(routes.Ublog.communityAll())).some
+      withHrefLangs = lila.ui.LangPath(langHref(routes.Ublog.communityAll())).some
     ):
       val langSelections: List[(String, String)] = ("all", "All languages") ::
         lila.i18n.LangPicker

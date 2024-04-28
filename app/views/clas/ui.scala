@@ -2,7 +2,7 @@ package views.clas
 
 import play.api.data.Form
 
-import lila.web.ContentSecurityPolicy
+import lila.ui.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
 import lila.clas.{ Clas, Student }
 import lila.rating.UserPerfsExt.{ bestRating, bestAny3Perfs }
