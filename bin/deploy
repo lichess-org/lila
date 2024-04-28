@@ -287,7 +287,7 @@ def deploy_script(profile, session, run, url):
             "echo \\# Copying assets ...",
             f"mkdir -p {assets_dir}/compiled",
             f"if [ -f {assets_dir}/compiled/manifest.prod.json ]; then mv -f {assets_dir}/compiled/manifest.prod.json {assets_dir}/compiled/manifest-{timestamp}.prod.json; fi",
-            f"rsync -a --delete {artifact_unzipped}/d/public/ {assets_dir}/",
+            f"rsync -a {artifact_unzipped}/d/public/ {assets_dir}/",
             f"rm -rf {artifact_unzipped}",
         ]
     else:
