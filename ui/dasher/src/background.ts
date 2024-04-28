@@ -104,7 +104,7 @@ function imageInput(ctrl: BackgroundCtrl) {
           $(vnode.elm as HTMLElement).on(
             'change keyup paste',
             debounce(function (this: HTMLInputElement) {
-              const url = (this.value as string).trim();
+              const url = this.value.trim();
               // modules/pref/src/main/PrefForm.scala
               if (
                 (url.startsWith('https://') || url.startsWith('//')) &&
