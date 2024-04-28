@@ -4,4 +4,4 @@ import lila.ui.ScalatagsTemplate.*
 
 trait LayoutHelper:
 
-  protected val layoutDefault: Layout
+  def layoutDefault: Layout

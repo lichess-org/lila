@@ -27,14 +27,15 @@ object show:
   )(using ctx: PageContext) =
     def havePerm(perm: lila.team.TeamSecurity.Permission.Selector) = info.member.exists(_.hasPerm(perm))
     layout(
-      _.copy(
-        title = t.name,
-        openGraph = OpenGraph(
+      t.name,
+      _(
+        OpenGraph(
           title = s"${t.name} team",
           url = s"$netBaseUrl${routes.Team.show(t.id).url}",
           description = t.intro.so { shorten(_, 152) }
-        ).some,
-        pageModule = PageModule(
+        )
+      )(
+        PageModule(
           "bits.team",
           Json
             .obj("id" -> t.id)
@@ -49,9 +50,8 @@ object show:
                 resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
                 localMod = havePerm(_.Comm)
               ))
-        ).some,
-        robots = t.team.enabled
-      )
+        )
+      ).robots(t.team.enabled)
     ):
       val canManage     = asMod && isGranted(_.ManageTeam)
       val canSeeMembers = canManage || (t.enabled && (t.publicMembers || info.mine))

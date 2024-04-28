@@ -12,20 +12,12 @@ private lazy val bits = lila.team.ui.TeamUi(helpers)(using env.executor)
 
 private lazy val layoutConfig = layoutDefault.copy(moreCss = cssTag("team"))
 
-private def layout(config: Layout.Build)(body: Frag)(using PageContext) =
-  views.base.layout(_ => config(layoutConfig).add(infiniteScrollTag))(body)
+private def layout(title: String, config: Layout.Build = Layout.default)(body: Frag)(using PageContext) =
+  views.base.layout.from(_ => config(layoutConfig).title(title)(infiniteScrollTag))(body)
 
 def members(t: Team, pager: Paginator[lila.team.TeamMember.UserAndDate])(using PageContext) =
-  layout(
-    _.copy(
-      title = t.name,
-      openGraph = OpenGraph(
-        title = s"${t.name} • ${trans.team.teamRecentMembers.txt()}",
-        url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-        description = t.intro.so { shorten(_, 152) }
-      ).some
-    )
-  )(bits.membersPage(t, pager))
+  val (og, body) = bits.membersPage(t, pager)
+  layout(t.name, _(og))(body)
 
 object form:
   private lazy val formUi = lila.team.ui.FormUi(helpers, bits)(views.base.captcha.apply)
@@ -36,7 +28,7 @@ object form:
       modules = captchaTag
     )(formUi.create(form, captcha))
   def edit(t: Team, form: Form[?], member: Option[lila.team.TeamMember])(using ctx: PageContext) =
-    layout(title = s"Edit Team ${t.name}", modules = jsModule("bits.team")):
+    layout(s"Edit Team ${t.name}", _(jsModule("bits.team"))):
       formUi.edit(t, form, member)
 
 object request:
@@ -50,7 +42,7 @@ object request:
 
   def all(requests: List[lila.team.RequestWithUser])(using PageContext) =
     val title = trans.team.xJoinRequests.pluralSameTxt(requests.size)
-    layout(title = title)(ui.all(requests, title))
+    layout(title)(ui.all(requests, title))
 
   def declined(
       team: lila.team.Team,

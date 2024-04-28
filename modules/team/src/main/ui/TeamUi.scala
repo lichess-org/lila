@@ -70,7 +70,11 @@ final class TeamUi(helpers: Helpers)(using Executor):
     )
 
   def membersPage(t: Team, pager: Paginator[TeamMember.UserAndDate])(using Context) =
-    main(cls := "page-small box")(
+    OpenGraph(
+      title = s"${t.name} • ${trans.team.teamRecentMembers.txt()}",
+      url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+      description = t.intro.so(shorten(_, 152))
+    ) -> main(cls := "page-small box")(
       boxTop(
         h1(
           teamLink(t.light, true),

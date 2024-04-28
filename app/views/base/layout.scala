@@ -50,25 +50,24 @@ object layout:
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
     else ctx.pref.currentTheme
 
-  def apply(config: Layout.Build)(body: Frag)(using ctx: PageContext): Frag =
+  def from(config: Layout.Build)(body: Frag)(using ctx: PageContext): Frag =
     val built = config(layoutDefault)
-    import built.*
     apply(
-      title = title,
-      fullTitle = fullTitle,
-      robots = robots,
-      moreCss = moreCss,
-      modules = modules,
-      moreJs = moreJs,
-      pageModule = pageModule,
-      playing = playing,
-      openGraph = openGraph,
-      zoomable = zoomable,
-      zenable = zenable,
-      csp = csp,
-      wrapClass = wrapClass,
-      atomLinkTag = atomLinkTag,
-      withHrefLangs = withHrefLangs
+      title = built.title,
+      fullTitle = built.fullTitle,
+      robots = built.robots,
+      moreCss = built.moreCss,
+      modules = built.modules,
+      moreJs = built.moreJs,
+      pageModule = built.pageModule,
+      playing = built.playing,
+      openGraph = built.openGraph,
+      zoomable = built.zoomable,
+      zenable = built.zenable,
+      csp = built.csp,
+      wrapClass = built.wrapClass,
+      atomLinkTag = built.atomLinkTag,
+      withHrefLangs = built.withHrefLangs
     )(body)
 
   def apply(
