@@ -12,7 +12,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
   import helpers.{ *, given }
   import trans.{ team as trt }
 
-  private val layoutConfig: Layout.Build = _.cssTag("team")(infiniteScrollEsmInit)
+  private val layoutConfig: Layout.Build = _.cssTag("team").js(infiniteScrollEsmInit)
   def teamPage(p: Page)                  = p.contramap(layoutConfig)
 
   object markdown:

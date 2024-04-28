@@ -71,13 +71,15 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
 
     Page(
       categ.name,
-      _.cssTag("forum").csp(_.withInlineIconFont)(infiniteScrollEsmInit)(
-        OpenGraph(
-          title = s"Forum: ${categ.name}",
-          url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
-          description = categ.desc
+      _.cssTag("forum")
+        .csp(_.withInlineIconFont)
+        .js(infiniteScrollEsmInit)(
+          OpenGraph(
+            title = s"Forum: ${categ.name}",
+            url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
+            description = categ.desc
+          )
         )
-      )
     ):
       main(cls := "forum forum-categ box")(
         boxTop(

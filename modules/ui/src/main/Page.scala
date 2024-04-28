@@ -22,13 +22,13 @@ case class Layout(
     atomLinkTag: Option[Tag],
     withHrefLangs: Option[LangPath]
 ):
-  def apply(esm: EsmInit): Layout                    = copy(modules = modules :+ esm.some)
-  def apply(esm: EsmList): Layout                    = copy(modules = modules ::: esm)
+  def js(esm: EsmInit): Layout                       = copy(modules = modules :+ esm.some)
+  def js(esm: EsmList): Layout                       = copy(modules = modules ::: esm)
+  def js(f: WithNonce[Frag]): Layout                 = copy(jsFrag = jsFrag |+| f)
   def apply(og: OpenGraph): Layout                   = copy(openGraph = og.some)
   def apply(pm: PageModule): Layout                  = copy(pageModule = pm.some)
   def robots(b: Boolean): Layout                     = copy(robots = b)
   def css(f: Frag): Layout                           = copy(cssFrag = cssFrag |+| f)
-  def js(f: WithNonce[Frag]): Layout                 = copy(jsFrag = jsFrag |+| f)
   def csp(up: Update[ContentSecurityPolicy]): Layout = copy(csp = csp.fold(up)(up.compose).some)
 
 object Layout:

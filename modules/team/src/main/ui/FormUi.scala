@@ -16,7 +16,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
   import trans.{ team as trt }
 
   def create(form: Form[?], captcha: Captcha)(using PageContext) = bits.teamPage:
-    Page(trans.team.newTeam.txt(), _(captchaEsmInit)):
+    Page(trans.team.newTeam.txt(), _.js(captchaEsmInit)):
       main(cls := "page-menu page-small")(
         bits.menu("form".some),
         div(cls := "page-menu__content box box-pad")(
@@ -36,7 +36,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
       )
 
   def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) = bits.teamPage:
-    Page(s"Edit Team ${t.name}", _(EsmInit("bits.team"))):
+    Page(s"Edit Team ${t.name}", _.js(EsmInit("bits.team"))):
       main(cls := "page-menu page-small team-edit")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(

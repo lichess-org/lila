@@ -48,4 +48,4 @@ object lag:
           )
         )
       )
-    )(_.cssTag("lag")(jsModuleInit("chart.lag")))
+    )(_.cssTag("lag").js(jsModuleInit("chart.lag")))

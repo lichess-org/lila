@@ -71,7 +71,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
       )
 
     val title = if requests then "Streamer approval requests" else trans.streamer.lichessStreamers.txt()
-    Page(title, _.cssTag("streamer.list")(infiniteScrollEsmInit)(EsmInit("bits.streamer"))):
+    Page(title, _.cssTag("streamer.list").js(infiniteScrollEsmInit).js(EsmInit("bits.streamer"))):
       main(cls := "page-menu")(
         bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
         div(cls := "page-menu__content box streamer-list")(
@@ -104,16 +104,18 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
   def show(s: Streamer.WithUserAndStream, perfRatings: Frag, activities: Frag)(using ctx: Context) =
     Page(
       s"${s.titleName} streams chess",
-      _.csp(csp).cssTag("streamer.show")(EsmInit("bits.streamer"))(
-        OpenGraph(
-          title = s"${s.titleName} streams chess",
-          description =
-            shorten(~(s.streamer.headline.map(_.value).orElse(s.streamer.description.map(_.value))), 152),
-          url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
-          `type` = "video",
-          image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer))
+      _.csp(csp)
+        .cssTag("streamer.show")
+        .js(EsmInit("bits.streamer"))(
+          OpenGraph(
+            title = s"${s.titleName} streams chess",
+            description =
+              shorten(~(s.streamer.headline.map(_.value).orElse(s.streamer.description.map(_.value))), 152),
+            url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
+            `type` = "video",
+            image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer))
+          )
         )
-      )
     ):
       main(cls := "page-menu streamer-show")(
         st.aside(cls := "page-menu__menu")(

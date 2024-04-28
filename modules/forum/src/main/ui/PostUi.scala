@@ -160,7 +160,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
 
   def search(text: String, pager: Paginator[PostView.WithReadPerm])(using Context) =
     val title = s"""${trans.search.search.txt()} "${text.trim}""""
-    Page(title, _.cssTag("forum")(infiniteScrollEsmInit)):
+    Page(title, _.cssTag("forum").js(infiniteScrollEsmInit)):
       main(cls := "box search")(
         boxTop(
           h1(a(href := routes.ForumCateg.index, dataIcon := Icon.LessThan, cls := "text"), title),

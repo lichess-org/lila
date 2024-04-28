@@ -21,7 +21,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
   private def page(title: String, edit: Boolean = false)(body: Frag)(using Context): Page =
     Page(
       title,
-      _.cssTag("dailyFeed")(
+      _.cssTag("dailyFeed").js(
         infiniteScrollEsmInit.some
           :: edit.option(EsmInit("bits.flatpickr"))
           :: edit.option(EsmInit("bits.dailyFeed"))

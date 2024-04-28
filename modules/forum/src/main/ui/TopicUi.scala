@@ -16,7 +16,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   import helpers.{ *, given }
 
   def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context) =
-    Page("New forum topic", _.cssTag("forum")(EsmInit("bits.forum"))(captchaEsmInit)):
+    Page("New forum topic", _.cssTag("forum").js(EsmInit("bits.forum")).js(captchaEsmInit)):
       main(cls := "forum forum-topic topic-form page-small box box-pad")(
         boxTop(
           h1(
@@ -86,15 +86,17 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     val pager = paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
     Page(
       s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}",
-      _.cssTag("forum").csp(_.withInlineIconFont.withTwitter)(
-        EsmInit("bits.forum") ++ EsmInit("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsmInit)
-      )(
-        OpenGraph(
-          title = topic.name,
-          url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
-          description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
+      _.cssTag("forum")
+        .csp(_.withInlineIconFont.withTwitter)
+        .js(
+          EsmInit("bits.forum") ++ EsmInit("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsmInit)
+        )(
+          OpenGraph(
+            title = topic.name,
+            url = s"$netBaseUrl${routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage).url}",
+            description = shorten(posts.currentPageResults.headOption.so(_.post.text), 152)
+          )
         )
-      )
     ):
       main(cls := "forum forum-topic page-small box box-pad")(
         boxTop(
@@ -203,7 +205,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   )(using me: Me) =
     Page(
       "Diagnostic report",
-      _.cssTag("forum")(
+      _.cssTag("forum").js(
         EsmInit("bits.forum")
           ++ jsModuleInit("bits.autoform", Json.obj("selector" -> ".post-text-area", "ops" -> "focus begin"))
           ++ captchaEsmInit

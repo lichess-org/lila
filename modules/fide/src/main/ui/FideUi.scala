@@ -18,7 +18,7 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
     )
 
   private def page(title: String, active: String)(modifiers: Modifier*)(using Context) =
-    Page(title, _.cssTag("fide")(infiniteScrollEsmInit)):
+    Page(title, _.cssTag("fide").js(infiniteScrollEsmInit)):
       main(cls := "page-menu")(
         menu(active),
         div(cls := "page-menu__content box")(modifiers)

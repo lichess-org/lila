@@ -46,7 +46,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       title = trans.contact.contact.txt(),
       active = "contact",
       contentCls = "page box box-pad"
-    )(lila.web.views.contact(netConfig.email))(_.cssTag("contact")(EsmInit("bits.contact")))
+    )(lila.web.views.contact(netConfig.email))(_.cssTag("contact").js(EsmInit("bits.contact")))
 
   def source(p: CmsPage.Render)(using ctx: PageContext) =
     val commit = env.appVersionCommit | "???"
