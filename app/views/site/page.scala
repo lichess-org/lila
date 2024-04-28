@@ -17,13 +17,11 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
   def withMenu(active: String, p: CmsPage.Render)(using PageContext) =
-    layout(
+    page(
       title = p.title,
       active = active,
-      contentCls = "page box box-pad force-ltr",
-      moreCss = cssTag("page")
-    ):
-      pageContent(p)
+      contentCls = "page box box-pad force-ltr"
+    )(pageContent(p))(_.cssTag("page"))
 
   def pageContent(p: CmsPage.Render)(using Context) = frag(
     h1(cls := "box__top")(p.title),
@@ -33,38 +31,30 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
   private lazy val ui = lila.web.views.SitePages(helpers)
 
   def faq(using PageContext) =
-    layout(
+    page(
       title = "Frequently Asked Questions",
-      active = "faq",
-      moreCss = cssTag("faq")
-    ):
+      active = "faq"
+    )(
       lila.web.views.faq(helpers, assetHelper)(
         standardRankableDeviation = lila.rating.Glicko.standardRankableDeviation,
         variantRankableDeviation = lila.rating.Glicko.variantRankableDeviation
       )
+    )(_.cssTag("faq"))
 
   def contact(using PageContext) =
-    layout(
+    page(
       title = trans.contact.contact.txt(),
       active = "contact",
-      moreCss = cssTag("contact"),
-      modules = EsmInit("bits.contact"),
       contentCls = "page box box-pad"
-    ):
-      lila.web.views.contact(netConfig.email)
+    )(lila.web.views.contact(netConfig.email))(_.cssTag("contact")(EsmInit("bits.contact")))
 
   def source(p: CmsPage.Render)(using ctx: PageContext) =
-    layout(
+    val commit = env.appVersionCommit | "???"
+    page(
       title = p.title,
       active = "source",
-      moreCss = cssTag("source"),
-      contentCls = "page force-ltr",
-      moreJs = embedJsUnsafeLoadThen("""$('#asset-version-date').text(site.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit).find('pre').text(site.info.commit.substr(0, 7));
-$('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master').find('pre').text('...');
-$('#asset-version-message').text(site.info.message);""")(ctx.nonce)
-    ):
-      val commit = env.appVersionCommit | "???"
+      contentCls = "page force-ltr"
+    )(
       frag(
         st.section(cls := "box")(
           h1(cls := "box__top")(p.title),
@@ -95,31 +85,30 @@ $('#asset-version-message').text(site.info.message);""")(ctx.nonce)
         ),
         st.section(cls := "box box-pad body")(views.cms.render(p))
       )
+    )(_.cssTag("source").js(embedJsUnsafeLoadThen("""$('#asset-version-date').text(site.info.date);
+  $('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit).find('pre').text(site.info.commit.substr(0, 7));
+  $('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master').find('pre').text('...');
+  $('#asset-version-message').text(site.info.message);""")))
 
   def webmasters(using PageContext) =
-    layout(
+    page(
       title = "Webmasters",
       active = "webmasters",
-      moreCss = cssTag("page"),
       contentCls = "page force-ltr"
-    ):
+    )(
       ui.webmasters(
         frag(
           li(strong("theme"), ": ", lila.pref.Theme.all.map(_.name).mkString(", ")),
           li(strong("pieceSet"), ": ", lila.pref.PieceSet.all.map(_.name).mkString(", "))
         )
       )
+    )(_.cssTag("page"))
 
-  def layout(
-      title: String,
-      active: String,
-      contentCls: String = "",
-      moreCss: Frag = emptyFrag,
-      moreJs: Frag = emptyFrag,
-      modules: EsmList = Nil
-  )(body: Frag)(using PageContext) =
-    views.base.layout(title = title, moreCss = moreCss, modules = modules, moreJs = moreJs):
-      main(cls := "page-menu")(
-        ui.menu(active),
-        div(cls := s"page-menu__content $contentCls")(body)
-      )
+  def page(title: String, active: String, contentCls: String = "")(body: Frag)(using Context) =
+    Page(title)(wrap(active, contentCls)(body))
+
+  def wrap(active: String, contentCls: String = "")(body: Frag)(using lila.ui.Context) =
+    main(cls := "page-menu")(
+      ui.menu(active),
+      div(cls := s"page-menu__content $contentCls")(body)
+    )

@@ -127,7 +127,7 @@ object tour:
         )
       )
 
-  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context): Tag =
+  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: lila.ui.Context): Tag =
     lila.ui.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>

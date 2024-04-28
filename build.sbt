@@ -175,7 +175,7 @@ lazy val coordinate = module("coordinate",
 )
 
 lazy val feed = module("feed",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 

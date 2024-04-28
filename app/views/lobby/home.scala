@@ -130,7 +130,7 @@ object home:
         ,
         ctx.noBot.option(bits.underboards(tours, simuls, leaderboard, tournamentWinners)),
         div(cls := "lobby__feed"):
-          views.feed.lobbyUpdates(lastUpdates)
+          views.feed.ui.lobbyUpdates(lastUpdates)
         ,
         div(cls := "lobby__support")(
           a(href := routes.Plan.index)(
