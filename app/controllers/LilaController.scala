@@ -39,6 +39,9 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using codec: Codec, pc: PageContext): Writeable[lila.ui.Page] =
     Writeable(page => codec.encode(views.base.page(page).render))
 
+  given (using PageContext): Conversion[lila.ui.Page, Frag]     = views.base.page(_)
+  given (using PageContext): Conversion[lila.ui.Page, Fu[Frag]] = page => fuccess(views.base.page(page))
+
   given netDomain: lila.core.config.NetDomain = env.net.domain
 
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
