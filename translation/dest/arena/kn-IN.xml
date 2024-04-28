@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">ಅರೆನಾ</string>
   <string name="arenaTournaments">ಅರೆನಾ ಪಂದ್ಯಾವಳಿಗಳು</string>
   <string name="isItRated">ಇದು ರೇಟ್ ಆಗಿದೆಯೇ?</string>
   <string name="willBeNotified">ಪಂದ್ಯಾವಳಿ ಪ್ರಾರಂಭವಾದಾಗ ನಿಮಗೆ ಸೂಚನೆ ನೀಡಲಾಗುತ್ತದೆ, ಆದ್ದರಿಂದ ಕಾಯುತ್ತಿರುವಾಗ ಮತ್ತೊಂದು ಟ್ಯಾಬ್‌ನಲ್ಲಿ ಪ್ಲೇ ಮಾಡುವುದು ಸುರಕ್ಷಿತವಾಗಿದೆ.</string>
@@ -61,4 +62,8 @@
   <string name="averagePerformance">ಸರಾಸರಿ ಕಾರ್ಯಕ್ಷಮತೆ</string>
   <string name="averageScore">ಸರಾಸರಿ ಸ್ಕೋರ್</string>
   <string name="myTournaments">ನನ್ನ ಪಂದ್ಯಾವಳಿಗಳು</string>
+  <string name="created">ರಚಿಸಲಾಗಿದೆ</string>
+  <string name="recentlyPlayed">ಇತ್ತೀಚೆಗೆ ಆಡಲಾಗಿದೆ</string>
+  <string name="total">ಒಟ್ಟು</string>
+  <string name="tournamentWinners">ಪಂದ್ಯಾವಳಿಯ ವಿಜೇತರು</string>
 </resources>
