@@ -4,44 +4,16 @@ import play.api.data.Form
 import scalalib.paginator.Paginator
 
 import lila.app.templating.Environment.{ *, given }
-import lila.common.{ Markdown, MarkdownRender }
-import lila.core.captcha.Captcha
 import lila.team.Team
 
 private lazy val bits = lila.team.ui.TeamUi(helpers)(using env.executor)
-
 export bits.{ list, membersPage }
-
-lazy val form = lila.team.ui.FormUi(helpers, bits)(views.base.captcha.apply)
-
-object request:
-  lazy val ui = lila.team.ui.RequestUi(helpers, bits)
-
-  def requestForm(t: lila.team.Team, form: Form[?])(using PageContext) =
-    bits.teamPage(ui.requestForm(t, form))
-
-  def all(requests: List[lila.team.RequestWithUser])(using PageContext) =
-    bits.teamPage(ui.all(requests))
-
-  def declined(team: lila.team.Team, requests: Paginator[lila.team.RequestWithUser], search: Option[UserStr])(
-      using PageContext
-  ) =
-    bits.teamPage(ui.declined(team, requests, search)(_(EsmInit("mod.teamAdmin"))))
+lazy val form    = lila.team.ui.FormUi(helpers, bits)(views.base.captcha.apply)
+lazy val request = lila.team.ui.RequestUi(helpers, bits)
 
 object admin:
   private lazy val adminUi = lila.team.ui.AdminUi(helpers, bits)
-
-  def leaders(
-      t: Team.WithLeaders,
-      addLeaderForm: Form[UserStr],
-      permsForm: Form[Seq[lila.team.TeamSecurity.LeaderData]]
-  )(using PageContext) =
-    bits.teamPage:
-      adminUi.leaders(t, addLeaderForm, permsForm)(_(EsmInit("mod.teamAdmin")).css(cssTag("tagify")))
-
-  def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using PageContext) =
-    bits.teamPage:
-      adminUi.kick(t, form, blocklistForm)(_(EsmInit("mod.teamAdmin")).css(cssTag("tagify")))
+  export adminUi.{ leaders, kick }
 
   def pmAll(
       t: Team,
@@ -70,6 +42,4 @@ object admin:
         ,
         br
       )
-    bits.teamPage:
-      adminUi.pmAll(t, form, toursFrag, unsubs, limiter, lila.app.mashup.TeamInfo.pmAllCredits):
-        _.js(embedJsUnsafeLoadThen(adminUi.pmAllJs))
+    adminUi.pmAll(t, form, toursFrag, unsubs, limiter, lila.app.mashup.TeamInfo.pmAllCredits)

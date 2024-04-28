@@ -65,14 +65,14 @@ trait AssetFullHelper:
   def jsPageModule(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${jsName(key)}')"))
 
-  def analyseNvuiTag(using ctx: Context) = ctx.blind.option(EsmInit("analyse.nvui"))
-  def puzzleNvuiTag(using ctx: Context)  = ctx.blind.option(EsmInit("puzzle.nvui"))
-  def roundNvuiTag(using ctx: Context)   = ctx.blind.option(EsmInit("round.nvui"))
-  val infiniteScrollEsmInit: EsmInit     = jsModuleInit("bits.infiniteScroll")
-  val captchaEsmInit: EsmInit            = EsmInit("bits.captcha")
-  val cashTag: Frag                      = iifeModule("javascripts/vendor/cash.min.js")
-  val fingerprintTag: Frag               = iifeModule("javascripts/fipr.js")
-  val chessgroundTag: Frag               = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
+  def analyseNvuiTag(using ctx: Context)  = ctx.blind.option(EsmInit("analyse.nvui"))
+  def puzzleNvuiTag(using ctx: Context)   = ctx.blind.option(EsmInit("puzzle.nvui"))
+  def roundNvuiTag(using ctx: Context)    = ctx.blind.option(EsmInit("round.nvui"))
+  lazy val infiniteScrollEsmInit: EsmInit = jsModuleInit("bits.infiniteScroll")
+  lazy val captchaEsmInit: EsmInit        = EsmInit("bits.captcha")
+  lazy val cashTag: Frag                  = iifeModule("javascripts/vendor/cash.min.js")
+  lazy val fingerprintTag: Frag           = iifeModule("javascripts/fipr.js")
+  lazy val chessgroundTag: Frag           = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }

@@ -9,7 +9,6 @@ import lila.common.Json.given
 import scalalib.paginator.Paginator
 import lila.mod.Modlog
 import lila.core.socket.SocketVersion
-import lila.core.socket.SocketVersion.given
 import lila.team.Team
 
 object show:
@@ -117,7 +116,7 @@ object show:
               (t.enabled && info.hasRequests).option(
                 div(cls := "team-show__requests")(
                   h2(trt.xJoinRequests.pluralSame(info.requests.size)),
-                  request.ui.list(info.requests, t.team.some)
+                  request.list(info.requests, t.team.some)
                 )
               ),
               div(

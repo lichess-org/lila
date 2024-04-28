@@ -11,8 +11,8 @@ trait AssetHelper:
 
   def cssTag(key: String): Frag
 
-  val infiniteScrollEsmInit: EsmInit
-  val captchaEsmInit: EsmInit
+  def infiniteScrollEsmInit: EsmInit
+  def captchaEsmInit: EsmInit
 
   extension (l: Layout)
     def cssTag(keys: String*): Layout =

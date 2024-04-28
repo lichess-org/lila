@@ -15,6 +15,16 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
 
   private val dataDedup = attr("data-dedup")
 
+  def csp: Update[ContentSecurityPolicy] = csp =>
+    csp.copy(
+      defaultSrc = Nil,
+      connectSrc = "https://www.twitch.tv" :: "https://www-cdn.jtvnw.net" :: csp.connectSrc,
+      styleSrc = Nil,
+      frameSrc = Nil,
+      workerSrc = Nil,
+      scriptSrc = Nil
+    )
+
   def index(
       live: List[Streamer.WithUserAndStream],
       pager: Paginator[Streamer.WithContext],
@@ -91,62 +101,75 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     )
 
   def show(s: Streamer.WithUserAndStream, perfRatings: Frag, activities: Frag)(using ctx: Context) =
-    main(cls := "page-menu streamer-show")(
-      st.aside(cls := "page-menu__menu")(
-        s.streamer.approval.chatEnabled.option(
-          div(cls := "streamer-chat")(
-            s.stream match
-              case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
-                iframe(
-                  frame.credentialless,
-                  st.frameborder  := "0",
-                  frame.scrolling := "no",
-                  src             := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
-                )
-              case _ =>
-                s.streamer.twitch.map: twitch =>
-                  val darkChat = (ctx.pref.currentBg != "light").so("darkpopout&")
+    Page(
+      s"${s.titleName} streams chess",
+      _.csp(csp).css(cssTag("streamer.show"))(EsmInit("bits.streamer"))(
+        OpenGraph(
+          title = s"${s.titleName} streams chess",
+          description =
+            shorten(~(s.streamer.headline.map(_.value).orElse(s.streamer.description.map(_.value))), 152),
+          url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
+          `type` = "video",
+          image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer))
+        )
+      )
+    ):
+      main(cls := "page-menu streamer-show")(
+        st.aside(cls := "page-menu__menu")(
+          s.streamer.approval.chatEnabled.option(
+            div(cls := "streamer-chat")(
+              s.stream match
+                case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
                   iframe(
                     frame.credentialless,
                     st.frameborder  := "0",
-                    frame.scrolling := "yes",
-                    src := s"https://twitch.tv/embed/${twitch.userId}/chat?${darkChat}parent=$netDomain"
+                    frame.scrolling := "no",
+                    src             := s"https://www.youtube.com/live_chat?v=$videoId&embed_domain=$netDomain"
                   )
-          )
-        ),
-        bits.menu("show", s.some)
-      ),
-      div(cls := "page-menu__content")(
-        s.stream match
-          case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
-            div(cls := "box embed youTube")(
-              iframe(
-                src            := s"https://www.youtube.com/embed/$videoId?autoplay=1",
-                st.frameborder := "0",
-                frame.allowfullscreen,
-                frame.credentialless
-              )
+                case _ =>
+                  s.streamer.twitch.map: twitch =>
+                    val darkChat = (ctx.pref.currentBg != "light").so("darkpopout&")
+                    iframe(
+                      frame.credentialless,
+                      st.frameborder  := "0",
+                      frame.scrolling := "yes",
+                      src := s"https://twitch.tv/embed/${twitch.userId}/chat?${darkChat}parent=$netDomain"
+                    )
             )
-          case _ =>
-            s.streamer.twitch
-              .map: twitch =>
-                div(cls := "box embed twitch")(
-                  iframe(
-                    src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=$netDomain",
-                    frame.allowfullscreen,
-                    frame.credentialless
-                  )
-                )
-              .getOrElse(div(cls := "box embed")(div(cls := "nostream")(trans.streamer.offline())))
-        ,
-        standardFlash,
-        div(cls := "box streamer")(
-          bits.header(s),
-          div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
-          ctx.pref.showRatings.option(a(cls := "ratings", href := routes.User.show(s.user.username)):
-            perfRatings
           ),
-          activities
+          bits.menu("show", s.some)
+        ),
+        div(cls := "page-menu__content")(
+          s.stream match
+            case Some(Stream.YouTube.Stream(_, _, videoId, _, _)) =>
+              div(cls := "box embed youTube")(
+                iframe(
+                  src            := s"https://www.youtube.com/embed/$videoId?autoplay=1",
+                  st.frameborder := "0",
+                  frame.allowfullscreen,
+                  frame.credentialless
+                )
+              )
+            case _ =>
+              s.streamer.twitch
+                .map: twitch =>
+                  div(cls := "box embed twitch")(
+                    iframe(
+                      src := s"https://player.twitch.tv/?channel=${twitch.userId}&parent=$netDomain",
+                      frame.allowfullscreen,
+                      frame.credentialless
+                    )
+                  )
+                .getOrElse(div(cls := "box embed")(div(cls := "nostream")(trans.streamer.offline())))
+          ,
+          standardFlash,
+          div(cls := "box streamer")(
+            bits.header(s),
+            div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
+            ctx.pref.showRatings.option(a(cls := "ratings", href := routes.User.show(s.user.username)):
+              perfRatings
+            ),
+            activities
+          )
         )
       )
-    )

@@ -15,8 +15,8 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
       t: Team.WithLeaders,
       addLeaderForm: Form[UserStr],
       permsForm: Form[Seq[TeamSecurity.LeaderData]]
-  )(using PageContext) =
-    Page(s"${t.name} • ${trans.team.teamLeaders.txt()}"):
+  )(using PageContext) = bits.teamPage:
+    Page(s"${t.name} • ${trans.team.teamLeaders.txt()}", _(EsmInit("mod.teamAdmin")).css(cssTag("tagify"))):
       val dataLabel = attrData("label")
       main(cls := "page-menu")(
         bits.menu(none),
@@ -73,8 +73,8 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
         )
       )
 
-  def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using PageContext) =
-    Page(s"${t.name} • ${trans.team.kickSomeone.txt()}"):
+  def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using PageContext) = bits.teamPage:
+    Page(s"${t.name} • ${trans.team.kickSomeone.txt()}", _(EsmInit("mod.teamAdmin")).css(cssTag("tagify"))):
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content")(
@@ -115,8 +115,8 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
       unsubs: Int,
       limiter: (Int, Instant),
       credits: Int
-  )(using ctx: PageContext) =
-    Page(s"${t.name} • ${trans.team.messageAllMembers.txt()}"):
+  )(using ctx: PageContext) = bits.teamPage:
+    Page(s"${t.name} • ${trans.team.messageAllMembers.txt()}", _.js(embedJsUnsafeLoadThen(pmAllJs))):
       main(cls := "page-menu page-small")(
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
@@ -158,7 +158,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
         )
       )
 
-  val pmAllJs = """
+  private val pmAllJs = """
 $('.copy-url-button').on('click', function(e) {
 $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '\n')
 })"""

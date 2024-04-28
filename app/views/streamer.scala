@@ -13,30 +13,14 @@ lazy val bits = lila.streamer.ui.StreamerBits(helpers)(
 )
 private lazy val ui = lila.streamer.ui.StreamerUi(helpers, bits)
 
-def show(
-    s: Streamer.WithUserAndStream,
-    perfs: UserPerfs,
-    activities: Vector[lila.activity.ActivityView]
-)(using ctx: PageContext) =
-  views.base.layout(
-    title = s"${s.titleName} streams chess",
-    moreCss = cssTag("streamer.show"),
-    modules = EsmInit("bits.streamer"),
-    openGraph = OpenGraph(
-      title = s"${s.titleName} streams chess",
-      description =
-        shorten(~(s.streamer.headline.map(_.value).orElse(s.streamer.description.map(_.value))), 152),
-      url = s"$netBaseUrl${routes.Streamer.show(s.user.username)}",
-      `type` = "video",
-      image = s.streamer.hasPicture.option(bits.thumbnail.url(s.streamer))
-    ).some,
-    csp = defaultCsp.finalizeWithTwitch.some
-  ):
-    ui.show(
-      s,
-      perfRatings = perfs.best6Perfs.map { showPerfRating(perfs, _) },
-      activities = views.activity(UserWithPerfs(s.user, perfs), activities)
-    )
+def show(s: Streamer.WithUserAndStream, perfs: UserPerfs, activities: Vector[lila.activity.ActivityView])(
+    using Context
+) =
+  ui.show(
+    s,
+    perfRatings = perfs.best6Perfs.map { showPerfRating(perfs, _) },
+    activities = views.activity(UserWithPerfs(s.user, perfs), activities)
+  )
 
 def index(
     live: List[Streamer.WithUserAndStream],

@@ -35,16 +35,6 @@ case class ContentSecurityPolicy(
       frameSrc = "https://*.paypal.com" :: frameSrc
     )
 
-  def finalizeWithTwitch =
-    copy(
-      defaultSrc = Nil,
-      connectSrc = "https://www.twitch.tv" :: "https://www-cdn.jtvnw.net" :: connectSrc,
-      styleSrc = Nil,
-      frameSrc = Nil,
-      workerSrc = Nil,
-      scriptSrc = Nil
-    )
-
   def withTwitter =
     copy(
       scriptSrc = "https://platform.twitter.com" :: "https://*.twimg.com" :: scriptSrc,
