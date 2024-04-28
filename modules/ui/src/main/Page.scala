@@ -8,8 +8,7 @@ object LangPath extends OpaqueString[LangPath]:
 
 opaque type Nonce = String
 object Nonce extends OpaqueString[Nonce]:
-  extension (a: Nonce) def scriptSrc = s"'nonce-${a.value}'"
-  def random: Nonce                  = Nonce(scalalib.SecureRandom.nextString(24))
+  def random: Nonce = Nonce(scalalib.SecureRandom.nextString(24))
 
 case class Layout(
     fullTitle: Option[String],

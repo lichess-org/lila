@@ -13,7 +13,7 @@ case class ContentSecurityPolicy(
     fontSrc: List[String],
     baseUri: List[String]
 ):
-  def withNonce(nonce: Nonce) = copy(scriptSrc = nonce.scriptSrc :: scriptSrc)
+  def withNonce(nonce: Nonce) = copy(scriptSrc = s"'nonce-${nonce}'" :: scriptSrc)
 
   def withLegacyCompatibility = copy(scriptSrc = "'unsafe-inline'" :: scriptSrc)
 
