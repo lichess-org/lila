@@ -114,7 +114,7 @@ final class RelayListing(
               rt.round.startsAt.fold(Long.MaxValue)(_.toMillis) // then by next round date
             )
 
-  val defaultRoundToShow = cacheApi[RelayTour.Id, Option[RelayRound]](32, "relay.lastAndNextRounds"):
+  val defaultRoundToShow = cacheApi[RelayTourId, Option[RelayRound]](32, "relay.lastAndNextRounds"):
     _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
       val chronoSort = $doc("startsAt" -> 1, "createdAt" -> 1)
       val lastStarted = colls.round

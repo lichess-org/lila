@@ -1,7 +1,18 @@
 package lila.core
 package security
 
+import play.api.mvc.RequestHeader
+
 import lila.core.user.{ User, UserEnabled }
+import lila.core.net.IpAddress
+import lila.core.userId.UserId
+import play.api.data.{ Form, Mapping }
+import lila.core.email.EmailAddress
+import lila.core.userId.UserName
+
+case class GarbageCollect(userId: UserId)
+case class CloseAccount(userId: UserId)
+case class DeletePublicChats(userId: UserId)
 
 trait LilaCookie:
   import play.api.mvc.*
@@ -9,9 +20,48 @@ trait LilaCookie:
       RequestHeader
   ): Cookie
 
+object LilaCookie:
+  val sessionId                               = "sid"
+  val noRemember                              = "noRemember"
+  def sid(req: RequestHeader): Option[String] = req.session.get(sessionId)
+
 trait SecurityApi:
   def shareAnIpOrFp(u1: UserId, u2: UserId): Fu[Boolean]
   def getUserIdsWithSameIpAndPrint(userId: UserId): Fu[Set[UserId]]
+
+case class HcaptchaPublicConfig(key: String, enabled: Boolean)
+case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Boolean):
+  def enabled                 = config.enabled && !skip
+  def apply(key: String)      = form(key)
+  def withForm[B](f: Form[B]) = copy(form = f)
+  def fill(data: A)           = copy(form = form.fill(data))
+
+trait Hcaptcha:
+  def form[A](form: Form[A])(using req: RequestHeader): Fu[HcaptchaForm[A]]
+
+trait SignupForm:
+  val emailField: Mapping[EmailAddress]
+  val username: Mapping[UserName]
+
+opaque type FingerHash = String
+object FingerHash extends OpaqueString[FingerHash]
+
+case class UserSignup(
+    user: User,
+    email: EmailAddress,
+    req: RequestHeader,
+    fingerPrint: Option[FingerHash],
+    suspIp: Boolean
+)
+
+case class ClearPassword(value: String) extends AnyVal:
+  override def toString = "ClearPassword(****)"
+
+case class HashedPassword(bytes: Array[Byte])
+
+trait Authenticator:
+  def passEnc(p: ClearPassword): HashedPassword
+  def setPassword(id: UserId, p: ClearPassword): Funit
 
 opaque type FloodSource = String
 object FloodSource extends OpaqueString[FloodSource]

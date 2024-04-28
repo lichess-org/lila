@@ -1,15 +1,21 @@
-package views.html.user.show
+package views.user
+package show
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.mashup.UserInfo
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Game
-import lila.user.User
+
+import lila.game.{ Game, GameFilter }
+
+import lila.core.data.SafeJsonStr
+import lila.rating.UserWithPerfs.titleUsernameWithBestRating
+
+lazy val ui = lila.user.ui.UserShow(helpers, bits)
 
 object page:
+
+  lazy val side = lila.user.ui.UserShowSide(helpers)
 
   def activity(
       activities: Vector[lila.activity.ActivityView],
@@ -17,37 +23,35 @@ object page:
       social: UserInfo.Social
   )(using PageContext) =
     val u = info.user
-    views.html.base.layout(
+    views.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
-      openGraph = lila.app.ui
-        .OpenGraph(
-          image = assetUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = assetUrl("logo/lichess-tile.png").some,
-          title = u.titleUsernameWithBestRating,
-          url = s"$netBaseUrl${routes.User.show(u.username).url}",
-          description = describeUser(u)
-        )
-        .some,
+      openGraph = OpenGraph(
+        image = assetUrl("logo/lichess-tile-wide.png").some,
+        twitterImage = assetUrl("logo/lichess-tile.png").some,
+        title = u.titleUsernameWithBestRating,
+        url = s"$netBaseUrl${routes.User.show(u.username).url}",
+        description = ui.describeUser(u)
+      ).some,
       pageModule = pageModule(info),
-      moreJs = moreJs(info),
+      modules = esModules(info),
       moreCss = frag(
         cssTag("user.show"),
         isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
       robots = u.count.game >= 10
     ):
-      main(cls := "page-menu", dataUsername := u.username)(
+      main(cls := "page-menu", ui.dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
-          views.html.user.show.header(u, info, UserInfo.Angle.Activity, social),
-          div(cls := "angle-content")(views.html.activity(u, activities))
+          views.user.show.header(u, info, UserInfo.Angle.Activity, social),
+          div(cls := "angle-content")(views.activity(u, activities))
         )
       )
 
   def games(
       info: UserInfo,
       games: scalalib.paginator.Paginator[Game],
-      filters: lila.app.mashup.GameFilterMenu,
+      filters: lila.game.GameFilterMenu,
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
       notes: Map[GameId, String]
@@ -55,51 +59,57 @@ object page:
     val u          = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
     val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
-    views.html.base.layout(
+    views.base.layout(
       title = s"${u.username} $filterName$pageName",
       pageModule = pageModule(info),
-      moreJs = moreJs(info, filters.current.name == "search"),
+      modules = esModules(info, filters.current.name == "search"),
       moreCss = frag(
         cssTag("user.show"),
         (filters.current.name == "search").option(cssTag("user.show.search")),
         isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
       robots = u.count.game >= 10
-    ) {
-      main(cls := "page-menu", dataUsername := u.username)(
+    ):
+      main(cls := "page-menu", ui.dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
-          views.html.user.show.header(u, info, UserInfo.Angle.Games(searchForm), social),
+          views.user.show.header(u, info, UserInfo.Angle.Games(searchForm), social),
           div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name, notes))
         )
       )
-    }
 
-  private def moreJs(info: UserInfo, withSearch: Boolean = false)(using PageContext) =
+  private def esModules(info: UserInfo, withSearch: Boolean = false)(using PageContext): EsmList =
     import play.api.libs.json.Json
-    frag(
-      infiniteScrollTag,
-      jsModuleInit("user", Json.obj("i18n" -> i18nJsObject(i18nKeys))),
-      withSearch.option(jsModule("gameSearch")),
-      isGranted(_.UserModView).option(jsModule("mod.user"))
-    )
+    infiniteScrollEsmInit
+      ++ jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(ui.i18nKeys)))
+      ++ withSearch.so(EsmInit("bits.gameSearch"))
+      ++ isGranted(_.UserModView).so(EsmInit("mod.user"))
 
   private def pageModule(info: UserInfo)(using PageContext) =
     info.ratingChart.map: rc =>
       PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
   def disabled(u: User)(using PageContext) =
-    views.html.base.layout(title = u.username, robots = false):
+    views.base.layout(title = u.username, robots = false):
       main(cls := "box box-pad")(
         h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())
       )
 
-  private val i18nKeys = List(
-    trans.site.youAreLeavingLichess,
-    trans.site.neverTypeYourPassword,
-    trans.site.cancel,
-    trans.site.proceedToX
-  )
+  def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): Frag =
+    if filter == GameFilter.Search then frag(iconTag(Icon.Search), br, trans.search.advancedSearch())
+    else splitNumber(userGameFilterTitleNoTag(u, nbs, filter))
 
-  private val dataUsername = attr("data-username")
+  def userGameFilterTitleNoTag(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): String =
+    import ui.transLocalize
+    filter match
+      case GameFilter.All      => transLocalize(trans.site.nbGames, u.count.game)
+      case GameFilter.Me       => nbs.withMe.so { transLocalize(trans.site.nbGamesWithYou, _) }
+      case GameFilter.Rated    => transLocalize(trans.site.nbRated, u.count.rated)
+      case GameFilter.Win      => transLocalize(trans.site.nbWins, u.count.win)
+      case GameFilter.Loss     => transLocalize(trans.site.nbLosses, u.count.loss)
+      case GameFilter.Draw     => transLocalize(trans.site.nbDraws, u.count.draw)
+      case GameFilter.Playing  => transLocalize(trans.site.nbPlaying, nbs.playing)
+      case GameFilter.Bookmark => transLocalize(trans.site.nbBookmarks, nbs.bookmark)
+      case GameFilter.Imported => transLocalize(trans.site.nbImportedGames, nbs.imported)
+      case GameFilter.Search   => trans.search.advancedSearch.txt()

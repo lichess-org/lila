@@ -3,6 +3,7 @@ package lila.api
 import chess.format.Fen
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
+import scalalib.Json.given
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.common.Json.given
@@ -15,7 +16,7 @@ import lila.game.BSONHandlers.given
 import lila.game.Game.BSONFields as G
 import lila.game.JsonView.given
 import lila.game.{ CrosstableApi, Game }
-import lila.user.User
+import lila.game.GameExt.computeMoveTimes
 
 final private[api] class GameApi(
     net: NetConfig,
@@ -172,7 +173,7 @@ final private[api] class GameApi(
             .add("name", p.name)
             .add("provisional" -> p.provisional)
             .add("moveCentis" -> withFlags.moveTimes.so:
-              g.moveTimes(p.color).map(_.map(_.centis))
+              lila.game.GameExt.computeMoveTimes(g, p.color).map(_.map(_.centis))
             )
             .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
             .add(
@@ -211,8 +212,4 @@ object GameApi:
       blurs: Boolean = false,
       token: Option[String] = none
   ):
-
-    def applyToken(validToken: String) =
-      copy(
-        blurs = token.has(validToken)
-      )
+    def applyToken(validToken: String) = copy(blurs = token.has(validToken))

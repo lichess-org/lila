@@ -6,10 +6,11 @@ import scala.util.Success
 
 import lila.common.{ Iso, LichessDay }
 import lila.db.dsl.{ *, given }
-import lila.rating.Perf
-import lila.core.perf.{ PerfKey, PerfType }
+
+import lila.rating.PerfType
 import lila.core.rating.RatingProg
 import lila.core.rating.Score
+import lila.core.chess.Rank
 
 private object BSONHandlers:
 
@@ -58,9 +59,8 @@ private object BSONHandlers:
       rp   -> o.rp
     )
 
-  private given Iso.StringIso[PerfType] =
-    Iso.string[PerfType](str => PerfType(PerfKey(str)).err(s"No such perf $str"), _.key.value)
-  private[activity] given BSONHandler[Games] = typedMapHandlerIso[PerfType, Score].as(Games(_), _.value)
+  private[activity] given BSONHandler[Games] =
+    typedMapHandlerIso[PerfKey, Score].as(Games(_), _.value)
 
   given lila.db.BSON[Storm] with
     def reads(r: lila.db.BSON.Reader)            = Storm(r.intD("r"), r.intD("s"))

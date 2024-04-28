@@ -2,23 +2,26 @@ package lila.mod
 
 import akka.actor.*
 import com.softwaremill.macwire.*
+import chess.ByColor
 
 import lila.core.config.*
 import lila.core.report.SuspectId
-import lila.user.{ Me, User }
+
 import lila.core.user.WithPerf
-import chess.ByColor
+import lila.common.Bus
+import lila.rating.UserWithPerfs.only
 
 @Module
 final class Env(
     db: lila.db.Db,
-    perfStat: lila.core.perfStat.PerfStatApi,
+    perfStat: lila.core.perf.PerfStatApi,
     settingStore: lila.memo.SettingStore.Builder,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
     tournamentApi: lila.core.tournament.TournamentApi,
     swissFeature: lila.core.swiss.SwissFeatureApi,
     gameRepo: lila.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
@@ -69,18 +72,14 @@ final class Env(
 
   private lazy val sandbagWatch = wire[SandbagWatch]
 
-  lila.common.Bus.subscribeFuns(
+  Bus.subscribeFuns(
     "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
+      case lila.core.game.FinishGame(game, users) if !game.aborted =>
         users
-          .traverse:
-            _.filter(_._1.enabled.yes).map: u =>
-              new lila.core.user.WithPerf:
-                val user = u._1
-                val perf = u._2(game.perfType)
-          .foreach: users =>
+          .map(_.filter(_.enabled.yes).map(_.only(game.perfKey)))
+          .mapN: (whiteUser, blackUser) =>
             sandbagWatch(game)
-            assessApi.onGameReady(game, users)
+            assessApi.onGameReady(game, ByColor(whiteUser, blackUser))
         if game.status == chess.Status.Cheat then
           game.loserUserId.foreach: userId =>
             logApi.cheatDetectedAndCount(userId, game.id).flatMap { count =>
@@ -97,7 +96,7 @@ final class Env(
     "analysisReady" -> { case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
       assessApi.onAnalysisReady(game, analysis)
     },
-    "deletePublicChats" -> { case lila.core.actorApi.security.DeletePublicChats(userId) =>
+    "deletePublicChats" -> { case lila.core.security.DeletePublicChats(userId) =>
       publicChat.deleteAll(userId)
     },
     "autoWarning" -> { case lila.core.mod.AutoWarning(userId, subject) =>
@@ -107,7 +106,7 @@ final class Env(
       api.autoMark(SuspectId(suspectId), s"Self report: ${name}")(using UserId.lichessAsMe)
     },
     "chatTimeout" -> { case lila.core.mod.ChatTimeout(mod, user, reason, text) =>
-      logApi.chatTimeout(user, reason, text)(using mod.into(Me.Id))
+      logApi.chatTimeout(user, reason, text)(using mod.into(MyId))
     },
     "loginWithWeakPassword"    -> { case u: User => logApi.loginWithWeakPassword(u.id) },
     "loginWithBlankedPassword" -> { case u: User => logApi.loginWithBlankedPassword(u.id) },
@@ -116,12 +115,13 @@ final class Env(
         logApi.teamEdit(t.team.userId, t.team.name)(using t.me)
       case t: lila.core.team.KickFromTeam =>
         logApi.teamKick(t.userId, t.teamName)(using t.me)
-    },
-    "forum" -> { case p: lila.core.forum.RemovePost =>
+    }
+  )
+
+  Bus.chan.forumPost.subscribe:
+    case p: lila.core.forum.RemovePost =>
       if p.asAdmin
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
       else
         logger.info:
           s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
-    }
-  )

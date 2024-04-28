@@ -3,9 +3,9 @@ package lila.simul
 import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
 import lila.core.team.LightTeam
-import lila.rating.Perf
+
 import lila.core.LightUser.Me
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 object SimulCondition:
 

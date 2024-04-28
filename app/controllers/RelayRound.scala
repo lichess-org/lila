@@ -4,13 +4,13 @@ import chess.format.pgn.{ PgnStr, Tag }
 import play.api.data.Form
 import play.api.libs.json.{ Json, OWrites }
 import play.api.mvc.*
-import views.*
 
 import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
+import lila.core.id.{ RelayRoundId, RelayTourId }
 
 final class RelayRound(
     env: Env,
@@ -18,14 +18,14 @@ final class RelayRound(
     apiC: => Api
 ) extends LilaController(env):
 
-  def form(tourId: TourModel.Id) = Auth { ctx ?=> _ ?=>
+  def form(tourId: RelayTourId) = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         Ok.page:
-          html.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
+          views.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
   }
 
-  def create(tourId: TourModel.Id) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
+  def create(tourId: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         val tour = trs.tour
@@ -39,7 +39,7 @@ final class RelayRound(
           .fold(
             err =>
               negotiate(
-                BadRequest.page(html.relay.roundForm.create(err, tour)),
+                BadRequest.page(views.relay.roundForm.create(err, tour)),
                 jsonFormError(err)
               ),
             setup =>
@@ -56,7 +56,7 @@ final class RelayRound(
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
     FoundPage(env.relay.api.byIdAndContributor(id)): rt =>
-      html.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
+      views.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -80,7 +80,7 @@ final class RelayRound(
         _.fold(
           (old, err) =>
             negotiate(
-              BadRequest.page(html.relay.roundForm.edit(old, err)),
+              BadRequest.page(views.relay.roundForm.edit(old, err)),
               jsonFormError(err)
             ),
           rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt, withTour = true)))
@@ -178,7 +178,7 @@ final class RelayRound(
   private def WithTour(id: String)(
       f: TourModel => Fu[Result]
   )(using Context): Fu[Result] =
-    Found(env.relay.api.tourById(TourModel.Id(id)))(f)
+    Found(env.relay.api.tourById(RelayTourId(id)))(f)
 
   private def WithTourAndRoundsCanUpdate(id: String)(
       f: TourModel.WithRounds => Fu[Result]
@@ -217,9 +217,11 @@ final class RelayRound(
         chat     <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
-          html.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
+          views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
         _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
-      yield if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation else Ok(page)
+      yield
+        if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
+        else Ok(page).withHeaders(crossOriginPolicy.unsafe*)
     )(
       studyC.privateUnauthorizedFu(oldSc.study),
       studyC.privateForbiddenFu(oldSc.study)
@@ -231,7 +233,7 @@ final class RelayRound(
     key = "broadcast.round.user"
   )
 
-  private val CreateLimitPerIP = lila.memo.RateLimit[lila.core.IpAddress](
+  private val CreateLimitPerIP = lila.memo.RateLimit[lila.core.net.IpAddress](
     credits = 100 * 10,
     duration = 24.hour,
     key = "broadcast.round.ip"

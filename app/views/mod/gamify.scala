@@ -1,10 +1,9 @@
-package views.html.mod
+package views.mod
 
-import controllers.routes
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.mod.Gamify.Period
 
 object gamify:
@@ -22,12 +21,12 @@ object gamify:
         th("Report points")
       )
 
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("mod.gamify")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.menu("gamify"),
+        views.mod.ui.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content index box")(
           h1(cls := "box__top")(title),
           div(cls := "champs")(
@@ -62,16 +61,16 @@ object gamify:
       ctx: PageContext
   ) =
     val title = s"Moderators of the ${period.name}"
-    views.html.base.layout(
+    views.base.layout(
       title = title,
       moreCss = cssTag("mod.gamify")
     ) {
       main(cls := "page-menu")(
-        views.html.mod.menu("gamify"),
+        views.mod.ui.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content box")(
           boxTop(
             h1(
-              a(href := routes.Mod.gamify, dataIcon := licon.LessThan),
+              a(href := routes.Mod.gamify, dataIcon := Icon.LessThan),
               title
             )
           ),

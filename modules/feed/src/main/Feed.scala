@@ -13,7 +13,6 @@ import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
 import lila.memo.CacheApi
-import lila.core.user.MyId
 import lila.core.user.FlairApi
 
 object Feed:

@@ -5,7 +5,6 @@ import play.api.data.Forms.*
 
 import lila.common.Form.cleanText
 import lila.common.Form.given
-import lila.user.Me
 
 final private[forum] class ForumForm(
     promotion: lila.core.security.PromotionApi,

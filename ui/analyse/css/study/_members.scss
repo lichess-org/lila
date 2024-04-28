@@ -98,7 +98,7 @@
 
   m-config,
   .editing {
-    background: mix($c-accent, $c-bg-box, 10%) !important;
+    background: $m-accent_bg--mix-10 !important;
   }
 
   m-config {

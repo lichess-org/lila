@@ -5,7 +5,7 @@ import lila.core.socket.{ protocol as P, * }
 
 final private class TeamSocket(
     socketKit: SocketKit,
-    chat: lila.chat.ChatApi,
+    chat: lila.core.chat.ChatApi,
     api: TeamApi
 )(using Executor, lila.core.user.FlairGet):
 

@@ -8,9 +8,9 @@ import scala.util.Try
 import scala.util.chaining.*
 
 import lila.common.Form.{ cleanText, into }
-import lila.core.Seconds
+import scalalib.model.Seconds
 import lila.core.perm.Granter
-import lila.user.{ Me, User }
+
 import lila.relay.RelayRound.Sync
 
 final class RelayRoundForm(using mode: play.api.Mode):
@@ -20,7 +20,7 @@ final class RelayRoundForm(using mode: play.api.Mode):
 
   val roundMapping =
     mapping(
-      "name"    -> cleanText(minLength = 3, maxLength = 80).into[RelayRoundName],
+      "name"    -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption" -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
       "syncUrl" -> optional {
         cleanText(minLength = 8, maxLength = 600)
@@ -45,7 +45,7 @@ final class RelayRoundForm(using mode: play.api.Mode):
       )
   }.fill(
     Data(
-      name = RelayRoundName(s"Round ${trs.rounds.size + 1}"),
+      name = RelayRound.Name(s"Round ${trs.rounds.size + 1}"),
       caption = none,
       syncUrlRound = Some(trs.rounds.size + 1)
     )
@@ -102,7 +102,7 @@ object RelayRoundForm:
   )
 
   case class Data(
-      name: RelayRoundName,
+      name: RelayRound.Name,
       caption: Option[RelayRound.Caption],
       syncUrl: Option[String] = None,
       syncUrlRound: Option[Int] = None,

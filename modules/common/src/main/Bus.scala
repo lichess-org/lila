@@ -18,21 +18,30 @@ object NamedBus:
   object fishnet:
     import lila.core.fishnet.*
     def analyseGame(gameId: GameId): Unit                   = Bus.publish(GameRequest(gameId), "fishnet")
-    def analyseStudyChapter(req: StudyChapterRequest): Unit = lila.common.Bus.publish(req, "fishnet")
+    def analyseStudyChapter(req: StudyChapterRequest): Unit = Bus.publish(req, "fishnet")
   object timeline:
     import lila.core.timeline.*
     def apply(propagate: Propagate): Unit = Bus.publish(propagate, "timeline")
+
+final class BusChannel(channel: Bus.Channel):
+  def apply(msg: Bus.Payload): Unit                       = Bus.publish(msg, channel)
+  def subscribe(subscriber: Bus.SubscriberFunction): Unit = Bus.subscribeFun(channel)(subscriber)
+
+object BusChannel:
+  val forumPost = BusChannel("forumPost")
 
 object Bus:
 
   type Channel    = String
   type Subscriber = Tellable
+  type Payload    = Matchable
+
+  type SubscriberFunction = PartialFunction[Payload, Unit]
 
   val named = NamedBus
+  val chan  = BusChannel
 
-  case class Event(payload: Matchable, channel: Channel)
-
-  def publish(payload: Matchable, channel: Channel): Unit = bus.publish(payload, channel)
+  def publish(payload: Payload, channel: Channel): Unit = bus.publish(payload, channel)
 
   export bus.{ size, subscribe, unsubscribe }
 
@@ -45,12 +54,12 @@ object Bus:
     bus.subscribe(Tellable.SyncActor(ref), _)
   }
 
-  def subscribeFun(to: Channel*)(f: PartialFunction[Matchable, Unit]): Tellable =
+  def subscribeFun(to: Channel*)(f: SubscriberFunction): Tellable =
     val t = Tellable(f)
     subscribe(t, to*)
     t
 
-  def subscribeFuns(subscriptions: (Channel, PartialFunction[Matchable, Unit])*): Unit =
+  def subscribeFuns(subscriptions: (Channel, SubscriberFunction)*): Unit =
     subscriptions.foreach: (channel, subscriber) =>
       subscribeFun(channel)(subscriber)
 
@@ -74,7 +83,7 @@ object Bus:
       .withTimeout(timeout, s"Bus.ask $channel $msg")
       .monSuccess(_.bus.ask(s"${channel}_${msg.getClass}"))
 
-  private val bus = EventBus[Matchable, Channel, Tellable](
+  private val bus = EventBus[Payload, Channel, Tellable](
     initialCapacity = 4096,
     publish = (tellable, event) => tellable ! event
   )

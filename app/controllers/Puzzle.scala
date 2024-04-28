@@ -5,13 +5,13 @@ import play.api.data.Form
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
-
 import scala.util.chaining.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.core.{ ApiVersion, LangPath }
+import lila.core.net.ApiVersion
+import lila.ui.LangPath
+import lila.core.id.PuzzleId
 import lila.puzzle.{
   Puzzle as Puz,
   PuzzleAngle,
@@ -21,10 +21,11 @@ import lila.puzzle.{
   PuzzleStreak,
   PuzzleTheme
 }
-import lila.rating.Perf
-import lila.core.perf.PerfType
-import lila.user.User
+
+import lila.rating.PerfType
+
 import lila.core.i18n.Translate
+import lila.core.user.WithPerf
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -54,7 +55,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     settings <- ctx.user.soFu(env.puzzle.session.getSettings)
     prefJson = env.puzzle.jsonView.pref(ctx.pref)
     page <- renderPage:
-      views.html.puzzle.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
+      views.puzzle.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
   yield Ok(page).enforceCrossSiteIsolation
 
   def daily = Open:
@@ -123,7 +124,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     for
       user    <- userId.so(env.user.repo.enabledById).orElse(fuccess(ctx.me.map(_.value)))
       puzzles <- user.soFu(env.puzzle.api.puzzle.of(_, page))
-      page    <- renderPage(views.html.puzzle.ofPlayer(name.so(_.value), user, puzzles))
+      page    <- renderPage(views.puzzle.ofPlayer(name.so(_.value), user, puzzles))
     yield Ok(page)
 
   private def onComplete[A](
@@ -219,12 +220,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     FoundPage(streakJsonAndPuzzle): (json, puzzle) =>
       val prefJson = env.puzzle.jsonView.pref(ctx.pref)
       val langPath = LangPath(routes.Puzzle.streak).some
-      views.html.puzzle.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
+      views.puzzle.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
     .map(_.noCache.enforceCrossSiteIsolation)
 
   private def streakJsonAndPuzzle(using Translate) =
     given Option[Me] = none
-    given Perf       = Perf.default
+    given Perf       = lila.rating.Perf.default
     env.puzzle.streak.apply.flatMapz { case PuzzleStreak(ids, puzzle) =>
       env.puzzle.jsonView(puzzle = puzzle, PuzzleAngle.mix.some, none).map { puzzleJson =>
         (puzzleJson ++ Json.obj("streak" -> ids), puzzle).some
@@ -232,8 +233,8 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     }
 
   private def setStreakResult(userId: UserId, score: Int) =
-    lila.common.Bus.publish(lila.core.actorApi.puzzle.StreakRun(userId, score), "streakRun")
-    env.user.perfsRepo.addStreakRun(userId, score)
+    lila.common.Bus.publish(lila.core.misc.puzzle.StreakRun(userId, score), "streakRun")
+    env.user.api.addPuzRun("streak", userId, score)
 
   def apiStreak = Anon:
     streakJsonAndPuzzle.orNotFound: (json, _) =>
@@ -294,7 +295,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   private def serveThemes(using Context) =
     env.puzzle.api.angles.flatMap: angles =>
       negotiate(
-        html = Ok.page(views.html.puzzle.theme.list(angles)),
+        html = Ok.page(views.puzzle.themes(angles)),
         json = Ok(lila.puzzle.JsonView.angles(angles))
       )
 
@@ -310,7 +311,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .flatMap: mine =>
           negotiate(
             html = Ok.page:
-              views.html.puzzle.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
+              views.puzzle.openings(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
             ,
             json = Ok(lila.puzzle.JsonView.openings(collection, mine))
           )
@@ -364,7 +365,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def frame = Anon:
     InEmbedContext:
       env.puzzle.daily.get.flatMap:
-        _.fold(InternalServerError("No daily puzzle yet").toFuccess)(p => Ok(html.puzzle.embed(p)))
+        _.fold(InternalServerError("No daily puzzle yet").toFuccess)(p => Ok(views.puzzle.embed(p)))
 
   def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
     val config = lila.puzzle.PuzzleActivity.Config(
@@ -385,10 +386,10 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     DashboardPage(u) { ctx ?=> user =>
       env.puzzle.dashboard(user, days).flatMap { dashboard =>
         path match
-          case "dashboard" => Ok.page(views.html.puzzle.dashboard.home(user, dashboard, days))
+          case "dashboard" => Ok.page(views.puzzle.dashboard.home(user, dashboard, days))
           case "improvementAreas" =>
-            Ok.page(views.html.puzzle.dashboard.improvementAreas(user, dashboard, days))
-          case "strengths" => Ok.page(views.html.puzzle.dashboard.strengths(user, dashboard, days))
+            Ok.page(views.puzzle.dashboard.improvementAreas(user, dashboard, days))
+          case "strengths" => Ok.page(views.puzzle.dashboard.strengths(user, dashboard, days))
           case _ =>
             Redirect(routes.Puzzle.dashboard(days, "dashboard", (ctx.isnt(user)).option(user.username)))
       }
@@ -410,7 +411,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           env.puzzle
             .history(user.withPerf(perf), page)
             .map:
-              views.html.puzzle.history(user, _)
+              views.puzzle.history(user, _)
   }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>
@@ -516,9 +517,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    Ok.page(html.site.help.puzzle)
+    Ok.page(lila.web.views.help.puzzle)
 
-  private def DashboardPage(username: Option[UserStr])(f: Context ?=> User => Fu[Result]) =
+  private def DashboardPage(username: Option[UserStr])(f: Context ?=> lila.user.User => Fu[Result]) =
     Auth { ctx ?=> me ?=>
       meOrFetch(username)
         .flatMapz: user =>

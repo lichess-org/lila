@@ -1,19 +1,20 @@
 package lila.swiss
 
 import chess.ByColor
+import monocle.syntax.all.*
 
 import lila.db.dsl.{ *, given }
-import lila.game.Game
 
 final private class SwissDirector(
     mongo: SwissMongo,
     pairingSystem: PairingSystem,
     manualPairing: SwissManualPairing,
-    gameRepo: lila.game.GameRepo,
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
     onStart: lila.core.game.OnStart
 )(using
     ec: Executor,
-    idGenerator: lila.game.IdGenerator
+    idGenerator: lila.core.game.IdGenerator
 ):
   import BsonHandlers.given
 
@@ -78,8 +79,8 @@ final private class SwissDirector(
       .monSuccess(_.swiss.startRound)
 
   private def makeGame(swiss: Swiss, players: Map[UserId, SwissPlayer])(pairing: SwissPairing): Game =
-    Game
-      .make(
+    lila.core.game
+      .newGame(
         chess = chess
           .Game(
             variantOption = Some {
@@ -91,12 +92,13 @@ final private class SwissDirector(
           .copy(clock = swiss.clock.toClock.some),
         players = ByColor: c =>
           val player = players.get(pairing(c)).err(s"Missing pairing $c $pairing")
-          lila.game.Player.make(c, player.userId, player.rating, player.provisional)
+          newPlayer(c, player.userId, player.rating, player.provisional)
         ,
         mode = chess.Mode(swiss.settings.rated),
         source = lila.core.game.Source.Swiss,
         pgnImport = None
       )
       .withId(pairing.gameId)
-      .withSwissId(swiss.id)
+      .focus(_.metadata.swissId)
+      .replace(swiss.id.some)
       .start

@@ -1,36 +1,34 @@
-package views.html.analyse
+package views.analyse
 
 import chess.Color
 import chess.format.pgn.PgnStr
 import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.html.safeJsonValue
 
 object embed:
 
   def lpv(pgn: PgnStr, orientation: Option[Color], getPgn: Boolean)(using EmbedContext) =
-    views.html.base.embed(
+    views.base.embed(
       title = "Lichess PGN viewer",
-      cssModule = "lpv.embed"
+      cssModule = "lpv.embed",
+      modules = EsmInit("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
-      jsModule("lpv.embed"),
       lpvJs(orientation, getPgn)
     )
 
   def lpvJs(orientation: Option[Color], getPgn: Boolean)(using config: EmbedContext): Frag = lpvJs:
     lpvConfig(orientation, getPgn)
 
-  def lpvJs(lpvConfig: JsObject)(using ctx: EmbedContext): Frag = embedJsUnsafe(
-    s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
+  def lpvJs(lpvConfig: JsObject)(using ctx: EmbedContext): Frag =
+    embedJsUnsafe(s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
         lpvConfig ++ Json.obj(
           "i18n" -> i18nJsObject(lpvI18n)
         )
-      )})})""",
-    ctx.nonce
-  )
+      )})})""")(ctx.nonce.some)
 
   def lpvConfig(orientation: Option[Color], getPgn: Boolean)(using config: EmbedContext) = Json
     .obj(
@@ -48,7 +46,7 @@ object embed:
   )
 
   def notFound(using EmbedContext) =
-    views.html.base.embed(
+    views.base.embed(
       title = "404 - Game not found",
       cssModule = "lpv.embed"
     ):

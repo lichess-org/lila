@@ -39,10 +39,9 @@
   }
 
   &::after {
-    @if $theme == 'transp' {
-      background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
-    } @else {
-      @extend %metal;
+    @extend %metal;
+    @include if-transp {
+      background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
     }
 
     border-radius: 100%;
@@ -83,10 +82,9 @@
     }
 
     &::after {
-      @if $theme == 'transp' {
-        background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);
-      } @else {
-        @extend %metal;
+      @extend %metal;
+      @include if-transp {
+        background: linear-gradient(to bottom, hsl($site-hue, 7%, 22), hsl($site-hue, 5%, 19) 100%);
       }
       @include transition(margin);
     }

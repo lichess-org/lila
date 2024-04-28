@@ -81,13 +81,13 @@
 }
 
 %active-hover {
-  background: mix(white, $c-accent, 20%);
+  background: $m-accent_white--mix-80;
 }
 
 %active-soft {
   @extend %active-inset-shadow;
 
-  background: $c-shade;
+  background: $c-shade !important;
   color: $c-font-clearer;
   text-shadow: 1px 1px 1px $c-font-shadow !important;
   font-weight: bold;
@@ -102,14 +102,14 @@
 }
 
 %dropdown-shadow {
-  @if $theme == 'transp' {
+  @include if-transp {
     @include back-blur();
   }
   box-shadow: -1px 5px 6px rgba(0, 0, 0, 0.3);
 }
 
 %popup-shadow {
-  @if $theme == 'transp' {
+  @include if-transp {
     @include back-blur();
   }
   box-shadow:
@@ -169,15 +169,15 @@
 }
 
 %box-padding {
-  padding: $box-padding-vert var(--box-padding);
+  padding: $box-padding-vert var(---box-padding);
 }
 
 %box-padding-horiz {
-  padding: 0 var(--box-padding);
+  padding: 0 var(---box-padding);
 }
 %box-margin-horiz {
-  margin-left: var(--box-padding);
-  margin-right: var(--box-padding);
+  margin-left: var(---box-padding);
+  margin-right: var(---box-padding);
 }
 
 %break-word {

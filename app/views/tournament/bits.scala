@@ -1,114 +1,47 @@
-package views.html.tournament
+package views.tournament
 
-import controllers.routes
+import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.I18nKey as trans
-import lila.tournament.Tournament
+import lila.tournament.{ Tournament, TeamBattle }
+import lila.core.team.LightTeam
 
-object bits:
+lazy val ui = lila.tournament.ui.TournamentUi(helpers)(
+  assetUrl,
+  env.tournament.getTourName,
+  lila.i18n.Translator.toDefault
+)
 
-  def notFound()(using PageContext) =
-    views.html.base.layout(
-      title = trans.site.tournamentNotFound.txt()
-    ) {
-      main(cls := "page-small box box-pad")(
-        h1(cls := "box__top")(trans.site.tournamentNotFound()),
-        p(trans.site.tournamentDoesNotExist()),
-        p(trans.site.tournamentMayHaveBeenCanceled()),
-        br,
-        br,
-        a(href := routes.Tournament.home)(trans.site.returnToTournamentsHomepage())
-      )
-    }
+def notFound(using PageContext) =
+  views.base.layout(title = trans.site.tournamentNotFound.txt())(ui.notFound)
 
-  def enterable(tours: List[Tournament])(using Context) =
-    table(cls := "tournaments")(
-      tours.map: tour =>
-        val visiblePlayers = (tour.nbPlayers >= 10).option(tour.nbPlayers)
-        tr(
-          td(cls := "name")(
-            a(cls := "text", dataIcon := tournamentIcon(tour), href := routes.Tournament.show(tour.id)):
-              tour.name(full = false)
-          ),
-          td(
-            if tour.isStarted then timeRemaining(tour.finishesAt)
-            else momentFromNow(tour.schedule.fold(tour.startsAt)(_.at.instant))
-          ),
-          td(tour.durationString),
-          tour.conditions.teamMember match
-            case Some(t) =>
-              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := t.teamName)(visiblePlayers)
-            case _ if tour.isTeamBattle =>
-              td(dataIcon := licon.Group, cls := "text tour-team-icon", title := trans.team.teamBattle.txt()):
-                visiblePlayers
-            case None => td(dataIcon := licon.User, cls := "text")(visiblePlayers)
-        )
-    )
+def faq(using PageContext) =
+  views.base.layout(
+    title = trans.site.tournamentFAQ.txt(),
+    moreCss = cssTag("page")
+  )(show.ui.faq.page)
 
-  def userPrizeDisclaimer(ownerId: UserId) =
-    (!env.prizeTournamentMakers
-      .get()
-      .value
-      .contains(ownerId))
-      .option(
-        div(cls := "tour__prize")(
-          "This tournament is not organized by Lichess.",
-          br,
-          "If it has prizes, Lichess is not responsible for paying them."
-        )
-      )
+object teamBattle:
 
-  def scheduleJsI18n(using Context) = i18nJsObject(schedulei18nKeys)
+  private lazy val ui = lila.tournament.ui.TeamBattleUi(helpers)
 
-  def jsI18n(tour: Tournament)(using Context) = i18nJsObject(
-    i18nKeys ++ (tour.isTeamBattle.so(teamBattleI18nKeys))
-  )
+  def edit(tour: Tournament, form: Form[?])(using PageContext) =
+    views.base.layout(
+      title = tour.name(),
+      moreCss = cssTag("tournament.form"),
+      modules = EsmInit("bits.teamBattleForm")
+    )(ui.edit(tour, form))
 
-  private val i18nKeys = List(
-    trans.site.standing,
-    trans.site.starting,
-    trans.swiss.startingIn,
-    trans.site.tournamentIsStarting,
-    trans.site.youArePlaying,
-    trans.site.standByX,
-    trans.site.tournamentPairingsAreNowClosed,
-    trans.site.join,
-    trans.site.pause,
-    trans.site.withdraw,
-    trans.site.joinTheGame,
-    trans.site.signIn,
-    trans.site.averageElo,
-    trans.site.gamesPlayed,
-    trans.site.nbPlayers,
-    trans.site.winRate,
-    trans.site.berserkRate,
-    trans.study.downloadAllGames,
-    trans.site.performance,
-    trans.site.tournamentComplete,
-    trans.site.movesPlayed,
-    trans.site.whiteWins,
-    trans.site.blackWins,
-    trans.site.drawRate,
-    trans.site.nextXTournament,
-    trans.site.averageOpponent,
-    trans.site.tournamentEntryCode,
-    trans.site.topGames
-  )
+  def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(using PageContext) =
+    views.base.layout(
+      title = tour.name(),
+      moreCss = cssTag("tournament.show.team-battle")
+    )(ui.standing(tour, standing))
 
-  private val teamBattleI18nKeys = List(
-    trans.arena.viewAllXTeams,
-    trans.site.players,
-    trans.arena.averagePerformance,
-    trans.arena.averageScore,
-    trans.team.teamPage,
-    trans.arena.pickYourTeam,
-    trans.arena.whichTeamWillYouRepresentInThisBattle,
-    trans.arena.youMustJoinOneOfTheseTeamsToParticipate
-  )
-
-  private val schedulei18nKeys = List(
-    trans.site.ratedTournament,
-    trans.site.casualTournament
-  )
+  def teamInfo(tour: Tournament, team: LightTeam, info: TeamBattle.TeamInfo)(using
+      ctx: PageContext
+  ) =
+    views.base.layout(
+      title = s"${tour.name()} • ${team.name}",
+      moreCss = cssTag("tournament.show.team-battle")
+    )(ui.teamInfo(tour, team, info))

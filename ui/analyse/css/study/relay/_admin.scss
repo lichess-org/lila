@@ -32,7 +32,7 @@
     &.clickable:hover {
       cursor: pointer;
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
     }
 
     > div {
@@ -45,13 +45,13 @@
     }
 
     &.off {
-      background: mix($c-primary, $c-bg-box, 80%);
+      background: $m-primary_bg--mix-80;
       color: #fff;
     }
 
     &.on {
       background: $c-good;
-      color: $c-good-over;
+      color: $c-over;
     }
   }
 

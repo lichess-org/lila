@@ -1,19 +1,14 @@
-package views
-package html.puzzle
+package views.puzzle
 
-import controllers.routes
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.puzzle.{ PuzzleDashboard, PuzzleTheme }
-import lila.user.User
 
 object dashboard:
 
-  private val baseClass   = "puzzle-dashboard"
-  private val metricClass = s"${baseClass}__metric"
-  private val themeClass  = s"${baseClass}__theme"
+  import bits.dashboard.*
 
   def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
     dashboardLayout(
@@ -25,32 +20,14 @@ object dashboard:
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
       dashOpt = dashOpt,
-      pageModule = PageModule(
-        "puzzle.dashboard",
-        dashOpt.so: dash =>
-          val mostPlayed = dash.mostPlayed.sortBy { (key, _) => PuzzleTheme(key).name.txt() }
-          Json.obj(
-            "radar" -> Json.obj(
-              "labels" -> mostPlayed.map: (key, _) =>
-                PuzzleTheme(key).name.txt(),
-              "datasets" -> Json.arr(
-                Json.obj(
-                  "label" -> "Performance",
-                  "data" -> mostPlayed.map: (_, results) =>
-                    results.performance
-                )
-              )
-            )
-          )
-      ).some
-    ) { dash =>
+      pageModule = pageModule(dashOpt)
+    ): dash =>
       (dash.mostPlayed.size > 2).option(
         div(cls := s"${baseClass}__global")(
           metricsOf(days, PuzzleTheme.mix.key, dash.global),
           canvas(cls := s"${baseClass}__radar")
         )
       )
-    }
 
   def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
     dashboardLayout(
@@ -62,9 +39,8 @@ object dashboard:
         else s"${user.username} ${trans.puzzle.improvementAreas.txt()}",
       subtitle = trans.puzzle.improvementAreasDescription.txt(),
       dashOpt = dashOpt
-    ) { dash =>
+    ): dash =>
       dash.weakThemes.nonEmpty.option(themeSelection(days, dash.weakThemes))
-    }
 
   def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
     dashboardLayout(
@@ -76,9 +52,8 @@ object dashboard:
         else s"${user.username} ${trans.puzzle.strengths.txt()}",
       subtitle = trans.puzzle.strengthDescription.txt(),
       dashOpt = dashOpt
-    ) { dash =>
+    ): dash =>
       dash.strongThemes.nonEmpty.option(themeSelection(days, dash.strongThemes))
-    }
 
   private def dashboardLayout(
       user: User,
@@ -88,14 +63,12 @@ object dashboard:
       subtitle: String,
       dashOpt: Option[PuzzleDashboard],
       pageModule: Option[PageModule] = None
-  )(
-      body: PuzzleDashboard => Option[Frag]
-  )(using PageContext) =
-    views.html.base.layout(
+  )(body: PuzzleDashboard => Option[Frag])(using PageContext) =
+    views.base.layout(
       title = title,
       moreCss = cssTag("puzzle.dashboard"),
       pageModule = pageModule
-    )(
+    ):
       main(cls := "page-menu")(
         bits.pageMenu(path, user.some),
         div(cls := s"page-menu__content box box-pad $baseClass")(
@@ -104,15 +77,14 @@ object dashboard:
               title,
               strong(subtitle)
             ),
-            views.html.base.bits.mselect(
+            lila.ui.bits.mselect(
               s"${baseClass}__day-select box__top__actions",
               span(trans.site.nbDays.pluralSame(days)),
-              PuzzleDashboard.dayChoices.map { d =>
+              PuzzleDashboard.dayChoices.map: d =>
                 a(
                   cls  := (d == days).option("current"),
                   href := routes.Puzzle.dashboard(d, path, user.username.some)
                 )(trans.site.nbDays.pluralSame(d))
-              }
             )
           ),
           dashOpt.flatMap(body) |
@@ -121,51 +93,3 @@ object dashboard:
             )
         )
       )
-    )
-
-  private def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(using
-      ctx: PageContext
-  ) =
-    themes.map { case (key, results) =>
-      div(cls := themeClass)(
-        div(cls := s"${themeClass}__meta")(
-          h3(cls := s"${themeClass}__name")(
-            a(href := routes.Puzzle.show(key.value))(PuzzleTheme(key).name())
-          ),
-          p(cls := s"${themeClass}__description")(PuzzleTheme(key).description())
-        ),
-        metricsOf(days, key, results)
-      )
-    }
-
-  private def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(using
-      ctx: PageContext
-  ) =
-    div(cls := s"${baseClass}__metrics")(
-      div(cls := s"$metricClass $metricClass--played")(
-        trans.puzzle.nbPlayed.plural(results.nb, strong(results.nb.localize))
-      ),
-      ctx.pref.showRatings.option(
-        div(cls := s"$metricClass $metricClass--perf")(
-          strong(results.performance, results.unclear.so("?")),
-          span(trans.site.performance())
-        )
-      ),
-      div(
-        cls   := s"$metricClass $metricClass--win",
-        style := s"--first:${results.firstWinPercent}%;--win:${results.winPercent}%"
-      )(
-        trans.puzzle.percentSolved(strong(s"${results.winPercent}%"))
-      ),
-      a(
-        cls  := s"$metricClass $metricClass--fix",
-        href := results.canReplay.option(routes.Puzzle.replay(days, theme).url)
-      )(
-        results.canReplay.option(
-          span(cls := s"$metricClass--fix__text")(
-            trans.puzzle.nbToReplay.plural(results.unfixed, strong(results.unfixed))
-          )
-        ),
-        iconTag(if results.canReplay then licon.PlayTriangle else licon.Checkmark)
-      )
-    )

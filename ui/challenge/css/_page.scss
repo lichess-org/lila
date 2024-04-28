@@ -78,9 +78,8 @@
   .details {
     @extend %flex-between, %box-neat;
 
-    $c-bg: mix($c-good, $c-bg-box, 10%);
-    --c-font: #{$c-good};
-    --c-bg: #{$c-bg};
+    --c-font: #{$c-secondary};
+    --c-bg: #{$m-secondary_bg--mix-10};
 
     padding: $block-gap 4vw;
     margin-bottom: 4rem;
@@ -125,9 +124,8 @@
   }
 
   &.challenge--declined .details {
-    $c-bg: mix($c-bad, $c-bg-box, 10%);
     --c-font: #{$c-bad};
-    --c-bg: #{$c-bg};
+    --c-bg: #{c_bad_bg--mix-10};
   }
 
   .challenge-reason {

@@ -3,7 +3,6 @@ package lila.push
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final class WebSubscriptionApi(coll: Coll)(using Executor):
 

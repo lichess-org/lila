@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="perfStats">%s štatistiky</string>
-  <string name="viewTheGames">Zobraziť hry</string>
+  <string name="viewTheGames">Zobraziť partie</string>
   <string name="provisional">provizórny</string>
   <string name="notEnoughRatedGames">Na zaistenie spoľahlivého ratingu sa neodohralo dosť hodnotených hier.</string>
   <string name="progressOverLastXGames">Postup počas posledných %s hier:</string>

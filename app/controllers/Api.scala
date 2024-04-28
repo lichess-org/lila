@@ -10,9 +10,12 @@ import lila.api.GameApiV2
 import lila.app.{ *, given }
 
 import lila.common.HTTPRequest
-import lila.core.{ IpAddress, LightUser }
+import lila.core.LightUser
+import lila.core.net.IpAddress
+import lila.core.chess.MultiPv
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
+import lila.core.perf.PerfKeyStr
 
 final class Api(
     env: Env,
@@ -37,7 +40,7 @@ final class Api(
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
 
   def index = Anon:
-    Ok(views.html.site.bits.api)
+    Ok(views.base.bits.api)
 
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
     userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):
@@ -244,7 +247,7 @@ final class Api(
 
   def gamesByUsersStream = AnonOrScopedBody(parse.tolerantText)(): ctx ?=>
     val max = ctx.me.fold(300): u =>
-      if u.is(lila.user.User.lichess4545Id) then 900 else 500
+      if u.is(UserId.lichess4545) then 900 else 500
     withIdsFromReqBody[UserId](ctx.body, max, id => UserStr.read(id).map(_.id)): ids =>
       GlobalConcurrencyLimitPerIP.events(ctx.ip)(
         ndJson.addKeepAlive:
@@ -269,7 +272,7 @@ final class Api(
 
   private def gamesByIdsMax(using ctx: Context) =
     ctx.me.fold(500): u =>
-      if u == lila.user.User.challengermodeId then 10_000 else 1000
+      if u == UserId.challengermode then 10_000 else 1000
 
   private def withIdsFromReqBody[Id](
       req: Request[String],
@@ -327,7 +330,7 @@ final class Api(
         .map(toApiResult)
 
   private val ApiMoveStreamGlobalConcurrencyLimitPerIP =
-    lila.memo.ConcurrencyLimit[IpAddress](
+    lila.web.ConcurrencyLimit[IpAddress](
       name = "API concurrency per IP",
       key = "round.apiMoveStream.ip",
       ttl = 20.minutes,
@@ -340,7 +343,7 @@ final class Api(
         ndJson.addKeepAlive(env.round.apiMoveStream(game, gameC.delayMovesFromReq))
       )(jsOptToNdJson)
 
-  def perfStat(username: UserStr, perfKey: lila.core.perf.PerfKey) = ApiRequest:
+  def perfStat(username: UserStr, perfKey: PerfKeyStr) = ApiRequest:
     env.perfStat.api
       .data(username, perfKey)
       .map:
@@ -377,32 +380,32 @@ final class Api(
     Ok.chunked(source.map(_ + "\n")).as(csvContentType).pipe(noProxyBuffer)
 
   private[controllers] object GlobalConcurrencyLimitPerIP:
-    val events = lila.memo.ConcurrencyLimit[IpAddress](
+    val events = lila.web.ConcurrencyLimit[IpAddress](
       name = "API events concurrency per IP",
       key = "api.ip.events",
       ttl = 1.hour,
       maxConcurrency = 4
     )
-    val download = lila.memo.ConcurrencyLimit[IpAddress](
+    val download = lila.web.ConcurrencyLimit[IpAddress](
       name = "API download concurrency per IP",
       key = "api.ip.download",
       ttl = 1.hour,
       maxConcurrency = 2
     )
-    val generous = lila.memo.ConcurrencyLimit[IpAddress](
+    val generous = lila.web.ConcurrencyLimit[IpAddress](
       name = "API generous concurrency per IP",
       key = "api.ip.generous",
       ttl = 1.hour,
       maxConcurrency = 20
     )
 
-  private[controllers] val GlobalConcurrencyLimitUser = lila.memo.ConcurrencyLimit[UserId](
+  private[controllers] val GlobalConcurrencyLimitUser = lila.web.ConcurrencyLimit[UserId](
     name = "API concurrency per user",
     key = "api.user",
     ttl = 1.hour,
     maxConcurrency = 2
   )
-  private[controllers] val GlobalConcurrencyLimitUserMobile = lila.memo.ConcurrencyLimit[UserId](
+  private[controllers] val GlobalConcurrencyLimitUserMobile = lila.web.ConcurrencyLimit[UserId](
     name = "API concurrency per mobile user",
     key = "api.user.mobile",
     ttl = 1.hour,
@@ -428,7 +431,7 @@ final class Api(
         GlobalConcurrencyLimitPerUserOption[T].map: limitUser =>
           makeResult(limitIp(limitUser(makeSource)))
       .getOrElse:
-        lila.memo.ConcurrencyLimit.limitedDefault(1)
+        lila.web.ConcurrencyLimit.limitedDefault(1)
 
   private type SourceIdentity[T] = Source[T, ?] => Source[T, ?]
 

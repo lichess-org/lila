@@ -16,7 +16,7 @@
       .title {
         font-size: 0.9rem;
         line-height: 1.9em;
-        background: mix($c-secondary, $c-bg-box, 40%);
+        background: $m-secondary_bg--mix-40;
         padding: 0 7px;
         a {
           font-weight: bold;
@@ -96,8 +96,8 @@
       }
 
       &.highlighted {
-        background: mix($c-primary, $c-bg-box, 80%);
-        color: $c-primary-over;
+        background: $m-primary_bg--mix-80;
+        color: $c-over;
 
         &:hover {
           background: $c-primary;
@@ -137,7 +137,7 @@
     .active {
       margin-top: -3px;
       padding-top: 3px;
-      color: $c-good-over;
+      color: $c-over;
     }
 
     @include mq-is-col1 {

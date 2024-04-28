@@ -7,7 +7,7 @@ import play.api.ConfigLoader
 
 import scala.util.Try
 
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.common.autoconfig.*
 import lila.core.config.ConfigName
 import lila.core.security.IsProxy
@@ -52,7 +52,7 @@ case class Location(
     city: Option[String]
 ):
 
-  lazy val id = lila.common.String.slugify:
+  lazy val id = scalalib.StringOps.slug:
     List(shortCountry.some, region, city).flatten.mkString("")
 
   def shortCountry: String = ~country.split(',').headOption

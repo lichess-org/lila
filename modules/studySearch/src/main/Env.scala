@@ -9,7 +9,6 @@ import lila.common.LateMultiThrottler
 import lila.core.study.RemoveStudy
 import lila.search.*
 import lila.study.Study
-import lila.user.User
 
 final class Env(
     studyRepo: lila.study.StudyRepo,

@@ -3,7 +3,6 @@ package lila.team
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 final class TeamRequestRepo(val coll: Coll)(using Executor):
 

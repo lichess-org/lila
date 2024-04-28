@@ -1,7 +1,6 @@
 package lila.forum
 
 import lila.db.dsl.{ *, given }
-import lila.user.User
 
 import Filter.*
 import lila.core.forum.ForumTopicMini

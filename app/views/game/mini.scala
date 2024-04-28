@@ -1,12 +1,11 @@
-package views.html.game
+package views.game
 
 import chess.format.Fen
-import controllers.routes
+
 import play.api.i18n.Lang
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.game.Pov
+
 import lila.core.i18n.defaultLang
 
 object mini:
@@ -65,7 +64,7 @@ object mini:
   private def renderPlayer(pov: Pov, withRating: Boolean)(using Translate) =
     span(cls := "mini-game__player")(
       span(cls := "mini-game__user")(
-        playerUsername(pov.player.light, pov.player.userId.flatMap(lightUser), withRating = false),
+        playerUsername(pov.player.light, pov.player.userId.flatMap(lightUserSync), withRating = false),
         withRating.option(span(cls := "rating")(lila.game.Namer.ratingString(pov.player)))
       ),
       if pov.game.finished then renderResult(pov)

@@ -10,6 +10,7 @@ import lila.tree.*
 
 object TreeBuilder:
 
+  type LogChessError     = String => Unit
   private type OpeningOf = Fen.Full => Option[Opening]
 
   private def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
@@ -18,13 +19,15 @@ object TreeBuilder:
       game: Game,
       analysis: Option[Analysis],
       initialFen: Fen.Full,
-      withFlags: ExportOptions
+      withFlags: ExportOptions,
+      logChessError: LogChessError
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
-    val drawOfferPlies                     = game.drawOfferPlies
+    val drawOfferPlies                     = game.drawOffers.normalizedPlies
     chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
       case (init, games, error) =>
-        error.foreach(logChessError(game.id))
+        error.foreach: err =>
+          logChessError(formatError(game.id, err))
         val openingOf: OpeningOf =
           if withFlags.opening && Variant.list.openingSensibleVariants(game.variant) then
             OpeningDb.findByFullFen
@@ -72,7 +75,14 @@ object TreeBuilder:
             .get(g.ply + 1)
             .flatMap { adv =>
               games.lift(index - 1).map { case (fromGame, _) =>
-                withAnalysisChild(game.id, branch, game.variant, Fen.write(fromGame), openingOf)(adv.info)
+                withAnalysisChild(
+                  game.id,
+                  branch,
+                  game.variant,
+                  Fen.write(fromGame),
+                  openingOf,
+                  logChessError
+                )(adv.info)
               }
             }
             .getOrElse(branch)
@@ -95,7 +105,8 @@ object TreeBuilder:
       root: Branch,
       variant: Variant,
       fromFen: Fen.Full,
-      openingOf: OpeningOf
+      openingOf: OpeningOf,
+      logChessError: LogChessError
   )(info: Info): Branch =
     def makeBranch(g: chess.Game, m: Uci.WithSan) =
       val fen = Fen.write(g)
@@ -111,7 +122,8 @@ object TreeBuilder:
       )
     chess.Replay.gameMoveWhileValid(info.variation.take(20), fromFen, variant) match
       case (_, games, error) =>
-        error.foreach(logChessError(id))
+        error.foreach: err =>
+          logChessError(formatError(id, err))
         games.reverse match
           case Nil => root
           case (g, m) :: rest =>
@@ -123,7 +135,5 @@ object TreeBuilder:
                 .setComp
             )
 
-  private val logChessError = (id: GameId) =>
-    val logger = lila.log("round")
-    (err: chess.ErrorStr) =>
-      logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}")
+  private def formatError(id: GameId, err: chess.ErrorStr) =
+    s"TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}"

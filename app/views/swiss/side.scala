@@ -1,10 +1,7 @@
-package views
-package html.swiss
-
-import controllers.routes
+package views.swiss
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.common.String.html.markdownLinksOrRichText
 import lila.gathering.Condition
 import lila.gathering.Condition.WithVerdicts
@@ -27,7 +24,7 @@ object side:
             p(
               s.clock.show,
               separator,
-              views.html.game.bits.variantLink(s.variant, s.perfType, shortName = true),
+              variantLink(s.variant, s.perfType, shortName = true),
               separator,
               if s.settings.rated then trans.site.ratedTournament() else trans.site.casualTournament()
             ),
@@ -40,7 +37,7 @@ object side:
               (isGranted(_.ManageTournament) || (ctx.is(s.createdBy) && s.isEnterable)).option(
                 frag(
                   " ",
-                  a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(licon.Gear))
+                  a(href := routes.Swiss.edit(s.id), title := "Edit tournament")(iconTag(Icon.Gear))
                 )
               )
             ),
@@ -49,7 +46,7 @@ object side:
         ),
         s.settings.description.map: d =>
           st.section(cls := "description")(markdownLinksOrRichText(d)),
-        s.looksLikePrize.option(views.html.tournament.bits.userPrizeDisclaimer(s.createdBy)),
+        s.looksLikePrize.option(views.gathering.userPrizeDisclaimer(s.createdBy)),
         s.settings.position
           .flatMap(p => lila.tournament.Thematic.byFen(p.opening))
           .map { pos =>
@@ -59,14 +56,14 @@ object side:
             div(
               trans.site.customPosition(),
               " • ",
-              views.html.base.bits.fenAnalysisLink(fen)
+              lila.ui.bits.fenAnalysisLink(fen)
             )),
         teamLink(s.teamId),
-        views.html.gathering.verdicts(verdicts, s.perfType, s.isEnterable) | br,
+        views.gathering.verdicts(verdicts, s.perfType, s.isEnterable) | br,
         small(trans.site.by(userIdLink(s.createdBy.some))),
         br,
         absClientInstant(s.startsAt)
       ),
-      views.html.streamer.bits.contextual(streamers),
-      chat.option(views.html.chat.frag)
+      views.streamer.bits.contextual(streamers),
+      chat.option(views.chat.frag)
     )

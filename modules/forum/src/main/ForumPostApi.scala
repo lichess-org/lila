@@ -7,7 +7,6 @@ import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.perm.Granter as MasterGranter
-import lila.user.{ Me, User, given }
 import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
 
 final class ForumPostApi(
@@ -32,8 +31,8 @@ final class ForumPostApi(
       data: ForumForm.PostData
   )(using me: Me): Fu[ForumPost] =
     detectLanguage(data.text).zip(recentUserIds(topic, topic.nbPosts)).flatMap { (lang, topicUserIds) =>
-      val publicMod = MasterGranter[Me](_.PublicMod)
-      val modIcon   = ~data.modIcon && (publicMod || MasterGranter[Me](_.SeeReport))
+      val publicMod = MasterGranter(_.PublicMod)
+      val modIcon   = ~data.modIcon && (publicMod || MasterGranter(_.SeeReport))
       val anonMod   = modIcon && !publicMod
       val post = ForumPost.make(
         topicId = topic.id,
@@ -68,7 +67,7 @@ final class ForumPostApi(
                 .timeline(Propagate(TimelinePost(me, topic.id, topic.name, post.id)).toUsers(topicUserIds))
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(CreatePost(post.mini), "forumPost")
+            Bus.chan.forumPost(CreatePost(post.mini))
             post
       }
     }
@@ -222,13 +221,13 @@ final class ForumPostApi(
       .one($id(post.id), post.erase)
       .void
       .andDo:
-        Bus.publish(ErasePost(post.id), "forumPost")
+        Bus.chan.forumPost(ErasePost(post.id))
 
   def eraseFromSearchIndex(user: User): Funit =
     postRepo.coll
       .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
       .map: ids =>
-        Bus.publish(ErasePosts(ids), "forumPost")
+        Bus.chan.forumPost(ErasePosts(ids))
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId).flatMapz { post =>

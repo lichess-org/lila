@@ -12,11 +12,11 @@ import lila.core.config.*
 import lila.common.{ Bus, Uptime }
 import lila.game.{ Game, GameRepo, Pov }
 import lila.core.round.{ Abort, Resign }
-import lila.core.simul.GetHostIds
 import lila.memo.SettingStore
 import lila.rating.RatingFactor
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.core.user.{ FlairGet, FlairGetMap }
+import lila.round.RoundGame.*
 
 @Module
 private class RoundConfig(
@@ -48,6 +48,7 @@ final class Env(
     socketKit: lila.core.socket.ParallelSocketKit,
     userLagPut: lila.core.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,
+    simulApiCircularDep: => lila.core.simul.SimulApi,
     settingStore: lila.memo.SettingStore.Builder,
     shutdown: akka.actor.CoordinatedShutdown
 )(using system: ActorSystem, scheduler: Scheduler)(using
@@ -78,13 +79,12 @@ final class Env(
           .fold(defaultGoneWeight)(uid => playban.rageSitOf(uid).dmap(rageSitGoneWeight))
       of(chess.White).zip(of(chess.Black))
 
-  private val isSimulHost =
-    IsSimulHost(userId => Bus.ask[Set[UserId]]("simulGetHosts")(GetHostIds.apply).dmap(_ contains userId))
-
   private val scheduleExpiration = ScheduleExpiration: game =>
     game.timeBeforeExpiration.foreach: centis =>
       scheduler.scheduleOnce((centis.millis + 1000).millis):
-        tellRound(game.id, lila.core.round.NoStart)
+        roundApi.tell(game.id, lila.core.round.NoStart)
+
+  private val simulApi = lila.core.data.CircularDep(() => simulApiCircularDep)
 
   private lazy val proxyDependencies = wire[GameProxy.Dependencies]
   private lazy val roundDependencies = wire[RoundAsyncActor.Dependencies]
@@ -95,7 +95,7 @@ final class Env(
     gameRepo
       .allPlaying(userId)
       .foreach:
-        _.foreach { pov => tellRound(pov.gameId, Resign(pov.playerId)) }
+        _.foreach { pov => roundApi.tell(pov.gameId, Resign(pov.playerId)) }
 
   lazy val ratingFactorsSetting =
     import play.api.data.Form
@@ -113,10 +113,10 @@ final class Env(
   private val getFactors: () => Map[PerfType, RatingFactor] = ratingFactorsSetting.get
 
   Bus.subscribeFuns(
-    "accountClose" -> { case lila.core.actorApi.security.CloseAccount(userId) =>
+    "accountClose" -> { case lila.core.security.CloseAccount(userId) =>
       resignAllGamesOf(userId)
     },
-    "gameStartId" -> { case Game.OnStart(gameId) =>
+    "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
       onStart(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
@@ -127,9 +127,6 @@ final class Env(
     }
   )
 
-  lazy val tellRound: TellRound =
-    TellRound((gameId: GameId, msg: Any) => roundSocket.rounds.tell(gameId, msg))
-
   lazy val onStart = lila.core.game.OnStart: gameId =>
     proxyRepo
       .game(gameId)
@@ -138,7 +135,7 @@ final class Env(
           lightUserApi
             .preloadMany(game.userIds)
             .andDo:
-              val sg = lila.game.actorApi.StartGame(game)
+              val sg = lila.core.game.StartGame(game)
               Bus.publish(sg, "startGame")
               game.userIds.foreach: userId =>
                 Bus.publish(sg, s"userStartGame:$userId")
@@ -172,10 +169,7 @@ final class Env(
 
   lazy val perfsUpdater: PerfsUpdater = wire[PerfsUpdater]
 
-  lazy val forecastApi: ForecastApi = ForecastApi(
-    coll = db(config.forecastColl),
-    tellRound = tellRound
-  )
+  lazy val forecastApi: ForecastApi = ForecastApi(coll = db(config.forecastColl), roundApi = roundApi)
 
   private lazy val notifier = RoundNotifier(isUserPresent, notifyApi)
 
@@ -203,12 +197,6 @@ final class Env(
 
   lazy val mobile = wire[RoundMobile]
 
-  MoveLatMonitor.start(scheduler)
-
-  system.actorOf(Props(wire[Titivate]), name = "titivate")
-
-  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game, lightUserApi)
-
   private lazy val takebacker = wire[Takebacker]
 
   lazy val moretimer = wire[Moretimer]
@@ -217,9 +205,25 @@ final class Env(
 
   val apiMoveStream = wire[ApiMoveStream]
 
+  // core APIs
+  val gameProxy: lila.core.game.GameProxy = new:
+    export proxyRepo.{ game, updateIfPresent, flushIfPresent, upgradeIfPresent }
+  val roundJson: lila.core.round.RoundJson = new:
+    export mobile.offline as mobileOffline
+  val roundApi: lila.core.round.RoundApi = new:
+    export roundSocket.rounds.{ tell, ask }
+    export roundSocket.getGames
+  val onTvGame: lila.game.core.OnTvGame = recentTvGames.put
+
+  MoveLatMonitor.start(scheduler)
+
+  CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game, lightUserApi)
+
+  system.actorOf(Props(wire[Titivate]), name = "titivate")
+
   def resign(pov: Pov): Unit =
-    if pov.game.abortableByUser then tellRound(pov.gameId, Abort(pov.playerId))
-    else if pov.game.resignable then tellRound(pov.gameId, Resign(pov.playerId))
+    if pov.game.abortableByUser then roundApi.tell(pov.gameId, Abort(pov.playerId))
+    else if pov.game.resignable then roundApi.tell(pov.gameId, Resign(pov.playerId))
 
 private trait SelfReportEndGame
 private trait SelfReportMarkUser

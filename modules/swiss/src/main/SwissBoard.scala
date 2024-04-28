@@ -1,7 +1,7 @@
 package lila.swiss
 
 import lila.core.LightUser
-import lila.game.Game
+import lila.core.chess.Rank
 
 private case class SwissBoard(
     gameId: GameId,
@@ -15,8 +15,8 @@ private object SwissBoard:
 
 final private class SwissBoardApi(
     rankingApi: SwissRankingApi,
-    lightUserApi: lila.user.LightUserApi,
-    gameProxyRepo: lila.round.GameProxyRepo
+    lightUserApi: lila.core.user.LightUserApi,
+    gameProxy: lila.core.game.GameProxy
 )(using Executor):
 
   private val displayBoards = 6
@@ -27,11 +27,11 @@ final private class SwissBoardApi(
 
   def apply(id: SwissId): Fu[List[SwissBoard.WithGame]] =
     boardsCache.getIfPresent(id).so {
-      _.map { board =>
-        gameProxyRepo.game(board.gameId).map2 {
+      _.traverse { board =>
+        gameProxy.game(board.gameId).map2 {
           SwissBoard.WithGame(board, _)
         }
-      }.parallel.dmap(_.flatten)
+      }.dmap(_.flatten)
     }
 
   def update(data: SwissScoring.Result): Funit =

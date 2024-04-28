@@ -1,7 +1,6 @@
 package lila.mod
 
-import lila.report.{ ModId, Suspect }
-import lila.user.{ Me, modId }
+import lila.report.Suspect
 
 case class Modlog(
     mod: ModId,
@@ -11,7 +10,6 @@ case class Modlog(
     date: Instant = nowInstant,
     index: Option[String] = None
 ):
-
   def isLichess = mod.is(UserId.lichess)
 
   def notable      = action != Modlog.terminateTournament
@@ -88,13 +86,13 @@ case class Modlog(
 
 object Modlog:
 
-  def apply(user: Option[UserId], action: String, details: Option[String])(using me: Me.Id): Modlog =
+  def apply(user: Option[UserId], action: String, details: Option[String])(using me: MyId): Modlog =
     Modlog(me.modId, user, action, details)
 
-  def apply(user: Option[UserId], action: String)(using me: Me.Id): Modlog =
+  def apply(user: Option[UserId], action: String)(using me: MyId): Modlog =
     Modlog(me.modId, user, action, none)
 
-  def make(sus: Suspect, action: String, details: Option[String] = None)(using me: Me.Id): Modlog =
+  def make(sus: Suspect, action: String, details: Option[String] = None)(using me: MyId): Modlog =
     Modlog(
       mod = me.modId,
       user = sus.user.id.some,

@@ -5,6 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.storm.StormPuzzle
+import lila.core.id.PuzzleId
 
 private object RacerBsonHandlers:
 

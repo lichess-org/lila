@@ -20,7 +20,7 @@ final private class StudySocket(
     jsonView: JsonView,
     socketKit: SocketKit,
     socketRequest: SocketRequester,
-    chatApi: lila.chat.ChatApi
+    chatApi: lila.core.chat.ChatApi
 )(using Executor, Scheduler, lila.core.user.FlairGet):
 
   import StudySocket.{ *, given }
@@ -37,7 +37,6 @@ final private class StudySocket(
 
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
     import eval.*
-    import lila.game.JsonView.given
     send(
       RP.Out.tellRoom(
         studyId,

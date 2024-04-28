@@ -1,9 +1,7 @@
-package views.html.mod
-
-import controllers.routes
+package views.mod
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.chat.{ ChatTimeout, UserChat }
 
 object publicChat:
@@ -12,13 +10,13 @@ object publicChat:
       tourChats: List[(lila.core.tournament.Tournament, UserChat)],
       swissChats: List[(lila.core.swiss.IdName, UserChat)]
   )(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = "Public Chats",
       moreCss = cssTag("mod.publicChats"),
-      moreJs = jsModule("publicChats")
+      modules = EsmInit("mod.publicChats")
     ):
       main(cls := "page-menu")(
-        views.html.mod.menu("public-chat"),
+        views.mod.ui.menu("public-chat"),
         div(id := "comm-wrap")(
           div(id := "communication", cls := "page-menu__content public-chat box box-pad")(
             h2("Tournament Chats"),

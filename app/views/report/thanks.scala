@@ -1,13 +1,10 @@
-package views.html.report
-
-import controllers.routes
+package views.report
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object thanks:
 
-  def apply(userId: UserId, blocked: Boolean)(using PageContext) =
+  def apply(userId: UserId, blocked: Boolean)(using ctx: PageContext) =
 
     val title = "Thanks for the report"
 
@@ -18,9 +15,9 @@ $button.find('span').text('Blocking...');
 fetch(this.dataset.action, {method:'post'})
   .then(() => $button.find('span').text('Blocked!'));
 });
-""")
+""")(ctx.nonce)
 
-    views.html.base.layout(title = title, moreJs = moreJs) {
+    views.base.layout(title = title, moreJs = moreJs):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(title),
         p("The moderators will review it very soon, and take appropriate action."),
@@ -33,7 +30,7 @@ fetch(this.dataset.action, {method:'post'})
               attr("data-action") := routes.Relation.block(userId),
               cls                 := "report-block button",
               st.title            := trans.site.block.txt()
-            )(span(cls := "text", dataIcon := licon.NotAllowed)("Block ", titleNameOrId(userId)))
+            )(span(cls := "text", dataIcon := Icon.NotAllowed)("Block ", titleNameOrId(userId)))
           )
         ),
         br,
@@ -42,5 +39,3 @@ fetch(this.dataset.action, {method:'post'})
           a(href := routes.Lobby.home)("Return to Lichess homepage")
         )
       )
-
-    }

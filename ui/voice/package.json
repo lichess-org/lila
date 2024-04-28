@@ -4,8 +4,8 @@
   "private": true,
   "description": "lichess.org voice rec",
   "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "module": "dist/voice.js",
+  "types": "dist/voice.d.ts",
   "keywords": [
     "chess",
     "lichess"
@@ -20,15 +20,12 @@
     "vosk-browser": "^0.0.8"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/vosk.ts": "voice.vosk",
-        "src/move/moveCtrl.ts": "voice.move"
-      }
-    },
-    "copy": {
-      "src": "grammar/**",
-      "dest": "../../public/compiled/grammar"
+    "bundles": [
+      "src/voice.vosk.ts",
+      "src/move/voice.move.ts"
+    ],
+    "sync": {
+      "grammar/**": "public/compiled/grammar"
     }
   }
 }

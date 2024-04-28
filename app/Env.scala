@@ -9,9 +9,7 @@ import play.api.{ Configuration, Environment, Mode, ConfigLoader }
 import lila.core.config.*
 import lila.common.config.given
 import lila.common.autoconfig.{ *, given }
-import lila.core.{ Strings, UserIds }
-import lila.memo.SettingStore.Strings.given
-import lila.memo.SettingStore.UserIds.given
+import lila.core.data.{ Strings, UserIds }
 import lila.core.i18n.Translator
 
 final class Env(
@@ -25,6 +23,7 @@ final class Env(
     SessionCookieBaker
 ):
   val net: NetConfig = config.get[NetConfig]("net")
+
   export net.{ domain, baseUrl, assetBaseUrlInternal }
 
   given Mode                   = environment.mode
@@ -62,14 +61,13 @@ final class Env(
   val tournament: lila.tournament.Env   = wire[lila.tournament.Env]
   val swiss: lila.swiss.Env             = wire[lila.swiss.Env]
   val mod: lila.mod.Env                 = wire[lila.mod.Env]
-  val forum: lila.forum.Env             = wire[lila.forum.Env]
-  val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]
   val team: lila.team.Env               = wire[lila.team.Env]
   val teamSearch: lila.teamSearch.Env   = wire[lila.teamSearch.Env]
+  val forum: lila.forum.Env             = wire[lila.forum.Env]
+  val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]
   val pool: lila.pool.Env               = wire[lila.pool.Env]
   val lobby: lila.lobby.Env             = wire[lila.lobby.Env]
   val setup: lila.setup.Env             = wire[lila.setup.Env]
-  val importer: lila.importer.Env       = wire[lila.importer.Env]
   val simul: lila.simul.Env             = wire[lila.simul.Env]
   val appeal: lila.appeal.Env           = wire[lila.appeal.Env]
   val timeline: lila.timeline.Env       = wire[lila.timeline.Env]
@@ -102,6 +100,7 @@ final class Env(
   val opening: lila.opening.Env         = wire[lila.opening.Env]
   val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   val cms: lila.cms.Env                 = wire[lila.cms.Env]
+  val web: lila.web.Env                 = wire[lila.web.Env]
   val api: lila.api.Env                 = wire[lila.api.Env]
 
   val explorerEndpoint       = config.get[String]("explorer.endpoint")
@@ -112,57 +111,19 @@ final class Env(
   val appVersionCommit  = config.getOptional[String]("app.version.commit")
   val appVersionMessage = config.getOptional[String]("app.version.message")
 
-  val apiTimelineSetting = memo.settingStore[Int](
-    "apiTimelineEntries",
-    default = 10,
-    text = "API timeline entries to serve".some
-  )
-  val noDelaySecretSetting = memo.settingStore[Strings](
-    "noDelaySecrets",
-    default = Strings(Nil),
-    text =
-      "Secret tokens that allows fetching ongoing games without the 3-moves delay. Separated by commas.".some
-  )
-  val prizeTournamentMakers = memo.settingStore[UserIds](
-    "prizeTournamentMakers",
-    default = UserIds(Nil),
-    text =
-      "User IDs who can make prize tournaments (arena & swiss) without a warning. Separated by commas.".some
-  )
-  val apiExplorerGamesPerSecond = memo.settingStore[Int](
-    "apiExplorerGamesPerSecond",
-    default = 300,
-    text = "Opening explorer games per second".some
-  )
-  val pieceImageExternal = memo.settingStore[Boolean](
-    "pieceImageExternal",
-    default = false,
-    text = "Use external piece images".some
-  )
-
-  lazy val preloader     = wire[mashup.Preload]
-  lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
-  lazy val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
-  lazy val userInfo      = wire[mashup.UserInfo.UserInfoApi]
-  lazy val teamInfo      = wire[mashup.TeamInfoApi]
-  lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
-  lazy val pageCache     = wire[http.PageCache]
-
-  private val tryDailyPuzzle: lila.puzzle.DailyPuzzle.Try = () =>
-    Future {
-      puzzle.daily.get
-    }.flatMap(identity)
-      .withTimeoutDefault(50.millis, none)
-      .recover { case e: Exception =>
-        lila.log("preloader").warn("daily puzzle", e)
-        none
-      }
+  val preloader     = wire[mashup.Preload]
+  val socialInfo    = wire[mashup.UserInfo.SocialApi]
+  val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
+  val userInfo      = wire[mashup.UserInfo.UserInfoApi]
+  val teamInfo      = wire[mashup.TeamInfoApi]
+  val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
+  val pageCache     = wire[http.PageCache]
 
   lila.common.Bus.subscribeFun("renderer"):
     case lila.tv.RenderFeaturedJs(game, promise) =>
-      promise.success(Html(views.html.game.mini.noCtx(lila.game.Pov.naturalOrientation(game), tv = true)))
+      promise.success(Html(views.game.mini.noCtx(Pov.naturalOrientation(game), tv = true)))
     case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
-      promise.success(Html(views.html.puzzle.bits.daily(puzzle, fen, lastMove)))
+      promise.success(Html(views.puzzle.bits.daily(puzzle, fen, lastMove)))
 
 end Env
 
@@ -178,12 +139,14 @@ given ConfigLoader[NetConfig] = ConfigLoader(config =>
       assetBaseUrl = get[AssetBaseUrl]("asset.base_url"),
       assetBaseUrlInternal = get[AssetBaseUrlInternal]("asset.base_url_internal"),
       minifiedAssets = get[Boolean]("asset.minified"),
+      externalManifest = get[Boolean]("asset.external_manifest"),
       stageBanner = get[Boolean]("stage.banner"),
       siteName = get[String]("site.name"),
       socketDomains = get[List[String]]("socket.domains"),
       socketAlts = get[List[String]]("socket.alts"),
       crawlable = get[Boolean]("crawlable"),
       rateLimit = get[RateLimit]("ratelimit"),
-      email = get[lila.core.EmailAddress]("email")
+      email = get[EmailAddress]("email"),
+      logRequests = get[Boolean]("http.log")
     )
 )

@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.Json.given
@@ -10,7 +9,7 @@ import lila.common.HTTPRequest
 import lila.gathering.Condition.GetMyTeamIds
 import lila.memo.CacheApi.*
 import lila.tournament.{ MyInfo, Tournament as Tour, TournamentForm, VisibleTournaments }
-import lila.core.Preload
+import lila.core.data.Preload
 
 final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) extends LilaController(env):
 
@@ -22,7 +21,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   import env.user.flairApi.given
   private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
-  private def tournamentNotFound(using Context) = NotFound.page(html.tournament.bits.notFound())
+  private def tournamentNotFound(using Context) = NotFound.page(views.tournament.ui.notFound())
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Tournament.home)(serveHome)
@@ -36,20 +35,20 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         html = for
           finished <- api.notableFinished
           winners  <- env.tournament.winners.all
-          page     <- renderPage(html.tournament.home(scheduled, finished, winners, scheduleJson))
+          page     <- renderPage(views.tournament.home(scheduled, finished, winners, scheduleJson))
         yield Ok(page).noCache,
         json = Ok(scheduleJson)
       )
     yield response
 
   def help = Open:
-    Ok.page(html.tournament.faq.page)
+    Ok.page(views.tournament.faq)
 
   def leaderboard = Open:
     for
       winners <- env.tournament.winners.all
       _       <- env.user.lightUserApi.preloadMany(winners.userIds)
-      page    <- renderPage(html.tournament.leaderboard(winners))
+      page    <- renderPage(views.tournament.leaderboard(winners))
     yield Ok(page)
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
@@ -94,7 +93,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                 env.team.cached.preloadSet(b.teams)
               streamers   <- streamerCache.get(tour.id)
               shieldOwner <- env.tournament.shieldApi.currentOwner(tour)
-              page <- renderPage(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
+              page <- renderPage(views.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))
             yield
               env.tournament.lilaHttp.hit(tour)
               Ok(page).noCache
@@ -142,7 +141,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       Found(env.team.lightTeam(teamId)): team =>
         negotiate(
           FoundPage(api.teamBattleTeamInfo(tour, teamId)):
-            views.html.tournament.teamBattle.teamInfo(tour, team, _)
+            views.tournament.teamBattle.teamInfo(tour, team, _)
           ,
           jsonView.teamInfo(tour, teamId).orNotFound(JsonOk)
         )
@@ -201,7 +200,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def form = Auth { ctx ?=> me ?=>
     NoBot:
       env.team.api.lightsByTourLeader(me).flatMap { teams =>
-        Ok.page(html.tournament.form.create(forms.create(teams), teams))
+        Ok.page(views.tournament.form.create(forms.create(teams), teams))
       }
   }
 
@@ -210,7 +209,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       env.team.api.lightsByTourLeader(me).flatMap { teams =>
         env.team.api
           .isGranted(teamId, me, _.Tour)
-          .elseNotFound(Ok.page(html.tournament.form.create(forms.create(teams, teamId.some), Nil)))
+          .elseNotFound(Ok.page(views.tournament.form.create(forms.create(teams, teamId.some), Nil)))
       }
   }
 
@@ -252,7 +251,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           .fold(
             err =>
               negotiate(
-                BadRequest.page(html.tournament.form.create(err, teams)),
+                BadRequest.page(views.tournament.form.create(err, teams)),
                 doubleJsonFormError(err)
               ),
             setup =>
@@ -323,7 +322,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
                       .fold(t.createdBy)(_.name)}""",
                 battle.nbLeaders
               )
-              Ok.page(html.tournament.teamBattle.edit(tour, form))
+              Ok.page(views.tournament.teamBattle.edit(tour, form))
             }
           }
       case tour => Redirect(routes.Tournament.show(tour.id))
@@ -335,7 +334,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         lila.tournament.TeamBattle.DataForm.empty
           .bindFromRequest()
           .fold(
-            err => BadRequest.page(html.tournament.teamBattle.edit(tour, err)),
+            err => BadRequest.page(views.tournament.teamBattle.edit(tour, err)),
             res =>
               api
                 .teamBattleUpdate(tour, res, env.team.api.filterExistingIds)
@@ -385,25 +384,25 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     for
       history <- env.tournament.shieldApi.history(5.some)
       _       <- env.user.lightUserApi.preloadMany(history.userIds)
-      page    <- renderPage(html.tournament.shields(history))
+      page    <- renderPage(views.tournament.shields(history))
     yield Ok(page)
 
   def categShields(k: String) = Open:
     FoundPage(env.tournament.shieldApi.byCategKey(k)): (categ, awards) =>
       env.user.lightUserApi
         .preloadMany(awards.map(_.owner))
-        .inject(html.tournament.shields.byCateg(categ, awards))
+        .inject(views.tournament.shields.byCateg(categ, awards))
 
   def calendar = Open:
     api.calendar.flatMap: tours =>
-      Ok.page(html.tournament.calendar(env.tournament.apiJsonView.calendar(tours)))
+      Ok.page(views.tournament.calendar(env.tournament.apiJsonView.calendar(tours)))
 
   def history(freq: String, page: Int) = Open:
     lila.tournament.Schedule.Freq.byName.get(freq).so { fr =>
       api.history(fr, page).flatMap { pager =>
         val userIds = pager.currentPageResults.flatMap(_.winnerId)
         env.user.lightUserApi.preloadMany(userIds) >>
-          Ok.page(html.tournament.history(fr, pager))
+          Ok.page(views.tournament.history(fr, pager))
       }
     }
 
@@ -411,7 +410,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     WithEditableTournament(id): tour =>
       env.team.api.lightsByTourLeader(me).flatMap { teams =>
         val form = forms.edit(teams, tour)
-        Ok.page(html.tournament.form.edit(tour, form, teams))
+        Ok.page(views.tournament.form.edit(tour, form, teams))
       }
   }
 
@@ -422,7 +421,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           .edit(teams, tour)
           .bindFromRequest()
           .fold(
-            err => BadRequest.page(html.tournament.form.edit(tour, err, teams)),
+            err => BadRequest.page(views.tournament.form.edit(tour, err, teams)),
             data => api.update(tour, data).inject(Redirect(routes.Tournament.show(id)).flashSuccess)
           )
       }
@@ -452,7 +451,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           .get(tour.id)
           .flatMap: standing =>
             env.team.cached.preloadMany(standing.map(_.teamId)) >>
-              Ok.page(views.html.tournament.teamBattle.standing(tour, standing))
+              Ok.page(views.tournament.teamBattle.standing(tour, standing))
 
   private def WithEditableTournament(id: TourId)(
       f: Tour => Fu[Result]

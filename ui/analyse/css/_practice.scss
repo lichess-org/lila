@@ -93,8 +93,8 @@
     }
     .next {
       border: 0;
-      background: mix($c-primary, $c-bg-box, 80%);
-      color: $c-primary-over;
+      background: $m-primary_bg--mix-80;
+      color: $c-over;
       width: 100%;
 
       @include transition;

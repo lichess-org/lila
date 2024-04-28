@@ -2,25 +2,24 @@
   padding-top: 10px;
 
   .categ > h2 {
-    @extend %roboto;
+    @extend %roboto, %page-text-shadow;
 
     font-size: 2em;
     letter-spacing: 8px;
     text-transform: uppercase;
     color: #999;
-    text-shadow: $text-shadow;
     text-align: center;
   }
 
   .categ_stages {
-    --min-width: 100vw;
+    ---min-width: 100vw;
 
     @media (min-width: at-least($xx-small)) {
-      --min-width: 400px;
+      ---min-width: 400px;
     }
 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(var(---min-width), 1fr));
     grid-gap: 1em;
     margin: 0.8em 0 3em 0;
   }

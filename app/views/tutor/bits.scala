@@ -1,42 +1,21 @@
-package views.html.tutor
+package views.tutor
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
-import lila.tutor.TutorNumber
 
-object bits:
+lazy val bits = lila.tutor.ui.TutorBits(helpers)(assetUrl, views.opening.bits.openingUrl)
 
-  val mascot =
-    img(
-      cls := "mascot",
-      src := assetUrl("images/mascot/octopus-shadow.svg")
+private[tutor] def layout(
+    menu: Frag,
+    title: String = "Lichess Tutor",
+    pageSmall: Boolean = false
+)(content: Modifier*)(using PageContext) =
+  views.base.layout(
+    moreCss = cssTag("tutor"),
+    modules = EsmInit("tutor"),
+    title = title,
+    csp = defaultCsp.withInlineIconFont.some
+  ):
+    main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
+      lila.ui.bits.subnav(menu),
+      div(cls := "page-menu__content")(content)
     )
-
-  def mascotSays(content: Modifier*) = div(cls := "mascot-says")(
-    div(cls := "mascot-says__content")(content),
-    mascot
-  )
-
-  val seeMore = a(cls := "tutor-card__more")("Click to see more...")
-
-  def percentNumber[A](v: A)(using number: TutorNumber[A]) = f"${number.double(v)}%1.1f"
-  def percentFrag[A](v: A)(using TutorNumber[A])           = frag(strong(percentNumber(v)), "%")
-
-  private[tutor] def otherUser(user: lila.user.User)(using ctx: Context) =
-    ctx.isnt(user).option(userSpan(user, withOnline = false))
-
-  private[tutor] def layout(
-      menu: Frag,
-      title: String = "Lichess Tutor",
-      pageSmall: Boolean = false
-  )(content: Modifier*)(using PageContext) =
-    views.html.base.layout(
-      moreCss = cssTag("tutor"),
-      moreJs = jsModule("tutor"),
-      title = title,
-      csp = defaultCsp.withInlineIconFont.some
-    ):
-      main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
-        views.html.site.bits.subnav(menu),
-        div(cls := "page-menu__content")(content)
-      )

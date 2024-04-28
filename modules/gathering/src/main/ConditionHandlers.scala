@@ -5,7 +5,7 @@ import play.api.i18n.Lang
 import java.time.format.{ DateTimeFormatter, FormatStyle }
 
 import lila.gathering.Condition.*
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.core.i18n.Translate
 
 object ConditionHandlers:

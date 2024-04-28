@@ -10,8 +10,9 @@ import lila.core.config.*
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: lila.analyse.AnalysisRepo,
-    prefApi: lila.pref.PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     relationApi: lila.core.relation.RelationApi,
     cacheApi: lila.memo.CacheApi,
     mongo: lila.db.Env
@@ -22,7 +23,7 @@ final class Env(
       "insight",
       appConfig.get[String]("insight.mongodb.uri")
     )
-    .taggedWith[InsightDb]
+    .taggedWith[lila.game.core.insight.InsightDb]
 
   lazy val share = wire[Share]
 
@@ -43,5 +44,3 @@ final class Env(
   lila.common.Bus.subscribeFun("analysisReady") { case lila.analyse.actorApi.AnalysisReady(game, _) =>
     api.updateGame(game)
   }
-
-trait InsightDb

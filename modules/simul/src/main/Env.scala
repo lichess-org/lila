@@ -16,22 +16,20 @@ private class SimulConfig(
 )
 
 @Module
-@annotation.nowarn("msg=unused")
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
-    chatApi: lila.chat.ChatApi,
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
+    userApi: lila.core.user.UserApi,
+    chat: lila.core.chat.ChatApi,
     lightUser: lila.core.LightUser.GetterFallback,
     onGameStart: lila.core.game.OnStart,
     cacheApi: lila.memo.CacheApi,
     historyApi: lila.core.history.HistoryApi,
     socketKit: lila.core.socket.SocketKit,
     socketReq: lila.core.socket.SocketRequester,
-    proxyRepo: lila.round.GameProxyRepo,
+    gameProxy: lila.core.game.GameProxy,
     isOnline: lila.core.socket.IsOnline
 )(using Executor, Scheduler, play.api.Mode, FlairGet):
 
@@ -48,8 +46,6 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   private val simulSocket = wire[SimulSocket]
-
-  val isHosting = lila.round.IsSimulHost(u => api.currentHostIds.dmap(_ contains u))
 
   val allCreatedFeaturable = cacheApi.unit[List[Simul]]:
     _.refreshAfterWrite(3 seconds).buildAsyncFuture(_ => repo.allCreatedFeaturable)
@@ -68,7 +64,7 @@ final class Env(
     simulSocket.rooms.ask[SocketVersion](simulId.into(RoomId))(GetVersion.apply)
 
   Bus.subscribeFuns(
-    "finishGame" -> { case lila.game.actorApi.FinishGame(game, _) =>
+    "finishGame" -> { case lila.core.game.FinishGame(game, _) =>
       api.finishGame(game)
       ()
     },
@@ -76,13 +72,10 @@ final class Env(
       api.ejectCheater(userId)
       ()
     },
-    "simulGetHosts" -> { case lila.core.simul.GetHostIds(promise) =>
-      promise.completeWith(api.currentHostIds)
-    },
     "moveEventSimul" -> { case lila.core.round.SimulMoveEvent(move, _, opponentUserId) =>
       import lila.common.Json.given
       Bus.publish(
-        lila.core.actorApi.socket.SendTo(
+        lila.core.socket.SendTo(
           opponentUserId,
           lila.core.socket.makeMessage("simulPlayerMove", move.gameId)
         ),

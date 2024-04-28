@@ -9,7 +9,7 @@
     flex: 0 0 auto;
     padding: 0.7em;
     background: $c-primary;
-    color: $c-primary-over;
+    color: $c-over;
 
     i {
       flex: 0 0 3.5em;
@@ -86,15 +86,15 @@
   }
 
   &:hover {
-    background: mix($c-primary, $c-bg-box, 10%);
+    background: $m-primary_bg--mix-10;
   }
 
   &.active {
-    background: mix($c-primary, $c-bg-box, 10%);
+    background: $m-primary_bg--mix-10;
 
     .status {
       background: $c-primary;
-      color: $c-primary-over;
+      color: $c-over;
     }
   }
 }

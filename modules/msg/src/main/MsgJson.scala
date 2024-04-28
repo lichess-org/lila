@@ -5,10 +5,9 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.core.relation.Relations
-import lila.user.Me
 
 final class MsgJson(
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     isOnline: lila.core.socket.IsOnline
 )(using Executor):
 

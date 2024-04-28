@@ -1,4 +1,4 @@
-package views.html.search
+package views.search
 
 import play.api.data.Form
 import play.api.i18n.Lang
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter
 import scala.util.chaining.*
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.gameSearch.{ Query, Sorting }
 
 private object bits:

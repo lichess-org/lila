@@ -1,9 +1,6 @@
-package views.html.simul
-
-import controllers.routes
+package views.simul
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
 
 object homeInner:
 
@@ -30,7 +27,7 @@ object homeInner:
                 tr(cls := "scheduled")(
                   simTd(sim),
                   simHost(sim),
-                  td(cls := "players text", dataIcon := licon.User)(sim.applicants.size)
+                  td(cls := "players text", dataIcon := Icon.User)(sim.applicants.size)
                 )
               }
             )
@@ -48,7 +45,7 @@ object homeInner:
             tr(cls := "scheduled")(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := licon.User)(sim.applicants.size)
+              td(cls := "players text", dataIcon := Icon.User)(sim.applicants.size)
             )
           },
           tr(cls := "create")(
@@ -75,7 +72,7 @@ object homeInner:
               tr(
                 simTd(sim),
                 simHost(sim),
-                td(cls := "players text", dataIcon := licon.User)(sim.pairings.size)
+                td(cls := "players text", dataIcon := Icon.User)(sim.pairings.size)
               )
             }
           )
@@ -92,7 +89,7 @@ object homeInner:
             tr(
               simTd(sim),
               simHost(sim),
-              td(cls := "players text", dataIcon := licon.User)(sim.pairings.size)
+              td(cls := "players text", dataIcon := Icon.User)(sim.pairings.size)
             )
           }
         )

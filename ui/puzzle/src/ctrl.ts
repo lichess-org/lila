@@ -152,7 +152,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       else this.voiceMove = makeVoiceMove(makeRoot(), up);
     }
     if (this.opts.pref.keyboardMove) {
-      this.keyboardMove ??= makeKeyboardMove(makeRoot());
+      if (!this.keyboardMove) this.keyboardMove = makeKeyboardMove(makeRoot());
       this.keyboardMove.update(up);
     }
     requestAnimationFrame(() => this.redraw());

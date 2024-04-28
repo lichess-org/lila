@@ -4,14 +4,14 @@ import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
 import lila.db.dsl.{ *, given }
-import lila.user.{ User, UserApi }
+import lila.core.perf.UserWithPerfs
 
 final class TeamMemberStream(
     memberRepo: TeamMemberRepo,
-    userApi: UserApi
+    userApi: lila.core.user.UserApi
 )(using Executor, akka.stream.Materializer):
 
-  def apply(team: Team, perSecond: MaxPerSecond): Source[(User.WithPerfs, Instant), ?] =
+  def apply(team: Team, perSecond: MaxPerSecond): Source[(UserWithPerfs, Instant), ?] =
     idsBatches(team, perSecond)
       .mapAsync(1): members =>
         userApi

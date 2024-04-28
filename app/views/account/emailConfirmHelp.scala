@@ -1,17 +1,15 @@
-package views.html
-package account
+package views.account
 
-import controllers.routes
 import play.api.data.Form
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.security.EmailConfirm.Help.Status
 
 object emailConfirmHelp:
 
   def apply(form: Form[?], status: Option[Status])(using PageContext) =
-    views.html.base.layout(
+    views.base.layout(
       title = trans.site.emailConfirmHelp.txt(),
       moreCss = cssTag("email-confirm")
     )(
@@ -26,7 +24,7 @@ object emailConfirmHelp:
                 trans.site.username(),
                 help = trans.site.whatSignupUsername().some
               ) { f =>
-                form3.input(f)(pattern := lila.user.User.newUsernameRegex.regex)
+                form3.input(f)(pattern := lila.user.nameRules.newUsernameRegex.regex)
               },
               div(cls := "form-group")(
                 form3.submit(trans.site.apply())

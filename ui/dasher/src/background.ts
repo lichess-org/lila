@@ -5,7 +5,6 @@ import * as licon from 'common/licon';
 import { bind, onInsert, Redraw } from 'common/snabbdom';
 import * as xhr from 'common/xhr';
 import { throttlePromiseDelay } from 'common/throttle';
-import { supportsSystemTheme } from 'common/theme';
 
 export interface BackgroundData {
   current: string;
@@ -53,7 +52,7 @@ export class BackgroundCtrl {
     () => 700,
     (c: string) => {
       this.data.current = c;
-      applyBackground(this.data, this.list);
+      applyBackground(this.data);
       this.redraw();
       return xhr
         .text('/pref/bg', { body: xhr.form({ bg: c }), method: 'post' })
@@ -67,7 +66,7 @@ export class BackgroundCtrl {
       .textRaw('/pref/bgImg', { body: xhr.form({ bgImg: i }), method: 'post' })
       .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
       .then(this.reloadAllTheThings, err => err.then(this.announceFail));
-    applyBackground(this.data, this.list);
+    applyBackground(this.data);
     this.redraw();
   };
 }
@@ -121,54 +120,20 @@ function imageInput(ctrl: BackgroundCtrl) {
   ]);
 }
 
-function applyBackground(data: BackgroundData, list: Background[]) {
+function applyBackground(data: BackgroundData) {
   const key = data.current;
-  const cls = key == 'transp' ? 'dark transp' : key == 'darkBoard' ? 'dark dark-board' : key;
-
-  $('body')
-    .removeClass([...list.map(b => b.key), 'dark-board'].join(' '))
-    .addClass(cls);
-
-  const prev = document.body.dataset.theme!;
-  const sheet = key == 'darkBoard' ? 'dark' : key;
-  document.body.dataset.theme = sheet;
-  if (prev === 'system') {
-    const active = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    const other = active === 'dark' ? 'light' : 'dark';
-    $('link[href*=".' + other + '."]').remove();
-    $('link[href*=".' + active + '."]').each(function (this: HTMLLinkElement) {
-      replaceStylesheet(this, active, sheet);
-    });
-  } else {
-    $('link[href*=".' + prev + '."]').each(function (this: HTMLLinkElement) {
-      if (sheet === 'system') {
-        if (supportsSystemTheme()) {
-          replaceStylesheet(this, prev, 'light', 'light');
-          replaceStylesheet(this, prev, 'dark', 'dark');
-        } else {
-          replaceStylesheet(this, prev, 'dark');
-        }
-      } else replaceStylesheet(this, prev, sheet);
-    });
-  }
+  document.body.dataset.theme = key === 'darkBoard' ? 'dark' : key;
+  document.documentElement.className =
+    key === 'system' ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : key;
 
   if (key === 'transp') {
     const bgData = document.getElementById('bg-data');
     bgData
-      ? (bgData.innerHTML = 'body.transp::before{background-image:url(' + data.image + ');}')
+      ? (bgData.innerHTML = 'html.transp::before{background-image:url(' + data.image + ');}')
       : $('head').append(
-          '<style id="bg-data">body.transp::before{background-image:url(' + data.image + ');}</style>',
+          '<style id="bg-data">html.transp::before{background-image:url(' + data.image + ');}</style>',
         );
   }
-}
-
-function replaceStylesheet(old: HTMLLinkElement, oldKey: string, newKey: string, media?: 'dark' | 'light') {
-  const link = document.createElement('link') as HTMLLinkElement;
-  link.rel = 'stylesheet';
-  link.href = old.href.replace('.' + oldKey + '.', '.' + newKey + '.');
-  if (media) link.media = `(prefers-color-scheme: ${media})`;
-  link.onload = () => setTimeout(() => old.remove(), 100);
-  document.head.insertBefore(link, document.getElementById('piece-sprite'));
 }
 
 function galleryInput(ctrl: BackgroundCtrl) {
@@ -188,8 +153,7 @@ function galleryInput(ctrl: BackgroundCtrl) {
   const width = cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 
   return h('div#gallery', { attrs: { style: `width: ${width}px` } }, [
-    h(
-      'div#images-viewport',
+    h('div#images-viewport', [
       h(
         'div#images-grid',
         { attrs: { style: `background-image: url(${montageUrl});` } },
@@ -199,18 +163,18 @@ function galleryInput(ctrl: BackgroundCtrl) {
           return h(`div#${urlId(assetUrl)}${divClass}`, { hook: bind('click', () => setImg(assetUrl)) });
         }),
       ),
-    ),
-    h('span#url', [
-      h('label', 'URL'),
-      h('input', {
-        attrs: { type: 'text', placeholder: 'https://', value: ctrl.data.image },
-        hook: onInsert((el: HTMLInputElement) =>
-          $(el).on(
-            'change keyup paste',
-            debounce(() => setImg(el.value.trim()), 300),
+      h('span#url', [
+        h('label', 'URL'),
+        h('input', {
+          attrs: { type: 'text', placeholder: 'https://', value: ctrl.data.image },
+          hook: onInsert((el: HTMLInputElement) =>
+            $(el).on(
+              'change keyup paste',
+              debounce(() => setImg(el.value.trim()), 300),
+            ),
           ),
-        ),
-      }),
+        }),
+      ]),
     ]),
   ]);
 }

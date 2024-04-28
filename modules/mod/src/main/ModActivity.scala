@@ -6,7 +6,6 @@ import scala.util.Try
 
 import lila.db.dsl.{ *, given }
 import lila.report.Room
-import lila.user.User
 
 final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cacheApi: lila.memo.CacheApi)(
     using Executor
@@ -47,7 +46,7 @@ final class ModActivity(repo: ModlogRepo, reportApi: lila.report.ReportApi, cach
               "open" -> false,
               who match
                 case Who.Me(userId) => "done.by" -> userId
-                case Who.Team       => "done.by".$nin(List(UserId.lichess, User.irwinId))
+                case Who.Team       => "done.by".$nin(List(UserId.lichess, UserId.irwin))
               ,
               "done.at".$gt(Period.dateSince(period))
             )

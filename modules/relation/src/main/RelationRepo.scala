@@ -4,6 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.core.relation.Relation.{ Follow, Block }
 import lila.db.dsl.{ *, given }
+import lila.core.userId.UserSearch
 
 final private class RelationRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(using Executor):
 

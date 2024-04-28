@@ -6,10 +6,10 @@ body {
 }
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
+  ---main-max-width: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
   @include mq-at-least-col2 {
-    --main-max-width: auto;
+    ---main-max-width: auto;
   }
 }
 
@@ -67,9 +67,9 @@ body {
     grid-area: kb-move;
   }
 
-  --chat-height: fit-content(0);
+  ---chat-height: fit-content(0);
   &--wiki {
-    --chat-height: 0;
+    ---chat-height: 0;
   }
 
   .mchat {
@@ -88,7 +88,7 @@ body {
     'uchat';
 
   @include mq-at-least-col2 {
-    grid-template-columns: var(--col2-uniboard-width) $analyse-block-gap $col2-uniboard-table;
+    grid-template-columns: var(---col2-uniboard-width) $analyse-block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board      gauge tools'
@@ -125,7 +125,7 @@ body {
   }
 
   @include mq-at-least-col3 {
-    grid-template-columns: $col3-uniboard-side $analyse-block-gap var(--col3-uniboard-width) $analyse-block-gap $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width) $analyse-block-gap $col3-uniboard-table;
     grid-template-rows: auto $chat-height auto 2.5em 1fr;
     grid-template-areas:
       'side    . board   gauge tools'

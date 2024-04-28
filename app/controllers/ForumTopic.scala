@@ -1,11 +1,11 @@
 package controllers
 
 import play.api.libs.json.*
-import views.*
 
 import lila.app.{ *, given }
-import lila.core.IpAddress
+import lila.core.net.IpAddress
 import lila.forum.ForumCateg.diagnosticId
+import lila.core.id.{ ForumCategId, ForumTopicId }
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
@@ -22,7 +22,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       NotForKids:
         FoundPage(env.forum.categRepo.byId(categId)): categ =>
           categ.team.so(env.team.api.isLeader(_, me)).map { inOwnTeam =>
-            html.forum.topic.form(categ, forms.topic(inOwnTeam), anyCaptcha)
+            views.forum.topic.form(categ, forms.topic(inOwnTeam), anyCaptcha)
           }
   }
 
@@ -35,7 +35,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               .topic(inOwnTeam)
               .bindFromRequest()
               .fold(
-                err => BadRequest.page(html.forum.topic.form(categ, err, anyCaptcha)),
+                err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha)),
                 data =>
                   CreateRateLimit(ctx.ip, rateLimited):
                     topicApi.makeTopic(categ, data).map { topic =>
@@ -66,7 +66,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
             res <-
               if canRead then
                 Ok.page(
-                  html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg, None, replyBlocked)
+                  views.forum.topic.show(categ, topic, posts, form, unsub, canModCateg, None, replyBlocked)
                 ).map(_.withCanonical(routes.ForumTopic.show(categ.slug, topic.slug, page)))
               else notFound
           yield res
@@ -110,7 +110,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
                 if _ then showDiagnostic(slug, text)
                 else
                   FoundPage(env.forum.categRepo.byId(diagnosticId)): categ =>
-                    html.forum.topic.makeDiagnostic(categ, forms.topic(false), anyCaptcha, text)
+                    views.forum.topic.makeDiagnostic(categ, forms.topic(false), anyCaptcha, text)
         )
   }
 
@@ -122,4 +122,4 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   private def showDiagnostic(slug: String, formText: String)(using Context, Me) =
     FoundPage(topicApi.showLastPage(diagnosticId, slug)): (categ, topic, posts) =>
       val form = forms.postWithCaptcha(false).some
-      html.forum.topic.show(categ, topic, posts, form, None, true, formText.some)
+      views.forum.topic.show(categ, topic, posts, form, None, true, formText.some)

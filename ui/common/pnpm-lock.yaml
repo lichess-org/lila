@@ -1,0 +1,83 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  lichess-pgn-viewer:
+    specifier: ^2.0.1
+    version: 2.0.1
+  snabbdom:
+    specifier: 3.5.1
+    version: 3.5.1
+  tablesort:
+    specifier: ^5.3.0
+    version: 5.3.0
+
+packages:
+  /@badrap/result@0.2.13:
+    resolution:
+      {
+        integrity: sha512-Qvyzz0dmGY0h8pwvBFo1BznAKf5Y5NXIDiqhPALWtfU7oHbAToCtPu4FlYQ3uysskSWLx8GUiyhe0nv0nDd/7Q==,
+      }
+    dev: false
+
+  /@types/node@20.11.30:
+    resolution:
+      {
+        integrity: sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==,
+      }
+    dependencies:
+      undici-types: 5.26.5
+    dev: false
+
+  /chessground@9.0.4:
+    resolution:
+      {
+        integrity: sha512-KeZd/kcXSKQOGO6LOKu/3bAyVSMh7hgPPharMF15HMfNlHfcBpIVZIDAQRO2PNaNMzPWl0LKc05uFHt0D+lZGA==,
+      }
+    dev: false
+
+  /chessops@0.12.7:
+    resolution:
+      {
+        integrity: sha512-ylWwKOudgTNJCDq7vx/Rs9fkZwPB3CEk0AJ8NtAfEYOoA3DGRQdS/Z/oQRsnQvs92rUu0yEobn4ZIPzLh8y9/w==,
+      }
+    dependencies:
+      '@badrap/result': 0.2.13
+    dev: false
+
+  /lichess-pgn-viewer@2.0.1:
+    resolution:
+      {
+        integrity: sha512-WISw0/08RKQiv2gdAmIcdXNP9mg3e8Ybp31ORu9dKkl9+tRz2Q9Gx6efo5V29Pr+o6hUDTmjB7UFI1H+l4s9Ag==,
+      }
+    dependencies:
+      '@types/node': 20.11.30
+      chessground: 9.0.4
+      chessops: 0.12.7
+      snabbdom: 3.5.1
+    dev: false
+
+  /snabbdom@3.5.1:
+    resolution:
+      {
+        integrity: sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==,
+      }
+    engines: { node: '>=8.3.0' }
+    dev: false
+
+  /tablesort@5.3.0:
+    resolution:
+      {
+        integrity: sha512-WkfcZBHsp47gVH9CBHG0ZXopriG01IA87arGrchvIe868d4RiXVvoYPS1zMq9IdW05kBs5iGsqxTABqLyWonbg==,
+      }
+    dev: false
+
+  /undici-types@5.26.5:
+    resolution:
+      {
+        integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==,
+      }
+    dev: false

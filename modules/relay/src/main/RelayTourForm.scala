@@ -3,9 +3,9 @@ package lila.relay
 import play.api.data.*
 import play.api.data.Forms.*
 
-import lila.common.Form.{ cleanText, formatter, into }
+import lila.common.Form.{ cleanText, formatter, into, numberIn }
 import lila.core.perm.Granter
-import lila.user.Me
+
 import lila.core.i18n.I18nKey.streamer
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
@@ -22,7 +22,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
       "description"     -> cleanText(minLength = 3, maxLength = 400),
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
-      "tier"            -> optional(number(min = RelayTour.Tier.NORMAL, max = RelayTour.Tier.BEST)),
+      "tier"            -> optional(numberIn(RelayTour.Tier.keys.keySet)),
       "autoLeaderboard" -> boolean,
       "teamTable"       -> boolean,
       "players" -> optional(
@@ -63,7 +63,7 @@ object RelayTourForm:
           name = name,
           description = description,
           markup = markup,
-          tier = tier.ifTrue(Granter[Me](_.Relay)),
+          tier = tier.ifTrue(Granter(_.Relay)),
           autoLeaderboard = autoLeaderboard,
           teamTable = teamTable,
           players = players,
@@ -71,7 +71,7 @@ object RelayTourForm:
           spotlight = spotlight.filterNot(_.isEmpty),
           pinnedStreamer = pinnedStreamer
         )
-        .giveOfficialToBroadcasterIf(Granter[Me](_.StudyAdmin))
+        .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
     def make(using me: Me) =
       RelayTour(
@@ -80,7 +80,7 @@ object RelayTourForm:
         description = description,
         markup = markup,
         ownerId = me,
-        tier = tier.ifTrue(Granter[Me](_.Relay)),
+        tier = tier.ifTrue(Granter(_.Relay)),
         active = false,
         createdAt = nowInstant,
         syncedAt = none,
@@ -90,7 +90,7 @@ object RelayTourForm:
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty),
         pinnedStreamer = pinnedStreamer
-      ).giveOfficialToBroadcasterIf(Granter[Me](_.StudyAdmin))
+      ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
 

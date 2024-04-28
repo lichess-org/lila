@@ -3,7 +3,7 @@ package lila.puzzle
 import scalalib.paginator.Paginator
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.user.User
+
 import lila.core.i18n.I18nKey
 import scalalib.actor.AsyncActorSequencers
 
@@ -148,9 +148,9 @@ final class PuzzleApi(
 
   object casual:
 
-    private val store = scalalib.cache.ExpireSetMemo[CacheKey](30 minutes)
+    private val store = scalalib.cache.ExpireSetMemo[String](30 minutes)
 
-    private def key(user: User, id: PuzzleId) = CacheKey(s"${user.id}:${id}")
+    private def key(user: User, id: PuzzleId) = s"${user.id}:${id}"
 
     def setCasualIfNotYetPlayed(user: User, puzzle: Puzzle): Funit =
       round.exists(user, puzzle.id).not.mapz(store.put(key(user, puzzle.id)))

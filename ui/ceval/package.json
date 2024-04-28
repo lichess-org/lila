@@ -4,8 +4,8 @@
   "private": true,
   "description": "lichess.org local computer analysis",
   "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
+  "module": "dist/ceval.js",
+  "types": "dist/ceval.d.ts",
   "keywords": [
     "chess",
     "lichess",
@@ -27,11 +27,8 @@
     "stockfish.wasm": "^0.10.0"
   },
   "lichess": {
-    "copy": [
-      {
-        "src": "node_modules/*stockfish*/*.{js,wasm}",
-        "dest": "../../public/npm"
-      }
-    ]
+    "sync": {
+      "node_modules/*stockfish*/*.{js,wasm}": "public/npm"
+    }
   }
 }

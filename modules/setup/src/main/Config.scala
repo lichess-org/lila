@@ -4,10 +4,9 @@ import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ Clock, Game as ChessGame, Situation, Speed }
 
-import lila.core.Days
-import lila.game.Game
+import scalalib.model.Days
 import lila.lobby.Color
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 private[setup] trait Config:
 

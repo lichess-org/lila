@@ -1,7 +1,5 @@
 package controllers
 
-import views.*
-
 import lila.app.{ *, given }
 import lila.oauth.{ AccessToken, OAuthTokenForm }
 
@@ -11,7 +9,7 @@ final class OAuthToken(env: Env) extends LilaController(env):
 
   def index = Auth { ctx ?=> me ?=>
     Ok.pageAsync:
-      tokenApi.listPersonal.map(html.oAuth.token.index(_))
+      tokenApi.listPersonal.map(views.oAuth.token.index(_))
   }
 
   def create = Auth { ctx ?=> me ?=>
@@ -21,14 +19,14 @@ final class OAuthToken(env: Env) extends LilaController(env):
         scopes = (~ctx.req.queryString.get("scopes[]")).toList
       )
     )
-    Ok.page(html.oAuth.token.create(form, me))
+    Ok.page(views.oAuth.token.create(form, me))
   }
 
   def createApply = AuthBody { ctx ?=> me ?=>
     OAuthTokenForm.create
       .bindFromRequest()
       .fold(
-        err => BadRequest.page(html.oAuth.token.create(err, me)),
+        err => BadRequest.page(views.oAuth.token.create(err, me)),
         setup =>
           tokenApi
             .create(setup, env.clas.studentCache.isStudent(me))

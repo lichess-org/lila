@@ -1,19 +1,8 @@
 package lila.user
 
-import scala.*
+import lila.core.user.Flag
 
-final class Flag(
-    val code: Flag.Code,
-    val name: Flag.Name,
-    val abrev: Option[String]
-):
-  def shortName = abrev | name
-
-object Flag:
-  type Code = String
-  type Name = String
-
-object Flags:
+object Flags extends lila.core.user.FlagApi:
 
   import Flag.*
 
@@ -296,9 +285,6 @@ object Flags:
     C("_united-nations", "United Nations"),
     C("_earth", "Earth")
   )
-
-  val allPairs: List[(Code, Name)] = all.map: c =>
-    c.code -> c.name
 
   val map: Map[Code, Flag] = all.mapBy(_.code)
 

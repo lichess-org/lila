@@ -8,17 +8,19 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.common.Uptime
 import lila.core.LightUser
-import lila.game.LightPov
 import lila.gathering.{ Condition, ConditionHandlers, GreatPlayer }
 import lila.memo.CacheApi.*
 import lila.memo.SettingStore
-import lila.rating.Perf
+import lila.ui.Icon.iconWrites
+
 import lila.core.socket.SocketVersion
-import lila.user.{ LightUserApi, Me, User }
 import lila.core.i18n.Translate
-import lila.core.Preload
+import lila.core.data.Preload
 import lila.common.Json.lightUser.writeNoId
-import lila.core.perf.PerfType
+import lila.rating.PerfType
+import lila.core.chess.Rank
+import lila.core.user.LightUserApi
+import lila.core.game.LightPov
 
 final class JsonView(
     lightUserApi: LightUserApi,
@@ -29,8 +31,8 @@ final class JsonView(
     statsApi: TournamentStatsApi,
     shieldApi: TournamentShieldApi,
     cacheApi: lila.memo.CacheApi,
-    proxyRepo: lila.round.GameProxyRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
+    gameProxy: lila.core.game.GameProxy,
+    userApi: lila.core.user.UserApi,
     verify: TournamentCondition.Verify,
     duelStore: DuelStore,
     standingApi: TournamentStandingApi,
@@ -77,7 +79,7 @@ final class JsonView(
           case (Some(_), Some(myInfo)) if !myInfo.withdraw => fuccess(tour.conditions.accepted.some)
           case (Some(me), Some(_)) => verify.rejoin(tour.conditions)(using me).dmap(some)
           case (Some(me), None) =>
-            perfsRepo
+            userApi
               .usingPerfOf(me, tour.perfType):
                 verify(tour.conditions, tour.perfType)(using me)
               .dmap(some)
@@ -212,7 +214,7 @@ final class JsonView(
       .ifTrue(tour.isStarted)
       .so(pairingRepo.byId)
       .flatMapz: pairing =>
-        proxyRepo
+        gameProxy
           .game(pairing.gameId)
           .flatMapz: game =>
             cached
@@ -264,7 +266,7 @@ final class JsonView(
 
   private def featuredJson(featured: FeaturedGame) =
     val game = featured.game
-    def ofPlayer(rp: RankedPlayer, p: lila.game.Player) =
+    def ofPlayer(rp: RankedPlayer, p: lila.core.game.Player) =
       val light = lightUserApi.syncFallback(rp.player.userId)
       Json.toJsObject(light) ++
         Json

@@ -2,7 +2,7 @@ package lila.puzzle
 
 import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.db.dsl.{ *, given }
-import lila.user.User
+import lila.core.user.WithPerf
 
 object PuzzleHistory:
 
@@ -21,7 +21,7 @@ object PuzzleHistory:
     // def performance     = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
   }
 
-  final class HistoryAdapter(user: User.WithPerf, colls: PuzzleColls)(using Executor)
+  final class HistoryAdapter(user: WithPerf, colls: PuzzleColls)(using Executor)
       extends AdapterLike[PuzzleSession]:
 
     import BsonHandlers.given
@@ -66,7 +66,7 @@ final class PuzzleHistoryApi(colls: PuzzleColls)(using Executor):
 
   import PuzzleHistory.*
 
-  def apply(user: User.WithPerf, page: Int): Fu[Paginator[PuzzleSession]] =
+  def apply(user: WithPerf, page: Int): Fu[Paginator[PuzzleSession]] =
     Paginator[PuzzleSession](
       HistoryAdapter(user, colls),
       currentPage = page,

@@ -10,10 +10,6 @@
     "snabbdom": "3.5.1"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/main.ts": "msg"
-      }
-    }
+    "bundles": "src/msg.ts"
   }
 }

@@ -22,8 +22,8 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     userRepo: lila.core.user.UserRepo,
-    userAPi: lila.core.user.UserApi,
-    prefApi: lila.pref.PrefApi,
+    userApi: lila.core.user.UserApi,
+    prefApi: lila.core.pref.PrefApi,
     cacheApi: lila.memo.CacheApi
 )(using Executor, ActorSystem, akka.stream.Materializer):
 

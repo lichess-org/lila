@@ -6,9 +6,8 @@ import reactivemongo.api.bson.BSONHandler
 
 import scalalib.Iso
 import lila.memo.SettingStore.{ Formable, StringReader }
-import lila.core.Ints
-
-case class ScoreThresholds(mid: Int, high: Int)
+import lila.core.data.Ints
+import lila.core.report.ScoreThresholds
 
 private case class Thresholds(score: () => ScoreThresholds, discord: () => Int)
 

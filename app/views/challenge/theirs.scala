@@ -1,23 +1,22 @@
-package views.html.challenge
-
-import controllers.routes
+package views.challenge
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
 import lila.challenge.Challenge
 import lila.challenge.Challenge.Status
+import lila.core.user.WithPerf
 
 object theirs:
 
   def apply(
       c: Challenge,
       json: play.api.libs.json.JsObject,
-      user: Option[lila.user.User.WithPerf],
+      user: Option[WithPerf],
       color: Option[chess.Color]
   )(using ctx: PageContext) =
-    views.html.base.layout(
-      title = challengeTitle(c),
-      openGraph = challengeOpenGraph(c).some,
+    views.base.layout(
+      title = bits.challengeTitle(c),
+      openGraph = bits.challengeOpenGraph(c).some,
       pageModule = bits.jsModule(c, json, owner = false, color).some,
       moreCss = cssTag("challenge.page")
     ):
@@ -37,7 +36,7 @@ object theirs:
               ,
               bits.details(c, color),
               c.notableInitialFen.map: fen =>
-                div(cls := "board-preview", views.html.board.bits.mini(fen.board, !c.finalColor)(div)),
+                div(cls := "board-preview", chessgroundMini(fen.board, !c.finalColor)(div)),
               if c.open.exists(!_.canJoin) then
                 div(
                   "Waiting for ",
@@ -54,7 +53,7 @@ object theirs:
                   (c.mode.rated && c.unlimited)
                     .option(badTag(trans.site.bewareTheGameIsRatedButHasNoClock())),
                   postForm(cls := "accept", action := routes.Challenge.accept(c.id, color.map(_.name)))(
-                    submitButton(cls := "text button button-fat", dataIcon := licon.PlayTriangle)(
+                    submitButton(cls := "text button button-fat", dataIcon := Icon.PlayTriangle)(
                       trans.site.joinTheGame()
                     )
                   )

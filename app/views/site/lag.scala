@@ -1,7 +1,6 @@
-package views.html.site
+package views.site
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.*
 
 object lag:
 
@@ -12,7 +11,7 @@ object lag:
       title = "Is Lichess lagging?",
       active = "lag",
       moreCss = cssTag("lag"),
-      moreJs = jsModuleInit("chart.lag")
+      modules = jsModuleInit("chart.lag")
     ):
       div(cls := "box box-pad lag")(
         h1(cls := "box__top")(

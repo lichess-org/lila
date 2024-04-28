@@ -4,26 +4,29 @@ import * as fs from 'node:fs';
 import { clean } from './clean';
 import { build, postBuild } from './build';
 
-const shortArgs = 'hrwpsdcn';
-const longArgs = [
-  '--tsc',
-  '--sass',
-  '--esbuild',
-  '--copies',
-  '--no-color',
-  '--no-time',
-  '--no-context',
-  '--help',
-  '--rebuild',
-  '--watch',
-  '--prod',
-  '--split',
-  '--debug',
-  '--clean',
-  '--clean-theme',
-  '--update',
-  '--no-install',
+// readme should be up to date but this is the definitive list of flags
+const args = [
+  ['--tsc'],
+  ['--sass'],
+  ['--esbuild'],
+  ['--copies'],
+  ['--no-color'],
+  ['--no-time'],
+  ['--no-context'],
+  ['--help'],
+  ['--rebuild', '-r'],
+  ['--watch', '-w'],
+  ['--prod', '-p'],
+  ['--debug', '-d'],
+  ['--clean-build', '-c'],
+  ['--clean'],
+  ['--update'],
+  ['--no-install', '-n'],
 ];
+
+const longArgs = args.map(x => x[0]);
+const shortArgs = args.map(x => x[1] && x[1][1]).filter(x => x);
+type Builder = 'sass' | 'tsc' | 'esbuild';
 
 export function main() {
   const args = ps.argv.slice(2);
@@ -47,11 +50,10 @@ export function main() {
   env.rebuild = args.includes('--rebuild') || oneDashArgs.includes('r');
   env.watch = env.rebuild || args.includes('--watch') || oneDashArgs.includes('w');
   env.prod = args.includes('--prod') || oneDashArgs.includes('p');
-  env.split = args.includes('--split') || oneDashArgs.includes('s');
   env.debug = args.includes('--debug') || oneDashArgs.includes('d');
-  env.clean = args.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
-  env.cleanTheme = args.includes('--clean-theme');
+  env.clean = args.some(x => x === '--clean-build') || oneDashArgs.includes('c');
   env.install = !args.includes('--no-install') && !oneDashArgs.includes('n');
+  env.rgb = args.includes('--rgb');
 
   if (env.rebuild && !env.install) {
     env.warn(`--rebuild incompatible with --no-install`);
@@ -60,7 +62,8 @@ export function main() {
 
   if (args.length === 1 && (args[0] === '--help' || args[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
-  } else if (args.length === 1 && (args[0].startsWith('--clean') || args[0] === '-c')) {
+  } else if (args.includes('--clean')) {
+    env.log('Cleaning then exiting. Use --clean-build or -c to clean then build');
     clean();
   } else {
     build(args.filter(x => !x.startsWith('-')));
@@ -74,22 +77,15 @@ export interface LichessModule {
   pre: string[][]; // pre-bundle build steps from package.json scripts
   post: string[][]; // post-bundle build steps from package.json scripts
   hasTsconfig?: boolean; // fileExists('tsconfig.json')
-  bundles?: {
-    [moduleType: string]: LichessBundle[];
-  };
-  copy?: Copy[]; // pre-bundle filesystem copies from package json
+  bundles?: string[];
+  sync?: Sync[]; // pre-bundle filesystem copies from package json
 }
 
-export interface Copy {
-  // src must be a file or a glob expression, use <dir>/** to copy whole directory
+export interface Sync {
+  // src must be a file or a glob expression, use <dir>/** to sync entire directories
   src: string;
   dest: string;
   mod: LichessModule;
-}
-
-export interface LichessBundle {
-  input: string; // abs path to source
-  output: string; // abs path to bundle destination
 }
 
 export const lines = (s: string): string[] => s.split(/[\n\r\f]+/).filter(x => x.trim());
@@ -116,16 +112,20 @@ export const colors = {
 
 class Env {
   rootDir = path.resolve(__dirname, '../../..'); // absolute path to lila project root
+
+  deps: Map<string, string[]>;
+  modules: Map<string, LichessModule>;
+  building: LichessModule[];
+
   watch = false;
   rebuild = false;
   clean = false;
-  cleanTheme = false;
   prod = false;
-  split = false;
   debug = false;
+  rgb = false;
   install = true;
   copies = true;
-  exitCode = new Map<'sass' | 'tsc' | 'esbuild', number | false>();
+  exitCode = new Map<Builder, number | false>();
   startTime: number | undefined = Date.now();
   logTime = true;
   logContext = true;
@@ -146,14 +146,28 @@ class Env {
   get esbuild(): boolean {
     return this.exitCode.get('esbuild') !== false;
   }
+  get manifestOk(): boolean {
+    return ['tsc', 'esbuild', 'sass'].every(
+      (x: Builder) => this.exitCode.get(x) === 0 || this.exitCode.get(x) === false,
+    );
+  }
   get uiDir(): string {
     return path.join(this.rootDir, 'ui');
   }
   get outDir(): string {
     return path.join(this.rootDir, 'public');
   }
+  get themeDir(): string {
+    return path.join(this.uiDir, 'common', 'css', 'theme');
+  }
+  get themeGenDir(): string {
+    return path.join(this.themeDir, 'gen');
+  }
   get cssDir(): string {
     return path.join(this.outDir, 'css');
+  }
+  get cssTempDir(): string {
+    return path.join(this.buildDir, 'dist', 'css');
   }
   get jsDir(): string {
     return path.join(this.outDir, 'compiled');
@@ -204,7 +218,7 @@ class Env {
       ),
     );
   }
-  done(code: number, ctx: 'sass' | 'tsc' | 'esbuild'): void {
+  done(code: number, ctx: Builder): void {
     this.exitCode.set(ctx, code);
     const err = [...this.exitCode.values()].find(x => x);
     const allDone = this.exitCode.size === 3;
@@ -257,6 +271,7 @@ function stripColorEscapes(text: string) {
 }
 
 export const errorMark = colors.red('✘ ') + colors.error('[ERROR]');
+export const warnMark = colors.yellow('⚠ ') + colors.warn('[WARNING]');
 
 function prettyTime() {
   const now = new Date();

@@ -5,6 +5,7 @@ import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
 import lila.common.Bus
+import lila.core.socket.Sri
 
 final class BoardApiHookStream(
     lobby: LobbySyncActor
@@ -23,9 +24,11 @@ final class BoardApiHookStream(
         .addEffectAnyway:
           actor ! PoisonPill
 
+  def cancel(sri: Sri) = Bus.publish(RemoveHook(sri.value), s"hookRemove:${sri}")
+
   private def mkActor(hook: Hook, queue: SourceQueueWithComplete[Option[JsObject]]): Actor = new:
 
-    val classifiers = List(s"hookRemove:${hook.id}")
+    val classifiers = List(s"hookRemove:${hook.id}", s"hookRemove:${hook.sri}")
 
     override def preStart(): Unit =
       super.preStart()

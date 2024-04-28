@@ -4,7 +4,6 @@ import chess.{ Color, Speed }
 import scalalib.ThreadLocalRandom
 
 import lila.core.playban.RageSit
-import lila.game.Game
 
 object RageSit:
 
@@ -47,5 +46,3 @@ object RageSit:
       case Speed.Blitz           => 1
       case _                     => 2
   }
-
-case class SittingDetected(game: Game, userId: UserId)

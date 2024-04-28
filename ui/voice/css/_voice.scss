@@ -1,5 +1,3 @@
-$c-mic-bg-hover: if($theme == 'light', $c-font-dimmer, transparent);
-
 #voice-bar {
   position: relative;
   user-select: none;
@@ -67,9 +65,11 @@ button#microphone-button {
   height: 30px;
   border: 1px solid transparent;
   border-radius: 4px;
-
-  &:hover {
-    background-color: $c-mic-bg-hover;
+  background-color: transparent;
+  @include if-light {
+    &:hover {
+      background-color: $c-font-dimmer;
+    }
   }
 
   &.push-to-talk {

@@ -1,10 +1,8 @@
-package views.html
-package game
-
-import controllers.routes
+package views.game
 
 import lila.app.templating.Environment.{ *, given }
-import lila.app.ui.ScalatagsTemplate.{ *, given }
+
+import lila.game.GameExt.perfType
 
 object side:
 
@@ -13,42 +11,42 @@ object side:
   private val dataTime   = attr("data-time")
 
   def apply(
-      pov: lila.game.Pov,
+      pov: Pov,
       initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
     ctx.noBlind.option(
       frag(
         meta(pov, initialFen, tour, simul, userTv, bookmarked),
-        pov.game.userIds.filter(isStreaming).map(views.html.streamer.bits.contextual)
+        pov.game.userIds.filter(isStreaming).map(views.streamer.bits.contextual)
       )
     )
 
   def meta(
-      pov: lila.game.Pov,
+      pov: Pov,
       initialFen: Option[chess.format.Fen.Full],
       tour: Option[lila.tournament.TourAndTeamVs],
       simul: Option[lila.simul.Simul],
-      userTv: Option[lila.user.User] = None,
+      userTv: Option[User] = None,
       bookmarked: Boolean
   )(using ctx: Context): Option[Frag] =
     ctx.noBlind.option {
       import pov.*
       div(cls := "game__meta")(
         st.section(
-          div(cls := "game__meta__infos", dataIcon := bits.gameIcon(game))(
+          div(cls := "game__meta__infos", dataIcon := ui.gameIcon(game))(
             div(
               div(cls := "header")(
                 div(cls := "setup")(
-                  views.html.bookmark.toggle(game, bookmarked),
-                  if game.imported then
+                  views.bookmark.toggle(game, bookmarked),
+                  if game.sourceIs(_.Import) then
                     div(
                       a(href := routes.Importer.importGame, title := trans.site.importGame.txt())("IMPORT"),
                       separator,
-                      bits.variantLink(game.variant, game.perfType, initialFen = initialFen, shortName = true)
+                      variantLink(game.variant, game.perfType, initialFen = initialFen, shortName = true)
                     )
                   else
                     frag(
@@ -56,7 +54,7 @@ object side:
                       separator,
                       (if game.rated then trans.site.rated else trans.site.casual).txt(),
                       separator,
-                      bits.variantLink(game.variant, game.perfType, initialFen, shortName = true)
+                      variantLink(game.variant, game.perfType, initialFen, shortName = true)
                     )
                 ),
                 game.pgnImport.flatMap(_.date).fold(momentFromNowWithPreload(game.createdAt))(frag(_))
@@ -91,7 +89,7 @@ object side:
         ),
         game.finishedOrAborted.option(
           st.section(cls := "status")(
-            gameEndStatus(game),
+            ui.gameEndStatus(game),
             game.winner.map: winner =>
               frag(
                 separator,
@@ -109,23 +107,23 @@ object side:
         ),
         userTv.map: u =>
           st.section(cls := "game__tv"):
-            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := licon.AnalogTv)(u.titleUsername)
+            h2(cls := "top user-tv text", dataUserTv := u.id, dataIcon := Icon.AnalogTv)(u.titleUsername)
         ,
         tour
           .map: t =>
             st.section(cls := "game__tournament")(
-              a(cls := "text", dataIcon := licon.Trophy, href := routes.Tournament.show(t.tour.id)):
+              a(cls := "text", dataIcon := Icon.Trophy, href := routes.Tournament.show(t.tour.id)):
                 t.tour.name()
               ,
               div(cls := "clock", dataTime := t.tour.secondsToFinish)(t.tour.clockStatus)
             )
           .orElse:
             game.tournamentId.map: tourId =>
-              st.section(cls := "game__tournament-link")(tournamentLink(tourId))
+              st.section(cls := "game__tournament-link")(views.tournament.ui.tournamentLink(tourId))
           .orElse:
             game.swissId.map: swissId =>
               st.section(cls := "game__tournament-link"):
-                views.html.swiss.bits.link(SwissId(swissId))
+                views.swiss.bits.link(SwissId(swissId))
           .orElse:
             simul.map: sim =>
               st.section(cls := "game__simul-link"):

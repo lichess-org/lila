@@ -9,18 +9,16 @@ import lila.common.Markdown
 import lila.db.dsl.{ *, given }
 import lila.core.msg.MsgApi
 import lila.rating.{ Perf, UserPerfs }
-import lila.user.{ Authenticator, Me, User, UserPerfsRepo, UserRepo }
-import lila.core.EmailAddress
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 
 final class ClasApi(
     colls: ClasColls,
     studentCache: ClasStudentCache,
     nameGenerator: NameGenerator,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
+    userRepo: lila.user.UserRepo,
+    perfsRepo: lila.user.UserPerfsRepo,
     msgApi: MsgApi,
-    authenticator: Authenticator,
+    authenticator: lila.core.security.Authenticator,
     baseUrl: BaseUrl
 )(using Executor, lila.core.i18n.Translator):
 
@@ -128,7 +126,7 @@ final class ClasApi(
 
   object student:
 
-    import User.ClearPassword
+    import lila.core.security.ClearPassword
 
     val coll = colls.student
 
@@ -151,6 +149,7 @@ final class ClasApi(
             UnwindField("user")
           )
         .map: docs =>
+          import lila.user.BSONHandlers.userHandler
           for
             doc     <- docs
             student <- doc.asOpt[Student]

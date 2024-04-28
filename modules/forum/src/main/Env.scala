@@ -6,9 +6,8 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.pref.PrefApi
 import lila.core.relation.RelationApi
-import lila.user.User
+
 import lila.core.forum.ForumPostMiniView
 
 @Module
@@ -27,9 +26,10 @@ final class Env(
     shutupApi: lila.core.shutup.ShutupApi,
     notifyApi: lila.core.notify.NotifyApi,
     relationApi: RelationApi,
-    prefApi: PrefApi,
+    prefApi: lila.core.pref.PrefApi,
     modLog: lila.core.mod.LogApi,
-    userRepo: lila.user.UserRepo,
+    userApi: lila.core.user.UserApi,
+    teamApi: lila.core.team.TeamApi,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer):
@@ -61,9 +61,11 @@ final class Env(
   lazy val recentTeamPosts = RecentTeamPosts: id =>
     postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
 
+  lazy val forumAccess = wire[ForumAccess]
+
   lila.common.Bus.subscribeFun("team", "gdprErase"):
     case lila.core.team.TeamCreate(t)   => categApi.makeTeam(t.id, t.name, t.userId)
-    case lila.user.User.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
+    case lila.core.user.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
 
 private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]
 opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType

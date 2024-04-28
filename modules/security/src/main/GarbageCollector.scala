@@ -4,9 +4,8 @@ import scalalib.ThreadLocalRandom
 import play.api.mvc.RequestHeader
 
 import lila.common.{ Bus, HTTPRequest }
-import lila.core.EmailAddress
-import lila.core.IpAddress
-import lila.user.User
+import lila.core.net.IpAddress
+import lila.core.security.UserSignup
 
 // codename UGC
 final class GarbageCollector(
@@ -14,10 +13,7 @@ final class GarbageCollector(
     ipTrust: IpTrust,
     noteApi: lila.user.NoteApi,
     isArmed: () => Boolean
-)(using
-    ec: Executor,
-    scheduler: Scheduler
-):
+)(using ec: Executor, scheduler: Scheduler):
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
@@ -46,11 +42,11 @@ final class GarbageCollector(
             retries = 5,
             logger = none
           )
-          .recoverDefault >> apply(applyData)
+          .recoverDefault(e => logger.info(e.getMessage, e)) >> apply(applyData)
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
     userLogins.userHasPrint(data.user).flatMap {
-      case false => fufail("No print available yet")
+      case false => fufail(s"never got a print for ${data.user.username}")
       case _     => funit
     }
 
@@ -64,7 +60,7 @@ final class GarbageCollector(
             val printOpt = spy.prints.headOption
             logger.debug(s"apply ${data.user.username} print=$printOpt")
             Bus.publish(
-              lila.security.UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
+              UserSignup(user, email, req, printOpt.map(_.fp.value), ipSusp),
               "userSignup"
             )
             printOpt.filter(_.banned).map(_.fp.value) match
@@ -94,7 +90,7 @@ final class GarbageCollector(
     (others.sizeIs > 1 && others.forall(isBadAccount) && others.headOption.exists(_.enabled.no))
       .option(others)
 
-  private def isBadAccount(user: User) = user.lameOrTrollOrAlt
+  private def isBadAccount(u: User) = u.lameOrTroll || u.marks.alt
 
   private def collect(user: User, email: EmailAddress, msg: => String, quickly: Boolean): Funit =
     justOnce(user.id).so:
@@ -117,6 +113,6 @@ final class GarbageCollector(
 
   private def doCollect(user: UserId): Unit =
     Bus.publish(
-      lila.core.actorApi.security.GarbageCollect(user),
+      lila.core.security.GarbageCollect(user),
       "garbageCollect"
     )

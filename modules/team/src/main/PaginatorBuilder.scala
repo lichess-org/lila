@@ -5,14 +5,13 @@ import lila.core.LightUser
 import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.*
-import lila.core.user.MyId
 
 final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
-    userApi: lila.user.UserApi,
-    lightUserApi: lila.user.LightUserApi
+    userApi: lila.core.user.UserApi,
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
   private val maxPerPage         = MaxPerPage(15)
   private val maxUserPerPage     = MaxPerPage(30)

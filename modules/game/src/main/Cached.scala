@@ -24,12 +24,12 @@ final class Cached(
       .expireAfterWrite(11 seconds)
       .build(gameRepo.lastPlayedPlayingId)
 
-  lila.common.Bus.subscribeFun("startGame") { case lila.game.actorApi.StartGame(game) =>
+  lila.common.Bus.subscribeFun("startGame") { case lila.core.game.StartGame(game) =>
     game.userIds.foreach(lastPlayedPlayingIdCache.invalidate)
   }
 
   private val nbPlayingCache = cacheApi[UserId, Int](512, "game.nbPlaying"):
-    _.expireAfterWrite(15 seconds).buildAsyncFuture: userId =>
+    _.expireAfterWrite(10 seconds).buildAsyncFuture: userId =>
       gameRepo.coll.countSel(Query.nowPlaying(userId))
 
   private val nbImportedCache = mongoCache[UserId, Int](

@@ -16,8 +16,11 @@ import lila.common.Form.{
 import lila.db.dsl.{ *, given }
 import lila.core.team.Access
 import lila.core.captcha.CaptchaApi
+import lila.core.user.FlairApi
 
-final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(using Executor):
+final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
+    Executor
+):
 
   private object Fields:
     val name = "name" -> cleanText(minLength = 3, maxLength = 60).verifying(mustNotContainLichess(false))
@@ -43,7 +46,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
     val forum                              = "forum"       -> inAccess(Access.all)
     val hideMembers                        = "hideMembers" -> boolean
 
-  def create(using lila.user.Me) = Form:
+  def create(using Me) = Form:
     mapping(
       Fields.name,
       Fields.password,
@@ -51,14 +54,14 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
       Fields.description,
       Fields.descPrivate,
       Fields.request,
-      lila.user.FlairApi.formPair(),
+      "flair" -> flairApi.formField(),
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(unapply)
       .verifying("team:teamAlreadyExists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(lila.core.captcha.failMessage, captcha.validateSync)
 
-  def edit(team: Team)(using lila.user.Me) = Form(
+  def edit(team: Team)(using Me) = Form(
     mapping(
       Fields.password,
       Fields.intro,
@@ -68,7 +71,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
       Fields.chat,
       Fields.forum,
       Fields.hideMembers,
-      lila.user.FlairApi.formPair()
+      "flair" -> flairApi.formField()
     )(TeamEdit.apply)(unapply)
   ).fill(
     TeamEdit(
@@ -112,7 +115,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi)(usin
     single:
       "userId" -> lila.common.Form.username.historicalField
 
-  def createWithCaptcha(using lila.user.Me) = create -> captcha.any
+  def createWithCaptcha(using Me) = create -> captcha.any
 
   val pmAll = Form:
     single("message" -> cleanTextWithSymbols.verifying(Constraints.minLength(3), Constraints.maxLength(9000)))

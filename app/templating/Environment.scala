@@ -1,52 +1,38 @@
 package lila.app
 package templating
 
-import lila.app.ui.ScalatagsTemplate.*
+import lila.ui.*
+import lila.web.ui.*
 
 object Environment
-    extends StringHelper
+    extends ScalatagsTemplate
     with RouterHelper
-    with AssetHelper
-    with DateHelper
-    with NumberHelper
-    with PaginatorHelper
-    with FormHelper
-    with SetupHelper
-    with AiHelper
-    with GameHelper
-    with UserHelper
-    with I18nHelper
+    with lila.setup.SetupUi
+    with lila.pref.PrefHelper
     with SecurityHelper
     with TeamHelper
-    with TournamentHelper
-    with FlashHelper
-    with ChessgroundHelper
-    with HtmlHelper:
+    with Helpers
+    with AssetFullHelper:
 
   export lila.core.lilaism.Lilaism.{ *, given }
+  export lila.core.id.ImageId
   export lila.common.extensions.*
-  export lila.api.Context.{ *, given }
-  export lila.api.{ PageData, Nonce }
-  export lila.user.Me
-  export lila.common.licon
-  export lila.core.Icon
+  export lila.common.String.html.richText
+  export lila.ui.{ Layout, Page, Nonce, OpenGraph, PageModule, EsmList, Icon }
+  export lila.api.Context.{ ctxToTranslate as _, *, given }
+  export lila.api.PageData
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = envVar = Some(e)
   def env: Env                    = envVar.get
 
   def netConfig           = env.net
-  def netBaseUrl          = env.net.baseUrl.value
   def contactEmailInClear = env.net.email.value
+  def picfitUrl           = env.memo.picfitUrl
 
-  given lila.core.config.NetDomain = env.net.domain
-
-  lazy val siteName: String =
-    if env.net.siteName == "localhost:9663" then "lichess.dev"
-    else env.net.siteName
-  lazy val siteNameFrag: Frag =
-    if siteName == "lichess.org" then frag("lichess", span(".org"))
-    else frag(siteName)
+  given lila.core.config.NetDomain                           = env.net.domain
+  given (using ctx: PageContext): Option[Nonce]              = ctx.nonce
+  given Conversion[lila.team.Team, lila.core.team.LightTeam] = _.light
 
   def apiVersion = lila.security.Mobile.Api.currentVersion
 
@@ -54,10 +40,44 @@ object Environment
   def tablebaseEndpoint      = env.tablebaseEndpoint
   def externalEngineEndpoint = env.externalEngineEndpoint
 
-  def isChatPanicEnabled = env.chat.panic.enabled
+  // helpers dependencies
+  lazy val assetBaseUrl            = netConfig.assetBaseUrl
+  lazy val netBaseUrl              = netConfig.baseUrl
+  protected val ratingApi          = lila.rating.ratingApi
+  protected lazy val flairApi      = env.user.flairApi
+  lazy val isOnline                = env.socket.isOnline
+  lazy val lightUserSync           = env.user.lightUserSync
+  def manifest                     = env.web.manifest
+  protected val jsDump             = lila.i18n.JsDump
+  protected val translator         = lila.i18n.Translator
+  val langList                     = lila.i18n.LangList
+  protected val namer              = lila.game.Namer
+  protected lazy val lightTeamSync = env.team.lightTeamSync
+  protected lazy val syncBelongsTo = env.team.api.syncBelongsTo
 
-  def blockingReportScores: (Int, Int, Int) = (
-    env.report.api.maxScores.dmap(_.highest).awaitOrElse(50.millis, "nbReports", 0),
-    env.report.scoreThresholdsSetting.get().mid,
-    env.report.scoreThresholdsSetting.get().high
+  lazy val layoutDefault = Layout(
+    fullTitle = None,
+    robots = netConfig.crawlable,
+    cssFrag = emptyFrag,
+    modules = Nil,
+    jsFrag = _ => emptyFrag,
+    pageModule = None,
+    playing = false,
+    openGraph = None,
+    zoomable = false,
+    zenable = false,
+    csp = None,
+    wrapClass = "",
+    atomLinkTag = None,
+    withHrefLangs = None
   )
+
+  def helpers: Helpers                 = this
+  def assetHelper: AssetFullHelper     = this
+  def prefHelper: lila.pref.PrefHelper = this
+
+  lazy val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
+  def flagApi     = lila.user.Flags
+
+  def lightUserFallback           = env.user.lightUserSyncFallback
+  def isStreaming(userId: UserId) = env.streamer.liveStreamApi.isStreaming(userId)

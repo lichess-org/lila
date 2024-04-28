@@ -9,11 +9,13 @@ import lila.game.Crosstable
 import lila.relation.RelationApi
 import lila.core.perm.Granter
 import lila.ublog.{ UblogApi, UblogPost }
-import lila.user.{ Me, User, given_MyId }
+import lila.core.data.SafeJsonStr
+import lila.core.perf.UserWithPerfs
+import lila.core.user.User
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
-    user: User.WithPerfs,
+    user: UserWithPerfs,
     trophies: lila.api.UserApi.TrophiesAndAwards,
     hasSimul: Boolean,
     ratingChart: Option[SafeJsonStr],
@@ -59,9 +61,9 @@ object UserInfo:
       ).mapN(Social.apply)
 
     def fetchNotes(u: User)(using Me) =
-      noteApi.get(u, Granter[Me](_.ModNote)).dmap {
+      noteApi.get(u, Granter(_.ModNote)).dmap {
         _.filter: n =>
-          (!n.dox || Granter[Me](_.Admin))
+          (!n.dox || Granter(_.Admin))
       }
 
   case class NbGames(
@@ -100,7 +102,6 @@ object UserInfo:
       relayApi: lila.relay.RelayApi,
       ratingChartApi: lila.history.RatingChartApi,
       userApi: lila.api.UserApi,
-      isHostingSimul: lila.round.IsSimulHost,
       streamerApi: lila.streamer.StreamerApi,
       teamApi: lila.team.TeamApi,
       teamCache: lila.team.Cached,
@@ -111,7 +112,7 @@ object UserInfo:
       (
         perfsRepo.withPerfs(user),
         userApi.getTrophiesAndAwards(user).mon(_.user.segment("trophies")),
-        (nbs.playing > 0).so(isHostingSimul(user.id).mon(_.user.segment("simul"))),
+        (nbs.playing > 0).so(simulApi.isSimulHost(user.id).mon(_.user.segment("simul"))),
         ((ctx.noBlind && ctx.pref.showRatings).so(ratingChartApi(user))).mon(_.user.segment("ratingChart")),
         (!user.is(UserId.lichess) && !user.isBot).so {
           postApi.nbByUser(user.id).mon(_.user.segment("nbForumPosts"))

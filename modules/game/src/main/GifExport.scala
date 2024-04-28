@@ -1,5 +1,6 @@
 package lila.game
 
+import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import akka.util.ByteString
 import chess.format.{ Fen, Uci }
@@ -7,12 +8,12 @@ import chess.{ Centis, Color, Game as ChessGame, Replay, Situation }
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse }
-
-import scala.util.chaining.*
+import scalalib.Maths
 
 import lila.common.Json.given
-import scalalib.Maths
 import lila.core.config.BaseUrl
+import lila.core.game.{ Game, Pov }
+import lila.game.GameExt.*
 
 object GifExport:
   case class UpstreamStatus(code: Int) extends lila.core.lilaism.LilaException:

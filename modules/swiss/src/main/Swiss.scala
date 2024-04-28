@@ -5,7 +5,7 @@ import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import scalalib.ThreadLocalRandom
 
-import lila.core.perf.PerfType
+import lila.rating.PerfType
 import lila.core.swiss.IdName
 
 case class Swiss(
