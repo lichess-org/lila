@@ -15,7 +15,7 @@ def home(data: JsObject, high: Option[StormHigh])(using PageContext) =
     title = "Puzzle Storm",
     zoomable = true,
     zenable = true,
-    withHrefLangs =lila.ui.LangPath(routes.Storm.home).some
+    withHrefLangs = lila.ui.LangPath(routes.Storm.home).some
   ) {
     main(
       div(cls := "storm storm-app storm--play")(

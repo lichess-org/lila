@@ -10,7 +10,7 @@ def home(using PageContext) =
   views.base.layout(
     moreCss = cssTag("racer-home"),
     title = "Puzzle Racer",
-    withHrefLangs =lila.ui.LangPath(routes.Racer.home).some
+    withHrefLangs = lila.ui.LangPath(routes.Racer.home).some
   ) {
     main(cls := "page page-small racer-home box box-pad")(
       h1(cls := "box__top")("Puzzle Racer"),

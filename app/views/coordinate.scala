@@ -23,5 +23,5 @@ def show(scoreOption: Option[lila.coordinate.Score])(using PageContext) =
     ).some,
     zoomable = true,
     zenable = true,
-    withHrefLangs =lila.ui.LangPath(routes.Coordinate.home).some
+    withHrefLangs = lila.ui.LangPath(routes.Coordinate.home).some
   )(ui.preload)

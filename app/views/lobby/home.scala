@@ -37,7 +37,7 @@ object home:
         url = netBaseUrl.value,
         description = trans.site.siteDescription.txt()
       ).some,
-      withHrefLangs =lila.ui.LangPath("/").some
+      withHrefLangs = lila.ui.LangPath("/").some
     ) {
       given Option[UserWithPerfs] = homepage.me
       main(

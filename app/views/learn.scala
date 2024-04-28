@@ -25,7 +25,7 @@ object index:
         url = s"$netBaseUrl${routes.Learn.index}"
       ).some,
       zoomable = true,
-      withHrefLangs =lila.ui.LangPath(routes.Learn.index).some
+      withHrefLangs = lila.ui.LangPath(routes.Learn.index).some
     ) {
       main(id := "learn-app")
     }
