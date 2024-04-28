@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">您的帐户没有被标记或限制。一切安好！</string>
+  <string name="engineMarked">您的帐号因在对局内使用外部辅助而被标记。</string>
+  <string name="arenaBanned">您的帐户被禁止加入竞技场。</string>
+  <string name="prizeBanned">您的帐户禁止参加包含真实奖品的锦标赛。</string>
+  <string name="boosterMarked">您的账户因刷分而被标记。</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">您的账号被禁言。</string>
+  <string name="excludedFromLeaderboards">您的帐户已被排除在排行榜之外。</string>
+  <string name="hiddenBlog">您的博客已被版主隐藏。</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">您正处于冷却状态。</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">沟通原则</string>
+  <string name="blogRules">博客规则</string>
+  <string name="fairPlay">公平竞争</string>
+</resources>
