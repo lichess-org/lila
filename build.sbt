@@ -135,7 +135,7 @@ lazy val rating = module("rating",
 ).dependsOn(common % "test->test")
 
 lazy val cms = module("cms",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq()
 )
 

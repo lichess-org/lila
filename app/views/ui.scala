@@ -22,3 +22,8 @@ object oAuth:
 
 lazy val plan      = lila.plan.ui.PlanUi(helpers)(netConfig.email)
 lazy val planPages = lila.plan.ui.PlanPages(helpers)(lila.fishnet.FishnetLimiter.maxPerDay)
+
+lazy val feed =
+  lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.page.SitePage(title, "news"))(using env.executor)
+
+lazy val cms = lila.cms.ui.CmsUi(helpers)(views.mod.ui.menu("cms"))
