@@ -51,5 +51,5 @@ We detected one of your API tokens in a public code repository on GitHub at the 
 
 $url
 
-We have automatically revoked the token to protect you and your data.
+We have automatically revoked the token to protect your account.
     """
