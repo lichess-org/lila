@@ -1,14 +1,14 @@
-(window as any).initHcaptcha = async () => {
+(window as any).initHcaptcha = () => {
   const div = document.querySelector('.h-captcha');
   if (!div) return;
   const parent = div.parentElement as HTMLElement;
-  const index = Array.from(parent.children).indexOf(div);
+  const next = div.nextSibling;
   div.remove();
   (window as any).hcaptcha.render(div);
   if ('credentialless' in window && window.crossOriginIsolated) {
     div.querySelector('iframe')?.setAttribute('credentialless', '');
   }
-  parent.insertBefore(div, parent.children[index]);
+  parent.insertBefore(div, next);
 };
 
 export async function initModule() {
