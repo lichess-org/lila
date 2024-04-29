@@ -119,6 +119,7 @@ final class LilaComponents(
   lazy val forumPost: ForumPost           = wire[ForumPost]
   lazy val forumTopic: ForumTopic         = wire[ForumTopic]
   lazy val game: Game                     = wire[Game]
+  lazy val github: Github                 = wire[Github]
   lazy val i18n: I18n                     = wire[I18n]
   lazy val importer: Importer             = wire[Importer]
   lazy val insight: Insight               = wire[Insight]
