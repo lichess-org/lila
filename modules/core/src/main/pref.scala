@@ -15,6 +15,8 @@ trait Pref:
   val highlight: Boolean
   val is3d: Boolean
   val resizeHandle: Int
+  val theme: String
+  val pieceSet: String
 
   def showRatings: Boolean
   def animationMillis: Int

@@ -28,6 +28,8 @@ trait AssetHelper:
   extension (p: Page)
     def cssTag(keys: String*): Page =
       keys.foldLeft(p)((l, key) => p.css(AssetHelper.this.cssTag(key)))
+    def cssTag(key: Option[String]): Page =
+      key.foldLeft(p)(_.cssTag(_))
 
   def jsModuleInit(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"$load('${manifest.jsName(key)}')"))
@@ -59,3 +61,6 @@ trait AssetHelper:
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
   def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+
+  def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): Option[RawFrag] =
+    re.enabled.option(raw("""<script src="https://hcaptcha.com/1/api.js" async defer></script>"""))

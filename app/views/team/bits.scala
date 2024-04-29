@@ -4,7 +4,6 @@ import play.api.data.Form
 import scalalib.paginator.Paginator
 
 import lila.app.templating.Environment.{ *, given }
-import lila.team.Team
 
 private lazy val bits = lila.team.ui.TeamUi(helpers)(using env.executor)
 export bits.{ list, membersPage }
@@ -16,7 +15,7 @@ object admin:
   export adminUi.{ leaders, kick }
 
   def pmAll(
-      t: Team,
+      t: lila.team.Team,
       form: Form[?],
       tours: List[lila.tournament.Tournament],
       unsubs: Int,

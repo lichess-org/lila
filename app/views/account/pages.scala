@@ -61,7 +61,7 @@ object reopen:
     views.base.layout(
       title = trans.site.reopenYourAccount.txt(),
       moreCss = cssTag("auth"),
-      moreJs = lila.web.views.hcaptcha.script(form),
+      moreJs = hcaptchaScript(form),
       csp = defaultCsp.withHcaptcha.some
     )(ui.reopen.form(form, error))
 
