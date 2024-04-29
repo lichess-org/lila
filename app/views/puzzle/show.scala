@@ -56,8 +56,7 @@ object show:
               s"Lichess tactic trainer: ${findMove.txt()}. Played by ${puzzle.plays} players."
         )
       )
-      .copy(
-        zoomable = true,
-        zenable = true,
-        withHrefLangs = langPath
-      )(bits.show.preload)
+      .hrefLangs(langPath)
+      .zoom
+      .zen:
+        bits.show.preload

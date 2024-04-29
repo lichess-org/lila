@@ -42,7 +42,7 @@ object userAnalysis:
         url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
         description = "Analyse chess positions and variations on an interactive chess board"
       )
-      .copy(zoomable = true):
+      .zoom:
         main(
           cls := List(
             "analyse"       -> true,

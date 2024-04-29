@@ -23,10 +23,8 @@ final class LearnUi(helpers: Helpers):
         description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
         url = s"$netBaseUrl${routes.Learn.index}"
       )
-      .copy(
-        zoomable = true,
-        withHrefLangs = lila.ui.LangPath(routes.Learn.index).some
-      ):
+      .hrefLangs(lila.ui.LangPath(routes.Learn.index))
+      .zoom:
         main(id := "learn-app")
 
   private val i18nKeys = List(

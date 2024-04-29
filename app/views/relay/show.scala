@@ -49,7 +49,7 @@ object show:
             ) ++ views.board.bits.explorerAndCevalConfig
         )
       )
-      .copy(zoomable = true)
+      .zoom
       .csp(
         (if crossSiteIsolation then analysisCsp else identity[lila.ui.ContentSecurityPolicy])
           .compose(_.withExternalAnalysisApis)

@@ -8,7 +8,7 @@ import lila.app.templating.Environment.{ *, given }
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
-def page(p: lila.ui.Page)(using ctx: PageContext): Frag =
+def page(p: Page)(using ctx: PageContext): Frag =
   layout(
     title = p.title,
     fullTitle = p.fullTitle,

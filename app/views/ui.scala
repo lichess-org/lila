@@ -43,3 +43,16 @@ lazy val practice = lila.practice.ui.PracticeUi(helpers)(
   views.board.bits.explorerAndCevalConfig,
   modMenu = views.mod.ui.menu("practice")
 )
+
+object forum:
+  import lila.forum.ui.*
+  val bits  = ForumBits(helpers)
+  val post  = PostUi(helpers, bits)
+  val categ = CategUi(helpers, bits)
+  val topic = TopicUi(helpers, bits, post)(
+    views.base.captcha.apply,
+    lila.msg.MsgPreset.forumDeletion.presets
+  )
+
+def mobile(p: lila.cms.CmsPage.Render)(using Context) =
+  lila.web.views.mobile(helpers)(cms.render(p))

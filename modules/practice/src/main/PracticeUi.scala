@@ -32,7 +32,7 @@ final class PracticeUi(helpers: Helpers)(
         )
       )
       .csp(csp)
-      .copy(zoomable = true)(main(cls := "analyse"))
+      .zoom(main(cls := "analyse"))
 
   def index(data: lila.practice.UserPractice)(using ctx: PageContext) =
     Page("Practice chess positions")

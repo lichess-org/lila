@@ -75,7 +75,8 @@ def show(
         ) ++ views.board.bits.explorerAndCevalConfig
       )
     )
-    .copy(robots = s.isPublic.some, zoomable = true)
+    .robots(s.isPublic)
+    .zoom
     .csp(analysisCsp.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
       title = s.name.value,
