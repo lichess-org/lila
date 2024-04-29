@@ -1,0 +1,130 @@
+package lila.tree
+
+import chess.format.pgn.{ Comment, Glyphs }
+import chess.format.{ Fen, Uci, UciCharPair }
+import chess.opening.*
+import chess.variant.Variant
+import chess.{ Centis, Color, Ply }
+
+import lila.tree.*
+
+object NewTreeBuilder:
+
+  import TreeBuilder.{ OpeningOf, LogChessError }
+
+  def apply(
+      game: Game,
+      analysis: Option[Analysis],
+      initialFen: Fen.Full,
+      withFlags: ExportOptions,
+      logChessError: TreeBuilder.LogChessError
+  ): NewRoot =
+    val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
+    val drawOfferPlies                     = game.drawOffers.normalizedPlies
+
+    chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
+      case (init, games, error) =>
+        error.foreach: err =>
+          logChessError(formatError(game.id, err))
+
+        val openingOf: OpeningOf =
+          if withFlags.opening && Variant.list.openingSensibleVariants(game.variant) then
+            OpeningDb.findByFullFen
+          else _ => None
+
+        val fen                       = Fen.write(init)
+        val infos: Vector[Info]       = analysis.so(_.infos.toVector)
+        val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
+
+        val metas = Metas(
+          ply = init.ply,
+          fen = fen,
+          check = init.situation.check,
+          opening = openingOf(fen),
+          clock = withFlags.clocks.so(game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value))),
+          crazyData = init.situation.board.crazyData,
+          eval = infos.lift(0).map(TreeBuilder.makeEval)
+        )
+
+        def makeBranch(g: chess.Game, m: Uci.WithSan, index: Int): NewTree =
+          val fen    = Fen.write(g)
+          val info   = infos.lift(index - 1)
+          val advice = advices.get(g.ply)
+
+          chess.Node(
+            NewBranch(
+              id = UciCharPair(m.uci),
+              move = m,
+              metas = Metas(
+                ply = g.ply,
+                fen = fen,
+                check = g.situation.check,
+                opening = openingOf(fen),
+                clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)),
+                crazyData = g.situation.board.crazyData,
+                eval = info.map(TreeBuilder.makeEval),
+                glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
+                comments = Node.Comments(
+                  drawOfferPlies(g.ply)
+                    .option(TreeBuilder.makeLichessComment(Comment(s"${!g.ply.turn} offers draw")))
+                    .toList :::
+                    advice
+                      .map(_.makeComment(withEval = false, withBestMove = true))
+                      .toList
+                      .map(TreeBuilder.makeLichessComment)
+                )
+              )
+            ),
+            advices
+              .get(g.ply + 1)
+              .flatMap { adv =>
+                games.lift(index - 1).flatMap { case (fromGame, _) =>
+                  withAnalysisChild(
+                    game.id,
+                    game.variant,
+                    Fen.write(fromGame),
+                    openingOf,
+                    logChessError
+                  )(adv.info)
+                }
+              }
+          )
+
+        val tree: Option[NewTree] = chess.Tree.build[((chess.Game, Uci.WithSan), Int), NewBranch](
+          games.zipWithIndex,
+          (x, z) => makeBranch(x._1, x._2, z)
+        )
+        NewRoot(metas, tree)
+
+  private def withAnalysisChild(
+      id: GameId,
+      variant: Variant,
+      fromFen: Fen.Full,
+      openingOf: OpeningOf,
+      logChessError: LogChessError
+  )(info: Info): Option[NewTree] =
+
+    def makeBranch(g: chess.Game, m: Uci.WithSan) =
+      val fen = Fen.write(g)
+      NewBranch(
+        id = UciCharPair(m.uci),
+        move = m,
+        metas = Metas(
+          ply = g.ply,
+          fen = fen,
+          check = g.situation.check,
+          opening = openingOf(fen),
+          crazyData = g.situation.board.crazyData,
+          eval = none
+        )
+      )
+
+    chess.Replay.gameMoveWhileValid(info.variation.take(20), fromFen, variant) match
+      case (_, games, error) =>
+        error.foreach: err =>
+          logChessError(formatError(id, err))
+        chess.Tree
+          .build[(chess.Game, Uci.WithSan), NewBranch](games, makeBranch(_, _))
+
+  private def formatError(id: GameId, err: chess.ErrorStr) =
+    s"TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}"
