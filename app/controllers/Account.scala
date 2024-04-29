@@ -204,15 +204,15 @@ final class Account(
       case Some(me) =>
         Redirect(routes.User.show(me.username))
       case None if get("username").isEmpty =>
-        Ok.page(views.account.emailConfirmHelp(helpForm, none))
+        Ok.page(views.account.security.emailConfirmHelp(helpForm, none))
       case None =>
         helpForm
           .bindFromRequest()
           .fold(
-            err => BadRequest.page(views.account.emailConfirmHelp(err, none)),
+            err => BadRequest.page(views.account.security.emailConfirmHelp(err, none)),
             username =>
               getStatus(env.user.api, env.user.repo, username).flatMap: status =>
-                Ok.page(views.account.emailConfirmHelp(helpForm.fill(username), status.some))
+                Ok.page(views.account.security.emailConfirmHelp(helpForm.fill(username), status.some))
           )
 
   def twoFactor = Auth { _ ?=> me ?=>

@@ -217,3 +217,81 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
           p(cls := "saved text none", dataIcon := Icon.Checkmark)(trp.yourPreferencesHaveBeenSaved())
         )
       )
+
+  object notification:
+
+    def apply(form: Form[?])(using Context) =
+      AccountPage(
+        s"${trans.preferences.notifications.txt()} - ${trp.preferences.txt()}",
+        "notification"
+      ):
+        div(cls := "box box-pad")(
+          h1(cls := "box__top")(trans.preferences.notifications()),
+          postForm(cls := "autosubmit", action := routes.Pref.notifyFormApply)(
+            div(
+              table(cls := "allows")(
+                thead(
+                  tr(
+                    th,
+                    th(trp.notifyBell(), iconTag(Icon.BellOutline)),
+                    th(trp.notifyPush(), iconTag(Icon.PhoneMobile))
+                  )
+                ),
+                tbody(
+                  List(
+                    a(href := routes.Streamer.index())(trp.notifyStreamStart()) -> "streamStart",
+                    trp.notifyForumMention()                                    -> "mention",
+                    trp.notifyInvitedStudy()                                    -> "invitedStudy",
+                    trp.notifyInboxMsg()                                        -> "privateMessage",
+                    trp.notifyChallenge()                                       -> "challenge",
+                    trp.notifyTournamentSoon()                                  -> "tournamentSoon",
+                    frag("Broadcasts")                                          -> "broadcastRound",
+                    trp.notifyGameEvent()                                       -> "gameEvent"
+                  ).map(makeRow(form))
+                )
+              ),
+              div(
+                id := "correspondence-email-notif"
+              )( // id is set to allow direct unsubcribe link in correspondence emails
+                bits.setting(
+                  trp.correspondenceEmailNotification(),
+                  radios(form("correspondenceEmail"), translatedBooleanChoices)
+                )
+              ),
+              bits.setting(
+                trp.bellNotificationSound(),
+                radios(form("notification.playBellSound"), translatedBooleanIntChoices)
+              )
+            ),
+            p(cls := "saved text none", dataIcon := Icon.Checkmark)(trp.yourPreferencesHaveBeenSaved())
+          )
+        )
+
+    private def makeRow(form: play.api.data.Form[?])(transFrag: Frag, filterName: String) =
+      tr(
+        td(transFrag),
+        Seq("bell", "push").map: allow =>
+          val name    = s"$filterName.$allow"
+          val checked = form.data(name).contains("true")
+          td(
+            if !hiddenFields(s"$filterName.$allow") then
+              div(cls := "toggle", form3.cmnToggle(name, name, checked))
+            else if !checked then div(iconTag(Icon.X))
+            else
+              div(
+                cls := "always-on",
+                form3.hidden(name, "true"),
+                filterName match
+                  case "challenge"      => iconTag(Icon.Swords)
+                  case "privateMessage" => iconTag(Icon.BellOutline)
+                  case _                => emptyFrag
+              )
+          )
+      )
+
+    private val hiddenFields = Set(
+      "privateMessage.bell",
+      "tournamentSoon.bell",
+      "gameEvent.bell",
+      "challenge.bell"
+    )

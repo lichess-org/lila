@@ -29,3 +29,10 @@ lazy val feed =
 lazy val cms = lila.cms.ui.CmsUi(helpers)(views.mod.ui.menu("cms"))
 
 lazy val userTournament = lila.tournament.ui.UserTournament(helpers, views.tournament.ui)
+
+object account:
+  val ui        = lila.pref.ui.AccountUi(helpers)
+  val pages     = lila.pref.ui.AccountPages(helpers, ui, flagApi)
+  val pref      = lila.pref.ui.AccountPref(helpers, prefHelper, ui)
+  val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)
+  val security  = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
