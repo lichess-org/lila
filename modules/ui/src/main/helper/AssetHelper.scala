@@ -27,7 +27,7 @@ trait AssetHelper:
 
   extension (p: Page)
     def cssTag(keys: String*): Page =
-      keys.foldLeft(p)((l, key) => p.css(AssetHelper.this.cssTag(key)))
+      keys.foldLeft(p)((p, key) => p.css(AssetHelper.this.cssTag(key)))
     def cssTag(key: Option[String]): Page =
       key.foldLeft(p)(_.cssTag(_))
 
