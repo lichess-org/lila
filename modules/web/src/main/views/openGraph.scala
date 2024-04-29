@@ -25,9 +25,7 @@ private object og:
       "url"         -> url,
       "type"        -> `type`,
       "site_name"   -> siteName
-    ).map(tag) :::
-      image.map { tag("image", _) }.toList :::
-      more.map(tag)
+    ).map(tag) ::: image.map { tag("image", _) }.toList
 
 private object twitter:
 
@@ -43,6 +41,4 @@ private object twitter:
       "card"        -> "summary",
       "title"       -> title,
       "description" -> description
-    ).map(tag) :::
-      (twitterImage.orElse(image)).map { tag("image", _) }.toList :::
-      more.map(tag)
+    ).map(tag) ::: (twitterImage.orElse(image)).map { tag("image", _) }.toList

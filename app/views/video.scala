@@ -54,8 +54,7 @@ def show(
       title = s"${video.title} by ${video.author}",
       description = shorten(~video.metadata.description, 152),
       url = s"$netBaseUrl${routes.Video.show(video.id)}",
-      `type` = "video",
-      more = video.tags.map("video:tag" -> _)
+      `type` = "video"
     ).some
   )(ui.show(video, similar, control))
 

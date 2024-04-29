@@ -44,49 +44,48 @@ def show(
     socketVersion: SocketVersion,
     streamers: List[UserId]
 )(using ctx: PageContext) =
-  views.base.layout(
-    title = s.name.value,
-    moreCss = cssTag("analyse.study"),
-    modules = analyseNvuiTag,
-    pageModule = PageModule(
-      "analyse.study",
-      Json.obj(
-        "study" -> data.study
-          .add("admin", isGranted(_.StudyAdmin))
-          .add("showRatings", ctx.pref.showRatings),
-        "data"     -> data.analysis,
-        "i18n"     -> jsI18n(),
-        "tagTypes" -> lila.study.PgnTags.typesToString,
-        "userId"   -> ctx.userId,
-        "chat" -> chatOption.map: c =>
-          views.chat.json(
-            c.chat,
-            c.lines,
-            name = trans.site.chatRoom.txt(),
-            timeout = c.timeout,
-            writeable = ctx.userId.exists(s.canChat),
-            public = true,
-            resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
-            palantir = ctx.userId.exists(s.isMember),
-            localMod = ctx.userId.exists(s.canContribute)
-          ),
-        "socketUrl"     -> socketUrl(s.id),
-        "socketVersion" -> socketVersion
-      ) ++ views.board.bits.explorerAndCevalConfig
-    ).some,
-    robots = s.isPublic,
-    zoomable = true,
-    csp = analysisCsp.withPeer.withExternalAnalysisApis.some,
-    openGraph = OpenGraph(
+  Page(s.name.value)
+    .cssTag("analyse.study")
+    .js(analyseNvuiTag)
+    .js(
+      PageModule(
+        "analyse.study",
+        Json.obj(
+          "study" -> data.study
+            .add("admin", isGranted(_.StudyAdmin))
+            .add("showRatings", ctx.pref.showRatings),
+          "data"     -> data.analysis,
+          "i18n"     -> jsI18n(),
+          "tagTypes" -> lila.study.PgnTags.typesToString,
+          "userId"   -> ctx.userId,
+          "chat" -> chatOption.map: c =>
+            views.chat.json(
+              c.chat,
+              c.lines,
+              name = trans.site.chatRoom.txt(),
+              timeout = c.timeout,
+              writeable = ctx.userId.exists(s.canChat),
+              public = true,
+              resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
+              palantir = ctx.userId.exists(s.isMember),
+              localMod = ctx.userId.exists(s.canContribute)
+            ),
+          "socketUrl"     -> socketUrl(s.id),
+          "socketVersion" -> socketVersion
+        ) ++ views.board.bits.explorerAndCevalConfig
+      )
+    )
+    .copy(robots = s.isPublic.some, zoomable = true)
+    .csp(analysisCsp.compose(_.withPeer.withExternalAnalysisApis))
+    .graph(
       title = s.name.value,
       url = s"$netBaseUrl${routes.Study.show(s.id).url}",
       description = s"A chess study by ${titleNameOrId(s.ownerId)}"
-    ).some
-  ):
-    frag(
-      main(cls := "analyse"),
-      views.streamer.bits.contextual(streamers).map(_(cls := "none"))
-    )
+    ):
+      frag(
+        main(cls := "analyse"),
+        views.streamer.bits.contextual(streamers).map(_(cls := "none"))
+      )
 
 def socketUrl(id: StudyId) = s"/study/$id/socket/v$apiVersion"
 

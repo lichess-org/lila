@@ -67,3 +67,5 @@ trait AssetHelper:
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): EsmList =
     re.enabled.so(jsModuleInit("bits.hcaptcha"))
+
+  def analyseNvuiTag(using ctx: Context) = ctx.blind.option(EsmInit("analyse.nvui"))

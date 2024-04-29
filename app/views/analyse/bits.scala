@@ -8,27 +8,11 @@ object bits:
 
   val dataPanel = attr("data-panel")
 
-  def layout(
-      title: String,
-      pageModule: PageModule,
-      moreCss: Frag = emptyFrag,
-      moreJs: Frag = emptyFrag,
-      modules: EsmList = Nil,
-      openGraph: Option[OpenGraph] = None
-  )(body: Frag)(using PageContext): Frag =
-    views.base.layout(
-      title = title,
-      moreCss = moreCss,
-      moreJs = moreJs,
-      modules = modules,
-      pageModule = pageModule.some,
-      openGraph = openGraph,
-      robots = false,
-      zoomable = true,
-      csp = csp
-    )(body)
+  def page(title: String)(using Context): Page =
+    Page(title).copy(robots = false.some, zoomable = true).csp(csp)
 
-  def csp(using PageContext) = analysisCsp.withPeer.withInlineIconFont.withChessDbCn.some
+  def csp(using Context): Update[lila.ui.ContentSecurityPolicy] =
+    analysisCsp.compose(_.withPeer.withInlineIconFont.withChessDbCn)
 
   def analyseModule(mode: String, json: JsObject)(using ctx: PageContext) =
     PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))

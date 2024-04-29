@@ -4,6 +4,7 @@ import chess.format.{ BoardFen, Fen, Uci }
 import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
+import lila.ui.Context
 
 object bits:
 
@@ -27,7 +28,7 @@ object bits:
     "tablebaseEndpoint" -> tablebaseEndpoint,
     "showRatings"       -> ctx.pref.showRatings
   )
-  def explorerAndCevalConfig(using ctx: Context) =
+  def explorerAndCevalConfig(using Context) =
     Json.obj(
       "explorer"               -> explorerConfig,
       "externalEngineEndpoint" -> externalEngineEndpoint
