@@ -39,7 +39,7 @@ object account:
 
 lazy val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analysisCsp,
-  translations = views.board.userAnalysisI18n.vector(),
+  translations = userAnalysisI18n.vector(),
   views.board.bits.explorerAndCevalConfig,
   modMenu = views.mod.ui.menu("practice")
 )
@@ -53,6 +53,11 @@ object forum:
     views.base.captcha.apply,
     lila.msg.MsgPreset.forumDeletion.presets
   )
+
+lazy val timeline = lila.timeline.ui.TimelineUi(helpers)(views.streamer.bits.redirectLink(_))
+
+lazy val userAnalysisI18n = lila.analyse.ui.AnalyseI18n(helpers)
+lazy val analysisI18n     = lila.analyse.ui.GameAnalyseI18n(helpers, userAnalysisI18n)
 
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.views.mobile(helpers)(cms.render(p))

@@ -29,7 +29,7 @@ object userAnalysis:
             Json
               .obj(
                 "data" -> data,
-                "i18n" -> userAnalysisI18n(withForecast = withForecast),
+                "i18n" -> views.userAnalysisI18n(withForecast = withForecast),
                 "wiki" -> pov.game.variant.standard
               )
               .add("inlinePgn", inlinePgn) ++

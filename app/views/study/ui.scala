@@ -15,11 +15,11 @@ def streamers(streamers: List[UserId])(using Translate) =
   views.streamer.bits.contextual(streamers).map(_(cls := "none"))
 
 def jsI18n()(using Translate) =
-  views.board.userAnalysisI18n(withAdvantageChart = true) ++
+  views.userAnalysisI18n(withAdvantageChart = true) ++
     i18nJsObject(bits.i18nKeys ++ bits.gamebookPlayKeys)
 
 def embedJsI18n(chapter: lila.study.Chapter)(using Translate) =
-  views.board.userAnalysisI18n() ++ chapter.isGamebook.so(i18nJsObject(bits.gamebookPlayKeys))
+  views.userAnalysisI18n() ++ chapter.isGamebook.so(i18nJsObject(bits.gamebookPlayKeys))
 
 def clone(s: lila.study.Study)(using PageContext) =
   views.site.message(title = s"Clone ${s.name}", icon = Icon.StudyBoard.some)(ui.clone(s))

@@ -126,7 +126,7 @@ object replay:
           Json
             .obj(
               "data"   -> data,
-              "i18n"   -> jsI18n(),
+              "i18n"   -> views.analysisI18n(),
               "userId" -> ctx.userId,
               "chat"   -> chatJson
             )

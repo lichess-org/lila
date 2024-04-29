@@ -215,7 +215,7 @@ lazy val room = module("room",
 )
 
 lazy val timeline = module("timeline",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 

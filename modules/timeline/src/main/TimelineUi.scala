@@ -1,29 +1,33 @@
-package views
+package lila.timeline
+package ui
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.timeline.*
 
-object timeline:
+final class TimelineUi(helpers: Helpers)(
+    streamerLink: UserStr => Tag
+):
+  import helpers.{ *, given }
+  import trans.{ team as trt }
 
-  def entries(entries: Vector[lila.timeline.Entry])(using Context) =
+  def entries(entries: Vector[Entry])(using Context) =
     div(cls := "entries"):
       filterEntries(entries).map: entry =>
-        div(cls := "entry")(timeline.entry(entry))
+        div(cls := "entry")(renderEntry(entry))
 
-  def more(entries: Vector[lila.timeline.Entry])(using PageContext) =
-    views.base.layout(
-      title = trans.site.timeline.txt(),
-      moreCss = cssTag("slist")
-    ):
-      main(cls := "timeline page-small box")(
-        h1(cls := "box__top")(trans.site.timeline()),
-        table(cls := "slist slist-pad"):
-          tbody:
-            filterEntries(entries).map: e =>
-              tr(td(entry(e)))
-      )
+  def more(entries: Vector[Entry])(using PageContext) =
+    Page(trans.site.timeline.txt())
+      .cssTag("slist"):
+        main(cls := "timeline page-small box")(
+          h1(cls := "box__top")(trans.site.timeline()),
+          table(cls := "slist slist-pad"):
+            tbody:
+              filterEntries(entries).map: e =>
+                tr(td(renderEntry(e)))
+        )
 
-  private def filterEntries(entries: Vector[lila.timeline.Entry])(using ctx: Context) =
+  private def filterEntries(entries: Vector[Entry])(using ctx: Context) =
     if ctx.kid.no then entries
     else entries.filter(_.okForKid)
 
@@ -31,7 +35,7 @@ object timeline:
     case Some(me) if me.is(userId) => lightUserLink(me.light, withOnline = true)(cls := "online")
     case _                         => userIdLink(userId.some, withOnline = true)
 
-  private def entry(e: lila.timeline.Entry)(using ctx: Context) =
+  private def renderEntry(e: Entry)(using ctx: Context) =
     frag(
       e.decode.map[Frag]:
         case Follow(u1, u2) => trans.site.xStartedFollowingY(userLink(u1), userLink(u2))
@@ -107,8 +111,9 @@ object timeline:
             a(href := routes.Ublog.redirect(postId))(postTitle)
           )
         case StreamStart(id, name) =>
-          views.streamer.bits
-            .redirectLink(id)(cls := "text", dataIcon := Icon.Mic)(trans.site.xStartedStreaming(name))
+          streamerLink(id.into(UserStr))(cls := "text", dataIcon := Icon.Mic)(
+            trans.site.xStartedStreaming(name)
+          )
       ,
       " ",
       momentFromNowWithPreload(e.date)
