@@ -48,11 +48,16 @@
   <string name="takeTheBlackPieces">கறுப்பு காய்களைக் கைப்பற்றுங்கள்!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">கறுப்பு காய்களைக் கைப்பற்றுங்கள்! உன்கள் காய்களை இழந்துவிடாதீர்கள்.</string>
   <string name="protection">பாதுகாப்பு</string>
-  <string name="keepYourPiecesSafe">பாதுகாப்பு</string>
-  <string name="protectionIntro">பாதுகாப்பு!</string>
+  <string name="keepYourPiecesSafe">உங்கள் காய்களைப் பாதுகாப்பாக வைத்திருங்கள்</string>
+  <string name="protectionIntro">எதிர்ப்பாளர் தாக்கும் காய்களைப் பாதுகாக்குங்கள்!</string>
+  <string name="protectionComplete">வாழ்த்துக்கள்! இழக்காத ஒரு காய் கைப்பற்றிய ஒரு காய்க்குச் சமம்!</string>
+  <string name="escape">நீங்கள் தாக்குதலுக்கு ஆளாகியுள்ளீர்கள்! தப்பியுங்கள்!</string>
+  <string name="noEscape">தப்பிக்க இயலாது, ஆனால் பாதுகாக்க இயலும்!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">பாதுகாப்பற்ற எந்தக் காயையும் கைப்பற்ற விடாதீர்கள்!</string>
   <string name="combat">போர்</string>
+  <string name="captureAndDefendPieces">காய்களைப் கைப்பற்றுங்கள் பாதுகாக்குங்கள்</string>
   <string name="checkInOne">ஒரு நகர்வில் ஆபத்து</string>
   <string name="attackTheOpponentsKing">எதிர்ப்பாளரின் அரசனை தாக்குங்கள்</string>
-  <string name="intermediate">ராஜாவுடன் தப்பிக்க</string>
-  <string name="boardSetup">சதுரங்க அமைப்பு</string>
+  <string name="intermediate">இடைநிலை</string>
+  <string name="boardSetup">பலகை அமைப்பு</string>
 </resources>
