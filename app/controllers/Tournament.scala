@@ -21,7 +21,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   import env.user.flairApi.given
   private given lila.core.team.LightTeam.Api = env.team.lightTeamApi
 
-  private def tournamentNotFound(using Context) = NotFound.page(views.tournament.ui.notFound())
+  private def tournamentNotFound(using Context) = NotFound.page(views.tournament.ui.notFound)
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Tournament.home)(serveHome)
@@ -35,7 +35,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         html = for
           finished <- api.notableFinished
           winners  <- env.tournament.winners.all
-          page     <- renderPage(views.tournament.home(scheduled, finished, winners, scheduleJson))
+          page     <- renderPage(views.tournament.list.home(scheduled, finished, winners, scheduleJson))
         yield Ok(page).noCache,
         json = Ok(scheduleJson)
       )
@@ -48,7 +48,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     for
       winners <- env.tournament.winners.all
       _       <- env.user.lightUserApi.preloadMany(winners.userIds)
-      page    <- renderPage(views.tournament.leaderboard(winners))
+      page    <- renderPage(views.tournament.list.leaderboard(winners))
     yield Ok(page)
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(using ctx: Context): Boolean =
@@ -384,25 +384,25 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
     for
       history <- env.tournament.shieldApi.history(5.some)
       _       <- env.user.lightUserApi.preloadMany(history.userIds)
-      page    <- renderPage(views.tournament.shields(history))
+      page    <- renderPage(views.tournament.list.shields(history))
     yield Ok(page)
 
   def categShields(k: String) = Open:
     FoundPage(env.tournament.shieldApi.byCategKey(k)): (categ, awards) =>
       env.user.lightUserApi
         .preloadMany(awards.map(_.owner))
-        .inject(views.tournament.shields.byCateg(categ, awards))
+        .inject(views.tournament.list.shields.byCateg(categ, awards))
 
   def calendar = Open:
     api.calendar.flatMap: tours =>
-      Ok.page(views.tournament.calendar(env.tournament.apiJsonView.calendar(tours)))
+      Ok.page(views.tournament.list.calendar(env.tournament.apiJsonView.calendar(tours)))
 
   def history(freq: String, page: Int) = Open:
     lila.tournament.Schedule.Freq.byName.get(freq).so { fr =>
       api.history(fr, page).flatMap { pager =>
         val userIds = pager.currentPageResults.flatMap(_.winnerId)
         env.user.lightUserApi.preloadMany(userIds) >>
-          Ok.page(views.tournament.history(fr, pager))
+          Ok.page(views.tournament.list.history(fr, pager))
       }
     }
 

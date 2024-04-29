@@ -27,3 +27,5 @@ lazy val feed =
   lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.page.SitePage(title, "news"))(using env.executor)
 
 lazy val cms = lila.cms.ui.CmsUi(helpers)(views.mod.ui.menu("cms"))
+
+lazy val userTournament = lila.tournament.ui.UserTournament(helpers, views.tournament.ui)

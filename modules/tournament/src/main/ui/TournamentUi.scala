@@ -49,14 +49,15 @@ final class TournamentUi(helpers: Helpers)(
       )
 
   def notFound(using Context) =
-    main(cls := "page-small box box-pad")(
-      h1(cls := "box__top")(trans.site.tournamentNotFound()),
-      p(trans.site.tournamentDoesNotExist()),
-      p(trans.site.tournamentMayHaveBeenCanceled()),
-      br,
-      br,
-      a(href := routes.Tournament.home)(trans.site.returnToTournamentsHomepage())
-    )
+    Page(trans.site.tournamentNotFound.txt()):
+      main(cls := "page-small box box-pad")(
+        h1(cls := "box__top")(trans.site.tournamentNotFound()),
+        p(trans.site.tournamentDoesNotExist()),
+        p(trans.site.tournamentMayHaveBeenCanceled()),
+        br,
+        br,
+        a(href := routes.Tournament.home)(trans.site.returnToTournamentsHomepage())
+      )
 
   def enterable(tours: List[Tournament])(using Context) =
     table(cls := "tournaments")(

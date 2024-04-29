@@ -1,0 +1,47 @@
+package views.tournament
+
+import lila.app.templating.Environment.{ *, given }
+import lila.tournament.ui.*
+
+lazy val ui = TournamentUi(helpers)(env.tournament.getTourName, lila.i18n.Translator.toDefault)
+
+lazy val teamBattle = TeamBattleUi(helpers)
+
+lazy val list = TournamentList(helpers, ui)(
+  communityMenu = views.user.bits.communityMenu("tournament"),
+  shieldMenu = views.user.bits.communityMenu("shield")
+)
+
+private lazy val showUi = TournamentShow(helpers, ui, views.gathering)(
+  variantTeamLinks = lila.team.Team.variants.view
+    .mapValues: team =>
+      (team, teamLink(team, true))
+    .toMap
+)
+export showUi.faq.{ page as faq }
+
+lazy val form = TournamentForm(helpers, showUi)(
+  modMenu = views.mod.ui.menu("tour"),
+  translatedVariantChoicesWithVariantsById
+)
+
+def show(
+    tour: lila.tournament.Tournament,
+    verdicts: lila.gathering.Condition.WithVerdicts,
+    data: play.api.libs.json.JsObject,
+    chatOption: Option[lila.chat.UserChat.Mine],
+    streamers: List[UserId],
+    shieldOwner: Option[UserId]
+)(using ctx: Context) =
+  val chat = chatOption.map: c =>
+    views.chat.frag -> views.chat.json(
+      c.chat,
+      c.lines,
+      name = trans.site.chatRoom.txt(),
+      timeout = c.timeout,
+      public = true,
+      resourceId = lila.chat.Chat.ResourceId(s"tournament/${c.chat.id}"),
+      localMod = ctx.userId.has(tour.createdBy),
+      writeable = !c.locked
+    )
+  showUi(tour, verdicts, shieldOwner, data, chat, views.streamer.bits.contextual(streamers))
