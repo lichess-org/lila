@@ -40,6 +40,9 @@ trait AssetHelper:
   def jsPageModule(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${manifest.jsName(key)}')"))
 
+  // load iife scripts in <head> and defer
+  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
+
   def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
     raw:
       val nonceAttr = nonce.so(n => s""" nonce="$n"""")

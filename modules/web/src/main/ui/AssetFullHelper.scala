@@ -43,9 +43,6 @@ trait AssetFullHelper:
           case json: JsValue => safeJsonValue(json).value
           case json          => json.toString
 
-  // load iife scripts in <head> and defer
-  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
-
   def jsDeps(keys: List[String]): Frag = frag:
     manifest.deps(keys).map { dep =>
       script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))

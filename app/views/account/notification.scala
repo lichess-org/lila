@@ -3,13 +3,13 @@ package views.account
 import lila.app.templating.Environment.{ *, given }
 
 object notification:
-  import bits.*
+  import ui.*
   import trans.preferences.*
 
   def apply(form: play.api.data.Form[?])(using PageContext) =
-    layout(
-      title = s"${trans.preferences.notifications.txt()} - ${preferences.txt()}",
-      active = "notification"
+    AccountPage(
+      s"${trans.preferences.notifications.txt()} - ${preferences.txt()}",
+      "notification"
     ):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.preferences.notifications()),

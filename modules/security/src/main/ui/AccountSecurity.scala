@@ -6,7 +6,9 @@ import play.api.data.Form
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
-final class AccountSecurity(helpers: Helpers):
+final class AccountSecurity(helpers: Helpers)(
+    AccountPage: (String, String) => Context ?=> Page
+):
   import helpers.{ *, given }
 
   def apply(
@@ -16,33 +18,34 @@ final class AccountSecurity(helpers: Helpers):
       clients: List[lila.oauth.AccessTokenApi.Client],
       personalAccessTokens: Int
   )(using Context) =
-    div(cls := "security")(
-      div(cls := "box")(
-        h1(cls := "box__top")(trans.site.security()),
-        standardFlash.map(div(cls := "box__pad")(_)),
-        div(cls := "box__pad")(
-          p(
-            "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
-            a(href := routes.Account.email)("check your recovery email address"),
-            " and ",
-            a(href := routes.Account.passwd)("change your password"),
-            "."
-          ),
-          (sessions.sizeIs > 1).option(
-            div(
-              "You can also ",
-              postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                submitButton(cls := "button button-empty button-red confirm")(
-                  trans.site.revokeAllSessions()
-                )
-              ),
+    AccountPage(s"${u.username} - ${trans.site.security.txt()}", "security"):
+      div(cls := "security")(
+        div(cls := "box")(
+          h1(cls := "box__top")(trans.site.security()),
+          standardFlash.map(div(cls := "box__pad")(_)),
+          div(cls := "box__pad")(
+            p(
+              "This is a list of devices and applications that are logged into your account. If you notice any suspicious activity, make sure to ",
+              a(href := routes.Account.email)("check your recovery email address"),
+              " and ",
+              a(href := routes.Account.passwd)("change your password"),
               "."
+            ),
+            (sessions.sizeIs > 1).option(
+              div(
+                "You can also ",
+                postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
+                  submitButton(cls := "button button-empty button-red confirm")(
+                    trans.site.revokeAllSessions()
+                  )
+                ),
+                "."
+              )
             )
-          )
-        ),
-        table(sessions, curSessionId.some, clients, personalAccessTokens)
+          ),
+          table(sessions, curSessionId.some, clients, personalAccessTokens)
+        )
       )
-    )
 
   private def table(
       sessions: List[lila.security.LocatedSession],
