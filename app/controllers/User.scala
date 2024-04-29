@@ -411,11 +411,11 @@ final class User(
             isGranted(_.ViewPrintNoIP).so(views.user.mod.identification(logins))
 
           val kaladin = isGranted(_.MarkEngine).so(env.irwin.kaladinApi.get(user).map {
-            _.flatMap(_.response).so(views.irwin.ui.kaladin.report)
+            _.flatMap(_.response).so(views.irwin.kaladin.report)
           })
 
           val irwin =
-            isGranted(_.MarkEngine).so(env.irwin.irwinApi.reports.withPovs(user).mapz(views.irwin.ui.report))
+            isGranted(_.MarkEngine).so(env.irwin.irwinApi.reports.withPovs(user).mapz(views.irwin.report))
           val assess = isGranted(_.MarkEngine)
             .so(env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id))
             .flatMapz: as =>
