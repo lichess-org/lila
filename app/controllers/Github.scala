@@ -11,28 +11,32 @@ final class Github(env: Env) extends LilaController(env):
   private val logger = lila.log("github")
 
   def secretScanning = AnonBodyOf(parse.json): body =>
-    val tokens = body
-      .as[List[JsObject]]
-      .map { obj =>
-        val token = (obj \ "token").as[String]
-        val url   = (obj \ "url").as[String]
-        Bearer(token) -> url
-      }
+    body
+      .asOpt[List[JsObject]]
+      .map:
+        _.flatMap: obj =>
+          for
+            token <- (obj \ "token").asOpt[String]
+            url   <- (obj \ "url").asOpt[String]
+          yield Bearer(token) -> url
+        .toMap
+      .foreach: tokensMap =>
+        env.oAuth.tokenApi
+          .test(tokensMap.keys.toList)
+          .map:
+            _.map: (bearer, token) =>
+              token match
+                case Some(token) =>
+                  logger.info(s"revoking token ${token.plain} for user ${token.userId}")
+                  env.oAuth.tokenApi.revoke(token.plain)
+                  tokensMap
+                    .get(bearer)
+                    .map: url =>
+                      env.msg.api.systemPost(
+                        token.userId,
+                        lila.msg.MsgPreset.apiTokenRevoked(url)
+                      )
+                case None =>
+                  logger.info(s"ignoring token $bearer")
 
-    env.oAuth.tokenApi.test(tokens.map(_._1)).map {
-      _.map { (bearer, token) =>
-        token match
-          case Some(token) =>
-            logger.info(s"revoking token ${token.plain} for user ${token.userId}")
-            for
-              _ <- env.oAuth.tokenApi.revoke(token.plain)
-              _ <- env.msg.api.systemPost(
-                token.userId,
-                lila.msg.MsgPreset.apiTokenRevoked(tokens.find(_._1 == bearer).map(_._2).get)
-              )
-            yield ()
-          case None =>
-            logger.info(s"ignoring token $bearer")
-      }
-    }
     NoContent
