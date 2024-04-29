@@ -81,13 +81,3 @@
     margin-top: 0.2em;
   }
 }
-
-@media (hover: hover) {
-  .game__meta .bookmark {
-    display: none;
-  }
-
-  .game__meta:hover .bookmark {
-    display: block;
-  }
-}
