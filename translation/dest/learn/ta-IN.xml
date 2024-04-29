@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">சதுரங்கம் கற்றுக்கொள்</string>
+  <string name="learnChess">சதுரங்கம் கற்றுக்கொள்ளுங்கள்</string>
   <string name="byPlaying">விளையாடுவதன் மூலம்!</string>
   <string name="menu">பட்டியல்</string>
   <string name="progressX">முன்னேற்றம்: %s</string>
@@ -8,19 +8,19 @@
   <string name="youWillLoseAllYourProgress">உங்கள் முன்னேற்றம் அனைத்தையும் இழப்பீர்கள்!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">விளையாடு!</string>
   <string name="chessPieces">சதுரங்க காய்கள்</string>
-  <string name="theRook">தி ரூக்</string>
+  <string name="theRook">யானை</string>
   <string name="itMovesInStraightLines">இது நேர்கோட்டில் நகரும்</string>
-  <string name="rookIntro">ரோக் ஒரு சக்திவாய்ந்த துண்டு. நீங்கள் கட்டளையிட தயாரா?</string>
-  <string name="rookGoal">அதை நட்சத்திரத்திற்கு கொண்டு வர ரூக் மீது கிளிக் செய்யவும்!</string>
+  <string name="rookIntro">யானை ஒரு சக்திவாய்ந்த காய். நீங்கள் அதைக் கட்டளையிட தயாரா?</string>
+  <string name="rookGoal">அதை நட்சத்திரத்திற்கு கொண்டு வர யானைமீது கிளிக் செய்யவும்!</string>
   <string name="grabAllTheStars">எல்லா நட்சத்திரங்களையும் எடுங்கள்!</string>
-  <string name="theFewerMoves">குறைந்த நகர்வில் கூடுதலான புள்ளிகளைப் பெறுங்கள்!</string>
-  <string name="useTwoRooks">விரைவுபடுத்த இரண்டு யானைகளையும் பாவியுங்கள்!</string>
+  <string name="theFewerMoves">குறைந்த நகர்வில் செய்தால் கூடுதலான மதிப்பெண்களைப் பெறுவீர்!</string>
+  <string name="useTwoRooks">விரைவுபடுத்த இரண்டு யானைகளைப் பாவியுங்கள்!</string>
   <string name="rookComplete">வாழ்த்துகள்! யானையைக் கையாள்வதில் தேர்ச்சிபெற்றுவிட்டீர்கள்.</string>
   <string name="theBishop">மந்திரி</string>
   <string name="itMovesDiagonally">இது மூலைவிட்டம் வழியே நகரும்</string>
   <string name="bishopIntro">அடுத்து மந்திரியைக் கையாள்வதைக் கற்போம்!</string>
   <string name="youNeedBothBishops">ஒரு வெள்ளைச் சதுர (light-squared) மந்திரி,
-ஒரு கறுப்புப் பெட்டி (dark-squared) மந்திரி,
+ஒரு கறுப்புச் ச்துர் (dark-squared) மந்திரி,
 ஆகிய இரண்டும் உங்களிற்குத் தேவைப்படும்!</string>
   <string name="bishopComplete">வாழ்த்துகள்! நீங்கள் மந்திரிக்குக் கட்டளையிடலாம்.</string>
   <string name="theQueen">அரசி</string>
