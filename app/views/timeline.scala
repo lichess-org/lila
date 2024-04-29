@@ -1,10 +1,7 @@
 package views
 
 import lila.app.templating.Environment.{ *, given }
-
 import lila.core.timeline.*
-
-import lila.rating.PerfType
 
 object timeline:
 
@@ -81,7 +78,7 @@ object timeline:
           )(
             a(
               href     := routes.Round.player(playerId),
-              dataIcon := PerfType(perfKey).icon,
+              dataIcon := perfKey.perfIcon,
               cls      := "text glpt"
             )(win match
               case Some(true)  => trans.site.victory()
@@ -89,7 +86,7 @@ object timeline:
               case None        => trans.site.draw()
             ),
             userIdLink(opponent),
-            PerfType(perfKey).trans
+            perfKey.perfTrans
           )
         case StudyLike(userId, studyId, studyName) =>
           trans.site.xLikesY(

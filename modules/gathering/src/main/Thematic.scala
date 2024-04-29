@@ -1,4 +1,4 @@
-package lila.tournament
+package lila.gathering
 
 import chess.StartingPosition
 import chess.format.Fen

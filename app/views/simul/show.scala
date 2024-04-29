@@ -84,7 +84,7 @@ object show:
                 case _             => trans.site.randomColor()
               ),
               sim.position
-                .flatMap(p => lila.tournament.Thematic.byFen(p.opening))
+                .flatMap(p => lila.gathering.Thematic.byFen(p.opening))
                 .map { pos =>
                   frag(br, a(targetBlank, href := pos.url)(pos.name))
                 }

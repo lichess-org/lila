@@ -21,14 +21,15 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
   def idToName(id: SwissId): String = getName.sync(id).getOrElse("Tournament")
 
   def notFound(using Context) =
-    main(cls := "page-small box box-pad")(
-      h1(cls := "box__top")(trans.site.tournamentNotFound()),
-      p(trans.site.tournamentDoesNotExist()),
-      p(trans.site.tournamentMayHaveBeenCanceled()),
-      br,
-      br,
-      a(href := routes.Swiss.home)(trans.site.returnToTournamentsHomepage())
-    )
+    Page(trans.site.tournamentNotFound.txt()):
+      main(cls := "page-small box box-pad")(
+        h1(cls := "box__top")(trans.site.tournamentNotFound()),
+        p(trans.site.tournamentDoesNotExist()),
+        p(trans.site.tournamentMayHaveBeenCanceled()),
+        br,
+        br,
+        a(href := routes.Swiss.home)(trans.site.returnToTournamentsHomepage())
+      )
 
   def forTeam(swisses: List[Swiss])(using Context) =
     table(cls := "slist")(

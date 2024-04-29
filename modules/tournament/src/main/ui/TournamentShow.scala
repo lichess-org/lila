@@ -13,7 +13,7 @@ import lila.gathering.ui.GatheringUi
 
 final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: GatheringUi)(
     variantTeamLinks: Map[chess.variant.Variant.LilaKey, (LightTeam, Frag)]
-):
+)(using NetDomain):
   import helpers.{ *, given }
 
   def apply(
@@ -23,7 +23,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
       data: JsObject,
       chat: Option[(Frag, JsObject)],
       streamers: Frag
-  )(using ctx: Context)(using NetDomain) =
+  )(using ctx: Context) =
     val extraCls = tour.schedule.so: sched =>
       s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
     Page(s"${tour.name()} #${tour.id}")
@@ -75,7 +75,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
         shieldOwner: Option[UserId],
         chat: Option[Frag],
         streamers: Frag
-    )(using ctx: Context)(using NetDomain) =
+    )(using ctx: Context) =
       frag(
         div(cls := "tour__meta")(
           st.section(dataIcon := tour.perfType.icon.toString)(

@@ -87,7 +87,7 @@ object home:
                 lila.tournament.Spotlight.select(tours, tourBBBs).map {
                   views.tournament.list.homepageSpotlight(_)
                 },
-                swiss.ifTrue(nbForced < 3).map(views.swiss.bits.homepageSpotlight),
+                swiss.ifTrue(nbForced < 3).map(views.swiss.ui.homepageSpotlight),
                 simulBBB.map(views.simul.bits.homepageSpotlight)
               )
             }
