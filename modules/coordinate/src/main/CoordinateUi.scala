@@ -9,7 +9,26 @@ import ScalatagsTemplate.{ *, given }
 final class CoordinateUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  val preload = main(id := "trainer")(
+  def show(scoreOption: Option[Score])(using Context) =
+    Page(trans.coordinates.coordinateTraining.txt())
+      .cssTag("coordinateTrainer")
+      .cssTag("voice")
+      .js(pageModule(scoreOption))
+      .csp(_.withPeer.withWebAssembly)
+      .graph(
+        title = "Chess board coordinates trainer",
+        url = s"$netBaseUrl${routes.Coordinate.home.url}",
+        description =
+          "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square."
+      )
+      .copy(
+        zoomable = true,
+        zenable = true,
+        withHrefLangs = LangPath(routes.Coordinate.home).some
+      )
+      .body(preload)
+
+  private val preload = main(id := "trainer")(
     div(cls := "trainer")(
       div(cls := "side"),
       div(cls := "main-board")(chessgroundBoard),
@@ -18,7 +37,7 @@ final class CoordinateUi(helpers: Helpers):
     )
   )
 
-  def pageModule(scoreOption: Option[lila.coordinate.Score])(using ctx: Context) =
+  private def pageModule(scoreOption: Option[lila.coordinate.Score])(using ctx: Context) =
     PageModule(
       "coordinateTrainer",
       Json.obj(

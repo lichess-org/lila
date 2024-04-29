@@ -36,13 +36,16 @@ case class Page(
     withHrefLangs: Option[LangPath] = None,
     transform: Update[Frag] = identity
 ):
-  def js(esm: EsmInit): Page           = copy(modules = modules :+ esm.some)
-  def js(esm: EsmList): Page           = copy(modules = modules ::: esm)
-  def js(f: WithNonce[Frag]): Page     = copy(jsFrag = jsFrag.foldLeft(f)(_ |+| _).some)
-  def js(pm: PageModule): Page         = copy(pageModule = pm.some)
-  def js(pm: Option[PageModule]): Page = copy(pageModule = pm)
-  def iife(iifeFrag: Frag): Page       = js(_ => iifeFrag)
-  def graph(og: OpenGraph): Page       = copy(openGraph = og.some)
+  def js(esm: EsmInit): Page               = copy(modules = modules :+ esm.some)
+  def js(esm: EsmList): Page               = copy(modules = modules ::: esm)
+  def js(f: WithNonce[Frag]): Page         = copy(jsFrag = jsFrag.foldLeft(f)(_ |+| _).some)
+  def js(f: Option[WithNonce[Frag]]): Page = f.foldLeft(this)(_.js(_))
+  def js(pm: PageModule): Page             = copy(pageModule = pm.some)
+  @scala.annotation.targetName("jsModuleOption")
+  def js(pm: Option[PageModule]): Page                             = copy(pageModule = pm)
+  def iife(iifeFrag: Frag): Page                                   = js(_ => iifeFrag)
+  def iife(iifeFrag: Option[Frag]): Page                           = iifeFrag.foldLeft(this)(_.iife(_))
+  def graph(og: OpenGraph): Page                                   = copy(openGraph = og.some)
   def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
   def robots(b: Boolean): Page                                     = copy(robots = b.some)
   def css(f: Frag): Page                           = copy(cssFrag = cssFrag.foldLeft(f)(_ |+| _).some)
