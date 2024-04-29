@@ -3,16 +3,38 @@ package forum
 
 import lila.core.id.{ ForumCategId, ForumPostId, ForumTopicId, TeamId }
 import lila.core.userId.*
+import lila.core.bus
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-case class CreatePost(post: ForumPostMini)
+sealed class BusForumPost
+object BusForumPost:
+  given busForumPostChannel: bus.WithChannel[BusForumPost] with
+    def channel = "forumPost"
+
+case class CreatePost(post: ForumPostMini) extends BusForumPost
+object CreatePost:
+  given createPostChannel: bus.WithChannel[CreatePost] with
+    def channel = "forumPost"
 case class RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
-case class RemovePosts(ids: List[ForumPostId])
+    extends BusForumPost
+object RemovePost:
+  given removePostChannel: bus.WithChannel[RemovePost] with
+    def channel = "forumPost"
+case class RemovePosts(ids: List[ForumPostId]) extends BusForumPost
+object RemovePosts:
+  given removePostsChannel: bus.WithChannel[RemovePosts] with
+    def channel = "forumPost"
 // case class PostCloseToggle(categ: ForumCategId, topicSlug: String, closed: Boolean)(using val me: user.MyId)
 // erasing = blankng, still in db but with empty text
-case class ErasePost(id: ForumPostId)
-case class ErasePosts(ids: List[ForumPostId])
+case class ErasePost(id: ForumPostId) extends BusForumPost
+object ErasePost:
+  given erasePostChannel: bus.WithChannel[ErasePost] with
+    def channel = "forumPost"
+case class ErasePosts(ids: List[ForumPostId]) extends BusForumPost
+object ErasePosts:
+  given erasePostsChannel: bus.WithChannel[ErasePosts] with
+    def channel = "forumPost"
 
 trait ForumPost:
   val id: ForumPostId

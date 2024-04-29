@@ -5,7 +5,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.search.*
-import lila.core.forum.{ CreatePost, RemovePost, RemovePosts, ErasePost, ErasePosts }
+import lila.core.forum.{ CreatePost, RemovePost, RemovePosts, ErasePost, ErasePosts, BusForumPost }
 import lila.core.config.ConfigName
 import lila.core.id.ForumPostId
 
@@ -37,7 +37,7 @@ final class Env(
 
   private lazy val paginatorBuilder = lila.search.PaginatorBuilder(api, config.maxPerPage)
 
-  lila.common.Bus.chan.forumPost.subscribe:
+  lila.common.Bus.sub[BusForumPost]:
     case CreatePost(post)        => api.store(post)
     case RemovePost(id, _, _, _) => client.deleteById(id.into(Id))
     case RemovePosts(ids)        => client.deleteByIds(Id.from[List, ForumPostId](ids))

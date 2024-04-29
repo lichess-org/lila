@@ -118,10 +118,9 @@ final class Env(
     }
   )
 
-  Bus.chan.forumPost.subscribe:
-    case p: lila.core.forum.RemovePost =>
-      if p.asAdmin
-      then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
-      else
-        logger.info:
-          s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
+  Bus.sub: (p: lila.core.forum.RemovePost) =>
+    if p.asAdmin
+    then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
+    else
+      logger.info:
+        s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""

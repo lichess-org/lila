@@ -77,5 +77,5 @@ final class Env(
     case lila.core.misc.streamer.StreamStart(userId, _) => write.streamStart(userId)
     case lila.core.swiss.SwissFinish(swissId, ranking)  => write.swiss(swissId, ranking)
 
-  Bus.chan.forumPost.subscribe:
+  Bus.sub[lila.core.forum.CreatePost]:
     case lila.core.forum.CreatePost(post) => write.forumPost(post)

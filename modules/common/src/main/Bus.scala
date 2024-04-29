@@ -1,18 +1,10 @@
 package lila.common
 
 import akka.actor.{ ActorRef, Scheduler }
+import lila.core.bus.{ Payload, Channel, Tellable, WithChannel }
 
 import scala.jdk.CollectionConverters.*
-
-trait Tellable extends Any:
-  def !(msg: Matchable): Unit
-object Tellable:
-  case class Actor(ref: akka.actor.ActorRef) extends Tellable:
-    def !(msg: Matchable) = ref ! msg
-  case class SyncActor(ref: scalalib.actor.SyncActor) extends Tellable:
-    def !(msg: Matchable) = ref ! msg
-  def apply(f: PartialFunction[Matchable, Unit]) = new Tellable:
-    def !(msg: Matchable) = f.applyOrElse(msg, _ => ())
+import scala.reflect.Typeable
 
 object NamedBus:
   object fishnet:
@@ -23,8 +15,8 @@ object NamedBus:
     import lila.core.timeline.*
     def apply(propagate: Propagate): Unit = Bus.publish(propagate, "timeline")
 
-final class BusChannel(channel: Bus.Channel):
-  def apply(msg: Bus.Payload): Unit                       = Bus.publish(msg, channel)
+final class BusChannel(channel: Channel):
+  def apply(msg: Payload): Unit                           = Bus.publish(msg, channel)
   def subscribe(subscriber: Bus.SubscriberFunction): Unit = Bus.subscribeFun(channel)(subscriber)
 
 object BusChannel:
@@ -32,14 +24,16 @@ object BusChannel:
 
 object Bus:
 
-  type Channel    = String
-  type Subscriber = Tellable
-  type Payload    = Matchable
-
   type SubscriberFunction = PartialFunction[Payload, Unit]
 
   val named = NamedBus
-  val chan  = BusChannel
+
+  def pub[T <: Payload](payload: T)(using wc: WithChannel[T]) =
+    publish(payload, wc.channel)
+  def sub[T <: Payload: Typeable](f: PartialFunction[T, Unit])(using
+      wc: WithChannel[T]
+  ) =
+    subscribeFun(wc.channel)({ case x: T => f(x) })
 
   def publish(payload: Payload, channel: Channel): Unit = bus.publish(payload, channel)
 
