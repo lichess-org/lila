@@ -25,34 +25,32 @@ object show:
       log: List[Modlog] = Nil
   )(using ctx: PageContext) =
     def havePerm(perm: lila.team.TeamSecurity.Permission.Selector) = info.member.exists(_.hasPerm(perm))
-    bits.teamPage:
-      Page(
-        t.name,
-        _(
-          OpenGraph(
-            title = s"${t.name} team",
-            url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-            description = t.intro.so { shorten(_, 152) }
-          )
-        )(
-          PageModule(
-            "bits.team",
-            Json
-              .obj("id" -> t.id)
-              .add("socketVersion" -> socketVersion)
-              .add("chat" -> chatOption.map: chat =>
-                views.chat.json(
-                  chat.chat,
-                  chat.lines,
-                  name = if t.isChatFor(_.Leaders) then trt.leadersChat.txt() else trans.site.chatRoom.txt(),
-                  timeout = chat.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
-                  localMod = havePerm(_.Comm)
-                ))
-          )
-        ).robots(t.team.enabled)
-      ):
+    bits
+      .TeamPage(t.name)
+      .graph(
+        title = s"${t.name} team",
+        url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+        description = t.intro.so { shorten(_, 152) }
+      )
+      .js(
+        PageModule(
+          "bits.team",
+          Json
+            .obj("id" -> t.id)
+            .add("socketVersion" -> socketVersion)
+            .add("chat" -> chatOption.map: chat =>
+              views.chat.json(
+                chat.chat,
+                chat.lines,
+                name = if t.isChatFor(_.Leaders) then trt.leadersChat.txt() else trans.site.chatRoom.txt(),
+                timeout = chat.timeout,
+                public = true,
+                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
+                localMod = havePerm(_.Comm)
+              ))
+        )
+      )
+      .robots(t.team.enabled):
         val canManage     = asMod && isGranted(_.ManageTeam)
         val canSeeMembers = canManage || (t.enabled && (t.publicMembers || info.mine))
         main(

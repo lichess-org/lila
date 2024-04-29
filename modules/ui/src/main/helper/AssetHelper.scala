@@ -25,9 +25,9 @@ trait AssetHelper:
   given Conversion[Option[EsmInit], EsmList] with
     def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
 
-  extension (l: Layout)
-    def cssTag(keys: String*): Layout =
-      keys.foldLeft(l)((l, key) => l.css(AssetHelper.this.cssTag(key)))
+  extension (p: Page)
+    def cssTag(keys: String*): Page =
+      keys.foldLeft(p)((l, key) => p.css(AssetHelper.this.cssTag(key)))
 
   def jsModuleInit(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"$load('${manifest.jsName(key)}')"))

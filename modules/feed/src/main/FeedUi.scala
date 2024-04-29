@@ -8,7 +8,7 @@ import lila.ui.{ *, given }
 import ScalatagsTemplate.{ *, given }
 
 final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
-    wrap: String => Frag => Context ?=> Frag
+    sitePage: String => Context ?=> Page
 )(using Executor):
   import helpers.{ *, given }
 
@@ -18,15 +18,12 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       .build[A, String]()
     from => raw(cache.get(from, from => toFrag(from).render))
 
-  private def page(title: String, edit: Boolean = false)(body: Frag)(using Context): Page =
-    Page(
-      title,
-      _.cssTag("dailyFeed").js(
-        infiniteScrollEsmInit.some
-          :: edit.option(EsmInit("bits.flatpickr"))
-          :: edit.option(EsmInit("bits.dailyFeed"))
-      )
-    )(wrap("news")(body))
+  private def page(title: String, edit: Boolean = false)(using Context): Page =
+    sitePage(title)
+      .cssTag("dailyFeed")
+      .js(infiniteScrollEsmInit)
+      .js(edit.option(EsmInit("bits.flatpickr")))
+      .js(edit.option(EsmInit("bits.dailyFeed")))
 
   def index(ups: Paginator[Feed.Update])(using Context) =
     page("Updates"):

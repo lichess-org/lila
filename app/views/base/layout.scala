@@ -9,23 +9,22 @@ import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
 def page(p: lila.ui.Page)(using ctx: PageContext): Frag =
-  val l = p.layout(layoutDefault)
   layout(
     title = p.title,
-    fullTitle = l.fullTitle,
-    robots = l.robots,
-    moreCss = l.cssFrag,
-    modules = l.modules,
-    moreJs = l.jsFrag(ctx.nonce),
-    pageModule = l.pageModule,
-    playing = l.playing,
-    openGraph = l.openGraph,
-    zoomable = l.zoomable,
-    zenable = l.zenable,
-    csp = l.csp.map(_(defaultCsp)),
-    wrapClass = l.wrapClass,
-    atomLinkTag = l.atomLinkTag,
-    withHrefLangs = l.withHrefLangs
+    fullTitle = p.fullTitle,
+    robots = p.robots | layoutDefault.robots,
+    moreCss = p.cssFrag,
+    modules = p.modules,
+    moreJs = p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
+    pageModule = p.pageModule,
+    playing = p.playing,
+    openGraph = p.openGraph,
+    zoomable = p.zoomable,
+    zenable = p.zenable,
+    csp = p.csp.map(_(defaultCsp)),
+    wrapClass = p.wrapClass,
+    atomLinkTag = p.atomLinkTag,
+    withHrefLangs = p.withHrefLangs
   )(p.body)
 
 object layout:
@@ -120,7 +119,7 @@ object layout:
           favicons,
           (!robots).option(raw("""<meta content="noindex, nofollow" name="robots">""")),
           noTranslate,
-          openGraph.map(_.frags),
+          openGraph.map(lila.web.views.openGraph),
           atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
             raw:

@@ -33,7 +33,7 @@ final class SitePages(helpers: Helpers):
       a(activeCls("ads"), href := "/ads")("Block ads")
     )
 
-  def webmasters(params: Frag)(using Translate) =
+  def webmasters(params: Modifier*)(using Translate) =
     val parameters = frag(p("Parameters:"), ul(params, li(strong("bg"), ": light, dark, system")))
     frag(
       st.section(cls := "box box-pad developers")(

@@ -7,45 +7,44 @@ object lag:
   import trans.lag.*
 
   def apply()(using PageContext) =
-    page.page(
-      title = "Is Lichess lagging?",
-      active = "lag"
-    )(
-      div(cls := "box box-pad lag")(
-        h1(cls := "box__top")(
-          isLichessLagging(),
-          span(cls := "answer short")(
-            span(cls := "waiting")(measurementInProgressThreeDot()),
-            span(cls := "nope-nope none")(noAndYourNetworkIsGood()),
-            span(cls := "nope-yep none")(noAndYourNetworkIsBad()),
-            span(cls := "yep none")(yesItWillBeFixedSoon())
-          )
-        ),
-        div(cls := "answer long")(
-          andNowTheLongAnswerLagComposedOfTwoValues()
-        ),
-        div(cls := "sections")(
-          st.section(cls := "server")(
-            h2(lichessServerLatency()),
-            div(cls := "meter")(canvas(cls := "server-chart")),
-            p(
-              lichessServerLatencyExplanation()
+    page
+      .SitePage(title = "Is Lichess lagging?", active = "lag")
+      .cssTag("lag")
+      .js(jsModuleInit("chart.lag")):
+        div(cls := "box box-pad lag")(
+          h1(cls := "box__top")(
+            isLichessLagging(),
+            span(cls := "answer short")(
+              span(cls := "waiting")(measurementInProgressThreeDot()),
+              span(cls := "nope-nope none")(noAndYourNetworkIsGood()),
+              span(cls := "nope-yep none")(noAndYourNetworkIsBad()),
+              span(cls := "yep none")(yesItWillBeFixedSoon())
             )
           ),
-          st.section(cls := "network")(
-            h2(networkBetweenLichessAndYou()),
-            div(cls := "meter")(canvas(cls := "network-chart")),
+          div(cls := "answer long")(
+            andNowTheLongAnswerLagComposedOfTwoValues()
+          ),
+          div(cls := "sections")(
+            st.section(cls := "server")(
+              h2(lichessServerLatency()),
+              div(cls := "meter")(canvas(cls := "server-chart")),
+              p(
+                lichessServerLatencyExplanation()
+              )
+            ),
+            st.section(cls := "network")(
+              h2(networkBetweenLichessAndYou()),
+              div(cls := "meter")(canvas(cls := "network-chart")),
+              p(
+                networkBetweenLichessAndYouExplanation()
+              )
+            )
+          ),
+          div(cls := "last-word")(
+            p(youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername()),
+            h2(lagCompensation()),
             p(
-              networkBetweenLichessAndYouExplanation()
+              lagCompensationExplanation()
             )
           )
-        ),
-        div(cls := "last-word")(
-          p(youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername()),
-          h2(lagCompensation()),
-          p(
-            lagCompensationExplanation()
-          )
         )
-      )
-    )(_.cssTag("lag").js(jsModuleInit("chart.lag")))

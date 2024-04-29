@@ -12,8 +12,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
   import helpers.{ *, given }
   import trans.{ team as trt }
 
-  private val layoutConfig: Layout.Build = _.cssTag("team").js(infiniteScrollEsmInit)
-  def teamPage(p: Page)                  = p.contramap(layoutConfig)
+  def TeamPage(title: String) = Page(title).cssTag("team").js(infiniteScrollEsmInit)
 
   object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
@@ -72,16 +71,11 @@ final class TeamUi(helpers: Helpers)(using Executor):
       )
     )
 
-  def membersPage(t: Team, pager: Paginator[TeamMember.UserAndDate])(using Context) = teamPage:
-    Page(
-      t.name,
-      _(
-        OpenGraph(
-          title = s"${t.name} • ${trt.teamRecentMembers.txt()}",
-          url = s"$netBaseUrl${routes.Team.show(t.id).url}",
-          description = t.intro.so(shorten(_, 152))
-        )
-      )
+  def membersPage(t: Team, pager: Paginator[TeamMember.UserAndDate])(using Context) =
+    TeamPage(t.name).graph(
+      title = s"${t.name} • ${trt.teamRecentMembers.txt()}",
+      url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+      description = t.intro.so(shorten(_, 152))
     ):
       main(cls := "page-small box")(
         boxTop(
@@ -120,8 +114,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
         nextPageUrl = n => routes.Team.all(n).url
       )
 
-    def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) = teamPage:
-      Page(trt.myTeams.txt()):
+    def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) =
+      TeamPage(trt.myTeams.txt()):
         main(cls := "team-list page-menu")(
           menu("mine".some),
           div(cls := "page-menu__content box")(
@@ -138,8 +132,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
           )
         )
 
-    def ledByMe(teams: List[Team])(using PageContext) = teamPage:
-      Page(trt.myTeams.txt()):
+    def ledByMe(teams: List[Team])(using PageContext) =
+      TeamPage(trt.myTeams.txt()):
         main(cls := "team-list page-menu")(
           menu("leader".some),
           div(cls := "page-menu__content box")(
@@ -157,8 +151,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
         teams: Paginator[Team.WithMyLeadership],
         nextPageUrl: Int => String,
         search: String = ""
-    )(using PageContext) = teamPage:
-      Page(s"$name - page ${teams.currentPage}"):
+    )(using PageContext) =
+      TeamPage(s"$name - page ${teams.currentPage}"):
         main(cls := "team-list page-menu")(
           menu("all".some),
           div(cls := "page-menu__content box")(
