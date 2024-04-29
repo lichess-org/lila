@@ -36,3 +36,10 @@ object account:
   val pref      = lila.pref.ui.AccountPref(helpers, prefHelper, ui)
   val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)
   val security  = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
+
+lazy val practice = lila.practice.ui.PracticeUi(helpers)(
+  csp = analysisCsp,
+  translations = views.board.userAnalysisI18n.vector(),
+  views.board.bits.explorerAndCevalConfig,
+  modMenu = views.mod.ui.menu("practice")
+)

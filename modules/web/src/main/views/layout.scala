@@ -25,7 +25,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val viewport = raw:
     """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
   def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
-    s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
+    s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
     metaCsp(csp.getOrElse(defaultCsp))
   val systemThemeEmbedScript = raw:
