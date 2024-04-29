@@ -84,7 +84,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
 
   def create(form: lila.core.security.HcaptchaForm[ClasForm.ClasData])(using Context) =
     ClasPage(trans.clas.newClass.txt(), Right("newClass"))(cls := "box-pad")
-      .iife(hcaptchaScript(form))
+      .js(hcaptchaScript(form))
       .csp(_.withHcaptcha):
         frag(
           h1(cls := "box__top")(trans.clas.newClass()),
