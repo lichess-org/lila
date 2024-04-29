@@ -114,128 +114,127 @@ object replay:
       )
     )
 
-    bits.layout(
-      title = titleOf(pov),
-      moreCss = frag(
-        cssTag("analyse.round"),
-        (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
-        ctx.blind.option(cssTag("round.nvui"))
-      ),
-      modules = analyseNvuiTag,
-      pageModule = bits.analyseModule(
-        "replay",
-        Json
-          .obj(
-            "data"   -> data,
-            "i18n"   -> jsI18n(),
-            "userId" -> ctx.userId,
-            "chat"   -> chatJson
-          )
-          .add("hunter" -> isGranted(_.ViewBlurs)) ++
-          views.board.bits.explorerAndCevalConfig
-      ),
-      openGraph = views.round.bits.povOpenGraph(pov).some
-    ):
-      frag(
-        main(cls := "analyse")(
-          st.aside(cls := "analyse__side")(
-            views.game
-              .side(
-                pov,
-                initialFen,
-                none,
-                simul = simul,
-                userTv = userTv,
-                bookmarked = bookmarked
-              )
-          ),
-          chatOption.map(_ => views.chat.frag),
-          div(cls := "analyse__board main-board")(chessgroundBoard),
-          div(cls := "analyse__tools")(div(cls := "ceval")),
-          div(cls := "analyse__controls"),
-          (!ctx.blind).option(
-            frag(
-              div(cls := "analyse__underboard")(
-                div(role := "tablist", cls := "analyse__underboard__menu")(
-                  lila.game.GameExt
-                    .analysable(game)
-                    .option(
-                      span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
-                        trans.site.computerAnalysis()
+    bits
+      .page(titleOf(pov))
+      .cssTag("analyse.round")
+      .cssTag((pov.game.variant == Crazyhouse).option("analyse.zh"))
+      .cssTag(ctx.blind.option("round.nvui"))
+      .js(analyseNvuiTag)
+      .js(
+        bits.analyseModule(
+          "replay",
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> jsI18n(),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson
+            )
+            .add("hunter" -> isGranted(_.ViewBlurs)) ++
+            views.board.bits.explorerAndCevalConfig
+        )
+      )
+      .graph(views.round.bits.povOpenGraph(pov)):
+        frag(
+          main(cls := "analyse")(
+            st.aside(cls := "analyse__side")(
+              views.game
+                .side(
+                  pov,
+                  initialFen,
+                  none,
+                  simul = simul,
+                  userTv = userTv,
+                  bookmarked = bookmarked
+                )
+            ),
+            chatOption.map(_ => views.chat.frag),
+            div(cls := "analyse__board main-board")(chessgroundBoard),
+            div(cls := "analyse__tools")(div(cls := "ceval")),
+            div(cls := "analyse__controls"),
+            (!ctx.blind).option(
+              frag(
+                div(cls := "analyse__underboard")(
+                  div(role := "tablist", cls := "analyse__underboard__menu")(
+                    lila.game.GameExt
+                      .analysable(game)
+                      .option(
+                        span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
+                          trans.site.computerAnalysis()
+                        )
+                      ),
+                    (!game.isPgnImport).option(
+                      frag(
+                        (game.ply > 1)
+                          .option(span(role := "tab", dataPanel := "move-times")(trans.site.moveTimes())),
+                        cross.isDefined.option(
+                          span(role := "tab", dataPanel := "ctable")(trans.site.crosstable())
+                        )
                       )
                     ),
-                  (!game.isPgnImport).option(
-                    frag(
+                    span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
+                  ),
+                  div(cls := "analyse__underboard__panels")(
+                    lila.game.GameExt
+                      .analysable(game)
+                      .option(
+                        div(cls := "computer-analysis")(
+                          if analysis.isDefined || analysisStarted then
+                            div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
+                          else
+                            postForm(
+                              cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
+                              action := routes.Analyse.requestAnalysis(gameId)
+                            ):
+                              submitButton(cls := "button text"):
+                                span(cls := "is3 text", dataIcon := Icon.BarChart)(
+                                  trans.site.requestAComputerAnalysis()
+                                )
+                        )
+                      ),
+                    div(cls := "move-times")(
                       (game.ply > 1)
-                        .option(span(role := "tab", dataPanel := "move-times")(trans.site.moveTimes())),
-                      cross.isDefined.option(
-                        span(role := "tab", dataPanel := "ctable")(trans.site.crosstable())
-                      )
-                    )
-                  ),
-                  span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
-                ),
-                div(cls := "analyse__underboard__panels")(
-                  lila.game.GameExt
-                    .analysable(game)
-                    .option(
-                      div(cls := "computer-analysis")(
-                        if analysis.isDefined || analysisStarted then
-                          div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
-                        else
-                          postForm(
-                            cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
-                            action := routes.Analyse.requestAnalysis(gameId)
-                          ):
-                            submitButton(cls := "button text"):
-                              span(cls := "is3 text", dataIcon := Icon.BarChart)(
-                                trans.site.requestAComputerAnalysis()
-                              )
-                      )
+                        .option(div(id := "movetimes-chart-container")(canvas(id := "movetimes-chart")))
                     ),
-                  div(cls := "move-times")(
-                    (game.ply > 1)
-                      .option(div(id := "movetimes-chart-container")(canvas(id := "movetimes-chart")))
-                  ),
-                  div(cls := "fen-pgn")(
-                    div(
-                      strong("FEN"),
-                      input(
-                        readonly,
-                        spellcheck := false,
-                        cls        := "copyable autoselect like-text analyse__underboard__fen"
-                      )
-                    ),
-                    ctx.noBlind.option(
+                    div(cls := "fen-pgn")(
                       div(
-                        strong("Image"),
-                        imageLinks
-                      )
+                        strong("FEN"),
+                        input(
+                          readonly,
+                          spellcheck := false,
+                          cls        := "copyable autoselect like-text analyse__underboard__fen"
+                        )
+                      ),
+                      ctx.noBlind.option(
+                        div(
+                          strong("Image"),
+                          imageLinks
+                        )
+                      ),
+                      div(
+                        strong("Share"),
+                        shareLinks
+                      ),
+                      div(
+                        strong("PGN"),
+                        pgnLinks
+                      ),
+                      div(cls := "pgn")(pgn)
                     ),
-                    div(
-                      strong("Share"),
-                      shareLinks
-                    ),
-                    div(
-                      strong("PGN"),
-                      pgnLinks
-                    ),
-                    div(cls := "pgn")(pgn)
-                  ),
-                  cross.map: c =>
-                    div(cls := "ctable"):
-                      views.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+                    cross.map: c =>
+                      div(cls := "ctable"):
+                        views.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+                  )
                 )
               )
             )
-          )
-        ),
-        ctx.blind.option(
-          div(cls := "blind-content none")(
-            h2("PGN downloads"),
-            pgnLinks,
-            button(cls := "copy-pgn", attr("data-pgn") := pgn):
-              "Copy PGN to clipboard"
+          ),
+          ctx.blind.option(
+            div(cls := "blind-content none")(
+              h2("PGN downloads"),
+              pgnLinks,
+              button(cls := "copy-pgn", attr("data-pgn") := pgn):
+                "Copy PGN to clipboard"
+            )
           )
         )
-      )

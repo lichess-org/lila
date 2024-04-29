@@ -13,8 +13,7 @@ case class OpenGraph(
     `type`: String = "website",
     image: Option[String] = None,
     twitterImage: Option[String] = None,
-    siteName: String = "lichess.org",
-    more: List[(String, String)] = Nil
+    siteName: String = "lichess.org"
 )
 
 case class Page(

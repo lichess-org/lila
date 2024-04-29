@@ -16,46 +16,48 @@ object show:
       langPath: Option[lila.ui.LangPath] = None
   )(using ctx: PageContext) =
     val isStreak = data.value.contains("streak")
-    views.base.layout(
-      title = if isStreak then "Puzzle Streak" else trans.site.puzzles.txt(),
-      moreCss = frag(
-        cssTag("puzzle"),
-        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
-        ctx.pref.hasVoice.option(cssTag("voice")),
-        ctx.blind.option(cssTag("round.nvui"))
-      ),
-      modules = puzzleNvuiTag,
-      pageModule = PageModule(
-        "puzzle",
-        Json
-          .obj(
-            "data"        -> data,
-            "pref"        -> pref,
-            "i18n"        -> bits.jsI18n(streak = isStreak),
-            "showRatings" -> ctx.pref.showRatings,
-            "settings"    -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color)
-          )
-          .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
-      ).some,
-      csp = analysisCsp.some,
-      openGraph = OpenGraph(
-        image = cdnUrl(
-          routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
-        ).some,
-        title =
-          if isStreak then "Puzzle Streak"
-          else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-        url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
-        description =
-          if isStreak then trans.puzzle.streakDescription.txt()
-          else
-            val findMove = puzzle.color.fold(
-              trans.puzzle.findTheBestMoveForWhite,
-              trans.puzzle.findTheBestMoveForBlack
+    Page(if isStreak then "Puzzle Streak" else trans.site.puzzles.txt())
+      .cssTag("puzzle")
+      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .cssTag(ctx.pref.hasVoice.option("voice"))
+      .cssTag(ctx.blind.option("round.nvui"))
+      .js(puzzleNvuiTag)
+      .js(
+        PageModule(
+          "puzzle",
+          Json
+            .obj(
+              "data"        -> data,
+              "pref"        -> pref,
+              "i18n"        -> bits.jsI18n(streak = isStreak),
+              "showRatings" -> ctx.pref.showRatings,
+              "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color)
             )
-            s"Lichess tactic trainer: ${findMove.txt()}. Played by ${puzzle.plays} players."
-      ).some,
-      zoomable = true,
-      zenable = true,
-      withHrefLangs = langPath
-    )(bits.show.preload)
+            .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
+        )
+      )
+      .csp(analysisCsp)
+      .graph(
+        OpenGraph(
+          image = cdnUrl(
+            routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
+          ).some,
+          title =
+            if isStreak then "Puzzle Streak"
+            else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
+          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+          description =
+            if isStreak then trans.puzzle.streakDescription.txt()
+            else
+              val findMove = puzzle.color.fold(
+                trans.puzzle.findTheBestMoveForWhite,
+                trans.puzzle.findTheBestMoveForBlack
+              )
+              s"Lichess tactic trainer: ${findMove.txt()}. Played by ${puzzle.plays} players."
+        )
+      )
+      .copy(
+        zoomable = true,
+        zenable = true,
+        withHrefLangs = langPath
+      )(bits.show.preload)
