@@ -11,7 +11,7 @@
   parent.insertBefore(div, next);
 };
 
-export async function initModule() {
+export function initModule() {
   const script = document.createElement('script');
   script.src = 'https://hcaptcha.com/1/api.js?onload=initHcaptcha&render=explicit';
   script.type = 'text/javascript';
