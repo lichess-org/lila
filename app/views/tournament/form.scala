@@ -15,14 +15,14 @@ object form:
     views.base.layout(
       title = trans.site.newTournament.txt(),
       moreCss = cssTag("tournament.form"),
-      modules = jsModule("bits.tourForm")
+      modules = EsmInit("bits.tourForm")
     )(ui.create(form, leaderTeams))
 
   def edit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using PageContext) =
     views.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      modules = jsModule("bits.tourForm")
+      modules = EsmInit("bits.tourForm")
     )(ui.edit(tour, form, myTeams))
 
 object crud:
@@ -37,7 +37,7 @@ object crud:
     views.base.layout(
       title = title,
       moreCss = cssTag(css),
-      modules = jsModule("bits.flatpick") ++ modules,
+      modules = EsmInit("bits.flatpick") ++ modules,
       moreJs = evenMoreJs
     ):
       main(cls := "page-menu")(views.mod.ui.menu("tour"), body)
@@ -61,4 +61,4 @@ object crud:
     layout(title = tour.name(), css = "mod.form")(form.ui.crudEdit(tour, f))
 
   def index(tours: Paginator[Tournament])(using PageContext) =
-    layout(title = "Tournament manager", modules = infiniteScrollTag)(form.ui.crudIndex(tours))
+    layout(title = "Tournament manager", modules = infiniteScrollEsmInit)(form.ui.crudIndex(tours))

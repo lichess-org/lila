@@ -512,7 +512,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def invitation(id: lila.clas.ClasInvite.Id) = Auth { _ ?=> me ?=>
     FoundPage(env.clas.api.invite.view(id, me)): (invite, clas) =>
-      views.clas.invite.show(clas, invite)
+      views.clas.student.invite(clas, invite)
   }
 
   def invitationAccept(id: ClasInvite.Id) = AuthBody { ctx ?=> me ?=>

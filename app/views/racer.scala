@@ -4,14 +4,13 @@ import play.api.libs.json.*
 
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
 import lila.core.i18n.I18nKey.storm as s
 
 def home(using PageContext) =
   views.base.layout(
     moreCss = cssTag("racer-home"),
     title = "Puzzle Racer",
-    withHrefLangs = LangPath(routes.Racer.home).some
+    withHrefLangs = lila.ui.LangPath(routes.Racer.home).some
   ) {
     main(cls := "page page-small racer-home box box-pad")(
       h1(cls := "box__top")("Puzzle Racer"),

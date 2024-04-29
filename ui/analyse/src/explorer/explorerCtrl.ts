@@ -9,14 +9,7 @@ import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';
 import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
-import {
-  Hovering,
-  ExplorerData,
-  ExplorerDb,
-  OpeningData,
-  SimpleTablebaseHit,
-  ExplorerOpts,
-} from './interfaces';
+import { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
 import { FEN } from 'chessground/types';
@@ -131,7 +124,7 @@ export default class ExplorerCtrl {
             .opening(
               {
                 ...this.baseXhrOpening(),
-                db: this.db() as ExplorerDb,
+                db: this.db(),
                 variant: this.effectiveVariant,
                 rootFen: this.root.nodeList[0].fen,
                 play: this.root.nodeList.slice(1).map(s => s.uci!),
@@ -230,7 +223,7 @@ export default class ExplorerCtrl {
     return {
       fen,
       best: move && move.uci,
-      winner: res.checkmate ? opposite(fenColor(fen)) : res.stalemate ? undefined : winnerOf(fen, move!),
+      winner: res.checkmate ? opposite(fenColor(fen)) : res.stalemate ? undefined : winnerOf(fen, move),
     };
   };
 }

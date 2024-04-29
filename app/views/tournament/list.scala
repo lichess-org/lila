@@ -4,7 +4,7 @@ import play.api.libs.json.Json
 import scalalib.paginator.Paginator
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.LangPath
+
 import lila.tournament.Tournament
 import lila.tournament.Schedule.Freq
 
@@ -22,25 +22,23 @@ def home(
     title = trans.site.tournaments.txt(),
     moreCss = cssTag("tournament.home"),
     wrapClass = "full-screen-force",
-    modules = infiniteScrollTag,
+    modules = infiniteScrollEsmInit,
     pageModule = PageModule(
       "tournament.schedule",
       Json.obj("data" -> json, "i18n" -> ui.scheduleJsI18n)
     ).some,
-    openGraph = lila.web
-      .OpenGraph(
-        url = s"$netBaseUrl${routes.Tournament.home.url}",
-        title = trans.site.tournamentHomeTitle.txt(),
-        description = trans.site.tournamentHomeDescription.txt()
-      )
-      .some,
-    withHrefLangs = LangPath(routes.Tournament.home).some
+    openGraph = OpenGraph(
+      url = s"$netBaseUrl${routes.Tournament.home.url}",
+      title = trans.site.tournamentHomeTitle.txt(),
+      description = trans.site.tournamentHomeDescription.txt()
+    ).some,
+    withHrefLangs = lila.ui.LangPath(routes.Tournament.home).some
   )(listUi.home(scheduled, finished, winners))
 
 def history(freq: Freq, pager: Paginator[Tournament])(using PageContext) =
   views.base.layout(
     title = "Tournament history",
-    modules = infiniteScrollTag,
+    modules = infiniteScrollEsmInit,
     moreCss = cssTag("tournament.history")
   )(listUi.history(freq, pager))
 

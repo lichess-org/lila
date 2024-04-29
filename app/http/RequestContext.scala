@@ -50,7 +50,7 @@ trait RequestContext(using Executor):
   private def pageDataBuilder(using ctx: Context): Fu[PageData] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then
-      val nonce = lila.web.Nonce.random.some
+      val nonce = lila.ui.Nonce.random.some
       if !env.net.isProd then env.web.manifest.update()
       ctx.me.foldUse(fuccess(PageData.anon(nonce))): me ?=>
         env.user.lightUserApi.preloadUser(me)

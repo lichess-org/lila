@@ -14,7 +14,7 @@ object bits:
       moreCss: Frag = emptyFrag,
       moreJs: Frag = emptyFrag,
       modules: EsmList = Nil,
-      openGraph: Option[lila.web.OpenGraph] = None
+      openGraph: Option[OpenGraph] = None
   )(body: Frag)(using PageContext): Frag =
     views.base.layout(
       title = title,

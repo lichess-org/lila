@@ -16,7 +16,7 @@ object form:
         """$('#form3-reason').on('change', function() {
             $('.report-reason').addClass('none').filter('.report-reason-' + this.value).removeClass('none');
           })"""
-      )
+      )(ctx.nonce)
     ):
       val defaultReason = form("reason").value.orElse(translatedReasonChoices.headOption.map(_._1))
       main(cls := "page-small box box-pad report")(

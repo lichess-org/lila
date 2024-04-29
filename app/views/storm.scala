@@ -5,7 +5,7 @@ import play.api.libs.json.*
 import scalalib.paginator.Paginator
 
 import lila.app.templating.Environment.{ *, given }
-import lila.web.LangPath
+
 import lila.storm.{ StormDay, StormHigh }
 
 def home(data: JsObject, high: Option[StormHigh])(using PageContext) =
@@ -15,7 +15,7 @@ def home(data: JsObject, high: Option[StormHigh])(using PageContext) =
     title = "Puzzle Storm",
     zoomable = true,
     zenable = true,
-    withHrefLangs = LangPath(routes.Storm.home).some
+    withHrefLangs = lila.ui.LangPath(routes.Storm.home).some
   ) {
     main(
       div(cls := "storm storm-app storm--play")(
@@ -59,7 +59,7 @@ def dashboard(user: User, history: Paginator[StormDay], high: StormHigh)(using c
   views.base.layout(
     title = s"${user.username} Puzzle Storm",
     moreCss = frag(cssTag("storm.dashboard")),
-    modules = infiniteScrollTag
+    modules = infiniteScrollEsmInit
   )(
     main(cls := "storm-dashboard page-small")(
       div(cls := "storm-dashboard__high box box-pad")(

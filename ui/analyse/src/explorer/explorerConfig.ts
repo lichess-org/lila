@@ -85,7 +85,7 @@ export class ExplorerConfigCtrl {
       },
       color: prevData?.color || prop('white'),
       byDb() {
-        return this.byDbData[this.db() as ExplorerDb] || this.byDbData.lichess;
+        return this.byDbData[this.db()] || this.byDbData.lichess;
       },
     };
   }

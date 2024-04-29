@@ -63,7 +63,7 @@ final class ClasProgressApi(
       progresses    <- historyApi.progresses(usersWithPerf, perfType.key, Days(days))
     yield progresses
 
-    playStatsFu.zip(progressesFu).map { case (playStats, progresses) =>
+    playStatsFu.zip(progressesFu).map { (playStats, progresses) =>
       ClasProgress(
         perfType,
         days,
@@ -77,7 +77,8 @@ final class ClasProgressApi(
               wins = playStat.so(_.wins),
               millis = playStat.so(_.millis)
             )
-          } toMap
+          }
+          .toMap
       )
     }
 
@@ -161,9 +162,4 @@ final class ClasProgressApi(
 
   private[clas] def onFinishGame(game: Game): Unit =
     if game.userIds.exists(studentCache.isStudent)
-    then
-      gameRepo.coll.updateFieldUnchecked(
-        $id(game.id),
-        gamePerfField,
-        lila.rating.PerfType(game.perfKey).id
-      )
+    then gameRepo.coll.updateFieldUnchecked($id(game.id), gamePerfField, game.perfKey.id)

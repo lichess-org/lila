@@ -39,13 +39,11 @@ object userAnalysis:
         )
         .some,
       csp = analysisCsp.withExternalAnalysisApis.some,
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Chess analysis board",
-          url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
-          description = "Analyse chess positions and variations on an interactive chess board"
-        )
-        .some,
+      openGraph = OpenGraph(
+        title = "Chess analysis board",
+        url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
+        description = "Analyse chess positions and variations on an interactive chess board"
+      ).some,
       zoomable = true
     ):
       main(

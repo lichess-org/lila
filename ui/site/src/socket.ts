@@ -196,7 +196,7 @@ export default class StrongSocket {
     if (!this.ws || this.ws.readyState === WebSocket.CONNECTING) {
       if (!noRetry) this.resendWhenOpen.push([t, msg.d, o]);
     } else {
-      origSend.apply(this.ws!, [message]);
+      origSend.apply(this.ws, [message]);
     }
   };
 

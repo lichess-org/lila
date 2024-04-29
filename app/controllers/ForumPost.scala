@@ -29,7 +29,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
               access.isGrantedRead(post.topic.categId).map {
                 lila.forum.PostView.WithReadPerm(post, _)
               }
-            page <- renderPage(views.forum.search(text, pager))
+            page <- renderPage(views.forum.post.search(text, pager))
           yield Ok(page)
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>

@@ -49,17 +49,15 @@ object show:
         if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"
       ,
-      openGraph = lila.web
-        .OpenGraph(
-          title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
-          url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
-          description =
-            s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
-              s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
-              tour.winnerId.fold("Winner is not yet decided."): winnerId =>
-                s"${titleNameOrId(winnerId)} takes the prize home!"
-        )
-        .some,
+      openGraph = OpenGraph(
+        title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
+        url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
+        description =
+          s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
+            s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
+            tour.winnerId.fold("Winner is not yet decided."): winnerId =>
+              s"${titleNameOrId(winnerId)} takes the prize home!"
+      ).some,
       csp = defaultCsp.withLilaHttp.some
     ):
       ui.show(

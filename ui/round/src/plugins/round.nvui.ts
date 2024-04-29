@@ -150,7 +150,7 @@ export function initModule(): NvuiPlugin {
           'div.board',
           {
             hook: onInsert(el => {
-              const $board = $(el as HTMLElement);
+              const $board = $(el);
               $board.on('keypress', () => console.log(ctrl));
               // NOTE: This is the only line different from analysis board listener setup
               const $buttons = $board.find('button');

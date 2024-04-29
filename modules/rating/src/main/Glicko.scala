@@ -46,8 +46,6 @@ object GlickoExt:
           volatility = g.volatility * (1 - weight) + other.volatility * weight
         )
 
-    def display = s"${g.intRating}${g.provisional.yes.so("?")}"
-
 object Glicko:
   export lila.core.rating.Glicko.*
 

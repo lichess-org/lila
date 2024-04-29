@@ -10,7 +10,7 @@ object hosted:
     views.base.layout(
       title = s"${user.username} hosted simuls",
       moreCss = cssTag("user-simul"),
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     ) {
       main(cls := "page-small box simul-list")(
         if pager.nbResults == 0 then

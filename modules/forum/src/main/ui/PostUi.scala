@@ -153,52 +153,51 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
             else r.key
           }
         )(
-          img(src := bits.assetUrl(s"images/emoji/$r.png"), alt := r.key),
+          img(src := assetUrl(s"images/emoji/$r.png"), alt := r.key),
           (size > 0).option(size)
         )
     )
 
-  def search(text: String, pager: Paginator[PostView.WithReadPerm], title: String)(using Context) =
-    main(cls := "box search")(
-      boxTop(
-        h1(
-          a(href := routes.ForumCateg.index, dataIcon := Icon.LessThan, cls := "text"),
-          title
+  def search(text: String, pager: Paginator[PostView.WithReadPerm])(using Context) =
+    val title = s"""${trans.search.search.txt()} "${text.trim}""""
+    Page(title, _.cssTag("forum").js(infiniteScrollEsmInit)):
+      main(cls := "box search")(
+        boxTop(
+          h1(a(href := routes.ForumCateg.index, dataIcon := Icon.LessThan, cls := "text"), title),
+          bits.searchForm(text)
         ),
-        bits.searchForm(text)
-      ),
-      strong(cls := "nb-results box__pad")(trans.site.nbForumPosts.pluralSame(pager.nbResults)),
-      table(cls := "slist slist-pad search__results")(
-        (pager.nbResults > 0).option(
-          tbody(cls := "infinite-scroll")(
-            pager.currentPageResults.map: viewWithRead =>
-              val view = viewWithRead.view
-              val info =
-                td(cls := "info")(
-                  momentFromNow(view.post.createdAt),
-                  br,
-                  bits.authorLink(view.post)
-                )
-              tr(cls := "paginated")(
-                if viewWithRead.canRead then
-                  frag(
-                    td(
-                      a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
-                        view.categ.name,
-                        " - ",
-                        view.topic.name,
-                        "#",
-                        view.post.number
-                      ),
-                      p(shorten(view.post.text, 200))
-                    ),
-                    info
+        strong(cls := "nb-results box__pad")(trans.site.nbForumPosts.pluralSame(pager.nbResults)),
+        table(cls := "slist slist-pad search__results")(
+          (pager.nbResults > 0).option(
+            tbody(cls := "infinite-scroll")(
+              pager.currentPageResults.map: viewWithRead =>
+                val view = viewWithRead.view
+                val info =
+                  td(cls := "info")(
+                    momentFromNow(view.post.createdAt),
+                    br,
+                    bits.authorLink(view.post)
                   )
-                else td(colspan := "2")("[You can't access this team forum post]")
-              )
-            ,
-            pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
+                tr(cls := "paginated")(
+                  if viewWithRead.canRead then
+                    frag(
+                      td(
+                        a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
+                          view.categ.name,
+                          " - ",
+                          view.topic.name,
+                          "#",
+                          view.post.number
+                        ),
+                        p(shorten(view.post.text, 200))
+                      ),
+                      info
+                    )
+                  else td(colspan := "2")("[You can't access this team forum post]")
+                )
+              ,
+              pagerNextTable(pager, n => routes.ForumPost.search(text, n).url)
+            )
           )
         )
       )
-    )

@@ -2,13 +2,11 @@ package views.mobile
 
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
-
 def apply(p: lila.cms.CmsPage.Render)(using PageContext) =
   views.base.layout(
     title = "Mobile",
     moreCss = cssTag("mobile"),
-    withHrefLangs = LangPath(routes.Main.mobile).some
+    withHrefLangs = lila.ui.LangPath(routes.Main.mobile).some
   ):
     main(
       div(cls := "mobile page-small box box-pad")(

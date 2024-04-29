@@ -6,12 +6,12 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
 
   import BSONHandlers.given
   import RelayTourRepo.*
-  import RelayTour.{ Id, IdName }
+  import RelayTour.IdName
 
   def setSyncedNow(tour: RelayTour): Funit =
     coll.updateField($id(tour.id), "syncedAt", nowInstant).void
 
-  def setActive(tourId: Id, active: Boolean): Funit =
+  def setActive(tourId: RelayTourId, active: Boolean): Funit =
     coll.updateField($id(tourId), "active", active).void
 
   def lookup(local: String) = $lookup.simple(coll, "tour", local, "_id")
@@ -19,15 +19,15 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def countByOwner(owner: UserId, publicOnly: Boolean): Fu[Int] =
     coll.countSel(selectors.ownerId(owner) ++ publicOnly.so(selectors.publicTour))
 
-  def subscribers(tid: Id): Fu[Set[UserId]] =
+  def subscribers(tid: RelayTourId): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set]("subscribers", $id(tid))
 
-  def setSubscribed(tid: Id, uid: UserId, isSubscribed: Boolean): Funit =
+  def setSubscribed(tid: RelayTourId, uid: UserId, isSubscribed: Boolean): Funit =
     coll.update
       .one($id(tid), if isSubscribed then $addToSet("subscribers" -> uid) else $pull("subscribers" -> uid))
       .void
 
-  def isSubscribed(tid: Id, uid: UserId): Fu[Boolean] =
+  def isSubscribed(tid: RelayTourId, uid: UserId): Fu[Boolean] =
     coll.exists($doc($id(tid), "subscribers" -> uid))
 
   def countBySubscriberId(uid: UserId): Fu[Int] =
@@ -42,10 +42,10 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def delete(tour: RelayTour): Funit =
     coll.delete.one($id(tour.id)).void
 
-  def idNames(ids: List[Id]): Fu[List[IdName]] =
-    coll.byOrderedIds[IdName, Id](ids, $doc("name" -> true).some)(_.id)
+  def idNames(ids: List[RelayTourId]): Fu[List[IdName]] =
+    coll.byOrderedIds[IdName, RelayTourId](ids, $doc("name" -> true).some)(_.id)
 
-  def isOwnerOfAll(u: UserId, ids: List[Id]): Fu[Boolean] =
+  def isOwnerOfAll(u: UserId, ids: List[RelayTourId]): Fu[Boolean] =
     coll.exists($doc($inIds(ids), "ownerId".$ne(u))).not
 
 private object RelayTourRepo:

@@ -4,7 +4,7 @@ package ui
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
-final class ForumBits(helpers: Helpers)(val assetUrl: String => String):
+final class ForumBits(helpers: Helpers):
   import helpers.{ *, given }
 
   def searchForm(search: String = "")(using Context) =

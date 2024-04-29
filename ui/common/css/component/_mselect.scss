@@ -65,37 +65,29 @@ $c-mselect: $c-primary;
         transition: opacity 125ms ease-in-out 125ms;
       }
     }
-    &__item {
-      white-space: nowrap;
-      display: block;
-      padding: 0.3em 1em;
+  }
+  &__item {
+    white-space: nowrap;
+    display: block;
+    padding: 0.3em 1em;
 
-      @include transition;
+    @include transition;
 
-      color: $c-mselect;
+    color: $c-mselect;
+    border-left: 3px solid transparent;
 
-      &.current {
-        background: $c-bg-zebra;
-
-        @extend %flex-between-nowrap;
-
-        &::after {
-          @extend %data-icon;
-
-          content: $licon-Checkmark;
-          flex: 1 1 100%;
-          text-align: right;
-        }
-      }
-      &:hover {
-        background: $c-mselect;
-        color: $c-over;
-      }
-      &::before {
-        margin-inline-end: 0.4em;
-      }
-
-      opacity: 0;
+    &.current {
+      background: $c-bg-zebra;
+      border-color: $c-mselect;
     }
+    &:hover {
+      background: $c-mselect;
+      color: $c-over;
+    }
+    &::before {
+      margin-inline-end: 0.4em;
+    }
+
+    opacity: 0;
   }
 }

@@ -4,8 +4,6 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
-
 object index:
 
   import trans.learn.{ play as _, * }
@@ -21,15 +19,13 @@ object index:
         )
       ).some,
       moreCss = cssTag("learn"),
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Learn chess by playing",
-          description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
-          url = s"$netBaseUrl${routes.Learn.index}"
-        )
-        .some,
+      openGraph = OpenGraph(
+        title = "Learn chess by playing",
+        description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
+        url = s"$netBaseUrl${routes.Learn.index}"
+      ).some,
       zoomable = true,
-      withHrefLangs = LangPath(routes.Learn.index).some
+      withHrefLangs = lila.ui.LangPath(routes.Learn.index).some
     ) {
       main(id := "learn-app")
     }

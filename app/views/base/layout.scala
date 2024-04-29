@@ -2,12 +2,31 @@ package views.base
 
 import play.api.i18n.Lang
 
-import lila.web.ContentSecurityPolicy
+import lila.ui.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
+
+def page(p: lila.ui.Page)(using ctx: PageContext): Frag =
+  val l = p.layout(layoutDefault)
+  layout(
+    title = p.title,
+    fullTitle = l.fullTitle,
+    robots = l.robots,
+    moreCss = l.cssFrag,
+    modules = l.modules,
+    moreJs = l.jsFrag(ctx.nonce),
+    pageModule = l.pageModule,
+    playing = l.playing,
+    openGraph = l.openGraph,
+    zoomable = l.zoomable,
+    zenable = l.zenable,
+    csp = l.csp.map(_(defaultCsp)),
+    wrapClass = l.wrapClass,
+    atomLinkTag = l.atomLinkTag,
+    withHrefLangs = l.withHrefLangs
+  )(p.body)
 
 object layout:
 
@@ -33,7 +52,7 @@ object layout:
       embedJsUnsafe(
         "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
           "document.documentElement.classList.add('light');"
-      )
+      )(ctx.nonce)
     )
 
   private def boardPreload(using ctx: Context) = frag(
@@ -66,13 +85,13 @@ object layout:
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
-      openGraph: Option[lila.web.OpenGraph] = None,
+      openGraph: Option[OpenGraph] = None,
       zoomable: Boolean = false,
       zenable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
       atomLinkTag: Option[Tag] = None,
-      withHrefLangs: Option[LangPath] = None
+      withHrefLangs: Option[lila.ui.LangPath] = None
   )(body: Frag)(using ctx: PageContext): Frag =
     import ctx.pref
     frag(

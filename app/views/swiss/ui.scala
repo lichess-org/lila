@@ -13,7 +13,7 @@ def homepage(featured: lila.swiss.FeaturedSwisses)(using PageContext) =
   views.base.layout(
     title = trans.swiss.swissTournaments.txt(),
     moreCss = cssTag("swiss.home"),
-    withHrefLangs = lila.web.LangPath(routes.Swiss.home).some
+    withHrefLangs = lila.ui.LangPath(routes.Swiss.home).some
   )(home.page(featured))
 
 def notFound()(using PageContext) =
@@ -27,12 +27,12 @@ object form:
     views.base.layout(
       title = trans.swiss.newSwiss.txt(),
       moreCss = cssTag("swiss.form"),
-      modules = jsModule("bits.tourForm")
+      modules = EsmInit("bits.tourForm")
     )(formUi.create(form, teamId))
 
   def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using PageContext) =
     views.base.layout(
       title = swiss.name,
       moreCss = cssTag("swiss.form"),
-      modules = jsModule("bits.tourForm")
+      modules = EsmInit("bits.tourForm")
     )(formUi.edit(swiss, form))

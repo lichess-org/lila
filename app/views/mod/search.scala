@@ -19,7 +19,7 @@ object search:
     views.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
-      modules = jsModule("mod.search")
+      modules = EsmInit("mod.search")
     ) {
       main(cls := "page-menu")(
         views.mod.ui.menu("search"),
@@ -47,7 +47,7 @@ object search:
     views.base.layout(
       title = "Fingerprint",
       moreCss = cssTag("mod.misc"),
-      modules = jsModule("mod.search")
+      modules = EsmInit("mod.search")
     ):
       main(cls := "page-menu")(
         views.mod.ui.menu("search"),
@@ -89,7 +89,7 @@ object search:
     views.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
-      modules = jsModule("mod.search")
+      modules = EsmInit("mod.search")
     ):
       main(cls := "page-menu")(
         views.mod.ui.menu("search"),
@@ -123,7 +123,7 @@ object search:
     views.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
-      modules = jsModule("mod.search")
+      modules = EsmInit("mod.search")
     )(views.clas.ui.search.clas(c, views.mod.ui.menu("search"), userTable(users)))
 
   def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(using PageContext) =
@@ -136,5 +136,5 @@ object search:
     views.base.layout(
       title = "Mod notes",
       moreCss = frag(cssTag("mod.misc"), cssTag("slist")),
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     )(views.user.noteUi.search(query, pager, views.mod.ui.menu("notes")))

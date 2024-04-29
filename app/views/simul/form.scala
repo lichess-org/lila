@@ -14,7 +14,7 @@ object form:
     views.base.layout(
       title = trans.site.hostANewSimul.txt(),
       moreCss = cssTag("simul.form"),
-      modules = jsModule("bits.flatpickr")
+      modules = EsmInit("bits.flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(cls := "box__top")(trans.site.hostANewSimul()),
@@ -36,7 +36,7 @@ object form:
     views.base.layout(
       title = s"Edit ${simul.fullName}",
       moreCss = cssTag("simul.form"),
-      modules = jsModule("bits.flatpickr")
+      modules = EsmInit("bits.flatpickr")
     ) {
       main(cls := "box box-pad page-small simul-form")(
         h1(cls := "box__top")("Edit ", simul.fullName),

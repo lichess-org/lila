@@ -7,7 +7,6 @@ import scala.reflect.Selectable.reflectiveSelectable
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 import lila.core.captcha.Captcha
 
 final class captcha(helpers: Helpers):

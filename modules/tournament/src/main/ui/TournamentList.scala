@@ -116,11 +116,11 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi):
           frag(
             spot.iconImg
               .map { i =>
-                img(cls := "img", src := ui.assetUrl(s"images/$i"))
+                img(cls := "img", src := assetUrl(s"images/$i"))
               }
               .getOrElse {
                 spot.iconFont.fold[Frag](iconTag(Icon.Trophy)(cls := "img")) {
-                  case Icon.Globe => img(cls := "img icon", src := ui.assetUrl(s"images/globe.svg"))
+                  case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
                   case i          => iconTag(i)(cls := "img")
                 }
               },

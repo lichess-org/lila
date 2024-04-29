@@ -55,7 +55,7 @@ final class User(
       }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
-    userGames(u, filter, page).flatMap(env.api.userGameApi.jsPaginator).map { res =>
+    userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
 

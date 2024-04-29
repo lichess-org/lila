@@ -25,15 +25,13 @@ object page:
     val u = info.user
     views.base.layout(
       title = s"${u.username} : ${trans.activity.activity.txt()}",
-      openGraph = lila.web
-        .OpenGraph(
-          image = assetUrl("logo/lichess-tile-wide.png").some,
-          twitterImage = assetUrl("logo/lichess-tile.png").some,
-          title = u.titleUsernameWithBestRating,
-          url = s"$netBaseUrl${routes.User.show(u.username).url}",
-          description = ui.describeUser(u)
-        )
-        .some,
+      openGraph = OpenGraph(
+        image = assetUrl("logo/lichess-tile-wide.png").some,
+        twitterImage = assetUrl("logo/lichess-tile.png").some,
+        title = u.titleUsernameWithBestRating,
+        url = s"$netBaseUrl${routes.User.show(u.username).url}",
+        description = ui.describeUser(u)
+      ).some,
       pageModule = pageModule(info),
       modules = esModules(info),
       moreCss = frag(
@@ -82,10 +80,10 @@ object page:
 
   private def esModules(info: UserInfo, withSearch: Boolean = false)(using PageContext): EsmList =
     import play.api.libs.json.Json
-    infiniteScrollTag
+    infiniteScrollEsmInit
       ++ jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(ui.i18nKeys)))
-      ++ withSearch.so(jsModule("bits.gameSearch"))
-      ++ isGranted(_.UserModView).so(jsModule("mod.user"))
+      ++ withSearch.so(EsmInit("bits.gameSearch"))
+      ++ isGranted(_.UserModView).so(EsmInit("mod.user"))
 
   private def pageModule(info: UserInfo)(using PageContext) =
     info.ratingChart.map: rc =>

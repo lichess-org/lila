@@ -31,7 +31,7 @@ object edit:
     views.account.layout(
       title = s"${c.user.titleUsername} coach page",
       evenMoreCss = frag(cssTag("coach.editor"), cssTag("tagify")),
-      modules = jsModule("bits.coach.form"),
+      modules = EsmInit("bits.coach.form"),
       active = "coach"
     ):
       div(cls := "coach-edit box")(

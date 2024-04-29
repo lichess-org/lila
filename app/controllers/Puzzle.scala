@@ -10,7 +10,7 @@ import scala.util.chaining.*
 import lila.app.{ *, given }
 import lila.common.Json.given
 import lila.core.net.ApiVersion
-import lila.web.LangPath
+import lila.ui.LangPath
 import lila.core.id.PuzzleId
 import lila.puzzle.{
   Puzzle as Puz,
@@ -295,7 +295,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   private def serveThemes(using Context) =
     env.puzzle.api.angles.flatMap: angles =>
       negotiate(
-        html = Ok.page(views.puzzle.theme.list(angles)),
+        html = Ok.page(views.puzzle.themes(angles)),
         json = Ok(lila.puzzle.JsonView.angles(angles))
       )
 
@@ -311,7 +311,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .flatMap: mine =>
           negotiate(
             html = Ok.page:
-              views.puzzle.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
+              views.puzzle.openings(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
             ,
             json = Ok(lila.puzzle.JsonView.openings(collection, mine))
           )

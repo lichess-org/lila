@@ -7,7 +7,6 @@ import lila.tournament.{ Tournament, TeamBattle }
 import lila.core.team.LightTeam
 
 lazy val ui = lila.tournament.ui.TournamentUi(helpers)(
-  assetUrl,
   env.tournament.getTourName,
   lila.i18n.Translator.toDefault
 )
@@ -29,7 +28,7 @@ object teamBattle:
     views.base.layout(
       title = tour.name(),
       moreCss = cssTag("tournament.form"),
-      modules = jsModule("bits.teamBattleForm")
+      modules = EsmInit("bits.teamBattleForm")
     )(ui.edit(tour, form))
 
   def standing(tour: Tournament, standing: List[TeamBattle.RankedTeam])(using PageContext) =

@@ -12,7 +12,6 @@ import lila.mod.ui.ModUserTableUi
 import lila.core.playban.RageSit
 import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
 import lila.core.perm.Permission
-import lila.ui.Context
 import lila.core.i18n.Translate
 
 object mod:

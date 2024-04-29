@@ -2,7 +2,7 @@ package views.tutor
 
 import lila.app.templating.Environment.{ *, given }
 
-lazy val bits = lila.tutor.ui.TutorBits(helpers)(assetUrl, views.opening.bits.openingUrl)
+lazy val bits = lila.tutor.ui.TutorBits(helpers)(views.opening.bits.openingUrl)
 
 private[tutor] def layout(
     menu: Frag,
@@ -11,7 +11,7 @@ private[tutor] def layout(
 )(content: Modifier*)(using PageContext) =
   views.base.layout(
     moreCss = cssTag("tutor"),
-    modules = jsModule("tutor"),
+    modules = EsmInit("tutor"),
     title = title,
     csp = defaultCsp.withInlineIconFont.some
   ):

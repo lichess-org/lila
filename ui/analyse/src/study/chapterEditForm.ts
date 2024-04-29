@@ -21,7 +21,7 @@ export class StudyChapterEditForm {
   open = (data: ChapterPreview) => {
     this.current(data);
     this.chapterConfig(data.id).then(d => {
-      this.current(d!);
+      this.current(d);
       this.redraw();
     });
   };

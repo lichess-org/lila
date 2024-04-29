@@ -13,7 +13,7 @@ object show:
       data: JsObject,
       pref: JsObject,
       settings: lila.puzzle.PuzzleSettings,
-      langPath: Option[lila.web.LangPath] = None
+      langPath: Option[lila.ui.LangPath] = None
   )(using ctx: PageContext) =
     val isStreak = data.value.contains("streak")
     views.base.layout(
@@ -38,35 +38,24 @@ object show:
           .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
       ).some,
       csp = analysisCsp.some,
-      openGraph = lila.web
-        .OpenGraph(
-          image = cdnUrl(
-            routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
-          ).some,
-          title =
-            if isStreak then "Puzzle Streak"
-            else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
-          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
-          description =
-            if isStreak then trans.puzzle.streakDescription.txt()
-            else
-              val findMove = puzzle.color.fold(
-                trans.puzzle.findTheBestMoveForWhite,
-                trans.puzzle.findTheBestMoveForBlack
-              )
-              s"Lichess tactic trainer: ${findMove.txt()}. Played by ${puzzle.plays} players."
-        )
-        .some,
+      openGraph = OpenGraph(
+        image = cdnUrl(
+          routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
+        ).some,
+        title =
+          if isStreak then "Puzzle Streak"
+          else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
+        url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+        description =
+          if isStreak then trans.puzzle.streakDescription.txt()
+          else
+            val findMove = puzzle.color.fold(
+              trans.puzzle.findTheBestMoveForWhite,
+              trans.puzzle.findTheBestMoveForBlack
+            )
+            s"Lichess tactic trainer: ${findMove.txt()}. Played by ${puzzle.plays} players."
+      ).some,
       zoomable = true,
       zenable = true,
       withHrefLangs = langPath
-    ) {
-      main(cls := "puzzle")(
-        st.aside(cls := "puzzle__side")(
-          div(cls := "puzzle__side__metas")
-        ),
-        div(cls := "puzzle__board main-board")(chessgroundBoard),
-        div(cls := "puzzle__tools"),
-        div(cls := "puzzle__controls")
-      )
-    }
+    )(bits.show.preload)

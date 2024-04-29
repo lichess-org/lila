@@ -15,7 +15,7 @@ def layout(
     title = title,
     moreCss = frag(cssTag("account"), evenMoreCss),
     moreJs = evenMoreJs,
-    modules = jsModule("bits.account") ++ modules
+    modules = EsmInit("bits.account") ++ modules
   ):
     main(cls := "account page-menu")(
       bits.menu(active),

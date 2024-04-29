@@ -33,17 +33,15 @@ def post(
 )(using ctx: PageContext) =
   views.base.layout(
     moreCss = cssTag("ublog"),
-    modules = jsModule("bits.expandText") ++ ctx.isAuth.so(jsModule("bits.ublog")),
+    modules = EsmInit("bits.expandText") ++ ctx.isAuth.so(EsmInit("bits.ublog")),
     title = s"${trans.ublog.xBlog.txt(user.username)} • ${post.title}",
-    openGraph = lila.web
-      .OpenGraph(
-        `type` = "article",
-        image = post.image.isDefined.option(thumbnailUrl(post, _.Size.Large)),
-        title = post.title,
-        url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
-        description = post.intro
-      )
-      .some,
+    openGraph = OpenGraph(
+      `type` = "article",
+      image = post.image.isDefined.option(thumbnailUrl(post, _.Size.Large)),
+      title = post.title,
+      url = s"$netBaseUrl${routes.Ublog.post(user.username, post.slug, post.id)}",
+      description = post.intro
+    ).some,
     atomLinkTag = link(
       href     := routes.Ublog.userAtom(user.username),
       st.title := trans.ublog.xBlog.txt(user.username)
@@ -56,7 +54,7 @@ def blog(user: User, blog: UblogBlog, posts: Paginator[UblogPost.PreviewPost])(u
   val title = trans.ublog.xBlog.txt(user.username)
   views.base.layout(
     moreCss = cssTag("ublog"),
-    modules = posts.hasNextPage.option(infiniteScrollTag) ++ ctx.isAuth.so(jsModule("bits.ublog")),
+    modules = posts.hasNextPage.option(infiniteScrollEsmInit) ++ ctx.isAuth.so(EsmInit("bits.ublog")),
     title = title,
     atomLinkTag = link(
       href     := routes.Ublog.userAtom(user.username),
@@ -80,14 +78,14 @@ object form:
   def create(user: User, f: Form[UblogForm.UblogPostData], captcha: Captcha)(using PageContext) =
     views.base.layout(
       moreCss = moreCss,
-      modules = jsModule("bits.ublogForm") ++ captchaTag,
+      modules = EsmInit("bits.ublogForm") ++ captchaEsmInit,
       title = s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}"
     )(formUi.create(user, f, captcha))
 
   def edit(post: UblogPost, f: Form[UblogForm.UblogPostData])(using ctx: PageContext) =
     views.base.layout(
       moreCss = moreCss,
-      modules = jsModule("bits.ublogForm"),
+      modules = EsmInit("bits.ublogForm"),
       title = s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"
     )(formUi.edit(post, f))
 
@@ -96,7 +94,7 @@ object index:
   def drafts(user: User, posts: Paginator[UblogPost.PreviewPost])(using PageContext) =
     views.base.layout(
       moreCss = frag(cssTag("ublog")),
-      modules = posts.hasNextPage.option(infiniteScrollTag),
+      modules = posts.hasNextPage.option(infiniteScrollEsmInit),
       title = trans.ublog.drafts.txt()
     )(ui.drafts(user, posts))
 
@@ -129,13 +127,13 @@ object index:
   def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
     views.base.layout(
       moreCss = cssTag("ublog"),
-      modules = posts.hasNextPage.option(infiniteScrollTag),
+      modules = posts.hasNextPage.option(infiniteScrollEsmInit),
       title = "Community blogs",
       atomLinkTag = link(
         href     := routes.Ublog.communityAtom(language.fold("all")(_.value)),
         st.title := "Lichess community blogs"
       ).some,
-      withHrefLangs = lila.web.LangPath(langHref(routes.Ublog.communityAll())).some
+      withHrefLangs = lila.ui.LangPath(langHref(routes.Ublog.communityAll())).some
     ):
       val langSelections: List[(String, String)] = ("all", "All languages") ::
         lila.i18n.LangPicker
@@ -160,6 +158,6 @@ object index:
   )(using PageContext) =
     views.base.layout(
       moreCss = cssTag("ublog"),
-      modules = posts.hasNextPage.option(infiniteScrollTag),
+      modules = posts.hasNextPage.option(infiniteScrollEsmInit),
       title = title
     )(ui.list(title, posts, menuItem, route, onEmpty, byDate))

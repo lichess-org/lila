@@ -254,7 +254,7 @@ final class Round(
         env.game.crosstableApi.withMatchup(pov.game),
         env.bookmark.api.exists(pov.game, ctx.me)
       ).flatMapN: (tour, simul, initialFen, crosstable, bookmarked) =>
-        views.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
+        views.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
     import play.api.data.Forms.*

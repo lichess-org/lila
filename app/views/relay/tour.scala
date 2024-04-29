@@ -2,12 +2,14 @@ package views.relay
 
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
 import lila.core.LightUser
 import scalalib.paginator.Paginator
 import lila.relay.RelayTour.WithLastRound
 import lila.relay.{ RelayRound, RelayTour }
 import scalatags.Text.TypedTag
+import scalatags.text.Builder
+
+lazy val bits = lila.relay.ui.RelayBits(helpers)(views.study.jsI18n)
 
 object tour:
 
@@ -23,8 +25,8 @@ object tour:
     views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      modules = infiniteScrollTag,
-      withHrefLangs = LangPath(routes.RelayTour.index()).some
+      modules = infiniteScrollEsmInit,
+      withHrefLangs = lila.ui.LangPath(routes.RelayTour.index()).some
     ):
       def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
         val selected = active.filter(_.tour.tierIs(selector))
@@ -57,7 +59,7 @@ object tour:
     views.base.layout(
       title = liveBroadcasts.txt(),
       moreCss = cssTag("relay.index"),
-      modules = infiniteScrollTag
+      modules = infiniteScrollEsmInit
     )(main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body)))
 
   def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =
@@ -125,7 +127,7 @@ object tour:
         )
       )
 
-  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: Context): Tag =
+  def pageMenu(menu: String, by: Option[LightUser] = none)(using ctx: lila.ui.Context): Tag =
     lila.ui.bits.pageMenuSubnav(
       a(href := routes.RelayTour.index(), cls := menu.activeO("index"))(trans.broadcast.broadcasts()),
       ctx.me.map: me =>
@@ -156,7 +158,7 @@ object tour:
     )
 
   object thumbnail:
-    def apply(image: Option[ImageId], size: RelayTour.thumbnail.SizeSelector) =
+    def apply(image: Option[ImageId], size: RelayTour.thumbnail.SizeSelector): Tag =
       image.fold(fallback): id =>
         img(
           cls     := "relay-image",

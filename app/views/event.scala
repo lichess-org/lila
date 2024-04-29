@@ -45,7 +45,7 @@ def show(e: Event)(using PageContext) =
   views.base.layout(
     title = e.title,
     moreCss = cssTag("event"),
-    modules = jsModule("bits.eventCountdown")
+    modules = EsmInit("bits.eventCountdown")
   ):
     main(cls := "page-small event box box-pad")(
       boxTop(
@@ -202,7 +202,7 @@ private def layout(title: String, css: String = "mod.misc")(body: Frag)(using Pa
   views.base.layout(
     title = title,
     moreCss = cssTag(css),
-    modules = jsModule("bits.flatpickr")
+    modules = EsmInit("bits.flatpickr")
   ):
     main(cls := "page-menu")(
       views.mod.ui.menu("event"),

@@ -21,14 +21,12 @@ object list:
       title = trans.site.players.txt(),
       moreCss = cssTag("user.list"),
       wrapClass = "full-screen-force",
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Chess players and leaderboards",
-          url = s"$netBaseUrl${routes.User.list.url}",
-          description =
-            "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants"
-        )
-        .some
+      openGraph = OpenGraph(
+        title = "Chess players and leaderboards",
+        url = s"$netBaseUrl${routes.User.list.url}",
+        description =
+          "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants"
+      ).some
     )(ui.page(online, leaderboards, nbAllTime, tournamentWinners(tourneyWinners)))
 
   private def tournamentWinners(winners: List[lila.tournament.Winner])(using Context) =
@@ -48,13 +46,11 @@ object list:
     views.base.layout(
       title = title,
       moreCss = cssTag("slist"),
-      openGraph = lila.web
-        .OpenGraph(
-          title = s"Leaderboard of ${perfType.trans}",
-          url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
-          description = s"The 200 best chess players in ${perfType.trans}, sorted by rating"
-        )
-        .some
+      openGraph = OpenGraph(
+        title = s"Leaderboard of ${perfType.trans}",
+        url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
+        description = s"The 200 best chess players in ${perfType.trans}, sorted by rating"
+      ).some
     )(ui.top(users, title))
 
   def bots(users: List[UserWithPerfs])(using PageContext) =

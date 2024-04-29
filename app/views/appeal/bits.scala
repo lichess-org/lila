@@ -12,5 +12,5 @@ object bits:
         cssTag("appeal"),
         isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
-      modules = jsModule("mod.appeal") ++ isGranted(_.UserModView).so(jsModule("mod.user"))
+      modules = EsmInit("bits.appeal") ++ isGranted(_.UserModView).so(EsmInit("mod.user"))
     )(body)

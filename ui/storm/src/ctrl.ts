@@ -9,7 +9,7 @@ import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { PromotionCtrl } from 'chess/promotion';
-import { prop, Prop } from 'common';
+import { prop } from 'common';
 import { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
 import { Role } from 'chessground/types';
@@ -24,7 +24,7 @@ export default class StormCtrl implements PuzCtrl {
   filters: PuzFilters;
   trans: Trans;
   promotion: PromotionCtrl;
-  ground = prop<CgApi | false>(false) as Prop<CgApi | false>;
+  ground = prop<CgApi | false>(false);
   flipped = false;
 
   constructor(opts: StormOpts, redraw: (data: StormData) => void) {

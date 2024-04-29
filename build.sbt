@@ -140,7 +140,7 @@ lazy val cms = module("cms",
 )
 
 lazy val puzzle = module("puzzle",
-  Seq(coreI18n, tree, memo, rating),
+  Seq(coreI18n, tree, memo, rating, ui),
   tests.bundle
 )
 
@@ -170,12 +170,12 @@ lazy val streamer = module("streamer",
 )
 
 lazy val coordinate = module("coordinate",
-  Seq(db),
+  Seq(db, ui),
   macwire.bundle
 )
 
 lazy val feed = module("feed",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
@@ -295,7 +295,7 @@ lazy val tutor = module("tutor",
 )
 
 lazy val opening = module("opening",
-  Seq(coreI18n, memo),
+  Seq(coreI18n, memo, ui),
   tests.bundle
 )
 
@@ -350,12 +350,12 @@ lazy val challenge = module("challenge",
 )
 
 lazy val fide = module("fide",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
 lazy val study = module("study",
-  Seq(coreI18n, tree, memo, room),
+  Seq(coreI18n, tree, memo, room, ui),
   Seq(lettuce) ++ tests.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 

@@ -10,7 +10,7 @@ object games:
     views.base.layout(
       title = s"${channel.name} • ${trans.site.currentGames.txt()}",
       moreCss = cssTag("tv.games"),
-      modules = jsModule("bits.tvGames")
+      modules = EsmInit("bits.tvGames")
     ) {
       main(
         cls     := "page-menu tv-games",
