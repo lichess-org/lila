@@ -34,7 +34,7 @@ case class Page(
     wrapClass: String = "",
     atomLinkTag: Option[Tag] = None,
     withHrefLangs: Option[LangPath] = None,
-    wrapFrag: Option[Update[Frag]] = None
+    transform: Update[Frag] = identity
 ):
   def js(esm: EsmInit): Page       = copy(modules = modules :+ esm.some)
   def js(esm: EsmList): Page       = copy(modules = modules ::: esm)
@@ -47,4 +47,4 @@ case class Page(
   def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
   def body(b: Frag): Page                          = copy(body = b.some)
   def apply(b: Frag): Page                         = copy(body = b.some)
-  def wrap(f: Update[Frag]): Page                  = copy(wrapFrag = wrapFrag.fold(f)(f.compose).some)
+  def wrap(f: Update[Frag]): Page                  = copy(transform = transform.compose(f))

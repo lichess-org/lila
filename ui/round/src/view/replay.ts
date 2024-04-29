@@ -157,7 +157,7 @@ function renderButtons(ctrl: RoundController) {
         [licon.JumpNext, ctrl.ply + 1],
         [licon.JumpLast, lastPly],
       ].map((b: [string, number], i) => {
-        const enabled = ctrl.ply !== b[1] && (b[1] as number) >= firstPly && (b[1] as number) <= lastPly;
+        const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
         return h('button.fbt', {
           class: { glowing: i === 3 && ctrl.isLate() },
           attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },

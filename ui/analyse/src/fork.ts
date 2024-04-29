@@ -31,7 +31,7 @@ export function make(ctrl: AnalyseCtrl): ForkCtrl {
   return {
     state() {
       const node = ctrl.node;
-      if (!prev || prev!.id !== node.id) {
+      if (!prev || prev.id !== node.id) {
         prev = node;
         selected = 0;
       }
@@ -112,7 +112,7 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
         correct: ctrl.isGamebook() && it === 0,
         wrong: ctrl.isGamebook() && it > 0,
       };
-      const conceal = isMainline && concealOf!(true)(ctrl.path + node.id, node);
+      const conceal = isMainline && concealOf(true)(ctrl.path + node.id, node);
       if (!conceal)
         return h(
           'move',
@@ -120,7 +120,7 @@ export function view(ctrl: AnalyseCtrl, concealOf?: ConcealOf) {
           renderIndexAndMove(
             { withDots: true, showEval: ctrl.showComputer(), showGlyphs: ctrl.showComputer() },
             node,
-          )!,
+          ),
         );
       return undefined;
     }),

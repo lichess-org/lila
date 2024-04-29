@@ -43,7 +43,7 @@ function makeStore<A>(conf: Config<A>, userId?: string): Store<A> {
   return {
     set(v: string): A {
       const t: A = conf.fix(v);
-      site.storage.set(fullKey, ('' + t) as string);
+      site.storage.set(fullKey, '' + t);
       return t;
     },
     get(): A {

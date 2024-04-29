@@ -51,7 +51,7 @@ const feedback = {
                 renderIndexAndMove(
                   { withDots: true, showGlyphs: true, showEval: false },
                   ctrl.current()!.fault.node,
-                )!,
+                ),
               ),
             ),
           ),
@@ -110,7 +110,7 @@ const feedback = {
                 'bestWasX',
                 h(
                   'strong',
-                  renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node)!,
+                  renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node),
                 ),
               ),
             ),

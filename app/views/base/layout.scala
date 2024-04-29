@@ -12,7 +12,7 @@ def page(p: lila.ui.Page)(using ctx: PageContext): Frag =
   layout(
     title = p.title,
     fullTitle = p.fullTitle,
-    robots = p.robots | layoutDefault.robots,
+    robots = p.robots | netConfig.crawlable,
     moreCss = p.cssFrag,
     modules = p.modules,
     moreJs = p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
@@ -25,7 +25,7 @@ def page(p: lila.ui.Page)(using ctx: PageContext): Frag =
     wrapClass = p.wrapClass,
     atomLinkTag = p.atomLinkTag,
     withHrefLangs = p.withHrefLangs
-  )(p.body)
+  )(p.transform(p.body))
 
 object layout:
 

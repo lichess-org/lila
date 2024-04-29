@@ -268,7 +268,7 @@ export default function (ctrl: Ctrl) {
             });
             el.addEventListener('click', e => {
               const dist = mousedownAt
-                ? Math.abs(e.clientX - mousedownAt![0]) + Math.abs(e.clientY - mousedownAt![1])
+                ? Math.abs(e.clientX - mousedownAt[0]) + Math.abs(e.clientY - mousedownAt[1])
                 : 0;
               if (dist > 20) {
                 e.preventDefault();
