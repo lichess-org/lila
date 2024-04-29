@@ -28,9 +28,11 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
     metaCsp(csp.getOrElse(defaultCsp))
-  val systemThemeEmbedScript = raw:
-    "<script>if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
-      "document.documentElement.classList.add('light');</script>"
+  def systemThemeScript(nonce: Option[Nonce]) =
+    embedJsUnsafe(
+      "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
+        "document.documentElement.classList.add('light');"
+    )(nonce)
   def pieceSprite(name: String): Frag =
     link(id := "piece-sprite", href := assetUrl(s"piece-css/$name.css"), rel := "stylesheet")
 
