@@ -128,28 +128,9 @@ final class Main(
         env.security.lilaCookie.withSession(remember = true): s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
-  def legacyQaQuestion(id: Int, slug: String) = Open:
+  def legacyQaQuestion(id: Int, _slug: String) = Open:
     MovedPermanently:
-      val faq = routes.Main.faq.url
-      id match
-        case 103  => s"$faq#acpl"
-        case 258  => s"$faq#marks"
-        case 13   => s"$faq#titles"
-        case 87   => routes.User.ratingDistribution("blitz").url
-        case 110  => s"$faq#name"
-        case 29   => s"$faq#titles"
-        case 4811 => s"$faq#lm"
-        case 216  => routes.Main.mobile.url
-        case 340  => s"$faq#trophies"
-        case 6    => s"$faq#ratings"
-        case 207  => s"$faq#hide-ratings"
-        case 547  => s"$faq#leaving"
-        case 259  => s"$faq#trophies"
-        case 342  => s"$faq#provisional"
-        case 50   => routes.Cms.help.url
-        case 46   => s"$faq#name"
-        case 122  => s"$faq#marks"
-        case _    => faq
+      lila.web.StaticContent.legacyQaQuestion(id)
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
