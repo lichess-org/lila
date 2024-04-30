@@ -7,28 +7,16 @@ import lila.core.bus
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-sealed class BusForumPost
-object BusForumPost:
-  given bus.WithChannel[BusForumPost] = bus.InChannel("forumPost")
+enum BusForum:
+  case CreatePost(post: ForumPostMini)
+  case RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
+  case RemovePosts(ids: List[ForumPostId])
+  // erasing = blankng, still in db but with empty text
+  case ErasePost(id: ForumPostId)
+  case ErasePosts(ids: List[ForumPostId])
 
-case class CreatePost(post: ForumPostMini) extends BusForumPost
-object CreatePost:
-  given bus.WithChannel[CreatePost] = bus.InChannel("forumPost")
-case class RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
-    extends BusForumPost
-object RemovePost:
-  given bus.WithChannel[RemovePost] = bus.InChannel("forumPost")
-case class RemovePosts(ids: List[ForumPostId]) extends BusForumPost
-object RemovePosts:
-  given bus.WithChannel[RemovePosts] = bus.InChannel("forumPost")
-// case class PostCloseToggle(categ: ForumCategId, topicSlug: String, closed: Boolean)(using val me: user.MyId)
-// erasing = blankng, still in db but with empty text
-case class ErasePost(id: ForumPostId) extends BusForumPost
-object ErasePost:
-  given bus.WithChannel[ErasePost] = bus.InChannel("forumPost")
-case class ErasePosts(ids: List[ForumPostId]) extends BusForumPost
-object ErasePosts:
-  given bus.WithChannel[ErasePosts] = bus.InChannel("forumPost")
+object BusForum:
+  given bus.WithChannel[BusForum] = bus.InChannel("forumPost")
 
 trait ForumPost:
   val id: ForumPostId

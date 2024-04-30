@@ -7,7 +7,7 @@ import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
-import lila.core.forum.CreatePost
+import lila.core.forum.BusForum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
 import lila.core.perm.Granter as MasterGranter
