@@ -77,7 +77,7 @@ export default new (class implements SoundI {
       }
     }
     if (o?.filter === 'game' || this.theme !== 'music') return;
-    if (!this.music) this.music = await site.asset.loadEsm<SoundMove>('site.soundMove');
+    if (!this.music) this.music = await site.asset.loadEsm<SoundMove>('bits.soundMove');
     this.music(o);
   }
 
