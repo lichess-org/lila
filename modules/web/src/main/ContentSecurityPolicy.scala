@@ -14,7 +14,8 @@ object ContentSecurityPolicy:
       imgSrc = List("'self'", "blob:", "data:", "*"),
       scriptSrc = List("'self'", assetDomain.value),
       fontSrc = List("'self'", assetDomain.value),
-      baseUri = List("'none'")
+      baseUri = List("'none'"),
+      objectSrc = List("'none'")
     )
 
   def render(csp: lila.ui.ContentSecurityPolicy): String =
@@ -28,7 +29,8 @@ object ContentSecurityPolicy:
       "img-src "     -> imgSrc,
       "script-src "  -> scriptSrc,
       "font-src "    -> fontSrc,
-      "base-uri "    -> baseUri
+      "base-uri "    -> baseUri,
+      "object-src"   -> objectSrc,
     ).collect {
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")
