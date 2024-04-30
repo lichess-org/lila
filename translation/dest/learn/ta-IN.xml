@@ -43,13 +43,13 @@
   <string name="itMovesForwardOnly">இது முன்பே மட்டும் செல்லும்</string>
   <string name="selectThePieceYouWant">வேண்டியக் காயைத் தேர்வு செய்யுங்கள்!</string>
   <string name="capture">கைப்பற்றுதல்</string>
-  <string name="takeTheEnemyPieces">எதிர்ப்பாளரின் காய்களைக் கைப்பற்றுங்கள்</string>
-  <string name="captureIntro">எதிர்ப்பாளரின் பாதுகாப்பற்ற காய்களைக் கண்டுபிடித்துக் கைப்பற்றுங்கள்!</string>
+  <string name="takeTheEnemyPieces">எதிராளியின் காய்களைக் கைப்பற்றுங்கள்</string>
+  <string name="captureIntro">எதிராளியின் பாதுகாப்பற்ற காய்களைக் கண்டுபிடித்துக் கைப்பற்றுங்கள்!</string>
   <string name="takeTheBlackPieces">கறுப்பு காய்களைக் கைப்பற்றுங்கள்!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">கறுப்பு காய்களைக் கைப்பற்றுங்கள்! உன்கள் காய்களை இழந்துவிடாதீர்கள்.</string>
   <string name="protection">பாதுகாப்பு</string>
   <string name="keepYourPiecesSafe">உங்கள் காய்களைப் பாதுகாப்பாக வைத்திருங்கள்</string>
-  <string name="protectionIntro">எதிர்ப்பாளர் தாக்கும் காய்களைப் பாதுகாக்குங்கள்!</string>
+  <string name="protectionIntro">எதிராளி தாக்கும் காய்களைப் பாதுகாக்குங்கள்!</string>
   <string name="protectionComplete">வாழ்த்துக்கள்! இழக்காத ஒரு காய் கைப்பற்றிய ஒரு காய்க்குச் சமம்!</string>
   <string name="escape">நீங்கள் தாக்குதலுக்கு ஆளாகியுள்ளீர்கள்! தப்பியுங்கள்!</string>
   <string name="noEscape">தப்பிக்க இயலாது, ஆனால் பாதுகாக்க இயலும்!</string>
@@ -57,7 +57,7 @@
   <string name="combat">போர்</string>
   <string name="captureAndDefendPieces">காய்களைப் கைப்பற்றுங்கள் பாதுகாக்குங்கள்</string>
   <string name="checkInOne">ஒரு நகர்வில் ஆபத்து</string>
-  <string name="attackTheOpponentsKing">எதிர்ப்பாளரின் அரசனை தாக்குங்கள்</string>
+  <string name="attackTheOpponentsKing">எதிராளியின் அரசனை தாக்குங்கள்</string>
   <string name="intermediate">இடைநிலை</string>
   <string name="boardSetup">பலகை அமைப்பு</string>
 </resources>
