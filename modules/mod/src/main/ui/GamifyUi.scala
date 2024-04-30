@@ -1,16 +1,14 @@
-package views.mod
+package lila.mod
+package ui
 
-import play.api.i18n.Lang
-
-import lila.app.templating.Environment.{ *, given }
-
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period
 
-object gamify:
+final class GamifyUi(helpers: Helpers, modUi: ModUi):
+  import helpers.{ *, given }
 
-  def index(leaderboards: lila.mod.Gamify.Leaderboards, history: List[lila.mod.Gamify.HistoryMonth])(using
-      ctx: PageContext
-  ) =
+  def index(leaderboards: Gamify.Leaderboards, history: List[Gamify.HistoryMonth])(using ctx: Context) =
     val title = "Moderator hall of fame"
     def yearHeader(year: Int) =
       tr(cls := "year")(
@@ -21,12 +19,9 @@ object gamify:
         th("Report points")
       )
 
-    views.base.layout(
-      title = title,
-      moreCss = cssTag("mod.gamify")
-    ) {
+    Page(title).cssTag("mod.gamify"):
       main(cls := "page-menu")(
-        views.mod.ui.menu("gamify"),
+        modUi.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content index box")(
           h1(cls := "box__top")(title),
           div(cls := "champs")(
@@ -55,18 +50,12 @@ object gamify:
           )
         )
       )
-    }
 
-  def period(leaderboards: lila.mod.Gamify.Leaderboards, period: lila.mod.Gamify.Period)(using
-      ctx: PageContext
-  ) =
+  def period(leaderboards: Gamify.Leaderboards, period: Gamify.Period)(using ctx: Context) =
     val title = s"Moderators of the ${period.name}"
-    views.base.layout(
-      title = title,
-      moreCss = cssTag("mod.gamify")
-    ) {
+    Page(title).cssTag("mod.gamify"):
       main(cls := "page-menu")(
-        views.mod.ui.menu("gamify"),
+        modUi.menu("gamify"),
         div(id := "mod-gamify", cls := "page-menu__content box")(
           boxTop(
             h1(
@@ -98,11 +87,8 @@ object gamify:
           )
         )
       )
-    }
 
-  def champion(champ: Option[lila.mod.Gamify.ModMixed], img: String, period: lila.mod.Gamify.Period)(using
-      Translate
-  ) =
+  private def champion(champ: Option[Gamify.ModMixed], img: String, period: Gamify.Period)(using Translate) =
     div(cls := "champ")(
       st.img(src := assetUrl(s"images/mod/$img.png")),
       h2("Mod of the ", period.name),
