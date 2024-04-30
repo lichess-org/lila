@@ -65,7 +65,7 @@ object layout:
     s"---board-opacity:${ctx.pref.board.opacity};" +
       s"---board-brightness:${ctx.pref.board.brightness};" +
       s"---board-hue:${ctx.pref.board.hue};" +
-      ~zoomable.option(s"---zoom:$pageZoom;")
+      zoomable.so(s"---zoom:$pageZoom;")
 
   def apply(
       title: String,
