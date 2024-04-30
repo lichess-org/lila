@@ -31,7 +31,7 @@ object watcher:
         palantir = ctx.canPalantir
       )
 
-    RoundPage(pov.game.variant, s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator")
+    ui.RoundPage(pov.game.variant, s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator")
       .js(roundNvuiTag)
       .js(
         PageModule(
@@ -43,7 +43,7 @@ object watcher:
           )
         )
       )
-      .graph(bits.povOpenGraph(pov))
+      .graph(ui.povOpenGraph(pov))
       .zen:
         main(cls := "round")(
           st.aside(cls := "round__side")(
@@ -58,14 +58,14 @@ object watcher:
   def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Full], pgn: chess.format.pgn.Pgn)(using
       ctx: PageContext
   ) =
-    RoundPage(pov.game.variant, gameVsText(pov.game, withRatings = true))
-      .graph(bits.povOpenGraph(pov)):
+    ui.RoundPage(pov.game.variant, gameVsText(pov.game, withRatings = true))
+      .graph(ui.povOpenGraph(pov)):
         main(cls := "round")(
           st.aside(cls := "round__side")(
             views.game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
             div(cls := "for-crawler")(
               h1(titleGame(pov.game)),
-              p(bits.describePov(pov)),
+              p(ui.describePov(pov)),
               div(cls := "pgn")(pgn.render)
             )
           ),

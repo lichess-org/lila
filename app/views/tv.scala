@@ -13,7 +13,7 @@ def index(
     cross: Option[lila.game.Crosstable.WithMatchup],
     history: List[Pov]
 )(using PageContext) =
-  views.round
+  views.round.ui
     .RoundPage(
       pov.game.variant,
       s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}"
