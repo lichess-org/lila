@@ -19,7 +19,7 @@ export default function (ctrl: StormCtrl): VNode {
 }
 
 const chessground = (ctrl: StormCtrl): VNode =>
-  h('div.cg-wrap', {
+  h('object.div.cg-wrap', {// puting <object></object>  therefore preventing cheaters from fetching the board
     hook: {
       insert: vnode =>
         ctrl.ground(
