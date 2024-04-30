@@ -5,7 +5,7 @@ export interface TournamentSocket {
   receive(type: string, data: any): void;
 }
 
-export default function (send: SocketSend, ctrl: TournamentController) {
+export function makeSocket(send: SocketSend, ctrl: TournamentController) {
   const handlers = {
     reload: ctrl.askReload,
     redirect(fullId: string) {

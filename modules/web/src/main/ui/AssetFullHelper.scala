@@ -47,15 +47,11 @@ trait AssetFullHelper:
           case json: JsValue => safeJsonValue(json).value
           case json          => json.toString
 
-  // load iife scripts in <head> and defer
-  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
-
   def jsDeps(keys: List[String]): Frag = frag:
     manifest.deps(keys).map { dep =>
       script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
     }
 
-  def analyseNvuiTag(using ctx: Context)  = ctx.blind.option(EsmInit("analyse.nvui"))
   def puzzleNvuiTag(using ctx: Context)   = ctx.blind.option(EsmInit("puzzle.nvui"))
   def roundNvuiTag(using ctx: Context)    = ctx.blind.option(EsmInit("round.nvui"))
   lazy val infiniteScrollEsmInit: EsmInit = jsModuleInit("bits.infiniteScroll")
@@ -69,7 +65,7 @@ trait AssetFullHelper:
     // include both ws and wss when insecure because requests may come through a secure proxy
     val localDev = (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
     val obsDev   = "ws://127.0.0.1:4455"
-    ContentSecurityPolicy.basic(
+    lila.web.ContentSecurityPolicy.basic(
       netConfig.assetDomain,
       netConfig.assetDomain.value :: sockets ::: explorerEndpoint :: obsDev :: tablebaseEndpoint :: localDev
     )
@@ -77,5 +73,5 @@ trait AssetFullHelper:
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =
     nonce.foldLeft(basicCsp)(_.withNonce(_))
 
-  def analysisCsp(using Optionce, Context): ContentSecurityPolicy =
-    defaultCsp.withWebAssembly.withExternalEngine(externalEngineEndpoint)
+  def analysisCsp: Update[ContentSecurityPolicy] =
+    _.withWebAssembly.withExternalEngine(externalEngineEndpoint)

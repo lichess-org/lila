@@ -1,6 +1,6 @@
 import RacerCtrl from '../ctrl';
 import { h, VNodes } from 'snabbdom';
-import { PlayerWithScore as PlayerWithScore } from '../interfaces';
+import { PlayerWithScore } from '../interfaces';
 import { Boost } from '../boost';
 import { userLink } from 'common/userLink';
 

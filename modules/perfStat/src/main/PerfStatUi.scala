@@ -1,11 +1,15 @@
 package lila.perfStat
 
+import play.api.libs.json.Json
+
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.core.perm.Granter
+import lila.core.perf.UserWithPerfs
+import lila.common.Json.given
 
-final class PerfStatUi(helpers: Helpers):
+final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   import helpers.{ *, given }
   import trans.perfStat as tps
 
@@ -327,3 +331,82 @@ final class PerfStatUi(helpers: Helpers):
       h2(span(title := tps.lessThanOneHour.txt())(tps.maxTimePlaying())),
       playStreakTimeStreaks(playStreak.time)
     )
+
+  def ratingDistribution(perfType: PerfType, data: List[Int], otherUser: Option[UserWithPerfs])(using
+      ctx: Context,
+      me: Option[UserWithPerfs]
+  ) =
+    val myVisiblePerfs = me.map(_.perfs).ifTrue(ctx.pref.showRatings)
+    Page(trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
+      .cssTag("user.rating.stats")
+      .copy(wrapClass = "full-screen-force")
+      .js(
+        PageModule(
+          "chart.ratingDistribution",
+          Json.obj(
+            "freq"        -> data,
+            "myRating"    -> myVisiblePerfs.map(_(perfType).intRating),
+            "otherRating" -> otherUser.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
+            "otherPlayer" -> otherUser.map(_.username),
+            "i18n" -> i18nJsObject(
+              List(trans.site.players, trans.site.yourRating, trans.site.cumulative, trans.site.glicko2Rating)
+            )
+          )
+        )
+      ):
+        main(cls := "page-menu")(
+          communityMenu,
+          div(cls := "rating-stats page-menu__content box box-pad")(
+            boxTop(
+              h1(
+                trans.site.weeklyPerfTypeRatingDistribution(
+                  lila.ui.bits.mselect(
+                    "variant-stats",
+                    span(perfType.trans),
+                    lila.rating.PerfType.leaderboardable
+                      .map(PerfType(_))
+                      .map: pt =>
+                        a(
+                          dataIcon := pt.icon,
+                          cls      := (perfType == pt).option("current"),
+                          href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
+                        )(pt.trans)
+                  )
+                )
+              )
+            ),
+            div(cls := "desc", dataIcon := perfType.icon)(
+              myVisiblePerfs
+                .flatMap(_(perfType).glicko.establishedIntRating)
+                .map: rating =>
+                  val (under, sum) = lila.perfStat.percentileOf(data, rating)
+                  div(
+                    trans.site.nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
+                    br,
+                    trans.site.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
+                    br,
+                    trans.site.youAreBetterThanPercentOfPerfTypePlayers(
+                      strong((under * 100.0 / sum).round, "%"),
+                      perfType.trans
+                    )
+                  )
+                .getOrElse:
+                  div(
+                    trans.site.nbPerfTypePlayersThisWeek
+                      .plural(data.sum, strong(data.sum.localize), perfType.trans),
+                    ctx.pref.showRatings.option(
+                      frag(
+                        br,
+                        trans.site.youDoNotHaveAnEstablishedPerfTypeRating(perfType.trans)
+                      )
+                    )
+                  )
+            ),
+            div(id := "rating_distribution")(
+              canvas(
+                id := "rating_distribution_chart",
+                ariaTitle(trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
+              )(spinner)
+            )
+          )
+        )

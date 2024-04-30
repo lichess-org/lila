@@ -12,7 +12,7 @@ final class OpeningBits(helpers: Helpers):
 
   def beta = span(cls := "opening__beta")("BETA")
 
-  def pageModule(page: Option[OpeningPage])(using PageContext) =
+  def pageModule(page: Option[OpeningPage])(using Context) =
     PageModule(
       "opening",
       page.so: p =>

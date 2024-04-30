@@ -36,7 +36,7 @@ object bits:
     views.base.layout(
       title = trans.site.passwordReset.txt(),
       moreCss = cssTag("auth"),
-      moreJs = lila.web.views.hcaptcha.script(form),
+      moreJs = hcaptchaScript(form),
       csp = defaultCsp.withHcaptcha.some
     ):
       main(cls := "auth auth-signup box box-pad")(
@@ -104,7 +104,7 @@ object bits:
     views.base.layout(
       title = "Log in by email",
       moreCss = cssTag("auth"),
-      moreJs = lila.web.views.hcaptcha.script(form),
+      moreJs = hcaptchaScript(form),
       csp = defaultCsp.withHcaptcha.some
     ):
       main(cls := "auth auth-signup box box-pad")(

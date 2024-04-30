@@ -14,11 +14,12 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
 ):
   import helpers.{ *, given }
   import trans.{ team as trt }
+  import bits.{ TeamPage, menu }
 
-  def create(form: Form[?], captcha: Captcha)(using PageContext) = bits.teamPage:
-    Page(trans.team.newTeam.txt(), _.js(captchaEsmInit)):
+  def create(form: Form[?], captcha: Captcha)(using PageContext) =
+    TeamPage(trans.team.newTeam.txt()).js(captchaEsmInit):
       main(cls := "page-menu page-small")(
-        bits.menu("form".some),
+        menu("form".some),
         div(cls := "page-menu__content box box-pad")(
           h1(cls := "box__top")(trt.newTeam()),
           postForm(cls := "form3", action := routes.Team.create)(
@@ -35,10 +36,10 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
         )
       )
 
-  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) = bits.teamPage:
-    Page(s"Edit Team ${t.name}", _.js(EsmInit("bits.team"))):
+  def edit(t: Team, form: Form[?], member: Option[TeamMember])(using ctx: PageContext) =
+    TeamPage(s"Edit Team ${t.name}").js(EsmInit("bits.team")):
       main(cls := "page-menu page-small team-edit")(
-        bits.menu(none),
+        menu(none),
         div(cls := "page-menu__content box box-pad")(
           boxTop(h1("Edit team ", a(href := routes.Team.show(t.id))(t.name))),
           standardFlash,

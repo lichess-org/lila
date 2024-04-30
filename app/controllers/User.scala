@@ -146,7 +146,7 @@ final class User(
     if username.id.isGhost
     then
       negotiate(
-        Ok.page(views.site.bits.ghost),
+        Ok.page(views.site.ui.ghost),
         notFoundJson("Deleted user")
       )
     else
@@ -411,11 +411,11 @@ final class User(
             isGranted(_.ViewPrintNoIP).so(views.user.mod.identification(logins))
 
           val kaladin = isGranted(_.MarkEngine).so(env.irwin.kaladinApi.get(user).map {
-            _.flatMap(_.response).so(views.irwin.ui.kaladin.report)
+            _.flatMap(_.response).so(views.irwin.kaladin.report)
           })
 
           val irwin =
-            isGranted(_.MarkEngine).so(env.irwin.irwinApi.reports.withPovs(user).mapz(views.irwin.ui.report))
+            isGranted(_.MarkEngine).so(env.irwin.irwinApi.reports.withPovs(user).mapz(views.irwin.report))
           val assess = isGranted(_.MarkEngine)
             .so(env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id))
             .flatMapz: as =>
@@ -625,8 +625,8 @@ final class User(
                   env.user.perfsRepo
                     .withPerfs(u)
                     .flatMap: u =>
-                      Ok.page(views.stat.ratingDistribution(perfKey, data, u.some))
-              case _ => Ok.page(views.stat.ratingDistribution(perfKey, data, none))
+                      Ok.page(views.user.perfStat.ui.ratingDistribution(perfKey, data, u.some))
+              case _ => Ok.page(views.user.perfStat.ui.ratingDistribution(perfKey, data, none))
 
   def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))

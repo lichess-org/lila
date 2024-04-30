@@ -11,7 +11,7 @@ object signup:
     views.base.layout(
       title = trans.site.signUp.txt(),
       modules = jsModuleInit("bits.login", "signup"),
-      moreJs = frag(lila.web.views.hcaptcha.script(form), fingerprintTag),
+      moreJs = frag(hcaptchaScript(form), fingerprintTag),
       moreCss = cssTag("auth"),
       csp = defaultCsp.withHcaptcha.some,
       withHrefLangs = lila.ui.LangPath(routes.Auth.signup).some

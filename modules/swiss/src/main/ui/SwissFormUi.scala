@@ -17,39 +17,42 @@ final class SwissFormUi(helpers: Helpers)(
   import helpers.{ *, given }
 
   def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using Context) =
-    val fields = new SwissFields(form, none)
-    main(cls := "page-small")(
-      div(cls := "swiss__form tour__form box box-pad")(
-        h1(cls := "box__top")(trans.swiss.newSwiss()),
-        postForm(cls := "form3", action := routes.Swiss.create(teamId))(
-          div(cls := "form-group")(
-            a(
-              dataIcon := Icon.InfoCircle,
-              cls      := "text",
-              href     := routes.Cms.lonePage("event-tips")
-            )(
-              trans.site.ourEventTips()
+    Page(trans.swiss.newSwiss.txt())
+      .cssTag("swiss.form")
+      .js(EsmInit("bits.tourForm")):
+        val fields = new SwissFields(form, none)
+        main(cls := "page-small")(
+          div(cls := "swiss__form tour__form box box-pad")(
+            h1(cls := "box__top")(trans.swiss.newSwiss()),
+            postForm(cls := "form3", action := routes.Swiss.create(teamId))(
+              div(cls := "form-group")(
+                a(
+                  dataIcon := Icon.InfoCircle,
+                  cls      := "text",
+                  href     := routes.Cms.lonePage("event-tips")
+                )(
+                  trans.site.ourEventTips()
+                )
+              ),
+              form3.split(fields.name, fields.nbRounds),
+              form3.split(fields.description, fields.rated),
+              fields.clock,
+              form3.split(fields.roundInterval, fields.startsAt),
+              advancedSettings(
+                form3.split(fields.variant, fields.position),
+                form3.split(fields.chatFor, fields.entryCode),
+                condition(form),
+                form3.split(fields.playYourGames, fields.allowList),
+                form3.split(fields.forbiddenPairings, fields.manualPairings)
+              ),
+              form3.globalError(form),
+              form3.actions(
+                a(href := routes.Team.show(teamId))(trans.site.cancel()),
+                form3.submit(trans.site.createANewTournament(), icon = Icon.Trophy.some)
+              )
             )
-          ),
-          form3.split(fields.name, fields.nbRounds),
-          form3.split(fields.description, fields.rated),
-          fields.clock,
-          form3.split(fields.roundInterval, fields.startsAt),
-          advancedSettings(
-            form3.split(fields.variant, fields.position),
-            form3.split(fields.chatFor, fields.entryCode),
-            condition(form),
-            form3.split(fields.playYourGames, fields.allowList),
-            form3.split(fields.forbiddenPairings, fields.manualPairings)
-          ),
-          form3.globalError(form),
-          form3.actions(
-            a(href := routes.Team.show(teamId))(trans.site.cancel()),
-            form3.submit(trans.site.createANewTournament(), icon = Icon.Trophy.some)
           )
         )
-      )
-    )
 
   private def advancedSettings(settings: Frag*)(using Context) =
     details(summary(trans.site.advancedSettings()), settings)
@@ -80,35 +83,38 @@ final class SwissFormUi(helpers: Helpers)(
     )
 
   def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using Context) =
-    val fields = new SwissFields(form, swiss.some)
-    main(cls := "page-small")(
-      div(cls := "swiss__form box box-pad")(
-        h1(cls := "box__top")("Edit ", swiss.name),
-        postForm(cls := "form3", action := routes.Swiss.update(swiss.id))(
-          form3.split(fields.name, fields.nbRounds),
-          form3.split(fields.description, fields.rated),
-          fields.clock,
-          form3.split(fields.roundInterval, swiss.isCreated.option(fields.startsAt)),
-          advancedSettings(
-            form3.split(fields.variant, fields.position),
-            form3.split(fields.chatFor, fields.entryCode),
-            condition(form),
-            form3.split(fields.playYourGames, fields.allowList),
-            form3.split(fields.forbiddenPairings, fields.manualPairings)
-          ),
-          form3.globalError(form),
-          form3.actions(
-            a(href := routes.Swiss.show(swiss.id))(trans.site.cancel()),
-            form3.submit(trans.site.save(), icon = Icon.Trophy.some)
-          )
-        ),
-        postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
-          submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
-            trans.site.cancelTournament()
+    Page(swiss.name)
+      .cssTag("swiss.form")
+      .js(EsmInit("bits.tourForm")):
+        val fields = new SwissFields(form, swiss.some)
+        main(cls := "page-small")(
+          div(cls := "swiss__form box box-pad")(
+            h1(cls := "box__top")("Edit ", swiss.name),
+            postForm(cls := "form3", action := routes.Swiss.update(swiss.id))(
+              form3.split(fields.name, fields.nbRounds),
+              form3.split(fields.description, fields.rated),
+              fields.clock,
+              form3.split(fields.roundInterval, swiss.isCreated.option(fields.startsAt)),
+              advancedSettings(
+                form3.split(fields.variant, fields.position),
+                form3.split(fields.chatFor, fields.entryCode),
+                condition(form),
+                form3.split(fields.playYourGames, fields.allowList),
+                form3.split(fields.forbiddenPairings, fields.manualPairings)
+              ),
+              form3.globalError(form),
+              form3.actions(
+                a(href := routes.Swiss.show(swiss.id))(trans.site.cancel()),
+                form3.submit(trans.site.save(), icon = Icon.Trophy.some)
+              )
+            ),
+            postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
+              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
+                trans.site.cancelTournament()
+              )
+            )
           )
         )
-      )
-    )
 
   private final class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[Swiss])(using Context):
 

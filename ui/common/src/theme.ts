@@ -7,4 +7,5 @@ export const currentTheme = () => {
   else if (dataTheme === 'light') return 'light';
   else return 'dark';
 };
+
 export const supportsSystemTheme = () => prefersLight().media !== 'not all';

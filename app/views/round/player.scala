@@ -45,38 +45,37 @@ object player:
           )
 
     val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
-    bits.layout(
-      variant = pov.game.variant,
-      title = s"${trans.site.play.txt()} $opponentNameOrZen",
-      modules = roundNvuiTag,
-      pageModule = PageModule(
-        "round",
-        Json
-          .obj(
-            "data"   -> data,
-            "i18n"   -> jsI18n(pov.game),
-            "userId" -> ctx.userId,
-            "chat"   -> chatJson
-          )
-          .add("noab" -> ctx.me.exists(_.marks.engine))
-      ).some,
-      openGraph = bits.povOpenGraph(pov).some,
-      playing = pov.game.playable,
-      zenable = true
-    ):
-      main(cls := "round")(
-        st.aside(cls := "round__side")(
-          bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
-          chatOption.map(_ => views.chat.frag)
-        ),
-        bits.roundAppPreload(pov),
-        div(cls := "round__underboard")(
-          bits.crosstable(cross, pov.game),
-          (playing.nonEmpty || simul.exists(_.isHost(ctx.me))).option(
-            div(cls := "round__now-playing")(
-              bits.others(playing, simul.filter(_.isHost(ctx.me)))
+    RoundPage(pov.game.variant, s"${trans.site.play.txt()} $opponentNameOrZen")
+      .js(roundNvuiTag)
+      .js(
+        PageModule(
+          "round",
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> jsI18n(pov.game),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson
             )
-          )
-        ),
-        div(cls := "round__underchat")(bits.underchat(pov.game))
+            .add("noab" -> ctx.me.exists(_.marks.engine))
+        )
       )
+      .graph(bits.povOpenGraph(pov))
+      .zen
+      .copy(playing = pov.game.playable):
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            bits.side(pov, data, tour.map(_.tourAndTeamVs), simul, bookmarked = bookmarked),
+            chatOption.map(_ => views.chat.frag)
+          ),
+          bits.roundAppPreload(pov),
+          div(cls := "round__underboard")(
+            bits.crosstable(cross, pov.game),
+            (playing.nonEmpty || simul.exists(_.isHost(ctx.me))).option(
+              div(cls := "round__now-playing")(
+                bits.others(playing, simul.filter(_.isHost(ctx.me)))
+              )
+            )
+          ),
+          div(cls := "round__underchat")(bits.underchat(pov.game))
+        )

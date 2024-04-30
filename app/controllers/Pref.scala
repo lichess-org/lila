@@ -36,7 +36,7 @@ final class Pref(env: Env) extends LilaController(env):
             case None if categSlug == "notification" =>
               Ok.pageAsync:
                 env.notifyM.api.prefs.form(me).map {
-                  views.account.notification(_)
+                  views.account.pref.notification(_)
                 }
             case None        => notFound
             case Some(categ) => Ok.page(views.account.pref(me, forms.prefOf(ctx.pref), categ))

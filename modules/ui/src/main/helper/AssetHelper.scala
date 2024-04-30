@@ -25,9 +25,11 @@ trait AssetHelper:
   given Conversion[Option[EsmInit], EsmList] with
     def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
 
-  extension (l: Layout)
-    def cssTag(keys: String*): Layout =
-      keys.foldLeft(l)((l, key) => l.css(AssetHelper.this.cssTag(key)))
+  extension (p: Page)
+    def cssTag(keys: String*): Page =
+      keys.foldLeft(p)((p, key) => p.css(AssetHelper.this.cssTag(key)))
+    def cssTag(key: Option[String]): Page =
+      key.foldLeft(p)(_.cssTag(_))
 
   def jsModuleInit(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"$load('${manifest.jsName(key)}')"))
@@ -37,6 +39,9 @@ trait AssetHelper:
     jsModuleInit(key, safeJsonValue(Json.toJson(value)))
   def jsPageModule(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"site.asset.loadPageEsm('${manifest.jsName(key)}')"))
+
+  // load iife scripts in <head> and defer
+  def iifeModule(path: String): Frag = script(deferAttr, src := assetUrl(path))
 
   def embedJsUnsafe(js: String): WithNonce[Frag] = nonce =>
     raw:
@@ -59,3 +64,8 @@ trait AssetHelper:
   def cdnUrl(path: String) = s"$assetBaseUrl$path"
 
   def flairSrc(flair: Flair): String = staticAssetUrl(s"$flairVersion/flair/img/$flair.webp")
+
+  def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): Option[RawFrag] =
+    re.enabled.option(raw("""<script src="https://hcaptcha.com/1/api.js" async defer></script>"""))
+
+  def analyseNvuiTag(using ctx: Context) = ctx.blind.option(EsmInit("analyse.nvui"))

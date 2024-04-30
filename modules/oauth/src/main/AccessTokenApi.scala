@@ -1,6 +1,7 @@
 package lila.oauth
 
 import reactivemongo.api.bson.*
+import play.api.libs.json.*
 
 import lila.core.net.Bearer
 import lila.db.dsl.{ *, given }
@@ -210,6 +211,29 @@ final class AccessTokenApi(
           val openTokens = tokens.map(_.filter(token => !closedUserIds(token.userId)))
           bearers.zip(openTokens).toMap
         }
+
+  def secretScanning(body: JsValue): Fu[List[(AccessToken, String)]] =
+    body
+      .asOpt[List[JsObject]]
+      .map:
+        _.flatMap: obj =>
+          for
+            token <- (obj \ "token").asOpt[String]
+            url   <- (obj \ "url").asOpt[String]
+          yield Bearer(token) -> url
+        .toMap
+      .so: tokensMap =>
+        test(tokensMap.keys.toList)
+          .flatMap:
+            _.toList.traverse: (bearer, token) =>
+              token match
+                case Some(token) =>
+                  logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
+                  revoke(token.plain).inject(tokensMap.get(bearer).map(token -> _))
+                case None =>
+                  logger.branch("github").info(s"ignoring token $bearer")
+                  fuccess(none)
+          .map(_.flatten)
 
   private val accessTokenCache =
     cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](1024, "oauth.access_token"):

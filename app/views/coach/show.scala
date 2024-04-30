@@ -66,9 +66,7 @@ object show:
           posts.nonEmpty.option(
             st.section(cls := "coach-show__posts")(
               h2(cls := "coach-show__title")(trans.ublog.latestBlogPosts()),
-              div(cls := "ublog-post-cards ")(
-                posts.map { views.ublog.postUi.card(_) }
-              )
+              div(cls := "ublog-post-cards ")(posts.map(views.ublog.ui.card(_)))
             )
           ),
           studies.nonEmpty.option(
