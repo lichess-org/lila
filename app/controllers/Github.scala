@@ -20,23 +20,23 @@ final class Github(env: Env) extends LilaController(env):
             url   <- (obj \ "url").asOpt[String]
           yield Bearer(token) -> url
         .toMap
-      .foreach: tokensMap =>
+      .traverse: tokensMap =>
         env.oAuth.tokenApi
           .test(tokensMap.keys.toList)
-          .map:
-            _.map: (bearer, token) =>
+          .flatMap:
+            _.toList.traverse: (bearer, token) =>
               token match
                 case Some(token) =>
                   logger.info(s"revoking token ${token.plain} for user ${token.userId}")
                   env.oAuth.tokenApi.revoke(token.plain)
                   tokensMap
                     .get(bearer)
-                    .map: url =>
+                    .traverse: url =>
                       env.msg.api.systemPost(
                         token.userId,
                         lila.msg.MsgPreset.apiTokenRevoked(url)
                       )
                 case None =>
                   logger.info(s"ignoring token $bearer")
-
-    NoContent
+                  fuccess(none)
+      .as(NoContent)
