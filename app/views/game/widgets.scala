@@ -2,6 +2,7 @@ package views.game
 
 import lila.app.templating.Environment.{ *, given }
 
+import lila.ui.Context
 import lila.core.game.{ Player }
 import lila.game.GameExt.perfType
 import lila.game.Player.nameSplit

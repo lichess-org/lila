@@ -240,7 +240,7 @@ lazy val game = module("game",
 )
 
 lazy val gameSearch = module("gameSearch",
-  Seq(coreI18n, search),
+  Seq(coreI18n, search, ui),
   Seq()
 )
  // good dep to game

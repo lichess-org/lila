@@ -25,7 +25,7 @@ final class Search(env: Env) extends LilaController(env):
     env.game.cached.nbTotal.flatMap: nbGames =>
       if ctx.isAnon then
         negotiate(
-          Unauthorized.page(views.search.login(nbGames)),
+          Unauthorized.page(views.gameSearch.login(nbGames)),
           Unauthorized(jsonError("Login required"))
         )
       else
@@ -40,7 +40,7 @@ final class Search(env: Env) extends LilaController(env):
                   key = "",
                   message = "Please only send one request at a time per IP address"
                 )
-              TooManyRequests.page(views.search.index(form, none, nbGames))
+              TooManyRequests.page(views.gameSearch.index(form, none, nbGames))
             SearchRateLimitPerIP(ctx.ip, rateLimited, cost = cost):
               SearchConcurrencyLimitPerIP(ctx.ip, limited = limited):
                 searchForm
@@ -48,7 +48,7 @@ final class Search(env: Env) extends LilaController(env):
                   .fold(
                     failure =>
                       negotiate(
-                        BadRequest.page(views.search.index(failure, none, nbGames)),
+                        BadRequest.page(views.gameSearch.index(failure, none, nbGames)),
                         BadRequest(jsonError("Could not process search query"))
                       ),
                     data =>
@@ -60,7 +60,7 @@ final class Search(env: Env) extends LilaController(env):
                               _.so(env.gameSearch.paginator(query, page))
                         .flatMap: pager =>
                           negotiate(
-                            Ok.page(views.search.index(searchForm.fill(data), pager, nbGames)),
+                            Ok.page(views.gameSearch.index(searchForm.fill(data), pager, nbGames)),
                             pager.fold(BadRequest(jsonError("Could not process search query")).toFuccess):
                               pager => env.game.userGameApi.jsPaginator(pager).dmap(Ok(_))
                           )

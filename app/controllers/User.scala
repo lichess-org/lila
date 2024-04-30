@@ -104,7 +104,7 @@ final class User(
         if filter == "search" && ctx.isAnon
         then
           negotiate(
-            Unauthorized.page(views.search.login(u.count.game)),
+            Unauthorized.page(views.gameSearch.login(u.count.game)),
             Unauthorized(jsonError("Login required"))
           )
         else
