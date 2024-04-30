@@ -9,32 +9,26 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 
 sealed class BusForumPost
 object BusForumPost:
-  given busForumPostChannel: bus.WithChannel[BusForumPost] with
-    def channel = "forumPost"
+  given bus.WithChannel[BusForumPost] = bus.InChannel("forumPost")
 
 case class CreatePost(post: ForumPostMini) extends BusForumPost
 object CreatePost:
-  given createPostChannel: bus.WithChannel[CreatePost] with
-    def channel = "forumPost"
+  given bus.WithChannel[CreatePost] = bus.InChannel("forumPost")
 case class RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
     extends BusForumPost
 object RemovePost:
-  given removePostChannel: bus.WithChannel[RemovePost] with
-    def channel = "forumPost"
+  given bus.WithChannel[RemovePost] = bus.InChannel("forumPost")
 case class RemovePosts(ids: List[ForumPostId]) extends BusForumPost
 object RemovePosts:
-  given removePostsChannel: bus.WithChannel[RemovePosts] with
-    def channel = "forumPost"
+  given bus.WithChannel[RemovePosts] = bus.InChannel("forumPost")
 // case class PostCloseToggle(categ: ForumCategId, topicSlug: String, closed: Boolean)(using val me: user.MyId)
 // erasing = blankng, still in db but with empty text
 case class ErasePost(id: ForumPostId) extends BusForumPost
 object ErasePost:
-  given erasePostChannel: bus.WithChannel[ErasePost] with
-    def channel = "forumPost"
+  given bus.WithChannel[ErasePost] = bus.InChannel("forumPost")
 case class ErasePosts(ids: List[ForumPostId]) extends BusForumPost
 object ErasePosts:
-  given erasePostsChannel: bus.WithChannel[ErasePosts] with
-    def channel = "forumPost"
+  given bus.WithChannel[ErasePosts] = bus.InChannel("forumPost")
 
 trait ForumPost:
   val id: ForumPostId
