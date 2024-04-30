@@ -155,3 +155,11 @@ final class Main(
           .map(url => JsonOk(Json.obj("imageUrl" -> url)))
       case None => JsonBadRequest(jsonError("Image content only"))
   }
+
+  def githubSecretScanning = AnonBodyOf(parse.json): body =>
+    env.oAuth.tokenApi
+      .secretScanning(body)
+      .flatMap:
+        _.traverse: (token, url) =>
+          env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
+      .as(NoContent)
