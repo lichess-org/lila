@@ -215,7 +215,7 @@ lazy val room = module("room",
 )
 
 lazy val timeline = module("timeline",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
@@ -255,7 +255,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(coreI18n, tree, memo),
+  Seq(coreI18n, tree, memo, ui),
   tests.bundle
 )
 

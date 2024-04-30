@@ -43,3 +43,13 @@ $forumPost
     s"""@${by.name} has changed your leader permissions in the team "${team.name}".
 Your new permissions are: ${perms.mkString(", ")}.
 $baseUrl/team/${team.id}"""
+
+  def apiTokenRevoked(url: String) =
+    s"""Your Lichess API token has been found on GitHub
+
+We detected one of your API tokens in a public code repository on GitHub at the following URL:
+
+$url
+
+We have automatically revoked the token to protect your account.
+    """

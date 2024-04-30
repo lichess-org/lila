@@ -1,64 +1,63 @@
-package views.simul
+package lila.simul
+package ui
 
-import play.api.data.Form
+import play.api.data.{ Form, Field }
 
-import lila.app.templating.Environment.{ *, given }
-
-import lila.gathering.ConditionForm
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.team.LightTeam
-import lila.simul.{ Simul, SimulForm }
+import lila.core.i18n.Translate
+import lila.gathering.ConditionForm
 
-object form:
+final class SimulFormUi(helpers: Helpers)(
+    setupCheckboxes: (Field, Seq[(Any, String, Option[String])], Set[String]) => Frag,
+    translatedVariantChoicesWithVariantsById: Translate ?=> List[(String, String, Option[String])]
+):
+  import helpers.{ *, given }
 
-  def create(form: Form[SimulForm.Setup], teams: List[LightTeam])(using PageContext) =
-    views.base.layout(
-      title = trans.site.hostANewSimul.txt(),
-      moreCss = cssTag("simul.form"),
-      modules = EsmInit("bits.flatpickr")
-    ) {
-      main(cls := "box box-pad page-small simul-form")(
-        h1(cls := "box__top")(trans.site.hostANewSimul()),
-        postForm(cls := "form3", action := routes.Simul.create)(
-          br,
-          p(trans.site.whenCreateSimul()),
-          br,
-          br,
-          formContent(form, teams, none),
-          form3.actions(
-            a(href := routes.Simul.home)(trans.site.cancel()),
-            form3.submit(trans.site.hostANewSimul(), icon = Icon.Trophy.some)
+  def create(form: Form[SimulForm.Setup], teams: List[LightTeam])(using Context) =
+    Page(trans.site.hostANewSimul.txt())
+      .cssTag("simul.form")
+      .js(EsmInit("bits.flatpickr")):
+        main(cls := "box box-pad page-small simul-form")(
+          h1(cls := "box__top")(trans.site.hostANewSimul()),
+          postForm(cls := "form3", action := routes.Simul.create)(
+            br,
+            p(trans.site.whenCreateSimul()),
+            br,
+            br,
+            formContent(form, teams, none),
+            form3.actions(
+              a(href := routes.Simul.home)(trans.site.cancel()),
+              form3.submit(trans.site.hostANewSimul(), icon = Icon.Trophy.some)
+            )
           )
         )
-      )
-    }
 
-  def edit(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Simul)(using PageContext) =
-    views.base.layout(
-      title = s"Edit ${simul.fullName}",
-      moreCss = cssTag("simul.form"),
-      modules = EsmInit("bits.flatpickr")
-    ) {
-      main(cls := "box box-pad page-small simul-form")(
-        h1(cls := "box__top")("Edit ", simul.fullName),
-        postForm(cls := "form3", action := routes.Simul.update(simul.id))(
-          formContent(form, teams, simul.some),
-          form3.actions(
-            a(href := routes.Simul.show(simul.id))(trans.site.cancel()),
-            form3.submit(trans.site.save(), icon = Icon.Trophy.some)
-          )
-        ),
-        postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-          submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
-            trans.site.cancelSimul()
+  def edit(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Simul)(using Context) =
+    Page(s"Edit ${simul.fullName}")
+      .cssTag("simul.form")
+      .js(EsmInit("bits.flatpickr")):
+        main(cls := "box box-pad page-small simul-form")(
+          h1(cls := "box__top")("Edit ", simul.fullName),
+          postForm(cls := "form3", action := routes.Simul.update(simul.id))(
+            formContent(form, teams, simul.some),
+            form3.actions(
+              a(href := routes.Simul.show(simul.id))(trans.site.cancel()),
+              form3.submit(trans.site.save(), icon = Icon.Trophy.some)
+            )
+          ),
+          postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
+            submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
+              trans.site.cancelSimul()
+            )
           )
         )
-      )
-    }
 
   private def formContent(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Option[Simul])(using
-      ctx: PageContext
+      ctx: Context
   ) =
-    import lila.simul.SimulForm.*
+    import SimulForm.*
     frag(
       globalError(form),
       form3.group(form("name"), trans.site.name()) { f =>
@@ -73,11 +72,10 @@ object form:
         form3.group(form("variant"), trans.site.simulVariantsHint()) { f =>
           frag(
             div(cls := "variants")(
-              views.setup.filter.renderCheckboxes(
-                form,
-                "variants",
+              setupCheckboxes(
+                form("variants"),
                 translatedVariantChoicesWithVariantsById,
-                checks = form.value
+                form.value
                   .map(_.variants.map(_.toString))
                   .getOrElse(simul.so(_.variants.map(_.id.toString)))
                   .toSet
@@ -160,7 +158,7 @@ object form:
         help = trans.site.simulDescriptionHelp().some
       )(form3.textarea(_)(rows := 10)),
       ctx.me
-        .exists(lila.simul.canBeFeatured)
+        .exists(canBeFeatured)
         .option(
           form3.checkbox(
             form("featured"),

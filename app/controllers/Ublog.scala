@@ -13,8 +13,7 @@ import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 
 final class Ublog(env: Env) extends LilaController(env):
 
-  import views.ublog.postUi.{ editUrlOfPost, urlOfPost }
-  import views.ublog.ui.urlOfBlog
+  import views.ublog.ui.{ editUrlOfPost, urlOfPost, urlOfBlog }
   import scalalib.paginator.Paginator.given
 
   def index(username: UserStr, page: Int) = Open:
@@ -24,7 +23,7 @@ final class Ublog(env: Env) extends LilaController(env):
           .getUserBlog(user)
           .flatMap: blog =>
             (canViewBlogOf(user, blog).so(env.ublog.paginator.byUser(user, true, page))).map {
-              views.ublog.blog(user, blog, _)
+              views.ublog.ui.blogPage(user, blog, _)
             }
 
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
@@ -34,7 +33,7 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.paginator
             .byBlog(blog.id, false, page)
             .map:
-              views.ublog.index.drafts(user, _)
+              views.ublog.ui.drafts(user, _)
   }
 
   def post(username: UserStr, slug: String, id: UblogPostId) = Open:
@@ -54,7 +53,7 @@ final class Ublog(env: Env) extends LilaController(env):
                 markup <- env.ublog.markup(post)
                 viewedPost = env.ublog.viewCounter(post, ctx.ip)
                 page <- renderPage:
-                  views.ublog.post(user, blog, viewedPost, markup, others, liked, followable, followed)
+                  views.ublog.post.page(user, blog, viewedPost, markup, others, liked, followable, followed)
               yield Ok(page)
         }
 
@@ -249,7 +248,7 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKids:
       Reasonable(page, Max(100)):
         Ok.pageAsync:
-          env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.index.friends)
+          env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.ui.friends)
   }
 
   def communityLang(langStr: String, page: Int = 1) = Open:
@@ -274,7 +273,7 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.paginator
             .liveByCommunity(language, page)
             .map:
-              views.ublog.index.community(language, _)
+              views.ublog.community(language, _)
 
   def communityAtom(language: String) = Anon:
     val l = LangList.popularNoRegion.find(l => l.language == language || l.code == language)
@@ -290,14 +289,14 @@ final class Ublog(env: Env) extends LilaController(env):
           env.ublog.paginator
             .liveByLiked(page)
             .map:
-              views.ublog.index.liked(_)
+              views.ublog.ui.liked(_)
   }
 
   def topics = Open:
     NotForKids:
       Ok.pageAsync:
         env.ublog.topic.withPosts.map:
-          views.ublog.index.topics(_)
+          views.ublog.ui.topics(_)
 
   def topic(str: String, page: Int, byDate: Boolean) = Open:
     NotForKids:
@@ -309,7 +308,7 @@ final class Ublog(env: Env) extends LilaController(env):
               env.ublog.paginator
                 .liveByTopic(top, page, byDate)
                 .map:
-                  views.ublog.index.topic(top, _, byDate)
+                  views.ublog.ui.topic(top, _, byDate)
 
   def userAtom(username: UserStr) = Anon:
     env.user.repo

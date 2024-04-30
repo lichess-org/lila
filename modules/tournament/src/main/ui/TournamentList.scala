@@ -30,9 +30,10 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
           Json.obj("data" -> json, "i18n" -> ui.scheduleJsI18n)
         )
       )
+      .hrefLangs(LangPath(routes.Tournament.home))
+      .fullScreen
       .copy(
-        wrapClass = "full-screen-force",
-        withHrefLangs = lila.ui.LangPath(routes.Tournament.home).some
+        wrapClass = "full-screen-force"
       )
       .graph(
         url = s"$netBaseUrl${routes.Tournament.home.url}",

@@ -73,7 +73,7 @@ case class Schedule(
         case (_, Some(max)) if full => s"≤${max.rating} ${xArena.txt(speed.trans)}"
         case (_, Some(max))         => s"≤${max.rating} ${speed.trans}"
     else if variant.standard then
-      val n = position.flatMap(Thematic.byFen).fold(speed.trans) { pos =>
+      val n = position.flatMap(lila.gathering.Thematic.byFen).fold(speed.trans) { pos =>
         s"${pos.family.name} ${speed.trans}"
       }
       if full then xArena.txt(n) else n

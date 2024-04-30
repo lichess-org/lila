@@ -67,3 +67,5 @@ trait AssetHelper:
 
   def hcaptchaScript(re: lila.core.security.HcaptchaForm[?]): Option[RawFrag] =
     re.enabled.option(raw("""<script src="https://hcaptcha.com/1/api.js" async defer></script>"""))
+
+  def analyseNvuiTag(using ctx: Context) = ctx.blind.option(EsmInit("analyse.nvui"))

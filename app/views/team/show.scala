@@ -122,7 +122,7 @@ object show:
                   frag(
                     st.section(cls := "team-show__tour team-events team-simuls")(
                       h2(trans.site.simultaneousExhibitions()),
-                      views.simul.bits.allCreated(info.simuls)
+                      views.simul.ui.allCreated(info.simuls)
                     )
                   )
                 ),

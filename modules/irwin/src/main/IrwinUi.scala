@@ -3,8 +3,9 @@ package lila.irwin
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.game.Pov
+import lila.game.GameExt.playerBlurPercent
 
-final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag, playerBlurPercent: Pov => Int):
+final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
 
   private def povLink(pov: Pov)(using Context) =
@@ -64,7 +65,7 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag, playerBl
                   em("assessment")
                 ),
                 td {
-                  val blurs = playerBlurPercent(pov)
+                  val blurs = pov.game.playerBlurPercent(pov.color)
                   frag(strong(cls := percentClass(blurs))(blurs, "%"), " ", em("blurs"))
                 }
                 // td(

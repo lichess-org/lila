@@ -87,8 +87,8 @@ object home:
                 lila.tournament.Spotlight.select(tours, tourBBBs).map {
                   views.tournament.list.homepageSpotlight(_)
                 },
-                swiss.ifTrue(nbForced < 3).map(views.swiss.bits.homepageSpotlight),
-                simulBBB.map(views.simul.bits.homepageSpotlight)
+                swiss.ifTrue(nbForced < 3).map(views.swiss.ui.homepageSpotlight),
+                simulBBB.map(views.simul.ui.homepageSpotlight)
               )
             }
           ),
@@ -125,8 +125,7 @@ object home:
             .filter(_.isLichess || ctx.kid.no)
             .take(3)
             .map:
-              views.ublog.postUi
-                .card(_, showAuthor = views.ublog.postUi.ShowAt.bottom, showIntro = false)
+              views.ublog.ui.card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false)
         ,
         ctx.noBot.option(bits.underboards(tours, simuls, leaderboard, tournamentWinners)),
         div(cls := "lobby__feed"):

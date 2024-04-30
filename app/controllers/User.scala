@@ -146,7 +146,7 @@ final class User(
     if username.id.isGhost
     then
       negotiate(
-        Ok.page(views.site.bits.ghost),
+        Ok.page(views.site.ui.ghost),
         notFoundJson("Deleted user")
       )
     else
@@ -625,8 +625,8 @@ final class User(
                   env.user.perfsRepo
                     .withPerfs(u)
                     .flatMap: u =>
-                      Ok.page(views.stat.ratingDistribution(perfKey, data, u.some))
-              case _ => Ok.page(views.stat.ratingDistribution(perfKey, data, none))
+                      Ok.page(views.user.perfStat.ui.ratingDistribution(perfKey, data, u.some))
+              case _ => Ok.page(views.user.perfStat.ui.ratingDistribution(perfKey, data, none))
 
   def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))

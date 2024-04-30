@@ -13,8 +13,7 @@ case class OpenGraph(
     `type`: String = "website",
     image: Option[String] = None,
     twitterImage: Option[String] = None,
-    siteName: String = "lichess.org",
-    more: List[(String, String)] = Nil
+    siteName: String = "lichess.org"
 )
 
 case class Page(
@@ -47,11 +46,19 @@ case class Page(
   def iife(iifeFrag: Option[Frag]): Page                           = iifeFrag.foldLeft(this)(_.iife(_))
   def graph(og: OpenGraph): Page                                   = copy(openGraph = og.some)
   def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
-  def robots(b: Boolean): Page                                     = copy(robots = b.some)
+  def robots(b: Boolean): Page                                     = copy(robots = if b then none else b.some)
   def css(f: Frag): Page                           = copy(cssFrag = cssFrag.foldLeft(f)(_ |+| _).some)
   def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
-  def body(b: Frag): Page                          = copy(body = b.some)
-  def apply(b: Frag): Page                         = copy(body = b.some)
-  def transform(f: Update[Frag]): Page             = copy(transform = transform.compose(f))
-  def wrap(f: Update[Frag]): Page                  = transform(f)
-  def prepend(prelude: Frag): Page                 = transform(body => frag(prelude, body))
+  def hrefLangs(path: Option[LangPath]): Page      = copy(withHrefLangs = path)
+  def hrefLangs(path: LangPath): Page              = copy(withHrefLangs = path.some)
+  def fullScreen: Page                             = copy(wrapClass = "full-screen-force")
+  def noRobot: Page                                = robots(false)
+  def zoom                                         = copy(zoomable = true)
+  def zen                                          = copy(zenable = true)
+
+  // body stuff
+  def body(b: Frag): Page              = copy(body = b.some)
+  def apply(b: Frag): Page             = copy(body = b.some)
+  def transform(f: Update[Frag]): Page = copy(transform = transform.compose(f))
+  def wrap(f: Update[Frag]): Page      = transform(f)
+  def prepend(prelude: Frag): Page     = transform(body => frag(prelude, body))

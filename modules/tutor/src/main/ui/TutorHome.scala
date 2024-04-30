@@ -10,30 +10,31 @@ import lila.core.perf.UserWithPerfs
 final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
   import helpers.{ *, given }
 
-  def home(full: TutorFullReport.Available, user: User)(using Context) =
-    frag(
-      boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
-      if full.report.perfs.isEmpty then empty.mascotSaysInsufficient
-      else
-        bits.mascotSays(
-          p(
-            strong(
-              cls := "tutor__intro",
-              "Hello, I have examined ",
-              full.report.nbGames.localize,
-              " recent rated games of yours."
+  def apply(full: TutorFullReport.Available, user: User)(using Context) =
+    bits.page(menu = bits.menu(full, user, none))(cls := "tutor__home box"):
+      frag(
+        boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+        if full.report.perfs.isEmpty then empty.mascotSaysInsufficient
+        else
+          bits.mascotSays(
+            p(
+              strong(
+                cls := "tutor__intro",
+                "Hello, I have examined ",
+                full.report.nbGames.localize,
+                " recent rated games of yours."
+              )
+            ),
+            p("Let's compare your play style to your peers: players with a rating very similar to yours."),
+            p(
+              "It should give us some idea about what your strengths are, and where you have room for improvement."
             )
-          ),
-          p("Let's compare your play style to your peers: players with a rating very similar to yours."),
-          p(
-            "It should give us some idea about what your strengths are, and where you have room for improvement."
           )
+        ,
+        div(cls := "tutor__perfs tutor-cards")(
+          full.report.perfs.toList.map { perfReportCard(full.report, _, user) }
         )
-      ,
-      div(cls := "tutor__perfs tutor-cards")(
-        full.report.perfs.toList.map { perfReportCard(full.report, _, user) }
       )
-    )
 
   private def waitGame(game: (Pov, PgnStr)) =
     div(
@@ -93,36 +94,47 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
   object empty:
 
     def start(user: User)(using Context) =
-      frag(
-        boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
-        bits.mascotSays("Explain what tutor is about here."),
-        postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
-          submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
+      bits.page(menu = emptyFrag, pageSmall = true)(cls := "tutor__empty box"):
+        frag(
+          boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+          bits.mascotSays("Explain what tutor is about here."),
+          postForm(cls := "tutor__empty__cta", action := routes.Tutor.refresh(user.username))(
+            submitButton(cls := "button button-fat button-no-upper")("Analyse my games and help me improve")
+          )
         )
-      )
 
     def queued(in: TutorQueue.InQueue, user: UserWithPerfs, waitGames: List[(Pov, PgnStr)])(using
         Context
     ) =
-      frag(
-        boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
-        bits.mascotSays(
-          p(strong(cls := "tutor__intro")("I'm examining your games.")),
-          examinationMethod,
-          nbGames(user),
-          p(
-            "There are ",
-            (in.position - 1),
-            " players in the queue before you.",
-            br,
-            "You will get your results in about ",
-            showMinutes(in.eta.toMinutes.toInt.atLeast(1)),
-            "."
-          )
-        ),
-        div(cls := "tutor__waiting-games"):
-          div(cls := "tutor__waiting-games__carousel")(waitGames.map(waitGame))
-      )
+      bits.page(menu = emptyFrag, title = "Lichess Tutor - Examining games...", pageSmall = true)(
+        cls := "tutor__empty tutor__queued box"
+      ):
+        frag(
+          boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+          bits.mascotSays(
+            p(strong(cls := "tutor__intro")("I'm examining your games.")),
+            examinationMethod,
+            nbGames(user),
+            p(
+              "There are ",
+              (in.position - 1),
+              " players in the queue before you.",
+              br,
+              "You will get your results in about ",
+              showMinutes(in.eta.toMinutes.toInt.atLeast(1)),
+              "."
+            )
+          ),
+          div(cls := "tutor__waiting-games"):
+            div(cls := "tutor__waiting-games__carousel")(waitGames.map(waitGame))
+        )
+
+    def insufficientGames(user: User)(using PageContext) =
+      bits.page(menu = emptyFrag, pageSmall = true)(cls := "tutor__insufficient box"):
+        frag(
+          boxTop(h1(bits.otherUser(user), "Lichess Tutor")),
+          mascotSaysInsufficient
+        )
 
     def mascotSaysInsufficient =
       bits.mascotSays(

@@ -21,11 +21,9 @@ final class CoordinateUi(helpers: Helpers):
         description =
           "Knowing the chessboard coordinates is a very important chess skill. A square name appears on the board and you must click on the correct square."
       )
-      .copy(
-        zoomable = true,
-        zenable = true,
-        withHrefLangs = LangPath(routes.Coordinate.home).some
-      )
+      .hrefLangs(LangPath(routes.Coordinate.home))
+      .zoom
+      .zen
       .body(preload)
 
   private val preload = main(id := "trainer")(

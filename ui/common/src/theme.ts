@@ -5,5 +5,3 @@ export const currentTheme = () => {
   else if (dataTheme === 'light') return 'light';
   else return 'dark';
 };
-export const supportsSystemTheme = () =>
-  window.matchMedia('(prefers-color-scheme: light)').media !== 'not all';

@@ -1,7 +1,6 @@
 package views
 
-import lila.app.templating.Environment.*
-import lila.game.GameExt.playerBlurPercent
+import lila.app.templating.Environment.{ *, given }
 
 lazy val chat = lila.chat.ChatUi(helpers)
 
@@ -11,10 +10,7 @@ lazy val learn = lila.web.views.LearnUi(helpers)
 
 lazy val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
 
-val irwin = lila.irwin.IrwinUi(helpers)(
-  menu = views.mod.ui.menu,
-  playerBlurPercent = pov => pov.game.playerBlurPercent(pov.color)
-)
+val irwin = lila.irwin.IrwinUi(helpers)(menu = views.mod.ui.menu)
 
 object oAuth:
   val token     = lila.oauth.ui.TokenUi(helpers)(views.account.ui.AccountPage)
@@ -29,3 +25,42 @@ lazy val feed =
 lazy val cms = lila.cms.ui.CmsUi(helpers)(views.mod.ui.menu("cms"))
 
 lazy val userTournament = lila.tournament.ui.UserTournament(helpers, views.tournament.ui)
+
+object account:
+  val ui        = lila.pref.ui.AccountUi(helpers)
+  val pages     = lila.pref.ui.AccountPages(helpers, ui, flagApi)
+  val pref      = lila.pref.ui.AccountPref(helpers, prefHelper, ui)
+  val twoFactor = lila.pref.ui.TwoFactorUi(helpers, ui)
+  val security  = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
+
+lazy val practice = lila.practice.ui.PracticeUi(helpers)(
+  csp = analysisCsp,
+  translations = userAnalysisI18n.vector(),
+  views.board.bits.explorerAndCevalConfig,
+  modMenu = views.mod.ui.menu("practice")
+)
+
+object forum:
+  import lila.forum.ui.*
+  val bits  = ForumBits(helpers)
+  val post  = PostUi(helpers, bits)
+  val categ = CategUi(helpers, bits)
+  val topic = TopicUi(helpers, bits, post)(
+    views.base.captcha.apply,
+    lila.msg.MsgPreset.forumDeletion.presets
+  )
+
+lazy val timeline = lila.timeline.ui.TimelineUi(helpers)(views.streamer.bits.redirectLink(_))
+
+lazy val userAnalysisI18n = lila.analyse.ui.AnalyseI18n(helpers)
+lazy val analysisI18n     = lila.analyse.ui.GameAnalyseI18n(helpers, userAnalysisI18n)
+
+object opening:
+  val bits = lila.opening.ui.OpeningBits(helpers)
+  val wiki = lila.opening.ui.WikiUi(helpers, bits)
+  val ui   = lila.opening.ui.OpeningUi(helpers, bits, wiki)
+
+lazy val video = lila.video.ui.VideoUi(helpers)
+
+def mobile(p: lila.cms.CmsPage.Render)(using Context) =
+  lila.web.views.mobile(helpers)(cms.render(p))

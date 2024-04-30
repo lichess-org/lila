@@ -1,9 +1,8 @@
 package views.setup
 
-import play.api.data.Form
+import play.api.data.{ Form, Field }
 
 import lila.app.templating.Environment.{ *, given }
-
 import lila.core.rating.RatingRange
 
 object filter:
@@ -16,23 +15,21 @@ object filter:
             tr(cls := "variant")(
               td(trans.site.variant()),
               td(
-                renderCheckboxes(
-                  form,
-                  "variant",
+                setupCheckboxes(
+                  form("variant"),
                   translatedVariantChoicesWithVariants(_.key)
                 )
               )
             ),
             tr(
               td(trans.site.timeControl()),
-              td(renderCheckboxes(form, "speed", translatedSpeedChoices))
+              td(setupCheckboxes(form("speed"), translatedSpeedChoices))
             ),
             tr(cls := "inline")(
               td(trans.site.increment()),
               td(
-                renderCheckboxes(
-                  form,
-                  "increment",
+                setupCheckboxes(
+                  form("increment"),
                   translatedIncrementChoices
                 )
               )
@@ -40,7 +37,7 @@ object filter:
             ctx.isAuth.option(
               tr(cls := "inline")(
                 td(trans.site.mode()),
-                td(renderCheckboxes(form, "mode", translatedModeChoices))
+                td(setupCheckboxes(form("mode"), translatedModeChoices))
               )
             ),
             ctx.isAuth.option(
@@ -89,34 +86,22 @@ object filter:
       )
     )
 
-  def renderCheckboxes(
-      form: Form[?],
-      key: String,
+  def setupCheckboxes(
+      field: Field,
       options: Seq[(Any, String, Option[String])],
       checks: Set[String] = Set.empty
   ): Frag =
     options.mapWithIndex { case ((value, text, hint), index) =>
       div(cls := "checkable")(
-        renderCheckbox(form, key, index, value.toString, raw(text), hint, checks)
+        label(title := hint)(
+          input(
+            tpe      := "checkbox",
+            cls      := "regular-checkbox",
+            name     := s"${field.name}[$index]",
+            st.value := value.toString,
+            checks(value.toString).option(checked)
+          ),
+          raw(text)
+        )
       )
     }
-
-  private def renderCheckbox(
-      form: Form[?],
-      key: String,
-      index: Int,
-      value: String,
-      content: Frag,
-      hint: Option[String],
-      checks: Set[String]
-  ) =
-    label(title := hint)(
-      input(
-        tpe      := "checkbox",
-        cls      := "regular-checkbox",
-        name     := s"${form(key).name}[$index]",
-        st.value := value,
-        checks(value).option(checked)
-      ),
-      content
-    )

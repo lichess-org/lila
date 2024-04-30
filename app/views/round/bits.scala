@@ -1,14 +1,20 @@
 package views.round
 
+import scala.util.chaining.*
 import chess.variant.{ Crazyhouse, Variant }
 
-import scala.util.chaining.*
-
 import lila.app.templating.Environment.{ *, given }
-
 import lila.common.Json.given
-
 import lila.game.GameExt.playerBlurPercent
+
+def RoundPage(variant: Variant, title: String)(using ctx: PageContext) =
+  Page(title)
+    .cssTag(if variant == Crazyhouse then "round.zh" else "round")
+    .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+    .cssTag(ctx.pref.hasVoice.option("voice"))
+    .cssTag(ctx.blind.option("round.nvui"))
+    .zoom
+    .csp(_.withPeer.withWebAssembly)
 
 object bits:
 
@@ -51,40 +57,6 @@ object bits:
       case _                                                => "Game is still ongoing"
     val moves = (game.ply.value - game.startedAtPly.value + 1) / 2
     s"$p1 $plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!"
-
-  def layout(
-      variant: Variant,
-      title: String,
-      pageModule: Option[PageModule],
-      moreJs: Frag = emptyFrag,
-      modules: EsmList = Nil,
-      openGraph: Option[OpenGraph] = None,
-      moreCss: Frag = emptyFrag,
-      playing: Boolean = false,
-      zenable: Boolean = false,
-      robots: Boolean = false,
-      withHrefLangs: Option[lila.ui.LangPath] = None
-  )(body: Frag)(using ctx: PageContext) =
-    views.base.layout(
-      title = title,
-      openGraph = openGraph,
-      moreJs = moreJs,
-      moreCss = frag(
-        cssTag(if variant == Crazyhouse then "round.zh" else "round"),
-        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
-        ctx.pref.hasVoice.option(cssTag("voice")),
-        ctx.blind.option(cssTag("round.nvui")),
-        moreCss
-      ),
-      modules = modules,
-      pageModule = pageModule,
-      playing = playing,
-      zenable = zenable,
-      robots = robots,
-      zoomable = true,
-      csp = defaultCsp.withPeer.withWebAssembly.some,
-      withHrefLangs = withHrefLangs
-    )(body)
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
     cross.map: c =>

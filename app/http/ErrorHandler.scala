@@ -31,7 +31,7 @@ final class ErrorHandler(
           lila.api.Context(req, lila.core.i18n.defaultLang, LoginContext.anon, lila.pref.Pref.default),
           lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req).option(lila.ui.Nonce.random))
         )
-        InternalServerError(views.site.bits.errorPage)
+        InternalServerError(views.base.page(views.site.ui.errorPage))
       else InternalServerError("Sorry, something went wrong.")
     }.recover { case scala.util.control.NonFatal(e) =>
       lila.log("http").error(s"""Error handler exception on "${exception.getMessage}\"""", e)
