@@ -135,7 +135,7 @@ final class StreamerBits(helpers: Helpers)(thumbnailUrl: ImageId => String):
       a(href := "/about")(trs.downloadKit())
     )
 
-  def redirectLink(username: UserStr, isStreaming: Option[Boolean] = None) =
+  def redirectLink(username: UserStr, isStreaming: Option[Boolean] = None): Tag =
     isStreaming match
       case Some(false) => a(href := routes.Streamer.show(username.value))
       case _           => a(href := routes.Streamer.redirect(username.value), targetBlank, noFollow)

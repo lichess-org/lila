@@ -1,0 +1,136 @@
+package lila.practice
+package ui
+
+import play.api.libs.json.*
+import play.api.data.Form
+
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
+import lila.core.i18n.I18nKey
+
+final class PracticeUi(helpers: Helpers)(
+    csp: Update[ContentSecurityPolicy],
+    translations: Vector[I18nKey],
+    explorerAndCevalConfig: Context ?=> JsObject,
+    modMenu: Context ?=> Frag
+):
+  import helpers.{ *, given }
+
+  def show(us: UserStudy, data: JsonView.JsData)(using PageContext) =
+    Page(us.practiceStudy.name.value)
+      .cssTag("analyse.practice")
+      .js(analyseNvuiTag)
+      .js(
+        PageModule(
+          "analyse.study",
+          Json.obj(
+            "practice" -> data.practice,
+            "study"    -> data.study,
+            "data"     -> data.analysis,
+            "i18n"     -> i18nJsObject(translations)
+          ) ++ explorerAndCevalConfig
+        )
+      )
+      .csp(csp)
+      .zoom(main(cls := "analyse"))
+
+  def index(data: lila.practice.UserPractice)(using ctx: PageContext) =
+    Page("Practice chess positions")
+      .cssTag("practice.index")
+      .js(embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {
+if (confirm('You will lose your practice progress!')) this.parentNode.submit();
+});"""))
+      .graph(
+        title = "Practice your chess",
+        description = "Learn how to master the most common chess positions",
+        url = s"$netBaseUrl${routes.Practice.index}"
+      ):
+        main(cls := "page-menu force-ltr")(
+          st.aside(cls := "page-menu__menu practice-side")(
+            i(cls := "fat"),
+            h1("Practice"),
+            h2("makes your chess perfect"),
+            div(cls := "progress")(
+              div(cls := "text")("Progress: ", data.progressPercent, "%"),
+              div(cls := "bar", style := s"width: ${data.progressPercent}%")
+            ),
+            postForm(action := routes.Practice.reset)(
+              if ctx.isAuth then (data.nbDoneChapters > 0).option(a(cls := "do-reset")("Reset my progress"))
+              else a(href := routes.Auth.signup)("Sign up to save your progress")
+            )
+          ),
+          div(cls := "page-menu__content practice-app")(
+            data.structure.sections.filter(s => !s.hide || Granter.opt(_.PracticeConfig)).map { section =>
+              st.section(
+                h2(section.name),
+                div(cls := "studies")(
+                  section.studies.filter(s => !s.hide || Granter.opt(_.PracticeConfig)).map { stud =>
+                    val prog = data.progressOn(stud.id)
+                    a(
+                      cls  := s"study ${if prog.complete then "done" else "ongoing"}",
+                      href := routes.Practice.show(section.id, stud.slug, stud.id)
+                    )(
+                      ctx.isAuth.option(
+                        span(cls := "ribbon-wrapper")(
+                          span(cls := "ribbon")(prog.done, " / ", prog.total)
+                        )
+                      ),
+                      i(cls := s"${stud.id}"),
+                      span(cls := "text")(
+                        h3(stud.name),
+                        em(stud.desc)
+                      )
+                    )
+                  }
+                )
+              )
+            }
+          )
+        )
+
+  def config(structure: lila.practice.PracticeStructure, form: Form[?])(using PageContext) =
+    Page("Practice structure").cssTag("mod.misc"):
+      main(cls := "page-menu")(
+        modMenu,
+        div(cls := "practice_config page-menu__content box box-pad")(
+          h1(cls := "box__top")("Practice config"),
+          div(cls := "both")(
+            postForm(action := routes.Practice.configSave)(
+              textarea(cls := "practice_text", name := "text")(form("text").value),
+              errMsg(form("text")),
+              submitButton(cls := "button button-fat text", dataIcon := Icon.Checkmark)("Save")
+            ),
+            div(cls := "preview")(
+              ol(
+                structure.sections.map { section =>
+                  li(
+                    h2(section.name, "#", section.id, section.hide.so(" [hidden]")),
+                    ol(
+                      section.studies.map { stud =>
+                        li(
+                          i(cls := s"practice icon ${stud.id}")(
+                            h3(
+                              a(href := routes.Study.show(stud.id))(
+                                stud.name,
+                                "#",
+                                stud.id,
+                                stud.hide.so(" [hidden]")
+                              )
+                            ),
+                            em(stud.desc),
+                            ol(
+                              stud.chapters.map { cha =>
+                                li(a(href := routes.Study.chapter(stud.id, cha.id))(cha.name))
+                              }
+                            )
+                          )
+                        )
+                      }
+                    )
+                  )
+                }
+              )
+            )
+          )
+        )
+      )

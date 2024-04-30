@@ -45,7 +45,7 @@ final class Main(
     Ok.page(views.site.page.webmasters)
 
   def lag = Open:
-    Ok.page(views.site.lag())
+    Ok.page(views.site.ui.lag)
 
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
@@ -59,10 +59,10 @@ final class Main(
 
   private def serveMobile(using Context) =
     pageHit
-    FoundPage(env.api.cmsRenderKey("mobile-apk"))(views.mobile.apply)
+    FoundPage(env.api.cmsRenderKey("mobile-apk"))(views.mobile)
 
   def dailyPuzzleSlackApp = Open:
-    Ok.page(views.site.dailyPuzzleSlackApp())
+    Ok.page(views.site.ui.dailyPuzzleSlackApp)
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -85,7 +85,7 @@ final class Main(
 
   def getFishnet = Open:
     pageHit
-    Ok.page(views.site.bits.getFishnet())
+    Ok.page(views.site.ui.getFishnet())
 
   def costs = Anon:
     pageHit

@@ -6,47 +6,53 @@ import ScalatagsTemplate.{ *, given }
 import play.api.data.Form
 import lila.core.captcha.Captcha
 
-final class UblogFormUi(helpers: Helpers, ui: UblogUi, postUi: UblogPostUi)(
+final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
     renderCaptcha: (Form[?], Option[Captcha]) => Context ?=> Frag
 ):
   import helpers.{ *, given }
 
+  private def FormPage(title: String)(using Context) =
+    Page(title).cssTag("ublog.form", "tagify").js(EsmInit("bits.ublogForm"))
+
   def create(user: User, f: Form[UblogForm.UblogPostData], captcha: Captcha)(using Context) =
-    main(cls := "page-menu page-small")(
-      ui.menu(Left(user.id)),
-      div(cls := "page-menu__content box ublog-post-form")(
-        standardFlash,
-        boxTop(h1(trans.ublog.newPost())),
-        etiquette,
-        inner(f, Left(user), captcha.some)
-      )
-    )
+    FormPage(s"${trans.ublog.xBlog.txt(user.username)} • ${trans.ublog.newPost.txt()}")
+      .js(captchaEsmInit):
+        main(cls := "page-menu page-small")(
+          ui.menu(Left(user.id)),
+          div(cls := "page-menu__content box ublog-post-form")(
+            standardFlash,
+            boxTop(h1(trans.ublog.newPost())),
+            etiquette,
+            inner(f, Left(user), captcha.some)
+          )
+        )
 
   def edit(post: UblogPost, f: Form[UblogForm.UblogPostData])(using ctx: Context) =
-    main(cls := "page-menu page-small")(
-      ui.menu(Left(post.created.by)),
-      div(cls := "page-menu__content box ublog-post-form")(
-        standardFlash,
-        boxTop(
-          h1(
-            if ctx.is(post.created.by) then trans.ublog.editYourBlogPost()
-            else s"Edit ${usernameOrId(post.created.by)}'s post"
+    FormPage(s"${trans.ublog.xBlog.txt(titleNameOrId(post.created.by))} • ${post.title}"):
+      main(cls := "page-menu page-small")(
+        ui.menu(Left(post.created.by)),
+        div(cls := "page-menu__content box ublog-post-form")(
+          standardFlash,
+          boxTop(
+            h1(
+              if ctx.is(post.created.by) then trans.ublog.editYourBlogPost()
+              else s"Edit ${usernameOrId(post.created.by)}'s post"
+            ),
+            a(href := ui.urlOfPost(post), dataIcon := Icon.Eye, cls := "text", targetBlank)("Preview")
           ),
-          a(href := postUi.urlOfPost(post), dataIcon := Icon.Eye, cls := "text", targetBlank)("Preview")
-        ),
-        image(post),
-        inner(f, Right(post), none),
-        postForm(
-          cls    := "ublog-post-form__delete",
-          action := routes.Ublog.delete(post.id)
-        ):
-          form3.action:
-            submitButton(
-              cls   := "button button-red button-empty confirm",
-              title := trans.ublog.deleteBlog.txt()
-            )(trans.site.delete())
+          image(post),
+          inner(f, Right(post), none),
+          postForm(
+            cls    := "ublog-post-form__delete",
+            action := routes.Ublog.delete(post.id)
+          ):
+            form3.action:
+              submitButton(
+                cls   := "button button-red button-empty confirm",
+                title := trans.ublog.deleteBlog.txt()
+              )(trans.site.delete())
+        )
       )
-    )
 
   private def inner(
       form: Form[UblogForm.UblogPostData],
@@ -115,7 +121,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi, postUi: UblogPostUi)(
       form3.actions(
         a(
           href := post
-            .fold(user => routes.Ublog.index(user.username), postUi.urlOfPost)
+            .fold(user => routes.Ublog.index(user.username), ui.urlOfPost)
         )(
           trans.site.cancel()
         ),
@@ -125,7 +131,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi, postUi: UblogPostUi)(
 
   private def image(post: UblogPost)(using ctx: Context) =
     div(cls := "ublog-image-edit", data("post-url") := routes.Ublog.image(post.id))(
-      postUi.thumbnail(post, _.Size.Small)(
+      ui.thumbnail(post, _.Size.Small)(
         cls               := "drop-target " + post.image.isDefined.so("user-image"),
         attr("draggable") := "true"
       ),

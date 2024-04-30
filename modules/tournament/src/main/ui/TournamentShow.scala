@@ -2,6 +2,7 @@ package lila.tournament
 package ui
 
 import play.api.data.Form
+import play.api.libs.json.*
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
@@ -10,29 +11,59 @@ import lila.common.String.html.markdownLinksOrRichText
 import lila.core.config.NetDomain
 import lila.gathering.ui.GatheringUi
 
-final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
+final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: GatheringUi)(
     variantTeamLinks: Map[chess.variant.Variant.LilaKey, (LightTeam, Frag)]
-):
+)(using NetDomain):
   import helpers.{ *, given }
 
-  def show(
+  def apply(
       tour: Tournament,
       verdicts: lila.gathering.Condition.WithVerdicts,
       shieldOwner: Option[UserId],
-      chat: Option[Frag],
+      data: JsObject,
+      chat: Option[(Frag, JsObject)],
       streamers: Frag
-  )(using ctx: Context)(using NetDomain) =
+  )(using ctx: Context) =
     val extraCls = tour.schedule.so: sched =>
       s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
-    main(cls := s"tour$extraCls")(
-      st.aside(cls := "tour__side"):
-        side(tour, verdicts, shieldOwner, chat, streamers)
-      ,
-      div(cls := "tour__main")(div(cls := "box")),
-      tour.isCreated.option(div(cls := "tour__faq"):
-        faq(tour.mode.rated.some, tour.isPrivate.option(tour.id))
+    Page(s"${tour.name()} #${tour.id}")
+      .js(
+        PageModule(
+          "tournament",
+          Json.obj(
+            "data"        -> data,
+            "i18n"        -> ui.jsI18n(tour),
+            "userId"      -> ctx.userId,
+            "chat"        -> chat.map(_._2),
+            "showRatings" -> ctx.pref.showRatings
+          )
+        )
       )
-    )
+      .cssTag(
+        if tour.isTeamBattle then "tournament.show.team-battle"
+        else "tournament.show"
+      )
+      .graph(
+        OpenGraph(
+          title = s"${tour.name()}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
+          url = s"$netBaseUrl${routes.Tournament.show(tour.id).url}",
+          description =
+            s"${tour.nbPlayers} players compete in the ${showEnglishDate(tour.startsAt)} ${tour.name()}. " +
+              s"${tour.clock.show} ${tour.mode.name} games are played during ${tour.minutes} minutes. " +
+              tour.winnerId.fold("Winner is not yet decided."): winnerId =>
+                s"${titleNameOrId(winnerId)} takes the prize home!"
+        )
+      )
+      .csp(_.withLilaHttp):
+        main(cls := s"tour$extraCls")(
+          st.aside(cls := "tour__side"):
+            side(tour, verdicts, shieldOwner, chat.map(_._1), streamers)
+          ,
+          div(cls := "tour__main")(div(cls := "box")),
+          tour.isCreated.option(div(cls := "tour__faq"):
+            faq(tour.mode.rated.some, tour.isPrivate.option(tour.id))
+          )
+        )
 
   object side:
 
@@ -44,7 +75,7 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
         shieldOwner: Option[UserId],
         chat: Option[Frag],
         streamers: Frag
-    )(using ctx: Context)(using NetDomain) =
+    )(using ctx: Context) =
       frag(
         div(cls := "tour__meta")(
           st.section(dataIcon := tour.perfType.icon.toString)(
@@ -132,6 +163,9 @@ final class TournamentShow(helpers: Helpers, gathering: GatheringUi)(
     import trans.{ arena as tra }
 
     def page(using Context) =
+      Page(trans.site.tournamentFAQ.txt()).cssTag("page")(pageContent)
+
+    def pageContent(using Context) =
       main(cls := "page-small box box-pad page")(
         boxTop(
           h1(

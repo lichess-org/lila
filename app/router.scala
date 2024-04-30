@@ -56,5 +56,3 @@ object ReverseRouterConversions:
   given clasIdConv: Conversion[Clas.Id, String]                = _.value
   given clasInviteIdConv: Conversion[ClasInvite.Id, String]    = _.value
   given localDateConv: Conversion[java.time.LocalDate, String] = _.toString
-  given cmsPageIdConv: Conversion[lila.cms.CmsPage.Id, String] = _.value
-  given Conversion[lila.cms.CmsPage.Key, String]               = _.value

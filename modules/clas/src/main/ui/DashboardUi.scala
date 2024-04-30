@@ -8,134 +8,202 @@ import ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
 import lila.core.perf.UserPerfs
 import lila.core.i18n.Translate
+import lila.rating.UserPerfsExt.{ bestRating, bestAny3Perfs }
 
-final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain)(
-    perfsTd: UserPerfs => Translate ?=> Frag
-):
+final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
   import helpers.{ *, given }
+  import ui.ClasPage
 
   object teacher:
 
-    def layout(c: Clas, students: List[Student.WithUserLike], active: String)(using Context) = frag(
-      div(cls := "clas-show__top")(
-        h1(dataIcon := Icon.Group, cls := "text")(c.name),
-        st.nav(cls := "dashboard-nav")(
-          a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))(trans.clas.overview()),
-          a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))(trans.clas.news()),
-          a(
-            cls  := active.active("progress"),
-            href := routes.Clas.progress(c.id.value, PerfKey.blitz, 7)
-          )(trans.clas.progress()),
-          a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))(trans.site.edit()),
-          a(cls := active.active("students"), href := routes.Clas.students(c.id.value))(
-            trans.clas.students()
-          )
-        )
-      ),
-      standardFlash,
-      c.archived.map: archived =>
-        div(cls := "clas-show__archived archived")(
-          ui.showArchived(archived),
-          postForm(action := routes.Clas.archive(c.id.value, v = false)):
-            form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
-        )
-    )
+    def TeacherPage(
+        c: Clas,
+        students: List[Student.WithUserLike],
+        active: String
+    )(modifiers: AttrPair*)(using Context): Page =
+      val allModifiers =
+        List(cls := "clas-show dashboard dashboard-teacher dashboard-teacher-$active") ++ modifiers
+      ClasPage(c.name, Left(c.withStudents(students.map(_.student))))(
+        allModifiers*
+      ).prepend(atTheTop(c, students, active))
 
-    def overview(c: Clas, students: List[Student.WithUserPerfs])(using PageContext) =
+    private def atTheTop(c: Clas, students: List[Student.WithUserLike], active: String)(using Context) =
       frag(
-        div(cls := "clas-show__overview")(
-          c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc))),
-          div(cls := "clas-show__overview__manage")(
-            ui.teachers(c),
+        div(cls := "clas-show__top")(
+          h1(dataIcon := Icon.Group, cls := "text")(c.name),
+          st.nav(cls := "dashboard-nav")(
+            a(cls := active.active("overview"), href := routes.Clas.show(c.id.value))(trans.clas.overview()),
+            a(cls := active.active("wall"), href := routes.Clas.wall(c.id.value))(trans.clas.news()),
             a(
-              href     := routes.Clas.studentForm(c.id.value),
-              cls      := "button button-clas text",
-              dataIcon := Icon.PlusButton
-            )(trans.clas.addStudent())
+              cls  := active.active("progress"),
+              href := routes.Clas.progress(c.id.value, PerfKey.blitz, 7)
+            )(trans.clas.progress()),
+            a(cls := active.active("edit"), href := routes.Clas.edit(c.id.value))(trans.site.edit()),
+            a(cls := active.active("students"), href := routes.Clas.students(c.id.value))(
+              trans.clas.students()
+            )
           )
         ),
-        if students.isEmpty
-        then p(cls := "box__pad students__empty")(trans.clas.noStudents())
-        else studentList(c, students)
+        standardFlash,
+        c.archived.map: archived =>
+          div(cls := "clas-show__archived archived")(
+            ui.showArchived(archived),
+            postForm(action := routes.Clas.archive(c.id.value, v = false)):
+              form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
+          )
       )
 
-    def students(c: Clas, all: List[Student.WithUserPerfs], invites: List[ClasInvite])(using Context) =
-      val archived = all.filter(_.student.isArchived)
-      val inviteBox =
-        if invites.isEmpty
-        then div(cls := "box__pad invites__empty")(h2(trans.clas.nbPendingInvitations(0)))
-        else
-          div(cls := "box__pad invites")(
-            h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),
-            table(cls := "slist"):
-              tbody:
-                invites.map: i =>
-                  tr(
-                    td(userIdLink(i.userId.some)),
-                    td(i.realName),
-                    td(if i.accepted.has(false) then "Declined" else "Pending"),
-                    td(momentFromNow(i.created.at)),
-                    td:
-                      postForm(action := routes.Clas.invitationRevoke(i._id.value)):
-                        submitButton(cls := "button button-red button-empty")("Revoke")
-                  )
-          )
-      val archivedBox =
-        if archived.isEmpty
-        then div(cls := "box__pad students__empty")(h2(trans.clas.noRemovedStudents()))
-        else
-          div(cls := "box__pad")(
-            h2(trans.clas.removedStudents()),
-            studentList(c, archived)
-          )
-      frag(inviteBox, archivedBox)
+    object wall:
 
-    def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using PageContext) =
-      frag(
-        progressHeader(c, progress.some),
-        div(cls := "students")(
-          table(cls := "slist slist-pad sortable")(
-            thead(
-              tr(
-                th(dataSortDefault)(
-                  trans.clas.variantXOverLastY(progress.perfType.trans, trans.site.nbDays.txt(progress.days)),
-                  thSortNumber(trans.site.rating()),
-                  thSortNumber(trans.clas.progress()),
-                  thSortNumber(if progress.isPuzzle then trans.site.puzzles() else trans.site.games()),
-                  if progress.isPuzzle then thSortNumber(trans.clas.winrate())
-                  else thSortNumber(trans.clas.timePlaying()),
-                  th
+      def show(c: Clas, students: List[Student.WithUser], html: Html)(using Context) =
+        TeacherPage(c, students.filter(_.student.isActive), "wall")():
+          frag(
+            div(cls := "clas-wall__actions")(
+              a(
+                dataIcon := Icon.Pencil,
+                href     := routes.Clas.wallEdit(c.id.value),
+                cls      := "button button-clas text"
+              )(
+                trans.clas.editNews()
+              ),
+              a(
+                dataIcon := Icon.Envelope,
+                href     := routes.Clas.notifyStudents(c.id.value),
+                cls      := "button button-clas text"
+              )(
+                trans.clas.notifyAllStudents()
+              )
+            ),
+            if c.wall.value.isEmpty then
+              div(cls := "box__pad clas-wall clas-wall--empty")(trans.clas.nothingHere())
+            else div(cls := "box__pad clas-wall")(rawHtml(html))
+          )
+
+      def edit(c: Clas, students: List[Student.WithUser], form: Form[?])(using Context) =
+        TeacherPage(c, students.filter(_.student.isActive), "wall")():
+          frag(
+            div(cls := "box-pad clas-wall__edit")(
+              p(
+                strong(trans.clas.newsEdit1()),
+                ul(
+                  li(trans.clas.newsEdit2()),
+                  li(trans.clas.newsEdit3()),
+                  li(markdownAvailable)
                 )
               ),
-              tbody(
-                students.sortBy(_.user.username.value).map { case s @ Student.WithUserPerf(_, user, perf) =>
-                  val prog = progress(user.withPerf(perf))
-                  tr(
-                    studentTd(c, s),
-                    td(dataSort := perf.intRating, cls := "rating")(perf.glicko.display),
-                    td(dataSort := prog.ratingProgress)(
-                      ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
-                    ),
-                    td(prog.nb),
-                    if progress.isPuzzle then td(dataSort := prog.winRate)(prog.winRate, "%")
-                    else td(dataSort := prog.millis)(lila.core.i18n.translateDuration(prog.duration)),
-                    td(
-                      if progress.isPuzzle then
-                        a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(
-                          trans.puzzle.puzzleDashboard()
-                        )
-                      else
-                        a(href := routes.User.perfStat(user.username, progress.perfType.key))(
-                          trans.perfStat.perfStats(progress.perfType.trans)
-                        )
+              postForm(cls := "form3", action := routes.Clas.wallUpdate(c.id.value))(
+                form3.globalError(form),
+                form3.group(
+                  form("wall"),
+                  trans.clas.classNews()
+                )(form3.textarea(_)(rows := 20)),
+                form3.actions(
+                  a(href := routes.Clas.wall(c.id.value))(trans.site.cancel()),
+                  form3.submit(trans.site.apply())
+                )
+              )
+            )
+          )
+
+    def overview(c: Clas, students: List[Student.WithUserPerfs])(using PageContext) =
+      TeacherPage(c, students, "overview")():
+        frag(
+          div(cls := "clas-show__overview")(
+            c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc))),
+            div(cls := "clas-show__overview__manage")(
+              ui.teachers(c),
+              a(
+                href     := routes.Clas.studentForm(c.id.value),
+                cls      := "button button-clas text",
+                dataIcon := Icon.PlusButton
+              )(trans.clas.addStudent())
+            )
+          ),
+          if students.isEmpty
+          then p(cls := "box__pad students__empty")(trans.clas.noStudents())
+          else studentList(c, students)
+        )
+
+    def students(c: Clas, all: List[Student.WithUserPerfs], invites: List[ClasInvite])(using Context) =
+      TeacherPage(c, all.filter(_.student.isActive), "students")():
+        val archived = all.filter(_.student.isArchived)
+        val inviteBox =
+          if invites.isEmpty
+          then div(cls := "box__pad invites__empty")(h2(trans.clas.nbPendingInvitations(0)))
+          else
+            div(cls := "box__pad invites")(
+              h2(trans.clas.nbPendingInvitations.pluralSame(invites.size)),
+              table(cls := "slist"):
+                tbody:
+                  invites.map: i =>
+                    tr(
+                      td(userIdLink(i.userId.some)),
+                      td(i.realName),
+                      td(if i.accepted.has(false) then "Declined" else "Pending"),
+                      td(momentFromNow(i.created.at)),
+                      td:
+                        postForm(action := routes.Clas.invitationRevoke(i._id.value)):
+                          submitButton(cls := "button button-red button-empty")("Revoke")
                     )
+            )
+        val archivedBox =
+          if archived.isEmpty
+          then div(cls := "box__pad students__empty")(h2(trans.clas.noRemovedStudents()))
+          else
+            div(cls := "box__pad")(
+              h2(trans.clas.removedStudents()),
+              studentList(c, archived)
+            )
+        frag(inviteBox, archivedBox)
+
+    def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using PageContext) =
+      TeacherPage(c, students, "progress")():
+        frag(
+          progressHeader(c, progress.some),
+          div(cls := "students")(
+            table(cls := "slist slist-pad sortable")(
+              thead(
+                tr(
+                  th(dataSortDefault)(
+                    trans.clas
+                      .variantXOverLastY(progress.perfType.trans, trans.site.nbDays.txt(progress.days)),
+                    thSortNumber(trans.site.rating()),
+                    thSortNumber(trans.clas.progress()),
+                    thSortNumber(if progress.isPuzzle then trans.site.puzzles() else trans.site.games()),
+                    if progress.isPuzzle then thSortNumber(trans.clas.winrate())
+                    else thSortNumber(trans.clas.timePlaying()),
+                    th
                   )
-                }
+                ),
+                tbody(
+                  students.sortBy(_.user.username.value).map { case s @ Student.WithUserPerf(_, user, perf) =>
+                    val prog = progress(user.withPerf(perf))
+                    tr(
+                      studentTd(c, s),
+                      td(dataSort := perf.intRating, cls := "rating")(perf.glicko.display),
+                      td(dataSort := prog.ratingProgress)(
+                        ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
+                      ),
+                      td(prog.nb),
+                      if progress.isPuzzle then td(dataSort := prog.winRate)(prog.winRate, "%")
+                      else td(dataSort := prog.millis)(lila.core.i18n.translateDuration(prog.duration)),
+                      td(
+                        if progress.isPuzzle then
+                          a(href := routes.Puzzle.dashboard(progress.days, "home", user.username.value.some))(
+                            trans.puzzle.puzzleDashboard()
+                          )
+                        else
+                          a(href := routes.User.perfStat(user.username, progress.perfType.key))(
+                            trans.perfStat.perfStats(progress.perfType.trans)
+                          )
+                      )
+                    )
+                  }
+                )
               )
             )
           )
         )
-      )
 
     def learn(
         c: Clas,
@@ -143,43 +211,45 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain)(
         basicCompletion: Map[UserId, Int],
         practiceCompletion: Map[UserId, Int],
         coordScores: Map[UserId, chess.ByColor[Int]]
-    )(using Context) = frag(
-      progressHeader(c, none),
-      div(cls := "students")(
-        table(cls := "slist slist-pad sortable")(
-          thead(
-            tr(
-              th(dataSortDefault)(
-                trans.clas.nbStudents.pluralSame(students.size),
-                thSortNumber(trans.site.chessBasics()),
-                thSortNumber(trans.site.practice()),
-                thSortNumber(trans.coordinates.coordinates())
-              )
-            ),
-            tbody(
-              students.sortBy(_.user.username.value).map { case s @ Student.WithUser(_, user) =>
-                val coord = coordScores.getOrElse(user.id, chess.ByColor(0, 0))
+    )(using Context) =
+      TeacherPage(c, students, "progress")():
+        frag(
+          progressHeader(c, none),
+          div(cls := "students")(
+            table(cls := "slist slist-pad sortable")(
+              thead(
                 tr(
-                  studentTd(c, s),
-                  td(dataSort := basicCompletion.getOrElse(user.id, 0))(
-                    basicCompletion.getOrElse(user.id, 0).toString,
-                    "%"
-                  ),
-                  td(dataSort := practiceCompletion.getOrElse(user.id, 0))(
-                    practiceCompletion.getOrElse(user.id, 0).toString,
-                    "%"
-                  ),
-                  td(dataSort := coord.white, cls := "coords")(
-                    i(cls := "color-icon is white")(coord.white),
-                    i(cls := "color-icon is black")(coord.black)
+                  th(dataSortDefault)(
+                    trans.clas.nbStudents.pluralSame(students.size),
+                    thSortNumber(trans.site.chessBasics()),
+                    thSortNumber(trans.site.practice()),
+                    thSortNumber(trans.coordinates.coordinates())
                   )
+                ),
+                tbody(
+                  students.sortBy(_.user.username.value).map { case s @ Student.WithUser(_, user) =>
+                    val coord = coordScores.getOrElse(user.id, chess.ByColor(0, 0))
+                    tr(
+                      studentTd(c, s),
+                      td(dataSort := basicCompletion.getOrElse(user.id, 0))(
+                        basicCompletion.getOrElse(user.id, 0).toString,
+                        "%"
+                      ),
+                      td(dataSort := practiceCompletion.getOrElse(user.id, 0))(
+                        practiceCompletion.getOrElse(user.id, 0).toString,
+                        "%"
+                      ),
+                      td(dataSort := coord.white, cls := "coords")(
+                        i(cls := "color-icon is white")(coord.white),
+                        i(cls := "color-icon is black")(coord.black)
+                      )
+                    )
+                  }
                 )
-              }
+              )
             )
           )
         )
-      )
-    )
 
     private def progressHeader(c: Clas, progress: Option[ClasProgress])(using Context) =
       div(cls := "progress")(
@@ -204,7 +274,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain)(
             )
           )
         ),
-        progress.map { p =>
+        progress.map: p =>
           div(cls := "progress-days")(
             label(trans.clas.overDays()),
             div(cls := "progress-choices")(
@@ -216,22 +286,44 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain)(
               }
             )
           )
-        }
       )
 
-    def unreasonable(students: Int)(using PageContext) =
-      div(cls := "box__pad students__empty")(
-        p(
-          "This feature is only available for classes of ",
-          lila.clas.Clas.maxStudents,
-          " or fewer students."
-        ),
-        p(
-          "This class has ",
-          students,
-          " students. You could maybe create more classes to split the students."
+    def notifyForm(c: lila.clas.Clas, students: List[Student.WithUser], form: Form[?])(using Context) =
+      TeacherPage(c, students, "wall")()(
+        div(cls := "box-pad clas-wall__edit")(
+          p(
+            strong(trans.clas.sendAMessage()),
+            br,
+            trans.clas.aLinkToTheClassWillBeAdded()
+          ),
+          postForm(cls := "form3", action := routes.Clas.notifyPost(c.id.value))(
+            form3.globalError(form),
+            form3.group(
+              form("text"),
+              frag(trans.site.message())
+            )(form3.textarea(_)(rows := 3)),
+            form3.actions(
+              a(href := routes.Clas.wall(c.id.value))(trans.site.cancel()),
+              form3.submit(trans.site.send())
+            )
+          )
         )
       )
+
+    def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using PageContext) =
+      TeacherPage(c, students, active)():
+        div(cls := "box__pad students__empty")(
+          p(
+            "This feature is only available for classes of ",
+            lila.clas.Clas.maxStudents,
+            " or fewer students."
+          ),
+          p(
+            "This class has ",
+            students.size,
+            " students. You could maybe create more classes to split the students."
+          )
+        )
 
     private def studentList(c: Clas, students: List[Student.WithUserPerfs])(using Context) =
       div(cls := "students")(
@@ -280,47 +372,48 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain)(
         teachers: List[User],
         students: List[Student.WithUserPerfs]
     )(using Context) =
-      frag(
-        div(cls := "clas-show__top")(
-          h1(dataIcon := Icon.Group, cls := "text")(c.name),
-          c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc)))
-        ),
-        c.archived.map { archived =>
-          div(cls := "box__pad")(
-            div(cls := "clas-show__archived archived")(ui.showArchived(archived))
-          )
-        },
-        table(cls := "slist slist-pad teachers")(
-          thead:
-            tr(
-              th(trans.clas.nbTeachers(teachers.size)),
-              th,
-              th
+      ClasPage(c.name, Left(c.withStudents(Nil)))(cls := "clas-show dashboard dashboard-student"):
+        frag(
+          div(cls := "clas-show__top")(
+            h1(dataIcon := Icon.Group, cls := "text")(c.name),
+            c.desc.trim.nonEmpty.option(div(cls := "clas-show__desc")(richText(c.desc)))
+          ),
+          c.archived.map { archived =>
+            div(cls := "box__pad")(
+              div(cls := "clas-show__archived archived")(ui.showArchived(archived))
             )
-          ,
-          tbody:
-            teachers.map: user =>
+          },
+          table(cls := "slist slist-pad teachers")(
+            thead:
               tr(
-                td(
-                  userLink(
-                    user,
-                    name = span(
-                      strong(user.username),
-                      user.profile.flatMap(_.nonEmptyRealName).map { em(_) }
-                    ).some,
-                    withTitle = false
-                  )
-                ),
-                td(
-                  user.seenAt.map: seen =>
-                    trans.site.lastSeenActive(momentFromNow(seen))
-                ),
-                challengeTd(user)
+                th(trans.clas.nbTeachers(teachers.size)),
+                th,
+                th
               )
-        ),
-        c.wall.value.nonEmpty.option(div(cls := "box__pad clas-wall")(rawHtml(wall))),
-        div(cls := "students")(studentList(students))
-      )
+            ,
+            tbody:
+              teachers.map: user =>
+                tr(
+                  td(
+                    userLink(
+                      user,
+                      name = span(
+                        strong(user.username),
+                        user.profile.flatMap(_.nonEmptyRealName).map { em(_) }
+                      ).some,
+                      withTitle = false
+                    )
+                  ),
+                  td(
+                    user.seenAt.map: seen =>
+                      trans.site.lastSeenActive(momentFromNow(seen))
+                  ),
+                  challengeTd(user)
+                )
+          ),
+          c.wall.value.nonEmpty.option(div(cls := "box__pad clas-wall")(rawHtml(wall))),
+          div(cls := "students")(studentList(students))
+        )
 
     private def studentList(students: List[Student.WithUserPerfs])(using Context) =
       table(cls := "slist slist-pad sortable")(
@@ -367,3 +460,8 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain)(
             href     := online.option(s"${routes.Lobby.home}?user=${user.username}#friend")
           )(trans.site.play())
         )
+
+  private def perfsTd(perfs: UserPerfs)(using Context) =
+    td(dataSort := perfs.bestRating, cls := "rating")(
+      perfs.bestAny3Perfs.map(showPerfRating(perfs, _))
+    )

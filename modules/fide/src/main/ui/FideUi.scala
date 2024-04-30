@@ -17,12 +17,14 @@ final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
       FideTC.blitz    -> trans.site.blitz
     )
 
-  private def page(title: String, active: String)(modifiers: Modifier*)(using Context) =
-    Page(title, _.cssTag("fide").js(infiniteScrollEsmInit)):
-      main(cls := "page-menu")(
-        menu(active),
-        div(cls := "page-menu__content box")(modifiers)
-      )
+  private def page(title: String, active: String)(modifiers: Modifier*)(using Context): Page =
+    Page(title)
+      .cssTag("fide")
+      .js(infiniteScrollEsmInit):
+        main(cls := "page-menu")(
+          menu(active),
+          div(cls := "page-menu__content box")(modifiers)
+        )
 
   object federation:
 

@@ -12,98 +12,160 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
   import bits.*
 
   def index(page: OpeningPage, wikiMissing: List[Opening])(using ctx: Context) =
-    main(cls := "page box box-pad opening opening--index")(
-      searchAndConfig(page.query.config, "", ""),
-      resultsList(Nil),
-      boxTop(
-        h1("Chess openings", bits.beta),
-        div(cls := "box__top__actions")(
-          a(href := routes.Opening.tree)("Name tree"),
-          a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
-        )
-      ),
-      whatsNext(page) | p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
-      Granter.opt(_.OpeningWiki).option(showMissing(wikiMissing))
-    )
-
-  def show(page: OpeningPage, puzzleKey: Option[String])(using ctx: Context) =
-    main(cls := "page box box-pad opening")(
-      searchAndConfig(page.query.config, "", page.query.query.key),
-      resultsList(Nil),
-      h1(cls := "opening__title")(
-        page.query.prev match
-          case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := Icon.LessThan)
-          case None       => a(href := routes.Opening.index(), dataIcon := Icon.LessThan)
-        ,
-        span(cls := "opening__name")(
-          page.nameParts.mapWithIndex: (part, i) =>
-            frag(
-              part match
-                case Left(move) => span(cls := "opening__name__move")((i > 0).option(", "), move)
-                case Right((name, key)) =>
-                  val className = s"opening__name__section opening__name__section--${i + 1}"
-                  frag(
-                    if i == 0 then emptyFrag else if i == 1 then ": " else ", ",
-                    key.fold(span(cls := className)(name)) { k =>
-                      a(href := openingKeyUrl(k))(cls := className)(name)
-                    }
-                  )
-            ),
-          beta
-        )
-      ),
-      div(cls := "opening__intro")(
-        div(cls := "opening__intro__result-lpv")(
-          div(cls := "opening__intro__result result-bar")(page.explored.map { exp =>
-            resultSegments(exp.result)
-          }),
-          div(
-            cls              := "lpv lpv--todo lpv--moves-bottom is2d",
-            st.data("pgn")   := page.query.pgnString,
-            st.data("title") := page.closestOpening.map(_.name)
-          )(lpvPreload)
-        ),
-        div(cls := "opening__intro__content")(
-          wiki(page),
-          div(cls := "opening__popularity-actions")(
-            div(
-              cls := "opening__actions"
-            )(
-              puzzleKey.map { key =>
-                a(cls := "button text", dataIcon := Icon.ArcheryTarget, href := routes.Puzzle.show(key))(
-                  "Train with puzzles"
-                )
-              },
-              a(
-                cls      := "button text",
-                dataIcon := Icon.Book,
-                href     := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
-              )(trans.site.openingExplorer())
-            ),
-            if page.explored.so(_.history).nonEmpty then
-              div(cls := "opening__popularity opening__popularity--chart")(
-                canvas(cls := "opening__popularity__chart")
-              )
-            else
-              p(cls := "opening__popularity opening__error")(
-                "Couldn't fetch the popularity history, try again later."
-              )
-          )
-        )
-      ),
-      div(cls := "opening__panels")(
-        lila.ui.bits.ariaTabList("opening", "next")(
-          (
-            "next",
-            "Popular continuations",
-            whatsNext(page) | p(cls := "opening__error")("Couldn't fetch the next moves, try again later.")
-          ),
-          ("games", "Example games", exampleGames(page))
+    Page(trans.site.opening.txt())
+      .cssTag("opening")
+      .js(bits.pageModule(page.some))
+      .graph(
+        OpenGraph(
+          `type` = "article",
+          image = cdnUrl(
+            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, none, none, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+          ).some,
+          title = "Chess openings",
+          url = s"$netBaseUrl${routes.Opening.index()}",
+          description = "Explore the chess openings"
         )
       )
-    )
+      .csp(_.withInlineIconFont):
+        main(cls := "page box box-pad opening opening--index")(
+          searchAndConfig(page.query.config, "", ""),
+          resultsList(Nil),
+          boxTop(
+            h1("Chess openings", bits.beta),
+            div(cls := "box__top__actions")(
+              a(href := routes.Opening.tree)("Name tree"),
+              a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+            )
+          ),
+          whatsNext(page) | p(cls := "opening__error")("Couldn't fetch the next moves, try again later."),
+          Granter.opt(_.OpeningWiki).option(showMissing(wikiMissing))
+        )
 
-  def searchForm(q: String, focus: Boolean = false) =
+  def tree(root: OpeningTree, config: OpeningConfig)(using PageContext) =
+    Page(trans.site.opening.txt())
+      .cssTag("opening")
+      .js(bits.pageModule(none)):
+        main(cls := "page box box-pad opening opening--tree")(
+          searchAndConfig(config, "", "tree"),
+          resultsList(Nil),
+          boxTop(
+            h1("Chess openings name tree"),
+            div(cls := "box__top__actions")(
+              a(href := routes.Opening.index())("Opening pages"),
+              a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
+            )
+          ),
+          div(cls := "opening__tree")(
+            renderChildren(root, 1)
+          )
+        )
+
+  def show(page: OpeningPage, puzzleKey: Option[String])(using ctx: Context) =
+    Page(s"${trans.site.opening.txt()} • ${page.name}")
+      .cssTag("opening")
+      .js(bits.pageModule(page.some))
+      .graph(
+        OpenGraph(
+          `type` = "article",
+          image = cdnUrl(
+            s"${routes.Export.fenThumbnail(page.query.fen.value, chess.White.name, page.query.uci.lastOption.map(_.uci), None, ctx.pref.theme.some, ctx.pref.pieceSet.some).url}"
+          ).some,
+          title = page.name,
+          url = s"$netBaseUrl${bits.queryUrl(page.query)}",
+          description = page.query.pgnString.value
+        )
+      )
+      .csp(_.withInlineIconFont.withExternalAnalysisApis):
+        main(cls := "page box box-pad opening")(
+          searchAndConfig(page.query.config, "", page.query.query.key),
+          resultsList(Nil),
+          h1(cls := "opening__title")(
+            page.query.prev match
+              case Some(prev) => a(href := queryUrl(prev), title := prev.name, dataIcon := Icon.LessThan)
+              case None       => a(href := routes.Opening.index(), dataIcon := Icon.LessThan)
+            ,
+            span(cls := "opening__name")(
+              page.nameParts.mapWithIndex: (part, i) =>
+                frag(
+                  part match
+                    case Left(move) => span(cls := "opening__name__move")((i > 0).option(", "), move)
+                    case Right((name, key)) =>
+                      val className = s"opening__name__section opening__name__section--${i + 1}"
+                      frag(
+                        if i == 0 then emptyFrag else if i == 1 then ": " else ", ",
+                        key.fold(span(cls := className)(name)) { k =>
+                          a(href := openingKeyUrl(k))(cls := className)(name)
+                        }
+                      )
+                ),
+              beta
+            )
+          ),
+          div(cls := "opening__intro")(
+            div(cls := "opening__intro__result-lpv")(
+              div(cls := "opening__intro__result result-bar")(page.explored.map { exp =>
+                resultSegments(exp.result)
+              }),
+              div(
+                cls              := "lpv lpv--todo lpv--moves-bottom is2d",
+                st.data("pgn")   := page.query.pgnString,
+                st.data("title") := page.closestOpening.map(_.name)
+              )(lpvPreload)
+            ),
+            div(cls := "opening__intro__content")(
+              wiki(page),
+              div(cls := "opening__popularity-actions")(
+                div(
+                  cls := "opening__actions"
+                )(
+                  puzzleKey.map { key =>
+                    a(cls := "button text", dataIcon := Icon.ArcheryTarget, href := routes.Puzzle.show(key))(
+                      "Train with puzzles"
+                    )
+                  },
+                  a(
+                    cls      := "button text",
+                    dataIcon := Icon.Book,
+                    href     := s"${routes.UserAnalysis.pgn(page.query.sans.mkString("_"))}#explorer"
+                  )(trans.site.openingExplorer())
+                ),
+                if page.explored.so(_.history).nonEmpty then
+                  div(cls := "opening__popularity opening__popularity--chart")(
+                    canvas(cls := "opening__popularity__chart")
+                  )
+                else
+                  p(cls := "opening__popularity opening__error")(
+                    "Couldn't fetch the popularity history, try again later."
+                  )
+              )
+            )
+          ),
+          div(cls := "opening__panels")(
+            lila.ui.bits.ariaTabList("opening", "next")(
+              (
+                "next",
+                "Popular continuations",
+                whatsNext(page) | p(cls := "opening__error")(
+                  "Couldn't fetch the next moves, try again later."
+                )
+              ),
+              ("games", "Example games", exampleGames(page))
+            )
+          )
+        )
+
+  def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using Context) =
+    Page(s"${trans.site.opening.txt()} • $q")
+      .cssTag("opening")
+      .js(bits.pageModule(none))
+      .csp(_.withInlineIconFont):
+        main(cls := "page box box-pad opening opening--search")(
+          searchAndConfig(config, q, s"q:$q", searchFocus = true),
+          h1(cls := "box__top")("Chess openings"),
+          resultsList(results)
+        )
+
+  private def searchForm(q: String, focus: Boolean = false) =
     st.form(cls := "opening__search-form", action := routes.Opening.index(), method := "get")(
       input(
         cls            := "opening__search-form__input",
@@ -129,28 +191,12 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
       }
     )
 
-  def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(using
-      Context
+  private def searchAndConfig(config: OpeningConfig, q: String, thenTo: String, searchFocus: Boolean = false)(
+      using Context
   ) =
     div(cls := "opening__search-config")(
       searchForm(q, searchFocus),
       configForm(config, thenTo)
-    )
-
-  def tree(root: OpeningTree, config: OpeningConfig)(using Context) =
-    main(cls := "page box box-pad opening opening--tree")(
-      searchAndConfig(config, "", "tree"),
-      resultsList(Nil),
-      boxTop(
-        h1("Chess openings name tree"),
-        div(cls := "box__top__actions")(
-          a(href := routes.Opening.index())("Opening pages"),
-          a(href := s"${routes.UserAnalysis.index}#explorer")("Explorer")
-        )
-      ),
-      div(cls := "opening__tree")(
-        renderChildren(root, 1)
-      )
     )
 
   private def renderChildren(node: OpeningTree, level: Int): Frag =
