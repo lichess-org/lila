@@ -1,25 +1,26 @@
-package views.simul
+package lila.simul
+package ui
 
-import play.api.i18n.Lang
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-import lila.app.templating.Environment.{ *, given }
+final class SimulUi(helpers: Helpers):
+  import helpers.{ *, given }
 
-object bits:
-
-  def link(simulId: lila.simul.SimulId): Frag =
+  def link(simulId: SimulId): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
-  def jsI18n()(using Translate) = i18nJsObject(baseTranslations)
+  def jsI18n(using Translate) = i18nJsObject(baseTranslations)
 
-  def notFound()(using PageContext) =
-    views.base.layout(title = trans.site.noSimulFound.txt()):
+  def notFound(using Context) =
+    Page(trans.site.noSimulFound.txt()):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(trans.site.noSimulFound()),
         p(trans.site.noSimulExplanation()),
         p(a(href := routes.Simul.home)(trans.site.returnToSimulHomepage()))
       )
 
-  def homepageSpotlight(s: lila.simul.Simul)(using Context) =
+  def homepageSpotlight(s: Simul)(using Context) =
     a(href := routes.Simul.show(s.id), cls := "tour-spotlight little")(
       img(cls := "img icon", src := assetUrl("images/fire-silhouette.svg")),
       span(cls := "content")(
@@ -32,7 +33,7 @@ object bits:
       )
     )
 
-  def allCreated(simuls: Seq[lila.simul.Simul], withName: Boolean = true)(using Translate) =
+  def allCreated(simuls: Seq[Simul], withName: Boolean = true)(using Translate) =
     table(cls := "slist"):
       simuls.map: simul =>
         val url = routes.Simul.show(simul.id)
@@ -46,14 +47,15 @@ object bits:
           td(cls := "text", dataIcon := Icon.User)(simul.applicants.size)
         )
 
-  private[simul] def setup(sim: lila.simul.Simul) =
+  def setup(sim: Simul) =
     span(cls := List("setup" -> true, "rich" -> sim.variantRich))(
       sim.clock.config.show,
       " • ",
       sim.variants.map(_.name).mkString(", ")
     )
 
-  private val baseTranslations = Vector(
+  import lila.core.i18n.I18nKey
+  private val baseTranslations: Vector[I18nKey] = Vector(
     trans.site.finished,
     trans.site.withdraw,
     trans.site.join,

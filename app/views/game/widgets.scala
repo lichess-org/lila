@@ -52,7 +52,7 @@ object widgets:
                   frag(separator, views.tournament.ui.tournamentLink(tourId))
                 }
                 .orElse(g.simulId.map { simulId =>
-                  frag(separator, views.simul.bits.link(simulId))
+                  frag(separator, views.simul.ui.link(simulId))
                 })
                 .orElse(g.swissId.map { swissId =>
                   frag(separator, views.swiss.ui.link(SwissId(swissId)))

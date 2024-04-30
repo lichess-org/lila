@@ -88,7 +88,7 @@ object home:
                   views.tournament.list.homepageSpotlight(_)
                 },
                 swiss.ifTrue(nbForced < 3).map(views.swiss.ui.homepageSpotlight),
-                simulBBB.map(views.simul.bits.homepageSpotlight)
+                simulBBB.map(views.simul.ui.homepageSpotlight)
               )
             }
           ),
