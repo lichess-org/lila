@@ -146,7 +146,7 @@ final class User(
     if username.id.isGhost
     then
       negotiate(
-        Ok.page(views.site.bits.ghost),
+        Ok.page(views.site.ui.ghost),
         notFoundJson("Deleted user")
       )
     else

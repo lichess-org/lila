@@ -1,7 +1,6 @@
 package views
 
-import lila.app.templating.Environment.*
-import lila.game.GameExt.playerBlurPercent
+import lila.app.templating.Environment.{ *, given }
 
 lazy val chat = lila.chat.ChatUi(helpers)
 
@@ -11,10 +10,7 @@ lazy val learn = lila.web.views.LearnUi(helpers)
 
 lazy val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
 
-val irwin = lila.irwin.IrwinUi(helpers)(
-  menu = views.mod.ui.menu,
-  playerBlurPercent = pov => pov.game.playerBlurPercent(pov.color)
-)
+val irwin = lila.irwin.IrwinUi(helpers)(menu = views.mod.ui.menu)
 
 object oAuth:
   val token     = lila.oauth.ui.TokenUi(helpers)(views.account.ui.AccountPage)
@@ -58,6 +54,13 @@ lazy val timeline = lila.timeline.ui.TimelineUi(helpers)(views.streamer.bits.red
 
 lazy val userAnalysisI18n = lila.analyse.ui.AnalyseI18n(helpers)
 lazy val analysisI18n     = lila.analyse.ui.GameAnalyseI18n(helpers, userAnalysisI18n)
+
+object opening:
+  val bits = lila.opening.ui.OpeningBits(helpers)
+  val wiki = lila.opening.ui.WikiUi(helpers, bits)
+  val ui   = lila.opening.ui.OpeningUi(helpers, bits, wiki)
+
+lazy val video = lila.video.ui.VideoUi(helpers)
 
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.views.mobile(helpers)(cms.render(p))

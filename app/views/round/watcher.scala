@@ -31,48 +31,43 @@ object watcher:
         palantir = ctx.canPalantir
       )
 
-    bits.layout(
-      variant = pov.game.variant,
-      title = s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator",
-      modules = roundNvuiTag,
-      pageModule = PageModule(
-        "round",
-        Json.obj(
-          "data" -> data,
-          "i18n" -> jsI18n(pov.game),
-          "chat" -> chatJson
+    RoundPage(pov.game.variant, s"${gameVsText(pov.game, withRatings = ctx.pref.showRatings)} • spectator")
+      .js(roundNvuiTag)
+      .js(
+        PageModule(
+          "round",
+          Json.obj(
+            "data" -> data,
+            "i18n" -> jsI18n(pov.game),
+            "chat" -> chatJson
+          )
         )
-      ).some,
-      openGraph = bits.povOpenGraph(pov).some,
-      zenable = true
-    ):
-      main(cls := "round")(
-        st.aside(cls := "round__side")(
-          bits.side(pov, data, tour, simul, userTv, bookmarked),
-          chatOption.map(_ => views.chat.frag)
-        ),
-        bits.roundAppPreload(pov),
-        div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
-        div(cls := "round__underchat")(bits.underchat(pov.game))
       )
+      .graph(bits.povOpenGraph(pov))
+      .zen:
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            bits.side(pov, data, tour, simul, userTv, bookmarked),
+            chatOption.map(_ => views.chat.frag)
+          ),
+          bits.roundAppPreload(pov),
+          div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
+          div(cls := "round__underchat")(bits.underchat(pov.game))
+        )
 
   def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Full], pgn: chess.format.pgn.Pgn)(using
       ctx: PageContext
   ) =
-    bits.layout(
-      variant = pov.game.variant,
-      title = gameVsText(pov.game, withRatings = true),
-      openGraph = bits.povOpenGraph(pov).some,
-      pageModule = none
-    ):
-      main(cls := "round")(
-        st.aside(cls := "round__side")(
-          views.game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
-          div(cls := "for-crawler")(
-            h1(titleGame(pov.game)),
-            p(bits.describePov(pov)),
-            div(cls := "pgn")(pgn.render)
-          )
-        ),
-        div(cls := "round__board main-board")(bits.povChessground(pov))
-      )
+    RoundPage(pov.game.variant, gameVsText(pov.game, withRatings = true))
+      .graph(bits.povOpenGraph(pov)):
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            views.game.side(pov, initialFen, none, simul = none, userTv = none, bookmarked = false),
+            div(cls := "for-crawler")(
+              h1(titleGame(pov.game)),
+              p(bits.describePov(pov)),
+              div(cls := "pgn")(pgn.render)
+            )
+          ),
+          div(cls := "round__board main-board")(bits.povChessground(pov))
+        )
