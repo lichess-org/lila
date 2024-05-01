@@ -30,9 +30,8 @@ object Bus:
 
   def pub[T <: Payload](payload: T)(using wc: WithChannel[T]) =
     publish(payload, wc.channel)
-  def sub[T <: Payload: Typeable](f: PartialFunction[T, Unit])(using
-      wc: WithChannel[T]
-  ) =
+
+  def sub[T <: Payload: Typeable](f: PartialFunction[T, Unit])(using wc: WithChannel[T]) =
     subscribeFun(wc.channel):
       case x: T => f(x)
 
