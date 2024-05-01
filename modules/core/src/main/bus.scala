@@ -18,4 +18,4 @@ type Channel    = String
 type Subscriber = Tellable
 type Payload    = Matchable
 
-class WithChannel[T](val channel: Channel)
+final class WithChannel[T](val channel: Channel)
