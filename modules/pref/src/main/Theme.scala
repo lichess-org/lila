@@ -48,7 +48,6 @@ object Theme extends ThemeObject:
     new Theme("pink", "pink-pyramid.png"),
     new Theme("venus", "venus.webp"),
     new Theme("pigskin", "pigskin.webp"),
-    new Theme("pool", "pool.webp"),
     new Theme("haze", "haze.webp"),
     new Theme("old-world", "old-world.webp")
   )
