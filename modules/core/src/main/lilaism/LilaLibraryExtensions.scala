@@ -77,7 +77,6 @@ trait LilaLibraryExtensions extends CoreExports:
   // run a collection of futures in parallel
   extension [A](list: List[Fu[A]]) def parallel(using Executor): Fu[List[A]]         = Future.sequence(list)
   extension [A](vec: Vector[Fu[A]]) def parallel(using Executor): Fu[Vector[A]]      = Future.sequence(vec)
-  extension [A](set: Set[Fu[A]]) def parallel(using Executor): Fu[Set[A]]            = Future.sequence(set)
   extension [A](seq: Seq[Fu[A]]) def parallel(using Executor): Fu[Seq[A]]            = Future.sequence(seq)
   extension [A](iter: Iterable[Fu[A]]) def parallel(using Executor): Fu[Iterable[A]] = Future.sequence(iter)
   extension [A](iter: Iterator[Fu[A]]) def parallel(using Executor): Fu[Iterator[A]] = Future.sequence(iter)
