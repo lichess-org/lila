@@ -227,7 +227,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
     def form(form: lila.core.security.HcaptchaForm[?], error: Option[String] = None)(using ctx: Context) =
       Page(trans.site.reopenYourAccount.txt())
         .cssTag("auth")
-        .iife(hcaptchaScript(form))
+        .js(hcaptchaScript(form))
         .csp(_.withHcaptcha):
           main(cls := "page-small box box-pad")(
             h1(cls := "box__top")(trans.site.reopenYourAccount()),
