@@ -2,11 +2,15 @@ package views
 
 import lila.app.templating.Environment.{ *, given }
 
+export lila.web.ui.bits
+
+lazy val captcha = lila.web.ui.CaptchaUi(helpers)
+
 lazy val chat = lila.chat.ChatUi(helpers)
 
 lazy val gathering = lila.gathering.ui.GatheringUi(helpers)(env.web.settings.prizeTournamentMakers.get)
 
-lazy val learn = lila.web.views.LearnUi(helpers)
+lazy val learn = lila.web.ui.LearnUi(helpers)
 
 lazy val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
 
@@ -46,7 +50,7 @@ object forum:
   val post  = PostUi(helpers, bits)
   val categ = CategUi(helpers, bits)
   val topic = TopicUi(helpers, bits, post)(
-    views.base.captcha.apply,
+    captcha.apply,
     lila.msg.MsgPreset.forumDeletion.presets
   )
 
@@ -65,4 +69,4 @@ lazy val video = lila.video.ui.VideoUi(helpers)
 lazy val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(views.game.widgets(_))
 
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
-  lila.web.views.mobile(helpers)(cms.render(p))
+  lila.web.ui.mobile(helpers)(cms.render(p))

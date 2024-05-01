@@ -183,4 +183,4 @@ final class UserAnalysis(
 
   def help = Open:
     Ok.page:
-      lila.web.views.help.analyse(getBool("study"))
+      lila.web.ui.help.analyse(getBool("study"))

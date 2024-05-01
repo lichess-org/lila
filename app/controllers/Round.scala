@@ -318,4 +318,4 @@ final class Round(
   }
 
   def help = Open:
-    Ok.page(lila.web.views.help.round)
+    Ok.page(lila.web.ui.help.round)

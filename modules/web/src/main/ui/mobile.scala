@@ -1,5 +1,5 @@
 package lila.web
-package views
+package ui
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
@@ -61,7 +61,7 @@ def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Context) =
         )
       )
 
-lazy val appleStoreButton = raw(
+private val appleStoreButton = raw:
   """
 <a class="store"
   href="https://itunes.apple.com/us/app/lichess-free-online-chess/id968371784">
@@ -71,9 +71,8 @@ lazy val appleStoreButton = raw(
   src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" />
 </a>
 """
-)
 
-lazy val googlePlayButton = raw(
+private val googlePlayButton = raw:
   """
 <a class="store"
   href="https://play.google.com/store/apps/details?id=org.lichess.mobileapp">
@@ -83,4 +82,3 @@ lazy val googlePlayButton = raw(
   src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
 </a>
 """
-)

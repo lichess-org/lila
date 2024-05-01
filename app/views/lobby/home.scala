@@ -157,7 +157,7 @@ object home:
           a(href := "/privacy")(trans.site.privacy()),
           a(href := "/source")(trans.site.sourceCode()),
           a(href := "/ads")("Ads"),
-          views.base.bits.connectLinks
+          views.bits.connectLinks
         )
       )
     }

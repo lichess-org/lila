@@ -1,10 +1,10 @@
 package lila.web
-package views
+package ui
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
-final class topnav(helpers: Helpers):
+final class TopNav(helpers: Helpers):
   import helpers.{ *, given }
 
   private def linkTitle(url: String, name: Frag)(using ctx: Context) =

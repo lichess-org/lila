@@ -39,7 +39,7 @@ object form:
               .option(
                 p(
                   "Here for DMCA or Intellectual Property Take Down Notice? ",
-                  a(href := lila.web.views.contact.dmcaUrl)("Complete this form instead"),
+                  a(href := lila.web.ui.contact.dmcaUrl)("Complete this form instead"),
                   "."
                 )
               )

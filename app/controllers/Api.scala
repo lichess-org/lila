@@ -40,7 +40,7 @@ final class Api(
     JsonOk(apiStatusJson.add("mustUpgrade", mustUpgrade))
 
   def index = Anon:
-    Ok(views.base.bits.api)
+    Ok(views.bits.api)
 
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
     userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):

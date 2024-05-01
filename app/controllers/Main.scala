@@ -104,18 +104,18 @@ final class Main(
 
   def faq = Open:
     pageHit
-    Ok.page(views.site.page.faq)
+    Ok.page(views.site.page.faq.apply)
 
   def temporarilyDisabled(path: String) = Open:
     pageHit
     NotImplemented.page(views.site.message.temporarilyDisabled)
 
   def keyboardMoveHelp = Open:
-    Ok.page(lila.web.views.help.keyboardMove)
+    Ok.page(lila.web.ui.help.keyboardMove)
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move" => Ok.page(lila.web.views.help.voiceMove)
+      case "move" => Ok.page(lila.web.ui.help.voiceMove)
       case _      => NotFound(s"Unknown voice module: $module")
 
   def movedPermanently(to: String) = Anon:
