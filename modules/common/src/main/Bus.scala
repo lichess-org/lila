@@ -39,14 +39,20 @@ object Bus:
 
   export bus.{ size, subscribe, unsubscribe }
 
-  def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable.Actor(ref), to)
+  def subscribe(ref: ActorRef, to: Channel) =
+    bus.subscribe(Tellable.Actor(ref), to)
 
-  def subscribe(subscriber: Tellable, to: Channel*)   = to.foreach { bus.subscribe(subscriber, _) }
-  def subscribe(ref: ActorRef, to: Channel*)          = to.foreach { bus.subscribe(Tellable.Actor(ref), _) }
-  def subscribe(ref: ActorRef, to: Iterable[Channel]) = to.foreach { bus.subscribe(Tellable.Actor(ref), _) }
-  def subscribe(ref: scalalib.actor.SyncActor, to: Channel*) = to.foreach {
-    bus.subscribe(Tellable.SyncActor(ref), _)
-  }
+  def subscribe(subscriber: Tellable, to: Channel*) =
+    to.foreach(bus.subscribe(subscriber, _))
+
+  def subscribe(ref: ActorRef, to: Channel*) =
+    to.foreach(bus.subscribe(Tellable.Actor(ref), _))
+
+  def subscribe(ref: ActorRef, to: Iterable[Channel]) =
+    to.foreach(bus.subscribe(Tellable.Actor(ref), _))
+
+  def subscribe(ref: scalalib.actor.SyncActor, to: Channel*) =
+    to.foreach(bus.subscribe(Tellable.SyncActor(ref), _))
 
   def subscribeFun(to: Channel*)(f: SubscriberFunction): Tellable =
     val t = Tellable(f)
@@ -62,6 +68,7 @@ object Bus:
   def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) =
     from.foreach:
       bus.unsubscribe(subscriber, _)
+
   def unsubscribe(ref: ActorRef, from: Iterable[Channel]) =
     from.foreach:
       bus.unsubscribe(Tellable.Actor(ref), _)
@@ -109,5 +116,4 @@ final private class EventBus[Event, Channel, Subscriber](
 
   def publish(event: Event, channel: Channel): Unit =
     Option(entries.get(channel)).foreach:
-      _.foreach:
-        publish(_, event)
+      _.foreach(publish(_, event))
