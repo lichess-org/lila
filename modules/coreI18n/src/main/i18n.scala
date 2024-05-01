@@ -47,6 +47,7 @@ trait LangList:
   val all: Map[Lang, String]
   def allLanguages: List[Language]
   def popularLanguages: List[Language]
+  def popularNoRegion: List[Lang]
   def nameByLanguage(l: Language): String
   def name(code: String): String
 

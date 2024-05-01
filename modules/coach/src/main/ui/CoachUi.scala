@@ -1,24 +1,24 @@
 package lila.coach
 package ui
 
+import scalalib.paginator.Paginator
+
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.rating.UserPerfsExt.{ best6Perfs, hasEstablishedRating }
 import lila.core.data.RichText
 import lila.core.config.NetDomain
-import scalalib.paginator.Paginator
 import play.api.i18n.Lang
-import lila.core.user.Flag
+import lila.core.user.{ Flag, Profile }
 
 final class CoachUi(helpers: Helpers)(
     picfitUrl: lila.core.misc.PicfitUrl,
-    flagInfo: lila.core.user.Profile => Option[lila.core.user.Flag],
+    flagInfo: Profile => Option[Flag],
     flagApi: lila.core.user.FlagApi,
     contactEmail: EmailAddress,
     languages: Set[String] => Context ?=> List[Lang]
 )(using NetDomain):
   import helpers.{ *, given }
-
   import trans.{ coach as trc }
 
   def titleName(c: Coach.WithUser) =
