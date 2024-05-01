@@ -1,19 +1,7 @@
 package lila.fishnet
 
 import chess.MoveOrDrop.*
-import chess.format.pgn.{
-  InitialComments,
-  Move,
-  ParsedPgn,
-  ParsedPgnTree,
-  Parser,
-  Pgn,
-  PgnNodeData,
-  PgnStr,
-  PgnTree,
-  SanStr,
-  Tags
-}
+import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tags }
 import chess.variant.Standard
 import chess.{ ByColor, Clock, MoveOrDrop, Ply, Situation }
 import play.api.libs.json.Json
@@ -43,13 +31,13 @@ case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expec
 
   lazy val parsedPgn = Parser.full(pgn).toOption.get
   lazy val dumped    = parsedPgn.toPgn
-  val variant        = parsedPgn.tags.variant.getOrElse(Standard)
-  val fen            = parsedPgn.tags.fen.getOrElse(variant.initialFen)
-  lazy val chessGame = chess.Game(
-    variantOption = variant.some,
-    fen = fen.some
-  )
-  lazy val gameWithMoves =
+
+  val variant = parsedPgn.tags.variant.getOrElse(Standard)
+  val fen     = parsedPgn.tags.fen.getOrElse(variant.initialFen)
+
+  lazy val chessGame = chess.Game(variant.some, fen.some)
+
+  lazy val gameWithMoves: (chess.Game, String) =
     val (_, xs, _) = chess.Replay.gameMoveWhileValid(sans, fen, variant)
     val game       = xs.last._1
     val moves      = xs.map(_._2.uci.uci).mkString(" ")
