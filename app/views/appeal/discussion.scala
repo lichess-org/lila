@@ -25,18 +25,17 @@ object discussion:
   )
 
   def apply(appeal: Appeal, me: User, textForm: Form[?])(using PageContext) =
-    bits.layout("Appeal") {
+    ui.page("Appeal"):
       main(cls := "page-small box box-pad appeal")(
         renderAppeal(appeal, textForm, Right(me))
       )
-    }
 
   def show(
       appeal: Appeal,
       textForm: Form[?],
       modData: ModData
   )(using ctx: PageContext) =
-    bits.layout(s"Appeal by ${modData.suspect.user.username}") {
+    ui.page(s"Appeal by ${modData.suspect.user.username}") {
       main(cls := "box box-pad appeal")(
         renderAppeal(appeal, textForm, Left(modData)),
         div(cls := "appeal__actions", id := "appeal-actions")(

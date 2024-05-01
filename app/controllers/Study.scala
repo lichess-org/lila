@@ -144,7 +144,7 @@ final class Study(
         .byTopic(topic, order, page)
         .zip(ctx.userId.soFu(env.study.topicApi.userTopics))
         .flatMap: (pag, topics) =>
-          preloadMembers(pag) >> Ok.page(views.study.topic.show(topic, pag, order, topics))
+          preloadMembers(pag) >> Ok.page(views.study.list.topic.show(topic, pag, order, topics))
 
   private def preloadMembers(pag: Paginator[StudyModel.WithChaptersAndLiked]) =
     env.user.lightUserApi.preloadMany(
@@ -548,7 +548,7 @@ final class Study(
     env.study.topicApi.popular(50).zip(ctx.userId.soFu(env.study.topicApi.userTopics)).flatMap {
       (popular, mine) =>
         val form = mine.map(StudyForm.topicsForm)
-        Ok.page(views.study.topic.index(popular, mine, form))
+        Ok.page(views.study.list.topic.index(popular, mine, form))
     }
 
   def setTopics = AuthBody { ctx ?=> me ?=>
@@ -563,7 +563,7 @@ final class Study(
   def staffPicks = Open:
     pageHit
     FoundPage(env.api.cmsRenderKey("studies-staff-picks")):
-      views.study.list.staffPicks
+      views.study.staffPicks
 
   def privateUnauthorizedText = Unauthorized("This study is now private")
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))

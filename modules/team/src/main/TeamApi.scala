@@ -373,9 +373,11 @@ final class TeamApi(
     fuccess(Granter.ofUser(_.ManageTeam)(user)) >>|
       hasPerm(team, user.id, perm)
 
-  def hasPerm(team: TeamId, userId: UserId, perm: TeamSecurity.Permission.Selector) =
+  def hasPerm(team: TeamId, userId: UserId, perm: TeamSecurity.Permission.Selector): Fu[Boolean] =
     belongsTo(team, userId).flatMapz:
       memberRepo.hasPerm(team, userId, perm)
+
+  def hasCommPerm(team: TeamId, userId: UserId): Fu[Boolean] = hasPerm(team, userId, _.Comm)
 
   def isLeaderOf[U: UserIdOf](leader: UserId, member: U) =
     cached

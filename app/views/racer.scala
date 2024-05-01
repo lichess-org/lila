@@ -4,14 +4,13 @@ import play.api.libs.json.*
 
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
 import lila.core.i18n.I18nKey.storm as s
 
 def home(using PageContext) =
   views.base.layout(
     moreCss = cssTag("racer-home"),
     title = "Puzzle Racer",
-    withHrefLangs = LangPath(routes.Racer.home).some
+    withHrefLangs = lila.ui.LangPath(routes.Racer.home).some
   ) {
     main(cls := "page page-small racer-home box box-pad")(
       h1(cls := "box__top")("Puzzle Racer"),
@@ -30,20 +29,17 @@ def home(using PageContext) =
   }
 
 def show(data: JsObject)(using PageContext) =
-  views.base.layout(
-    moreCss = cssTag("racer"),
-    pageModule = PageModule("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))).some,
-    title = "Puzzle Racer",
-    zoomable = true,
-    zenable = true
-  ) {
-    main(
-      div(cls := "racer racer-app racer--play")(
-        div(cls := "racer__board main-board"),
-        div(cls := "racer__side")
+  Page("Puzzle Racer")
+    .cssTag("racer")
+    .js(PageModule("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))))
+    .zoom
+    .zen:
+      main(
+        div(cls := "racer racer-app racer--play")(
+          div(cls := "racer__board main-board"),
+          div(cls := "racer__side")
+        )
       )
-    )
-  }
 
 private val i18nKeys =
   List(

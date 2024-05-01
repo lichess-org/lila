@@ -18,9 +18,7 @@ object Environment
   export lila.core.id.ImageId
   export lila.common.extensions.*
   export lila.common.String.html.richText
-  export lila.ui.Icon
-  export lila.web.Nonce
-  export lila.web.ui.{ PageModule, EsmList }
+  export lila.ui.{ Page, Nonce, OpenGraph, PageModule, EsmList, Icon }
   export lila.api.Context.{ ctxToTranslate as _, *, given }
   export lila.api.PageData
 

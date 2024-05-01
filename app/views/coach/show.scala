@@ -27,15 +27,13 @@ object show:
     views.base.layout(
       title = title,
       moreCss = cssTag("coach"),
-      openGraph = lila.web
-        .OpenGraph(
-          title = title,
-          description = shorten(~(c.coach.profile.headline), 152),
-          url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
-          `type` = "profile",
-          image = c.coach.picture.isDefined.option(picture.thumbnail.url(c.coach))
-        )
-        .some
+      openGraph = OpenGraph(
+        title = title,
+        description = shorten(~(c.coach.profile.headline), 152),
+        url = s"$netBaseUrl${routes.Coach.show(c.user.username)}",
+        `type` = "profile",
+        image = c.coach.picture.isDefined.option(picture.thumbnail.url(c.coach))
+      ).some
     ) {
       main(cls := "coach-show coach-full-page")(
         st.aside(cls := "coach-show__side coach-side")(
@@ -68,9 +66,7 @@ object show:
           posts.nonEmpty.option(
             st.section(cls := "coach-show__posts")(
               h2(cls := "coach-show__title")(trans.ublog.latestBlogPosts()),
-              div(cls := "ublog-post-cards ")(
-                posts.map { views.ublog.postUi.card(_) }
-              )
+              div(cls := "ublog-post-cards ")(posts.map(views.ublog.ui.card(_)))
             )
           ),
           studies.nonEmpty.option(

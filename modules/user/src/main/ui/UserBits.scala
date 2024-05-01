@@ -4,7 +4,7 @@ package ui
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
-final class UserBits(helpers: Helpers)(val assetUrl: String => String):
+final class UserBits(helpers: Helpers):
   import helpers.{ *, given }
 
   def communityMenu(active: String)(using Translate) =

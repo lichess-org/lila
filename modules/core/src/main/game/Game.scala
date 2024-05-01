@@ -55,7 +55,8 @@ case class Game(
   def player[U: UserIdOf](user: U): Option[Player]     = players.find(_.isUser(user))
   def opponentOf[U: UserIdOf](user: U): Option[Player] = player(user).map(opponent)
 
-  def player: Player = players(turnColor)
+  def player: Player                                     = players(turnColor)
+  def playerById(playerId: GamePlayerId): Option[Player] = players.find(_.id == playerId)
 
   def hasUserIds(userId1: UserId, userId2: UserId) =
     hasUserId(userId1) && hasUserId(userId2)

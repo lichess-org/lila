@@ -22,7 +22,7 @@ final class IdGenerator(gameRepo: GameRepo)(using Executor) extends lila.core.ga
   def games(nb: Int): Fu[Set[GameId]] =
     if nb < 1 then fuccess(Set.empty)
     else if nb == 1 then game.dmap(Set(_))
-    else if nb < 5 then Set.fill(nb)(game).parallel
+    else if nb < 5 then scala.concurrent.Future.sequence(Set.fill(nb)(game))
     else
       val ids = Set.fill(nb)(uncheckedGame)
       gameRepo.coll.distinctEasy[GameId, Set]("_id", $inIds(ids)).flatMap { collisions =>

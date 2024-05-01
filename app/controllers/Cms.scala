@@ -28,7 +28,7 @@ final class Cms(env: Env) extends LilaController(env):
         err => BadRequest.pageAsync(views.cms.create(err)),
         data =>
           val page = data.create(me)
-          api.create(page).inject(Redirect(routes.Cms.edit(page.id)).flashSuccess)
+          api.create(page).inject(Redirect(routes.Cms.edit(page.id.value)).flashSuccess)
       )
   }
 
@@ -48,7 +48,7 @@ final class Cms(env: Env) extends LilaController(env):
             api
               .update(pages.head, data)
               .map: page =>
-                Redirect(routes.Cms.edit(page.id)).flashSuccess
+                Redirect(routes.Cms.edit(page.id.value)).flashSuccess
         )
   }
 

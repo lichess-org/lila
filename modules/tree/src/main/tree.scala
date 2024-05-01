@@ -497,10 +497,9 @@ object Node:
 
   val minimalNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = false)
 
-  def nodeListJsonWriter(alwaysChildren: Boolean): Writes[List[Node]] =
+  private val nodeListJsonWriter: Writes[List[Node]] =
     Writes: list =>
-      val writer = if alwaysChildren then defaultNodeJsonWriter else minimalNodeJsonWriter
-      JsArray(list.map(writer.writes))
+      JsArray(list.map(defaultNodeJsonWriter.writes))
 
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] =
     Writes: node =>
@@ -529,10 +528,8 @@ object Node:
           .add("comp", comp)
           .add(
             "children",
-            if alwaysChildren || children.nonEmpty then
-              Some:
-                nodeListJsonWriter(true).writes(children.nodes)
-            else None
+            Option.when(alwaysChildren || children.nonEmpty):
+              nodeListJsonWriter.writes(children.nodes)
           )
           .add("forceVariation", forceVariation)
       catch
@@ -558,7 +555,6 @@ object Node:
       node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
 
 object Tree:
-
   def makeMinimalJsonString(
       game: Game,
       analysis: Option[Analysis],

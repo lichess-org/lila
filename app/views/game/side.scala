@@ -89,7 +89,7 @@ object side:
         ),
         game.finishedOrAborted.option(
           st.section(cls := "status")(
-            bits.gameEndStatus(game),
+            ui.gameEndStatus(game),
             game.winner.map: winner =>
               frag(
                 separator,
@@ -123,7 +123,7 @@ object side:
           .orElse:
             game.swissId.map: swissId =>
               st.section(cls := "game__tournament-link"):
-                views.swiss.bits.link(SwissId(swissId))
+                views.swiss.ui.link(SwissId(swissId))
           .orElse:
             simul.map: sim =>
               st.section(cls := "game__simul-link"):

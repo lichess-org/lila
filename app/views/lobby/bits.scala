@@ -69,7 +69,7 @@ object bits:
               span(cls := "more")(trans.site.more(), " »")
             ),
             div(cls := "lobby__box__content"):
-              views.simul.bits.allCreated(simuls, withName = false)
+              views.simul.ui.allCreated(simuls, withName = false)
           )
         )
       )

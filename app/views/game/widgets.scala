@@ -2,6 +2,7 @@ package views.game
 
 import lila.app.templating.Environment.{ *, given }
 
+import lila.ui.Context
 import lila.core.game.{ Player }
 import lila.game.GameExt.perfType
 import lila.game.Player.nameSplit
@@ -52,10 +53,10 @@ object widgets:
                   frag(separator, views.tournament.ui.tournamentLink(tourId))
                 }
                 .orElse(g.simulId.map { simulId =>
-                  frag(separator, views.simul.bits.link(simulId))
+                  frag(separator, views.simul.ui.link(simulId))
                 })
                 .orElse(g.swissId.map { swissId =>
-                  frag(separator, views.swiss.bits.link(SwissId(swissId)))
+                  frag(separator, views.swiss.ui.link(SwissId(swissId)))
                 })
             )
           ),
@@ -68,7 +69,7 @@ object widgets:
             if g.isBeingPlayed then trans.site.playingRightNow()
             else if g.finishedOrAborted then
               span(cls := g.winner.flatMap(w => fromPlayer.map(p => if p == w then "win" else "loss")))(
-                bits.gameEndStatus(g),
+                ui.gameEndStatus(g),
                 g.winner.map { winner =>
                   frag(
                     " • ",

@@ -5,10 +5,8 @@ import play.api.i18n.Lang
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
-import lila.common.String.html.safeJsonValue
 import lila.core.i18n.Language
 import lila.core.report.ScoreThresholds
-import lila.web.ui.EsmList
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     jsQuantity: Lang => String,
@@ -18,7 +16,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.*
+  import assetHelper.{ defaultCsp, netConfig, cashTag, jsName, siteName }
 
   val doctype                                 = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang, ctx: Context) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -27,12 +25,14 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val viewport = raw:
     """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
   def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
-    s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
+    s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
     metaCsp(csp.getOrElse(defaultCsp))
-  def systemThemeEmbedScript =
-    "<script>if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
-      "document.documentElement.classList.add('light');</script>"
+  def systemThemeScript(nonce: Option[Nonce]) =
+    embedJsUnsafe(
+      "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
+        "document.documentElement.classList.add('light');"
+    )(nonce)
   def pieceSprite(name: String): Frag =
     link(id := "piece-sprite", href := assetUrl(s"piece-css/$name.css"), rel := "stylesheet")
 
@@ -158,11 +158,14 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       jsTag("manifest"),
       cashTag,
       keys.map(jsTag),
-      manifest.deps(keys).map(jsTag)
+      assetHelper.manifest.deps(keys).map(jsTag)
     )
 
-  def modulesInit(modules: EsmList)(using Context) =
-    modules.flatMap(_.map(_.init)) // in body
+  private def jsTag(key: String): Frag =
+    script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
+
+  def modulesInit(modules: EsmList)(using ctx: PageContext) =
+    modules.flatMap(_.map(_.init(ctx.nonce))) // in body
 
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
@@ -327,7 +330,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       )
 
   object inlineJs:
-    def apply(nonce: Nonce)(using Translate) = embedJsUnsafe(jsCode, nonce)
+    def apply(nonce: Nonce)(using Translate): Frag = embedJsUnsafe(jsCode)(nonce.some)
 
     private val i18nKeys = List(
       trans.site.pause,

@@ -155,7 +155,7 @@ final class Mod(
         title =>
           for
             _ <- modApi.setTitle(username, title)
-            _ <- env.mailer.automaticEmail.onTitleSet(username)
+            _ <- title.isDefined.so(env.mailer.automaticEmail.onTitleSet(username))
           yield
             env.user.lightUserApi.invalidate(username.id)
             redirect(username, mod = false)
@@ -221,12 +221,12 @@ final class Mod(
 
   def table = Secure(_.Admin) { ctx ?=> _ ?=>
     Ok.pageAsync:
-      modApi.allMods.map(views.mod.table(_))
+      modApi.allMods.map(views.mod.userTable.mods(_))
   }
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
     Ok.pageAsync:
-      env.mod.logApi.recentBy(me).map(views.mod.log(_))
+      env.mod.logApi.recentBy(me).map(views.mod.ui.myLogs(_))
   }
 
   private def communications(username: UserStr, priv: Boolean) =
@@ -365,12 +365,12 @@ final class Mod(
 
   def activityOf(who: String, period: String) = Secure(_.GamifyView) { ctx ?=> me ?=>
     Ok.pageAsync:
-      env.mod.activity(who, period)(me.user).map(views.mod.activity(_))
+      env.mod.activity(who, period)(me.user).map(views.mod.ui.activity(_))
   }
 
   def queues(period: String) = Secure(_.GamifyView) { ctx ?=> _ ?=>
     Ok.pageAsync:
-      env.mod.queueStats(period).map(views.mod.queueStats(_))
+      env.mod.queueStats(period).map(views.mod.ui.queueStats(_))
   }
 
   def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
@@ -476,7 +476,7 @@ final class Mod(
 
   def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     get("q") match
-      case None => Ok.page(views.mod.emailConfirm("", none, none))
+      case None => Ok.page(views.mod.ui.emailConfirm("", none, none))
       case Some(rawQuery) =>
         val query    = rawQuery.trim.split(' ').toList
         val email    = query.headOption.flatMap(EmailAddress.from)
@@ -490,23 +490,20 @@ final class Mod(
                   modApi.setEmail(user.id, setEmail)
                 }
                 email <- env.user.repo.email(user.id)
-                page  <- renderPage(views.mod.emailConfirm("", user.some, email))
+                page  <- renderPage(views.mod.ui.emailConfirm("", user.some, email))
               yield Ok(page).some
             case _ => fuccess(none)
           }
         email
-          .so { em =>
+          .so: em =>
             tryWith(em, em.value)
-              .orElse {
-                username.so { tryWith(em, _) }
-              }
+              .orElse(username.so { tryWith(em, _) })
               .recover(lila.db.recoverDuplicateKey(_ => none))
-          }
-          .getOrElse(BadRequest.page(views.mod.emailConfirm(rawQuery, none, none)))
+          .getOrElse(BadRequest.page(views.mod.ui.emailConfirm(rawQuery, none, none)))
   }
 
   def chatPanic = Secure(_.Shadowban) { ctx ?=> _ ?=>
-    Ok.page(views.mod.chatPanic(env.chat.panic.get))
+    Ok.page(views.mod.ui.chatPanic(env.chat.panic.get))
   }
 
   def chatPanicPost = OAuthMod(_.Shadowban) { ctx ?=> me ?=>
@@ -520,7 +517,7 @@ final class Mod(
     env.mod.presets
       .get(group)
       .fold(notFound): setting =>
-        Ok.page(views.mod.presets(group, setting.form))
+        Ok.page(views.mod.ui.presets(group, setting.form))
   }
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>
@@ -528,7 +525,7 @@ final class Mod(
       setting.form
         .bindFromRequest()
         .fold(
-          err => BadRequest.page(views.mod.presets(group, err)),
+          err => BadRequest.page(views.mod.ui.presets(group, err)),
           v => setting.setString(v.toString).inject(Redirect(routes.Mod.presets(group)).flashSuccess)
         )
   }

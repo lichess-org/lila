@@ -1,16 +1,13 @@
 package views.mod
 
 import play.api.data.Form
+import scalalib.paginator.Paginator
 
 import lila.app.templating.Environment.{ *, given }
-
 import lila.core.net.IpAddress
 import lila.core.security.FingerHash
-import lila.common.String.html.richText
-import scalalib.paginator.Paginator
 import lila.mod.IpRender.RenderIp
 import lila.security.IpTrust
-
 import lila.user.WithPerfsAndEmails
 
 object search:
@@ -19,7 +16,7 @@ object search:
     views.base.layout(
       title = "Search users",
       moreCss = cssTag("mod.misc"),
-      modules = jsModule("mod.search")
+      modules = EsmInit("mod.search")
     ) {
       main(cls := "page-menu")(
         views.mod.ui.menu("search"),
@@ -47,7 +44,7 @@ object search:
     views.base.layout(
       title = "Fingerprint",
       moreCss = cssTag("mod.misc"),
-      modules = jsModule("mod.search")
+      modules = EsmInit("mod.search")
     ):
       main(cls := "page-menu")(
         views.mod.ui.menu("search"),
@@ -89,7 +86,7 @@ object search:
     views.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
-      modules = jsModule("mod.search")
+      modules = EsmInit("mod.search")
     ):
       main(cls := "page-menu")(
         views.mod.ui.menu("search"),
@@ -123,110 +120,18 @@ object search:
     views.base.layout(
       title = "IP address",
       moreCss = cssTag("mod.misc"),
-      modules = jsModule("mod.search")
-    ):
-      main(cls := "page-menu")(
-        views.mod.ui.menu("search"),
-        div(cls := "mod-search page-menu__content box")(
-          boxTop(
-            h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
-            p("Teachers: ", c.teachers.toList.map(id => teacherLink(id)))
-          ),
-          br,
-          br,
-          userTable(users)
-        )
-      )
+      modules = EsmInit("mod.search")
+    )(views.clas.ui.search.clas(c, views.mod.ui.menu("search"), userTable(users)))
 
   def teacher(teacherId: UserId, classes: List[lila.clas.Clas])(using PageContext) =
     views.base.layout(
       title = "Classes",
       moreCss = cssTag("mod.misc")
-    ):
-      main(cls := "page-menu")(
-        views.mod.ui.menu("search"),
-        div(cls := "mod-search page-menu__content box")(
-          boxTop(
-            h1("Classes from", userIdLink(teacherId.some))
-          ),
-          br,
-          br,
-          classes.nonEmpty.option(
-            table(cls := "slist slist-pad")(
-              thead(
-                tr(
-                  th("Id"),
-                  th("Name"),
-                  th("Created"),
-                  th("Archived"),
-                  th("Teachers (first is owner)")
-                )
-              ),
-              tbody(
-                classes.map: c =>
-                  tr(
-                    td(a(href := routes.Clas.show(c.id.value))(s"${c.id}")),
-                    td(c.name),
-                    td(momentFromNow(c.created.at)),
-                    c.archived match
-                      case None => td("No")
-                      case Some(lila.clas.Clas.Recorded(closerId, at)) =>
-                        td(userIdLink(closerId.some), nbsp, momentFromNow(at))
-                    ,
-                    td(c.teachers.toList.map(id => teacherLink(id)))
-                  )
-              )
-            )
-          )
-        )
-      )
+    )(views.clas.ui.search.teacher(teacherId, classes, views.mod.ui.menu("search")))
 
   def notes(query: String, pager: Paginator[lila.user.Note])(using PageContext) =
     views.base.layout(
       title = "Mod notes",
       moreCss = frag(cssTag("mod.misc"), cssTag("slist")),
-      modules = infiniteScrollTag
-    ) {
-      main(cls := "page-menu")(
-        views.mod.ui.menu("notes"),
-        div(cls := "page-menu__content box")(
-          boxTop(
-            h1("Mod notes"),
-            div(cls := "box__top__actions")(
-              st.form(cls := "search", action := routes.Mod.notes())(
-                input(st.name := "q", value := query, placeholder := trans.search.search.txt())
-              )
-            )
-          ),
-          br,
-          br,
-          table(cls := "slist slist-pad")(
-            thead(
-              tr(th("Moderator"), th("Player"), th("Note"), th("Date"))
-            ),
-            tbody(cls := "infinite-scroll")(
-              pager.currentPageResults.map: note =>
-                tr(cls := "paginated")(
-                  td(userIdLink(note.from.some)),
-                  td(userIdLink(note.to.some, params = "?notes=1")),
-                  td(cls := "user-note__text")(richText(note.text, expandImg = false)),
-                  td(small(momentFromNowOnce(note.date)))
-                ),
-              pagerNextTable(pager, np => routes.Mod.notes(np, query).url)
-            )
-          )
-        )
-      )
-    }
-
-  private def teacherLink(userId: UserId)(using PageContext) =
-    lightUserSync(userId).map: user =>
-      a(
-        href     := routes.Clas.teacher(user.name),
-        cls      := userClass(user.id, none, withOnline = true),
-        dataHref := routes.User.show(user.name)
-      )(
-        lineIcon(user),
-        titleTag(user),
-        user.name
-      )
+      modules = infiniteScrollEsmInit
+    )(views.user.noteUi.search(query, pager, views.mod.ui.menu("notes")))

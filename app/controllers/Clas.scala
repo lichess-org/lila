@@ -134,7 +134,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       forTeacher = WithClass(id): clas =>
         Ok.pageAsync:
           env.clas.api.student.allWithUsers(clas).map {
-            views.clas.wall.show(clas, env.clas.markup(clas), _)
+            views.clas.teacherDashboard.wall.show(clas, _, env.clas.markup(clas))
           }
       ,
       forStudent = (clas, _) => redirectTo(clas)
@@ -145,7 +145,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClass(id): clas =>
       Ok.pageAsync:
         env.clas.api.student.activeWithUsers(clas).map {
-          views.clas.wall.edit(clas, _, env.clas.forms.clas.wall.fill(clas.wall))
+          views.clas.teacherDashboard.wall.edit(clas, _, env.clas.forms.clas.wall.fill(clas.wall))
         }
   }
 
@@ -157,7 +157,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           err =>
             BadRequest.pageAsync:
               env.clas.api.student.activeWithUsers(clas).map {
-                views.clas.wall.edit(clas, _, err)
+                views.clas.teacherDashboard.wall.edit(clas, _, err)
               }
           ,
           text =>
@@ -172,7 +172,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       env.clas.api.student.activeWithUsers(clas).flatMap { students =>
         Reasonable(clas, students, "notify"):
           Ok.page:
-            views.clas.clas.notify(clas, students, env.clas.forms.clas.notifyText)
+            views.clas.teacherDashboard.notifyForm(clas, students, env.clas.forms.clas.notifyText)
       }
   }
 
@@ -184,7 +184,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           err =>
             BadRequest.pageAsync:
               env.clas.api.student.activeWithUsers(clas).map {
-                views.clas.clas.notify(clas, _, err)
+                views.clas.teacherDashboard.notifyForm(clas, _, err)
               }
           ,
           text =>
@@ -303,7 +303,8 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 err =>
                   BadRequest.pageAsync:
                     env.clas.api.student.count(clas.id).map {
-                      views.clas.student.form(clas, students, env.clas.forms.student.invite(clas), err, _)
+                      views.clas.student
+                        .form(clas, students, env.clas.forms.student.invite(clas), err, _, none)
                     }
                 ,
                 data =>
@@ -346,7 +347,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 .manyCreate(lila.clas.Clas.maxStudents - nbStudents)
                 .bindFromRequest()
                 .fold(
-                  err => BadRequest.page(views.clas.student.manyForm(clas, students, err, nbStudents)),
+                  err => BadRequest.page(views.clas.student.manyForm(clas, students, err, nbStudents, Nil)),
                   data =>
                     env.clas.api.student.manyCreate(clas, data, me.value).flatMap { many =>
                       env.user.lightUserApi
@@ -373,7 +374,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           err =>
             BadRequest.pageAsync:
               env.clas.api.student.count(clas.id).map {
-                views.clas.student.form(clas, students, err, env.clas.forms.student.create, _)
+                views.clas.student.form(clas, students, err, env.clas.forms.student.create, _, None)
               }
           ,
           data =>
@@ -512,7 +513,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def invitation(id: lila.clas.ClasInvite.Id) = Auth { _ ?=> me ?=>
     FoundPage(env.clas.api.invite.view(id, me)): (invite, clas) =>
-      views.clas.invite.show(clas, invite)
+      views.clas.student.invite(clas, invite)
   }
 
   def invitationAccept(id: ClasInvite.Id) = AuthBody { ctx ?=> me ?=>

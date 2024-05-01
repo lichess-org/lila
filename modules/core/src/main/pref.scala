@@ -14,7 +14,12 @@ trait Pref:
   val moveEvent: Int
   val highlight: Boolean
   val is3d: Boolean
+  val resizeHandle: Int
+  val theme: String
+  val pieceSet: String
 
+  def hasKeyboardMove: Boolean
+  def hasVoice: Boolean
   def showRatings: Boolean
   def animationMillis: Int
   def animationMillisForSpeedPuzzles: Int

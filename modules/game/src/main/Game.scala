@@ -72,8 +72,7 @@ object GameExt:
 
   extension (g: Game)
 
-    def playerById(playerId: GamePlayerId): Option[Player] = g.players.find(_.id == playerId)
-    def playerIdPov(playerId: GamePlayerId): Option[Pov]   = playerById(playerId).map(p => Pov(g, p.color))
+    def playerIdPov(playerId: GamePlayerId): Option[Pov] = g.playerById(playerId).map(p => Pov(g, p.color))
 
     def withClock(c: Clock) = Progress(g, g.copy(chess = g.chess.copy(clock = Some(c))))
 

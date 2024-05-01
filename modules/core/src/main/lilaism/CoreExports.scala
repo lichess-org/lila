@@ -5,6 +5,7 @@ trait CoreExports:
   type Fu[A]     = Future[A]
   type Funit     = Fu[Unit]
   type PairOf[A] = (A, A)
+  type Update[A] = A => A
 
   export scala.concurrent.{ ExecutionContextExecutor as Executor, Future, Promise }
   export scala.concurrent.duration.{ DurationInt, DurationLong, IntMult, Duration, FiniteDuration }

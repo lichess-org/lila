@@ -12,6 +12,8 @@ final class TeamUi(helpers: Helpers)(using Executor):
   import helpers.{ *, given }
   import trans.{ team as trt }
 
+  def TeamPage(title: String) = Page(title).cssTag("team").js(infiniteScrollEsmInit)
+
   object markdown:
     private val renderer = MarkdownRender(header = true, list = true, table = true)
     private val cache = lila.memo.CacheApi.scaffeineNoScheduler
@@ -59,36 +61,123 @@ final class TeamUi(helpers: Helpers)(using Executor):
         ~t.intro: String
       ),
       td(cls := "info")(
-        p(trans.team.nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
+        p(trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
         isMine.option:
           st.form(action := routes.Team.quit(t.id), method := "post")(
             submitButton(cls := "button button-empty button-red button-thin confirm team__quit")(
-              trans.team.quitTeam.txt()
+              trt.quitTeam.txt()
             )
           )
       )
     )
 
   def membersPage(t: Team, pager: Paginator[TeamMember.UserAndDate])(using Context) =
-    main(cls := "page-small box")(
-      boxTop(
-        h1(
-          teamLink(t.light, true),
-          " • ",
-          trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)
-        )
-      ),
-      table(cls := "team-members slist slist-pad"):
-        tbody(cls := "infinite-scroll")(
-          pager.currentPageResults.map { case TeamMember.UserAndDate(u, date) =>
-            tr(cls := "paginated")(
-              td(lightUserLink(u)),
-              td(momentFromNowOnce(date))
+    TeamPage(t.name).graph(
+      title = s"${t.name} • ${trt.teamRecentMembers.txt()}",
+      url = s"$netBaseUrl${routes.Team.show(t.id).url}",
+      description = t.intro.so(shorten(_, 152))
+    ):
+      main(cls := "page-small box")(
+        boxTop(
+          h1(
+            teamLink(t.light, true),
+            " • ",
+            trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)
+          )
+        ),
+        table(cls := "team-members slist slist-pad"):
+          tbody(cls := "infinite-scroll")(
+            pager.currentPageResults.map { case TeamMember.UserAndDate(u, date) =>
+              tr(cls := "paginated")(
+                td(lightUserLink(u)),
+                td(momentFromNowOnce(date))
+              )
+            },
+            pagerNextTable(pager, np => routes.Team.members(t.slug, np).url)
+          )
+      )
+
+  object list:
+
+    def search(text: String, teams: Paginator[Team.WithMyLeadership])(using PageContext) =
+      list(
+        name = s"""${trans.search.search.txt()} "$text"""",
+        teams = teams,
+        nextPageUrl = n => routes.Team.search(text, n).url,
+        search = text
+      )
+
+    def all(teams: Paginator[Team.WithMyLeadership])(using PageContext) =
+      list(
+        name = trt.teams.txt(),
+        teams = teams,
+        nextPageUrl = n => routes.Team.all(n).url
+      )
+
+    def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) =
+      TeamPage(trt.myTeams.txt()):
+        main(cls := "team-list page-menu")(
+          menu("mine".some),
+          div(cls := "page-menu__content box")(
+            h1(cls := "box__top")(trt.myTeams()),
+            standardFlash.map(div(cls := "box__pad")(_)),
+            ctx.me.filter(me => teams.size > Team.maxJoin(me)).map { me =>
+              flashMessage("failure"):
+                s"You have joined ${teams.size} out of ${Team.maxJoin(me)} teams. Leave some teams before you can join others."
+            },
+            table(cls := "slist slist-pad")(
+              if teams.nonEmpty then tbody(teams.map(teamTr(_)))
+              else noTeam()
             )
-          },
-          pagerNextTable(pager, np => routes.Team.members(t.slug, np).url)
+          )
         )
-    )
+
+    def ledByMe(teams: List[Team])(using PageContext) =
+      TeamPage(trt.myTeams.txt()):
+        main(cls := "team-list page-menu")(
+          menu("leader".some),
+          div(cls := "page-menu__content box")(
+            h1(cls := "box__top")(trt.teamsIlead()),
+            standardFlash,
+            table(cls := "slist slist-pad")(
+              if teams.nonEmpty then tbody(teams.map(Team.WithMyLeadership(_, true)).map(teamTr(_)))
+              else noTeam()
+            )
+          )
+        )
+
+    private def list(
+        name: String,
+        teams: Paginator[Team.WithMyLeadership],
+        nextPageUrl: Int => String,
+        search: String = ""
+    )(using PageContext) =
+      TeamPage(s"$name - page ${teams.currentPage}"):
+        main(cls := "team-list page-menu")(
+          menu("all".some),
+          div(cls := "page-menu__content box")(
+            boxTop(
+              h1(name),
+              div(cls := "box__top__actions")(
+                st.form(cls := "search", action := routes.Team.search())(
+                  input(st.name := "text", value := search, placeholder := trans.search.search.txt())
+                )
+              )
+            ),
+            standardFlash,
+            table(cls := "slist slist-pad")(
+              if teams.nbResults > 0 then
+                tbody(cls := "infinite-scroll")(
+                  teams.currentPageResults.map(teamTr),
+                  pagerNextTable(teams, nextPageUrl)
+                )
+              else noTeam()
+            )
+          )
+        )
+
+    private def noTeam()(using Context) =
+      tbody(tr(td(colspan := "2")(br, trt.noTeamFound())))
 
   def members(team: Team, members: Paginator[lila.core.LightUser])(using Translate) =
     div(cls := "team-show__members")(

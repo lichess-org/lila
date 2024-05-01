@@ -102,6 +102,8 @@ trait Event:
   def troll: Boolean        = false
   def moveBy: Option[Color] = None
 
+val anonCookieName = "rk2"
+
 trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
   def incBookmarks(id: GameId, by: Int): Funit

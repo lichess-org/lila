@@ -7,7 +7,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.id.ImageId
 
-final class StreamerBits(helpers: Helpers)(assetUrl: String => String, thumbnailUrl: ImageId => String):
+final class StreamerBits(helpers: Helpers)(thumbnailUrl: ImageId => String):
   import helpers.{ *, given }
   import trans.{ streamer as trs }
 
@@ -135,7 +135,7 @@ final class StreamerBits(helpers: Helpers)(assetUrl: String => String, thumbnail
       a(href := "/about")(trs.downloadKit())
     )
 
-  def redirectLink(username: UserStr, isStreaming: Option[Boolean] = None) =
+  def redirectLink(username: UserStr, isStreaming: Option[Boolean] = None): Tag =
     isStreaming match
       case Some(false) => a(href := routes.Streamer.show(username.value))
       case _           => a(href := routes.Streamer.redirect(username.value), targetBlank, noFollow)

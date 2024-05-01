@@ -6,7 +6,6 @@ import lila.common.String.html.richText
 import lila.core.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
-import lila.relation.Follow
 import lila.shutup.Analyser
 
 object communication:
@@ -29,7 +28,7 @@ object communication:
         cssTag("mod.communication"),
         isGranted(_.UserModView).option(cssTag("mod.user"))
       ),
-      modules = isGranted(_.UserModView).so(jsModule("mod.user"))
+      modules = isGranted(_.UserModView).so(EsmInit("mod.user"))
     ):
       main(id := "communication", cls := "box box-pad")(
         boxTop(
@@ -125,11 +124,11 @@ object communication:
                 " ",
                 line.from.map:
                   case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)
-                  case PublicSource.Simul(id)      => views.simul.bits.link(id)
+                  case PublicSource.Simul(id)      => views.simul.ui.link(id)
                   case PublicSource.Team(id)       => teamLink(id)
                   case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
                   case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
-                  case PublicSource.Swiss(id)   => views.swiss.bits.link(SwissId(id))
+                  case PublicSource.Swiss(id)   => views.swiss.ui.link(SwissId(id))
                   case PublicSource.Forum(id)   => a(href := routes.ForumPost.redirect(id))("Forum #", id)
                   case PublicSource.Ublog(id)   => a(href := routes.Ublog.redirect(id))("User blog #", id)
                 ,

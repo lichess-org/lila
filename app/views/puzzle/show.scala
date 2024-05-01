@@ -13,33 +13,32 @@ object show:
       data: JsObject,
       pref: JsObject,
       settings: lila.puzzle.PuzzleSettings,
-      langPath: Option[lila.web.LangPath] = None
+      langPath: Option[lila.ui.LangPath] = None
   )(using ctx: PageContext) =
     val isStreak = data.value.contains("streak")
-    views.base.layout(
-      title = if isStreak then "Puzzle Streak" else trans.site.puzzles.txt(),
-      moreCss = frag(
-        cssTag("puzzle"),
-        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
-        ctx.pref.hasVoice.option(cssTag("voice")),
-        ctx.blind.option(cssTag("round.nvui"))
-      ),
-      modules = puzzleNvuiTag,
-      pageModule = PageModule(
-        "puzzle",
-        Json
-          .obj(
-            "data"        -> data,
-            "pref"        -> pref,
-            "i18n"        -> bits.jsI18n(streak = isStreak),
-            "showRatings" -> ctx.pref.showRatings,
-            "settings"    -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color)
-          )
-          .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
-      ).some,
-      csp = analysisCsp.some,
-      openGraph = lila.web
-        .OpenGraph(
+    Page(if isStreak then "Puzzle Streak" else trans.site.puzzles.txt())
+      .cssTag("puzzle")
+      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .cssTag(ctx.pref.hasVoice.option("voice"))
+      .cssTag(ctx.blind.option("round.nvui"))
+      .js(puzzleNvuiTag)
+      .js(
+        PageModule(
+          "puzzle",
+          Json
+            .obj(
+              "data"        -> data,
+              "pref"        -> pref,
+              "i18n"        -> bits.jsI18n(streak = isStreak),
+              "showRatings" -> ctx.pref.showRatings,
+              "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color)
+            )
+            .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
+        )
+      )
+      .csp(analysisCsp)
+      .graph(
+        OpenGraph(
           image = cdnUrl(
             routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
           ).some,
@@ -56,17 +55,8 @@ object show:
               )
               s"Lichess tactic trainer: ${findMove.txt()}. Played by ${puzzle.plays} players."
         )
-        .some,
-      zoomable = true,
-      zenable = true,
-      withHrefLangs = langPath
-    ) {
-      main(cls := "puzzle")(
-        st.aside(cls := "puzzle__side")(
-          div(cls := "puzzle__side__metas")
-        ),
-        div(cls := "puzzle__board main-board")(chessgroundBoard),
-        div(cls := "puzzle__tools"),
-        div(cls := "puzzle__controls")
       )
-    }
+      .hrefLangs(langPath)
+      .zoom
+      .zen:
+        bits.show.preload

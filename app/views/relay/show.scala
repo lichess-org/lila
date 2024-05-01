@@ -16,62 +16,63 @@ object show:
       socketVersion: SocketVersion,
       crossSiteIsolation: Boolean = true
   )(using ctx: PageContext) =
-    views.base.layout(
-      title = rt.fullName,
-      moreCss = cssTag("analyse.relay"),
-      modules = analyseNvuiTag,
-      pageModule = PageModule(
-        "analyse.study",
-        Json
-          .obj(
-            "relay"    -> data.relay,
-            "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
-            "data"     -> data.analysis,
-            "i18n"     -> bits.jsI18n,
-            "tagTypes" -> lila.study.PgnTags.typesToString,
-            "userId"   -> ctx.userId,
-            "chat" -> chatOption.map: c =>
-              views.chat
-                .json(
-                  c.chat,
-                  c.lines,
-                  name = trans.site.chatRoom.txt(),
-                  timeout = c.timeout,
-                  writeable = ctx.userId.exists(rt.study.canChat),
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
-                  localMod = rt.tour.tier.isEmpty && ctx.userId.exists(rt.study.canContribute),
-                  broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout),
-                  hostIds = rt.study.members.ids.toList
-                ),
-            "socketUrl"     -> views.study.show.socketUrl(rt.study.id),
-            "socketVersion" -> socketVersion
-          ) ++ views.board.bits.explorerAndCevalConfig
-      ).some,
-      zoomable = true,
-      csp = (if crossSiteIsolation then analysisCsp else defaultCsp).withExternalAnalysisApis.some,
-      openGraph = lila.web
-        .OpenGraph(
-          title = rt.fullName,
-          url = s"$netBaseUrl${rt.path}",
-          description = shorten(rt.tour.description, 152)
+    Page(rt.fullName)
+      .cssTag("analyse.relay")
+      .js(analyseNvuiTag)
+      .js(
+        PageModule(
+          "analyse.study",
+          Json
+            .obj(
+              "relay"    -> data.relay,
+              "study"    -> data.study.add("admin" -> isGranted(_.StudyAdmin)),
+              "data"     -> data.analysis,
+              "i18n"     -> bits.jsI18n,
+              "tagTypes" -> lila.study.PgnTags.typesToString,
+              "userId"   -> ctx.userId,
+              "chat" -> chatOption.map: c =>
+                views.chat
+                  .json(
+                    c.chat,
+                    c.lines,
+                    name = trans.site.chatRoom.txt(),
+                    timeout = c.timeout,
+                    writeable = ctx.userId.exists(rt.study.canChat),
+                    public = true,
+                    resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
+                    localMod = rt.tour.tier.isEmpty && ctx.userId.exists(rt.study.canContribute),
+                    broadcastMod = rt.tour.tier.isDefined && isGranted(_.BroadcastTimeout),
+                    hostIds = rt.study.members.ids.toList
+                  ),
+              "socketUrl"     -> views.study.socketUrl(rt.study.id),
+              "socketVersion" -> socketVersion
+            ) ++ views.board.bits.explorerAndCevalConfig
         )
-        .some
-    ):
-      main(cls := "analyse is-relay has-relay-tour")(
-        div(cls := "box relay-tour")(
-          div(cls := "relay-tour__header")(
-            div(cls := "relay-tour__header__content")(
-              h1(data.group.fold(rt.tour.name.value)(_.value)),
-              div(cls := "relay-tour__header__selectors"):
-                div(cls := "mselect relay-tour__mselect"):
-                  label(cls := "mselect__label"):
-                    span(cls := "relay-tour__round-select__name")(rt.relay.name)
-            ),
-            div(cls := "relay-tour__header__image"):
-              rt.tour.image.map: imgId =>
-                img(src := views.relay.tour.thumbnail.url(imgId, _.Size.Large), alt := "loading...")
-          )
-        ),
-        st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload"))
       )
+      .zoom
+      .csp(
+        (if crossSiteIsolation then analysisCsp else identity[lila.ui.ContentSecurityPolicy])
+          .compose(_.withExternalAnalysisApis)
+      )
+      .graph(
+        title = rt.fullName,
+        url = s"$netBaseUrl${rt.path}",
+        description = shorten(rt.tour.description, 152)
+      ):
+        main(cls := "analyse is-relay has-relay-tour")(
+          div(cls := "box relay-tour")(
+            div(cls := "relay-tour__header")(
+              div(cls := "relay-tour__header__content")(
+                h1(data.group.fold(rt.tour.name.value)(_.value)),
+                div(cls := "relay-tour__header__selectors"):
+                  div(cls := "mselect relay-tour__mselect"):
+                    label(cls := "mselect__label"):
+                      span(cls := "relay-tour__round-select__name")(rt.relay.name)
+              ),
+              div(cls := "relay-tour__header__image"):
+                rt.tour.image.map: imgId =>
+                  img(src := views.relay.tour.thumbnail.url(imgId, _.Size.Large), alt := "loading...")
+            )
+          ),
+          st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload"))
+        )

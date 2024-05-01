@@ -15,29 +15,27 @@ object editor:
       positionsJson: JsArray,
       endgamePositionsJson: JsArray
   )(using PageContext) =
-    views.base.layout(
-      title = trans.site.boardEditor.txt(),
-      pageModule = PageModule(
-        "editor",
-        jsData(fen) ++ Json.obj("positions" -> positionsJson, "endgamePositions" -> endgamePositionsJson)
-      ).some,
-      moreCss = cssTag("editor"),
-      zoomable = true,
-      openGraph = lila.web
-        .OpenGraph(
-          title = "Chess board editor",
-          url = s"$netBaseUrl${routes.Editor.index.url}",
-          description = "Load opening positions or create your own chess position on a chess board editor"
-        )
-        .some
-    ):
-      main(id := "board-editor")(
-        div(cls := "board-editor")(
-          div(cls := "spare"),
-          div(cls := "main-board")(chessgroundBoard),
-          div(cls := "spare")
+    Page(trans.site.boardEditor.txt())
+      .js(
+        PageModule(
+          "editor",
+          jsData(fen) ++ Json.obj("positions" -> positionsJson, "endgamePositions" -> endgamePositionsJson)
         )
       )
+      .cssTag("editor")
+      .zoom
+      .graph(
+        title = "Chess board editor",
+        url = s"$netBaseUrl${routes.Editor.index.url}",
+        description = "Load opening positions or create your own chess position on a chess board editor"
+      ):
+        main(id := "board-editor")(
+          div(cls := "board-editor")(
+            div(cls := "spare"),
+            div(cls := "main-board")(chessgroundBoard),
+            div(cls := "spare")
+          )
+        )
 
   def jsData(fen: Option[Fen.Full] = None)(using ctx: Context) =
     Json

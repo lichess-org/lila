@@ -87,3 +87,33 @@ final class ModUserTableUi(helpers: Helpers, modUi: ModUi):
           }
       )
     )
+
+  def mods(users: List[User])(using Context) =
+    Page("All mods").cssTag("mod.misc"):
+      main(cls := "page-menu")(
+        modUi.menu("mods"),
+        div(id := "mod_table", cls := "page-menu__content box")(
+          h1(cls := "box__top")("All mods"),
+          st.table(cls := "slist slist-pad sortable")(
+            thead(
+              tr(
+                th("Mod"),
+                th("Permissions"),
+                th("Last seen at")
+              )
+            ),
+            tbody(
+              users.map: user =>
+                tr(
+                  td(userLink(user)),
+                  td(
+                    a(href := routes.Mod.permissions(user.username))(
+                      lila.core.perm.Permission(user).map(_.name).mkString(", ")
+                    )
+                  ),
+                  td(dataSort := user.seenAt.map(_.toMillis.toString))(user.seenAt.map(momentFromNowOnce))
+                )
+            )
+          )
+        )
+      )

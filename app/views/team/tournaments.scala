@@ -10,13 +10,11 @@ object tournaments:
   def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using PageContext) =
     views.base.layout(
       title = s"${t.name} • ${trans.site.tournaments.txt()}",
-      openGraph = lila.web
-        .OpenGraph(
-          title = s"${t.name} team tournaments",
-          url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
-          description = shorten(t.description.value, 152)
-        )
-        .some,
+      openGraph = OpenGraph(
+        title = s"${t.name} team tournaments",
+        url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
+        description = shorten(t.description.value, 152)
+      ).some,
       moreCss = cssTag("team"),
       wrapClass = "full-screen-force"
     ):

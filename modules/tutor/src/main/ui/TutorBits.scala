@@ -5,10 +5,22 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class TutorBits(helpers: Helpers)(
-    assetUrl: String => String,
     val openingUrl: chess.opening.Opening => Call
 ):
   import helpers.{ *, given }
+
+  def page(menu: Frag, title: String = "Lichess Tutor", pageSmall: Boolean = false)(
+      mods: AttrPair*
+  )(using Context) =
+    Page(title)
+      .cssTag("tutor")
+      .js(EsmInit("tutor"))
+      .csp(_.withInlineIconFont)
+      .wrap: body =>
+        main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
+          lila.ui.bits.subnav(menu),
+          div(cls := "page-menu__content")(mods, body)
+        )
 
   val mascot =
     img(

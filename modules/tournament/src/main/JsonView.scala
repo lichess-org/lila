@@ -558,7 +558,7 @@ object JsonView:
     )
 
   private[tournament] def positionJson(fen: Fen.Standard): JsObject =
-    Thematic.byFen(fen) match
+    lila.gathering.Thematic.byFen(fen) match
       case Some(pos) =>
         Json
           .obj(

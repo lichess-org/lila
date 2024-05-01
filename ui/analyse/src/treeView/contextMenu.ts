@@ -31,8 +31,8 @@ function getPosition(e: MouseEvent | TouchEvent): Coords | null {
   if (pos.pageX || pos.pageY) return { x: pos.pageX!, y: pos.pageY! };
   else if (pos.clientX || pos.clientY)
     return {
-      x: pos.clientX! + document.body.scrollLeft + document.documentElement!.scrollLeft,
-      y: pos.clientY! + document.body.scrollTop + document.documentElement!.scrollTop,
+      x: pos.clientX! + document.body.scrollLeft + document.documentElement.scrollLeft,
+      y: pos.clientY! + document.body.scrollTop + document.documentElement.scrollTop,
     };
   else return null;
 }

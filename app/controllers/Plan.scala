@@ -112,7 +112,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   def features = Open:
     pageHit
-    Ok.page(views.plan.features)
+    Ok.page(views.planPages.features)
 
   def switch = AuthBody { ctx ?=> me ?=>
     env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
@@ -138,7 +138,7 @@ final class Plan(env: Env) extends LilaController(env):
         patron   <- ctx.me.so { env.plan.api.userPatron(_) }
         customer <- patron.so(env.plan.api.stripe.patronCustomer)
         gift     <- ctx.me.so { env.plan.api.recentGiftFrom(_) }
-        page     <- renderPage(views.plan.thanks(patron, customer, gift))
+        page     <- renderPage(views.planPages.thanks(patron, customer, gift))
       yield Ok(page)
 
   def webhook = AnonBodyOf(parse.json): body =>

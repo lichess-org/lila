@@ -1,162 +1,220 @@
-import * as cg from 'chessground/types';
-import { h } from 'snabbdom';
-import { onInsert } from 'common/snabbdom';
-import { promote } from 'chess/promotion';
-import { propWithEffect, Prop } from 'common';
-import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
-import { load as loadKeyboardMove } from './plugins/keyboard.move';
-import KeyboardChecker from './plugins/keyboardChecker';
+import { Dests, files } from 'chessground/types';
+import { sanWriter, SanToUci, destsToUcis } from 'chess';
+import { KeyboardMoveHandler, KeyboardMove } from './ctrl';
 
-export type KeyboardMoveHandler = (fen: cg.FEN, dests?: cg.Dests, yourMove?: boolean) => void;
+const keyRegex = /^[a-h][1-8]$/;
+const fileRegex = /^[a-h]$/;
+const crazyhouseRegex = /^\w?@([a-h]|[a-h][1-8])?$/;
+const ambiguousPromotionRegex = /^[a-h][27][a-h][18]$/;
+const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
+const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
+// accept partial ICCF because submit runs on every keypress
+const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
 
-export interface KeyboardMove {
-  drop(key: cg.Key, piece: string): void;
-  promote(orig: cg.Key, dest: cg.Key, piece: string): void;
-  update(up: MoveUpdate): void;
-  registerHandler(h: KeyboardMoveHandler): void;
-  isFocused: Prop<boolean>;
-  san(orig: cg.Key, dest: cg.Key): void;
-  select(key: cg.Key): void;
-  hasSelected(): cg.Key | undefined;
-  confirmMove(): void;
-  usedSan: boolean;
-  jump(delta: number): void;
-  justSelected(): boolean;
-  draw(): void;
-  next(): void;
-  vote(v: boolean): void;
-  resign(v: boolean, immediately?: boolean): void;
-  helpModalOpen: Prop<boolean>;
-  checker?: KeyboardChecker;
-  opponent?: string;
-  speakClock?: () => void;
-  goBerserk?: () => void;
+interface SubmitOpts {
+  isTrusted: boolean;
+  force?: boolean;
+  yourMove?: boolean;
+}
+type Submit = (v: string, submitOpts: SubmitOpts) => void;
+
+interface Opts {
+  input: HTMLInputElement;
+  ctrl: KeyboardMove;
 }
 
-const sanToRole: { [key: string]: cg.Role } = {
-  P: 'pawn',
-  N: 'knight',
-  B: 'bishop',
-  R: 'rook',
-  Q: 'queen',
-  K: 'king',
-};
-
-interface CrazyPocket {
-  [role: string]: number;
+export function load(opts: Opts): Promise<KeyboardMoveHandler> {
+  return site.asset.loadEsm('keyboardMove', { init: opts });
 }
 
-export interface RootData {
-  crazyhouse?: { pockets: [CrazyPocket, CrazyPocket] };
-  game: { variant: { key: VariantKey } };
-  player: { color: Color };
-  opponent?: { color: Color; user?: { username: string } };
-}
+export function initModule(opts: Opts) {
+  if (opts.input.classList.contains('ready')) return;
+  opts.input.classList.add('ready');
+  let legalSans: SanToUci | null = null;
 
-export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
-  sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
-  userJumpPlyDelta?: (plyDelta: Ply) => void;
-  sendMove?: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata) => void;
-  submitMove?: (v: boolean) => void;
-  crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
-  data: RootData;
-}
+  const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
-export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
-  const isFocused = propWithEffect(false, root.redraw);
-  const helpModalOpen = propWithEffect(false, root.redraw);
-  let handler: KeyboardMoveHandler | undefined;
-  let preHandlerBuffer: string | undefined;
-  let lastSelect = performance.now();
-  let cg: CgApi;
-  const select = (key: cg.Key): void => {
-    if (cg.state.selected === key) cg.cancelMove();
-    else {
-      cg.selectSquare(key, true);
-      lastSelect = performance.now();
+  const submit: Submit = (v: string, submitOpts: SubmitOpts) => {
+    if (!submitOpts.isTrusted) return;
+    // consider 0's as O's for castling
+    v = v.replace(/0/g, 'O');
+    if (v.match(iccfRegex)) {
+      v = iccfToUci(v);
+    }
+    const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
+    const selectedKey = opts.ctrl.hasSelected() || '';
+    if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {
+      if (v.toLowerCase() === 'resign') {
+        opts.ctrl.resign(true, true);
+        clear();
+      }
+    } else if (legalSans && foundUci) {
+      // ambiguous castle
+      if (v.toLowerCase() === 'o-o' && legalSans['O-O-O'] && !submitOpts.force) return;
+      // ambiguous promotion
+      if (isKey(v) && (selectedKey + v).match(ambiguousPromotionRegex) && !submitOpts.force) return;
+      // ambiguous UCI
+      if (isKey(v) && selectedKey) opts.ctrl.select(v);
+      // ambiguous capture+promotion (also check legalSans[v] here because bc8 could mean Bc8)
+      if (v.match(ambiguousPromotionCaptureRegex) && legalSans[v] && !submitOpts.force) return;
+      else opts.ctrl.san(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key);
+      clear();
+    } else if (
+      legalSans &&
+      selectedKey &&
+      (selectedKey + v).match(ambiguousPromotionCaptureRegex) &&
+      legalSans[selectedKey.slice(0, 1) + v.slice(0, 2)] &&
+      !submitOpts.force
+    ) {
+      // ambiguous capture+promotion when a promotable pawn is selected; do nothing
+    } else if (legalSans && isKey(v)) {
+      opts.ctrl.select(v);
+      clear();
+    } else if (legalSans && v.match(fileRegex)) {
+      // do nothing
+    } else if (legalSans && (selectedKey.slice(0, 1) + v).match(promotionRegex)) {
+      const promotionSan =
+        selectedKey && selectedKey.slice(0, 1) !== v.slice(0, 1) ? selectedKey.slice(0, 1) + v : v;
+      const foundUci = sanToUci(promotionSan.replace('=', '').slice(0, -1), legalSans);
+      if (!foundUci) return;
+      opts.ctrl.promote(foundUci.slice(0, 2) as Key, foundUci.slice(2) as Key, v.slice(-1).toUpperCase());
+      clear();
+    } else if (v.match(crazyhouseRegex)) {
+      // Incomplete crazyhouse strings such as Q@ or Q@a should do nothing.
+      if (v.length > 3 || (v.length > 2 && v.startsWith('@'))) {
+        if (v.length === 3) v = 'P' + v;
+        opts.ctrl.drop(v.slice(2) as Key, v[0].toUpperCase());
+        clear();
+      }
+    } else if (v.length > 0 && 'clock'.startsWith(v.toLowerCase()) && opts.ctrl.speakClock) {
+      if ('clock' === v.toLowerCase()) {
+        opts.ctrl.speakClock();
+        clear();
+      }
+    } else if (v.length > 0 && 'zerk'.startsWith(v.toLowerCase()) && opts.ctrl.goBerserk) {
+      if ('zerk' === v.toLowerCase()) {
+        opts.ctrl.goBerserk();
+        clear();
+      }
+    } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {
+      if ('who' === v.toLowerCase() && opts.ctrl.opponent) {
+        site.sound.say(opts.ctrl.opponent, false, true);
+        clear();
+      }
+    } else if (v.length > 0 && 'draw'.startsWith(v.toLowerCase())) {
+      if ('draw' === v.toLowerCase()) {
+        opts.ctrl.draw();
+        clear();
+      }
+    } else if (v.length > 0 && 'next'.startsWith(v.toLowerCase())) {
+      if ('next' === v.toLowerCase()) {
+        opts.ctrl.next?.();
+        clear();
+      }
+    } else if (v.length > 0 && 'upv'.startsWith(v.toLowerCase())) {
+      if ('upv' === v.toLowerCase()) {
+        opts.ctrl.vote?.(true);
+        clear();
+      }
+    } else if (v.length > 0 && 'downv'.startsWith(v.toLowerCase())) {
+      if ('downv' === v.toLowerCase()) {
+        opts.ctrl.vote?.(false);
+        clear();
+      }
+    } else if (v.length > 0 && ('help'.startsWith(v.toLowerCase()) || v === '?')) {
+      if (['help', '?'].includes(v.toLowerCase())) {
+        opts.ctrl.helpModalOpen(true);
+        clear();
+      }
+    } else if (submitOpts.yourMove && v.length > 0 && legalSans && !sanCandidates(v, legalSans).length) {
+      // submitOpts.yourMove is true only when it is newly the player's turn, not on subsequent
+      // updates when it is still the player's turn
+      setTimeout(() => site.sound.play('error'), 500);
+      opts.input.value = '';
+      opts.ctrl.checker?.clear();
+    } else {
+      const wrong = v.length && legalSans && !sanCandidates(v, legalSans).length;
+      if (wrong && !opts.input.classList.contains('wrong')) site.sound.play('error');
+      opts.input.classList.toggle('wrong', !!wrong);
     }
   };
-  let usedSan = false;
-  return {
-    drop(key, piece) {
-      const role = sanToRole[piece];
-      const crazyData = root.data.crazyhouse;
-      const color = root.data.player.color;
-      // Crazyhouse not set up properly
-      if (!root.crazyValid || !root.sendNewPiece) return;
-      // Square occupied
-      if (!role || !crazyData || cg.state.pieces.has(key)) return;
-      // Piece not in Pocket
-      if (!crazyData.pockets[color === 'white' ? 0 : 1][role]) return;
-      if (!root.crazyValid(role, key)) return;
-      cg.cancelMove();
-      cg.newPiece({ role, color }, key);
-      root.sendNewPiece(role, key, false);
-    },
-    promote(orig, dest, piece) {
-      const role = sanToRole[piece];
-      const variant = root.data.game.variant.key;
-      if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
-      cg.cancelMove();
-      promote(cg, dest, role);
-      root.auxMove(orig, dest, role);
-    },
-    update(up: MoveUpdate) {
-      if (up.cg) cg = up.cg;
-      if (handler) handler(up.fen, cg.state.movable.dests, up.canMove);
-      else preHandlerBuffer = up.fen;
-    },
-    registerHandler(h: KeyboardMoveHandler) {
-      handler = h;
-      if (preHandlerBuffer) handler(preHandlerBuffer, cg.state.movable.dests);
-    },
-    san(orig, dest) {
-      usedSan = true;
-      cg.cancelMove();
-      select(orig);
-      select(dest);
-      // ensure chessground does not leave the destination square selected
-      cg.cancelMove();
-    },
-    select,
-    hasSelected: () => cg.state.selected,
-    confirmMove: () => (root.submitMove ? root.submitMove(true) : null),
-    usedSan,
-    jump(plyDelta: number) {
-      root.userJumpPlyDelta && root.userJumpPlyDelta(plyDelta);
-      root.redraw();
-    },
-    justSelected: () => performance.now() - lastSelect < 500,
-    draw: () => (root.offerDraw ? root.offerDraw(true, true) : null),
-    resign: (v, immediately) => (root.resign ? root.resign(v, immediately) : null),
-    next: () => root.nextPuzzle?.(),
-    vote: (v: boolean) => root.vote?.(v),
-    helpModalOpen,
-    isFocused,
-    checker: root.speakClock ? new KeyboardChecker() : undefined,
-    opponent: root.data.opponent?.user?.username,
-    speakClock: root.speakClock,
-    goBerserk: root.goBerserk,
+  const clear = () => {
+    opts.input.value = '';
+    opts.input.classList.remove('wrong');
+    opts.ctrl.checker?.clear();
+  };
+  makeBindings(opts, submit, clear);
+  // returns a function that is called when any move is played
+  return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
+    legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
+    // this plays a premove if it is available in the input
+    submit(opts.input.value, {
+      isTrusted: true,
+      yourMove: yourMove,
+    });
   };
 }
 
-export function render(ctrl: KeyboardMove) {
-  return h('div.keyboard-move', [
-    h('input', {
-      attrs: { spellcheck: 'false', autocomplete: 'off' },
-      hook: onInsert((input: HTMLInputElement) =>
-        loadKeyboardMove({ input, ctrl }).then((m: KeyboardMoveHandler) => ctrl.registerHandler(m)),
-      ),
-    }),
-    ctrl.isFocused()
-      ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
-      : h('strong', 'Press <enter> to focus'),
-    ctrl.helpModalOpen()
-      ? site.dialog.snab({
-          class: 'help.keyboard-move-help',
-          htmlUrl: '/help/keyboard-move',
-          onClose: () => ctrl.helpModalOpen(false),
-        })
-      : null,
-  ]);
+function iccfToUci(v: string) {
+  const chars = v.split('');
+  if (chars[0]) chars[0] = files[parseInt(chars[0]) - 1];
+  if (chars[2]) chars[2] = 'kqrbn'[parseInt(chars[2])];
+
+  return chars.join('');
+}
+
+function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
+  site.mousetrap.bind('enter', () => opts.input.focus());
+  /* keypress doesn't cut it here;
+   * at the time it fires, the last typed char
+   * is not available yet. Reported by:
+   * https://lichess.org/forum/lichess-feedback/keyboard-input-changed-today-maybe-a-bug
+   */
+  opts.input.addEventListener('keyup', (e: KeyboardEvent) => {
+    if (!e.isTrusted) return;
+    const v = (e.target as HTMLInputElement).value;
+    if (v.includes('/')) {
+      focusChat();
+      clear();
+    } else if (v == '' && e.key == 'Enter') opts.ctrl.confirmMove();
+    else {
+      opts.ctrl.checker?.press(e);
+      submit(v, {
+        force: e.key == 'Enter',
+        isTrusted: true,
+      });
+    }
+  });
+  opts.input.addEventListener('focus', () => opts.ctrl.isFocused(true));
+  opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
+  // prevent default on arrow keys: they only replay moves
+  opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.which > 36 && e.which < 41) {
+      if (e.which == 37) opts.ctrl.jump(-1);
+      else if (e.which == 38) opts.ctrl.jump(-999);
+      else if (e.which == 39) opts.ctrl.jump(1);
+      else opts.ctrl.jump(999);
+      e.preventDefault();
+    }
+  });
+}
+
+function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
+  if (san in legalSans) return legalSans[san];
+  const lowered = san.toLowerCase();
+  for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
+  return;
+}
+
+function sanCandidates(san: string, legalSans: SanToUci): San[] {
+  // replace '=' in promotion moves (#7326)
+  const lowered = san.replace('=', '').toLowerCase();
+  return Object.keys(legalSans).filter(function (s) {
+    return s.toLowerCase().startsWith(lowered);
+  });
+}
+
+function focusChat() {
+  const chatInput = document.querySelector('.mchat .mchat__say') as HTMLInputElement;
+  if (chatInput) chatInput.focus();
 }

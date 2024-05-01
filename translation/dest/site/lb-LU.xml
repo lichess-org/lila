@@ -279,9 +279,9 @@
   <string name="customPosition">Benotzerdefinéiert Stellung</string>
   <string name="unlimited">Illimitéiert</string>
   <string name="mode">Modus</string>
-  <string name="casual">Lässeg</string>
+  <string name="casual">Ongewäert</string>
   <string name="rated">Gewäert</string>
-  <string name="casualTournament">Lässeg</string>
+  <string name="casualTournament">Ongewäert</string>
   <string name="ratedTournament">Gewäert</string>
   <string name="thisGameIsRated">Dës Partie ass gewäert</string>
   <string name="rematch">Revanche</string>
@@ -670,7 +670,7 @@
   <string name="aboutSimulImage">Vun 50 Géigner huet den Fischer géint 47 gewonn, géint 2 Remis gespillt and 1 Partie verluer.</string>
   <string name="aboutSimulRealLife">D\'Konzept gläicht deem vun richtegen Simultanveranstaltungen, wou den Host vun Briet zu Briet geet.</string>
   <string name="aboutSimulRules">Wann d\'Simul ufänkt, start all Spiller eng Partie mam Host. D\'Simul ass fäerdeg wann all Partien fäerdeg sinn.</string>
-  <string name="aboutSimulSettings">Simuls sin ëmmer ongewäert. Revanche, Zeréckhuelen and Zäit bäiginn sin net méiglech.</string>
+  <string name="aboutSimulSettings">Simultanpartië sinn ëmmer ongewäert. Revanchen, Zeréckhuelen an Zäit bäigi sinn net méiglech.</string>
   <string name="create">Kreéieren</string>
   <string name="whenCreateSimul">Wanns du eng Simul kreéiers. kanns du géint puer Spiller gläichzäiteg spillen.</string>
   <string name="simulVariantsHint">Wanns du puer Varianten auswiehls, kann all Spiller wiehlen, wéieng hien spillt.</string>
@@ -821,7 +821,7 @@
   <string name="findBetterMoveForWhite">Fann en bessern Zuch fir Wäiss</string>
   <string name="findBetterMoveForBlack">Fann en bessern Zuch fir Schwaarz</string>
   <string name="resumeLearning">Weider léieren</string>
-  <string name="youCanDoBetter">Et geht nach besser</string>
+  <string name="youCanDoBetter">Et geet nach besser</string>
   <string name="tryAnotherMoveForWhite">Probéier een aneren Zuch fir Wäiss</string>
   <string name="tryAnotherMoveForBlack">Probéier een aneren Zuch fir Schwaarz</string>
   <string name="solution">Léisung</string>

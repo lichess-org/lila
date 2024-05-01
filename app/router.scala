@@ -39,7 +39,7 @@ given appealId: Conversion[String, Appeal.Id]                            = Appea
 given reportId: Conversion[String, ReportId]                             = ReportId(_)
 given clasId: Conversion[String, Clas.Id]                                = Clas.Id(_)
 given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasInvite.Id(_)
-given relayTourInviteId: Conversion[String, lila.relay.RelayTour.Id]     = lila.relay.RelayTour.Id(_)
+given relayTourInviteId: Conversion[String, lila.relay.RelayTourId]      = lila.relay.RelayTourId(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr.from(_)
 given perfKeyStr: Conversion[String, PerfKeyStr]                         = PerfKeyStr(_)
@@ -51,13 +51,8 @@ given uciOpt: Conversion[Option[String], Option[chess.format.Uci]]       = _.fla
 // Used when constructing URLs from routes
 // TODO actually use the types in the routes
 object ReverseRouterConversions:
-  given challengeIdConv: Conversion[Challenge.Id, String]            = _.value
-  given appealIdConv: Conversion[Appeal.Id, String]                  = _.value
-  given clasIdConv: Conversion[Clas.Id, String]                      = _.value
-  given clasInviteIdConv: Conversion[ClasInvite.Id, String]          = _.value
-  given relayTourIdConv: Conversion[lila.relay.RelayTour.Id, String] = _.value
-  given puzzleKeyConv: Conversion[PuzzleTheme.Key, String]           = _.value
-  given localDateConv: Conversion[java.time.LocalDate, String]       = _.toString
-  given cmsPageIdConv: Conversion[lila.cms.CmsPage.Id, String]       = _.value
-  given Conversion[lila.cms.CmsPage.Key, String]                     = _.value
-  given Conversion[chess.FideId, Int]                                = _.value
+  given challengeIdConv: Conversion[Challenge.Id, String]      = _.value
+  given appealIdConv: Conversion[Appeal.Id, String]            = _.value
+  given clasIdConv: Conversion[Clas.Id, String]                = _.value
+  given clasInviteIdConv: Conversion[ClasInvite.Id, String]    = _.value
+  given localDateConv: Conversion[java.time.LocalDate, String] = _.toString

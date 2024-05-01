@@ -2,12 +2,30 @@ package views.base
 
 import play.api.i18n.Lang
 
-import lila.web.ContentSecurityPolicy
+import lila.ui.ContentSecurityPolicy
 import lila.app.templating.Environment.{ *, given }
 
-import lila.web.LangPath
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
+
+def page(p: Page)(using ctx: PageContext): Frag =
+  layout(
+    title = p.title,
+    fullTitle = p.fullTitle,
+    robots = p.robots | netConfig.crawlable,
+    moreCss = p.cssFrag,
+    modules = p.modules,
+    moreJs = p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
+    pageModule = p.pageModule,
+    playing = p.playing,
+    openGraph = p.openGraph,
+    zoomable = p.zoomable,
+    zenable = p.zenable,
+    csp = p.csp.map(_(defaultCsp)),
+    wrapClass = p.wrapClass,
+    atomLinkTag = p.atomLinkTag,
+    withHrefLangs = p.withHrefLangs
+  )(p.transform(p.body))
 
 object layout:
 
@@ -27,14 +45,6 @@ object layout:
       s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
         s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">""" +
         s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
-
-  private def systemThemeScript(using ctx: PageContext) =
-    (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).option(
-      embedJsUnsafe(
-        "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
-          "document.documentElement.classList.add('light');"
-      )
-    )
 
   private def boardPreload(using ctx: Context) = frag(
     preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
@@ -60,13 +70,13 @@ object layout:
       moreJs: Frag = emptyFrag,
       pageModule: Option[PageModule] = None,
       playing: Boolean = false,
-      openGraph: Option[lila.web.OpenGraph] = None,
+      openGraph: Option[OpenGraph] = None,
       zoomable: Boolean = false,
       zenable: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
       atomLinkTag: Option[Tag] = None,
-      withHrefLangs: Option[LangPath] = None
+      withHrefLangs: Option[lila.ui.LangPath] = None
   )(body: Frag)(using ctx: PageContext): Frag =
     import ctx.pref
     frag(
@@ -101,7 +111,7 @@ object layout:
           favicons,
           (!robots).option(raw("""<meta content="noindex, nofollow" name="robots">""")),
           noTranslate,
-          openGraph.map(_.frags),
+          openGraph.map(lila.web.views.openGraph),
           atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
             raw:
@@ -117,12 +127,12 @@ object layout:
             modules ++ pageModule.so(module => jsPageModule(module.name)),
             isInquiry = ctx.data.inquiry.isDefined
           ),
-          systemThemeScript
+          (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),
         st.body(
           cls := {
             val baseClass =
-              s"${pref.currentBg} ${current2dTheme.cssClass} ${pref.currentTheme3d.cssClass} ${pref.currentPieceSet3d.toString} coords-${pref.coordsClass}"
+              s"${current2dTheme.cssClass} ${pref.currentTheme3d.cssClass} ${pref.currentPieceSet3d.toString} coords-${pref.coordsClass}"
             List(
               baseClass              -> true,
               "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
@@ -156,7 +166,7 @@ object layout:
         )(
           blindModeForm,
           ctx.data.inquiry.map { views.mod.inquiry(_) },
-          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.impersonate(_) },
+          ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
           netConfig.stageBanner.option(views.base.bits.stage),
           lila.security.EmailConfirm.cookie
             .get(ctx.req)

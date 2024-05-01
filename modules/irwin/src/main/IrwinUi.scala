@@ -3,8 +3,9 @@ package lila.irwin
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.game.Pov
+import lila.game.GameExt.playerBlurPercent
 
-final class IrwinUi(helpers: Helpers)(playerBlurPercent: Pov => Int):
+final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
 
   private def povLink(pov: Pov)(using Context) =
@@ -64,7 +65,7 @@ final class IrwinUi(helpers: Helpers)(playerBlurPercent: Pov => Int):
                   em("assessment")
                 ),
                 td {
-                  val blurs = playerBlurPercent(pov)
+                  val blurs = pov.game.playerBlurPercent(pov.color)
                   frag(strong(cls := percentClass(blurs))(blurs, "%"), " ", em("blurs"))
                 }
                 // td(
@@ -76,50 +77,60 @@ final class IrwinUi(helpers: Helpers)(playerBlurPercent: Pov => Int):
       )
     )
 
-  def dashboard(dashboard: IrwinReport.Dashboard)(using Context) =
-    div(cls := "irwin page-menu__content box")(
-      boxTop(
-        h1(
-          "Irwin status: ",
-          if dashboard.seenRecently then span(cls := "up")("Operational")
-          else
-            span(cls := "down")(
-              dashboard.lastSeenAt.fold(frag("Unknown")): seenAt =>
-                frag("Last seen ", momentFromNow(seenAt))
-            )
-        ),
-        div(cls := "box__top__actions")(
-          a(
-            href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
-            cls  := "button button-empty"
-          )("Monitoring")
+  private def DashPage(title: String, active: String)(using Context) =
+    Page(title)
+      .cssTag("mod.misc")
+      .wrap: body =>
+        main(cls := "page-menu")(
+          menu(active),
+          body
         )
-      ),
-      table(cls := "slist slist-pad")(
-        thead(
-          tr(
-            th("Recent report"),
-            th("Completed"),
-            th("Owner"),
-            th("Activation")
+
+  def dashboard(dashboard: IrwinReport.Dashboard)(using Context) =
+    DashPage("Irwin dashboard", "irwin"):
+      div(cls := "irwin page-menu__content box")(
+        boxTop(
+          h1(
+            "Irwin status: ",
+            if dashboard.seenRecently then span(cls := "up")("Operational")
+            else
+              span(cls := "down")(
+                dashboard.lastSeenAt.fold(frag("Unknown")): seenAt =>
+                  frag("Last seen ", momentFromNow(seenAt))
+              )
+          ),
+          div(cls := "box__top__actions")(
+            a(
+              href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
+              cls  := "button button-empty"
+            )("Monitoring")
           )
         ),
-        tbody(
-          dashboard.recent.map: rep =>
-            tr(cls := "report")(
-              td(userIdLink(rep.suspectId.value.some)),
-              td(cls := "little completed")(momentFromNow(rep.date)),
-              td(rep.owner),
-              td(cls := s"little activation ${percentClass(rep.activation)}")(
-                strong(rep.activation, "%"),
-                " over ",
-                rep.games.size,
-                " games"
-              )
+        table(cls := "slist slist-pad")(
+          thead(
+            tr(
+              th("Recent report"),
+              th("Completed"),
+              th("Owner"),
+              th("Activation")
             )
+          ),
+          tbody(
+            dashboard.recent.map: rep =>
+              tr(cls := "report")(
+                td(userIdLink(rep.suspectId.value.some)),
+                td(cls := "little completed")(momentFromNow(rep.date)),
+                td(rep.owner),
+                td(cls := s"little activation ${percentClass(rep.activation)}")(
+                  strong(rep.activation, "%"),
+                  " over ",
+                  rep.games.size,
+                  " games"
+                )
+              )
+          )
         )
       )
-    )
 
   object kaladin:
 
@@ -152,64 +163,65 @@ final class IrwinUi(helpers: Helpers)(playerBlurPercent: Pov => Int):
       )
 
     def dashboard(dashboard: KaladinUser.Dashboard)(using Context) =
-      div(cls := "kaladin page-menu__content box")(
-        boxTop(
-          h1(
-            "Kaladin status: ",
-            if dashboard.seenRecently then span(cls := "up")("Operational")
-            else
-              span(cls := "down")(
-                dashboard.lastSeenAt
-                  .map: seenAt =>
-                    frag("Last seen ", momentFromNow(seenAt))
-                  .getOrElse {
-                    frag("Unknown")
-                  }
-              )
-          ),
-          div(cls := "box__top__actions")(
-            a(
-              href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
-              cls  := "button button-empty"
-            )("Monitoring")
-          )
-        ),
-        table(cls := "slist slist-pad")(
-          thead(
-            tr(
-              th("Recent request"),
-              th("Queued"),
-              th("Started"),
-              th("Completed"),
-              th("Requester"),
-              th("Score")
+      DashPage("Kaladin dashboard", "kaladin"):
+        div(cls := "kaladin page-menu__content box")(
+          boxTop(
+            h1(
+              "Kaladin status: ",
+              if dashboard.seenRecently then span(cls := "up")("Operational")
+              else
+                span(cls := "down")(
+                  dashboard.lastSeenAt
+                    .map: seenAt =>
+                      frag("Last seen ", momentFromNow(seenAt))
+                    .getOrElse {
+                      frag("Unknown")
+                    }
+                )
+            ),
+            div(cls := "box__top__actions")(
+              a(
+                href := "https://monitor.lichess.ovh/d/a5qOnu9Wz/mod-yield",
+                cls  := "button button-empty"
+              )("Monitoring")
             )
           ),
-          tbody(
-            dashboard.recent.map { entry =>
-              tr(cls := "report")(
-                td(userIdLink(entry.id.some, params = "?mod")),
-                td(cls := "little")(momentFromNow(entry.queuedAt)),
-                td(cls := "little")(entry.startedAt.map { momentFromNow(_) }),
-                td(cls := "little completed")(entry.response.map(_.at).map { momentFromNow(_) }),
-                td(
-                  entry.queuedBy match
-                    case KaladinUser.Requester.Mod(id) => userIdLink(id.some)
-                    case requester                     => em(requester.name)
-                ),
-                entry.response.fold(td): res =>
-                  res.pred
-                    .map: pred =>
-                      td(cls := s"little activation ${percentClass(pred.percent)}")(
-                        strong(pred.percent)
-                      )
-                    .orElse {
-                      res.err.map: err =>
-                        td(cls := "error")(err)
-                    }
-                    .getOrElse(td)
+          table(cls := "slist slist-pad")(
+            thead(
+              tr(
+                th("Recent request"),
+                th("Queued"),
+                th("Started"),
+                th("Completed"),
+                th("Requester"),
+                th("Score")
               )
-            }
+            ),
+            tbody(
+              dashboard.recent.map { entry =>
+                tr(cls := "report")(
+                  td(userIdLink(entry.id.some, params = "?mod")),
+                  td(cls := "little")(momentFromNow(entry.queuedAt)),
+                  td(cls := "little")(entry.startedAt.map { momentFromNow(_) }),
+                  td(cls := "little completed")(entry.response.map(_.at).map { momentFromNow(_) }),
+                  td(
+                    entry.queuedBy match
+                      case KaladinUser.Requester.Mod(id) => userIdLink(id.some)
+                      case requester                     => em(requester.name)
+                  ),
+                  entry.response.fold(td): res =>
+                    res.pred
+                      .map: pred =>
+                        td(cls := s"little activation ${percentClass(pred.percent)}")(
+                          strong(pred.percent)
+                        )
+                      .orElse {
+                        res.err.map: err =>
+                          td(cls := "error")(err)
+                      }
+                      .getOrElse(td)
+                )
+              }
+            )
           )
         )
-      )

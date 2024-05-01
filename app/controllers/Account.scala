@@ -4,13 +4,13 @@ import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
 import scalatags.Text.Frag
-
 import scala.util.chaining.*
 
 import lila.web.AnnounceApi
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
+import views.account.pages
 
 final class Account(
     env: Env,
@@ -20,12 +20,12 @@ final class Account(
 
   def profile = Auth { _ ?=> me ?=>
     Ok.page:
-      views.account.profile(me, env.user.forms.profileOf(me))
+      pages.profile(me, env.user.forms.profileOf(me))
   }
 
   def username = Auth { _ ?=> me ?=>
     Ok.page:
-      views.account.username(me, env.user.forms.usernameOf(me))
+      pages.username(me, env.user.forms.usernameOf(me))
   }
 
   def profileApply = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
@@ -34,7 +34,7 @@ final class Account(
       .fold(
         err =>
           negotiate(
-            BadRequest.page(views.account.profile(me, err)),
+            BadRequest.page(pages.profile(me, err)),
             jsonFormError(err)
           ),
         profile =>
@@ -55,7 +55,7 @@ final class Account(
   }
 
   def usernameApply = AuthBody { _ ?=> me ?=>
-    FormFuResult(env.user.forms.username(me))(err => renderPage(views.account.username(me, err))): username =>
+    FormFuResult(env.user.forms.username(me))(err => renderPage(pages.username(me, err))): username =>
       env.user.repo
         .setUsernameCased(me, username)
         .inject(Redirect(routes.User.show(me.username)).flashSuccess)
@@ -136,13 +136,13 @@ final class Account(
 
   def passwd = Auth { _ ?=> me ?=>
     env.security.forms.passwdChange.flatMap: form =>
-      Ok.page(views.account.passwd(form))
+      Ok.page(pages.password(form))
   }
 
   def passwdApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
       env.security.forms.passwdChange.flatMap: form =>
-        FormFuResult(form)(err => renderPage(views.account.passwd(err))): data =>
+        FormFuResult(form)(err => renderPage(pages.password(err))): data =>
           env.security.authenticator.setPassword(me, lila.core.security.ClearPassword(data.newPasswd1)) >>
             refreshSessionId(Redirect(routes.Account.passwd).flashSuccess)
   }
@@ -161,7 +161,7 @@ final class Account(
   def email = Auth { _ ?=> me ?=>
     if getBool("check")
     then Ok.async(renderCheckYourEmail)
-    else emailForm.flatMap(f => Ok.page(views.account.email(f)))
+    else emailForm.flatMap(f => Ok.page(pages.email(f)))
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ ?=> me ?=>
@@ -176,7 +176,7 @@ final class Account(
   def emailApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
       env.security.forms.preloadEmailDns() >> emailForm.flatMap: form =>
-        FormFuResult(form)(err => renderPage(views.account.email(err))): data =>
+        FormFuResult(form)(err => renderPage(pages.email(err))): data =>
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, data.email)
           auth.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
             env.security.emailChange
@@ -204,15 +204,15 @@ final class Account(
       case Some(me) =>
         Redirect(routes.User.show(me.username))
       case None if get("username").isEmpty =>
-        Ok.page(views.account.emailConfirmHelp(helpForm, none))
+        Ok.page(views.account.security.emailConfirmHelp(helpForm, none))
       case None =>
         helpForm
           .bindFromRequest()
           .fold(
-            err => BadRequest.page(views.account.emailConfirmHelp(err, none)),
+            err => BadRequest.page(views.account.security.emailConfirmHelp(err, none)),
             username =>
               getStatus(env.user.api, env.user.repo, username).flatMap: status =>
-                Ok.page(views.account.emailConfirmHelp(helpForm.fill(username), status.some))
+                Ok.page(views.account.security.emailConfirmHelp(helpForm.fill(username), status.some))
           )
 
   def twoFactor = Auth { _ ?=> me ?=>
@@ -241,7 +241,7 @@ final class Account(
   }
 
   def network(usingAltSocket: Option[Boolean]) = Auth { _ ?=> _ ?=>
-    val page = (use: Option[Boolean]) => Ok.page(views.account.network(use))
+    val page = (use: Option[Boolean]) => Ok.page(pages.network(use, ctx.pref.isUsingAltSocket))
     if usingAltSocket.isEmpty || usingAltSocket.has(ctx.pref.isUsingAltSocket) then page(none)
     else env.pref.api.setPref(ctx.pref.copy(usingAltSocket = usingAltSocket)) >> page(usingAltSocket)
   }
@@ -249,7 +249,7 @@ final class Account(
   def close = Auth { _ ?=> me ?=>
     env.clas.api.student.isManaged(me).flatMap { managed =>
       env.security.forms.closeAccount.flatMap: form =>
-        Ok.page(views.account.close(form, managed))
+        Ok.page(pages.close(form, managed))
     }
   }
 
@@ -257,7 +257,7 @@ final class Account(
     NotManaged:
       auth.HasherRateLimit:
         env.security.forms.closeAccount.flatMap: form =>
-          FormFuResult(form)(err => renderPage(views.account.close(err, managed = false))): _ =>
+          FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): _ =>
             env.api.accountClosure
               .close(me.value)
               .inject:
@@ -268,7 +268,7 @@ final class Account(
     for
       managed <- env.clas.api.student.isManaged(me)
       form    <- env.security.forms.toggleKid
-      page    <- Ok.page(views.account.kid(me, form, managed))
+      page    <- Ok.page(pages.kid(me, form, managed))
     yield page
   }
   def apiKid = Scoped(_.Preference.Read) { _ ?=> me ?=>
@@ -283,7 +283,7 @@ final class Account(
           .fold(
             err =>
               negotiate(
-                BadRequest.page(views.account.kid(me, err, managed = false)),
+                BadRequest.page(pages.kid(me, err, managed = false)),
                 BadRequest(errorsAsJson(err))
               ),
             _ =>
@@ -326,7 +326,7 @@ final class Account(
   ): Fu[Frag] =
     renderAsync:
       env.security.forms.reopen.map: baseForm =>
-        views.account.reopen.form(form.foldLeft(baseForm)(_.withForm(_)), msg)
+        pages.reopen.form(form.foldLeft(baseForm)(_.withForm(_)), msg)
 
   def reopen = Open:
     auth.RedirectToProfileIfLoggedIn:
@@ -359,7 +359,7 @@ final class Account(
     }
 
   def reopenSent = Open:
-    Ok.page(views.account.reopen.sent)
+    Ok.page(pages.reopen.sent)
 
   def reopenLogin(token: String) = Open:
     env.security.reopen.confirm(token).flatMap {
@@ -381,5 +381,5 @@ final class Account(
           apiC.GlobalConcurrencyLimitUser(me)(env.api.personalDataExport(user)): source =>
             Ok.chunked(source.map(_ + "\n"))
               .pipe(asAttachmentStream(s"lichess_${user.username}.txt"))
-        else Ok.page(views.account.data(user))
+        else Ok.page(pages.data(user))
   }
