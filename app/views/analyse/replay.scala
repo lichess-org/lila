@@ -173,78 +173,69 @@ object replay:
                         )
                       )
                     ),
-                  (!game.isPgnImport).option(
-                    frag(
+                    span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
+                  ),
+                  div(cls := "analyse__underboard__panels")(
+                    lila.game.GameExt
+                      .analysable(game)
+                      .option(
+                        div(cls := "computer-analysis")(
+                          if analysis.isDefined || analysisStarted then
+                            div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
+                          else
+                            postForm(
+                              cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
+                              action := routes.Analyse.requestAnalysis(gameId)
+                            ):
+                              submitButton(cls := "button text"):
+                                span(cls := "is3 text", dataIcon := Icon.BarChart)(
+                                  trans.site.requestAComputerAnalysis()
+                                )
+                        )
+                      ),
+                    div(cls := "move-times")(
                       (game.ply > 1)
-                        .option(span(role := "tab", dataPanel := "move-times")(trans.site.moveTimes())),
-                      cross.isDefined.option(
-                        span(role := "tab", dataPanel := "ctable")(trans.site.crosstable())
-                      )
-                    )
-                  ),
-                  span(role := "tab", dataPanel := "fen-pgn")(trans.study.shareAndExport())
-                ),
-                div(cls := "analyse__underboard__panels")(
-                  lila.game.GameExt
-                    .analysable(game)
-                    .option(
-                      div(cls := "computer-analysis")(
-                        if analysis.isDefined || analysisStarted then
-                          div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
-                        else
-                          postForm(
-                            cls    := s"future-game-analysis${ctx.isAnon.so(" must-login")}",
-                            action := routes.Analyse.requestAnalysis(gameId)
-                          ):
-                            submitButton(cls := "button text"):
-                              span(cls := "is3 text", dataIcon := Icon.BarChart)(
-                                trans.site.requestAComputerAnalysis()
-                              )
-                      )
+                        .option(div(id := "movetimes-chart-container")(canvas(id := "movetimes-chart")))
                     ),
-                  div(cls := "move-times")(
-                    (game.ply > 1)
-                      .option(div(id := "movetimes-chart-container")(canvas(id := "movetimes-chart")))
-                  ),
-                  div(cls := "fen-pgn")(
-                    div(
-                      strong("FEN"),
-                      input(
-                        readonly,
-                        spellcheck := false,
-                        cls        := "copyable autoselect like-text analyse__underboard__fen"
-                      )
-                    ),
-                    ctx.noBlind.option(
+                    div(cls := "fen-pgn")(
                       div(
-                        strong("Image"),
-                        imageLinks
-                      )
+                        strong("FEN"),
+                        input(
+                          readonly,
+                          spellcheck := false,
+                          cls        := "copyable autoselect like-text analyse__underboard__fen"
+                        )
+                      ),
+                      ctx.noBlind.option(
+                        div(
+                          strong("Image"),
+                          imageLinks
+                        )
+                      ),
+                      div(
+                        strong("Share"),
+                        shareLinks
+                      ),
+                      div(
+                        strong("PGN"),
+                        pgnLinks
+                      ),
+                      div(cls := "pgn")(pgn)
                     ),
-                    div(
-                      strong("Share"),
-                      shareLinks
-                    ),
-                    div(
-                      strong("PGN"),
-                      pgnLinks
-                    ),
-                    div(cls := "pgn")(pgn)
-                  ),
-                  cross.map: c =>
-                    div(cls := "ctable"):
-                      views.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+                    cross.map: c =>
+                      div(cls := "ctable"):
+                        views.game.ui.crosstable(pov.player.userId.fold(c)(c.fromPov), pov.gameId.some)
+                  )
                 )
               )
             )
-          )
-        ),
-        ctx.blind.option(
-          div(cls := "blind-content none")(
-            h2("PGN downloads"),
-            pgnLinks,
-            button(cls := "copy-pgn", attr("data-pgn") := pgn):
-              "Copy PGN to clipboard"
+          ),
+          ctx.blind.option(
+            div(cls := "blind-content none")(
+              h2("PGN downloads"),
+              pgnLinks,
+              button(cls := "copy-pgn", attr("data-pgn") := pgn):
+                "Copy PGN to clipboard"
+            )
           )
         )
-      )
