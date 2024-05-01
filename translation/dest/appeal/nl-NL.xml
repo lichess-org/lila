@@ -4,9 +4,13 @@
   <string name="arenaBanned">Uw account is verbannen van deelname aan arenas.</string>
   <string name="prizeBanned">Je account is verbannen van toernooien met echte prijzen.</string>
   <string name="boosterMarked">Je account is gemarkeerd voor manipulatie van beoordelingen.</string>
-  <string name="accountMuted">Uw account is gedempt.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Uw account is gedempt.</string>
   <string name="excludedFromLeaderboardsInfo">We definiëren dit als een onrechtvaardige manier om op de ranglijst te komen.</string>
   <string name="closedByModerators">Uw account is afgesloten door moderators.</string>
+  <string name="hiddenBlog">Jouw blogs zijn verborgen door moderators.</string>
   <string name="hiddenBlogInfo">Zorg ervoor dat u onze %s opnieuw leest.</string>
-  <string name="communicationGuidelines">richtlijnen voor communicatie</string>
+  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Je hebt een speeltime-out.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">richtlijnen voor communicatie</string>
+  <string name="blogRules">blog regels</string>
+  <string name="fairPlay">Eerlijk spel</string>
 </resources>
