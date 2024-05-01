@@ -10,6 +10,15 @@ import lila.common.Json.given
 
 lazy val bits = lila.study.ui.StudyBits(helpers)
 lazy val ui   = lila.study.ui.StudyUi(helpers, bits)
+lazy val list = lila.study.ui.ListUi(helpers, bits)
+
+def staffPicks(p: lila.cms.CmsPage.Render)(using PageContext) =
+  Page(p.title).cssTag("study.index", "page"):
+    main(cls := "page-menu")(
+      list.menu("staffPicks", lila.study.Order.Mine, Nil),
+      main(cls := "page-menu__content box box-pad page"):
+        views.site.page.pageContent(p)
+    )
 
 def streamers(streamers: List[UserId])(using Translate) =
   views.streamer.bits.contextual(streamers).map(_(cls := "none"))
