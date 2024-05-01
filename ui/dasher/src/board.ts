@@ -93,13 +93,15 @@ export class BoardCtrl extends PaneCtrl {
   };
 
   private reset = () => {
-    this.defaults.forEach(([prop, v]) => {
-      this.setVar(prop, v);
-      this.postPref(prop);
-    });
+    this.defaults
+      .filter(([prop, v]) => this.getVar(prop) !== v)
+      .forEach(([prop, v]) => {
+        this.setVar(prop, v);
+        this.postPref(prop);
+      });
     this.sliderKey = Date.now();
     document.body.classList.add('simple-board');
-    this.root.redraw();
+    this.redraw();
   };
 
   private getVar = (prop: string) =>
@@ -162,8 +164,8 @@ export class BoardCtrl extends PaneCtrl {
     return sliders;
   };
 
-  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) => {
-    return h(
+  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
+    h(
       `div.${prop}`,
       { attrs: { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` } },
       [
@@ -171,7 +173,6 @@ export class BoardCtrl extends PaneCtrl {
         h('input.range', {
           key: this.sliderKey + prop,
           attrs: { ...range, type: 'range', value: this.getVar(prop) },
-
           hook: {
             insert: (vnode: VNode) => {
               const input = vnode.elm as HTMLInputElement;
@@ -185,5 +186,4 @@ export class BoardCtrl extends PaneCtrl {
         }),
       ],
     );
-  };
 }
