@@ -633,9 +633,8 @@ final class User(
   }
 
   def redirect(username: UserStr) = Open:
-    staticRedirect(username.value) | {
+    staticRedirect(username.value) |
       tryRedirect(username).getOrElse(notFound)
-    }
 
   def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
     meOrFetch(username).map:
