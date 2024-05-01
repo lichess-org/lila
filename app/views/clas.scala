@@ -1,0 +1,30 @@
+package views.clas
+
+import play.api.data.Form
+
+import lila.ui.ContentSecurityPolicy
+import lila.app.templating.Environment.{ *, given }
+import lila.clas.{ Clas, Student }
+
+lazy val ui             = lila.clas.ui.ClasUi(helpers)
+private lazy val dashUi = lila.clas.ui.DashboardUi(helpers, ui)
+
+export dashUi.student.{ apply as studentDashboard }
+export dashUi.{ teacher as teacherDashboard }
+
+lazy val clas = lila.clas.ui.ClasPages(helpers, ui, dashUi)
+
+object student:
+  lazy val ui     = lila.clas.ui.StudentUi(helpers, views.clas.ui)
+  lazy val formUi = lila.clas.ui.StudentFormUi(helpers, views.clas.ui, ui)
+
+  export ui.{ invite }
+  export formUi.{ newStudent as form, many as manyForm, edit, release, close }
+
+  def show(
+      clas: Clas,
+      students: List[Student],
+      s: Student.WithUserAndManagingClas,
+      activities: Vector[lila.activity.ActivityView]
+  )(using ctx: Context) =
+    ui.show(clas, students, s, views.activity(s.withPerfs, activities))

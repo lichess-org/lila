@@ -78,15 +78,38 @@ object Form:
   val cleanText: Mapping[String]            = of(cleanTextFormatter)
   val cleanTextWithSymbols: Mapping[String] = of(cleanTextFormatterWithSymbols)
 
-  def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+  private def addLengthConstraints(m: Mapping[String], minLength: Int, maxLength: Int) =
     (minLength, maxLength) match
-      case (min, Int.MaxValue) => cleanText.verifying(Constraints.minLength(min))
-      case (0, max)            => cleanText.verifying(Constraints.maxLength(max))
-      case (min, max)          => cleanText.verifying(Constraints.minLength(min), Constraints.maxLength(max))
+      case (min, Int.MaxValue) => m.verifying(Constraints.minLength(min))
+      case (0, max)            => m.verifying(Constraints.maxLength(max))
+      case (min, max)          => m.verifying(Constraints.minLength(min), Constraints.maxLength(max))
+
+  def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    addLengthConstraints(cleanText, minLength, maxLength)
 
   val cleanNonEmptyText: Mapping[String] = cleanText.verifying(Constraints.nonEmpty)
   def cleanNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     cleanText(minLength, maxLength).verifying(Constraints.nonEmpty)
+
+  def cleanTextWithSymbols(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    addLengthConstraints(cleanTextWithSymbols, minLength, maxLength)
+
+  def cleanNoSymbolsText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    cleanTextWithSymbols(minLength, maxLength).verifying(noSymbolsConstraint)
+
+  def cleanNoSymbolsAndNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
+    cleanNoSymbolsText(minLength, maxLength).verifying(Constraints.nonEmpty)
+
+  private val eventNameConstraint = Constraints.pattern(
+    regex = """[\p{L}\p{N}-\s:.,;'°ª\+]+""".r,
+    error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
+  )
+
+  private val symbolsRegex =
+    raw"[\p{So}\p{block=Emoticons}\p{block=Miscellaneous Symbols and Pictographs}\p{block=Supplemental Symbols and Pictographs}]".r
+  val noSymbolsConstraint = V.Constraint[String]: t =>
+    if symbolsRegex.find(t) then V.Invalid(V.ValidationError("Must not contain emojis or other symbols"))
+    else V.Valid
 
   val slugConstraint: V.Constraint[String] =
     Constraints.pattern(
@@ -94,18 +117,11 @@ object Form:
       error = "Invalid characters; only letters, numbers, and dashes are accepted."
     )
 
-  object eventName:
-
-    def apply(minLength: Int, maxLength: Int, verifiedUser: Boolean) =
-      cleanText.verifying(
-        Constraints.minLength(minLength),
-        Constraints.maxLength(maxLength),
-        Constraints.pattern(
-          regex = """[\p{L}\p{N}-\s:.,;'°ª\+]+""".r,
-          error = "Invalid characters; only letters, numbers, and common punctuation marks are accepted."
-        ),
-        mustNotContainLichess(verifiedUser)
-      )
+  def eventName(minLength: Int, maxLength: Int, verifiedUser: Boolean) =
+    addLengthConstraints(cleanText, minLength, maxLength).verifying(
+      eventNameConstraint,
+      mustNotContainLichess(verifiedUser)
+    )
 
   object mustNotContainLichess:
     // \u0131\u0307 is ı (\u0131) with an i dot (\u0307)

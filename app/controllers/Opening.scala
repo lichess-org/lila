@@ -16,11 +16,11 @@ final class Opening(env: Env) extends LilaController(env):
       Ok.page:
         if HTTPRequest.isXhr(ctx.req)
         then views.opening.ui.resultsList(results)
-        else views.opening.searchResultsPage(searchQuery, results, env.opening.api.readConfig)
+        else views.opening.ui.resultsPage(searchQuery, results, env.opening.api.readConfig)
     else
       FoundPage(env.opening.api.index): page =>
         isGrantedOpt(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki).map {
-          views.opening.index(page, _)
+          views.opening.ui.index(page, _)
         }
 
   def byKeyAndMoves(key: String, moves: String) = Open:
@@ -40,7 +40,7 @@ final class Opening(env: Env) extends LilaController(env):
             Ok.pageAsync:
               page.query.exactOpening.so(env.puzzle.opening.getClosestTo).map { puzzle =>
                 val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
-                views.opening.show(page, puzzleKey)
+                views.opening.ui.show(page, puzzleKey)
               }
       }
 
@@ -71,4 +71,4 @@ final class Opening(env: Env) extends LilaController(env):
   }
 
   def tree = Open:
-    Ok.page(views.opening.tree(lila.opening.OpeningTree.compute, env.opening.api.readConfig))
+    Ok.page(views.opening.ui.tree(lila.opening.OpeningTree.compute, env.opening.api.readConfig))

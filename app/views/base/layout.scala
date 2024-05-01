@@ -8,25 +8,24 @@ import lila.app.templating.Environment.{ *, given }
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
-def page(p: lila.ui.Page)(using ctx: PageContext): Frag =
-  val l = p.layout(layoutDefault)
+def page(p: Page)(using ctx: PageContext): Frag =
   layout(
     title = p.title,
-    fullTitle = l.fullTitle,
-    robots = l.robots,
-    moreCss = l.cssFrag,
-    modules = l.modules,
-    moreJs = l.jsFrag(ctx.nonce),
-    pageModule = l.pageModule,
-    playing = l.playing,
-    openGraph = l.openGraph,
-    zoomable = l.zoomable,
-    zenable = l.zenable,
-    csp = l.csp.map(_(defaultCsp)),
-    wrapClass = l.wrapClass,
-    atomLinkTag = l.atomLinkTag,
-    withHrefLangs = l.withHrefLangs
-  )(p.body)
+    fullTitle = p.fullTitle,
+    robots = p.robots | netConfig.crawlable,
+    moreCss = p.cssFrag,
+    modules = p.modules,
+    moreJs = p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
+    pageModule = p.pageModule,
+    playing = p.playing,
+    openGraph = p.openGraph,
+    zoomable = p.zoomable,
+    zenable = p.zenable,
+    csp = p.csp.map(_(defaultCsp)),
+    wrapClass = p.wrapClass,
+    atomLinkTag = p.atomLinkTag,
+    withHrefLangs = p.withHrefLangs
+  )(p.transform(p.body))
 
 object layout:
 
@@ -47,14 +46,6 @@ object layout:
         s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">""" +
         s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
 
-  private def systemThemeScript(using ctx: PageContext) =
-    (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).option(
-      embedJsUnsafe(
-        "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
-          "document.documentElement.classList.add('light');"
-      )(ctx.nonce)
-    )
-
   private def boardPreload(using ctx: Context) = frag(
     preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
     ctx.pref.is3d.option(
@@ -69,6 +60,12 @@ object layout:
   private def current2dTheme(using ctx: Context) =
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
     else ctx.pref.currentTheme
+
+  def boardStyle(zoomable: Boolean)(using ctx: Context) =
+    s"---board-opacity:${ctx.pref.board.opacity};" +
+      s"---board-brightness:${ctx.pref.board.brightness};" +
+      s"---board-hue:${ctx.pref.board.hue};" +
+      zoomable.so(s"---zoom:$pageZoom;")
 
   def apply(
       title: String,
@@ -120,7 +117,7 @@ object layout:
           favicons,
           (!robots).option(raw("""<meta content="noindex, nofollow" name="robots">""")),
           noTranslate,
-          openGraph.map(_.frags),
+          openGraph.map(lila.web.views.openGraph),
           atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
             raw:
@@ -136,15 +133,14 @@ object layout:
             modules ++ pageModule.so(module => jsPageModule(module.name)),
             isInquiry = ctx.data.inquiry.isDefined
           ),
-          systemThemeScript
+          (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),
         st.body(
           cls := {
-            val baseClass =
-              s"${pref.currentBg} ${current2dTheme.cssClass} ${pref.currentTheme3d.cssClass} ${pref.currentPieceSet3d.toString} coords-${pref.coordsClass}"
+            val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
             List(
               baseClass              -> true,
-              "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
+              "simple-board"         -> pref.simpleBoard,
               "piece-letter"         -> pref.pieceNotationIsLetter,
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid.yes,
@@ -168,10 +164,12 @@ object layout:
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme        := pref.currentBg,
-          dataBoardTheme   := pref.currentTheme.name,
+          dataBoard        := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
+          dataBoard3d      := pref.currentTheme3d.name,
+          dataPieceSet3d   := pref.currentPieceSet3d.name,
           dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
-          style            := zoomable.option(s"---zoom:$pageZoom")
+          style            := boardStyle(zoomable)
         )(
           blindModeForm,
           ctx.data.inquiry.map { views.mod.inquiry(_) },

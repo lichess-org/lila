@@ -16,7 +16,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ manifest as _, safeJsonValue as _, * }
+  import assetHelper.{ defaultCsp, netConfig, cashTag, jsName, siteName }
 
   val doctype                                 = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang, ctx: Context) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -25,12 +25,14 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val viewport = raw:
     """<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">"""
   def metaCsp(csp: ContentSecurityPolicy): Frag = raw:
-    s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
+    s"""<meta http-equiv="Content-Security-Policy" content="${lila.web.ContentSecurityPolicy.render(csp)}">"""
   def metaCsp(csp: Option[ContentSecurityPolicy])(using Context, Option[Nonce]): Frag =
     metaCsp(csp.getOrElse(defaultCsp))
-  def systemThemeEmbedScript = raw:
-    "<script>if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
-      "document.documentElement.classList.add('light');</script>"
+  def systemThemeScript(nonce: Option[Nonce]) =
+    embedJsUnsafe(
+      "if (window.matchMedia('(prefers-color-scheme: light)')?.matches) " +
+        "document.documentElement.classList.add('light');"
+    )(nonce)
   def pieceSprite(name: String): Frag =
     link(id := "piece-sprite", href := assetUrl(s"piece-css/$name.css"), rel := "stylesheet")
 
@@ -147,11 +149,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   // consolidate script packaging here to dedup chunk dependencies
   def modulesPreload(modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
-    val keys: List[String] = "site" :: {
-      isInquiry.option("mod.inquiry")
-        :: (!netConfig.isProd).option("site.devMode")
-        :: modules.map(_.map(_.key))
-    }.flatten // in head
+    val keys: List[String] = "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
     frag(
       jsTag("manifest"),
       cashTag,
@@ -202,8 +200,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val dataSoundSet      = attr("data-sound-set")
   val dataTheme         = attr("data-theme")
   val dataDirection     = attr("data-direction")
-  val dataBoardTheme    = attr("data-board-theme")
+  val dataBoard         = attr("data-board")
   val dataPieceSet      = attr("data-piece-set")
+  val dataBoard3d       = attr("data-board3d")
+  val dataPieceSet3d    = attr("data-piece-set3d")
   val dataAssetUrl      = attr("data-asset-url")      := netConfig.assetBaseUrl.value
   val dataAssetVersion  = attr("data-asset-version")
   val dataDev           = attr("data-dev")            := (!netConfig.minifiedAssets).option("true")

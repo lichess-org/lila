@@ -63,18 +63,18 @@
     form {
       max-height: 400px;
       overflow: auto;
-    }
 
-    button {
-      display: block;
-      padding: 0.7rem 0.7rem 0.7rem 1rem;
-      border: none;
-      background: none;
-      width: 100%;
-      text-align: left;
+      button {
+        display: block;
+        padding: 0.7rem 0.7rem 0.7rem 1rem;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
 
-      &:hover {
-        background: $c-dasher-light;
+        &:hover {
+          background: $c-dasher-light;
+        }
       }
     }
 
@@ -198,24 +198,6 @@
 
   .piece .list {
     overflow: auto;
-  }
-
-  .board .zoom {
-    display: none;
-
-    @include mq-board-resizable {
-      display: block;
-    }
-
-    border-top: $border;
-    padding: 1.5rem;
-  }
-
-  .board .range {
-    font-size: 1.5em;
-    margin: 0;
-    padding: 0;
-    width: 100%;
   }
 
   .background #gallery {

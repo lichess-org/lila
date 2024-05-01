@@ -135,7 +135,7 @@ lazy val rating = module("rating",
 ).dependsOn(common % "test->test")
 
 lazy val cms = module("cms",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq()
 )
 
@@ -175,7 +175,7 @@ lazy val coordinate = module("coordinate",
 )
 
 lazy val feed = module("feed",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
@@ -215,7 +215,7 @@ lazy val room = module("room",
 )
 
 lazy val timeline = module("timeline",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
@@ -240,7 +240,7 @@ lazy val game = module("game",
 )
 
 lazy val gameSearch = module("gameSearch",
-  Seq(coreI18n, search),
+  Seq(coreI18n, search, ui),
   Seq()
 )
  // good dep to game
@@ -255,7 +255,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(coreI18n, tree, memo),
+  Seq(coreI18n, tree, memo, ui),
   tests.bundle
 )
 

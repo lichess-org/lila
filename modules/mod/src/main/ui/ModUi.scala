@@ -37,7 +37,7 @@ final class ModUi(helpers: Helpers)(
     )("GDPR erasure")
 
   def myLogs(logs: List[lila.mod.Modlog])(using Context) =
-    Page("My logs", _.cssTag("mod.misc")):
+    Page("My logs").cssTag("mod.misc"):
       main(cls := "page-menu")(
         menu("log"),
         div(id := "modlog_table", cls := "page-menu__content box")(
@@ -69,7 +69,7 @@ final class ModUi(helpers: Helpers)(
   def permissions(u: User, permissions: List[(String, List[Permission])])(using ctx: Context, me: Me) =
     def findGranterPackage(perms: Set[Permission], perm: Permission): Option[Permission] =
       (!perms(perm)).so(perms.find(_.grants(perm)))
-    Page(s"${u.username} permissions", _.cssTag("mod.permission", "form3")):
+    Page(s"${u.username} permissions").cssTag("mod.permission", "form3"):
       main(cls := "mod-permissions page-small box box-pad")(
         boxTop(h1(userLink(u), " permissions")),
         standardFlash,
@@ -113,7 +113,7 @@ final class ModUi(helpers: Helpers)(
       )
 
   def chatPanic(state: Option[Instant])(using Context) =
-    Page("Chat Panic", _.cssTag("mod.misc")):
+    Page("Chat Panic").cssTag("mod.misc"):
       main(cls := "page-menu")(
         menu("panic"),
         div(id := "chat-panic", cls := "page-menu__content box box-pad")(
@@ -155,7 +155,7 @@ final class ModUi(helpers: Helpers)(
       )
 
   def presets(group: String, form: Form[?])(using Context) =
-    Page(s"$group presets", _.cssTag("mod.misc", "form3")):
+    Page(s"$group presets").cssTag("mod.misc", "form3"):
       main(cls := "page-menu")(
         menu("presets"),
         div(cls := "page-menu__content box box-pad mod-presets")(
@@ -195,80 +195,81 @@ this.setSelectionRange(this.value.length, this.value.length);
   def emailConfirm(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using
       ctx: Context
   ) =
-    Page("Email confirmation", _.cssTag("mod.misc").js(embedJsUnsafeLoadThen(emailConfirmJs))):
-      main(cls := "page-menu")(
-        menu("email"),
-        div(cls := "mod-confirm page-menu__content box box-pad")(
-          h1(cls := "box__top")("Confirm a user email"),
-          p(
-            "If you provide an email, it will confirm the corresponding account, if any.",
-            br,
-            "If you provide an email and a username, it will set the email to that user, ",
-            "but only if the user has not yet confirmed their email."
-          ),
-          st.form(cls := "search", action := routes.Mod.emailConfirm, method := "GET")(
-            input(name := "q", placeholder := "<email> <username (optional)>", value := query, autofocus)
-          ),
-          user.map: u =>
-            table(cls := "slist")(
-              thead:
-                tr(
-                  th("User"),
-                  th("Email"),
-                  th("Games"),
-                  th("Marks"),
-                  th("Created"),
-                  th("Active"),
-                  th("Confirmed")
-                )
-              ,
-              tbody:
-                tr(
-                  td(userLink(u.user, withPerfRating = u.perfs.some, params = "?mod")),
-                  td(email.fold("-")(_.value)),
-                  td(u.count.game.localize),
-                  td(
-                    u.marks.engine.option("ENGINE"),
-                    u.marks.boost.option("BOOSTER"),
-                    u.marks.troll.option("SHADOWBAN"),
-                    u.enabled.no.option("CLOSED")
-                  ),
-                  td(momentFromNow(u.createdAt)),
-                  td(u.seenAt.map(momentFromNow(_))),
-                  td(style := "font-size:2em")(
-                    if !u.everLoggedIn then iconTag(Icon.Checkmark)(cls := "is-green")
-                    else iconTag(Icon.X)(cls                            := "is-red")
+    Page("Email confirmation")
+      .cssTag("mod.misc")
+      .js(embedJsUnsafeLoadThen(emailConfirmJs)):
+        main(cls := "page-menu")(
+          menu("email"),
+          div(cls := "mod-confirm page-menu__content box box-pad")(
+            h1(cls := "box__top")("Confirm a user email"),
+            p(
+              "If you provide an email, it will confirm the corresponding account, if any.",
+              br,
+              "If you provide an email and a username, it will set the email to that user, ",
+              "but only if the user has not yet confirmed their email."
+            ),
+            st.form(cls := "search", action := routes.Mod.emailConfirm, method := "GET")(
+              input(name := "q", placeholder := "<email> <username (optional)>", value := query, autofocus)
+            ),
+            user.map: u =>
+              table(cls := "slist")(
+                thead:
+                  tr(
+                    th("User"),
+                    th("Email"),
+                    th("Games"),
+                    th("Marks"),
+                    th("Created"),
+                    th("Active"),
+                    th("Confirmed")
                   )
-                )
-            )
+                ,
+                tbody:
+                  tr(
+                    td(userLink(u.user, withPerfRating = u.perfs.some, params = "?mod")),
+                    td(email.fold("-")(_.value)),
+                    td(u.count.game.localize),
+                    td(
+                      u.marks.engine.option("ENGINE"),
+                      u.marks.boost.option("BOOSTER"),
+                      u.marks.troll.option("SHADOWBAN"),
+                      u.enabled.no.option("CLOSED")
+                    ),
+                    td(momentFromNow(u.createdAt)),
+                    td(u.seenAt.map(momentFromNow(_))),
+                    td(style := "font-size:2em")(
+                      if !u.everLoggedIn then iconTag(Icon.Checkmark)(cls := "is-green")
+                      else iconTag(Icon.X)(cls                            := "is-red")
+                    )
+                  )
+              )
+          )
         )
-      )
 
   def queueStats(p: ModQueueStats.Result)(using Context) =
-    Page(
-      "Queues stats",
-      _.cssTag("mod.activity")(PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json)))
-    ):
-      main(cls := "page-menu")(
-        menu("queues"),
-        div(cls := "page-menu__content index box mod-queues")(
-          boxTop(
-            h1(
-              " Queues this ",
-              lila.ui.bits.mselect(
-                s"mod-activity__period-select box__top__actions",
-                span(p.period.key),
-                Period.values.toList.map: per =>
-                  a(
-                    cls  := (p.period == per).option("current"),
-                    href := routes.Mod.queues(per.key)
-                  )(per.toString)
+    Page("Queues stats")
+      .cssTag("mod.activity")
+      .js(PageModule("mod.activity", Json.obj("op" -> "queues", "data" -> p.json))):
+        main(cls := "page-menu")(
+          menu("queues"),
+          div(cls := "page-menu__content index box mod-queues")(
+            boxTop(
+              h1(
+                " Queues this ",
+                lila.ui.bits.mselect(
+                  s"mod-activity__period-select box__top__actions",
+                  span(p.period.key),
+                  Period.values.toList.map: per =>
+                    a(
+                      cls  := (p.period == per).option("current"),
+                      href := routes.Mod.queues(per.key)
+                    )(per.toString)
+                )
               )
-            )
-          ),
-          div(cls := "chart-grid")
+            ),
+            div(cls := "chart-grid")
+          )
         )
-      )
 
   def activity(p: ModActivity.Result)(using Context) =
     val whoSelector = lila.ui.bits.mselect(
@@ -295,20 +296,17 @@ this.setSelectionRange(this.value.length, this.value.length);
         )(per.toString)
       }
     )
-    Page(
-      "Moderation activity",
-      _.cssTag("mod.activity")(
-        PageModule("mod.activity", Json.obj("op" -> "activity", "data" -> ModActivity.json(p)))
-      )
-    ):
-      main(cls := "page-menu")(
-        menu("activity"),
-        div(cls := "page-menu__content index box mod-activity")(
-          boxTop(h1(whoSelector, " activity this ", periodSelector)),
-          div(cls := "chart chart-reports"),
-          div(cls := "chart chart-actions")
+    Page("Moderation activity")
+      .cssTag("mod.activity")
+      .js(PageModule("mod.activity", Json.obj("op" -> "activity", "data" -> ModActivity.json(p)))):
+        main(cls := "page-menu")(
+          menu("activity"),
+          div(cls := "page-menu__content index box mod-activity")(
+            boxTop(h1(whoSelector, " activity this ", periodSelector)),
+            div(cls := "chart chart-reports"),
+            div(cls := "chart chart-actions")
+          )
         )
-      )
 
   def menu(active: String)(using Context): Frag =
     lila.ui.bits.pageMenuSubnav(

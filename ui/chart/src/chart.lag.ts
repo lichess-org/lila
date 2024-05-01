@@ -104,7 +104,7 @@ export async function initModule() {
         v.server = d;
         if (v.server <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.server);
-        chart.options.plugins!.title!.text! = makeTitle(index, v.server);
+        chart.options.plugins!.title!.text = makeTitle(index, v.server);
         updateAnswer();
       });
     else {
@@ -112,7 +112,7 @@ export async function initModule() {
         v.network = Math.round(site.socket.averageLag);
         if (v.network <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.network);
-        chart.options.plugins!.title!.text! = makeTitle(index, v.network);
+        chart.options.plugins!.title!.text = makeTitle(index, v.network);
         updateAnswer();
       }, 1000);
     }

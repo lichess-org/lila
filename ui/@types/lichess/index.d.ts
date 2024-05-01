@@ -36,6 +36,7 @@ interface Site {
     flairSrc(flair: Flair): string;
     loadCss(path: string): Promise<void>;
     loadCssPath(path: string): Promise<void>;
+    removeCssPath(path: string): void;
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;

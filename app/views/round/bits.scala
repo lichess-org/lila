@@ -1,90 +1,16 @@
 package views.round
 
+import scala.util.chaining.*
 import chess.variant.{ Crazyhouse, Variant }
 
-import scala.util.chaining.*
-
 import lila.app.templating.Environment.{ *, given }
-
 import lila.common.Json.given
-
 import lila.game.GameExt.playerBlurPercent
 
+lazy val ui     = lila.round.ui.RoundUi(helpers)
+lazy val jsI18n = lila.round.ui.RoundI18n(helpers)
+
 object bits:
-
-  def povOpenGraph(pov: Pov) =
-    OpenGraph(
-      image = cdnUrl(routes.Export.gameThumbnail(pov.gameId, None, None).url).some,
-      title = titleGame(pov.game),
-      url = s"$netBaseUrl${routes.Round.watcher(pov.gameId, pov.color.name).url}",
-      description = describePov(pov)
-    )
-
-  // #TODO RoundUi
-  def describePov(pov: Pov) =
-    import pov.*
-    val p1    = playerText(game.whitePlayer, withRating = true)
-    val p2    = playerText(game.blackPlayer, withRating = true)
-    val plays = if game.finishedOrAborted then "played" else "is playing"
-    val speedAndClock =
-      if game.sourceIs(_.Import) then "imported"
-      else
-        game.clock.fold(chess.Speed.Correspondence.name): c =>
-          s"${chess.Speed(c.config).name} (${c.config.show})"
-
-    val mode = game.mode.name
-    val variant =
-      if game.variant == chess.variant.FromPosition
-      then "position setup chess"
-      else if game.variant.exotic
-      then game.variant.name
-      else "chess"
-    import chess.Status.*
-    val result = (game.winner, game.loser, game.status) match
-      case (Some(w), _, Mate)                               => s"${playerText(w)} won by checkmate"
-      case (_, Some(l), Resign | Timeout | Cheat | NoStart) => s"${playerText(l)} resigned"
-      case (_, Some(l), Outoftime)                          => s"${playerText(l)} ran out of time"
-      case (Some(w), _, UnknownFinish | VariantEnd)         => s"${playerText(w)} won"
-      case (_, _, Draw | Stalemate | UnknownFinish)         => "Game is a draw"
-      case (_, _, Aborted)                                  => "Game has been aborted"
-      case _ if game.finished                               => "Game ended"
-      case _                                                => "Game is still ongoing"
-    val moves = (game.ply.value - game.startedAtPly.value + 1) / 2
-    s"$p1 $plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!"
-
-  def layout(
-      variant: Variant,
-      title: String,
-      pageModule: Option[PageModule],
-      moreJs: Frag = emptyFrag,
-      modules: EsmList = Nil,
-      openGraph: Option[OpenGraph] = None,
-      moreCss: Frag = emptyFrag,
-      playing: Boolean = false,
-      zenable: Boolean = false,
-      robots: Boolean = false,
-      withHrefLangs: Option[lila.ui.LangPath] = None
-  )(body: Frag)(using ctx: PageContext) =
-    views.base.layout(
-      title = title,
-      openGraph = openGraph,
-      moreJs = moreJs,
-      moreCss = frag(
-        cssTag(if variant == Crazyhouse then "round.zh" else "round"),
-        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
-        ctx.pref.hasVoice.option(cssTag("voice")),
-        ctx.blind.option(cssTag("round.nvui")),
-        moreCss
-      ),
-      modules = modules,
-      pageModule = pageModule,
-      playing = playing,
-      zenable = zenable,
-      robots = robots,
-      zoomable = true,
-      csp = defaultCsp.withPeer.withWebAssembly.some,
-      withHrefLangs = withHrefLangs
-    )(body)
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(using ctx: Context) =
     cross.map: c =>

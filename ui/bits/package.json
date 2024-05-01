@@ -59,6 +59,7 @@
       "src/bits.flatpickr.ts",
       "src/bits.forum.ts",
       "src/bits.gameSearch.ts",
+      "src/bits.hcaptcha.ts",
       "src/bits.infiniteScroll.ts",
       "src/bits.login.ts",
       "src/bits.lpv.ts",

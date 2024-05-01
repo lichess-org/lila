@@ -10,7 +10,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   private def forms = lila.simul.SimulForm
 
-  private def simulNotFound(using Context) = NotFound.page(views.simul.bits.notFound())
+  private def simulNotFound(using Context) = NotFound.page(views.simul.ui.notFound)
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Simul.home)(serveHome)
@@ -28,7 +28,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   val homeReload = Open:
     fetchSimuls.flatMap: (pending, created, started, finished) =>
-      Ok.page(views.simul.homeInner(pending, created, started, finished))
+      Ok.page(views.simul.home.homeInner(pending, created, started, finished))
 
   private def fetchSimuls(using me: Option[Me]): Fu[(List[Sim], List[Sim], List[Sim], List[Sim])] =
     (
@@ -170,7 +170,7 @@ final class Simul(env: Env) extends LilaController(env):
           env.simul.api
             .hostedByUser(user.id, page)
             .map:
-              views.simul.hosted(user, _)
+              views.simul.home.hosted(user, _)
 
   private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =
     Found(env.simul.repo.find(simulId)): simul =>

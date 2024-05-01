@@ -5,17 +5,18 @@ import lila.app.*
 final class TournamentCrud(env: Env) extends LilaController(env):
 
   private def crud = env.tournament.crudApi
+  import views.tournament.form.{ crud as crudView }
 
   def index(page: Int) = Secure(_.ManageTournament) { _ ?=> _ ?=>
     Ok.pageAsync:
       crud
         .paginator(page)
-        .map(views.tournament.crud.index)
+        .map(crudView.index)
   }
 
   def edit(id: TourId) = Secure(_.ManageTournament) { ctx ?=> _ ?=>
     FoundPage(crud.one(id)): tour =>
-      views.tournament.crud.edit(tour, crud.editForm(tour))
+      crudView.edit(tour, crud.editForm(tour))
   }
 
   def update(id: TourId) = SecureBody(_.ManageTournament) { ctx ?=> _ ?=>
@@ -24,20 +25,20 @@ final class TournamentCrud(env: Env) extends LilaController(env):
         .editForm(tour)
         .bindFromRequest()
         .fold(
-          err => BadRequest.page(views.tournament.crud.edit(tour, err)),
+          err => BadRequest.page(crudView.edit(tour, err)),
           data => crud.update(tour, data).inject(Redirect(routes.TournamentCrud.edit(id)).flashSuccess)
         )
   }
 
   def form = Secure(_.ManageTournament) { ctx ?=> _ ?=>
-    Ok.page(views.tournament.crud.create(crud.createForm))
+    Ok.page(crudView.create(crud.createForm))
   }
 
   def create = SecureBody(_.ManageTournament) { ctx ?=> me ?=>
     crud.createForm
       .bindFromRequest()
       .fold(
-        err => BadRequest.page(views.tournament.crud.create(err)),
+        err => BadRequest.page(crudView.create(err)),
         data =>
           crud.create(data).map { tour =>
             Redirect {
@@ -50,5 +51,5 @@ final class TournamentCrud(env: Env) extends LilaController(env):
 
   def cloneT(id: TourId) = Secure(_.ManageTournament) { ctx ?=> _ ?=>
     FoundPage(crud.one(id)): old =>
-      views.tournament.crud.create(crud.editForm(crud.clone(old)))
+      crudView.create(crud.editForm(crud.clone(old)))
   }

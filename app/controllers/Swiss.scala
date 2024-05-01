@@ -16,7 +16,7 @@ final class Swiss(
 )(using akka.stream.Materializer)
     extends LilaController(env):
 
-  private def swissNotFound(using Context) = NotFound.page(views.swiss.bits.notFound())
+  private def swissNotFound(using Context) = NotFound.page(views.swiss.ui.notFound)
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Swiss.home)(serveHome)
@@ -26,7 +26,7 @@ final class Swiss(
       teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
       swiss   <- env.swiss.feature.get(teamIds)
       _       <- env.team.lightTeamApi.preload(swiss.teamIds)
-      page    <- renderPage(views.swiss.homepage(swiss))
+      page    <- renderPage(views.swiss.home.page(swiss))
     yield Ok(page)
 
   def show(id: SwissId) = Open:
@@ -104,7 +104,7 @@ final class Swiss(
           env.swiss
             .roundPager(swiss, r, page | 0)
             .flatMap: pager =>
-              Ok.page(views.swiss.show.round(swiss, r, team, pager))
+              Ok.page(views.swiss.showUi.round(swiss, r, team, pager))
 
   private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me.so(env.team.api.isGranted(teamId, _, _.Tour)).elseNotFound(f)

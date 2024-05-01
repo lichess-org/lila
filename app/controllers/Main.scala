@@ -10,6 +10,7 @@ import lila.common.HTTPRequest
 import lila.core.id.GameFullId
 
 import Forms.*
+import lila.core.net.Bearer
 
 final class Main(
     env: Env,
@@ -45,7 +46,7 @@ final class Main(
     Ok.page(views.site.page.webmasters)
 
   def lag = Open:
-    Ok.page(views.site.lag())
+    Ok.page(views.site.ui.lag)
 
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
@@ -59,10 +60,10 @@ final class Main(
 
   private def serveMobile(using Context) =
     pageHit
-    FoundPage(env.api.cmsRenderKey("mobile-apk"))(views.mobile.apply)
+    FoundPage(env.api.cmsRenderKey("mobile-apk"))(views.mobile)
 
   def dailyPuzzleSlackApp = Open:
-    Ok.page(views.site.dailyPuzzleSlackApp())
+    Ok.page(views.site.ui.dailyPuzzleSlackApp)
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -85,7 +86,7 @@ final class Main(
 
   def getFishnet = Open:
     pageHit
-    Ok.page(views.site.bits.getFishnet())
+    Ok.page(views.site.ui.getFishnet())
 
   def costs = Anon:
     pageHit
@@ -128,28 +129,9 @@ final class Main(
         env.security.lilaCookie.withSession(remember = true): s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
-  def legacyQaQuestion(id: Int, slug: String) = Open:
+  def legacyQaQuestion(id: Int, _slug: String) = Open:
     MovedPermanently:
-      val faq = routes.Main.faq.url
-      id match
-        case 103  => s"$faq#acpl"
-        case 258  => s"$faq#marks"
-        case 13   => s"$faq#titles"
-        case 87   => routes.User.ratingDistribution("blitz").url
-        case 110  => s"$faq#name"
-        case 29   => s"$faq#titles"
-        case 4811 => s"$faq#lm"
-        case 216  => routes.Main.mobile.url
-        case 340  => s"$faq#trophies"
-        case 6    => s"$faq#ratings"
-        case 207  => s"$faq#hide-ratings"
-        case 547  => s"$faq#leaving"
-        case 259  => s"$faq#trophies"
-        case 342  => s"$faq#provisional"
-        case 50   => routes.Cms.help.url
-        case 46   => s"$faq#name"
-        case 122  => s"$faq#marks"
-        case _    => faq
+      lila.web.StaticContent.legacyQaQuestion(id)
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
@@ -174,3 +156,21 @@ final class Main(
           .map(url => JsonOk(Json.obj("imageUrl" -> url)))
       case None => JsonBadRequest(jsonError("Image content only"))
   }
+
+  def githubSecretScanning =
+    AnonBodyOf(parse.json):
+      _.asOpt[List[JsObject]]
+        .map:
+          _.flatMap: obj =>
+            for
+              token <- (obj \ "token").asOpt[String]
+              url   <- (obj \ "url").asOpt[String]
+            yield Bearer(token) -> url
+          .toMap
+        .so: tokensMap =>
+          env.oAuth.tokenApi
+            .secretScanning(tokensMap)
+            .flatMap:
+              _.traverse: (token, url) =>
+                env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
+            .as(NoContent)

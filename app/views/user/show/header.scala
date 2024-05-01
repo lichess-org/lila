@@ -159,7 +159,7 @@ object header:
       isGranted(_.UserModView).option(div(cls := "mod-zone mod-zone-full none")),
       standardFlash,
       angle match
-        case UserInfo.Angle.Games(Some(searchForm)) => views.search.user(u, searchForm)
+        case UserInfo.Angle.Games(Some(searchForm)) => views.gameSearch.user(u, searchForm)
         case _ =>
           val profile   = u.profileOrDefault
           val hideTroll = u.marks.troll && ctx.isnt(u)
@@ -263,7 +263,7 @@ object header:
       ,
       (ctx.kid.no && info.ublog.so(_.latests).nonEmpty).option(
         div(cls := "user-show__blog ublog-post-cards")(
-          info.ublog.so(_.latests).map { views.ublog.postUi.card(_) }
+          info.ublog.so(_.latests).map(views.ublog.ui.card(_))
         )
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(

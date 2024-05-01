@@ -7,22 +7,32 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.fide.FideTC
 
-final class FideUi(helpers: Helpers)(assetUrl: String => String):
+final class FideUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }
 
-  val tcTrans: List[(FideTC, lila.core.i18n.I18nKey)] =
+  private val tcTrans: List[(FideTC, lila.core.i18n.I18nKey)] =
     List(
       FideTC.standard -> trans.site.classical,
       FideTC.rapid    -> trans.site.rapid,
       FideTC.blitz    -> trans.site.blitz
     )
 
+  private def page(title: String, active: String)(modifiers: Modifier*)(using Context): Page =
+    Page(title)
+      .cssTag("fide")
+      .js(infiniteScrollEsmInit):
+        main(cls := "page-menu")(
+          menu(active),
+          div(cls := "page-menu__content box")(modifiers)
+        )
+
   object federation:
 
     def index(feds: Paginator[Federation])(using Context) =
       def ratingCell(stats: lila.core.fide.Federation.Stats) =
         td(if stats.top10Rating > 0 then stats.top10Rating else "-")
-      frag(
+      page("FIDE federations", "federations")(
+        cls := "fide-federations",
         boxTop(h1("FIDE federations")),
         table(cls := "slist slist-pad")(
           thead:
@@ -49,7 +59,8 @@ final class FideUi(helpers: Helpers)(assetUrl: String => String):
       )
 
     def show(fed: Federation, players: Paginator[FidePlayer])(using Context) =
-      frag(
+      page(s"${fed.name} - FIDE federation", "federations")(
+        cls := "fide-federation",
         div(cls := "box__top fide-federation__head")(
           flag(fed.id, none),
           div(h1(fed.name), p(trans.site.nbPlayers.plural(fed.nbPlayers, fed.nbPlayers.localize))),
@@ -90,7 +101,8 @@ final class FideUi(helpers: Helpers)(assetUrl: String => String):
   object player:
 
     def index(players: Paginator[FidePlayer], query: String)(using Context) =
-      frag(
+      page("FIDE players", "players")(
+        cls := "fide-players",
         boxTop(
           h1("FIDE players"),
           div(cls := "box__top__actions"):
@@ -152,7 +164,8 @@ final class FideUi(helpers: Helpers)(assetUrl: String => String):
       div(cls := "fide-card fide-player__card")(em(name), strong(value))
 
     def show(player: FidePlayer, tours: Option[Frag])(using Context) =
-      frag(
+      page(s"${player.name} - FIDE player ${player.id}", "players")(
+        cls := "box-pad fide-player",
         h1(titleTag(player.title), player.name),
         div(cls := "fide-cards fide-player__cards")(
           player.fed.map: fed =>

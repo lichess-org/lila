@@ -9,35 +9,32 @@ import lila.app.templating.Environment.{ *, given }
 import lila.storm.{ StormDay, StormHigh }
 
 def home(data: JsObject, high: Option[StormHigh])(using PageContext) =
-  views.base.layout(
-    moreCss = frag(cssTag("storm")),
-    pageModule = PageModule("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))).some,
-    title = "Puzzle Storm",
-    zoomable = true,
-    zenable = true,
-    withHrefLangs = lila.ui.LangPath(routes.Storm.home).some
-  ) {
-    main(
-      div(cls := "storm storm-app storm--play")(
-        div(cls := "storm__board main-board"),
-        div(cls := "storm__side")
-      ),
-      high.map { h =>
-        frag(
-          div(cls := "storm-play-scores")(
-            span(trans.storm.highscores()),
-            a(href := routes.Storm.dashboard())(trans.storm.viewBestRuns(), " »")
-          ),
-          div(cls := "storm-dashboard__high__periods")(
-            renderHigh(h)
+  Page("Puzzle Storm")
+    .cssTag("storm")
+    .js(PageModule("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))))
+    .zoom
+    .zen
+    .hrefLangs(lila.ui.LangPath(routes.Storm.home)):
+      main(
+        div(cls := "storm storm-app storm--play")(
+          div(cls := "storm__board main-board"),
+          div(cls := "storm__side")
+        ),
+        high.map { h =>
+          frag(
+            div(cls := "storm-play-scores")(
+              span(trans.storm.highscores()),
+              a(href := routes.Storm.dashboard())(trans.storm.viewBestRuns(), " »")
+            ),
+            div(cls := "storm-dashboard__high__periods")(
+              renderHigh(h)
+            )
           )
+        },
+        div(cls := "storm__about__link")(
+          a(href := routes.Cms.lonePage("storm"))(trans.site.aboutX("Puzzle Storm"))
         )
-      },
-      div(cls := "storm__about__link")(
-        a(href := routes.Cms.lonePage("storm"))(trans.site.aboutX("Puzzle Storm"))
       )
-    )
-  }
 
 private def renderHigh(high: StormHigh)(using Translate) =
   frag(

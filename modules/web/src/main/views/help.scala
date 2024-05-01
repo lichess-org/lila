@@ -1,8 +1,6 @@
 package lila.web
 package views
 
-import play.api.i18n.Lang
-
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ Translate, I18nKey as trans }

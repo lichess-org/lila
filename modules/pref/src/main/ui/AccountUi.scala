@@ -9,6 +9,16 @@ import ScalatagsTemplate.{ *, given }
 final class AccountUi(helpers: Helpers):
   import helpers.{ *, given }
 
+  def AccountPage(title: String, active: String)(using lila.ui.Context) =
+    Page(title)
+      .cssTag("account")
+      .js(EsmInit("bits.account"))
+      .wrap: body =>
+        main(cls := "account page-menu")(
+          menu(active),
+          div(cls := "page-menu__content")(body)
+        )
+
   def categName(categ: PrefCateg)(using Translate): String = categ match
     case PrefCateg.Display      => trans.preferences.display.txt()
     case PrefCateg.ChessClock   => trans.preferences.chessClock.txt()

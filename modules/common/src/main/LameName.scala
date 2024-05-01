@@ -66,7 +66,6 @@ object LameName:
     "putin",
     "resign",
     "retard",
-    "shit",
     "slut",
     "suicid",
     "trump",

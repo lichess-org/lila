@@ -8,10 +8,10 @@ import reactivemongo.api.bson.*
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
-import UserId.lichess
 import lila.core.tournament.leaderboard.Ratio
 import lila.core.tournament.Status
 import lila.core.id.TourPlayerId
+import lila.gathering.Thematic
 
 object BSONHandlers:
 

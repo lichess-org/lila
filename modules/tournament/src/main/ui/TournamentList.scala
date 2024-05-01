@@ -1,108 +1,145 @@
 package lila.tournament
 package ui
 
+import play.api.libs.json.*
+import scalalib.paginator.Paginator
+
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
-import scalalib.paginator.Paginator
 import lila.tournament.Schedule.Freq
 import lila.rating.PerfType
 
-final class TournamentList(helpers: Helpers, ui: TournamentUi):
+final class TournamentList(helpers: Helpers, ui: TournamentUi)(
+    communityMenu: Context ?=> Frag,
+    shieldMenu: Context ?=> Frag
+):
   import helpers.{ *, given }
 
   def home(
       scheduled: List[Tournament],
       finished: List[Tournament],
-      winners: AllWinners
+      winners: AllWinners,
+      json: JsObject
   )(using ctx: Context) =
-    main(cls := "tour-home")(
-      st.aside(cls := "tour-home__side")(
-        h2(
-          a(href := routes.Tournament.leaderboard)(trans.site.leaderboard())
-        ),
-        ul(cls := "leaderboard")(
-          winners.top.map: w =>
-            li(
-              userIdLink(w.userId.some),
-              a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
-                ui.scheduledTournamentNameShortHtml(w.tourName)
-              )
-            )
-        ),
-        p(cls := "tour__links")(
-          ctx.me.map: me =>
-            frag(
-              a(href := routes.UserTournament.path(me.username, "created"))(trans.arena.myTournaments()),
-              br
-            ),
-          a(href := routes.Tournament.calendar)(trans.site.tournamentCalendar()),
-          br,
-          a(href := routes.Tournament.history(Freq.Unique.name))(trans.arena.history()),
-          br,
-          a(href := routes.Tournament.help)(trans.site.tournamentFAQ())
-        ),
-        h2(trans.site.lichessTournaments()),
-        div(cls := "scheduled")(
-          scheduled.map: tour =>
-            tour.schedule
-              .filter(s => s.freq != Freq.Hourly)
-              .map: s =>
-                a(href := routes.Tournament.show(tour.id), dataIcon := ui.tournamentIcon(tour))(
-                  strong(tour.name(full = false)),
-                  momentFromNow(s.at.instant)
-                )
+    Page(trans.site.tournaments.txt())
+      .cssTag("tournament.home")
+      .js(infiniteScrollEsmInit)
+      .js(
+        PageModule(
+          "tournament.schedule",
+          Json.obj("data" -> json, "i18n" -> ui.scheduleJsI18n)
         )
-      ),
-      st.section(cls := "tour-home__schedule box")(
-        boxTop(
-          h1(trans.site.tournaments()),
-          ctx.isAuth.option(
-            div(cls := "box__top__actions")(
-              a(
-                href     := routes.Tournament.form,
-                cls      := "button button-green text",
-                dataIcon := Icon.PlusButton
-              )(trans.site.createANewTournament())
-            )
-          )
-        ),
-        div(cls := "tour-chart")
-      ),
-      div(cls := "arena-list box")(
-        table(cls := "slist slist-pad")(
-          thead(
-            tr(
-              th(colspan := 2, cls := "large")(trans.site.finished()),
-              th(cls := "date"),
-              th(cls := "players")
+      )
+      .hrefLangs(LangPath(routes.Tournament.home))
+      .fullScreen
+      .copy(
+        wrapClass = "full-screen-force"
+      )
+      .graph(
+        url = s"$netBaseUrl${routes.Tournament.home.url}",
+        title = trans.site.tournamentHomeTitle.txt(),
+        description = trans.site.tournamentHomeDescription.txt()
+      ):
+        main(cls := "tour-home")(
+          st.aside(cls := "tour-home__side")(
+            h2(
+              a(href := routes.Tournament.leaderboard)(trans.site.leaderboard())
+            ),
+            ul(cls := "leaderboard")(
+              winners.top.map: w =>
+                li(
+                  userIdLink(w.userId.some),
+                  a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
+                    ui.scheduledTournamentNameShortHtml(w.tourName)
+                  )
+                )
+            ),
+            p(cls := "tour__links")(
+              ctx.me.map: me =>
+                frag(
+                  a(href := routes.UserTournament.path(me.username, "created"))(trans.arena.myTournaments()),
+                  br
+                ),
+              a(href := routes.Tournament.calendar)(trans.site.tournamentCalendar()),
+              br,
+              a(href := routes.Tournament.history(Freq.Unique.name))(trans.arena.history()),
+              br,
+              a(href := routes.Tournament.help)(trans.site.tournamentFAQ())
+            ),
+            h2(trans.site.lichessTournaments()),
+            div(cls := "scheduled")(
+              scheduled.map: tour =>
+                tour.schedule
+                  .filter(s => s.freq != Freq.Hourly)
+                  .map: s =>
+                    a(href := routes.Tournament.show(tour.id), dataIcon := ui.tournamentIcon(tour))(
+                      strong(tour.name(full = false)),
+                      momentFromNow(s.at.instant)
+                    )
             )
           ),
-          ui.finishedList(finished)
-        )
-      )
-    )
-
-  def history(freq: Freq, pager: Paginator[Tournament])(using Context) =
-    main(cls := "page-menu arena-history")(
-      lila.ui.bits.pageMenuSubnav(
-        allFreqs.map { f =>
-          a(cls := freq.name.active(f.name), href := routes.Tournament.history(f.name))(
-            nameOf(f)
-          )
-        }
-      ),
-      div(cls := "page-menu__content box")(
-        boxTop(h1(nameOf(freq), " tournaments")),
-        div(cls := "arena-list")(
-          table(cls := "slist slist-pad")(
-            tbody(cls := "infinite-scroll")(
-              pager.currentPageResults.map(ui.finishedList.apply),
-              pagerNextTable(pager, p => routes.Tournament.history(freq.name, p).url)
+          st.section(cls := "tour-home__schedule box")(
+            boxTop(
+              h1(trans.site.tournaments()),
+              ctx.isAuth.option(
+                div(cls := "box__top__actions")(
+                  a(
+                    href     := routes.Tournament.form,
+                    cls      := "button button-green text",
+                    dataIcon := Icon.PlusButton
+                  )(trans.site.createANewTournament())
+                )
+              )
+            ),
+            div(cls := "tour-chart")
+          ),
+          div(cls := "arena-list box")(
+            table(cls := "slist slist-pad")(
+              thead(
+                tr(
+                  th(colspan := 2, cls := "large")(trans.site.finished()),
+                  th(cls := "date"),
+                  th(cls := "players")
+                )
+              ),
+              ui.finishedList(finished)
             )
           )
         )
-      )
-    )
+
+  def history(freq: Freq, pager: Paginator[Tournament])(using Context) =
+    Page("Tournament history")
+      .js(infiniteScrollEsmInit)
+      .cssTag("tournament.history"):
+        main(cls := "page-menu arena-history")(
+          lila.ui.bits.pageMenuSubnav(
+            allFreqs.map { f =>
+              a(cls := freq.name.active(f.name), href := routes.Tournament.history(f.name))(
+                nameOf(f)
+              )
+            }
+          ),
+          div(cls := "page-menu__content box")(
+            boxTop(h1(nameOf(freq), " tournaments")),
+            div(cls := "arena-list")(
+              table(cls := "slist slist-pad")(
+                tbody(cls := "infinite-scroll")(
+                  pager.currentPageResults.map(ui.finishedList.apply),
+                  pagerNextTable(pager, p => routes.Tournament.history(freq.name, p).url)
+                )
+              )
+            )
+          )
+        )
+
+  def calendar(json: play.api.libs.json.JsObject)(using PageContext) =
+    Page("Tournament calendar")
+      .js(PageModule("tournament.calendar", Json.obj("data" -> json)))
+      .cssTag("tournament.calendar"):
+        main(cls := "box")(
+          h1(cls := "box__top")(trans.site.tournamentCalendar()),
+          div(id := "tournament-calendar")
+        )
 
   def homepageSpotlight(tour: Tournament)(using Context) =
     val schedClass = tour.schedule.so: sched =>
@@ -116,11 +153,11 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi):
           frag(
             spot.iconImg
               .map { i =>
-                img(cls := "img", src := ui.assetUrl(s"images/$i"))
+                img(cls := "img", src := assetUrl(s"images/$i"))
               }
               .getOrElse {
                 spot.iconFont.fold[Frag](iconTag(Icon.Trophy)(cls := "img")) {
-                  case Icon.Globe => img(cls := "img icon", src := ui.assetUrl(s"images/globe.svg"))
+                  case Icon.Globe => img(cls := "img icon", src := assetUrl(s"images/globe.svg"))
                   case i          => iconTag(i)(cls := "img")
                 }
               },
@@ -203,16 +240,15 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi):
         )
       )
 
-    def apply(winners: AllWinners, menu: Frag)(using Context) =
+    def apply(winners: AllWinners)(using Context) =
       def eliteWinners = section(
         h2(cls := "text", dataIcon := Icon.CrownElite)("Elite Arena"),
         ul(
-          winners.elite.map { w =>
+          winners.elite.map: w =>
             li(
               userIdLink(w.userId.some),
               a(title := w.tourName, href := routes.Tournament.show(w.tourId))(showDate(w.date))
             )
-          }
         )
       )
       def marathonWinners = section(
@@ -228,76 +264,84 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi):
           }
         )
       )
-      main(cls := "page-menu")(
-        menu,
-        div(cls := "page-menu__content box box-pad")(
-          h1(cls := "box__top")(trans.arena.tournamentWinners()),
-          div(cls := "tournament-leaderboards")(
-            eliteWinners,
-            freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
-            freqWinners(winners.bullet, PerfType.Bullet, "Bullet"),
-            freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
-            freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
-            freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
-            marathonWinners,
-            lila.tournament.WinnersApi.variants.map: v =>
-              PerfKey.byVariant(v).map { pk =>
-                winners.variants.get(chess.variant.Variant.LilaKey(pk.value)).map {
-                  freqWinners(_, pk, v.name)
-                }
-              }
+      Page("Tournament leaderboard")
+        .cssTag("tournament.leaderboard")
+        .copy(
+          wrapClass = "full-screen-force"
+        ):
+          main(cls := "page-menu")(
+            communityMenu,
+            div(cls := "page-menu__content box box-pad")(
+              h1(cls := "box__top")(trans.arena.tournamentWinners()),
+              div(cls := "tournament-leaderboards")(
+                eliteWinners,
+                freqWinners(winners.hyperbullet, PerfType.Bullet, "HyperBullet"),
+                freqWinners(winners.bullet, PerfType.Bullet, "Bullet"),
+                freqWinners(winners.superblitz, PerfType.Blitz, "SuperBlitz"),
+                freqWinners(winners.blitz, PerfType.Blitz, "Blitz"),
+                freqWinners(winners.rapid, PerfType.Rapid, "Rapid"),
+                marathonWinners,
+                lila.tournament.WinnersApi.variants.map: v =>
+                  PerfKey.byVariant(v).map { pk =>
+                    winners.variants.get(chess.variant.Variant.LilaKey(pk.value)).map {
+                      freqWinners(_, pk, v.name)
+                    }
+                  }
+              )
+            )
           )
-        )
-      )
 
   object shields:
 
     private val section = st.section(cls := "tournament-shields__item")
 
-    def apply(history: TournamentShield.History, menu: Frag)(using Context) =
-      main(cls := "page-menu")(
-        menu,
-        div(cls := "page-menu__content box box-pad")(
-          h1(cls := "box__top")(trans.arena.tournamentShields()),
-          div(cls := "tournament-shields")(
-            history.sorted.map { (categ, awards) =>
-              section(
-                h2(
-                  a(href := routes.Tournament.categShields(categ.key))(
-                    span(cls := "shield-trophy")(categ.icon),
-                    categ.name
+    def apply(history: TournamentShield.History)(using Context) =
+      Page("Tournament shields")
+        .cssTag("tournament.leaderboard")
+        .copy(wrapClass = "full-screen-force"):
+          main(cls := "page-menu")(
+            shieldMenu,
+            div(cls := "page-menu__content box box-pad")(
+              h1(cls := "box__top")(trans.arena.tournamentShields()),
+              div(cls := "tournament-shields")(
+                history.sorted.map { (categ, awards) =>
+                  section(
+                    h2(
+                      a(href := routes.Tournament.categShields(categ.key))(
+                        span(cls := "shield-trophy")(categ.icon),
+                        categ.name
+                      )
+                    ),
+                    ol(awards.map { aw =>
+                      li(
+                        userIdLink(aw.owner.some),
+                        a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
+                      )
+                    })
                   )
-                ),
-                ol(awards.map { aw =>
-                  li(
-                    userIdLink(aw.owner.some),
-                    a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
-                  )
-                })
+                }
               )
-            }
+            )
           )
-        )
-      )
 
-    def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award], menu: Frag)(using
-        Context
-    ) =
-      main(cls := "page-menu page-small tournament-categ-shields")(
-        menu,
-        div(cls := "page-menu__content box")(
-          boxTop(
-            h1(
-              a(href := routes.Tournament.shields, dataIcon := Icon.LessThan, cls := "text"),
-              frag(categ.name, " • ", trans.arena.tournamentShields())
+    def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(using Context) =
+      Page("Tournament shields")
+        .cssTag("tournament.leaderboard", "slist"):
+          main(cls := "page-menu page-small tournament-categ-shields")(
+            shieldMenu,
+            div(cls := "page-menu__content box")(
+              boxTop(
+                h1(
+                  a(href := routes.Tournament.shields, dataIcon := Icon.LessThan, cls := "text"),
+                  frag(categ.name, " • ", trans.arena.tournamentShields())
+                )
+              ),
+              ol(awards.map { aw =>
+                li(
+                  span(cls := "shield-trophy")(categ.icon),
+                  userIdLink(aw.owner.some),
+                  a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
+                )
+              })
             )
-          ),
-          ol(awards.map { aw =>
-            li(
-              span(cls := "shield-trophy")(categ.icon),
-              userIdLink(aw.owner.some),
-              a(href := routes.Tournament.show(aw.tourId))(showDate(aw.date))
-            )
-          })
-        )
-      )
+          )

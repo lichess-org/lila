@@ -114,55 +114,63 @@ object replay:
       )
     )
 
-    bits.layout(
-      title = titleOf(pov),
-      moreCss = frag(
-        cssTag("analyse.round"),
-        (pov.game.variant == Crazyhouse).option(cssTag("analyse.zh")),
-        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
-        ctx.blind.option(cssTag("round.nvui"))
-      ),
-      modules = analyseNvuiTag,
-      pageModule = bits.analyseModule(
-        "replay",
-        Json
-          .obj(
-            "data"   -> data,
-            "i18n"   -> jsI18n(),
-            "userId" -> ctx.userId,
-            "chat"   -> chatJson
-          )
-          .add("hunter" -> isGranted(_.ViewBlurs)) ++
-          views.board.bits.explorerAndCevalConfig
-      ),
-      openGraph = views.round.bits.povOpenGraph(pov).some
-    ):
-      frag(
-        main(cls := "analyse")(
-          st.aside(cls := "analyse__side")(
-            views.game
-              .side(
-                pov,
-                initialFen,
-                none,
-                simul = simul,
-                userTv = userTv,
-                bookmarked = bookmarked
-              )
-          ),
-          chatOption.map(_ => views.chat.frag),
-          div(cls := "analyse__board main-board")(chessgroundBoard),
-          div(cls := "analyse__tools")(div(cls := "ceval")),
-          div(cls := "analyse__controls"),
-          (!ctx.blind).option(
-            frag(
-              div(cls := "analyse__underboard")(
-                div(role := "tablist", cls := "analyse__underboard__menu")(
-                  lila.game.GameExt
-                    .analysable(game)
-                    .option(
-                      span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
-                        trans.site.computerAnalysis()
+    bits
+      .page(titleOf(pov))
+      .cssTag("analyse.round")
+      .cssTag((pov.game.variant == Crazyhouse).option("analyse.zh"))
+      .cssTag(ctx.blind.option("round.nvui"))
+      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .js(analyseNvuiTag)
+      .js(
+        bits.analyseModule(
+          "replay",
+          Json
+            .obj(
+              "data"   -> data,
+              "i18n"   -> views.analysisI18n(),
+              "userId" -> ctx.userId,
+              "chat"   -> chatJson
+            )
+            .add("hunter" -> isGranted(_.ViewBlurs)) ++
+            views.board.bits.explorerAndCevalConfig
+        )
+      )
+      .graph(views.round.ui.povOpenGraph(pov)):
+        frag(
+          main(cls := "analyse")(
+            st.aside(cls := "analyse__side")(
+              views.game
+                .side(
+                  pov,
+                  initialFen,
+                  none,
+                  simul = simul,
+                  userTv = userTv,
+                  bookmarked = bookmarked
+                )
+            ),
+            chatOption.map(_ => views.chat.frag),
+            div(cls := "analyse__board main-board")(chessgroundBoard),
+            div(cls := "analyse__tools")(div(cls := "ceval")),
+            div(cls := "analyse__controls"),
+            (!ctx.blind).option(
+              frag(
+                div(cls := "analyse__underboard")(
+                  div(role := "tablist", cls := "analyse__underboard__menu")(
+                    lila.game.GameExt
+                      .analysable(game)
+                      .option(
+                        span(role := "tab", cls := "computer-analysis", dataPanel := "computer-analysis")(
+                          trans.site.computerAnalysis()
+                        )
+                      ),
+                    (!game.isPgnImport).option(
+                      frag(
+                        (game.ply > 1)
+                          .option(span(role := "tab", dataPanel := "move-times")(trans.site.moveTimes())),
+                        cross.isDefined.option(
+                          span(role := "tab", dataPanel := "ctable")(trans.site.crosstable())
+                        )
                       )
                     ),
                   (!game.isPgnImport).option(

@@ -18,7 +18,7 @@ object download:
 
 object perfStat:
 
-  lazy val ui = lila.perfStat.PerfStatUi(helpers)
+  lazy val ui = lila.perfStat.PerfStatUi(helpers)(views.user.bits.communityMenu("ratings"))
 
   def apply(data: PerfStatData, ratingChart: Option[SafeJsonStr])(using PageContext) =
     import data.*

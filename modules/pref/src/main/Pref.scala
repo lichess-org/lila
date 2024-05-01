@@ -44,6 +44,7 @@ case class Pref(
     resizeHandle: Int,
     agreement: Int,
     usingAltSocket: Option[Boolean],
+    board: Pref.BoardPref,
     tags: Map[String, String] = Map.empty
 ) extends lila.core.pref.Pref:
 
@@ -83,7 +84,8 @@ case class Pref(
       case Animation.SLOW => 120
       case _              => 70
 
-  def bgImgOrDefault = bgImg | Pref.defaultBgImg
+  def bgImgOrDefault =
+    bgImg | Pref.defaultBgImg
 
   def pieceNotationIsLetter: Boolean = pieceNotation == PieceNotation.LETTER
 
@@ -97,8 +99,7 @@ case class Pref(
   def agree = copy(agreement = Agreement.current)
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
-
-  def hasVoice = voice.has(Voice.YES)
+  def hasVoice        = voice.has(Voice.YES)
 
   def isUsingAltSocket = usingAltSocket.has(true)
 
@@ -110,6 +111,9 @@ case class Pref(
       animation == Animation.NONE &&
       highlight &&
       coords == Coords.OUTSIDE
+
+  def simpleBoard =
+    board.hue == 0 && board.brightness == 100 && (board.opacity == 100 || bg != Bg.TRANSPARENT)
 
   def currentTheme      = Theme(theme)
   def currentTheme3d    = Theme3d(theme3d)
@@ -125,6 +129,12 @@ case class Pref(
 object Pref:
 
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
+
+  case class BoardPref(
+      brightness: Int,
+      opacity: Int,
+      hue: Int // in turns, 1turn = 2pi
+  )
 
   trait BooleanPref:
     val NO      = 0
@@ -461,6 +471,7 @@ object Pref:
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     usingAltSocket = none,
+    board = BoardPref(brightness = 100, opacity = 100, hue = 0),
     tags = Map.empty
   )
 

@@ -26,7 +26,7 @@ final class Tutor(env: Env) extends LilaController(env):
 
   def openings(username: UserStr, perf: PerfKeyStr) = TutorPerfPage(username, perf) {
     _ ?=> user => _ => perf =>
-      Ok.page(views.tutor.opening.openings(perf, user))
+      Ok.page(views.tutor.openingUi.openings(perf, user))
   }
 
   def opening(username: UserStr, perf: PerfKeyStr, colName: String, opName: String) =
@@ -39,7 +39,7 @@ final class Tutor(env: Env) extends LilaController(env):
             .flatMap(perf.openings(color).find)
             .fold(Redirect(routes.Tutor.openings(user.username, perf.perf.key)).toFuccess): family =>
               env.puzzle.opening.find(family.family.key).flatMap { puzzle =>
-                Ok.page(views.tutor.opening.opening(perf, family, color, user, puzzle))
+                Ok.page(views.tutor.opening(perf, family, color, user, puzzle))
               }
     }
 
@@ -80,14 +80,14 @@ final class Tutor(env: Env) extends LilaController(env):
     TutorPageAvailability(username) { _ ?=> user => availability =>
       availability match
         case TutorFullReport.InsufficientGames =>
-          BadRequest.page(views.tutor.empty.insufficientGames(user))
+          BadRequest.page(views.tutor.home.empty.insufficientGames(user))
         case TutorFullReport.Empty(in: TutorQueue.InQueue) =>
           for
             waitGames <- env.tutor.queue.waitingGames(user)
             user      <- env.user.api.withPerfs(user)
-            page      <- renderPage(views.tutor.empty.queued(in, user, waitGames))
+            page      <- renderPage(views.tutor.home.empty.queued(in, user, waitGames))
           yield Accepted(page)
-        case TutorFullReport.Empty(_)             => Accepted.page(views.tutor.empty.start(user))
+        case TutorFullReport.Empty(_)             => Accepted.page(views.tutor.home.empty.start(user))
         case available: TutorFullReport.Available => f(user)(available)
     }
 

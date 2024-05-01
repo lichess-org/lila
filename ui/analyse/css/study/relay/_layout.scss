@@ -91,6 +91,9 @@ main.analyse.is-relay:not(.has-relay-tour) {
       'relay-admin  .     .';
     .analyse__underboard {
       margin-top: unset;
+      .is3d & {
+        margin-top: calc($analyse-block-gap * 2);
+      }
     }
     .eval-chart-and-training {
       flex-wrap: nowrap;

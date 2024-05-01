@@ -10,11 +10,12 @@ import ScalatagsTemplate.{ *, given }
 final class RequestUi(helpers: Helpers, bits: TeamUi):
   import helpers.{ *, given }
   import trans.{ team as trt }
+  import bits.{ TeamPage, menu }
 
-  def requestForm(t: Team, form: Form[?])(using PageContext) = bits.teamPage:
-    Page(s"${trans.team.joinTeam.txt()} ${t.name}"):
+  def requestForm(t: Team, form: Form[?])(using PageContext) =
+    TeamPage(s"${trans.team.joinTeam.txt()} ${t.name}"):
       main(cls := "page-menu page-small")(
-        bits.menu("requests".some),
+        menu("requests".some),
         div(cls := "page-menu__content box box-pad")(
           h1(cls := "box__top")(s"${trt.joinTeam.txt()} ${t.name}"),
           div(cls := "team-show__desc")(bits.markdown(t, t.description)),
@@ -39,11 +40,11 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
         )
       )
 
-  def all(requests: List[RequestWithUser])(using PageContext) = bits.teamPage:
+  def all(requests: List[RequestWithUser])(using PageContext) =
     val title = trans.team.xJoinRequests.pluralSameTxt(requests.size)
-    Page(title):
+    TeamPage(title):
       main(cls := "page-menu")(
-        bits.menu("requests".some),
+        menu("requests".some),
         div(cls := "page-menu__content box box-pad")(
           h1(cls := "box__top")(title),
           list(requests, none)
@@ -79,63 +80,62 @@ final class RequestUi(helpers: Helpers, bits: TeamUi):
     )
 
   def declined(team: Team, requests: Paginator[RequestWithUser], search: Option[UserStr])(using PageContext) =
-    bits.teamPage:
-      val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
-      val pager = paginationByQuery(routes.Team.declinedRequests(team.id, 1), requests, showPost = true)
-      Page(title, _(EsmInit("mod.teamAdmin"))):
-        main(cls := "page-menu page-small")(
-          bits.menu(none),
-          div(cls := "page-menu__content box box-pad")(
-            boxTop(
-              h1(
-                a(href := routes.Team.show(team.id))(
-                  team.name
-                ),
-                " • ",
-                trans.team.declinedRequests()
+    val title = s"${team.name} • ${trans.team.declinedRequests.txt()}"
+    val pager = paginationByQuery(routes.Team.declinedRequests(team.id, 1), requests, showPost = true)
+    TeamPage(title).js(EsmInit("mod.teamAdmin")):
+      main(cls := "page-menu page-small")(
+        menu(none),
+        div(cls := "page-menu__content box box-pad")(
+          boxTop(
+            h1(
+              a(href := routes.Team.show(team.id))(
+                team.name
               ),
-              st.form(
-                cls    := "search team-declined-request",
-                method := "GET",
-                action := routes.Team.declinedRequests(team.id, 1)
-              )(
-                div(
-                  input(
-                    st.name     := "search",
-                    value       := search,
-                    placeholder := trans.search.search.txt()
-                  ),
-                  submitButton(cls := "button", dataIcon := Icon.Search)
-                )
-              )
+              " • ",
+              trans.team.declinedRequests()
             ),
-            pager,
-            table(cls := "slist")(
-              tbody(
-                requests.currentPageResults.map { request =>
-                  tr(
-                    td(userLink(request.user)),
-                    td(request.message),
-                    td(momentFromNow(request.date)),
-                    td(cls := "process")(
-                      postForm(
-                        cls    := "process-request",
-                        action := routes.Team.requestProcess(request.id)
-                      )(
-                        input(
-                          tpe   := "hidden",
-                          name  := "url",
-                          value := routes.Team.declinedRequests(team.id, requests.currentPage)
-                        ),
-                        button(name := "process", cls := "button button-green", value := "accept")(
-                          trans.site.accept()
-                        )
+            st.form(
+              cls    := "search team-declined-request",
+              method := "GET",
+              action := routes.Team.declinedRequests(team.id, 1)
+            )(
+              div(
+                input(
+                  st.name     := "search",
+                  value       := search,
+                  placeholder := trans.search.search.txt()
+                ),
+                submitButton(cls := "button", dataIcon := Icon.Search)
+              )
+            )
+          ),
+          pager,
+          table(cls := "slist")(
+            tbody(
+              requests.currentPageResults.map { request =>
+                tr(
+                  td(userLink(request.user)),
+                  td(request.message),
+                  td(momentFromNow(request.date)),
+                  td(cls := "process")(
+                    postForm(
+                      cls    := "process-request",
+                      action := routes.Team.requestProcess(request.id)
+                    )(
+                      input(
+                        tpe   := "hidden",
+                        name  := "url",
+                        value := routes.Team.declinedRequests(team.id, requests.currentPage)
+                      ),
+                      button(name := "process", cls := "button button-green", value := "accept")(
+                        trans.site.accept()
                       )
                     )
                   )
-                }
-              )
-            ),
-            pager
-          )
+                )
+              }
+            )
+          ),
+          pager
         )
+      )

@@ -6,35 +6,59 @@ opaque type LangPath = String
 object LangPath extends OpaqueString[LangPath]:
   def apply(call: play.api.mvc.Call): LangPath = LangPath(call.url)
 
-case class Layout(
-    fullTitle: Option[String],
-    robots: Boolean,
-    cssFrag: Frag,
-    modules: EsmList,
-    jsFrag: WithNonce[Frag],
-    pageModule: Option[PageModule],
-    playing: Boolean,
-    openGraph: Option[OpenGraph],
-    zoomable: Boolean,
-    zenable: Boolean,
-    csp: Option[Update[ContentSecurityPolicy]],
-    wrapClass: String,
-    atomLinkTag: Option[Tag],
-    withHrefLangs: Option[LangPath]
+case class OpenGraph(
+    title: String,
+    description: String,
+    url: String,
+    `type`: String = "website",
+    image: Option[String] = None,
+    twitterImage: Option[String] = None,
+    siteName: String = "lichess.org"
+)
+
+case class Page(
+    title: String,
+    body: Option[Frag] = None,
+    fullTitle: Option[String] = None,
+    robots: Option[Boolean] = None,
+    cssFrag: Option[Frag] = None,
+    modules: EsmList = Nil,
+    jsFrag: Option[WithNonce[Frag]] = None,
+    pageModule: Option[PageModule] = None,
+    playing: Boolean = false,
+    openGraph: Option[OpenGraph] = None,
+    zoomable: Boolean = false,
+    zenable: Boolean = false,
+    csp: Option[Update[ContentSecurityPolicy]] = None,
+    wrapClass: String = "",
+    atomLinkTag: Option[Tag] = None,
+    withHrefLangs: Option[LangPath] = None,
+    transform: Update[Frag] = identity
 ):
-  def apply(esm: EsmInit): Layout                    = copy(modules = modules :+ esm.some)
-  def apply(esm: EsmList): Layout                    = copy(modules = modules ::: esm)
-  def apply(og: OpenGraph): Layout                   = copy(openGraph = og.some)
-  def apply(pm: PageModule): Layout                  = copy(pageModule = pm.some)
-  def robots(b: Boolean): Layout                     = copy(robots = b)
-  def css(f: Frag): Layout                           = copy(cssFrag = cssFrag |+| f)
-  def js(f: WithNonce[Frag]): Layout                 = copy(jsFrag = jsFrag |+| f)
-  def csp(up: Update[ContentSecurityPolicy]): Layout = copy(csp = csp.fold(up)(up.compose).some)
+  def js(esm: EsmInit): Page               = copy(modules = modules :+ esm.some)
+  def js(esm: EsmList): Page               = copy(modules = modules ::: esm)
+  def js(f: WithNonce[Frag]): Page         = copy(jsFrag = jsFrag.foldLeft(f)(_ |+| _).some)
+  def js(f: Option[WithNonce[Frag]]): Page = f.foldLeft(this)(_.js(_))
+  def js(pm: PageModule): Page             = copy(pageModule = pm.some)
+  @scala.annotation.targetName("jsModuleOption")
+  def js(pm: Option[PageModule]): Page                             = copy(pageModule = pm)
+  def iife(iifeFrag: Frag): Page                                   = js(_ => iifeFrag)
+  def iife(iifeFrag: Option[Frag]): Page                           = iifeFrag.foldLeft(this)(_.iife(_))
+  def graph(og: OpenGraph): Page                                   = copy(openGraph = og.some)
+  def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
+  def robots(b: Boolean): Page                                     = copy(robots = if b then none else b.some)
+  def css(f: Frag): Page                           = copy(cssFrag = cssFrag.foldLeft(f)(_ |+| _).some)
+  def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
+  def hrefLangs(path: Option[LangPath]): Page      = copy(withHrefLangs = path)
+  def hrefLangs(path: LangPath): Page              = copy(withHrefLangs = path.some)
+  def fullScreen: Page                             = copy(wrapClass = "full-screen-force")
+  def noRobot: Page                                = robots(false)
+  def zoom                                         = copy(zoomable = true)
+  def zen                                          = copy(zenable = true)
 
-object Layout:
-  type Build = Update[Layout]
-  val default: Build = identity
-
-case class Page(title: String, layout: Layout.Build = identity)(val body: Frag):
-  def apply(build: Layout.Build): Page     = copy(layout = build.compose(layout))(body)
-  def contramap(build: Layout.Build): Page = copy(layout = layout.compose(build))(body)
+  // body stuff
+  def body(b: Frag): Page              = copy(body = b.some)
+  def apply(b: Frag): Page             = copy(body = b.some)
+  def transform(f: Update[Frag]): Page = copy(transform = transform.compose(f))
+  def wrap(f: Update[Frag]): Page      = transform(f)
+  def prepend(prelude: Frag): Page     = transform(body => frag(prelude, body))
