@@ -18,7 +18,4 @@ type Channel    = String
 type Subscriber = Tellable
 type Payload    = Matchable
 
-trait WithChannel[T]:
-  def channel: Channel
-
-case class InChannel[T](channel: Channel) extends WithChannel[T]
+class WithChannel[T](val channel: Channel)

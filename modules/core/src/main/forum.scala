@@ -16,7 +16,7 @@ enum BusForum:
   case ErasePosts(ids: List[ForumPostId])
 
 object BusForum:
-  given bus.WithChannel[BusForum] = bus.InChannel("forumPost")
+  given bus.WithChannel[BusForum] = bus.WithChannel[BusForum]("forumPost")
 
 trait ForumPost:
   val id: ForumPostId
