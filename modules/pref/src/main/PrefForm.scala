@@ -2,7 +2,6 @@ package lila.pref
 
 import play.api.data.*
 import play.api.data.Forms.*
-import monocle.syntax.all.*
 
 import lila.common.Form.{ numberIn, stringIn, tolerantBoolean }
 
