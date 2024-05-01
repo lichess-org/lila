@@ -14,6 +14,8 @@ lazy val learn = lila.web.ui.LearnUi(helpers)
 
 lazy val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
 
+lazy val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
+
 val irwin = lila.irwin.IrwinUi(helpers)(menu = views.mod.ui.menu)
 
 object oAuth:

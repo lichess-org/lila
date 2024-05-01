@@ -6,7 +6,6 @@ import lila.web.ui.*
 
 object Environment
     extends ScalatagsTemplate
-    with RouterHelper
     with lila.setup.SetupUi
     with lila.pref.PrefHelper
     with SecurityHelper
@@ -21,6 +20,7 @@ object Environment
   export lila.ui.{ Page, Nonce, OpenGraph, PageModule, EsmList, Icon }
   export lila.api.Context.{ ctxToTranslate as _, *, given }
   export lila.api.PageData
+  export router.ReverseRouterConversions.given
 
   private var envVar: Option[Env] = None
   def setEnv(e: Env)              = envVar = Some(e)
@@ -59,8 +59,7 @@ object Environment
   def assetHelper: AssetFullHelper     = this
   def prefHelper: lila.pref.PrefHelper = this
 
-  lazy val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
-  def flagApi     = lila.user.Flags
+  def flagApi = lila.user.Flags
 
   def lightUserFallback           = env.user.lightUserSyncFallback
   def isStreaming(userId: UserId) = env.streamer.liveStreamApi.isStreaming(userId)

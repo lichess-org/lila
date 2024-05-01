@@ -7,12 +7,7 @@ import lila.i18n.LangList
 import lila.core.i18n.Language
 import lila.ublog.UblogPost
 
-lazy val ui = lila.ublog.ui.UblogUi(helpers, atomUi)(
-  thumbnailUrl = (post, size) =>
-    post.image match
-      case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
-      case _           => assetUrl("images/user-blog-default.png")
-)
+lazy val ui = lila.ublog.ui.UblogUi(helpers, views.atomUi)(picfitUrl)
 
 lazy val post = lila.ublog.ui.UblogPostUi(helpers, ui)(
   ublogRank = env.ublog.rank,
