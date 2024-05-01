@@ -1,5 +1,5 @@
 import { header } from './util';
-import { hyphenToCamel } from 'common';
+import { hyphenToCamel, toggle } from 'common';
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
@@ -47,7 +47,7 @@ export class BoardCtrl extends PaneCtrl {
         ),
       ]),
       ...this.propSliders(),
-      !this.isDefault() &&
+      this.showReset() &&
         h(
           'button.text.reset',
           {
@@ -100,6 +100,7 @@ export class BoardCtrl extends PaneCtrl {
         this.setVar(prop, v);
         setTimeout(() => this.postPref(prop), i * 1100); // hack around debounce
       });
+    this.showReset(false);
     this.sliderKey = Date.now();
     document.body.classList.add('simple-board');
     this.redraw();
@@ -109,6 +110,7 @@ export class BoardCtrl extends PaneCtrl {
     parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
 
   private setVar = (prop: string, v: number) => {
+    this.showReset(this.showReset() || !this.isDefault());
     document.body.style.setProperty(`---${prop}`, v.toString());
     document.body.classList.toggle('simple-board', this.isDefault());
     if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
@@ -151,6 +153,7 @@ export class BoardCtrl extends PaneCtrl {
   ];
 
   private isDefault = () => this.defaults.every(([prop, v]) => this.getVar(prop) === v);
+  private showReset = toggle(!this.isDefault());
 
   private propSliders = () => {
     const sliders = [];
