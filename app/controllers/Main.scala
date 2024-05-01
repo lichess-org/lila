@@ -10,6 +10,7 @@ import lila.common.HTTPRequest
 import lila.core.id.GameFullId
 
 import Forms.*
+import lila.core.net.Bearer
 
 final class Main(
     env: Env,
@@ -156,10 +157,20 @@ final class Main(
       case None => JsonBadRequest(jsonError("Image content only"))
   }
 
-  def githubSecretScanning = AnonBodyOf(parse.json): body =>
-    env.oAuth.tokenApi
-      .secretScanning(body)
-      .flatMap:
-        _.traverse: (token, url) =>
-          env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
-      .as(NoContent)
+  def githubSecretScanning =
+    AnonBodyOf(parse.json):
+      _.asOpt[List[JsObject]]
+        .map:
+          _.flatMap: obj =>
+            for
+              token <- (obj \ "token").asOpt[String]
+              url   <- (obj \ "url").asOpt[String]
+            yield Bearer(token) -> url
+          .toMap
+        .so: tokensMap =>
+          env.oAuth.tokenApi
+            .secretScanning(tokensMap)
+            .flatMap:
+              _.traverse: (token, url) =>
+                env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
+            .as(NoContent)

@@ -10,8 +10,8 @@ object signup:
   def apply(form: lila.core.security.HcaptchaForm[?])(using ctx: PageContext) =
     views.base.layout(
       title = trans.site.signUp.txt(),
-      modules = jsModuleInit("bits.login", "signup"),
-      moreJs = frag(hcaptchaScript(form), fingerprintTag),
+      modules = jsModuleInit("bits.login", "signup") ++ hcaptchaScript(form),
+      moreJs = frag(fingerprintTag),
       moreCss = cssTag("auth"),
       csp = defaultCsp.withHcaptcha.some,
       withHrefLangs = lila.ui.LangPath(routes.Auth.signup).some

@@ -45,7 +45,7 @@ object player:
           )
 
     val opponentNameOrZen = if ctx.pref.isZen || ctx.pref.isZenAuto then "ZEN" else playerText(pov.opponent)
-    RoundPage(pov.game.variant, s"${trans.site.play.txt()} $opponentNameOrZen")
+    ui.RoundPage(pov.game.variant, s"${trans.site.play.txt()} $opponentNameOrZen")
       .js(roundNvuiTag)
       .js(
         PageModule(
@@ -60,7 +60,7 @@ object player:
             .add("noab" -> ctx.me.exists(_.marks.engine))
         )
       )
-      .graph(bits.povOpenGraph(pov))
+      .graph(ui.povOpenGraph(pov))
       .zen
       .copy(playing = pov.game.playable):
         main(cls := "round")(

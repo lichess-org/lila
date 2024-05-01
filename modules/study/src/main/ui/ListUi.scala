@@ -6,13 +6,137 @@ import scalalib.paginator.Paginator
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
-import lila.common.String.removeMultibyteSymbols
+import lila.study.Study.WithChaptersAndLiked
 
 final class ListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
   import trans.{ study as trs }
 
-  def paginate(pager: Paginator[Study.WithChaptersAndLiked], url: Call)(using Context) =
+  def all(pag: Paginator[WithChaptersAndLiked], order: Order)(using PageContext) =
+    page(
+      title = trs.allStudies.txt(),
+      active = "all",
+      order = order,
+      pag = pag,
+      searchFilter = "",
+      url = routes.Study.all(_)
+    )
+      .hrefLangs(lila.ui.LangPath(routes.Study.allDefault()))
+
+  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(using PageContext) =
+    page(
+      title = trs.studiesCreatedByX.txt(owner.titleUsername),
+      active = "owner",
+      order = order,
+      pag = pag,
+      searchFilter = s"owner:${owner.username}",
+      url = routes.Study.byOwner(owner.username, _)
+    )
+
+  def mine(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
+      ctx: PageContext,
+      me: Me
+  ) =
+    page(
+      title = trs.myStudies.txt(),
+      active = "mine",
+      order = order,
+      pag = pag,
+      searchFilter = s"owner:${me.username}",
+      url = routes.Study.mine(_),
+      topics = topics.some
+    )
+
+  def mineLikes(
+      pag: Paginator[WithChaptersAndLiked],
+      order: Order
+  )(using PageContext) =
+    page(
+      title = trs.myFavoriteStudies.txt(),
+      active = "mineLikes",
+      order = order,
+      pag = pag,
+      searchFilter = "",
+      url = routes.Study.mineLikes(_)
+    )
+
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
+      ctx: PageContext,
+      me: Me
+  ) =
+    page(
+      title = trs.studiesIContributeTo.txt(),
+      active = "mineMember",
+      order = order,
+      pag = pag,
+      searchFilter = s"member:${me.username}",
+      url = routes.Study.mineMember(_),
+      topics = topics.some
+    )
+
+  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order)(using PageContext)(using me: Me) =
+    page(
+      title = trs.myPublicStudies.txt(),
+      active = "minePublic",
+      order = order,
+      pag = pag,
+      searchFilter = s"owner:${me.username}",
+      url = routes.Study.minePublic(_)
+    )
+
+  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order)(using PageContext)(using me: Me) =
+    page(
+      title = trs.myPrivateStudies.txt(),
+      active = "minePrivate",
+      order = order,
+      pag = pag,
+      searchFilter = s"owner:${me.username}",
+      url = routes.Study.minePrivate(_)
+    )
+
+  def search(pag: Paginator[WithChaptersAndLiked], text: String)(using Context) =
+    Page(text)
+      .cssTag("study.index")
+      .js(infiniteScrollEsmInit):
+        main(cls := "page-menu")(
+          menu("search", Order.default),
+          main(cls := "page-menu__content study-index box")(
+            div(cls := "box__top")(
+              searchForm(trans.search.search.txt(), text),
+              bits.newForm()
+            ),
+            paginate(pag, routes.Study.search(text))
+          )
+        )
+
+  private def page(
+      title: String,
+      active: String,
+      order: Order,
+      pag: Paginator[WithChaptersAndLiked],
+      url: String => Call,
+      searchFilter: String,
+      topics: Option[StudyTopics] = None
+  )(using Context): Page =
+    Page(title)
+      .cssTag("study.index")
+      .js(infiniteScrollEsmInit)
+      .wrap: body =>
+        main(cls := "page-menu")(
+          menu(active, order, topics.so(_.value)),
+          main(cls := "page-menu__content study-index box")(
+            div(cls := "box__top")(
+              searchForm(title, s"$searchFilter${searchFilter.nonEmpty.so(" ")}"),
+              bits.orderSelect(order, active, url),
+              bits.newForm()
+            ),
+            topics.map: ts =>
+              div(cls := "box__pad")(topic.topicsList(ts, Order.Mine)),
+            paginate(pag, url(order.key))
+          )
+        )
+
+  private def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(using Context) =
     if pager.currentPageResults.isEmpty then
       div(cls := "nostudies")(
         iconTag(Icon.StudyBoard),
@@ -47,18 +171,6 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
         trs.whatAreStudies()
     )
 
-  def search(pag: Paginator[Study.WithChaptersAndLiked], text: String)(using Context) =
-    main(cls := "page-menu")(
-      menu("search", Order.default),
-      main(cls := "page-menu__content study-index box")(
-        div(cls := "box__top")(
-          searchForm(trans.search.search.txt(), text),
-          bits.newForm()
-        ),
-        paginate(pag, routes.Study.search(text))
-      )
-    )
-
   def searchForm(placeholder: String, value: String) =
     form(cls := "search", action := routes.Study.search(), method := "get")(
       input(name       := "q", st.placeholder := placeholder, st.value := value, enterkeyhint := "search"),
@@ -74,45 +186,51 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       )
 
     def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using Context) =
-      main(cls := "page-menu")(
-        menu("topic", Order.Mine, mine.so(_.value)),
-        main(cls := "page-menu__content study-topics box box-pad")(
-          h1(cls := "box__top")(trans.study.topics()),
-          myForm.map { form =>
-            frag(
-              h2(trans.study.myTopics()),
-              postForm(cls := "form3", action := routes.Study.topics)(
-                form3.textarea(form("topics"))(rows := 10, attrData("max") := StudyTopics.userMax),
-                form3.submit(trans.site.save())
-              )
+      Page(trans.study.topics.txt())
+        .cssTag("study.index", "form3", "tagify")
+        .js(EsmInit("analyse.study.topic.form")):
+          main(cls := "page-menu")(
+            menu("topic", Order.Mine, mine.so(_.value)),
+            main(cls := "page-menu__content study-topics box box-pad")(
+              h1(cls := "box__top")(trans.study.topics()),
+              myForm.map { form =>
+                frag(
+                  h2(trans.study.myTopics()),
+                  postForm(cls := "form3", action := routes.Study.topics)(
+                    form3.textarea(form("topics"))(rows := 10, attrData("max") := StudyTopics.userMax),
+                    form3.submit(trans.site.save())
+                  )
+                )
+              },
+              h2(trans.study.popularTopics()),
+              topicsList(popular)
             )
-          },
-          h2(trans.study.popularTopics()),
-          topicsList(popular)
-        )
-      )
+          )
 
     def show(
         topic: StudyTopic,
-        pag: Paginator[Study.WithChaptersAndLiked],
+        pag: Paginator[WithChaptersAndLiked],
         order: Order,
         myTopics: Option[StudyTopics]
     )(using Context) =
       val active = s"topic:$topic"
       val url    = (o: String) => routes.Study.byTopic(topic.value, o)
-      main(cls := "page-menu")(
-        menu(active, order, myTopics.so(_.value)),
-        main(cls := "page-menu__content study-index box")(
-          boxTop(
-            h1(topic.value),
-            bits.orderSelect(order, active, url),
-            bits.newForm()
-          ),
-          myTopics.ifTrue(order == Order.Mine).map { ts =>
-            div(cls := "box__pad")(
-              topicsList(ts, Order.Mine)
+      Page(topic.value)
+        .cssTag("study.index")
+        .js(infiniteScrollEsmInit):
+          main(cls := "page-menu")(
+            menu(active, order, myTopics.so(_.value)),
+            main(cls := "page-menu__content study-index box")(
+              boxTop(
+                h1(topic.value),
+                bits.orderSelect(order, active, url),
+                bits.newForm()
+              ),
+              myTopics.ifTrue(order == Order.Mine).map { ts =>
+                div(cls := "box__pad")(
+                  topicsList(ts, Order.Mine)
+                )
+              },
+              paginate(pag, url(order.key))
             )
-          },
-          paginate(pag, url(order.key))
-        )
-      )
+          )

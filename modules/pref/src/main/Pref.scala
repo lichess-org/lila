@@ -99,8 +99,7 @@ case class Pref(
   def agree = copy(agreement = Agreement.current)
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
-
-  def hasVoice = voice.has(Voice.YES)
+  def hasVoice        = voice.has(Voice.YES)
 
   def isUsingAltSocket = usingAltSocket.has(true)
 

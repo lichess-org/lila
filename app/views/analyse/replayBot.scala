@@ -13,7 +13,7 @@ object replayBot:
   )(using PageContext) =
     Page(replay.titleOf(pov))
       .cssTag("analyse.round")
-      .graph(views.round.bits.povOpenGraph(pov))
+      .graph(views.round.ui.povOpenGraph(pov))
       .csp(bits.csp)
       .copy(robots = false.some):
         main(cls := "analyse")(

@@ -62,5 +62,7 @@ object opening:
 
 lazy val video = lila.video.ui.VideoUi(helpers)
 
+lazy val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(views.game.widgets(_))
+
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.views.mobile(helpers)(cms.render(p))

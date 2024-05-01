@@ -104,7 +104,7 @@ final class User(
         if filter == "search" && ctx.isAnon
         then
           negotiate(
-            Unauthorized.page(views.search.login(u.count.game)),
+            Unauthorized.page(views.gameSearch.login(u.count.game)),
             Unauthorized(jsonError("Login required"))
           )
         else
@@ -633,9 +633,8 @@ final class User(
   }
 
   def redirect(username: UserStr) = Open:
-    staticRedirect(username.value) | {
+    staticRedirect(username.value) |
       tryRedirect(username).getOrElse(notFound)
-    }
 
   def tryRedirect(username: UserStr)(using Context): Fu[Option[Result]] =
     meOrFetch(username).map:

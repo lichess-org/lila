@@ -18,6 +18,8 @@ trait Pref:
   val theme: String
   val pieceSet: String
 
+  def hasKeyboardMove: Boolean
+  def hasVoice: Boolean
   def showRatings: Boolean
   def animationMillis: Int
   def animationMillisForSpeedPuzzles: Int

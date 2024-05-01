@@ -1,14 +1,14 @@
-package views.round
+package lila.round
+package ui
 
-import play.api.i18n.Lang
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
+import lila.core.i18n.{ I18nKey, Translate }
 
-import lila.app.templating.Environment.{ *, given }
-import lila.core.i18n.I18nKey as trans
-
-object jsI18n:
+final class RoundI18n(helpers: Helpers):
+  import helpers.{ *, given }
 
   def apply(g: Game)(using t: Translate) =
-    given Lang = t.lang
     i18nJsObject:
       baseTranslations ++ {
         if g.isCorrespondence then correspondenceTranslations

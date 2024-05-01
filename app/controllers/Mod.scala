@@ -221,7 +221,7 @@ final class Mod(
 
   def table = Secure(_.Admin) { ctx ?=> _ ?=>
     Ok.pageAsync:
-      modApi.allMods.map(views.mod.table(_))
+      modApi.allMods.map(views.mod.userTable.mods(_))
   }
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
@@ -476,7 +476,7 @@ final class Mod(
 
   def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     get("q") match
-      case None => Ok.page(views.mod.emailConfirm("", none, none))
+      case None => Ok.page(views.mod.ui.emailConfirm("", none, none))
       case Some(rawQuery) =>
         val query    = rawQuery.trim.split(' ').toList
         val email    = query.headOption.flatMap(EmailAddress.from)
@@ -490,19 +490,16 @@ final class Mod(
                   modApi.setEmail(user.id, setEmail)
                 }
                 email <- env.user.repo.email(user.id)
-                page  <- renderPage(views.mod.emailConfirm("", user.some, email))
+                page  <- renderPage(views.mod.ui.emailConfirm("", user.some, email))
               yield Ok(page).some
             case _ => fuccess(none)
           }
         email
-          .so { em =>
+          .so: em =>
             tryWith(em, em.value)
-              .orElse {
-                username.so { tryWith(em, _) }
-              }
+              .orElse(username.so { tryWith(em, _) })
               .recover(lila.db.recoverDuplicateKey(_ => none))
-          }
-          .getOrElse(BadRequest.page(views.mod.emailConfirm(rawQuery, none, none)))
+          .getOrElse(BadRequest.page(views.mod.ui.emailConfirm(rawQuery, none, none)))
   }
 
   def chatPanic = Secure(_.Shadowban) { ctx ?=> _ ?=>

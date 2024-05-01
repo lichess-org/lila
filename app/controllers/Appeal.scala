@@ -34,7 +34,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
           // if no blog, consider it's visible because even if it is not, for now the user
           // has not been negatively impacted
           ublogIsVisible <- env.ublog.api.isBlogVisible(me.userId).dmap(_.getOrElse(true))
-        yield views.appeal.bits.layout("Appeal")(views.appeal.tree.page(me, playban, ublogIsVisible))
+        yield views.appeal.tree.page(me, playban, ublogIsVisible)
     case Some(a) => renderPage(views.appeal.discussion(a, me, err | userForm))
   }
 
