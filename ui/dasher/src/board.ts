@@ -95,9 +95,9 @@ export class BoardCtrl extends PaneCtrl {
   private reset = () => {
     this.defaults
       .filter(([prop, v]) => this.getVar(prop) !== v)
-      .forEach(([prop, v]) => {
+      .forEach(([prop, v], i) => {
         this.setVar(prop, v);
-        this.postPref(prop);
+        setTimeout(() => this.postPref(prop), i * 1100); // hack around debounce
       });
     this.sliderKey = Date.now();
     document.body.classList.add('simple-board');
