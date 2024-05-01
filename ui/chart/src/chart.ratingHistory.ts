@@ -19,6 +19,7 @@ import noUiSlider, { Options, PipsMode } from 'nouislider';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
+import utc from 'dayjs/plugin/utc';
 import { memoize } from 'common';
 
 interface Opts {
@@ -42,6 +43,7 @@ Chart.register(PointElement, LinearScale, TimeScale, Tooltip, LineController, Li
 Chart.defaults.font = fontFamily();
 dayjs.extend(duration);
 dayjs.extend(dayOfYear);
+dayjs.extend(utc);
 
 const shortDash = [3];
 const noDash: number[] = [];
@@ -79,8 +81,6 @@ const dateFormat = memoize(() =>
       ).format
     : (d: Date) => d.toLocaleDateString(),
 );
-
-const utcOffset = -dayjs().utcOffset() * 60 * 1000;
 
 export function initModule({ data, singlePerfName }: Opts) {
   $('.spinner').remove();
@@ -188,7 +188,7 @@ export function initModule({ data, singlePerfName }: Opts) {
           caretPadding: 10,
           rtl: document.dir == 'rtl',
           callbacks: {
-            title: items => dateFormat()(new Date(items[0].parsed.x + utcOffset)),
+            title: items => dateFormat()(dayjs.utc(items[0].parsed.x).valueOf()),
           },
         },
       },
@@ -217,7 +217,7 @@ export function initModule({ data, singlePerfName }: Opts) {
       values: yearPips.map(y => y.valueOf()),
       filter: (val, tpe) => (tpe == 1 ? val : -1),
       format: {
-        to: val => dayjs(val).format('YYYY'),
+        to: val => dayjs.utc(val).format('YYYY'),
       },
     },
   };
@@ -228,7 +228,7 @@ export function initModule({ data, singlePerfName }: Opts) {
       if ($el.hasClass('panning')) return;
       const [min, max] = values.map(v => Number(v));
       // Downsample data for ranges > 2 years. For performance as well as aesthetics.
-      const yearDiff = (max: number, min: number) => dayjs(max).diff(min, 'year');
+      const yearDiff = (max: number, min: number) => dayjs.utc(max).diff(min, 'year');
       const chartYear = yearDiff(chart.scales.x.max, chart.scales.x.min);
       const sliderYear = yearDiff(max, min);
       if (Math.abs(chartYear - sliderYear) >= 1) {
@@ -245,7 +245,7 @@ export function initModule({ data, singlePerfName }: Opts) {
     slider.on('start', () => toggleEvents(chart, true));
     slider.on('end', () => toggleEvents(chart, false));
     site.pubsub.on('chart.panning', () => {
-      slider.set([chart.scales.x.min, chart.scales.x.max]);
+      slider.set([chart.scales.x.min, chart.scales.x.max], false, true);
     });
     const timeBtn = (t: string) => `<button class = "btn-rack__btn">${t}</button>`;
     const buttons: { t: TimeButton; duration: duration.Duration }[] = [
@@ -282,8 +282,8 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
   const minMax = (d: PerfRatingHistory) => [getDate(d.points[0]), getDate(d.points[d.points.length - 1])];
   const filteredData = data.filter(indexFilter);
   const dates = filteredData.filter(p => p.points.length).flatMap(minMax);
-  let startDate = dayjs(Math.min(...dates));
-  let endDate = dayjs(Math.max(...dates));
+  let startDate = dayjs.utc(Math.min(...dates));
+  let endDate = dayjs.utc(Math.max(...dates));
   const ds: ChartDataset<'line'>[] = filteredData.map((serie, i) => {
     const originalDatesAndRatings = serie.points.map(r => ({
       ts: getDate(r),
