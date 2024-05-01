@@ -3,11 +3,18 @@ package lila.fishnet
 import chess.format.pgn.{ PgnStr, SanStr }
 object TestFixtures:
 
-  lazy val testCases = List(
-    TestCase(sans1, PgnStr(pgn1), fish1, PgnStr(expected1)),
-    TestCase(sans2, PgnStr(pgn2), fish2, PgnStr(expected2)),
-    TestCase(sans3, PgnStr(pgn3), fish3, PgnStr(expected3)),
-    TestCase(sans4, PgnStr(pgn4), fish4, PgnStr(expected4))
+  lazy val annotatorTestCases = List(
+    AnnotatorTest.TestCase(sans1, PgnStr(pgn1), fish1, PgnStr(expected1)),
+    AnnotatorTest.TestCase(sans2, PgnStr(pgn2), fish2, PgnStr(expected2)),
+    AnnotatorTest.TestCase(sans3, PgnStr(pgn3), fish3, PgnStr(expected3)),
+    AnnotatorTest.TestCase(sans4, PgnStr(pgn4), fish4, PgnStr(expected4))
+  )
+
+  lazy val treeBuilderTestCases = List(
+    TreeBuilderTest.TestCase(sans1, PgnStr(pgn1), fish1)
+    // TreeBuilderTest.TestCase(sans2, PgnStr(pgn2), fish2),
+    // TreeBuilderTest.TestCase(sans3, PgnStr(pgn3), fish3),
+    // TreeBuilderTest.TestCase(sans4, PgnStr(pgn4), fish4)
   )
 
   val sans1 =
