@@ -25,15 +25,7 @@ export class BoardCtrl extends PaneCtrl {
 
   render = () =>
     h(`div.sub.board.${this.dimension}`, [
-      header(
-        'Board',
-        this.close,
-        !this.isDefault() &&
-          h('button.text.reset', {
-            attrs: { 'data-icon': licon.Back, type: 'button', title: 'Reset colors to default' },
-            hook: bind('click', this.reset),
-          }),
-      ),
+      header('Board', this.close),
       h('div.selector.large', [
         h(
           'button.text',
@@ -55,6 +47,15 @@ export class BoardCtrl extends PaneCtrl {
         ),
       ]),
       ...this.propSliders(),
+      !this.isDefault() &&
+        h(
+          'button.text.reset',
+          {
+            attrs: { 'data-icon': licon.Back, type: 'button' },
+            hook: bind('click', this.reset),
+          },
+          'Reset colors to default',
+        ),
       h(
         'div.list',
         this.data[this.dimension].list.map((t: Board) =>

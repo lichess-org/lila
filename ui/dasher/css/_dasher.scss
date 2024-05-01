@@ -40,25 +40,12 @@
     }
   }
 
-  .category {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border-bottom: $border;
-
-    button.reset {
-      @extend %button-none;
-      &:hover {
-        color: $c-primary;
-      }
-    }
-  }
   .head {
     @extend %button-none;
 
     display: block;
+    padding: 1rem;
+    border-bottom: $border;
     width: 100%;
     text-align: start;
   }
@@ -213,39 +200,6 @@
     overflow: auto;
   }
 
-  .board {
-    .selector {
-      display: flex;
-      justify-content: stretch;
-    }
-    .zoom,
-    .board-brightness,
-    .board-opacity,
-    .board-hue {
-      display: grid;
-      grid-template-columns: 45% 55%;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      label {
-        white-space: nowrap;
-      }
-    }
-
-    .zoom {
-      display: none;
-
-      @include mq-board-resizable {
-        display: grid;
-      }
-    }
-
-    .range {
-      font-size: 1.5em;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-    }
-  }
   .background #gallery {
     $thumb-w: 160px; // see bin/make-gallery
     $thumb-h: 90px;
