@@ -7,6 +7,8 @@ import lila.db.dsl.{ *, given }
 
 private object PrefHandlers:
 
+  given BSONDocumentHandler[Pref.BoardPref] = Macros.handler
+
   given BSONDocumentHandler[Pref] = new BSON[Pref]:
 
     def reads(r: BSON.Reader): Pref =
@@ -51,6 +53,7 @@ private object PrefHandlers:
         resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
         moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
         agreement = r.getD("agreement", 0),
+        board = r.getD("board", Pref.default.board),
         usingAltSocket = r.getO("usingAltSocket"),
         tags = r.getD("tags", Pref.default.tags)
       )
@@ -98,5 +101,6 @@ private object PrefHandlers:
         "resizeHandle"   -> o.resizeHandle,
         "agreement"      -> o.agreement,
         "usingAltSocket" -> o.usingAltSocket,
+        "board"          -> o.board,
         "tags"           -> o.tags
       )

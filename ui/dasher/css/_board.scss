@@ -1,6 +1,6 @@
-@import '../../common/css/vendor/chessground/themes';
+@import '../../common/css/theme/board/boards';
 
-#dasher_app .theme {
+#dasher_app .board {
   .list {
     @extend %flex-wrap;
 
@@ -9,7 +9,7 @@
 
   .list button {
     flex: 0 0 33%;
-    height: 44px;
+    height: 40px;
 
     @extend %flex-center;
     @extend %button-none;
@@ -21,13 +21,9 @@
     display: block;
     width: 64px;
     height: 32px;
-  }
-
-  &.d3 .list span {
-    width: 66px;
-    height: 30px;
-
-    @include transition(transform);
+    body:not(.simple-board) & {
+      filter: hue-rotate(calc(var(---board-hue) * 3.6deg));
+    }
   }
 
   .list button:hover {
@@ -39,7 +35,47 @@
   }
 
   .list button.active {
-    background-color: $c-shade;
+    background-color: $c-good;
+  }
+
+  .reset {
+    @extend %button-none;
+    padding: 0.5rem 1rem;
+    &:hover {
+      color: $c-primary;
+    }
+  }
+
+  .selector {
+    display: flex;
+    justify-content: stretch;
+  }
+  .zoom,
+  .board-brightness,
+  .board-opacity,
+  .board-hue {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    label {
+      white-space: nowrap;
+    }
+  }
+
+  .zoom {
+    display: none;
+
+    @include mq-board-resizable {
+      display: grid;
+    }
+  }
+
+  .range {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+    width: 100%;
   }
 
   &.d2 {

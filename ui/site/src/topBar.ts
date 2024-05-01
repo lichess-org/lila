@@ -1,5 +1,5 @@
 import pubsub from './pubsub';
-import { loadCssPath, loadEsm } from './assets';
+import { loadCssPath, loadEsm } from './asset';
 import { memoize, clamp } from 'common';
 
 export default function () {

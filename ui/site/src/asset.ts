@@ -15,23 +15,27 @@ export const url = (path: string, opts: AssetUrlOpts = {}) => {
 // bump flairs version if a flair is changed only (not added or removed)
 export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { version: '_____2' });
 
-const loadedCss = new Set<string>();
-export const loadCss = (href: string): Promise<void> =>
+export const loadCss = (href: string, key?: string): Promise<void> =>
   new Promise(resolve => {
-    if (loadedCss.has(href)) return resolve();
+    href = url(href, { noVersion: true });
+    if (key) removeCssPath(key);
+    else if (document.querySelector(`head > link[href="${href}"]`)) return resolve();
+
     const el = document.createElement('link');
+    if (key) el.className = `css-${key}`;
     el.rel = 'stylesheet';
-    el.href = url(href, { noVersion: true });
-    el.onload = () => {
-      loadedCss.add(href);
-      resolve();
-    };
+    el.href = href;
+    el.onload = () => resolve();
     document.head.append(el);
   });
 
 export const loadCssPath = async (key: string): Promise<void> => {
   const hash = site.manifest.css[key];
-  await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`);
+  await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`, key);
+};
+
+export const removeCssPath = (key: string) => {
+  $(`head > link.css-${key}`).remove();
 };
 
 export const jsModule = (name: string) => {
