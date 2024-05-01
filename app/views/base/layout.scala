@@ -178,7 +178,7 @@ object layout:
           lila.security.EmailConfirm.cookie
             .get(ctx.req)
             .ifTrue(ctx.isAnon)
-            .map(views.auth.bits.checkYourEmailBanner(_)),
+            .map(u => views.auth.checkYourEmailBanner(u.username, u.email)),
           zenable.option(zenZone),
           ui.siteHeader(
             zenable = zenable,
@@ -201,7 +201,7 @@ object layout:
           )(body),
           bottomHtml,
           div(id := "inline-scripts")(
-            frag(ctx.needsFp.option(fingerprintTag), ctx.nonce.map(inlineJs.apply)),
+            frag(ctx.needsFp.option(views.auth.fingerprintTag), ctx.nonce.map(inlineJs.apply)),
             modulesInit(modules ++ pageModule.so(module => jsPageModule(module.name))),
             moreJs,
             pageModule.map { mod => frag(jsonScript(mod.data)) }

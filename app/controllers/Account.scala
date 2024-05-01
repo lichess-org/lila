@@ -171,7 +171,7 @@ final class Account(
 
   def renderCheckYourEmail(using Context): Fu[Frag] =
     renderPage:
-      views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req))
+      views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req).map(_.email))
 
   def emailApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
