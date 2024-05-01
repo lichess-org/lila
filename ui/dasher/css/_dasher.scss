@@ -63,18 +63,18 @@
     form {
       max-height: 400px;
       overflow: auto;
-    }
 
-    button {
-      display: block;
-      padding: 0.7rem 0.7rem 0.7rem 1rem;
-      border: none;
-      background: none;
-      width: 100%;
-      text-align: left;
+      button {
+        display: block;
+        padding: 0.7rem 0.7rem 0.7rem 1rem;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
 
-      &:hover {
-        background: $c-dasher-light;
+        &:hover {
+          background: $c-dasher-light;
+        }
       }
     }
 
