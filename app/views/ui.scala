@@ -1,6 +1,6 @@
 package views
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 export lila.web.ui.bits
 

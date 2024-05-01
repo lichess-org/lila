@@ -1,6 +1,6 @@
 package views.user.show
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import scalalib.paginator.Paginator
 

@@ -1,6 +1,6 @@
 package views.report
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.report.Report.WithSuspect
 import lila.report.ui.reportScore

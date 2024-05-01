@@ -3,7 +3,7 @@ package views.lobby
 import play.api.libs.json.Json
 
 import lila.app.mashup.Preload.Homepage
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.core.perf.UserWithPerfs
 

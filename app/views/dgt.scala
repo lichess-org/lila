@@ -2,7 +2,7 @@ package views.dgt
 
 import scala.util.chaining.*
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.oauth.AccessToken
 

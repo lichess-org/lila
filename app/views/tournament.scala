@@ -1,6 +1,6 @@
 package views.tournament
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.tournament.ui.*
 
 lazy val ui = TournamentUi(helpers)(env.tournament.getTourName, lila.i18n.Translator.toDefault)

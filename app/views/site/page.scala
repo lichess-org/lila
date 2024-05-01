@@ -1,6 +1,6 @@
 package views.site
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.cms.CmsPage
 
 lazy val ui = lila.web.ui.SitePages(helpers)

@@ -2,7 +2,7 @@ package views.relay
 
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.relay.RelayRound.Sync.UpstreamUrl.LccRegex
 import lila.relay.{ RelayRound, RelayTour }

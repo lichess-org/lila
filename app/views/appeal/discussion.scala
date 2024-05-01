@@ -2,7 +2,7 @@ package views.appeal
 
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.appeal.Appeal
 import lila.common.String.html.richText

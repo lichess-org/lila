@@ -3,7 +3,7 @@ package views.base
 import play.api.i18n.Lang
 
 import lila.ui.ContentSecurityPolicy
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw

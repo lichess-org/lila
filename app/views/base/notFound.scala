@@ -1,6 +1,6 @@
 package views.base
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 def notFound()(using PageContext) =
   layout(

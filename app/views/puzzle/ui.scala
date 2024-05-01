@@ -2,7 +2,7 @@ package views.puzzle
 
 import scalalib.paginator.Paginator
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.puzzle.{ Puzzle, PuzzleOpening, DailyPuzzle }
 
 lazy val bits = lila.puzzle.ui.PuzzleBits(helpers)(views.userAnalysisI18n.cevalTranslations)

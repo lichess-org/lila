@@ -1,7 +1,7 @@
 package views.site
 
 import lila.api.PageContext
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 object message:
 

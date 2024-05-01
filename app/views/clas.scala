@@ -3,7 +3,7 @@ package views.clas
 import play.api.data.Form
 
 import lila.ui.ContentSecurityPolicy
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.clas.{ Clas, Student }
 
 lazy val ui             = lila.clas.ui.ClasUi(helpers)

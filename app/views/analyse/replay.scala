@@ -7,7 +7,7 @@ import chess.variant.Crazyhouse
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import bits.dataPanel
 import lila.game.GameExt.analysable

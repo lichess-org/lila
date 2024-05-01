@@ -1,6 +1,6 @@
 package views.relation
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.core.relation.Relation
 

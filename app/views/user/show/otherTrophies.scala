@@ -1,7 +1,7 @@
 package views.user
 package show
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.user.{ Trophy, TrophyKind }
 
 object otherTrophies:

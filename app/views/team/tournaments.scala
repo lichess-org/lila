@@ -3,7 +3,7 @@ package views.team
 import play.api.i18n.Lang
 
 import lila.app.mashup.TeamInfo
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 object tournaments:
 

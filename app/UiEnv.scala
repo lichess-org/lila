@@ -1,10 +1,9 @@
 package lila.app
-package templating
 
 import lila.ui.*
 import lila.web.ui.*
 
-object Environment
+object UiEnv
     extends ScalatagsTemplate
     with lila.setup.SetupUi
     with lila.pref.PrefHelper

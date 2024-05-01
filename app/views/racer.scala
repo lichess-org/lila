@@ -2,7 +2,7 @@ package views.racer
 
 import play.api.libs.json.*
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.core.i18n.I18nKey.storm as s
 

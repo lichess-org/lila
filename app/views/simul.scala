@@ -2,7 +2,7 @@ package views
 
 import play.api.libs.json.*
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.chat.UserChat
 
 object simul:

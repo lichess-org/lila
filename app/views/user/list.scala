@@ -1,6 +1,6 @@
 package views.user
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.rating.UserPerfsExt.bestAny3Perfs
 import lila.user.LightCount
 import lila.core.perf.UserWithPerfs

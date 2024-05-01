@@ -1,6 +1,6 @@
 package views.user
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.perfStat.{ PerfStat, PerfStatData }
 import lila.rating.PerfType
 import lila.core.data.SafeJsonStr

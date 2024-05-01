@@ -1,6 +1,6 @@
 package views
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 object tutor:
   val bits      = lila.tutor.ui.TutorBits(helpers)(views.opening.bits.openingUrl)

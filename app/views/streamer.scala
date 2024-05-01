@@ -2,7 +2,7 @@ package views.streamer
 
 import scalalib.paginator.Paginator
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.streamer.Streamer
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.UserPerfsExt.best6Perfs

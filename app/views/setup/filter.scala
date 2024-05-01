@@ -2,7 +2,7 @@ package views.setup
 
 import play.api.data.{ Form, Field }
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.core.rating.RatingRange
 
 object filter:

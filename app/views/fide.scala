@@ -2,7 +2,7 @@ package views.fide
 
 import scalalib.paginator.Paginator
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.fide.FidePlayer
 import lila.relay.RelayTour
 

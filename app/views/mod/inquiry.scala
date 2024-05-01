@@ -1,6 +1,6 @@
 package views.mod
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.common.String.html.richText
 import lila.report.{ Reason, Report }

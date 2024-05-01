@@ -3,7 +3,7 @@ package views.study
 import play.api.libs.json.Json
 import chess.format.pgn.PgnStr
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.core.study.IdName
 import lila.core.socket.SocketVersion
 import lila.common.Json.given

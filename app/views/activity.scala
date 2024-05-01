@@ -1,6 +1,6 @@
 package views.activity
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.core.perf.UserWithPerfs
 

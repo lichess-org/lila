@@ -4,7 +4,7 @@ import chess.format.Fen
 
 import play.api.libs.json.{ JsArray, Json }
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.common.Json.given
 

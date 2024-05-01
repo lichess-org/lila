@@ -2,7 +2,7 @@ package views.dev
 
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 def settings(settings: List[lila.memo.SettingStore[?]])(using PageContext) =
   val title = "Settings"

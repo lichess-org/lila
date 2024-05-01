@@ -4,7 +4,7 @@ package show
 import play.api.data.Form
 
 import lila.app.mashup.UserInfo
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.game.{ Game, GameFilter }
 

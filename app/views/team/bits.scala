@@ -3,7 +3,7 @@ package views.team
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 private lazy val bits = lila.team.ui.TeamUi(helpers)(using env.executor)
 export bits.{ list, membersPage }

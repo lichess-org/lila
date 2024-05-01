@@ -2,7 +2,7 @@ package views.report
 
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.report.ReportUi.translatedReasonChoices
 

@@ -1,6 +1,6 @@
 package views.report
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 object thanks:
 

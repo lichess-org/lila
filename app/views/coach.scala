@@ -2,7 +2,7 @@ package views.coach
 
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 lazy val ui = lila.coach.ui.CoachUi(helpers)(
   picfitUrl,

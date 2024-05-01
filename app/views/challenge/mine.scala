@@ -1,6 +1,6 @@
 package views.challenge
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.challenge.Challenge.Status
 import lila.core.LightUser

@@ -2,7 +2,7 @@ package views.user
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.appeal.Appeal
 import lila.evaluation.Display
