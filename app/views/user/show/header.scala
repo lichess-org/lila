@@ -159,7 +159,7 @@ object header:
       isGranted(_.UserModView).option(div(cls := "mod-zone mod-zone-full none")),
       standardFlash,
       angle match
-        case UserInfo.Angle.Games(Some(searchForm)) => views.search.user(u, searchForm)
+        case UserInfo.Angle.Games(Some(searchForm)) => views.gameSearch.user(u, searchForm)
         case _ =>
           val profile   = u.profileOrDefault
           val hideTroll = u.marks.troll && ctx.isnt(u)

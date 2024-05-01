@@ -415,6 +415,7 @@
   <string name="blackCheckmatesInOneMove">ಕಪ್ಪು ದಳವು ಒಂದೇ ನಡೆಯಲ್ಲಿ ಚೆಕ್ ಮೇಟ್ ಮಾಡಬೇಕು</string>
   <string name="retry">ಮರುಪ್ರಯತ್ನಿಸು</string>
   <string name="reconnecting">ಪುನಃ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ</string>
+  <string name="noNetwork">ಆಫ್ ಲೈನ್</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s ಗೆಳೆಯ/ತಿ ಆನ್ಲೈನ್ ಇದ್ದಾರೆ</item>
     <item quantity="other">%s ಗೆಳೆಯ/ತಿಯರು ಆನ್ಲೈನ್ ಇದ್ದಾರೆ</item>
@@ -863,6 +864,8 @@
   <string name="agreementPolicy">ಲೀಚೆಸ್ ನ ಎಲ್ಲ ನಿಯಮಾವಳಿ ಹಾಗೂ ನಿಬಂಧನೆಗಳನ್ನು ಪಾಲಿಸುತ್ತೇನೆ ಎಂದು ಸಮ್ಮತಿಸುತ್ತೇನೆ.</string>
   <string name="searchOrStartNewDiscussion">ಹುಡುಕಿ ಅಥವಾ ಹೊಸ ಸಂಭಾಷಣೆ ಆರಂಭಿಸಿ</string>
   <string name="edit">ತಿದ್ದಿ</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">ಬುಲೆಟ್</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">ಬ್ಲಿಟ್ಜ್</string>
   <string name="rapid">ತ್ವರಿತ</string>
   <string name="classical">ಶಾಸ್ತ್ರೀಯ</string>
   <string name="ultraBulletDesc">ಅಂಕೆ ಮೀರಿದ ಅತೀ ವೇಗದ ಆಟಗಳು: ೩೦ ಸೆಕೆಂಡುಗಳಿಗಿಂತಲೂ ಕಡಿಮೆ ಸಮಯ</string>

@@ -8,7 +8,7 @@ import sri from './sri';
 import { storage, tempStorage } from './storage';
 import powertip from './powertip';
 import clockWidget from './clockWidget';
-import * as assets from './assets';
+import * as assets from './asset';
 import makeLog from './log';
 import idleTimer from './idleTimer';
 import pubsub from './pubsub';

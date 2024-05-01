@@ -134,7 +134,7 @@ object replay:
             views.board.bits.explorerAndCevalConfig
         )
       )
-      .graph(views.round.bits.povOpenGraph(pov)):
+      .graph(views.round.ui.povOpenGraph(pov)):
         frag(
           main(cls := "analyse")(
             st.aside(cls := "analyse__side")(

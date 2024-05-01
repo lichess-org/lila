@@ -54,4 +54,8 @@
     <item quantity="one">%s ತಿಂಗಳ ಹಿಂದೆ</item>
     <item quantity="other">%s ತಿಂಗಳ ಹಿಂದೆ</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s ನಿಮಿಷ ಬಾಕಿ</item>
+    <item quantity="other">%s ನಿಮಿಷಗಳು ಬಾಕಿ</item>
+  </plurals>
 </resources>

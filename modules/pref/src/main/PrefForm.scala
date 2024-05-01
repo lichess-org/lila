@@ -50,6 +50,10 @@ object PrefForm:
     val ratings       = "ratings"       -> booleanNumber
     val flairs        = "flairs"        -> boolean
     val follow        = "follow"        -> booleanNumber
+    object board:
+      val brightness = "boardBrightness" -> number(0, 150)
+      val opacity    = "boardOpacity"    -> number(0, 100)
+      val hue        = "boardHue"        -> number(0, 100)
 
   def pref(lichobile: Boolean) = Form(
     mapping(

@@ -149,11 +149,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   // consolidate script packaging here to dedup chunk dependencies
   def modulesPreload(modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
-    val keys: List[String] = "site" :: {
-      isInquiry.option("mod.inquiry")
-        :: (!netConfig.isProd).option("site.devMode")
-        :: modules.map(_.map(_.key))
-    }.flatten // in head
+    val keys: List[String] = "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
     frag(
       jsTag("manifest"),
       cashTag,
@@ -204,8 +200,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   val dataSoundSet      = attr("data-sound-set")
   val dataTheme         = attr("data-theme")
   val dataDirection     = attr("data-direction")
-  val dataBoardTheme    = attr("data-board-theme")
+  val dataBoard         = attr("data-board")
   val dataPieceSet      = attr("data-piece-set")
+  val dataBoard3d       = attr("data-board3d")
+  val dataPieceSet3d    = attr("data-piece-set3d")
   val dataAssetUrl      = attr("data-asset-url")      := netConfig.assetBaseUrl.value
   val dataAssetVersion  = attr("data-asset-version")
   val dataDev           = attr("data-dev")            := (!netConfig.minifiedAssets).option("true")

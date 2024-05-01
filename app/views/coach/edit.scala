@@ -29,7 +29,7 @@ object edit:
     views.account.ui
       .AccountPage(s"${c.user.titleUsername} coach page", "coach")
       .cssTag("coach.editor", "tagify")
-      .js(EsmInit("bits.coach.form")):
+      .js(EsmInit("bits.coachForm")):
         div(cls := "coach-edit box")(
           div(cls := "top")(
             span(

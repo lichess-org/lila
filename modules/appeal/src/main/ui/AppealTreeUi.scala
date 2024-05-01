@@ -4,7 +4,7 @@ package ui
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
-final class AppealTreeUi(helpers: Helpers)(
+final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal: String => Context ?=> Frag
 ):
   import helpers.{ *, given }
@@ -354,41 +354,42 @@ final class AppealTreeUi(helpers: Helpers)(
     val query = Granter.opt(_.Appeals).so(ctx.req.queryString.toMap)
     val isMarked =
       playban || me.marks.engine || me.marks.boost || me.marks.troll || me.marks.rankban || me.marks.arenaBan || me.marks.prizeban || !ublogIsVisible
-    main(cls := "page page-small box box-pad appeal force-ltr")(
-      h1(cls := "box__top")("Appeal"),
-      div(cls := s"nav-tree${if isMarked then " marked" else ""}")(
-        if (me.enabled.no && !me.marks.boost && !me.marks.engine) || query.contains("alt")
-        then altScreen
-        else
-          renderNode(
-            {
-              if me.marks.engine || query.contains("engine") then engineMenu
-              else if me.marks.boost || query.contains("boost") then boostMenu
-              else if me.marks.troll || query.contains("shadowban") then muteMenu
-              else if playban || query.contains("playban") then playbanMenu
-              else if me.marks.rankban || query.contains("rankban") then rankBanMenu
-              else if me.marks.arenaBan || query.contains("arenaban") then arenaBanMenu
-              else if me.marks.prizeban || query.contains("prizeban") then prizebanMenu
-              else if !ublogIsVisible || query.contains("blog") then hiddenBlogMenu
-              else cleanMenu
-            },
-            none,
-            forceLtr = true
-          )
-      ),
-      div(cls := "appeal__rules")(
-        p(cls := "text warning-closure", dataIcon := Icon.CautionTriangle)(
-          trans.site.closingAccountWithdrawAppeal()
+    ui.page("Appeal a moderation decision"):
+      main(cls := "page page-small box box-pad appeal force-ltr")(
+        h1(cls := "box__top")("Appeal"),
+        div(cls := s"nav-tree${if isMarked then " marked" else ""}")(
+          if (me.enabled.no && !me.marks.boost && !me.marks.engine) || query.contains("alt")
+          then altScreen
+          else
+            renderNode(
+              {
+                if me.marks.engine || query.contains("engine") then engineMenu
+                else if me.marks.boost || query.contains("boost") then boostMenu
+                else if me.marks.troll || query.contains("shadowban") then muteMenu
+                else if playban || query.contains("playban") then playbanMenu
+                else if me.marks.rankban || query.contains("rankban") then rankBanMenu
+                else if me.marks.arenaBan || query.contains("arenaban") then arenaBanMenu
+                else if me.marks.prizeban || query.contains("prizeban") then prizebanMenu
+                else if !ublogIsVisible || query.contains("blog") then hiddenBlogMenu
+                else cleanMenu
+              },
+              none,
+              forceLtr = true
+            )
         ),
-        p(cls := "text", dataIcon := Icon.InfoCircle)(trans.contact.doNotMessageModerators()),
-        p(
-          a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Cms.lonePage("appeal"))(
-            "Read more about the appeal process"
-          )
-        ),
-        p(a(cls := "text", dataIcon := Icon.Download, href := routes.Account.data)("Export personal data"))
+        div(cls := "appeal__rules")(
+          p(cls := "text warning-closure", dataIcon := Icon.CautionTriangle)(
+            trans.site.closingAccountWithdrawAppeal()
+          ),
+          p(cls := "text", dataIcon := Icon.InfoCircle)(trans.contact.doNotMessageModerators()),
+          p(
+            a(cls := "text", dataIcon := Icon.InfoCircle, href := routes.Cms.lonePage("appeal"))(
+              "Read more about the appeal process"
+            )
+          ),
+          p(a(cls := "text", dataIcon := Icon.Download, href := routes.Account.data)("Export personal data"))
+        )
       )
-    )
 
   private val sendUsAnAppeal = frag(
     p("Send us an appeal, and a moderator will review it as soon as possible."),

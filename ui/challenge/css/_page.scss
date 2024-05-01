@@ -78,8 +78,8 @@
   .details {
     @extend %flex-between, %box-neat;
 
-    --c-font: #{$c-secondary};
-    --c-bg: #{$m-secondary_bg--mix-10};
+    ---font: #{$c-secondary};
+    ---bg: #{$m-secondary_bg--mix-10};
 
     padding: $block-gap 4vw;
     margin-bottom: 4rem;
@@ -89,15 +89,15 @@
       font-size: 2em;
     }
 
-    background: var(--c-bg);
-    border: 1px solid var(--c-font);
+    background: var(---bg);
+    border: 1px solid var(---font);
 
     > div {
       flex: 0 1 auto;
       @extend %flex-center, %roboto;
 
       &::before {
-        color: var(--c-font);
+        color: var(---font);
         font-size: 6rem;
         margin-inline-end: 0.2em;
 
@@ -119,13 +119,13 @@
       text-align: end;
       font-weight: bold;
       font-size: 0.8em;
-      color: var(--c-font);
+      color: var(---font);
     }
   }
 
   &.challenge--declined .details {
-    --c-font: #{$c-bad};
-    --c-bg: #{c_bad_bg--mix-10};
+    ---font: #{$c-bad};
+    ---bg: #{c_bad_bg--mix-10};
   }
 
   .challenge-reason {

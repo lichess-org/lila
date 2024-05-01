@@ -19,7 +19,6 @@ final class ClasUi(helpers: lila.ui.Helpers):
       .cssTag("clas")
       .js(EsmInit("bits.clas"))
       .wrap: body =>
-        println("wrap")
         if Granter.opt(_.Teacher) then
           main(cls := "page-menu")(
             teacherMenu(active, student),

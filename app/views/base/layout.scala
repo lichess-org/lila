@@ -61,6 +61,12 @@ object layout:
     if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
     else ctx.pref.currentTheme
 
+  def boardStyle(zoomable: Boolean)(using ctx: Context) =
+    s"---board-opacity:${ctx.pref.board.opacity};" +
+      s"---board-brightness:${ctx.pref.board.brightness};" +
+      s"---board-hue:${ctx.pref.board.hue};" +
+      zoomable.so(s"---zoom:$pageZoom;")
+
   def apply(
       title: String,
       fullTitle: Option[String] = None,
@@ -131,11 +137,10 @@ object layout:
         ),
         st.body(
           cls := {
-            val baseClass =
-              s"${current2dTheme.cssClass} ${pref.currentTheme3d.cssClass} ${pref.currentPieceSet3d.toString} coords-${pref.coordsClass}"
+            val baseClass = s"${pref.currentBg} coords-${pref.coordsClass}"
             List(
               baseClass              -> true,
-              "dark-board"           -> (pref.bg == lila.pref.Pref.Bg.DARKBOARD),
+              "simple-board"         -> pref.simpleBoard,
               "piece-letter"         -> pref.pieceNotationIsLetter,
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid.yes,
@@ -159,10 +164,12 @@ object layout:
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme        := pref.currentBg,
-          dataBoardTheme   := pref.currentTheme.name,
+          dataBoard        := pref.currentTheme.name,
           dataPieceSet     := pref.currentPieceSet.name,
+          dataBoard3d      := pref.currentTheme3d.name,
+          dataPieceSet3d   := pref.currentPieceSet3d.name,
           dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
-          style            := zoomable.option(s"---zoom:$pageZoom")
+          style            := boardStyle(zoomable)
         )(
           blindModeForm,
           ctx.data.inquiry.map { views.mod.inquiry(_) },
