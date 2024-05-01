@@ -351,12 +351,3 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 
   def anyCaptcha = env.game.captcha.any
-
-  /* We roll our own action, as we don't want to compose play Actions. */
-  private def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
-    import play.api.libs.streams.Accumulator
-    import akka.util.ByteString
-    def apply(rh: RequestHeader): Accumulator[ByteString, Result] =
-      parser(rh).mapFuture:
-        case Left(r)  => fuccess(r)
-        case Right(a) => handler(using Request(rh, a))
