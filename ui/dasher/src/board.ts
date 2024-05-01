@@ -93,12 +93,10 @@ export class BoardCtrl extends PaneCtrl {
   };
 
   private reset = () => {
-    this.setVar('board-opacity', 100);
-    this.setVar('board-brightness', 100);
-    this.setVar('board-hue', 0);
-    this.postPref('board-opacity');
-    this.postPref('board-brightness');
-    this.postPref('board-hue');
+    this.defaults.forEach(([prop, v]) => {
+      this.setVar(prop, v);
+      this.postPref(prop);
+    });
     this.sliderKey = Date.now();
     document.body.classList.add('simple-board');
     this.root.redraw();
@@ -143,10 +141,13 @@ export class BoardCtrl extends PaneCtrl {
     this.root?.piece.apply();
   };
 
-  private isDefault = () =>
-    this.getVar('board-brightness') === 100 &&
-    this.getVar('board-hue') === 0 &&
-    this.getVar('board-opacity') === 100;
+  private defaults: [string, number][] = [
+    ['board-opacity', 100],
+    ['board-brightness', 100],
+    ['board-hue', 0],
+  ];
+
+  private isDefault = () => this.defaults.every(([prop, v]) => this.getVar(prop) === v);
 
   private propSliders = () => {
     const sliders = [];
