@@ -160,7 +160,7 @@ lazy val video = module("video",
 )
 
 lazy val coach = module("coach",
-  Seq(memo, rating),
+  Seq(memo, rating, ui),
   Seq()
 )
 

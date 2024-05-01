@@ -48,6 +48,7 @@ trait LangList:
   def allLanguages: List[Language]
   def popularLanguages: List[Language]
   def nameByLanguage(l: Language): String
+  def name(code: String): String
 
   trait LangForm:
     def choices: List[(Language, String)]

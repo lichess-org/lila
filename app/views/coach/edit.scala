@@ -33,7 +33,7 @@ object edit:
         div(cls := "coach-edit box")(
           div(cls := "top")(
             span(
-              h1(widget.titleName(c)),
+              h1(ui.titleName(c)),
               a(
                 href     := routes.Coach.show(c.user.username),
                 cls      := "button button-empty text",
@@ -46,7 +46,7 @@ object edit:
                 ul
               ),
               div(cls := "picture_wrap")(
-                picture.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
+                ui.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
                 div(label("Drag file or"), " ", form3.file.selectImage())
               )
             )
