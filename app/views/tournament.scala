@@ -22,7 +22,7 @@ export showUi.faq.{ page as faq }
 
 lazy val form = TournamentForm(helpers, showUi)(
   modMenu = views.mod.ui.menu("tour"),
-  translatedVariantChoicesWithVariantsById
+  views.setup.translatedVariantChoicesWithVariantsById
 )
 
 def show(

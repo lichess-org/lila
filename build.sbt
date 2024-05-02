@@ -280,7 +280,7 @@ lazy val lobby = module("lobby",
 )
 
 lazy val setup = module("setup",
-  Seq(lobby),
+  Seq(lobby, ui),
   Seq()
 )
 

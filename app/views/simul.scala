@@ -10,8 +10,8 @@ object simul:
   val ui   = lila.simul.ui.SimulUi(helpers)
   val home = lila.simul.ui.SimulHome(helpers, ui)
   val form = lila.simul.ui.SimulFormUi(helpers)(
-    views.setup.filter.setupCheckboxes,
-    translatedVariantChoicesWithVariantsById
+    views.setup.setupCheckboxes,
+    views.setup.translatedVariantChoicesWithVariantsById
   )
   val showUi = lila.simul.ui.SimulShow(helpers, ui, views.gathering)
 

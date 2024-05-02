@@ -6,7 +6,7 @@ import lila.app.UiEnv.{ *, given }
 
 lazy val ui     = lila.swiss.ui.SwissBitsUi(helpers, env.swiss.getName)
 lazy val home   = lila.swiss.ui.SwissHomeUi(helpers)
-lazy val form   = lila.swiss.ui.SwissFormUi(helpers)(translatedVariantChoicesWithVariants)
+lazy val form   = lila.swiss.ui.SwissFormUi(helpers)(views.setup.translatedVariantChoicesWithVariants)
 lazy val showUi = lila.swiss.ui.SwissShow(helpers, ui, views.gathering)
 
 def show(

@@ -11,6 +11,8 @@ val chat = lila.chat.ChatUi(helpers)
 val userAnalysisI18n = lila.analyse.ui.AnalyseI18n(helpers)
 val analysisI18n     = lila.analyse.ui.GameAnalyseI18n(helpers, userAnalysisI18n)
 
+val setup = lila.setup.ui.SetupUi(helpers)
+
 val gathering = lila.gathering.ui.GatheringUi(helpers)(env.web.settings.prizeTournamentMakers.get)
 
 val learn = lila.web.ui.LearnUi(helpers)

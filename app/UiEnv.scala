@@ -5,7 +5,6 @@ import lila.web.ui.*
 
 object UiEnv
     extends ScalatagsTemplate
-    with lila.setup.SetupUi
     with lila.pref.PrefHelper
     with SecurityHelper
     with TeamHelper
