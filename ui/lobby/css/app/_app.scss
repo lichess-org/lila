@@ -30,7 +30,7 @@
     @include if-transp {
       background: $m-bg--fade-20;
     }
-    background-size: 100% 100%;
+    background-size: 100% 100% !important;
     overflow-x: hidden;
     overflow-y: auto;
   }
