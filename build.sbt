@@ -220,7 +220,7 @@ lazy val timeline = module("timeline",
 )
 
 lazy val event = module("event",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq()
 )
 

@@ -21,10 +21,10 @@ val coordinate = lila.coordinate.ui.CoordinateUi(helpers)
 
 val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
 
-val irwin = lila.irwin.IrwinUi(helpers)(menu = views.mod.ui.menu)
+val irwin = lila.irwin.IrwinUi(helpers)(menu = mod.ui.menu)
 
 object oAuth:
-  val token     = lila.oauth.ui.TokenUi(helpers)(views.account.ui.AccountPage)
+  val token     = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage)
   val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)
 
 val plan      = lila.plan.ui.PlanUi(helpers)(netConfig.email)
@@ -35,9 +35,11 @@ val feed =
     env.executor
   )
 
-val cms = lila.cms.ui.CmsUi(helpers)(views.mod.ui.menu("cms"))
+val cms = lila.cms.ui.CmsUi(helpers)(mod.ui.menu("cms"))
 
-val userTournament = lila.tournament.ui.UserTournament(helpers, views.tournament.ui)
+val event = lila.event.ui.EventUi(helpers)(mod.ui.menu("event"))(using env.executor)
+
+val userTournament = lila.tournament.ui.UserTournament(helpers, tournament.ui)
 
 object account:
   val ui        = lila.pref.ui.AccountUi(helpers)
@@ -47,10 +49,10 @@ object account:
   val security  = lila.security.ui.AccountSecurity(helpers)(env.net.email, ui.AccountPage)
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
-  csp = views.analyse.ui.csp,
+  csp = analyse.ui.csp,
   translations = userAnalysisI18n.vector(),
-  views.board.bits.explorerAndCevalConfig,
-  modMenu = views.mod.ui.menu("practice")
+  board.bits.explorerAndCevalConfig,
+  modMenu = mod.ui.menu("practice")
 )
 
 object forum:
@@ -63,7 +65,7 @@ object forum:
     lila.msg.MsgPreset.forumDeletion.presets
   )
 
-val timeline = lila.timeline.ui.TimelineUi(helpers)(views.streamer.bits.redirectLink(_))
+val timeline = lila.timeline.ui.TimelineUi(helpers)(streamer.bits.redirectLink(_))
 
 object opening:
   val bits = lila.opening.ui.OpeningBits(helpers)
@@ -72,7 +74,7 @@ object opening:
 
 val video = lila.video.ui.VideoUi(helpers)
 
-val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(views.game.widgets(_))
+val gameSearch = lila.gameSearch.ui.GameSearchUi(helpers)(game.widgets(_))
 
 val auth = lila.web.ui.AuthUi(helpers)
 
