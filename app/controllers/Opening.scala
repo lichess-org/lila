@@ -14,7 +14,7 @@ final class Opening(env: Env) extends LilaController(env):
     if searchQuery.nonEmpty then
       val results = env.opening.search(searchQuery)
       if HTTPRequest.isXhr(ctx.req)
-      then Ok.snippet(views.opening.ui.resultsList(results))
+      then Ok.snip(views.opening.ui.resultsList(results))
       else Ok.page(views.opening.ui.resultsPage(searchQuery, results, env.opening.api.readConfig))
     else
       FoundPage(env.opening.api.index): page =>
@@ -36,7 +36,7 @@ final class Opening(env: Env) extends LilaController(env):
             Redirect:
               s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
           else
-            Ok.pageAsync:
+            Ok.async:
               page.query.exactOpening.so(env.puzzle.opening.getClosestTo).map { puzzle =>
                 val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
                 views.opening.ui.show(page, puzzleKey)

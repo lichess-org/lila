@@ -137,7 +137,7 @@ final class User(
                     res <- Ok.page:
                       views.user.show.page.games(info, pag, filters, searchForm, social, notes)
                   yield res
-                else Ok.snippet(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes)).toFuccess
+                else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes)).toFuccess
             yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
             json = apiGames(u, filter, page)
           )
@@ -176,7 +176,7 @@ final class User(
           val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
           negotiate(
             html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
-              Ok.snippet(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+              Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
                 .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
             },
             json =
@@ -454,7 +454,7 @@ final class User(
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
       case WithPerfsAndEmails(user, emails) =>
         env.user.repo.isErased(user).flatMap { erased =>
-          Ok.snippet:
+          Ok.snip:
             views.mod.user.actions(
               user,
               emails,
@@ -472,12 +472,12 @@ final class User(
         data =>
           doWriteNote(username, data): user =>
             if getBool("inquiry") then
-              Ok.snippetAsync:
+              Ok.snipAsync:
                 env.user.noteApi.byUserForMod(user.id).map {
                   views.mod.inquiry.ui.noteZone(user, _)
                 }
             else
-              Ok.snippetAsync:
+              Ok.snipAsync:
                 env.socialInfo.fetchNotes(user).map {
                   views.user.noteUi.zone(user, _)
                 }
@@ -552,7 +552,7 @@ final class User(
   def perfStat(username: UserStr, perfKey: PerfKeyStr) = Open:
     Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiate(
-        Ok.pageAsync:
+        Ok.async:
           env.history
             .ratingChartApi(data.user.user)
             .map:

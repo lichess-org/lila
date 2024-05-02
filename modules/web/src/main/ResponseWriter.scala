@@ -24,9 +24,6 @@ trait ResponseWriter extends ContentTypes:
   given pgnWriteable(using codec: Codec): Writeable[PgnStr] =
     Writeable(p => codec.encode(p.toString), pgnContentType.some)
 
-  // given (using codec: Codec): Writeable[Option[String]] = Writeable(i => codec encode i.orZero)
-  // given ContentTypeOf[Option[String]]                   = textContentType
-
   given stringRuntimeContentType[A: StringRuntime]: ContentTypeOf[A] = textContentType
   given stringRuntimeWriteable[A](using codec: Codec, sr: StringRuntime[A]): Writeable[A] =
     Writeable(a => codec.encode(sr(a)))

@@ -366,7 +366,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     InEmbedContext:
       env.puzzle.daily.get.flatMap:
         _.fold(InternalServerError("No daily puzzle yet").toFuccess): p =>
-          Ok.snippet(views.puzzle.embed(p))
+          Ok.snip(views.puzzle.embed(p))
 
   def activity = Scoped(_.Puzzle.Read, _.Web.Mobile) { ctx ?=> me ?=>
     val config = lila.puzzle.PuzzleActivity.Config(
@@ -408,7 +408,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   def history(page: Int, u: Option[UserStr]) = DashboardPage(u) { _ ?=> user =>
     Reasonable(page):
       WithPuzzlePerf: perf ?=>
-        Ok.pageAsync:
+        Ok.async:
           env.puzzle
             .history(user.withPerf(perf), page)
             .map:
@@ -518,7 +518,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def help = Open:
-    Ok.snippet(lila.web.ui.help.puzzle)
+    Ok.snip(lila.web.ui.help.puzzle)
 
   private def DashboardPage(username: Option[UserStr])(f: Context ?=> lila.user.User => Fu[Result]) =
     Auth { ctx ?=> me ?=>

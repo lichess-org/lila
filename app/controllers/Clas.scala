@@ -21,7 +21,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         case _ if getBool("home") => renderHome
         case None                 => renderHome
         case Some(me) if isGrantedOpt(_.Teacher) && !me.lameOrTroll =>
-          Ok.pageAsync:
+          Ok.async:
             env.clas.api.clas.of(me).map {
               views.clas.clas.teacherIndex(_, getBool("closed"))
             }
@@ -53,7 +53,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     Ok.page(views.clas.clas.home)
 
   def form = Secure(_.Teacher) { ctx ?=> _ ?=>
-    Ok.pageAsync:
+    Ok.async:
       renderCreate(none)
   }
 
@@ -64,14 +64,14 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           _.form
             .bindFromRequest()
             .fold(
-              err => BadRequest.pageAsync(renderCreate(err.some)),
+              err => BadRequest.async(renderCreate(err.some)),
               data =>
                 env.security.hcaptcha
                   .verify()
                   .flatMap: captcha =>
                     if captcha.ok
                     then env.clas.api.clas.create(data, me.value).map(redirectTo)
-                    else BadRequest.pageAsync(renderCreate(data.some))
+                    else BadRequest.async(renderCreate(data.some))
             )
   }
 
@@ -131,7 +131,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def wall(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAny(id)(
       forTeacher = WithClass(id): clas =>
-        Ok.pageAsync:
+        Ok.async:
           env.clas.api.student.allWithUsers(clas).map {
             views.clas.teacherDashboard.wall.show(clas, _, env.clas.markup(clas))
           }
@@ -142,7 +142,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def wallEdit(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
-      Ok.pageAsync:
+      Ok.async:
         env.clas.api.student.activeWithUsers(clas).map {
           views.clas.teacherDashboard.wall.edit(clas, _, env.clas.forms.clas.wall.fill(clas.wall))
         }
@@ -154,7 +154,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         .bindFromRequest()
         .fold(
           err =>
-            BadRequest.pageAsync:
+            BadRequest.async:
               env.clas.api.student.activeWithUsers(clas).map {
                 views.clas.teacherDashboard.wall.edit(clas, _, err)
               }
@@ -181,7 +181,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         .bindFromRequest()
         .fold(
           err =>
-            BadRequest.pageAsync:
+            BadRequest.async:
               env.clas.api.student.activeWithUsers(clas).map {
                 views.clas.teacherDashboard.notifyForm(clas, _, err)
               }
@@ -228,7 +228,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       env.clas.api.student.activeWithUsers(clas).flatMap { students =>
         Reasonable(clas, students, "progress"):
           val studentIds = students.map(_.user.id)
-          Ok.pageAsync:
+          Ok.async:
             env.learn.api
               .completionPercent(studentIds)
               .zip(env.practice.api.progress.completionPercent(studentIds))
@@ -241,7 +241,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
   def edit(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
-      Ok.pageAsync:
+      Ok.async:
         env.clas.api.student.activeWithUsers(clas).map {
           views.clas.clas.edit(clas, _, env.clas.forms.clas.edit(clas))
         }
@@ -254,7 +254,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         .bindFromRequest()
         .fold(
           err =>
-            BadRequest.pageAsync:
+            BadRequest.async:
               env.clas.api.student.activeWithUsers(clas).map {
                 views.clas.clas.edit(clas, _, err)
               }
@@ -300,7 +300,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               .bindFromRequest()
               .fold(
                 err =>
-                  BadRequest.pageAsync:
+                  BadRequest.async:
                     env.clas.api.student.count(clas.id).map {
                       views.clas.student
                         .form(clas, students, env.clas.forms.student.invite(clas), err, _, none)
@@ -371,7 +371,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         .bindFromRequest()
         .fold(
           err =>
-            BadRequest.pageAsync:
+            BadRequest.async:
               env.clas.api.student.count(clas.id).map {
                 views.clas.student.form(clas, students, err, env.clas.forms.student.create, _, None)
               }

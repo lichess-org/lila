@@ -17,7 +17,7 @@ final class Timeline(env: Env) extends LilaController(env):
           for
             entries <- env.timeline.entryApi.userEntries(me)
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
-          yield Ok.snippet(views.timeline.entries(entries))
+          yield Ok.snip(views.timeline.entries(entries))
         else
           for
             entries <- env.timeline.entryApi.moreUserEntries(me, Max(30), since = getTimestamp("since"))

@@ -34,11 +34,11 @@ trait ResponseBuilder(using Executor)
 
   def FoundPage[A](fua: Fu[Option[A]])(op: A => Fu[Page])(using Context): Fu[Result] =
     Found(fua): a =>
-      Ok.pageAsync(op(a))
+      Ok.async(op(a))
 
-  def FoundSnippet[A](fua: Fu[Option[A]])(op: A => Fu[Snippet])(using Context): Fu[Result] =
+  def FoundSnip[A](fua: Fu[Option[A]])(op: A => Fu[Snippet])(using Context): Fu[Result] =
     Found(fua): a =>
-      Ok.snippetAsync(op(a).map(_.frag))
+      Ok.snipAsync(op(a).map(_.frag))
 
   extension [A](fua: Fu[Option[A]])
     def orNotFound(f: A => Fu[Result])(using Context): Fu[Result] =

@@ -115,7 +115,7 @@ final class Main(
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move" => Ok.snippet(lila.web.ui.help.voiceMove)
+      case "move" => Ok.snip(lila.web.ui.help.voiceMove)
       case _      => NotFound(s"Unknown voice module: $module")
 
   def movedPermanently(to: String) = Anon:

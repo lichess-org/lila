@@ -71,7 +71,7 @@ final class Dev(env: Env) extends LilaController(env):
       .fold(
         err => BadRequest.page(views.dev.cli(err, "Invalid command".some)),
         command =>
-          Ok.pageAsync:
+          Ok.async:
             runCommand(command).map: res =>
               views.dev.cli(commandForm.fill(command), s"$command\n\n$res".some)
       )

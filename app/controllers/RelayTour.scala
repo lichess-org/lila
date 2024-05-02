@@ -21,7 +21,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
           env.relay.pager
             .search(query, page)
             .flatMap: pager =>
-              Ok.pageAsync:
+              Ok.async:
                 views.relay.tour.search(pager, query)
         case None =>
           for
@@ -47,7 +47,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.pager
         .subscribedBy(me.userId, page)
         .flatMap: pager =>
-          Ok.pageAsync:
+          Ok.async:
             views.relay.tour.subscribed(pager)
   }
 
@@ -56,7 +56,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.pager
         .allPrivate(page)
         .flatMap: pager =>
-          Ok.pageAsync:
+          Ok.async:
             views.relay.tour.allPrivate(pager)
   }
 

@@ -102,12 +102,12 @@ final class Analyse(
           render:
             case AcceptsPgn() => Ok(pgn)
             case _ =>
-              Ok.snippet:
+              Ok.snip:
                 views.analyse.embed.lpv(pgn, chess.Color.fromName(color), getPgn = true)
         case _ =>
           render:
             case AcceptsPgn() => NotFound("*")
-            case _            => NotFound.snippet(views.analyse.embed.notFound)
+            case _            => NotFound.snip(views.analyse.embed.notFound)
       }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Full])(or: => Fu[Result])(using

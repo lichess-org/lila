@@ -19,7 +19,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def all(page: Int) = Open:
     Reasonable(page):
-      Ok.pageAsync:
+      Ok.async:
         paginator
           .popularTeams(page)
           .map:
@@ -44,7 +44,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
             api.belongsTo(team.id, _)
         canSee.flatMap:
           if _ then
-            Ok.pageAsync:
+            Ok.async:
               paginator.teamMembersWithDate(team, page).map {
                 views.team.membersPage(team, _)
               }
@@ -52,7 +52,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
-      Ok.pageAsync:
+      Ok.async:
         if text.trim.isEmpty
         then paginator.popularTeams(page).map { views.team.list.all(_) }
         else
@@ -112,7 +112,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def edit(id: TeamId) = Auth { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Settings): team =>
-      Ok.pageAsync(renderEdit(team, forms.edit(team)))
+      Ok.async(renderEdit(team, forms.edit(team)))
   }
 
   def update(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -121,7 +121,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         .edit(team)
         .bindFromRequest()
         .fold(
-          err => BadRequest.pageAsync(renderEdit(team, err)),
+          err => BadRequest.async(renderEdit(team, err)),
           data => api.update(team, data).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
         )
   }
@@ -280,18 +280,18 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def mine = Auth { ctx ?=> me ?=>
-    Ok.pageAsync:
+    Ok.async:
       api.mine.map:
         views.team.list.mine(_)
   }
 
   private def tooManyTeamsHtml(using Context, Me): Fu[Result] =
-    BadRequest.pageAsync:
+    BadRequest.async:
       api.mine.map(views.team.list.mine)
   private val tooManyTeamsJson = BadRequest(jsonError("You have joined too many teams"))
 
   def leader = Auth { ctx ?=> me ?=>
-    Ok.pageAsync:
+    Ok.async:
       api.teamsLedBy(me).map(views.team.list.ledByMe)
   }
 
@@ -334,7 +334,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   def requests = Auth { _ ?=> me ?=>
     import lila.memo.CacheApi.*
     env.team.cached.nbRequests.invalidate(me)
-    Ok.pageAsync:
+    Ok.async:
       api.requestsWithUsers(me).map(views.team.request.all)
   }
 
@@ -391,7 +391,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         .fold(
           _ => BadRequest(""),
           userQuery =>
-            Ok.pageAsync:
+            Ok.async:
               paginator.declinedRequests(team, page, userQuery).map {
                 views.team.request.declined(team, _, userQuery)
               }

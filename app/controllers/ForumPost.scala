@@ -42,7 +42,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             canModCateg  <- access.isGrantedMod(categ.slug)
             replyBlocked <- access.isReplyBlockedOnUBlog(topic, canModCateg)
             res <-
-              if replyBlocked then BadRequest.snippet(trans.ublog.youBlockedByBlogAuthor()).toFuccess
+              if replyBlocked then BadRequest.snip(trans.ublog.youBlockedByBlogAuthor()).toFuccess
               else
                 categ.team.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
                   forms
@@ -124,7 +124,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
-      FoundSnippet(postApi.react(categId, id, reaction, v)): post =>
+      FoundSnip(postApi.react(categId, id, reaction, v)): post =>
         lila.ui.Snippet(views.forum.post.reactions(post, canReact = true))
   }
 

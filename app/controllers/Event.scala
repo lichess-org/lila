@@ -10,7 +10,7 @@ final class Event(env: Env) extends LilaController(env):
     FoundPage(api.oneEnabled(id))(views.event.show)
 
   def manager = Secure(_.ManageEvent) { ctx ?=> _ ?=>
-    Ok.pageAsync:
+    Ok.async:
       api.list.map(views.event.manager)
   }
 

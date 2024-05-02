@@ -7,9 +7,7 @@ import lila.ui.{ RenderedPage, ContentSecurityPolicy }
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
 
-export layout.{ apply as page }
-
-object layout:
+object page:
 
   val ui = lila.web.ui.layout(helpers, assetHelper)(
     jsQuantity = lila.i18n.JsQuantity.apply,

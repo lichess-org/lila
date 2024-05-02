@@ -247,7 +247,7 @@ final class Round(
               .some
 
   def sides(gameId: GameId, color: String) = Open:
-    FoundSnippet(proxyPov(gameId, color)): pov =>
+    FoundSnip(proxyPov(gameId, color)): pov =>
       (
         env.tournament.api.gameView.withTeamVs(pov.game),
         pov.game.simulId.so(env.simul.repo.find),
@@ -292,7 +292,7 @@ final class Round(
         akka.pattern.after(500.millis, env.system.scheduler)(redirection)
 
   def mini(gameId: GameId, color: String) = Open:
-    FoundSnippet(
+    FoundSnip(
       chess.Color
         .fromName(color)
         .so(env.round.proxyRepo.povIfPresent(gameId, _))
@@ -300,7 +300,7 @@ final class Round(
     )(pov => Snippet(views.game.mini(pov)))
 
   def miniFullId(fullId: GameFullId) = Open:
-    FoundSnippet(env.round.proxyRepo.povIfPresent(fullId).orElse(env.game.gameRepo.pov(fullId))): pov =>
+    FoundSnip(env.round.proxyRepo.povIfPresent(fullId).orElse(env.game.gameRepo.pov(fullId))): pov =>
       Snippet(views.game.mini(pov))
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
@@ -319,4 +319,4 @@ final class Round(
   }
 
   def help = Open:
-    Ok.snippet(lila.web.ui.help.round)
+    Ok.snip(lila.web.ui.help.round)

@@ -40,7 +40,7 @@ final class KeyPages(val env: Env)(using Executor)
             views.lobby.home(h)
 
   def notFound(using Context): Fu[Result] =
-    NotFound.page(views.base.notFound())
+    NotFound.page(views.base.notFound)
 
   def blacklisted(using ctx: Context): Result =
     if lila.security.Mobile.Api.requested(ctx.req) then

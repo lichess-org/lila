@@ -136,7 +136,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
     getUserStr("username").so(env.user.repo.byId).flatMap { user =>
       if user.exists(_.is(UserId.lichess)) then Redirect(routes.Main.contact)
       else
-        Ok.pageAsync:
+        Ok.async:
           val form = env.report.forms.create
           val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
             case (Some(u), Some(pid)) =>
@@ -187,7 +187,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       .get("reported")
       .flatMap(UserStr.read)
       .fold(Redirect("/").toFuccess): reported =>
-        Ok.pageAsync:
+        Ok.async:
           env.relation.api.fetchBlocks(me, reported.id).map {
             views.report.thanks(reported.id, _)
           }

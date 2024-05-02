@@ -465,7 +465,7 @@ final class Auth(
     else
       Firewall:
         consumingToken(token): user =>
-          Ok.pageAsync:
+          Ok.async:
             env.security.loginToken.generate(user).map {
               views.auth.tokenLoginConfirmation(user, _, get("referrer"))
             }

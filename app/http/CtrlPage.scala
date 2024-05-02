@@ -18,19 +18,8 @@ trait CtrlPage(using Executor) extends RequestContext with ControllerHelpers wit
 
   extension (s: Status)
 
-    def page(page: Page)(using Context): Fu[Result] =
-      pageContext.map: pctx =>
-        s(views.base.page(page)(using pctx))
+    def page(page: Page)(using Context): Fu[Result]      = renderPage(page).map(s(_))
+    def async(page: Fu[Page])(using Context): Fu[Result] = renderAsync(page).map(s(_))
 
-    def pageAsync(page: Fu[Page])(using Context): Fu[Result] =
-      pageContext.flatMap: pctx =>
-        page.map(views.base.page(_)(using pctx)).map(s(_))
-
-    def snippetAsync(snippet: Fu[Frag])(using Context): Fu[Result] =
-      snippet.dmap(Snippet(_)).map(s(_))
-
-    def snippet(snippet: Frag)(using Context): Result =
-      s(Snippet(snippet))
-
-    // #TODO simplify
-    def async(page: Fu[Page])(using Context): Fu[Result] = s.pageAsync(page)
+    def snipAsync(frag: Fu[Frag])(using Context): Fu[Result] = frag.dmap(Snippet(_)).map(s(_))
+    def snip(frag: Frag)(using Context): Result              = s(Snippet(frag))

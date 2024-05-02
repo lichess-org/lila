@@ -307,7 +307,7 @@ final class Account(
       clients              <- env.oAuth.tokenApi.listClients(50)
       personalAccessTokens <- env.oAuth.tokenApi.countPersonal
       currentSessionId = ~env.security.api.reqSessionId(req)
-      page <- Ok.pageAsync:
+      page <- Ok.async:
         views.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
     yield page
   }
@@ -326,7 +326,7 @@ final class Account(
 
   def reopen = Open:
     auth.RedirectToProfileIfLoggedIn:
-      Ok.pageAsync(renderReopen(none, none))
+      Ok.async(renderReopen(none, none))
 
   def reopenApply = OpenBody:
     env.security.hcaptcha.verify().flatMap { captcha =>

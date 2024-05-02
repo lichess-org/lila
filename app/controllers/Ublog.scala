@@ -29,7 +29,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def drafts(username: UserStr, page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.edit): (user, blog) =>
-        Ok.pageAsync:
+        Ok.async:
           env.ublog.paginator
             .byBlog(blog.id, false, page)
             .map:
@@ -247,7 +247,7 @@ final class Ublog(env: Env) extends LilaController(env):
   def friends(page: Int) = Auth { _ ?=> me ?=>
     NotForKids:
       Reasonable(page, Max(100)):
-        Ok.pageAsync:
+        Ok.async:
           env.ublog.paginator.liveByFollowed(me, page).map(views.ublog.ui.friends)
   }
 
@@ -268,7 +268,7 @@ final class Ublog(env: Env) extends LilaController(env):
     NotForKids:
       Reasonable(page, Max(100)):
         pageHit
-        Ok.pageAsync:
+        Ok.async:
           val language = l.map(Language.apply)
           env.ublog.paginator
             .liveByCommunity(language, page)
@@ -280,12 +280,12 @@ final class Ublog(env: Env) extends LilaController(env):
     env.ublog.paginator
       .liveByCommunity(l.map(Language.apply), page = 1)
       .map: posts =>
-        Ok.snippet(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(XML)
+        Ok.snip(views.ublog.ui.atom.community(language, posts.currentPageResults)).as(XML)
 
   def liked(page: Int) = Auth { ctx ?=> me ?=>
     NotForKids:
       Reasonable(page, Max(100)):
-        Ok.pageAsync:
+        Ok.async:
           env.ublog.paginator
             .liveByLiked(page)
             .map:
@@ -294,7 +294,7 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def topics = Open:
     NotForKids:
-      Ok.pageAsync:
+      Ok.async:
         env.ublog.topic.withPosts.map:
           views.ublog.ui.topics(_)
 
@@ -304,7 +304,7 @@ final class Ublog(env: Env) extends LilaController(env):
         lila.ublog.UblogTopic
           .fromUrl(str)
           .so: top =>
-            Ok.pageAsync:
+            Ok.async:
               env.ublog.paginator
                 .liveByTopic(top, page, byDate)
                 .map:
@@ -321,7 +321,7 @@ final class Ublog(env: Env) extends LilaController(env):
               (isBlogVisible(user, blog)
                 .so(env.ublog.paginator.byUser(user, true, 1)))
                 .map: posts =>
-                  Ok.snippet(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
+                  Ok.snip(views.ublog.ui.atom.user(user, posts.currentPageResults)).as(XML)
 
   def historicalBlogPost(id: String, slug: String) = Open:
     Found(env.ublog.api.getByPrismicId(id)): post =>

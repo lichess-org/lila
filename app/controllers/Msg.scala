@@ -8,7 +8,7 @@ final class Msg(env: Env) extends LilaController(env):
 
   def home = Auth { _ ?=> me ?=>
     negotiateApi(
-      html = Ok.pageAsync(inboxJson.map(views.msg.home)),
+      html = Ok.async(inboxJson.map(views.msg.home)),
       api = v =>
         JsonOk:
           if v.value >= 5 then inboxJson
@@ -25,7 +25,7 @@ final class Msg(env: Env) extends LilaController(env):
         case Some(c) =>
           def newJson = inboxJson.map { _ + ("convo" -> env.msg.json.convo(c)) }
           negotiateApi(
-            html = Ok.pageAsync(newJson.map(views.msg.home)),
+            html = Ok.async(newJson.map(views.msg.home)),
             api = v =>
               JsonOk:
                 if v.value >= 5 then newJson
