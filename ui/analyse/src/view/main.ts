@@ -42,8 +42,8 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
     gamebookPlayView || renderTools(ctx),
     !menuIsOpen && crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
     !gamebookPlayView && renderControls(ctrl),
-    ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     renderUnderboard(ctx),
+    ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
     trainingView(ctrl),
     ctrl.studyPractice
       ? deps?.studyPracticeView.side(study!)

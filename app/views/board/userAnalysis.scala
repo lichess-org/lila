@@ -21,6 +21,7 @@ object userAnalysis:
       .cssTag((pov.game.variant == Crazyhouse).option("analyse.zh"))
       .cssTag(withForecast.option("analyse.forecast"))
       .cssTag(ctx.blind.option("round.nvui"))
+      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .js(analyseNvuiTag)
       .js(
         views.analyse.bits
