@@ -76,5 +76,7 @@ val auth = lila.web.ui.AuthUi(helpers)
 
 val storm = lila.storm.ui.StormUi(helpers)
 
+val challenge = lila.challenge.ui.ChallengeUi(helpers)
+
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))

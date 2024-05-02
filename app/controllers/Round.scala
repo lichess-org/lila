@@ -130,7 +130,7 @@ final class Round(
       case None =>
         userC
           .tryRedirect(gameId.into(UserStr))
-          .getOrElse(challengeC.showId(gameId.into(lila.challenge.Challenge.Id)))
+          .getOrElse(challengeC.showId(gameId.into(lila.challenge.ChallengeId)))
 
   private def proxyPov(gameId: GameId, color: String): Fu[Option[Pov]] =
     chess.Color

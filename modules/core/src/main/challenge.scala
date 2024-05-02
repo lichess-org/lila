@@ -6,11 +6,12 @@ import _root_.chess.{ Color, Mode }
 
 import scalalib.model.Days
 import lila.core.userId.UserId
+import lila.core.id.ChallengeId
 import lila.core.rating.data.*
 
 trait Challenge:
   import Challenge.*
-  val id: Id
+  val id: ChallengeId
   val variant: Variant
   val mode: Mode
   val timeControl: TimeControl
@@ -27,8 +28,6 @@ trait Challenge:
     case _                              => none
 
 object Challenge:
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
 
   sealed trait TimeControl:
     def realTime: Option[_root_.chess.Clock.Config] = none
