@@ -2,7 +2,8 @@ package views.game
 
 import lila.app.UiEnv.{ *, given }
 
-lazy val ui = lila.game.ui.GameUi(helpers)
+val ui = lila.game.ui.GameUi(helpers)
+export ui.mini
 
 def sides(
     pov: Pov,

@@ -50,7 +50,7 @@ object watcher:
             bits.side(pov, data, tour, simul, userTv, bookmarked),
             chatOption.map(_ => views.chat.frag)
           ),
-          bits.roundAppPreload(pov),
+          ui.roundAppPreload(pov),
           div(cls := "round__underboard")(bits.crosstable(cross, pov.game)),
           div(cls := "round__underchat")(bits.underchat(pov.game))
         )
@@ -69,5 +69,5 @@ object watcher:
               div(cls := "pgn")(pgn.render)
             )
           ),
-          div(cls := "round__board main-board")(bits.povChessground(pov))
+          div(cls := "round__board main-board")(ui.povChessground(pov))
         )
