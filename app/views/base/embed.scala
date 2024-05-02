@@ -18,14 +18,15 @@ def embed(title: String, cssModule: String, modules: EsmList = Nil)(body: Modifi
         page.ui.pieceSprite(ctx.pieceSet.name),
         cssTag("theme-light"), // includes both light & dark colors
         cssTag(cssModule),
-        page.ui.modulesPreload(modules, isInquiry = false)
+        page.ui.scriptsPreload(modules.flatMap(_.map(_.key)))
       ),
-      st.body(cls := s"highlight ${ctx.boardClass}")(
+      st.body(
         page.ui.dataSoundSet := lila.pref.SoundSet.silent.key,
         page.ui.dataAssetUrl,
         page.ui.dataAssetVersion := assetVersion.value,
         page.ui.dataTheme        := ctx.bg,
         page.ui.dataPieceSet     := ctx.pieceSet.name,
+        page.ui.dataBoard        := ctx.boardClass,
         page.ui.dataDev,
         body
       )

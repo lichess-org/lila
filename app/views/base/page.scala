@@ -96,7 +96,7 @@ object page:
           manifests,
           jsLicense,
           p.withHrefLangs.map(hrefLangs),
-          modulesPreload(
+          sitePreload(
             p.modules ++ p.pageModule.so(module => jsPageModule(module.name)),
             isInquiry = ctx.data.inquiry.isDefined
           ),
