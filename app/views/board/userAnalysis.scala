@@ -36,7 +36,7 @@ object userAnalysis:
               views.board.bits.explorerAndCevalConfig
           )
       )
-      .csp(analysisCsp.compose(_.withExternalAnalysisApis))
+      .csp(views.analyse.ui.csp.compose(_.withExternalAnalysisApis))
       .graph(
         title = "Chess analysis board",
         url = s"$netBaseUrl${routes.UserAnalysis.index.url}",

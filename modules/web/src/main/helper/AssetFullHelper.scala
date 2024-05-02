@@ -70,6 +70,3 @@ trait AssetFullHelper:
 
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =
     nonce.foldLeft(basicCsp)(_.withNonce(_))
-
-  def analysisCsp: Update[ContentSecurityPolicy] =
-    _.withWebAssembly.withExternalEngine(externalEngineEndpoint)

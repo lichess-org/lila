@@ -51,7 +51,7 @@ object show:
       )
       .zoom
       .csp(
-        (if crossSiteIsolation then analysisCsp else identity[lila.ui.ContentSecurityPolicy])
+        (if crossSiteIsolation then views.analyse.ui.csp else identity[lila.ui.ContentSecurityPolicy])
           .compose(_.withExternalAnalysisApis)
       )
       .graph(

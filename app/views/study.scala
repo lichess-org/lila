@@ -86,7 +86,7 @@ def show(
     )
     .robots(s.isPublic)
     .zoom
-    .csp(analysisCsp.compose(_.withPeer.withExternalAnalysisApis))
+    .csp(views.analyse.ui.csp.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
       title = s.name.value,
       url = s"$netBaseUrl${routes.Study.show(s.id).url}",
@@ -110,13 +110,12 @@ object embed:
       modules = EsmInit("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
-      lpvJs:
-        lpvConfig(orientation = none, getPgn = canGetPgn) ++ Json
-          .obj()
-          .add(
-            "gamebook" -> chapter.isGamebook
-              .option(Json.obj("url" -> routes.Study.chapter(s.id, chapter.id).url))
-          )
+      views.analyse.ui.embed.lpvJs(
+        views.analyse.ui.embed.lpvConfig(orientation = none, getPgn = canGetPgn) ++
+          chapter.isGamebook.so:
+            Json.obj:
+              "gamebook" -> Json.obj("url" -> routes.Study.chapter(s.id, chapter.id).url)
+      )(ctx.nonce.some)
     )
 
   def notFound(using EmbedContext) =

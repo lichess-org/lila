@@ -36,7 +36,7 @@ object show:
             .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
         )
       )
-      .csp(analysisCsp)
+      .csp(views.analyse.ui.csp)
       .graph(
         OpenGraph(
           image = cdnUrl(

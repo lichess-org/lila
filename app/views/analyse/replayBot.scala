@@ -11,7 +11,7 @@ object replayBot:
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(using PageContext) =
-    Page(replay.titleOf(pov))
+    Page(ui.titleOf(pov))
       .cssTag("analyse.round")
       .graph(views.round.ui.povOpenGraph(pov))
       .csp(bits.csp)
