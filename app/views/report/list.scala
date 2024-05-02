@@ -14,7 +14,7 @@ object list:
       scores: lila.report.Room.Scores,
       streamers: Int,
       appeals: Int
-  )(using PageContext) =
+  )(using Context) =
     layout(filter, scores, streamers, appeals)(
       table(cls := "slist slist-pad see")(
         thead(
@@ -87,11 +87,8 @@ object list:
 
   def layout(filter: String, scores: lila.report.Room.Scores, streamers: Int, appeals: Int)(
       body: Frag
-  )(using ctx: PageContext) =
-    views.base.layout(
-      title = "Reports",
-      moreCss = cssTag("mod.report")
-    ) {
+  )(using ctx: Context) =
+    Page("Reports").cssTag("mod.report"):
       main(cls := "page-menu")(
         views.mod.ui.menu("report"),
         div(id := "report_list", cls := "page-menu__content box")(
@@ -145,4 +142,3 @@ object list:
           body
         )
       )
-    }

@@ -8,28 +8,22 @@ import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.shutup.Analyser
 
-object communication:
-
-  def apply(
-      mod: Me,
-      u: User,
-      players: List[(Pov, lila.chat.MixedChat)],
-      convos: List[lila.msg.ModMsgConvo],
-      publicLines: List[lila.shutup.PublicLine],
-      notes: List[lila.user.Note],
-      history: List[lila.mod.Modlog],
-      logins: lila.security.UserLogins.TableData[UserWithModlog],
-      appeals: List[lila.appeal.Appeal],
-      priv: Boolean
-  )(using ctx: PageContext, renderIp: RenderIp) =
-    views.base.layout(
-      title = u.username + " communications",
-      moreCss = frag(
-        cssTag("mod.communication"),
-        isGranted(_.UserModView).option(cssTag("mod.user"))
-      ),
-      modules = isGranted(_.UserModView).so(EsmInit("mod.user"))
-    ):
+def communication(
+    mod: Me,
+    u: User,
+    players: List[(Pov, lila.chat.MixedChat)],
+    convos: List[lila.msg.ModMsgConvo],
+    publicLines: List[lila.shutup.PublicLine],
+    notes: List[lila.user.Note],
+    history: List[lila.mod.Modlog],
+    logins: lila.security.UserLogins.TableData[UserWithModlog],
+    appeals: List[lila.appeal.Appeal],
+    priv: Boolean
+)(using ctx: Context, renderIp: RenderIp) =
+  Page(u.username + " communications")
+    .cssTag("mod.communication")
+    .cssTag(isGranted(_.UserModView).option("mod.user"))
+    .js(isGranted(_.UserModView).option(EsmInit("mod.user"))):
       main(id := "communication", cls := "box box-pad")(
         boxTop(
           h1(
@@ -208,5 +202,5 @@ object communication:
         )
       )
 
-  private def showSbMark(u: User) =
-    u.marks.troll.option(span(cls := "user_marks")(iconTag(Icon.BubbleSpeech)))
+private def showSbMark(u: User) =
+  u.marks.troll.option(span(cls := "user_marks")(iconTag(Icon.BubbleSpeech)))

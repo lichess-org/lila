@@ -15,7 +15,7 @@ object userAnalysis:
       pov: Pov,
       withForecast: Boolean = false,
       inlinePgn: Option[String] = None
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     Page(trans.site.analysis.txt())
       .cssTag("analyse.free")
       .cssTag((pov.game.variant == Crazyhouse).option("analyse.zh"))

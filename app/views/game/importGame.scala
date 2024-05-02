@@ -9,7 +9,7 @@ object importGame:
   private def analyseHelp(using ctx: Context) =
     ctx.isAnon.option(a(cls := "blue", href := routes.Auth.signup)(trans.site.youNeedAnAccountToDoThat()))
 
-  def apply(form: play.api.data.Form[?])(using ctx: PageContext) =
+  def apply(form: play.api.data.Form[?])(using ctx: Context) =
     Page(trans.site.importGame.txt())
       .cssTag("importer")
       .iife(iifeModule("javascripts/importer.js"))

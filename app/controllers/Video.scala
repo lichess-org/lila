@@ -25,7 +25,7 @@ final class Video(env: Env) extends LilaController(env):
   def index = Open:
     pageHit
     WithUserControl: control =>
-      Ok.pageAsync:
+      Ok.async:
         control.query match
           case Some(query) =>
             api.video.search(ctx.me, query, getInt("page") | 1).map {
@@ -55,14 +55,14 @@ final class Video(env: Env) extends LilaController(env):
 
   def author(author: String) = Open:
     WithUserControl: control =>
-      Ok.pageAsync:
+      Ok.async:
         api.video.byAuthor(ctx.me, author, getInt("page") | 1).map {
           views.video.author(author, _, control)
         }
 
   def tags = Open:
     WithUserControl: control =>
-      Ok.pageAsync:
+      Ok.async:
         api.tag.allPopular.map {
           views.video.tags(_, control)
         }

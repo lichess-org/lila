@@ -18,14 +18,14 @@ final class Cms(env: Env) extends LilaController(env):
     yield Ok(renderedPage)
 
   def createForm = Secure(_.Pages) { _ ?=> _ ?=>
-    Ok.pageAsync(views.cms.create(env.cms.form.create))
+    Ok.async(views.cms.create(env.cms.form.create))
   }
 
   def create = SecureBody(_.Pages) { _ ?=> me ?=>
     env.cms.form.create
       .bindFromRequest()
       .fold(
-        err => BadRequest.pageAsync(views.cms.create(err)),
+        err => BadRequest.async(views.cms.create(err)),
         data =>
           val page = data.create(me)
           api.create(page).inject(Redirect(routes.Cms.edit(page.id.value)).flashSuccess)
@@ -34,7 +34,7 @@ final class Cms(env: Env) extends LilaController(env):
 
   def edit(id: CmsPage.Id) = Secure(_.Pages) { _ ?=> _ ?=>
     Found(api.withAlternatives(id)): pages =>
-      Ok.pageAsync(views.cms.edit(env.cms.form.edit(pages.head), pages.head, pages.tail))
+      Ok.async(views.cms.edit(env.cms.form.edit(pages.head), pages.head, pages.tail))
   }
 
   def update(id: CmsPage.Id) = SecureBody(_.Pages) { _ ?=> me ?=>
@@ -43,7 +43,7 @@ final class Cms(env: Env) extends LilaController(env):
         .edit(pages.head)
         .bindFromRequest()
         .fold(
-          err => BadRequest.pageAsync(views.cms.edit(err, pages.head, pages.tail)),
+          err => BadRequest.async(views.cms.edit(err, pages.head, pages.tail)),
           data =>
             api
               .update(pages.head, data)
@@ -75,7 +75,7 @@ final class Cms(env: Env) extends LilaController(env):
         case Some(path) => Redirect(path)
         case None =>
           pageHit
-          Ok.pageAsync(views.site.page.lone(p))
+          Ok.async(views.site.page.lone(p))
 
   def menuPage(key: CmsPage.Key) = Open:
     pageHit
@@ -89,7 +89,7 @@ final class Cms(env: Env) extends LilaController(env):
 
   def variantHome = Open:
     negotiate(
-      Ok.pageAsync(views.site.variant.home),
+      Ok.async(views.site.variant.home),
       Ok(lila.web.StaticContent.variantsJson)
     )
 

@@ -12,7 +12,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
   import trans.{ study as trs }
 
-  def all(pag: Paginator[WithChaptersAndLiked], order: Order)(using PageContext) =
+  def all(pag: Paginator[WithChaptersAndLiked], order: Order)(using Context) =
     page(
       title = trs.allStudies.txt(),
       active = "all",
@@ -23,7 +23,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     )
       .hrefLangs(lila.ui.LangPath(routes.Study.allDefault()))
 
-  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(using PageContext) =
+  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(using Context) =
     page(
       title = trs.studiesCreatedByX.txt(owner.titleUsername),
       active = "owner",
@@ -34,7 +34,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     )
 
   def mine(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
-      ctx: PageContext,
+      ctx: Context,
       me: Me
   ) =
     page(
@@ -50,7 +50,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
   def mineLikes(
       pag: Paginator[WithChaptersAndLiked],
       order: Order
-  )(using PageContext) =
+  )(using Context) =
     page(
       title = trs.myFavoriteStudies.txt(),
       active = "mineLikes",
@@ -61,7 +61,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     )
 
   def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
-      ctx: PageContext,
+      ctx: Context,
       me: Me
   ) =
     page(
@@ -74,7 +74,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       topics = topics.some
     )
 
-  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order)(using PageContext)(using me: Me) =
+  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order)(using Context)(using me: Me) =
     page(
       title = trs.myPublicStudies.txt(),
       active = "minePublic",
@@ -84,7 +84,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       url = routes.Study.minePublic(_)
     )
 
-  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order)(using PageContext)(using me: Me) =
+  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order)(using Context)(using me: Me) =
     page(
       title = trs.myPrivateStudies.txt(),
       active = "minePrivate",

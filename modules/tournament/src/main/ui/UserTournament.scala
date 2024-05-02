@@ -11,15 +11,15 @@ import lila.core.i18n.Translate
 final class UserTournament(helpers: Helpers, ui: TournamentUi):
   import helpers.{ *, given }
 
-  def best(u: User, pager: Paginator[LeaderboardApi.TourEntry])(using PageContext) =
+  def best(u: User, pager: Paginator[LeaderboardApi.TourEntry])(using Context) =
     page(u, s"${u.username} best tournaments", "best").js(infiniteScrollEsmInit):
       list(u, "best", pager, "BEST")
 
-  def recent(u: User, pager: Paginator[LeaderboardApi.TourEntry])(using PageContext) =
+  def recent(u: User, pager: Paginator[LeaderboardApi.TourEntry])(using Context) =
     page(u, s"${u.username} recent tournaments", "recent").js(infiniteScrollEsmInit):
       list(u, "recent", pager, pager.nbResults.toString)
 
-  def created(u: User, pager: Paginator[lila.tournament.Tournament])(using PageContext) =
+  def created(u: User, pager: Paginator[lila.tournament.Tournament])(using Context) =
     page(u, s"${u.username} created tournaments", "created")
       .js(infiniteScrollEsmInit):
         if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
@@ -51,7 +51,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
             )
           )
 
-  def upcoming(u: User, pager: Paginator[lila.tournament.Tournament])(using PageContext) =
+  def upcoming(u: User, pager: Paginator[lila.tournament.Tournament])(using Context) =
     page(u, s"${u.username} upcoming tournaments", "upcoming"):
       if pager.nbResults == 0 then div(cls := "box-pad")(trans.site.nothingToSeeHere())
       else
@@ -77,7 +77,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
           )
         )
 
-  def chart(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using PageContext) =
+  def chart(u: User, data: lila.tournament.LeaderboardApi.ChartData)(using Context) =
     page(u, title = s"${u.username} • ${trans.arena.tournamentStats.txt()}", path = "chart"):
       div(cls := "tournament-stats")(
         boxTop(h1(frag(userLink(u, withOnline = true), " • ", trans.arena.tournamentStats()))),

@@ -27,7 +27,7 @@ final class UserBits(helpers: Helpers):
       )
     )
 
-  def miniClosed(u: User)(using Translate) =
+  def miniClosed(u: User)(using Translate) = Snippet:
     frag(
       div(cls := "title")(userLink(u, withPowerTip = false)),
       div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed())

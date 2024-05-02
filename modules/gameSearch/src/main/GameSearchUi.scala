@@ -95,7 +95,7 @@ final class GameSearchUi(helpers: Helpers)(
           )
         )
 
-  def login(nbGames: Long)(using PageContext) =
+  def login(nbGames: Long)(using Context) =
     Page(trans.search.searchInXGames.txt(nbGames.localize, nbGames))
       .cssTag("search"):
         main(cls := "box box-pad page-small search search-login")(

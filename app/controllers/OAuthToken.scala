@@ -8,7 +8,7 @@ final class OAuthToken(env: Env) extends LilaController(env):
   private val tokenApi = env.oAuth.tokenApi
 
   def index = Auth { ctx ?=> me ?=>
-    Ok.pageAsync:
+    Ok.async:
       tokenApi.listPersonal.map(views.oAuth.token.index(_))
   }
 

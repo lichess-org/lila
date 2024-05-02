@@ -41,7 +41,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
           Granter.opt(_.OpeningWiki).option(showMissing(wikiMissing))
         )
 
-  def tree(root: OpeningTree, config: OpeningConfig)(using PageContext) =
+  def tree(root: OpeningTree, config: OpeningConfig)(using Context) =
     Page(trans.site.opening.txt())
       .cssTag("opening")
       .js(bits.pageModule(none)):

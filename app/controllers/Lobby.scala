@@ -47,7 +47,7 @@ final class Lobby(env: Env) extends LilaController(env):
       }
 
   def timeline = Auth { _ ?=> me ?=>
-    Ok.pageAsync:
+    Ok.snipAsync:
       env.timeline.entryApi
         .userEntries(me)
         .map(views.timeline.entries)

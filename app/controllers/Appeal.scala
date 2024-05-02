@@ -26,23 +26,22 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
 
   private def renderAppealOrTree(
       err: Option[Form[String]] = None
-  )(using Context)(using me: Me): Fu[Frag] = env.appeal.api.byId(me).flatMap {
+  )(using Context)(using me: Me) = env.appeal.api.byId(me).flatMap {
     case None =>
-      renderAsync:
-        for
-          playban <- env.playban.api.currentBan(me).dmap(_.isDefined)
-          // if no blog, consider it's visible because even if it is not, for now the user
-          // has not been negatively impacted
-          ublogIsVisible <- env.ublog.api.isBlogVisible(me.userId).dmap(_.getOrElse(true))
-        yield views.appeal.tree.page(me, playban, ublogIsVisible)
-    case Some(a) => renderPage(views.appeal.discussion(a, me, err | userForm))
+      for
+        playban <- env.playban.api.currentBan(me).dmap(_.isDefined)
+        // if no blog, consider it's visible because even if it is not, for now the user
+        // has not been negatively impacted
+        ublogIsVisible <- env.ublog.api.isBlogVisible(me.userId).dmap(_.getOrElse(true))
+      yield views.appeal.tree.page(me, playban, ublogIsVisible)
+    case Some(a) => views.appeal.discussion(a, me, err | userForm)
   }
 
   def post = AuthBody { ctx ?=> me ?=>
     userForm
       .bindFromRequest()
       .fold(
-        err => renderAppealOrTree(err.some).map { BadRequest(_) },
+        err => BadRequest.async(renderAppealOrTree(err.some)),
         text => env.appeal.api.post(text).inject(Redirect(routes.Appeal.home).flashSuccess)
       )
   }

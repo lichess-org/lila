@@ -14,7 +14,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi):
   private val qrCode = raw:
     """<div style="width: 276px; height: 276px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>"""
 
-  def setup(form: Form[?])(using PageContext)(using me: Me) =
+  def setup(form: Form[?])(using Context)(using me: Me) =
     ui.AccountPage(s"${me.username} - ${trt.twoFactorAuth.txt()}", "twofactor")
       .iife(iifeModule("javascripts/vendor/qrcode.min.js"))
       .iife(iifeModule("javascripts/twofactor.form.js")):
@@ -61,7 +61,7 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi):
           )
         )
 
-  def disable(form: Form[?])(using PageContext)(using me: Me) =
+  def disable(form: Form[?])(using Context)(using me: Me) =
     ui.AccountPage(s"${me.username} - ${trt.twoFactorAuth.txt()}", "twofactor"):
       div(cls := "twofactor box box-pad")(
         boxTop(

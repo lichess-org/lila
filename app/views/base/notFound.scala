@@ -2,11 +2,8 @@ package views.base
 
 import lila.app.UiEnv.{ *, given }
 
-def notFound()(using PageContext) =
-  layout(
-    title = "Page not found",
-    moreCss = cssTag("not-found")
-  ):
+def notFound(using Context) =
+  Page("Page not found").cssTag("not-found"):
     main(cls := "not-found page-small box box-pad")(
       header(
         h1("404"),

@@ -105,7 +105,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             )
           )
 
-    def overview(c: Clas, students: List[Student.WithUserPerfs])(using PageContext) =
+    def overview(c: Clas, students: List[Student.WithUserPerfs])(using Context) =
       TeacherPage(c, students, "overview")():
         frag(
           div(cls := "clas-show__overview")(
@@ -156,7 +156,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             )
         frag(inviteBox, archivedBox)
 
-    def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using PageContext) =
+    def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using Context) =
       TeacherPage(c, students, "progress")():
         frag(
           progressHeader(c, progress.some),
@@ -310,7 +310,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         )
       )
 
-    def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using PageContext) =
+    def unreasonable(c: Clas, students: List[Student.WithUser], active: String)(using Context) =
       TeacherPage(c, students, active)():
         div(cls := "box__pad students__empty")(
           p(

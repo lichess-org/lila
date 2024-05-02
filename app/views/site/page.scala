@@ -9,7 +9,7 @@ object page:
 
   export ui.SitePage
 
-  def lone(p: CmsPage.Render)(using ctx: PageContext) =
+  def lone(p: CmsPage.Render)(using ctx: Context) =
     Page(p.title)
       .cssTag("page")
       .js((p.key == CmsPage.Key("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
@@ -17,7 +17,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
 })"""))):
         main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
-  def withMenu(active: String, p: CmsPage.Render)(using PageContext) =
+  def withMenu(active: String, p: CmsPage.Render)(using Context) =
     SitePage(
       title = p.title,
       active = active,
@@ -34,14 +34,14 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
     variantRankableDeviation = lila.rating.Glicko.variantRankableDeviation
   )
 
-  def contact(using PageContext) =
+  def contact(using Context) =
     SitePage(
       title = trans.contact.contact.txt(),
       active = "contact",
       contentCls = "page box box-pad"
     ).cssTag("contact").js(EsmInit("bits.contact"))(lila.web.ui.contact(netConfig.email))
 
-  def source(p: CmsPage.Render)(using ctx: PageContext) =
+  def source(p: CmsPage.Render)(using ctx: Context) =
     ui.source(
       p.title,
       views.cms.render(p),
@@ -50,7 +50,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       env.appVersionMessage
     )
 
-  def webmasters(using PageContext) =
+  def webmasters(using Context) =
     ui.webmasters(
       li(strong("theme"), ": ", lila.pref.Theme.all.map(_.name).mkString(", ")),
       li(strong("pieceSet"), ": ", lila.pref.PieceSet.all.map(_.name).mkString(", "))

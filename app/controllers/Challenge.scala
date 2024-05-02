@@ -67,7 +67,7 @@ final class Challenge(
                     case Some(e) => BadRequest.page(views.challenge.mine(c, json, friends, e.some, color))
                     case None    => Ok.page(views.challenge.mine(c, json, friends, none, color))
             else
-              Ok.pageAsync:
+              Ok.async:
                 c.challengerUserId
                   .so(env.user.api.byIdWithPerf(_, c.perfType))
                   .map:

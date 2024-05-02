@@ -187,7 +187,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     ctx.me.foldUse(notFound): me ?=>
       if StreamerModel.canApply(me) || isGranted(_.Streamers) then
         api.find(getUserStr("u").ifTrue(isGranted(_.Streamers)).map(_.id) | me.userId).flatMap {
-          _.fold(Ok.page(views.streamer.bits.create))(f)
+          _.fold(Ok.snip(views.streamer.bits.create).toFuccess)(f)
         }
       else
         Ok.page:

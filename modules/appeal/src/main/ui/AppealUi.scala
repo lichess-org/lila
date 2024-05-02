@@ -23,7 +23,7 @@ final class AppealUi(helpers: Helpers):
     else if suspect.marks.rankban || query.contains("rankban") then trans.appeal.excludedFromLeaderboards()
     else trans.appeal.cleanAllGood()
 
-  def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using PageContext) =
+  def renderUser(appeal: Appeal, userId: UserId, asMod: Boolean)(using Context) =
     if appeal.isAbout(userId) then userIdLink(userId.some, params = asMod.so("?mod"))
     else
       span(

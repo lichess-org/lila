@@ -101,11 +101,13 @@ final class Analyse(
         case Some(LpvEmbed.PublicPgn(pgn)) =>
           render:
             case AcceptsPgn() => Ok(pgn)
-            case _            => Ok(views.analyse.embed.lpv(pgn, chess.Color.fromName(color), getPgn = true))
+            case _ =>
+              Ok.snip:
+                views.analyse.embed.lpv(pgn, chess.Color.fromName(color), getPgn = true)
         case _ =>
           render:
             case AcceptsPgn() => NotFound("*")
-            case _            => NotFound(views.analyse.embed.notFound)
+            case _            => NotFound.snip(views.analyse.embed.notFound)
       }
 
   private def RedirectAtFen(pov: Pov, initialFen: Option[Fen.Full])(or: => Fu[Result])(using

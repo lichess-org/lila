@@ -22,7 +22,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
     blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
     res <- negotiate(
-      Ok.page:
+      Ok.snip:
         if mini
         then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
         else views.relation.actions(user, relation, blocked = blocked, followable = followable)
@@ -123,7 +123,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
-      Ok.pageAsync:
+      Ok.async:
         RelatedPager(api.blockingPaginatorAdapter(me), page).map {
           views.relation.bits.blocks(me, _)
         }

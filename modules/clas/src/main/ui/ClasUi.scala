@@ -7,7 +7,9 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.user.WithPerfsAndEmails
 
-final class ClasUi(helpers: lila.ui.Helpers):
+final class ClasUi(helpers: lila.ui.Helpers)(
+    searchMenu: Context ?=> Frag
+):
   import helpers.{ *, given }
 
   def ClasPage(
@@ -89,58 +91,62 @@ final class ClasUi(helpers: lila.ui.Helpers):
 
   object search:
 
-    def clas(c: Clas, menu: Frag, userTable: Frag)(using Context) =
-      main(cls := "page-menu")(
-        menu,
-        div(cls := "mod-search page-menu__content box")(
-          boxTop(
-            h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
-            p("Teachers: ", c.teachers.toList.map(id => teacherLink(id)))
-          ),
-          br,
-          br,
-          userTable
-        )
-      )
-
-    def teacher(teacherId: UserId, classes: List[Clas], menu: Frag)(using Context) =
-      main(cls := "page-menu")(
-        menu,
-        div(cls := "mod-search page-menu__content box")(
-          boxTop(
-            h1("Classes from", userIdLink(teacherId.some))
-          ),
-          br,
-          br,
-          classes.nonEmpty.option(
-            table(cls := "slist slist-pad")(
-              thead(
-                tr(
-                  th("Id"),
-                  th("Name"),
-                  th("Created"),
-                  th("Archived"),
-                  th("Teachers (first is owner)")
-                )
+    def clas(c: Clas, userTable: Frag)(using Context) =
+      Page("IP address")
+        .cssTag("mod.misc")
+        .js(EsmInit("mod.search")):
+          main(cls := "page-menu")(
+            searchMenu,
+            div(cls := "mod-search page-menu__content box")(
+              boxTop(
+                h1("Class ", a(href := routes.Clas.show(c.id.value))(c.name)),
+                p("Teachers: ", c.teachers.toList.map(id => teacherLink(id)))
               ),
-              tbody(
-                classes.map: c =>
+              br,
+              br,
+              userTable
+            )
+          )
+
+    def teacher(teacherId: UserId, classes: List[Clas])(using Context) =
+      Page("Classes").cssTag("mod.misc"):
+        main(cls := "page-menu")(
+          searchMenu,
+          div(cls := "mod-search page-menu__content box")(
+            boxTop(
+              h1("Classes from", userIdLink(teacherId.some))
+            ),
+            br,
+            br,
+            classes.nonEmpty.option(
+              table(cls := "slist slist-pad")(
+                thead(
                   tr(
-                    td(a(href := routes.Clas.show(c.id.value))(s"${c.id}")),
-                    td(c.name),
-                    td(momentFromNow(c.created.at)),
-                    c.archived match
-                      case None => td("No")
-                      case Some(Clas.Recorded(closerId, at)) =>
-                        td(userIdLink(closerId.some), nbsp, momentFromNow(at))
-                    ,
-                    td(c.teachers.toList.map(id => teacherLink(id)))
+                    th("Id"),
+                    th("Name"),
+                    th("Created"),
+                    th("Archived"),
+                    th("Teachers (first is owner)")
                   )
+                ),
+                tbody(
+                  classes.map: c =>
+                    tr(
+                      td(a(href := routes.Clas.show(c.id.value))(s"${c.id}")),
+                      td(c.name),
+                      td(momentFromNow(c.created.at)),
+                      c.archived match
+                        case None => td("No")
+                        case Some(Clas.Recorded(closerId, at)) =>
+                          td(userIdLink(closerId.some), nbsp, momentFromNow(at))
+                      ,
+                      td(c.teachers.toList.map(id => teacherLink(id)))
+                    )
+                )
               )
             )
           )
         )
-      )
 
     private def teacherLink(userId: UserId)(using Context) =
       lightUserSync(userId).map: user =>

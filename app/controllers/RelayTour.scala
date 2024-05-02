@@ -21,16 +21,15 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
           env.relay.pager
             .search(query, page)
             .flatMap: pager =>
-              Ok.pageAsync:
+              Ok.async:
                 views.relay.tour.search(pager, query)
         case None =>
           for
             active   <- (page == 1).so(env.relay.listing.active.get({}))
             upcoming <- (page == 1).so(env.relay.listing.upcoming.get({}))
             past     <- env.relay.pager.inactive(page)
-            render <- renderAsync:
-              views.relay.tour.index(active, upcoming, past)
-          yield Ok(render)
+            res      <- Ok.async(views.relay.tour.index(active, upcoming, past))
+          yield res
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")
@@ -48,7 +47,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.pager
         .subscribedBy(me.userId, page)
         .flatMap: pager =>
-          Ok.pageAsync:
+          Ok.async:
             views.relay.tour.subscribed(pager)
   }
 
@@ -57,7 +56,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.pager
         .allPrivate(page)
         .flatMap: pager =>
-          Ok.pageAsync:
+          Ok.async:
             views.relay.tour.allPrivate(pager)
   }
 

@@ -10,8 +10,8 @@ object variant:
       p: lila.cms.CmsPage.Render,
       variant: chess.variant.Variant,
       perfType: PerfType
-  )(using PageContext) =
-    layout(
+  )(using Context) =
+    page(
       active = perfType.key.some,
       title = s"${variant.name} • ${variant.title}",
       klass = "box-pad page variant"
@@ -21,8 +21,8 @@ object variant:
       div(cls := "body expand-text")(views.cms.render(p))
     )
 
-  def home(using PageContext) =
-    layout(
+  def home(using Context) =
+    page(
       title = "Lichess variants",
       klass = "variants"
     )(
@@ -42,28 +42,23 @@ object variant:
       )
     )
 
-  private def layout(
+  private def page(
       title: String,
       klass: String,
-      active: Option[PerfKey] = None,
-      openGraph: Option[OpenGraph] = None
-  )(body: Modifier*)(using PageContext) =
-    views.base.layout(
-      title = title,
-      moreCss = cssTag("variant"),
-      modules = EsmInit("bits.expandText"),
-      openGraph = openGraph
-    ):
-      main(cls := "page-menu")(
-        lila.ui.bits.pageMenuSubnav(
-          lila.rating.PerfType.variants.map { pk =>
-            val pt = lila.rating.PerfType(pk)
-            a(
-              cls      := List("text" -> true, "active" -> active.contains(pk)),
-              href     := routes.Cms.variant(pk),
-              dataIcon := pt.icon
-            )(pt.trans)
-          }
-        ),
-        div(cls := s"page-menu__content box $klass")(body)
-      )
+      active: Option[PerfKey] = None
+  )(body: Modifier*)(using Context) =
+    Page(title)
+      .cssTag("variant")
+      .js(EsmInit("bits.expandText"))
+      .wrap: body =>
+        main(cls := "page-menu")(
+          lila.ui.bits.pageMenuSubnav(
+            lila.rating.PerfType.variants.map: pk =>
+              a(
+                cls      := List("text" -> true, "active" -> active.contains(pk)),
+                href     := routes.Cms.variant(pk),
+                dataIcon := pk.perfIcon
+              )(pk.perfTrans)
+          ),
+          div(cls := s"page-menu__content box $klass")(body)
+        )

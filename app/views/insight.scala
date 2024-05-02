@@ -12,7 +12,7 @@ def index(
     ui: play.api.libs.json.JsObject,
     question: play.api.libs.json.JsObject,
     stale: Boolean
-)(using ctx: PageContext) =
+)(using ctx: Context) =
   Page(trans.insight.xChessInsights.txt(u.username))
     .iife(iifeModule("javascripts/insight-refresh.js"))
     .js(
@@ -35,7 +35,7 @@ def index(
     )
     .cssTag("insight")(main(id := "insight"))
 
-def empty(u: User)(using PageContext) =
+def empty(u: User)(using Context) =
   Page(trans.insight.xChessInsights.txt(u.username))
     .iife(iifeModule("javascripts/insight-refresh.js"))
     .cssTag("insight"):
@@ -45,19 +45,20 @@ def empty(u: User)(using PageContext) =
         refreshForm(u, trans.insight.generateInsights.txt(u.username))
       )
 
-def forbidden(u: User)(using PageContext) =
+def forbidden(u: User)(using Context) =
   views.site.message(
     title = trans.insight.insightsAreProtected.txt(u.username),
     back = routes.User.show(u.id).url.some
-  )(
-    p(trans.insight.cantSeeInsights(userLink(u))),
-    br,
-    p(
-      trans.insight.maybeAskThemToChangeTheir(
-        a(cls := "button", href := routes.Pref.form("site"))(trans.insight.insightsSettings.txt())
+  ):
+    frag(
+      p(trans.insight.cantSeeInsights(userLink(u))),
+      br,
+      p(
+        trans.insight.maybeAskThemToChangeTheir(
+          a(cls := "button", href := routes.Pref.form("site"))(trans.insight.insightsSettings.txt())
+        )
       )
     )
-  )
 
 def refreshForm(u: User, action: String)(using Translate) =
   postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(

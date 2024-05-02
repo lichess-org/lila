@@ -9,6 +9,7 @@ import play.api.mvc.*
 
 import lila.common.HTTPRequest
 import lila.core.net.ApiVersion
+import lila.ui.{ Page, Snippet }
 
 trait ResponseBuilder(using Executor)
     extends lila.web.ResponseBuilder
@@ -31,9 +32,13 @@ trait ResponseBuilder(using Executor)
     Found(fua): a =>
       op(a).dmap(Ok(_))
 
-  def FoundPage[A](fua: Fu[Option[A]])(op: A => PageContext ?=> Fu[Frag])(using Context): Fu[Result] =
+  def FoundPage[A](fua: Fu[Option[A]])(op: A => Fu[Page])(using Context): Fu[Result] =
     Found(fua): a =>
-      Ok.pageAsync(op(a))
+      Ok.async(op(a))
+
+  def FoundSnip[A](fua: Fu[Option[A]])(op: A => Fu[Snippet])(using Context): Fu[Result] =
+    Found(fua): a =>
+      Ok.snipAsync(op(a).map(_.frag))
 
   extension [A](fua: Fu[Option[A]])
     def orNotFound(f: A => Fu[Result])(using Context): Fu[Result] =

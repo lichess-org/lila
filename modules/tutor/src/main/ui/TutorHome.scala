@@ -129,7 +129,7 @@ final class TutorHome(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
             div(cls := "tutor__waiting-games__carousel")(waitGames.map(waitGame))
         )
 
-    def insufficientGames(user: User)(using PageContext) =
+    def insufficientGames(user: User)(using Context) =
       bits.page(menu = emptyFrag, pageSmall = true)(cls := "tutor__insufficient box"):
         frag(
           boxTop(h1(bits.otherUser(user), "Lichess Tutor")),

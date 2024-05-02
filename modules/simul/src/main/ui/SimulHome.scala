@@ -151,7 +151,7 @@ site.pubsub.on('socket.in.reload', () =>
       )
     )
 
-  def hosted(user: User, pager: Paginator[Simul])(using PageContext) =
+  def hosted(user: User, pager: Paginator[Simul])(using Context) =
     Page(s"${user.username} hosted simuls")
       .cssTag("user-simul")
       .js(infiniteScrollEsmInit):

@@ -17,7 +17,7 @@ object watcher:
       userTv: Option[User] = None,
       chatOption: Option[lila.chat.UserChat.Mine],
       bookmarked: Boolean
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
 
     val chatJson = chatOption.map: c =>
       views.chat.json(
@@ -56,7 +56,7 @@ object watcher:
         )
 
   def crawler(pov: Pov, initialFen: Option[chess.format.Fen.Full], pgn: chess.format.pgn.Pgn)(using
-      ctx: PageContext
+      ctx: Context
   ) =
     ui.RoundPage(pov.game.variant, gameVsText(pov.game, withRatings = true))
       .graph(ui.povOpenGraph(pov)):

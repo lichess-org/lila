@@ -15,7 +15,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
       crossSiteIsolation: Boolean = true
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     Page(rt.fullName)
       .cssTag("analyse.relay")
       .js(analyseNvuiTag)

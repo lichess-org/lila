@@ -24,7 +24,7 @@ object discussion:
       markedByMe: Boolean
   )
 
-  def apply(appeal: Appeal, me: User, textForm: Form[?])(using PageContext) =
+  def apply(appeal: Appeal, me: User, textForm: Form[?])(using Context) =
     ui.page("Appeal"):
       main(cls := "page-small box box-pad appeal")(
         renderAppeal(appeal, textForm, Right(me))
@@ -34,7 +34,7 @@ object discussion:
       appeal: Appeal,
       textForm: Form[?],
       modData: ModData
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     ui.page(s"Appeal by ${modData.suspect.user.username}") {
       main(cls := "box box-pad appeal")(
         renderAppeal(appeal, textForm, Left(modData)),
@@ -73,7 +73,7 @@ object discussion:
       appeal: Appeal,
       textForm: Form[?],
       as: Either[ModData, User]
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     frag(
       h1(
         div(cls := "title")(

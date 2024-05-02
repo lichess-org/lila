@@ -105,9 +105,16 @@ final class AuthUi(helpers: Helpers):
   def checkYourEmail(
       email: Option[EmailAddress],
       form: Option[Form[?]] = None
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     Page("Check your email")
-      .cssTag("email-confirm"):
+      .cssTag("email-confirm")
+      .js(embedJsUnsafeLoadThen("""
+var email = document.getElementById("new-email");
+var currentError = "This is already your current email.";
+email.setCustomValidity(currentError);
+email.addEventListener("input", function() {
+email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
+      });""")):
         main(
           cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
         )(
@@ -130,13 +137,6 @@ final class AuthUi(helpers: Helpers):
                     value   := form.flatMap(_("email").value).getOrElse(email.value),
                     pattern := s"^((?!^${email.value}$$).)*$$"
                   ),
-                  embedJsUnsafeLoadThen("""
-var email = document.getElementById("new-email");
-var currentError = "This is already your current email.";
-email.setCustomValidity(currentError);
-email.addEventListener("input", function() {
-email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
-      });""")(ctx.nonce),
                   submitButton(cls := "button")("Change it"),
                   form.map: f =>
                     errMsg(f("email"))

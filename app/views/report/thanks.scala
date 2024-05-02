@@ -2,22 +2,19 @@ package views.report
 
 import lila.app.UiEnv.{ *, given }
 
-object thanks:
-
-  def apply(userId: UserId, blocked: Boolean)(using ctx: PageContext) =
-
-    val title = "Thanks for the report"
-
-    val moreJs = embedJsUnsafeLoadThen("""
-$('button.report-block').one('click', function() {
-const $button = $(this);
-$button.find('span').text('Blocking...');
-fetch(this.dataset.action, {method:'post'})
-  .then(() => $button.find('span').text('Blocked!'));
-});
-""")(ctx.nonce)
-
-    views.base.layout(title = title, moreJs = moreJs):
+def thanks(userId: UserId, blocked: Boolean)(using ctx: Context) =
+  val title = "Thanks for the report"
+  Page(title)
+    .js(
+      embedJsUnsafeLoadThen("""
+        $('button.report-block').one('click', function() {
+        const $button = $(this);
+        $button.find('span').text('Blocking...');
+        fetch(this.dataset.action, {method:'post'})
+          .then(() => $button.find('span').text('Blocked!'));
+        });
+        """)
+    ):
       main(cls := "page-small box box-pad")(
         h1(cls := "box__top")(title),
         p("The moderators will review it very soon, and take appropriate action."),

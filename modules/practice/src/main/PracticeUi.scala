@@ -16,7 +16,7 @@ final class PracticeUi(helpers: Helpers)(
 ):
   import helpers.{ *, given }
 
-  def show(us: UserStudy, data: JsonView.JsData)(using PageContext) =
+  def show(us: UserStudy, data: JsonView.JsData)(using Context) =
     Page(us.practiceStudy.name.value)
       .cssTag("analyse.practice")
       .js(analyseNvuiTag)
@@ -34,7 +34,7 @@ final class PracticeUi(helpers: Helpers)(
       .csp(csp)
       .zoom(main(cls := "analyse"))
 
-  def index(data: lila.practice.UserPractice)(using ctx: PageContext) =
+  def index(data: lila.practice.UserPractice)(using ctx: Context) =
     Page("Practice chess positions")
       .cssTag("practice.index")
       .js(embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {
@@ -88,7 +88,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
           )
         )
 
-  def config(structure: lila.practice.PracticeStructure, form: Form[?])(using PageContext) =
+  def config(structure: lila.practice.PracticeStructure, form: Form[?])(using Context) =
     Page("Practice structure").cssTag("mod.misc"):
       main(cls := "page-menu")(
         modMenu,
