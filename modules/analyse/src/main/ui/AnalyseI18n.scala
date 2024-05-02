@@ -119,7 +119,7 @@ final class AnalyseI18n(helpers: Helpers):
   )
 
   val cevalWidget = Vector(
-    // also uses gameOver
+    site.gameOver,
     site.depthX,
     site.usingServerAnalysis,
     site.loadingEngine,
