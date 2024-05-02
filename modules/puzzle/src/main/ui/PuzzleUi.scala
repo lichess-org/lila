@@ -1,17 +1,73 @@
 package lila.puzzle
 package ui
 
-import play.api.libs.json.Json
+import scalalib.paginator.Paginator
+import play.api.libs.json.*
 import chess.format.{ BoardFen, Uci }
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.common.LilaOpeningFamily
+import lila.common.Json.given
 import lila.core.i18n.I18nKey
-import scalalib.paginator.Paginator
 
-final class PuzzleUi(helpers: Helpers, bits: PuzzleBits):
+final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
+    analyseCsp: Update[ContentSecurityPolicy]
+):
   import helpers.{ *, given }
+
+  def show(
+      puzzle: lila.puzzle.Puzzle,
+      data: JsObject,
+      pref: JsObject,
+      settings: lila.puzzle.PuzzleSettings,
+      langPath: Option[lila.ui.LangPath] = None
+  )(using ctx: Context) =
+    val isStreak = data.value.contains("streak")
+    Page(if isStreak then "Puzzle Streak" else trans.site.puzzles.txt())
+      .cssTag("puzzle")
+      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .cssTag(ctx.pref.hasVoice.option("voice"))
+      .cssTag(ctx.blind.option("round.nvui"))
+      .js(ctx.blind.option(EsmInit("puzzle.nvui")))
+      .js(
+        PageModule(
+          "puzzle",
+          Json
+            .obj(
+              "data"        -> data,
+              "pref"        -> pref,
+              "i18n"        -> bits.jsI18n(streak = isStreak),
+              "showRatings" -> ctx.pref.showRatings,
+              "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color)
+            )
+            .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
+        )
+      )
+      .csp(analyseCsp)
+      .graph(
+        OpenGraph(
+          image = cdnUrl(
+            routes.Export.puzzleThumbnail(puzzle.id, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
+          ).some,
+          title =
+            if isStreak then "Puzzle Streak"
+            else s"Chess tactic #${puzzle.id} - ${puzzle.color.name.capitalize} to play",
+          url = s"$netBaseUrl${routes.Puzzle.show(puzzle.id).url}",
+          description =
+            if isStreak then trans.puzzle.streakDescription.txt()
+            else
+              val findMove = puzzle.color.fold(
+                trans.puzzle.findTheBestMoveForWhite.txt(),
+                trans.puzzle.findTheBestMoveForBlack.txt()
+              )
+              s"Lichess tactic trainer: $findMove. Played by ${puzzle.plays} players."
+        )
+      )
+      .hrefLangs(langPath)
+      .zoom
+      .zen:
+        bits.show.preload
 
   def themes(all: PuzzleAngle.All)(using ctx: Context) =
     Page(trans.puzzle.puzzleThemes.txt())

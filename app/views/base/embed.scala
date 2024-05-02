@@ -4,7 +4,7 @@ import lila.app.UiEnv.{ *, given }
 
 def embed(title: String, cssModule: String, modules: EsmList = Nil)(body: Modifier*)(using
     ctx: EmbedContext
-) =
+) = lila.ui.Snippet:
   frag(
     page.ui.doctype,
     page.ui.htmlTag(using ctx.lang)(

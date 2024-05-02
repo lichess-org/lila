@@ -55,7 +55,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     settings <- ctx.user.soFu(env.puzzle.session.getSettings)
     prefJson = env.puzzle.jsonView.pref(ctx.pref)
     page <- renderPage:
-      views.puzzle.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
+      views.puzzle.ui.show(puzzle, json, prefJson, settings | PuzzleSettings.default(color), langPath)
   yield Ok(page).enforceCrossSiteIsolation
 
   def daily = Open:
@@ -220,7 +220,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     FoundPage(streakJsonAndPuzzle): (json, puzzle) =>
       val prefJson = env.puzzle.jsonView.pref(ctx.pref)
       val langPath = LangPath(routes.Puzzle.streak).some
-      views.puzzle.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
+      views.puzzle.ui.show(puzzle, json, prefJson, PuzzleSettings.default, langPath)
     .map(_.noCache.enforceCrossSiteIsolation)
 
   private def streakJsonAndPuzzle(using Translate) =

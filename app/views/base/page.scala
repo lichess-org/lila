@@ -48,7 +48,6 @@ object page:
       zoomable.so(s"---zoom:$pageZoom;")
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
-    val body = p.transform(p.body)
     import ctx.pref
     val pageFrag = frag(
       doctype,
@@ -165,7 +164,7 @@ object page:
               "is2d"      -> pref.is2d,
               "is3d"      -> pref.is3d
             )
-          )(body),
+          )(p.transform(p.body)),
           bottomHtml,
           div(id := "inline-scripts")(
             frag(ctx.needsFp.option(views.auth.fingerprintTag), ctx.nonce.map(inlineJs.apply)),

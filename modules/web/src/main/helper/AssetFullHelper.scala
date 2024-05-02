@@ -51,8 +51,6 @@ trait AssetFullHelper:
     manifest.deps(keys).map { dep =>
       script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
     }
-
-  def puzzleNvuiTag(using ctx: Context)   = ctx.blind.option(EsmInit("puzzle.nvui"))
   def roundNvuiTag(using ctx: Context)    = ctx.blind.option(EsmInit("round.nvui"))
   lazy val infiniteScrollEsmInit: EsmInit = jsModuleInit("bits.infiniteScroll")
   lazy val captchaEsmInit: EsmInit        = EsmInit("bits.captcha")

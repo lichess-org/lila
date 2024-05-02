@@ -121,7 +121,7 @@ object home:
               views.game.mini(Pov.naturalOrientation(g), tv = true)
           ,
           puzzle.map: p =>
-            views.puzzle.embed.dailyLink(p)(cls := "lobby__puzzle"),
+            views.puzzle.bits.dailyLink(p)(cls := "lobby__puzzle"),
           div(cls := "lobby__blog ublog-post-cards"):
             ublogPosts
               .filter(_.isLichess || ctx.kid.no)

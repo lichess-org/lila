@@ -80,7 +80,7 @@ trait RequestContext(using Executor):
   private def makeUserContext(req: RequestHeader): Fu[LoginContext] =
     env.security.api
       .restoreUser(req)
-      .dmap {
+      .map {
         case Some(Left(AppealUser(me))) if HTTPRequest.isClosedLoginPath(req) =>
           FingerPrintedUser(me, true).some
         case Some(Right(d)) if !env.net.isProd =>
