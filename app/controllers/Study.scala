@@ -118,7 +118,7 @@ final class Study(
       .mineMember(order, page)
       .flatMap: pag =>
         preloadMembers(pag) >> negotiate(
-          Ok.pageAsync:
+          Ok.async:
             env.study.topicApi
               .userTopics(me)
               .map:
@@ -380,14 +380,14 @@ final class Study(
         if chapterId.value == "autochap"
         then env.study.api.byIdWithChapter(studyId)
         else env.study.api.byIdWithChapterOrFallback(studyId, chapterId)
-      def notFound = NotFound(views.study.embed.notFound)
+      def notFound = NotFound.snip(views.study.embed.notFound)
       studyFu
         .flatMap:
           _.fold(notFound.toFuccess): sc =>
             env.api.textLpvExpand
               .getChapterPgn(sc.chapter.id)
               .map:
-                case Some(LpvEmbed.PublicPgn(pgn)) => Ok(views.study.embed(sc.study, sc.chapter, pgn))
+                case Some(LpvEmbed.PublicPgn(pgn)) => Ok.snip(views.study.embed(sc.study, sc.chapter, pgn))
                 case _                             => notFound
 
   def cloneStudy(id: StudyId) = Auth { ctx ?=> _ ?=>

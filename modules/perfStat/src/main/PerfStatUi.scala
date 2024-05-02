@@ -8,37 +8,50 @@ import lila.rating.PerfType
 import lila.core.perm.Granter
 import lila.core.perf.UserWithPerfs
 import lila.common.Json.given
+import lila.core.data.SafeJsonStr
 
 final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   import helpers.{ *, given }
   import trans.perfStat as tps
 
-  def page(data: PerfStatData, ratingChart: Boolean, side: Frag, perfTrophies: Frag)(using Context) =
+  def page(data: PerfStatData, ratingChart: Option[SafeJsonStr], side: Frag, perfTrophies: Frag)(using
+      Context
+  ) =
     import data.{ user, stat }
     import stat.perfType
-    main(cls := s"page-menu")(
-      st.aside(cls := "page-menu__menu")(side),
-      div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
-        boxTop(
-          div(cls := "box__top__title")(
-            perfTrophies,
-            h1(
-              a(href := routes.User.show(user.username))(user.username),
-              span(tps.perfStats(perfType.trans))
-            )
-          ),
-          div(cls := "box__top__actions")(
-            a(
-              cls      := "button button-empty text",
-              dataIcon := perfType.icon,
-              href     := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
-            )(tps.viewTheGames())
+    Page(s"${user.username} - ${trans.perfStat.perfStats.txt(perfType.trans)}")
+      .robots(false)
+      .js(EsmInit("bits.user"))
+      .js(ratingChart.map { rc =>
+        jsModuleInit(
+          "chart.ratingHistory",
+          SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using transDefault)}'}")
+        )
+      })
+      .cssTag("perf-stat"):
+        main(cls := s"page-menu")(
+          st.aside(cls := "page-menu__menu")(side),
+          div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
+            boxTop(
+              div(cls := "box__top__title")(
+                perfTrophies,
+                h1(
+                  a(href := routes.User.show(user.username))(user.username),
+                  span(tps.perfStats(perfType.trans))
+                )
+              ),
+              div(cls := "box__top__actions")(
+                a(
+                  cls      := "button button-empty text",
+                  dataIcon := perfType.icon,
+                  href     := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
+                )(tps.viewTheGames())
+              )
+            ),
+            ratingChart.isDefined.option(ratingHistoryContainer),
+            content(data)
           )
-        ),
-        ratingChart.option(ratingHistoryContainer),
-        content(data)
-      )
-    )
+        )
 
   private def percentileText(u: User, pk: PerfKey, percentile: Double)(using ctx: Context): Frag =
     if ctx.is(u) then

@@ -6,29 +6,26 @@ import lila.app.UiEnv.{ *, given }
 
 import lila.core.i18n.I18nKey.storm as s
 
-def home(using PageContext) =
-  views.base.layout(
-    moreCss = cssTag("racer-home"),
-    title = "Puzzle Racer",
-    withHrefLangs = lila.ui.LangPath(routes.Racer.home).some
-  ) {
-    main(cls := "page page-small racer-home box box-pad")(
-      h1(cls := "box__top")("Puzzle Racer"),
-      div(cls := "racer-home__buttons")(
-        postForm(cls := "racer-home__lobby", action := routes.Racer.lobby)(
-          submitButton(cls := "button button-fat")(i(cls := "car")(0), s.joinPublicRace())
+def home(using Context) =
+  Page("Puzzle Racer")
+    .cssTag("racer-home")
+    .hrefLangs(lila.ui.LangPath(routes.Racer.home)):
+      main(cls := "page page-small racer-home box box-pad")(
+        h1(cls := "box__top")("Puzzle Racer"),
+        div(cls := "racer-home__buttons")(
+          postForm(cls := "racer-home__lobby", action := routes.Racer.lobby)(
+            submitButton(cls := "button button-fat")(i(cls := "car")(0), s.joinPublicRace())
+          ),
+          postForm(cls := "racer-home__create", action := routes.Racer.create)(
+            submitButton(cls := "button button-fat")(i(cls := "car")(0), s.raceYourFriends())
+          )
         ),
-        postForm(cls := "racer-home__create", action := routes.Racer.create)(
-          submitButton(cls := "button button-fat")(i(cls := "car")(0), s.raceYourFriends())
+        div(cls := "racer-home__about")(
+          a(href := routes.Cms.lonePage("racer"))(trans.site.aboutX("Puzzle Racer"))
         )
-      ),
-      div(cls := "racer-home__about")(
-        a(href := routes.Cms.lonePage("racer"))(trans.site.aboutX("Puzzle Racer"))
       )
-    )
-  }
 
-def show(data: JsObject)(using PageContext) =
+def show(data: JsObject)(using Context) =
   Page("Puzzle Racer")
     .cssTag("racer")
     .js(PageModule("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))))

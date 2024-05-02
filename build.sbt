@@ -220,7 +220,7 @@ lazy val timeline = module("timeline",
 )
 
 lazy val event = module("event",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq()
 )
 
@@ -280,7 +280,7 @@ lazy val lobby = module("lobby",
 )
 
 lazy val setup = module("setup",
-  Seq(lobby),
+  Seq(lobby, ui),
   Seq()
 )
 

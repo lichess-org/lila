@@ -10,12 +10,12 @@ object replayBot:
       pgn: String,
       simul: Option[lila.simul.Simul],
       cross: Option[lila.game.Crosstable.WithMatchup]
-  )(using PageContext) =
-    Page(replay.titleOf(pov))
+  )(using Context) =
+    Page(ui.titleOf(pov))
       .cssTag("analyse.round")
       .graph(views.round.ui.povOpenGraph(pov))
       .csp(bits.csp)
-      .copy(robots = false.some):
+      .robots(false):
         main(cls := "analyse")(
           st.aside(cls := "analyse__side")(
             views.game.side(pov, initialFen, none, simul = simul, bookmarked = false)

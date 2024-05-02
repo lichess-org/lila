@@ -12,7 +12,7 @@ final private class ChallengeSocket(
 
   import ChallengeSocket.*
 
-  def reload(challengeId: Challenge.Id): Unit =
+  def reload(challengeId: ChallengeId): Unit =
     rooms.tell(challengeId.into(RoomId), NotifyVersion("reload", JsNull))
 
   private lazy val send = socketKit.send("chal-out")
@@ -35,7 +35,7 @@ object ChallengeSocket:
 
     object In:
 
-      case class OwnerPings(ids: Iterable[Challenge.Id]) extends P.In
+      case class OwnerPings(ids: Iterable[ChallengeId]) extends P.In
 
       val reader: P.In.Reader =
-        case P.RawMsg("challenge/pings", raw) => OwnerPings(Challenge.Id.from(P.In.commas(raw.args))).some
+        case P.RawMsg("challenge/pings", raw) => OwnerPings(ChallengeId.from(P.In.commas(raw.args))).some

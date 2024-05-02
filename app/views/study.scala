@@ -12,7 +12,7 @@ lazy val bits = lila.study.ui.StudyBits(helpers)
 lazy val ui   = lila.study.ui.StudyUi(helpers, bits)
 lazy val list = lila.study.ui.ListUi(helpers, bits)
 
-def staffPicks(p: lila.cms.CmsPage.Render)(using PageContext) =
+def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
   Page(p.title).cssTag("study.index", "page"):
     main(cls := "page-menu")(
       list.menu("staffPicks", lila.study.Order.Mine, Nil),
@@ -30,7 +30,7 @@ def jsI18n()(using Translate) =
 def embedJsI18n(chapter: lila.study.Chapter)(using Translate) =
   views.userAnalysisI18n() ++ chapter.isGamebook.so(i18nJsObject(bits.gamebookPlayKeys))
 
-def clone(s: lila.study.Study)(using PageContext) =
+def clone(s: lila.study.Study)(using Context) =
   views.site.message(title = s"Clone ${s.name}", icon = Icon.StudyBoard.some)(ui.clone(s))
 
 def create(
@@ -38,13 +38,14 @@ def create(
     owner: List[(IdName, Int)],
     contrib: List[(IdName, Int)],
     backUrl: Option[String]
-)(using PageContext) =
-  views.site.message(
-    title = trans.site.toStudy.txt(),
-    icon = Some(Icon.StudyBoard),
-    back = backUrl,
-    moreCss = cssTag("study.create").some
-  )(ui.create(data, owner, contrib, backUrl))
+)(using Context) =
+  views.site
+    .message(
+      title = trans.site.toStudy.txt(),
+      icon = Some(Icon.StudyBoard),
+      back = backUrl
+    )
+    .cssTag("study.create")(ui.create(data, owner, contrib, backUrl))
 
 def show(
     s: lila.study.Study,
@@ -52,7 +53,7 @@ def show(
     chatOption: Option[lila.chat.UserChat.Mine],
     socketVersion: SocketVersion,
     streamers: List[UserId]
-)(using ctx: PageContext) =
+)(using ctx: Context) =
   Page(s.name.value)
     .cssTag("analyse.study")
     .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
@@ -87,7 +88,7 @@ def show(
     )
     .robots(s.isPublic)
     .zoom
-    .csp(analysisCsp.compose(_.withPeer.withExternalAnalysisApis))
+    .csp(views.analyse.ui.csp.compose(_.withPeer.withExternalAnalysisApis))
     .graph(
       title = s.name.value,
       url = s"$netBaseUrl${routes.Study.show(s.id).url}",
@@ -111,13 +112,12 @@ object embed:
       modules = EsmInit("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
-      lpvJs:
-        lpvConfig(orientation = none, getPgn = canGetPgn) ++ Json
-          .obj()
-          .add(
-            "gamebook" -> chapter.isGamebook
-              .option(Json.obj("url" -> routes.Study.chapter(s.id, chapter.id).url))
-          )
+      views.analyse.ui.embed.lpvJs(
+        views.analyse.ui.embed.lpvConfig(orientation = none, getPgn = canGetPgn) ++
+          chapter.isGamebook.so:
+            Json.obj:
+              "gamebook" -> Json.obj("url" -> routes.Study.chapter(s.id, chapter.id).url)
+      )(ctx.nonce.some)
     )
 
   def notFound(using EmbedContext) =

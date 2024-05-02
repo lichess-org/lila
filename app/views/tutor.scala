@@ -14,7 +14,7 @@ object tutor:
       as: chess.Color,
       user: User,
       puzzle: Option[lila.puzzle.PuzzleOpening.FamilyWithCount]
-  )(using PageContext) =
+  )(using Context) =
     val puzzleFrag = puzzle.map: p =>
       a(
         cls      := "button button-no-upper text",

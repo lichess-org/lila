@@ -5,10 +5,10 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import chess.variant.{ Variant, Crazyhouse }
 
-final class RoundUi(helpers: Helpers):
+final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
   import helpers.{ *, given }
 
-  def RoundPage(variant: Variant, title: String)(using ctx: PageContext) =
+  def RoundPage(variant: Variant, title: String)(using ctx: Context) =
     Page(title)
       .cssTag(if variant == Crazyhouse then "round.zh" else "round")
       .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
@@ -25,7 +25,46 @@ final class RoundUi(helpers: Helpers):
       description = describePov(pov)
     )
 
-  // #TODO RoundUi
+  def others(playing: List[Pov], simul: Option[Frag])(using Context) =
+    val switchId = "round-toggle-autoswitch"
+    frag(
+      h3(
+        simul | frag(trans.site.currentGames()),
+        span(
+          cls      := "move-on switcher",
+          st.title := trans.site.automaticallyProceedToNextGameAfterMoving.txt()
+        )(
+          label(`for` := switchId)(trans.site.autoSwitch()),
+          span(cls := "switch")(form3.cmnToggle(switchId, switchId, checked = false))
+        )
+      ),
+      div(cls := "now-playing"):
+        val (myTurn, otherTurn) = playing.partition(_.isMyTurn)
+        (myTurn ++ otherTurn.take(6 - myTurn.size))
+          .take(9)
+          .map: pov =>
+            a(href := routes.Round.player(pov.fullId), cls := pov.isMyTurn.option("my_turn"))(
+              span(
+                cls := s"mini-game mini-game--init ${pov.game.variant.key} is2d",
+                gameUi.mini.renderState(pov)
+              )(gameUi.mini.cgWrap),
+              span(cls := "meta")(
+                playerUsername(
+                  pov.opponent.light,
+                  pov.opponent.userId.flatMap(lightUserSync),
+                  withRating = false,
+                  withTitle = true
+                ),
+                span(cls := "indicator")(
+                  if pov.isMyTurn then
+                    pov.remainingSeconds
+                      .fold[Frag](trans.site.yourTurn())(secondsFromNow(_, alwaysRelative = true))
+                  else nbsp
+                )
+              )
+            )
+    )
+
   def describePov(pov: Pov) =
     import pov.*
     val p1    = playerText(game.whitePlayer, withRating = true)
@@ -56,3 +95,21 @@ final class RoundUi(helpers: Helpers):
       case _                                                => "Game is still ongoing"
     val moves = (game.ply.value - game.startedAtPly.value + 1) / 2
     s"$p1 $plays $p2 in a $mode $speedAndClock game of $variant. $result after ${pluralize("move", moves)}. Click to replay, analyse, and discuss the game!"
+
+  def povChessground(pov: Pov)(using ctx: Context): Frag =
+    chessground(
+      board = pov.game.board,
+      orient = pov.color,
+      lastMove = pov.game.history.lastMove
+        .map(_.origDest)
+        .so: (orig, dest) =>
+          List(orig, dest),
+      blindfold = pov.player.blindfold,
+      pref = ctx.pref
+    )
+
+  def roundAppPreload(pov: Pov)(using Context) =
+    div(cls := "round__app")(
+      div(cls := "round__app__board main-board")(povChessground(pov)),
+      div(cls := "col1-rmoves-preload")
+    )

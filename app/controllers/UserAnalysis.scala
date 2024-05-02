@@ -56,7 +56,7 @@ final class UserAnalysis(
   def pgn(pgn: String) = Open:
     val pov         = makePov(none, Standard)
     val orientation = get("color").flatMap(chess.Color.fromName) | pov.color
-    Ok.pageAsync:
+    Ok.async:
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false, me = ctx.me)
         .map { data =>
@@ -182,5 +182,5 @@ final class UserAnalysis(
     }
 
   def help = Open:
-    Ok.page:
+    Ok.snip:
       lila.web.ui.help.analyse(getBool("study"))

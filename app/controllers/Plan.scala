@@ -95,7 +95,7 @@ final class Plan(env: Env) extends LilaController(env):
       ctx: Context,
       me: Me
   ) =
-    Ok.pageAsync:
+    Ok.async:
       env.plan.api.giftsFrom(me).map { views.plan.indexPayPal(me, patron, sub, _) }
     .map:
         _.withHeaders(crossOriginPolicy.unsafe*)

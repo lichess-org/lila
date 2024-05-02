@@ -12,7 +12,7 @@ def index(
     data: JsObject,
     cross: Option[lila.game.Crosstable.WithMatchup],
     history: List[Pov]
-)(using PageContext) =
+)(using Context) =
   views.round.ui
     .RoundPage(
       pov.game.variant,
@@ -33,7 +33,7 @@ def index(
           side.meta(pov),
           side.channels(channel, champions, "/tv")
         ),
-        views.round.bits.roundAppPreload(pov),
+        views.round.ui.roundAppPreload(pov),
         div(cls := "round__underboard")(
           views.round.bits.crosstable(cross, pov.game),
           div(cls := "tv-history")(

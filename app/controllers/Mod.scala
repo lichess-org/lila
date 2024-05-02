@@ -220,12 +220,12 @@ final class Mod(
   }
 
   def table = Secure(_.Admin) { ctx ?=> _ ?=>
-    Ok.pageAsync:
+    Ok.async:
       modApi.allMods.map(views.mod.userTable.mods(_))
   }
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
-    Ok.pageAsync:
+    Ok.async:
       env.mod.logApi.recentBy(me).map(views.mod.ui.myLogs(_))
   }
 
@@ -356,7 +356,7 @@ final class Mod(
 
   def gamifyPeriod(periodStr: String) = Secure(_.GamifyView) { ctx ?=> _ ?=>
     Found(lila.mod.Gamify.Period(periodStr)): period =>
-      Ok.pageAsync:
+      Ok.async:
         env.mod.gamify.leaderboards.map:
           views.mod.gamify.period(_, period)
   }
@@ -364,12 +364,12 @@ final class Mod(
   def activity = activityOf("team", "month")
 
   def activityOf(who: String, period: String) = Secure(_.GamifyView) { ctx ?=> me ?=>
-    Ok.pageAsync:
+    Ok.async:
       env.mod.activity(who, period)(me.user).map(views.mod.ui.activity(_))
   }
 
   def queues(period: String) = Secure(_.GamifyView) { ctx ?=> _ ?=>
-    Ok.pageAsync:
+    Ok.async:
       env.mod.queueStats(period).map(views.mod.ui.queueStats(_))
   }
 
@@ -380,7 +380,7 @@ final class Mod(
   }
 
   def notes(page: Int, q: String) = Secure(_.Admin) { _ ?=> _ ?=>
-    Ok.pageAsync:
+    Ok.async:
       env.user.noteApi.search(q.trim, page, withDox = true).map(views.mod.search.notes(q, _))
   }
 

@@ -17,7 +17,7 @@ final class Practice(
 
   def index = Open:
     pageHit
-    Ok.pageAsync:
+    Ok.async:
       api.get(ctx.me).map { views.practice.index(_) }
     .map(_.noCache)
 
@@ -45,7 +45,7 @@ final class Practice(
           Redirect(routes.Practice.show(section.id, study.slug, study.id))
 
   private def showUserPractice(us: lila.practice.UserStudy)(using Context) =
-    Ok.pageAsync:
+    Ok.async:
       analysisJson(us).map: (analysisJson, studyJson) =>
         views.practice
           .show(

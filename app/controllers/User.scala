@@ -87,8 +87,8 @@ final class User(
       for
         withPerfs <- env.user.perfsRepo.withPerfs(u)
         as        <- env.activity.read.recentAndPreload(u)
-        page      <- renderPage(views.activity(withPerfs, as)).map(status(_))
-      yield page
+        snip = lila.ui.Snippet(views.activity(withPerfs, as))
+      yield status(snip)
 
   def download(username: UserStr) = OpenBody:
     val user =
@@ -134,10 +134,10 @@ final class User(
                     searchForm = (filters.current == GameFilter.Search).option(
                       lila.app.mashup.GameFilterMenu.searchForm(userGameSearch, filters.current)
                     )
-                    page <- renderPage:
+                    res <- Ok.page:
                       views.user.show.page.games(info, pag, filters, searchForm, social, notes)
-                  yield Ok(page)
-                else Ok.page(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes))
+                  yield res
+                else Ok.snip(views.user.show.gamesContent(u, nbs, pag, filters, filter, notes)).toFuccess
             yield res.withCanonical(routes.User.games(u.username, filters.current.name)),
             json = apiGames(u, filter, page)
           )
@@ -176,7 +176,7 @@ final class User(
           val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
           negotiate(
             html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
-              Ok.page(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+              Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
                 .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
             },
             json =
@@ -187,7 +187,7 @@ final class User(
                   "perfs"      -> lila.user.JsonView.perfsJson(user.perfs, user.perfs.best8Perfs)
                 )
           )
-      else Ok.page(views.user.bits.miniClosed(user.user))
+      else Ok(views.user.bits.miniClosed(user.user))
 
   def online = Anon:
     val max = 50
@@ -353,109 +353,108 @@ final class User(
   ): Fu[Result] =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
       case WithPerfsAndEmails(user, emails) =>
-        withPageContext:
-          import views.mod.{ user as ui }
-          import lila.ui.ScalatagsExtensions.{ emptyFrag, given }
-          given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
+        import views.mod.{ user as ui }
+        import lila.ui.ScalatagsExtensions.{ emptyFrag, given }
+        given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
 
-          val nbOthers = getInt("nbOthers") | 100
+        val nbOthers = getInt("nbOthers") | 100
 
-          val modLog = for
-            history <- env.mod.logApi.userHistory(user.id)
-            appeal  <- isGranted(_.Appeals).so(env.appeal.api.byId(user))
-          yield views.user.mod.modLog(history, appeal)
+        val modLog = for
+          history <- env.mod.logApi.userHistory(user.id)
+          appeal  <- isGranted(_.Appeals).so(env.appeal.api.byId(user))
+        yield views.user.mod.modLog(history, appeal)
 
-          val plan =
-            isGranted(_.Admin).so(
-              env.plan.api
-                .recentChargesOf(user)
-                .map(views.user.mod.plan(user))
-                .dmap(_ | emptyFrag)
-            ): Fu[Frag]
+        val plan =
+          isGranted(_.Admin).so(
+            env.plan.api
+              .recentChargesOf(user)
+              .map(views.user.mod.plan(user))
+              .dmap(_ | emptyFrag)
+          ): Fu[Frag]
 
-          val student = env.clas.api.student.findManaged(user).map2(views.user.mod.student).dmap(~_)
+        val student = env.clas.api.student.findManaged(user).map2(views.user.mod.student).dmap(~_)
 
-          val reportLog = isGranted(_.SeeReport).so(
-            env.report.api
-              .byAndAbout(user, 20)
-              .flatMap: rs =>
-                lightUserApi.preloadMany(rs.userIds).inject(rs)
-              .map(ui.reportLog(user))
-          )
+        val reportLog = isGranted(_.SeeReport).so(
+          env.report.api
+            .byAndAbout(user, 20)
+            .flatMap: rs =>
+              lightUserApi.preloadMany(rs.userIds).inject(rs)
+            .map(ui.reportLog(user))
+        )
 
-          val prefs = isGranted(_.CheatHunter).so:
-            env.pref.api
-              .get(user)
-              .map: prefs =>
-                ui.prefs(user, prefs.hasKeyboardMove, prefs.botCompatible)
+        val prefs = isGranted(_.CheatHunter).so:
+          env.pref.api
+            .get(user)
+            .map: prefs =>
+              ui.prefs(user, prefs.hasKeyboardMove, prefs.botCompatible)
 
-          val rageSit = isGranted(_.CheatHunter).so(
-            env.playban.api
-              .rageSitOf(user.id)
-              .zip(env.playban.api.bans(user.id))
-              .map(ui.showRageSitAndPlaybans)
-          )
+        val rageSit = isGranted(_.CheatHunter).so(
+          env.playban.api
+            .rageSitOf(user.id)
+            .zip(env.playban.api.bans(user.id))
+            .map(ui.showRageSitAndPlaybans)
+        )
 
-          val actions = env.user.repo.isErased(user).map { erased =>
-            ui.actions(user, emails, erased, env.mod.presets.getPmPresets)
-          }
+        val actions = env.user.repo.isErased(user).map { erased =>
+          ui.actions(user, emails, erased, env.mod.presets.getPmPresets)
+        }
 
-          val userLoginsFu = env.security.userLogins(user, nbOthers)
-          val others = for
-            userLogins <- userLoginsFu
-            appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
-            data       <- loginsTableData(user, userLogins, nbOthers)
-          yield views.user.mod.otherUsers(me, user, data, appeals)
+        val userLoginsFu = env.security.userLogins(user, nbOthers)
+        val others = for
+          userLogins <- userLoginsFu
+          appeals    <- env.appeal.api.byUserIds(user.id :: userLogins.otherUserIds)
+          data       <- loginsTableData(user, userLogins, nbOthers)
+        yield views.user.mod.otherUsers(me, user, data, appeals)
 
-          val identification = userLoginsFu.map: logins =>
-            isGranted(_.ViewPrintNoIP).so(views.user.mod.identification(logins))
+        val identification = userLoginsFu.map: logins =>
+          isGranted(_.ViewPrintNoIP).so(views.user.mod.identification(logins))
 
-          val kaladin = isGranted(_.MarkEngine).so(env.irwin.kaladinApi.get(user).map {
-            _.flatMap(_.response).so(views.irwin.kaladin.report)
-          })
+        val kaladin = isGranted(_.MarkEngine).so(env.irwin.kaladinApi.get(user).map {
+          _.flatMap(_.response).so(views.irwin.kaladin.report)
+        })
 
-          val irwin =
-            isGranted(_.MarkEngine).so(env.irwin.irwinApi.reports.withPovs(user).mapz(views.irwin.report))
-          val assess = isGranted(_.MarkEngine)
-            .so(env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id))
-            .flatMapz: as =>
-              lightUserApi
-                .preloadMany(as.games.flatMap(_.userIds))
-                .inject(ui.assessments(user, as))
+        val irwin =
+          isGranted(_.MarkEngine).so(env.irwin.irwinApi.reports.withPovs(user).mapz(views.irwin.report))
+        val assess = isGranted(_.MarkEngine)
+          .so(env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id))
+          .flatMapz: as =>
+            lightUserApi
+              .preloadMany(as.games.flatMap(_.userIds))
+              .inject(ui.assessments(user, as))
 
-          val boardTokens = env.oAuth.tokenApi.usedBoardApi(user.id).map(views.user.mod.boardTokens)
+        val boardTokens = env.oAuth.tokenApi.usedBoardApi(user.id).map(views.user.mod.boardTokens)
 
-          val teacher = env.clas.api.clas.countOf(user).map(ui.teacher(user))
+        val teacher = env.clas.api.clas.countOf(user).map(ui.teacher(user))
 
-          given EventSource.EventDataExtractor[Frag] = EventSource.EventDataExtractor[Frag](_.render)
-          Ok.chunked:
-            Source
-              .single(ui.menu)
-              .merge(modZoneSegment(actions, "actions", user))
-              .merge(modZoneSegment(modLog, "modLog", user))
-              .merge(modZoneSegment(plan, "plan", user))
-              .merge(modZoneSegment(student, "student", user))
-              .merge(modZoneSegment(teacher, "teacher", user))
-              .merge(modZoneSegment(reportLog, "reportLog", user))
-              .merge(modZoneSegment(prefs, "prefs", user))
-              .merge(modZoneSegment(rageSit, "rageSit", user))
-              .merge(modZoneSegment(others, "others", user))
-              .merge(modZoneSegment(identification, "identification", user))
-              .merge(modZoneSegment(kaladin, "kaladin", user))
-              .merge(modZoneSegment(irwin, "irwin", user))
-              .merge(modZoneSegment(assess, "assess", user))
-              .merge(modZoneSegment(boardTokens, "boardTokens", user))
-              .via(EventSource.flow)
-              .log("User.renderModZone")
-          .as(ContentTypes.EVENT_STREAM)
-            .pipe(noProxyBuffer)
+        given EventSource.EventDataExtractor[Frag] = EventSource.EventDataExtractor[Frag](_.render)
+        Ok.chunked:
+          Source
+            .single(ui.menu)
+            .merge(modZoneSegment(actions, "actions", user))
+            .merge(modZoneSegment(modLog, "modLog", user))
+            .merge(modZoneSegment(plan, "plan", user))
+            .merge(modZoneSegment(student, "student", user))
+            .merge(modZoneSegment(teacher, "teacher", user))
+            .merge(modZoneSegment(reportLog, "reportLog", user))
+            .merge(modZoneSegment(prefs, "prefs", user))
+            .merge(modZoneSegment(rageSit, "rageSit", user))
+            .merge(modZoneSegment(others, "others", user))
+            .merge(modZoneSegment(identification, "identification", user))
+            .merge(modZoneSegment(kaladin, "kaladin", user))
+            .merge(modZoneSegment(irwin, "irwin", user))
+            .merge(modZoneSegment(assess, "assess", user))
+            .merge(modZoneSegment(boardTokens, "boardTokens", user))
+            .via(EventSource.flow)
+            .log("User.renderModZone")
+        .as(ContentTypes.EVENT_STREAM)
+          .pipe(noProxyBuffer)
     }
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
       case WithPerfsAndEmails(user, emails) =>
         env.user.repo.isErased(user).flatMap { erased =>
-          Ok.page:
+          Ok.snip:
             views.mod.user.actions(
               user,
               emails,
@@ -473,12 +472,12 @@ final class User(
         data =>
           doWriteNote(username, data): user =>
             if getBool("inquiry") then
-              Ok.pageAsync:
+              Ok.snipAsync:
                 env.user.noteApi.byUserForMod(user.id).map {
                   views.mod.inquiry.ui.noteZone(user, _)
                 }
             else
-              Ok.pageAsync:
+              Ok.snipAsync:
                 env.socialInfo.fetchNotes(user).map {
                   views.user.noteUi.zone(user, _)
                 }
@@ -553,11 +552,11 @@ final class User(
   def perfStat(username: UserStr, perfKey: PerfKeyStr) = Open:
     Found(env.perfStat.api.data(username, perfKey)): data =>
       negotiate(
-        Ok.pageAsync:
+        Ok.async:
           env.history
             .ratingChartApi(data.user.user)
             .map:
-              views.user.perfStat(data, _)
+              views.user.perfStatPage(data, _)
         ,
         JsonOk:
           getBool("graph")
@@ -625,8 +624,8 @@ final class User(
                   env.user.perfsRepo
                     .withPerfs(u)
                     .flatMap: u =>
-                      Ok.page(views.user.perfStat.ui.ratingDistribution(perfKey, data, u.some))
-              case _ => Ok.page(views.user.perfStat.ui.ratingDistribution(perfKey, data, none))
+                      Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, u.some))
+              case _ => Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, none))
 
   def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))

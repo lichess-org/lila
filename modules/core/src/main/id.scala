@@ -91,3 +91,6 @@ object id:
 
   opaque type RelayTourId = String
   object RelayTourId extends OpaqueString[RelayTourId]
+
+  opaque type ChallengeId = String
+  object ChallengeId extends OpaqueString[ChallengeId]

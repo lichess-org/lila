@@ -5,6 +5,8 @@ import play.api.http.*
 import play.api.mvc.Codec
 import scalatags.Text.Frag
 
+import lila.ui.{ Page, RenderedPage, Snippet }
+
 trait ResponseWriter extends ContentTypes:
 
   private val textContentType = ContentTypeOf(Some(ContentTypes.TEXT))
@@ -22,9 +24,6 @@ trait ResponseWriter extends ContentTypes:
   given pgnWriteable(using codec: Codec): Writeable[PgnStr] =
     Writeable(p => codec.encode(p.toString), pgnContentType.some)
 
-  // given (using codec: Codec): Writeable[Option[String]] = Writeable(i => codec encode i.orZero)
-  // given ContentTypeOf[Option[String]]                   = textContentType
-
   given stringRuntimeContentType[A: StringRuntime]: ContentTypeOf[A] = textContentType
   given stringRuntimeWriteable[A](using codec: Codec, sr: StringRuntime[A]): Writeable[A] =
     Writeable(a => codec.encode(sr(a)))
@@ -33,9 +32,11 @@ trait ResponseWriter extends ContentTypes:
   given intRuntimeWriteable[A](using codec: Codec, sr: IntRuntime[A]): Writeable[A] =
     Writeable(a => codec.encode(sr(a).toString))
 
-  given (using codec: Codec): ContentTypeOf[lila.ui.Page] = ContentTypeOf(Some(ContentTypes.HTML))
-  given (using codec: Codec): ContentTypeOf[Frag]         = ContentTypeOf(Some(ContentTypes.HTML))
-  given (using codec: Codec): Writeable[Frag]             = Writeable(frag => codec.encode(frag.render))
+  given (using codec: Codec): ContentTypeOf[Page]         = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): ContentTypeOf[Snippet]      = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): Writeable[Snippet]          = Writeable(snip => codec.encode(snip.frag.render))
+  given (using codec: Codec): ContentTypeOf[RenderedPage] = ContentTypeOf(Some(ContentTypes.HTML))
+  given (using codec: Codec): Writeable[RenderedPage]     = Writeable(page => codec.encode(page.html))
 
   val csvContentType = "text/csv"
 

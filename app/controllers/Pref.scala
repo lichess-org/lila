@@ -34,7 +34,7 @@ final class Pref(env: Env) extends LilaController(env):
         Auth { ctx ?=> me ?=>
           lila.pref.PrefCateg(categSlug) match
             case None if categSlug == "notification" =>
-              Ok.pageAsync:
+              Ok.async:
                 env.notifyM.api.prefs.form(me).map {
                   views.account.pref.notification(_)
                 }

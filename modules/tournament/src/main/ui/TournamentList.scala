@@ -132,7 +132,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
           )
         )
 
-  def calendar(json: play.api.libs.json.JsObject)(using PageContext) =
+  def calendar(json: play.api.libs.json.JsObject)(using Context) =
     Page("Tournament calendar")
       .js(PageModule("tournament.calendar", Json.obj("data" -> json)))
       .cssTag("tournament.calendar"):

@@ -205,7 +205,7 @@ final class CoachUi(helpers: Helpers)(
       langCodes: Set[String],
       countries: CountrySelection,
       country: Option[Flag]
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     Page(trc.lichessCoaches.txt())
       .cssTag("coach")
       .js(infiniteScrollEsmInit)

@@ -19,7 +19,7 @@ final class KeyPages(val env: Env)(using Executor)
       .map: html =>
         env.security.lilaCookie.ensure(ctx.req)(status(html))
 
-  def homeHtml(using ctx: Context): Fu[Frag] =
+  def homeHtml(using ctx: Context): Fu[lila.ui.RenderedPage] =
     env
       .preloader(
         tours = ctx.userId
@@ -40,12 +40,11 @@ final class KeyPages(val env: Env)(using Executor)
             views.lobby.home(h)
 
   def notFound(using Context): Fu[Result] =
-    NotFound.page(views.base.notFound())
+    NotFound.page(views.base.notFound)
 
-  def blacklisted(using ctx: Context): Fu[Result] =
+  def blacklisted(using ctx: Context): Result =
     if lila.security.Mobile.Api.requested(ctx.req) then
-      fuccess:
-        Results.Unauthorized:
-          Json.obj:
-            "error" -> views.site.message.blacklistedMessage
-    else Unauthorized.page(views.site.message.blacklistedFrag)
+      Results.Unauthorized:
+        Json.obj:
+          "error" -> views.site.message.blacklistedMessage
+    else Unauthorized(views.site.message.blacklistedSnippet)

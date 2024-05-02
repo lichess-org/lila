@@ -28,7 +28,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   val homeReload = Open:
     fetchSimuls.flatMap: (pending, created, started, finished) =>
-      Ok.page(views.simul.home.homeInner(pending, created, started, finished))
+      Ok.snip(views.simul.home.homeInner(pending, created, started, finished))
 
   private def fetchSimuls(using me: Option[Me]): Fu[(List[Sim], List[Sim], List[Sim], List[Sim])] =
     (
@@ -99,7 +99,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   def form = Auth { ctx ?=> me ?=>
     NoLameOrBot:
-      Ok.pageAsync:
+      Ok.async:
         env.team.api
           .lightsByTourLeader(me)
           .map: teams =>
@@ -142,7 +142,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   def edit(id: SimulId) = Auth { ctx ?=> me ?=>
     WithEditableSimul(id) { simul =>
-      Ok.pageAsync:
+      Ok.async:
         env.team.api.lightsByTourLeader(me).map { teams =>
           views.simul.form.edit(forms.edit(teams, simul), teams, simul)
         }
@@ -166,7 +166,7 @@ final class Simul(env: Env) extends LilaController(env):
   def byUser(username: UserStr, page: Int) = Open:
     Reasonable(page):
       Found(meOrFetch(username).map(_.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)))): user =>
-        Ok.pageAsync:
+        Ok.async:
           env.simul.api
             .hostedByUser(user.id, page)
             .map:

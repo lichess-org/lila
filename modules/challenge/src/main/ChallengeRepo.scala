@@ -13,12 +13,12 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
 
   import lila.core.game.maxPlayingRealtime
 
-  def byId(id: Challenge.Id) = coll.find($id(id)).one[Challenge]
+  def byId(id: ChallengeId) = coll.find($id(id)).one[Challenge]
 
-  def byIdFor(id: Challenge.Id, dest: User) =
+  def byIdFor(id: ChallengeId, dest: User) =
     coll.find($id(id) ++ $doc("destUser.id" -> dest.id)).one[Challenge]
 
-  def exists(id: Challenge.Id) = coll.countSel($id(id)).dmap(0 <)
+  def exists(id: ChallengeId) = coll.countSel($id(id)).dmap(0 <)
 
   def insert(c: Challenge): Funit =
     coll.insert.one(c) >> c.challengerUser.so: challenger =>
@@ -101,7 +101,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   private[challenge] def expired(max: Int): Fu[List[Challenge]] =
     coll.list[Challenge]("expiresAt".$lt(nowInstant), max)
 
-  def setSeenAgain(id: Challenge.Id) =
+  def setSeenAgain(id: ChallengeId) =
     coll.update
       .one(
         $id(id),
@@ -115,7 +115,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       )
       .void
 
-  def setSeen(id: Challenge.Id) =
+  def setSeen(id: ChallengeId) =
     coll.updateField($id(id), "seenAt", nowInstant).void
 
   def offline(challenge: Challenge) = setStatus(challenge, Status.Offline, Some(_.plusHours(3)))
@@ -128,7 +128,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
   private[challenge] def accept(challenge: Challenge) =
     setStatus(challenge, Status.Accepted, Some(_.plusHours(3)))
 
-  def statusById(id: Challenge.Id) = coll.primitiveOne[Status]($id(id), "status")
+  def statusById(id: ChallengeId) = coll.primitiveOne[Status]($id(id), "status")
 
   private def setStatus(challenge: Challenge, status: Status, expiresAt: Option[Instant => Instant]) =
     coll.update
@@ -143,7 +143,7 @@ final private class ChallengeRepo(colls: ChallengeColls)(using
       )
       .void
 
-  private[challenge] def remove(id: Challenge.Id) = coll.delete.one($id(id)).void
+  private[challenge] def remove(id: ChallengeId) = coll.delete.one($id(id)).void
 
   private val selectCreated          = $doc("status" -> Status.Created)
   private val selectCreatedOrOffline = $doc("status".$in(List(Status.Created, Status.Offline)))

@@ -10,7 +10,7 @@ import trans.dgt.*
 
 private val liveChessVersion = "2.2.5+"
 
-def index(using PageContext) =
+def index(using Context) =
   layout("index")(
     h1(cls := "box__top")(lichessAndDgt()),
     p(thisPageAllowsConnectingDgtBoard()),
@@ -56,7 +56,7 @@ def index(using PageContext) =
     )
   )
 
-def play(token: AccessToken)(using PageContext) =
+def play(token: AccessToken)(using Context) =
   layout("play", s"${token.plain.value}".some)(
     div(id := "dgt-play-zone")(pre(id := "dgt-play-zone-log")),
     div(cls := "dgt__play__help")(
@@ -70,7 +70,7 @@ def play(token: AccessToken)(using PageContext) =
     )
   )
 
-def config(token: Option[lila.oauth.AccessToken])(using PageContext) =
+def config(token: Option[lila.oauth.AccessToken])(using Context) =
   layout("config")(
     h1(cls := "box__top")(dgtConfigure()),
     form(action := routes.DgtCtrl.generateToken, method := "post")(
@@ -199,24 +199,22 @@ private def radios(name: String, options: Iterable[(Any, String)]) =
     }.toList
   )
 
-private def layout(path: String, token: Option[String] = None)(body: Modifier*)(using PageContext) =
-  views.base.layout(
-    moreCss = cssTag("dgt"),
-    modules = token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)),
-    title = playWithDgtBoard.txt(),
-    csp = defaultCsp.withAnyWs.some
-  ):
-    main(cls := "account page-menu dgt")(
-      lila.ui.bits.pageMenuSubnav(
-        a(cls := path.active("index"), href := routes.DgtCtrl.index)(
-          dgtBoard()
+private def layout(path: String, token: Option[String] = None)(body: Modifier*)(using Context) =
+  Page(playWithDgtBoard.txt())
+    .cssTag("dgt")
+    .js(token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)))
+    .csp(_.withAnyWs):
+      main(cls := "account page-menu dgt")(
+        lila.ui.bits.pageMenuSubnav(
+          a(cls := path.active("index"), href := routes.DgtCtrl.index)(
+            dgtBoard()
+          ),
+          a(cls := path.active("play"), href := routes.DgtCtrl.play)(
+            trans.site.play()
+          ),
+          a(cls := path.active("config"), href := routes.DgtCtrl.config)(
+            configure()
+          )
         ),
-        a(cls := path.active("play"), href := routes.DgtCtrl.play)(
-          trans.site.play()
-        ),
-        a(cls := path.active("config"), href := routes.DgtCtrl.config)(
-          configure()
-        )
-      ),
-      div(cls := s"page-menu__content box box-pad dgt__$path")(body)
-    )
+        div(cls := s"page-menu__content box box-pad dgt__$path")(body)
+      )

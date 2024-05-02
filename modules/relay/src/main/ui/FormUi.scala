@@ -16,7 +16,7 @@ final class FormUi(helpers: Helpers, bits: RelayBits)(
 
   object round:
 
-    def edit(rt: RelayRound.WithTour, form: Form[RelayRoundForm.Data])(using PageContext) = frag(
+    def edit(rt: RelayRound.WithTour, form: Form[RelayRoundForm.Data])(using Context) = frag(
       boxTop(
         h1(dataIcon := Icon.Pencil, cls := "text")(
           a(href := routes.RelayTour.edit(rt.tour.id))(rt.tour.name),
@@ -130,7 +130,7 @@ final class FormUi(helpers: Helpers, bits: RelayBits)(
       )
 
   object tour:
-    def edit(tg: RelayTour.WithGroupTours, form: Form[RelayTourForm.Data])(using PageContext) =
+    def edit(tg: RelayTour.WithGroupTours, form: Form[RelayTourForm.Data])(using Context) =
       frag(
         boxTop:
           h1(dataIcon := Icon.Pencil, cls := "text"):

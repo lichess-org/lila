@@ -10,7 +10,7 @@ final class DgtCtrl(env: Env) extends LilaController(env):
   }
 
   def config = Auth { _ ?=> me ?=>
-    Ok.pageAsync:
+    Ok.async:
       findToken.map(views.dgt.config)
   }
 

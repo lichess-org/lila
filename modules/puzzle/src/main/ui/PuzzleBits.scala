@@ -59,6 +59,15 @@ final class PuzzleBits(helpers: Helpers)(cevalTranslations: Seq[I18nKey]):
       )
     )
 
+  def dailyLink(daily: DailyPuzzle.WithHtml)(using Translate) = a(
+    href  := routes.Puzzle.daily,
+    title := trans.puzzle.clickToSolve.txt()
+  )(
+    span(cls := "text")(trans.puzzle.puzzleOfTheDay()),
+    rawHtml(daily.html),
+    span(cls := "text")(daily.puzzle.color.fold(trans.site.whitePlays(), trans.site.blackPlays()))
+  )
+
   object show:
     lazy val preload =
       main(cls := "puzzle")(

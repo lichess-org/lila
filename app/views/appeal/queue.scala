@@ -17,7 +17,7 @@ object queue:
       scores: lila.report.Room.Scores,
       streamers: Int,
       nbAppeals: Int
-  )(using PageContext) =
+  )(using Context) =
     views.report.list.layout("appeal", scores, streamers, nbAppeals)(
       table(cls := "slist slist-pad see appeal-queue")(
         thead(

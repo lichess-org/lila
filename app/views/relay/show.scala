@@ -15,7 +15,7 @@ object show:
       chatOption: Option[lila.chat.UserChat.Mine],
       socketVersion: SocketVersion,
       crossSiteIsolation: Boolean = true
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     Page(rt.fullName)
       .cssTag("analyse.relay")
       .js(analyseNvuiTag)
@@ -51,7 +51,7 @@ object show:
       )
       .zoom
       .csp(
-        (if crossSiteIsolation then analysisCsp else identity[lila.ui.ContentSecurityPolicy])
+        (if crossSiteIsolation then views.analyse.ui.csp else identity[lila.ui.ContentSecurityPolicy])
           .compose(_.withExternalAnalysisApis)
       )
       .graph(

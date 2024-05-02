@@ -26,7 +26,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def sides(gameId: GameId, color: String) = Open:
     Found(chess.Color.fromName(color).so { env.round.proxyRepo.pov(gameId, _) }): pov =>
       env.game.crosstableApi.withMatchup(pov.game).flatMap { ct =>
-        Ok.page(views.tv.side.sides(pov, ct))
+        Ok.snip(views.tv.side.sides(pov, ct))
       }
 
   private given Writes[lila.tv.Tv.Champion] = Json.writes
@@ -130,4 +130,4 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       .flatMap:
         _.fold(notFoundText()): g =>
           InEmbedContext:
-            Ok(views.tv.embed(Pov.naturalOrientation(g), channel.key.some))
+            Ok.snip(views.tv.embed(Pov.naturalOrientation(g), channel.key.some))

@@ -6,10 +6,7 @@ import ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.core.i18n.Translate
 
-final class TournamentUi(helpers: Helpers)(
-    getTourName: GetTourName,
-    defaultTranslate: Translate
-):
+final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   import helpers.{ *, given }
 
   object finishedList:
@@ -103,7 +100,7 @@ final class TournamentUi(helpers: Helpers)(
   object scheduledTournamentNameShortHtml:
     private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""
     private val replacements =
-      given lila.core.i18n.Translate = defaultTranslate
+      given lila.core.i18n.Translate = transDefault
       List(
         "Lichess "    -> "",
         "Marathon"    -> icon(Icon.Globe),

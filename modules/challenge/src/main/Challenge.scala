@@ -16,7 +16,7 @@ import lila.core.user.WithPerf
 import lila.core.user.GameUser
 
 case class Challenge(
-    @Key("_id") id: Challenge.Id,
+    @Key("_id") id: ChallengeId,
     status: Challenge.Status,
     variant: Variant,
     initialFen: Option[Fen.Full],
@@ -153,7 +153,7 @@ object Challenge:
     lila.rating.PerfType(variant, speedOf(timeControl))
 
   private val idSize   = 8
-  private def randomId = Id(ThreadLocalRandom.nextString(idSize))
+  private def randomId = ChallengeId(ThreadLocalRandom.nextString(idSize))
 
   def toRegistered(u: WithPerf): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perf.intRating, u.perf.provisional))
@@ -190,7 +190,7 @@ object Challenge:
       case _                                                                           => mode
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
-      id = id.fold(randomId)(_.into(Id)),
+      id = id.fold(randomId)(_.into(ChallengeId)),
       status = Status.Created,
       variant = variant,
       initialFen =

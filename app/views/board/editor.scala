@@ -14,7 +14,7 @@ object editor:
       fen: Option[Fen.Full],
       positionsJson: JsArray,
       endgamePositionsJson: JsArray
-  )(using PageContext) =
+  )(using Context) =
     Page(trans.site.boardEditor.txt())
       .js(
         PageModule(

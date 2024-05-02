@@ -27,6 +27,8 @@ trait I18nHelper:
   given ctxTrans(using ctx: Context): Translate = Translate(translator, ctx.lang)
   given transLang(using trans: Translate): Lang = trans.lang
 
+  def transDefault: Translate = translator.toDefault
+
   def transKey(key: I18nKey, args: Seq[Matchable] = Nil)(using t: Translate): Frag =
     translator.frag.literal(key, args, t.lang)
 

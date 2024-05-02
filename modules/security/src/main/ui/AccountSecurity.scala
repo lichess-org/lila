@@ -138,7 +138,7 @@ final class AccountSecurity(helpers: Helpers)(
     )
 
   import lila.security.EmailConfirm.Help.Status
-  def emailConfirmHelp(form: Form[?], status: Option[Status])(using PageContext) =
+  def emailConfirmHelp(form: Form[?], status: Option[Status])(using Context) =
     Page(trans.site.emailConfirmHelp.txt()).cssTag("email-confirm"):
       frag(
         main(cls := "page-small box box-pad email-confirm-help")(

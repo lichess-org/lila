@@ -16,7 +16,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
       t: Team.WithLeaders,
       addLeaderForm: Form[UserStr],
       permsForm: Form[Seq[TeamSecurity.LeaderData]]
-  )(using PageContext) =
+  )(using Context) =
     TeamPage(s"${t.name} • ${trans.team.teamLeaders.txt()}")
       .js(EsmInit("mod.teamAdmin"))
       .cssTag("tagify"):
@@ -76,7 +76,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
           )
         )
 
-  def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using PageContext) =
+  def kick(t: Team, form: Form[String], blocklistForm: Form[String])(using Context) =
     TeamPage(s"${t.name} • ${trans.team.kickSomeone.txt()}")
       .js(EsmInit("mod.teamAdmin"))
       .cssTag("tagify"):
@@ -120,7 +120,7 @@ final class AdminUi(helpers: Helpers, bits: TeamUi)(using netDomain: NetDomain):
       unsubs: Int,
       limiter: (Int, Instant),
       credits: Int
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     TeamPage(s"${t.name} • ${trans.team.messageAllMembers.txt()}").js(embedJsUnsafeLoadThen(pmAllJs)):
       main(cls := "page-menu page-small")(
         menu(none),

@@ -20,7 +20,7 @@ case class Page(
     title: String,
     body: Option[Frag] = None,
     fullTitle: Option[String] = None,
-    robots: Option[Boolean] = None,
+    robots: Boolean = true,
     cssFrag: Option[Frag] = None,
     modules: EsmList = Nil,
     jsFrag: Option[WithNonce[Frag]] = None,
@@ -46,7 +46,7 @@ case class Page(
   def iife(iifeFrag: Option[Frag]): Page                           = iifeFrag.foldLeft(this)(_.iife(_))
   def graph(og: OpenGraph): Page                                   = copy(openGraph = og.some)
   def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
-  def robots(b: Boolean): Page                                     = copy(robots = if b then none else b.some)
+  def robots(b: Boolean): Page                                     = copy(robots = b)
   def css(f: Frag): Page                           = copy(cssFrag = cssFrag.foldLeft(f)(_ |+| _).some)
   def csp(up: Update[ContentSecurityPolicy]): Page = copy(csp = csp.fold(up)(up.compose).some)
   def hrefLangs(path: Option[LangPath]): Page      = copy(withHrefLangs = path)
@@ -62,3 +62,9 @@ case class Page(
   def transform(f: Update[Frag]): Page = copy(transform = transform.compose(f))
   def wrap(f: Update[Frag]): Page      = transform(f)
   def prepend(prelude: Frag): Page     = transform(body => frag(prelude, body))
+
+final class RenderedPage(val html: String)
+
+// when we want to return some random HTML and not a full page,
+// usually during an XHR request
+final class Snippet(val frag: Frag)

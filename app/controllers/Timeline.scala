@@ -12,17 +12,18 @@ final class Timeline(env: Env) extends LilaController(env):
 
   def home = Auth { ctx ?=> me ?=>
     negotiate(
-      html = Ok.pageAsync:
+      html =
         if HTTPRequest.isXhr(ctx.req) then
           for
             entries <- env.timeline.entryApi.userEntries(me)
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
-          yield views.timeline.entries(entries)
+          yield Ok.snip(views.timeline.entries(entries))
         else
           for
             entries <- env.timeline.entryApi.moreUserEntries(me, Max(30), since = getTimestamp("since"))
             _       <- env.user.lightUserApi.preloadMany(entries.flatMap(_.userIds))
-          yield views.timeline.more(entries)
+            res     <- Ok.page(views.timeline.more(entries))
+          yield res
       ,
       json =
         // Must be empty if nb is not given, because old versions of the

@@ -179,7 +179,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           )
         )
 
-  def friends(posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
+  def friends(posts: Paginator[UblogPost.PreviewPost])(using Context) = list(
     title = "Friends blogs",
     posts = posts,
     menuItem = "friends",
@@ -187,7 +187,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     onEmpty = "Nothing to show. Follow some authors!"
   )
 
-  def liked(posts: Paginator[UblogPost.PreviewPost])(using PageContext) = list(
+  def liked(posts: Paginator[UblogPost.PreviewPost])(using Context) = list(
     title = "Liked blog posts",
     posts = posts,
     menuItem = "liked",
@@ -195,7 +195,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
     onEmpty = "Nothing to show. Like some posts!"
   )
 
-  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost], byDate: Boolean)(using PageContext) =
+  def topic(top: UblogTopic, posts: Paginator[UblogPost.PreviewPost], byDate: Boolean)(using Context) =
     list(
       title = s"Blog posts about $top",
       posts = posts,

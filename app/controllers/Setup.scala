@@ -231,12 +231,12 @@ final class Setup(
               case None      => BadRequest(jsonError("Authentication required"))
 
   def filterForm = Open:
-    Ok.page(views.setup.filter(forms.filter))
+    Ok.snip(views.setup.filter(forms.filter))
 
   def validateFen = Open:
     (get("fen").map(Fen.Full.clean): Option[Fen.Full]).flatMap(ValidFen(getBool("strict"))) match
       case None    => BadRequest
-      case Some(v) => Ok.page(views.board.bits.miniSpan(v.fen.board, v.color))
+      case Some(v) => Ok.snip(views.board.bits.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
     BotAiRateLimit(me, rateLimited, cost = me.isBot.so(1)):

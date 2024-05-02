@@ -34,3 +34,4 @@ object ReverseRouterConversions:
   given Conversion[ForumTopicId, String]                                   = _.value
   given relayTourIdConv: Conversion[RelayTourId, String]                   = _.value
   given Conversion[chess.FideId, Int]                                      = _.value
+  given challengeIdConv: Conversion[ChallengeId, String]                   = _.value
