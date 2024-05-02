@@ -13,10 +13,9 @@ final class Opening(env: Env) extends LilaController(env):
     val searchQuery = ~q
     if searchQuery.nonEmpty then
       val results = env.opening.search(searchQuery)
-      Ok.page:
-        if HTTPRequest.isXhr(ctx.req)
-        then views.opening.ui.resultsList(results)
-        else views.opening.ui.resultsPage(searchQuery, results, env.opening.api.readConfig)
+      if HTTPRequest.isXhr(ctx.req)
+      then Ok.snippet(views.opening.ui.resultsList(results))
+      else Ok.page(views.opening.ui.resultsPage(searchQuery, results, env.opening.api.readConfig))
     else
       FoundPage(env.opening.api.index): page =>
         isGrantedOpt(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki).map {

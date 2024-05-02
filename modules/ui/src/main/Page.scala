@@ -63,6 +63,8 @@ case class Page(
   def wrap(f: Update[Frag]): Page      = transform(f)
   def prepend(prelude: Frag): Page     = transform(body => frag(prelude, body))
 
+final class RenderedPage(val html: String)
+
 // when we want to return some random HTML and not a full page,
 // usually during an XHR request
 final class Snippet(val frag: Frag)

@@ -34,7 +34,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     )
 
   def mine(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
-      ctx: PageContext,
+      ctx: Context,
       me: Me
   ) =
     page(
@@ -61,7 +61,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     )
 
   def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, topics: StudyTopics)(using
-      ctx: PageContext,
+      ctx: Context,
       me: Me
   ) =
     page(

@@ -41,7 +41,7 @@ object message:
   def blacklistedMessage(using ctx: Context) =
     s"Sorry, your IP address ${ctx.ip} has been used to violate the ToS, and is now blacklisted."
 
-  def blacklistedSnippet(using Context) = Snippet(frag(blacklistedMessage))
+  def blacklistedSnippet(using Context) = lila.ui.Snippet(frag(blacklistedMessage))
 
   def privateStudy(study: lila.study.Study)(using Context) =
     apply(

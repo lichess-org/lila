@@ -32,13 +32,13 @@ trait ResponseBuilder(using Executor)
     Found(fua): a =>
       op(a).dmap(Ok(_))
 
-  def FoundPage[A](fua: Fu[Option[A]])(op: A => Context ?=> Fu[Page])(using Context): Fu[Result] =
+  def FoundPage[A](fua: Fu[Option[A]])(op: A => Fu[Page])(using Context): Fu[Result] =
     Found(fua): a =>
       Ok.pageAsync(op(a))
 
-  def FoundSnippet[A](fua: Fu[Option[A]])(op: A => Context ?=> Fu[Snippet])(using Context): Fu[Result] =
+  def FoundSnippet[A](fua: Fu[Option[A]])(op: A => Fu[Snippet])(using Context): Fu[Result] =
     Found(fua): a =>
-      Ok.snippetAsync(op(a))
+      Ok.snippetAsync(op(a).map(_.frag))
 
   extension [A](fua: Fu[Option[A]])
     def orNotFound(f: A => Fu[Result])(using Context): Fu[Result] =

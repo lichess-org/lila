@@ -11,6 +11,7 @@ import lila.tournament.Tournament as Tour
 import lila.core.data.Preload
 import lila.core.id.{ GameFullId, GameAnyId }
 import lila.round.RoundGame.*
+import lila.ui.Snippet
 
 final class Round(
     env: Env,
@@ -246,7 +247,7 @@ final class Round(
               .some
 
   def sides(gameId: GameId, color: String) = Open:
-    FoundPage(proxyPov(gameId, color)): pov =>
+    FoundSnippet(proxyPov(gameId, color)): pov =>
       (
         env.tournament.api.gameView.withTeamVs(pov.game),
         pov.game.simulId.so(env.simul.repo.find),
@@ -254,7 +255,7 @@ final class Round(
         env.game.crosstableApi.withMatchup(pov.game),
         env.bookmark.api.exists(pov.game, ctx.me)
       ).flatMapN: (tour, simul, initialFen, crosstable, bookmarked) =>
-        views.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
+        Snippet(views.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
     import play.api.data.Forms.*
@@ -291,16 +292,16 @@ final class Round(
         akka.pattern.after(500.millis, env.system.scheduler)(redirection)
 
   def mini(gameId: GameId, color: String) = Open:
-    FoundPage(
+    FoundSnippet(
       chess.Color
         .fromName(color)
         .so(env.round.proxyRepo.povIfPresent(gameId, _))
         .orElse(env.game.gameRepo.pov(gameId, color))
-    )(views.game.mini(_))
+    )(pov => Snippet(views.game.mini(pov)))
 
   def miniFullId(fullId: GameFullId) = Open:
-    FoundPage(env.round.proxyRepo.povIfPresent(fullId).orElse(env.game.gameRepo.pov(fullId))):
-      views.game.mini(_)
+    FoundSnippet(env.round.proxyRepo.povIfPresent(fullId).orElse(env.game.gameRepo.pov(fullId))): pov =>
+      Snippet(views.game.mini(pov))
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.core.round.Moretime
@@ -318,4 +319,4 @@ final class Round(
   }
 
   def help = Open:
-    Ok.page(lila.web.ui.help.round)
+    Ok.snippet(lila.web.ui.help.round)

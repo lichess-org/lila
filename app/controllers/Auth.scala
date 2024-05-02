@@ -386,13 +386,12 @@ final class Auth(
     }
 
   private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using Context) =
-    renderAsync:
-      env.security.forms.magicLink.map: baseForm =>
-        views.auth.magicLink(form.foldLeft(baseForm)(_.withForm(_)), fail)
+    env.security.forms.magicLink.map: baseForm =>
+      views.auth.magicLink(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
   def magicLink = Open:
     Firewall:
-      renderMagicLink(none, fail = false).map { Ok(_) }
+      Ok.async(renderMagicLink(none, fail = false))
 
   def magicLinkApply = OpenBody:
     Firewall:
@@ -402,7 +401,7 @@ final class Auth(
             _.form
               .bindFromRequest()
               .fold(
-                err => renderMagicLink(err.some, fail = true).map { BadRequest(_) },
+                err => BadRequest.async(renderMagicLink(err.some, fail = true)),
                 data =>
                   env.user.repo.enabledWithEmail(data.email.normalize).flatMap {
                     case Some((user, storedEmail)) =>
@@ -419,7 +418,7 @@ final class Auth(
                   }
               )
           }
-        else renderMagicLink(none, fail = true).map { BadRequest(_) }
+        else BadRequest.async(renderMagicLink(none, fail = true))
       }
 
   def magicLinkSent = Open:

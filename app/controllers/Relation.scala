@@ -22,7 +22,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
     blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
     res <- negotiate(
-      Ok.page:
+      Ok.snippet:
         if mini
         then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
         else views.relation.actions(user, relation, blocked = blocked, followable = followable)

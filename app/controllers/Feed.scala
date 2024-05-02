@@ -55,4 +55,4 @@ final class Feed(env: Env) extends LilaController(env):
 
   def atom = Anon:
     api.recentPublished.map: ups =>
-      Ok(views.feed.atom(ups)).as(XML)
+      Ok.snippet(views.feed.atom(ups)).as(XML)

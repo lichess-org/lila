@@ -28,7 +28,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   val homeReload = Open:
     fetchSimuls.flatMap: (pending, created, started, finished) =>
-      Ok.page(views.simul.home.homeInner(pending, created, started, finished))
+      Ok.snippet(views.simul.home.homeInner(pending, created, started, finished))
 
   private def fetchSimuls(using me: Option[Me]): Fu[(List[Sim], List[Sim], List[Sim], List[Sim])] =
     (

@@ -342,7 +342,7 @@ final class Account(
                   .flatMap {
                     case Left((code, msg)) =>
                       lila.mon.user.auth.reopenRequest(code).increment()
-                      renderReopen(none, msg.some).map { BadRequest(_) }
+                      BadRequest.async(renderReopen(none, msg.some))
                     case Right(user) =>
                       env.security.magicLink.rateLimit[Result](user, data.email, ctx.req, rateLimited):
                         lila.mon.user.auth.reopenRequest("success").increment()
@@ -351,7 +351,7 @@ final class Account(
                           .inject(Redirect(routes.Account.reopenSent))
                   }
             )
-      else renderReopen(none, none).map { BadRequest(_) }
+      else BadRequest.async(renderReopen(none, none))
     }
 
   def reopenSent = Open:

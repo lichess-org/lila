@@ -2,37 +2,35 @@ package lila.app
 package http
 
 import play.api.mvc.*
-import scalatags.Text.all.Frag
+import scalatags.Text.Frag
 
-import lila.ui.{ Page, Snippet }
+import lila.ui.{ Page, RenderedPage, Snippet }
 
 trait CtrlPage(using Executor) extends RequestContext with ControllerHelpers with lila.web.ResponseWriter:
 
-  def renderPage(render: Context ?=> Page)(using Context): Fu[Frag] =
+  def renderPage(page: Page)(using Context): Fu[RenderedPage] =
     pageContext.map: pctx =>
-      given PageContext = pctx
-      views.base.page(render)
+      views.base.page(page)(using pctx)
 
-  def renderAsync(render: Context ?=> Fu[Page])(using Context): Fu[Frag] =
+  def renderAsync(page: Fu[Page])(using Context): Fu[RenderedPage] =
     pageContext.flatMap: pctx =>
-      given PageContext = pctx
-      render.map(views.base.page)
-
-  def withPageContext[A](render: PageContext ?=> A)(using Context): Fu[A] =
-    pageContext.map(render(using _))
+      page.map(views.base.page(_)(using pctx))
 
   extension (s: Status)
 
-    def page(render: Context ?=> Page)(using Context): Fu[Result] =
-      renderPage(render).map(s(_))
+    def page(page: Page)(using Context): Fu[Result] =
+      pageContext.map: pctx =>
+        s(views.base.page(page)(using pctx))
 
-    def pageAsync(render: Context ?=> Fu[Page])(using Context): Fu[Result] =
+    def pageAsync(page: Fu[Page])(using Context): Fu[Result] =
       pageContext.flatMap: pctx =>
-        given PageContext = pctx
-        render.map(views.base.page).map(s(_))
+        page.map(views.base.page(_)(using pctx)).map(s(_))
 
-    def snippetAsync(render: Context ?=> Fu[Snippet])(using Context): Fu[Result] =
-      render.map(s(_))
+    def snippetAsync(snippet: Fu[Frag])(using Context): Fu[Result] =
+      snippet.dmap(Snippet(_)).map(s(_))
+
+    def snippet(snippet: Frag)(using Context): Result =
+      s(Snippet(snippet))
 
     // #TODO simplify
-    def async(render: Context ?=> Fu[Page])(using Context): Fu[Result] = s.pageAsync(render)
+    def async(page: Fu[Page])(using Context): Fu[Result] = s.pageAsync(page)

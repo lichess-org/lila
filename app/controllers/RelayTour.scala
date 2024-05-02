@@ -28,9 +28,8 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
             active   <- (page == 1).so(env.relay.listing.active.get({}))
             upcoming <- (page == 1).so(env.relay.listing.upcoming.get({}))
             past     <- env.relay.pager.inactive(page)
-            render <- renderAsync:
-              views.relay.tour.index(active, upcoming, past)
-          yield Ok(render)
+            res      <- Ok.async(views.relay.tour.index(active, upcoming, past))
+          yield res
 
   def calendar = page("broadcast-calendar", "calendar")
   def help     = page("broadcasts", "help")

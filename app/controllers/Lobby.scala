@@ -51,6 +51,5 @@ final class Lobby(env: Env) extends LilaController(env):
       env.timeline.entryApi
         .userEntries(me)
         .map(views.timeline.entries)
-        .map(lila.ui.Snippet(_))
     .map(_.withHeaders(CACHE_CONTROL -> s"max-age=20"))
   }

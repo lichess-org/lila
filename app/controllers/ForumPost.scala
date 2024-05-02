@@ -42,7 +42,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             canModCateg  <- access.isGrantedMod(categ.slug)
             replyBlocked <- access.isReplyBlockedOnUBlog(topic, canModCateg)
             res <-
-              if replyBlocked then fuccess(BadRequest(trans.ublog.youBlockedByBlogAuthor()))
+              if replyBlocked then BadRequest.snippet(trans.ublog.youBlockedByBlogAuthor()).toFuccess
               else
                 categ.team.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
                   forms

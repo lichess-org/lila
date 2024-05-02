@@ -1,12 +1,11 @@
 package views.base
 
 import play.api.i18n.Lang
-
-import lila.ui.ContentSecurityPolicy
-import lila.app.UiEnv.{ *, given }
-
-import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
+
+import lila.ui.{ RenderedPage, ContentSecurityPolicy }
+import lila.app.UiEnv.{ *, given }
+import lila.common.String.html.safeJsonValue
 
 export layout.{ apply as page }
 
@@ -50,25 +49,10 @@ object layout:
       s"---board-hue:${ctx.pref.board.hue};" +
       zoomable.so(s"---zoom:$pageZoom;")
 
-  def apply(p: Page)(using ctx: PageContext): Frag =
+  def apply(p: Page)(using ctx: PageContext): RenderedPage =
     val body = p.transform(p.body)
     import ctx.pref
-    // title = p.title,
-    // fullTitle = p.fullTitle,
-    // robots = p.robots | netConfig.crawlable,
-    // moreCss = p.cssFrag,
-    // modules = p.modules,
-    // moreJs = p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
-    // pageModule = p.pageModule,
-    // playing = p.playing,
-    // openGraph = p.openGraph,
-    // zoomable = p.zoomable,
-    // zenable = p.zenable,
-    // csp = p.csp.map(_(defaultCsp)),
-    // wrapClass = p.wrapClass,
-    // atomLinkTag = p.atomLinkTag,
-    // withHrefLangs = p.withHrefLangs
-    frag(
+    val pageFrag = frag(
       doctype,
       htmlTag(
         (ctx.data.inquiry.isEmpty && ctx.impersonatedBy.isEmpty && !ctx.blind)
@@ -194,3 +178,4 @@ object layout:
         )
       )
     )
+    RenderedPage(pageFrag.render)
