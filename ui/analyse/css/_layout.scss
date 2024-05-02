@@ -65,6 +65,7 @@ body {
 
   .keyboard-move {
     grid-area: kb-move;
+    margin: $analyse-block-gap;
   }
 
   ---chat-height: fit-content(0);
@@ -76,8 +77,9 @@ body {
     margin: $analyse-block-gap 0 0 0;
   }
 
-  grid-template-rows: auto auto minmax(20em, 30vh);
+  grid-template-rows: auto auto auto minmax(20em, 30vh);
   grid-template-areas:
+    'kb-move'
     'board'
     'controls'
     'tools'
@@ -116,7 +118,7 @@ body {
     }
 
     .keyboard-move {
-      margin-top: $analyse-block-gap;
+      margin: calc($analyse-block-gap / 2) 0 0 0;
     }
   }
 
