@@ -148,8 +148,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     )
 
   // consolidate script packaging here to dedup chunk dependencies
-  def modulesPreload(modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
-    val keys: List[String] = "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
+  def sitePreload(modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
+    scriptsPreload("site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten)
+
+  def scriptsPreload(keys: List[String]) =
     frag(
       jsTag("manifest"),
       cashTag,
