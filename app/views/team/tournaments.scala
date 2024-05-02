@@ -7,7 +7,7 @@ import lila.app.UiEnv.{ *, given }
 
 object tournaments:
 
-  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using PageContext) =
+  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using Context) =
     Page(s"${t.name} • ${trans.site.tournaments.txt()}")
       .graph(
         title = s"${t.name} team tournaments",
@@ -38,7 +38,7 @@ object tournaments:
           )
         )
 
-  def renderList(tours: List[TeamInfo.AnyTour])(using PageContext) =
+  def renderList(tours: List[TeamInfo.AnyTour])(using Context) =
     tbody:
       tours.map: any =>
         tr(

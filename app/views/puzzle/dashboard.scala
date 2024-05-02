@@ -10,7 +10,7 @@ object dashboard:
 
   import bits.dashboard.*
 
-  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
+  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,
@@ -19,17 +19,17 @@ object dashboard:
         if ctx.is(user) then trans.puzzle.puzzleDashboard.txt()
         else s"${user.username} ${trans.puzzle.puzzleDashboard.txt()}",
       subtitle = trans.puzzle.puzzleDashboardDescription.txt(),
-      dashOpt = dashOpt,
-      pageModule = pageModule(dashOpt)
-    ): dash =>
+      dashOpt = dashOpt
+    )(dash =>
       (dash.mostPlayed.size > 2).option(
         div(cls := s"${baseClass}__global")(
           metricsOf(days, PuzzleTheme.mix.key, dash.global),
           canvas(cls := s"${baseClass}__radar")
         )
       )
+    ).js(pageModule(dashOpt))
 
-  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,
@@ -42,7 +42,7 @@ object dashboard:
     ): dash =>
       dash.weakThemes.nonEmpty.option(themeSelection(days, dash.weakThemes))
 
-  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: PageContext) =
+  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,
@@ -61,14 +61,9 @@ object dashboard:
       path: String,
       title: String,
       subtitle: String,
-      dashOpt: Option[PuzzleDashboard],
-      pageModule: Option[PageModule] = None
-  )(body: PuzzleDashboard => Option[Frag])(using PageContext) =
-    views.base.layout(
-      title = title,
-      moreCss = cssTag("puzzle.dashboard"),
-      pageModule = pageModule
-    ):
+      dashOpt: Option[PuzzleDashboard]
+  )(body: PuzzleDashboard => Option[Frag])(using Context) =
+    Page(title).cssTag("puzzle.dashboard"):
       main(cls := "page-menu")(
         bits.pageMenu(path, user.some),
         div(cls := s"page-menu__content box box-pad $baseClass")(

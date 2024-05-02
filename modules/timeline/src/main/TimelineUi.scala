@@ -16,7 +16,7 @@ final class TimelineUi(helpers: Helpers)(
       filterEntries(entries).map: entry =>
         div(cls := "entry")(renderEntry(entry))
 
-  def more(entries: Vector[Entry])(using PageContext) =
+  def more(entries: Vector[Entry])(using Context) =
     Page(trans.site.timeline.txt())
       .cssTag("slist"):
         main(cls := "timeline page-small box")(

@@ -4,15 +4,12 @@ import play.api.libs.json.*
 
 import lila.app.UiEnv.{ *, given }
 
-def home(json: JsObject)(using PageContext) =
-  views.base.layout(
-    moreCss = frag(cssTag("msg")),
-    pageModule = PageModule("msg", Json.obj("data" -> json, "i18n" -> i18nJsObject(i18nKeys))).some,
-    title = trans.site.inbox.txt(),
-    csp = defaultCsp.withInlineIconFont.some
-  ) {
-    main(cls := "box msg-app")
-  }
+def home(json: JsObject)(using Context) =
+  Page(trans.site.inbox.txt())
+    .cssTag("msg")
+    .js(PageModule("msg", Json.obj("data" -> json, "i18n" -> i18nJsObject(i18nKeys))))
+    .csp(_.withInlineIconFont):
+      main(cls := "box msg-app")
 
 private val i18nKeys = List(
   trans.site.inbox,

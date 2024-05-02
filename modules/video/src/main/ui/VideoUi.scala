@@ -23,7 +23,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           div(cls := "page-menu__content box")(body)
         )
 
-  def show(video: Video, similar: Seq[VideoView], control: UserControl)(using PageContext) =
+  def show(video: Video, similar: Seq[VideoView], control: UserControl)(using Context) =
     page(s"${video.title} $titleSuffix", control)
       .graph(
         OpenGraph(
@@ -73,7 +73,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
           )
         )
 
-  def index(videos: Paginator[VideoView], count: Long, control: UserControl)(using ctx: PageContext) =
+  def index(videos: Paginator[VideoView], count: Long, control: UserControl)(using ctx: Context) =
     val tagString = control.filter.tags.some.filter(_.nonEmpty).so(_.mkString(" + ") + " • ")
     page(s"${tagString}Free Chess Videos", control)
       .graph(
@@ -163,7 +163,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
       )
     )
 
-  def author(name: String, videos: Paginator[VideoView], control: UserControl)(using PageContext) =
+  def author(name: String, videos: Paginator[VideoView], control: UserControl)(using Context) =
     page(s"$name $titleSuffix", control):
       frag(
         boxTop(
@@ -186,7 +186,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         )
       )
 
-  def notFound(control: UserControl)(using PageContext) =
+  def notFound(control: UserControl)(using Context) =
     page("Video not found", control):
       boxTop(
         h1(
@@ -199,12 +199,12 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         )
       )
 
-  def searchForm(query: Option[String])(using PageContext) =
+  def searchForm(query: Option[String])(using Context) =
     form(cls := "search", method := "GET", action := routes.Video.index)(
       input(placeholder := trans.search.search.txt(), tpe := "text", name := "q", value := query)
     )
 
-  def tags(ts: List[TagNb], control: UserControl)(using PageContext) =
+  def tags(ts: List[TagNb], control: UserControl)(using Context) =
     page(s"Tags $titleSuffix", control):
       frag(
         boxTop(
@@ -226,7 +226,7 @@ final class VideoUi(helpers: Helpers)(using NetDomain):
         )
       )
 
-  def search(videos: Paginator[VideoView], control: UserControl)(using PageContext) =
+  def search(videos: Paginator[VideoView], control: UserControl)(using Context) =
     page(s"${control.query.getOrElse("Search")} $titleSuffix", control):
       frag(
         boxTop(

@@ -23,7 +23,7 @@ object show:
       socketVersion: Option[SocketVersion],
       asMod: Boolean = false,
       log: List[Modlog] = Nil
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     def havePerm(perm: lila.team.TeamSecurity.Permission.Selector) = info.member.exists(_.hasPerm(perm))
     bits
       .TeamPage(t.name)
@@ -161,7 +161,7 @@ object show:
           )
         )
 
-  private def renderLog(entries: List[Modlog])(using PageContext) = div(cls := "team-show__log")(
+  private def renderLog(entries: List[Modlog])(using Context) = div(cls := "team-show__log")(
     h2("Mod log"),
     ul(
       entries.map: e =>

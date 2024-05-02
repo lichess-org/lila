@@ -8,24 +8,7 @@ import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
 
-def page(p: Page)(using ctx: PageContext): Frag =
-  layout(
-    title = p.title,
-    fullTitle = p.fullTitle,
-    robots = p.robots | netConfig.crawlable,
-    moreCss = p.cssFrag,
-    modules = p.modules,
-    moreJs = p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
-    pageModule = p.pageModule,
-    playing = p.playing,
-    openGraph = p.openGraph,
-    zoomable = p.zoomable,
-    zenable = p.zenable,
-    csp = p.csp.map(_(defaultCsp)),
-    wrapClass = p.wrapClass,
-    atomLinkTag = p.atomLinkTag,
-    withHrefLangs = p.withHrefLangs
-  )(p.transform(p.body))
+export layout.{ apply as page }
 
 object layout:
 
@@ -67,24 +50,24 @@ object layout:
       s"---board-hue:${ctx.pref.board.hue};" +
       zoomable.so(s"---zoom:$pageZoom;")
 
-  def apply(
-      title: String,
-      fullTitle: Option[String] = None,
-      robots: Boolean = netConfig.crawlable,
-      moreCss: Frag = emptyFrag,
-      modules: EsmList = Nil,
-      moreJs: Frag = emptyFrag,
-      pageModule: Option[PageModule] = None,
-      playing: Boolean = false,
-      openGraph: Option[OpenGraph] = None,
-      zoomable: Boolean = false,
-      zenable: Boolean = false,
-      csp: Option[ContentSecurityPolicy] = None,
-      wrapClass: String = "",
-      atomLinkTag: Option[Tag] = None,
-      withHrefLangs: Option[lila.ui.LangPath] = None
-  )(body: Frag)(using ctx: PageContext): Frag =
+  def apply(p: Page)(using ctx: PageContext): Frag =
+    val body = p.transform(p.body)
     import ctx.pref
+    // title = p.title,
+    // fullTitle = p.fullTitle,
+    // robots = p.robots | netConfig.crawlable,
+    // moreCss = p.cssFrag,
+    // modules = p.modules,
+    // moreJs = p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
+    // pageModule = p.pageModule,
+    // playing = p.playing,
+    // openGraph = p.openGraph,
+    // zoomable = p.zoomable,
+    // zenable = p.zenable,
+    // csp = p.csp.map(_(defaultCsp)),
+    // wrapClass = p.wrapClass,
+    // atomLinkTag = p.atomLinkTag,
+    // withHrefLangs = p.withHrefLangs
     frag(
       doctype,
       htmlTag(
@@ -94,10 +77,10 @@ object layout:
         head(
           charset,
           viewport,
-          metaCsp(csp),
+          metaCsp(p.csp.map(_(defaultCsp))),
           metaThemeColor,
           st.headTitle:
-            val prodTitle = fullTitle | s"$title • $siteName"
+            val prodTitle = p.fullTitle | s"${p.title} • $siteName"
             if netConfig.isProd then prodTitle
             else s"${ctx.me.so(_.username + " ")} $prodTitle"
           ,
@@ -107,18 +90,20 @@ object layout:
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
           ctx.blind.option(cssTag("blind")),
-          moreCss,
+          p.cssFrag,
           pieceSprite(ctx.pref.currentPieceSet.name),
           meta(
-            content := openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
+            content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),
             name    := "description"
           ),
           link(rel := "mask-icon", href := assetUrl("logo/lichess.svg"), attr("color") := "black"),
           favicons,
-          (!robots).option(raw("""<meta content="noindex, nofollow" name="robots">""")),
+          (!p.robots || !netConfig.crawlable).option:
+            raw("""<meta content="noindex, nofollow" name="robots">""")
+          ,
           noTranslate,
-          openGraph.map(lila.web.ui.openGraph),
-          atomLinkTag | dailyNewsAtom,
+          p.openGraph.map(lila.web.ui.openGraph),
+          p.atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
             raw:
               s"""<style id="bg-data">html.transp::before{background-image:url("${escapeHtmlRaw(img)
@@ -128,9 +113,9 @@ object layout:
           boardPreload,
           manifests,
           jsLicense,
-          withHrefLangs.map(hrefLangs),
+          p.withHrefLangs.map(hrefLangs),
           modulesPreload(
-            modules ++ pageModule.so(module => jsPageModule(module.name)),
+            p.modules ++ p.pageModule.so(module => jsPageModule(module.name)),
             isInquiry = ctx.data.inquiry.isDefined
           ),
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
@@ -145,12 +130,12 @@ object layout:
               "blind-mode"           -> ctx.blind,
               "kid"                  -> ctx.kid.yes,
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
-              "playing fixed-scroll" -> playing,
+              "playing fixed-scroll" -> p.playing,
               "no-rating"            -> !pref.showRatings,
               "no-flair"             -> !pref.flairs,
-              "zen"                  -> (pref.isZen || (playing && pref.isZenAuto)),
-              "zenable"              -> zenable,
-              "zen-auto"             -> (zenable && pref.isZenAuto)
+              "zen"                  -> (pref.isZen || (p.playing && pref.isZenAuto)),
+              "zenable"              -> p.zenable,
+              "zen-auto"             -> (p.zenable && pref.isZenAuto)
             )
           },
           dataDev,
@@ -169,7 +154,7 @@ object layout:
           dataBoard3d      := pref.currentTheme3d.name,
           dataPieceSet3d   := pref.currentPieceSet3d.name,
           dataAnnounce     := lila.web.AnnounceApi.get.map(a => safeJsonValue(a.json)),
-          style            := boardStyle(zoomable)
+          style            := boardStyle(p.zoomable)
         )(
           blindModeForm,
           ctx.data.inquiry.map { views.mod.inquiry(_) },
@@ -179,9 +164,9 @@ object layout:
             .get(ctx.req)
             .ifTrue(ctx.isAnon)
             .map(u => views.auth.checkYourEmailBanner(u.username, u.email)),
-          zenable.option(zenZone),
+          p.zenable.option(zenZone),
           ui.siteHeader(
-            zenable = zenable,
+            zenable = p.zenable,
             isAppealUser = ctx.isAppealUser,
             challenges = ctx.nbChallenges,
             notifications = ctx.nbNotifications.value,
@@ -194,17 +179,17 @@ object layout:
           div(
             id := "main-wrap",
             cls := List(
-              wrapClass -> wrapClass.nonEmpty,
-              "is2d"    -> pref.is2d,
-              "is3d"    -> pref.is3d
+              p.wrapClass -> p.wrapClass.nonEmpty,
+              "is2d"      -> pref.is2d,
+              "is3d"      -> pref.is3d
             )
           )(body),
           bottomHtml,
           div(id := "inline-scripts")(
             frag(ctx.needsFp.option(views.auth.fingerprintTag), ctx.nonce.map(inlineJs.apply)),
-            modulesInit(modules ++ pageModule.so(module => jsPageModule(module.name))),
-            moreJs,
-            pageModule.map { mod => frag(jsonScript(mod.data)) }
+            modulesInit(p.modules ++ p.pageModule.so(module => jsPageModule(module.name))),
+            p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
+            p.pageModule.map { mod => frag(jsonScript(mod.data)) }
           )
         )
       )

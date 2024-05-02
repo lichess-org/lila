@@ -61,33 +61,37 @@ final class NoteUi(helpers: Helpers)(using NetDomain):
   )
 
   def search(query: String, pager: Paginator[Note], menu: Frag)(using Context) =
-    main(cls := "page-menu")(
-      menu,
-      div(cls := "page-menu__content box")(
-        boxTop(
-          h1("Mod notes"),
-          div(cls := "box__top__actions")(
-            st.form(cls := "search", action := routes.Mod.notes())(
-              input(st.name := "q", value := query, placeholder := trans.search.search.txt())
+    Page("Mod notes")
+      .cssTag("mod.misc")
+      .cssTag("slist")
+      .js(infiniteScrollEsmInit):
+        main(cls := "page-menu")(
+          menu,
+          div(cls := "page-menu__content box")(
+            boxTop(
+              h1("Mod notes"),
+              div(cls := "box__top__actions")(
+                st.form(cls := "search", action := routes.Mod.notes())(
+                  input(st.name := "q", value := query, placeholder := trans.search.search.txt())
+                )
+              )
+            ),
+            br,
+            br,
+            table(cls := "slist slist-pad")(
+              thead(
+                tr(th("Moderator"), th("Player"), th("Note"), th("Date"))
+              ),
+              tbody(cls := "infinite-scroll")(
+                pager.currentPageResults.map: note =>
+                  tr(cls := "paginated")(
+                    td(userIdLink(note.from.some)),
+                    td(userIdLink(note.to.some, params = "?notes=1")),
+                    td(cls := "user-note__text")(richText(note.text, expandImg = false)),
+                    td(small(momentFromNowOnce(note.date)))
+                  ),
+                pagerNextTable(pager, np => routes.Mod.notes(np, query).url)
+              )
             )
           )
-        ),
-        br,
-        br,
-        table(cls := "slist slist-pad")(
-          thead(
-            tr(th("Moderator"), th("Player"), th("Note"), th("Date"))
-          ),
-          tbody(cls := "infinite-scroll")(
-            pager.currentPageResults.map: note =>
-              tr(cls := "paginated")(
-                td(userIdLink(note.from.some)),
-                td(userIdLink(note.to.some, params = "?notes=1")),
-                td(cls := "user-note__text")(richText(note.text, expandImg = false)),
-                td(small(momentFromNowOnce(note.date)))
-              ),
-            pagerNextTable(pager, np => routes.Mod.notes(np, query).url)
-          )
         )
-      )
-    )

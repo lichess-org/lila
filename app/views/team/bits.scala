@@ -20,7 +20,7 @@ object admin:
       tours: List[lila.tournament.Tournament],
       unsubs: Int,
       limiter: (Int, Instant)
-  )(using PageContext) =
+  )(using Context) =
     val toursFrag = tours.nonEmpty.option:
       div(cls := "tournaments")(
         p(trans.team.youWayWantToLinkOneOfTheseTournaments()),

@@ -111,11 +111,11 @@ final class Main(
     NotImplemented.page(views.site.message.temporarilyDisabled)
 
   def keyboardMoveHelp = Open:
-    Ok.page(lila.web.ui.help.keyboardMove)
+    Ok(lila.ui.Snippet(lila.web.ui.help.keyboardMove))
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move" => Ok.page(lila.web.ui.help.voiceMove)
+      case "move" => Ok.snippet(lila.web.ui.help.voiceMove)
       case _      => NotFound(s"Unknown voice module: $module")
 
   def movedPermanently(to: String) = Anon:

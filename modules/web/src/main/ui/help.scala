@@ -168,7 +168,7 @@ object help:
       )
     )
 
-  def voiceMove(using Translate) =
+  def voiceMove(using Translate) = Snippet:
     import trans.voiceCommands.*
     frag(
       h2(voiceCommands()),

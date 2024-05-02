@@ -12,7 +12,7 @@ export ui.federation
 object player:
   export ui.player.index
 
-  def show(player: FidePlayer, tours: Paginator[RelayTour.WithLastRound])(using PageContext) =
+  def show(player: FidePlayer, tours: Paginator[RelayTour.WithLastRound])(using Context) =
     ui.player.show(
       player,
       (tours.nbResults > 0).option(

@@ -4,14 +4,14 @@ import lila.app.UiEnv.{ *, given }
 
 object blindLobby:
 
-  def apply(games: List[Pov])(using PageContext) =
+  def apply(games: List[Pov])(using Context) =
     div(
       h2(games.size, " ongoing games"),
       games.nonEmpty.option(ongoingGames(games)),
       div(cls := "lobby__app")
     )
 
-  private def ongoingGames(games: List[Pov])(using PageContext) =
+  private def ongoingGames(games: List[Pov])(using Context) =
     games.partition(_.isMyTurn) match
       case (myTurn, opTurn) =>
         frag(
@@ -21,7 +21,7 @@ object blindLobby:
           ul(opTurn.map(renderGame))
         )
 
-  private def renderGame(pov: Pov)(using PageContext) =
+  private def renderGame(pov: Pov)(using Context) =
     li(
       a(href := gameLink(pov))(
         playerText(pov.opponent),

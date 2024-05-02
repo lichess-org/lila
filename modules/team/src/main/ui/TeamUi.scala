@@ -22,14 +22,14 @@ final class TeamUi(helpers: Helpers)(using Executor):
       .build[Markdown, Html]()
     def apply(team: Team, text: Markdown): Frag = rawHtml(cache.get(text, renderer(s"team:${team.id}")))
 
-  def menu(currentTab: Option[String])(using ctx: PageContext) =
+  def menu(currentTab: Option[String])(using ctx: Context) =
     val tab = ~currentTab
     st.nav(cls := "page-menu__menu subnav")(
-      (ctx.teamNbRequests > 0).option(
-        a(cls := tab.active("requests"), href := routes.Team.requests)(
-          trt.xJoinRequests.pluralSame(ctx.teamNbRequests)
-        )
-      ),
+      tab
+        .contains("requests")
+        .option:
+          a(cls := tab.active("requests"), href := routes.Team.requests)("Join requests")
+      ,
       ctx.isAuth.option(
         a(cls := tab.active("mine"), href := routes.Team.mine)(trt.myTeams())
       ),
@@ -99,7 +99,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
 
   object list:
 
-    def search(text: String, teams: Paginator[Team.WithMyLeadership])(using PageContext) =
+    def search(text: String, teams: Paginator[Team.WithMyLeadership])(using Context) =
       list(
         name = s"""${trans.search.search.txt()} "$text"""",
         teams = teams,
@@ -107,14 +107,14 @@ final class TeamUi(helpers: Helpers)(using Executor):
         search = text
       )
 
-    def all(teams: Paginator[Team.WithMyLeadership])(using PageContext) =
+    def all(teams: Paginator[Team.WithMyLeadership])(using Context) =
       list(
         name = trt.teams.txt(),
         teams = teams,
         nextPageUrl = n => routes.Team.all(n).url
       )
 
-    def mine(teams: List[Team.WithMyLeadership])(using ctx: PageContext) =
+    def mine(teams: List[Team.WithMyLeadership])(using ctx: Context) =
       TeamPage(trt.myTeams.txt()):
         main(cls := "team-list page-menu")(
           menu("mine".some),
@@ -132,7 +132,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
           )
         )
 
-    def ledByMe(teams: List[Team])(using PageContext) =
+    def ledByMe(teams: List[Team])(using Context) =
       TeamPage(trt.myTeams.txt()):
         main(cls := "team-list page-menu")(
           menu("leader".some),
@@ -151,7 +151,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
         teams: Paginator[Team.WithMyLeadership],
         nextPageUrl: Int => String,
         search: String = ""
-    )(using PageContext) =
+    )(using Context) =
       TeamPage(s"$name - page ${teams.currentPage}"):
         main(cls := "team-list page-menu")(
           menu("all".some),

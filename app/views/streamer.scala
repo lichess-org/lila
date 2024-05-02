@@ -20,12 +20,13 @@ def show(s: Streamer.WithUserAndStream, perfs: UserPerfs, activities: Vector[lil
     activities = views.activity(UserWithPerfs(s.user, perfs), activities)
   )
 
-def create(using PageContext) =
-  views.site.message(
-    title = trans.streamer.becomeStreamer.txt(),
-    icon = Some(Icon.Mic),
-    moreCss = cssTag("streamer.form").some
-  )(bits.create)
+def create(using Context) =
+  views.site
+    .message(
+      title = trans.streamer.becomeStreamer.txt(),
+      icon = Some(Icon.Mic)
+    )
+    .cssTag("streamer.form")(bits.create)
 
 object edit:
 
@@ -35,7 +36,7 @@ object edit:
       s: Streamer.WithUserAndStream,
       form: play.api.data.Form[?],
       modData: Option[((List[lila.mod.Modlog], List[lila.user.Note]), List[Streamer])]
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     val modZone = modData.map:
       case ((log, notes), streamers) =>
         div(cls := "mod_log status")(modLog(log), br, modNotes(notes)) -> streamers

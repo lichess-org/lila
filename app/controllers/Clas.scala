@@ -64,24 +64,23 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           _.form
             .bindFromRequest()
             .fold(
-              err => renderCreate(err.some).map(BadRequest(_)),
+              err => BadRequest.pageAsync(renderCreate(err.some)),
               data =>
                 env.security.hcaptcha
                   .verify()
                   .flatMap: captcha =>
                     if captcha.ok
                     then env.clas.api.clas.create(data, me.value).map(redirectTo)
-                    else renderCreate(data.some).map(BadRequest(_))
+                    else BadRequest.pageAsync(renderCreate(data.some))
             )
   }
 
   private def renderCreate(from: Option[Form[ClasData] | ClasData])(using ctx: Context) =
-    renderAsync:
-      env.clas.forms.clas.create.map: baseForm =>
-        views.clas.clas.create:
-          from.fold(baseForm):
-            case data: ClasData       => baseForm.fill(data)
-            case form: Form[ClasData] => baseForm.withForm(form)
+    env.clas.forms.clas.create.map: baseForm =>
+      views.clas.clas.create:
+        from.fold(baseForm):
+          case data: ClasData       => baseForm.fill(data)
+          case form: Form[ClasData] => baseForm.withForm(form)
 
   private def preloadStudentUsers(students: List[lila.clas.Student.WithUser]): Unit =
     env.user.lightUserApi.preloadUsers(students.map(_.user))

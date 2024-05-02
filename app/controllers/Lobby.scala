@@ -47,9 +47,10 @@ final class Lobby(env: Env) extends LilaController(env):
       }
 
   def timeline = Auth { _ ?=> me ?=>
-    Ok.pageAsync:
+    Ok.snippetAsync:
       env.timeline.entryApi
         .userEntries(me)
         .map(views.timeline.entries)
+        .map(lila.ui.Snippet(_))
     .map(_.withHeaders(CACHE_CONTROL -> s"max-age=20"))
   }

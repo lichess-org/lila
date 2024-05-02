@@ -124,7 +124,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     for
       user    <- userId.so(env.user.repo.enabledById).orElse(fuccess(ctx.me.map(_.value)))
       puzzles <- user.soFu(env.puzzle.api.puzzle.of(_, page))
-      page    <- renderPage(views.puzzle.ofPlayer(name.so(_.value), user, puzzles))
+      page    <- renderPage(views.puzzle.ui.ofPlayer(name.so(_.value), user, puzzles))
     yield Ok(page)
 
   private def onComplete[A](
@@ -295,7 +295,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
   private def serveThemes(using Context) =
     env.puzzle.api.angles.flatMap: angles =>
       negotiate(
-        html = Ok.page(views.puzzle.themes(angles)),
+        html = Ok.page(views.puzzle.ui.themes(angles)),
         json = Ok(lila.puzzle.JsonView.angles(angles))
       )
 
@@ -311,7 +311,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
         .flatMap: mine =>
           negotiate(
             html = Ok.page:
-              views.puzzle.openings(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
+              views.puzzle.ui.opening.all(collection, mine, lila.puzzle.PuzzleOpening.Order(order))
             ,
             json = Ok(lila.puzzle.JsonView.openings(collection, mine))
           )
@@ -411,7 +411,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           env.puzzle
             .history(user.withPerf(perf), page)
             .map:
-              views.puzzle.history(user, _)
+              views.puzzle.ui.history(user, _)
   }
 
   def apiBatchSelect(angleStr: String) = AnonOrScoped(_.Puzzle.Read, _.Web.Mobile): ctx ?=>

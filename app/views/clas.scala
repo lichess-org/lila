@@ -6,7 +6,7 @@ import lila.ui.ContentSecurityPolicy
 import lila.app.UiEnv.{ *, given }
 import lila.clas.{ Clas, Student }
 
-lazy val ui             = lila.clas.ui.ClasUi(helpers)
+lazy val ui             = lila.clas.ui.ClasUi(helpers)(views.mod.ui.menu("search"))
 private lazy val dashUi = lila.clas.ui.DashboardUi(helpers, ui)
 
 export dashUi.student.{ apply as studentDashboard }

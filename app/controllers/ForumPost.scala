@@ -124,8 +124,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
-      FoundPage(postApi.react(categId, id, reaction, v)): post =>
-        views.forum.post.reactions(post, canReact = true)
+      FoundSnippet(postApi.react(categId, id, reaction, v)): post =>
+        lila.ui.Snippet(views.forum.post.reactions(post, canReact = true))
   }
 
   def redirect(id: ForumPostId) = Open:

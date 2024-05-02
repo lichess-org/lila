@@ -9,7 +9,7 @@ import ScalatagsTemplate.{ *, given }
 final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
   import helpers.{ *, given }
 
-  def settings(settings: List[lila.memo.SettingStore[?]])(using PageContext) =
+  def settings(settings: List[lila.memo.SettingStore[?]])(using Context) =
     val title = "Settings"
     Page(title).cssTag("mod.misc"):
       main(cls := "page-menu")(
@@ -29,7 +29,7 @@ final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
         )
       )
 
-  def cli(form: Form[?], res: Option[String])(using PageContext) =
+  def cli(form: Form[?], res: Option[String])(using Context) =
     val title = "Command Line Interface"
     Page(title)
       .cssTag("mod.misc")

@@ -160,7 +160,7 @@ final class Account(
 
   def email = Auth { _ ?=> me ?=>
     if getBool("check")
-    then Ok.async(renderCheckYourEmail)
+    then Ok.page(renderCheckYourEmail)
     else emailForm.flatMap(f => Ok.page(pages.email(f)))
   }
 
@@ -169,9 +169,8 @@ final class Account(
       JsonOk(Json.obj("email" -> email.value))
   }
 
-  def renderCheckYourEmail(using Context): Fu[Frag] =
-    renderPage:
-      views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req).map(_.email))
+  def renderCheckYourEmail(using Context) =
+    views.auth.checkYourEmail(lila.security.EmailConfirm.cookie.get(ctx.req).map(_.email))
 
   def emailApply = AuthBody { ctx ?=> me ?=>
     auth.HasherRateLimit:
@@ -308,9 +307,9 @@ final class Account(
       clients              <- env.oAuth.tokenApi.listClients(50)
       personalAccessTokens <- env.oAuth.tokenApi.countPersonal
       currentSessionId = ~env.security.api.reqSessionId(req)
-      page <- renderPage:
+      page <- Ok.pageAsync:
         views.account.security(me, sessions, currentSessionId, clients, personalAccessTokens)
-    yield Ok(page)
+    yield page
   }
 
   def signout(sessionId: String) = Auth { _ ?=> me ?=>
@@ -321,16 +320,13 @@ final class Account(
         env.push.webSubscriptionApi.unsubscribeBySession(sessionId)).inject(NoContent)
   }
 
-  private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using
-      Context
-  ): Fu[Frag] =
-    renderAsync:
-      env.security.forms.reopen.map: baseForm =>
-        pages.reopen.form(form.foldLeft(baseForm)(_.withForm(_)), msg)
+  private def renderReopen(form: Option[Form[Reopen]], msg: Option[String])(using Context) =
+    env.security.forms.reopen.map: baseForm =>
+      pages.reopen.form(form.foldLeft(baseForm)(_.withForm(_)), msg)
 
   def reopen = Open:
     auth.RedirectToProfileIfLoggedIn:
-      Ok.async(renderReopen(none, none))
+      Ok.pageAsync(renderReopen(none, none))
 
   def reopenApply = OpenBody:
     env.security.hcaptcha.verify().flatMap { captcha =>
@@ -339,7 +335,7 @@ final class Account(
           _.form
             .bindFromRequest()
             .fold(
-              err => renderReopen(err.some, none).map { BadRequest(_) },
+              err => BadRequest.async(renderReopen(err.some, none)),
               data =>
                 env.security.reopen
                   .prepare(data.username, data.email, env.mod.logApi.closedByMod)

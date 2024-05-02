@@ -48,4 +48,4 @@ final class KeyPages(val env: Env)(using Executor)
         Results.Unauthorized:
           Json.obj:
             "error" -> views.site.message.blacklistedMessage
-    else Unauthorized.page(views.site.message.blacklistedFrag)
+    else Unauthorized(views.site.message.blacklistedSnippet)

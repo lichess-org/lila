@@ -21,7 +21,7 @@ object page:
       activities: Vector[lila.activity.ActivityView],
       info: UserInfo,
       social: UserInfo.Social
-  )(using PageContext) =
+  )(using Context) =
     val u = info.user
     Page(s"${u.username} : ${trans.activity.activity.txt()}")
       .graph(
@@ -53,7 +53,7 @@ object page:
       searchForm: Option[Form[?]],
       social: UserInfo.Social,
       notes: Map[GameId, String]
-  )(using PageContext) =
+  )(using Context) =
     val u          = info.user
     val filterName = userGameFilterTitleNoTag(u, info.nbs, filters.current)
     val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
@@ -74,19 +74,19 @@ object page:
           )
         )
 
-  private def esModules(info: UserInfo, withSearch: Boolean = false)(using PageContext): EsmList =
+  private def esModules(info: UserInfo, withSearch: Boolean = false)(using Context): EsmList =
     import play.api.libs.json.Json
     infiniteScrollEsmInit
       ++ jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(ui.i18nKeys)))
       ++ withSearch.so(EsmInit("bits.gameSearch"))
       ++ isGranted(_.UserModView).so(EsmInit("mod.user"))
 
-  private def pageModule(info: UserInfo)(using PageContext): Option[PageModule] =
+  private def pageModule(info: UserInfo)(using Context): Option[PageModule] =
     info.ratingChart.map: rc =>
       PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
-  def disabled(u: User)(using PageContext) =
-    views.base.layout(title = u.username, robots = false):
+  def disabled(u: User)(using Context) =
+    Page(u.username).robots(false):
       main(cls := "box box-pad")(
         h1(cls := "box__top")(u.username),
         p(trans.settings.thisAccountIsClosed())

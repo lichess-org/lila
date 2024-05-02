@@ -21,7 +21,7 @@ object tour:
       active: List[RelayTour.ActiveWithSomeRounds],
       upcoming: List[WithLastRound],
       past: Paginator[WithLastRound]
-  )(using PageContext) =
+  )(using Context) =
     def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
@@ -52,13 +52,13 @@ object tour:
           )
         )
 
-  private def listLayout(title: String, menu: Tag)(body: Modifier*)(using PageContext) =
+  private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
     Page(liveBroadcasts.txt())
       .cssTag("relay.index")
       .js(infiniteScrollEsmInit):
         main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body))
 
-  def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =
+  def search(pager: Paginator[WithLastRound], query: String)(using Context) =
     listLayout(liveBroadcasts.txt(), pageMenu("index"))(
       boxTop(
         h1(liveBroadcasts()),
@@ -67,27 +67,27 @@ object tour:
       renderPager(asRelayPager(pager), query)(cls := "relay-cards--search")
     )
 
-  def byOwner(pager: Paginator[RelayTour | WithLastRound], owner: LightUser)(using PageContext) =
+  def byOwner(pager: Paginator[RelayTour | WithLastRound], owner: LightUser)(using Context) =
     listLayout(liveBroadcasts.txt(), pageMenu("by", owner.some))(
       boxTop(h1(lightUserLink(owner), " ", liveBroadcasts())),
       standardFlash,
       renderPager(pager, owner = owner.some)
     )
 
-  def subscribed(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
+  def subscribed(pager: Paginator[RelayTour | WithLastRound])(using Context) =
     listLayout(subscribedBroadcasts.txt(), pageMenu("subscribed"))(
       boxTop(h1(subscribedBroadcasts())),
       standardFlash,
       renderPager(pager)
     )
 
-  def allPrivate(pager: Paginator[RelayTour | WithLastRound])(using PageContext) =
+  def allPrivate(pager: Paginator[RelayTour | WithLastRound])(using Context) =
     listLayout("Private Broadcasts", pageMenu("allPrivate"))(
       boxTop(h1("Private Broadcasts")),
       renderPager(pager)
     )
 
-  def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using PageContext) =
+  def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using Context) =
     Page(t.name.value).cssTag("page"):
       main(cls := "relay-tour page-menu")(
         pageMenu("by", owner),
@@ -105,7 +105,7 @@ object tour:
         )
       )
 
-  def page(p: lila.cms.CmsPage.Render, active: String)(using PageContext) =
+  def page(p: lila.cms.CmsPage.Render, active: String)(using Context) =
     Page(p.title).cssTag("page"):
       main(cls := "page-small page-menu")(
         pageMenu(active),

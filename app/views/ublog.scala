@@ -21,7 +21,7 @@ lazy val form = lila.ublog.ui.UblogFormUi(helpers, ui)(
         views.captcha(form, _)
 )
 
-def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: PageContext) =
+def community(language: Option[Language], posts: Paginator[UblogPost.PreviewPost])(using ctx: Context) =
   val langSelections: List[(String, String)] = ("all", "All languages") ::
     lila.i18n.LangPicker
       .sortFor(LangList.popularNoRegion, ctx.req)

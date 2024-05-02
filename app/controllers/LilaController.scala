@@ -12,6 +12,7 @@ import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.core.perm.Permission
 import lila.core.perf.UserWithPerfs
+import lila.ui.{ Page, Snippet }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -39,8 +40,10 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using codec: Codec, pc: PageContext): Writeable[lila.ui.Page] =
     Writeable(page => codec.encode(views.base.page(page).render))
 
-  given (using PageContext): Conversion[lila.ui.Page, Frag]     = views.base.page(_)
-  given (using PageContext): Conversion[lila.ui.Page, Fu[Frag]] = page => fuccess(views.base.page(page))
+  // given (using PageContext): Conversion[Page, Frag]     = views.base.page(_)
+  // given (using PageContext): Conversion[Page, Fu[Frag]] = page => fuccess(views.base.page(page))
+  given Conversion[Page, Fu[Page]]       = fuccess(_)
+  given Conversion[Snippet, Fu[Snippet]] = fuccess(_)
 
   given netDomain: lila.core.config.NetDomain = env.net.domain
 

@@ -14,7 +14,7 @@ object show:
       pref: JsObject,
       settings: lila.puzzle.PuzzleSettings,
       langPath: Option[lila.ui.LangPath] = None
-  )(using ctx: PageContext) =
+  )(using ctx: Context) =
     val isStreak = data.value.contains("streak")
     Page(if isStreak then "Puzzle Streak" else trans.site.puzzles.txt())
       .cssTag("puzzle")

@@ -12,7 +12,7 @@ def index(
     data: JsObject,
     cross: Option[lila.game.Crosstable.WithMatchup],
     history: List[Pov]
-)(using PageContext) =
+)(using Context) =
   views.round.ui
     .RoundPage(
       pov.game.variant,

@@ -8,7 +8,7 @@ import chess.variant.{ Variant, Crazyhouse }
 final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
   import helpers.{ *, given }
 
-  def RoundPage(variant: Variant, title: String)(using ctx: PageContext) =
+  def RoundPage(variant: Variant, title: String)(using ctx: Context) =
     Page(title)
       .cssTag(if variant == Crazyhouse then "round.zh" else "round")
       .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
