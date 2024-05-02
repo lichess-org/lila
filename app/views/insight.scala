@@ -13,40 +13,37 @@ def index(
     question: play.api.libs.json.JsObject,
     stale: Boolean
 )(using ctx: PageContext) =
-  views.base.layout(
-    title = trans.insight.xChessInsights.txt(u.username),
-    moreJs = iifeModule("javascripts/insight-refresh.js"),
-    pageModule = PageModule(
-      "insight",
-      Json.obj(
-        "ui"              -> ui,
-        "initialQuestion" -> question,
-        "i18n"            -> Json.obj(),
-        "myUserId"        -> ctx.userId,
-        "user" -> (lila.common.Json.lightUser.write(u.light) ++ Json.obj(
-          "nbGames" -> insightUser.count,
-          "stale"   -> stale,
-          "shareId" -> prefId
-        )),
-        "pageUrl" -> routes.Insight.index(u.username).url,
-        "postUrl" -> routes.Insight.json(u.username).url
+  Page(trans.insight.xChessInsights.txt(u.username))
+    .iife(iifeModule("javascripts/insight-refresh.js"))
+    .js(
+      PageModule(
+        "insight",
+        Json.obj(
+          "ui"              -> ui,
+          "initialQuestion" -> question,
+          "i18n"            -> Json.obj(),
+          "myUserId"        -> ctx.userId,
+          "user" -> (lila.common.Json.lightUser.write(u.light) ++ Json.obj(
+            "nbGames" -> insightUser.count,
+            "stale"   -> stale,
+            "shareId" -> prefId
+          )),
+          "pageUrl" -> routes.Insight.index(u.username).url,
+          "postUrl" -> routes.Insight.json(u.username).url
+        )
       )
-    ).some,
-    moreCss = cssTag("insight")
-  )(main(id := "insight"))
+    )
+    .cssTag("insight")(main(id := "insight"))
 
 def empty(u: User)(using PageContext) =
-  views.base.layout(
-    title = trans.insight.xChessInsights.txt(u.username),
-    moreJs = iifeModule("javascripts/insight-refresh.js"),
-    moreCss = cssTag("insight")
-  )(
-    main(cls := "box box-pad page-small")(
-      boxTop(h1(cls := "text", dataIcon := Icon.Target)(trans.insight.xChessInsights(u.username))),
-      p(trans.insight.xHasNoChessInsights(userLink(u))),
-      refreshForm(u, trans.insight.generateInsights.txt(u.username))
-    )
-  )
+  Page(trans.insight.xChessInsights.txt(u.username))
+    .iife(iifeModule("javascripts/insight-refresh.js"))
+    .cssTag("insight"):
+      main(cls := "box box-pad page-small")(
+        boxTop(h1(cls := "text", dataIcon := Icon.Target)(trans.insight.xChessInsights(u.username))),
+        p(trans.insight.xHasNoChessInsights(userLink(u))),
+        refreshForm(u, trans.insight.generateInsights.txt(u.username))
+      )
 
 def forbidden(u: User)(using PageContext) =
   views.site.message(

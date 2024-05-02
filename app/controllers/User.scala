@@ -557,7 +557,7 @@ final class User(
           env.history
             .ratingChartApi(data.user.user)
             .map:
-              views.user.perfStat(data, _)
+              views.user.perfStatPage(data, _)
         ,
         JsonOk:
           getBool("graph")
@@ -625,8 +625,8 @@ final class User(
                   env.user.perfsRepo
                     .withPerfs(u)
                     .flatMap: u =>
-                      Ok.page(views.user.perfStat.ui.ratingDistribution(perfKey, data, u.some))
-              case _ => Ok.page(views.user.perfStat.ui.ratingDistribution(perfKey, data, none))
+                      Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, u.some))
+              case _ => Ok.page(views.user.perfStat.ratingDistribution(perfKey, data, none))
 
   def myself = Auth { _ ?=> me ?=>
     Redirect(routes.User.show(me.username))

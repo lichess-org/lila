@@ -18,6 +18,7 @@ case class PerfStatData(
     percentileLow: Option[Double],
     percentileHigh: Option[Double]
 ):
+  export stat.perfKey
   def rank = ranks.get(stat.perfType.key)
 
 final class PerfStatApi(

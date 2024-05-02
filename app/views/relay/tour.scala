@@ -22,45 +22,41 @@ object tour:
       upcoming: List[WithLastRound],
       past: Paginator[WithLastRound]
   )(using PageContext) =
-    views.base.layout(
-      title = liveBroadcasts.txt(),
-      moreCss = cssTag("relay.index"),
-      modules = infiniteScrollEsmInit,
-      withHrefLangs = lila.ui.LangPath(routes.RelayTour.index()).some
-    ):
-      def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
-        val selected = active.filter(_.tour.tierIs(selector))
-        selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
-          selected.map:
-            card.render(_, ongoing = _.ongoing)
-        )
-
-      main(cls := "relay-index page-menu")(
-        pageMenu("index"),
-        div(cls := "page-menu__content box box-pad")(
-          boxTop(h1(liveBroadcasts()), searchForm("")),
-          nonEmptyTier(_.BEST, "best"),
-          nonEmptyTier(_.HIGH, "high"),
-          nonEmptyTier(_.NORMAL, "normal"),
-          upcoming.nonEmpty.option(
-            frag(
-              h2(cls := "relay-index__section")("Upcoming broadcasts"),
-              st.section(cls := "relay-cards relay-cards--upcoming"):
-                upcoming.map:
-                  card.render(_, ongoing = _ => false)
-            )
-          ),
-          h2(cls := "relay-index__section")("Past broadcasts"),
-          renderPager(asRelayPager(past), "")(cls := "relay-cards--past")
-        )
+    def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
+      val selected = active.filter(_.tour.tierIs(selector))
+      selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
+        selected.map:
+          card.render(_, ongoing = _.ongoing)
       )
+    Page(liveBroadcasts.txt())
+      .cssTag("relay.index")
+      .js(infiniteScrollEsmInit)
+      .hrefLangs(lila.ui.LangPath(routes.RelayTour.index())):
+        main(cls := "relay-index page-menu")(
+          pageMenu("index"),
+          div(cls := "page-menu__content box box-pad")(
+            boxTop(h1(liveBroadcasts()), searchForm("")),
+            nonEmptyTier(_.BEST, "best"),
+            nonEmptyTier(_.HIGH, "high"),
+            nonEmptyTier(_.NORMAL, "normal"),
+            upcoming.nonEmpty.option(
+              frag(
+                h2(cls := "relay-index__section")("Upcoming broadcasts"),
+                st.section(cls := "relay-cards relay-cards--upcoming"):
+                  upcoming.map:
+                    card.render(_, ongoing = _ => false)
+              )
+            ),
+            h2(cls := "relay-index__section")("Past broadcasts"),
+            renderPager(asRelayPager(past), "")(cls := "relay-cards--past")
+          )
+        )
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using PageContext) =
-    views.base.layout(
-      title = liveBroadcasts.txt(),
-      moreCss = cssTag("relay.index"),
-      modules = infiniteScrollEsmInit
-    )(main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body)))
+    Page(liveBroadcasts.txt())
+      .cssTag("relay.index")
+      .js(infiniteScrollEsmInit):
+        main(cls := "relay-index page-menu")(div(cls := "page-menu__content box box-pad")(body))
 
   def search(pager: Paginator[WithLastRound], query: String)(using PageContext) =
     listLayout(liveBroadcasts.txt(), pageMenu("index"))(
@@ -92,10 +88,7 @@ object tour:
     )
 
   def showEmpty(t: RelayTour, owner: Option[LightUser], markup: Option[Html])(using PageContext) =
-    views.base.layout(
-      title = t.name.value,
-      moreCss = cssTag("page")
-    ):
+    Page(t.name.value).cssTag("page"):
       main(cls := "relay-tour page-menu")(
         pageMenu("by", owner),
         div(cls := "page-menu__content box box-pad page")(
@@ -113,16 +106,11 @@ object tour:
       )
 
   def page(p: lila.cms.CmsPage.Render, active: String)(using PageContext) =
-    views.base.layout(
-      title = p.title,
-      moreCss = cssTag("page")
-    ):
+    Page(p.title).cssTag("page"):
       main(cls := "page-small page-menu")(
         pageMenu(active),
         div(cls := "page-menu__content box box-pad page")(
-          boxTop:
-            bits.broadcastH1(p.title)
-          ,
+          boxTop(bits.broadcastH1(p.title)),
           div(cls := "body")(views.cms.render(p))
         )
       )

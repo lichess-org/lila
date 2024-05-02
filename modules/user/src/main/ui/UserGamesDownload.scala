@@ -7,59 +7,62 @@ import ScalatagsTemplate.{ *, given }
 final class UserGamesDownload(helpers: Helpers):
   import helpers.{ *, given }
 
-  def apply(user: User)(using ctx: Context): Frag =
-    main(cls := "box page-small search")(
-      boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),
-      form(
-        id  := "dl-form",
-        cls := "box__pad search__form"
-      )(
-        table(
-          color,
-          date,
-          opponent,
-          mode,
-          analysis,
-          perfToggles,
-          includeToggles,
-          amount,
-          tr(cls := "output")(
-            th(label(`for` := "dl-api-url")("API URL")),
-            td(
-              input(
-                id  := "dl-api-url",
-                cls := "copyable autoselect",
-                tpe := "text",
-                readonly,
-                spellcheck            := "false",
-                attr("data-api-path") := routes.Game.apiExportByUser(user.username)
+  def apply(user: User)(using ctx: Context) =
+    Page(s"${user.username} • ${trans.site.exportGames.txt()}")
+      .cssTag("search")
+      .js(EsmInit("bits.userGamesDownload")):
+        main(cls := "box page-small search")(
+          boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),
+          form(
+            id  := "dl-form",
+            cls := "box__pad search__form"
+          )(
+            table(
+              color,
+              date,
+              opponent,
+              mode,
+              analysis,
+              perfToggles,
+              includeToggles,
+              amount,
+              tr(cls := "output")(
+                th(label(`for` := "dl-api-url")("API URL")),
+                td(
+                  input(
+                    id  := "dl-api-url",
+                    cls := "copyable autoselect",
+                    tpe := "text",
+                    readonly,
+                    spellcheck            := "false",
+                    attr("data-api-path") := routes.Game.apiExportByUser(user.username)
+                  )
+                )
+              ),
+              tr(
+                td(cls := "action", colspan := "2")(
+                  a(
+                    id   := "dl-button",
+                    cls  := "button",
+                    href := routes.Game.exportByUser(user.username),
+                    downloadAttr
+                  )(trans.site.download())
+                )
               )
-            )
-          ),
-          tr(
-            td(cls := "action", colspan := "2")(
-              a(
-                id   := "dl-button",
-                cls  := "button",
-                href := routes.Game.exportByUser(user.username),
-                downloadAttr
-              )(trans.site.download())
-            )
-          )
-        ),
-        br,
-        br,
-        ctx
-          .is(user)
-          .option(
-            p(style := "text-align: right")(
-              a(href := routes.Game.apiExportByUserImportedGames())(
-                "Or download imported games as PGN"
+            ),
+            br,
+            br,
+            ctx
+              .is(user)
+              .option(
+                p(style := "text-align: right")(
+                  a(href := routes.Game.apiExportByUserImportedGames())(
+                    "Or download imported games as PGN"
+                  )
+                )
               )
-            )
           )
-      )
-    )
+        )
 
   private def color(using Context): Frag = tr(
     th(label(`for` := "dl-color")(trans.search.color())),

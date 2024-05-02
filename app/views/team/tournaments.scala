@@ -8,37 +8,35 @@ import lila.app.UiEnv.{ *, given }
 object tournaments:
 
   def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using PageContext) =
-    views.base.layout(
-      title = s"${t.name} • ${trans.site.tournaments.txt()}",
-      openGraph = OpenGraph(
+    Page(s"${t.name} • ${trans.site.tournaments.txt()}")
+      .graph(
         title = s"${t.name} team tournaments",
         url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
         description = shorten(t.description.value, 152)
-      ).some,
-      moreCss = cssTag("team"),
-      wrapClass = "full-screen-force"
-    ):
-      main(
-        div(cls := "box")(
-          boxTop:
-            h1(teamLink(t, true), " • ", trans.site.tournaments())
-          ,
-          div(cls := "team-events team-tournaments team-tournaments--both")(
-            div(cls := "team-tournaments__next")(
-              h2(trans.team.upcomingTournaments()),
-              table(cls := "slist slist-pad slist-invert")(
-                renderList(tours.next)
-              )
-            ),
-            div(cls := "team-tournaments__past")(
-              h2(trans.team.completedTourns()),
-              table(cls := "slist slist-pad")(
-                renderList(tours.past)
+      )
+      .cssTag("team")
+      .fullScreen:
+        main(
+          div(cls := "box")(
+            boxTop:
+              h1(teamLink(t, true), " • ", trans.site.tournaments())
+            ,
+            div(cls := "team-events team-tournaments team-tournaments--both")(
+              div(cls := "team-tournaments__next")(
+                h2(trans.team.upcomingTournaments()),
+                table(cls := "slist slist-pad slist-invert")(
+                  renderList(tours.next)
+                )
+              ),
+              div(cls := "team-tournaments__past")(
+                h2(trans.team.completedTourns()),
+                table(cls := "slist slist-pad")(
+                  renderList(tours.past)
+                )
               )
             )
           )
         )
-      )
 
   def renderList(tours: List[TeamInfo.AnyTour])(using PageContext) =
     tbody:
