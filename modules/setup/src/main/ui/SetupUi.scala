@@ -185,7 +185,7 @@ final class SetupUi(helpers: Helpers):
   def translatedVariantChoicesWithVariantsById(using Translate): List[SelectChoice] =
     translatedVariantChoicesWithVariants(encodeId)
 
-  def translatedVariantChoicesWithVariants( encode: Variant => String)(using Translate): List[SelectChoice] =
+  def translatedVariantChoicesWithVariants(encode: Variant => String)(using Translate): List[SelectChoice] =
     translatedVariantChoices(encode) ::: List(
       chess.variant.Crazyhouse,
       chess.variant.Chess960,
