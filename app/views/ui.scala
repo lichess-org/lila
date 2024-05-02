@@ -80,5 +80,7 @@ val storm = lila.storm.ui.StormUi(helpers)
 
 val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
+val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
+
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))
