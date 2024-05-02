@@ -2,7 +2,7 @@ package views.event
 
 import play.api.data.Form
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.common.{ Markdown, MarkdownRender }
 import lila.event.{ Event, EventForm }

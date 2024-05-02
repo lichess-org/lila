@@ -1,39 +1,41 @@
-package views.coach
+package lila.coach
+package ui
 
-import play.api.data.Form
 import play.api.libs.json.Json
+import play.api.data.Form
+import scalalib.paginator.Paginator
 
-import lila.app.templating.Environment.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-import lila.common.String.html.safeJsonValue
-import lila.i18n.LangList
-
-object edit:
+final class CoachEditUi(helpers: Helpers, ui: CoachUi):
+  import helpers.{ *, given }
+  import trans.{ coach as trc }
 
   private val dataTab = attr("data-tab")
 
-  private lazy val jsonLanguages = safeJsonValue {
-    Json.toJson(LangList.popularNoRegion.map { l =>
+  private lazy val jsonLanguages = safeJsonValue:
+    Json.toJson(langList.popularNoRegion.map { l =>
       Json.obj(
         "code"  -> l.code,
-        "value" -> LangList.name(l),
+        "value" -> langList.name(l.code),
         "searchBy" -> List(
           l.toLocale.getDisplayLanguage,
           l.toLocale.getDisplayCountry
         ).mkString(",")
       )
     })
-  }
 
-  def apply(c: lila.coach.Coach.WithUser, form: Form[?])(using ctx: PageContext) =
-    views.account.ui
-      .AccountPage(s"${c.user.titleUsername} coach page", "coach")
+  def apply(c: lila.coach.Coach.WithUser, form: Form[?], page: Page)(using
+      ctx: Context
+  ) =
+    page
       .cssTag("coach.editor", "tagify")
       .js(EsmInit("bits.coachForm")):
         div(cls := "coach-edit box")(
           div(cls := "top")(
             span(
-              h1(widget.titleName(c)),
+              h1(ui.titleName(c)),
               a(
                 href     := routes.Coach.show(c.user.username),
                 cls      := "button button-empty text",
@@ -46,7 +48,7 @@ object edit:
                 ul
               ),
               div(cls := "picture_wrap")(
-                picture.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
+                ui.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
                 div(label("Drag file or"), " ", form3.file.selectImage())
               )
             )

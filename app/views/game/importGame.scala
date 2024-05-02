@@ -2,7 +2,7 @@ package views.game
 
 import chess.format.pgn.PgnStr
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 object importGame:
 

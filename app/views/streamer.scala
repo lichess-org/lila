@@ -2,14 +2,12 @@ package views.streamer
 
 import scalalib.paginator.Paginator
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.streamer.Streamer
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.UserPerfsExt.best6Perfs
 
-lazy val bits = lila.streamer.ui.StreamerBits(helpers)(
-  picfitUrl.thumbnail(_, Streamer.imageSize, Streamer.imageSize)
-)
+lazy val bits       = lila.streamer.ui.StreamerBits(helpers)(picfitUrl)
 private lazy val ui = lila.streamer.ui.StreamerUi(helpers, bits)
 export ui.index
 

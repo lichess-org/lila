@@ -1,10 +1,10 @@
 package lila.web
-package views
+package ui
 
 import scala.util.chaining.*
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.{ Translate, I18nKey as trans }
 
 object contact:
@@ -182,7 +182,7 @@ object contact:
               "insufficient",
               insufficientMaterial(),
               frag(
-                p(a(href := faq.fideHandbookUrl)(fideMate()), "."),
+                p(a(href := fideHandbookUrl)(fideMate()), "."),
                 p(knightMate())
               )
             ),

@@ -1,6 +1,6 @@
 package views.user
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.rating.UserPerfsExt.best8Perfs
 import lila.core.perf.UserWithPerfs
 import lila.user.Profile.flagInfo

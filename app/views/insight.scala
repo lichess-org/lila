@@ -3,7 +3,7 @@ package views.insight
 import play.api.i18n.Lang
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 def index(
     u: User,

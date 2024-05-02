@@ -1,6 +1,6 @@
 package views.appeal
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 lazy val ui = lila.appeal.ui.AppealUi(helpers)
 

@@ -3,7 +3,7 @@ package views.mod
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.core.net.IpAddress
 import lila.core.security.FingerHash
 import lila.mod.IpRender.RenderIp

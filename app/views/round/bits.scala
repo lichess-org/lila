@@ -3,7 +3,7 @@ package views.round
 import scala.util.chaining.*
 import chess.variant.{ Crazyhouse, Variant }
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.game.GameExt.playerBlurPercent
 

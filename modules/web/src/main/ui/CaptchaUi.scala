@@ -1,5 +1,5 @@
 package lila.web
-package views
+package ui
 
 import play.api.libs.json.Json
 import play.api.data.{ Form, Field }
@@ -9,7 +9,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
 
-final class captcha(helpers: Helpers):
+final class CaptchaUi(helpers: Helpers):
   import helpers.{ *, given }
 
   private val dataCheckUrl = attr("data-check-url")

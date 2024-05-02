@@ -3,7 +3,7 @@ package views.round
 import play.api.libs.json.Json
 
 import lila.common.Json.given
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.round.RoundGame.secondsSinceCreation
 

@@ -3,7 +3,7 @@ package views.lobby
 import play.api.libs.json.Json
 
 import lila.app.mashup.Preload.Homepage
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.core.perf.UserWithPerfs
 
@@ -157,7 +157,7 @@ object home:
           a(href := "/privacy")(trans.site.privacy()),
           a(href := "/source")(trans.site.sourceCode()),
           a(href := "/ads")("Ads"),
-          views.base.bits.connectLinks
+          views.bits.connectLinks
         )
       )
     }

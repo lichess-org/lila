@@ -1,5 +1,5 @@
 package lila.web
-package views
+package ui
 
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }

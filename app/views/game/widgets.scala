@@ -1,6 +1,6 @@
 package views.game
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.ui.Context
 import lila.core.game.{ Player }

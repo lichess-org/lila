@@ -2,7 +2,7 @@ package views.relay
 
 import play.api.libs.json.Json
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.common.Json.given
 import lila.core.socket.SocketVersion

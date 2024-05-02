@@ -1,5 +1,5 @@
 package lila.web
-package views
+package ui
 
 import play.api.i18n.Lang
 

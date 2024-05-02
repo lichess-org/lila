@@ -1,5 +1,5 @@
 package lila.web
-package views
+package ui
 
 import chess.format.Fen
 import play.api.i18n.Lang
@@ -10,7 +10,7 @@ import scalalib.paginator.Paginator
 import lila.core.i18n.Translate
 import lila.ui.ChessHelper.underscoreFen
 
-final class bits():
+object bits:
 
   lazy val stage = a(
     href  := "https://lichess.org",

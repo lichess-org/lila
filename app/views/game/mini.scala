@@ -4,7 +4,7 @@ import chess.format.Fen
 
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.core.i18n.defaultLang
 

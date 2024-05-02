@@ -3,7 +3,7 @@ package views.base
 import play.api.i18n.Lang
 
 import lila.ui.ContentSecurityPolicy
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.common.String.html.safeJsonValue
 import scalalib.StringUtils.escapeHtmlRaw
@@ -29,7 +29,7 @@ def page(p: Page)(using ctx: PageContext): Frag =
 
 object layout:
 
-  lazy val ui = lila.web.views.layout(helpers, assetHelper)(
+  val ui = lila.web.ui.layout(helpers, assetHelper)(
     jsQuantity = lila.i18n.JsQuantity.apply,
     isRTL = lila.i18n.LangList.isRTL,
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,
@@ -38,7 +38,7 @@ object layout:
   )
   import ui.*
 
-  private lazy val topnav = lila.web.views.topnav(helpers)
+  private val topnav = lila.web.ui.TopNav(helpers)
 
   private def metaThemeColor(using ctx: Context): Frag =
     raw:
@@ -117,7 +117,7 @@ object layout:
           favicons,
           (!robots).option(raw("""<meta content="noindex, nofollow" name="robots">""")),
           noTranslate,
-          openGraph.map(lila.web.views.openGraph),
+          openGraph.map(lila.web.ui.openGraph),
           atomLinkTag | dailyNewsAtom,
           (pref.bg == lila.pref.Pref.Bg.TRANSPARENT).option(pref.bgImgOrDefault).map { img =>
             raw:
@@ -174,11 +174,11 @@ object layout:
           blindModeForm,
           ctx.data.inquiry.map { views.mod.inquiry(_) },
           ctx.me.ifTrue(ctx.impersonatedBy.isDefined).map { views.mod.ui.impersonate(_) },
-          netConfig.stageBanner.option(views.base.bits.stage),
+          netConfig.stageBanner.option(views.bits.stage),
           lila.security.EmailConfirm.cookie
             .get(ctx.req)
             .ifTrue(ctx.isAnon)
-            .map(views.auth.bits.checkYourEmailBanner(_)),
+            .map(u => views.auth.checkYourEmailBanner(u.username, u.email)),
           zenable.option(zenZone),
           ui.siteHeader(
             zenable = zenable,
@@ -201,7 +201,7 @@ object layout:
           )(body),
           bottomHtml,
           div(id := "inline-scripts")(
-            frag(ctx.needsFp.option(fingerprintTag), ctx.nonce.map(inlineJs.apply)),
+            frag(ctx.needsFp.option(views.auth.fingerprintTag), ctx.nonce.map(inlineJs.apply)),
             modulesInit(modules ++ pageModule.so(module => jsPageModule(module.name))),
             moreJs,
             pageModule.map { mod => frag(jsonScript(mod.data)) }

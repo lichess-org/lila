@@ -1,6 +1,6 @@
 package views.game
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.game.GameExt.perfType
 

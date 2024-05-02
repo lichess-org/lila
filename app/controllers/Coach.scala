@@ -26,7 +26,7 @@ final class Coach(env: Env) extends LilaController(env):
       langCodes <- env.coach.api.allLanguages
       countries <- env.coach.api.countrySelection
       pager     <- env.coach.pager(lang, order, country, page)
-      page      <- renderPage(views.coach.index(pager, lang, order, langCodes, countries, country))
+      page      <- renderPage(views.coach.ui.index(pager, lang, order, langCodes, countries, country))
     yield Ok(page)
 
   def show(username: UserStr) = Open:

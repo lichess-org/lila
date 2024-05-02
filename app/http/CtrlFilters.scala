@@ -40,7 +40,7 @@ trait CtrlFilters(using Executor) extends ControllerHelpers with ResponseBuilder
     env.security.ipTrust
       .isPubOrTor(ctx.ip)
       .flatMap:
-        if _ then Unauthorized.page(views.auth.bits.tor())
+        if _ then Unauthorized.page(views.base.page(views.auth.tor))
         else res
 
   def NoEngine[A <: Result](a: => Fu[A])(using ctx: Context): Fu[Result] =

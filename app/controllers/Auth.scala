@@ -154,7 +154,7 @@ final class Auth(
   // mobile app BC logout with GET
   def logoutGet = Auth { ctx ?=> _ ?=>
     negotiate(
-      html = Ok.page(views.auth.bits.logout()),
+      html = Ok.page(views.auth.logout),
       json =
         ctx.req.session.get(api.sessionIdKey).foreach(env.security.store.delete)
         jsonOkResult.withCookies(env.security.lilaCookie.newSession)
@@ -232,7 +232,7 @@ final class Auth(
         .fixEmail(userEmail.email)
         .bindFromRequest()
         .fold(
-          err => BadRequest.page(views.auth.checkYourEmail(userEmail.some, err.some)),
+          err => BadRequest.page(views.auth.checkYourEmail(userEmail.email.some, err.some)),
           email =>
             env.user.repo
               .byId(userEmail.username)
@@ -307,7 +307,7 @@ final class Auth(
   private def renderPasswordReset(form: Option[Form[PasswordReset]], fail: Boolean)(using ctx: Context) =
     renderAsync:
       env.security.forms.passwordReset.map: baseForm =>
-        views.auth.bits.passwordReset(form.foldLeft(baseForm)(_.withForm(_)), fail)
+        views.auth.passwordReset(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
   def passwordReset = Open:
     renderPasswordReset(none, fail = false).map { Ok(_) }
@@ -342,7 +342,7 @@ final class Auth(
           else renderPasswordReset(none, fail = true).map { BadRequest(_) }
 
   def passwordResetSent(email: String) = Open:
-    Ok.page(views.auth.bits.passwordResetSent(email))
+    Ok.page(views.auth.passwordResetSent(email))
 
   def passwordResetConfirm(token: String) = Open:
     env.security.passwordReset.confirm(token).flatMap {
@@ -354,7 +354,7 @@ final class Auth(
         authLog(me.username, none, "Reset password")
         lila.mon.user.auth.passwordResetConfirm("tokenOk").increment()
         Ok.page:
-          views.auth.bits.passwordResetConfirm(token, forms.passwdResetForMe, none)
+          views.auth.passwordResetConfirm(token, forms.passwdResetForMe, none)
     }
 
   def passwordResetConfirmApply(token: String) = OpenBody:
@@ -366,7 +366,7 @@ final class Auth(
         given Me = me
         val user = me.value
         FormFuResult(forms.passwdResetForMe) { err =>
-          renderPage(views.auth.bits.passwordResetConfirm(token, err, false.some))
+          renderPage(views.auth.passwordResetConfirm(token, err, false.some))
         } { data =>
           HasherRateLimit:
             for
@@ -388,7 +388,7 @@ final class Auth(
   private def renderMagicLink(form: Option[Form[MagicLink]], fail: Boolean)(using Context) =
     renderAsync:
       env.security.forms.magicLink.map: baseForm =>
-        views.auth.bits.magicLink(form.foldLeft(baseForm)(_.withForm(_)), fail)
+        views.auth.magicLink(form.foldLeft(baseForm)(_.withForm(_)), fail)
 
   def magicLink = Open:
     Firewall:
@@ -423,7 +423,7 @@ final class Auth(
       }
 
   def magicLinkSent = Open:
-    Ok.page(views.auth.bits.magicLinkSent)
+    Ok.page(views.auth.magicLinkSent)
 
   private lazy val magicLinkLoginRateLimitPerToken = RateLimit[String](
     credits = 3,
@@ -468,7 +468,7 @@ final class Auth(
         consumingToken(token): user =>
           Ok.pageAsync:
             env.security.loginToken.generate(user).map {
-              views.auth.bits.tokenLoginConfirmation(user, _, get("referrer"))
+              views.auth.tokenLoginConfirmation(user, _, get("referrer"))
             }
 
   def loginWithTokenPost(token: String, referrer: Option[String]) =

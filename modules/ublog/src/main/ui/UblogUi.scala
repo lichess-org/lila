@@ -7,9 +7,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Language
 
-final class UblogUi(helpers: Helpers, atomUi: AtomUi)(
-    val thumbnailUrl: (UblogPost.BasePost, UblogPost.thumbnail.SizeSelector) => String
-):
+final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }
 
   def thumbnail(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
@@ -19,6 +17,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(
       heightA := size(UblogPost.thumbnail).height,
       alt     := post.image.flatMap(_.alt)
     )(src := thumbnailUrl(post, size))
+
+  def thumbnailUrl(post: UblogPost.BasePost, size: UblogPost.thumbnail.SizeSelector) =
+    post.image match
+      case Some(image) => UblogPost.thumbnail(picfitUrl, image.id, size)
+      case _           => assetUrl("images/user-blog-default.png")
 
   enum ShowAt:
     case top, bottom, none

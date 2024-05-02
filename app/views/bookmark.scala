@@ -1,6 +1,6 @@
 package views.bookmark
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 def toggle(g: Game, bookmarked: Boolean)(using ctx: Context) =
   if ctx.isAuth then

@@ -143,14 +143,14 @@ object PicfitApi:
       .map(ImageId(_))
       .toSet
 
-final class PicfitUrl(config: PicfitConfig)(using Executor):
+final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.misc.PicfitUrl:
 
   // This operation will able you to resize the image to the specified width and height.
   // Preserves the aspect ratio
   def resize(
       id: ImageId,
       size: Either[Int, Int] // either the width or the height! the other one will be preserved
-  ) = display(id, "resize")(
+  ): String = display(id, "resize")(
     width = ~size.left.toOption,
     height = ~size.toOption
   )
@@ -162,7 +162,7 @@ final class PicfitUrl(config: PicfitConfig)(using Executor):
       id: ImageId,
       width: Int,
       height: Int
-  ) = display(id, "thumbnail")(width, height)
+  ): String = display(id, "thumbnail")(width, height)
 
   private def display(id: ImageId, operation: String)(
       width: Int,

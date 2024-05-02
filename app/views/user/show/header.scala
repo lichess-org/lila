@@ -2,7 +2,7 @@ package views.user
 package show
 
 import lila.app.mashup.UserInfo
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import lila.common.String.html.richText
 import lila.user.Plan.sinceDate

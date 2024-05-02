@@ -1,6 +1,6 @@
 package views.analyse
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 import play.api.libs.json.{ Json, JsObject }
 

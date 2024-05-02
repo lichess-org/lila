@@ -2,7 +2,7 @@ package views.tv
 
 import play.api.libs.json.*
 
-import lila.app.templating.Environment.{ *, given }
+import lila.app.UiEnv.{ *, given }
 import lila.game.GameExt.perfType
 
 def index(
