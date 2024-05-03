@@ -20,7 +20,7 @@ final class ModInquiryUi(helpers: Helpers):
       r.bestAtoms(10).map { atom =>
         div(cls := "atom")(
           h3(
-            lila.report.ui.reportScore(atom.score),
+            lila.report.ui.ReportUi.reportScore(atom.score),
             userIdLink(atom.by.userId.some, withOnline = false),
             " for ",
             strong(r.reason.name),

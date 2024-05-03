@@ -18,7 +18,7 @@ object queue:
       streamers: Int,
       nbAppeals: Int
   )(using Context) =
-    views.report.list.layout("appeal", scores, streamers, nbAppeals)(
+    views.report.layout("appeal", scores, streamers, nbAppeals):
       table(cls := "slist slist-pad see appeal-queue")(
         thead(
           tr(
@@ -60,7 +60,6 @@ object queue:
           }
         )
       )
-    )
 
   private def filterMarks(current: Option[Filter]) =
     span(cls := "appeal-filters btn-rack"):

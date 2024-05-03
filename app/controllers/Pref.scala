@@ -1,6 +1,5 @@
 package controllers
 
-import play.api.data.Form
 import play.api.mvc.*
 
 import lila.app.{ *, given }

@@ -63,11 +63,11 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   private def page(key: String, menu: String) = Open:
     pageHit
     FoundPage(env.api.cmsRender(lila.cms.CmsPage.Key(key))): p =>
-      views.relay.tour.page(p, menu)
+      views.relay.tour.page(p.title, views.cms.render(p), menu)
 
   def form = Auth { ctx ?=> _ ?=>
     NoLameOrBot:
-      Ok.page(views.relay.tourForm.create(env.relay.tourForm.create))
+      Ok.page(views.relay.form.tour.create(env.relay.tourForm.create))
   }
 
   def create = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -78,7 +78,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         .fold(
           err =>
             negotiate(
-              BadRequest.page(views.relay.tourForm.create(err)),
+              BadRequest.page(views.relay.form.tour.create(err)),
               jsonFormError(err)
             ),
           setup =>
@@ -95,7 +95,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def edit(id: RelayTourId) = Auth { ctx ?=> _ ?=>
     WithTourCanUpdate(id): tg =>
       Ok.page:
-        views.relay.tourForm.edit(tg, env.relay.tourForm.edit(tg))
+        views.relay.form.tour.edit(tg, env.relay.tourForm.edit(tg))
   }
 
   def update(id: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -106,7 +106,7 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         .fold(
           err =>
             negotiate(
-              BadRequest.page(views.relay.tourForm.edit(tg, err)),
+              BadRequest.page(views.relay.form.tour.edit(tg, err)),
               jsonFormError(err)
             ),
           setup =>

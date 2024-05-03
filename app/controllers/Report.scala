@@ -189,6 +189,6 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
       .fold(Redirect("/").toFuccess): reported =>
         Ok.async:
           env.relation.api.fetchBlocks(me, reported.id).map {
-            views.report.thanks(reported.id, _)
+            views.report.ui.thanks(reported.id, _)
           }
   }

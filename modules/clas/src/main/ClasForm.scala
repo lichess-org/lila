@@ -69,6 +69,8 @@ final class ClasForm(
         "realName" -> cleanNonEmptyText
       )(InviteStudent.apply)(unapply)
 
+    val inviteAccept = Form(single("v" -> Forms.boolean))
+
     def edit(s: Student) = Form(
       mapping(
         "realName" -> cleanNonEmptyText,

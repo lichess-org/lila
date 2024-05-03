@@ -8,6 +8,8 @@ val captcha = lila.web.ui.CaptchaUi(helpers)
 
 val chat = lila.chat.ChatUi(helpers)
 
+val boardEditor = lila.web.ui.BoardEditorUi(helpers)
+
 val userAnalysisI18n = lila.analyse.ui.AnalyseI18n(helpers)
 val analysisI18n     = lila.analyse.ui.GameAnalyseI18n(helpers, userAnalysisI18n)
 
@@ -23,6 +25,8 @@ val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
 
 val irwin = lila.irwin.IrwinUi(helpers)(menu = mod.ui.menu)
 
+val dgt = lila.web.ui.DgtUi(helpers)
+
 object oAuth:
   val token     = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage)
   val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)
@@ -31,7 +35,7 @@ val plan      = lila.plan.ui.PlanUi(helpers)(netConfig.email)
 val planPages = lila.plan.ui.PlanPages(helpers)(lila.fishnet.FishnetLimiter.maxPerDay)
 
 val feed =
-  lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.page.SitePage(title, "news", ""))(using
+  lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.ui.SitePage(title, "news", ""))(using
     env.executor
   )
 
@@ -51,7 +55,7 @@ object account:
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.csp,
   translations = userAnalysisI18n.vector(),
-  board.bits.explorerAndCevalConfig,
+  board.explorerAndCevalConfig,
   modMenu = mod.ui.menu("practice")
 )
 

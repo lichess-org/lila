@@ -106,6 +106,8 @@ object SetupForm:
           ) || hook.makeDaysPerTurn.isDefined
       )
 
+  def toFriend = Form(single("username" -> lila.common.Form.username.historicalField))
+
   object api extends lila.core.setup.SetupForm:
 
     lazy val clockMapping =

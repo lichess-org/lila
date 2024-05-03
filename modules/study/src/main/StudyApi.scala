@@ -95,14 +95,16 @@ final class StudyApi(
       chapterRepo.existsByStudy(study.id).flatMap {
         if _ then funit
         else
-          chapterMaker
-            .fromFenOrPgnOrBlank(
-              study,
-              ChapterMaker.Data(StudyChapterName("Chapter 1")),
-              order = 1,
-              userId = study.ownerId
-            )
-            .flatMap(chapterRepo.insert)
+          for
+            chap <- chapterMaker
+              .fromFenOrPgnOrBlank(
+                study,
+                ChapterMaker.Data(StudyChapterName("Chapter 1")),
+                order = 1,
+                userId = study.ownerId
+              )
+            _ <- chapterRepo.insert(chap)
+          yield preview.invalidate(study.id)
       }
     } >> byIdWithFirstChapter(study.id)
 

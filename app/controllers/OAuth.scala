@@ -1,8 +1,6 @@
 package controllers
 
 import scalalib.ThreadLocalRandom
-import play.api.data.Form
-import play.api.data.Forms.*
 import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
 import scalatags.Text.all.stringFrag
@@ -58,21 +56,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       }
   }
 
-  private val accessTokenRequestForm =
-    import lila.oauth.Protocol.*
-    import lila.common.Form.into
-    Form(
-      mapping(
-        "grant_type"    -> optional(text),
-        "code"          -> optional(text),
-        "code_verifier" -> optional(text),
-        "client_id"     -> optional(text.into[ClientId]),
-        "redirect_uri"  -> optional(text),
-        "client_secret" -> optional(text)
-      )(AccessTokenRequest.Raw.apply)(unapply)
-    )
-
-  def tokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
+  def tokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)):
     _.prepare match
       case Right(prepared) =>
         env.oAuth.authorizationApi.consume(prepared).flatMap {
@@ -91,7 +75,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         }
       case Left(err) => BadRequest(err.toJson)
 
-  def legacyTokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
+  def legacyTokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)):
     _.prepareLegacy(AccessTokenRequest.BasicAuth.from(req)) match
       case Right(prepared) =>
         env.oAuth.authorizationApi.consume(prepared).flatMap {
@@ -117,10 +101,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  private val revokeClientForm = Form(single("origin" -> text))
-
   def revokeClient = AuthBody { ctx ?=> _ ?=>
-    revokeClientForm
+    lila.oauth.AccessTokenRequest.revokeClientForm
       .bindFromRequest()
       .fold(
         _ => BadRequest,

@@ -1,7 +1,7 @@
 $mq-col3-side-height: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
 body {
-  ---site-header-margin: 1em;
+  ---site-header-margin: #{$site-header-margin-extra};
   ---allow-video: false;
 
   @include mq-at-least-col3 {

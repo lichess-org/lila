@@ -587,7 +587,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         if r.open then "open"
         else s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showInstant(done.at)}")}"
       }
-    )(lila.report.ui.reportScore(r.score), " ", strong(r.reason.name))
+    )(lila.report.ui.ReportUi.reportScore(r.score), " ", strong(r.reason.name))
 
   def userMarks(o: User, playbans: Option[Int]) =
     div(cls := "user_marks")(

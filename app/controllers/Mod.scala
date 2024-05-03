@@ -1,8 +1,6 @@
 package controllers
 
 import alleycats.Zero
-import play.api.data.*
-import play.api.data.Forms.*
 import play.api.libs.json.Json
 import play.api.mvc.*
 
@@ -457,7 +455,7 @@ final class Mod(
 
   def savePermissions(username: UserStr) = SecureBody(_.ChangePermission) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      Form(single("permissions" -> list(text.verifying(Permission.allByDbKey.contains))))
+      lila.security.Permission.form
         .bindFromRequest()
         .fold(
           _ => BadRequest.page(views.mod.permissions(user)),

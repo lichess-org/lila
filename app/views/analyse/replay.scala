@@ -128,7 +128,7 @@ object replay:
               "chat"   -> chatJson
             )
             .add("hunter" -> isGranted(_.ViewBlurs)) ++
-            views.board.bits.explorerAndCevalConfig
+            views.board.explorerAndCevalConfig
         )
       )
       .graph(views.round.ui.povOpenGraph(pov)):

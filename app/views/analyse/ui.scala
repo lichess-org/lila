@@ -18,7 +18,7 @@ object bits:
   def csp(using Context): Update[lila.ui.ContentSecurityPolicy] =
     ui.csp.compose(_.withPeer.withInlineIconFont.withChessDbCn)
 
-  def analyseModule(mode: String, json: JsObject)(using ctx: Context) =
+  def analyseModule(mode: String, json: JsObject) =
     PageModule("analyse", Json.obj("mode" -> mode, "cfg" -> json))
 
 object embed:

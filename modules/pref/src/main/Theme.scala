@@ -45,11 +45,7 @@ object Theme extends ThemeObject:
     new Theme("newspaper", "svg/newspaper.svg"),
     new Theme("purple", "svg/purple.svg"),
     new Theme("purple-diag", "purple-diag.png"),
-    new Theme("pink", "pink-pyramid.png"),
-    new Theme("venus", "venus.webp"),
-    new Theme("pigskin", "pigskin.webp"),
-    new Theme("haze", "haze.webp"),
-    new Theme("old-world", "old-world.webp")
+    new Theme("pink", "pink-pyramid.png")
   )
 
   val default = allByName.get("brown").err("Can't find default theme D:")

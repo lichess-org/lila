@@ -1,9 +1,8 @@
 package controllers
 package team
 
-import play.api.data.Forms.*
-import play.api.data.{ Form, Forms }
 import play.api.libs.json.*
+import play.api.data.Form
 import play.api.mvc.*
 
 import lila.app.{ *, given }
@@ -325,7 +324,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def subscribe(teamId: TeamId) =
     AuthOrScopedBody(_.Team.Write) { _ ?=> me ?=>
-      Form(single("subscribe" -> optional(Forms.boolean)))
+      env.team.forms.subscribe
         .bindFromRequest()
         .fold(_ => funit, v => api.subscribe(teamId, me, ~v))
         .inject(jsonOkResult)

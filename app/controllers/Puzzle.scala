@@ -2,7 +2,6 @@ package controllers
 
 import chess.Color
 import play.api.data.Form
-import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.mvc.*
 import scala.util.chaining.*
@@ -21,9 +20,7 @@ import lila.puzzle.{
   PuzzleStreak,
   PuzzleTheme
 }
-
 import lila.rating.PerfType
-
 import lila.core.i18n.Translate
 import lila.core.user.WithPerf
 

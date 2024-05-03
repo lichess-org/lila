@@ -19,3 +19,11 @@ object StageProgress:
   def empty = StageProgress(scores = Vector.empty)
 
   case class Score(value: Int) extends AnyVal
+
+  import play.api.data.Forms.*
+  val form = play.api.data.Form:
+    mapping(
+      "stage" -> nonEmptyText,
+      "level" -> number,
+      "score" -> number
+    )(Tuple3.apply)(lila.common.extensions.unapply)

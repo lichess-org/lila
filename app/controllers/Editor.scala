@@ -34,10 +34,10 @@ final class Editor(env: Env) extends LilaController(env):
       .filter(_.nonEmpty)
       .map(Fen.Full.clean)
     Ok.page:
-      views.board.editor(fen, positionsJson, endgamePositionsJson)
+      views.boardEditor(fen, positionsJson, endgamePositionsJson)
 
   def data = Open:
-    JsonOk(views.board.editor.jsData())
+    JsonOk(views.boardEditor.jsData())
 
   def game(id: GameId) = Open:
     Found(env.game.gameRepo.game(id)): game =>
