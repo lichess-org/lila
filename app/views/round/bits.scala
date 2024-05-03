@@ -43,19 +43,6 @@ object bits:
       )
     )
 
-  private[round] def simulOtherGames(s: lila.simul.Simul)(using Context) =
-    span(cls := "simul")(
-      a(href := routes.Simul.show(s.id))("SIMUL"),
-      span(cls := "win")(s.wins, " W"),
-      " / ",
-      span(cls := "draw")(s.draws, " D"),
-      " / ",
-      span(cls := "loss")(s.losses, " L"),
-      " / ",
-      s.ongoing,
-      " ongoing"
-    )
-
   private[round] def side(
       pov: Pov,
       data: play.api.libs.json.JsObject,

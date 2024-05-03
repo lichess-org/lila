@@ -410,7 +410,7 @@ lazy val plan = module("plan",
 )
 
 lazy val relation = module("relation",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 

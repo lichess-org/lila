@@ -6,11 +6,14 @@ final class FavoriteOpponents(
     cacheApi: lila.memo.CacheApi
 )(using Executor):
 
+  val opponentLimit = 30
+  val gameLimit     = lila.core.game.favOpponentOverGames
+
   private val userIdsCache = cacheApi[UserId, List[(UserId, Int)]](64, "favoriteOpponents"):
     _.expireAfterWrite(15 minutes)
       .maximumSize(4096)
       .buildAsyncFuture:
-        gameRepo.favoriteOpponents(_, FavoriteOpponents.opponentLimit, FavoriteOpponents.gameLimit)
+        gameRepo.favoriteOpponents(_, opponentLimit, gameLimit)
 
   def apply(userId: UserId): Fu[List[(User, Int)]] =
     userIdsCache.get(userId).flatMap { opponents =>
@@ -22,7 +25,3 @@ final class FavoriteOpponents(
         }.sortBy(-_._2)
       }
     }
-
-object FavoriteOpponents:
-  private val opponentLimit = 30
-  val gameLimit             = 1000

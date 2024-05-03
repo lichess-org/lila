@@ -27,6 +27,8 @@ val irwin = lila.irwin.IrwinUi(helpers)(menu = mod.ui.menu)
 
 val dgt = lila.web.ui.DgtUi(helpers)
 
+val relation = lila.relation.ui.RelationUi(helpers)
+
 object oAuth:
   val token     = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage)
   val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)

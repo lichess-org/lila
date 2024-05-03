@@ -89,7 +89,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         RelatedPager(api.followingPaginatorAdapter(user.id), page).flatMap: pag =>
           negotiate(
             if ctx.is(user) || isGrantedOpt(_.CloseAccount)
-            then Ok.page(views.relation.bits.friends(user, pag))
+            then Ok.page(views.relation.friends(user, pag))
             else Found(ctx.me)(me => Redirect(routes.Relation.following(me.username))),
             Ok(jsonRelatedPaginator(pag))
           )
@@ -125,7 +125,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     Reasonable(page, Max(20)):
       Ok.async:
         RelatedPager(api.blockingPaginatorAdapter(me), page).map {
-          views.relation.bits.blocks(me, _)
+          views.relation.blocks(me, _)
         }
   }
 

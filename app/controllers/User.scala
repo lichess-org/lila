@@ -545,7 +545,7 @@ final class User(
                 .map:
                   lila.relation.Related(u, nb.some, followable, _)
             }
-        page <- renderPage(views.relation.bits.opponents(user, relateds))
+        page <- renderPage(views.relation.opponents(user, relateds))
       yield Ok(page)
   }
 

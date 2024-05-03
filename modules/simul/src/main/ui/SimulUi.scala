@@ -54,6 +54,19 @@ final class SimulUi(helpers: Helpers):
       sim.variants.map(_.name).mkString(", ")
     )
 
+  def roundOtherGames(s: Simul) =
+    span(cls := "simul")(
+      a(href := routes.Simul.show(s.id))("SIMUL"),
+      span(cls := "win")(s.wins, " W"),
+      " / ",
+      span(cls := "draw")(s.draws, " D"),
+      " / ",
+      span(cls := "loss")(s.losses, " L"),
+      " / ",
+      s.ongoing,
+      " ongoing"
+    )
+
   import lila.core.i18n.I18nKey
   private val baseTranslations: Vector[I18nKey] = Vector(
     trans.site.finished,

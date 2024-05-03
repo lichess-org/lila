@@ -73,7 +73,7 @@ object player:
             bits.crosstable(cross, pov.game),
             (playing.nonEmpty || simul.exists(_.isHost(ctx.me))).option(
               div(cls := "round__now-playing")(
-                ui.others(playing, simul.filter(_.isHost(ctx.me)).map(bits.simulOtherGames))
+                ui.others(playing, simul.filter(_.isHost(ctx.me)).map(views.simul.ui.roundOtherGames))
               )
             )
           ),
