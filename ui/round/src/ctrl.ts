@@ -278,7 +278,7 @@ export default class RoundController implements MoveRootCtrl {
     this.chessground.set(config);
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
-    this.auxUpdate(s.fen);
+    this.pluginUpdate(s.fen);
     site.pubsub.emit('ply', ply);
     return true;
   };
@@ -335,7 +335,7 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
   };
 
-  auxMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
+  pluginMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role) => {
     if (!role) {
       this.chessground.move(orig, dest);
       // TODO look into possibility of making cg.Api.move function update player turn itself.
@@ -347,7 +347,7 @@ export default class RoundController implements MoveRootCtrl {
     this.sendMove(orig, dest, role, { premove: false });
   };
 
-  auxUpdate = (fen: string) => {
+  pluginUpdate = (fen: string) => {
     this.voiceMove?.update({ fen, canMove: this.canMove() });
     this.keyboardMove?.update({ fen, canMove: this.canMove() });
   };
@@ -501,13 +501,15 @@ export default class RoundController implements MoveRootCtrl {
     }
     this.autoScroll();
     this.onChange();
-    this.auxUpdate(step.fen);
+    this.pluginUpdate(step.fen);
     site.sound.move({ ...o, filter: 'music' });
     site.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
 
   crazyValid = (role: cg.Role, key: cg.Key) => crazyValid(this.data, role, key);
+
+  getCrazyhousePockets = () => this.data.crazyhouse?.pockets;
 
   private playPredrop = () => {
     return this.chessground.playPredrop(drop => {
@@ -537,7 +539,7 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.setLoading(false);
-    this.auxUpdate(d.steps[d.steps.length - 1].fen);
+    this.pluginUpdate(d.steps[d.steps.length - 1].fen);
   };
 
   endWithData = (o: ApiEnd): void => {

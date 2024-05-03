@@ -1,7 +1,7 @@
 import * as cg from 'chessground/types';
 
 export interface MoveRootCtrl {
-  auxMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => void;
+  pluginMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => void;
   redraw: () => void;
   flipNow: () => void;
   offerDraw?: (v: boolean, immediately?: boolean) => void;

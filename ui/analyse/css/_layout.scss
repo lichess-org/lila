@@ -63,6 +63,11 @@ body {
     display: none;
   }
 
+  .keyboard-move {
+    grid-area: kb-move;
+    margin: $analyse-block-gap;
+  }
+
   ---chat-height: fit-content(0);
   &--wiki {
     ---chat-height: 0;
@@ -72,8 +77,9 @@ body {
     margin: $analyse-block-gap 0 0 0;
   }
 
-  grid-template-rows: auto auto minmax(20em, 30vh);
+  grid-template-rows: auto auto auto minmax(20em, 30vh);
   grid-template-areas:
+    'kb-move'
     'board'
     'controls'
     'tools'
@@ -88,6 +94,7 @@ body {
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board      gauge tools'
+      'kb-move    .     controls'
       'under      .     controls'
       'under      .     round-training'
       'under      .     side'
@@ -109,6 +116,10 @@ body {
     .eval-gauge {
       display: block;
     }
+
+    .keyboard-move {
+      margin: calc($analyse-block-gap / 2) 0 0 0;
+    }
   }
 
   @include mq-is-col2-squeeze {
@@ -117,12 +128,13 @@ body {
 
   @include mq-at-least-col3 {
     grid-template-columns: $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width) $analyse-block-gap $col3-uniboard-table;
-    grid-template-rows: auto $chat-height 2.5em 1fr;
+    grid-template-rows: auto $chat-height auto 2.5em 1fr;
     grid-template-areas:
-      'side    . board gauge tools'
-      'chat    . board gauge tools'
-      'uchat   . under .     controls'
-      'uchat   . under .     round-training';
+      'side    . board   gauge tools'
+      'chat    . board   gauge tools'
+      'uchat   . kb-move .     controls'
+      'uchat   . under   .     controls'
+      'uchat   . under   .     round-training';
 
     &__side {
       margin-top: 0;

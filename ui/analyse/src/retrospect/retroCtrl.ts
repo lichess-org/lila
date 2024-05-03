@@ -78,7 +78,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     }
     const fault = {
       node,
-      path: root.mainlinePathToPly(node.ply),
+      path: root.mainlinePlyToPath(node.ply),
     };
     const prevPath = treePath.init(fault.path);
     const prev = {

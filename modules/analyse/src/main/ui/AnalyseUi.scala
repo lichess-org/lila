@@ -20,6 +20,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
       .cssTag((pov.game.variant == Crazyhouse).option("analyse.zh"))
       .cssTag(withForecast.option("analyse.forecast"))
       .cssTag(ctx.blind.option("round.nvui"))
+      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .csp(csp.compose(_.withExternalAnalysisApis))
       .graph(
         title = "Chess analysis board",

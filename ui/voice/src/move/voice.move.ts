@@ -366,7 +366,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     const role = cs.promo(uci);
     cg.cancelMove();
     if (role) promote(cg, dest(uci), role);
-    root.auxMove(src(uci), dest(uci), role);
+    root.pluginMove(src(uci), dest(uci), role);
     return true;
   }
 

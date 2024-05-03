@@ -26,6 +26,7 @@
     "common": "workspace:*",
     "debounce-promise": "^3.1.2",
     "game": "workspace:*",
+    "keyboardMove": "workspace:*",
     "nvui": "workspace:*",
     "prop-types": "^15.8.1",
     "shepherd.js": "^11.2.0",

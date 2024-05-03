@@ -115,6 +115,7 @@ object replay:
       .cssTag("analyse.round")
       .cssTag((pov.game.variant == Crazyhouse).option("analyse.zh"))
       .cssTag(ctx.blind.option("round.nvui"))
+      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .js(analyseNvuiTag)
       .js(
         bits.analyseModule(

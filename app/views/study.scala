@@ -56,6 +56,7 @@ def show(
 )(using ctx: Context) =
   Page(s.name.value)
     .cssTag("analyse.study")
+    .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
     .js(analyseNvuiTag)
     .js(
       PageModule(

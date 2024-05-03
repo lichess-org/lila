@@ -1,6 +1,6 @@
 import { Dests, files } from 'chessground/types';
 import { sanWriter, SanToUci, destsToUcis } from 'chess';
-import { KeyboardMoveHandler, KeyboardMove } from './ctrl';
+import { KeyboardMoveHandler, KeyboardMove, isArrowKey } from './ctrl';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -10,6 +10,8 @@ const ambiguousPromotionCaptureRegex = /^([a-h][27]?x?)?[a-h](1|8)=?$/;
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=?[nbrqkNBRQK]$/;
 // accept partial ICCF because submit runs on every keypress
 const iccfRegex = /^[1-8][1-8]?[1-5]?$/;
+
+const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
 interface SubmitOpts {
   isTrusted: boolean;
@@ -31,8 +33,6 @@ export function initModule(opts: Opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
   let legalSans: SanToUci | null = null;
-
-  const isKey = (v: string): v is Key => !!v.match(keyRegex);
 
   const submit: Submit = (v: string, submitOpts: SubmitOpts) => {
     if (!submitOpts.isTrusted) return;
@@ -97,8 +97,8 @@ export function initModule(opts: Opts) {
         clear();
       }
     } else if (v.length > 0 && 'who'.startsWith(v.toLowerCase())) {
-      if ('who' === v.toLowerCase() && opts.ctrl.opponent) {
-        site.sound.say(opts.ctrl.opponent, false, true);
+      if ('who' === v.toLowerCase()) {
+        if (opts.ctrl.opponent) site.sound.say(opts.ctrl.opponent, false, true);
         clear();
       }
     } else if (v.length > 0 && 'draw'.startsWith(v.toLowerCase())) {
@@ -189,11 +189,8 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
   opts.input.addEventListener('blur', () => opts.ctrl.isFocused(false));
   // prevent default on arrow keys: they only replay moves
   opts.input.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.which > 36 && e.which < 41) {
-      if (e.which == 37) opts.ctrl.jump(-1);
-      else if (e.which == 38) opts.ctrl.jump(-999);
-      else if (e.which == 39) opts.ctrl.jump(1);
-      else opts.ctrl.jump(999);
+    if (isArrowKey(e.key)) {
+      opts.ctrl.arrowNavigate(e.key);
       e.preventDefault();
     }
   });

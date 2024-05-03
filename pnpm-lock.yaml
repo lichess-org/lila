@@ -103,6 +103,9 @@ importers:
       game:
         specifier: workspace:*
         version: link:../game
+      keyboardMove:
+        specifier: workspace:*
+        version: link:../keyboardMove
       nvui:
         specifier: workspace:*
         version: link:../nvui
