@@ -65,7 +65,7 @@ final class FishnetApi(
           $doc("acquired".$exists(false)) ++ {
             (!client.offline).so($doc("lastTryByKey".$ne(client.key))) // client alternation
           } ++ {
-            slow.so($doc("sender.system" -> true))
+            slow.so($doc("origin".$in(Work.Origin.slowOk)))
           }
         )
         .sort(

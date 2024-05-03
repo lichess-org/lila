@@ -73,6 +73,8 @@ object Work:
     case manualRequest     extends Origin(1_000_000, false) // games & studies
     case autoHunter        extends Origin(300_000, true)
     case autoTutor         extends Origin(200_000, true)
+  object Origin:
+    val slowOk = values.filter(_.slowOk)
 
   case class Analysis(
       _id: Work.Id, // random
