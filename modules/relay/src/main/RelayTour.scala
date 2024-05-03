@@ -3,7 +3,7 @@ package lila.relay
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
-import lila.memo.PicfitUrl
+import lila.core.misc.PicfitUrl
 import lila.core.id.ImageId
 
 case class RelayTour(

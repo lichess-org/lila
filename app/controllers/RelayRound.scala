@@ -21,7 +21,7 @@ final class RelayRound(
     NoLameOrBot:
       WithTourAndRoundsCanUpdate(tourId): trs =>
         Ok.page:
-          views.relay.roundForm.create(env.relay.roundForm.create(trs), trs.tour)
+          views.relay.form.round.create(env.relay.roundForm.create(trs), trs.tour)
   }
 
   def create(tourId: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -38,7 +38,7 @@ final class RelayRound(
           .fold(
             err =>
               negotiate(
-                BadRequest.page(views.relay.roundForm.create(err, tour)),
+                BadRequest.page(views.relay.form.round.create(err, tour)),
                 jsonFormError(err)
               ),
             setup =>
@@ -55,7 +55,7 @@ final class RelayRound(
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
     FoundPage(env.relay.api.byIdAndContributor(id)): rt =>
-      views.relay.roundForm.edit(rt, env.relay.roundForm.edit(rt.round))
+      views.relay.form.round.edit(rt, env.relay.roundForm.edit(rt.round))
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -79,7 +79,7 @@ final class RelayRound(
         _.fold(
           (old, err) =>
             negotiate(
-              BadRequest.page(views.relay.roundForm.edit(old, err)),
+              BadRequest.page(views.relay.form.round.edit(old, err)),
               jsonFormError(err)
             ),
           rt => negotiate(Redirect(rt.path), JsonOk(env.relay.jsonView.withUrl(rt, withTour = true)))
