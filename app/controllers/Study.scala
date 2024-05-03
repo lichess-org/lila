@@ -568,14 +568,14 @@ final class Study(
   def privateUnauthorizedText = Unauthorized("This study is now private")
   def privateUnauthorizedJson = Unauthorized(jsonError("This study is now private"))
   def privateUnauthorizedFu(study: StudyModel)(using Context) = negotiate(
-    Unauthorized.page(views.site.message.privateStudy(study)),
+    Unauthorized.page(views.study.privateStudy(study)),
     privateUnauthorizedJson
   )
 
   def privateForbiddenText = Forbidden("This study is now private")
   def privateForbiddenJson = forbiddenJson("This study is now private")
   def privateForbiddenFu(study: StudyModel)(using Context) = negotiate(
-    Forbidden.page(views.site.message.privateStudy(study)),
+    Forbidden.page(views.study.privateStudy(study)),
     privateForbiddenJson
   )
 

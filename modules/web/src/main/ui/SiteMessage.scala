@@ -1,15 +1,13 @@
-package views.site
+package lila.web
+package ui
 
-import lila.api.Context
-import lila.app.UiEnv.{ *, given }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 
-object message:
+final class SiteMessage(helpers: Helpers):
+  import helpers.{ *, given }
 
-  def apply(
-      title: String,
-      back: Option[String] = None,
-      icon: Option[Icon] = None
-  )(using Context) =
+  def apply(title: String, back: Option[String] = None, icon: Option[Icon] = None)(using Context) =
     Page(title).wrap: body =>
       main(cls := "box box-pad")(
         boxTop(
@@ -42,20 +40,6 @@ object message:
     s"Sorry, your IP address ${ctx.ip} has been used to violate the ToS, and is now blacklisted."
 
   def blacklistedSnippet(using Context) = lila.ui.Snippet(frag(blacklistedMessage))
-
-  def privateStudy(study: lila.study.Study)(using Context) =
-    apply(
-      title = s"${titleNameOrId(study.ownerId)}'s study",
-      back = routes.Study.allDefault().url.some
-    ):
-      frag(
-        "Sorry! This study is private, you cannot access it.",
-        isGranted(_.StudyAdmin).option(
-          postForm(action := routes.Study.admin(study.id))(
-            submitButton("View as admin")(cls := "button button-red")
-          )
-        )
-      )
 
   def streamingMod(using Context) = apply("Disabled while streaming"):
     frag(

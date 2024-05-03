@@ -25,7 +25,7 @@ final class Importer(env: Env) extends LilaController(env):
   def importGame = OpenBody:
     val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
     val data = lila.game.importer.ImportData(PgnStr(pgn), None)
-    Ok.page(views.game.importGame(lila.game.importer.form.fill(data)))
+    Ok.page(views.game.ui.importer(lila.game.importer.form.fill(data)))
 
   def sendGame    = OpenOrScopedBody(parse.anyContent)()(doSendGame)
   def apiSendGame = AnonOrScopedBody(parse.anyContent)()(doSendGame)
@@ -35,7 +35,7 @@ final class Importer(env: Env) extends LilaController(env):
       .fold(
         err =>
           negotiate(
-            BadRequest.page(views.game.importGame(err)),
+            BadRequest.page(views.game.ui.importer(err)),
             jsonFormError(err)
           ),
         data =>

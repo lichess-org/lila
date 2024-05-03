@@ -100,6 +100,20 @@ def show(
 
 def socketUrl(id: StudyId) = s"/study/$id/socket/v$apiVersion"
 
+def privateStudy(study: lila.study.Study)(using Context) =
+  views.site.message(
+    title = s"${titleNameOrId(study.ownerId)}'s study",
+    back = routes.Study.allDefault().url.some
+  ):
+    frag(
+      "Sorry! This study is private, you cannot access it.",
+      isGranted(_.StudyAdmin).option(
+        postForm(action := routes.Study.admin(study.id))(
+          submitButton("View as admin")(cls := "button button-red")
+        )
+      )
+    )
+
 object embed:
 
   def apply(s: lila.study.Study, chapter: lila.study.Chapter, pgn: PgnStr)(using ctx: EmbedContext) =

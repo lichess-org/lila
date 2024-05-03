@@ -25,6 +25,8 @@ val atomUi = lila.ui.AtomUi(netConfig.baseUrl)
 
 val irwin = lila.irwin.IrwinUi(helpers)(menu = mod.ui.menu)
 
+val dgt = lila.web.ui.DgtUi(helpers)
+
 object oAuth:
   val token     = lila.oauth.ui.TokenUi(helpers)(account.ui.AccountPage)
   val authorize = lila.oauth.ui.AuthorizeUi(helpers)(lightUserFallback)
@@ -33,7 +35,7 @@ val plan      = lila.plan.ui.PlanUi(helpers)(netConfig.email)
 val planPages = lila.plan.ui.PlanPages(helpers)(lila.fishnet.FishnetLimiter.maxPerDay)
 
 val feed =
-  lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.page.SitePage(title, "news", ""))(using
+  lila.feed.ui.FeedUi(helpers, atomUi)(title => _ ?=> site.ui.SitePage(title, "news", ""))(using
     env.executor
   )
 
