@@ -2,6 +2,7 @@ package controllers
 
 import akka.pattern.ask
 import play.api.data.*
+import play.api.data.Forms.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
@@ -9,8 +10,8 @@ import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.GameFullId
 
-import Forms.*
 import lila.core.net.Bearer
+import lila.web.StaticContent
 
 final class Main(
     env: Env,
@@ -77,12 +78,12 @@ final class Main(
   val robots = Anon:
     Ok:
       if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-      then lila.web.StaticContent.robotsTxt
+      then StaticContent.robotsTxt
       else "User-agent: *\nDisallow: /"
 
   def manifest = Anon:
     JsonOk:
-      lila.web.StaticContent.manifest(env.net)
+      StaticContent.manifest(env.net)
 
   def getFishnet = Open:
     pageHit
@@ -131,17 +132,18 @@ final class Main(
 
   def legacyQaQuestion(id: Int, _slug: String) = Open:
     MovedPermanently:
-      lila.web.StaticContent.legacyQaQuestion(id)
+      StaticContent.legacyQaQuestion(id)
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
   private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
-  def externalLink(tag: String, url: String) = Anon:
-    if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
-    then
-      if tag.nonEmpty then lila.mon.link.external(tag, ctx.isAuth).increment()
-      else lila.log("Main").info(s"External link with no tag: $url")
-    Redirect(url)
+  def externalLink(tag: String) = Anon:
+    StaticContent.externalLinks
+      .get(tag)
+      .so: url =>
+        if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
+        then lila.mon.link.external(tag, ctx.isAuth).increment()
+        Redirect(url)
 
   lila.memo.RateLimit.composite[lila.core.net.IpAddress](
     key = "image.upload.ip"

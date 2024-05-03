@@ -46,7 +46,7 @@ Allow: /
       )
     )
 
-  lazy val variantsJson =
+  val variantsJson =
     JsArray(chess.variant.Variant.list.all.map { v =>
       Json.obj(
         "id"   -> v.id,
@@ -54,6 +54,15 @@ Allow: /
         "name" -> v.name
       )
     })
+
+  val externalLinks = Map(
+    "mastodon" -> "https://mastodon.online/@lichess",
+    "github"   -> "https://github.com/lichess-org",
+    "discord"  -> "https://discord.gg/lichess",
+    "twitter"  -> "https://twitter.com/lichess",
+    "youtube"  -> "https://youtube.com/c/LichessDotOrg",
+    "twitch"   -> "https://www.twitch.tv/lichessdotorg"
+  )
 
   def legacyQaQuestion(id: Int) =
     val faq = routes.Main.faq.url

@@ -30,32 +30,28 @@ z-index: 99;
   val connectLinks: Frag =
     div(cls := "connect-links")(
       a(
-        href := routes.Main.externalLink("mastodon", "https://mastodon.online/@lichess"),
+        href := routes.Main.externalLink("mastodon"),
         targetBlank,
         noFollow,
         relMe
       )("Mastodon"),
-      a(href := routes.Main.externalLink("twitter", "https://twitter.com/lichess"), targetBlank, noFollow)(
-        "Twitter"
-      ),
-      a(href := routes.Main.externalLink("discord", "https://discord.gg/lichess"), targetBlank, noFollow)(
-        "Discord"
-      ),
       a(
-        href := routes.Main.externalLink("youtube", "https://youtube.com/c/LichessDotOrg"),
+        href := routes.Main.externalLink("github"),
+        targetBlank,
+        noFollow
+      )("GitHub"),
+      a(href := routes.Main.externalLink("discord"), targetBlank, noFollow)("Discord"),
+      a(href := routes.Main.externalLink("twitter"), targetBlank, noFollow)("Twitter"),
+      a(
+        href := routes.Main.externalLink("youtube"),
         targetBlank,
         noFollow
       )("YouTube"),
       a(
-        href := routes.Main.externalLink("twitch", "https://www.twitch.tv/lichessdotorg"),
+        href := routes.Main.externalLink("twitch"),
         targetBlank,
         noFollow
-      )("Twitch"),
-      a(
-        href := routes.Main.externalLink("instagram", "https://instagram.com/lichessdotorg"),
-        targetBlank,
-        noFollow
-      )("Instagram")
+      )("Twitch")
     )
 
   def api = raw:
