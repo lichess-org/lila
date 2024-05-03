@@ -346,14 +346,13 @@ object NewRoot:
   def makeNodeWriter[A](using wa: OWrites[A]): Writes[ChessNode[A]] =
     makeTreeWriter(true).contramap(identity)
 
-  def makeMainlineWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[ChessNode[A]] = Writes:
-    tree =>
-      wa.writes(tree.value)
-        .add(
-          "children",
-          Option.when(alwaysChildren || tree.childVariations.nonEmpty):
-            nodeListJsonWriter.writes(tree.childVariations)
-        )
+  def makeMainlineWriter[A](using wa: OWrites[A]): Writes[ChessNode[A]] = Writes: tree =>
+    wa.writes(tree.value)
+      .add(
+        "children",
+        Option.when(tree.childVariations.nonEmpty):
+          nodeListJsonWriter.writes(tree.childVariations)
+      )
 
   def nodeListJsonWriter[A](using wa: OWrites[A]): Writes[List[Tree[A]]] =
     Writes: list =>
@@ -378,6 +377,4 @@ object NewRoot:
   val partitionTreeJsonWriter: Writes[NewRoot] = Writes: root =>
     val rootWithoutChild = root.updateTree(_.withoutChild.some)
     JsArray:
-      makeRootJsonWriter(false).writes(rootWithoutChild) +: root.mainline.map(
-        makeMainlineWriter(false).writes
-      )
+      makeRootJsonWriter(false).writes(rootWithoutChild) +: root.mainline.map(makeMainlineWriter.writes)
