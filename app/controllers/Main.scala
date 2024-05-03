@@ -138,7 +138,9 @@ final class Main(
   private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
   def externalLink(tag: String, url: String) = Anon:
     if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
-    then lila.mon.link.external(tag, ctx.isAuth).increment()
+    then
+      if tag.nonEmpty then lila.mon.link.external(tag, ctx.isAuth).increment()
+      else lila.log("Main").info(s"External link with no tag: $url")
     Redirect(url)
 
   lila.memo.RateLimit.composite[lila.core.net.IpAddress](
