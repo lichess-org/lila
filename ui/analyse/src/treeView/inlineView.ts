@@ -4,15 +4,7 @@ import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../view/moveView';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from 'common/snabbdom';
-import {
-  mainHook,
-  nodeClasses,
-  findCurrentPath,
-  renderInlineCommentsOf,
-  retroLine,
-  Ctx,
-  Opts,
-} from './common';
+import { mainHook, nodeClasses, renderInlineCommentsOf, retroLine, Ctx, Opts, renderingCtx } from './common';
 
 function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | undefined {
   const cs = node.children.filter(x => ctx.showComputer || !x.comp),
@@ -127,14 +119,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 }
 
 export default function (ctrl: AnalyseCtrl): VNode {
-  const ctx: Ctx = {
-    ctrl,
-    truncateComments: false,
-    showComputer: ctrl.showComputer() && !ctrl.retro?.isSolving(),
-    showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: !!ctrl.study || ctrl.showComputer(),
-    currentPath: findCurrentPath(ctrl),
-  };
+  const ctx = renderingCtx(ctrl);
   return h('div.tview2.tview2-inline', { hook: mainHook(ctrl) }, [
     ...renderInlineCommentsOf(ctx, ctrl.tree.root, ''),
     ...(renderChildrenOf(ctx, ctrl.tree.root, {
