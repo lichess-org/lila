@@ -5,7 +5,7 @@ import com.softwaremill.tagging.*
 
 import lila.core.config
 import lila.db.dsl.Coll
-import lila.core.fishnet.{ AnalysisAwaiter, SystemAnalysisRequest }
+import lila.core.fishnet.{ AnalysisAwaiter, FishnetRequest }
 import lila.memo.CacheApi
 
 @Module
@@ -14,7 +14,7 @@ final class Env(
     userApi: lila.core.user.UserApi,
     gameRepo: lila.game.GameRepo,
     fishnetAwaiter: AnalysisAwaiter,
-    fishnetSystem: SystemAnalysisRequest,
+    fishnetRequest: FishnetRequest,
     insightApi: lila.insight.InsightApi,
     perfStatsApi: lila.insight.InsightPerfStatsApi,
     settingStore: lila.memo.SettingStore.Builder,

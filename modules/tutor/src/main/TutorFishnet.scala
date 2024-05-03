@@ -2,7 +2,7 @@ package lila.tutor
 
 import com.softwaremill.tagging.*
 
-import lila.core.fishnet.{ SystemAnalysisRequest, AnalysisAwaiter }
+import lila.core.fishnet.{ FishnetRequest, AnalysisAwaiter }
 import lila.game.GameRepo
 import lila.insight.InsightPerfStats
 import lila.memo.SettingStore
@@ -10,7 +10,7 @@ import lila.rating.PerfType
 
 final private class TutorFishnet(
     gameRepo: GameRepo,
-    analyser: SystemAnalysisRequest,
+    analyser: FishnetRequest,
     awaiter: AnalysisAwaiter,
     nbAnalysis: SettingStore[Int] @@ NbAnalysis
 )(using Executor):
@@ -28,7 +28,6 @@ final private class TutorFishnet(
       }
       .parallel
       .map(_.flatten)
-      .flatMap { games =>
-        games.foreach(g => analyser(g.id))
+      .flatMap: games =>
+        games.foreach(g => analyser.tutor(g.id))
         awaiter(games.map(_.id), maxTime)
-      }

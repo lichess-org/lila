@@ -88,7 +88,8 @@ case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expec
       None,
       None,
       Nil,
-      Instant.ofEpochMilli(1684055956)
+      Instant.ofEpochMilli(1684055956),
+      Work.Origin.manualRequest.some
     )
     val client = Client.offline
     analysisBuilder(client, analysis, xs).await(1.second, "parse analysis")

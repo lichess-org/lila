@@ -17,7 +17,6 @@ private class FishnetConfig(
     @ConfigName("collection.analysis") val analysisColl: CollName,
     @ConfigName("collection.client") val clientColl: CollName,
     @ConfigName("offline_mode") val offlineMode: Boolean,
-    @ConfigName("analysis.nodes") val analysisNodes: Int,
     @ConfigName("client_min_version") val clientMinVersion: String,
     @ConfigName("redis.uri") val redisUri: String,
     val explorerEndpoint: String
@@ -66,10 +65,7 @@ final class Env(
 
   private lazy val analysisBuilder = wire[AnalysisBuilder]
 
-  private lazy val apiConfig = FishnetApi.Config(
-    offlineMode = config.offlineMode,
-    analysisNodes = config.analysisNodes
-  )
+  private lazy val apiConfig = FishnetApi.Config(offlineMode = config.offlineMode)
 
   private lazy val socketExists: GameId => Fu[Boolean] = id =>
     Bus.ask[Boolean]("roundSocket")(lila.core.misc.map.Exists(id.value, _))
@@ -89,7 +85,6 @@ final class Env(
   private val limiter = wire[FishnetLimiter]
 
   lazy val analyser = wire[Analyser]
-  export analyser.systemRequest
 
   lazy val awaiter = wire[FishnetAwaiter]
 

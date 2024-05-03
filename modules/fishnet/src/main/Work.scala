@@ -57,10 +57,7 @@ object Work:
       mod: Boolean,
       system: Boolean
   ):
-
-    override def toString =
-      if system then UserId.lichess.value
-      else userId.value
+    override def toString = if system then UserId.lichess.value else userId.value
 
   case class Clock(wtime: Int, btime: Int, inc: chess.Clock.IncrementSeconds)
 
@@ -71,6 +68,12 @@ object Work:
       clock: Option[Work.Clock]
   )
 
+  enum Origin(val nodesPerMove: Int, val slowOk: Boolean):
+    case officialBroadcast extends Origin(5_000_000, false)
+    case manualRequest     extends Origin(1_000_000, false) // games & studies
+    case autoHunter        extends Origin(300_000, true)
+    case autoTutor         extends Origin(200_000, true)
+
   case class Analysis(
       _id: Work.Id, // random
       sender: Sender,
@@ -80,7 +83,8 @@ object Work:
       lastTryByKey: Option[Client.Key],
       acquired: Option[Acquired],
       skipPositions: List[Int],
-      createdAt: Instant
+      createdAt: Instant,
+      origin: Option[Origin] // remove Option after initial deploy
   ) extends Work:
 
     def skill = Client.Skill.Analysis
@@ -104,6 +108,8 @@ object Work:
     def abort = copy(acquired = none)
 
     def nbMoves = game.moves.count(' ' ==) + 1
+
+    def nodesPerMove = origin.getOrElse(Origin.manualRequest).nodesPerMove
 
     override def toString =
       s"id:$id game:${game.id} variant:${game.variant} plies: ${game.moves.count(' ' ==)} tries:$tries requestedBy:$sender acquired:$acquired"
