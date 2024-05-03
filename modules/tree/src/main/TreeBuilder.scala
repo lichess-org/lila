@@ -6,8 +6,6 @@ import chess.opening.*
 import chess.variant.Variant
 import chess.{ Centis, Color, Ply }
 
-import lila.tree.*
-
 object TreeBuilder:
 
   type LogChessError           = String => Unit
@@ -53,6 +51,7 @@ object TreeBuilder:
           val fen    = Fen.write(g)
           val info   = infos.lift(index - 1)
           val advice = advices.get(g.ply)
+
           val branch = Branch(
             id = UciCharPair(m.uci),
             ply = g.ply,
@@ -74,6 +73,7 @@ object TreeBuilder:
                   .map(makeLichessComment)
             )
           )
+
           advices
             .get(g.ply + 1)
             .flatMap { adv =>

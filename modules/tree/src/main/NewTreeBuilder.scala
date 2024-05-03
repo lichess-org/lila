@@ -4,9 +4,7 @@ import chess.format.pgn.{ Comment, Glyphs }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.opening.*
 import chess.variant.Variant
-import chess.{ Centis, Color, Ply }
-
-import lila.tree.*
+import chess.{ Centis, Color, Ply, Variation }
 
 object NewTreeBuilder:
 
@@ -47,53 +45,58 @@ object NewTreeBuilder:
         )
 
         def makeBranch(g: chess.Game, m: Uci.WithSan, index: Int): NewTree =
+
           val fen    = Fen.write(g)
           val info   = infos.lift(index - 1)
           val advice = advices.get(g.ply)
 
-          chess.Node(
-            NewBranch(
-              id = UciCharPair(m.uci),
-              move = m,
-              metas = Metas(
-                ply = g.ply,
-                fen = fen,
-                check = g.situation.check,
-                opening = openingOf(fen),
-                clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)),
-                crazyData = g.situation.board.crazyData,
-                eval = info.map(TreeBuilder.makeEval),
-                glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
-                comments = Node.Comments(
-                  drawOfferPlies(g.ply)
-                    .option(TreeBuilder.makeLichessComment(Comment(s"${!g.ply.turn} offers draw")))
-                    .toList :::
-                    advice
-                      .map(_.makeComment(withEval = false, withBestMove = true))
-                      .toList
-                      .map(TreeBuilder.makeLichessComment)
-                )
+          val value = NewBranch(
+            id = UciCharPair(m.uci),
+            move = m,
+            metas = Metas(
+              ply = g.ply,
+              fen = fen,
+              check = g.situation.check,
+              opening = openingOf(fen),
+              clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)),
+              crazyData = g.situation.board.crazyData,
+              eval = info.map(TreeBuilder.makeEval),
+              glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
+              comments = Node.Comments(
+                drawOfferPlies(g.ply)
+                  .option(TreeBuilder.makeLichessComment(Comment(s"${!g.ply.turn} offers draw")))
+                  .toList :::
+                  advice
+                    .map(_.makeComment(withEval = false, withBestMove = true))
+                    .toList
+                    .map(TreeBuilder.makeLichessComment)
               )
-            ),
-            advices
-              .get(g.ply + 1)
-              .flatMap { adv =>
-                games.lift(index - 1).flatMap { case (fromGame, _) =>
-                  withAnalysisChild(
-                    game.id,
-                    game.variant,
-                    Fen.write(fromGame),
-                    openingOf,
-                    logChessError
-                  )(adv.info)
-                }
-              }
+            )
           )
 
-        val tree: Option[NewTree] = chess.Tree.build[((chess.Game, Uci.WithSan), Int), NewBranch](
-          games.zipWithIndex,
-          (x, z) => makeBranch(x._1, x._2, z)
-        )
+          val variations = advices
+            .get(g.ply)
+            .flatMap { adv =>
+              games.lift(index - 2).flatMap { case (fromGame, _) =>
+                withAnalysisChild(
+                  game.id,
+                  game.variant,
+                  Fen.write(fromGame),
+                  openingOf,
+                  logChessError
+                )(adv.info)
+              }
+            }
+            .toList
+
+          chess.Node(value, none, variations)
+
+        val tree: Option[NewTree] =
+          chess.Tree.build[((chess.Game, Uci.WithSan), Int), NewBranch](
+            games.zipWithIndex,
+            (x, index) => makeBranch(x._1, x._2, index + 1)
+          )
+
         NewRoot(metas, tree)
 
   private def withAnalysisChild(
@@ -102,9 +105,9 @@ object NewTreeBuilder:
       fromFen: Fen.Full,
       openingOf: OpeningOf,
       logChessError: LogChessError
-  )(info: Info): Option[NewTree] =
+  )(info: Info): Option[Variation[NewBranch]] =
 
-    def makeBranch(g: chess.Game, m: Uci.WithSan) =
+    def makeBranch(g: chess.Game, m: Uci.WithSan): NewBranch =
       val fen = Fen.write(g)
       NewBranch(
         id = UciCharPair(m.uci),
@@ -124,7 +127,9 @@ object NewTreeBuilder:
         error.foreach: err =>
           logChessError(formatError(id, err))
         chess.Tree
-          .build[(chess.Game, Uci.WithSan), NewBranch](games, makeBranch(_, _))
+          .build[(chess.Game, Uci.WithSan), NewBranch](games, makeBranch)
+          .map(_.updateValue(_.setComp))
+          .map(_.toVariation)
 
   private def formatError(id: GameId, err: chess.ErrorStr) =
     s"TreeBuilder https://lichess.org/$id ${err.value.linesIterator.toList.headOption}"
