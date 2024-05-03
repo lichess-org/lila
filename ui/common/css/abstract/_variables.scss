@@ -17,6 +17,7 @@ $site-header-short-height: 40px;
 $site-header-sticky-max-width: 1780px;
 $site-header-height: var(---site-header-height);
 $site-header-margin: var(---site-header-margin);
+$site-header-margin-extra: 20px;
 $site-header-outer-height: calc($site-header-height + $site-header-margin + var(---sticky-gap));
 
 $main-margin: var(---main-margin);

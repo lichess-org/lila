@@ -15,7 +15,7 @@ body {
   }
 
   &.header-margin {
-    ---site-header-margin: 1em;
+    ---site-header-margin: #{$site-header-margin-extra};
   }
 
   @media (min-width: at-least($small)) {
