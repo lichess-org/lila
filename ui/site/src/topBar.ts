@@ -32,10 +32,12 @@ export default function () {
   $(top).on('click', '.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
+    document.getElementById('top')!.style.zIndex = '106'; // 'site-header' common/css/header/_header.scss
     setTimeout(() => {
       const handler = (e: Event) => {
         const target = e.target as HTMLElement;
         if (!target.isConnected || $p[0]?.contains(target)) return;
+        document.getElementById('top')!.style.zIndex = '';
         $p.removeClass('shown');
         $('html').off('click', handler);
       };
