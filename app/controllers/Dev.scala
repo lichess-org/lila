@@ -1,10 +1,6 @@
 package controllers
 
-import play.api.data.*
-
 import lila.app.*
-
-import Forms.*
 
 final class Dev(env: Env) extends LilaController(env):
 
@@ -58,22 +54,20 @@ final class Dev(env: Env) extends LilaController(env):
     }
   }
 
-  private val commandForm = Form(single("command" -> nonEmptyText))
-
   def cli = Secure(_.Cli) { _ ?=> _ ?=>
     Ok.page:
-      views.dev.cli(commandForm, none)
+      views.dev.cli(env.api.cli.form, none)
   }
 
   def cliPost = SecureBody(_.Cli) { _ ?=> me ?=>
-    commandForm
+    env.api.cli.form
       .bindFromRequest()
       .fold(
         err => BadRequest.page(views.dev.cli(err, "Invalid command".some)),
         command =>
           Ok.async:
             runCommand(command).map: res =>
-              views.dev.cli(commandForm.fill(command), s"$command\n\n$res".some)
+              views.dev.cli(env.api.cli.form.fill(command), s"$command\n\n$res".some)
       )
   }
 

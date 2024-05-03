@@ -1,6 +1,5 @@
 package controllers
 
-import play.api.data.Forms.*
 import play.api.i18n.Lang
 import play.api.mvc.Result
 

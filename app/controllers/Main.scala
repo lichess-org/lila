@@ -1,8 +1,6 @@
 package controllers
 
-import akka.pattern.ask
 import play.api.data.*
-import play.api.data.Forms.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
@@ -11,21 +9,15 @@ import lila.common.HTTPRequest
 import lila.core.id.GameFullId
 
 import lila.core.net.Bearer
-import lila.web.StaticContent
+import lila.web.{ WebForms, StaticContent }
 
 final class Main(
     env: Env,
     assetsC: ExternalAssets
 ) extends LilaController(env):
 
-  private lazy val blindForm = Form:
-    tuple(
-      "enable"   -> nonEmptyText,
-      "redirect" -> nonEmptyText
-    )
-
   def toggleBlindMode = OpenBody:
-    blindForm
+    WebForms.blind
       .bindFromRequest()
       .fold(
         _ => BadRequest,
@@ -54,10 +46,7 @@ final class Main(
 
   def redirectToAppStore = Anon:
     pageHit
-    Redirect:
-      if HTTPRequest.isAndroid(req)
-      then "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
-      else "https://apps.apple.com/us/app/lichess-online-chess/id968371784"
+    Redirect(StaticContent.appStoreUrl)
 
   private def serveMobile(using Context) =
     pageHit

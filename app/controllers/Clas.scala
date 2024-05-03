@@ -2,9 +2,8 @@ package controllers
 package clas
 
 import akka.stream.scaladsl.*
-import play.api.data.*
-import play.api.data.Forms.*
 import play.api.mvc.*
+import play.api.data.Form
 
 import lila.app.{ *, given }
 import lila.clas.Clas.Id as ClasId
@@ -516,7 +515,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   }
 
   def invitationAccept(id: ClasInvite.Id) = AuthBody { ctx ?=> me ?=>
-    Form(single("v" -> Forms.boolean))
+    env.clas.forms.student.inviteAccept
       .bindFromRequest()
       .fold(
         _ => Redirect(routes.Clas.invitation(id)).toFuccess,

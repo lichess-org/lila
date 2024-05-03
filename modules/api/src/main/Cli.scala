@@ -25,6 +25,9 @@ final private[api] class Cli(
 
   private val logger = lila.log("cli")
 
+  import play.api.data.Forms.*
+  val form = play.api.data.Form(single("command" -> nonEmptyText))
+
   def apply(args: List[String]): Fu[String] =
     run(args)
       .map(_ + "\n")

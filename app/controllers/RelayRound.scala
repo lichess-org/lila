@@ -1,7 +1,6 @@
 package controllers
 
 import chess.format.pgn.{ PgnStr, Tag }
-import play.api.data.Form
 import play.api.libs.json.{ Json, OWrites }
 import play.api.mvc.*
 

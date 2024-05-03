@@ -270,11 +270,9 @@ final class Challenge(
   )
 
   def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
-    import play.api.data.*
-    import play.api.data.Forms.*
     Found(api.byId(id)): c =>
       if isMine(c) then
-        Form(single("username" -> lila.common.Form.username.historicalField))
+        env.setup.forms.toFriend
           .bindFromRequest()
           .fold(
             _ => NoContent,

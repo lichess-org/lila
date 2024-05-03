@@ -7,6 +7,8 @@ import lila.core.i18n.Language
 
 object LangForm:
 
+  val select = Form(single("lang" -> text.verifying(code => LangPicker.byStr(code).isDefined)))
+
   object allLanguages:
     val choices: List[(Language, String)] = LangList.languageChoices
     val mapping: Mapping[Language]        = languageMapping(choices)

@@ -1,7 +1,5 @@
 package controllers
 
-import play.api.data.*
-import play.api.data.Forms.*
 import play.api.libs.json.*
 
 import lila.app.*
@@ -21,15 +19,8 @@ final class Learn(env: Env) extends LilaController(env):
       .flatMap: progress =>
         Ok.page(views.learn(progress))
 
-  private val scoreForm = Form:
-    mapping(
-      "stage" -> nonEmptyText,
-      "level" -> number,
-      "score" -> number
-    )(Tuple3.apply)(unapply)
-
   def score = AuthBody { ctx ?=> me ?=>
-    scoreForm
+    lila.learn.StageProgress.form
       .bindFromRequest()
       .fold(
         _ => BadRequest,

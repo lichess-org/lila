@@ -102,3 +102,8 @@ object Permission:
     val level1 = level0.flatMap(_.alsoGrants)
     val level2 = level1.flatMap(_.alsoGrants)
     level0 ++ level1 ++ level2
+
+  val form =
+    import play.api.data.Form
+    import play.api.data.Forms.*
+    Form(single("permissions" -> list(text.verifying(allByDbKey.contains))))
