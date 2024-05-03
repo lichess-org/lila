@@ -21,37 +21,27 @@ import chess.variant.Variant
 
 import lila.tree.{ ExportOptions, TreeBuilder, NewTreeBuilder, NewRoot, Tree, NewBranch }
 import lila.tree.Node.{ Comment, Comments }
+import lila.tree.Node
 
 final class TreeBuilderTest extends munit.FunSuite:
 
   test("tree builder test"):
     TestFixtures.treeBuilderTestCases.foreach: tc =>
       val (output, expected) = tc.test
-      assertEquals(output.cleanup, NewRoot(expected).cleanup)
+      assertEquals(output, expected)
 
-  extension (root: NewRoot)
-    def cleanup: NewRoot =
-      root
-        .focus(_.tree.some)
-        .modify(_.map(_.cleanup))
-        .focus(_.metas.comments)
-        .modify(_.cleanup)
-
-  extension (node: NewBranch)
-    def cleanup: NewBranch =
-      node
-        .focus(_.metas.clock)
-        .set(none)
-        .focus(_.metas.comments)
-        .modify(_.cleanup)
-
-  extension (comments: Comments)
-    def cleanup: Comments =
-      Comments(comments.value.map(_.copy(id = Comment.Id("i"))))
+  test("tree builder json"):
+    TestFixtures.treeBuilderTestCases.foreach: tc =>
+      val (output, expected) = tc.testJson
+      // output.pp
+      // expected.pp
+      assertEquals(output.toString, expected.toString)
 
 object TreeBuilderTest:
 
   case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String):
+
+    import TreeBuilderTest.*
 
     given Executor = scala.concurrent.ExecutionContextOpportunistic
     val annotator  = Annotator(NetDomain("l.org"))
@@ -78,12 +68,34 @@ object TreeBuilderTest:
     val analysis      = AnnotatorTest.parse(builder, fishnetInput, fen.some, variant, moves, ply)
 
     def test =
-      val x = TreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError)
-      val y = NewTreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError)
+      val x = NewRoot(TreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError)).cleanup
+      val y = NewTreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError).cleanup
       y -> x
 
     def testJson =
-      val x = Tree.makeMinimalJsonString(makeGame(game), analysis.some, fen, ExportOptions.default, logError)
-      val y =
-        Tree.makeMinimalJsonStringNew(makeGame(game), analysis.some, fen, ExportOptions.default, logError)
+      val x = Node.minimalNodeJsonWriter.writes:
+        TreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError)
+      val y = NewRoot.minimalNodeJsonWriter.writes:
+        NewTreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError)
       y -> x
+
+    extension (root: NewRoot)
+      def cleanup: NewRoot =
+        root
+          .focus(_.tree.some)
+          .modify(_.map(_.cleanup))
+          .focus(_.metas.comments)
+          .modify(_.cleanup)
+
+    extension (node: NewBranch)
+      def cleanup: NewBranch =
+        node
+          .focus(_.metas.clock)
+          .set(none)
+          .focus(_.metas.comments)
+          .modify(_.cleanup)
+
+    extension (comments: Comments)
+      def cleanup: Comments =
+        Comments(comments.value.map(_.copy(id = Comment.Id("i"))))
+

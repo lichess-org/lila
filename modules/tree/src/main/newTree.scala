@@ -303,7 +303,7 @@ object NewRoot:
 
   given metasWriter: OWrites[Metas] = OWrites: metas =>
     import metas.*
-    val comments = metas.comments.value.flatMap(_.removeMeta)
+    val comments: List[Comment] = metas.comments.value.flatMap(_.removeMeta)
     Json
       .obj(
         "ply" -> ply,
@@ -340,7 +340,7 @@ object NewRoot:
       .add(
         "children",
         Option.when(alwaysChildren || tree.childAndChildVariations.nonEmpty):
-          nodeListJsonWriter.writes(tree.childAndChildVariations)
+          nodeListJsonWriter(alwaysChildren).writes(tree.childAndChildVariations)
       )
 
   def makeNodeWriter[A](using wa: OWrites[A]): Writes[ChessNode[A]] =
@@ -351,13 +351,12 @@ object NewRoot:
       .add(
         "children",
         Option.when(tree.childVariations.nonEmpty):
-          nodeListJsonWriter.writes(tree.childVariations)
+          nodeListJsonWriter(true).writes(tree.childVariations)
       )
 
-  def nodeListJsonWriter[A](using wa: OWrites[A]): Writes[List[Tree[A]]] =
+  def nodeListJsonWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[List[Tree[A]]] =
     Writes: list =>
-      val writer = makeTreeWriter(true)
-      JsArray(list.map(writer.writes))
+      JsArray(list.map(makeTreeWriter(alwaysChildren).writes))
 
   def makeRootJsonWriter(alwaysChildren: Boolean): Writes[NewRoot] =
     Writes: root =>
@@ -370,8 +369,9 @@ object NewRoot:
         .add("forceVariation", none[Boolean])
         .add(
           "children",
-          (alwaysChildren || root.tree.map(_.childAndVariations).exists(_.nonEmpty)).option:
-            root.tree.map(_.childAndVariations).map(nodeListJsonWriter.writes)
+          Option.when(alwaysChildren || root.tree.isDefined):
+            nodeListJsonWriter(true)
+              .writes(root.tree.fold(Nil)(x => x.withoutVariations :: x.variations))
         )
 
   val partitionTreeJsonWriter: Writes[NewRoot] = Writes: root =>
