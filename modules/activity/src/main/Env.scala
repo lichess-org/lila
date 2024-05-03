@@ -80,3 +80,4 @@ final class Env(
 
   Bus.sub[BusForum]:
     case BusForum.CreatePost(post) => write.forumPost(post)
+    case _                         =>

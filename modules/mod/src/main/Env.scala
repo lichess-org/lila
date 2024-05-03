@@ -126,3 +126,4 @@ final class Env(
       else
         logger.info:
           s"${p.me} deletes post ${p.id} by ${p.by.so(_.value)} \"${p.text.take(200)}\""
+    case _ =>
