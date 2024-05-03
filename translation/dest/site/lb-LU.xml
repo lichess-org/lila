@@ -112,7 +112,7 @@
   <string name="delete">Läschen</string>
   <string name="deleteThisImportedGame">Importéiert Partie läschen?</string>
   <string name="replayMode">Replay-Modus</string>
-  <string name="realtimeReplay">Realzäit</string>
+  <string name="realtimeReplay">Echtzäit</string>
   <string name="byCPL">No CPL</string>
   <string name="openStudy">Studie opmaachen</string>
   <string name="enable">Aktivéieren</string>
@@ -185,7 +185,7 @@
   <string name="variant">Variant</string>
   <string name="variants">Varianten</string>
   <string name="timeControl">Zäitkontroll</string>
-  <string name="realTime">Realzäit</string>
+  <string name="realTime">Echtzäit</string>
   <string name="correspondence">Korrespondenz</string>
   <string name="daysPerTurn">Deeg pro Zuch</string>
   <string name="oneDay">Een Dag</string>
