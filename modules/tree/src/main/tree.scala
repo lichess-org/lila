@@ -493,15 +493,7 @@ object Node:
 
   import Eval.jsonWrites
 
-  given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
-
-  val minimalNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = false)
-
-  private val nodeListJsonWriter: Writes[List[Node]] =
-    Writes: list =>
-      JsArray(list.map(defaultNodeJsonWriter.writes))
-
-  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] =
+  given defaultNodeJsonWriter: Writes[Node] =
     Writes: node =>
       import node.*
       try
@@ -526,16 +518,16 @@ object Node:
           .add("clock", clock)
           .add("crazy", crazyData)
           .add("comp", comp)
-          .add(
-            "children",
-            Option.when(alwaysChildren || children.nonEmpty):
-              nodeListJsonWriter.writes(children.nodes)
-          )
+          .add("children", nodeListJsonWriter.writes(children.nodes).some)
           .add("forceVariation", forceVariation)
       catch
         case e: StackOverflowError =>
           e.printStackTrace()
-          sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)")
+          sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter")
+
+  private val nodeListJsonWriter: Writes[List[Node]] =
+    Writes: list =>
+      JsArray(list.map(defaultNodeJsonWriter.writes))
 
   def destString(dests: Map[Square, Bitboard]): String =
     val sb    = java.lang.StringBuilder(80)
@@ -547,12 +539,9 @@ object Node:
       dests.foreach(d => sb.append(d.asChar))
     sb.toString
 
-  given Writes[Map[Square, Bitboard]] = Writes: dests =>
-    JsString(destString(dests))
-
   val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
     JsArray:
-      node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
+      node.mainlineNodeList.map(defaultNodeJsonWriter.writes)
 
 object Tree:
   def makeMinimalJsonString(
@@ -562,7 +551,7 @@ object Tree:
       options: ExportOptions,
       logChessError: TreeBuilder.LogChessError
   ): JsValue =
-    Node.minimalNodeJsonWriter.writes:
+    Node.defaultNodeJsonWriter.writes:
       TreeBuilder(game, analysis, initialFen, lila.tree.ExportOptions.default, logChessError)
 
   def makePartitionTreeJson(

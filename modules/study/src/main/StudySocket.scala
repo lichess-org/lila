@@ -10,8 +10,7 @@ import lila.common.Json.{ *, given }
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch
-import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
-import lila.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
+import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes, defaultNodeJsonWriter }
 
 import actorApi.Who
 
@@ -294,7 +293,7 @@ final private class StudySocket(
       "addNode",
       Json
         .obj(
-          "n" -> minimalNodeJsonWriter.writes(node),
+          "n" -> defaultNodeJsonWriter.writes(node),
           "p" -> pos,
           "d" -> dests.dests,
           "s" -> sticky
