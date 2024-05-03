@@ -82,7 +82,7 @@ def show(
             ),
           "socketUrl"     -> socketUrl(s.id),
           "socketVersion" -> socketVersion
-        ) ++ views.board.bits.explorerAndCevalConfig
+        ) ++ views.board.explorerAndCevalConfig
       )
     )
     .robots(s.isPublic)

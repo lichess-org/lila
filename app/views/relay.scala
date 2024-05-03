@@ -1,11 +1,12 @@
 package views.relay
 
 import lila.app.UiEnv.{ *, given }
+
 val ui = lila.relay.ui.RelayUi(helpers)(
   picfitUrl,
   views.study.jsI18n,
   views.study.socketUrl,
-  views.board.bits.explorerAndCevalConfig
+  views.board.explorerAndCevalConfig
 )
 val tour = lila.relay.ui.RelayTourUi(helpers, ui)
 val form = lila.relay.ui.FormUi(helpers, ui, tour)

@@ -236,7 +236,7 @@ final class Setup(
   def validateFen = Open:
     (get("fen").map(Fen.Full.clean): Option[Fen.Full]).flatMap(ValidFen(getBool("strict"))) match
       case None    => BadRequest
-      case Some(v) => Ok.snip(views.board.bits.miniSpan(v.fen.board, v.color))
+      case Some(v) => Ok.snip(views.board.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
     BotAiRateLimit(me, rateLimited, cost = me.isBot.so(1)):
