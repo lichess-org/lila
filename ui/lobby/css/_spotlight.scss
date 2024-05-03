@@ -5,7 +5,10 @@
 }
 
 .tour-spotlight {
-  @extend %flex-center-nowrap, %page-text-shadow, %nowrap-hidden, %page-metal;
+  @extend %flex-center-nowrap, %page-text-shadow, %nowrap-hidden, %metal-bg;
+  html.light & {
+    background-image: linear-gradient(to bottom, $m-primary_bg--mix-20, rgb(197, 216, 234));
+  }
 
   flex: 0 0 auto;
   padding: 0.3em;
@@ -18,9 +21,11 @@
   &.invert,
   &.event-spotlight,
   &:hover {
-    @extend %page-metal-hover;
-
+    @extend %metal-hover;
     text-shadow: none;
+    html.light & {
+      background-image: linear-gradient(to bottom, $m-primary_bg--mix-25, $m-primary_bg-page--mix-20);
+    }
   }
 
   &:hover {
