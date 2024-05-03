@@ -21,10 +21,7 @@ object page:
   private val topnav = lila.web.ui.TopNav(helpers)
 
   private def metaThemeColor(using ctx: Context): Frag =
-    raw:
-      s"""<meta name="theme-color" media="(prefers-color-scheme: light)" content="${ctx.pref.themeColorLight}">""" +
-        s"""<meta name="theme-color" media="(prefers-color-scheme: dark)" content="${ctx.pref.themeColorDark}">""" +
-        s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
+    raw(s"""<meta name="theme-color" content="${ctx.pref.themeColor}">""")
 
   private def boardPreload(using ctx: Context) = frag(
     preload(assetUrl(s"images/board/${ctx.pref.currentTheme.file}"), "image", crossorigin = false),
