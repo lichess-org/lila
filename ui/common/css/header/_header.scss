@@ -16,7 +16,9 @@ body > header {
   @include mq-sticky-header {
     max-width: unset;
     position: fixed;
-    z-index: z('link-overlay');
+    @include mq-at-least-col2 {
+      z-index: z('link-overlay');
+    }
     top: 0;
     width: 100%;
     padding: 0 var(---site-header-sticky-padding);
