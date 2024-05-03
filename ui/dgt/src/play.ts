@@ -457,7 +457,7 @@ export default function (token: string) {
     //Determine new value for currentGameId. First create an array with only the started games
     //So then there is none or more than one started game
     const playableGames = playableGamesArray();
-    //If there is only one started game, then its easy
+    //If there is only one started game, then it's easy
     /*
     if (playableGames.length == 1) {
       currentGameId = playableGames[0].gameId;
