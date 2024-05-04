@@ -46,9 +46,15 @@ export function boot() {
       })
       .on('click', 'button.copy', function (this: HTMLElement) {
         const showCheckmark = () => $(this).attr('data-icon', licon.Checkmark);
-        $('#' + this.dataset.rel).each(function (this: HTMLInputElement) {
+        $('#' + this.dataset.rel).each(function (this: HTMLElement) {
           try {
-            navigator.clipboard.writeText(this.value).then(showCheckmark);
+            let value = '';
+            if (this instanceof HTMLInputElement) {
+              value = this.value;
+            } else if (this instanceof HTMLAnchorElement) {
+              value = this.href;
+            }
+            navigator.clipboard.writeText(value).then(showCheckmark);
           } catch (e) {
             console.error(e);
           }

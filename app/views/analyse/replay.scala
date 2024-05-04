@@ -49,6 +49,7 @@ object replay:
       )
     val imageLinks = frag(
       a(
+        id       := "game-gif",
         dataIcon := Icon.NodeBranching,
         cls      := "text game-gif",
         targetBlank,
@@ -56,7 +57,14 @@ object replay:
           routes.Export.gif(pov.gameId, pov.color.name, ctx.pref.theme.some, ctx.pref.pieceSet.some).url
         )
       )(trans.site.gameAsGIF()),
+      button(
+        title    := "Copy Gif URL",
+        cls      := "copy button",
+        dataRel  := "game-gif",
+        dataIcon := Icon.Link
+      ),
       a(
+        id       := "position-gif",
         dataIcon := Icon.NodeBranching,
         cls      := "text position-gif",
         targetBlank,
@@ -72,7 +80,13 @@ object replay:
             )
             .url
         )
-      )(trans.site.screenshotCurrentPosition())
+      )(trans.site.screenshotCurrentPosition()),
+      button(
+        title    := "Copy Screenshot position URL",
+        cls      := "copy button",
+        dataRel  := "position-gif",
+        dataIcon := Icon.Link
+      )
     )
     val shareLinks = frag(
       a(dataIcon := Icon.Expand, cls := "text embed-howto")(trans.site.embedInYourWebsite()),
