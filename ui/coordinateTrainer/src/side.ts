@@ -225,7 +225,7 @@ const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
   h('div.back', h('a.back-button', { hook: bind('click', ctrl.stop) }, `« ${ctrl.trans('back')}`));
 
 const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
-  const { trans, redraw, showCoordinates, showPieces } = ctrl;
+  const { trans, redraw, showCoordinates, showCoordsOnAllSquares, showPieces } = ctrl;
   return h('div.settings', [
     ctrl.mode() === 'findSquare'
       ? toggle(
@@ -245,7 +245,11 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
       trans,
       redraw,
     ),
-    // this is where we start
+    toggle(
+      { name: 'showCoordsOnAllSquares', id: 'showCoordsOnAllSquares', checked: showCoordsOnAllSquares(), change: showCoordsOnAllSquares },
+      trans,
+      redraw,
+    ),
     toggle(
       { name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces },
       trans,
