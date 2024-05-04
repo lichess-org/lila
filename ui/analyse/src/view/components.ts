@@ -259,11 +259,10 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
             },
             ctrl.trans.noarg('importPgn'),
           ),
-
         h(
           'div.bottom-item.bottom-error',
           { attrs: dataIcon(licon.CautionTriangle), class: { 'is-error': !!ctrl.pgnError } },
-          renderPgnError(ctrl.trans, ctrl.pgnError),
+          renderPgnError(ctrl.pgnError),
         ),
       ]),
     ]),

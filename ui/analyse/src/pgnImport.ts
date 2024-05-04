@@ -15,7 +15,7 @@ const readNode = (
   withChildren = true,
 ): Tree.Node => {
   const move = parseSan(pos, node.data.san);
-  if (!move) throw `Can't replay move ${node.data.san} at ply ${ply}`;
+  if (!move) throw new Error(`Can't play ${node.data.san} at move ${Math.ceil(ply / 2)}, ply ${ply}`);
   return {
     id: scalachessCharPair(move),
     ply,
@@ -86,12 +86,13 @@ const rulesToVariantKey: { [key: string]: VariantKey } = {
   racingkings: 'racingKings',
 };
 
-export const renderPgnError = (trans: Trans, errorName: string = '') =>
-  'PGN error: ' +
+export const renderPgnError = (error: string = '') =>
+  `PGN error: ${
     {
-      [IllegalSetup.Empty]: trans('empty board'),
-      [IllegalSetup.OppositeCheck]: trans('king in check'),
-      [IllegalSetup.PawnsOnBackrank]: trans('pawns on back rank'),
-      [IllegalSetup.Kings]: trans('king(s) missing'),
-      [IllegalSetup.Variant]: trans('invalid variant'),
-    }[errorName] ?? trans('invalid notation');
+      [IllegalSetup.Empty]: 'empty board',
+      [IllegalSetup.OppositeCheck]: 'king in check',
+      [IllegalSetup.PawnsOnBackrank]: 'pawns on back rank',
+      [IllegalSetup.Kings]: 'king(s) missing',
+      [IllegalSetup.Variant]: 'invalid Variant header',
+    }[error] ?? error
+  }`;
