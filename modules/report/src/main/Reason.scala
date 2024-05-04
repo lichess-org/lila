@@ -9,6 +9,8 @@ sealed trait Reason:
 
   def name = toString
 
+  def isComm = this == Reason.Comm || this == Reason.Sexism
+
 object Reason:
 
   case object Cheat extends Reason
@@ -36,10 +38,10 @@ object Reason:
   trait WithReason:
     def reason: Reason
 
+    def isComm                            = reason.isComm
     def isCheat                           = reason == Cheat
     def isOther                           = reason == Other
     def isPrint                           = reason == AltPrint || reason == CheatPrint
-    def isComm                            = reason == Comm
     def isBoost                           = reason == Boost
     def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
 

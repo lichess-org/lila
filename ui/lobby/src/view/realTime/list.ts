@@ -15,6 +15,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
       key: hook.id,
       class: { disabled: !!hook.disabled },
       attrs: {
+        role: 'button',
         title: hook.disabled
           ? ''
           : hook.action === 'join'

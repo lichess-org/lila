@@ -38,6 +38,14 @@
   color: $c-font-page;
 }
 
+%page-link-font {
+  color: $c-font-clearer;
+}
+
+%page-text-shadow {
+  text-shadow: 0 1px 0 $c-font-shadow;
+}
+
 %page-text {
   @extend %page-font, %page-text-shadow !optional;
 }
@@ -48,24 +56,18 @@
   @extend %page-text-shadow !optional;
 }
 
+%metal-bg {
+  background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
+}
+
 %metal {
-  @include metal;
+  background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
+  text-shadow: 0 1px 0 $c-font-shadow;
 }
 
 %metal-hover {
-  @include metal-hover;
-}
-
-%page-metal {
-  @include page-metal;
-}
-
-%page-metal-hover {
-  @include page-metal;
-}
-
-%metal-bg {
-  @include metal-bg;
+  background-image: linear-gradient(to bottom, $c-metal-top-hover, $c-metal-bottom-hover);
+  text-shadow: 0 1px 0 $c-font-shadow;
 }
 
 %active-inset-shadow {
