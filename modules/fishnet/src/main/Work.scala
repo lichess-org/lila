@@ -48,7 +48,6 @@ object Work:
       variant: Variant,
       moves: String
   ):
-
     def uciList: List[Uci] = ~(Uci.readList(moves))
 
   case class Sender(
@@ -72,7 +71,7 @@ object Work:
     case officialBroadcast extends Origin(5_000_000, false)
     case manualRequest     extends Origin(1_000_000, false) // games & studies
     case autoHunter        extends Origin(300_000, true)
-    case autoTutor         extends Origin(200_000, true)
+    case autoTutor         extends Origin(150_000, true)
   object Origin:
     val slowOk = values.filter(_.slowOk)
 

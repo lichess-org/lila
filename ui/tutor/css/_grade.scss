@@ -1,8 +1,11 @@
 .tutor {
   &-grade {
     margin-bottom: 2em;
+    padding-bottom: 2em;
+    border-bottom: $border;
     &:last-child {
       margin-bottom: 0;
+      border-bottom: none;
     }
     &__name {
       font-weight: normal;
