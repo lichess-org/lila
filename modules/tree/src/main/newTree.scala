@@ -300,10 +300,8 @@ object NewRoot:
   import Eval.jsonWrites
   import Node.given
 
-  given defaultNodeJsonWriter: Writes[NewRoot]         = makeRootJsonWriter(alwaysChildren = true)
-  def minimalNodeJsonWriter: Writes[NewRoot]           = makeRootJsonWriter(alwaysChildren = false)
-  given defaultTreeJsonWriter: Writes[Tree[NewBranch]] = makeTreeWriter(alwaysChildren = true)(branchWriter)
-  val minimalTreeJsonWriter: Writes[Tree[NewBranch]]   = makeTreeWriter(alwaysChildren = false)(branchWriter)
+  def minimalNodeJsonWriter: Writes[NewRoot]         = makeRootJsonWriter(alwaysChildren = false)
+  val minimalTreeJsonWriter: Writes[Tree[NewBranch]] = makeTreeWriter(alwaysChildren = false)(branchWriter)
 
   given metasWriter: OWrites[Metas] = OWrites: metas =>
     import metas.*
