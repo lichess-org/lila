@@ -260,7 +260,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           ),
       ]),
     ]),
-    ctrl.pgnError && h('div.error', { attrs: dataIcon(licon.CautionTriangle) }, ctrl.pgnError),
+    ctrl.pgnError && h('div.pgn-error', { attrs: dataIcon(licon.CautionTriangle) }, ctrl.pgnError),
   ]);
 }
 

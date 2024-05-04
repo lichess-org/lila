@@ -1,6 +1,8 @@
 /* free analysis on /analysis */
 @import 'analyse.base';
 
+$label-width: 5ch;
+
 .copyables {
   .pair {
     @extend %flex-center;
@@ -34,7 +36,7 @@
   }
 
   .name {
-    flex: 0 0 5ch;
+    flex: 0 0 $label-width;
     font-weight: bold;
     color: $c-font-dim;
   }
@@ -58,16 +60,13 @@
     }
   }
 
-  .error {
-    width: fit-content;
-    background: $c-bg-box;
-    margin: 1em 0 1em 5ch;
-    padding: 0.75em 1em;
+  .pgn-error {
+    margin: 0 0 0 calc($label-width + 1ch);
     border-radius: 5px;
+    font-size: 90%;
     color: $c-bad;
 
     &::before {
-      font-size: 1.5em;
       margin-right: 0.4em;
     }
   }
