@@ -248,7 +248,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
         }),
         !isMobile() &&
           h(
-            'button.button.button-thin.action.text',
+            'button.button.button-thin.bottom-item.bottom-action.text',
             {
               attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', _ => {
@@ -258,9 +258,14 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
             },
             ctrl.trans.noarg('importPgn'),
           ),
+
+        h(
+          'div.bottom-item.bottom-error',
+          { attrs: dataIcon(licon.CautionTriangle), class: { 'is-error': !!ctrl.pgnError } },
+          ctrl.pgnError,
+        ),
       ]),
     ]),
-    ctrl.pgnError && h('div.pgn-error', { attrs: dataIcon(licon.CautionTriangle) }, ctrl.pgnError),
   ]);
 }
 
