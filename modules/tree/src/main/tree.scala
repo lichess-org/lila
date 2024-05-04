@@ -518,7 +518,7 @@ object Node:
           .add("clock", clock)
           .add("crazy", crazyData)
           .add("comp", comp)
-          .add("children", nodeListJsonWriter.writes(children.nodes).some)
+          .add("children", Option.when(children.nonEmpty)(nodeListJsonWriter.writes(children.nodes)))
           .add("forceVariation", forceVariation)
       catch
         case e: StackOverflowError =>
