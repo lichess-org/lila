@@ -52,9 +52,6 @@ final class Analyser(
         ).flatMap { result =>
           result.ok
             .so {
-              val origin =
-                if sender == systemSender then Origin.autoHunter
-                else Origin.manualRequest
               makeWork(game, sender, origin).flatMap { work =>
                 workQueue:
                   repo.getSimilarAnalysis(work).flatMap {
