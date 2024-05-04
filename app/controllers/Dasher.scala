@@ -21,9 +21,7 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
     trans.site.transparent,
     trans.site.deviceTheme,
     trans.site.backgroundImageUrl,
-    trans.site.boardGeometry,
-    trans.site.boardTheme,
-    trans.site.boardSize,
+    trans.site.board,
     trans.site.pieceSet,
     trans.preferences.zenMode
   )
