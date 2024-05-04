@@ -245,6 +245,7 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
       trans,
       redraw,
     ),
+    // this is where we start
     toggle(
       { name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces },
       trans,
