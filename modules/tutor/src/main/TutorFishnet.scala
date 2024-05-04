@@ -22,11 +22,9 @@ final private class TutorFishnet(
   def ensureSomeAnalysis(stats: Map[PerfType, InsightPerfStats.WithGameIds]): Funit =
     val totalNbGames = stats.values.map(_.stats.totalNbGames).sum
     stats.values.toList
-      .map { s =>
+      .traverse: s =>
         val ids = s.gameIds.take(s.stats.totalNbGames * maxGamesToConsider.value / totalNbGames)
         gameRepo.unanalysedGames(ids, Max(s.stats.totalNbGames * maxToAnalyse.value / totalNbGames))
-      }
-      .parallel
       .map(_.flatten)
       .flatMap: games =>
         games.foreach(g => analyser.tutor(g.id))

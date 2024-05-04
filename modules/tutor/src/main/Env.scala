@@ -36,11 +36,11 @@ final class Env(
     text = "Number of tutor reports to build in parallel".some
   ).taggedWith[Parallelism]
 
-  private lazy val fishnet = wire[TutorFishnet]
-  private lazy val builder = wire[TutorBuilder]
-  lazy val queue           = wire[TutorQueue]
+  private val fishnet = wire[TutorFishnet]
+  private val builder = wire[TutorBuilder]
+  val queue           = wire[TutorQueue]
 
-  lazy val api = wire[TutorApi]
+  val api = wire[TutorApi]
 
 final private class TutorColls(val report: Coll, val queue: Coll)
 trait NbAnalysis
