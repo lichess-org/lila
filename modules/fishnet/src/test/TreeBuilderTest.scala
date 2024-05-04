@@ -19,23 +19,20 @@ import lila.core.id.GamePlayerId
 import chess.format.FullFen
 import chess.variant.Variant
 
-import lila.tree.{ ExportOptions, TreeBuilder, NewTreeBuilder, NewRoot, Tree, NewBranch }
+import lila.tree.{ ExportOptions, TreeBuilder, NewTreeBuilder, NewRoot, Tree, Root, NewBranch }
 import lila.tree.Node.{ Comment, Comments }
-import lila.tree.Node
+import lila.tree.{ Branch, Branches, Node, NewTree }
+import play.api.libs.json.JsValue
 
 final class TreeBuilderTest extends munit.FunSuite:
 
   test("tree builder test"):
-    TestFixtures.treeBuilderTestCases.foreach: tc =>
-      val (output, expected) = tc.test
+    TestFixtures.treeBuilderTestCases.map(_.test).foreach: (output, expected) =>
       assertEquals(output, expected)
 
   test("tree builder json"):
-    TestFixtures.treeBuilderTestCases.foreach: tc =>
-      val (output, expected) = tc.testJson
-      // output.pp
-      // expected.pp
-      assertEquals(output.toString, expected.toString)
+    TestFixtures.treeBuilderTestCases.flatMap(_.testJson).foreach: (output, expected) =>
+      assertEquals(output, expected)
 
 object TreeBuilderTest:
 
@@ -68,20 +65,72 @@ object TreeBuilderTest:
     val analysis      = AnnotatorTest.parse(builder, fishnetInput, fen.some, variant, moves, ply)
 
     def test =
-      val x = NewRoot(TreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError)).cleanup
+      val x = NewRoot(
+        TreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError)
+      ).cleanup
       val y = NewTreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError).cleanup
       y -> x
 
-    def testJson =
-      val x = Node.minimalNodeJsonWriter.writes:
-        TreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError)
-      val y = NewRoot.minimalNodeJsonWriter.writes:
-        NewTreeBuilder(makeGame(game), analysis.some, fen, ExportOptions.default, logError)
-      y -> x
+    val exportOptions: List[ExportOptions] =
+      for
+        opening         <- List(true, false)
+        movetimes       <- List(true, false)
+        division        <- List(true, false)
+        clocks          <- List(true, false)
+        blurs           <- List(true, false)
+        rating          <- List(true, false)
+        puzzles         <- List(true, false)
+        nvui            <- List(true, false)
+        lichobileCompat <- List(true, false)
+        blurs           <- List(true, false)
+      yield ExportOptions(
+        opening,
+        movetimes,
+        division,
+        clocks,
+        blurs,
+        rating,
+        puzzles,
+        nvui,
+        lichobileCompat
+      )
 
-    extension (root: NewRoot)
+    def testJson: List[(JsValue, JsValue)] =
+      for
+        exportOption <- exportOptions
+        analysis     <- List(analysis.some, none)
+      yield
+        val x = Node.minimalNodeJsonWriter.writes:
+          TreeBuilder(makeGame(game), analysis, fen, exportOption, logError).cleanCommentIds
+        val y = NewRoot.minimalNodeJsonWriter.writes:
+          NewTreeBuilder(makeGame(game), analysis, fen, exportOption, logError).cleanup
+        y -> x
+
+    extension (root: Root)
+      def cleanCommentIds: Root =
+        NewRoot(root).cleanup.toRoot
+
+    extension (newRoot: NewRoot)
+      def toRoot =
+        Root(
+          newRoot.ply,
+          newRoot.fen,
+          newRoot.check,
+          newRoot.dests,
+          newRoot.drops,
+          newRoot.eval,
+          newRoot.shapes,
+          newRoot.comments,
+          newRoot.gamebook,
+          newRoot.glyphs,
+          newRoot.tree.fold(Branches.empty)(_.toBranches),
+          newRoot.opening,
+          newRoot.clock,
+          newRoot.crazyData
+        )
+
       def cleanup: NewRoot =
-        root
+        newRoot
           .focus(_.tree.some)
           .modify(_.map(_.cleanup))
           .focus(_.metas.comments)
@@ -99,3 +148,33 @@ object TreeBuilderTest:
       def cleanup: Comments =
         Comments(comments.value.map(_.copy(id = Comment.Id("i"))))
 
+    extension (newBranch: NewBranch)
+      def toBranch(children: Option[NewTree]): Branch = Branch(
+        newBranch.id,
+        newBranch.ply,
+        newBranch.move,
+        newBranch.fen,
+        newBranch.check,
+        newBranch.dests,
+        newBranch.drops,
+        newBranch.eval,
+        newBranch.shapes,
+        newBranch.comments,
+        newBranch.gamebook,
+        newBranch.glyphs,
+        children.fold(Branches.empty)(_.toBranches),
+        newBranch.opening,
+        newBranch.comp,
+        newBranch.clock,
+        newBranch.crazyData,
+        newBranch.forceVariation
+      )
+
+    extension (newTree: NewTree)
+      // We lost variations here
+      // newTree.toBranch == newTree.withoutVariations.toBranch
+      def toBranch: Branch = newTree.value.toBranch(newTree.child)
+
+      def toBranches: Branches =
+        val variations = newTree.variations.map(_.toNode.toBranch)
+        Branches(newTree.value.toBranch(newTree.child) :: variations)
