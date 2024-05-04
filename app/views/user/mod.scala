@@ -151,6 +151,7 @@ object mod:
               else td,
               Granter.opt(_.Admin).option(td(emailValueOf(othersWithEmail)(o))),
               td(
+                cls := "ips-prints",
                 // show prints and ips separately
                 dataSort := other.score + (other.ips.nonEmpty.so(1000000)) + (other.fps.nonEmpty.so(3000000))
               )(
