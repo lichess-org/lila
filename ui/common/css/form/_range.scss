@@ -1,7 +1,7 @@
 @mixin range-thumb {
   background-image: linear-gradient(to bottom, $c-metal-top, $c-metal-bottom);
   // https://css-tricks.com/sliding-nightmare-understanding-range-input/
-  
+
   border: 1px solid $c-font-dimmer;
   height: 1em;
   width: 1.5em;
