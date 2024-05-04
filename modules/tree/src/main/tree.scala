@@ -529,16 +529,6 @@ object Node:
     Writes: list =>
       JsArray(list.map(defaultNodeJsonWriter.writes))
 
-  def destString(dests: Map[Square, Bitboard]): String =
-    val sb    = java.lang.StringBuilder(80)
-    var first = true
-    dests.foreach: (orig, dests) =>
-      if first then first = false
-      else sb.append(" ")
-      sb.append(orig.asChar)
-      dests.foreach(d => sb.append(d.asChar))
-    sb.toString
-
   val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
     JsArray:
       node.mainlineNodeList.map(defaultNodeJsonWriter.writes)
