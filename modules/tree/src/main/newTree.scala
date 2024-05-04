@@ -321,7 +321,7 @@ object NewRoot:
       .add("clock", clock)
       .add("crazy", crazyData)
 
-  given branchWriter: OWrites[NewBranch] = OWrites: branch =>
+  given OWrites[NewBranch] = OWrites: branch =>
     metasWriter
       .writes(branch.metas)
       .add("id", branch.id.toString.some)
@@ -374,7 +374,23 @@ object NewRoot:
               .writes(root.tree.fold(Nil)(x => x.withoutVariations :: x.variations))
         )
 
+  val mainlineWriterForRoot: Writes[NewRoot] =
+    Writes: root =>
+      metasWriter
+        .writes(root.metas)
+        .add("id", none[String])
+        .add("uci", none[String])
+        .add("san", none[String])
+        .add("comp", none[Int])
+        .add("forceVariation", none[Boolean])
+        .add(
+          "children",
+          Option.when(root.tree.exists(_.childAndVariations.nonEmpty)):
+            nodeListJsonWriter(true).writes(root.tree.fold(Nil)(_.childAndVariations))
+        )
+
   val partitionTreeJsonWriter: Writes[NewRoot] = Writes: root =>
     val rootWithoutChild = root.updateTree(_.withoutChild.some)
+    val mainLineWriter   = makeMainlineWriter[NewBranch]
     JsArray:
-      makeRootJsonWriter(false).writes(rootWithoutChild) +: root.mainline.map(makeMainlineWriter.writes)
+      mainlineWriterForRoot.writes(rootWithoutChild) +: root.mainline.map(mainLineWriter.writes)
