@@ -6,25 +6,24 @@
 
 .tour-spotlight {
   @extend %flex-center-nowrap, %page-text-shadow, %nowrap-hidden, %metal-bg;
+  @include transition;
 
   flex: 0 0 auto;
   padding: 0.3em;
   opacity: 0.8;
-
-  @include transition;
-
   color: $c-font;
+
+  @include if-light {
+    background-image: linear-gradient(to bottom, $m-primary_bg--mix-20, rgb(197, 216, 234));
+  }
 
   &.invert,
   &.event-spotlight,
   &:hover {
     @extend %metal-hover;
     text-shadow: none;
-  }
 
-  @include if-light {
-    background-image: linear-gradient(to bottom, $m-primary_bg--mix-20, rgb(197, 216, 234));
-    &:hover {
+    @include if-light {
       background-image: linear-gradient(to bottom, $m-primary_bg--mix-25, $m-primary_bg-page--mix-20);
     }
   }
