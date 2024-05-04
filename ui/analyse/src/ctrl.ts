@@ -37,7 +37,7 @@ import { nextGlyphSymbol } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
 import { Outcome, isNormal } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
-import { IllegalSetup, Position, PositionError } from 'chessops/chess';
+import { Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
@@ -485,33 +485,10 @@ export default class AnalyseCtrl {
       }
       return data;
     } catch (err) {
-      this.handlePgnError(err as PgnError);
+      this.pgnError = (err as PgnError).message;
+      this.redraw();
     }
     return undefined;
-  }
-
-  handlePgnError(error: PgnError) {
-    this.pgnError = 'PGN error: ';
-    switch (error.message) {
-      case IllegalSetup.Empty:
-        this.pgnError += 'empty board';
-        break;
-      case IllegalSetup.OppositeCheck:
-        this.pgnError += 'king in check';
-        break;
-      case IllegalSetup.PawnsOnBackrank:
-        this.pgnError += 'pawns on back rank';
-        break;
-      case IllegalSetup.Kings:
-        this.pgnError += 'king(s) missing';
-        break;
-      case IllegalSetup.Variant:
-        this.pgnError += 'invalid variant';
-        break;
-      default:
-        this.pgnError += 'unknown error';
-    }
-    this.redraw();
   }
 
   changeFen(fen: cg.FEN): void {

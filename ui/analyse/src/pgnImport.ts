@@ -3,7 +3,7 @@ import { makeFen } from 'chessops/fen';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { makeUci, Rules } from 'chessops';
 import { makeVariant, parsePgn, parseVariant, startingPosition, ChildNode, PgnNodeData } from 'chessops/pgn';
-import { Position } from 'chessops/chess';
+import { IllegalSetup, Position } from 'chessops/chess';
 import { Player } from 'game';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeSquare } from 'chessops/util';
@@ -85,3 +85,13 @@ const rulesToVariantKey: { [key: string]: VariantKey } = {
   '3check': 'threeCheck',
   racingkings: 'racingKings',
 };
+
+export const renderPgnError = (trans: Trans, errorName: string = '') =>
+  'PGN error: ' +
+    {
+      [IllegalSetup.Empty]: trans('empty board'),
+      [IllegalSetup.OppositeCheck]: trans('king in check'),
+      [IllegalSetup.PawnsOnBackrank]: trans('pawns on back rank'),
+      [IllegalSetup.Kings]: trans('king(s) missing'),
+      [IllegalSetup.Variant]: trans('invalid variant'),
+    }[errorName] ?? trans('invalid notation');

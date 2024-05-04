@@ -39,6 +39,7 @@ import serverSideUnderboard from '../serverSideUnderboard';
 import StudyCtrl from '../study/studyCtrl';
 import RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
+import { renderPgnError } from '../pgnImport';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -262,7 +263,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
         h(
           'div.bottom-item.bottom-error',
           { attrs: dataIcon(licon.CautionTriangle), class: { 'is-error': !!ctrl.pgnError } },
-          ctrl.pgnError,
+          renderPgnError(ctrl.trans, ctrl.pgnError),
         ),
       ]),
     ]),
