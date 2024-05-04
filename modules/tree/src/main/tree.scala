@@ -537,19 +537,6 @@ object Node:
           e.printStackTrace()
           sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)")
 
-  def destString(dests: Map[Square, Bitboard]): String =
-    val sb    = java.lang.StringBuilder(80)
-    var first = true
-    dests.foreach: (orig, dests) =>
-      if first then first = false
-      else sb.append(" ")
-      sb.append(orig.asChar)
-      dests.foreach(d => sb.append(d.asChar))
-    sb.toString
-
-  given Writes[Map[Square, Bitboard]] = Writes: dests =>
-    JsString(destString(dests))
-
   val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
     JsArray:
       node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
