@@ -36,6 +36,7 @@ object String:
 
   val atUsernameRegex    = RawHtml.atUsernameRegex
   val forumPostPathRegex = """(?:(?<= )|^)\b([\w-]+/[\w-]+)\b(?:(?= )|$)""".r
+  val safeClassNameRegex = """[ .#:\[\]\{\},>+~*;!'"\\]""".r // probably only need . here but be safe
 
   object html:
 
@@ -80,6 +81,9 @@ object String:
             .map: (k, v) =>
               s"${safeJsonString(k)}:${safeJsonValue(v)}"
             .mkString("{", ",", "}")
+
+    def safeClassName(str: String): String =
+      safeClassNameRegex.replaceAllIn(str, "-") // ui/site/src/asset.ts
 
   object charset:
     import akka.util.ByteString
