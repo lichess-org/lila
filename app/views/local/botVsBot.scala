@@ -1,28 +1,25 @@
-package views.html.local
+package views.local
 
-import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.app.templating.Environment.{ given, * }
-import lila.ui.ScalatagsTemplate.*
+import lila.app.UiEnv.{ *, given }
 import lila.common.Json.given
 import lila.common.String.html.safeJsonValue
 
 object botVsBot:
-  def index(using ctx: PageContext) =
-    views.html.base.layout(
-      title = "Play vs Bots",
-      modules = jsModuleInit("local.botVsBot"),
-      moreCss = cssTag("bot-vs-bot"),
-      csp = analysisCsp.some,
-      openGraph = lila.web
-        .OpenGraph(
+  def index(using ctx: Context) =
+    Page("")
+      .copy(fullTitle = s"$siteName • Play vs Bots".some)
+      .js(jsModuleInit("local.botVsBot"))
+      .cssTag("bot-vs-bot")
+      .csp(_.withWebAssembly)
+      .graph(
+        OpenGraph(
           title = "Bots vs Bots",
           description = "Bots vs Bots",
-          url = s"$netBaseUrl${controllers.routes.Local.botVsBot}"
+          url = netBaseUrl.value
         )
-        .some,
-      zoomable = true
-    ) {
-      main
-    }
+      )
+      .hrefLangs(lila.ui.LangPath("/")) {
+        main
+      }

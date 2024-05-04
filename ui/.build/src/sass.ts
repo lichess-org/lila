@@ -165,7 +165,7 @@ async function buildColorWrap() {
   const wrapFile = path.join(env.themeDir, 'gen', '_wrap.scss');
   await fs.promises.mkdir(path.dirname(wrapFile), { recursive: true });
   if (fs.existsSync(wrapFile)) {
-    if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return; // dont touch wrap if no changes
+    if ((await fs.promises.readFile(wrapFile, 'utf8')) === scssWrap) return; // don't touch wrap if no changes
   }
   await fs.promises.writeFile(wrapFile, scssWrap);
 }

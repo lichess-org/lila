@@ -177,7 +177,7 @@ final class LilaComponents(
   val router: Router                                    = wire[_root_.router.router.Routes]
 
   lila.common.Uptime.startedAt
-  templating.Environment.setEnv(env)
+  UiEnv.setEnv(env)
 
   if configuration.get[Boolean]("kamon.enabled") then
     lila.log("boot").info("Kamon is enabled")

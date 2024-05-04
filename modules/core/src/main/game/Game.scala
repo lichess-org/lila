@@ -44,9 +44,7 @@ case class Game(
     metadata: GameMetadata
 ):
 
-  export chess.{ situation, ply, clock, sans, startedAtPly, player as turnColor }
-  export chess.situation.board
-  export chess.situation.board.{ history, variant }
+  export chess.{ situation, ply, clock, sans, startedAtPly, player as turnColor, history, board, variant }
   export metadata.{ tournamentId, simulId, swissId, drawOffers, source, pgnImport, hasRule }
   export players.{ white as whitePlayer, black as blackPlayer, apply as player }
 
@@ -55,7 +53,8 @@ case class Game(
   def player[U: UserIdOf](user: U): Option[Player]     = players.find(_.isUser(user))
   def opponentOf[U: UserIdOf](user: U): Option[Player] = player(user).map(opponent)
 
-  def player: Player = players(turnColor)
+  def player: Player                                     = players(turnColor)
+  def playerById(playerId: GamePlayerId): Option[Player] = players.find(_.id == playerId)
 
   def hasUserIds(userId1: UserId, userId2: UserId) =
     hasUserId(userId1) && hasUserId(userId2)

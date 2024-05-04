@@ -117,11 +117,11 @@ object JsonApi:
       skipPositions: List[Int]
   ) extends Work
 
-  def analysisFromWork(nodes: Int)(m: Work.Analysis): Analysis =
+  def analysisFromWork(m: Work.Analysis): Analysis =
     Analysis(
       id = m.id.value,
       game = fromGame(m.game),
-      nodes = nodes,
+      nodes = m.nodesPerMove,
       skipPositions = m.skipPositions
     )
 

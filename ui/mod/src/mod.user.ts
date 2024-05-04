@@ -1,5 +1,6 @@
 import * as xhr from 'common/xhr';
 import debounce from 'common/debounce';
+import * as licon from 'common/licon';
 import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
@@ -139,6 +140,13 @@ site.load.then(() => {
               }
             }
           });
+        if ($('#inquiry .notes').length) {
+          $(table)
+            .find('td.ips-prints')
+            .addClass('add-to-note text')
+            .attr('title', 'Add to note')
+            .attr('data-icon', licon.Clipboard);
+        }
       }
     });
     makeReady('.mz-section--identification .spy_filter', el => {

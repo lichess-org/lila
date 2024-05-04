@@ -39,6 +39,5 @@ final class ClasStudentCache(colls: ClasColls)(using scheduler: Scheduler)(using
             bloomFilter = nextBloom
           .monSuccess(_.clas.student.bloomFilter.fu)
 
-  scheduler.scheduleWithFixedDelay(1.hour, 1.hour): () =>
-    if nowDateTime.getHour == 5
-    then rebuildBloomFilter()
+  scheduler.scheduleWithFixedDelay(71.seconds, 24.hours): () =>
+    rebuildBloomFilter()

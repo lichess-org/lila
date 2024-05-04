@@ -1,12 +1,9 @@
 package lila.puzzle
 
 import chess.Color
-
 import scala.util.chaining.*
 
 import lila.memo.CacheApi
-
-import lila.rating.GlickoExt.clueless
 
 private case class PuzzleSession(
     settings: PuzzleSettings,

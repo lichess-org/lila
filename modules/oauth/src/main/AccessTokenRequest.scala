@@ -2,11 +2,27 @@ package lila.oauth
 
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
+import play.api.data.Form
+import play.api.data.Forms.{ mapping, optional, text, single }
 
 import lila.common.String.base64
+import lila.common.Form.into
 
 object AccessTokenRequest:
   import Protocol.*
+
+  val form = Form(
+    mapping(
+      "grant_type"    -> optional(text),
+      "code"          -> optional(text),
+      "code_verifier" -> optional(text),
+      "client_id"     -> optional(text.into[ClientId]),
+      "redirect_uri"  -> optional(text),
+      "client_secret" -> optional(text)
+    )(AccessTokenRequest.Raw.apply)(unapply)
+  )
+
+  val revokeClientForm = Form(single("origin" -> text))
 
   case class Raw(
       grantType: Option[String],

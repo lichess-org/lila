@@ -12,6 +12,7 @@ import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.core.perm.Permission
 import lila.core.perf.UserWithPerfs
+import lila.ui.{ Page, Snippet }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
@@ -35,6 +36,14 @@ abstract private[controllers] class LilaController(val env: Env)
   given FormBinding                                  = parse.formBinding(parse.DefaultMaxTextLength)
   given lila.core.i18n.Translator                    = env.translator
   given reqBody(using r: BodyContext[?]): Request[?] = r.body
+
+  given (using codec: Codec, pc: PageContext): Writeable[Page] =
+    Writeable(page => codec.encode(views.base.page(page).html))
+
+  // given (using PageContext): Conversion[Page, Frag]     = views.base.page(_)
+  // given (using PageContext): Conversion[Page, Fu[Frag]] = page => fuccess(views.base.page(page))
+  given Conversion[Page, Fu[Page]]       = fuccess(_)
+  given Conversion[Snippet, Fu[Snippet]] = fuccess(_)
 
   given netDomain: lila.core.config.NetDomain = env.net.domain
 
@@ -345,12 +354,3 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 
   def anyCaptcha = env.game.captcha.any
-
-  /* We roll our own action, as we don't want to compose play Actions. */
-  private def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
-    import play.api.libs.streams.Accumulator
-    import akka.util.ByteString
-    def apply(rh: RequestHeader): Accumulator[ByteString, Result] =
-      parser(rh).mapFuture:
-        case Left(r)  => fuccess(r)
-        case Right(a) => handler(using Request(rh, a))

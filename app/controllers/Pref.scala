@@ -1,8 +1,6 @@
 package controllers
 
-import play.api.data.Form
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -35,12 +33,12 @@ final class Pref(env: Env) extends LilaController(env):
         Auth { ctx ?=> me ?=>
           lila.pref.PrefCateg(categSlug) match
             case None if categSlug == "notification" =>
-              Ok.pageAsync:
+              Ok.async:
                 env.notifyM.api.prefs.form(me).map {
-                  html.account.notification(_)
+                  views.account.pref.notification(_)
                 }
             case None        => notFound
-            case Some(categ) => Ok.page(html.account.pref(me, forms.prefOf(ctx.pref), categ))
+            case Some(categ) => Ok.page(views.account.pref(me, forms.prefOf(ctx.pref), categ))
         }
 
   def formApply = AuthBody { ctx ?=> _ ?=>

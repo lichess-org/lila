@@ -7,7 +7,7 @@ import scalalib.paginator.*
 import lila.db.dsl.{ *, given }
 import lila.core.shutup.{ ShutupApi, PublicSource }
 import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
-import lila.core.forum.CreatePost
+import lila.core.forum.BusForum.CreatePost
 import lila.memo.CacheApi
 import lila.mon.forum.topic
 import lila.core.perm.Granter as MasterGranter
@@ -123,7 +123,7 @@ final private class ForumTopicApi(
               )
             lila.mon.forum.post.create.increment()
             mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.chan.forumPost(CreatePost(post.mini))
+            Bus.pub(CreatePost(post.mini))
             topic
       }
     }
@@ -159,7 +159,7 @@ final private class ForumTopicApi(
     _ <- postRepo.coll.insert.one(post)
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
     _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
-  yield Bus.chan.forumPost(CreatePost(post.mini))
+  yield Bus.pub(CreatePost(post.mini))
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
     topicRepo.stickyByCateg(categ).flatMap { topics =>

@@ -6,10 +6,8 @@ import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.Translate
 import scalalib.StringOps.slug.{ apply as slugify }
 
-final class StringHelper(i18n: I18nHelper, number: NumberHelper):
-
-  import i18n.*
-  import number.*
+trait StringHelper:
+  self: I18nHelper & NumberHelper =>
 
   def pluralize(s: String, n: Int) = s"$n $s${if n != 1 then "s" else ""}"
 

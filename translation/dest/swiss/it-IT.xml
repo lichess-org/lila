@@ -39,6 +39,7 @@
   <string name="roundInterval">Intervallo tra i turni</string>
   <string name="forbiddenPairings">Abbinamenti non consentiti</string>
   <string name="forbiddenPairingsHelp">I nomi utente dei giocatori che non devono giocare insieme (fratelli, ad esempio). Due nomi utente per riga, separati da uno spazio.</string>
+  <string name="manualPairings">Abbinamenti manuali nel turno successivo</string>
   <string name="newSwiss">Nuovo torneo svizzero</string>
   <string name="swissVsArenaQ">Quando usare i tornei svizzeri invece delle arene?</string>
   <string name="swissVsArenaA">In un torneo svizzero, tutti i partecipanti giocano lo stesso numero di partite e possono giocare l\'uno contro l\'altro solo una volta.

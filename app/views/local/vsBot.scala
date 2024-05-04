@@ -1,67 +1,63 @@
-package views.html.local
+package views.local
 
-import controllers.routes
 import play.api.libs.json.{ JsObject, Json }
 import play.api.i18n.Lang
 
-import lila.app.templating.Environment.{ given, * }
+import lila.app.UiEnv.{ *, given }
 import lila.core.i18n.{ I18nKey as trans }
-import lila.ui.ScalatagsTemplate.*
 import lila.common.Json.given
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
-import views.html.round.bits
 
 object vsBot:
-  def index(using ctx: PageContext) =
-    views.html.base.layout(
-      title = "Play vs Bots",
-      modules = jsModuleInit(
-        "local.vsBot",
-        Json.obj(
-          "mode" -> "vsBot",
-          "pref" -> lila.pref.JsonView.write(ctx.pref, false),
-          "i18n" -> i18n
+  def index(using ctx: Context) =
+    Page("")
+      .copy(fullTitle = s"$siteName • Play vs Bots".some)
+      .js(
+        PageModule(
+          "local.vsBot",
+          Json.obj(
+            "mode" -> "vsBot",
+            "pref" -> lila.pref.JsonView.write(ctx.pref, false),
+            "i18n" -> i18n
+          )
         )
-      ) ++ jsModule("round"),
-      moreCss = frag(
-        cssTag("vs-bot"),
-        cssTag("round"),
-        ctx.pref.hasKeyboardMove.option(cssTag("keyboardMove")),
-        ctx.pref.hasVoice.option(cssTag("voice"))
-        // ctx.blind option cssTag("round.nvui"),
-      ),
-      csp = analysisCsp.some,
-      openGraph = lila.web
-        .OpenGraph(
+      )
+      .js(EsmInit("round"))
+      .cssTag("vs-bot")
+      .cssTag("round")
+      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .cssTag(ctx.pref.hasVoice.option("voice"))
+      .csp(_.withWebAssembly)
+      .graph(
+        OpenGraph(
           title = "Play vs Bots",
           description = "Play vs Bots",
-          url = s"$netBaseUrl${controllers.routes.Local.vsBot}"
+          url = netBaseUrl.value
         )
-        .some,
-      zoomable = true
-    ) {
-      main(cls := "round")(
-        st.aside(cls := "round__side")(
-          st.section(id := "bot-view")(
-            div(id := "bot-content")
-          )
-        ),
-        // bits.roundAppPreload(pov),
-        div(cls := "round__app")(
-          div(cls := "round__app__board main-board")(),
-          div(cls := "col1-rmoves-preload")
-        ),
-        div(cls := "round__underboard")(
-          // bits.crosstable(cross, pov.game),
-          // (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
-          div(
-            cls := "round__now-playing"
-          )
-        ),
-        div(cls := "round__underchat")()
       )
-    }
+      .hrefLangs(lila.ui.LangPath("/")) {
+        main(cls := "round")(
+          st.aside(cls := "round__side")(
+            st.section(id := "bot-view")(
+              div(id := "bot-content")
+            )
+          ),
+          // bits.roundAppPreload(pov),
+          div(cls := "round__app")(
+            div(cls := "round__app__board main-board")(),
+            div(cls := "col1-rmoves-preload")
+          ),
+          div(cls := "round__underboard")(
+            // bits.crosstable(cross, pov.game),
+            // (playing.nonEmpty || simul.exists(_ isHost ctx.me)) option
+            div(
+              cls := "round__now-playing"
+            )
+          ),
+          div(cls := "round__underchat")()
+        )
+      }
   def i18n(using Translate) = i18nJsObject(i18nKeys)
   private val i18nKeys = Vector(
     trans.site.oneDay,

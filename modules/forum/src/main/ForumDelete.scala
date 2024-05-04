@@ -3,7 +3,7 @@ package lila.forum
 import akka.stream.scaladsl.*
 
 import lila.core.perm.Granter as MasterGranter
-import lila.core.forum.{ RemovePost, RemovePosts }
+import lila.core.forum.BusForum
 import lila.common.Bus
 
 final class ForumDelete(
@@ -43,4 +43,4 @@ final class ForumDelete(
     }
 
   private def publishDelete(p: ForumPost)(using Me) =
-    Bus.chan.forumPost(RemovePost(p.id, p.userId, p.text, asAdmin = MasterGranter(_.ModerateForum)))
+    Bus.pub[BusForum](BusForum.RemovePost(p.id, p.userId, p.text, asAdmin = MasterGranter(_.ModerateForum)))

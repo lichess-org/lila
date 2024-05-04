@@ -6,13 +6,13 @@ import scalatags.generic.TypedTag
 import scalatags.text.Builder
 
 import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.Context
-import lila.core.i18n.Translate
-import lila.core.i18n.I18nKey as trans
 
-final class FormHelper(i18n: lila.ui.I18nHelper, flairApi: lila.core.user.FlairApi):
+trait FormHelper:
+  self: I18nHelper =>
 
-  import i18n.{ transKey, given }
+  protected def flairApi: lila.core.user.FlairApi
+
+  lazy val form3 = Form3(this, flairApi)
 
   def errMsg(form: Field)(using Translate): Seq[Tag] = errMsg(form.errors)
 
@@ -62,4 +62,13 @@ final class FormHelper(i18n: lila.ui.I18nHelper, flairApi: lila.core.user.FlairA
       )
     }.toList
 
-  val form3 = Form3(i18n, flairApi)
+  def translatedBooleanIntChoices(using Translate) =
+    List(
+      0 -> trans.site.no.txt(),
+      1 -> trans.site.yes.txt()
+    )
+  def translatedBooleanChoices(using Translate) =
+    List(
+      false -> trans.site.no.txt(),
+      true  -> trans.site.yes.txt()
+    )

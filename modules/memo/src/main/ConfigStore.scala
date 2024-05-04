@@ -14,9 +14,9 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
   private val mongoDocKey = "config"
 
   private val cache = cacheApi.unit[Option[A]] {
-    _.buildAsyncFuture(_ =>
+    _.buildAsyncFuture: _ =>
       rawText.map {
-        _.flatMap { text =>
+        _.flatMap: text =>
           parse(text).fold(
             errs =>
               errs.foreach { logger.warn(_) }
@@ -24,9 +24,7 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
             ,
             res => res.some
           )
-        }
       }
-    )
   }
 
   def parse(text: String): Either[List[String], A] =

@@ -61,10 +61,10 @@ final class Env(
   val tournament: lila.tournament.Env   = wire[lila.tournament.Env]
   val swiss: lila.swiss.Env             = wire[lila.swiss.Env]
   val mod: lila.mod.Env                 = wire[lila.mod.Env]
-  val forum: lila.forum.Env             = wire[lila.forum.Env]
-  val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]
   val team: lila.team.Env               = wire[lila.team.Env]
   val teamSearch: lila.teamSearch.Env   = wire[lila.teamSearch.Env]
+  val forum: lila.forum.Env             = wire[lila.forum.Env]
+  val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]
   val pool: lila.pool.Env               = wire[lila.pool.Env]
   val lobby: lila.lobby.Env             = wire[lila.lobby.Env]
   val setup: lila.setup.Env             = wire[lila.setup.Env]
@@ -121,9 +121,9 @@ final class Env(
 
   lila.common.Bus.subscribeFun("renderer"):
     case lila.tv.RenderFeaturedJs(game, promise) =>
-      promise.success(Html(views.html.game.mini.noCtx(Pov.naturalOrientation(game), tv = true)))
+      promise.success(Html(views.game.mini.noCtx(Pov.naturalOrientation(game), tv = true)))
     case lila.puzzle.DailyPuzzle.Render(puzzle, fen, lastMove, promise) =>
-      promise.success(Html(views.html.puzzle.bits.daily(puzzle, fen, lastMove)))
+      promise.success(Html(views.puzzle.bits.daily(puzzle, fen, lastMove)))
 
 end Env
 

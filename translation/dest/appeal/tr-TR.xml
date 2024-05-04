@@ -1,2 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="cleanAllGood">Hesabınız işaretlenmemiş veya kısıtlanmamıştır. Her şey yolunda!</string>
+  <string name="engineMarked">Hesabınız oyunlarda dışarıdan yardım aldığınız için işaretlenmiştir.</string>
+  <string name="engineMarkedInfo">Bunu, rakibinize karşı haksız bir avantaj elde etmek amacıyla bilginizi ve/veya hesaplama becerilerinizi güçlendirmek için her türlü dış yardımdan yararlanmak olarak tanımlıyoruz. Daha fazla ayrıntı için %s sayfasına bakın.</string>
+  <string name="arenaBanned">Hesabınızla arena turnuvalarına katılmanız yasaklanmıştır.</string>
+  <string name="prizeBanned">Hesabınızla gerçek ödüllü turnuvalara katılmanız yasaklanmıştır.</string>
+  <string name="boosterMarked">Hesabınız puan manipülasyonu yaptığınız için işaretlenmiştir.</string>
+  <string name="boosterMarkedInfo">Bunu, kasıtlı olarak oyun kaybederek veya kasıtlı olarak oyun kaybeden başka bir hesaba karşı oynayarak puanınızı kasıtlı olarak manipüle etmek olarak tanımlıyoruz.</string>
+  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Hesabınız sessize alınmıştır.</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">%s bölümümüzü okuyun. İletişim kurallarına uyulmaması hesapların sessize alınmasına neden olabilir.</string>
+  <string name="excludedFromLeaderboards">Hesabınız lider panolarından çıkarılmıştır.</string>
+  <string name="excludedFromLeaderboardsInfo">Bunu, liderlik panosuna çıkmak için adil olmayan bir yol kullanmak olarak tanımlıyoruz.</string>
+  <string name="closedByModerators">Hesabınız moderatörler tarafından kapatılmıştır.</string>
+  <string name="hiddenBlog">Bloglarınız moderatörler tarafından görünmeze alınmıştır.</string>
+  <string name="hiddenBlogInfo">%s bölümümüzü tekrar okuduğunuzdan emin olun.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">iletişim kuralları</string>
+  <string name="blogRules">blog kuralları</string>
+  <string name="fairPlay">Fair Play</string>
+</resources>

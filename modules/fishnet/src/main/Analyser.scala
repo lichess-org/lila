@@ -4,7 +4,8 @@ import chess.Ply
 import scalalib.actor.AsyncActorSequencer
 
 import lila.analyse.AnalysisRepo
-import lila.core.fishnet.SystemAnalysisRequest
+import lila.fishnet.Work.{ Origin, Sender }
+import lila.core.id
 
 final class Analyser(
     repo: FishnetRepo,
@@ -14,7 +15,8 @@ final class Analyser(
     uciMemo: lila.core.game.UciMemo,
     evalCache: FishnetEvalCache,
     limiter: FishnetLimiter
-)(using Executor, Scheduler):
+)(using Executor, Scheduler)
+    extends lila.core.fishnet.FishnetRequest:
 
   val maxPlies = 300
 
@@ -25,25 +27,32 @@ final class Analyser(
     lila.log.asyncActorMonitor
   )
 
-  val systemRequest: SystemAnalysisRequest = gameId =>
-    gameRepo.game(gameId).orFail(s"No game $gameId").flatMap {
-      apply(_, systemSender, ignoreConcurrentCheck = true).void
-    }
-  private val systemSender = Work.Sender(UserId.lichess, none, mod = false, system = true)
+  private val systemSender = Sender(UserId.lichess, none, mod = false, system = true)
 
-  def apply(game: Game, sender: Work.Sender, ignoreConcurrentCheck: Boolean = false): Fu[Analyser.Result] =
-    (game.metadata.analysed.so(analysisRepo.exists(game.id.value))).flatMap {
+  def tutor(gameId: id.GameId) =
+    gameRepo.game(gameId).orFail(s"No game $gameId").flatMap {
+      apply(_, systemSender, Origin.autoTutor.some).void
+    }
+
+  def apply(
+      game: Game,
+      sender: Sender,
+      originOpt: Option[Origin] = none
+  ): Fu[Analyser.Result] =
+    game.metadata.analysed.so(analysisRepo.exists(game.id.value)).flatMap {
       if _ then fuccess(Analyser.Result.AlreadyAnalysed)
       else if !gameApi.analysable(game) then fuccess(Analyser.Result.NotAnalysable)
       else
+        val origin = originOpt.getOrElse:
+          if sender.system then Origin.autoHunter else Origin.manualRequest
         limiter(
           sender,
-          ignoreConcurrentCheck = ignoreConcurrentCheck,
+          ignoreConcurrentCheck = sender.system || List(Origin.autoTutor, Origin.autoHunter).contains(origin),
           ownGame = game.userIds contains sender.userId
         ).flatMap { result =>
           result.ok
             .so {
-              makeWork(game, sender).flatMap { work =>
+              makeWork(game, sender, origin).flatMap { work =>
                 workQueue:
                   repo.getSimilarAnalysis(work).flatMap {
                     // already in progress, do nothing
@@ -67,9 +76,10 @@ final class Analyser(
         }
     }
 
-  def apply(gameId: GameId, sender: Work.Sender): Fu[Analyser.Result] =
+  def apply(gameId: GameId, sender: Sender): Fu[Analyser.Result] =
     gameRepo.game(gameId).flatMap {
-      _.fold[Fu[Analyser.Result]](fuccess(Analyser.Result.NoGame))(apply(_, sender))
+      _.fold[Fu[Analyser.Result]](fuccess(Analyser.Result.NoGame)): game =>
+        apply(game, sender)
     }
 
   def study(req: lila.core.fishnet.StudyChapterRequest): Fu[Analyser.Result] =
@@ -77,9 +87,11 @@ final class Analyser(
       if _ then fuccess(Analyser.Result.NoChapter)
       else
         import req.*
-        val sender = Work.Sender(req.userId, none, mod = false, system = false)
-        (if req.unlimited then fuccess(Analyser.Result.Ok)
-         else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)).flatMap { result =>
+        val sender = Sender(req.userId, none, mod = false, system = false)
+        val limitFu =
+          if req.official then fuccess(Analyser.Result.Ok)
+          else limiter(sender, ignoreConcurrentCheck = true, ownGame = false)
+        limitFu.flatMap { result =>
           if !result.ok then
             logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
           result.ok
@@ -94,7 +106,8 @@ final class Analyser(
                 ),
                 // if black moves first, use 1 as startPly so the analysis doesn't get reversed
                 startPly = Ply(initialFen.map(_.colorOrWhite).so(_.fold(0, 1))),
-                sender = sender
+                sender = sender,
+                origin = if req.official then Origin.officialBroadcast else Origin.manualRequest
               )
               workQueue {
                 repo.getSimilarAnalysis(work).flatMap {
@@ -112,7 +125,7 @@ final class Analyser(
         }
     }
 
-  private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
+  private def makeWork(game: Game, sender: Sender, origin: Origin): Fu[Work.Analysis] =
     gameRepo.initialFen(game).zip(uciMemo.get(game)).map { (initialFen, moves) =>
       makeWork(
         game = Work.Game(
@@ -123,11 +136,12 @@ final class Analyser(
           moves = moves.take(maxPlies).mkString(" ")
         ),
         startPly = game.chess.startedAtPly,
-        sender = sender
+        sender = sender,
+        origin = origin
       )
     }
 
-  private def makeWork(game: Work.Game, startPly: Ply, sender: Work.Sender): Work.Analysis =
+  private def makeWork(game: Work.Game, startPly: Ply, sender: Sender, origin: Origin) =
     Work.Analysis(
       _id = Work.makeId,
       sender = sender,
@@ -137,7 +151,8 @@ final class Analyser(
       lastTryByKey = none,
       acquired = none,
       skipPositions = Nil,
-      createdAt = nowInstant
+      createdAt = nowInstant,
+      origin = origin.some
     )
 
 object Analyser:

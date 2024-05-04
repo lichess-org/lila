@@ -6,27 +6,28 @@ import _root_.chess.{ Color, Mode }
 
 import scalalib.model.Days
 import lila.core.userId.UserId
+import lila.core.id.ChallengeId
 import lila.core.rating.data.*
 
 trait Challenge:
   import Challenge.*
-  val id: Id
+  val id: ChallengeId
   val variant: Variant
   val mode: Mode
   val timeControl: TimeControl
   val finalColor: Color
   val destUser: Option[Challenger.Registered]
   val challenger: Challenger
+  def destUserId = destUser.map(_.id)
   def challengerUser = challenger match
     case u: Challenger.Registered => u.some
     case _                        => none
+  def challengerIsAnon = challenger.isInstanceOf[Challenger.Anonymous]
   def clock = timeControl match
     case c: Challenge.TimeControl.Clock => c.some
     case _                              => none
 
 object Challenge:
-  opaque type Id = String
-  object Id extends OpaqueString[Id]
 
   sealed trait TimeControl:
     def realTime: Option[_root_.chess.Clock.Config] = none

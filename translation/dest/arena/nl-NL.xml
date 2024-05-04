@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena-toernooien</string>
   <string name="isItRated">Is dit met rating?</string>
   <string name="willBeNotified">Je krijgt een melding wanneer dit toernooi start, dus het is veilig om in een ander tabblad te spelen terwijl je wacht.</string>
@@ -59,7 +60,12 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="averagePerformance">Gemiddelde prestatie</string>
   <string name="averageScore">Gemiddelde score</string>
   <string name="myTournaments">Mijn toernooien</string>
+  <string name="editTournament">Bewerk toernooi</string>
+  <string name="editTeamBattle">Bewerk teamkamp</string>
+  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Verdediger</string>
   <string name="pickYourTeam">Kies je team</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Welk team vertegenwoordig jij in deze kamp?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Je moet lid worden van één van deze teams om deel te kunnen nemen!</string>
   <string name="created">Aangemaakt</string>
   <string name="recentlyPlayed">Onlangs gespeeld</string>
   <string name="bestResults">Beste resultaten</string>
@@ -68,5 +74,8 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Alle gemiddelden op deze pagina zijn %s.</string>
   <string name="total">Totaal</string>
   <string name="pointsAvg">Gemiddeld punten</string>
-  <string name="pointsSum">Aantal punten</string>
+  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Aantal punten</string>
+  <string name="tournamentWinners">Toernooiwinnaars</string>
+  <string name="onlyTitled">Alleen titelhouders</string>
+  <string name="onlyTitledHelp">Officiële titel vereist voor deelname aan het toernooi</string>
 </resources>

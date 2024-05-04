@@ -291,7 +291,7 @@ function isShortCommand(input: string): boolean {
 
 function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, style: Style): void {
   const lowered = c.toLowerCase();
-  const pieces = ctrl.ground()!.state.pieces;
+  const pieces = ctrl.ground().state.pieces;
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
   else if (lowered === 'v') viewOrAdvanceSolution(ctrl, notify);
   else

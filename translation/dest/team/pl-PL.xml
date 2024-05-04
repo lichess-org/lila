@@ -76,4 +76,10 @@ Nie możesz usunąć drużyny, jeśli jej gracz już dołączył do turnieju.</s
     <item quantity="many">Bitwa %s drużyn</item>
     <item quantity="other">Bitwa %s drużyn</item>
   </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Lider na drużynę</item>
+    <item quantity="few">%s liderów na drużynę</item>
+    <item quantity="many">%s liderów na drużynę</item>
+    <item quantity="other">%s liderów na drużynę</item>
+  </plurals>
 </resources>

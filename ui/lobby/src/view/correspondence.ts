@@ -13,6 +13,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
     {
       key: seek.id,
       attrs: {
+        role: 'button',
         title:
           seek.action === 'joinSeek'
             ? noarg('joinTheGame') + ' - ' + perfNames[seek.perf.key]

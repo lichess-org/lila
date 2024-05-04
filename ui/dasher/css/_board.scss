@@ -38,6 +38,46 @@
     background-color: $c-good;
   }
 
+  .reset {
+    @extend %button-none;
+    padding: 0.5rem 1rem;
+    &:hover {
+      color: $c-primary;
+    }
+  }
+
+  .selector {
+    display: flex;
+    justify-content: stretch;
+  }
+  .zoom,
+  .board-brightness,
+  .board-opacity,
+  .board-hue {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    label {
+      white-space: nowrap;
+    }
+  }
+
+  .zoom {
+    display: none;
+
+    @include mq-board-resizable {
+      display: grid;
+    }
+  }
+
+  .range {
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
   &.d2 {
     @each $name, $theme in $board-themes-2d {
       .#{$name} {

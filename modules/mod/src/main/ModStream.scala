@@ -5,7 +5,7 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.common.{ Bus, HTTPRequest }
-import lila.security.UserSignup
+import lila.core.security.UserSignup
 
 final class ModStream:
 

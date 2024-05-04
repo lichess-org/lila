@@ -14,7 +14,7 @@ export class PingCtrl {
     this.root.redraw();
   };
   onMlat = (lat: number) => {
-    this.server = lat as number;
+    this.server = lat;
     this.root.redraw();
   };
 

@@ -1,7 +1,5 @@
 package controllers
 
-import views.*
-
 import lila.app.{ *, given }
 import lila.core.net.IpAddress
 import lila.core.i18n.I18nKey as trans
@@ -31,7 +29,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
               access.isGrantedRead(post.topic.categId).map {
                 lila.forum.PostView.WithReadPerm(post, _)
               }
-            page <- renderPage(html.forum.search(text, pager))
+            page <- renderPage(views.forum.post.search(text, pager))
           yield Ok(page)
 
   def create(categId: ForumCategId, slug: String, page: Int) = AuthBody { ctx ?=> me ?=>
@@ -44,7 +42,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             canModCateg  <- access.isGrantedMod(categ.slug)
             replyBlocked <- access.isReplyBlockedOnUBlog(topic, canModCateg)
             res <-
-              if replyBlocked then fuccess(BadRequest(trans.ublog.youBlockedByBlogAuthor()))
+              if replyBlocked then BadRequest.snip(trans.ublog.youBlockedByBlogAuthor()).toFuccess
               else
                 categ.team.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
                   forms
@@ -57,7 +55,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                             unsub       <- env.timeline.status(s"forum:${topic.id}")
                             canModCateg <- access.isGrantedMod(categ.slug)
                             page <- renderPage:
-                              html.forum.topic
+                              views.forum.topic
                                 .show(
                                   categ,
                                   topic,
@@ -126,8 +124,8 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
 
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>
     CategGrantWrite(categId):
-      FoundPage(postApi.react(categId, id, reaction, v)): post =>
-        views.html.forum.post.reactions(post, canReact = true)
+      FoundSnip(postApi.react(categId, id, reaction, v)): post =>
+        lila.ui.Snippet(views.forum.post.reactions(post, canReact = true))
   }
 
   def redirect(id: ForumPostId) = Open:

@@ -1,5 +1,5 @@
 import { header } from './util';
-import { hyphenToCamel } from 'common';
+import { hyphenToCamel, toggle } from 'common';
 import debounce from 'common/debounce';
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
@@ -25,15 +25,7 @@ export class BoardCtrl extends PaneCtrl {
 
   render = () =>
     h(`div.sub.board.${this.dimension}`, [
-      header(
-        'Board',
-        this.close,
-        !this.isDefault() &&
-          h('button.text.reset', {
-            attrs: { 'data-icon': licon.Back, type: 'button', title: 'Reset colors to default' },
-            hook: bind('click', this.reset),
-          }),
-      ),
+      header('Board', this.close),
       h('div.selector.large', [
         h(
           'button.text',
@@ -55,6 +47,15 @@ export class BoardCtrl extends PaneCtrl {
         ),
       ]),
       ...this.propSliders(),
+      this.showReset() &&
+        h(
+          'button.text.reset',
+          {
+            attrs: { 'data-icon': licon.Back, type: 'button' },
+            hook: bind('click', this.reset),
+          },
+          'Reset colors to default',
+        ),
       h(
         'div.list',
         this.data[this.dimension].list.map((t: Board) =>
@@ -93,21 +94,23 @@ export class BoardCtrl extends PaneCtrl {
   };
 
   private reset = () => {
-    this.setVar('board-opacity', 100);
-    this.setVar('board-brightness', 100);
-    this.setVar('board-hue', 0);
-    this.postPref('board-opacity');
-    this.postPref('board-brightness');
-    this.postPref('board-hue');
+    this.defaults
+      .filter(([prop, v]) => this.getVar(prop) !== v)
+      .forEach(([prop, v], i) => {
+        this.setVar(prop, v);
+        setTimeout(() => this.postPref(prop), i * 1100); // hack around debounce
+      });
+    this.showReset(false);
     this.sliderKey = Date.now();
     document.body.classList.add('simple-board');
-    this.root.redraw();
+    this.redraw();
   };
 
   private getVar = (prop: string) =>
     parseInt(window.getComputedStyle(document.body).getPropertyValue(`---${prop}`));
 
   private setVar = (prop: string, v: number) => {
+    this.showReset(this.showReset() || !this.isDefault());
     document.body.style.setProperty(`---${prop}`, v.toString());
     document.body.classList.toggle('simple-board', this.isDefault());
     if (prop === 'zoom') window.dispatchEvent(new Event('resize'));
@@ -116,9 +119,8 @@ export class BoardCtrl extends PaneCtrl {
   private postPref = debounce((prop: string) => {
     const body = new FormData();
     body.set(hyphenToCamel(prop), this.getVar(prop).toString());
-    xhr
-      .text(`/pref/${hyphenToCamel(prop)}`, { body, method: 'post' })
-      .catch(() => site.announce({ msg: `Failed to save ${prop}` }));
+    const path = prop === 'zoom' ? `/pref/zoom?v=${this.getVar(prop)}` : `/pref/${hyphenToCamel(prop)}`;
+    xhr.text(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
   private set3d = async (v: boolean) => {
@@ -143,10 +145,14 @@ export class BoardCtrl extends PaneCtrl {
     this.root?.piece.apply();
   };
 
-  private isDefault = () =>
-    this.getVar('board-brightness') === 100 &&
-    this.getVar('board-hue') === 0 &&
-    this.getVar('board-opacity') === 100;
+  private defaults: [string, number][] = [
+    ['board-opacity', 100],
+    ['board-brightness', 100],
+    ['board-hue', 0],
+  ];
+
+  private isDefault = () => this.defaults.every(([prop, v]) => this.getVar(prop) === v);
+  private showReset = toggle(!this.isDefault());
 
   private propSliders = () => {
     const sliders = [];
@@ -161,8 +167,8 @@ export class BoardCtrl extends PaneCtrl {
     return sliders;
   };
 
-  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) => {
-    return h(
+  private propSlider = (prop: string, label: string, range: Range, title?: (v: number) => string) =>
+    h(
       `div.${prop}`,
       { attrs: { title: title ? title(this.getVar(prop)) : `${Math.round(this.getVar(prop))}%` } },
       [
@@ -170,7 +176,6 @@ export class BoardCtrl extends PaneCtrl {
         h('input.range', {
           key: this.sliderKey + prop,
           attrs: { ...range, type: 'range', value: this.getVar(prop) },
-
           hook: {
             insert: (vnode: VNode) => {
               const input = vnode.elm as HTMLInputElement;
@@ -184,5 +189,4 @@ export class BoardCtrl extends PaneCtrl {
         }),
       ],
     );
-  };
 }

@@ -326,6 +326,13 @@
     .appeal-muted {
       color: $c-bad;
     }
+
+    .add-to-note {
+      cursor: pointer;
+      &:hover {
+        background: $m-accent--fade-80;
+      }
+    }
   }
 
   &--reports {

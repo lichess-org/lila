@@ -14,11 +14,11 @@ final class Local(env: Env) extends LilaController(env):
 
   def vsBot = Open:
     NoBot:
-      Ok.page(views.html.local.vsBot.index).map(_.enforceCrossSiteIsolation)
+      Ok.page(views.local.vsBot.index).map(_.enforceCrossSiteIsolation)
 
   def botVsBot = Open:
     NoBot:
-      Ok.page(views.html.local.botVsBot.index).map(_.enforceCrossSiteIsolation)
+      Ok.page(views.local.botVsBot.index).map(_.enforceCrossSiteIsolation)
 
   def setup = Open:
     NoBot:

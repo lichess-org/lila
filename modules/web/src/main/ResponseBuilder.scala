@@ -18,7 +18,7 @@ trait ResponseBuilder(using Executor)
   export scalatags.Text.Frag
 
   given Conversion[Result, Fu[Result]] = fuccess(_)
-  given Conversion[Frag, Fu[Frag]]     = fuccess(_)
+  // given Conversion[Frag, Fu[Frag]]     = fuccess(_)
 
   val rateLimitedMsg  = "Too many requests. Try again later."
   val rateLimitedJson = TooManyRequests(jsonError(rateLimitedMsg))
@@ -43,6 +43,15 @@ trait ResponseBuilder(using Executor)
 
   def jsOptToNdJson(source: Source[Option[JsValue], ?]): Result =
     strToNdJson(ndJson.jsOptToString(source))
+
+  /* We roll our own action, as we don't want to compose play Actions. */
+  def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
+    import play.api.libs.streams.Accumulator
+    import akka.util.ByteString
+    def apply(rh: RequestHeader): Accumulator[ByteString, Result] =
+      parser(rh).mapFuture:
+        case Left(r)  => fuccess(r)
+        case Right(a) => handler(using Request(rh, a))
 
   def redirectWithQueryString(path: String)(using req: RequestHeader) =
     Redirect:

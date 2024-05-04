@@ -29,6 +29,7 @@ final class Env(
     prefApi: lila.core.pref.PrefApi,
     modLog: lila.core.mod.LogApi,
     userApi: lila.core.user.UserApi,
+    teamApi: lila.core.team.TeamApi,
     cacheApi: lila.memo.CacheApi,
     ws: StandaloneWSClient
 )(using Executor, Scheduler, akka.stream.Materializer):
@@ -59,6 +60,8 @@ final class Env(
 
   lazy val recentTeamPosts = RecentTeamPosts: id =>
     postRepo.recentIdsInCateg(ForumCateg.fromTeamId(id), 6).flatMap(postApi.miniViews)
+
+  lazy val forumAccess = wire[ForumAccess]
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
     case lila.core.team.TeamCreate(t)   => categApi.makeTeam(t.id, t.name, t.userId)

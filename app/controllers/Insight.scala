@@ -3,7 +3,6 @@ package controllers
 import play.api.i18n.Lang
 import play.api.libs.json.{ JsValue, Json }
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.insight.{ InsightDimension, InsightMetric }
@@ -32,14 +31,14 @@ final class Insight(env: Env) extends LilaController(env):
   ) =
     import lila.insight.InsightApi.UserStatus.*
     env.insight.api.userStatus(user).flatMap {
-      case NoGame => Ok.page(html.site.message.insightNoGames(user))
-      case Empty  => Ok.page(html.insight.empty(user))
+      case NoGame => Ok.page(views.site.message.insightNoGames(user))
+      case Empty  => Ok.page(views.insight.empty(user))
       case s =>
         for
           insightUser <- env.insight.api.insightUser(user)
           prefId      <- env.insight.share.getPrefId(user)
           page <- renderPage:
-            html.insight.index(
+            views.insight.index(
               u = user,
               insightUser = insightUser,
               prefId = prefId,
@@ -74,7 +73,7 @@ final class Insight(env: Env) extends LilaController(env):
         .grant(u)(using ctx.me)
         .flatMap:
           if _ then f(u)
-          else Forbidden.page(html.insight.forbidden(u))
+          else Forbidden.page(views.insight.forbidden(u))
 
   private def AccessibleApi(username: UserStr)(f: lila.user.User => Fu[Result])(using Context) =
     Found(meOrFetch(username)): u =>

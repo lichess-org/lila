@@ -3,11 +3,11 @@ package lila.notify
 import reactivemongo.api.bson.ElementProducer
 
 import lila.db.dsl.{ *, given }
+import lila.core.notify.UnreadCount
 
 final private class NotificationRepo(colls: NotifyColls)(using Executor):
 
   import BSONHandlers.given
-  import Notification.UnreadCount
 
   private val coll = colls.notif
 

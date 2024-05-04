@@ -335,6 +335,7 @@ object user:
   trait FlagApi:
     val all: List[Flag]
     val nonCountries: List[Flag.Code]
+    def name(flag: Flag): Flag.Name
 
   type GameUser  = Option[WithPerf]
   type GameUsers = ByColor[GameUser]

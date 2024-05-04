@@ -1,23 +1,13 @@
 package lila.mod
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.report.{ Report, Reason }
-import lila.core.i18n.Translate
 import lila.core.config.NetDomain
 
-final class ModInquiryUi(
-    formHelper: FormHelper,
-    dateHelper: DateHelper,
-    i18nHelper: I18nHelper,
-    htmlHelper: HtmlHelper
-)(
-    userLink: UserId => Translate ?=> Frag,
-    routeUserWriteNote: String => Call
-):
-  import formHelper.*
-  import i18nHelper.given
+final class ModInquiryUi(helpers: Helpers):
+  import helpers.{ *, given }
 
   def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
 
@@ -30,12 +20,12 @@ final class ModInquiryUi(
       r.bestAtoms(10).map { atom =>
         div(cls := "atom")(
           h3(
-            lila.report.ui.reportScore(atom.score),
-            userLink(atom.by.userId),
+            lila.report.ui.ReportUi.reportScore(atom.score),
+            userIdLink(atom.by.userId.some, withOnline = false),
             " for ",
             strong(r.reason.name),
             " ",
-            dateHelper.momentFromNow(atom.at)
+            momentFromNow(atom.at)
           ),
           p(renderAtomText(atom.simplifiedText, r.isComm))
         )
@@ -53,7 +43,7 @@ final class ModInquiryUi(
       "Notes"
     ),
     div(
-      postForm(cls := "note", action := s"${routeUserWriteNote(u.username)}?inquiry=1")(
+      postForm(cls := "note", action := s"${routes.User.writeNote(u.username)}?inquiry=1")(
         form3.textarea(lila.user.UserForm.note("text"))(
           placeholder := "Write a mod note"
         ),
@@ -71,8 +61,13 @@ final class ModInquiryUi(
       notes.map: note =>
         (!note.dox || Granter.opt(_.Admin)).option(
           div(cls := "doc note")(
-            h3("by ", userLink(note.from), ", ", dateHelper.momentFromNow(note.date)),
-            p(htmlHelper.richText(note.text, nl2br = true, expandImg = false))
+            h3(
+              "by ",
+              userIdLink(note.from.some, withOnline = false),
+              ", ",
+              momentFromNow(note.date)
+            ),
+            p(richText(note.text))
           )
         )
     )
@@ -96,13 +91,13 @@ final class ModInquiryUi(
             ul(
               history.map: e =>
                 li(
-                  userLink(e.mod.userId),
+                  userIdLink(e.mod.userId.some, withOnline = false),
                   " ",
                   b(e.showAction),
                   " ",
                   e.details,
                   " ",
-                  dateHelper.momentFromNow(e.date)
+                  momentFromNow(e.date)
                 )
             )
           )

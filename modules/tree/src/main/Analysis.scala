@@ -22,9 +22,9 @@ case class Analysis(
     infos: List[Info],
     startPly: Ply,
     date: Instant,
-    fk: Option[Analysis.FishnetKey]
+    fk: Option[Analysis.FishnetKey],
+    nodesPerMove: Option[Int]
 ):
-
   lazy val infoAdvices: InfoAdvices =
     (Info.start(startPly) :: infos)
       .sliding(2)

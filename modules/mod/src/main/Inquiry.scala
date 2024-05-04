@@ -25,7 +25,6 @@ final class InquiryApi(
     noteApi: NoteApi,
     logApi: ModlogApi
 ):
-
   def forMod(using mod: Me)(using Executor): Fu[Option[Inquiry]] =
     lila.core.perm.Granter(_.SeeReport).so {
       reportApi.inquiries

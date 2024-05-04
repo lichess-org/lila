@@ -29,17 +29,17 @@ ivyLoggingLevel     := UpdateLogging.DownloadOnly
 Compile / mainClass := Some("lila.app.Lila")
 // Adds the Play application directory to the command line args passed to Play
 bashScriptExtraDefines += "addJava \"-Duser.dir=$(realpath \"$(cd \"${app_home}/..\"; pwd -P)\"  $(is_cygwin && echo \"fix\"))\"\n"
-// by default, compile any routes files in the root named "routes" or "*.routes"
+Compile / RoutesKeys.generateReverseRouter := false
 Compile / RoutesKeys.routes / sources ++= {
   val dirs = (Compile / unmanagedResourceDirectories).value
   (dirs * "routes").get ++ (dirs * "*.routes").get
 }
-target                      := baseDirectory.value / "target"
-Compile / sourceDirectory   := baseDirectory.value / "app"
-Test / sourceDirectory      := baseDirectory.value / "test"
-Compile / scalaSource       := baseDirectory.value / "app"
-Test / scalaSource          := baseDirectory.value / "test"
-Universal / sourceDirectory := baseDirectory.value / "dist"
+Compile / RoutesKeys.generateReverseRouter := false
+Compile / RoutesKeys.generateForwardRouter := true
+target                                     := baseDirectory.value / "target"
+Compile / sourceDirectory                  := baseDirectory.value / "app"
+Compile / scalaSource                      := baseDirectory.value / "app"
+Universal / sourceDirectory                := baseDirectory.value / "dist"
 
 // cats-parse v1.0.0 is the same as v0.3.1, so this is safe
 ThisBuild / libraryDependencySchemes ++= Seq(
@@ -60,19 +60,19 @@ lazy val modules = Seq(
   // level 1
   core, coreI18n,
   // level 2
-  common,
+  ui, common, tree,
   // level 3
-  db, room, tree, ui, search,
+  db, room, search,
   // level 4
   memo, rating,
   // level 5
   game, gathering, study, user, puzzle, analyse,
   report, pref, chat, playban, lobby, mailer, oauth,
   // level 6
-  security, insight, evaluation, storm,
+  insight, evaluation, storm,
   // level 7
   // everything else is free from deps; do the big ones first
-  tournament, relay, plan, round,
+  security, tournament, relay, plan, round,
   swiss, insight, fishnet, tutor, mod, challenge, web,
   team, forum, streamer, simul, activity, msg, ublog,
   notifyModule, clas, perfStat, opening, timeline,
@@ -135,12 +135,12 @@ lazy val rating = module("rating",
 ).dependsOn(common % "test->test")
 
 lazy val cms = module("cms",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq()
 )
 
 lazy val puzzle = module("puzzle",
-  Seq(coreI18n, tree, memo, rating),
+  Seq(coreI18n, tree, memo, rating, ui),
   tests.bundle
 )
 
@@ -155,12 +155,12 @@ lazy val racer = module("racer",
 )
 
 lazy val video = module("video",
-  Seq(memo),
+  Seq(memo, ui),
   macwire.bundle
 )
 
 lazy val coach = module("coach",
-  Seq(memo, rating),
+  Seq(memo, rating, ui),
   Seq()
 )
 
@@ -170,17 +170,17 @@ lazy val streamer = module("streamer",
 )
 
 lazy val coordinate = module("coordinate",
-  Seq(db),
+  Seq(db, ui),
   macwire.bundle
 )
 
 lazy val feed = module("feed",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
 lazy val ublog = module("ublog",
-  Seq(coreI18n, memo),
+  Seq(coreI18n, memo, ui),
   Seq(bloomFilter)
 )
 
@@ -215,17 +215,17 @@ lazy val room = module("room",
 )
 
 lazy val timeline = module("timeline",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
 lazy val event = module("event",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq()
 )
 
 lazy val mod = module("mod",
-  Seq(evaluation, report, chat, security),
+  Seq(evaluation, report, chat, user),
   Seq()
 )
 
@@ -240,7 +240,7 @@ lazy val game = module("game",
 )
 
 lazy val gameSearch = module("gameSearch",
-  Seq(coreI18n, search),
+  Seq(coreI18n, search, ui),
   Seq()
 )
  // good dep to game
@@ -255,7 +255,7 @@ lazy val bot = module("bot",
 )
 
 lazy val analyse = module("analyse",
-  Seq(coreI18n, tree, memo),
+  Seq(coreI18n, tree, memo, ui),
   tests.bundle
 )
 
@@ -280,7 +280,7 @@ lazy val lobby = module("lobby",
 )
 
 lazy val setup = module("setup",
-  Seq(lobby),
+  Seq(lobby, ui),
   Seq()
 )
 
@@ -295,7 +295,7 @@ lazy val tutor = module("tutor",
 )
 
 lazy val opening = module("opening",
-  Seq(coreI18n, memo),
+  Seq(coreI18n, memo, ui),
   tests.bundle
 )
 
@@ -330,7 +330,7 @@ lazy val irwin = module("irwin",
 )
 
 lazy val oauth = module("oauth",
-  Seq(memo, coreI18n),
+  Seq(memo, coreI18n, ui),
   Seq()
 )
 
@@ -345,17 +345,17 @@ lazy val shutup = module("shutup",
 )
 
 lazy val challenge = module("challenge",
-  Seq(game, room, oauth, ui),
+  Seq(game, room, oauth),
   Seq(lettuce) ++ tests.bundle
 )
 
 lazy val fide = module("fide",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
 lazy val study = module("study",
-  Seq(coreI18n, tree, memo, room),
+  Seq(coreI18n, tree, memo, room, ui),
   Seq(lettuce) ++ tests.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 ).dependsOn(common % "test->test")
 
@@ -405,17 +405,17 @@ lazy val mailer = module("mailer",
 )
 
 lazy val plan = module("plan",
-  Seq(coreI18n, memo),
+  Seq(coreI18n, memo, ui),
   tests.bundle
 )
 
 lazy val relation = module("relation",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
 lazy val pref = module("pref",
-  Seq(coreI18n, memo),
+  Seq(coreI18n, memo, ui),
   Seq()
 )
 
@@ -425,7 +425,7 @@ lazy val msg = module("msg",
 )
 
 lazy val forum = module("forum",
-  Seq(memo),
+  Seq(memo, ui),
   Seq()
 )
 
@@ -435,7 +435,7 @@ lazy val forumSearch = module("forumSearch",
 )
 
 lazy val team = module("team",
-  Seq(memo, room),
+  Seq(memo, room, ui),
   Seq()
 )
 
@@ -480,7 +480,7 @@ lazy val socket = module("socket",
 )
 
 lazy val tree = module("tree",
-  Seq(common),
+  Seq(core),
   Seq(chess.playJson)
 )
 
@@ -488,6 +488,12 @@ lazy val tree = module("tree",
 lazy val ui = module("ui",
   Seq(core, coreI18n),
   Seq()
+).enablePlugins(RoutesCompiler).settings(
+  Compile / RoutesKeys.generateForwardRouter := false,
+  Compile / RoutesKeys.routes / sources ++= {
+    val dirs = baseDirectory.value / ".." / ".." / "conf"
+    (dirs * "routes").get ++ (dirs * "*.routes").get
+  }
 )
 
 lazy val web = module("web",
