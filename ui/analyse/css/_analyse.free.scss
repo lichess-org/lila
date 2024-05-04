@@ -50,6 +50,25 @@
       min-height: 6em;
       white-space: pre-wrap;
       overflow-x: hidden;
+
+      &.is-error {
+        background: $m-bad_bg--mix-20;
+        box-shadow: 0 0 13px 2px $m-bad_bg--mix-20;
+      }
+    }
+  }
+
+  .error {
+    width: fit-content;
+    background: $c-bg-box;
+    margin: 1em 0 1em 5ch;
+    padding: 0.75em 1em;
+    border-radius: 5px;
+    color: $c-bad;
+
+    &::before {
+      font-size: 1.5em;
+      margin-right: 0.4em;
     }
   }
 }

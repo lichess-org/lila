@@ -223,6 +223,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('label.name', 'PGN'),
         h('textarea.copyable', {
           attrs: { spellcheck: 'false' },
+          class: { 'is-error': !!ctrl.pgnError },
           hook: {
             ...onInsert((el: HTMLTextAreaElement) => {
               el.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
@@ -259,6 +260,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
           ),
       ]),
     ]),
+    ctrl.pgnError && h('div.error', { attrs: dataIcon(licon.CautionTriangle) }, ctrl.pgnError),
   ]);
 }
 

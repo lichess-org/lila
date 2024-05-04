@@ -37,7 +37,7 @@ import { nextGlyphSymbol } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
 import { Outcome, isNormal } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
-import { Position, PositionError } from 'chessops/chess';
+import { IllegalSetup, Position, PositionError } from 'chessops/chess';
 import { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
@@ -53,6 +53,7 @@ import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
 import { ArrowKey, KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
+import { PgnError } from 'chessops/pgn';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -114,6 +115,7 @@ export default class AnalyseCtrl {
   // underboard inputs
   fenInput?: string;
   pgnInput?: string;
+  pgnError?: string;
 
   // other paths
   initialPath: Tree.Path;
@@ -468,6 +470,7 @@ export default class AnalyseCtrl {
   }
 
   changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
+    this.pgnError = '';
     try {
       const data: AnalyseData = {
         ...pgnImport(pgn),
@@ -482,9 +485,33 @@ export default class AnalyseCtrl {
       }
       return data;
     } catch (err) {
-      console.log(err);
+      this.handlePgnError(err as PgnError);
     }
     return undefined;
+  }
+
+  handlePgnError(error: PgnError) {
+    this.pgnError = 'PGN error: ';
+    switch (error.message) {
+      case IllegalSetup.Empty:
+        this.pgnError += 'empty board';
+        break;
+      case IllegalSetup.OppositeCheck:
+        this.pgnError += 'king in check';
+        break;
+      case IllegalSetup.PawnsOnBackrank:
+        this.pgnError += 'pawns on back rank';
+        break;
+      case IllegalSetup.Kings:
+        this.pgnError += 'king(s) missing';
+        break;
+      case IllegalSetup.Variant:
+        this.pgnError += 'invalid variant';
+        break;
+      default:
+        this.pgnError += 'unknown error';
+    }
+    this.redraw();
   }
 
   changeFen(fen: cg.FEN): void {
