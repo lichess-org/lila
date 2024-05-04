@@ -119,9 +119,8 @@ export class BoardCtrl extends PaneCtrl {
   private postPref = debounce((prop: string) => {
     const body = new FormData();
     body.set(hyphenToCamel(prop), this.getVar(prop).toString());
-    xhr
-      .text(`/pref/${hyphenToCamel(prop)}`, { body, method: 'post' })
-      .catch(() => site.announce({ msg: `Failed to save ${prop}` }));
+    const path = prop === 'zoom' ? `/pref/zoom?v=${this.getVar(prop)}` : `/pref/${hyphenToCamel(prop)}`;
+    xhr.text(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
   private set3d = async (v: boolean) => {
