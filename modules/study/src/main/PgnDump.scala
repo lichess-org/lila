@@ -77,15 +77,12 @@ final class PgnDump(
       val opening = chapter.opening
       val genTags = List(
         Tag(_.Event, s"${study.name}: ${chapter.name}"),
+        Tag(_.Site, chapterUrl(study.id, chapter.id)),
         Tag(_.Variant, chapter.setup.variant.name.capitalize),
         Tag(_.ECO, opening.fold("?")(_.eco)),
         Tag(_.Opening, opening.fold("?")(_.name)),
         Tag(_.Result, "*"), // required for SCID to import
         annotatorTag(study)
-      ) ::: (!study.isRelay).so(
-        List(
-          Tag(_.Site, chapterUrl(study.id, chapter.id))
-        )
       ) ::: (!chapter.root.fen.isInitial).so(
         List(
           Tag(_.FEN, chapter.root.fen.value),
