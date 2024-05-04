@@ -46,9 +46,9 @@
 
       &[aria-pressed='true'],
       &.active {
-        background: $c-secondary !important;
+        background: $c-secondary;
         color: $c-over;
-        text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5) !important;
+        text-shadow: 1px 0 0 rgba(0, 0, 0, 0.5);
         font-weight: bold;
       }
       &[aria-pressed='true'] {

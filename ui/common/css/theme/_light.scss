@@ -37,9 +37,13 @@ html.light {
   --c-bg-variation: #{$c-bg-zebra2};
   --c-bg-popup: #{$c-bg};
   --c-bg-header-dropdown: #{$c-bg};
-  --c-page-input: #{$c-bg-low};
   --c-popup: #{$c-font};
   --c-header-dropdown: #{$c-font};
+  --c-page-input: #{$c-bg-low};
+  --c-metal-top: hsl(0, 0%, 96%);
+  --c-metal-bottom: hsl(0, 0%, 93%);
+  --c-metal-top-hover: hsl(0, 0%, 98%);
+  --c-metal-bottom-hover: hsl(0, 0%, 95%);
 
   --c-font-dim: #{change-color($c-font, $lightness: 47%)};
   --c-font-dimmer: #{change-color($c-font, $lightness: 70%)};
@@ -50,7 +54,6 @@ html.light {
 
   --c-primary-dim: #{_dim($c-primary)};
   --c-link-hover: #{_clear(saturate($c-primary, 100%), 35%)};
-
   --c-chat-host-bg: rgba(125, 170, 73, 0.4);
   --c-chat-mention-bg: rgba(161, 194, 124, 0.4);
   --c-fancy: hsl(294, 61%, 62%);
