@@ -189,7 +189,7 @@ export default class CoordinateTrainerCtrl {
   );
 
   onShowCoordsOnAllSquaresChange = (show: boolean) => {
-    this.chessground?.set({ coordinatesOnAllSquares: show });
+    // this.chessground?.set({ coordinatesOnAllSquares: show });
     this.chessground?.redrawAll();
   };
 

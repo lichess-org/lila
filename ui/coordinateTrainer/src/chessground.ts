@@ -22,7 +22,7 @@ function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
     orientation: ctrl.orientation,
     blockTouchScroll: true,
     coordinates: ctrl.showCoordinates(),
-    coordinatesOnAllSquares: ctrl.showCoordsOnAllSquares(),
+    // coordinatesOnAllSquares: ctrl.showCoordsOnAllSquares(),
     addPieceZIndex: ctrl.config.is3d,
     movable: { free: false, color: undefined },
     drawable: { enabled: false },
