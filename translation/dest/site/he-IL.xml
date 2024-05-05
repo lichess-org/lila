@@ -869,6 +869,12 @@
   <string name="transparent">שקוף</string>
   <string name="deviceTheme">לפי הגדרות המכשיר</string>
   <string name="backgroundImageUrl">כתובת תמונת רקע (URL):</string>
+  <string name="board">לוח</string>
+  <string name="size">גודל</string>
+  <string name="opacity">אטימות</string>
+  <string name="brightness">בהירות</string>
+  <string name="hue">גוון</string>
+  <string name="boardReset">חזרה לצבעי ברירת המחדל</string>
   <string name="pieceSet">סט הכלים</string>
   <string name="embedInYourWebsite">הטמעה באתרך</string>
   <string name="usernameAlreadyUsed">שם המשתמש הזה כבר קיים, אנא נסו שם משתמש אחר.</string>
