@@ -25,7 +25,10 @@ final class LearnUi(helpers: Helpers):
       )
       .hrefLangs(lila.ui.LangPath(routes.Learn.index))
       .zoom:
-        main(id := "learn-app")
+        div(id := "learn")(
+          div(id := "learn-app-snabbdom"),
+          main(id := "learn-app")
+        )
 
   private val i18nKeys = List(
     trans.learn.play,

@@ -415,6 +415,9 @@ importers:
       mithril:
         specifier: github:ornicar/mithril.js#lila-1
         version: github.com/ornicar/mithril.js/dd92827aec63f921149ca9a3460ccd981e7025bb
+      snabbdom:
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/lobby:
     dependencies:
