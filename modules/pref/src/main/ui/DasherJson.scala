@@ -11,33 +11,39 @@ import lila.core.perm.Granter
 object DasherJson:
 
   object i18n:
+    import trans.{ site as trs }
     val base = List(
-      trans.site.networkLagBetweenYouAndLichess,
-      trans.site.timeToProcessAMoveOnLichessServer,
-      trans.site.sound,
-      trans.site.background,
-      trans.site.light,
-      trans.site.dark,
-      trans.site.transparent,
-      trans.site.deviceTheme,
-      trans.site.backgroundImageUrl,
-      trans.site.board,
-      trans.site.pieceSet,
+      trs.networkLagBetweenYouAndLichess,
+      trs.timeToProcessAMoveOnLichessServer,
+      trs.sound,
+      trs.background,
+      trs.light,
+      trs.dark,
+      trs.transparent,
+      trs.deviceTheme,
+      trs.backgroundImageUrl,
+      trs.board,
+      trs.size,
+      trs.opacity,
+      trs.brightness,
+      trs.hue,
+      trs.boardReset,
+      trs.pieceSet,
       trans.preferences.zenMode
     )
 
     val anon = List(
-      trans.site.signIn,
-      trans.site.signUp
+      trs.signIn,
+      trs.signUp
     ) ::: base
 
     val auth = List(
-      trans.site.profile,
-      trans.site.inbox,
+      trs.profile,
+      trs.inbox,
       trans.preferences.preferences,
-      trans.site.coachManager,
-      trans.site.streamerManager,
-      trans.site.logOut
+      trs.coachManager,
+      trs.streamerManager,
+      trs.logOut
     ) ::: base
 
   def apply(pref: Pref, gallery: Option[JsValue])(using ctx: Context): JsObject =
