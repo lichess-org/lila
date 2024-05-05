@@ -1,7 +1,7 @@
 /* eslint-env node */
 module.exports = {
   testMatch: ['**/dist/**/*.test.js'],
-  testEnvironment: 'jsdom',
+  testEnvironment: 'node',
   transform: {},
   globals: {
     lichess: {},
