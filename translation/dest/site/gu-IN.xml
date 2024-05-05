@@ -571,9 +571,6 @@
   <string name="transparent">પારદર્શક</string>
   <string name="deviceTheme">ઉપકરણ થીમ</string>
   <string name="backgroundImageUrl">પૃષ્ઠભૂમિ છબી URL:</string>
-  <string name="boardGeometry">બોર્ડની ભૂમિતિ</string>
-  <string name="boardTheme">બોર્ડની પસંદગી</string>
-  <string name="boardSize">બોર્ડનું કદ</string>
   <string name="pieceSet">મહોરાંની પસંદગી</string>
   <string name="embedInYourWebsite">તમારી વેબસાઇટમાં એમ્બેડ કરો</string>
   <string name="usernameAlreadyUsed">આ વપરાશકર્તાનામ પહેલેથી ઉપયોગમાં છે, કૃપા કરીને બીજું એક પ્રયાસ કરો.</string>
