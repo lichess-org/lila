@@ -1,6 +1,6 @@
 import { files } from 'chessground/types';
-import { SanToUci } from 'chess';
-import type { Opts, State } from './keyboardMove';
+import type { SanToUci } from 'chess';
+import type { Opts } from './keyboardMove';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;
@@ -19,19 +19,19 @@ interface SubmitOpts {
 }
 export type Submit = (v: string, submitOpts: SubmitOpts) => void;
 
-export function makeSubmit(opts: Opts, state: State, clear: () => void): Submit {
+export function makeSubmit(opts: Opts, clear: () => void): Submit {
   // returns a Submit function that is called:
-  // 1) on input 'keyup', or
-  // 2) when a move was just played, in which case submitOpts.yourMove = true
+  // 1) when the user presses a key inside of the input, or
+  // 2) when a move was just played
   return (v: string, submitOpts: SubmitOpts) => {
     if (!submitOpts.isTrusted) return;
-    const { legalSans } = state;
 
     // consider 0's as O's for castling
     v = v.replace(/0/g, 'O');
     if (v.match(iccfRegex)) {
       v = iccfToUci(v);
     }
+    const { legalSans } = opts.ctrl;
     const foundUci = v.length >= 2 && legalSans && sanToUci(v, legalSans);
     const selectedKey = opts.ctrl.hasSelected() || '';
     if (v.length > 0 && 'resign'.startsWith(v.toLowerCase())) {

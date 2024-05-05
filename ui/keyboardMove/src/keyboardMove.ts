@@ -1,15 +1,11 @@
 import { Dests } from 'chessground/types';
-import { sanWriter, SanToUci, destsToUcis } from 'chess';
+import { sanWriter, destsToUcis } from 'chess';
 import { KeyboardMoveHandler, KeyboardMove, isArrowKey } from './ctrl';
 import { Submit, makeSubmit } from './keyboardSubmit';
 
 export interface Opts {
   input: HTMLInputElement;
   ctrl: KeyboardMove;
-}
-
-export interface State {
-  legalSans: SanToUci | null;
 }
 
 export function load(opts: Opts): Promise<KeyboardMoveHandler> {
@@ -20,15 +16,14 @@ export function initModule(opts: Opts) {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
 
-  const state: State = { legalSans: null };
   const clear = makeClear(opts);
-  const submit = makeSubmit(opts, state, clear);
+  const submit = makeSubmit(opts, clear);
   makeBindings(opts, submit, clear);
 
   // returns a function that is called when any move is played
   return (fen: string, dests: Dests | undefined, yourMove: boolean) => {
     // update legal SAN moves
-    state.legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
+    opts.ctrl.legalSans = dests && dests.size > 0 ? sanWriter(fen, destsToUcis(dests)) : null;
     // play a premove if it is available in the input
     submit(opts.input.value, {
       isTrusted: true,
