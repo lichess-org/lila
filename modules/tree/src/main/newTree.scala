@@ -343,7 +343,7 @@ object NewRoot:
           nodeListJsonWriter(alwaysChildren).writes(tree.childAndChildVariations)
       )
 
-  def makeNodeWriter[A](using wa: OWrites[A]): Writes[ChessNode[A]] =
+  def makeNodeWriter[A](using OWrites[A]): Writes[ChessNode[A]] =
     makeTreeWriter(true).contramap(identity)
 
   def makeMainlineWriter[A](using wa: OWrites[A]): Writes[ChessNode[A]] = Writes: tree =>
@@ -354,7 +354,7 @@ object NewRoot:
           nodeListJsonWriter(true).writes(tree.childVariations)
       )
 
-  def nodeListJsonWriter[A](alwaysChildren: Boolean)(using wa: OWrites[A]): Writes[List[Tree[A]]] =
+  def nodeListJsonWriter[A](alwaysChildren: Boolean)(using OWrites[A]): Writes[List[Tree[A]]] =
     Writes: list =>
       JsArray(list.map(makeTreeWriter(alwaysChildren).writes))
 
