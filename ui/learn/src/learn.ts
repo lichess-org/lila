@@ -5,8 +5,9 @@ import {
   classModule,
   propsModule,
   styleModule,
-  h,
 } from 'snabbdom';
+import { LearnCtrl } from './v2/ctrl';
+import { view } from './v2/view';
 
 import m, { MNode } from './mithrilFix';
 import map from './map/mapMain';
@@ -44,8 +45,17 @@ interface LearnServerOpts {
 export function initModule({ data, i18n }: LearnServerOpts) {
   console.log('initializing learn module');
 
-  const ctrl = {};
-  const view = (ctrl: any) => h('div', `testing snabbdom ${ctrl}`);
+  const _storage = storage(data);
+  const snabbdomOpts: LearnOpts = {
+    i18n,
+    storage: _storage,
+    // Uninitialized because we need to call mapSide to initialize opts.side,
+    // and we need opts to call mapSide.
+    side: 'uninitialized' as any,
+    stageId: null,
+  };
+
+  const ctrl = new LearnCtrl(snabbdomOpts, redraw);
 
   const snabbdomElement = document.getElementById('learn-app-snabbdom')!;
   snabbdomElement.innerHTML = '';
@@ -59,7 +69,6 @@ export function initModule({ data, i18n }: LearnServerOpts) {
 
   // TODO: remove/refactor
   const element = document.getElementById('learn-app')!;
-  const _storage = storage(data);
 
   const opts: LearnOpts = {
     i18n,
