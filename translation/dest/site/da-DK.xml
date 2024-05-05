@@ -791,9 +791,6 @@
   <string name="transparent">Gennemsigtigt</string>
   <string name="deviceTheme">Enhedstema</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
-  <string name="boardGeometry">Brætgeometri</string>
-  <string name="boardTheme">Brættema</string>
-  <string name="boardSize">Brætstørrelse</string>
   <string name="pieceSet">Brikker</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside</string>
   <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg venligst et andet og prøv igen.</string>
