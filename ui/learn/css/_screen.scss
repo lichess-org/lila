@@ -110,6 +110,11 @@
     margin: 0 auto 22px auto;
   }
 
+  .is3d & .no-square {
+    height: 124px;
+    margin-bottom: 0;
+  }
+
   h1 {
     font-weight: bold;
     color: $c-font-clear;
