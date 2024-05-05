@@ -863,9 +863,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="transparent">Trédhearcach</string>
   <string name="deviceTheme">Téama gléas</string>
   <string name="backgroundImageUrl">URL íomhá chúlrá:</string>
-  <string name="boardGeometry">Céimseata an chláir</string>
-  <string name="boardTheme">Téama an chláir</string>
-  <string name="boardSize">Méid an chláir</string>
   <string name="pieceSet">Foireann píosaí</string>
   <string name="embedInYourWebsite">Leabaigh i do shuíomh gréasáin</string>
   <string name="usernameAlreadyUsed">Tá an t-ainm úsáideora seo in úsáid cheana féin, bain triail as ceann eile.</string>
