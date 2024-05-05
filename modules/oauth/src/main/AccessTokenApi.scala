@@ -212,16 +212,24 @@ final class AccessTokenApi(
           bearers.zip(openTokens).toMap
         }
 
-  def secretScanning(tokens: Map[Bearer, String]): Fu[List[(AccessToken, String)]] =
+  def secretScanning(
+      tokens: Map[Bearer, (String, String, String)]
+  ): Fu[List[(AccessToken, String)]] =
     test(tokens.keys.toList)
       .flatMap:
         _.toList.traverse: (bearer, token) =>
-          token match
-            case Some(token) =>
-              logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
-              revoke(token.plain).inject(tokens.get(bearer).map(token -> _))
+          tokens.get(bearer) match
+            case Some((tokenType, source, url)) =>
+              token match
+                case Some(token) =>
+                  logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
+                  lila.mon.security.secretScanning.hit(tokenType, source)
+                  revoke(token.plain).inject(token -> url)
+                case None =>
+                  logger.branch("github").info(s"ignoring token $bearer")
+                  lila.mon.security.secretScanning.miss(tokenType, source)
+                  fuccess(none)
             case None =>
-              logger.branch("github").info(s"ignoring token $bearer")
               fuccess(none)
       .map(_.flatten)
 

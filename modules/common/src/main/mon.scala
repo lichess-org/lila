@@ -341,6 +341,11 @@ object mon:
         counter("security.login.attempt").withTags:
           tags("by" -> (if byEmail then "email" else "name"), "stuffing" -> stuffing, "result" -> result)
       def proxy(tpe: String) = counter("security.login.proxy").withTag("proxy", tpe)
+    object secretScanning:
+      def hit(tokenType: String, source: String) =
+        counter("security.githubSecretScanning.hit").withTags(tags("type" -> tokenType, "source" -> source))
+      def miss(tokenType: String, source: String) =
+        counter("security.githubSecretScanning.miss").withTags(tags("type" -> tokenType, "source" -> source))
   object shutup:
     def analyzer = timer("shutup.analyzer.time").withoutTags()
   object tv:

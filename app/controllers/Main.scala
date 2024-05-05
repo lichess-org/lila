@@ -156,9 +156,11 @@ final class Main(
         .map:
           _.flatMap: obj =>
             for
-              token <- (obj \ "token").asOpt[String]
-              url   <- (obj \ "url").asOpt[String]
-            yield Bearer(token) -> url
+              token     <- (obj \ "token").asOpt[String]
+              tokenType <- (obj \ "type").asOpt[String]
+              url       <- (obj \ "url").asOpt[String]
+              source    <- (obj \ "source").asOpt[String]
+            yield Bearer(token) -> (tokenType, source, url)
           .toMap
         .so: tokensMap =>
           env.oAuth.tokenApi
