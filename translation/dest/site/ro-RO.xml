@@ -824,9 +824,6 @@
   <string name="transparent">Transparent</string>
   <string name="deviceTheme">Tema dispozitivului</string>
   <string name="backgroundImageUrl">URL-ul imaginii de fundal:</string>
-  <string name="boardGeometry">Geometria tablei</string>
-  <string name="boardTheme">Tema tablei</string>
-  <string name="boardSize">Mărimea tablei</string>
   <string name="pieceSet">Set de piese</string>
   <string name="embedInYourWebsite">Incorporează în site-ul tău</string>
   <string name="usernameAlreadyUsed">Nume de utilzator este deja folosit, te rugam să încerci altul.</string>
