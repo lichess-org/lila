@@ -791,9 +791,6 @@
   <string name="transparent">Transparente</string>
   <string name="deviceTheme">Tema del dispositivo</string>
   <string name="backgroundImageUrl">URL de imagen de fondo:</string>
-  <string name="boardGeometry">Geometría del tablero</string>
-  <string name="boardTheme">Tema del tablero</string>
-  <string name="boardSize">Tamaño del tablero</string>
   <string name="pieceSet">Estilo de piezas</string>
   <string name="embedInYourWebsite">Añadir a mi sitio</string>
   <string name="usernameAlreadyUsed">Este nombre de usuario ya existe. Pruebe con otro, por favor.</string>
