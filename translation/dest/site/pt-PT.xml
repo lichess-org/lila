@@ -792,9 +792,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="transparent">Transparente</string>
   <string name="deviceTheme">Tema do dispositivo</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
-  <string name="boardGeometry">Geometria do tabuleiro</string>
-  <string name="boardTheme">Estilo do tabuleiro</string>
-  <string name="boardSize">Tamanho do tabuleiro</string>
   <string name="pieceSet">Peças</string>
   <string name="embedInYourWebsite">Incorporar no teu site</string>
   <string name="usernameAlreadyUsed">Este nome de utilizador já existe, por favor escolhe outro.</string>
