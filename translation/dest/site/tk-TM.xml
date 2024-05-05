@@ -616,9 +616,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="dark">Garaňky</string>
   <string name="transparent">Dury</string>
   <string name="backgroundImageUrl">Arka fon suratyň URL-i:</string>
-  <string name="boardGeometry">Tagta geometriýasy</string>
-  <string name="boardTheme">Tagta temasy</string>
-  <string name="boardSize">Tagta ölçegi</string>
   <string name="pieceSet">Çöp toplumy</string>
   <string name="embedInYourWebsite">Websaýtyňyza özleşdiriň</string>
   <string name="usernameAlreadyUsed">Bu ulanyjy ady eýýäm ulanyşda, başgasyny saýlaň.</string>
