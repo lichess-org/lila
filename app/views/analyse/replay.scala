@@ -56,7 +56,7 @@ object replay:
         title    := "Copy Gif URL",
         cls      := "copy button",
         dataRel  := "game-gif",
-        dataIcon := Icon.Link
+        dataIcon := Icon.Clipboard
       ),
       a(
         id       := "position-gif",
@@ -80,7 +80,7 @@ object replay:
         title    := "Copy Screenshot position URL",
         cls      := "copy button",
         dataRel  := "position-gif",
-        dataIcon := Icon.Link
+        dataIcon := Icon.Clipboard
       )
     )
     val shareLinks = frag(
@@ -97,7 +97,7 @@ object replay:
           title    := "Copy URL",
           cls      := "copy button",
           dataRel  := "game-url",
-          dataIcon := Icon.Link
+          dataIcon := Icon.Clipboard
         )
       )
     )

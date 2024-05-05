@@ -140,7 +140,7 @@ const renderLink = (ctrl: RacerCtrl) =>
         },
       }),
       h('button.copy.button', {
-        attrs: { title: 'Copy URL', 'data-rel': `racer-url-${ctrl.race.id}`, 'data-icon': licon.Link },
+        attrs: { title: 'Copy URL', 'data-rel': `racer-url-${ctrl.race.id}`, 'data-icon': licon.Clipboard },
       }),
     ]),
   ]);
