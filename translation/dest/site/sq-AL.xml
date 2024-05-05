@@ -781,9 +781,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="transparent">I tejdukshëm</string>
   <string name="deviceTheme">Temën e pajisjes</string>
   <string name="backgroundImageUrl">URL figure sfondi:</string>
-  <string name="boardGeometry">Gjeometri fushe</string>
-  <string name="boardTheme">Temë fushe</string>
-  <string name="boardSize">Madhësi fushe</string>
   <string name="pieceSet">Figura</string>
   <string name="embedInYourWebsite">Trupëzojeni në sajtin tuaj</string>
   <string name="usernameAlreadyUsed">Ky emër përdoruesi është tashmë në përdorim, ju lutemi, provoni një tjetër.</string>
