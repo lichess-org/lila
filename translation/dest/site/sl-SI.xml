@@ -860,6 +860,12 @@
   <string name="transparent">Prosojna</string>
   <string name="deviceTheme">Tema naprave</string>
   <string name="backgroundImageUrl">URL slike ozadja:</string>
+  <string name="board">Šahovnica</string>
+  <string name="size">Velikost</string>
+  <string name="opacity">Prosojnost</string>
+  <string name="brightness">Svetlost</string>
+  <string name="hue">Odtenek</string>
+  <string name="boardReset">Ponastavi barve na privzete</string>
   <string name="pieceSet">Figure</string>
   <string name="embedInYourWebsite">Vstavite v vašo internetno stran</string>
   <string name="usernameAlreadyUsed">Uporabniško ime je že v uporabi, prosimo izberite si drugo.</string>
