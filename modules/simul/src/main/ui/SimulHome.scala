@@ -15,7 +15,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
       finisheds: List[Simul]
   )(using ctx: Context) =
     Page(trans.site.simultaneousExhibitions.txt())
-      .cssTag("simul.list")
+      .css("simul.list")
       .js(embedJsUnsafeLoadThen(s"""
 site.StrongSocket.defaultParams.flag = 'simul';
 site.pubsub.on('socket.in.reload', () =>
@@ -153,7 +153,7 @@ site.pubsub.on('socket.in.reload', () =>
 
   def hosted(user: User, pager: Paginator[Simul])(using Context) =
     Page(s"${user.username} hosted simuls")
-      .cssTag("user-simul")
+      .css("user-simul")
       .js(infiniteScrollEsmInit):
         main(cls := "page-small box simul-list")(
           if pager.nbResults == 0 then

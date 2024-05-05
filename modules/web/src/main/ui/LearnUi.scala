@@ -17,7 +17,7 @@ final class LearnUi(helpers: Helpers):
           "learn",
           Json.obj("data" -> data, "i18n" -> i18nJsObject(i18nKeys))
         )
-      .cssTag("learn")
+      .css("learn")
       .graph(
         title = "Learn chess by playing",
         description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",

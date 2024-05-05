@@ -30,7 +30,7 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
       ctx: Context
   ) =
     page
-      .cssTag("coach.editor", "tagify")
+      .css("coach.editor", "tagify")
       .js(EsmInit("bits.coachForm")):
         div(cls := "coach-edit box")(
           div(cls := "top")(

@@ -17,7 +17,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 
   def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context) =
     Page("New forum topic")
-      .cssTag("forum")
+      .css("forum")
       .js(EsmInit("bits.forum"))
       .js(captchaEsmInit):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
@@ -88,7 +88,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     val teamOnly = categ.team.filterNot(isMyTeamSync)
     val pager = paginationByQuery(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}")
-      .cssTag("forum")
+      .css("forum")
       .csp(_.withInlineIconFont.withTwitter)
       .js(EsmInit("bits.forum") ++ EsmInit("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsmInit))
       .graph(
@@ -204,7 +204,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
       Context
   )(using me: Me) =
     Page("Diagnostic report")
-      .cssTag("forum")
+      .css("forum")
       .js(EsmInit("bits.forum"))
       .js(jsModuleInit("bits.autoform", Json.obj("selector" -> ".post-text-area", "ops" -> "focus begin")))
       .js(captchaEsmInit):

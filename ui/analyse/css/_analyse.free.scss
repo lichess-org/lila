@@ -1,40 +1,16 @@
 /* free analysis on /analysis */
 @import 'analyse.base';
 
+$label-width: 5ch;
+
 .copyables {
   .pair {
     @extend %flex-center;
-
     position: relative;
-
-    .action {
-      @extend %box-radius-bottom;
-
-      position: absolute;
-      @include inline-end(0);
-      top: 100%;
-      text-align: right;
-      visibility: hidden;
-      opacity: 0;
-
-      @include transition;
-
-      @media (prefers-reduced-motion: reduce) {
-        // Keep the button visible until it was focused
-        transition: all 1ms !important;
-      }
-    }
-
-    textarea:focus ~ .action,
-    .action:active,
-    .action:focus-visible {
-      visibility: visible;
-      opacity: 1;
-    }
   }
 
   .name {
-    flex: 0 0 5ch;
+    flex: 0 0 $label-width;
     font-weight: bold;
     color: $c-font-dim;
   }
@@ -50,7 +26,56 @@
       min-height: 6em;
       white-space: pre-wrap;
       overflow-x: hidden;
+
+      &.is-error {
+        background: $m-bad_bg--mix-20;
+        box-shadow: 0 0 13px 2px $m-bad_bg--mix-20;
+      }
     }
+  }
+
+  .bottom-item {
+    position: absolute;
+    top: 100%;
+    visibility: hidden;
+    opacity: 0;
+
+    @include transition;
+
+    @media (prefers-reduced-motion: reduce) {
+      // Keep the button visible until it was focused
+      transition: all 1ms !important;
+    }
+  }
+
+  .bottom-error {
+    left: calc($label-width + 1ch);
+    margin-top: 0.5em;
+    font-size: 90%;
+    color: $c-bad;
+
+    &::before {
+      margin-right: 0.4em;
+    }
+
+    &.is-error {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .bottom-action {
+    @extend %box-radius-bottom;
+
+    @include inline-end(0);
+    text-align: right;
+  }
+
+  textarea:focus ~ .bottom-action,
+  .bottom-action:active,
+  .bottom-action:focus-visible {
+    visibility: visible;
+    opacity: 1;
   }
 }
 

@@ -31,7 +31,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
     given prefix: FormPrefix = FormPrefix.empty
     val fields               = tourFields(form, none)
     Page(trans.site.newTournament.txt())
-      .cssTag("tournament.form")
+      .css("tournament.form")
       .js(EsmInit("bits.tourForm")):
         main(cls := "page-small")(
           div(cls := "tour__form box box-pad")(
@@ -60,7 +60,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
   def edit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using Context) =
     given prefix: FormPrefix = FormPrefix.empty
     Page(tour.name())
-      .cssTag("tournament.form")
+      .css("tournament.form")
       .js(EsmInit("bits.tourForm")):
         main(cls := "page-small")(
           div(cls := "tour__form box box-pad")(
@@ -244,7 +244,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
           main(cls := "page-menu")(modMenu, body)
 
     def create(form: Form[?])(using Context) =
-      page("New tournament").cssTag("mod.form"):
+      page("New tournament").css("mod.form"):
         div(cls := "crud page-menu__content box box-pad")(
           h1(cls := "box__top")("New tournament"),
           postForm(cls := "form3", action := routes.TournamentCrud.create)(
@@ -257,7 +257,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
 
     def index(tours: Paginator[Tournament])(using Context) =
       page("Tournament manager")
-        .cssTag("mod.misc")
+        .css("mod.misc")
         .js(infiniteScrollEsmInit):
           div(cls := "crud page-menu__content box")(
             boxTop(
@@ -309,7 +309,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
           )
 
     def edit(tour: Tournament, form: Form[?])(using Context) =
-      page(tour.name()).cssTag("mod.form"):
+      page(tour.name()).css("mod.form"):
         div(cls := "crud edit page-menu__content box box-pad")(
           boxTop(
             h1(

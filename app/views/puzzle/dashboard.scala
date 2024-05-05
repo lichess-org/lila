@@ -63,7 +63,7 @@ object dashboard:
       subtitle: String,
       dashOpt: Option[PuzzleDashboard]
   )(body: PuzzleDashboard => Option[Frag])(using Context) =
-    Page(title).cssTag("puzzle.dashboard"):
+    Page(title).css("puzzle.dashboard"):
       main(cls := "page-menu")(
         bits.pageMenu(path, user.some),
         div(cls := s"page-menu__content box box-pad $baseClass")(

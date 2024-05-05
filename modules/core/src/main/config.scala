@@ -75,4 +75,4 @@ object config:
       email: EmailAddress,
       logRequests: Boolean
   ):
-    def isProd = domain == prodDomain
+    inline def isProd = domain == prodDomain

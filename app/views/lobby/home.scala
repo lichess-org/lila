@@ -30,7 +30,7 @@ object home:
             )
         )
       )
-      .cssTag("lobby")
+      .css("lobby")
       .graph(
         OpenGraph(
           image = assetUrl("logo/lichess-tile-wide.png").some,

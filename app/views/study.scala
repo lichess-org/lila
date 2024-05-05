@@ -13,7 +13,7 @@ lazy val ui   = lila.study.ui.StudyUi(helpers, bits)
 lazy val list = lila.study.ui.ListUi(helpers, bits)
 
 def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
-  Page(p.title).cssTag("study.index", "page"):
+  Page(p.title).css("study.index", "page"):
     main(cls := "page-menu")(
       list.menu("staffPicks", lila.study.Order.Mine, Nil),
       main(cls := "page-menu__content box box-pad page"):
@@ -45,7 +45,7 @@ def create(
       icon = Some(Icon.StudyBoard),
       back = backUrl
     )
-    .cssTag("study.create")(ui.create(data, owner, contrib, backUrl))
+    .css("study.create")(ui.create(data, owner, contrib, backUrl))
 
 def show(
     s: lila.study.Study,
@@ -55,8 +55,8 @@ def show(
     streamers: List[UserId]
 )(using ctx: Context) =
   Page(s.name.value)
-    .cssTag("analyse.study")
-    .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+    .css("analyse.study")
+    .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
     .js(analyseNvuiTag)
     .js(
       PageModule(
