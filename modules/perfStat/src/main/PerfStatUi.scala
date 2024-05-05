@@ -1,28 +1,77 @@
 package lila.perfStat
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.Context
+import play.api.libs.json.Json
+
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.rating.PerfType
 import lila.core.perm.Granter
-import lila.core.i18n.{ I18nKey as trans, Translate }
+import lila.core.perf.UserWithPerfs
+import lila.common.Json.given
+import lila.core.data.SafeJsonStr
 
-final class PerfStatUi(
-    i18nHelper: lila.ui.I18nHelper,
-    dateHelper: lila.ui.DateHelper,
-    userHelper: lila.ui.UserHelper
-)(
-    routeRoundWatcher: (String, String) => Call,
-    percentileText: (User, PerfType, Double) => Context ?=> Frag
-):
-  import lila.ui.NumberHelper.*
-  import i18nHelper.given
-  import dateHelper.*
-  import trans.perfStat.*
+final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
+  import helpers.{ *, given }
+  import trans.perfStat as tps
+
+  def page(data: PerfStatData, ratingChart: Option[SafeJsonStr], side: Frag, perfTrophies: Frag)(using
+      Context
+  ) =
+    import data.{ user, stat }
+    import stat.perfType
+    Page(s"${user.username} - ${trans.perfStat.perfStats.txt(perfType.trans)}")
+      .robots(false)
+      .js(EsmInit("bits.user"))
+      .js(ratingChart.map { rc =>
+        jsModuleInit(
+          "chart.ratingHistory",
+          SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using transDefault)}'}")
+        )
+      })
+      .cssTag("perf-stat"):
+        main(cls := s"page-menu")(
+          st.aside(cls := "page-menu__menu")(side),
+          div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
+            boxTop(
+              div(cls := "box__top__title")(
+                perfTrophies,
+                h1(
+                  a(href := routes.User.show(user.username))(user.username),
+                  span(tps.perfStats(perfType.trans))
+                )
+              ),
+              div(cls := "box__top__actions")(
+                a(
+                  cls      := "button button-empty text",
+                  dataIcon := perfType.icon,
+                  href     := s"${routes.User.games(user.username, "search")}?perf=${perfType.id}"
+                )(tps.viewTheGames())
+              )
+            ),
+            ratingChart.isDefined.option(ratingHistoryContainer),
+            content(data)
+          )
+        )
+
+  private def percentileText(u: User, pk: PerfKey, percentile: Double)(using ctx: Context): Frag =
+    if ctx.is(u) then
+      trans.site.youAreBetterThanPercentOfPerfTypePlayers(
+        a(href := routes.User.ratingDistribution(pk))(strong(percentile, "%")),
+        a(href := routes.User.topNb(200, pk))(pk.perfName.txt())
+      )
+    else
+      trans.site.userIsBetterThanPercentOfPerfTypePlayers(
+        a(href := routes.User.show(u.username))(u.username),
+        a(href := routes.User.ratingDistribution(pk, u.username.some))(
+          strong(percentile, "%")
+        ),
+        a(href := routes.User.topNb(200, pk))(pk.perfName.txt())
+      )
 
   def ratingHistoryContainer = div(cls := "rating-history-container")(
     div(cls := "rating-history-container")(
       div(cls := "time-selector-buttons"),
-      lila.ui.HtmlHelper.spinner,
+      spinner,
       div(cls := "chart-container")(canvas(cls := "rating-history")),
       div(id := "time-range-slider")
     )
@@ -55,9 +104,9 @@ final class PerfStatUi(
           frag(
             " ",
             span(
-              title := notEnoughRatedGames.txt(),
+              title := tps.notEnoughRatedGames.txt(),
               cls   := "details"
-            )("(", provisional(), ")")
+            )("(", tps.provisional(), ")")
           )
         ),
         ". ",
@@ -68,7 +117,7 @@ final class PerfStatUi(
         }
       ),
       p(
-        progressOverLastXGames(12),
+        tps.progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
           if perf.progress > 0 then tag("green")(dataIcon := Icon.ArrowUpRight)(perf.progress)
@@ -76,9 +125,9 @@ final class PerfStatUi(
           else "-"
         ),
         ". ",
-        ratingDeviation(
+        tps.ratingDeviation(
           strong(
-            title := ratingDeviationTooltip.txt(
+            title := tps.ratingDeviationTooltip.txt(
               lila.rating.Glicko.provisionalDeviation,
               lila.rating.Glicko.standardRankableDeviation,
               lila.rating.Glicko.variantRankableDeviation
@@ -97,28 +146,28 @@ final class PerfStatUi(
         table(
           tbody(
             tr(
-              th(totalGames()),
+              th(tps.totalGames()),
               td(count.all.localize),
               td
             ),
             tr(cls := "full")(
-              th(ratedGames()),
+              th(tps.ratedGames()),
               td(count.rated.localize),
               td(pct(count.rated, count.all))
             ),
             tr(cls := "full")(
-              th(tournamentGames()),
+              th(tps.tournamentGames()),
               td(count.tour.localize),
               td(pct(count.tour, count.all))
             ),
             tr(cls := "full")(
-              th(berserkedGames()),
+              th(tps.berserkedGames()),
               td(count.berserk.localize),
               td(pct(count.berserk, count.tour))
             ),
             (count.seconds > 0).option(
               tr(cls := "full")(
-                th(timeSpentPlaying()),
+                th(tps.timeSpentPlaying()),
                 td(colspan := "2")(lila.core.i18n.translateDuration(count.duration))
               )
             )
@@ -129,12 +178,12 @@ final class PerfStatUi(
         table(
           tbody(
             tr(
-              th(averageOpponent()),
+              th(tps.averageOpponent()),
               td(decimal(count.opAvg.avg).toString),
               td
             ),
             tr(cls := "full")(
-              th(victories()),
+              th(tps.victories()),
               td(tag("green")(count.win.localize)),
               td(tag("green")(pct(count.win, count.all)))
             ),
@@ -144,12 +193,12 @@ final class PerfStatUi(
               td(pct(count.draw, count.all))
             ),
             tr(cls := "full")(
-              th(defeats()),
+              th(tps.defeats()),
               td(tag("red")(count.loss.localize)),
               td(tag("red")(pct(count.loss, count.all)))
             ),
             tr(cls := "full")(
-              th(disconnections()),
+              th(tps.disconnections()),
               td((count.disconnects > count.all * 100 / 15).option(tag("red")))(
                 count.disconnects.localize
               ),
@@ -169,9 +218,9 @@ final class PerfStatUi(
     case Some(r) =>
       div(
         h2(title(strong(tag(color)(r.int, pctStr.map(st.title := _))))),
-        a(cls := "glpt", href := routeRoundWatcher(r.gameId, "white"))(absClientInstant(r.at))
+        a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientInstant(r.at))
       )
-    case None => div(h2(title(emptyFrag)), " ", span(notEnoughGames()))
+    case None => div(h2(title(emptyFrag)), " ", span(tps.notEnoughGames()))
 
   private def highlow(stat: PerfStat, pctLow: Option[Double], pctHigh: Option[Double])(using
       Translate
@@ -179,19 +228,19 @@ final class PerfStatUi(
     import stat.perfType
     def titleOf(v: Double) = trans.site.betterThanPercentPlayers.txt(s"$v%", perfType.trans)
     st.section(cls := "highlow split")(
-      highlowSide(highestRating(_), stat.highest, pctHigh.map(titleOf), "green"),
-      highlowSide(lowestRating(_), stat.lowest, pctLow.map(titleOf), "red")
+      highlowSide(tps.highestRating(_), stat.highest, pctHigh.map(titleOf), "green"),
+      highlowSide(tps.lowestRating(_), stat.lowest, pctLow.map(titleOf), "red")
     )
 
   private def fromTo(s: lila.perfStat.Streak)(using Translate): Frag =
     s.from match
       case Some(from) =>
-        fromXToY(
-          a(cls := "glpt", href := routeRoundWatcher(from.gameId, "white"))(absClientInstant(from.at)),
+        tps.fromXToY(
+          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientInstant(from.at)),
           s.to match
             case Some(to) =>
-              a(cls := "glpt", href := routeRoundWatcher(to.gameId, "white"))(absClientInstant(to.at))
-            case None => now()
+              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientInstant(to.at))
+            case None => tps.now()
         )
       case None => nbsp
 
@@ -213,14 +262,14 @@ final class PerfStatUi(
   ): Frag =
     div(
       h2(title),
-      resultStreakSideStreak(s.max, longestStreak(_), color),
-      resultStreakSideStreak(s.cur, currentStreak(_), color)
+      resultStreakSideStreak(s.max, tps.longestStreak(_), color),
+      resultStreakSideStreak(s.cur, tps.currentStreak(_), color)
     )
 
   private def resultStreak(streak: lila.perfStat.ResultStreak)(using Translate): Frag =
     st.section(cls := "resultStreak split")(
-      resultStreakSide(streak.win, winningStreak(), "green"),
-      resultStreakSide(streak.loss, losingStreak(), "red")
+      resultStreakSide(streak.win, tps.winningStreak(), "green"),
+      resultStreakSide(streak.loss, tps.losingStreak(), "red")
     )
 
   private def resultTable(results: lila.perfStat.Results, title: Frag, user: User)(using Translate) =
@@ -232,16 +281,16 @@ final class PerfStatUi(
         tbody:
           results.results.map: r =>
             tr(
-              td(userHelper.userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
+              td(userIdLink(r.opId.some, withOnline = false), " (", r.opRating, ")"),
               td:
-                a(cls := "glpt", href := s"${routeRoundWatcher(r.gameId, "white")}?pov=${user.username}"):
+                a(cls := "glpt", href := s"${routes.Round.watcher(r.gameId, "white")}?pov=${user.username}"):
                   absClientInstant(r.at)
             )
       )
 
   private def result(stat: PerfStat, user: User)(using Context): Frag =
     st.section(cls := "result split")(
-      resultTable(stat.bestWins, bestRated(), user),
+      resultTable(stat.bestWins, tps.bestRated(), user),
       (Granter.opt(_.BoostHunter) || Granter.opt(_.CheatHunter)).option(
         resultTable(
           stat.worstLosses,
@@ -266,13 +315,13 @@ final class PerfStatUi(
 
   private def playStreakNbStreaks(streaks: lila.perfStat.Streaks)(using Translate): Frag =
     div(cls := "split")(
-      playStreakNbStreak(streaks.max, longestStreak(_)),
-      playStreakNbStreak(streaks.cur, currentStreak(_))
+      playStreakNbStreak(streaks.max, tps.longestStreak(_)),
+      playStreakNbStreak(streaks.cur, tps.currentStreak(_))
     )
 
   private def playStreakNb(playStreak: lila.perfStat.PlayStreak)(using Translate): Frag =
     st.section(cls := "playStreak")(
-      h2(span(title := lessThanOneHour.txt())(gamesInARow())),
+      h2(span(title := tps.lessThanOneHour.txt())(tps.gamesInARow())),
       playStreakNbStreaks(playStreak.nb)
     )
 
@@ -286,12 +335,91 @@ final class PerfStatUi(
 
   private def playStreakTimeStreaks(streaks: lila.perfStat.Streaks)(using Translate): Frag =
     div(cls := "split")(
-      playStreakTimeStreak(streaks.max, longestStreak(_)),
-      playStreakTimeStreak(streaks.cur, currentStreak(_))
+      playStreakTimeStreak(streaks.max, tps.longestStreak(_)),
+      playStreakTimeStreak(streaks.cur, tps.currentStreak(_))
     )
 
   private def playStreakTime(playStreak: lila.perfStat.PlayStreak)(using Translate): Frag =
     st.section(cls := "playStreak")(
-      h2(span(title := lessThanOneHour.txt())(maxTimePlaying())),
+      h2(span(title := tps.lessThanOneHour.txt())(tps.maxTimePlaying())),
       playStreakTimeStreaks(playStreak.time)
     )
+
+  def ratingDistribution(perfType: PerfType, data: List[Int], otherUser: Option[UserWithPerfs])(using
+      ctx: Context,
+      me: Option[UserWithPerfs]
+  ) =
+    val myVisiblePerfs = me.map(_.perfs).ifTrue(ctx.pref.showRatings)
+    Page(trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
+      .cssTag("user.rating.stats")
+      .copy(wrapClass = "full-screen-force")
+      .js(
+        PageModule(
+          "chart.ratingDistribution",
+          Json.obj(
+            "freq"        -> data,
+            "myRating"    -> myVisiblePerfs.map(_(perfType).intRating),
+            "otherRating" -> otherUser.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
+            "otherPlayer" -> otherUser.map(_.username),
+            "i18n" -> i18nJsObject(
+              List(trans.site.players, trans.site.yourRating, trans.site.cumulative, trans.site.glicko2Rating)
+            )
+          )
+        )
+      ):
+        main(cls := "page-menu")(
+          communityMenu,
+          div(cls := "rating-stats page-menu__content box box-pad")(
+            boxTop(
+              h1(
+                trans.site.weeklyPerfTypeRatingDistribution(
+                  lila.ui.bits.mselect(
+                    "variant-stats",
+                    span(perfType.trans),
+                    lila.rating.PerfType.leaderboardable
+                      .map(PerfType(_))
+                      .map: pt =>
+                        a(
+                          dataIcon := pt.icon,
+                          cls      := (perfType == pt).option("current"),
+                          href     := routes.User.ratingDistribution(pt.key, otherUser.map(_.username))
+                        )(pt.trans)
+                  )
+                )
+              )
+            ),
+            div(cls := "desc", dataIcon := perfType.icon)(
+              myVisiblePerfs
+                .flatMap(_(perfType).glicko.establishedIntRating)
+                .map: rating =>
+                  val (under, sum) = lila.perfStat.percentileOf(data, rating)
+                  div(
+                    trans.site.nbPerfTypePlayersThisWeek(strong(sum.localize), perfType.trans),
+                    br,
+                    trans.site.yourPerfTypeRatingIsRating(perfType.trans, strong(rating)),
+                    br,
+                    trans.site.youAreBetterThanPercentOfPerfTypePlayers(
+                      strong((under * 100.0 / sum).round, "%"),
+                      perfType.trans
+                    )
+                  )
+                .getOrElse:
+                  div(
+                    trans.site.nbPerfTypePlayersThisWeek
+                      .plural(data.sum, strong(data.sum.localize), perfType.trans),
+                    ctx.pref.showRatings.option(
+                      frag(
+                        br,
+                        trans.site.youDoNotHaveAnEstablishedPerfTypeRating(perfType.trans)
+                      )
+                    )
+                  )
+            ),
+            div(id := "rating_distribution")(
+              canvas(
+                id := "rating_distribution_chart",
+                ariaTitle(trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
+              )(spinner)
+            )
+          )
+        )

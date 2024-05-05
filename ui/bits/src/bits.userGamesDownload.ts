@@ -35,7 +35,11 @@ function generateSearchParams(): string {
 function update() {
   const params = generateSearchParams();
   const apiUrl = $('#dl-api-url');
-  apiUrl.val(`${window.location.protocol}//${window.location.host}${apiUrl.data('apiPath')}?${params}`);
+  console.log(params);
+  console.log(apiUrl.find('input'));
+  apiUrl
+    .find('input')
+    .val(`${window.location.protocol}//${window.location.host}${apiUrl.data('apiPath')}?${params}`);
   const btn = $('#dl-button');
   btn.prop('href', btn.prop('href').split('?')[0] + '?' + params);
 }

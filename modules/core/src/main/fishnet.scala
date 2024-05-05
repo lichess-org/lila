@@ -18,8 +18,10 @@ case class StudyChapterRequest(
     variant: _root_.chess.variant.Variant,
     moves: List[Uci],
     userId: UserId,
-    unlimited: Boolean
+    official: Boolean
 )
 
-type AnalysisAwaiter       = (Seq[GameId], FiniteDuration) => Funit
-type SystemAnalysisRequest = GameId => Funit
+type AnalysisAwaiter = (Seq[GameId], FiniteDuration) => Funit
+
+trait FishnetRequest:
+  def tutor(gameId: GameId): Funit

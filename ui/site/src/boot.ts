@@ -1,5 +1,6 @@
 import * as licon from 'common/licon';
 import * as miniBoard from 'common/miniBoard';
+import { prefersLight } from 'common/theme';
 import * as miniGame from './miniGame';
 import * as timeago from './timeago';
 import * as xhr from 'common/xhr';
@@ -40,23 +41,22 @@ export function boot() {
     $('.subnav__inner').each(function (this: HTMLElement) {
       scrollToInnerSelector(this, '.active', true);
     });
-    $('#main-wrap')
-      .on('click', '.autoselect', function (this: HTMLInputElement) {
-        this.select();
-      })
-      .on('click', 'button.copy', function (this: HTMLElement) {
-        const showCheckmark = () => $(this).attr('data-icon', licon.Checkmark);
-        $('#' + this.dataset.rel).each(function (this: HTMLInputElement) {
-          try {
-            navigator.clipboard.writeText(this.value).then(showCheckmark);
-          } catch (e) {
-            console.error(e);
-          }
-        });
-        return false;
+    $('#main-wrap').on('click', '.copy-me__button', function (this: HTMLElement) {
+      const showCheckmark = () => {
+        $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
+        setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
+      };
+      $(this.parentElement!.firstElementChild!).each(function (this: any) {
+        try {
+          navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
+        } catch (e) {
+          console.error(e);
+        }
       });
+      return false;
+    });
 
-    $('body').on('click', 'a.relation-button', function (this: HTMLAnchorElement) {
+    $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
       const $a = $(this).addClass('processing').css('opacity', 0.3);
       xhr.text(this.href, { method: 'post' }).then(html => {
         if (html.includes('relation-actions')) $a.parent().replaceWith(html);
@@ -177,7 +177,7 @@ export function boot() {
           ),
       );
     });
-    window.matchMedia('(prefers-color-scheme: light)')?.addEventListener('change', e => {
+    prefersLight().addEventListener('change', e => {
       if (document.body.dataset.theme === 'system')
         document.documentElement.className = e.matches ? 'light' : 'dark';
     });

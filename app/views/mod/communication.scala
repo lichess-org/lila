@@ -1,38 +1,29 @@
-package views.html.mod
+package views.mod
 
-import controllers.routes
+import lila.app.UiEnv.{ *, given }
 
-import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.common.String.html.richText
 import lila.core.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
-import lila.relation.Follow
 import lila.shutup.Analyser
 
-object communication:
-
-  def apply(
-      mod: Me,
-      u: User,
-      players: List[(Pov, lila.chat.MixedChat)],
-      convos: List[lila.msg.ModMsgConvo],
-      publicLines: List[lila.shutup.PublicLine],
-      notes: List[lila.user.Note],
-      history: List[lila.mod.Modlog],
-      logins: lila.security.UserLogins.TableData[UserWithModlog],
-      appeals: List[lila.appeal.Appeal],
-      priv: Boolean
-  )(using ctx: PageContext, renderIp: RenderIp) =
-    views.html.base.layout(
-      title = u.username + " communications",
-      moreCss = frag(
-        cssTag("mod.communication"),
-        isGranted(_.UserModView).option(cssTag("mod.user"))
-      ),
-      modules = isGranted(_.UserModView).so(jsModule("mod.user"))
-    ):
+def communication(
+    mod: Me,
+    u: User,
+    players: List[(Pov, lila.chat.MixedChat)],
+    convos: List[lila.msg.ModMsgConvo],
+    publicLines: List[lila.shutup.PublicLine],
+    notes: List[lila.user.Note],
+    history: List[lila.mod.Modlog],
+    logins: lila.security.UserLogins.TableData[UserWithModlog],
+    appeals: List[lila.appeal.Appeal],
+    priv: Boolean
+)(using ctx: Context, renderIp: RenderIp) =
+  Page(u.username + " communications")
+    .cssTag("mod.communication")
+    .cssTag(isGranted(_.UserModView).option("mod.user"))
+    .js(isGranted(_.UserModView).option(EsmInit("mod.user"))):
       main(id := "communication", cls := "box box-pad")(
         boxTop(
           h1(
@@ -76,7 +67,7 @@ object communication:
         isGranted(_.UserModView).option(
           frag(
             div(cls := "mod-zone mod-zone-full none"),
-            views.html.user.mod.otherUsers(mod, u, logins, appeals)(
+            views.user.mod.otherUsers(mod, u, logins, appeals)(
               cls := "mod-zone communication__logins"
             )
           )
@@ -126,12 +117,12 @@ object communication:
                 line.date.fold[Frag]("[OLD]")(momentFromNowServer),
                 " ",
                 line.from.map:
-                  case PublicSource.Tournament(id) => tournamentLink(id)
-                  case PublicSource.Simul(id)      => views.html.simul.bits.link(id)
+                  case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)
+                  case PublicSource.Simul(id)      => views.simul.ui.link(id)
                   case PublicSource.Team(id)       => teamLink(id)
                   case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
                   case PublicSource.Study(id)   => a(href := routes.Study.show(id))("Study #", id)
-                  case PublicSource.Swiss(id)   => views.html.swiss.bits.link(SwissId(id))
+                  case PublicSource.Swiss(id)   => views.swiss.ui.link(SwissId(id))
                   case PublicSource.Forum(id)   => a(href := routes.ForumPost.redirect(id))("Forum #", id)
                   case PublicSource.Ublog(id)   => a(href := routes.Ublog.redirect(id))("User blog #", id)
                 ,
@@ -211,5 +202,5 @@ object communication:
         )
       )
 
-  private def showSbMark(u: User) =
-    u.marks.troll.option(span(cls := "user_marks")(iconTag(Icon.BubbleSpeech)))
+private def showSbMark(u: User) =
+  u.marks.troll.option(span(cls := "user_marks")(iconTag(Icon.BubbleSpeech)))

@@ -184,7 +184,7 @@
       padding: 0;
       vertical-align: top;
       background: #484541;
-
+      border-radius: 4px 0 0 4px;
       i {
         display: block;
         height: 30px;
@@ -325,6 +325,13 @@
 
     .appeal-muted {
       color: $c-bad;
+    }
+
+    .add-to-note {
+      cursor: pointer;
+      &:hover {
+        background: $m-accent--fade-80;
+      }
     }
   }
 

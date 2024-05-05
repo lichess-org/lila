@@ -1,7 +1,6 @@
 import * as xhr from 'common/xhr';
 
 interface ChallengeOpts {
-  socketUrl: string;
   xhrUrl: string;
   owner: boolean;
   data: any;
@@ -11,22 +10,27 @@ export function initModule(opts: ChallengeOpts) {
   const selector = '.challenge-page';
   let accepting: boolean;
 
-  site.socket = new site.StrongSocket(opts.socketUrl, opts.data.socketVersion, {
-    events: {
-      reload() {
-        xhr.text(opts.xhrUrl).then(html => {
-          $(selector).replaceWith($(html).find(selector));
-          init();
-          site.contentLoaded($(selector)[0]);
-        });
+  site.socket = new site.StrongSocket(
+    `/challenge/${opts.data.challenge.id}/socket/v5`,
+    opts.data.socketVersion,
+    {
+      events: {
+        reload() {
+          xhr.text(opts.xhrUrl).then(html => {
+            $(selector).replaceWith($(html).find(selector));
+            init();
+            site.contentLoaded($(selector)[0]);
+          });
+        },
       },
     },
-  });
+  );
 
   function init() {
     if (!accepting)
       $('#challenge-redirect').each(function (this: HTMLAnchorElement) {
-        location.href = this.href;
+        console.log('challenge-redirect');
+        // location.href = this.href;
       });
     $(selector)
       .find('form.accept')

@@ -120,5 +120,6 @@
   <string name="forbiddedUsers">このリストにユーザー名を入力すると、それ以外のユーザーは参加できません。1 行ごとに 1 人です。</string>
   <string name="playYourGames">対局は最後まで</string>
   <string name="byes">バイ</string>
+  <string name="absences">不戦敗</string>
   <string name="tieBreak">タイブレーク</string>
 </resources>

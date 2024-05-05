@@ -21,6 +21,7 @@ case class PerfStat(
     resultStreak: ResultStreak,
     playStreak: PlayStreak
 ):
+  def perfKey = perfType.key
   def agg(pov: Pov) =
     if !pov.game.finished then this
     else
@@ -34,7 +35,6 @@ case class PerfStat(
         resultStreak = resultStreak.agg(pov),
         playStreak = playStreak.agg(pov)
       )
-
   def userIds = bestWins.userIds ::: worstLosses.userIds
 
 object PerfStat:

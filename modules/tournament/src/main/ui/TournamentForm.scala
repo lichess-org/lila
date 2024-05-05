@@ -2,12 +2,14 @@ package lila.tournament
 package ui
 
 import play.api.data.*
+import scalalib.paginator.Paginator
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.ui.{ Context, FormHelper, I18nHelper }
-import lila.core.i18n.{ Translate, I18nKey as trans }
+import lila.ui.*
+import ScalatagsTemplate.{ *, given }
+import lila.core.i18n.Translate
 import lila.gathering.{ ConditionForm, GatheringClock }
 import lila.core.team.LightTeam
+import lila.tournament.crud.CrudForm
 
 opaque type FormPrefix = Option[String]
 object FormPrefix extends TotalWrapper[FormPrefix, Option[String]]:
@@ -19,13 +21,65 @@ extension (f: Form[?])
     prefixOpt.fold(name)(prefix => s"$prefix.$name")
   )
 
-final class TournamentForm(
-    val formHelper: FormHelper,
-    val i18nHelper: I18nHelper,
+final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
+    modMenu: Context ?=> Frag,
     val translatedVariantChoicesWithVariants: Translate ?=> List[(String, String, Option[String])]
 ):
-  import formHelper.*
-  import i18nHelper.given
+  import helpers.{ *, given }
+
+  def create(form: Form[?], leaderTeams: List[LightTeam])(using Context) =
+    given prefix: FormPrefix = FormPrefix.empty
+    val fields               = tourFields(form, none)
+    Page(trans.site.newTournament.txt())
+      .cssTag("tournament.form")
+      .js(EsmInit("bits.tourForm")):
+        main(cls := "page-small")(
+          div(cls := "tour__form box box-pad")(
+            h1(cls := "box__top")(
+              if fields.isTeamBattle then trans.arena.newTeamBattle()
+              else trans.site.createANewTournament()
+            ),
+            postForm(cls := "form3", action := routes.Tournament.webCreate)(
+              div(cls := "form-group")(
+                a(
+                  dataIcon := Icon.InfoCircle,
+                  cls      := "text",
+                  href     := routes.Cms.lonePage("event-tips")
+                )(trans.site.ourEventTips())
+              ),
+              setupCreate(form, leaderTeams),
+              form3.actions(
+                a(href := routes.Tournament.home)(trans.site.cancel()),
+                form3.submit(trans.site.createANewTournament(), icon = Icon.Trophy.some)
+              )
+            )
+          ),
+          div(cls := "box box-pad tour__faq")(showUi.faq.pageContent)
+        )
+
+  def edit(tour: Tournament, form: Form[?], myTeams: List[LightTeam])(using Context) =
+    given prefix: FormPrefix = FormPrefix.empty
+    Page(tour.name())
+      .cssTag("tournament.form")
+      .js(EsmInit("bits.tourForm")):
+        main(cls := "page-small")(
+          div(cls := "tour__form box box-pad")(
+            h1(cls := "box__top")("Edit ", tour.name()),
+            postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
+              setupEdit(tour, form, myTeams),
+              form3.actions(
+                a(href := routes.Tournament.show(tour.id))(trans.site.cancel()),
+                form3.submit(trans.site.save(), icon = Icon.Trophy.some)
+              )
+            ),
+            hr,
+            br,
+            br,
+            postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id)):
+              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm"):
+                trans.site.cancelTournament()
+          )
+        )
 
   def tourFields(form: Form[?], tour: Option[Tournament])(using Context, FormPrefix) =
     TourFields(this)(form, tour)
@@ -150,12 +204,12 @@ final class TournamentForm(
       form3.split(
         form3.group(
           form("homepageHours"),
-          raw(s"Hours on homepage (0 to ${crud.CrudForm.maxHomepageHours})"),
+          raw(s"Hours on homepage (0 to ${CrudForm.maxHomepageHours})"),
           half = true,
           help = raw("Ask on zulip first").some
         )(form3.input(_, typ = "number")),
         form3.group(form("image"), raw("Custom icon"), half = true)(
-          form3.select(_, crud.CrudForm.imageChoices)
+          form3.select(_, CrudForm.imageChoices)
         )
       ),
       form3.split(
@@ -180,13 +234,110 @@ final class TournamentForm(
       )
     )
 
+  object crud:
+    given prefix: FormPrefix = FormPrefix.make("setup")
+
+    private def page(title: String)(using Context) =
+      Page(title)
+        .js(EsmInit("bits.flatpick"))
+        .wrap: body =>
+          main(cls := "page-menu")(modMenu, body)
+
+    def create(form: Form[?])(using Context) =
+      page("New tournament").cssTag("mod.form"):
+        div(cls := "crud page-menu__content box box-pad")(
+          h1(cls := "box__top")("New tournament"),
+          postForm(cls := "form3", action := routes.TournamentCrud.create)(
+            spotlightAndTeamBattle(form, none),
+            errMsg(form("setup")),
+            setupCreate(form, Nil),
+            form3.action(form3.submit(trans.site.apply()))
+          )
+        )
+
+    def index(tours: Paginator[Tournament])(using Context) =
+      page("Tournament manager")
+        .cssTag("mod.misc")
+        .js(infiniteScrollEsmInit):
+          div(cls := "crud page-menu__content box")(
+            boxTop(
+              h1("Tournament manager"),
+              div(cls := "box__top__actions")(
+                a(
+                  cls      := "button button-green",
+                  href     := routes.TournamentCrud.form,
+                  dataIcon := Icon.PlusButton
+                )
+              )
+            ),
+            table(cls := "slist slist-pad")(
+              thead(
+                tr(
+                  th(),
+                  th("Variant"),
+                  th("Clock"),
+                  th("Duration"),
+                  th(utcLink, " Date"),
+                  th()
+                )
+              ),
+              tbody(cls := "infinite-scroll")(
+                tours.currentPageResults.map: tour =>
+                  tr(cls := "paginated")(
+                    td(
+                      a(href := routes.TournamentCrud.edit(tour.id))(
+                        strong(tour.name()),
+                        " ",
+                        em(tour.spotlight.map(_.headline))
+                      )
+                    ),
+                    td(tour.variant.name),
+                    td(tour.clock.toString),
+                    td(tour.minutes, "m"),
+                    td(showInstant(tour.startsAt), " ", momentFromNow(tour.startsAt, alwaysRelative = true)),
+                    td(
+                      a(
+                        href     := routes.Tournament.show(tour.id),
+                        dataIcon := Icon.Eye,
+                        title    := "View on site"
+                      )
+                    )
+                  ),
+                pagerNextTable(tours, routes.TournamentCrud.index(_).url)
+              )
+            )
+          )
+
+    def edit(tour: Tournament, form: Form[?])(using Context) =
+      page(tour.name()).cssTag("mod.form"):
+        div(cls := "crud edit page-menu__content box box-pad")(
+          boxTop(
+            h1(
+              a(href := routes.Tournament.show(tour.id))(tour.name()),
+              " ",
+              span("Created by ", titleNameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
+            ),
+            st.form(
+              cls    := "box__top__actions",
+              action := routes.TournamentCrud.cloneT(tour.id),
+              method := "get"
+            )(form3.submit("Clone", Icon.Trophy.some)(cls := "button-green button-empty"))
+          ),
+          standardFlash,
+          postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(
+            spotlightAndTeamBattle(form, tour.some),
+            errMsg(form("setup")),
+            setupEdit(tour, form, Nil),
+            form3.action(form3.submit(trans.site.apply()))
+          )
+        )
+
 final class TourFields(tourForm: TournamentForm)(form: Form[?], tour: Option[Tournament])(using
     Context,
     FormPrefix
 ):
   import tourForm.*
-  import i18nHelper.given
-  import formHelper.*
+  import tourForm.helpers.{ given, * }
 
   def isTeamBattle = tour.exists(_.isTeamBattle) || form.prefix("teamBattleByTeam").value.nonEmpty
 

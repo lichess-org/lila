@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.chat.Chat
@@ -12,6 +11,7 @@ import lila.tournament.Tournament as Tour
 import lila.core.data.Preload
 import lila.core.id.{ GameFullId, GameAnyId }
 import lila.round.RoundGame.*
+import lila.ui.Snippet
 
 final class Round(
     env: Env,
@@ -22,7 +22,7 @@ final class Round(
     swissC: => Swiss,
     userC: => User
 ) extends LilaController(env)
-    with TheftPrevention:
+    with lila.web.TheftPrevention:
 
   import env.user.flairApi.given
 
@@ -49,7 +49,7 @@ final class Round(
                   ).tupled
                 _ = simul.foreach(env.simul.api.onPlayerConnection(pov.game, ctx.me))
                 page <- renderPage(
-                  html.round.player(
+                  views.round.player(
                     pov,
                     data,
                     tour = tour,
@@ -131,7 +131,7 @@ final class Round(
       case None =>
         userC
           .tryRedirect(gameId.into(UserStr))
-          .getOrElse(challengeC.showId(gameId.into(lila.challenge.Challenge.Id)))
+          .getOrElse(challengeC.showId(gameId.into(lila.challenge.ChallengeId)))
 
   private def proxyPov(gameId: GameId, color: String): Fu[Option[Pov]] =
     chess.Color
@@ -163,7 +163,7 @@ final class Round(
                   lila.round.OnTv.User(u.id)
                 data <- env.api.roundApi.watcher(pov, users, tour, tv)
                 page <- renderPage:
-                  html.round.watcher(
+                  views.round.watcher(
                     pov,
                     data,
                     tour.map(_.tourAndTeamVs),
@@ -179,7 +179,7 @@ final class Round(
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
                 pgn <- env.api
                   .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
-                page <- renderPage(html.round.watcher.crawler(pov, initialFen, pgn))
+                page <- renderPage(views.round.watcher.crawler(pov, initialFen, pgn))
               yield Ok(page)
           ,
           api = _ =>
@@ -247,7 +247,7 @@ final class Round(
               .some
 
   def sides(gameId: GameId, color: String) = Open:
-    FoundPage(proxyPov(gameId, color)): pov =>
+    FoundSnip(proxyPov(gameId, color)): pov =>
       (
         env.tournament.api.gameView.withTeamVs(pov.game),
         pov.game.simulId.so(env.simul.repo.find),
@@ -255,12 +255,10 @@ final class Round(
         env.game.crosstableApi.withMatchup(pov.game),
         env.bookmark.api.exists(pov.game, ctx.me)
       ).flatMapN: (tour, simul, initialFen, crosstable, bookmarked) =>
-        html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked)
+        Snippet(views.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
-    import play.api.data.Forms.*
-    import play.api.data.*
-    Form(single("text" -> text))
+    env.round.noteApi.form
       .bindFromRequest()
       .fold(
         _ => BadRequest,
@@ -292,16 +290,16 @@ final class Round(
         akka.pattern.after(500.millis, env.system.scheduler)(redirection)
 
   def mini(gameId: GameId, color: String) = Open:
-    FoundPage(
+    FoundSnip(
       chess.Color
         .fromName(color)
         .so(env.round.proxyRepo.povIfPresent(gameId, _))
         .orElse(env.game.gameRepo.pov(gameId, color))
-    )(html.game.mini(_))
+    )(pov => Snippet(views.game.mini(pov)))
 
   def miniFullId(fullId: GameFullId) = Open:
-    FoundPage(env.round.proxyRepo.povIfPresent(fullId).orElse(env.game.gameRepo.pov(fullId))):
-      html.game.mini(_)
+    FoundSnip(env.round.proxyRepo.povIfPresent(fullId).orElse(env.game.gameRepo.pov(fullId))): pov =>
+      Snippet(views.game.mini(pov))
 
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.core.round.Moretime
@@ -319,4 +317,4 @@ final class Round(
   }
 
   def help = Open:
-    Ok.page(lila.web.views.help.round)
+    Ok.snip(lila.web.ui.help.round)

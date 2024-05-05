@@ -10,12 +10,12 @@ import {
   nonEmpty,
   mainHook,
   nodeClasses,
-  findCurrentPath,
   renderInlineCommentsOf,
   retroLine,
   Ctx as BaseCtx,
   Opts as BaseOpts,
   renderComment,
+  renderingCtx,
 } from './common';
 
 interface Ctx extends BaseCtx {
@@ -186,22 +186,13 @@ function renderMainlineCommentsOf(
   });
 }
 
-const emptyConcealOf: ConcealOf = function () {
-  return function () {
-    return null;
-  };
-};
+const emptyConcealOf: ConcealOf = () => () => null;
 
 export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;
   const ctx: Ctx = {
-    ctrl,
-    truncateComments: false,
-    concealOf: concealOf || emptyConcealOf,
-    showComputer: ctrl.showComputer() && !ctrl.retro?.isSolving(),
-    showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: ctrl.showComputer(),
-    currentPath: findCurrentPath(ctrl),
+    ...renderingCtx(ctrl),
+    concealOf: concealOf ?? emptyConcealOf,
   };
   //I hardcoded the root path, I'm not sure if there's a better way for that to be done
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false, '');

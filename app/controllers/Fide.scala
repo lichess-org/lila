@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.fide.Federation
@@ -19,7 +18,7 @@ final class Fide(env: Env) extends LilaController(env):
           case None =>
             for
               players      <- env.fide.paginator.best(page, query)
-              renderedPage <- renderPage(html.fide.player.index(players, query))
+              renderedPage <- renderPage(views.fide.player.index(players, query))
             yield Ok(renderedPage)
 
   def show(id: chess.FideId, slug: String, page: Int) = Open:
@@ -28,13 +27,13 @@ final class Fide(env: Env) extends LilaController(env):
       else
         for
           tours    <- env.relay.playerTour.playerTours(player, page)
-          rendered <- renderPage(html.fide.player.show(player, tours))
+          rendered <- renderPage(views.fide.player.show(player, tours))
         yield Ok(rendered)
 
   def federations(page: Int) = Open:
     for
       feds         <- env.fide.paginator.federations(page)
-      renderedPage <- renderPage(html.fide.federation.index(feds))
+      renderedPage <- renderPage(views.fide.federation.index(feds))
     yield Ok(renderedPage)
 
   def federation(slug: String, page: Int) = Open:
@@ -44,5 +43,5 @@ final class Fide(env: Env) extends LilaController(env):
       else
         for
           players  <- env.fide.paginator.federationPlayers(fed, page)
-          rendered <- renderPage(html.fide.federation.show(fed, players))
+          rendered <- renderPage(views.fide.federation.show(fed, players))
         yield Ok(rendered)

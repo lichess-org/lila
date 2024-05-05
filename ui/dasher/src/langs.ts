@@ -1,6 +1,7 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { Close, header } from './util';
+import { header } from './util';
+import { DasherCtrl, PaneCtrl } from './interfaces';
 
 type Code = string;
 type Name = string;
@@ -13,38 +14,40 @@ export interface LangsData {
   list: Lang[];
 }
 
-export class LangsCtrl {
-  accepted: Set<Code>;
-  constructor(
-    readonly data: LangsData,
-    readonly trans: Trans,
-    readonly close: Close,
-  ) {
-    this.accepted = new Set(data.accepted);
+export class LangsCtrl extends PaneCtrl {
+  constructor(root: DasherCtrl) {
+    super(root);
   }
-  list = () => [...this.data.list.filter(lang => this.accepted.has(lang[0])), ...this.data.list];
+
+  render = (): VNode =>
+    h('div.sub.langs', [
+      header(this.trans.noarg('language'), this.close),
+      h(
+        'form',
+        { attrs: { method: 'post', action: '/translation/select' } },
+        this.list().map(([code, name]: Lang) =>
+          h(
+            'button' +
+              (this.data.current === code ? '.current' : '') +
+              (this.data.accepted.includes(code) ? '.accepted' : ''),
+            { attrs: { type: 'submit', name: 'lang', value: code, title: code } },
+            name,
+          ),
+        ),
+      ),
+      h(
+        'a.help.text',
+        { attrs: { href: 'https://crowdin.com/project/lichess', 'data-icon': licon.Heart } },
+        'Help translate Lichess',
+      ),
+    ]);
+
+  private get data() {
+    return this.root.data.lang;
+  }
+
+  private list = () => [
+    ...this.data.list.filter(lang => this.data.accepted.includes(lang[0])),
+    ...this.data.list,
+  ];
 }
-
-export const view = (ctrl: LangsCtrl): VNode =>
-  h('div.sub.langs', [
-    header(ctrl.trans.noarg('language'), ctrl.close),
-    h(
-      'form',
-      { attrs: { method: 'post', action: '/translation/select' } },
-      ctrl.list().map(langView(ctrl.data.current, ctrl.accepted)),
-    ),
-    h(
-      'a.help.text',
-      { attrs: { href: 'https://crowdin.com/project/lichess', 'data-icon': licon.Heart } },
-      'Help translate Lichess',
-    ),
-  ]);
-
-const langView =
-  (current: Code, accepted: Set<Code>) =>
-  ([code, name]: Lang) =>
-    h(
-      'button' + (current === code ? '.current' : '') + (accepted.has(code) ? '.accepted' : ''),
-      { attrs: { type: 'submit', name: 'lang', value: code, title: code } },
-      name,
-    );

@@ -87,7 +87,7 @@ object ChapterPreview:
   type AsJsons = JsValue
 
   case class Player(
-      name: PlayerName,
+      name: Option[PlayerName],
       title: Option[PlayerTitle],
       rating: Option[Elo],
       clock: Option[Centis],
@@ -99,7 +99,7 @@ object ChapterPreview:
     val names = tags.names
     Option.when(names.exists(_.isDefined)):
       (names, tags.fideIds, tags.titles, tags.elos, tags.teams, clocks).mapN: (n, f, t, e, te, c) =>
-        Player(n | PlayerName("Unknown player"), t, e, c, f, te)
+        Player(n, t, e, c, f, te)
 
   object json:
     import lila.common.Json.{ given }

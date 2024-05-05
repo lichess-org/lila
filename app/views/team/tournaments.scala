@@ -1,51 +1,44 @@
-package views.html.team
+package views.team
 
-import controllers.routes
-import controllers.team.routes.Team as teamRoutes
 import play.api.i18n.Lang
 
 import lila.app.mashup.TeamInfo
-import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.app.UiEnv.{ *, given }
 
 object tournaments:
 
-  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using PageContext) =
-    views.html.base.layout(
-      title = s"${t.name} • ${trans.site.tournaments.txt()}",
-      openGraph = lila.web
-        .OpenGraph(
-          title = s"${t.name} team tournaments",
-          url = s"$netBaseUrl${teamRoutes.tournaments(t.id)}",
-          description = shorten(t.description.value, 152)
-        )
-        .some,
-      moreCss = cssTag("team"),
-      wrapClass = "full-screen-force"
-    ):
-      main(
-        div(cls := "box")(
-          boxTop:
-            h1(teamLink(t, true), " • ", trans.site.tournaments())
-          ,
-          div(cls := "team-events team-tournaments team-tournaments--both")(
-            div(cls := "team-tournaments__next")(
-              h2(trans.team.upcomingTournaments()),
-              table(cls := "slist slist-pad slist-invert")(
-                renderList(tours.next)
-              )
-            ),
-            div(cls := "team-tournaments__past")(
-              h2(trans.team.completedTourns()),
-              table(cls := "slist slist-pad")(
-                renderList(tours.past)
+  def page(t: lila.team.Team, tours: TeamInfo.PastAndNext)(using Context) =
+    Page(s"${t.name} • ${trans.site.tournaments.txt()}")
+      .graph(
+        title = s"${t.name} team tournaments",
+        url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
+        description = shorten(t.description.value, 152)
+      )
+      .cssTag("team")
+      .fullScreen:
+        main(
+          div(cls := "box")(
+            boxTop:
+              h1(teamLink(t, true), " • ", trans.site.tournaments())
+            ,
+            div(cls := "team-events team-tournaments team-tournaments--both")(
+              div(cls := "team-tournaments__next")(
+                h2(trans.team.upcomingTournaments()),
+                table(cls := "slist slist-pad slist-invert")(
+                  renderList(tours.next)
+                )
+              ),
+              div(cls := "team-tournaments__past")(
+                h2(trans.team.completedTourns()),
+                table(cls := "slist slist-pad")(
+                  renderList(tours.past)
+                )
               )
             )
           )
         )
-      )
 
-  def renderList(tours: List[TeamInfo.AnyTour])(using PageContext) =
+  def renderList(tours: List[TeamInfo.AnyTour])(using Context) =
     tbody:
       tours.map: any =>
         tr(
@@ -54,7 +47,9 @@ object tournaments:
             "soon"      -> any.isNowOrSoon
           )
         )(
-          td(cls := "icon")(iconTag(any.value.fold(tournamentIcon, _.perfType.icon))),
+          td(cls := "icon")(
+            iconTag(any.value.fold(views.tournament.ui.tournamentIcon, _.perfType.icon))
+          ),
           td(cls := "header")(
             any.value.fold(
               t =>

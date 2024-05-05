@@ -1,22 +1,13 @@
 package lila.mod
 package ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
+import ScalatagsTemplate.{ *, given }
 import lila.report.{ Report, Reason }
-import lila.core.i18n.Translate
 import lila.core.config.NetDomain
 
-final class ModInquiryUi(
-    formHelper: FormHelper,
-    dateHelper: DateHelper,
-    i18nHelper: I18nHelper,
-    htmlHelper: HtmlHelper,
-    userHelper: UserHelper
-)(routeUserWriteNote: String => Call):
-  import formHelper.*
-  import userHelper.userIdLink
-  import i18nHelper.given
+final class ModInquiryUi(helpers: Helpers):
+  import helpers.{ *, given }
 
   def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
 
@@ -29,12 +20,12 @@ final class ModInquiryUi(
       r.bestAtoms(10).map { atom =>
         div(cls := "atom")(
           h3(
-            lila.report.ui.reportScore(atom.score),
+            lila.report.ui.ReportUi.reportScore(atom.score),
             userIdLink(atom.by.userId.some, withOnline = false),
             " for ",
             strong(r.reason.name),
             " ",
-            dateHelper.momentFromNow(atom.at)
+            momentFromNow(atom.at)
           ),
           p(renderAtomText(atom.simplifiedText, r.isComm))
         )
@@ -52,7 +43,7 @@ final class ModInquiryUi(
       "Notes"
     ),
     div(
-      postForm(cls := "note", action := s"${routeUserWriteNote(u.username)}?inquiry=1")(
+      postForm(cls := "note", action := s"${routes.User.writeNote(u.username)}?inquiry=1")(
         form3.textarea(lila.user.UserForm.note("text"))(
           placeholder := "Write a mod note"
         ),
@@ -74,9 +65,9 @@ final class ModInquiryUi(
               "by ",
               userIdLink(note.from.some, withOnline = false),
               ", ",
-              dateHelper.momentFromNow(note.date)
+              momentFromNow(note.date)
             ),
-            p(htmlHelper.richText(note.text, nl2br = true, expandImg = false))
+            p(richText(note.text))
           )
         )
     )
@@ -106,7 +97,7 @@ final class ModInquiryUi(
                   " ",
                   e.details,
                   " ",
-                  dateHelper.momentFromNow(e.date)
+                  momentFromNow(e.date)
                 )
             )
           )

@@ -1,30 +1,23 @@
 package controllers
 
-import akka.pattern.ask
 import play.api.data.*
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.id.GameFullId
 
-import Forms.*
+import lila.core.net.Bearer
+import lila.web.{ WebForms, StaticContent }
 
 final class Main(
     env: Env,
     assetsC: ExternalAssets
 ) extends LilaController(env):
 
-  private lazy val blindForm = Form:
-    tuple(
-      "enable"   -> nonEmptyText,
-      "redirect" -> nonEmptyText
-    )
-
   def toggleBlindMode = OpenBody:
-    blindForm
+    WebForms.blind
       .bindFromRequest()
       .fold(
         _ => BadRequest,
@@ -43,27 +36,24 @@ final class Main(
     }
 
   def webmasters = Open:
-    Ok.page(html.site.page.webmasters)
+    Ok.page(views.site.page.webmasters)
 
   def lag = Open:
-    Ok.page(html.site.lag())
+    Ok.page(views.site.ui.lag)
 
   def mobile     = Open(serveMobile)
   def mobileLang = LangPage(routes.Main.mobile)(serveMobile)
 
   def redirectToAppStore = Anon:
     pageHit
-    Redirect:
-      if HTTPRequest.isAndroid(req)
-      then "https://play.google.com/store/apps/details?id=org.lichess.mobileapp"
-      else "https://apps.apple.com/us/app/lichess-online-chess/id968371784"
+    Redirect(StaticContent.appStoreUrl)
 
   private def serveMobile(using Context) =
     pageHit
-    FoundPage(env.api.cmsRenderKey("mobile-apk"))(html.mobile.apply)
+    FoundPage(env.api.cmsRenderKey("mobile-apk"))(views.mobile)
 
   def dailyPuzzleSlackApp = Open:
-    Ok.page(html.site.dailyPuzzleSlackApp())
+    Ok.page(views.site.ui.dailyPuzzleSlackApp)
 
   def jslog(id: GameFullId) = Open:
     env.round.selfReport(
@@ -77,16 +67,16 @@ final class Main(
   val robots = Anon:
     Ok:
       if env.net.crawlable && req.domain == env.net.domain.value && env.net.isProd
-      then lila.web.StaticContent.robotsTxt
+      then StaticContent.robotsTxt
       else "User-agent: *\nDisallow: /"
 
   def manifest = Anon:
     JsonOk:
-      lila.web.StaticContent.manifest(env.net)
+      StaticContent.manifest(env.net)
 
   def getFishnet = Open:
     pageHit
-    Ok.page(html.site.bits.getFishnet())
+    Ok.page(views.site.ui.getFishnet())
 
   def costs = Anon:
     pageHit
@@ -100,22 +90,22 @@ final class Main(
 
   def contact = Open:
     pageHit
-    Ok.page(html.site.contact())
+    Ok.page(views.site.page.contact)
 
   def faq = Open:
     pageHit
-    Ok.page(html.site.faq())
+    Ok.page(views.site.page.faq.apply)
 
   def temporarilyDisabled(path: String) = Open:
     pageHit
-    NotImplemented.page(html.site.message.temporarilyDisabled)
+    NotImplemented.page(views.site.message.temporarilyDisabled)
 
   def keyboardMoveHelp = Open:
-    Ok.page(lila.web.views.help.keyboardMove)
+    Ok(lila.ui.Snippet(lila.web.ui.help.keyboardMove))
 
   def voiceHelp(module: String) = Open:
     module match
-      case "move" => Ok.page(lila.web.views.help.voiceMove)
+      case "move" => Ok.snip(lila.web.ui.help.voiceMove)
       case _      => NotFound(s"Unknown voice module: $module")
 
   def movedPermanently(to: String) = Anon:
@@ -129,36 +119,20 @@ final class Main(
         env.security.lilaCookie.withSession(remember = true): s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
-  def legacyQaQuestion(id: Int, slug: String) = Open:
+  def legacyQaQuestion(id: Int, _slug: String) = Open:
     MovedPermanently:
-      val faq = routes.Main.faq.url
-      id match
-        case 103  => s"$faq#acpl"
-        case 258  => s"$faq#marks"
-        case 13   => s"$faq#titles"
-        case 87   => routes.User.ratingDistribution("blitz").url
-        case 110  => s"$faq#name"
-        case 29   => s"$faq#titles"
-        case 4811 => s"$faq#lm"
-        case 216  => routes.Main.mobile.url
-        case 340  => s"$faq#trophies"
-        case 6    => s"$faq#ratings"
-        case 207  => s"$faq#hide-ratings"
-        case 547  => s"$faq#leaving"
-        case 259  => s"$faq#trophies"
-        case 342  => s"$faq#provisional"
-        case 50   => routes.Cms.help.url
-        case 46   => s"$faq#name"
-        case 122  => s"$faq#marks"
-        case _    => faq
+      StaticContent.legacyQaQuestion(id)
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
   private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
-  def externalLink(tag: String, url: String) = Anon:
-    if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
-    then lila.mon.link.external(tag, ctx.isAuth).increment()
-    Redirect(url)
+  def externalLink(tag: String) = Anon:
+    StaticContent.externalLinks
+      .get(tag)
+      .so: url =>
+        if HTTPRequest.isCrawler(ctx.req).no && externalMonitorOnce(s"$tag/${ctx.ip}")
+        then lila.mon.link.external(tag, ctx.isAuth).increment()
+        Redirect(url)
 
   lila.memo.RateLimit.composite[lila.core.net.IpAddress](
     key = "image.upload.ip"
@@ -175,3 +149,21 @@ final class Main(
           .map(url => JsonOk(Json.obj("imageUrl" -> url)))
       case None => JsonBadRequest(jsonError("Image content only"))
   }
+
+  def githubSecretScanning =
+    AnonBodyOf(parse.json):
+      _.asOpt[List[JsObject]]
+        .map:
+          _.flatMap: obj =>
+            for
+              token <- (obj \ "token").asOpt[String]
+              url   <- (obj \ "url").asOpt[String]
+            yield Bearer(token) -> url
+          .toMap
+        .so: tokensMap =>
+          env.oAuth.tokenApi
+            .secretScanning(tokensMap)
+            .flatMap:
+              _.traverse: (token, url) =>
+                env.msg.api.systemPost(token.userId, lila.msg.MsgPreset.apiTokenRevoked(url))
+            .as(NoContent)

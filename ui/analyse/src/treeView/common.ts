@@ -143,6 +143,15 @@ export function retroLine(ctx: Ctx, node: Tree.Node): VNode | undefined {
     : undefined;
 }
 
+export const renderingCtx = (ctrl: AnalyseCtrl): Ctx => ({
+  ctrl,
+  truncateComments: false,
+  showComputer: ctrl.showComputer() && !ctrl.retro?.isSolving(),
+  showGlyphs: (!!ctrl.study && !ctrl.study?.relay) || ctrl.showComputer(),
+  showEval: ctrl.showComputer(),
+  currentPath: findCurrentPath(ctrl),
+});
+
 export interface Ctx {
   ctrl: AnalyseCtrl;
   showComputer: boolean;

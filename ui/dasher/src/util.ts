@@ -1,11 +1,8 @@
-import { h } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind } from 'common/snabbdom';
+import { bind, looseH as h } from 'common/snabbdom';
 import { memoize } from 'common';
 
-export type Close = () => void;
-
-export const header = (name: string, close: Close) =>
+export const header = (name: string, close: () => void) =>
   h(
     'button.head.text',
     { attrs: { 'data-icon': licon.LessThan, type: 'button' }, hook: bind('click', close) },

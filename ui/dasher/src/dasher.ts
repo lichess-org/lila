@@ -1,8 +1,8 @@
 import { Redraw } from 'common/snabbdom';
 import { DasherCtrl } from './ctrl';
-import { loading, loaded } from './view';
 import * as xhr from 'common/xhr';
-import { init as initSnabbdom, VNode, classModule, attributesModule } from 'snabbdom';
+import { spinnerVdom } from 'common/spinner';
+import { init as initSnabbdom, VNode, classModule, attributesModule, h } from 'snabbdom';
 
 const patch = initSnabbdom([classModule, attributesModule]);
 
@@ -10,7 +10,7 @@ export function load() {
   return site.asset.loadEsm<DasherCtrl>('dasher');
 }
 
-export async function initModule() {
+export default async function initModule() {
   let vnode: VNode,
     ctrl: DasherCtrl | undefined = undefined;
 
@@ -19,7 +19,10 @@ export async function initModule() {
   const toggle = $('#top .dasher')[0] as HTMLElement;
 
   const redraw: Redraw = () => {
-    vnode = patch(vnode || element, ctrl ? loaded(ctrl) : loading());
+    vnode = patch(
+      vnode || element,
+      h('div#dasher_app.dropdown', ctrl?.render() ?? h('div.initiating', spinnerVdom())),
+    );
   };
 
   redraw();

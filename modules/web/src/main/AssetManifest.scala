@@ -13,7 +13,7 @@ case class AssetMaps(js: Map[String, SplitAsset], css: Map[String, String], modi
 
 final class AssetManifest(environment: Environment, net: NetConfig)(using ws: StandaloneWSClient)(using
     Executor
-):
+) extends lila.ui.AssetManifest:
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, java.time.Instant.MIN)
 
   private val filename = s"manifest.${if net.minifiedAssets then "prod" else "dev"}.json"
@@ -23,6 +23,8 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   def css(key: String): Option[String]       = maps.css.get(key)
   def deps(keys: List[String]): List[String] = keys.flatMap { key => js(key).so(_.imports) }.distinct
   def lastUpdate: Instant                    = maps.modified
+
+  def jsName(key: String): String = js(key).fold(key)(_.name)
 
   def update(): Unit =
     if environment.mode.isProd || net.externalManifest then

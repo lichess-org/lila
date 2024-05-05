@@ -1,6 +1,6 @@
 @import 'side';
 
-.tv-single {
+main.tv-single {
   grid-template-areas: 'app' 'under' 'side' 'uchat';
 
   @include mq-at-least-col2 {

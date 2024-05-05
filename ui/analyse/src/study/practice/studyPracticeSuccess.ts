@@ -19,8 +19,8 @@ const isWinning = (ctrl: AnalyseCtrl, node: Tree.Node, goalCp: number, color: Co
 // returns null if not deep enough to know
 const myMateIn = (node: Tree.Node, color: Color): number | boolean | null => {
   if (!hasSolidEval(node)) return null;
-  if (!node.ceval!.mate) return false;
-  const mateIn = node.ceval!.mate! * (color === 'white' ? 1 : -1);
+  if (!node.ceval?.mate) return false;
+  const mateIn = node.ceval.mate * (color === 'white' ? 1 : -1);
   return mateIn > 0 ? mateIn : false;
 };
 

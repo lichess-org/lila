@@ -10,6 +10,7 @@ import lila.core.report.SuspectId
 import lila.core.user.WithPerf
 import lila.common.Bus
 import lila.rating.UserWithPerfs.only
+import lila.core.forum.BusForum
 
 @Module
 final class Env(
@@ -118,8 +119,8 @@ final class Env(
     }
   )
 
-  Bus.chan.forumPost.subscribe:
-    case p: lila.core.forum.RemovePost =>
+  Bus.sub[BusForum]:
+    case p: BusForum.RemovePost =>
       if p.asAdmin
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
       else

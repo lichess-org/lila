@@ -1,7 +1,7 @@
 import * as winningChances from '../winningChances';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/scroll';
-import { bind, LooseVNodes, looseH as h } from 'common/snabbdom';
+import { onInsert, bind, LooseVNodes, looseH as h } from 'common/snabbdom';
 import { defined, notNull } from 'common';
 import { ParentCtrl, NodeEvals, CevalState } from '../types';
 import { VNode } from 'snabbdom';
@@ -236,7 +236,10 @@ export function renderCeval(ctrl: ParentCtrl): LooseVNodes {
     h('div.switch', { attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (L)' } }, [
       h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
         attrs: { type: 'checkbox', checked: enabled, disabled: !ceval.analysable },
-        hook: bind('change', ctrl.toggleCeval),
+        hook: onInsert((el: HTMLInputElement) => {
+          el.addEventListener('keydown', e => (e.key === 'Enter' || e.key === ' ') && ctrl.toggleCeval());
+          el.addEventListener('change', () => ctrl.toggleCeval());
+        }),
       }),
       h('label', { attrs: { for: 'analyse-toggle-ceval' } }),
     ]);

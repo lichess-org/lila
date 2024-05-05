@@ -137,8 +137,7 @@ export default class PuzzleCtrl implements ParentCtrl {
         game: { variant: { key: 'standard' } },
         player: { color: this.pov },
       },
-      sendMove: this.playUserMove,
-      auxMove: this.auxMove,
+      pluginMove: this.pluginMove,
       redraw: this.redraw,
       flipNow: this.flip,
       userJumpPlyDelta: this.userJumpPlyDelta,
@@ -252,7 +251,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   showGround = (g: CgApi): void => g.set(this.makeCgOpts());
 
-  auxMove = (orig: Key, dest: Key, role?: Role) => {
+  pluginMove = (orig: Key, dest: Key, role?: Role) => {
     if (role) this.playUserMove(orig, dest, role);
     else
       this.withGround(g => {
@@ -262,7 +261,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       });
   };
 
-  auxUpdate = (fen: string): void => {
+  pluginUpdate = (fen: string): void => {
     this.voiceMove?.update({ fen, canMove: true });
     this.keyboardMove?.update({ fen, canMove: true });
   };
@@ -273,7 +272,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       !this.promotion.start(orig, dest, { submit: this.playUserMove, show: this.voiceMove?.promotionHook() })
     )
       this.playUserMove(orig, dest);
-    this.auxUpdate(this.node.fen);
+    this.pluginUpdate(this.node.fen);
   };
 
   playUci = (uci: Uci): void => this.sendMove(parseUci(uci)!);
@@ -458,7 +457,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       emit: (ev, work) => {
         this.tree.updateAt(work.path, node => {
           if (work.threatMode) {
-            const threat = ev as Tree.LocalEval;
+            const threat = ev;
             if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
           if (work.path === this.path) {
@@ -540,7 +539,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.promotion.cancel();
     this.justPlayed = undefined;
     this.autoScrollRequested = true;
-    this.auxUpdate(this.node.fen);
+    this.pluginUpdate(this.node.fen);
     site.pubsub.emit('ply', this.node.ply);
   };
 

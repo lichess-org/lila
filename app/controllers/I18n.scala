@@ -1,26 +1,18 @@
 package controllers
 
-import play.api.data.*
-import play.api.data.Forms.*
 import play.api.libs.json.Json
 
 import lila.app.{ *, given }
 
 final class I18n(env: Env) extends LilaController(env):
 
-  private def toLang = lila.i18n.LangPicker.byStr
-
-  private val form = Form(single("lang" -> text.verifying { code =>
-    toLang(code).isDefined
-  }))
-
   def select = OpenBody:
-    form
+    lila.i18n.LangForm.select
       .bindFromRequest()
       .fold(
         _ => notFound,
         code =>
-          val lang = toLang(code).err("Universe is collapsing")
+          val lang = lila.i18n.LangPicker.byStr(code).err("Universe is collapsing")
           ctx.me.filterNot(_.lang contains lang.code).so {
             env.user.repo.setLang(_, lang)
           } >> negotiate(

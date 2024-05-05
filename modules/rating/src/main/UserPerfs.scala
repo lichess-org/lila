@@ -117,13 +117,15 @@ object UserPerfsExt:
           case (Some(acc), date) if date.isAfter(acc) => date.some
           case (acc, _)                               => acc
 
-    def dubiousPuzzle = UserPerfs.dubiousPuzzle(p.puzzle, p.standard)
+    def dubiousPuzzle = UserPerfs.dubiousPuzzle(p)
 
   private given [A]: Ordering[(A, Perf)] = Ordering.by[(A, Perf), Int](_._2.intRating.value)
 
 object UserPerfs:
 
-  def dubiousPuzzle(puzzle: Perf, standard: Perf) =
+  def dubiousPuzzle(perfs: UserPerfs): Boolean = dubiousPuzzle(perfs.puzzle, perfs.standard)
+
+  def dubiousPuzzle(puzzle: Perf, standard: Perf): Boolean =
     puzzle.glicko.rating > 3000 && !standard.glicko.establishedIntRating.exists(_ > 2100) ||
       puzzle.glicko.rating > 2900 && !standard.glicko.establishedIntRating.exists(_ > 2000) ||
       puzzle.glicko.rating > 2700 && !standard.glicko.establishedIntRating.exists(_ > 1900) ||

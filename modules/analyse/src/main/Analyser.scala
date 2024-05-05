@@ -62,5 +62,11 @@ final class Analyser(
   ): JsObject =
     Json.obj(
       "analysis" -> JsonView.bothPlayers(game.startedAtPly, analysis),
-      "tree"     -> Tree.makeMinimalJsonString(game, analysis.some, initialFen, ExportOptions.default)
+      "tree" -> Tree.makeMinimalJsonString(
+        game,
+        analysis.some,
+        initialFen,
+        ExportOptions.default,
+        logChessError = lila.log("analyser").warn
+      )
     )

@@ -15,6 +15,9 @@ trait LilaLibraryExtensions extends CoreExports:
   export scalalib.future.extensions.*
   export scalalib.future.given_Zero_Future
 
+  given [A]: Zero[Update[A]] with
+    def zero = identity[A]
+
   def fuccess[A](a: A): Fu[A]        = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X] = Future.failed(t)
   def fufail[X](s: String): Fu[X]    = fufail(LilaException(s))
@@ -77,7 +80,6 @@ trait LilaLibraryExtensions extends CoreExports:
   // run a collection of futures in parallel
   extension [A](list: List[Fu[A]]) def parallel(using Executor): Fu[List[A]]         = Future.sequence(list)
   extension [A](vec: Vector[Fu[A]]) def parallel(using Executor): Fu[Vector[A]]      = Future.sequence(vec)
-  extension [A](set: Set[Fu[A]]) def parallel(using Executor): Fu[Set[A]]            = Future.sequence(set)
   extension [A](seq: Seq[Fu[A]]) def parallel(using Executor): Fu[Seq[A]]            = Future.sequence(seq)
   extension [A](iter: Iterable[Fu[A]]) def parallel(using Executor): Fu[Iterable[A]] = Future.sequence(iter)
   extension [A](iter: Iterator[Fu[A]]) def parallel(using Executor): Fu[Iterator[A]] = Future.sequence(iter)

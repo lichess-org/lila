@@ -1,5 +1,6 @@
 package lila.ui
 
+import cats.Monoid
 import alleycats.Zero
 import chess.PlayerTitle
 import scalalib.Render
@@ -116,7 +117,6 @@ trait ScalatagsExtensions:
   export Context.ctxMe
   export ReverseRouterConversions.given
   export lila.core.perm.Granter
-  val Icon = lila.ui.Icon
 
   given Render[Icon] = _.value
 
@@ -144,6 +144,10 @@ trait ScalatagsExtensions:
 
   val emptyFrag: Frag = RawFrag("")
   given Zero[Frag]    = Zero(emptyFrag)
+
+  given Monoid[Frag] with
+    def empty: Frag                     = emptyFrag
+    def combine(x: Frag, y: Frag): Frag = frag(x, y)
 
   val targetBlank: Modifier = (t: Builder) =>
     // Prevent tab nabbing when opening untrusted links. Apply also to trusted

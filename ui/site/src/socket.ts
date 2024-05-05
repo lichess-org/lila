@@ -196,7 +196,7 @@ export default class StrongSocket {
     if (!this.ws || this.ws.readyState === WebSocket.CONNECTING) {
       if (!noRetry) this.resendWhenOpen.push([t, msg.d, o]);
     } else {
-      origSend.apply(this.ws!, [message]);
+      origSend.apply(this.ws, [message]);
     }
   };
 
@@ -271,7 +271,7 @@ export default class StrongSocket {
       case false:
         break;
       case 'resync':
-        reload('lila-ws resync');
+        setTimeout(() => reload('lila-ws resync'), 500);
         break;
       case 'ack':
         this.ackable.onServerAck(m.d);

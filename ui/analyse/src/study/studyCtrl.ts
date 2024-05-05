@@ -320,7 +320,7 @@ export default class StudyCtrl {
   };
 
   onReload = (d: ReloadData) => {
-    const s = d.study!;
+    const s = d.study;
     const prevPath = this.ctrl.path;
     const sameChapter = this.data.chapter.id === s.chapter.id;
     this.vm.mode.sticky =
@@ -499,7 +499,7 @@ export default class StudyCtrl {
       : this.data.chapter.conceal === undefined ||
         this.isChapterOwner() ||
         treePath.contains(this.ctrl.path, path) || // can always go back
-        this.ctrl.tree.lastMainlineNode(path).ply <= this.data.chapter.conceal!;
+        this.ctrl.tree.lastMainlineNode(path).ply <= this.data.chapter.conceal;
   onJump = () => {
     if (this.gamebookPlay) this.gamebookPlay.onJump();
     else this.chapters.localPaths[this.vm.chapterId] = this.ctrl.path; // don't remember position on gamebook

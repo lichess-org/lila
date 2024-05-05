@@ -1,14 +1,18 @@
 package lila.game
 package importer
 
+import scala.util.chaining.*
+import play.api.data.*
+import play.api.data.Forms.*
+
 import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Reader, Sans }
 import chess.{ ByColor, Color, ErrorStr, Mode, Outcome, Replay, Status }
-import scala.util.chaining.*
 
 import lila.game.GameExt.finish
 import lila.core.game.{ ImportedGame, Game, Player }
 import lila.tree.ImportResult
+import lila.common.Form.into
 
 private val maxPlies = 600
 
@@ -33,6 +37,14 @@ final class Importer(gameRepo: lila.core.game.GameRepo)(using Executor):
             }
             _ <- gameRepo.finish(game.id, game.winnerColor, None, game.status)
           yield game
+
+case class ImportData(pgn: PgnStr, analyse: Option[String])
+
+val form = Form:
+  mapping(
+    "pgn"     -> nonEmptyText.into[PgnStr].verifying("invalidPgn", p => parseImport(p, none).isRight),
+    "analyse" -> optional(nonEmptyText)
+  )(ImportData.apply)(unapply)
 
 val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (pgn, user) =>
   lila.tree.parseImport(pgn).map { case ImportResult(game, result, replay, initialFen, parsed) =>

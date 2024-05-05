@@ -37,4 +37,9 @@
       content: $licon-CautionCircle;
     }
   }
+
+  &-quiet {
+    @extend %box-neat;
+    background: $c-bg-zebra;
+  }
 }

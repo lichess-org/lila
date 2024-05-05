@@ -15,7 +15,7 @@ final class Env(
     msgApi: lila.core.msg.MsgApi,
     lightUserAsync: lila.core.LightUser.Getter,
     signupForm: lila.core.security.SignupForm,
-    authenticator: lila.user.Authenticator,
+    authenticator: lila.core.security.Authenticator,
     cacheApi: lila.memo.CacheApi,
     hcaptcha: lila.core.security.Hcaptcha,
     baseUrl: BaseUrl

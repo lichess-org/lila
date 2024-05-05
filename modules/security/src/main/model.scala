@@ -34,14 +34,6 @@ case class IpAndFp(ip: IpAddress, fp: Option[String], user: UserId)
 
 case class LameNameCheck(value: Boolean) extends AnyVal
 
-case class UserSignup(
-    user: User,
-    email: EmailAddress,
-    req: RequestHeader,
-    fingerPrint: Option[FingerHash],
-    suspIp: Boolean
-)
-
 enum UserClient:
   case PC, Mob, App
 object UserClient:
