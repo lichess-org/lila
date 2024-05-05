@@ -652,9 +652,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="dark">Gelap</string>
   <string name="transparent">Lutsinar</string>
   <string name="backgroundImageUrl">URL Imej latar belakang:</string>
-  <string name="boardGeometry">Geometri papan catur</string>
-  <string name="boardTheme">Tema papan catur</string>
-  <string name="boardSize">Saiz papan catur</string>
   <string name="pieceSet">Set bidak</string>
   <string name="embedInYourWebsite">Papar dalam laman web anda</string>
   <string name="usernameAlreadyUsed">Nama pengguna ini sudah digunakan. Sila pilih nama pengguna yang lain dan cuba lagi.</string>
