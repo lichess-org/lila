@@ -48,6 +48,10 @@ const defaultCtrl = {
 
 // const toMap = (obj: object) => new Map(Object.entries(obj));
 
+// we don't have access to DOM elements in jest (testEnvironment: 'node'), so we need to mock this
+// input
+const input = { value: '', classList: { contains: () => false } } as unknown as HTMLInputElement;
+
 describe('keyboardSubmit', () => {
   beforeEach(() => {
     // document.body.innerHTML = `<input id="keyboardInput" />`;
@@ -59,7 +63,7 @@ describe('keyboardSubmit', () => {
     const mockClear = jest.fn();
     const submit = makeSubmit(
       {
-        input: {} as HTMLInputElement,
+        input,
         ctrl: {
           ...defaultCtrl,
           resign: mockResign,
@@ -70,79 +74,91 @@ describe('keyboardSubmit', () => {
 
     submit('resign', { isTrusted: true });
 
-    expect(mockResign.mock.calls.length).toBe(1);
-    expect(mockClear.mock.calls.length).toBe(1);
+    expect(mockResign).toHaveBeenCalledTimes(1);
+    expect(mockClear).toHaveBeenCalledTimes(1);
   });
 
-  // test('draws game', () => {
-  //   input.value = 'draw';
-  //   const mockDraw = jest.fn();
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: {
-  //       ...defaultCtrl,
-  //       draw: mockDraw,
-  //     },
-  //   }) as any;
+  test('draws game', () => {
+    const mockDraw = jest.fn();
+    const mockClear = jest.fn();
+    const submit = makeSubmit(
+      {
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          draw: mockDraw,
+        },
+      },
+      mockClear,
+    );
 
-  //   keyboardMovePlugin(startingFen, toMap({}), true);
+    submit('draw', { isTrusted: true });
 
-  //   expect(mockDraw.mock.calls.length).toBe(1);
-  //   expect(input.value).toBe('');
-  // });
+    expect(mockDraw).toHaveBeenCalledTimes(1);
+    expect(mockClear).toHaveBeenCalledTimes(1);
+  });
 
-  // test('goes to next puzzle', () => {
-  //   input.value = 'next';
-  //   const mockNext = jest.fn();
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: {
-  //       ...defaultCtrl,
-  //       next: mockNext,
-  //     },
-  //   }) as any;
+  test('goes to next puzzle', () => {
+    const mockNext = jest.fn();
+    const mockClear = jest.fn();
+    const submit = makeSubmit(
+      {
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          next: mockNext,
+        },
+      },
+      mockClear,
+    );
 
-  //   keyboardMovePlugin(startingFen, toMap({}), true);
+    submit('next', { isTrusted: true });
 
-  //   expect(mockNext).toHaveBeenCalledTimes(1);
-  //   expect(input.value).toBe('');
-  // });
+    expect(mockNext).toHaveBeenCalledTimes(1);
+    expect(mockClear).toHaveBeenCalledTimes(1);
+  });
 
-  // test('up votes puzzle', () => {
-  //   input.value = 'upv';
-  //   const mockVote = jest.fn();
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: {
-  //       ...defaultCtrl,
-  //       vote: mockVote,
-  //     },
-  //   }) as any;
+  test('up votes puzzle', () => {
+    const mockVote = jest.fn();
+    const mockClear = jest.fn();
+    const submit = makeSubmit(
+      {
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          vote: mockVote,
+        },
+      },
+      mockClear,
+    );
 
-  //   keyboardMovePlugin(startingFen, toMap({}), true);
+    submit('upv', { isTrusted: true });
 
-  //   expect(mockVote).toHaveBeenCalledTimes(1);
-  //   expect(mockVote).toBeCalledWith(true);
-  //   expect(input.value).toBe('');
-  // });
+    expect(mockVote).toHaveBeenCalledTimes(1);
+    expect(mockVote).toBeCalledWith(true);
+    expect(mockClear).toHaveBeenCalledTimes(1);
+  });
 
-  // test('down votes puzzle', () => {
-  //   input.value = 'downv';
-  //   const mockVote = jest.fn();
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: {
-  //       ...defaultCtrl,
-  //       vote: mockVote,
-  //     },
-  //   }) as any;
+  test('down votes puzzle', () => {
+    const mockVote = jest.fn();
+    const mockClear = jest.fn();
+    const submit = makeSubmit(
+      {
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          vote: mockVote,
+        },
+      },
+      mockClear,
+    );
 
-  //   keyboardMovePlugin(startingFen, toMap({}), true);
+    submit('downv', { isTrusted: true });
 
-  //   expect(mockVote).toHaveBeenCalledTimes(1);
-  //   expect(mockVote).toBeCalledWith(false);
-  //   expect(input.value).toBe('');
-  // });
+    expect(mockVote).toHaveBeenCalledTimes(1);
+    expect(mockVote).toBeCalledWith(false);
+    expect(mockClear).toHaveBeenCalledTimes(1);
+  });
 
   // test('reads out clock', () => {
   //   input.value = 'clock';
