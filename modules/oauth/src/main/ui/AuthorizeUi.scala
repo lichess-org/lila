@@ -29,7 +29,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
     import prompt.{ isDanger, looksLikeLichessMobile as mobile }
     val otherUserRequested = prompt.userId.filterNot(me.is(_)).map(lightUserFallback)
     Page("Authorization")
-      .cssTag("oauth")
+      .css("oauth")
       .js(embedJsUnsafe(moreJs(prompt)))
       .csp(_.withLegacyCompatibility):
         main(cls := "oauth box box-pad force-ltr")(

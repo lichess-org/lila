@@ -33,7 +33,7 @@ final class ChallengeUi(helpers: Helpers):
           )
         )
       )
-      .cssTag("challenge.page")
+      .css("challenge.page")
 
   private def challengeTitle(c: Challenge)(using ctx: Context) =
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>

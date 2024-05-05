@@ -14,7 +14,7 @@ object tournaments:
         url = s"$netBaseUrl${routes.Team.tournaments(t.id)}",
         description = shorten(t.description.value, 152)
       )
-      .cssTag("team")
+      .css("team")
       .fullScreen:
         main(
           div(cls := "box")(

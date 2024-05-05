@@ -46,7 +46,7 @@ final class SitePages(helpers: Helpers):
       title = "Webmasters",
       active = "webmasters",
       contentCls = "page force-ltr"
-    ).cssTag("page"):
+    ).css("page"):
       frag(
         st.section(cls := "box box-pad developers")(
           h1(cls := "box__top")("HTTP API"),
@@ -144,7 +144,7 @@ final class SitePages(helpers: Helpers):
       using Context
   ) =
     SitePage(title = title, active = "source", contentCls = "page force-ltr")
-      .cssTag("source")
+      .css("source")
       .js(
         embedJsUnsafeLoadThen:
           """$('#asset-version-date').text(site.info.date);
@@ -186,7 +186,7 @@ final class SitePages(helpers: Helpers):
   def lag(using Context) =
     import trans.{ lag as trl }
     SitePage(title = "Is Lichess lagging?", active = "lag")
-      .cssTag("lag")
+      .css("lag")
       .js(jsModuleInit("chart.lag")):
         div(cls := "box box-pad lag")(
           h1(cls := "box__top")(
@@ -226,7 +226,7 @@ final class SitePages(helpers: Helpers):
 
   def dailyPuzzleSlackApp(using Context) =
     Page("Daily Chess Puzzle by Lichess (Slack App)")
-      .cssTag("page"):
+      .css("page"):
         main(cls := "page page-small box box-pad")(
           h1(cls := "box__top")("Daily Chess Puzzle by Lichess (Slack App)"),
           div(cls := "body")(
@@ -311,7 +311,7 @@ final class SitePages(helpers: Helpers):
 
   def ghost(using Context) =
     Page("Deleted user")
-      .cssTag("ghost"):
+      .css("ghost"):
         main(cls := "page-small box box-pad page")(
           h1(cls := "box__top")("Deleted user"),
           div(

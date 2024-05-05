@@ -190,7 +190,7 @@ final class GameUi(helpers: Helpers):
 
     def apply(form: play.api.data.Form[?])(using ctx: Context) =
       Page(trans.site.importGame.txt())
-        .cssTag("importer")
+        .css("importer")
         .iife(iifeModule("javascripts/importer.js"))
         .graph(
           title = "Paste PGN chess game",

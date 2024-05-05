@@ -21,8 +21,8 @@ def communication(
     priv: Boolean
 )(using ctx: Context, renderIp: RenderIp) =
   Page(u.username + " communications")
-    .cssTag("mod.communication")
-    .cssTag(isGranted(_.UserModView).option("mod.user"))
+    .css("mod.communication")
+    .css(isGranted(_.UserModView).option("mod.user"))
     .js(isGranted(_.UserModView).option(EsmInit("mod.user"))):
       main(id := "communication", cls := "box box-pad")(
         boxTop(

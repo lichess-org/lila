@@ -124,7 +124,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
     )
 
   def invite(c: Clas, invite: ClasInvite)(using Context) =
-    Page(c.name).cssTag("clas"):
+    Page(c.name).css("clas"):
       main(cls := "page-small box box-pad page clas-invitation")(
         h1(cls := "box__top")(c.name),
         p(c.desc),

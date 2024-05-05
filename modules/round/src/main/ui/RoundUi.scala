@@ -10,10 +10,10 @@ final class RoundUi(helpers: Helpers, gameUi: lila.game.ui.GameUi):
 
   def RoundPage(variant: Variant, title: String)(using ctx: Context) =
     Page(title)
-      .cssTag(if variant == Crazyhouse then "round.zh" else "round")
-      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
-      .cssTag(ctx.pref.hasVoice.option("voice"))
-      .cssTag(ctx.blind.option("round.nvui"))
+      .css(if variant == Crazyhouse then "round.zh" else "round")
+      .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .css(ctx.pref.hasVoice.option("voice"))
+      .css(ctx.blind.option("round.nvui"))
       .zoom
       .csp(_.withPeer.withWebAssembly)
 

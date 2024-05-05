@@ -18,7 +18,7 @@ final class SwissFormUi(helpers: Helpers)(
 
   def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using Context) =
     Page(trans.swiss.newSwiss.txt())
-      .cssTag("swiss.form")
+      .css("swiss.form")
       .js(EsmInit("bits.tourForm")):
         val fields = new SwissFields(form, none)
         main(cls := "page-small")(
@@ -84,7 +84,7 @@ final class SwissFormUi(helpers: Helpers)(
 
   def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using Context) =
     Page(swiss.name)
-      .cssTag("swiss.form")
+      .css("swiss.form")
       .js(EsmInit("bits.tourForm")):
         val fields = new SwissFields(form, swiss.some)
         main(cls := "page-small")(

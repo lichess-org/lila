@@ -18,7 +18,7 @@ final class PracticeUi(helpers: Helpers)(
 
   def show(us: UserStudy, data: JsonView.JsData)(using Context) =
     Page(us.practiceStudy.name.value)
-      .cssTag("analyse.practice")
+      .css("analyse.practice")
       .js(analyseNvuiTag)
       .js(
         PageModule(
@@ -36,7 +36,7 @@ final class PracticeUi(helpers: Helpers)(
 
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
     Page("Practice chess positions")
-      .cssTag("practice.index")
+      .css("practice.index")
       .js(embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {
 if (confirm('You will lose your practice progress!')) this.parentNode.submit();
 });"""))
@@ -89,7 +89,7 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
         )
 
   def config(structure: lila.practice.PracticeStructure, form: Form[?])(using Context) =
-    Page("Practice structure").cssTag("mod.misc"):
+    Page("Practice structure").css("mod.misc"):
       main(cls := "page-menu")(
         modMenu,
         div(cls := "practice_config page-menu__content box box-pad")(

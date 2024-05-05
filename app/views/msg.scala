@@ -6,7 +6,7 @@ import lila.app.UiEnv.{ *, given }
 
 def home(json: JsObject)(using Context) =
   Page(trans.site.inbox.txt())
-    .cssTag("msg")
+    .css("msg")
     .js(PageModule("msg", Json.obj("data" -> json, "i18n" -> i18nJsObject(i18nKeys))))
     .csp(_.withInlineIconFont):
       main(cls := "box msg-app")

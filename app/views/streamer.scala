@@ -26,7 +26,7 @@ def create(using Context) =
       title = trans.streamer.becomeStreamer.txt(),
       icon = Some(Icon.Mic)
     )
-    .cssTag("streamer.form")(bits.create)
+    .css("streamer.form")(bits.create)
 
 object edit:
 

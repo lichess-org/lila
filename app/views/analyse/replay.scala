@@ -79,10 +79,10 @@ object replay:
 
     bits
       .page(ui.titleOf(pov))
-      .cssTag("analyse.round")
-      .cssTag((pov.game.variant == Crazyhouse).option("analyse.zh"))
-      .cssTag(ctx.blind.option("round.nvui"))
-      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .css("analyse.round")
+      .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
+      .css(ctx.blind.option("round.nvui"))
+      .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .js(analyseNvuiTag)
       .js(
         bits.analyseModule(
