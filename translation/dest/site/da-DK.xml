@@ -791,6 +791,12 @@
   <string name="transparent">Gennemsigtigt</string>
   <string name="deviceTheme">Enhedstema</string>
   <string name="backgroundImageUrl">Baggrundsbillede URL:</string>
+  <string name="board">Bræt</string>
+  <string name="size">Størrelse</string>
+  <string name="opacity">Uigennemsigtighed</string>
+  <string name="brightness">Lysstyrke</string>
+  <string name="hue">Farvetone</string>
+  <string name="boardReset">Nulstil farver til standard</string>
   <string name="pieceSet">Brikker</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside</string>
   <string name="usernameAlreadyUsed">Dette brugernavn er allerede i brug. Vælg venligst et andet og prøv igen.</string>
