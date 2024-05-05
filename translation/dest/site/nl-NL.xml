@@ -790,9 +790,6 @@
   <string name="transparent">Transparant</string>
   <string name="deviceTheme">Apparaatthema</string>
   <string name="backgroundImageUrl">Achtergrondafbeelding URL:</string>
-  <string name="boardGeometry">Bordgeometrie</string>
-  <string name="boardTheme">Bordthema</string>
-  <string name="boardSize">Bordgrootte</string>
   <string name="pieceSet">Schaakstukken</string>
   <string name="embedInYourWebsite">Insluiten in uw website</string>
   <string name="usernameAlreadyUsed">Deze naam is al in gebruik, probeer a.u.b. een andere naam.</string>
