@@ -27,12 +27,16 @@ import play.api.libs.json.JsValue
 final class TreeBuilderTest extends munit.FunSuite:
 
   test("tree builder test"):
-    TestFixtures.treeBuilderTestCases.map(_.test).foreach: (output, expected) =>
-      assertEquals(output, expected)
+    TestFixtures.treeBuilderTestCases
+      .map(_.test)
+      .foreach: (output, expected) =>
+        assertEquals(output, expected)
 
   test("tree builder json"):
-    TestFixtures.treeBuilderTestCases.flatMap(_.testJson).foreach: (output, expected) =>
-      assertEquals(output, expected)
+    TestFixtures.treeBuilderTestCases
+      .flatMap(_.testJson)
+      .foreach: (output, expected) =>
+        assertEquals(output, expected)
 
 object TreeBuilderTest:
 

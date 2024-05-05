@@ -34,7 +34,6 @@ class JsonTest extends munit.FunSuite:
         val imported = result.root.cleanup
         val json     = writeTree(imported, result.variant)
         assertEquals(Json.parse(json), Json.parse(expected))
-      // assertEquals(json, expected)
 
   given Conversion[Bdoc, Reader] = Reader(_)
   val treeBson                   = summon[BSON[Root]]
