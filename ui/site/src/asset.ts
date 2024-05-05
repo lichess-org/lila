@@ -27,7 +27,7 @@ export const loadCss = (href: string, key?: string): Promise<void> => {
     el.onload = () => resolve();
     document.head.append(el);
   });
-}
+};
 
 export const loadCssPath = async (key: string): Promise<void> => {
   const hash = site.manifest.css[key];
