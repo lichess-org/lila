@@ -6,8 +6,7 @@ import scalatags.Text.all.Frag
 import lila.core.i18n.I18nKey
 import lila.core.perf.{ KeyedPerf, UserPerfs }
 import lila.core.data.SafeJsonStr
-
-export lila.core.lilaism.Lilaism.{ *, given }
+import lila.core.perf.PerfKey
 
 trait AssetManifest:
   def jsName(key: String): String

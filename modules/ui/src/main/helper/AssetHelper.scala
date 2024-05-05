@@ -41,13 +41,7 @@ trait AssetHelper:
       val nonceAttr = nonce.so(n => s""" nonce="$n"""")
       s"""<script$nonceAttr>$js</script>"""
 
-  private val onLoadFunction = "site.load.then"
-
-  def embedJsUnsafeLoadThen(js: String): WithNonce[Frag] =
-    embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""")
-
-  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
-    embedJsUnsafeLoadThen(js)(nonce.some)
+  def embedJsUnsafeLoadThen(js: String): WithNonce[Frag] = embedJsUnsafe(s"""site.load.then(()=>{$js})""")
 
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______2"
