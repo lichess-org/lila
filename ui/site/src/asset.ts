@@ -15,9 +15,6 @@ export const url = (path: string, opts: AssetUrlOpts = {}) => {
 // bump flairs version if a flair is changed only (not added or removed)
 export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { version: '_____2' });
 
-const safeClassNameRegex = /[ .#:\[\]\{\},>+~*;!'"\\]/g; // modules/common/src/main/String.scala
-const safeClassName = (name: string) => name.replace(safeClassNameRegex, '-');
-
 export const loadCss = (href: string, key?: string): Promise<void> =>
   new Promise(resolve => {
     href = url(href, { noVersion: true });
@@ -25,7 +22,7 @@ export const loadCss = (href: string, key?: string): Promise<void> =>
     else if (document.querySelector(`head > link[href="${href}"]`)) return resolve();
 
     const el = document.createElement('link');
-    if (key) el.className = `css-${safeClassName(key)}`;
+    if (key) el.setAttribute('data-css-key', key);
     el.rel = 'stylesheet';
     el.href = href;
     el.onload = () => resolve();
@@ -37,9 +34,7 @@ export const loadCssPath = async (key: string): Promise<void> => {
   await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`, key);
 };
 
-export const removeCssPath = (key: string) => {
-  $(`head > link.css-${safeClassName(key)}`).remove();
-};
+export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
 
 export const jsModule = (name: string) => {
   if (name.endsWith('.js')) name = name.slice(0, -3);
