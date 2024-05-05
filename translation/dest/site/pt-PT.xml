@@ -792,6 +792,12 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="transparent">Transparente</string>
   <string name="deviceTheme">Tema do dispositivo</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
+  <string name="board">Tabuleiro</string>
+  <string name="size">Tamanho</string>
+  <string name="opacity">Opacidade</string>
+  <string name="brightness">Brilho</string>
+  <string name="hue">Tonalidade</string>
+  <string name="boardReset">Redefinir cores para o padrão</string>
   <string name="pieceSet">Peças</string>
   <string name="embedInYourWebsite">Incorporar no teu site</string>
   <string name="usernameAlreadyUsed">Este nome de utilizador já existe, por favor escolhe outro.</string>
