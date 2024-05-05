@@ -31,8 +31,9 @@ import _root_.chess.variant.Variant
 import lila.core.userId.MyId
 import lila.core.perf.PerfKey
 
-val maxPlaying         = Max(200) // including correspondence
-val maxPlayingRealtime = Max(100)
+val maxPlaying           = Max(200) // including correspondence
+val maxPlayingRealtime   = Max(100)
+val favOpponentOverGames = 1000
 
 case class PlayerRef(gameId: GameId, playerId: GamePlayerId)
 object PlayerRef:
@@ -102,6 +103,8 @@ trait Event:
   def troll: Boolean        = false
   def moveBy: Option[Color] = None
 
+val anonCookieName = "rk2"
+
 trait GameApi:
   def getSourceAndUserIds(id: GameId): Fu[(Option[Source], List[UserId])]
   def incBookmarks(id: GameId, by: Int): Funit
@@ -163,6 +166,12 @@ trait PgnDump:
 trait Namer:
   def gameVsText(game: Game, withRatings: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
   def playerText(player: Player, withRating: Boolean = false)(using lightUser: LightUser.Getter): Fu[String]
+  def gameVsTextBlocking(game: Game, withRatings: Boolean = false)(using
+      lightUser: LightUser.GetterSync
+  ): String
+  def playerTextBlocking(player: Player, withRating: Boolean = false)(using
+      lightUser: LightUser.GetterSync
+  ): String
 
 trait Explorer:
   def apply(id: GameId): Fu[Option[Game]]

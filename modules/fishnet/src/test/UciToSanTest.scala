@@ -237,6 +237,7 @@ final class UciToSanTest extends munit.FunSuite:
       ),
       0,
       now,
+      None,
       None
     )
 
@@ -319,7 +320,7 @@ final class UciToSanTest extends munit.FunSuite:
       )
     )
     val rep         = Replay(pgn, None, chess.variant.KingOfTheHill).map(evenIncomplete).toOption.get
-    val uciAnalysis = Analysis(Analysis.Id(GameId("g5hX8efz")), Nil, 0, now, None)
+    val uciAnalysis = Analysis(Analysis.Id(GameId("g5hX8efz")), Nil, 0, now, None, None)
     UciToSan(rep, uciAnalysis) match
       case (_, errs) => assertEquals(errs, Nil)
   }

@@ -63,11 +63,13 @@ final class ClasForm(
 
     def invite(c: Clas) = Form:
       mapping(
-        "userId" -> lila.common.Form.username.historicalField
+        "username" -> lila.common.Form.username.historicalField
           .verifying("Unknown username", { blockingFetchUser(_).exists(!_.isBot) })
           .verifying("This is a teacher", u => !c.teachers.toList.contains(u.id)),
         "realName" -> cleanNonEmptyText
       )(InviteStudent.apply)(unapply)
+
+    val inviteAccept = Form(single("v" -> Forms.boolean))
 
     def edit(s: Student) = Form(
       mapping(

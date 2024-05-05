@@ -1,11 +1,9 @@
 package controllers
 package team
 
-import play.api.data.Forms.*
-import play.api.data.{ Form, Forms }
 import play.api.libs.json.*
+import play.api.data.Form
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -20,11 +18,11 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def all(page: Int) = Open:
     Reasonable(page):
-      Ok.pageAsync:
+      Ok.async:
         paginator
           .popularTeams(page)
           .map:
-            html.team.list.all(_)
+            views.team.list.all(_)
 
   def home(page: Int) = Open:
     ctx.me
@@ -45,23 +43,23 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
             api.belongsTo(team.id, _)
         canSee.flatMap:
           if _ then
-            Ok.pageAsync:
+            Ok.async:
               paginator.teamMembersWithDate(team, page).map {
-                html.team.members(team, _)
+                views.team.membersPage(team, _)
               }
           else authorizationFailed
 
   def search(text: String, page: Int) = OpenBody:
     Reasonable(page):
-      Ok.pageAsync:
+      Ok.async:
         if text.trim.isEmpty
-        then paginator.popularTeams(page).map { html.team.list.all(_) }
+        then paginator.popularTeams(page).map { views.team.list.all(_) }
         else
           for
             ids   <- env.teamSearch(text, page)
             teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
             forMe <- teams.mapFutureList(env.team.memberRepo.addMyLeadership)
-          yield html.team.list.search(text, forMe)
+          yield views.team.list.search(text, forMe)
 
   private def renderTeam(team: TeamModel, page: Int, asMod: Boolean)(using ctx: Context) = for
     team    <- api.withLeaders(team)
@@ -73,7 +71,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     _ <- env.user.lightUserApi.preloadMany:
       info.publicLeaders.map(_.user) ::: info.userIds
     version <- hasChat.soFu(env.team.version(team.id))
-    page    <- renderPage(html.team.show(team, members, info, chat, version, asMod, log))
+    page    <- renderPage(views.team.show(team, members, info, chat, version, asMod, log))
   yield Ok(page).withCanonical(routes.Team.show(team.id))
 
   private def canEnterModView(using Context) =
@@ -104,17 +102,16 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       env.teamInfo
         .tournaments(team, 30, 30)
         .map:
-          html.team.tournaments.page(team, _)
+          views.team.tournaments.page(team, _)
 
-  private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: PageContext) = for
+  private def renderEdit(team: TeamModel, form: Form[?])(using me: Me, ctx: Context) = for
     member <- env.team.memberRepo.get(team.id, me)
     _      <- env.msg.twoFactorReminder(me)
-    page   <- renderPage(html.team.form.edit(team, forms.edit(team), member))
-  yield page
+  yield views.team.form.edit(team, forms.edit(team), member)
 
   def edit(id: TeamId) = Auth { ctx ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Settings): team =>
-      Ok.pageAsync(renderEdit(team, forms.edit(team)))
+      Ok.async(renderEdit(team, forms.edit(team)))
   }
 
   def update(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -123,7 +120,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         .edit(team)
         .bindFromRequest()
         .fold(
-          err => BadRequest.pageAsync(renderEdit(team, err)),
+          err => BadRequest.async(renderEdit(team, err)),
           data => api.update(team, data).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
         )
   }
@@ -133,7 +130,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       api.blocklist
         .get(team)
         .flatMap: blocklist =>
-          Ok.page(html.team.admin.kick(team, forms.members, forms.blocklist.fill(blocklist)))
+          Ok.page(views.team.admin.kick(team, forms.members, forms.blocklist.fill(blocklist)))
   }
 
   def kick(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -213,7 +210,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
       team: TeamModel.WithLeaders,
       addLeader: Option[Form[UserStr]] = None,
       permissions: Option[Form[Seq[TeamSecurity.LeaderData]]] = None
-  )(using PageContext, Me) = html.team.admin.leaders(
+  )(using Context, Me) = views.team.admin.leaders(
     team,
     addLeader | env.team.security.form.addLeader(team),
     permissions | env.team.security.form.permissions(team)
@@ -253,12 +250,12 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           (isGrantedOpt(_.Teacher) && count < 10) ||
           count < 3
       if allow then a
-      else Forbidden.page(views.html.site.message.teamCreateLimit)
+      else Forbidden.page(views.site.message.teamCreateLimit)
     }
 
   def form = Auth { ctx ?=> me ?=>
     LimitPerWeek:
-      Ok.page(html.team.form.create(forms.create, anyCaptcha))
+      Ok.page(views.team.form.create(forms.create, anyCaptcha))
   }
 
   private val OneAtATime = lila.web.FutureConcurrencyLimit[UserId](
@@ -273,7 +270,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
           forms.create
             .bindFromRequest()
             .fold(
-              err => BadRequest.page(html.team.form.create(err, anyCaptcha)),
+              err => BadRequest.page(views.team.form.create(err, anyCaptcha)),
               data =>
                 api.create(data, me).map { team =>
                   Redirect(routes.Team.show(team.id))
@@ -282,19 +279,19 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   }
 
   def mine = Auth { ctx ?=> me ?=>
-    Ok.pageAsync:
+    Ok.async:
       api.mine.map:
-        html.team.list.mine(_)
+        views.team.list.mine(_)
   }
 
   private def tooManyTeamsHtml(using Context, Me): Fu[Result] =
-    BadRequest.pageAsync:
-      api.mine.map(html.team.list.mine)
+    BadRequest.async:
+      api.mine.map(views.team.list.mine)
   private val tooManyTeamsJson = BadRequest(jsonError("You have joined too many teams"))
 
   def leader = Auth { ctx ?=> me ?=>
-    Ok.pageAsync:
-      api.teamsLedBy(me).map(html.team.list.ledByMe)
+    Ok.async:
+      api.teamsLedBy(me).map(views.team.list.ledByMe)
   }
 
   private def JoinLimit(tooMany: => Fu[Result])(f: => Fu[Result])(using Me) =
@@ -327,7 +324,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
 
   def subscribe(teamId: TeamId) =
     AuthOrScopedBody(_.Team.Write) { _ ?=> me ?=>
-      Form(single("subscribe" -> optional(Forms.boolean)))
+      env.team.forms.subscribe
         .bindFromRequest()
         .fold(_ => funit, v => api.subscribe(teamId, me, ~v))
         .inject(jsonOkResult)
@@ -336,13 +333,13 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
   def requests = Auth { _ ?=> me ?=>
     import lila.memo.CacheApi.*
     env.team.cached.nbRequests.invalidate(me)
-    Ok.pageAsync:
-      api.requestsWithUsers(me).map(html.team.request.all)
+    Ok.async:
+      api.requestsWithUsers(me).map(views.team.request.all)
   }
 
   def requestForm(id: TeamId) = Auth { _ ?=> me ?=>
     FoundPage(api.requestable(id)): team =>
-      html.team.request.requestForm(team, forms.request(team))
+      views.team.request.requestForm(team, forms.request(team))
   }
 
   def requestCreate(id: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -353,7 +350,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
             .request(team)
             .bindFromRequest()
             .fold(
-              err => BadRequest.page(html.team.request.requestForm(team, err)),
+              err => BadRequest.page(views.team.request.requestForm(team, err)),
               setup =>
                 if team.open then webJoin(team, request = none, password = setup.password)
                 else
@@ -393,9 +390,9 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
         .fold(
           _ => BadRequest(""),
           userQuery =>
-            Ok.pageAsync:
+            Ok.async:
               paginator.declinedRequests(team, page, userQuery).map {
-                html.team.declinedRequest.all(team, _, userQuery)
+                views.team.request.declined(team, _, userQuery)
               }
         )
   }
@@ -446,7 +443,7 @@ final class Team(env: Env, apiC: => Api) extends LilaController(env):
     tours   <- env.tournament.api.visibleByTeam(team.id, 0, 20).dmap(_.next)
     unsubs  <- env.team.cached.unsubs.get(team.id)
     limiter <- env.teamInfo.pmAll.status(team.id)
-    page    <- renderPage(html.team.admin.pmAll(team, form, tours, unsubs, limiter))
+    page    <- renderPage(views.team.admin.pmAll(team, form, tours, unsubs, limiter))
   yield Ok(page)
 
   def pmAllSubmit(id: TeamId) = AuthOrScopedBody(_.Team.Lead) { ctx ?=> me ?=>

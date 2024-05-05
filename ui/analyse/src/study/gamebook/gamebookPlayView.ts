@@ -1,10 +1,8 @@
 import { VNode } from 'snabbdom';
-import GamebookPlayCtrl from './gamebookPlayCtrl';
+import GamebookPlayCtrl, { State } from './gamebookPlayCtrl';
 import * as licon from 'common/licon';
 import { iconTag, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
-// eslint-disable-next-line no-duplicate-imports
-import { State } from './gamebookPlayCtrl';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
   const state = ctrl.state;

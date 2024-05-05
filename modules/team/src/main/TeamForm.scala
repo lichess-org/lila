@@ -136,6 +136,8 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
     single("search" -> optional(lila.common.Form.username.historicalField))
   )
 
+  val subscribe = Form(single("subscribe" -> optional(boolean)))
+
   private def teamExists(setup: TeamSetup) =
     teamRepo.coll.exists($id(Team.nameToId(setup.name)))
 

@@ -1,7 +1,5 @@
 package controllers
 
-import views.*
-
 import lila.app.{ *, given }
 import lila.core.config
 import lila.core.id.{ ForumCategId, ForumTopicId }
@@ -18,7 +16,7 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
           env.team.api.forumAccessOf(_).map(_ != lila.core.team.Access.None)
         categs <- postApi.categsForUser(teamIds, ctx.me)
         _      <- env.user.lightUserApi.preloadMany(categs.flatMap(_.lastPostUserId))
-        page   <- renderPage(html.forum.categ.index(categs))
+        page   <- renderPage(views.forum.categ.index(categs))
       yield Ok(page)
 
   def show(slug: ForumCategId, page: Int) = Open:
@@ -34,6 +32,6 @@ final class ForumCateg(env: Env) extends LilaController(env) with ForumControlle
               stickyPosts <- (page == 1).so(env.forum.topicApi.getSticky(categ, ctx.me))
               _ <- env.user.lightUserApi.preloadMany(topics.currentPageResults.flatMap(_.lastPostUserId))
               res <-
-                if canRead then Ok.page(html.forum.categ.show(categ, topics, canWrite, stickyPosts))
+                if canRead then Ok.page(views.forum.categ.show(categ, topics, canWrite, stickyPosts))
                 else notFound
             yield res

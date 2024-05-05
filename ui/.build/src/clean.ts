@@ -17,7 +17,7 @@ const globs = [
   'ui/*/tsconfig.tsbuildinfo',
   'public/compiled',
   'public/npm',
-  'public/css/*.css*',
+  'public/css',
 ];
 
 export async function clean() {

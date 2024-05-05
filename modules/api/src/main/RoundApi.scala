@@ -187,7 +187,8 @@ final private[api] class RoundApi(
         pov.game,
         analysis,
         initialFen | pov.game.variant.initialFen,
-        withFlags
+        withFlags,
+        logChessError = lila.log("api.round").warn
       ))
 
   private def withSteps(pov: Pov, initialFen: Option[Fen.Full])(obj: JsObject) =

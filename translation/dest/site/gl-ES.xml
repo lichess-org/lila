@@ -770,7 +770,7 @@
   <string name="bulletBlitzClassical">Bala, lóstrego, clásico</string>
   <string name="correspondenceChess">Xadrez postal</string>
   <string name="onlineAndOfflinePlay">Xogar en liña ou sen conexión</string>
-  <string name="viewTheSolution">Mira a solución</string>
+  <string name="viewTheSolution">Mirar a solución</string>
   <string name="followAndChallengeFriends">Segue e reta ós teus amigos</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">Dispoñible en %s idioma!</item>

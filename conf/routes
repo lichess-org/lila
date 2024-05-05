@@ -830,12 +830,13 @@ GET   /verify-title                    controllers.Main.verifyTitle
 GET   /InstantChess.com                controllers.Main.instantChess
 GET   /daily-puzzle-slack              controllers.Main.dailyPuzzleSlackApp
 POST  /upload/image/user/:rel          controllers.Main.uploadImage(rel)
+POST  /github/secret-scanning          controllers.Main.githubSecretScanning
 
 # Technical
 GET   /run/captcha/$id<\w{8}>          controllers.Main.captchaCheck(id)
 GET   /run/temporarily-disabled        controllers.Main.temporarilyDisabled(path = "")
 GET   /run/temporarily-disabled/*path  controllers.Main.temporarilyDisabled(path)
-GET   /run/external-link/:tag/*url     controllers.Main.externalLink(tag, url)
+GET   /run/external-link/:tag          controllers.Main.externalLink(tag)
 POST  /run/toggle-blind-mode           controllers.Main.toggleBlindMode
 POST  /run/cli                         controllers.Dev.command
 

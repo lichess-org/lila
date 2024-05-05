@@ -53,14 +53,14 @@ export async function initModule(): Promise<SoundMove> {
   return o => {
     if (o?.filter === 'game') return;
     if (o?.san && o.uci) {
-      const pitch = keyToPitch(o.uci!.slice(2));
+      const pitch = keyToPitch(o.uci.slice(2));
       const instrument = isPawn(o.san) || isKing(o.san) ? 'clav' : 'celesta';
       play(instrument, pitch);
       if (hasCastle(o.san)) play('swells', pitch);
       else if (hasCheck(o.san)) play('swells', pitch);
       else if (hasCapture(o.san)) {
         play('swells', pitch);
-        const capturePitch = keyToPitch(o.uci!.slice(0, 2));
+        const capturePitch = keyToPitch(o.uci.slice(0, 2));
         play(instrument, capturePitch);
       } else if (hasMate(o.san)) play('swells', pitch);
     } else play();

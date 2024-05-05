@@ -1,5 +1,5 @@
 import { uciToMove } from 'chessground/util';
-import { embedChessground } from './assets';
+import { embedChessground } from './asset';
 
 // https://lichess.org/training/frame
 window.onload = async () => {

@@ -1,11 +1,9 @@
-package views.html.user.show
-
-import controllers.report.routes.Report as reportRoutes
-import controllers.routes
+package views.user
+package show
 
 import lila.app.mashup.UserInfo
-import lila.app.templating.Environment.{ *, given }
-import lila.ui.ScalatagsTemplate.{ *, given }
+import lila.app.UiEnv.{ *, given }
+
 import lila.common.String.html.richText
 import lila.user.Plan.sinceDate
 import lila.user.Profile.*
@@ -17,33 +15,21 @@ object header:
   private val dataTab    = attr("data-tab")
 
   def apply(u: User, info: UserInfo, angle: UserInfo.Angle, social: UserInfo.Social)(using ctx: Context) =
-    val userDom =
-      span(
-        cls      := userClass(u.id, none, withOnline = !u.isPatron, withPowerTip = false),
-        dataHref := userUrl(u.username)
-      )(
-        (!u.isPatron).so(lineIcon(u)),
-        titleTag(u.title),
-        u.username,
-        userFlair(u).map: flair =>
-          if ctx.isAuth then a(href := routes.Account.profile, title := trans.site.setFlair.txt())(flair)
-          else flair
-      )
     frag(
       div(cls := "box__top user-show__header")(
         if u.isPatron then
           h1(cls := s"user-link ${if isOnline(u.id) then "online" else "offline"}")(
             a(href := routes.Plan.index)(patronIcon),
-            userDom
+            ui.userDom(u)
           )
-        else h1(userDom),
+        else h1(ui.userDom(u)),
         div(
           cls := List(
             "trophies" -> true,
             "packed"   -> (info.trophies.countTrophiesAndPerfCups > 7)
           )
         )(
-          views.html.user.bits.perfTrophies(u, info.ranks),
+          views.user.bits.perfTrophies(u, info.ranks),
           otherTrophies(info),
           u.plan.active.option(
             a(
@@ -140,7 +126,7 @@ object header:
           ctx
             .isnt(u)
             .option(
-              views.html.relation.actions(
+              views.relation.actions(
                 u.light,
                 relation = social.relation,
                 followable = social.followable,
@@ -163,24 +149,24 @@ object header:
             a(
               titleOrText(trans.site.reportXToModerators.txt(u.username)),
               cls      := "btn-rack__btn",
-              href     := s"${reportRoutes.form}?username=${u.username}",
+              href     := s"${routes.Report.form}?username=${u.username}",
               dataIcon := Icon.CautionTriangle
             )
           )
         )
       ),
-      ctx.isnt(u).option(noteZone(u, social.notes)),
+      ctx.isnt(u).option(noteUi.zone(u, social.notes)),
       isGranted(_.UserModView).option(div(cls := "mod-zone mod-zone-full none")),
       standardFlash,
       angle match
-        case UserInfo.Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
+        case UserInfo.Angle.Games(Some(searchForm)) => views.gameSearch.user(u, searchForm)
         case _ =>
           val profile   = u.profileOrDefault
           val hideTroll = u.marks.troll && ctx.isnt(u)
           div(id := "us_profile")(
             if info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserModView)) then
-              views.html.user.perfStat.ui.ratingHistoryContainer
-            else (ctx.is(u) && u.count.game < 10).option(newPlayer(u)),
+              views.user.perfStat.ratingHistoryContainer
+            else (ctx.is(u) && u.count.game < 10).option(ui.newPlayer(u)),
             div(cls := "profile-side")(
               div(cls := "user-infos")(
                 ctx
@@ -195,14 +181,12 @@ object header:
                       )
                     )
                   ),
-                (ctx.kid.no && !hideTroll && ctx.kid.no).option(
+                (ctx.kid.no && !hideTroll && !u.kid).option(
                   frag(
-                    profile.nonEmptyRealName.map { name =>
-                      strong(cls := "name")(name)
-                    },
-                    profile.nonEmptyBio.map { bio =>
+                    profile.nonEmptyRealName.map: name =>
+                      strong(cls := "name")(name),
+                    profile.nonEmptyBio.map: bio =>
                       p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
-                    }
                   )
                 ),
                 div(cls := "stats")(
@@ -277,7 +261,7 @@ object header:
       ,
       (ctx.kid.no && info.ublog.so(_.latests).nonEmpty).option(
         div(cls := "user-show__blog ublog-post-cards")(
-          info.ublog.so(_.latests).map { views.html.ublog.post.card(_) }
+          info.ublog.so(_.latests).map(views.ublog.ui.card(_))
         )
       ),
       div(cls := "angles number-menu number-menu--tabs menu-box-pop")(
@@ -307,52 +291,3 @@ object header:
         )
       )
     )
-
-  def noteZone(u: User, notes: List[lila.user.Note])(using ctx: Context) = div(cls := "note-zone")(
-    postForm(cls := "note-form", action := routes.User.writeNote(u.username))(
-      form3.textarea(lila.user.UserForm.note("text"))(
-        placeholder := trans.site.writeAPrivateNoteAboutThisUser.txt()
-      ),
-      if isGranted(_.ModNote) then
-        div(cls := "mod-note")(
-          submitButton(cls := "button", name := "noteType", value := "mod")("Save Mod Note"),
-          isGranted(_.Admin).option(
-            submitButton(cls := "button", name := "noteType", value := "dox")(
-              "Save Dox Note"
-            )
-          ),
-          submitButton(cls := "button", name := "noteType", value := "normal")("Save Regular Note")
-        )
-      else submitButton(cls := "button", name := "noteType", value := "normal")(trans.site.save())
-    ),
-    notes.isEmpty.option(div(trans.site.noNoteYet())),
-    notes.map: note =>
-      div(cls := "note")(
-        p(cls := "note__text")(richText(note.text, expandImg = false)),
-        (note.mod && isGranted(_.Admin)).option(
-          postForm(
-            action := routes.User.setDoxNote(note._id, !note.dox)
-          ):
-            submitButton(cls := "button-empty confirm button text")("Toggle Dox")
-        ),
-        p(cls := "note__meta")(
-          userIdLink(note.from.some),
-          br,
-          note.dox.option("dox "),
-          if isGranted(_.ModNote) then momentFromNowServer(note.date)
-          else momentFromNow(note.date),
-          (ctx.me.exists(note.isFrom) && !note.mod).option(
-            frag(
-              br,
-              postForm(action := routes.User.deleteNote(note._id))(
-                submitButton(
-                  cls      := "button-empty button-red confirm button text",
-                  style    := "float:right",
-                  dataIcon := Icon.Trash
-                )(trans.site.delete())
-              )
-            )
-          )
-        )
-      )
-  )

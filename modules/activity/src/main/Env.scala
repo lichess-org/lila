@@ -6,6 +6,7 @@ import com.softwaremill.tagging.*
 import lila.core.config.*
 import lila.core.round.CorresMoveEvent
 import lila.common.Bus
+import lila.core.forum.BusForum
 
 @Module
 final class Env(
@@ -77,5 +78,5 @@ final class Env(
     case lila.core.misc.streamer.StreamStart(userId, _) => write.streamStart(userId)
     case lila.core.swiss.SwissFinish(swissId, ranking)  => write.swiss(swissId, ranking)
 
-  Bus.chan.forumPost.subscribe:
-    case lila.core.forum.CreatePost(post) => write.forumPost(post)
+  Bus.sub[BusForum]:
+    case BusForum.CreatePost(post) => write.forumPost(post)

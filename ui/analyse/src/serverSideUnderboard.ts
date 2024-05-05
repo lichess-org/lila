@@ -8,7 +8,7 @@ import { stockfishName } from 'common/spinner';
 import { FEN } from 'chessground/types';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
-  $(element).replaceWith(ctrl.opts.$underboard!);
+  $(element).replaceWith(ctrl.opts.$underboard);
 
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
@@ -110,7 +110,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       const display = window.getComputedStyle(this).display;
       return !!display && display != 'none';
     }).length;
-  if (foundStored) setPanel(stored!);
+  if (foundStored) setPanel(stored);
   else {
     const $menuCt = $menu.children('[data-panel="ctable"]');
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');

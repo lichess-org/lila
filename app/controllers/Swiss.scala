@@ -1,7 +1,5 @@
 package controllers
-import controllers.team.routes.Team as teamRoutes
 import play.api.mvc.*
-import views.*
 
 import scala.util.chaining.*
 
@@ -18,7 +16,7 @@ final class Swiss(
 )(using akka.stream.Materializer)
     extends LilaController(env):
 
-  private def swissNotFound(using Context) = NotFound.page(html.swiss.bits.notFound())
+  private def swissNotFound(using Context) = NotFound.page(views.swiss.ui.notFound)
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Swiss.home)(serveHome)
@@ -28,7 +26,7 @@ final class Swiss(
       teamIds <- ctx.userId.so(env.team.cached.teamIdsList)
       swiss   <- env.swiss.feature.get(teamIds)
       _       <- env.team.lightTeamApi.preload(swiss.teamIds)
-      page    <- renderPage(html.swiss.home(swiss))
+      page    <- renderPage(views.swiss.home.page(swiss))
     yield Ok(page)
 
   def show(id: SwissId) = Open:
@@ -59,7 +57,7 @@ final class Swiss(
               )
             streamers  <- streamerCache.get(swiss.id)
             isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
-            page <- renderPage(html.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
+            page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
         json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, team) =>
           for
@@ -106,7 +104,7 @@ final class Swiss(
           env.swiss
             .roundPager(swiss, r, page | 0)
             .flatMap: pager =>
-              Ok.page(html.swiss.show.round(swiss, r, team, pager))
+              Ok.page(views.swiss.showUi.round(swiss, r, team, pager))
 
   private def CheckTeamLeader(teamId: TeamId)(f: => Fu[Result])(using ctx: Context): Fu[Result] =
     ctx.me.so(env.team.api.isGranted(teamId, _, _.Tour)).elseNotFound(f)
@@ -114,7 +112,7 @@ final class Swiss(
   def form(teamId: TeamId) = Auth { ctx ?=> me ?=>
     NoLameOrBot:
       CheckTeamLeader(teamId):
-        Ok.page(html.swiss.form.create(env.swiss.forms.create(me), teamId))
+        Ok.page(views.swiss.form.create(env.swiss.forms.create(me), teamId))
   }
 
   def create(teamId: TeamId) = AuthBody { ctx ?=> me ?=>
@@ -124,9 +122,9 @@ final class Swiss(
           .create(me)
           .bindFromRequest()
           .fold(
-            err => BadRequest.page(html.swiss.form.create(err, teamId)),
+            err => BadRequest.page(views.swiss.form.create(err, teamId)),
             data =>
-              tourC.rateLimitCreation(isPrivate = true, Redirect(teamRoutes.show(teamId))):
+              tourC.rateLimitCreation(isPrivate = true, Redirect(routes.Team.show(teamId))):
                 env.swiss.api
                   .create(data, teamId)
                   .map: swiss =>
@@ -188,7 +186,7 @@ final class Swiss(
 
   def edit(id: SwissId) = Auth { ctx ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      Ok.page(html.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss)))
+      Ok.page(views.swiss.form.edit(swiss, env.swiss.forms.edit(me, swiss)))
   }
 
   def update(id: SwissId) = AuthBody { ctx ?=> me ?=>
@@ -197,7 +195,7 @@ final class Swiss(
         .edit(me, swiss)
         .bindFromRequest()
         .fold(
-          err => BadRequest.page(html.swiss.form.edit(swiss, err)),
+          err => BadRequest.page(views.swiss.form.edit(swiss, err)),
           data => env.swiss.api.update(swiss.id, data) >> Redirect(routes.Swiss.show(id))
         )
   }
@@ -230,7 +228,7 @@ final class Swiss(
 
   def terminate(id: SwissId) = Auth { _ ?=> me ?=>
     WithEditableSwiss(id): swiss =>
-      env.swiss.api.kill(swiss).inject(Redirect(teamRoutes.show(swiss.teamId)))
+      env.swiss.api.kill(swiss).inject(Redirect(routes.Team.show(swiss.teamId)))
   }
 
   def standing(id: SwissId, page: Int) = Anon:

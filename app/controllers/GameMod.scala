@@ -1,21 +1,14 @@
 package controllers
 
 import play.api.data.*
-import play.api.data.Forms.{ list as formList, * }
-
-import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-import lila.common.Form.{ stringIn, perfKey, given }
 import lila.core.config
-import lila.db.dsl.{ *, given }
-
-import lila.rating.PerfType
 
 final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 
-  import GameMod.*
+  import lila.mod.GameMod.*
 
   def index(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> _ ?=>
     Found(meOrFetch(username)): user =>
@@ -29,7 +22,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
           if isGranted(_.UserEvaluate)
           then env.mod.assessApi.makeAndGetFullOrBasicsFor(povs).map(Right.apply)
           else fuccess(Left(povs))
-        page <- renderPage(views.html.mod.games(user, form, games, arenas.currentPageResults, swisses))
+        page <- renderPage(views.mod.games(user, form, games, arenas.currentPageResults, swisses))
       yield Ok(page)
   }
 
@@ -83,7 +76,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
       .inject(NoContent)
 
   private def downloadPgn(user: lila.user.User, gameIds: Seq[GameId])(using Context) =
-    Ok.chunked {
+    val res = Ok.chunked {
       env.api.gameApiV2.exportByIds(
         GameApiV2.ByIdsConfig(
           ids = gameIds,
@@ -93,68 +86,5 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
           playerFile = none
         )
       )
-    }.pipe(asAttachmentStream(s"lichess_mod_${user.username}_${gameIds.size}_games.pgn"))
-      .as(pgnContentType)
-
-object GameMod:
-
-  case class Filter(
-      arena: Option[String],
-      swiss: Option[String],
-      perf: Option[PerfKey],
-      opponents: Option[String],
-      nbGamesOpt: Option[Int]
-  ):
-    def opponentIds: List[UserId] = UserStr
-      .from:
-        (~opponents)
-          .take(800)
-          .replace(",", " ")
-          .split(' ')
-          .map(_.trim)
-      .flatMap(_.validateId)
-      .toList
-      .distinct
-
-    def nbGames = nbGamesOpt | 100
-
-  val emptyFilter = Filter(none, none, none, none, none)
-
-  def toDbSelect(user: lila.user.User, filter: Filter): Bdoc =
-    import lila.game.Query
-    Query.notSimul ++
-      filter.perf.so { perf =>
-        Query.clock(perf != PerfType.Correspondence.key)
-      } ++ filter.arena.so { id =>
-        $doc(lila.game.Game.BSONFields.tournamentId -> id)
-      } ++ filter.swiss.so { id =>
-        $doc(lila.game.Game.BSONFields.swissId -> id)
-      } ++ $and(
-        Query.user(user),
-        filter.opponentIds.match
-          case Nil      => Query.noAnon
-          case List(id) => Query.user(id)
-          case ids      => Query.users(ids)
-      )
-
-  val maxGames = 500
-
-  val filterForm = Form:
-    mapping(
-      "arena"     -> optional(nonEmptyText),
-      "swiss"     -> optional(nonEmptyText),
-      "perf"      -> optional(perfKey),
-      "opponents" -> optional(nonEmptyText),
-      "nbGamesOpt" -> optional(
-        number(min = 1).transform(
-          _.atMost(maxGames),
-          identity
-        )
-      )
-    )(Filter.apply)(unapply)
-
-  val actionForm = Form:
-    tuple(
-      "game"   -> formList(of[GameId]),
-      "action" -> optional(stringIn(Set("pgn", "analyse")))
-    )
+    }
+    asAttachmentStream(s"lichess_mod_${user.username}_${gameIds.size}_games.pgn")(res).as(pgnContentType)

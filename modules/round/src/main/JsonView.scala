@@ -208,7 +208,8 @@ final class JsonView(
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
-                "clockTenths"       -> pref.clockTenths
+                "clockTenths"       -> pref.clockTenths,
+                "keyboardMove"      -> pref.hasKeyboardMove
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -288,7 +289,8 @@ final class JsonView(
             "animationDuration" -> animationMillis(pov, pref),
             "coords"            -> pref.coords,
             "moveEvent"         -> pref.moveEvent,
-            "showCaptured"      -> pref.captured
+            "showCaptured"      -> pref.captured,
+            "keyboardMove"      -> pref.hasKeyboardMove
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)

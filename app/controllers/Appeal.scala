@@ -3,7 +3,6 @@ package appeal
 
 import play.api.data.Form
 import play.api.mvc.Result
-import views.*
 
 import lila.app.{ *, given }
 import lila.appeal.Appeal as AppealModel
@@ -21,29 +20,28 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def landing = Auth { ctx ?=> _ ?=>
     if ctx.isAppealUser || isGranted(_.Appeals) then
       FoundPage(env.api.cmsRender(lila.cms.CmsPage.Key("appeal-landing"))):
-        views.html.site.page.lone
+        views.site.page.lone
     else notFound
   }
 
   private def renderAppealOrTree(
       err: Option[Form[String]] = None
-  )(using Context)(using me: Me): Fu[Frag] = env.appeal.api.byId(me).flatMap {
+  )(using Context)(using me: Me) = env.appeal.api.byId(me).flatMap {
     case None =>
-      renderAsync:
-        for
-          playban <- env.playban.api.currentBan(me).dmap(_.isDefined)
-          // if no blog, consider it's visible because even if it is not, for now the user
-          // has not been negatively impacted
-          ublogIsVisible <- env.ublog.api.isBlogVisible(me.userId).dmap(_.getOrElse(true))
-        yield html.appeal.tree(me, playban, ublogIsVisible)
-    case Some(a) => renderPage(html.appeal.discussion(a, me, err | userForm))
+      for
+        playban <- env.playban.api.currentBan(me).dmap(_.isDefined)
+        // if no blog, consider it's visible because even if it is not, for now the user
+        // has not been negatively impacted
+        ublogIsVisible <- env.ublog.api.isBlogVisible(me.userId).dmap(_.getOrElse(true))
+      yield views.appeal.tree.page(me, playban, ublogIsVisible)
+    case Some(a) => views.appeal.discussion(a, me, err | userForm)
   }
 
   def post = AuthBody { ctx ?=> me ?=>
     userForm
       .bindFromRequest()
       .fold(
-        err => renderAppealOrTree(err.some).map { BadRequest(_) },
+        err => BadRequest.async(renderAppealOrTree(err.some)),
         text => env.appeal.api.post(text).inject(Redirect(routes.Appeal.home).flashSuccess)
       )
   }
@@ -57,7 +55,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       _                                <- env.user.lightUserApi.preloadMany(appeals.map(_.user.id))
       markedByMap                      <- env.mod.logApi.wereMarkedBy(appeals.map(_.user.id))
       page <- renderPage(
-        html.appeal.queue(appeals, inquiries, filter, markedByMap, scores, streamers, nbAppeals)
+        views.appeal.queue(appeals, inquiries, filter, markedByMap, scores, streamers, nbAppeals)
       )
     yield Ok(page)
   }
@@ -65,7 +63,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
   def show(username: UserStr) = Secure(_.Appeals) { ctx ?=> me ?=>
     asMod(username): (appeal, suspect) =>
       getModData(suspect).flatMap: modData =>
-        Ok.page(html.appeal.discussion.show(appeal, modForm, modData))
+        Ok.page(views.appeal.discussion.show(appeal, modForm, modData))
   }
 
   def reply(username: UserStr) = SecureBody(_.Appeals) { ctx ?=> me ?=>
@@ -75,7 +73,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
         .fold(
           err =>
             getModData(suspect).flatMap: modData =>
-              BadRequest.page(html.appeal.discussion.show(appeal, err, modData)),
+              BadRequest.page(views.appeal.discussion.show(appeal, err, modData)),
           (text, process) =>
             for
               _ <- env.mailer.automaticEmail.onAppealReply(suspect.user)
@@ -99,7 +97,7 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
       appeals    <- env.appeal.api.byUserIds(suspect.user.id :: logins.userLogins.otherUserIds)
       inquiry    <- env.report.api.inquiries.ofSuspectId(suspect.user.id)
       markedByMe <- env.mod.logApi.wasMarkedBy(suspect.user.id)
-    yield html.appeal.discussion.ModData(
+    yield views.appeal.discussion.ModData(
       mod = me,
       suspect = suspect,
       presets = getPresets,

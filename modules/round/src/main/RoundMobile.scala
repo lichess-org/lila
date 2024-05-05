@@ -10,7 +10,6 @@ import lila.core.LightUser
 import lila.game.JsonView.given
 import lila.pref.Pref
 import lila.round.RoundGame.*
-import lila.game.GameExt.playerById
 
 object RoundMobile:
 

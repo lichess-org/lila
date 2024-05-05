@@ -5,14 +5,13 @@ import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.HTTPRequest
 import lila.core.i18n.{ Language, Translate, defaultLanguage }
-import lila.notify.Notification.UnreadCount
 import lila.oauth.{ OAuthScope, TokenScopes }
 import lila.pref.Pref
-
 import lila.core.user.KidMode
 import lila.user.UserExt.userLanguage
-import lila.web.Nonce
+import lila.ui.Nonce
 import lila.core.net.IpAddress
+import lila.core.notify.UnreadCount
 
 /* Who is logged in, and how */
 final class LoginContext(
@@ -27,7 +26,6 @@ final class LoginContext(
   def userId: Option[UserId]     = user.map(_.id)
   def username: Option[UserName] = user.map(_.username)
   def isBot                      = me.exists(_.isBot)
-  def noBot                      = !isBot
   def troll                      = user.exists(_.marks.troll)
   def isKidUser                  = user.exists(_.kid)
   def isAppealUser               = me.exists(_.enabled.no)
@@ -94,9 +92,10 @@ object PageData:
   def anon(nonce: Option[Nonce])  = PageData(0, 0, UnreadCount(0), false, none, nonce)
   def error(nonce: Option[Nonce]) = anon(nonce).copy(error = true)
 
-final class PageContext(val ctx: Context, val data: PageData):
+final class PageContext(val ctx: Context, val data: PageData) extends lila.ui.PageContext:
   export ctx.*
   export data.*
+  def hasInquiry = inquiry.isDefined
 
 final class EmbedContext(val ctx: Context, val bg: String, val nonce: Nonce):
   export ctx.*

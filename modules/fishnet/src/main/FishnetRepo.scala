@@ -13,12 +13,9 @@ final private class FishnetRepo(
 
   import BSONHandlers.given
 
-  private val clientCache = cacheApi[Client.Key, Option[Client]](128, "fishnet.client") {
-    _.expireAfterWrite(10 minutes)
-      .buildAsyncFuture { key =>
-        clientColl.one[Client]($id(key))
-      }
-  }
+  private val clientCache = cacheApi[Client.Key, Option[Client]](256, "fishnet.client"):
+    _.expireAfterWrite(20.minutes).buildAsyncFuture: key =>
+      clientColl.one[Client]($id(key))
 
   def getEnabledClient(key: Client.Key) = clientCache.get(key).dmap { _.filter(_.enabled) }
   def getOfflineClient: Fu[Client] =

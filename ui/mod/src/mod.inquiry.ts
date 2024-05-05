@@ -87,13 +87,22 @@ site.load.then(() => {
     );
   });
 
+  function addToNote(str: string) {
+    const storedNote = noteStore.get();
+    noteStore.set((storedNote ? storedNote + '\n' : '') + str);
+    flashNotes();
+  }
+
   $('#communication').on('click', '.line.author, .post.author', function (this: HTMLElement) {
     // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B
     // the notes cannot be mistakenly attributed to user A.
     const username = $('#communication').find('.title').text().split(' ')[0];
     const message = $(this).find('.message').text();
-    const storedNote = noteStore.get();
-    noteStore.set((storedNote ? storedNote + '\n' : '') + `${username}: "${message}"`);
-    flashNotes();
+    addToNote(`${username}: "${message}"`);
+  });
+
+  $('.user-show').on('click', '.mz-section--others .add-to-note', function (this: HTMLElement) {
+    const username = $(this).parents('tr').find('td:first-child .user-link').text().split(' ')[0];
+    addToNote(`Alt: @${username}`);
   });
 });

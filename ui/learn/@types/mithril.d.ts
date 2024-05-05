@@ -710,7 +710,7 @@ declare module _mithril {
    */
   interface MithrilPromise<T> extends Thennable<T>, MithrilProperty<MithrilPromise<T>> {
     /**
-     * Chain this promise with a simple success callback, propogating
+     * Chain this promise with a simple success callback, propagating
      * rejections.
      *
      * @param success The callback to call when the promise is resolved.
@@ -720,7 +720,7 @@ declare module _mithril {
 
     /**
      * Chain this promise with a success callback and error callback, without
-     * propogating rejections.
+     * propagating rejections.
      *
      * @param success The callback to call when the promise is resolved.
      * @param error The callback to call when the promise is rejected.
@@ -732,7 +732,7 @@ declare module _mithril {
     ): MithrilPromise<U> | MithrilPromise<V>;
 
     /**
-     * Chain this promise with a single error callback, without propogating
+     * Chain this promise with a single error callback, without propagating
      * rejections.
      *
      * @param error The callback to call when the promise is rejected.

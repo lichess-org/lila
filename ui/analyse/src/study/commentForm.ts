@@ -55,7 +55,7 @@ export function view(root: AnalyseCtrl): VNode {
     const newKey = current.chapterId + current.path;
 
     if (old?.data!.path !== newKey) {
-      const mine = (current!.node.comments || []).find(function (c) {
+      const mine = (current.node.comments || []).find(function (c) {
         return isAuthorObj(c.by) && c.by.id && c.by.id === ctrl.root.opts.userId;
       });
       el.value = mine ? mine.text : '';

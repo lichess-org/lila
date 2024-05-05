@@ -9,8 +9,8 @@ import java.util.concurrent.ConcurrentHashMap
 import lila.ui.ScalatagsTemplate.*
 import lila.core.i18n.{ I18nKey, Translate }
 
-final class DateHelper(stringHelper: StringHelper):
-  import stringHelper.*
+trait DateHelper:
+  self: StringHelper =>
 
   private val datetimeAttr = attr("datetime")
 

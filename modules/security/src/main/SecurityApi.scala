@@ -13,19 +13,17 @@ import lila.common.HTTPRequest
 import lila.core.net.{ ApiVersion, IpAddress }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
-import lila.user.LoginCandidate.Result
-import lila.user.{ ClearPassword, LoginCandidate }
-import lila.user.{ Me, User, UserRepo }
+import lila.security.LoginCandidate.Result
 import lila.core.email.UserStrOrEmail
-import lila.core.security.{ IsProxy, Ip2ProxyApi }
+import lila.core.security.{ IsProxy, Ip2ProxyApi, FingerHash, ClearPassword }
 
 final class SecurityApi(
-    userRepo: UserRepo,
+    userRepo: lila.user.UserRepo,
     store: Store,
     firewall: Firewall,
     cacheApi: lila.memo.CacheApi,
     geoIP: GeoIP,
-    authenticator: lila.user.Authenticator,
+    authenticator: Authenticator,
     oAuthServer: OAuthServer,
     ip2proxy: Ip2ProxyApi,
     proxy2faSetting: lila.memo.SettingStore[lila.core.data.Strings] @@ Proxy2faSetting
@@ -99,7 +97,7 @@ final class SecurityApi(
   ): LoginCandidate.Result =
     import LoginCandidate.Result.*
     candidate.fold[LoginCandidate.Result](InvalidUsernameOrPassword): c =>
-      val result = c(lila.user.PasswordAndToken(password, token.map(lila.user.TotpToken.apply)))
+      val result = c(PasswordAndToken(password, token.map(lila.user.TotpToken.apply)))
       if result == BlankedPassword then
         lila.common.Bus.publish(c.user, "loginWithBlankedPassword")
         BlankedPassword

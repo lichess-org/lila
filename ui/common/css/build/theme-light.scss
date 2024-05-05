@@ -1,1 +1,8 @@
+@import '../theme/default';
+
+:root {
+  @include shared-color-defs;
+  @include default-mix;
+}
+
 @import '../theme/light';
