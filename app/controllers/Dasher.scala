@@ -23,14 +23,13 @@ final class Dasher(env: Env)(using ws: StandaloneWSClient) extends LilaControlle
       lila.i18n.JsDump.keysToObject(List(trans.site.language))(using ctx.translate.copy(lang = langLang))
 
   private lazy val galleryJson = env.memo.cacheApi.unit[Option[JsValue]]:
-    _.refreshAfterWrite(10.minutes)
-      .buildAsyncFuture: _ =>
-        ws.url(s"${env.net.assetBaseUrlInternal}/assets/lifat/background/gallery.json")
-          .get()
-          .map:
-            case res if res.status == 200 => res.body[JsValue].some
-            case _                        => none
-          .recoverWith(_ => fuccess(none))
+    _.refreshAfterWrite(10.minutes).buildAsyncFuture: _ =>
+      ws.url(s"${env.net.assetBaseUrlInternal}/assets/lifat/background/gallery.json")
+        .get()
+        .map:
+          case res if res.status == 200 => res.body[JsValue].some
+          case _                        => none
+        .recoverDefault
 
   def get = Open:
     negotiateJson:
