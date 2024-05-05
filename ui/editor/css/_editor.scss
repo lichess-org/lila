@@ -20,12 +20,10 @@
     margin: 2rem 0 0 1rem;
 
     p {
-      display: flex;
-      align-items: center;
-
-      input {
-        margin-inline-start: 1rem;
-        flex: 1 1 100%;
+      @extend %flex-center-nowrap;
+      gap: 1em;
+      > *:not(strong) {
+        flex: 1 1 auto;
       }
     }
   }

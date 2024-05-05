@@ -117,22 +117,8 @@ final class ChallengeUi(helpers: Helpers):
                       div(
                         h2(cls := "ninja-title", trans.site.toInviteSomeoneToPlayGiveThisUrl()),
                         br,
-                        p(cls := "challenge-id-form")(
-                          input(
-                            id         := "challenge-id",
-                            cls        := "copyable autoselect",
-                            spellcheck := "false",
-                            readonly,
-                            value := challengeLink,
-                            size  := challengeLink.length
-                          ),
-                          button(
-                            title    := "Copy URL",
-                            cls      := "copy button",
-                            dataRel  := "challenge-id",
-                            dataIcon := Icon.Link
-                          )
-                        ),
+                        copyMeInput(challengeLink),
+                        br,
                         p(trans.site.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                       ),
                       ctx.isAuth.option(
