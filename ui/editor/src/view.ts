@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
+import { copyMeInput } from 'common/copyMe';
 import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
@@ -282,7 +283,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
   return h('div.copyables', [
     h('p', [
       h('strong', 'FEN'),
-      h('input.copyable', {
+      h('input', {
         attrs: { spellcheck: 'false', enterkeyhint: 'done' },
         props: { value: fen },
         on: {
@@ -310,12 +311,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         },
       }),
     ]),
-    h('p', [
-      h('strong.name', 'URL'),
-      h('input.copyable.autoselect', {
-        attrs: { readonly: true, spellcheck: 'false', value: ctrl.makeEditorUrl(fen, ctrl.bottomColor()) },
-      }),
-    ]),
+    h('p', [h('strong.name', 'URL'), copyMeInput(ctrl.makeEditorUrl(fen, ctrl.bottomColor()))]),
     h('a', { attrs: { href: ctrl.makeImageUrl(fen) } }, 'SCREENSHOT'),
   ]);
 }

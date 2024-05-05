@@ -823,12 +823,12 @@ final class StudyApi(
       studyId: StudyId,
       chapterId: StudyChapterId,
       userId: UserId,
-      unlimited: Boolean = false
+      official: Boolean = false
   ): Funit =
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(userId, study):
-          serverEvalRequester(study, chapter, userId, unlimited)
+          serverEvalRequester(study, chapter, userId, official)
 
   def deleteAllChapters(studyId: StudyId, by: User) =
     sequenceStudy(studyId): study =>

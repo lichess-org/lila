@@ -1,19 +1,7 @@
 package lila.fishnet
 
 import chess.MoveOrDrop.*
-import chess.format.pgn.{
-  InitialComments,
-  Move,
-  ParsedPgn,
-  ParsedPgnTree,
-  Parser,
-  Pgn,
-  PgnNodeData,
-  PgnStr,
-  PgnTree,
-  SanStr,
-  Tags
-}
+import chess.format.pgn.{ InitialComments, Move, Parser, Pgn, PgnStr, SanStr, Tags }
 import chess.variant.Standard
 import chess.{ ByColor, Clock, MoveOrDrop, Ply, Situation }
 import play.api.libs.json.Json
@@ -27,68 +15,75 @@ import JsonApi.*
 import readers.given
 import lila.core.game.Player
 import lila.core.id.GamePlayerId
+import chess.format.FullFen
+import chess.variant.Variant
 
 final class AnnotatorTest extends munit.FunSuite:
 
   test("annotated games with fishnet input"):
-    TestFixtures.testCases.foreach: tc =>
+    TestFixtures.annotatorTestCases.foreach: tc =>
       val (output, expected) = tc.test
       assertEquals(output, expected)
 
-case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expected: PgnStr):
+object AnnotatorTest:
 
-  given Executor      = scala.concurrent.ExecutionContextOpportunistic
-  val annotator       = Annotator(NetDomain("l.org"))
-  val analysisBuilder = AnalysisBuilder(FishnetEvalCache.mock)
+  case class TestCase(sans: List[SanStr], pgn: PgnStr, fishnetInput: String, expected: PgnStr):
 
-  lazy val parsedPgn = Parser.full(pgn).toOption.get
-  lazy val dumped    = parsedPgn.toPgn
-  val variant        = parsedPgn.tags.variant.getOrElse(Standard)
-  val fen            = parsedPgn.tags.fen.getOrElse(variant.initialFen)
-  lazy val chessGame = chess.Game(
-    variantOption = variant.some,
-    fen = fen.some
-  )
-  lazy val gameWithMoves =
+    given Executor = scala.concurrent.ExecutionContextOpportunistic
+    val annotator  = Annotator(NetDomain("l.org"))
+    val builder    = AnalysisBuilder(FishnetEvalCache.mock)
+
+    lazy val parsedPgn = Parser.full(pgn).toOption.get
+    lazy val dumped    = parsedPgn.toPgn
+
+    val variant = parsedPgn.tags.variant.getOrElse(Standard)
+    val fen     = parsedPgn.tags.fen.getOrElse(variant.initialFen)
+
+    def makeGame(g: chess.Game) =
+      lila.core.game
+        .newGame(
+          g,
+          ByColor(Player(GamePlayerId("abcd"), _, none)),
+          mode = chess.Mode.Casual,
+          source = lila.core.game.Source.Api,
+          pgnImport = none
+        )
+        .sloppy
+
+    def test =
+      val ply           = chess.Game(variant.some, fen.some).ply
+      val (game, moves) = AnnotatorTest.gameWithMoves(sans, fen, variant)
+      val analysis      = AnnotatorTest.parse(builder, fishnetInput, fen.some, variant, moves, ply)
+      val p1            = annotator.addEvals(dumped, analysis)
+      val p2            = annotator(p1, makeGame(game), analysis.some).copy(tags = Tags.empty)
+      val output        = annotator.toPgnString(p2)
+      (output, expected)
+
+  def gameWithMoves(sans: List[SanStr], fen: FullFen, variant: Variant): (chess.Game, String) =
     val (_, xs, _) = chess.Replay.gameMoveWhileValid(sans, fen, variant)
     val game       = xs.last._1
     val moves      = xs.map(_._2.uci.uci).mkString(" ")
-    (game, moves)
+    game -> moves
 
-  def makeGame(g: chess.Game) =
-    lila.core.game
-      .newGame(
-        g,
-        ByColor(Player(GamePlayerId("abcd"), _, none)),
-        mode = chess.Mode.Casual,
-        source = lila.core.game.Source.Api,
-        pgnImport = none
-      )
-      .sloppy
-
-  def test =
-    val analysis = parseAnalysis(fishnetInput)
-    val p1       = annotator.addEvals(dumped, analysis)
-    val p2       = annotator(p1, makeGame(gameWithMoves._1), analysis.some).copy(tags = Tags.empty)
-    val output   = annotator.toPgnString(p2)
-    (output, expected)
-
-  def parseAnalysis(str: String): lila.analyse.Analysis =
-    val xs     = Json.parse(fishnetInput).as[Request.PostAnalysis].analysis.flatten
-    val userId = UserId("user")
-    val sender = Work.Sender(userId, None, false, false)
-    val gameId = "TaHSAsYD"
-    val game   = Work.Game(gameId, Some(fen), None, variant, gameWithMoves._2)
+  def parse(
+      builder: AnalysisBuilder,
+      fishnetInput: String,
+      fen: Option[FullFen],
+      variant: Variant,
+      moves: String,
+      ply: Ply
+  ): lila.analyse.Analysis =
+    val xs = Json.parse(fishnetInput).as[Request.PostAnalysis].analysis.flatten
     val analysis = Work.Analysis(
       Work.Id("workid"),
-      sender,
-      game,
-      chessGame.ply,
+      Work.Sender(UserId("user"), None, false, false),
+      Work.Game("TaHSAsYD", fen, None, variant, moves),
+      ply,
       0,
       None,
       None,
       Nil,
-      Instant.ofEpochMilli(1684055956)
+      Instant.ofEpochMilli(1684055956),
+      Work.Origin.manualRequest.some
     )
-    val client = Client.offline
-    analysisBuilder(client, analysis, xs).await(1.second, "parse analysis")
+    builder(Client.offline, analysis, xs).await(1.second, "parse analysis")

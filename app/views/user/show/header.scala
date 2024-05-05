@@ -181,14 +181,12 @@ object header:
                       )
                     )
                   ),
-                (ctx.kid.no && !hideTroll && ctx.kid.no).option(
+                (ctx.kid.no && !hideTroll && !u.kid).option(
                   frag(
-                    profile.nonEmptyRealName.map { name =>
-                      strong(cls := "name")(name)
-                    },
-                    profile.nonEmptyBio.map { bio =>
+                    profile.nonEmptyRealName.map: name =>
+                      strong(cls := "name")(name),
+                    profile.nonEmptyBio.map: bio =>
                       p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
-                    }
                   )
                 ),
                 div(cls := "stats")(

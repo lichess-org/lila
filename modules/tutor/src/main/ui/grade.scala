@@ -28,7 +28,7 @@ object grade:
       position: InsightPosition,
       titleTag: Text.Tag = h2
   )(using Translate): Option[Tag] =
-    metricOptions.asAvailable.map { metric =>
+    metricOptions.asAvailable.map: metric =>
       div(cls := "tutor-grade tutor-grade--detail")(
         titleTag(cls := "tutor-grade__name")(concept.show(c)),
         c.description.nonEmpty.option(p(cls := "tutor-grade__concept")(c.description)),
@@ -53,7 +53,6 @@ object grade:
           )
         )
       )
-    }
 
   private def gradeVisual[A: TutorNumber](c: TutorConcept, metric: TutorBothValuesAvailable[A]) =
     val grade = metric.grade

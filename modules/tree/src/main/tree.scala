@@ -408,7 +408,7 @@ object Node:
     val empty: Shapes                                    = Nil
 
   case class Comment(id: Comment.Id, text: Comment.Text, by: Comment.Author):
-    def removeMeta = text.removeMeta.map { t => copy(text = t) }
+    def removeMeta = text.removeMeta.map(t => copy(text = t))
   object Comment:
     opaque type Id = String
     object Id extends OpaqueString[Id]:
@@ -537,24 +537,12 @@ object Node:
           e.printStackTrace()
           sys.error(s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)")
 
-  def destString(dests: Map[Square, Bitboard]): String =
-    val sb    = java.lang.StringBuilder(80)
-    var first = true
-    dests.foreach: (orig, dests) =>
-      if first then first = false
-      else sb.append(" ")
-      sb.append(orig.asChar)
-      dests.foreach(d => sb.append(d.asChar))
-    sb.toString
-
-  given Writes[Map[Square, Bitboard]] = Writes: dests =>
-    JsString(destString(dests))
-
   val partitionTreeJsonWriter: Writes[Node] = Writes: node =>
     JsArray:
       node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
 
 object Tree:
+
   def makeMinimalJsonString(
       game: Game,
       analysis: Option[Analysis],
@@ -574,3 +562,25 @@ object Tree:
   ): JsValue =
     Node.partitionTreeJsonWriter.writes:
       TreeBuilder(game, analysis, initialFen, options, logChessError)
+
+  def makeMinimalJsonStringNew(
+      game: Game,
+      analysis: Option[Analysis],
+      initialFen: Fen.Full,
+      options: ExportOptions,
+      logChessError: TreeBuilder.LogChessError
+  ): JsValue =
+    NewRoot.minimalNodeJsonWriter.writes:
+      val x = NewTreeBuilder(game, analysis, initialFen, lila.tree.ExportOptions.default, logChessError)
+      x.size
+      x
+
+  def makePartitionTreeJsonNew(
+      game: Game,
+      analysis: Option[Analysis],
+      initialFen: Fen.Full,
+      options: ExportOptions,
+      logChessError: TreeBuilder.LogChessError
+  ): JsValue =
+    NewRoot.partitionTreeJsonWriter.writes:
+      NewTreeBuilder(game, analysis, initialFen, options, logChessError)

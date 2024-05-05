@@ -64,38 +64,14 @@ final class SitePages(helpers: Helpers):
             div(cls := "body")(
               div(cls := "center")(raw(s"""<iframe src="/tv/frame?theme=brown&bg=dark" $args></iframe>""")),
               p("Add the following HTML to your site:"),
-              p(cls := "copy-zone")(
-                input(
-                  id    := "tv-embed-src",
-                  cls   := "copyable autoselect",
-                  value := s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""
-                ),
-                button(
-                  st.title := "Copy code",
-                  cls      := "copy button",
-                  dataRel  := "tv-embed-src",
-                  dataIcon := Icon.Link
-                )
-              ),
+              copyMeInput(s"""<iframe src="$netBaseUrl/tv/frame?theme=brown&bg=dark" $args></iframe>"""),
               parameters,
               p(
                 "You can also show the channel for a specific variant or time control by adding the channel key to the URL, corresponding to the channels available at ",
                 a(href := "/tv")("lichess.org/tv"),
                 ". If not included, the top rated game will be shown."
               ),
-              p(cls := "copy-zone")(
-                input(
-                  id    := "tv-channel-embed-src",
-                  cls   := "copyable autoselect",
-                  value := s"""<iframe src="$netBaseUrl/tv/rapid/frame?theme=brown&bg=dark" $args></iframe>"""
-                ),
-                button(
-                  st.title := "Copy code",
-                  cls      := "copy button",
-                  dataRel  := "tv-channel-embed-src",
-                  dataIcon := Icon.Link
-                )
-              )
+              copyMeInput(s"""<iframe src="$netBaseUrl/tv/rapid/frame?theme=brown&bg=dark" $args></iframe>""")
             )
           )
         },
@@ -109,18 +85,8 @@ final class SitePages(helpers: Helpers):
                 raw(s"""<iframe src="/training/frame?theme=brown&bg=dark" $args></iframe>""")
               ),
               p("Add the following HTML to your site:"),
-              p(cls := "copy-zone")(
-                input(
-                  id    := "puzzle-embed-src",
-                  cls   := "copyable autoselect",
-                  value := s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
-                ),
-                button(
-                  st.title := "Copy code",
-                  cls      := "copy button",
-                  dataRel  := "puzzle-embed-src",
-                  dataIcon := Icon.Link
-                )
+              copyMeInput(
+                s"""<iframe src="$netBaseUrl/training/frame?theme=brown&bg=dark" $args></iframe>"""
               ),
               parameters,
               p("The text is automatically translated to your visitor's language."),

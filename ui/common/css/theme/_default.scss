@@ -63,20 +63,22 @@ $c-clearer: #fff;
   --c-dark: #{$c-dark};
   --c-dimmer: #{$c-dimmer};
   --c-clearer: #{$c-clearer};
-
   --c-page-input: #{$c-bg};
   --c-page-mask: hsla(0, 0%, 0%, 0.6);
+  --c-metal-top: #{hsl($site-hue, 7%, 22%)};
+  --c-metal-bottom: #{hsl($site-hue, 5%, 19%)};
+  --c-metal-top-hover: #{hsl($site-hue, 7%, 25%)};
+  --c-metal-bottom-hover: #{hsl($site-hue, 5%, 22%)};
 
   --c-font-dim: #{change-color($c-font, $lightness: 60%)};
   --c-font-dimmer: #{change-color($c-font, $lightness: 42%)};
   --c-font-clear: #{change-color($c-font, $lightness: 80%)};
   --c-font-clearer: #{change-color($c-font, $lightness: 89%)};
   --c-font-page: var(--c-font-dim);
-  --c-font-shadow: #000;
+  --c-font-shadow: hsla(0, 0, 0%, 0);
 
   --c-primary-dim: #{_dim($c-primary, 15%)};
   --c-link-hover: #{_clear(saturate($c-primary, 100%), 25%)};
-
   --c-chat-host-bg: rgba(78, 122, 29, 0.4);
   --c-chat-mention-bg: rgba(59, 92, 22, 0.4);
   --c-fancy: hsl(294, 62%, 48%);

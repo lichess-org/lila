@@ -33,11 +33,12 @@ trait AssetFullHelper:
 
   def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
 
+  private val dataCssKey = attr("data-css-key")
   def cssTag(key: String): Frag =
     link(
-      cls  := s"css-$key",
-      href := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"),
-      rel  := "stylesheet"
+      dataCssKey := key,
+      href       := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"),
+      rel        := "stylesheet"
     )
 
   def jsonScript(json: JsValue | SafeJsonStr) =

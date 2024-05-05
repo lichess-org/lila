@@ -22,7 +22,7 @@ export const loadCss = (href: string, key?: string): Promise<void> =>
     else if (document.querySelector(`head > link[href="${href}"]`)) return resolve();
 
     const el = document.createElement('link');
-    if (key) el.className = `css-${key}`;
+    if (key) el.setAttribute('data-css-key', key);
     el.rel = 'stylesheet';
     el.href = href;
     el.onload = () => resolve();
@@ -34,9 +34,7 @@ export const loadCssPath = async (key: string): Promise<void> => {
   await loadCss(`css/${key}${hash ? `.${hash}` : ''}.css`, key);
 };
 
-export const removeCssPath = (key: string) => {
-  $(`head > link.css-${key}`).remove();
-};
+export const removeCssPath = (key: string) => $(`head > link[data-css-key="${key}"]`).remove();
 
 export const jsModule = (name: string) => {
   if (name.endsWith('.js')) name = name.slice(0, -3);

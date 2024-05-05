@@ -25,7 +25,7 @@ export class BoardCtrl extends PaneCtrl {
 
   render = () =>
     h(`div.sub.board.${this.dimension}`, [
-      header('Board', this.close),
+      header(this.trans.noarg('board'), this.close),
       h('div.selector.large', [
         h(
           'button.text',
@@ -54,7 +54,7 @@ export class BoardCtrl extends PaneCtrl {
             attrs: { 'data-icon': licon.Back, type: 'button' },
             hook: bind('click', this.reset),
           },
-          'Reset colors to default',
+          this.trans.noarg('boardReset'),
         ),
       h(
         'div.list',
@@ -119,9 +119,8 @@ export class BoardCtrl extends PaneCtrl {
   private postPref = debounce((prop: string) => {
     const body = new FormData();
     body.set(hyphenToCamel(prop), this.getVar(prop).toString());
-    xhr
-      .text(`/pref/${hyphenToCamel(prop)}`, { body, method: 'post' })
-      .catch(() => site.announce({ msg: `Failed to save ${prop}` }));
+    const path = prop === 'zoom' ? `/pref/zoom?v=${this.getVar(prop)}` : `/pref/${hyphenToCamel(prop)}`;
+    xhr.text(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
   private set3d = async (v: boolean) => {
@@ -158,12 +157,22 @@ export class BoardCtrl extends PaneCtrl {
   private propSliders = () => {
     const sliders = [];
     if (!Number.isNaN(this.getVar('zoom')))
-      sliders.push(this.propSlider('zoom', 'Size', { min: 0, max: 100, step: 1 }));
+      sliders.push(this.propSlider('zoom', this.trans.noarg('size'), { min: 0, max: 100, step: 1 }));
     if (document.body.dataset.theme === 'transp')
-      sliders.push(this.propSlider('board-opacity', 'Opacity', { min: 0, max: 100, step: 1 }));
-    else sliders.push(this.propSlider('board-brightness', 'Brightness', { min: 20, max: 140, step: 1 }));
+      sliders.push(
+        this.propSlider('board-opacity', this.trans.noarg('opacity'), { min: 0, max: 100, step: 1 }),
+      );
+    else
+      sliders.push(
+        this.propSlider('board-brightness', this.trans.noarg('brightness'), { min: 20, max: 140, step: 1 }),
+      );
     sliders.push(
-      this.propSlider('board-hue', 'Hue', { min: 0, max: 100, step: 1 }, v => `+ ${Math.round(v * 3.6)}°`),
+      this.propSlider(
+        'board-hue',
+        this.trans.noarg('hue'),
+        { min: 0, max: 100, step: 1 },
+        v => `+ ${Math.round(v * 3.6)}°`,
+      ),
     );
     return sliders;
   };

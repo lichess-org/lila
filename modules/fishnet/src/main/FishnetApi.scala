@@ -65,7 +65,7 @@ final class FishnetApi(
           $doc("acquired".$exists(false)) ++ {
             (!client.offline).so($doc("lastTryByKey".$ne(client.key))) // client alternation
           } ++ {
-            slow.so($doc("sender.system" -> true))
+            slow.so($doc("origin".$in(Work.Origin.slowOk)))
           }
         )
         .sort(
@@ -75,10 +75,9 @@ final class FishnetApi(
           )
         )
         .one[Work.Analysis]
-        .flatMapz { work =>
+        .flatMapz: work =>
           repo.updateAnalysis(work.assignTo(client)).inject(work.some): Fu[Option[Work.Analysis]]
-        }
-    }.map { _.map(JsonApi.analysisFromWork(config.analysisNodes)) }
+    }.map { _.map(JsonApi.analysisFromWork) }
 
   def postAnalysis(
       workId: Work.Id,
@@ -164,10 +163,7 @@ object FishnetApi:
 
   import lila.core.lilaism.LilaException
 
-  case class Config(
-      offlineMode: Boolean,
-      analysisNodes: Int
-  )
+  case class Config(offlineMode: Boolean)
 
   case object WorkNotFound extends LilaException:
     val message = "The work has disappeared"
