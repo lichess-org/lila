@@ -1,23 +1,16 @@
 import { jest, beforeEach, describe, expect, test } from '@jest/globals';
-import { propWithEffect } from 'common';
+import { Prop, propWithEffect } from 'common';
 import { makeSubmit } from './keyboardSubmit';
-import { destsToUcis, sanWriter } from 'chess';
+import { Dests, destsToUcis, sanWriter } from 'chess';
 
 // Tips for working with this file:
 // - use https://lichess.org/editor to create positions and get their FENs
 // - use https://lichess.org/editor/<FEN> to check what FENs look like
 
-// // Set up the globals that are normally attached to window
-// declare let global: any;
-// global.site = { sound: { say: () => null, play: () => null }, mousetrap: { bind: () => undefined } };
-
-// // Set up the common defaults
-// document.body.innerHTML = `<input id="keyboardInput" />`;
-// let input = document.getElementById('keyboardInput') as HTMLInputElement;
-
 const startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
-const noDests = new Map();
-const defaultLegalSans = sanWriter(startingFen, destsToUcis(noDests));
+const toDestsMap = (obj: object) => new Map(Object.entries(obj)) as Dests;
+const fenDestsToSans = (fen: string, dests: Record<string, string[]>) =>
+  sanWriter(fen, destsToUcis(toDestsMap(dests)));
 
 const unexpectedErrorThrower = (name: string) => () => {
   throw new Error(`unexpected call to ${name}()`);
@@ -40,13 +33,11 @@ const defaultCtrl = {
   select: unexpectedErrorThrower('select'),
   update: () => null,
   usedSan: true,
-  legalSans: defaultLegalSans,
+  legalSans: fenDestsToSans(startingFen, {}),
   helpModalOpen: propWithEffect(false, () => null),
   isFocused: propWithEffect(false, () => null),
 };
 // const defaultClear = unexpectedErrorThrower('clear');
-
-// const toMap = (obj: object) => new Map(Object.entries(obj));
 
 // we don't have access to DOM elements in jest (testEnvironment: 'node'), so we need to mock this
 // input
@@ -160,213 +151,238 @@ describe('keyboardSubmit', () => {
     expect(mockClear).toHaveBeenCalledTimes(1);
   });
 
-  // test('reads out clock', () => {
-  //   input.value = 'clock';
-  //   const speakClock = jest.fn();
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: {
-  //       ...defaultCtrl,
-  //       speakClock,
-  //     },
-  //   }) as any;
+  test('reads out clock', () => {
+    const mockSpeakClock = jest.fn();
+    const mockClear = jest.fn();
+    const submit = makeSubmit(
+      {
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          speakClock: mockSpeakClock,
+        },
+      },
+      mockClear,
+    );
 
-  //   keyboardMovePlugin(startingFen, toMap({}), true);
-  //   expect(speakClock.mock.calls.length).toBe(1);
-  //   expect(input.value).toBe('');
-  // });
+    submit('clock', { isTrusted: true });
 
-  // test('berserks a game', () => {
-  //   input.value = 'zerk';
-  //   const goBerserk = jest.fn();
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: {
-  //       ...defaultCtrl,
-  //       goBerserk,
-  //     },
-  //   }) as any;
+    expect(mockSpeakClock).toHaveBeenCalledTimes(1);
+    expect(mockClear).toHaveBeenCalledTimes(1);
+  });
 
-  //   keyboardMovePlugin(startingFen, toMap({}), true);
-  //   expect(goBerserk.mock.calls.length).toBe(1);
-  //   expect(input.value).toBe('');
-  // });
+  test('berserks a game', () => {
+    const mockGoBerserk = jest.fn();
+    const mockClear = jest.fn();
+    const submit = makeSubmit(
+      {
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          goBerserk: mockGoBerserk,
+        },
+      },
+      mockClear,
+    );
 
-  // test('opens help modal with ?', () => {
-  //   input.value = '?';
-  //   const mockSetHelpModalOpen = jest.fn();
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: {
-  //       ...defaultCtrl,
-  //       helpModalOpen: mockSetHelpModalOpen as Prop<boolean>,
-  //     },
-  //   }) as any;
+    submit('zerk', { isTrusted: true });
 
-  //   keyboardMovePlugin(startingFen, toMap({}), true);
+    expect(mockGoBerserk).toHaveBeenCalledTimes(1);
+    expect(mockClear).toHaveBeenCalledTimes(1);
+  });
 
-  //   expect(mockSetHelpModalOpen.mock.calls.length).toBe(1);
-  //   expect(input.value).toBe('');
-  // });
+  test('opens help modal with ?', () => {
+    const mockSetHelpModalOpen = jest.fn();
+    const mockClear = jest.fn();
+    const submit = makeSubmit(
+      {
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          helpModalOpen: mockSetHelpModalOpen as Prop<boolean>,
+        },
+      },
+      mockClear,
+    );
 
-  // describe('from starting position', () => {
-  //   test('plays e4 via SAN', () => {
-  //     input.value = 'e4';
-  //     const mockSan = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         san: mockSan,
-  //       },
-  //     }) as any;
+    submit('?', { isTrusted: true });
 
-  //     keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+    expect(mockSetHelpModalOpen).toHaveBeenCalledTimes(1);
+    expect(mockSetHelpModalOpen).toBeCalledWith(true);
+    expect(mockClear).toHaveBeenCalledTimes(1);
+  });
 
-  //     expect(mockSan.mock.calls.length).toBe(1);
-  //     expect(mockSan.mock.calls[0][0]).toBe('e2');
-  //     expect(mockSan.mock.calls[0][1]).toBe('e4');
-  //     expect(input.value).toBe('');
-  //   });
+  describe('from starting position', () => {
+    test('plays e4 via SAN', () => {
+      const mockSan = jest.fn();
+      const mockClear = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
+            san: mockSan,
+          },
+        },
+        mockClear,
+      );
 
-  //   test('selects e2 via UCI', () => {
-  //     input.value = 'e2';
-  //     const mockSelect = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         select: mockSelect,
-  //       },
-  //     }) as any;
+      submit('e4', { isTrusted: true });
 
-  //     keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+      expect(mockSan).toHaveBeenCalledTimes(1);
+      expect(mockSan).toBeCalledWith('e2', 'e4');
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
 
-  //     expect(mockSelect.mock.calls.length).toBe(1);
-  //     expect(mockSelect.mock.calls[0][0]).toBe('e2');
-  //     expect(input.value).toBe('');
-  //   });
+    test('selects e2 via UCI', () => {
+      const mockSelect = jest.fn();
+      const mockClear = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
+            select: mockSelect,
+          },
+        },
+        mockClear,
+      );
 
-  //   test('with e2 selected, plays e4 via UCI', () => {
-  //     input.value = 'e4';
-  //     const mockSelect = jest.fn();
-  //     const mockSan = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         hasSelected: () => 'e2',
-  //         san: mockSan,
-  //         select: mockSelect,
-  //       },
-  //     }) as any;
+      submit('e2', { isTrusted: true });
 
-  //     keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+      expect(mockSelect).toHaveBeenCalledTimes(1);
+      expect(mockSelect).toBeCalledWith('e2');
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
 
-  //     expect(mockSelect.mock.calls.length).toBe(1);
-  //     expect(mockSelect.mock.calls[0][0]).toBe('e4');
-  //     // is it intended behavior to call both select and san?
-  //     expect(mockSan.mock.calls.length).toBe(1);
-  //     expect(mockSan.mock.calls[0][0]).toBe('e2');
-  //     expect(mockSan.mock.calls[0][1]).toBe('e4');
-  //     expect(input.value).toBe('');
-  //   });
+    test('with e2 selected, plays e4 via UCI', () => {
+      const mockSan = jest.fn();
+      const mockSelect = jest.fn();
+      const mockClear = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
+            hasSelected: () => 'e2',
+            san: mockSan,
+            select: mockSelect,
+          },
+        },
+        mockClear,
+      );
 
-  //   test('selects e2 via ICCF', () => {
-  //     input.value = '52';
-  //     const mockSelect = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         select: mockSelect,
-  //       },
-  //     }) as any;
+      submit('e4', { isTrusted: true });
 
-  //     keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+      // is it intended behavior to call both select and san?
+      expect(mockSelect).toHaveBeenCalledTimes(1);
+      expect(mockSelect).toBeCalledWith('e4');
+      expect(mockSan).toHaveBeenCalledTimes(1);
+      expect(mockSan).toBeCalledWith('e2', 'e4');
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
 
-  //     expect(mockSelect.mock.calls.length).toBe(1);
-  //     expect(mockSelect.mock.calls[0][0]).toBe('e2');
-  //     expect(input.value).toBe('');
-  //   });
+    test('selects e2 via ICCF', () => {
+      const mockSelect = jest.fn();
+      const mockClear = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
+            select: mockSelect,
+          },
+        },
+        mockClear,
+      );
 
-  //   test('with e2 selected, plays e4 via ICCF', () => {
-  //     input.value = '54';
-  //     const mockSelect = jest.fn();
-  //     const mockSan = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         hasSelected: () => 'e2',
-  //         san: mockSan,
-  //         select: mockSelect,
-  //       },
-  //     }) as any;
+      submit('52', { isTrusted: true });
 
-  //     keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+      expect(mockSelect).toHaveBeenCalledTimes(1);
+      expect(mockSelect).toBeCalledWith('e2');
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
 
-  //     expect(mockSelect.mock.calls.length).toBe(1);
-  //     expect(mockSelect.mock.calls[0][0]).toBe('e4');
-  //     // is it intended behavior to call both select and san?
-  //     expect(mockSan.mock.calls.length).toBe(1);
-  //     expect(mockSan.mock.calls[0][0]).toBe('e2');
-  //     expect(mockSan.mock.calls[0][1]).toBe('e4');
-  //     expect(input.value).toBe('');
-  //   });
-  // });
+    test('with e2 selected, plays e4 via ICCF', () => {
+      const mockSan = jest.fn();
+      const mockSelect = jest.fn();
+      const mockClear = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
+            hasSelected: () => 'e2',
+            san: mockSan,
+            select: mockSelect,
+          },
+        },
+        mockClear,
+      );
 
-  // test('when it is newly your move clears invalid input', () => {
-  //   input.value = 'nf6';
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: defaultCtrl,
-  //   }) as any;
+      submit('54', { isTrusted: true });
 
-  //   keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+      // is it intended behavior to call both select and san?
+      expect(mockSelect).toHaveBeenCalledTimes(1);
+      expect(mockSelect).toBeCalledWith('e4');
+      expect(mockSan).toHaveBeenCalledTimes(1);
+      expect(mockSan).toBeCalledWith('e2', 'e4');
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
+  });
 
-  //   expect(input.value).toBe('');
-  // });
+  describe('from a position where a b-file pawn or bishop can capture', () => {
+    const ambiguousPawnBishopCapture = '4k3/8/8/8/8/2r5/1P1B4/4K3 w - - 0 1';
+    test('does pawn capture', () => {
+      const mockSan = jest.fn();
+      const mockClear = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(ambiguousPawnBishopCapture, { b2: ['c3'], d2: ['c3'] }),
+            hasSelected: () => 'e2',
+            san: mockSan,
+          },
+        },
+        mockClear,
+      );
 
-  // describe('from a position where a b-file pawn or bishop can capture', () => {
-  //   const ambiguousPawnBishopCapture = '4k3/8/8/8/8/2r5/1P1B4/4K3 w - - 0 1';
-  //   test('does pawn capture', () => {
-  //     input.value = 'bc3';
-  //     const mockSan = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         san: mockSan,
-  //       },
-  //     }) as any;
+      submit('bc3', { isTrusted: true });
 
-  //     keyboardMovePlugin(ambiguousPawnBishopCapture, toMap({ b2: ['c3'], d2: ['c3'] }), true);
+      expect(mockSan).toHaveBeenCalledTimes(1);
+      expect(mockSan).toBeCalledWith('b2', 'c3');
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
 
-  //     expect(mockSan.mock.calls.length).toBe(1);
-  //     expect(mockSan.mock.calls[0][0]).toBe('b2');
-  //     expect(mockSan.mock.calls[0][1]).toBe('c3');
-  //     expect(input.value).toBe('');
-  //   });
-  //   test('does bishop capture', () => {
-  //     input.value = 'Bc3';
-  //     const mockSan = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         san: mockSan,
-  //       },
-  //     }) as any;
+    test('does bishop capture', () => {
+      const mockSan = jest.fn();
+      const mockClear = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(ambiguousPawnBishopCapture, { b2: ['c3'], d2: ['c3'] }),
+            san: mockSan,
+          },
+        },
+        mockClear,
+      );
 
-  //     keyboardMovePlugin(ambiguousPawnBishopCapture, toMap({ b2: ['c3'], d2: ['c3'] }), true);
+      submit('Bc3', { isTrusted: true });
 
-  //     expect(mockSan.mock.calls.length).toBe(1);
-  //     expect(mockSan.mock.calls[0][0]).toBe('d2');
-  //     expect(mockSan.mock.calls[0][1]).toBe('c3');
-  //     expect(input.value).toBe('');
-  //   });
-  // });
+      expect(mockSan).toHaveBeenCalledTimes(1);
+      expect(mockSan).toBeCalledWith('d2', 'c3');
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
+  });
 
   // describe('from an ambiguous castling position', () => {
   //   const ambiguousCastlingFen = '4k3/8/8/8/8/8/8/R3K2R w KQ - 0 1';
