@@ -156,6 +156,9 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.keyboardMove.update(up);
     }
     requestAnimationFrame(() => this.redraw());
+    site.pubsub.on('theme.change', () => {
+      this.ground().state.addPieceZIndex = $('#main-wrap').hasClass('is3d');
+    });
   };
 
   pref = this.opts.pref;

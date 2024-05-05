@@ -124,6 +124,7 @@ export class BoardCtrl extends PaneCtrl {
   }, 1000);
 
   private set3d = async (v: boolean) => {
+    if (this.is3d === v) return;
     this.data.is3d = v;
     xhr
       .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })

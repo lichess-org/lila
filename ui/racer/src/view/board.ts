@@ -16,7 +16,7 @@ export const renderBoard = (ctrl: RacerCtrl) => {
 const renderGround = (ctrl: RacerCtrl): VNode =>
   h('div.cg-wrap', {
     hook: {
-      insert: vnode =>
+      insert: vnode => {
         ctrl.ground(
           site.makeChessground(
             vnode.elm as HTMLElement,
@@ -28,7 +28,13 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
               ctrl.userMove,
             ),
           ),
-        ),
+        );
+        site.pubsub.on('theme.change', () =>
+          ctrl.withGround(g => {
+            g.state.addPieceZIndex = $('#main-wrap').hasClass('is3d');
+          }),
+        );
+      },
     },
   });
 

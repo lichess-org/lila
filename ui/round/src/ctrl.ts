@@ -839,6 +839,9 @@ export default class RoundController implements MoveRootCtrl {
       else this.voiceMove = makeVoiceMove(this, up);
     }
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
+    site.pubsub.on('theme.change', () => {
+      this.chessground.state.addPieceZIndex = $('#main-wrap').hasClass('is3d');
+    });
   };
 
   stepAt = (ply: Ply) => round.plyStep(this.data, ply);

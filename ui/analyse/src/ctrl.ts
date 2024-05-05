@@ -378,6 +378,9 @@ export default class AnalyseCtrl {
     this.setAutoShapes();
     if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
     this.cgVersion.dom = this.cgVersion.js;
+    site.pubsub.on('theme.change', () => {
+      this.chessground.state.addPieceZIndex = $('#main-wrap').hasClass('is3d');
+    });
   };
 
   private onChange: () => void = throttle(300, () => {

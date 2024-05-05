@@ -22,6 +22,9 @@ function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function (ev) {
     el.addEventListener(ev, handler);
   });
+  site.pubsub.on('theme.change', () => {
+    ctrl.chessground!.state.addPieceZIndex = $('#main-wrap').hasClass('is3d');
+  });
 }
 
 function isLeftButton(e: MouchEvent): boolean {

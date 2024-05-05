@@ -10,6 +10,9 @@ export default function (ctrl: CoordinateTrainerCtrl): VNode {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
         ctrl.chessground = site.makeChessground(el, makeConfig(ctrl));
+        site.pubsub.on('theme.change', () => {
+          ctrl.chessground!.state.addPieceZIndex = $('#main-wrap').hasClass('is3d');
+        });
       },
       destroy: () => ctrl.chessground!.destroy(),
     },
