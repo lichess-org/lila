@@ -790,9 +790,6 @@
   <string name="transparent">Läpinäkyvä</string>
   <string name="deviceTheme">Laitteen teema</string>
   <string name="backgroundImageUrl">Taustakuvan URL:</string>
-  <string name="boardGeometry">Laudan geometria</string>
-  <string name="boardTheme">Laudan tyyli</string>
-  <string name="boardSize">Laudan koko</string>
   <string name="pieceSet">Nappuloiden tyyli</string>
   <string name="embedInYourWebsite">Upota sivustollesi</string>
   <string name="usernameAlreadyUsed">Käyttäjänimi varattu, kokeile jotain toista.</string>
