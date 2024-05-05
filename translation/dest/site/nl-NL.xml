@@ -790,6 +790,12 @@
   <string name="transparent">Transparant</string>
   <string name="deviceTheme">Apparaatthema</string>
   <string name="backgroundImageUrl">Achtergrondafbeelding URL:</string>
+  <string name="board">Bord</string>
+  <string name="size">Grootte</string>
+  <string name="opacity">Transparantie</string>
+  <string name="brightness">Helderheid</string>
+  <string name="hue">Kleurschakering</string>
+  <string name="boardReset">Kleuren terugzetten naar standaard</string>
   <string name="pieceSet">Schaakstukken</string>
   <string name="embedInYourWebsite">Insluiten in uw website</string>
   <string name="usernameAlreadyUsed">Deze naam is al in gebruik, probeer a.u.b. een andere naam.</string>
