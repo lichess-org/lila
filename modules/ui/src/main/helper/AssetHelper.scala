@@ -13,7 +13,6 @@ trait AssetHelper:
   def manifest: AssetManifest
   def assetBaseUrl: AssetBaseUrl
   def assetUrl(path: String): String
-  def cssTag(key: String): Frag
   def infiniteScrollEsmInit: EsmInit
   def captchaEsmInit: EsmInit
   def safeJsonValue(jsValue: JsValue): SafeJsonStr
@@ -24,12 +23,6 @@ trait AssetHelper:
     def apply(esmInit: EsmInit): EsmList = List(Some(esmInit))
   given Conversion[Option[EsmInit], EsmList] with
     def apply(esmOption: Option[EsmInit]): EsmList = List(esmOption)
-
-  extension (p: Page)
-    def cssTag(keys: String*): Page =
-      keys.foldLeft(p)((p, key) => p.css(AssetHelper.this.cssTag(key)))
-    def cssTag(key: Option[String]): Page =
-      key.foldLeft(p)(_.cssTag(_))
 
   def jsModuleInit(key: String): EsmInit =
     EsmInit(key, embedJsUnsafeLoadThen(s"$load('${manifest.jsName(key)}')"))

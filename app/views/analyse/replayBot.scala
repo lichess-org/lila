@@ -12,7 +12,7 @@ object replayBot:
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(using Context) =
     Page(ui.titleOf(pov))
-      .cssTag("analyse.round")
+      .css("analyse.round")
       .graph(views.round.ui.povOpenGraph(pov))
       .csp(bits.csp)
       .robots(false):

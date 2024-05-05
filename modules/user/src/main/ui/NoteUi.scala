@@ -62,8 +62,8 @@ final class NoteUi(helpers: Helpers)(using NetDomain):
 
   def search(query: String, pager: Paginator[Note], menu: Frag)(using Context) =
     Page("Mod notes")
-      .cssTag("mod.misc")
-      .cssTag("slist")
+      .css("mod.misc")
+      .css("slist")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
           menu,

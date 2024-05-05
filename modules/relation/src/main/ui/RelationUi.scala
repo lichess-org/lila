@@ -181,7 +181,7 @@ final class RelationUi(helpers: Helpers):
 
   private def page(title: String)(using Context) =
     Page(title)
-      .cssTag("relation")
+      .css("relation")
       .js(infiniteScrollEsmInit)
       .wrap: body =>
         main(cls := "box page-small")(body)

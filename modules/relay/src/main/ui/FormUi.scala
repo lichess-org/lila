@@ -16,7 +16,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 
     private def page(title: String)(using Context) =
       Page(title)
-        .cssTag("relay.form")
+        .css("relay.form")
         .js(EsmInit("bits.flatpickr"))
         .wrap: body =>
           main(cls := "page-small box box-pad")(body)
@@ -148,7 +148,7 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
 
     private def page(title: String, menu: Option[String])(using Context) =
       Page(title)
-        .cssTag("relay.form")
+        .css("relay.form")
         .js(EsmInit("bits.relayForm"))
         .wrap: body =>
           menu match

@@ -8,7 +8,7 @@ import lila.core.i18n.I18nKey.storm as s
 
 def home(using Context) =
   Page("Puzzle Racer")
-    .cssTag("racer-home")
+    .css("racer-home")
     .hrefLangs(lila.ui.LangPath(routes.Racer.home)):
       main(cls := "page page-small racer-home box box-pad")(
         h1(cls := "box__top")("Puzzle Racer"),
@@ -27,7 +27,7 @@ def home(using Context) =
 
 def show(data: JsObject)(using Context) =
   Page("Puzzle Racer")
-    .cssTag("racer")
+    .css("racer")
     .js(PageModule("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))))
     .zoom
     .zen:

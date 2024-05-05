@@ -28,7 +28,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
         title = "Frequently Asked Questions",
         active = "faq"
       )
-      .cssTag("faq"):
+      .css("faq"):
         div(cls := "faq box box-pad")(
           h1(cls := "box__top")(trf.frequentlyAskedQuestions()),
           h2("Lichess"),

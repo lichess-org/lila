@@ -79,7 +79,7 @@ final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
 
   private def DashPage(title: String, active: String)(using Context) =
     Page(title)
-      .cssTag("mod.misc")
+      .css("mod.misc")
       .wrap: body =>
         main(cls := "page-menu")(
           menu(active),
