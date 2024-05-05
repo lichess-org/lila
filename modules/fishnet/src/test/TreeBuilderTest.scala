@@ -104,8 +104,7 @@ object TreeBuilderTest:
 
     def testJson: List[(JsValue, JsValue)] =
       for
-        option <- takeRandomN(11)(exportOptions)
-        x = println(option)
+        option   <- takeRandomN(11)(exportOptions)
         analysis <- List(analysis.some, none)
       yield
         val x = Node.minimalNodeJsonWriter.writes:
