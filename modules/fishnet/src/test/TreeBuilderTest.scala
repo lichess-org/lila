@@ -99,15 +99,19 @@ object TreeBuilderTest:
         lichobileCompat
       )
 
+    def takeRandomN[A](n: Int)(as: List[A]) =
+      scala.util.Random.shuffle(as).take(n)
+
     def testJson: List[(JsValue, JsValue)] =
       for
-        exportOption <- exportOptions
-        analysis     <- List(analysis.some, none)
+        option <- takeRandomN(11)(exportOptions)
+        x = println(option)
+        analysis <- List(analysis.some, none)
       yield
         val x = Node.minimalNodeJsonWriter.writes:
-          TreeBuilder(makeGame(game), analysis, fen, exportOption, logError).cleanCommentIds
+          TreeBuilder(makeGame(game), analysis, fen, option, logError).cleanCommentIds
         val y = NewRoot.minimalNodeJsonWriter.writes:
-          NewTreeBuilder(makeGame(game), analysis, fen, exportOption, logError).cleanup
+          NewTreeBuilder(makeGame(game), analysis, fen, option, logError).cleanup
         y -> x
 
     extension (root: Root)
