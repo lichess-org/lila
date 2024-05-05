@@ -790,6 +790,12 @@
   <string name="transparent">Läpinäkyvä</string>
   <string name="deviceTheme">Laitteen teema</string>
   <string name="backgroundImageUrl">Taustakuvan URL:</string>
+  <string name="board">Lauta</string>
+  <string name="size">Koko</string>
+  <string name="opacity">Peittävyys</string>
+  <string name="brightness">Kirkkaus</string>
+  <string name="hue">Värisävy</string>
+  <string name="boardReset">Palauta oletusvärit</string>
   <string name="pieceSet">Nappuloiden tyyli</string>
   <string name="embedInYourWebsite">Upota sivustollesi</string>
   <string name="usernameAlreadyUsed">Käyttäjänimi varattu, kokeile jotain toista.</string>
