@@ -39,7 +39,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
           )
         )
       )
-      .cssTag(
+      .css(
         if tour.isTeamBattle then "tournament.show.team-battle"
         else "tournament.show"
       )
@@ -163,7 +163,7 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
     import trans.{ arena as tra }
 
     def page(using Context) =
-      Page(trans.site.tournamentFAQ.txt()).cssTag("page")(pageContent)
+      Page(trans.site.tournamentFAQ.txt()).css("page")(pageContent)
 
     def pageContent(using Context) =
       main(cls := "page-small box box-pad page")(

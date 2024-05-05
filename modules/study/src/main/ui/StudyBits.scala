@@ -139,7 +139,6 @@ final class StudyBits(helpers: Helpers):
       trs.downloadAllGames,
       trs.chapterPgn,
       trs.copyChapterPgn,
-      trs.copyChapterPgnDescription,
       trs.downloadGame,
       trs.studyUrl,
       trs.currentChapterUrl,

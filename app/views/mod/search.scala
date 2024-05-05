@@ -14,7 +14,7 @@ object search:
 
   def apply(form: Form[?], users: List[WithPerfsAndEmails])(using Context, Me) =
     Page("Search users")
-      .cssTag("mod.misc")
+      .css("mod.misc")
       .js(EsmInit("mod.search")):
         main(cls := "page-menu")(
           views.mod.ui.menu("search"),
@@ -39,7 +39,7 @@ object search:
       blocked: Boolean
   )(using Context, Me) =
     Page("Fingerprint")
-      .cssTag("mod.misc")
+      .css("mod.misc")
       .js(EsmInit("mod.search")):
         main(cls := "page-menu")(
           views.mod.ui.menu("search"),
@@ -79,7 +79,7 @@ object search:
       blocked: Boolean
   )(using ctx: Context, renderIp: RenderIp, mod: Me) =
     Page("IP address")
-      .cssTag("mod.misc")
+      .css("mod.misc")
       .js(EsmInit("mod.search")):
         main(cls := "page-menu")(
           views.mod.ui.menu("search"),

@@ -13,9 +13,9 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
-    inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
-    gameGifLink = document.querySelector('.game-gif') as HTMLAnchorElement,
-    positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement;
+    inputFen = document.querySelector('.analyse__underboard__fen input') as HTMLInputElement,
+    gameGifLink = document.querySelector('.game-gif a') as HTMLAnchorElement,
+    positionGifLink = document.querySelector('.position-gif a') as HTMLAnchorElement;
   let lastInputHash: string;
   let advChart: AcplChart;
   let timeChartLoaded = false;

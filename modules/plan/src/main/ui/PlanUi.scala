@@ -27,7 +27,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
     val pricingJson = safeJsonValue(lila.plan.PlanPricingApi.pricingWrites.writes(pricing))
     Page(trans.patron.becomePatron.txt())
-      .cssTag("plan")
+      .css("plan")
       .iife:
         ctx.isAuth.option(
           frag(
@@ -315,7 +315,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
       gifts: List[Charge.Gift]
   )(using Context) =
     Page(trans.patron.thankYou.txt())
-      .cssTag("plan")
+      .css("plan")
       .js(EsmInit("bits.plan"))
       .js(embedJsUnsafeLoadThen("""plan.payPalStart()""")):
         main(cls := "box box-pad plan")(
@@ -396,7 +396,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
       gifts: List[Charge.Gift]
   )(using ctx: Context) =
     Page(trans.patron.thankYou.txt())
-      .cssTag("plan")
+      .css("plan")
       .js(EsmInit("bits.plan"))
       .iife(stripeScript)
       .js(embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")"""))

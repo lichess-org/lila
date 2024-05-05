@@ -96,7 +96,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(using Context) =
     Page(text)
-      .cssTag("study.index")
+      .css("study.index")
       .js(infiniteScrollEsmInit):
         main(cls := "page-menu")(
           menu("search", Order.default),
@@ -119,7 +119,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       topics: Option[StudyTopics] = None
   )(using Context): Page =
     Page(title)
-      .cssTag("study.index")
+      .css("study.index")
       .js(infiniteScrollEsmInit)
       .wrap: body =>
         main(cls := "page-menu")(
@@ -187,7 +187,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
 
     def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using Context) =
       Page(trans.study.topics.txt())
-        .cssTag("study.index", "form3", "tagify")
+        .css("study.index", "form3", "tagify")
         .js(EsmInit("analyse.study.topic.form")):
           main(cls := "page-menu")(
             menu("topic", Order.Mine, mine.so(_.value)),
@@ -216,7 +216,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
       val active = s"topic:$topic"
       val url    = (o: String) => routes.Study.byTopic(topic.value, o)
       Page(topic.value)
-        .cssTag("study.index")
+        .css("study.index")
         .js(infiniteScrollEsmInit):
           main(cls := "page-menu")(
             menu(active, order, myTopics.so(_.value)),

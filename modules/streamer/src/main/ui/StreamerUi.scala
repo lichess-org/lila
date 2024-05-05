@@ -72,7 +72,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
 
     val title = if requests then "Streamer approval requests" else trans.streamer.lichessStreamers.txt()
     Page(title)
-      .cssTag("streamer.list")
+      .css("streamer.list")
       .js(infiniteScrollEsmInit)
       .js(EsmInit("bits.streamer")):
         main(cls := "page-menu")(
@@ -107,7 +107,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
   def show(s: Streamer.WithUserAndStream, perfRatings: Frag, activities: Frag)(using ctx: Context) =
     Page(s"${s.titleName} streams chess")
       .csp(csp)
-      .cssTag("streamer.show")
+      .css("streamer.show")
       .js(EsmInit("bits.streamer"))
       .graph(
         OpenGraph(

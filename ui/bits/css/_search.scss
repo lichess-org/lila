@@ -10,10 +10,13 @@
       width: 200px;
     }
 
-    .button,
     select,
     input[type='text'],
     input[type='number'] {
+      width: 100%;
+    }
+
+    #dl-button {
       width: 100%;
     }
 

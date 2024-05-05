@@ -12,7 +12,7 @@ object replayBot:
       cross: Option[lila.game.Crosstable.WithMatchup]
   )(using Context) =
     Page(ui.titleOf(pov))
-      .cssTag("analyse.round")
+      .css("analyse.round")
       .graph(views.round.ui.povOpenGraph(pov))
       .csp(bits.csp)
       .robots(false):
@@ -28,7 +28,7 @@ object replayBot:
               div(cls := "fen-pgn active")(
                 div(
                   strong("FEN"),
-                  input(readonly, spellcheck := false, cls := "copyable autoselect analyse__underboard__fen")
+                  input(readonly, spellcheck := false, cls := "analyse__underboard__fen")
                 ),
                 div(cls := "pgn")(pgn)
               ),

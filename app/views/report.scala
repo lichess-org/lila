@@ -89,7 +89,7 @@ private val scoreTag = tag("score")
 
 def layout(filter: String, scores: Room.Scores, streamers: Int, appeals: Int)(using ctx: Context) =
   Page("Reports")
-    .cssTag("mod.report")
+    .css("mod.report")
     .wrap: body =>
       main(cls := "page-menu")(
         views.mod.ui.menu("report"),
@@ -147,7 +147,7 @@ def layout(filter: String, scores: Room.Scores, streamers: Int, appeals: Int)(us
 
 def form(form: Form[?], reqUser: Option[User] = None)(using ctx: Context) =
   Page(trans.site.reportAUser.txt())
-    .cssTag("form3")
+    .css("form3")
     .js(
       embedJsUnsafeLoadThen(
         """$('#form3-reason').on('change', function() {

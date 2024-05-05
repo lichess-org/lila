@@ -11,13 +11,5 @@
     .center {
       text-align: center;
     }
-
-    .copy-zone {
-      @extend %flex-center-nowrap;
-
-      input {
-        flex: 1 1 auto;
-      }
-    }
   }
 }

@@ -33,12 +33,12 @@ def index(
         )
       )
     )
-    .cssTag("insight")(main(id := "insight"))
+    .css("insight")(main(id := "insight"))
 
 def empty(u: User)(using Context) =
   Page(trans.insight.xChessInsights.txt(u.username))
     .iife(iifeModule("javascripts/insight-refresh.js"))
-    .cssTag("insight"):
+    .css("insight"):
       main(cls := "box box-pad page-small")(
         boxTop(h1(cls := "text", dataIcon := Icon.Target)(trans.insight.xChessInsights(u.username))),
         p(trans.insight.xHasNoChessInsights(userLink(u))),
