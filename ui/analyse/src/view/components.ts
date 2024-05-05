@@ -194,7 +194,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
   return h('div.copyables', [
     h('div.pair', [
       h('label.name', 'FEN'),
-      h('input.copyable.autoselect.analyse__underboard__fen', {
+      h('input.copyable', {
         attrs: { spellcheck: 'false', enterkeyhint: 'done' },
         hook: {
           insert: vnode => {

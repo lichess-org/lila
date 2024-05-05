@@ -29,12 +29,8 @@ final class UserGamesDownload(helpers: Helpers):
               tr(cls := "output")(
                 th(label(`for` := "dl-api-url")("API URL")),
                 td(
-                  input(
-                    id  := "dl-api-url",
-                    cls := "copyable autoselect",
-                    tpe := "text",
-                    readonly,
-                    spellcheck            := "false",
+                  copyMeInput("")(
+                    id                    := "dl-api-url",
                     attr("data-api-path") := routes.Game.apiExportByUser(user.username)
                   )
                 )

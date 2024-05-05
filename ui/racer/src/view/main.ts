@@ -3,6 +3,7 @@ import RacerCtrl from '../ctrl';
 import renderClock from 'puz/view/clock';
 import renderHistory from 'puz/view/history';
 import * as licon from 'common/licon';
+import { copyMeInput } from 'common/copyMe';
 import { MaybeVNodes, bind, looseH as h } from 'common/snabbdom';
 import { VNode } from 'snabbdom';
 import { playModifiers, renderCombo } from 'puz/view/util';
@@ -131,18 +132,7 @@ const playerScore = (ctrl: RacerCtrl): VNode =>
 const renderLink = (ctrl: RacerCtrl) =>
   h('div.puz-side__link', [
     h('p', ctrl.trans.noarg('toInviteSomeoneToPlayGiveThisUrl')),
-    h('div', [
-      h(`input#racer-url-${ctrl.race.id}.copyable.autoselect`, {
-        attrs: {
-          spellcheck: 'false',
-          readonly: 'readonly',
-          value: `${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`,
-        },
-      }),
-      h('button.copy.button', {
-        attrs: { title: 'Copy URL', 'data-rel': `racer-url-${ctrl.race.id}`, 'data-icon': licon.Link },
-      }),
-    ]),
+    copyMeInput(`${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`),
   ]);
 
 const renderStart = (ctrl: RacerCtrl) =>
