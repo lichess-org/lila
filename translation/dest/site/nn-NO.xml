@@ -792,6 +792,12 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="transparent">Gjennomskinleg</string>
   <string name="deviceTheme">Einingstema</string>
   <string name="backgroundImageUrl">URL for bakgrunnsbilete:</string>
+  <string name="board">Brett</string>
+  <string name="size">Storleik</string>
+  <string name="opacity">Opasitet</string>
+  <string name="brightness">Lysstyrke</string>
+  <string name="hue">Fargetone</string>
+  <string name="boardReset">Sttendestill til standardfargar</string>
   <string name="pieceSet">Brikkesett</string>
   <string name="embedInYourWebsite">Bygg inn i nettsida di</string>
   <string name="usernameAlreadyUsed">Dette brukarnamnet er allereie i bruk, ver venleg og prøv eit anna.</string>
