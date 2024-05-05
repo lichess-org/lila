@@ -14,4 +14,7 @@
   <string name="closedByModerators">هەژمارەکەت لەلایەن بەڕێوەبەرانەوە داخراوە.</string>
   <string name="hiddenBlog">بلۆگەکانتان لەلایەن بەڕێوەبەرانەوە شاراونەتەوە.</string>
   <string name="hiddenBlogInfo">دڵنیابە جارێکی تر %s ەکانمان بخوێنیتەوە.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">ڕێنماییەکانی پەیوەندیکردن</string>
+  <string name="blogRules">یاساکانی بلۆگ</string>
+  <string name="fairPlay">یاریەکی دادپەروەرانە</string>
 </resources>
