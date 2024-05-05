@@ -16,11 +16,11 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
       withForecast: Boolean = false
   )(using ctx: Context) =
     Page(trans.site.analysis.txt())
-      .cssTag("analyse.free")
-      .cssTag((pov.game.variant == Crazyhouse).option("analyse.zh"))
-      .cssTag(withForecast.option("analyse.forecast"))
-      .cssTag(ctx.blind.option("round.nvui"))
-      .cssTag(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+      .css("analyse.free")
+      .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
+      .css(withForecast.option("analyse.forecast"))
+      .css(ctx.blind.option("round.nvui"))
+      .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .csp(csp.compose(_.withExternalAnalysisApis))
       .graph(
         title = "Chess analysis board",

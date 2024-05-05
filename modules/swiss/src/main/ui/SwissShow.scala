@@ -44,8 +44,8 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
             .add("schedule" -> hasScheduleInput)
         )
       )
-      .cssTag("swiss.show")
-      .cssTag(hasScheduleInput.option("flatpickr"))
+      .css("swiss.show")
+      .css(hasScheduleInput.option("flatpickr"))
       .graph(
         OpenGraph(
           title = s"${fullName(s, team)}: ${s.variant.name} ${s.clock.show} #${s.id}",
@@ -68,7 +68,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
       Context
   ) =
     Page(s"${fullName(s, team)} • Round $r/${s.round}")
-      .cssTag("swiss.show"):
+      .css("swiss.show"):
         val pager = pagination(p => routes.Swiss.round(s.id, p).url, r.value, s.round.value, showPost = true)
         main(cls := "box swiss__round")(
           boxTop(

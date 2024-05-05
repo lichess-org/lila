@@ -6,14 +6,12 @@ import chess.opening.*
 import chess.variant.Variant
 import chess.{ Centis, Color, Ply }
 
-import lila.tree.*
-
 object TreeBuilder:
 
-  type LogChessError     = String => Unit
-  private type OpeningOf = Fen.Full => Option[Opening]
+  type LogChessError           = String => Unit
+  private[tree] type OpeningOf = Fen.Full => Option[Opening]
 
-  private def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
+  private[tree] def makeEval(info: Info) = Eval(cp = info.cp, mate = info.mate, best = info.best)
 
   def apply(
       game: Game,
@@ -24,32 +22,36 @@ object TreeBuilder:
   ): Root =
     val withClocks: Option[Vector[Centis]] = withFlags.clocks.so(game.bothClockStates)
     val drawOfferPlies                     = game.drawOffers.normalizedPlies
+
     chess.Replay.gameMoveWhileValid(game.sans, initialFen, game.variant) match
       case (init, games, error) =>
         error.foreach: err =>
           logChessError(formatError(game.id, err))
+
         val openingOf: OpeningOf =
-          if withFlags.opening && Variant.list.openingSensibleVariants(game.variant) then
-            OpeningDb.findByFullFen
+          if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
+          then OpeningDb.findByFullFen
           else _ => None
+
         val fen                       = Fen.write(init)
         val infos: Vector[Info]       = analysis.so(_.infos.toVector)
         val advices: Map[Ply, Advice] = analysis.so(_.advices.mapBy(_.ply))
+
         val root = Root(
           ply = init.ply,
           fen = fen,
           check = init.situation.check,
           opening = openingOf(fen),
-          clock = withFlags.clocks.so(game.clock.map { c =>
-            Centis.ofSeconds(c.limitSeconds.value)
-          }),
+          clock = withFlags.clocks.so(game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value))),
           crazyData = init.situation.board.crazyData,
           eval = infos.lift(0).map(makeEval)
         )
-        def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) =
+
+        def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan): Branch =
           val fen    = Fen.write(g)
           val info   = infos.lift(index - 1)
           val advice = advices.get(g.ply)
+
           val branch = Branch(
             id = UciCharPair(m.uci),
             ply = g.ply,
@@ -61,7 +63,7 @@ object TreeBuilder:
             crazyData = g.situation.board.crazyData,
             eval = info.map(makeEval),
             glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),
-            comments = Node.Comments {
+            comments = Node.Comments(
               drawOfferPlies(g.ply)
                 .option(makeLichessComment(Comment(s"${!g.ply.turn} offers draw")))
                 .toList :::
@@ -69,8 +71,9 @@ object TreeBuilder:
                   .map(_.makeComment(withEval = false, withBestMove = true))
                   .toList
                   .map(makeLichessComment)
-            }
+            )
           )
+
           advices
             .get(g.ply + 1)
             .flatMap { adv =>
@@ -86,6 +89,7 @@ object TreeBuilder:
               }
             }
             .getOrElse(branch)
+
         games.zipWithIndex.reverse match
           case Nil => root
           case ((g, m), i) :: rest =>
@@ -93,7 +97,7 @@ object TreeBuilder:
               makeBranch(i + 1, g, m).prependChild(node)
             })
 
-  private def makeLichessComment(c: Comment) =
+  private[tree] def makeLichessComment(c: Comment) =
     Node.Comment(
       Node.Comment.Id.make,
       c.into(Node.Comment.Text),
@@ -108,6 +112,7 @@ object TreeBuilder:
       openingOf: OpeningOf,
       logChessError: LogChessError
   )(info: Info): Branch =
+
     def makeBranch(g: chess.Game, m: Uci.WithSan) =
       val fen = Fen.write(g)
       Branch(
@@ -120,6 +125,7 @@ object TreeBuilder:
         crazyData = g.situation.board.crazyData,
         eval = none
       )
+
     chess.Replay.gameMoveWhileValid(info.variation.take(20), fromFen, variant) match
       case (_, games, error) =>
         error.foreach: err =>

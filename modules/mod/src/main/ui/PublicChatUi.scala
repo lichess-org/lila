@@ -14,7 +14,7 @@ final class PublicChatUi(helpers: Helpers, modUi: ModUi)(highlightBad: String =>
       swissChats: List[(lila.core.swiss.IdName, UserChat)]
   )(using Context) =
     Page("Public Chats")
-      .cssTag("mod.publicChats")
+      .css("mod.publicChats")
       .js(EsmInit("bits.publicChats")):
         main(cls := "page-menu")(
           modUi.menu("public-chat"),

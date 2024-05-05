@@ -18,7 +18,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
       student: Option[Student] = None
   )(mods: AttrPair*)(using lila.ui.Context): Page =
     Page(title)
-      .cssTag("clas")
+      .css("clas")
       .js(EsmInit("bits.clas"))
       .wrap: body =>
         if Granter.opt(_.Teacher) then
@@ -30,7 +30,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
 
   def home(using Context) =
     Page(trans.clas.lichessClasses.txt())
-      .cssTag("page", "clas"):
+      .css("page", "clas"):
         main(cls := "page-small box box-pad page clas-home")(
           h1(cls := "box__top")(trans.clas.lichessClasses()),
           div(cls := "clas-home__doc body")(
@@ -93,7 +93,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
 
     def clas(c: Clas, userTable: Frag)(using Context) =
       Page("IP address")
-        .cssTag("mod.misc")
+        .css("mod.misc")
         .js(EsmInit("mod.search")):
           main(cls := "page-menu")(
             searchMenu,
@@ -109,7 +109,7 @@ final class ClasUi(helpers: lila.ui.Helpers)(
           )
 
     def teacher(teacherId: UserId, classes: List[Clas])(using Context) =
-      Page("Classes").cssTag("mod.misc"):
+      Page("Classes").css("mod.misc"):
         main(cls := "page-menu")(
           searchMenu,
           div(cls := "mod-search page-menu__content box")(
