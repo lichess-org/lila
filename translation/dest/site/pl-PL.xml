@@ -869,9 +869,6 @@
   <string name="transparent">Przezroczyste</string>
   <string name="deviceTheme">Motyw urządzenia</string>
   <string name="backgroundImageUrl">Adres do obrazu tła:</string>
-  <string name="boardGeometry">Szachownica</string>
-  <string name="boardTheme">Kolory pól</string>
-  <string name="boardSize">Rozmiar szachownicy</string>
   <string name="pieceSet">Zestaw bierek</string>
   <string name="embedInYourWebsite">Osadź na swojej stronie internetowej</string>
   <string name="usernameAlreadyUsed">Ta nazwa użytkownika jest już zajęta, wybierz inną.</string>
