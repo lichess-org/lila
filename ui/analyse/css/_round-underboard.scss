@@ -86,12 +86,17 @@ $col2-panel-height: 240px;
     overflow-x: visible;
     overflow-y: auto;
     font-size: 0.9em;
-    padding-top: 0.5em;
+    padding: 0.5em 0.7em 0 0;
 
     > div {
       @extend %flex-center-nowrap;
+      gap: 1em;
 
       margin-bottom: 1em;
+    }
+
+    .copy-me {
+      flex: 1 1 auto;
     }
 
     .pgn {
@@ -99,24 +104,10 @@ $col2-panel-height: 240px;
       font-family: monospace;
       direction: ltr;
     }
-
-    strong,
-    a,
-    button {
-      display: inline-block;
-      margin-inline-end: 1em;
-    }
   }
 
   &__fen {
     width: 100%;
-  }
-
-  input.like-text {
-    border: 0;
-    background: none;
-    padding: 0.3em;
-    margin-inline-end: 0.5em;
   }
 }
 
