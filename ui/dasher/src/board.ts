@@ -142,7 +142,7 @@ export class BoardCtrl extends PaneCtrl {
   private apply = (t: Board = this.current) => {
     this.current = t;
     document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
-    site.pubsub.emit('theme.change');
+    site.pubsub.emit('board.change', this.is3d);
     this.root?.piece.apply();
   };
 

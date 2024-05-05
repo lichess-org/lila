@@ -29,9 +29,9 @@ const renderGround = (ctrl: RacerCtrl): VNode =>
             ),
           ),
         );
-        site.pubsub.on('theme.change', () =>
+        site.pubsub.on('board.change', (is3d: boolean) =>
           ctrl.withGround(g => {
-            g.state.addPieceZIndex = $('#main-wrap').hasClass('is3d');
+            g.state.addPieceZIndex = is3d;
           }),
         );
       },

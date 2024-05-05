@@ -52,7 +52,7 @@ export class PieceCtrl extends PaneCtrl {
       const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
       sprite.href = sprite.href.replace(/[\w-]+(\.external|)\.css/, t + '$1.css');
     }
-    site.pubsub.emit('theme.change');
+    site.pubsub.emit('board.change', this.is3d);
   };
 
   private get dimData() {

@@ -201,7 +201,7 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
-    site.pubsub.on('theme.change', redraw);
+    site.pubsub.on('board.change', redraw);
     this.persistence?.merge();
   }
 
@@ -380,8 +380,8 @@ export default class AnalyseCtrl {
     this.setAutoShapes();
     if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
     this.cgVersion.dom = this.cgVersion.js;
-    site.pubsub.on('theme.change', () => {
-      this.chessground.state.addPieceZIndex = $('#main-wrap').hasClass('is3d');
+    site.pubsub.on('board.change', (is3d: boolean) => {
+      this.chessground.state.addPieceZIndex = is3d;
     });
   };
 
