@@ -68,7 +68,7 @@ object page:
           ctx.data.inquiry.isDefined.option(cssTag("mod.inquiry")),
           ctx.impersonatedBy.isDefined.option(cssTag("mod.impersonate")),
           ctx.blind.option(cssTag("blind")),
-          p.cssFrag,
+          p.cssKeys.map(cssTag),
           pieceSprite(ctx.pref.currentPieceSet.name),
           meta(
             content := p.openGraph.fold(trans.site.siteDescription.txt())(o => o.description),

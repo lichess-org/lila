@@ -7,7 +7,7 @@ import ScalatagsTemplate.{ *, given }
 def mobile(helpers: Helpers)(renderedCmsPage: Frag)(using Context) =
   import helpers.{ *, given }
   Page("Mobile")
-    .cssTag("mobile")
+    .css("mobile")
     .hrefLangs(lila.ui.LangPath(routes.Main.mobile)):
       main(
         div(cls := "mobile page-small box box-pad")(

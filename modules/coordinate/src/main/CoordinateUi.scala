@@ -11,8 +11,8 @@ final class CoordinateUi(helpers: Helpers):
 
   def show(scoreOption: Option[Score])(using Context) =
     Page(trans.coordinates.coordinateTraining.txt())
-      .cssTag("coordinateTrainer")
-      .cssTag("voice")
+      .css("coordinateTrainer")
+      .css("voice")
       .js(pageModule(scoreOption))
       .csp(_.withPeer.withWebAssembly)
       .graph(

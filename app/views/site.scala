@@ -15,7 +15,7 @@ object page:
 
   def lone(p: CmsPage.Render)(using ctx: Context) =
     Page(p.title)
-      .cssTag("page")
+      .css("page")
       .js((p.key == CmsPage.Key("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
 if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
 })"""))):
@@ -26,7 +26,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       title = p.title,
       active = active,
       contentCls = "page box box-pad force-ltr"
-    ).cssTag("page")(pageContent(p))
+    ).css("page")(pageContent(p))
 
   def pageContent(p: CmsPage.Render)(using Context) = frag(
     h1(cls := "box__top")(p.title),
@@ -38,7 +38,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       title = trans.contact.contact.txt(),
       active = "contact",
       contentCls = "page box box-pad"
-    ).cssTag("contact")
+    ).css("contact")
       .js(EsmInit("bits.contact"))(lila.web.ui.contact(netConfig.email))
 
   def source(p: CmsPage.Render)(using ctx: Context) =
@@ -95,7 +95,7 @@ object variant:
 
   private def page(title: String, klass: String, active: Option[PerfKey] = None)(using Context) =
     Page(title)
-      .cssTag("variant")
+      .css("variant")
       .js(EsmInit("bits.expandText"))
       .wrap: body =>
         main(cls := "page-menu")(

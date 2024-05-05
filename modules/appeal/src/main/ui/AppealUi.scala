@@ -9,9 +9,9 @@ final class AppealUi(helpers: Helpers):
 
   def page(title: String)(using Context) =
     Page(title)
-      .cssTag("form3")
-      .cssTag("appeal")
-      .cssTag(Granter.opt(_.UserModView).option("mod.user"))
+      .css("form3")
+      .css("appeal")
+      .css(Granter.opt(_.UserModView).option("mod.user"))
       .js(EsmInit("bits.appeal") ++ Granter.opt(_.UserModView).so(EsmInit("mod.user")))
 
   def renderMark(suspect: User)(using ctx: Context) =

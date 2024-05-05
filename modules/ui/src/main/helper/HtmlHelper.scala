@@ -2,7 +2,7 @@ package lila.ui
 
 import scalatags.text.Builder
 
-import lila.ui.ScalatagsTemplate.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
 
 object HtmlHelper:
@@ -15,6 +15,17 @@ object HtmlHelper:
   def titleOrTextFor(blind: Boolean, v: String): Modifier = (t: Builder) =>
     if blind then t.addChild(StringFrag(v))
     else t.setAttr("title", Builder.GenericAttrValueSource(v))
+
+  def copyMeLink(url: String, name: Frag): Tag = copyMe(url, a(targetBlank, href := url)(name))
+
+  def copyMeInput(content: String): Tag =
+    copyMe(content, input(spellcheck := "false", readonly, value := content))
+
+  private def copyMe(content: String, target: Tag): Tag =
+    div(cls := "copy-me")(
+      target(cls := "copy-me__target"),
+      button(cls := "copy-me__button button button-metal", dataIcon := Icon.Clipboard)
+    )
 
 trait HtmlHelper:
 

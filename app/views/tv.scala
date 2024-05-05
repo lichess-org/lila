@@ -19,7 +19,7 @@ def index(
       s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}"
     )
     .js(PageModule("round", Json.obj("data" -> data, "i18n" -> views.round.jsI18n(pov.game))))
-    .cssTag("tv.single")
+    .css("tv.single")
     .graph(
       title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",
       description =
@@ -47,7 +47,7 @@ def index(
 
 def games(channel: lila.tv.Tv.Channel, povs: List[Pov], champions: lila.tv.Tv.Champions)(using ctx: Context) =
   Page(s"${channel.name} • ${trans.site.currentGames.txt()}")
-    .cssTag("tv.games")
+    .css("tv.games")
     .js(EsmInit("bits.tvGames")):
       main(
         cls     := "page-menu tv-games",

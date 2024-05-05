@@ -28,7 +28,7 @@ final class RelayUi(helpers: Helpers)(
       crossSiteIsolation: Boolean = true
   )(using ctx: Context) =
     Page(rt.fullName)
-      .cssTag("analyse.relay")
+      .css("analyse.relay")
       .js(analyseNvuiTag)
       .js(
         PageModule(

@@ -10,7 +10,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
 
   def index(categs: List[CategView])(using Context) =
     Page(trans.site.forum.txt())
-      .cssTag("forum")
+      .css("forum")
       .csp(_.withInlineIconFont)
       .graph(
         title = "Lichess community forum",
@@ -68,7 +68,7 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
       )
 
     Page(categ.name)
-      .cssTag("forum")
+      .css("forum")
       .csp(_.withInlineIconFont)
       .js(infiniteScrollEsmInit)
       .graph(

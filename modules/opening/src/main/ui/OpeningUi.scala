@@ -13,7 +13,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   def index(page: OpeningPage, wikiMissing: List[Opening])(using ctx: Context) =
     Page(trans.site.opening.txt())
-      .cssTag("opening")
+      .css("opening")
       .js(bits.pageModule(page.some))
       .graph(
         OpenGraph(
@@ -43,7 +43,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   def tree(root: OpeningTree, config: OpeningConfig)(using Context) =
     Page(trans.site.opening.txt())
-      .cssTag("opening")
+      .css("opening")
       .js(bits.pageModule(none)):
         main(cls := "page box box-pad opening opening--tree")(
           searchAndConfig(config, "", "tree"),
@@ -62,7 +62,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   def show(page: OpeningPage, puzzleKey: Option[String])(using ctx: Context) =
     Page(s"${trans.site.opening.txt()} • ${page.name}")
-      .cssTag("opening")
+      .css("opening")
       .js(bits.pageModule(page.some))
       .graph(
         OpenGraph(
@@ -156,7 +156,7 @@ final class OpeningUi(helpers: Helpers, bits: OpeningBits, wiki: WikiUi):
 
   def resultsPage(q: String, results: List[OpeningSearchResult], config: OpeningConfig)(using Context) =
     Page(s"${trans.site.opening.txt()} • $q")
-      .cssTag("opening")
+      .css("opening")
       .js(bits.pageModule(none))
       .csp(_.withInlineIconFont):
         main(cls := "page box box-pad opening opening--search")(

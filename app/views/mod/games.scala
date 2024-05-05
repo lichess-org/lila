@@ -21,7 +21,7 @@ def games(
     swisses: Seq[(lila.core.swiss.IdName, Rank)]
 )(using Context) =
   Page(s"${user.username} games")
-    .cssTag("mod.games")
+    .css("mod.games")
     .js(EsmInit("mod.games")):
       main(cls := "mod-games box")(
         boxTop(
