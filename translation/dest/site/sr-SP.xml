@@ -801,9 +801,6 @@
   <string name="dark">Тамна</string>
   <string name="transparent">Прозирна</string>
   <string name="backgroundImageUrl">УРЛ слике позадине:</string>
-  <string name="boardGeometry">Геометрија табле</string>
-  <string name="boardTheme">Тема табле</string>
-  <string name="boardSize">Величина табле</string>
   <string name="pieceSet">Скуп фигура</string>
   <string name="embedInYourWebsite">Угради у свој сајт</string>
   <string name="usernameAlreadyUsed">Ово корисничко име је у употреби, изаберите неко друго.</string>
