@@ -4,6 +4,9 @@ import { makeSubmit } from './keyboardSubmit';
 import { Dests, destsToUcis, sanWriter } from 'chess';
 
 // Tips for working with this file:
+// - tests will often require a FEN position and a map of legal moves, e.g.:
+//     legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
+// - you need not actually supply all of the legal moves, just a relevant subset for the test
 // - use https://lichess.org/editor to create positions and get their FENs
 // - use https://lichess.org/editor/<FEN> to check what FENs look like
 
@@ -37,21 +40,23 @@ const defaultCtrl = {
   helpModalOpen: propWithEffect(false, () => null),
   isFocused: propWithEffect(false, () => null),
 };
-// const defaultClear = unexpectedErrorThrower('clear');
+const defaultClear = unexpectedErrorThrower('clear');
 
 // we don't have access to DOM elements in jest (testEnvironment: 'node'), so we need to mock this
-// input
-const input = { value: '', classList: { contains: () => false } } as unknown as HTMLInputElement;
+const input = {
+  value: '',
+  classList: { contains: () => false, toggle: () => {} },
+} as unknown as HTMLInputElement;
 
 describe('keyboardSubmit', () => {
+  let mockClear = jest.fn();
+
   beforeEach(() => {
-    // document.body.innerHTML = `<input id="keyboardInput" />`;
-    // input = document.getElementById('keyboardInput') as HTMLInputElement;
+    mockClear = jest.fn();
   });
 
   test('resigns game', () => {
     const mockResign = jest.fn();
-    const mockClear = jest.fn();
     const submit = makeSubmit(
       {
         input,
@@ -71,7 +76,6 @@ describe('keyboardSubmit', () => {
 
   test('draws game', () => {
     const mockDraw = jest.fn();
-    const mockClear = jest.fn();
     const submit = makeSubmit(
       {
         input,
@@ -91,7 +95,6 @@ describe('keyboardSubmit', () => {
 
   test('goes to next puzzle', () => {
     const mockNext = jest.fn();
-    const mockClear = jest.fn();
     const submit = makeSubmit(
       {
         input,
@@ -111,7 +114,6 @@ describe('keyboardSubmit', () => {
 
   test('up votes puzzle', () => {
     const mockVote = jest.fn();
-    const mockClear = jest.fn();
     const submit = makeSubmit(
       {
         input,
@@ -132,7 +134,6 @@ describe('keyboardSubmit', () => {
 
   test('down votes puzzle', () => {
     const mockVote = jest.fn();
-    const mockClear = jest.fn();
     const submit = makeSubmit(
       {
         input,
@@ -153,7 +154,6 @@ describe('keyboardSubmit', () => {
 
   test('reads out clock', () => {
     const mockSpeakClock = jest.fn();
-    const mockClear = jest.fn();
     const submit = makeSubmit(
       {
         input,
@@ -173,7 +173,6 @@ describe('keyboardSubmit', () => {
 
   test('berserks a game', () => {
     const mockGoBerserk = jest.fn();
-    const mockClear = jest.fn();
     const submit = makeSubmit(
       {
         input,
@@ -193,7 +192,6 @@ describe('keyboardSubmit', () => {
 
   test('opens help modal with ?', () => {
     const mockSetHelpModalOpen = jest.fn();
-    const mockClear = jest.fn();
     const submit = makeSubmit(
       {
         input,
@@ -215,7 +213,6 @@ describe('keyboardSubmit', () => {
   describe('from starting position', () => {
     test('plays e4 via SAN', () => {
       const mockSan = jest.fn();
-      const mockClear = jest.fn();
       const submit = makeSubmit(
         {
           input,
@@ -237,7 +234,6 @@ describe('keyboardSubmit', () => {
 
     test('selects e2 via UCI', () => {
       const mockSelect = jest.fn();
-      const mockClear = jest.fn();
       const submit = makeSubmit(
         {
           input,
@@ -260,7 +256,6 @@ describe('keyboardSubmit', () => {
     test('with e2 selected, plays e4 via UCI', () => {
       const mockSan = jest.fn();
       const mockSelect = jest.fn();
-      const mockClear = jest.fn();
       const submit = makeSubmit(
         {
           input,
@@ -287,7 +282,6 @@ describe('keyboardSubmit', () => {
 
     test('selects e2 via ICCF', () => {
       const mockSelect = jest.fn();
-      const mockClear = jest.fn();
       const submit = makeSubmit(
         {
           input,
@@ -310,7 +304,6 @@ describe('keyboardSubmit', () => {
     test('with e2 selected, plays e4 via ICCF', () => {
       const mockSan = jest.fn();
       const mockSelect = jest.fn();
-      const mockClear = jest.fn();
       const submit = makeSubmit(
         {
           input,
@@ -338,9 +331,9 @@ describe('keyboardSubmit', () => {
 
   describe('from a position where a b-file pawn or bishop can capture', () => {
     const ambiguousPawnBishopCapture = '4k3/8/8/8/8/2r5/1P1B4/4K3 w - - 0 1';
+
     test('does pawn capture', () => {
       const mockSan = jest.fn();
-      const mockClear = jest.fn();
       const submit = makeSubmit(
         {
           input,
@@ -363,7 +356,6 @@ describe('keyboardSubmit', () => {
 
     test('does bishop capture', () => {
       const mockSan = jest.fn();
-      const mockClear = jest.fn();
       const submit = makeSubmit(
         {
           input,
@@ -384,229 +376,278 @@ describe('keyboardSubmit', () => {
     });
   });
 
-  // describe('from an ambiguous castling position', () => {
-  //   const ambiguousCastlingFen = '4k3/8/8/8/8/8/8/R3K2R w KQ - 0 1';
-  //   test('does not castle short', () => {
-  //     input.value = 'o-o';
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: defaultCtrl,
-  //     }) as any;
+  describe('from an ambiguous castling position', () => {
+    const ambiguousCastlingFen = '4k3/8/8/8/8/8/8/R3K2R w KQ - 0 1';
 
-  //     keyboardMovePlugin(ambiguousCastlingFen, toMap({ e1: ['c1', 'g1'] }), true);
+    test('does not castle short', () => {
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(ambiguousCastlingFen, { e1: ['c1', 'g1'] }),
+          },
+        },
+        mockClear,
+      );
 
-  //     expect(input.value).toBe('o-o');
-  //   });
+      submit('o-o', { isTrusted: true });
 
-  //   test('does castle long', () => {
-  //     input.value = 'o-o-o';
-  //     const mockSan = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         san: mockSan,
-  //       },
-  //     }) as any;
+      expect(mockClear).toHaveBeenCalledTimes(0);
+    });
 
-  //     keyboardMovePlugin(ambiguousCastlingFen, toMap({ e1: ['c1', 'g1'] }), true);
+    test('does castle long', () => {
+      const mockSan = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(ambiguousCastlingFen, { e1: ['c1', 'g1'] }),
+            san: mockSan,
+          },
+        },
+        mockClear,
+      );
 
-  //     expect(mockSan.mock.calls.length).toBe(1);
-  //     expect(mockSan.mock.calls[0][0]).toBe('e1');
-  //     expect(mockSan.mock.calls[0][1]).toBe('c1');
-  //     expect(input.value).toBe('');
-  //   });
-  // });
+      submit('o-o-o', { isTrusted: true });
 
-  // describe('from a position where a pawn can promote multiple ways', () => {
-  //   const promotablePawnFen = 'r3k3/1P6/8/8/8/8/8/4K3 w - - 0 1';
-  //   test('with no piece specified does not promote by advancing', () => {
-  //     input.value = 'b8';
-  //     const mockPromote = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         promote: mockPromote,
-  //       },
-  //     }) as any;
+      expect(mockSan).toHaveBeenCalledTimes(1);
+      expect(mockSan).toBeCalledWith('e1', 'c1');
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
+  });
 
-  //     keyboardMovePlugin(promotablePawnFen, toMap({ b7: ['a8', 'b8'] }), true);
+  describe('from a position where a pawn can promote multiple ways', () => {
+    const promotablePawnFen = 'r3k3/1P6/8/8/8/8/8/4K3 w - - 0 1';
 
-  //     expect(mockPromote.mock.calls.length).toBe(0);
-  //     expect(input.value).toBe('b8');
-  //   });
+    test('with no piece specified does not promote by advancing', () => {
+      const mockPromote = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
+            promote: mockPromote,
+          },
+        },
+        mockClear,
+      );
 
-  //   test('with piece specified does promote by advancing', () => {
-  //     input.value = 'b8=q';
-  //     const mockPromote = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         promote: mockPromote,
-  //       },
-  //     }) as any;
+      submit('b8', { isTrusted: true });
 
-  //     keyboardMovePlugin(promotablePawnFen, toMap({ b7: ['a8', 'b8'] }), true);
+      expect(mockPromote).toHaveBeenCalledTimes(0);
+      expect(mockClear).toHaveBeenCalledTimes(0);
+    });
 
-  //     expect(mockPromote.mock.calls.length).toBe(1);
-  //     expect(input.value).toBe('');
-  //   });
+    test('with piece specified does promote by advancing', () => {
+      const mockPromote = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
+            promote: mockPromote,
+          },
+        },
+        mockClear,
+      );
 
-  //   test('with no piece specified does not promote by capturing', () => {
-  //     input.value = 'ba8';
-  //     const mockPromote = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         promote: mockPromote,
-  //       },
-  //     }) as any;
+      submit('b8=q', { isTrusted: true });
 
-  //     keyboardMovePlugin(promotablePawnFen, toMap({ b7: ['a8', 'b8'] }), true);
+      expect(mockPromote).toHaveBeenCalledTimes(1);
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
 
-  //     expect(mockPromote.mock.calls.length).toBe(0);
-  //     expect(input.value).toBe('ba8');
-  //   });
+    test('with no piece specified does not promote by capturing', () => {
+      const mockPromote = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
+            promote: mockPromote,
+          },
+        },
+        mockClear,
+      );
 
-  //   test('with piece specified does promote by capturing', () => {
-  //     input.value = 'ba8=b';
-  //     const mockPromote = jest.fn();
-  //     const keyboardMovePlugin = keyboardMove({
-  //       input,
-  //       ctrl: {
-  //         ...defaultCtrl,
-  //         promote: mockPromote,
-  //       },
-  //     }) as any;
+      submit('ba8', { isTrusted: true });
 
-  //     keyboardMovePlugin(promotablePawnFen, toMap({ b7: ['a8', 'b8'] }), true);
+      expect(mockPromote).toHaveBeenCalledTimes(0);
+      expect(mockClear).toHaveBeenCalledTimes(0);
+    });
 
-  //     expect(mockPromote.mock.calls.length).toBe(1);
-  //     expect(input.value).toBe('');
-  //   });
+    test('with piece specified does promote by capturing', () => {
+      const mockPromote = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
+            promote: mockPromote,
+          },
+        },
+        mockClear,
+      );
 
-  //   describe('with pawn selected', () => {
-  //     test('with no piece specified does not promote by advancing', () => {
-  //       input.value = 'b8';
-  //       const mockPromote = jest.fn();
-  //       const keyboardMovePlugin = keyboardMove({
-  //         input,
-  //         ctrl: {
-  //           ...defaultCtrl,
-  //           hasSelected: () => 'b7',
-  //           promote: mockPromote,
-  //         },
-  //       }) as any;
+      submit('ba8=b', { isTrusted: true });
 
-  //       keyboardMovePlugin(promotablePawnFen, toMap({ b7: ['a8', 'b8'] }), true);
+      expect(mockPromote).toHaveBeenCalledTimes(1);
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
 
-  //       expect(mockPromote.mock.calls.length).toBe(0);
-  //       expect(input.value).toBe('b8');
-  //     });
+    describe('with pawn selected', () => {
+      test('with no piece specified does not promote by advancing', () => {
+        const mockPromote = jest.fn();
+        const submit = makeSubmit(
+          {
+            input,
+            ctrl: {
+              ...defaultCtrl,
+              legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
+              hasSelected: () => 'b7',
+              promote: mockPromote,
+            },
+          },
+          mockClear,
+        );
 
-  //     test('with piece specified does promote by advancing', () => {
-  //       input.value = 'b8=r';
-  //       const mockPromote = jest.fn();
-  //       const keyboardMovePlugin = keyboardMove({
-  //         input,
-  //         ctrl: {
-  //           ...defaultCtrl,
-  //           hasSelected: () => 'b7',
-  //           promote: mockPromote,
-  //         },
-  //       }) as any;
+        submit('b8', { isTrusted: true });
 
-  //       keyboardMovePlugin(promotablePawnFen, toMap({ b7: ['a8', 'b8'] }), true);
+        expect(mockPromote).toHaveBeenCalledTimes(0);
+        expect(mockClear).toHaveBeenCalledTimes(0);
+      });
 
-  //       expect(mockPromote.mock.calls.length).toBe(1);
-  //       expect(input.value).toBe('');
-  //     });
+      test('with piece specified does promote by advancing', () => {
+        const mockPromote = jest.fn();
+        const submit = makeSubmit(
+          {
+            input,
+            ctrl: {
+              ...defaultCtrl,
+              legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
+              hasSelected: () => 'b7',
+              promote: mockPromote,
+            },
+          },
+          mockClear,
+        );
 
-  //     test('with no piece specified does not promote by capturing', () => {
-  //       input.value = 'ba8';
-  //       const mockPromote = jest.fn();
-  //       const keyboardMovePlugin = keyboardMove({
-  //         input,
-  //         ctrl: {
-  //           ...defaultCtrl,
-  //           hasSelected: () => 'b7',
-  //           promote: mockPromote,
-  //         },
-  //       }) as any;
+        submit('b8=r', { isTrusted: true });
 
-  //       keyboardMovePlugin(promotablePawnFen, toMap({ b7: ['a8', 'b8'] }), true);
+        expect(mockPromote).toHaveBeenCalledTimes(1);
+        expect(mockClear).toHaveBeenCalledTimes(1);
+      });
 
-  //       expect(mockPromote.mock.calls.length).toBe(0);
-  //       expect(input.value).toBe('ba8');
-  //     });
+      test('with no piece specified does not promote by capturing', () => {
+        const mockPromote = jest.fn();
+        const submit = makeSubmit(
+          {
+            input,
+            ctrl: {
+              ...defaultCtrl,
+              legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
+              hasSelected: () => 'b7',
+              promote: mockPromote,
+            },
+          },
+          mockClear,
+        );
 
-  //     test('with piece specified does promote by capturing', () => {
-  //       input.value = 'a8=n';
-  //       const mockPromote = jest.fn();
-  //       const keyboardMovePlugin = keyboardMove({
-  //         input,
-  //         ctrl: {
-  //           ...defaultCtrl,
-  //           hasSelected: () => 'b7',
-  //           promote: mockPromote,
-  //         },
-  //       }) as any;
+        submit('ba8', { isTrusted: true });
 
-  //       keyboardMovePlugin(promotablePawnFen, toMap({ b7: ['a8', 'b8'] }), true);
+        expect(mockPromote).toHaveBeenCalledTimes(0);
+        expect(mockClear).toHaveBeenCalledTimes(0);
+      });
 
-  //       expect(mockPromote.mock.calls.length).toBe(1);
-  //       expect(input.value).toBe('');
-  //     });
-  //   });
-  // });
+      test('with piece specified does promote by capturing', () => {
+        const mockPromote = jest.fn();
+        const submit = makeSubmit(
+          {
+            input,
+            ctrl: {
+              ...defaultCtrl,
+              legalSans: fenDestsToSans(promotablePawnFen, { b7: ['a8', 'b8'] }),
+              hasSelected: () => 'b7',
+              promote: mockPromote,
+            },
+          },
+          mockClear,
+        );
 
-  // test('with incomplete crazyhouse entry does nothing', () => {
-  //   input.value = 'Q@a';
-  //   const mockDrop = jest.fn();
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: {
-  //       ...defaultCtrl,
-  //       drop: mockDrop,
-  //     },
-  //   }) as any;
+        submit('a8=n', { isTrusted: true });
 
-  //   keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+        expect(mockPromote).toHaveBeenCalledTimes(1);
+        expect(mockClear).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
 
-  //   expect(mockDrop.mock.calls.length).toBe(0);
-  //   expect(input.value).toBe('Q@a');
-  // });
+  describe('in crazyhouse variant', () => {
+    test('with incomplete crazyhouse entry does nothing', () => {
+      const mockDrop = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
+            drop: mockDrop,
+          },
+        },
+        mockClear,
+      );
 
-  // test('with complete crazyhouse entry does a drop', () => {
-  //   input.value = 'Q@a5';
-  //   const mockDrop = jest.fn();
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: {
-  //       ...defaultCtrl,
-  //       drop: mockDrop,
-  //     },
-  //   }) as any;
+      submit('Q@a', { isTrusted: true });
 
-  //   keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), true);
+      expect(mockDrop).toHaveBeenCalledTimes(0);
+      expect(mockClear).toHaveBeenCalledTimes(0);
+    });
 
-  //   expect(mockDrop.mock.calls.length).toBe(1);
-  //   expect(input.value).toBe('');
-  // });
+    test('with complete crazyhouse entry does a drop', () => {
+      const mockDrop = jest.fn();
+      const submit = makeSubmit(
+        {
+          input,
+          ctrl: {
+            ...defaultCtrl,
+            legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
+            drop: mockDrop,
+          },
+        },
+        mockClear,
+      );
 
-  // test('with incorrect entry marks it wrong', () => {
-  //   input.value = 'j4';
-  //   const keyboardMovePlugin = keyboardMove({
-  //     input,
-  //     ctrl: defaultCtrl,
-  //   }) as any;
+      submit('Q@a5', { isTrusted: true });
 
-  //   keyboardMovePlugin(startingFen, toMap({ e2: ['e4'] }), false);
+      expect(mockDrop).toHaveBeenCalledTimes(1);
+      expect(mockClear).toHaveBeenCalledTimes(1);
+    });
+  });
 
-  //   expect(input.value).toBe('j4');
-  //   expect(input.classList.contains('wrong')).toBeTruthy();
-  // });
+  test('with incorrect entry marks it wrong', () => {
+    input.classList.toggle = jest.fn() as any;
+    site.sound = { play: jest.fn() } as any;
+    const submit = makeSubmit(
+      {
+        input,
+        ctrl: {
+          ...defaultCtrl,
+          legalSans: fenDestsToSans(startingFen, { e2: ['e4'] }),
+        },
+      },
+      defaultClear,
+    );
+
+    submit('j4', { isTrusted: true });
+
+    expect(input.classList.toggle).toHaveBeenCalledTimes(1);
+    expect(input.classList.toggle).toBeCalledWith('wrong', true);
+    expect(site.sound.play).toHaveBeenCalledTimes(1);
+  });
 });

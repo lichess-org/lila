@@ -4,6 +4,6 @@ module.exports = {
   testEnvironment: 'node',
   transform: {},
   globals: {
-    lichess: {},
+    site: {},
   },
 };
