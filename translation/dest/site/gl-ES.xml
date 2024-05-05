@@ -791,9 +791,6 @@
   <string name="transparent">Transparente</string>
   <string name="deviceTheme">Tema do dispositivo</string>
   <string name="backgroundImageUrl">URL da imaxe de fondo:</string>
-  <string name="boardGeometry">Xeometría do taboleiro</string>
-  <string name="boardTheme">Tema do taboleiro</string>
-  <string name="boardSize">Tamaño do taboleiro</string>
   <string name="pieceSet">Estilo das pezas</string>
   <string name="embedInYourWebsite">Incrustar na túa páxina web</string>
   <string name="usernameAlreadyUsed">Este nome de usuario xa está en uso. Proba outro, por favor.</string>
