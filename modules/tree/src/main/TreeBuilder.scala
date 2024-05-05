@@ -29,8 +29,8 @@ object TreeBuilder:
           logChessError(formatError(game.id, err))
 
         val openingOf: OpeningOf =
-          if withFlags.opening && Variant.list.openingSensibleVariants(game.variant) then
-            OpeningDb.findByFullFen
+          if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
+          then OpeningDb.findByFullFen
           else _ => None
 
         val fen                       = Fen.write(init)

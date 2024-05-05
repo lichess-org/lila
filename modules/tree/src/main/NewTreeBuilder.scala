@@ -26,8 +26,8 @@ object NewTreeBuilder:
           logChessError(formatError(game.id, err))
 
         val openingOf: OpeningOf =
-          if withFlags.opening && Variant.list.openingSensibleVariants(game.variant) then
-            OpeningDb.findByFullFen
+          if withFlags.opening && Variant.list.openingSensibleVariants(game.variant)
+          then OpeningDb.findByFullFen
           else _ => None
 
         val fen                       = Fen.write(init)
@@ -76,8 +76,8 @@ object NewTreeBuilder:
 
           val variations = advices
             .get(g.ply)
-            .flatMap { adv =>
-              games.lift(index - 2).flatMap { case (fromGame, _) =>
+            .flatMap: adv =>
+              games.lift(index - 2).flatMap { (fromGame, _) =>
                 withAnalysisChild(
                   game.id,
                   game.variant,
@@ -86,15 +86,15 @@ object NewTreeBuilder:
                   logChessError
                 )(adv.info)
               }
-            }
             .toList
 
           chess.Node(value, none, variations)
+        end makeBranch
 
         val tree: Option[NewTree] =
           chess.Tree.build[((chess.Game, Uci.WithSan), Int), NewBranch](
             games.zipWithIndex,
-            (x, index) => makeBranch(x._1, x._2, index + 1)
+            { case ((game, move), index) => makeBranch(game, move, index + 1) }
           )
 
         NewRoot(metas, tree)
