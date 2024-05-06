@@ -42,12 +42,22 @@ private class RelayPlayersTextarea(val text: String):
 
   // With tokenized player names
   private lazy val tokenizedPlayers: Map[PlayerToken, RelayPlayer] =
-    players.iterator
+    players.mapKeys(umlautify.andThen(_.value).andThen(tokenize.apply))
       .flatMap((name, player) => Set(name, umlautify(name)).map((_, player)))
       .map((name, player) => (tokenize.apply(name.value), player))
       .toMap
 
   private def umlautify: PlayerName => PlayerName =
+    diacritics.foldLeft(_):
+      case (name, (k, v)) =>
+        if name.value.contains(k) then PlayerName(name.value.replaceAll(k, v)) else name
+
+  val diacritics = List(
+    "ö" -> "oe",
+    "ä" -> "ae",
+    "ü" -> "ue",
+    "ß" -> "ss"
+  )
     diacritics.iterator.foldLeft(_):
       case (name, (k, v)) =>
         if name.value.contains(k) then PlayerName(name.value.replaceAll(k, v)) else name
