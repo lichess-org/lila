@@ -1,7 +1,8 @@
 import * as licon from 'common/licon';
 import { h } from 'snabbdom';
 import { LearnCtrl } from './ctrl';
-import { Stage, categs } from '../stage/list';
+import { Stage } from '../stage/list';
+import * as stages from '../stage/list';
 import { StageProgress } from '../learn';
 import * as scoring from '../score';
 import * as util from '../util';
@@ -15,7 +16,7 @@ const mapView = (ctrl: LearnCtrl) => {
   return h('div.learn.learn--map', [
     h('div.learn__side', mapSideView(ctrl.sideCtrl)),
     h('div.learn__main.learn-stages', [
-      ...categs.map(function (categ) {
+      ...stages.categs.map(function (categ) {
         return h('div.categ', [
           h('h2', ctrl.trans.noarg(categ.name)),
           h(
@@ -63,8 +64,8 @@ function ribbon(ctrl: LearnCtrl, s: Stage, status: string, stageProgress: StageP
   if (status === 'future') return;
   let content;
   if (status === 'ongoing') {
-    const p = ctrl.stageProgress(s);
-    content = p[0] ? p.join(' / ') : ctrl.trans.noarg('play');
+    const progress = ctrl.stageProgress(s);
+    content = progress[0] ? progress.join(' / ') : ctrl.trans.noarg('play');
   } else content = makeStars(scoring.getStageRank(s, stageProgress.scores));
   if (status === 'future') return;
   return h('span.ribbon-wrapper', h(`span.ribbon.${status}`, content));
