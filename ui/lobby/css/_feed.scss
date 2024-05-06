@@ -2,7 +2,6 @@
   @extend %box-neat;
   @include hoverflow;
   background: $c-bg-box;
-  overflow-y: auto;
   min-height: 20em;
 }
 .daily-feed {

@@ -21,13 +21,20 @@ export default function (ctrl: StormCtrl): VNode {
 const chessground = (ctrl: StormCtrl): VNode =>
   h('div.cg-wrap', {
     hook: {
-      insert: vnode =>
+      insert: vnode => {
         ctrl.ground(
           site.makeChessground(
             vnode.elm as HTMLElement,
             makeCgConfig(makeCgOpts(ctrl.run, !ctrl.run.endAt, ctrl.flipped), ctrl.pref, ctrl.userMove),
           ),
-        ),
+        );
+        site.pubsub.on('board.change', (is3d: boolean) =>
+          ctrl.withGround(g => {
+            g.state.addPieceZIndex = is3d;
+            g.redrawAll();
+          }),
+        );
+      },
     },
   });
 

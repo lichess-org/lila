@@ -64,7 +64,6 @@
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
   <string name="chapterPgn">PGN فصل</string>
   <string name="copyChapterPgn">کپی کردن PGN</string>
-  <string name="copyChapterPgnDescription">کپی کردن فصل PGN.</string>
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">URL درس</string>
   <string name="currentChapterUrl">URL فصل فعلی</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">نظر سنجاق شده درباره فصل</string>
   <string name="saveChapter">ذخیره فصل</string>
   <string name="clearAnnotations">پاک کردن حرکت‌نویسی</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">پاک کردن تغییرات</string>
+  <string name="clearVariations">پاک کردن تغییرات</string>
   <string name="deleteChapter">حذف فصل</string>
   <string name="deleteThisChapter">آیا میخواهید این فصل را پاک کنید؟امکان برگرداندن آن وجود ندارد!</string>
   <string name="clearAllCommentsInThisChapter">همه دیدگاه‌ها، نمادها و شکل‌های ترسیم شده در این بخش، پاک شوند</string>

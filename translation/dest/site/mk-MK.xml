@@ -763,9 +763,6 @@
   <string name="transparent">Проѕирно</string>
   <string name="deviceTheme">Тема на уредот</string>
   <string name="backgroundImageUrl">URL на заднинската слика:</string>
-  <string name="boardGeometry">Геометрија на таблата</string>
-  <string name="boardTheme">Тема на таблата</string>
-  <string name="boardSize">Големина на таблата</string>
   <string name="pieceSet">Дизајн на фигурите</string>
   <string name="embedInYourWebsite">Вгради во твојот сајт</string>
   <string name="usernameAlreadyUsed">Ова корисничко име е во употреба, ве молиме одберете поинакво.</string>

@@ -561,7 +561,6 @@
   <string name="light">Світлый</string>
   <string name="dark">Темный</string>
   <string name="transparent">Тоненькый</string>
-  <string name="boardTheme">Тема дощкы</string>
   <string name="pieceSet">Тема фіґур</string>
   <string name="usernameAlreadyUsed">Сисе имня уже занято, попробуйте другоє.</string>
   <string name="usernameCharsInvalid">Имня має мати лем ціфры, числа, подчеркув ай дефісув.</string>

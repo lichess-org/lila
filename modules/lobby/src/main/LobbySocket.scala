@@ -21,7 +21,7 @@ final class LobbySocket(
     lobby: LobbySyncActor,
     relationApi: lila.core.relation.RelationApi,
     poolApi: lila.core.pool.PoolApi
-)(using ec: Executor, scheduler: Scheduler):
+)(using ec: Executor, scheduler: Scheduler)(using lila.core.config.RateLimit):
 
   import LobbySocket.*
   import Protocol.*

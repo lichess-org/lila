@@ -70,7 +70,6 @@
   <string name="downloadAllGames">Завантажити всі партії</string>
   <string name="chapterPgn">PGN розділу</string>
   <string name="copyChapterPgn">Скопіювати PGN</string>
-  <string name="copyChapterPgnDescription">Скопіювати PGN розділу в буфер обміну.</string>
   <string name="downloadGame">Завантажити гру</string>
   <string name="studyUrl">Посилання на дослідження</string>
   <string name="currentChapterUrl">Посилання на цей розділ</string>
@@ -91,7 +90,7 @@
   <string name="pinnedChapterComment">Закріплений коментар розділу</string>
   <string name="saveChapter">Зберегти розділ</string>
   <string name="clearAnnotations">Очистити анотацію</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Очистити анотацію</string>
+  <string name="clearVariations">Очистити анотацію</string>
   <string name="deleteChapter">Видалити розділ</string>
   <string name="deleteThisChapter">Видалити цей розділ? Відновити буде неможливо!</string>
   <string name="clearAllCommentsInThisChapter">Очистити всі коментарі та позначки з цього розділу?</string>

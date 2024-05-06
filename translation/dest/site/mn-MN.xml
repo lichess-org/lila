@@ -718,9 +718,6 @@
   <string name="dark">Хар</string>
   <string name="transparent">Уусмал</string>
   <string name="backgroundImageUrl">Ар фонын зурагны холбоос:</string>
-  <string name="boardGeometry">Хөлгийн геометр</string>
-  <string name="boardTheme">Хөлгийн загвар</string>
-  <string name="boardSize">Хөлгийн хэмжээ</string>
   <string name="pieceSet">Дүрсний загвар</string>
   <string name="embedInYourWebsite">Вэб сайтадаа оруулах</string>
   <string name="usernameAlreadyUsed">Ийм нэртэй хэрэглэгч байна, өөр нэр ашиглана уу.</string>

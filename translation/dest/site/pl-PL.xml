@@ -869,9 +869,12 @@
   <string name="transparent">Przezroczyste</string>
   <string name="deviceTheme">Motyw urządzenia</string>
   <string name="backgroundImageUrl">Adres do obrazu tła:</string>
-  <string name="boardGeometry">Szachownica</string>
-  <string name="boardTheme">Kolory pól</string>
-  <string name="boardSize">Rozmiar szachownicy</string>
+  <string name="board">Szachownica</string>
+  <string name="size">Rozmiar</string>
+  <string name="opacity">Przezroczystość</string>
+  <string name="brightness">Jasność</string>
+  <string name="hue">Odcień</string>
+  <string name="boardReset">Przywróć domyślne kolory</string>
   <string name="pieceSet">Zestaw bierek</string>
   <string name="embedInYourWebsite">Osadź na swojej stronie internetowej</string>
   <string name="usernameAlreadyUsed">Ta nazwa użytkownika jest już zajęta, wybierz inną.</string>

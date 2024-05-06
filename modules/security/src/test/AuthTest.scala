@@ -12,6 +12,7 @@ class AuthTest extends munit.FunSuite:
 
   given Conversion[String, UserId] = UserId(_)
   given Executor                   = scala.concurrent.ExecutionContextOpportunistic
+  given lila.core.config.RateLimit = lila.core.config.RateLimit.No
 
   val secret = Secret(Array.fill(32)(1.toByte).toBase64)
   final def getAuth(passHasher: PasswordHasher) =

@@ -26,7 +26,7 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     ws: play.api.libs.ws.StandaloneWSClient
-)(using Executor, Scheduler, play.api.Mode):
+)(using Executor, Scheduler, play.api.Mode, lila.core.config.RateLimit):
 
   given ConfigLoader[PicfitConfig] = AutoConfig.loader
   private val config               = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)

@@ -21,7 +21,7 @@ final class RelationApi(
     cacheApi: lila.memo.CacheApi,
     userApi: UserApi,
     config: RelationConfig
-)(using Executor)
+)(using Executor, lila.core.config.RateLimit)
     extends lila.core.relation.RelationApi(repo.coll):
 
   import RelationRepo.makeId

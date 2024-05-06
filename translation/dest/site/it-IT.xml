@@ -792,9 +792,11 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="transparent">Trasparente</string>
   <string name="deviceTheme">Tema del dispositivo</string>
   <string name="backgroundImageUrl">URL dell\'immagine di sfondo:</string>
-  <string name="boardGeometry">Geometria scacchiera</string>
-  <string name="boardTheme">Tema scacchiera</string>
-  <string name="boardSize">Dimensione scacchiera</string>
+  <string name="board">Scacchiera</string>
+  <string name="size">Grandezza</string>
+  <string name="opacity">Opacità</string>
+  <string name="brightness">Luminosità</string>
+  <string name="boardReset">Ripristina i colori predefiniti</string>
   <string name="pieceSet">Set pezzi</string>
   <string name="embedInYourWebsite">Incorpora nel tuo sito Web</string>
   <string name="usernameAlreadyUsed">Questo nome è già in uso. Prego sceglierne un altro.</string>

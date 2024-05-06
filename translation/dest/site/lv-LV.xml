@@ -805,9 +805,6 @@
   <string name="transparent">Caurspīdīgs</string>
   <string name="deviceTheme">Saskaņot ar sistēmu</string>
   <string name="backgroundImageUrl">Fona attēla URL:</string>
-  <string name="boardGeometry">Galdiņa ģeometrija</string>
-  <string name="boardTheme">Galdiņa dizains</string>
-  <string name="boardSize">Galdiņa izmērs</string>
   <string name="pieceSet">Figūru komplekts</string>
   <string name="embedInYourWebsite">Iegult savā mājaslapā</string>
   <string name="usernameAlreadyUsed">Lietotājvārds ir aizņemts, lūdzu mēģiniet citu.</string>

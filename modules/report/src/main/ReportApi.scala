@@ -102,8 +102,7 @@ final class ReportApi(
 
   private def isAlreadySlain(candidate: Candidate) =
     (candidate.isCheat && candidate.suspect.user.marks.engine) ||
-      (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
-      (candidate.isComm && candidate.suspect.user.marks.troll)
+      (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll)
 
   def getMyMod(using me: MyId): Fu[Option[Mod]]          = userApi.byId(me).dmap2(Mod.apply)
   def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]         = userApi.byId(u).dmap2(Mod.apply)

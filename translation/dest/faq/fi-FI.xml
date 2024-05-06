@@ -158,4 +158,9 @@ Tällöin sinulle ilmoitetaan asiasta näyttämällä punainen kuvake. Usein voi
 2. Klikkaa lukituskuvaketta osoitepalkissa
 3. Valitse Sivuston asetukset
 4. Salli ääni</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">1. Napsauta kolmea pistettä oikessa yläkulmassa
+2. Valitse Asetukset
+3. Valitse Evästeet ja sivuston käyttöoikeudet
+4. Vieritä alas ja valitse Median automaattinen toisto
+4. Lisää lichess.org listalle \"Salli\"</string>
 </resources>

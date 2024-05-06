@@ -64,7 +64,6 @@
   <string name="downloadAllGames">Elŝuti ĉiujn ludojn</string>
   <string name="chapterPgn">PGN de la ĉapitro</string>
   <string name="copyChapterPgn">Kopii PGN</string>
-  <string name="copyChapterPgnDescription">Kopii ĉapitran PGN al tondujo.</string>
   <string name="downloadGame">Elŝuti ludon</string>
   <string name="studyUrl">URL de la studo</string>
   <string name="currentChapterUrl">URL de tiu ĉi ĉapitro</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">Alpinglita ĉapitra komento</string>
   <string name="saveChapter">Konservi ĉapitron</string>
   <string name="clearAnnotations">Forigi notojn</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Forigi variaĵojn</string>
+  <string name="clearVariations">Forigi variaĵojn</string>
   <string name="deleteChapter">Forigi ĉapitron</string>
   <string name="deleteThisChapter">Ĉu forigi ĉi tiun ĉapitron? Tiun agon vi ne povos malfari!</string>
   <string name="clearAllCommentsInThisChapter">Forigi ĉiujn komentojn, signobildoj, kaj skribintaj formoj en ĉi tiu ĉapitro</string>

@@ -41,13 +41,7 @@ trait AssetHelper:
       val nonceAttr = nonce.so(n => s""" nonce="$n"""")
       s"""<script$nonceAttr>$js</script>"""
 
-  private val onLoadFunction = "site.load.then"
-
-  def embedJsUnsafeLoadThen(js: String): WithNonce[Frag] =
-    embedJsUnsafe(s"""$onLoadFunction(()=>{$js})""")
-
-  def embedJsUnsafeLoadThen(js: String, nonce: Nonce): Frag =
-    embedJsUnsafeLoadThen(js)(nonce.some)
+  def embedJsUnsafeLoadThen(js: String): WithNonce[Frag] = embedJsUnsafe(s"""site.load.then(()=>{$js})""")
 
   // bump flairs version if a flair is changed only (not added or removed)
   val flairVersion = "______2"
@@ -62,15 +56,3 @@ trait AssetHelper:
     re.enabled.so(jsModuleInit("bits.hcaptcha"))
 
   def analyseNvuiTag(using ctx: Context) = ctx.blind.option(EsmInit("analyse.nvui"))
-
-  def copyMeLink(url: String, name: Frag): Tag = copyMe(url, a(targetBlank, href := url)(name))
-
-  def copyMeInput(content: String): Tag =
-    copyMe(content, input(spellcheck := "false", readonly, value := content))
-
-  // empty name = show content in an input tag
-  def copyMe(content: String, target: Tag): Tag =
-    div(cls := "copy-me")(
-      target(cls := "copy-me__target"),
-      button(cls := "copy-me__button button button-metal", dataIcon := Icon.Clipboard)
-    )

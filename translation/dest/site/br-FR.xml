@@ -854,9 +854,6 @@
   <string name="dark">Teñval</string>
   <string name="transparent">Treuzwelus</string>
   <string name="backgroundImageUrl">URL skeudenn an drekleur :</string>
-  <string name="boardGeometry">Stumm an dachenn emgann</string>
-  <string name="boardTheme">Tem an dachenn emgann</string>
-  <string name="boardSize">Ment an dachenn emgann</string>
   <string name="pieceSet">Ar pezhioù</string>
   <string name="embedInYourWebsite">Enframmañ en ho lec\'hienn</string>
   <string name="usernameAlreadyUsed">Implijet eo an anv-mañ dija. Dibabit unan all mar plij.</string>
