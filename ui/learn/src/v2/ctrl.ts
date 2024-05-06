@@ -5,12 +5,14 @@ import * as scoring from '../score';
 import { SnabbdomSideCtrl } from './sideCtrl';
 import { clearTimeouts } from '../timeouts';
 import { extractHashParameters } from './hashRouting';
+import { RunCtrl } from './runCtrl';
 
 export class LearnCtrl {
   data: LearnProgress = this.opts.storage.data;
   trans: Trans = site.trans(this.opts.i18n);
 
   sideCtrl: SnabbdomSideCtrl;
+  runCtrl: RunCtrl;
 
   constructor(
     readonly opts: SnabbdomLearnOpts,
@@ -19,14 +21,20 @@ export class LearnCtrl {
     clearTimeouts();
 
     this.sideCtrl = new SnabbdomSideCtrl(this, opts);
+    this.runCtrl = new RunCtrl(this, opts);
 
+    this.setStageLevelFromHash();
     window.addEventListener('hashchange', () => {
-      const { stageId, levelId } = extractHashParameters();
-      if (typeof stageId === 'number') this.opts.stageId = stageId;
-      if (typeof levelId === 'number') this.opts.levelId = levelId;
+      this.setStageLevelFromHash();
       this.redraw();
     });
   }
+
+  setStageLevelFromHash = () => {
+    const { stageId, levelId } = extractHashParameters();
+    this.opts.stageId = stageId;
+    this.opts.levelId = levelId;
+  };
 
   inStage = () => this.opts.stageId !== null;
 

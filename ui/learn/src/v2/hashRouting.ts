@@ -10,12 +10,12 @@ export const hashHref = (stageId?: number, levelId?: number) => {
 };
 
 export const extractHashParameters = (): {
-  stageId?: number;
-  levelId?: number;
+  stageId: number | null;
+  levelId: number | null;
 } => {
   const hash = window.location.hash;
-  if (!hash) return {};
+  if (!hash) return { stageId: null, levelId: null };
   const parts = hash.split('/');
-  const nanToUndefined = (n: number) => (isNaN(n) ? undefined : n);
-  return { stageId: nanToUndefined(parseInt(parts[1], 10)), levelId: nanToUndefined(parseInt(parts[2], 10)) };
+  const nanToNull = (n: number) => (isNaN(n) ? null : n);
+  return { stageId: nanToNull(parseInt(parts[1], 10)), levelId: nanToNull(parseInt(parts[2], 10)) };
 };

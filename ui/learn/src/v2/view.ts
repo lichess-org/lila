@@ -8,10 +8,11 @@ import * as scoring from '../score';
 import * as util from '../util';
 import { mapSideView } from './mapSideView';
 import { hashHref } from './hashRouting';
+import { runView } from './runView';
 
 // TODO: top level div styling issues
 export const view = (ctrl: LearnCtrl) => {
-  return h('div', mapView(ctrl));
+  return h('div', ctrl.inStage() ? runView(ctrl) : mapView(ctrl));
 };
 
 const mapView = (ctrl: LearnCtrl) => {
