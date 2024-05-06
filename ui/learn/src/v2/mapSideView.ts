@@ -2,6 +2,7 @@ import * as util from '../util';
 import * as stages from '../stage/list';
 import { SnabbdomSideCtrl } from './sideCtrl';
 import { h } from 'snabbdom';
+import { BASE_LEARN_PATH, hashHref } from './hashRouting';
 
 export function mapSideView(ctrl: SnabbdomSideCtrl) {
   if (ctrl.inStage()) return renderInStage(ctrl);
@@ -14,9 +15,7 @@ function renderInStage(ctrl: SnabbdomSideCtrl) {
       h(
         'a.back',
         {
-          attrs: { href: '/' },
-          // TODO:
-          // config: m.route,
+          attrs: { href: BASE_LEARN_PATH },
         },
         [
           h('img', { attrs: { src: util.assetUrl + 'images/learn/brutal-helm.svg' } }),
@@ -33,8 +32,7 @@ function renderInStage(ctrl: SnabbdomSideCtrl) {
             h(
               'h2',
               {
-                onclick: function () {
-                  // TODO:
+                onclick: () => {
                   ctrl.categId(categId);
                 },
               },
@@ -48,9 +46,7 @@ function renderInStage(ctrl: SnabbdomSideCtrl) {
                 return h(
                   `a.stage.${status}`,
                   {
-                    attrs: { href: '/' + s.id },
-                    // TODO:
-                    // config: m.route,
+                    attrs: { href: hashHref(s.id) },
                   },
                   [h('img', { attrs: { src: s.image } }), h('span', ctrl.trans.noarg(s.title))],
                 );
@@ -82,7 +78,7 @@ function renderHome(ctrl: SnabbdomSideCtrl) {
         ? h(
             'a.confirm',
             {
-              onclick: function () {
+              onclick: () => {
                 // TODO:
                 if (confirm(ctrl.trans.noarg('youWillLoseAllYourProgress'))) ctrl.reset();
               },

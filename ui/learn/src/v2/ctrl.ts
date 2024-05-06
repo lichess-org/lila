@@ -4,6 +4,7 @@ import * as stages from '../stage/list';
 import * as scoring from '../score';
 import { SnabbdomSideCtrl } from './sideCtrl';
 import { clearTimeouts } from '../timeouts';
+import { extractHashParameters } from './hashRouting';
 
 export class LearnCtrl {
   data: LearnProgress = this.opts.storage.data;
@@ -18,6 +19,13 @@ export class LearnCtrl {
     clearTimeouts();
 
     this.sideCtrl = new SnabbdomSideCtrl(this, opts);
+
+    window.addEventListener('hashchange', () => {
+      const { stageId, levelId } = extractHashParameters();
+      if (typeof stageId === 'number') this.opts.stageId = stageId;
+      if (typeof levelId === 'number') this.opts.levelId = levelId;
+      this.redraw();
+    });
   }
 
   isStageIdComplete = (stageId: number) => {

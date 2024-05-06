@@ -7,7 +7,9 @@ import { StageProgress } from '../learn';
 import * as scoring from '../score';
 import * as util from '../util';
 import { mapSideView } from './mapSideView';
+import { hashHref } from './hashRouting';
 
+// TODO: top level div styling issues
 export const view = (ctrl: LearnCtrl) => {
   return h('div', mapView(ctrl));
 };
@@ -31,10 +33,7 @@ const mapView = (ctrl: LearnCtrl) => {
               const title = ctrl.trans.noarg(stage.title);
               return h(
                 `a.stage.${status}.${titleVerbosityClass(title)}`,
-                {
-                  // TODO:
-                  attrs: { href: '/' + stage.id },
-                },
+                { attrs: { href: hashHref(stage.id) } },
                 [
                   ribbon(ctrl, stage, status, stageProgress),
                   h('img', { attrs: { src: stage.image } }),
