@@ -177,14 +177,16 @@ final class Study(
           (sc, data) <- getJsonData(oldSc)
           res <- negotiate(
             html =
+              val noCrawler = HTTPRequest.isCrawler(ctx.req).no
               for
-                chat      <- NoCrawlers(chatOf(sc.study))
-                sVersion  <- NoCrawlers(env.study.version(sc.study.id))
-                streamers <- NoCrawlers(streamerCache.get(sc.study.id))
+                chat      <- noCrawler.so(chatOf(sc.study))
+                sVersion  <- noCrawler.so(env.study.version(sc.study.id))
+                streamers <- noCrawler.so(streamerCache.get(sc.study.id))
                 page      <- renderPage(views.study.show(sc.study, data, chat, sVersion, streamers))
               yield Ok(page)
                 .withCanonical(routes.Study.chapter(sc.study.id, sc.chapter.id))
-                .enforceCrossSiteIsolation,
+                .enforceCrossSiteIsolation
+            ,
             json = for
               chatOpt <- chatOf(sc.study)
               jsChat <- chatOpt.soFu: c =>
@@ -502,11 +504,10 @@ final class Study(
         CanView(study) {
           env.study.gifExport
             .ofChapter(chapter, theme, piece)
-            .map { stream =>
+            .map: stream =>
               Ok.chunked(stream)
                 .pipe(asAttachmentStream(s"${env.study.pgnDump.filename(study, chapter)}.gif"))
                 .as("image/gif")
-            }
             .recover { case lila.core.lilaism.LilaInvalid(msg) =>
               BadRequest(msg)
             }
