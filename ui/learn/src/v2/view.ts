@@ -5,14 +5,15 @@ import { Stage, categs } from '../stage/list';
 import { StageProgress } from '../learn';
 import * as scoring from '../score';
 import * as util from '../util';
+import { mapSideView } from './mapSideView';
 
 export const view = (ctrl: LearnCtrl) => {
-  return h('div', stageListView(ctrl));
+  return h('div', mapView(ctrl));
 };
 
-const stageListView = (ctrl: LearnCtrl) => {
+const mapView = (ctrl: LearnCtrl) => {
   return h('div.learn.learn--map', [
-    // h('div.learn__side', ctrl.opts.side.view()),
+    h('div.learn__side', mapSideView(ctrl.sideCtrl)),
     h('div.learn__main.learn-stages', [
       ...categs.map(function (categ) {
         return h('div.categ', [
@@ -30,8 +31,8 @@ const stageListView = (ctrl: LearnCtrl) => {
               return h(
                 `a.stage.${status}.${titleVerbosityClass(title)}`,
                 {
-                  href: '/' + stage.id,
-                  // config: m.route,
+                  // TODO:
+                  attrs: { href: '/' + stage.id },
                 },
                 [
                   ribbon(ctrl, stage, status, stageProgress),

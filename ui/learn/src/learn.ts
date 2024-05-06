@@ -37,6 +37,13 @@ export interface LearnOpts {
   route?: string;
 }
 
+export interface SnabbdomLearnOpts {
+  i18n: I18nDict;
+  storage: Storage;
+  stageId: number | null;
+  route?: string;
+}
+
 interface LearnServerOpts {
   data?: LearnProgress;
   i18n: I18nDict;
@@ -46,12 +53,9 @@ export function initModule({ data, i18n }: LearnServerOpts) {
   console.log('initializing learn module');
 
   const _storage = storage(data);
-  const snabbdomOpts: LearnOpts = {
+  const snabbdomOpts: SnabbdomLearnOpts = {
     i18n,
     storage: _storage,
-    // Uninitialized because we need to call mapSide to initialize opts.side,
-    // and we need opts to call mapSide.
-    side: 'uninitialized' as any,
     stageId: null,
   };
 
