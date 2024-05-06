@@ -26,9 +26,10 @@ final class Env(
 
   export net.{ domain, baseUrl, assetBaseUrlInternal }
 
-  given Mode                   = environment.mode
-  given translator: Translator = lila.i18n.Translator
-  given scheduler: Scheduler   = system.scheduler
+  given Mode                       = environment.mode
+  given translator: Translator     = lila.i18n.Translator
+  given scheduler: Scheduler       = system.scheduler
+  given lila.core.config.RateLimit = net.rateLimit
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type          = lila.i18n.Env

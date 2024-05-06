@@ -64,7 +64,6 @@
   <string name="downloadAllGames">دابەزاندنی ھەموو یاریەکان</string>
   <string name="chapterPgn">بەشی PGN</string>
   <string name="copyChapterPgn">PNG کۆپی بکە</string>
-  <string name="copyChapterPgnDescription">بەشی PNG کۆپی بکە بۆ کلیپبۆرد.</string>
   <string name="downloadGame">دابەزاندی یاری</string>
   <string name="studyUrl">خوێندنی URL</string>
   <string name="currentChapterUrl">لینکی یاریەکانی ئێستا</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">لێدوان بۆ بابەتی ھەلواسراو</string>
   <string name="saveChapter">داکردنی بەش</string>
   <string name="clearAnnotations">سڕینەوەی نیشانەکان</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">سڕینەوەی لایەنەکانی تر</string>
+  <string name="clearVariations">سڕینەوەی لایەنەکانی تر</string>
   <string name="deleteChapter">سڕینەوەی بەش</string>
   <string name="deleteThisChapter">سڕینەوەی ئەم بەشە؟ گەڕانەوەی بۆ نییه!</string>
   <string name="clearAllCommentsInThisChapter">هەموو سەرنج و و شێوە کێشراوەکان لەم بابەتەدا پاک بکەرەوە</string>

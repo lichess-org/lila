@@ -830,9 +830,6 @@
   <string name="transparent">Празрысты</string>
   <string name="deviceTheme">Тэма прылады</string>
   <string name="backgroundImageUrl">Спасылка на фон:</string>
-  <string name="boardGeometry">Адмалёўка дошкі</string>
-  <string name="boardTheme">Афармленне дошкі</string>
-  <string name="boardSize">Памер дошкі</string>
   <string name="pieceSet">Набор фігур</string>
   <string name="embedInYourWebsite">Убудаваць у свой сайт</string>
   <string name="usernameAlreadyUsed">Гэтае імя карыстальніка ўжо занятае. Калі ласка, паспрабуйце іншае.</string>

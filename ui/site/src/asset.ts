@@ -15,11 +15,10 @@ export const url = (path: string, opts: AssetUrlOpts = {}) => {
 // bump flairs version if a flair is changed only (not added or removed)
 export const flairSrc = (flair: Flair) => url(`flair/img/${flair}.webp`, { version: '_____2' });
 
-export const loadCss = (href: string, key?: string): Promise<void> =>
-  new Promise(resolve => {
+export const loadCss = (href: string, key?: string): Promise<void> => {
+  return new Promise(resolve => {
     href = url(href, { noVersion: true });
-    if (key) removeCssPath(key);
-    else if (document.querySelector(`head > link[href="${href}"]`)) return resolve();
+    if (document.head.querySelector(`link[href="${href}"]`)) return resolve();
 
     const el = document.createElement('link');
     if (key) el.setAttribute('data-css-key', key);
@@ -28,6 +27,7 @@ export const loadCss = (href: string, key?: string): Promise<void> =>
     el.onload = () => resolve();
     document.head.append(el);
   });
+};
 
 export const loadCssPath = async (key: string): Promise<void> => {
   const hash = site.manifest.css[key];

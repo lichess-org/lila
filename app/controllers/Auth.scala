@@ -5,12 +5,12 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.memo.RateLimit
 import lila.security.SecurityForm.{ MagicLink, PasswordReset }
 import lila.security.{ FingerPrint, Signup }
 import lila.core.net.IpAddress
 import lila.core.email.{ UserStrOrEmail, UserIdOrEmail }
 import lila.core.security.ClearPassword
+import lila.memo.RateLimit
 
 final class Auth(
     env: Env,
@@ -424,18 +424,12 @@ final class Auth(
   def magicLinkSent = Open:
     Ok.page(views.auth.magicLinkSent)
 
-  private lazy val magicLinkLoginRateLimitPerToken = RateLimit[String](
-    credits = 3,
-    duration = 1 hour,
-    key = "login.magicLink.token"
-  )
-
   def magicLinkLogin(token: String) = Open:
     if ctx.isAuth
     then Redirect(routes.Lobby.home)
     else
       Firewall:
-        magicLinkLoginRateLimitPerToken(token, rateLimited):
+        limit.magicLink(token, rateLimited):
           env.security.magicLink.confirm(token).flatMap {
             case None =>
               lila.mon.user.auth.magicLinkConfirm("token_fail").increment()

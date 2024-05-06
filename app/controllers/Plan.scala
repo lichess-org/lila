@@ -182,22 +182,8 @@ final class Plan(env: Env) extends LilaController(env):
       .inject(jsonOkResult)
       .recover(badStripeApiCall)
 
-  private val CheckoutRateLimit = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
-    key = "plan.checkout.ip"
-  )(
-    ("fast", 8, 10.minute),
-    ("slow", 40, 1.day)
-  )
-
-  private val CaptureRateLimit = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
-    key = "plan.capture.ip"
-  )(
-    ("fast", 8, 10.minute),
-    ("slow", 40, 1.day)
-  )
-
   def stripeCheckout = AuthBody { ctx ?=> me ?=>
-    CheckoutRateLimit(ctx.ip, rateLimited):
+    limit.planCheckout(ctx.ip, rateLimited):
       env.plan.priceApi
         .pricingOrDefault(myCurrency)
         .flatMap: pricing =>
@@ -228,7 +214,7 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def updatePayment = AuthBody { ctx ?=> me ?=>
-    CaptureRateLimit(ctx.ip, rateLimited):
+    limit.planCapture(ctx.ip, rateLimited):
       env.plan.api.stripe.userCustomer(me).flatMap {
         _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)).so { sub =>
           env.plan.api.stripe
@@ -257,7 +243,7 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def payPalCheckout = AuthBody { ctx ?=> me ?=>
-    CheckoutRateLimit(ctx.ip, rateLimited):
+    limit.planCheckout(ctx.ip, rateLimited):
       env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
         env.plan.checkoutForm
           .form(pricing)
@@ -285,7 +271,7 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def payPalCapture(orderId: String) = Auth { ctx ?=> me ?=>
-    CaptureRateLimit(ctx.ip, rateLimited):
+    limit.planCapture(ctx.ip, rateLimited):
       get("sub")
         .map(PayPalSubscriptionId.apply)
         .match

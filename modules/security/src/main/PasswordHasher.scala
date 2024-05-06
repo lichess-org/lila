@@ -43,7 +43,7 @@ final class PasswordHasher(
     secret: Secret,
     logRounds: Int,
     hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
-)(using Executor):
+)(using Executor, lila.core.config.RateLimit):
   import org.mindrot.BCrypt
 
   private val aes = new Aes(secret)

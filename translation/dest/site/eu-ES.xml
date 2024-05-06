@@ -789,9 +789,6 @@
   <string name="transparent">Gardena</string>
   <string name="deviceTheme">Gailuaren gaia</string>
   <string name="backgroundImageUrl">Atzeko-planoko irudia:</string>
-  <string name="boardGeometry">Taularen geometria</string>
-  <string name="boardTheme">Taularen itxura</string>
-  <string name="boardSize">Taularen tamaina</string>
   <string name="pieceSet">Pieza formatua</string>
   <string name="embedInYourWebsite">Zure webgunean txertatu</string>
   <string name="usernameAlreadyUsed">Erabiltzaile izen hori hartuta dago, erabili beste bat.</string>

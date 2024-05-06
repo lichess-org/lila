@@ -36,17 +36,11 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     )
   yield res
 
-  private val FollowLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 150,
-    duration = 72.hour,
-    key = "follow.user"
-  )
-
   private def RatelimitWith(
       str: UserStr
   )(f: LightUser => Fu[Result])(using me: Me)(using Context): Fu[Result] =
     Found(env.user.lightUserApi.async(str.id)): user =>
-      FollowLimitPerUser(me, rateLimited):
+      limit.follow(me, rateLimited):
         f(user)
 
   def follow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>

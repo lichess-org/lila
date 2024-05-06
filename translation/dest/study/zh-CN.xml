@@ -61,7 +61,6 @@
   <string name="downloadAllGames">下载所有棋局</string>
   <string name="chapterPgn">章节PGN</string>
   <string name="copyChapterPgn">复制PGN</string>
-  <string name="copyChapterPgnDescription">复制章节PGN到剪贴板。</string>
   <string name="downloadGame">下载棋局</string>
   <string name="studyUrl">研究链接</string>
   <string name="currentChapterUrl">当前章节链接</string>
@@ -82,7 +81,7 @@
   <string name="pinnedChapterComment">置顶评论</string>
   <string name="saveChapter">保存章节</string>
   <string name="clearAnnotations">清除注释</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">清除变着</string>
+  <string name="clearVariations">清除变着</string>
   <string name="deleteChapter">删除章节</string>
   <string name="deleteThisChapter">删除本章节？本操作无法撤销！</string>
   <string name="clearAllCommentsInThisChapter">清除章节中所有信息？</string>

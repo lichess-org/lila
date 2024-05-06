@@ -15,7 +15,7 @@
   <string name="chat">बातचीत</string>
   <string name="resign">हार मान लें</string>
   <string name="checkmate">शह और मात</string>
-  <string name="stalemate">गतिरोध (स्टेलमेट )</string>
+  <string name="stalemate">गतिरोध (स्टेलमेट)</string>
   <string name="white">सफेद</string>
   <string name="black">काला</string>
   <string name="asWhite">सफ़ेद से</string>
@@ -765,9 +765,6 @@
   <string name="dark">काला</string>
   <string name="transparent">पारदर्शी</string>
   <string name="backgroundImageUrl">पृष्ठभूमि छवि URL:</string>
-  <string name="boardGeometry">बोर्ड की ज्यामिति</string>
-  <string name="boardTheme">बोर्ड विषय</string>
-  <string name="boardSize">बोर्ड का आकार</string>
   <string name="pieceSet">मोहरे</string>
   <string name="embedInYourWebsite">अपनी वेबसाइट में एम्बेड करें</string>
   <string name="usernameAlreadyUsed">यह उपयोगकर्ता नाम पहले से उपयोग में है, कृपया एक दूसरे का प्रयास करें।</string>

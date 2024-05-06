@@ -123,18 +123,11 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       env.relay.api.deleteTourIfOwner(tour).inject(Redirect(routes.RelayTour.by(me.username)).flashSuccess)
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[IpAddress](
-    key = "relay.image.ip"
-  )(
-    ("fast", 10, 2.minutes),
-    ("slow", 60, 1.day)
-  )
-
   def image(id: RelayTourId, tag: Option[String]) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     WithTourCanUpdate(id): tg =>
       ctx.body.body.file("image") match
         case Some(image) =>
-          ImageRateLimitPerIp(ctx.ip, rateLimited):
+          limit.imageUpload(ctx.ip, rateLimited):
             (env.relay.api.image.upload(me, tg.tour, image, tag) >> {
               Ok
             }).recover { case e: Exception =>
@@ -210,18 +203,6 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
         .elseNotFound:
           env.relay.api.withTours.addTo(tour).flatMap(f)
 
-  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 10 * 10,
-    duration = 24.hour,
-    key = "broadcast.tournament.user"
-  )
-
-  private val CreateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 10 * 10,
-    duration = 24.hour,
-    key = "broadcast.tournament.ip"
-  )
-
   private[controllers] def rateLimitCreation(
       fail: => Fu[Result]
   )(create: => Fu[Result])(using req: RequestHeader, me: Me): Fu[Result] =
@@ -230,6 +211,4 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
       else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me, fail, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail, cost = cost):
-        create
+    limit.relayTour(me.userId -> req.ipAddress, fail, cost = cost)(create)

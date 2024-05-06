@@ -800,9 +800,6 @@ gits nöd und es isch immer ungwertet.</string>
   <string name="transparent">Durchsichtig</string>
   <string name="deviceTheme">Mit em Grät synchronisiere</string>
   <string name="backgroundImageUrl">Hindergrund-Bild-URL:</string>
-  <string name="boardGeometry">Brättgrössi und 3D</string>
-  <string name="boardTheme">Brättdesign</string>
-  <string name="boardSize">Brättgrössi</string>
   <string name="pieceSet">Figureart</string>
   <string name="embedInYourWebsite">I dini Website integriere</string>
   <string name="usernameAlreadyUsed">De Benutzername isch bereits vergeh, bitte probier en andere.</string>

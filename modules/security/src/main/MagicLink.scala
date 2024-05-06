@@ -12,7 +12,7 @@ final class MagicLink(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using Executor, lila.core.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator, lila.core.config.RateLimit):
 
   import Mailer.html.*
 

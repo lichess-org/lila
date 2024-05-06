@@ -769,9 +769,6 @@
   <string name="transparent">ಪಾರದರ್ಶಕ</string>
   <string name="deviceTheme">ಸಾಧನದ ಥೀಮ್</string>
   <string name="backgroundImageUrl">ಹಿನ್ನೆಲೆ ಚಿತ್ರಕ್ಕೆ URL:</string>
-  <string name="boardGeometry">ಚೆಸ್ ಮಣೆಯ ಜ್ಯಾಮಿತಿ</string>
-  <string name="boardTheme">ಚೆಸ್ ಮಣೆಯ ಥೀಮ್</string>
-  <string name="boardSize">ಚೆಸ್ ಮಣೆಯ ಗಾತ್ರ</string>
   <string name="pieceSet">ಚೆಸ್ ಕಾಯಿಗಳ ಕಂತೆ</string>
   <string name="embedInYourWebsite">ನಿಮ್ಮ ವೆಬ್ ಸೈಟ್ ನಲ್ಲಿ ಅಳವಡಿಸಿ</string>
   <string name="usernameAlreadyUsed">ಈ ಹೆಸರಿನ ಖಾತೆ ಈಗಾಗಲೇ ಉಪಯೋಗದಲ್ಲಿದೆ, ದಯವಿಟ್ಟು ಬೇರೆ ಹೆಸರನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.</string>

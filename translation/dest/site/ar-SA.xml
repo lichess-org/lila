@@ -945,9 +945,6 @@
   <string name="transparent">شفّاف</string>
   <string name="deviceTheme">مظهر الجهاز</string>
   <string name="backgroundImageUrl">رابط صورة الخلفية:</string>
-  <string name="boardGeometry">شكل الرقعة</string>
-  <string name="boardTheme">مربعات الرقعة</string>
-  <string name="boardSize">حجم الرقعة</string>
   <string name="pieceSet">مجموعة القطع</string>
   <string name="embedInYourWebsite">تضمين في موقع الويب الخاص بك</string>
   <string name="usernameAlreadyUsed">اسم المستخدم الذي اخترته موجود بالفعل، الرجاء كتابة اسم آخر.</string>

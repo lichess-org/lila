@@ -685,9 +685,6 @@
   <string name="dark">ഇരുണ്ടത്</string>
   <string name="transparent">സുതാര്യത</string>
   <string name="backgroundImageUrl">പശ്ചാത്തല ചിത്രത്തിന്റെ URL:</string>
-  <string name="boardGeometry">കളിക്കളത്തിന്റെ ജ്യാമിതി</string>
-  <string name="boardTheme">കളിക്കളത്തിന്റെ തീം</string>
-  <string name="boardSize">കളിക്കളത്തിന്റെ വലിപ്പം</string>
   <string name="pieceSet">വിവിധ കരുക്കൾ</string>
   <string name="embedInYourWebsite">നിങ്ങളുടെ വെബ്‌സൈറ്റിലേക്ക് എംബെഡ് ചെയ്യുക</string>
   <string name="usernameAlreadyUsed">ഈ യൂസർനെയിം ഇപ്പോൾ ലഭ്യമല്ല, ദയവു ചെയ്ത് മറ്റൊരു യൂസർനെയിം ഉപയോഗിക്കുക.</string>

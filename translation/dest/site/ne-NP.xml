@@ -693,9 +693,6 @@
   <string name="dark">गाढा</string>
   <string name="transparent">पारदर्शि</string>
   <string name="backgroundImageUrl">पृष्ठभूमि प्रतिमा URL:</string>
-  <string name="boardGeometry">बोर्ड ज्यामिति</string>
-  <string name="boardTheme">बोर्ड थिम</string>
-  <string name="boardSize">बोर्ड आकार</string>
   <string name="pieceSet">चेस सेट</string>
   <string name="embedInYourWebsite">तपाइको वेबसाइटमा इम्बेड गर्नुहोस्</string>
   <string name="usernameAlreadyUsed">यो युजर नेम प्रयोगमा छ, कृपया पुनः प्रयास गर्नुहोस्।</string>

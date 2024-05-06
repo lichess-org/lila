@@ -37,7 +37,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   };
 
   if (!site.blindMode) {
-    site.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
+    site.pubsub.on('board.change', () => updateGifLinks(inputFen.value));
     site.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);

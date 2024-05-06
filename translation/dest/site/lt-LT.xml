@@ -852,9 +852,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="transparent">Permatomas</string>
   <string name="deviceTheme">Įrenginio tema</string>
   <string name="backgroundImageUrl">Fono paveikslo URL:</string>
-  <string name="boardGeometry">Lentos geometrija</string>
-  <string name="boardTheme">Lentos stilius</string>
-  <string name="boardSize">Lentos dydis</string>
   <string name="pieceSet">Figūrų rinkinys</string>
   <string name="embedInYourWebsite">Įterpto jūsų svetainėje</string>
   <string name="usernameAlreadyUsed">Šis vartotojo vardas jau naudojamas, pabandykite kitą.</string>

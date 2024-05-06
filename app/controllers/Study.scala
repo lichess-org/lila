@@ -324,17 +324,11 @@ final class Study(
       .inject(Redirect(routes.Study.show(id)))
   }
 
-  private val ImportPgnLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 1000,
-    duration = 24.hour,
-    key = "study.import-pgn.user"
-  )
-
   private def doImportPgn(id: StudyId, data: StudyForm.importPgn.Data, sri: Sri)(
       f: List[Chapter] => Result
   )(using ctx: Context, me: Me): Future[Result] =
     val chapterDatas = data.toChapterDatas
-    ImportPgnLimitPerUser(me, rateLimited, cost = chapterDatas.size):
+    limit.studyPgnImport(me, rateLimited, cost = chapterDatas.size):
       env.study.api
         .importPgns(
           id,
@@ -397,42 +391,23 @@ final class Study(
       }(privateUnauthorizedFu(study), privateForbiddenFu(study))
   }
 
-  private val CloneLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 10 * 3,
-    duration = 24.hour,
-    key = "study.clone.user"
-  )
-
-  private val CloneLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 20 * 3,
-    duration = 24.hour,
-    key = "study.clone.ip"
-  )
-
   def cloneApply(id: StudyId) = Auth { ctx ?=> me ?=>
     val cost = if isGranted(_.Coach) || me.hasTitle then 1 else 3
-    CloneLimitPerUser(me, rateLimited, cost = cost):
-      CloneLimitPerIP(ctx.ip, rateLimited, cost = cost):
-        Found(env.study.api.byId(id)) { prev =>
-          CanView(prev, prev.settings.cloneable.some) {
-            env.study.api
-              .cloneWithChat(me, prev)
-              .map: study =>
-                Redirect(routes.Study.show((study | prev).id))
-          }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
-        }
+    limit.studyClone(me.userId -> ctx.ip, rateLimited, cost):
+      Found(env.study.api.byId(id)) { prev =>
+        CanView(prev, prev.settings.cloneable.some) {
+          env.study.api
+            .cloneWithChat(me, prev)
+            .map: study =>
+              Redirect(routes.Study.show((study | prev).id))
+        }(privateUnauthorizedFu(prev), privateForbiddenFu(prev))
+      }
   }
-
-  private val PgnRateLimitPerIp = lila.memo.RateLimit[IpAddress](
-    credits = 31,
-    duration = 1.minute,
-    key = "export.study.pgn.ip"
-  )
 
   def pgn(id: StudyId) = Open:
     Found(env.study.api.byId(id)): study =>
       HeadLastModifiedAt(study.updatedAt):
-        PgnRateLimitPerIp(ctx.ip, rateLimited, msg = id):
+        limit.studyPgn(ctx.ip, rateLimited, msg = id):
           CanView(study, study.settings.shareable.some)(doPgn(study))(
             privateUnauthorizedFu(study),
             privateForbiddenFu(study)
@@ -442,7 +417,7 @@ final class Study(
     env.study.api.byId(id).flatMap {
       _.fold(studyNotFoundText.toFuccess): study =>
         HeadLastModifiedAt(study.updatedAt):
-          PgnRateLimitPerIp[Fu[Result]](req.ipAddress, rateLimited, msg = id):
+          limit.studyPgn[Fu[Result]](req.ipAddress, rateLimited, msg = id):
             CanView(study, study.settings.shareable.some)(doPgn(study))(
               privateUnauthorizedText,
               privateForbiddenText

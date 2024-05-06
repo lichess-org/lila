@@ -19,7 +19,7 @@ final private class Rematcher(
     messenger: Messenger,
     onStart: lila.core.game.OnStart,
     rematches: Rematches
-)(using Executor, Translator)(using idGenerator: IdGenerator):
+)(using Executor, Translator, lila.core.config.RateLimit)(using idGenerator: IdGenerator):
 
   private given play.api.i18n.Lang = defaultLang
 

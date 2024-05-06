@@ -21,7 +21,7 @@ final private class StudySocket(
     socketKit: SocketKit,
     socketRequest: SocketRequester,
     chatApi: lila.core.chat.ChatApi
-)(using Executor, Scheduler, lila.core.user.FlairGet):
+)(using Executor, Scheduler, lila.core.user.FlairGet, lila.core.config.RateLimit):
 
   import StudySocket.{ *, given }
 
