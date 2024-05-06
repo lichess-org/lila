@@ -32,27 +32,25 @@ final class Search(env: Env) extends LilaController(env):
               TooManyRequests.page(views.gameSearch.index(form, none, nbGames))
             limit.search(ctx.ip, rateLimited, cost = cost):
               limit.searchConcurrency(ctx.ip, concurrencyLimited):
-                searchForm
-                  .bindFromRequest()
-                  .fold(
-                    failure =>
-                      negotiate(
-                        BadRequest.page(views.gameSearch.index(failure, none, nbGames)),
-                        BadRequest(jsonError("Could not process search query"))
-                      ),
-                    data =>
-                      data.nonEmptyQuery
-                        .soFu: query =>
-                          env.gameSearch.api
-                            .validateAccounts(query, isGrantedOpt(_.GamesModView))
-                            .flatMap:
-                              _.so(env.gameSearch.paginator(query, page))
-                        .flatMap: pager =>
-                          negotiate(
-                            Ok.page(views.gameSearch.index(searchForm.fill(data), pager, nbGames)),
-                            pager.fold(BadRequest(jsonError("Could not process search query")).toFuccess):
-                              pager => env.game.userGameApi.jsPaginator(pager).dmap(Ok(_))
-                          )
-                        .recoverWith: _ =>
-                          serverError("Sorry, we can't process that query at the moment")
-                  )
+                bindForm(searchForm)(
+                  failure =>
+                    negotiate(
+                      BadRequest.page(views.gameSearch.index(failure, none, nbGames)),
+                      BadRequest(jsonError("Could not process search query"))
+                    ),
+                  data =>
+                    data.nonEmptyQuery
+                      .soFu: query =>
+                        env.gameSearch.api
+                          .validateAccounts(query, isGrantedOpt(_.GamesModView))
+                          .flatMap:
+                            _.so(env.gameSearch.paginator(query, page))
+                      .flatMap: pager =>
+                        negotiate(
+                          Ok.page(views.gameSearch.index(searchForm.fill(data), pager, nbGames)),
+                          pager.fold(BadRequest(jsonError("Could not process search query")).toFuccess):
+                            pager => env.game.userGameApi.jsPaginator(pager).dmap(Ok(_))
+                        )
+                      .recoverWith: _ =>
+                        serverError("Sorry, we can't process that query at the moment")
+                )

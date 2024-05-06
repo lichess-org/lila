@@ -73,23 +73,21 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
   def create = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     NoLameOrBot:
       def whenRateLimited = negotiate(Redirect(routes.RelayTour.index()), rateLimited)
-      env.relay.tourForm.create
-        .bindFromRequest()
-        .fold(
-          err =>
-            negotiate(
-              BadRequest.page(views.relay.form.tour.create(err)),
-              jsonFormError(err)
-            ),
-          setup =>
-            rateLimitCreation(whenRateLimited):
-              env.relay.api.tourCreate(setup).flatMap { tour =>
-                negotiate(
-                  Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
-                  JsonOk(env.relay.jsonView(tour.withRounds(Nil), withUrls = true))
-                )
-              }
-        )
+      bindForm(env.relay.tourForm.create)(
+        err =>
+          negotiate(
+            BadRequest.page(views.relay.form.tour.create(err)),
+            jsonFormError(err)
+          ),
+        setup =>
+          rateLimitCreation(whenRateLimited):
+            env.relay.api.tourCreate(setup).flatMap { tour =>
+              negotiate(
+                Redirect(routes.RelayRound.form(tour.id)).flashSuccess,
+                JsonOk(env.relay.jsonView(tour.withRounds(Nil), withUrls = true))
+              )
+            }
+      )
   }
 
   def edit(id: RelayTourId) = Auth { ctx ?=> _ ?=>
@@ -100,22 +98,19 @@ final class RelayTour(env: Env, apiC: => Api) extends LilaController(env):
 
   def update(id: RelayTourId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
     WithTourCanUpdate(id): tg =>
-      env.relay.tourForm
-        .edit(tg)
-        .bindFromRequest()
-        .fold(
-          err =>
+      bindForm(env.relay.tourForm.edit(tg))(
+        err =>
+          negotiate(
+            BadRequest.page(views.relay.form.tour.edit(tg, err)),
+            jsonFormError(err)
+          ),
+        setup =>
+          env.relay.api.tourUpdate(tg.tour, setup) >>
             negotiate(
-              BadRequest.page(views.relay.form.tour.edit(tg, err)),
-              jsonFormError(err)
-            ),
-          setup =>
-            env.relay.api.tourUpdate(tg.tour, setup) >>
-              negotiate(
-                Redirect(routes.RelayTour.show(tg.tour.slug, tg.tour.id)),
-                jsonOkResult
-              )
-        )
+              Redirect(routes.RelayTour.show(tg.tour.slug, tg.tour.id)),
+              jsonOkResult
+            )
+      )
   }
 
   def delete(id: RelayTourId) = AuthOrScoped(_.Study.Write) { _ ?=> me ?=>

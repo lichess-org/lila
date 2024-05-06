@@ -93,54 +93,52 @@ final class Auth(
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
         val referrer                = get("referrer").filterNot(env.web.referrerRedirect.sillyLoginReferrers)
-        api.loginForm
-          .bindFromRequest()
-          .fold(
-            err =>
-              negotiate(
-                Unauthorized.page(views.auth.login(err, referrer)),
-                Unauthorized(doubleJsonFormErrorBody(err))
-              ),
-            (login, pass) =>
-              LoginRateLimit(login.normalize, ctx.req): chargeLimiters =>
-                env.security.pwned(pass).foreach { _.so(chargeLimiters()) }
-                val isEmail  = EmailAddress.isValid(login.value)
-                val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
-                api.loadLoginForm(login).flatMap {
-                  _.bindFromRequest()
-                    .fold(
-                      err =>
-                        chargeLimiters()
-                        lila.mon.security.login
-                          .attempt(isEmail, stuffing = stuffing, result = false)
-                          .increment()
-                        negotiate(
-                          err.errors match
-                            case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
-                            case _ => Unauthorized.page(views.auth.login(err, referrer))
-                          ,
-                          Unauthorized(doubleJsonFormErrorBody(err))
-                        )
-                      ,
-                      result =>
-                        result.toOption match
-                          case None => InternalServerError("Authentication error")
-                          case Some(u) if u.enabled.no =>
-                            negotiate(
-                              env.mod.logApi.closedByMod(u).flatMap {
-                                if _ then authenticateAppealUser(u, redirectTo)
-                                else redirectTo(routes.Account.reopen.url)
-                              },
-                              Unauthorized(jsonError("This account is closed."))
-                            )
-                          case Some(u) =>
-                            lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
-                            env.user.repo.email(u.id).foreach { _.foreach(garbageCollect(u)) }
-                            val remember = api.rememberForm.bindFromRequest().value | true
-                            authenticateUser(u, remember, Some(redirectTo))
-                    )
-                }
-          )
+        bindForm(api.loginForm)(
+          err =>
+            negotiate(
+              Unauthorized.page(views.auth.login(err, referrer)),
+              Unauthorized(doubleJsonFormErrorBody(err))
+            ),
+          (login, pass) =>
+            LoginRateLimit(login.normalize, ctx.req): chargeLimiters =>
+              env.security.pwned(pass).foreach { _.so(chargeLimiters()) }
+              val isEmail  = EmailAddress.isValid(login.value)
+              val stuffing = ctx.req.headers.get("X-Stuffing") | "no" // from nginx
+              api.loadLoginForm(login).flatMap {
+                _.bindFromRequest()
+                  .fold(
+                    err =>
+                      chargeLimiters()
+                      lila.mon.security.login
+                        .attempt(isEmail, stuffing = stuffing, result = false)
+                        .increment()
+                      negotiate(
+                        err.errors match
+                          case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
+                          case _ => Unauthorized.page(views.auth.login(err, referrer))
+                        ,
+                        Unauthorized(doubleJsonFormErrorBody(err))
+                      )
+                    ,
+                    result =>
+                      result.toOption match
+                        case None => InternalServerError("Authentication error")
+                        case Some(u) if u.enabled.no =>
+                          negotiate(
+                            env.mod.logApi.closedByMod(u).flatMap {
+                              if _ then authenticateAppealUser(u, redirectTo)
+                              else redirectTo(routes.Account.reopen.url)
+                            },
+                            Unauthorized(jsonError("This account is closed."))
+                          )
+                        case Some(u) =>
+                          lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
+                          env.user.repo.email(u.id).foreach { _.foreach(garbageCollect(u)) }
+                          val remember = api.rememberForm.bindFromRequest().value | true
+                          authenticateUser(u, remember, Some(redirectTo))
+                  )
+              }
+        )
 
   def logout = Open:
     val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
@@ -228,10 +226,8 @@ final class Auth(
   // after signup and before confirmation
   def fixEmail = OpenBody:
     lila.security.EmailConfirm.cookie.get(ctx.req).so { userEmail =>
-      forms.preloadEmailDns() >> forms
-        .fixEmail(userEmail.email)
-        .bindFromRequest()
-        .fold(
+      forms.preloadEmailDns() >>
+        bindForm(forms.fixEmail(userEmail.email))(
           err => BadRequest.page(views.auth.checkYourEmail(userEmail.email.some, err.some)),
           email =>
             env.user.repo

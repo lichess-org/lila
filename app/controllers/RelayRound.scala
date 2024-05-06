@@ -32,25 +32,22 @@ final class RelayRound(
           Redirect(routes.RelayTour.show(tour.slug, tour.id.value)),
           rateLimited
         )
-        env.relay.roundForm
-          .create(trs)
-          .bindFromRequest()
-          .fold(
-            err =>
-              negotiate(
-                BadRequest.page(views.relay.form.round.create(err, tour)),
-                jsonFormError(err)
-              ),
-            setup =>
-              rateLimitCreation(whenRateLimited):
-                env.relay.api
-                  .create(setup, tour)
-                  .flatMap: rt =>
-                    negotiate(
-                      Redirect(routes.RelayRound.show(tour.slug, rt.relay.slug, rt.relay.id)),
-                      JsonOk(env.relay.jsonView.myRound(rt))
-                    )
-          )
+        bindForm(env.relay.roundForm.create(trs))(
+          err =>
+            negotiate(
+              BadRequest.page(views.relay.form.round.create(err, tour)),
+              jsonFormError(err)
+            ),
+          setup =>
+            rateLimitCreation(whenRateLimited):
+              env.relay.api
+                .create(setup, tour)
+                .flatMap: rt =>
+                  negotiate(
+                    Redirect(routes.RelayRound.show(tour.slug, rt.relay.slug, rt.relay.id)),
+                    JsonOk(env.relay.jsonView.myRound(rt))
+                  )
+        )
   }
 
   def edit(id: RelayRoundId) = Auth { ctx ?=> me ?=>
@@ -62,17 +59,14 @@ final class RelayRound(
     env.relay.api
       .byIdAndContributor(id)
       .flatMapz { rt =>
-        env.relay.roundForm
-          .edit(rt.round)
-          .bindFromRequest()
-          .fold(
-            err => fuccess(Left(rt -> err)),
-            data =>
-              env.relay.api
-                .update(rt.round)(data.update)
-                .dmap(_.withTour(rt.tour))
-                .dmap(Right(_))
-          )
+        bindForm(env.relay.roundForm.edit(rt.round))(
+          err => fuccess(Left(rt -> err)),
+          data =>
+            env.relay.api
+              .update(rt.round)(data.update)
+              .dmap(_.withTour(rt.tour))
+              .dmap(Right(_))
+        )
           .dmap(some)
       }
       .orNotFound:

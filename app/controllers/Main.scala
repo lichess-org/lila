@@ -17,14 +17,12 @@ final class Main(
 ) extends LilaController(env):
 
   def toggleBlindMode = OpenBody:
-    WebForms.blind
-      .bindFromRequest()
-      .fold(
-        _ => BadRequest,
-        (enable, redirect) =>
-          Redirect(redirect).withCookies:
-            lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
-      )
+    bindForm(WebForms.blind)(
+      _ => BadRequest,
+      (enable, redirect) =>
+        Redirect(redirect).withCookies:
+          lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
+    )
 
   def handlerNotFound(using RequestHeader) =
     makeContext.flatMap:

@@ -79,13 +79,10 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
       cmd.split('/') match
         case Array("game", id, "chat") =>
           as(GameAnyId(id)): pov =>
-            env.bot.form.chat
-              .bindFromRequest()
-              .fold[Fu[Result]](
-                doubleJsonFormError,
-                res => env.bot.player.chat(pov.gameId, res).inject(jsonOkResult)
-              )
-              .pipe(catchClientError)
+            bindForm[lila.bot.BotForm.ChatData, Fu[Result]](env.bot.form.chat)(
+              doubleJsonFormError,
+              res => env.bot.player.chat(pov.gameId, res).inject(jsonOkResult)
+            ).pipe(catchClientError)
         case Array("game", id, "abort") =>
           as(GameAnyId(id)): pov =>
             env.bot.player.abort(pov).pipe(toResult)

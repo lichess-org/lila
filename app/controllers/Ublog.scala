@@ -108,18 +108,16 @@ final class Ublog(env: Env) extends LilaController(env):
   def create(username: UserStr) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.create): (user, blog) =>
-        env.ublog.form.create
-          .bindFromRequest()
-          .fold(
-            err => BadRequest.page(views.ublog.form.create(user, err, anyCaptcha)),
-            data =>
-              limit.ublog(me, rateLimited, cost = if me.isVerified then 1 else 3):
-                env.ublog.api
-                  .create(data, user)
-                  .map: post =>
-                    lila.mon.ublog.create(user.id.value).increment()
-                    Redirect(editUrlOfPost(post)).flashSuccess
-          )
+        bindForm(env.ublog.form.create)(
+          err => BadRequest.page(views.ublog.form.create(user, err, anyCaptcha)),
+          data =>
+            limit.ublog(me, rateLimited, cost = if me.isVerified then 1 else 3):
+              env.ublog.api
+                .create(data, user)
+                .map: post =>
+                  lila.mon.ublog.create(user.id.value).increment()
+                  Redirect(editUrlOfPost(post)).flashSuccess
+        )
   }
 
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
@@ -131,16 +129,13 @@ final class Ublog(env: Env) extends LilaController(env):
   def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       Found(env.ublog.api.findEditableByMe(id)): prev =>
-        env.ublog.form
-          .edit(prev)
-          .bindFromRequest()
-          .fold(
-            err => BadRequest.page(views.ublog.form.edit(prev, err)),
-            data =>
-              env.ublog.api.update(data, prev).flatMap { post =>
-                logModAction(post, "edit").inject(Redirect(urlOfPost(post)).flashSuccess)
-              }
-          )
+        bindForm(env.ublog.form.edit(prev))(
+          err => BadRequest.page(views.ublog.form.edit(prev, err)),
+          data =>
+            env.ublog.api.update(data, prev).flatMap { post =>
+              logModAction(post, "edit").inject(Redirect(urlOfPost(post)).flashSuccess)
+            }
+        )
 
   }
 
@@ -177,38 +172,34 @@ final class Ublog(env: Env) extends LilaController(env):
 
   def setTier(blogId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
     Found(UblogBlog.Id(blogId).so(env.ublog.api.getBlog)): blog =>
-      lila.ublog.UblogForm.tier
-        .bindFromRequest()
-        .fold(
-          _ => Redirect(urlOfBlog(blog)).flashFailure,
-          tier =>
-            for
-              user <- env.user.repo.byId(blog.userId).orFail("Missing blog user!").dmap(Suspect.apply)
-              _    <- env.ublog.api.setTier(blog.id, tier)
-              _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
-              _    <- env.mod.logApi.blogTier(user, UblogRank.Tier.name(tier))
-            yield Redirect(urlOfBlog(blog)).flashSuccess
-        )
+      bindForm(lila.ublog.UblogForm.tier)(
+        _ => Redirect(urlOfBlog(blog)).flashFailure,
+        tier =>
+          for
+            user <- env.user.repo.byId(blog.userId).orFail("Missing blog user!").dmap(Suspect.apply)
+            _    <- env.ublog.api.setTier(blog.id, tier)
+            _    <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(blog.id)
+            _    <- env.mod.logApi.blogTier(user, UblogRank.Tier.name(tier))
+          yield Redirect(urlOfBlog(blog)).flashSuccess
+      )
   }
 
   def rankAdjust(postId: String) = SecureBody(_.ModerateBlog) { ctx ?=> me ?=>
     Found(env.ublog.api.getPost(UblogPostId(postId))): post =>
-      lila.ublog.UblogForm.adjust
-        .bindFromRequest()
-        .fold(
-          _ => Redirect(urlOfPost(post)).flashFailure,
-          (pinned, tier, rankAdjustDays) =>
-            for
-              _ <- env.ublog.api.setTier(post.blog, tier)
-              _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays, pinned)
-              _ <- logModAction(
-                post,
-                s"Set tier: $tier, pinned: $pinned, post adjust: ${~rankAdjustDays} days",
-                logIncludingMe = true
-              )
-              _ <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(post.blog)
-            yield Redirect(urlOfPost(post)).flashSuccess
-        )
+      bindForm(lila.ublog.UblogForm.adjust)(
+        _ => Redirect(urlOfPost(post)).flashFailure,
+        (pinned, tier, rankAdjustDays) =>
+          for
+            _ <- env.ublog.api.setTier(post.blog, tier)
+            _ <- env.ublog.api.setRankAdjust(post.id, ~rankAdjustDays, pinned)
+            _ <- logModAction(
+              post,
+              s"Set tier: $tier, pinned: $pinned, post adjust: ${~rankAdjustDays} days",
+              logIncludingMe = true
+            )
+            _ <- env.ublog.rank.recomputeRankOfAllPostsOfBlog(post.blog)
+          yield Redirect(urlOfPost(post)).flashSuccess
+      )
   }
 
   def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>

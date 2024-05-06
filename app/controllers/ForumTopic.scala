@@ -23,17 +23,14 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
       CategGrantWrite(categId):
         Found(env.forum.categRepo.byId(categId)): categ =>
           categ.team.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
-            forms
-              .topic(inOwnTeam)
-              .bindFromRequest()
-              .fold(
-                err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha)),
-                data =>
-                  limit.forumTopic(ctx.ip, rateLimited):
-                    topicApi.makeTopic(categ, data).map { topic =>
-                      Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
-                    }
-              )
+            bindForm(forms.topic(inOwnTeam))(
+              err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha)),
+              data =>
+                limit.forumTopic(ctx.ip, rateLimited):
+                  topicApi.makeTopic(categ, data).map { topic =>
+                    Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
+                  }
+            )
           }
   }
 
@@ -91,19 +88,17 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def diagnostic = AuthBody { ctx ?=> me ?=>
     NoBot:
       val slug = me.userId.value
-      env.forum.forms.diagnostic
-        .bindFromRequest()
-        .fold(
-          err => jsonFormError(err),
-          text =>
-            env.forum.topicRepo
-              .existsByTree(diagnosticId, slug)
-              .flatMap:
-                if _ then showDiagnostic(slug, text)
-                else
-                  FoundPage(env.forum.categRepo.byId(diagnosticId)): categ =>
-                    views.forum.topic.makeDiagnostic(categ, forms.topic(false), anyCaptcha, text)
-        )
+      bindForm(env.forum.forms.diagnostic)(
+        err => jsonFormError(err),
+        text =>
+          env.forum.topicRepo
+            .existsByTree(diagnosticId, slug)
+            .flatMap:
+              if _ then showDiagnostic(slug, text)
+              else
+                FoundPage(env.forum.categRepo.byId(diagnosticId)): categ =>
+                  views.forum.topic.makeDiagnostic(categ, forms.topic(false), anyCaptcha, text)
+      )
   }
 
   def clearDiagnostic(slug: String) = Auth { _ ?=> me ?=>

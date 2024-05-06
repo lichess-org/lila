@@ -459,23 +459,21 @@ final class User(
     }
 
   def writeNote(username: UserStr) = AuthBody { ctx ?=> me ?=>
-    lila.user.UserForm.note
-      .bindFromRequest()
-      .fold(
-        err => BadRequest(err.errors.toString).toFuccess,
-        data =>
-          doWriteNote(username, data): user =>
-            if getBool("inquiry") then
-              Ok.snipAsync:
-                env.user.noteApi.byUserForMod(user.id).map {
-                  views.mod.inquiry.ui.noteZone(user, _)
-                }
-            else
-              Ok.snipAsync:
-                env.socialInfo.fetchNotes(user).map {
-                  views.user.noteUi.zone(user, _)
-                }
-      )
+    bindForm(lila.user.UserForm.note)(
+      err => BadRequest(err.errors.toString).toFuccess,
+      data =>
+        doWriteNote(username, data): user =>
+          if getBool("inquiry") then
+            Ok.snipAsync:
+              env.user.noteApi.byUserForMod(user.id).map {
+                views.mod.inquiry.ui.noteZone(user, _)
+              }
+          else
+            Ok.snipAsync:
+              env.socialInfo.fetchNotes(user).map {
+                views.user.noteUi.zone(user, _)
+              }
+    )
   }
 
   def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
@@ -489,9 +487,10 @@ final class User(
   }
 
   def apiWriteNote(username: UserStr) = ScopedBody() { ctx ?=> me ?=>
-    lila.user.UserForm.apiNote
-      .bindFromRequest()
-      .fold(doubleJsonFormError, data => doWriteNote(username, data)(_ => jsonOkResult))
+    bindForm(lila.user.UserForm.apiNote)(
+      doubleJsonFormError,
+      data => doWriteNote(username, data)(_ => jsonOkResult)
+    )
   }
 
   private def doWriteNote(

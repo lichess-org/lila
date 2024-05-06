@@ -20,15 +20,13 @@ final class Learn(env: Env) extends LilaController(env):
         Ok.page(views.learn(progress))
 
   def score = AuthBody { ctx ?=> me ?=>
-    lila.learn.StageProgress.form
-      .bindFromRequest()
-      .fold(
-        _ => BadRequest,
-        (stage, level, s) =>
-          val score = lila.learn.StageProgress.Score(s)
-          (env.learn.api.setScore(me, stage, level, score) >>
-            env.activity.write.learn(me, stage)).inject(Ok(Json.obj("ok" -> true)))
-      )
+    bindForm(lila.learn.StageProgress.form)(
+      _ => BadRequest,
+      (stage, level, s) =>
+        val score = lila.learn.StageProgress.Score(s)
+        (env.learn.api.setScore(me, stage, level, score) >>
+          env.activity.write.learn(me, stage)).inject(Ok(Json.obj("ok" -> true)))
+    )
   }
 
   def reset = AuthBody { _ ?=> me ?=>

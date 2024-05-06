@@ -26,12 +26,10 @@ final class Storm(env: Env) extends LilaController(env):
 
   def record = OpenOrScopedBody(parse.anyContent)(_.Puzzle.Write, _.Web.Mobile): ctx ?=>
     NoBot:
-      env.storm.forms.run
-        .bindFromRequest()
-        .fold(
-          _ => fuccess(none),
-          data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile(req))
-        )
+      bindForm(env.storm.forms.run)(
+        _ => fuccess(none),
+        data => env.storm.dayApi.addRun(data, ctx.me, mobile = HTTPRequest.isLichessMobile(req))
+      )
         .map(env.storm.json.newHigh)
         .map(JsonOk)
 

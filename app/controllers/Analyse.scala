@@ -155,29 +155,25 @@ final class Analyse(
   def externalEngineCreate = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
     HTTPRequest.bearer(ctx.req).so { bearer =>
       val tokenId = AccessToken.Id.from(bearer)
-      lila.analyse.ExternalEngine.form
-        .bindFromRequest()
-        .fold(
-          jsonFormError,
-          data =>
-            env.analyse.externalEngine.create(me, data, tokenId.value).map { engine =>
-              Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
-            }
-        )
+      bindForm(lila.analyse.ExternalEngine.form)(
+        jsonFormError,
+        data =>
+          env.analyse.externalEngine.create(me, data, tokenId.value).map { engine =>
+            Created(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+          }
+      )
     }
   }
 
   def externalEngineUpdate(id: String) = ScopedBody(_.Engine.Write) { ctx ?=> me ?=>
     Found(env.analyse.externalEngine.find(me, id)): engine =>
-      lila.analyse.ExternalEngine.form
-        .bindFromRequest()
-        .fold(
-          jsonFormError,
-          data =>
-            env.analyse.externalEngine.update(engine, data).map { engine =>
-              JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
-            }
-        )
+      bindForm(lila.analyse.ExternalEngine.form)(
+        jsonFormError,
+        data =>
+          env.analyse.externalEngine.update(engine, data).map { engine =>
+            JsonOk(lila.analyse.ExternalEngine.jsonWrites.writes(engine))
+          }
+      )
   }
 
   def externalEngineDelete(id: String) = AuthOrScoped(_.Engine.Write) { _ ?=> me ?=>

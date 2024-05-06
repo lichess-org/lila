@@ -258,12 +258,10 @@ final class Round(
         Snippet(views.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
 
   def writeNote(gameId: GameId) = AuthBody { ctx ?=> me ?=>
-    env.round.noteApi.form
-      .bindFromRequest()
-      .fold(
-        _ => BadRequest,
-        text => env.round.noteApi.set(gameId, me, text.trim.take(10000)).inject(NoContent)
-      )
+    bindForm(env.round.noteApi.form)(
+      _ => BadRequest,
+      text => env.round.noteApi.set(gameId, me, text.trim.take(10000)).inject(NoContent)
+    )
   }
 
   def readNote(gameId: GameId) = Auth { _ ?=> me ?=>

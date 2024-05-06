@@ -37,31 +37,29 @@ final class BulkPairing(env: Env) extends LilaController(env):
   }
 
   def create = ScopedBody(_.Challenge.Bulk) { ctx ?=> me ?=>
-    env.challenge.bulkSetup.form
-      .bindFromRequest()
-      .fold(
-        jsonFormError,
-        data =>
-          import ChallengeBulkSetup.*
-          env.challenge
-            .bulkSetupApi(data, me)
-            .flatMap:
-              case Left(ScheduleError.RateLimited) =>
-                TooManyRequests:
-                  jsonError(s"Ratelimited! Max games per 10 minutes: ${maxGames}")
-              case Left(ScheduleError.BadTokens(tokens)) =>
-                BadRequest:
-                  Json.obj:
-                    "tokens" -> JsObject:
-                      tokens.map:
-                        case BadToken(token, error) => token.value -> JsString(error.message)
-              case Left(ScheduleError.DuplicateUsers(users)) =>
-                BadRequest(Json.obj("duplicateUsers" -> users))
-              case Right(bulk) =>
-                env.challenge.bulk
-                  .schedule(bulk)
-                  .map:
-                    case Left(error) => BadRequest(jsonError(error))
-                    case Right(bulk) => JsonOk(toJson(bulk))
-      )
+    bindForm(env.challenge.bulkSetup.form)(
+      jsonFormError,
+      data =>
+        import ChallengeBulkSetup.*
+        env.challenge
+          .bulkSetupApi(data, me)
+          .flatMap:
+            case Left(ScheduleError.RateLimited) =>
+              TooManyRequests:
+                jsonError(s"Ratelimited! Max games per 10 minutes: ${maxGames}")
+            case Left(ScheduleError.BadTokens(tokens)) =>
+              BadRequest:
+                Json.obj:
+                  "tokens" -> JsObject:
+                    tokens.map:
+                      case BadToken(token, error) => token.value -> JsString(error.message)
+            case Left(ScheduleError.DuplicateUsers(users)) =>
+              BadRequest(Json.obj("duplicateUsers" -> users))
+            case Right(bulk) =>
+              env.challenge.bulk
+                .schedule(bulk)
+                .map:
+                  case Left(error) => BadRequest(jsonError(error))
+                  case Right(bulk) => JsonOk(toJson(bulk))
+    )
   }
