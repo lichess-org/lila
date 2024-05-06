@@ -23,8 +23,7 @@ export class SnabbdomSideCtrl {
   }
 
   reset = () => this.opts.storage.reset();
-  active = () => this.opts.stageId;
-  inStage = () => this.opts.route === 'run';
+  activeStageId = () => this.opts.stageId;
   setStage = (stage: Stage) => {
     this.categId(stages.stageIdToCategId(stage.id) || this.categId());
   };

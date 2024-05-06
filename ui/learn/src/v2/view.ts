@@ -16,7 +16,7 @@ export const view = (ctrl: LearnCtrl) => {
 
 const mapView = (ctrl: LearnCtrl) => {
   return h('div.learn.learn--map', [
-    h('div.learn__side', mapSideView(ctrl.sideCtrl)),
+    h('div.learn__side', mapSideView(ctrl)),
     h('div.learn__main.learn-stages', [
       ...stages.categs.map(function (categ) {
         return h('div.categ', [

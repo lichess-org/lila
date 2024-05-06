@@ -28,6 +28,8 @@ export class LearnCtrl {
     });
   }
 
+  inStage = () => this.opts.stageId !== null;
+
   isStageIdComplete = (stageId: number) => {
     const stage = stages.byId[stageId];
     if (!stage) return true;

@@ -3,10 +3,11 @@ import * as stages from '../stage/list';
 import { SnabbdomSideCtrl } from './sideCtrl';
 import { h } from 'snabbdom';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
+import { LearnCtrl } from './ctrl';
 
-export function mapSideView(ctrl: SnabbdomSideCtrl) {
-  if (ctrl.inStage()) return renderInStage(ctrl);
-  else return renderHome(ctrl);
+export function mapSideView(ctrl: LearnCtrl) {
+  if (ctrl.inStage()) return renderInStage(ctrl.sideCtrl);
+  else return renderHome(ctrl.sideCtrl);
 }
 
 function renderInStage(ctrl: SnabbdomSideCtrl) {
@@ -42,7 +43,7 @@ function renderInStage(ctrl: SnabbdomSideCtrl) {
               'div.categ_stages',
               categ.stages.map(function (s) {
                 const result = ctrl.data.stages[s.key];
-                const status = s.id === ctrl.active() ? 'active' : result ? 'done' : 'future';
+                const status = s.id === ctrl.activeStageId() ? 'active' : result ? 'done' : 'future';
                 return h(
                   `a.stage.${status}`,
                   {
