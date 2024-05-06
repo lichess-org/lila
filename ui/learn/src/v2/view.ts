@@ -4,6 +4,7 @@ import { LearnCtrl } from './ctrl';
 import { Stage, categs } from '../stage/list';
 import { StageProgress } from '../learn';
 import * as scoring from '../score';
+import * as util from '../util';
 
 export const view = (ctrl: LearnCtrl) => {
   return h('div', stageListView(ctrl));
@@ -27,7 +28,7 @@ const stageListView = (ctrl: LearnCtrl) => {
               else if (prevComplete || stageProgress) status = 'ongoing';
               const title = ctrl.trans.noarg(stage.title);
               return h(
-                `a.stage.${status}${titleVerbosityClass(title)}`,
+                `a.stage.${status}.${titleVerbosityClass(title)}`,
                 {
                   href: '/' + stage.id,
                   // config: m.route,
@@ -42,19 +43,14 @@ const stageListView = (ctrl: LearnCtrl) => {
           ),
         ]);
       }),
-      // whatNext(ctrl),
+      whatNext(ctrl),
     ]),
   ]);
 };
 
 function titleVerbosityClass(title: string) {
-  return title.length > 13 ? (title.length > 18 ? ' vvv' : ' vv') : '';
+  return title.length > 13 ? (title.length > 18 ? 'vvv' : 'vv') : '';
 }
-
-// import m from '../mithrilFix';
-// import * as util from '../util';
-// import { MapCtrl } from './mapMain';
-// import { StageProgress } from '../learn';
 
 function makeStars(nb: number) {
   const stars = [];
@@ -73,37 +69,34 @@ function ribbon(ctrl: LearnCtrl, s: Stage, status: string, stageProgress: StageP
   return h('span.ribbon-wrapper', h(`span.ribbon.${status}`, content));
 }
 
-// function whatNext(ctrl: MapCtrl) {
-//   const makeStage = function (href: string, img: string, title: string, subtitle: string, done?: boolean) {
-//     const transTitle = ctrl.trans.noarg(title);
-//     return m(
-//       'a',
-//       {
-//         class: 'stage done' + titleVerbosityClass(transTitle),
-//         href: href,
-//       },
-//       [
-//         done ? m('span.ribbon-wrapper', m('span.ribbon.done', makeStars(1))) : null,
-//         m('img', {
-//           src: util.assetUrl + 'images/learn/' + img + '.svg',
-//         }),
-//         m('div.text', [m('h3', transTitle), m('p.subtitle', ctrl.trans.noarg(subtitle))]),
-//       ],
-//     );
-//   };
-//   const userId = ctrl.data._id;
-//   return m('div.categ.what_next', [
-//     m('h2', ctrl.trans.noarg('whatNext')),
-//     m('p', ctrl.trans.noarg('youKnowHowToPlayChess')),
-//     m('div.categ_stages', [
-//       userId
-//         ? makeStage('/@/' + userId, 'beams-aura', 'register', 'getAFreeLichessAccount', true)
-//         : makeStage('/signup', 'beams-aura', 'register', 'getAFreeLichessAccount'),
-//       makeStage('/practice', 'robot-golem', 'practice', 'learnCommonChessPositions'),
-//       makeStage('/training', 'bullseye', 'puzzles', 'exerciseYourTacticalSkills'),
-//       makeStage('/video', 'tied-scroll', 'videos', 'watchInstructiveChessVideos'),
-//       makeStage('/#hook', 'sword-clash', 'playPeople', 'opponentsFromAroundTheWorld'),
-//       makeStage('/#ai', 'vintage-robot', 'playMachine', 'testYourSkillsWithTheComputer'),
-//     ]),
-//   ]);
-// }
+function whatNext(ctrl: LearnCtrl) {
+  const makeStage = function (href: string, img: string, title: string, subtitle: string, done?: boolean) {
+    const transTitle = ctrl.trans.noarg(title);
+    return h(
+      `a.stage.done.${titleVerbosityClass(transTitle)}`,
+      {
+        attrs: { href: href },
+      },
+      [
+        done ? h('span.ribbon-wrapper', h('span.ribbon.done', makeStars(1))) : null,
+        h('img', { attrs: { src: util.assetUrl + 'images/learn/' + img + '.svg' } }),
+        h('div.text', [h('h3', transTitle), h('p.subtitle', ctrl.trans.noarg(subtitle))]),
+      ],
+    );
+  };
+  const userId = ctrl.data._id;
+  return h('div.categ.what_next', [
+    h('h2', ctrl.trans.noarg('whatNext')),
+    h('p', ctrl.trans.noarg('youKnowHowToPlayChess')),
+    h('div.categ_stages', [
+      userId
+        ? makeStage('/@/' + userId, 'beams-aura', 'register', 'getAFreeLichessAccount', true)
+        : makeStage('/signup', 'beams-aura', 'register', 'getAFreeLichessAccount'),
+      makeStage('/practice', 'robot-golem', 'practice', 'learnCommonChessPositions'),
+      makeStage('/training', 'bullseye', 'puzzles', 'exerciseYourTacticalSkills'),
+      makeStage('/video', 'tied-scroll', 'videos', 'watchInstructiveChessVideos'),
+      makeStage('/#hook', 'sword-clash', 'playPeople', 'opponentsFromAroundTheWorld'),
+      makeStage('/#ai', 'vintage-robot', 'playMachine', 'testYourSkillsWithTheComputer'),
+    ]),
+  ]);
+}
