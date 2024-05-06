@@ -572,22 +572,7 @@ final class Study(
   private val streamerCache =
     env.memo.cacheApi[StudyId, List[UserId]](1024, "study.streamers"):
       _.expireAfterWrite(10.seconds).buildAsyncFuture: studyId =>
-        env.study.studyRepo
-          .membersById(studyId)
-          .flatMap:
-            _.map(_.members.keys)
-              .filter(_.nonEmpty)
-              .so: members =>
-                env.streamer.liveStreamApi.all.flatMap:
-                  _.streams
-                    .filter: s =>
-                      members.exists(s.streamer.is(_))
-                    .traverse: stream =>
-                      env.study
-                        .isConnected(studyId, stream.streamer.userId)
-                        .map:
-                          _.option(stream.streamer.userId)
-                    .dmap(_.flatten)
+        env.study.findConnectedUsersIn(studyId)(env.streamer.liveStreamApi.streamerUserIds)
 
   def glyphs(lang: String) = Anon:
     play.api.i18n.Lang
