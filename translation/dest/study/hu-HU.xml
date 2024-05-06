@@ -63,7 +63,6 @@
   <string name="downloadAllGames">Az összes játszma letöltése</string>
   <string name="chapterPgn">PGN a fejezetről</string>
   <string name="copyChapterPgn">PGN másolása</string>
-  <string name="copyChapterPgnDescription">Fejezet másolása a vágólapra PGN formátumban.</string>
   <string name="downloadGame">Játszma letöltése</string>
   <string name="studyUrl">Tanulmány URL</string>
   <string name="currentChapterUrl">URL erre a fejezetre</string>
@@ -84,7 +83,7 @@
   <string name="pinnedChapterComment">Rögzített megjegyzés a fejezethez</string>
   <string name="saveChapter">Fejezet mentése</string>
   <string name="clearAnnotations">Megjegyzések törlése</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Változatok törlése</string>
+  <string name="clearVariations">Változatok törlése</string>
   <string name="deleteChapter">Fejezet törlése</string>
   <string name="deleteThisChapter">Törlöd a fejezetet? Ezt nem lehet visszavonni!</string>
   <string name="clearAllCommentsInThisChapter">Minden megjegyzés, lépésjelölés és rajz törlése a fejezetből</string>

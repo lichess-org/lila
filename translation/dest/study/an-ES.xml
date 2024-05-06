@@ -63,7 +63,6 @@
   <string name="downloadAllGames">Descargar totas las partidas</string>
   <string name="chapterPgn">PGN d\'o capitol</string>
   <string name="copyChapterPgn">Copiar PGN</string>
-  <string name="copyChapterPgnDescription">Copiar lo PGN d\'o capítol ta lo portapapers.</string>
   <string name="downloadGame">Descargar partida</string>
   <string name="studyUrl">URL d\'o estudio</string>
   <string name="currentChapterUrl">URL d\'o capitol actual</string>
@@ -84,7 +83,7 @@
   <string name="pinnedChapterComment">Comentario fixo pa lo capitol</string>
   <string name="saveChapter">Alzar capitol</string>
   <string name="clearAnnotations">Borrar anotacions</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Borrar variants</string>
+  <string name="clearVariations">Borrar variants</string>
   <string name="deleteChapter">Borrar capitol</string>
   <string name="deleteThisChapter">Quiers borrar lo capitol? Esta acción no se puede desfer!</string>
   <string name="clearAllCommentsInThisChapter">Borrar toz los comentarios, iconos y marcas d\'este capitol?</string>

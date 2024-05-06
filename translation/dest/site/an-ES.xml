@@ -785,9 +785,6 @@
   <string name="transparent">Transparent</string>
   <string name="deviceTheme">Tema d\'o dispositivo</string>
   <string name="backgroundImageUrl">URL d\'imachen de fondo:</string>
-  <string name="boardGeometry">Cheometría d\'o escaquero</string>
-  <string name="boardTheme">Tema d\'o escaquero</string>
-  <string name="boardSize">Grandaria d\'o escaquero</string>
   <string name="pieceSet">Estilo de piezas</string>
   <string name="embedInYourWebsite">Anyadir a lo mío puesto</string>
   <string name="usernameAlreadyUsed">Este nombre d\'usuario ya existe. Prebe con unatro, per favor.</string>

@@ -752,9 +752,6 @@
   <string name="transparent">透明</string>
   <string name="deviceTheme">デバイスの設定に従う</string>
   <string name="backgroundImageUrl">背景画像URL:</string>
-  <string name="boardGeometry">盤の表示形式</string>
-  <string name="boardTheme">盤のデザイン</string>
-  <string name="boardSize">盤のサイズ</string>
   <string name="pieceSet">駒のデザイン</string>
   <string name="embedInYourWebsite">自分のウェブサイトに埋め込む</string>
   <string name="usernameAlreadyUsed">このユーザー名は既に使用されています。別の名前にしてください。</string>

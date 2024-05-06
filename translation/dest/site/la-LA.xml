@@ -647,9 +647,6 @@
   <string name="light">Albens</string>
   <string name="dark">Niger</string>
   <string name="transparent">Perlucidus</string>
-  <string name="boardGeometry">Geometria tabula</string>
-  <string name="boardTheme">Thema tabulae</string>
-  <string name="boardSize">Tabula magnitudine</string>
   <string name="pieceSet">Familia</string>
   <string name="embedInYourWebsite">Ostende in locum</string>
   <string name="usernameAlreadyUsed">Username hanc iam usus aliquam alia.</string>

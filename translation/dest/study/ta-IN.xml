@@ -64,7 +64,6 @@
   <string name="downloadAllGames">எல்லா விளையாட்டுக்களையும் பதிவிறக்க</string>
   <string name="chapterPgn">அத்தியாயத்திற்குரிய PGN</string>
   <string name="copyChapterPgn">PGN நகல்</string>
-  <string name="copyChapterPgnDescription">அத்தியாயத்திற்குரிய PGN ஐக் கிளிப்போட்டிற்கு பிரதிபண்ண.</string>
   <string name="downloadGame">விளையாட்டைப் பதிவிறக்க</string>
   <string name="studyUrl">கற்கை URL</string>
   <string name="currentChapterUrl">இந்த அத்தியாய URL</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">பலகையில் கீழ் எப்போதும் வரும் குறிப்புரை</string>
   <string name="saveChapter">அத்தியாயத்தைச் சேமிக்க</string>
   <string name="clearAnnotations">குறிப்புரைகளை நீக்க</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">மாறுபாடு வரிகளை நீக்கு</string>
+  <string name="clearVariations">மாறுபாடு வரிகளை நீக்கு</string>
   <string name="deleteChapter">அத்தியாயத்தை நீக்க</string>
   <string name="deleteThisChapter">இந்த அத்தியாயத்தை அழிக்கவும். அழித்தால் மீள்விக்க இயலாது!</string>
   <string name="clearAllCommentsInThisChapter">இந்த அத்தியாயத்திற்குரிய எல்லாக் குறிப்புரைகளையும் குறியீடுகளையும் வரையப்பட்ட உருவங்களையும் நீக்கவும்</string>

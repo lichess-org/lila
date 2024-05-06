@@ -70,7 +70,6 @@
   <string name="downloadAllGames">הורדת כל המשחקים</string>
   <string name="chapterPgn">הPGN של הפרק</string>
   <string name="copyChapterPgn">העתקת ה-PGN</string>
-  <string name="copyChapterPgnDescription">העתקת ה-PGN של הפרק ללוח.</string>
   <string name="downloadGame">הורדת המשחק</string>
   <string name="studyUrl">כתובת לוח הלמידה</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
@@ -91,7 +90,7 @@
   <string name="pinnedChapterComment">תגובה מוצמדת לפרק</string>
   <string name="saveChapter">שמור פרק</string>
   <string name="clearAnnotations">נקה הערות</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">נקה וריאציות</string>
+  <string name="clearVariations">נקה וריאציות</string>
   <string name="deleteChapter">מחיקת הפרק</string>
   <string name="deleteThisChapter">למחוק את הפרק? אין דרך חזרה!</string>
   <string name="clearAllCommentsInThisChapter">ניקוי כל ההערות, הרישומים והציורים בפרק זה</string>

@@ -64,7 +64,6 @@
   <string name="downloadAllGames">Lataa kaikki pelit</string>
   <string name="chapterPgn">Luvun PGN</string>
   <string name="copyChapterPgn">Kopioi PGN</string>
-  <string name="copyChapterPgnDescription">Kopioi tämän luvun PGN leikepöydälle.</string>
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="currentChapterUrl">Tämän luvun URL</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">Kiinnitetty lukukommentti</string>
   <string name="saveChapter">Tallenna luku</string>
   <string name="clearAnnotations">Poista kommentit</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Tyhjennä muunnelmat</string>
+  <string name="clearVariations">Tyhjennä muunnelmat</string>
   <string name="deleteChapter">Poista luku</string>
   <string name="deleteThisChapter">Poistetaanko tämä luku? Et voi palauttaa sitä enää!</string>
   <string name="clearAllCommentsInThisChapter">Poista kaikki kommentit, symbolit ja piirtokuviot tästä luvusta?</string>

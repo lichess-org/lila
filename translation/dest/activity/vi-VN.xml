@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">Hoạt động</string>
-  <string name="hostedALiveStream">Đã chủ trì một luồng trực tiếp</string>
+  <string name="hostedALiveStream">Đã phát trực tiếp</string>
   <plurals name="supportedNbMonths">
     <item quantity="other">Đã ủng hộ lichess.org %1$s tháng với tư cách là một %2$s</item>
   </plurals>
@@ -9,7 +9,7 @@
     <item quantity="other">Đã luyện tập %1$s thế cờ trên %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="other">Đã giải %s câu đố chiến thuật</item>
+    <item quantity="other">Đã giải %s câu đố</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="other">Đã chơi %1$s ván %2$s</item>
@@ -27,7 +27,7 @@
     <item quantity="other">Đã hoàn thành %s ván cờ qua thư</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="other">Đã bắt đầu theo dõi %s kỳ thủ</item>
+    <item quantity="other">Đã theo dõi %s người chơi</item>
   </plurals>
   <plurals name="gainedNbFollowers">
     <item quantity="other">Đạt được %s người theo dõi mới</item>
@@ -50,9 +50,9 @@
   <plurals name="competedInNbSwissTournaments">
     <item quantity="other">Đã hoàn thành %s giải đấu hệ Thụy Sĩ</item>
   </plurals>
-  <string name="rankedInSwissTournament">Được hạng %1$s trong giải %2$s</string>
+  <string name="rankedInSwissTournament">Đứng hạng %1$s trong giải %2$s</string>
   <string name="signedUp">Đã ghi danh ở lichess.org</string>
   <plurals name="joinedNbTeams">
-    <item quantity="other">Đã gia nhập %s đội</item>
+    <item quantity="other">Đã tham gia %s đội</item>
   </plurals>
 </resources>
