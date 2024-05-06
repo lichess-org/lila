@@ -25,24 +25,6 @@ final class Setup(
   private def forms     = env.setup.forms
   private def processor = env.setup.processor
 
-  private[controllers] val PostRateLimit = RateLimit[IpAddress](
-    5,
-    1.minute,
-    key = "setup.post",
-    enforce = env.net.rateLimit.value,
-    log = false
-  )
-
-  private[controllers] val AnonHookRateLimit = RateLimit.composite[IpAddress](
-    key = "setup.hook.anon",
-    enforce = env.net.rateLimit.value
-  )(
-    ("fast", 8, 1.minute),
-    ("slow", 300, 1.day)
-  )
-
-  private[controllers] val BotAiRateLimit = RateLimit[UserId](50, 1.day, key = "setup.post.bot.ai")
-
   def ai = OpenBody:
     BotAiRateLimit(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot).so(1)):
       PostRateLimit(ctx.ip, rateLimited):

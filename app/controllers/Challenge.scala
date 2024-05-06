@@ -278,14 +278,15 @@ final class Challenge(
             _ => NoContent,
             username =>
               ChallengeIpRateLimit(ctx.ip, rateLimited):
+                def redir = Redirect(routes.Challenge.show(c.id))
                 env.user.repo.byId(username).flatMap {
-                  case None                       => Redirect(routes.Challenge.show(c.id))
-                  case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id))
+                  case None                       => redir
+                  case Some(dest) if ctx.is(dest) => redir
                   case Some(dest) =>
                     env.challenge.granter.isDenied(dest, c.perfType).flatMap {
                       case Some(denied) =>
                         showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
-                      case None => api.setDestUser(c, dest).inject(Redirect(routes.Challenge.show(c.id)))
+                      case None => api.setDestUser(c, dest).inject(redir)
                     }
                 }
           )
