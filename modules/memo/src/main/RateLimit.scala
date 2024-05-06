@@ -63,9 +63,7 @@ object RateLimit:
     case Through, Limited
 
   trait RateLimiter[K]:
-
     def apply[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: => A): A
-
     def chargeable[A](k: K, default: => A, cost: Cost = 1, msg: => String = "")(op: ChargeWith => A): A
 
   def composite[K](

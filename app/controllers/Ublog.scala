@@ -99,12 +99,6 @@ final class Ublog(env: Env) extends LilaController(env):
       else if allows(blog.allows) then f(user, blog)
       else Unauthorized("Not your blog to edit")
 
-  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 5 * 3,
-    duration = 24.hour,
-    key = "ublog.create.user"
-  )
-
   def form(username: UserStr) = Auth { ctx ?=> me ?=>
     NotForKids:
       WithBlogOf(username, _.create): (user, blog) =>
@@ -119,7 +113,7 @@ final class Ublog(env: Env) extends LilaController(env):
           .fold(
             err => BadRequest.page(views.ublog.form.create(user, err, anyCaptcha)),
             data =>
-              CreateLimitPerUser(me, rateLimited, cost = if me.isVerified then 1 else 3):
+              limit.ublog(me, rateLimited, cost = if me.isVerified then 1 else 3):
                 env.ublog.api
                   .create(data, user)
                   .map: post =>
@@ -217,20 +211,13 @@ final class Ublog(env: Env) extends LilaController(env):
         )
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
-    key = "ublog.image.ip"
-  )(
-    ("fast", 10, 2.minutes),
-    ("slow", 60, 1.day)
-  )
-
   def image(id: UblogPostId) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     Found(env.ublog.api.findEditableByMe(id)): post =>
       ctx.body.body
         .file("image")
         .match
           case Some(image) =>
-            ImageRateLimitPerIp(ctx.ip, rateLimited):
+            limit.imageUpload(ctx.ip, rateLimited):
               env.ublog.api.image.upload(me, post, image)
           case None =>
             env.ublog.api.image

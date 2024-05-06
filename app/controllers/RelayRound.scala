@@ -226,18 +226,6 @@ final class RelayRound(
       studyC.privateForbiddenFu(oldSc.study)
     )
 
-  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 100 * 10,
-    duration = 24.hour,
-    key = "broadcast.round.user"
-  )
-
-  private val CreateLimitPerIP = lila.memo.RateLimit[lila.core.net.IpAddress](
-    credits = 100 * 10,
-    duration = 24.hour,
-    key = "broadcast.round.ip"
-  )
-
   private[controllers] def rateLimitCreation(fail: => Fu[Result])(
       create: => Fu[Result]
   )(using me: Me, req: RequestHeader): Fu[Result] =
@@ -246,6 +234,4 @@ final class RelayRound(
       else if isGranted(_.Relay) then 2
       else if me.hasTitle || me.isVerified then 5
       else 10
-    CreateLimitPerUser(me, fail, cost = cost):
-      CreateLimitPerIP(req.ipAddress, fail, cost = cost):
-        create
+    limit.relay(me.userId -> req.ipAddress, fail, cost)(create)

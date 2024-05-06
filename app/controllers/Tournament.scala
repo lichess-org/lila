@@ -146,16 +146,10 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
           jsonView.teamInfo(tour, teamId).orNotFound(JsonOk)
         )
 
-  private val JoinLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 30,
-    duration = 10 minutes,
-    key = "tournament.user.join"
-  )
-
   def join(id: TourId) = AuthBody(parse.json) { ctx ?=> me ?=>
     NoLameOrBot:
       NoPlayban:
-        JoinLimitPerUser(me, rateLimited):
+        limit.tourJoin(me, rateLimited):
           val data = TournamentForm.TournamentJoin(
             password = ctx.body.body.\("p").asOpt[String],
             team = ctx.body.body.\("team").asOpt[TeamId]
@@ -169,7 +163,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
   def apiJoin(id: TourId) = ScopedBody(_.Tournament.Write) { ctx ?=> me ?=>
     NoLameOrBot:
       NoPlayban:
-        JoinLimitPerUser(me, rateLimited):
+        limit.tourJoin(me, rateLimited):
           val data = TournamentForm.joinForm
             .bindFromRequest()
             .fold(_ => TournamentForm.TournamentJoin(none, none), identity)
@@ -213,13 +207,7 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
       }
   }
 
-  private val CreateLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 240,
-    duration = 1.day,
-    key = "tournament.user"
-  )
-
-  private val CreateLimitPerIP = env.security.ipTrust.rateLimit(800, 1.day, "tournament.ip")
+  private val createLimitPerIP = env.security.ipTrust.rateLimit(800, 1.day, "tournament.ip")
 
   private[controllers] def rateLimitCreation(
       isPrivate: Boolean,
@@ -233,8 +221,8 @@ final class Tournament(env: Env, apiC: => Api)(using akka.stream.Materializer) e
         isPrivate
       then 5
       else 20
-    CreateLimitPerUser(me, fail, cost = cost):
-      CreateLimitPerIP(fail, cost = cost, msg = me.username):
+    limit.tourCreate(me, fail, cost = cost):
+      createLimitPerIP(fail, cost = cost, msg = me.username):
         create
 
   def webCreate = AuthBody(_ ?=> _ ?=> create)

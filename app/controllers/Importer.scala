@@ -14,13 +14,6 @@ import lila.game.GameExt.analysable
 
 final class Importer(env: Env) extends LilaController(env):
 
-  private val ImportRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
-    key = "import.game.ip"
-  )(
-    ("fast", 10, 1.minute),
-    ("slow", 150, 1.hour)
-  )
-
   def importGame = OpenBody:
     val pgn  = reqBody.queryString.get("pgn").flatMap(_.headOption).getOrElse("")
     val data = lila.game.importer.ImportData(PgnStr(pgn), None)
@@ -38,7 +31,7 @@ final class Importer(env: Env) extends LilaController(env):
             jsonFormError(err)
           ),
         data =>
-          ImportRateLimitPerIP(ctx.ip, rateLimited, cost = if ctx.isAuth then 1 else 2):
+          limit.gameImport(ctx.ip, rateLimited, cost = if ctx.isAuth then 1 else 2):
             env.game.importer
               .importAsGame(data.pgn)
               .flatMap: game =>
