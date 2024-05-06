@@ -179,7 +179,7 @@ final class Round(
                 initialFen <- env.game.gameRepo.initialFen(pov.gameId)
                 pgn <- env.api
                   .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
-                page <- renderPage(views.round.watcher.crawler(pov, initialFen, pgn))
+                page <- renderPage(views.round.crawler(pov, initialFen, pgn))
               yield Ok(page)
           ,
           api = _ =>

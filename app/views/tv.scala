@@ -35,7 +35,7 @@ def index(
         ),
         views.round.ui.roundAppPreload(pov),
         div(cls := "round__underboard")(
-          views.round.bits.crosstable(cross, pov.game),
+          views.round.crosstable(cross, pov.game),
           div(cls := "tv-history")(
             h2(trans.site.previouslyOnLichessTV()),
             div(cls := "now-playing")(
