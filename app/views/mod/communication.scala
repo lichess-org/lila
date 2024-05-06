@@ -57,7 +57,7 @@ def communication(
                         icon = none,
                         confirm =
                           s"Confirm you want to export all comms from **${u.username}** (including other party)".some
-                      )(cls := "button-red comms-export")
+                      )(cls := "button-red button-empty comms-export")
                     )
                   )
                 }
