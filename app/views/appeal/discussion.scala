@@ -126,7 +126,7 @@ object discussion:
               renderForm(
                 textForm,
                 action =
-                  if as.isLeft then routes.Appeal.reply(appeal.id).url
+                  if as.isLeft then routes.Appeal.reply(appeal.userId).url
                   else routes.Appeal.post.url,
                 isNew = false,
                 presets = as.left.toOption.map(_.presets)

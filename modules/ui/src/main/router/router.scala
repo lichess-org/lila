@@ -23,3 +23,8 @@ package router.clas:
   export lila.core.id.{ ClasId, ClasInviteId }
   export lila.core.userId.UserStr
   export lila.ui.LilaRouter.given
+
+package router.appeal:
+
+  export lila.core.userId.UserStr
+  export lila.ui.LilaRouter.given

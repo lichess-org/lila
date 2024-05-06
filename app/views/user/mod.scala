@@ -26,12 +26,12 @@ object mod:
       appeal.map: a =>
         frag(
           div(cls := "mod_log mod_log--appeal")(
-            st.a(href := routes.Appeal.show(a.id)):
+            st.a(href := routes.Appeal.show(a.userId)):
               strong(cls := "text", dataIcon := Icon.CautionTriangle)("Appeal status: ", a.status.toString)
             ,
             br,
             a.msgs.map(_.text).map(shorten(_, 140)).map(p(_)),
-            (a.msgs.size > 1).option(st.a(href := routes.Appeal.show(a.id)):
+            (a.msgs.size > 1).option(st.a(href := routes.Appeal.show(a.userId)):
               frag("and ", pluralize("more message", a.msgs.size - 1))
             )
           )
