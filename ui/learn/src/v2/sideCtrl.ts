@@ -17,9 +17,6 @@ export class SnabbdomSideCtrl {
     this.opts = opts;
     this.trans = ctrl.trans;
     this.data = ctrl.data;
-
-    // TODO:
-    // m.redraw.strategy('diff');
   }
 
   reset = () => this.opts.storage.reset();
