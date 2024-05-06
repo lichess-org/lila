@@ -382,6 +382,7 @@ export default class AnalyseCtrl {
     this.cgVersion.dom = this.cgVersion.js;
     site.pubsub.on('board.change', (is3d: boolean) => {
       this.chessground.state.addPieceZIndex = is3d;
+      this.chessground.redrawAll();
     });
   };
 

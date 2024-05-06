@@ -841,6 +841,7 @@ export default class RoundController implements MoveRootCtrl {
     if (this.keyboardMove || this.voiceMove) requestAnimationFrame(() => this.redraw());
     site.pubsub.on('board.change', (is3d: boolean) => {
       this.chessground.state.addPieceZIndex = is3d;
+      this.chessground.redrawAll();
     });
   };
 

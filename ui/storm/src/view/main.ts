@@ -31,6 +31,7 @@ const chessground = (ctrl: StormCtrl): VNode =>
         site.pubsub.on('board.change', (is3d: boolean) =>
           ctrl.withGround(g => {
             g.state.addPieceZIndex = is3d;
+            g.redrawAll();
           }),
         );
       },

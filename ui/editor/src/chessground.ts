@@ -24,6 +24,7 @@ function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   });
   site.pubsub.on('board.change', (is3d: boolean) => {
     ctrl.chessground!.state.addPieceZIndex = is3d;
+    ctrl.chessground!.redrawAll();
   });
 }
 
