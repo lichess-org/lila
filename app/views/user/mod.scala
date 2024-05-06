@@ -43,7 +43,7 @@ object mod:
       "Created by ",
       userLink(managed.createdBy),
       " for class ",
-      a(href := routes.Clas.show(managed.clas.id.value))(managed.clas.name)
+      a(href := routes.Clas.show(managed.clas.id))(managed.clas.name)
     )
 
   def boardTokens(tokens: List[lila.oauth.AccessToken])(using Context): Frag =
@@ -207,7 +207,7 @@ object mod:
 
   private def emailValueOf(emails: UserLogins.WithMeSortedWithEmails[UserWithModlog])(u: User) =
     emails.emails.get(u.id).map(_.value).map {
-      case EmailAddress.clasIdRegex(id) => a(href := routes.Clas.show(id))(s"Class #$id")
+      case EmailAddress.clasIdRegex(id) => a(href := routes.Clas.show(lila.core.id.ClasId(id)))(s"Class #$id")
       case email                        => frag(email)
     }
 

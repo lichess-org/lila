@@ -6,11 +6,11 @@ import play.api.mvc.*
 import play.api.data.Form
 
 import lila.app.{ *, given }
-import lila.clas.Clas.Id as ClasId
 import lila.clas.ClasForm.ClasData
 import lila.clas.ClasInvite
 import lila.core.perf.PerfKeyStr
 import lila.core.security.ClearPassword
+import lila.core.id.{ ClasId, ClasInviteId }
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -159,7 +159,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         text =>
           env.clas.api.clas
             .updateWall(clas, text)
-            .inject(Redirect(routes.Clas.wall(clas.id.value)).flashSuccess)
+            .inject(Redirect(routes.Clas.wall(clas.id)).flashSuccess)
       )
   }
 
@@ -184,12 +184,12 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         text =>
           env.clas.api.student.activeWithUsers(clas).flatMap { students =>
             Reasonable(clas, students, "notify"):
-              val url  = routes.Clas.show(clas.id.value).url
+              val url  = routes.Clas.show(clas.id).url
               val full = if text.contains(url) then text else s"$text\n\n${env.net.baseUrl}$url"
               env.msg.api
                 .multiPost(Source(students.map(_.user.id)), full)
                 .addEffect: nb =>
-                  lila.mon.msg.clasBulk(clas.id.value).record(nb)
+                  lila.mon.msg.clasBulk(clas.id).record(nb)
                 .inject(redirectTo(clas).flashSuccess)
           }
       )
@@ -298,7 +298,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
               ,
               data =>
                 env.clas.api.student.create(clas, data, me.value).map { s =>
-                  Redirect(routes.Clas.studentForm(clas.id.value))
+                  Redirect(routes.Clas.studentForm(clas.id))
                     .flashing("created" -> s"${s.student.userId} ${s.password.value}")
                 }
             )
@@ -339,7 +339,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                     env.user.lightUserApi
                       .preloadMany(many.map(_.student.userId))
                       .inject(
-                        Redirect(routes.Clas.studentManyForm(clas.id.value))
+                        Redirect(routes.Clas.studentManyForm(clas.id))
                           .flashing:
                             "created" -> many
                               .map: s =>
@@ -365,7 +365,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
             import lila.clas.ClasInvite.{ Feedback as F }
             import lila.core.i18n.{ I18nKey as trans }
             env.clas.api.invite.create(clas, user, data.realName).map { feedback =>
-              Redirect(routes.Clas.studentForm(clas.id.value)).flashing:
+              Redirect(routes.Clas.studentForm(clas.id)).flashing:
                 feedback match
                   case F.Already => "success" -> trans.clas.xisNowAStudentOfTheClass.txt(user.username)
                   case F.Invited =>
@@ -403,7 +403,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           err => BadRequest.page(views.clas.student.edit(clas, students, s, err)),
           data =>
             env.clas.api.student.update(s.student, data).map { _ =>
-              Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess
+              Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess
             }
         )
   }
@@ -413,7 +413,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         env.clas.api.student
           .archive(s.student.id, v)
-          .inject(Redirect(routes.Clas.studentShow(clas.id.value, s.user.username.value)).flashSuccess)
+          .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess)
   }
 
   def studentResetPassword(id: ClasId, username: UserStr) =
@@ -422,7 +422,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         WithStudent(clas, username): s =>
           (env.security.store.closeAllSessionsOf(s.user.id) >>
             env.clas.api.student.resetPassword(s.student)).map { password =>
-            Redirect(routes.Clas.studentShow(clas.id.value, s.user.username.value))
+            Redirect(routes.Clas.studentShow(clas.id, s.user.username))
               .flashing("password" -> password.value)
           }
     }
@@ -432,7 +432,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         if s.student.managed
         then Ok.page(views.clas.student.release(clas, students, s, env.clas.forms.student.release))
-        else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username))
+        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
   }
 
   def studentReleasePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { ctx ?=> me ?=>
@@ -448,11 +448,11 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
                 authC.EmailConfirmRateLimit(newUserEmail, ctx.req, rateLimited):
                   env.security.emailChange
                     .send(s.user, newUserEmail.email)
-                    .inject(Redirect(routes.Clas.studentShow(clas.id.value, s.user.username)).flashSuccess:
+                    .inject(Redirect(routes.Clas.studentShow(clas.id, s.user.username)).flashSuccess:
                       s"A confirmation email was sent to ${email}. ${s.student.realName} must click the link in the email to release the account."
                     )
             )
-        else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username))
+        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
   }
 
   def studentClose(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
@@ -460,7 +460,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         if s.student.managed
         then Ok.page(views.clas.student.close(clas, students, s))
-        else Redirect(routes.Clas.studentShow(clas.id.value, s.user.username))
+        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
   }
 
   def studentClosePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { _ ?=> me ?=>
@@ -489,12 +489,12 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     else if env.clas.hasClas then fuTrue
     else env.mod.logApi.wasUnteachered(me).not
 
-  def invitation(id: lila.clas.ClasInvite.Id) = Auth { _ ?=> me ?=>
+  def invitation(id: ClasInviteId) = Auth { _ ?=> me ?=>
     FoundPage(env.clas.api.invite.view(id, me)): (invite, clas) =>
       views.clas.student.invite(clas, invite)
   }
 
-  def invitationAccept(id: ClasInvite.Id) = AuthBody { ctx ?=> me ?=>
+  def invitationAccept(id: ClasInviteId) = AuthBody { ctx ?=> me ?=>
     bindForm(env.clas.forms.student.inviteAccept)(
       _ => Redirect(routes.Clas.invitation(id)).toFuccess,
       v =>
@@ -505,10 +505,10 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     )
   }
 
-  def invitationRevoke(id: lila.clas.ClasInvite.Id) = Secure(_.Teacher) { _ ?=> me ?=>
+  def invitationRevoke(id: ClasInviteId) = Secure(_.Teacher) { _ ?=> me ?=>
     Found(env.clas.api.invite.get(id)): invite =>
       WithClass(invite.clasId): clas =>
-        env.clas.api.invite.delete(invite._id).inject(Redirect(routes.Clas.students(clas.id.value)))
+        env.clas.api.invite.delete(invite.id).inject(Redirect(routes.Clas.students(clas.id)))
   }
 
   private def Reasonable(clas: lila.clas.Clas, students: List[lila.clas.Student.WithUser], active: String)(
@@ -537,4 +537,4 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     else Redirect(routes.Clas.index)
 
   private def redirectTo(c: lila.clas.Clas): Result = redirectTo(c.id)
-  private def redirectTo(c: ClasId): Result         = Redirect(routes.Clas.show(c.value))
+  private def redirectTo(c: ClasId): Result         = Redirect(routes.Clas.show(c))

@@ -94,3 +94,12 @@ object id:
 
   opaque type ChallengeId = String
   object ChallengeId extends OpaqueString[ChallengeId]
+
+  opaque type ClasId = String
+  object ClasId extends OpaqueString[ClasId]
+
+  opaque type ClasInviteId = String
+  object ClasInviteId extends OpaqueString[ClasInviteId]
+
+  opaque type StudentId = String
+  object StudentId extends OpaqueString[StudentId]

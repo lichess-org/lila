@@ -5,7 +5,6 @@ import chess.variant.Variant
 import lila.app.*
 import lila.appeal.Appeal
 import lila.challenge.Challenge
-import lila.clas.{ Clas, ClasInvite }
 import lila.puzzle.PuzzleTheme
 import lila.report.Report
 import lila.core.socket.Sri
@@ -37,8 +36,8 @@ given Conversion[Int, chess.FideId]                                      = chess
 given challengeId: Conversion[String, ChallengeId]                       = ChallengeId(_)
 given appealId: Conversion[String, Appeal.Id]                            = Appeal.Id(_)
 given reportId: Conversion[String, ReportId]                             = ReportId(_)
-given clasId: Conversion[String, Clas.Id]                                = Clas.Id(_)
-given clasInviteId: Conversion[String, ClasInvite.Id]                    = ClasInvite.Id(_)
+given clasId: Conversion[String, ClasId]                                 = ClasId(_)
+given clasInviteId: Conversion[String, ClasInviteId]                     = ClasInviteId(_)
 given relayTourInviteId: Conversion[String, lila.relay.RelayTourId]      = lila.relay.RelayTourId(_)
 given Conversion[String, UserStr]                                        = UserStr(_)
 given userOpt: Conversion[Option[String], Option[UserStr]]               = UserStr.from(_)
@@ -52,6 +51,6 @@ given uciOpt: Conversion[Option[String], Option[chess.format.Uci]]       = _.fla
 // TODO actually use the types in the routes
 object ReverseRouterConversions:
   given appealIdConv: Conversion[Appeal.Id, String]            = _.value
-  given clasIdConv: Conversion[Clas.Id, String]                = _.value
-  given clasInviteIdConv: Conversion[ClasInvite.Id, String]    = _.value
+  given clasIdConv: Conversion[ClasId, String]                 = _.value
+  given clasInviteIdConv: Conversion[ClasInviteId, String]     = _.value
   given localDateConv: Conversion[java.time.LocalDate, String] = _.toString
