@@ -246,7 +246,13 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
       redraw,
     ),
     toggle(
-      { name: 'showCoordsOnAllSquares', id: 'showCoordsOnAllSquares', checked: showCoordsOnAllSquares(), change: showCoordsOnAllSquares, disabled: !ctrl.showCoordinates() },
+      {
+        name: 'showCoordsOnAllSquares',
+        id: 'showCoordsOnAllSquares',
+        checked: showCoordsOnAllSquares(),
+        change: showCoordsOnAllSquares,
+        disabled: !ctrl.showCoordinates(),
+      },
       trans,
       redraw,
     ),
