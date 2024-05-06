@@ -697,9 +697,6 @@
   <string name="dark">Madilim</string>
   <string name="transparent">Transparent</string>
   <string name="backgroundImageUrl">URL ng Likurang imahe:</string>
-  <string name="boardGeometry">Board ng geometry</string>
-  <string name="boardTheme">Tema ng Board</string>
-  <string name="boardSize">Sukat ng board</string>
   <string name="pieceSet">Itakda ang piraso</string>
   <string name="embedInYourWebsite">Idikit sa iyong website</string>
   <string name="usernameAlreadyUsed">Ang uername na ito ay nagamit na, pakisubukan ang iba.</string>

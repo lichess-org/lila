@@ -8,14 +8,6 @@ import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
 
-  private val CreateRateLimit =
-    lila.memo.RateLimit[IpAddress](
-      credits = 4,
-      duration = 5.minutes,
-      key = "forum.post",
-      enforce = env.net.rateLimit.value
-    )
-
   def search(text: String, page: Int) =
     OpenBody:
       NotForKids:
@@ -68,7 +60,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                       ,
                       data =>
                         CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
-                          CreateRateLimit(ctx.ip, rateLimited):
+                          limit.forumPost(ctx.ip, rateLimited):
                             postApi.makePost(categ, topic, data).map { post =>
                               Redirect(routes.ForumPost.redirect(post.id))
                             }
@@ -87,7 +79,7 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
             .fold(
               _ => Redirect(routes.ForumPost.redirect(postId)),
               data =>
-                CreateRateLimit(ctx.ip, rateLimited):
+                limit.forumPost(ctx.ip, rateLimited):
                   postApi.editPost(postId, data.changes).map { post =>
                     Redirect(routes.ForumPost.redirect(post.id))
                   }

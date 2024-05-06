@@ -31,7 +31,7 @@ final class Env(
     socketReq: lila.core.socket.SocketRequester,
     gameProxy: lila.core.game.GameProxy,
     isOnline: lila.core.socket.IsOnline
-)(using Executor, Scheduler, play.api.Mode, FlairGet):
+)(using Executor, Scheduler, play.api.Mode, FlairGet, lila.core.config.RateLimit):
 
   private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 

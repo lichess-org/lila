@@ -92,14 +92,13 @@ final class Account(
   }
 
   val apiMe =
-    val rateLimit = lila.memo.RateLimit[UserId](30, 5.minutes, "api.account.user")
     Scoped() { ctx ?=> me ?=>
       def limited = rateLimited:
         "Please don't poll this endpoint. Stream https://lichess.org/api#tag/Board/operation/apiStreamEvent instead."
       val wikiGranted = getBool("wiki") && isGranted(_.LichessTeam) && ctx.scopes.has(_.Web.Mod)
       if getBool("wiki") && !wikiGranted then Unauthorized(jsonError("Wiki access not granted"))
       else
-        rateLimit(me, limited):
+        limit.apiMe(me, limited):
           env.api.userApi
             .extended(
               me.value,

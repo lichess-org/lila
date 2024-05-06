@@ -61,7 +61,6 @@
   <string name="downloadAllGames">Tải về tất cả ván đấu</string>
   <string name="chapterPgn">PGN chương</string>
   <string name="copyChapterPgn">Sao chép PGN</string>
-  <string name="copyChapterPgnDescription">Sao chép PGN chương vào bảng nhớ tạm.</string>
   <string name="downloadGame">Tải về ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
@@ -82,7 +81,7 @@
   <string name="pinnedChapterComment">Đã ghim bình luận chương</string>
   <string name="saveChapter">Lưu chương</string>
   <string name="clearAnnotations">Xóa chú thích</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Xóa các biến</string>
+  <string name="clearVariations">Xóa các biến</string>
   <string name="deleteChapter">Xóa chương</string>
   <string name="deleteThisChapter">Xóa chương này. Sẽ không có cách nào để có thể khôi phục lại!</string>
   <string name="clearAllCommentsInThisChapter">Xóa tất cả bình luận, dấu chú thích và hình vẽ trong chương này</string>

@@ -9,14 +9,6 @@ import lila.core.id.{ ForumCategId, ForumTopicId }
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
-  private val CreateRateLimit =
-    lila.memo.RateLimit[IpAddress](
-      credits = 2,
-      duration = 5.minutes,
-      key = "forum.topic",
-      enforce = env.net.rateLimit.value
-    )
-
   def form(categId: ForumCategId) = Auth { _ ?=> me ?=>
     NoBot:
       NotForKids:
@@ -37,7 +29,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
               .fold(
                 err => BadRequest.page(views.forum.topic.form(categ, err, anyCaptcha)),
                 data =>
-                  CreateRateLimit(ctx.ip, rateLimited):
+                  limit.forumTopic(ctx.ip, rateLimited):
                     topicApi.makeTopic(categ, data).map { topic =>
                       Redirect(routes.ForumTopic.show(categ.slug, topic.slug, 1))
                     }

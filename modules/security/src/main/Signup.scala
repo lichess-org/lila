@@ -25,7 +25,7 @@ final class Signup(
     userRepo: lila.user.UserRepo,
     disposableEmailAttempt: DisposableEmailAttempt,
     netConfig: NetConfig
-)(using Executor):
+)(using Executor, lila.core.config.RateLimit):
 
   private enum MustConfirmEmail(val value: Boolean):
     case Nope                   extends MustConfirmEmail(false)
@@ -196,8 +196,7 @@ final class Signup(
       .increment()
 
   private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
-    key = "account.create.ip",
-    enforce = netConfig.rateLimit.value
+    key = "account.create.ip"
   )(
     ("fast", 10, 10.minutes),
     ("slow", 150, 1 day)

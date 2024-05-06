@@ -219,18 +219,12 @@ final class User(
       .lastPlayed(user)
       .flatMap(_.soFu(env.round.proxyRepo.upgradeIfPresent))
 
-  private val UserGamesRateLimitPerIP = lila.memo.RateLimit[IpAddress](
-    credits = 500,
-    duration = 10.minutes,
-    key = "user_games.web.ip"
-  )
-
   private def userGames(
       u: UserModel,
       filterName: String,
       page: Int
   )(using ctx: BodyContext[?]): Fu[Paginator[GameModel]] =
-    UserGamesRateLimitPerIP(
+    limit.userGames(
       ctx.ip,
       fuccess(Paginator.empty[GameModel]),
       cost = page,

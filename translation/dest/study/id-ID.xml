@@ -60,7 +60,6 @@
   <string name="downloadAllGames">Unduh semua permainan</string>
   <string name="chapterPgn">Bab PGN</string>
   <string name="copyChapterPgn">Salin PGN</string>
-  <string name="copyChapterPgnDescription">Salin PGN ke clipboard.</string>
   <string name="downloadGame">Unduh permainan</string>
   <string name="studyUrl">URL studi</string>
   <string name="currentChapterUrl">URL Bab saat ini</string>
@@ -81,7 +80,7 @@
   <string name="pinnedChapterComment">Sematkan komentar bagian bab</string>
   <string name="saveChapter">Simpan bab</string>
   <string name="clearAnnotations">Hapus anotasi</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Hapus variasi</string>
+  <string name="clearVariations">Hapus variasi</string>
   <string name="deleteChapter">Hapus bab</string>
   <string name="deleteThisChapter">Hapus bab ini? Ini tidak akan dapat mengulangkan kembali!</string>
   <string name="clearAllCommentsInThisChapter">Hapus semua komentar dan bentuk di bab ini?</string>

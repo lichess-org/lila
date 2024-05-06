@@ -38,7 +38,7 @@ final class Env(
     ws: StandaloneWSClient,
     sink: lila.analyse.Analyser,
     shutdown: akka.actor.CoordinatedShutdown
-)(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
+)(using Executor, ActorSystem, Scheduler, akka.stream.Materializer, lila.core.config.RateLimit):
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 

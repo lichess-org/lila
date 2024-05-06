@@ -720,9 +720,6 @@
   <string name="transparent">ஒளி புகும்</string>
   <string name="deviceTheme">சாதன கரு</string>
   <string name="backgroundImageUrl">பின்னணி பட URL:</string>
-  <string name="boardGeometry">பலகை வடிவியல்</string>
-  <string name="boardTheme">பலகை கரு</string>
-  <string name="boardSize">பலகை அளவு</string>
   <string name="pieceSet">காய்கள் தொகுப்பு</string>
   <string name="embedInYourWebsite">உங்கள் இணையதளத்தில் உட்பொதிக்கவும்</string>
   <string name="usernameAlreadyUsed">இந்தப் பயனர்பெயர் ஏற்கனவே பயன்பாட்டில் உள்ளது, தயவுசெய்து வேறு ஒன்றை முயற்சிக்கவும்.</string>

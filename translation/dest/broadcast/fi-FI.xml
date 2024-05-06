@@ -8,6 +8,7 @@
   </plurals>
   <string name="liveBroadcasts">Suorat lähetykset turnauksista</string>
   <string name="newBroadcast">Uusi livelähetys</string>
+  <string name="subscribedBroadcasts">Tilatut lähetykset</string>
   <string name="aboutBroadcasts">Lähetyksistä</string>
   <string name="howToUseLichessBroadcasts">Kuinka Lichess-lähetyksiä käytetään.</string>
   <string name="theNewRoundHelp">Uudella kierroksella on samat jäsenet ja osallistujat kuin edellisellä.</string>
@@ -41,6 +42,7 @@
   <string name="definitivelyDeleteTournament">Poista lopullisesti koko turnaus, sen kaikki kierrokset ja kaikki pelit.</string>
   <string name="automaticLeaderboard">Automaattinen tulostaulukko</string>
   <string name="automaticLeaderboardHelp">Laske ja näytä yksinkertainen tulostaulukko pelien tulosten pohjalta</string>
+  <string name="replacePlayerTags">Valinnainen: korvaa pelaajien nimet, vahvuusluvut ja arvonimet</string>
   <string name="periodInSeconds">Jakso sekunteina</string>
   <string name="periodInSecondsHelp">Tarvittaessa pyyntöjen välinen odotusaika: vähintään 2 s, enintään 60 s. Oletuksena on katsojien määrään perustuva automaattinen arvo.</string>
 </resources>

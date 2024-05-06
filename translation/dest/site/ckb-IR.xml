@@ -778,9 +778,6 @@
   <string name="transparent">رۆشن</string>
   <string name="deviceTheme">هەمان شێوازی ئامێرەکەت</string>
   <string name="backgroundImageUrl">URLـی وێنەی پاشبنەما:</string>
-  <string name="boardGeometry">تەختە شەترەنجی ئەندازەیی</string>
-  <string name="boardTheme">رووکاری تەختە شەترەنج</string>
-  <string name="boardSize">قەبارەی تەختە شەترەنج</string>
   <string name="pieceSet">سێتی داشەکان</string>
   <string name="embedInYourWebsite">لە ماڵپەڕەکەتدا جێگیر بکە</string>
   <string name="usernameAlreadyUsed">ئەم ناوی بەکارهێنەرە پێشتر بەکارهاتووە، تکایە یەکێکی تر تاقیبکەرەوە.</string>

@@ -40,8 +40,6 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using codec: Codec, pc: PageContext): Writeable[Page] =
     Writeable(page => codec.encode(views.base.page(page).html))
 
-  // given (using PageContext): Conversion[Page, Frag]     = views.base.page(_)
-  // given (using PageContext): Conversion[Page, Fu[Frag]] = page => fuccess(views.base.page(page))
   given Conversion[Page, Fu[Page]]       = fuccess(_)
   given Conversion[Snippet, Fu[Snippet]] = fuccess(_)
 
@@ -49,6 +47,8 @@ abstract private[controllers] class LilaController(val env: Env)
 
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
+
+  val limit = new lila.web.Limiters(using env.executor, env.net.rateLimit)
 
   /* Anonymous requests */
   def Anon(f: Context ?=> Fu[Result]): EssentialAction =

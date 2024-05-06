@@ -128,18 +128,11 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
       api.approval.request(me).inject(Redirect(routes.Streamer.edit))
   }
 
-  private val ImageRateLimitPerIp = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
-    key = "streamer.image.ip"
-  )(
-    ("fast", 10, 2.minutes),
-    ("slow", 30, 1.day)
-  )
-
   def pictureApply = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
     AsStreamer: s =>
       ctx.body.body.file("picture") match
         case Some(pic) =>
-          ImageRateLimitPerIp(ctx.ip, rateLimited):
+          limit.imageUpload(ctx.ip, rateLimited):
             api
               .uploadPicture(s.streamer, pic, me)
               .recoverWith { case e: Exception =>
@@ -156,17 +149,16 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
     Ok
   }
 
-  private val checkOnlineLimit =
-    lila.memo.RateLimit[UserId](1, 1.minutes, "streamer.checkOnline")
-
   def checkOnline(streamer: UserStr) = Auth { _ ?=> me ?=>
     val uid   = streamer.id
     val isMod = isGranted(_.ModLog)
     if ctx.is(uid) || isMod then
-      checkOnlineLimit(uid, rateLimited)(env.streamer.api.forceCheck(uid)).inject(
-        Redirect(routes.Streamer.show(uid).url)
-          .flashSuccess(s"Please wait one minute while we check, then reload the page.")
-      )
+      limit
+        .streamerOnlineCheck(uid, rateLimited)(env.streamer.api.forceCheck(uid))
+        .inject(
+          Redirect(routes.Streamer.show(uid).url)
+            .flashSuccess(s"Please wait one minute while we check, then reload the page.")
+        )
     else Unauthorized
   }
 

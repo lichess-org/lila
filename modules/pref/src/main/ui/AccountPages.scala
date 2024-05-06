@@ -90,8 +90,10 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                 klass = "form-third"
               )(form3.input(_, typ = "number"))
           ),
-          form3.group(form("links"), trans.site.socialMediaLinks(), help = Some(linksHelp())): f =>
-            form3.textarea(f)(rows := 5),
+          ctx.kid.no.option(
+            form3.group(form("links"), trans.site.socialMediaLinks(), help = Some(linksHelp())): f =>
+              form3.textarea(f)(rows := 5)
+          ),
           form3.action(form3.submit(trans.site.apply()))
         )
       )
