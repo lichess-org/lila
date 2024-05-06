@@ -6,19 +6,17 @@ import lila.db.dsl.{ *, given }
 final private class FishnetLimiter(
     analysisColl: Coll,
     requesterApi: lila.analyse.RequesterApi
-)(using Executor):
+)(using Executor, lila.core.config.RateLimit):
 
   import FishnetLimiter.*
 
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean, ownGame: Boolean): Fu[Analyser.Result] =
     (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender))
-      .flatMap {
+      .flatMap:
         if _ then perDayCheck(sender)
         else fuccess(Analyser.Result.ConcurrentAnalysis)
-      }
-      .flatMap { result =>
+      .flatMap: result =>
         (result.ok.so(requesterApi.add(sender.userId, ownGame))).inject(result)
-      }
 
   private val RequestLimitPerIP = lila.memo.RateLimit[IpAddress](
     credits = 120,

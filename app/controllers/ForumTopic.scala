@@ -13,8 +13,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
     lila.memo.RateLimit[IpAddress](
       credits = 2,
       duration = 5.minutes,
-      key = "forum.topic",
-      enforce = env.net.rateLimit.value
+      key = "forum.topic"
     )
 
   def form(categId: ForumCategId) = Auth { _ ?=> me ?=>

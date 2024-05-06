@@ -56,7 +56,8 @@ final class Env(
     FlairGetMap,
     Executor,
     akka.stream.Materializer,
-    lila.core.i18n.Translator
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
 ):
 
   private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)

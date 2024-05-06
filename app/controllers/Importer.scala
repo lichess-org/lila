@@ -15,8 +15,7 @@ import lila.game.GameExt.analysable
 final class Importer(env: Env) extends LilaController(env):
 
   private val ImportRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
-    key = "import.game.ip",
-    enforce = env.net.rateLimit.value
+    key = "import.game.ip"
   )(
     ("fast", 10, 1.minute),
     ("slow", 150, 1.hour)

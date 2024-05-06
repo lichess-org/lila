@@ -26,8 +26,8 @@ final class Setup(
   private def processor = env.setup.processor
 
   def ai = OpenBody:
-    BotAiRateLimit(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot).so(1)):
-      PostRateLimit(ctx.ip, rateLimited):
+    limit.setupBotAi(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot).so(1)):
+      limit.setupPost(ctx.ip, rateLimited):
         forms.ai
           .bindFromRequest()
           .fold(
@@ -43,7 +43,7 @@ final class Setup(
 
   def friend(userId: Option[UserStr]) =
     OpenBody: ctx ?=>
-      PostRateLimit(ctx.ip, rateLimited):
+      limit.setupPost(ctx.ip, rateLimited):
         forms.friend
           .bindFromRequest()
           .fold(
@@ -114,8 +114,8 @@ final class Setup(
           .fold(
             doubleJsonFormError,
             userConfig =>
-              PostRateLimit(req.ipAddress, rateLimited):
-                AnonHookRateLimit(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
+              limit.setupPost(req.ipAddress, rateLimited):
+                limit.setupAnonHook(req.ipAddress, rateLimited, cost = ctx.isAnon.so(1)):
                   for
                     me <- ctx.user.soFu(env.user.api.withPerfs)
                     given Perf = me.fold(lila.rating.Perf.default)(_.perfs(userConfig.perfType))
@@ -131,7 +131,7 @@ final class Setup(
 
   def like(sri: Sri, gameId: GameId) = Open:
     NoBot:
-      PostRateLimit(ctx.ip, rateLimited):
+      limit.setupPost(ctx.ip, rateLimited):
         NoPlaybanOrCurrent:
           Found(env.game.gameRepo.game(gameId)): game =>
             for
@@ -151,13 +151,6 @@ final class Setup(
               hookResult <- processor.hook(hookConfigWithRating, sri, ctx.req.sid, allBlocking)(using orig)
             yield hookResponse(hookResult)
 
-  private val BoardApiHookConcurrencyLimitPerUserOrSri = lila.web.ConcurrencyLimit[Either[Sri, UserId]](
-    name = "Board API hook Stream API concurrency per user",
-    key = "boardApiHook.concurrency.limit.user",
-    ttl = 10.minutes,
-    maxConcurrency = 1
-  )
-
   def boardApiHook = WithBoardApiHookAuthor { (author, reqSri) => ctx ?=>
     forms
       .boardApiHook:
@@ -174,10 +167,12 @@ final class Setup(
               .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
               .match
                 case Left(hook) =>
-                  PostRateLimit(req.ipAddress, rateLimited):
-                    BoardApiHookConcurrencyLimitPerUserOrSri(author.map(_.id))(
-                      env.lobby.boardApiHookStream(hook.copy(boardApi = true))
-                    )(jsOptToNdJson).toFuccess
+                  limit.setupPost(req.ipAddress, rateLimited):
+                    limit
+                      .boardApiConcurrency(author.map(_.id))(
+                        env.lobby.boardApiHookStream(hook.copy(boardApi = true))
+                      )(jsOptToNdJson)
+                      .toFuccess
                 case Right(Some(seek)) =>
                   author match
                     case Left(_) =>
@@ -221,8 +216,8 @@ final class Setup(
       case Some(v) => Ok.snip(views.board.miniSpan(v.fen.board, v.color))
 
   def apiAi = ScopedBody(_.Challenge.Write, _.Bot.Play, _.Board.Play, _.Web.Mobile) { ctx ?=> me ?=>
-    BotAiRateLimit(me, rateLimited, cost = me.isBot.so(1)):
-      PostRateLimit(req.ipAddress, rateLimited):
+    limit.setupBotAi(me, rateLimited, cost = me.isBot.so(1)):
+      limit.setupPost(req.ipAddress, rateLimited):
         forms.api.ai
           .bindFromRequest()
           .fold(

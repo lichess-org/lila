@@ -117,7 +117,8 @@ object EmailConfirm:
   import lila.memo.RateLimit
   import lila.common.HTTPRequest
   import lila.core.net.IpAddress
-  given Executor = scala.concurrent.ExecutionContextOpportunistic
+  given Executor                   = scala.concurrent.ExecutionContextOpportunistic
+  given lila.core.config.RateLimit = lila.core.config.RateLimit.Yes
 
   private lazy val rateLimitPerIP = RateLimit[IpAddress](
     credits = 40,

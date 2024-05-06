@@ -57,8 +57,7 @@ final class Api(
     HTTPRequest.apiVersion(req).exists(_.value < 6) && !getBool("noFollows")
 
   private[controllers] val UsersRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
-    key = "users.api.ip",
-    enforce = env.net.rateLimit.value
+    key = "users.api.ip"
   )(
     ("fast", 2000, 10.minutes),
     ("slow", 30000, 1.day)

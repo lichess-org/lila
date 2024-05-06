@@ -16,8 +16,7 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
   private def paginator = env.team.paginator
 
   private val ApiKickRateLimitPerIP = lila.memo.RateLimit.composite[IpAddress](
-    key = "team.kick.api.ip",
-    enforce = env.net.rateLimit.value
+    key = "team.kick.api.ip"
   )(
     ("fast", 10, 2.minutes),
     ("slow", 50, 1.day)
