@@ -49,7 +49,7 @@ private class RelayPlayersTextarea(val text: String):
       case (name, (k, v)) =>
         if name.value.contains(k) then PlayerName(name.value.replaceAll(k, v)) else name
 
-  val diacritics = List(
+  private val diacritics = List(
     "ö" -> "oe",
     "ä" -> "ae",
     "ü" -> "ue",
