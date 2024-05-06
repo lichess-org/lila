@@ -157,7 +157,7 @@ object page:
           div(
             id := "main-wrap",
             cls := List(
-              "full-screen-force" -> p.fullScreen,
+              "full-screen-force" -> p.fullScreenClass,
               "is2d"              -> pref.is2d,
               "is3d"              -> pref.is3d
             )
