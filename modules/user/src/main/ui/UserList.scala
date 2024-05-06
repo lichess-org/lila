@@ -19,7 +19,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
   )(using ctx: Context) =
     Page(trans.site.players.txt())
       .css("user.list")
-      .copy(wrapClass = "full-screen-force")
+      .fullScreen
       .graph(
         title = "Chess players and leaderboards",
         url = s"$netBaseUrl${routes.User.list.url}",
@@ -121,7 +121,7 @@ final class UserList(helpers: Helpers, bits: UserBits):
     Page(title)
       .css("slist")
       .css("bot.list")
-      .copy(wrapClass = "full-screen-force"):
+      .fullScreen:
         main(cls := "page-menu bots")(
           bits.communityMenu("bots"),
           users.partition(_.isVerified) match

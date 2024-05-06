@@ -157,9 +157,9 @@ object page:
           div(
             id := "main-wrap",
             cls := List(
-              p.wrapClass -> p.wrapClass.nonEmpty,
-              "is2d"      -> pref.is2d,
-              "is3d"      -> pref.is3d
+              "full-screen-force" -> p.fullScreen,
+              "is2d"              -> pref.is2d,
+              "is3d"              -> pref.is3d
             )
           )(p.transform(p.body)),
           bottomHtml,
