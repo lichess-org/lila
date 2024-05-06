@@ -6,7 +6,8 @@ import lila.core.security.ClearPassword as P
 
 class PasswordHasherTest extends munit.FunSuite:
 
-  given Executor = scala.concurrent.ExecutionContextOpportunistic
+  given Executor                   = scala.concurrent.ExecutionContextOpportunistic
+  given lila.core.config.RateLimit = lila.core.config.RateLimit.No
 
   test("bad secrets throw exceptions") {
     intercept[IllegalArgumentException] {

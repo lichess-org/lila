@@ -1,5 +1,6 @@
 package controllers
 
+import scala.util.chaining.*
 import play.api.http.ContentTypes
 import play.api.libs.json.*
 import play.api.mvc.Result

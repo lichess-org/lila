@@ -250,25 +250,6 @@ final class Challenge(
                 env.round.roundApi.tell(game.id, lila.core.round.StartClock)
                 jsonOkResult
 
-  private val ChallengeIpRateLimit = lila.memo.RateLimit[IpAddress](
-    500,
-    10.minute,
-    key = "challenge.create.ip"
-  )
-
-  private val BotChallengeIpRateLimit = lila.memo.RateLimit[IpAddress](
-    400,
-    1.day,
-    key = "challenge.bot.create.ip"
-  )
-
-  private val ChallengeUserRateLimit = lila.memo.RateLimit.composite[UserId](
-    key = "challenge.create.user"
-  )(
-    ("fast", 5 * 5, 1.minute),
-    ("slow", 40 * 5, 1.day)
-  )
-
   def toFriend(id: ChallengeId) = AuthBody { ctx ?=> _ ?=>
     Found(api.byId(id)): c =>
       if isMine(c) then
@@ -277,15 +258,16 @@ final class Challenge(
           .fold(
             _ => NoContent,
             username =>
-              ChallengeIpRateLimit(ctx.ip, rateLimited):
+              limit.challenge(ctx.ip, rateLimited):
+                def redir = Redirect(routes.Challenge.show(c.id))
                 env.user.repo.byId(username).flatMap {
-                  case None                       => Redirect(routes.Challenge.show(c.id))
-                  case Some(dest) if ctx.is(dest) => Redirect(routes.Challenge.show(c.id))
+                  case None                       => redir
+                  case Some(dest) if ctx.is(dest) => redir
                   case Some(dest) =>
                     env.challenge.granter.isDenied(dest, c.perfType).flatMap {
                       case Some(denied) =>
                         showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
-                      case None => api.setDestUser(c, dest).inject(Redirect(routes.Challenge.show(c.id)))
+                      case None => api.setDestUser(c, dest).inject(redir)
                     }
                 }
           )
@@ -302,13 +284,13 @@ final class Challenge(
             .fold(
               doubleJsonFormError,
               config =>
-                ChallengeIpRateLimit(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
+                limit.challenge(req.ipAddress, rateLimited, cost = if me.isApiHog then 0 else 1):
                   env.user.repo.enabledById(username).flatMap {
                     case None => JsonBadRequest(jsonError(s"No such user: $username"))
                     case Some(destUser) =>
                       val cost = if me.isApiHog then 0 else if destUser.isBot then 1 else 5
-                      BotChallengeIpRateLimit(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):
-                        ChallengeUserRateLimit(me, rateLimited, cost = cost):
+                      limit.challengeBot(req.ipAddress, rateLimited, cost = if me.isBot then 1 else 0):
+                        limit.challengeUser(me, rateLimited, cost = cost):
                           for
                             challenge <- makeOauthChallenge(config, me, destUser)
                             grant     <- env.challenge.granter.isDenied(destUser, config.perfType)
@@ -359,18 +341,19 @@ final class Challenge(
       .fold(
         jsonFormError,
         config =>
-          ChallengeIpRateLimit(req.ipAddress, rateLimited):
-            import lila.challenge.Challenge.*
-            env.challenge.api
-              .createOpen(config)
-              .map: challenge =>
-                JsonOk:
-                  val url = s"${env.net.baseUrl}/${challenge.id}"
-                  env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
-                    "urlWhite" -> s"$url?color=white",
-                    "urlBlack" -> s"$url?color=black"
-                  )
-          .dmap(_.as(JSON))
+          limit
+            .challenge(req.ipAddress, rateLimited):
+              import lila.challenge.Challenge.*
+              env.challenge.api
+                .createOpen(config)
+                .map: challenge =>
+                  JsonOk:
+                    val url = s"${env.net.baseUrl}/${challenge.id}"
+                    env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
+                      "urlWhite" -> s"$url?color=white",
+                      "urlBlack" -> s"$url?color=black"
+                    )
+            .dmap(_.as(JSON))
       )
 
   def offerRematchForGame(gameId: GameId) = Auth { _ ?=> me ?=>

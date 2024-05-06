@@ -17,21 +17,9 @@ import lila.core.id.PuzzleId
 
 final class Export(env: Env) extends LilaController(env):
 
-  private val ExportImageRateLimitGlobal = lila.memo.RateLimit[String](
-    credits = 600,
-    duration = 1.minute,
-    key = "export.image.global"
-  )
-  private val ExportImageRateLimitByIp = lila.memo.RateLimit[IpAddress](
-    credits = 15,
-    duration = 1.minute,
-    key = "export.image.ip"
-  )
-
   private def exportImageOf[A](fetch: Fu[Option[A]])(convert: A => Fu[Result]) = Anon:
     Found(fetch): res =>
-      ExportImageRateLimitByIp(req.ipAddress, rateLimited):
-        ExportImageRateLimitGlobal("-", rateLimited)(convert(res))
+      limit.exportImage(((), req.ipAddress), rateLimited)(convert(res))
 
   def gif(id: GameId, color: String, theme: Option[String], piece: Option[String]) =
     exportImageOf(env.game.gameRepo.gameWithInitialFen(id)) { g =>

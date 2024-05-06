@@ -26,7 +26,9 @@ final class Env(
     mongoCache: lila.memo.MongoCache.Api,
     cookieBaker: play.api.mvc.SessionCookieBaker,
     db: lila.db.Db
-)(using Executor, play.api.Mode, lila.core.i18n.Translator)(using scheduler: Scheduler):
+)(using Executor, play.api.Mode, lila.core.i18n.Translator, lila.core.config.RateLimit)(using
+    scheduler: Scheduler
+):
 
   private val (baseUrl, domain) = (net.baseUrl, net.domain)
 
