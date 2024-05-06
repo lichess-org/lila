@@ -147,7 +147,7 @@ final class IrcApi(
     def apply(event: ChargeEvent): Funit =
       buffer = buffer :+ event
       buffer.head.date
-        .isBefore(nowInstant.minusHours(12))
+        .isBefore(nowInstant.minusHours(24))
         .so:
           val firsts    = scalalib.HeapSort.topN(buffer, 10).map(_.username).map(userAt).mkString(", ")
           val amountSum = buffer.map(_.cents).sum
