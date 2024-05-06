@@ -27,8 +27,8 @@ importers:
         specifier: github:lichess-org/ab-stub
         version: github.com/lichess-org/ab-stub/94236bf34dbc9c05daf50f4c9842d859b9142be0
       chessground:
-        specifier: ^9.0.5
-        version: 9.0.5
+        specifier: ^9.1.1
+        version: 9.1.1
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -2191,8 +2191,8 @@ packages:
     resolution: {integrity: sha512-KeZd/kcXSKQOGO6LOKu/3bAyVSMh7hgPPharMF15HMfNlHfcBpIVZIDAQRO2PNaNMzPWl0LKc05uFHt0D+lZGA==}
     dev: false
 
-  /chessground@9.0.5:
-    resolution: {integrity: sha512-o1V26sllQTogF6HuAt9/TEY+oEqQ9L5skyTWebS31PyAs8ToqxwWLVb3RzHE0ieZshgs+Wu7qXxl4yvoDJAY2w==}
+  /chessground@9.1.1:
+    resolution: {integrity: sha512-X4xrBICrixaLATCn+jGEzk58UXcas+9QqJnwVq9nT7AaX2M1CJLMA0vC7noG0s6Tr2zoAHZ1FOviE5b05MgduQ==}
     dev: false
 
   /chessops@0.12.7:
