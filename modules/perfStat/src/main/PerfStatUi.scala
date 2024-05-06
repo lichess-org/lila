@@ -352,7 +352,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     val myVisiblePerfs = me.map(_.perfs).ifTrue(ctx.pref.showRatings)
     Page(trans.site.weeklyPerfTypeRatingDistribution.txt(perfType.trans))
       .css("user.rating.stats")
-      .copy(wrapClass = "full-screen-force")
+      .fullScreen
       .js(
         PageModule(
           "chart.ratingDistribution",

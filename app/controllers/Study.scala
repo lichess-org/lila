@@ -571,7 +571,7 @@ final class Study(
 
   private val streamerCache =
     env.memo.cacheApi[StudyId, List[UserId]](1024, "study.streamers"):
-      _.refreshAfterWrite(5.seconds).buildAsyncFuture: studyId =>
+      _.expireAfterWrite(10.seconds).buildAsyncFuture: studyId =>
         env.study.studyRepo
           .membersById(studyId)
           .flatMap:
