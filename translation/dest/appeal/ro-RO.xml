@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="closedByModerators">Contul tău a fost închis de moderatori.</string>
+  <string name="hiddenBlog">Blogurile tale au fost ascunse de moderatori.</string>
+  <string name="hiddenBlogInfo">Asigurați-vă că citiți din nou %s.</string>
   <string name="blogRules">reguli blog</string>
   <string name="fairPlay">Fair Play</string>
 </resources>
