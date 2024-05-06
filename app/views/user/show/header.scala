@@ -233,19 +233,21 @@ object header:
                       playTime.nonEmptyTvDuration.map: tvDuration =>
                         p(trans.site.tpTimeSpentOnTV(lila.core.i18n.translateDuration(tvDuration)))
                     ),
-                  (!hideTroll).option(
+                  (!hideTroll && !u.kid).option(
                     div(cls := "social_links col2")(
                       profile.actualLinks.nonEmpty.option(strong(trans.site.socialMediaLinks())),
                       profile.actualLinks.map: link =>
                         a(href := link.url, targetBlank, noFollow, relMe)(link.site.name)
                     )
                   ),
-                  div(cls := "teams col2")(
-                    info.teamIds.nonEmpty.option(strong(trans.team.teams())),
-                    info.teamIds
-                      .sorted(stringOrdering)
-                      .map: t =>
-                        teamLink(t, withIcon = false)
+                  (ctx.is(u) || !u.kid).option(
+                    div(cls := "teams col2")(
+                      info.teamIds.nonEmpty.option(strong(trans.team.teams())),
+                      info.teamIds
+                        .sorted(stringOrdering)
+                        .map: t =>
+                          teamLink(t, withIcon = false)
+                    )
                   )
                 )
               ),
