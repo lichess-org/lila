@@ -247,10 +247,9 @@ export function initModule({ data, singlePerfName }: Opts) {
     site.pubsub.on('chart.panning', () => {
       slider.set([chart.scales.x.min, chart.scales.x.max], false, true);
     });
+    const activeIfDuration = (d: duration.Duration) => (initial.isSame(endDate.subtract(d)) ? 'active' : '');
     const timeBtn = (b: { t: TimeButton; duration: duration.Duration }) =>
-      initial.isSame(endDate.subtract(b.duration))
-        ? `<button class = "btn-rack__btn active">${b.t}</button>`
-        : `<button class = "btn-rack__btn">${b.t}</button>`;
+      `<button class = "btn-rack__btn ${activeIfDuration(b.duration)}">${b.t}</button>`;
 
     const buttons: { t: TimeButton; duration: duration.Duration }[] = [
       { t: '1m', duration: dayjs.duration(1, 'months') },
