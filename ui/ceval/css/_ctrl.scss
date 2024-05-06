@@ -200,7 +200,7 @@
   }
 
   h2 {
-    font-family: 'Noto Sans';
+    @extend %base-font;
     font-size: 1.3em;
   }
   li {
