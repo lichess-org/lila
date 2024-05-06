@@ -59,7 +59,7 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
     env.game.gameRepo
       .unanalysedGames(gameIds)
       .flatMap { games =>
-        games.map { game =>
+        games.traverse_ { game =>
           env.fishnet
             .analyser(
               game,
@@ -68,10 +68,11 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
                 ip = ctx.ip.some,
                 mod = true,
                 system = false
-              )
+              ),
+              lila.fishnet.Work.Origin.autoHunter.some
             )
             .void
-        }.parallel >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
+        } >> env.fishnet.awaiter(games.map(_.id), 2 minutes)
       }
       .inject(NoContent)
 

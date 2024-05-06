@@ -12,9 +12,9 @@
   <string name="welcome_subject">Witamy na lichess.org, %s</string>
   <string name="welcome_text">Pomyślnie utworzono konto na https://lichess.org.
 
-Oto Twoja strona profilowa: %1$s. Możesz ją spersonalizować na %2$s.
+Oto twoja strona profilowa: %1$s. Możesz ją spersonalizować na %2$s.
 
-Baw się dobrze i niech Twoje figury zawsze znajdą drogę do króla przeciwnika!</string>
+Baw się dobrze i niech twoje figury zawsze znajdą drogę do króla przeciwnika!</string>
   <string name="logInToLichess">Zaloguj się do lichess.org, %s</string>
   <string name="common_orPaste">(Odnośnik jest nieaktywny? Spróbuj wkleić go do paska adresu przeglądarki)</string>
   <string name="common_note">To jest e-mail serwisowy związany z Twoim kontem %s.</string>
