@@ -152,34 +152,30 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
   }
 
   def create = AuthBody { _ ?=> me ?=>
-    env.report.forms.create
-      .bindFromRequest()
-      .fold(
-        err =>
+    bindForm(env.report.forms.create)(
+      err =>
+        for
+          user <- getUserStr("username").so(env.user.repo.byId)
+          page <- renderPage(views.report.form(err, user))
+        yield BadRequest(page),
+      data =>
+        if me.is(data.user.id) then BadRequest("You cannot report yourself")
+        else
           for
-            user <- getUserStr("username").so(env.user.repo.byId)
-            page <- renderPage(views.report.form(err, user))
-          yield BadRequest(page),
-        data =>
-          if me.is(data.user.id) then BadRequest("You cannot report yourself")
-          else
-            for
-              _ <- api.create(data, Reporter(me))
-              _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
-            yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
-      )
+            _ <- api.create(data, Reporter(me))
+            _ <- api.isAutoBlock(data).so(env.relation.api.block(me, data.user.id))
+          yield Redirect(routes.Report.thanks).flashing("reported" -> data.user.name.value)
+    )
   }
 
   def flag = AuthBody { _ ?=> me ?=>
-    env.report.forms.flag
-      .bindFromRequest()
-      .fold(
-        _ => BadRequest,
-        data =>
-          Found(env.user.repo.byId(data.username)): user =>
-            if user == me then BadRequest
-            else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text).inject(jsonOkResult)
-      )
+    bindForm(env.report.forms.flag)(
+      _ => BadRequest,
+      data =>
+        Found(env.user.repo.byId(data.username)): user =>
+          if user == me then BadRequest
+          else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text).inject(jsonOkResult)
+    )
   }
 
   def thanks = Auth { ctx ?=> me ?=>

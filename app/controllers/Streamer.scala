@@ -97,29 +97,26 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
   def editApply = AuthBody { _ ?=> me ?=>
     AsStreamer: s =>
       env.streamer.liveStreamApi.of(s).flatMap { sws =>
-        StreamerForm
-          .userForm(sws.streamer)
-          .bindFromRequest()
-          .fold(
-            error =>
-              modData(s.streamer).flatMap: forMod =>
-                BadRequest.page(views.streamer.edit(sws, error, forMod)),
-            data =>
-              api.update(sws.streamer, data, isGranted(_.Streamers)).flatMap { change =>
-                if change.decline then logApi.streamerDecline(s.user.id)
-                change.list.foreach { logApi.streamerList(s.user.id, _) }
-                change.tier.foreach { logApi.streamerTier(s.user.id, _) }
-                if data.approval.flatMap(_.quick).isDefined
-                then
-                  env.streamer.pager.nextRequestId.map: nextId =>
-                    Redirect:
-                      nextId.fold(s"${routes.Streamer.index()}?requests=1"): id =>
-                        s"${routes.Streamer.edit.url}?u=$id"
-                else
-                  val next = if sws.streamer.is(me) then "" else s"?u=${sws.user.id}"
-                  Redirect(s"${routes.Streamer.edit.url}$next")
-              }
-          )
+        bindForm(StreamerForm.userForm(sws.streamer))(
+          error =>
+            modData(s.streamer).flatMap: forMod =>
+              BadRequest.page(views.streamer.edit(sws, error, forMod)),
+          data =>
+            api.update(sws.streamer, data, isGranted(_.Streamers)).flatMap { change =>
+              if change.decline then logApi.streamerDecline(s.user.id)
+              change.list.foreach { logApi.streamerList(s.user.id, _) }
+              change.tier.foreach { logApi.streamerTier(s.user.id, _) }
+              if data.approval.flatMap(_.quick).isDefined
+              then
+                env.streamer.pager.nextRequestId.map: nextId =>
+                  Redirect:
+                    nextId.fold(s"${routes.Streamer.index()}?requests=1"): id =>
+                      s"${routes.Streamer.edit.url}?u=$id"
+              else
+                val next = if sws.streamer.is(me) then "" else s"?u=${sws.user.id}"
+                Redirect(s"${routes.Streamer.edit.url}$next")
+            }
+        )
       }
   }
 

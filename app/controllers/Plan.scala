@@ -116,13 +116,10 @@ final class Plan(env: Env) extends LilaController(env):
 
   def switch = AuthBody { ctx ?=> me ?=>
     env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
-      lila.plan.Switch
-        .form(pricing)
-        .bindFromRequest()
-        .fold(
-          _ => funit,
-          data => env.plan.api.switch(me, data.money)
-        )
+      bindForm(lila.plan.Switch.form(pricing))(
+        _ => funit,
+        data => env.plan.api.switch(me, data.money)
+      )
         .inject(Redirect(routes.Plan.index))
     }
   }
@@ -187,30 +184,27 @@ final class Plan(env: Env) extends LilaController(env):
       env.plan.priceApi
         .pricingOrDefault(myCurrency)
         .flatMap: pricing =>
-          env.plan.checkoutForm
-            .form(pricing)
-            .bindFromRequest()
-            .fold(
-              err =>
-                logger.info(s"Plan.stripeCheckout 400: $err")
-                BadRequest(jsonError(err.errors.map(_.message).mkString(", ")))
-              ,
-              data =>
-                val checkout = data.fixFreq
-                for
-                  gifted   <- checkout.giftTo.filterNot(ctx.is).so(env.user.repo.enabledById)
-                  customer <- env.plan.api.stripe.userCustomer(me)
-                  session <- customer match
-                    case Some(customer) if checkout.freq == Freq.Onetime =>
-                      createStripeSession(checkout, customer.id, gifted)
-                    case Some(customer) if customer.firstSubscription.isDefined =>
-                      switchStripePlan(checkout.money)
-                    case _ =>
-                      env.plan.api.stripe
-                        .makeCustomer(me, checkout)
-                        .flatMap(customer => createStripeSession(checkout, customer.id, gifted))
-                yield session
-            )
+          bindForm(env.plan.checkoutForm.form(pricing))(
+            err =>
+              logger.info(s"Plan.stripeCheckout 400: $err")
+              BadRequest(jsonError(err.errors.map(_.message).mkString(", ")))
+            ,
+            data =>
+              val checkout = data.fixFreq
+              for
+                gifted   <- checkout.giftTo.filterNot(ctx.is).so(env.user.repo.enabledById)
+                customer <- env.plan.api.stripe.userCustomer(me)
+                session <- customer match
+                  case Some(customer) if checkout.freq == Freq.Onetime =>
+                    createStripeSession(checkout, customer.id, gifted)
+                  case Some(customer) if customer.firstSubscription.isDefined =>
+                    switchStripePlan(checkout.money)
+                  case _ =>
+                    env.plan.api.stripe
+                      .makeCustomer(me, checkout)
+                      .flatMap(customer => createStripeSession(checkout, customer.id, gifted))
+              yield session
+          )
   }
 
   def updatePayment = AuthBody { ctx ?=> me ?=>
@@ -245,28 +239,25 @@ final class Plan(env: Env) extends LilaController(env):
   def payPalCheckout = AuthBody { ctx ?=> me ?=>
     limit.planCheckout(ctx.ip, rateLimited):
       env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
-        env.plan.checkoutForm
-          .form(pricing)
-          .bindFromRequest()
-          .fold(
-            err =>
-              logger.info(s"Plan.payPalCheckout 400: $err")
-              BadRequest(jsonError(err.errors.map(_.message).mkString(", ")))
-            ,
-            data =>
-              val checkout = data.fixFreq
-              if checkout.freq.renew then
-                env.plan.api.payPal
-                  .createSubscription(checkout, me)
-                  .map: sub =>
-                    JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
-              else
-                for
-                  gifted <- checkout.giftTo.filterNot(ctx.is(_)).so(env.user.repo.enabledById)
-                  // customer <- env.plan.api.userCustomer(me)
-                  order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
-                yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
-          )
+        bindForm(env.plan.checkoutForm.form(pricing))(
+          err =>
+            logger.info(s"Plan.payPalCheckout 400: $err")
+            BadRequest(jsonError(err.errors.map(_.message).mkString(", ")))
+          ,
+          data =>
+            val checkout = data.fixFreq
+            if checkout.freq.renew then
+              env.plan.api.payPal
+                .createSubscription(checkout, me)
+                .map: sub =>
+                  JsonOk(Json.obj("subscription" -> Json.obj("id" -> sub.id.value)))
+            else
+              for
+                gifted <- checkout.giftTo.filterNot(ctx.is(_)).so(env.user.repo.enabledById)
+                // customer <- env.plan.api.userCustomer(me)
+                order <- env.plan.api.payPal.createOrder(checkout, me, gifted)
+              yield JsonOk(Json.obj("order" -> Json.obj("id" -> order.id.value)))
+        )
       }
   }
 
@@ -283,23 +274,21 @@ final class Plan(env: Env) extends LilaController(env):
 
   // deprecated
   def payPalIpn = AnonBody:
-    lila.plan.PlanForm.ipn
-      .bindFromRequest()
-      .fold(
-        err =>
-          if err.errors("txn_type").nonEmpty then
-            logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data.get("txn_type")}")
-            Ok
-          else
-            logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
-            BadRequest
-        ,
-        ipn =>
-          env.plan.api.payPal
-            .onLegacyCharge(
-              ipn,
-              ip = req.ipAddress,
-              key = get("key") | "N/A"
-            )
-            .inject(Ok)
-      )
+    bindForm(lila.plan.PlanForm.ipn)(
+      err =>
+        if err.errors("txn_type").nonEmpty then
+          logger.debug(s"Plan.payPalIpn ignore txn_type = ${err.data.get("txn_type")}")
+          Ok
+        else
+          logger.error(s"Plan.payPalIpn invalid data ${err.toString}")
+          BadRequest
+      ,
+      ipn =>
+        env.plan.api.payPal
+          .onLegacyCharge(
+            ipn,
+            ip = req.ipAddress,
+            key = get("key") | "N/A"
+          )
+          .inject(Ok)
+    )

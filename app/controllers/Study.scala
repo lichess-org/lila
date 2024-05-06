@@ -269,34 +269,30 @@ final class Study(
   )
 
   def createAs = AuthBody { ctx ?=> me ?=>
-    StudyForm.importGame.form
-      .bindFromRequest()
-      .fold(
-        _ => Redirect(routes.Study.byOwnerDefault(me.username)),
-        data =>
-          for
-            owner   <- env.study.api.recentByOwnerWithChapterCount(me, 50)
-            contrib <- env.study.api.recentByContributorWithChapterCount(me, 50)
-            res <-
-              if owner.isEmpty && contrib.isEmpty then createStudy(data)
-              else
-                val back = HTTPRequest
-                  .referer(ctx.req)
-                  .orElse(
-                    data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
-                  )
-                Ok.page(views.study.create(data, owner, contrib, back))
-          yield res
-      )
+    bindForm(StudyForm.importGame.form)(
+      _ => Redirect(routes.Study.byOwnerDefault(me.username)),
+      data =>
+        for
+          owner   <- env.study.api.recentByOwnerWithChapterCount(me, 50)
+          contrib <- env.study.api.recentByContributorWithChapterCount(me, 50)
+          res <-
+            if owner.isEmpty && contrib.isEmpty then createStudy(data)
+            else
+              val back = HTTPRequest
+                .referer(ctx.req)
+                .orElse(
+                  data.fen.map(fen => editorC.editorUrl(fen, data.variant | chess.variant.Variant.default))
+                )
+              Ok.page(views.study.create(data, owner, contrib, back))
+        yield res
+    )
   }
 
   def create = AuthBody { ctx ?=> me ?=>
-    StudyForm.importGame.form
-      .bindFromRequest()
-      .fold(
-        _ => Redirect(routes.Study.byOwnerDefault(me.username)),
-        createStudy
-      )
+    bindForm(StudyForm.importGame.form)(
+      _ => Redirect(routes.Study.byOwnerDefault(me.username)),
+      createStudy
+    )
   }
 
   private def createStudy(data: StudyForm.importGame.Data)(using ctx: Context, me: Me) =
@@ -342,24 +338,20 @@ final class Study(
 
   def importPgn(id: StudyId) = AuthBody { ctx ?=> me ?=>
     get("sri").so: sri =>
-      StudyForm.importPgn.form
-        .bindFromRequest()
-        .fold(
-          doubleJsonFormError,
-          data => doImportPgn(id, data, Sri(sri))(_ => NoContent)
-        )
+      bindForm(StudyForm.importPgn.form)(
+        doubleJsonFormError,
+        data => doImportPgn(id, data, Sri(sri))(_ => NoContent)
+      )
   }
 
   def apiImportPgn(id: StudyId) = ScopedBody(_.Study.Write) { ctx ?=> me ?=>
-    StudyForm.importPgn.form
-      .bindFromRequest()
-      .fold(
-        jsonFormError,
-        data =>
-          doImportPgn(id, data, Sri("api")): chapters =>
-            import lila.study.ChapterPreview.json.write
-            JsonOk(Json.obj("chapters" -> write(chapters.map(_.preview))(using Map.empty)))
-      )
+    bindForm(StudyForm.importPgn.form)(
+      jsonFormError,
+      data =>
+        doImportPgn(id, data, Sri("api")): chapters =>
+          import lila.study.ChapterPreview.json.write
+          JsonOk(Json.obj("chapters" -> write(chapters.map(_.preview))(using Map.empty)))
+    )
   }
 
   def admin(id: StudyId) = Secure(_.StudyAdmin) { ctx ?=> me ?=>
@@ -528,12 +520,10 @@ final class Study(
     }
 
   def setTopics = AuthBody { ctx ?=> me ?=>
-    StudyForm.topicsForm
-      .bindFromRequest()
-      .fold(
-        _ => Redirect(routes.Study.topics),
-        topics => env.study.topicApi.userTopics(me, topics).inject(Redirect(routes.Study.topics))
-      )
+    bindForm(StudyForm.topicsForm)(
+      _ => Redirect(routes.Study.topics),
+      topics => env.study.topicApi.userTopics(me, topics).inject(Redirect(routes.Study.topics))
+    )
   }
 
   def staffPicks = Open:

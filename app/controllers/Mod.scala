@@ -60,12 +60,10 @@ final class Mod(
   }
 
   def publicChatTimeout = SecureOrScopedBody(_.ChatTimeout) { _ ?=> me ?=>
-    lila.chat.ChatTimeout.form
-      .bindFromRequest()
-      .fold(
-        form => BadRequest(form.errors.mkString("\n")),
-        data => env.chat.api.userChat.publicTimeout(data).inject(NoContent)
-      )
+    bindForm(lila.chat.ChatTimeout.form)(
+      form => BadRequest(form.errors.mkString("\n")),
+      data => env.chat.api.userChat.publicTimeout(data).inject(NoContent)
+    )
   }
 
   def booster(username: UserStr, v: Boolean) = OAuthModBody(_.MarkBooster) { me ?=>
@@ -146,29 +144,24 @@ final class Mod(
   }
 
   def setTitle(username: UserStr) = SecureBody(_.SetTitle) { ctx ?=> me ?=>
-    lila.user.UserForm.title
-      .bindFromRequest()
-      .fold(
-        _ => redirect(username, mod = true),
-        title =>
-          for
-            _ <- modApi.setTitle(username, title)
-            _ <- title.isDefined.so(env.mailer.automaticEmail.onTitleSet(username))
-          yield
-            env.user.lightUserApi.invalidate(username.id)
-            redirect(username, mod = false)
-      )
+    bindForm(lila.user.UserForm.title)(
+      _ => redirect(username, mod = true),
+      title =>
+        for
+          _ <- modApi.setTitle(username, title)
+          _ <- title.isDefined.so(env.mailer.automaticEmail.onTitleSet(username))
+        yield
+          env.user.lightUserApi.invalidate(username.id)
+          redirect(username, mod = false)
+    )
   }
 
   def setEmail(username: UserStr) = SecureBody(_.SetEmail) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      env.security.forms
-        .modEmail(user)
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(err.toString),
-          email => modApi.setEmail(user.id, email).inject(redirect(user.username, mod = true))
-        )
+      bindForm(env.security.forms.modEmail(user))(
+        err => BadRequest(err.toString),
+        email => modApi.setEmail(user.id, email).inject(redirect(user.username, mod = true))
+      )
   }
 
   def inquiryToZulip = Secure(_.SendToZulip) { _ ?=> me ?=>
@@ -372,9 +365,7 @@ final class Mod(
   }
 
   def search = SecureBody(_.UserSearch) { ctx ?=> me ?=>
-    ModUserSearch.form
-      .bindFromRequest()
-      .fold(err => BadRequest.page(views.mod.search(err, Nil)), searchTerm)
+    bindForm(ModUserSearch.form)(err => BadRequest.page(views.mod.search(err, Nil)), searchTerm)
   }
 
   def notes(page: Int, q: String) = Secure(_.Admin) { _ ?=> _ ?=>
@@ -455,21 +446,19 @@ final class Mod(
 
   def savePermissions(username: UserStr) = SecureBody(_.ChangePermission) { ctx ?=> me ?=>
     Found(env.user.repo.byId(username)): user =>
-      lila.security.Permission.form
-        .bindFromRequest()
-        .fold(
-          _ => BadRequest.page(views.mod.permissions(user)),
-          permissions =>
-            val newPermissions = Permission.ofDbKeys(permissions).diff(Permission(user))
-            (modApi.setPermissions(user.username, Permission.ofDbKeys(permissions)) >> {
-              newPermissions(Permission.Coach).so(env.mailer.automaticEmail.onBecomeCoach(user))
-            } >> {
-              Permission
-                .ofDbKeys(permissions)
-                .exists(_.grants(Permission.SeeReport))
-                .so(env.plan.api.setLifetime(user))
-            }).inject(Redirect(routes.Mod.permissions(user.username.value)).flashSuccess)
-        )
+      bindForm(lila.security.Permission.form)(
+        _ => BadRequest.page(views.mod.permissions(user)),
+        permissions =>
+          val newPermissions = Permission.ofDbKeys(permissions).diff(Permission(user))
+          (modApi.setPermissions(user.username, Permission.ofDbKeys(permissions)) >> {
+            newPermissions(Permission.Coach).so(env.mailer.automaticEmail.onBecomeCoach(user))
+          } >> {
+            Permission
+              .ofDbKeys(permissions)
+              .exists(_.grants(Permission.SeeReport))
+              .so(env.plan.api.setLifetime(user))
+          }).inject(Redirect(routes.Mod.permissions(user.username.value)).flashSuccess)
+      )
   }
 
   def emailConfirm = SecureBody(_.SetEmail) { ctx ?=> me ?=>
@@ -520,12 +509,10 @@ final class Mod(
 
   def presetsUpdate(group: String) = SecureBody(_.Presets) { ctx ?=> _ ?=>
     Found(env.mod.presets.get(group)): setting =>
-      setting.form
-        .bindFromRequest()
-        .fold(
-          err => BadRequest.page(views.mod.ui.presets(group, err)),
-          v => setting.setString(v.toString).inject(Redirect(routes.Mod.presets(group)).flashSuccess)
-        )
+      bindForm(setting.form)(
+        err => BadRequest.page(views.mod.ui.presets(group, err)),
+        v => setting.setString(v.toString).inject(Redirect(routes.Mod.presets(group)).flashSuccess)
+      )
   }
 
   def eventStream = SecuredScoped(_.Admin) { _ ?=> _ ?=>

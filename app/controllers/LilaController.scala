@@ -306,12 +306,10 @@ abstract private[controllers] class LilaController(val env: Env)
   def FormFuResult[A, B: Writeable](
       form: Form[A]
   )(err: Form[A] => Fu[B])(op: A => Fu[Result])(using Request[?]): Fu[Result] =
-    form
-      .bindFromRequest()
-      .fold(
-        form => err(form).dmap { BadRequest(_) },
-        op
-      )
+    bindForm(form)(
+      form => err(form).dmap { BadRequest(_) },
+      op
+    )
 
   def HeadLastModifiedAt(updatedAt: Instant)(f: => Fu[Result])(using RequestHeader): Fu[Result] =
     if req.method == "HEAD" then NoContent.withDateHeaders(lastModified(updatedAt))
@@ -354,3 +352,6 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 
   def anyCaptcha = env.game.captcha.any
+
+  def bindForm[T, R](form: Form[T])(error: Form[T] => R, success: T => R)(using Request[?], FormBinding): R =
+    form.bindFromRequest().fold(error, success)

@@ -37,34 +37,31 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
               if replyBlocked then BadRequest.snip(trans.ublog.youBlockedByBlogAuthor()).toFuccess
               else
                 categ.team.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
-                  forms
-                    .post(inOwnTeam)
-                    .bindFromRequest()
-                    .fold(
-                      err =>
-                        CategGrantWrite(categId, tryingToPostAsMod = true):
-                          for
-                            unsub       <- env.timeline.status(s"forum:${topic.id}")
-                            canModCateg <- access.isGrantedMod(categ.slug)
-                            page <- renderPage:
-                              views.forum.topic
-                                .show(
-                                  categ,
-                                  topic,
-                                  posts,
-                                  Some(err -> anyCaptcha),
-                                  unsub,
-                                  canModCateg = canModCateg
-                                )
-                          yield BadRequest(page)
-                      ,
-                      data =>
-                        CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
-                          limit.forumPost(ctx.ip, rateLimited):
-                            postApi.makePost(categ, topic, data).map { post =>
-                              Redirect(routes.ForumPost.redirect(post.id))
-                            }
-                    )
+                  bindForm(forms.post(inOwnTeam))(
+                    err =>
+                      CategGrantWrite(categId, tryingToPostAsMod = true):
+                        for
+                          unsub       <- env.timeline.status(s"forum:${topic.id}")
+                          canModCateg <- access.isGrantedMod(categ.slug)
+                          page <- renderPage:
+                            views.forum.topic
+                              .show(
+                                categ,
+                                topic,
+                                posts,
+                                Some(err -> anyCaptcha),
+                                unsub,
+                                canModCateg = canModCateg
+                              )
+                        yield BadRequest(page)
+                    ,
+                    data =>
+                      CategGrantWrite(categId, tryingToPostAsMod = ~data.modIcon):
+                        limit.forumPost(ctx.ip, rateLimited):
+                          postApi.makePost(categ, topic, data).map { post =>
+                            Redirect(routes.ForumPost.redirect(post.id))
+                          }
+                  )
                 }
           yield res
   }
@@ -73,17 +70,14 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     env.forum.postApi.teamIdOfPostId(postId).flatMap { teamId =>
       teamId.so(env.team.api.isLeader(_, me)).flatMap { inOwnTeam =>
         Found(postApi.getPost(postId)): post =>
-          forms
-            .postEdit(inOwnTeam, post.text)
-            .bindFromRequest()
-            .fold(
-              _ => Redirect(routes.ForumPost.redirect(postId)),
-              data =>
-                limit.forumPost(ctx.ip, rateLimited):
-                  postApi.editPost(postId, data.changes).map { post =>
-                    Redirect(routes.ForumPost.redirect(post.id))
-                  }
-            )
+          bindForm(forms.postEdit(inOwnTeam, post.text))(
+            _ => Redirect(routes.ForumPost.redirect(postId)),
+            data =>
+              limit.forumPost(ctx.ip, rateLimited):
+                postApi.editPost(postId, data.changes).map { post =>
+                  Redirect(routes.ForumPost.redirect(post.id))
+                }
+          )
       }
     }
   }

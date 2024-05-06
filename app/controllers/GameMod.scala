@@ -42,17 +42,15 @@ final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaContro
 
   def post(username: UserStr) = SecureBody(_.GamesModView) { ctx ?=> me ?=>
     Found(meOrFetch(username)): user =>
-      actionForm
-        .bindFromRequest()
-        .fold(
-          err => BadRequest(err.toString),
-          {
-            case (gameIds, Some("pgn")) => downloadPgn(user, gameIds)
-            case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
-              multipleAnalysis(me, gameIds)
-            case _ => notFound
-          }
-        )
+      bindForm(actionForm)(
+        err => BadRequest(err.toString),
+        {
+          case (gameIds, Some("pgn")) => downloadPgn(user, gameIds)
+          case (gameIds, Some("analyse") | None) if isGranted(_.UserEvaluate) =>
+            multipleAnalysis(me, gameIds)
+          case _ => notFound
+        }
+      )
   }
 
   private def multipleAnalysis(me: Me, gameIds: Seq[GameId])(using Context) =

@@ -72,18 +72,16 @@ final class Msg(env: Env) extends LilaController(env):
         .fold(doubleJsonFormError, _.inject(Ok(Json.obj("ok" -> true, "id" -> userId))))
     else // new API: create/reply
       (ctx.kid.no && me.isnt(userId)).so:
-        env.msg.textForm
-          .bindFromRequest()
-          .fold(
-            doubleJsonFormError,
-            text =>
-              env.msg.api
-                .post(me, userId, text)
-                .flatMap:
-                  case lila.core.msg.PostResult.Success => jsonOkResult
-                  case lila.core.msg.PostResult.Limited => rateLimited
-                  case _                                => BadRequest(jsonError("The message was rejected"))
-          )
+        bindForm(env.msg.textForm)(
+          doubleJsonFormError,
+          text =>
+            env.msg.api
+              .post(me, userId, text)
+              .flatMap:
+                case lila.core.msg.PostResult.Success => jsonOkResult
+                case lila.core.msg.PostResult.Limited => rateLimited
+                case _                                => BadRequest(jsonError("The message was rejected"))
+        )
   }
 
   private def inboxJson(using me: Me) =

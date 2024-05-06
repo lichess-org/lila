@@ -51,9 +51,10 @@ final class Opening(env: Env) extends LilaController(env):
           else if thenTo.startsWith("q:") then routes.Opening.index(thenTo.drop(2).some).url
           else routes.Opening.byKeyAndMoves(thenTo, "").url
         }
-      lila.opening.OpeningConfig.form
-        .bindFromRequest()
-        .fold(_ => redir, cfg => redir.withCookies(env.opening.config.write(cfg)))
+      bindForm(lila.opening.OpeningConfig.form)(
+        _ => redir,
+        cfg => redir.withCookies(env.opening.config.write(cfg))
+      )
 
   def wikiWrite(key: String, moves: String) = SecureBody(_.OpeningWiki) { ctx ?=> me ?=>
     env.opening.api
@@ -61,12 +62,10 @@ final class Opening(env: Env) extends LilaController(env):
       .map(_.flatMap(_.query.exactOpening))
       .orNotFound: op =>
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
-        lila.opening.OpeningWiki.form
-          .bindFromRequest()
-          .fold(
-            _ => redirect,
-            text => env.opening.wiki.write(op, text, me.userId).inject(redirect)
-          )
+        bindForm(lila.opening.OpeningWiki.form)(
+          _ => redirect,
+          text => env.opening.wiki.write(op, text, me.userId).inject(redirect)
+        )
   }
 
   def tree = Open:
