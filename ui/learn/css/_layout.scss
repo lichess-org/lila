@@ -1,8 +1,8 @@
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - 10rem);
+  ---main-max-width: calc(100vh - #{$site-header-outer-height} - 10rem);
 
   @include mq-at-least-col2 {
-    --main-max-width: auto;
+    ---main-max-width: auto;
   }
 }
 
@@ -34,7 +34,7 @@
 
   @include mq-at-least-col2 {
     &--run {
-      grid-template-columns: var(--col2-uniboard-width) $col2-uniboard-table;
+      grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
       grid-template-rows: fit-content(0);
       grid-template-areas: 'main table' 'side .';
     }
@@ -51,7 +51,7 @@
 
   @include mq-at-least-col3 {
     &--run {
-      grid-template-columns: $col3-uniboard-side var(--col3-uniboard-width) $col3-uniboard-table;
+      grid-template-columns: $col3-uniboard-side var(---col3-uniboard-width) $col3-uniboard-table;
       grid-template-areas: 'side main table';
     }
   }

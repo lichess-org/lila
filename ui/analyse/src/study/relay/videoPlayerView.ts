@@ -1,11 +1,11 @@
+import { looseH as h, Redraw, VNode } from 'common/snabbdom';
 import RelayCtrl from './relayCtrl';
-import { looseH as h, VNode } from 'common/snabbdom';
 
 export let player: VideoPlayer;
 
 export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
   if (!relay.data.videoUrls) return undefined;
-  player ??= new VideoPlayer(relay);
+  if (!player) player = new VideoPlayer(relay);
   return h('div#video-player-placeholder', {
     hook: {
       insert: (vnode: VNode) => player.cover(vnode.elm as HTMLElement),
@@ -27,6 +27,7 @@ class VideoPlayer {
     this.iframe.src = relay.data.videoUrls![0];
     this.iframe.setAttribute('credentialless', ''); // a feeble mewling ignored by all
     this.iframe.allow = 'autoplay';
+    this.iframe.setAttribute('credentialless', 'credentialless');
     this.close = document.createElement('img');
     this.close.src = site.asset.flairSrc('symbols.cancel');
     this.close.className = 'video-player-close';

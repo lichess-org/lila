@@ -65,6 +65,7 @@ export interface AnalysePref {
   highlight?: boolean;
   showCaptured?: boolean;
   animationDuration?: number;
+  keyboardMove: boolean;
   moveEvent: Prefs.MoveEvent;
 }
 

@@ -4,11 +4,11 @@ import chess.{ ByColor, Color, Ply }
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.game.Game
 import lila.tree.Eval.jsonWrites
 import lila.tree.Analysis
+import lila.core.game.SideAndStart
 
-object JsonView:
+object JsonView extends lila.tree.AnalysisJson:
 
   def moves(analysis: Analysis, withGlyph: Boolean = true) =
     JsArray(analysis.infoAdvices.map { (info, adviceOption) =>
@@ -35,7 +35,7 @@ object JsonView:
         })
     })
 
-  def player(pov: Game.SideAndStart)(analysis: Analysis, accuracy: Option[ByColor[AccuracyPercent]]) =
+  def player(pov: SideAndStart)(analysis: Analysis, accuracy: Option[ByColor[AccuracyPercent]]) =
     analysis.summary
       .find(_._1 == pov.color)
       .map(_._2)
@@ -51,8 +51,8 @@ object JsonView:
     val accuracy = withAccuracy.so(AccuracyPercent.gameAccuracy(startedAtPly.turn, analysis))
     Json.obj(
       "id"    -> analysis.id.value,
-      "white" -> player(Game.SideAndStart(Color.white, startedAtPly))(analysis, accuracy),
-      "black" -> player(Game.SideAndStart(Color.black, startedAtPly))(analysis, accuracy)
+      "white" -> player(SideAndStart(Color.white, startedAtPly))(analysis, accuracy),
+      "black" -> player(SideAndStart(Color.black, startedAtPly))(analysis, accuracy)
     )
 
 //   def bothPlayers(pov: Game.SideAndStart, analysis: Analysis, accuracy: Option[ByColor[AccuracyPercent]]) =

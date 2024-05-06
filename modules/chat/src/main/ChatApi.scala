@@ -105,7 +105,7 @@ final class ChatApi(
 
     private object isChatFresh:
       private val cache = cacheApi[PublicSource, Boolean](256, "chat.fresh"):
-        _.expireAfterWrite(2.minutes).buildAsyncFuture: source =>
+        _.expireAfterWrite(3.minutes).buildAsyncFuture: source =>
           Bus.ask("chatFreshness") { IsChatFresh(source, _) }
       def apply(source: Option[PublicSource]) =
         source.fold(fuccess(true))(cache.get)

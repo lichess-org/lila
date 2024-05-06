@@ -1,7 +1,5 @@
 package lila.tournament
 
-import lila.game.actorApi.FinishGame
-
 final private class TournamentBusHandler(
     api: TournamentApi,
     leaderboard: LeaderboardApi,
@@ -19,7 +17,7 @@ final private class TournamentBusHandler(
     "berserk"
   ):
 
-    case FinishGame(game, _) => api.finishGame(game)
+    case lila.core.game.FinishGame(game, _) => api.finishGame(game)
 
     case lila.core.mod.MarkCheater(userId, true) =>
       ejectFromEnterable(userId) >>

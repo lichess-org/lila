@@ -4,15 +4,14 @@ import chess.{ Black, Clock, White }
 import scalalib.ThreadLocalRandom
 
 import lila.common.{ Bus, LilaFuture }
-import lila.game.{ Game, GameRepo, UciMemo }
 import lila.core.misc.map.Tell
 import lila.core.round.FishnetPlay
 
 final class FishnetPlayer(
     redis: FishnetRedis,
     openingBook: FishnetOpeningBook,
-    gameRepo: GameRepo,
-    uciMemo: UciMemo
+    gameRepo: lila.core.game.GameRepo,
+    uciMemo: lila.core.game.UciMemo
 )(using Executor, Scheduler):
 
   def apply(game: Game): Funit =

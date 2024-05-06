@@ -65,12 +65,14 @@ object config:
       assetBaseUrl: AssetBaseUrl,
       assetBaseUrlInternal: AssetBaseUrlInternal,
       minifiedAssets: Boolean,
+      externalManifest: Boolean,
       stageBanner: Boolean,
       siteName: String,
       socketDomains: List[String],
       socketAlts: List[String],
       crawlable: Boolean,
       rateLimit: RateLimit,
-      email: EmailAddress
+      email: EmailAddress,
+      logRequests: Boolean
   ):
-    def isProd = domain == prodDomain
+    inline def isProd = domain == prodDomain

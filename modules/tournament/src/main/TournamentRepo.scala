@@ -327,7 +327,7 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(using Execu
       .list(500)
 
   private[tournament] def sortedCursor(
-      owner: lila.user.User,
+      owner: User,
       status: List[Status],
       batchSize: Int,
       readPref: ReadPref = _.priTemp

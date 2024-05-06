@@ -2,7 +2,6 @@ package lila.round
 
 import chess.{ ByColor, Color, Speed }
 
-import lila.game.{ Game, GameRepo, RatingDiffs }
 import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, glicko2, UserPerfs }
 import lila.user.{ RankingApi, User, UserApi }
 import lila.rating.PerfType
@@ -12,7 +11,7 @@ import lila.rating.PerfExt.addOrReset
 import lila.rating.GlickoExt.average
 
 final class PerfsUpdater(
-    gameRepo: GameRepo,
+    gameRepo: lila.game.GameRepo,
     userApi: UserApi,
     rankingApi: RankingApi,
     botFarming: BotFarming,
@@ -22,67 +21,72 @@ final class PerfsUpdater(
   import PerfsUpdater.*
 
   // returns rating diffs
-  def save(game: Game, white: UserWithPerfs, black: UserWithPerfs): Fu[Option[RatingDiffs]] =
+  def save(game: Game, white: UserWithPerfs, black: UserWithPerfs): Fu[Option[ByColor[IntRatingDiff]]] =
     botFarming(game).flatMap {
       if _ then fuccess(none)
       else
-        game.ratingPerfType.so: mainPerf =>
-          (game.rated && game.finished && game.accountable && !white.lame && !black.lame).so:
-            val ratingsW = mkRatings(white.perfs)
-            val ratingsB = mkRatings(black.perfs)
-            game.ratingVariant match
-              case chess.variant.Chess960 =>
-                updateRatings(ratingsW.chess960, ratingsB.chess960, game)
-              case chess.variant.KingOfTheHill =>
-                updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
-              case chess.variant.ThreeCheck =>
-                updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, game)
-              case chess.variant.Antichess =>
-                updateRatings(ratingsW.antichess, ratingsB.antichess, game)
-              case chess.variant.Atomic =>
-                updateRatings(ratingsW.atomic, ratingsB.atomic, game)
-              case chess.variant.Horde =>
-                updateRatings(ratingsW.horde, ratingsB.horde, game)
-              case chess.variant.RacingKings =>
-                updateRatings(ratingsW.racingKings, ratingsB.racingKings, game)
-              case chess.variant.Crazyhouse =>
-                updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, game)
-              case chess.variant.Standard =>
-                game.speed match
-                  case Speed.Bullet =>
-                    updateRatings(ratingsW.bullet, ratingsB.bullet, game)
-                  case Speed.Blitz =>
-                    updateRatings(ratingsW.blitz, ratingsB.blitz, game)
-                  case Speed.Rapid =>
-                    updateRatings(ratingsW.rapid, ratingsB.rapid, game)
-                  case Speed.Classical =>
-                    updateRatings(ratingsW.classical, ratingsB.classical, game)
-                  case Speed.Correspondence =>
-                    updateRatings(ratingsW.correspondence, ratingsB.correspondence, game)
-                  case Speed.UltraBullet =>
-                    updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, game)
-              case _ =>
-            val perfsW                     = mkPerfs(ratingsW, white -> black, game)
-            val perfsB                     = mkPerfs(ratingsB, black -> white, game)
-            def ratingOf(perfs: UserPerfs) = perfs(mainPerf).glicko.intRating
-            val ratingDiffs = ByColor(
-              ratingOf(perfsW) - ratingOf(white.perfs),
-              ratingOf(perfsB) - ratingOf(black.perfs)
-            ).map(_.into(IntRatingDiff))
-            lila.common.Bus
-              .publish(
-                lila.game.actorApi.PerfsUpdate(
-                  game,
-                  ByColor(UserWithPerfs(white.user, perfsW), UserWithPerfs(black.user, perfsB))
-                ),
-                "perfsUpdate"
-              )
-            gameRepo
-              .setRatingDiffs(game.id, ratingDiffs)
-              .zip(userApi.updatePerfs(ByColor(white.perfs -> perfsW, black.perfs -> perfsB), game.perfType))
-              .zip(rankingApi.save(white.user, game.perfType, perfsW))
-              .zip(rankingApi.save(black.user, game.perfType, perfsB))
-              .inject(ratingDiffs.some)
+        val ratingPerf: Option[PerfKey] =
+          if game.variant.fromPosition
+          then game.isTournament.option(PerfKey(game.ratingVariant, game.speed))
+          else game.perfKey.some
+        ratingPerf.so: mainPerf =>
+          (game.rated && game.finished && (game.playedTurns >= 2 || game.isTournament) && !white.lame && !black.lame)
+            .so:
+              val ratingsW = mkRatings(white.perfs)
+              val ratingsB = mkRatings(black.perfs)
+              game.ratingVariant match
+                case chess.variant.Chess960 =>
+                  updateRatings(ratingsW.chess960, ratingsB.chess960, game)
+                case chess.variant.KingOfTheHill =>
+                  updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
+                case chess.variant.ThreeCheck =>
+                  updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, game)
+                case chess.variant.Antichess =>
+                  updateRatings(ratingsW.antichess, ratingsB.antichess, game)
+                case chess.variant.Atomic =>
+                  updateRatings(ratingsW.atomic, ratingsB.atomic, game)
+                case chess.variant.Horde =>
+                  updateRatings(ratingsW.horde, ratingsB.horde, game)
+                case chess.variant.RacingKings =>
+                  updateRatings(ratingsW.racingKings, ratingsB.racingKings, game)
+                case chess.variant.Crazyhouse =>
+                  updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, game)
+                case chess.variant.Standard =>
+                  game.speed match
+                    case Speed.Bullet =>
+                      updateRatings(ratingsW.bullet, ratingsB.bullet, game)
+                    case Speed.Blitz =>
+                      updateRatings(ratingsW.blitz, ratingsB.blitz, game)
+                    case Speed.Rapid =>
+                      updateRatings(ratingsW.rapid, ratingsB.rapid, game)
+                    case Speed.Classical =>
+                      updateRatings(ratingsW.classical, ratingsB.classical, game)
+                    case Speed.Correspondence =>
+                      updateRatings(ratingsW.correspondence, ratingsB.correspondence, game)
+                    case Speed.UltraBullet =>
+                      updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, game)
+                case _ =>
+              val perfsW                     = mkPerfs(ratingsW, white -> black, game)
+              val perfsB                     = mkPerfs(ratingsB, black -> white, game)
+              def ratingOf(perfs: UserPerfs) = perfs(mainPerf).glicko.intRating
+              val ratingDiffs = ByColor(
+                ratingOf(perfsW) - ratingOf(white.perfs),
+                ratingOf(perfsB) - ratingOf(black.perfs)
+              ).map(_.into(IntRatingDiff))
+              lila.common.Bus
+                .publish(
+                  lila.core.game.PerfsUpdate(
+                    game,
+                    ByColor(UserWithPerfs(white.user, perfsW), UserWithPerfs(black.user, perfsB))
+                  ),
+                  "perfsUpdate"
+                )
+              gameRepo
+                .setRatingDiffs(game.id, ratingDiffs)
+                .zip(userApi.updatePerfs(ByColor(white.perfs -> perfsW, black.perfs -> perfsB), game.perfKey))
+                .zip(rankingApi.save(white.user, game.perfKey, perfsW))
+                .zip(rankingApi.save(black.user, game.perfKey, perfsB))
+                .inject(ratingDiffs.some)
     }
 
   private case class Ratings(

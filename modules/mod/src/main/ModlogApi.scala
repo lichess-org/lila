@@ -8,7 +8,7 @@ import lila.core.irc.IrcApi
 import lila.core.msg.MsgPreset
 import lila.report.{ Mod, Report, Suspect }
 import lila.core.perm.Permission
-import lila.user.{ Me, User, UserRepo, given }
+import lila.user.UserRepo
 import lila.core.id.ForumCategId
 import lila.core.perf.UserWithPerfs
 

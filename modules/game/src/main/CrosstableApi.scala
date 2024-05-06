@@ -2,6 +2,7 @@ package lila.game
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
+import lila.core.game.Game
 
 final class CrosstableApi(
     coll: Coll,

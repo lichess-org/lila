@@ -4,10 +4,13 @@ package round
 import _root_.chess.{ Color, Move }
 import _root_.chess.format.{ Uci, Fen }
 import play.api.libs.json.{ JsArray, JsObject }
+import play.api.libs.json.JsObject
 
 import lila.core.net.IpAddress
 import lila.core.id.{ GameId, GamePlayerId, SimulId, TourId }
 import lila.core.userId.UserId
+import lila.core.game.Game
+import lila.core.id.GameAnyId
 
 case class Abort(playerId: GamePlayerId)
 case class Berserk(gameId: GameId, userId: UserId)
@@ -73,3 +76,11 @@ case class ClientError(message: String)  extends BenignError
 case class FishnetError(message: String) extends BenignError
 case class GameIsFinishedError(id: GameId) extends BenignError:
   val message = s"game $id is finished"
+
+trait RoundJson:
+  def mobileOffline(game: Game, id: GameAnyId): Fu[JsObject]
+
+trait RoundApi:
+  def tell(gameId: GameId, msg: Matchable): Unit
+  def ask[A](gameId: GameId)(makeMsg: Promise[A] => Matchable): Fu[A]
+  def getGames(gameIds: List[GameId]): Fu[List[(GameId, Option[Game])]]

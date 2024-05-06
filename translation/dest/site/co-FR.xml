@@ -717,9 +717,6 @@
   <string name="transparent">Diafanu</string>
   <string name="deviceTheme">Tema dispusitivu</string>
   <string name="backgroundImageUrl">URL di a fiura di u fondu:</string>
-  <string name="boardGeometry">Geumetria di a scacchera</string>
-  <string name="boardTheme">Aspettu di a scacchera</string>
-  <string name="boardSize">Grandezza di a scacchera</string>
   <string name="pieceSet">Aspettu di e pezze</string>
   <string name="embedInYourWebsite">Integrà in u vostru situ web</string>
   <string name="usernameAlreadyUsed">Stu nome d\' utilizatore hè dighjà pigliatu, prova cù un altru.</string>

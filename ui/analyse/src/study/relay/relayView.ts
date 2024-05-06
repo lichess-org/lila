@@ -125,7 +125,7 @@ export function renderPinnedImage(ctx: RelayViewContext): MaybeVNode {
 }
 
 export function allowVideo(): boolean {
-  return window.getComputedStyle(document.body).getPropertyValue('--allow-video') === 'true';
+  return window.getComputedStyle(document.body).getPropertyValue('---allow-video') === 'true';
 }
 
 function renderEmbedPlaceholder(ctx: RelayViewContext): MaybeVNode {

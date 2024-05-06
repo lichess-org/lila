@@ -4,12 +4,10 @@ import lila.common.Bus
 import lila.core.LightUser
 import lila.memo.CacheApi
 import lila.storm.StormSelector
-import lila.user.{ User, UserPerfsRepo, UserRepo }
 
 final class RacerApi(
     selector: StormSelector,
-    userRepo: UserRepo,
-    perfsRepo: UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     cacheApi: CacheApi,
     lightUser: LightUser.GetterSyncFallback
 )(using Executor)(using scheduler: Scheduler):
@@ -95,7 +93,7 @@ final class RacerApi(
         lila.mon.racer.score(lobby = race.isLobby, auth = player.user.isDefined).record(player.score)
         player.user.ifTrue(player.score > 0).foreach { user =>
           Bus.publish(lila.core.misc.puzzle.RacerRun(user.id, player.score), "racerRun")
-          perfsRepo.addRacerRun(user.id, player.score)
+          userApi.addPuzRun("racer", user.id, player.score)
         }
       publish(race)
 

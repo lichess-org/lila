@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import views.html
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -14,14 +13,13 @@ final class Opening(env: Env) extends LilaController(env):
     val searchQuery = ~q
     if searchQuery.nonEmpty then
       val results = env.opening.search(searchQuery)
-      Ok.page:
-        if HTTPRequest.isXhr(ctx.req)
-        then html.opening.search.resultsList(results)
-        else html.opening.search.resultsPage(searchQuery, results, env.opening.api.readConfig)
+      if HTTPRequest.isXhr(ctx.req)
+      then Ok.snip(views.opening.ui.resultsList(results))
+      else Ok.page(views.opening.ui.resultsPage(searchQuery, results, env.opening.api.readConfig))
     else
       FoundPage(env.opening.api.index): page =>
         isGrantedOpt(_.OpeningWiki).so(env.opening.wiki.popularOpeningsWithShortWiki).map {
-          html.opening.index(page, _)
+          views.opening.ui.index(page, _)
         }
 
   def byKeyAndMoves(key: String, moves: String) = Open:
@@ -38,10 +36,10 @@ final class Opening(env: Env) extends LilaController(env):
             Redirect:
               s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
           else
-            Ok.pageAsync:
+            Ok.async:
               page.query.exactOpening.so(env.puzzle.opening.getClosestTo).map { puzzle =>
                 val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
-                html.opening.show(page, puzzleKey)
+                views.opening.ui.show(page, puzzleKey)
               }
       }
 
@@ -72,4 +70,4 @@ final class Opening(env: Env) extends LilaController(env):
   }
 
   def tree = Open:
-    Ok.page(html.opening.tree(lila.opening.OpeningTree.compute, env.opening.api.readConfig))
+    Ok.page(views.opening.ui.tree(lila.opening.OpeningTree.compute, env.opening.api.readConfig))

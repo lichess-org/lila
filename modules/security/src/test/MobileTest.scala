@@ -14,22 +14,24 @@ class MobileTest extends munit.FunSuite:
       LichessMobileUa.parse(
         "Lichess Mobile/0.2.1 (897) as:THibaULT sri:uw-y3_79sz os:Android/11.0.2 dev:Moto G (4)"
       ),
-      LichessMobileUa(
-        "0.2.1",
-        Some(UserId("thibault")),
-        Sri("uw-y3_79sz"),
-        "Android",
-        "11.0.2",
-        "Moto G (4)"
-      ).some
+      lila.core.net
+        .LichessMobileUa(
+          "0.2.1",
+          Some(UserId("thibault")),
+          Sri("uw-y3_79sz"),
+          "Android",
+          "11.0.2",
+          "Moto G (4)"
+        )
+        .some
     )
     assertEquals(
       LichessMobileUa.parse("Lichess Mobile/1.0.0_ALPHA-2 () as:anon sri:uwy379sz os:iOS/what-3v3r dev:"),
-      LichessMobileUa("1.0.0_ALPHA-2", None, Sri("uwy379sz"), "iOS", "what-3v3r", "").some
+      lila.core.net.LichessMobileUa("1.0.0_ALPHA-2", None, Sri("uwy379sz"), "iOS", "what-3v3r", "").some
     )
     assertEquals(
       LichessMobileUa.parse("Lichess Mobile/1.0.0_ALPHA-2 as:anon sri:uwy379sz os:iOS/what-3v3r dev:"),
-      LichessMobileUa("1.0.0_ALPHA-2", None, Sri("uwy379sz"), "iOS", "what-3v3r", "").some
+      lila.core.net.LichessMobileUa("1.0.0_ALPHA-2", None, Sri("uwy379sz"), "iOS", "what-3v3r", "").some
     )
 
   test("sri casing"):

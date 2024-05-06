@@ -7,7 +7,6 @@ import lila.core.challenge.Challenge
 import lila.common.String.shorten
 import lila.common.LilaFuture
 import lila.core.LightUser
-import lila.game.{ Game, Namer, Pov }
 import lila.core.misc.map.Tell
 import lila.core.misc.push.TourSoon
 import lila.core.round.{ IsOnGame, MoveEvent }
@@ -18,9 +17,10 @@ import lila.core.notify.*
 final private class PushApi(
     firebasePush: FirebasePush,
     webPush: WebPush,
-    gameProxy: lila.game.core.GameProxy,
-    roundJson: lila.game.core.RoundJson,
-    gameRepo: lila.game.GameRepo,
+    gameProxy: lila.core.game.GameProxy,
+    roundJson: lila.core.round.RoundJson,
+    gameRepo: lila.core.game.GameRepo,
+    namer: lila.core.game.Namer,
     notifyAllows: lila.core.notify.GetNotifyAllows,
     postApi: lila.core.forum.ForumPostApi
 )(using Executor, Scheduler)(using lightUser: LightUser.GetterFallback):
@@ -430,7 +430,7 @@ final private class PushApi(
         else f
 
   private def asyncOpponentName(pov: Pov): Fu[String] =
-    Namer.playerText(pov.opponent)(using lightUser.optional)
+    namer.playerText(pov.opponent)(using lightUser.optional)
 
 private object PushApi:
 

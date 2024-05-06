@@ -12,30 +12,43 @@ import lila.i18n.LangPicker
 import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.core.perm.Permission
 import lila.core.perf.UserWithPerfs
+import lila.ui.{ Page, Snippet }
 
 abstract private[controllers] class LilaController(val env: Env)
     extends BaseController
-    with http.RequestGetter
+    with lila.web.RequestGetter
+    with lila.web.ResponseBuilder(using env.executor)
     with http.ResponseBuilder(using env.executor)
-    with http.ResponseHeaders
-    with http.ResponseWriter
-    with http.CtrlExtensions
-    with http.CtrlConversions
-    with http.CtrlFilters
+    with lila.web.ResponseHeaders
+    with lila.web.ResponseWriter
+    with lila.web.CtrlExtensions
+    with http.CtrlFilters(using env.executor)
     with http.CtrlPage(using env.executor)
     with http.RequestContext(using env.executor)
-    with http.CtrlErrors:
+    with lila.web.CtrlErrors:
 
-  def controllerComponents        = env.controllerComponents
-  given Executor                  = env.executor
-  given Scheduler                 = env.scheduler
-  given FormBinding               = parse.formBinding(parse.DefaultMaxTextLength)
-  given lila.core.i18n.Translator = env.translator
+  export lila.ui.ReverseRouterConversions.given
+  export _root_.router.ReverseRouterConversions.given
+
+  def controllerComponents                           = env.controllerComponents
+  given Executor                                     = env.executor
+  given Scheduler                                    = env.scheduler
+  given FormBinding                                  = parse.formBinding(parse.DefaultMaxTextLength)
+  given lila.core.i18n.Translator                    = env.translator
+  given reqBody(using r: BodyContext[?]): Request[?] = r.body
+
+  given (using codec: Codec, pc: PageContext): Writeable[Page] =
+    Writeable(page => codec.encode(views.base.page(page).html))
+
+  given Conversion[Page, Fu[Page]]       = fuccess(_)
+  given Conversion[Snippet, Fu[Snippet]] = fuccess(_)
 
   given netDomain: lila.core.config.NetDomain = env.net.domain
 
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
+
+  val limit = new lila.web.Limiters(using env.executor, env.net.rateLimit)
 
   /* Anonymous requests */
   def Anon(f: Context ?=> Fu[Result]): EssentialAction =
@@ -341,12 +354,3 @@ abstract private[controllers] class LilaController(val env: Env)
   given (using req: RequestHeader): lila.chat.AllMessages = lila.chat.AllMessages(HTTPRequest.isLitools(req))
 
   def anyCaptcha = env.game.captcha.any
-
-  /* We roll our own action, as we don't want to compose play Actions. */
-  private def action[A](parser: BodyParser[A])(handler: Request[A] ?=> Fu[Result]): EssentialAction = new:
-    import play.api.libs.streams.Accumulator
-    import akka.util.ByteString
-    def apply(rh: RequestHeader): Accumulator[ByteString, Result] =
-      parser(rh).mapFuture:
-        case Left(r)  => fuccess(r)
-        case Right(a) => handler(using Request(rh, a))

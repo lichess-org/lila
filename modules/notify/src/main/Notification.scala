@@ -3,10 +3,9 @@ import alleycats.Zero
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.common.Icon
 import scalalib.paginator.Paginator
 import lila.notify.Notification.*
-import lila.core.notify.NotificationContent
+import lila.core.notify.{ UnreadCount, NotificationContent }
 
 case class TitledTournamentInvitation(
     id: TourId,
@@ -37,10 +36,6 @@ object Notification:
 
   opaque type Id = String
   object Id extends OpaqueString[Id]
-
-  opaque type UnreadCount = Int
-  object UnreadCount extends OpaqueInt[UnreadCount]:
-    given Zero[UnreadCount] = Zero(0)
 
   opaque type NotificationRead = Boolean
   object NotificationRead extends YesNo[NotificationRead]

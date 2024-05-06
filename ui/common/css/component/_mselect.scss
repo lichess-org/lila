@@ -60,7 +60,7 @@ $c-mselect: $c-primary;
         transform: translateY(-50%) scale(1, 1);
       }
 
-      .mselect__item {
+      > * {
         opacity: 1;
         transition: opacity 125ms ease-in-out 125ms;
       }
@@ -74,26 +74,16 @@ $c-mselect: $c-primary;
     @include transition;
 
     color: $c-mselect;
+    border-left: 3px solid transparent;
 
     &.current {
       background: $c-bg-zebra;
-
-      @extend %flex-between-nowrap;
-
-      &::after {
-        @extend %data-icon;
-
-        content: $licon-Checkmark;
-        flex: 1 1 100%;
-        text-align: right;
-      }
+      border-color: $c-mselect;
     }
-
     &:hover {
       background: $c-mselect;
-      color: #fff;
+      color: $c-over;
     }
-
     &::before {
       margin-inline-end: 0.4em;
     }

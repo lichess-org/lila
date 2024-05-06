@@ -23,6 +23,7 @@ $pocket-height: 60px;
     'pocket-top'
     'board'
     'pocket-bot'
+    'kb-move'
     'controls'
     'tools'
     'side'
@@ -37,6 +38,7 @@ $pocket-height: 60px;
       'board      gauge pocket-top'
       'board      gauge tools'
       'board      gauge pocket-bot'
+      'kb-move    .     controls'
       'under      .     controls'
       'under      .     round-training'
       'under      .     side'
@@ -47,12 +49,13 @@ $pocket-height: 60px;
   @include mq-at-least-col3 {
     grid-template-rows: $pocket-height auto auto $pocket-height;
     grid-template-areas:
-      'side    . board gauge pocket-top'
-      'side    . board gauge tools'
-      'chat    . board gauge tools'
-      'chat    . board gauge pocket-bot'
-      'uchat   . under .     controls'
-      'uchat   . under .     round-training';
+      'side    . board   gauge pocket-top'
+      'side    . board   gauge tools'
+      'chat    . board   gauge tools'
+      'chat    . board   gauge pocket-bot'
+      'uchat   . kb-move .     controls'
+      'uchat   . under   .     controls'
+      'uchat   . under   .     round-training';
   }
 }
 

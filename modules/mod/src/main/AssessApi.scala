@@ -7,10 +7,10 @@ import reactivemongo.api.bson.*
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.dsl.{ *, given }
 import lila.evaluation.{ AccountAction, PlayerAggregateAssessment, PlayerAssessment, Statistics }
-import lila.game.{ Game, Player, Pov }
+import lila.core.game.{ Player, Source }
 import lila.core.report.SuspectId
-
-import lila.core.game.Source
+import lila.game.GameExt.playerBlurPercent
+import lila.game.GameExt.analysable
 
 final class AssessApi(
     assessRepo: AssessmentRepo,
@@ -18,6 +18,7 @@ final class AssessApi(
     userRepo: lila.user.UserRepo,
     userApi: lila.user.UserApi,
     gameRepo: lila.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: AnalysisRepo,
     reportApi: lila.core.report.ReportApi
 )(using Executor):
@@ -127,7 +128,7 @@ final class AssessApi(
       val shouldAssess =
         if !game.source.exists(assessableSources.contains) then false
         else if game.mode.casual then false
-        else if Player.HoldAlert.suspicious(holdAlerts) then true
+        else if lila.game.Player.HoldAlert.suspicious(holdAlerts) then true
         else if game.isCorrespondence then false
         else if game.playedTurns < PlayerAssessment.minPlies then false
         else if game.players.exists(consistentMoveTimes(game)) then true
@@ -199,7 +200,7 @@ final class AssessApi(
     yield wR <= lR - 300)
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
-      if !game.analysable then fuccess(none)
+      if !gameApi.analysable(game) then fuccess(none)
       else if game.speed >= chess.Speed.Blitz && players.exists(_.user.hasTitle) then
         fuccess(TitledPlayer.some)
       else if !game.source.exists(assessableSources.contains) then fuccess(none)
@@ -221,7 +222,7 @@ final class AssessApi(
       else
         // someone is using a bot
         gameRepo.holdAlert.game(game).map { holdAlerts =>
-          if Player.HoldAlert.suspicious(holdAlerts) then HoldAlert.some
+          if lila.game.Player.HoldAlert.suspicious(holdAlerts) then HoldAlert.some
           // don't analyse most of other bullet games
           else if game.speed == chess.Speed.Bullet && randomPercent(70) then none
           // someone blurs a lot

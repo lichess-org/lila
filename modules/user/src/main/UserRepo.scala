@@ -1,5 +1,6 @@
 package lila.user
 
+import com.roundeights.hasher.Implicits.*
 import chess.PlayerTitle
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.*
@@ -8,13 +9,10 @@ import reactivemongo.api.bson.*
 import lila.core.net.ApiVersion
 import lila.core.email.NormalizedEmailAddress
 import lila.core.LightUser
-import lila.core.user.UserMark
 import lila.db.dsl.{ *, given }
 import lila.core.userId.UserSearch
-import lila.core.user.Profile
-import lila.core.user.PlayTime
-import lila.core.user.TotpSecret
-import lila.core.user.Plan
+import lila.core.user.{ Profile, PlayTime, TotpSecret, Plan, UserMark }
+import lila.core.security.HashedPassword
 
 final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c):
 
@@ -223,8 +221,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
     coll.update.one($id(id), $inc($doc(incs*)))
 
-  def incToints(id: UserId, nb: Int) = coll.update.one($id(id), $inc("toints" -> nb))
-  def removeAllToints                = coll.update.one($empty, $unset("toints"), multi = true)
+  def incToints(id: UserId, nb: Int): Funit = coll.update.one($id(id), $inc("toints" -> nb)).void
+  def removeAllToints                       = coll.update.one($empty, $unset("toints"), multi = true)
 
   def create(
       name: UserName,
@@ -301,10 +299,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def getRoles[U: UserIdOf](u: U): Fu[List[String]] =
     coll.primitiveOne[List[String]]($id(u), BSONFields.roles).dmap(_.orZero)
 
-  def withoutTwoFactor(id: UserId) = coll.one[User]($id(id) ++ $doc(F.totpSecret.$exists(false)))
-
-  def withoutEmail(id: UserId) = coll.one[User]($id(id) ++ $doc(F.email.$exists(false)))
-
   def disableTwoFactor(id: UserId) = coll.update.one($id(id), $unset(F.totpSecret))
 
   def setupTwoFactor(id: UserId, totp: TotpSecret): Funit =
@@ -337,11 +331,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       )
       .void
 
-  import Authenticator.*
   def getPasswordHash(id: UserId): Fu[Option[String]] =
-    coll.byId[AuthData](id, authProjection).map {
-      _.map { _.hashToken }
-    }
+    coll.byId[AuthData](id, AuthData.projection).map2(_.bpass.bytes.sha512.hex)
 
   def setEmail(id: UserId, email: EmailAddress): Funit =
     val normalized = email.normalize
@@ -425,10 +416,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def hasTitle(id: UserId): Fu[Boolean] = getTitle(id).dmap(_.exists(PlayerTitle.BOT != _))
 
-  def setPlan(user: User, plan: Plan): Funit =
-    import Plan.given
-    coll.updateField($id(user.id), BSONFields.plan, plan).void
-  def unsetPlan(user: User): Funit = coll.unsetField($id(user.id), BSONFields.plan).void
+  def setPlan(user: User, plan: Option[Plan]): Funit =
+    coll.updateOrUnsetField($id(user.id), BSONFields.plan, plan).void
 
   def setSeenAt(id: UserId): Unit =
     coll.updateFieldUnchecked($id(id), F.seenAt, nowInstant)
@@ -439,11 +428,7 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def langOf(id: UserId): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
 
   def filterByEnabledPatrons(userIds: List[UserId]): Fu[Set[UserId]] =
-    coll.distinctEasy[UserId, Set](
-      F.id,
-      $inIds(userIds) ++ enabledSelect ++ patronSelect,
-      _.sec
-    )
+    coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect ++ patronSelect, _.sec)
 
   def filterEnabled(userIds: Seq[UserId]): Fu[Set[UserId]] =
     coll.distinctEasy[UserId, Set](F.id, $inIds(userIds) ++ enabledSelect, _.sec)
@@ -483,17 +468,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   def byIdAs[A: BSONDocumentReader](id: String, proj: Bdoc): Fu[Option[A]] =
     coll.one[A]($id(id), proj)
 
-  def contacts(orig: UserId, dest: UserId): Fu[Option[Contacts]] =
-    coll
-      .byOrderedIds[Contact, UserId](
-        List(orig, dest),
-        $doc(F.kid -> true, F.marks -> true, F.roles -> true, F.createdAt -> true).some
-      )(_._id)
-      .map {
-        case List(o, d) => Contacts(o, d).some
-        case _          => none
-      }
-
   def isErased(user: User): Fu[Erased] = Erased.from:
     user.enabled.no.so:
       coll.exists($id(user.id) ++ $doc(F.erasedAt.$exists(true)))
@@ -519,8 +493,6 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
       mustConfirmEmail: Boolean,
       lang: Option[String]
   ) =
-    import Authenticator.given
-
     val normalizedEmail = email.normalize
     val now             = nowInstant
     $doc(

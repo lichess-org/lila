@@ -7,8 +7,13 @@ import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
 import lila.core.LightUser
 import lila.core.config.BaseUrl
 import lila.core.i18n.Translate
+import lila.core.game.{ Game, Player }
+import lila.core.game.PgnDump.WithFlags
+import lila.game.Player.nameSplit
+import lila.game.GameExt.perfType
 
-final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiMinimal)(using Executor):
+final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiMinimal)(using Executor)
+    extends lila.core.game.PgnDump:
 
   import PgnDump.*
 
@@ -17,7 +22,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
       initialFen: Option[Fen.Full],
       flags: WithFlags,
       teams: Option[ByColor[TeamId]] = None
-  )(using Translate): Fu[Pgn] =
+  ): Fu[Pgn] =
     val imported = game.pgnImport.flatMap: pgni =>
       Parser.full(pgni.pgn).toOption
 
@@ -37,7 +42,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
       val tree = flags.moves.so:
         val fenSituation = ts.fen.flatMap(Fen.readWithMoveNumber)
         makeTree(
-          flags.keepDelayIf(game.playable).applyDelay(game.sans),
+          applyDelay(game.sans, flags.keepDelayIf(game.playable)),
           fenSituation.fold(Ply.initial)(_.ply),
           flags.clocks.so(~game.bothClockStates),
           game.startColor
@@ -59,7 +64,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
   private val customStartPosition: Set[chess.variant.Variant] =
     Set(chess.variant.Chess960, chess.variant.FromPosition, chess.variant.Horde, chess.variant.RacingKings)
 
-  private def eventOf(game: Game)(using lila.core.i18n.Translate) =
+  private def eventOf(game: Game) =
     val perf = game.perfType.nameKey
     game.tournamentId
       .map(id => s"${game.mode} $perf tournament https://lichess.org/tournament/$id")
@@ -76,7 +81,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
       withOpening: Boolean,
       withRating: Boolean,
       teams: Option[ByColor[TeamId]] = None
-  )(using lila.core.i18n.Translate): Fu[Tags] =
+  ): Fu[Tags] =
     gameLightUsers(game).map:
       case ByColor(wu, bu) =>
         Tags:
@@ -84,7 +89,9 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
           List[Option[Tag]](
             Tag(
               _.Event,
-              imported.flatMap(_.tags(_.Event)) | { if game.imported then "Import" else eventOf(game) }
+              imported.flatMap(_.tags(_.Event)) | {
+                if game.sourceIs(_.Import) then "Import" else eventOf(game)
+              }
             ).some,
             Tag(_.Site, imported.flatMap(_.tags(_.Site)) | gameUrl(game.id)).some,
             Tag(_.Date, importedDate | Tag.UTCDate.format.print(game.createdAt)).some,
@@ -128,6 +135,8 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
 
 object PgnDump:
 
+  export lila.core.game.PgnDump.*
+
   private val delayMovesBy         = 3
   private val delayKeepsFirstMoves = 5
 
@@ -145,27 +154,9 @@ object PgnDump:
     )
     Tree.buildWithIndex(moves, f)
 
-  case class WithFlags(
-      clocks: Boolean = true,
-      moves: Boolean = true,
-      tags: Boolean = true,
-      evals: Boolean = true,
-      opening: Boolean = true,
-      rating: Boolean = true,
-      literate: Boolean = false,
-      pgnInJson: Boolean = false,
-      delayMoves: Boolean = false,
-      lastFen: Boolean = false,
-      accuracy: Boolean = false,
-      division: Boolean = false
-  ):
-    def applyDelay[M](moves: Seq[M]): Seq[M] =
-      if !delayMoves then moves
-      else moves.take((moves.size - delayMovesBy).atLeast(delayKeepsFirstMoves))
-
-    def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)
-
-    def requiresAnalysis = evals || accuracy
+  def applyDelay[M](moves: Seq[M], flags: WithFlags): Seq[M] =
+    if !flags.delayMoves then moves
+    else moves.take((moves.size - delayMovesBy).atLeast(delayKeepsFirstMoves))
 
   def result(game: Game) =
     Outcome.showResult(game.finished.option(Outcome(game.winnerColor)))

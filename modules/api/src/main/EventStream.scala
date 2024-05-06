@@ -7,14 +7,15 @@ import play.api.libs.json.*
 import lila.challenge.Challenge
 import lila.common.Bus
 import lila.common.Json.given
-import lila.game.actorApi.{ FinishGame, StartGame }
-import lila.game.{ Game, Pov, Rematches }
+import lila.core.game.{ FinishGame, StartGame }
+import lila.game.{ Rematches }
 import lila.user.{ LightUserApi, Me, User, UserRepo }
 import play.api.i18n.Lang
 
 final class EventStream(
     challengeJsonView: lila.challenge.JsonView,
     challengeMaker: lila.challenge.ChallengeMaker,
+    challengeApi: lila.challenge.ChallengeApi,
     onlineApiUsers: lila.bot.OnlineApiUsers,
     userRepo: UserRepo,
     gameJsonView: lila.game.JsonView,
@@ -91,11 +92,15 @@ final class EventStream(
 
         case FinishGame(game, _) => queue.offer(gameJson(game, "gameFinish"))
 
-        case lila.challenge.Event.Create(c) if isMyChallenge(c) =>
-          val json = challengeJson("challenge")(c) ++ challengeCompat(c)
-          lila.common.LilaFuture // give time for anon challenger to load the challenge page
-            .delay(if c.challengerIsAnon then 2.seconds else 0.seconds):
-              queue.offer(json.some).void
+        case lila.core.challenge.Event.Create(c) if isMyChallenge(c) =>
+          challengeApi
+            .byId(c.id)
+            .foreach:
+              _.foreach: c =>
+                val json = challengeJson("challenge")(c) ++ challengeCompat(c)
+                lila.common.LilaFuture // give time for anon challenger to load the challenge page
+                  .delay(if c.challengerIsAnon then 2.seconds else 0.seconds):
+                    queue.offer(json.some).void
 
         case lila.challenge.Event.Decline(c) if isMyChallenge(c) =>
           queue.offer(challengeJson("challengeDeclined")(c).some)
@@ -125,8 +130,8 @@ final class EventStream(
                     val json = challengeJson("challengeCanceled")(c) ++ challengeCompat(c)
                     queue.offer(json.some)
 
-      private def isMyChallenge(c: Challenge) =
-        me.is(c.destUserId) || me.is(c.challengerUserId)
+      private def isMyChallenge(c: lila.core.challenge.Challenge) =
+        me.is(c.destUserId) || me.is(c.challengerUser.map(_.id))
 
   private def gameJson(game: Game, tpe: String)(using me: Me) =
     Pov(game, me).map: pov =>
@@ -136,8 +141,8 @@ final class EventStream(
           gameJsonView
             .ownerPreview(pov)(using lightUserApi.sync)
             .add("source" -> game.source.map(_.name)) ++ compatJson(
-            bot = me.isBot && Game.isBotCompatible(game),
-            board = Game.isBoardCompatible(game)
+            bot = me.isBot && lila.game.Game.isBotCompatible(game),
+            board = lila.game.Game.isBoardCompatible(game)
           ) ++ Json.obj(
             "id" -> game.id // API BC
           )

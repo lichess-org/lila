@@ -1,7 +1,7 @@
 package lila.round
 
-import lila.game.{ Game, Pov }
 import lila.core.game.PlayerRef
+import lila.game.GameExt.*
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
@@ -21,7 +21,7 @@ final class GameProxyRepo(
   def pov(fullId: GameFullId): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
-    game(playerRef.gameId).dmap { _.flatMap { _.playerIdPov(playerRef.playerId) } }
+    game(playerRef.gameId).dmap { _.flatMap(_.playerIdPov(playerRef.playerId)) }
 
   def gameIfPresent(gameId: GameId): Fu[Option[Game]] = roundSocket.gameIfPresent(gameId)
 
@@ -51,7 +51,7 @@ final class GameProxyRepo(
         _.traverse: pov =>
           gameIfPresent(pov.gameId).dmap { _.fold(pov)(pov.withGame) }
         .map: povs =>
-          try povs.sortWith(Pov.priority)
+          try povs.sortWith(lila.game.Pov.priority)
           catch
             case e: IllegalArgumentException =>
               lila.log("round").error(s"Could not sort urgent games of ${user.id}", e)

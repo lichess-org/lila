@@ -8,6 +8,10 @@ import lila.core.study.data.StudyName
 import lila.core.chess.Win
 import lila.core.userId.*
 
+opaque type UnreadCount = Int
+object UnreadCount extends OpaqueInt[UnreadCount]:
+  given Zero[UnreadCount] = Zero(0)
+
 abstract class NotificationContent(val key: String)
 
 case class NotifiedBatch(userIds: Iterable[UserId])
@@ -29,7 +33,7 @@ case class GenericLink(
     url: String,
     title: Option[String],
     text: Option[String],
-    icon: String
+    icon: String // should be lila.ui.Icon
 ) extends NotificationContent("genericLink")
 case object ReportedBanned                         extends NotificationContent("reportedBanned")
 case class RatingRefund(perf: String, points: Int) extends NotificationContent("ratingRefund")

@@ -39,6 +39,7 @@ import serverSideUnderboard from '../serverSideUnderboard';
 import StudyCtrl from '../study/studyCtrl';
 import RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
+import { renderPgnError } from '../pgnImport';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -197,7 +198,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
   return h('div.copyables', [
     h('div.pair', [
       h('label.name', 'FEN'),
-      h('input.copyable.autoselect.analyse__underboard__fen', {
+      h('input.copyable', {
         attrs: { spellcheck: 'false', enterkeyhint: 'done' },
         hook: {
           insert: vnode => {
@@ -226,6 +227,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
         h('label.name', 'PGN'),
         h('textarea.copyable', {
           attrs: { spellcheck: 'false' },
+          class: { 'is-error': !!ctrl.pgnError },
           hook: {
             ...onInsert((el: HTMLTextAreaElement) => {
               el.value = defined(ctrl.pgnInput) ? ctrl.pgnInput : pgnExport.renderFullTxt(ctrl);
@@ -250,7 +252,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
         }),
         !isMobile() &&
           h(
-            'button.button.button-thin.action.text',
+            'button.button.button-thin.bottom-item.bottom-action.text',
             {
               attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', _ => {
@@ -260,6 +262,11 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
             },
             ctrl.trans.noarg('importPgn'),
           ),
+        h(
+          'div.bottom-item.bottom-error',
+          { attrs: dataIcon(licon.CautionTriangle), class: { 'is-error': !!ctrl.pgnError } },
+          renderPgnError(ctrl.pgnError),
+        ),
       ]),
     ]),
   ]);

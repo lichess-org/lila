@@ -9,14 +9,14 @@ import lila.core.socket.{ GetVersion, SocketVersion }
 @Module
 final class Env(
     captcha: lila.core.captcha.CaptchaApi,
-    userRepo: lila.user.UserRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
+    flairApi: lila.core.user.FlairApi,
     notifyApi: lila.core.notify.NotifyApi,
     socketKit: lila.core.socket.SocketKit,
     chat: lila.core.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi,
-    userJson: lila.user.JsonView,
+    lightUserApi: lila.core.user.LightUserApi,
+    userJson: lila.core.user.JsonView,
     db: lila.db.Db
 )(using Executor, ActorSystem, play.api.Mode, akka.stream.Materializer, lila.core.user.FlairGet):
 

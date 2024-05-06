@@ -1,7 +1,7 @@
 package lila.tournament
 
 import scalalib.HeapSort.topN
-import lila.common.Icon
+import lila.ui.Icon
 
 import lila.core.LightUser
 import lila.core.perf.UserWithPerfs

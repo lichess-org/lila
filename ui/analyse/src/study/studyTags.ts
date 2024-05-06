@@ -2,7 +2,6 @@ import { onInsert } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { h, thunk, VNode } from 'snabbdom';
 import { option } from '../view/util';
-import { StudyChapter } from './interfaces';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'common';
 import StudyCtrl from './studyCtrl';
@@ -30,7 +29,7 @@ export class TagsForm {
 }
 
 export function view(root: StudyCtrl): VNode {
-  const chapter = root.tags.getChapter() as StudyChapter,
+  const chapter = root.tags.getChapter(),
     tagKey = chapter.tags.map(t => t[1]).join(','),
     key = chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
   return thunk('div.' + chapter.id, doRender, [root, key]);

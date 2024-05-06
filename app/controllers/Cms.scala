@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import views.*
 
 import lila.app.*
 import lila.cms.CmsPage
@@ -15,27 +14,27 @@ final class Cms(env: Env) extends LilaController(env):
   def index = Secure(_.Pages): ctx ?=>
     for
       pages        <- api.list
-      renderedPage <- renderPage(html.cms.index(pages))
+      renderedPage <- renderPage(views.cms.index(pages))
     yield Ok(renderedPage)
 
   def createForm = Secure(_.Pages) { _ ?=> _ ?=>
-    Ok.pageAsync(html.cms.create(env.cms.form.create))
+    Ok.async(views.cms.create(env.cms.form.create))
   }
 
   def create = SecureBody(_.Pages) { _ ?=> me ?=>
     env.cms.form.create
       .bindFromRequest()
       .fold(
-        err => BadRequest.pageAsync(html.cms.create(err)),
+        err => BadRequest.async(views.cms.create(err)),
         data =>
           val page = data.create(me)
-          api.create(page).inject(Redirect(routes.Cms.edit(page.id)).flashSuccess)
+          api.create(page).inject(Redirect(routes.Cms.edit(page.id.value)).flashSuccess)
       )
   }
 
   def edit(id: CmsPage.Id) = Secure(_.Pages) { _ ?=> _ ?=>
     Found(api.withAlternatives(id)): pages =>
-      Ok.pageAsync(html.cms.edit(env.cms.form.edit(pages.head), pages.head, pages.tail))
+      Ok.async(views.cms.edit(env.cms.form.edit(pages.head), pages.head, pages.tail))
   }
 
   def update(id: CmsPage.Id) = SecureBody(_.Pages) { _ ?=> me ?=>
@@ -44,12 +43,12 @@ final class Cms(env: Env) extends LilaController(env):
         .edit(pages.head)
         .bindFromRequest()
         .fold(
-          err => BadRequest.pageAsync(html.cms.edit(err, pages.head, pages.tail)),
+          err => BadRequest.async(views.cms.edit(err, pages.head, pages.tail)),
           data =>
             api
               .update(pages.head, data)
               .map: page =>
-                Redirect(routes.Cms.edit(page.id)).flashSuccess
+                Redirect(routes.Cms.edit(page.id.value)).flashSuccess
         )
   }
 
@@ -67,8 +66,8 @@ final class Cms(env: Env) extends LilaController(env):
   def page(key: CmsPage.Key, active: Option[String])(using Context) =
     FoundPage(env.api.cmsRender(key)): p =>
       active match
-        case None       => views.html.site.page.lone(p)
-        case Some(name) => views.html.site.page.withMenu(name, p)
+        case None       => views.site.page.lone(p)
+        case Some(name) => views.site.page.withMenu(name, p)
 
   def lonePage(key: CmsPage.Key) = Open:
     Found(env.api.cmsRender(key)): p =>
@@ -76,28 +75,28 @@ final class Cms(env: Env) extends LilaController(env):
         case Some(path) => Redirect(path)
         case None =>
           pageHit
-          Ok.pageAsync(views.html.site.page.lone(p))
+          Ok.async(views.site.page.lone(p))
 
   def menuPage(key: CmsPage.Key) = Open:
     pageHit
     FoundPage(env.api.cmsRender(key)):
-      views.html.site.page.withMenu(key.value, _)
+      views.site.page.withMenu(key.value, _)
 
   def source = Open:
     pageHit
     FoundPage(env.api.cmsRenderKey("source")):
-      views.html.site.page.source
+      views.site.page.source
 
   def variantHome = Open:
     negotiate(
-      Ok.pageAsync(views.html.site.variant.home),
-      Ok(lila.api.StaticContent.variantsJson)
+      Ok.async(views.site.variant.home),
+      Ok(lila.web.StaticContent.variantsJson)
     )
 
   import chess.variant.Variant
   def variant(key: Variant.LilaKey) = Open:
     (for
-      variant  <- Variant(key)
-      perfType <- lila.rating.PerfType.byVariant(variant)
+      variant <- Variant(key)
+      perfKey <- PerfKey.byVariant(variant)
     yield FoundPage(env.api.cmsRenderKey(s"variant-${variant.key}")): p =>
-      views.html.site.variant.show(p, variant, perfType)) | notFound
+      views.site.variant.show(p, variant, perfKey)) | notFound

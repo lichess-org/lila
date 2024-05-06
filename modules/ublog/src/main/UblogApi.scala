@@ -49,7 +49,7 @@ final class UblogApi(
           lila.common.Bus.named.timeline(
             Propagate(
               lila.core.timeline.UblogPost(user.id, post.id, post.slug, post.title)
-            ).toFollowersOf(user.id)
+            ).toFollowersOf(post.created.by)
           )
           shutupApi.publicText(user.id, post.allText, PublicSource.Ublog(post.id))
           if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)

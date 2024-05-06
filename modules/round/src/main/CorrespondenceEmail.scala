@@ -5,7 +5,7 @@ import java.time.{ Duration, LocalTime }
 
 import lila.common.{ Bus, LilaStream }
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo, Pov }
+import lila.core.game.{ GameRepo }
 import lila.core.misc.mailer.*
 import lila.core.notify.NotifyApi
 import lila.user.UserRepo
@@ -54,7 +54,7 @@ final private class CorrespondenceEmail(gameRepo: GameRepo, userRepo: UserRepo, 
               from = gameRepo.coll,
               as = "games",
               local = "_id",
-              foreign = Game.BSONFields.playingUids // hit index
+              foreign = lila.game.Game.BSONFields.playingUids // hit index
             )
           )
         )

@@ -3,15 +3,15 @@ package lila.round
 import chess.{ Color, ByColor, DecayingStats, Status }
 
 import lila.common.{ Bus, Uptime }
-import lila.game.actorApi.{ AbortedBy, FinishGame }
-import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
+import lila.core.game.{ AbortedBy, FinishGame }
 import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserApi, UserRepo }
 import lila.core.perf.UserWithPerfs
+import lila.game.GameExt.finish
 
 final private class Finisher(
-    gameRepo: GameRepo,
+    gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
     userApi: UserApi,
     messenger: Messenger,
@@ -139,7 +139,7 @@ final private class Finisher(
   private def updateCountAndPerfs(
       game: Game,
       users: ByColor[Option[UserWithPerfs]]
-  ): Fu[Option[RatingDiffs]] =
+  ): Fu[Option[ByColor[IntRatingDiff]]] =
     val isVsSelf = users.tupled.so((w, b) => w._1.is(b._1))
     (!isVsSelf && !game.aborted).so:
       users.tupled

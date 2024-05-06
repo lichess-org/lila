@@ -4,15 +4,15 @@ import com.softwaremill.macwire.*
 
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.game.GameRepo
 import lila.memo.CacheApi.*
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
+import lila.core.id.ReportId
 
 final class ReportApi(
     val coll: Coll,
     userApi: lila.core.user.UserApi,
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     autoAnalysis: AutoAnalysis,
     securityApi: lila.core.security.SecurityApi,
     playbansOf: () => lila.core.playban.BansOf,
@@ -48,7 +48,8 @@ final class ReportApi(
     Reason(data.reason).exists(Reason.autoBlock)
 
   def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
-    (!c.reporter.user.marks.reportban && !isAlreadySlain(c)).so {
+    val ignoreReport = c.reporter.user.marks.reportban && !c.reason.isComm
+    (!ignoreReport && !isAlreadySlain(c)).so {
       scorer(c).map(_.withScore(score)).flatMap { case scored @ Candidate.Scored(candidate, _) =>
         coll
           .one[Report](
@@ -101,8 +102,7 @@ final class ReportApi(
 
   private def isAlreadySlain(candidate: Candidate) =
     (candidate.isCheat && candidate.suspect.user.marks.engine) ||
-      (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll) ||
-      (candidate.isComm && candidate.suspect.user.marks.troll)
+      (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.marks.troll)
 
   def getMyMod(using me: MyId): Fu[Option[Mod]]          = userApi.byId(me).dmap2(Mod.apply)
   def getMod[U: UserIdOf](u: U): Fu[Option[Mod]]         = userApi.byId(u).dmap2(Mod.apply)
@@ -277,7 +277,7 @@ final class ReportApi(
       case _ => funit
     }
 
-  def byId(id: Report.Id) = coll.byId[Report](id)
+  def byId(id: ReportId) = coll.byId[Report](id)
 
   def process(report: Report)(using Me): Funit = for
     _ <- accuracy.invalidate($id(report.id))
@@ -323,7 +323,7 @@ final class ReportApi(
       case _ => funit
     }
 
-  def moveToXfiles(id: Report.Id): Funit =
+  def moveToXfiles(id: ReportId): Funit =
     coll.update
       .one(
         $id(id),
@@ -338,12 +338,12 @@ final class ReportApi(
     room.fold($doc("room".$in(Room.allButXfiles))): r =>
       $doc("room" -> r)
 
-  private def selectOpenInRoom(room: Option[Room], exceptIds: Iterable[Report.Id]) =
+  private def selectOpenInRoom(room: Option[Room], exceptIds: Iterable[ReportId]) =
     $doc("open" -> true) ++ roomSelect(room) ++ {
       exceptIds.nonEmpty.so($doc("_id".$nin(exceptIds)))
     }
 
-  private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[Report.Id]) =
+  private def selectOpenAvailableInRoom(room: Option[Room], exceptIds: Iterable[ReportId]) =
     selectOpenInRoom(room, exceptIds) ++ $doc("inquiry".$exists(false))
 
   private val maxScoreCache = cacheApi.unit[Room.Scores]:
@@ -457,7 +457,7 @@ final class ReportApi(
             users.find(_.id == r.user).map { u => Report.WithSuspect(r, u, isOnline(u.id)) }
           .sortBy(-_.urgency)
 
-  def snooze(reportId: Report.Id, duration: String)(using mod: Me): Fu[Option[Report]] =
+  def snooze(reportId: ReportId, duration: String)(using mod: Me): Fu[Option[Report]] =
     byId(reportId).flatMapz { report =>
       snoozer.set(Report.SnoozeKey(mod.userId, reportId), duration)
       inquiries.toggleNext(report.room)
@@ -553,12 +553,12 @@ final class ReportApi(
      * If they already are on this inquiry, cancel it.
      * Returns the previous and next inquiries
      */
-    def toggle(id: String | Either[Report.Id, UserId])(using Me): Fu[(Option[Report], Option[Report])] =
+    def toggle(id: String | Either[ReportId, UserId])(using Me): Fu[(Option[Report], Option[Report])] =
       workQueue:
         doToggle(id)
 
     private def doToggle(
-        id: String | Either[Report.Id, UserId]
+        id: String | Either[ReportId, UserId]
     )(using mod: Me): Fu[(Option[Report], Option[Report])] =
       def findByUser(userId: UserId) = coll.one[Report]($doc("user" -> userId, "inquiry.mod".$exists(true)))
       for
@@ -605,7 +605,7 @@ final class ReportApi(
       openOther(sus, Report.appealText)
 
     private def openOther(sus: Suspect, name: String)(using mod: Me): Fu[Report] =
-      ofModId(mod.userId).flatMap { current =>
+      ofModId(mod.userId).flatMap: current =>
         current.so(cancel) >> {
           val report = Report
             .make(
@@ -620,7 +620,6 @@ final class ReportApi(
             .copy(inquiry = Report.Inquiry(mod.userId, nowInstant).some)
           coll.insert.one(report).inject(report)
         }
-      }
 
     private[report] def expire: Funit =
       workQueue:

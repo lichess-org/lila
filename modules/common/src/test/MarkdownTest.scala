@@ -39,12 +39,12 @@ class MarkdownTest extends munit.FunSuite:
   val expander = MarkdownRender.PgnSourceExpand(domain, pgns.get)
   val mdRender = MarkdownRender(pgnExpand = expander.some)("test")
 
-  test("markdown game embeds full link") {
+  test("markdown dont embed explicit links") {
     val md = Markdown(s"foo [game]($gameUrl) bar")
     assertEquals(
       mdRender(md),
       Html:
-        s"""<p>foo <div data-pgn="$gamePgn" class="lpv--autostart is2d">$gameUrl</div> bar</p>
+        s"""<p>foo <a href="$gameUrl">game</a> bar</p>
 """
     )
   }

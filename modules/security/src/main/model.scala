@@ -32,23 +32,7 @@ case class LocatedSession(session: UserSession, location: Option[Location])
 
 case class IpAndFp(ip: IpAddress, fp: Option[String], user: UserId)
 
-case class HcaptchaPublicConfig(key: String, enabled: Boolean)
-
-case class HcaptchaForm[A](form: Form[A], config: HcaptchaPublicConfig, skip: Boolean):
-  def enabled                    = config.enabled && !skip
-  def apply(key: String)         = form(key)
-  def withForm[B](form: Form[B]) = HcaptchaForm(form, config, skip)
-  def fill[B](data: A)           = copy(form = form.fill(data))
-
 case class LameNameCheck(value: Boolean) extends AnyVal
-
-case class UserSignup(
-    user: User,
-    email: EmailAddress,
-    req: RequestHeader,
-    fingerPrint: Option[FingerHash],
-    suspIp: Boolean
-)
 
 enum UserClient:
   case PC, Mob, App

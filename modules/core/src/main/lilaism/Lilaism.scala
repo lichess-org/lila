@@ -22,6 +22,7 @@ object Lilaism extends LilaLibraryExtensions:
   export lila.core.perf.{ PerfKey, Perf }
   export lila.core.email.EmailAddress
   export lila.core.user.{ User, Me }
+  export lila.core.game.{ Game, Pov }
 
   def some[A](a: A): Option[A] = Some(a)
 
@@ -35,6 +36,6 @@ object Lilaism extends LilaLibraryExtensions:
 
   import play.api.Mode
   extension (mode: Mode)
-    def isDev   = mode == Mode.Dev
-    def isProd  = mode == Mode.Prod
-    def notProd = mode != Mode.Prod
+    inline def isDev   = mode == Mode.Dev
+    inline def isProd  = mode == Mode.Prod
+    inline def notProd = mode != Mode.Prod

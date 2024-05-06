@@ -12,9 +12,8 @@ case class ByteArray(value: Array[Byte]):
 
   def showBytes: String =
     value
-      .map { b =>
+      .map: b =>
         "%08d".format({ b & 0xff }.toBinaryString.toInt)
-      }
       .mkString(",")
 
   override def toString = toHexStr
@@ -25,6 +24,11 @@ object ByteArray:
 
   def fromHexStr(hexStr: String): Try[ByteArray] =
     Try(ByteArray(hex.str2Hex(hexStr)))
+
+  given arrayByteHandler: BSONHandler[Array[Byte]] = dsl.quickHandler[Array[Byte]](
+    { case v: BSONBinary => v.byteArray },
+    v => BSONBinary(v, subtype)
+  )
 
   given byteArrayHandler: BSONHandler[ByteArray] = dsl.quickHandler[ByteArray](
     { case v: BSONBinary => ByteArray(v.byteArray) },

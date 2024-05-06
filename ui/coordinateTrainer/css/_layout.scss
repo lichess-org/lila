@@ -17,10 +17,10 @@
 }
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height});
+  ---main-max-width: calc(100vh - #{$site-header-outer-height});
 
   @include mq-at-least-col2 {
-    --main-max-width: auto;
+    ---main-max-width: auto;
   }
 }
 
@@ -58,7 +58,7 @@
   grid-row-gap: $block-gap;
 
   @include mq-at-least-col2 {
-    grid-template-columns: var(--col2-uniboard-width) $block-gap $col2-uniboard-table;
+    grid-template-columns: var(---col2-uniboard-width) $block-gap $col2-uniboard-table;
     grid-template-rows: fit-content(0);
     grid-template-areas:
       'board    . table'
@@ -74,7 +74,7 @@
       'side . progress . .'
       'side . co-input . .'
       'side . .        . .';
-    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-width) $block-gap $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $block-gap var(---col3-uniboard-width) $block-gap $col3-uniboard-table;
   }
 }
 

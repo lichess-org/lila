@@ -1,0 +1,87 @@
+{
+  "name": "bits",
+  "version": "2.0.0",
+  "private": true,
+  "description": "assorted modules",
+  "author": "T-Bone Duplexus",
+  "license": "AGPL-3.0-or-later",
+  "exports": {
+    "./*": "./dist/load/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/load/*"
+      ]
+    }
+  },
+  "dependencies": {
+    "@fnando/sparkline": "^0.3.10",
+    "@toast-ui/editor": "3.1.7",
+    "@textcomplete/core": "^0.1.13",
+    "@textcomplete/textarea": "^0.1.13",
+    "@types/debounce-promise": "^3.1.6",
+    "@types/fnando__sparkline": "^0.3.7",
+    "@types/yaireo__tagify": "4.17.5",
+    "@types/zxcvbn": "^4.4.4",
+    "@yaireo/tagify": "4.17.9",
+    "chat": "workspace:*",
+    "chess": "workspace:*",
+    "common": "workspace:*",
+    "cropperjs": "^1.6.1",
+    "debounce-promise": "^3.1.2",
+    "emoji-mart": "^5.5.2",
+    "flatpickr": "^4.6.13",
+    "lichess-pgn-viewer": "^2.1.0",
+    "prop-types": "^15.8.1",
+    "tablesort": "^5.3.0",
+    "zxcvbn": "^4.4.2"
+  },
+  "sideEffects": false,
+  "lichess": {
+    "bundles": [
+      "src/bits.account.ts",
+      "src/bits.appeal.ts",
+      "src/bits.autoform.ts",
+      "src/bits.captcha.ts",
+      "src/bits.challengePage.ts",
+      "src/bits.checkout.ts",
+      "src/bits.clas.ts",
+      "src/bits.cms.ts",
+      "src/bits.coachForm.ts",
+      "src/bits.contact.ts",
+      "src/bits.cropDialog.ts",
+      "src/bits.dailyFeed.ts",
+      "src/bits.diagnosticDialog.ts",
+      "src/bits.eventCountdown.ts",
+      "src/bits.expandText.ts",
+      "src/bits.flairPicker.ts",
+      "src/bits.flatpickr.ts",
+      "src/bits.forum.ts",
+      "src/bits.gameSearch.ts",
+      "src/bits.hcaptcha.ts",
+      "src/bits.infiniteScroll.ts",
+      "src/bits.login.ts",
+      "src/bits.lpv.ts",
+      "src/bits.passwordComplexity.ts",
+      "src/bits.plan.ts",
+      "src/bits.publicChats.ts",
+      "src/bits.relayForm.ts",
+      "src/bits.soundMove.ts",
+      "src/bits.streamer.ts",
+      "src/bits.team.ts",
+      "src/bits.teamBattleForm.ts",
+      "src/bits.tourForm.ts",
+      "src/bits.tvGames.ts",
+      "src/bits.ublog.ts",
+      "src/bits.ublogForm.ts",
+      "src/bits.user.ts",
+      "src/bits.userComplete.ts",
+      "src/bits.userGamesDownload.ts"
+    ],
+    "sync": {
+      "node_modules/cropperjs/dist/cropper.min.css": "public/npm",
+      "../../node_modules/chessground/dist/chessground.min.js": "public/npm"
+    }
+  }
+}

@@ -104,8 +104,8 @@ object Chart:
           case Insight.Stacked(points) => series.sortLike(points.map(_._1.value), _.name)
       }
 
-    def gameUserJson(player: lila.game.Player): Fu[JsObject] =
-      (player.userId.so(getLightUser)).map { lu =>
+    def gameUserJson(player: lila.core.game.Player): Fu[JsObject] =
+      player.userId.so(getLightUser).map { lu =>
         Json
           .obj("rating" -> player.rating)
           .add("name", lu.map(_.name))

@@ -64,7 +64,6 @@
   <string name="downloadAllGames">Ladda ner alla partier</string>
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="copyChapterPgn">Kopiera PGN</string>
-  <string name="copyChapterPgnDescription">Kopiera kapitel-PGN till urklipp.</string>
   <string name="downloadGame">Ladda ner parti</string>
   <string name="studyUrl">Studiens URL</string>
   <string name="currentChapterUrl">Aktuell kapitel URL</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">Fastnålad kommentar till kapitlet</string>
   <string name="saveChapter">Spara kapitlet</string>
   <string name="clearAnnotations">Rensa kommentarer</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Rensa variationer</string>
+  <string name="clearVariations">Rensa variationer</string>
   <string name="deleteChapter">Ta bort kapitel</string>
   <string name="deleteThisChapter">Ta bort detta kapitel. Det går inte att ångra!</string>
   <string name="clearAllCommentsInThisChapter">Rensa alla kommentarer, symboler och former i detta kapitel?</string>

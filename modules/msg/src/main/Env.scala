@@ -11,11 +11,11 @@ import lila.core.socket.remote.TellUserIn
 final class Env(
     baseUrl: BaseUrl,
     db: lila.db.Db,
-    lightUserApi: lila.user.LightUserApi,
-    getBotUserIds: lila.user.GetBotIds,
+    lightUserApi: lila.core.user.LightUserApi,
     isOnline: lila.core.socket.IsOnline,
-    userRepo: lila.user.UserRepo,
-    userCache: lila.user.Cached,
+    userApi: lila.core.user.UserApi,
+    userRepo: lila.core.user.UserRepo,
+    userCache: lila.core.user.CachedApi,
     relationApi: lila.core.relation.RelationApi,
     prefApi: lila.core.pref.PrefApi,
     notifyApi: lila.core.notify.NotifyApi,
@@ -26,25 +26,34 @@ final class Env(
     chatPanicAllowed: lila.core.chat.panic.IsAllowed,
     textAnalyser: lila.core.shutup.TextAnalyser,
     mongoCache: lila.memo.MongoCache.Api
-)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator):
+)(using
+    Executor,
+    akka.actor.ActorSystem,
+    Scheduler,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
+):
 
   private val colls = wire[MsgColls]
 
-  lazy val json = wire[MsgJson]
+  private val contactApi = ContactApi(userRepo.coll)
 
-  private lazy val notifier = wire[MsgNotify]
+  val json = wire[MsgJson]
 
-  private lazy val security = wire[MsgSecurity]
+  private val notifier = wire[MsgNotify]
 
-  lazy val api: MsgApi = wire[MsgApi]
+  private val security = wire[MsgSecurity]
 
-  lazy val search = wire[MsgSearch]
+  val api: MsgApi = wire[MsgApi]
 
-  lazy val compat = wire[MsgCompat]
+  val search = wire[MsgSearch]
 
-  lazy val twoFactorReminder = wire[TwoFactorReminder]
+  val compat = wire[MsgCompat]
 
-  lazy val emailReminder = wire[EmailReminder]
+  val twoFactorReminder = wire[TwoFactorReminder]
+
+  val emailReminder = wire[EmailReminder]
 
   def cli: lila.common.Cli = new:
     def process =

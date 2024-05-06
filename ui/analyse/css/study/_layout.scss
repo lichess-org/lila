@@ -1,3 +1,8 @@
 .analyse__underboard {
   margin-top: calc($analyse-block-gap / 2);
 }
+
+.analyse .keyboard-move {
+  margin-top: calc($analyse-block-gap * 2);
+  margin-bottom: calc($analyse-block-gap * -1);
+}

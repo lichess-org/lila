@@ -5,10 +5,10 @@
 @import 'history';
 
 #main-wrap {
-  --main-max-width: calc(100vh - #{$site-header-outer-height} - 9rem);
+  ---main-max-width: calc(100vh - #{$site-header-outer-height} - 9rem);
 
   @include mq-at-least-col2 {
-    --main-max-width: auto;
+    ---main-max-width: auto;
   }
 
   user-select: none;

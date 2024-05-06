@@ -1,10 +1,8 @@
-import makeSocket from './socket';
+import { TournamentSocket, makeSocket } from './socket';
 import * as xhr from './xhr';
 import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
-// eslint-disable-next-line no-duplicate-imports
-import { TournamentSocket } from './socket';
 
 interface CtrlTeamInfo {
   requested?: string;

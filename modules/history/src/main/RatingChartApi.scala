@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import play.api.i18n.Lang
 
-import lila.rating.PerfType
 import lila.core.data.SafeJsonStr
 
 final class RatingChartApi(

@@ -18,7 +18,7 @@
   @media (max-width: 576px) {
     grid-template-columns: 100%;
     grid-template-rows: auto min-content;
-    grid-template-areas: 'e-board' 'e-tools';
+    grid-template-areas: 'spare-top' 'e-board' 'spare-bottom' 'e-tools';
   }
   user-select: none;
 

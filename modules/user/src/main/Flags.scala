@@ -286,9 +286,6 @@ object Flags extends lila.core.user.FlagApi:
     C("_earth", "Earth")
   )
 
-  val allPairs: List[(Code, Name)] = all.map: c =>
-    c.code -> c.name
-
   val map: Map[Code, Flag] = all.mapBy(_.code)
 
   val nameMap: Map[Flag, Name] = all.view

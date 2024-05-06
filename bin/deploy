@@ -12,6 +12,7 @@ import subprocess
 import time
 import textwrap
 import contextlib
+import datetime
 
 try:
     import requests
@@ -62,8 +63,6 @@ SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workfl
 
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
-LIFAT_DIR = "/home/lifat"
-
 
 def curl_cli(command, *, url="https://lichess.org/run/cli"):
     return f"curl --fail -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @.lila-cli"
@@ -79,7 +78,7 @@ def asset_profile(ssh, *,
         "files": ASSETS_FILES,
         "workflow_url": ASSETS_BUILD_URL,
         "artifact_name": "lila-assets",
-        "symlinks": ["public"],
+        "symlinks": [],
         "post": post,
         "stage": stage,
     }
@@ -102,6 +101,8 @@ def server_profile(ssh, *,
 PROFILES = {
     "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
     "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
+    "snafu-assets": asset_profile("root@snafu.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
+    "snafu-server": server_profile("root@snafu.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
     "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
 }
@@ -259,7 +260,7 @@ def deploy_script(profile, session, run, url):
     artifact_zip = f"{artifact_unzipped}.zip"
     deploy_prompt = f"read -n 1 -p {shlex.quote('PRESS ENTER TO RUN: ' + profile['post'])}"
 
-    return [
+    commands = [
         "echo \\# Downloading ...",
         f"mkdir -p {ARTIFACT_DIR}",
         f"mkdir -p {deploy_dir}/logs",
@@ -271,19 +272,32 @@ def deploy_script(profile, session, run, url):
         f"tar -xf {artifact_unzipped}/*.tar.zst -C {artifact_unzipped}/d",
         f"cat {artifact_unzipped}/d/commit.txt",
         "echo",
-        "echo \\# Preparing lifat ...",
-        f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={LIFAT_DIR} ./download-lifat; chown -R lichess:lichess {LIFAT_DIR}; fi)",
-        "echo",
         f"echo \\# chown -R lichess:lichess {artifact_unzipped}",
         f"chown -R lichess:lichess {artifact_unzipped}",
         "echo",
-        "echo \\# Installing ...",
-    ] + [
-        f"echo \"{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}\";ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}"
-        for symlink in profile["symlinks"]
-    ] + [
+    ]
+
+    if profile["artifact_name"] == "lila-assets":
+        assets_dir = f"{deploy_dir}/public"
+        lifat_dir = f"{assets_dir}/lifat"
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
+        commands += [
+            "echo \\# Preparing lifat ...",
+            f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R lichess:lichess {lifat_dir}; fi)",
+            "echo \\# Copying assets ...",
+            f"mkdir -p {assets_dir}/compiled",
+            f"if [ -f {assets_dir}/compiled/manifest.prod.json ]; then mv -f {assets_dir}/compiled/manifest.prod.json {assets_dir}/compiled/manifest-{timestamp}.prod.json; fi",
+            f"rsync -a {artifact_unzipped}/d/public/ {assets_dir}/",
+            f"rm -rf {artifact_unzipped}",
+        ]
+    else:
+        commands += [
+            f'echo "{artifact_unzipped}/d/{symlink} -> {deploy_dir}/{symlink}";ln -f --no-target-directory -s {artifact_unzipped}/d/{symlink} {deploy_dir}/{symlink}'
+            for symlink in profile["symlinks"]
+        ] + [f"chmod -f +x {deploy_dir}/bin/lila || true"]
+
+    return commands + [
         f"chown -R lichess:lichess {deploy_dir}",
-        f"chmod -f +x {deploy_dir}/bin/lila || true",
         f"echo \"SSH: {profile['ssh']}\"",
         f"echo {shlex.quote('Running: ' + profile['post'])}" if profile["stage"] else f"/bin/bash -c {shlex.quote(deploy_prompt)}",
         profile["post"],

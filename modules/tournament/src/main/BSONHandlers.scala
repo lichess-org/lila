@@ -8,10 +8,10 @@ import reactivemongo.api.bson.*
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
-import UserId.lichess
 import lila.core.tournament.leaderboard.Ratio
 import lila.core.tournament.Status
 import lila.core.id.TourPlayerId
+import lila.gathering.Thematic
 
 object BSONHandlers:
 
@@ -35,6 +35,7 @@ object BSONHandlers:
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
 
+  given BSONHandler[lila.ui.Icon]              = isoHandler[lila.ui.Icon, String]
   private given BSONDocumentHandler[Spotlight] = Macros.handler
 
   given BSONDocumentHandler[TeamBattle] = Macros.handler

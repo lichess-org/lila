@@ -860,9 +860,6 @@
   <string name="transparent">Průhledné</string>
   <string name="deviceTheme">Motiv podle zařízení</string>
   <string name="backgroundImageUrl">URL zdroj obrázku na pozadí:</string>
-  <string name="boardGeometry">Typ šachovnice</string>
-  <string name="boardTheme">Vzhled šachovnice</string>
-  <string name="boardSize">Velikost šachovnice</string>
   <string name="pieceSet">Vzhled figur</string>
   <string name="embedInYourWebsite">Vložit na web</string>
   <string name="usernameAlreadyUsed">Toto uživatelské jméno již existuje. Zvol, prosím, jiné.</string>

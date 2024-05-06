@@ -10,8 +10,8 @@ final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
     memberRepo: TeamMemberRepo,
     requestRepo: TeamRequestRepo,
-    userApi: lila.user.UserApi,
-    lightUserApi: lila.user.LightUserApi
+    userApi: lila.core.user.UserApi,
+    lightUserApi: lila.core.user.LightUserApi
 )(using Executor):
   private val maxPerPage         = MaxPerPage(15)
   private val maxUserPerPage     = MaxPerPage(30)

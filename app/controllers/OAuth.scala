@@ -1,12 +1,9 @@
 package controllers
 
 import scalalib.ThreadLocalRandom
-import play.api.data.Form
-import play.api.data.Forms.*
 import play.api.libs.json.{ JsNull, JsObject, JsValue, Json }
 import play.api.mvc.*
 import scalatags.Text.all.stringFrag
-import views.*
 
 import lila.app.*
 import lila.common.Json.given
@@ -37,13 +34,13 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         AuthorizationRequest.logPrompt(prompt, ctx.me)
         f(prompt)
       case Left(error) =>
-        BadRequest.page(html.site.message("Bad authorization request")(stringFrag(error.description)))
+        BadRequest.page(views.site.message("Bad authorization request")(stringFrag(error.description)))
 
   def authorize = Open:
     withPrompt: prompt =>
       ctx.me.fold(Redirect(routes.Auth.login.url, Map("referrer" -> List(req.uri))).toFuccess): me =>
         Ok.page:
-          html.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
+          views.oAuth.authorize(prompt, me, s"${routes.OAuth.authorizeApply}?${req.rawQueryString}")
 
   def legacyAuthorize = Anon:
     MovedPermanently(s"${routes.OAuth.authorize}?${req.rawQueryString}")
@@ -59,21 +56,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       }
   }
 
-  private val accessTokenRequestForm =
-    import lila.oauth.Protocol.*
-    import lila.common.Form.into
-    Form(
-      mapping(
-        "grant_type"    -> optional(text),
-        "code"          -> optional(text),
-        "code_verifier" -> optional(text),
-        "client_id"     -> optional(text.into[ClientId]),
-        "redirect_uri"  -> optional(text),
-        "client_secret" -> optional(text)
-      )(AccessTokenRequest.Raw.apply)(unapply)
-    )
-
-  def tokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
+  def tokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)):
     _.prepare match
       case Right(prepared) =>
         env.oAuth.authorizationApi.consume(prepared).flatMap {
@@ -92,7 +75,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         }
       case Left(err) => BadRequest(err.toJson)
 
-  def legacyTokenApply = AnonBodyOf(parse.form(accessTokenRequestForm)):
+  def legacyTokenApply = AnonBodyOf(parse.form(lila.oauth.AccessTokenRequest.form)):
     _.prepareLegacy(AccessTokenRequest.BasicAuth.from(req)) match
       case Right(prepared) =>
         env.oAuth.authorizationApi.consume(prepared).flatMap {
@@ -118,10 +101,8 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     }
   }
 
-  private val revokeClientForm = Form(single("origin" -> text))
-
   def revokeClient = AuthBody { ctx ?=> _ ?=>
-    revokeClientForm
+    lila.oauth.AccessTokenRequest.revokeClientForm
       .bindFromRequest()
       .fold(
         _ => BadRequest,
@@ -145,23 +126,19 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     else Unauthorized(jsonError("Missing permission"))
   }
 
-  private val testTokenRateLimit = lila.memo.RateLimit[IpAddress](
-    credits = 10_000,
-    duration = 10.minutes,
-    key = "api.token.test"
-  )
   def testTokens = AnonBodyOf(parse.tolerantText): body =>
     val bearers = Bearer.from(body.trim.split(',').view.take(1000).toList)
-    testTokenRateLimit(req.ipAddress, fuccess(ApiResult.Limited), cost = bearers.size):
-      env.oAuth.tokenApi.test(bearers).map { tokens =>
-        import lila.common.Json.given
-        ApiResult.Data(JsObject(tokens.map { (bearer, token) =>
-          bearer.value -> token.fold[JsValue](JsNull): t =>
-            Json.obj(
-              "userId"  -> t.userId,
-              "scopes"  -> t.scopes.into(OAuthScopes).keyList,
-              "expires" -> t.expires
-            )
-        }))
-      }
-    .map(apiC.toHttp)
+    limit
+      .oauthTokenTest(req.ipAddress, fuccess(ApiResult.Limited), cost = bearers.size):
+        env.oAuth.tokenApi.test(bearers).map { tokens =>
+          import lila.common.Json.given
+          ApiResult.Data(JsObject(tokens.map { (bearer, token) =>
+            bearer.value -> token.fold[JsValue](JsNull): t =>
+              Json.obj(
+                "userId"  -> t.userId,
+                "scopes"  -> t.scopes.into(OAuthScopes).keyList,
+                "expires" -> t.expires
+              )
+          }))
+        }
+      .map(apiC.toHttp)

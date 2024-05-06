@@ -22,7 +22,7 @@
     }
 
     a {
-      font-family: roboto;
+      font-family: 'Roboto', Sans-Serif;
       display: flex;
       align-items: center;
       color: $c-font;
@@ -68,7 +68,7 @@
 
       &::after {
         content: '';
-        background: fade-out($c-accent, 0.4);
+        background: $m-accent--fade-40;
         width: 3px;
         position: absolute;
         height: 98%;

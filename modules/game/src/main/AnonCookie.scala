@@ -6,10 +6,10 @@ import lila.common.Json.given
 
 object AnonCookie:
 
-  val name   = "rk2"
+  val name   = lila.core.game.anonCookieName
   val maxAge = 604800 // one week
 
-  def json(pov: Pov): Option[JsObject] =
+  def json(pov: lila.core.game.Pov): Option[JsObject] =
     pov.player.userId.isEmpty.option(
       Json.obj(
         "name"   -> name,

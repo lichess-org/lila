@@ -3,10 +3,10 @@ package lila.analyse
 import chess.{ ByColor, Color }
 
 import scalalib.Maths
-import lila.game.Game
 import lila.tree.Eval
 import lila.tree.{ Analysis, WinPercent }
 import lila.core.data.Percent
+import lila.core.game.SideAndStart
 
 // Quality of a move, based on previous and next WinPercent
 opaque type AccuracyPercent = Double
@@ -52,7 +52,7 @@ for x in xs:
       }.atMost(100).atLeast(0)
   }
 
-  def fromEvalsAndPov(pov: Game.SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
+  def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
     val alignedEvals =
       if pov.color == pov.startColor then Eval.initial :: subjectiveEvals else subjectiveEvals
@@ -67,7 +67,7 @@ for x in xs:
       .flatten
       .toList
 
-  def fromAnalysisAndPov(pov: Game.SideAndStart, analysis: Analysis): List[AccuracyPercent] =
+  def fromAnalysisAndPov(pov: SideAndStart, analysis: Analysis): List[AccuracyPercent] =
     fromEvalsAndPov(pov, analysis.infos.map(_.eval))
 
   def gameAccuracy(startColor: Color, analysis: Analysis): Option[ByColor[AccuracyPercent]] =

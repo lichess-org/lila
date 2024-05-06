@@ -102,9 +102,11 @@ object SetupForm:
         "Invalid time control",
         hook =>
           allowFastGames || hook.makeClock.exists(
-            lila.game.Game.isBoardCompatible
+            lila.core.game.isBoardCompatible
           ) || hook.makeDaysPerTurn.isDefined
       )
+
+  def toFriend = Form(single("username" -> lila.common.Form.username.historicalField))
 
   object api extends lila.core.setup.SetupForm:
 

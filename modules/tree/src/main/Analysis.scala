@@ -1,15 +1,30 @@
 package lila.tree
 
+import play.api.libs.json.JsObject
 import chess.{ Color, Ply }
+import chess.format.pgn.{ Pgn, PgnStr }
+
+case class AnalysisProgress(payload: () => JsObject)
+case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)
+
+trait Analyser:
+  def byId(id: Analysis.Id): Fu[Option[Analysis]]
+
+trait Annotator:
+  def toPgnString(pgn: Pgn): PgnStr
+  def addEvals(p: Pgn, analysis: Analysis): Pgn
+
+trait AnalysisJson:
+  def bothPlayers(startedAtPly: Ply, analysis: Analysis, withAccuracy: Boolean = true): JsObject
 
 case class Analysis(
     id: Analysis.Id,
     infos: List[Info],
     startPly: Ply,
     date: Instant,
-    fk: Option[Analysis.FishnetKey]
+    fk: Option[Analysis.FishnetKey],
+    nodesPerMove: Option[Int]
 ):
-
   lazy val infoAdvices: InfoAdvices =
     (Info.start(startPly) :: infos)
       .sliding(2)

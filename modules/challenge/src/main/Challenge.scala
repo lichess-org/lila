@@ -8,7 +8,6 @@ import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import scalalib.model.Days
-import lila.game.Game
 import lila.core.i18n.I18nKey
 import lila.core.{ challenge as hub }
 import lila.core.game.GameRule
@@ -17,7 +16,7 @@ import lila.core.user.WithPerf
 import lila.core.user.GameUser
 
 case class Challenge(
-    @Key("_id") id: Challenge.Id,
+    @Key("_id") id: ChallengeId,
     status: Challenge.Status,
     variant: Variant,
     initialFen: Option[Fen.Full],
@@ -40,13 +39,9 @@ case class Challenge(
   import Challenge.*
 
   def challengerUserId = challengerUser.map(_.id)
-  def challengerIsAnon = challenger match
-    case _: Challenger.Anonymous => true
-    case _                       => false
   def challengerIsOpen = challenger match
     case Challenger.Open => true
     case _               => false
-  def destUserId = destUser.map(_.id)
 
   def userIds = List(challengerUserId, destUserId).flatten
 
@@ -158,7 +153,7 @@ object Challenge:
     lila.rating.PerfType(variant, speedOf(timeControl))
 
   private val idSize   = 8
-  private def randomId = Id(ThreadLocalRandom.nextString(idSize))
+  private def randomId = ChallengeId(ThreadLocalRandom.nextString(idSize))
 
   def toRegistered(u: WithPerf): Challenger.Registered =
     Challenger.Registered(u.id, Rating(u.perf.intRating, u.perf.provisional))
@@ -191,11 +186,11 @@ object Challenge:
       case "black" => ColorChoice.Black  -> chess.Black
       case _       => ColorChoice.Random -> randomColor
     val finalMode = timeControl match
-      case TimeControl.Clock(clock) if !lila.game.Game.allowRated(variant, clock.some) => Mode.Casual
+      case TimeControl.Clock(clock) if !lila.core.game.allowRated(variant, clock.some) => Mode.Casual
       case _                                                                           => mode
     val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
-      id = id.fold(randomId)(_.into(Id)),
+      id = id.fold(randomId)(_.into(ChallengeId)),
       status = Status.Created,
       variant = variant,
       initialFen =

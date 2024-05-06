@@ -3,15 +3,16 @@ package lila.round
 import alleycats.Zero
 import chess.{ Black, Centis, Color, White }
 import play.api.libs.json.*
-
 import scala.util.chaining.*
 
-import lila.game.{ Event, Game, GameRepo, Player as GamePlayer, Pov, Progress }
+import lila.game.{ Event, GameRepo, Player as GamePlayer, Progress }
 import scalalib.actor.AsyncActor
 import lila.core.round.*
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ GetVersion, makeMessage, SocketSend, SocketVersion, userLag }
 import lila.core.user.FlairGet
+import lila.game.GameExt.*
+import lila.round.RoundGame.*
 
 final private class RoundAsyncActor(
     dependencies: RoundAsyncActor.Dependencies,
@@ -164,7 +165,7 @@ final private class RoundAsyncActor(
           }
           .inject(Nil)
 
-    case lila.core.analyse.AnalysisProgress(payload) =>
+    case lila.tree.AnalysisProgress(payload) =>
       fuccess:
         socketSend:
           RP.Out.tellRoom(roomId, makeMessage("analysisProgress", payload()))
@@ -221,9 +222,8 @@ final private class RoundAsyncActor(
       handle(color): pov =>
         val berserked = pov.game.goBerserk(color)
         berserked
-          .so { progress =>
+          .so: progress =>
             (proxy.save(progress) >> gameRepo.goBerserk(pov)).inject(progress.events)
-          }
           .andDo(promise.success(berserked.isDefined))
 
     case Blindfold(playerId, value) =>
@@ -279,7 +279,7 @@ final private class RoundAsyncActor(
     case DrawClaim(playerId)  => handle(playerId)(drawer.claim)
     case Cheat(color) =>
       handle: game =>
-        (game.playable && !game.imported).so:
+        (game.playable && !game.sourceIs(_.Import)).so:
           finisher.other(game, _.Cheat, Some(!color))
     case TooManyPlies => handle(drawer.force(_))
 
@@ -410,7 +410,7 @@ final private class RoundAsyncActor(
         publishBoardBotGone(pov, millis.some)
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
-    if Game.isBoardOrBotCompatible(pov.game) then
+    if lila.game.Game.isBoardOrBotCompatible(pov.game) then
       lila.common.Bus.publish(
         lila.game.actorApi.BoardGone(pov, millis.map(m => (m.atLeast(0) / 1000).toInt)),
         lila.game.actorApi.BoardGone.makeChan(gameId)

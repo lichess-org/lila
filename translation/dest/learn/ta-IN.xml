@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">சதுரங்கம் கற்றுக்கொள்</string>
+  <string name="learnChess">சதுரங்கம் கற்றுக்கொள்ளுங்கள்</string>
   <string name="byPlaying">விளையாடுவதன் மூலம்!</string>
   <string name="menu">பட்டியல்</string>
   <string name="progressX">முன்னேற்றம்: %s</string>
@@ -8,40 +8,56 @@
   <string name="youWillLoseAllYourProgress">உங்கள் முன்னேற்றம் அனைத்தையும் இழப்பீர்கள்!</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">விளையாடு!</string>
   <string name="chessPieces">சதுரங்க காய்கள்</string>
-  <string name="theRook">தி ரூக்</string>
+  <string name="theRook">யானை</string>
   <string name="itMovesInStraightLines">இது நேர்கோட்டில் நகரும்</string>
-  <string name="rookIntro">ரோக் ஒரு சக்திவாய்ந்த துண்டு. நீங்கள் கட்டளையிட தயாரா?</string>
-  <string name="rookGoal">அதை நட்சத்திரத்திற்கு கொண்டு வர ரூக் மீது கிளிக் செய்யவும்!</string>
+  <string name="rookIntro">யானை ஒரு சக்திவாய்ந்த காய். நீங்கள் அதைக் கட்டளையிட தயாரா?</string>
+  <string name="rookGoal">யானையை நட்சத்திரத்திற்கு கொண்டு வர அதன்மீது கிளிக் செய்யவும்!</string>
   <string name="grabAllTheStars">எல்லா நட்சத்திரங்களையும் எடுங்கள்!</string>
-  <string name="theFewerMoves">குறைந்த நகர்வில் கூடுதலான புள்ளிகளைப் பெறுங்கள்!</string>
-  <string name="useTwoRooks">விரைவுபடுத்த இரண்டு யானைகளையும் பாவியுங்கள்!</string>
-  <string name="rookComplete">வாழ்த்துகள்! யானையைக் கையாள்வதில் தேர்ச்சிபெற்றுவிட்டீர்கள்.</string>
+  <string name="theFewerMoves">குறைந்த நகர்வில் செய்தால் கூடுதலான மதிப்பெண்களைப் பெறுவீர்!</string>
+  <string name="useTwoRooks">விரைவுபடுத்த இரண்டு யானைகளைப் பாவியுங்கள்!</string>
+  <string name="rookComplete">வாழ்த்துக்கள்! யானையைக் கையாள்வதில் தேர்ச்சிபெற்றுவிட்டீர்கள்.</string>
   <string name="theBishop">மந்திரி</string>
   <string name="itMovesDiagonally">இது மூலைவிட்டம் வழியே நகரும்</string>
   <string name="bishopIntro">அடுத்து மந்திரியைக் கையாள்வதைக் கற்போம்!</string>
   <string name="youNeedBothBishops">ஒரு வெள்ளைச் சதுர (light-squared) மந்திரி,
-ஒரு கறுப்புப் பெட்டி (dark-squared) மந்திரி,
+ஒரு கறுப்புச் ச்துர் (dark-squared) மந்திரி,
 ஆகிய இரண்டும் உங்களிற்குத் தேவைப்படும்!</string>
-  <string name="bishopComplete">வாழ்த்துகள்! நீங்கள் மந்திரிக்குக் கட்டளையிடலாம்.</string>
+  <string name="bishopComplete">வாழ்த்துக்கள்! நீங்கள் மந்திரிக்குக் கட்டளையிடலாம்.</string>
   <string name="theQueen">அரசி</string>
-  <string name="queenCombinesRookAndBishop">அரசி=யானை+அமைச்சர்</string>
+  <string name="queenCombinesRookAndBishop">அரசி=யானை+மந்திரி</string>
   <string name="queenIntro">மிகவும் சக்தி வாய்ந்த சதுரங்கக் காய் உள்ளே நுழைகிறது. அவள்மாட்சிமையான அரசி!</string>
-  <string name="queenComplete">வாழ்த்துகள்! அரசிக்கு உங்களிடம் எந்த இரகசிமும் இல்லை.</string>
+  <string name="queenComplete">வாழ்த்துக்கள்! அரசிக்கு உங்களிடம் எந்த இரகசியமும் இல்லை.</string>
   <string name="theKing">அரசன்</string>
   <string name="theMostImportantPiece">மிகவும் முக்கியமான காய்</string>
-  <string name="kingIntro">நீங்கள்தான் அரசன். நீங்கள் போரில் விழுந்தால், விளையாட்டில் தோற்று விடுவீர்கள்.</string>
+  <string name="kingIntro">நீங்கள்தான் அரசன். நீங்கள் போரில் வீழ்ந்தால், விளையாட்டில் தோற்று விடுவீர்கள்.</string>
   <string name="theKingIsSlow">அரசர் மெதுவாக நகர்வார்.</string>
   <string name="lastOne">கடைசியாக ஒன்று!</string>
   <string name="kingComplete">நீங்கள் இப்போது கட்டளையிடுபவரிற்குக் கட்டளையிடலாம்!</string>
   <string name="theKnight">குதிரை</string>
   <string name="itMovesInAnLShape">இது ட வடிவில் நகரும்</string>
-  <string name="captureIntro">Identify the opponent\'s undefended pieces, and capture them!</string>
+  <string name="knightIntro">இதோ உங்களுக்கு ஒரு சவால். குதிரை... ஒரு வித்தியாசமான காய்.</string>
+  <string name="knightsHaveAFancyWay">குதிரைகளுக்குத் தாவிக் குதிக்கும் குணம் உண்டு!</string>
+  <string name="knightsCanJumpOverObstacles">குதிரைகளால் தடைகளைத் தாண்டிக் குதிக்க முடியும்! தப்பித்து நட்சத்திரங்களை வீழ்த்துங்கள்!</string>
+  <string name="knightComplete">வாழ்த்துக்கள்! நீங்கள் குதிரையைக் கையாள்வதில் தேர்ச்சிபெற்றுவிட்டீர்கள்.</string>
+  <string name="thePawn">காலாள்</string>
+  <string name="itMovesForwardOnly">இது முன்பே மட்டும் செல்லும்</string>
+  <string name="selectThePieceYouWant">வேண்டியக் காயைத் தேர்வு செய்யுங்கள்!</string>
+  <string name="capture">கைப்பற்றுதல்</string>
+  <string name="takeTheEnemyPieces">எதிராளியின் காய்களைக் கைப்பற்றுங்கள்</string>
+  <string name="captureIntro">எதிராளியின் பாதுகாப்பற்ற காய்களைக் கண்டுபிடித்துக் கைப்பற்றுங்கள்!</string>
+  <string name="takeTheBlackPieces">கறுப்பு காய்களைக் கைப்பற்றுங்கள்!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">கறுப்பு காய்களைக் கைப்பற்றுங்கள்! உன்கள் காய்களை இழந்துவிடாதீர்கள்.</string>
   <string name="protection">பாதுகாப்பு</string>
-  <string name="keepYourPiecesSafe">பாதுகாப்பு</string>
-  <string name="protectionIntro">பாதுகாப்பு!</string>
+  <string name="keepYourPiecesSafe">உங்கள் காய்களைப் பாதுகாப்பாக வைத்திருங்கள்</string>
+  <string name="protectionIntro">எதிராளி தாக்கும் காய்களைப் பாதுகாக்குங்கள்!</string>
+  <string name="protectionComplete">வாழ்த்துக்கள்! இழக்காத ஒரு காய் கைப்பற்றிய ஒரு காய்க்குச் சமம்!</string>
+  <string name="escape">நீங்கள் தாக்குதலுக்கு ஆளாகியுள்ளீர்கள்! தப்பியுங்கள்!</string>
+  <string name="noEscape">தப்பிக்க இயலாது, ஆனால் பாதுகாக்க இயலும்!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">பாதுகாப்பற்ற எந்தக் காயையும் கைப்பற்ற விடாதீர்கள்!</string>
   <string name="combat">போர்</string>
-  <string name="checkInOne">ஒரு நகர்வில் வெற்றி</string>
-  <string name="attackTheOpponentsKing">எதிர்ப்பாளரின் அரசன்</string>
-  <string name="intermediate">ராஜாவுடன் தப்பிக்க</string>
-  <string name="boardSetup">சதுரங்க அமைப்பு</string>
+  <string name="captureAndDefendPieces">காய்களைப் கைப்பற்றுங்கள் பாதுகாக்குங்கள்</string>
+  <string name="checkInOne">ஒரு நகர்வில் ஆபத்து</string>
+  <string name="attackTheOpponentsKing">எதிராளியின் அரசனை தாக்குங்கள்</string>
+  <string name="intermediate">இடைநிலை</string>
+  <string name="boardSetup">பலகை அமைப்பு</string>
 </resources>

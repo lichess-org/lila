@@ -4,14 +4,12 @@ import reactivemongo.api.bson.*
 
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import lila.game.Game
-
 import lila.core.simul.Simul
 
 final class ActivityWriteApi(
     withColl: AsyncCollFailingSilently,
     studyApi: lila.core.study.StudyApi,
-    userRepo: lila.user.UserRepo
+    userApi: lila.core.user.UserApi
 )(using Executor):
 
   import Activity.*
@@ -26,7 +24,7 @@ final class ActivityWriteApi(
       val setGames = (!game.isCorrespondence).so(
         $doc(
           ActivityFields.games -> a.games.orZero
-            .add(game.perfType, Score.make(game.wonBy(player.color), RatingProg.make(player.light)))
+            .add(game.perfKey, Score.make(game.wonBy(player.color), RatingProg.make(player.light)))
         )
       )
       val setCorres = game.isCorrespondence.so(
@@ -106,7 +104,7 @@ final class ActivityWriteApi(
       .byId(id)
       .flatMap:
         _.filter(_.visibility == lila.core.study.Visibility.public).so: s =>
-          userRepo
+          userApi
             .isTroll(s.ownerId)
             .not
             .flatMapz:

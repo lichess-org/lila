@@ -1,5 +1,5 @@
 @mixin range-thumb {
-  @include metal;
+  // https://css-tricks.com/sliding-nightmare-understanding-range-input/
 
   border: 1px solid $c-font-dimmer;
   height: 1em;

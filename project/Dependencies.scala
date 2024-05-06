@@ -22,26 +22,26 @@ object Dependencies {
   val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.23.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
-  val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.12.0"
+  val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
   val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.2.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.108.Final").classifier(s"$os-$arch")
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-M11" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.16.0"
-  val apacheText  = "org.apache.commons"          % "commons-text"  % "1.11.0"
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.109.Final").classifier(s"$os-$arch")
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.0-RC1" % Test
+  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.17.0"
+  val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
   val kittens     = "org.typelevel"              %% "kittens"       % "3.3.0"
 
-  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.17.0"    % Test
-  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0-M11" % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0"    % Test
+  val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0-RC1" % Test
 
   object tests {
     val bundle = Seq(munit)
   }
 
   object chess {
-    val version  = "16.0.2"
+    val version  = "16.0.6"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -49,7 +49,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.1.5"
+    val version  = "11.1.7"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version
@@ -70,7 +70,7 @@ object Dependencies {
     val version = "2.5.9"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
-    val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.4"
+    val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"
     def bundle  = Seq(macros, util, tagging)
   }
 
@@ -84,7 +84,7 @@ object Dependencies {
 
   object play {
     val playVersion = "2.8.18-lila_3.18"
-    val json        = "org.playframework" %% "play-json"         % "3.0.2"
+    val json        = "org.playframework" %% "play-json"         % "3.0.3"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
@@ -93,7 +93,7 @@ object Dependencies {
   }
 
   object playWs {
-    val version = "2.2.6"
+    val version = "2.2.7"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)

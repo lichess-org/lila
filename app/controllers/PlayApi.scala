@@ -6,7 +6,7 @@ import play.api.mvc.*
 import scala.util.chaining.*
 
 import lila.app.*
-import lila.game.Pov
+
 import lila.core.id.GameAnyId
 import lila.core.perf.UserWithPerfs
 
@@ -161,7 +161,7 @@ final class PlayApi(env: Env, apiC: => Api)(using akka.stream.Materializer) exte
   def botOnline = Open:
     for
       users <- botsCache.get({})
-      page  <- renderPage(views.html.user.bots(users))
+      page  <- renderPage(views.user.list.bots(users))
     yield Ok(page)
 
   def botOnlineApi = Anon:

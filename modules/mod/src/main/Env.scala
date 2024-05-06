@@ -10,6 +10,7 @@ import lila.core.report.SuspectId
 import lila.core.user.WithPerf
 import lila.common.Bus
 import lila.rating.UserWithPerfs.only
+import lila.core.forum.BusForum
 
 @Module
 final class Env(
@@ -21,6 +22,7 @@ final class Env(
     tournamentApi: lila.core.tournament.TournamentApi,
     swissFeature: lila.core.swiss.SwissFeatureApi,
     gameRepo: lila.game.GameRepo,
+    gameApi: lila.core.game.GameApi,
     analysisRepo: lila.analyse.AnalysisRepo,
     userRepo: lila.user.UserRepo,
     perfsRepo: lila.user.UserPerfsRepo,
@@ -73,9 +75,9 @@ final class Env(
 
   Bus.subscribeFuns(
     "finishGame" -> {
-      case lila.game.actorApi.FinishGame(game, users) if !game.aborted =>
+      case lila.core.game.FinishGame(game, users) if !game.aborted =>
         users
-          .map(_.filter(_.enabled.yes).map(_.only(game.perfType)))
+          .map(_.filter(_.enabled.yes).map(_.only(game.perfKey)))
           .mapN: (whiteUser, blackUser) =>
             sandbagWatch(game)
             assessApi.onGameReady(game, ByColor(whiteUser, blackUser))
@@ -117,8 +119,8 @@ final class Env(
     }
   )
 
-  Bus.chan.forumPost.subscribe:
-    case p: lila.core.forum.RemovePost =>
+  Bus.sub[BusForum]:
+    case p: BusForum.RemovePost =>
       if p.asAdmin
       then logApi.deletePost(p.by, text = p.text.take(200))(using p.me)
       else

@@ -3,7 +3,7 @@ package lila.lobby
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.game.Pov
+
 import scalalib.actor.SyncActor
 import lila.core.timeline.*
 import lila.rating.RatingRange
@@ -16,11 +16,12 @@ case class LobbyCounters(members: Int, rounds: Int)
 final class LobbySocket(
     biter: Biter,
     userApi: lila.core.user.UserApi,
+    gameApi: lila.core.game.GameApi,
     socketKit: SocketKit,
     lobby: LobbySyncActor,
     relationApi: lila.core.relation.RelationApi,
     poolApi: lila.core.pool.PoolApi
-)(using ec: Executor, scheduler: Scheduler):
+)(using ec: Executor, scheduler: Scheduler)(using lila.core.config.RateLimit):
 
   import LobbySocket.*
   import Protocol.*
@@ -128,7 +129,7 @@ final class LobbySocket(
           "id"  -> pov.fullId,
           "url" -> s"/${pov.fullId}"
         )
-        .add("cookie" -> lila.game.AnonCookie.json(pov))
+        .add("cookie" -> gameApi.anonCookieJson(pov))
     )
 
     private def quit(sri: Sri): Unit =

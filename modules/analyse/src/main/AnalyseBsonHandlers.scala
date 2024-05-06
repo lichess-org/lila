@@ -23,7 +23,8 @@ object AnalyseBsonHandlers:
         infos = Info.decodeList(raw, startPly).err(s"Invalid analysis data $raw"),
         startPly = startPly,
         date = r.date("date"),
-        fk = r.strO("fk")
+        fk = r.strO("fk"),
+        nodesPerMove = r.intO("npm")
       )
     def writes(w: BSON.Writer, a: Analysis) =
       BSONDocument(
@@ -32,7 +33,8 @@ object AnalyseBsonHandlers:
         "data"    -> Info.encodeList(a.infos),
         "ply"     -> w.intO(a.startPly.value),
         "date"    -> w.date(a.date),
-        "fk"      -> a.fk
+        "fk"      -> a.fk,
+        "npm"     -> a.nodesPerMove
       )
 
   given engineHandler: BSONDocumentHandler[ExternalEngine] = Macros.handler

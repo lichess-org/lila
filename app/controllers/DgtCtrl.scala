@@ -6,12 +6,12 @@ final class DgtCtrl(env: Env) extends LilaController(env):
 
   def index = Auth { _ ?=> _ ?=>
     Ok.page:
-      views.html.dgt.index
+      views.dgt.index
   }
 
   def config = Auth { _ ?=> me ?=>
-    Ok.pageAsync:
-      findToken.map(views.html.dgt.config)
+    Ok.async:
+      findToken.map2(_.plain.value).map(views.dgt.config)
   }
 
   def generateToken = Auth { _ ?=> me ?=>
@@ -35,7 +35,7 @@ final class DgtCtrl(env: Env) extends LilaController(env):
       case None => Redirect(routes.DgtCtrl.config)
       case Some(t) =>
         if !ctx.pref.hasDgt then env.pref.api.saveTag(me, _.dgt, true)
-        Ok.page(views.html.dgt.play(t))
+        Ok.page(views.dgt.play(t.plain.value))
   }
 
   private val dgtScopes = lila.oauth.OAuthScope.select(

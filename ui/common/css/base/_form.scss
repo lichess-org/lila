@@ -10,7 +10,7 @@ textarea {
 
 option,
 optgroup {
-  background: $c-bg-box-opaque;
+  background: $c-bg-box;
   color: $c-font-clear;
 }
 
@@ -40,15 +40,10 @@ a {
   color: $c-font-dim;
 }
 
-.copyable {
-  background: $c-page-input;
-  color: $c-font-clear;
-}
-
 input:-webkit-autofill,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
   border: $border;
   -webkit-text-fill-color: $c-font;
-  -webkit-box-shadow: 0 0 0px 1000px mix($c-good, $c-bg-input, 10%) inset;
+  -webkit-box-shadow: 0 0 0px 1000px $m-secondary_bg--mix-10 inset;
 }

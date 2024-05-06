@@ -1,11 +1,11 @@
 $mq-col3-side-height: calc(100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls});
 
 body {
-  --site-header-margin: 1em;
-  --allow-video: false;
+  ---site-header-margin: #{$site-header-margin-extra};
+  ---allow-video: false;
 
   @include mq-at-least-col3 {
-    --allow-video: true;
+    ---allow-video: true;
   }
 }
 
@@ -109,7 +109,7 @@ main.is-relay.has-relay-tour {
   }
 
   @include mq-at-least-col3 {
-    grid-template-columns: $col3-uniboard-side $analyse-block-gap var(--col3-uniboard-width) $analyse-block-gap $col3-uniboard-table;
+    grid-template-columns: $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width) $analyse-block-gap $col3-uniboard-table;
     grid-template-rows: repeat(2, calc($mq-col3-side-height / 2));
     grid-template-areas:
       'side        . relay-tour relay-tour relay-tour'
@@ -141,7 +141,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
   }
 
   @include mq-at-least-col2 {
-    grid-template-rows: repeat(2, calc(var(--cg-height) / 2)) 2.5em;
+    grid-template-rows: repeat(2, calc(var(---cg-height) / 2)) 2.5em;
     grid-template-areas:
       'board       gauge side'
       'board       gauge tools'
@@ -151,6 +151,9 @@ main.analyse.is-relay:not(.has-relay-tour) {
 
     .analyse__underboard {
       margin-top: unset;
+      .is3d & {
+        margin-top: calc($analyse-block-gap * 2);
+      }
     }
     .eval-chart-and-training {
       flex-wrap: nowrap;
@@ -158,7 +161,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
   }
 
   @include mq-at-least-col3 {
-    grid-template-rows: calc(var(--cg-height) * 0.6) calc(var(--cg-height) * 0.4) 2.5em fit-content(0);
+    grid-template-rows: calc(var(---cg-height) * 0.6) calc(var(---cg-height) * 0.4) 2.5em fit-content(0);
     grid-template-areas:
       'side        . board gauge tools'
       'chat        . board gauge tools'

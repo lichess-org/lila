@@ -17,7 +17,7 @@ object UserWithPerfs:
     def lightPerf(key: PerfKey) =
       val perf = p.perfs(key)
       LightPerf(p.light, key, perf.intRating, perf.progress)
-    def only(pt: PerfType) = WithPerf(p.user, p.perfs(pt.key))
+    def only(pk: PerfKey) = WithPerf(p.user, p.perfs(pk))
 
   def apply(user: User, perfs: Option[UserPerfs]): UserWithPerfs =
     new UserWithPerfs(user, perfs | lila.rating.UserPerfs.default(user.id))

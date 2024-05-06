@@ -18,7 +18,7 @@ import lila.rating.PerfType
 
 import scalalib.model.Days
 
-final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
+final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm)(using lila.core.config.RateLimit):
 
   import ChallengeBulkSetup.*
 
@@ -84,9 +84,8 @@ final class ChallengeBulkSetup(setupForm: lila.core.setup.SetupForm):
 
 final class ChallengeBulkSetupApi(
     oauthServer: OAuthServer,
-    idGenerator: IdGenerator,
-    userRepo: lila.user.UserRepo
-)(using Executor, akka.stream.Materializer):
+    idGenerator: IdGenerator
+)(using Executor, akka.stream.Materializer, lila.core.config.RateLimit):
 
   import ChallengeBulkSetup.*
 

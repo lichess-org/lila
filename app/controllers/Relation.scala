@@ -3,15 +3,12 @@ package controllers
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
 import scalalib.Json.given
-import views.*
 
 import lila.app.{ *, given }
-
 import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.core.LightUser
 import lila.relation.Related
 import lila.relation.RelationStream.*
-import lila.user.User as UserModel
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRatedPerf
 
@@ -25,10 +22,10 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
     blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
     res <- negotiate(
-      Ok.page:
+      Ok.snip:
         if mini
-        then html.relation.mini(user.id, blocked = blocked, followable = followable, relation)
-        else html.relation.actions(user, relation, blocked = blocked, followable = followable)
+        then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
+        else views.relation.actions(user, relation, blocked = blocked, followable = followable)
       ,
       Ok:
         Json.obj(
@@ -39,17 +36,11 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     )
   yield res
 
-  private val FollowLimitPerUser = lila.memo.RateLimit[UserId](
-    credits = 150,
-    duration = 72.hour,
-    key = "follow.user"
-  )
-
   private def RatelimitWith(
       str: UserStr
   )(f: LightUser => Fu[Result])(using me: Me)(using Context): Fu[Result] =
     Found(env.user.lightUserApi.async(str.id)): user =>
-      FollowLimitPerUser(me, rateLimited):
+      limit.follow(me, rateLimited):
         f(user)
 
   def follow(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
@@ -92,7 +83,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         RelatedPager(api.followingPaginatorAdapter(user.id), page).flatMap: pag =>
           negotiate(
             if ctx.is(user) || isGrantedOpt(_.CloseAccount)
-            then Ok.page(html.relation.bits.friends(user, pag))
+            then Ok.page(views.relation.friends(user, pag))
             else Found(ctx.me)(me => Redirect(routes.Relation.following(me.username))),
             Ok(jsonRelatedPaginator(pag))
           )
@@ -126,9 +117,9 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):
-      Ok.pageAsync:
+      Ok.async:
         RelatedPager(api.blockingPaginatorAdapter(me), page).map {
-          html.relation.bits.blocks(me, _)
+          views.relation.blocks(me, _)
         }
   }
 

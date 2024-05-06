@@ -1,15 +1,13 @@
 package controllers
 
+import scala.util.chaining.*
 import play.api.http.ContentTypes
 import play.api.libs.json.*
 import play.api.mvc.Result
-import views.*
-
 import scala.util.chaining.*
-
 import lila.app.{ *, given }
 import lila.common.Json.given
-import lila.game.Pov
+
 import lila.tv.Tv.Channel
 
 final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(env):
@@ -27,7 +25,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def sides(gameId: GameId, color: String) = Open:
     Found(chess.Color.fromName(color).so { env.round.proxyRepo.pov(gameId, _) }): pov =>
       env.game.crosstableApi.withMatchup(pov.game).flatMap { ct =>
-        Ok.page(html.tv.side.sides(pov, ct))
+        Ok.snip(views.tv.side.sides(pov, ct))
       }
 
   private given Writes[lila.tv.Tv.Champion] = Json.writes
@@ -47,7 +45,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       val pov     = if flip then !natural else natural
       val onTv    = lila.round.OnTv.Lichess(channel.key, flip)
       env.user.api
-        .gamePlayers(game.userIdPair, game.perfType)
+        .gamePlayers(game.userIdPair, game.perfKey)
         .flatMap: users =>
           gameC.preloadUsers(users)
           negotiateApi(
@@ -56,7 +54,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
               data   <- env.api.roundApi.watcher(pov, users, tour, tv = onTv.some)
               cross  <- env.game.crosstableApi.withMatchup(game)
               champs <- env.tv.tv.getChampions
-              page   <- renderPage(html.tv.index(channel, champs, pov, data, cross, history))
+              page   <- renderPage(views.tv.index(channel, champs, pov, data, cross, history))
             yield Ok(page).noCache,
             api = _ => env.api.roundApi.watcher(pov, users, none, tv = onTv.some).dmap { Ok(_) }
           )
@@ -66,7 +64,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
   def gamesChannel(chanKey: String) = Open:
     Channel.byKey.get(chanKey).so { channel =>
       env.tv.tv.getChampions.zip(env.tv.tv.getGames(channel, 15)).flatMap { (champs, games) =>
-        Ok.page(html.tv.games(channel, games.map(Pov.naturalOrientation), champs)).map(_.noCache)
+        Ok.page(views.tv.games(channel, games.map(Pov.naturalOrientation), champs)).map(_.noCache)
       }
     }
 
@@ -78,7 +76,7 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       JsonOk:
         play.api.libs.json.Json.obj(
           "id"   -> game.id,
-          "html" -> views.html.game.mini(Pov.naturalOrientation(game)).toString
+          "html" -> views.game.mini(Pov.naturalOrientation(game)).toString
         )
 
   def apiGamesChannel(chanKey: String) = Anon:
@@ -131,4 +129,4 @@ final class Tv(env: Env, apiC: => Api, gameC: => Game) extends LilaController(en
       .flatMap:
         _.fold(notFoundText()): g =>
           InEmbedContext:
-            Ok(views.html.tv.embed(Pov.naturalOrientation(g), channel.key.some))
+            Ok.snip(views.tv.embed(Pov.naturalOrientation(g), channel.key.some))

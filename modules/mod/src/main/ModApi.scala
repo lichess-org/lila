@@ -140,15 +140,16 @@ final class ModApi(
     withUser(username): user =>
       val finalPermissions = Permission(user).filter { p =>
         // only remove permissions the mod can actually grant
-        permissions.contains(p) || !lila.security.Granter.canGrant(p)
+        permissions.contains(p) || !canGrant(p)
       } ++
         // only add permissions the mod can actually grant
-        permissions.filter(lila.security.Granter.canGrant)
+        permissions.filter(canGrant)
       userRepo.setRoles(user.id, finalPermissions.map(_.dbKey).toList) >>
-        logApi.setPermissions(
-          user.id,
-          lila.security.Permission.diff(Permission(user), finalPermissions)
-        )
+        logApi.setPermissions(user.id, permDiff(Permission(user), finalPermissions))
+
+  private def permDiff(orig: Set[Permission], dest: Set[Permission]): Map[Permission, Boolean] = {
+    orig.diff(dest).map(_ -> false) ++ dest.diff(orig).map(_ -> true)
+  }.toMap
 
   def setReportban(sus: Suspect, v: Boolean)(using MyId): Funit =
     (sus.user.marks.reportban != v).so {
@@ -172,12 +173,11 @@ final class ModApi(
     }
 
   def allMods =
+    def timeNoSee(u: User): Duration = (nowMillis - (u.seenAt | u.createdAt).toMillis).millis
     userRepo
       .userIdsWithRoles(Permission.modPermissions.view.map(_.dbKey).toList)
       .flatMap(userRepo.enabledByIds)
-      .dmap {
-        _.sortBy(_.timeNoSee)
-      }
+      .map(_.sortBy(timeNoSee))
 
   private def withUser[A](username: UserStr)(op: User => Fu[A]): Fu[A] =
     userRepo.byId(username).orFail(s"[mod] missing user $username").flatMap(op)

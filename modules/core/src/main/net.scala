@@ -5,6 +5,8 @@ import io.mola.galimatias.IPv6Address.parseIPv6Address
 import java.net.InetAddress
 import scala.util.Try
 import scalalib.SecureRandom
+import lila.core.userId.UserId
+import lila.core.socket.Sri
 
 object net:
 
@@ -49,6 +51,15 @@ object net:
   opaque type Crawler = Boolean
   object Crawler extends YesNo[Crawler]
 
+  case class LichessMobileUa(
+      version: String,
+      userId: Option[UserId],
+      sri: Sri,
+      osName: String,
+      osVersion: String,
+      device: String
+  )
+
   opaque type ApiVersion = Int
   object ApiVersion extends OpaqueInt[ApiVersion]:
     def puzzleV2(v: ApiVersion) = v >= 6
@@ -62,6 +73,7 @@ object net:
     def change() =
       stored = random
       current
+
     private def random = AssetVersion(SecureRandom.nextString(6))
     case class Changed(version: AssetVersion)
 

@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc.*
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
@@ -11,7 +10,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   private def forms = lila.simul.SimulForm
 
-  private def simulNotFound(using Context) = NotFound.page(html.simul.bits.notFound())
+  private def simulNotFound(using Context) = NotFound.page(views.simul.ui.notFound)
 
   def home     = Open(serveHome)
   def homeLang = LangPage(routes.Simul.home)(serveHome)
@@ -20,7 +19,7 @@ final class Simul(env: Env) extends LilaController(env):
     for
       (pending, created, started, finished) <- fetchSimuls
       _                                     <- env.simul.api.checkOngoingSimuls(started)
-      page                                  <- Ok.page(html.simul.home(pending, created, started, finished))
+      page                                  <- Ok.page(views.simul.home(pending, created, started, finished))
     yield page
 
   val apiList = OpenOrScoped(): ctx ?=>
@@ -29,7 +28,7 @@ final class Simul(env: Env) extends LilaController(env):
 
   val homeReload = Open:
     fetchSimuls.flatMap: (pending, created, started, finished) =>
-      Ok.page(html.simul.homeInner(pending, created, started, finished))
+      Ok.snip(views.simul.home.homeInner(pending, created, started, finished))
 
   private def fetchSimuls(using me: Option[Me]): Fu[(List[Sim], List[Sim], List[Sim], List[Sim])] =
     (
@@ -49,7 +48,7 @@ final class Simul(env: Env) extends LilaController(env):
             json     <- env.simul.jsonView(sim, verdicts)
             chat     <- canHaveChat(sim).soFu(env.chat.api.userChat.cached.findMine(sim.id.into(ChatId)))
             stream   <- env.streamer.liveStreamApi.one(sim.hostId)
-            page     <- renderPage(html.simul.show(sim, version, json, chat, stream, verdicts))
+            page     <- renderPage(views.simul.show(sim, version, json, chat, stream, verdicts))
           yield Ok(page).noCache
     }
 
@@ -100,11 +99,11 @@ final class Simul(env: Env) extends LilaController(env):
 
   def form = Auth { ctx ?=> me ?=>
     NoLameOrBot:
-      Ok.pageAsync:
+      Ok.async:
         env.team.api
           .lightsByTourLeader(me)
           .map: teams =>
-            html.simul.form.create(forms.create(teams), teams)
+            views.simul.form.create(forms.create(teams), teams)
   }
 
   def create = AuthBody { ctx ?=> me ?=>
@@ -116,7 +115,7 @@ final class Simul(env: Env) extends LilaController(env):
             .create(teams)
             .bindFromRequest()
             .fold(
-              err => BadRequest.page(html.simul.form.create(err, teams)),
+              err => BadRequest.page(views.simul.form.create(err, teams)),
               setup =>
                 env.simul.api.create(setup, teams).map { simul =>
                   Redirect(routes.Simul.show(simul.id))
@@ -143,9 +142,9 @@ final class Simul(env: Env) extends LilaController(env):
 
   def edit(id: SimulId) = Auth { ctx ?=> me ?=>
     WithEditableSimul(id) { simul =>
-      Ok.pageAsync:
+      Ok.async:
         env.team.api.lightsByTourLeader(me).map { teams =>
-          html.simul.form.edit(forms.edit(teams, simul), teams, simul)
+          views.simul.form.edit(forms.edit(teams, simul), teams, simul)
         }
     }
   }
@@ -159,7 +158,7 @@ final class Simul(env: Env) extends LilaController(env):
             .edit(teams, simul)
             .bindFromRequest()
             .fold(
-              err => BadRequest.page(html.simul.form.edit(err, teams, simul)),
+              err => BadRequest.page(views.simul.form.edit(err, teams, simul)),
               data => env.simul.api.update(simul, data, teams).inject(Redirect(routes.Simul.show(id)))
             )
   }
@@ -167,11 +166,11 @@ final class Simul(env: Env) extends LilaController(env):
   def byUser(username: UserStr, page: Int) = Open:
     Reasonable(page):
       Found(meOrFetch(username).map(_.filter(_.enabled.yes || isGrantedOpt(_.SeeReport)))): user =>
-        Ok.pageAsync:
+        Ok.async:
           env.simul.api
             .hostedByUser(user.id, page)
             .map:
-              html.simul.hosted(user, _)
+              views.simul.home.hosted(user, _)
 
   private def AsHost(simulId: SimulId)(f: Sim => Fu[Result])(using ctx: Context): Fu[Result] =
     Found(env.simul.repo.find(simulId)): simul =>

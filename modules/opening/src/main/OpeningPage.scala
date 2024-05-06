@@ -4,8 +4,6 @@ import chess.format.pgn.{ Pgn, SanStr }
 import chess.format.{ Fen, StandardFen, Uci }
 import chess.opening.{ Opening, OpeningDb, OpeningKey, OpeningName }
 
-import lila.game.Game
-
 case class OpeningPage(
     query: OpeningQuery,
     explored: Option[OpeningExplored],

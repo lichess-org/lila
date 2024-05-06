@@ -5,7 +5,7 @@ import chess.variant.Variant
 import chess.{ ByColor, Clock }
 
 import scalalib.model.Days
-import lila.game.{ Game, IdGenerator, Player, Pov }
+import lila.core.game.{ IdGenerator, Player, NewPlayer }
 import lila.lobby.Color
 import lila.rating.PerfType
 import lila.core.user.GameUser
@@ -27,25 +27,25 @@ case class AiConfig(
 
   def >> = (variant.id, timeMode.id, time, increment, days, level, color.name, fen).some
 
-  private def game(user: GameUser)(using IdGenerator): Fu[Game] =
+  private def game(user: GameUser)(using idGenerator: IdGenerator, newPlayer: NewPlayer): Fu[Game] =
     fenGame: chessGame =>
       lila.rating.PerfType(chessGame.situation.board.variant, chess.Speed(chessGame.clock.map(_.config)))
-      Game
-        .make(
-          chess = chessGame,
-          players = ByColor: c =>
-            if creatorColor == c
-            then Player.make(c, user)
-            else Player.makeAnon(c, level.some),
-          mode = chess.Mode.Casual,
-          source = if chessGame.board.variant.fromPosition then Source.Position else Source.Ai,
-          daysPerTurn = makeDaysPerTurn,
-          pgnImport = None
-        )
-        .withUniqueId
+      idGenerator.withUniqueId:
+        lila.core.game
+          .newGame(
+            chess = chessGame,
+            players = ByColor: c =>
+              if creatorColor == c
+              then newPlayer(c, user)
+              else newPlayer.anon(c, level.some),
+            mode = chess.Mode.Casual,
+            source = if chessGame.board.variant.fromPosition then Source.Position else Source.Ai,
+            daysPerTurn = makeDaysPerTurn,
+            pgnImport = None
+          )
     .dmap(_.start)
 
-  def pov(user: GameUser)(using IdGenerator) = game(user).dmap { Pov(_, creatorColor) }
+  def pov(user: GameUser)(using IdGenerator, NewPlayer) = game(user).dmap { Pov(_, creatorColor) }
 
   def timeControlFromPosition =
     timeMode != TimeMode.RealTime || variant != chess.variant.FromPosition || time >= 1

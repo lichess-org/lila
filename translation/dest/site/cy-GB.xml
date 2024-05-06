@@ -598,9 +598,6 @@
   <string name="dark">Tywyll</string>
   <string name="transparent">Tryloyw</string>
   <string name="backgroundImageUrl">URL y llun cefndir:</string>
-  <string name="boardGeometry">Math a maint bwrdd</string>
-  <string name="boardTheme">Thema\'r bwrdd</string>
-  <string name="boardSize">Maint y bwrdd</string>
   <string name="pieceSet">Math o ddarnau</string>
   <string name="embedInYourWebsite">Gosod i\'ch gwefan</string>
   <string name="usernameAlreadyUsed">Ymddiheuriadau, mae\'r enw defnyddiwr yna wedi ei fachu\'n barod, defnyddiwch un arall.</string>

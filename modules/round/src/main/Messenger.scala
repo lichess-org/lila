@@ -37,7 +37,7 @@ final class Messenger(api: ChatApi):
           api.userChat.write(gameId.into(ChatId), userId, text, publicSource = none, _.round)
 
   def owner(game: Game, anonColor: chess.Color, text: String): Funit =
-    (game.fromFriend || presets.contains(text))
+    (game.sourceIs(_.Friend) || presets.contains(text))
       .so(api.playerChat.write(game.id.into(ChatId), anonColor, text, _.round))
 
   def timeout(chatId: ChatId, suspect: UserId, reason: String, text: String)(using mod: MyId): Funit =

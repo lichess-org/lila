@@ -2,7 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
 
 import lila.app.*
 import lila.common.Json.given
@@ -29,10 +28,9 @@ final class Lobby(env: Env) extends LilaController(env):
 
   private def serveHtmlHome(using ctx: Context) =
     env
-      .pageCache { () =>
+      .pageCache: () =>
         keyPages.homeHtml.map: html =>
           Ok(html).withCanonical("").noCache
-      }
       .map(env.security.lilaCookie.ensure(ctx.req))
 
   def homeLang(lang: String) =
@@ -49,9 +47,9 @@ final class Lobby(env: Env) extends LilaController(env):
       }
 
   def timeline = Auth { _ ?=> me ?=>
-    Ok.pageAsync:
+    Ok.snipAsync:
       env.timeline.entryApi
         .userEntries(me)
-        .map(html.timeline.entries)
+        .map(views.timeline.entries)
     .map(_.withHeaders(CACHE_CONTROL -> s"max-age=20"))
   }

@@ -1,5 +1,5 @@
 package lila.streamer
-import lila.common.Icon
+
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 import lila.memo.PicfitApi
@@ -97,7 +97,7 @@ final class StreamerApi(
           url = "/streamer/edit",
           title = "Listed on /streamer".some,
           text = "Your streamer page is public".some,
-          icon = Icon.Mic.value
+          icon = lila.ui.Icon.Mic.value
         )
       )
     )

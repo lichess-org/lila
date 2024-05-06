@@ -44,6 +44,7 @@ case class Pref(
     resizeHandle: Int,
     agreement: Int,
     usingAltSocket: Option[Boolean],
+    board: Pref.BoardPref,
     tags: Map[String, String] = Map.empty
 ) extends lila.core.pref.Pref:
 
@@ -57,6 +58,11 @@ case class Pref(
   val themeColorLight = "#dbd7d1"
   val themeColorDark  = "#2e2a24"
   def themeColor      = if bg == Bg.LIGHT then themeColorLight else themeColorDark
+  def themeColorClass =
+    if bg == Bg.LIGHT then "light".some
+    else if bg == Bg.TRANSPARENT then "transp".some
+    else if bg == Bg.SYSTEM then none
+    else "dark".some
 
   def realSoundSet = SoundSet(soundSet)
 
@@ -78,9 +84,10 @@ case class Pref(
       case Animation.SLOW => 120
       case _              => 70
 
-  def bgImgOrDefault = bgImg | Pref.defaultBgImg
+  def bgImgOrDefault =
+    bgImg | Pref.defaultBgImg
 
-  def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
+  def pieceNotationIsLetter: Boolean = pieceNotation == PieceNotation.LETTER
 
   def isZen     = zen == Zen.YES
   def isZenAuto = zen == Zen.GAME_AUTO
@@ -92,8 +99,7 @@ case class Pref(
   def agree = copy(agreement = Agreement.current)
 
   def hasKeyboardMove = keyboardMove == KeyboardMove.YES
-
-  def hasVoice = voice.has(Voice.YES)
+  def hasVoice        = voice.has(Voice.YES)
 
   def isUsingAltSocket = usingAltSocket.has(true)
 
@@ -106,12 +112,15 @@ case class Pref(
       highlight &&
       coords == Coords.OUTSIDE
 
+  def simpleBoard =
+    board.hue == 0 && board.brightness == 100 && (board.opacity == 100 || bg != Bg.TRANSPARENT)
+
   def currentTheme      = Theme(theme)
   def currentTheme3d    = Theme3d(theme3d)
   def currentPieceSet   = PieceSet.get(pieceSet)
   def currentPieceSet3d = PieceSet3d.get(pieceSet3d)
   def currentSoundSet   = SoundSet(soundSet)
-  def currentBg =
+  def currentBg: String =
     if bg == Pref.Bg.TRANSPARENT then "transp"
     else if bg == Pref.Bg.LIGHT then "light"
     else if bg == Pref.Bg.SYSTEM then "system"
@@ -120,6 +129,12 @@ case class Pref(
 object Pref:
 
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
+
+  case class BoardPref(
+      brightness: Int,
+      opacity: Int,
+      hue: Int // in turns, 1turn = 2pi
+  )
 
   trait BooleanPref:
     val NO      = 0
@@ -456,6 +471,7 @@ object Pref:
     resizeHandle = ResizeHandle.INITIAL,
     agreement = Agreement.current,
     usingAltSocket = none,
+    board = BoardPref(brightness = 100, opacity = 100, hue = 0),
     tags = Map.empty
   )
 

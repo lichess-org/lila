@@ -3,19 +3,13 @@ package report
 
 import play.api.data.*
 import play.api.mvc.{ AnyContentAsFormUrlEncoded, Result }
-import views.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.report.Report.Id as ReportId
+import lila.core.id.ReportId
 import lila.report.{ Mod as AsMod, Report as ReportModel, Reporter, Room, Suspect }
-import lila.user.User as UserModel
 
-final class Report(
-    env: Env,
-    userC: => User,
-    modC: => Mod
-) extends LilaController(env):
+final class Report(env: Env, userC: => User, modC: => Mod) extends LilaController(env):
 
   import env.report.api
 
@@ -23,7 +17,7 @@ final class Report(
 
   def list = Secure(_.SeeReport) { _ ?=> me ?=>
     if env.streamer.liveStreamApi.isStreaming(me.user.id) && !getBool("force")
-    then Forbidden.page(html.site.message.streamingMod)
+    then Forbidden.page(views.site.message.streamingMod)
     else renderList(env.report.modFilters.get(me).fold("all")(_.key))
   }
 
@@ -43,7 +37,7 @@ final class Report(
         env.user.lightUserApi.preloadMany(reports.flatMap(_.report.userIds)) >>
           Ok.page:
             val filteredReports = reports.filter(r => lila.report.Reason.isGranted(r.report.reason))
-            html.report.list(filteredReports, room, scores, streamers, appeals)
+            views.report.list(filteredReports, room, scores, streamers, appeals)
     }
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>
@@ -58,15 +52,15 @@ final class Report(
             next.fold(
               Redirect:
                 if prev.exists(_.isAppeal)
-                then appeal.routes.Appeal.queue()
-                else report.routes.Report.list
+                then routes.Appeal.queue()
+                else routes.Report.list
             )(onInquiryStart)
           )
   }
 
   private def onInquiryStart(inquiry: ReportModel): Result =
-    if inquiry.isRecentComm then Redirect(controllers.routes.Mod.communicationPrivate(inquiry.user))
-    else if inquiry.isComm then Redirect(controllers.routes.Mod.communicationPublic(inquiry.user))
+    if inquiry.isRecentComm then Redirect(routes.Mod.communicationPrivate(inquiry.user))
+    else if inquiry.isComm then Redirect(routes.Mod.communicationPublic(inquiry.user))
     else modC.redirect(inquiry.user)
 
   protected[controllers] def onModAction(goTo: Suspect)(using ctx: BodyContext[?], me: Me): Fu[Result] =
@@ -93,7 +87,7 @@ final class Report(
       case Some(url) => process().inject(Redirect(url))
       case _ =>
         def redirectToList = Redirect(routes.Report.listWithFilter(inquiry.room.key))
-        if inquiry.isAppeal then process() >> Redirect(appeal.routes.Appeal.queue())
+        if inquiry.isAppeal then process() >> Redirect(routes.Appeal.queue())
         else if dataOpt.flatMap(_.get("next")).exists(_.headOption contains "1") then
           process() >> {
             if inquiry.isSpontaneous
@@ -140,9 +134,9 @@ final class Report(
 
   def form = Auth { _ ?=> _ ?=>
     getUserStr("username").so(env.user.repo.byId).flatMap { user =>
-      if user.exists(_.is(UserId.lichess)) then Redirect(controllers.routes.Main.contact)
+      if user.exists(_.is(UserId.lichess)) then Redirect(routes.Main.contact)
       else
-        Ok.pageAsync:
+        Ok.async:
           val form = env.report.forms.create
           val filledForm: Form[lila.report.ReportSetup] = (user, get("postUrl")) match
             case (Some(u), Some(pid)) =>
@@ -153,7 +147,7 @@ final class Report(
                   text = s"$pid\n\n"
                 )
             case _ => form
-          html.report.form(filledForm, user)
+          views.report.form(filledForm, user)
     }
   }
 
@@ -164,7 +158,7 @@ final class Report(
         err =>
           for
             user <- getUserStr("username").so(env.user.repo.byId)
-            page <- renderPage(html.report.form(err, user))
+            page <- renderPage(views.report.form(err, user))
           yield BadRequest(page),
         data =>
           if me.is(data.user.id) then BadRequest("You cannot report yourself")
@@ -193,8 +187,8 @@ final class Report(
       .get("reported")
       .flatMap(UserStr.read)
       .fold(Redirect("/").toFuccess): reported =>
-        Ok.pageAsync:
+        Ok.async:
           env.relation.api.fetchBlocks(me, reported.id).map {
-            html.report.thanks(reported.id, _)
+            views.report.ui.thanks(reported.id, _)
           }
   }

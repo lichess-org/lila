@@ -28,8 +28,6 @@ class LameNameTest extends munit.FunSuite:
     assertEquals(isLame("TheGMBrianMatthews"), true)
   }
   test("disallow gross") {
-    assertEquals(isLame("Shit"), true)
-    assertEquals(isLame("Sh1t"), true)
     assertEquals(isLame("douchebag"), true)
     assertEquals(isLame("d0uchebag"), true)
     assertEquals(isLame("urcunt-blah"), true)

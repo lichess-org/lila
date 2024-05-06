@@ -23,16 +23,28 @@ import scala.util.{ Success, Try }
 import scalalib.model.Days
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.core.game.{ GameRule, Source }
+import lila.core.game.{
+  Game,
+  GameRule,
+  LightGame,
+  Source,
+  GameDrawOffers,
+  GameMetadata,
+  PgnImport,
+  LightPlayer,
+  ClockHistory,
+  emptyDrawOffers
+}
 
 object BSONHandlers:
 
   import lila.db.ByteArray.byteArrayHandler
+  import lila.game.Game.maxPlies
 
   private[game] given checkCountWriter: BSONWriter[CheckCount] with
     def writeTry(cc: CheckCount) = Success(BSONArray(cc.white, cc.black))
 
-  given BSONHandler[Status] = tryHandler[Status](
+  given statusHandler: BSONHandler[Status] = tryHandler[Status](
     { case BSONInteger(v) => Status(v).toTry(s"No such status: $v") },
     x => BSONInteger(x.id)
   )
@@ -42,7 +54,7 @@ object BSONHandlers:
     x => byteArrayHandler.writeTry(BinaryFormat.unmovedRooks.write(x)).get
   )
 
-  given BSONHandler[GameRule] = valueMapHandler(GameRule.byKey)(_.toString)
+  given BSONHandler[GameRule] = valueMapHandler[String, GameRule](GameRule.byKey)(_.toString)
 
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*
@@ -64,7 +76,7 @@ object BSONHandlers:
 
   private[game] given gameDrawOffersHandler: BSONHandler[GameDrawOffers] = tryHandler[GameDrawOffers](
     { case arr: BSONArray =>
-      Success(arr.values.foldLeft(GameDrawOffers.empty) {
+      Success(arr.values.foldLeft(emptyDrawOffers) {
         case (offers, BSONInteger(p)) =>
           if p > 0 then offers.copy(white = offers.white.incl(Ply(p)))
           else offers.copy(black = offers.black.incl(Ply(-p)))
@@ -77,9 +89,11 @@ object BSONHandlers:
       )
   )
 
-  given gameBSONHandler: BSON[Game] with
-    import Game.BSONFields as F
-    import PgnImport.given
+  given BSONDocumentHandler[PgnImport] = Macros.handler
+
+  given gameHandler: BSON[Game] with
+    import lila.game.Game.BSONFields as F
+
     def reads(r: BSON.Reader): Game =
 
       lila.mon.game.fetch.increment()
@@ -88,7 +102,7 @@ object BSONHandlers:
       val light     = lightGameReader.reads(r)
 
       val startedAtPly = Ply(r.intD(F.startedAtTurn))
-      val ply          = r.get[Ply](F.turns).atMost(Game.maxPlies) // unlimited can cause StackOverflowError
+      val ply          = r.get[Ply](F.turns).atMost(maxPlies) // unlimited can cause StackOverflowError
       val turnColor    = ply.turn
       val createdAt    = r.date(F.createdAt)
 
@@ -138,7 +152,7 @@ object BSONHandlers:
               checkCount = if gameVariant.threeCheck then
                 val counts = r.intsD(F.checkCount)
                 CheckCount(~counts.headOption, ~counts.lastOption)
-              else Game.emptyCheckCount
+              else emptyCheckCount
             ),
             variant = gameVariant,
             crazyData = gameVariant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
@@ -173,19 +187,19 @@ object BSONHandlers:
           yield history,
         status = light.status,
         daysPerTurn = r.getO[Days](F.daysPerTurn),
-        binaryMoveTimes = r.bytesO(F.moveTimes),
+        binaryMoveTimes = r.getO[Array[Byte]](F.moveTimes),
         mode = Mode(r.boolD(F.rated)),
         bookmarks = r.intD(F.bookmarks),
         createdAt = createdAt,
         movedAt = r.dateD(F.movedAt, createdAt),
-        metadata = Metadata(
+        metadata = GameMetadata(
           source = r.intO(F.source).flatMap(Source.apply),
           pgnImport = r.getO[PgnImport](F.pgnImport),
           tournamentId = r.getO[TourId](F.tournamentId),
           swissId = r.getO[SwissId](F.swissId),
           simulId = r.getO[SimulId](F.simulId),
           analysed = r.boolD(F.analysed),
-          drawOffers = r.getD(F.drawOffers, GameDrawOffers.empty),
+          drawOffers = r.getD(F.drawOffers, emptyDrawOffers),
           rules = r.getD(F.rules, Set.empty)
         )
       )
@@ -228,11 +242,11 @@ object BSONHandlers:
         F.rules             -> o.metadata.nonEmptyRules
       ) ++ {
         if o.variant.standard then
-          $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans.take(Game.maxPlies.value)))
+          $doc(F.huffmanPgn -> PgnStorage.Huffman.encode(o.sans.take(maxPlies.value)))
         else
           val f = PgnStorage.OldBin
           $doc(
-            F.oldPgn         -> f.encode(o.sans.take(Game.maxPlies.value)),
+            F.oldPgn         -> f.encode(o.sans.take(maxPlies.value)),
             F.binaryPieces   -> BinaryFormat.piece.write(o.board.pieces),
             F.positionHashes -> o.history.positionHashes.value,
             F.unmovedRooks   -> o.history.unmovedRooks,
@@ -241,12 +255,13 @@ object BSONHandlers:
             F.crazyData      -> o.board.crazyData
           )
       }
+    val emptyCheckCount = CheckCount(0, 0)
 
   given lightGameReader: lila.db.BSONReadOnly[LightGame] with
 
-    import Game.BSONFields as F
+    import lila.game.Game.BSONFields as F
 
-    private val emptyPlayerBuilder = LightPlayer.builderRead($empty)
+    private val emptyPlayerBuilder = lila.game.LightPlayer.builderRead($empty)
 
     def reads(r: BSON.Reader): LightGame =
       val winC                 = r.boolO(F.winnerColor).map { Color.fromWhite(_) }
@@ -254,7 +269,9 @@ object BSONHandlers:
       val (whiteUid, blackUid) = (uids.headOption.filter(_.value.nonEmpty), uids.lift(1))
       def makePlayer(field: String, color: Color, uid: Option[UserId]): LightPlayer =
         val builder =
-          r.getO[LightPlayer.Builder](field)(using LightPlayer.lightPlayerReader) | emptyPlayerBuilder
+          r.getO[lila.game.LightPlayer.Builder](field)(using
+            lila.game.LightPlayer.lightPlayerReader
+          ) | emptyPlayerBuilder
         builder(color)(uid)
       LightGame(
         id = r.get[GameId](F.id),

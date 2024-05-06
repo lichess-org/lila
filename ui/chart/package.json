@@ -6,8 +6,8 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "type": "module",
-  "module": "dist/game.js",
-  "types": "dist/game.d.ts",
+  "module": "dist/chart.game.js",
+  "types": "dist/chart.game.d.ts",
   "dependencies": {
     "@juggle/resize-observer": "^3.4.0",
     "ceval": "workspace:*",
@@ -20,14 +20,12 @@
     "nouislider": "^15.7.1"
   },
   "lichess": {
-    "modules": {
-      "esm": {
-        "src/ratingDistribution.ts": "chart.ratingDistribution",
-        "src/ratingHistory.ts": "chart.ratingHistory",
-        "src/game.ts": "chart.game",
-        "src/resizePolyfill.ts": "chart.resizePolyfill",
-        "src/lag.ts": "chart.lag"
-      }
-    }
+    "bundles": [
+      "src/chart.ratingDistribution.ts",
+      "src/chart.ratingHistory.ts",
+      "src/chart.game.ts",
+      "src/chart.resizePolyfill.ts",
+      "src/chart.lag.ts"
+    ]
   }
 }

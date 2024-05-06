@@ -1,15 +1,14 @@
 package lila.challenge
 
-import lila.game.{ Game, GameRepo, Player, Pov, Rematches }
-import lila.user.{ UserApi, UserPerfsRepo }
+import lila.game.{ GameRepo, Rematches }
 
 import Challenge.TimeControl
 import lila.core.user.WithPerf
 import lila.core.user.GameUser
+import lila.core.game.Player
 
 final class ChallengeMaker(
-    userApi: UserApi,
-    perfsRepo: UserPerfsRepo,
+    userApi: lila.core.user.UserApi,
     gameRepo: GameRepo,
     rematches: Rematches
 )(using Executor):
@@ -32,15 +31,15 @@ final class ChallengeMaker(
           .opponentOf(dest)
           .so: challenger =>
             for
-              orig <- challenger.userId.so(userApi.withPerf(_, game.perfType))
-              dest <- perfsRepo.withPerf(dest, game.perfType)
+              orig <- challenger.userId.so(userApi.byIdWithPerf(_, game.perfKey))
+              dest <- userApi.withPerf(dest, game.perfKey)
             yield Data(game, challenger, orig, dest).some
 
   private[challenge] def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
     Pov(game, challenger.id).so: pov =>
-      pov.opponent.userId.so(userApi.withPerf(_, game.perfType)).flatMapz { dest =>
+      pov.opponent.userId.so(userApi.byIdWithPerf(_, game.perfKey)).flatMapz { dest =>
         for
-          challenger <- perfsRepo.withPerf(challenger, game.perfType)
+          challenger <- userApi.withPerf(challenger, game.perfKey)
           rematch    <- makeRematch(pov, challenger.some, dest)
         yield rematch.some
       }

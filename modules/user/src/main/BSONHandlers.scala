@@ -3,6 +3,7 @@ package lila.user
 import reactivemongo.api.bson.*
 
 import lila.core.user.{ UserEnabled, Profile, Plan, TotpSecret, PlayTime, UserMarks, Count }
+import lila.core.security.HashedPassword
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 
@@ -14,9 +15,7 @@ object BSONFields:
   val toints                = "toints"
   val playTime              = "time"
   val playTimeTotal         = "time.total"
-  val createdAt             = "createdAt"
   val seenAt                = "seenAt"
-  val kid                   = "kid"
   val createdWithApiVersion = "createdWithApiVersion"
   val lang                  = "lang"
   val email                 = "email"
@@ -75,7 +74,7 @@ object BSONHandlers:
     v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
   )
 
-  given BSONDocumentHandler[Authenticator.AuthData] = Macros.handler[Authenticator.AuthData]
+  given BSONDocumentHandler[AuthData] = Macros.handler[AuthData]
 
   given userHandler: BSONDocumentHandler[User] = new BSON[User]:
 
@@ -104,7 +103,6 @@ object BSONHandlers:
       )
 
     def writes(w: BSON.Writer, o: User) =
-      import lila.user.Plan.nonEmpty
       BSONDocument(
         id         -> o.id,
         username   -> o.username,
@@ -125,8 +123,6 @@ object BSONHandlers:
         marks      -> o.marks.value.nonEmpty.option(o.marks)
       )
 
-  given BSONDocumentHandler[Contact] = Macros.handler[Contact]
-
-  private[user] given BSONDocumentHandler[lila.core.LightUser]       = Macros.handler
-  private[user] given BSONDocumentHandler[lila.core.user.LightPerf]  = Macros.handler
-  private[user] given BSONDocumentHandler[lila.core.user.LightCount] = Macros.handler
+  private[user] given BSONDocumentHandler[lila.core.LightUser]      = Macros.handler
+  private[user] given BSONDocumentHandler[lila.core.user.LightPerf] = Macros.handler
+  private[user] given BSONDocumentHandler[lila.user.LightCount]     = Macros.handler

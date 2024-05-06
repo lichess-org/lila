@@ -186,7 +186,7 @@ object SwissForm:
     def isRated = rated | true
     def validRatedVariant =
       !isRated ||
-        lila.game.Game.allowRated(realVariant, clock.some)
+        lila.core.game.allowRated(realVariant, clock.some)
 
   def autoInterval(clock: ClockConfig) = {
     import Speed.*

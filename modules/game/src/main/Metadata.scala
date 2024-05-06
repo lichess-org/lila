@@ -7,64 +7,11 @@ import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 
 import lila.db.ByteArray
-import lila.core.game.{ Source, GameRule }
-
-private[game] case class Metadata(
-    source: Option[Source],
-    pgnImport: Option[PgnImport],
-    tournamentId: Option[TourId],
-    swissId: Option[SwissId],
-    simulId: Option[SimulId],
-    analysed: Boolean,
-    drawOffers: GameDrawOffers,
-    rules: Set[GameRule]
-):
-
-  def pgnDate = pgnImport.flatMap(_.date)
-
-  def pgnUser = pgnImport.flatMap(_.user)
-
-  def isEmpty = this == Metadata.empty
-
-  def hasRule(rule: GameRule.type => GameRule) = rules(rule(GameRule))
-  def nonEmptyRules                            = rules.nonEmpty.option(rules)
-
-private[game] object Metadata:
-
-  val empty =
-    Metadata(None, None, None, None, None, analysed = false, GameDrawOffers.empty, rules = Set.empty)
-
-case class GameDrawOffers(white: Set[Ply], black: Set[Ply]):
-
-  def lastBy(color: Color): Option[Ply] = color.fold(white, black).maxOption(intOrdering)
-
-  def add(color: Color, ply: Ply) =
-    color.fold(copy(white = white.incl(ply)), copy(black = black.incl(ply)))
-
-  def isEmpty = this == GameDrawOffers.empty
-
-  // lichess allows to offer draw on either turn,
-  // normalize to pretend it was done on the opponent turn.
-  def normalize(color: Color): Set[Ply] = color.fold(white, black).map {
-    case ply if ply.turn == color => ply + 1
-    case ply                      => ply
-  }
-  def normalizedPlies: Set[Ply] = normalize(chess.White) ++ normalize(chess.Black)
-
-object GameDrawOffers:
-  val empty = GameDrawOffers(Set.empty, Set.empty)
-
-case class PgnImport(
-    user: Option[UserId],
-    date: Option[String],
-    pgn: PgnStr,
-    // hashed PGN for DB unicity
-    h: Option[ByteArray]
-)
+import lila.core.game.{ Source, GameRule, GameMetadata, GameDrawOffers, PgnImport }
 
 object PgnImport:
 
-  def hash(pgn: PgnStr) = ByteArray {
+  def hash(pgn: PgnStr) = // ByteArray {
     MessageDigest
       .getInstance("MD5")
       .digest {
@@ -76,16 +23,11 @@ object PgnImport:
           .getBytes(UTF_8)
       }
       .take(12)
-  }
 
   def make(user: Option[UserId], date: Option[String], pgn: PgnStr) =
-    PgnImport(
+    lila.core.game.PgnImport(
       user = user,
       date = date,
       pgn = pgn,
       h = hash(pgn).some
     )
-
-  import reactivemongo.api.bson.*
-  import lila.db.dsl.given
-  given BSONDocumentHandler[PgnImport] = Macros.handler

@@ -5,7 +5,7 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json.*
 
 import lila.event.Event
-import lila.game.{ Game, Pov }
+
 import lila.playban.TempBan
 import lila.simul.{ Simul, SimulIsFeaturable }
 import lila.streamer.LiveStreams
@@ -15,6 +15,7 @@ import lila.tournament.{ Tournament, Winner }
 import lila.ublog.UblogPost
 import lila.user.{ LightUserApi, Me, User }
 import lila.core.perf.UserWithPerfs
+import lila.core.game.Game
 
 final class Preload(
     tv: lila.tv.Tv,

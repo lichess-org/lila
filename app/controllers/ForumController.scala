@@ -14,7 +14,7 @@ private[controllers] trait ForumController:
   protected def topicRepo = env.forum.topicRepo
   protected def postApi   = env.forum.postApi
   protected def forms     = env.forum.forms
-  protected def access    = env.api.forumAccess
+  protected def access    = env.forum.forumAccess
 
   protected def CategGrantWrite[A <: Result](
       categId: ForumCategId,

@@ -4,18 +4,7 @@ package actorApi
 import chess.ByColor
 import chess.format.Fen
 import lila.core.perf.UserWithPerfs
-
-case class StartGame(game: Game)
-
-case class FinishGame(
-    game: Game,
-    // users and perfs BEFORE the game result is applied
-    usersBeforeGame: ByColor[Option[UserWithPerfs]]
-)
-
-case class InsertGame(game: Game)
-
-case class AbortedBy(pov: Pov)
+import lila.core.game.{ Game, Pov }
 
 case class MoveGameEvent(
     game: Game,
@@ -42,5 +31,3 @@ object BoardGone:
   def makeChan(gameId: GameId) = s"boardGone:$gameId"
 
 case class NotifyRematch(newGame: Game)
-
-case class PerfsUpdate(game: Game, perfs: ByColor[UserWithPerfs])

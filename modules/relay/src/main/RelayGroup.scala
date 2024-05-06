@@ -3,7 +3,7 @@ package lila.relay
 import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-case class RelayGroup(@Key("_id") id: RelayGroup.Id, name: RelayGroup.Name, tours: List[RelayTour.Id])
+case class RelayGroup(@Key("_id") id: RelayGroup.Id, name: RelayGroup.Name, tours: List[RelayTourId])
 
 object RelayGroup:
 
@@ -42,7 +42,7 @@ object RelayGroup:
               .take(50)
               .map(_.trim.take(8))
               .map: id =>
-                RelayTour.IdName(RelayTour.Id(id), RelayTour.Name(""))
+                RelayTour.IdName(RelayTourId(id), RelayTour.Name(""))
             Data(RelayGroup.Name(name.linesIterator.next.trim), tours).some
 
     given Formatter[Data]              = formatter.stringOptionFormatter(_.toString, Data.parse)
@@ -55,10 +55,10 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
   import reactivemongo.api.bson.*
   import BSONHandlers.given
 
-  def byTour(tourId: RelayTour.Id): Fu[Option[RelayGroup]] =
+  def byTour(tourId: RelayTourId): Fu[Option[RelayGroup]] =
     coll.find($doc("tours" -> tourId)).one[RelayGroup]
 
-  def update(tourId: RelayTour.Id, data: RelayGroup.form.Data): Funit =
+  def update(tourId: RelayTourId, data: RelayGroup.form.Data): Funit =
     for
       prev <- byTour(tourId)
       curId <- prev match

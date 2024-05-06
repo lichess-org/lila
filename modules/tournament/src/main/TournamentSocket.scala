@@ -3,7 +3,6 @@ package lila.tournament
 import akka.actor.*
 
 import lila.common.Json.given
-import lila.game.Game
 import lila.common.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }

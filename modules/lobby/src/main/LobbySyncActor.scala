@@ -3,14 +3,13 @@ package lila.lobby
 import scalalib.actor.SyncActor
 
 import lila.common.{ Bus, LilaScheduler }
-import lila.game.Game
 import lila.core.socket.{ Sri, Sris }
 import lila.core.pool.{ IsClockCompatible, HookThieve }
 
 final private class LobbySyncActor(
     seekApi: SeekApi,
     biter: Biter,
-    gameCache: lila.game.Cached,
+    gameApi: lila.core.game.GameApi,
     hasCurrentPlayban: lila.core.playban.HasCurrentPlayban,
     poolApi: lila.core.pool.PoolApi,
     onStart: lila.core.game.OnStart
@@ -69,8 +68,8 @@ final private class LobbySyncActor(
 
     case BiteSeek(seekId, user) =>
       NoPlayban(user.some):
-        gameCache.nbPlaying(user.id).foreach { nbPlaying =>
-          if lila.game.Game.maxPlaying > nbPlaying then
+        gameApi.nbPlaying(user.id).foreach { nbPlaying =>
+          if lila.core.game.maxPlaying > nbPlaying then
             lila.mon.lobby.seek.join.increment()
             seekApi.find(seekId).foreach {
               _.foreach: seek =>
@@ -165,7 +164,7 @@ final private class LobbySyncActor(
       for
         w <- g.whitePlayer.userId
         b <- g.blackPlayer.userId
-        if g.fromLobby
+        if g.sourceIs(_.Lobby)
       do cache.put(makeKey(w, b))
     def exists(u1: UserId, u2: UserId) = cache.get(makeKey(u1, u2))
 

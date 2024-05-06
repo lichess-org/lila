@@ -51,6 +51,9 @@ import { uciToMove } from 'chessground/util';
 import Persistence from './persistence';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
+import { ArrowKey, KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
+import * as control from './control';
+import { PgnError } from 'chessops/pgn';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -112,6 +115,7 @@ export default class AnalyseCtrl {
   // underboard inputs
   fenInput?: string;
   pgnInput?: string;
+  pgnError?: string;
 
   // other paths
   initialPath: Tree.Path;
@@ -123,6 +127,7 @@ export default class AnalyseCtrl {
   cgConfig: any; // latest chessground config (useful for revert)
   nvui?: NvuiPlugin;
   pvUciQueue: Uci[] = [];
+  keyboardMove?: KeyboardMove;
 
   constructor(
     readonly opts: AnalyseOpts,
@@ -142,7 +147,7 @@ export default class AnalyseCtrl {
     if (this.data.forecast) this.forecast = new ForecastCtrl(this.data.forecast, this.data, redraw);
     if (this.opts.wiki) this.wiki = wikiTheory();
     if (site.blindMode)
-      site.asset.loadEsm<NvuiPlugin>('analysisBoard.nvui', { init: this }).then(nvui => (this.nvui = nvui));
+      site.asset.loadEsm<NvuiPlugin>('analyse.nvui', { init: this }).then(nvui => (this.nvui = nvui));
 
     this.instanciateEvalCache();
 
@@ -196,7 +201,7 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
-    site.pubsub.on('theme.change', redraw);
+    site.pubsub.on('board.change', redraw);
     this.persistence?.merge();
   }
 
@@ -372,6 +377,28 @@ export default class AnalyseCtrl {
     return config;
   }
 
+  setChessground = (cg: CgApi) => {
+    this.chessground = cg;
+
+    if (this.data.pref.keyboardMove) {
+      this.keyboardMove ??= makeKeyboardMove({
+        ...this,
+        data: { ...this.data, player: { color: 'both' } },
+        flipNow: this.flip,
+      });
+      this.keyboardMove.update({ fen: this.node.fen, canMove: true, cg });
+      requestAnimationFrame(() => this.redraw());
+    }
+
+    this.setAutoShapes();
+    if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
+    this.cgVersion.dom = this.cgVersion.js;
+    site.pubsub.on('board.change', (is3d: boolean) => {
+      this.chessground.state.addPieceZIndex = is3d;
+      this.chessground.redrawAll();
+    });
+  };
+
   private onChange: () => void = throttle(300, () => {
     site.pubsub.emit('analysis.change', this.node.fen, this.path);
   });
@@ -411,6 +438,7 @@ export default class AnalyseCtrl {
     }
     site.pubsub.emit('ply', this.node.ply, this.tree.lastMainlineNode(this.path).ply === this.node.ply);
     this.showGround();
+    this.pluginUpdate(this.node.fen);
   }
 
   userJump = (path: Tree.Path): void => {
@@ -431,12 +459,12 @@ export default class AnalyseCtrl {
     if (this.canJumpTo(path)) this.userJump(path);
   }
 
-  mainlinePathToPly(ply: Ply): Tree.Path {
+  mainlinePlyToPath(ply: Ply): Tree.Path {
     return treeOps.takePathWhile(this.mainline, n => n.ply <= ply);
   }
 
   jumpToMain = (ply: Ply): void => {
-    this.userJump(this.mainlinePathToPly(ply));
+    this.userJump(this.mainlinePlyToPath(ply));
   };
 
   jumpToIndex = (index: number): void => {
@@ -459,6 +487,7 @@ export default class AnalyseCtrl {
   }
 
   changePgn(pgn: string, andReload: boolean): AnalyseData | undefined {
+    this.pgnError = '';
     try {
       const data: AnalyseData = {
         ...pgnImport(pgn),
@@ -468,12 +497,13 @@ export default class AnalyseCtrl {
       } as AnalyseData;
       if (andReload) {
         this.reloadData(data, false);
-        this.userJump(this.mainlinePathToPly(this.tree.lastPly()));
+        this.userJump(this.mainlinePlyToPath(this.tree.lastPly()));
         this.redraw();
       }
       return data;
     } catch (err) {
-      console.log(err);
+      this.pgnError = (err as PgnError).message;
+      this.redraw();
     }
     return undefined;
   }
@@ -486,6 +516,21 @@ export default class AnalyseCtrl {
       '/' +
       encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
+
+  crazyValid = (role: cg.Role, key: cg.Key): boolean => {
+    const color = this.chessground.state.movable.color;
+    return (
+      (color === 'white' || color === 'black') &&
+      crazyValid(this.chessground, this.node.drops, { color, role }, key)
+    );
+  };
+
+  getCrazyhousePockets = () => this.node.crazy?.pockets;
+
+  sendNewPiece = (role: cg.Role, key: cg.Key): void => {
+    const color = this.chessground.state.movable.color;
+    if (color === 'white' || color === 'black') this.userNewPiece({ color, role }, key);
+  };
 
   userNewPiece = (piece: cg.Piece, pos: Key): void => {
     if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
@@ -568,6 +613,7 @@ export default class AnalyseCtrl {
     this.tree.addDests(dests, path);
     if (path === this.path) {
       this.showGround();
+      this.pluginUpdate(this.node.fen);
       if (this.outcome()) this.ceval.stop();
     }
     this.withCg(cg => cg.playPremove());
@@ -960,4 +1006,29 @@ export default class AnalyseCtrl {
 
   withCg = <A>(f: (cg: ChessgroundApi) => A): A | undefined =>
     this.chessground && this.cgVersion.js === this.cgVersion.dom ? f(this.chessground) : undefined;
+
+  handleArrowKey = (arrowKey: ArrowKey) => {
+    if (arrowKey === 'ArrowUp') {
+      if (this.fork.prev()) this.setAutoShapes();
+      else control.first(this);
+    } else if (arrowKey === 'ArrowDown') {
+      if (this.fork.next()) this.setAutoShapes();
+      else control.last(this);
+    } else if (arrowKey === 'ArrowLeft') control.prev(this);
+    else if (arrowKey === 'ArrowRight') control.next(this);
+    this.redraw();
+  };
+
+  pluginMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => {
+    const capture = this.chessground.state.pieces.get(dest);
+    this.sendMove(orig, dest, capture, prom);
+  };
+
+  pluginUpdate = (fen: string) => {
+    // if controller and chessground board state differ, ignore this update. once the chessground
+    // state is updated to match, pluginUpdate will be called again.
+    if (!fen.startsWith(this.chessground?.getFen())) return;
+
+    this.keyboardMove?.update({ fen, canMove: true });
+  };
 }

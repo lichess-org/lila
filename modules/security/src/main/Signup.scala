@@ -10,8 +10,8 @@ import lila.core.config.NetConfig
 import lila.common.{ HTTPRequest }
 import lila.core.net.{ ApiVersion, IpAddress }
 import lila.memo.RateLimit
-import lila.user.{ PasswordHasher, User }
 import lila.core.email.UserIdOrEmail
+import lila.core.security.ClearPassword
 
 final class Signup(
     store: Store,
@@ -21,11 +21,11 @@ final class Signup(
     emailConfirm: EmailConfirm,
     hcaptcha: Hcaptcha,
     passwordHasher: PasswordHasher,
-    authenticator: lila.user.Authenticator,
+    authenticator: Authenticator,
     userRepo: lila.user.UserRepo,
     disposableEmailAttempt: DisposableEmailAttempt,
     netConfig: NetConfig
-)(using Executor):
+)(using Executor, lila.core.config.RateLimit):
 
   private enum MustConfirmEmail(val value: Boolean):
     case Nope                   extends MustConfirmEmail(false)
@@ -155,7 +155,7 @@ final class Signup(
                 apiVersion.some
               )
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
-              val passwordHash = authenticator.passEnc(lila.user.ClearPassword(data.password))
+              val passwordHash = authenticator.passEnc(ClearPassword(data.password))
               userRepo
                 .create(
                   data.username,
@@ -196,8 +196,7 @@ final class Signup(
       .increment()
 
   private lazy val signupRateLimitPerIP = RateLimit.composite[IpAddress](
-    key = "account.create.ip",
-    enforce = netConfig.rateLimit.value
+    key = "account.create.ip"
   )(
     ("fast", 10, 10.minutes),
     ("slow", 150, 1 day)

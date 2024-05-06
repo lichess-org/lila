@@ -1,19 +1,15 @@
 package lila.study
 
-import lila.tree.Node.partitionTreeJsonWriter
 import lila.core.LightUser
-import PgnImport.*
-import lila.tree.Root
+import lila.tree.{ Node, Root, NewRoot }
 import chess.variant.{ Variant, Standard }
-import lila.tree.NewRoot
 
 import monocle.syntax.all.*
 import lila.study.Helpers.*
 
 import lila.db.BSON
 import BSONHandlers.given
-import lila.db.BSON.Writer
-import lila.db.BSON.Reader
+import lila.db.BSON.{ Writer, Reader }
 import lila.db.dsl.Bdoc
 import play.api.libs.json.Json
 
@@ -25,7 +21,7 @@ class JsonTest extends munit.FunSuite:
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
-        val result   = PgnImport(pgn, List(user)).toOption.get
+        val result   = StudyPgnImport(pgn, List(user)).toOption.get
         val imported = result.root.cleanCommentIds
         val json     = writeTree(imported, result.variant)
         assertEquals(json, expected)
@@ -34,7 +30,7 @@ class JsonTest extends munit.FunSuite:
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
-        val result   = NewPgnImport(pgn, List(user)).toOption.get
+        val result   = StudyPgnImportNew(pgn, List(user)).toOption.get
         val imported = result.root.cleanup
         val json     = writeTree(imported, result.variant)
         assertEquals(Json.parse(json), Json.parse(expected))
@@ -48,7 +44,7 @@ class JsonTest extends munit.FunSuite:
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
-        val result    = PgnImport(pgn, List(user)).toOption.get
+        val result    = StudyPgnImport(pgn, List(user)).toOption.get
         val imported  = result.root.cleanCommentIds
         val afterBson = treeBson.reads(treeBson.writes(w, imported))
         val json      = writeTree(afterBson, result.variant)
@@ -58,7 +54,7 @@ class JsonTest extends munit.FunSuite:
     PgnFixtures.roundTrip
       .zip(JsonFixtures.all)
       .foreach: (pgn, expected) =>
-        val result    = NewPgnImport(pgn, List(user)).toOption.get
+        val result    = StudyPgnImportNew(pgn, List(user)).toOption.get
         val imported  = result.root
         val afterBson = newTreeBson.reads(newTreeBson.writes(w, imported))
         val json      = writeTree(afterBson.cleanup, result.variant)
@@ -68,7 +64,7 @@ class JsonTest extends munit.FunSuite:
     def cleanCommentIds: Root =
       root.toNewRoot.cleanup.toRoot
 
-  def writeTree(tree: Root, variant: Variant) = partitionTreeJsonWriter
+  def writeTree(tree: Root, variant: Variant) = Node.partitionTreeJsonWriter
     .writes(lila.study.TreeBuilder(tree, variant))
     .toString
 

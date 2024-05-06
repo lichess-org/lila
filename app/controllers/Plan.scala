@@ -2,8 +2,6 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
-import views.*
-
 import java.util.Currency
 
 import lila.app.{ *, given }
@@ -63,7 +61,7 @@ final class Plan(env: Env) extends LilaController(env):
       _         <- env.user.lightUserApi.preloadMany(recentIds ::: bestIds)
       pricing   <- env.plan.priceApi.pricingOrDefault(myCurrency)
       page <- renderPage:
-        html.plan.index(
+        views.plan.index(
           stripePublicKey = env.plan.stripePublicKey,
           payPalPublicKey = env.plan.payPalPublicKey,
           email = email,
@@ -72,7 +70,7 @@ final class Plan(env: Env) extends LilaController(env):
           bestIds = bestIds,
           pricing = pricing
         )
-    yield Ok(page)
+    yield Ok(page).withHeaders(crossOriginPolicy.unsafe*)
 
   private def indexStripePatron(patron: lila.plan.Patron, customer: StripeCustomer)(using
       ctx: Context,
@@ -83,7 +81,8 @@ final class Plan(env: Env) extends LilaController(env):
     gifts   <- env.plan.api.giftsFrom(me)
     res <- info match
       case Some(info: CustomerInfo.Monthly) =>
-        Ok.page(html.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
+        Ok.page(views.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
+
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email.map { EmailAddress(_) }, patron.some)
       case None =>
@@ -96,8 +95,10 @@ final class Plan(env: Env) extends LilaController(env):
       ctx: Context,
       me: Me
   ) =
-    Ok.pageAsync:
-      env.plan.api.giftsFrom(me).map { html.plan.indexPayPal(me, patron, sub, _) }
+    Ok.async:
+      env.plan.api.giftsFrom(me).map { views.plan.indexPayPal(me, patron, sub, _) }
+    .map:
+        _.withHeaders(crossOriginPolicy.unsafe*)
 
   private def myCurrency(using ctx: Context): Currency =
     get("currency")
@@ -111,7 +112,7 @@ final class Plan(env: Env) extends LilaController(env):
 
   def features = Open:
     pageHit
-    Ok.page(html.plan.features())
+    Ok.page(views.planPages.features)
 
   def switch = AuthBody { ctx ?=> me ?=>
     env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
@@ -137,7 +138,7 @@ final class Plan(env: Env) extends LilaController(env):
         patron   <- ctx.me.so { env.plan.api.userPatron(_) }
         customer <- patron.so(env.plan.api.stripe.patronCustomer)
         gift     <- ctx.me.so { env.plan.api.recentGiftFrom(_) }
-        page     <- renderPage(html.plan.thanks(patron, customer, gift))
+        page     <- renderPage(views.planPages.thanks(patron, customer, gift))
       yield Ok(page)
 
   def webhook = AnonBodyOf(parse.json): body =>
@@ -181,22 +182,8 @@ final class Plan(env: Env) extends LilaController(env):
       .inject(jsonOkResult)
       .recover(badStripeApiCall)
 
-  private val CheckoutRateLimit = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
-    key = "plan.checkout.ip"
-  )(
-    ("fast", 8, 10.minute),
-    ("slow", 40, 1.day)
-  )
-
-  private val CaptureRateLimit = lila.memo.RateLimit.composite[lila.core.net.IpAddress](
-    key = "plan.capture.ip"
-  )(
-    ("fast", 8, 10.minute),
-    ("slow", 40, 1.day)
-  )
-
   def stripeCheckout = AuthBody { ctx ?=> me ?=>
-    CheckoutRateLimit(ctx.ip, rateLimited):
+    limit.planCheckout(ctx.ip, rateLimited):
       env.plan.priceApi
         .pricingOrDefault(myCurrency)
         .flatMap: pricing =>
@@ -227,7 +214,7 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def updatePayment = AuthBody { ctx ?=> me ?=>
-    CaptureRateLimit(ctx.ip, rateLimited):
+    limit.planCapture(ctx.ip, rateLimited):
       env.plan.api.stripe.userCustomer(me).flatMap {
         _.flatMap(_.firstSubscription).map(_.copy(ip = ctx.ip.some)).so { sub =>
           env.plan.api.stripe
@@ -256,7 +243,7 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def payPalCheckout = AuthBody { ctx ?=> me ?=>
-    CheckoutRateLimit(ctx.ip, rateLimited):
+    limit.planCheckout(ctx.ip, rateLimited):
       env.plan.priceApi.pricingOrDefault(myCurrency).flatMap { pricing =>
         env.plan.checkoutForm
           .form(pricing)
@@ -284,7 +271,7 @@ final class Plan(env: Env) extends LilaController(env):
   }
 
   def payPalCapture(orderId: String) = Auth { ctx ?=> me ?=>
-    CaptureRateLimit(ctx.ip, rateLimited):
+    limit.planCapture(ctx.ip, rateLimited):
       get("sub")
         .map(PayPalSubscriptionId.apply)
         .match

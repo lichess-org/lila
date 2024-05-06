@@ -19,7 +19,12 @@ object UserPerfsExt:
   extension (p: UserPerfs)
 
     def perfsList: List[(PerfKey, Perf)] = List(
-      PerfKey.standard       -> p.standard,
+      PerfKey.ultraBullet    -> p.ultraBullet,
+      PerfKey.bullet         -> p.bullet,
+      PerfKey.blitz          -> p.blitz,
+      PerfKey.rapid          -> p.rapid,
+      PerfKey.classical      -> p.classical,
+      PerfKey.correspondence -> p.correspondence,
       PerfKey.chess960       -> p.chess960,
       PerfKey.kingOfTheHill  -> p.kingOfTheHill,
       PerfKey.threeCheck     -> p.threeCheck,
@@ -28,12 +33,6 @@ object UserPerfsExt:
       PerfKey.horde          -> p.horde,
       PerfKey.racingKings    -> p.racingKings,
       PerfKey.crazyhouse     -> p.crazyhouse,
-      PerfKey.ultraBullet    -> p.ultraBullet,
-      PerfKey.bullet         -> p.bullet,
-      PerfKey.blitz          -> p.blitz,
-      PerfKey.rapid          -> p.rapid,
-      PerfKey.classical      -> p.classical,
-      PerfKey.correspondence -> p.correspondence,
       PerfKey.puzzle         -> p.puzzle
     )
 
@@ -62,16 +61,16 @@ object UserPerfsExt:
         .map(KeyedPerf.apply)
 
     def bestPerfs(nb: Int): List[KeyedPerf] =
-      val ps = lila.rating.PerfType.nonPuzzle.map: pt =>
+      val ps = PerfType.nonPuzzle.map: pt =>
         pt.key -> apply(pt)
       val minNb = math.max(1, ps.foldLeft(0)(_ + _._2.nb) / 15)
       ps.filter(p => p._2.nb >= minNb).topN(nb).map(KeyedPerf.apply)
 
-    def bestRating: IntRating = bestRatingIn(lila.rating.PerfType.leaderboardable)
+    def bestRating: IntRating = bestRatingIn(PerfType.leaderboardable)
 
-    def bestStandardRating: IntRating = bestRatingIn(lila.rating.PerfType.standard)
+    def bestStandardRating: IntRating = bestRatingIn(PerfType.standard)
 
-    def bestRatingIn(types: List[PerfType]): IntRating =
+    def bestRatingIn(types: List[PerfKey]): IntRating =
       val ps = types.map(p(_)) match
         case Nil => List(p.standard)
         case x   => x
@@ -84,7 +83,7 @@ object UserPerfsExt:
         case (ro, _) => ro
       .getOrElse(lila.rating.Perf.default.intRating)
 
-    def bestPerf(types: List[PerfType]): Perf =
+    def bestPerf(types: List[PerfKey]): Perf =
       types
         .map(p(_))
         .foldLeft(none[Perf]):
@@ -92,16 +91,16 @@ object UserPerfsExt:
           case (ro, _)                                         => ro
         .getOrElse(lila.rating.Perf.default)
 
-    def bestRatingInWithMinGames(types: List[PerfType], nbGames: Int): Option[IntRating] =
+    def bestRatingInWithMinGames(types: List[PerfKey], nbGames: Int): Option[IntRating] =
       types
         .map(p(_))
         .foldLeft(none[IntRating]):
           case (ro, p) if p.nb >= nbGames && ro.forall(_ < p.intRating) => p.intRating.some
           case (ro, _)                                                  => ro
 
-    def bestProgress: IntRatingDiff = bestProgressIn(lila.rating.PerfType.leaderboardable)
+    def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
 
-    def bestProgressIn(types: List[PerfType]): IntRatingDiff =
+    def bestProgressIn(types: List[PerfKey]): IntRatingDiff =
       types.foldLeft(IntRatingDiff(0)): (max, t) =>
         val p = apply(t).progress
         if p > max then p else max
@@ -118,13 +117,15 @@ object UserPerfsExt:
           case (Some(acc), date) if date.isAfter(acc) => date.some
           case (acc, _)                               => acc
 
-    def dubiousPuzzle = UserPerfs.dubiousPuzzle(p.puzzle, p.standard)
+    def dubiousPuzzle = UserPerfs.dubiousPuzzle(p)
 
   private given [A]: Ordering[(A, Perf)] = Ordering.by[(A, Perf), Int](_._2.intRating.value)
 
 object UserPerfs:
 
-  def dubiousPuzzle(puzzle: Perf, standard: Perf) =
+  def dubiousPuzzle(perfs: UserPerfs): Boolean = dubiousPuzzle(perfs.puzzle, perfs.standard)
+
+  def dubiousPuzzle(puzzle: Perf, standard: Perf): Boolean =
     puzzle.glicko.rating > 3000 && !standard.glicko.establishedIntRating.exists(_ > 2100) ||
       puzzle.glicko.rating > 2900 && !standard.glicko.establishedIntRating.exists(_ > 2000) ||
       puzzle.glicko.rating > 2700 && !standard.glicko.establishedIntRating.exists(_ > 1900) ||

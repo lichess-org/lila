@@ -5,23 +5,27 @@
 }
 
 .tour-spotlight {
-  @extend %flex-center-nowrap, %nowrap-hidden, %page-metal;
+  @extend %flex-center-nowrap, %page-text-shadow, %nowrap-hidden, %metal-bg;
+  @include transition;
 
   flex: 0 0 auto;
   padding: 0.3em;
   opacity: 0.8;
-
-  @include transition;
-
-  text-shadow: $text-shadow;
   color: $c-font;
+
+  @include if-light {
+    background-image: linear-gradient(to bottom, $m-primary_bg--mix-20, rgb(197, 216, 234));
+  }
 
   &.invert,
   &.event-spotlight,
   &:hover {
-    @extend %page-metal-hover;
-
+    @extend %metal-hover;
     text-shadow: none;
+
+    @include if-light {
+      background-image: linear-gradient(to bottom, $m-primary_bg--mix-25, $m-primary_bg-page--mix-20);
+    }
   }
 
   &:hover {
@@ -38,13 +42,13 @@
     color: #fff;
     font-size: 42px;
 
-    @if $theme-light {
+    @include if-light {
       text-shadow: 1px 1px 2px $c-link;
     }
   }
 
   img.img.icon {
-    @if $theme-light {
+    @include if-light {
       filter: drop-shadow(1px 1px 1px $c-link);
     }
   }

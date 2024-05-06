@@ -18,7 +18,7 @@ final class ErrorHandler(
     lobbyC: => controllers.Lobby
 )(using Executor)
     extends DefaultHttpErrorHandler(environment, config, router.some)
-    with ResponseWriter:
+    with lila.web.ResponseWriter:
 
   override def onProdServerError(req: RequestHeader, exception: UsefulException) =
     Future {
@@ -29,9 +29,9 @@ final class ErrorHandler(
       if canShowErrorPage(req) then
         given PageContext = PageContext(
           lila.api.Context(req, lila.core.i18n.defaultLang, LoginContext.anon, lila.pref.Pref.default),
-          lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req).option(lila.api.Nonce.random))
+          lila.api.PageData.error(HTTPRequest.isSynchronousHttp(req).option(lila.ui.Nonce.random))
         )
-        InternalServerError(views.html.site.bits.errorPage)
+        InternalServerError(views.base.page(views.site.ui.errorPage))
       else InternalServerError("Sorry, something went wrong.")
     }.recover { case scala.util.control.NonFatal(e) =>
       lila.log("http").error(s"""Error handler exception on "${exception.getMessage}\"""", e)

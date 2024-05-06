@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.Bus
 import lila.db.dsl.{ *, given }
-import lila.game.{ Game, GameRepo, Pov, Query }
+import lila.game.{ GameRepo, Query }
 import lila.report.{ Mod, Report, Reporter, Suspect }
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
@@ -153,10 +153,8 @@ final class IrwinApi(
     private[IrwinApi] def apply(report: IrwinReport): Funit =
       subs.get(report.suspectId).so { modIds =>
         subs = subs - report.suspectId
-        modIds
-          .map { modId =>
+        modIds.toList
+          .traverse_ { modId =>
             notifyApi.notifyOne(modId, lila.core.notify.IrwinDone(report.suspectId.value))
           }
-          .parallel
-          .void
       }

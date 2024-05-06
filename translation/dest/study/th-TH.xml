@@ -61,7 +61,6 @@
   <string name="downloadAllGames">ดาวน์โหลดเกมทั้งหมด</string>
   <string name="chapterPgn">PGN บท</string>
   <string name="copyChapterPgn">คัดลอก PGN</string>
-  <string name="copyChapterPgnDescription">คัดลอกPGN ไปยังแป้นพิมพ์</string>
   <string name="downloadGame">ดาวน์โหลดเกม</string>
   <string name="studyUrl">URL กรณีศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
@@ -82,7 +81,7 @@
   <string name="pinnedChapterComment">ความคิดเห็นที่ถูกปักของบท</string>
   <string name="saveChapter">บันทึกบท</string>
   <string name="clearAnnotations">ล้างหมายเหตุ</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">ล้างการผันแปร</string>
+  <string name="clearVariations">ล้างการผันแปร</string>
   <string name="deleteChapter">ลบบท</string>
   <string name="deleteThisChapter">ลบบทหรือไม่? จะคืนกลับมาไม่ได้!</string>
   <string name="clearAllCommentsInThisChapter">ล้างความคิดเห็น, สัญลักษณ์, และรูปวาดทั้งหมดในบทนี้?</string>

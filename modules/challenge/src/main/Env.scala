@@ -8,14 +8,12 @@ import lila.core.socket.{ GetVersion, SocketVersion }
 @Module
 final class Env(
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
+    userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart,
     gameCache: lila.game.Cached,
     rematches: lila.game.Rematches,
     lightUser: lila.core.LightUser.GetterSync,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     isOnline: lila.core.socket.IsOnline,
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
@@ -37,12 +35,13 @@ final class Env(
     akka.stream.Materializer,
     lila.game.IdGenerator,
     play.api.Mode,
-    lila.core.i18n.Translator
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
 ):
 
   private val colls = wire[ChallengeColls]
 
-  def version(challengeId: Challenge.Id): Fu[SocketVersion] =
+  def version(challengeId: ChallengeId): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](challengeId.into(RoomId))(GetVersion.apply)
 
   private lazy val joiner = wire[ChallengeJoiner]

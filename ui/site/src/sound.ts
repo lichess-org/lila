@@ -1,5 +1,5 @@
 import pubsub from './pubsub';
-import { url as assetUrl } from './assets';
+import { url as assetUrl } from './asset';
 import { storage } from './storage';
 import { isIOS } from 'common/device';
 import throttle from 'common/throttle';
@@ -77,7 +77,7 @@ export default new (class implements SoundI {
       }
     }
     if (o?.filter === 'game' || this.theme !== 'music') return;
-    this.music ??= await site.asset.loadEsm<SoundMove>('soundMove');
+    this.music ??= await site.asset.loadEsm<SoundMove>('bits.soundMove');
     this.music(o);
   }
 
@@ -129,7 +129,7 @@ export default new (class implements SoundI {
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
-      msg.lang = translated ? document.documentElement!.lang : 'en-US';
+      msg.lang = translated ? document.documentElement.lang : 'en-US';
       if (!isIOS()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
         msg.onstart = _ => site.mic.pause();
@@ -239,8 +239,8 @@ class Sound {
   }
 
   play(volume = 1): Promise<void> {
-    this.node.gain.setValueAtTime(volume, this.ctx!.currentTime);
-    const source = this.ctx!.createBufferSource();
+    this.node.gain.setValueAtTime(volume, this.ctx.currentTime);
+    const source = this.ctx.createBufferSource();
     source.buffer = this.buffer;
     source.connect(this.node);
     return new Promise<void>(resolve => {

@@ -24,7 +24,7 @@ final class StudyApi(
     inviter: StudyInvite,
     explorerGameHandler: ExplorerGame,
     topicApi: StudyTopicApi,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
     serverEvalRequester: ServerEval.Requester,
     preview: ChapterPreviewApi
@@ -95,14 +95,16 @@ final class StudyApi(
       chapterRepo.existsByStudy(study.id).flatMap {
         if _ then funit
         else
-          chapterMaker
-            .fromFenOrPgnOrBlank(
-              study,
-              ChapterMaker.Data(StudyChapterName("Chapter 1")),
-              order = 1,
-              userId = study.ownerId
-            )
-            .flatMap(chapterRepo.insert)
+          for
+            chap <- chapterMaker
+              .fromFenOrPgnOrBlank(
+                study,
+                ChapterMaker.Data(StudyChapterName("Chapter 1")),
+                order = 1,
+                userId = study.ownerId
+              )
+            _ <- chapterRepo.insert(chap)
+          yield preview.invalidate(study.id)
       }
     } >> byIdWithFirstChapter(study.id)
 
@@ -821,12 +823,12 @@ final class StudyApi(
       studyId: StudyId,
       chapterId: StudyChapterId,
       userId: UserId,
-      unlimited: Boolean = false
+      official: Boolean = false
   ): Funit =
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(userId, study):
-          serverEvalRequester(study, chapter, userId, unlimited)
+          serverEvalRequester(study, chapter, userId, official)
 
   def deleteAllChapters(studyId: StudyId, by: User) =
     sequenceStudy(studyId): study =>

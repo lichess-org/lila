@@ -184,7 +184,7 @@ final private class RelaySync(
         studyId = study.id,
         chapterId = chapter.id,
         userId = study.ownerId,
-        unlimited = true
+        official = true
       )
   yield
     preview.invalidate(study.id)

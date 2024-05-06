@@ -12,7 +12,7 @@ final class MagicLink(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(using Executor, lila.core.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator, lila.core.config.RateLimit):
 
   import Mailer.html.*
 
@@ -41,9 +41,7 @@ ${trans.common_orPaste.txt()}"""),
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener.read(token).flatMapz(userRepo.enabledById).map {
-      _.filter(_.canFullyLogin)
-    }
+    tokener.read(token).flatMapz(userRepo.enabledById).map(_.filter(canFullyLogin))
 
   private val tokener = LoginToken.makeTokener(tokenerSecret, 10 minutes)
 

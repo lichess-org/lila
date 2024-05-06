@@ -78,7 +78,7 @@
 
   @include mq-at-least-col2 {
     grid-template-areas: 'board voice' 'board .' 'board mat-top' 'board clock-top' 'board expi-top' 'board user-top' 'board moves' 'board controls' 'board user-bot' 'board expi-bot' 'board clock-bot' 'board mat-bot' 'board .' 'kb-move .';
-    grid-template-columns: var(--col2-uniboard-width) $col2-uniboard-table;
+    grid-template-columns: var(---col2-uniboard-width) $col2-uniboard-table;
     grid-column-gap: $block-gap;
 
     &__table {
@@ -110,7 +110,7 @@
   }
 
   @include mq-at-least-col3 {
-    grid-template-columns: var(--col3-uniboard-width) $col3-uniboard-table;
+    grid-template-columns: var(---col3-uniboard-width) $col3-uniboard-table;
   }
 
   @include mq-is-col2-squeeze {

@@ -787,9 +787,6 @@
   <string name="transparent">Genomskinlig</string>
   <string name="deviceTheme">Enhetstema</string>
   <string name="backgroundImageUrl">Bakgrundsbild URL:</string>
-  <string name="boardGeometry">Brädets geometri</string>
-  <string name="boardTheme">Brädets tema</string>
-  <string name="boardSize">Brädets storlek</string>
   <string name="pieceSet">Pjäsuppsättning</string>
   <string name="embedInYourWebsite">Integrera i din webbplats</string>
   <string name="usernameAlreadyUsed">Användarnamnet är upptaget, vänligen försök med ett annat.</string>

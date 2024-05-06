@@ -64,7 +64,6 @@
   <string name="downloadAllGames">Partida guztiak deskargatu</string>
   <string name="chapterPgn">Kapituluaren PGNa</string>
   <string name="copyChapterPgn">Kopiatu PGNa</string>
-  <string name="copyChapterPgnDescription">Kopiatu kapituluaren PGNa arbelera.</string>
   <string name="downloadGame">Partida deskargatu</string>
   <string name="studyUrl">Azterlanaren helbidea</string>
   <string name="currentChapterUrl">Uneko kapituluaren helbidea</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">Kapituluaren iltzatutako iruzkina</string>
   <string name="saveChapter">Kapitulua gorde</string>
   <string name="clearAnnotations">Iruzkinak garbitu</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Garbitu aldaerak</string>
+  <string name="clearVariations">Garbitu aldaerak</string>
   <string name="deleteChapter">Kapitulua ezabatu</string>
   <string name="deleteThisChapter">Kapitulu hau ezabatu egin nahi duzu? Ez dago atzera egiterik!</string>
   <string name="clearAllCommentsInThisChapter">Kapitulu honetako iruzkin guztiak ezabatu?</string>

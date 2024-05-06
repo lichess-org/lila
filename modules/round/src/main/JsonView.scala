@@ -3,20 +3,20 @@ package lila.round
 import chess.format.Fen
 import chess.{ ByColor, Clock, Color, Speed }
 import play.api.libs.json.*
-
 import scala.math
 
 import lila.common.Json.given
 import lila.core.data.Preload
 import lila.core.LightUser
 import lila.game.JsonView.given
-import lila.game.{ Game, Player as GamePlayer, Pov }
+import lila.core.game.{ Player as GamePlayer }
 import lila.pref.Pref
-
 import lila.core.user.{ GameUser, GameUsers }
 import lila.core.user.WithPerf
 import lila.core.net.ApiVersion
 import lila.core.perf.KeyedPerf
+import lila.game.GameExt.moveTimes
+import lila.round.RoundGame.*
 
 final class JsonView(
     lightUserGet: LightUser.Getter,
@@ -208,7 +208,8 @@ final class JsonView(
                 "coords"            -> pref.coords,
                 "resizeHandle"      -> pref.resizeHandle,
                 "replay"            -> pref.replay,
-                "clockTenths"       -> pref.clockTenths
+                "clockTenths"       -> pref.clockTenths,
+                "keyboardMove"      -> pref.hasKeyboardMove
               )
               .add("is3d" -> pref.is3d)
               .add("clockBar" -> pref.clockBar)
@@ -288,7 +289,8 @@ final class JsonView(
             "animationDuration" -> animationMillis(pov, pref),
             "coords"            -> pref.coords,
             "moveEvent"         -> pref.moveEvent,
-            "showCaptured"      -> pref.captured
+            "showCaptured"      -> pref.captured,
+            "keyboardMove"      -> pref.hasKeyboardMove
           )
           .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
           .add("is3d" -> pref.is3d)
@@ -308,7 +310,9 @@ final class JsonView(
       case n if (n & BLITZ) != 0 && game.isSpeed(Speed.Blitz)            => true
       case _                                                             => false
 
-  private def blurs(game: Game, player: lila.game.Player) =
+  private def blurs(game: Game, player: GamePlayer) =
+    import lila.game.Blurs.nonEmpty
+    import lila.game.GameExt.playerBlurPercent
     player.blurs.nonEmpty.option {
       Json.toJsObject(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
@@ -333,5 +337,8 @@ final class JsonView(
   private def animationMillis(pov: Pov, pref: Pref) =
     pref.animationMillis * {
       if pov.game.finished then 1
-      else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
+      else math.max(0, math.min(1.2, ((estimateTotalTime(pov.game) - 60) / 60) * 0.2))
     }
+
+  private def estimateTotalTime(g: Game) =
+    g.clock.map(_.estimateTotalSeconds).orElse(g.correspondenceClock.map(_.estimateTotalTime)).getOrElse(1200)

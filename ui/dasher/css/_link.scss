@@ -34,7 +34,7 @@
   .links button:hover,
   .subs .sub:hover {
     background: $c-dasher;
-    color: $c-dasher-over;
+    color: $c-over;
     opacity: 1;
   }
 
@@ -62,7 +62,7 @@
     }
 
     &:hover::before {
-      color: $c-dasher-over;
+      color: $c-over;
       opacity: 0.9;
     }
   }

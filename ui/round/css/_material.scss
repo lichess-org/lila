@@ -24,7 +24,7 @@
   }
 
   score {
-    font-family: 'Roboto';
+    @extend %roboto;
     line-height: 32px;
     vertical-align: top;
   }

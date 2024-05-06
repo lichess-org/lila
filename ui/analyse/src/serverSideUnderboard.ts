@@ -8,14 +8,14 @@ import { stockfishName } from 'common/spinner';
 import { FEN } from 'chessground/types';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
-  $(element).replaceWith(ctrl.opts.$underboard!);
+  $(element).replaceWith(ctrl.opts.$underboard);
 
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
     $menu = $('.analyse__underboard__menu'),
-    inputFen = document.querySelector('.analyse__underboard__fen') as HTMLInputElement,
-    gameGifLink = document.querySelector('.game-gif') as HTMLAnchorElement,
-    positionGifLink = document.querySelector('.position-gif') as HTMLAnchorElement;
+    inputFen = document.querySelector('.analyse__underboard__fen input') as HTMLInputElement,
+    gameGifLink = document.querySelector('.game-gif a') as HTMLAnchorElement,
+    positionGifLink = document.querySelector('.position-gif a') as HTMLAnchorElement;
   let lastInputHash: string;
   let advChart: AcplChart;
   let timeChartLoaded = false;
@@ -37,7 +37,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   };
 
   if (!site.blindMode) {
-    site.pubsub.on('theme.change', () => updateGifLinks(inputFen.value));
+    site.pubsub.on('board.change', () => updateGifLinks(inputFen.value));
     site.pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
@@ -110,7 +110,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       const display = window.getComputedStyle(this).display;
       return !!display && display != 'none';
     }).length;
-  if (foundStored) setPanel(stored!);
+  if (foundStored) setPanel(stored);
   else {
     const $menuCt = $menu.children('[data-panel="ctable"]');
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');

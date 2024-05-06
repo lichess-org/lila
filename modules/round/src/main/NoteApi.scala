@@ -31,4 +31,8 @@ final class NoteApi(coll: Coll)(using Executor):
       yield (gameId, note)).toMap
     }
 
+  val form =
+    import play.api.data.Forms.*
+    play.api.data.Form(single("text" -> text))
+
   private def makeId(gameId: GameId, userId: UserId) = s"$gameId$userId"

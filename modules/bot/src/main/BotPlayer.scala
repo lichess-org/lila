@@ -3,11 +3,12 @@ package lila.bot
 import chess.format.Uci
 
 import lila.common.Bus
-import lila.game.{ Game, GameRepo, Pov, Rematches }
+import lila.game.{ GameRepo, Rematches }
 import lila.core.misc.map.Tell
 import lila.core.round.*
 
 import lila.core.shutup.PublicSource
+import lila.game.GameExt.playerCanOfferDraw
 
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,

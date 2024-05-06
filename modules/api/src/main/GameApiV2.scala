@@ -14,12 +14,14 @@ import lila.core.LightUser
 import lila.db.dsl.{ *, given }
 import lila.game.JsonView.given
 import lila.game.PgnDump.WithFlags
-import lila.game.{ Divider, Game, Pov, Query }
+import lila.game.{ Divider, Query }
 import lila.round.GameProxyRepo
 import lila.team.GameTeams
 import lila.tournament.Tournament
+import lila.web.{ RealPlayerApi, RealPlayers }
 
 import lila.core.i18n.Translate
+import lila.game.PgnDump.applyDelay
 
 final class GameApiV2(
     pgnDump: PgnDump,
@@ -85,7 +87,7 @@ final class GameApiV2(
       "lichess_tournament_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(tour.startsAt),
         tour.id,
-        lila.common.String.slugify(tour.name),
+        scalalib.StringOps.slug(tour.name),
         format
       ),
       "_"
@@ -99,7 +101,7 @@ final class GameApiV2(
       "lichess_swiss_%s_%s_%s.%s".format(
         Tag.UTCDate.format.print(swiss.startsAt),
         swiss.id,
-        lila.common.String.slugify(swiss.name),
+        scalalib.StringOps.slug(swiss.name),
         format
       ),
       "_"
@@ -309,10 +311,10 @@ final class GameApiV2(
     .add("winner" -> g.winnerColor.map(_.name))
     .add("opening" -> g.opening.ifTrue(flags.opening))
     .add("moves" -> flags.moves.option {
-      flags.keepDelayIf(g.playable).applyDelay(g.sans).mkString(" ")
+      applyDelay(g.sans, flags.keepDelayIf(g.playable)).mkString(" ")
     })
     .add("clocks" -> flags.clocks.so(g.bothClockStates).map { clocks =>
-      flags.keepDelayIf(g.playable).applyDelay(clocks)
+      applyDelay(clocks, flags.keepDelayIf(g.playable))
     })
     .add("pgn" -> pgn)
     .add("daysPerTurn" -> g.daysPerTurn)
@@ -329,7 +331,7 @@ final class GameApiV2(
     .add("lastMove" -> flags.lastFen.option(g.lastMoveKeys))
     .add("division" -> flags.division.option(division(g, initialFen)))
 
-  private def gameLightUsers(game: Game): Future[ByColor[(lila.game.Player, Option[LightUser])]] =
+  private def gameLightUsers(game: Game): Future[ByColor[(lila.core.game.Player, Option[LightUser])]] =
     game.players.traverse(_.userId.so(getLightUser)).dmap(game.players.zip(_))
 
 object GameApiV2:
@@ -364,7 +366,7 @@ object GameApiV2:
       until: Option[Instant] = None,
       max: Option[Max] = None,
       rated: Option[Boolean] = None,
-      perfType: Set[lila.rating.PerfType],
+      perfKey: Set[PerfKey],
       analysed: Option[Boolean] = None,
       color: Option[chess.Color],
       flags: WithFlags,
@@ -377,7 +379,7 @@ object GameApiV2:
       extends Config:
     def postFilter(g: Game) =
       rated.forall(g.rated ==) && {
-        perfType.isEmpty || perfType.contains(g.perfType)
+        perfKey.isEmpty || perfKey.contains(g.perfKey)
       } && color.forall { c =>
         g.player(c).userId.has(user.id)
       } && analysed.forall(g.metadata.analysed ==)

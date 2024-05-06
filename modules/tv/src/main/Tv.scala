@@ -3,15 +3,14 @@ package lila.tv
 import scalalib.actor.SyncActor
 import chess.PlayerTitle
 
-import lila.common.Icon
 import lila.core.LightUser
-import lila.game.{ Game, GameRepo, Pov }
-import lila.common.Icon
+import lila.game.GameRepo
+import lila.ui.Icon
 
 final class Tv(
     gameRepo: GameRepo,
     actor: SyncActor,
-    gameProxy: lila.game.core.GameProxy
+    gameProxy: lila.core.game.GameProxy
 )(using Executor):
 
   import Tv.*
@@ -200,11 +199,11 @@ object Tv:
   private def hasBot(c: Candidate)                      = c.hasBot
   private def noBot(c: Candidate)                       = !c.hasBot
 
-  private def fresh(seconds: Int, game: Game): Boolean = {
-    game.isBeingPlayed && !game.olderThan(seconds)
-  } || {
-    game.finished && !game.olderThan(7)
-  } // rematch time
+  private def olderThan(g: Game, seconds: Int) = g.movedAt.isBefore(nowInstant.minusSeconds(seconds))
+  private def fresh(seconds: Int, game: Game): Boolean =
+    (game.isBeingPlayed && !olderThan(game, seconds)) ||
+      (game.finished && !olderThan(game, 7)) // rematch time
+
   private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 
   private[tv] val titleScores: Map[PlayerTitle, Int] = Map(

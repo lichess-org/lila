@@ -8,7 +8,9 @@ import lila.db.ByteArray
 
 class BinaryMoveTimeTest extends munit.FunSuite:
 
-  private given Conversion[Int, Ply] = Ply(_)
+  private given Conversion[Int, Ply]               = Ply(_)
+  private given Conversion[Array[Byte], ByteArray] = ByteArray(_)
+  private given Conversion[ByteArray, Array[Byte]] = _.value
 
   val _0_ = "00000000"
   def write(c: Vector[Int]): List[String] =

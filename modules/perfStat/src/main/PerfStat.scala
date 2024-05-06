@@ -4,8 +4,10 @@ import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.Duration
 
 import scalalib.HeapSort
-import lila.game.Pov
+
 import lila.rating.PerfType
+
+extension (p: Pov) def loss = p.game.winner.map(_.color != p.color)
 
 case class PerfStat(
     @Key("_id") id: String, // userId/perfId
@@ -19,6 +21,7 @@ case class PerfStat(
     resultStreak: ResultStreak,
     playStreak: PlayStreak
 ):
+  def perfKey = perfType.key
   def agg(pov: Pov) =
     if !pov.game.finished then this
     else
@@ -32,12 +35,11 @@ case class PerfStat(
         resultStreak = resultStreak.agg(pov),
         playStreak = playStreak.agg(pov)
       )
-
   def userIds = bestWins.userIds ::: worstLosses.userIds
 
 object PerfStat:
 
-  type Getter = (lila.user.User, PerfType) => Fu[PerfStat]
+  type Getter = (User, PerfType) => Fu[PerfStat]
 
   def makeId(userId: UserId, perfType: PerfType) = s"$userId/${perfType.id}"
 

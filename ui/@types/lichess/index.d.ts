@@ -34,8 +34,9 @@ interface Site {
     baseUrl(): string;
     url(url: string, opts?: AssetUrlOpts): string;
     flairSrc(flair: Flair): string;
-    loadCss(path: string): void;
+    loadCss(path: string): Promise<void>;
     loadCssPath(path: string): Promise<void>;
+    removeCssPath(path: string): void;
     jsModule(name: string): string;
     loadIife(path: string, opts?: AssetUrlOpts): Promise<void>;
     loadEsm<T, ModuleOpts = any>(name: string, opts?: { init?: ModuleOpts; url?: AssetUrlOpts }): Promise<T>;
@@ -85,6 +86,7 @@ interface Site {
   socket: any;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
+  manifest: { css: Record<string, string>; js: Record<string, string> };
 }
 
 interface LichessLog {

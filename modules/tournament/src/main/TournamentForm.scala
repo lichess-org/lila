@@ -169,7 +169,7 @@ private[tournament] case class TournamentSetup(
   def realVariant = variant.flatMap(TournamentForm.guessVariant) | chess.variant.Standard
 
   def realPosition: Option[Fen.Standard] = position.ifTrue(realVariant.standard).map(_.opening)
-  def thematicPosition                   = realPosition.flatMap(Thematic.byFen).isDefined
+  def thematicPosition                   = realPosition.flatMap(lila.gathering.Thematic.byFen).isDefined
 
   def clockConfig = Clock.Config(LimitSeconds((clockTime * 60).toInt), clockIncrement)
 
@@ -177,7 +177,7 @@ private[tournament] case class TournamentSetup(
 
   def validRatedVariant =
     realMode == Mode.Casual ||
-      lila.game.Game.allowRated(realVariant, clockConfig.some)
+      lila.core.game.allowRated(realVariant, clockConfig.some)
 
   def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
   def excessiveDuration  = estimateNumberOfGamesOneCanPlay <= 150

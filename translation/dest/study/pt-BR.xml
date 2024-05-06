@@ -64,7 +64,6 @@
   <string name="downloadAllGames">Baixar todas as partidas</string>
   <string name="chapterPgn">PGN do capítulo</string>
   <string name="copyChapterPgn">Copiar PGN</string>
-  <string name="copyChapterPgnDescription">Copiar o PGN do capítulo para a área de transferência.</string>
   <string name="downloadGame">Baixar partida</string>
   <string name="studyUrl">URL de estudo</string>
   <string name="currentChapterUrl">URL do capítulo atual</string>
@@ -85,7 +84,7 @@
   <string name="pinnedChapterComment">Comentário de capítulo afixado</string>
   <string name="saveChapter">Salvar capítulo</string>
   <string name="clearAnnotations">Remover anotações</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Limpar variantes</string>
+  <string name="clearVariations">Limpar variantes</string>
   <string name="deleteChapter">Excluir capítulo</string>
   <string name="deleteThisChapter">Excluir este capítulo? Não há volta!</string>
   <string name="clearAllCommentsInThisChapter">Remover todos os comentários e formas deste capítulo?</string>

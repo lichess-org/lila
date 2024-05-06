@@ -4,60 +4,58 @@ import chess.format.pgn.Glyphs
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 
-import lila.analyse.{ Advice, Analysis, Info }
 import lila.db.dsl.bsonWriteOpt
 import lila.core.fishnet.StudyChapterRequest
 import lila.core.perm.Granter
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
-import lila.user.{ User, Me, UserRepo }
+import lila.tree.{ Advice, Analysis, Info }
 
 object ServerEval:
 
   final class Requester(
       chapterRepo: ChapterRepo,
-      userRepo: UserRepo
+      userApi: lila.core.user.UserApi
   )(using Executor):
 
     private val onceEvery = scalalib.cache.OnceEvery[StudyChapterId](5 minutes)
 
-    def apply(study: Study, chapter: Chapter, userId: UserId, unlimited: Boolean = false): Funit =
+    def apply(study: Study, chapter: Chapter, userId: UserId, official: Boolean = false): Funit =
       chapter.serverEval
         .forall: eval =>
           !eval.done && onceEvery(chapter.id)
         .so:
-          val unlimitedFu =
-            fuccess(unlimited) >>|
-              fuccess(userId == UserId.lichess) >>| userRepo.me(userId).map(_.soUse(Granter.opt(_.Relay)))
-          unlimitedFu.flatMap: unlimited =>
-            chapterRepo
-              .startServerEval(chapter)
-              .andDo:
-                lila.common.Bus.named.fishnet.analyseStudyChapter(
-                  StudyChapterRequest(
-                    studyId = study.id,
-                    chapterId = chapter.id,
-                    initialFen = chapter.root.fen.some,
-                    variant = chapter.setup.variant,
-                    moves = chess.format
-                      .UciDump(
-                        moves = chapter.root.mainline.map(_.move.san),
-                        initialFen = chapter.root.fen.some,
-                        variant = chapter.setup.variant,
-                        force960Notation = true
-                      )
-                      .toOption
-                      .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
-                    userId = userId,
-                    unlimited = unlimited
-                  )
+          for
+            isOfficial <- fuccess(official) >>|
+              fuccess(userId.is(UserId.lichess)) >>|
+              userApi.me(userId).map(_.soUse(Granter.opt(_.Relay)))
+            _ <- chapterRepo.startServerEval(chapter)
+          yield lila.common.Bus.named.fishnet.analyseStudyChapter(
+            StudyChapterRequest(
+              studyId = study.id,
+              chapterId = chapter.id,
+              initialFen = chapter.root.fen.some,
+              variant = chapter.setup.variant,
+              moves = chess.format
+                .UciDump(
+                  moves = chapter.root.mainline.map(_.move.san),
+                  initialFen = chapter.root.fen.some,
+                  variant = chapter.setup.variant,
+                  force960Notation = true
                 )
+                .toOption
+                .map(_.flatMap(chess.format.Uci.apply)) | List.empty,
+              userId = userId,
+              official = isOfficial
+            )
+          )
 
   final class Merger(
       sequencer: StudySequencer,
       socket: StudySocket,
       chapterRepo: ChapterRepo,
-      divider: lila.game.Divider
+      divider: lila.core.game.Divider,
+      analysisJson: lila.tree.AnalysisJson
   )(using Executor):
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.id match
@@ -171,7 +169,7 @@ object ServerEval:
               ServerEval.Progress(
                 chapterId = chapter.id,
                 tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
-                analysis = toJson(chapter, analysis),
+                analysis = analysisJson.bothPlayers(chapter.root.ply, analysis),
                 division = divisionOf(chapter)
               )
             )
@@ -185,6 +183,3 @@ object ServerEval:
       )
 
   case class Progress(chapterId: StudyChapterId, tree: Root, analysis: JsObject, division: chess.Division)
-
-  def toJson(chapter: Chapter, analysis: Analysis) =
-    lila.analyse.JsonView.bothPlayers(chapter.root.ply, analysis)

@@ -791,9 +791,12 @@
   <string name="transparent">Transparente</string>
   <string name="deviceTheme">Tema do dispositivo</string>
   <string name="backgroundImageUrl">URL da imagem de fundo:</string>
-  <string name="boardGeometry">Geometria do tabuleiro</string>
-  <string name="boardTheme">Estilo do tabuleiro</string>
-  <string name="boardSize">Tamanho do tabuleiro</string>
+  <string name="board">Tabuleiro</string>
+  <string name="size">Tamanho</string>
+  <string name="opacity">Opacidade</string>
+  <string name="brightness">Brilho</string>
+  <string name="hue">Tom</string>
+  <string name="boardReset">Restaurar as cores padrão</string>
   <string name="pieceSet">Estilo das peças</string>
   <string name="embedInYourWebsite">Incorporar no seu site</string>
   <string name="usernameAlreadyUsed">Este nome de usuário já está registado, por favor, escolha outro.</string>

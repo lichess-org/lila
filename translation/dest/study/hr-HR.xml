@@ -66,7 +66,6 @@
   <string name="downloadAllGames">Preuzmite sve igre</string>
   <string name="chapterPgn">PGN poglavlja</string>
   <string name="copyChapterPgn">Kopiraj PGN</string>
-  <string name="copyChapterPgnDescription">Kopiraj PNG poglavlja u međuspremnik.</string>
   <string name="downloadGame">Preuzmi igru</string>
   <string name="studyUrl">Studiraj URL</string>
   <string name="currentChapterUrl">URL trenutnog poglavlja</string>
@@ -87,7 +86,7 @@
   <string name="pinnedChapterComment">Stalni komentar na poglavlje</string>
   <string name="saveChapter">Spremi poglavlje</string>
   <string name="clearAnnotations">Očisti pribilješke</string>
-  <string name="clearVariations" comment="Clear is used as a verb here. This erases the variations in the study (https://lichess.org/study) you are preparing.">Očistiti varijacije</string>
+  <string name="clearVariations">Očistiti varijacije</string>
   <string name="deleteChapter">Obriši poglavlje</string>
   <string name="deleteThisChapter">Dali želite obrisati ovo poglavlje? Nakon ovoga nema povratka!</string>
   <string name="clearAllCommentsInThisChapter">Želite li očistiti sve komentare, glifove i nacrtane oblike u ovom poglavlju?</string>

@@ -12,18 +12,17 @@ import lila.core.socket.{ GetVersion, SocketVersion }
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
-    userApi: lila.user.UserApi,
+    gameRepo: lila.core.game.GameRepo,
+    newPlayer: lila.core.game.NewPlayer,
+    userApi: lila.core.user.UserApi,
     onStart: lila.core.game.OnStart,
     socketKit: lila.core.socket.SocketKit,
     chat: lila.core.chat.ChatApi,
     cacheApi: lila.memo.CacheApi,
-    lightUserApi: lila.user.LightUserApi,
+    lightUserApi: lila.core.user.LightUserApi,
     historyApi: lila.core.history.HistoryApi,
-    gameProxy: lila.game.core.GameProxy,
-    roundApi: lila.game.core.RoundApi,
+    gameProxy: lila.core.game.GameProxy,
+    roundApi: lila.core.round.RoundApi,
     mongoCache: lila.memo.MongoCache.Api,
     baseUrl: BaseUrl
 )(using
@@ -31,7 +30,7 @@ final class Env(
     akka.actor.ActorSystem,
     Scheduler,
     akka.stream.Materializer,
-    lila.game.IdGenerator,
+    lila.core.game.IdGenerator,
     play.api.Mode,
     lila.core.user.FlairGet
 ):
@@ -93,7 +92,7 @@ final class Env(
   wire[SwissNotify]
 
   lila.common.Bus.subscribeFun("finishGame", "adjustCheater", "adjustBooster", "team"):
-    case lila.game.actorApi.FinishGame(game, _)                => api.finishGame(game)
+    case lila.core.game.FinishGame(game, _)                    => api.finishGame(game)
     case lila.core.team.LeaveTeam(teamId, userId)              => api.leaveTeam(teamId, userId)
     case lila.core.team.KickFromTeam(teamId, teamName, userId) => api.leaveTeam(teamId, userId)
     case lila.core.mod.MarkCheater(userId, true)               => api.kickLame(userId)

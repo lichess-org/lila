@@ -12,12 +12,13 @@ import lila.core.user.FlairGet
 final class Env(
     appConfig: Configuration,
     ws: StandaloneWSClient,
-    lightUserApi: lila.user.LightUserApi,
-    gamePgnDump: lila.game.PgnDump,
-    divider: lila.game.Divider,
-    gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo,
-    explorerImporter: lila.game.core.ExplorerGame,
+    lightUserApi: lila.core.user.LightUserApi,
+    gamePgnDump: lila.core.game.PgnDump,
+    divider: lila.core.game.Divider,
+    gameRepo: lila.core.game.GameRepo,
+    namer: lila.core.game.Namer,
+    userApi: lila.core.user.UserApi,
+    explorer: lila.core.game.Explorer,
     notifyApi: lila.core.notify.NotifyApi,
     federations: lila.core.fide.Federation.FedsOf,
     federationNames: lila.core.fide.Federation.NamesOf,
@@ -26,8 +27,9 @@ final class Env(
     socketKit: lila.core.socket.SocketKit,
     socketReq: lila.core.socket.SocketRequester,
     chatApi: lila.core.chat.ChatApi,
-    analyser: lila.analyse.Analyser,
-    annotator: lila.analyse.Annotator,
+    analyser: lila.tree.Analyser,
+    analysisJson: lila.tree.AnalysisJson,
+    annotator: lila.tree.Annotator,
     mongo: lila.db.Env,
     net: lila.core.config.NetConfig,
     cacheApi: lila.memo.CacheApi
@@ -37,7 +39,8 @@ final class Env(
     Scheduler,
     akka.stream.Materializer,
     play.api.Mode,
-    lila.core.i18n.Translator
+    lila.core.i18n.Translator,
+    lila.core.config.RateLimit
 ):
 
   private lazy val studyDb = mongo.asyncDb("study", appConfig.get[String]("study.mongodb.uri"))
@@ -48,12 +51,12 @@ final class Env(
   def isConnected(studyId: StudyId, userId: UserId): Fu[Boolean] =
     socket.isPresent(studyId, userId)
 
-  private val socket: StudySocket = wire[StudySocket]
+  private lazy val socket: StudySocket = wire[StudySocket]
 
-  lazy val studyRepo             = StudyRepo(studyDb(CollName("study")))
-  lazy val chapterRepo           = ChapterRepo(studyDb(CollName("study_chapter_flat")))
-  private lazy val topicRepo     = StudyTopicRepo(studyDb(CollName("study_topic")))
-  private lazy val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
+  val studyRepo             = StudyRepo(studyDb(CollName("study")))
+  val chapterRepo           = ChapterRepo(studyDb(CollName("study_chapter_flat")))
+  private val topicRepo     = StudyTopicRepo(studyDb(CollName("study_topic")))
+  private val userTopicRepo = StudyUserTopicRepo(studyDb(CollName("study_user_topic")))
 
   lazy val jsonView = wire[JsonView]
 
@@ -92,5 +95,4 @@ final class Env(
     }
 
   lila.common.Bus.subscribeFun("studyAnalysisProgress"):
-    case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
-      serverEvalMerger(analysis, complete)
+    case lila.tree.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)

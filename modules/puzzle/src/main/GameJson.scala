@@ -6,10 +6,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.LightUser
-import lila.game.{ Game, GameRepo }
 
 final private class GameJson(
-    gameRepo: GameRepo,
+    gameRepo: lila.core.game.GameRepo,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi
 )(using Executor, lila.core.i18n.Translator):
@@ -47,7 +46,7 @@ final private class GameJson(
 
   private def generate(gameId: GameId, plies: Ply, bc: Boolean): Fu[JsObject] =
     gameRepo.gameFromSecondary(gameId).orFail(s"Missing puzzle game $gameId!").flatMap { game =>
-      lightUserApi.preloadMany(game.userIds).map { _ =>
+      lightUserApi.preloadMany(game.userIds).inject {
         if bc then generateBc(game, plies)
         else generate(game, plies)
       }
@@ -66,8 +65,8 @@ final private class GameJson(
 
   private def perfJson(game: Game) =
     Json.obj(
-      "key"  -> game.perfType.key,
-      "name" -> game.perfType.trans
+      "key"  -> game.perfKey,
+      "name" -> lila.rating.PerfType(game.perfKey).trans
     )
 
   private def playersJson(game: Game) = JsArray(game.players.mapList: p =>
