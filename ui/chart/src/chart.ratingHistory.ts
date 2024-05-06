@@ -247,7 +247,10 @@ export function initModule({ data, singlePerfName }: Opts) {
     site.pubsub.on('chart.panning', () => {
       slider.set([chart.scales.x.min, chart.scales.x.max], false, true);
     });
-    const timeBtn = (t: string) => `<button class = "btn-rack__btn">${t}</button>`;
+    const activeIfDuration = (d: duration.Duration) => (initial.isSame(endDate.subtract(d)) ? 'active' : '');
+    const timeBtn = (b: { t: TimeButton; duration: duration.Duration }) =>
+      `<button class = "btn-rack__btn ${activeIfDuration(b.duration)}">${b.t}</button>`;
+
     const buttons: { t: TimeButton; duration: duration.Duration }[] = [
       { t: '1m', duration: dayjs.duration(1, 'months') },
       { t: '3m', duration: dayjs.duration(3, 'months') },
@@ -259,7 +262,7 @@ export function initModule({ data, singlePerfName }: Opts) {
     $('.time-selector-buttons').html(
       buttons
         .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t == 'all')
-        .map(b => timeBtn(b.t))
+        .map(b => timeBtn(b))
         .join(''),
     );
     const btnClick = (min: number) => {
