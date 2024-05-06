@@ -224,7 +224,7 @@ final class AccessTokenApi(
                 case Some(token) =>
                   logger.branch("github").info(s"revoking token ${token.plain} for user ${token.userId}")
                   lila.mon.security.secretScanning.hit(tokenType, source)
-                  revoke(token.plain).inject(token -> url)
+                  revoke(token.plain).inject((token, url).some)
                 case None =>
                   logger.branch("github").info(s"ignoring token $bearer")
                   lila.mon.security.secretScanning.miss(tokenType, source)
