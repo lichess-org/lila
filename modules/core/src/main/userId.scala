@@ -54,7 +54,8 @@ object userId:
   // Properly cased for display
   opaque type UserName = String
   object UserName extends OpaqueString[UserName]:
-    given UserIdOf[UserName] = n => UserId(n.value.toLowerCase)
+    extension (e: UserName) def str = UserStr(e)
+    given UserIdOf[UserName]        = n => UserId(n.value.toLowerCase)
     // what existing usernames are like
     val historicalRegex     = "(?i)[a-z0-9][a-z0-9_-]{0,28}[a-z0-9]".r
     val anonymous: UserName = "Anonymous"
@@ -67,7 +68,8 @@ object userId:
     extension (e: UserStr)
       def couldBeUsername: Boolean   = UserId.noGhost(e.id) && UserName.historicalRegex.matches(e)
       def validateId: Option[UserId] = Option.when(couldBeUsername)(e.id)
-    given UserIdOf[UserStr] = n => UserId(n.value.toLowerCase)
+    given UserIdOf[UserStr]             = n => UserId(n.value.toLowerCase)
+    given Conversion[UserName, UserStr] = _.value
     def read(str: String): Option[UserStr] =
       val clean = str.trim.takeWhile(' ' !=)
       Option.when(clean.lengthIs > 1)(UserStr(clean))

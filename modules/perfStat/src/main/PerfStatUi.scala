@@ -62,7 +62,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     else
       trans.site.userIsBetterThanPercentOfPerfTypePlayers(
         a(href := routes.User.show(u.username))(u.username),
-        a(href := routes.User.ratingDistribution(pk, u.username.some))(
+        a(href := routes.User.ratingDistribution(pk, u.username.str.some))(
           strong(percentile, "%")
         ),
         a(href := routes.User.topNb(200, pk))(pk.perfName.txt())

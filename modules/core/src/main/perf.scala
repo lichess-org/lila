@@ -71,7 +71,7 @@ object perf:
       def value: String = key
       def id: PerfId    = keyIdMap(key)
 
-    given Render[PerfKey] = _.value
+    given Show[PerfKey] = _.value
 
     def apply(key: String): Option[PerfKey]            = Option.when(all.contains(key))(key)
     def apply(variant: Variant, speed: Speed): PerfKey = byVariant(variant) | standardBySpeed(speed)
@@ -100,7 +100,8 @@ object perf:
       case Speed.UltraBullet    => ultraBullet
 
   opaque type PerfKeyStr = String
-  object PerfKeyStr extends OpaqueString[PerfKeyStr]
+  object PerfKeyStr extends OpaqueString[PerfKeyStr]:
+    given Conversion[PerfKey, PerfKeyStr] = _.value
 
   opaque type PerfId = Int
   object PerfId extends OpaqueInt[PerfId]

@@ -8,12 +8,27 @@ import chess.variant.Variant
 
 object LilaRouter:
 
-  given opaqueBindable[T, A](using
+  given opaquePathBindable[T, A](using
       sr: SameRuntime[A, T],
       rs: SameRuntime[T, A],
       bindable: PathBindable[A]
   ): PathBindable[T] =
     bindable.transform(sr.apply, rs.apply)
+
+  given opaqueQueryStringBindable[T, A](using
+      sr: SameRuntime[A, T],
+      rs: SameRuntime[T, A],
+      bindable: QueryStringBindable[A]
+  ): QueryStringBindable[T] =
+    bindable.transform(sr.apply, rs.apply)
+
+  given PathBindable[UserStr] = new:
+    def bind(key: String, value: String)    = UserStr.read(value).toRight("Invalid Lichess username")
+    def unbind(key: String, value: UserStr) = value.value
+
+  given PathBindable[PerfKey] = new:
+    def bind(key: String, value: String)    = PerfKey(value).toRight("Invalid Lichess performance key")
+    def unbind(key: String, value: PerfKey) = value.value
 
   object conversions:
     given Conversion[GameId, String]                   = _.value
@@ -21,7 +36,6 @@ object LilaRouter:
     given Conversion[GameAnyId, String]                = _.value
     given Conversion[UserId, String]                   = _.value
     given Conversion[UserName, String]                 = _.value
-    given perfKeyConv: Conversion[PerfKey, String]     = _.value
     given Conversion[Option[UserName], Option[String]] = UserName.raw(_)
     // where a UserStr is accepted, we can pass a UserName or UserId
     given Conversion[UserName, UserStr]                                      = _.into(UserStr)

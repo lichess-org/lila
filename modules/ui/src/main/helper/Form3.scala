@@ -1,6 +1,7 @@
 package lila.ui
 
 import play.api.data.*
+import scalalib.Render
 
 import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.core.user.FlairApi
@@ -88,18 +89,18 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
       help.map { helper(_) }
     )
 
-  def cmnToggle(
+  def cmnToggle[Value: Show](
       fieldId: String,
       fieldName: String,
       checked: Boolean,
       disabled: Boolean = false,
-      value: String = "true"
+      value: Value = "true"
   ) =
     frag(
       st.input(
         st.id    := fieldId,
         name     := fieldName,
-        st.value := value,
+        st.value := value.show,
         tpe      := "checkbox",
         cls      := "form-control cmn-toggle",
         checked.option(st.checked),

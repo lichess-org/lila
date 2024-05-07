@@ -120,7 +120,7 @@ trait ScalatagsExtensions:
 
   given Render[Icon] = _.value
 
-  given [A](using Render[A]): Conversion[A, scalatags.Text.Frag] = a => StringFrag(a.render)
+  given [A](using Render[A]): Conversion[A, Frag] = a => StringFrag(a.render)
 
   given opaqueIntFrag[A](using r: IntRuntime[A]): Conversion[A, Frag] = a => intFrag(r(a))
 

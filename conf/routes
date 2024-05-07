@@ -93,7 +93,7 @@ POST  /note/delete/:id                 controllers.User.deleteNote(id)
 POST  /note/setDox/:id/:v              controllers.User.setDoxNote(id, v: Boolean)
 GET   /@/:username/mini                controllers.User.showMini(username)
 GET   /@/:username/tv                  controllers.User.tv(username)
-GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username, perfKey)
+GET   /@/:username/perf/:perfKey       controllers.User.perfStat(username, perfKey: PerfKey)
 GET   /@/:username/all                 controllers.User.gamesAll(username, page: Int ?= 1)
 GET   /@/:username/download            controllers.User.download(username)
 GET   /@/:username/:filterName         controllers.User.games(username, filterName, page: Int ?= 1)
@@ -101,8 +101,8 @@ GET   /@/:username                     controllers.User.show(username)
 GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
 GET   /player                          controllers.User.list
-GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey)
-GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey)
+GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: PerfKey)
+GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey: PerfKey)
 GET   /player/top/week                 controllers.User.topWeek
 GET   /player/online                   controllers.User.online
 GET   /api/player/autocomplete         controllers.User.autocomplete
@@ -645,7 +645,7 @@ GET   /editor                          controllers.Editor.index
 ->    /class                           clas.Routes
 
 # Stats
-GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf, username: Option[String] ?= None)
+GET    /stat/rating/distribution/:perf controllers.User.ratingDistribution(perf: PerfKey, username: Option[UserStr] ?= None)
 
 # API
 GET   /api                             controllers.Api.index
@@ -663,7 +663,7 @@ GET   /api/user/:name/note             controllers.User.apiReadNote(name)
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name)
 GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name)
 GET   /api/user/:name/current-game     controllers.User.tvExport(name)
-GET   /api/user/:name/perf/:perfKey    controllers.Api.perfStat(name, perfKey)
+GET   /api/user/:name/perf/:perfKey    controllers.Api.perfStat(name, perfKey: PerfKey)
 GET   /api/user/:name/mod-log          controllers.Mod.apiUserLog(name)
 GET   /api/game/:id                    controllers.Api.game(id)
 GET   /api/tournament                  controllers.Api.currentTournaments
@@ -780,12 +780,12 @@ GET   /account/now-playing             controllers.Account.nowPlaying
 GET   /tutor                           controllers.Tutor.home()
 GET   /tutor/:username                 controllers.Tutor.user(username)
 POST  /tutor/:username/refresh         controllers.Tutor.refresh(username)
-GET   /tutor/:username/:perf           controllers.Tutor.perf(username, perf)
-GET   /tutor/:username/:perf/skill     controllers.Tutor.skills(username, perf)
-GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username, perf)
-GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username, perf, color, opening)
-GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username, perf)
-GET   /tutor/:username/:perf/time      controllers.Tutor.time(username, perf)
+GET   /tutor/:username/:perf           controllers.Tutor.perf(username: UserStr, perf: PerfKey)
+GET   /tutor/:username/:perf/skill     controllers.Tutor.skills(username: UserStr, perf: PerfKey)
+GET   /tutor/:username/:perf/opening   controllers.Tutor.openings(username: UserStr, perf: PerfKey)
+GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(username: UserStr, perf: PerfKey, color, opening)
+GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: UserStr, perf: PerfKey)
+GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: UserStr, perf: PerfKey)
 
 # OAuth
 GET    /oauth                          controllers.OAuth.authorize
@@ -863,7 +863,7 @@ GET   /page/:key                       controllers.Cms.lonePage(key)
 
 # Variants
 GET   /variant                         controllers.Cms.variantHome
-GET   /variant/:key                    controllers.Cms.variant(key)
+GET   /variant/:key                    controllers.Cms.variant(key: chess.variant.Variant.LilaKey)
 
 # Help
 GET   /help/contribute                 controllers.Cms.help
