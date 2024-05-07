@@ -2,17 +2,18 @@ package views.base
 
 import lila.app.UiEnv.{ *, given }
 
-def notFound(using Context) =
-  Page("Page not found").css("not-found"):
+def notFound(msg: Option[String])(using Context) =
+  Page(msg | "Page not found").css("not-found"):
     main(cls := "not-found page-small box box-pad")(
       header(
         h1("404"),
         div(
           strong("Page not found!"),
+          msg.map(em(_)),
           p(
             "Return to ",
             a(href := routes.Lobby.home)("the homepage"),
-            span(cls := "or-play")(" or play this mini-game")
+            span(cls := "or-play")(", or play this mini-game")
           )
         )
       ),

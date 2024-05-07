@@ -39,8 +39,8 @@ final class KeyPages(val env: Env)(using Executor)
           lila.mon.chronoSync(_.lobby.segment("renderSync")):
             views.lobby.home(h)
 
-  def notFound(using Context): Fu[Result] =
-    NotFound.page(views.base.notFound)
+  def notFound(msg: Option[String])(using Context): Fu[Result] =
+    NotFound.page(views.base.notFound(msg))
 
   def blacklisted(using ctx: Context): Result =
     if lila.security.Mobile.Api.requested(ctx.req) then

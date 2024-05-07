@@ -24,9 +24,9 @@ final class Main(
           lila.web.WebConfig.blindCookie.make(env.security.lilaCookie)(enable != "0")
     )
 
-  def handlerNotFound(using RequestHeader) =
+  def handlerNotFound(msg: Option[String])(using RequestHeader) =
     makeContext.flatMap:
-      keyPages.notFound(using _)
+      keyPages.notFound(msg)(using _)
 
   def captchaCheck(id: GameId) = Open:
     env.game.captcha.validate(id, ~get("solution")).map { valid =>
