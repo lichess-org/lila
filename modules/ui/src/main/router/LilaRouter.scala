@@ -57,8 +57,6 @@ object LilaRouter:
   object conversions:
     given reportIdConv: Conversion[ReportId, String]       = _.value
     given Conversion[lila.core.i18n.Language, String]      = _.value
-    given Conversion[StudyId, String]                      = _.value
-    given Conversion[StudyChapterId, String]               = _.value
     given Conversion[PuzzleId, String]                     = _.value
     given Conversion[SimulId, String]                      = _.value
     given Conversion[SwissId, String]                      = _.value

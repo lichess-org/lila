@@ -222,32 +222,32 @@ GET   /study/by/:username              controllers.Study.byOwnerDefault(username
 GET   /study/by/:username/export.pgn   controllers.Study.exportPgn(username: UserStr)
 GET   /study/by/:username/:order       controllers.Study.byOwner(username: UserStr, order, page: Int ?= 1)
 GET   /study/search                    controllers.Study.search(q ?= "", page: Int ?= 1)
-GET   /study/$id<\w{8}>                controllers.Study.show(id)
+GET   /study/$id<\w{8}>                controllers.Study.show(id: StudyId)
 POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
-GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id, chapterId)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id, chapterId, theme: Option[String], piece: Option[String])
-POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id)
-GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id)
-POST  /study/$id<\w{8}>/cloneApply     controllers.Study.cloneApply(id)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id, chapterId)
-GET   /study/$id<\w{8}>/$chapterId<\w{8}>/config controllers.Study.chapterConfig(id, chapterId)
-GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id, chapterId)
-POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id)
-POST  /study/$id<\w{8}>/import-pgn     controllers.Study.importPgn(id)
-POST  /study/$id<\w{8}>/admin          controllers.Study.admin(id)
+GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: StudyId)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: StudyId, chapterId: StudyChapterId)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>.gif controllers.Study.chapterGif(id: StudyId, chapterId: StudyChapterId, theme: Option[String], piece: Option[String])
+POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: StudyId)
+GET   /study/$id<\w{8}>/clone          controllers.Study.cloneStudy(id: StudyId)
+POST  /study/$id<\w{8}>/cloneApply     controllers.Study.cloneApply(id: StudyId)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>        controllers.Study.chapter(id: StudyId, chapterId: StudyChapterId)
+GET   /study/$id<\w{8}>/$chapterId<\w{8}>/config controllers.Study.chapterConfig(id: StudyId, chapterId: StudyChapterId)
+GET   /study/embed/$id<\w{8}>/$chapterId<\w{8}>  controllers.Study.embed(id: StudyId, chapterId: StudyChapterId)
+POST  /study/$id<\w{8}>/clear-chat     controllers.Study.clearChat(id: StudyId)
+POST  /study/$id<\w{8}>/import-pgn     controllers.Study.importPgn(id: StudyId)
+POST  /study/$id<\w{8}>/admin          controllers.Study.admin(id: StudyId)
 GET   /study/topic                     controllers.Study.topics
 POST  /study/topic                     controllers.Study.setTopics
 GET   /study/topic/:topic/:order       controllers.Study.byTopic(topic, order, page: Int ?= 1)
 GET   /study/topic/autocomplete        controllers.Study.topicAutocomplete
 GET   /study/glyphs/:lang.json         controllers.Study.glyphs(lang)
 GET   /$lang<\w\w\w?>/study            controllers.Study.homeLang(lang)
-GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id)
-GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id, chapterId)
-DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id, chapterId)
+GET   /api/study/$id<\w{8}>.pgn        controllers.Study.apiPgn(id: StudyId)
+GET   /api/study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.apiChapterPgn(id: StudyId, chapterId: StudyChapterId)
+DELETE /api/study/$id<\w{8}>/$chapterId<\w{8}>    controllers.Study.apiChapterDelete(id: StudyId, chapterId: StudyChapterId)
 GET   /api/study/by/:user              controllers.Study.apiListByOwner(user: UserStr)
-POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id)
+POST  /api/study/$id<\w{8}>/import-pgn controllers.Study.apiImportPgn(id: StudyId)
 
 # Relay
 GET   /broadcast                              controllers.RelayTour.index(page: Int ?= 1, q ?= "")
@@ -271,16 +271,16 @@ GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId)
 GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId, embed: Option[String] ?= None)
 GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId)
-GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId, chapterId, embed: Option[String] ?= None)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId, chapterId: StudyChapterId, embed: Option[String] ?= None)
 GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId)
 POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId)
 POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId)
-GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId: StudyId)
 GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId)
 GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardView(tourId)
-GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId)
+GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: StudyId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/my-rounds                controllers.RelayRound.apiMyRounds
@@ -309,15 +309,15 @@ GET   /features                        controllers.Plan.features
 
 # Practice
 GET   /practice                                   controllers.Practice.index
-GET   /practice/load/:studyId/:chapterId          controllers.Practice.chapter(studyId, chapterId)
+GET   /practice/load/:studyId/:chapterId          controllers.Practice.chapter(studyId: StudyId, chapterId: StudyChapterId)
 GET   /practice/config                            controllers.Practice.config
 POST  /practice/config                            controllers.Practice.configSave
 POST  /practice/reset                             controllers.Practice.reset
 GET   /practice/:sectionId                        controllers.Practice.showSection(sectionId)
 GET   /practice/:sectionId/:studySlug             controllers.Practice.showStudySlug(sectionId, studySlug)
-GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId, studySlug, studyId)
-GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId, studySlug, studyId, chapterId)
-POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId, moves: Int)
+GET   /practice/:sectionId/:studySlug/:studyId    controllers.Practice.show(sectionId, studySlug, studyId: StudyId)
+GET   /practice/:sectionId/:studySlug/:studyId/:chapterId controllers.Practice.showChapter(sectionId, studySlug, studyId: StudyId, chapterId: StudyChapterId)
+POST  /practice/complete/:chapterId/:moves        controllers.Practice.complete(chapterId: StudyChapterId, moves: Int)
 
 # Streamer
 GET   /streamer                        controllers.Streamer.index(page: Int ?= 1)

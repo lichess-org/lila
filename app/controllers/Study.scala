@@ -401,7 +401,7 @@ final class Study(
   def pgn(id: StudyId) = Open:
     Found(env.study.api.byId(id)): study =>
       HeadLastModifiedAt(study.updatedAt):
-        limit.studyPgn(ctx.ip, rateLimited, msg = id):
+        limit.studyPgn(ctx.ip, rateLimited, msg = id.value):
           CanView(study, study.settings.shareable.some)(doPgn(study))(
             privateUnauthorizedFu(study),
             privateForbiddenFu(study)
@@ -411,7 +411,7 @@ final class Study(
     env.study.api.byId(id).flatMap {
       _.fold(studyNotFoundText.toFuccess): study =>
         HeadLastModifiedAt(study.updatedAt):
-          limit.studyPgn[Fu[Result]](req.ipAddress, rateLimited, msg = id):
+          limit.studyPgn[Fu[Result]](req.ipAddress, rateLimited, msg = id.value):
             CanView(study, study.settings.shareable.some)(doPgn(study))(
               privateUnauthorizedText,
               privateForbiddenText
