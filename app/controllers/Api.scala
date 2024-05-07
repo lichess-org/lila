@@ -15,7 +15,6 @@ import lila.core.net.IpAddress
 import lila.core.chess.MultiPv
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
-import lila.core.perf.PerfKeyStr
 
 final class Api(
     env: Env,

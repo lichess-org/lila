@@ -6,7 +6,6 @@ import lila.core.perm.Granter
 import lila.rating.PerfType
 import lila.rating.PerfExt.established
 import lila.core.perf.UserWithPerfs
-import lila.core.perf.PerfKeyStr
 import lila.core.perf.PerfId
 import lila.rating.Glicko.minRating
 
